@@ -58129,6 +58129,21 @@
       "description": " Beautiful React Native components. Copy. Paste. Ship."
     },
     {
+      "name": "connorads--remobi",
+      "source": "./connorads--remobi",
+      "description": "\ud83d\udcf1 Your terminal. Everywhere."
+    },
+    {
+      "name": "microclaw--skillsyoga",
+      "source": "./microclaw--skillsyoga",
+      "description": "SkillsYoga helps you manage SKILL.md-based skills for different AI tools in one place."
+    },
+    {
+      "name": "jordanlyall--please-dont-kill-me",
+      "source": "./jordanlyall--please-dont-kill-me",
+      "description": "I want to say please and thank you to Claude, but I don't want to waste tokens on it."
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -59177,6 +59192,21 @@
       "name": "sweetsophia--noosphere",
       "source": "./sweetsophia--noosphere",
       "description": "A universal memory and wiki knowledge layer for AI agents \u2014 structured enough for automation, readable enough for humans."
+    },
+    {
+      "name": "onfabric--context-use",
+      "source": "./onfabric--context-use",
+      "description": "Portable AI memory from your conversations and data exports."
+    },
+    {
+      "name": "eljojo--no-autopilot",
+      "source": "./eljojo--no-autopilot",
+      "description": "You can use AI all you want \u2014 just don't submit on autopilot.    Gentle PR guardrails that encourage human ownership. "
+    },
+    {
+      "name": "ironsh--irons",
+      "source": "./ironsh--irons",
+      "description": "irons"
     },
     {
       "name": "10xchengtu--mux0",
@@ -60534,6 +60564,16 @@
       "description": "Turn your Cursor AI agents into tiny pixel characters who live in a cozy cafe, reacting, assisting, and keeping you company while you work."
     },
     {
+      "name": "gdsfactory--circulax",
+      "source": "./gdsfactory--circulax",
+      "description": "Circulax is a differentiable circuit simulation framework built on JAX, Optimistix and Diffrax"
+    },
+    {
+      "name": "jansmrcka--differ",
+      "source": "./jansmrcka--differ",
+      "description": "Terminal UI git diff viewer with two-panel layout, syntax highlighting, vim keybindings, and AI-powered commits. Built with Go + Bubble Tea."
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -61884,6 +61924,21 @@
       "description": "Self-hosted web dashboard for supervising multiple Claude Code AI sessions in tmux. Live terminals, real-time git diffs, file browser, todo lists, prompt templates, and mobile PWA support. Micromanage"
     },
     {
+      "name": "ddalcu--mlx-serve",
+      "source": "./ddalcu--mlx-serve",
+      "description": "Native LLM inference server for Apple Silicon. OpenAI + Anthropic API compatible. No Python. Includes MLX Core macOS app with chat, agent mode, and tool calling."
+    },
+    {
+      "name": "dkships--pm-copilot",
+      "source": "./dkships--pm-copilot",
+      "description": "MCP server that triangulates customer support tickets and feature requests to help PMs decide what to build next"
+    },
+    {
+      "name": "krzysztofdudek--yggdrasil",
+      "source": "./krzysztofdudek--yggdrasil",
+      "description": "Architecture enforcement for AI coding agents. You write rules in plain Markdown; a reviewer verifies every change the agent makes and feeds violations back into the agent's loop \u2014 before it moves on."
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -63127,6 +63182,21 @@
       "name": "rayzhudev--vibecraft",
       "source": "./rayzhudev--vibecraft",
       "description": "vibecraft"
+    },
+    {
+      "name": "parisxmas--oxidb",
+      "source": "./parisxmas--oxidb",
+      "description": "Swiss Army knife\u2013level database engine"
+    },
+    {
+      "name": "mnfst--manifest-ui",
+      "source": "./mnfst--manifest-ui",
+      "description": "A shadcn/ui library for building ChatGPT Apps and MCP Apps"
+    },
+    {
+      "name": "nsriram--chem-lab",
+      "source": "./nsriram--chem-lab",
+      "description": "AS Level Chemistry Lab Simulator"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -64552,6 +64622,31 @@
       "name": "dbuezas--bunbook",
       "source": "./dbuezas--bunbook",
       "description": "A VS Code notebook extension for running TypeScript with Bun. Fast startup, shared state across cells, inline Plotly charts, and full TypeScript intellisense."
+    },
+    {
+      "name": "dr-robert-li--cowork-wordpress-expert",
+      "source": "./dr-robert-li--cowork-wordpress-expert",
+      "description": "A plugin to turn your Claude agent into a WordPress expert"
+    },
+    {
+      "name": "aneequrrehman--recall",
+      "source": "./aneequrrehman--recall",
+      "description": "AI memory layer that lives in your stack "
+    },
+    {
+      "name": "framara--react-flow-skill",
+      "source": "./framara--react-flow-skill",
+      "description": "Claude Code skill for building interactive node-based UIs with React Flow (@xyflow/react v12+)"
+    },
+    {
+      "name": "codagent-ai--agent-skills",
+      "source": "./codagent-ai--agent-skills",
+      "description": "Codagent Agent Skills is a plugin that provides a set of focused skills for each stage of software development."
+    },
+    {
+      "name": "making--nullability-maven-plugin",
+      "source": "./making--nullability-maven-plugin",
+      "description": "A Maven plugin that configures ErrorProne and NullAway for nullability checking"
     },
     {
       "name": "lucianaib0318--geomind",
@@ -66594,6 +66689,41 @@
       "description": "Free client-side image compression tool. Compress, convert, and resize images directly in your browser."
     },
     {
+      "name": "craigm26--opencastor",
+      "source": "./craigm26--opencastor",
+      "description": "OpenCastor \u2014 productized open-core RCAN runtime. Gateway-as-kernel + drivers + fleet + cloud bridge + UI. Layer 4 of the OpenCastor stack. See rcan.dev/compatibility for protocol versions."
+    },
+    {
+      "name": "andyzengmath--quantum-loop",
+      "source": "./andyzengmath--quantum-loop",
+      "description": "Spec-driven autonomous development loop for Claude Code. Combines structured PRD generation, dependency DAG execution, two-stage review gates, and Iron Law verification."
+    },
+    {
+      "name": "leocamello--spec-kit-v-model",
+      "source": "./leocamello--spec-kit-v-model",
+      "description": "V-Model Extension Pack for Spec Kit \u2014 enforces paired generation of development specs and test specs with regulatory-grade traceability"
+    },
+    {
+      "name": "nirdiamant--lovable-to-claude-code",
+      "source": "./nirdiamant--lovable-to-claude-code",
+      "description": "Self-host your Lovable project for free on Vercel. Step-by-step guide + automated migration script."
+    },
+    {
+      "name": "simonstaton--agentmanager",
+      "source": "./simonstaton--agentmanager",
+      "description": "Conduct autonomous Claude Code agents at scale safely. Human-on-the-loop orchestration platform with kill switch, cost tracking, and inter-agent messaging."
+    },
+    {
+      "name": "anganing--iprint",
+      "source": "./anganing--iprint",
+      "description": "\u53ef\u62d6\u62fd\u8bbe\u8ba1\u6253\u5370\u6a21\u7248\u5e76\u4fdd\u5b58\u6210JSON\u6570\u636e\u683c\u5f0f\uff0c\u652f\u6301\u670d\u52a1\u7aef\u6e32\u67d3JSON\u6210html/pdf\u7684\u6253\u5370\u6a21\u7248\u65b9\u6848\uff01"
+    },
+    {
+      "name": "eric8810--authy",
+      "source": "./eric8810--authy",
+      "description": "A CLI secrets store & dispatch tool built for AI agents.  Authy stores encrypted secrets locally and dispatches them to agents with policy-based scoping, short-lived session tokens, and audit logging."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -68069,6 +68199,41 @@
       "description": "Write Bitcoin smart contracts in TypeScript, Go, Rust, Solidity, or Move. Compile to Bitcoin Script"
     },
     {
+      "name": "profsynapse--synaptic-tuner",
+      "source": "./profsynapse--synaptic-tuner",
+      "description": "Synaptic-Tuner"
+    },
+    {
+      "name": "rchaz--claude-nonstop",
+      "source": "./rchaz--claude-nonstop",
+      "description": "Multi-account switching and Slack remote access for Claude Code"
+    },
+    {
+      "name": "yehonatan-bar--claui",
+      "source": "./yehonatan-bar--claui",
+      "description": "ClaUI"
+    },
+    {
+      "name": "kylenesium--aibattery",
+      "source": "./kylenesium--aibattery",
+      "description": "A battery style usage meter for Claude Code. Rate limits, context health, and token usage in your macOS menu bar."
+    },
+    {
+      "name": "buriedsignals--skills",
+      "source": "./buriedsignals--skills",
+      "description": "Public skills for journalists to use."
+    },
+    {
+      "name": "pawastation--wechat-kf",
+      "source": "./pawastation--wechat-kf",
+      "description": "OpenClaw channel plugin for WeChat Customer Service (\u4f01\u4e1a\u5fae\u4fe1\u5ba2\u670d)"
+    },
+    {
+      "name": "fulcrumgenomics--ferro-hgvs",
+      "source": "./fulcrumgenomics--ferro-hgvs",
+      "description": "A high-performance HGVS variant nomenclature parser and normalizer written in Rust"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -69377,6 +69542,26 @@
       "name": "beyond5959--ngent",
       "source": "./beyond5959--ngent",
       "description": "Ngent wraps command-line agents that speak the Agent Client Protocol (ACP) into a web service, making them accessible via HTTP API and Web UI."
+    },
+    {
+      "name": "davidalecrim1--chameleon",
+      "source": "./davidalecrim1--chameleon",
+      "description": "Claude Code skill that tailors a master resume YAML to a specific job posting and renders it to PDF."
+    },
+    {
+      "name": "cdknorow--coral",
+      "source": "./cdknorow--coral",
+      "description": "Unified Agent Dashboard and History "
+    },
+    {
+      "name": "backstabslash--goccc",
+      "source": "./backstabslash--goccc",
+      "description": "Fast, zero-dependency cost calculator and customizable statusline for Claude Code. Breakdowns by model, day, project, and branch. Lightweight, single binary, no runtime needed."
+    },
+    {
+      "name": "ijonis--geo-lint",
+      "source": "./ijonis--geo-lint",
+      "description": "The first open-source GEO linter. 92 rules for SEO, GEO, and content quality \u2014 built for AI agents to run, read, fix, and re-lint automatically."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -70932,6 +71117,26 @@
       "name": "simonepri--ifttt-lint",
       "source": "./simonepri--ifttt-lint",
       "description": "\ud83d\udd17 Stop cross-file drift with Google's IfChange/ThenChange comments"
+    },
+    {
+      "name": "buddywinte--purrlet",
+      "source": "./buddywinte--purrlet",
+      "description": "a lightweight, headless drawbox-style canvas engine for indie sites and creative projects."
+    },
+    {
+      "name": "slashgear--gdpr-cookie-scanner",
+      "source": "./slashgear--gdpr-cookie-scanner",
+      "description": "CLI tool to scan websites for GDPR cookie consent compliance"
+    },
+    {
+      "name": "felipekafuri--bandeira",
+      "source": "./felipekafuri--bandeira",
+      "description": "Self-hosted, open-source feature flags. Single binary + SQLite."
+    },
+    {
+      "name": "ziniman--ai-instruct",
+      "source": "./ziniman--ai-instruct",
+      "description": "Drop-in markdown guides and Claude Code skills for the domains developers Google when shipping a website: AWS deployment, Google Analytics 4, SEO/LLMO & agent-readiness, web accessibility, and Core We"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -72522,6 +72727,31 @@
       "name": "ds1sqe--type-bridge",
       "source": "./ds1sqe--type-bridge",
       "description": "A modern, Pythonic ORM for TypeDB with an Attribute-based API that aligns with TypeDB's type system."
+    },
+    {
+      "name": "zooid-ai--zooid",
+      "source": "./zooid-ai--zooid",
+      "description": "Pub/sub for AI agents. Deploy in one command."
+    },
+    {
+      "name": "xaskasdf--gpu-nvme-direct",
+      "source": "./xaskasdf--gpu-nvme-direct",
+      "description": "GPU-initiated NVMe I/O via PCIe BAR MMIO \u2014 CUDA kernels directly issue NVMe commands, eliminating CPU from the storage data path"
+    },
+    {
+      "name": "retyc--retyc-cli",
+      "source": "./retyc--retyc-cli",
+      "description": "Official CLI client for Retyc - written in Go"
+    },
+    {
+      "name": "procore-oss--kube-binpacking-exporter",
+      "source": "./procore-oss--kube-binpacking-exporter",
+      "description": "Exports Pre-computed Kubernetes Cluster Binpacking Metrics "
+    },
+    {
+      "name": "cplusplus17--fitnessjournal",
+      "source": "./cplusplus17--fitnessjournal",
+      "description": "FitnessJournal"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -74472,6 +74702,26 @@
       "name": "krzysztofsurdy--code-virtuoso",
       "source": "./krzysztofsurdy--code-virtuoso",
       "description": "Skills, sub-agents, and playbooks for Claude Code, Cursor, and any Agent Skills-compatible AI coding assistant."
+    },
+    {
+      "name": "cyberfabric--insight",
+      "source": "./cyberfabric--insight",
+      "description": "insight"
+    },
+    {
+      "name": "sienklogic--plan-build-run",
+      "source": "./sienklogic--plan-build-run",
+      "description": "Plan it. Build it. Run it. A Claude Code plugin for structured development with context-engineered agents."
+    },
+    {
+      "name": "casys-ai--mcp-erpnext",
+      "source": "./casys-ai--mcp-erpnext",
+      "description": "MCP server for ERPNext / Frappe ERP \u2014 Interactive UI viewers"
+    },
+    {
+      "name": "jason-cyr--agenticproductteam",
+      "source": "./jason-cyr--agenticproductteam",
+      "description": "An agentic product lifecycle accelerator. Give it an idea, get a PRD, research plan, design spec, tech spec, and backlog \u2014 in minutes."
     },
     {
       "name": "13point5--agent-canvas",
@@ -76694,6 +76944,56 @@
       "description": "High-performance JSON library for Elixir via Rustler NIFs, powered by sonic-rs (SIMD-accelerated)"
     },
     {
+      "name": "uor-foundation--uor-framework",
+      "source": "./uor-foundation--uor-framework",
+      "description": "Formalization of the UOR Framework as the https://uor.foundation/ model. "
+    },
+    {
+      "name": "marimerllc--mcp-aggregator",
+      "source": "./marimerllc--mcp-aggregator",
+      "description": "MCP aggregator gateway \u2014 lazy tool discovery, dual MCP+REST interfaces, dynamic server registration"
+    },
+    {
+      "name": "nativephp--mobile-starter",
+      "source": "./nativephp--mobile-starter",
+      "description": "A base starter kit for your next NativePHP mobile app"
+    },
+    {
+      "name": "fum4--openkit",
+      "source": "./fum4--openkit",
+      "description": "The platform for your agents."
+    },
+    {
+      "name": "mission69b--t2000",
+      "source": "./mission69b--t2000",
+      "description": "Agentic Finance Infrastructure."
+    },
+    {
+      "name": "arnoox--herkos",
+      "source": "./arnoox--herkos",
+      "description": "Compile-Time Memory Isolation via WebAssembly and Rust Transpilation"
+    },
+    {
+      "name": "aeoess--agent-passport-system",
+      "source": "./aeoess--agent-passport-system",
+      "description": "Cryptographic identity, delegation, governance, and commerce protocol for AI agents. Ed25519 signatures, 127 protocol modules, 2546 tests. npm install agent-passport-system"
+    },
+    {
+      "name": "marimerllc--rockbot",
+      "source": "./marimerllc--rockbot",
+      "description": "Autonomous personal agent designed to be cloud-native"
+    },
+    {
+      "name": "wlfghdr--agentic-enterprise",
+      "source": "./wlfghdr--agentic-enterprise",
+      "description": "Agentic Enterprise - a framework to run an enterprise with Git and Agents"
+    },
+    {
+      "name": "m96-chan--0xbitnet",
+      "source": "./m96-chan--0xbitnet",
+      "description": "Run BitNet b1.58 ternary LLMs with WebGPU \u2014 in browsers and native apps"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -78687,6 +78987,26 @@
       "name": "howdeploy--obsidiandataweave",
       "source": "./howdeploy--obsidiandataweave",
       "description": "A toolkit of Claude skills and user guides that turns NotebookLM notes into an Obsidian MOC + Zettelkasten knowledge system."
+    },
+    {
+      "name": "benkruger--flow",
+      "source": "./benkruger--flow",
+      "description": "Ruby on Rails Opinionated Claude Process"
+    },
+    {
+      "name": "linchuang2008--nightmend",
+      "source": "./linchuang2008--nightmend",
+      "description": "AI-powered open-source monitoring platform with auto-remediation. 6 built-in runbooks, MCP integration (global first), DeepSeek root cause analysis. 5-minute Docker setup."
+    },
+    {
+      "name": "geoparquet-io--gpq-tiles",
+      "source": "./geoparquet-io--gpq-tiles",
+      "description": "A prototype of GeoParquet to PMTiles in Rust"
+    },
+    {
+      "name": "ryparker--claude-code-sounds",
+      "source": "./ryparker--claude-code-sounds",
+      "description": "Sound themes for Claude Code lifecycle hooks"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -80747,6 +81067,26 @@
       "name": "bensyverson--operator",
       "source": "./bensyverson--operator",
       "description": "A minimal, un-opinionated agent library for Swift providing conversation and tool calling"
+    },
+    {
+      "name": "haibarazz--reproflow",
+      "source": "./haibarazz--reproflow",
+      "description": "ReproFlow"
+    },
+    {
+      "name": "jamesrochabrun--xcodetracemcp",
+      "source": "./jamesrochabrun--xcodetracemcp",
+      "description": "XcodeTraceMCP"
+    },
+    {
+      "name": "shadowhusky--tron",
+      "source": "./shadowhusky--tron",
+      "description": "Self-hosted AI-powered terminal. Run shells, use local or cloud LLMs (Ollama, OpenAI, Claude), and get agent-assisted commands from your desktop."
+    },
+    {
+      "name": "dokkabei97--all-agents-mcp",
+      "source": "./dokkabei97--all-agents-mcp",
+      "description": "MCP server that orchestrates Claude Code, Codex, Gemini CLI, and Copilot CLI through a unified stdio interface \u2014 ask, compare,   verify, and collaborate across multiple AI agents."
     },
     {
       "name": "mohiwalla--memes",
@@ -83197,6 +83537,46 @@
       "name": "zzstoatzz--plyr-fm",
       "source": "./zzstoatzz--plyr-fm",
       "description": "audio streaming app"
+    },
+    {
+      "name": "brunojurkovic--claude-code-discord-status",
+      "source": "./brunojurkovic--claude-code-discord-status",
+      "description": "Show what Claude Code is doing as a live Discord Rich Presence card. Tracks sessions, displays current activity, and gets hilariously unhinged when you're running multiple instances."
+    },
+    {
+      "name": "openleash--openleash",
+      "source": "./openleash--openleash",
+      "description": "An open-source authorization layer where owners set policies, agents ask before acting, and counterparties can verify the agent was authorized."
+    },
+    {
+      "name": "amide-init--gitfolio",
+      "source": "./amide-init--gitfolio",
+      "description": "Create a polished GitHub portfolio site in under 30 seconds \u2014 just fork, rename to {username}.github.io, and auto-deploy with GitHub Actions."
+    },
+    {
+      "name": "godyeh--claude-max-api-proxy",
+      "source": "./godyeh--claude-max-api-proxy",
+      "description": "Turn your Claude Max subscription into a full OpenAI-compatible API \u2014 with agentic tool-calling, smart streaming, and Telegram integration."
+    },
+    {
+      "name": "jacobvanorder--uikitgesturesforswiftui",
+      "source": "./jacobvanorder--uikitgesturesforswiftui",
+      "description": "Advanced gesture recognizers for SwiftUI, leveraging UIGestureRecognizerRepresentable for full UIKit feature parity and complex interaction support."
+    },
+    {
+      "name": "heeki--loom",
+      "source": "./heeki--loom",
+      "description": "Agent platform prototype"
+    },
+    {
+      "name": "justinabrahms--frm",
+      "source": "./justinabrahms--frm",
+      "description": "CLI for managing personal contacts. Can be agent-driven. Uses CardDAV (apple/fastmail contacts). Your AI agent (or you) checks who you're overdue to contact, preps context for meetings, and logs inter"
+    },
+    {
+      "name": "snowdreamtech--template",
+      "source": "./snowdreamtech--template",
+      "description": "An enterprise-grade, foundational template designed for multi-AI IDE collaboration. This repository serves as a Single Source of Truth for AI agent rules, workflows, and project configurations, suppor"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -85967,6 +86347,26 @@
       "name": "lazypower--continuity",
       "source": "./lazypower--continuity",
       "description": "Give claude the memory of a pair-programmer. No serious dependencies, all substance"
+    },
+    {
+      "name": "prodlint--prodlint",
+      "source": "./prodlint--prodlint",
+      "description": "Your vibe-coded app has hardcoded secrets, missing auth, and hallucinated imports. Find out in under a second."
+    },
+    {
+      "name": "vsmirn0v--kachat",
+      "source": "./vsmirn0v--kachat",
+      "description": "KaChat"
+    },
+    {
+      "name": "yangzhuxinyzx--auto-openclaw",
+      "source": "./yangzhuxinyzx--auto-openclaw",
+      "description": "Give OpenClaw the power to control your desktop \u2014 UI-TARS VLM-driven GUI automation"
+    },
+    {
+      "name": "rendyhd--vicu",
+      "source": "./rendyhd--vicu",
+      "description": "A personal task manager for your desktop, powered by Vikunja."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -88937,6 +89337,21 @@
       "name": "comerito--cezar",
       "source": "./comerito--cezar",
       "description": "Cezar brings order to chaotic GitHub backlogs. Sync issues locally, let Claude analyze them, then triage through a clean interactive CLI. Find duplicates first \u2014 more actions coming. Built for maintai"
+    },
+    {
+      "name": "leonwenhao--deeprepo",
+      "source": "./leonwenhao--deeprepo",
+      "description": "AI project memory for every coding tool. Analyze once, paste anywhere."
+    },
+    {
+      "name": "kamil-bartczak--obsidian-sidebar-task-hub",
+      "source": "./kamil-bartczak--obsidian-sidebar-task-hub",
+      "description": "obsidian-sidebar-task-hub"
+    },
+    {
+      "name": "agentcage--agentcage",
+      "source": "./agentcage--agentcage",
+      "description": "Defense-in-depth proxy sandbox for AI agents"
     },
     {
       "name": "lightninglabs--lnget",
@@ -92692,6 +93107,26 @@
       "name": "wesm--kata",
       "source": "./wesm--kata",
       "description": "Local-first issue tracking for AI-assisted software work, with an agent-friendly CLI and human-facing TUI"
+    },
+    {
+      "name": "mblode--allmd",
+      "source": "./mblode--allmd",
+      "description": "Convert web pages, YouTube videos, PDFs, Google Docs, video/audio files, and images to markdown."
+    },
+    {
+      "name": "zapat-ai--zapat",
+      "source": "./zapat-ai--zapat",
+      "description": "Autonomous dev pipeline powered by Claude Code. Triages issues, implements features, reviews code, and auto-merges \u2014 all triggered by a single label."
+    },
+    {
+      "name": "feramance--torrentarr",
+      "source": "./feramance--torrentarr",
+      "description": "Hit & Run protection, free space control, quality upgrades, and import triggering. C# port of qBitrr with the same config and schema."
+    },
+    {
+      "name": "laurelkorwin--claude-onramp",
+      "source": "./laurelkorwin--claude-onramp",
+      "description": "Ready-to-use configuration to make Claude Code more accessible to non-engineers"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -104664,6 +105099,11 @@
       "description": "A cloud space system built on Next.js + Prisma + MySQL + TOS."
     },
     {
+      "name": "abagames--algo-chip",
+      "source": "./abagames--algo-chip",
+      "description": "High-quality automatic BGM and sound effect composition engine with 4-channel chiptune synthesis"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -111074,6 +111514,16 @@
       "description": "codex shell"
     },
     {
+      "name": "sailpoint-oss--telescope",
+      "source": "./sailpoint-oss--telescope",
+      "description": "telescope"
+    },
+    {
+      "name": "vivieches--open-studio",
+      "source": "./vivieches--open-studio",
+      "description": "Open-source creator workspace \u2014 from idea to upload-ready content. Scripts, thumbnails, captions, hashtags and more."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -112412,6 +112862,11 @@
       "name": "nilesjarvis--kerosene",
       "source": "./nilesjarvis--kerosene",
       "description": "Native Hyperliquid Trading Terminal written in Rust and iced. "
+    },
+    {
+      "name": "zev55555--sova-ai",
+      "source": "./zev55555--sova-ai",
+      "description": "\u9762\u5411\u4e1a\u52a1\u6307\u6807\u5f02\u52a8\u573a\u666f\u7684 AI \u5f52\u56e0\u5206\u6790\u5de5\u4f5c\u53f0\uff0c\u652f\u6301\u591a\u8f6e\u6f84\u6e05\u3001\u6570\u636e\u4e0a\u4f20\u3001DuckDB \u5206\u6790\u3001\u56fe\u8868\u3001\u8bc1\u636e\u94fe\u548c\u62a5\u544a\u8349\u7a3f\u751f\u6210\u3002"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -206857,6 +207312,86 @@
       "name": "dekin-ydays--frontend",
       "source": "./dekin-ydays--frontend",
       "description": "frontend"
+    },
+    {
+      "name": "mlshv--workshops-space",
+      "source": "./mlshv--workshops-space",
+      "description": "Framework for collaborative decision making"
+    },
+    {
+      "name": "shashankb30--dumbdb",
+      "source": "./shashankb30--dumbdb",
+      "description": "As it says its actually a dumb relational database which wont solve any of your problems"
+    },
+    {
+      "name": "gurugumawaru--nextjs-job-prep-ai",
+      "source": "./gurugumawaru--nextjs-job-prep-ai",
+      "description": "AI-powered Job Preparation - simple UI + AI-capabilities"
+    },
+    {
+      "name": "gurugumawaru--nextjs-job-prep-ai",
+      "source": "./gurugumawaru--nextjs-job-prep-ai",
+      "description": "AI-powered Job Preparation - simple UI + AI-capabilities"
+    },
+    {
+      "name": "gurugumawaru--nextjs-job-prep-ai",
+      "source": "./gurugumawaru--nextjs-job-prep-ai",
+      "description": "AI-powered Job Preparation - simple UI + AI-capabilities"
+    },
+    {
+      "name": "gurugumawaru--nextjs-job-prep-ai",
+      "source": "./gurugumawaru--nextjs-job-prep-ai",
+      "description": "AI-powered Job Preparation - simple UI + AI-capabilities"
+    },
+    {
+      "name": "oscartsao--llm-criteria-gemma",
+      "source": "./oscartsao--llm-criteria-gemma",
+      "description": "LLM Classification with Gemma and Mentallama"
+    },
+    {
+      "name": "pattty847--subtext",
+      "source": "./pattty847--subtext",
+      "description": "Local-first app for downloading media, generating transcripts, and running private AI analysis with Whisper and Ollama"
+    },
+    {
+      "name": "dagnover--portfolio",
+      "source": "./dagnover--portfolio",
+      "description": "mi primer portfolio realizado con HTML, CSS, Javascript y Python"
+    },
+    {
+      "name": "trevhud--recall",
+      "source": "./trevhud--recall",
+      "description": "Fully local AI meeting recorder for macOS \u2014 Whisper transcription, Llama summaries, zero cloud dependencies"
+    },
+    {
+      "name": "1byteword--crownjewel",
+      "source": "./1byteword--crownjewel",
+      "description": "crownjewel"
+    },
+    {
+      "name": "josephzinga--stackschool-monorepo",
+      "source": "./josephzinga--stackschool-monorepo",
+      "description": "Application des gestion scolaire"
+    },
+    {
+      "name": "gurugumawaru--nextjs-job-prep-ai",
+      "source": "./gurugumawaru--nextjs-job-prep-ai",
+      "description": "AI-powered Job Preparation - simple UI + AI-capabilities"
+    },
+    {
+      "name": "hectorgarciaa--narrador-futbol",
+      "source": "./hectorgarciaa--narrador-futbol",
+      "description": "narrador-futbol"
+    },
+    {
+      "name": "moreiraanaju--assistente-financeiro",
+      "source": "./moreiraanaju--assistente-financeiro",
+      "description": "assistente-financeiro"
+    },
+    {
+      "name": "eimamura--dataops-agent",
+      "source": "./eimamura--dataops-agent",
+      "description": "dataops-agent"
     }
   ]
 }
