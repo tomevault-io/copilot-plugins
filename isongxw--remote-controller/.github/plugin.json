@@ -1,0 +1,9 @@
+{
+  "name": "isongxw--remote-controller",
+  "displayName": "remote-controller",
+  "description": "\u4e00\u4e2a\u57fa\u4e8e Python Flask \u7684\u73b0\u4ee3\u5316\u8fdc\u7a0b\u63a7\u5236\u5e94\u7528\uff0c\u901a\u8fc7 Web \u754c\u9762\u5b9e\u73b0\u5bf9\u8ba1\u7b97\u673a\u952e\u76d8\u3001\u9f20\u6807\u548c\u89e6\u6478\u677f\u7684\u8fdc\u7a0b\u63a7\u5236\u3002",
+  "version": "1.0.0",
+  "author": "isongxw",
+  "homepage": "https://github.com/isongxw/remote-controller",
+  "skills": []
+}
