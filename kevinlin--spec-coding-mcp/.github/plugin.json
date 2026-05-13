@@ -1,0 +1,9 @@
+{
+  "name": "kevinlin--spec-coding-mcp",
+  "displayName": "spec-coding-mcp",
+  "description": "An MCP server that brings AI spec-driven development workflow to any AI-powered IDE besides Kiro",
+  "version": "1.0.0",
+  "author": "kevinlin",
+  "homepage": "https://github.com/kevinlin/spec-coding-mcp",
+  "skills": []
+}
