@@ -1,0 +1,9 @@
+{
+  "name": "woocommerce--woocommerce-claude",
+  "displayName": "woocommerce-claude",
+  "description": "Making any WooCommerce store AI-operable \u2014 starting with AI-powered analytics for WooCommerce \u2014 ask your store anything.",
+  "version": "1.0.0",
+  "author": "woocommerce",
+  "homepage": "https://github.com/woocommerce/woocommerce-claude",
+  "skills": []
+}
