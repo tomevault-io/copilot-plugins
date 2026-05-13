@@ -1,0 +1,22 @@
+{
+  "name": "hurtener--penguiflow",
+  "displayName": "penguiflow",
+  "description": "A tiny, dependency-light Python library (penguiflow) that lets define typed, concurrent agent pipelines.",
+  "version": "1.0.0",
+  "author": "hurtener",
+  "homepage": "https://github.com/hurtener/penguiflow",
+  "skills": [
+    {
+      "name": "databricks-apps-cookie-auth",
+      "description": ""
+    },
+    {
+      "name": "library-implementation-principles",
+      "description": ""
+    },
+    {
+      "name": "update-local-development-agents",
+      "description": ""
+    }
+  ]
+}
