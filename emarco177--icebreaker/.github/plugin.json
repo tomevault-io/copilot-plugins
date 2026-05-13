@@ -1,0 +1,9 @@
+{
+  "name": "emarco177--icebreaker",
+  "displayName": "IceBreaker",
+  "description": "Flask-based web application that generates personalized conversation starters by analyzing LinkedIn and Twitter profiles using LangChain and OpenAI",
+  "version": "1.0.0",
+  "author": "emarco177",
+  "homepage": "https://github.com/emarco177/IceBreaker",
+  "skills": []
+}
