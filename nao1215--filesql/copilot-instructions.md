@@ -66,9 +66,15 @@ filesql reads the contents of specified input files and returns [sql.DB](https:/
 - Cross-platform support: Tests run on Linux, macOS, and Windows through GitHub Actions. Examples of non-cross-platform code include "concatenating paths without using `filepath.Join`" and "using "\n" for line breaks".
 - Test data storage: Store sample files in various formats in the testdata directory
 
-## Important Notes for Cursor
-When using Cursor's AI features, please ensure all generated code adheres to these guidelines. Always review and understand the generated code before committing. The AI should help you follow TDD practices by suggesting tests first, then implementation.
+## GitHub Copilot Instructions
+When generating code suggestions, GitHub Copilot should:
+1. Always suggest tests before implementation following TDD principles
+2. Ensure all generated code follows the Effective Go guidelines
+3. Include proper godoc comments for all public APIs
+4. Suggest parallel test execution with `t.Parallel()` where appropriate
+5. Use `filepath.Join()` for path operations to ensure cross-platform compatibility
+6. When updating CHANGELOG.md, include PR numbers and commit hashes with clickable GitHub links for traceability and code browsing
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nao1215) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [nao1215/filesql](https://github.com/nao1215/filesql) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
