@@ -7,11 +7,11 @@ Smart Tree: not just a tree, a philosophy. A context-aware, AI-crafted replaceme
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [8b-is/smart-tree](https://github.com/8b-is/smart-tree).
+Original source: `CLAUDE.md` in [8b-is/smart-tree](https://github.com/8b-is/smart-tree).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
