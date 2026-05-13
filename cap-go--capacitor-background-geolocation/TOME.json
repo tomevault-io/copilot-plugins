@@ -1,0 +1,44 @@
+{
+  "name": "capacitor-background-geolocation",
+  "owner": "Cap-go",
+  "repo": "capacitor-background-geolocation",
+  "description": "Capacitor plugin that sends you accurate geolocation updates, even while the app is in the background.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cap-go/capacitor-background-geolocation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T19:09:35Z"
+}
