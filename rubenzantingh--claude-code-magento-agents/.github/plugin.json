@@ -1,0 +1,9 @@
+{
+  "name": "rubenzantingh--claude-code-magento-agents",
+  "displayName": "claude-code-magento-agents",
+  "description": "Collection of Claude Code Subagents designed to be used for Magento (2) development.",
+  "version": "1.0.0",
+  "author": "rubenzantingh",
+  "homepage": "https://github.com/rubenzantingh/claude-code-magento-agents",
+  "skills": []
+}
