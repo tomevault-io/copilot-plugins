@@ -1,0 +1,9 @@
+{
+  "name": "adadrag--openclaw-proxmox",
+  "displayName": "Openclaw-Proxmox",
+  "description": "Automated OpenClaw AI assistant setup in Proxmox LXC containers",
+  "version": "1.0.0",
+  "author": "adadrag",
+  "homepage": "https://github.com/adadrag/Openclaw-Proxmox",
+  "skills": []
+}
