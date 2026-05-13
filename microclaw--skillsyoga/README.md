@@ -7,11 +7,11 @@ SkillsYoga helps you manage SKILL.md-based skills for different AI tools in one 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [microclaw/skillsyoga](https://github.com/microclaw/skillsyoga).
+Original source: `CLAUDE.md` in [microclaw/skillsyoga](https://github.com/microclaw/skillsyoga).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
