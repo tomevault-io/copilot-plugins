@@ -4,7 +4,7 @@
   "repo": "rune",
   "description": "Rune: Stop Corporate Amnesia. Start Assetizing Intelligence.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CryptoLabInc/rune",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:48:55Z"
+  "distributed_at": "2026-05-13T08:51:06Z"
 }
