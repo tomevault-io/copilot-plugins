@@ -1,0 +1,9 @@
+{
+  "name": "kneetworks--claude-sync",
+  "displayName": "claude-sync",
+  "description": "Sync Claude Code conversations across machines. E2E encrypted, privacy-first.",
+  "version": "1.0.0",
+  "author": "kneetworks",
+  "homepage": "https://github.com/kneetworks/claude-sync",
+  "skills": []
+}
