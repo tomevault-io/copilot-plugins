@@ -7,11 +7,11 @@ Local dev proxy — replace localhost:PORT with custom .roxy domains, trusted HT
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rbas/roxy](https://github.com/rbas/roxy).
+Original source: `CLAUDE.md` in [rbas/roxy](https://github.com/rbas/roxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
