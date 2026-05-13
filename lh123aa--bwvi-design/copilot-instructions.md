@@ -1,0 +1,154 @@
+## bwvi-design
+
+> 执行 Bash 命令时，优先使用以下替代：
+
+# BWVI 项目规则（v0.2.1）
+
+## RTK 使用规则
+
+执行 Bash 命令时，优先使用以下替代：
+
+| 原始命令 | 替换为 |
+|---------|-------|
+| `ls`, `tree` | `rtk ls`, `rtk tree` |
+| `cat`, `head`, `tail` `<文件>` | `rtk read <文件>` |
+| `grep`, `rg` | `rtk grep` |
+| `find` | `rtk find` |
+| `git status` | `rtk git status` |
+| `git log` | `rtk git log` |
+| `git diff` | `rtk git diff` |
+| `git push` | `rtk git push` |
+| `npm test`, `cargo test` 等 | `rtk test <命令>` |
+
+## 构建与测试
+
+```bash
+npm install              # 安装依赖
+npm run dev -- <args>    # 开发模式（TS 直接运行）
+npm run typecheck        # 类型检查（tsc --noEmit）
+npm run build            # 生产构建（esbuild CJS+ESM）
+npm start                # 运行 dist/bwvi.cjs
+npm test                 # 86 用例单元测试（vitest）
+npm run benchmark        # 13 用例基准测试 v
+npm run build && npm start  # 完整构建+运行
+```
+
+## 视频录制（v0.2.1 新增）
+
+```bash
+bwvi animate page.html --record                    # 1080p 25fps MP4
+bwvi animate page.html --record --fps=60           # 60fps
+bwvi animate page.html --record --format=gif       # GIF 导出
+bwvi animate page.html --record --bgm=tech         # BGM
+bwvi animate page.html --record --interactive      # 交互录制
+```
+
+依赖: `npm install -D playwright && npx playwright install chromium`
+
+## Pencil Bridge（v0.2.1 新增）
+
+```bash
+bwvi generate "咖啡品牌" --engine=pencil          # Pencil 设计稿
+```
+
+## 视频文件清单
+
+```
+src/engine/
+├── video-capture.ts        Playwright 录屏
+├── video-composer.ts       ffmpeg 合成 + BGM
+├── video-inject.ts         录制动画注入
+├── interaction-capture.ts  交互录制
+└── bridges/pencil-bridge.ts Pencil 设计稿
+```
+
+## 代码规范
+
+- **语言**: TypeScript 5.7+, strict mode
+- **模块**: ESM (`"type": "module"`)
+- **目标**: ES2022
+- **入口**: `src/index.ts` 读取 `process.argv[2]` 路由命令
+- **输出**: stdout = JSON, stderr = 日志（Agent 友好）
+- **构建**: esbuild 双格式输出至 `dist/`
+
+## 文件命名约定
+
+| 模式 | 说明 |
+|------|------|
+| `src/types/*.ts` | 纯接口/类型定义，0 依赖 |
+| `src/engine/*.ts` | 核心逻辑（无 CLI 耦合） |
+| `src/cli/*.ts` | 每个文件一个 CLI 命令 |
+| `src/critique/*.ts` | 评审相关 |
+| `knowledge/*.md` | 知识块，双层加载（文件优先于源码） |
+| `demo/*.html` | 演示 HTML |
+| `specs/*.md` | 架构规范 |
+
+## 架构约束
+
+1. **types/ 层不可引用 src/ 其他模块** — 纯接口，0 外部依赖
+2. **cli/ 命令只做参数解析和调用** — 核心逻辑在 engine/、critique/ 等
+3. **MCP Server 独立于 CLI 路由** — 共用 engine/ 但不依赖 cli/
+4. **所有持久化走 `.bwvi/`** — 纯 JSON/YAML 文件，零数据库依赖
+
+## 设计决策链
+
+核心抽象，决策顺序不可逆：
+
+```
+direction → palette → typography → [information_density] → layout → detail_signature
+```
+
+每步决策为 `DesignDecision` 实体，包含：type, inputs, output, rationale, confidence, made_by, confirmed_by, tokens。
+
+## 运行时目录 (.bwvi/)
+
+| 路径 | 说明 |
+|------|------|
+| `.bwvi/config.json` | 项目配置 |
+| `.bwvi/checkpoints/` | 决策持久化（跨会话恢复） |
+| `.bwvi/fingerprint.yaml` | 设计指纹（隐式学习团队偏好） |
+| `.bwvi/reports/` | 项目评审报告 |
+| `.bwvi/feedback/` | 用户反馈 |
+| `.bwvi/debt/` | 设计债 |
+| `.bwvi/references/` | 设计参考（learn/asset 下载） |
+| `.bwvi/templates/` | 用户自定义模板 |
+| `.bwvi/brief.json` | 设计简报 |
+
+## Git 规则
+
+- `.bwvi/` 运行时目录不提交（已在 `.gitignore` 中）
+- `knowledge/` 和 `demo/` 应提交
+- `dist/` 不提交（CI 构建）
+- 发布前必须通过 `npm run benchmark`（5/5）
+
+## 生成文件规则
+
+所有命令生成的 HTML/demo 文件必须使用统一的 demo 目录：
+
+- **路径**: `E:\程序\bwvi design\bwvi\demo\`（唯一正确路径）
+- **函数**: 调用 `getDemoDir()`（`src/cli/demo.ts`），自动优先检测 `.bwvi` 项目目录
+- **生成命令**: `generate --direct`, `showcase --pick`, `preview`, `video`, `export` 都必须通过 `getDemoDir()`
+- **禁止**: 
+  - 不直接使用 `join(process.cwd(), "demo")`，统一走 `getDemoDir()`
+  - 禁止在任何其他路径生成文件（尤其是 `E:\程序\bwvi设计\`）
+- **截图**: `demo/screenshots/` 只保留与 `demo/` 中 HTML 文件对应的截图
+- **write 工具**: 始终使用 `E:\程序\bwvi design\bwvi\` 作为基准路径，不要使用 `E:\程序\bwvi设计\`
+
+## 路径映射表（强制参考）
+
+当用户用中文名指代路径时，必须按此表映射，不得自动创建中文文件夹：
+
+| 用户提到的名称 | 应映射到 |
+|---------------|---------|
+| bwvi设计、bwvi项目、bwvi | `E:\程序\bwvi design\bwvi\` |
+| 花叔设计、huashu设计 | `E:\程序\bwvi design\huashu-design\` |
+| open-design、Open Design | `E:\程序\bwvi design\open-design\` |
+
+## 异常检测
+
+- 如果发现 `E:\程序\bwvi设计\` 或类似的中文名文件夹存在，立即检查其内容是否为主项目的子集
+- 确认后立即删除中文名副本，所有文件统一到 `E:\程序\bwvi design\bwvi\`
+
+---
+> Source: [lh123aa/bwvi-design](https://github.com/lh123aa/bwvi-design) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
