@@ -1,0 +1,9 @@
+{
+  "name": "observiq--bindplane-otel-contrib",
+  "displayName": "bindplane-otel-contrib",
+  "description": "A collection of OpenTelemetry Collector components compatible with any build of the collector.",
+  "version": "1.0.0",
+  "author": "observIQ",
+  "homepage": "https://github.com/observIQ/bindplane-otel-contrib",
+  "skills": []
+}
