@@ -1,0 +1,44 @@
+{
+  "name": "my-adk-python-samples",
+  "owner": "ksmin23",
+  "repo": "my-adk-python-samples",
+  "description": "A collection of Python agent samples built with the Google Agent Development Kit (ADK), demonstrating integrations   with services like BigQuery and Vertex AI Search.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ksmin23/my-adk-python-samples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T20:34:30Z"
+}
