@@ -1,0 +1,9 @@
+{
+  "name": "harmoninux--hish",
+  "displayName": "HiSH",
+  "description": "\u5728\u9e3f\u8499\u4e0a\u8fd0\u884cLinux Shell\uff0c\u652f\u6301\u624b\u673a\u3001\u5e73\u677f\u30012in1/PC\u3001TV\uff08Run Linux Shell on HarmonyOS, Phone/Pad/2in1/PC,TV are supported\uff09",
+  "version": "1.0.0",
+  "author": "harmoninux",
+  "homepage": "https://github.com/harmoninux/HiSH",
+  "skills": []
+}
