@@ -1,0 +1,9 @@
+{
+  "name": "iosdevsk--mcp-for-woocommerce",
+  "displayName": "mcp-for-woocommerce",
+  "description": "WooCommerce MCP Server \u2014 WordPress community plugin implementing the Model Context Protocol (MCP) for WooCommerce. Supports STDIO and HTTP streamable transport, with optional JWT authentication. Based",
+  "version": "1.0.0",
+  "author": "iOSDevSK",
+  "homepage": "https://github.com/iOSDevSK/mcp-for-woocommerce",
+  "skills": []
+}
