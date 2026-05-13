@@ -1,0 +1,9 @@
+{
+  "name": "ryparker--claude-code-sounds",
+  "displayName": "claude-code-sounds",
+  "description": "Sound themes for Claude Code lifecycle hooks",
+  "version": "1.0.0",
+  "author": "ryparker",
+  "homepage": "https://github.com/ryparker/claude-code-sounds",
+  "skills": []
+}
