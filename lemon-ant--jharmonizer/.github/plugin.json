@@ -1,0 +1,9 @@
+{
+  "name": "lemon-ant--jharmonizer",
+  "displayName": "JHarmonizer",
+  "description": "Make Java source layout deterministic: reorder class members safely, keep accessors together, format java-source, and enforce style in CI.",
+  "version": "1.0.0",
+  "author": "lemon-ant",
+  "homepage": "https://github.com/lemon-ant/JHarmonizer",
+  "skills": []
+}
