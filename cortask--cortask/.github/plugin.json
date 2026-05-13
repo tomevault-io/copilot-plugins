@@ -1,0 +1,9 @@
+{
+  "name": "cortask--cortask",
+  "displayName": "cortask",
+  "description": "Cortask is a self-hosted AI orchestration platform",
+  "version": "1.0.0",
+  "author": "cortask",
+  "homepage": "https://github.com/cortask/cortask",
+  "skills": []
+}
