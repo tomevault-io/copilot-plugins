@@ -4,7 +4,7 @@
   "repo": "mozaiks",
   "description": "The Mozaiks core is a self-hostable runtime for deploying AI-driven, multi-tenant web apps with real-time UI, auth, and billing built in. Apps are defined via YAML and lightweight Python/JS stubs for agent logic, workflows, and integrations \u2014 so developers focus on behavior, not plumbing. :link: https://docs.mozaiks.ai/",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BlocUnited-LLC/mozaiks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T02:19:01Z"
+  "distributed_at": "2026-05-13T12:34:25Z"
 }
