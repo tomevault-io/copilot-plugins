@@ -7,14 +7,14 @@ Production-ready multi-agent orchestration harness for Kimi Code CLI (K2.6): wor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [dmae97/oh-my-kimi](https://github.com/dmae97/oh-my-kimi).
+Original source: `CLAUDE.md` in [dmae97/oh-my-kimi](https://github.com/dmae97/oh-my-kimi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [dmae97/oh-my-kimi](https://github.com/dmae97/oh-my-kimi) — a repo with 47+ stars on GitHub.
