@@ -1,0 +1,24 @@
+# deep-research-agent-tutorial
+
+> Source: [VRSEN/deep-research-agent-tutorial](https://github.com/VRSEN/deep-research-agent-tutorial) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [VRSEN/deep-research-agent-tutorial](https://github.com/VRSEN/deep-research-agent-tutorial).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [VRSEN/deep-research-agent-tutorial](https://github.com/VRSEN/deep-research-agent-tutorial) — a repo with 33+ stars on GitHub.
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
