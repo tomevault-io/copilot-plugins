@@ -7,11 +7,11 @@ Where teams and AI build shared understanding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [CognitiveLayers/clayers](https://github.com/CognitiveLayers/clayers).
+Original source: `CLAUDE.md` in [CognitiveLayers/clayers](https://github.com/CognitiveLayers/clayers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
