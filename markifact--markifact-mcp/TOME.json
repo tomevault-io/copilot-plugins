@@ -4,7 +4,7 @@
   "repo": "markifact-mcp",
   "description": "MCP server for Google Ads, Meta Ads, GA4, TikTok Ads, and LinkedIn Ads. Manage 300+ ad operations from Claude, ChatGPT, Gemini, Cursor, or any AI client. Human-in-the-loop on every write.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/markifact/markifact-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:13:48Z"
+  "distributed_at": "2026-05-13T16:32:16Z"
 }
