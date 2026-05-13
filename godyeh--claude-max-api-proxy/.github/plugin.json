@@ -1,0 +1,9 @@
+{
+  "name": "godyeh--claude-max-api-proxy",
+  "displayName": "claude-max-api-proxy",
+  "description": "Turn your Claude Max subscription into a full OpenAI-compatible API \u2014 with agentic tool-calling, smart streaming, and Telegram integration.",
+  "version": "1.0.0",
+  "author": "GodYeh",
+  "homepage": "https://github.com/GodYeh/claude-max-api-proxy",
+  "skills": []
+}
