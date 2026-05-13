@@ -1,0 +1,9 @@
+{
+  "name": "nicktikhonov--snap-ql",
+  "displayName": "snap-ql",
+  "description": "AI-powered Postgres Client",
+  "version": "1.0.0",
+  "author": "NickTikhonov",
+  "homepage": "https://github.com/NickTikhonov/snap-ql",
+  "skills": []
+}
