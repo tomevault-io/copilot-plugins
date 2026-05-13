@@ -1,0 +1,9 @@
+{
+  "name": "dualeai--exec-sandbox",
+  "displayName": "exec-sandbox",
+  "description": "Secure code execution in isolated lightweight VMs (QEMU microVMs). Python library for running untrusted Python, JavaScript, and shell code with 9-layer security isolation.",
+  "version": "1.0.0",
+  "author": "dualeai",
+  "homepage": "https://github.com/dualeai/exec-sandbox",
+  "skills": []
+}
