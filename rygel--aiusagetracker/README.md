@@ -7,11 +7,11 @@ Token usage tracker for (not only) OpenCode
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rygel/AIUsageTracker](https://github.com/rygel/AIUsageTracker).
+Original source: `CLAUDE.md` in [rygel/AIUsageTracker](https://github.com/rygel/AIUsageTracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
