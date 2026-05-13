@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Codagent Agent Skills is a plugin that provides a set of focused skills for each stage of software development.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Codagent-AI/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:58:09Z"
+  "distributed_at": "2026-05-13T04:59:06Z"
 }
