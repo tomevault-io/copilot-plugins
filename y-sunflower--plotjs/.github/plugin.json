@@ -1,0 +1,9 @@
+{
+  "name": "y-sunflower--plotjs",
+  "displayName": "plotjs",
+  "description": "Turn static matplotlib charts into interactive web visualizations, and export them to HTML files",
+  "version": "1.0.0",
+  "author": "y-sunflower",
+  "homepage": "https://github.com/y-sunflower/plotjs",
+  "skills": []
+}
