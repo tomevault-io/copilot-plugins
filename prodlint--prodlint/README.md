@@ -7,11 +7,11 @@ Your vibe-coded app has hardcoded secrets, missing auth, and hallucinated import
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [prodlint/prodlint](https://github.com/prodlint/prodlint).
+Original source: `CLAUDE.md` in [prodlint/prodlint](https://github.com/prodlint/prodlint).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
