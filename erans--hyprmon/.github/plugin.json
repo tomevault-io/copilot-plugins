@@ -1,0 +1,9 @@
+{
+  "name": "erans--hyprmon",
+  "displayName": "hyprmon",
+  "description": "TUI monitor configuration tool for Hyprland with visual layout, drag-and-drop, and profile management",
+  "version": "1.0.0",
+  "author": "erans",
+  "homepage": "https://github.com/erans/hyprmon",
+  "skills": []
+}
