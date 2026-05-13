@@ -1,0 +1,9 @@
+{
+  "name": "phasenexa--nexa-marketdata",
+  "displayName": "nexa-marketdata",
+  "description": "Unified Python client for European power market data. Nord Pool, EPEX SPOT, ENTSO-E, EEX.",
+  "version": "1.0.0",
+  "author": "phasenexa",
+  "homepage": "https://github.com/phasenexa/nexa-marketdata",
+  "skills": []
+}
