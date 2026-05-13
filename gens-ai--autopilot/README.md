@@ -7,11 +7,11 @@ Autonomous TDD workflow for Claude Code using Ralph Loop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Gens-ai/autopilot](https://github.com/Gens-ai/autopilot).
+Original source: `CLAUDE.md` in [Gens-ai/autopilot](https://github.com/Gens-ai/autopilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
