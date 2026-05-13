@@ -1,0 +1,44 @@
+{
+  "name": "speckit-tutorial",
+  "owner": "kkawailab",
+  "repo": "speckit-tutorial",
+  "description": "spec-kit\u3092\u6bb5\u968e\u7684\u306b\u5b66\u3079\u308b3\u3064\u306e\u30c1\u30e5\u30fc\u30c8\u30ea\u30a2\u30eb\u96c6 | Progressive spec-kit tutorials: ToDo app \u2192 REST API \u2192 Microservices",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kkawailab/speckit-tutorial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T21:44:25Z"
+}
