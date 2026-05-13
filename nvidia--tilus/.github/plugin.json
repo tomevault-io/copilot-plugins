@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--tilus",
+  "displayName": "tilus",
+  "description": "Tilus is a tile-level kernel programming language with explicit control over shared memory and registers.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/tilus",
+  "skills": []
+}
