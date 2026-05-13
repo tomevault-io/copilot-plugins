@@ -1,0 +1,119 @@
+## snosi
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+snosi is a bootable container image build system using [mkosi](https://github.com/systemd/mkosi) to produce Debian Trixie-based immutable OS images and system extensions (sysexts). Images are deployed via bootc/systemd-boot with atomic updates.
+
+**Outputs:** 4 OCI desktop images (snow, snowloaded, snowfield, snowfieldloaded), 2 OCI server images (cayo, cayoloaded), and 11 sysext overlay images (1password-cli, code-server, debdev, dev, docker, emdash, himmelblau, incus, nix, podman, tailscale).
+
+## Build Commands
+
+Requires: mkosi v24+, just, root/sudo access.
+
+```bash
+just                    # List targets
+just sysexts            # Build base + all 11 sysexts
+just snow               # Build snow desktop image
+just snowloaded         # Build snowloaded variant
+just snowfield          # Build snowfield (Surface kernel)
+just snowfieldloaded    # Build snowfieldloaded variant
+just cayo               # Build cayo server image
+just cayoloaded         # Build cayoloaded variant
+just clean              # Remove build artifacts
+just test-install       # Run bootc install test
+just run-qemu           # Run image in QEMU
+```
+
+All `just` targets run `mkosi clean` first (clean build every time).
+
+## Architecture
+
+### Configuration Composition
+
+mkosi configs use `Include=` directives to compose reusable fragments. The composition chain:
+
+- `mkosi.conf` (root) declares base + sysext dependencies
+- `mkosi.images/` contains base image and sysext definitions
+- `mkosi.profiles/` defines desktop and server image variants
+- `shared/` contains reusable fragments: kernel configs, package sets, output format, scripts
+
+Each profile composes: package sets + kernel variant + output format + build/postinstall/finalize/postoutput scripts.
+
+### Script Pipeline (per image)
+
+Scripts execute in order: **BuildScripts** (in chroot) -> **PostInstallationScripts** (after packages) -> **FinalizeScripts** (pre-output) -> **PostOutputScripts** (after image creation).
+
+### Immutable Filesystem Constraints
+
+- `/usr/` - Read-only. All binaries and libraries must live here.
+- `/etc/` - Overlay on `/usr/etc`. Base configs in image, user changes persist.
+- `/var/` - Persistent, writable. State, logs, container storage.
+- `/opt/` - Bind mount to `/var/opt`. Writable at runtime but **shadowed by sysext overlays**.
+
+**Critical pattern:** Packages installing to `/opt` must be relocated to `/usr/lib/<package>` at build time with symlinks in `/usr/bin`. This applies to both desktop images and sysexts.
+
+### Sysext Constraints
+
+Sysexts can ONLY provide files under `/usr`. They cannot modify `/etc` or `/var` at runtime. Configs needed in `/etc` must be:
+
+1. Captured to `/usr/share/factory/etc` during build (via `mkosi.finalize`)
+2. Injected at boot via systemd-tmpfiles
+
+Every sysext must have matching `<name>.transfer` and `<name>.feature` files in `mkosi.images/base/mkosi.extra/usr/lib/sysupdate.d/`. The `.transfer` file defines how systemd-sysupdate downloads the sysext; the `.feature` file provides metadata and defaults to `Enabled=false`. Use existing files as templates.
+
+The shared sysext postoutput script (`shared/sysext/postoutput/sysext-postoutput.sh`) handles versioned naming and manifest processing. It requires the `KEYPACKAGE` env var set in each sysext's `mkosi.conf`.
+
+## Key Directories
+
+- `shared/download/` - Verified download system: `checksums.json` pins URLs+SHA256s, `verified-download.sh` provides the `verified_download()` helper
+- `shared/kernel/` - Kernel configs (backports, surface, stock) and dracut scripts
+- `shared/packages/` - Package set definitions, some with postinstall scripts for relocation
+- `shared/outformat/image/` - Image output format config (directory), finalize scripts, and `buildah-package.sh` for OCI packaging
+- `shared/sysext/postoutput/` - Shared sysext postoutput logic
+- `mkosi.sandbox/etc/apt/` - External APT repo configs (Docker, Incus, linux-surface, Frostyard)
+
+## Shell Script Conventions
+
+- Use `set -euo pipefail` at the top of all scripts
+- Build scripts running in chroot use `.chroot` extension
+- External downloads must go through `verified_download()` with entries in `checksums.json`
+- Pin external URLs to specific versions/commits, never `latest` or branch names
+- When adding a new verified download, also add a corresponding update check to `.github/workflows/check-dependencies.yml`
+
+## User Service Enablement in Chroot
+
+`systemctl --user enable` does not work inside a mkosi chroot (no user session/D-Bus). System services are enabled via `systemctl enable` in `snow.postinst.chroot`, but user services require manually creating symlinks:
+
+```bash
+mkdir -p /etc/systemd/user/<target>.wants
+ln -sf /usr/lib/systemd/user/<service> /etc/systemd/user/<target>.wants/<service>
+```
+
+The target (e.g. `gnome-session.target`) comes from the service's `WantedBy=` in its `[Install]` section.
+
+**Known issue:** `deb-systemd-helper` creates `.dsh-also` tracking files in `/var/lib/systemd/deb-systemd-user-helper-enabled/` during the build but may not create the actual enablement symlinks in `/etc/systemd/user/`. If a user service isn't auto-starting after reboot, check whether its symlink is missing from `/etc/systemd/user/<target>.wants/` and compare against its `.dsh-also` file. There may be other services with this same gap that haven't been noticed yet.
+
+## CI/CD
+
+- `build.yml` - Builds base + sysexts, publishes to Frostyard repo (Cloudflare R2)
+- `build-images.yml` - Matrix build of 6 profiles (4 desktop + 2 server), pushes OCI to ghcr.io, generates SBOMs (Syft), attaches via ORAS, signs with Cosign. A non-blocking `release` job runs after the matrix on main-branch pushes and creates a GitHub Release whose body is a changelog generated by `frostyard/changelog-generator` diffing the new `snowloaded` image against the previously published one.
+- `check-dependencies.yml` - Weekly check for external dependency updates, creates PRs with updated checksums
+- `check-packages.yml` - Daily check for APT package version updates, creates PRs
+- `validate.yml` - shellcheck + mkosi summary validation on PRs
+- `test-install.yml` - Manual bootc installation test in QEMU/KVM
+- `scorecard.yml` - Weekly OpenSSF supply-chain security analysis
+## Documentation
+
+**update documentation** After any change to source code, update relevant documentation in CLAUDE.md, README.md and the yeti/ folder. A task is not complete without reviewing and updating relevant documentation.
+
+**yeti/ directory** The `yeti/` directory contains documentation written for AI consumption and context enhancement, not primarily for humans. Jobs like `doc-maintainer` and `issue-worker` instruct the AI to read `yeti/OVERVIEW.md` and related files for codebase context before performing tasks. Write content in this directory to be maximally useful to an AI agent understanding the codebase — detailed architecture, patterns, and decision rationale rather than user-facing guides.
+
+---
+> Source: [frostyard/snosi](https://github.com/frostyard/snosi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
