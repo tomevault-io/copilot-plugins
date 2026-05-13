@@ -1,0 +1,9 @@
+{
+  "name": "sunil-dsb--design-md",
+  "displayName": "design.md",
+  "description": "Generate DESIGN.md, Tailwind themes, tokens, and prompts from any website.",
+  "version": "1.0.0",
+  "author": "sunil-dsb",
+  "homepage": "https://github.com/sunil-dsb/design.md",
+  "skills": []
+}
