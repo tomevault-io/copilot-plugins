@@ -1,112 +1,74 @@
-## code-style
+## component-development
 
-> Code style and formatting guidelines for figui
+> Component development patterns for figui registry
 
 
-# Code Style Guidelines
+# Component Development Guidelines
 
-## Formatting Rules
+## Registry Component Structure
 
-The project uses **[Prettier](mdc:package.json)** with custom configuration:
-
-- **Single quotes** for strings and JSX attributes
-- **Tailwind CSS plugin** for automatic class sorting
-- Follow existing **[prettier config](mdc:package.json)** in package.json
-
-## TypeScript Guidelines
-
-### Type Definitions
-
-- Use `interface` for object shapes that might be extended
-- Use `type` for unions, primitives, and computed types
-- Export types and interfaces from component files when needed
-
-### Component Props
-
-```tsx
-// Preferred: Extend existing component props
-interface ButtonProps extends React.ComponentProps<'button'> {
-  variant?: 'default' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-}
-
-// For Base UI components
-interface ComponentProps extends React.ComponentProps<typeof BaseUIComponent> {
-  // additional props
-}
-```
-
-### Imports Organization
-
-```tsx
-// 1. React imports
-import * as React from 'react';
-
-// 2. Third-party imports
-import { BaseComponent } from '@base-ui/react/BaseComponent';
-
-// 3. Internal imports
-import { cn } from '@/lib/utils';
-import { type ComponentProps } from './types';
-```
-
-## React Patterns
-
-### Component Definition
-
-- Set `displayName` for better debugging
-- Use destructuring with defaults for props
-
-### Event Handlers
-
-```tsx
-// Preferred: Inline for simple handlers
-<button onClick={() => setOpen(!open)} />;
-
-// For complex logic: separate functions
-const handleSubmit = React.useCallback(
-  (event: React.FormEvent) => {
-    event.preventDefault();
-    // logic here
-  },
-  [dependencies],
-);
-```
-
-## Styling Guidelines
-
-### Tailwind CSS
-
-- Use **Tailwind CSS 4** classes exclusively
-- Leverage the `cn()` utility from **[lib/utils.ts](mdc:lib/utils.ts)** for conditional classes
-- Follow mobile-first responsive design
-- Use semantic color names and design tokens
-
-### Class Organization
-
-```tsx
-// Group related classes logically
-className={cn(
-  // Layout
-  'flex items-center justify-center',
-  // Spacing
-  'px-4 py-2 gap-2',
-  // Typography
-  'text-sm font-medium',
-  // Colors & States
-  'bg-blue-500 text-white hover:bg-blue-600',
-  // Conditional classes
-  variant === 'secondary' && 'bg-gray-100 text-gray-900',
-  className
-)}
-```
+All UI components in **[registry/ui3/ui/](mdc:registry/ui3/ui/)** should follow these patterns:
 
 ### Component Architecture
 
-- Keep components focused and single-purpose
-- Use composition over inheritance
-- Prefer compound components for complex UI patterns
-- Export individual pieces when useful for customization
+- Use **@base-ui/react** for unstyled primitives when available
+- Follow compound component patterns for complex components
+- Use `forwardRef` for components that need DOM refs
+- Export component with proper TypeScript interfaces
+
+### Example Component Pattern
+
+```tsx
+import * as React from 'react';
+import { BaseComponent } from '@base-ui/react/BaseComponent';
+import { cn } from '@/lib/utils';
+
+interface ComponentProps extends React.ComponentProps<typeof BaseComponent> {
+  variant?: 'default' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const Component = React.forwardRef<
+  React.ElementRef<typeof BaseComponent>,
+  ComponentProps
+>(({ className, variant = 'default', size = 'md', ...props }, ref) => {
+  return (
+    <BaseComponent
+      ref={ref}
+      className={cn(
+        'base-styles',
+        variantStyles[variant],
+        sizeStyles[size],
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+
+Component.displayName = 'Component';
+export { Component };
+```
+
+### Demo Components
+
+- Demo components in **[registry/ui3/examples/](mdc:registry/ui3/examples/)** should showcase all variants
+- Include proper TypeScript examples
+- Use realistic data and use cases
+- Export as default function named `ComponentDemo`
+
+### Styling Guidelines
+
+- Use Tailwind CSS classes exclusively
+- Follow the existing design tokens and spacing scale
+- Ensure dark mode compatibility with theme-aware classes
+- Use `cn()` utility from **[lib/utils.ts](mdc:lib/utils.ts)** for conditional styling
+
+### Registry Integration
+
+- Each component needs a corresponding JSON file in **[public/r/](mdc:public/r/)**
+- Update **[registry.json](mdc:registry.json)** with component metadata
+- Ensure component is importable via the registry system
 
 ---
 > Source: [anxndsgn/FigUI](https://github.com/anxndsgn/FigUI) — distributed by [TomeVault](https://tomevault.io).
