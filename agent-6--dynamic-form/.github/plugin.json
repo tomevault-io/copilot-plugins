@@ -1,0 +1,9 @@
+{
+  "name": "agent-6--dynamic-form",
+  "displayName": "dynamic-form",
+  "description": "An angular application that renders forms dynamically from schema",
+  "version": "1.0.0",
+  "author": "Agent-6",
+  "homepage": "https://github.com/Agent-6/dynamic-form",
+  "skills": []
+}
