@@ -7,11 +7,11 @@ Self-hosted, Flutter-first mobile CI and internal app distribution platform.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [devaryakjha/oore.build](https://github.com/devaryakjha/oore.build).
+Original source: `CLAUDE.md` in [devaryakjha/oore.build](https://github.com/devaryakjha/oore.build).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
