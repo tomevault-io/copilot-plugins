@@ -1,0 +1,9 @@
+{
+  "name": "lst97--claude-code-sub-agents",
+  "displayName": "claude-code-sub-agents",
+  "description": "Collection of specialized AI subagents for Claude Code for personal use (full-stack development).",
+  "version": "1.0.0",
+  "author": "lst97",
+  "homepage": "https://github.com/lst97/claude-code-sub-agents",
+  "skills": []
+}
