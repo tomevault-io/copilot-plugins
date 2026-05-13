@@ -1,0 +1,9 @@
+{
+  "name": "trudax--d365fo-db-sync",
+  "displayName": "D365FO-DB-Sync",
+  "description": "Copy data from Dynamics 365 Finance & Operations Azure SQL Database (Tier2) to local SQL Server (AxDB)",
+  "version": "1.0.0",
+  "author": "TrudAX",
+  "homepage": "https://github.com/TrudAX/D365FO-DB-Sync",
+  "skills": []
+}
