@@ -4,7 +4,7 @@
   "repo": "typescript-sdk",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenRouterTeam/typescript-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:18:40Z"
+  "distributed_at": "2026-05-13T07:18:55Z"
 }
