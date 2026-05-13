@@ -7,11 +7,11 @@ Resume Tailor — Claude Code Plugin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [olegvg/resume-tailor-plugin](https://github.com/olegvg/resume-tailor-plugin).
+Original source: `CLAUDE.md` in [olegvg/resume-tailor-plugin](https://github.com/olegvg/resume-tailor-plugin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
