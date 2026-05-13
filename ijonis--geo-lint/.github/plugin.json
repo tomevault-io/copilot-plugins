@@ -1,0 +1,9 @@
+{
+  "name": "ijonis--geo-lint",
+  "displayName": "geo-lint",
+  "description": "The first open-source GEO linter. 92 rules for SEO, GEO, and content quality \u2014 built for AI agents to run, read, fix, and re-lint automatically.",
+  "version": "1.0.0",
+  "author": "IJONIS",
+  "homepage": "https://github.com/IJONIS/geo-lint",
+  "skills": []
+}
