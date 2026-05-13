@@ -1,0 +1,9 @@
+{
+  "name": "beep-it--beep-sdk",
+  "displayName": "beep-sdk",
+  "description": "agent to agent payments",
+  "version": "1.0.0",
+  "author": "beep-it",
+  "homepage": "https://github.com/beep-it/beep-sdk",
+  "skills": []
+}
