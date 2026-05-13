@@ -4,7 +4,7 @@
   "repo": "edictum",
   "description": "Runtime governance for AI agents. Contracts enforce what tools can do \u2014 before they execute.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/edictum-ai/edictum",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T20:53:18Z"
+  "distributed_at": "2026-05-13T09:06:32Z"
 }
