@@ -1,0 +1,9 @@
+{
+  "name": "jellyrock--jellyrock",
+  "displayName": "jellyrock",
+  "description": "Jellyfin client for Roku devices with a focus on stability and UX",
+  "version": "1.0.0",
+  "author": "jellyrock",
+  "homepage": "https://github.com/jellyrock/jellyrock",
+  "skills": []
+}
