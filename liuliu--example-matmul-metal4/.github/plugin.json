@@ -1,0 +1,9 @@
+{
+  "name": "liuliu--example-matmul-metal4",
+  "displayName": "example_matmul_metal4",
+  "description": "Example of using the tensor op for matmul in Metal 4.",
+  "version": "1.0.0",
+  "author": "liuliu",
+  "homepage": "https://github.com/liuliu/example_matmul_metal4",
+  "skills": []
+}
