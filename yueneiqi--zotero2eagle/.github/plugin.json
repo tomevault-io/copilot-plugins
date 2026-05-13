@@ -1,0 +1,9 @@
+{
+  "name": "yueneiqi--zotero2eagle",
+  "displayName": "zotero2eagle",
+  "description": "A Zotero plugin that seamlessly integrates with Eagle, allowing you to save PDF image annotations directly to your Eagle library for better visual content management.",
+  "version": "1.0.0",
+  "author": "yueneiqi",
+  "homepage": "https://github.com/yueneiqi/zotero2eagle",
+  "skills": []
+}
