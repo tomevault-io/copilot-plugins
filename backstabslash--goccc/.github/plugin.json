@@ -1,0 +1,9 @@
+{
+  "name": "backstabslash--goccc",
+  "displayName": "goccc",
+  "description": "Fast, zero-dependency cost calculator and customizable statusline for Claude Code. Breakdowns by model, day, project, and branch. Lightweight, single binary, no runtime needed.",
+  "version": "1.0.0",
+  "author": "backstabslash",
+  "homepage": "https://github.com/backstabslash/goccc",
+  "skills": []
+}
