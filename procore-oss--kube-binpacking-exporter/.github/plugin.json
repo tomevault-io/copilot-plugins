@@ -1,0 +1,9 @@
+{
+  "name": "procore-oss--kube-binpacking-exporter",
+  "displayName": "kube-binpacking-exporter",
+  "description": "Exports Pre-computed Kubernetes Cluster Binpacking Metrics ",
+  "version": "1.0.0",
+  "author": "procore-oss",
+  "homepage": "https://github.com/procore-oss/kube-binpacking-exporter",
+  "skills": []
+}
