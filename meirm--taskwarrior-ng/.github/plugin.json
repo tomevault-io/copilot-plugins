@@ -1,0 +1,14 @@
+{
+  "name": "meirm--taskwarrior-ng",
+  "displayName": "taskwarrior-ng",
+  "description": "a Wrapper to share tasks between humans and AI agents",
+  "version": "1.0.0",
+  "author": "meirm",
+  "homepage": "https://github.com/meirm/taskwarrior-ng",
+  "skills": [
+    {
+      "name": "taskwarrior",
+      "description": ""
+    }
+  ]
+}
