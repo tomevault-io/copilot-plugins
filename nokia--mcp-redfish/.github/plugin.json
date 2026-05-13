@@ -1,0 +1,9 @@
+{
+  "name": "nokia--mcp-redfish",
+  "displayName": "mcp-redfish",
+  "description": "mcp-redfish",
+  "version": "1.0.0",
+  "author": "nokia",
+  "homepage": "https://github.com/nokia/mcp-redfish",
+  "skills": []
+}
