@@ -7,11 +7,11 @@ Fast CLI tool for finding and resuming Claude Code sessions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cc-deck/cc-session](https://github.com/cc-deck/cc-session).
+Original source: `CLAUDE.md` in [cc-deck/cc-session](https://github.com/cc-deck/cc-session).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
