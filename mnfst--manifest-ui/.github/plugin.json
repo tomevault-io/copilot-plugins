@@ -1,0 +1,9 @@
+{
+  "name": "mnfst--manifest-ui",
+  "displayName": "manifest-ui",
+  "description": "A shadcn/ui library for building ChatGPT Apps and MCP Apps",
+  "version": "1.0.0",
+  "author": "mnfst",
+  "homepage": "https://github.com/mnfst/manifest-ui",
+  "skills": []
+}
