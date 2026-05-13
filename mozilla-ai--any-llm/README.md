@@ -7,11 +7,11 @@ Communicate with an LLM provider using a single interface
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mozilla-ai/any-llm](https://github.com/mozilla-ai/any-llm).
+Original source: `CLAUDE.md` in [mozilla-ai/any-llm](https://github.com/mozilla-ai/any-llm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
