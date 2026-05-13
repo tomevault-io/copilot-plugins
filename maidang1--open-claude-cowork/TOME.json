@@ -4,7 +4,7 @@
   "repo": "open-claude-cowork",
   "description": "Use Agent Client Protocol Rebuild Cowork",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Maidang1/open-claude-cowork",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T00:37:12Z"
+  "distributed_at": "2026-05-13T11:00:22Z"
 }
