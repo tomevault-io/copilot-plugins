@@ -1,0 +1,9 @@
+{
+  "name": "pariyar07--ariadne",
+  "displayName": "ariadne",
+  "description": "Agent skill package for building Obsidian vaults that AI agents can navigate, maintain, and operate reliably",
+  "version": "1.0.0",
+  "author": "pariyar07",
+  "homepage": "https://github.com/pariyar07/ariadne",
+  "skills": []
+}
