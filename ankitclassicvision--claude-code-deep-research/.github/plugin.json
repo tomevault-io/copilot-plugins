@@ -1,0 +1,9 @@
+{
+  "name": "ankitclassicvision--claude-code-deep-research",
+  "displayName": "Claude-Code-Deep-Research",
+  "description": "I created a claude code deep researcher that seems to work better than the current deep research models",
+  "version": "1.0.0",
+  "author": "AnkitClassicVision",
+  "homepage": "https://github.com/AnkitClassicVision/Claude-Code-Deep-Research",
+  "skills": []
+}
