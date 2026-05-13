@@ -1,0 +1,9 @@
+{
+  "name": "zolinthecow--nvim-claude",
+  "displayName": "nvim-claude",
+  "description": "cursor style nvim+claude code integration.",
+  "version": "1.0.0",
+  "author": "zolinthecow",
+  "homepage": "https://github.com/zolinthecow/nvim-claude",
+  "skills": []
+}
