@@ -7,11 +7,11 @@ Comprehensive cryptocurrency market data service with CoinGecko, DeFiLlama, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/crypto-market-data-ts](https://github.com/nirholas/crypto-market-data-ts).
+Original source: `CLAUDE.md` in [nirholas/crypto-market-data-ts](https://github.com/nirholas/crypto-market-data-ts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
