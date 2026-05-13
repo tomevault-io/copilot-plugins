@@ -1,0 +1,9 @@
+{
+  "name": "oslyak--skrynia",
+  "displayName": "skrynia",
+  "description": "TPM 2.0-encrypted credential manager for AI-assisted development",
+  "version": "1.0.0",
+  "author": "oslyak",
+  "homepage": "https://github.com/oslyak/skrynia",
+  "skills": []
+}
