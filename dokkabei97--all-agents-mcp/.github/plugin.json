@@ -1,0 +1,9 @@
+{
+  "name": "dokkabei97--all-agents-mcp",
+  "displayName": "all-agents-mcp",
+  "description": "MCP server that orchestrates Claude Code, Codex, Gemini CLI, and Copilot CLI through a unified stdio interface \u2014 ask, compare,   verify, and collaborate across multiple AI agents.",
+  "version": "1.0.0",
+  "author": "Dokkabei97",
+  "homepage": "https://github.com/Dokkabei97/all-agents-mcp",
+  "skills": []
+}
