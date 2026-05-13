@@ -7,11 +7,11 @@ Claude Code skill that tailors a master resume YAML to a specific job posting an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [davidalecrim1/chameleon](https://github.com/davidalecrim1/chameleon).
+Original source: `CLAUDE.md` in [davidalecrim1/chameleon](https://github.com/davidalecrim1/chameleon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
