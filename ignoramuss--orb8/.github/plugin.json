@@ -1,0 +1,9 @@
+{
+  "name": "ignoramuss--orb8",
+  "displayName": "orb8",
+  "description": "eBPF-powered observability toolkit for Kubernetes with GPU telemetry",
+  "version": "1.0.0",
+  "author": "Ignoramuss",
+  "homepage": "https://github.com/Ignoramuss/orb8",
+  "skills": []
+}
