@@ -1,0 +1,9 @@
+{
+  "name": "framara--react-flow-skill",
+  "displayName": "react-flow-skill",
+  "description": "Claude Code skill for building interactive node-based UIs with React Flow (@xyflow/react v12+)",
+  "version": "1.0.0",
+  "author": "framara",
+  "homepage": "https://github.com/framara/react-flow-skill",
+  "skills": []
+}
