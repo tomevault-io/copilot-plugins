@@ -1,0 +1,9 @@
+{
+  "name": "banastas--comics-banast-as",
+  "displayName": "comics.banast.as",
+  "description": "A modern, responsive web app for managing comic book collections with analytics, financial tracking, and mobile-friendly browsing. Self-host your own collection manager with React, TypeScript, and Tai",
+  "version": "1.0.0",
+  "author": "banastas",
+  "homepage": "https://github.com/banastas/comics.banast.as",
+  "skills": []
+}
