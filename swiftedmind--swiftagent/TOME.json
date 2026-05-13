@@ -4,7 +4,7 @@
   "repo": "SwiftAgent",
   "description": "Native Swift SDK for building autonomous AI agents with Apple's FoundationModels design philosophy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SwiftedMind/SwiftAgent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T22:59:26Z"
+  "distributed_at": "2026-05-13T10:50:16Z"
 }
