@@ -1,0 +1,9 @@
+{
+  "name": "maplibre--maplibre-native-slint",
+  "displayName": "maplibre-native-slint",
+  "description": "MapLibre Native + Slint Integration",
+  "version": "1.0.0",
+  "author": "maplibre",
+  "homepage": "https://github.com/maplibre/maplibre-native-slint",
+  "skills": []
+}
