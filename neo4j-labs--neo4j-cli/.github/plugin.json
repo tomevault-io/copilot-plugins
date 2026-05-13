@@ -1,0 +1,9 @@
+{
+  "name": "neo4j-labs--neo4j-cli",
+  "displayName": "neo4j-cli",
+  "description": "An agentic focused CLI that surfaces selected Neo4j features",
+  "version": "1.0.0",
+  "author": "neo4j-labs",
+  "homepage": "https://github.com/neo4j-labs/neo4j-cli",
+  "skills": []
+}
