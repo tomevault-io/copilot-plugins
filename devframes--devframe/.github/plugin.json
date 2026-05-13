@@ -1,0 +1,9 @@
+{
+  "name": "devframes--devframe",
+  "displayName": "devframe",
+  "description": "Framework-neutral foundation for building generic DevTools.",
+  "version": "1.0.0",
+  "author": "devframes",
+  "homepage": "https://github.com/devframes/devframe",
+  "skills": []
+}
