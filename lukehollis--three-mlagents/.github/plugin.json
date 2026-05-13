@@ -1,0 +1,9 @@
+{
+  "name": "lukehollis--three-mlagents",
+  "displayName": "three-mlagents",
+  "description": "Three.js + Torch implementation of Unity's ML-Agents framework for agent training and visualization in browser",
+  "version": "1.0.0",
+  "author": "lukehollis",
+  "homepage": "https://github.com/lukehollis/three-mlagents",
+  "skills": []
+}
