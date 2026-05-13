@@ -7,11 +7,11 @@ Use Agent Client Protocol Rebuild Cowork
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Maidang1/open-claude-cowork](https://github.com/Maidang1/open-claude-cowork).
+Original source: `CLAUDE.md` in [Maidang1/open-claude-cowork](https://github.com/Maidang1/open-claude-cowork).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
