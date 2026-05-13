@@ -4,7 +4,7 @@
   "repo": "ilamy-calendar",
   "description": "A modern, open-source Full Calendar alternative for React. Month, week, day, and year views with drag-and-drop, horizontal and vertical resource views, and RFC 5545 recurring events \u2014 all MIT licensed.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kcsujeet/ilamy-calendar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T04:51:08Z"
+  "distributed_at": "2026-05-13T13:17:49Z"
 }
