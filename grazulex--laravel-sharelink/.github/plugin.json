@@ -1,0 +1,9 @@
+{
+  "name": "grazulex--laravel-sharelink",
+  "displayName": "laravel-sharelink",
+  "description": "\ud83d\udd10 Generate, manage, and secure temporary share links for files, routes, and model previews.",
+  "version": "1.0.0",
+  "author": "Grazulex",
+  "homepage": "https://github.com/Grazulex/laravel-sharelink",
+  "skills": []
+}
