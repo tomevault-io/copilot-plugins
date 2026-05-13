@@ -1,0 +1,9 @@
+{
+  "name": "dr-robert-li--cowork-wordpress-expert",
+  "displayName": "cowork-wordpress-expert",
+  "description": "A plugin to turn your Claude agent into a WordPress expert",
+  "version": "1.0.0",
+  "author": "dr-robert-li",
+  "homepage": "https://github.com/dr-robert-li/cowork-wordpress-expert",
+  "skills": []
+}
