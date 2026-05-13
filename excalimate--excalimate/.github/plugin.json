@@ -1,0 +1,9 @@
+{
+  "name": "excalimate--excalimate",
+  "displayName": "excalimate",
+  "description": "Create keyframe animations from hand-drawn Excalidraw diagrams \u2014 timeline editor, camera animation, sequence reveals, and an MCP server for AI-driven creation with real-time live preview Export as MP4",
+  "version": "1.0.0",
+  "author": "excalimate",
+  "homepage": "https://github.com/excalimate/excalimate",
+  "skills": []
+}
