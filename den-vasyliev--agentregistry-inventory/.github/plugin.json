@@ -1,0 +1,9 @@
+{
+  "name": "den-vasyliev--agentregistry-inventory",
+  "displayName": "agentregistry-inventory",
+  "description": "The Control Plane for AI Infrastructure Kubernetes-native registry for MCP servers, agents, skills & models",
+  "version": "1.0.0",
+  "author": "den-vasyliev",
+  "homepage": "https://github.com/den-vasyliev/agentregistry-inventory",
+  "skills": []
+}
