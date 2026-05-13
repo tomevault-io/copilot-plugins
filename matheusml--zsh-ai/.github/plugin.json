@@ -1,0 +1,9 @@
+{
+  "name": "matheusml--zsh-ai",
+  "displayName": "zsh-ai",
+  "description": "Transform natural language into shell commands instantly. No dependencies, no complex setup - just type what you want and get the command you need.",
+  "version": "1.0.0",
+  "author": "matheusml",
+  "homepage": "https://github.com/matheusml/zsh-ai",
+  "skills": []
+}
