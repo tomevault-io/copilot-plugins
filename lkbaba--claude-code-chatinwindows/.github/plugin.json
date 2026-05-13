@@ -1,0 +1,9 @@
+{
+  "name": "lkbaba--claude-code-chatinwindows",
+  "displayName": "Claude-code-ChatInWindows",
+  "description": "Full-featured GUI for Claude Code CLI in VS Code \u2014 Windows (no WSL) & macOS. Third-party API, MCP plugins, Skills, Hooks, real-time token tracking. Actively maintained.",
+  "version": "1.0.0",
+  "author": "LKbaba",
+  "homepage": "https://github.com/LKbaba/Claude-code-ChatInWindows",
+  "skills": []
+}
