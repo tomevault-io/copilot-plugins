@@ -1,0 +1,9 @@
+{
+  "name": "langguard-ai--cursor-otel-hook",
+  "displayName": "cursor-otel-hook",
+  "description": "An easy-to-deploy Python-based OpenTelemetry integration for Cursor IDE  that captures agent activity and exports detailed traces to any OTEL-compliant receiver",
+  "version": "1.0.0",
+  "author": "LangGuard-AI",
+  "homepage": "https://github.com/LangGuard-AI/cursor-otel-hook",
+  "skills": []
+}
