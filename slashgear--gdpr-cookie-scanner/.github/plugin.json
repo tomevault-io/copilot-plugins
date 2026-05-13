@@ -1,0 +1,9 @@
+{
+  "name": "slashgear--gdpr-cookie-scanner",
+  "displayName": "gdpr-cookie-scanner",
+  "description": "CLI tool to scan websites for GDPR cookie consent compliance",
+  "version": "1.0.0",
+  "author": "Slashgear",
+  "homepage": "https://github.com/Slashgear/gdpr-cookie-scanner",
+  "skills": []
+}
