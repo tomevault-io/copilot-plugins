@@ -1,0 +1,44 @@
+{
+  "name": "v2ex-stats",
+  "owner": "geebos",
+  "repo": "v2ex-stats",
+  "description": "V2EX \u786c\u5e01\u83b7\u53d6\u8bb0\u5f55\u53ef\u89c6\u5316\u6269\u5c55\u63d2\u4ef6 \u2014\u2014 \u8ba9\u60a8\u7684 V2EX \u786c\u5e01\u6536\u76ca\u4e00\u76ee\u4e86\u7136",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/geebos/v2ex-stats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-13T21:12:51Z"
+}
