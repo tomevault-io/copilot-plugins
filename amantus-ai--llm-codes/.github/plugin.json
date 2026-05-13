@@ -1,0 +1,9 @@
+{
+  "name": "amantus-ai--llm-codes",
+  "displayName": "llm-codes",
+  "description": "Transform developer documentation to clean Markdown",
+  "version": "1.0.0",
+  "author": "amantus-ai",
+  "homepage": "https://github.com/amantus-ai/llm-codes",
+  "skills": []
+}
