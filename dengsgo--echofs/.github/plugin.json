@@ -1,0 +1,9 @@
+{
+  "name": "dengsgo--echofs",
+  "displayName": "echofs",
+  "description": "A lightweight, single-binary file server written in Rust. Browse directories, preview media files, and share links \u2014 all from your terminal. This is a native AI project, entirely written by AI.",
+  "version": "1.0.0",
+  "author": "dengsgo",
+  "homepage": "https://github.com/dengsgo/echofs",
+  "skills": []
+}
