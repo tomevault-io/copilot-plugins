@@ -1,0 +1,9 @@
+{
+  "name": "navox-labs--agents",
+  "displayName": "agents",
+  "description": "Specialist AI engineering team for Claude Code. 8 agents with HITL checkpoints and /agency-run orchestrator. No platform. No login. MIT.",
+  "version": "1.0.0",
+  "author": "navox-labs",
+  "homepage": "https://github.com/navox-labs/agents",
+  "skills": []
+}
