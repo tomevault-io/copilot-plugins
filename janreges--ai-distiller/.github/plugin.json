@@ -1,0 +1,9 @@
+{
+  "name": "janreges--ai-distiller",
+  "displayName": "ai-distiller",
+  "description": "AI Distiller is ultra\u2011fast, open\u2011source tool for intelligently extracting only the essential public APIs, types, and structure from large codebases. Compresses 90\u201398% of code into AI\u2011friendly context,",
+  "version": "1.0.0",
+  "author": "janreges",
+  "homepage": "https://github.com/janreges/ai-distiller",
+  "skills": []
+}
