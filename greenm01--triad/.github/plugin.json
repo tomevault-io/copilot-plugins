@@ -1,0 +1,9 @@
+{
+  "name": "greenm01--triad",
+  "displayName": "triad",
+  "description": "Triad is a data-oriented window manager for the River Wayland compositor.",
+  "version": "1.0.0",
+  "author": "greenm01",
+  "homepage": "https://github.com/greenm01/triad",
+  "skills": []
+}
