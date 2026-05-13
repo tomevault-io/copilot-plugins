@@ -1,0 +1,59 @@
+## slang-server
+
+> The Slang Server is a SystemVerilog language server written in C++20, and heavily uses the Slang library for parsing and analysis, located at `external/slang`.
+
+# Slang Server Development Guide
+
+The Slang Server is a SystemVerilog language server written in C++20, and heavily uses the Slang library for parsing and analysis, located at `external/slang`.
+
+## Build Commands
+
+```bash
+# Build the project
+cmake -B build
+cmake --build build -j8
+
+# Run tests
+ctest --test-dir build --output-on-failure
+
+# Server tests only- this is the primary testing
+cmake --build build -j8 --target server_unittests && build/bin/server_unittests
+# Add --update if updating the golden outputs which get stored in tests/cpp/golden
+
+# Build the server binary- this is used for pygls pytests and by clients (editors)
+cmake --build build -j8 --target slang_server
+```
+
+## Testing Framework
+
+- **Unit Tests**: Uses Catch2 framework, located in `tests/cpp/`
+- **Test Command**: `ctest --test-dir build --output-on-failure`
+
+## Architecture Overview
+
+`src/SlangServer.cpp`: The single instance server class, that has methods that directly map to the language server routes and hardware language extensions. It holds the indexer, which gathers all of the symbols in the workspace on start up.
+`src/ServerDriver.cpp`: This is a wrapper around the slang driver, and is recreated every time flags need to be parsed. It manages the syntax trees and open documents
+`src/ast/ServerCompilation.cpp`: This is a wrapper around a slang Compilation, and it knows how to update the compilation when
+`src/document/SlangDoc.cpp` This represents a file/SyntaxTree pair, and also manages analysis features for that document, like a token index and a shallow compilation.
+`src/document`: These files have features core LSP features for a document.
+
+## Python environment
+
+We use `uv` for managing the python venv and requirements
+
+## Code Style and Standards
+
+- Follow existing C++ code style (enforced by pre-commit hooks)
+- Use modern C++20 features and idioms
+- Write unit tests for new functionality
+- Maintain high performance and correctness standards
+
+## Development Workflow
+
+1. Build: `cmake -B build && cmake --build build -j8`
+2. Test: `ctest --test-dir build --output-on-failure`
+3. Format: Automatic via pre-commit hooks
+
+---
+> Source: [hudson-trading/slang-server](https://github.com/hudson-trading/slang-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
