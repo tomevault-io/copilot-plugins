@@ -4,7 +4,7 @@
   "repo": "roomkit",
   "description": "Pure async Python framework for multi-channel conversations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roomkit-live/roomkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T20:46:57Z"
+  "distributed_at": "2026-05-13T09:04:30Z"
 }
