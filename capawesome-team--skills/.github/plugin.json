@@ -1,0 +1,9 @@
+{
+  "name": "capawesome-team--skills",
+  "displayName": "skills",
+  "description": "\ud83e\udd16 Agent skills for interacting with Capawesome, Capacitor and the Ionic Framework.",
+  "version": "1.0.0",
+  "author": "capawesome-team",
+  "homepage": "https://github.com/capawesome-team/skills",
+  "skills": []
+}
