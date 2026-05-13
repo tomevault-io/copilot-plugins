@@ -1,0 +1,9 @@
+{
+  "name": "cortesi--agentsmd",
+  "displayName": "agentsmd",
+  "description": "Render per-project AGENTS.md and CLAUDE.md files from a common source",
+  "version": "1.0.0",
+  "author": "cortesi",
+  "homepage": "https://github.com/cortesi/agentsmd",
+  "skills": []
+}
