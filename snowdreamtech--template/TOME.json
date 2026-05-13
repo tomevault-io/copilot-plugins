@@ -4,7 +4,7 @@
   "repo": "template",
   "description": "An enterprise-grade, foundational template designed for multi-AI IDE collaboration. This repository serves as a Single Source of Truth for AI agent rules, workflows, and project configurations, supporting over 50 different AI-assisted IDEs with massive multi-language support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/snowdreamtech/template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T17:54:16Z"
+  "distributed_at": "2026-05-13T05:19:05Z"
 }
