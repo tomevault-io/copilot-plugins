@@ -1,0 +1,9 @@
+{
+  "name": "alexchanshuo--bni-vp-autopilot",
+  "displayName": "BNI-VP-Autopilot",
+  "description": "\u5168\u81ea\u52d5\u5316\u7684BNI\u526f\u4e3b\u5e2d \u2014 Apache 2.0 licensed template of a Telegram + LINE + Obsidian agent that automates the BNI Vice President role. Vexa meeting bot + 5-tier fuzzy attendance + 3 pipelines (post-meeting, Lin",
+  "version": "1.0.0",
+  "author": "AlexChanshuo",
+  "homepage": "https://github.com/AlexChanshuo/BNI-VP-Autopilot",
+  "skills": []
+}
