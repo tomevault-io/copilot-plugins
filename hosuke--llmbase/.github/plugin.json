@@ -1,0 +1,9 @@
+{
+  "name": "hosuke--llmbase",
+  "displayName": "llmbase",
+  "description": "LLM-powered personal knowledge base. Ingest \u2192 Compile \u2192 Query \u2192 Enhance. Inspired by Karpathy.",
+  "version": "1.0.0",
+  "author": "Hosuke",
+  "homepage": "https://github.com/Hosuke/llmbase",
+  "skills": []
+}
