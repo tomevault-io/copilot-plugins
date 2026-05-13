@@ -1,0 +1,9 @@
+{
+  "name": "hkustdial--flash-sparse-attention",
+  "displayName": "flash-sparse-attention",
+  "description": "Trainable fast and memory-efficient sparse attention",
+  "version": "1.0.0",
+  "author": "HKUSTDial",
+  "homepage": "https://github.com/HKUSTDial/flash-sparse-attention",
+  "skills": []
+}
