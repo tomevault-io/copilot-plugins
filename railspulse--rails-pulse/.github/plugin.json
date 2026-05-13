@@ -1,0 +1,9 @@
+{
+  "name": "railspulse--rails-pulse",
+  "displayName": "rails_pulse",
+  "description": "Rails Pulse is a comprehensive performance monitoring and debugging gem that provides insights into your Rails application's health.",
+  "version": "1.0.0",
+  "author": "railspulse",
+  "homepage": "https://github.com/railspulse/rails_pulse",
+  "skills": []
+}
