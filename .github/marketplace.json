@@ -50354,6 +50354,31 @@
       "description": "Sandboxed AI agents, reachable from anywhere"
     },
     {
+      "name": "symfony--ai-demo",
+      "source": "./symfony--ai-demo",
+      "description": "Symfony AI Demo Application"
+    },
+    {
+      "name": "toolprint--just-mcp",
+      "source": "./toolprint--just-mcp",
+      "description": "Share the same project justfile tasks with your AI Coding Agent."
+    },
+    {
+      "name": "simm-is--repl-mcp",
+      "source": "./simm-is--repl-mcp",
+      "description": "Model Context Protocol Clojure support including REPL integration with development tools."
+    },
+    {
+      "name": "carlsverre--kosho",
+      "source": "./carlsverre--kosho",
+      "description": "A CLI tool for managing git worktrees to enable concurrent development environments."
+    },
+    {
+      "name": "goniszewski--cctray",
+      "source": "./goniszewski--cctray",
+      "description": "macOS menu bar app for monitoring Claude Code usage"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -51779,6 +51804,11 @@
       "description": "Soft Scroll is a free, open\u2011source Windows utility that delivers smooth scrolling system\u2011wide. Similar to \u201cSmoothScroll\u201d but free, portable, and configurable (single\u2011file .exe). Smooth Scrolling Free."
     },
     {
+      "name": "dimillian--hypergit",
+      "source": "./dimillian--hypergit",
+      "description": "A small & fast frontend to quickly search your Github repositories and files"
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -52454,6 +52484,11 @@
       "description": "A full-featured JavaScript object mapper"
     },
     {
+      "name": "graflowai--graflow",
+      "source": "./graflowai--graflow",
+      "description": "Composable Python framework for LLM agent workflows focused on simplicity and developer experience. We \u2764\ufe0f OSS."
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -53042,6 +53077,11 @@
       "name": "indras-mirror--llama-cpp-turboq-mtp",
       "source": "./indras-mirror--llama-cpp-turboq-mtp",
       "description": "Fused TBQ4 Flash Attention + MTP + Shared Tensors for llama.cpp \u2014 82+ tok/s with lossless 4.25 bpv KV cache at 200K context on RTX 4090"
+    },
+    {
+      "name": "brandonp2412--blockdrop",
+      "source": "./brandonp2412--blockdrop",
+      "description": "A modern Tetris clone built with Flutter \ud83c\udfae"
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -53812,6 +53852,11 @@
       "name": "sr0725--short-link-tracker",
       "source": "./sr0725--short-link-tracker",
       "description": "short-link-tracker"
+    },
+    {
+      "name": "rizkydwicmt--vibe-ddd-golang",
+      "source": "./rizkydwicmt--vibe-ddd-golang",
+      "description": "vibe-ddd-golang"
     },
     {
       "name": "affitor--open-affiliate",
@@ -54647,6 +54692,11 @@
       "name": "platformatic--react-pprof",
       "source": "./platformatic--react-pprof",
       "description": "React component for visualizing pprof with WebGL"
+    },
+    {
+      "name": "openomy--openomy",
+      "source": "./openomy--openomy",
+      "description": "openomy"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -55489,6 +55539,16 @@
       "description": "An easy-to-use workflow automation library for Go. Supports conditional branching, parallel execution, embedded scripting, and execution checkpointing. Think of it like a lightweight hybrid of Tempora"
     },
     {
+      "name": "femstar08--context-engineering-template",
+      "source": "./femstar08--context-engineering-template",
+      "description": "Context engineering is the new vibe coding - it's the way to actually make AI coding assistants work. Claude Code is the best for this so that's what this repo is centered around, but you can apply th"
+    },
+    {
+      "name": "jovaneyck--fsi-mcp-server",
+      "source": "./jovaneyck--fsi-mcp-server",
+      "description": "A wrapper around F# interactive (fsi) that exposes an MCP server endpoint for AI agents allowing for fsi IO."
+    },
+    {
       "name": "r44vc0rp--itui",
       "source": "./r44vc0rp--itui",
       "description": "itui"
@@ -56314,6 +56374,16 @@
       "description": "In-depth analysis of AI agent transcripts."
     },
     {
+      "name": "vredrick--n8n-mcp",
+      "source": "./vredrick--n8n-mcp",
+      "description": "n8n MCP Server - Documentation and tools for n8n nodes via Model Context Protocol with SSE support"
+    },
+    {
+      "name": "longtail-labs--slide-code",
+      "source": "./longtail-labs--slide-code",
+      "description": "A cross-platform Graphical Vibe Coding Environment (VCE) for Claude Code"
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -57062,6 +57132,16 @@
       "name": "pokutuna--mcp-chrome-tabs",
       "source": "./pokutuna--mcp-chrome-tabs",
       "description": "mcp-chrome-tabs"
+    },
+    {
+      "name": "clearlysid--tauri-plugin-egui",
+      "source": "./clearlysid--tauri-plugin-egui",
+      "description": "supercharge your tauri apps with egui"
+    },
+    {
+      "name": "awesome-compressor--browser-compress-image",
+      "source": "./awesome-compressor--browser-compress-image",
+      "description": "\ud83d\ude80 A powerful, lightweight browser image compression library with TypeScript support. Compress JPEG, PNG, GIF images with multiple output formats (Blob, File, Base64, ArrayBuffer) and zero dependencies"
     },
     {
       "name": "skywind3000--gamesample",
@@ -58994,6 +59074,16 @@
       "description": "obsidian-github-stars-manager"
     },
     {
+      "name": "angelvalentin80--balatro-rl",
+      "source": "./angelvalentin80--balatro-rl",
+      "description": "balatro-rl"
+    },
+    {
+      "name": "terryso--polyv-live-cli",
+      "source": "./terryso--polyv-live-cli",
+      "description": "Agent-First \u8bbe\u8ba1\u7684\u4fdd\u5229\u5a01\u76f4\u64ad\u7ba1\u7406\u547d\u4ee4\u884c\u5de5\u5177"
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -59997,6 +60087,11 @@
       "name": "seatgeek--buildkit-operator",
       "source": "./seatgeek--buildkit-operator",
       "description": "An operator for managing BuildKit instances on Kubernetes"
+    },
+    {
+      "name": "jediluke--firefox-mcp-server",
+      "source": "./jediluke--firefox-mcp-server",
+      "description": "A fully vibe-coded, experimental, MCP server to control firefox"
     },
     {
       "name": "navikt--cplt",
@@ -62484,6 +62579,16 @@
       "description": "A high-performance Python SDK for the ProjectX Trading Platform Gateway API. This library enables developers to build sophisticated trading strategies and applications by providing comprehensive acces"
     },
     {
+      "name": "thierryc--glyphs-mcp",
+      "source": "./thierryc--glyphs-mcp",
+      "description": "Glyphs app mcp server"
+    },
+    {
+      "name": "dnnyngyen--gemini-cli-orchestrator",
+      "source": "./dnnyngyen--gemini-cli-orchestrator",
+      "description": "An MCP server that allows Claude Code orchestrate Gemini for analysis and context-heavy tasks."
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -63742,6 +63847,16 @@
       "name": "quarkusio--spring-quarkus-perf-comparison",
       "source": "./quarkusio--spring-quarkus-perf-comparison",
       "description": "Performance comparison between SpringBoot and Quarkus"
+    },
+    {
+      "name": "parruda--claude-swarm-ui",
+      "source": "./parruda--claude-swarm-ui",
+      "description": "claude-swarm-ui"
+    },
+    {
+      "name": "huiskylabs--solana-validator-switch",
+      "source": "./huiskylabs--solana-validator-switch",
+      "description": "Solana Validator Switch (SVS) - 1-2s Hot Swap & Failover Solution"
     },
     {
       "name": "10xchengtu--mux0",
@@ -65257,6 +65372,11 @@
       "name": "ethereum-optimism--actions",
       "source": "./ethereum-optimism--actions",
       "description": "DeFi Actions SDK for the OP Stack"
+    },
+    {
+      "name": "be-framework--be-framework",
+      "source": "./be-framework--be-framework",
+      "description": "Being, Everything"
     },
     {
       "name": "jojobeans1981--ember-campfire-edition",
@@ -217007,6 +217127,311 @@
       "name": "tomevault-io--codex-plugins",
       "source": "./tomevault-io--codex-plugins",
       "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--tomes",
+      "source": "./tomevault-io--tomes",
+      "description": "tomes"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
     }
   ]
 }
