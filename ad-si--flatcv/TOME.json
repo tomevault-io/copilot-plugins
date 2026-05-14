@@ -4,7 +4,7 @@
   "repo": "FlatCV",
   "description": "Image processing and computer vision library in pure C",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ad-si/FlatCV",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:59:33Z"
+  "distributed_at": "2026-05-14T20:08:38Z"
 }
