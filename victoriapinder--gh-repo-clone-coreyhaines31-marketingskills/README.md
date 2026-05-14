@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [victoriapinder/gh-repo-clone-coreyhaines31-marketingskills](https://github.com/victoriapinder/gh-repo-clone-coreyhaines31-marketingskills).
+Original source: `CLAUDE.md` in [victoriapinder/gh-repo-clone-coreyhaines31-marketingskills](https://github.com/victoriapinder/gh-repo-clone-coreyhaines31-marketingskills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
