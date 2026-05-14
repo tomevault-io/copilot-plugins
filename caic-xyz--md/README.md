@@ -7,11 +7,11 @@ My Development container
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [caic-xyz/md](https://github.com/caic-xyz/md).
+Original source: `CLAUDE.md` in [caic-xyz/md](https://github.com/caic-xyz/md).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
