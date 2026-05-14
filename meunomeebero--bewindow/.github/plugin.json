@@ -1,0 +1,9 @@
+{
+  "name": "meunomeebero--bewindow",
+  "displayName": "bewindow",
+  "description": "A macOS native window make with Tauri to bootstrap your projects",
+  "version": "1.0.0",
+  "author": "meunomeebero",
+  "homepage": "https://github.com/meunomeebero/bewindow",
+  "skills": []
+}
