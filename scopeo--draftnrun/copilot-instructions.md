@@ -1,30 +1,40 @@
-## engine
+## general
 
-> - Components implement the `Runnable` protocol with typed Pydantic I/O schemas.
+> - We use uv to run python code in this project.
 
 
-## Execution Engine Conventions
+## General
 
-- Components implement the `Runnable` protocol with typed Pydantic I/O schemas.
-- `_run_without_io_trace(inputs: BaseModel, ctx: dict) -> BaseModel` is the core execution method — this is what subclasses implement.
-- Port system: `PortDefinition` (catalogue schema) → `PortInstance` (per-graph-instance) → `FieldExpression` (JSON AST wiring and transforms). There is no `port_mappings` table; field expressions are the sole wiring mechanism.
-- `GraphRunner` uses `networkx.DiGraph`, topological scheduling, `ExecutionDirective` for control flow (`CONTINUE`, `HALT`, `SELECTIVE_EDGE_INDICES`). Skipped subgraphs use `TaskState.HALTED` (root of the skipped branch plus descendants), not `COMPLETED`.
-- Field expressions: 5 AST node types (`literal`, `ref`, `var`, `concat`, `json_build`). Key files: `engine/field_expressions/ast.py` (AST), `parser.py`, `serializer.py`, `traversal.py`.
-- `parse_expression_flexible()` accepts `str`, `dict`, and `list`. Dicts that match a serialized AST shape are deserialized via `from_json()`. Plain dicts/lists become `LiteralNode(json.dumps(value))`. The client is responsible for building `json_build` AST nodes for JSON-typed parameters containing `@{{}}` refs/vars.
-- Variable resolution: defaults → layered set overrides. See `ada_backend/services/variable_resolution_service.py`.
-- Secret handling: runtime secrets use `SecretStr` (`pydantic.SecretStr`) and are unwrapped only at explicit execution boundaries (`unwrap_secrets()` / `get_secret_value()`).
-- Observability boundary: `engine/trace/serializer.py` masks `SecretStr`; `shared/log_redaction.py` is best-effort defense-in-depth for untyped payloads/events and is shared by API, scheduler, engine, and worker processes.
-- `requires_tool_name = True` for components that need a `tool_name` input (MCP tools, API tools).
-- Legacy system: some components still use `AgentPayload` pattern (`migrated = False`). New components MUST use the multi-port `NodeData` system (`migrated = True`).
-- `SQLLocalService` engine pools are cached per `engine_url` (process-level). Avoid patterns that instantiate many services for the same URL expecting independent pools.
-- In ingestion code paths, reuse one `SQLLocalService` per job when possible, and ensure `await close()` is called in a `finally` block.
-- `IS_CLOUD_S3` controls folder-source ingestion URL strategy: keep it `False` in local/dev and custom `S3_ENDPOINT_URL` setups (direct file reads; presigned URL getter returns `None`), set it `True` in cloud AWS S3 prod to require presigned URL generation and fail fast on missing URLs.
-- For DB-source ingestion worker flow (`ingestion_script/ingest_db_source.py`), keep a single source `SQLLocalService` per run and share it across validation and fetch helpers.
-- Adding a new component: create class in `engine/components/`, register in `ada_backend/services/registry.py`, add DB seed data (Component, ComponentVersion, PortDefinition, ComponentParameterDefinition rows). Always set `migrated = True`, define Pydantic I/O schemas, define canonical ports.
-- Removing a component: delete the runtime class, registry entry, DB seed definitions, default tool description, and any wrapper components that only exist to invoke it in the same diff. Do not leave dead catalog entries that can still be instantiated through backend graphs or MCP.
-- `SQLSpanExporter` (`engine/trace/sql_exporter.py`): each span is parsed once (`_parse_span_or_error` → dict passed to `_export_span`); do not re-serialize the same span in the export path.
-- Hybrid search: `QdrantService` supports three `SearchMode` values: `semantic` (default, dense only), `keyword` (BM25 sparse only), `hybrid` (dense + sparse with RRF fusion). All collections are hybrid (named `"dense"` + `"sparse"` vectors). Existing component versions default to `semantic` without exposing the parameter; new versions (RAG v4 `0.3.0` in `seed_rag_v4.py`, Retriever v2 `0.0.2`, Retriever Tool v2 `0.0.2`) add `search_mode` as a user-configurable parameter. See `ada_backend/docs/engine.md` for details.
-- See `ada_backend/docs/engine.md` and `ada_backend/docs/payload-and-data-flow.md`.
+- We use uv to run python code in this project.
+- We have a low comment policy → avoid comments in the code. Only add comments when it's really necessary.
+- Always position imports at the top of the file.
+- When you are reported a bug that wasn't found by the pytests, write a new test case after fixing the bug.
+- Line length: 119 chars (matches ruff config).
+
+## Meta-rule
+
+Every code change MUST include updates to affected documentation (`ada_backend/docs/`, README files) and cursor rules (`.cursor/rules/`) in the same change. If you add/remove/rename a route, tool, component, or architectural pattern, update the relevant docs and rules immediately.
+
+## Error Handling
+
+- Never bare `except` — always specify the exception type.
+- Never bare `except Exception` without logging — always log to Sentry or the logger.
+- Use `if` checks instead of try/catch when the check is straightforward.
+
+## No Dead Code
+
+- No commented-out code blocks.
+- No unused imports or variables.
+- No abandoned TODOs without a tracking issue.
+
+## Testing
+
+- Framework: pytest. Run with `uv run pytest`.
+- Write regression tests for every bug fix.
+
+## Domain-Specific Rules
+
+See `.cursor/rules/architecture.mdc` (always-on architecture context), and domain rules: `auth.mdc`, `engine.mdc`, `routers.mdc`, `services.mdc`, `mcp.mdc`.
 
 ---
 > Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — distributed by [TomeVault](https://tomevault.io).
