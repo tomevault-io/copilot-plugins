@@ -1,0 +1,9 @@
+{
+  "name": "canmi21--axum-governor",
+  "displayName": "axum-governor",
+  "description": "Rate limiting middleware for Axum, powered by governor.",
+  "version": "1.0.0",
+  "author": "canmi21",
+  "homepage": "https://github.com/canmi21/axum-governor",
+  "skills": []
+}
