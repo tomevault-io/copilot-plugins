@@ -1,230 +1,140 @@
-## api-conventions
+## bounty-program-architecture
 
-> API design conventions and patterns for backend services
+> Architecture and patterns for the example-bounty-program system
 
 
-# API Conventions
+# Bounty Program Architecture
 
-## Endpoint Structure
+## Project Structure
 
-### Job Management API
-```
-POST   /api/jobs/create              - Create new job
-GET    /api/jobs                     - List jobs (with filters)
-GET    /api/jobs/:jobId              - Get job details
-POST   /api/jobs/:jobId/submit       - Submit work
-GET    /api/jobs/:jobId/submissions  - Get all submissions
-```
+### Backend (Server)
+- [server.js](mdc:example-bounty-program/server/server.js) - Main Express server
+- [utils/archiveGenerator.js](mdc:example-bounty-program/server/utils/archiveGenerator.js) - Creates Verdikta-compatible archives
+- [utils/jobStorage.js](mdc:example-bounty-program/server/utils/jobStorage.js) - Local job database (temporary until smart contracts)
+- [routes/jobRoutes.js](mdc:example-bounty-program/server/routes/jobRoutes.js) - Job management API endpoints
+- [data/jobs.json](mdc:example-bounty-program/server/data/jobs.json) - Local job storage
 
-### Response Format
-Always return JSON with consistent structure:
+### Frontend (Client)
+- [pages/CreateBounty.jsx](mdc:example-bounty-program/client/src/pages/CreateBounty.jsx) - Job creation UI
+- [pages/Home.jsx](mdc:example-bounty-program/client/src/pages/Home.jsx) - Job browsing/search
+- [pages/BountyDetails.jsx](mdc:example-bounty-program/client/src/pages/BountyDetails.jsx) - Job details view
+- [pages/SubmitWork.jsx](mdc:example-bounty-program/client/src/pages/SubmitWork.jsx) - Work submission UI
+- [services/api.js](mdc:example-bounty-program/client/src/services/api.js) - API service layer
 
-**Success Response:**
-```json
-{
-  "success": true,
-  "data": { ... },
-  "message": "Operation completed successfully"
-}
-```
+## Key Concepts
 
-**Error Response:**
-```json
-{
-  "error": "Error category",
-  "details": "Specific error message",
-  "code": "ERROR_CODE" // optional
-}
-```
+### Multi-CID Architecture
+The system generates two types of IPFS archives:
 
-## Request Validation
+1. **Primary CID Archive**: Contains evaluation instructions
+   - `manifest.json` - Jury config, rubric reference, hunter CID reference
+   - `primary_query.json` - Evaluation instructions and outcomes
 
-### Always Validate
-1. Required fields presence
-2. Data types
-3. Value ranges (e.g., threshold 0-100)
-4. String lengths (e.g., narrative max 200 words)
-5. File sizes and types
-6. Ethereum addresses (0x + 40 hex chars)
+2. **Hunter CID Archive**: Contains work submission
+   - `manifest.json` - Work product file references with descriptions
+   - `primary_query.json` - Submission narrative (customizable by hunter)
+   - `submission/` - Directory with actual work product files
 
-### Example Validation Pattern
+### Threshold Separation
+**IMPORTANT**: The threshold is NOT stored in the rubric JSON on IPFS. It is:
+- Stored separately in job records (currently in jobs.json)
+- Will be stored on-chain in smart contracts
+- This allows same rubric to be reused with different thresholds
+
+### Archive Generation Pattern
 ```javascript
-// Validate required fields
-if (!field1 || !field2) {
-  return res.status(400).json({
-    error: 'Missing required fields',
-    details: 'field1 and field2 are required'
-  });
-}
-
-// Validate ranges
-if (threshold < 0 || threshold > 100) {
-  return res.status(400).json({
-    error: 'Invalid threshold',
-    details: 'Threshold must be between 0 and 100'
-  });
-}
-
-// Validate word count
-const wordCount = text.trim().split(/\s+/).length;
-if (wordCount > 200) {
-  return res.status(400).json({
-    error: 'Text too long',
-    details: `Must be 200 words or less (current: ${wordCount})`
-  });
-}
-```
-
-## File Upload Patterns
-
-### Multer Configuration
-```javascript
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../tmp'));
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-    cb(null, `${uniqueSuffix}-${file.originalname}`);
-  }
+// Create Primary archive
+const primaryArchive = await archiveGenerator.createPrimaryCIDArchive({
+  rubricCid,
+  jobTitle,
+  jobDescription,
+  workProductType,
+  classId,
+  juryNodes,
+  iterations,
+  hunterSubmissionCid  // References Hunter archive
 });
 
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    if (isValidFileType(file.mimetype, file.originalname)) {
-      cb(null, true);
-    } else {
-      cb(new Error(`Invalid file type: ${file.mimetype}`));
-    }
-  },
-  limits: {
-    fileSize: MAX_FILE_SIZE,
-    files: 10
-  }
-}).array('files', 10);
-```
-
-### Always Clean Up Temp Files
-```javascript
-try {
-  // Process files
-} finally {
-  // Clean up
-  for (const file of uploadedFiles) {
-    await fs.unlink(file.path).catch(err => 
-      logger.warn('Failed to clean up:', err)
-    );
-  }
-}
-```
-
-## IPFS Integration
-
-### Upload Pattern
-```javascript
-const ipfsClient = req.app.locals.ipfsClient;
-let cid;
-try {
-  cid = await ipfsClient.uploadToIPFS(filePath);
-  logger.info('Uploaded to IPFS', { cid });
-} finally {
-  // Clean up temp file
-  await fs.unlink(filePath).catch(err => 
-    logger.warn('Cleanup failed:', err)
-  );
-}
-```
-
-### Fetch Pattern
-```javascript
-const content = await ipfsClient.fetchFromIPFS(cid);
-const parsed = JSON.parse(content); // if JSON
-```
-
-## Error Handling
-
-### HTTP Status Codes
-- `200` - Success
-- `400` - Bad request (validation errors)
-- `404` - Resource not found
-- `500` - Server error
-- `501` - Not implemented (temporary)
-
-### Logging Errors
-```javascript
-catch (error) {
-  logger.error('Operation failed:', error);
-  
-  if (error.message.includes('not found')) {
-    res.status(404).json({
-      error: 'Resource not found',
-      details: error.message
-    });
-  } else {
-    res.status(500).json({
-      error: 'Operation failed',
-      details: error.message
-    });
-  }
-}
-```
-
-## Query Parameters
-
-### Filtering
-```javascript
-const { status, search, minPayout, limit = 50, offset = 0 } = req.query;
-
-const filters = {};
-if (status) filters.status = status;
-if (search) filters.search = search;
-if (minPayout) filters.minPayout = parseFloat(minPayout);
-```
-
-### Pagination
-Always support `limit` and `offset`:
-```javascript
-const limitNum = parseInt(limit, 10);
-const offsetNum = parseInt(offset, 10);
-const results = allItems.slice(offsetNum, offsetNum + limitNum);
-
-res.json({
-  success: true,
-  data: results,
-  total: allItems.length,
-  limit: limitNum,
-  offset: offsetNum
+// Create Hunter archive
+const hunterArchive = await archiveGenerator.createHunterSubmissionCIDArchive({
+  workProducts: [
+    { path, name, type, description }
+  ],
+  submissionNarrative  // Custom message to evaluators
 });
 ```
 
-## Form Data Handling
+## API Patterns
 
-### Multiple Files with Metadata
-```javascript
-// Frontend
-const formData = new FormData();
-files.forEach(file => formData.append('files', file));
-formData.append('metadata', JSON.stringify(metadata));
+### Job Creation Flow
+1. Frontend: User creates job with rubric and bounty details
+2. Backend: Upload rubric to IPFS → get RUBRIC_CID
+3. Backend: Generate Primary archive → upload to IPFS → get PRIMARY_CID
+4. Backend: Store job in local storage with all CIDs and metadata
+5. Frontend: Display success with job ID and CIDs
 
-// Backend
-const { metadata } = req.body;
-const parsedMetadata = JSON.parse(metadata);
-const uploadedFiles = req.files;
+### Work Submission Flow
+1. Frontend: Hunter uploads files with descriptions and custom narrative
+2. Backend: Create Hunter archive with all files → upload to IPFS → get HUNTER_CID
+3. Backend: Create updated Primary archive referencing HUNTER_CID → upload to IPFS
+4. Backend: Store submission in job record
+5. Frontend: Display CIDs in dialog for testing with example-frontend
+
+## Important Patterns
+
+### Always Generate Complete Archives
+Never generate partial archives. Each archive must have:
+- Valid manifest.json with all required fields
+- Valid primary_query.json
+- All referenced files in correct directory structure
+
+### File Descriptions in Manifest
+Following [Verdikta Manifest Specification](https://docs.verdikta.com/verdikta-common/MANIFEST_SPECIFICATION/):
+```json
+"additional": [
+  {
+    "name": "unique-reference-name",
+    "type": "text/plain",
+    "filename": "submission/file.txt",
+    "description": "Human-readable description for AI context"
+  }
+]
 ```
 
-## Best Practices
+### Submission Narrative (200 Word Limit)
+- Default: Standard thank you message
+- Custom: Hunter can provide context for evaluators
+- Validation: Both frontend and backend enforce 200 word limit
+- Usage: Included in Hunter archive's primary_query.json
 
-1. **Always validate on both frontend and backend**
-2. **Clean up temporary files in finally blocks**
-3. **Log important operations with context**
-4. **Return descriptive error messages**
-5. **Use consistent response formats**
-6. **Include helpful details in error responses**
-7. **Validate file types and sizes**
-8. **Use proper HTTP status codes**
-9. **Handle async operations with try/catch**
-10. **Document complex validation logic**
+## Smart Contract Integration (Future)
+
+When BountyEscrow contracts are deployed, replace:
+- `jobStorage.createJob()` → `contract.createBounty()`
+- `jobStorage.addSubmission()` → `contract.submitAndEvaluate()`
+- Keep archive generation unchanged
+- CID structure remains the same
+
+## Testing Workflow
+
+1. Create job → Get PRIMARY_CID and RUBRIC_CID
+2. Submit work → Get HUNTER_CID and UPDATED_PRIMARY_CID
+3. Test with example-frontend: Use format `UPDATED_PRIMARY_CID,HUNTER_CID`
+4. Verify manifest structure matches blog-post-test example
+
+## Common Pitfalls
+
+❌ Don't include threshold in rubric JSON  
+❌ Don't skip file descriptions in manifest  
+❌ Don't nest files incorrectly (must be in submission/ directory)  
+❌ Don't exceed 200 words in submission narrative  
+❌ Don't allow files over 20MB  
+
+✅ Do validate all inputs on both frontend and backend  
+✅ Do clean up temporary files after uploads  
+✅ Do include descriptive file descriptions  
+✅ Do follow Verdikta manifest specification  
+✅ Do test generated archives before deployment
 
 ---
 > Source: [verdikta/verdikta-applications](https://github.com/verdikta/verdikta-applications) — distributed by [TomeVault](https://tomevault.io).
