@@ -1,12 +1,13 @@
-## trpc
+## typescript
 
-> - Use `zod` schemas for input/output; infer types via `z.infer`
+> - `tsconfig.json` is strict; avoid `any` and prefer precise types
 
-- Use `zod` schemas for input/output; infer types via `z.infer`
-- Keep routers cohesive by domain; avoid God routers
-- Use React Query hooks for client usage; ensure caching keys are stable
-- Serialize with SuperJSON for dates and complex types
-- Keep procedures small; compose middlewares for auth/ratelimiting
+- `tsconfig.json` is strict; avoid `any` and prefer precise types
+- Prefer `interface` for object shapes that will be extended; use `type` for unions and mapped types
+- Derive types from data/validators (e.g., `z.infer<typeof schema>`) to ensure parity
+- Use descriptive names (e.g., `isLoading`, `hasError`); avoid abbreviations
+- Keep functions small with early returns and clear error handling
+- Respect `@/*` alias for imports; avoid deep relative import chains
 
 ---
 > Source: [Saksham-Goel1107/Dionysus](https://github.com/Saksham-Goel1107/Dionysus) — distributed by [TomeVault](https://tomevault.io).
