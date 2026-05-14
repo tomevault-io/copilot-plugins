@@ -2,7 +2,7 @@
   "name": "vibesec",
   "owner": "untamed-theory",
   "repo": "vibesec",
-  "description": "",
+  "description": "Security Rules & Workflows for the new wave of AI Development.",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/untamed-theory",
+  "source_url": "https://github.com/untamed-theory/vibesec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T11:07:45Z"
+  "distributed_at": "2026-05-14T22:33:46Z"
 }
