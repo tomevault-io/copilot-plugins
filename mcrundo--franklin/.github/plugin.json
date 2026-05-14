@@ -1,0 +1,9 @@
+{
+  "name": "mcrundo--franklin",
+  "displayName": "franklin",
+  "description": "Turn technical books into Claude Code plugins",
+  "version": "1.0.0",
+  "author": "mcrundo",
+  "homepage": "https://github.com/mcrundo/franklin",
+  "skills": []
+}
