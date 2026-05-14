@@ -1,6 +1,6 @@
-## beefreesdk-nocode-content-editor-cursorrules-prompt-file
+## beefreesdk
 
-> Cursor rules for embedding Beefree SDK's no-code content editors (for emails, pages, and popups) into a web application.
+> Guidelines and best practices for building applications with [Beefree SDK](https://docs.beefree.io/beefree-sdk), including installation, authentication, configuration, customization, and template management
 
 # Beefree SDK Guidelines
 Guidelines and best practices for building applications with [Beefree SDK](https://docs.beefree.io/beefree-sdk), including installation, authentication, configuration, customization, and template management.
@@ -345,7 +345,11 @@ Guidelines and best practices for building applications with [Beefree SDK](https
     fetch('/api/beefree/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ uid: beeConfig.uid })
+      body: JSON.stringify({
+        client_id: 'your_client_id',
+        client_secret: 'your_client_secret',
+        uid: beeConfig.uid
+      })
     })
     .then(response => {
       if (!response.ok) throw new Error('Auth failed: ' + response.status);
