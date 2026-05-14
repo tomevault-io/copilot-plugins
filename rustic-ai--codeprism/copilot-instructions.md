@@ -1,362 +1,252 @@
-## rust-advanced
+## rust-intermediate
 
-> Enterprise-grade patterns for production systems including security, complex architecture, and deployment. Use this for high-stakes applications requiring authentication, comprehensive testing, and production deployment.
+> **Purpose:** Design patterns, architecture, and performance optimizations for real-world applications. Use this when building web APIs, CLI tools, or any application requiring proper structure and scalability.
 
-# Rust Advanced - Complex Scenarios
+# Rust Intermediate - Additional Patterns
 
-**Purpose:** Enterprise-grade patterns for production systems including security, complex architecture, and deployment. Use this for high-stakes applications requiring authentication, comprehensive testing, and production deployment.
+**Purpose:** Design patterns, architecture, and performance optimizations for real-world applications. Use this when building web APIs, CLI tools, or any application requiring proper structure and scalability.
 
-**When to use:** Production services, security-critical applications, enterprise systems, microservices, or any system requiring bulletproof reliability and performance.
+**When to use:** Production applications, team projects, systems requiring testing/mocking, async programming, or performance-sensitive code.
 
-## Architecture Patterns
+## Design Patterns
 
-**Rule: Use dependency injection with traits for testable, decoupled business logic.**
-Why: Enables testing with mocks, follows SOLID principles, and allows swapping implementations.
+**Rule: Use Builder pattern for structs with 4+ parameters or complex optional configuration.**
+Why: Prevents parameter confusion and enables future extensibility without breaking changes.
 
 ```rust
-#[async_trait]
-pub trait UserRepository: Send + Sync {
-    async fn find_by_id(&self, id: UserId) -> RepositoryResult<Option<User>>;
-    async fn save(&self, user: &User) -> RepositoryResult<()>;
+pub struct DatabaseConfig {
+    host: String,
+    port: u16,
+    database: String,
+    pool_size: Option<u32>,
 }
 
-#[async_trait]
-pub trait EventPublisher: Send + Sync {
-    async fn publish(&self, event: DomainEvent) -> Result<(), EventError>;
+impl DatabaseConfig {
+    pub fn builder() -> DatabaseConfigBuilder { DatabaseConfigBuilder::default() }
 }
 
-pub struct UserDomainService<R, E> 
-where R: UserRepository, E: EventPublisher {
-    repository: Arc<R>,
-    event_publisher: Arc<E>,
+#[derive(Default)]
+pub struct DatabaseConfigBuilder {
+    host: Option<String>,
+    port: Option<u16>,
+    database: Option<String>,
+    pool_size: Option<u32>,
 }
 
-impl<R, E> UserDomainService<R, E>
-where R: UserRepository, E: EventPublisher {
-    pub async fn create_user(&self, cmd: CreateUserCommand) -> DomainResult<User> {
-        let user = User::create(cmd.email, cmd.name, cmd.role)?;
-        self.repository.save(&user).await?;
+impl DatabaseConfigBuilder {
+    pub fn host(mut self, host: impl Into<String>) -> Self {
+        self.host = Some(host.into()); self
+    }
+    
+    pub fn build(self) -> Result<DatabaseConfig, BuildError> {
+        Ok(DatabaseConfig {
+            host: self.host.ok_or(BuildError::MissingHost)?,
+            port: self.port.unwrap_or(5432),
+            database: self.database.ok_or(BuildError::MissingDatabase)?,
+            pool_size: self.pool_size,
+        })
+    }
+}
+```
+
+**Rule: Use Factory pattern for creating different implementations based on runtime conditions.**
+Why: Decouples object creation from usage, essential for dependency injection and testing.
+
+```rust
+pub trait UserRepository {
+    fn find_by_id(&self, id: UserId) -> Result<Option<User>, RepositoryError>;
+}
+
+pub enum StorageType { InMemory, Database(String) }
+
+impl RepositoryFactory {
+    pub fn create(storage_type: StorageType) -> Result<Box<dyn UserRepository>, Error> {
+        match storage_type {
+            StorageType::InMemory => Ok(Box::new(InMemoryRepo::new())),
+            StorageType::Database(url) => Ok(Box::new(DatabaseRepo::new(&url)?)),
+        }
+    }
+}
+```
+
+## Module Organization
+
+**Rule: Group related functionality into modules with clear public interfaces.**
+Why: Improves maintainability and enables better encapsulation.
+
+```rust
+// lib.rs
+pub mod models;
+pub mod repositories;  
+pub mod services;
+
+pub use models::User;
+pub use services::UserService;
+
+// services/user_service.rs
+pub struct UserService<R: UserRepository> {
+    repository: R,
+    validator: UserValidator,
+}
+
+impl<R: UserRepository> UserService<R> {
+    pub async fn create_user(&self, request: CreateUserRequest) -> Result<User, UserServiceError> {
+        self.validator.validate(&request)?;
         
-        let event = DomainEvent::UserCreated {
-            user_id: user.id(),
-            email: user.email().to_string(),
-            created_at: Utc::now(),
-        };
-        self.event_publisher.publish(event).await?;
+        if self.repository.exists_by_email(&request.email).await? {
+            return Err(UserServiceError::EmailAlreadyExists);
+        }
+        
+        let user = User::new(request.email, request.name)?;
+        self.repository.save(&user).await?;
         Ok(user)
     }
 }
 ```
 
-**Rule: Separate commands (writes) from queries (reads) for complex domains.**
-Why: CQRS improves performance, enables event sourcing, and simplifies complex business logic.
+## Advanced Error Handling
+
+**Rule: Create domain-specific error types with context and use type aliases.**
+Why: Provides better debugging information and cleaner function signatures.
 
 ```rust
-// Command side
-#[derive(Debug)]
-pub struct CreateUserCommand {
-    pub email: String,
-    pub name: String,
-    pub role: Role,
+#[derive(Debug, thiserror::Error)]
+pub enum UserServiceError {
+    #[error("Validation failed: {0}")]
+    Validation(#[from] ValidationError),
+    #[error("User with email '{email}' already exists")]
+    EmailAlreadyExists { email: String },
+    #[error("Repository error: {0}")]
+    Repository(#[from] RepositoryError),
 }
 
-#[async_trait]
-pub trait CommandHandler<C> {
-    type Result;
-    type Error;
-    async fn handle(&self, command: C) -> Result<Self::Result, Self::Error>;
-}
+pub type UserResult<T> = Result<T, UserServiceError>;
 
-// Query side
-#[derive(Debug, Serialize)]
-pub struct UserView {
-    pub id: UserId,
-    pub email: String,
-    pub name: String,
-    pub status: UserStatus,
-}
-
-#[async_trait]
-pub trait QueryHandler<Q> {
-    type Result;
-    async fn handle(&self, query: Q) -> Result<Self::Result, Self::Error>;
+// Usage becomes cleaner
+pub async fn find_user(&self, id: UserId) -> UserResult<User> {
+    self.repository.find_by_id(id).await?
+        .ok_or_else(|| UserServiceError::UserNotFound { id })
 }
 ```
 
-## Security Implementation
+## Enhanced Testing
 
-**Rule: Hash passwords with Argon2 and implement secure JWT handling.**
-Why: Prevents authentication bypass and protects against credential theft.
-
-```rust
-use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier};
-use jsonwebtoken::{encode, decode, Header, Algorithm, Validation};
-
-pub struct AuthService {
-    encoding_key: EncodingKey,
-    decoding_key: DecodingKey,
-    argon2: Argon2<'static>,
-}
-
-impl AuthService {
-    pub fn hash_password(&self, password: &str) -> Result<String, AuthError> {
-        let salt = SaltString::generate(&mut OsRng);
-        let hash = self.argon2.hash_password(password.as_bytes(), &salt)
-            .map_err(AuthError::HashingFailed)?;
-        Ok(hash.to_string())
-    }
-    
-    pub fn authenticate(&self, email: &str, password: &str, stored_hash: &str) -> Result<String, AuthError> {
-        let parsed_hash = PasswordHash::new(stored_hash)
-            .map_err(|_| AuthError::InvalidCredentials)?;
-            
-        self.argon2.verify_password(password.as_bytes(), &parsed_hash)
-            .map_err(|_| AuthError::InvalidCredentials)?;
-        
-        let claims = Claims {
-            sub: email.to_string(),
-            exp: (Utc::now() + Duration::hours(24)).timestamp() as usize,
-            roles: vec!["user".to_string()],
-        };
-        
-        encode(&Header::default(), &claims, &self.encoding_key)
-            .map_err(AuthError::TokenGeneration)
-    }
-}
-```
-
-**Rule: Sanitize and validate all inputs to prevent injection attacks.**
-Why: Input validation prevents most security vulnerabilities including XSS and injection attacks.
+**Rule: Use parameterized tests and fixtures to reduce test duplication.**
+Why: Provides comprehensive coverage with minimal boilerplate.
 
 ```rust
-use regex::Regex;
-use once_cell::sync::Lazy;
+use rstest::*;
 
-static EMAIL_REGEX: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"^[^\s@]+@[^\s@]+\.[^\s@]+$").unwrap()
-});
+#[rstest]
+#[case("test@example.com", true)]
+#[case("invalid-email", false)]
+#[case("", false)]
+fn test_email_validation(#[case] email: &str, #[case] expected: bool) {
+    assert_eq!(is_valid_email(email), expected);
+}
 
-pub struct SecurityValidator;
+// Test fixtures
+struct TestSetup {
+    service: UserService<MockUserRepository>,
+}
 
-impl SecurityValidator {
-    pub fn sanitize_string(&self, input: &str, max_length: usize) -> Result<String, ValidationError> {
-        if input.len() > max_length {
-            return Err(ValidationError::InputTooLong { max: max_length });
-        }
-        
-        // Remove dangerous characters
-        let sanitized = input.chars()
-            .filter(|c| c.is_alphanumeric() || " .,!?-_@".contains(*c))
-            .collect();
-        
-        Ok(sanitized)
-    }
-    
-    pub fn validate_email(&self, email: &str) -> Result<(), ValidationError> {
-        if !EMAIL_REGEX.is_match(email) || email.len() > 254 {
-            return Err(ValidationError::InvalidEmail);
-        }
-        Ok(())
+impl TestSetup {
+    fn new() -> Self {
+        let mock_repo = MockUserRepository::new();
+        let service = UserService::new(mock_repo);
+        Self { service }
     }
 }
-```
 
-## Advanced Testing
-
-**Rule: Use property-based testing to verify invariants across many inputs.**
-Why: Finds edge cases manual tests miss and provides better coverage with less code.
-
-```rust
-use proptest::prelude::*;
-
-proptest! {
-    #[test]
-    fn test_user_serialization_invariant(
-        email in "[a-z]+@[a-z]+\\.[a-z]+",
-        name in "[A-Za-z ]{1,50}",
-    ) {
-        let user = User::new(email.clone(), name.clone()).unwrap();
-        let serialized = serde_json::to_string(&user).unwrap();
-        let deserialized: User = serde_json::from_str(&serialized).unwrap();
-        
-        prop_assert_eq!(user.email(), deserialized.email());
-        prop_assert_eq!(user.name(), deserialized.name());
-    }
-    
-    #[test]
-    fn test_password_hashing_security(password in "[a-zA-Z0-9]{8,128}") {
-        let auth_service = AuthService::new();
-        let hash1 = auth_service.hash_password(&password).unwrap();
-        let hash2 = auth_service.hash_password(&password).unwrap();
-        
-        // Same password should produce different hashes (salt)
-        prop_assert_ne!(hash1, hash2);
-        prop_assert!(auth_service.verify_password(&password, &hash1).unwrap());
-    }
-}
-```
-
-**Rule: Use test containers for integration tests requiring real infrastructure.**
-Why: Provides isolated, reproducible environments that match production.
-
-```rust
 #[tokio::test]
-async fn test_user_repository_integration() {
-    let docker = clients::Cli::default();
-    let postgres = docker.run(Postgres::default());
-    
-    let connection_string = format!(
-        "postgres://postgres@localhost:{}/postgres",
-        postgres.get_host_port_ipv4()
-    );
-    
-    let pool = PgPoolOptions::new().connect(&connection_string).await.unwrap();
-    sqlx::migrate!("./migrations").run(&pool).await.unwrap();
-    
-    let repository = PostgresUserRepository::new(pool);
-    let user = repository.save(User::new("test@example.com", "Test User")?).await?;
-    let retrieved = repository.find_by_id(user.id()).await?.unwrap();
-    
-    assert_eq!(user.email(), retrieved.email());
+async fn test_create_user_success() {
+    let setup = TestSetup::new();
+    // Configure mocks and test...
 }
 ```
 
-## Performance Optimization
+## Async Programming
 
-**Rule: Process large datasets in chunks to avoid memory exhaustion.**
-Why: Keeps memory usage constant and enables parallel processing.
+**Rule: Use async traits for I/O operations and concurrent processing for independent tasks.**
+Why: Enables non-blocking operations and better scalability.
 
 ```rust
-use rayon::prelude::*;
+#[async_trait]
+pub trait EmailService: Send + Sync {
+    async fn send_email(&self, to: &str, subject: &str, body: &str) -> Result<(), EmailError>;
+}
 
-pub struct DataProcessor;
+// Concurrent processing
+use futures::future::join_all;
 
-impl DataProcessor {
-    pub fn process_large_file<R: Read>(
-        &self,
-        reader: R,
-        chunk_size: usize,
-    ) -> Result<ProcessingResult, ProcessingError> {
-        let mut reader = BufReader::new(reader);
-        let mut buffer = vec![0u8; chunk_size];
-        let mut result = ProcessingResult::default();
-        
-        loop {
-            let bytes_read = reader.read(&mut buffer)?;
-            if bytes_read == 0 { break; }
-            
-            // Process chunk in parallel
-            let chunk_result = buffer[..bytes_read]
-                .par_chunks(1024)
-                .map(|chunk| self.process_chunk(chunk))
-                .reduce(|| ProcessingResult::default(), |a, b| a.merge(b));
-                
-            result = result.merge(chunk_result);
+pub async fn process_users_concurrently<F, Fut>(
+    users: Vec<User>,
+    processor: F,
+) -> Vec<Result<ProcessedUser, ProcessError>>
+where
+    F: Fn(User) -> Fut + Clone,
+    Fut: Future<Output = Result<ProcessedUser, ProcessError>>,
+{
+    let futures = users.into_iter().map(processor).collect::<Vec<_>>();
+    join_all(futures).await
+}
+```
+
+## Performance Patterns
+
+**Rule: Pre-allocate collections and use caching with read-write locks.**
+Why: Reduces allocations and improves throughput under concurrent load.
+
+```rust
+// Pre-allocation
+pub fn build_user_list(users: &[User]) -> String {
+    let mut result = String::with_capacity(users.len() * 50);
+    for user in users {
+        use std::fmt::Write;
+        writeln!(result, "{}: {}", user.name(), user.email()).unwrap();
+    }
+    result
+}
+
+// Caching pattern
+use tokio::sync::RwLock;
+
+pub struct CachedUserService<R: UserRepository> {
+    repository: R,
+    cache: Arc<RwLock<HashMap<UserId, Arc<User>>>>,
+}
+
+impl<R: UserRepository> CachedUserService<R> {
+    pub async fn get_user(&self, id: UserId) -> UserResult<Arc<User>> {
+        // Try cache first
+        if let Some(user) = self.cache.read().await.get(&id) {
+            return Ok(Arc::clone(user));
         }
         
-        Ok(result)
+        // Cache miss - fetch and store
+        let user = self.repository.find_by_id(id).await?
+            .ok_or_else(|| UserServiceError::UserNotFound { id })?;
+        let user_arc = Arc::new(user);
+        self.cache.write().await.insert(id, Arc::clone(&user_arc));
+        Ok(user_arc)
     }
 }
 ```
 
-**Rule: Use semaphores to control concurrency and prevent resource exhaustion.**
-Why: Provides backpressure and keeps applications stable under load.
+## Additional Dependencies
 
-```rust
-use tokio::sync::Semaphore;
+**Rule: Add intermediate-level dependencies for async programming and enhanced testing.**
+Why: These dependencies enable advanced patterns covered in this rule set.
 
-pub struct WorkerPool<T> {
-    semaphore: Arc<Semaphore>,
-    sender: mpsc::UnboundedSender<T>,
-}
-
-impl<T: Send + 'static> WorkerPool<T> {
-    pub fn new<F, Fut>(max_workers: usize, worker_fn: F) -> Self 
-    where F: Fn(T) -> Fut + Send + Sync + 'static, Fut: Future<Output = ()> + Send {
-        let semaphore = Arc::new(Semaphore::new(max_workers));
-        let (sender, mut receiver) = mpsc::unbounded_channel();
-        let worker_fn = Arc::new(worker_fn);
-        
-        tokio::spawn(async move {
-            while let Some(item) = receiver.recv().await {
-                let semaphore = semaphore.clone();
-                let worker_fn = worker_fn.clone();
-                
-                tokio::spawn(async move {
-                    let _permit = semaphore.acquire().await.unwrap();
-                    worker_fn(item).await;
-                });
-            }
-        });
-        
-        Self { semaphore, sender }
-    }
-}
-```
-
-## Production Configuration
-
-**Rule: Configure comprehensive production settings for performance and observability.**
-Why: Production requires different optimizations and monitoring than development.
-
+**Add these to the base Cargo.toml from project-setup.md:**
 ```toml
-[package]
-name = "production_service"
-version = "0.1.0"
-edition = "2021"
-
 [dependencies]
-tokio = { version = "1.0", features = ["full"] }
-serde = { version = "1.0", features = ["derive"] }
-thiserror = "1.0"
-argon2 = "0.5"
-jsonwebtoken = "9.0"
-tracing = "0.1"
-tracing-subscriber = "0.3"
+async-trait = "0.1"     # Async traits
+futures = "0.3"         # Async utilities
+tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
 
 [dev-dependencies]
-proptest = "1.4"
-testcontainers = "0.15"
-
-[profile.release]
-opt-level = 3
-lto = "fat"
-codegen-units = 1
-panic = "abort"
-strip = true
-```
-
-**Rule: Implement CI/CD with security audits and performance regression tests.**
-Why: Production systems require comprehensive validation before deployment.
-
-```yaml
-name: Production Pipeline
-on: [push, pull_request]
-
-jobs:
-  security-audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: cargo audit
-      - run: cargo clippy -- -D warnings
-  
-  performance-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: cargo bench
-      - uses: benchmark-action/github-action-benchmark@v1
-  
-  integration-test:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:15
-        env: { POSTGRES_PASSWORD: postgres }
-    steps:
-      - uses: actions/checkout@v4
-      - run: cargo test --test integration_tests
+mockall = "0.11"        # Mocking
 ```
 
 ---
