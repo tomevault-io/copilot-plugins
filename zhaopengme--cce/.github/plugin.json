@@ -1,0 +1,9 @@
+{
+  "name": "zhaopengme--cce",
+  "displayName": "cce",
+  "description": "  CCE (Claude Config Environment): A command-line tool written in Rust to effortlessly manage and switch between multiple Claude API providers.",
+  "version": "1.0.0",
+  "author": "zhaopengme",
+  "homepage": "https://github.com/zhaopengme/cce",
+  "skills": []
+}
