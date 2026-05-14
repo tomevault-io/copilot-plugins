@@ -1,0 +1,9 @@
+{
+  "name": "huml-lang--huml-rs",
+  "displayName": "huml-rs",
+  "description": "Rust library for parsing Human-oriented Markup Language(HUML) http://huml.io",
+  "version": "1.0.0",
+  "author": "huml-lang",
+  "homepage": "https://github.com/huml-lang/huml-rs",
+  "skills": []
+}
