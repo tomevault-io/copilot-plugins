@@ -2,9 +2,9 @@
   "name": "mcp-server",
   "owner": "blockscout",
   "repo": "mcp-server",
-  "description": "AI instruction files for mcp-server by blockscout",
+  "description": "Wraps Blockscout APIs and exposes blockchain data by Model Context Protocol",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,39 @@
       "path": ".claude/skills/gh-issue-improvement",
       "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/gh-issue-improvement",
       "description": ""
+    },
+    {
+      "name": "gh-issue-publish",
+      "path": ".claude/skills/gh-issue-publish",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/gh-issue-publish",
+      "description": ""
+    },
+    {
+      "name": "implementation-plan-review",
+      "path": ".codex/skills/implementation-plan-review",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.codex/skills/implementation-plan-review",
+      "description": ""
+    },
+    {
+      "name": "plan-export",
+      "path": ".claude/skills/plan-export",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/plan-export",
+      "description": ""
+    },
+    {
+      "name": "read-temp-file",
+      "path": ".gemini/skills/read-temp-file",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.gemini/skills/read-temp-file",
+      "description": ""
+    },
+    {
+      "name": "test-guided-tool-run",
+      "path": ".claude/skills/test-guided-tool-run",
+      "github_url": "https://github.com/blockscout/mcp-server/tree/main/.claude/skills/test-guided-tool-run",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/blockscout",
+  "source_url": "https://github.com/blockscout/mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T14:33:26Z"
+  "distributed_at": "2026-05-14T22:30:08Z"
 }
