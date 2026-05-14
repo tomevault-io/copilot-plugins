@@ -4,7 +4,7 @@
   "repo": "soft-scroll",
   "description": "Soft Scroll is a free, open\u2011source Windows utility that delivers smooth scrolling system\u2011wide. Similar to \u201cSmoothScroll\u201d but free, portable, and configurable (single\u2011file .exe). Smooth Scrolling Free.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rafaelsg-01/soft-scroll",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:54:58Z"
+  "distributed_at": "2026-05-14T05:44:27Z"
 }
