@@ -1,26 +1,33 @@
-## ai-sdk-integration
+## build-and-publish
 
-> Guidance for integrating with the Vercel AI SDK
+> Build, type-check, test, and publish workflow for the package
 
-# AI SDK Integration
+# Build and Publish
 
-The provider implements the `LanguageModelV2` contract and is designed to work with the Vercel AI SDK.
+## Build Outputs
 
-## Key Points
+- Bundler: tsup (CJS + ESM + DTS + sourcemaps) — see [tsup.config.ts](mdc:tsup.config.ts)
+- Output dir: [dist/](mdc:dist/)
+- Package exports configured in [package.json](mdc:package.json)
 
-- Create models via the provider function: `const model = provider("gpt-4o")`.
-- Supported operations include `doGenerate` and `doStream` (see [src/sap-ai-chat-language-model.ts](mdc:src/sap-ai-chat-language-model.ts)).
-- Tool calling is supported by passing `tools` in call options.
-- Structured outputs (JSON schema response_format) are enabled for most models except Anthropic and Amazon families.
-- `n` (multi-choice) is disabled for Amazon models.
+## Commands
 
-## Recommended API Usage
+- Clean: `npm run clean`
+- Build: `npm run build`
+- Type-check: `npm run type-check`
+- Lint: `npm run lint`
+- Prettier check/fix: `npm run prettier-check` / `npm run prettier-fix`
+- Test (all): `npm test`
 
-- Text generation: `generateText` with `model: provider("<modelId>")`.
-- Streaming: `streamText` for SSE token streams.
-- Structured outputs: `generateObject` when the model supports JSON schema.
+`prepublishOnly` enforces type-check, tests, and build before publish (see [package.json](mdc:package.json)).
 
-Refer to examples in [README.md](mdc:README.md) and [examples/](mdc:examples/).
+## Node Engine
+
+- Requires Node >= 18 (see `engines` in [package.json](mdc:package.json)).
+
+## Verification
+
+- Verify distribution artifacts exist: `npm run check-build`.
 
 ---
 > Source: [BITASIA/sap-ai-provider](https://github.com/BITASIA/sap-ai-provider) — distributed by [TomeVault](https://tomevault.io).
