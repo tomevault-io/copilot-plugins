@@ -1,172 +1,86 @@
-## kodio
+## architecture
 
-> Kodio is a Kotlin Multiplatform (KMP) audio library with extensions for Compose UI and transcription (OpenAI Whisper).
+> Kodio KMP audio library architecture, module boundaries, and development patterns
 
-# Kodio Project Rules
 
-## Project Overview
-Kodio is a Kotlin Multiplatform (KMP) audio library with extensions for Compose UI and transcription (OpenAI Whisper).
+# Kodio Architecture
 
-## Repository Structure
-- `kodio-core/` - Core audio library
-- `kodio-extensions/compose/` - Compose UI components
-- `kodio-extensions/compose-material3/` - Material 3 themed components
-- `kodio-extensions/transcription/` - Audio transcription (OpenAI Whisper)
-- `kodio-sample-app/` - Demo application
-- `build-logic/` - Shared Gradle convention plugins
+## Module Map
 
-## GitHub CLI Commands
+| Module | Purpose | Package |
+|--------|---------|---------|
+| `kodio-core` | Core audio API (recording, playback, devices, formats, file I/O) | `space.kodio.core` |
+| `kodio-extensions/compose` | Compose UI integration (`RecorderState`, `PlayerState`, `AudioWaveform`) | `space.kodio.compose` |
+| `kodio-extensions/compose-material3` | Material 3 themed audio components | `space.kodio.compose.material3` |
+| `kodio-extensions/transcription` | Audio transcription via OpenAI Whisper | `space.kodio.transcription` |
+| `kodio-native/audio-permissions` | Platform permission handling | `space.kodio.native.permissions` |
+| `kodio-native/audio-processing` | Native audio processing utilities | `space.kodio.native.processing` |
+| `kodio-sample-app` | Demo app (desktop, Android, iOS, web) | `space.kodio.sample` |
+| `build-logic` | Gradle convention plugins (includeBuild) | — |
 
-The project uses GitHub CLI (`gh`) for managing releases, issues, and PRs.
+## KMP Source Set Structure
 
-### Common Commands
-```bash
-# List recent workflow runs
-gh run list --limit 5
+Each module follows the standard Kotlin Multiplatform source set layout:
 
-# Watch a specific workflow run
-gh run watch <run-id>
-
-# View failed job logs
-gh run view <run-id> --log-failed
-
-# List releases
-gh release list
-
-# View release details
-gh release view <tag>
-
-# Create an issue
-gh issue create --title "Title" --body "Description"
-
-# List issues
-gh issue list
-
-# Create a PR
-gh pr create --title "Title" --body "Description"
-
-# Merge a PR
-gh pr merge <pr-number>
+```
+src/
+├── commonMain/kotlin/     # Shared API (expect declarations, interfaces, pure Kotlin)
+├── commonTest/kotlin/     # Shared tests
+├── jvmMain/kotlin/        # JVM/Desktop (javax.sound.sampled)
+├── androidMain/kotlin/    # Android (AudioRecord, AudioTrack, MediaRecorder)
+├── iosMain/kotlin/        # iOS (AVAudioEngine, AVAudioSession)
+├── macosMain/kotlin/      # macOS (AudioQueue, CoreAudio)
+├── jsMain/kotlin/         # Browser (Web Audio API, MediaRecorder)
+└── nativeMain/kotlin/     # Shared native code (iOS + macOS)
 ```
 
-## Release Process
+## Core API Layers
 
-### Tag-Based Releases
-Releases are automated via GitHub Actions when you push a version tag:
+### Layer 1: Entry Point — `Kodio` object
+- `Kodio.recorder()` / `Kodio.player()` — create instances
+- `Kodio.record()` / `Kodio.play()` — convenience one-shot methods
+- `Kodio.listInputDevices()` / `Kodio.listOutputDevices()`
+- `Kodio.microphonePermission` — permission state
 
-```bash
-# 1. Ensure you're on master with latest changes
-git checkout master
-git pull origin master
+### Layer 2: High-Level — `Recorder` / `Player`
+- Wraps sessions with simplified start/stop/toggle/release lifecycle
+- `Recorder.getRecording()` → `AudioRecording`
+- `Player.load(recording)` → ready for playback
 
-# 2. Create and push a version tag
-git tag v0.2.0
-git push origin v0.2.0
-```
+### Layer 3: Session — `AudioRecordingSession` / `AudioPlaybackSession`
+- Platform-specific implementations via `expect`/`actual`
+- State machines: `Idle → Recording → Stopped` / `Idle → Ready → Playing ⇄ Paused → Finished`
+- Exposes `StateFlow<State>` and `StateFlow<AudioFlow?>`
 
-This automatically:
-1. Runs the full test suite
-2. Creates a GitHub Release with auto-generated changelog
-3. Publishes all artifacts to Maven Central
+### Layer 4: System — `AudioSystem` (expect/actual)
+- Factory for sessions and device enumeration
+- `SystemAudioSystem` singleton per platform
 
-### Tag Naming Convention
-- Release versions: `v1.0.0`, `v0.2.0`, `v1.2.3`
-- Pre-releases: `v1.0.0-alpha`, `v1.0.0-beta.1`, `v1.0.0-rc.1` (auto-marked as prerelease)
+## Key Types
 
-### Release Drafter
-The repository uses release-drafter to auto-draft release notes as PRs are merged.
-- Draft releases accumulate changes until you push a tag
-- PRs are auto-labeled based on branch names (`feature/*`, `fix/*`, etc.)
+- `AudioFormat` — sample rate, channels, bit depth
+- `AudioQuality` — presets (Low, Standard, High, UltraHigh, Custom)
+- `AudioRecording` — completed recording (format + data)
+- `AudioFlow` — streaming audio data (format + `Flow<ByteArray>`)
+- `AudioDevice.Input` / `AudioDevice.Output` — device descriptors
+- `AudioError` — sealed class hierarchy for typed errors
 
-### Cleaning Up a Bad Release
-```bash
-# Delete a release and its tag
-gh release delete <tag> --yes
-git tag -d <tag>
-git push origin :refs/tags/<tag>
-```
+## Compose Extension Patterns
 
-### Checking Release Status
-```bash
-# Check if workflows triggered
-gh run list --limit 5
+- `RecorderState` / `PlayerState` — `@Composable` state holders wrapping `Recorder` / `Player`
+- `AudioWaveform` — real-time waveform visualizer composable
+- `RecordAudioButton` / `PlayAudioButton` — ready-to-use UI components
+- `KodioTheme` / `KodioComponents` — theming and component factory
 
-# Watch the publish workflow
-gh run watch <run-id>
+## Development Rules
 
-# Verify release was created
-gh release view <tag>
-```
-
-## CI/CD Workflows
-
-### Workflows
-- `.github/workflows/gradle.yml` - CI tests (jvmTest)
-- `.github/workflows/publish.yml` - Tag-triggered release & publish
-- `.github/workflows/release-drafter.yml` - Auto-draft release notes
-- `.github/workflows/docs.yml` - Build and deploy docs to GitHub Pages
-
-### CI Skip Behavior
-Tests are automatically skipped for documentation-only changes:
-- `**.md` - Markdown files
-- `docs/**`, `kodio-docs/**` - Documentation directories
-- `.cursorrules`, `LICENSE`, `.gitignore` - Config files
-
-Tests always run for:
-- Code changes (`*.kt`, `*.gradle.kts`, etc.)
-- Version tags (`v*`)
-- Workflow calls from publish.yml
-
-### Secrets Required for Publishing
-- `MAVEN_CENTRAL_USERNAME`
-- `MAVEN_CENTRAL_PASSWORD`
-- `SIGNING_KEY_ID`
-- `SIGNING_PASSWORD`
-- `GPG_KEY_CONTENTS`
-
-## Local Development
-
-### Prerequisites
-- JDK 21+
-- Android SDK (set in `local.properties`)
-
-### Key Commands
-```bash
-# Run JVM tests
-./gradlew jvmTest
-
-# Run desktop sample app
-./gradlew :kodio-sample-app:desktopRun
-
-# Publish to Maven Local (for testing)
-./gradlew publishToMavenLocal
-```
-
-### Configuration Files
-- `local.properties` - SDK paths, API keys (gitignored)
-- `gradle.properties` - Version (`kodio.version=X.X.X`)
-
-## Transcription Module
-
-The transcription module uses OpenAI Whisper API.
-
-### API Key Setup
-Add to `local.properties`:
-```properties
-openai.api.key=sk-proj-...
-```
-
-### Usage
-```kotlin
-val engine = OpenAIWhisperEngine(apiKey)
-audioFlow.transcribe(engine).collect { result ->
-    when (result) {
-        is TranscriptionResult.Partial -> println(result.text)
-        is TranscriptionResult.Final -> println(result.text)
-        is TranscriptionResult.Error -> println(result.message)
-    }
-}
-```
+1. **Public API lives in `commonMain`**. Platform code implements via `expect`/`actual` or interfaces.
+2. **New platform support** = add a new source set with `actual` implementations. Never put platform-specific logic in `commonMain`.
+3. **State is always `StateFlow`**. All observable state uses Kotlin `StateFlow`, never mutable properties or callbacks.
+4. **Errors use `AudioError`**. Wrap platform exceptions into the `AudioError` sealed hierarchy. Never leak platform exceptions.
+5. **Resources must be released**. `Recorder.release()` / `Player.release()` or use the `.use {}` extension.
+6. **Tests run on JVM**. Primary CI runs `./gradlew jvmTest`. Platform-specific tests require their respective environments.
+7. **Version** is in `gradle.properties` (`kodio.version`). Never hardcode versions elsewhere.
 
 ---
 > Source: [dosier/kodio](https://github.com/dosier/kodio) — distributed by [TomeVault](https://tomevault.io).
