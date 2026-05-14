@@ -1,0 +1,9 @@
+{
+  "name": "umputun--local-docs-mcp",
+  "displayName": "local-docs-mcp",
+  "description": "MCP serving local docs",
+  "version": "1.0.0",
+  "author": "umputun",
+  "homepage": "https://github.com/umputun/local-docs-mcp",
+  "skills": []
+}
