@@ -1,0 +1,9 @@
+{
+  "name": "mattmireles--kokoro-coreml",
+  "displayName": "kokoro-coreml",
+  "description": "PyTorch \u2192 CoreML conversion pipeline for Kokoro TTS. Unlocks fast on-device text-to-speech on Apple Neural Engine. ",
+  "version": "1.0.0",
+  "author": "mattmireles",
+  "homepage": "https://github.com/mattmireles/kokoro-coreml",
+  "skills": []
+}
