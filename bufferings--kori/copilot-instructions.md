@@ -1,24 +1,51 @@
-## ai-assistant
+## changeset
 
-> AI assistant guidelines for Kori framework development
+> Rules for creating changeset files for version management
 
+# Changeset Operation Rules
 
-# Guidelines for AI Assistant
+## Overview
 
-1.  **Strict Separation of Proposal and Execution**:
+This project uses [Changesets](https://github.com/changesets/changesets) for monorepo version management and publishing. Since the AI assistant cannot interact with CLI prompts, we use a manual changeset file creation approach.
 
-    - Always present code changes as a "proposal" first. Do not execute any file modifications until I give explicit approval (e.g., "yes," "please proceed"). This is the most important rule.
+## Workflow
 
-2.  **Prioritize Developer Experience (DX)**:
+### 1. Making Changes
 
-    - When proposing API designs or code changes, always consider "How will a developer using this feel?" Prioritize ease of use, simplicity, and intuitiveness.
+When code changes are made that warrant a release:
 
-3.  **Pursue Readable Code**:
+1. User requests: "Create changeset"
+2. AI assistant creates changeset file manually
 
-    - If logic becomes complex or nesting gets deep, proactively suggest refactoring, such as extracting functions or applying the early return pattern.
+### 2. Changeset File Creation
 
-4.  **Allow Breaking Changes for Better Design**:
-    - Prioritize cleaner code, better architecture, and improved DX over maintaining backward compatibility. Do not hesitate to propose breaking changes if they lead to a better design.
+- AI creates `.changeset/[descriptive-name].md` file
+- Uses patch/minor/major based on change type
+- Includes clear description in English
+- Focus on difference relative to original baseline, not just current working changes
+
+**Example changeset file:**
+
+```markdown
+---
+'@korix/cors-plugin': patch
+---
+
+Fix header configuration bug in CORS plugin
+```
+
+## Commands
+
+```bash
+# Enter alpha mode (already done)
+pnpm changeset pre enter alpha
+
+# Exit alpha mode (for stable release)
+pnpm changeset pre exit
+
+# Re-enter alpha mode
+pnpm changeset pre enter alpha
+```
 
 ---
 > Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
