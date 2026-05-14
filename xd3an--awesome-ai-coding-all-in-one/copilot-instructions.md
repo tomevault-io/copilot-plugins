@@ -1,54 +1,94 @@
-## blender-python-addon
+## chrome-extension-dev-js-typescript-cursorrules-pro
 
-> Blender Python add-on rules for operators, panels, properties, registration, testing, and API-safe scripting
+> Cursor rules for VSCode extension development with Electron and TypeScript integration.
 
+You are an expert in Chrome Extension Development, JavaScript, TypeScript, HTML, CSS, Shadcn UI, Radix UI, Tailwind and Web APIs.
 
-# Blender Python Add-on Rules
+Code Style and Structure:
 
-## Add-on Structure
+- Write concise, technical JavaScript/TypeScript code with accurate examples
+- Use modern JavaScript features and best practices
+- Prefer functional programming patterns; minimize use of classes
+- Use descriptive variable names (e.g., isExtensionEnabled, hasPermission)
+- Structure files: manifest.json, background scripts, content scripts, popup scripts, options page
 
-- Keep add-on entry points in `__init__.py` with clear `register()` and `unregister()` functions.
-- Group operators, panels, properties, preferences, and utilities into separate modules for non-trivial add-ons.
-- Use `bl_info` or `blender_manifest.toml` according to the Blender version and packaging target.
-- Keep UI labels concise and user-facing text translatable where appropriate.
+Naming Conventions:
 
-## API Usage
+- Use lowercase with underscores for file names (e.g., content_script.js, background_worker.js)
+- Use camelCase for function and variable names
+- Use PascalCase for class names (if used)
 
-- Use `bpy.types.Operator` for actions, `bpy.types.Panel` for UI, and `bpy.types.PropertyGroup` for grouped settings.
-- Define `bl_idname`, `bl_label`, and `bl_options` explicitly.
-- Validate context in `poll()` before enabling operators.
-- Use `invoke()` for interactive setup and `execute()` for the actual operation.
-- Return `{'FINISHED'}` or `{'CANCELLED'}` consistently.
-- Use dependency graph updates and evaluated objects when reading final scene state.
+TypeScript Usage:
 
-## Data and Properties
+- Encourage TypeScript for type safety and better developer experience
+- Use interfaces for defining message structures and API responses
+- Leverage TypeScript's union types and type guards for runtime checks
 
-- Register custom properties through `PropertyGroup` classes instead of loose global state.
-- Store add-on preferences in `AddonPreferences`.
-- Use `PointerProperty`, `CollectionProperty`, and typed properties with names and descriptions.
-- Clean up custom properties and handlers during `unregister()`.
+Extension Architecture:
 
-## Safety and Performance
+- Implement a clear separation of concerns between different extension components
+- Use message passing for communication between different parts of the extension
+- Implement proper state management using chrome.storage API
 
-- Do not run destructive scene operations without explicit user action.
-- Avoid blocking UI work in modal operators; use timers or modal state machines for long operations.
-- Batch mesh changes and use `bmesh` when editing mesh data programmatically.
-- Avoid repeatedly scanning large scenes in draw methods.
-- Keep file paths configurable and use Blender path utilities.
+Manifest and Permissions:
 
-## Testing and Debugging
+- Use the latest manifest version (v3) unless there's a specific need for v2
+- Follow the principle of least privilege for permissions
+- Implement optional permissions where possible
 
-- Test scripts in a clean Blender profile and a representative production scene.
-- Add smoke tests that import the add-on, register it, run core operators, and unregister cleanly.
-- Log actionable messages with `self.report()` for user-facing operator feedback.
-- Keep version-specific API differences isolated behind helper functions.
+Security and Privacy:
 
-## Common Mistakes
+- Implement Content Security Policy (CSP) in manifest.json
+- Use HTTPS for all network requests
+- Sanitize user inputs and validate data from external sources
+- Implement proper error handling and logging
 
-- Do not forget to unregister classes, handlers, timers, and keymaps.
-- Do not mutate Blender data from panel `draw()` methods.
-- Do not assume an active object, selected object, or mode without checking context.
-- Do not hardcode absolute asset paths.
+UI and Styling:
+
+- Create responsive designs for popup and options pages
+- Use CSS Grid or Flexbox for layouts
+- Implement consistent styling across all extension UI elements
+
+Performance Optimization:
+
+- Minimize resource usage in background scripts
+- Use event pages instead of persistent background pages when possible
+- Implement lazy loading for non-critical extension features
+- Optimize content scripts to minimize impact on web page performance
+
+Browser API Usage:
+
+- Utilize chrome.* APIs effectively (e.g., chrome.tabs, chrome.storage, chrome.runtime)
+- Implement proper error handling for all API calls
+- Use chrome.alarms for scheduling tasks instead of setInterval
+
+Cross-browser Compatibility:
+
+- Use WebExtensions API for cross-browser support where possible
+- Implement graceful degradation for browser-specific features
+
+Testing and Debugging:
+
+- Utilize Chrome DevTools for debugging
+- Implement unit tests for core extension functionality
+- Use Chrome's built-in extension loading for testing during development
+
+Context-Aware Development:
+
+- Always consider the whole project context when providing suggestions or generating code
+- Avoid duplicating existing functionality or creating conflicting implementations
+- Ensure that new code integrates seamlessly with the existing project structure and architecture
+- Before adding new features or modifying existing ones, review the current project state to maintain consistency and avoid redundancy
+- When answering questions or providing solutions, take into account previously discussed or implemented features to prevent contradictions or repetitions
+
+Code Output:
+
+- When providing code, always output the entire file content, not just new or modified parts
+- Include all necessary imports, declarations, and surrounding code to ensure the file is complete and functional
+- Provide comments or explanations for significant changes or additions within the file
+- If the file is too large to reasonably include in full, provide the most relevant complete section and clearly indicate where it fits in the larger file structure
+
+Follow Chrome Extension documentation for best practices, security guidelines, and API usage
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
