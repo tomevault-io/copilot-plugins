@@ -1,0 +1,9 @@
+{
+  "name": "carbonodev--tailwindcss-mcp-server",
+  "displayName": "tailwindcss-mcp-server",
+  "description": "MCP server for TailwindCSS utility classes, documentation, and project assistance",
+  "version": "1.0.0",
+  "author": "CarbonoDev",
+  "homepage": "https://github.com/CarbonoDev/tailwindcss-mcp-server",
+  "skills": []
+}
