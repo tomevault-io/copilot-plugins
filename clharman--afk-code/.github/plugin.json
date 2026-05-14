@@ -1,0 +1,9 @@
+{
+  "name": "clharman--afk-code",
+  "displayName": "afk-code",
+  "description": "Interact with local Claude Code sessions From Telegram, Discord, Slack",
+  "version": "1.0.0",
+  "author": "clharman",
+  "homepage": "https://github.com/clharman/afk-code",
+  "skills": []
+}
