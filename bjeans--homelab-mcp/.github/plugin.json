@@ -1,0 +1,9 @@
+{
+  "name": "bjeans--homelab-mcp",
+  "displayName": "homelab-mcp",
+  "description": "Model Context Protocol (MCP) servers for managing homelab infrastructure through Claude Desktop. Monitor Docker/Podman containers, Ollama AI models, Pi-hole DNS, Unifi networks, and Ansible inventory.",
+  "version": "1.0.0",
+  "author": "bjeans",
+  "homepage": "https://github.com/bjeans/homelab-mcp",
+  "skills": []
+}
