@@ -1,0 +1,9 @@
+{
+  "name": "display-protocol--dp1",
+  "displayName": "dp1",
+  "description": "Documents for DP-1 protocol",
+  "version": "1.0.0",
+  "author": "display-protocol",
+  "homepage": "https://github.com/display-protocol/dp1",
+  "skills": []
+}
