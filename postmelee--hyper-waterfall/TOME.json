@@ -4,7 +4,7 @@
   "repo": "hyper-waterfall",
   "description": "AI \ud398\uc5b4 \ud504\ub85c\uadf8\ub798\ubc0d\uc744 \uc704\ud55c \ud558\uc774\ud37c-\uc6cc\ud130\ud3f4 \ubc29\ubc95\ub860 \ud558\ub124\uc2a4",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/postmelee/hyper-waterfall",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:16:14Z"
+  "distributed_at": "2026-05-14T06:00:58Z"
 }
