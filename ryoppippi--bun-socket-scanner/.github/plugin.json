@@ -1,0 +1,9 @@
+{
+  "name": "ryoppippi--bun-socket-scanner",
+  "displayName": "bun-socket-scanner",
+  "description": "A Bun security scanner that integrates with Socket.dev for package vulnerability detection",
+  "version": "1.0.0",
+  "author": "ryoppippi",
+  "homepage": "https://github.com/ryoppippi/bun-socket-scanner",
+  "skills": []
+}
