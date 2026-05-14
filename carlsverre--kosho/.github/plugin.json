@@ -1,0 +1,9 @@
+{
+  "name": "carlsverre--kosho",
+  "displayName": "kosho",
+  "description": "A CLI tool for managing git worktrees to enable concurrent development environments.",
+  "version": "1.0.0",
+  "author": "carlsverre",
+  "homepage": "https://github.com/carlsverre/kosho",
+  "skills": []
+}
