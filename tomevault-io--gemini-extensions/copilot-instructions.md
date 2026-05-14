@@ -1,607 +1,156 @@
 ## gemini-md
 
-> > This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
+> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## markdown-flow-ui
+## twsemcpserver
 
-> This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
+# CLAUDE.md
 
-This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
-
-## Quick Start
-
-### Most Common Tasks
-
-| Task                     | Command                                | Location       |
-| ------------------------ | -------------------------------------- | -------------- |
-| Start development server | `npm run dev`                          | Root directory |
-| Build library            | `npm run build`                        | Root directory |
-| Run Storybook            | `npm run storybook`                    | Root directory |
-| Run tests                | `npm test`                             | Root directory |
-| Run linting              | `npm run lint`                         | Root directory |
-| Format code              | `npm run format`                       | Root directory |
-| Check code quality       | `npm run lint && npm run format:check` | Root directory |
-
-### Essential Files and Directories
-
-```bash
-# Core library components
-src/components/           # Main UI components
-src/lib/                 # Utility functions
-src/index.ts            # Main export file
-
-# Documentation and examples
-.storybook/             # Storybook configuration
-src/**/*.stories.ts     # Component stories
-README.md              # Project documentation
-
-# Configuration
-package.json           # Dependencies and scripts
-tsconfig.json         # TypeScript configuration
-eslint.config.mjs     # ESLint configuration
-.prettierrc           # Prettier formatting rules
-```
-
-## Critical Warnings ⚠️
-
-### MUST DO Before Any Commit
-
-1. **Run lint and format checks**: `npm run lint && npm run format:check` (MANDATORY)
-2. **Test your changes**: Run `npm test` and verify Storybook examples work
-3. **Build the library**: Run `npm run build` to ensure no build errors
-4. **Use English for all code**: Comments, variables, commit messages
-5. **Follow Conventional Commits**: `type: description` (lowercase type, imperative mood)
-6. **Update Storybook stories**: Add/update stories for new or modified components
-
-### Common Pitfalls to Avoid
-
-- **Never hardcode user-facing strings** - Use props and make components configurable
-- **Don't skip linting/formatting** - Pre-commit hooks will catch these issues
-- **Don't commit secrets** - No API keys or sensitive data in code
-- **Don't use non-English in code** - English only (except for user-facing content examples)
-- **Don't break existing APIs** - Maintain backward compatibility for public interfaces
-- **Don't forget TypeScript types** - All public APIs must be properly typed
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-markdown-flow-ui is a React UI library for rendering markdown with interactive flow components, typewriter effects, and plugin support. It provides components for creating dynamic, interactive markdown experiences with features like:
-
-- Real-time markdown rendering with syntax highlighting
-- Typewriter effect animations
-- Interactive flow components with single-select and multi-select support
-- Plugin system for custom components
-- Server-Sent Events (SSE) support for streaming content
-- Mermaid diagram rendering
-- Mathematical expressions with KaTeX
-- Internationalization (i18n) support for UI components
-
-## Architecture
-
-The project follows a component-based architecture with these main parts:
-
-- **Core Components (`src/components/`)**: Main UI components for markdown rendering
-- **Utility Functions (`src/lib/`)**: Helper functions and utilities
-- **Plugin System**: Extensible architecture for custom markdown components
-- **Storybook Integration**: Documentation and examples for all components
-
-### Main Components
-
-#### ContentRender (`src/components/ContentRender/`)
-
-- **Purpose**: Core markdown rendering component with typewriter effects
-- **Key Features**:
-  - Markdown-to-HTML conversion with syntax highlighting
-  - Typewriter animation support
-  - Plugin system for custom components
-  - Stream processing capabilities
-  - Interactive variable system with single-select and multi-select support
-  - Internationalization support for UI elements
-- **Key Files**:
-  - `ContentRender.tsx`: Main component implementation
-  - `useTypewriter.ts`: Typewriter effect logic
-  - `plugins/`: Custom component plugins (MermaidChart, CustomVariable)
-  - `utils/`: Processing utilities
-
-##### Interactive Variable System
-
-The CustomVariable plugin supports various interaction modes:
-
-**Single-Select Mode (using `|` separator):**
-
-```markdown
-Choose your role: ?[%{{role}}Developer|Designer|Manager]
-```
-
-**Multi-Select Mode (using `||` separator):**
-
-```markdown
-Select skills: ?[%{{skills}}React||Vue||Angular||Node.js]
-```
-
-**Mixed Mode (Multi-select + Text Input):**
-
-```markdown
-Choose technologies: ?[%{{tech}}Frontend||Backend||Mobile||...Other technologies]
-```
-
-**Props for Multi-Select Support:**
-
-- `confirmButtonText`: Text for the confirm button (supports i18n)
-- `selectedValues`: Array of selected values in callback
-- `isMultiSelect`: Automatically detected from syntax
-
-#### MarkdownFlow (`src/components/MarkdownFlow/`)
-
-- **Purpose**: Flow-based markdown rendering with scroll management
-- **Key Features**:
-  - Scrollable markdown container
-  - Auto-scroll to bottom functionality
-  - Flow-based content display
-- **Key Files**:
-  - `MarkdownFlow.tsx`: Main flow component
-  - `ScrollableMarkdownFlow.tsx`: Scrollable variant
-  - `useScrollToBottom.ts`: Scroll behavior logic
-
-#### MarkdownFlowEditor (`src/components/MarkdownFlowEditor/`)
-
-- **Purpose**: Interactive markdown editor with CodeMirror integration
-- **Key Features**:
-  - Syntax highlighting for markdown
-  - Real-time editing capabilities
-  - CodeMirror-based editing experience
-
-#### Playground (`src/components/Playground/`)
-
-- **Purpose**: Interactive playground for testing markdown rendering
-- **Key Features**:
-  - Live preview of markdown content
-  - Component testing interface
-  - Markdown information extraction
-
-### Plugin Architecture
-
-The plugin system allows for extensible markdown components:
-
-```typescript
-// Example plugin structure
-interface MarkdownPlugin {
-  component: React.ComponentType<any>;
-  matcher: (node: any) => boolean;
-  renderer: (node: any, props: any) => React.ReactElement;
-}
-```
+TWStockMCPServer is a Model Context Protocol (MCP) server for Taiwan stock market data analysis. Built with FastMCP (Python) and `requests`. Data sources:
+- **TWSE OpenAPI** (`openapi.twse.com.tw`) — 143 tools: 公司治理、ESG、財報、交易、指數、券商
+- **TWSE exchangeReport** (`twse.com.tw/exchangeReport`) — 4 tools: 歷史日K、月均價、估值、融資融券（legacy JSON，非 Swagger）
+- **MIS 即時報價** (`mis.twse.com.tw`) — 1 tool: 盤中多股即時報價
+- **TPEx OpenAPI** (`tpex.org.tw/openapi`) — 3 tools: 上櫃日收盤、三大法人、本益比
+- **TAIFEX OpenAPI** (`openapi.taifex.com.tw`) — 16 tools: 三大法人系列、大額交易人部位、每日行情、選擇權分析（Delta/OI增減）、保證金、年月統計
 
 ## Development Commands
 
-### Library Development
+| Task | Command |
+|------|---------|
+| Install dependencies | `uv sync` |
+| Install with test deps | `uv sync --extra dev` |
+| Run server (dev) | `uv run fastmcp dev server.py` |
+| Run server (prod) | `uv run fastmcp run server.py` |
+| Run all tests | `uv run pytest` |
+| Run specific test file | `uv run pytest tests/e2e/test_esg_api.py -v` |
+| Run tests by category | `python run_tests.py esg` (also: `company`, `financials`, `trading`, `warrants`, `other`, `history`, `realtime`, `otc`, `taifex`, `api`, `e2e`) |
+| Quick test (fail fast) | `python run_tests.py quick` |
+| Tests with coverage | `python run_tests.py cov` (opens HTML report) |
+| Run server directly | `python server.py` (HTTP on port 8000) |
 
-```bash
-# Development server (Next.js for testing)
-npm run dev
+## Code Architecture
 
-# Build library for distribution
-npm run build
+### High-Level Structure
 
-# Build Storybook documentation
-npm run build-storybook
-
-# Start Storybook development server
-npm run storybook
+```
+server.py                     # Thin entrypoint: FastMCP init, prompt registration, tool registration
+models/                       # Pydantic-style data models (MarketInfo, BrokerInfo, RealTimeStats)
+utils/
+├── api_client.py             # TWSEAPIClient - all TWSE HTTP calls
+├── config.py                 # APIConfig, DisplayConfig, TestConfig (env var overrides)
+├── constants.py              # Localized message templates (Chinese)
+├── decorators.py             # @handle_api_errors, @handle_empty_response
+├── formatters.py             # Data → string formatting functions
+├── tool_factory.py           # create_company_tool() for dynamically named tools
+└── types.py                  # TWSEDataItem TypedDict, DataFormatter Protocol
+tools/
+├── __init__.py               # register_all_tools() - auto-discovers and registers all tool modules
+├── broker.py                 # Broker data tools (top-level module)
+├── other.py                  # Misc tools: funds, bonds, holidays (top-level module)
+├── company/                  # Company tools: basic_info, financials, esg, listing, news
+├── trading/                  # Trading tools: daily, periodic, valuation, dividend_schedule, etf, market, warrants
+├── market/                   # Market tools: indices, statistics, foreign
+├── history/                  # TWSE legacy exchangeReport: stock_day, stock_day_avg, bwibbu_all, margin_balance
+├── realtime/                 # MIS real-time quotes: stock_info
+├── otc/                      # TPEx OTC market: daily_close, institutional, peratio
+└── taifex/                   # TAIFEX derivatives: futures_position, put_call_ratio, institutional_general,
+                              #   institutional_details, daily_market_report, large_traders_oi,
+                              #   options_analytics, margin, trading_statistics
+prompts/                      # 5 prompt templates registered in server.py
 ```
 
-### Code Quality
+### Key Architectural Patterns
 
-```bash
-# Linting
-npm run lint                    # Check for lint errors
-npm run lint:fix               # Fix lint errors automatically
+**Dependency Injection**: `server.py` creates one `TWSEAPIClient` instance and passes it to `register_all_tools(mcp, api_client)`. The auto-discovery engine in `tools/__init__.py` uses `pkgutil.iter_modules` to find all tool modules, then calls `module.register_tools(mcp, client)` on each.
 
-# Formatting
-npm run format                 # Format all files
-npm run format:check          # Check formatting without changing files
+**Tool Module Contract**: Every tool module must expose:
+```python
+def register_tools(mcp: FastMCP, client: Optional[TWSEAPIClient] = None) -> None:
+```
+The `client` is captured via closure. Tools are registered with `@mcp.tool` — the function docstring becomes the MCP tool description.
 
-# Testing
-npm test                       # Run tests (when implemented)
+**Auto-Discovery**: `tools/__init__.py` scans direct modules (`tools/broker.py`, `tools/other.py`) and subpackage modules (`tools/company/*.py`, etc.) automatically. No manual registration needed in `server.py` when adding new tool modules.
+
+**API Client**: `TWSEAPIClient` has instance methods (`fetch_data`, `fetch_company_data`, `fetch_latest_market_data`) and class-method wrappers (`get_data`, `get_company_data`, `get_latest_market_data`) for backward compatibility. Instance methods are preferred. Includes built-in rate limiting (0.5s between requests). For non-OpenAPI sources (legacy TWSE, MIS, TPEx, TAIFEX), use `fetch_json(url, params)` / `get_json(url, params)` which accepts full URLs with query parameters and returns raw JSON.
+
+**Decorators**: Tool functions use decorators from `utils/decorators.py`:
+- `@handle_api_errors(data_type="...", use_code_param=True)` — wraps in try/except, returns localized error message
+- `@handle_empty_response(data_type="...")` — returns localized "no data" message for None/empty results
+
+**Formatters**: `utils/formatters.py` provides:
+- `format_properties_with_values_multiline(data)` — single record dict → multiline string
+- `format_multiple_records(records, separator)` — multiple records with separators
+- `format_list_response(data, data_type, formatter, limit)` — paginated list with total count
+- `create_simple_list_formatter(name_field, code_field, *extra)` — factory for list formatters
+
+**Company Data Filtering**: `fetch_company_data()` filters by `公司代號`, `Code`, or `權證代號` field matching the `code` parameter.
+
+### Configuration
+
+All configuration in `utils/config.py` reads from environment variables with sensible defaults. See `.env.example` for the full list:
+- `TWSE_API_BASE_URL` (default: `https://openapi.twse.com.tw/v1`)
+- `TWSE_REQUEST_INTERVAL` (default: `0.5` seconds)
+- `TWSE_API_TIMEOUT` (default: `30.0` seconds)
+- `TWSE_VERIFY_SSL` (default: `false` — required for TWSE API compatibility)
+- `DISPLAY_LIMIT` (default: `20`)
+- `PYTEST_DELAY_SECONDS` (default: `1.0` — rate limit delay between tests)
+
+## Testing
+
+Tests are E2E — they call real TWSE APIs (no mocking). The `conftest.py` has an autouse fixture that sleeps between tests to avoid rate limiting.
+
+**Test files**:
+- `tests/test_api_schemas.py` — parametrized schema drift detection against TWSE Swagger spec (falls back to `staticFiles/swagger_decoded.json`)
+- `tests/e2e/test_*.py` — per-category E2E tests (esg, company, financials, trading, warrants, other, history, realtime, otc, taifex)
+
+**Fixtures** in `conftest.py`: `sample_stock_code` returns `"2330"` (TSMC), `sample_stock_code_with_data` returns `"1210"`.
+
+**CI**: GitHub Actions runs daily at 9:00 AM Taiwan time. On failure, auto-creates an issue labeled `api-change,bug,automated`; auto-closes when tests pass again.
+
+## Adding New Tools
+
+1. Add tool function in the appropriate module under `tools/` (or create a new module)
+2. Ensure the module has `register_tools(mcp, client)` — it will be auto-discovered
+3. Use `@mcp.tool` decorator; the docstring becomes the MCP tool description
+4. Use `@handle_api_errors()` and `@handle_empty_response()` decorators for standardized error handling
+5. Use `client.fetch_company_data(endpoint, code)` for company-specific lookups, `client.fetch_data(endpoint)` for general data
+6. Format output with utilities from `utils/formatters.py`
+7. Add E2E tests in the appropriate `tests/e2e/test_*.py` file
+8. Add E2E tests for any hardcoded field names used in the tool
+
+Example:
+```python
+def register_tools(mcp: FastMCP, client: Optional[TWSEAPIClient] = None) -> None:
+    _client = client or TWSEAPIClient.get_instance()
+
+    @mcp.tool
+    @handle_api_errors(use_code_param=True)
+    def get_new_data(code: str) -> str:
+        """Tool description shown to MCP clients."""
+        data = _client.fetch_company_data("/opendata/your_endpoint", code)
+        return format_properties_with_values_multiline(data) if data else ""
 ```
 
-### Package Management
+## API Reference
 
-```bash
-# Install dependencies
-npm install
+`staticFiles/apis_summary_simple.json` contains all available TWSE OpenAPI endpoints with their schemas.
 
-# Prepare package for publishing
-npm run prepublishOnly
+### External API Notes
 
-# The library uses pnpm as package manager, but npm commands work too
-pnpm install
-pnpm build
-```
-
-## Component Development Standards
-
-### Component Structure
-
-Follow this structure for new components:
-
-```typescript
-// ComponentName.tsx
-import React from 'react';
-import { cn } from '@/lib/utils';
-
-export interface ComponentNameProps {
-  /** Component description */
-  children?: React.ReactNode;
-  /** Additional CSS classes */
-  className?: string;
-  /** Other component-specific props */
-  variant?: 'default' | 'alternative';
-}
-
-export const ComponentName = React.forwardRef<
-  HTMLDivElement,
-  ComponentNameProps
->(({ children, className, variant = 'default', ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        'base-component-classes',
-        {
-          'variant-classes': variant === 'alternative',
-        },
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
-
-ComponentName.displayName = 'ComponentName';
-```
-
-### Story Structure
-
-Create Storybook stories for all components:
-
-```typescript
-// ComponentName.stories.ts
-import type { Meta, StoryObj } from "@storybook/react";
-import { ComponentName } from "./ComponentName";
-
-const meta: Meta<typeof ComponentName> = {
-  title: "Components/ComponentName",
-  component: ComponentName,
-  parameters: {
-    layout: "centered",
-  },
-  tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: { type: "select" },
-      options: ["default", "alternative"],
-    },
-  },
-};
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {
-    children: "Default component content",
-  },
-};
-
-export const Alternative: Story = {
-  args: {
-    variant: "alternative",
-    children: "Alternative variant content",
-  },
-};
-```
-
-### TypeScript Standards
-
-- **Export all public interfaces**: Make component props interfaces available
-- **Use proper generics**: For reusable components
-- **Document props**: Use JSDoc comments for all public props
-- **Strict typing**: Avoid `any` types, use proper type definitions
-
-### CSS and Styling
-
-- **Tailwind CSS**: Use Tailwind classes for styling
-- **CSS Modules**: Use for component-specific styles when needed
-- **Class utility**: Use `cn()` utility for conditional classes
-- **Responsive design**: Consider mobile-first approach
-
-### Multi-Select Component Development
-
-When working with multi-select components:
-
-- **Use `||` separator** for multi-select syntax in markdown: `?[%{{var}}Option1||Option2]`
-- **Provide `confirmButtonText` prop** for internationalization support
-- **Handle `selectedValues` array** in callback functions
-- **Support mixed mode**: Multi-select + text input combination
-- **Consider disabled states**: Disable confirm when no selection
-- **Test both modes**: Ensure single-select (`|`) still works correctly
-
-**Example Multi-Select Implementation:**
-
-```typescript
-interface MultiSelectProps {
-  selectedValues?: string[];
-  onSelectedChange?: (values: string[]) => void;
-  confirmButtonText?: string;
-  isMultiSelect?: boolean;
-}
-```
-
-## Plugin Development Guidelines
-
-### Creating Custom Plugins
-
-1. **Create plugin component** in `src/components/ContentRender/plugins/`
-2. **Define plugin interface** with proper TypeScript types
-3. **Implement rendering logic** for markdown AST nodes
-4. **Add to plugin registry** in ContentRender component
-5. **Create stories** for plugin examples
-
-### Plugin Example
-
-```typescript
-// src/components/ContentRender/plugins/CustomPlugin.tsx
-import React from 'react';
-
-export interface CustomPluginProps {
-  value: string;
-  type?: string;
-}
-
-export const CustomPlugin: React.FC<CustomPluginProps> = ({
-  value,
-  type = 'default'
-}) => {
-  return (
-    <div className="custom-plugin-container">
-      <span className="custom-plugin-label">{type}:</span>
-      <span className="custom-plugin-value">{value}</span>
-    </div>
-  );
-};
-```
-
-## Testing Guidelines
-
-### Component Testing
-
-When tests are implemented, follow these patterns:
-
-```typescript
-// ComponentName.test.tsx
-import { render, screen } from '@testing-library/react';
-import { ComponentName } from './ComponentName';
-
-describe('ComponentName', () => {
-  it('renders children correctly', () => {
-    render(<ComponentName>Test content</ComponentName>);
-    expect(screen.getByText('Test content')).toBeInTheDocument();
-  });
-
-  it('applies custom className', () => {
-    render(
-      <ComponentName className="custom-class">Content</ComponentName>
-    );
-    expect(screen.getByText('Content')).toHaveClass('custom-class');
-  });
-});
-```
-
-### Storybook Testing
-
-- **Visual testing**: Use Storybook for visual regression testing
-- **Interaction testing**: Test component interactions in stories
-- **Accessibility testing**: Use Storybook a11y addon
-- **Documentation**: Stories serve as living documentation
-
-## API Documentation Standards
-
-### Component Documentation
-
-Document all public APIs:
-
-````typescript
-/**
- * ContentRender component for rendering markdown with typewriter effects
- *
- * @example
- * ```tsx
- * <ContentRender
- *   content="# Hello World"
- *   typewriter={true}
- *   speed={50}
- * />
- * ```
- */
-export interface ContentRenderProps {
-  /** Markdown content to render */
-  content: string;
-  /** Enable typewriter effect animation */
-  typewriter?: boolean;
-  /** Typing speed in milliseconds per character */
-  speed?: number;
-  /** Custom CSS classes */
-  className?: string;
-}
-````
-
-### Hook Documentation
-
-````typescript
-/**
- * Hook for managing typewriter effect state and animations
- *
- * @param content - The text content to animate
- * @param speed - Animation speed in milliseconds
- * @returns Object with current text, completion status, and control functions
- *
- * @example
- * ```tsx
- * const { displayText, isComplete, start, pause } = useTypewriter(
- *   'Hello World',
- *   50
- * );
- * ```
- */
-export function useTypewriter(content: string, speed: number = 50) {
-  // Implementation
-}
-````
-
-## Build and Distribution
-
-### Build Process
-
-The library uses Vite for building:
-
-1. **TypeScript compilation**: Generates type definitions
-2. **Bundle creation**: Creates ESM and CJS bundles
-3. **Asset optimization**: Optimizes CSS and other assets
-4. **Type checking**: Ensures TypeScript correctness
-
-### Package Structure
-
-```text
-dist/
-├── index.esm.js        # ES modules build
-├── index.cjs.js        # CommonJS build
-├── index.d.ts          # TypeScript definitions
-├── assets/             # Bundled CSS and other assets
-└── components/         # Individual component builds
-```
-
-### Publishing Checklist
-
-- [ ] Version updated in `package.json`
-- [ ] Build completes successfully: `npm run build`
-- [ ] All tests pass: `npm test`
-- [ ] Linting passes: `npm run lint`
-- [ ] Storybook builds: `npm run build-storybook`
-- [ ] CHANGELOG updated with changes
-- [ ] Git tags applied for release
-
-## Troubleshooting
-
-### Common Issues and Solutions
-
-| Issue                              | Solution                                         |
-| ---------------------------------- | ------------------------------------------------ |
-| Build fails with TypeScript errors | Check `tsconfig.json` and fix type errors        |
-| Storybook won't start              | Clear `.storybook` cache, reinstall dependencies |
-| Components not rendering           | Check imports and exports in `src/index.ts`      |
-| Styling not applied                | Verify Tailwind configuration and class names    |
-| Plugin not working                 | Check plugin registration in ContentRender       |
-| SSE connection fails               | Verify server endpoint and CORS settings         |
-
-### Debug Commands
-
-```bash
-# Check Node/npm versions
-node --version
-npm --version
-
-# Clear dependency cache
-rm -rf node_modules package-lock.json
-npm install
-
-# Check build output
-npm run build
-ls -la dist/
-
-# Check Storybook
-npm run storybook
-
-# Verify package structure
-npm pack --dry-run
-```
-
-## Code Quality Standards
-
-### Language Requirements
-
-**English-Only Policy for Code**: All code-related content MUST be written in English.
-
-#### What MUST be in English
-
-- **Code Comments**: All inline comments and documentation
-- **Variable and Function Names**: All identifiers
-- **Component Props**: All prop names and descriptions
-- **Type Definitions**: Interface names, type names, and documentation
-- **Error Messages**: All error messages and logging
-- **Git Commit Messages**: Must follow Conventional Commits format
-- **Documentation**: README, API docs, and inline documentation
-
-#### Conventional Commits Format
-
-**Required Format**: `<type>: <description>`
-
-**Common Types**:
-
-- `feat:` - New feature or component
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring
-- `test:` - Adding or updating tests
-- `chore:` - Maintenance tasks
-- `build:` - Build system changes
-- `ci:` - CI configuration changes
-- `perf:` - Performance improvements
-- `style:` - Code formatting (no functional changes)
-
-**Examples**:
-
-- `feat: add typewriter effect to ContentRender component`
-- `fix: resolve markdown parsing issue with nested lists`
-- `docs: update component API documentation`
-
-### Pre-commit Quality Checks
-
-Pre-commit hooks automatically run:
-
-- **ESLint**: Code quality and style checks
-- **Prettier**: Code formatting
-- **TypeScript**: Type checking
-- **Lint-staged**: Only check modified files
-
-```bash
-# Manual quality check
-npm run lint && npm run format:check
-
-# Fix formatting issues
-npm run format
-
-# Fix linting issues
-npm run lint:fix
-```
-
-## Additional Resources
-
-- **React Documentation**: https://reactjs.org/
-- **TypeScript Documentation**: https://www.typescriptlang.org/
-- **Tailwind CSS**: https://tailwindcss.com/
-- **Storybook**: https://storybook.js.org/
-- **Vite**: https://vitejs.dev/
-- **Conventional Commits**: https://www.conventionalcommits.org/
-- **React Markdown**: https://github.com/remarkjs/react-markdown
-- **Remark Plugins**: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
+- **TWSE exchangeReport** (`tools/history/`): Legacy JSON endpoints returning `{"stat": "OK", "data": [...]}`. Dates in ROC format — use `utils/date_helper.py` for conversion. `MI_MARGN` uses `tables` array instead of `data`.
+- **MIS** (`tools/realtime/`): Single-letter field names (`z`=price, `c`=code, `ex`=market type). Use `tse_` prefix for listed stocks, `otc_` for OTC; tool auto-retries with `otc_` if `tse_` returns no data.
+- **TPEx** (`tools/otc/`): Standard REST JSON. Swagger spec at `tpex.org.tw/openapi/swagger.json`. Field names use English (e.g. `SecuritiesCompanyCode`).
+- **TAIFEX** (`tools/taifex/`): Requires browser-like `User-Agent` header (the default `stock-mcp/1.0` gets HTML instead of JSON). Uses `client.fetch_json(url, headers=TAIFEX_HEADERS)` with `TAIFEX_HEADERS` defined in `futures_position.py` and imported by other taifex modules.
 
 ---
-> Source: [ai-shifu/markdown-flow-ui](https://github.com/ai-shifu/markdown-flow-ui) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:gemini_md:2026-05-14 -->
+> Source: [twjackysu/TWSEMCPServer](https://github.com/twjackysu/TWSEMCPServer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:gemini_md:2026-05-06 -->
 
 ---
 > Source: [tomevault-io/gemini-extensions](https://github.com/tomevault-io/gemini-extensions) — distributed by [TomeVault](https://tomevault.io).
