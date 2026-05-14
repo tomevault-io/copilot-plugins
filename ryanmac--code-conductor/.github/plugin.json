@@ -1,0 +1,9 @@
+{
+  "name": "ryanmac--code-conductor",
+  "displayName": "code-conductor",
+  "description": "Ship 10x faster by running multiple Claude Code sub agents in parallel. GitHub-native orchestration for AI coding agents\u2014no conflicts, no complexity, just pure parallelized productivity.",
+  "version": "1.0.0",
+  "author": "ryanmac",
+  "homepage": "https://github.com/ryanmac/code-conductor",
+  "skills": []
+}
