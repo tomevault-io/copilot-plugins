@@ -1,0 +1,9 @@
+{
+  "name": "tarkansarim--comfyui-wanvace-pipeline",
+  "displayName": "ComfyUI_WanVace-pipeline",
+  "description": "Collection of ComfyUI custom nodes for WAN2.1 to simplify it's usage",
+  "version": "1.0.0",
+  "author": "tarkansarim",
+  "homepage": "https://github.com/tarkansarim/ComfyUI_WanVace-pipeline",
+  "skills": []
+}
