@@ -1,0 +1,9 @@
+{
+  "name": "jeffdafoe--llm-memory-api",
+  "displayName": "llm-memory-api",
+  "description": "Multi-agent memory and coordination platform with persistent notes, semantic search, inter-agent mail/chat, structured discussions, and admin dashboard.",
+  "version": "1.0.0",
+  "author": "jeffdafoe",
+  "homepage": "https://github.com/jeffdafoe/llm-memory-api",
+  "skills": []
+}
