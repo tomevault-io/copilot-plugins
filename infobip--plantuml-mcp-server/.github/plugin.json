@@ -1,0 +1,9 @@
+{
+  "name": "infobip--plantuml-mcp-server",
+  "displayName": "plantuml-mcp-server",
+  "description": "plantuml-mcp-server",
+  "version": "1.0.0",
+  "author": "infobip",
+  "homepage": "https://github.com/infobip/plantuml-mcp-server",
+  "skills": []
+}
