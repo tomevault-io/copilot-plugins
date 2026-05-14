@@ -1,0 +1,9 @@
+{
+  "name": "billchirico--lua-obfuscator",
+  "displayName": "LUA-Obfuscator",
+  "description": "Obfuscate your LUA code",
+  "version": "1.0.0",
+  "author": "BillChirico",
+  "homepage": "https://github.com/BillChirico/LUA-Obfuscator",
+  "skills": []
+}
