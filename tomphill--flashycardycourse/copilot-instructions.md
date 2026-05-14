@@ -1,259 +1,411 @@
-## authentication-authorization
+## clerk-billing
 
-> This project uses **Clerk** for authentication and authorization. **CRITICAL**: Users must only access their own data and never access data belonging to other users. All data access must be properly filtered by user identity.
+> This app uses Clerk Billing to manage B2C SaaS subscriptions and feature access. All billing, payment processing, and subscription management is handled through Clerk's integrated billing system with Stripe.
 
-# Authentication & Authorization with Clerk
+# Clerk Billing & Subscription Management
 
 ## Overview
-This project uses **Clerk** for authentication and authorization. **CRITICAL**: Users must only access their own data and never access data belonging to other users. All data access must be properly filtered by user identity.
+This app uses Clerk Billing to manage B2C SaaS subscriptions and feature access. All billing, payment processing, and subscription management is handled through Clerk's integrated billing system with Stripe.
 
-## Authentication Setup
-- Authentication: Clerk middleware in [src/middleware.ts](mdc:src/middleware.ts)
-- User identification: Clerk `userId` stored in database records
-- Database schema: User association through `userId` field in [src/db/schema.ts](mdc:src/db/schema.ts)
+## Available Plans & Features
 
-## Core Security Principles
+### Subscription Plans
+- **`free_user`**: Default free tier with limited features
+- **`pro`**: Premium subscription with full feature access
 
-### 1. User Data Isolation
-**MANDATORY**: Every database query that retrieves user-specific data MUST filter by the authenticated user's ID.
+### Available Features
+- **`3_deck_limit`**: Free users can create up to 3 flashcard decks
+- **`unlimited_decks`**: Pro users can create unlimited flashcard decks
+- **`ai_flashcard_generation`**: Pro users can generate flashcards using AI
 
+## Access Control Implementation
+
+### Server-Side Protection with `has()` Method
+**MANDATORY**: Use the `has()` method from Clerk's `auth()` for server-side access control in Server Components and Server Actions.
+
+#### Plan-Based Protection
 ```typescript
-import { auth } from "@clerk/nextjs/server";
-import { db } from '@/db';
-import { decksTable, cardsTable } from '@/db/schema';
-import { eq } from 'drizzle-orm';
-
-// ✅ CORRECT: Always filter by userId
-const { userId } = await auth();
-if (!userId) {
-  return { error: "Unauthorized" };
-}
-
-const userDecks = await db.select()
-  .from(decksTable)
-  .where(eq(decksTable.userId, userId));
-```
-
-### 2. Authentication Checks
-**REQUIRED**: Every protected route and API endpoint must verify user authentication before data access.
-
-```typescript
-// ✅ CORRECT: Check authentication first
-const { userId } = await auth();
-if (!userId) {
-  redirect('/');
-  // or return unauthorized response for API routes
-}
-```
-
-### 3. Data Access Patterns
-
-#### Server Components
-```typescript
-import { auth } from "@clerk/nextjs/server";
+import { auth } from '@clerk/nextjs/server';
 
 export default async function DashboardPage() {
-  const { userId } = await auth();
+  const { has } = await auth();
   
-  if (!userId) {
-    redirect('/');
-  }
+  // Check if user has pro plan
+  const hasProPlan = has({ plan: 'pro' });
+  const isFreeUser = has({ plan: 'free_user' });
   
-  // All queries filtered by userId
-  const userDecks = await db.select()
-    .from(decksTable)
-    .where(eq(decksTable.userId, userId));
-    
-  return <DecksList decks={userDecks} />;
+  return (
+    <div>
+      {hasProPlan && <ProFeatures />}
+      {isFreeUser && <UpgradePrompt />}
+    </div>
+  );
 }
 ```
 
-#### API Routes
+#### Feature-Based Protection
 ```typescript
-import { auth } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import { auth } from '@clerk/nextjs/server';
 
-export async function GET() {
-  const { userId } = await auth();
+export default async function CreateDeckPage() {
+  const { has } = await auth();
   
-  if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // Check for specific features
+  const hasUnlimitedDecks = has({ feature: 'unlimited_decks' });
+  const hasAIGeneration = has({ feature: 'ai_flashcard_generation' });
+  const hasThreeDeckLimit = has({ feature: '3_deck_limit' });
   
-  const userDecks = await db.select()
-    .from(decksTable)
-    .where(eq(decksTable.userId, userId));
-    
-  return NextResponse.json(userDecks);
+  return (
+    <div>
+      {hasAIGeneration && <AIGenerationButton />}
+      {hasThreeDeckLimit && <DeckLimitWarning />}
+    </div>
+  );
 }
 ```
 
-#### Client Components (with Server Actions)
-```typescript
-import { auth } from "@clerk/nextjs/server";
+### Client-Side Protection with `<Protect>` Component
+**MANDATORY**: Use the `<Protect>` component for conditional rendering in Client Components.
 
-async function getUserDecks() {
-  "use server";
+#### Plan-Based Component Protection
+```typescript
+import { Protect } from '@clerk/nextjs';
+
+export function ProFeatureSection() {
+  return (
+    <Protect
+      plan="pro"
+      fallback={
+        <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+          <p className="text-center text-muted-foreground">
+            Upgrade to Pro to unlock this feature
+          </p>
+        </div>
+      }
+    >
+      <AIFlashcardGenerator />
+    </Protect>
+  );
+}
+```
+
+#### Feature-Based Component Protection
+```typescript
+import { Protect } from '@clerk/nextjs';
+
+export function CreateDeckButton() {
+  return (
+    <Protect
+      feature="unlimited_decks"
+      fallback={
+        <Button disabled variant="outline">
+          Upgrade to create more decks
+        </Button>
+      }
+    >
+      <Button>Create New Deck</Button>
+    </Protect>
+  );
+}
+```
+
+## Flashcard App-Specific Patterns
+
+### Deck Creation Limits
+**MANDATORY**: Enforce deck creation limits based on user plan and existing deck count.
+
+```typescript
+// In src/db/queries/decks.ts
+import { auth } from '@clerk/nextjs/server';
+
+export async function canCreateDeck(): Promise<{ canCreate: boolean; reason?: string }> {
+  const { has, userId } = await auth();
+  if (!userId) return { canCreate: false, reason: "Unauthorized" };
   
+  const hasUnlimitedDecks = has({ feature: 'unlimited_decks' });
+  
+  if (hasUnlimitedDecks) {
+    return { canCreate: true };
+  }
+  
+  // Check deck count for free users
+  const deckCount = await db.select({ count: sql<number>`count(*)` })
+    .from(decksTable)
+    .where(eq(decksTable.userId, userId));
+    
+  const currentCount = deckCount[0]?.count || 0;
+  
+  if (currentCount >= 3) {
+    return { 
+      canCreate: false, 
+      reason: "Free users can only create 3 decks. Upgrade to Pro for unlimited decks." 
+    };
+  }
+  
+  return { canCreate: true };
+}
+```
+
+### AI Feature Protection
+**MANDATORY**: Protect AI flashcard generation features for Pro users only.
+
+```typescript
+// In server actions
+"use server";
+
+import { auth } from '@clerk/nextjs/server';
+
+export async function generateAIFlashcards(prompt: string) {
+  const { has, userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  
+  const hasAIFeature = has({ feature: 'ai_flashcard_generation' });
+  
+  if (!hasAIFeature) {
+    throw new Error("AI flashcard generation requires a Pro subscription");
+  }
+  
+  // Proceed with AI generation
+  return await generateFlashcardsWithAI(prompt);
+}
+```
+
+### Dashboard Feature Differentiation
+**MANDATORY**: Show different UI elements based on user subscription level.
+
+```typescript
+import { auth } from '@clerk/nextjs/server';
+import { Protect } from '@clerk/nextjs';
+
+export default async function DashboardPage() {
+  const { has } = await auth();
+  const userDecks = await getUserDecks();
+  
+  const hasUnlimitedDecks = has({ feature: 'unlimited_decks' });
+  const deckCount = userDecks.length;
+  
+  return (
+    <div>
+      <div className="flex justify-between items-center">
+        <h1>My Flashcard Decks ({deckCount})</h1>
+        
+        <Protect
+          feature="unlimited_decks"
+          fallback={
+            deckCount >= 3 ? (
+              <Button disabled variant="outline">
+                Upgrade for more decks
+              </Button>
+            ) : (
+              <CreateDeckButton />
+            )
+          }
+        >
+          <CreateDeckButton />
+        </Protect>
+      </div>
+      
+      {/* Show upgrade prompt for free users near limit */}
+      {!hasUnlimitedDecks && deckCount >= 2 && (
+        <Alert className="mb-4">
+          <AlertDescription>
+            You're using {deckCount} of 3 free decks. 
+            <Button variant="link" className="p-0 h-auto">
+              Upgrade to Pro
+            </Button> for unlimited decks.
+          </AlertDescription>
+        </Alert>
+      )}
+      
+      <DeckGrid decks={userDecks} />
+    </div>
+  );
+}
+```
+
+## Pricing Page Integration
+
+### Create Pricing Page
+**MANDATORY**: Create a dedicated pricing page using Clerk's `<PricingTable />` component.
+
+```typescript
+// app/pricing/page.tsx
+import { PricingTable } from '@clerk/nextjs';
+
+export default function PricingPage() {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold">Choose Your Plan</h1>
+        <p className="text-muted-foreground mt-2">
+          Unlock the full potential of your flashcard learning
+        </p>
+      </div>
+      
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <PricingTable />
+      </div>
+    </div>
+  );
+}
+```
+
+## Error Handling & User Experience
+
+### Graceful Feature Degradation
+**MANDATORY**: Provide clear fallbacks and upgrade prompts instead of hard errors.
+
+```typescript
+export function FeatureGate({ 
+  feature, 
+  plan, 
+  children, 
+  upgradeMessage 
+}: {
+  feature?: string;
+  plan?: string;
+  children: React.ReactNode;
+  upgradeMessage: string;
+}) {
+  return (
+    <Protect
+      feature={feature}
+      plan={plan}
+      fallback={
+        <Card>
+          <CardContent className="flex flex-col items-center justify-center p-6">
+            <div className="text-center">
+              <h3 className="font-semibold mb-2">Premium Feature</h3>
+              <p className="text-muted-foreground mb-4">{upgradeMessage}</p>
+              <Button asChild>
+                <Link href="/pricing">Upgrade to Pro</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      }
+    >
+      {children}
+    </Protect>
+  );
+}
+```
+
+### Usage Analytics & Limits Display
+**MANDATORY**: Show users their current usage and limits.
+
+```typescript
+export async function UsageIndicator() {
+  const { has } = await auth();
+  const deckCount = await getDeckCount();
+  
+  const hasUnlimitedDecks = has({ feature: 'unlimited_decks' });
+  
+  if (hasUnlimitedDecks) {
+    return (
+      <Badge variant="secondary">
+        Pro Plan - {deckCount} decks created
+      </Badge>
+    );
+  }
+  
+  return (
+    <div className="flex items-center gap-2">
+      <Progress value={(deckCount / 3) * 100} className="w-24" />
+      <span className="text-sm text-muted-foreground">
+        {deckCount}/3 decks
+      </span>
+    </div>
+  );
+}
+```
+
+## Integration with Existing Patterns
+
+### Server Actions with Billing Checks
+**MANDATORY**: All server actions that create content must check billing limits.
+
+```typescript
+"use server";
+
+import { auth } from '@clerk/nextjs/server';
+import { createDeck, canCreateDeck } from '@/db/queries';
+
+export async function createDeckAction(input: CreateDeckInput) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
   
-  return await db.select()
-    .from(decksTable)
-    .where(eq(decksTable.userId, userId));
-}
-```
-
-## Database Security Rules
-
-### Insert Operations
-- Always include `userId` when creating new records
-- Verify user owns parent records before creating children
-
-```typescript
-// ✅ CORRECT: Include userId for new decks
-await db.insert(decksTable).values({
-  title: "New Deck",
-  description: "Description", 
-  userId: userId // Always include
-});
-
-// ✅ CORRECT: Verify deck ownership before adding cards
-const deck = await db.select()
-  .from(decksTable)
-  .where(eq(decksTable.id, deckId) && eq(decksTable.userId, userId))
-  .limit(1);
-  
-if (!deck.length) {
-  throw new Error("Deck not found or unauthorized");
-}
-
-await db.insert(cardsTable).values({
-  deckId: deckId,
-  front: "Question",
-  back: "Answer"
-});
-```
-
-### Update/Delete Operations
-- Always combine record ID with user ID in WHERE clauses
-- Never allow operations on records not owned by the current user
-
-```typescript
-// ✅ CORRECT: Update only user's own records
-await db.update(decksTable)
-  .set({ title: "Updated Title" })
-  .where(eq(decksTable.id, deckId) && eq(decksTable.userId, userId));
-
-// ✅ CORRECT: Delete only user's own records  
-await db.delete(decksTable)
-  .where(eq(decksTable.id, deckId) && eq(decksTable.userId, userId));
-```
-
-### Related Data Access
-When accessing cards through decks, ensure deck ownership:
-
-```typescript
-// ✅ CORRECT: Access cards only from user's decks
-const userCards = await db.select()
-  .from(cardsTable)
-  .innerJoin(decksTable, eq(cardsTable.deckId, decksTable.id))
-  .where(eq(decksTable.userId, userId));
-```
-
-## Route Protection
-
-### Protected Pages
-Use Clerk's route protection for pages requiring authentication:
-
-```typescript
-// In page.tsx or layout.tsx
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-
-export default async function ProtectedPage() {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    redirect('/');
+  // Check if user can create deck
+  const { canCreate, reason } = await canCreateDeck();
+  if (!canCreate) {
+    throw new Error(reason);
   }
   
-  // Page content
+  // Proceed with deck creation
+  return await createDeck(input);
 }
 ```
 
-### Middleware Configuration
-Ensure [src/middleware.ts](mdc:src/middleware.ts) properly protects routes:
+### Query Functions with Feature Filtering
+**MANDATORY**: Enhance query functions to respect feature limitations.
 
 ```typescript
-export const config = {
-  matcher: [
-    "/((?!_next|[^?]*.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    "/(api|trpc)(.*)",
-  ],
-};
+// In src/db/queries/decks.ts
+export async function getUserDecks() {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  
+  const decks = await db.select()
+    .from(decksTable)
+    .where(eq(decksTable.userId, userId))
+    .orderBy(desc(decksTable.createdAt));
+    
+  return decks;
+}
+
+export async function getDeckCount(): Promise<number> {
+  const { userId } = await auth();
+  if (!userId) return 0;
+  
+  const result = await db.select({ count: sql<number>`count(*)` })
+    .from(decksTable)
+    .where(eq(decksTable.userId, userId));
+    
+  return result[0]?.count || 0;
+}
 ```
 
-## FORBIDDEN Practices
+## Security & Best Practices
 
-### ❌ NEVER DO THESE:
-1. **Query without user filtering**:
-   ```typescript
-   // ❌ WRONG: Exposes all users' data
-   const allDecks = await db.select().from(decksTable);
-   ```
+### Access Control Rules
+- **Always check billing status server-side** before performing any premium operations
+- **Use feature flags** rather than plan names when possible for more granular control
+- **Provide clear upgrade paths** with links to pricing page
+- **Never trust client-side billing status** - always verify server-side
+- **Handle edge cases** gracefully (expired subscriptions, payment failures)
 
-2. **Skip authentication checks**:
-   ```typescript
-   // ❌ WRONG: No auth verification
-   export async function GET() {
-     return db.select().from(decksTable);
-   }
-   ```
+### Forbidden Practices
+- ❌ Never perform billing checks only on the client-side
+- ❌ Never hardcode plan names in multiple places
+- ❌ Never show premium features without proper protection
+- ❌ Never allow access to premium features without verification
+- ❌ Never expose internal billing logic to client components
 
-3. **Trust client-provided user IDs**:
-   ```typescript
-   // ❌ WRONG: Never trust client data for user identification
-   const userIdFromClient = request.body.userId;
-   ```
+## Testing Billing Features
 
-4. **Use incomplete WHERE clauses**:
-   ```typescript
-   // ❌ WRONG: Missing user filter
-   await db.update(decksTable)
-     .set({ title: "Hacked" })  
-     .where(eq(decksTable.id, deckId)); // Missing userId check!
-   ```
+### Development Testing
+- Use Clerk's development gateway for testing subscriptions
+- Test both free and pro user experiences
+- Verify proper feature gating and upgrade prompts
+- Test edge cases like subscription expiration
 
-5. **Expose sensitive user data**:
-   ```typescript
-   // ❌ WRONG: Don't expose other users' data in responses
-   return { decks: allDecksIncludingOtherUsers };
-   ```
+### Production Considerations
+- Monitor billing-related errors
+- Track conversion metrics from upgrade prompts
+- Ensure graceful handling of webhook delays
+- Test subscription change workflows
 
-## Testing Authorization
-Always test that:
-1. Users cannot access other users' data
-2. Unauthenticated requests are rejected
-3. Data operations are properly scoped to the authenticated user
-4. Error messages don't leak sensitive information
-
-## Error Handling
-- Return generic error messages to prevent information leakage
-- Log detailed errors server-side for debugging
-- Never expose user IDs or internal data in client-facing errors
-
-```typescript
-// ✅ CORRECT: Generic error response
-return NextResponse.json(
-  { error: "Resource not found" }, 
-  { status: 404 }
-);
-
-// Not: { error: "Deck with ID 123 belongs to user xyz" }
-```
-
-**REMEMBER**: When in doubt, always err on the side of being more restrictive with data access. User data isolation is non-negotiable.
+**REMEMBER**: Billing protection is security-critical. Always verify access server-side and provide clear upgrade paths for users who hit limits.
 
 ---
 > Source: [tomphill/flashycardycourse](https://github.com/tomphill/flashycardycourse) — distributed by [TomeVault](https://tomevault.io).
