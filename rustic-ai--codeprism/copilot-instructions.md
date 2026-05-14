@@ -1,220 +1,480 @@
-## docker
+## docs-best-practices
 
-> This rule file provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, and security considerations. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
+> **Purpose:** Ensures all documentation is accurate, complete, and synchronized with actual codebase. Prevents documentation drift, validates code examples, and maintains high-quality user experience through reliable documentation.
 
-# Docker Best Practices
+# Documentation Rules - Accuracy & Completeness
 
-This document provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, security considerations, and more. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
+**Purpose:** Ensures all documentation is accurate, complete, and synchronized with actual codebase. Prevents documentation drift, validates code examples, and maintains high-quality user experience through reliable documentation.
 
-## 1. Code Organization and Structure
+**When to use:** All documentation writing, code example creation, API documentation, user guides, and any content that references code functionality.
 
-- **Directory Structure Best Practices:**
-    - Organize your project with a clear separation of concerns.  For example:
+## Code Snippet Accuracy
+
+**Rule: Every code snippet in documentation must be verified to compile and work with the current codebase.**
+Why: Broken documentation examples frustrate users, waste developer time, and damage project credibility. Accurate examples ensure users can successfully follow documentation.
+
+**Code Snippet Validation Process:**
+```bash
+# 1. Extract all code snippets from documentation
+find docs/ -name "*.md" -exec grep -l "```rust" {} \;
+
+# 2. Create temporary test files for each snippet
+# 3. Verify compilation with current dependencies
+cargo check --manifest-path snippet_test/Cargo.toml
+
+# 4. Run doc tests to verify examples work
+cargo test --doc --all-features
+
+# 5. Integration test with actual codebase APIs
+cargo test --test doc_example_validation
+```
+
+**Snippet Requirements:**
+- **Must Compile**: Every ````rust` block must compile successfully
+- **Must Execute**: Examples with `assert!` must run and pass
+- **Current Dependencies**: Use exact versions from project Cargo.toml
+- **Complete Context**: Include necessary imports and setup code
+- **Error Handling**: Show proper error handling patterns
+
+**Example of Correct Code Snippet:**
+```rust
+/// # Examples
+/// ```
+/// use my_crate::{UserManager, CreateUserRequest, UserError};
+/// 
+/// # tokio_test::block_on(async {
+/// let manager = UserManager::new().await?;
+/// let request = CreateUserRequest {
+///     email: "test@example.com".to_string(),
+///     name: "Test User".to_string(),
+/// };
+/// 
+/// let user = manager.create_user(request).await?;
+/// assert_eq!(user.email(), "test@example.com");
+/// # Ok::<(), UserError>(())
+/// # });
+/// ```
+```
+
+## API Documentation Synchronization
+
+**Rule: API documentation must exactly match the current function signatures, types, and behavior.**
+Why: Incorrect API documentation leads to integration failures, confusion, and wasted development time. Documentation must be the authoritative source of truth.
+
+**API Sync Verification:**
+```bash
+# Generate documentation and check for warnings
+cargo doc --all-features --no-deps 2>&1 | grep -i "warning\|error"
+
+# Verify no broken intra-doc links
+cargo doc --all-features --no-deps --document-private-items
+
+# Check that public API documentation exists
+cargo doc --all-features --document-private-items --open
+# Manually verify all public items have documentation
+```
+
+**Required Documentation Elements:**
+```rust
+/// Brief description of what the function does.
+///
+/// Longer description explaining the purpose, use cases, and any important
+/// implementation details that affect usage.
+///
+/// # Arguments
+/// * `param1` - Description of first parameter, including type constraints
+/// * `param2` - Description of second parameter and expected values
+///
+/// # Returns
+/// Description of return value, including all possible variants for Result types:
+/// - `Ok(User)` - Successfully created user with validated data
+/// - `Err(UserError::InvalidEmail)` - Email format validation failed
+/// - `Err(UserError::DatabaseError)` - Database operation failed
+///
+/// # Errors
+/// This function will return an error if:
+/// - Email format is invalid (checked against RFC 5322)
+/// - Database connection fails or times out
+/// - User with email already exists in system
+///
+/// # Panics
+/// This function panics if:
+/// - Internal invariants are violated (should never happen in normal usage)
+/// - System resources are exhausted (extremely rare)
+///
+/// # Examples
+/// ```
+/// # use my_crate::*;
+/// # tokio_test::block_on(async {
+/// let user = create_user("valid@example.com", "John Doe").await?;
+/// assert_eq!(user.email(), "valid@example.com");
+/// # Ok::<(), UserError>(())
+/// # });
+/// ```
+///
+/// # Safety
+/// This function is thread-safe and can be called concurrently.
+/// 
+/// # Performance
+/// Expected execution time: <5ms for standard inputs.
+/// Memory usage: O(1) relative to input size.
+pub async fn create_user(email: &str, name: &str) -> Result<User, UserError> {
+    // Implementation
+}
+```
+
+## Documentation Completeness Verification
+
+**Rule: All public APIs, modules, and user-facing features must have complete documentation.**
+Why: Incomplete documentation creates knowledge gaps, forces users to read source code, and reduces project adoption and usability.
+
+**Completeness Checklist:**
+```markdown
+## Public API Documentation Audit
+
+### Crate Level
+- [ ] lib.rs has comprehensive module documentation
+- [ ] README.md covers installation, basic usage, and key features
+- [ ] CHANGELOG.md documents all user-facing changes
+- [ ] Cargo.toml has accurate description and keywords
+
+### Module Level  
+- [ ] Every public module has module documentation (//!)
+- [ ] Module docs explain purpose and relationships
+- [ ] Key types and functions are re-exported clearly
+- [ ] Usage examples provided for complex modules
+
+### Function Level
+- [ ] Every public function has rustdoc comments
+- [ ] All parameters documented with types and constraints
+- [ ] Return values explained including all Result variants
+- [ ] Error conditions enumerated completely
+- [ ] Working examples provided and tested
+- [ ] Performance characteristics noted when relevant
+
+### Type Level
+- [ ] Every public struct/enum has documentation
+- [ ] Field purposes explained (for public fields)
+- [ ] Usage patterns and examples provided
+- [ ] Relationship to other types explained
+- [ ] Serialization format documented (if applicable)
+
+### Feature Level
+- [ ] Feature flags documented in Cargo.toml and README
+- [ ] Optional dependencies explained
+- [ ] Feature combinations tested and documented
+- [ ] Migration guides for breaking changes
+```
+
+**Documentation Coverage Measurement:**
+```bash
+# Check for missing documentation warnings
+cargo doc --all-features 2>&1 | grep "missing documentation"
+
+# Generate documentation with all warnings enabled
+RUSTDOCFLAGS="-D missing-docs" cargo doc --all-features
+
+# Count documented vs undocumented public items
+cargo doc --all-features --document-private-items --quiet
+# Then audit manually or with tooling
+```
+
+## User Guide Accuracy
+
+**Rule: User guides and tutorials must be validated against actual software behavior and updated workflows.**
+Why: Outdated user guides lead to frustration, failed onboarding, and support burden. Guides must reflect current software capabilities and recommended practices.
+
+**User Guide Validation Process:**
+```bash
+# 1. Follow each tutorial step-by-step in clean environment
+# 2. Verify all commands work as documented
+# 3. Check that examples produce expected output
+# 4. Validate installation instructions on supported platforms
+# 5. Test troubleshooting sections with real error scenarios
+```
+
+**User Guide Requirements:**
+- **Step-by-Step Validation**: Every tutorial step tested manually
+- **Platform Coverage**: Instructions for all supported platforms
+- **Version Accuracy**: References to specific, current version numbers
+- **Screenshot Currency**: UI screenshots reflect current interface
+- **Link Validation**: All external links working and relevant
+- **Error Scenarios**: Common errors and solutions documented
+
+**Tutorial Structure Template:**
+```markdown
+# [Feature] Tutorial
+
+## Prerequisites
+- Software version: v1.2.3 or later
+- System requirements: [specific requirements]
+- Background knowledge: [what users should know first]
+
+## Overview
+Brief explanation of what users will accomplish and why it's useful.
+
+## Step 1: [Action]
+```bash
+# Exact command that works with current version
+command --flag value
+```
+
+Expected output:
+```
+[Exact output users should see]
+```
+
+## Step 2: [Next Action]
+[Continue with validated steps...]
+
+## Troubleshooting
+**Problem**: Common error message users might see
+**Solution**: Specific steps to resolve, tested and verified
+
+## Next Steps
+- Link to related tutorials
+- Advanced usage patterns
+- Reference documentation
+```
+
+## Code Example Maintenance
+
+**Rule: Establish automated processes to detect and fix outdated code examples.**
+Why: Manual documentation maintenance is error-prone and often skipped. Automated validation ensures examples stay current as code evolves.
+
+**Automated Example Validation:**
+```rust
+// tests/doc_examples.rs
+//! Integration tests that validate documentation examples
+
+use my_crate::*;
+
+#[tokio::test]
+async fn test_readme_quick_start_example() {
+    // Copy exact example from README.md
+    let user_manager = UserManager::new().await.expect("Manager creation failed");
+    
+    let request = CreateUserRequest {
+        email: "test@example.com".to_string(),
+        name: "Test User".to_string(),
+    };
+    
+    let user = user_manager.create_user(request).await.expect("User creation failed");
+    assert_eq!(user.email(), "test@example.com");
+    
+    // This test failing indicates README example is broken
+}
+
+#[test]
+fn test_api_docs_examples() {
+    // Extract and test examples from rustdoc
+    // This can be automated with custom tooling
+}
+```
+
+**Documentation CI/CD Integration:**
+```yaml
+# .github/workflows/docs.yml
+name: Documentation Validation
+
+on: [push, pull_request]
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      
+      - name: Check documentation builds without warnings
+        run: RUSTDOCFLAGS="-D missing-docs -D warnings" cargo doc --all-features
         
-        project-root/
-        ├── Dockerfile            # Dockerfile for building the image
-        ├── docker-compose.yml    # Docker Compose file for multi-container setup
-        ├── .dockerignore         # Specifies intentionally untracked files that Docker should ignore
-        ├── app/                  # Application source code
-        │   ├── ...
-        ├── config/               # Configuration files
-        │   ├── ...
-        ├── data/                 # Data files (if any, though consider volumes)
-        │   ├── ...
-        ├── scripts/              # Scripts for building, deploying, or managing the container
-        │   ├── ...
+      - name: Test documentation examples
+        run: cargo test --doc --all-features
         
-    - Keep the `Dockerfile` and `docker-compose.yml` at the root of your project for easy access.
+      - name: Validate README examples
+        run: cargo test --test doc_examples
+        
+      - name: Check for broken links
+        run: |
+          cargo install lychee
+          lychee --exclude-loopback docs/**/*.md README.md
+          
+      - name: Validate API documentation completeness
+        run: |
+          # Custom script to check all public APIs have docs
+          python scripts/check_api_docs_completeness.py
+```
 
-- **File Naming Conventions:**
-    - Use descriptive names for your Dockerfiles (e.g., `Dockerfile.web`, `Dockerfile.api`).
-    - Follow a consistent naming convention for all files and directories.
+## Version Synchronization
 
-- **Module Organization:**
-    - Structure your application into modular components to improve reusability and maintainability. This directly affects what goes into a docker image.
-    - Use appropriate build tools (e.g., Maven, Gradle, npm) to manage dependencies and package your application.
+**Rule: Documentation must reference correct version numbers, feature availability, and compatibility information.**
+Why: Version mismatches in documentation cause confusion about feature availability, compatibility issues, and failed integrations.
 
-- **Component Architecture:**
-    - Design your application as a set of microservices or components, each running in its own container, when appropriate.
-    - Use Docker Compose to orchestrate multi-container applications.
+**Version Reference Standards:**
+```markdown
+## Version Documentation Requirements
 
-- **Code Splitting Strategies:**
-    - Break down large applications into smaller, more manageable parts to reduce image size and improve build times.
-    - Consider multi-stage builds to include build-time dependencies in one stage and only the runtime dependencies in the final image.
+### Installation Instructions
+```toml
+[dependencies]
+my_crate = "1.2.3"  # Always current released version
+```
 
-## 2. Common Patterns and Anti-patterns
+### Feature Availability
+- "Available since v1.1.0" for new features
+- "Deprecated in v1.3.0, use X instead" for deprecated features
+- "Breaking change in v2.0.0" for major changes
 
-- **Design Patterns Specific to Docker:**
-    - **Sidecar Pattern:** Run a utility container alongside your main application container (e.g., for logging, monitoring).
-    - **Ambassador Pattern:** Proxy requests to a service running outside the container.
-    - **Adapter Pattern:** Adapt the interface of a service to match the expected interface of a client.
-    - **Init Container Pattern:** Run initialization tasks before the main application container starts.  Often used to set up configuration, prepare databases, etc.
+### Compatibility Matrix
+| my_crate | Rust | tokio | serde |
+|----------|------|-------|-------|
+| 1.2.x    | 1.70+ | 1.x   | 1.x   |
+| 1.1.x    | 1.65+ | 1.x   | 1.x   |
+```
 
-- **Recommended Approaches for Common Tasks:**
-    - **Configuration Management:** Use environment variables to configure your application.
-    - **Logging:** Centralize logging using a logging driver or a dedicated logging container (e.g., Fluentd, Logstash).
-    - **Health Checks:** Implement health checks to ensure that your services are running correctly.
-    - **Process Management:** Use a process manager (e.g., `tini`, `dumb-init`) to handle signal forwarding and zombie process reaping.
+**Automated Version Checking:**
+```python
+# scripts/check_version_references.py
+#!/usr/bin/env python3
+"""Validate version references in documentation."""
 
-- **Anti-patterns and Code Smells to Avoid:**
-    - **Storing secrets in Dockerfile or images:** Never hardcode passwords or API keys in your Dockerfile.
-    - **Running services as root:** Avoid running your application as the root user.
-    - **Installing unnecessary packages:** Keep your images lean by only installing the required dependencies.
-    - **Ignoring `.dockerignore`:** Make sure to use `.dockerignore` to exclude unnecessary files from the build context, reducing image size and build time.
-    - **Using `ADD` instead of `COPY` unnecessarily:** `COPY` is usually more transparent and predictable.
+import re
+import subprocess
+from pathlib import Path
 
-- **State Management Best Practices:**
-    - **Stateless Applications:** Design your application to be stateless whenever possible.
-    - **Volumes:** Use volumes for persistent storage (e.g., databases, logs).
-    - **Bind Mounts:** Use bind mounts for development to allow code changes to be reflected immediately in the container.
+def get_current_version():
+    """Get current version from Cargo.toml."""
+    with open("Cargo.toml") as f:
+        content = f.read()
+        match = re.search(r'version = "([^"]+)"', content)
+        return match.group(1) if match else None
 
-- **Error Handling Patterns:**
-    - Implement robust error handling in your application.
-    - Use appropriate logging levels to capture errors and warnings.
-    - Implement retry mechanisms for transient errors.
-    - Monitor your application for errors and take corrective actions.
+def check_version_references():
+    """Check all documentation for correct version references."""
+    current_version = get_current_version()
+    if not current_version:
+        print("❌ Could not determine current version")
+        return False
+    
+    issues = []
+    
+    for doc_file in Path("docs").rglob("*.md"):
+        with open(doc_file) as f:
+            content = f.read()
+            
+        # Check for version references in installation examples
+        toml_blocks = re.findall(r'```toml.*?```', content, re.DOTALL)
+        for block in toml_blocks:
+            if 'my_crate = ' in block:
+                if current_version not in block:
+                    issues.append(f"{doc_file}: outdated version in installation example")
+    
+    if issues:
+        for issue in issues:
+            print(f"❌ {issue}")
+        return False
+    
+    print("✅ All version references are current")
+    return True
 
-## 3. Performance Considerations
+if __name__ == "__main__":
+    import sys
+    if not check_version_references():
+        sys.exit(1)
+```
 
-- **Optimization Techniques:**
-    - **Multi-stage builds:** Use multi-stage builds to create smaller, more efficient images.
-    - **Minimize layers:** Combine multiple commands into a single layer using `&&`.
-    - **Use a lightweight base image:** Choose a minimal base image like Alpine Linux.
-    - **Optimize caching:** Order your Dockerfile commands to maximize cache reuse.
+## Documentation Quality Gates
 
-- **Memory Management:**
-    - Set memory limits for your containers to prevent them from consuming excessive resources.
-    - Monitor memory usage and optimize your application accordingly.
+**Rule: Implement quality gates that prevent documentation regressions and ensure accuracy.**
+Why: Quality gates maintain documentation standards consistently, catch issues before they reach users, and ensure documentation remains a reliable resource.
 
-- **Rendering Optimization (if applicable):**
-    - If your application involves rendering, optimize the rendering process (e.g., using caching, lazy loading).
+**Pre-Commit Documentation Checks:**
+```bash
+# Add to pre-commit hook
+echo "🔍 Validating documentation..."
 
-- **Bundle Size Optimization:**
-    - Minimize the size of your application bundle by removing unnecessary dependencies and assets.
-    - Use tools like webpack or Parcel to optimize your bundle.
+# Check that documentation builds without warnings
+if ! RUSTDOCFLAGS="-D warnings" cargo doc --all-features --quiet; then
+    echo "❌ Documentation build failed or has warnings"
+    exit 1
+fi
 
-- **Lazy Loading Strategies:**
-    - Implement lazy loading for resources that are not immediately needed.
+# Validate documentation examples
+if ! cargo test --doc --all-features --quiet; then
+    echo "❌ Documentation examples failed"
+    exit 1
+fi
 
-## 4. Security Best Practices
+# Check for common documentation issues
+if python scripts/check_doc_quality.py; then
+    echo "✅ Documentation quality checks passed"
+else
+    echo "❌ Documentation quality issues found"
+    exit 1
+fi
+```
 
-- **Common Vulnerabilities and How to Prevent Them:**
-    - **Image vulnerabilities:** Regularly scan your images for vulnerabilities using tools like Clair or Trivy.
-    - **Configuration vulnerabilities:** Secure your container configurations to prevent unauthorized access.
-    - **Network vulnerabilities:** Limit network exposure and use network policies to isolate containers.
-    - **Privilege escalation:** Avoid running containers with unnecessary privileges.
+**Documentation Review Checklist:**
+```markdown
+## Documentation Review Requirements
 
-- **Input Validation:**
-    - Validate all input data to prevent injection attacks.
+### Accuracy Review
+- [ ] All code examples compile and run successfully
+- [ ] API documentation matches current function signatures
+- [ ] Version references are current and correct
+- [ ] External links are working and relevant
+- [ ] Screenshots reflect current UI (if applicable)
 
-- **Authentication and Authorization Patterns:**
-    - Implement robust authentication and authorization mechanisms.
-    - Use secure protocols like HTTPS.
-    - Store secrets securely using tools like HashiCorp Vault or Kubernetes Secrets.
+### Completeness Review
+- [ ] All public APIs have comprehensive documentation
+- [ ] Error conditions are documented completely
+- [ ] Examples cover common use cases
+- [ ] Performance characteristics noted where relevant
+- [ ] Migration guides provided for breaking changes
 
-- **Data Protection Strategies:**
-    - Encrypt sensitive data at rest and in transit.
-    - Use appropriate access control mechanisms to protect data.
+### Quality Review
+- [ ] Writing is clear and beginner-friendly
+- [ ] Technical terms are defined or linked
+- [ ] Examples progress from simple to complex
+- [ ] Troubleshooting covers common issues
+- [ ] Cross-references between related topics
 
-- **Secure API Communication:**
-    - Use secure protocols like HTTPS for API communication.
-    - Implement authentication and authorization for API endpoints.
-    - Rate limit API requests to prevent abuse.
+### Maintenance Review
+- [ ] Documentation CI passes completely
+- [ ] No broken internal or external links
+- [ ] All examples validated in current environment
+- [ ] Version compatibility information updated
+- [ ] Deprecation notices accurate and helpful
+```
 
-## 5. Testing Approaches
+**Documentation Maintenance Schedule:**
+```markdown
+## Regular Documentation Maintenance
 
-- **Unit Testing Strategies:**
-    - Write unit tests to verify the functionality of individual components.
-    - Use mocking and stubbing to isolate components during testing.
+### With Every Release
+- [ ] Update version numbers in installation instructions
+- [ ] Add changelog entries for user-facing changes
+- [ ] Update compatibility matrices
+- [ ] Validate all examples with new version
+- [ ] Update screenshots if UI changed
 
-- **Integration Testing:**
-    - Write integration tests to verify the interaction between different components.
-    - Test the integration with external services and databases.
+### Monthly Audits
+- [ ] Check external links for broken/redirected URLs
+- [ ] Review analytics for confusing documentation sections
+- [ ] Test tutorials in fresh environments
+- [ ] Update performance benchmarks in docs
+- [ ] Review and update troubleshooting sections
 
-- **End-to-end Testing:**
-    - Write end-to-end tests to verify the entire application flow.
-    - Use tools like Selenium or Cypress to automate end-to-end tests.
+### Quarterly Reviews
+- [ ] Complete documentation structure review
+- [ ] User feedback analysis and incorporation
+- [ ] Competitive documentation analysis
+- [ ] Documentation tooling evaluation and updates
+- [ ] Style guide updates based on lessons learned
+```
 
-- **Test Organization:**
-    - Organize your tests into a clear and maintainable structure.
-    - Use descriptive names for your test cases.
-
-- **Mocking and Stubbing:**
-    - Use mocking and stubbing to isolate components during testing.
-    - Mock external services and databases to simulate different scenarios.
-
-## 6. Common Pitfalls and Gotchas
-
-- **Frequent Mistakes Developers Make:**
-    - **Not using `.dockerignore`:** This can lead to large image sizes and slow build times.
-    - **Not pinning package versions:** This can lead to unexpected build failures due to dependency updates.
-    - **Exposing unnecessary ports:** This can increase the attack surface of your application.
-    - **Not cleaning up after installing packages:** This can lead to larger image sizes.
-    - **Using the shell form of `CMD` or `ENTRYPOINT`:** Use the exec form (`["executable", "param1", "param2"]`) to avoid shell injection vulnerabilities and signal handling issues.
-
-- **Edge Cases to Be Aware Of:**
-    - **File permissions:** Ensure that your application has the correct file permissions.
-    - **Timezone configuration:** Configure the correct timezone for your container.
-    - **Resource limits:** Set appropriate resource limits for your containers.
-
-- **Version-Specific Issues:**
-    - Be aware of version-specific issues and compatibility concerns.
-    - Test your application with different Docker versions to ensure compatibility.
-
-- **Compatibility Concerns:**
-    - Ensure that your application is compatible with the base image you are using.
-    - Test your application on different platforms to ensure cross-platform compatibility.
-
-- **Debugging Strategies:**
-    - Use `docker logs` to view container logs.
-    - Use `docker exec` to execute commands inside a running container.
-    - Use `docker inspect` to inspect container metadata.
-    - Use a debugger to debug your application code.
-
-## 7. Tooling and Environment
-
-- **Recommended Development Tools:**
-    - **Docker Desktop:** For local development and testing.
-    - **Docker Compose:** For orchestrating multi-container applications.
-    - **Visual Studio Code with Docker extension:** For enhanced Docker development experience.
-    - **Container image scanners (e.g., Trivy, Clair):** For identifying vulnerabilities in container images.
-
-- **Build Configuration:**
-    - Use a consistent build configuration for all your images.
-    - Automate the build process using a build tool (e.g., Make, Gradle).
-
-- **Linting and Formatting:**
-    - Use a linter to enforce code style and best practices.
-    - Use a formatter to automatically format your code.
-
-- **Deployment Best Practices:**
-    - Use a container orchestration platform like Kubernetes or Docker Swarm.
-    - Implement rolling updates and rollbacks.
-    - Monitor your application for performance and availability.
-
-- **CI/CD Integration:**
-    - Integrate Docker into your CI/CD pipeline.
-    - Automate the build, test, and deployment process.
-    - Use tools like Jenkins, GitLab CI, or CircleCI.
-
----
-
-## Additional Notes:
-
--  Always use a specific tag for the base image (e.g., `ubuntu:20.04`) instead of `latest` to ensure reproducibility.
-- Use `.dockerignore` to exclude files and directories that are not needed in the image. This reduces the image size and improves build performance.
-- When possible, use the official Docker images from Docker Hub. They are usually well-maintained and optimized.
-- Consider using a tool like `docker-slim` to further reduce the size of your Docker images by removing unnecessary files and dependencies after the build process.
-- Understand the Docker build context and ensure you're only including necessary files and directories. A large build context slows down builds and increases image sizes.
-- Regularly update your base images to patch security vulnerabilities.
-- Use environment variables to configure your application, making it more flexible and portable.
-- Implement health checks in your Dockerfiles to ensure that your containers are running correctly. This can be done using the `HEALTHCHECK` instruction.
-- Consider using a private Docker registry to store your images securely.
-- Document your Dockerfiles and images to make them easier to understand and maintain.
-- Review your Dockerfiles regularly to ensure they are up-to-date and following best practices.
-- Consider using a Dockerfile linter like `hadolint` to identify potential issues and enforce best practices.
-
-By following these guidelines, you can create efficient, maintainable, and secure Docker-based applications.
+**These rules ensure documentation remains accurate, complete, and valuable throughout the project lifecycle.**
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
