@@ -7,11 +7,11 @@ TypeScript WSDL → SOAP client generator with full xs:attribute, complex types,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TechSpokes/typescript-wsdl-client](https://github.com/TechSpokes/typescript-wsdl-client).
+Original source: `CLAUDE.md` in [TechSpokes/typescript-wsdl-client](https://github.com/TechSpokes/typescript-wsdl-client).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
