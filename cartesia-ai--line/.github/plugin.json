@@ -1,0 +1,9 @@
+{
+  "name": "cartesia-ai--line",
+  "displayName": "line",
+  "description": "Cartesia Line SDK for voice agents.",
+  "version": "1.0.0",
+  "author": "cartesia-ai",
+  "homepage": "https://github.com/cartesia-ai/line",
+  "skills": []
+}
