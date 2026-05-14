@@ -1,0 +1,9 @@
+{
+  "name": "rogervdo--tmdb",
+  "displayName": "TMDB",
+  "description": "Aplicaci\u00f3n utilizando API de TMDB para buscar pel\u00edculas, g\u00e9neros, contactos, etc. Integrado con ODOO",
+  "version": "1.0.0",
+  "author": "rogervdo",
+  "homepage": "https://github.com/rogervdo/TMDB",
+  "skills": []
+}
