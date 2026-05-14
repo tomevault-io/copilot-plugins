@@ -1,0 +1,9 @@
+{
+  "name": "elitan--terradb",
+  "displayName": "terradb",
+  "description": "Declarative schema management for PostgreSQL and SQLite.",
+  "version": "1.0.0",
+  "author": "elitan",
+  "homepage": "https://github.com/elitan/terradb",
+  "skills": []
+}
