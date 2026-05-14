@@ -1,0 +1,9 @@
+{
+  "name": "wbern--agent-instructions",
+  "displayName": "agent-instructions",
+  "description": "Claude Instructions Repository",
+  "version": "1.0.0",
+  "author": "wbern",
+  "homepage": "https://github.com/wbern/agent-instructions",
+  "skills": []
+}
