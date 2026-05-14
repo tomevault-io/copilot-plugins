@@ -4,7 +4,7 @@
   "repo": "auslaw-mcp",
   "description": "MCP server for Australian and New Zealand legal research. Searches AustLII for case law and legislation, retrieves full-text judgements with paragraph numbers preserved, and supports OCR for scanned PDFs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/russellbrenner/auslaw-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:32:12Z"
+  "distributed_at": "2026-05-14T06:05:37Z"
 }
