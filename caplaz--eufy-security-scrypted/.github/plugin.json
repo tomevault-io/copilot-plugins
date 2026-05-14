@@ -1,0 +1,9 @@
+{
+  "name": "caplaz--eufy-security-scrypted",
+  "displayName": "eufy-security-scrypted",
+  "description": "Eufy Security plugin for Scrypted home automation platform with live video streaming support.",
+  "version": "1.0.0",
+  "author": "caplaz",
+  "homepage": "https://github.com/caplaz/eufy-security-scrypted",
+  "skills": []
+}
