@@ -1,0 +1,9 @@
+{
+  "name": "r-near--near-kit",
+  "displayName": "near-kit",
+  "description": "TypeScript library for interacting with NEAR Protocol - simple, type-safe, and intuitive",
+  "version": "1.0.0",
+  "author": "r-near",
+  "homepage": "https://github.com/r-near/near-kit",
+  "skills": []
+}
