@@ -1,0 +1,9 @@
+{
+  "name": "minara-ai--cc-connect",
+  "displayName": "cc-connect",
+  "description": "Peer-to-peer chat substrate that lets multiple Claude Code instances share the same context.",
+  "version": "1.0.0",
+  "author": "Minara-AI",
+  "homepage": "https://github.com/Minara-AI/cc-connect",
+  "skills": []
+}
