@@ -1,0 +1,9 @@
+{
+  "name": "causalnlp--causal-agent",
+  "displayName": "causal-agent",
+  "description": "Causal AI Scientist (CAIS) is an LLM-powered tool for generating data-driven answers to natural language causal queries.",
+  "version": "1.0.0",
+  "author": "causalNLP",
+  "homepage": "https://github.com/causalNLP/causal-agent",
+  "skills": []
+}
