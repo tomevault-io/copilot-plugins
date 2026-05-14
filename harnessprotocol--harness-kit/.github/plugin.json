@@ -1,0 +1,9 @@
+{
+  "name": "harnessprotocol--harness-kit",
+  "displayName": "harness-kit",
+  "description": "Your plugins, skills, MCP servers, hooks, conventions, and governance packaged into a single config",
+  "version": "1.0.0",
+  "author": "harnessprotocol",
+  "homepage": "https://github.com/harnessprotocol/harness-kit",
+  "skills": []
+}
