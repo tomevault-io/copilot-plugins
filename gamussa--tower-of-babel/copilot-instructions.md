@@ -1,102 +1,108 @@
-## python-testing
+## typescript-testing
 
-> - Framework: pytest 7.4.4
+> - Framework: Jest 29.7.0 with ts-jest
 
 
-# Python Testing Standards
+# TypeScript/Jest Testing Standards
 
 ## Test Framework Configuration
 
-- Framework: pytest 7.4.4
-- Test location: `tests/` directory (separate from package)
-- Virtual environment: `.venv` (always activate before testing)
+- Framework: Jest 29.7.0 with ts-jest
+- Test location: Co-located with source files (`.test.ts` suffix)
+- Build: TypeScript 5.3.2, target ES2020
 
 ## Running Tests
 
 ```bash
-cd services/inventory-service
-source .venv/bin/activate                  # ALWAYS activate venv first
-python -m pytest                           # Run all tests
-python -m pytest tests/test_utils.py       # Run specific file
-python -m pytest -v                        # Verbose output
-python -m pytest -k "test_name"            # Run tests matching pattern
-python -m pytest --cov                     # With coverage
+cd services/analytics-api
+npm test                          # Run all tests
+npm test -- order-utils           # Run tests matching pattern
+npm test -- --coverage            # Run with coverage report
+npm test -- --verbose             # Verbose output
 ```
 
 ## Test Structure Pattern
 
-Use class-based organization with descriptive docstrings:
+Use describe blocks with clear expectations:
 
-```python
-import pytest
-from inventory_service.utils import validate_order_data
+```typescript
+import { validateOrderData, formatOrderId } from './order-utils';
 
-class TestValidateOrderData:
-    """Tests for validate_order_data function"""
-    
-    def test_valid_order_data(self):
-        """Test validation with all required fields"""
-        order_data = {
-            'orderId': '123',
-            'userId': 'user456',
-            'amount': 99.99,
-            'status': 'PENDING'
-        }
-        assert validate_order_data(order_data) is True
-    
-    def test_missing_required_field(self):
-        """Test validation with missing required field"""
-        order_data = {'orderId': '123', 'userId': 'user456'}
-        assert validate_order_data(order_data) is False
+describe('validateOrderData', () => {
+  it('should return true for valid order data', () => {
+    const orderData = {
+      orderId: '123',
+      userId: 'user456',
+      amount: 99.99,
+      status: 'PENDING'
+    };
+    expect(validateOrderData(orderData)).toBe(true);
+  });
+
+  it('should return false for missing required field', () => {
+    const orderData = { orderId: '123', userId: 'user456' };
+    expect(validateOrderData(orderData)).toBe(false);
+  });
+});
 ```
 
-## Virtual Environment Setup
+## Jest Configuration
 
-ALWAYS use virtual environment:
+Exclude generated code from coverage:
+
+```javascript
+collectCoverageFrom: [
+  'src/**/*.ts',
+  '!src/**/*.test.ts',
+  '!src/generated/**',  // Exclude generated Avro code
+]
+```
+
+## Test File Patterns
+
+- Unit tests: `*.test.ts` or `*.spec.ts`
+- Integration tests: `*.integration.test.ts`
+- Co-locate tests with source files
+
+## Kafka Testing with KafkaJS
+
+```typescript
+import { Kafka } from 'kafkajs';
+
+describe('Kafka Producer', () => {
+  let kafka: Kafka;
+  let producer: Producer;
+
+  beforeAll(async () => {
+    kafka = new Kafka({ brokers: ['localhost:29092'] });
+    producer = kafka.producer();
+    await producer.connect();
+  });
+
+  afterAll(async () => {
+    await producer.disconnect();
+  });
+
+  it('should publish order event with schema validation', async () => {
+    // Test implementation
+  });
+});
+```
+
+## Building and Running
 
 ```bash
-cd services/inventory-service
-python3.12 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+npm run build      # Compiles to dist/
+npm run dev        # Development mode with auto-reload
+npm start          # Run compiled code (port 9300)
 ```
-
-## Kafka Consumer Testing
-
-Use pytest-kafka for Kafka testing:
-
-```python
-@pytest.fixture
-def kafka_consumer():
-    consumer = KafkaConsumer(...)
-    yield consumer
-    consumer.close()
-
-def test_consume_order_event(kafka_consumer):
-    # Test implementation
-    pass
-```
-
-## Test File Naming
-
-MUST follow pytest discovery patterns:
-- Files: `test_*.py` or `*_test.py`
-- Functions: `test_*`
-- Classes: `Test*`
-
-## Code Style
-
-- Follow PEP 8 style guide
-- Use type hints for function signatures
-- Google-style docstrings for public functions
-- Black for formatting (line length: 100)
 
 ## NEVER
 
-- Run tests without activating virtual environment
-- Import from generated/ directory in production code
-- Use blocking Kafka clients in async FastAPI routes
-- Skip cleanup in test teardown
+- Skip type annotations (use strict mode)
+- Import from src/generated/ in production code
+- Use `any` type without explicit justification
+- Leave unused imports or variables
 
 ---
 > Source: [gAmUssA/tower-of-babel](https://github.com/gAmUssA/tower-of-babel) — distributed by [TomeVault](https://tomevault.io).
