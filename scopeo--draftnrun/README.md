@@ -2,6 +2,8 @@
 
 > Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — distributed by [TomeVault](https://tomevault.io)
 
+Mono repo for Draft'n run source code.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [Scopeo/draftnrun](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — a repo with 0+ stars on GitHub.
+From [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — a repo with 30+ stars on GitHub.
 
 ---
 
