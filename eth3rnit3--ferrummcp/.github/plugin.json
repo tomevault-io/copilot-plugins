@@ -1,0 +1,9 @@
+{
+  "name": "eth3rnit3--ferrummcp",
+  "displayName": "FerrumMCP",
+  "description": "A Model Context Protocol (MCP) server that provides web automation capabilities through Ferrum, with optional BotBrowser integration for advanced anti-detection features. This enables AI agents to int",
+  "version": "1.0.0",
+  "author": "Eth3rnit3",
+  "homepage": "https://github.com/Eth3rnit3/FerrumMCP",
+  "skills": []
+}
