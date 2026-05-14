@@ -7,11 +7,11 @@ pistachio is a declarative schema management tool for PostgreSQL.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [winebarrel/pistachio](https://github.com/winebarrel/pistachio).
+Original source: `CLAUDE.md` in [winebarrel/pistachio](https://github.com/winebarrel/pistachio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
