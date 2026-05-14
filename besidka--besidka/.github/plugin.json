@@ -1,0 +1,9 @@
+{
+  "name": "besidka--besidka",
+  "displayName": "besidka",
+  "description": "Your digital besidka for all AI chats. Connect to any LLM using your API key. Open-source, private, and community-driven. Self-hosted solution.",
+  "version": "1.0.0",
+  "author": "besidka",
+  "homepage": "https://github.com/besidka/besidka",
+  "skills": []
+}
