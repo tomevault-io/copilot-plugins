@@ -1,0 +1,9 @@
+{
+  "name": "agenticsorg--lean-agentic",
+  "displayName": "lean-agentic",
+  "description": "A hybrid programming language combining Lean4's formal verification with blazing-fast compilation, actor-based agent orchestration, AI-driven optimization, and vector-backed agent memory.",
+  "version": "1.0.0",
+  "author": "agenticsorg",
+  "homepage": "https://github.com/agenticsorg/lean-agentic",
+  "skills": []
+}
