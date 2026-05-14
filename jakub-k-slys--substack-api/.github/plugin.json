@@ -1,0 +1,9 @@
+{
+  "name": "jakub-k-slys--substack-api",
+  "displayName": "substack-api",
+  "description": "Substack API client is a modern TypeScript library provides a clean, entity-based interface to interact with Substack publications, posts, comments, and user profiles.",
+  "version": "1.0.0",
+  "author": "jakub-k-slys",
+  "homepage": "https://github.com/jakub-k-slys/substack-api",
+  "skills": []
+}
