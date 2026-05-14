@@ -4,7 +4,7 @@
   "repo": "embedded-ui-proxy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/voluntas/embedded-ui-proxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T18:07:28Z"
+  "distributed_at": "2026-05-14T04:37:46Z"
 }
