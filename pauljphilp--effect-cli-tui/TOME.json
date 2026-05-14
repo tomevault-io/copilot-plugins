@@ -4,7 +4,7 @@
   "repo": "effect-cli-tui",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PaulJPhilp/effect-cli-tui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T02:47:36Z"
+  "distributed_at": "2026-05-14T01:32:07Z"
 }
