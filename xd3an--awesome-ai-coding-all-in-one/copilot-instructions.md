@@ -1,43 +1,56 @@
-## graphical-apps-development-cursorrules-prompt-file
+## harmony-arkts
 
-> Cursor rules for graphical apps development with integration.
+> HarmonyOS ArkTS rules for components, state, resources, layout, lifecycle, and accessibility
 
-# Project Synopsis
 
-Pyllments is a Python library for building graphical and API-based LLM applications through chaining together Elements in a potentially cyclic graph. Elements and Payloads are a type of Components. A Component is composed of a Model and Views. The Model handles the underlying data and logic, while the Views are the UI components that are used to display display the interactive UI used to interact with the Model.
+# HarmonyOS ArkTS Rules
 
-An Element is a type of Component that is responsible for a specific function. For instance, an Element can handle the LLM selection and generation by making calls to LLM providers. Another Element may handle the chat interface, whose Model would store the chat message history, and the Views would be the text boxes and buttons used to interact with the chat interface. Elements are meant to connect to other Elements through Ports. All that is necessary to link Elements together is to link the output port of one Element to the input port of Another. Each output port may have unlimited input ports it connects to, and each input port may have unlimited output ports it connects to. The ports follow an observer pattern where the output port is the subject and the input port is the observer. The subject notifies the observers when a certain event that we set within the Element is triggered.
+## Component Structure
 
-In order to connect an input and and output port, they need to be setup in a manner that sends and receives the same type of Payload. A Payload is also a Component with a Model as well as views responsible for the display logic. Elements may receive payloads and use methods of the Payload to generate the views for the UI. The sending Element is responsible for packing data into the Payload.
+- Use `@Component` for component definitions and PascalCase for component structs.
+- Keep state declarations near the top of the component.
+- Group lifecycle hooks before `build()`.
+- Place `build()` last and keep it focused on UI composition.
+- Extract complex UI into smaller components.
 
-I am currently working on making this a fully-fledged framework.
+## State and Data Flow
 
-# Project Organization
+- Use `@State` for component-owned state.
+- Use `@Prop` for parent-to-child data.
+- Use `@Link` only for intentional two-way binding.
+- Keep derived values in methods or computed helpers rather than duplicating state.
+- Avoid broad global state unless the project has an established app-state pattern.
 
-Here is an example of the file structure of an individual element:
+## Layout and Styling
 
-chat_interface:
-  - __init__.py
-  - chat_interface_element.py
-  - chat_interface_model.py
-  - css:
-    - buttons.css
-    - column.css
-    - input.css
+- Use `Column`, `Row`, `Stack`, `List`, and other ArkUI primitives intentionally.
+- Keep layout properties such as width, height, alignment, and layout weight grouped before visual properties.
+- Use object notation for margin and padding when sides differ.
+- Use logical pixels consistently.
+- Use percentage strings for relative sizes.
+- Keep reusable spacing, colors, and typography in resources when the project supports it.
 
-# Primary Libraries Used
+## Events and Lifecycle
 
-- Panel is used to create the visualization layer and run the GUI. Views tend to consist of Panel objects which can be styled with Python and CSS.
-- Param is used to create parameterized classes which help create parameters that handle type validation, default values, constraints, and most importantly, reactivity(setting event handlers to catch changes).
-- Langchain is responsible for the specific functions pertaining to incorporating LLM workflows.
+- Use arrow functions for event handlers.
+- Keep event handlers short and delegate complex logic to methods.
+- Handle async failures explicitly and surface user-facing errors where appropriate.
+- Use lifecycle hooks for setup and teardown that genuinely depends on component lifecycle.
 
-# Development Priorities
+## Resources and Accessibility
 
-Pyllments code is prioritized on being developer-friendly, where extensibility and modularity are first-class citizens. Elements should be customizeable with clean and intuitive interfaces. It should also be easy to create new elements depending on the needs of the developer.
+- Use `$r()` for app resources.
+- Group resource references consistently.
+- Add descriptive labels and focus handling for interactive elements.
+- Maintain color contrast and touch target size.
+- Test on representative device sizes and orientations.
 
-# Documentation
+## Common Mistakes
 
-Docstrings should use a NumPy/SciPy style.
+- Do not bury business logic in `build()`.
+- Do not use two-way binding when one-way props are enough.
+- Do not hardcode repeated strings, colors, and dimensions that belong in resources.
+- Do not leave debug `console.log` calls in production code.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
