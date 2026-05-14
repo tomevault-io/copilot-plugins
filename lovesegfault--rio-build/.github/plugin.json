@@ -1,0 +1,9 @@
+{
+  "name": "lovesegfault--rio-build",
+  "displayName": "rio-build",
+  "description": "Distributed builds for Nix",
+  "version": "1.0.0",
+  "author": "lovesegfault",
+  "homepage": "https://github.com/lovesegfault/rio-build",
+  "skills": []
+}
