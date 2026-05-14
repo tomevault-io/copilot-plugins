@@ -4,7 +4,7 @@
   "repo": "ai-cli",
   "description": "ai-cli lets you go from zero to AI-powered in seconds in a safe, automated and tailored way.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/manusa/ai-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:25:01Z"
+  "distributed_at": "2026-05-14T08:55:41Z"
 }
