@@ -7,11 +7,11 @@ In-depth analysis of AI agent transcripts.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [meridianlabs-ai/inspect_scout](https://github.com/meridianlabs-ai/inspect_scout).
+Original source: `CLAUDE.md` in [meridianlabs-ai/inspect_scout](https://github.com/meridianlabs-ai/inspect_scout).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
