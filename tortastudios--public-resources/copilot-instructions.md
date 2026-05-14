@@ -1,241 +1,174 @@
-## dev-workflow
+## sapling
 
-> Guide for using Task Master to manage task-driven development workflows
-
-# Task Master Development Workflow
-
-This guide outlines the typical process for using Task Master to manage software development projects.
-
-## Primary Interaction: MCP Server vs. CLI
-
-Task Master offers two primary ways to interact:
-
-1.  **MCP Server (Recommended for Integrated Tools)**:
-    - For AI agents and integrated development environments (like Cursor), interacting via the **MCP server is the preferred method**.
-    - The MCP server exposes Task Master functionality through a set of tools (e.g., `get_tasks`, `add_subtask`).
-    - This method offers better performance, structured data exchange, and richer error handling compared to CLI parsing.
-    - Refer to [`mcp.mdc`](mdc:.cursor/rules/mcp.mdc) for details on the MCP architecture and available tools.
-    - A comprehensive list and description of MCP tools and their corresponding CLI commands can be found in [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc).
-    - **Restart the MCP server** if core logic in `scripts/modules` or MCP tool/direct function definitions change.
-
-2.  **`task-master` CLI (For Users & Fallback)**:
-    - The global `task-master` command provides a user-friendly interface for direct terminal interaction.
-    - It can also serve as a fallback if the MCP server is inaccessible or a specific function isn't exposed via MCP.
-    - Install globally with `npm install -g task-master-ai` or use locally via `npx task-master-ai ...`.
-    - The CLI commands often mirror the MCP tools (e.g., `task-master list` corresponds to `get_tasks`).
-    - Refer to [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc) for a detailed command reference.
-
-## Standard Development Workflow Process
-
--   Start new projects by running `initialize_project` tool / `task-master init` or `parse_prd` / `task-master parse-prd --input='<prd-file.txt>'` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) to generate initial tasks.json
--   Begin coding sessions with `get_tasks` / `task-master list` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) to see current tasks, status, and IDs
--   Determine the next task to work on using `next_task` / `task-master next` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)).
--   Analyze task complexity with `analyze_project_complexity` / `task-master analyze-complexity --research` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) before breaking down tasks
--   Review complexity report using `complexity_report` / `task-master complexity-report` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)).
--   Select tasks based on dependencies (all marked 'done'), priority level, and ID order
--   Clarify tasks by checking task files in tasks/ directory or asking for user input
--   View specific task details using `get_task` / `task-master show <id>` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) to understand implementation requirements
--   Break down complex tasks using `expand_task` / `task-master expand --id=<id> --force --research` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) with appropriate flags like `--force` (to replace existing subtasks) and `--research`.
--   Clear existing subtasks if needed using `clear_subtasks` / `task-master clear-subtasks --id=<id>` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) before regenerating
--   Implement code following task details, dependencies, and project standards
--   Verify tasks according to test strategies before marking as complete (See [`tests.mdc`](mdc:.cursor/rules/tests.mdc))
--   Mark completed tasks with `set_task_status` / `task-master set-status --id=<id> --status=done` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc))
--   Update dependent tasks when implementation differs from original plan using `update` / `task-master update --from=<id> --prompt="..."` or `update_task` / `task-master update-task --id=<id> --prompt="..."` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc))
--   Add new tasks discovered during implementation using `add_task` / `task-master add-task --prompt="..." --research` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)).
--   Add new subtasks as needed using `add_subtask` / `task-master add-subtask --parent=<id> --title="..."` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)).
--   Append notes or details to subtasks using `update_subtask` / `task-master update-subtask --id=<subtaskId> --prompt='Add implementation notes here...\nMore details...'` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)).
--   Generate task files with `generate` / `task-master generate` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) after updating tasks.json
--   Maintain valid dependency structure with `add_dependency`/`remove_dependency` tools or `task-master add-dependency`/`remove-dependency` commands, `validate_dependencies` / `task-master validate-dependencies`, and `fix_dependencies` / `task-master fix-dependencies` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) when needed
--   Respect dependency chains and task priorities when selecting work
--   Report progress regularly using `get_tasks` / `task-master list`
--   Reorganize tasks as needed using `move_task` / `task-master move --from=<id> --to=<id>` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) to change task hierarchy or ordering
-
-## Task Complexity Analysis
-
--   Run `analyze_project_complexity` / `task-master analyze-complexity --research` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) for comprehensive analysis
--   Review complexity report via `complexity_report` / `task-master complexity-report` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) for a formatted, readable version.
--   Focus on tasks with highest complexity scores (8-10) for detailed breakdown
--   Use analysis results to determine appropriate subtask allocation
--   Note that reports are automatically used by the `expand_task` tool/command
-
-## Task Breakdown Process
-
--   Use `expand_task` / `task-master expand --id=<id>`. It automatically uses the complexity report if found, otherwise generates default number of subtasks.
--   Use `--num=<number>` to specify an explicit number of subtasks, overriding defaults or complexity report recommendations.
--   Add `--research` flag to leverage Perplexity AI for research-backed expansion.
--   Add `--force` flag to clear existing subtasks before generating new ones (default is to append).
--   Use `--prompt="<context>"` to provide additional context when needed.
--   Review and adjust generated subtasks as necessary.
--   Use `expand_all` tool or `task-master expand --all` to expand multiple pending tasks at once, respecting flags like `--force` and `--research`.
--   If subtasks need complete replacement (regardless of the `--force` flag on `expand`), clear them first with `clear_subtasks` / `task-master clear-subtasks --id=<id>`.
-
-## Implementation Drift Handling
-
--   When implementation differs significantly from planned approach
--   When future tasks need modification due to current implementation choices
--   When new dependencies or requirements emerge
--   Use `update` / `task-master update --from=<futureTaskId> --prompt='<explanation>\nUpdate context...' --research` to update multiple future tasks.
--   Use `update_task` / `task-master update-task --id=<taskId> --prompt='<explanation>\nUpdate context...' --research` to update a single specific task.
-
-## Task Status Management
-
--   Use 'pending' for tasks ready to be worked on
--   Use 'done' for completed and verified tasks
--   Use 'deferred' for postponed tasks
--   Add custom status values as needed for project-specific workflows
-
-## Task Structure Fields
-
-- **id**: Unique identifier for the task (Example: `1`, `1.1`)
-- **title**: Brief, descriptive title (Example: `"Initialize Repo"`)
-- **description**: Concise summary of what the task involves (Example: `"Create a new repository, set up initial structure."`)
-- **status**: Current state of the task (Example: `"pending"`, `"done"`, `"deferred"`)
-- **dependencies**: IDs of prerequisite tasks (Example: `[1, 2.1]`)
-    - Dependencies are displayed with status indicators (✅ for completed, ⏱️ for pending)
-    - This helps quickly identify which prerequisite tasks are blocking work
-- **priority**: Importance level (Example: `"high"`, `"medium"`, `"low"`)
-- **details**: In-depth implementation instructions (Example: `"Use GitHub client ID/secret, handle callback, set session token."`) 
-- **testStrategy**: Verification approach (Example: `"Deploy and call endpoint to confirm 'Hello World' response."`) 
-- **subtasks**: List of smaller, more specific tasks (Example: `[{"id": 1, "title": "Configure OAuth", ...}]`) 
-- Refer to task structure details (previously linked to `tasks.mdc`).
-
-## Configuration Management (Updated)
-
-Taskmaster configuration is managed through two main mechanisms:
-
-1.  **`.taskmasterconfig` File (Primary):**
-    *   Located in the project root directory.
-    *   Stores most configuration settings: AI model selections (main, research, fallback), parameters (max tokens, temperature), logging level, default subtasks/priority, project name, etc.
-    *   **Managed via `task-master models --setup` command.** Do not edit manually unless you know what you are doing.
-    *   **View/Set specific models via `task-master models` command or `models` MCP tool.**
-    *   Created automatically when you run `task-master models --setup` for the first time.
-
-2.  **Environment Variables (`.env` / `mcp.json`):**
-    *   Used **only** for sensitive API keys and specific endpoint URLs.
-    *   Place API keys (one per provider) in a `.env` file in the project root for CLI usage.
-    *   For MCP/Cursor integration, configure these keys in the `env` section of `.cursor/mcp.json`.
-    *   Available keys/variables: See `assets/env.example` or the Configuration section in the command reference (previously linked to `taskmaster.mdc`).
-
-**Important:** Non-API key settings (like model selections, `MAX_TOKENS`, `TASKMASTER_LOG_LEVEL`) are **no longer configured via environment variables**. Use the `task-master models` command (or `--setup` for interactive configuration) or the `models` MCP tool.
-**If AI commands FAIL in MCP** verify that the API key for the selected provider is present in the `env` section of `.cursor/mcp.json`.
-**If AI commands FAIL in CLI** verify that the API key for the selected provider is present in the `.env` file in the root of the project.
-
-## Determining the Next Task
-
-- Run `next_task` / `task-master next` to show the next task to work on.
-- The command identifies tasks with all dependencies satisfied
-- Tasks are prioritized by priority level, dependency count, and ID
-- The command shows comprehensive task information including:
-    - Basic task details and description
-    - Implementation details
-    - Subtasks (if they exist)
-    - Contextual suggested actions
-- Recommended before starting any new development work
-- Respects your project's dependency structure
-- Ensures tasks are completed in the appropriate sequence
-- Provides ready-to-use commands for common task actions
-
-## Viewing Specific Task Details
-
-- Run `get_task` / `task-master show <id>` to view a specific task.
-- Use dot notation for subtasks: `task-master show 1.2` (shows subtask 2 of task 1)
-- Displays comprehensive information similar to the next command, but for a specific task
-- For parent tasks, shows all subtasks and their current status
-- For subtasks, shows parent task information and relationship
-- Provides contextual suggested actions appropriate for the specific task
-- Useful for examining task details before implementation or checking status
-
-## Managing Task Dependencies
-
-- Use `add_dependency` / `task-master add-dependency --id=<id> --depends-on=<id>` to add a dependency.
-- Use `remove_dependency` / `task-master remove-dependency --id=<id> --depends-on=<id>` to remove a dependency.
-- The system prevents circular dependencies and duplicate dependency entries
-- Dependencies are checked for existence before being added or removed
-- Task files are automatically regenerated after dependency changes
-- Dependencies are visualized with status indicators in task listings and files
-
-## Task Reorganization
-
-- Use `move_task` / `task-master move --from=<id> --to=<id>` to move tasks or subtasks within the hierarchy
-- This command supports several use cases:
-  - Moving a standalone task to become a subtask (e.g., `--from=5 --to=7`)
-  - Moving a subtask to become a standalone task (e.g., `--from=5.2 --to=7`) 
-  - Moving a subtask to a different parent (e.g., `--from=5.2 --to=7.3`)
-  - Reordering subtasks within the same parent (e.g., `--from=5.2 --to=5.4`)
-  - Moving a task to a new, non-existent ID position (e.g., `--from=5 --to=25`)
-  - Moving multiple tasks at once using comma-separated IDs (e.g., `--from=10,11,12 --to=16,17,18`)
-- The system includes validation to prevent data loss:
-  - Allows moving to non-existent IDs by creating placeholder tasks
-  - Prevents moving to existing task IDs that have content (to avoid overwriting)
-  - Validates source tasks exist before attempting to move them
-- The system maintains proper parent-child relationships and dependency integrity
-- Task files are automatically regenerated after the move operation
-- This provides greater flexibility in organizing and refining your task structure as project understanding evolves
-- This is especially useful when dealing with potential merge conflicts arising from teams creating tasks on separate branches. Solve these conflicts very easily by moving your tasks and keeping theirs.
-
-## Iterative Subtask Implementation
-
-Once a task has been broken down into subtasks using `expand_task` or similar methods, follow this iterative process for implementation:
-
-1.  **Understand the Goal (Preparation):**
-    *   Use `get_task` / `task-master show <subtaskId>` (see [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc)) to thoroughly understand the specific goals and requirements of the subtask.
-
-2.  **Initial Exploration & Planning (Iteration 1):**
-    *   This is the first attempt at creating a concrete implementation plan.
-    *   Explore the codebase to identify the precise files, functions, and even specific lines of code that will need modification.
-    *   Determine the intended code changes (diffs) and their locations.
-    *   Gather *all* relevant details from this exploration phase.
-
-3.  **Log the Plan:**
-    *   Run `update_subtask` / `task-master update-subtask --id=<subtaskId> --prompt='<detailed plan>'`.
-    *   Provide the *complete and detailed* findings from the exploration phase in the prompt. Include file paths, line numbers, proposed diffs, reasoning, and any potential challenges identified. Do not omit details. The goal is to create a rich, timestamped log within the subtask's `details`.
-
-4.  **Verify the Plan:**
-    *   Run `get_task` / `task-master show <subtaskId>` again to confirm that the detailed implementation plan has been successfully appended to the subtask's details.
-
-5.  **Begin Implementation:**
-    *   Set the subtask status using `set_task_status` / `task-master set-status --id=<subtaskId> --status=in-progress`.
-    *   Start coding based on the logged plan.
-
-6.  **Refine and Log Progress (Iteration 2+):**
-    *   As implementation progresses, you will encounter challenges, discover nuances, or confirm successful approaches.
-    *   **Before appending new information**: Briefly review the *existing* details logged in the subtask (using `get_task` or recalling from context) to ensure the update adds fresh insights and avoids redundancy.
-    *   **Regularly** use `update_subtask` / `task-master update-subtask --id=<subtaskId> --prompt='<update details>\n- What worked...\n- What didn't work...'` to append new findings.
-    *   **Crucially, log:**
-        *   What worked ("fundamental truths" discovered).
-        *   What didn't work and why (to avoid repeating mistakes).
-        *   Specific code snippets or configurations that were successful.
-        *   Decisions made, especially if confirmed with user input.
-        *   Any deviations from the initial plan and the reasoning.
-    *   The objective is to continuously enrich the subtask's details, creating a log of the implementation journey that helps the AI (and human developers) learn, adapt, and avoid repeating errors.
-
-7.  **Review & Update Rules (Post-Implementation):**
-    *   Once the implementation for the subtask is functionally complete, review all code changes and the relevant chat history.
-    *   Identify any new or modified code patterns, conventions, or best practices established during the implementation.
-    *   Create new or update existing rules following internal guidelines (previously linked to `cursor_rules.mdc` and `self_improve.mdc`).
-
-8.  **Mark Task Complete:**
-    *   After verifying the implementation and updating any necessary rules, mark the subtask as completed: `set_task_status` / `task-master set-status --id=<subtaskId> --status=done`.
-
-9.  **Commit Changes (If using Git):**
-    *   Stage the relevant code changes and any updated/new rule files (`git add .`).
-    *   Craft a comprehensive Git commit message summarizing the work done for the subtask, including both code implementation and any rule adjustments.
-    *   Execute the commit command directly in the terminal (e.g., `git commit -m 'feat(module): Implement feature X for subtask <subtaskId>\n\n- Details about changes...\n- Updated rule Y for pattern Z'`).
-    *   Consider if a Changeset is needed according to internal versioning guidelines (previously linked to `changeset.mdc`). If so, run `npm run changeset`, stage the generated file, and amend the commit or create a new one.
-
-10. **Proceed to Next Subtask:**
-    *   Identify the next subtask (e.g., using `next_task` / `task-master next`).
-
-## Code Analysis & Refactoring Techniques
-
-- **Top-Level Function Search**:
-    - Useful for understanding module structure or planning refactors.
-    - Use grep/ripgrep to find exported functions/constants:
-      `rg "export (async function|function|const) \w+"` or similar patterns.
-    - Can help compare functions between files during migrations or identify potential naming conflicts.
+> description: Enforces Sapling SCM as the default source control system for all agent conversations and development workflows
 
 ---
-*This workflow provides a general guideline. Adapt it based on your specific project needs and team practices.*
+description: Enforces Sapling SCM as the default source control system for all agent conversations and development workflows
+globs: "**/*"
+alwaysApply: true
+---
+
+- **Core Philosophy: Trunk-Based Development with Local Bookmark Discipline**
+  - **Human workflow**: Local Sapling bookmarks → push directly to main (no feature branches)
+  - **Background agent workflow**: Feature branches → immediate merge → delete branch
+  - **CRITICAL: One feature = one local bookmark** (Non-Negotiable - prevents mixing work locally)
+  - **Zero stale branches**: Any feature branch should be merged and deleted immediately
+  - **Smartlog is primary navigation**: Use `sl` to see your commit graph and navigate
+
+- **CRITICAL: Repository Setup & .gitignore (MUST DO FIRST)**
+  - **ALWAYS add .sl/ to .gitignore IMMEDIATELY** when setting up Sapling
+  - **Never commit .sl/ metadata** - it causes massive conflicts (237+ files)
+  - **Essential .gitignore entries for Sapling:**
+    ```gitignore
+    # Sapling SCM metadata (CRITICAL - prevents committing internal files)
+    .sl/
+    
+    # Git metadata conflicts in Sapling workflow  
+    .git/index
+    .git/FETCH_HEAD
+    .git/refs/
+    .git/logs/
+    ```
+  - **If .sl/ already committed**: `git rm -r --cached .sl/` then commit the removal
+
+- **Repository Initialization Best Practices**
+  - **Fresh Sapling setup**: `sl init --git` in existing Git repo
+  - **Configure remote immediately**: Add to `~/.config/sapling/sapling.conf`:
+    ```ini
+    [paths]
+    default = https://github.com/your-org/your-repo.git
+    ```
+  - **First pull to import history**: `sl pull` to get Git commits into Sapling
+  - **Test basic workflow**: Create bookmark, commit, push to verify setup
+
+- **Daily Human Workflow (Trunk-Based with Sapling)**
+  ```sh
+  sl pull                   # Start with latest main
+  sl                        # See your work (smartlog - primary navigation)
+  sl book feature-name      # Create local bookmark for focused work
+  sl status                 # Check file changes
+  # Work on atomic changes...
+  sl add <new-files>        # Add any new/untracked files (if needed)
+  sl commit -m "atomic change"  # Commits all tracked changes (no staging needed)
+  sl push --to main         # Push directly to main (trunk-based)
+  sl goto main              # Return to main for next work
+  ```
+
+- **Key Daily Commands**
+  - `sl` - Show smartlog (your primary navigation tool - most important command)
+  - `sl status` - See changed files 
+  - `sl book <name>` - Create local bookmark for focused work
+  - `sl goto <name>` - Switch to bookmark or main
+  - `sl add <files>` - Add new/untracked files to repository (required before first commit)
+  - `sl commit -m "message"` - Commit all tracked changes (no staging needed for tracked files)
+  - `sl push --to main` - Push directly to main (trunk-based development)
+  - `sl absorb` - Auto-absorb pending changes into appropriate stack commits
+  - `sl undo` - Undo last operation (simpler than Git)
+
+- **Local Bookmark Discipline (Non-Negotiable)**
+  - **Always create bookmark before starting work**: `sl book feature-name`
+  - **One logical feature = one local bookmark** - Never mix unrelated work
+  - **Do NOT pile multiple features into one bookmark** (Otherwise, airstrike consequences!)
+  - **Check current bookmark before starting**: `sl bookmark` shows current with `*`
+  - **Complete each feature before starting next** - Maintain atomic focus
+  - **Return to main between features**: `sl goto main` after pushing
+
+- **File Hygiene (Learned from Practice)**
+  - **Always inspect before committing**: `sl status` then `sl diff`
+  - **Use `file <filename>` to understand unfamiliar files** - Never commit unknown files
+  - **Handle .gitignore conflicts**: `sl forget <file>` removes from tracking
+  - **Git metadata in .git mode**: Add to .gitignore: `.git/index`, `.git/FETCH_HEAD`, `.git/refs/`, `.git/logs/`
+  - **Remove accidentally tracked ignored files**: `sl forget <file>` then commit the removal
+
+- **Status Code Interpretation (Critical Troubleshooting)**
+  - **`M filename`** - Modified file, ready to commit
+  - **`? filename`** - Untracked file, not in repository
+  - **`! filename`** - Missing file (tracked but deleted/moved) - INVESTIGATE IMMEDIATELY
+  - **Large list of `! .sl/` files** - Sapling metadata was accidentally committed, use recovery procedure
+
+- **Emergency Recovery Procedures**
+  - **If .sl/ metadata committed (causes `!` status everywhere)**:
+    ```sh
+    git rm -r --cached .sl/     # Remove from Git tracking
+    echo ".sl/" >> .gitignore   # Prevent future commits
+    git commit -m "fix: remove .sl/ metadata from tracking"
+    ```
+  - **If Sapling metadata corrupted**:
+    ```sh
+    cp -r .sl .sl-backup       # Backup if possible
+    rm -rf .sl                 # Remove corrupted metadata
+    sl init --git              # Reinitialize
+    sl pull                    # Import Git history
+    ```
+  - **If configuration missing**: Edit `~/.config/sapling/sapling.conf` directly
+
+- **Background Agent Branch Management**
+  - **Cursor background agents create feature branches by default** (not under our control)
+  - **Always merge and delete these branches immediately** after agent completion
+  - **Never leave feature branches open** - they violate trunk-based principles
+  - **Regular cleanup**: Check for and remove stale agent branches
+  - **Configure agents to auto-delete branches when possible**
+
+- **Branch Hygiene Rules**
+  - **Humans**: Only use local Sapling bookmarks, never create remote feature branches
+  - **Agents**: Create temporary feature branches → immediate merge → delete
+  - **Repository state**: Should only have `main` branch + temporary agent branches in flight
+  - **Cleanup stale branches**: If you see feature branches from agents, merge and delete them
+
+- **Sapling Core Principles (Key Differences from Git)**
+  - **No staging area for tracked files** - `sl commit` commits all modified tracked files by default
+  - **Untracked files still need `sl add`** - New files must be explicitly added before committing
+  - **Local bookmarks are for organization** - Not for creating remote branches
+  - **Automatic stack management** - Amending commits auto-restacks your work
+  - **Smartlog shows your context** - `sl` is your primary navigation command
+  - **Built-in undo** - `sl undo`, `sl uncommit`, `sl unamend` for easy fixes
+
+- **Simple Push Workflow**
+  - **Default for humans**: `sl push --to main` (direct to main, trunk-based)
+  - **Bookmark names do NOT become Git branch names** in our workflow
+  - **Emergency hotfixes**: Still use `sl push --to main` with focused bookmark
+  - **Pull before pushing**: `sl pull` to get latest changes
+
+- **Advanced Operations (Use Sparingly)**
+  - **Interactive commit**: `sl commit -i` to choose specific changes
+  - **Absorb changes**: `sl absorb` to auto-assign pending changes to stack commits
+  - **Stack manipulation**: `sl histedit` for complex history editing (rarely needed)
+  - **Rebase workflow**: `sl rebase --dest main` (only when absolutely necessary)
+
+- **Troubleshooting Common Issues**
+  - **"Files tracked but in .gitignore"**: Use `sl forget <file>` to remove from tracking
+  - **"Uncommitted changes but sl diff shows nothing"**: Try `sl status --unknown` to refresh
+  - **"Multiple bookmarks with same work"**: Merge bookmarks with `sl goto` and `sl absorb`
+  - **"Stale agent branches"**: Merge to main and delete the branch
+  - **"repository default does not exist"**: Check `paths.default` in sapling.conf
+  - **"only one config item permitted"**: Use space syntax `sl config section.key value` or edit .conf directly
+
+- **Configuration Troubleshooting**
+  - **Check current config**: `sl config` (shows all settings)
+  - **Config file location**: `~/.config/sapling/sapling.conf` (edit directly if needed)
+  - **Required settings**:
+    ```ini
+    [paths]
+    default = https://github.com/your-org/your-repo.git
+    ```
+  - **Test configuration**: `sl pull` should work without errors
+
+- **Safety Practices (Learned from Experience)**
+  - **ALWAYS prefer simple solutions**: `sl push --to main` over complex rebasing
+  - **Verify `sl status` is clean** before major operations
+  - **Use `sl undo` for immediate fixes** instead of complex recovery
+  - **Create backup before risky operations**: `cp -r .sl .sl-backup`
+  - **When in doubt, use simple commands** - Sapling is designed for simplicity
+  - **NEVER commit .sl/ directory** - Add to .gitignore immediately on setup
+
+- **Rule Maintenance**
+  - Updated based on trunk-based development workflow requirements
+  - Emphasizes local bookmark discipline over feature branch management
+  - Focuses on Sapling's core strengths: simplicity, automatic stack management, smartlog navigation
+  - Incorporates real-world experience with background agent branch cleanup
+  - **Added critical troubleshooting from repository corruption recovery experience**
+
+// See [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for rule formatting guidelines.
 
 ---
 > Source: [tortastudios/public-resources](https://github.com/tortastudios/public-resources) — distributed by [TomeVault](https://tomevault.io).
