@@ -1,0 +1,9 @@
+{
+  "name": "areweai--tsgram-mcp",
+  "displayName": "tsgram-mcp",
+  "description": "TSGram - Telegram MCP Server for local Claude Code integration - debug and vibe code on the go!",
+  "version": "1.0.0",
+  "author": "areweai",
+  "homepage": "https://github.com/areweai/tsgram-mcp",
+  "skills": []
+}
