@@ -1,85 +1,72 @@
-## vorg-project-guide
+## vorg
 
-> VOrg is a VS Code extension that provides real-time preview functionality for Org-mode documents, similar to Markdown Preview Enhanced. It includes syntax highlighting, document outline, link navigation, and theme adaptation.
+> 本文件为 Claude Code (claude.ai/code) 在此代码库中工作时提供指导。
 
-# VOrg Project Guide
+# CLAUDE.md
 
-## Project Overview
-VOrg is a VS Code extension that provides real-time preview functionality for Org-mode documents, similar to Markdown Preview Enhanced. It includes syntax highlighting, document outline, link navigation, and theme adaptation.
+本文件为 Claude Code (claude.ai/code) 在此代码库中工作时提供指导。
 
-## Architecture & Entry Points
+## 项目概述
 
-### Main Extension Entry
-- [src/extension.ts](mdc:src/extension.ts) - Main extension activation point, registers all providers and commands
-- [package.json](mdc:package.json) - Extension manifest with commands, keybindings, and contribution points
+VOrg 是一个 VS Code 扩展，为现代 IDE（VS Code、Cursor）带来 Org-mode 支持。提供实时预览、智能编辑命令、链接导航和 TODO 管理。文件与 Emacs Org-mode 完全兼容。
 
-### Core Feature Modules
+## 构建与测试命令
 
-#### Preview System
-- [src/preview/index.ts](mdc:src/preview/index.ts) - Preview system entry point
-- [src/preview/previewManager.ts](mdc:src/preview/previewManager.ts) - Manages preview lifecycle and webview panels
-- [src/preview/htmlGenerator.ts](mdc:src/preview/htmlGenerator.ts) - Converts Org-mode AST to HTML using unified/uniorg pipeline
-- [src/preview/scrollSync.ts](mdc:src/preview/scrollSync.ts) - Synchronizes scrolling between editor and preview
+```bash
+pnpm install          # 安装依赖
+pnpm run compile      # 编译 TypeScript + webpack
+pnpm run watch        # 监听模式（开发）
+pnpm run lint         # ESLint 检查
+pnpm run test         # 集成测试（需先编译）
+pnpm run test:unit    # 仅运行单元测试（145+ 测试用例）
+pnpm run pretest      # lint + compile-tests
+pnpm run docs         # 使用 typedoc 生成 API 文档
+```
 
-#### Navigation & Structure
-- [src/outline/orgOutlineProvider.ts](mdc:src/outline/orgOutlineProvider.ts) - VS Code Outline provider for document structure navigation
-- [src/links/orgLinkProvider.ts](mdc:src/links/orgLinkProvider.ts) - Handles link detection, navigation, and insertion
-- [src/folding/orgFoldingProvider.ts](mdc:src/folding/orgFoldingProvider.ts) - Code folding support for Org-mode headings
+在 VS Code 中按 F5 启动扩展开发主机。
 
-#### Commands & Actions
-- [src/commands/index.ts](mdc:src/commands/index.ts) - Command registration and management
-- [src/commands/previewCommands.ts](mdc:src/commands/previewCommands.ts) - Preview-related commands (open, toggle, refresh)
-- [src/commands/linkCommands.ts](mdc:src/commands/linkCommands.ts) - Link navigation and insertion commands
+## 架构
 
-#### Syntax & Language Support
-- [src/syntaxHighlighter.ts](mdc:src/syntaxHighlighter.ts) - Enhanced syntax highlighting with decorations
-- [syntaxes/org.tmLanguage.json](mdc:syntaxes/org.tmLanguage.json) - TextMate grammar definition for Org-mode
-- [language-configuration.json](mdc:language-configuration.json) - Language configuration (brackets, comments, etc.)
+### 入口
+- `src/extension.ts` - 扩展激活入口，注册所有 provider 和命令。保持精简，逻辑委托给各模块。
 
-### Utilities & Types
-- [src/types/index.ts](mdc:src/types/index.ts) - TypeScript type definitions
-- [src/utils/constants.ts](mdc:src/utils/constants.ts) - Project constants and configuration
+### 关键技术
+- **uniorg / uniorg-parse / uniorg-rehype** - Org-mode AST 解析和 HTML 转换
+- **sql.js** - 编译为 WebAssembly 的 SQLite，用于工作区索引
+- **s-expression** - VOrgQL 查询语言解析
+- **pinyin-pro** - 中文拼音搜索
+- **TextMate Grammars** - `syntaxes/org.tmLanguage.json`
 
-## Development Workflow
+### 数据流
+1. 文件变更 → `WorkspaceWatcher` → `IncrementalUpdateService`
+2. `UniorgAstExtractor` 解析 org 文件 → AST
+3. `WorkspaceIndexer` 提取标题、链接、属性 → SQLite (`.vorg.db`)
+4. 查询通过 `VOrgQLParser` → SQL → `HeadingRepository`/`LinkRepository`
 
-### Build & Test
-- `npm run compile` - TypeScript compilation
-- `npm run watch` - Watch mode compilation
-- `npm test` - Run test suite
-- Press F5 in VS Code to launch Extension Development Host
+## 配置
 
-### Testing Structure
-- [src/test/runTest.ts](mdc:src/test/runTest.ts) - Test runner entry point
-- [src/test/suite/](mdc:src/test/suite/) - Integration tests
-- [src/test/unit/](mdc:src/test/unit/) - Unit tests with VS Code mocking
+`package.json` 中 TODO 关键字格式：
+- `|` 分隔未完成状态和已完成状态
+- `@` 记录时间戳，`!` 记录状态变更时的备注
+- 示例：`"TODO(t) NEXT(n) WAITING(w) | DONE(d@) CANCELLED(c@)"`
 
-### Test Data
-- [test-data/](mdc:test-data/) - Sample Org-mode files for testing
-- [example.org](mdc:example.org) - Main example file for development
+## 行为规范
 
-## Documentation Structure
-- [docs/FEATURES.md](mdc:docs/FEATURES.md) - Detailed feature descriptions
-- [docs/USER_GUIDE.md](mdc:docs/USER_GUIDE.md) - Complete usage tutorial
-- [docs/TECHNICAL.md](mdc:docs/TECHNICAL.md) - Architecture and implementation details
-- [docs/SYNTAX_HIGHLIGHTING.md](mdc:docs/SYNTAX_HIGHLIGHTING.md) - Syntax highlighting documentation
+**所有变更必须先自行验证，再给用户结论。** 不可在未执行验证命令的情况下断言问题原因或修复效果。典型流程：
 
-## Key Technologies
-- **unified/uniorg** - Org-mode parsing and HTML generation pipeline
-- **VS Code Extension API** - Extension framework
-- **TextMate Grammars** - Syntax highlighting
-- **TypeScript** - Primary development language
+1. 怀疑某个原因 → 设计验证方法（加日志、打印变量、检查文件内容、运行命令等）
+2. 执行验证 → 观察实际输出
+3. 确认根因后再给出结论和修复方案
 
-## Common Development Patterns
-1. **Provider Pattern** - Outline, Link, and Folding providers implement VS Code interfaces
-2. **Command Registration** - Commands are defined in package.json and implemented in command modules  
-3. **Webview Communication** - Preview uses message passing between extension and webview
-4. **Event-Driven Updates** - File changes trigger preview updates and syntax re-highlighting
+反例（刚犯过的错）：看到警告就断言是 webpack 未运行，但实际上 `package` 脚本已经包含 webpack，真实原因是 `orgmode-docs/.venv` 目录未被排除。
 
-## Debugging Tips
-- Use VS Code's Extension Development Host for testing
-- Preview webview can be inspected using Developer Tools
-- Check Output panel for extension logs
-- Test with various Org-mode files in test-data directory
+## 文件组织
+
+- `test-data/` - 用于手动测试的示例 org 文件
+- `syntaxes/` - TextMate 语法定义
+- `docs/guide/` - 用户文档
+- `docs/dev/` - 架构和调试指南
+- `docs/ref/` - 快捷键和 VOrgQL 参考
 
 ---
 > Source: [re-f/vorg](https://github.com/re-f/vorg) — distributed by [TomeVault](https://tomevault.io).
