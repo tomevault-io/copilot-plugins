@@ -1,0 +1,9 @@
+{
+  "name": "barvhaim--remy-mcp",
+  "displayName": "remy-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides programmatic access to Israeli Land Authority (\u05e8\u05de\u05f4\u05d9) public tender data.",
+  "version": "1.0.0",
+  "author": "barvhaim",
+  "homepage": "https://github.com/barvhaim/remy-mcp",
+  "skills": []
+}
