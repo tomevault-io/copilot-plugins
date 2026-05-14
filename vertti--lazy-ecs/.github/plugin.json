@@ -1,0 +1,9 @@
+{
+  "name": "vertti--lazy-ecs",
+  "displayName": "lazy-ecs",
+  "description": "A CLI tool for navigating AWS ECS clusters interactively.",
+  "version": "1.0.0",
+  "author": "vertti",
+  "homepage": "https://github.com/vertti/lazy-ecs",
+  "skills": []
+}
