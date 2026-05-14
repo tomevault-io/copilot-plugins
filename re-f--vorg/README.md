@@ -7,13 +7,13 @@ VOrg 是一个简单 VS Code 扩展，为 Org-mode 文档提供完整的编辑�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [re-f/vorg](https://github.com/re-f/vorg).
+Original source: `CLAUDE.md` in [re-f/vorg](https://github.com/re-f/vorg).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
