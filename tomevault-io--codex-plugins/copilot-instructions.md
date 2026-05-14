@@ -1,138 +1,283 @@
 ## agents-md
 
-> SEO Brain is a Claude Code-first plugin that should remain portable to Codex, Antigravity, and other agents that read `AGENTS.md`.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# SEO Brain Agent Instructions
+# CLAUDE.md
 
-SEO Brain is a Claude Code-first plugin that should remain portable to Codex, Antigravity, and other agents that read `AGENTS.md`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Product Direction
+## Project Overview
 
-SEO Brain implements Agentic SEO through six pillars:
+This is a Reddit MCP (Model Context Protocol) server that provides tools for interacting with the Reddit API. It's built with TypeScript and uses FastMCP to expose Reddit functionality as tools that can be used by AI assistants.
 
-1. Strategy
-2. LLM Wiki
-3. Technology
-4. Technical SEO
-5. Content
-6. Data and Analysis
+## Available Tools
 
-Humans own judgment. Agents execute intelligence. A draft created by an agent is not approved strategic context until the user explicitly approves it.
+### Read-only Tools (Client Credentials Only)
 
-## Repository Shape
+- `get_reddit_post` - Get a specific Reddit post with engagement analysis
+- `get_top_posts` - Get top posts from a subreddit or home feed
+- `get_user_info` - Get detailed information about a Reddit user
+- `get_subreddit_info` - Get subreddit details, stats, and community insights
+- `get_trending_subreddits` - Get currently trending/popular subreddits
+- `search_reddit` - Search for posts across Reddit with filters
+- `get_post_comments` - Get comments from a specific post with threading
+- `get_user_posts` - Get posts submitted by a specific user
+- `get_user_comments` - Get comments made by a specific user
 
-This repository root is the plugin root.
+### Write Tools (User Credentials Required)
 
-- Claude Code manifest: `.claude-plugin/plugin.json`
-- Codex manifest: `.codex-plugin/plugin.json`
-- Skills: `skills/<skill-name>/SKILL.md`
-- Shared skill references: `skills/_shared/references/`
-- Templates: `templates/`
-- Utility scripts: `scripts/`
-- Runtime project: `project/` and ignored by git except `project/.gitkeep`
+**IMPORTANT**: These tools require both REDDIT_USERNAME and REDDIT_PASSWORD to be configured.
 
-## Compatibility Rules
+- `create_post` - Create a new post in a subreddit (text or link)
+- `reply_to_post` - Post a reply to an existing Reddit post or comment
+- `edit_post` - Edit your own Reddit post (self-text posts only, titles cannot be edited)
+- `edit_comment` - Edit your own Reddit comment
+- `delete_post` - **PERMANENTLY** delete your own Reddit post (cannot be undone!)
+- `delete_comment` - **PERMANENTLY** delete your own Reddit comment (cannot be undone!)
 
-- Keep skill bodies in standard `SKILL.md` directories so Claude Code and Codex can discover them.
-- Keep cross-tool behavior in `AGENTS.md`, not only in Claude-specific files.
-- Keep user-facing runtime behavior in the canonical `seo-brain` skill; `AGENTS.md` and `CLAUDE.md` are development guidance.
-- Do not rely on terminal output as the primary UX for nontechnical users.
-- Prefer local web UI artifacts for previews, approvals, and reports.
-- Do not commit secrets, raw user project data, generated runs, or provider responses from real clients.
+### Server Modes
 
-## Process Integrity
+The server supports two transport modes:
 
-The default is to follow the full documented process. Do not skip analysis, approval, review, lint, source separation, or other gates because the user gave a narrow request, because an old artifact exists, or because a shortcut seems sufficient.
+1. **HTTP Server (Default)**: Runs on port 3000 with `/mcp` endpoint
+   - Used for Docker deployments and direct execution
+   - Access via: `http://localhost:3000/mcp`
+   - SSE endpoint: `http://localhost:3000/sse`
 
-- A process step may be skipped only when the current user explicitly asks to skip that specific step or confirms the bypass after the agent names the missing step and consequence.
-- Existing drafts, previous briefings, homepage-only context, or agent confidence do not waive preconditions.
-- When a bypass is explicit, record it in the artifact and log before presenting the result. State clearly that the artifact is not data-backed for the skipped dimension.
-- Approval of an artifact is not approval of an undisclosed bypass. Approval requests must show missing analysis, missing sources, and skipped checks before the user decides.
-- If a required process cannot run, stop at the gate, run the local browser handoff as the agent when possible, and present only a friendly user instruction. Do not hand bash commands to the user as the UX for approvals or gates.
+2. **Stdio Mode**: For CLI and npx usage
+   - Automatically enabled when using `npx reddit-mcp-server` or the bin entry point
+   - Used for integration with Claude Desktop and other MCP clients
 
-## Language Fidelity
+## Development Commands
 
-SEO Brain is English-first and supports Brazilian Portuguese as an official second language, but generated natural-language output should work in any requested language.
+```bash
+# Install dependencies
+pnpm install
 
-- Preserve the spelling, accents, and diacritics of the output language in all human-facing prose, headings, UI text, Markdown, logs, reports, prompts, and review notes.
-- For pt-BR, write correct Portuguese with accents: `página`, `conteúdo`, `análise`, `evidência`, `aprovação`, `técnico`, `não`, `até`.
-- ASCII transliteration is allowed only for slugs, file paths, IDs, enum values, command names, provider payloads, code identifiers, or verbatim source text that originally has no diacritics.
-- Never strip accents from user-provided names, titles, claims, excerpts, anchors, or editorial text while summarizing, extracting, reviewing, or rewriting.
+# Build TypeScript to JavaScript with tsup
+pnpm build
 
-## Wiki Rules
+# Run the MCP inspector for development/testing
+pnpm inspect
 
-Every SEO Brain project should use Obsidian-compatible Markdown and separate sources from synthesis.
+# Build and run inspector in one command
+pnpm dev
 
-- Raw sources live in `sources/` and should be treated as immutable or append-only.
-- Generated and curated knowledge lives in `wiki/`; open `project/wiki/` as the Obsidian vault.
-- `wiki/fontes/index.md` is a catalog of raw evidence, but the raw files themselves remain in `sources/`.
-- Use Obsidian wikilinks only for real pages inside `wiki/`; use normal Markdown links for files under `../sources/`.
-- Strategic pages require explicit human approval.
-- Operational and observational pages may be updated by agents when checks pass.
-- Important events must be appended to `wiki/log/index.md`. Each entry must declare a `type` of `strategic-approval` or `operational-decision` so events can be filtered by audience.
-- The wiki never holds drafts or hypotheses. Pages either reflect approved/measured state or do not exist yet.
-- `project/workbench/` is only for construction: research, briefing, auxiliary analysis, and intermediate context.
-- Complete deliverables, including v0 artifacts, live in `project/artifacts/`; content drafts live in `project/artifacts/contents/<slug>/`.
-- Public content also lives in `project/wiki/conteudos/` only after final approval and `status: published`.
-- Hypothetical or unverified strategic work stays outside the Wiki until explicit human approval; operational pages may be promoted only after automated checks pass.
+# Build and start the server via npx
+pnpm start
 
-Required strategic approval pages:
+# Format code with Prettier
+pnpm format
 
-- `wiki/index.md`
-- `wiki/eeat.md`
-- `wiki/tecnologia/index.md`
-- `wiki/tom-de-voz/index.md`
+# Check code formatting
+pnpm format:check
 
-## Browser Handoff
+# Lint code with ESLint
+pnpm lint
 
-For previews, approvals, sensitive input, and option selection, prefer a local browser handoff over terminal interaction.
+# Fix linting issues
+pnpm lint:fix
+```
 
-- Implementation lives in `scripts/companion.mjs` and templates under `templates/companion/`.
-- Do not show users raw `node scripts/companion.mjs ...` commands as the primary handoff UX. Ask whether you may open a local browser window for the approval, preview, or sensitive input flow, then run the companion yourself when the user agrees.
-- Each handoff binds to `127.0.0.1` on an ephemeral port, requires a one-time token, validates `Origin`/`Host`, and shuts down on submit, cancel, or TTL expiry.
-- Sensitive values (credentials, API keys) are never echoed to agent stdout, never logged in full, and never written to the repo root `.env`. They are stored via Claude Code `userConfig` when running as a plugin, or in `project/.env.local` when running standalone.
-- Handoff state lives outside `project/` (in `.companion/handoffs/`, gitignored) so skill `Writes only` contracts remain intact.
-- Every handoff submission appends to `wiki/log/index.md` with the appropriate `type`.
+## Architecture
 
-## Plugin Development
+### Core Components
 
-Use these rules when changing manifests, skills, shared references, templates, scripts, or agent instructions.
+1. **Reddit Client** (`src/client/reddit-client.ts`): Singleton pattern implementation that handles:
+   - OAuth2 authentication (client credentials and password flow)
+   - Automatic token refresh via axios interceptors
+   - Rate limiting and error handling
+   - Both read-only and authenticated operations
 
-- Keep agent files short; put durable workflow detail in `skills/<skill>/SKILL.md`, `skills/_shared/references/`, scripts, fixtures, or templates.
-- Treat every skill change as a verifiable workflow change. Before implementation is complete, define the skill contract, inputs, outputs, fixture strategy, and pass/fail criteria.
-- Prefer Autoresearch-style loops: one skill or subsystem per run, baseline first, fixed fixtures or budget, explicit metric or rubric, and a keep/reject decision. For deeper context, see `karpathy/autoresearch`. The runtime engine is `scripts/autoresearch.mjs` (skill: `/seo-brain:autoresearch`, doctrine: `program.md`, schemas: `skills/_shared/references/autoresearch-protocol.md`). Use `bin/seo-brain audit-skills` for one-shot quality scoring of all skills.
-- Validate meaningful skill changes with sub-agents that run or simulate the target skill against fixtures. Use one executor-style sub-agent and, for nontrivial changes, one reviewer-style sub-agent focused on contract drift, hallucination risk, source separation, and approval gates.
-- Sub-agent output is evidence, not approval. The main agent remains responsible for integration, and humans still approve strategic context.
-- Keep eval artifacts reviewable. Save development run notes in `.context/skill-evals/`; commit only reusable fixtures, scripts, templates, and concise docs.
-- Keep an implementation only when it passes the agreed checks or preserves behavior while simplifying the workflow. Log rejected experiments with the reason.
-- Separate extracted data, LLM synthesis, and human judgment in every artifact.
-- Never fabricate keyword volume, backlinks, credentials, awards, clients, or proof.
+2. **Tool Modules** (`src/tools/`): Modular organization by functionality:
+   - `post-tools.ts`: Post creation, retrieval, and management
+   - `comment-tools.ts`: Comment retrieval and threading
+   - `subreddit-tools.ts`: Subreddit info, statistics, trending
+   - `user-tools.ts`: User information and engagement insights
+   - `search-tools.ts`: Reddit search functionality
 
-## Size & Language Budgets
+3. **Type Definitions** (`src/types.ts`): Comprehensive TypeScript types for all Reddit entities
 
-Use size as an editorial principle, not as a contract that forces under-explained skills. Keep artifacts focused, but let user-facing skills carry enough context to guide agents without excessive reference chasing.
+### Authentication Flow
 
-| Artifact | Path | Guideline | Structural trigger | Overflow strategy |
-|---|---|---|---|---|
-| Skill body | `skills/*/SKILL.md` | 60-120 lines for most skills | >250 lines means review structure | Move durable detail to `references/`, `templates/`, or a specific skill. Canonical/router skills may be longer when it improves routing, safety, or reduces scattered context. |
-| Utility script | `scripts/*.mjs` | ≤ 100 lines | 200 lines is a hard ceiling | Extract modules into `scripts/lib/`. |
-| Production code | `src/**/*.ts` | ≤ 300 lines | 500 lines is a hard ceiling | Split by subcommand or domain into multiple files. |
-| Test case | `tests/*.mjs` | ≤ 80 lines | — | Split scenarios into separate files. |
+The server supports three authentication modes configured via `REDDIT_AUTH_MODE`:
 
-Skill bodies should still use progressive discovery. The point of the 250-line trigger is to prompt review, not to reward long prompts. Prefer a longer skill only when the extra guidance prevents predictable workflow mistakes.
+1. **auto (default)**: Automatically chooses the best authentication method
+   - If REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET are provided: Uses OAuth (60-100 req/min)
+   - Otherwise: Falls back to anonymous mode (~10 req/min)
+   - Gracefully degrades without failing
 
-### TypeScript vs MJS
+2. **authenticated**: Requires OAuth credentials
+   - Requires REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET
+   - Server fails to start if credentials are missing
+   - Provides higher rate limits (60-100 req/min)
+   - Use for production environments with guaranteed credentials
 
-- **TypeScript (`src/**/*.ts`)** — code with reusable shapes, multi-module structure, or that grows over time. The build step pays for itself when ≥ 2 `type`/`interface` are reused across functions or ≥ 3 functions share related signatures.
-- **MJS (`scripts/*.mjs`, `tests/*.mjs`)** — linear, fixture-driven, single-purpose scripts under 200 lines. No build, executed directly with `node`.
-- Default to MJS for new utilities and tests; promote to TS only when the criteria above are met.
+3. **anonymous**: Uses public JSON API without authentication
+   - No credentials required - zero-setup experience
+   - Lower rate limit (~10 req/min)
+   - Perfect for testing and development
+   - Read-only operations work without any Reddit app setup
 
-### Known debt
+**Write operations** (create_post, reply_to_post, edit_post, edit_comment, delete_post, delete_comment):
 
-- `src/seo-brain.ts` (~1500 lines) violates the 500-line max. Tracked for split-by-subcommand refactor.
+- Require REDDIT_USERNAME and REDDIT_PASSWORD in **any** mode
+- Will fail gracefully with a clear error message if credentials are missing
+- Token management is handled automatically by the Reddit client
+
+### Safe Mode (Spam Protection)
+
+The server includes optional safeguards to protect against Reddit's spam detection, configured via `REDDIT_SAFE_MODE`:
+
+1. **off (default)**: No safeguards, original behavior
+2. **standard**: Recommended for normal use
+   - 2-second delay between write operations
+   - Duplicate content detection (tracks last 10 items)
+3. **strict**: For cautious automated posting
+   - 5-second delay between write operations
+   - Aggressive duplicate detection (tracks last 20 items)
+
+**Features:**
+
+- **Rate Limiting**: Enforces minimum delays between write operations to avoid spam flags
+- **Duplicate Detection**: Blocks identical content from being posted, with clear error messages
+- **Smart User-Agent**: Auto-generates Reddit-compliant User-Agent format (`typescript:reddit-mcp-server:1.1.0 (by /u/USERNAME)`) when username is provided
+
+## Environment Setup
+
+Environment variables:
+
+```bash
+# Reddit API Credentials (optional unless using authenticated mode)
+REDDIT_CLIENT_ID=your_client_id
+REDDIT_CLIENT_SECRET=your_client_secret
+REDDIT_USER_AGENT=YourApp/1.0.0  # Optional, defaults to "RedditMCPServer/1.1.0"
+
+# Reddit User Credentials (optional, for write operations)
+REDDIT_USERNAME=your_username
+REDDIT_PASSWORD=your_password
+
+# Authentication Mode (optional, defaults to 'auto')
+REDDIT_AUTH_MODE=auto            # Options: auto, authenticated, anonymous
+
+# Safe Mode (optional, defaults to 'off')
+REDDIT_SAFE_MODE=standard        # Options: off, standard, strict
+
+# Transport Configuration
+# TRANSPORT_TYPE=stdio            # Uncomment for stdio mode (default: httpStream for node, stdio for npx/bin)
+PORT=3000                          # HTTP server port (default: 3000)
+
+# OAuth Authentication (for HTTP server)
+OAUTH_ENABLED=true                # Set to "true" to enable OAuth protection
+OAUTH_TOKEN=your_secret_token     # Optional, will generate random token if not provided
+```
+
+### Quick Start Examples
+
+**Try without any setup:**
+
+```bash
+export REDDIT_AUTH_MODE=anonymous
+npx reddit-mcp-server
+```
+
+**With OAuth for higher rate limits:**
+
+```bash
+export REDDIT_AUTH_MODE=auto
+export REDDIT_CLIENT_ID=your_client_id
+export REDDIT_CLIENT_SECRET=your_client_secret
+npx reddit-mcp-server
+```
+
+**With Safe Mode for write operations:**
+
+```bash
+export REDDIT_USERNAME=your_username
+export REDDIT_PASSWORD=your_password
+export REDDIT_SAFE_MODE=standard
+npx reddit-mcp-server
+```
+
+### Transport Modes
+
+The server defaults to stdio mode for MCP client compatibility:
+
+- **Running directly**: `node dist/index.js` → stdio mode (default)
+- **Running via npx**: `npx reddit-mcp-server` → stdio mode
+- **Running via Docker**: Set `TRANSPORT_TYPE=httpStream` for HTTP server on port 3000
+- **Force HTTP mode**: Set `TRANSPORT_TYPE=httpStream` or `TRANSPORT_TYPE=http`
+
+### OAuth Security
+
+The HTTP server supports optional OAuth protection:
+
+- **Disabled by default**: The server runs without authentication
+- **Enable with**: `OAUTH_ENABLED=true`
+- **Token options**:
+  - Provide your own: `OAUTH_TOKEN=your-secure-token`
+  - Auto-generate: Server creates a random 32-character token on startup
+- **Usage**: Include `Authorization: Bearer <token>` header in requests to `/mcp`
+
+Example request with OAuth:
+
+```bash
+curl -H "Authorization: Bearer your-token" http://localhost:3000/mcp
+```
+
+## Key Implementation Details
+
+1. **Error Handling**: All tools use try-catch blocks and return MCP-compliant error responses
+2. **Rate Limiting**: Built into the Reddit client to respect API limits
+3. **Token Refresh**: Automatic when tokens expire via authentication checks
+4. **Singleton Client**: Ensures single authenticated instance across all tools
+5. **Thing IDs**: Reddit uses prefixed IDs (t3* for posts, t1* for comments). The client methods handle both prefixed and non-prefixed IDs automatically.
+6. **Edit Operations**: Only self-text posts can be edited. Titles and link posts cannot be edited per Reddit API limitations.
+7. **Delete Operations**: Deletions are permanent and cannot be undone. The content is removed but the post/comment ID remains.
+
+### Intentionally Excluded (Policy Compliance)
+
+The following Reddit API capabilities are intentionally NOT implemented per Reddit's Responsible Builder Policy:
+
+- **Direct Messages/Private Messages**: Bots must get explicit consent for private communications
+- **Voting (upvote/downvote)**: Manipulating Reddit features like voting or karma is prohibited
+- **Bulk data export/scraping**: Reddit data must not be scraped for AI training or commercialized without approval
+
+## Testing Approach
+
+The project uses Vitest for testing:
+
+- **Run tests**: `pnpm test`
+- **Watch mode**: `pnpm test:watch`
+- **Coverage**: `pnpm test:coverage`
+- **Manual testing**: Use the MCP inspector (`pnpm inspect`)
+- Test both authenticated and unauthenticated flows
+- Verify error handling for invalid inputs and API failures
+
+## Common Development Tasks
+
+1. **Adding a new Reddit tool**:
+   - Add method to RedditClient class (`src/client/reddit-client.ts`)
+   - Define TypeScript types in `src/types.ts` if needed
+   - Create MCP tool in main server (`src/index.ts`)
+   - Add tests to `src/client/__tests__/reddit-client.test.ts`
+   - Update documentation (README.md and CLAUDE.md)
+
+2. **Modifying Reddit client**:
+   - Update `src/client/reddit-client.ts`
+   - Ensure backward compatibility with existing tools
+   - Test both auth flows if authentication logic changes
+   - Add comprehensive tests for new functionality
+
+3. **Debugging**:
+   - Use `pnpm inspect` to test tools interactively
+   - Check authentication flow for auth issues
+   - Verify environment variables are set correctly
+   - Review console.error logs for Reddit API responses
+   - Test with real Reddit API using test scripts (e.g., create test post, edit, delete)
 
 ---
-> Source: [agencia-conversion/seo-brain](https://github.com/agencia-conversion/seo-brain) — distributed by [TomeVault](https://tomevault.io).
+> Source: [jordanburke/reddit-mcp-server](https://github.com/jordanburke/reddit-mcp-server) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:agents_md:2026-05-06 -->
 
 ---
