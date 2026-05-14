@@ -4,7 +4,7 @@
   "repo": "git-issue",
   "description": "A console-based issue tracker for managing issues in your git repositories",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Allra-Fintech/git-issue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T14:39:11Z"
+  "distributed_at": "2026-05-14T03:00:43Z"
 }
