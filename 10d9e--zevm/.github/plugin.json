@@ -1,0 +1,9 @@
+{
+  "name": "10d9e--zevm",
+  "displayName": "zevm",
+  "description": "A high-performance Ethereum Virtual Machine implementation in Zig",
+  "version": "1.0.0",
+  "author": "10d9e",
+  "homepage": "https://github.com/10d9e/zevm",
+  "skills": []
+}
