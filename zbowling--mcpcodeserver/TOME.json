@@ -4,7 +4,7 @@
   "repo": "mcpcodeserver",
   "description": "A Model Context Protocol (MCP) proxy server that translates tool calls into TypeScript code generation. Instead of making multiple tool calls back and forth, LLMs can write TypeScript code that calls multiple tools naturally, reducing token overhead and leveraging the LLM's superior code generation capabilities.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zbowling/mcpcodeserver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:48:52Z"
+  "distributed_at": "2026-05-14T06:12:14Z"
 }
