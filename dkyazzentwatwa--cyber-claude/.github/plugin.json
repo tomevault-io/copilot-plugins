@@ -1,0 +1,9 @@
+{
+  "name": "dkyazzentwatwa--cyber-claude",
+  "displayName": "Cyber-Claude",
+  "description": "An AI-powered cybersecurity agent inspired by Claude Agent SDK, designed exclusively for defensive security operations.",
+  "version": "1.0.0",
+  "author": "dkyazzentwatwa",
+  "homepage": "https://github.com/dkyazzentwatwa/Cyber-Claude",
+  "skills": []
+}
