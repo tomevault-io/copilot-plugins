@@ -1,0 +1,9 @@
+{
+  "name": "raihan-software--saldoify",
+  "displayName": "saldoify",
+  "description": "A modern personal finance management application built with SvelteKit, PostgreSQL, and Docker.",
+  "version": "1.0.0",
+  "author": "Raihan-Software",
+  "homepage": "https://github.com/Raihan-Software/saldoify",
+  "skills": []
+}
