@@ -1,54 +1,230 @@
-## verdikta-applications
+## api-conventions
 
-> This is a monorepo containing Verdikta integration examples:
+> API design conventions and patterns for backend services
 
-# Verdikta Applications - General Development Rules
 
-## Project Overview
-This is a monorepo containing Verdikta integration examples:
-- `example-bounty-program/` - AI-powered bounty/job system with IPFS integration
-- `example-frontend/` - Reference implementation for Verdikta queries
-- `docs/` - Documentation for the project
+# API Conventions
 
-## Key Principles
-1. **Always look for existing code** before creating new implementations
-2. **Avoid duplication** - check for similar functionality in the codebase
-3. **Keep files under 200-300 lines** - refactor when exceeding this
-4. **Focus on relevant code** - don't touch unrelated areas
-5. **Test thoroughly** - especially when changing core functionality
-6. **Write clear documentation** - update docs when adding features
+## Endpoint Structure
 
-## Code Quality
-- Use descriptive variable and function names
-- Write modular and reusable components
-- Implement comprehensive error handling
-- Add input validation for all user inputs
-- Follow existing patterns in the codebase
+### Job Management API
+```
+POST   /api/jobs/create              - Create new job
+GET    /api/jobs                     - List jobs (with filters)
+GET    /api/jobs/:jobId              - Get job details
+POST   /api/jobs/:jobId/submit       - Submit work
+GET    /api/jobs/:jobId/submissions  - Get all submissions
+```
 
-## Environment Awareness
-Write code that accounts for different environments:
-- `dev` - Development with verbose logging
-- `test` - Testing with mock data
-- `prod` - Production with optimized settings
+### Response Format
+Always return JSON with consistent structure:
 
-## Before Making Changes
-1. Understand the existing implementation
-2. Check if similar functionality exists elsewhere
-3. Review related tests
-4. Consider impact on other parts of the system
-5. Update documentation if needed
+**Success Response:**
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Operation completed successfully"
+}
+```
 
-## When Fixing Bugs
-1. Understand why the test is failing
-2. Only change test logic if thoroughly convinced the test is wrong
-3. Prefer fixing implementation over changing tests
-4. Document the fix in comments if complex
+**Error Response:**
+```json
+{
+  "error": "Error category",
+  "details": "Specific error message",
+  "code": "ERROR_CODE" // optional
+}
+```
 
-## Documentation Requirements
-- Update README.md for user-facing features
-- Update technical docs for architecture changes
-- Add inline comments for complex logic
-- Create guides for new workflows
+## Request Validation
+
+### Always Validate
+1. Required fields presence
+2. Data types
+3. Value ranges (e.g., threshold 0-100)
+4. String lengths (e.g., narrative max 200 words)
+5. File sizes and types
+6. Ethereum addresses (0x + 40 hex chars)
+
+### Example Validation Pattern
+```javascript
+// Validate required fields
+if (!field1 || !field2) {
+  return res.status(400).json({
+    error: 'Missing required fields',
+    details: 'field1 and field2 are required'
+  });
+}
+
+// Validate ranges
+if (threshold < 0 || threshold > 100) {
+  return res.status(400).json({
+    error: 'Invalid threshold',
+    details: 'Threshold must be between 0 and 100'
+  });
+}
+
+// Validate word count
+const wordCount = text.trim().split(/\s+/).length;
+if (wordCount > 200) {
+  return res.status(400).json({
+    error: 'Text too long',
+    details: `Must be 200 words or less (current: ${wordCount})`
+  });
+}
+```
+
+## File Upload Patterns
+
+### Multer Configuration
+```javascript
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../tmp'));
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+    cb(null, `${uniqueSuffix}-${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (isValidFileType(file.mimetype, file.originalname)) {
+      cb(null, true);
+    } else {
+      cb(new Error(`Invalid file type: ${file.mimetype}`));
+    }
+  },
+  limits: {
+    fileSize: MAX_FILE_SIZE,
+    files: 10
+  }
+}).array('files', 10);
+```
+
+### Always Clean Up Temp Files
+```javascript
+try {
+  // Process files
+} finally {
+  // Clean up
+  for (const file of uploadedFiles) {
+    await fs.unlink(file.path).catch(err => 
+      logger.warn('Failed to clean up:', err)
+    );
+  }
+}
+```
+
+## IPFS Integration
+
+### Upload Pattern
+```javascript
+const ipfsClient = req.app.locals.ipfsClient;
+let cid;
+try {
+  cid = await ipfsClient.uploadToIPFS(filePath);
+  logger.info('Uploaded to IPFS', { cid });
+} finally {
+  // Clean up temp file
+  await fs.unlink(filePath).catch(err => 
+    logger.warn('Cleanup failed:', err)
+  );
+}
+```
+
+### Fetch Pattern
+```javascript
+const content = await ipfsClient.fetchFromIPFS(cid);
+const parsed = JSON.parse(content); // if JSON
+```
+
+## Error Handling
+
+### HTTP Status Codes
+- `200` - Success
+- `400` - Bad request (validation errors)
+- `404` - Resource not found
+- `500` - Server error
+- `501` - Not implemented (temporary)
+
+### Logging Errors
+```javascript
+catch (error) {
+  logger.error('Operation failed:', error);
+  
+  if (error.message.includes('not found')) {
+    res.status(404).json({
+      error: 'Resource not found',
+      details: error.message
+    });
+  } else {
+    res.status(500).json({
+      error: 'Operation failed',
+      details: error.message
+    });
+  }
+}
+```
+
+## Query Parameters
+
+### Filtering
+```javascript
+const { status, search, minPayout, limit = 50, offset = 0 } = req.query;
+
+const filters = {};
+if (status) filters.status = status;
+if (search) filters.search = search;
+if (minPayout) filters.minPayout = parseFloat(minPayout);
+```
+
+### Pagination
+Always support `limit` and `offset`:
+```javascript
+const limitNum = parseInt(limit, 10);
+const offsetNum = parseInt(offset, 10);
+const results = allItems.slice(offsetNum, offsetNum + limitNum);
+
+res.json({
+  success: true,
+  data: results,
+  total: allItems.length,
+  limit: limitNum,
+  offset: offsetNum
+});
+```
+
+## Form Data Handling
+
+### Multiple Files with Metadata
+```javascript
+// Frontend
+const formData = new FormData();
+files.forEach(file => formData.append('files', file));
+formData.append('metadata', JSON.stringify(metadata));
+
+// Backend
+const { metadata } = req.body;
+const parsedMetadata = JSON.parse(metadata);
+const uploadedFiles = req.files;
+```
+
+## Best Practices
+
+1. **Always validate on both frontend and backend**
+2. **Clean up temporary files in finally blocks**
+3. **Log important operations with context**
+4. **Return descriptive error messages**
+5. **Use consistent response formats**
+6. **Include helpful details in error responses**
+7. **Validate file types and sizes**
+8. **Use proper HTTP status codes**
+9. **Handle async operations with try/catch**
+10. **Document complex validation logic**
 
 ---
 > Source: [verdikta/verdikta-applications](https://github.com/verdikta/verdikta-applications) — distributed by [TomeVault](https://tomevault.io).
