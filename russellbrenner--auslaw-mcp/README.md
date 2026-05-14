@@ -7,11 +7,11 @@ MCP server for Australian and New Zealand legal research. Searches AustLII for c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [russellbrenner/auslaw-mcp](https://github.com/russellbrenner/auslaw-mcp).
+Original source: `CLAUDE.md` in [russellbrenner/auslaw-mcp](https://github.com/russellbrenner/auslaw-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
