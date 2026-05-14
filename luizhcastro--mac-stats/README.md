@@ -7,11 +7,11 @@ A native macOS menu bar app for real-time monitoring of system stats.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [luizhcastro/mac-stats](https://github.com/luizhcastro/mac-stats).
+Original source: `CLAUDE.md` in [luizhcastro/mac-stats](https://github.com/luizhcastro/mac-stats).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
