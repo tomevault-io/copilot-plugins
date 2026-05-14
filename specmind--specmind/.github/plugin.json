@@ -1,0 +1,9 @@
+{
+  "name": "specmind--specmind",
+  "displayName": "specmind",
+  "description": "Spec-driven development with auto-generated architecture documentation.",
+  "version": "1.0.0",
+  "author": "specmind",
+  "homepage": "https://github.com/specmind/specmind",
+  "skills": []
+}
