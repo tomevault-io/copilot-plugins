@@ -1,0 +1,44 @@
+{
+  "name": "Context-Engineering-Intro-ZH",
+  "owner": "sabernagato",
+  "repo": "Context-Engineering-Intro-ZH",
+  "description": "\u6e90\u4ed3\u5e93\uff1ahttps://github.com/coleam00/Context-Engineering-Intro \u7684\u7ffb\u8bd1\u7248\u672c  \u4e00\u4e2a\u5168\u9762\u7684\u4e0a\u4e0b\u6587\u5de5\u7a0b\u5165\u95e8\u6a21\u677f - \u4e0a\u4e0b\u6587\u5de5\u7a0b\u662f\u4e3a AI \u7f16\u7801\u52a9\u624b\u5de5\u7a0b\u5316\u4e0a\u4e0b\u6587\u7684\u5b66\u79d1\uff0c\u4f7f\u5b83\u4eec\u62e5\u6709\u7aef\u5230\u7aef\u5b8c\u6210\u4efb\u52a1\u6240\u9700\u7684\u4fe1\u606f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sabernagato/Context-Engineering-Intro-ZH",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T09:16:30Z"
+}
