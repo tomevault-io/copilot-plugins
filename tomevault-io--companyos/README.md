@@ -5,17 +5,17 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tomevault-io/companyos](https://github.com/tomevault-io/companyos).
+Original source: `CLAUDE.md` in [tomevault-io/companyos](https://github.com/tomevault-io/companyos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (13)
+## Bundled Skills (20)
 
 - [adversarial-test](https://github.com/tomevault-io/companyos/tree/main/skills/adversarial-test.md)
 - [changelog](https://github.com/tomevault-io/companyos/tree/main/skills/changelog.md)
@@ -30,6 +30,13 @@ Original source: `AGENTS.md` in [tomevault-io/companyos](https://github.com/tome
 - [session-debrief](https://github.com/tomevault-io/companyos/tree/main/skills/session-debrief.md)
 - [strategic-realignment](https://github.com/tomevault-io/companyos/tree/main/skills/strategic-realignment.md)
 - [vocabulary-check](https://github.com/tomevault-io/companyos/tree/main/skills/vocabulary-check.md)
+- [docs-write.md](https://github.com/tomevault-io/companyos/tree/main/skills/docs-write.md)
+- [grill-me.md](https://github.com/tomevault-io/companyos/tree/main/skills/grill-me.md)
+- [SKILL.md](https://github.com/tomevault-io/companyos/tree/main/skills/improve-codebase-architecture/SKILL.md)
+- [morning-brief.md](https://github.com/tomevault-io/companyos/tree/main/skills/morning-brief.md)
+- [roadmap-item.md](https://github.com/tomevault-io/companyos/tree/main/skills/roadmap-item.md)
+- [to-prd.md](https://github.com/tomevault-io/companyos/tree/main/skills/to-prd.md)
+- [tomevault-design.md](https://github.com/tomevault-io/companyos/tree/main/skills/tomevault-design.md)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/tomevault-io/companyos](https://github.com/tomevault-io/companyos)
 
