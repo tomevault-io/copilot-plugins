@@ -7,11 +7,11 @@ An MCP server to infuse wisdom into your AI agent.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jorgegorka/minerva](https://github.com/jorgegorka/minerva).
+Original source: `CLAUDE.md` in [jorgegorka/minerva](https://github.com/jorgegorka/minerva).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
