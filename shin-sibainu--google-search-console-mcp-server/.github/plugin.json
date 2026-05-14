@@ -1,0 +1,9 @@
+{
+  "name": "shin-sibainu--google-search-console-mcp-server",
+  "displayName": "google-search-console-mcp-server",
+  "description": "Model Context Protocol server for Google Search Console API - integrate with Claude Code and Claude Desktop",
+  "version": "1.0.0",
+  "author": "Shin-sibainu",
+  "homepage": "https://github.com/Shin-sibainu/google-search-console-mcp-server",
+  "skills": []
+}
