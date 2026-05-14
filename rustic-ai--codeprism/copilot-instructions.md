@@ -1,400 +1,465 @@
-## complete-implementation-standards
+## dev-best-practices
 
-> **Purpose:** Enforce complete implementation standards to prevent stub code, placeholders, and incomplete work from being committed. Based on lessons learned from MCP Test Harness audit where 60%+ of "complete" work was actually placeholder implementations.
+> **Purpose:** Process enforcement and team development standards for enterprise Rust projects. Use this for team environments requiring strict quality gates, design documentation, and automated workflow enforcement.
 
-# Complete Implementation Standards - Zero Placeholder Policy
+# Development Best Practices - Team Process & Workflow
 
-**Purpose:** Enforce complete implementation standards to prevent stub code, placeholders, and incomplete work from being committed. Based on lessons learned from MCP Test Harness audit where 60%+ of "complete" work was actually placeholder implementations.
+**Purpose:** Process enforcement and team development standards for enterprise Rust projects. Use this for team environments requiring strict quality gates, design documentation, and automated workflow enforcement.
 
-**When to use:** ALWAYS - Every commit, every implementation, every code review.
+**When to use:** Enterprise teams, critical systems development, open source projects with multiple contributors, or any environment requiring rigorous development process.
 
-## Absolute Prohibitions Before Commit
+## Autonomous Agent Operation
 
-**Rule: ZERO tolerance for placeholder implementations in committed code.**
-Why: Placeholder code creates false sense of completion, misleads project status, and compounds technical debt. Recent audit revealed 50+ TODO comments and extensive stub implementations in supposedly "complete" features.
+**Rule: Agent must operate autonomously through the entire development cycle unless user input is explicitly required.**
+Why: Autonomous operation enables faster iteration, consistent quality, and reduces human bottlenecks. Agents can maintain higher standards through systematic self-review than ad-hoc human review.
 
-### **Prohibited Code Patterns (Must Fix Before Commit)**
+**Autonomous Operation Requirements:**
+- Agent proceeds through design → implementation → testing → documentation without waiting for human approval
+- User input only required for: initial requirements, major architectural decisions, and final acceptance
+- All intermediate steps (design review, code review, testing) performed by agent self-review
+- Agent must document all decisions and rationale for human audit trail
 
-```rust
-// ❌ NEVER COMMIT - Placeholder implementations
-// TODO: Implement actual functionality
-// FIXME: This needs proper implementation
-// Placeholder implementation
-// Stub implementation
-// For now, provide stub implementation
-fn placeholder_function() { todo!() }
-fn function() { unimplemented!() }
+**Rule: Agent must perform comprehensive self-review before proceeding to each next step.**
+Why: Self-review catches issues early, ensures quality standards, and maintains development velocity. Systematic review prevents compounding errors across development phases.
 
-// ❌ NEVER COMMIT - Mock responses in production code
-async fn get_data() -> Result<Data> {
-    // TODO: Replace with actual API call
-    Ok(Data::mock()) // ❌ Mock data in production path
-}
+**Self-Review Process:**
+```markdown
+## Design Phase Self-Review Checklist
+- [ ] Problem statement clearly defines scope and constraints
+- [ ] Proposed solution addresses all requirements
+- [ ] API design follows Rust conventions and project patterns
+- [ ] Performance requirements are specific and measurable
+- [ ] Error handling strategy covers all failure modes
+- [ ] Implementation plan is detailed and realistic
+- [ ] Alternatives were considered with clear reasoning
 
-// ❌ NEVER COMMIT - Commented out TODO sections
-// TODO: Add error handling
-// TODO: Implement validation
-// TODO: Add performance monitoring
+## Implementation Phase Self-Review Checklist  
+- [ ] Code follows all quality rules (essentials/intermediate/advanced)
+- [ ] TDD cycle was followed with test-first development
+- [ ] All functions have comprehensive rustdoc with examples
+- [ ] Error handling is comprehensive and consistent
+- [ ] Performance requirements are met (measured)
+- [ ] Code is readable and follows project conventions
+- [ ] No TODO/FIXME comments remain
 
-// ❌ NEVER COMMIT - Placeholder test cases
-#[test]
-fn test_feature() {
-    // TODO: Write actual test
-    assert!(true); // ❌ Meaningless assertion
-}
+## Testing Phase Self-Review Checklist
+- [ ] Unit tests cover success, error, and edge cases
+- [ ] Integration tests verify component interactions  
+- [ ] Property-based tests for complex logic
+- [ ] Performance tests validate latency requirements
+- [ ] Coverage meets 90% threshold
+- [ ] All tests pass consistently
+- [ ] Test names clearly describe scenarios
 
-// ❌ NEVER COMMIT - Hardcoded placeholder values
-let memory_mb = 0; // Placeholder - would get actual memory usage
-let result = "placeholder_response"; // TODO: Get real response
+## Documentation Phase Self-Review Checklist
+- [ ] All public APIs have rustdoc with working examples
+- [ ] Module documentation explains architecture
+- [ ] Performance characteristics documented
+- [ ] Safety guarantees clearly stated
+- [ ] Examples demonstrate real usage patterns
+- [ ] Doc tests pass and provide good coverage
 ```
 
-### **Acceptable Temporary Patterns (With Strict Rules)**
+## Design-First Development
 
-```rust
-// ✅ ACCEPTABLE - Development-only features with clear annotations
-#[cfg(feature = "development")]
-fn development_mock() -> Data {
-    // This is intentionally a mock for development/testing only
-    Data::mock()
-}
-
-// ✅ ACCEPTABLE - Explicit future work with GitHub issues
-// NOTE: Feature XYZ not yet implemented - tracked in Issue #123
-// This function returns default behavior until Issue #123 is completed
-
-// ✅ ACCEPTABLE - Dead code that will be removed
-#[allow(dead_code)] // Will be used in Issue #456 implementation
-struct FutureFeature { ... }
-
-// ✅ ACCEPTABLE - Intentional unimplemented with clear context
-fn experimental_feature() -> Result<()> {
-    // This feature is intentionally not implemented until design review
-    // completes. See design doc: docs/experimental-feature.md
-    Err("Feature not yet available".into())
-}
-```
-
-## Pre-Commit Verification Checklist
-
-**Rule: Complete this checklist before EVERY commit. No exceptions.**
-
-### **Code Completeness Verification**
-```bash
-# 1. Search for prohibited patterns (MUST return zero results)
-grep -r "TODO" src/ --include="*.rs"
-grep -r "FIXME" src/ --include="*.rs" 
-grep -r "placeholder" src/ --include="*.rs"
-grep -r "stub" src/ --include="*.rs"
-grep -r "unimplemented!" src/ --include="*.rs"
-grep -r "todo!()" src/ --include="*.rs"
-
-# 2. Search for placeholder test patterns
-grep -r "assert!(true)" tests/ --include="*.rs"
-grep -r "// TODO:" tests/ --include="*.rs"
-```
-
-### **Implementation Verification Checklist**
-- [ ] **Zero TODO/FIXME comments** in committed code
-- [ ] **Zero placeholder implementations** (functions that return mock/dummy data)
-- [ ] **Zero stub functions** (functions with empty bodies or `unimplemented!()`)
-- [ ] **All functions have real implementations** that perform their intended purpose
-- [ ] **All tests actually test functionality** (no `assert!(true)` placeholders)
-- [ ] **All error paths are implemented** (not just success paths)
-- [ ] **All configuration options are functional** (not just parsed but ignored)
-- [ ] **All performance requirements are met** (not estimated or placeholder metrics)
-
-### **Quality Verification Checklist**
-- [ ] **All public APIs have comprehensive rustdoc** with working examples
-- [ ] **All functions handle errors appropriately** (not just `.unwrap()` or `.expect()`)
-- [ ] **All performance-critical paths are optimized** (not just basic implementations)
-- [ ] **All security requirements are implemented** (not just documented)
-- [ ] **All integration points are functional** (not mocked in production code)
-
-## Implementation Standards by Code Type
-
-### **Function Implementation Standards**
-
-```rust
-// ❌ INCOMPLETE - Function exists but doesn't work
-pub fn analyze_performance(code: &str) -> PerformanceMetrics {
-    // TODO: Implement actual analysis
-    PerformanceMetrics::default()
-}
-
-// ✅ COMPLETE - Function fully implements its contract
-pub fn analyze_performance(code: &str) -> Result<PerformanceMetrics> {
-    let ast = parse_code(code)?;
-    let complexity = calculate_complexity(&ast)?;
-    let memory_usage = estimate_memory_usage(&ast)?;
-    let execution_time = estimate_execution_time(&ast)?;
-    
-    Ok(PerformanceMetrics {
-        complexity,
-        memory_usage,
-        execution_time,
-        bottlenecks: identify_bottlenecks(&ast)?,
-        optimizations: suggest_optimizations(&ast)?,
-    })
-}
-```
-
-### **Test Implementation Standards**
-
-```rust
-// ❌ INCOMPLETE - Test exists but doesn't verify functionality
-#[test]
-fn test_performance_analysis() {
-    // TODO: Write actual test
-    assert!(true);
-}
-
-// ✅ COMPLETE - Test thoroughly verifies functionality
-#[test]
-fn test_performance_analysis_comprehensive() {
-    let code = r#"
-        def fibonacci(n):
-            if n <= 1: return n
-            return fibonacci(n-1) + fibonacci(n-2)
-    "#;
-    
-    let metrics = analyze_performance(code).unwrap();
-    
-    // Verify all expected metrics are calculated
-    assert!(metrics.complexity > 0);
-    assert!(metrics.memory_usage.is_some());
-    assert!(metrics.execution_time.is_some());
-    assert!(!metrics.bottlenecks.is_empty());
-    assert!(!metrics.optimizations.is_empty());
-    
-    // Verify specific algorithm detection
-    assert!(metrics.optimizations.iter()
-        .any(|opt| opt.contains("memoization")));
-}
-```
-
-### **Configuration Implementation Standards**
-
-```rust
-// ❌ INCOMPLETE - Configuration parsed but ignored
-#[derive(Deserialize)]
-struct Config {
-    performance_monitoring: bool, // TODO: Actually use this setting
-    max_memory_mb: u64, // TODO: Implement memory limits
-}
-
-// ✅ COMPLETE - Configuration is parsed and actively used
-#[derive(Deserialize)]
-struct Config {
-    performance_monitoring: bool,
-    max_memory_mb: u64,
-}
-
-impl Config {
-    pub fn is_monitoring_enabled(&self) -> bool {
-        self.performance_monitoring
-    }
-    
-    pub fn enforce_memory_limit(&self, current_usage: u64) -> Result<()> {
-        if current_usage > self.max_memory_mb {
-            return Err(format!("Memory usage {}MB exceeds limit {}MB", 
-                current_usage, self.max_memory_mb).into());
-        }
-        Ok(())
-    }
-}
-```
-
-## Git Workflow Integration
-
-### **Pre-Commit Hook Implementation**
-
-Create `.git/hooks/pre-commit`:
-```bash
-#!/bin/bash
-set -e
-
-echo "🔍 Checking for incomplete implementations..."
-
-# Check for prohibited patterns
-if grep -r "TODO\|FIXME\|placeholder\|stub implementation" src/ --include="*.rs" --quiet; then
-    echo "❌ COMMIT BLOCKED: Found TODO/FIXME/placeholder code"
-    echo "Found prohibited patterns:"
-    grep -r "TODO\|FIXME\|placeholder\|stub implementation" src/ --include="*.rs" -n
-    echo ""
-    echo "Complete all implementations before committing."
-    exit 1
-fi
-
-# Check for unimplemented/todo macros
-if grep -r "unimplemented!\|todo!()" src/ --include="*.rs" --quiet; then
-    echo "❌ COMMIT BLOCKED: Found unimplemented!() or todo!() macros"
-    grep -r "unimplemented!\|todo!()" src/ --include="*.rs" -n
-    exit 1
-fi
-
-# Check for placeholder tests
-if grep -r "assert!(true)" tests/ --include="*.rs" --quiet; then
-    echo "❌ COMMIT BLOCKED: Found placeholder tests with assert!(true)"
-    grep -r "assert!(true)" tests/ --include="*.rs" -n
-    exit 1
-fi
-
-echo "✅ No incomplete implementations found"
-
-# Run tests to ensure functionality works
-echo "🧪 Running tests to verify functionality..."
-cargo test --quiet || {
-    echo "❌ COMMIT BLOCKED: Tests failed"
-    exit 1
-}
-
-echo "✅ All checks passed - commit allowed"
-```
-
-### **Commit Message Requirements**
-
-```bash
-# ✅ GOOD - Commit message indicates complete implementation
-git commit -m "feat(auth): implement complete JWT authentication system
-
-- Add JWT token generation and validation
-- Implement token refresh mechanism  
-- Add comprehensive error handling for all auth flows
-- Include rate limiting and security headers
-- Add integration tests for all authentication paths
-- Performance: <100ms token validation, <50ms generation
-
-All functionality fully implemented and tested."
-
-# ❌ BAD - Commit message hints at incomplete work
-git commit -m "feat(auth): add authentication framework
-
-- Basic JWT structure in place
-- TODO: Add validation logic
-- TODO: Implement refresh tokens
-- Basic tests added"
-```
-
-## Issue Completion Standards
-
-### **Definition of Done Checklist**
-
-Before marking any GitHub issue as complete:
+**Rule: All features must have comprehensive design documents created and self-reviewed before implementation.**
+Why: Design documents prevent over-engineering, ensure consistency, and catch architectural issues early. Self-review by agent ensures systematic evaluation against established criteria.
 
 ```markdown
-## Implementation Verification (Required)
-- [ ] All code paths have real implementations (no TODOs/placeholders)
-- [ ] All functions perform their documented purpose
-- [ ] All error conditions are handled appropriately
-- [ ] All performance requirements are met with real measurements
-- [ ] All tests verify actual functionality (not placeholder assertions)
+# [Feature Name] Design Document Template
 
-## Integration Verification (Required)  
-- [ ] Feature works with existing codebase without mocking
-- [ ] All dependencies are real (not stubbed for testing)
-- [ ] All configuration options are functional
-- [ ] All APIs return real data (not mock responses)
-- [ ] All database/external integrations work with real services
+## Problem Statement
+- What problem are we solving?
+- Why is this important for the project?
 
-## Quality Verification (Required)
-- [ ] Code review completed with focus on implementation completeness
-- [ ] All automated tests pass with real implementations
-- [ ] Performance benchmarks meet requirements with actual measurements
-- [ ] Security review completed for real implementation
-- [ ] Documentation reflects actual functionality (not planned features)
+## Proposed Solution
+- High-level approach
+- Component interactions  
+- Data flow diagrams
 
-## Demonstration Requirement
-- [ ] **Live demo completed** showing all claimed functionality working
-- [ ] Demo includes error cases and edge conditions
-- [ ] Demo shows integration with real services/dependencies
-- [ ] Performance characteristics demonstrated with real measurements
-```
+## API Design
+- Function signatures with Rust types
+- Error types and handling strategy
+- Trait definitions if applicable
 
-## Enforcement and Accountability
+## Implementation Plan
+- Step-by-step breakdown
+- Dependencies and feature flags
+- Testing strategy with coverage targets
 
-### **Code Review Standards**
+## Alternatives Considered
+- Other approaches evaluated
+- Why this solution was chosen
 
-**Reviewer Requirements:**
-- Must verify zero placeholder/stub code in PR
-- Must test actual functionality, not just code structure
-- Must validate that all claims in PR description are demonstrable
-- Must require fixes for any TODO/FIXME comments found
+## Success Criteria
+- How will we know this works?
+- Performance requirements (specific benchmarks)
+- Integration requirements
+**Rule: Create design documents in `/docs/design/[feature-name].md` with comprehensive self-review against quality criteria.**
+Why: Standardized location ensures findability, systematic self-review catches design flaws early, and documented rationale enables audit trails for future reference.
 
-### **CI/CD Integration**
+**Use the design document template from project-setup.md for consistent formal documentation.**
 
-Add to GitHub Actions workflows:
-```yaml
-- name: Check for incomplete implementations
-  run: |
-    if grep -r "TODO\|FIXME\|placeholder\|stub" src/ --include="*.rs" --quiet; then
-      echo "❌ CI FAILED: Found incomplete implementations"
-      grep -r "TODO\|FIXME\|placeholder\|stub" src/ --include="*.rs" -n
-      exit 1
-    fi
+## Strict TDD Workflow
+
+**Rule: Follow Red-Green-Refactor cycle with evidence in commit history.**
+Why: TDD ensures comprehensive test coverage, prevents regression bugs, and results in more maintainable code. Commit evidence proves process compliance.
+
+**TDD Cycle Implementation:**
+```rust
+// Step 1: RED - Write failing test FIRST
+#[test]
+fn test_event_validation_rejects_empty_id() {
+    let event = CPTEEvent {
+        event_id: String::new(), // Invalid
+        event_kind: "SENSOR_READING".to_string(),
+        payload: serde_json::Value::Null,
+        // ... other fields
+    };
     
-    if grep -r "unimplemented!\|todo!()" src/ --include="*.rs" --quiet; then
-      echo "❌ CI FAILED: Found unimplemented macros"
-      exit 1
-    fi
-```
-
-### **Project Status Verification**
-
-**Monthly Audit Requirements:**
-- Scan entire codebase for prohibited patterns
-- Verify all "completed" features actually work end-to-end
-- Test all claimed performance characteristics with real measurements
-- Validate all documentation against actual implementation
-
-## Examples from MCP Test Harness Audit
-
-### **What Went Wrong**
-Based on recent audit findings, these patterns led to 60%+ placeholder implementations being marked as "complete":
-
-```rust
-// Found in "complete" code:
-// TODO: Replace with actual MCP client execution
-// TODO: Implement actual transport communication  
-// For now, provide stub implementation that validates data structures
-// Placeholder implementation - returns mock response for security testing
-
-vec![self.execute_test_case("find_references", "placeholder", ...
-vec![self.execute_test_case("explain_symbol", "placeholder", ...
-```
-
-### **How to Fix**
-Replace placeholder implementations with functional code:
-
-```rust
-// ❌ BEFORE - Placeholder implementation
-async fn execute_test_case(tool: &str, input: Value) -> TestResult {
-    // TODO: Replace with actual MCP client execution
-    TestResult::placeholder_success()
+    let result = validate_event(event);
+    
+    assert!(result.is_err());
+    assert!(matches!(
+        result.unwrap_err(),
+        ValidationError::InvalidEventId(_)
+    ));
 }
 
-// ✅ AFTER - Complete implementation  
-async fn execute_test_case(tool: &str, input: Value) -> TestResult {
-    let client = McpClient::connect(&self.server_config).await?;
-    let request = JsonRpcRequest::new(tool, input);
-    let response = client.send_request(request).await?;
-    let validation_result = self.validator.validate(&response)?;
-    
-    TestResult {
-        success: validation_result.passed,
-        duration: response.duration,
-        output: response.data,
-        errors: validation_result.errors,
+// Step 2: GREEN - Minimal implementation that passes
+pub fn validate_event(event: CPTEEvent) -> Result<ValidatedEvent, ValidationError> {
+    if event.event_id.is_empty() {
+        return Err(ValidationError::InvalidEventId(
+            "event_id cannot be empty".to_string()
+        ));
     }
+    
+    todo!("Implement remaining validation")
+}
+
+// Step 3: REFACTOR - Improve code quality
+pub fn validate_event(event: CPTEEvent) -> Result<ValidatedEvent, ValidationError> {
+    let validator = EventValidator::new();
+    validator.validate_id(&event.event_id)?;
+    validator.validate_schema(&event)?;
+    validator.validate_timestamps(&event)?;
+    
+    Ok(ValidatedEvent::from(event))
 }
 ```
+
+**Rule: Enforce minimum 90% code coverage for all new features.**
+Why: High coverage ensures edge cases are tested, reduces production bugs, and provides confidence for refactoring.
+
+## Enhanced Documentation Standards
+
+**Rule: Include performance characteristics and safety guarantees in all public API documentation (beyond basic rustdoc from rust-essentials.md).**
+Why: Performance docs help users make informed decisions, safety guarantees prevent misuse, and thread-safety notes prevent concurrency bugs.
+
+```rust
+/// Processes events through the validation and persistence pipeline.
+///
+/// # Arguments
+/// * `event` - The event to process with required fields populated
+/// * `policy_tags` - Access control tags for filtering
+/// 
+/// # Returns
+/// Returns `Result<ProcessingResult, ProcessingError>` with processing status
+/// 
+/// # Errors
+/// - `ValidationError` if event structure is invalid
+/// - `PolicyViolationError` if access control fails
+/// - `StorageError` if persistence fails
+/// 
+/// # Performance
+/// - Typical processing time: <5ms for standard events
+/// - Memory usage: O(1) relative to event size  
+/// - Throughput: >1000 events/second on standard hardware
+/// 
+/// # Safety
+/// - Thread-safe: Can be called concurrently from multiple threads
+/// - No data races: Internal synchronization ensures consistency
+/// - Memory safe: No possibility of buffer overflows or use-after-free
+/// 
+/// # Examples
+/// ```rust
+/// let event = CPTEEvent { /* ... */ };
+/// let result = process_event(event, vec!["PUBLIC".to_string()])?;
+/// assert!(result.success);
+/// ```
+pub fn process_event(
+    event: CPTEEvent, 
+    policy_tags: Vec<String>
+) -> Result<ProcessingResult, ProcessingError> {
+    // Implementation
+}
+```
+
+**Rule: Document module architecture with design principles and component relationships.**
+Why: Module docs provide high-level understanding, design principles guide usage, and component relationships clarify dependencies.
+
+```rust
+//! Event Processing Engine - Core validation and persistence
+//!
+//! This module implements the event processing pipeline with validation,
+//! policy enforcement, and durable persistence capabilities.
+//!
+//! # Key Components
+//! - [`EventValidator`] - Validates event structure and business rules
+//! - [`PolicyEnforcer`] - Implements access control and data sovereignty  
+//! - [`EventPersister`] - Handles durable storage with integrity verification
+//! - [`ReplicationService`] - Manages cross-node event synchronization
+//!
+//! # Design Principles
+//! - **Immutability**: Events are never modified after persistence
+//! - **Determinism**: Identical input produces identical results
+//! - **Performance**: Sub-10ms processing for standard operations
+//! - **Reliability**: Zero data loss with proper error handling
+//!
+//! # Architecture
+//! ```text
+//! Input Event -> Validator -> Policy -> Persister -> Result
+//!                    |          |         |
+//!                    v          v         v
+//!                 Schema    Access    Integrity
+//!                 Check     Control   Verification
+//! ```
+//!
+//! For detailed design, see: `/docs/design/event-processing.md`
+```
+
+## Git Workflow Standards
+
+**Rule: Use structured branch naming and detailed commit messages with metrics.**
+Why: Consistent naming enables automation, detailed commits document changes, and metrics track quality improvements.
+
+## Git Workflow Standards
+
+**Rule: Use structured branch naming and detailed commit messages with metrics.**
+Why: Consistent naming enables automation, detailed commits document changes, and metrics track quality improvements.
+
+**Branch Naming Convention:**
+```bash
+# Feature branches
+feature/[design-doc-name]
+feature/user-authentication
+feature/event-validation
+
+# Bugfix branches  
+fix/[issue-number]-[description]
+fix/42-memory-leak-in-parser
+
+# Documentation branches
+docs/[topic]
+docs/api-documentation-update
+```
+
+**Commit Message Template:**
+```bash
+git commit -m "feat(component): implement feature X
+
+- Add specific functionality with error handling
+- Implement comprehensive validation logic  
+- Add performance optimizations for large datasets
+- Resolve issue #123
+
+Design doc: /docs/design/feature-x.md
+Tests: 47 tests, all passing (coverage: 94%)
+Benchmarks: <5ms average processing time
+Breaking changes: None"
+```
+
+**Branch Naming Convention:**
+```bash
+# Feature branches
+feature/[design-doc-name]
+feature/user-authentication
+feature/event-validation
+
+# Bugfix branches  
+fix/[issue-number]-[description]
+fix/42-memory-leak-in-parser
+```
+
+**Commit Message Format:**
+
+**Rule: Include latency requirements and performance tests for all critical paths.**
+Why: Performance tests prevent regression, latency requirements ensure user experience, and benchmarks guide optimization efforts.
+
+```rust
+#[tokio::test]
+async fn test_event_processing_latency_requirement() {
+    let event = create_test_event();
+    let start = Instant::now();
+    
+    let result = process_event(event, vec!["PUBLIC".to_string()]).await;
+    
+    let duration = start.elapsed();
+    assert!(result.is_ok(), "Processing failed: {:?}", result.err());
+    assert!(
+        duration.as_millis() < 10, 
+        "Processing took {}ms, expected <10ms", 
+        duration.as_millis()
+    );
+}
+
+#[test]
+fn test_memory_usage_stays_constant() {
+    let initial_memory = get_memory_usage();
+    
+    for _ in 0..1000 {
+        let event = create_test_event();
+        let _ = validate_event(event);
+    }
+    
+    let final_memory = get_memory_usage();
+    let memory_growth = final_memory - initial_memory;
+    
+    assert!(
+        memory_growth < 1024 * 1024, // 1MB
+        "Memory grew by {} bytes, expected <1MB",
+        memory_growth
+    );
+}
+
+// Benchmark critical functions
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
+
+fn benchmark_event_validation(c: &mut Criterion) {
+    let event = create_benchmark_event();
+    
+    c.bench_function("event_validation", |b| {
+        b.iter(|| validate_event(black_box(event.clone())))
+    });
+}
+```
+
+## Pre-commit Automation
+
+**Rule: Implement automated quality gates with pre-commit hooks.**
+Why: Automated checks prevent bad code from entering the repository, reduce review time, and enforce standards consistently.
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: local
+    hooks:
+      - id: design-doc-check
+        name: Verify design document exists for features
+        entry: python scripts/check_design_doc.py
+        language: system
+        always_run: true
+        
+      - id: cargo-fmt
+        name: Cargo Format Check
+        entry: cargo fmt --all -- --check
+        language: system
+        types: [rust]
+        
+      - id: cargo-clippy
+        name: Cargo Clippy (no warnings)
+        entry: cargo clippy --all-targets --all-features -- -D warnings
+        language: system
+        types: [rust]
+        
+      - id: cargo-test
+        name: Run all tests
+        entry: cargo test --all-features
+        language: system
+        types: [rust]
+        
+      - id: coverage-check
+        name: Enforce 90% code coverage
+        entry: bash -c 'cargo tarpaulin --skip-clean --out xml && python scripts/check_coverage.py --min 90'
+        language: system
+        types: [rust]
+        
+      - id: performance-check
+        name: Run performance benchmarks
+        entry: cargo bench --bench critical_path_benchmarks
+        language: system
+        types: [rust]
+```
+
+## Self-Review Process
+
+**Rule: Agent must perform systematic self-review using comprehensive checklists to ensure quality and process compliance.**
+Why: Systematic self-review prevents oversights, ensures consistent quality, and maintains development velocity without human bottlenecks.
+
+```markdown
+## Agent Self-Review Checklist
+
+### Process Compliance
+- [ ] Design document created and self-reviewed against criteria
+- [ ] TDD cycle followed (test-first development documented)
+- [ ] Feature branch follows naming convention
+- [ ] Commit messages include metrics and references
+
+### Code Quality  
+- [ ] All public APIs have comprehensive documentation with examples
+- [ ] Performance characteristics documented with measurements
+- [ ] Thread safety and memory safety explicitly noted
+- [ ] Error handling uses Result<T, E> patterns consistently
+- [ ] No TODO/FIXME comments (create GitHub issues if needed)
+
+### Testing
+- [ ] Code coverage ≥90% (measured and verified)
+- [ ] Unit tests cover success, error, and edge cases systematically
+- [ ] Performance tests for critical paths meet requirements
+- [ ] Integration tests for public APIs demonstrate real usage
+- [ ] Doc tests provide working examples and pass
+
+### Automation
+- [ ] cargo test --all-features passes completely
+- [ ] cargo clippy -- -D warnings passes with zero warnings
+- [ ] cargo fmt --check passes (code properly formatted)
+- [ ] Pre-commit hooks all pass (if configured)
+- [ ] All automated quality gates met
+
+### Architecture & Design
+- [ ] Integration with existing components follows patterns
+- [ ] Breaking changes are documented with migration path
+- [ ] Performance impact measured and within acceptable bounds
+- [ ] Security implications considered and documented
+- [ ] Design decisions documented with clear rationale
+```
+
+## Quality Gate Enforcement
+
+**Rule: Implement automated quality gates that block progression without meeting standards.**
+Why: Automation ensures consistent enforcement, prevents quality regression, and maintains standards without requiring human oversight.
+
+**Automated Quality Gates:**
+- Design phase: Self-review checklist must be completed before implementation
+- Implementation phase: All code quality rules must pass before testing
+- Testing phase: 90% coverage + all tests passing before documentation
+- Documentation phase: All doc tests passing before completion
+- No manual approval required - agent proceeds when quality gates are met
+- Use automation tools configured in project-setup.md (pre-commit hooks, CI/CD pipeline)
+
+## User Input Requirements
+
+**Rule: Minimize user input to essential decision points only.**
+Why: Autonomous operation maximizes development velocity while ensuring human oversight remains focused on high-value decisions.
+
+**User Input Required For:**
+- Initial requirements and acceptance criteria definition
+- Major architectural decisions affecting system design
+- Breaking change approval for public APIs
+- Final feature acceptance and deployment authorization
+- Security-sensitive changes requiring human verification
+
+**User Input NOT Required For:**
+- Design document creation and review
+- Code implementation following established patterns
+- Test creation and execution
+- Documentation writing and validation  
+- Quality gate enforcement and progression
+- Intermediate code reviews and iterations
 
 ---
 
-**Summary:** This rule prevents the systematic placeholder implementation problem discovered in our MCP Test Harness audit. Every commit must contain complete, functional implementations with zero placeholder code.
-
-**Enforcement:** Pre-commit hooks, CI/CD checks, code review requirements, and regular audits ensure compliance.
-
-**Goal:** 100% functional code in every commit, with no exceptions for placeholder implementations.
+**Note:** Before using these development practices, complete the one-time setup steps in `project-setup.md` to configure tools, automation, and project structure.
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
