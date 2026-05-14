@@ -7,11 +7,11 @@ your second brain in markdown — a knowledge corpus that knows you, thinks like
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [siddsdixit/nanobrain](https://github.com/siddsdixit/nanobrain).
+Original source: `CLAUDE.md` in [siddsdixit/nanobrain](https://github.com/siddsdixit/nanobrain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
