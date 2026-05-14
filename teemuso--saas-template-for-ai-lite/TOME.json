@@ -4,7 +4,7 @@
   "repo": "saas-template-for-ai-lite",
   "description": "This is a SaaS template designed for AI workflows. The template includes robust and minimal Supabase and Stripe integrations, allowing AI to update the codebase easily. ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TeemuSo/saas-template-for-ai-lite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T17:01:41Z"
+  "distributed_at": "2026-05-14T09:22:39Z"
 }
