@@ -1,0 +1,9 @@
+{
+  "name": "shaanmajid--prediction-mcp",
+  "displayName": "prediction-mcp",
+  "description": "MCP server for prediction market data (Kalshi, Polymarket)",
+  "version": "1.0.0",
+  "author": "shaanmajid",
+  "homepage": "https://github.com/shaanmajid/prediction-mcp",
+  "skills": []
+}
