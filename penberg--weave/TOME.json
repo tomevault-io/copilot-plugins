@@ -4,7 +4,7 @@
   "repo": "weave",
   "description": "Deterministic execution for reproducible debugging\u2014for AI agents and humans.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/penberg/weave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:07:03Z"
+  "distributed_at": "2026-05-14T05:54:24Z"
 }
