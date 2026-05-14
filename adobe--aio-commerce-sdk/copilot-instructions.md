@@ -1,6 +1,6 @@
-## aio-commerce-sdk
+## ultracite
 
-> - Don't use `accessKey` attribute on any HTML element.
+> Ultracite Rules
 
 
 - Don't use `accessKey` attribute on any HTML element.
