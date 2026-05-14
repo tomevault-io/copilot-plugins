@@ -1,0 +1,9 @@
+{
+  "name": "0xkaz--claude-auto-commit",
+  "displayName": "claude-auto-commit",
+  "description": "AI-powered Git commit message generator using   Claude Code SDK. Intelligently analyzes code changes and   generates contextual commit messages with multi-language support and advanced features.",
+  "version": "1.0.0",
+  "author": "0xkaz",
+  "homepage": "https://github.com/0xkaz/claude-auto-commit",
+  "skills": []
+}
