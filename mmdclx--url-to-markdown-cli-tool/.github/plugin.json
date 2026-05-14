@@ -1,0 +1,9 @@
+{
+  "name": "mmdclx--url-to-markdown-cli-tool",
+  "displayName": "url-to-markdown-cli-tool",
+  "description": "A CLI tool that converts web pages into clean, LLM-friendly markdown. Great for feeding into LLMs or using in a RAG architecture. No LLM or api key required to use.",
+  "version": "1.0.0",
+  "author": "mmdclx",
+  "homepage": "https://github.com/mmdclx/url-to-markdown-cli-tool",
+  "skills": []
+}
