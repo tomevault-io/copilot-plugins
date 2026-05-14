@@ -7,11 +7,11 @@ AI 페어 프로그래밍을 위한 하이퍼-워터폴 방법론 하네스
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [postmelee/hyper-waterfall](https://github.com/postmelee/hyper-waterfall).
+Original source: `CLAUDE.md` in [postmelee/hyper-waterfall](https://github.com/postmelee/hyper-waterfall).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
