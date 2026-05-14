@@ -1,0 +1,9 @@
+{
+  "name": "jediluke--firefox-mcp-server",
+  "displayName": "firefox-mcp-server",
+  "description": "A fully vibe-coded, experimental, MCP server to control firefox",
+  "version": "1.0.0",
+  "author": "JediLuke",
+  "homepage": "https://github.com/JediLuke/firefox-mcp-server",
+  "skills": []
+}
