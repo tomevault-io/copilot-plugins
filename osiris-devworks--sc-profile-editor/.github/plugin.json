@@ -1,0 +1,9 @@
+{
+  "name": "osiris-devworks--sc-profile-editor",
+  "displayName": "sc-profile-editor",
+  "description": "A tool for editing and visualizing Star Citizen control profiles.",
+  "version": "1.0.0",
+  "author": "Osiris-DevWorks",
+  "homepage": "https://github.com/Osiris-DevWorks/sc-profile-editor",
+  "skills": []
+}
