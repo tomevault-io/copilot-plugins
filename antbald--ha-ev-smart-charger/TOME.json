@@ -4,7 +4,7 @@
   "repo": "ha-ev-smart-charger",
   "description": "Home Assistant integration for intelligent EV charging control based on solar production, time of day, and battery levels",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/antbald/ha-ev-smart-charger",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:41:59Z"
+  "distributed_at": "2026-05-14T03:37:27Z"
 }
