@@ -1,0 +1,9 @@
+{
+  "name": "doublewordai--control-layer",
+  "displayName": "control-layer",
+  "description": "The world\u2019s fastest AI model gateway (450x less overhead than LiteLLM). Unified access to LLMs across endpoints (openAI, self-hosted, etc.) behind a single authentication layer - with API key generati",
+  "version": "1.0.0",
+  "author": "doublewordai",
+  "homepage": "https://github.com/doublewordai/control-layer",
+  "skills": []
+}
