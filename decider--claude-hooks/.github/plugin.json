@@ -1,0 +1,9 @@
+{
+  "name": "decider--claude-hooks",
+  "displayName": "claude-hooks",
+  "description": "Comprehensive hooks for Claude Code to enforce clean code practices and automate workflows",
+  "version": "1.0.0",
+  "author": "decider",
+  "homepage": "https://github.com/decider/claude-hooks",
+  "skills": []
+}
