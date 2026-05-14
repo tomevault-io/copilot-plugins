@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--programbench",
+  "displayName": "ProgramBench",
+  "description": "Can Language Models Rebuild Programs From Scratch?",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/ProgramBench",
+  "skills": []
+}
