@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--react-pprof",
+  "displayName": "react-pprof",
+  "description": "React component for visualizing pprof with WebGL",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/react-pprof",
+  "skills": []
+}
