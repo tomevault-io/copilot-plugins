@@ -2,7 +2,7 @@
   "name": "awesome-ai-coding-all-in-one",
   "owner": "XD3an",
   "repo": "awesome-ai-coding-all-in-one",
-  "description": "",
+  "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Claude Code, providing a comprehensive set of tools for modern software development.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XD3an/awesome-ai-coding-all-in-one",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T00:16:05Z"
+  "distributed_at": "2026-05-14T17:35:46Z"
 }
