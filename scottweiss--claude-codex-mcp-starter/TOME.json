@@ -4,7 +4,7 @@
   "repo": "claude-codex-mcp-starter",
   "description": "A starting point for Claude Code to Codex collaboration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scottweiss/claude-codex-mcp-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:17:57Z"
+  "distributed_at": "2026-05-14T05:12:59Z"
 }
