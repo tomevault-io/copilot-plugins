@@ -1,0 +1,46 @@
+## echook
+
+> > v5.2.0 · Multi-platform: Claude Code (plugin) · Cursor (native + auto-bridge) · Codex CLI (native). Source-of-truth for every capability is `audio-hooks manifest` (live JSON, includes `pointers`, `editor_targets`, `supported_editors`). This file is orientation only.
+
+# echook — AI Operator Guide
+
+> v5.2.0 · Multi-platform: Claude Code (plugin) · Cursor (native + auto-bridge) · Codex CLI (native). Source-of-truth for every capability is `audio-hooks manifest` (live JSON, includes `pointers`, `editor_targets`, `supported_editors`). This file is orientation only.
+
+<critical>
+1. **`audio-hooks` CLI is the only interface.** Single Python binary, JSON output, stable error codes. Never hand-edit `user_preferences.json` — use `audio-hooks set <dotted.key> <value>`.
+2. **Run `audio-hooks manifest` first** for any non-trivial task. It returns the live list of subcommands, hooks, config keys, error codes, env vars, `editor_targets`, and `pointers` (paths to SKILL/README/ARCHITECTURE/etc). Anything you want to know about this project is one command away.
+3. **After editing `/hooks/`, `/bin/`, `/audio/`, `/config/`, `/cursor-hooks/`, or `/codex-hooks/`, run `bash scripts/build-plugin.sh`** to sync into `/plugins/audio-hooks/`. CI runs `--check` and fails on drift.
+</critical>
+
+## Install commands
+
+| Platform | Command |
+|---|---|
+| Claude Code | `claude plugin marketplace add ChanMeng666/echook` → `claude plugin install audio-hooks@chanmeng-audio-hooks` → **ask the user to type `/reload-plugins`** (REPL-only, no CLI equivalent — do not fake it via Bash). |
+| Cursor (native) | `audio-hooks install --cursor`. Aborts with `DUPLICATE_BRIDGE` if the Claude Code plugin is already installed (Cursor 3.2.16+ auto-bridges it — double-fire). Pass `--force` only if the user accepts the trade-off; runtime guard `DUPLICATE_BRIDGE_RUNTIME_SKIP` then suppresses the native path. |
+| Codex CLI | `audio-hooks install --codex`. Read `feature_flag_state` in the JSON output: if `section_missing` / `flag_missing_or_false`, follow `next_steps` — use the Edit tool to add `[features]\ncodex_hooks = true` to `~/.codex/config.toml`. The install never round-trips user TOML. |
+
+Verify with `audio-hooks status` + `audio-hooks diagnose` + `audio-hooks test all`.
+
+## Tests, CI, and version bumps
+
+- **Run tests:** `python -m unittest discover -v tests` (139 tests). NOT pytest — no `pyproject.toml` / `pytest.ini`.
+- **CI:** `.github/workflows/smoke.yml` — Ubuntu/Windows/macOS × Python 3.9/3.12/3.13, plus `bash scripts/build-plugin.sh --check`.
+- **Bump version:** `bash scripts/bump-version.sh <new_version>` — rewrites all 6 canonical version locations and runs `build-plugin.sh`. Idempotent. Outputs JSON with `files_changed` and `next_steps`.
+
+## Pointers (also exposed as `audio-hooks manifest.pointers`)
+
+- **Natural-language → CLI mapping:** `plugins/audio-hooks/skills/audio-hooks/SKILL.md` (auto-loaded on audio-related prompts — covers the full decision tree).
+- **Human docs:** `README.md`, `docs/INSTALLATION_GUIDE.md`, `CHANGELOG.md`, `docs/ARCHITECTURE.md`, `docs/TROUBLESHOOTING.md`.
+- **Canonical sources:** `/hooks/`, `/bin/`, `/audio/`, `/config/`, `/cursor-hooks/`, `/codex-hooks/`. `/plugins/audio-hooks/{audio,bin,hooks,config,cursor-hooks,codex-hooks}/` mirror these — never edit by hand. `plugin.json`, `runner/run.py`, `skills/` are hand-edited under `/plugins/audio-hooks/` directly.
+
+## Silent-bite gotchas
+
+- **Cursor does not inject `CLAUDE_PLUGIN_DATA`** when bridging — `UserPreferences._resolve_data_dir()` in `hooks/user_preferences.py` is the fallback chain. Do not assume the env var exists.
+- **Codex sets no `CODEX_VERSION` env var.** Invoker detection uses the `--invoker codex` CLI flag baked into the Codex install template, parsed by `hooks/invoker.py`.
+- **Cursor (8/26 events) and Codex (6/26 events) have smaller hook surfaces.** The runner no-ops unsupported events with `skipped_no_*_equivalent` debug NDJSON. Live mapping: `audio-hooks manifest` → `supported_editors`.
+- **Windows paths in install templates must be JSON-escaped** (`D:\path` → `D:\\path`). 5.1.6 fix; covered by `tests/test_codex_hooks.py` and `tests/test_cursor_bridge.py`.
+
+---
+> Source: [ChanMeng666/echook](https://github.com/ChanMeng666/echook) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
