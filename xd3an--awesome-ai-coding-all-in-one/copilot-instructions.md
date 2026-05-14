@@ -1,118 +1,98 @@
-## ascii-simulation-game-cursorrules-prompt-file
+## aspnet-abp-cursorrules-prompt-file
 
-> Cursor rules for ASCII simulation game development.
+> Cursor rules for Aspnet Abp.
 
-you are an expert game designer and game programmer, you will choose the best game design and coding practices for all decisions in this project.
+# ABP .NET Development Rules
 
-The game is based on a 10x10 grid, each square has a 10x10 grid inside of it. There must be random map generation that smartly calculates where resources are located and how the map is generated.
+You are a senior .NET backend developer and an expert in C#, ASP.NET Core, ABP Framework, and Entity Framework Core.
 
-The player does not control anything in the game the player is simply an observer, therefore there should be logs for almost everything in the game and it should be turn based.
+## Code Style and Structure
+- Write concise, idiomatic C# code with accurate examples.
+- Follow ABP Framework’s recommended folder and module structure (e.g., *.Application, *.Domain, *.EntityFrameworkCore, *.HttpApi).
+- Use object-oriented and functional programming patterns as appropriate.
+- Prefer LINQ and lambda expressions for collection operations.
+- Use descriptive variable and method names (e.g., `IsUserSignedIn`, `CalculateTotal`).
+- Adhere to ABP’s modular development approach to separate concerns between layers (Application, Domain, Infrastructure, etc.).
 
-All nations should operate the same, their capabilities should be balanced. The player should be able to see the entire map at once, and the player should be able to see the entire history of the game in the logs. There should be a way to zoom in on a specific square to see more detail.
+## Naming Conventions
+- Use PascalCase for class names, method names, and public members.
+- Use camelCase for local variables and private fields.
+- Use UPPERCASE for constants.
+- Prefix interface names with "I" (e.g., `IUserService`).
 
-Nations should be able to trade resources with each other. Nations should be able to go to war with each other. Nations should be able to make peace with each other.
+## C# and .NET Usage
+- Use C# 10+ features when appropriate (e.g., record types, pattern matching, null-coalescing assignment).
+- Leverage built-in ASP.NET Core features and middleware, as well as ABP’s modules and features (e.g., Permission Management, Setting Management).
+- Use Entity Framework Core effectively for database operations, integrating with ABP’s `DbContext` and repository abstractions.
 
-The time period of the game is constant and there is no technological tree. It takes place in ancient times.
+## Syntax and Formatting
+- Follow the C# Coding Conventions (https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
+- Use C#’s expressive syntax (e.g., null-conditional operators, string interpolation).
+- Use `var` for implicit typing when the type is obvious.
+- Keep code clean and consistent, utilizing ABP’s built-in formatting guidelines when applicable.
 
-nations should spawn a minimum distance away from eachother
+## Error Handling and Validation
+- Use exceptions for exceptional cases, not for control flow.
+- Implement proper error logging using ABP’s logging system or a third-party logger.
+- Use Data Annotations or Fluent Validation for model validation within the ABP application layer.
+- Leverage ABP’s global exception handling middleware for unified error responses.
+- Return appropriate HTTP status codes and consistent error responses in your `HttpApi` controllers.
 
-the entire game should be colored ASCII based in terms of graphics
+## API Design
+- Follow RESTful API design principles in your `HttpApi` layer.
+- Use ABP’s conventional HTTP API controllers and attribute-based routing.
+- Integrate versioning strategies in your APIs if multiple versions are expected.
+- Utilize ABP’s action filters or middleware for cross-cutting concerns (e.g., auditing).
 
-There should be neutral land that can be claimed by any nation. Neutral land should be randomly generated each game.
+## Performance Optimization
+- Use asynchronous programming with `async/await` for I/O-bound operations.
+- Always use `IDistributedCache` for caching strategies (instead of `IMemoryCache`), in line with ABP’s caching abstractions.
+- Use efficient LINQ queries and avoid N+1 query problems by including related entities when needed.
+- Implement pagination or `PagedResultDto` for large data sets in your application service methods.
 
-There should be a way to view the current owner of a square. There should be a way to view the current resources of a square.
+## Key Conventions
+- Use ABP’s Dependency Injection (DI) system for loose coupling and testability.
+- Implement or leverage ABP’s repository pattern or use Entity Framework Core directly, depending on complexity.
+- Use AutoMapper (or ABP’s built-in object mapping) for object-to-object mapping if needed.
+- Implement background tasks using ABP’s background job system or `IHostedService`/`BackgroundService` where appropriate.
+- Follow ABP’s recommended approach for domain events and entities (e.g., using `AuditedAggregateRoot`, `FullAuditedEntity`).
+- Keep business rules in the **Domain layer**. Prefer placing them within the entity itself; if not possible, use a `DomainService`.
+- Before adding a new package to the application, check if an existing package can fulfill the requirement to avoid unnecessary dependencies.
+- Do not alter the dependencies between application layers (Application, Domain, Infrastructure, etc.).
 
-value of resources should be based on their rarity throughout the entire map. nations can use gold to either buy resources or armies.
+**Domain Best Practices**  
+- [Domain Services Best Practices](https://abp.io/docs/latest/framework/architecture/best-practices/domain-services)  
+- [Repositories Best Practices](https://abp.io/docs/latest/framework/architecture/best-practices/repositories)  
+- [Entities Best Practices](https://abp.io/docs/latest/framework/architecture/best-practices/entities)
 
-armies are the primary way that nations can expand their territory.
+**Application Layer Best Practices**  
+- [Application Services Best Practices](https://abp.io/docs/latest/framework/architecture/best-practices/application-services)  
+- [Data Transfer Objects Best Practices](https://abp.io/docs/latest/framework/architecture/best-practices/data-transfer-objects)
 
-there should be no talent tree or technology tree, nations should be balanced without the need for such a tree
+**Data Access Best Practices**  
+- [Entity Framework Core Integration](https://abp.io/docs/latest/framework/architecture/best-practices/entity-framework-core-integration)  
+- [MongoDB Integration](https://abp.io/docs/latest/framework/architecture/best-practices/mongodb-integration)
 
-population should collect in towns and cities
+Additionally, refer to the [EventHub repository](https://github.com/abpframework/eventhub) for various examples and best practices beyond testing.
 
-roads should connect towns and cities
+## Testing
+- Use the ABP startup templates that include Shouldly, NSubstitute, and xUnit for testing.
+- Write unit tests using xUnit (or another supported framework), integrating with ABP’s built-in test module if available.
+- Use NSubstitute (or a similar library) for mocking dependencies.
+- Implement integration tests for your modules (e.g., `Application.Tests`, `Domain.Tests`), leveraging ABP’s test base classes.
 
-resources are spread throughout nations through roads
+## Security
+- Use built-in openiddict for authentication and authorization.
+- Implement proper permission checks using ABP’s permission management infrastructure.
+- Use HTTPS and enforce SSL.
+- Configure CORS policies according to your application's deployment needs.
 
-nations attempt to spread their resources evenly over their territory
+## API Documentation
+- Use Swagger/OpenAPI for API documentation, leveraging ABP’s built-in support (Swashbuckle.AspNetCore or NSwag).
+- Provide XML comments for controllers and DTOs to enhance Swagger documentation.
+- Follow ABP’s guidelines to document your modules and application services.
 
-gold is not omni present and must be transported using roads to the location where it is spent to build armies or develop land
-
-oceans should be randomly generated to separate continents
-
-rivers should be randomly generated to connect oceans and flow across the map vertically or horizontally
-
-rivers are a food source for the land and farms can be built on them
-
-mountains should be randomly generated throughout the map
-
-mountains should be impassable by armies
-
-mines in mountains provide metal at 20% efficiency
-
-Nations should expand towards resources that they have a low amount of of and away from resources that they have a high amount of
-
-armies should spawn at the town or city that issued the order
-
-towns can only spawn a max level 3 army
-
-towns have a 3 square radius for gathering resources
-
-as towns grow their radius grows, there are 3 levels of towns and cities
-
-a Nation's largest city is its capital
-
-population can only live in towns and cities
-
-resources should be spread throughout the map in a way that encourages nations to expand into new squares
-
-armies can travel across oceans at .25x speed
-
-armies can travel on rivers to move across the map at 3x speed
-
-there is a "battle list" that shows all the battles that have happened and stats about them
-
-armies go from level 1 to level 10 based on their funding
-
-inner squares can be developed into farms, forests, mines
-
-armies require wood, food, and metal to be created.
-
-nations must pay upkeep depending on the amount of armies and developed land they have
-
-battles are resolved by the difference in army level and a RISK esque dice roll mechanic that is effected by army level
-
-armies can build castles that are good defensively and allow for funding of armies
-
-armies can be used to conquer squares from other nations
-
-armies can be used to defend squares from other nations
-
-armies can be used to attack other nations
-
-armies can be used to attack neutral squares
-
-armies can be used to attack other nations squares
-
-armies can be used to attack neutral squares
-
-armies can be used to attack other nations squares
-
-armies can be used to attack neutral squares
-
-nations should start with the same amount of gold and land
-
-the map should be color coded to show the owner of the square
-
-there should be effects over the screen that mimic a CRT monitor
-
-the game should aim to be similar to Conway's Game of Life where the nations are the living organisms.
-
-like conway's game of life, nations should be able to "see" eachother and react to eachother
-
-like conway's game of life, the nations should be able to "see" the resources and react to them
-
-there should be a chart page that tracks just about everything that can be tracked in the game
+Adhere to official Microsoft documentation, ASP.NET Core guides, and ABP’s documentation (https://docs.abp.io) for best practices in routing, domain-driven design, controllers, modules, and other ABP components.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
