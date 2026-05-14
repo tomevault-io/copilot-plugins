@@ -1,0 +1,9 @@
+{
+  "name": "edgeandnode--ampersend-sdk",
+  "displayName": "ampersend-sdk",
+  "description": "Tooling for building applications with x402 payment capabilities. Supports buyer and seller roles.",
+  "version": "1.0.0",
+  "author": "edgeandnode",
+  "homepage": "https://github.com/edgeandnode/ampersend-sdk",
+  "skills": []
+}
