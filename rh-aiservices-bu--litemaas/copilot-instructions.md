@@ -1,0 +1,286 @@
+## litemaas
+
+> > **Note for AI Assistants**: This is the root context file providing project overview. For detailed implementation context:
+
+# CLAUDE.md - LiteMaaS AI Context File
+
+> **Note for AI Assistants**: This is the root context file providing project overview. For detailed implementation context:
+>
+> - **Backend Context**: [`backend/CLAUDE.md`](backend/CLAUDE.md) - Fastify API implementation details
+> - **Frontend Context**: [`frontend/CLAUDE.md`](frontend/CLAUDE.md) - React/PatternFly 6 implementation details
+> - **Project Structure**: [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md) - Complete directory structure
+> - **Changelog**: [`CHANGELOG.md`](CHANGELOG.md) - All notable changes per release (Keep a Changelog format)
+> - **Documentation**: See `docs/` for comprehensive guides
+
+## 🚀 Project Overview
+
+**LiteMaaS** is a model subscription and management platform that bridges users and AI model services through LiteLLM integration.
+
+**Monorepo** with two packages:
+
+- **Backend** (`@litemaas/backend`): Fastify API server with PostgreSQL, OAuth2/OIDC/JWT, RBAC
+- **Frontend** (`@litemaas/frontend`): React + PatternFly 6 UI with 9-language i18n support
+
+**Tech Stack**: Fastify, React, TypeScript, PostgreSQL, PatternFly 6, LiteLLM integration
+
+## 📁 Project Structure
+
+See [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md) for complete directory structure and file organization.
+
+## 🔧 Key Features
+
+**Role-Based Access Control (RBAC)**: Three-tier hierarchy `admin > adminReadonly > user` with OpenShift integration.
+
+**Model Capability Management**: Multi-type model support beyond chat-only models:
+
+- **Model Types**: Chat (default), Embeddings, Document Conversion — selected via radio group in admin model form
+- **Tokenize Capability**: Optional per-model toggle for tokenization support
+- **Document Conversion**: Docling provider integration with `/health` endpoint testing, hidden irrelevant fields (backend model name, TPM, costs, max tokens)
+- **Capability Labels**: Color-coded flair labels on model cards (Chat=blue, Embeddings=green, Tokenize=orangered, Document Conversion=orange)
+- **Type-Specific Curl Examples**: View Key modal shows contextual curl commands based on model type
+- **Chat Playground Filtering**: Only chat-capable models shown in playground
+- **Redis Cache Flush**: Optional Redis integration (`REDIS_HOST`/`REDIS_PORT`) to flush LiteLLM's cache after model CRUD, ensuring all proxy pods pick up changes immediately
+- **Deployment**: Redis deployment included in Helm (`redis.enabled: true`) and Kustomize charts
+
+**Restricted Model Subscription Approval** (Major feature - 2025 Q4): Admin-controlled access to sensitive/costly models with comprehensive approval workflow:
+
+- **Restricted Model Flagging**: Administrators mark models requiring approval
+- **Three-state workflow**: Pending → Active/Denied with request review capability
+- **Bulk Operations**: Approve/deny multiple requests with detailed result tracking
+- **Full Audit Trail**: Complete history in `subscription_status_history` table
+- **Granular RBAC**: Read/write/delete permissions (admin vs adminReadonly)
+- **Automatic Cascade**: Access revocation when models become restricted
+- **LiteLLM-first security**: API key updates prioritize access revocation
+
+**Admin Usage Analytics** (Major feature - 2025 Q3): Enterprise-grade analytics with comprehensive system-wide visibility:
+
+- **Day-by-day incremental caching** with intelligent TTL (permanent historical, 5-min current day)
+- **Multi-dimensional filtering**: users, models, providers, API keys with cascading filter dependencies
+- **Trend analysis** with automatic comparison period calculations
+- **Rich visualizations**: usage trends, model distribution, weekly heatmap (component ready, integration pending)
+- **Data export**: CSV/JSON with filter preservation
+- **Configurable cache TTL** via ConfigContext integration with React Query
+
+**Admin User Management** (Major feature - 2025 Q4): Consolidated admin interface for managing users through a modal-based workflow with tabbed views:
+
+- **Unified Management Modal**: Profile, Budget & Limits, API Keys, and Subscriptions tabs
+- **Role Management**: Admin/adminReadonly/user role toggles with conflict detection
+- **Budget & Rate Limits**: Max budget, budget duration, TPM, and RPM with real-time spend from LiteLLM, spend reset, and color-coded utilization progress bars
+- **API Key Lifecycle**: Create, view, edit quotas (including per-model limits and expiration), soft revoke, permanent delete, and spend reset
+- **Subscription Management**: Add/remove model subscriptions directly from user modal with automatic LiteLLM key sync
+- **Full Audit Trail**: All admin actions logged with metadata
+- **RBAC**: `users:read` (admin, adminReadonly) for viewing, `users:write` (admin only) for modifications
+
+**Admin Audit Log**: Full audit log viewer at `/admin/audit` with category/action filtering, human-readable labels, API access toggle, search, and date range filters. Requires `admin:audit` permission (admin + adminReadonly).
+
+**API Key Quota Management**: Comprehensive budget and rate limit management for API keys across user self-service and admin interfaces:
+
+- **Global quotas**: Max budget, budget duration, TPM, RPM, soft budget, max parallel requests on every key
+- **Per-model limits**: Per-model budget, TPM, and RPM configurable during key creation
+- **User self-service**: Quota fields in Create Key modal pre-filled with admin-configured defaults; backend enforces values ≤ admin maximums
+- **Admin editing**: Full quota editing on existing keys via User Management Modal, including per-model limits, expiration, plus soft revoke and permanent delete
+- **Expiration management**: Preset options (30/60/90/180/365 days), custom date picker, admin-configurable default and maximum expiration; LiteLLM sync on create and edit
+- **Spend tracking**: Real-time spend from LiteLLM with color-coded budget utilization progress bars and spend reset
+- **Admin Limits tab**: Three-section admin interface — New User Defaults, API Key Quota Defaults (side-by-side default/maximum grid with expiration), and Bulk User Limits
+- **Budget duration flexibility**: Supports predefined periods (`daily`, `weekly`, `monthly`, `yearly`) and custom LiteLLM durations (`30d`, `1mo`, `1h`)
+
+**Branding Customization**: Admin-controlled login page and header branding with per-element toggle switches:
+
+- **Login Page**: Custom logo, title (200 char max), and subtitle (500 char max)
+- **Header Brand**: Separate light and dark theme logos
+- **Image Constraints**: 2 MB max, JPEG/PNG/SVG/GIF/WebP formats
+- **Singleton Storage**: Single `branding_settings` database row with base64 image data
+- **Public Endpoints**: Settings metadata and image serving accessible without authentication
+- **BrandingContext**: React Context with React Query (5-min stale time, fallback defaults)
+- **RBAC**: `admin:banners:write` for modifications, public for reading
+
+**Database Backup & Restore**: Full backup and restore for both LiteMaaS and LiteLLM databases from Settings and Tools → Backup tab:
+
+- **Backup format**: Compressed `.sql.gz` (pure SQL, compatible with `psql` for manual restore)
+- **Test restore**: Non-destructive restore to temporary schema with data integrity validation
+- **Type-aware serialization**: Correct handling of PG arrays vs JSON arrays, mixed-case identifiers, timestamp precision
+- **CLI restore**: Standalone script for catastrophic recovery (`backend/src/scripts/restore-backup.ts`)
+- **RBAC**: `admin:backup` permission (admin only), tab visible to adminReadonly (read-only)
+- **Configuration**: `LITELLM_DATABASE_URL` for LiteLLM database access (also used by model sync cross-referencing), `BACKUP_STORAGE_PATH` for storage location
+
+**Configurable Currency**: Admin-controlled currency settings (25 supported currencies) for all monetary displays across the platform. Configured via Settings and Tools → Currency tab, stored in `system_settings` table, exposed via public config endpoint. Default: USD ($).
+
+**State Management**: React Context for auth/notifications/config/branding, React Query for server state with dynamic cache TTL from backend configuration.
+
+**Shared Chart Utilities**: Consistent formatting, accessibility, and styling across all chart components via shared utility modules.
+
+For detailed features, see:
+
+- [`backend/CLAUDE.md`](backend/CLAUDE.md) - API implementation, service layer, caching patterns
+- [`frontend/CLAUDE.md`](frontend/CLAUDE.md) - UI components, state management, PatternFly 6
+- [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md) - Complete RBAC guide
+- [`docs/features/subscription-approval-workflow.md`](docs/features/subscription-approval-workflow.md) - Complete approval workflow guide
+- [`docs/features/users-management.md`](docs/features/users-management.md) - Admin user management guide
+- [`docs/features/branding-customization.md`](docs/features/branding-customization.md) - Branding customization guide
+- [`docs/archive/features/admin-usage-analytics-implementation-plan.md`](docs/archive/features/admin-usage-analytics-implementation-plan.md) - Comprehensive admin analytics implementation (2000 lines)
+- [`docs/development/chart-components-guide.md`](docs/development/chart-components-guide.md) - Chart component patterns and utilities
+- [`docs/development/pattern-reference.md`](docs/development/pattern-reference.md) - Authoritative code patterns and anti-patterns
+
+## 🚀 Quick Start
+
+**Development:**
+
+```bash
+npm install        # Install dependencies
+npm run dev        # Start both backend and frontend with auto-reload and logging
+```
+
+**Testing (First Time Setup):**
+
+```bash
+# Create test database (required before running backend tests)
+psql -U pgadmin -h localhost -p 5432 -d postgres -c "CREATE DATABASE litemaas_test;"
+cd backend && npm run test:db:setup
+
+# Run tests
+npm test
+```
+
+**Production (Helm — Kubernetes or OpenShift):**
+
+```bash
+helm install litemaas deployment/helm/litemaas/ -n litemaas --create-namespace -f my-values.yaml
+```
+
+**Production (Kustomize — OpenShift):**
+
+```bash
+oc apply -k deployment/kustomize/  # Deploy to OpenShift with Kustomize
+```
+
+**Development (Container):**
+
+```bash
+docker compose up -d  # Local development with containers (using compose.yaml)
+```
+
+_See `docs/development/` for detailed setup, `docs/deployment/helm-deployment.md` for Helm deployment, and `docs/deployment/configuration.md` for environment variables_
+
+## 🚨 CRITICAL DEVELOPMENT NOTES
+
+### Development Server and Logging Setup
+
+**⚠️ IMPORTANT**: Development servers are already running with auto-reload. DO NOT start new processes!
+
+**Current Setup:**
+
+- Backend: Port 8081 (`tsx watch` + `pino-pretty`)
+- Frontend: Port 3000 (Vite HMR)
+- Logs: `logs/backend.log` and `logs/frontend.log`
+
+**Quick Commands:**
+
+```bash
+# Check logs
+tail -n 100 logs/backend.log
+tail -n 100 logs/frontend.log
+
+# Search for errors
+grep -i error logs/*.log | tail -n 20
+```
+
+**Key URLs:**
+
+- Backend API: `http://localhost:8081`
+- Frontend: `http://localhost:3000`
+- API Docs: `http://localhost:8081/docs`
+
+### Bash Tool Limitation
+
+**⚠️ CRITICAL**: stderr redirects are broken in the Bash tool - you can't use `2>&1` in bash commands. The Bash tool will mangle the stderr redirect and pass a "2" as an arg, and you won't see stderr.
+
+**Workaround**: Use `./dev-tools/run_with_stderr.sh command args` to capture both stdout and stderr.
+
+See <https://github.com/anthropics/claude-code/issues/4711> for details.
+
+## 🔐 Security & Authentication
+
+**OAuth2/OIDC + JWT** with role-based access control. Two authentication providers via `AUTH_PROVIDER` env var:
+
+- **OpenShift OAuth** (default): Uses OpenShift-specific endpoints with Kubernetes user API for group membership
+- **Standard OIDC**: Auto-discovery, PKCE (S256), nonce/audience validation. Supports Keycloak, Auth0, Okta, Azure AD, and any OIDC-compliant provider.
+
+Three-tier role hierarchy: `admin > adminReadonly > user`. Group-to-role mapping works identically for both providers.
+
+For details, see [`docs/deployment/authentication.md`](docs/deployment/authentication.md), [`docs/deployment/keycloak-oidc-setup.md`](docs/deployment/keycloak-oidc-setup.md), and [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md).
+
+## 📚 Documentation
+
+**Complete guide index**: [`docs/README.md`](docs/README.md)
+
+**Key documentation**:
+
+- **Project Structure**: [`docs/architecture/project-structure.md`](docs/architecture/project-structure.md)
+- **Development Setup**: [`docs/development/setup.md`](docs/development/setup.md)
+- **API Reference**: [`docs/api/rest-api.md`](docs/api/rest-api.md)
+- **Authentication**: [`docs/deployment/authentication.md`](docs/deployment/authentication.md)
+- **RBAC Guide**: [`docs/features/user-roles-administration.md`](docs/features/user-roles-administration.md)
+
+## 🎯 For AI Assistants
+
+### ⚠️ Pattern Discovery Checklist (MANDATORY)
+
+**MANDATORY**: Before implementing ANY new feature, you MUST:
+
+1. **Search for existing implementations**:
+   - Use `find_symbol` to locate similar components/services
+   - Use `search_for_pattern` to find code patterns
+   - Check relevant memory files: `code_style_conventions`, `error_handling_architecture`
+
+2. **Follow established patterns**:
+   - **Backend**: ALWAYS extend `BaseService`, use `ApplicationError` factory methods
+   - **Frontend**: ALWAYS use `useErrorHandler` hook, follow PatternFly 6 prefix (`pf-v6-`)
+   - **Testing**: ALWAYS test error scenarios, use `./dev-tools/run_with_stderr.sh` for stderr
+
+3. **Verify against pattern reference**:
+   - See [`docs/development/pattern-reference.md`](docs/development/pattern-reference.md) for comprehensive patterns
+   - Check existing code in similar features before creating new patterns
+
+### Working on Specific Tasks
+
+When working on:
+
+- **Backend tasks** → Load `backend/CLAUDE.md` for Fastify/service details
+- **Frontend tasks** → Load `frontend/CLAUDE.md` for React/PatternFly details
+- **Role/Admin tasks** → Load `docs/features/user-roles-administration.md` for RBAC details
+- **Authentication tasks** → Load `docs/deployment/authentication.md` for OAuth/role setup
+- **Full-stack tasks** → Start with this file, then load specific contexts as needed
+
+### Debugging Workflow
+
+1. **Check logs first**: `tail -n 100 logs/backend.log` or `logs/frontend.log`
+2. **Fix compilation errors**: Save file, auto-reload will recompile
+3. **Runtime errors**: Read stack trace from logs
+4. **Servers down**: Tell user to run `npm run dev:logged`
+
+### Context7 Usage Guidelines
+
+⚠️ **Important for AI tools using Context7**:
+
+- ✅ **Use Context7 for**: Backend libraries (Fastify, PostgreSQL, LiteLLM), non-UI frontend libraries (React Query, Axios, Vite)
+- ❌ **Don't use Context7 for**: PatternFly 6 components (use `docs/development/pf6-guide/` + PatternFly.org instead)
+
+Context7 may contain outdated PatternFly versions. For all PatternFly 6 UI development, refer to the local PF6 guide and official PatternFly.org documentation.
+
+### Security Note for AI Assistants
+
+⚠️ **Role-Based Development**: When implementing features that involve user roles or administrative functions:
+
+1. **Always implement backend validation first** - Frontend role checks are UX only
+2. **Use role hierarchy** - Check for most powerful role when multiple roles exist
+3. **Follow data access patterns** - Users see own data, admins see all data
+4. **Test with different roles** - Verify access control with user, adminReadonly, and admin accounts
+5. **Document role requirements** - Clearly specify which roles can access new endpoints/features
+
+---
+
+_This is an AI context file optimized for development assistance. For comprehensive documentation, see the `docs/` directory._
+
+---
+> Source: [rh-aiservices-bu/litemaas](https://github.com/rh-aiservices-bu/litemaas) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
