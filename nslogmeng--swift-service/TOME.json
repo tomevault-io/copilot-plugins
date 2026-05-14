@@ -4,7 +4,7 @@
   "repo": "swift-service",
   "description": "A lightweight, zero-dependency, type-safe dependency injection framework for modern Swift.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nslogmeng/swift-service",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:58:56Z"
+  "distributed_at": "2026-05-14T05:48:02Z"
 }
