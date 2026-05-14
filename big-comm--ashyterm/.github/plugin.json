@@ -1,0 +1,9 @@
+{
+  "name": "big-comm--ashyterm",
+  "displayName": "ashyterm",
+  "description": "GTK Terminal for BigCommunity",
+  "version": "1.0.0",
+  "author": "big-comm",
+  "homepage": "https://github.com/big-comm/ashyterm",
+  "skills": []
+}
