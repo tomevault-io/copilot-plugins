@@ -1,50 +1,37 @@
-## kubestellar-console
+## landing-page-image-quality-cursorrules-prompt-file
 
-> KubeStellar Console — Multi-cluster Kubernetes dashboard development rules
+> Cursor rules for avoiding placeholder or broken image URLs, using stable visual assets, and checking alt text, dimensions, licensing, and responsive behavior.
 
-# KubeStellar Console Development Rules
+# Landing Page Image Quality
 
-## Project Structure
-- Frontend: React + TypeScript in `/web/`
-- Backend: Go (Fiber v2) in root directory
-- Build: `cd web && npm run build && npm run lint` before every commit
-- Cards: Dashboard card components in `web/src/components/cards/`
-- Hooks: Data fetching hooks in `web/src/hooks/`
+When generating or editing user-facing pages, use real, relevant visual assets instead of placeholder image services.
 
-## Card Development
-- All data fetching MUST go through `useCache`/`useCached*` hooks
-- Always destructure and pass `isDemoData` and `isRefreshing` to `useCardLoadingState()`
-- Never use demo data during loading: `isDemoFallback && !isLoading`
-- Hook ordering: `useCardLoadingState` AFTER hooks providing `isDemoData`
+## Image Sources
 
-## Array Safety
-- NEVER call `.join()`, `.map()`, `.filter()`, `.forEach()`, `for...of` on values that might be undefined
-- Always guard: `(data || []).map(...)` or `(data || []).join(', ')`
+- Do not commit `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, random image URLs, or broken/deprecated image services.
+- Prefer committed project assets, product screenshots, generated assets approved by the user, or stable URLs from an approved image provider.
+- Before using a third-party image, confirm the license and attribution requirements are compatible with the project.
+- Avoid hotlinking images from arbitrary websites.
 
-## No Magic Numbers
-- Numeric literals should be named constants, except trivial literals (`0`, `1`, `-1`) in clear local contexts
-- Use constants from `lib/constants/` (time.ts, network.ts, ui.ts)
+## Asset Quality
 
-## Styling
-- Tailwind CSS with `cn()` utility for merging classNames
-- Never use raw hex colors — use semantic Tailwind classes (`text-foreground`, `bg-primary`, `bg-card`)
-- Status colors: `text-green-400`/`bg-green-500/10` (success), `text-yellow-400`/`bg-yellow-500/10` (warning), `text-red-400`/`bg-red-500/10` (error), `text-cyan-400`/`bg-cyan-500/10` (info) — these map to the design system's semantic status tokens and are the only permitted palette classes
+- Match images to the actual content, product, place, object, or user state they represent.
+- Do not use vague atmospheric images when the user needs to inspect a product, feature, workflow, or interface.
+- Use consistent aspect ratios for repeated cards or gallery items.
+- Provide explicit `width` and `height` attributes or CSS aspect-ratio constraints to prevent layout shift.
+- Use optimized formats and sizes appropriate for the target framework.
 
-## Internationalization
-- All user-facing strings use `t()` from `react-i18next`
-- Keys in `web/src/locales/en/` JSON files
-- Never use raw strings for UI text
+## Accessibility
 
-## Go Backend
-- Fiber v2 handlers: `func(c *fiber.Ctx) error`
-- Use `fiber.NewError(statusCode, message)` for errors
-- Always `make([]T, 0)` not `var x []T` (nil → null in JSON)
-- Use `log/slog` for structured logging
-- Multi-cluster queries use goroutines + sync.WaitGroup
+- Every informative image must have specific `alt` text that describes the image's purpose in context.
+- Decorative images must use empty alt text and should not be announced to assistive technology.
+- Do not put essential text only inside an image.
 
-## Cluster Deduplication
-- Always use `DeduplicatedClusters()` when iterating clusters
-- Multiple kubeconfig contexts can point to same physical cluster
+## Implementation Checks
+
+- Ensure image paths resolve in the built application.
+- Check responsive behavior at mobile and desktop widths.
+- Verify that loading, error, and empty states do not leave broken image icons in production UI.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
