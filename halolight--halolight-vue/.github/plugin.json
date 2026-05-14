@@ -1,0 +1,9 @@
+{
+  "name": "halolight--halolight-vue",
+  "displayName": "halolight-vue",
+  "description": "\ud83d\udc9a Vue 3.5 + Vite 7 \u4f01\u4e1a\u7ea7\u7ba1\u7406\u540e\u53f0 - Pinia, TanStack Query, TypeScript, RBAC, shadcn-vue, \u62d6\u62fd\u4eea\u8868\u76d8, Mock \u6570\u636e \u2192 halolight-vue.h7ml.cn",
+  "version": "1.0.0",
+  "author": "halolight",
+  "homepage": "https://github.com/halolight/halolight-vue",
+  "skills": []
+}
