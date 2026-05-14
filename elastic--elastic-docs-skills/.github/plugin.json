@@ -1,0 +1,9 @@
+{
+  "name": "elastic--elastic-docs-skills",
+  "displayName": "elastic-docs-skills",
+  "description": "Instructions for code agents on how to author Elastic docs",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/elastic-docs-skills",
+  "skills": []
+}
