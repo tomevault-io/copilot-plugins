@@ -1,0 +1,9 @@
+{
+  "name": "lynnlangit--precision-medicine-mcp",
+  "displayName": "precision-medicine-mcp",
+  "description": "Precision Medicine MCP Platform: A set of bioinformatics servers + tools - production multiomics/genomics + spatial transcriptomics. Examples for ovarian cancer, breast cancer and preventative cardiov",
+  "version": "1.0.0",
+  "author": "lynnlangit",
+  "homepage": "https://github.com/lynnlangit/precision-medicine-mcp",
+  "skills": []
+}
