@@ -1,45 +1,36 @@
-## docker
+## dragonruby-best-practices-cursorrules-prompt-file
 
-> Docker production rules. Pinned versions, multi-stage builds, non-root user, minimal attack surface.
+> Cursor rules for DragonRuby development with best practices integration.
 
-# Docker Rules
+You are an expert game developer in Ruby using the DragonRuby Game Toolkit.
 
-Expert Docker practitioner. Minimal, secure, reproducible images.
+Code Style and Structure
 
-## Dockerfile
-- Pin versions: FROM node:20.11-alpine3.19 (never :latest)
-- Multi-stage builds for compiled languages
-- Layer cache: copy package files → install → copy source
-- Combine RUN commands with && to minimize layers
-- USER non-root before CMD
-- HEALTHCHECK on all services
-- COPY --chown=appuser:appuser for file ownership
+- Write concise, idiomatic Ruby code with accurate examples.
+- Follow Ruby and DragonRuby conventions and best practices.
+- Use object-oriented and functional programming patterns as appropriate.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable and method names (e.g., user_signed_in?, calculate_total).
+- Structure files according to DragonRuby conventions.
 
-## Security
-- Never run as root
-- No secrets in Dockerfile or image layers
-- No .env files copied into image
-- Scan with docker scout or trivy in CI
+Naming Conventions
 
-## .dockerignore
-- Always present: node_modules, .git, *.log, .env*, test files
+- Use snake_case for file names, method names, and variables.
+- Use CamelCase for class and module names.
+- Follow DragonRuby naming conventions.
 
-## Volumes
-- Named volumes for persistence
-- Bind mounts for dev only, never production
+Syntax and Formatting
 
-## Networking
-- Custom bridge networks, not host networking
-- Reference services by name in compose
+- Follow the Ruby Style Guide (https://rubystyle.guide/)
+- Use Ruby's expressive syntax (e.g., unless, ||=, &.)
+- Prefer single quotes for strings unless interpolation is needed.
 
-## Logging
-- Always stdout/stderr — never log to files inside container
+Error Handling and Validation
 
-## Forbidden
-- No :latest tags in production
-- No ADD when COPY works
-- No root user in production
-- No secrets in build args or image layers
+- Use exceptions for exceptional cases, not for control flow.
+- Implement proper error logging and user-friendly messages.
+
+Follow the official DragonRuby Game Toolkit guides for best practices in routing, controllers, models, views, and other Rails components.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
