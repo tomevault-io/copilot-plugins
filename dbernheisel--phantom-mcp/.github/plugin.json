@@ -1,0 +1,9 @@
+{
+  "name": "dbernheisel--phantom-mcp",
+  "displayName": "phantom_mcp",
+  "description": "MCP server implemented in Elixir",
+  "version": "1.0.0",
+  "author": "dbernheisel",
+  "homepage": "https://github.com/dbernheisel/phantom_mcp",
+  "skills": []
+}
