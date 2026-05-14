@@ -1,0 +1,9 @@
+{
+  "name": "firetiger-oss--tigerblock",
+  "displayName": "tigerblock",
+  "description": "Go package to interact with cloud object storage providers",
+  "version": "1.0.0",
+  "author": "firetiger-oss",
+  "homepage": "https://github.com/firetiger-oss/tigerblock",
+  "skills": []
+}
