@@ -1,0 +1,9 @@
+{
+  "name": "valraw-all--ntk",
+  "displayName": "ntk",
+  "description": "Neural Token Killer - semantic compression proxy for Claude Code (Rust)",
+  "version": "1.0.0",
+  "author": "VALRAW-ALL",
+  "homepage": "https://github.com/VALRAW-ALL/ntk",
+  "skills": []
+}
