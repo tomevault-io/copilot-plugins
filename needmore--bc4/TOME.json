@@ -4,7 +4,7 @@
   "repo": "bc4",
   "description": "A command-line client for the Basecamp 4 API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/needmore/bc4",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T01:01:13Z"
+  "distributed_at": "2026-05-14T09:19:33Z"
 }
