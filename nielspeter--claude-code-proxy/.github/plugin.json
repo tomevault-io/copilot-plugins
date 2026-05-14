@@ -1,0 +1,9 @@
+{
+  "name": "nielspeter--claude-code-proxy",
+  "displayName": "claude-code-proxy",
+  "description": "Lightweight HTTP proxy enabling Claude Code to work with OpenRouter (200+ models), OpenAI Direct (GPT-5), and Ollama (local inference). Full tool support, streaming, thinking blocks.",
+  "version": "1.0.0",
+  "author": "nielspeter",
+  "homepage": "https://github.com/nielspeter/claude-code-proxy",
+  "skills": []
+}
