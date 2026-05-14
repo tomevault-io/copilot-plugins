@@ -4,7 +4,7 @@
   "repo": "meta-cc",
   "description": "Meta-Cognition tool for Claude Code - analyze session history for workflow optimization.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yaleh/meta-cc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:27:38Z"
+  "distributed_at": "2026-05-14T04:09:39Z"
 }
