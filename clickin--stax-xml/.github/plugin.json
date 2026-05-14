@@ -1,0 +1,9 @@
+{
+  "name": "clickin--stax-xml",
+  "displayName": "stax-xml",
+  "description": "First StAX style XML parser/writer for javascript/typescript",
+  "version": "1.0.0",
+  "author": "Clickin",
+  "homepage": "https://github.com/Clickin/stax-xml",
+  "skills": []
+}
