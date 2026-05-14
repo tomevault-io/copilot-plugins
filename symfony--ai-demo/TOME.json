@@ -4,7 +4,7 @@
   "repo": "ai-demo",
   "description": "Symfony AI Demo Application",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/symfony/ai-demo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T01:06:51Z"
+  "distributed_at": "2026-05-14T09:40:40Z"
 }
