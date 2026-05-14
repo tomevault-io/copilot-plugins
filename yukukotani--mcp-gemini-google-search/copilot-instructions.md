@@ -1,0 +1,69 @@
+## mcp-gemini-google-search
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Development Commands
+
+- `npm run build` - Build TypeScript (generates both ESM and CJS)
+- `npm run dev` - Watch for file changes and rebuild
+- `npm run start` - Run the built server
+- `npm run inspect` - Debug with MCP Inspector
+- `npm run prepublishOnly` - Automatic build before release
+
+## Architecture
+
+This project is a Model Context Protocol (MCP) server that provides Google Search functionality using Gemini's built-in Google Search feature.
+
+### Key Components
+
+- **src/index.ts**: Main entry point for the MCP server
+  - Uses stdio transport
+  - Registers and handles the `google_search` tool
+  - Environment variable validation is handled in createGoogleSearchAI
+
+- **src/tools/google-search.ts**: Google Search implementation
+  - Uses `@google/genai` SDK to access Gemini
+  - Model can be configured via `GEMINI_MODEL` environment variable
+  - Enables the `googleSearch` tool via `ai.models.generateContent`
+  - Extracts grounding metadata from responses to add citation information
+  - Reference implementation: https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/tools/web-search.ts
+
+### Tech Stack
+
+- TypeScript + Node.js 18+
+- @google/genai (Google's unified GenAI SDK)
+- @modelcontextprotocol/sdk
+- tsup for dual ESM/CJS build
+
+### Type Error Resolution Notes
+
+- The `@google/genai` API uses `ai.models.generateContent`
+- Tools parameter format: `config: { tools: [{ googleSearch: {} }] }`
+- Response access structure: `response.candidates[0].content.parts`
+- Grounding metadata is located at `response.candidates[0].groundingMetadata`
+
+### Environment Variables
+
+**For Google AI Studio (default):**
+- `GEMINI_API_KEY`: Google AI Studio API key (required)
+- `GEMINI_MODEL`: Model to use (optional, default: gemini-2.5-flash)
+
+**For Vertex AI:**
+- `GEMINI_PROVIDER`: Set to "vertex"
+- `VERTEX_PROJECT_ID`: GCP project ID (required)
+- `VERTEX_LOCATION`: Region (optional, default: us-central1)
+- `GEMINI_MODEL`: Model to use (optional, default: gemini-2.5-flash)
+
+## Important Instructions
+
+### Web Search Tool Usage
+
+When performing web searches in this repository, use the `mcp__gemini-google-search__google_search` tool provided by this MCP server instead of the default WebSearch tool. This ensures consistency with the project's Google Search implementation using Gemini's built-in search capabilities.
+
+---
+> Source: [yukukotani/mcp-gemini-google-search](https://github.com/yukukotani/mcp-gemini-google-search) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
