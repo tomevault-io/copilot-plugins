@@ -1,0 +1,9 @@
+{
+  "name": "thaitype--thaitype-stack-postgresql-template",
+  "displayName": "thaitype-stack-postgresql-template",
+  "description": "Type-Safe Next.js Stack using Simple Clean Architecture with PostgreSQL Template For AI Friendly",
+  "version": "1.0.0",
+  "author": "thaitype",
+  "homepage": "https://github.com/thaitype/thaitype-stack-postgresql-template",
+  "skills": []
+}
