@@ -1,0 +1,9 @@
+{
+  "name": "alexlenk--ecowitt-local",
+  "displayName": "ecowitt_local",
+  "description": "Home Assistant custom integration for Ecowitt weather stations via local web interface",
+  "version": "1.0.0",
+  "author": "alexlenk",
+  "homepage": "https://github.com/alexlenk/ecowitt_local",
+  "skills": []
+}
