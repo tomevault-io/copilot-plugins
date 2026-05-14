@@ -7,11 +7,11 @@ A frontend for Keygen Open Source license server.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [orcunbaslak/keygen-ui](https://github.com/orcunbaslak/keygen-ui).
+Original source: `CLAUDE.md` in [orcunbaslak/keygen-ui](https://github.com/orcunbaslak/keygen-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
