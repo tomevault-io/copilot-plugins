@@ -1,0 +1,9 @@
+{
+  "name": "gagalago--porte-buanderie",
+  "displayName": "porte-buanderie",
+  "description": "Mecanisme 4-bar linkage pour porte-etagere epaisse (355mm) entre cuisine et buanderie - optimisation, simulation FreeCAD, plans de fabrication",
+  "version": "1.0.0",
+  "author": "gagalago",
+  "homepage": "https://github.com/gagalago/porte-buanderie",
+  "skills": []
+}
