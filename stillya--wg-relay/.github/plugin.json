@@ -1,0 +1,9 @@
+{
+  "name": "stillya--wg-relay",
+  "displayName": "wg-relay",
+  "description": "An eBPF-based traffic obfuscation system that try to disguises WireGuard protocol traffic to bypass DPI and government censorship",
+  "version": "1.0.0",
+  "author": "stillya",
+  "homepage": "https://github.com/stillya/wg-relay",
+  "skills": []
+}
