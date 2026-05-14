@@ -1,0 +1,9 @@
+{
+  "name": "panzacoder--zodvex",
+  "displayName": "zodvex",
+  "description": "A small library for interacting with Zod and Convex together, with Zod Codecs and Zod v4 in mind.",
+  "version": "1.0.0",
+  "author": "panzacoder",
+  "homepage": "https://github.com/panzacoder/zodvex",
+  "skills": []
+}
