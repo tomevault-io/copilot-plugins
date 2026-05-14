@@ -1,0 +1,9 @@
+{
+  "name": "jiangway--openspec-schemas",
+  "displayName": "openspec-schemas",
+  "description": "Community-contributed OpenSpec schemas. First bridge: superpowers-bridge (OpenSpec + obra/superpowers integration with retrospective artifact).",
+  "version": "1.0.0",
+  "author": "JiangWay",
+  "homepage": "https://github.com/JiangWay/openspec-schemas",
+  "skills": []
+}
