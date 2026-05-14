@@ -1,39 +1,25 @@
-## typescript-style
+## usage-and-examples
 
-> Follow these conventions across TypeScript sources to align with the existing configuration and code style.
+> How to use the provider and where to find examples
 
-# TypeScript Style Guide
+# Usage and Examples
 
-Follow these conventions across TypeScript sources to align with the existing configuration and code style.
+Start with the README’s Quick Start and Advanced sections: [README.md](mdc:README.md).
 
-## Language and Types
+## Examples
 
-- Use strict typing (see [tsconfig.json](mdc:tsconfig.json)).
-- Prefer explicit function signatures for exported APIs.
-- Avoid `any`; model complex shapes with `zod` schemas where relevant.
-- Use meaningful, descriptive names. Avoid 1–2 character identifiers.
-- Prefer early returns and shallow control flow.
+- Simple chat completion: [examples/example-simple-chat-completion.ts](mdc:examples/example-simple-chat-completion.ts)
+- Tool calling: [examples/example-chat-completion-tool.ts](mdc:examples/example-chat-completion-tool.ts)
+- Image recognition: [examples/example-image-recognition.ts](mdc:examples/example-image-recognition.ts)
+- Text generation: [examples/example-generate-text.ts](mdc:examples/example-generate-text.ts)
 
-## Modules and Imports
+## Common Patterns
 
-- ESM modules by default (see `module` in [tsconfig.json](mdc:tsconfig.json)).
-- Keep public exports centralized in [src/index.ts](mdc:src/index.ts).
+- Create provider with service key: `createSAPAIProvider({ serviceKey })`.
+- Default instance with env token: `sapai("gpt-4o")`.
+- Use with Vercel AI SDK: `generateText`, `streamText`, `generateObject`.
 
-## Errors and Handling
-
-- Do not swallow errors. Propagate or wrap with context via `SAPAIError` utilities when applicable (see [src/sap-ai-error.ts](mdc:src/sap-ai-error.ts)).
-- Only use `try/catch` where meaningful recovery or re-throw with context is performed.
-
-## Formatting and Linting
-
-- Respect [eslint.config.mjs](mdc:eslint.config.mjs) and Prettier (see `prettier-*` scripts in [package.json](mdc:package.json)).
-- Keep lines readable; prefer multi-line over dense one-liners.
-- Avoid inline explanatory comments; add brief comments above non-obvious logic.
-
-## Provider-specific Conventions
-
-- The provider function must not be invoked with `new` (explicitly guarded in [src/sap-ai-provider.ts](mdc:src/sap-ai-provider.ts)).
-- When adding model capabilities, ensure `SAPAIChatLanguageModel` maintains the `LanguageModelV2` contract (see [src/sap-ai-chat-language-model.ts](mdc:src/sap-ai-chat-language-model.ts)).
+See exported APIs: [src/index.ts](mdc:src/index.ts)
 
 ---
 > Source: [BITASIA/sap-ai-provider](https://github.com/BITASIA/sap-ai-provider) — distributed by [TomeVault](https://tomevault.io).
