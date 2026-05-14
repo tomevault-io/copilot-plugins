@@ -1,0 +1,9 @@
+{
+  "name": "moonsong-labs--agent-prompttrain",
+  "displayName": "agent-prompttrain",
+  "description": "Management server for Claude Code accounts with monitoring, analytics, and dashboards.",
+  "version": "1.0.0",
+  "author": "Moonsong-Labs",
+  "homepage": "https://github.com/Moonsong-Labs/agent-prompttrain",
+  "skills": []
+}
