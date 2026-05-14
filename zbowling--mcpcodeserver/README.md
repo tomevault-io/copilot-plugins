@@ -7,11 +7,11 @@ A Model Context Protocol (MCP) proxy server that translates tool calls into Type
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zbowling/mcpcodeserver](https://github.com/zbowling/mcpcodeserver).
+Original source: `CLAUDE.md` in [zbowling/mcpcodeserver](https://github.com/zbowling/mcpcodeserver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
