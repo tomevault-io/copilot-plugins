@@ -1,33 +1,39 @@
-## testing
+## typescript-style
 
-> - Node tests: [vitest.node.config.js](mdc:vitest.node.config.js)
+> Follow these conventions across TypeScript sources to align with the existing configuration and code style.
 
-# Testing Guide (Vitest)
+# TypeScript Style Guide
 
-## Test Environments
+Follow these conventions across TypeScript sources to align with the existing configuration and code style.
 
-- Node tests: [vitest.node.config.js](mdc:vitest.node.config.js)
-- Edge runtime tests: [vitest.edge.config.js](mdc:vitest.edge.config.js)
+## Language and Types
 
-Use Node environment for most unit tests. Use Edge runtime when covering streaming or runtime-specific behaviors.
+- Use strict typing (see [tsconfig.json](mdc:tsconfig.json)).
+- Prefer explicit function signatures for exported APIs.
+- Avoid `any`; model complex shapes with `zod` schemas where relevant.
+- Use meaningful, descriptive names. Avoid 1–2 character identifiers.
+- Prefer early returns and shallow control flow.
 
-## Commands
+## Modules and Imports
 
-- Run all tests: `npm test`
-- Watch mode: `npm run test:watch`
-- Node only: `npm run test:node`
-- Edge only: `npm run test:edge`
+- ESM modules by default (see `module` in [tsconfig.json](mdc:tsconfig.json)).
+- Keep public exports centralized in [src/index.ts](mdc:src/index.ts).
 
-## Stubbing Network
+## Errors and Handling
 
-- Prefer injecting a custom `fetch` via provider settings for deterministic tests (see [src/sap-ai-provider.ts](mdc:src/sap-ai-provider.ts)).
-- For streaming flows, assert `LanguageModelV2StreamPart` events via the `doStream` pipeline (see [src/sap-ai-chat-language-model.ts](mdc:src/sap-ai-chat-language-model.ts)).
+- Do not swallow errors. Propagate or wrap with context via `SAPAIError` utilities when applicable (see [src/sap-ai-error.ts](mdc:src/sap-ai-error.ts)).
+- Only use `try/catch` where meaningful recovery or re-throw with context is performed.
 
-## Test Patterns
+## Formatting and Linting
 
-- Validate message templating: cover [src/convert-to-sap-messages.ts](mdc:src/convert-to-sap-messages.ts).
-- Validate error propagation using helpers in [src/sap-ai-error.ts](mdc:src/sap-ai-error.ts).
-- Assert structured output behavior varies by model family (Anthropic/Amazon do not support JSON schema formatting).
+- Respect [eslint.config.mjs](mdc:eslint.config.mjs) and Prettier (see `prettier-*` scripts in [package.json](mdc:package.json)).
+- Keep lines readable; prefer multi-line over dense one-liners.
+- Avoid inline explanatory comments; add brief comments above non-obvious logic.
+
+## Provider-specific Conventions
+
+- The provider function must not be invoked with `new` (explicitly guarded in [src/sap-ai-provider.ts](mdc:src/sap-ai-provider.ts)).
+- When adding model capabilities, ensure `SAPAIChatLanguageModel` maintains the `LanguageModelV2` contract (see [src/sap-ai-chat-language-model.ts](mdc:src/sap-ai-chat-language-model.ts)).
 
 ---
 > Source: [BITASIA/sap-ai-provider](https://github.com/BITASIA/sap-ai-provider) — distributed by [TomeVault](https://tomevault.io).
