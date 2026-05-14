@@ -1,0 +1,9 @@
+{
+  "name": "laofahai--hyprland-elite-desktop",
+  "displayName": "hyprland-elite-desktop",
+  "description": "\ud83d\ude80 Modern Hyprland desktop environment with productivity tools - Pomodoro timer, TOTP authenticator, smart wallpapers, and seamless Chinese input support",
+  "version": "1.0.0",
+  "author": "laofahai",
+  "homepage": "https://github.com/laofahai/hyprland-elite-desktop",
+  "skills": []
+}
