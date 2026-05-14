@@ -1,0 +1,9 @@
+{
+  "name": "longtail-labs--slide-code",
+  "displayName": "slide.code",
+  "description": "A cross-platform Graphical Vibe Coding Environment (VCE) for Claude Code",
+  "version": "1.0.0",
+  "author": "longtail-labs",
+  "homepage": "https://github.com/longtail-labs/slide.code",
+  "skills": []
+}
