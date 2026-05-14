@@ -1,198 +1,541 @@
 ## claude-md
 
-> > > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > - **PEP8 & Odoo Standards:**
 
-# gemini-md
+# odoo18
 
-> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - **PEP8 & Odoo Standards:**
 
 ## Usage
 
 Add this to your project's CLAUDE.md to activate this skill:
 
 ```
-Read and follow the instructions in .claude/skills/gemini-md/SKILL.md
+Read and follow the instructions in .claude/skills/odoo18/SKILL.md
 ```
 
 Or copy the instructions below directly into your CLAUDE.md:
 
-## mcp
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+### 1\. Code Style & Formatting
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Overview
-
-This is a production-ready Fastify adapter for the Model Context Protocol (MCP). The project implements a Fastify plugin that enables MCP communication through the JSON-RPC 2.0 specification with full horizontal scaling capabilities. The codebase includes MCP protocol specifications in the `spec/` directory that define the messaging format, lifecycle management, and various protocol features.
-
-## Key Features
-
-- **Complete MCP Protocol Support**: Implements the full Model Context Protocol specification
-- **Server-Sent Events (SSE)**: Real-time streaming communication with session management
-- **Horizontal Scaling**: Redis-backed session management and message broadcasting
-- **Session Persistence**: Message history and reconnection support with Last-Event-ID
-- **Dual Backend Support**: Memory-based for development, Redis-based for production
-- **Cross-Instance Broadcasting**: Messages sent from any instance reach all connected clients
-- **High Availability**: Sessions survive server restarts with automatic cleanup
-
-## Development Commands
-
-- **Build**: `npm run build` - Compiles TypeScript to `dist/` directory
-- **Lint**: `npm run lint` - Run ESLint with caching
-- **Lint Fix**: `npm run lint:fix` - Run ESLint with auto-fix
-- **Type Check**: `npm run typecheck` - Run TypeScript compiler without emitting files
-- **Test Individual**: `node --experimental-strip-types --no-warnings --test test/filename.test.ts` - Run a specific test file
-- **Test**: `npm run test` - Run Node.js test runner on test files, do not use `npm run test -- individual.ts` to run individual test file
-- **CI**: `npm run ci` - Full CI pipeline (build + lint + test)
-
-## Architecture
-
-The main entry point is `src/index.ts` which exports a Fastify plugin built with `fastify-plugin`. The plugin structure follows Fastify's standard plugin pattern with proper TypeScript types and supports both memory and Redis backends for horizontal scaling.
-
-### Core Components
-
-**Session Management:**
-- `SessionStore` interface with `MemorySessionStore` and `RedisSessionStore` implementations
-- Session metadata storage with automatic TTL (1-hour expiration)
-- Message history storage with configurable limits and automatic trimming
-
-**Message Broadcasting:**
-- `MessageBroker` interface with `MemoryMessageBroker` and `RedisMessageBroker` implementations
-- Topic-based pub/sub using MQEmitter (memory) or MQEmitter-Redis (distributed)
-- Session-specific topics: `mcp/session/{sessionId}/message`
-- Broadcast topics: `mcp/broadcast/notification`
-
-**SSE Integration:**
-- Complete SSE support with session management and persistence
-- Message replay using Last-Event-ID for resumable connections
-- Heartbeat mechanism for connection health monitoring
-- Support for both GET and POST endpoints
-
-### File Structure
-
-```
-src/
-├── brokers/
-│   ├── message-broker.ts          # Interface definition
-│   ├── memory-message-broker.ts   # MQEmitter implementation
-│   └── redis-message-broker.ts    # Redis-backed implementation
-├── stores/
-│   ├── session-store.ts           # Interface definition
-│   ├── memory-session-store.ts    # In-memory implementation
-│   └── redis-session-store.ts     # Redis-backed implementation
-├── decorators/
-│   ├── decorators.ts              # Core MCP decorators
-│   └── pubsub-decorators.ts       # Pub/sub decorators
-├── handlers.ts                    # MCP protocol handlers
-├── routes.ts                      # SSE connection handling
-├── index.ts                       # Plugin entry point with backend selection
-├── schema.ts                      # MCP protocol types
-└── types.ts                       # Plugin types
-```
-
-The complete MCP protocol TypeScript definitions are in `src/schema.ts`, which includes:
-- JSON-RPC 2.0 message types (requests, responses, notifications, batches)
-- MCP protocol lifecycle (initialization, capabilities, ping)
-- Core features: resources, prompts, tools, logging, sampling
-- Client/server request/response/notification types
-- Content types (text, image, audio, embedded resources)
-- Protocol constants and error codes
-
-Key dependencies:
-- `fastify-plugin` for plugin registration
-- `typed-rpc` for RPC communication
-- `neostandard` for ESLint configuration
-- `ioredis` for Redis connectivity
-- `mqemitter` and `mqemitter-redis` for message broadcasting
-
-The project uses ESM modules (`"type": "module"`) and includes comprehensive MCP protocol specifications in markdown format under `spec/` covering the same areas as the TypeScript schema.
-
-## Configuration Options
-
-### Plugin Options
-- `serverInfo`: Server identification (name, version)
-- `capabilities`: MCP capabilities configuration
-- `instructions`: Optional server instructions
-- `enableSSE`: Enable Server-Sent Events support (default: false)
-- `redis`: Redis configuration for horizontal scaling (optional)
-  - `host`: Redis server hostname
-  - `port`: Redis server port
-  - `db`: Redis database number
-  - `password`: Redis authentication password
-  - Additional ioredis connection options supported
-
-### Backend Selection
-The plugin automatically selects the appropriate backend based on configuration:
-- **Memory backends**: Used when `redis` option is not provided (development/single-instance)
-- **Redis backends**: Used when `redis` option is provided (production/multi-instance)
-
-## TypeScript Configuration
-
-Uses a base TypeScript configuration (`tsconfig.base.json`) extended by the main `tsconfig.json`. The build targets ES modules with strict type checking enabled.
-
-## Testing
-
-The project includes comprehensive test coverage:
-- **178 tests total** covering all functionality including OAuth 2.1 authorization
-- **Memory backend tests**: Session management, message broadcasting, SSE handling
-- **Redis backend tests**: Session persistence, cross-instance messaging, failover
-- **Integration tests**: Full plugin lifecycle, multi-instance deployment
-- **Authorization tests**: JWT validation, token introspection, OAuth 2.1 compliance
-- **Test utilities**: Redis test helpers with automatic cleanup, JWT utilities with dynamic JWKS generation
-
-Run tests with: `npm run test` (requires Redis running on localhost:6379)
-
-### SSE Testing Best Practices
-
-When testing Server-Sent Events (SSE) endpoints, it's critical to properly clean up streams to prevent hanging event loops:
-
-```typescript
-// ✅ Correct way to test SSE endpoints
-const response = await app.inject({
-  method: 'GET',
-  url: '/mcp',
-  payloadAsStream: true,  // Required for SSE responses
-  headers: {
-    accept: 'text/event-stream'
-  }
-})
-
-t.assert.strictEqual(response.statusCode, 200)
-t.assert.strictEqual(response.headers['content-type'], 'text/event-stream')
-response.stream().destroy()  // ⚠️ CRITICAL: Always destroy the stream
-```
-
-**Why this is important:**
-- SSE responses create readable streams that keep the event loop alive
-- Without explicit cleanup, tests will hang with "Promise resolution is still pending" errors
-- The `payloadAsStream: true` option is required for proper SSE response handling
-- Always call `response.stream().destroy()` after assertions to clean up resources
-
-### Test Utilities
-
-**JWT Testing**: Uses dynamic JWKS generation with proper RSA key pairs:
-- `generateMockJWKSResponse()`: Dynamically generates JWKS from RSA public key
-- `setupMockAgent()`: Uses undici MockAgent for HTTP mocking instead of custom fetch mocks
-- `createTestJWT()`: Creates properly signed JWT tokens for testing
-
-**Mock HTTP Requests**: Uses undici's MockAgent for robust HTTP mocking:
-```typescript
-const restoreMock = setupMockAgent({
-  'https://auth.example.com/.well-known/jwks.json': generateMockJWKSResponse()
-})
-// Test code here
-restoreMock() // Clean up
-```
+- **PEP8 & Odoo Standards:**
+  - Enforce PEP8 for all Python code.
+  - Adopt Odoo's recommended code styles for module structures, naming conventions, and documentation.
+- **Multi-language Formatting:**
+  - Apply consistent formatting for XML, QWeb templates, and CSS to align with Odoo's UI guidelines.
 
 ---
-> Source: [platformatic/mcp](https://github.com/platformatic/mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:gemini_md:2026-05-06 -->
+
+### 2\. Module Structure & Best Practices
+
+- **Mandatory Files & Structure:**
+  - Ensure every module includes essential files (e.g., `__manifest__.py`, `__init__.py`, subdirectories for models, views, controllers).
+- **Separation of Concerns:**
+  - Keep business logic, data models, views, and controllers distinct.
+  - Validate module dependencies and use Odoo's ORM patterns effectively.
+- **Template & Scaffolding:**
+  - Include commands to scaffold new modules using customizable templates that reflect Odoo 18's best practices.
 
 ---
-> Source: [tomevault-io/gemini-extensions](https://github.com/tomevault-io/gemini-extensions) — distributed by [TomeVault](https://tomevault.io).
+
+### 3\. Linting & Static Analysis
+
+- **Customized Linters:**
+  - Integrate Python linters (like flake8 and pylint) with rules specifically tuned for Odoo projects.
+- **Static Code Checks:**
+  - Automatically flag deviations from Odoo's module guidelines and coding patterns.
+
+---
+
+### 4\. Testing & Debugging
+
+- **Integrated Testing Frameworks:**
+  - Support running unit and integration tests via Odoo's built-in testing framework.
+  - Automatically trigger tests on file changes or pre-commit actions.
+- **Robust Debugging Tools:**
+  - Configure breakpoints, step-through debugging, and live log monitoring tailored for Odoo server mode.
+  - Enable hot-reloading and module-specific debugging for rapid iteration.
+
+---
+
+### 5\. Auto-completion & IntelliSense
+
+- **Odoo-Aware Suggestions:**
+  - Enhance auto-completion for Odoo-specific API calls, models, and ORM methods.
+  - Utilize dynamic code analysis to recommend improvements based on Odoo development patterns.
+- **Smart Imports:**
+  - Automatically suggest and manage imports for frequently used Odoo libraries and modules.
+
+---
+
+### 6\. Deployment & Version Control Integration
+
+- **Git Integration:**
+  - Integrate seamlessly with Git for versioning, branching, and merge conflict resolution.
+  - Set up automated pre-commit hooks to run tests, linting, and module integrity checks.
+- **CI/CD Pipelines:**
+  - Provide support for continuous integration pipelines tailored to Odoo module deployment and server restarts.
+
+---
+
+### 7\. Security & Error Handling
+
+- **Best Practice Enforcement:**
+  - Implement checks to ensure safe coding practices in user input, ORM queries, and API interactions.
+  - Integrate guidelines for comprehensive error handling, logging, and exception management.
+- **Static Security Analysis:**
+  - Run static analysis to detect potential security vulnerabilities common in Odoo development.
+
+---
+
+### 8\. Custom Cursor Commands for Odoo Development
+
+- **Module Management Commands:**
+  - Create custom commands to scaffold new modules, update module lists, and manage server configurations.
+- **Database & Migration Tools:**
+  - Incorporate one-click tools for database migration management, upgrade scripts, and seamless Odoo server restarts.
+
+---
+
+### 9\. Documentation & Code Comments
+
+- **Inline Documentation:**
+  - Enforce comprehensive inline comments and module-level docstrings that follow Odoo documentation standards.
+- **Auto-Documentation Tools:**
+  - Utilize tools to auto-generate documentation for models, fields, and business logic with direct links to official Odoo documentation.
+
+---
+
+### 10\. Environment Management & Odoo-Specific Configurations
+
+- **Multi-Environment Support:**
+  - Manage different development environments (local, staging, production) with clear configuration profiles.
+- **Dynamic Settings:**
+  - Auto-detect and adjust to changes in Odoo 18 settings (e.g., database connections, port settings, logging levels).
+- **Real-Time Collaboration:**
+
+  - Optionally enable real-time collaboration features to facilitate team coding, code reviews, and shared debugging sessions.
+
+  # Odoo 18 Technical Guide
+
+## 1. XML View Changes
+
+### 1.1 Tree to List Tag Change
+
+The `<tree>` tag has been renamed to `<list>` in all views.
+
+**Before:**
+
+```xml
+<tree>
+    <field name="name"/>
+</tree>
+```
+
+**After:**
+
+```xml
+<list>
+    <field name="name"/>
+</list>
+```
+
+### 1.2 Simplified Conditional Attributes
+
+Odoo 18 simplifies the use of conditional attributes by replacing `attrs` and `states` with direct attributes.
+
+**Single Condition:**
+
+```xml
+<!-- Before -->
+<field name="field_name" attrs="{'invisible': [('condition_field', '=', False)]}"/>
+
+<!-- After -->
+<field name="field_name" invisible="not condition_field"/>
+```
+
+**Multiple Conditions with OR:**
+
+```xml
+<!-- Before -->
+<field name="field_name" attrs="{'invisible': ['|', ('state', '=', 'done'), ('type', '=', 'internal')]}"/>
+
+<!-- After -->
+<field name="field_name" invisible="state == 'done' or type == 'internal'"/>
+```
+
+**Multiple Conditions with AND:**
+
+```xml
+<!-- Before -->
+<field name="field_name" attrs="{'readonly': [('state', '=', 'approved'), ('user_id', '!=', user.id)]}"/>
+
+<!-- After -->
+<field name="field_name" readonly="state == 'approved' and user_id != user.id"/>
+```
+
+### 1.3 Button States
+
+Button states attribute has been replaced with invisible conditions:
+
+```xml
+<!-- Before -->
+<button string="Submit" states="draft"/>
+
+<!-- After -->
+<button string="Submit" invisible="state != 'draft'"/>
+```
+
+### 1.4 Chatter Simplification
+
+Odoo 18 introduces a simplified tag for chatters:
+
+```xml
+<!-- Before -->
+<div class="oe_chatter">
+    <field name="message_follower_ids" widget="mail_followers"/>
+    <field name="activity_ids" widget="mail_activity"/>
+    <field name="message_ids" widget="mail_thread"/>
+</div>
+
+<!-- After -->
+<chatter/>
+
+<!-- With options -->
+<chatter reload_on_follower="True"/>
+```
+
+### 1.5 Daterange Widget Updates
+
+The daterange widget has been simplified:
+
+```xml
+<!-- Before -->
+<div>
+    <field name="start_date" widget="daterange" options="{'related_end_date': 'end_date'}"/>
+    <field name="end_date" widget="daterange" options="{'related_start_date': 'start_date'}"/>
+</div>
+
+<!-- After -->
+<div>
+    <field name="start_date" widget="daterange" options="{'end_date_field': 'end_date'}"/>
+</div>
+```
+
+### 1.6 Settings View Structure
+
+Settings views now use a simplified structure:
+
+```xml
+<!-- Before -->
+<div class="app_settings_block" data-string="application_settings" string="Application Settings" data-key="key_example">
+    <h2>Example Settings</h2>
+    <div class="row mt16 o_settings_container">
+        <label for="example_setting" string="Example Setting" class="ml-4 mt-4"/>
+    </div>
+    <div class="row mt16 o_settings_container" name="example_setting_container">
+        <field class="ml-4" name="example_setting"/>
+    </div>
+    <div class="row mt16 o_settings_container">
+        <div class="text-muted ml-4">
+            Description for the example setting.
+        </div>
+    </div>
+</div>
+
+<!-- After -->
+<app string="Application Settings">
+    <block title="Example Settings">
+        <setting string="Example Setting" help="Description for the example setting">
+            <field name="example_setting"/>
+        </setting>
+    </block>
+</app>
+```
+
+## 2. Model Changes
+
+### 2.1 States Attribute Removal
+
+The `states` attribute has been removed from field definitions in Python models:
+
+```python
+# Before
+date = fields.Date(
+    string='Date',
+    required=True,
+    states={'posted': [('readonly', True)], 'cancel': [('readonly', True)]},
+    tracking=True,
+)
+
+# After
+date = fields.Date(
+    string='Date',
+    required=True,
+    tracking=True,
+)
+```
+
+The field state-dependent behavior should now be handled in the view level with the simplified conditional attributes.
+
+### 2.2 Automatic Fields
+
+Odoo 18 continues to provide automatic fields in all models:
+
+- `id` - The unique identifier for a record
+- `create_date` - Creation date of the record
+- `create_uid` - User who created the record
+- `write_date` - Last modification date
+- `write_uid` - User who last modified the record
+
+The automatic creation of some fields can be disabled if needed.
+
+## 3. Deprecated Features
+
+### 3.1 Scheduled Actions
+
+Odoo 18 has deprecated the use of `Number Call` and `Doall` in scheduled actions (cron jobs).
+
+### 3.2 Using Deprecated XML Syntax
+
+Using deprecated XML tags or attributes will generate warnings and may cause modules to fail to install or upgrade.
+
+## 4. Best Practices for Odoo 18
+
+### 4.1 Views
+
+- Use the new simplified conditional attributes instead of `attrs` dictionary
+- Replace all `<tree>` tags with `<list>` tags
+- Use the simplified `<chatter/>` tag instead of the verbose version
+- Use direct field attributes (readonly, invisible) with Python-like expressions
+
+### 4.2 Models
+
+- Handle field states in the views rather than in the model definition
+- Follow standard Odoo naming conventions for fields and models
+- Ensure translations are defined properly in .po files rather than directly in field labels
+
+### 4.3 Security
+
+- Define explicit security rules for all models, including transient ones
+- Test access rights thoroughly after migration
+
+### 4.4 Performance
+
+- Odoo 18 continues the performance improvements from previous versions
+- Optimize your custom code for better performance by using proper indexing and limiting the use of compute fields when not necessary
+
+## 5. Migration Tips
+
+When migrating from earlier versions to Odoo 18:
+
+1. Update all `<tree>` tags to `<list>` tags in XML views
+2. Convert all `attrs` attributes to the new simplified format
+3. Remove `states` attributes from field definitions in Python models
+4. Update field conditional visibility logic to the view level
+5. Simplify chatter implementations using the new `<chatter/>` tag
+6. Replace daterange widgets with the new simplified format
+7. Update settings views to use the new structure with `<app>`, `<block>`, and `<setting>` tags
+8. Test all workflows and custom functionality extensively
+
+## 6. Additional Resources
+
+For more detailed information, refer to the official Odoo 18 documentation:
+
+- https://www.odoo.com/documentation/18.0/
+- https://www.odoo.com/odoo-18-release-notes
+
+## 7. Field Design Best Practices
+
+### 7.1 Field Naming and Labels
+
+- Use English for field names (technical names) and labels in Python code
+- Provide translations through .po files rather than hardcoding non-English strings in field definitions
+- Use descriptive but concise field names that reflect their purpose
+- Follow the snake_case naming convention for field names
+
+```python
+# Good
+partner_id = fields.Many2one('res.partner', string='Partner')
+
+# Bad - Spanish in field definition
+socio_id = fields.Many2one('res.partner', string='Socio')
+```
+
+### 7.2 Field Types and Options
+
+- Use the appropriate field type for the data being stored
+- Set appropriate default values where it makes sense
+- Use the `help` attribute to provide explanatory tooltips
+- Use `tracking=True` for important fields that need change tracking
+- Consider adding `index=True` for fields frequently used in search operations
+
+```python
+# Example with best practices
+state = fields.Selection([
+    ('draft', 'Draft'),
+    ('confirmed', 'Confirmed'),
+    ('done', 'Done'),
+    ('cancel', 'Cancelled')
+],
+    string='Status',
+    default='draft',
+    help='The current status of the document',
+    tracking=True,
+    copy=False  # Don't copy the state when duplicating records
+)
+```
+
+### 7.3 Computed Fields
+
+- Add proper `@api.depends()` decorators with all dependent fields
+- Use `store=True` only when necessary for search or reporting
+- Consider using `precompute=True` for stored computed fields to improve performance
+- Use clear and descriptive method names for compute methods
+
+```python
+total_amount = fields.Monetary(
+    string='Total Amount',
+    compute='_compute_total_amount',
+    store=True,
+    precompute=True
+)
+
+@api.depends('line_ids.amount')
+def _compute_total_amount(self):
+    for record in self:
+        record.total_amount = sum(record.line_ids.mapped('amount'))
+```
+
+## 8. Internationalization (i18n) Best Practices
+
+### 8.1 Translatable Fields
+
+- Keep all user-facing strings in English in the code
+- Use the translation system via .po files for localization
+- Remember that the following are automatically included in translation exports:
+  - Field `string` attributes
+  - Field `help` attributes
+  - Selection field options
+  - Button labels
+
+### 8.2 Translation Files
+
+- Maintain clean and organized .po files
+- Update translations after any changes to user-facing strings
+- Use proper contexts in translation files to disambiguate terms that may have different translations in different contexts
+
+### 8.3 Runtime Translations
+
+- Use `_()` function for translatable strings in Python code
+- In JavaScript, use proper translation mechanisms provided by Odoo
+- Remember that hard-coded strings in views (like labels, placeholders) need to be marked for translation
+
+```python
+# Python example
+message = _("This document has been approved")
+
+# XML example
+<p t-translation="off">Not translated</p>
+<p>This will be translated</p>
+```
+
+## 9. Testing and Debugging
+
+### 9.1 Unit Testing
+
+- Odoo 18 continues to use the standard testing framework
+- Create test files in the `tests` directory with a filename starting with `test_`
+- Use the `TransactionCase` class for most tests, and `SavepointCase` for tests that require a shared setup
+- Test all critical business logic, especially custom methods and constraints
+
+```python
+from odoo.tests.common import TransactionCase
+
+class TestMyModule(TransactionCase):
+    def setUp(self):
+        super().setUp()
+        # Setup test data here
+
+    def test_my_feature(self):
+        # Test logic here
+        result = self.env['my.model'].create({'name': 'Test'})
+        self.assertEqual(result.state, 'draft')
+```
+
+### 9.2 Debugging Techniques
+
+- Use the developer mode (`?debug=1` in the URL) for debugging
+- Check the browser console for JavaScript errors
+- Use Python's `logging` module for structured logging
+- Consider using the `from odoo.tools import log_exceptions` decorator for better error reporting
+
+```python
+import logging
+_logger = logging.getLogger(__name__)
+
+def some_method(self):
+    _logger.info("Starting process for %s", self.name)
+    # Method logic here
+```
+
+## 10. Performance Optimization
+
+### 10.1 Database Optimization
+
+- Add proper indexes for frequently searched fields
+- Use domains to filter records at the database level instead of filtering in Python
+- Use `sudo()` sparingly and only when necessary
+- Prefer `search()` with specific domains over `search_all()` followed by filtering
+
+```python
+# Good - filtering at database level
+records = self.env['my.model'].search([('state', '=', 'done'), ('partner_id', '=', partner.id)])
+
+# Bad - retrieving all records and filtering in Python
+all_records = self.env['my.model'].search([])
+records = all_records.filtered(lambda r: r.state == 'done' and r.partner_id == partner)
+```
+
+### 10.2 Recordset Operations
+
+- Use set operations (`filtered`, `mapped`, `sorted`) efficiently
+- Avoid calling methods inside loops when the result could be computed once
+- Use `browse()` when you already have the IDs instead of searching again
+- Prefetch related records when you know you'll need them
+
+### 10.3 View Optimization
+
+- Keep view hierarchies shallow to improve rendering speed
+- Use `groups` attribute to conditionally hide or show sections based on user permissions
+- Consider using `limit` in list views for large tables
+- Use appropriate widgets for fields to enhance user experience and performance
+
+### 10.4 Batch Processing
+
+- For operations on many records, use batching techniques
+- Consider using `_cr.execute()` for performance-critical operations, but be aware of ORM bypassing risks
+- Implement proper pagination for reports and data exports
+
+```python
+def process_in_batches(self, all_ids, batch_size=1000):
+    for i in range(0, len(all_ids), batch_size):
+        batch_ids = all_ids[i:i+batch_size]
+        records = self.browse(batch_ids)
+        # Process this batch
+        _logger.info("Processed batch %s/%s", i//batch_size + 1, (len(all_ids)-1)//batch_size + 1)
+```
+
+## 11. Additional Resources
+
+For more detailed information, refer to the official Odoo 18 documentation:
+
+- https://www.odoo.com/documentation/18.0/
+- https://www.odoo.com/odoo-18-release-notes
+
+---
+> Source: [rogervdo/TMDB](https://github.com/rogervdo/TMDB) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:claude_md:2026-05-14 -->
 
 ---
