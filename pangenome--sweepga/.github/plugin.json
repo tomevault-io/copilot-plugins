@@ -1,0 +1,9 @@
+{
+  "name": "pangenome--sweepga",
+  "displayName": "sweepga",
+  "description": "plane sweep filtering genome alignments",
+  "version": "1.0.0",
+  "author": "pangenome",
+  "homepage": "https://github.com/pangenome/sweepga",
+  "skills": []
+}
