@@ -1,0 +1,9 @@
+{
+  "name": "kysera-dev--kysera",
+  "displayName": "kysera",
+  "description": "Kysera - type-safe data access toolkit for TypeScript (Kysely on steroids). ",
+  "version": "1.0.0",
+  "author": "kysera-dev",
+  "homepage": "https://github.com/kysera-dev/kysera",
+  "skills": []
+}
