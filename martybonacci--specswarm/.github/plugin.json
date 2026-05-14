@@ -1,0 +1,9 @@
+{
+  "name": "martybonacci--specswarm",
+  "displayName": "specswarm",
+  "description": "SDD Specification driven development orchestration plugins for Claude Code.",
+  "version": "1.0.0",
+  "author": "MartyBonacci",
+  "homepage": "https://github.com/MartyBonacci/specswarm",
+  "skills": []
+}
