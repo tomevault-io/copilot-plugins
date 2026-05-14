@@ -1,48 +1,38 @@
-## 001-windows-powershell-env
+## 002-development-workflow
 
-> - Use native PowerShell cmdlets instead of Unix-style commands
+> - Always include error handling and input validation
 
-# This project is developed in Windows 11 PowerShell Environment, hereby Rules
+# Development Workflow Rules
 
-## Terminal Command Guidelines
+## Code Quality Standards
+- Always include error handling and input validation
+- Write clear, self-documenting code with meaningful variable names
+- Include appropriate comments for complex logic
+- Follow language-specific best practices and conventions
 
-### PowerShell 7.5+ Commands
-- Use native PowerShell cmdlets instead of Unix-style commands
-- Use `Get-ChildItem` instead of `ls`
-- Use `Remove-Item` instead of `rm` 
-- Use `Copy-Item` instead of `cp`
-- Use `Move-Item` instead of `mv`
-- Use `New-Item -ItemType Directory` instead of `mkdir`
-- Use `Set-Location` instead of `cd` (when needed for script context)
+## File Organization
+- Use consistent naming conventions across the project
+- Organize files in logical directory structures
+- Keep related files grouped together
+- Maintain a clean project root directory
 
-### Command Chaining
-- Use semicolon (`;`) for command chaining, NOT `&&`
-- Example: `Get-Process; Get-Service` instead of `Get-Process && Get-Service`
+## Git Workflow
+- Make small, focused commits with descriptive messages
+- Include issue numbers in commit messages when applicable
+- Use semantic commit messages (feat:, fix:, docs:, etc.)
+- Always test code before committing
 
-### File Paths
-- Use Windows-style paths with backslashes: `C:\Users\Username\`
-- Use forward slashes only for URLs or when explicitly required
-- Use `$env:USERPROFILE` instead of `~` for home directory
+## Documentation
+- Keep README.md updated with current setup instructions
+- Document API endpoints and their usage
+- Include examples for complex functionality
+- Maintain changelog for significant updates
 
-### Environment Variables
-- Use `$env:` prefix for all environment variables
-- Example: `$env:PATH`, `$env:USERPROFILE`, `$env:TEMP`
-
-### Error Handling
-- Use PowerShell try/catch blocks for error handling
-- Include `-ErrorAction` parameters when appropriate
-- Use `Write-Warning` and `Write-Error` for proper logging
-
-### Package Management
-- Prefer `winget` for Windows application installation
-- Use `choco` if Chocolatey is installed
-- Use `npm`, `yarn`, or `pnpm` with their native commands
-- Use `pip` for Python packages
-
-### File Operations
-- Use `Test-Path` to check file/directory existence
-- Use `Join-Path` for constructing file paths
-- Use `Get-Content` and `Set-Content` for file reading/writing
+## Development Environment
+- Use consistent development tools across team members
+- Include necessary configuration files in version control
+- Document environment setup requirements
+- Use package managers for dependency management
 
 ---
 > Source: [Yuhamixli/Law-Crawler-RPA-RAG-MCP](https://github.com/Yuhamixli/Law-Crawler-RPA-RAG-MCP) — distributed by [TomeVault](https://tomevault.io).
