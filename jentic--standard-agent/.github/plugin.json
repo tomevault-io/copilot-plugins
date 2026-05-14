@@ -1,0 +1,9 @@
+{
+  "name": "jentic--standard-agent",
+  "displayName": "standard-agent",
+  "description": "The composable standard reasoning agent",
+  "version": "1.0.0",
+  "author": "jentic",
+  "homepage": "https://github.com/jentic/standard-agent",
+  "skills": []
+}
