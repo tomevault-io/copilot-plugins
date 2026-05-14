@@ -4,7 +4,7 @@
   "repo": "i18n.nvim",
   "description": "i18n preview and management plugin for neovim",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yelog/i18n.nvim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:06:38Z"
+  "distributed_at": "2026-05-14T05:06:22Z"
 }
