@@ -1,0 +1,9 @@
+{
+  "name": "breitburg--claude-for-pebble",
+  "displayName": "claude-for-pebble",
+  "description": "Claude AI client for Pebble smartwatch",
+  "version": "1.0.0",
+  "author": "breitburg",
+  "homepage": "https://github.com/breitburg/claude-for-pebble",
+  "skills": []
+}
