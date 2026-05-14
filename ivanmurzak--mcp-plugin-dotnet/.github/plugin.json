@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--mcp-plugin-dotnet",
+  "displayName": "MCP-Plugin-dotnet",
+  "description": ".NET MCP bridge: expose app methods/data as MCP tools, prompts, and resources via an in-app plugin + lightweight server (SignalR; stdio/http).",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/MCP-Plugin-dotnet",
+  "skills": []
+}
