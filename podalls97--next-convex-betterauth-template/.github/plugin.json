@@ -1,0 +1,9 @@
+{
+  "name": "podalls97--next-convex-betterauth-template",
+  "displayName": "next-convex-betterauth-template",
+  "description": "\ud83c\udfaf Production-ready authentication template with Next.js, Convex, and Better Auth.  Features complete auth system (signup, login, email verification, 2FA), protected routes,  modern UI with dark mode, ",
+  "version": "1.0.0",
+  "author": "podalls97",
+  "homepage": "https://github.com/podalls97/next-convex-betterauth-template",
+  "skills": []
+}
