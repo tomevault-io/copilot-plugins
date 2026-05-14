@@ -1,0 +1,9 @@
+{
+  "name": "eminwux--sbsh",
+  "displayName": "sbsh",
+  "description": "\ud83d\ude82 sbsh brings Terminal-as-Code to your workflow, making terminal environments reproducible, persistent, and safe to share across your team.",
+  "version": "1.0.0",
+  "author": "eminwux",
+  "homepage": "https://github.com/eminwux/sbsh",
+  "skills": []
+}
