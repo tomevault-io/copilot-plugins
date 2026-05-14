@@ -1,0 +1,9 @@
+{
+  "name": "d-kimuson--modular-mcp",
+  "displayName": "modular-mcp",
+  "description": "A Model Context Protocol (MCP) proxy server that enables efficient management of large tool collections across multiple MCP servers by grouping them and loading tool schemas on-demand.",
+  "version": "1.0.0",
+  "author": "d-kimuson",
+  "homepage": "https://github.com/d-kimuson/modular-mcp",
+  "skills": []
+}
