@@ -1,0 +1,9 @@
+{
+  "name": "spaceykasey--tcpsocketmcp",
+  "displayName": "TcpSocketMCP",
+  "description": "An MCP server that gives AI models access to raw TCP socket connections for advanced troubleshooting and network exploration",
+  "version": "1.0.0",
+  "author": "SpaceyKasey",
+  "homepage": "https://github.com/SpaceyKasey/TcpSocketMCP",
+  "skills": []
+}
