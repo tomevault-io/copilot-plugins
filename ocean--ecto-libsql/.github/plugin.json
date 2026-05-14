@@ -1,0 +1,9 @@
+{
+  "name": "ocean--ecto-libsql",
+  "displayName": "ecto_libsql",
+  "description": "Elixir Ecto database adapter for libSQL/Turso",
+  "version": "1.0.0",
+  "author": "ocean",
+  "homepage": "https://github.com/ocean/ecto_libsql",
+  "skills": []
+}
