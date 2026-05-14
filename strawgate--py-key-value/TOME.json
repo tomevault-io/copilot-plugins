@@ -4,7 +4,7 @@
   "repo": "py-key-value",
   "description": "A pluggable interface for KV Stores",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/strawgate/py-key-value",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T18:37:42Z"
+  "distributed_at": "2026-05-14T04:46:47Z"
 }
