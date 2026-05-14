@@ -1,0 +1,9 @@
+{
+  "name": "zeenix--rust-analyzer-mcp",
+  "displayName": "rust-analyzer-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides integration with rust-analyzer",
+  "version": "1.0.0",
+  "author": "zeenix",
+  "homepage": "https://github.com/zeenix/rust-analyzer-mcp",
+  "skills": []
+}
