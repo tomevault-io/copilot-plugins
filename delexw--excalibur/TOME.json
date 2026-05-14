@@ -4,7 +4,7 @@
   "repo": "excalibur",
   "description": "Interactive multi-agent team collaboration ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/delexw/excalibur",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T18:23:33Z"
+  "distributed_at": "2026-05-14T04:41:21Z"
 }
