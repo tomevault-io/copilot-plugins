@@ -1,0 +1,9 @@
+{
+  "name": "wasabeef--git-workers",
+  "displayName": "git-workers",
+  "description": "An interactive CLI tool for managing Git worktrees with ease.",
+  "version": "1.0.0",
+  "author": "wasabeef",
+  "homepage": "https://github.com/wasabeef/git-workers",
+  "skills": []
+}
