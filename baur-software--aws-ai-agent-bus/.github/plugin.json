@@ -1,0 +1,9 @@
+{
+  "name": "baur-software--aws-ai-agent-bus",
+  "displayName": "aws-ai-agent-bus",
+  "description": "A custom model multicontext protocol system for building workflows in new ways",
+  "version": "1.0.0",
+  "author": "Baur-Software",
+  "homepage": "https://github.com/Baur-Software/aws-ai-agent-bus",
+  "skills": []
+}
