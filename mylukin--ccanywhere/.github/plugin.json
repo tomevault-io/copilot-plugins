@@ -1,0 +1,9 @@
+{
+  "name": "mylukin--ccanywhere",
+  "displayName": "ccanywhere",
+  "description": "A CI/CD tool that automatically captures code changes, generates mobile-optimized HTML diffs, uploads them to cloud storage, and sends notification links - designed for developers coding on mobile dev",
+  "version": "1.0.0",
+  "author": "mylukin",
+  "homepage": "https://github.com/mylukin/ccanywhere",
+  "skills": []
+}
