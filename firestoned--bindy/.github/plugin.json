@@ -1,0 +1,9 @@
+{
+  "name": "firestoned--bindy",
+  "displayName": "bindy",
+  "description": "Bind9 Kubernetes Controller",
+  "version": "1.0.0",
+  "author": "firestoned",
+  "homepage": "https://github.com/firestoned/bindy",
+  "skills": []
+}
