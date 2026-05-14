@@ -1,0 +1,9 @@
+{
+  "name": "knifmelti--wau-settings-gui",
+  "displayName": "WAU-Settings-GUI",
+  "description": "Provides a user-friendly portable standalone interface to modify every aspect of Winget-AutoUpdate (WAU)",
+  "version": "1.0.0",
+  "author": "KnifMelti",
+  "homepage": "https://github.com/KnifMelti/WAU-Settings-GUI",
+  "skills": []
+}
