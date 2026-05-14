@@ -1,0 +1,9 @@
+{
+  "name": "steipete--bslog",
+  "displayName": "bslog",
+  "description": "cli for Better Stack to fetch logs, ClickHouse SQL style. Made for humans and agents.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/bslog",
+  "skills": []
+}
