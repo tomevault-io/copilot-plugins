@@ -1,0 +1,44 @@
+{
+  "name": "TWSEMCPServer",
+  "owner": "twjackysu",
+  "repo": "TWSEMCPServer",
+  "description": "\u53f0\u7063\u8b49\u4ea4\u6240OpenAPI \u7684 MCP Server \u540c\u6642\u6574\u5408\u90e8\u5206\u5373\u6642\u5831\u50f9\u548c\u6ac3\u6aaf\u8cb7\u8ce3\u4e2d\u5fc3TPEx OpenAPI, \u81fa\u7063\u671f\u8ca8\u4ea4\u6613\u6240TAIFEX OpenAPI",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/twjackysu/TWSEMCPServer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T18:01:22Z"
+}
