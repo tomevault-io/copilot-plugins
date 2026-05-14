@@ -1,0 +1,9 @@
+{
+  "name": "zac15987--displayprofilemanager",
+  "displayName": "DisplayProfileManager",
+  "description": "Instantly switch display profiles on Windows. Save & restore resolution, refresh rate, HDR, rotation, DPI, audio, and monitor layouts. Features staged application mode for complex setups, hotkeys, sys",
+  "version": "1.0.0",
+  "author": "zac15987",
+  "homepage": "https://github.com/zac15987/DisplayProfileManager",
+  "skills": []
+}
