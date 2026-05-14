@@ -1,0 +1,9 @@
+{
+  "name": "spandigital--mcp-server-dump",
+  "displayName": "mcp-server-dump",
+  "description": "A command-line tool to extract and document MCP (Model Context Protocol) server capabilities, tools, resources, and prompts in various formats.",
+  "version": "1.0.0",
+  "author": "SPANDigital",
+  "homepage": "https://github.com/SPANDigital/mcp-server-dump",
+  "skills": []
+}
