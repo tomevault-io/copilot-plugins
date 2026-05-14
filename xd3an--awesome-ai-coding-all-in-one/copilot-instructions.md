@@ -1,45 +1,46 @@
-## htmx-flask-cursorrules-prompt-file
+## htmx-go-basic-cursorrules-prompt-file
 
-> Cursor rules for HTMX development with Flask integration.
+> Cursor rules for Go development with basic setup.
 
-// HTMX with Flask .cursorrules
+// HTMX with Go (Basic Setup) .cursorrules
 
-// HTMX and Flask best practices
+// HTMX and Go best practices
 
-const htmxFlaskBestPractices = [
-  "Use Flask's render_template for server-side rendering",
-  "Implement Flask-WTF for form handling",
-  "Utilize Flask's url_for for generating URLs",
-  "Use Flask's jsonify for JSON responses",
-  "Implement Flask-SQLAlchemy for database operations",
-  "Utilize Flask's Blueprint for modular applications",
+const htmxGoBestPractices = [
+  "Use html/template for server-side rendering",
+  "Implement http.HandlerFunc for handling HTMX requests",
+  "Utilize gorilla/mux for routing if needed",
+  "Use encoding/json for JSON responses",
+  "Implement proper error handling and logging",
+  "Utilize context for request cancellation and timeouts",
 ];
 
 // Folder structure
 
 const folderStructure = `
-app/
-  templates/
-  static/
-    css/
-    js/
+cmd/
+  main.go
+internal/
+  handlers/
   models/
-  routes/
-  __init__.py
-config.py
-run.py
+  templates/
+static/
+  css/
+  js/
+go.mod
+go.sum
 `;
 
 // Additional instructions
 
 const additionalInstructions = `
-1. Use Jinja2 templating with HTMX attributes
-2. Implement proper CSRF protection with Flask-WTF
-3. Utilize Flask's request object for handling HTMX requests
-4. Use Flask-Migrate for database migrations
-5. Implement proper error handling and logging
-6. Follow Flask's application factory pattern
-7. Use environment variables for configuration
+1. Use semantic HTML5 elements with HTMX attributes
+2. Implement proper CSRF protection
+3. Utilize HTMX extensions when needed
+4. Use hx-boost for full page navigation
+5. Follow Go's idiomatic error handling
+6. Implement graceful shutdown for the server
+7. Use Go modules for dependency management
 `;
 
 ---
