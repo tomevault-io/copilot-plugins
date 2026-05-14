@@ -1,0 +1,9 @@
+{
+  "name": "linw1995--nvim-mcp",
+  "displayName": "nvim-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides seamless integration with Neovim instances, enabling AI assistants to interact with your editor through connections and access diagnostic informatio",
+  "version": "1.0.0",
+  "author": "linw1995",
+  "homepage": "https://github.com/linw1995/nvim-mcp",
+  "skills": []
+}
