@@ -1,0 +1,9 @@
+{
+  "name": "certinia--debug-log-analyzer-mcp",
+  "displayName": "debug-log-analyzer-mcp",
+  "description": "MCP server for AI-powered Salesforce Apex debug log analysis. Find performance bottlenecks, slow methods, SOQL bottlenecks, and governor limit issues.",
+  "version": "1.0.0",
+  "author": "certinia",
+  "homepage": "https://github.com/certinia/debug-log-analyzer-mcp",
+  "skills": []
+}
