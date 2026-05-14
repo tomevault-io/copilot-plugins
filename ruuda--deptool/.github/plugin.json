@@ -1,0 +1,9 @@
+{
+  "name": "ruuda--deptool",
+  "displayName": "deptool",
+  "description": "A declarative configuration deployment tool",
+  "version": "1.0.0",
+  "author": "ruuda",
+  "homepage": "https://github.com/ruuda/deptool",
+  "skills": []
+}
