@@ -1,0 +1,9 @@
+{
+  "name": "mathworks--polyspace-agentic-toolkit",
+  "displayName": "polyspace-agentic-toolkit",
+  "description": "The Polyspace Agentic Toolkit brings trusted Polyspace capabilities to AI agents.",
+  "version": "1.0.0",
+  "author": "mathworks",
+  "homepage": "https://github.com/mathworks/polyspace-agentic-toolkit",
+  "skills": []
+}
