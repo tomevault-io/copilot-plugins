@@ -1,0 +1,9 @@
+{
+  "name": "innoge--laravel-rclone",
+  "displayName": "laravel-rclone",
+  "description": "A sleek Laravel package that wraps rclone with an elegant, fluent API syntax.",
+  "version": "1.0.0",
+  "author": "InnoGE",
+  "homepage": "https://github.com/InnoGE/laravel-rclone",
+  "skills": []
+}
