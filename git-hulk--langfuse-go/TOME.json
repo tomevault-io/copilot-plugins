@@ -2,9 +2,9 @@
   "name": "langfuse-go",
   "owner": "git-hulk",
   "repo": "langfuse-go",
-  "description": "",
+  "description": "Go SDK for Langfuse: https://langfuse.com/",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/git-hulk",
+  "source_url": "https://github.com/git-hulk/langfuse-go",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T00:40:45Z"
+  "distributed_at": "2026-05-14T05:45:20Z"
 }
