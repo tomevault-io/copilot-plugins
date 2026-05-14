@@ -1,0 +1,9 @@
+{
+  "name": "lalinsky--nats-zig",
+  "displayName": "nats.zig",
+  "description": "A Zig client library for NATS",
+  "version": "1.0.0",
+  "author": "lalinsky",
+  "homepage": "https://github.com/lalinsky/nats.zig",
+  "skills": []
+}
