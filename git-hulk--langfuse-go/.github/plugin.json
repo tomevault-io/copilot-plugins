@@ -1,9 +1,9 @@
 {
   "name": "git-hulk--langfuse-go",
   "displayName": "langfuse-go",
-  "description": "langfuse-go",
+  "description": "Go SDK for Langfuse: https://langfuse.com/",
   "version": "1.0.0",
   "author": "git-hulk",
-  "homepage": "https://tomevault.io/claim/git-hulk",
+  "homepage": "https://github.com/git-hulk/langfuse-go",
   "skills": []
 }
