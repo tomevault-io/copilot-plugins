@@ -1,0 +1,148 @@
+## homeassistant-kubernetes
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Home Assistant custom integration for monitoring and controlling Kubernetes clusters. Python 3.13+, async throughout, uses the official `kubernetes` Python client.
+
+## General Instructions
+
+Always update this CLAUDE.md automatically whenever new changes are implemented, so it stays in sync with the current state of the codebase, architecture, and conventions.
+
+Never add yourself as a git co-author. Do not include `Co-Authored-By` trailers in any commit message.
+
+## Commands
+
+```bash
+# Install Python dev dependencies
+pip install -e ".[dev]"
+
+# Install frontend dependencies and build
+cd frontend && npm install && npm run build
+
+# Run all tests (includes coverage)
+pytest
+
+# Run a single test file or specific test
+pytest tests/test_sensors.py
+pytest -k test_specific_name
+
+# Run by marker
+pytest -m unit
+pytest -m integration
+pytest -m "not slow"
+
+# Lint and format
+ruff check .
+ruff format .
+
+# Type checking
+mypy custom_components/
+
+# Security scanning
+bandit -c pyproject.toml -r custom_components/
+
+# Pre-commit (runs all checks)
+pre-commit run --all-files
+
+# Documentation
+zensical serve
+```
+
+## Architecture
+
+### Data Flow
+
+```
+KubernetesClient (API calls) → KubernetesDataCoordinator (polling/caching) → Entities (sensors/switches/binary_sensors)
+```
+
+When the experimental **Watch API** is enabled:
+```
+KubernetesClient.watch_stream() → KubernetesDataCoordinator._run_watch_loop() → coordinator.data updated + async_update_listeners()
+```
+
+**Sidebar panel:**
+```
+Browser (kubernetes-panel) → hass.callWS() → websocket_api.py → KubernetesDataCoordinator
+```
+
+**Entry point:** `__init__.py` sets up the integration lifecycle. On config entry setup, it creates a `KubernetesClient`, wraps it in a `KubernetesDataCoordinator`, then forwards setup to three platforms: `sensor`, `switch`, `binary_sensor`. On the first config entry, it also registers HA services, WebSocket commands (via `async_setup`), and the sidebar panel. If the `enable_watch` option is set, watch tasks are also started after the first refresh.
+
+### Key Modules
+
+- **`kubernetes_client.py`** — Async wrapper around the k8s Python client. Fetches deployments, statefulsets, daemonsets, cronjobs, jobs, pods, nodes. Uses generic `_fetch_resource_list(api_path, resource_name, parse_fn)` and `_fetch_resource_count(api_path, resource_name)` methods to eliminate per-resource boilerplate. Handles SSL (`ssl=self.verify_ssl`), auth, namespace filtering (per-namespace loop vs cluster-wide), and error deduplication (5-min cooldown). Also provides `watch_stream()` (async generator), `list_resource_with_version()`, `ResourceVersionExpired` exception, single-item parse helpers (`_parse_pod_item`, `_parse_node_item`, `_parse_replica_workload_item` aliased as `_parse_deployment_item`/`_parse_statefulset_item`, `_parse_daemonset_item`) used by the coordinator watch loop, `_enrich_workloads_with_metrics(workloads, workload_type_label)` for deployment/statefulset metrics enrichment, `get_node_metrics()` for real-time CPU/memory usage from the Metrics API, `delete_pod(pod_name, namespace)` for pod deletion (aiohttp primary + official client fallback), and `rollout_restart_deployment/statefulset/daemonset(name, namespace)` for rolling restarts (strategic-merge-patch on `kubectl.kubernetes.io/restartedAt` annotation, aiohttp primary + `patch_namespaced_*` fallback).
+- **`coordinator.py`** — Extends HA's `DataUpdateCoordinator`. Polls the cluster on an interval (60 s default, 300 s when watch is active), aggregates all resources into lookup dicts, handles orphaned device cleanup. Merges node metrics (`cpu_usage_millicores`, `memory_usage_mib`) from the Metrics API into node data when available. Uses `_data_lock` (`asyncio.Lock`) to prevent watch events from modifying `self.data` during a polling cycle. When watch is enabled, also manages background watch tasks (`async_start_watch_tasks`, `async_stop_watch_tasks`, `_run_watch_loop`, `_apply_watch_event`).
+- **`sensor.py`** — Aggregate count sensors (pods, nodes, deployments, cronjobs, jobs, etc.) and per-resource sensors (individual node/pod/cronjob/job metrics).
+- **`switch.py`** — Scale control for Deployments/StatefulSets (on=running, off=scaled to 0) and CronJob suspension. `KubernetesReplicaWorkloadSwitch` is the parameterized base class for replica-based workloads; `KubernetesDeploymentSwitch` and `KubernetesStatefulSetSwitch` are thin subclasses that pass workload-specific config (resource key, client methods, log label). `KubernetesCronJobSwitch` remains separate (suspension vs scaling). Includes verification timeouts and cooldowns.
+- **`binary_sensor.py`** — Cluster health connectivity indicator and per-node condition binary sensors (MemoryPressure, DiskPressure, PIDPressure, NetworkUnavailable). Supports dynamic discovery of new nodes via coordinator listener (same pattern as `sensor.py`), storing the `async_add_entities` callback and pending unique_ids in `hass.data`.
+- **`services.py`** — Four HA services: `scale_workload`, `start_workload`, `stop_workload`, `restart_workload`. Reuse the coordinator's `KubernetesClient` instance (`entry_data["coordinator"].client`) rather than creating new clients. Support targeting multiple entities via `_collect_entity_ids()` helper which handles string/list/dict/target selector formats. Also accepts raw workload names (not just entity IDs) via `_resolve_raw_workload_name` which searches coordinator data to resolve workload types.
+- **`device.py`** — Device registry management. Two grouping modes: `namespace` (entities grouped by namespace) or `cluster` (all under one device).
+- **`config_flow.py`** — UI configuration flow. Validates cluster connectivity. Lazy-imports kubernetes via `_ensure_kubernetes_imported()` with thread-safe double-checked locking (`threading.Lock`) to handle missing dependency gracefully. Contains `KubernetesOptionsFlow` for configuring the sidebar panel toggle (`enable_panel`, default True) and the experimental watch API toggle. Also contains a reconfigure flow (`async_step_reconfigure` / `async_step_reconfigure_namespaces`) for modifying existing entries without deleting and re-adding the integration.
+- **`websocket_api.py`** — WebSocket API for the sidebar panel. Registers `kubernetes/cluster/overview`, `kubernetes/nodes/list`, `kubernetes/pods/list`, `kubernetes/pods/delete`, `kubernetes/workloads/list`, `kubernetes/workloads/restart`, and `kubernetes/config/list` commands that aggregate coordinator data across all config entries. Overview returns cluster health, resource counts, namespace breakdown, and alerts. Nodes/pods list commands return full resource details per cluster. The `kubernetes/pods/delete` command accepts `entry_id`, `pod_name`, and `namespace` to delete a pod and trigger a coordinator refresh. Workloads list returns deployments, statefulsets, daemonsets, cronjobs, and jobs per cluster. The `kubernetes/workloads/restart` command accepts `entry_id`, `workload_name`, `namespace`, and `workload_type` to perform a rollout restart. Config list returns sanitized config entry settings (no secrets) for the settings tab.
+- **`const.py`** — All constants, config keys, defaults, sensor/switch type identifiers. Service names: `SERVICE_SCALE_WORKLOAD`, `SERVICE_START_WORKLOAD`, `SERVICE_STOP_WORKLOAD`, `SERVICE_RESTART_WORKLOAD`. Includes panel constants: `CONF_ENABLE_PANEL`, `DEFAULT_ENABLE_PANEL`, `PANEL_TITLE`, `PANEL_ICON`, `PANEL_URL`, `PANEL_FILENAME`. Watch-related: `CONF_ENABLE_WATCH`, `DEFAULT_WATCH_TIMEOUT_SECONDS`, `DEFAULT_WATCH_RECONNECT_DELAY`, `DEFAULT_FALLBACK_POLL_INTERVAL`. `DOMAIN_META_KEYS` for filtering non-entry keys from `hass.data[DOMAIN]`.
+- **`frontend/`** — Built sidebar panel JS bundle (`kubernetes-panel.js`). Source lives in `frontend/` at project root (Lit 3 + TypeScript + Vite).
+
+### Entity Hierarchy
+
+Cluster device → (optional) Namespace devices → Entity instances. Grouping mode is configurable via `device_grouping_mode`.
+
+### Patterns
+
+- All entities read cached data from the coordinator, never calling the K8s API directly.
+- `asyncio_mode = "auto"` in pytest — test functions are automatically treated as async. `asyncio_default_fixture_loop_scope = "function"` is set for compatibility with `pytest-homeassistant-custom-component`.
+- Tests use `pytest-homeassistant-custom-component` for real HA test fixtures. Most test files (`test_init.py`, `test_device.py`, `test_config_flow.py`, `test_coordinator.py`, `test_services.py`, `test_binary_sensor.py`, `test_switch.py`, `test_sensors.py`, `test_kubernetes_integration.py`) use the real `hass` fixture and `MockConfigEntry`. Config flow tests register the handler via `HANDLERS` + `DATA_COMPONENTS` fixture (see `register_config_flow` in `test_config_flow.py`). `test_switch_platform.py` has been merged into `test_switch.py`. Only `test_websocket_api.py` still uses `mock_hass` from `conftest.py`. K8s-specific mock fixtures (`mock_client`, `mock_coordinator`, `mock_kubernetes_client`, `mock_kubernetes_api`) remain in `conftest.py`.
+- The kubernetes package is lazy-imported in config_flow via `_ensure_kubernetes_imported()` using thread-safe double-checked locking and checked at setup to handle missing dependency.
+
+## Code Style
+
+- **Ruff** for linting and formatting (replaces black, isort, flake8). 88-char line length.
+- Type hints encouraged but mypy is not strict (`disallow_untyped_defs = false`)
+- Prefer `aiohttp` over the blocking kubernetes client for new async HTTP calls
+- All integration code must use `async`/`await` — no blocking calls
+- Inside coroutines always use `asyncio.get_running_loop()`, never `asyncio.get_event_loop()` (deprecated in Python 3.10+ within a running loop)
+- For long-lived aiohttp streams (`total=None`) always set a `sock_read` timeout to guard against stale/half-open TCP connections
+- In `async_setup_entry`, start any background tasks **after** `async_forward_entry_setups()` so entity listeners are registered before the first events can arrive
+
+## CI
+
+GitHub Actions runs: pytest + ruff + mypy + bandit (Python 3.14), HACS validation, hassfest (HA manifest validation), mkdocs build, frontend lint + build (ESLint, Prettier, Vite). The frontend workflow also verifies the committed `kubernetes-panel.js` bundle matches a fresh build — if a developer edits `.ts` source without rebuilding, CI will fail. Releases automated via release-please.
+
+## Tests
+
+Whenever changes are implemented to any integration code, always add or update the corresponding unit tests in `tests/`. Follow the existing patterns in the test files:
+
+- Each new class gets a corresponding `Test<ClassName>` test class.
+- Each new module-level helper function gets a `TestDiscover<Name>` or similar test class.
+- Cover the happy path, edge cases (missing data, `None` coordinator data), and all distinct return values.
+- Use `MockConfigEntry` from `pytest_homeassistant_custom_component.common` and the real `hass` fixture for platform setup tests. Entity unit tests (testing properties, state, edge cases) can directly instantiate entities with `MockConfigEntry` + mock coordinator/client. Use the shared K8s-specific fixtures from `conftest.py` (`mock_client`, `mock_coordinator`) rather than creating new ones where possible.
+
+### Test directory structure
+
+Pure unit tests (no HA dependency) live in `tests/unit/`. Currently `test_kubernetes_client.py` is the only file there — it tests the K8s API wrapper in isolation. All other test files in `tests/` use HA fixtures via `pytest-homeassistant-custom-component`. pytest discovers both directories recursively via `testpaths = ["tests"]`.
+- Do not attempt to run tests locally — the CI pipeline handles test execution.
+- Do not install packages locally (no `pip install`). All dependencies are managed by the CI pipeline.
+
+## Documentation
+
+Whenever changes are implemented, update all relevant documentation to reflect the current state of the code. This includes `README.md`, files in `docs/`, and any other `.md` files in the repository. Do not leave documentation that describes outdated behaviour.
+
+Before finishing any task, fully review **all** `.md` files in the repository — including `README.md`, every file under `docs/`, and `CLAUDE.md` itself — to confirm that no documentation has become stale as a result of the change. Pay particular attention to installation instructions, configuration references, and RBAC/manifest paths, as these are the most likely to drift when the project structure changes.
+
+## Version Management
+
+Renovate handles all dependency updates. When making any change that involves version pinning or introduces a new dependency, always check `renovate.json` and ensure the version is tracked and grouped correctly:
+
+- Versions pinned in `pyproject.toml` are managed by Renovate's pip manager.
+- Versions pinned in `custom_components/kubernetes/manifest.json` are tracked via a custom regex manager.
+- Pre-commit hook versions in `.pre-commit-config.yaml` are managed by Renovate's pre-commit manager.
+- When the same package appears in multiple files, add a `groupName` rule in `renovate.json` so updates are batched into a single PR.
+
+---
+> Source: [tibuntu/homeassistant-kubernetes](https://github.com/tibuntu/homeassistant-kubernetes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
