@@ -1,0 +1,9 @@
+{
+  "name": "kylesnowschwartz--prompt-tower-nvim",
+  "displayName": "prompt-tower.nvim",
+  "description": "\u26a1 Turn your codebase into AI-ready context in seconds \u2013 the Neovim plugin that bridges the gap between your code and AI assistants. Select files, generate structured prompts, and feed your entire proj",
+  "version": "1.0.0",
+  "author": "kylesnowschwartz",
+  "homepage": "https://github.com/kylesnowschwartz/prompt-tower.nvim",
+  "skills": []
+}
