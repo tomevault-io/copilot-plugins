@@ -1,0 +1,9 @@
+{
+  "name": "webmcp-org--npm-packages",
+  "displayName": "npm-packages",
+  "description": "NPM packages for MCP-B: Transport layers, React hooks, and browser tools for the Model Context Protocol",
+  "version": "1.0.0",
+  "author": "WebMCP-org",
+  "homepage": "https://github.com/WebMCP-org/npm-packages",
+  "skills": []
+}
