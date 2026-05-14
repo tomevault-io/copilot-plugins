@@ -1,0 +1,9 @@
+{
+  "name": "devsforge--marketplace",
+  "displayName": "marketplace",
+  "description": "Claude Code Marketplace",
+  "version": "1.0.0",
+  "author": "devsforge",
+  "homepage": "https://github.com/devsforge/marketplace",
+  "skills": []
+}
