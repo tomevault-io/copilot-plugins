@@ -1,0 +1,9 @@
+{
+  "name": "czlonkowski--n8n-manager-for-ai-agents",
+  "displayName": "n8n-manager-for-ai-agents",
+  "description": "MCP server for Claude Desktop to manage your n8n workflows ",
+  "version": "1.0.0",
+  "author": "czlonkowski",
+  "homepage": "https://github.com/czlonkowski/n8n-manager-for-ai-agents",
+  "skills": []
+}
