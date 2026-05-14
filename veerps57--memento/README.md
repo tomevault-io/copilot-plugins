@@ -7,11 +7,11 @@ A local-first, LLM-agnostic memory layer for AI assistants
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [veerps57/memento](https://github.com/veerps57/memento).
+Original source: `CLAUDE.md` in [veerps57/memento](https://github.com/veerps57/memento).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
