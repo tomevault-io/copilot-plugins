@@ -1,0 +1,9 @@
+{
+  "name": "sinkingsugar--rack",
+  "displayName": "rack",
+  "description": "A modern Rust library for hosting audio plugins",
+  "version": "1.0.0",
+  "author": "sinkingsugar",
+  "homepage": "https://github.com/sinkingsugar/rack",
+  "skills": []
+}
