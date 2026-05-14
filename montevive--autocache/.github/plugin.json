@@ -1,0 +1,9 @@
+{
+  "name": "montevive--autocache",
+  "displayName": "autocache",
+  "description": "\ud83d\ude80 Autocache - Intelligent Anthropic API Cache Proxy   Automatically inject cache-control fields into Claude API requests to reduce costs by up to 90% and latency by up to 85%. Works as a transparent d",
+  "version": "1.0.0",
+  "author": "montevive",
+  "homepage": "https://github.com/montevive/autocache",
+  "skills": []
+}
