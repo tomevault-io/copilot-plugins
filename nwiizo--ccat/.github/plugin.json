@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--ccat",
+  "displayName": "ccat",
+  "description": "CLAUDE.md Context Analyzer - A comprehensive tool for analyzing and managing Claude Code memory files",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/ccat",
+  "skills": []
+}
