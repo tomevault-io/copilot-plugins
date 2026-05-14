@@ -1,0 +1,44 @@
+{
+  "name": "value-investing-ai-agent",
+  "owner": "nicdun",
+  "repo": "value-investing-ai-agent",
+  "description": "AI-powered stock analysis tool that provides comprehensive fundamental research using Alpha Vantage API and advanced language models.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nicdun/value-investing-ai-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T01:47:08Z"
+}
