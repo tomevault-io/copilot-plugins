@@ -1,0 +1,9 @@
+{
+  "name": "h7ml--weread",
+  "displayName": "weread",
+  "description": "\u57fa\u4e8e Fresh (Deno) \u6784\u5efa\u7684\u73b0\u4ee3\u5316\u5fae\u4fe1\u8bfb\u4e66 Web \u9605\u8bfb\u5e94\u7528\uff0c\u5177\u6709\u9ad8\u7ea7 TTS \u529f\u80fd\u548c\u4f18\u96c5\u7684\u9605\u8bfb\u754c\u9762\u3002",
+  "version": "1.0.0",
+  "author": "h7ml",
+  "homepage": "https://github.com/h7ml/weread",
+  "skills": []
+}
