@@ -7,11 +7,11 @@ A brain-computer interface project focused on EEG signal processing and neural r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Clarity-Digital-Twin/brain-go-brrr](https://github.com/Clarity-Digital-Twin/brain-go-brrr).
+Original source: `CLAUDE.md` in [Clarity-Digital-Twin/brain-go-brrr](https://github.com/Clarity-Digital-Twin/brain-go-brrr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
