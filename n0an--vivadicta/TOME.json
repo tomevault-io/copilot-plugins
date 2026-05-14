@@ -4,7 +4,7 @@
   "repo": "VivaDicta",
   "description": "iOS & watchOS speech-to-text app with AI voice keyboard, on-device RAG, and chat with your notes - powered by Apple Foundation Models, WhisperKit, NVIDIA Parakeet, and 20+ AI providers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/n0an/VivaDicta",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:33:57Z"
+  "distributed_at": "2026-05-14T07:59:17Z"
 }
