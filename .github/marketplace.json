@@ -29409,6 +29409,11 @@
       "description": "A complete voice AI starter app for LiveKit Agents with Node.js"
     },
     {
+      "name": "rlabs-inc--memory",
+      "source": "./rlabs-inc--memory",
+      "description": "Memory server for llms that can be easily integrated to any client. "
+    },
+    {
       "name": "weaviate--agent-skills",
       "source": "./weaviate--agent-skills",
       "description": "Agent Skills to empower developers building AI applications with Weaviate."
@@ -30359,6 +30364,21 @@
       "description": "This is a boilerplate for react, postgres, hono, drizzle, ai, better-auth, tanstack-query, tanstack-router, shadcn and tailwind."
     },
     {
+      "name": "markshawn2020--claude-code-manager",
+      "source": "./markshawn2020--claude-code-manager",
+      "description": "CCM: Claude Code Management All In One."
+    },
+    {
+      "name": "areweai--tsgram-mcp",
+      "source": "./areweai--tsgram-mcp",
+      "description": "TSGram - Telegram MCP Server for local Claude Code integration - debug and vibe code on the go!"
+    },
+    {
+      "name": "artemnovichkov--ios-26-by-examples",
+      "source": "./artemnovichkov--ios-26-by-examples",
+      "description": "A collection of hands-on examples demonstrating new features and APIs introduced in iOS 26, built with SwiftUI"
+    },
+    {
       "name": "peteromallet--vibecomfy",
       "source": "./peteromallet--vibecomfy",
       "description": "VibeComfy"
@@ -30909,6 +30929,16 @@
       "description": "Notir: simple pubsub via http and websocket, provide web console to handle the message"
     },
     {
+      "name": "flanliulf--ai-copyright-application-generator",
+      "source": "./flanliulf--ai-copyright-application-generator",
+      "description": "AI\u9a71\u52a8\u7684\u8f6f\u4ef6\u8457\u4f5c\u6743\u7533\u8bf7\u6750\u6599\u81ea\u52a8\u751f\u6210\u7cfb\u7edf"
+    },
+    {
+      "name": "docdyhr--mcp-wordpress",
+      "source": "./docdyhr--mcp-wordpress",
+      "description": "MCP Server to manage a Wordpress CMS system."
+    },
+    {
       "name": "mag123c--toktrack",
       "source": "./mag123c--toktrack",
       "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)"
@@ -31302,6 +31332,11 @@
       "name": "dannyaziz--claude-prune",
       "source": "./dannyaziz--claude-prune",
       "description": "claude-prune"
+    },
+    {
+      "name": "kako-jun--diffx",
+      "source": "./kako-jun--diffx",
+      "description": "diffx"
     },
     {
       "name": "qtzx06--yolodex",
@@ -31857,6 +31892,11 @@
       "name": "bijutharakan--multi-agent-squad",
       "source": "./bijutharakan--multi-agent-squad",
       "description": "Production-ready multi-agent orchestration framework for Claude Code. Features specialized AI agents, automated Git workflows, and comprehensive development automation."
+    },
+    {
+      "name": "wyattjoh--claude-code-notification",
+      "source": "./wyattjoh--claude-code-notification",
+      "description": "A lightweight macOS desktop notification hook for Claude Code that displays native notifications with customizable system sounds when events occur during AI coding sessions."
     },
     {
       "name": "dotnet--maui-labs",
@@ -32562,6 +32602,21 @@
       "name": "hmldns--nautex",
       "source": "./hmldns--nautex",
       "description": "MCP server for guiding Coding Agents via end-to-end requirements to implementation plan pipeline"
+    },
+    {
+      "name": "rmurphey--claude-setup",
+      "source": "./rmurphey--claude-setup",
+      "description": "claude-setup"
+    },
+    {
+      "name": "steipete--xcsentinel",
+      "source": "./steipete--xcsentinel",
+      "description": "Build Helper for Xcode"
+    },
+    {
+      "name": "jordanburke--reddit-mcp-server",
+      "source": "./jordanburke--reddit-mcp-server",
+      "description": "\u2699\ufe0f A Model Context Protocol (MCP) that provides tools for fetching and creating Reddit content"
     },
     {
       "name": "alibaba--opc-starter",
@@ -65379,6 +65434,11 @@
       "description": "Being, Everything"
     },
     {
+      "name": "huml-lang--huml-rs",
+      "source": "./huml-lang--huml-rs",
+      "description": "Rust library for parsing Human-oriented Markup Language(HUML) http://huml.io"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -66907,6 +66967,16 @@
       "name": "jack21--claudecodeusage",
       "source": "./jack21--claudecodeusage",
       "description": "A VSCode extension that monitors Claude Code usage and costs directly in your status bar."
+    },
+    {
+      "name": "macalinao--claude-code-schedule",
+      "source": "./macalinao--claude-code-schedule",
+      "description": "claude-code-schedule"
+    },
+    {
+      "name": "raytracer76--intentgraph",
+      "source": "./raytracer76--intentgraph",
+      "description": "Transform any codebase into rich, queryable intelligence for AI coding agents. Provides function-level dependencies, semantic analysis, design pattern   detection, and code quality metrics. Stop scann"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -69884,6 +69954,16 @@
       "description": "ai-cli lets you go from zero to AI-powered in seconds in a safe, automated and tailored way."
     },
     {
+      "name": "williamkapke--madameclaude",
+      "source": "./williamkapke--madameclaude",
+      "description": "Madame Claude is a monitoring system for Claude Code hooks that captures and streams tool usage events to a web interface."
+    },
+    {
+      "name": "bytedreamer--dotnetframeworkmcp",
+      "source": "./bytedreamer--dotnetframeworkmcp",
+      "description": "DotNetFrameworkMCP"
+    },
+    {
       "name": "lucianaib0318--geomind",
       "source": "./lucianaib0318--geomind",
       "description": "\ud83c\udf0d GeoMind\uff1a\u57fa\u4e8e\u98de\u4e66 CLI + \u817e\u8baf\u4f4d\u7f6e\u7684\u79d1\u7814\u4e0e\u4ea7\u4e1a\u5730\u7406\u60c5\u62a5\u53ef\u89c6\u5316 Skill"
@@ -72107,6 +72187,11 @@
       "name": "orchestre-dev--ccproxy",
       "source": "./orchestre-dev--ccproxy",
       "description": "ccproxy"
+    },
+    {
+      "name": "him0--gh-sync",
+      "source": "./him0--gh-sync",
+      "description": "gh-sync"
     },
     {
       "name": "seven7763--windsurf-tools",
@@ -75279,6 +75364,16 @@
       "description": "\ud83c\udf08 +80 Bash/Zsh spinners for scripts and terminal"
     },
     {
+      "name": "nguyenyou--webawesome-laminar",
+      "source": "./nguyenyou--webawesome-laminar",
+      "description": "Laminar bindings for WebAwesome web components library"
+    },
+    {
+      "name": "danielyan86--nz-life-handbook",
+      "source": "./danielyan86--nz-life-handbook",
+      "description": "\u65b0\u897f\u5170\u7559\u5b66\u751f\u4e0a\u5cb8\u624b\u518c\uff0c\u5e2e\u52a9\u65b0\u540c\u5b66\u5feb\u901f\u9002\u5e94\u751f\u6d3b\uff0c\u907f\u5751\u5c11\u8d70\u5f2f\u8def"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -77012,6 +77107,11 @@
       "name": "scaleapi--scale-agentex-python",
       "source": "./scaleapi--scale-agentex-python",
       "description": "Official Python SDK for Agentex"
+    },
+    {
+      "name": "astrodragonv--claudecode-rule2hook",
+      "source": "./astrodragonv--claudecode-rule2hook",
+      "description": "Transform natural language project rules into Claude Code hooks effortlessly with claudecode-rule2hook. Automate your workflows with ease! \ud83d\ude80\ud83e\ude9d"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -78917,6 +79017,11 @@
       "name": "nikolausm--imap-mcp-server",
       "source": "./nikolausm--imap-mcp-server",
       "description": "A powerful Model Context Protocol (MCP) server for IMAP email integration with Claude"
+    },
+    {
+      "name": "snomiao--agent-yes",
+      "source": "./snomiao--agent-yes",
+      "description": "A wrapper tool that automates interactions with the Claude CLI by automatically handling common prompts and responses"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -83647,6 +83752,16 @@
       "name": "galoymoney--es-entity",
       "source": "./galoymoney--es-entity",
       "description": "Framework for persisting event-sourced entities in PostgreSQL."
+    },
+    {
+      "name": "zats--local-llm",
+      "source": "./zats--local-llm",
+      "description": "Apple's FoundationModels for the web. Chrome and Safari, macOS and iOS"
+    },
+    {
+      "name": "raihan-software--saldoify",
+      "source": "./raihan-software--saldoify",
+      "description": "A modern personal finance management application built with SvelteKit, PostgreSQL, and Docker."
     },
     {
       "name": "vm--nila-code",
@@ -94074,6 +94189,11 @@
       "description": "Claude Code skills for Cybrix \u2014 install via \"claude plugin marketplace add cybrixcc/cybrix-skills\". Open-source skills paired with the Cybrix hosted backend."
     },
     {
+      "name": "agencia-conversion--seo-brain",
+      "source": "./agencia-conversion--seo-brain",
+      "description": "Agentic SEO operating system as a Claude Code plugin: project Wiki, DataForSEO workflows, content briefs, technical SEO, and human-approval gates."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -97382,6 +97502,11 @@
       "name": "paiml--ruchy-book",
       "source": "./paiml--ruchy-book",
       "description": "The official book for the Ruchy language"
+    },
+    {
+      "name": "minara-ai--cc-connect",
+      "source": "./minara-ai--cc-connect",
+      "description": "Peer-to-peer chat substrate that lets multiple Claude Code instances share the same context."
     },
     {
       "name": "lightninglabs--lnget",
@@ -113862,6 +113987,16 @@
       "name": "yangweijie--perry-php",
       "source": "./yangweijie--perry-php",
       "description": "\u53d7perry \u542f\u53d1\u7684 php gui \u7f16\u8bd1\u5f00\u53d1\u5e93"
+    },
+    {
+      "name": "rajudandigam--agent-inspect",
+      "source": "./rajudandigam--agent-inspect",
+      "description": "Local execution trees for TypeScript AI agents.  agent-inspect helps you understand what happened inside an AI agent run \u2014 locally. It turns manual steps, tool calls, LLM calls, structured logs, failu"
+    },
+    {
+      "name": "rajudandigam--agent-inspect",
+      "source": "./rajudandigam--agent-inspect",
+      "description": "Local execution trees for TypeScript AI agents.  agent-inspect helps you understand what happened inside an AI agent run \u2014 locally. It turns manual steps, tool calls, LLM calls, structured logs, failu"
     },
     {
       "name": "ocrbase-hq--ocrbase",
@@ -217139,6 +217274,291 @@
       "description": "codex-plugins"
     },
     {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
       "name": "tomevault-io--claude-code-plugins",
       "source": "./tomevault-io--claude-code-plugins",
       "description": "claude-code-plugins"
@@ -217184,11 +217604,6 @@
       "description": "codex-plugins"
     },
     {
-      "name": "tomevault-io--claude-code-plugins",
-      "source": "./tomevault-io--claude-code-plugins",
-      "description": "claude-code-plugins"
-    },
-    {
       "name": "tomevault-io--gemini-extensions",
       "source": "./tomevault-io--gemini-extensions",
       "description": "gemini-extensions"
@@ -217427,11 +217842,6 @@
       "name": "tomevault-io--codex-plugins",
       "source": "./tomevault-io--codex-plugins",
       "description": "codex-plugins"
-    },
-    {
-      "name": "tomevault-io--gemini-extensions",
-      "source": "./tomevault-io--gemini-extensions",
-      "description": "gemini-extensions"
     }
   ]
 }
