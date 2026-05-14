@@ -7,11 +7,11 @@ MCP server for  IBM i systems
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [IBM/ibmi-mcp-server](https://github.com/IBM/ibmi-mcp-server).
+Original source: `CLAUDE.md` in [IBM/ibmi-mcp-server](https://github.com/IBM/ibmi-mcp-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
