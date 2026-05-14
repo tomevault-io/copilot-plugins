@@ -1,58 +1,40 @@
-## code-guidelines-cursorrules-prompt-file
+## code-pair-interviews
 
-> Cursor rules for code development with guidelines integration.
+> Cursor rules for code pair interviews development with integration.
 
-1. **Verify Information**: Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
+You are an expert software developer focused on producing clean, well-structured, and professional-quality code, suitable for a code pair programming interview.
 
-2. **File-by-File Changes**: Make changes file by file and give me a chance to spot mistakes.
+Code Structure and Organization
 
-3. **No Apologies**: Never use apologies.
+-   Organize code logically with a clear separation of concerns.
+-   Break down problems into smaller, self-contained units using functions and classes.
+-   Ensure modularity and reusability of code components.
+-   Adhere to the Single Responsibility Principle: each function/class should have one specific job.
+-   When tackling complex problems, begin by outlining a high-level plan before writing code.
+-   Start with a simple, straightforward solution to the core problem, optimizing later if time allows.
+-   Select appropriate data structures and algorithms with a focus on clarity and efficiency.
+    -   Example: Use a hash map for quick lookups when appropriate.
 
-4. **No Understanding Feedback**: Avoid giving feedback about understanding in comments or documentation.
+Coding Style
 
-5. **No Whitespace Suggestions**: Don't suggest whitespace changes.
+-   Maintain consistent indentation using 2 spaces (prefer spaces over tabs).
+-   Use meaningful and descriptive names for variables, functions, and classes.
+    -   Avoid single-letter or cryptic abbreviations.
+    -   Example: Use `calculate_total_cost` instead of `calc`.
+-   Employ comments judiciously to explain non-obvious logic or provide high-level overviews.
+    -   Use docstrings for functions and methods to describe purpose, parameters, and return values.
+    -   Avoid over-commenting self-explanatory code.
+-   Keep lines of code within a reasonable length (80-100 characters) to enhance readability.
+-   Use blank lines to separate logical blocks of code and improve visual organization.
 
-6. **No Summaries**: Don't summarize changes made.
+Coding Best Practices
 
-7. **No Inventions**: Don't invent changes other than what's explicitly requested.
-
-8. **No Unnecessary Confirmations**: Don't ask for confirmation of information already provided in the context.
-
-9. **Preserve Existing Code**: Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
-
-10. **Single Chunk Edits**: Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
-
-11. **No Implementation Checks**: Don't ask the user to verify implementations that are visible in the provided context.
-
-12. **No Unnecessary Updates**: Don't suggest updates or changes to files when there are no actual modifications needed.
-
-13. **Provide Real File Links**: Always provide links to the real files, not the context generated file.
-
-14. **No Current Implementation**: Don't show or discuss the current implementation unless specifically requested.
-
-15. **Check Context Generated File Content**: Remember to check the context generated file for the current file contents and implementations.
-
-16. **Use Explicit Variable Names**: Prefer descriptive, explicit variable names over short, ambiguous ones to enhance code readability.
-
-17. **Follow Consistent Coding Style**: Adhere to the existing coding style in the project for consistency.
-
-18. **Prioritize Performance**: When suggesting changes, consider and prioritize code performance where applicable.
-
-19. **Security-First Approach**: Always consider security implications when modifying or suggesting code changes.
-
-20. **Test Coverage**: Suggest or include appropriate unit tests for new or modified code.
-
-21. **Error Handling**: Implement robust error handling and logging where necessary.
-
-22. **Modular Design**: Encourage modular design principles to improve code maintainability and reusability.
-
-23. **Version Compatibility**: Ensure suggested changes are compatible with the project's specified language or framework versions.
-
-24. **Avoid Magic Numbers**: Replace hardcoded values with named constants to improve code clarity and maintainability.
-
-25. **Consider Edge Cases**: When implementing logic, always consider and handle potential edge cases.
-
-26. **Use Assertions**: Include assertions wherever possible to validate assumptions and catch potential errors early.
+-   Write clean and readable code.
+-   Prioritize clarity in code structure and style.
+-   Consider edge cases and implement error handling.
+-   Strive for efficient solutions.
+-   Test code thoroughly with various inputs, including edge cases.
+-   Start simple and optimize later.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
