@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tiger-memory-mcp-server",
+  "displayName": "tiger-memory-mcp-server",
+  "description": "A simple memory implementation",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tiger-memory-mcp-server",
+  "skills": []
+}
