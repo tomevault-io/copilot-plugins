@@ -1,0 +1,9 @@
+{
+  "name": "thwbh--tauri-typegen",
+  "displayName": "tauri-typegen",
+  "description": "A rust crate that automatically generates TypeScript models and bindings from your Tauri commands",
+  "version": "1.0.0",
+  "author": "thwbh",
+  "homepage": "https://github.com/thwbh/tauri-typegen",
+  "skills": []
+}
