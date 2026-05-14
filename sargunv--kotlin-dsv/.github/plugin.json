@@ -1,0 +1,9 @@
+{
+  "name": "sargunv--kotlin-dsv",
+  "displayName": "kotlin-dsv",
+  "description": "Kotlin Multiplatform library for working with delimiter-separated values.",
+  "version": "1.0.0",
+  "author": "sargunv",
+  "homepage": "https://github.com/sargunv/kotlin-dsv",
+  "skills": []
+}
