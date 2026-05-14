@@ -1,0 +1,9 @@
+{
+  "name": "krissen--blink-cmp-bibtex",
+  "displayName": "blink-cmp-bibtex",
+  "description": "A lightweight BibTeX citation source for Blink completion.",
+  "version": "1.0.0",
+  "author": "krissen",
+  "homepage": "https://github.com/krissen/blink-cmp-bibtex",
+  "skills": []
+}
