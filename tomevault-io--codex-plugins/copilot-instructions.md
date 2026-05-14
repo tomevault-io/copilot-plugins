@@ -1,110 +1,213 @@
 ## agents-md
 
-> - NEVER use inline comments (single # comments within function bodies)
+> Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
 
-# Cursor Rules for Godot Agent MCP Project
+# Objects2XLSX Project Context
 
-## Code Quality Standards
+## 项目概述
 
-### NO INLINE COMMENTS
-- NEVER use inline comments (single # comments within function bodies)
-- Inline comments indicate poor code quality and lack of experience
-- If code needs explanation, refactor it into a well-named function with a docblock
-- Code should be self-documenting through clear variable and function names
+Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
 
-### Commenting Standards
-- ONLY use docblock comments (## comments) for function/class documentation
-- Docblocks should describe WHAT the function does, not HOW it does it
-- Focus on the purpose, parameters, return values, and side effects
-- No redundant comments that just repeat what the code obviously does
+## 核心架构
 
-### MANDATORY DOCBLOCKS
-- ALL public functions MUST have descriptive docblocks
-- Docblocks must explain the function's purpose, parameters, return values, and side effects
-- Private functions (starting with _) should have docblocks if their purpose isn't immediately obvious
-- Include parameter types and return types in the description when helpful
-- Document any exceptions or error conditions the function might encounter
+### 主要组件
 
-### Code Structure
-- If logic is complex enough to "need" inline comments, extract it to a separate function
-- Use descriptive variable and function names that make the code self-explanatory
-- Prefer small, focused functions with clear responsibilities
-- Break down complex operations into well-named helper functions
+- **Book**: 对应 Excel 的 Workbook，包含多个工作表
+- **Sheet<ObjectType>**: 泛型工作表，将特定类型的对象集合转换为表格数据
+- **Column<ObjectType, InputType, OutputType>**: 定义对象属性到 Excel 列的映射
+- **Cell**: 单元格，包含位置、值和样式信息
+- **Row**: 行，包含多个单元格
 
-### Examples of BAD commenting:
-```gdscript
-# Parse the request data  <-- NEVER DO THIS
-var data = parse_request(request)
+### 样式系统
 
-# Check if user is valid  <-- NEVER DO THIS  
-if user.is_valid():
-    # Process the user  <-- NEVER DO THIS
-    process_user(user)
+- **CellStyle**: 单元格样式（字体、填充、对齐、边框、数字格式）
+- **SheetStyle**: 工作表样式（行高、列宽、冻结窗格、网格线等）
+- **BookStyle**: 工作簿样式（主题、默认样式等）
+
+### 注册器
+
+- **StyleRegister**: 管理和去重样式，生成样式ID
+- **ShareStringRegister**: 管理共享字符串，优化文件大小
+
+## 项目状态
+
+### 🎯 当前状态：**功能完整，持续优化**
+
+Objects2XLSX 是一个功能完整的 Swift 库，具备：
+1. 完整的 XLSX 生成流程（对象 → XML → ZIP → .xlsx）
+2. 简化的列声明 API 和类型安全的数据转换
+3. 多工作表支持和自定义样式系统
+4. 跨平台兼容性（Linux/macOS）和 Swift 6 并发安全
+5. 完整的演示项目和 340+ 测试用例
+
+## 项目约定
+
+### 代码修改规则
+
+- **只有在获得明确认可后，才能自动修改这个项目的代码**
+- 所有代码修改建议应以示例代码形式提供
+- 修改前需要说明修改的目的和影响
+
+## 关键设计决策
+
+### 类型安全
+
+- 使用泛型确保编译时类型检查
+- KeyPath 用于安全的属性访问
+- 类型擦除（AnySheet、AnyColumn）支持异构集合
+
+### 并发安全
+
+- 使用 Swift 6 严格并发模式
+- 所有公共类型实现 Sendable 协议
+- 注意：Sheet 操作应在数据源的同一线程执行
+
+### 样式优先级
+
+1. 单元格级别样式（最高优先级）
+2. 列级别样式
+3. 工作表级别样式
+4. 工作簿默认样式（最低优先级）
+
+## 测试策略
+
+- ✅ **单元测试** - 340+ 测试覆盖所有核心组件
+- ✅ **集成测试** - 验证完整的 XLSX 文件生成流程
+- ✅ **演示项目** - 可执行的功能展示和性能验证
+- ✅ **跨平台测试** - Linux/macOS 兼容性验证
+
+## 常用命令
+
+```bash
+# 运行测试
+swift test
+
+# 构建项目
+swift build
+
+# 运行演示项目
+swift run Objects2XLSXDemo --help
+swift run Objects2XLSXDemo -s medium -v demo.xlsx
 ```
 
-### Examples of GOOD commenting:
-```gdscript
-## Validates user credentials and processes authentication request
-## Returns true if authentication succeeds, false otherwise
-func authenticate_user(credentials: Dictionary) -> bool:
-    var user = find_user_by_credentials(credentials)
-    if not user or not user.is_valid():
-        return false
+## 增强列 API
+
+### 简化语法
+
+新的 API 支持直观的列声明和链式配置：
+
+```swift
+let sheet = Sheet<Employee>(name: "Employees", dataProvider: { employees }) {
+    // 基础列声明
+    Column(name: "Name", keyPath: \.name)
     
-    return process_authentication(user)
-
-## Converts raw HTTP request data into a structured request object
-## Parameters:
-##   - raw_data: The complete HTTP request as a string
-## Returns: Dictionary containing parsed headers, body, and method
-## Throws: Returns error dictionary if request format is invalid
-func parse_http_request(raw_data: String) -> Dictionary:
-    # Implementation here
+    // 可选值 + 默认值
+    Column(name: "Salary", keyPath: \.salary)
+        .defaultValue(0.0)
+        .width(12)
+    
+    // 类型转换
+    Column(name: "Level", keyPath: \.salary)
+        .defaultValue(0.0)
+        .toString { salary in salary < 50000 ? "Standard" : "Premium" }
+    
+    // 布尔值自定义格式
+    Column(name: "Manager", keyPath: \.isManager, booleanExpressions: .yesAndNo)
+    
+    // 日期时区支持
+    Column(name: "Hire Date", keyPath: \.hireDate, timeZone: .utc)
+}
 ```
 
-### Function Naming
-- Use descriptive verb phrases for functions: `validate_input()`, `parse_json_request()`, `handle_authentication()`
-- Use descriptive nouns for variables: `user_credentials`, `parsed_data`, `validation_result`
-- Avoid abbreviations and single-letter variables (except for short loop counters)
+### 支持的数据类型
 
-### Refactoring Guidelines
-- If you find yourself wanting to add an inline comment, stop and refactor instead
-- Extract the code block into a function with a descriptive name
-- The function name should explain what the inline comment would have said
+**✅ 完整支持**：
+- **String/String?**: 简化构造器 + defaultValue + toString
+- **Double/Double?**: 简化构造器 + defaultValue + toString/toInt
+- **Int/Int?**: 简化构造器 + defaultValue + toString/toInt
+- **Bool/Bool?**: 简化构造器 + defaultValue + 自定义表达式
+- **Date/Date?**: 简化构造器 + defaultValue + 时区支持
+- **URL/URL?**: 简化构造器 + defaultValue
+- **Percentage**: 精度控制和自定义格式
 
-## GDScript Specific Rules
-- Follow GDScript naming conventions (snake_case for variables/functions, PascalCase for classes)
-- Use type hints wherever possible
-- Prefer `match` statements over long `if/elif` chains
-- Use `const` for compile-time constants, `var` for variables
+### 类型安全特性
 
-## Architecture Guidelines
-- Favor composition over inheritance
-- Use dependency injection for better testability
-- Keep classes focused on a single responsibility
-- Separate concerns clearly between layers
+```swift
+// defaultValue 后，转换方法接收非可选类型
+Column(name: "Category", keyPath: \.price)  // Double?
+    .defaultValue(0.0)
+    .toString { (price: Double) in          // 非可选！
+        price < 50 ? "Budget" : "Premium"
+    }
 
-## Implementing New Tools
-- **ALWAYS read the README.md first** for comprehensive instructions on adding new tools
-- The README contains detailed guidance on:
-  - Tool architecture and base class patterns
-  - Schema validation with Zodot
-  - Registration process in plugin.gd
-  - Testing requirements and examples
-  - Code quality standards and examples
-- Follow the existing tool patterns exactly (see addons/godot_agent_mcp/mcp/tools/)
-- All tools must extend MCPTool and implement the four required methods:
-  - get_name() - Unique tool identifier
-  - get_description() - Human-readable description  
-  - get_input_schema() - Zodot schema for parameter validation
-  - run(params) - Tool execution logic
-- Use Zodot for robust parameter validation - never manually validate parameters
-- Register new tools in plugin.gd's tool array
-- Include comprehensive docblocks for all public methods 
+// keepEmpty 时，显式处理可选值
+Column(name: "Status", keyPath: \.price)    // Double?
+    .toString { (price: Double?) in         // 可选
+        price.map { "¥\($0)" } ?? "未定价"
+    }
+```
+
+## 注意事项
+
+1. 行列索引从 1 开始（Excel 标准）
+2. Sheet 名称会自动清理非法字符并限制长度
+3. 大数据集需要考虑内存使用
+4. 共享字符串用于优化文件大小（String 和 URL 类型自动注册）
+5. 方法链式调用支持灵活的列配置
+
+## 使用示例
+
+### 基础用法
+
+```swift
+import Objects2XLSX
+
+struct Person: Sendable {
+    let name: String
+    let age: Int
+    let salary: Double?
+}
+
+let people = [
+    Person(name: "Alice", age: 25, salary: 75000.0),
+    Person(name: "Bob", age: 30, salary: nil)
+]
+
+let sheet = Sheet<Person>(name: "People", dataProvider: { people }) {
+    Column(name: "姓名", keyPath: \.name)
+    
+    Column(name: "年龄分组", keyPath: \.age)
+        .toString { age in age < 18 ? "未成年" : "成年" }
+    
+    Column(name: "薪资等级", keyPath: \.salary)
+        .defaultValue(0.0)
+        .toString { salary in salary < 50000 ? "标准" : "高级" }
+}
+
+let book = Book(style: BookStyle()) { sheet }
+try book.write(to: URL(fileURLWithPath: "/path/to/output.xlsx"))
+```
+
+### 进度监控
+
+```swift
+let book = Book(style: BookStyle()) { /* sheets */ }
+
+Task {
+    for await progress in book.progressStream {
+        print("进度: \(Int(progress.progressPercentage * 100))% - \(progress.description)")
+        if progress.isFinal { break }
+    }
+}
+
+Task {
+    try book.write(to: outputURL)
+}
+```
 
 ---
-> Source: [toasted-iron-studios/godot-agent-mcp](https://github.com/toasted-iron-studios/godot-agent-mcp) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:agents_md:2026-05-14 -->
+> Source: [fatbobman/Objects2XLSX](https://github.com/fatbobman/Objects2XLSX) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:agents_md:2026-05-06 -->
 
 ---
 > Source: [tomevault-io/codex-plugins](https://github.com/tomevault-io/codex-plugins) — distributed by [TomeVault](https://tomevault.io).
