@@ -1,0 +1,44 @@
+{
+  "name": "ceo-bench",
+  "owner": "dave1010",
+  "repo": "ceo-bench",
+  "description": "CEO Bench is a comprehensive evaluation framework measuring how well Large Language Models perform on executive-level decision making, strategic planning, and leadership tasks.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dave1010/ceo-bench",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T01:12:51Z"
+}
