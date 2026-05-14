@@ -1,0 +1,9 @@
+{
+  "name": "zveinn--parser",
+  "displayName": "parser",
+  "description": "Allows for SQL syntax like querying into golang []slice structures. Supports sub-slices, sup-struct and maps!",
+  "version": "1.0.0",
+  "author": "zveinn",
+  "homepage": "https://github.com/zveinn/parser",
+  "skills": []
+}
