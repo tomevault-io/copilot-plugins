@@ -1,50 +1,95 @@
-## docs
+## test
 
-> Guidelines for writing accurate, well-structured documentation
+> Kori testing policy: spec-first, regression-safe, refactor-friendly
 
 
-# Documentation Writing Rules
+## Kori Testing Policy
 
-## Source Code First
+### Goals
 
-**Never write documentation based on assumptions or guesswork.**
+- Verify public, observable behavior defined by API contracts across the framework (routing, context, plugins, validation, logging, HTTP, adapters).
+- Detect regressions in behaviors that must not break.
+- Remain robust against refactoring and internal implementation changes.
 
-Always read and understand the actual source code before writing documentation:
+### Scope and priorities
 
-- Read main API functions, type definitions, and existing examples
-- Verify all code examples work with the actual implementation
-- Base method signatures and behaviors on real source code
-- Check test files for usage patterns
+- Prefer specification-driven tests over implementation-driven tests.
+- Pin critical behaviors that would hurt users if they changed.
+- Keep tests small, focused, and clear.
 
-Never guess API behavior, copy from other frameworks, or make up configuration options.
+### What to test (spec-driven)
 
-## Writing Style
+- Public API contracts and invariants
+  - Inputs, outputs, and observable side effects
+  - Protocol and semantics where applicable (e.g., headers, status, content negotiation)
+  - Execution order guarantees (e.g., hook/defer LIFO or well-defined ordering)
+  - Configuration defaults and override behavior
+- Errors and edge cases
+  - Validation errors, malformed input, missing configuration
+  - Safe-return variants that must not throw
+- Interaction outcomes
+  - User-visible effects of combining modules (e.g., plugin-modified context affects handler)
+  - Cross-module flows (routing → validation → handler → response build)
+- Type contracts
+  - Type guards, generic transformations, context type evolution (compile-time)
 
-### Structure Over Formatting
+### What not to test (avoid implementation coupling)
 
-Use clear heading hierarchy and natural prose instead of bold text for emphasis:
+- Object identity or caching internals (e.g., same instance returns, reference equality)
+- Specific log message strings or channels; only assert logging occurred
+- Internal optimizations (prebuilt structures, clone counts, micro-allocations)
+- Control flow details that are not part of public contracts
+- Private helper types or inference paths
 
-- ✅ Descriptive subheadings and logical organization
-- ✅ Complete sentences that flow naturally
-- ❌ Bold text for emphasis (except critical warnings)
+### Test layering
 
-### Simple and Direct
+- Contract unit tests (primary)
+  - Validate each public API’s behavior and error handling in isolation
+- Narrow integration tests (selective)
+  - Validate small, realistic flows across modules (e.g., plugin modifies context then handler observes it)
+- System smoke tests (optional and small)
+  - Minimal end-to-end paths to catch wiring regressions (router → handler → response)
+- Property/fuzz tests (where valuable)
+  - Parsing/serialization-heavy paths (cookies, headers, schemas) with focused generators
 
-- Start with the simplest working example
-- Focus on essential value proposition
-- Let code examples do the explaining
-- Keep explanatory text concise
+### Mocking and fixtures
 
-### Honest Tone
+- Use real platform primitives where practical (WHATWG Request/Response, URL, Web Streams).
+- Keep mocks minimal. For logging, use a thin spy object and only assert that methods were called.
+- Prefer explicit inputs over global state. Avoid implicit environment assumptions.
 
-- State capabilities factually without overselling
-- Avoid negative comparisons with other frameworks
-- Never fabricate testimonials or quotes
-- Be positive but realistic about limitations
+### Stability and reliability
 
-## Remember
+- Avoid time, randomness, and concurrency flakiness; fix clocks and seeds when needed.
+- Streams: assert contract-only (e.g., returns a new stream), not byte-level details unless required.
+- Minimize snapshots; use them only for stable shapes that are part of the contract.
 
-Inaccurate documentation is worse than no documentation. Always verify against source code.
+### Naming and structure
+
+- One test, one contract. Name tests as short contract sentences.
+- Order tests by user journey: start with typical success cases, then edge cases, finally error conditions. Readers should understand basic behavior before seeing failure modes.
+- Arrange as: setup, act, assert. Keep assertions close to the behavior under test.
+- Fail with actionable messages that describe the broken contract.
+
+### Project conventions for tests
+
+- ESM only; include .js extensions in imports.
+- Use type imports for types.
+- Source files (including tests) must be ASCII only.
+- Prefer functions over classes in helpers/fixtures.
+- Follow Kori terminology and naming conventions.
+
+### Type testing
+
+- Validate public, observable type contracts (type guards, generic transformations, context type evolution).
+- Prefer compile-time type tests with expectTypeOf as the primary tool.
+- Keep assertions small and contract-focused; use `@ts-expect-error` for negative cases.
+- Avoid coupling to internal helper types or inference paths.
+
+### Import style
+
+- Always explicitly import test utilities (describe, test, expect, vi, expectTypeOf).
+- Avoid vitest globals configuration for explicit dependency management and IDE support.
 
 ---
 > Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
