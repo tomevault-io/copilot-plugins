@@ -4,7 +4,7 @@
   "repo": "crawl4weibo",
   "description": "An out-of-the-box Weibo scraper Python library, based on a successfully tested solution, usable without cookies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Praeviso/crawl4weibo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:58:56Z"
+  "distributed_at": "2026-05-14T04:35:04Z"
 }
