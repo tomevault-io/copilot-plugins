@@ -1,0 +1,66 @@
+{
+  "name": "phuetz--code-buddy",
+  "displayName": "code-buddy",
+  "description": "An open-source multi-provider AI coding agent that runs directly in your terminal.",
+  "version": "1.0.0",
+  "author": "phuetz",
+  "homepage": "https://github.com/phuetz/code-buddy",
+  "skills": [
+    {
+      "name": "blender",
+      "description": ""
+    },
+    {
+      "name": "blog-watcher",
+      "description": ""
+    },
+    {
+      "name": "brave-search",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "description": ""
+    },
+    {
+      "name": "csharp-avalonia",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "description": ""
+    },
+    {
+      "name": "davinci-resolve",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "description": ""
+    },
+    {
+      "name": "game-engines",
+      "description": ""
+    },
+    {
+      "name": "gif-search",
+      "description": ""
+    },
+    {
+      "name": "gimp",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "gitlab",
+      "description": ""
+    },
+    {
+      "name": "healthcheck",
+      "description": ""
+    }
+  ]
+}
