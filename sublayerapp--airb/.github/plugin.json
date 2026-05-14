@@ -1,0 +1,9 @@
+{
+  "name": "sublayerapp--airb",
+  "displayName": "airb",
+  "description": "CLI-based programming agent for Ruby with VSM architecture",
+  "version": "1.0.0",
+  "author": "sublayerapp",
+  "homepage": "https://github.com/sublayerapp/airb",
+  "skills": []
+}
