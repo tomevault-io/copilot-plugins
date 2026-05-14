@@ -1,51 +1,112 @@
-## changeset
+## coding
 
-> Rules for creating changeset files for version management
+> Kori framework TypeScript coding standards and conventions
 
-# Changeset Operation Rules
 
-## Overview
+# Coding Rules
 
-This project uses [Changesets](https://github.com/changesets/changesets) for monorepo version management and publishing. Since the AI assistant cannot interact with CLI prompts, we use a manual changeset file creation approach.
+## Imports
 
-## Workflow
+- Always use `type` modifier for type imports
+- Always include `.js` extension in import paths for ESM compatibility
 
-### 1. Making Changes
+## Function Declarations
 
-When code changes are made that warrant a release:
+- Use function declarations for framework public APIs
+- Avoid arrow functions for public APIs
 
-1. User requests: "Create changeset"
-2. AI assistant creates changeset file manually
+## Type Definitions
 
-### 2. Changeset File Creation
+- Prefer `type` over `interface`
+- Use `never` as default type parameter instead of `{}`
+- Do not use `readonly` modifier in type definitions, class properties, or object properties
 
-- AI creates `.changeset/[descriptive-name].md` file
-- Uses patch/minor/major based on change type
-- Includes clear description in English
-- Focus on difference relative to original baseline, not just current working changes
+### `readonly` Modifier
 
-**Example changeset file:**
+- **Do not use `readonly` modifier** in type definitions, class properties, or object properties
+- Rely on developer discipline rather than language-level immutability constraints
+- Prioritize code simplicity and consistency over shallow immutability protection
 
-```markdown
----
-'@korix/cors-plugin': patch
----
+**Rationale:**
 
-Fix header configuration bug in CORS plugin
+- `readonly` provides only shallow immutability and doesn't prevent deep mutations
+- Adds visual noise without significant practical benefit
+- "Things that shouldn't be changed, shouldn't be changed" - trust developer judgment
+- Maintains consistency across the entire codebase
+- Allows flexibility when modifications are genuinely needed
+
+**Examples:**
+
+```typescript
+// ❌ Avoid
+type Config = {
+  readonly name: string;
+  readonly options: readonly string[];
+};
+
+class MyError extends Error {
+  constructor(public readonly code: string) {}
+}
+
+// ✅ Prefer
+type Config = {
+  name: string;
+  options: string[];
+};
+
+class MyError extends Error {
+  constructor(public code: string) {}
+}
 ```
 
-## Commands
+## File Organization
 
-```bash
-# Enter alpha mode (already done)
-pnpm changeset pre enter alpha
+- Keep related types together
+- Export public APIs at the end of the file
+- Folder names and file names should use the singular form.
 
-# Exit alpha mode (for stable release)
-pnpm changeset pre exit
+## Terminology
 
-# Re-enter alpha mode
-pnpm changeset pre enter alpha
-```
+- Use "Plugin" instead of "Middleware"
+- Avoid "use" for adding plugins
+- Avoid middleware-related terms in APIs and documentation
+
+## Naming Conventions
+
+- Use camelCase for function names, variable names, and property names
+- For abbreviations in camelCase, treat them as regular words:
+  - `API` → `Api` (e.g., `openApiPlugin`, `zodOpenApiPlugin`)
+  - `UI` → `Ui` (e.g., `scalarUiPlugin`)
+  - `URL` → `Url` (e.g., `parseUrl`)
+  - `HTTP` → `Http` (e.g., `httpClient`)
+- Plugin function names should follow the pattern `<name>Plugin` in camelCase
+- Avoid inconsistent casing like `scalarUIPlugin` or `openAPIPlugin`
+
+### Default vs Base (short rule)
+
+- Default: use for permissive/wildcard generic defaults (e.g., `symbol`, `unknown`).
+  - Examples: `KoriSchemaDefault`, `KoriRequestSchemaDefault`, `KoriResponseSchemaMediaTypeDefault`.
+- Base: use for fixed core compositions (framework core types bound).
+  - Examples: `KoriHandlerContextBase`, `KoriInstanceContextBase`.
+- Do not choose based on visibility (internal/public). Choose based on meaning above.
+
+## Module System
+
+- Use ESM (ECMAScript Modules) format
+- Include file extensions in import paths
+
+## Architecture
+
+- Prefer functions over classes
+- Use composition over inheritance
+- Avoid using 'this' keyword
+
+## Character Encoding
+
+- Source code files (.ts, .js, .tsx, .jsx) must contain only ASCII characters
+- Non-ASCII characters (emojis, Japanese, etc.) are prohibited in source code
+- Documentation files (.md, .mdc, README) may use non-ASCII characters freely
+- This ensures encoding compatibility and tool interoperability
 
 ---
 > Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
