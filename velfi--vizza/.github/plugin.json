@@ -1,0 +1,9 @@
+{
+  "name": "velfi--vizza",
+  "displayName": "Vizza",
+  "description": "A desktop application featuring interactive simulations built with Tauri, Svelte, and WebGPU.",
+  "version": "1.0.0",
+  "author": "Velfi",
+  "homepage": "https://github.com/Velfi/Vizza",
+  "skills": []
+}
