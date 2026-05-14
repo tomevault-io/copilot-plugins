@@ -7,11 +7,11 @@ AI-powered Home Assistant control. Lean relay + LLM skills for Claude Code, Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [markusleben/ha-nova](https://github.com/markusleben/ha-nova).
+Original source: `CLAUDE.md` in [markusleben/ha-nova](https://github.com/markusleben/ha-nova).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
