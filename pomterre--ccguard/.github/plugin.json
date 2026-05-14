@@ -1,0 +1,9 @@
+{
+  "name": "pomterre--ccguard",
+  "displayName": "ccguard",
+  "description": "Automated enforcement of net-negative LOC, complexity constraints, and quality standards for Claude code",
+  "version": "1.0.0",
+  "author": "pomterre",
+  "homepage": "https://github.com/pomterre/ccguard",
+  "skills": []
+}
