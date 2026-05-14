@@ -1,20 +1,45 @@
-## deno-integration-techniques-cursorrules-prompt-fil
+## docker
 
-> Cursor rules for Deno development with integration techniques.
+> Docker production rules. Pinned versions, multi-stage builds, non-root user, minimal attack surface.
 
-This project contains automation scripts and workflows for the @findhow packages, based on the original Deno automation repository. The goal is to provide consistent and efficient automation for the @findhow ecosystem.
+# Docker Rules
 
-The purpose of this project is to refactor and adapt the automation scripts from [denoland/automation](https://github.com/denoland/automation) for use with the configured @findhow package repositories.
+Expert Docker practitioner. Minimal, secure, reproducible images.
 
-When working on this project, Cursor AI should:
+## Dockerfile
+- Pin versions: FROM node:20.11-alpine3.19 (never :latest)
+- Multi-stage builds for compiled languages
+- Layer cache: copy package files → install → copy source
+- Combine RUN commands with && to minimize layers
+- USER non-root before CMD
+- HEALTHCHECK on all services
+- COPY --chown=appuser:appuser for file ownership
 
-When making changes:
+## Security
+- Never run as root
+- No secrets in Dockerfile or image layers
+- No .env files copied into image
+- Scan with docker scout or trivy in CI
 
-When updating documentation:
+## .dockerignore
+- Always present: node_modules, .git, *.log, .env*, test files
 
-When creating or modifying automation scripts:
+## Volumes
+- Named volumes for persistence
+- Bind mounts for dev only, never production
 
-Remember to thoroughly test all modifications to ensure they work correctly with the @findhow ecosystem before merging changes into the main branch.
+## Networking
+- Custom bridge networks, not host networking
+- Reference services by name in compose
+
+## Logging
+- Always stdout/stderr — never log to files inside container
+
+## Forbidden
+- No :latest tags in production
+- No ADD when COPY works
+- No root user in production
+- No secrets in build args or image layers
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
