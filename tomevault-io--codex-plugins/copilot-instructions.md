@@ -1,161 +1,41 @@
 ## agents-md
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> - **Product, architecture, MVP scope, public API, data model, JSONL schema:** repo top-level docs (start with `README.md`)
 
-# CLAUDE.md
+# agent-inspect — Cursor guardrails
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Source of truth
 
-## Project Overview
+- **Product, architecture, MVP scope, public API, data model, JSONL schema:** repo top-level docs (start with `README.md`)
+- **Step-by-step implementation sequence:** follow the repo’s implementation guide (if present) and existing patterns in `packages/`
 
-Be Framework v0 - The Ontological Programming Framework for PHP implementing "Be, Don't Do" philosophy. Objects represent immutable states that undergo constructor-driven metamorphosis through `#[Be]` attributes.
+## MVP drift (do not implement unless the PRD explicitly promotes it)
 
-**Documentation**: https://be-framework.github.io/
+- No SQLite
+- No replay
+- No token counting
+- No cost calculation
+- No framework adapters
+- No browser dashboard
+- No OpenTelemetry
+- No plugin system
+- No general-purpose logger API
 
-## Core Architecture
+agent-inspect must not become a logger library. The core concept is an **execution tree of steps**.
 
-### Metamorphosis Engine
-The `Becoming` class (`src/Becoming.php`) processes objects through continuous transformations:
-- Follows `#[Be]` attributes to determine transformation paths
-- Linear: `#[Be(NextClass::class)]` or Branching: `#[Be([ClassA::class, ClassB::class])]`
-- All business logic in constructors - no methods for data transformation
-- Properties must be `public readonly` for immutability
+## Engineering requirements
 
-### Constructor Argument Resolution
-- **`#[Input]`**: Immanent data from source object properties
-- **`#[Inject]`**: Transcendent dependencies from DI container (Ray.Di)
-- Arguments resolved by `BecomingArguments` class during metamorphosis
+- **TypeScript:** strict mode; match repo `tsconfig` settings.
+- **Tests:** add or update tests when implementation behavior changes.
+- **Instrumentation safety:** tracing, stepping, or observation must never throw into user code in a way that breaks the agent; failures degrade gracefully (see PRD).
 
-### Key Components
-- **`src/Attribute/`**: Framework attributes (`Be`, `Validate`, `Message`, `SemanticTag`)
-- **`src/BecomingArguments.php`**: Constructor argument resolution
-- **`src/BecomingType.php`**: Type matching for branching transformations
-- **`src/SemanticLog/`**: Transformation lifecycle logging
-- **`src/SemanticVariable/`**: Semantic validation for constructor parameters
 
-## Development Commands
-
-```bash
-# Testing
-composer test                    # Run all unit tests
-php vendor/bin/phpunit --filter testMethodName   # Run specific test method
-php vendor/bin/phpunit tests/TestFile.php        # Run specific test file
-
-# Code Quality (ALWAYS run after modifying PHP files)
-composer cs-fix                  # Auto-fix coding style issues (Doctrine standards)
-composer cs                      # Check coding style without fixing
-composer sa                      # Run static analysis (phpstan + psalm)
-composer phpmd                   # Analyze PHP code for potential issues
-
-# Coverage
-composer coverage                # Generate coverage report with xdebug
-composer phpdbg                  # Generate coverage with phpdbg
-composer pcov                    # Generate coverage with pcov
-
-# Comprehensive Checks
-composer tests                   # Run cs + sa + phpmd + test
-composer build                   # Full build: clean + cs + sa + phpmd + coverage + crc
-
-# Utilities
-composer clean                   # Clear analysis caches
-composer baseline                # Generate baselines for PHPStan and Psalm
-composer crc                     # Run composer require checker
-composer metrics                 # Generate code metrics report
-```
-
-## Debugging Tools
-
-### Forward Trace Debugging (xdebug-debug)
-```bash
-# Always verify test works first
-php vendor/bin/phpunit --filter testMethodName tests/TestFile.php
-
-# Then add tracing
-./vendor/bin/xdebug-debug --context="Debug context" \
-  --break="file.php:lineNumber" \
-  --exit-on-break \
-  --steps=10 \
-  --json \
-  -- php vendor/bin/phpunit --filter testMethodName tests/TestFile.php
-```
-
-### Performance Profiling
-```bash
-./vendor/bin/xdebug-profile -- php vendor/bin/phpunit --filter testMethodName
-```
-
-## Testing
-
-```bash
-# Run specific test method (use --filter, not ::method)
-php vendor/bin/phpunit --filter testMethodName
-
-# Run specific test file
-php vendor/bin/phpunit tests/SemanticLog/LoggerTest.php
-
-# Run tests matching pattern
-php vendor/bin/phpunit --filter "Semantic"
-```
-
-- Test fixtures in `tests/Fake/` and `tests/FakeApp/`
-- Schema validation tests verify semantic log output against `docs/schemas/*.json`
-
-## Creating Transformation Classes
-
-1. Declare transformation with `#[Be]` attribute
-2. Use `public readonly` properties only
-3. Put all logic in constructor
-4. Use `#[Input]` for data from source object
-5. Use `#[Inject]` for external dependencies
-
-```php
-#[Be(ProcessedData::class)]
-final class InputData
-{
-    public function __construct(
-        public readonly string $value
-    ) {}
-}
-
-final class ProcessedData
-{
-    public readonly string $result;
-
-    public function __construct(
-        #[Input] string $value,           // From InputData
-        #[Inject] ProcessorService $proc  // From DI container
-    ) {
-        $this->result = $proc->process($value);
-    }
-}
-```
-
-## Code Style Guidelines
-
-### Early Return Pattern (No Else)
-Avoid `else` statements - use early returns:
-
-```php
-// ✅ Good
-if ($condition) {
-    return $this->handleCondition();
-}
-return $this->handleDefault();
-
-// ❌ Avoid
-if ($condition) {
-    return $this->handleCondition();
-} else {
-    return $this->handleDefault();
-}
-```
-
-### After Modifying PHP Files
-**ALWAYS** run: `composer cs-fix`
+## General guidance
+Please ask questions and get clarify if you are not clear on any decisions or implementations. 
 
 ---
-> Source: [be-framework/Be.Framework](https://github.com/be-framework/Be.Framework) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:agents_md:2026-05-06 -->
+> Source: [rajudandigam/agent-inspect](https://github.com/rajudandigam/agent-inspect) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:agents_md:2026-05-14 -->
 
 ---
 > Source: [tomevault-io/codex-plugins](https://github.com/tomevault-io/codex-plugins) — distributed by [TomeVault](https://tomevault.io).
