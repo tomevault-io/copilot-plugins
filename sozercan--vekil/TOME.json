@@ -4,7 +4,7 @@
   "repo": "vekil",
   "description": "\ud83e\uddd1\u200d\ud83d\udcbc Go reverse proxy exposing Anthropic, Gemini, and OpenAI APIs over Azure Foundry, GitHub Copilot, OpenAI Codex subscriptions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sozercan/vekil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T15:02:56Z"
+  "distributed_at": "2026-05-14T03:10:51Z"
 }
