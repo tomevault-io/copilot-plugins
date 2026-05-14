@@ -1,0 +1,9 @@
+{
+  "name": "py-econometrics--maketables",
+  "displayName": "maketables",
+  "description": "Generate publication-ready tables from econometric models",
+  "version": "1.0.0",
+  "author": "py-econometrics",
+  "homepage": "https://github.com/py-econometrics/maketables",
+  "skills": []
+}
