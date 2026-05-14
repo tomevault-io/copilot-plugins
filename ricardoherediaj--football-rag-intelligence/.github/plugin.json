@@ -1,0 +1,9 @@
+{
+  "name": "ricardoherediaj--football-rag-intelligence",
+  "displayName": "football-rag-intelligence",
+  "description": "Football RAG system that generates post match analysis text reports and dashboard visualizations from Eredivisie 2025-2026 season matches, using your own API Key from multiple providers (Anthropic, Ge",
+  "version": "1.0.0",
+  "author": "ricardoherediaj",
+  "homepage": "https://github.com/ricardoherediaj/football-rag-intelligence",
+  "skills": []
+}
