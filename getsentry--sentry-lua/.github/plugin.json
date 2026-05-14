@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-lua",
+  "displayName": "sentry-lua",
+  "description": "Hackweek project: Sentry SDK for Lua",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-lua",
+  "skills": []
+}
