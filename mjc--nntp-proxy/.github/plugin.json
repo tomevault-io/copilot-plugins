@@ -1,0 +1,9 @@
+{
+  "name": "mjc--nntp-proxy",
+  "displayName": "nntp-proxy",
+  "description": "NNTP proxy I built in rust last night, with command routing",
+  "version": "1.0.0",
+  "author": "mjc",
+  "homepage": "https://github.com/mjc/nntp-proxy",
+  "skills": []
+}
