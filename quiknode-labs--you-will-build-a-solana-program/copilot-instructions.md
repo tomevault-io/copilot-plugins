@@ -1,31 +1,21 @@
-## anchor-rust
+## anchor-typescript
 
-> Anchor Rust Files
+> Anchor TypeScript
 
-Write all code like Anchor 0.30.1. Do not use unnecessary macros that are not needed in Anchor 0.30.1.
+Create unit tests in TS in the `tests` directory. 
 
-Create files inside the `state` folder for whatever state is needed.
+Please the node js inbuilt test and assertion libraries (then start the tests using `tsx` instead of `ts-mocha`). Imports look like:
 
-Create files inside the `handlers` folder for whatever instruction handlers are needed. Put Account Constraints here, but ensure the names end with `AccountConstraints` rather than just naming them the same thing as the function. Handlers that are only for the admin should be in a new folder called `admin` inside the `handlers` folder.
+```typescript
+import { before, describe, test, it } from "node:test";
+import assert from "node:assert";
+```
 
-Use a newline after each key in the account constraints, so the macro and the matching key/value have some space from other macros and their matching key/value.
+Use `test` rather than `it`.
 
-Use `context` rather than `ctx`. Avoid abbreviations, and use full words. Never use `e` for something thrown. 
+Use `catch (thrownObject)` and then `const error = thrownObject as Error;` - you can assume any item thrown is an Error.
 
-Delete unused constants, unused instruction handlers and comments that no longer apply.
-
-Use `context.bumps.foo` not `context.bumps.get("foo").unwrap()` - the latter is outdated.
-
-When making structs ensure strings and Vectors have a max_len attribute. Vectors have two numbers, the first is the max length of the vector, the second is the max length of the items in the vector.
-
-Do not use magic numbers anywhere. I don't want to see `8 + 32` or whatever.  Do not make constants for the sizes of various data structures. For `space`, use a syntax like
-`space = SomeStruct::DISCRIMINATOR.len() + SomeStruct::INIT_SPACE,`. Do NOT use magic numbers.
-
-Return useful error messages. Write code to handle common errors like insufficient funds, bad values for parameters, and other obvious situations.
-
-Add `pub bump: u8` to every struct stored in PDA. Save the bumps inside each when the struct inside the PDA is created.
-
-When you get the time via Clock, use `Clock::get()?;` rather than `anchor_lang::solana_program::clock`.
+Use full words. Never use `e` for something thrown or `tx` for a transaction signature. 
 
 ---
 > Source: [quiknode-labs/you-will-build-a-solana-program](https://github.com/quiknode-labs/you-will-build-a-solana-program) — distributed by [TomeVault](https://tomevault.io).
