@@ -1,0 +1,9 @@
+{
+  "name": "pollinations--search-elixpo",
+  "displayName": "search.elixpo",
+  "description": "Research Based Project on Crawlers and Rankers with a LLM Supported Native Search Engine ",
+  "version": "1.0.0",
+  "author": "pollinations",
+  "homepage": "https://github.com/pollinations/search.elixpo",
+  "skills": []
+}
