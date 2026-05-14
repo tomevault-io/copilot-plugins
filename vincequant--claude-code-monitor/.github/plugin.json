@@ -1,0 +1,9 @@
+{
+  "name": "vincequant--claude-code-monitor",
+  "displayName": "claude-code-monitor",
+  "description": "Real-time monitoring tool for Claude Code CLI usage and network status | \u5be6\u6642\u76e3\u63a7 Claude Code CLI \u4f7f\u7528\u72c0\u614b\u548c\u7db2\u7d61\u9023\u63a5",
+  "version": "1.0.0",
+  "author": "vincequant",
+  "homepage": "https://github.com/vincequant/claude-code-monitor",
+  "skills": []
+}
