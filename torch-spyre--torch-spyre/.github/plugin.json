@@ -1,0 +1,9 @@
+{
+  "name": "torch-spyre--torch-spyre",
+  "displayName": "torch-spyre",
+  "description": "PyTorch backend for IBM's Spyre AIU",
+  "version": "1.0.0",
+  "author": "torch-spyre",
+  "homepage": "https://github.com/torch-spyre/torch-spyre",
+  "skills": []
+}
