@@ -1,0 +1,9 @@
+{
+  "name": "patchedreality--ai-cli-switchboard",
+  "displayName": "ai-cli-switchboard",
+  "description": "A simple framework for using Claude Code or Codex CLI as the frontend to any cloud or local LLM on Apple Silicon. Connect locally via LiteLLM + MLX or LM Studio, or remotely via Z.AI, Gemini/Google AI",
+  "version": "1.0.0",
+  "author": "PatchedReality",
+  "homepage": "https://github.com/PatchedReality/ai-cli-switchboard",
+  "skills": []
+}
