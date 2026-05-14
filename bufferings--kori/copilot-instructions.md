@@ -1,112 +1,50 @@
-## coding
+## docs
 
-> Kori framework TypeScript coding standards and conventions
+> Guidelines for writing accurate, well-structured documentation
 
 
-# Coding Rules
+# Documentation Writing Rules
 
-## Imports
+## Source Code First
 
-- Always use `type` modifier for type imports
-- Always include `.js` extension in import paths for ESM compatibility
+**Never write documentation based on assumptions or guesswork.**
 
-## Function Declarations
+Always read and understand the actual source code before writing documentation:
 
-- Use function declarations for framework public APIs
-- Avoid arrow functions for public APIs
+- Read main API functions, type definitions, and existing examples
+- Verify all code examples work with the actual implementation
+- Base method signatures and behaviors on real source code
+- Check test files for usage patterns
 
-## Type Definitions
+Never guess API behavior, copy from other frameworks, or make up configuration options.
 
-- Prefer `type` over `interface`
-- Use `never` as default type parameter instead of `{}`
-- Do not use `readonly` modifier in type definitions, class properties, or object properties
+## Writing Style
 
-### `readonly` Modifier
+### Structure Over Formatting
 
-- **Do not use `readonly` modifier** in type definitions, class properties, or object properties
-- Rely on developer discipline rather than language-level immutability constraints
-- Prioritize code simplicity and consistency over shallow immutability protection
+Use clear heading hierarchy and natural prose instead of bold text for emphasis:
 
-**Rationale:**
+- ✅ Descriptive subheadings and logical organization
+- ✅ Complete sentences that flow naturally
+- ❌ Bold text for emphasis (except critical warnings)
 
-- `readonly` provides only shallow immutability and doesn't prevent deep mutations
-- Adds visual noise without significant practical benefit
-- "Things that shouldn't be changed, shouldn't be changed" - trust developer judgment
-- Maintains consistency across the entire codebase
-- Allows flexibility when modifications are genuinely needed
+### Simple and Direct
 
-**Examples:**
+- Start with the simplest working example
+- Focus on essential value proposition
+- Let code examples do the explaining
+- Keep explanatory text concise
 
-```typescript
-// ❌ Avoid
-type Config = {
-  readonly name: string;
-  readonly options: readonly string[];
-};
+### Honest Tone
 
-class MyError extends Error {
-  constructor(public readonly code: string) {}
-}
+- State capabilities factually without overselling
+- Avoid negative comparisons with other frameworks
+- Never fabricate testimonials or quotes
+- Be positive but realistic about limitations
 
-// ✅ Prefer
-type Config = {
-  name: string;
-  options: string[];
-};
+## Remember
 
-class MyError extends Error {
-  constructor(public code: string) {}
-}
-```
-
-## File Organization
-
-- Keep related types together
-- Export public APIs at the end of the file
-- Folder names and file names should use the singular form.
-
-## Terminology
-
-- Use "Plugin" instead of "Middleware"
-- Avoid "use" for adding plugins
-- Avoid middleware-related terms in APIs and documentation
-
-## Naming Conventions
-
-- Use camelCase for function names, variable names, and property names
-- For abbreviations in camelCase, treat them as regular words:
-  - `API` → `Api` (e.g., `openApiPlugin`, `zodOpenApiPlugin`)
-  - `UI` → `Ui` (e.g., `scalarUiPlugin`)
-  - `URL` → `Url` (e.g., `parseUrl`)
-  - `HTTP` → `Http` (e.g., `httpClient`)
-- Plugin function names should follow the pattern `<name>Plugin` in camelCase
-- Avoid inconsistent casing like `scalarUIPlugin` or `openAPIPlugin`
-
-### Default vs Base (short rule)
-
-- Default: use for permissive/wildcard generic defaults (e.g., `symbol`, `unknown`).
-  - Examples: `KoriSchemaDefault`, `KoriRequestSchemaDefault`, `KoriResponseSchemaMediaTypeDefault`.
-- Base: use for fixed core compositions (framework core types bound).
-  - Examples: `KoriHandlerContextBase`, `KoriInstanceContextBase`.
-- Do not choose based on visibility (internal/public). Choose based on meaning above.
-
-## Module System
-
-- Use ESM (ECMAScript Modules) format
-- Include file extensions in import paths
-
-## Architecture
-
-- Prefer functions over classes
-- Use composition over inheritance
-- Avoid using 'this' keyword
-
-## Character Encoding
-
-- Source code files (.ts, .js, .tsx, .jsx) must contain only ASCII characters
-- Non-ASCII characters (emojis, Japanese, etc.) are prohibited in source code
-- Documentation files (.md, .mdc, README) may use non-ASCII characters freely
-- This ensures encoding compatibility and tool interoperability
+Inaccurate documentation is worse than no documentation. Always verify against source code.
 
 ---
 > Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
