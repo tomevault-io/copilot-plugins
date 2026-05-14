@@ -1,0 +1,9 @@
+{
+  "name": "sarmakska--sarmalink-ai",
+  "displayName": "Sarmalink-ai",
+  "description": "Open-source multi-provider AI backend with automatic 14-engine failover. 36 engines across 7 providers. OpenAI-compatible proxy. Zero-cost frontier AI. Built by Sarma Linux.",
+  "version": "1.0.0",
+  "author": "sarmakska",
+  "homepage": "https://github.com/sarmakska/Sarmalink-ai",
+  "skills": []
+}
