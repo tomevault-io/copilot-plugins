@@ -1,0 +1,9 @@
+{
+  "name": "pgsty--pgext",
+  "displayName": "pgext",
+  "description": "PG Extension Catalog Utils",
+  "version": "1.0.0",
+  "author": "pgsty",
+  "homepage": "https://github.com/pgsty/pgext",
+  "skills": []
+}
