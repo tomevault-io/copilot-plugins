@@ -4,7 +4,7 @@
   "repo": "hoot",
   "description": "Fork of the colanode repo",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prakash0224/hoot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:23:10Z"
+  "distributed_at": "2026-05-14T02:03:37Z"
 }
