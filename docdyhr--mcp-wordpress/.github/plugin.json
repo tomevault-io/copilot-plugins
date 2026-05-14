@@ -1,0 +1,9 @@
+{
+  "name": "docdyhr--mcp-wordpress",
+  "displayName": "mcp-wordpress",
+  "description": "MCP Server to manage a Wordpress CMS system.",
+  "version": "1.0.0",
+  "author": "docdyhr",
+  "homepage": "https://github.com/docdyhr/mcp-wordpress",
+  "skills": []
+}
