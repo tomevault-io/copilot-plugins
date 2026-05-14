@@ -1,0 +1,9 @@
+{
+  "name": "2ykwang--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Skills for AI coding agents",
+  "version": "1.0.0",
+  "author": "2ykwang",
+  "homepage": "https://github.com/2ykwang/agent-skills",
+  "skills": []
+}
