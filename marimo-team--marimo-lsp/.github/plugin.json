@@ -1,0 +1,9 @@
+{
+  "name": "marimo-team--marimo-lsp",
+  "displayName": "marimo-lsp",
+  "description": "A language server and VS Code extension for marimo",
+  "version": "1.0.0",
+  "author": "marimo-team",
+  "homepage": "https://github.com/marimo-team/marimo-lsp",
+  "skills": []
+}
