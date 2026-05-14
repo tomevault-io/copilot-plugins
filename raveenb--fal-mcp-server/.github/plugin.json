@@ -1,0 +1,9 @@
+{
+  "name": "raveenb--fal-mcp-server",
+  "displayName": "fal-mcp-server",
+  "description": "MCP server for Fal.ai - Generate images, videos, music and audio with Claude",
+  "version": "1.0.0",
+  "author": "raveenb",
+  "homepage": "https://github.com/raveenb/fal-mcp-server",
+  "skills": []
+}
