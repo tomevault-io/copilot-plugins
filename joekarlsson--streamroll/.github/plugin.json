@@ -1,0 +1,9 @@
+{
+  "name": "joekarlsson--streamroll",
+  "displayName": "streamroll",
+  "description": "AI-generated custom streaming intros for Plex - chains Runway gen4_image + gen4_turbo",
+  "version": "1.0.0",
+  "author": "JoeKarlsson",
+  "homepage": "https://github.com/JoeKarlsson/streamroll",
+  "skills": []
+}
