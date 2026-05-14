@@ -1,0 +1,9 @@
+{
+  "name": "imjasonh--govulncheck-action",
+  "displayName": "govulncheck-action",
+  "description": "A GitHub Action to find and annotate vulnerable Go code",
+  "version": "1.0.0",
+  "author": "imjasonh",
+  "homepage": "https://github.com/imjasonh/govulncheck-action",
+  "skills": []
+}
