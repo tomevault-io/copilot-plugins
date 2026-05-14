@@ -1,0 +1,9 @@
+{
+  "name": "agentailor--slimcontext",
+  "displayName": "slimcontext",
+  "description": "Lightweight, model-agnostic chat history compression (trim + summarize) for AI assistants.",
+  "version": "1.0.0",
+  "author": "agentailor",
+  "homepage": "https://github.com/agentailor/slimcontext",
+  "skills": []
+}
