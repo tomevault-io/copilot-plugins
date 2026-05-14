@@ -7,11 +7,11 @@ A NixOS home lab starter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [logandonley/fleet](https://github.com/logandonley/fleet).
+Original source: `CLAUDE.md` in [logandonley/fleet](https://github.com/logandonley/fleet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
