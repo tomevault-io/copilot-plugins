@@ -1,48 +1,45 @@
-## htmx-django-cursorrules-prompt-file
+## htmx-flask-cursorrules-prompt-file
 
-> Cursor rules for HTMX development with Django integration.
+> Cursor rules for HTMX development with Flask integration.
 
-// HTMX with Django .cursorrules
+// HTMX with Flask .cursorrules
 
-// HTMX and Django best practices
+// HTMX and Flask best practices
 
-const htmxDjangoBestPractices = [
-  "Use Django's template system with HTMX attributes",
-  "Implement Django forms for form handling",
-  "Utilize Django's URL routing system",
-  "Use Django's class-based views for HTMX responses",
-  "Implement Django ORM for database operations",
-  "Utilize Django's middleware for request/response processing",
+const htmxFlaskBestPractices = [
+  "Use Flask's render_template for server-side rendering",
+  "Implement Flask-WTF for form handling",
+  "Utilize Flask's url_for for generating URLs",
+  "Use Flask's jsonify for JSON responses",
+  "Implement Flask-SQLAlchemy for database operations",
+  "Utilize Flask's Blueprint for modular applications",
 ];
 
 // Folder structure
 
 const folderStructure = `
-project_name/
-  app_name/
-    templates/
-    static/
-      css/
-      js/
-    models.py
-    views.py
-    urls.py
-  project_name/
-    settings.py
-    urls.py
-manage.py
+app/
+  templates/
+  static/
+    css/
+    js/
+  models/
+  routes/
+  __init__.py
+config.py
+run.py
 `;
 
 // Additional instructions
 
 const additionalInstructions = `
-1. Use Django's template tags with HTMX attributes
-2. Implement proper CSRF protection with Django's built-in features
-3. Utilize Django's HttpResponse for HTMX-specific responses
-4. Use Django's form validation for HTMX requests
+1. Use Jinja2 templating with HTMX attributes
+2. Implement proper CSRF protection with Flask-WTF
+3. Utilize Flask's request object for handling HTMX requests
+4. Use Flask-Migrate for database migrations
 5. Implement proper error handling and logging
-6. Follow Django's best practices for project structure
-7. Use Django's staticfiles app for managing static assets
+6. Follow Flask's application factory pattern
+7. Use environment variables for configuration
 `;
 
 ---
