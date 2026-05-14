@@ -1,0 +1,9 @@
+{
+  "name": "aberoham--fumitm",
+  "displayName": "fumitm",
+  "description": "Script to automatically verify and fix MITM TLS distrust issues",
+  "version": "1.0.0",
+  "author": "aberoham",
+  "homepage": "https://github.com/aberoham/fumitm",
+  "skills": []
+}
