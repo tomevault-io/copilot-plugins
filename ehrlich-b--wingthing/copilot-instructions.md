@@ -1,0 +1,293 @@
+## wingthing
+
+> `wt` runs AI agents sandboxed on your machine, accessible from anywhere. The primary use case is `wt egg <agent>` (sandboxed agent sessions) and `wt wing` (remote access via relay). Skills are a secondary feature.
+
+# Wingthing
+
+## What This Is
+
+`wt` runs AI agents sandboxed on your machine, accessible from anywhere. The primary use case is `wt egg <agent>` (sandboxed agent sessions) and `wt wing` (remote access via relay). Skills are a secondary feature.
+
+- `wt egg claude` -- run Claude Code in a per-session sandbox with PTY persistence
+- `wt start` -- connect your machine to the relay, access from app.wingthing.ai
+- `wt serve` -- relay server (web UI, WebSocket relay, skill registry), HTTP + SQLite
+
+## Design Philosophy
+
+**Curated > marketplace.** Skills live in `skills/` in this repo. They're reviewed, validated, and version-controlled. No storefront where anyone can publish prompt injections. Private skills go in `~/.wingthing/skills/`.
+
+**Sandbox-first.** `internal/sandbox/` has Seatbelt (macOS) and user namespace/seccomp (Linux). The sandbox IS the permission boundary for egg sessions — agents get `--dangerously-skip-permissions` because the sandbox constrains them.
+
+**Agent-agnostic.** Every skill works with every backend. `--agent ollama` for free local inference, `--agent claude` when you need it. The interface is stable; providers change behind it.
+
+**Local-first.** Your machine, your keys, your data. No cloud dependency. Offline with ollama.
+
+## Dogfooding
+
+**Always use wingthing's own tools and infrastructure.** If wingthing can do something, use wingthing to do it. Don't shell out to external scripts or paid APIs when the equivalent exists (or should exist) in the codebase.
+
+If you find yourself reaching for an external tool and wingthing _should_ handle it, that's a gap to fill in wingthing itself.
+
+## Architecture
+
+- `wt egg <agent>` -- spawns a per-session child process (`wt egg run`) with its own sandbox, PTY, and gRPC socket at `~/.wingthing/eggs/<session-id>/`
+- `wt wing` -- WebSocket client that connects outbound to the relay, handles PTY sessions and encrypted tunnel requests, spawns eggs for each session
+- `wt serve` -- relay server (web UI + WebSocket relay + skill registry), HTTP + SQLite. The relay is a dumb pipe for wing data -- it forwards encrypted blobs without reading them.
+- **The relay knows NOTHING about wings except their IDs and public keys.** `GET /api/app/wings` returns a list of wing UUIDs. All wing metadata (hostname, platform, agents, projects, labels) comes from the wing itself via encrypted tunnel requests (`wing.info`). The frontend must cache this metadata in localStorage and show cached data on page load while probing wings in the background.
+- `wt run` -- direct agent invocation for prompts and skills (the old `wt [prompt]`)
+- `wt roost` -- combined relay + wing in one process for self-hosted deployments
+- Agents are pluggable (claude, ollama, gemini, codex, cursor, opencode). `wt` calls them as child processes.
+- All commands use direct store access via `store.Open(cfg.DBPath())`.
+
+### Encrypted Tunnel Protocol
+
+All wing data (directory listings, session history, audit recordings, egg configs, passkey assertions) flows through an E2E encrypted tunnel. The relay cannot read any of it.
+
+| Message | Direction | Description |
+|---------|-----------|-------------|
+| `tunnel.req` | browser -> relay -> wing | Encrypted request: `{type, wing_id, request_id, sender_pub, payload}` |
+| `tunnel.res` | wing -> relay -> browser | Encrypted response: `{type, request_id, payload}` |
+| `tunnel.stream` | wing -> relay -> browser | Encrypted streaming: `{type, request_id, payload, done}` |
+
+Inner message types (inside encrypted payload): `dir.list`, `wing.info`, `webrtc.offer`, `sessions.list`, `sessions.history`, `audit.request`, `egg.config_update`, `pty.kill`, `wing.update`, `passkey.auth`, `allow.list`, `allow.add`, `allow.remove`, `paths.list`, `paths.set`, `paths.add_member`, `paths.remove_member`
+
+### Two Key Types, Two HKDF Domains
+
+| Key | Lifecycle | HKDF info | Purpose |
+|-----|-----------|-----------|---------|
+| PTY session key | Per-session ephemeral X25519 | `"wt-pty"` | Terminal I/O encryption |
+| Tunnel key | Persistent identity X25519 | `"wt-tunnel"` | All non-PTY wing data |
+
+Browser identity key is stored in sessionStorage (ephemeral per tab, provides PFS). Passkey auth tokens are shared between PTY and tunnel, with configurable TTL via `auth_ttl` in wing.yaml. Wing restart revokes all sessions (in-memory cache).
+
+### Wing ID Scheme (IMPORTANT — two different IDs)
+
+Wings have TWO identifiers. Confusing them breaks session routing.
+
+| ID | Field | Format | Lifecycle | Example |
+|----|-------|--------|-----------|---------|
+| **Machine ID** (`wing_id` / `WingID`) | `ConnectedWing.WingID`, API `wing_id` | 24-char hex (MongoDB-style) | Persistent, stored in `~/.wingthing/wing.yaml` | `1ae20a6b28854276b1514d14` |
+| **Connection ID** (`id` / `ID`) | `ConnectedWing.ID`, registry map key | UUID prefix or random | Ephemeral, assigned on WebSocket connect | `a1b2c3d4` |
+
+**The API (`/api/app/wings`) returns `wing_id` (machine ID).** The frontend uses `wing_id` everywhere. The `wings` map in `WingRegistry` is keyed by connection ID (`ConnectedWing.ID`).
+
+**Lookup patterns:**
+- `WingRegistry.FindByID(id)` — looks up by **connection ID** (map key)
+- `findAnyWingByWingID(wingID)` — linear scan of all wings matching **machine ID** (`ConnectedWing.WingID`)
+- `PeerDirectory.FindWing(id)` — looks up peer by **connection ID**
+- `PeerDirectory.FindByWingID(wingID)` — looks up peer by **machine ID**
+
+**Fly-replay routing:** The PTY WebSocket handler receives `?wing_id=<machine_id>` from the browser. Before upgrading the WebSocket, it checks local wings and peers, issuing `fly-replay` to route to the correct Fly machine. After upgrade, `pty.start` messages also contain `wing_id` (machine ID) — the handler must look up by machine ID (via `findAnyWingByWingID`), not just connection ID.
+
+**Rule: when the frontend sends a wing identifier, it's always the machine ID (`wing_id`). Always use `findAnyWingByWingID()` (or try both lookups) to resolve it to a `ConnectedWing`.**
+
+### Organizations and Multi-User
+
+Wings can be shared via organizations. The relay has a full org system:
+
+- **Schema:** `orgs`, `org_members`, `org_invites`, `subscriptions`, `entitlements` tables
+- **API:** `POST/GET/DELETE /api/orgs`, `/api/orgs/{orgID}/members`, `/api/orgs/{orgID}/invite`, etc.
+- **Roles:** owner (full control), admin (invite/remove), member (access wings)
+- **Wing binding:** `wing.yaml` has `org:` field; `wt start --org <slug>` links a wing to an org
+- **Access control:** `canAccessWing()` in `internal/relay/access.go` checks owner, org membership, or roost mode
+- **Path ACLs:** `wing.yaml` can restrict per-folder access to specific org members by email
+- **Key files:** `internal/relay/org.go` (854 lines), `internal/relay/access.go`, `internal/relay/store.go`
+
+### Roost Mode
+
+`wt roost` runs relay + wing in one process for self-hosted deployments. See `docs/roost_design.md`.
+
+- Two auth modes: local (no OAuth, single user auto-created) and roost (with OAuth, all authenticated users access wings)
+- Daemon mode with `~/.wingthing/roost.pid` and `~/.wingthing/roost.log`
+- `wt roost start/stop/status` subcommands
+- **Key file:** `cmd/wt/roost.go`
+
+## Provider System
+
+### Agents (brains)
+CLI tools detected by `wt doctor`:
+- `claude` CLI -- Anthropic Claude
+- `ollama` CLI -- local models (llama3.2 default)
+- `gemini` CLI -- Google Gemini
+- `codex` CLI -- OpenAI Codex
+- `cursor` CLI (`agent` subcommand) -- Cursor
+- `opencode` CLI -- OpenCode
+
+### Embedders
+- **ollama** -- local, default model `mxbai-embed-large`, 512 dims
+- **openai** -- `text-embedding-3-small`, 512 dims, needs `OPENAI_API_KEY`
+
+### Auto-detection (`default_embedder: auto`)
+1. Ping ollama at localhost:11434 -- if up, use it
+2. Fall back to openai if `OPENAI_API_KEY` is set
+3. Error with clear message if neither available
+
+### Well-known env vars
+- `OPENAI_API_KEY` -- OpenAI embeddings + agents
+- `ANTHROPIC_API_KEY` -- Anthropic/Claude API
+- `GEMINI_API_KEY` / `GOOGLE_API_KEY` -- Google/Gemini
+
+## Agent Resolution Precedence
+
+Single resolution path for all contexts: **CLI flag (`--agent`) > skill frontmatter (`agent:`) > config default (`default_agent`)**
+
+## Skill System
+
+Skills are the core abstraction. Markdown files with YAML frontmatter and a prompt template body.
+
+### Philosophy
+- **Repo skills** (`skills/`) are the validated library -- curated, tested, checked in
+- **User skills** (`~/.wingthing/skills/`) are private -- your own workflows, not shared
+- Skills are enableable/disableable (planned: `wt skill enable/disable`)
+- No agent lock-in: omit `agent:` from frontmatter and the user's default applies
+- Skills declare their memory deps, isolation level, and schedule -- the orchestrator handles the rest
+
+### Frontmatter fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | yes | Skill identifier (matches filename) |
+| `description` | yes | One-line summary |
+| `memory` | no | List of memory files to load (e.g. `[identity]`) |
+| `agent` | no | Default agent; overridable with `--agent` |
+| `isolation` | no | Sandbox isolation level (`strict`, `standard`, `network`, `privileged`) |
+| `timeout` | no | Duration string (e.g. `60s`) |
+| `tags` | no | Categorization tags |
+| `schedule` | no | Cron expression for recurring execution |
+| `mounts` | no | Directories to mount into sandbox |
+
+Install with `wt skill add skills/dream.md`. Memory files referenced by skills go in `~/.wingthing/memory/`.
+
+## Sandbox
+
+Implementations in `internal/sandbox/`:
+
+| Platform | Implementation | How |
+|----------|---------------|-----|
+| macOS | Seatbelt | `sandbox-exec` with generated SBPL profile |
+| Linux | User namespaces + seccomp + cgroups v2 | CLONE_NEWUSER/NEWNS/NEWPID/NEWNET, BPF syscall filter (27+ denied), cgroups v2 memory/PIDs + prlimit |
+
+No fallback — if the platform can't enforce the requested isolation, the egg fails with `EnforcementError`.
+
+Isolation levels: `strict` (no network, minimal fs), `standard` (no network, mounted dirs), `network` (network + mounted dirs), `privileged` (no sandbox).
+
+Configure via `egg.yaml` (project-level, `~/.wingthing/egg.yaml`, or built-in defaults). The sandbox auto-injects mounts for the agent binary's install root and config dir (`~/.<agent>/`) so config authors don't need to know where agents are installed. Resource limits (CPU, memory, max FDs, max PIDs) only apply when explicitly configured. No defaults. On Linux, cgroups v2 provides real memory (RSS) and PID tree limits; prlimit covers CPU time, virtual address space, and FDs.
+
+### Agent network auto-drilling
+
+When `isolation` is `strict` or `standard` (no network), the sandbox automatically punches holes for the agent to function. Each agent has a profile declaring its network needs:
+
+| Agent | Network | What it opens |
+|-------|---------|---------------|
+| claude | HTTPS | **All outbound TCP 443/80 + DNS.** Required for api.anthropic.com. macOS seatbelt cannot filter by hostname or IP — only by port. |
+| codex | HTTPS | Same as claude (for api.openai.com) |
+| gemini | HTTPS | Same as claude (for googleapis.com) |
+| cursor | HTTPS | Same as claude |
+| ollama | Local | Localhost only (127.0.0.1, no external) |
+| opencode | HTTPS | Same as claude (for anthropic, openai, googleapis) |
+
+**Important:** `standard` isolation with a cloud agent (claude, codex, gemini, cursor) allows outbound HTTPS to **any host**, not just the agent's API. This is a platform limitation — macOS seatbelt cannot filter by domain or IP range. On Linux, the agent currently gets full network access (no port filtering in unprivileged namespaces). See `docs/egg-sandbox-design.md` for details and the roadmap for SNI-based domain filtering.
+
+## Key Packages
+
+| Package | Role |
+|---------|------|
+| `internal/egg` | Per-session egg server (gRPC, PTY, sandbox lifecycle), client, config |
+| `internal/egg/pb` | Protobuf-generated gRPC types (Kill, Resize, Session) |
+| `internal/sandbox` | Seatbelt (macOS) and namespace + seccomp + cgroups v2 (Linux) sandbox implementations |
+| `internal/ws` | WebSocket protocol (wing<->relay messages, tunnel.req/res/stream types), client with auto-reconnect |
+| `internal/auth` | ECDH key exchange, AES-GCM E2E encryption (PTY + tunnel HKDF domains), device auth, passkey verification, token store |
+| `internal/agent` | LLM agent adapters (claude, ollama, gemini, codex, cursor, opencode) |
+| `internal/relay` | Relay server: web UI, WebSocket handler, wing registry, skill registry. Dumb forwarder for encrypted wing data (tunnel, PTY). |
+| `internal/orchestrator` | Prompt assembly, config resolution, budget management |
+| `internal/embedding` | Embedder interface, OpenAI/Ollama adapters, cosine/blend utilities |
+| `internal/skill` | Skill loading, template interpolation |
+| `internal/memory` | Memory loading, layered retrieval |
+| `internal/config` | Config loading, `~/.wingthing/` paths, defaults |
+| `internal/store` | SQLite store -- tasks, thread, agents, logs |
+| `internal/webrtc` | P2P WebRTC: PeerManager, SwappableWriter, SDP helpers |
+| `internal/cron` | Cron scheduler for recurring tasks |
+| `internal/thread` | Daily thread assembly and persistence |
+| `internal/direct` | Direct agent invocation (non-relay mode) |
+| `internal/sync` | Sync primitives and helpers |
+| `internal/parse` | Parsing utilities (structured output markers, etc.) |
+| `internal/ntfy` | Push notifications via ntfy.sh |
+
+## Build
+
+**Always use `make`, never bare `go build` / `go test`.**
+
+| Command | What it does |
+|---------|-------------|
+| `make check` | Run tests then build (the default verification step) |
+| `make build` | Build the `wt` binary |
+| `make test` | Run `go test ./...` |
+| `make web` | Build vite output (`cd web && npm run build`) |
+| `make serve` | Build then run `wt serve` in foreground |
+| `make clean` | Remove built binary |
+
+Run `make check` to verify changes. Run `make web` before `make check` if you changed anything in `web/`.
+
+### CI
+
+CI runs via **cinch**. Use `cinch run` to trigger a build, `cinch status` to check results. When Bryan says "cinch run" or "cinch status", run those commands directly.
+
+### Development is LOCAL
+
+**Prod (wingthing.fly.dev) is Bryan's daily driver.** Do not deploy to Fly during development unless explicitly asked. All development and testing happens locally.
+
+- `make serve` starts a local relay on `:8080`
+- `wt wing --relay http://localhost:8080` connects a wing to the local relay
+- Test the full stack locally before even thinking about prod
+- End-of-day or explicit request = deploy to Fly
+- **Never tail `fly deploy` output.** Run it with full output visible (no `| tail`). Truncating deploy output hides errors and makes it impossible to tell if prod is broken.
+
+### Running `wt serve` during development
+
+Use `make serve` in a separate terminal (or via Bash `run_in_background`). It builds and runs in foreground — ctrl-C to stop, rerun after code changes. For production self-hosted: launchd (macOS) or systemd user unit (Linux).
+
+**NEVER use `&` in Bash commands.** Use the Bash tool's `run_in_background` parameter instead. Appending `&` causes the process to die immediately and produces garbage output. If you need a background process: `run_in_background: true` on the Bash tool call, then check output via `Read` on the output file or `TaskOutput`.
+
+### Testing wing changes
+
+After `make check`, restart the wing daemon with the local build: `./wt stop && ./wt start --debug`. This uses `os.Executable()` throughout, so the daemon and all egg child processes use the same local binary — no need to install to PATH first.
+
+## CLI Commands
+
+| Command | What it does |
+|---------|-------------|
+| `wt egg <agent>` | Run agent in sandboxed session (claude, codex, ollama, etc.) |
+| `wt egg list` | List active egg sessions |
+| `wt egg stop <id>` | Stop an egg session |
+| `wt wing` | Connect to relay, serve encrypted tunnel + PTY sessions |
+| `wt wing start` | Start wing as background daemon |
+| `wt wing stop` | Stop wing daemon |
+| `wt wing status` | Check wing daemon and active sessions |
+| `wt wing lock` / `unlock` | Require passkey auth for sessions |
+| `wt wing allow` | Manage allowed public keys |
+| `wt wing config` | View/set wing config |
+| `wt start` / `wt stop` | Aliases for `wt wing start` / `wt wing stop` |
+| `wt roost` / `roost start` | Combined relay + wing in one process (self-hosted) |
+| `wt roost stop` / `status` | Stop or check roost daemon |
+| `wt serve` | Start the relay web server (cloud/multi-node) |
+| `wt login` / `wt logout` | Device auth with relay server |
+| `wt whoami` | Show logged-in user |
+| `wt run [prompt]` | Run a prompt or skill directly |
+| `wt run --skill [name]` | Run a named skill |
+| `wt doctor` | Scan for available agents, API keys, services |
+| `wt timeline` | List upcoming/recent tasks |
+| `wt thread` | Show daily thread |
+| `wt status` | Task counts and token usage |
+| `wt log [taskId]` | Show task log events |
+| `wt retry [task-id]` | Retry a failed task |
+| `wt agent list` | List agent adapters |
+| `wt schedule list/remove` | Manage recurring tasks |
+| `wt init` | Initialize ~/.wingthing |
+| `wt support` | Collect diagnostic bundle |
+| `wt embed [text]` | Generate embeddings |
+| `wt keygen` | Generate key material |
+| `wt update` | Update wt to latest release |
+
+---
+> Source: [ehrlich-b/wingthing](https://github.com/ehrlich-b/wingthing) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
