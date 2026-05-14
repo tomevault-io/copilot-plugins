@@ -1,0 +1,9 @@
+{
+  "name": "brads3290--cclogviewer",
+  "displayName": "cclogviewer",
+  "description": "Review Claude Code .jsonl files with a nice HTML UI",
+  "version": "1.0.0",
+  "author": "Brads3290",
+  "homepage": "https://github.com/Brads3290/cclogviewer",
+  "skills": []
+}
