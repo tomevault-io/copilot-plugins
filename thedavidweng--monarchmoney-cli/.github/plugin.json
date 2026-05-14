@@ -1,0 +1,9 @@
+{
+  "name": "thedavidweng--monarchmoney-cli",
+  "displayName": "monarchmoney-cli",
+  "description": "A local, agent-friendly command-line tool for Monarch Money. Written in Go.",
+  "version": "1.0.0",
+  "author": "thedavidweng",
+  "homepage": "https://github.com/thedavidweng/monarchmoney-cli",
+  "skills": []
+}
