@@ -1,0 +1,9 @@
+{
+  "name": "greydragon888--vitest-react-profiler",
+  "displayName": "vitest-react-profiler",
+  "description": "React component render tracking and performance testing utilities for Vitest",
+  "version": "1.0.0",
+  "author": "greydragon888",
+  "homepage": "https://github.com/greydragon888/vitest-react-profiler",
+  "skills": []
+}
