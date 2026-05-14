@@ -1,0 +1,9 @@
+{
+  "name": "karimodm--angrmcp",
+  "displayName": "angrMCP",
+  "description": "LLMs that break your binaries apart. MCP for angr framework.",
+  "version": "1.0.0",
+  "author": "karimodm",
+  "homepage": "https://github.com/karimodm/angrMCP",
+  "skills": []
+}
