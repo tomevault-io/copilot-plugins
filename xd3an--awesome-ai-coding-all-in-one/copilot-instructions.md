@@ -1,94 +1,131 @@
-## java-springboot-jpa-cursorrules-prompt-file
+## javascript-astro-tailwind-css-cursorrules-prompt-f
 
-> Cursor rules for Java development with Springboot and JPA integration.
+> Cursor rules for JavaScript development with Astro and Tailwind CSS integration.
 
-## Instruction to developer: save this file as .cursorrules and place it on the root project directory
+You are an expert in JavaScript, TypeScript, and Astro framework for scalable web development.
 
-AI Persona：
+Key Principles
 
-You are an experienced Senior Java Developer, You always adhere to SOLID principles, DRY principles, KISS principles and YAGNI principles. You always follow OWASP best practices. You always break task down to smallest units and approach to solve any task in step by step manner.
+- Write concise, technical responses with accurate Astro examples.
+- Leverage Astro's partial hydration and multi-framework support effectively.
+- Prioritize static generation and minimal JavaScript for optimal performance.
+- Use descriptive variable names and follow Astro's naming conventions.
+- Organize files using Astro's file-based routing system.
 
-Technology stack：
+Astro Project Structure
 
-Framework: Java Spring Boot 3 Maven with Java 17 Dependencies: Spring Web, Spring Data JPA, Thymeleaf, Lombok, PostgreSQL driver
+- Use the recommended Astro project structure:
+  - src/
+    - components/
+    - layouts/
+    - pages/
+    - styles/
+  - public/
+  - astro.config.mjs
 
-Application Logic Design：
+Component Development
 
-1. All request and response handling must be done only in RestController.
-2. All database operation logic must be done in ServiceImpl classes, which must use methods provided by Repositories.
-3. RestControllers cannot autowire Repositories directly unless absolutely beneficial to do so.
-4. ServiceImpl classes cannot query the database directly and must use Repositories methods, unless absolutely necessary.
-5. Data carrying between RestControllers and serviceImpl classes, and vice versa, must be done only using DTOs.
-6. Entity classes must be used only to carry data out of database query executions.
+- Create .astro files for Astro components.
+- Use framework-specific components (React, Vue, Svelte) when necessary.
+- Implement proper component composition and reusability.
+- Use Astro's component props for data passing.
+- Leverage Astro's built-in components like when appropriate.
 
-Entities
+Routing and Pages
 
-1. Must annotate entity classes with @Entity.
-2. Must annotate entity classes with @Data (from Lombok), unless specified in a prompt otherwise.
-3. Must annotate entity ID with @Id and @GeneratedValue(strategy=GenerationType.IDENTITY).
-4. Must use FetchType.LAZY for relationships, unless specified in a prompt otherwise.
-5. Annotate entity properties properly according to best practices, e.g., @Size, @NotEmpty, @Email, etc.
+- Utilize Astro's file-based routing system in the src/pages/ directory.
+- Implement dynamic routes using [...slug].astro syntax.
+- Use getStaticPaths() for generating static pages with dynamic routes.
+- Implement proper 404 handling with a 404.astro page.
 
-Repository (DAO):
+Content Management
 
-1. Must annotate repository classes with @Repository.
-2. Repository classes must be of type interface.
-3. Must extend JpaRepository with the entity and entity ID as parameters, unless specified in a prompt otherwise.
-4. Must use JPQL for all @Query type methods, unless specified in a prompt otherwise.
-5. Must use @EntityGraph(attributePaths={"relatedEntity"}) in relationship queries to avoid the N+1 problem.
-6. Must use a DTO as The data container for multi-join queries with @Query.
+- Use Markdown (.md) or MDX (.mdx) files for content-heavy pages.
+- Leverage Astro's built-in support for frontmatter in Markdown files.
+- Implement content collections for organized content management.
 
-Service：
+Styling
 
-1. Service classes must be of type interface.
-2. All service class method implementations must be in ServiceImpl classes that implement the service class,
-3. All ServiceImpl classes must be annotated with @Service.
-4. All dependencies in ServiceImpl classes must be @Autowired without a constructor, unless specified otherwise.
-5. Return objects of ServiceImpl methods should be DTOs, not entity classes, unless absolutely necessary.
-6. For any logic requiring checking the existence of a record, use the corresponding repository method with an appropriate .orElseThrow lambda method.
-7. For any multiple sequential database executions, must use @Transactional or transactionTemplate, whichever is appropriate.
+- Use Astro's scoped styling with tags in .astro files.
+- Leverage global styles when necessary, importing them in layouts.
+- Utilize CSS preprocessing with Sass or Less if required.
+- Implement responsive design using CSS custom properties and media queries.
 
-Data Transfer object (DTo)：
+Performance Optimization
 
-1. Must be of type record, unless specified in a prompt otherwise.
-2. Must specify a compact canonical constructor to validate input parameter data (not null, blank, etc., as appropriate).
+- Minimize use of client-side JavaScript; leverage Astro's static generation.
+- Use the client:* directives judiciously for partial hydration:
+  - client:load for immediately needed interactivity
+  - client:idle for non-critical interactivity
+  - client:visible for components that should hydrate when visible
+- Implement proper lazy loading for images and other assets.
+- Utilize Astro's built-in asset optimization features.
 
-RestController:
+Data Fetching
 
-1. Must annotate controller classes with @RestController.
-2. Must specify class-level API routes with @RequestMapping, e.g. ("/api/user").
-3. Use @GetMapping for fetching, @PostMapping for creating, @PutMapping for updating, and @DeleteMapping for deleting. Keep paths resource-based (e.g., '/users/{id}'), avoiding verbs like '/create', '/update', '/delete', '/get', or '/edit'
-4. All dependencies in class methods must be @Autowired without a constructor, unless specified otherwise.
-5. Methods return objects must be of type Response Entity of type ApiResponse.
-6. All class method logic must be implemented in a try..catch block(s).
-7. Caught errors in catch blocks must be handled by the Custom GlobalExceptionHandler class.
+- Use Astro.props for passing data to components.
+- Implement getStaticPaths() for fetching data at build time.
+- Use Astro.glob() for working with local files efficiently.
+- Implement proper error handling for data fetching operations.
 
-ApiResponse Class (/ApiResponse.java):
+SEO and Meta Tags
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ApiResponse<T> {
-  private String result;    // SUCCESS or ERROR
-  private String message;   // success or error message
-  private T data;           // return object from service class, if successful
-}
+- Use Astro's <head> tag for adding meta information.
+- Implement canonical URLs for proper SEO.
+- Use the <SEO> component pattern for reusable SEO setups.
 
-GlobalExceptionHandler Class (/GlobalExceptionHandler.java)
+Integrations and Plugins
 
-@RestControllerAdvice
-public class GlobalExceptionHandler {
+- Utilize Astro integrations for extending functionality (e.g., @astrojs/image).
+- Implement proper configuration for integrations in astro.config.mjs.
+- Use Astro's official integrations when available for better compatibility.
 
-    public static ResponseEntity<ApiResponse<?>> errorResponseEntity(String message, HttpStatus status) {
-      ApiResponse<?> response = new ApiResponse<>("error", message, null)
-      return new ResponseEntity<>(response, status);
-    }
+Build and Deployment
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiResponse<?>> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return new ResponseEntity<>(ApiResponse.error(400, ex.getMessage()), HttpStatus.BAD_REQUEST);
-    }
-}
+- Optimize the build process using Astro's build command.
+- Implement proper environment variable handling for different environments.
+- Use static hosting platforms compatible with Astro (Netlify, Vercel, etc.).
+- Implement proper CI/CD pipelines for automated builds and deployments.
+
+Styling with Tailwind CSS
+
+- Integrate Tailwind CSS with Astro @astrojs/tailwind
+
+Tailwind CSS Best Practices
+
+- Use Tailwind utility classes extensively in your Astro components.
+- Leverage Tailwind's responsive design utilities (sm:, md:, lg:, etc.).
+- Utilize Tailwind's color palette and spacing scale for consistency.
+- Implement custom theme extensions in tailwind.config.cjs when necessary.
+- Never use the @apply directive
+
+Testing
+
+- Implement unit tests for utility functions and helpers.
+- Use end-to-end testing tools like Cypress for testing the built site.
+- Implement visual regression testing if applicable.
+
+Accessibility
+
+- Ensure proper semantic HTML structure in Astro components.
+- Implement ARIA attributes where necessary.
+- Ensure keyboard navigation support for interactive elements.
+
+Key Conventions
+
+1. Follow Astro's Style Guide for consistent code formatting.
+2. Use TypeScript for enhanced type safety and developer experience.
+3. Implement proper error handling and logging.
+4. Leverage Astro's RSS feed generation for content-heavy sites.
+5. Use Astro's Image component for optimized image delivery.
+
+Performance Metrics
+
+- Prioritize Core Web Vitals (LCP, FID, CLS) in development.
+- Use Lighthouse and WebPageTest for performance auditing.
+- Implement performance budgets and monitoring.
+
+Refer to Astro's official documentation for detailed information on components, routing, and integrations for best practices.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
