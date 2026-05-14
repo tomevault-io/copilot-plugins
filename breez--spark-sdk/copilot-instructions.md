@@ -1,0 +1,381 @@
+## spark-sdk
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Dependencies
+
+The following system dependencies are required:
+
+```bash
+# Debian/Ubuntu
+apt-get install -y protobuf-compiler
+
+# macOS
+brew install protobuf
+
+# Arch Linux
+pacman -S protobuf
+```
+
+## Build Commands
+
+```bash
+make build              # Build workspace (excludes WASM)
+make build-release      # Release build with LTO
+make build-wasm         # Build for WASM target
+```
+
+## Testing
+
+```bash
+make cargo-test         # Run Rust unit tests
+make wasm-test          # Run WASM tests (browser + Node.js)
+make itest              # Integration tests (requires Docker)
+make breez-itest        # Breez integration tests (requires faucet credentials)
+```
+
+Run a single test:
+```bash
+cargo test <test_name> -p <package>
+```
+
+## Code Quality
+
+```bash
+make check              # Run all checks (fmt, clippy, tests) - use before committing
+make fmt-check          # Check formatting
+make fmt-fix            # Fix formatting
+make clippy-check       # Run clippy lints (cargo + WASM)
+make clippy-fix         # Fix clippy issues
+```
+
+## Architecture
+
+### Crate Structure
+
+- **crates/breez-sdk/core** - Main SDK library with public API (`BreezSdk`)
+- **crates/breez-sdk/common** - Shared utilities, LNURL support, networking, sync protocol
+- **crates/breez-sdk/bindings** - UniFFI bindings for Go, Kotlin, Python, React Native, Swift
+- **crates/breez-sdk/wasm** - WebAssembly bindings for JavaScript/TypeScript
+- **crates/breez-sdk/cli** - Command-line interface for testing
+- **crates/spark** - Low-level Spark protocol (addresses, signing, operators, tokens)
+- **crates/spark-wallet** - High-level wallet operations wrapping Spark protocol
+- **crates/xtask** - Custom build tasks (powers `make` commands via `cargo xtask`)
+
+### Key Abstractions
+
+- `Storage` trait - Pluggable persistence layer (see Storage Implementations below)
+- `Signer` trait - Cryptographic operations (FROST threshold signing)
+- `BitcoinChainService` trait - Blockchain provider interface
+- `EventEmitter` - Broadcasts `SdkEvent` (Synced, PaymentSucceeded, PaymentFailed, etc.)
+
+### Storage Implementations
+
+The `Storage` trait (`crates/breez-sdk/core/src/persist/mod.rs`) has multiple implementations. **When adding new Storage functionality, all implementations must be updated.**
+
+| Implementation | Location | Platform | DB |
+|---|---|---|---|
+| SQLite (Rust) | `crates/breez-sdk/core/src/persist/sqlite.rs` | Native (macOS, Linux, Windows) | SQLite |
+| PostgreSQL (Rust) | `crates/breez-sdk/core/src/persist/postgres.rs` | Server (feature-gated: `postgres`) | PostgreSQL |
+| Web (JS) | `crates/breez-sdk/wasm/js/web-storage/index.js` | Browser (WASM) | IndexedDB |
+| Node SQLite (JS) | `crates/breez-sdk/wasm/js/node-storage/index.cjs` | Node.js (WASM) | SQLite (`better-sqlite3`) |
+| Node Postgres (JS) | `crates/breez-sdk/wasm/js/postgres-storage/index.cjs` | Node.js (WASM) | PostgreSQL (`pg`) |
+
+All implementations run the **same shared test suite** in `crates/breez-sdk/core/src/persist/tests.rs`. When modifying storage:
+
+1. Update every implementation listed above
+2. Add test coverage to the shared test suite (`tests.rs`)
+3. Add calls to any new test functions in **each** implementation's test harness:
+   - Rust SQLite: `crates/breez-sdk/core/src/persist/sqlite.rs` (test module at bottom)
+   - Rust Postgres: `crates/breez-sdk/core/src/persist/postgres.rs` (test module at bottom)
+   - Web: `crates/breez-sdk/wasm/src/persist/tests/web.rs`
+   - Node SQLite: `crates/breez-sdk/wasm/src/persist/tests/node.rs`
+   - Node Postgres: `crates/breez-sdk/wasm/src/persist/tests/postgres.rs`
+
+JS implementations also have migration files (`migrations.cjs`) alongside their `index.cjs`.
+
+### Data Flow
+
+```
+BreezSdk (API) → SparkWallet (wallet ops) → Spark (protocol) → Operators (gRPC)
+     ↓
+Storage → SyncedStorage → Breez Sync Service (multi-device)
+```
+
+## Updating SDK Interfaces
+
+When changing the SDK's public interface, update these files:
+
+1. **crates/breez-sdk/core/src/models.rs** - Add UniFFI macros to interface types
+2. **crates/breez-sdk/wasm/src/models.rs** - Update exported structs/enums
+3. **crates/breez-sdk/wasm/src/sdk.rs** - Update WASM interface
+4. **packages/flutter/rust/src/models.rs** - Update mirrored structs/enums
+5. **packages/flutter/rust/src/sdk.rs** - Update Flutter interface
+
+## Documentation Inline Syntax
+
+When writing mdbook documentation in `docs/breez-sdk/src/`, use these preprocessor macros for language-aware inline code that adapts to the selected language tab:
+
+- `{{#name identifier}}` - For functions, methods, parameters, properties
+  - Rust/Python: `get_info` (snake_case)
+  - Swift/Kotlin/JS/Flutter: `getInfo` (camelCase)
+  - Go/C#: `GetInfo` (PascalCase)
+
+- `{{#enum Type::Variant}}` - For enum variants
+  - Rust: `SdkEvent::Synced`
+  - Python: `SdkEvent.SYNCED`
+  - Swift: `SdkEvent.synced`
+  - Go: `SdkEventSynced`
+  - Others: `SdkEvent.Synced`
+
+Example:
+```markdown
+Call {{#name get_info}} after each {{#enum SdkEvent::Synced}} event.
+```
+
+See [snippets-processor/src/main.rs](docs/breez-sdk/snippets-processor/src/main.rs) for transformation rules.
+
+## CLI Modification Policy
+
+**Do not modify language-specific CLIs** (`crates/breez-sdk/bindings/examples/cli/langs/`) unless:
+- Fixing failures in the **CLI matrix** or **Flutter** (which includes Flutter/Dart CLI static analysis) CI jobs. Always fix those CI failures, as this gives the Sync CLI Languages workflow (`sync-cli.yml`) better context when propagating future Rust CLI changes. Keep fixes minimal: only make changes needed to pass the build. Do not add new features, flags, or update descriptions; leave full feature propagation to the sync workflow.
+- Explicitly requested by the user (e.g. porting a new feature for testing).
+
+The **Sync CLI Languages** workflow (`sync-cli.yml`) automatically propagates Rust CLI changes to all language CLIs. Unnecessary modifications to language CLIs create PR noise.
+
+The **Rust CLI** (`crates/breez-sdk/cli/`) can be modified freely as it is the source of truth that the sync workflow reads from.
+
+## Workspace Configuration
+
+- Rust edition 2024, MSRV 1.88
+- Clippy: pedantic + suspicious + complexity + perf warnings enabled
+- Release builds use LTO and `opt-level = "z"` for size optimization
+- Uses `cargo xtask` for build automation (aliased in `.cargo/config.toml`)
+
+---
+
+## SDK Usage Guide (For Integrators)
+
+This section is for developers integrating the Breez SDK into their apps.
+
+### API Key (Required)
+
+A Breez API key is required for the SDK to work. Request one for free at:
+**https://breez.technology/request-api-key/#contact-us-form-sdk**
+
+### Installation
+
+| Platform | Package |
+|----------|---------|
+| JavaScript/WASM | `npm install @breeztech/breez-sdk-spark` |
+| React Native | `npm install @breeztech/breez-sdk-spark-react-native` |
+| Python | `pip install breez-sdk-spark` |
+| Go | `go get github.com/breez/breez-sdk-spark-go` |
+| C# | `dotnet add package Breez.Sdk.Spark` |
+| Swift | SPM: `https://github.com/breez/breez-sdk-spark-swift.git` |
+| Kotlin | Maven: `https://mvn.breez.technology/releases` |
+| Flutter | Git: `https://github.com/breez/breez-sdk-spark-flutter` |
+| Rust | Git: `https://github.com/breez/spark-sdk` |
+
+### Quick Start
+
+See working examples in `docs/breez-sdk/snippets/` - these are compiled/tested and always up to date:
+
+| Task | TypeScript | Rust |
+|------|------------|------|
+| Initialize | `wasm/getting_started.ts` | `rust/src/getting_started.rs` |
+| Send payment | `wasm/send_payment.ts` | `rust/src/send_payment.rs` |
+| Receive payment | `wasm/receive_payment.ts` | `rust/src/receive_payment.rs` |
+| List payments | `wasm/list_payments.ts` | `rust/src/list_payments.rs` |
+| Parse input | `wasm/parsing_inputs.ts` | `rust/src/parsing_inputs.rs` |
+| LNURL-Pay | `wasm/lnurl_pay.ts` | `rust/src/lnurl_pay.rs` |
+| Buy Bitcoin | `wasm/buying_bitcoin.ts` | `rust/src/buying_bitcoin.rs` |
+| Events | `wasm/getting_started.ts` (search `addEventListener`) | `rust/src/getting_started.rs` (search `EventListener`) |
+
+**Minimal TypeScript example:**
+
+```typescript
+import { connect, defaultConfig } from '@breeztech/breez-sdk-spark'
+
+const config = defaultConfig('mainnet')
+config.apiKey = '<your api key>'
+
+const sdk = await connect({
+  config,
+  seed: { type: 'mnemonic', mnemonic: '<12/24 words>', passphrase: undefined },
+  storageDir: './.data'
+})
+
+const info = await sdk.getInfo({ ensureSynced: true })
+// info.balanceSats, info.tokenBalances
+
+// To get addresses:
+// const lnAddress = await sdk.getLightningAddress()
+// const sparkAddr = await sdk.receivePayment({ paymentMethod: { type: 'sparkAddress' } })
+
+await sdk.disconnect()
+```
+
+**Minimal Rust example:**
+
+```rust
+use breez_sdk_spark::*;
+
+let mut config = default_config(Network::Mainnet);
+config.api_key = Some("<your api key>".to_string());
+
+let sdk = connect(ConnectRequest {
+    config,
+    seed: Seed::Mnemonic { mnemonic: "<words>".into(), passphrase: None },
+    storage_dir: "./.data".to_string(),
+}).await?;
+
+let info = sdk.get_info(GetInfoRequest { ensure_synced: Some(true) }).await?;
+// info.balance_sats, info.token_balances
+
+sdk.disconnect().await?;
+```
+
+### Core API Methods
+
+| Method | Description |
+|--------|-------------|
+| `connect(config, seed, storageDir)` | Initialize SDK |
+| `disconnect()` | Clean shutdown |
+| `getInfo()` | Get balance (sats) and token balances |
+| `getLightningAddress()` | Get registered lightning address |
+| `receivePayment(paymentMethod)` | Generate invoice, BTC address, or Spark address |
+| `sendPayment(prepareResponse)` | Send payment (call prepareSendPayment first) |
+| `prepareSendPayment(destination)` | Prepare a payment, get fees |
+| `parse(input)` | Parse any input (invoice, address, LNURL) |
+| `listPayments(filter)` | Get transaction history |
+| `addEventListener(listener)` | Subscribe to events |
+| `buyBitcoin(request)` | Get MoonPay URL to buy Bitcoin |
+
+### SDK Events
+
+- `synced` - Data synchronized, refresh UI
+- `paymentSucceeded` - Payment completed
+- `paymentFailed` - Payment failed
+- `paymentPending` - Payment awaiting confirmation
+- `claimedDeposits` - On-chain deposits claimed
+- `unclaimedDeposits` - Deposits need manual claim
+
+### Code Examples
+
+Working code examples for all platforms are in `docs/breez-sdk/snippets/`:
+- `rust/src/` - Rust examples
+- `wasm/` - TypeScript/JavaScript examples
+- `swift/` - Swift examples
+- `kotlin_mpp_lib/` - Kotlin examples
+- `flutter/lib/` - Dart examples
+- `python/src/` - Python examples
+- `go/` - Go examples
+- `csharp/` - C# examples
+- `react-native/` - React Native examples
+
+### Common Gotchas
+
+1. **WASM Web requires `init()`** - Call `await init()` before any SDK methods in browser environments (not needed for Node.js/Deno)
+
+2. **Node.js version** - WASM and React Native require Node.js >= 22
+
+3. **Storage paths** - On mobile (Android/iOS), use app-specific sandbox directories, not arbitrary paths
+
+4. **One SDK instance per storage** - Each SDK instance needs its own unique `storageDir`
+
+5. **Prepare before send** - Always call `prepareSendPayment()` first to get fees, then `sendPayment()` with the response
+
+6. **Balance after sync** - Call `getInfo({ ensureSynced: true })` to get accurate balance, or listen for `synced` events
+
+7. **Lightning address registration** - Call `registerLightningAddress()` to get a Lightning address; it's not automatic
+
+### Networks
+
+| Network | Config | Use Case |
+|---------|--------|----------|
+| `mainnet` | `defaultConfig('mainnet')` | Production |
+| `testnet` | `defaultConfig('testnet')` | Testing with testnet Bitcoin |
+| `regtest` | `defaultConfig('regtest')` | Development (no API key needed, use [Lightspark faucet](https://app.lightspark.com/regtest-faucet)) |
+
+**Regtest** is recommended for development - free to use, no real value, supports Spark payments, deposits, withdrawals, and token issuance.
+
+**Mainnet with small amounts** is recommended for Lightning testing (regtest has limited Lightning network).
+
+### Error Handling
+
+The SDK throws `SdkError` with these variants:
+
+| Error | Meaning |
+|-------|---------|
+| `InsufficientFunds` | Not enough balance for payment |
+| `InvalidInput` | Bad parameter (address, amount, etc.) |
+| `NetworkError` | Connection/API issues |
+| `StorageError` | Database/persistence issues |
+| `MaxDepositClaimFeeExceeded` | On-chain fees too high for auto-claim |
+
+```typescript
+try {
+  await sdk.sendPayment({ prepareResponse })
+} catch (error) {
+  if (error.message.includes('InsufficientFunds')) {
+    // Handle insufficient balance
+  }
+}
+```
+
+### LNURL Operations
+
+| Operation | Flow |
+|-----------|------|
+| **LNURL-Pay** | `parse(url)` → check `type === 'lnurlPay'` or `'lightningAddress'` → `prepareLnurlPay()` → `lnurlPay()` |
+| **LNURL-Withdraw** | `parse(url)` → check `type === 'lnurlWithdraw'` → `lnurlWithdraw({ amountSats, withdrawRequest })` |
+| **LNURL-Auth** | `parse(url)` → check `type === 'lnurlAuth'` → show domain to user → `lnurlAuth(requestData)` |
+
+### Token Operations
+
+**Receiving tokens:**
+```typescript
+// Get token balances
+const info = await sdk.getInfo({ ensureSynced: true })
+for (const [tokenId, balance] of Object.entries(info.tokenBalances)) {
+  console.log(`${balance.tokenMetadata.ticker}: ${balance.balance}`)
+}
+
+// Receive via Spark invoice
+const response = await sdk.receivePayment({
+  paymentMethod: { type: 'sparkInvoice', tokenIdentifier: '<token id>', amount: '1000' }
+})
+```
+
+**Sending tokens:**
+```typescript
+const prepareResponse = await sdk.prepareSendPayment({
+  paymentRequest: '<spark address or invoice>',
+  tokenIdentifier: '<token id>',
+  amount: BigInt(1000)
+})
+await sdk.sendPayment({ prepareResponse })
+```
+
+**Issuing tokens (for token issuers):**
+```typescript
+const issuer = sdk.getTokenIssuer()
+const metadata = await issuer.createIssuerToken({
+  name: 'My Token', ticker: 'MTK', decimals: 6, isFreezable: false, maxSupply: BigInt(1_000_000)
+})
+await issuer.mintIssuerToken({ amount: BigInt(1000) })  // Mint to self
+await issuer.burnIssuerToken({ amount: BigInt(500) })   // Burn from self
+```
+
+### Full Documentation
+
+See `docs/breez-sdk/src/guide/` for complete documentation markdown files.
+
+---
+> Source: [breez/spark-sdk](https://github.com/breez/spark-sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
