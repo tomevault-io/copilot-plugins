@@ -1,0 +1,9 @@
+{
+  "name": "block--frfr",
+  "displayName": "frfr",
+  "description": "high-confidence document q+a system for complex docs",
+  "version": "1.0.0",
+  "author": "block",
+  "homepage": "https://github.com/block/frfr",
+  "skills": []
+}
