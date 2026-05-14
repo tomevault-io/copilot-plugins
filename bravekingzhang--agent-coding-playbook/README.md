@@ -7,11 +7,11 @@ AI Coding 工程实践手册：把工程判断写给 Agent 看
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bravekingzhang/agent-coding-playbook](https://github.com/bravekingzhang/agent-coding-playbook).
+Original source: `CLAUDE.md` in [bravekingzhang/agent-coding-playbook](https://github.com/bravekingzhang/agent-coding-playbook).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
