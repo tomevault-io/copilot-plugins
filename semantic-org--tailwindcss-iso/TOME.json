@@ -1,0 +1,44 @@
+{
+  "name": "tailwindcss-iso",
+  "owner": "Semantic-Org",
+  "repo": "tailwindcss-iso",
+  "description": "A plugin for generating tailwind css and extracting classes from content strings uniformly on the server and client.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Semantic-Org/tailwindcss-iso",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T00:51:53Z"
+}
