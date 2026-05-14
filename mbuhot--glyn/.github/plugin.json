@@ -1,0 +1,9 @@
+{
+  "name": "mbuhot--glyn",
+  "displayName": "glyn",
+  "description": "Type-safe PubSub and Registry for Gleam actors with distributed clustering support, built on Syn.",
+  "version": "1.0.0",
+  "author": "mbuhot",
+  "homepage": "https://github.com/mbuhot/glyn",
+  "skills": []
+}
