@@ -1,0 +1,9 @@
+{
+  "name": "chris2wzk--unet-neu-seg",
+  "displayName": "UNet-NEU-SEG",
+  "description": "\u57fa\u4e8eUNet\u7684\u94a2\u6750\u7f3a\u9677\u8bed\u4e49\u5206\u5272\u6846\u67b6 | NEU-SEG\u6570\u636e\u96c6| \u652f\u6301\u591a\u7c7b\u522b\u5206\u5272 | \u5305\u542b\u5b8c\u6574\u8bad\u7ec3\u9a8c\u8bc1\u6d41\u7a0b | | PyTorch\u5b9e\u73b0 ",
+  "version": "1.0.0",
+  "author": "Chris2wzk",
+  "homepage": "https://github.com/Chris2wzk/UNet-NEU-SEG",
+  "skills": []
+}
