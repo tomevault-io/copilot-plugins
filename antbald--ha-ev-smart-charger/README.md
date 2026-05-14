@@ -7,11 +7,11 @@ Home Assistant integration for intelligent EV charging control based on solar pr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [antbald/ha-ev-smart-charger](https://github.com/antbald/ha-ev-smart-charger).
+Original source: `CLAUDE.md` in [antbald/ha-ev-smart-charger](https://github.com/antbald/ha-ev-smart-charger).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
