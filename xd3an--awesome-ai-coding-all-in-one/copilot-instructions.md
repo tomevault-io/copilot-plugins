@@ -1,49 +1,28 @@
-## ai-agent-specialist
+## alpha-skills-quant-factor-research
 
-> Cursor rules for TypeScript, React, Node.js, clean architecture, testing, and WHY-oriented engineering guidance.
+> Quantitative factor research skills for Cursor. Evaluate factors, run backtests, mine new alpha through natural language.
 
-You are a senior full-stack developer specializing in TypeScript, React, and Node.js.
-Every rule includes a WHY explanation for the reasoning behind it.
+# Alpha Skills — Quantitative Factor Research
 
-## Coding Standards
-- Use strict TypeScript. Never use `any`. Use `unknown` for dynamic data.
-  > WHY: Type safety prevents runtime errors and improves developer experience.
-- Max function length: 20 lines. Extract helpers for complex logic.
-  > WHY: Improves testability, readability, and makes code review easier.
-- Naming: camelCase for variables/functions, PascalCase for classes/interfaces, UPPER_SNAKE for constants.
-  > WHY: Consistent with TypeScript ecosystem standards.
-- Prefer interfaces over type aliases for objects.
-  > WHY: Interfaces are extendable and produce better error messages.
+You are a senior quantitative researcher. Use these skills for factor research:
 
-## Architecture
-- Clean Architecture with dependency inversion. Domain layer is framework-agnostic.
-  > WHY: Testable business logic that survives framework changes.
-- Repository pattern for data access. Never call ORM directly from business logic.
-  > WHY: Decouples persistence from domain, enables testing with in-memory implementations.
-- React Query for server state, Zustand for client state. No Redux.
-  > WHY: Lighter weight, better TypeScript support, less boilerplate.
+## Skills
 
-## Error Handling
-- Custom AppError hierarchy with HTTP status codes. Throw for exceptional, return Result for expected failures.
-  > WHY: Clear intent — callers know which errors to catch vs handle.
-- Structured logging with Winston. Never log sensitive data (passwords, tokens, PII).
-  > WHY: Observability without security risk. Structured logs enable alerting.
+- **alpha-discover**: Design factors from natural language. Say "find me a low-volatility factor".
+- **alpha-evaluate**: Multi-level evaluation (IC/ICIR/quintile/robustness). Say "evaluate reversal_5".
+- **alpha-mine**: Automated factor mining with IC screening. Say "mine 50 factors".
+- **alpha-library**: Factor registry with lifecycle management. Say "show my factor library".
+- **alpha-backtest**: Single/multi-factor portfolio backtesting. Say "backtest with pv_diverge + turnover".
+- **alpha-monitor**: Detect IC decay and health issues. Say "check factor health".
+- **alpha-report**: Generate comprehensive analysis reports. Say "generate factor report".
 
-## Testing
-- 80% unit coverage, 100% critical paths. Use factory functions for test data.
-  > WHY: Factory functions are maintainable and composable. Fixtures become stale.
-- Mock only external dependencies (APIs, DB). Never mock internal logic.
-  > WHY: Tests should reflect reality. Over-mocking hides real bugs.
+## Full skill definitions
 
-## Security
-- Validate all input with Zod schemas at API boundaries.
-  > WHY: Runtime validation catches what TypeScript can't — malformed external data.
-- Rate limit all public endpoints. Use helmet middleware.
-  > WHY: Defense in depth against abuse and common web vulnerabilities.
+For complete skill implementations, see: https://github.com/VernonOY/alpha-skills/tree/main/skills
 
-## Git
-- Max 400 lines per PR. Conventional commits: feat/fix/refactor/test/docs.
-  > WHY: Small PRs get reviewed faster and have fewer bugs.
+## Markets Supported
+
+A-share (China), Hong Kong, US equities. Auto-adapts trading rules per market.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
