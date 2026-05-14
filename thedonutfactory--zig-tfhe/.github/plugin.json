@@ -1,0 +1,9 @@
+{
+  "name": "thedonutfactory--zig-tfhe",
+  "displayName": "zig-tfhe",
+  "description": "\ud83d\udc0a A pure zig implementation of TFHE Fully Homomorphic Encryption Scheme",
+  "version": "1.0.0",
+  "author": "thedonutfactory",
+  "homepage": "https://github.com/thedonutfactory/zig-tfhe",
+  "skills": []
+}
