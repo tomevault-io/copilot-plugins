@@ -1,142 +1,105 @@
 ## claude-md
 
-> > This document contains critical information about working with this codebase. Follow these guidelines precisely.
+> > Database best practices focusing on Prisma and Supabase integration
 
-# openrefine-mcp
+# database
 
-> This document contains critical information about working with this codebase. Follow these guidelines precisely.
+> Database best practices focusing on Prisma and Supabase integration
 
 ## Usage
 
 Add this to your project's CLAUDE.md to activate this skill:
 
 ```
-Read and follow the instructions in .claude/skills/openrefine-mcp/SKILL.md
+Read and follow the instructions in .claude/skills/database/SKILL.md
 ```
 
 Or copy the instructions below directly into your CLAUDE.md:
 
-# Development Guidelines
+# Database Best Practices
 
-This document contains critical information about working with this codebase. Follow these guidelines precisely.
+## Prisma Setup
+- Use proper schema design
+- Implement proper migrations
+- Use proper relation definitions
+- Configure proper connection
+- Implement proper seeding
+- Use proper client setup
 
-## Core Development Rules
+## Prisma Models
+- Use proper model naming
+- Implement proper relations
+- Use proper field types
+- Define proper indexes
+- Implement proper constraints
+- Use proper enums
 
-1. Package Management
-   - ONLY use uv, NEVER pip
-   - Installation: `uv add package`
-   - Running tools: `uv run tool`
-   - Upgrading: `uv add --dev package --upgrade-package package`
-   - FORBIDDEN: `uv pip install`, `@latest` syntax
+## Prisma Queries
+- Use proper query optimization
+- Implement proper filtering
+- Use proper relations loading
+- Handle transactions properly
+- Implement proper pagination
+- Use proper aggregations
 
-2. Code Quality
-   - Type hints required for all code
-   - Public APIs must have docstrings
-   - Functions must be focused and small
-   - Follow existing patterns exactly
-   - Line length: 88 chars maximum
+## Supabase Setup
+- Configure proper project setup
+- Implement proper authentication
+- Use proper database setup
+- Configure proper storage
+- Implement proper policies
+- Use proper client setup
 
-3. Testing Requirements
-   - Framework: `uv run --frozen pytest`
-   - Async testing: use anyio, not asyncio
-   - Coverage: test edge cases and errors
-   - New features require tests
-   - Bug fixes require regression tests
+## Supabase Security
+- Implement proper RLS policies
+- Use proper authentication
+- Configure proper permissions
+- Handle sensitive data properly
+- Implement proper backups
+- Use proper encryption
 
-- For commits fixing bugs or adding features based on user reports add:
-  ```bash
-  git commit --trailer "Reported-by:<name>"
-  ```
-  Where `<name>` is the name of the user.
+## Supabase Queries
+- Use proper query optimization
+- Implement proper filtering
+- Use proper joins
+- Handle real-time properly
+- Implement proper pagination
+- Use proper functions
 
-- For commits related to a Github issue, add
-  ```bash
-  git commit --trailer "Github-Issue:#<number>"
-  ```
-- NEVER ever mention a `co-authored-by` or similar aspects. In particular, never
-  mention the tool used to create the commit message or PR.
+## Database Design
+- Use proper normalization
+- Implement proper indexing
+- Use proper constraints
+- Define proper relations
+- Implement proper cascades
+- Use proper data types
 
-## Pull Requests
+## Performance
+- Use proper connection pooling
+- Implement proper caching
+- Use proper query optimization
+- Handle N+1 queries properly
+- Implement proper batching
+- Monitor performance metrics
 
-- Create a detailed message of what changed. Focus on the high level description of
-  the problem it tries to solve, and how it is solved. Don't go into the specifics of the
-  code unless it adds clarity.
+## Security
+- Use proper authentication
+- Implement proper authorization
+- Handle sensitive data properly
+- Use proper encryption
+- Implement proper backups
+- Monitor security issues
 
-- Always add `jerome3o-anthropic` and `jspahrsummers` as reviewer.
-
-- NEVER ever mention a `co-authored-by` or similar aspects. In particular, never
-  mention the tool used to create the commit message or PR.
-
-## Python Tools
-
-## Code Formatting
-
-1. Ruff
-   - Format: `uv run --frozen ruff format .`
-   - Check: `uv run --frozen ruff check .`
-   - Fix: `uv run --frozen ruff check . --fix`
-   - Critical issues:
-     - Line length (88 chars)
-     - Import sorting (I001)
-     - Unused imports
-   - Line wrapping:
-     - Strings: use parentheses
-     - Function calls: multi-line with proper indent
-     - Imports: split into multiple lines
-
-2. Type Checking
-   - Tool: `uv run --frozen pyright`
-   - Requirements:
-     - Explicit None checks for Optional
-     - Type narrowing for strings
-     - Version warnings can be ignored if checks pass
-
-3. Pre-commit
-   - Config: `.pre-commit-config.yaml`
-   - Runs: on git commit
-   - Tools: Prettier (YAML/JSON), Ruff (Python)
-   - Ruff updates:
-     - Check PyPI versions
-     - Update config rev
-     - Commit config first
-
-## Error Resolution
-
-1. CI Failures
-   - Fix order:
-     1. Formatting
-     2. Type errors
-     3. Linting
-   - Type errors:
-     - Get full line context
-     - Check Optional types
-     - Add type narrowing
-     - Verify function signatures
-
-2. Common Issues
-   - Line length:
-     - Break strings with parentheses
-     - Multi-line function calls
-     - Split imports
-   - Types:
-     - Add None checks
-     - Narrow string types
-     - Match existing patterns
-   - Pytest:
-     - If the tests aren't finding the anyio pytest mark, try adding PYTEST_DISABLE_PLUGIN_AUTOLOAD=""
-       to the start of the pytest run command eg:
-       `PYTEST_DISABLE_PLUGIN_AUTOLOAD="" uv run --frozen pytest`
-
-3. Best Practices
-   - Check git status before commits
-   - Run formatters before type checks
-   - Keep changes minimal
-   - Follow existing patterns
-   - Document public APIs
-   - Test thoroughly
+## Best Practices
+- Follow database conventions
+- Use proper migrations
+- Implement proper versioning
+- Handle errors properly
+- Document schema properly
+- Monitor database health
 
 ---
-> Source: [FiquemSabendo/openrefine_mcp](https://github.com/FiquemSabendo/openrefine_mcp) — distributed by [TomeVault](https://tomevault.io).
+> Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:claude_md:2026-05-14 -->
 
 ---
