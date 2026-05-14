@@ -1,0 +1,9 @@
+{
+  "name": "cmer81--open-meteo-mcp",
+  "displayName": "open-meteo-mcp",
+  "description": "A comprehensive MCP server providing access to Open-Meteo weather APIs for Large Language Models",
+  "version": "1.0.0",
+  "author": "cmer81",
+  "homepage": "https://github.com/cmer81/open-meteo-mcp",
+  "skills": []
+}
