@@ -1,253 +1,353 @@
-## rust-intermediate
+## rust
 
-> **Purpose:** Design patterns, architecture, and performance optimizations for real-world applications. Use this when building web APIs, CLI tools, or any application requiring proper structure and scalability.
+> This rule provides comprehensive best practices for Rust development, covering code organization, common patterns, performance, security, testing, pitfalls, and tooling. It aims to guide developers in writing idiomatic, efficient, secure, and maintainable Rust code.
 
-# Rust Intermediate - Additional Patterns
+# Rust Essentials - Must-Have Basics
 
-**Purpose:** Design patterns, architecture, and performance optimizations for real-world applications. Use this when building web APIs, CLI tools, or any application requiring proper structure and scalability.
+**Purpose:** Core quality requirements for reliable Rust code generation. Use this for basic code generation tasks, learning Rust fundamentals, or when you need clean, safe code that compiles without warnings.
 
-**When to use:** Production applications, team projects, systems requiring testing/mocking, async programming, or performance-sensitive code.
+**When to use:** AI code generation, code reviews, teaching Rust basics, or any situation requiring solid foundation patterns.
 
-## Design Patterns
+## Core Quality Requirements
 
-**Rule: Use Builder pattern for structs with 4+ parameters or complex optional configuration.**
-Why: Prevents parameter confusion and enables future extensibility without breaking changes.
+**CRITICAL: All generated Rust code MUST:**
+- Compile without warnings on stable Rust
+- Pass `cargo clippy --deny warnings`
+- Follow `rustfmt` formatting standards
+- Use Rust 2021 edition features
+- Include proper error handling (no production `unwrap()`)
 
+## Error Handling Fundamentals
+
+**Rule: Never use `unwrap()`, `expect()`, or `panic!()` in production code paths.**
+Why: These cause immediate program termination, making your application unreliable. Always return `Result<T, E>` for operations that can fail, allowing callers to decide how to handle errors.
+
+**Use Result<T, E> for all fallible operations:**
 ```rust
-pub struct DatabaseConfig {
-    host: String,
-    port: u16,
-    database: String,
-    pool_size: Option<u32>,
+// ✅ GOOD
+pub fn read_config(path: &Path) -> Result<Config, ConfigError> {
+    let content = fs::read_to_string(path)?;
+    toml::from_str(&content).map_err(ConfigError::ParseError)
 }
 
-impl DatabaseConfig {
-    pub fn builder() -> DatabaseConfigBuilder { DatabaseConfigBuilder::default() }
+// ❌ BAD - never use unwrap() in production
+pub fn read_config(path: &Path) -> Config {
+    let content = fs::read_to_string(path).unwrap();
+    toml::from_str(&content).unwrap()
+}
+```
+
+**Rule: Use doc test features to ensure examples remain accurate and demonstrate different scenarios.**
+Why: Doc tests are automatically run by `cargo test`, ensuring examples never become outdated. Use different doc test attributes to show various use cases and error conditions.
+
+**Run doc tests with:** `cargo test --doc` or `cargo test` (includes all tests)
+
+**Doc test best practices:**
+```rust
+/// Parses configuration from various sources.
+/// 
+/// # Examples
+/// 
+/// Basic usage:
+/// ```
+/// let config = parse_config("app.toml")?;
+/// assert!(config.port > 0);
+/// # Ok::<(), ConfigError>(())
+/// ```
+/// 
+/// This example doesn't run but shows the API:
+/// ```no_run
+/// let config = parse_config("/etc/myapp/config.toml")?;
+/// deploy_with_config(config);
+/// # Ok::<(), Box<dyn std::error::Error>>(())
+/// ```
+/// 
+/// Demonstrating error handling:
+/// ```should_panic
+/// let config = parse_config("nonexistent.toml").unwrap();
+/// ```
+/// 
+/// Hidden setup code (lines starting with #):
+/// ```
+/// # use std::fs;
+/// # fs::write("test.toml", "port = 8080").unwrap();
+/// let config = parse_config("test.toml")?;
+/// assert_eq!(config.port, 8080);
+/// # fs::remove_file("test.toml").unwrap();
+/// # Ok::<(), ConfigError>(())
+/// ```
+pub fn parse_config(path: &str) -> Result<Config, ConfigError> {
+    // Implementation
 }
 
-#[derive(Default)]
-pub struct DatabaseConfigBuilder {
-    host: Option<String>,
-    port: Option<u16>,
-    database: Option<String>,
-    pool_size: Option<u32>,
+**Rule: Create specific error types instead of using generic errors.**
+Why: Specific errors enable proper error handling by callers and provide better debugging information. Use `thiserror` to reduce boilerplate.
+
+**Define custom error types:**
+```rust
+#[derive(Debug, thiserror::Error)]
+pub enum ConfigError {
+    #[error("IO error: {0}")]
+    Io(#[from] std::io::Error),
+    #[error("Parse error: {0}")]
+    ParseError(#[from] toml::de::Error),
+}
+```
+
+**Rule: Use the `?` operator to propagate errors up the call stack.**
+Why: The `?` operator provides clean error propagation without nested match statements. It automatically converts errors using the `From` trait.
+
+**Use the ? operator for error propagation:**
+```rust
+pub fn process_user_data(id: u32) -> Result<UserProfile, UserError> {
+    let user = database::find_user(id)?;  // Propagates database errors
+    let profile = build_profile(&user)?;  // Propagates profile errors
+    Ok(profile)
+}
+```
+
+## Documentation Standards
+
+**Rule: Every public function, struct, and module must have rustdoc comments with working code examples.**
+Why: Documentation is part of the API contract. Good docs prevent misuse, reduce support burden, and make your code maintainable. Code examples are automatically tested by `cargo test`, ensuring documentation stays accurate.
+
+**Every public item needs rustdoc with examples:**
+```rust
+/// Represents a user in the system.
+///
+/// # Examples
+/// 
+/// Creating a valid user:
+/// ```
+/// let user = User::new("alice@example.com", "Alice Smith")?;
+/// assert_eq!(user.email(), "alice@example.com");
+/// assert_eq!(user.name(), "Alice Smith");
+/// # Ok::<(), UserError>(())
+/// ```
+/// 
+/// Handling invalid email:
+/// ```should_panic
+/// let user = User::new("invalid-email", "Alice Smith").unwrap();
+/// ```
+///
+/// # Errors
+/// Returns `UserError::InvalidEmail` if email format is invalid.
+#[derive(Debug, Clone)]
+pub struct User {
+    email: String,
+    name: String,
 }
 
-impl DatabaseConfigBuilder {
-    pub fn host(mut self, host: impl Into<String>) -> Self {
-        self.host = Some(host.into()); self
-    }
-    
-    pub fn build(self) -> Result<DatabaseConfig, BuildError> {
-        Ok(DatabaseConfig {
-            host: self.host.ok_or(BuildError::MissingHost)?,
-            port: self.port.unwrap_or(5432),
-            database: self.database.ok_or(BuildError::MissingDatabase)?,
-            pool_size: self.pool_size,
+impl User {
+    /// Creates a new user with validated email.
+    /// 
+    /// # Examples
+    /// ```
+    /// use my_crate::User;
+    /// 
+    /// let user = User::new("bob@example.com", "Bob Jones")?;
+    /// assert!(user.email().contains("@"));
+    /// # Ok::<(), my_crate::UserError>(())
+    /// ```
+    pub fn new(email: impl Into<String>, name: impl Into<String>) -> Result<Self, UserError> {
+        let email = email.into();
+        validate_email(&email)?;
+        
+        Ok(User {
+            email,
+            name: name.into(),
         })
     }
 }
 ```
 
-**Rule: Use Factory pattern for creating different implementations based on runtime conditions.**
-Why: Decouples object creation from usage, essential for dependency injection and testing.
+## Basic Testing Requirements
 
+**Rule: Write unit tests for all public functions, covering success cases, error cases, and edge cases.**
+Why: Tests prevent regressions, document expected behavior, and enable confident refactoring. Test names should clearly describe what is being tested.
+
+**Include unit tests for all public functions:**
 ```rust
-pub trait UserRepository {
-    fn find_by_id(&self, id: UserId) -> Result<Option<User>, RepositoryError>;
-}
-
-pub enum StorageType { InMemory, Database(String) }
-
-impl RepositoryFactory {
-    pub fn create(storage_type: StorageType) -> Result<Box<dyn UserRepository>, Error> {
-        match storage_type {
-            StorageType::InMemory => Ok(Box::new(InMemoryRepo::new())),
-            StorageType::Database(url) => Ok(Box::new(DatabaseRepo::new(&url)?)),
-        }
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_user_creation_success() {
+        let user = User::new("alice@example.com", "Alice Smith").unwrap();
+        assert_eq!(user.email(), "alice@example.com");
+        assert_eq!(user.name(), "Alice Smith");
+    }
+    
+    #[test]
+    fn test_user_creation_invalid_email() {
+        let result = User::new("invalid-email", "Alice Smith");
+        assert!(result.is_err());
+        assert!(matches!(result.unwrap_err(), UserError::InvalidEmail));
+    }
+    
+    #[test]
+    fn test_edge_case_empty_name() {
+        let result = User::new("test@example.com", "");
+        assert!(result.is_err());
     }
 }
 ```
 
-## Module Organization
+## Struct and Enum Patterns
 
-**Rule: Group related functionality into modules with clear public interfaces.**
-Why: Improves maintainability and enables better encapsulation.
+**Rule: Use appropriate derive traits to automatically implement common functionality.**
+Why: Derive traits reduce boilerplate code, ensure consistent implementations, and prevent bugs that come from manual implementations of traits like `Debug`, `Clone`, and `PartialEq`.
 
+**Use appropriate derives:**
 ```rust
-// lib.rs
-pub mod models;
-pub mod repositories;  
-pub mod services;
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UserId(pub u64);
 
-pub use models::User;
-pub use services::UserService;
-
-// services/user_service.rs
-pub struct UserService<R: UserRepository> {
-    repository: R,
-    validator: UserValidator,
+#[derive(Debug, Clone, PartialEq)]
+pub struct User {
+    pub id: UserId,
+    pub email: String,
+    pub name: String,
 }
 
-impl<R: UserRepository> UserService<R> {
-    pub async fn create_user(&self, request: CreateUserRequest) -> Result<User, UserServiceError> {
-        self.validator.validate(&request)?;
-        
-        if self.repository.exists_by_email(&request.email).await? {
-            return Err(UserServiceError::EmailAlreadyExists);
-        }
-        
-        let user = User::new(request.email, request.name)?;
-        self.repository.save(&user).await?;
-        Ok(user)
+#[derive(Debug, serde::Serialize, serde::Deserialize)]
+pub struct UserCreateRequest {
+    pub email: String,
+    pub name: String,
+}
+```
+
+**Rule: Use enums to represent state and handle mutually exclusive conditions.**
+Why: Enums make invalid states unrepresentable, provide exhaustive pattern matching, and make code more self-documenting. They're safer than constants or booleans for representing state.
+
+**Use enums for state representation:**
+```rust
+#[derive(Debug, Clone, PartialEq)]
+pub enum UserStatus {
+    Active,
+    Inactive,
+    Suspended { reason: String },
+}
+
+#[derive(Debug, Clone)]
+pub enum UserError {
+    InvalidEmail,
+    NameTooShort,
+    EmailAlreadyExists,
+}
+```
+
+## Safety and Input Validation
+
+**Rule: Validate all external inputs before processing them.**
+Why: Invalid inputs are the source of most security vulnerabilities and runtime errors. Validate early and fail fast with clear error messages.
+
+**Always validate external inputs:**
+```rust
+pub fn validate_email(email: &str) -> Result<(), UserError> {
+    if email.is_empty() || !email.contains('@') || email.len() > 254 {
+        return Err(UserError::InvalidEmail);
     }
-}
-```
-
-## Advanced Error Handling
-
-**Rule: Create domain-specific error types with context and use type aliases.**
-Why: Provides better debugging information and cleaner function signatures.
-
-```rust
-#[derive(Debug, thiserror::Error)]
-pub enum UserServiceError {
-    #[error("Validation failed: {0}")]
-    Validation(#[from] ValidationError),
-    #[error("User with email '{email}' already exists")]
-    EmailAlreadyExists { email: String },
-    #[error("Repository error: {0}")]
-    Repository(#[from] RepositoryError),
+    Ok(())
 }
 
-pub type UserResult<T> = Result<T, UserServiceError>;
-
-// Usage becomes cleaner
-pub async fn find_user(&self, id: UserId) -> UserResult<User> {
-    self.repository.find_by_id(id).await?
-        .ok_or_else(|| UserServiceError::UserNotFound { id })
-}
-```
-
-## Enhanced Testing
-
-**Rule: Use parameterized tests and fixtures to reduce test duplication.**
-Why: Provides comprehensive coverage with minimal boilerplate.
-
-```rust
-use rstest::*;
-
-#[rstest]
-#[case("test@example.com", true)]
-#[case("invalid-email", false)]
-#[case("", false)]
-fn test_email_validation(#[case] email: &str, #[case] expected: bool) {
-    assert_eq!(is_valid_email(email), expected);
-}
-
-// Test fixtures
-struct TestSetup {
-    service: UserService<MockUserRepository>,
-}
-
-impl TestSetup {
-    fn new() -> Self {
-        let mock_repo = MockUserRepository::new();
-        let service = UserService::new(mock_repo);
-        Self { service }
+pub fn validate_age(age: u32) -> Result<(), UserError> {
+    if age > 150 {
+        return Err(UserError::InvalidAge);
     }
-}
-
-#[tokio::test]
-async fn test_create_user_success() {
-    let setup = TestSetup::new();
-    // Configure mocks and test...
+    Ok(())
 }
 ```
 
-## Async Programming
+**Rule: Use safe indexing methods instead of direct array/slice indexing.**
+Why: Direct indexing with `[]` can panic if the index is out of bounds. Use `.get()` to return `Option<T>` for safe access.
 
-**Rule: Use async traits for I/O operations and concurrent processing for independent tasks.**
-Why: Enables non-blocking operations and better scalability.
-
+**Use safe indexing:**
 ```rust
-#[async_trait]
-pub trait EmailService: Send + Sync {
-    async fn send_email(&self, to: &str, subject: &str, body: &str) -> Result<(), EmailError>;
+// ✅ GOOD - safe indexing
+pub fn get_first_item<T>(items: &[T]) -> Option<&T> {
+    items.get(0)
 }
 
-// Concurrent processing
-use futures::future::join_all;
-
-pub async fn process_users_concurrently<F, Fut>(
-    users: Vec<User>,
-    processor: F,
-) -> Vec<Result<ProcessedUser, ProcessError>>
-where
-    F: Fn(User) -> Fut + Clone,
-    Fut: Future<Output = Result<ProcessedUser, ProcessError>>,
-{
-    let futures = users.into_iter().map(processor).collect::<Vec<_>>();
-    join_all(futures).await
+// ❌ BAD - can panic
+pub fn get_first_item<T>(items: &[T]) -> &T {
+    &items[0]
 }
 ```
 
-## Performance Patterns
+**Rule: Use checked arithmetic operations to prevent integer overflow.**
+Why: Integer overflow is undefined behavior in release builds and can lead to security vulnerabilities. Checked operations return `Option` or `Result` allowing you to handle overflow gracefully.
 
-**Rule: Pre-allocate collections and use caching with read-write locks.**
-Why: Reduces allocations and improves throughput under concurrent load.
-
+**Handle integer operations safely:**
 ```rust
-// Pre-allocation
-pub fn build_user_list(users: &[User]) -> String {
-    let mut result = String::with_capacity(users.len() * 50);
-    for user in users {
-        use std::fmt::Write;
-        writeln!(result, "{}: {}", user.name(), user.email()).unwrap();
-    }
-    result
-}
-
-// Caching pattern
-use tokio::sync::RwLock;
-
-pub struct CachedUserService<R: UserRepository> {
-    repository: R,
-    cache: Arc<RwLock<HashMap<UserId, Arc<User>>>>,
-}
-
-impl<R: UserRepository> CachedUserService<R> {
-    pub async fn get_user(&self, id: UserId) -> UserResult<Arc<User>> {
-        // Try cache first
-        if let Some(user) = self.cache.read().await.get(&id) {
-            return Ok(Arc::clone(user));
-        }
-        
-        // Cache miss - fetch and store
-        let user = self.repository.find_by_id(id).await?
-            .ok_or_else(|| UserServiceError::UserNotFound { id })?;
-        let user_arc = Arc::new(user);
-        self.cache.write().await.insert(id, Arc::clone(&user_arc));
-        Ok(user_arc)
-    }
+pub fn calculate_total_price(quantity: u32, unit_price: u32) -> Result<u32, CalculationError> {
+    quantity
+        .checked_mul(unit_price)
+        .ok_or(CalculationError::Overflow)
 }
 ```
 
-## Additional Dependencies
+## Basic Performance Guidelines
 
-**Rule: Add intermediate-level dependencies for async programming and enhanced testing.**
-Why: These dependencies enable advanced patterns covered in this rule set.
+**Rule: Prefer borrowing (&T) over taking ownership (T) when you don't need to own the data.**
+Why: Borrowing avoids unnecessary memory allocations and copying, leads to better performance, and allows the same data to be used by multiple functions without cloning.
 
-**Add these to the base Cargo.toml from project-setup.md:**
+**Prefer borrowing over cloning:**
+```rust
+// ✅ GOOD - uses references
+pub fn format_user_info(user: &User) -> String {
+    format!("{} <{}>", user.name(), user.email())
+}
+
+// ❌ BAD - unnecessary cloning
+pub fn format_user_info(user: User) -> String {
+    format!("{} <{}>", user.name(), user.email())
+}
+```
+
+**Rule: Choose data structures based on their performance characteristics and access patterns.**
+Why: The right data structure can dramatically improve performance. HashMap for fast lookups, Vec for sequential access, HashSet for uniqueness checks, VecDeque for queue operations.
+
+**Choose appropriate data structures:**
+```rust
+use std::collections::{HashMap, HashSet, VecDeque};
+
+pub struct UserManager {
+    users: HashMap<UserId, User>,      // Fast lookups
+    active_sessions: HashSet<UserId>,  // Unique values
+    pending_requests: VecDeque<Request>, // Queue operations
+}
+```
+
+## Essential Cargo.toml
+
+**Rule: Configure basic project metadata and essential dependencies.**
+Why: Proper configuration ensures reproducible builds and includes necessary dependencies for error handling and testing.
+
+**Use the comprehensive Cargo.toml template from project-setup.md - this section covers only the essential additions:**
+
 ```toml
 [dependencies]
-async-trait = "0.1"     # Async traits
-futures = "0.3"         # Async utilities
-tokio = { version = "1.0", features = ["rt-multi-thread", "macros"] }
+thiserror = "1.0"    # Error handling
+serde = { version = "1.0", features = ["derive"] }
 
 [dev-dependencies]
-mockall = "0.11"        # Mocking
+rstest = "0.18"      # Better testing
 ```
+
+## Code Generation Checklist
+
+Before outputting Rust code, verify:
+- [ ] Compiles without warnings
+- [ ] Uses Result<T, E> for fallible operations
+- [ ] No unwrap() in production paths
+- [ ] Public items have rustdoc comments with working examples
+- [ ] Doc tests demonstrate both success and error cases
+- [ ] Includes basic unit tests
+- [ ] Uses appropriate derives
+- [ ] Validates external inputs
+- [ ] Follows naming conventions (snake_case, etc.)
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
