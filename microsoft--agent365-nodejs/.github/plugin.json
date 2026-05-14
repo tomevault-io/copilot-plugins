@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--agent365-nodejs",
+  "displayName": "Agent365-nodejs",
+  "description": "Agent365-nodejs",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Agent365-nodejs",
+  "skills": []
+}
