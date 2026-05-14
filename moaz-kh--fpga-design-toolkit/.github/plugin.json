@@ -1,0 +1,9 @@
+{
+  "name": "moaz-kh--fpga-design-toolkit",
+  "displayName": "fpga-design-toolkit",
+  "description": "FPGA design toolkit with templates and standard modules",
+  "version": "1.0.0",
+  "author": "moaz-kh",
+  "homepage": "https://github.com/moaz-kh/fpga-design-toolkit",
+  "skills": []
+}
