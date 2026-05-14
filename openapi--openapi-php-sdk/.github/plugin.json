@@ -1,0 +1,9 @@
+{
+  "name": "openapi--openapi-php-sdk",
+  "displayName": "openapi-php-sdk",
+  "description": "\ud83d\udc18 A fully-featured and blazing-fast PHP API client to interact with @Openapi\u00ae",
+  "version": "1.0.0",
+  "author": "openapi",
+  "homepage": "https://github.com/openapi/openapi-php-sdk",
+  "skills": []
+}
