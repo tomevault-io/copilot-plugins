@@ -1,0 +1,9 @@
+{
+  "name": "nicdun--value-investing-ai-agent",
+  "displayName": "value-investing-ai-agent",
+  "description": "AI-powered stock analysis tool that provides comprehensive fundamental research using Alpha Vantage API and advanced language models.",
+  "version": "1.0.0",
+  "author": "nicdun",
+  "homepage": "https://github.com/nicdun/value-investing-ai-agent",
+  "skills": []
+}
