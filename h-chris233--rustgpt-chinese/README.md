@@ -7,11 +7,11 @@ RustGPT的中文版，同时做了大量改进(性能优化，多头自注意力
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [H-Chris233/RustGPT-Chinese](https://github.com/H-Chris233/RustGPT-Chinese).
+Original source: `CLAUDE.md` in [H-Chris233/RustGPT-Chinese](https://github.com/H-Chris233/RustGPT-Chinese).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
