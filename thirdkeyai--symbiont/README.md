@@ -7,11 +7,11 @@ Rust-native runtime for executing AI agents and tools under explicit policy, ide
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ThirdKeyAI/Symbiont](https://github.com/ThirdKeyAI/Symbiont).
+Original source: `CLAUDE.md` in [ThirdKeyAI/Symbiont](https://github.com/ThirdKeyAI/Symbiont).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
