@@ -1,9 +1,9 @@
 {
   "name": "untamed-theory--vibesec",
   "displayName": "vibesec",
-  "description": "vibesec",
+  "description": "Security Rules & Workflows for the new wave of AI Development.",
   "version": "1.0.0",
   "author": "untamed-theory",
-  "homepage": "https://tomevault.io/claim/untamed-theory",
+  "homepage": "https://github.com/untamed-theory/vibesec",
   "skills": []
 }
