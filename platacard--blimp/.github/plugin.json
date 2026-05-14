@@ -1,0 +1,9 @@
+{
+  "name": "platacard--blimp",
+  "displayName": "blimp",
+  "description": "Finally, Swift deploy automation for Apple platforms.",
+  "version": "1.0.0",
+  "author": "platacard",
+  "homepage": "https://github.com/platacard/blimp",
+  "skills": []
+}
