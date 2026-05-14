@@ -1,0 +1,9 @@
+{
+  "name": "gokr--niffler",
+  "displayName": "niffler",
+  "description": "Command line AI assistant written in Nim",
+  "version": "1.0.0",
+  "author": "gokr",
+  "homepage": "https://github.com/gokr/niffler",
+  "skills": []
+}
