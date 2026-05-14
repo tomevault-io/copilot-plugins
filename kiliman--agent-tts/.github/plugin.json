@@ -1,0 +1,9 @@
+{
+  "name": "kiliman--agent-tts",
+  "displayName": "agent-tts",
+  "description": "Real-time text-to-speech for AI coding assistants - talk with Claude, OpenCode, and other agents",
+  "version": "1.0.0",
+  "author": "kiliman",
+  "homepage": "https://github.com/kiliman/agent-tts",
+  "skills": []
+}
