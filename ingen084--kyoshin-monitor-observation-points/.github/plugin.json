@@ -1,0 +1,14 @@
+{
+  "name": "ingen084--kyoshin-monitor-observation-points",
+  "displayName": "kyoshin",
+  "description": "\u5f37\u9707\u30e2\u30cb\u30bf\u306e\u89b3\u6e2c\u70b9\u60c5\u5831",
+  "version": "1.0.0",
+  "author": "ingen084",
+  "homepage": "https://github.com/ingen084/kyoshin-monitor-observation-points",
+  "skills": [
+    {
+      "name": "creating-claude-code-skills",
+      "description": ""
+    }
+  ]
+}
