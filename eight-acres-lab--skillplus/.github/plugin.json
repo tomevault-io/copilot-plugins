@@ -1,0 +1,9 @@
+{
+  "name": "eight-acres-lab--skillplus",
+  "displayName": "skillplus",
+  "description": "A compilable skill package standard for reliable content-generation agents.",
+  "version": "1.0.0",
+  "author": "eight-acres-lab",
+  "homepage": "https://github.com/eight-acres-lab/skillplus",
+  "skills": []
+}
