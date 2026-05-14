@@ -1,0 +1,9 @@
+{
+  "name": "rustic-ai--codeprism",
+  "displayName": "codeprism",
+  "description": "An experimental, 100% AI-generated, high-performance code intelligence server providing AI assistants with a graph-based understanding of codebases.",
+  "version": "1.0.0",
+  "author": "rustic-ai",
+  "homepage": "https://github.com/rustic-ai/codeprism",
+  "skills": []
+}
