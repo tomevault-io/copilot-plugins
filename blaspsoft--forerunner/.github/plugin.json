@@ -1,0 +1,9 @@
+{
+  "name": "blaspsoft--forerunner",
+  "displayName": "forerunner",
+  "description": "\ud83c\udfd7\ufe0f\u2728 Define structured output schemas for LLMs using Laravel's familiar migration syntax",
+  "version": "1.0.0",
+  "author": "Blaspsoft",
+  "homepage": "https://github.com/Blaspsoft/forerunner",
+  "skills": []
+}
