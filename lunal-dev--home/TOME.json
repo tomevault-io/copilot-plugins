@@ -1,0 +1,44 @@
+{
+  "name": "home",
+  "owner": "lunal-dev",
+  "repo": "home",
+  "description": "Confidential is software for private, secure AI workloads, agents, and inference. It lets you provide on-prem security and privacy guarantees on your off-prem hosted infrastructure. It protects data and models in use with Trusted Execution Environments (TEEs). It runs on your existing hardware.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lunal-dev/home",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T05:20:54Z"
+}
