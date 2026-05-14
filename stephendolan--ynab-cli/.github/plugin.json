@@ -1,0 +1,9 @@
+{
+  "name": "stephendolan--ynab-cli",
+  "displayName": "ynab-cli",
+  "description": "Command-line interface for YNAB (You Need a Budget) - JSON output optimized for LLMs and developers",
+  "version": "1.0.0",
+  "author": "stephendolan",
+  "homepage": "https://github.com/stephendolan/ynab-cli",
+  "skills": []
+}
