@@ -1,0 +1,9 @@
+{
+  "name": "calvinw--strudel-llm-docs",
+  "displayName": "strudel-llm-docs",
+  "description": "Documentation and examples for LLM-assisted Strudel live  coding composition",
+  "version": "1.0.0",
+  "author": "calvinw",
+  "homepage": "https://github.com/calvinw/strudel-llm-docs",
+  "skills": []
+}
