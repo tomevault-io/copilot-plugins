@@ -1,0 +1,44 @@
+{
+  "name": "SoulSpeak",
+  "owner": "chengzi0103",
+  "repo": "SoulSpeak",
+  "description": "**SoulSpeak** is an emotionally driven AI companion framework that brings the voice of loved ones back into your life. By combining custom speech synthesis (TTS), large language models (LLMs), and memory-based dialogue systems, SoulSpeak offers a deeply personal, soothing voice experience \u2014 in Chinese and English.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chengzi0103/SoulSpeak",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T01:02:53Z"
+}
