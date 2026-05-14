@@ -1,0 +1,9 @@
+{
+  "name": "diraneyya--claude-teach",
+  "displayName": "claude-teach",
+  "description": "A prompt for helping Claude act as a teacher not a fixer.",
+  "version": "1.0.0",
+  "author": "diraneyya",
+  "homepage": "https://github.com/diraneyya/claude-teach",
+  "skills": []
+}
