@@ -1,0 +1,9 @@
+{
+  "name": "sapeet--claude-code-usage-monitor-macos",
+  "displayName": "claude-code-usage-monitor-macos",
+  "description": "Claude Code Usage Monitor on macOS Menubar",
+  "version": "1.0.0",
+  "author": "Sapeet",
+  "homepage": "https://github.com/Sapeet/claude-code-usage-monitor-macos",
+  "skills": []
+}
