@@ -1,0 +1,9 @@
+{
+  "name": "done-0--gin-scaffold",
+  "displayName": "gin-scaffold",
+  "description": "Gin-Scaffold is a modern Go web service scaffolding built on the high-performance Gin framework, designed for medium to large-scale enterprise projects. It integrates mainstream development tools, bes",
+  "version": "1.0.0",
+  "author": "Done-0",
+  "homepage": "https://github.com/Done-0/gin-scaffold",
+  "skills": []
+}
