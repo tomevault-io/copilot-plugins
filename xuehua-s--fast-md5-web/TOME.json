@@ -4,7 +4,7 @@
   "repo": "fast-md5-web",
   "description": "Leveraging WebAssembly (WASM) and shared buffers, this library offers blazing-fast MD5 hash calculations for large files directly in the browser.  Synchronous Mode: Up to 8x faster than Spark-MD5.  Multi-threaded Mode: Up to 16x faster in specific scenarios with a worker pool.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XueHua-s/fast-md5-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:52:36Z"
+  "distributed_at": "2026-05-14T08:07:44Z"
 }
