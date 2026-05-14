@@ -1,0 +1,9 @@
+{
+  "name": "mathematic-inc--claude-tools-mcp",
+  "displayName": "claude-tools-mcp",
+  "description": "MCP server that exposes Claude Code's file and shell tools (bash, read, write, edit, glob, grep) over HTTP for remote use by any MCP client",
+  "version": "1.0.0",
+  "author": "mathematic-inc",
+  "homepage": "https://github.com/mathematic-inc/claude-tools-mcp",
+  "skills": []
+}
