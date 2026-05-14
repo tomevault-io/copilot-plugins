@@ -1,0 +1,44 @@
+{
+  "name": "slopless",
+  "owner": "BioInfo",
+  "repo": "slopless",
+  "description": "Production-tested CLAUDE.md and rules that make Claude Code write better code and more human text. Anti-AI-slop writing system, behavioral guidelines, and model routing.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BioInfo/slopless",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T01:53:49Z"
+}
