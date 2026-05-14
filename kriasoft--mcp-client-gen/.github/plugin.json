@@ -1,0 +1,9 @@
+{
+  "name": "kriasoft--mcp-client-gen",
+  "displayName": "mcp-client-gen",
+  "description": "Turn any MCP server into a type-safe TypeScript SDK in seconds - with    OAuth 2.1 and multi-provider support",
+  "version": "1.0.0",
+  "author": "kriasoft",
+  "homepage": "https://github.com/kriasoft/mcp-client-gen",
+  "skills": []
+}
