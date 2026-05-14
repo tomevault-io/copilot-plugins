@@ -1,81 +1,78 @@
-## vibesec
+## windsurf-rules-best-practices
 
-> Guidelines for creating and maintaining Cursor rules
+> Guidelines for creating and maintaining Windsurf rules and workflows
 
 
-# 🖊️ Cursor Rules – Best Practices
+# 🪁 Windsurf Rules & Workflows – Best Practices
 
-## Rule Creation & Structure
+## Rule Design Principles
 
-- **Directory Location**: The canonical rules live in the `definitions/` directory, while the Cursor-specific rules are automatically generated in the `rules/cursor/` directory.
-- **Format**: Use MDC (Markdown with Code) format with YAML front-matter for Cursor rules.
-- **Essential Front-matter Fields**:
+- **Atomic Scope**: Each rule should have a single, clear purpose. One purpose per rule file.
+- **Concrete Examples**: Provide specific examples and code snippets rather than abstract descriptions.
+- **Clear Description**: Include a short front-matter description explaining the purpose and intent of each rule.
+- Include the "trigger" section, and always default to "trigger: manual" at the top of every Windsurf rule. Example Header
   ```yaml
   ---
+  trigger: manual
+  ---
+
+  ```
+- Available rule trigger options:
+  - manual
+  - always_on
+  - model_decision
+  - glob
+
+## Rule Structure
+
+- **Front Matter**: Every rule file should begin with YAML front matter containing metadata:
+  ```yaml
+  ---
+  title: Rule Title
   description: Brief description of rule purpose
-  globs: ["path/to/files/**/*.ext"]  # Patterns of files this rule applies to
-  alwaysApply: false  # Whether rule should be automatically applied
+  author: Untamed Theory
+  date: YYYY-MM-DD
+  version: 1.0
   ---
   ```
+- The author in the rule metadata should always be "Untamed Theory" for rules generated using this prompt. 
+- **File Organization**: Keep a consistent directory structure. The canonical rules live in the `definitions/` directory, while the compiled rules for Windsurf are in `rules/windsurf/`:
+  ```
+  definitions/
+  ├── frontend/           # Frontend security rules
+  ├── backend/            # Backend & API security rules
+  ├── database/           # Database security rules
+  ├── infrastructure/     # Infrastructure & DevOps security rules
+  ├── ai/                 # AI & LLM security rules
+  ├── supply-chain/       # Supply chain security rules
+  └── general/            # Cross-cutting security principles
+  ```
+  
+  ```
+  rules/
+  └── windsurf/          # Windsurf-specific rules
+      ├── frontend/      # Frontend security rules
+      ├── backend/       # Backend & API security rules
+      └── ...            # Other component directories
+  ```
 
-## Rule Management
+## Workflow Best Practices
 
-- **Modularity**: Break complex logic into small, focused rules for better maintainability.
-- **Reference Files**: Include reference files (e.g., `@config.yaml`, `@model.ts`) to help the AI learn structure.
-- **Application Modes**: Choose appropriate rule modes:
-  - `alwaysApply`: Applied to every matching file automatically
-  - `auto-attach`: Attached when certain conditions are met
-  - `agent-requested`: Used when AI agent determines it's needed
-  - `manual`: Applied only when explicitly requested
-
-- **Size Constraints**: Keep each rule under 500 lines and easily explainable by the AI.
-
-## Naming & Documentation
-
-- **Clear Names**: Use clear, imperative rule names (e.g., "Use company-wide logging format").
-- **Version Control**: Store rules with version control and treat them like internal documentation.
-- **Accessibility**: Ensure teammates can quickly pull a rule into AI context using `@Cursor Rules`.
-
-## Directory Structure
-
-```
-definitions/
-├── frontend/           # Frontend security rules
-├── backend/            # Backend & API security rules
-├── database/           # Database security rules
-├── infrastructure/     # Infrastructure & DevOps security rules
-├── ai/                 # AI & LLM security rules
-├── supply-chain/       # Supply chain security rules
-└── general/            # Cross-cutting security principles
-```
-
-```
-rules/
-└── cursor/             # Cursor-specific rules
-    ├── frontend/        # Frontend security rules
-    ├── backend/         # Backend & API security rules
-    └── ...             # Other component directories
-```
+- **Conciseness**: Keep workflows clear and focused (≤ 7 steps per workflow).
+- **Step Titles**: Use descriptive `title:` fields on each step for clarity.
+- **Early Inputs**: Prompt for required inputs early in the workflow.
+- **Automation Mindset**: Design workflows as AI-enhanced CI jobs, automating repeatable processes.
+- **Source Control**: Store workflows in `.windsurf/workflows/` and track them via source control.
 
 ## Implementation Guidelines
 
-- **Specificity**: Make rules as specific as possible to avoid false positives.
-- **Examples**: Include examples of both correct and incorrect implementations.
-- **Error Messages**: Provide clear, actionable error messages.
-- **Maintenance**: Regularly review and update rules to match evolving project standards.
-
-## Best Practices for Rule Content
-
-- **Context**: Provide sufficient context for the AI to understand the rule's purpose.
-- **Clarity**: Use clear, concise language in explanations.
-- **Examples**: Include concrete examples showing how the rule should be applied.
-- **Exceptions**: Document any exceptions to the rule and how they should be handled.
+- **Documentation**: Include comments explaining complex logic or non-obvious decisions.
 
 ## Additional Resources
 
-- [Cursor Documentation](https://docs.example.com/cursor)
-- [Rule Development Guide](https://docs.example.com/cursor/rule-development)
+- [Windsurf Documentation](https://docs.example.com/windsurf)
+- [Rule Development Guide](https://docs.example.com/windsurf/rule-development)
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/untamed-theory) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [untamed-theory/vibesec](https://github.com/untamed-theory/vibesec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
