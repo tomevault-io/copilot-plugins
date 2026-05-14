@@ -1,0 +1,9 @@
+{
+  "name": "openapi--openapi-nodejs-sdk",
+  "displayName": "openapi-nodejs-sdk",
+  "description": "\ud83d\udc22 A fully-featured and blazing-fast Node.js API client to interact with @Openapi\u00ae",
+  "version": "1.0.0",
+  "author": "openapi",
+  "homepage": "https://github.com/openapi/openapi-nodejs-sdk",
+  "skills": []
+}
