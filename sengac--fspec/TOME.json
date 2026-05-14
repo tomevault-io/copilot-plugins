@@ -4,7 +4,7 @@
   "repo": "fspec",
   "description": "FSPEC: The Spec-Driven, Multi-Agent Coding Factory. It is infrastructure for the \"Dark Factory\"\u2014the emerging model of fully autonomous software development where AI agents handle all implementation while humans focus on defining what to build and why.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sengac/fspec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:42:31Z"
+  "distributed_at": "2026-05-14T04:18:41Z"
 }
