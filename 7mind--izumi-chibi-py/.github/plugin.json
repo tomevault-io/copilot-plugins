@@ -1,0 +1,9 @@
+{
+  "name": "7mind--izumi-chibi-py",
+  "displayName": "izumi-chibi-py",
+  "description": "A simplified port of DIStage phased dependency injection for Python",
+  "version": "1.0.0",
+  "author": "7mind",
+  "homepage": "https://github.com/7mind/izumi-chibi-py",
+  "skills": []
+}
