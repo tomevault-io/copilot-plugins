@@ -1,0 +1,9 @@
+{
+  "name": "eiskrenkov--fino",
+  "displayName": "fino",
+  "description": "Plug & play distributed settings engine for Ruby and Rails",
+  "version": "1.0.0",
+  "author": "eiskrenkov",
+  "homepage": "https://github.com/eiskrenkov/fino",
+  "skills": []
+}
