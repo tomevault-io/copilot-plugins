@@ -1,0 +1,9 @@
+{
+  "name": "moellere--wirestudio",
+  "displayName": "WireStudio",
+  "description": "Design studio for creating esphome devices.",
+  "version": "1.0.0",
+  "author": "moellere",
+  "homepage": "https://github.com/moellere/WireStudio",
+  "skills": []
+}
