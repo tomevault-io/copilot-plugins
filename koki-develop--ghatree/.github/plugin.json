@@ -1,0 +1,9 @@
+{
+  "name": "koki-develop--ghatree",
+  "displayName": "ghatree",
+  "description": "\ud83c\udf32 Visualize GitHub Actions workflow dependencies as a tree structure.",
+  "version": "1.0.0",
+  "author": "koki-develop",
+  "homepage": "https://github.com/koki-develop/ghatree",
+  "skills": []
+}
