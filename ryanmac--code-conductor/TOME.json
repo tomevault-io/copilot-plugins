@@ -1,0 +1,44 @@
+{
+  "name": "code-conductor",
+  "owner": "ryanmac",
+  "repo": "code-conductor",
+  "description": "Ship 10x faster by running multiple Claude Code sub agents in parallel. GitHub-native orchestration for AI coding agents\u2014no conflicts, no complexity, just pure parallelized productivity.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ryanmac/code-conductor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T03:43:01Z"
+}
