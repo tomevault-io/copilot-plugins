@@ -1,0 +1,26 @@
+{
+  "name": "vizzly-testing--cli",
+  "displayName": "cli",
+  "description": "Visual testing CLI with local TDD workflow. Catch UI bugs before you commit.",
+  "version": "1.0.0",
+  "author": "vizzly-testing",
+  "homepage": "https://github.com/vizzly-testing/cli",
+  "skills": [
+    {
+      "name": "check-visual-tests",
+      "description": ""
+    },
+    {
+      "name": "debug-visual-regression",
+      "description": ""
+    },
+    {
+      "name": "visual-testing-philosophy",
+      "description": ""
+    },
+    {
+      "name": "vizzly-knowledge",
+      "description": ""
+    }
+  ]
+}
