@@ -1,0 +1,9 @@
+{
+  "name": "ljw1004--mini-agent",
+  "displayName": "mini_agent",
+  "description": "A mini AI agent CLI, similar to Claude Code and Gemini CLI",
+  "version": "1.0.0",
+  "author": "ljw1004",
+  "homepage": "https://github.com/ljw1004/mini_agent",
+  "skills": []
+}
