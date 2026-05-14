@@ -1,0 +1,9 @@
+{
+  "name": "dnnyngyen--gemini-cli-orchestrator",
+  "displayName": "gemini-cli-orchestrator",
+  "description": "An MCP server that allows Claude Code orchestrate Gemini for analysis and context-heavy tasks.",
+  "version": "1.0.0",
+  "author": "dnnyngyen",
+  "homepage": "https://github.com/dnnyngyen/gemini-cli-orchestrator",
+  "skills": []
+}
