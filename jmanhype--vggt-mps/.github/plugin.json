@@ -1,0 +1,9 @@
+{
+  "name": "jmanhype--vggt-mps",
+  "displayName": "vggt-mps",
+  "description": "VGGT 3D Vision Agent optimized for Apple Silicon with Metal Performance Shaders",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/vggt-mps",
+  "skills": []
+}
