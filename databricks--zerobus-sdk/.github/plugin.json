@@ -1,0 +1,9 @@
+{
+  "name": "databricks--zerobus-sdk",
+  "displayName": "zerobus-sdk",
+  "description": "Databricks's Zerobus Ingest SDKs",
+  "version": "1.0.0",
+  "author": "databricks",
+  "homepage": "https://github.com/databricks/zerobus-sdk",
+  "skills": []
+}
