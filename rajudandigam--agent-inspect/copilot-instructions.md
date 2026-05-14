@@ -1,11 +1,37 @@
-## architecture
+## agent-inspect
 
-> agent-inspect architecture and product context
+> - **Product, architecture, MVP scope, public API, data model, JSONL schema:** repo top-level docs (start with `README.md`)
+
+# agent-inspect — Cursor guardrails
+
+## Source of truth
+
+- **Product, architecture, MVP scope, public API, data model, JSONL schema:** repo top-level docs (start with `README.md`)
+- **Step-by-step implementation sequence:** follow the repo’s implementation guide (if present) and existing patterns in `packages/`
+
+## MVP drift (do not implement unless the PRD explicitly promotes it)
+
+- No SQLite
+- No replay
+- No token counting
+- No cost calculation
+- No framework adapters
+- No browser dashboard
+- No OpenTelemetry
+- No plugin system
+- No general-purpose logger API
+
+agent-inspect must not become a logger library. The core concept is an **execution tree of steps**.
+
+## Engineering requirements
+
+- **TypeScript:** strict mode; match repo `tsconfig` settings.
+- **Tests:** add or update tests when implementation behavior changes.
+- **Instrumentation safety:** tracing, stepping, or observation must never throw into user code in a way that breaks the agent; failures degrade gracefully (see PRD).
 
 
-# agent-inspect
-
-agent-inspect is a **local-first execution-tree debugger for TypeScript AI agents**. Before implementing or reviewing features, read the repo’s top-level docs (starting with `README.md`) and follow the established MVP scope and guardrails.
+## General guidance
+Please ask questions and get clarify if you are not clear on any decisions or implementations. 
 
 ---
 > Source: [rajudandigam/agent-inspect](https://github.com/rajudandigam/agent-inspect) — distributed by [TomeVault](https://tomevault.io).
