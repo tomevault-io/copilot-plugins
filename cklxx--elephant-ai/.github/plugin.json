@@ -1,0 +1,38 @@
+{
+  "name": "cklxx--elephant-ai",
+  "displayName": "elephant.ai",
+  "description": "A leader agent for attention-heavy work.",
+  "version": "1.0.0",
+  "author": "cklxx",
+  "homepage": "https://github.com/cklxx/elephant.ai",
+  "skills": [
+    {
+      "name": "auto-skill-creation",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "config-management",
+      "description": ""
+    },
+    {
+      "name": "desktop-automation",
+      "description": ""
+    },
+    {
+      "name": "moltbook-posting",
+      "description": ""
+    },
+    {
+      "name": "self-test",
+      "description": ""
+    },
+    {
+      "name": "task-delegation",
+      "description": ""
+    }
+  ]
+}
