@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--sql-workbench-embedded",
+  "displayName": "sql-workbench-embedded",
+  "description": "Lightweight JavaScript library that transforms static SQL code blocks into interactive, browser-based SQL execution environments using DuckDB WASM",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/sql-workbench-embedded",
+  "skills": []
+}
