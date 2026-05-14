@@ -7,11 +7,11 @@ Grid Trading Assistant. 网格交易助手
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jorben/grider](https://github.com/jorben/grider).
+Original source: `CLAUDE.md` in [jorben/grider](https://github.com/jorben/grider).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
