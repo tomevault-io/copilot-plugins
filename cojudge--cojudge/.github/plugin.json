@@ -1,0 +1,9 @@
+{
+  "name": "cojudge--cojudge",
+  "displayName": "cojudge",
+  "description": "Solve classic LeetCode problems complete offline. No discussion forum, no LLM assistant, not even the internet. Solve the curated list with just you, the problem and the offline judge.",
+  "version": "1.0.0",
+  "author": "cojudge",
+  "homepage": "https://github.com/cojudge/cojudge",
+  "skills": []
+}
