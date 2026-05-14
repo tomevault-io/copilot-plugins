@@ -1,0 +1,9 @@
+{
+  "name": "lacerbi--web-txt2img",
+  "displayName": "web-txt2img",
+  "description": "Generate images from text prompts directly in the browser using open-weights AI models",
+  "version": "1.0.0",
+  "author": "lacerbi",
+  "homepage": "https://github.com/lacerbi/web-txt2img",
+  "skills": []
+}
