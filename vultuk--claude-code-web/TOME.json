@@ -4,7 +4,7 @@
   "repo": "claude-code-web",
   "description": "Web-based interface for Claude Code CLI with multi-session support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vultuk/claude-code-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:37:25Z"
+  "distributed_at": "2026-05-14T05:30:37Z"
 }
