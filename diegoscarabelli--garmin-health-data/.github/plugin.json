@@ -1,0 +1,9 @@
+{
+  "name": "diegoscarabelli--garmin-health-data",
+  "displayName": "garmin-health-data",
+  "description": "A simple Python CLI to extract Garmin Connect data and save it to a SQLite database file",
+  "version": "1.0.0",
+  "author": "diegoscarabelli",
+  "homepage": "https://github.com/diegoscarabelli/garmin-health-data",
+  "skills": []
+}
