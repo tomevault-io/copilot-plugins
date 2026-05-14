@@ -7,11 +7,11 @@ iOS & watchOS speech-to-text app with AI voice keyboard, on-device RAG, and chat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [n0an/VivaDicta](https://github.com/n0an/VivaDicta).
+Original source: `CLAUDE.md` in [n0an/VivaDicta](https://github.com/n0an/VivaDicta).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
