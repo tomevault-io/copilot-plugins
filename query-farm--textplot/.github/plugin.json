@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--textplot",
+  "displayName": "textplot",
+  "description": "A DuckDB community extension that enables text-based data visualization directly in SQL queries, including ASCII/Unicode bar charts, density plots, and sparklines for lightweight analytics and dashboa",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/textplot",
+  "skills": []
+}
