@@ -1,0 +1,9 @@
+{
+  "name": "decartai--sidekick",
+  "displayName": "sidekick",
+  "description": "Open source video call conversational bot",
+  "version": "1.0.0",
+  "author": "DecartAI",
+  "homepage": "https://github.com/DecartAI/sidekick",
+  "skills": []
+}
