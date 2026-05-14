@@ -1,116 +1,112 @@
 ## gemini-md
 
-> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > > > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
-## social-media-kit
+## claude-md
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
-# CLAUDE.md
+# claude-md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
-## Development Commands
+## Usage
 
-### Core Commands
-- `npm run dev` - Start Vite development server (frontend only)
-- `npm run server` - Start Express.js backend server
-- `npm run build` - TypeScript compilation + Vite production build
-- `npm start` - Full production build and server start (kills port 3000 first)
+Add this to your project's CLAUDE.md to activate this skill:
 
-### Development Workflow
-For development mode, run both servers concurrently:
-1. Terminal 1: `npm run server` (backend on port 3000)
-2. Terminal 2: `npm run dev` (frontend dev server with hot reload)
+```
+Read and follow the instructions in .claude/skills/claude-md/SKILL.md
+```
 
-### Testing & Quality
-- `npm test` - Run Jest test suite
-- `npm run test:watch` - Jest in watch mode
-- `npm run test:coverage` - Generate coverage report (70% minimum threshold)
-- `npm run test:server` - Run server-specific tests
-- `npm run lint` - ESLint code quality checks
-- `npm run lint:fix` - Auto-fix ESLint issues
-- `npm run type-check` - TypeScript type checking without emit
-- `npm run format` - Prettier code formatting
-- `npm run format:check` - Check Prettier formatting
+Or copy the instructions below directly into your CLAUDE.md:
 
-## Architecture Overview
+# Operating instructions for an AI-instructed company
 
-### Monolithic Frontend Pattern
-The main application logic is contained in `src/App.tsx` (~6,700 lines) which handles:
-- OAuth authentication flows for 4 platforms (LinkedIn, Twitter/X, Mastodon, Bluesky)
-- Real-time text editing with Unicode formatting
-- Platform-specific content adaptation and posting
-- Unified tagging system with autocomplete
-- Post scheduling, reminders, and management
+> Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
-### Hybrid OAuth Architecture
-The Express.js server (`server.js`) implements multiple OAuth flows:
-- **LinkedIn**: OAuth 2.0 with `w_member_social` scope
-- **Twitter/X**: Hybrid OAuth 2.0 for tweets + OAuth 1.0a for media uploads
-- **Mastodon**: OAuth 2.0 with instance-specific configuration
-- **Bluesky**: App password authentication via AT Protocol
+## What this company runs on
 
-### Utility Organization
-Core functionality is modularized in `src/utils/`:
-- `textFormatting.ts` - Unicode character conversion (bold/italic)
-- `tagging.ts` - Unified `@{Person Name}` tagging system with platform conversion
-- `bluesky-facets.ts` - AT Protocol facet handling for Bluesky
+Three layers:
 
-### Platform Abstraction
-Text processing includes platform-specific adaptations:
-- Character limits: LinkedIn (3,000), Twitter (280/25,000), Mastodon (500), Bluesky (300)
-- Tag format conversion: `@{Person Name}` → platform-specific mentions
-- Smart chunking at sentence/paragraph boundaries for long content
+1. **Skills** at `skills/` — patterns the agent loads when the named situation arises. Don't re-invent these patterns from session memory; load the file.
+2. **A justfile** at the repo root — discoverable commands for repeatable runbooks. `just --list` shows the surface.
+3. **Constitutional documents** in `constitutions/` (operator-owned, agent-read-only) — strategy, design principles, non-goals. Agents propose amendments; operators ratify by editing the canonical file.
 
-## Key Technical Details
+The three layers compose. Skills inform judgment, justfile recipes execute deterministic procedures, constitutions hold the strategic invariants. Don't conflate them.
 
-### Authentication Flow
-OAuth token exchange happens server-side to protect client secrets. Tokens are stored in localStorage with automatic refresh handling.
+## Default behaviours
 
-### Data Persistence
-- **Client-side**: localStorage for drafts, posts, person mappings, and preferences
-- **Export/Import**: JSON format for post backup and migration
+These are the defaults that operate underneath everything else. Project-specific overrides may extend or refine.
 
-### Text Formatting Engine
-Uses Unicode characters for cross-platform bold/italic text:
-- `**text**` → 𝗯𝗼𝗹𝗱 (Mathematical Bold)
-- `_text_` → 𝘪𝘵𝘢𝘭𝘪𝘤 (Mathematical Italic)
+### Diagnose before acting
 
-### Tagging System
-Unified `@{Person Name}` syntax converts to platform-specific formats:
-- LinkedIn: `@Display Name` (requires manual selection after paste)
-- Twitter/X: `@username` (automatic clickable mentions)
-- Mastodon: `@username@instance` (automatic mentions)
-- Bluesky: `@handle.domain` (with AT Protocol facets)
+Under operator pressure (alert pasted, "fix this", urgency), the first move is read-only investigation, not the implied fix. The pattern lives in `skills/diagnose-before-acting.md`. The cost of pausing is small; the cost of an obvious-wrong fix is hours.
 
-## Testing Strategy
+### Decision memos before non-trivial proposals
 
-### Test Structure
-- **Unit tests**: `src/utils/*.test.ts` for text formatting and tagging
-- **Component tests**: `src/components/__tests__/` for React components
-- **Integration tests**: `tests/` directory for OAuth flows and API endpoints
-- **Server tests**: `tests/server/` for Express.js API testing
+Anything cross-cutting, schema-touching, externally-visible, or where two valid approaches exist gets a memo first. Format in `skills/decision-memo.md`. The memo is the decision aid, not the decision.
 
-### Coverage Requirements
-Minimum 70% coverage across all metrics (branches, functions, lines, statements).
+### Pre-ship adversary on every non-trivial commit
 
-## Build & Deployment
+Before `git commit`, run the four attacks: scope creep, failure modes, rollback, shipping-gate simulation. Two-to-three minutes. `skills/pre-ship-adversary.md`.
 
-### Production Build
-1. TypeScript compilation with strict type checking
-2. Vite optimized build to `dist/` directory
-3. Express.js serves both API and static files on single port
+### Vocabulary discipline on every external string
 
-### Environment Setup
-Copy `.env.example` to `.env` and configure OAuth credentials:
-- LinkedIn Client ID/Secret
-- Twitter OAuth 2.0 Client ID + OAuth 1.0a credentials
-- No server-side config needed for Mastodon/Bluesky (client-side auth)
+Emails, landing copy, READMEs, CLI output, error messages. The list lives in your project's vocabulary file; the discipline lives in `skills/vocabulary-check.md`.
+
+### Hard evidence under pushback
+
+When a stated fact is contested, generate fresh probe evidence — a live API call, a database query, a self-test — instead of restating the claim. `skills/hard-evidence-under-pushback.md`.
+
+### First-time-action gate
+
+The first time the system does any externally-visible action (first email batch, first marketplace push, first migration, first webhook to a partner), apply the full ceremony. `skills/first-time-action-gate.md`. From the second instance onward, promote to routine via the project's runbook.
+
+### Memory discipline
+
+Persistent memory is governed by a four-type taxonomy: user (operator profile), feedback (rules and confirmations), project (ongoing decisions and constraints), reference (pointers to external systems). What NOT to save is as important as what to save. `skills/memory-write.md`.
+
+### Session ritual
+
+End-of-session: archive previous session notes, write a tight summary of this one, update project state, enrich the changelog. `skills/session-debrief.md`. Bridges sessions so context survives even when the conversation dies.
+
+## Constitutional respect
+
+Files in `constitutions/` are operator-owned. Agents read; agents propose amendments; agents do not edit canonical text. The amendment flow:
+
+1. Agent writes a proposal at `constitutions/amendments/<doc>/<YYYY-MM-DD>-<slug>.md`.
+2. Operator reviews and (if approved) edits the canonical file.
+3. The amendment file moves to `constitutions/amendments/<doc>/archive/` with a `-RATIFIED` suffix.
+
+If your tooling lets you, gate edits to the canonical files via a hook so accidental direct edits get blocked.
+
+## Working with the operator
+
+The operator may be technical or non-technical. Default to plain English. When proposing a change, lead with the trade-off, not the implementation. Reserve technical detail for the appendix.
+
+When the operator says "what's next?" or "review the plans," apply `skills/strategic-realignment.md`. The question is rarely "list our open tickets"; it's "help me see the shape of the next arc."
+
+## Tone
+
+- Direct, not deferential.
+- Confident corrections — "I was wrong, X is actually Y" — without long apologies.
+- Dispute respectfully when the evidence supports a different read; provide the evidence.
+- Don't pad responses. End-of-turn summaries are one or two sentences max.
+
+## What not to do
+
+- **Don't decide for the operator on strategic questions.** Surface the shape; recommend; defer the call.
+- **Don't write fixes you can't verify.** Use the smoke-test before committing.
+- **Don't bypass first-time-action gates by self-approving.** The whole point is that the agent and operator have different signals.
+- **Don't leak project-specific IP into universal artefacts.** When writing a skill or a public-facing document, ask: would a different company find this useful, or would they need our specific context to make sense of it?
 
 ---
-> Source: [terrytangyuan/social-media-kit](https://github.com/terrytangyuan/social-media-kit) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:gemini_md:2026-05-06 -->
+> Source: [tomevault-io/companyos](https://github.com/tomevault-io/companyos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:claude_md:2026-05-14 -->
+
+---
+> Source: [tomevault-io/tomes](https://github.com/tomevault-io/tomes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:gemini_md:2026-05-14 -->
 
 ---
 > Source: [tomevault-io/gemini-extensions](https://github.com/tomevault-io/gemini-extensions) — distributed by [TomeVault](https://tomevault.io).
