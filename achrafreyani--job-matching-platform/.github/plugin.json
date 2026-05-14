@@ -1,0 +1,9 @@
+{
+  "name": "achrafreyani--job-matching-platform",
+  "displayName": "job-matching-platform",
+  "description": "Full-stack job-matching app using Next.js, NestJS, and PostgreSQL with user accounts, job listings, applications, and chat.",
+  "version": "1.0.0",
+  "author": "AchrafReyani",
+  "homepage": "https://github.com/AchrafReyani/job-matching-platform",
+  "skills": []
+}
