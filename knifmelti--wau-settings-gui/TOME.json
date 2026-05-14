@@ -1,0 +1,44 @@
+{
+  "name": "WAU-Settings-GUI",
+  "owner": "KnifMelti",
+  "repo": "WAU-Settings-GUI",
+  "description": "Provides a user-friendly portable standalone interface to modify every aspect of Winget-AutoUpdate (WAU)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KnifMelti/WAU-Settings-GUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T15:52:18Z"
+}
