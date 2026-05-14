@@ -1,0 +1,9 @@
+{
+  "name": "supadata-ai--mcp",
+  "displayName": "mcp",
+  "description": "Official Supadata MCP Server - Adds powerful video & web scraping to Cursor, Claude and any other LLM clients.",
+  "version": "1.0.0",
+  "author": "supadata-ai",
+  "homepage": "https://github.com/supadata-ai/mcp",
+  "skills": []
+}
