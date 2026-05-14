@@ -1,81 +1,60 @@
-## tower-of-babel
+## kafka-core
 
-> Apply when working with Avro schemas, Schema Registry, or schema evolution
+> This is a multi-language Kafka Schema Registry demonstration with three microservices:
 
 
-# Schema Evolution Guidelines
+# Kafka & Schema Registry Core Patterns
 
-## Adding New Schema
+This is a multi-language Kafka Schema Registry demonstration with three microservices:
+- **Order Service**: Java 17 + Spring Boot 3.x + Kotlin (port 9080)
+- **Inventory Service**: Python 3.9+ + FastAPI (port 9000)  
+- **Analytics API**: Node.js 18+ + Express + TypeScript (port 9300)
+- **Infrastructure**: Kafka + Schema Registry (Confluent Platform 7.9.x, KRaft mode)
 
-1. Create schema in `schemas/v1/`:
+## Infrastructure Configuration
 
-```bash
-cat > schemas/v1/new-event.avsc << 'EOF'
-{
-  "type": "record",
-  "name": "NewEvent",
-  "namespace": "com.company.events",
-  "fields": [
-    {"name": "id", "type": "string"},
-    {"name": "timestamp", "type": "long"}
-  ]
-}
-EOF
-```
+- Kafka broker: `localhost:29092` (external), `kafka:9092` (internal Docker)
+- Schema Registry: `http://localhost:8081`
+- Project uses KRaft mode (NO Zookeeper)
+- Start infrastructure: `docker-compose up -d` then `./scripts/wait-for-services.sh`
 
-2. Generate code: `make generate`
-3. Implement producers/consumers using generated types
+## Schema Management Principles
 
-## Evolving Existing Schema
+ALWAYS:
+- Define schemas in `schemas/` directory before implementing services
+- Use backward-compatible evolution when adding fields
+- Include default values for all new optional fields
+- Version schemas: v1/ for initial, v2/ for evolved versions
+- Regenerate code after schema changes: `make generate`
 
-1. Copy to new version: `cp schemas/v1/order-event.avsc schemas/v2/order-event.avsc`
+NEVER:
+- Modify generated Avro classes directly
+- Remove required fields from existing schemas
+- Change field types in published schemas
+- Commit Schema Registry credentials to repository
 
-2. Add fields with defaults (backward compatible):
+## Schema Evolution Pattern
+
+When evolving schemas:
 ```json
-{"name": "orderTimestamp", "type": ["null", "long"], "default": null}
+// Add new fields with union types and defaults
+{"name": "newField", "type": ["null", "string"], "default": null}
 {"name": "metadata", "type": ["null", {"type": "map", "values": "string"}], "default": null}
 ```
 
-3. Regenerate code: `make generate`
-4. Test with both versions
+## Kafka Topic Naming
 
-## Compatibility Rules
+- Use lowercase with hyphens: `order-events`, `inventory-updates`
+- Prefix test topics: `test-[topic-name]`
+- Avoid underscores in topic names
 
-ALWAYS follow Avro backward compatibility:
-- Add new fields with default values
-- Use union types with null for optional fields: `["null", "type"]`
-- Enable decimal logical types for precision
+## Error Handling
 
-NEVER:
-- Remove required fields
-- Change field types
-- Rename fields without aliases
-- Deploy without compatibility testing
-
-## Code Generation Workflow
-
-Each service generates from central schema repo:
-
-```bash
-# All services
-make generate
-
-# Per service
-cd services/order-service && ./gradlew generateAvroJava
-cd services/inventory-service && python3 scripts/generate_classes.py  
-cd services/analytics-api && npm run generate-types
-```
-
-CRITICAL: Always regenerate after schema changes. Build process copies schemas from `schemas/v1/` before generation.
-
-## Testing Schema Compatibility
-
-Test consumer handles both old and new schemas:
-- Deserialize v1 messages with v2 consumer
-- Deserialize v2 messages with v1 consumer
-- Verify default values populate correctly
-- Check null handling for new optional fields
+- Route malformed messages to dead letter queue topics: `[topic-name]-dlq`
+- Include correlation IDs in all inter-service messages
+- Log Schema Registry errors with schema subject and version info
+- Implement circuit breaker for Schema Registry unavailability	
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/gAmUssA) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [gAmUssA/tower-of-babel](https://github.com/gAmUssA/tower-of-babel) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
