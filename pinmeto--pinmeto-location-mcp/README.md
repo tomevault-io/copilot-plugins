@@ -7,11 +7,11 @@ PinMeTo MCP server that enables users with authorized credentials to unlock thei
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PinMeTo/pinmeto-location-mcp](https://github.com/PinMeTo/pinmeto-location-mcp).
+Original source: `CLAUDE.md` in [PinMeTo/pinmeto-location-mcp](https://github.com/PinMeTo/pinmeto-location-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
