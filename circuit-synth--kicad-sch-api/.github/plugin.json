@@ -1,0 +1,9 @@
+{
+  "name": "circuit-synth--kicad-sch-api",
+  "displayName": "kicad-sch-api",
+  "description": "API for manipulating sexpr in KiCAD schematic editor",
+  "version": "1.0.0",
+  "author": "circuit-synth",
+  "homepage": "https://github.com/circuit-synth/kicad-sch-api",
+  "skills": []
+}
