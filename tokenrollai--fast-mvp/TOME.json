@@ -4,7 +4,7 @@
   "repo": "fast-mvp",
   "description": "AI MVP\u5e94\u7528\u7684\u901a\u7528template",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TokenRollAI/fast-mvp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T22:04:45Z"
+  "distributed_at": "2026-05-14T06:48:58Z"
 }
