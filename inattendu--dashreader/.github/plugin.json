@@ -1,0 +1,9 @@
+{
+  "name": "inattendu--dashreader",
+  "displayName": "dashreader",
+  "description": "Speed reading plugin using RSVP technique",
+  "version": "1.0.0",
+  "author": "inattendu",
+  "homepage": "https://github.com/inattendu/dashreader",
+  "skills": []
+}
