@@ -1,0 +1,9 @@
+{
+  "name": "timzaak--notir",
+  "displayName": "notir",
+  "description": "Notir: simple pubsub via http and websocket, provide web console to handle the message",
+  "version": "1.0.0",
+  "author": "timzaak",
+  "homepage": "https://github.com/timzaak/notir",
+  "skills": []
+}
