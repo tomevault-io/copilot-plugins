@@ -1,0 +1,44 @@
+{
+  "name": "UNet-NEU-SEG",
+  "owner": "Chris2wzk",
+  "repo": "UNet-NEU-SEG",
+  "description": "\u57fa\u4e8eUNet\u7684\u94a2\u6750\u7f3a\u9677\u8bed\u4e49\u5206\u5272\u6846\u67b6 | NEU-SEG\u6570\u636e\u96c6| \u652f\u6301\u591a\u7c7b\u522b\u5206\u5272 | \u5305\u542b\u5b8c\u6574\u8bad\u7ec3\u9a8c\u8bc1\u6d41\u7a0b | | PyTorch\u5b9e\u73b0 ",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Chris2wzk/UNet-NEU-SEG",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T01:22:29Z"
+}
