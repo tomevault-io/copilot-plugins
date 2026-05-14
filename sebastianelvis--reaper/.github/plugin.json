@@ -1,0 +1,9 @@
+{
+  "name": "sebastianelvis--reaper",
+  "displayName": "reaper",
+  "description": "AI-native scientific research pipeline. Takes a research goal and autonomously runs multi-step academic research on Cursor, Codex CLI, Cline, Continue, Gemini CLI, Copilot, Windsurf, Claude Code, and ",
+  "version": "1.0.0",
+  "author": "SebastianElvis",
+  "homepage": "https://github.com/SebastianElvis/reaper",
+  "skills": []
+}
