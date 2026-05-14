@@ -1,0 +1,270 @@
+## docsearch-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Pre-commit Verification
+
+Always run `make lint` before considering changes complete. The repository has a husky pre-commit hook that runs `pnpm format:check`, `pnpm lint`, and `pnpm typecheck:src`. All three must pass before committing.
+
+Always verify the Docker build works by running `docker build -t docsearch-mcp:test .` after making changes to build configuration, TypeScript config, dependencies, or Dockerfile-related files.
+
+## Project Overview
+
+This is a local-first document search and indexing system with both a CLI tool and MCP server that provides hybrid semantic+keyword search across local files (including PDFs) and Confluence pages. The system chunks documents, creates embeddings, stores them in SQLite with vector search capabilities, and exposes search functionality through both a command-line interface and the Model Context Protocol.
+
+## Development Commands
+
+```bash
+# Setup
+make setup                   # Install dependencies and setup .env
+make install                 # Install dependencies only
+pnpm i                       # Install dependencies only (alternative)
+cp .env.example .env         # Set up environment variables
+
+# Development Servers
+make dev                     # Start MCP development server
+make dev-cli                 # Start CLI in development mode
+pnpm dev:cli                 # Start CLI in development mode (alternative)
+pnpm dev:mcp                 # Start MCP server in development (alternative)
+
+# Build Commands
+make build                   # Build the project
+make clean                   # Clean all generated files (node_modules, data, dist)
+make clean-dist              # Clean build directory only
+pnpm build                   # Build TypeScript (alternative)
+
+# Production
+make start                   # Start production MCP server
+make start-cli               # Start CLI in production mode
+pnpm start:mcp               # Start built MCP server (alternative)
+pnpm start:cli               # Run built CLI (alternative)
+
+# Quality Assurance
+make test                    # Run tests
+make test-run                # Run tests once
+make test-ui                 # Run tests with UI
+make test-coverage           # Run tests with coverage
+make test-unit               # Run unit tests only
+make test-integration        # Run integration tests (requires Docker)
+make lint                    # Run linter, formatter, and typecheck (source only)
+make lint-fix                # Run linter with auto-fix
+make format                  # Format code with Prettier
+make format-check            # Check code formatting
+make typecheck               # Run TypeScript type checking (all files)
+make typecheck-src           # Run TypeScript type checking (source only)
+make check-all               # Run all quality checks (lint, typecheck, unit tests)
+
+# Data Management
+make ingest-files            # Ingest local files
+make ingest-files-incremental # Ingest local files with incremental indexing
+make ingest-confluence       # Ingest Confluence pages
+make ingest-all              # Ingest all sources (files and confluence)
+make ingest-all-incremental  # Ingest all sources with incremental indexing
+make watch                   # Watch for file changes and re-index
+make watch-incremental       # Watch for file changes with incremental re-indexing
+make search QUERY="text"     # Search documents
+make search-json QUERY="text" # Search documents with JSON output
+make clean-data              # Clean data directory
+
+# Incremental Indexing (Performance Optimized)
+make incremental-files       # Alias for incremental file indexing
+make incremental-all         # Alias for incremental indexing of all sources
+make incremental-watch       # Alias for incremental file watching
+make incremental-benchmark   # Compare full vs incremental indexing performance
+
+# Ansible Deployment (deploy/ansible/)
+make ansible-test            # Run Molecule tests for Ansible deployment (requires Docker)
+make ansible-lint            # Lint Ansible playbook with ansible-lint
+
+# Alternative pnpm commands
+pnpm test                    # Run tests in watch mode
+pnpm test:run                # Run tests once
+pnpm test:ui                 # Run tests with UI
+pnpm test:coverage           # Run tests with coverage
+pnpm lint                    # Run ESLint
+pnpm lint:fix                # Run ESLint with auto-fix
+pnpm format                  # Format code with Prettier
+pnpm typecheck               # Run TypeScript type checking
+
+# CLI Tool (direct pnpm usage)
+pnpm dev:cli ingest files    # Index local files via CLI
+pnpm dev:cli ingest confluence # Index Confluence pages via CLI
+pnpm dev:cli ingest all --watch # Index all sources with file watching
+pnpm dev:cli search "query"  # Search documents via CLI
+pnpm dev:cli search "test" --output json # Search with JSON output
+
+# Help
+make help                    # Show all available make commands
+```
+
+## Architecture
+
+### Core Components
+
+- **CLI Tool** (`src/cli/`): Command-line interface with ports and adapters architecture
+  - Domain layer with clean interfaces (`src/cli/domain/ports.ts`)
+  - Configuration adapters supporting env files, CLI args, and env variables
+  - Output format adapters (text, JSON, YAML)
+  - Document service adapters bridging to ingestion system
+- **MCP Server** (`src/server/mcp.ts`): Enhanced with ingestion tools and output formatting
+  - `doc-search`: Search with optional output formatting
+  - `doc-ingest`: Document ingestion from files or Confluence
+  - `doc-ingest-status`: Index statistics and status
+  - `docchunk://` resources for chunk retrieval
+- **Ingestion Pipeline** (`src/ingest/`): Processes files and Confluence pages into searchable chunks
+- **Search Engine** (`src/ingest/search.ts`): Hybrid search combining FTS (keyword) and vector similarity
+- **Database Schema** (`src/ingest/db.ts`): SQLite with sqlite-vec extension for vector storage
+
+### Data Flow
+
+1. **Ingestion**: Files (PDFs, office docs, EPUBs, audio/video, code, images)/Confluence → Content extraction → Chunking → Embedding generation → SQLite storage
+2. **Search**: Query → Hybrid search (keyword + vector) → Ranked results → MCP response
+3. **Retrieval**: Resource URIs (`docchunk://{id}`) → Full chunk content with metadata
+
+### Key Files
+
+**CLI Implementation:**
+
+- `src/cli/main.ts`: CLI application entry point with Commander.js
+- `src/cli/domain/ports.ts`: Core interfaces and types for CLI functionality
+- `src/cli/adapters/config/env-config-provider.ts`: Multi-source configuration management
+- `src/cli/adapters/output/`: Output format adapters (text, JSON, YAML)
+- `src/cli/adapters/document/document-service.ts`: Bridge between CLI and ingestion system
+
+**MCP Server:**
+
+- `src/server/mcp.ts`: Enhanced MCP server with ingestion capabilities
+- `src/server/tools/ingest-tools.ts`: MCP tools for document ingestion and status
+
+**Core System:**
+
+- `src/ingest/indexer.ts`: Core indexing operations (upsert documents, embed chunks)
+- `src/ingest/sources/`: File system (including PDF) and Confluence content ingestion
+- `src/ingest/chunker.ts`: Text chunking strategies for code, documentation, PDFs, EPUBs, and audio transcripts
+- `src/ingest/parsers/types.ts`: `DocumentParser` interface for strategy pattern
+- `src/ingest/parsers/factory.ts`: Parser factory selecting builtin or Docling based on config
+- `src/ingest/parsers/builtin.ts`: Built-in parser wrapping pdf-parse, mammoth, xlsx, jszip, epub2
+- `src/ingest/parsers/docling.ts`: Docling parser using docling-serve REST API for ML-powered document conversion
+- `src/ingest/parsers/office.ts`: DOCX, XLSX, PPTX text extraction (mammoth, xlsx)
+- `src/ingest/parsers/epub.ts`: EPUB chapter extraction and metadata
+- `src/ingest/parsers/audio-video.ts`: Media metadata extraction (music-metadata) and Whisper API transcription
+- `src/ingest/embeddings.ts`: Embedding generation (OpenAI/TEI support)
+- `src/shared/config.ts`: Environment-based configuration
+
+## Configuration
+
+Environment variables in `.env`:
+
+- **Embeddings**: `EMBEDDINGS_PROVIDER`, `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `OPENAI_EMBED_MODEL`
+- **Audio Transcription**: `ENABLE_AUDIO_TRANSCRIPTION` (default: false), `WHISPER_API_KEY` (defaults to `OPENAI_API_KEY`), `WHISPER_BASE_URL`, `WHISPER_MODEL` (default: `whisper-1`)
+- **Confluence**: `CONFLUENCE_BASE_URL`, `CONFLUENCE_EMAIL`, `CONFLUENCE_API_TOKEN`, `CONFLUENCE_SPACES`
+- **Files**: `FILE_ROOTS`, `FILE_INCLUDE_GLOBS`, `FILE_EXCLUDE_GLOBS`
+- **Database**: `DB_TYPE` (`sqlite`, `postgresql`, or `vectorchord`), `DB_PATH` (defaults to `./data/index.db`), `POSTGRES_CONNECTION_STRING`
+- **VectorChord** (when `DB_TYPE=vectorchord`): `VECTORCHORD_RESIDUAL_QUANTIZATION` (default: true), `VECTORCHORD_LISTS` (default: 100), `VECTORCHORD_SPHERICAL_CENTROIDS` (default: true), `VECTORCHORD_BUILD_THREADS` (default: 4), `VECTORCHORD_PROBES` (default: 10)
+- **OnlyOffice** (for legacy DOC/XLS/PPT): `ONLYOFFICE_URL` (base URL of Document Server), `ONLYOFFICE_JWT_SECRET` (optional JWT secret), `ONLYOFFICE_TIMEOUT` (default: 30000ms)
+- **Document Parser**: `DOCUMENT_PARSER` (`builtin` or `docling`, default: `builtin`), `DOCLING_URL` (docling-serve endpoint, required when `DOCUMENT_PARSER=docling`)
+
+## Database Structure
+
+- `documents`: Source metadata (URI, hash, mtime, repo, path, title, language, extra_json for PDF/office/epub/audio metadata)
+- `chunks`: Text chunks with line numbers and token counts
+- `vec_chunks`: Vector embeddings linked to chunks
+- `chunks_fts`: Full-text search index
+- `meta`: Key-value metadata storage
+
+## Search Modes
+
+- `auto`: Combines keyword and vector search (default)
+- `keyword`: FTS-only using SQLite BM25
+- `vector`: Semantic search using embeddings
+- Filters: source type, repository, path prefix
+
+## Development Notes
+
+### Ansible Deployment Tests
+
+The `deploy/ansible/` directory contains a Molecule-based test suite for the Postgres/VectorChord deployment playbook. It is **not** covered by the TypeScript lint/typecheck pipeline.
+
+To run the Ansible tests locally (requires Docker and Python 3.11+):
+
+```bash
+make ansible-test
+```
+
+What it covers: spins up Ubuntu 22.04 and Debian 12 Docker containers with systemd, runs `site.yml` against each, then verifies that the database container is healthy, TLS works, the `vector`/`vchord` extensions load (when `db_engine=vectorchord`), a vector k-NN round trip succeeds, and the nightly backup timer is enabled. It also confirms the playbook is idempotent (second run reports `changed=0`).
+
+- Uses sqlite-vec for vector operations and FTS5 for keyword search
+- Chunks are embedded in batches of 64 with rate limiting
+- File watching triggers full re-scan (simple but reliable)
+- Confluence syncing tracks last modification time per space
+- Document deduplication based on content hash
+
+### PDF Support
+
+- **Parser**: Uses `pdf-parse` library for text extraction from PDF files
+- **Dynamic Loading**: PDF parsing library loaded only when processing PDFs to avoid conflicts
+- **Text Processing**: Custom `chunkPdf()` function normalizes whitespace and line breaks from PDF extraction
+- **Metadata Storage**: PDF-specific metadata (page count, document info) stored in `extra_json` field
+- **Error Handling**: Gracefully handles empty PDFs, parsing errors, and corrupted files
+- **File Types**: PDFs are treated as document files and use document-style chunking
+- **Integration**: Seamlessly integrated into existing file ingestion pipeline
+
+### Office Document Support
+
+- **DOCX**: Uses `mammoth` for text extraction preserving paragraph structure
+- **XLSX**: Uses `xlsx` (SheetJS) for cell text extraction, capped at 100 sheets / 10,000 rows per sheet
+- **PPTX**: Uses `xlsx` for slide text extraction with slide number prefixes
+- **Legacy formats (DOC, XLS, PPT)**: Converted to modern formats via OnlyOffice Conversion API (`src/ingest/parsers/onlyoffice.ts`), then processed through existing parsers. Requires `ONLYOFFICE_URL` to be configured. When not set, legacy files are skipped with a warning.
+- **Dynamic Loading**: Libraries loaded only when processing their respective file types
+- **Metadata**: Format, sheet/slide count stored in `extra_json`; legacy formats include `convertedFrom` field
+
+### EPUB Support
+
+- **Parser**: Uses `epub2` for chapter-by-chapter content extraction
+- **HTML Stripping**: Chapter HTML converted to plain text (handles tags, entities, line breaks)
+- **Chapter-Aware Chunking**: `chunkEpub()` respects chapter boundaries; chunks never span chapters
+- **Metadata**: Title, author, language, chapter count stored in `extra_json`
+
+### Audio/Video Support
+
+- **Metadata**: Uses `music-metadata` to extract duration, bitrate, codec, artist, album, genre, etc.
+- **Transcription**: Optional Whisper API integration (`ENABLE_AUDIO_TRANSCRIPTION=true`) for speech-to-text
+- **Timestamp Chunking**: `chunkTranscript()` creates timestamped chunks from Whisper segments
+- **File Size Limit**: Files over 25MB skip transcription (Whisper API limit)
+- **Audio formats**: `.mp3`, `.wav`, `.flac`, `.ogg`, `.m4a`, `.aac`
+- **Video formats**: `.mp4`, `.webm`, `.mkv`, `.avi`, `.mov`
+
+### Docling Integration (Optional)
+
+- **Strategy Pattern**: `DOCUMENT_PARSER` env var selects between `builtin` (default) and `docling` parsers
+- **Docling-serve**: ML-powered document conversion via REST API, run as Docker container: `docker run -p 5001:5001 quay.io/docling-project/docling-serve`
+- **Capabilities**: OCR for scanned PDFs, layout analysis, table structure extraction, formula recognition
+- **Supported formats**: PDF, DOCX, PPTX, XLSX, HTML, images (PNG, JPG, TIFF), EPUB
+- **Fallback**: Audio, video, and code files always use built-in parsers regardless of `DOCUMENT_PARSER` setting
+- **Output**: Docling returns Markdown which is chunked via `chunkDoc()`
+
+## Quality Assurance
+
+The project includes comprehensive tooling for code quality:
+
+- **Testing**: Vitest for unit and integration tests with UI and coverage support
+- **Linting**: ESLint with TypeScript, import, and Prettier integration
+- **Formatting**: Prettier for consistent code style
+- **Type Safety**: Strict TypeScript configuration with full type checking
+- **Automation**: Makefile with common development workflows
+
+### Testing Strategy
+
+- Unit tests for core functionality (indexing, search, chunking, PDF processing, office/epub/audio parsing)
+- Integration tests for database operations, MCP server, and multi-format ingestion
+- Mock implementations for external dependencies (OpenAI, Confluence, PDF parsing, mammoth, xlsx, epub2, music-metadata)
+- Test coverage reporting and UI for development
+- Comprehensive ingestion tests with mocked parsing for all supported formats
+
+---
+> Source: [PatrickKoss/docsearch-mcp](https://github.com/PatrickKoss/docsearch-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
