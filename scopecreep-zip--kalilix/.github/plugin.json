@@ -1,0 +1,9 @@
+{
+  "name": "scopecreep-zip--kalilix",
+  "displayName": "kalilix",
+  "description": "What if Kali Linux was a Nix flake?",
+  "version": "1.0.0",
+  "author": "ScopeCreep-zip",
+  "homepage": "https://github.com/ScopeCreep-zip/kalilix",
+  "skills": []
+}
