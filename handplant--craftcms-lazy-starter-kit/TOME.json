@@ -4,7 +4,7 @@
   "repo": "craftcms-lazy-starter-kit",
   "description": "A modern Craft CMS starter kit for agencies and developers \u2014 featuring Vite, Tailwind, Datastar, DDEV, MCP, LLM Ready.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/handplant/craftcms-lazy-starter-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:15:01Z"
+  "distributed_at": "2026-05-14T04:03:18Z"
 }
