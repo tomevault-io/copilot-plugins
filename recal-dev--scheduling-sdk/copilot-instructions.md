@@ -1,100 +1,79 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## scheduling-sdk
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-Default to using Bun instead of Node.js.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Project Overview
 
-## APIs
+This is a TypeScript SDK for scheduling functionality, brought to you by Recal. It uses Bun as the runtime and build tool.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Bun.$`ls` instead of execa.
+**Package**: `scheduling-sdk`  
+**Version**: 0.1.2  
+**License**: MIT  
+**Repository**: [github.com/recal-dev/scheduling-sdk](https://github.com/recal-dev/scheduling-sdk)
 
-## Frontend
+## Common Commands
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+### Development
 
-Server:
+- `bun install` - Install dependencies
+- `bun run dev` - Run in development mode with file watching
+- `bun run build` - Build the SDK for distribution (outputs to `dist/`)
 
-```ts#index.ts
-import index from "./index.html"
+### Testing & Quality
 
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
+- `bun test` - Run tests
+- `bun test:coverage` - Run tests with coverage reporting (lcov + text)
+- `bun run typecheck` - Type check without emitting files
+- `bun run lint` - Run ESLint on src and tests directories
+- `bun run prettier` - Format code with Prettier
 
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+### Publishing
 
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
+- `bun run prepublishOnly` - Runs build and tests before publishing
 
-With the following `frontend.tsx`:
+## Architecture
 
-```tsx#frontend.tsx
-import React from "react";
+This is a library/SDK project configured for distribution as an NPM package:
 
-// import .css files directly and it works
-import './index.css';
+- **Entry point**: `src/index.ts`
+- **Build output**: `dist/` directory with both JS and TypeScript definitions
+- **Module system**: ESM modules only (`"type": "module"`)
+- **Runtime**: Bun (fast JavaScript runtime)
 
-import { createRoot } from "react-dom/client";
+### Source Structure
 
-const root = createRoot(document.body);
+- `src/core/` - Core scheduling functionality
+- `src/availability/` - Availability management features
+- `src/types/` - TypeScript type definitions
+- `src/validators/` - Input validation logic
+- `src/helpers/` - Utility functions for:
+    - `availability/` - Availability conversions
+    - `busy-time/` - Busy time management (merge, overlap, padding)
+    - `slot/` - Slot generation and filtering
+    - `time/` - Time alignment and date math
+- `src/utils/` - General utilities and constants
 
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
+## TypeScript Configuration
 
-root.render(<Frontend />);
-```
+The project uses strict TypeScript configuration with:
 
-Then, run index.ts
+- Target: ESNext
+- Module resolution: Bundler mode
+- Strict mode enabled
+- Support for `.ts` extensions in imports
+- No emit mode for type checking
 
-```sh
-bun --hot ./index.ts
-```
+## Testing
 
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+Tests should be placed in the `tests/` directory. The project is configured to use Bun's built-in test runner with a setup file at `tests/setup.ts` (if needed).
+
+## Build Process
+
+The build command compiles TypeScript to JavaScript targeting Node.js environment. The SDK exports both CommonJS and ESM formats with TypeScript definitions included.
 
 ---
 > Source: [recal-dev/scheduling-sdk](https://github.com/recal-dev/scheduling-sdk) — distributed by [TomeVault](https://tomevault.io).
