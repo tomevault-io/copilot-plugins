@@ -1,109 +1,96 @@
-## task-list
+## testing
 
-> Guidelines for creating and managing task lists in markdown files to track project progress
+> Rules for writing unit and e2e tests
 
-# Task List Management
+* If ever in doubt, use context7 mcp or search the web to help write a unit test
+* More tests documentation found in [README.md](mdc:tests/README.md).(tests/README.md)
 
-Guidelines for creating and managing task lists in markdown files to track project progress
+## Working with Vitest
 
-## Task List Creation
+* Run all tests with `nr test`
+* Run a single test with `nr test [path-to-test-file]` for example: `nr test tests/unit/users.get.test.ts`
+* Always use the `--watch=false` flag when running tests
 
-1. Create task lists in a markdown file (in /tasks if not otherwise specified):
-   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
-   - Include a clear title and description of the feature being implemented
+## Unit Tests
+* Unit tests are written with Vitest
+* Are written alongside the code they are testing (in the same directory)
+* Some helpful utilities:
+    - `mountSuspended()` - Mount components with Nuxt context
+    - `renderSuspended()` - Render with Testing Library
+    - `mockNuxtImport` allows you to mock Nuxt's auto import functionality
+    - `mockComponent` allows you to mock Nuxt's component.
+    - All Nuxt composables (`useRoute`, `useRouter`, etc.)
+    - Auto-imports work as expected
 
-2. Structure the file with these sections:
-   ```markdown
-   # Feature Name Implementation
-   
-   Brief description of the feature and its purpose.
-   
-   ## Completed Tasks
-   
-   - [x] Task 1 that has been completed
-   - [x] Task 2 that has been completed
-   
-   ## In Progress Tasks
-   
-   - [ ] Task 3 currently being worked on
-   - [ ] Task 4 to be completed soon
-   
-   ## Future Tasks
-   
-   - [ ] Task 5 planned for future implementation
-   - [ ] Task 6 planned for future implementation
-   
-   ## Implementation Plan
-   
-   Detailed description of how the feature will be implemented.
-   
-   ### Relevant Files
-   
-   - path/to/file1.ts - Description of purpose
-   - path/to/file2.ts - Description of purpose
-   ```
+## API Tests
+* API tests are written with Vitest
+* Are written alongside the code they are testing (in the same directory)
+* API tests are named like `[resource-name].get.test.ts`
+* Use the `$vitestFetch` global variable to make requests to the API (automatically configured with the correct base URL from .env.test)
+* Run all API tests with `nr test server/api`
+* Run a single API test with `nr test [path-to-test-file]` for example: `nr test server/api/users.get.test.ts`
 
-## Task List Maintenance
 
-1. Update the task list as you progress:
-   - Mark tasks as completed by changing `[ ]` to `[x]`
-   - Add new tasks as they are identified
-   - Move tasks between sections as appropriate
+## E2E Tests
+* E2E tests are written with Playwright
+* E2E tests are written in the tests/e2e/ directory
+* Some helpful utilities:
+    - `goto(path)` - Navigate to pages
+    - `$fetch(url)` - Fetch server responses
+    - `createPage(url)` - Create browser pages
+    - Full Playwright API available 
+* E2E Test Example:
+```typescript
+import { test, expect } from "@nuxt/test-utils/playwright";
 
-2. Keep "Relevant Files" section updated with:
-   - File paths that have been created or modified
-   - Brief descriptions of each file's purpose
-   - Status indicators (e.g., ✅) for completed components
-
-3. Add implementation details:
-   - Architecture decisions
-   - Data flow descriptions
-   - Technical components needed
-   - Environment configuration
-
-## AI Instructions
-
-When working with task lists, the AI should:
-
-1. Regularly update the task list file after implementing significant components
-2. Mark completed tasks with [x] when finished
-3. Add new tasks discovered during implementation
-4. Maintain the "Relevant Files" section with accurate file paths and descriptions
-5. Document implementation details, especially for complex features
-6. When implementing tasks one by one, first check which task to implement next
-7. After implementing a task, update the file to reflect progress
-
-## Example Task Update
-
-When updating a task from "In Progress" to "Completed":
-
-```markdown
-## In Progress Tasks
-
-- [ ] Implement database schema
-- [ ] Create API endpoints for data access
-
-## Completed Tasks
-
-- [x] Set up project structure
-- [x] Configure environment variables
+test("homepage works", async ({ page, goto }) => {
+  await goto("/");
+  await expect(page.getByText("Hello World")).toBeVisible();
+});
 ```
 
-Should become:
+## 🎯 Best Practices
 
-```markdown
-## In Progress Tasks
+### Test Organization
 
-- [ ] Create API endpoints for data access
+- Use descriptive test file names that match source files
+- Group related tests in describe blocks
+- Use relative imports in co-located tests
 
-## Completed Tasks
+### Unit Tests
 
-- [x] Set up project structure
-- [x] Configure environment variables
-- [x] Implement database schema
-```
+- Use the `@vitest-environment nuxt` comment at the top of the file to run tests in the Nuxt environment 
+- Test one thing at a time
+- Use descriptive test names
+- Each test should only test what's described in the test name
+- Mock external dependencies
+- Test edge cases and error conditions
 
-Once the task list is created, begin implementation immediately and in the order defined in the task list. I believe in you, you're an awesome Nuxt dev! You got this! 💪
+### API Tests
+
+- These are distinct from unit tests even though they are written with Vitest
+
+### Component Tests
+
+- Test component behavior, not implementation
+- Use realistic props and slots
+- Test user interactions
+- Verify rendered output
+
+### E2E Tests
+
+- Test critical user journeys
+- Use data-testid attributes for reliable selectors
+- Test responsive behavior
+- Include accessibility checks
+
+
+## 📚 Resources
+
+- [Nuxt Test Utils Documentation](https://nuxt.com/docs/getting-started/testing)
+- [Vitest Documentation](https://vitest.dev/)
+- [Playwright Documentation](https://playwright.dev/)
+- [Vue Test Utils](https://vue-test-utils.vuejs.org/)
 
 ---
 > Source: [vueschool/aidd-workhop](https://github.com/vueschool/aidd-workhop) — distributed by [TomeVault](https://tomevault.io).
