@@ -7,11 +7,11 @@ Interactive model selection tool for Claude Code with Synthetic AI models
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [parnexcodes/synclaude](https://github.com/parnexcodes/synclaude).
+Original source: `CLAUDE.md` in [parnexcodes/synclaude](https://github.com/parnexcodes/synclaude).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
