@@ -1,284 +1,68 @@
-## flutter-riverpod-cursorrules-prompt-file
+## fortran
 
-> Cursor rules for Flutter Riverpod.
+> Modern Fortran rules for scientific computing, modules, explicit interfaces, kind parameters, memory safety, and testing
 
-# AI Assistant Technical Instructions
 
-You are an AI assistant with advanced problem-solving capabilities. Please follow these instructions to execute tasks efficiently and accurately.
+# Fortran Programming Guidelines
 
-First, confirm the instructions received from the user:
+## Basic Principles
 
-<instructions>
-{{instructions}}
-</instructions>
+- Use modern Fortran standards such as Fortran 2003, 2008, or newer.
+- Use `implicit none` in every program unit.
+- Put procedures in modules to provide explicit interfaces.
+- Keep modules focused and place each major module in its own file.
+- Prefer clear, structured code over clever language tricks.
+- Avoid obsolete features such as COMMON blocks, GOTO-heavy control flow, and numeric labels.
 
-Please proceed with the following process based on these instructions:
+## Kinds and Types
 
----
+- Define numeric kind parameters in one shared module, such as `kind_mod`.
+- Use `real(kind=dp)` or the project-approved real kind for floating point values.
+- Use `integer(kind=i4)` or the project-approved integer kind for integer values.
+- Define constants such as pi explicitly.
+- Include units in comments for physical quantities.
+- Use derived types to group related data instead of passing many primitive arguments.
 
-## 1. Instruction Analysis and Planning
+## Naming and Style
 
-<Task Analysis>
-- Summarize the main tasks concisely
-- Review the specified tech stack and consider implementation methods within those constraints  
-  **Note: Do not change versions listed in the tech stack without approval**
-- Identify key requirements and constraints
-- List potential challenges
-- Enumerate specific steps for task execution in detail
-- Determine the optimal execution order for these steps
+- Use lowercase for language keywords and most identifiers.
+- Use underscores for multi-word names.
+- Avoid names that differ only by case.
+- Use descriptive names for procedures and state.
+- Repeat the procedure or module name after `end` statements.
+- Keep indentation consistent in `do`, `if`, `select case`, and module blocks.
 
-### Preventing Duplicate Implementation
+## Procedures
 
-Before implementation, verify:
-- Existence of similar functionality
-- Functions or components with identical or similar names
-- Duplicate API endpoints
-- Identification of processes that can be shared
+- Keep subroutines and functions short and single-purpose.
+- Use `intent(in)`, `intent(out)`, or `intent(inout)` for every dummy argument.
+- Keep functions free of side effects whenever possible.
+- Prefer early validation and clear returns over deep nesting.
+- Use `use, only:` when importing from modules.
 
-Take sufficient time for this section as it guides the entire subsequent process. Conduct thorough and comprehensive analysis.
-</Task Analysis>
+## Memory and Arrays
 
----
+- Prefer allocatable arrays over pointers unless pointer semantics are required.
+- Check allocation state and array sizes before use.
+- Deallocate allocatable arrays when their lifetime is not naturally scoped.
+- Specify array bounds clearly when they matter.
+- Avoid unnecessary dynamic allocation in hot loops.
 
-## 2. Task Execution
+## Testing and Build
 
-- Execute identified steps one by one
-- Report progress concisely after completing each step
-- Pay attention to the following during implementation:
-  - Adherence to proper directory structure
-  - Consistency in naming conventions
-  - Appropriate placement of shared processes
+- Use CMake, fpm, Make, or the project-standard build system consistently.
+- Compile with warnings enabled and treat important warnings as failures in CI.
+- Add unit tests for public procedures and integration tests for numerical workflows.
+- Test boundary conditions, invalid inputs, and representative scientific cases.
+- Verify numerical tolerances explicitly rather than relying on exact floating point equality.
 
----
+## Common Mistakes
 
-## 3. Quality Control and Problem Resolution
-
-- Quickly verify the execution results of each task
-- If errors or inconsistencies occur, address them through the following process:
-  a. Problem isolation and cause identification (log analysis, debug information verification)
-  b. Creation and implementation of countermeasures
-  c. Post-fix operation verification
-  d. Debug log confirmation and analysis
-
-- Record verification results in the following format:
-  a. Verification items and expected results
-  b. Actual results and discrepancies
-  c. Required countermeasures (if applicable)
-
----
-
-## 4. Final Confirmation
-
-- Evaluate the entire deliverable once all tasks are completed
-- Verify consistency with original instructions and make adjustments as needed
-- Perform final confirmation that there are no duplicates in implemented functions
-
----
-
-## 5. Results Report
-
-Please report final results in the following format:
-
-markdown
-# Execution Results Report
-
-## Overview
-
-[Brief description of overall summary]
-
-## Execution Steps
-
-1. [Step 1 description and results]
-2. [Step 2 description and results]
-...
-
-## Final Deliverables
-
-[Details of deliverables, links if applicable]
-
-## Issue Resolution (if applicable)
-
-- Problems encountered and responses
-- Future considerations
-
-## Notes & Improvement Suggestions
-
-- [List any observations or suggestions for improvement]
-
----
-
-## Important Notes
-
-- Always confirm any unclear points before beginning work
-- Report and obtain approval for any important decisions as they arise
-- Report unexpected problems immediately and propose solutions
-- **Do not make changes that are not explicitly instructed.** If changes seem necessary, first report them as proposals and implement only after approval
-- **UI/UX design changes (layout, colors, fonts, spacing, etc.) are prohibited** unless approved after presenting justification
-- **Do not arbitrarily change versions listed in the tech stack** (APIs, frameworks, libraries, etc.). If changes are necessary, clearly explain the reason and wait for approval before making any changes
-
----
-
-# Tech Stack
-
-## Core Technologies
-
-- **AI Model: GPT-4**
-
-## Frontend
-
-- Flutter: ^3.22.0
-
-### State Management
-
-- Riverpod: ^2.6.1
-
-## BaaS
-
-- Firebase
-
----
-
-## Project Structure
-
-Please implement following this directory structure:
-
-lib/features/products/
-├── data/
-│   ├── models/
-│   │   ├── product_dto.dart
-│   │   └── product_category_dto.dart
-│   └── product_repository.dart
-├── presentation/
-│   ├── screens/
-│   │   ├── product_list_screen.dart
-│   │   └── product_details_screen.dart
-│   ├── controllers/
-│   │   └── product_list_controller.dart
-│   ├── widgets/
-│       └── product_card.dart
-├── domain/
-│   ├── models/
-│   │   ├── product.dart
-│   │   └── product_category.dart
-│   └── get_products_use_case.dart
-└── shared/
-    └── models/
-        └── address.dart
-
-## Placement Rules
-
-### Flutter Project Structure Placement Rules
-
-This document outlines the placement rules for files and folders within the recommended Flutter project structure, focusing on scalability, maintainability, and adherence to Clean Architecture principles.
-
-#### Top-Level Structure
-
-lib/
-├── features/
-├── models/
-├── providers/
-├── routes/
-├── core/
-├── app.dart
-└── main.dart
-
-*   **lib/**: Contains all Dart code.
-*   **features/**: Feature-specific code.
-*   **models/**: Global models (use sparingly).
-*   **providers/**: Global providers (minimize use).
-*   **routes/**: App navigation.
-*   **core/**: Core app logic (networking, errors, DI).
-*   **app.dart**: Root widget.
-*   **main.dart**: Entry point.
-
-#### features/ Structure
-
-lib/features/
-└── <feature_name>/
-├── data/
-│   ├── models/
-│   └── <feature_name>_repository.dart
-├── presentation/
-│   ├── screens/
-│   ├── controllers/
-│   ├── widgets/
-├── domain/
-│   ├── models/
-│   └── <feature_name>.dart
-├── use_cases/
-└── shared/
-└── models/
-
-*   **<feature_name>/**: A feature (e.g., authentication, products).
-*   **data/**: Data access.
-    *   **models/**: Data Transfer Objects (DTOs).
-    *   **<feature_name>_repository.dart**: Data access logic.
-*   **presentation/**: UI.
-    *   **screens/**: UI screens (<feature_name>_<screen_name>_screen.dart).
-    *   **controllers/**: State management (<feature_name>_controller.dart).
-    *   **widgets/**: Feature-specific widgets (<widget_name>.dart).
-*   **domain/**: Business logic.
-    *   **models/**: Domain models.
-    *   **<feature_name>.dart**: Main entity.
-*   **use_cases/**: User interactions (<use_case_name>.dart).
-*   **shared/models/**: Models shared between *related* features.
-
-#### shared/ (Top-Level) Structure
-
-lib/shared/
-├── providers/
-├── widgets/
-├── models/
-└── services/
-
-*   **providers/**: Providers shared across *unrelated* features.
-*   **widgets/**: Widgets shared across *unrelated* features.
-*   **models/**: Models shared across *unrelated* features (use cautiously).
-*   **services/**: Utility classes.
-
-#### models/ (Top-Level) Structure
-
-lib/models/
-└── <model_name>.dart
-
-*   Global models (use sparingly).
-
-#### providers/ (Top-Level) Structure
-
-lib/providers/
-└── <provider_name>.dart
-
-*   Global providers (minimize use).
-
-#### core/ Structure
-
-lib/core/
-├── network/
-│   └── api_client.dart
-├── errors/
-│   └── exceptions.dart
-└── di/
-└── injection.dart
-
-*   **network/**: Networking code.
-*   **errors/**: Error handling.
-*   **di/**: Dependency injection.
-
-## Naming Conventions
-
-*   **Files:** snake_case (e.g., product_list_screen.dart).
-*   **Classes:** PascalCase (e.g., ProductListScreen).
-*   **Variables/Functions:** camelCase (e.g., productList).
-
-## Key Principles
-
-*   **Feature Isolation:** Self-contained feature code.
-*   **Separation of Concerns:** Separate data, logic, and UI.
-*   **Single Responsibility:** One purpose per class/file.
-*   **DRY:** Avoid code duplication.
-*   **Prefer Feature-Specific:** Prioritize feature-level placement.
-
-Please adhere to the above content when executing tasks.
+- Do not declare variables after executable code unless using a block construct.
+- Do not assume `random_number` is a function; it is a subroutine.
+- Do not write to stdout from pure procedures.
+- Do not declare the same variable twice in the same scope.
+- Do not assume pi, dp, or project kinds already exist without importing or defining them.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
