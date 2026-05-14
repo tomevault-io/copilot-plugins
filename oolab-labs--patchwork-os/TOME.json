@@ -4,7 +4,7 @@
   "repo": "patchwork-os",
   "description": "MCP bridge between Claude Code and your IDE (170+ tools \u2014 LSP, debugger, terminal, git). Optional Patchwork OS layer adds recipes, approval queue, and oversight dashboard.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Oolab-labs/patchwork-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T05:31:51Z"
+  "distributed_at": "2026-05-14T01:49:19Z"
 }
