@@ -4,7 +4,7 @@
   "repo": "inspect_scout",
   "description": "In-depth analysis of AI agent transcripts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/meridianlabs-ai/inspect_scout",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T22:20:36Z"
+  "distributed_at": "2026-05-14T06:59:24Z"
 }
