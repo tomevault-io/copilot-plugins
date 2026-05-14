@@ -1,0 +1,9 @@
+{
+  "name": "fiquemsabendo--openrefine-mcp",
+  "displayName": "openrefine_mcp",
+  "description": "MCP server to control OpenRefine",
+  "version": "1.0.0",
+  "author": "FiquemSabendo",
+  "homepage": "https://github.com/FiquemSabendo/openrefine_mcp",
+  "skills": []
+}
