@@ -1,0 +1,9 @@
+{
+  "name": "pr0zak--proxbalance",
+  "displayName": "ProxBalance",
+  "description": "Automated cluster load balancing and intelligent VM/CT migration for Proxmox VE",
+  "version": "1.0.0",
+  "author": "Pr0zak",
+  "homepage": "https://github.com/Pr0zak/ProxBalance",
+  "skills": []
+}
