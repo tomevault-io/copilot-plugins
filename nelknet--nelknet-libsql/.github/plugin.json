@@ -1,0 +1,9 @@
+{
+  "name": "nelknet--nelknet-libsql",
+  "displayName": "Nelknet.LibSQL",
+  "description": "A native C# client library for libSQL that provides both local and remote connection support, following ADO.NET patterns",
+  "version": "1.0.0",
+  "author": "nelknet",
+  "homepage": "https://github.com/nelknet/Nelknet.LibSQL",
+  "skills": []
+}
