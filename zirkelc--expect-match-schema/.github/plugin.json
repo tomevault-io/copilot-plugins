@@ -1,0 +1,9 @@
+{
+  "name": "zirkelc--expect-match-schema",
+  "displayName": "expect-match-schema",
+  "description": "Custom matcher for schema validation with Vitest and Jest",
+  "version": "1.0.0",
+  "author": "zirkelc",
+  "homepage": "https://github.com/zirkelc/expect-match-schema",
+  "skills": []
+}
