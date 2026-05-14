@@ -4,7 +4,7 @@
   "repo": "google-calendar-agent",
   "description": "A2A agent server enabling Google Calendar scheduling, retrieval, and automation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/inference-gateway/google-calendar-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T03:08:54Z"
+  "distributed_at": "2026-05-14T22:42:52Z"
 }
