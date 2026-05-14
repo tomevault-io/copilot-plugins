@@ -1,0 +1,9 @@
+{
+  "name": "youglin-dev--electron-async-storage",
+  "displayName": "electron-async-storage",
+  "description": "An electron async storage library based on unstorage",
+  "version": "1.0.0",
+  "author": "YougLin-dev",
+  "homepage": "https://github.com/YougLin-dev/electron-async-storage",
+  "skills": []
+}
