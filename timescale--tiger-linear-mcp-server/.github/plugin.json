@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tiger-linear-mcp-server",
+  "displayName": "tiger-linear-mcp-server",
+  "description": "A wrapper around the Linear API for internal LLMs",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tiger-linear-mcp-server",
+  "skills": []
+}
