@@ -1,93 +1,57 @@
-## astro-typescript-cursorrules-prompt-file
+## automl-hyperparameter-optimization
 
-> Cursor rules for Astro development with TypeScript integration.
+> AutoML and hyperparameter optimization rules for Python ML projects using Ray Tune, Optuna, PyCaret, and time-series AutoML libraries
 
-{
-  "rules": {
-    "commit_message_guidelines": {
-      "description": "Guidelines for creating conventional commit messages.",
-      
-      "format": {
-        "description": "The format for commit messages using the conventional commits spec.",
-        "body": "[optional scope]: \n\n[optional body]\n\n[optional footer(s)]"
-      },
-      
-      "enabled": true,
-      
-      "rules": [
-        {
-          "description": "Always suggest a conventional commit with a type and optional scope in lowercase letters."
-        },
-        {
-          "description": "Keep the commit message concise and within 60 characters."
-        },
-        {
-          "description": "Ensure the commit message is ready to be pasted into the terminal without further editing."
-        },
-        {
-          "description": "Provide the full command to commit, not just the message."
-        }
-      ],
-      
-      "examples": [
-        {
-          "prompt": "<diff_context> /commit",
-          "response": "git commit -m 'feat: add responsive navbar with TailwindCSS'"
-        }
-      ]
-    },
-    
-    "development_guidelines": {
-      "description": "Guidelines for developing code with Astro, TypeScript, and TailwindCSS.",
-      
-      "enabled": true,
-      
-      "rules": [
-        {
-          "description": "Enforce strict TypeScript settings, ensuring type safety across the project."
-        },
-        {
-          "description": "Use TailwindCSS for all styling, keeping the utility-first approach in mind."
-        },
-        {
-          "description": "Ensure Astro components are modular, reusable, and maintain a clear separation of concerns."
-        }
-      ]
-    },
-    
-    "coding_style": {
-      "description": "Guidelines for maintaining consistent coding style.",
-      
-      "enabled": true,
-      
-      "rules": [
-        {
-          "description": "Code must start with path/filename as a one-line comment."
-        },
-        {
-          "description": "Comments should describe purpose, not effect."
-        },
-        {
-          "description": "Prioritize modularity, DRY principles, and performance."
-        }
-      ]
-    },
-    
-    "custom_slash_commands": {
-      "description": "Custom slash commands.",
-      
-      "enabled": true,
-      
-      "commands": [
-        {
-          "name": "/commit",
-          "description": "Generate a Git commit message using the conventional commits spec.",
-          "enabled": true
-        }
-      ]
-    }
-  }
-}
+
+# AutoML and Hyperparameter Optimization Rules
+
+## Scope
+
+- Use AutoML to accelerate model exploration, not to bypass problem framing, validation design, or explainability.
+- Start with a simple baseline model and fixed metric before launching a search.
+- Keep training, evaluation, feature generation, and search configuration separate.
+- Record datasets, splits, metric definitions, random seeds, library versions, and search spaces for every run.
+
+## Experiment Design
+
+- Define the target metric before selecting tooling.
+- Use nested validation or a final untouched test split for model selection claims.
+- Use time-aware splits for time-series problems; never shuffle across time boundaries.
+- Prevent leakage by fitting preprocessing only on training folds.
+- Include simple baselines such as linear models, random forests, or naive time-series forecasts.
+- Use early stopping and resource limits for expensive searches.
+- Prefer structured search spaces with domain-informed ranges over arbitrary broad grids.
+
+## Tooling
+
+- Use Ray Tune or Optuna for custom training loops, distributed trials, pruning, and scheduler control.
+- Use PyCaret for quick low-code comparisons when the dataset and metric are straightforward.
+- Use AutoTS, Merlion, PyAF, or project-approved time-series tooling when forecast-specific validation, seasonality, and horizon handling matter.
+- Store run metadata in MLflow, Weights & Biases, TensorBoard, or a project-approved tracker.
+- Use `uv` or the existing project package manager for reproducible environments.
+
+## Search Spaces
+
+- Keep search spaces explicit and reviewed.
+- Use log-scale sampling for learning rates, regularization, tree counts, and other scale-sensitive values.
+- Constrain model complexity to avoid unrealistic training time or memory use.
+- Include preprocessing choices only when they can be applied without leakage.
+- Do not tune on the test set.
+
+## Reporting
+
+- Report the selected model, metric, confidence interval or variance, validation scheme, and final test result.
+- Include the best parameters and the search budget.
+- Compare the chosen model against the baseline and at least one non-AutoML alternative.
+- Document operational constraints such as inference latency, memory use, retraining cost, and explainability.
+
+## Common Mistakes
+
+- Do not treat leaderboard rank as proof of production readiness.
+- Do not mix train/test data during feature engineering.
+- Do not run massive searches before validating labels and data quality.
+- Do not ignore class imbalance, calibration, or business cost asymmetry.
+- Do not deploy an AutoML model without reproducible training code and pinned dependencies.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
