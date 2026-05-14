@@ -1,0 +1,9 @@
+{
+  "name": "williamkapke--madameclaude",
+  "displayName": "MadameClaude",
+  "description": "Madame Claude is a monitoring system for Claude Code hooks that captures and streams tool usage events to a web interface.",
+  "version": "1.0.0",
+  "author": "williamkapke",
+  "homepage": "https://github.com/williamkapke/MadameClaude",
+  "skills": []
+}
