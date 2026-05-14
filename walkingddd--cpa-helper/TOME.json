@@ -1,0 +1,44 @@
+{
+  "name": "CPA-Helper",
+  "owner": "walkingddd",
+  "repo": "CPA-Helper",
+  "description": "CPA-Helper \u662f\u9762\u5411 CLIProxyAPI \u7528\u6237\u7684\u672c\u5730\u81ea\u6258\u7ba1\u591a\u7528\u6237\u7ba1\u7406\u9762\u677f\uff0c\u652f\u6301\u591a\u7528\u6237\u72ec\u7acb API Key\u3001\u7528\u91cf\u9694\u79bb\u7edf\u8ba1\u3001\u8bf7\u6c42\u660e\u7ec6\u8ffd\u8e2a\u3001\u6a21\u578b\u4ef7\u683c\u7ef4\u62a4\u3001\u53ef\u7528\u6a21\u578b\u67e5\u8be2\u3001\u7ba1\u7406\u5458\u8d26\u53f7\u7ba1\u63a7\u4e0e Codex \u8d26\u53f7\u5de1\u68c0\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/walkingddd/CPA-Helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T05:31:06Z"
+}
