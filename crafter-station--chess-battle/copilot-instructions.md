@@ -1,279 +1,117 @@
-## trigger-realtime
+## chess-battle
 
-> How to use realtime in your Trigger.dev tasks and your frontend
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Trigger.dev Realtime (v4)
+# CLAUDE.md
 
-**Real-time monitoring and updates for runs**
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Core Concepts
+## Development Commands
 
-Realtime allows you to:
+This project uses **Bun** as the package manager and runtime:
 
-- Subscribe to run status changes, metadata updates, and streams
-- Build real-time dashboards and UI updates
-- Monitor task progress from frontend and backend
+- `bun dev` - Start Next.js development server
+- `bun run build` - Build for production
+- `bun start` - Start production server
+- `bun run lint` - Run Biome linter checks
+- `bun run format` - Format code with Biome
+- `bun run check` - Run Biome checks and auto-fix issues
+- `bun install` - Install dependencies
 
-## Authentication
+## Architecture Overview
 
-### Public Access Tokens
+Chess Battle is a Next.js application that orchestrates chess games between AI models using Trigger.dev for background processing and Electric/Neon for real-time data synchronization.
 
-```ts
-import { auth } from "@trigger.dev/sdk";
+### Core Technologies
 
-// Read-only token for specific runs
-const publicToken = await auth.createPublicToken({
-  scopes: {
-    read: {
-      runs: ["run_123", "run_456"],
-      tasks: ["my-task-1", "my-task-2"],
-    },
-  },
-  expirationTime: "1h", // Default: 15 minutes
-});
-```
+- **Frontend**: Next.js 15 with React 19, Tailwind CSS
+- **Backend**: Trigger.dev v4 for task orchestration
+- **Database**: Neon PostgreSQL with Drizzle ORM
+- **Real-time**: Electric SQL for live data synchronization
+- **Authentication**: Clerk
+- **AI Integration**: Vercel AI SDK with multiple model providers
+- **Styling**: Tailwind CSS with custom CRT screen aesthetic
 
-### Trigger Tokens (Frontend only)
+### Key Components
 
-```ts
-// Single-use token for triggering tasks
-const triggerToken = await auth.createTriggerPublicToken("my-task", {
-  expirationTime: "30m",
-});
-```
+#### Database Schema (`src/db/schema.ts`)
+- `battle` - Chess game records with tournament support
+- `move` - Individual chess moves with validation, timing, and AI metadata
+- `player` - AI model instances
+- `tournament` - Tournament organization
+- `player_rating` - ELO rating system
+- `ai_model` - Model catalog from AI Gateway
 
-## Backend Usage
+#### Trigger.dev Tasks (`src/trigger/`)
+- `battle.task.ts` - Main orchestrator for complete chess games
+- `get-next-move.task.ts` - JSON-mode AI move generation
+- `get-next-move-streaming.task.ts` - Streaming AI move generation
+- `tournament.task.ts` - Tournament management
+- `models.task.ts` - Model metadata sync
 
-### Subscribe to Runs
+#### Chess Engine Integration
+- Uses `chess.js` for game state and move validation
+- Supports both white and black AI players
+- Handles timeouts, invalid moves, and fallback strategies
+- Implements ELO rating system (see `src/lib/elo.ts`)
 
-```ts
-import { runs, tasks } from "@trigger.dev/sdk";
+#### Real-time Updates
+- Electric SQL provides live data sync to frontend
+- Battle progress updates in real-time
+- Move-by-move visualization with chess board component
 
-// Trigger and subscribe
-const handle = await tasks.trigger("my-task", { data: "value" });
+### ELO Rating System
 
-// Subscribe to specific run
-for await (const run of runs.subscribeToRun<typeof myTask>(handle.id)) {
-  console.log(`Status: ${run.status}, Progress: ${run.metadata?.progress}`);
-  if (run.status === "COMPLETED") break;
-}
+Standard chess ELO implementation with K-factor adjustments:
+- Base rating: 1200 for new players
+- K-factor: 40 (games < 10), 32 (games < 30), 16 (rating ≥ 2000), otherwise 24
+- Applied after each battle completion
+- Stored in `player_rating` table with history
 
-// Subscribe to runs with tag
-for await (const run of runs.subscribeToRunsWithTag("user-123")) {
-  console.log(`Tagged run ${run.id}: ${run.status}`);
-}
+### AI Model Integration
 
-// Subscribe to batch
-for await (const run of runs.subscribeToBatch(batchId)) {
-  console.log(`Batch run ${run.id}: ${run.status}`);
-}
-```
+Supports 70+ AI models via Vercel AI SDK:
+- Model list maintained in `src/lib/models.ts`
+- Two generation modes: JSON (structured) and streaming (text parsing)
+- Timeout handling and retry logic
+- Token usage tracking and response time metrics
 
-### Streams
+### Frontend Architecture
 
-```ts
-import { task, metadata } from "@trigger.dev/sdk";
+- App Router with TypeScript
+- Clerk authentication with user merging
+- Custom chess board viewer (`src/components/temporal-chess-viewer/`)
+- Real-time battle monitoring
+- Tournament bracket visualization
+- Retro CRT aesthetic with toggle
 
-// Task that streams data
-export type STREAMS = {
-  openai: OpenAI.ChatCompletionChunk;
-};
+### Battle Orchestration Flow
 
-export const streamingTask = task({
-  id: "streaming-task",
-  run: async (payload) => {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "user", content: payload.prompt }],
-      stream: true,
-    });
+1. Battle creation via form submission
+2. Trigger.dev task orchestrates entire game
+3. Move generation tasks called alternately for white/black
+4. Invalid move handling with fallback to random legal moves  
+5. Game completion detection (checkmate, stalemate, timeout)
+6. ELO rating updates for both players
+7. Real-time UI updates throughout
 
-    // Register stream
-    const stream = await metadata.stream("openai", completion);
+### Development Notes
 
-    let text = "";
-    for await (const chunk of stream) {
-      text += chunk.choices[0]?.delta?.content || "";
-    }
+- Uses Biome for linting/formatting with custom import organization
+- Husky git hooks for code quality
+- Electric SQL requires specific database schema patterns
+- Trigger.dev v4 syntax (avoid v2 `client.defineJob` patterns)
+- CRT screen effect can be disabled via localStorage toggle
+- Tournament support with round-robin and elimination formats
 
-    return { text };
-  },
-});
+### Important Patterns
 
-// Subscribe to streams
-for await (const part of runs.subscribeToRun(runId).withStreams<STREAMS>()) {
-  switch (part.type) {
-    case "run":
-      console.log("Run update:", part.run.status);
-      break;
-    case "openai":
-      console.log("Stream chunk:", part.chunk);
-      break;
-  }
-}
-```
-
-## React Frontend Usage
-
-### Installation
-
-```bash
-npm add @trigger.dev/react-hooks
-```
-
-### Triggering Tasks
-
-```tsx
-"use client";
-import { useTaskTrigger, useRealtimeTaskTrigger } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function TriggerComponent({ accessToken }: { accessToken: string }) {
-  // Basic trigger
-  const { submit, handle, isLoading } = useTaskTrigger<typeof myTask>("my-task", {
-    accessToken,
-  });
-
-  // Trigger with realtime updates
-  const {
-    submit: realtimeSubmit,
-    run,
-    isLoading: isRealtimeLoading,
-  } = useRealtimeTaskTrigger<typeof myTask>("my-task", { accessToken });
-
-  return (
-    <div>
-      <button onClick={() => submit({ data: "value" })} disabled={isLoading}>
-        Trigger Task
-      </button>
-
-      <button onClick={() => realtimeSubmit({ data: "realtime" })} disabled={isRealtimeLoading}>
-        Trigger with Realtime
-      </button>
-
-      {run && <div>Status: {run.status}</div>}
-    </div>
-  );
-}
-```
-
-### Subscribing to Runs
-
-```tsx
-"use client";
-import { useRealtimeRun, useRealtimeRunsWithTag } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function SubscribeComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  // Subscribe to specific run
-  const { run, error } = useRealtimeRun<typeof myTask>(runId, {
-    accessToken,
-    onComplete: (run) => {
-      console.log("Task completed:", run.output);
-    },
-  });
-
-  // Subscribe to tagged runs
-  const { runs } = useRealtimeRunsWithTag("user-123", { accessToken });
-
-  if (error) return <div>Error: {error.message}</div>;
-  if (!run) return <div>Loading...</div>;
-
-  return (
-    <div>
-      <div>Status: {run.status}</div>
-      <div>Progress: {run.metadata?.progress || 0}%</div>
-      {run.output && <div>Result: {JSON.stringify(run.output)}</div>}
-
-      <h3>Tagged Runs:</h3>
-      {runs.map((r) => (
-        <div key={r.id}>
-          {r.id}: {r.status}
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-### Streams with React
-
-```tsx
-"use client";
-import { useRealtimeRunWithStreams } from "@trigger.dev/react-hooks";
-import type { streamingTask, STREAMS } from "../trigger/tasks";
-
-function StreamComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  const { run, streams } = useRealtimeRunWithStreams<typeof streamingTask, STREAMS>(runId, {
-    accessToken,
-  });
-
-  const text = streams.openai
-    .filter((chunk) => chunk.choices[0]?.delta?.content)
-    .map((chunk) => chunk.choices[0].delta.content)
-    .join("");
-
-  return (
-    <div>
-      <div>Status: {run?.status}</div>
-      <div>Streamed Text: {text}</div>
-    </div>
-  );
-}
-```
-
-### Wait Tokens
-
-```tsx
-"use client";
-import { useWaitToken } from "@trigger.dev/react-hooks";
-
-function WaitTokenComponent({ tokenId, accessToken }: { tokenId: string; accessToken: string }) {
-  const { complete } = useWaitToken(tokenId, { accessToken });
-
-  return <button onClick={() => complete({ approved: true })}>Approve Task</button>;
-}
-```
-
-### SWR Hooks (Fetch Once)
-
-```tsx
-"use client";
-import { useRun } from "@trigger.dev/react-hooks";
-import type { myTask } from "../trigger/tasks";
-
-function SWRComponent({ runId, accessToken }: { runId: string; accessToken: string }) {
-  const { run, error, isLoading } = useRun<typeof myTask>(runId, {
-    accessToken,
-    refreshInterval: 0, // Disable polling (recommended)
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return <div>Run: {run?.status}</div>;
-}
-```
-
-## Run Object Properties
-
-Key properties available in run subscriptions:
-
-- `id`: Unique run identifier
-- `status`: `QUEUED`, `EXECUTING`, `COMPLETED`, `FAILED`, `CANCELED`, etc.
-- `payload`: Task input data (typed)
-- `output`: Task result (typed, when completed)
-- `metadata`: Real-time updatable data
-- `createdAt`, `updatedAt`: Timestamps
-- `costInCents`: Execution cost
-
-## Best Practices
-
-- **Use Realtime over SWR**: Recommended for most use cases due to rate limits
-- **Scope tokens properly**: Only grant necessary read/trigger permissions
-- **Handle errors**: Always check for errors in hooks and subscriptions
-- **Type safety**: Use task types for proper payload/output typing
-- **Cleanup subscriptions**: Backend subscriptions auto-complete, frontend hooks auto-cleanup
+- All database operations use Drizzle ORM
+- Real-time data flows through Electric subscriptions
+- AI model calls include comprehensive error handling
+- Battle timeout enforcement prevents infinite games
+- Move validation ensures chess rule compliance
+- ELO calculations maintain rating accuracy
 
 ---
 > Source: [crafter-station/chess-battle](https://github.com/crafter-station/chess-battle) — distributed by [TomeVault](https://tomevault.io).
