@@ -1,0 +1,9 @@
+{
+  "name": "vwh--temp-mail",
+  "displayName": "temp-mail",
+  "description": "Cloudflare Worker that acts as a temporary email inbox",
+  "version": "1.0.0",
+  "author": "vwh",
+  "homepage": "https://github.com/vwh/temp-mail",
+  "skills": []
+}
