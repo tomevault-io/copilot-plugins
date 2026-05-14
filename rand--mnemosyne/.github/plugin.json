@@ -1,0 +1,9 @@
+{
+  "name": "rand--mnemosyne",
+  "displayName": "mnemosyne",
+  "description": "Mnemosyne is a agentic memory and orchestration system designed to provide Claude Code with persistent semantic memory across sessions.",
+  "version": "1.0.0",
+  "author": "rand",
+  "homepage": "https://github.com/rand/mnemosyne",
+  "skills": []
+}
