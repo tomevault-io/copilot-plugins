@@ -1,0 +1,9 @@
+{
+  "name": "quarkiverse--quarkus-flow",
+  "displayName": "quarkus-flow",
+  "description": "Workflow Runtime Engine based on CNCF Workflow Specification for Agentic Workflows",
+  "version": "1.0.0",
+  "author": "quarkiverse",
+  "homepage": "https://github.com/quarkiverse/quarkus-flow",
+  "skills": []
+}
