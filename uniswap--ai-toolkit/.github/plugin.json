@@ -1,0 +1,9 @@
+{
+  "name": "uniswap--ai-toolkit",
+  "displayName": "ai-toolkit",
+  "description": "\ud83e\udd16 AI Toolkit - Standardized setup for Claude Code AI workflows. Nx monorepo with reusable agents, commands, and generators for enhanced AI-assisted development.",
+  "version": "1.0.0",
+  "author": "Uniswap",
+  "homepage": "https://github.com/Uniswap/ai-toolkit",
+  "skills": []
+}
