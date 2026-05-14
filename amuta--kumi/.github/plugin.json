@@ -1,0 +1,9 @@
+{
+  "name": "amuta--kumi",
+  "displayName": "kumi",
+  "description": "Kumi is a declarative rules-and-calculation DSL for Ruby that staticaly analyzes and compiles your business logic.",
+  "version": "1.0.0",
+  "author": "amuta",
+  "homepage": "https://github.com/amuta/kumi",
+  "skills": []
+}
