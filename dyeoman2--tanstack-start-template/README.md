@@ -7,11 +7,11 @@ TanStack Start template with Convex real-time DB, BetterAuth, Tailwind, ShadcnUI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dyeoman2/tanstack-start-template](https://github.com/dyeoman2/tanstack-start-template).
+Original source: `CLAUDE.md` in [dyeoman2/tanstack-start-template](https://github.com/dyeoman2/tanstack-start-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
