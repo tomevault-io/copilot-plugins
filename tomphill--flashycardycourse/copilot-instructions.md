@@ -1,277 +1,456 @@
-## shadcn-ui
+## vercel-ai-integration
 
-> This project MUST use ONLY shadcn/ui components for ALL UI elements. ABSOLUTELY NO custom UI components are allowed.
+> This project uses the **Vercel AI SDK** (`ai` npm package) to power AI-driven flashcard generation features. The AI integration allows users to automatically generate flashcards from text input, topics, or learning materials.
 
-# SHADCN/UI STRICT USAGE RULES
+# Vercel AI Integration for Flashcard Generation
 
-## 🚨 CRITICAL MANDATE
-This project MUST use ONLY shadcn/ui components for ALL UI elements. ABSOLUTELY NO custom UI components are allowed.
+## Overview
+This project uses the **Vercel AI SDK** (`ai` npm package) to power AI-driven flashcard generation features. The AI integration allows users to automatically generate flashcards from text input, topics, or learning materials.
 
-**MANDATORY Rules:**
-- ❌ NEVER create custom buttons, inputs, cards, modals, or any UI elements
-- ❌ NEVER use raw HTML elements (div, button, input) for UI
-- ❌ NEVER write custom CSS for components beyond Tailwind utilities
-- ✅ ALWAYS use shadcn/ui components for every UI element
-- ✅ ALWAYS compose complex UI by combining shadcn/ui components
-- ✅ This project is in dark mode so make sure there are no dark colored text on dark backgrounds (and vice versa)
-
-## 🛡️ ENFORCEMENT POLICY
-**NO EXCEPTIONS** - Every UI element must use shadcn/ui components. If a component doesn't exist in shadcn/ui, you must:
-1. First check if it can be composed from existing components
-2. If not, add the closest shadcn/ui component and adapt
-3. NEVER create custom components
-
-## 📋 BEFORE CODING CHECKLIST
-**Before creating any UI:** Run `npx shadcn@latest add [component-name]`
-
-Required components for this project:
-```bash
-npx shadcn@latest add button
-npx shadcn@latest add card  
-npx shadcn@latest add input
-npx shadcn@latest add dialog
-npx shadcn@latest add form
-npx shadcn@latest add badge
-npx shadcn@latest add separator
-npx shadcn@latest add avatar
-npx shadcn@latest add progress
-npx shadcn@latest add toast
-npx shadcn@latest add alert
-npx shadcn@latest add tabs
-npx shadcn@latest add select
-npx shadcn@latest add textarea
-npx shadcn@latest add label
+## Core Dependencies
+```json
+{
+  "ai": "^3.x.x",
+  "@ai-sdk/openai": "^0.x.x",
+  "zod": "^3.x.x"
+}
 ```
 
-## 🔐 CLERK INTEGRATION REQUIREMENTS
+## AI Feature Architecture
 
-### Authentication Buttons
-All Clerk sign-in/sign-up buttons MUST use shadcn/ui Button components:
+### Authentication & Billing Integration
+**CRITICAL**: AI flashcard generation is a **PREMIUM FEATURE** that requires:
+- User authentication via Clerk
+- Pro subscription (`plan: 'pro'` or `feature: 'ai_flashcard_generation'`)
+- Proper feature gating using Clerk's billing system
 
-```tsx
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+```typescript
+import { auth } from '@clerk/nextjs/server';
 
-// ✅ CORRECT - Using shadcn/ui Button
-<SignInButton mode="modal">
-  <Button variant="default">Sign In</Button>
-</SignInButton>
-
-<SignUpButton mode="modal">
-  <Button variant="outline">Sign Up</Button>
-</SignUpButton>
-
-// ❌ WRONG - Custom button or raw HTML
-<SignInButton>
-  <button className="custom-btn">Sign In</button>
-</SignInButton>
+export async function generateAIFlashcards(prompt: string) {
+  const { has, userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  
+  const hasAIFeature = has({ feature: 'ai_flashcard_generation' });
+  if (!hasAIFeature) {
+    throw new Error("AI flashcard generation requires a Pro subscription");
+  }
+  
+  // Proceed with AI generation...
+}
 ```
 
-### Modal Requirements
-Clerk MUST use modal mode with shadcn/ui Dialog components:
+### Structured Data Generation Pattern
+**MANDATORY**: Use Vercel AI's `generateObject` function for creating structured flashcard data.
 
-```tsx
-import { SignInButton } from "@clerk/nextjs";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+#### Core Implementation Pattern
+```typescript
+import { generateObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { z } from 'zod';
 
-// ✅ CORRECT - Modal mode with shadcn/ui components
-<SignInButton mode="modal">
-  <Button>Access Dashboard</Button>
-</SignInButton>
+// Define Zod schema for flashcard structure
+const FlashcardSchema = z.object({
+  flashcards: z.array(z.object({
+    front: z.string().min(1, "Front content required"),
+    back: z.string().min(1, "Back content required"),
+    difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+    tags: z.array(z.string()).optional(),
+  })),
+  metadata: z.object({
+    topic: z.string(),
+    totalCards: z.number(),
+    estimatedStudyTime: z.number().optional(),
+  }).optional(),
+});
+
+type FlashcardGenerationResult = z.infer<typeof FlashcardSchema>;
+
+export async function generateFlashcardsWithAI(
+  prompt: string, 
+  cardCount: number = 10,
+  difficulty: 'easy' | 'medium' | 'hard' = 'medium'
+): Promise<FlashcardGenerationResult> {
+  const { object } = await generateObject({
+    model: openai('gpt-4o-mini'), // Cost-effective model for flashcards
+    schema: FlashcardSchema,
+    prompt: `Generate ${cardCount} flashcards about: ${prompt}
+    
+    Requirements:
+    - Create exactly ${cardCount} flashcards
+    - Difficulty level: ${difficulty}
+    - Front: Clear, concise questions or prompts
+    - Back: Accurate, detailed answers or explanations
+    - Cover different aspects of the topic
+    - Ensure educational value and accuracy
+    - Make questions progressively challenging if requested
+    
+    Topic: ${prompt}`,
+    temperature: 0.7, // Balanced creativity and consistency
+  });
+  
+  return object;
+}
 ```
 
-### User Profile Integration
-```tsx
-import { UserButton } from "@clerk/nextjs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+### Server Action Integration
+**MANDATORY**: AI generation MUST be implemented as Server Actions following the project's data handling patterns.
 
-// ✅ CORRECT - If customizing UserButton appearance
-<UserButton 
-  appearance={{
-    elements: {
-      avatarBox: "w-10 h-10", // Use Tailwind classes only
-    }
-  }}
-/>
+```typescript
+// src/app/decks/[deckId]/actions.ts (or similar)
+"use server";
+
+import { auth } from '@clerk/nextjs/server';
+import { createCard } from '@/db/queries';
+import { generateFlashcardsWithAI } from '@/lib/ai';
+import { z } from 'zod';
+
+const AIGenerationSchema = z.object({
+  deckId: z.string().uuid(),
+  prompt: z.string().min(10, "Prompt must be at least 10 characters"),
+  cardCount: z.number().min(1).max(50).default(10),
+  difficulty: z.enum(['easy', 'medium', 'hard']).default('medium'),
+});
+
+type AIGenerationInput = z.infer<typeof AIGenerationSchema>;
+
+export async function generateAIFlashcardsAction(input: AIGenerationInput) {
+  // 1. Validate input
+  const validatedInput = AIGenerationSchema.parse(input);
+  
+  // 2. Check authentication and billing
+  const { has, userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+  
+  const hasAIFeature = has({ feature: 'ai_flashcard_generation' });
+  if (!hasAIFeature) {
+    throw new Error("AI flashcard generation requires a Pro subscription");
+  }
+  
+  // 3. Verify deck ownership (using centralized query)
+  const deck = await getDeckById(validatedInput.deckId);
+  if (!deck) {
+    throw new Error("Deck not found or unauthorized");
+  }
+  
+  // 4. Generate flashcards with AI
+  const result = await generateFlashcardsWithAI(
+    validatedInput.prompt,
+    validatedInput.cardCount,
+    validatedInput.difficulty
+  );
+  
+  // 5. Save generated cards to database (using centralized queries)
+  const createdCards = [];
+  for (const flashcard of result.flashcards) {
+    const card = await createCard({
+      deckId: validatedInput.deckId,
+      front: flashcard.front,
+      back: flashcard.back,
+    });
+    createdCards.push(card);
+  }
+  
+  return {
+    cards: createdCards,
+    metadata: result.metadata,
+  };
+}
 ```
 
-## 🚫 ABSOLUTELY FORBIDDEN
+## UI Integration Patterns
 
-### Never Create These:
-- Custom Button components
-- Custom Input/Form components  
-- Custom Card components
-- Custom Modal/Dialog components
-- Custom Navigation components
-- Custom Loading spinners
-- Custom Icons (use Lucide React with shadcn/ui)
-- Custom Tooltips or Popovers
+### Premium Feature Protection
+**MANDATORY**: Always wrap AI features with proper billing protection using Clerk's `<Protect>` component.
 
-### Never Use These:
-```tsx
-// ❌ WRONG - Raw HTML elements
-<button>Click me</button>
-<input type="text" />
-<div className="card">Content</div>
-<form>...</form>
+```typescript
+import { Protect } from '@clerk/nextjs';
+import { Button } from '@/components/ui/button';
 
-// ❌ WRONG - Custom CSS classes for components
-<div className="custom-button">Button</div>
-<div className="my-modal">Modal content</div>
-
-// ❌ WRONG - Third-party UI libraries
-import { Button } from 'some-other-ui-lib';
-```
-
-## ✅ REQUIRED PATTERNS
-
-### Button Usage
-```tsx
-import { Button } from "@/components/ui/button";
-
-// All button variants available
-<Button variant="default">Primary</Button>
-<Button variant="destructive">Delete</Button>
-<Button variant="outline">Secondary</Button>
-<Button variant="secondary">Alt</Button>
-<Button variant="ghost">Subtle</Button>
-<Button variant="link">Link Style</Button>
-```
-
-### Form Components
-```tsx
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-<Card>
-  <CardHeader>
-    <CardTitle>Form Title</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <form className="space-y-4">
-      <div>
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" />
-      </div>
-      <Button type="submit">Submit</Button>
-    </form>
-  </CardContent>
-</Card>
-```
-
-### Layout Components
-```tsx
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-
-<Card>
-  <CardHeader>
-    <CardTitle>Flashcard Deck</CardTitle>
-    <Badge variant="secondary">25 cards</Badge>
-  </CardHeader>
-  <Separator />
-  <CardContent>
-    Content here
-  </CardContent>
-</Card>
-```
-
-## 🔧 COMPONENT INSTALLATION
-
-### Immediate Installation Required
-Run these commands now if components are missing:
-
-```bash
-# Core components for flashcard app
-npx shadcn@latest add button
-npx shadcn@latest add card
-npx shadcn@latest add input
-npx shadcn@latest add label
-npx shadcn@latest add dialog
-npx shadcn@latest add badge
-npx shadcn@latest add progress
-npx shadcn@latest add separator
-npx shadcn@latest add avatar
-npx shadcn@latest add tabs
-npx shadcn@latest add alert
-npx shadcn@latest add toast
-npx shadcn@latest add form
-```
-
-### Import Patterns
-```tsx
-// ✅ CORRECT - Always import from @/components/ui/
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-```
-
-## 🎨 STYLING RULES
-
-### Allowed Styling
-- ✅ Tailwind utility classes: `className="flex items-center space-x-2"`
-- ✅ shadcn/ui component variants: `<Button variant="outline" size="sm">`
-- ✅ Tailwind responsive classes: `className="md:flex-row flex-col"`
-
-### Forbidden Styling
-- ❌ Custom CSS files for components
-- ❌ Styled-components or CSS-in-JS
-- ❌ Inline styles: `style={{backgroundColor: 'red'}}`
-- ❌ Custom CSS classes for layout: `className="my-custom-grid"`
-
-## 🔍 COMPONENT REFERENCE
-
-### Available Components
-**Form Controls:** button, input, textarea, select, checkbox, radio-group, switch, label, form
-**Layout:** card, separator, sheet, tabs, accordion, collapsible, aspect-ratio
-**Feedback:** alert, toast, dialog, alert-dialog, popover, tooltip, hover-card
-**Navigation:** menubar, navigation-menu, breadcrumb, pagination, command
-**Data Display:** table, badge, avatar, progress, skeleton, calendar
-**Overlays:** drawer, context-menu, dropdown-menu
-
-### Component Composition
-Build complex interfaces by combining simple components:
-
-```tsx
-// ✅ CORRECT - Composing components
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-
-function FlashcardDeck({ deck }) {
+export function AIGenerationButton({ deckId }: { deckId: string }) {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>{deck.title}</CardTitle>
-        <Badge variant="secondary">{deck.cardCount} cards</Badge>
-      </CardHeader>
-      <CardContent>
-        <Progress value={deck.progress} className="mb-4" />
-        <div className="flex gap-2">
-          <Button>Study</Button>
-          <Button variant="outline">Edit</Button>
-        </div>
-      </CardContent>
-    </Card>
+    <Protect
+      feature="ai_flashcard_generation"
+      fallback={
+        <Button disabled variant="outline">
+          Upgrade to Pro for AI Generation
+        </Button>
+      }
+    >
+      <AIFlashcardDialog deckId={deckId} />
+    </Protect>
   );
 }
 ```
 
-## 🚨 VIOLATION CONSEQUENCES
-Any code that violates these rules will be immediately rejected. There are no exceptions to using shadcn/ui components exclusively.
+### AI Generation Dialog Component
+**MANDATORY**: Use shadcn/ui components for consistent AI generation interface.
 
-## 📖 QUICK REFERENCE
-- **Documentation:** https://ui.shadcn.com
-- **Installation:** `npx shadcn@latest add [component]`
-- **Import Path:** `@/components/ui/[component]`
-- **Styling:** Tailwind utilities only
-- **Clerk Integration:** Modal mode with shadcn/ui buttons
+```typescript
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
+
+export function AIFlashcardDialog({ deckId }: { deckId: string }) {
+  const [isGenerating, setIsGenerating] = useState(false);
+  
+  const handleGenerate = async (formData: FormData) => {
+    const input = {
+      deckId,
+      prompt: formData.get('prompt') as string,
+      cardCount: parseInt(formData.get('cardCount') as string),
+      difficulty: formData.get('difficulty') as 'easy' | 'medium' | 'hard',
+    };
+    
+    setIsGenerating(true);
+    try {
+      await generateAIFlashcardsAction(input);
+      // Handle success (close dialog, refresh cards, show toast)
+    } catch (error) {
+      // Handle error (show error message)
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+  
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">
+          ✨ Generate with AI
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Generate Flashcards with AI</DialogTitle>
+        </DialogHeader>
+        <form action={handleGenerate} className="space-y-4">
+          <div>
+            <Label htmlFor="prompt">Topic or Learning Material</Label>
+            <Textarea
+              id="prompt"
+              name="prompt"
+              placeholder="Enter a topic, paste text, or describe what you want to learn..."
+              required
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="cardCount">Number of Cards</Label>
+              <Input
+                id="cardCount"
+                name="cardCount"
+                type="number"
+                min="1"
+                max="50"
+                defaultValue="10"
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="difficulty">Difficulty</Label>
+              <select name="difficulty" className="...">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+          <Button type="submit" disabled={isGenerating} className="w-full">
+            {isGenerating ? 'Generating...' : 'Generate Flashcards'}
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+```
+
+## Model Selection & Configuration
+
+### Recommended Models
+- **Primary**: `gpt-4o-mini` - Cost-effective, good quality for educational content
+- **Alternative**: `gpt-3.5-turbo` - Faster, more economical for simple flashcards
+- **Premium**: `gpt-4o` - Highest quality for complex academic content
+
+### Prompt Engineering Guidelines
+**MANDATORY**: Follow these prompt patterns for consistent flashcard quality:
+
+```typescript
+const createPrompt = (topic: string, cardCount: number, difficulty: string) => `
+Generate ${cardCount} high-quality flashcards for learning about: ${topic}
+
+Requirements:
+- Difficulty: ${difficulty}
+- Create EXACTLY ${cardCount} unique flashcards
+- Front side: Clear, specific questions or prompts
+- Back side: Accurate, concise answers with key details
+- Cover different aspects and subtopics
+- Progress from basic concepts to more advanced
+- Use active recall techniques
+- Include examples where helpful
+
+Guidelines:
+- Questions should test understanding, not just memorization
+- Answers should be complete but not overwhelming
+- Use clear, educational language
+- Ensure factual accuracy
+- Make each card focused on one concept
+
+Topic: ${topic}
+`;
+```
+
+## Error Handling & User Experience
+
+### AI Generation Error Patterns
+```typescript
+export async function generateFlashcardsWithAI(prompt: string, cardCount: number) {
+  try {
+    const { object } = await generateObject({
+      model: openai('gpt-4o-mini'),
+      schema: FlashcardSchema,
+      prompt: createPrompt(prompt, cardCount, difficulty),
+      maxRetries: 2, // Retry on failure
+      temperature: 0.7,
+    });
+    
+    return object;
+  } catch (error) {
+    if (error.name === 'AI_ParseError') {
+      throw new Error('Failed to generate valid flashcards. Please try again with a different prompt.');
+    }
+    if (error.name === 'AI_RateLimitError') {
+      throw new Error('AI service is currently busy. Please try again in a moment.');
+    }
+    throw new Error('Failed to generate flashcards. Please try again.');
+  }
+}
+```
+
+### Loading States & Feedback
+**MANDATORY**: Provide clear feedback during AI generation:
+
+```typescript
+// Show generation progress
+const [generationStatus, setGenerationStatus] = useState<'idle' | 'generating' | 'success' | 'error'>('idle');
+
+// In the UI:
+{generationStatus === 'generating' && (
+  <div className="flex items-center gap-2">
+    <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
+    <span>Generating flashcards with AI...</span>
+  </div>
+)}
+```
+
+## Cost Management & Rate Limiting
+
+### Usage Monitoring
+**RECOMMENDED**: Track AI generation usage per user:
+
+```typescript
+// Consider implementing usage tracking
+const trackAIUsage = async (userId: string, tokensUsed: number) => {
+  // Log usage for monitoring and billing
+};
+```
+
+### Rate Limiting
+**RECOMMENDED**: Implement rate limiting for AI features:
+
+```typescript
+// Consider rate limiting per user per time period
+const checkRateLimit = async (userId: string) => {
+  // Check if user has exceeded AI generation limits
+};
+```
+
+## Integration with Database Schema
+
+### Flashcard Storage
+**MANDATORY**: Generated flashcards MUST use the existing database schema from [src/db/schema.ts](mdc:src/db/schema.ts):
+
+```typescript
+// Save AI-generated cards using centralized queries
+import { createCard } from '@/db/queries/cards';
+
+for (const flashcard of aiResult.flashcards) {
+  await createCard({
+    deckId: targetDeckId,
+    front: flashcard.front,
+    back: flashcard.back,
+  });
+}
+```
+
+### Metadata Tracking
+**OPTIONAL**: Consider adding AI generation metadata to track:
+- Generation timestamp
+- Model used
+- Token usage
+- User satisfaction ratings
+
+## Security & Privacy Considerations
+
+### Data Privacy
+**MANDATORY**: 
+- Never log user prompts or generated content
+- Ensure AI-generated content belongs to the authenticated user
+- Follow the same user data isolation rules as other features
+
+### Content Filtering
+**RECOMMENDED**: Consider implementing content moderation for AI-generated flashcards to ensure educational appropriateness.
+
+## Testing AI Features
+
+### Development Testing
+**MANDATORY**: Always test AI features with:
+- Valid and invalid prompts
+- Different card counts and difficulties
+- Billing protection (free vs. pro users)
+- Error scenarios (API failures, malformed responses)
+
+### Mock AI Responses
+**RECOMMENDED**: Create mock AI responses for development:
+
+```typescript
+// For development/testing
+const mockAIGeneration = async (prompt: string, cardCount: number) => {
+  return {
+    flashcards: Array.from({ length: cardCount }, (_, i) => ({
+      front: `Sample question ${i + 1} about ${prompt}`,
+      back: `Sample answer ${i + 1} for the topic`,
+    })),
+    metadata: {
+      topic: prompt,
+      totalCards: cardCount,
+    },
+  };
+};
+```
+
+## Integration Points
+
+### Database Operations
+- Use centralized query functions from [src/db/queries/index.ts](mdc:src/db/queries/index.ts)
+- Follow authentication patterns from [src/middleware.ts](mdc:src/middleware.ts)
+- Integrate with Clerk billing system for feature access
+
+### UI Components
+- Use shadcn/ui components exclusively from [src/components/ui/](mdc:src/components/ui)
+- Follow existing dialog and form patterns
+- Integrate with existing deck management components
+
+### Server Actions
+- Follow server action patterns established in the project
+- Use proper TypeScript typing with Zod validation
+- Integrate with existing error handling patterns
+
+**REMEMBER**: AI flashcard generation is a premium feature that requires proper authentication, billing verification, and integration with the existing project architecture. Always prioritize user experience, cost management, and data security.
 
 ---
 > Source: [tomphill/flashycardycourse](https://github.com/tomphill/flashycardycourse) — distributed by [TomeVault](https://tomevault.io).
