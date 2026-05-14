@@ -7,11 +7,11 @@ A blazingly fast, lightweight WebView framework for DCC (Digital Content Creatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [loonghao/auroraview](https://github.com/loonghao/auroraview).
+Original source: `CLAUDE.md` in [loonghao/auroraview](https://github.com/loonghao/auroraview).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
