@@ -4,7 +4,7 @@
   "repo": "seccamp-2025-b1",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m-mizutani/seccamp-2025-b1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:37:25Z"
+  "distributed_at": "2026-05-14T16:00:40Z"
 }
