@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tiger-agents-for-work",
+  "displayName": "tiger-agents-for-work",
+  "description": "A library/CLI for running Agentic Slack bots with durable execution and bounded concurrency.",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tiger-agents-for-work",
+  "skills": []
+}
