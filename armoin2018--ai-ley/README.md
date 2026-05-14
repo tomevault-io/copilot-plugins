@@ -7,14 +7,14 @@ Level the AI playing field with robust AI Evolving Personas, Instruction Sets, C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [armoin2018/ai-ley](https://github.com/armoin2018/ai-ley).
+Original source: `CLAUDE.md` in [armoin2018/ai-ley](https://github.com/armoin2018/ai-ley).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [armoin2018/ai-ley](https://github.com/armoin2018/ai-ley) — a repo with 11+ stars on GitHub.
