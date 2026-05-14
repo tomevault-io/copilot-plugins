@@ -1,0 +1,9 @@
+{
+  "name": "ekscrypto--sm3",
+  "displayName": "sm3",
+  "description": "ShangMi 3 implementation in Swift",
+  "version": "1.0.0",
+  "author": "ekscrypto",
+  "homepage": "https://github.com/ekscrypto/sm3",
+  "skills": []
+}
