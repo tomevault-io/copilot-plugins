@@ -1,0 +1,9 @@
+{
+  "name": "yinzara--ha-config-ai-agent",
+  "displayName": "ha-config-ai-agent",
+  "description": "AI-powered Home Assistant configuration assistant with approval workflow.",
+  "version": "1.0.0",
+  "author": "yinzara",
+  "homepage": "https://github.com/yinzara/ha-config-ai-agent",
+  "skills": []
+}
