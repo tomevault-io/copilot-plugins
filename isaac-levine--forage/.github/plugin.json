@@ -1,0 +1,9 @@
+{
+  "name": "isaac-levine--forage",
+  "displayName": "forage",
+  "description": "Self-improving tool discovery for AI agents. Agents find, install, and learn to use new MCP tools automatically.",
+  "version": "1.0.0",
+  "author": "isaac-levine",
+  "homepage": "https://github.com/isaac-levine/forage",
+  "skills": []
+}
