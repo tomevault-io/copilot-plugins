@@ -1,0 +1,9 @@
+{
+  "name": "slb350--news-llama",
+  "displayName": "news-llama",
+  "description": "AI-powered news curation engine with personalized source discovery",
+  "version": "1.0.0",
+  "author": "slb350",
+  "homepage": "https://github.com/slb350/news-llama",
+  "skills": []
+}
