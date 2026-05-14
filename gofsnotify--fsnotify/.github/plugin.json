@@ -1,0 +1,9 @@
+{
+  "name": "gofsnotify--fsnotify",
+  "displayName": "fsnotify",
+  "description": "Cross-platform file system notifications for Go.",
+  "version": "1.0.0",
+  "author": "gofsnotify",
+  "homepage": "https://github.com/gofsnotify/fsnotify",
+  "skills": []
+}
