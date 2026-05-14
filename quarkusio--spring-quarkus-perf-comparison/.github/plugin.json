@@ -1,0 +1,9 @@
+{
+  "name": "quarkusio--spring-quarkus-perf-comparison",
+  "displayName": "spring-quarkus-perf-comparison",
+  "description": "Performance comparison between SpringBoot and Quarkus",
+  "version": "1.0.0",
+  "author": "quarkusio",
+  "homepage": "https://github.com/quarkusio/spring-quarkus-perf-comparison",
+  "skills": []
+}
