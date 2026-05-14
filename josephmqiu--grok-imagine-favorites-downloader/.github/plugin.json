@@ -1,0 +1,9 @@
+{
+  "name": "josephmqiu--grok-imagine-favorites-downloader",
+  "displayName": "grok-imagine-favorites-downloader",
+  "description": "Chrome extension for detecting and downloading both images and videos from Grok Imagine Favorites",
+  "version": "1.0.0",
+  "author": "josephmqiu",
+  "homepage": "https://github.com/josephmqiu/grok-imagine-favorites-downloader",
+  "skills": []
+}
