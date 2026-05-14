@@ -7,11 +7,11 @@ artifact/secret management concept for nixos
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrVanDalo/nixos-artifacts](https://github.com/mrVanDalo/nixos-artifacts).
+Original source: `CLAUDE.md` in [mrVanDalo/nixos-artifacts](https://github.com/mrVanDalo/nixos-artifacts).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
