@@ -1,0 +1,9 @@
+{
+  "name": "tomevault-io--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "claude-code-plugins",
+  "version": "1.0.0",
+  "author": "tomevault-io",
+  "homepage": "https://github.com/tomevault-io/claude-code-plugins",
+  "skills": []
+}
