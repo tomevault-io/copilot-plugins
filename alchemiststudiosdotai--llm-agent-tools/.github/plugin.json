@@ -1,0 +1,9 @@
+{
+  "name": "alchemiststudiosdotai--llm-agent-tools",
+  "displayName": "llm-agent-tools",
+  "description": "Bash scripts to enhance LLM agent capabilities: task tracking, architecture documentation, and online research",
+  "version": "1.0.0",
+  "author": "alchemiststudiosDOTai",
+  "homepage": "https://github.com/alchemiststudiosDOTai/llm-agent-tools",
+  "skills": []
+}
