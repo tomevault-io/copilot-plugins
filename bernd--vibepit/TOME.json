@@ -4,7 +4,7 @@
   "repo": "vibepit",
   "description": "Run AI coding agents in isolated containers with network filtering.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bernd/vibepit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:22:28Z"
+  "distributed_at": "2026-05-14T04:07:51Z"
 }
