@@ -7,11 +7,11 @@ An envoy-based MCP Gateway that integrates with Istio and policy attachment mech
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway).
+Original source: `CLAUDE.md` in [Kuadrant/mcp-gateway](https://github.com/Kuadrant/mcp-gateway).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
