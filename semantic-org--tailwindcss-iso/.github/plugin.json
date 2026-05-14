@@ -1,0 +1,9 @@
+{
+  "name": "semantic-org--tailwindcss-iso",
+  "displayName": "tailwindcss-iso",
+  "description": "A plugin for generating tailwind css and extracting classes from content strings uniformly on the server and client.",
+  "version": "1.0.0",
+  "author": "Semantic-Org",
+  "homepage": "https://github.com/Semantic-Org/tailwindcss-iso",
+  "skills": []
+}
