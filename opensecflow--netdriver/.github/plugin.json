@@ -1,0 +1,9 @@
+{
+  "name": "opensecflow--netdriver",
+  "displayName": "netdriver",
+  "description": "NetDriver is a project designed for connecting network devices and executing CLI commands. Developers can make calls through the HTTP RESTful interface, which simplifies the development of network dev",
+  "version": "1.0.0",
+  "author": "OpenSecFlow",
+  "homepage": "https://github.com/OpenSecFlow/netdriver",
+  "skills": []
+}
