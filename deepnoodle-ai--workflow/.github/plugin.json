@@ -1,0 +1,9 @@
+{
+  "name": "deepnoodle-ai--workflow",
+  "displayName": "workflow",
+  "description": "An easy-to-use workflow automation library for Go. Supports conditional branching, parallel execution, embedded scripting, and execution checkpointing. Think of it like a lightweight hybrid of Tempora",
+  "version": "1.0.0",
+  "author": "deepnoodle-ai",
+  "homepage": "https://github.com/deepnoodle-ai/workflow",
+  "skills": []
+}
