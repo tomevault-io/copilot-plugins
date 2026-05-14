@@ -1,74 +1,146 @@
-## caido-backend
+## caido-frontend
 
-> Caido Backend SDK Rules and Patterns
+> Caido Frontend SDK Rules and Patterns
 
 
-## Caido Backend SDK
+## Caido Frontend SDK
 
 ### Overview
 
-The Caido Backend SDK is used for server-side logic, data processing, and creating API endpoints that can be called from frontend plugins.
+The Caido Frontend SDK is used for creating UI components, pages, and handling user interactions in Caido plugins.
 
 ### Entry Point
 
-Backend plugins are initialized via `packages/backend/src/index.ts`:
+Frontend plugins are initialized via `packages/frontend/src/index.ts`:
 
 ```typescript
-import { SDK, DefineAPI } from "caido:plugin";
+import { Caido } from "@caido/sdk-frontend";
+import { API, BackendEvents } from "backend";
 
-// Define your API functions
-function myCustomFunction(sdk: SDK, param: string) {
-  sdk.console.log(`Called with: ${param}`);
-  return `Processed: ${param}`;
-}
-
-// Export the API type definition
-export type API = DefineAPI<{
-  myCustomFunction: typeof myCustomFunction;
-}>;
+// Define SDK type with backend API
+export type FrontendSDK = Caido<API, BackendEvents>;
 
 // Plugin initialization
-export function init(sdk: SDK<API>) {
-  // Register API endpoints
-  sdk.api.register("myCustomFunction", myCustomFunction);
-}
+export const init = (sdk: FrontendSDK) => {
+  // Create pages and UI
+  createPage(sdk);
+
+  // Register sidebar items
+  sdk.sidebar.registerItem("My Plugin", "/my-plugin-page", {
+    icon: "fas fa-rocket"
+  });
+
+  // Register commands
+  sdk.commands.register("my-command", {
+    name: "My Custom Command",
+    run: () => sdk.backend.myCustomFunction("Hello"),
+  });
+};
 ```
 
 ### SDK Type Definitions
 
-#### Backend SDK with events:
+#### For plugins WITHOUT backend, this is fine:
 ```typescript
-import { DefineEvents, SDK } from "caido:plugin";
-
-export type BackendEvents = DefineEvents<{
-  "data-updated": { message: string };
-  "status-changed": { status: "active" | "inactive" };
-}>;
-
-export type CaidoBackendSDK = SDK<never, BackendEvents>;
+export type FrontendSDK = Caido<Record<string, never>, Record<string, never>>;
 ```
 
-### Best Practices
+#### For plugins WITH backend:
+```typescript
+import { Caido } from "@caido/sdk-frontend";
+import { API, BackendEvents } from "backend";
 
-When building API endpoints in the backend and calling them from the frontend, use Result types to handle errors gracefully without throwing exceptions:
+export type FrontendSDK = Caido<API, BackendEvents>;
+```
+
+### Command Pattern
+
+Commands provide a unified way to register actions that can be triggered from:
+- Command palette (Ctrl/Cmd+Shift+P)
+- Context menus (right-click)
+- UI buttons
+- Keyboard shortcuts
+
+Commands is a frontend-only concept.
 
 ```typescript
-// Define the Result type
-export type Result<T> =
-  | { kind: "Error"; error: string }
-  | { kind: "Ok"; value: T };
+// Define command IDs as constants
+const Commands = {
+  processData: "my-plugin.process-data",
+  exportResults: "my-plugin.export-results",
+} as const;
 
-// Backend API function returning Result
-function processData(sdk: SDK, input: string): Result<ProcessedData> {
-  try {
-    // Your processing logic here
-    const processed = doSomeProcessing(input);
-    return { kind: "Ok", value: processed };
-  } catch (error) {
-    return { kind: "Error", error: error.message };
-  }
+// Register commands
+sdk.commands.register(Commands.processData, {
+  name: "Process Data",
+  run: async () => {
+    const result = await sdk.backend.processData();
+    sdk.window.showToast(`Processed ${result.count} items`, {
+      variant: "success"
+    });
+  },
+  group: "My Plugin",
+});
+
+// Add to command palette
+sdk.commandPalette.register(Commands.processData);
+
+// Add to context menus
+sdk.menu.registerItem({
+  type: "Request",
+  commandId: Commands.processData,
+  leadingIcon: "fas fa-cog",
+});
+```
+
+### Working with Requests and Responses
+
+#### Creating and Sending Requests
+
+```typescript
+import { RequestSpec } from "caido:utils";
+import { type Request, type Response } from "caido:utils";
+
+// Create a new request
+const spec = new RequestSpec("https://api.example.com/data");
+spec.setMethod("POST");
+spec.setHeader("Content-Type", "application/json");
+spec.setBody(JSON.stringify({ key: "value" }));
+
+// Send the request
+const result = await sdk.requests.send(spec);
+if (result.response) {
+  const statusCode = result.response.getCode();
+  const responseBody = result.response.getBody()?.toText();
 }
+```
 
+#### Working with Request/Response Editors
+
+```typescript
+// Create editors for viewing/editing HTTP data
+const reqEditor = sdk.ui.httpRequestEditor();
+const respEditor = sdk.ui.httpResponseEditor();
+
+// Get DOM elements
+const reqElement = reqEditor.getElement();
+const respElement = respEditor.getElement();
+
+// Style and layout
+reqElement.style.width = "50%";
+respElement.style.width = "50%";
+
+const editorsContainer = document.createElement("div");
+editorsContainer.style.display = "flex";
+editorsContainer.appendChild(reqElement);
+editorsContainer.appendChild(respElement);
+```
+
+### Frontend Error Handling
+
+When calling backend APIs from the frontend, handle Result types gracefully:
+
+```typescript
 // Frontend usage - no try/catch needed
 const handleProcess = async () => {
   const result = await sdk.backend.processData(inputValue);
@@ -82,38 +154,6 @@ const handleProcess = async () => {
   const data = result.value;
   sdk.window.showToast("Processing completed!", { variant: "success" });
 };
-```
-
-
-#### Registering Multiple API Endpoints
-
-```typescript
-// Define multiple API functions
-function getData(sdk: SDK, id: string): Result<Data> {
-  // Implementation
-}
-
-function saveData(sdk: SDK, data: Data): Result<void> {
-  // Implementation
-}
-
-function deleteData(sdk: SDK, id: string): Result<boolean> {
-  // Implementation
-}
-
-// Export Caido Backend API
-export type API = DefineAPI<{
-  getData: typeof getData;
-  saveData: typeof saveData;
-  deleteData: typeof deleteData;
-}>;
-
-// Register all endpoints
-export function init(sdk: SDK<API>) {
-  sdk.api.register("getData", getData);
-  sdk.api.register("saveData", saveData);
-  sdk.api.register("deleteData", deleteData);
-}
 ```
 
 ---
