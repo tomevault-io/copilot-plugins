@@ -1,0 +1,9 @@
+{
+  "name": "artmann--package-registry-mcp",
+  "displayName": "package-registry-mcp",
+  "description": "MCP server for searching and getting up-to-date information about NPM, Cargo, PyPi, and NuGet packages.",
+  "version": "1.0.0",
+  "author": "Artmann",
+  "homepage": "https://github.com/Artmann/package-registry-mcp",
+  "skills": []
+}
