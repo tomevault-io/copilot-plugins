@@ -1,0 +1,9 @@
+{
+  "name": "solentlabs--cable-modem-monitor",
+  "displayName": "cable_modem_monitor",
+  "description": "Home Assistant integration for monitoring cable modem signal quality",
+  "version": "1.0.0",
+  "author": "solentlabs",
+  "homepage": "https://github.com/solentlabs/cable_modem_monitor",
+  "skills": []
+}
