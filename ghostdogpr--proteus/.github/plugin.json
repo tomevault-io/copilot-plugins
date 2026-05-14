@@ -1,0 +1,9 @@
+{
+  "name": "ghostdogpr--proteus",
+  "displayName": "proteus",
+  "description": "Code-first Protobuf and gRPC library for Scala",
+  "version": "1.0.0",
+  "author": "ghostdogpr",
+  "homepage": "https://github.com/ghostdogpr/proteus",
+  "skills": []
+}
