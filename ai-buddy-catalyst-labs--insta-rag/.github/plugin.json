@@ -1,0 +1,9 @@
+{
+  "name": "ai-buddy-catalyst-labs--insta-rag",
+  "displayName": "insta_rag",
+  "description": "A python module library that simplifies RAG through abstraction",
+  "version": "1.0.0",
+  "author": "AI-Buddy-Catalyst-Labs",
+  "homepage": "https://github.com/AI-Buddy-Catalyst-Labs/insta_rag",
+  "skills": []
+}
