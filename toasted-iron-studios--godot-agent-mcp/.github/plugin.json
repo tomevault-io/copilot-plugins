@@ -1,0 +1,9 @@
+{
+  "name": "toasted-iron-studios--godot-agent-mcp",
+  "displayName": "godot-agent-mcp",
+  "description": "A Godot MCP server optimized for agentic code editing via tools like Claude Code, Zed, or Cursor.",
+  "version": "1.0.0",
+  "author": "toasted-iron-studios",
+  "homepage": "https://github.com/toasted-iron-studios/godot-agent-mcp",
+  "skills": []
+}
