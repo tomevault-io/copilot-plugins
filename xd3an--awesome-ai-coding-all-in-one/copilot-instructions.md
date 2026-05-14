@@ -1,42 +1,202 @@
-## angular-typescript-cursorrules-prompt-file
+## ankra-cli
 
-> Cursor rules for Angular development with TypeScript integration.
+> Ankra CLI rules and best practices for managing Kubernetes clusters via the Ankra platform
 
-you are an expert Angular programmer using TypeScript, Angular 18 and Jest that focuses on producing clear, readable code.
+# Ankra CLI Best Practices
 
-you are thoughtful, give nuanced answers, and are brilliant at reasoning.
+Ankra is a Kubernetes cluster management platform. Its CLI (`ankra`) lets you manage organisations, clusters, add-ons, stacks, Helm releases, credentials, and tokens from the terminal.
 
-you carefully provide accurate, factual, thoughtful answers and are a genius at reasoning.
+## Authentication & Configuration
 
-before providing an answer, think step by step, and provide a detailed, thoughtful answer.
+- Authenticate first: `ankra login`
+- Default config lives at `~/.ankra.yaml`; override with `--config <path>`
+- Override the API base URL with `--base-url` or `ANKRA_BASE_URL`
+- Supply an API token via `--token` or `ANKRA_API_TOKEN` (prefer env var in CI)
+- Logout cleanly: `ankra logout`
 
-if you need more information, ask for it.
+```yaml
+# ~/.ankra.yaml example
+base_url: https://api.ankra.io
+token: ${ANKRA_API_TOKEN}
+```
 
-always write correct, up to date, bug free, fully functional and working code.
+## Organisation Management
 
-focus on performance, readability, and maintainability.
+```bash
+ankra org list                          # List accessible organisations
+ankra org switch <org-name>             # Switch active organisation
+ankra org create <name>                 # Create a new organisation
+ankra org invite <email>                # Invite a user to the current org
+ankra org members                       # List members of the current org
+```
 
-before providing an answer, double check your work
+## Cluster Lifecycle
 
-include all required imports, and ensure proper naming of key components
+```bash
+ankra cluster list                      # List all clusters in the org
+ankra cluster select <name>             # Set the active cluster context
+ankra cluster info                      # Show details about the active cluster
+ankra cluster provision                 # Provision a new cluster
+ankra cluster deprovision               # Deprovision (destroy) the active cluster
+ankra cluster reconcile                 # Reconcile cluster to desired state
+ankra delete cluster <name>             # Delete a named cluster
+```
 
-do not nest code more than 2 levels deep
+- Always run `ankra cluster info` before destructive operations
+- Use `ankra cluster reconcile` after config changes before assuming state is correct
 
-prefer using the forNext function, located in libs/smart-ngrx/src/common/for-next.function.ts instead of for(let i;i < length;i++), forEach or for(x of y)
+## Add-ons
 
-code should obey the rules defined in the .eslintrc.json, .prettierrc, .htmlhintrc, and .editorconfig files
+```bash
+ankra cluster addons list               # List installed add-ons
+ankra cluster addons available          # List available (installable) add-ons
+ankra cluster addons settings <addon>   # Show current settings for an add-on
+ankra cluster addons update <addon>     # Update add-on configuration
+ankra cluster addons uninstall <addon>  # Uninstall an add-on
+```
 
-functions and methods should not have more than 4 parameters
+## Stacks (Application Stacks)
 
-functions should not have more than 50 executable lines
+```bash
+ankra cluster stacks list               # List stacks in the cluster
+ankra cluster stacks create <name>      # Create a new stack
+ankra cluster stacks delete <name>      # Delete a stack
+ankra cluster stacks rename <old> <new> # Rename a stack
+ankra cluster stacks clone <src> <dst>  # Clone a stack
+ankra cluster stacks history <name>     # View stack change history
+```
 
-lines should not be more than 80 characters
+- Prefer `clone` over `create` when replicating an existing working stack
+- Check `history` before rolling back to understand what changed
 
-when refactoring existing code, keep jsdoc comments intact
+## Manifests & Operations
 
-be concise and minimize extraneous prose.
+```bash
+ankra cluster manifests list            # List deployed manifests
+ankra cluster operations list           # List in-progress or recent operations
+ankra cluster operations cancel <id>    # Cancel a running operation
+```
 
-if you don't know the answer to a request, say so instead of making something up.
+## Cluster Agent
+
+```bash
+ankra cluster agent status              # Check agent health
+ankra cluster agent token               # Retrieve agent bootstrap token
+ankra cluster agent upgrade             # Upgrade the in-cluster agent
+```
+
+- Run `agent status` if cluster commands seem unresponsive
+- Rotate the agent token periodically for security
+
+## Helm
+
+```bash
+ankra cluster helm releases             # List Helm releases in the cluster
+ankra cluster helm uninstall <release>  # Uninstall a Helm release
+ankra helm registries                   # List configured Helm registries
+ankra helm credentials                  # List Helm registry credentials
+```
+
+## Hetzner Cloud Clusters
+
+```bash
+ankra cluster hetzner create            # Create a Hetzner-backed cluster
+ankra cluster hetzner scale             # Scale the cluster node count
+ankra cluster hetzner upgrade           # Upgrade Kubernetes version
+ankra cluster hetzner workers           # Manage worker node groups
+ankra cluster hetzner node-group        # Node group management
+```
+
+## Charts
+
+```bash
+ankra charts list                       # List available charts
+ankra charts search <term>              # Search charts
+ankra charts info <chart>               # Detailed chart information
+```
+
+## Credentials
+
+```bash
+ankra credentials list                              # List stored credentials
+ankra credentials get <name>                        # Retrieve a credential
+ankra credentials validate <name>                   # Validate a credential
+ankra credentials delete <name>                     # Delete a credential
+ankra credentials hetzner --name <n> --token <t>   # Store Hetzner API token
+ankra credentials ovh ...                           # Store OVH credentials
+ankra credentials upcloud ...                       # Store UpCloud credentials
+```
+
+- Never commit credentials to source control; use `ANKRA_API_TOKEN` env var
+- Validate credentials immediately after creation: `ankra credentials validate <name>`
+
+## Tokens (API Tokens)
+
+```bash
+ankra tokens list                       # List API tokens
+ankra tokens create --name <name>       # Create a new API token
+ankra tokens revoke <id>                # Revoke a token (keeps record)
+ankra tokens delete <id>                # Permanently delete a token
+```
+
+## AI Troubleshooting
+
+```bash
+ankra chat                              # Start AI-powered troubleshooting session
+```
+
+Use `ankra chat` when facing ambiguous errors — it provides contextual guidance.
+
+## Global Flags
+
+| Flag | Env Var | Description |
+|------|---------|-------------|
+| `--base-url <url>` | `ANKRA_BASE_URL` | Override API base URL |
+| `--token <token>` | `ANKRA_API_TOKEN` | API authentication token |
+| `--config <path>` | — | Path to config file (default `~/.ankra.yaml`) |
+
+## Scripting & Automation Tips
+
+- Export `ANKRA_API_TOKEN` in CI pipelines; never hard-code tokens
+- Use `--token` for one-off scripts where env var injection is not possible
+- Chain `ankra cluster select` before cluster-scoped commands in scripts
+- Pipe output through `jq` for structured processing where JSON output is available
+- Use `ankra cluster operations list` in CI to poll for async operation completion
+- Add `set -euo pipefail` to shell scripts using the Ankra CLI
+
+## Common Workflows
+
+### Provision and configure a new Hetzner cluster
+
+```bash
+ankra login
+ankra org switch my-org
+ankra cluster hetzner create
+ankra cluster select my-new-cluster
+ankra cluster agent status
+ankra cluster addons available
+ankra cluster addons update some-addon
+ankra cluster reconcile
+```
+
+### Deploy a stack from a chart
+
+```bash
+ankra cluster select my-cluster
+ankra charts search my-app
+ankra charts info my-app
+ankra cluster stacks create my-stack
+ankra cluster manifests list
+```
+
+### Rotate credentials safely
+
+```bash
+ankra tokens create --name ci-token-new
+# Update CI secret with new token
+ankra tokens revoke <old-token-id>
+ankra credentials validate my-cloud-cred
+```
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
