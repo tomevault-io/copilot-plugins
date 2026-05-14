@@ -1,0 +1,9 @@
+{
+  "name": "labman42--jetengine",
+  "displayName": "JetEngine",
+  "description": "A lightweight Inference Engine built for block diffusion models",
+  "version": "1.0.0",
+  "author": "Labman42",
+  "homepage": "https://github.com/Labman42/JetEngine",
+  "skills": []
+}
