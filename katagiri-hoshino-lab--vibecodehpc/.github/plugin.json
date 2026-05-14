@@ -1,0 +1,9 @@
+{
+  "name": "katagiri-hoshino-lab--vibecodehpc",
+  "displayName": "VibeCodeHPC",
+  "description": "CLI-based multi-agents for Auto-Tuning (e.g. HPC code optimazation loops) supporting Local LLMs",
+  "version": "1.0.0",
+  "author": "Katagiri-Hoshino-Lab",
+  "homepage": "https://github.com/Katagiri-Hoshino-Lab/VibeCodeHPC",
+  "skills": []
+}
