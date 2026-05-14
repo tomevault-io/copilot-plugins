@@ -4,7 +4,7 @@
   "repo": "scale-agentex-python",
   "description": "Official Python SDK for Agentex",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/scaleapi/scale-agentex-python",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:00:22Z"
+  "distributed_at": "2026-05-14T08:58:05Z"
 }
