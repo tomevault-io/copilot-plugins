@@ -1,0 +1,9 @@
+{
+  "name": "josemerca--mercadona-user-story-toolkit",
+  "displayName": "mercadona-user-story-toolkit",
+  "description": "Pipeline PRD/GSD \u2192 user stories validadas y priorizadas para Claude Code (Mercadona User Story Toolkit + GSD bridge + walkthrough)",
+  "version": "1.0.0",
+  "author": "josemerca",
+  "homepage": "https://github.com/josemerca/mercadona-user-story-toolkit",
+  "skills": []
+}
