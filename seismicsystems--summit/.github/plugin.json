@@ -1,0 +1,9 @@
+{
+  "name": "seismicsystems--summit",
+  "displayName": "summit",
+  "description": "Consensus client for Seismic",
+  "version": "1.0.0",
+  "author": "SeismicSystems",
+  "homepage": "https://github.com/SeismicSystems/summit",
+  "skills": []
+}
