@@ -1,0 +1,9 @@
+{
+  "name": "digitarald--vscode-agent-todos",
+  "displayName": "vscode-agent-todos",
+  "description": "Gives VS Code agent mode planning superpowers with dynamic todo lists",
+  "version": "1.0.0",
+  "author": "digitarald",
+  "homepage": "https://github.com/digitarald/vscode-agent-todos",
+  "skills": []
+}
