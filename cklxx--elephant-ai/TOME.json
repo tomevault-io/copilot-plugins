@@ -1,0 +1,87 @@
+{
+  "name": "elephant.ai",
+  "owner": "cklxx",
+  "repo": "elephant.ai",
+  "description": "A leader agent for attention-heavy work.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-skill-creation",
+      "path": "skills/auto-skill-creation",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/auto-skill-creation",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "config-management",
+      "path": "skills/config-management",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/config-management",
+      "description": ""
+    },
+    {
+      "name": "desktop-automation",
+      "path": "skills/desktop-automation",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/desktop-automation",
+      "description": ""
+    },
+    {
+      "name": "moltbook-posting",
+      "path": "skills/moltbook-posting",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/moltbook-posting",
+      "description": ""
+    },
+    {
+      "name": "self-test",
+      "path": "skills/self-test",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/self-test",
+      "description": ""
+    },
+    {
+      "name": "task-delegation",
+      "path": "skills/task-delegation",
+      "github_url": "https://github.com/cklxx/elephant.ai/tree/main/skills/task-delegation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cklxx/elephant.ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T20:30:07Z"
+}
