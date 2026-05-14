@@ -1,0 +1,9 @@
+{
+  "name": "nodejsmith--hassette",
+  "displayName": "hassette",
+  "description": "Modern, async-first Python framework for building Home Assistant automations",
+  "version": "1.0.0",
+  "author": "NodeJSmith",
+  "homepage": "https://github.com/NodeJSmith/hassette",
+  "skills": []
+}
