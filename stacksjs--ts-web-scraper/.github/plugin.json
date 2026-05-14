@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--ts-web-scraper",
+  "displayName": "ts-web-scraper",
+  "description": "A powerful, type-safe web scraping library for TypeScript. ",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/ts-web-scraper",
+  "skills": []
+}
