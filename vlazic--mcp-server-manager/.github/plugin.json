@@ -1,0 +1,9 @@
+{
+  "name": "vlazic--mcp-server-manager",
+  "displayName": "mcp-server-manager",
+  "description": "A cross-platform, single-binary manager for Model Context Protocol (MCP) servers, built with Go and a reactive HTMX web interface.",
+  "version": "1.0.0",
+  "author": "vlazic",
+  "homepage": "https://github.com/vlazic/mcp-server-manager",
+  "skills": []
+}
