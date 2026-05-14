@@ -7,11 +7,11 @@ DeFi Actions SDK for the OP Stack
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ethereum-optimism/actions](https://github.com/ethereum-optimism/actions).
+Original source: `CLAUDE.md` in [ethereum-optimism/actions](https://github.com/ethereum-optimism/actions).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
