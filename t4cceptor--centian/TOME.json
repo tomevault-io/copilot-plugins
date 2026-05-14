@@ -4,7 +4,7 @@
   "repo": "centian",
   "description": "Give your AI agents structure, guardrails, and full observability \u2014 the Agent control plane built on MCP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/T4cceptor/centian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T21:16:18Z"
+  "distributed_at": "2026-05-14T06:32:14Z"
 }
