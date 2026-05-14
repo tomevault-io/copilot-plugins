@@ -1,465 +1,220 @@
-## dev-best-practices
+## docker
 
-> **Purpose:** Process enforcement and team development standards for enterprise Rust projects. Use this for team environments requiring strict quality gates, design documentation, and automated workflow enforcement.
+> This rule file provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, and security considerations. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
 
-# Development Best Practices - Team Process & Workflow
+# Docker Best Practices
 
-**Purpose:** Process enforcement and team development standards for enterprise Rust projects. Use this for team environments requiring strict quality gates, design documentation, and automated workflow enforcement.
+This document provides comprehensive guidance on Docker best practices, covering Dockerfile construction, image optimization, security considerations, and more. It aims to improve the efficiency, maintainability, and security of Docker-based projects.
 
-**When to use:** Enterprise teams, critical systems development, open source projects with multiple contributors, or any environment requiring rigorous development process.
+## 1. Code Organization and Structure
 
-## Autonomous Agent Operation
-
-**Rule: Agent must operate autonomously through the entire development cycle unless user input is explicitly required.**
-Why: Autonomous operation enables faster iteration, consistent quality, and reduces human bottlenecks. Agents can maintain higher standards through systematic self-review than ad-hoc human review.
-
-**Autonomous Operation Requirements:**
-- Agent proceeds through design → implementation → testing → documentation without waiting for human approval
-- User input only required for: initial requirements, major architectural decisions, and final acceptance
-- All intermediate steps (design review, code review, testing) performed by agent self-review
-- Agent must document all decisions and rationale for human audit trail
-
-**Rule: Agent must perform comprehensive self-review before proceeding to each next step.**
-Why: Self-review catches issues early, ensures quality standards, and maintains development velocity. Systematic review prevents compounding errors across development phases.
-
-**Self-Review Process:**
-```markdown
-## Design Phase Self-Review Checklist
-- [ ] Problem statement clearly defines scope and constraints
-- [ ] Proposed solution addresses all requirements
-- [ ] API design follows Rust conventions and project patterns
-- [ ] Performance requirements are specific and measurable
-- [ ] Error handling strategy covers all failure modes
-- [ ] Implementation plan is detailed and realistic
-- [ ] Alternatives were considered with clear reasoning
-
-## Implementation Phase Self-Review Checklist  
-- [ ] Code follows all quality rules (essentials/intermediate/advanced)
-- [ ] TDD cycle was followed with test-first development
-- [ ] All functions have comprehensive rustdoc with examples
-- [ ] Error handling is comprehensive and consistent
-- [ ] Performance requirements are met (measured)
-- [ ] Code is readable and follows project conventions
-- [ ] No TODO/FIXME comments remain
-
-## Testing Phase Self-Review Checklist
-- [ ] Unit tests cover success, error, and edge cases
-- [ ] Integration tests verify component interactions  
-- [ ] Property-based tests for complex logic
-- [ ] Performance tests validate latency requirements
-- [ ] Coverage meets 90% threshold
-- [ ] All tests pass consistently
-- [ ] Test names clearly describe scenarios
-
-## Documentation Phase Self-Review Checklist
-- [ ] All public APIs have rustdoc with working examples
-- [ ] Module documentation explains architecture
-- [ ] Performance characteristics documented
-- [ ] Safety guarantees clearly stated
-- [ ] Examples demonstrate real usage patterns
-- [ ] Doc tests pass and provide good coverage
-```
-
-## Design-First Development
-
-**Rule: All features must have comprehensive design documents created and self-reviewed before implementation.**
-Why: Design documents prevent over-engineering, ensure consistency, and catch architectural issues early. Self-review by agent ensures systematic evaluation against established criteria.
-
-```markdown
-# [Feature Name] Design Document Template
-
-## Problem Statement
-- What problem are we solving?
-- Why is this important for the project?
-
-## Proposed Solution
-- High-level approach
-- Component interactions  
-- Data flow diagrams
-
-## API Design
-- Function signatures with Rust types
-- Error types and handling strategy
-- Trait definitions if applicable
-
-## Implementation Plan
-- Step-by-step breakdown
-- Dependencies and feature flags
-- Testing strategy with coverage targets
-
-## Alternatives Considered
-- Other approaches evaluated
-- Why this solution was chosen
-
-## Success Criteria
-- How will we know this works?
-- Performance requirements (specific benchmarks)
-- Integration requirements
-**Rule: Create design documents in `/docs/design/[feature-name].md` with comprehensive self-review against quality criteria.**
-Why: Standardized location ensures findability, systematic self-review catches design flaws early, and documented rationale enables audit trails for future reference.
-
-**Use the design document template from project-setup.md for consistent formal documentation.**
-
-## Strict TDD Workflow
-
-**Rule: Follow Red-Green-Refactor cycle with evidence in commit history.**
-Why: TDD ensures comprehensive test coverage, prevents regression bugs, and results in more maintainable code. Commit evidence proves process compliance.
-
-**TDD Cycle Implementation:**
-```rust
-// Step 1: RED - Write failing test FIRST
-#[test]
-fn test_event_validation_rejects_empty_id() {
-    let event = CPTEEvent {
-        event_id: String::new(), // Invalid
-        event_kind: "SENSOR_READING".to_string(),
-        payload: serde_json::Value::Null,
-        // ... other fields
-    };
-    
-    let result = validate_event(event);
-    
-    assert!(result.is_err());
-    assert!(matches!(
-        result.unwrap_err(),
-        ValidationError::InvalidEventId(_)
-    ));
-}
-
-// Step 2: GREEN - Minimal implementation that passes
-pub fn validate_event(event: CPTEEvent) -> Result<ValidatedEvent, ValidationError> {
-    if event.event_id.is_empty() {
-        return Err(ValidationError::InvalidEventId(
-            "event_id cannot be empty".to_string()
-        ));
-    }
-    
-    todo!("Implement remaining validation")
-}
-
-// Step 3: REFACTOR - Improve code quality
-pub fn validate_event(event: CPTEEvent) -> Result<ValidatedEvent, ValidationError> {
-    let validator = EventValidator::new();
-    validator.validate_id(&event.event_id)?;
-    validator.validate_schema(&event)?;
-    validator.validate_timestamps(&event)?;
-    
-    Ok(ValidatedEvent::from(event))
-}
-```
-
-**Rule: Enforce minimum 90% code coverage for all new features.**
-Why: High coverage ensures edge cases are tested, reduces production bugs, and provides confidence for refactoring.
-
-## Enhanced Documentation Standards
-
-**Rule: Include performance characteristics and safety guarantees in all public API documentation (beyond basic rustdoc from rust-essentials.md).**
-Why: Performance docs help users make informed decisions, safety guarantees prevent misuse, and thread-safety notes prevent concurrency bugs.
-
-```rust
-/// Processes events through the validation and persistence pipeline.
-///
-/// # Arguments
-/// * `event` - The event to process with required fields populated
-/// * `policy_tags` - Access control tags for filtering
-/// 
-/// # Returns
-/// Returns `Result<ProcessingResult, ProcessingError>` with processing status
-/// 
-/// # Errors
-/// - `ValidationError` if event structure is invalid
-/// - `PolicyViolationError` if access control fails
-/// - `StorageError` if persistence fails
-/// 
-/// # Performance
-/// - Typical processing time: <5ms for standard events
-/// - Memory usage: O(1) relative to event size  
-/// - Throughput: >1000 events/second on standard hardware
-/// 
-/// # Safety
-/// - Thread-safe: Can be called concurrently from multiple threads
-/// - No data races: Internal synchronization ensures consistency
-/// - Memory safe: No possibility of buffer overflows or use-after-free
-/// 
-/// # Examples
-/// ```rust
-/// let event = CPTEEvent { /* ... */ };
-/// let result = process_event(event, vec!["PUBLIC".to_string()])?;
-/// assert!(result.success);
-/// ```
-pub fn process_event(
-    event: CPTEEvent, 
-    policy_tags: Vec<String>
-) -> Result<ProcessingResult, ProcessingError> {
-    // Implementation
-}
-```
-
-**Rule: Document module architecture with design principles and component relationships.**
-Why: Module docs provide high-level understanding, design principles guide usage, and component relationships clarify dependencies.
-
-```rust
-//! Event Processing Engine - Core validation and persistence
-//!
-//! This module implements the event processing pipeline with validation,
-//! policy enforcement, and durable persistence capabilities.
-//!
-//! # Key Components
-//! - [`EventValidator`] - Validates event structure and business rules
-//! - [`PolicyEnforcer`] - Implements access control and data sovereignty  
-//! - [`EventPersister`] - Handles durable storage with integrity verification
-//! - [`ReplicationService`] - Manages cross-node event synchronization
-//!
-//! # Design Principles
-//! - **Immutability**: Events are never modified after persistence
-//! - **Determinism**: Identical input produces identical results
-//! - **Performance**: Sub-10ms processing for standard operations
-//! - **Reliability**: Zero data loss with proper error handling
-//!
-//! # Architecture
-//! ```text
-//! Input Event -> Validator -> Policy -> Persister -> Result
-//!                    |          |         |
-//!                    v          v         v
-//!                 Schema    Access    Integrity
-//!                 Check     Control   Verification
-//! ```
-//!
-//! For detailed design, see: `/docs/design/event-processing.md`
-```
-
-## Git Workflow Standards
-
-**Rule: Use structured branch naming and detailed commit messages with metrics.**
-Why: Consistent naming enables automation, detailed commits document changes, and metrics track quality improvements.
-
-## Git Workflow Standards
-
-**Rule: Use structured branch naming and detailed commit messages with metrics.**
-Why: Consistent naming enables automation, detailed commits document changes, and metrics track quality improvements.
-
-**Branch Naming Convention:**
-```bash
-# Feature branches
-feature/[design-doc-name]
-feature/user-authentication
-feature/event-validation
-
-# Bugfix branches  
-fix/[issue-number]-[description]
-fix/42-memory-leak-in-parser
-
-# Documentation branches
-docs/[topic]
-docs/api-documentation-update
-```
-
-**Commit Message Template:**
-```bash
-git commit -m "feat(component): implement feature X
-
-- Add specific functionality with error handling
-- Implement comprehensive validation logic  
-- Add performance optimizations for large datasets
-- Resolve issue #123
-
-Design doc: /docs/design/feature-x.md
-Tests: 47 tests, all passing (coverage: 94%)
-Benchmarks: <5ms average processing time
-Breaking changes: None"
-```
-
-**Branch Naming Convention:**
-```bash
-# Feature branches
-feature/[design-doc-name]
-feature/user-authentication
-feature/event-validation
-
-# Bugfix branches  
-fix/[issue-number]-[description]
-fix/42-memory-leak-in-parser
-```
-
-**Commit Message Format:**
-
-**Rule: Include latency requirements and performance tests for all critical paths.**
-Why: Performance tests prevent regression, latency requirements ensure user experience, and benchmarks guide optimization efforts.
-
-```rust
-#[tokio::test]
-async fn test_event_processing_latency_requirement() {
-    let event = create_test_event();
-    let start = Instant::now();
-    
-    let result = process_event(event, vec!["PUBLIC".to_string()]).await;
-    
-    let duration = start.elapsed();
-    assert!(result.is_ok(), "Processing failed: {:?}", result.err());
-    assert!(
-        duration.as_millis() < 10, 
-        "Processing took {}ms, expected <10ms", 
-        duration.as_millis()
-    );
-}
-
-#[test]
-fn test_memory_usage_stays_constant() {
-    let initial_memory = get_memory_usage();
-    
-    for _ in 0..1000 {
-        let event = create_test_event();
-        let _ = validate_event(event);
-    }
-    
-    let final_memory = get_memory_usage();
-    let memory_growth = final_memory - initial_memory;
-    
-    assert!(
-        memory_growth < 1024 * 1024, // 1MB
-        "Memory grew by {} bytes, expected <1MB",
-        memory_growth
-    );
-}
-
-// Benchmark critical functions
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
-
-fn benchmark_event_validation(c: &mut Criterion) {
-    let event = create_benchmark_event();
-    
-    c.bench_function("event_validation", |b| {
-        b.iter(|| validate_event(black_box(event.clone())))
-    });
-}
-```
-
-## Pre-commit Automation
-
-**Rule: Implement automated quality gates with pre-commit hooks.**
-Why: Automated checks prevent bad code from entering the repository, reduce review time, and enforce standards consistently.
-
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: local
-    hooks:
-      - id: design-doc-check
-        name: Verify design document exists for features
-        entry: python scripts/check_design_doc.py
-        language: system
-        always_run: true
+- **Directory Structure Best Practices:**
+    - Organize your project with a clear separation of concerns.  For example:
         
-      - id: cargo-fmt
-        name: Cargo Format Check
-        entry: cargo fmt --all -- --check
-        language: system
-        types: [rust]
+        project-root/
+        ├── Dockerfile            # Dockerfile for building the image
+        ├── docker-compose.yml    # Docker Compose file for multi-container setup
+        ├── .dockerignore         # Specifies intentionally untracked files that Docker should ignore
+        ├── app/                  # Application source code
+        │   ├── ...
+        ├── config/               # Configuration files
+        │   ├── ...
+        ├── data/                 # Data files (if any, though consider volumes)
+        │   ├── ...
+        ├── scripts/              # Scripts for building, deploying, or managing the container
+        │   ├── ...
         
-      - id: cargo-clippy
-        name: Cargo Clippy (no warnings)
-        entry: cargo clippy --all-targets --all-features -- -D warnings
-        language: system
-        types: [rust]
-        
-      - id: cargo-test
-        name: Run all tests
-        entry: cargo test --all-features
-        language: system
-        types: [rust]
-        
-      - id: coverage-check
-        name: Enforce 90% code coverage
-        entry: bash -c 'cargo tarpaulin --skip-clean --out xml && python scripts/check_coverage.py --min 90'
-        language: system
-        types: [rust]
-        
-      - id: performance-check
-        name: Run performance benchmarks
-        entry: cargo bench --bench critical_path_benchmarks
-        language: system
-        types: [rust]
-```
+    - Keep the `Dockerfile` and `docker-compose.yml` at the root of your project for easy access.
 
-## Self-Review Process
+- **File Naming Conventions:**
+    - Use descriptive names for your Dockerfiles (e.g., `Dockerfile.web`, `Dockerfile.api`).
+    - Follow a consistent naming convention for all files and directories.
 
-**Rule: Agent must perform systematic self-review using comprehensive checklists to ensure quality and process compliance.**
-Why: Systematic self-review prevents oversights, ensures consistent quality, and maintains development velocity without human bottlenecks.
+- **Module Organization:**
+    - Structure your application into modular components to improve reusability and maintainability. This directly affects what goes into a docker image.
+    - Use appropriate build tools (e.g., Maven, Gradle, npm) to manage dependencies and package your application.
 
-```markdown
-## Agent Self-Review Checklist
+- **Component Architecture:**
+    - Design your application as a set of microservices or components, each running in its own container, when appropriate.
+    - Use Docker Compose to orchestrate multi-container applications.
 
-### Process Compliance
-- [ ] Design document created and self-reviewed against criteria
-- [ ] TDD cycle followed (test-first development documented)
-- [ ] Feature branch follows naming convention
-- [ ] Commit messages include metrics and references
+- **Code Splitting Strategies:**
+    - Break down large applications into smaller, more manageable parts to reduce image size and improve build times.
+    - Consider multi-stage builds to include build-time dependencies in one stage and only the runtime dependencies in the final image.
 
-### Code Quality  
-- [ ] All public APIs have comprehensive documentation with examples
-- [ ] Performance characteristics documented with measurements
-- [ ] Thread safety and memory safety explicitly noted
-- [ ] Error handling uses Result<T, E> patterns consistently
-- [ ] No TODO/FIXME comments (create GitHub issues if needed)
+## 2. Common Patterns and Anti-patterns
 
-### Testing
-- [ ] Code coverage ≥90% (measured and verified)
-- [ ] Unit tests cover success, error, and edge cases systematically
-- [ ] Performance tests for critical paths meet requirements
-- [ ] Integration tests for public APIs demonstrate real usage
-- [ ] Doc tests provide working examples and pass
+- **Design Patterns Specific to Docker:**
+    - **Sidecar Pattern:** Run a utility container alongside your main application container (e.g., for logging, monitoring).
+    - **Ambassador Pattern:** Proxy requests to a service running outside the container.
+    - **Adapter Pattern:** Adapt the interface of a service to match the expected interface of a client.
+    - **Init Container Pattern:** Run initialization tasks before the main application container starts.  Often used to set up configuration, prepare databases, etc.
 
-### Automation
-- [ ] cargo test --all-features passes completely
-- [ ] cargo clippy -- -D warnings passes with zero warnings
-- [ ] cargo fmt --check passes (code properly formatted)
-- [ ] Pre-commit hooks all pass (if configured)
-- [ ] All automated quality gates met
+- **Recommended Approaches for Common Tasks:**
+    - **Configuration Management:** Use environment variables to configure your application.
+    - **Logging:** Centralize logging using a logging driver or a dedicated logging container (e.g., Fluentd, Logstash).
+    - **Health Checks:** Implement health checks to ensure that your services are running correctly.
+    - **Process Management:** Use a process manager (e.g., `tini`, `dumb-init`) to handle signal forwarding and zombie process reaping.
 
-### Architecture & Design
-- [ ] Integration with existing components follows patterns
-- [ ] Breaking changes are documented with migration path
-- [ ] Performance impact measured and within acceptable bounds
-- [ ] Security implications considered and documented
-- [ ] Design decisions documented with clear rationale
-```
+- **Anti-patterns and Code Smells to Avoid:**
+    - **Storing secrets in Dockerfile or images:** Never hardcode passwords or API keys in your Dockerfile.
+    - **Running services as root:** Avoid running your application as the root user.
+    - **Installing unnecessary packages:** Keep your images lean by only installing the required dependencies.
+    - **Ignoring `.dockerignore`:** Make sure to use `.dockerignore` to exclude unnecessary files from the build context, reducing image size and build time.
+    - **Using `ADD` instead of `COPY` unnecessarily:** `COPY` is usually more transparent and predictable.
 
-## Quality Gate Enforcement
+- **State Management Best Practices:**
+    - **Stateless Applications:** Design your application to be stateless whenever possible.
+    - **Volumes:** Use volumes for persistent storage (e.g., databases, logs).
+    - **Bind Mounts:** Use bind mounts for development to allow code changes to be reflected immediately in the container.
 
-**Rule: Implement automated quality gates that block progression without meeting standards.**
-Why: Automation ensures consistent enforcement, prevents quality regression, and maintains standards without requiring human oversight.
+- **Error Handling Patterns:**
+    - Implement robust error handling in your application.
+    - Use appropriate logging levels to capture errors and warnings.
+    - Implement retry mechanisms for transient errors.
+    - Monitor your application for errors and take corrective actions.
 
-**Automated Quality Gates:**
-- Design phase: Self-review checklist must be completed before implementation
-- Implementation phase: All code quality rules must pass before testing
-- Testing phase: 90% coverage + all tests passing before documentation
-- Documentation phase: All doc tests passing before completion
-- No manual approval required - agent proceeds when quality gates are met
-- Use automation tools configured in project-setup.md (pre-commit hooks, CI/CD pipeline)
+## 3. Performance Considerations
 
-## User Input Requirements
+- **Optimization Techniques:**
+    - **Multi-stage builds:** Use multi-stage builds to create smaller, more efficient images.
+    - **Minimize layers:** Combine multiple commands into a single layer using `&&`.
+    - **Use a lightweight base image:** Choose a minimal base image like Alpine Linux.
+    - **Optimize caching:** Order your Dockerfile commands to maximize cache reuse.
 
-**Rule: Minimize user input to essential decision points only.**
-Why: Autonomous operation maximizes development velocity while ensuring human oversight remains focused on high-value decisions.
+- **Memory Management:**
+    - Set memory limits for your containers to prevent them from consuming excessive resources.
+    - Monitor memory usage and optimize your application accordingly.
 
-**User Input Required For:**
-- Initial requirements and acceptance criteria definition
-- Major architectural decisions affecting system design
-- Breaking change approval for public APIs
-- Final feature acceptance and deployment authorization
-- Security-sensitive changes requiring human verification
+- **Rendering Optimization (if applicable):**
+    - If your application involves rendering, optimize the rendering process (e.g., using caching, lazy loading).
 
-**User Input NOT Required For:**
-- Design document creation and review
-- Code implementation following established patterns
-- Test creation and execution
-- Documentation writing and validation  
-- Quality gate enforcement and progression
-- Intermediate code reviews and iterations
+- **Bundle Size Optimization:**
+    - Minimize the size of your application bundle by removing unnecessary dependencies and assets.
+    - Use tools like webpack or Parcel to optimize your bundle.
+
+- **Lazy Loading Strategies:**
+    - Implement lazy loading for resources that are not immediately needed.
+
+## 4. Security Best Practices
+
+- **Common Vulnerabilities and How to Prevent Them:**
+    - **Image vulnerabilities:** Regularly scan your images for vulnerabilities using tools like Clair or Trivy.
+    - **Configuration vulnerabilities:** Secure your container configurations to prevent unauthorized access.
+    - **Network vulnerabilities:** Limit network exposure and use network policies to isolate containers.
+    - **Privilege escalation:** Avoid running containers with unnecessary privileges.
+
+- **Input Validation:**
+    - Validate all input data to prevent injection attacks.
+
+- **Authentication and Authorization Patterns:**
+    - Implement robust authentication and authorization mechanisms.
+    - Use secure protocols like HTTPS.
+    - Store secrets securely using tools like HashiCorp Vault or Kubernetes Secrets.
+
+- **Data Protection Strategies:**
+    - Encrypt sensitive data at rest and in transit.
+    - Use appropriate access control mechanisms to protect data.
+
+- **Secure API Communication:**
+    - Use secure protocols like HTTPS for API communication.
+    - Implement authentication and authorization for API endpoints.
+    - Rate limit API requests to prevent abuse.
+
+## 5. Testing Approaches
+
+- **Unit Testing Strategies:**
+    - Write unit tests to verify the functionality of individual components.
+    - Use mocking and stubbing to isolate components during testing.
+
+- **Integration Testing:**
+    - Write integration tests to verify the interaction between different components.
+    - Test the integration with external services and databases.
+
+- **End-to-end Testing:**
+    - Write end-to-end tests to verify the entire application flow.
+    - Use tools like Selenium or Cypress to automate end-to-end tests.
+
+- **Test Organization:**
+    - Organize your tests into a clear and maintainable structure.
+    - Use descriptive names for your test cases.
+
+- **Mocking and Stubbing:**
+    - Use mocking and stubbing to isolate components during testing.
+    - Mock external services and databases to simulate different scenarios.
+
+## 6. Common Pitfalls and Gotchas
+
+- **Frequent Mistakes Developers Make:**
+    - **Not using `.dockerignore`:** This can lead to large image sizes and slow build times.
+    - **Not pinning package versions:** This can lead to unexpected build failures due to dependency updates.
+    - **Exposing unnecessary ports:** This can increase the attack surface of your application.
+    - **Not cleaning up after installing packages:** This can lead to larger image sizes.
+    - **Using the shell form of `CMD` or `ENTRYPOINT`:** Use the exec form (`["executable", "param1", "param2"]`) to avoid shell injection vulnerabilities and signal handling issues.
+
+- **Edge Cases to Be Aware Of:**
+    - **File permissions:** Ensure that your application has the correct file permissions.
+    - **Timezone configuration:** Configure the correct timezone for your container.
+    - **Resource limits:** Set appropriate resource limits for your containers.
+
+- **Version-Specific Issues:**
+    - Be aware of version-specific issues and compatibility concerns.
+    - Test your application with different Docker versions to ensure compatibility.
+
+- **Compatibility Concerns:**
+    - Ensure that your application is compatible with the base image you are using.
+    - Test your application on different platforms to ensure cross-platform compatibility.
+
+- **Debugging Strategies:**
+    - Use `docker logs` to view container logs.
+    - Use `docker exec` to execute commands inside a running container.
+    - Use `docker inspect` to inspect container metadata.
+    - Use a debugger to debug your application code.
+
+## 7. Tooling and Environment
+
+- **Recommended Development Tools:**
+    - **Docker Desktop:** For local development and testing.
+    - **Docker Compose:** For orchestrating multi-container applications.
+    - **Visual Studio Code with Docker extension:** For enhanced Docker development experience.
+    - **Container image scanners (e.g., Trivy, Clair):** For identifying vulnerabilities in container images.
+
+- **Build Configuration:**
+    - Use a consistent build configuration for all your images.
+    - Automate the build process using a build tool (e.g., Make, Gradle).
+
+- **Linting and Formatting:**
+    - Use a linter to enforce code style and best practices.
+    - Use a formatter to automatically format your code.
+
+- **Deployment Best Practices:**
+    - Use a container orchestration platform like Kubernetes or Docker Swarm.
+    - Implement rolling updates and rollbacks.
+    - Monitor your application for performance and availability.
+
+- **CI/CD Integration:**
+    - Integrate Docker into your CI/CD pipeline.
+    - Automate the build, test, and deployment process.
+    - Use tools like Jenkins, GitLab CI, or CircleCI.
 
 ---
 
-**Note:** Before using these development practices, complete the one-time setup steps in `project-setup.md` to configure tools, automation, and project structure.
+## Additional Notes:
+
+-  Always use a specific tag for the base image (e.g., `ubuntu:20.04`) instead of `latest` to ensure reproducibility.
+- Use `.dockerignore` to exclude files and directories that are not needed in the image. This reduces the image size and improves build performance.
+- When possible, use the official Docker images from Docker Hub. They are usually well-maintained and optimized.
+- Consider using a tool like `docker-slim` to further reduce the size of your Docker images by removing unnecessary files and dependencies after the build process.
+- Understand the Docker build context and ensure you're only including necessary files and directories. A large build context slows down builds and increases image sizes.
+- Regularly update your base images to patch security vulnerabilities.
+- Use environment variables to configure your application, making it more flexible and portable.
+- Implement health checks in your Dockerfiles to ensure that your containers are running correctly. This can be done using the `HEALTHCHECK` instruction.
+- Consider using a private Docker registry to store your images securely.
+- Document your Dockerfiles and images to make them easier to understand and maintain.
+- Review your Dockerfiles regularly to ensure they are up-to-date and following best practices.
+- Consider using a Dockerfile linter like `hadolint` to identify potential issues and enforce best practices.
+
+By following these guidelines, you can create efficient, maintainable, and secure Docker-based applications.
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
