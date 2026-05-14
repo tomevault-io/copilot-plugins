@@ -1,0 +1,9 @@
+{
+  "name": "ryonakae--vscode-lm-proxy",
+  "displayName": "vscode-lm-proxy",
+  "description": "VSCode extension that exposes GitHub Copilot through OpenAI and Anthropic compatible REST APIs, enabling external apps to use Copilot outside VSCode. Built with VSCode Language Model API to access Cop",
+  "version": "1.0.0",
+  "author": "ryonakae",
+  "homepage": "https://github.com/ryonakae/vscode-lm-proxy",
+  "skills": []
+}
