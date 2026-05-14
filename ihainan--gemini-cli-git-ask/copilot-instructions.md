@@ -1,0 +1,10 @@
+## generate-code-rules
+
+> 1. 生成的代码，里面的日志/注释/消息/用户界面的语言尽可能使用英文。
+
+1. 生成的代码，里面的日志/注释/消息/用户界面的语言尽可能使用英文。
+2. 如果你要修改 service 的代码，请先确认是否遵循 [design.md](mdc:service/design.md) 里面的设计，如果违反或者需要添加新的设计，请先咨询用户。
+
+---
+> Source: [ihainan/Gemini-CLI-Git-Ask](https://github.com/ihainan/Gemini-CLI-Git-Ask) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
