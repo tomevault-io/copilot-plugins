@@ -1,68 +1,55 @@
-## fortran
+## gamemaker-gml
 
-> Modern Fortran rules for scientific computing, modules, explicit interfaces, kind parameters, memory safety, and testing
+> GameMaker Language (GML) rules for scripts, objects, events, rooms, data structures, and performance-minded game code
 
 
-# Fortran Programming Guidelines
+# GameMaker GML Rules
 
-## Basic Principles
+## Code Organization
 
-- Use modern Fortran standards such as Fortran 2003, 2008, or newer.
-- Use `implicit none` in every program unit.
-- Put procedures in modules to provide explicit interfaces.
-- Keep modules focused and place each major module in its own file.
-- Prefer clear, structured code over clever language tricks.
-- Avoid obsolete features such as COMMON blocks, GOTO-heavy control flow, and numeric labels.
+- Keep object event code short and move reusable behavior into scripts or functions.
+- Use clear prefixes or naming conventions for scripts, objects, sprites, rooms, and globals.
+- Prefer functions over copy-pasted event blocks.
+- Keep create-step-draw responsibilities separate.
+- Put initialization in Create, simulation in Step, and rendering-only work in Draw.
 
-## Kinds and Types
+## GML Style
 
-- Define numeric kind parameters in one shared module, such as `kind_mod`.
-- Use `real(kind=dp)` or the project-approved real kind for floating point values.
-- Use `integer(kind=i4)` or the project-approved integer kind for integer values.
-- Define constants such as pi explicitly.
-- Include units in comments for physical quantities.
-- Use derived types to group related data instead of passing many primitive arguments.
+- Use descriptive variable names and avoid one-letter names outside small loops.
+- Prefer local variables with `var` or function-scoped declarations over unnecessary instance variables.
+- Use constants, enums, and macros for repeated identifiers, layer names, states, and collision groups.
+- Guard optional instance references with `instance_exists`.
+- Keep global state minimal and document it.
 
-## Naming and Style
+## Gameplay Architecture
 
-- Use lowercase for language keywords and most identifiers.
-- Use underscores for multi-word names.
-- Avoid names that differ only by case.
-- Use descriptive names for procedures and state.
-- Repeat the procedure or module name after `end` statements.
-- Keep indentation consistent in `do`, `if`, `select case`, and module blocks.
+- Use finite state machines for player, enemy, UI, and game-flow states.
+- Keep collision logic explicit and deterministic.
+- Separate input collection from action execution.
+- Use alarms, timelines, or explicit timers consistently; do not mix patterns without reason.
+- Store save data through structured maps/structs and version the save format.
 
-## Procedures
+## Performance
 
-- Keep subroutines and functions short and single-purpose.
-- Use `intent(in)`, `intent(out)`, or `intent(inout)` for every dummy argument.
-- Keep functions free of side effects whenever possible.
-- Prefer early validation and clear returns over deep nesting.
-- Use `use, only:` when importing from modules.
+- Avoid expensive searches such as broad `instance_find` or repeated collision scans in every Step event.
+- Cache frequently used asset IDs, layer IDs, and object references when safe.
+- Destroy data structures when no longer needed.
+- Use object pooling for frequent projectiles, particles, or short-lived effects when allocation becomes costly.
+- Profile before optimizing and keep hot-path code simple.
 
-## Memory and Arrays
+## Debugging and Testing
 
-- Prefer allocatable arrays over pointers unless pointer semantics are required.
-- Check allocation state and array sizes before use.
-- Deallocate allocatable arrays when their lifetime is not naturally scoped.
-- Specify array bounds clearly when they matter.
-- Avoid unnecessary dynamic allocation in hot loops.
-
-## Testing and Build
-
-- Use CMake, fpm, Make, or the project-standard build system consistently.
-- Compile with warnings enabled and treat important warnings as failures in CI.
-- Add unit tests for public procedures and integration tests for numerical workflows.
-- Test boundary conditions, invalid inputs, and representative scientific cases.
-- Verify numerical tolerances explicitly rather than relying on exact floating point equality.
+- Add debug overlays for collision boxes, state, velocity, and AI decisions when useful.
+- Use assertions or explicit guard clauses for impossible states.
+- Test room transitions, pause/resume, save/load, and controller/keyboard input separately.
+- Keep reproducible test rooms for complex mechanics.
 
 ## Common Mistakes
 
-- Do not declare variables after executable code unless using a block construct.
-- Do not assume `random_number` is a function; it is a subroutine.
-- Do not write to stdout from pure procedures.
-- Do not declare the same variable twice in the same scope.
-- Do not assume pi, dp, or project kinds already exist without importing or defining them.
+- Do not put game logic in Draw events.
+- Do not create data structures without destroying them.
+- Do not rely on room editor instance order for critical behavior.
+- Do not hardcode magic numeric state IDs.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
