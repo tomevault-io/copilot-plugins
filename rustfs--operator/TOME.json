@@ -4,7 +4,7 @@
   "repo": "operator",
   "description": "RustFS k8s operator ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rustfs/operator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:45:20Z"
+  "distributed_at": "2026-05-14T09:07:34Z"
 }
