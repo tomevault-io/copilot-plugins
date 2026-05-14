@@ -1,0 +1,9 @@
+{
+  "name": "radio-garden--react-native-audio-browser",
+  "displayName": "react-native-audio-browser",
+  "description": "React Native audio module with browsable navigation trees and native Android Auto/CarPlay integration.",
+  "version": "1.0.0",
+  "author": "radio-garden",
+  "homepage": "https://github.com/radio-garden/react-native-audio-browser",
+  "skills": []
+}
