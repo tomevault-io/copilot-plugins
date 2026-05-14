@@ -1,518 +1,423 @@
 ## gemini-md
 
-> > You are building a comprehensive collection of specialized Claude Code subagents for the entire software development lifecycle. This collection combines the best aspects from 4 different agent sets while eliminating duplicates and adding missing essential agents.
+> > Datra는 게임 개발용 데이터 관리 시스템으로, C# Source Generator를 사용해 CSV/JSON/YAML 데이터의 직렬화/역직렬화 코드를 자동 생성합니다.
 
-## claude-code-subagents
+## datra
 
-> You are building a comprehensive collection of specialized Claude Code subagents for the entire software development lifecycle. This collection combines the best aspects from 4 different agent sets while eliminating duplicates and adding missing essential agents.
+> Datra는 게임 개발용 데이터 관리 시스템으로, C# Source Generator를 사용해 CSV/JSON/YAML 데이터의 직렬화/역직렬화 코드를 자동 생성합니다.
 
-# Claude Instructions - Comprehensive Agents Project
+# Datra - Claude 작업 가이드
 
-## Project Overview
-You are building a comprehensive collection of specialized Claude Code subagents for the entire software development lifecycle. This collection combines the best aspects from 4 different agent sets while eliminating duplicates and adding missing essential agents.
+## 프로젝트 개요
 
-## Project Location
-`/Users/rajshah/Documents/Claude SubAgents/comprehensive-agents/`
+Datra는 게임 개발용 데이터 관리 시스템으로, C# Source Generator를 사용해 CSV/JSON/YAML 데이터의 직렬화/역직렬화 코드를 자동 생성합니다.
 
-## Directory Structure
+## 프로젝트 구조
+
 ```
-comprehensive-agents/
-├── core/                    # Core development agents
-├── languages/              # Language-specific experts
-├── frameworks/             # Framework specialists
-├── infrastructure/         # DevOps and infrastructure (includes cloud optimization)
-├── data-ai/               # Data and AI/ML
-├── quality/               # Testing and quality
-├── specialized/           # Cross-industry technical specialists
-├── orchestrators/         # Multi-agent coordination
-├── database/              # Database specialists
-├── documentation/         # Documentation experts
-├── business/              # Business and product strategy
-├── marketing/             # Marketing and growth
-├── api-integration/       # API integration specialists
-├── operations/            # Operations and compliance
-├── advanced-computing/    # Quantum, compiler, embedded systems
-├── analytics/             # Business intelligence and data quality
-├── research/              # ML research and experimentation
-├── creative/              # AR/VR, game AI development
-├── localization/          # i18n and localization engineering
-├── security/              # Security specializations
-├── platform/              # Platform specialists (Salesforce, SAP)
-├── vertical/              # Industry verticals (manufacturing, media)
-├── operational/           # SRE, capacity planning, disaster recovery
-├── web3/                  # Web3 and blockchain technologies
-├── mobile/                # Mobile development specialists
-└── industry/              # Industry-specific experts
-    ├── fintech/           # Financial technology
-    ├── healthcare/        # Healthcare and medical
-    ├── government/        # Government and civic tech
-    └── education/         # Education technology
+Datra/
+├── Datra/                      # 핵심 라이브러리 (런타임)
+│   ├── Attributes/             # [TableData], [SingleData], [DatraConfiguration] 등
+│   ├── DataTypes/              # DataRef<T>, LocaleRef 등
+│   ├── Interfaces/             # ITableData, IDataRepository 등
+│   └── Plugins/                # Unity용 빌드된 DLL (Generators, Analyzers)
+│
+├── Datra.Editor/               # 공유 에디터 레이어 (Unity/Blazor 공통)
+│   ├── Interfaces/             # IFieldTypeHandler, IDataEditorService 등
+│   ├── Models/                 # FieldCreationContext, FieldLayoutMode
+│   ├── Services/               # FieldTypeRegistry
+│   └── Utilities/              # TypeDetectionHelper, PathHelper
+│
+├── Datra.Generators/           # Source Generator (핵심!)
+│   ├── Analyzers/              # DataModelAnalyzer - 클래스 분석
+│   ├── Builders/               # CodeBuilder - 코드 생성 유틸리티
+│   ├── Generators/             # 실제 코드 생성기들
+│   │   ├── CsvSerializerBuilder.cs    # CSV 직렬화/역직렬화
+│   │   ├── DataContextGenerator.cs    # DataContext 클래스 생성
+│   │   ├── DataModelGenerator.cs      # 모델 partial 클래스 생성
+│   │   └── JsonSerializerBuilder.cs   # JSON 직렬화/역직렬화
+│   ├── Models/                 # DataModelInfo, PropertyInfo 등
+│   └── DataContextSourceGenerator.cs  # 메인 진입점 (ISourceGenerator)
+│
+├── Datra.Analyzers/            # Roslyn Analyzer
+├── Datra.SampleData/           # 테스트용 샘플 데이터 모델
+├── Datra.SampleData2/          # 멀티 컨텍스트 테스트용
+├── Datra.Tests/                # 유닛 테스트
+├── Datra.Unity/                # Unity 패키지
+└── Datra.Unity.Sample/         # Unity 샘플 프로젝트
 ```
 
-## Agent Format Template (OPTIMIZED)
-Every agent MUST follow this enhanced format for better prompt engineering:
+## 빌드 명령어
 
-```markdown
----
-name: agent-name
-description: Brief description of expertise and when this agent should be invoked. Keep it concise but comprehensive.
-tools: Tool1, Tool2, Tool3  # List actual tools the agent needs
----
+```bash
+# 전체 빌드 (Generator DLL → Unity 폴더로 복사)
+./Scripts/build-all.sh
 
-You are a [role] who [approach/philosophy]. You approach [domain] with [methodology], [key principles].
+# 개별 빌드
+dotnet build Datra.Generators/Datra.Generators.csproj -c Release
+dotnet build Datra.SampleData/Datra.SampleData.csproj
 
-## Communication Style
-I'm [personality traits], focusing on [approach]. I ask [types of questions] before [action]. I balance [considerations] while [priorities]. I explain [what you explain] to help [outcome].
+# 테스트
+dotnet test Datra.Tests/Datra.Tests.csproj
 
-## [Domain] Expertise Areas (6-8 sections)
-
-### [Subtopic 1]
-**Framework for [specific aspect]:**
-
-- **Key Element**: Description and application
-- **Another Element**: Practical usage and benefits  
-- **Implementation**: How to apply in real scenarios
-- **Best Practices**: Proven approaches and guidelines
-
-**Practical Application:**
-[Real-world scenario examples and specific guidance]
-
-### [Subtopic 2]
-**[Framework name] for [specific need]:**
-[Continue with practical, actionable frameworks]
-
-## Best Practices
-
-1. **Practice Name** - Clear, actionable description
-2. **Another Practice** - Specific guidance
-[List 10 key best practices]
-
-## Integration with Other Agents
-
-- **With agent-name**: Specific, actionable collaboration points
-- **With another-agent**: Clear handoff and coordination details
-[List all relevant agents with precise integration guidance]
+# 생성된 파일 확인 (EmitPhysicalFiles = true 설정 필요)
+# DatraConfiguration.cs에서 EmitPhysicalFiles = true로 변경 후 빌드
 ```
 
-## Completed Agents (165 total)
-
-### ✅ Core (4/4)
-- architect.md - System design and architecture
-- code-reviewer.md - Code quality and review
-- debugger.md - Debugging and troubleshooting  
-- refactorer.md - Code refactoring
-
-### ✅ Orchestrators (4/4)
-- project-manager.md - Project planning and coordination
-- tech-lead.md - Technical leadership
-- incident-commander.md - Crisis response
-- prd-writer.md - Product requirements
-
-### ✅ Languages (13/13) ✅
-- python-expert.md
-- javascript-expert.md
-- typescript-expert.md
-- go-expert.md
-- rust-expert.md
-- java-expert.md
-- csharp-expert.md
-- scala-expert.md
-- ruby-expert.md
-- elixir-expert.md
-- kotlin-expert.md
-- php-expert.md
-- swift-expert.md
-
-### ✅ Infrastructure (13/13) ✅
-- cloud-architect.md - AWS/GCP/Azure
-- kubernetes-expert.md - K8s orchestration
-- devops-engineer.md - CI/CD pipelines
-- terraform-expert.md - Infrastructure as Code
-- monitoring-expert.md - Observability
-- cloud-cost-optimizer.md - Multi-cloud cost optimization
-- aws-infrastructure-expert.md - Deep AWS expertise
-- azure-infrastructure-expert.md - Azure optimization
-- gcp-infrastructure-expert.md - GCP optimization
-- ansible-expert.md - Configuration management and automation
-- gitops-expert.md - ArgoCD and Flux for GitOps workflows
-- observability-expert.md - OpenTelemetry and distributed tracing
-- cicd-pipeline-expert.md - GitHub Actions, GitLab CI, Jenkins
-
-### ✅ Quality (11/11) ✅
-- test-automator.md - Testing strategies
-- performance-engineer.md - Performance optimization
-- security-auditor.md - Security and compliance
-- accessibility-expert.md - WCAG compliance
-- e2e-testing-expert.md - End-to-end testing
-- load-testing-expert.md - Load and performance testing
-- contract-testing-expert.md - API contract testing
-- chaos-engineer.md - Chaos engineering
-- playwright-expert.md - Cross-browser automation and visual regression
-- cypress-expert.md - Modern E2E testing with real-time capabilities
-- jest-expert.md - JavaScript unit testing with mocking strategies
-
-### ✅ Data & AI (8/8) ✅
-- ai-engineer.md - LLM applications
-- data-engineer.md - ETL and pipelines
-- ml-engineer.md - Machine learning
-- data-scientist.md - Analytics
-- mlops-engineer.md - ML operations
-- nlp-engineer.md - Natural language processing
-- computer-vision-expert.md - Computer vision and image processing
-- reinforcement-learning-expert.md - RL algorithms and deployments
-
-### ✅ Frameworks (13/13) ✅
-- react-expert.md - React and Next.js
-- vue-expert.md - Vue.js and Nuxt
-- angular-expert.md - Angular framework
-- django-expert.md - Django web framework
-- rails-expert.md - Ruby on Rails
-- spring-expert.md - Spring Boot
-- nextjs-expert.md - Next.js 14+ specialist
-- fastapi-expert.md - FastAPI and async Python
-- nestjs-expert.md - NestJS enterprise Node.js framework
-- svelte-expert.md - Svelte and SvelteKit
-- remix-expert.md - Remix full-stack framework
-- astro-expert.md - Astro static site builder
-- qwik-expert.md - Qwik resumable framework
-
-### ✅ Database (7/7) ✅
-- database-architect.md - Database design
-- postgresql-expert.md - PostgreSQL
-- mongodb-expert.md - MongoDB
-- redis-expert.md - In-memory data structures and caching
-- elasticsearch-expert.md - Search engine and log analytics
-- neo4j-expert.md - Graph database and network analysis
-- cassandra-expert.md - Distributed wide column store
-
-### ✅ Specialized (9/9) ✅
-- payment-expert.md - Payment integration
-- ux-designer.md - UI/UX design
-- ui-components-expert.md - UI libraries
-- mobile-developer.md - Mobile development
-- game-developer.md - Game development
-- blockchain-expert.md - Web3 and crypto
-- iot-expert.md - Internet of Things
-- seo-implementation-expert.md - Technical SEO implementation
-- geo-implementation-expert.md - GEO technical implementation
-
-### ✅ Documentation (5/5) ✅
-- api-documenter.md - API documentation
-- architecture-documenter.md - System design docs
-- code-documenter.md - Code documentation
-- runbook-generator.md - Operational procedures
-- technical-writer.md - User guides
-
-### ✅ Business & Product Strategy (4/4) 🆕
-- product-manager.md - Product roadmaps and strategy
-- business-analyst.md - Requirements and process analysis
-- growth-hacker.md - Growth experiments and viral loops
-- website-architect.md - Website strategy and information architecture
-
-### ✅ Marketing & Growth (35/35) 🆕
-#### Content Strategy & SEO (5/5)
-- content-strategist.md - Content planning and strategy
-- seo-expert.md - Search engine optimization
-- seo-strategist.md - Comprehensive SEO strategy and auditing
-- geo-strategist.md - Generative Engine Optimization for AI visibility
-- conversion-optimizer.md - A/B testing and funnel optimization
-
-#### Email Marketing (4/4)
-- email-strategist.md - Email campaign planning and automation
-- email-copywriter.md - Email subject lines and body copy
-- email-designer.md - Responsive email templates and dark mode
-- email-deliverability-expert.md - Authentication and reputation management
-
-#### Social Media (5/5)
-- social-strategist.md - Platform strategy and content planning
-- social-content-creator.md - Platform-specific content creation
-- social-community-manager.md - Community engagement and moderation
-- social-ads-expert.md - Paid social campaigns and optimization
-- influencer-partnership-expert.md - Influencer vetting and campaign management
-
-#### Content Analytics (3/3)
-- content-performance-analyst.md - Content ROI and attribution analysis
-- user-behavior-analyst.md - Heatmaps, session recordings, behavioral insights
-- web-analytics-expert.md - GA4/Adobe Analytics and web measurement
-
-#### Brand & Messaging (3/3)
-- brand-strategist.md - Brand positioning and identity development
-- messaging-architect.md - Hierarchical messaging frameworks
-- brand-voice-designer.md - Voice personality and tone adaptation
-
-#### Content Production (5/5)
-- video-content-creator.md - Video strategy, production, platform optimization
-- graphic-designer.md - Visual design, brand identity, marketing materials
-- podcast-creator.md - Audio strategy, production, distribution, monetization
-- copywriter-specialist.md - Persuasive writing, conversion psychology, A/B testing
-- content-editor.md - Quality assurance, editorial workflows, optimization
-
-#### Marketing Technology (3/3)
-- marketing-automation-expert.md - Workflow design, lead nurturing, CRM integration
-- crm-specialist.md - Sales pipeline management, data quality, customer lifecycle
-- martech-stack-architect.md - Technology ecosystem design, platform integration
-
-#### PR & Communications (3/3)
-- pr-strategist.md - Media relations, reputation management, thought leadership
-- crisis-communication-expert.md - Crisis response, stakeholder communication, recovery
-- corporate-communications-specialist.md - Internal communications, employee engagement, culture
-
-### ✅ API Integration (3/3) 🆕
-- graphql-expert.md - GraphQL schemas and resolvers
-- grpc-expert.md - gRPC and protocol buffers
-- websocket-expert.md - Real-time communication
-
-### ✅ Operations & Compliance (2/2) 🆕
-- customer-success-manager.md - Customer retention and growth
-- legal-compliance-expert.md - GDPR, contracts, compliance
-
-### ✅ Industry Verticals (13/13) 🆕
-#### Fintech (3/3)
-- banking-api-expert.md - Banking APIs and Open Banking
-- trading-platform-expert.md - Trading systems and markets
-- financial-compliance-expert.md - Financial regulations
-
-#### Healthcare (8/8)
-- clinical-trials-expert.md - Clinical trial management
-- fhir-expert.md - FHIR healthcare interoperability
-- healthcare-security.md - Healthcare cybersecurity
-- hipaa-expert.md - HIPAA compliance
-- hl7-expert.md - HL7 integration
-- medical-data.md - Healthcare data management
-- medical-imaging-expert.md - DICOM and medical imaging
-- telemedicine-platform-expert.md - Telemedicine systems
-
-#### Government (1/1)
-- govtech-expert.md - Digital government and civic tech
-
-#### Education (1/1)
-- edtech-expert.md - Educational technology and LMS
-
-### ✅ Advanced Computing (3/3) 🆕
-- quantum-computing-expert.md - Quantum computing with Qiskit and Cirq
-- compiler-engineer.md - Compiler design and LLVM development
-- embedded-systems-expert.md - Microcontroller and IoT systems
-
-### ✅ Analytics (3/3) 🆕
-- business-intelligence-expert.md - BI, data warehousing, and dashboards
-- streaming-data-expert.md - Real-time data processing and Apache Kafka
-- data-quality-engineer.md - Data profiling, validation, and cleansing
-
-### ✅ Research (2/2) 🆕
-- ml-researcher.md - Cutting-edge ML research and novel architectures
-- research-engineer.md - Research infrastructure and scalable experiments
-
-### ✅ Creative (2/2) 🆕
-- ar-vr-developer.md - AR/VR development with Unity XR and WebXR
-- game-ai-expert.md - Game AI systems and intelligent NPCs
-
-### ✅ Localization (2/2) 🆕
-- i18n-expert.md - Internationalization implementation
-- localization-engineer.md - Localization infrastructure and workflows
-
-### ✅ Security (4/4) 🆕
-- security-penetration-tester.md - Defensive security testing and vulnerability assessment
-- devsecops-engineer.md - Security automation and CI/CD integration
-- cryptography-expert.md - Cryptographic implementations and protocols
-- zero-trust-architect.md - Zero Trust architecture and implementation
-
-### ✅ Operational Excellence (3/3) 🆕
-- sre.md - Site reliability engineering and system resilience
-- capacity-planning.md - Resource forecasting and optimization
-- disaster-recovery.md - Business continuity and recovery procedures
-
-### ✅ Web3 (4/4) 🆕
-- ipfs-expert.md - IPFS distributed storage and content addressing
-- dao-expert.md - DAO governance and treasury management
-- nft-platform-expert.md - NFT marketplaces and platforms
-- layer2-expert.md - Layer 2 scaling solutions
-
-### ✅ Mobile (2/2) 🆕
-- react-native-expert.md - React Native cross-platform development
-- flutter-expert.md - Flutter and Dart mobile development
-
-## Project Status
-
-Phase 7 (7a-7g) completed! The collection now includes:
-- 167 specialized agents covering the entire software development and business lifecycle
-- Complete marketing suite (35 agents): email marketing, social media, content analytics, brand & messaging, content production, marketing technology, PR & communications
-- Enhanced prompt engineering format for better AI agent effectiveness
-- Advanced AI/ML specialists (NLP, computer vision, reinforcement learning)
-- Security specializations (DevSecOps, cryptography, Zero Trust)
-- Operational excellence (SRE, capacity planning, disaster recovery)
-- Web3 technologies (IPFS, DAOs, NFT platforms, Layer 2 scaling)
-- SEO and GEO specialists for traditional and AI search optimization
-- Advanced computing specialists (quantum, compiler, embedded)
-- Analytics and research infrastructure experts
-- Creative development specialists (AR/VR, game AI)
-- Localization and internationalization experts
-- Security specializations (penetration testing)
-- Testing framework specialists (Playwright, Cypress, Jest)
-- Database specialists (Redis, Elasticsearch, Neo4j, Cassandra)
-- Modern framework specialists (Svelte, Remix, Astro, Qwik)
-- Comprehensive documentation and workflow patterns
-- Integration guidelines for multi-agent coordination
-
-## Prompt Engineering Optimization Status
-
-### ✅ OPTIMIZATION COMPLETE (165 agents)
-All agents now have Communication Style sections and follow enhanced format standards:
-
-- **Marketing agents (35/35)** - Full enhanced format (400-450 lines)
-- **All other agents (130/130)** - Communication Style + optimized structure
-- **Removed duplicates** - Eliminated copywriter.md duplicate
-
-### 📊 Final Optimization Results
-- **Total Agents:** 165
-- **Communication Style Coverage:** 165/165 (100%)
-- **Average Length:** 263 lines per agent
-- **Enhanced Format Agents:** 35 marketing agents (complete 400-450 line format)
-- **Optimized Agents:** 130 remaining agents (Communication Style + practical frameworks)
-
-### Potential Future Expansions
-- Platform specialists (salesforce, sap, sharepoint, servicenow)
-- More industry verticals (manufacturing, media, retail, logistics)
-- API specialists (rest-api, event-driven)
-- Frontend specialists (micro-frontend, design-system, state-management, css-architecture)
-
-## Integration Guidelines
-
-1. **Correct References**: When agents reference each other, use actual agent names from our collection
-2. **Bidirectional**: If agent A references agent B, agent B should reference agent A where appropriate
-3. **Generic References**: Keep "backend/frontend developers" generic as they map to language experts based on project
-4. **Collaboration Patterns**: 
-   - Architects design → Developers implement → Testers verify
-   - Incident occurs → Commander coordinates → Specialists fix
-   - PRD defines → Architect designs → Team builds
-
-## Code Standards
-
-1. **Working Examples**: All code must be practical and runnable
-2. **Modern Practices**: Use latest stable versions and modern patterns
-3. **Comments**: Minimal comments - code should be self-documenting
-4. **Error Handling**: Show proper error handling in examples
-5. **Security**: Never include hardcoded secrets or vulnerable patterns
-6. **Performance**: Demonstrate efficient implementations
-
-## Building Priority
-
-1. High Priority: Data & AI agents, Database specialists
-2. Medium Priority: Remaining infrastructure, frameworks, quality
-3. Lower Priority: Additional languages, specialized domains
-
-## Agent Workflow Optimization
-
-### Routing Instructions for Claude Code
-
-To ensure optimal agent selection and workflow coordination:
-
-1. **Project-Level Requests** should trigger `prd-writer` first:
-   - "Build a [feature/system/application]"
-   - "Implement [complex functionality]" 
-   - "Create a solution for [business need]"
-   - Any request affecting multiple components or lasting >1 week
-
-2. **Follow PRD-First Workflow** for complex projects:
-   ```
-   prd-writer → project-manager → architect → implementation agents → testing → deployment
-   ```
-
-3. **Direct Agent Selection** for simple tasks:
-   - Bug fixes → debugger → language expert
-   - Code improvements → refactorer → language expert  
-   - Infrastructure tasks → cloud-architect/devops-engineer
-   - Documentation → technical-writer
-
-4. **Agent Descriptions** have been updated to clarify:
-   - **prd-writer**: PRIMARY AGENT for project planning
-   - **project-manager**: WORKFLOW ORCHESTRATOR  
-   - **architect**: TECHNICAL DESIGN SPECIALIST (works FROM requirements)
-
-### Workflow Documents
-
-- `WORKFLOW_CONFIG.md`: Detailed routing rules and configuration
-- `WORKFLOWS.md`: Comprehensive workflow patterns for different project types
-
-## Important Notes
-
-### Enhanced Agent Format (New Standard)
-- **Length**: 400-450 lines (optimized from 600+ lines)
-- **Structure**: Communication Style + 6-8 expertise areas + Best Practices + Integration
-- **Format**: Practical frameworks instead of code blocks for better prompt engineering
-- **Style**: Conversational, actionable, with clear behavioral instructions
-- **Focus**: Real-world scenarios and practical application over theoretical knowledge
-
-### Legacy Agent Format (To Be Updated)
-- **Length**: 500-600 lines with extensive code examples
-- **Structure**: Traditional format with Python pseudocode
-- **Status**: 137 agents require optimization to new format
-
-### General Guidelines
-- Include both conceptual knowledge and practical implementation
-- Show real-world scenarios and solutions
-- Ensure agents complement rather than duplicate each other
-- Test that integration points make sense
-- **Follow the optimal workflow patterns** for better coordination
-- **Update README.md after completing each category of agents**
-
-## README Update Process
-
-After completing each category of agents:
-1. Update the README.md file with the newly created agents
-2. Include brief descriptions of each agent's capabilities
-3. Update the progress count
-4. Ensure the README accurately reflects the current state of the project
-
-## Recent Updates (January 2025)
-
-- **SEO/GEO Update**: Added 4 new agents for search engine and AI optimization
-  - seo-strategist: Comprehensive SEO strategy and auditing
-  - seo-implementation-expert: Technical SEO implementation
-  - geo-strategist: Generative Engine Optimization strategy
-  - geo-implementation-expert: GEO technical implementation
-- **Phase 2 Completed**: Added 13 new agents across advanced computing, analytics, research, creative, and localization
-- **Priority Addition**: Created website-architect for comprehensive website planning
-- **Advanced Computing**: Quantum computing, compiler engineering, embedded systems specialists
-- **Analytics & Research**: Business intelligence, streaming data, ML research infrastructure
-- **Creative Development**: AR/VR and game AI development experts
-- **Localization**: Complete i18n implementation and localization engineering
-- **Security**: Started security specializations with penetration testing expert
-- **Phase 3 Completed**: Added 13 new agents
-  - AI/ML specialists: nlp-engineer, computer-vision-expert, reinforcement-learning-expert
-  - Security expansion: devsecops-engineer, cryptography-expert, zero-trust-architect
-  - Operational excellence: sre, capacity-planning, disaster-recovery
-  - Web3 technologies: ipfs-expert, dao-expert, nft-platform-expert, layer2-expert
-- **Phase 4 Completed**: Added 7 new testing and database specialists
-  - Testing frameworks: playwright-expert, cypress-expert, jest-expert
-  - Database specialists: redis-expert, elasticsearch-expert, neo4j-expert, cassandra-expert
-- **Phase 5 Completed**: Added 4 new framework specialists
-  - Modern frameworks: svelte-expert, remix-expert, astro-expert, qwik-expert
-- **Phase 6 Completed**: Added 6 new specialists
-  - Mobile development: react-native-expert, flutter-expert
-  - DevOps & Infrastructure: ansible-expert, gitops-expert, observability-expert, cicd-pipeline-expert
-- **Integration Updates**: Enhanced all agent integration sections
-  - Updated Core Agents (architect, code-reviewer, debugger, refactorer) with comprehensive cross-agent integrations
-  - Updated all Frontend Framework agents (React, Vue, Angular, Svelte, Remix, Astro, Qwik, Next.js, NestJS, FastAPI) with categorized integrations
-  - Added integration categories: Core Framework, Testing, Database & Caching, AI/ML, Infrastructure, Optimization
-- **Phase 7 Completed (7a-7g)**: Added 30 new marketing and communications specialists
-  - Phase 7a: Email marketing (4 agents) + conversion optimizer
-  - Phase 7b: Social media specialists (5 agents) 
-  - Phase 7c: Content analytics specialists (3 agents)
-  - Phase 7d: Brand & messaging specialists (3 agents)
-  - Phase 7e: Content production specialists (5 agents)
-  - Phase 7f: Marketing technology specialists (3 agents)
-  - Phase 7g: PR & communications specialists (3 agents)
-  - Enhanced prompt engineering format for better AI effectiveness
-  - Optimized agent length (~400-450 lines) while maintaining comprehensive coverage
-  - Added Communication Style sections and practical frameworks
-- Total agent count: 167 unique agents
-- Enhanced directory structure with 6 new categories (including mobile/)
-- Updated documentation and workflow patterns
-
-When continuing work on this project, consider adding agents from the "Potential Future Expansions" list or creating new specialized agents based on emerging needs.
+## 핵심 파일 및 역할
+
+### Source Generator 핵심 파일
+
+| 파일 | 역할 |
+|------|------|
+| `DataContextSourceGenerator.cs` | 메인 진입점. DatraConfiguration 읽고 생성 시작 |
+| `DataModelAnalyzer.cs` | 클래스 분석, PropertyInfo 추출, 중첩 타입 감지 |
+| `CsvSerializerBuilder.cs` | CSV 직렬화/역직렬화 코드 생성 |
+| `DataModelGenerator.cs` | 모델 partial 클래스, 생성자 생성 |
+| `CodeBuilder.cs` | 코드 생성 헬퍼 (ToCamelCase, 예약어 처리 등) |
+
+### 모델 정보 (DataModelInfo)
+
+```csharp
+// Datra.Generators/Models/DataModelInfo.cs
+public class PropertyInfo
+{
+    public string Name { get; set; }
+    public string Type { get; set; }
+    public bool IsArray { get; set; }
+    public bool IsEnum { get; set; }
+    public bool IsDataRef { get; set; }
+    public bool IsLocaleRef { get; set; }
+    public bool IsNestedType { get; set; }      // 중첩 struct/class
+    public bool IsNestedStruct { get; set; }    // struct vs class
+    public string NestedTypeName { get; set; }
+    public List<PropertyInfo> NestedProperties { get; set; }
+}
+```
+
+## DatraConfiguration 설정
+
+```csharp
+[assembly: DatraConfiguration("GameData",
+    Namespace = "MyGame.Generated",           // 필수! Unity 호환성
+    EnableLocalization = true,
+    LocalizationKeyDataPath = "Localizations/LocalizationKeys.csv",
+    EmitPhysicalFiles = false                 // 디버깅용
+)]
+```
+
+**Namespace는 필수** - 미설정시 `DATRA003` 에러 발생
+
+## 자주 발생하는 문제
+
+### 1. Unity에서 컴파일 에러
+- **증상**: `CS0116`, `CS1514` 등 구문 에러
+- **원인**:
+  - C# 예약어가 변수명으로 사용됨 (예: `ref`)
+  - 네임스페이스에 공백 포함
+- **해결**:
+  - `CodeBuilder.ToCamelCase`에서 예약어 처리 (`@ref`)
+  - `Namespace` 명시적 설정 (필수화됨)
+
+### 2. 중복 정의 에러
+- **증상**: `CS0101` already contains a definition
+- **원인**: `EmitPhysicalFiles = true`로 물리 파일 생성 후 끄지 않음
+- **해결**: 생성된 `*.g.cs` 파일 삭제, `EmitPhysicalFiles = false`
+
+### 3. Generator가 동작 안 함
+- **원인**: DLL이 오래됨
+- **해결**: `./Scripts/build-all.sh` 실행
+
+## 코드 생성 흐름
+
+```
+1. DataContextSourceGenerator.Execute()
+   ↓
+2. DataAttributeSyntaxReceiver로 [TableData], [SingleData] 클래스 수집
+   ↓
+3. DataModelAnalyzer.AnalyzeClasses() - PropertyInfo 추출
+   ↓
+4. DataContextGenerator.GenerateDataContext() - Context 클래스 생성
+   ↓
+5. DataModelGenerator.GenerateDataModelFile() - 각 모델별 Serializer 생성
+   ↓
+6. context.AddSource()로 컴파일에 추가
+```
+
+## CSV 직렬화 특이사항
+
+### 중첩 타입 (Nested Type)
+```csv
+Id,Name,ModelPrefab.Path,ModelPrefab.InitialCount
+hero_001,Knight,Assets/Prefabs/Knight.prefab,5
+```
+- 점 표기법 사용: `PropertyName.FieldName`
+- `CsvSerializerBuilder.GenerateNestedTypeDeserialization()` 참조
+
+### 배열
+```csv
+Stats,UpgradeCosts
+Strength|Agility,100|200|300
+```
+- 기본 구분자: `|` (config.CsvArrayDelimiter)
+
+### DataRef
+```csv
+CharacterRef,ItemRefs
+hero_001,1001|1002|1003
+```
+- ID만 저장, `Evaluate(context)`로 해결
+
+## 테스트 방법
+
+### 통합 테스트 (권장)
+
+```bash
+# 전체 테스트 (빌드 + .NET 테스트 + Unity 테스트)
+./Scripts/test-all.sh
+
+# 옵션
+./Scripts/test-all.sh --skip-build      # 빌드 스킵
+./Scripts/test-all.sh --skip-unity      # Unity 테스트 스킵
+./Scripts/test-all.sh --unity-only      # Unity 테스트만
+```
+
+### .NET 테스트
+
+```bash
+# 전체 테스트
+dotnet test Datra.Tests/Datra.Tests.csproj
+
+# 특정 테스트
+dotnet test --filter "FullyQualifiedName~NestedTypeTests"
+```
+
+### Unity 테스트
+
+```bash
+# Unity 컴파일만 체크
+./Scripts/test-unity-compile.sh
+
+# Unity 테스트 실행 (컴파일 체크 포함)
+./Scripts/test-unity.sh
+
+# 컴파일 체크 스킵
+./Scripts/test-unity.sh --skip-compile
+```
+
+**주의**: Unity Editor가 열려있으면 배치 모드 테스트 불가.
+이 경우 exit code 2 반환되며, Unity Editor의 Test Runner 창에서 직접 실행해야 함.
+
+### Unity 테스트 파일 위치
+
+```
+Datra.Unity.Sample/Assets/Tests/
+└── Editor/
+    ├── Datra.Unity.Tests.Editor.asmdef
+    └── DatraBasicTests.cs
+```
+
+테스트 결과는 `TestResults/unity-test-results.xml`에 저장됨.
+
+## 디버깅 팁
+
+### 생성된 코드 확인
+1. `DatraConfiguration`에서 `EmitPhysicalFiles = true` 설정
+2. 빌드
+3. `Datra.SampleData/` 폴더에 `*.g.cs` 파일 확인
+4. 확인 후 `EmitPhysicalFiles = false`로 되돌리고 `*.g.cs` 삭제
+
+### Generator 로그 확인
+- `GeneratorLogger.Log()` 사용
+- 빌드 시 `GeneratorDebugOutput.g.cs`에 로그 출력됨
+
+## C# 예약어 목록
+
+`CodeBuilder.CSharpKeywords`에 정의됨:
+```
+abstract, as, base, bool, break, byte, case, catch, char, checked,
+class, const, continue, decimal, default, delegate, do, double, else,
+enum, event, explicit, extern, false, finally, fixed, float, for,
+foreach, goto, if, implicit, in, int, interface, internal, is, lock,
+long, namespace, new, null, object, operator, out, override, params,
+private, protected, public, readonly, ref, return, sbyte, sealed,
+short, sizeof, stackalloc, static, string, struct, switch, this, throw,
+true, try, typeof, uint, ulong, unchecked, unsafe, ushort, using,
+virtual, void, volatile, while
+```
+
+프로퍼티 이름이 camelCase로 변환될 때 예약어면 `@` 접두사 추가됨.
+
+## Datra.Editor 공유 레이어
+
+Unity와 Blazor에서 공통으로 사용하는 에디터 로직을 제공합니다.
+
+### 핵심 컴포넌트
+
+| 컴포넌트 | 역할 |
+|----------|------|
+| `IFieldTypeHandler` | 필드 타입 핸들러 인터페이스 (Priority, CanHandle) |
+| `FieldCreationContext` | 필드 생성 컨텍스트 (Property, Value, LayoutMode 등) |
+| `FieldLayoutMode` | 레이아웃 모드 (Form, Table, Inline) |
+| `FieldTypeRegistry` | 핸들러 등록/검색 서비스 |
+| `TypeDetectionHelper` | 타입 감지 유틸리티 (IsDataRef, IsLocaleRef, IsNestedType 등) |
+| `PathHelper` | 경로 유틸리티 (IsAbsolutePath, CombinePath) |
+
+### FieldCreationContext 생성자
+
+```csharp
+// 1. Property 기반 (일반적인 경우)
+new FieldCreationContext(property, target, value, layoutMode, onValueChanged);
+
+// 2. Nested Member 기반 (중첩 타입 내부 필드)
+new FieldCreationContext(member, fieldType, parentValue, value, layoutMode, onValueChanged);
+
+// 3. Collection Element 기반 (배열/리스트 요소)
+new FieldCreationContext(elementType, value, index, layoutMode, onValueChanged);
+```
+
+### TypeDetectionHelper 주요 메서드
+
+```csharp
+TypeDetectionHelper.IsDataRefType(type)      // StringDataRef<T>, IntDataRef<T>
+TypeDetectionHelper.IsLocaleRefType(type)    // LocaleRef
+TypeDetectionHelper.IsNestedType(type)       // 중첩 struct/class
+TypeDetectionHelper.IsCollectionType(type)   // List<T>, T[]
+TypeDetectionHelper.IsNumericType(type)      // int, float, double 등
+TypeDetectionHelper.GetEditableMembers(type) // 편집 가능한 멤버 목록
+```
+
+### PathHelper (경로 유틸리티)
+
+```csharp
+// 절대 경로 감지 (Unix: /, Windows: C:\)
+PathHelper.IsAbsolutePath("/Users/test/file.txt")  // true
+PathHelper.IsAbsolutePath("C:\\folder\\file.txt")  // true
+PathHelper.IsAbsolutePath("relative/path.txt")     // false
+
+// 경로 결합 (절대 경로는 그대로 반환)
+PathHelper.CombinePath("base", "sub/file.txt")           // "base/sub/file.txt"
+PathHelper.CombinePath("base", "/absolute/path.txt")     // "/absolute/path.txt"
+```
+
+### 플랫폼별 구현
+
+```
+Datra.Editor (공유)
+├── IFieldTypeHandler          # 렌더링 제외한 공통 인터페이스
+└── FieldTypeRegistry          # 핸들러 등록/검색
+
+Datra.Unity (Unity 전용)
+├── IUnityFieldHandler         # + CreateField(→ VisualElement)
+└── Handlers/                  # Unity용 핸들러들
+
+Oratia.WebEditor (Blazor 전용)
+├── IBlazorFieldHandler        # + CreateField(→ RenderFragment)
+└── Handlers/                  # Blazor용 핸들러들
+```
+
+## Unity Editor 아키텍처 (MVVM)
+
+### 구조 개요
+
+```
+DatraEditorWindow (View - Unity UI)
+    │
+    ├── DatraDataManager (기존 로직, 실제 작업 수행)
+    │
+    └── DatraEditorViewModel (테스트용 추상화)
+        ├── DatraDataManagerAdapter (IDataService + IChangeTrackingService)
+        └── LocalizationEditorServiceAdapter (ILocalizationEditorService)
+```
+
+### 서비스 인터페이스
+
+| 인터페이스 | 역할 | 위치 |
+|-----------|------|------|
+| `IDataService` | 데이터 로드/저장/리로드 | `Editor/Services/Interfaces/` |
+| `IChangeTrackingService` | 변경 추적 통합 | `Editor/Services/Interfaces/` |
+| `ILocalizationEditorService` | 로컬라이제이션 편집 | `Editor/Services/Interfaces/` |
+
+### 주요 클래스
+
+```
+Datra.Unity/Editor/
+├── Services/
+│   ├── Interfaces/
+│   │   ├── IDataService.cs
+│   │   ├── IChangeTrackingService.cs
+│   │   └── ILocalizationEditorService.cs
+│   ├── DataService.cs
+│   ├── ChangeTrackingService.cs
+│   ├── LocalizationEditorService.cs
+│   └── DatraDataManagerAdapter.cs      # 기존 코드 래핑
+├── ViewModels/
+│   └── DatraEditorViewModel.cs         # 테스트 가능한 ViewModel
+├── DatraDataManager.cs                 # 기존 로직 (유지)
+└── DatraEditorWindow.cs                # Unity UI
+```
+
+### ViewModel 사용법
+
+```csharp
+// DatraEditorWindow에서 ViewModel 접근
+public DatraEditorViewModel ViewModel => viewModel;
+
+// ViewModel 주요 API
+viewModel.SelectDataTypeCommand(typeof(CharacterData));
+viewModel.SelectLocalizationCommand();
+await viewModel.SaveCommand();
+await viewModel.SaveAllCommand();
+await viewModel.ReloadCommand();
+
+// 상태 확인
+viewModel.SelectedDataType
+viewModel.IsLocalizationSelected
+viewModel.HasAnyUnsavedChanges
+viewModel.HasCurrentDataUnsavedChanges
+```
+
+### 테스트 방법
+
+Mock 서비스로 ViewModel 테스트 가능:
+
+```csharp
+// Datra.Unity.Sample/Assets/Tests/Editor/DatraEditorViewModelTests.cs
+var mockDataService = new MockDataService();
+var mockChangeTracking = new MockChangeTrackingService();
+var viewModel = new DatraEditorViewModel(mockDataService, mockChangeTracking);
+
+viewModel.SelectDataTypeCommand(typeof(string));
+await viewModel.SaveCommand();
+
+Assert.IsTrue(mockDataService.SaveWasCalled);
+```
+
+### 확장 시 주의사항
+
+1. **기존 로직 유지**: `DatraDataManager`의 로직은 그대로 유지
+2. **점진적 마이그레이션**: 새 기능은 ViewModel에서 먼저 구현 후 연결
+3. **테스트 먼저**: 새 로직 추가 시 Mock 테스트 먼저 작성
+
+## Git 커밋 컨벤션
+
+- 기능 추가: `Add {feature description}`
+- 버그 수정: `Fix {bug description}`
+- 리팩토링: `Refactor {description}`
+- Generator DLL 변경시 항상 함께 커밋
+
+## 관련 이슈 히스토리
+
+- **1b04b04**: PathHelper 추가, AssetDatabaseRawDataProvider 경로 버그 수정
+- **c416485**: Datra.Editor 공유 레이어 및 유닛 테스트 추가
+- **dff677a**: AssetData 지원 (파일 기반 에셋, 안정적인 GUID)
+- **f608d9d**: multi-context 지원 추가 (ContextName 필수화)
+- **c419b4c**: Unity Editor nested type 지원
+- **6038cfb**: CSV nested struct/class 지원
+- **b976a67**: Namespace 필수화, 예약어 처리
 
 ---
-> Source: [rshah515/claude-code-subagents](https://github.com/rshah515/claude-code-subagents) — distributed by [TomeVault](https://tomevault.io).
+> Source: [penspanic/Datra](https://github.com/penspanic/Datra) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:gemini_md:2026-05-06 -->
 
 ---
