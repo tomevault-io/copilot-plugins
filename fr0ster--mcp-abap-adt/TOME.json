@@ -4,7 +4,7 @@
   "repo": "mcp-abap-adt",
   "description": "MCP server for SAP BTP ABAP Cloud and On-Premise ECC/S/4HANA ABAP ADT with full CRUD, JWT/XSUAA, and service-key auth.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fr0ster/mcp-abap-adt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T17:01:31Z"
+  "distributed_at": "2026-05-14T00:52:21Z"
 }
