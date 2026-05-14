@@ -1,0 +1,9 @@
+{
+  "name": "ahoward--tc",
+  "displayName": "tc",
+  "description": "tc - theodore calvin's language-agnostic testing framework \ud83d\ude81 | simple, portable, unix-style testing for any language",
+  "version": "1.0.0",
+  "author": "ahoward",
+  "homepage": "https://github.com/ahoward/tc",
+  "skills": []
+}
