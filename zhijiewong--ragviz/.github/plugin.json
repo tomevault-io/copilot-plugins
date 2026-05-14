@@ -1,0 +1,9 @@
+{
+  "name": "zhijiewong--ragviz",
+  "displayName": "ragviz",
+  "description": "Graph RAG visualization platform with interactive knowledge graphs and real-time parameter tuning for local LLMs",
+  "version": "1.0.0",
+  "author": "zhijiewong",
+  "homepage": "https://github.com/zhijiewong/ragviz",
+  "skills": []
+}
