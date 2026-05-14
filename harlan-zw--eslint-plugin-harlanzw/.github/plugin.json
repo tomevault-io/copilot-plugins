@@ -1,0 +1,9 @@
+{
+  "name": "harlan-zw--eslint-plugin-harlanzw",
+  "displayName": "eslint-plugin-harlanzw",
+  "description": "My opinionated ESLint rules for Vue apps",
+  "version": "1.0.0",
+  "author": "harlan-zw",
+  "homepage": "https://github.com/harlan-zw/eslint-plugin-harlanzw",
+  "skills": []
+}
