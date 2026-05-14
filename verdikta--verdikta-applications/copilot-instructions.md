@@ -1,140 +1,319 @@
-## bounty-program-architecture
+## documentation-standards
 
-> Architecture and patterns for the example-bounty-program system
+> Documentation standards and when to update docs
 
 
-# Bounty Program Architecture
+# Documentation Standards
 
-## Project Structure
+## Documentation Structure
 
-### Backend (Server)
-- [server.js](mdc:example-bounty-program/server/server.js) - Main Express server
-- [utils/archiveGenerator.js](mdc:example-bounty-program/server/utils/archiveGenerator.js) - Creates Verdikta-compatible archives
-- [utils/jobStorage.js](mdc:example-bounty-program/server/utils/jobStorage.js) - Local job database (temporary until smart contracts)
-- [routes/jobRoutes.js](mdc:example-bounty-program/server/routes/jobRoutes.js) - Job management API endpoints
-- [data/jobs.json](mdc:example-bounty-program/server/data/jobs.json) - Local job storage
+### Essential Documents
+1. **README.md** - User-facing overview, quick start, features
+2. **PROJECT-OVERVIEW.md** - Architecture, concepts, data models
+3. **CURRENT-STATE.md** - Implementation status, setup instructions
+4. **DEVELOPER-GUIDE.md** - Quick reference for developers
+5. **DESIGN.md** - Complete technical specification
 
-### Frontend (Client)
-- [pages/CreateBounty.jsx](mdc:example-bounty-program/client/src/pages/CreateBounty.jsx) - Job creation UI
-- [pages/Home.jsx](mdc:example-bounty-program/client/src/pages/Home.jsx) - Job browsing/search
-- [pages/BountyDetails.jsx](mdc:example-bounty-program/client/src/pages/BountyDetails.jsx) - Job details view
-- [pages/SubmitWork.jsx](mdc:example-bounty-program/client/src/pages/SubmitWork.jsx) - Work submission UI
-- [services/api.js](mdc:example-bounty-program/client/src/services/api.js) - API service layer
+### When to Create New Docs
+Create new documentation when:
+- Adding a major feature (e.g., MULTI-FILE-SUBMISSION-GUIDE.md)
+- Implementing complex workflow (e.g., TESTING-GUIDE.md)
+- Consolidating information (e.g., IMPLEMENTATION-SUMMARY.md)
 
-## Key Concepts
+Don't create docs for:
+- Minor bug fixes
+- Small UI tweaks
+- Internal refactoring
 
-### Multi-CID Architecture
-The system generates two types of IPFS archives:
+## Update Checklist
 
-1. **Primary CID Archive**: Contains evaluation instructions
-   - `manifest.json` - Jury config, rubric reference, hunter CID reference
-   - `primary_query.json` - Evaluation instructions and outcomes
+### When Adding Features
+- [ ] Update README.md with feature description
+- [ ] Update CURRENT-STATE.md with implementation status
+- [ ] Add to DEVELOPER-GUIDE.md if it's a new pattern
+- [ ] Create feature-specific guide if complex
+- [ ] Update relevant section in DESIGN.md
 
-2. **Hunter CID Archive**: Contains work submission
-   - `manifest.json` - Work product file references with descriptions
-   - `primary_query.json` - Submission narrative (customizable by hunter)
-   - `submission/` - Directory with actual work product files
+### When Changing Architecture
+- [ ] Update PROJECT-OVERVIEW.md
+- [ ] Update DESIGN.md
+- [ ] Update any affected diagrams
+- [ ] Note in CURRENT-STATE.md
 
-### Threshold Separation
-**IMPORTANT**: The threshold is NOT stored in the rubric JSON on IPFS. It is:
-- Stored separately in job records (currently in jobs.json)
-- Will be stored on-chain in smart contracts
-- This allows same rubric to be reused with different thresholds
+### When Fixing Bugs
+- [ ] If significant, note in CURRENT-STATE.md
+- [ ] Update TROUBLESHOOTING section if applicable
+- [ ] No need to update for minor fixes
 
-### Archive Generation Pattern
+## Document Formatting
+
+### Headers
+```markdown
+# Main Title (H1 - only one per document)
+
+## Section (H2)
+
+### Subsection (H3)
+
+#### Minor Section (H4)
+```
+
+### Code Blocks
+Always specify language:
+````markdown
 ```javascript
-// Create Primary archive
-const primaryArchive = await archiveGenerator.createPrimaryCIDArchive({
-  rubricCid,
-  jobTitle,
-  jobDescription,
-  workProductType,
-  classId,
-  juryNodes,
-  iterations,
-  hunterSubmissionCid  // References Hunter archive
-});
-
-// Create Hunter archive
-const hunterArchive = await archiveGenerator.createHunterSubmissionCIDArchive({
-  workProducts: [
-    { path, name, type, description }
-  ],
-  submissionNarrative  // Custom message to evaluators
-});
+const example = "code";
 ```
 
-## API Patterns
+```bash
+npm install
+```
 
-### Job Creation Flow
-1. Frontend: User creates job with rubric and bounty details
-2. Backend: Upload rubric to IPFS → get RUBRIC_CID
-3. Backend: Generate Primary archive → upload to IPFS → get PRIMARY_CID
-4. Backend: Store job in local storage with all CIDs and metadata
-5. Frontend: Display success with job ID and CIDs
-
-### Work Submission Flow
-1. Frontend: Hunter uploads files with descriptions and custom narrative
-2. Backend: Create Hunter archive with all files → upload to IPFS → get HUNTER_CID
-3. Backend: Create updated Primary archive referencing HUNTER_CID → upload to IPFS
-4. Backend: Store submission in job record
-5. Frontend: Display CIDs in dialog for testing with example-frontend
-
-## Important Patterns
-
-### Always Generate Complete Archives
-Never generate partial archives. Each archive must have:
-- Valid manifest.json with all required fields
-- Valid primary_query.json
-- All referenced files in correct directory structure
-
-### File Descriptions in Manifest
-Following [Verdikta Manifest Specification](https://docs.verdikta.com/verdikta-common/MANIFEST_SPECIFICATION/):
 ```json
-"additional": [
-  {
-    "name": "unique-reference-name",
-    "type": "text/plain",
-    "filename": "submission/file.txt",
-    "description": "Human-readable description for AI context"
-  }
-]
+{
+  "key": "value"
+}
+```
+````
+
+### File References
+Use absolute paths from repo root:
+```markdown
+See [archiveGenerator.js](example-bounty-program/server/utils/archiveGenerator.js)
 ```
 
-### Submission Narrative (200 Word Limit)
-- Default: Standard thank you message
-- Custom: Hunter can provide context for evaluators
-- Validation: Both frontend and backend enforce 200 word limit
-- Usage: Included in Hunter archive's primary_query.json
+### Status Indicators
+Use emoji for quick status:
+```markdown
+✅ Complete - Feature is done and tested
+🔄 In Progress - Currently working on
+⏳ Pending - Planned but not started
+❌ Blocked - Cannot proceed
+⚠️ Needs Attention - Issues to resolve
+```
 
-## Smart Contract Integration (Future)
+### Command Examples
+Show full commands with context:
+```markdown
+### Start Backend
+```bash
+cd example-bounty-program/server
+npm install
+npm run dev
+```
+```
 
-When BountyEscrow contracts are deployed, replace:
-- `jobStorage.createJob()` → `contract.createBounty()`
-- `jobStorage.addSubmission()` → `contract.submitAndEvaluate()`
-- Keep archive generation unchanged
-- CID structure remains the same
+### Tables
+Use for structured data:
+```markdown
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Jobs    | ✅     | Complete |
+| Submit  | ✅     | Complete |
+```
 
-## Testing Workflow
+## README.md Structure
 
-1. Create job → Get PRIMARY_CID and RUBRIC_CID
-2. Submit work → Get HUNTER_CID and UPDATED_PRIMARY_CID
-3. Test with example-frontend: Use format `UPDATED_PRIMARY_CID,HUNTER_CID`
-4. Verify manifest structure matches blog-post-test example
+```markdown
+# Project Name
 
-## Common Pitfalls
+**Status:** 🟡 Status  
+**Version:** 0.2.0
 
-❌ Don't include threshold in rubric JSON  
-❌ Don't skip file descriptions in manifest  
-❌ Don't nest files incorrectly (must be in submission/ directory)  
-❌ Don't exceed 200 words in submission narrative  
-❌ Don't allow files over 20MB  
+## Overview
+Brief description (2-3 paragraphs)
 
-✅ Do validate all inputs on both frontend and backend  
-✅ Do clean up temporary files after uploads  
-✅ Do include descriptive file descriptions  
-✅ Do follow Verdikta manifest specification  
-✅ Do test generated archives before deployment
+## Quick Links
+Links to essential docs
+
+## Key Features
+- Feature 1
+- Feature 2
+
+## Getting Started
+Prerequisites and setup
+
+## Development Roadmap
+Phases with checkboxes
+
+## FAQ
+Common questions
+
+## Support & Contact
+Links and resources
+```
+
+## Technical Documentation
+
+### Include
+1. **Purpose** - Why this exists
+2. **How it works** - Technical details
+3. **Examples** - Code snippets
+4. **Validation** - How to verify
+5. **Troubleshooting** - Common issues
+
+### Structure
+```markdown
+# Feature Name
+
+**Status:** Complete  
+**Date:** October 2025
+
+## Overview
+What and why
+
+## Implementation Details
+How it works
+
+## Usage
+Examples
+
+## Testing
+How to test
+
+## Troubleshooting
+Common issues
+```
+
+## API Documentation
+
+### Endpoint Documentation
+```markdown
+### POST /api/endpoint
+
+**Description:** What it does
+
+**Request:**
+```json
+{
+  "field": "value"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": { }
+}
+```
+
+**Errors:**
+- 400: Invalid input
+- 404: Not found
+- 500: Server error
+```
+
+## Inline Code Documentation
+
+### Function Documentation
+```javascript
+/**
+ * Brief description of what function does
+ * 
+ * @param {Object} options - Configuration options
+ * @param {string} options.field1 - Description of field1
+ * @param {Array} options.field2 - Description of field2
+ * @returns {Promise<Object>} - What it returns
+ * @throws {Error} - When it might throw
+ */
+async function exampleFunction(options) {
+  // Implementation
+}
+```
+
+### Complex Logic
+Add comments for:
+- Non-obvious logic
+- Business rules
+- Important constraints
+- Workarounds
+
+```javascript
+// Word count validation: max 200 words per specification
+const wordCount = text.trim().split(/\s+/).length;
+if (wordCount > 200) {
+  return error;
+}
+```
+
+## Version History
+
+### In README.md
+Track major changes:
+```markdown
+## Changelog
+
+### v0.2.0 (October 2025)
+- Added multi-file submission support
+- Added custom submission narratives
+- Enhanced CID display dialog
+
+### v0.1.0 (September 2025)
+- Initial implementation
+- Basic job creation and submission
+```
+
+## Links and References
+
+### External Links
+Include context and target:
+```markdown
+See the [Verdikta Manifest Specification](https://docs.verdikta.com/verdikta-common/MANIFEST_SPECIFICATION/) for details.
+```
+
+### Internal Links
+Use relative paths:
+```markdown
+See [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md) for setup.
+```
+
+## Documentation Checklist
+
+Before committing documentation changes:
+- [ ] Spell check completed
+- [ ] Code examples tested
+- [ ] Links verified (no 404s)
+- [ ] Status indicators accurate
+- [ ] Version numbers updated
+- [ ] Breaking changes highlighted
+- [ ] Examples are complete
+- [ ] File paths are correct
+- [ ] Formatting is consistent
+
+## Best Practices
+
+1. **Keep it current** - Update docs with code changes
+2. **Be specific** - Include actual values, not placeholders
+3. **Show examples** - Code is clearer than prose
+4. **Test instructions** - Verify steps actually work
+5. **Consider audience** - Write for who will read it
+6. **Link liberally** - Connect related information
+7. **Use formatting** - Make docs scannable
+8. **Include context** - Explain the "why" not just "how"
+9. **Keep organized** - Use clear hierarchy
+10. **Regular review** - Audit docs quarterly
+
+## Anti-Patterns
+
+❌ **Don't:**
+- Leave TODO comments in published docs
+- Include outdated screenshots
+- Use vague terms like "soon" or "eventually"
+- Write walls of text without structure
+- Assume knowledge (explain acronyms)
+- Forget to update after changes
+- Include sensitive information
+- Write docs no one will read
+
+✅ **Do:**
+- Keep it concise and actionable
+- Update docs with code
+- Use clear examples
+- Structure for scanning
+- Link to related docs
+- Test all instructions
+- Review regularly
 
 ---
 > Source: [verdikta/verdikta-applications](https://github.com/verdikta/verdikta-applications) — distributed by [TomeVault](https://tomevault.io).
