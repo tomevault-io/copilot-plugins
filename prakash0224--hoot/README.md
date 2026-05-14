@@ -7,11 +7,11 @@ Fork of the colanode repo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [prakash0224/hoot](https://github.com/prakash0224/hoot).
+Original source: `CLAUDE.md` in [prakash0224/hoot](https://github.com/prakash0224/hoot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
