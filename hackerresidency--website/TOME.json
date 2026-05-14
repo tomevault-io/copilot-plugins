@@ -4,7 +4,7 @@
   "repo": "website",
   "description": "HRG is the world's best Hacker Residency \ud83d\udd25",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HackerResidency/website",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T16:59:05Z"
+  "distributed_at": "2026-05-14T09:16:00Z"
 }
