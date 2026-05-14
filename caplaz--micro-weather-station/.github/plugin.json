@@ -1,0 +1,9 @@
+{
+  "name": "caplaz--micro-weather-station",
+  "displayName": "micro-weather-station",
+  "description": "Smart weather station for Home Assistant using real sensor data",
+  "version": "1.0.0",
+  "author": "caplaz",
+  "homepage": "https://github.com/caplaz/micro-weather-station",
+  "skills": []
+}
