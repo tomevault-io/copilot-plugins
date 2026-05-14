@@ -1,52 +1,115 @@
-## git-conventional-commit-messages
+## gitflow
 
-> Cursor rules for Git development with conventional commit messages integration.
+> Gitflow Workflow Rules. These rules should be applied when performing git operations.
 
-Use the Conventional Commit Messages specification to generate commit messages
+# Gitflow Workflow Rules
 
-The commit message should be structured as follows:
+## Main Branches
 
+### main (or master)
+- Contains production-ready code
+- Never commit directly to main
+- Only accepts merges from:
+  - hotfix/* branches
+  - release/* branches
+- Must be tagged with version number after each merge
 
-```
-<type>[optional scope]: <description>
+### develop
+- Main development branch
+- Contains latest delivered development changes
+- Source branch for feature branches
+- Never commit directly to develop
 
-[optional body]
+## Supporting Branches
 
-[optional footer(s)]
-``` 
---------------------------------
+### feature/*
+- Branch from: develop
+- Merge back into: develop
+- Naming convention: feature/[issue-id]-descriptive-name
+- Example: feature/123-user-authentication
+- Must be up-to-date with develop before creating PR
+- Delete after merge
 
-The commit contains the following structural elements, to communicate intent to the consumers of your library:
+### release/*
+- Branch from: develop
+- Merge back into: 
+  - main
+  - develop
+- Naming convention: release/vX.Y.Z
+- Example: release/v1.2.0
+- Only bug fixes, documentation, and release-oriented tasks
+- No new features
+- Delete after merge
 
-  - fix: a commit of the type fix patches a bug in your codebase (this correlates with PATCH in Semantic Versioning).
-  - feat: a commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in Semantic Versioning).
-  - BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change (correlating with MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of any type.
-  - types other than fix: and feat: are allowed, for example @commitlint/config-conventional (based on the Angular convention) recommends build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
-  - footers other than BREAKING CHANGE: <description> may be provided and follow a convention similar to git trailer format.
-  - Additional types are not mandated by the Conventional Commits specification, and have no implicit effect in Semantic Versioning (unless they include a BREAKING CHANGE). A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., feat(parser): add ability to parse arrays.
+### hotfix/*
+- Branch from: main
+- Merge back into:
+  - main
+  - develop
+- Naming convention: hotfix/vX.Y.Z
+- Example: hotfix/v1.2.1
+- Only for urgent production fixes
+- Delete after merge
 
+## Commit Messages
 
+- Format: `type(scope): description`
+- Types:
+  - feat: New feature
+  - fix: Bug fix
+  - docs: Documentation changes
+  - style: Formatting, missing semicolons, etc.
+  - refactor: Code refactoring
+  - test: Adding tests
+  - chore: Maintenance tasks
 
-### Specification Details
+## Version Control
 
-The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
+### Semantic Versioning
+- MAJOR version for incompatible API changes
+- MINOR version for backwards-compatible functionality
+- PATCH version for backwards-compatible bug fixes
 
-Commits MUST be prefixed with a type, which consists of a noun, feat, fix, etc., followed by the OPTIONAL scope, OPTIONAL !, and REQUIRED terminal colon and space.
-The type feat MUST be used when a commit adds a new feature to your application or library.
-The type fix MUST be used when a commit represents a bug fix for your application.
-A scope MAY be provided after a type. A scope MUST consist of a noun describing a section of the codebase surrounded by parenthesis, e.g., fix(parser):
-A description MUST immediately follow the colon and space after the type/scope prefix. The description is a short summary of the code changes, e.g., fix: array parsing issue when multiple spaces were contained in string.
-A longer commit body MAY be provided after the short description, providing additional contextual information about the code changes. The body MUST begin one blank line after the description.
-A commit body is free-form and MAY consist of any number of newline separated paragraphs.
-One or more footers MAY be provided one blank line after the body. Each footer MUST consist of a word token, followed by either a :<space> or <space># separator, followed by a string value (this is inspired by the git trailer convention).
-A footer’s token MUST use - in place of whitespace characters, e.g., Acked-by (this helps differentiate the footer section from a multi-paragraph body). An exception is made for BREAKING CHANGE, which MAY also be used as a token.
-A footer’s value MAY contain spaces and newlines, and parsing MUST terminate when the next valid footer token/separator pair is observed.
-Breaking changes MUST be indicated in the type/scope prefix of a commit, or as an entry in the footer.
-If included as a footer, a breaking change MUST consist of the uppercase text BREAKING CHANGE, followed by a colon, space, and description, e.g., BREAKING CHANGE: environment variables now take precedence over config files.
-If included in the type/scope prefix, breaking changes MUST be indicated by a ! immediately before the :. If ! is used, BREAKING CHANGE: MAY be omitted from the footer section, and the commit description SHALL be used to describe the breaking change.
-Types other than feat and fix MAY be used in your commit messages, e.g., docs: update ref docs.
-The units of information that make up Conventional Commits MUST NOT be treated as case sensitive by implementors, with the exception of BREAKING CHANGE which MUST be uppercase.
-BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in a footer.
+## Pull Request Rules
+
+1. All changes must go through Pull Requests
+2. Required approvals: minimum 1
+3. CI checks must pass
+4. No direct commits to protected branches (main, develop)
+5. Branch must be up to date before merging
+6. Delete branch after merge
+
+## Branch Protection Rules
+
+### main & develop
+- Require pull request reviews
+- Require status checks to pass
+- Require branches to be up to date
+- Include administrators in restrictions
+- No force pushes
+- No deletions
+
+## Release Process
+
+1. Create release branch from develop
+2. Bump version numbers
+3. Fix any release-specific issues
+4. Create PR to main
+5. After merge to main:
+   - Tag release
+   - Merge back to develop
+   - Delete release branch
+
+## Hotfix Process
+
+1. Create hotfix branch from main
+2. Fix the issue
+3. Bump patch version
+4. Create PR to main
+5. After merge to main:
+   - Tag release
+   - Merge back to develop
+   - Delete hotfix branch
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
