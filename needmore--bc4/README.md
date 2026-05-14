@@ -7,11 +7,11 @@ A command-line client for the Basecamp 4 API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [needmore/bc4](https://github.com/needmore/bc4).
+Original source: `CLAUDE.md` in [needmore/bc4](https://github.com/needmore/bc4).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
