@@ -1,0 +1,9 @@
+{
+  "name": "lglucas--ai-dev-operating-system",
+  "displayName": "ai-dev-operating-system",
+  "description": "Day-zero operating system for AI-assisted SaaS development: Claude Code rules, agents, skills, Project Genesis Wizard, sprint docs, changelog, session logs, security gates, and prototype lab.",
+  "version": "1.0.0",
+  "author": "lglucas",
+  "homepage": "https://github.com/lglucas/ai-dev-operating-system",
+  "skills": []
+}
