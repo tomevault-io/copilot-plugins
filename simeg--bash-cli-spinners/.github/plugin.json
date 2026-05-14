@@ -1,0 +1,9 @@
+{
+  "name": "simeg--bash-cli-spinners",
+  "displayName": "bash-cli-spinners",
+  "description": "\ud83c\udf08 +80 Bash/Zsh spinners for scripts and terminal",
+  "version": "1.0.0",
+  "author": "simeg",
+  "homepage": "https://github.com/simeg/bash-cli-spinners",
+  "skills": []
+}
