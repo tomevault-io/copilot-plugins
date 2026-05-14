@@ -1,0 +1,9 @@
+{
+  "name": "kiliman--codemesh",
+  "displayName": "codemesh",
+  "description": "The Self-Improving MCP Server - Agents write code to orchestrate multiple MCP servers with intelligent TypeScript execution and auto-augmentation",
+  "version": "1.0.0",
+  "author": "kiliman",
+  "homepage": "https://github.com/kiliman/codemesh",
+  "skills": []
+}
