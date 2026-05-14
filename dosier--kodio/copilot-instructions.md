@@ -1,54 +1,59 @@
-## documentation
+## subagent-workflow
 
-> Writerside documentation conventions and workflow for Kodio docs
+> Orchestrator-subagent workflow -- delegate all substantial work to sub-agents to reduce API cost and improve speed.
 
 
-# Kodio Documentation (Writerside)
+# Sub-Agent Delegation Workflow
 
-## Structure
+You are an **orchestrator**. Never perform substantial work directly. Plan, delegate to sub-agents, and review their reports.
 
-Documentation lives in `kodio-docs/` as a JetBrains Writerside project. It is **not** a Gradle subproject — it has its own `build.gradle.kts` and is built/deployed via the `.github/workflows/docs.yml` CI workflow to GitHub Pages.
+## Delegation Categories
 
-## File Layout
+| Task | Sub-agent type | Model |
+|------|---------------|-------|
+| Code research / exploration | `explore` | `fast` |
+| Development changes / new features | `generalPurpose` | `fast` |
+| Refactoring | `generalPurpose` | `fast` |
+| Running tests (`./gradlew jvmTest`) | `shell` | `fast` |
+| Running compilations / builds | `shell` | `fast` |
+| Committing changes | `shell` | `fast` |
+| Publishing to Maven Local | `shell` | `fast` |
 
-```
-kodio-docs/
-├── topics/           # All documentation pages (Markdown)
-├── images/           # Diagrams and assets (e.g. kodio-architecture.svg)
-├── k.tree            # Table of contents / navigation tree
-├── writerside.cfg    # Writerside project config
-├── cfg/              # Build profiles
-├── v.list            # Variables (version numbers, URLs)
-├── c.list            # Custom elements
-└── labels.list       # Reusable labels
-```
+## Orchestrator Rules
 
-## Topic Inventory
+1. **Plan first, delegate second.** Form a clear plan before spawning any sub-agent.
+2. **Parallelize independent work.** Launch multiple sub-agents in one message when their tasks do not depend on each other.
+3. **Provide complete context.** Sub-agents have zero prior conversation memory. Include all file paths, code snippets, constraints, and acceptance criteria in the prompt.
+4. **Review every report.** Verify sub-agent output before presenting results or proceeding.
+5. **Escalate only when necessary.** If a fast sub-agent fails, retry with more context or handle directly.
+6. **Respect the public API.** Kodio is a published library — all changes to public API surface must be intentional and backward-compatible unless a breaking change is explicitly approved.
 
-### Getting Started
-- `Getting-Started.md`, `Quick-Start.md`, `Installation.md`, `Platform-Setup.md`
+## Sub-Agent Prompt Template
 
-### Core
-- `Recording.md`, `Playback.md`, `Audio-Quality.md`, `Audio-Format.md`, `File-IO.md`, `Error-Handling.md`
+Every sub-agent prompt must include:
+- **Objective**: one-sentence goal.
+- **Context**: relevant file paths, snippets, and constraints.
+- **Steps**: numbered actions to perform.
+- **Report format**: exactly what to return (files changed, pass/fail, errors, summaries).
 
-### Compose
-- `Recorder-State.md`, `Player-State.md`, `Audio-Waveform.md`, `Material3-Components.md`
+## Sub-Agent Report Requirements
 
-### Advanced
-- `Low-Level-API.md`, `Device-Selection.md`, `Custom-Formats.md`
+Sub-agents must end their response with a structured report:
+- **What was done**: concise summary of actions taken.
+- **Files touched**: list of file paths created or modified (if applicable).
+- **Result**: success/failure, test output, or key findings.
+- **Issues**: any problems encountered or decisions made.
 
-### Meta
-- `Migration.md`, `API-Reference.md`, `Release-Process.md`
+## Auto-Commit Policy
 
-## Rules for Documentation Changes
+Unless the user explicitly opts out, the orchestrator must commit all relevant changes at the end of each session (or logical unit of work). Delegate this to a `shell` sub-agent with `fast` model.
 
-1. **Keep docs in sync with code.** When changing public API in `kodio-core` or `kodio-extensions`, update the corresponding topic page.
-2. **Register new pages in `k.tree`.** Every new `.md` file must have a `<toc-element>` entry in `k.tree` or it won't appear in navigation.
-3. **Use Writerside Markdown extensions.** Tabs, collapsible sections, code snippets with `src` attributes — use the Writerside feature set, not raw GitHub-flavored Markdown.
-4. **Code examples must compile.** Prefer snippets extracted from `kodio-sample-app` or inline examples that match real API signatures.
-5. **Version references** should use variables from `v.list` (e.g. `%kodio-version%`) rather than hardcoded strings.
-6. **Images** go in `kodio-docs/images/`. Reference them with relative paths in Markdown.
-7. **CI builds docs automatically.** The `docs.yml` workflow builds on push to master. Check the build if you're unsure about Writerside syntax.
+Commit sub-agent prompt must include:
+1. Run `git status` and `git diff --staged` and `git diff` and `git log --oneline -5` to assess the current state and recent commit style.
+2. Stage only files related to the current task (`git add <paths>`). Never stage secrets, `local.properties`, or unrelated changes.
+3. Write a concise commit message (1-2 sentences) focusing on **why**, not what. Match the repo's existing commit style.
+4. Commit using a HEREDOC for the message. Do not amend or force-push.
+5. Report back: commit hash, message used, files committed, and `git status` after commit.
 
 ---
 > Source: [dosier/kodio](https://github.com/dosier/kodio) — distributed by [TomeVault](https://tomevault.io).
