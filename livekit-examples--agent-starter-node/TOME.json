@@ -4,7 +4,7 @@
   "repo": "agent-starter-node",
   "description": "A complete voice AI starter app for LiveKit Agents with Node.js",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/livekit-examples/agent-starter-node",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T14:02:30Z"
+  "distributed_at": "2026-05-14T08:09:10Z"
 }
