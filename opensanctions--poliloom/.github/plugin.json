@@ -1,0 +1,9 @@
+{
+  "name": "opensanctions--poliloom",
+  "displayName": "poliloom",
+  "description": "Help build the world's largest open database of politicians.",
+  "version": "1.0.0",
+  "author": "opensanctions",
+  "homepage": "https://github.com/opensanctions/poliloom",
+  "skills": []
+}
