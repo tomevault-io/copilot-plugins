@@ -4,7 +4,7 @@
   "repo": "vibecore",
   "description": "Build your own AI-powered automation tools in the terminal with this extensible agent framework",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/serialx/vibecore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:23:58Z"
+  "distributed_at": "2026-05-14T08:55:12Z"
 }
