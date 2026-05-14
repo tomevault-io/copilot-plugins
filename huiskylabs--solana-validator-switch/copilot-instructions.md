@@ -1,382 +1,94 @@
-## svs-rules
+## solana-validator-switch
 
-> You are building a professional-grade TypeScript CLI application for Solana validator switching. This is a critical infrastructure tool for validator operators that requires ultra-fast switching (~300ms), zero credential storage, and SSH key-based authentication.
+> Professional-grade CLI tool for ultra-fast Solana validator switching with runtime node status detection, built in Rust. Used by validator operators to maintain uptime by quickly switching between primary and backup nodes.
 
-# Solana Validator Switch CLI - Cursor Rules
+# Solana Validator Switch CLI Project
 
-## Project Context
-You are building a professional-grade TypeScript CLI application for Solana validator switching. This is a critical infrastructure tool for validator operators that requires ultra-fast switching (~300ms), zero credential storage, and SSH key-based authentication.
+## Overview
 
-## Technology Stack
-- **Language**: TypeScript (strict mode)
-- **Runtime**: Node.js
-- **CLI Framework**: Commander.js
-- **SSH**: openssh-rs
-- **UI**: Inquirer, blessed, ora, chalk, cli-table3
-- **Testing**: Jest with ts-jest
-- **Build**: TypeScript compiler
+Professional-grade CLI tool for ultra-fast Solana validator switching with runtime node status detection, built in Rust. Used by validator operators to maintain uptime by quickly switching between primary and backup nodes.
 
-## Core Architecture Principles
-- **Type Safety First**: All functions, classes, and data structures must be strongly typed
-- **Zero Credential Storage**: Never store SSH keys, passwords, or private keys
-- **Error Handling**: Comprehensive error types and graceful degradation
-- **Performance**: Optimize for ultra-fast switching operations
-- **Security**: SSH key-based authentication only, input validation
-- **Professional UX**: Clean CLI interface with proper error messages
+## Key Features
 
-## TypeScript Configuration
-- Use strict TypeScript configuration with all strict checks enabled
-- Define interfaces for all data structures before implementation
-- Use proper error types (never throw strings, always Error objects)
-- Prefer readonly properties where applicable
-- Use branded types for sensitive data (SSH keys, file paths)
-- Export types separately from implementations
+- **Ultra-fast switching**: Sub-second identity switches with optimized streaming operations
+- **SSH connection pooling**: Persistent connections with multiplexing for instant commands
+- **Real-time monitoring**: Interactive dashboard with Ratatui-based terminal UI
+- **Telegram alerts**: Notifications for validator health, delinquency, and switch events
+- **Universal support**: Works with Firedancer, Agave, Solana, and Jito validators
 
-## Code Style Guidelines
+## Architecture
 
-### File Naming
-- Use kebab-case for file names: `ssh-manager.ts`, `config-manager.ts`
-- Use PascalCase for class names: `SSHManager`, `ConfigManager`
-- Use camelCase for variables and functions: `switchValidator`, `getConfig`
-- Use UPPER_CASE for constants: `DEFAULT_SSH_TIMEOUT`, `MAX_RETRIES`
+- **Language**: Rust
+- **Async Runtime**: Tokio
+- **CLI Framework**: Clap
+- **Terminal UI**: Ratatui
+- **SSH Library**: openssh-rs v0.10 (with native multiplexing)
+- **Configuration**: YAML-based (~/.solana-validator-switch/config.yaml)
 
-### Import Organization
-```typescript
-// 1. Node.js built-in modules
-import { promises as fs } from 'fs';
-import { join } from 'path';
+## Project Structure
 
-// 2. Third-party modules
-import { Command } from 'commander';
-import inquirer from 'inquirer';
+- `src/` - Main source code
+  - `main.rs` - Entry point and CLI setup
+  - `commands/` - Command implementations (status, switch, test-alert)
+  - `ssh.rs` - SSH connection pooling and management
+  - `alert.rs` - Telegram alert functionality
+  - `config.rs` - Configuration management
+  - `solana_rpc.rs` - Solana RPC interactions
+- `docs/` - Technical documentation
+- `tests/` - Integration and unit tests
+- `wiki/` - GitHub wiki pages
 
-// 3. Local modules (absolute imports preferred)
-import { Config, NodeConfig } from '../types/config';
-import { SSHManager } from '../lib/ssh-manager';
-import { Logger } from '../utils/logger';
-```
+## Development Workflow
 
-### Error Handling Pattern
-```typescript
-// Always use custom error classes
-export class ValidatorSwitchError extends Error {
-  constructor(
-    message: string,
-    public readonly code: string,
-    public readonly cause?: Error
-  ) {
-    super(message);
-    this.name = 'ValidatorSwitchError';
-  }
-}
+1. **Testing**: Run `cargo test` before commits
+2. **Linting**: Run `cargo clippy -- -D warnings`
+3. **Formatting**: Run `cargo fmt`
+4. **Building**: Run `cargo build --release`
+5. **Pre-commit hooks**: Set up with `./setup-hooks.sh`
 
-// Use Result pattern for operations that can fail
-export type Result<T, E = Error> = 
-  | { success: true; data: T }
-  | { success: false; error: E };
-```
+## Recent Updates (v1.2.0)
 
-### Async/Await Pattern
-- Always use async/await instead of Promises
-- Handle errors with try/catch blocks
-- Use proper error propagation
-- Add timeout handling for SSH operations
+- Side-by-side table layout with SSH health monitoring
+- Catchup failure alerts for standby nodes
+- Enhanced test alerts showing all alert types
+- Improved status UI with countdown timers
+- Better error handling and recovery strategies
 
-## Directory Structure Rules
-```
-src/
-├── index.ts                    # Main entry point
-├── types/                      # TypeScript interfaces only
-│   ├── config.ts              # Configuration types
-│   ├── ssh.ts                 # SSH-related types
-│   ├── validator.ts           # Validator types
-│   └── index.ts               # Re-export all types
-├── commands/                   # CLI command handlers
-│   ├── setup.ts               # Setup command
-│   ├── config.ts              # Config management
-│   ├── monitor.ts             # Monitoring dashboard
-│   ├── switch.ts              # Switching logic
-│   └── status.ts              # Status queries
-├── lib/                        # Core business logic
-│   ├── ssh-manager.ts         # SSH connection management
-│   ├── switch-manager.ts      # Validator switching
-│   ├── tower-manager.ts       # Tower file operations
-│   ├── health-checker.ts      # Health monitoring
-│   └── solana-rpc.ts          # Solana RPC client
-├── utils/                      # Utility functions
-│   ├── config-manager.ts      # Configuration utilities
-│   ├── logger.ts              # Logging system
-│   ├── validator.ts           # Input validation
-│   └── error-handler.ts       # Error handling
-├── ui/                         # Terminal UI components
-│   ├── dashboard.ts           # Interactive dashboard
-│   ├── components.ts          # Reusable UI components
-│   └── prompts.ts             # Interactive prompts
-└── constants/                  # Application constants
-    ├── defaults.ts            # Default values
-    ├── errors.ts              # Error messages
-    └── commands.ts            # Command definitions
-```
+## Key Commands
 
-## CLI Development Patterns
+- `svs` - Interactive mode (recommended)
+- `svs status` - Check validator status
+- `svs switch` - Perform validator switch
+- `svs switch --dry-run` - Preview switch without executing
+- `svs test-alert` - Test Telegram alerts
 
-### Command Structure
-```typescript
-// Use this pattern for all CLI commands
-import { Command } from 'commander';
-import { Config } from '../types/config';
+## Performance Characteristics
 
-interface CommandOptions {
-  config?: string;
-  verbose?: boolean;
-  dryRun?: boolean;
-}
-
-export function createSetupCommand(): Command {
-  return new Command('setup')
-    .description('Interactive setup wizard')
-    .option('-c, --config <path>', 'custom config file')
-    .option('-v, --verbose', 'verbose output')
-    .action(async (options: CommandOptions) => {
-      // Implementation
-    });
-}
-```
-
-### Progress Indication
-```typescript
-// Use ora for progress indicators
-import ora from 'ora';
-
-const spinner = ora('Connecting to validator nodes...').start();
-try {
-  await connectToNodes();
-  spinner.succeed('Connected to all nodes');
-} catch (error) {
-  spinner.fail('Connection failed');
-  throw error;
-}
-```
-
-### User Input Validation
-```typescript
-// Always validate user inputs
-import { z } from 'zod';
-
-const NodeConfigSchema = z.object({
-  host: z.string().ip().or(z.string().min(1)),
-  port: z.number().min(1).max(65535),
-  user: z.string().min(1),
-  keyPath: z.string().min(1),
-});
-
-type NodeConfig = z.infer<typeof NodeConfigSchema>;
-```
-
-## SSH and Security Rules
-
-### SSH Operations
-- Use ssh2 + node-ssh for direct command execution (NOT autossh)
-- Never store SSH keys in memory longer than necessary
-- Always use connection pooling with keep-alive for rapid commands
-- Set appropriate timeouts (30s default, 5s for rapid commands)
-- Handle connection drops gracefully with exponential backoff retry logic
-- Use SSH agent when available
-- Implement custom connection health monitoring
-
-### SSH Connection Pattern
-```typescript
-// Optimal pattern for validator switching
-class SSHManager {
-  private connections = new Map<string, NodeSSH>();
-  private connectionHealth = new Map<string, boolean>();
-  private reconnectAttempts = new Map<string, number>();
-  
-  async executeCommand(nodeId: string, command: string, timeout = 30000): Promise<string> {
-    const ssh = await this.getConnection(nodeId);
-    const result = await ssh.execCommand(command, {
-      execOptions: { timeout },
-      stream: 'both'
-    });
-    return result.stdout;
-  }
-  
-  private async getConnection(nodeId: string): Promise<NodeSSH> {
-    let ssh = this.connections.get(nodeId);
-    if (!ssh || !this.connectionHealth.get(nodeId)) {
-      ssh = await this.establishConnection(nodeId);
-      this.connections.set(nodeId, ssh);
-      this.connectionHealth.set(nodeId, true);
-    }
-    return ssh;
-  }
-  
-  private async establishConnection(nodeId: string): Promise<NodeSSH> {
-    const ssh = new NodeSSH();
-    await ssh.connect({
-      host: config.host,
-      username: config.user,
-      privateKeyPath: config.keyPath,
-      keepaliveInterval: 5000,      // 5s keep-alive
-      keepaliveCountMax: 3,         // 3 failed pings = disconnect
-      readyTimeout: 30000,          // 30s connection timeout
-      algorithms: {
-        serverHostKey: ['ssh-rsa', 'ecdsa-sha2-nistp256'],
-        kex: ['ecdh-sha2-nistp256', 'diffie-hellman-group14-sha256'],
-        cipher: ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'],
-        hmac: ['hmac-sha2-256', 'hmac-sha2-512']
-      }
-    });
-    return ssh;
-  }
-}
-```
-
-### File Operations
-- Always validate file paths before operations
-- Use proper file permissions (600 for config, 700 for directories)
-- Handle file system errors gracefully
-- Never write sensitive data to temporary files
-
-### Input Validation
-- Validate all external inputs (CLI args, config files, environment variables)
-- Sanitize file paths to prevent directory traversal
-- Validate SSH connection parameters
-- Check IP addresses and ports for validity
-
-## Testing Patterns
-
-### Unit Test Structure
-```typescript
-// tests/unit/ssh-manager.test.ts
-import { SSHManager } from '../../src/lib/ssh-manager';
-import { NodeConfig } from '../../src/types/config';
-
-describe('SSHManager', () => {
-  let sshManager: SSHManager;
-  let mockConfig: NodeConfig;
-
-  beforeEach(() => {
-    mockConfig = {
-      host: '192.168.1.10',
-      port: 22,
-      user: 'solana',
-      keyPath: '/path/to/key',
-    };
-    sshManager = new SSHManager();
-  });
-
-  describe('connect', () => {
-    it('should establish SSH connection', async () => {
-      // Test implementation
-    });
-  });
-});
-```
-
-### Mock Patterns
-```typescript
-// Use jest mocks for external dependencies
-jest.mock('ssh2');
-jest.mock('fs/promises');
-
-// Create typed mocks
-const mockSSH = {
-  connect: jest.fn(),
-  exec: jest.fn(),
-  end: jest.fn(),
-} as jest.Mocked<SSH>;
-```
-
-## Performance Optimization
-
-### SSH Connection Management
-- Maintain persistent connections with keep-alive
-- Use connection pooling for multiple operations
-- Implement exponential backoff for retries
-- Cache SSH connection states
-
-### Memory Management
-- Dispose of resources properly (SSH connections, file handles)
-- Use streaming for large file operations
-- Implement proper cleanup in error scenarios
-- Monitor memory usage in long-running operations
-
-## Logging and Debugging
-
-### Logging Pattern
-```typescript
-// Use structured logging
-import { logger } from '../utils/logger';
-
-logger.info('Starting validator switch', {
-  from: 'primary',
-  to: 'backup',
-  timestamp: new Date().toISOString(),
-});
-
-logger.error('SSH connection failed', {
-  host: config.host,
-  port: config.port,
-  error: error.message,
-});
-```
-
-### Debug Information
-- Log all SSH command executions (without sensitive data)
-- Track switch operation states
-- Monitor connection health
-- Record performance metrics
-
-## Environment Variables
-- Use SVS_ prefix for all environment variables
-- Validate environment variables with schemas
-- Provide sensible defaults
-- Document all environment variables
-
-## Configuration Management
-- Store config in ~/.solana-validator-switch/config.json
-- Use JSON schema validation
-- Support config file migration
-- Never store sensitive data in config files
-
-## CLI UX Guidelines
-- Use consistent color coding (green=success, red=error, yellow=warning)
-- Provide clear progress indicators
-- Show helpful error messages with suggestions
-- Support both --help and contextual help
-- Handle Ctrl+C gracefully
-
-## Code Generation Guidelines
-
-When generating code for this project:
-1. Always include proper TypeScript types
-2. Add JSDoc comments for public APIs
-3. Include error handling with proper error types
-4. Use the established patterns and conventions
-5. Add unit tests for new functionality
-6. Follow the security guidelines strictly
-7. Optimize for performance and memory usage
-8. Include logging for debugging
-9. Handle edge cases and error scenarios
-10. Use the project's established file structure
+- **Switch time**: 25-40 seconds total
+- **Voting gap**: 15-25 seconds
+- **Memory usage**: ~30MB base + 5MB per SSH session
+- **CPU usage**: <3% monitoring, 8-15% during switch
 
 ## Security Considerations
-- Never log sensitive information (SSH keys, passwords)
-- Validate all file paths to prevent directory traversal
-- Use secure file permissions
-- Implement proper input sanitization
-- Handle SSH agent integration securely
-- Clear sensitive data from memory when possible
 
-## Performance Targets
-- SSH connection establishment: < 2 seconds
-- Validator switch operation: < 60 seconds
-- Status query response: < 1 second
-- Memory usage: < 50MB during normal operation
-- File operations: Use streaming for files > 10MB
+- No credential storage (SSH keys referenced by path only)
+- No passwords or private keys in config
+- Session data in memory only
+- Secure file permissions (0600) for config
 
-This configuration will help Cursor provide optimal assistance for building a professional, secure, and performant TypeScript CLI application.
+## Testing
+
+- Run all tests: `cargo test`
+- Integration tests available in `tests/`
+- Test configurations in `tests/test_config.yaml`
+
+## Important Notes
+
+- This is a defensive security tool for validator operators
+- Helps maintain validator uptime and prevent slashing
+- Used in production by Huisky Labs validators
+- Open source project with active development
+- Never include CLAUDE inside commit message
 
 ---
 > Source: [huiskylabs/solana-validator-switch](https://github.com/huiskylabs/solana-validator-switch) — distributed by [TomeVault](https://tomevault.io).
