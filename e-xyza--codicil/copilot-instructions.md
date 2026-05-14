@@ -1,0 +1,972 @@
+## codicil
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## IMPORTANT: Git Best Practices
+
+When working in this repository, follow these git guidelines:
+
+- **Feature branches**: Create a new branch for each feature or significant change (e.g., `git checkout -b feature/semantic-search`)
+- **Commit messages**: Write clear, descriptive commit messages in imperative mood (e.g., "Add vector search tool", not "Added vector search tool")
+- **Commit summaries**: Include a brief summary line (50 chars max), followed by a blank line and detailed description if needed
+- **Logical commits**: Group related changes into single commits (e.g., all files for one tool in one commit, not mixing unrelated changes)
+- **Atomic commits**: Each commit should represent a single, complete change that builds successfully
+
+Example workflow:
+```bash
+git checkout -b feature/ast-parser
+# Make changes...
+git add lib/codicil/parser.ex test/codicil/parser_test.exs
+git commit -m "Add Elixir AST parser for function extraction
+
+- Parse def/defp/defmacro definitions
+- Extract function signatures and line numbers
+- Handle multi-clause functions
+- Add comprehensive test coverage"
+```
+
+## IMPORTANT: Test-Driven Development (TDD) Workflow
+
+**CRITICAL:** All development MUST follow strict Test-Driven Development (TDD):
+
+### Microfeature Development Cycle
+
+1. **Write the test FIRST**
+   - Identify a small, focused microfeature to implement
+   - Write a failing test that describes the expected behavior
+   - Run the test to confirm it fails (red)
+
+2. **Make the test pass**
+   - Implement the minimal code necessary to make the test pass
+   - Run the test to confirm it passes (green)
+   - Refactor if needed while keeping tests green
+
+3. **Commit immediately**
+   - Commit both the test and implementation together
+   - Each commit should contain ONE microfeature (test + code)
+   - Never commit code without its corresponding test
+   - Never commit multiple microfeatures in a single commit
+
+### What is a Microfeature?
+
+A microfeature is a small, atomic piece of functionality that:
+- Can be tested independently
+- Takes minutes, not hours, to implement
+- Has a clear, single responsibility
+- Represents one behavior or capability
+
+### Examples of Microfeatures
+
+**Good microfeatures (one commit each):**
+- "Add Function schema with basic fields"
+- "Add function name validation to changeset"
+- "Add database connection configuration"
+- "Add query to find function by name and path"
+- "Add index on functions (name, path) columns"
+
+**Too large (should be split):**
+- ❌ "Add complete database layer" (split into schema, repo, migrations, queries)
+- ❌ "Implement AST parser" (split into parse file, extract functions, detect calls, etc.)
+
+### TDD Workflow Example
+
+```bash
+# 1. Write failing test
+# Create test/codicil_db/function_test.exs
+mix test  # Confirm it fails (RED)
+
+# 2. Implement minimal code to pass
+# Create lib/codicil_db/function.ex with schema
+mix test  # Confirm it passes (GREEN)
+
+# 3. Commit immediately
+git add test/codicil_db/function_test.exs lib/codicil_db/function.ex
+git commit -m "Add Function schema with basic fields
+
+- Define Ecto schema for functions table
+- Include id, name, path, start_line, end_line fields
+- Add test verifying schema struct creation"
+
+# 4. Repeat for next microfeature
+```
+
+### Why This Matters
+
+- **Prevents scope creep**: Forces you to think in small increments
+- **Better git history**: Each commit is self-contained and understandable
+- **Easier debugging**: Small commits make it easy to identify when bugs were introduced
+- **Confidence**: Every commit has passing tests, so main branch is always working
+- **Reviewability**: Small, focused commits are easier to review and understand
+
+### Red-Green-Refactor Discipline
+
+1. **RED**: Write a failing test
+2. **GREEN**: Make it pass with minimal code
+3. **REFACTOR**: Clean up while keeping tests green
+4. **COMMIT**: Save your work
+
+Never skip the RED step - always verify your test fails before implementing!
+
+## CRITICAL: Avoid Overarchitecting
+
+**Build only what is needed now, not what might be needed later.**
+
+### Rules:
+- **DO NOT** create infrastructure for future features that don't exist yet
+- **DO NOT** add configuration options that aren't currently used
+- **DO NOT** write helper functions before you have at least 2-3 call sites
+- **DO** remove unused code immediately - don't keep it "just in case"
+- **DO** wait until you have a concrete use case before adding abstractions
+
+### Examples of Overarchitecting:
+
+**Bad (infrastructure without users):**
+```elixir
+# These functions aren't used anywhere - delete them!
+def root, do: Application.fetch_env!(:codicil, :root)
+def git_root, do: Application.fetch_env!(:codicil, :git_root)
+def project_name, do: Application.fetch_env!(:codicil, :project_name)
+
+# Complex init_config setting up values that nothing reads
+defp init_config do
+  Application.put_env(:codicil, :root, File.cwd!())
+  # ... more unused setup
+end
+```
+
+**Good (minimal, focused code):**
+```elixir
+# Only add functions when you have actual callers
+# Only add config when features need it
+# Wait for concrete requirements before building infrastructure
+```
+
+### Why This Matters
+
+- **Unused code is technical debt** - it must be maintained, understood, and kept working even though it provides no value
+- **YAGNI (You Aren't Gonna Need It)** - most "future-proofing" code is never actually used
+- **Requirements change** - when you do need the feature, your upfront infrastructure is often wrong anyway
+- **Simplicity is valuable** - less code means less to understand, debug, and maintain
+
+**Rule of thumb:** If removing code wouldn't break any tests, remove it.
+
+## CRITICAL: Mix Module Usage
+
+**NEVER call Mix functions at runtime.** The Mix module is only available during compilation and development, not in production releases.
+
+### Rules:
+- **DO NOT** call `Mix.env()` at runtime in function bodies
+- **DO** use conditional compilation with `if Mix.env() == :test do` at module level to define different function implementations
+- **DO NOT** call `Mix.Project.config()` or `Mix.Project.get()` at runtime
+- **DO** capture Mix values at compile time using module attributes: `@version Mix.Project.config()[:version]`
+
+### Why Runtime Mix Calls Fail
+
+Mix is a **build tool**, not a runtime library. When you create a production release with `mix release`, Mix is not included in the release. Any runtime calls to Mix functions will crash your application in production.
+
+### Examples:
+
+**Bad (runtime Mix call):**
+```elixir
+def start(_type, _args) do
+  if Mix.env() == :test do  # ❌ WRONG - Mix.env() called at runtime
+    configure_test()
+  end
+  # ...
+end
+```
+
+**Good (conditional compilation for different function implementations):**
+```elixir
+# Compile-time conditional: no-op in test, full logic in dev/prod
+if Mix.env() == :test do
+  defp configure_providers, do: :ok
+else
+  defp configure_providers do
+    # Full configuration logic here
+    llm_provider = System.fetch_env!("CODICIL_LLM_PROVIDER")
+    # ...
+  end
+end
+
+def start(_type, _args) do
+  configure_providers()  # ✅ Calls the appropriate version based on compile-time env
+  # ...
+end
+```
+
+**Good (module attribute for version):**
+```elixir
+@version Mix.Project.config()[:version]  # ✅ Captured at compile time
+
+def version, do: @version  # ✅ Returns compile-time value
+```
+
+### When to Use Each Pattern
+
+1. **Conditional compilation** (`if Mix.env() == :test do ... end` at module level):
+   - Use when you need **completely different implementations** in different environments
+   - Example: No-op function in test, full logic in production
+   - The condition is evaluated once at compile time, generating only the relevant code
+
+2. **Module attributes** (`@version Mix.Project.config()[:version]`):
+   - Use when you need a **compile-time constant** from Mix
+   - Example: Application version, project config values
+   - The value is captured once at compile time and embedded in the bytecode
+
+3. **Application config** (from `config/*.exs` files):
+   - **DO NOT USE for library code** - libraries don't have config files!
+   - Only use in the host application that depends on the library
+   - Libraries should use conditional compilation or module attributes instead
+
+## Project Goal
+
+**Codicil** is an Elixir-focused code analysis MCP (Model Context Protocol) server that provides semantic code search and structural analysis for Elixir codebases.
+
+**Key Features:**
+- Semantic function search using vector embeddings and LLM validation
+- Module relationship tracking (imports, aliases, uses, requires)
+- Function call graph analysis
+- Natural language queries about codebase structure
+- Integration with AI coding assistants via MCP protocol
+
+**Note:** The `graphsense/` directory contains a temporary TypeScript reference implementation that will be removed once the Elixir equivalent is complete. Use it as an example for semantic search patterns, but build new code in the main project (`lib/codicil/`).
+
+## Development Commands
+
+```bash
+# Install dependencies
+mix deps.get
+
+# Run tests
+mix test
+
+# Run a specific test file
+mix test test/codicil_test.exs
+
+# Run a specific test by line number
+mix test test/codicil_test.exs:42
+
+# Format code
+mix format
+```
+
+## IMPORTANT: Library Configuration and Migrations
+
+**This is a library, NOT an application - special rules apply:**
+
+### Config Files (DO NOT CREATE)
+- **NEVER** create `config/config.exs` or any config files in this project
+- Libraries should not have runtime configuration files checked into source control
+- Users configure Codicil in their own application's config
+- If runtime configuration is needed, use application environment: `Application.get_env(:codicil, :key)`
+
+### Running Migrations
+- **ALWAYS** use the `-r` flag to specify the repo when running migrations
+- Standard commands work with the repo flag:
+
+```bash
+# Drop database
+mix ecto.drop -r Codicil.Db.Repo
+
+# Create database
+mix ecto.create -r Codicil.Db.Repo
+
+# Run migrations
+mix ecto.migrate -r Codicil.Db.Repo
+
+# Rollback migrations
+mix ecto.rollback -r Codicil.Db.Repo
+
+# Reset database (drop, create, migrate)
+# Note: mix ecto.reset does not exist, chain commands instead:
+mix ecto.drop -r Codicil.Db.Repo && mix ecto.create -r Codicil.Db.Repo && mix ecto.migrate -r Codicil.Db.Repo
+```
+
+### Testing with Database
+- Tests handle Repo startup in `test/test_helper.exs`
+- Use `Ecto.Adapters.SQL.Sandbox` for test isolation
+- Each test gets its own transaction that rolls back automatically
+- Migrations run automatically in test setup
+
+## Usage
+
+Codicil is designed to be used as a dependency in any Elixir project.
+
+Add to your project's `mix.exs`:
+```elixir
+def deps do
+  [
+    {:codicil, "~> 0.1", only: :dev},
+    {:bandit, "~> 1.6", only: :dev}
+  ]
+end
+```
+
+Add a Mix alias to start the MCP server:
+```elixir
+aliases: [
+  codicil: "run --no-halt -e 'Agent.start(fn -> Bandit.start_link(plug: Codicil.Plug, port: 4700) end)'"
+]
+```
+
+Then run `mix codicil` in your project to start the MCP server.
+
+## Using Codicil in Phoenix Projects
+
+Codicil can be integrated into Phoenix applications to provide semantic code search and analysis for your Phoenix codebase. This section covers installation, configuration, and handling potential conflicts.
+
+### Installation
+
+Add Codicil to your Phoenix project's `mix.exs`:
+
+```elixir
+def deps do
+  [
+    # ... your existing Phoenix dependencies
+    {:codicil, "~> 0.1", only: :dev}
+  ]
+end
+```
+
+**Note**: You do NOT need to add Bandit as a dependency because Phoenix already runs its own HTTP server (usually Cowboy or Bandit).
+
+### Configuration
+
+Codicil requires LLM provider credentials to generate summaries and embeddings. Configure these in your environment (not in config files, as Codicil is a library):
+
+```bash
+# In your .env file or shell environment
+export CODICIL_LLM_PROVIDER="anthropic"
+export ANTHROPIC_API_KEY="your-api-key-here"
+
+# Or for other providers:
+export CODICIL_LLM_PROVIDER="openai"
+export OPENAI_API_KEY="your-api-key-here"
+```
+
+Supported providers: `anthropic`, `openai`, `cohere`, `google`, `grok`
+
+### Integration Approach 1: Standalone Process (Recommended)
+
+**Run Codicil as a separate Mix task** in development without integrating it into your Phoenix supervision tree:
+
+```elixir
+# In mix.exs, add an alias:
+def project do
+  [
+    # ... other project config
+    aliases: aliases()
+  ]
+end
+
+defp aliases do
+  [
+    # ... your existing aliases
+    "codicil.server": "run --no-halt -e 'Bandit.start_link(plug: Codicil.Plug, port: 4700)'"
+  ]
+end
+```
+
+**Usage**:
+```bash
+# In one terminal, run your Phoenix server
+mix phx.server
+
+# In another terminal, run Codicil
+mix codicil.server
+```
+
+**Benefits**:
+- Simple - no code changes to your Phoenix app
+- Isolated - Codicil runs independently
+- No FileSystem conflicts (see below)
+- Easy to start/stop without affecting Phoenix
+
+### Integration Approach 2: Embedded in Phoenix Supervision Tree
+
+**Add Codicil to your Phoenix application's supervision tree** for a fully integrated experience:
+
+```elixir
+# In lib/my_app/application.ex
+defmodule MyApp.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      # ... your existing Phoenix children (Repo, PubSub, Endpoint, etc.)
+
+      # Add Codicil's application supervision tree
+      {Codicil.Application, []},
+
+      # Add Bandit server for Codicil's MCP endpoint
+      {Bandit, plug: Codicil.Plug, port: 4700}
+    ]
+
+    opts = [strategy: :one_for_one, name: MyApp.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
+**Important**: Add `{:bandit, "~> 1.6"}` to your dependencies if using this approach.
+
+**Benefits**:
+- Fully integrated - Codicil starts automatically with your Phoenix app
+- Single process - no need to manage multiple terminals
+- Codicil's compilation tracer runs automatically as Phoenix recompiles code
+
+**Drawbacks**:
+- Potential FileSystem conflict (see below)
+- More complex startup
+
+### Handling FileSystem Conflicts
+
+Both Phoenix (for live reload) and Codicil (for file watching) use the `FileSystem` library. If you integrate Codicil into Phoenix's supervision tree, you may encounter conflicts.
+
+**Symptoms**:
+- Error: `{:already_started, #PID<...>}` when starting FileSystem
+- File changes not triggering recompilation in Codicil or live reload in Phoenix
+
+**Solution**:
+
+Phoenix typically starts FileSystem in its Endpoint configuration. You have two options:
+
+**Option 1: Share FileSystem (Requires Code Changes)**
+
+Configure both Phoenix and Codicil to use the same FileSystem instance:
+
+```elixir
+# In lib/my_app/application.ex
+def start(_type, _args) do
+  children = [
+    # Start FileSystem once with a name
+    %{
+      id: :shared_file_system,
+      start: {FileSystem, :start_link, [[dirs: [File.cwd!()], name: MyApp.FileSystem]]}
+    },
+
+    # ... other children (Repo, PubSub, etc.)
+
+    # Phoenix Endpoint (will use existing FileSystem)
+    MyAppWeb.Endpoint,
+
+    # Codicil (configure to use existing FileSystem)
+    {Codicil.Application, []},
+    {Bandit, plug: Codicil.Plug, port: 4700}
+  ]
+  # ...
+end
+
+# In lib/codicil/file_watcher.ex (requires modifying Codicil source):
+# Change subscription to use MyApp.FileSystem instead of Codicil.FsWatcher
+FileSystem.subscribe(MyApp.FileSystem)
+```
+
+**Option 2: Use Standalone Process (Simpler)**
+
+Avoid the conflict entirely by running Codicil as a standalone process (see Approach 1 above). This is the recommended approach for most Phoenix projects.
+
+### Location
+
+Codicil stores its SQLite database in its own `priv/` directory:
+
+```
+deps/codicil/priv/codicil.db
+```
+
+This is separate from your Phoenix app's database and requires no configuration.
+
+### Testing Considerations
+
+If you're writing tests that compile modules and want Codicil's tracer active:
+
+```elixir
+# In test/test_helper.exs
+# Codicil's tracer is automatically active if Codicil.Application is running
+# If using standalone approach, the tracer won't be active during tests (which is usually fine)
+
+# If you need the tracer active in tests:
+Application.ensure_all_started(:codicil)
+Code.put_compiler_option(:tracers, [Codicil.Tracer])
+
+ExUnit.start()
+```
+
+**Note**: Most Phoenix tests don't need Codicil's tracer active. Only enable it if you're specifically testing Codicil integration.
+
+### Verifying the Integration
+
+Once Codicil is running (either standalone or integrated), verify it's working:
+
+```bash
+# Check that Codicil's MCP server is responding
+curl http://localhost:4700
+
+# Compile some code to trigger indexing
+touch lib/my_app/some_module.ex
+mix compile
+
+# Check the database to see indexed functions
+sqlite3 deps/codicil/priv/codicil.db "SELECT module, name, arity FROM functions LIMIT 10;"
+```
+
+### Troubleshooting
+
+**Problem**: "FileSystem already started" error
+
+**Solution**: Use standalone process approach (Approach 1) or modify Codicil to share FileSystem (see Handling FileSystem Conflicts above).
+
+**Problem**: Functions not being indexed
+
+**Solution**:
+- Check that environment variables are set: `echo $CODICIL_LLM_PROVIDER`
+- Check logs for tracer errors
+- Manually recompile: `mix compile --force`
+
+**Problem**: MCP server not responding on port 4700
+
+**Solution**:
+- Check if port is already in use: `lsof -i :4700`
+- Change port in Bandit config if needed
+- Check that Bandit is starting: Look for "Running Bandit" in logs
+
+### Production Considerations
+
+**DO NOT run Codicil in production**. Codicil is a development tool that:
+- Makes LLM API calls (costs money)
+- Indexes code at runtime (performance overhead)
+- Runs an HTTP server for MCP protocol (security surface)
+
+Always include Codicil as a `:dev` only dependency:
+
+```elixir
+{:codicil, "~> 0.1", only: :dev}
+```
+
+This ensures Codicil is excluded from production releases.
+
+## Architecture
+
+### MCP Server (Core Infrastructure - ✅ Complete)
+
+**Note**: This is a library for non-Phoenix applications. Users add it as a dev dependency and start the MCP server via Bandit + Plug.
+
+**Core Components:**
+- `lib/codicil/mcp/server.ex` - Plug that handles JSON-RPC 2.0 messages and tool dispatch
+- `lib/codicil/mcp.ex` - Supervisor managing MCP infrastructure
+- `lib/codicil/application.ex` - Application entry point
+- `lib/codicil/plug.ex` - HTTP transport adapter
+
+**Tool System:**
+Tools defined in `lib/codicil/mcp/tools/` with standard callback pattern:
+- Return `{:ok, result}` or `{:error, reason}`
+- Stateful tools use arity-2 callbacks (args, assigns)
+- Stateless tools use arity-1 callbacks (args)
+- Store callbacks in ETS for fast dispatch
+
+**MCP Tools to Implement:**
+- `similar_functions` - Semantic search for Elixir functions
+- `function_callers` - Find functions that call a target
+- `function_callees` - Find functions called by source
+- `module_relationships` - Analyze import/alias/use chains
+
+### Code Analysis Pipeline
+
+**Indexing Flow (Using Compiler Tracers):**
+1. Hook into Elixir's compilation process via `Code.put_compiler_option(:tracers, [Codicil.Tracer])`
+2. Receive compilation events in `Codicil.Tracer.trace/2` callback
+3. Capture module/function relationships and metadata during compilation
+4. Extract full function info post-compilation using `Code.fetch_docs/1`
+5. Generate summaries using LLM (Claude 3.5 Sonnet)
+6. Create vector embeddings (Anthropic or local)
+7. Store in SQLite database with graph and vector capabilities
+
+**Database Strategy:**
+- Single SQLite database with dual capabilities:
+  - Graph tables: Module and Function tables, relationship edges (using CTEs for traversal)
+  - Vector tables: Function embeddings via sqlite-vec extension
+- Hybrid queries: Vector similarity + graph traversal + LLM reranking
+
+**Compiler Tracer Approach:**
+Reference: https://hexdocs.pm/elixir/main/Code.html
+
+**Tracer Implementation:**
+- Create module with `trace/2` function: `trace(event, %Macro.Env{})`
+- Must return `:ok` and do minimal synchronous work
+- Dispatch bulk work to separate process to avoid slowing compilation
+
+**Key Tracer Events:**
+1. **Module Lifecycle:**
+   - `:start` - Compiler begins tracing new lexical context
+   - `:stop` - Compiler stops tracing lexical context
+   - `:defmodule` - Module definition starts
+
+2. **Import/Alias/Require:**
+   - `{:import, meta, module, opts}` - Track imports
+   - `{:alias, meta, alias, as, opts}` - Track aliases
+   - `{:require, meta, module, opts}` - Track requires
+
+3. **Function References:**
+   - `{:remote_function, meta, module, name, arity}` - External calls
+   - `{:local_function, meta, name, arity}` - Local calls
+   - `{:imported_function, meta, module, name, arity}` - Imported calls
+
+4. **Module Compilation:**
+   - `{:on_module, bytecode, _}` - Module fully defined, extract all info here
+
+**Post-Compilation Extraction:**
+- Use `Code.fetch_docs/1` for function documentation and signatures
+- Use `Module.__info__(:functions)` and `Module.__info__(:macros)` for function lists
+- Combine tracer events with post-compilation introspection for complete picture
+- No AST parsing needed - all info available from compiler and runtime
+
+## Reference Implementation
+
+The `graphsense/` directory contains a TypeScript/Node.js reference implementation with similar functionality. It demonstrates semantic search patterns and can be referenced for design ideas, but new development happens in the main Elixir codebase (`lib/codicil/`).
+
+## Key Implementation Patterns
+
+### MCP Protocol
+- Tools use `inputSchema` following JSON Schema spec
+- Register tool callbacks in ETS table for O(1) dispatch
+- Supervisor tree: `Application → MCP Supervisor → [Registry, Logger, Tools]`
+- Safe code execution: spawn_monitor with timeout and demonitor
+- JSON-RPC 2.0 strict compliance for AI assistant compatibility
+
+### Semantic Search (from GraphSense)
+- **Batch LLM validation**: Process 20 functions at a time to reduce API costs
+- **Early stopping**: Stop on first non-match (assumes similarity-sorted results degrade)
+- **Hybrid ranking**: Vector similarity (fast) → Graph filtering (precise) → LLM reranking (accurate)
+- **Per-repo isolation**: Separate database instances per analyzed codebase
+- **Incremental indexing**: File watcher triggers re-analysis on changes
+- **Rate limiting**: 1 second delay between LLM API calls to avoid throttling
+- **Retry logic**: Exponential backoff (3 attempts: 1s, 2.5s, 6.25s)
+
+### Elixir Specifics
+- Use `Code.string_to_quoted/2` with `:columns` option for position tracking
+- Extract docs with `Code.fetch_docs/1` for compiled modules
+- Pattern match AST for `def`, `defp`, `defmacro`, module directives
+- Handle multi-clause functions (collect all clauses as single entity)
+- Resolve aliases using `Macro.expand/2` for accurate relationship tracking
+
+### AST Parsing Strategy
+
+**CRITICAL:** Follow this exact strategy when parsing Elixir source files:
+
+- **Use Sourceror for ALL AST parsing** - Sourceror preserves metadata (line numbers, comments) that `Code.string_to_quoted` discards
+- **DO NOT use Sourceror for @doc or @moduledoc extraction** - Use `Code.fetch_docs/1` instead to obtain documentation from compiled modules
+- **Two-phase documentation extraction:**
+  1. Parse with Sourceror to extract ASTs, line numbers, and leading comments from function metadata (`:leading_comments` key)
+  2. After module compilation, use `Code.fetch_docs/1` to extract `@doc` and `@moduledoc` attributes
+  3. Merge results with @doc taking precedence over comments
+
+**Example:**
+```elixir
+# Phase 1: Parse source for ASTs and leading comments (at parse time)
+defp parse_source_file(file_path) do
+  case File.read(file_path) do
+    {:ok, source} ->
+      sourceror_ast = Sourceror.parse_string!(source)
+      {line_map, comment_docs, ast_map} = extract_metadata_sourceror(sourceror_ast)
+      {line_map, comment_docs, ast_map}
+
+    {:error, _} ->
+      {%{}, %{}, %{}}
+  end
+end
+
+# Phase 2: Extract @doc after compilation (in :on_module callback)
+defp extract_compiled_docs(module) do
+  case Code.fetch_docs(module) do
+    {:docs_v1, _, _, _, _, _, docs} ->
+      for {{:function, name, arity}, _, _, doc, _} <- docs, into: %{} do
+        doc_string = case doc do
+          %{"en" => text} -> text
+          :hidden -> nil
+          :none -> nil
+        end
+        {{name, arity}, doc_string}
+      end
+
+    {:error, _} ->
+      %{}
+  end
+end
+```
+
+**Why this matters:**
+- Sourceror is the only way to preserve leading comments (not available in regular AST)
+- `Code.fetch_docs/1` is the canonical way to extract @doc/@moduledoc from compiled modules
+- Public functions typically have @doc, private functions may have leading comments
+- This strategy handles both cases correctly
+
+### Router Pattern for GenServers
+
+**IMPORTANT:** All GenServers and GenServer-like modules (LiveViews, etc.) should follow the Router Pattern for code organization.
+
+The Router Pattern organizes GenServer code into clear sections that make it easy to understand the API and find implementations:
+
+#### Structure
+
+```elixir
+defmodule MyGenServer do
+  use GenServer
+
+  # 1. BOILERPLATE & INITIALIZATION
+  # - child_spec, start_link, init
+  # - These rarely change once written
+
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args, name: via_tuple(args.id))
+  end
+
+  def init(args) do
+    {:ok, %{id: args.id, data: nil}}
+  end
+
+  # 2. API (Public interface - what external callers use)
+  # - Declare @spec for all public functions
+  # - Keep implementations one-liners that delegate to handle_* via GenServer.call
+  # - Prefer call over cast unless there's a performance requirement or deadlock risk
+
+  @spec get_data(id :: term()) :: term()
+  def get_data(id) do
+    GenServer.call(via_tuple(id), :get_data)
+  end
+
+  @spec set_data(id :: term(), data :: term()) :: :ok
+  def set_data(id, data) do
+    GenServer.call(via_tuple(id), {:set_data, data})
+  end
+
+  # 3. API IMPLEMENTATION (Private - the actual logic)
+  # - defp functions that contain the real implementation
+  # - For handle_call: defp name_impl(args..., from, state)
+  # - For handle_cast: defp name_impl(args..., state)  # NO 'from' parameter
+  # - For handle_info: defp name_impl(message, state)
+  # - Always return the full tuple {:reply, result, state} or {:noreply, state}
+
+  defp get_data_impl(_from, state) do
+    {:reply, state.data, state}
+  end
+
+  defp set_data_impl(data, state) do
+    {:noreply, %{state | data: data}}
+  end
+
+  # 4. HELPER FUNCTIONS (if needed)
+  # - Pure functions used by implementations
+  # - Via tuples, formatters, etc.
+
+  defp via_tuple(id) do
+    {:via, Registry, {MyRegistry, id}}
+  end
+
+  # 5. ROUTER (Boilerplate at bottom - write once, never think about again)
+  # - Simple pattern matching that routes to implementations
+  # - One-to-one correspondence with API functions above
+  # - All operations use handle_call (prefer call over cast)
+
+  def handle_call(:get_data, from, state) do
+    get_data_impl(from, state)
+  end
+
+  def handle_call({:set_data, data}, from, state) do
+    set_data_impl(data, from, state)
+  end
+end
+```
+
+#### Key Rules
+
+1. **API functions are one-liners** that call `GenServer.call/cast/info`
+2. **Implementation functions (defp *_impl)** contain the actual logic
+3. **For handle_call**: Implementation takes `(args..., from, state)`
+4. **For handle_cast**: Implementation takes `(args..., state)` - NO 'from' parameter
+5. **For handle_info**: Implementation takes `(message, state)`
+6. **Router at bottom** is pure boilerplate - pattern match and delegate
+7. **Always pass full GenServer return tuples** from implementations: `{:reply, ...}`, `{:noreply, ...}`, `{:stop, ...}`
+8. **Prefer GenServer.call over GenServer.cast** - Use `call` with `:ok` return unless there's a specific performance requirement or deadlock risk. Cast-and-forget makes debugging harder and loses error information.
+
+#### Benefits
+
+- **Locality**: API declaration, spec, and implementation are adjacent
+- **Clarity**: Router is obvious mechanical translation, no logic hidden there
+- **Testability**: Implementation functions are easily testable
+- **Maintainability**: Each section has a clear purpose
+- **Consistency**: Once you learn the pattern, all GenServers look the same
+
+#### Anti-patterns to Avoid
+
+- ❌ Putting logic inside `handle_call/cast/info` clauses
+- ❌ Separating API functions from their implementations
+- ❌ Passing `from` to cast implementations (casts don't have a 'from')
+- ❌ Passing unnecessary state data that's already in state (like `state.module`)
+- ❌ Making router anything other than pure pattern-match-and-delegate
+
+## Database Guidelines
+
+**IMPORTANT:** Follow these conventions when working with the database layer:
+
+### Directory Structure
+- **All database schemas** must be placed in `lib/codicil_db/`
+- **Namespace**: All schemas use the `Codicil.Db` namespace
+- **Example**: `lib/codicil_db/function.ex` → `defmodule Codicil.Db.Function`
+
+### Code Style
+- **DO NOT** use `import Ecto.Changeset`
+- **DO** use `alias Ecto.Changeset` instead
+- This ensures explicit changeset function calls for better code clarity
+- **DO NOT** use multi-alias syntax: `alias A.{B, C}` (this is for IEx only)
+- **DO** use separate alias statements: `alias A.B` and `alias A.C`
+- This maintains consistency with standard Elixir code style
+- **DO NOT** use `as:` in alias statements: `alias Foo.Bar, as: Baz`
+- **DO** use the full module name directly in code instead
+- Renaming modules obscures where things come from and makes code harder to search/navigate
+- **ALWAYS** place all `alias` and `require` statements at the head of the module, immediately after `use` statements
+- This follows Elixir convention and makes dependencies immediately visible
+- **DO NOT** place `alias` statements inside function bodies or private function definitions
+- **ALWAYS** use `:else` instead of `true` for the final clause in `cond` statements
+- **Example**: `cond do ... :else -> default_value end` NOT `cond do ... true -> default_value end`
+- This makes the catch-all intent explicit and follows Elixir style conventions
+- **PREFER `if value = ...` over `case ... nil ->` for nil checks with fallback values**
+- **Example**: `if value = Application.get_env(:app, :key), do: value, else: default` NOT `case Application.get_env(:app, :key) do nil -> default; value -> value end`
+- This pattern is more idiomatic and concise for "get value or use default" scenarios
+
+### Context Module Naming
+- **DO NOT** use redundant names in context functions
+- **Example**: Use `Function.create/1` NOT `Function.create_function/1`
+- **Example**: Use `Function.get/1` NOT `Function.get_function/1`
+- The module name already provides context, so function names should be concise
+
+### Accessor Function Conventions
+Follow Elixir standards for data retrieval functions:
+- **`fetch/1`** - Returns `{:ok, data}` on success, `{:error, reason}` on failure (including not found)
+- **`fetch!/1`** - Returns `data` on success, raises on failure (including not found)
+- **`get/1`** - Returns `data` on success, `nil` if not found, crashes on database errors
+- **Example**:
+  - `Function.fetch("id-123")` → `{:ok, %Function{}}` or `{:error, :not_found}`
+  - `Function.fetch!("id-123")` → `%Function{}` or raises
+  - `Function.get("id-123")` → `%Function{}` or `nil`
+
+### Parameter Conventions
+- **ALWAYS use atom keys** for parameter maps/structs
+- This codebase does not consume user-inputted data, so atom keys are safe and idiomatic
+- **Example**: `%{name: "foo", path: "/lib/foo.ex"}` NOT `%{"name" => "foo", "path" => "/lib/foo.ex"}`
+
+### Datetime Fields
+- **ALWAYS** use `:utc_datetime_usec` type for all datetime fields in schemas
+- **DO NOT** use `:naive_datetime` or `:utc_datetime` (millisecond precision)
+- Microsecond precision ensures compatibility with Ecto timestamps and better accuracy
+- Example: `field :parsed, :utc_datetime_usec`
+- In tests, use `DateTime.utc_now()` to generate datetime values
+
+### Database Location
+- SQLite database file must be stored in Codicil's `priv/` directory
+- Obtain the path using `:code.priv_dir(:codicil)`
+- Example: `Path.join(:code.priv_dir(:codicil), "codicil.db")`
+
+### Migration Strategy
+- **Each table gets its own migration file**
+- **Indices and foreign keys** MAY be in separate migrations (use judgement)
+- **DO create new migrations** for schema changes using `mix ecto.gen.migration <name> -r Codicil.Db.Repo`
+- **Example**: `mix ecto.gen.migration add_checksum_to_functions -r Codicil.Db.Repo`
+- This keeps migration history clean and changes reproducible across environments
+- **Note**: Modify existing migrations only if explicitly instructed to do so
+
+### Example Structure
+```
+lib/codicil_db/
+├── function.ex          # Codicil.Db.Function schema
+├── edge.ex              # Codicil.Db.Edge schema
+└── repo.ex              # Codicil.Db.Repo
+
+priv/repo/migrations/
+├── 20250101000001_create_functions.exs
+├── 20250101000002_create_edges.exs
+└── 20250101000003_add_function_indices.exs
+```
+
+## Testing Strategy
+
+- **Mirror structure**: `test/codicil/mcp/tools/search_test.exs` tests `lib/codicil/mcp/tools/search.ex`
+- **MCP compliance**: Integration tests for JSON-RPC 2.0 protocol conformance
+- **Mock databases**: Use in-memory SQLite for tests (`:memory:` database)
+- **AST parsing**: Test with various Elixir syntax patterns (macros, protocols, guards)
+- **Tool isolation**: Each tool test should be independent and fast
+- **Property testing**: Use StreamData for AST edge cases
+- **Async tests**:
+  - **Default**: `async: true` for tests that don't use the database
+  - **Database tests**: `async: false` for tests that engage Ecto/database operations
+  - **Reason**: SQLite does not support async tests with Ecto.Adapters.SQL.Sandbox due to its single-writer architecture (see [ecto_sqlite3 docs](https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html))
+  - Only PostgreSQL adapter supports true async tests with Sandbox mode
+- **Boolean assertions**: Use idiomatic ExUnit assertions for boolean values
+  - **DO**: `assert value` instead of `assert value == true`
+  - **DO**: `refute value` instead of `assert value == false`
+  - This makes tests more readable and follows Elixir conventions
+- **Don't test framework behavior**: Do NOT write tests that just verify Ecto schemas work
+  - **DON'T**: Test that schema fields exist or that basic CRUD operations work
+  - **DO**: Test business logic, validations, custom behavior, and edge cases
+  - **Example of bad test**: `test "schema has id field" do assert Map.has_key?(%Schema{}, :id) end`
+  - **Example of good test**: `test "validates email format" do assert {:error, _} = create(%{email: "invalid"}) end`
+- **Don't test function existence**: Do NOT write tests using `function_exported?` or `Code.ensure_loaded?`
+  - **DON'T**: Write tests like `assert function_exported?(MyModule, :my_function, 2)`
+  - **DO**: Write tests that actually call the function and verify its behavior
+  - **Example of bad test**: `test "function exists" do assert function_exported?(Math, :add, 2) end`
+  - **Example of good test**: `test "adds two numbers" do assert Math.add(1, 2) == 3 end`
+
+## Technical Requirements
+
+- **Elixir**: 1.18+ (OTP 27+)
+- **Mix project** with proper `mix.exs` configuration
+- **Bandit**: `~> 1.6` (user's project provides this as dev dependency)
+- **Git repository** required (for file change tracking)
+- **Database**:
+  - SQLite with `sqlite-vec` extension for vector search
+  - Ecto with `:ecto_sqlite3` adapter
+  - Graph queries via Common Table Expressions (CTEs)
+  - Schema: functions table + edges table for relationships
+- **API keys**:
+  - Anthropic API key for Claude 3.5 Sonnet (summarization and embeddings)
+- **Dependencies to add**:
+  - `:ecto_sql` - Database abstraction
+  - `:ecto_sqlite3` - SQLite adapter
+  - `:exqlite` - Native SQLite driver (required by ecto_sqlite3)
+  - `:req` - HTTP client for API calls
+  - `:jason` - JSON encoding/decoding (already added)
+
+**No Phoenix required** - This is a library dependency that users add to their Elixir projects.
+
+## Project Status
+
+**Functionally Complete!** All core phases (MCP server, database, compiler tracer, LLM integration, vector embeddings, and MCP tools) are implemented and working. The tracer automatically indexes modules/functions during compilation, generates summaries and embeddings via rate-limited LLM calls, and stores everything in SQLite with vector search capabilities.
+
+### Completed Implementation (All Phases)
+
+**✅ All phases complete:**
+- **Phase 0**: MCP Core Infrastructure
+- **Phase 1**: Database Layer (SQLite with sqlite-vec)
+- **Phase 2**: Compiler Tracer (automatic indexing during compilation)
+- **Phase 3**: LLM Integration (Anthropic/OpenAI/Cohere/Google/Grok)
+- **Phase 4**: Vector Embeddings (sqlite-vec)
+- **Phase 5**: All 4 MCP Tools (similar_functions, function_callers, function_callees, module_relationships)
+- **Phase 6**: Checksums and change detection (skip re-processing unchanged code)
+- **Phase 7**: Function and module retirement (cleanup deleted code)
+- **Phase 8**: File system watcher (automatic recompilation on file changes)
+
+### Known TODOs and Technical Debt
+
+1. **Checksum placeholders for dependencies** - Some checksums use `nil`:
+   - Functions without AST (e.g., Erlang functions)
+   - Module dependencies referenced but not yet compiled
+   - These are edge cases that don't affect core functionality
+   - Checksums are only set after dependencies have been processed
+
+---
+> Source: [E-xyza/codicil](https://github.com/E-xyza/codicil) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
