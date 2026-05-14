@@ -7,11 +7,11 @@ MCP server integration for searching Bun documentation directly in Zed editor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kjanat/bun-docs-mcp-zed](https://github.com/kjanat/bun-docs-mcp-zed).
+Original source: `CLAUDE.md` in [kjanat/bun-docs-mcp-zed](https://github.com/kjanat/bun-docs-mcp-zed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
