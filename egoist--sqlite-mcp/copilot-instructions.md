@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## sqlite-mcp
 
 > Use Bun instead of Node.js, npm, pnpm, or vite.
 
