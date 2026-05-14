@@ -1,0 +1,9 @@
+{
+  "name": "projectqai--hydris",
+  "displayName": "hydris",
+  "description": " the orchestration layer for sensor and data-based situational awareness ",
+  "version": "1.0.0",
+  "author": "projectqai",
+  "homepage": "https://github.com/projectqai/hydris",
+  "skills": []
+}
