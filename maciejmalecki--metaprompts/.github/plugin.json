@@ -1,0 +1,9 @@
+{
+  "name": "maciejmalecki--metaprompts",
+  "displayName": "metaprompts",
+  "description": "This is a repository with meta prompts that can be used to generate some convenience artefacts such as commands in Claude Code or prompt templates in GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "maciejmalecki",
+  "homepage": "https://github.com/maciejmalecki/metaprompts",
+  "skills": []
+}
