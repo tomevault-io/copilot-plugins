@@ -1,0 +1,9 @@
+{
+  "name": "fukamachi--mallet",
+  "displayName": "mallet",
+  "description": "A sensible Common Lisp linter that catches real mistakes, not style",
+  "version": "1.0.0",
+  "author": "fukamachi",
+  "homepage": "https://github.com/fukamachi/mallet",
+  "skills": []
+}
