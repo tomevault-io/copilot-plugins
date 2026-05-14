@@ -1,0 +1,9 @@
+{
+  "name": "vmwm--veritas",
+  "displayName": "VERITAS",
+  "description": "A Claude Code research infrastructure that enforces citation compliance, validates scientific claims in real-time, and automatically structures your knowledge base.",
+  "version": "1.0.0",
+  "author": "VMWM",
+  "homepage": "https://github.com/VMWM/VERITAS",
+  "skills": []
+}
