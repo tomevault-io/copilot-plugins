@@ -4,7 +4,7 @@
   "repo": "clinicaltrialsgov-mcp-server",
   "description": "MCP server for the ClinicalTrials.gov v2 API. Search trials, retrieve study details and results, and match patients to eligible trials.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyanheads/clinicaltrialsgov-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:55:51Z"
+  "distributed_at": "2026-05-14T18:17:19Z"
 }
