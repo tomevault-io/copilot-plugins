@@ -1,0 +1,9 @@
+{
+  "name": "zats--local-llm",
+  "displayName": "local-llm",
+  "description": "Apple's FoundationModels for the web. Chrome and Safari, macOS and iOS",
+  "version": "1.0.0",
+  "author": "zats",
+  "homepage": "https://github.com/zats/local-llm",
+  "skills": []
+}
