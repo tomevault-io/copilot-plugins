@@ -4,7 +4,7 @@
   "repo": "nostube",
   "description": "Nostr based video platform",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flox1an/nostube",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T03:06:08Z"
+  "distributed_at": "2026-05-14T21:01:28Z"
 }
