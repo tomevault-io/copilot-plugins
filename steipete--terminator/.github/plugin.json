@@ -1,0 +1,9 @@
+{
+  "name": "steipete--terminator",
+  "displayName": "Terminator",
+  "description": "Hasta la vista, shell \u2014 the T-800 that babysits (and occasionally obliterates) your Terminal tabs. Built to kill hung jobs, not humans.",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/Terminator",
+  "skills": []
+}
