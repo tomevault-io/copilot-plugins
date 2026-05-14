@@ -4,7 +4,7 @@
   "repo": "bunli",
   "description": "Complete CLI Development Ecosystem for Bun",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AryaLabsHQ/bunli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:54:54Z"
+  "distributed_at": "2026-05-14T18:09:21Z"
 }
