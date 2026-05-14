@@ -7,11 +7,11 @@ A lightweight MCP server bridging AI agents to Google's Gemini AI via official C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eLyiN/gemini-bridge](https://github.com/eLyiN/gemini-bridge).
+Original source: `CLAUDE.md` in [eLyiN/gemini-bridge](https://github.com/eLyiN/gemini-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
