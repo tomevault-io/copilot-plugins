@@ -1,0 +1,9 @@
+{
+  "name": "carllerche--assert-struct",
+  "displayName": "assert-struct",
+  "description": "A proc macro for asserting on the structure of Rust values.",
+  "version": "1.0.0",
+  "author": "carllerche",
+  "homepage": "https://github.com/carllerche/assert-struct",
+  "skills": []
+}
