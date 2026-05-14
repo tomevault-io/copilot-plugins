@@ -4,7 +4,7 @@
   "repo": "mcp-picnic",
   "description": "Unofficial MCP Server for Picnic",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ivo-toby/mcp-picnic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T19:50:17Z"
+  "distributed_at": "2026-05-14T20:01:04Z"
 }
