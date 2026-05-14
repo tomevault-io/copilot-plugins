@@ -1,0 +1,9 @@
+{
+  "name": "thaitype--thaitype-stack-mongodb-template",
+  "displayName": "thaitype-stack-mongodb-template",
+  "description": "Type-Safe Next.js Stack using Simple Clean Architecture with MongoDB Template For AI Friendly",
+  "version": "1.0.0",
+  "author": "thaitype",
+  "homepage": "https://github.com/thaitype/thaitype-stack-mongodb-template",
+  "skills": []
+}
