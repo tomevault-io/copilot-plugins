@@ -1,0 +1,9 @@
+{
+  "name": "apecodeai--vmarker",
+  "displayName": "vmarker",
+  "description": "vmarker (Auto Chapter Bar or `acb` in CLI) is an open-source Python tool that converts SRT subtitle files into transparent video chapter progress bars with alpha channel. vmarker\uff08\u7b80\u79f0 `acb`\uff09\u662f\u4e00\u4e2a\u5f00\u6e90\u7684 Pytho",
+  "version": "1.0.0",
+  "author": "ApeCodeAI",
+  "homepage": "https://github.com/ApeCodeAI/vmarker",
+  "skills": []
+}
