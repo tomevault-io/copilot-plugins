@@ -1,0 +1,9 @@
+{
+  "name": "verdikta--verdikta-applications",
+  "displayName": "verdikta-applications",
+  "description": "Example applications using the Verdikta blockchain. ",
+  "version": "1.0.0",
+  "author": "verdikta",
+  "homepage": "https://github.com/verdikta/verdikta-applications",
+  "skills": []
+}
