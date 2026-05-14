@@ -1,0 +1,9 @@
+{
+  "name": "cysharp--aiapitracer",
+  "displayName": "AIApiTracer",
+  "description": "A reverse proxy for local development environments that intercepts requests to AI services like OpenAI, Anthropic, etc.., allowing you to trace request and response content.",
+  "version": "1.0.0",
+  "author": "Cysharp",
+  "homepage": "https://github.com/Cysharp/AIApiTracer",
+  "skills": []
+}
