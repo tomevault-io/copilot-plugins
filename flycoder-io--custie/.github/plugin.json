@@ -1,0 +1,9 @@
+{
+  "name": "flycoder-io--custie",
+  "displayName": "custie",
+  "description": "A bidirectional chat server that bridges Slack and Claude Code CLI. Mention the bot in a channel or DM it directly to start an AI-powered conversation that persists across messages.",
+  "version": "1.0.0",
+  "author": "flycoder-io",
+  "homepage": "https://github.com/flycoder-io/custie",
+  "skills": []
+}
