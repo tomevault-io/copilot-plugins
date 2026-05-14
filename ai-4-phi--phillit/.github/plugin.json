@@ -1,0 +1,9 @@
+{
+  "name": "ai-4-phi--phillit",
+  "displayName": "PhilLit",
+  "description": "Multi-agent workflow for accurate and comprehensive literature reviews in philosophy",
+  "version": "1.0.0",
+  "author": "AI-4-Phi",
+  "homepage": "https://github.com/AI-4-Phi/PhilLit",
+  "skills": []
+}
