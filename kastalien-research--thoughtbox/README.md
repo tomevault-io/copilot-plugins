@@ -7,11 +7,11 @@ Thoughtbox is an intention ledger for agents. Evaluate AI's decisions against it
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kastalien-Research/thoughtbox](https://github.com/Kastalien-Research/thoughtbox).
+Original source: `CLAUDE.md` in [Kastalien-Research/thoughtbox](https://github.com/Kastalien-Research/thoughtbox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
