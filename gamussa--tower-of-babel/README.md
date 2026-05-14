@@ -2,6 +2,8 @@
 
 > Sourced from [gAmUssA/tower-of-babel](https://github.com/gAmUssA/tower-of-babel) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+From Tower of Babel to Babel Fish: A Kafka Schema Registry Demo
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
