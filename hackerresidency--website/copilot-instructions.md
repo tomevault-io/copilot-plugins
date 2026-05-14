@@ -1,136 +1,144 @@
-## general
+## website
 
-> description: General TypeScript coding guidelines
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
----
-description: General TypeScript coding guidelines
-globs:
----
+# CLAUDE.md
 
-## General
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Write elegant, concise, and readable code
-- Prefer `const` over `let` (never use `var`)
-- Use kebab-case for file and directory names
-- Use clear, descriptive names for variables, functions, and components
+## Project Overview
 
-## Modules
+This is the HRG (Hacker Residency Group) website - a Next.js application showcasing a hacker residency program in Southeast Asia. The site features rich 3D graphics, animations, and integrations with Notion for content management.
 
-### Imports & Exports
+## Development Commands
 
-- Always use ESM `import` and `export` (never use CJS `require`)
-  - File imports should never use an extension (NOT `.js`, `.ts` or `.tsx`).
-  - GOOD examples:
-    - `import { Foo } from './foo'`
-    - `import { type Route } from './types/root'`
-    - `import zod from 'zod'`
-    - `import { logger } from '~/types'`
-  - BAD examples:
-    - `import { Foo } from './foo.js'`
-    - `import { type Route } from './types/root.js'`
-    - `import { Foo } from './foo.ts'`
-- Always prefer named exports over default exports
+### Core Commands
+- `pnpm dev` - Start Next.js development server
+- `pnpm build` - Build production bundle
+- `pnpm start` - Start production server
+- `pnpm clean` - Clean Next.js build artifacts
 
-### Packages
+### Testing & Quality
+- `pnpm test` - Run all tests (includes lint, format, and build)
+- `pnpm test:lint` - Run ESLint (with cache)
+- `pnpm test:format` - Check Prettier formatting
 
-All packages must follow these `package.json` rules:
+### Notes
+- This project uses **pnpm** as the package manager (enforced via preinstall hook)
+- Node.js version requirement: **>=20**
+- Pre-commit hooks run automatically via simple-git-hooks for linting and formatting
 
-- `type` must be set to `module`
+## Architecture
 
-## TypeScript
+### Tech Stack
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (with @total-typescript/ts-reset)
+- **Styling**: Tailwind CSS 4
+- **3D Graphics**: Three.js with @react-three/fiber and @react-three/drei
+- **Animations**: Framer Motion + GSAP
+- **UI Components**: Radix UI primitives (Avatar, Label, Slot, Tooltip)
+- **Content**: Notion API via react-notion-x
 
-- Avoid semicolons at the end of lines
-- Use TypeScript's utility types (e.g., `Partial`, `Pick`, `Omit`) to manipulate existing types
-- Create custom types for complex data structures used throughout the application
-- If possible, avoid using `any`/`unknown` or casting values like `(value as any)` in TypeScript outside of test files e.g. `*.test.ts` or test fixtures e.g. `**/test-data.ts`.
-- Don't rely on `typeof`, `ReturnType<>`, `Awaited<>`, etc for complex type inference (it's ok for simple types)
-- You can use `as const` as needed for better type inference
-- Functions should accept an object parameter instead of multiple parameters
-  - Good examples:
-    ```ts
-    function myFunction({ foo, bar }: { foo: boolean; bar: string }) {}
-    function VideoPlayer({ sid }: { sid: string }) {}
-    ```
-  - Bad examples:
-    ```ts
-    function myFunction(foo: boolean, bar: string, baz: number) {}
-    ```
-- Arguments should generally be destructured in the function definition, not the function body.
-  - Good example:
-    ```ts
-    function myFunction({ foo, bar }: { foo: boolean; bar: string }) {}
-    ```
-  - Bad example:
-    ```ts
-    function myFunction(args: { foo: boolean; bar: string }) {
-      const { foo, bar } = args
-    }
-    ```
-- Zod should be used to parse untrusted data, but not for data that is trusted like function arguments
-- Prefer Zod unions over Zod enums
-  - For example, this union `z.union([ z.literal('youtube'), z.literal('spotify') ])` is better than this enum `z.enum([ 'youtube', 'spotify' ])`
-- Promises (and `async` functions which implicitly create Promises) must always be properly handled, either via:
-  - Using `await` to wait for the Promise to resolve successfully
-  - Using `.then` or `.catch` to handle Promise resolution
-  - Returning a Promise to a calling function which itself has to handle the Promise.
+### Directory Structure
 
-## Node.js
+```
+src/
+├── app/                      # Next.js App Router pages
+│   ├── home/                 # Home page sections (hero, team, location, CTA)
+│   ├── batch-0/             # Batch 0 cohort page
+│   ├── apply/               # Application page
+│   ├── faq/                 # FAQ page
+│   ├── waitlist/            # Waitlist page
+│   ├── hooks/               # React hooks (e.g., use-theme)
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Home page
+├── components/
+│   ├── ui/                  # UI primitives (button, input, avatar, etc.)
+│   ├── three-text/          # Complex 3D text rendering with shaders
+│   ├── particle-animation/  # Particle effects
+│   ├── header/              # Site header
+│   ├── footer/              # Site footer
+│   └── [various].tsx        # Other components (globe, card, etc.)
+├── lib/
+│   ├── config.ts            # Site-wide config (URLs, metadata, env vars)
+│   ├── notion.ts            # Notion API client
+│   ├── bootstrap.ts         # App initialization
+│   └── utils.ts             # Utility functions
+└── icons/                   # Custom icon components
+```
 
-- Utilize the `node:` protocol when importing Node.js modules (e.g., `import fs from 'node:fs/promises'`)
-- Prefer promise-based APIs over Node's legacy callback APIs
-- Use environment variables for secrets (avoid hardcoding sensitive information)
+### Key Patterns
 
-### Web Standard APIs
+**Configuration**
+- All site-wide configuration lives in `src/lib/config.ts` (URLs, metadata, author info, keywords)
+- Environment detection via `isDev`, `isProd`, `isTest` flags
+- Environment variables prefixed with `NEXT_PUBLIC_` for client-side access
 
-Always prefer using standard web APIs like `fetch`, `WebSocket`, and `ReadableStream` when possible. Avoid redundant libraries (like `node-fetch`).
+**Notion Integration**
+- Notion content rendered via `react-notion-x` and custom `NotionBlock` component
+- Notion API client instantiated in `src/lib/notion.ts`
+- Used primarily for FAQ and batch information pages
 
-- Prefer the `fetch` API for making HTTP requests instead of Node.js modules like `http` or `https`
-  - Use the native `fetch` API instead of `node-fetch` or polyfilled `cross-fetch`
-  - Use the `ky` library for HTTP requests instead of `axios` or `superagent`
-- Use the WHATWG `URL` and `URLSearchParams` classes instead of the Node.js `url` module
-- Use `Request` and `Response` objects from the Fetch API instead of Node.js-specific request and response objects
+**3D Graphics & Animation**
+- Complex 3D scenes in `src/components/three-text/` with custom shaders
+- Globe visualization using `cobe` library
+- Particle effects system in `src/components/particle-animation/`
+- GSAP used for scroll-based animations (see `animated-story-text.tsx`)
 
-## Error Handling
+**Styling**
+- Tailwind CSS v4 with custom configuration
+- shadcn/ui-inspired component structure in `components/ui/`
+- CSS modules for specific components (header, footer, hero-button, markdown)
+- Global styles in `app/globals.css` and `app/notion.css`
 
-- Prefer `async`/`await` over `.then()` and `.catch()`
-- Always handle errors correctly (eg: `try`/`catch` or `.catch()`)
-- Avoid swallowing errors silently; always log or handle caught errors appropriately
+**Component Composition**
+- Home page built from modular sections (HeroSection, TeamSection, LocationSection, etc.)
+- Each major section is its own component in `src/app/home/`
+- Reusable UI primitives in `src/components/ui/`
 
-## Comments
+## Code Style
 
-Comments should be used to document and explain code. They should complement the use of descriptive variable and function names and type declarations.
+This project follows strict TypeScript conventions defined in `.cursor/rules/general.mdc`:
 
-- Add comments to explain complex sections of code
-- Add comments that will improve the autocompletion preview in IDEs (eg: functions and types)
-- Don't add comments that just reword symbol names or repeat type declarations
-- Use **JSDoc** formatting for comments (not TSDoc or inline comments)
+- **Imports**: Always use ESM, never file extensions in imports, prefer named exports
+- **TypeScript**: No semicolons, avoid `any`, use object parameters for functions
+- **Node.js**: Use `node:` protocol for Node.js imports, prefer web standard APIs (fetch, URL)
+- **File naming**: kebab-case for files and directories
+- **Error handling**: Prefer async/await over .then()/.catch()
+- **Comments**: Use JSDoc format
 
-## Logging
+### TypeScript Build Note
+- TypeScript build errors are ignored in `next.config.ts` due to GSAP's JS files having implicit any types
+- This is intentional and should not be changed
 
-- Just use `console` for logging.
+## Git Workflow
 
-## Testing
+- Pre-commit hooks auto-format and lint staged TypeScript files
+- Combine git add and commit using `git commit -am` when possible
+- CI runs on every push via GitHub Actions (linting, formatting, and build)
 
-### Unit Testing
+## Common Tasks
 
-- **All unit tests should use Vitest**
-  - DO NOT attempt to install or use other testing libraries like Jest
-- Test files should be named `[target].test.ts` and placed in the same directory as the code they are testing (NOT a separate directory)
-  - Good example: `src/my-file.ts` and `src/my-file.test.ts`
-  - Bad example: `src/my-file.ts` and `src/test/my-file.test.ts` or `test/my-file.test.ts` or `src/__tests__/my-file.test.ts`
-- Tests should be run with `pnpm test:unit`
-- It's acceptable to use `any`/`unknown` in test files (such as `*.test.ts`) or test fixtures (like `**/test-data.ts`) to facilitate mocking or stubbing external modules or partial function arguments, referencing the usage guidelines in the TypeScript section.
-- Frontend react code does not need unit tests
+### Adding a New Page
+1. Create directory in `src/app/[page-name]/`
+2. Add `page.tsx` with default export
+3. Follow existing page patterns (see `src/app/faq/page.tsx`)
 
-### Test Coverage
+### Adding UI Components
+1. Place in `src/components/ui/` for reusable primitives
+2. Use Radix UI for accessible component foundations
+3. Style with Tailwind + class-variance-authority for variants
 
-- Test critical business logic and edge cases
-- Don't add tests for trivial code or just to increase test coverage
-- Don't make tests too brittle or flaky by relying on implementation details
+### Working with 3D Graphics
+- Three.js components go in `src/components/`
+- Use `@react-three/fiber` for React integration
+- See `src/components/globe.tsx` for simple 3D examples
+- See `src/components/three-text/` for advanced shader usage
 
-## Git
-
-- When possible, combine the `git add` and `git commit` commands into a single `git commit -am` command, to speed things up
+### Notion Content
+- Fetch pages using the `notion` client from `src/lib/notion.ts`
+- Render using `NotionBlock` component or `react-notion-x` directly
+- Custom styles in `src/app/notion.css`
 
 ---
 > Source: [HackerResidency/website](https://github.com/HackerResidency/website) — distributed by [TomeVault](https://tomevault.io).
