@@ -7,11 +7,11 @@ web-sqlite-js is a friendly, out-of-the-box SQLite database for the web that mak
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wuchuheng/web-sqlite-js](https://github.com/wuchuheng/web-sqlite-js).
+Original source: `CLAUDE.md` in [wuchuheng/web-sqlite-js](https://github.com/wuchuheng/web-sqlite-js).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
