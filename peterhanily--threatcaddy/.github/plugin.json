@@ -1,0 +1,9 @@
+{
+  "name": "peterhanily--threatcaddy",
+  "displayName": "threatcaddy",
+  "description": "ThreatCaddy - Investigation Workspace. Notes, IOCs, Timelines & Graphs. All data stored locally in your browser using IndexedDB.",
+  "version": "1.0.0",
+  "author": "peterhanily",
+  "homepage": "https://github.com/peterhanily/threatcaddy",
+  "skills": []
+}
