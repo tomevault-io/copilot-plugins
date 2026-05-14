@@ -1,0 +1,9 @@
+{
+  "name": "formkit--zodown",
+  "displayName": "zodown",
+  "description": "Zod 4 to Zod 3 runtime converter",
+  "version": "1.0.0",
+  "author": "formkit",
+  "homepage": "https://github.com/formkit/zodown",
+  "skills": []
+}
