@@ -1,0 +1,9 @@
+{
+  "name": "go-delve--mcp-dap-server",
+  "displayName": "mcp-dap-server",
+  "description": "MCP server to communicate with DAP servers allowing AI Agents the ability to debug live programs.",
+  "version": "1.0.0",
+  "author": "go-delve",
+  "homepage": "https://github.com/go-delve/mcp-dap-server",
+  "skills": []
+}
