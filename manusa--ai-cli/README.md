@@ -7,11 +7,11 @@ ai-cli lets you go from zero to AI-powered in seconds in a safe, automated and t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [manusa/ai-cli](https://github.com/manusa/ai-cli).
+Original source: `CLAUDE.md` in [manusa/ai-cli](https://github.com/manusa/ai-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
