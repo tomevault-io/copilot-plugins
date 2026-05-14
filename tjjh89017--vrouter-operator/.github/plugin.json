@@ -1,0 +1,9 @@
+{
+  "name": "tjjh89017--vrouter-operator",
+  "displayName": "vrouter-operator",
+  "description": "Deploy your vRouter in your Kubernetes with KubeVirt and Proxmox VE",
+  "version": "1.0.0",
+  "author": "tjjh89017",
+  "homepage": "https://github.com/tjjh89017/vrouter-operator",
+  "skills": []
+}
