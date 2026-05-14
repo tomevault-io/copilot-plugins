@@ -1,0 +1,9 @@
+{
+  "name": "deevus--compile-flagz",
+  "displayName": "compile_flagz",
+  "description": "Zig library for generating compile_flags.txt for C/C++ IDE integration in Zig-built projects",
+  "version": "1.0.0",
+  "author": "deevus",
+  "homepage": "https://github.com/deevus/compile_flagz",
+  "skills": []
+}
