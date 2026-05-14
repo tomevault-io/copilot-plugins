@@ -1,0 +1,50 @@
+{
+  "name": "blockscout--mcp-server",
+  "displayName": "mcp-server",
+  "description": "Wraps Blockscout APIs and exposes blockchain data by Model Context Protocol",
+  "version": "1.0.0",
+  "author": "blockscout",
+  "homepage": "https://github.com/blockscout/mcp-server",
+  "skills": [
+    {
+      "name": "codex-session-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "consult-spec",
+      "description": ""
+    },
+    {
+      "name": "describe-changes",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-bug",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-improvement",
+      "description": ""
+    },
+    {
+      "name": "gh-issue-publish",
+      "description": ""
+    },
+    {
+      "name": "implementation-plan-review",
+      "description": ""
+    },
+    {
+      "name": "plan-export",
+      "description": ""
+    },
+    {
+      "name": "read-temp-file",
+      "description": ""
+    },
+    {
+      "name": "test-guided-tool-run",
+      "description": ""
+    }
+  ]
+}
