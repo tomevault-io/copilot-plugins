@@ -7,11 +7,11 @@ An interpreted language that aims to be a replacement for bash script.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lumorsunil/runic](https://github.com/lumorsunil/runic).
+Original source: `CLAUDE.md` in [lumorsunil/runic](https://github.com/lumorsunil/runic).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
