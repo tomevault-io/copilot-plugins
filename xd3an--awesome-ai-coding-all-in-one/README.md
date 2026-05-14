@@ -2,6 +2,8 @@
 
 > Sourced from [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Claude Code, providing a comprehensive set of tools for modern software development.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
