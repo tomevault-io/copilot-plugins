@@ -1,0 +1,9 @@
+{
+  "name": "ivanfioravanti--llm-context-benchmarks",
+  "displayName": "llm_context_benchmarks",
+  "description": "  \ud83d\udcca LLM Context Benchmarks - A comprehensive benchmarking tool for testing LLMs with varying context sizes using Ollama. Features dual benchmark modes (API/CLI), automatic hardware detection (optimize",
+  "version": "1.0.0",
+  "author": "ivanfioravanti",
+  "homepage": "https://github.com/ivanfioravanti/llm_context_benchmarks",
+  "skills": []
+}
