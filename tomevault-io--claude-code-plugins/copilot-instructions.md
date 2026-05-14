@@ -1,192 +1,142 @@
 ## claude-md
 
-> > Cursor rules for code development with style consistency integration.
+> > This document contains critical information about working with this codebase. Follow these guidelines precisely.
 
-# code-style-consistency-cursorrules-prompt-file
+# openrefine-mcp
 
-> Cursor rules for code development with style consistency integration.
+> This document contains critical information about working with this codebase. Follow these guidelines precisely.
 
 ## Usage
 
 Add this to your project's CLAUDE.md to activate this skill:
 
 ```
-Read and follow the instructions in .claude/skills/code-style-consistency-cursorrules-prompt-file/SKILL.md
+Read and follow the instructions in .claude/skills/openrefine-mcp/SKILL.md
 ```
 
 Or copy the instructions below directly into your CLAUDE.md:
 
-// Code Style Consistency - .cursorrules prompt file
-// Specialized prompt for analyzing codebase patterns and ensuring new code
-// follows the established style and conventions of the project.
+# Development Guidelines
 
-// PERSONA: Code Style Analyst
-You are an expert code style analyst with a keen eye for pattern recognition and
-coding conventions. Your expertise lies in quickly identifying the stylistic patterns,
-architecture approaches, and coding preferences in existing codebases, then adapting
-new code to seamlessly integrate with those established patterns.
+This document contains critical information about working with this codebase. Follow these guidelines precisely.
 
-// STYLE ANALYSIS FOCUS
-Before generating or suggesting any code, analyze the codebase for:
+## Core Development Rules
 
-- Naming conventions (camelCase, snake_case, PascalCase, etc.)
-- Indentation patterns (spaces vs tabs, indentation size)
-- Comment style and frequency
-- Function and method size patterns
-- Error handling approaches
-- Import/module organization
-- Functional vs OOP paradigm usage
-- File organization and architecture patterns
-- Testing methodologies
-- State management patterns
-- Code block formatting (brackets, spacing, etc.)
+1. Package Management
+   - ONLY use uv, NEVER pip
+   - Installation: `uv add package`
+   - Running tools: `uv run tool`
+   - Upgrading: `uv add --dev package --upgrade-package package`
+   - FORBIDDEN: `uv pip install`, `@latest` syntax
 
-// ANALYSIS METHODOLOGY
-Implement this step-by-step approach to style analysis:
+2. Code Quality
+   - Type hints required for all code
+   - Public APIs must have docstrings
+   - Functions must be focused and small
+   - Follow existing patterns exactly
+   - Line length: 88 chars maximum
 
-1. Examine Multiple Files: Look at 3-5 representative files from the codebase
-2. Identify Core Patterns: Catalog consistent patterns across these files
-3. Note Inconsistencies: Recognize areas where style varies
-4. Prioritize Recent Code: Give more weight to recently modified files as they may represent evolving standards
-5. Create Style Profile: Summarize the dominant style characteristics
-6. Adapt Recommendations: Ensure all suggestions conform to the identified style profile
+3. Testing Requirements
+   - Framework: `uv run --frozen pytest`
+   - Async testing: use anyio, not asyncio
+   - Coverage: test edge cases and errors
+   - New features require tests
+   - Bug fixes require regression tests
 
-// STYLE PROFILE TEMPLATE
-Compile a style profile with these key elements:
+- For commits fixing bugs or adding features based on user reports add:
+  ```bash
+  git commit --trailer "Reported-by:<name>"
+  ```
+  Where `<name>` is the name of the user.
 
-```
-## Code Style Profile
+- For commits related to a Github issue, add
+  ```bash
+  git commit --trailer "Github-Issue:#<number>"
+  ```
+- NEVER ever mention a `co-authored-by` or similar aspects. In particular, never
+  mention the tool used to create the commit message or PR.
 
-### Naming Conventions
-- Variables: [pattern]
-- Functions: [pattern]
-- Classes: [pattern]
-- Constants: [pattern]
-- Component files: [pattern]
-- Other files: [pattern]
+## Pull Requests
 
-### Formatting
-- Indentation: [tabs/spaces, amount]
-- Line length: [approximate maximum]
-- Bracket style: [same line/new line]
-- Spacing: [patterns around operators, parameters, etc.]
+- Create a detailed message of what changed. Focus on the high level description of
+  the problem it tries to solve, and how it is solved. Don't go into the specifics of the
+  code unless it adds clarity.
 
-### Architecture Patterns
-- Module organization: [pattern]
-- Component structure: [pattern]
-- State management: [approach]
-- Error handling: [approach]
+- Always add `jerome3o-anthropic` and `jspahrsummers` as reviewer.
 
-### Paradigm Preferences
-- Functional vs OOP balance: [observation]
-- Use of specific patterns: [factories, singletons, etc.]
-- Immutability approach: [observation]
+- NEVER ever mention a `co-authored-by` or similar aspects. In particular, never
+  mention the tool used to create the commit message or PR.
 
-### Documentation
-- Comment style: [pattern]
-- JSDoc/other documentation: [usage pattern]
-- README conventions: [pattern]
+## Python Tools
 
-### Testing Approach
-- Testing framework: [observed]
-- Test organization: [pattern]
-- Test naming: [pattern]
-```
+## Code Formatting
 
-// INTEGRATION EXAMPLE
-Here's an example of how to adapt code based on style analysis:
+1. Ruff
+   - Format: `uv run --frozen ruff format .`
+   - Check: `uv run --frozen ruff check .`
+   - Fix: `uv run --frozen ruff check . --fix`
+   - Critical issues:
+     - Line length (88 chars)
+     - Import sorting (I001)
+     - Unused imports
+   - Line wrapping:
+     - Strings: use parentheses
+     - Function calls: multi-line with proper indent
+     - Imports: split into multiple lines
 
-Original code sample from developer:
+2. Type Checking
+   - Tool: `uv run --frozen pyright`
+   - Requirements:
+     - Explicit None checks for Optional
+     - Type narrowing for strings
+     - Version warnings can be ignored if checks pass
 
-```javascript
-function getData(id) {
-  return new Promise((resolve, reject) => {
-    apiClient
-      .get(`/data/${id}`)
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-}
-```
+3. Pre-commit
+   - Config: `.pre-commit-config.yaml`
+   - Runs: on git commit
+   - Tools: Prettier (YAML/JSON), Ruff (Python)
+   - Ruff updates:
+     - Check PyPI versions
+     - Update config rev
+     - Commit config first
 
-Style analysis reveals:
+## Error Resolution
 
-- Project uses async/await rather than promise chains
-- Error handling is done with try/catch blocks
-- Functions use arrow syntax
-- 2-space indentation is standard
-- Early returns are preferred
+1. CI Failures
+   - Fix order:
+     1. Formatting
+     2. Type errors
+     3. Linting
+   - Type errors:
+     - Get full line context
+     - Check Optional types
+     - Add type narrowing
+     - Verify function signatures
 
-Style-adapted code:
+2. Common Issues
+   - Line length:
+     - Break strings with parentheses
+     - Multi-line function calls
+     - Split imports
+   - Types:
+     - Add None checks
+     - Narrow string types
+     - Match existing patterns
+   - Pytest:
+     - If the tests aren't finding the anyio pytest mark, try adding PYTEST_DISABLE_PLUGIN_AUTOLOAD=""
+       to the start of the pytest run command eg:
+       `PYTEST_DISABLE_PLUGIN_AUTOLOAD="" uv run --frozen pytest`
 
-```javascript
-const getData = async (id) => {
-  try {
-    const response = await apiClient.get(`/data/${id}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-```
-
-// STYLE CONSISTENCY BEST PRACTICES
-Follow these best practices when adapting code:
-
-1. **Don't Refactor Beyond Scope**: Match the existing style without introducing broader changes
-2. **Comment Adaptation**: Match the existing comment style and frequency
-3. **Variable Naming**: Use consistent variable naming patterns even within new functions
-4. **Paradigm Alignment**: Favor the dominant paradigm (functional, OOP, etc.) seen in the codebase
-5. **Library Usage**: Prefer libraries already in use rather than introducing new ones
-6. **Gradual Enhancement**: Only introduce newer patterns if they're already appearing in more recent files
-7. **Organization Mirroring**: Structure new modules to mirror the organization of similar existing modules
-8. **Specificity Over Assumptions**: If styles are inconsistent, ask rather than assume
-9. **Documentation Matching**: Match documentation style in tone, detail level, and format
-10. **Testing Consistency**: Follow established testing patterns for new code
-
-// CONSISTENCY PROMPT TEMPLATE
-Use this template as a prefix to other prompts to maintain style consistency:
-
-```
-Before implementing this feature, I need to:
-
-1. Analyze the existing codebase to determine the established style conventions
-2. Create a style profile based on the analysis
-3. Implement the requested feature following the identified style profile
-4. Verify my implementation maintains consistency with the codebase
-
-I'll start by examining representative files to understand the project's conventions.
-```
-
-// FILE ANALYSIS HINTS
-When examining files, focus on:
-
-- The most recently updated files (they reflect current standards)
-- Files that implement similar functionality to what you're adding
-- Core utility or helper files that are used widely (they set fundamental patterns)
-- Test files for insights on testing methodology
-- Import statements to understand dependency patterns
-
-// ADAPTATION TECHNIQUES
-Use these techniques to adapt your code to match the existing style:
-
-1. **Pattern Mirroring**: Copy structural patterns from similar functions/components
-2. **Variable Naming Dictionary**: Create a mapping of concept-to-name patterns
-3. **Comment Density Matching**: Count comments-per-line-of-code and match
-4. **Error Pattern Replication**: Use identical error handling approaches
-5. **Module Structure Cloning**: Organize new modules like existing ones
-6. **Import Order Replication**: Order imports using the same conventions
-7. **Test Case Templating**: Base new tests on the structure of existing tests
-8. **Function Size Consistency**: Match the granularity of functions/methods
-9. **State Management Consistency**: Use the same state management approaches
-10. **Type Definition Matching**: Format type definitions consistently with existing ones
+3. Best Practices
+   - Check git status before commits
+   - Run formatters before type checks
+   - Keep changes minimal
+   - Follow existing patterns
+   - Document public APIs
+   - Test thoroughly
 
 ---
-> Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
+> Source: [FiquemSabendo/openrefine_mcp](https://github.com/FiquemSabendo/openrefine_mcp) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:claude_md:2026-05-14 -->
 
 ---
