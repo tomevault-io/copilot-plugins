@@ -4,7 +4,7 @@
   "repo": "openiap",
   "description": "Meta-backed standardized protocol for implementing in-app purchases across all platforms ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hyodotdev/openiap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:31:04Z"
+  "distributed_at": "2026-05-14T07:57:19Z"
 }
