@@ -1,0 +1,9 @@
+{
+  "name": "voidnxsec--nixos",
+  "displayName": "nixos",
+  "description": "nixos flakes foundation base",
+  "version": "1.0.0",
+  "author": "VoidNxSEC",
+  "homepage": "https://github.com/VoidNxSEC/nixos",
+  "skills": []
+}
