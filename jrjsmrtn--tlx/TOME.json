@@ -4,7 +4,7 @@
   "repo": "tlx",
   "description": "A Spark DSL for writing TLA+/PlusCal specifications in Elixir",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jrjsmrtn/tlx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:19:59Z"
+  "distributed_at": "2026-05-14T02:00:55Z"
 }
