@@ -1,0 +1,9 @@
+{
+  "name": "permitio--permit-fastmcp",
+  "displayName": "permit-fastmcp",
+  "description": "Permit.io authorization middleware for FastMCP servers",
+  "version": "1.0.0",
+  "author": "permitio",
+  "homepage": "https://github.com/permitio/permit-fastmcp",
+  "skills": []
+}
