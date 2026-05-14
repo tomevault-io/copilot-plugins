@@ -1,6 +1,6 @@
-## cpp-programming-guidelines-cursorrules-prompt-file
+## cpp
 
-> Cursor rules for C++ development with programming guidelines integration.
+> Guide Cursor to write modern C++ and CMake code with clear structure, RAII, const-correctness, and safe error handling.
 
 # C++ Programming Guidelines
 
