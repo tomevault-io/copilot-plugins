@@ -1,0 +1,9 @@
+{
+  "name": "okx--xlayer-reth",
+  "displayName": "xlayer-reth",
+  "description": "XLayer Reth is a customized implementation of Reth optimized for the XLayer network, an Optimism-based Layer 2 solution.",
+  "version": "1.0.0",
+  "author": "okx",
+  "homepage": "https://github.com/okx/xlayer-reth",
+  "skills": []
+}
