@@ -1,0 +1,9 @@
+{
+  "name": "masterix21--laravel-licensing-client",
+  "displayName": "laravel-licensing-client",
+  "description": "A comprehensive Laravel package for integrating license validation in your applications. This client package works with the masterix21/laravel-licensing server to provide secure, offline-capable licen",
+  "version": "1.0.0",
+  "author": "masterix21",
+  "homepage": "https://github.com/masterix21/laravel-licensing-client",
+  "skills": []
+}
