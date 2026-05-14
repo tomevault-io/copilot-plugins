@@ -1,0 +1,9 @@
+{
+  "name": "m96-chan--proctap",
+  "displayName": "ProcTap",
+  "description": "Python library for capturing audio from a specific process (PID). Built on WASAPI process loopback for Windows. Linux (ALSA/PulseAudio/PipeWire) and macOS (CoreAudio) support planned.",
+  "version": "1.0.0",
+  "author": "m96-chan",
+  "homepage": "https://github.com/m96-chan/ProcTap",
+  "skills": []
+}
