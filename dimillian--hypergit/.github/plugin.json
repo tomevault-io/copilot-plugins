@@ -1,0 +1,9 @@
+{
+  "name": "dimillian--hypergit",
+  "displayName": "HyperGit",
+  "description": "A small & fast frontend to quickly search your Github repositories and files",
+  "version": "1.0.0",
+  "author": "Dimillian",
+  "homepage": "https://github.com/Dimillian/HyperGit",
+  "skills": []
+}
