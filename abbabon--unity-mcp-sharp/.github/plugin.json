@@ -1,0 +1,9 @@
+{
+  "name": "abbabon--unity-mcp-sharp",
+  "displayName": "unity-mcp-sharp",
+  "description": "local, dockerized, Unity MCP server written in C#",
+  "version": "1.0.0",
+  "author": "Abbabon",
+  "homepage": "https://github.com/Abbabon/unity-mcp-sharp",
+  "skills": []
+}
