@@ -1,0 +1,9 @@
+{
+  "name": "galoymoney--es-entity",
+  "displayName": "es-entity",
+  "description": "Framework for persisting event-sourced entities in PostgreSQL.",
+  "version": "1.0.0",
+  "author": "GaloyMoney",
+  "homepage": "https://github.com/GaloyMoney/es-entity",
+  "skills": []
+}
