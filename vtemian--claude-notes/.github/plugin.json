@@ -1,0 +1,9 @@
+{
+  "name": "vtemian--claude-notes",
+  "displayName": "claude-notes",
+  "description": "Transform Claude Code transcript JSONL files into readable terminal and HTML formats.",
+  "version": "1.0.0",
+  "author": "vtemian",
+  "homepage": "https://github.com/vtemian/claude-notes",
+  "skills": []
+}
