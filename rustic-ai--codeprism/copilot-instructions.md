@@ -1,219 +1,400 @@
-## codeprism-dev-guidelines
+## complete-implementation-standards
 
-> **ALWAYS follow Design-First Development for every feature and bug fix.**
+> **Purpose:** Enforce complete implementation standards to prevent stub code, placeholders, and incomplete work from being committed. Based on lessons learned from MCP Test Harness audit where 60%+ of "complete" work was actually placeholder implementations.
 
-# CodePrism Development Workflow Rules
+# Complete Implementation Standards - Zero Placeholder Policy
 
-## Design-First Development
+**Purpose:** Enforce complete implementation standards to prevent stub code, placeholders, and incomplete work from being committed. Based on lessons learned from MCP Test Harness audit where 60%+ of "complete" work was actually placeholder implementations.
 
-**ALWAYS follow Design-First Development for every feature and bug fix.**
+**When to use:** ALWAYS - Every commit, every implementation, every code review.
 
-### Process:
-1. **Create design document first** in `design-docs/` folder before any implementation
-2. **Post design as comment** on the corresponding GitHub issue
-3. **Get design approval** before starting implementation
-4. **Follow design exactly** or update design document if changes needed
+## Absolute Prohibitions Before Commit
 
-### Design Document Structure:
-```markdown
-# [Feature/Issue Name] Design Document
+**Rule: ZERO tolerance for placeholder implementations in committed code.**
+Why: Placeholder code creates false sense of completion, misleads project status, and compounds technical debt. Recent audit revealed 50+ TODO comments and extensive stub implementations in supposedly "complete" features.
 
-## Problem Statement
-- Clear description of what needs to be solved
-- Why this is important for the project
+### **Prohibited Code Patterns (Must Fix Before Commit)**
 
-## Proposed Solution
-- High-level approach and architecture
-- Component interactions and data flow
-- API design with Rust types
+```rust
+// ❌ NEVER COMMIT - Placeholder implementations
+// TODO: Implement actual functionality
+// FIXME: This needs proper implementation
+// Placeholder implementation
+// Stub implementation
+// For now, provide stub implementation
+fn placeholder_function() { todo!() }
+fn function() { unimplemented!() }
 
-## Implementation Plan
-- Step-by-step breakdown
-- Dependencies and integration points
-- Testing strategy
+// ❌ NEVER COMMIT - Mock responses in production code
+async fn get_data() -> Result<Data> {
+    // TODO: Replace with actual API call
+    Ok(Data::mock()) // ❌ Mock data in production path
+}
 
-## Alternatives Considered
-- Other approaches evaluated
-- Rationale for chosen solution
+// ❌ NEVER COMMIT - Commented out TODO sections
+// TODO: Add error handling
+// TODO: Implement validation
+// TODO: Add performance monitoring
 
-## Success Criteria
-- How to verify the solution works
-- Performance requirements
-- Integration requirements
+// ❌ NEVER COMMIT - Placeholder test cases
+#[test]
+fn test_feature() {
+    // TODO: Write actual test
+    assert!(true); // ❌ Meaningless assertion
+}
+
+// ❌ NEVER COMMIT - Hardcoded placeholder values
+let memory_mb = 0; // Placeholder - would get actual memory usage
+let result = "placeholder_response"; // TODO: Get real response
 ```
 
-### File Naming Convention:
-- `design-docs/[issue-number]-[descriptive-name].md`
-- Example: `design-docs/042-event-validation-system.md`
+### **Acceptable Temporary Patterns (With Strict Rules)**
 
-## Test-Driven Development (TDD)
-
-**ALWAYS follow TDD cycle: Red → Green → Refactor**
-
-### TDD Process:
-1. **RED**: Write failing test first
-2. **GREEN**: Write minimal code to make test pass
-3. **REFACTOR**: Improve code quality while keeping tests green
-4. **Repeat**: Continue cycle for each new piece of functionality
-
-### Test Requirements:
-- Unit tests for all business logic
-- Integration tests for component interactions
-- Property-based tests for complex algorithms
-- Performance tests for critical paths
-- Minimum 90% code coverage
-
-### Test Structure:
 ```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
+// ✅ ACCEPTABLE - Development-only features with clear annotations
+#[cfg(feature = "development")]
+fn development_mock() -> Data {
+    // This is intentionally a mock for development/testing only
+    Data::mock()
+}
+
+// ✅ ACCEPTABLE - Explicit future work with GitHub issues
+// NOTE: Feature XYZ not yet implemented - tracked in Issue #123
+// This function returns default behavior until Issue #123 is completed
+
+// ✅ ACCEPTABLE - Dead code that will be removed
+#[allow(dead_code)] // Will be used in Issue #456 implementation
+struct FutureFeature { ... }
+
+// ✅ ACCEPTABLE - Intentional unimplemented with clear context
+fn experimental_feature() -> Result<()> {
+    // This feature is intentionally not implemented until design review
+    // completes. See design doc: docs/experimental-feature.md
+    Err("Feature not yet available".into())
+}
+```
+
+## Pre-Commit Verification Checklist
+
+**Rule: Complete this checklist before EVERY commit. No exceptions.**
+
+### **Code Completeness Verification**
+```bash
+# 1. Search for prohibited patterns (MUST return zero results)
+grep -r "TODO" src/ --include="*.rs"
+grep -r "FIXME" src/ --include="*.rs" 
+grep -r "placeholder" src/ --include="*.rs"
+grep -r "stub" src/ --include="*.rs"
+grep -r "unimplemented!" src/ --include="*.rs"
+grep -r "todo!()" src/ --include="*.rs"
+
+# 2. Search for placeholder test patterns
+grep -r "assert!(true)" tests/ --include="*.rs"
+grep -r "// TODO:" tests/ --include="*.rs"
+```
+
+### **Implementation Verification Checklist**
+- [ ] **Zero TODO/FIXME comments** in committed code
+- [ ] **Zero placeholder implementations** (functions that return mock/dummy data)
+- [ ] **Zero stub functions** (functions with empty bodies or `unimplemented!()`)
+- [ ] **All functions have real implementations** that perform their intended purpose
+- [ ] **All tests actually test functionality** (no `assert!(true)` placeholders)
+- [ ] **All error paths are implemented** (not just success paths)
+- [ ] **All configuration options are functional** (not just parsed but ignored)
+- [ ] **All performance requirements are met** (not estimated or placeholder metrics)
+
+### **Quality Verification Checklist**
+- [ ] **All public APIs have comprehensive rustdoc** with working examples
+- [ ] **All functions handle errors appropriately** (not just `.unwrap()` or `.expect()`)
+- [ ] **All performance-critical paths are optimized** (not just basic implementations)
+- [ ] **All security requirements are implemented** (not just documented)
+- [ ] **All integration points are functional** (not mocked in production code)
+
+## Implementation Standards by Code Type
+
+### **Function Implementation Standards**
+
+```rust
+// ❌ INCOMPLETE - Function exists but doesn't work
+pub fn analyze_performance(code: &str) -> PerformanceMetrics {
+    // TODO: Implement actual analysis
+    PerformanceMetrics::default()
+}
+
+// ✅ COMPLETE - Function fully implements its contract
+pub fn analyze_performance(code: &str) -> Result<PerformanceMetrics> {
+    let ast = parse_code(code)?;
+    let complexity = calculate_complexity(&ast)?;
+    let memory_usage = estimate_memory_usage(&ast)?;
+    let execution_time = estimate_execution_time(&ast)?;
     
-    #[test]
-    fn test_feature_success_case() {
-        // Arrange
-        let input = create_valid_input();
-        
-        // Act
-        let result = function_under_test(input);
-        
-        // Assert
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap(), expected_output);
+    Ok(PerformanceMetrics {
+        complexity,
+        memory_usage,
+        execution_time,
+        bottlenecks: identify_bottlenecks(&ast)?,
+        optimizations: suggest_optimizations(&ast)?,
+    })
+}
+```
+
+### **Test Implementation Standards**
+
+```rust
+// ❌ INCOMPLETE - Test exists but doesn't verify functionality
+#[test]
+fn test_performance_analysis() {
+    // TODO: Write actual test
+    assert!(true);
+}
+
+// ✅ COMPLETE - Test thoroughly verifies functionality
+#[test]
+fn test_performance_analysis_comprehensive() {
+    let code = r#"
+        def fibonacci(n):
+            if n <= 1: return n
+            return fibonacci(n-1) + fibonacci(n-2)
+    "#;
+    
+    let metrics = analyze_performance(code).unwrap();
+    
+    // Verify all expected metrics are calculated
+    assert!(metrics.complexity > 0);
+    assert!(metrics.memory_usage.is_some());
+    assert!(metrics.execution_time.is_some());
+    assert!(!metrics.bottlenecks.is_empty());
+    assert!(!metrics.optimizations.is_empty());
+    
+    // Verify specific algorithm detection
+    assert!(metrics.optimizations.iter()
+        .any(|opt| opt.contains("memoization")));
+}
+```
+
+### **Configuration Implementation Standards**
+
+```rust
+// ❌ INCOMPLETE - Configuration parsed but ignored
+#[derive(Deserialize)]
+struct Config {
+    performance_monitoring: bool, // TODO: Actually use this setting
+    max_memory_mb: u64, // TODO: Implement memory limits
+}
+
+// ✅ COMPLETE - Configuration is parsed and actively used
+#[derive(Deserialize)]
+struct Config {
+    performance_monitoring: bool,
+    max_memory_mb: u64,
+}
+
+impl Config {
+    pub fn is_monitoring_enabled(&self) -> bool {
+        self.performance_monitoring
     }
     
-    #[test]
-    fn test_feature_error_case() {
-        // Test error conditions
-    }
-    
-    #[test]
-    fn test_feature_edge_cases() {
-        // Test boundary conditions
+    pub fn enforce_memory_limit(&self, current_usage: u64) -> Result<()> {
+        if current_usage > self.max_memory_mb {
+            return Err(format!("Memory usage {}MB exceeds limit {}MB", 
+                current_usage, self.max_memory_mb).into());
+        }
+        Ok(())
     }
 }
 ```
 
-## Pre-Commit Verification
+## Git Workflow Integration
 
-**ALWAYS verify changes before committing using systematic review process.**
+### **Pre-Commit Hook Implementation**
 
-### Pre-Commit Checklist:
-1. **Generate changelog** from staged changes
-2. **Compare against issue requirements** - ensure all requirements addressed
-3. **Compare against design document** - ensure implementation follows design
-4. **Run complete test suite** - all tests must pass
-5. **Verify no placeholder code** - no TODO/FIXME/unimplemented!() allowed
-6. **Check code coverage** - must maintain 90% minimum
-7. **Run formatting and linting** - cargo fmt && cargo clippy
-
-### Change Verification Process:
+Create `.git/hooks/pre-commit`:
 ```bash
-# 1. Generate changelog from staged changes
-git diff --cached --name-only > changed_files.txt
-git diff --cached > changes.patch
+#!/bin/bash
+set -e
 
-# 2. Review changes against issue requirements
-# - Read GitHub issue thoroughly
-# - Verify each requirement is addressed
-# - Check that no requirements are missed
+echo "🔍 Checking for incomplete implementations..."
 
-# 3. Review changes against design document
-# - Ensure implementation follows design
-# - Verify API matches design specifications
-# - Check that architecture is maintained
+# Check for prohibited patterns
+if grep -r "TODO\|FIXME\|placeholder\|stub implementation" src/ --include="*.rs" --quiet; then
+    echo "❌ COMMIT BLOCKED: Found TODO/FIXME/placeholder code"
+    echo "Found prohibited patterns:"
+    grep -r "TODO\|FIXME\|placeholder\|stub implementation" src/ --include="*.rs" -n
+    echo ""
+    echo "Complete all implementations before committing."
+    exit 1
+fi
 
-# 4. Run comprehensive verification
-cargo test --all-features
-cargo clippy --all-targets --all-features -- -D warnings
-cargo fmt --all -- --check
+# Check for unimplemented/todo macros
+if grep -r "unimplemented!\|todo!()" src/ --include="*.rs" --quiet; then
+    echo "❌ COMMIT BLOCKED: Found unimplemented!() or todo!() macros"
+    grep -r "unimplemented!\|todo!()" src/ --include="*.rs" -n
+    exit 1
+fi
+
+# Check for placeholder tests
+if grep -r "assert!(true)" tests/ --include="*.rs" --quiet; then
+    echo "❌ COMMIT BLOCKED: Found placeholder tests with assert!(true)"
+    grep -r "assert!(true)" tests/ --include="*.rs" -n
+    exit 1
+fi
+
+echo "✅ No incomplete implementations found"
+
+# Run tests to ensure functionality works
+echo "🧪 Running tests to verify functionality..."
+cargo test --quiet || {
+    echo "❌ COMMIT BLOCKED: Tests failed"
+    exit 1
+}
+
+echo "✅ All checks passed - commit allowed"
 ```
 
-### Commit Message Format:
-```
-type(scope): brief description
+### **Commit Message Requirements**
 
-- Detailed description of changes
-- How it addresses the issue requirements
-- Design document reference: design-docs/[issue-number]-[name].md
-- Tests: [number] tests added/updated, all passing
-- Coverage: [percentage]% maintained
-
-closes #[issue-number]
-```
-
-## GitHub Integration
-
-### Common Commands:
 ```bash
-# List issues
-gh issue list | cat
+# ✅ GOOD - Commit message indicates complete implementation
+git commit -m "feat(auth): implement complete JWT authentication system
 
-# View specific issue
-gh issue view [issue-number] | cat
+- Add JWT token generation and validation
+- Implement token refresh mechanism  
+- Add comprehensive error handling for all auth flows
+- Include rate limiting and security headers
+- Add integration tests for all authentication paths
+- Performance: <100ms token validation, <50ms generation
 
-# Create issue comment with design
-gh issue comment [issue-number] --body-file design-docs/[issue-number]-[name].md
+All functionality fully implemented and tested."
 
-# View pull requests
-gh pr list | cat
+# ❌ BAD - Commit message hints at incomplete work
+git commit -m "feat(auth): add authentication framework
 
-# View milestones
-gh api repos/:owner/:repo/milestones | cat
+- Basic JWT structure in place
+- TODO: Add validation logic
+- TODO: Implement refresh tokens
+- Basic tests added"
 ```
 
-### GitHub Workflow:
-1. **Issue Assignment**: Use `gh issue view [number]` to understand requirements
-2. **Design Posting**: Use `gh issue comment` to post design document
-3. **Progress Updates**: Use `gh issue comment` for status updates
-4. **Issue Closure**: Use "closes #[number]" in commit messages for auto-closure
+## Issue Completion Standards
 
-## Workflow Integration
+### **Definition of Done Checklist**
 
-### Complete Development Cycle:
-1. **Issue Analysis**: Read issue with `gh issue view [number] | cat`
-2. **Design Creation**: Create design document in `design-docs/`
-3. **Design Posting**: Post to issue with `gh issue comment`
-4. **TDD Implementation**: Follow Red-Green-Refactor cycle
-5. **Pre-Commit Verification**: Systematic review against requirements and design
-6. **Commit with Closure**: Use proper commit message format with "closes #[number]"
+Before marking any GitHub issue as complete:
 
-### Key Project Files:
-- Implementation completeness checker: [scripts/check-implementation-completeness.sh](mdc:scripts/check-implementation-completeness.sh)
-- MCP Specification: [specification/](mdc:specifications/)
-- MCP Offical Rust SDK source and docs: [external_repos/rust-sdk](mdc:external_repos/rust-sdk/)
+```markdown
+## Implementation Verification (Required)
+- [ ] All code paths have real implementations (no TODOs/placeholders)
+- [ ] All functions perform their documented purpose
+- [ ] All error conditions are handled appropriately
+- [ ] All performance requirements are met with real measurements
+- [ ] All tests verify actual functionality (not placeholder assertions)
 
-## Quality Gates
+## Integration Verification (Required)  
+- [ ] Feature works with existing codebase without mocking
+- [ ] All dependencies are real (not stubbed for testing)
+- [ ] All configuration options are functional
+- [ ] All APIs return real data (not mock responses)
+- [ ] All database/external integrations work with real services
 
-### Design Phase Gates:
-- [ ] Design document created and comprehensive
-- [ ] Design posted as GitHub issue comment  
-- [ ] Design addresses all issue requirements
-- [ ] Design follows project architecture patterns
+## Quality Verification (Required)
+- [ ] Code review completed with focus on implementation completeness
+- [ ] All automated tests pass with real implementations
+- [ ] Performance benchmarks meet requirements with actual measurements
+- [ ] Security review completed for real implementation
+- [ ] Documentation reflects actual functionality (not planned features)
 
-### Implementation Phase Gates:
-- [ ] TDD cycle followed (evidence in commit history)
-- [ ] All tests passing (unit, integration, performance)
-- [ ] Code coverage ≥ 90%
-- [ ] No placeholder implementations (TODO/FIXME removed)
+## Demonstration Requirement
+- [ ] **Live demo completed** showing all claimed functionality working
+- [ ] Demo includes error cases and edge conditions
+- [ ] Demo shows integration with real services/dependencies
+- [ ] Performance characteristics demonstrated with real measurements
+```
 
-### Commit Phase Gates:
-- [ ] Changelog generated and reviewed
-- [ ] Changes match issue requirements completely
-- [ ] Changes follow design document exactly
-- [ ] All automated quality checks pass
-- [ ] Commit message follows format with issue closure
+## Enforcement and Accountability
 
-## Enforcement
+### **Code Review Standards**
 
-**These rules are mandatory for all development work on the CodePrism project.**
+**Reviewer Requirements:**
+- Must verify zero placeholder/stub code in PR
+- Must test actual functionality, not just code structure
+- Must validate that all claims in PR description are demonstrable
+- Must require fixes for any TODO/FIXME comments found
 
-- Design-first approach prevents over-engineering and ensures coherent architecture
-- TDD ensures comprehensive testing and reduces bugs
-- Pre-commit verification prevents incomplete or incorrect implementations
-- gh usage ensures proper GitHub integration and credentials
+### **CI/CD Integration**
 
-**Violation of these rules should result in immediate correction before proceeding.**
+Add to GitHub Actions workflows:
+```yaml
+- name: Check for incomplete implementations
+  run: |
+    if grep -r "TODO\|FIXME\|placeholder\|stub" src/ --include="*.rs" --quiet; then
+      echo "❌ CI FAILED: Found incomplete implementations"
+      grep -r "TODO\|FIXME\|placeholder\|stub" src/ --include="*.rs" -n
+      exit 1
+    fi
+    
+    if grep -r "unimplemented!\|todo!()" src/ --include="*.rs" --quiet; then
+      echo "❌ CI FAILED: Found unimplemented macros"
+      exit 1
+    fi
+```
+
+### **Project Status Verification**
+
+**Monthly Audit Requirements:**
+- Scan entire codebase for prohibited patterns
+- Verify all "completed" features actually work end-to-end
+- Test all claimed performance characteristics with real measurements
+- Validate all documentation against actual implementation
+
+## Examples from MCP Test Harness Audit
+
+### **What Went Wrong**
+Based on recent audit findings, these patterns led to 60%+ placeholder implementations being marked as "complete":
+
+```rust
+// Found in "complete" code:
+// TODO: Replace with actual MCP client execution
+// TODO: Implement actual transport communication  
+// For now, provide stub implementation that validates data structures
+// Placeholder implementation - returns mock response for security testing
+
+vec![self.execute_test_case("find_references", "placeholder", ...
+vec![self.execute_test_case("explain_symbol", "placeholder", ...
+```
+
+### **How to Fix**
+Replace placeholder implementations with functional code:
+
+```rust
+// ❌ BEFORE - Placeholder implementation
+async fn execute_test_case(tool: &str, input: Value) -> TestResult {
+    // TODO: Replace with actual MCP client execution
+    TestResult::placeholder_success()
+}
+
+// ✅ AFTER - Complete implementation  
+async fn execute_test_case(tool: &str, input: Value) -> TestResult {
+    let client = McpClient::connect(&self.server_config).await?;
+    let request = JsonRpcRequest::new(tool, input);
+    let response = client.send_request(request).await?;
+    let validation_result = self.validator.validate(&response)?;
+    
+    TestResult {
+        success: validation_result.passed,
+        duration: response.duration,
+        output: response.data,
+        errors: validation_result.errors,
+    }
+}
+```
+
+---
+
+**Summary:** This rule prevents the systematic placeholder implementation problem discovered in our MCP Test Harness audit. Every commit must contain complete, functional implementations with zero placeholder code.
+
+**Enforcement:** Pre-commit hooks, CI/CD checks, code review requirements, and regular audits ensure compliance.
+
+**Goal:** 100% functional code in every commit, with no exceptions for placeholder implementations.
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
