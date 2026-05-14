@@ -1,74 +1,56 @@
-## self-improve
+## tailscale-mcp
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> When the user's request matches an available skill, invoke it via the Skill tool. The
 
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+## Skill routing
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+When the user's request matches an available skill, invoke it via the Skill tool. The
+skill has multi-step workflows, checklists, and quality gates that produce better
+results than an ad-hoc answer. When in doubt, invoke the skill. A false positive is
+cheaper than a false negative.
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+Key routing rules:
+- Product ideas, "is this worth building", brainstorming → invoke /office-hours
+- Strategy, scope, "think bigger", "what should we build" → invoke /plan-ceo-review
+- Architecture, "does this design make sense" → invoke /plan-eng-review
+- Design system, brand, "how should this look" → invoke /design-consultation
+- Design review of a plan → invoke /plan-design-review
+- Developer experience of a plan → invoke /plan-devex-review
+- "Review everything", full review pipeline → invoke /autoplan
+- Bugs, errors, "why is this broken", "wtf", "this doesn't work" → invoke /investigate
+- Test the site, find bugs, "does this work" → invoke /qa (or /qa-only for report only)
+- Code review, check the diff, "look at my changes" → invoke /review
+- Visual polish, design audit, "this looks off" → invoke /design-review
+- Developer experience audit, try onboarding → invoke /devex-review
+- Ship, deploy, create a PR, "send it" → invoke /ship
+- Merge + deploy + verify → invoke /land-and-deploy
+- Configure deployment → invoke /setup-deploy
+- Post-deploy monitoring → invoke /canary
+- Update docs after shipping → invoke /document-release
+- Weekly retro, "how'd we do" → invoke /retro
+- Second opinion, codex review → invoke /codex
+- Safety mode, careful mode, lock it down → invoke /careful or /guard
+- Restrict edits to a directory → invoke /freeze or /unfreeze
+- Upgrade gstack → invoke /gstack-upgrade
+- Save progress, "save my work" → invoke /context-save
+- Resume, restore, "where was I" → invoke /context-restore
+- Security audit, OWASP, "is this secure" → invoke /cso
+- Make a PDF, document, publication → invoke /make-pdf
+- Launch real browser for QA → invoke /open-gstack-browser
+- Import cookies for authenticated testing → invoke /setup-browser-cookies
+- Performance regression, page speed, benchmarks → invoke /benchmark
+- Review what gstack has learned → invoke /learn
+- Tune question sensitivity → invoke /plan-tune
+- Code quality dashboard → invoke /health
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
-
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
-  
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
-
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
-
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
-
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
-
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+## GBrain Configuration (configured by /setup-gbrain)
+- Engine: pglite
+- Config file: ~/.gbrain/config.json (mode 0600)
+- Setup date: 2026-04-24
+- MCP registered: yes
+- Memory sync: full (pending git repo setup — run gstack-brain-init to complete)
+- Current repo policy: read-write
 
 ---
 > Source: [HexSleeves/tailscale-mcp](https://github.com/HexSleeves/tailscale-mcp) — distributed by [TomeVault](https://tomevault.io).
