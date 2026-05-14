@@ -7,11 +7,11 @@ Production-ready AWS infrastructure for Laravel applications using Terraform.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leek/terraform-aws-laravel](https://github.com/leek/terraform-aws-laravel).
+Original source: `CLAUDE.md` in [leek/terraform-aws-laravel](https://github.com/leek/terraform-aws-laravel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
