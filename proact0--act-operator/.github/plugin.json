@@ -1,0 +1,9 @@
+{
+  "name": "proact0--act-operator",
+  "displayName": "act-operator",
+  "description": "Provides and manages the standards of the Act Template.",
+  "version": "1.0.0",
+  "author": "Proact0",
+  "homepage": "https://github.com/Proact0/act-operator",
+  "skills": []
+}
