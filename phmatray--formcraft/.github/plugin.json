@@ -1,0 +1,9 @@
+{
+  "name": "phmatray--formcraft",
+  "displayName": "FormCraft",
+  "description": "Build type-safe, dynamic forms in Blazor with an elegant fluent   API. FormCraft simplifies complex form creation with automatic   field rendering, validation, and dependency management. Features   in",
+  "version": "1.0.0",
+  "author": "phmatray",
+  "homepage": "https://github.com/phmatray/FormCraft",
+  "skills": []
+}
