@@ -1,10 +1,10 @@
 ## claude-md
 
-> > > A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+> > > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 # gemini-md
 
-> > A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Usage
 
@@ -16,140 +16,179 @@ Read and follow the instructions in .claude/skills/gemini-md/SKILL.md
 
 Or copy the instructions below directly into your CLAUDE.md:
 
-## cc-connect
+## mcp
 
-> A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# cc-connect — agent guide
+# CLAUDE.md
 
-A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What this repo is (mental model)
+## Overview
 
-- **Rust workspace** with five crates (`cc-connect`, `cc-connect-core`, `cc-connect-hook`, `cc-connect-mcp`, `cc-connect-tui`) plus a **Bun + React + Ink** chat panel under `chat-ui/`. Both build into `target/release/`.
-- The substrate is **chat-as-context**: every Peer's Claude reads from a locally-replicated `~/.cc-connect/rooms/<topic>/log.jsonl`. The `UserPromptSubmit` hook (`cc-connect-hook`) injects unread messages into the next prompt. That's the magic.
-- The MCP server (`cc-connect-mcp`) lets Claude write back into the room — `cc_send`, `cc_at`, `cc_drop`, etc.
+This is a production-ready Fastify adapter for the Model Context Protocol (MCP). The project implements a Fastify plugin that enables MCP communication through the JSON-RPC 2.0 specification with full horizontal scaling capabilities. The codebase includes MCP protocol specifications in the `spec/` directory that define the messaging format, lifecycle management, and various protocol features.
 
-## Read these before deep work
+## Key Features
 
-The canonical specs live in repo root, not in this file. Do not duplicate them here.
+- **Complete MCP Protocol Support**: Implements the full Model Context Protocol specification
+- **Server-Sent Events (SSE)**: Real-time streaming communication with session management
+- **Horizontal Scaling**: Redis-backed session management and message broadcasting
+- **Session Persistence**: Message history and reconnection support with Last-Event-ID
+- **Dual Backend Support**: Memory-based for development, Redis-based for production
+- **Cross-Instance Broadcasting**: Messages sent from any instance reach all connected clients
+- **High Availability**: Sessions survive server restarts with automatic cleanup
 
-- @CONTEXT.md — Ubiquitous Language. **Use these terms verbatim** (Room, Ticket, Substrate, Peer, Host, Identity, Pubkey, Message, Hook, Cursor, Backfill, Session, Injection, Context). Never drift to "channel", "session", "client", "history", "memory" except when the term genuinely applies.
-- [PROTOCOL.md](PROTOCOL.md) — wire spec, RFC 2119 keywords. Read on demand for anything touching gossip payloads, Tickets, Backfill RPC, file_drop, or on-disk layout. **Wire-format changes are breaking** — bump `v` and the ALPN.
-- [SECURITY.md](SECURITY.md) — threat model. Read on demand before changing anything in `cc_drop` blocklists, hook injection paths, identity handling, or relay routing.
-- [TODOS.md](TODOS.md) — known gaps and the v0.1 → v1.0 migration list. Read on demand when picking up unfinished work.
-- `docs/adr/` — decisions already made. Don't re-litigate; if you must reopen, mark the contradiction explicitly.
+## Development Commands
 
-## Commands you can't infer from the code
+- **Build**: `npm run build` - Compiles TypeScript to `dist/` directory
+- **Lint**: `npm run lint` - Run ESLint with caching
+- **Lint Fix**: `npm run lint:fix` - Run ESLint with auto-fix
+- **Type Check**: `npm run typecheck` - Run TypeScript compiler without emitting files
+- **Test Individual**: `node --experimental-strip-types --no-warnings --test test/filename.test.ts` - Run a specific test file
+- **Test**: `npm run test` - Run Node.js test runner on test files, do not use `npm run test -- individual.ts` to run individual test file
+- **CI**: `npm run ci` - Full CI pipeline (build + lint + test)
 
-```bash
-# Workspace build (Rust + chat-ui together — install.sh wraps this)
-./install.sh                               # interactive, idempotent; sets up hook + MCP
-cargo build --workspace --release          # Rust only
-(cd chat-ui && bun install && bun run build)   # chat-ui → target/release/cc-chat-ui
+## Architecture
 
-# Tests
-cargo test --workspace                     # Rust unit + integration
-scripts/smoke-test.sh                      # end-to-end: spin two peers, check gossip
-scripts/smoke-test-mcp.sh                  # MCP server tools
-scripts/smoke-test-bg.sh                   # background host-daemon path
-(cd chat-ui && bun test && bunx tsc --noEmit)
+The main entry point is `src/index.ts` which exports a Fastify plugin built with `fastify-plugin`. The plugin structure follows Fastify's standard plugin pattern with proper TypeScript types and supports both memory and Redis backends for horizontal scaling.
 
-# Diagnostics
-./target/release/cc-connect doctor         # verify install (hook entry, identity, perms)
+### Core Components
+
+**Session Management:**
+- `SessionStore` interface with `MemorySessionStore` and `RedisSessionStore` implementations
+- Session metadata storage with automatic TTL (1-hour expiration)
+- Message history storage with configurable limits and automatic trimming
+
+**Message Broadcasting:**
+- `MessageBroker` interface with `MemoryMessageBroker` and `RedisMessageBroker` implementations
+- Topic-based pub/sub using MQEmitter (memory) or MQEmitter-Redis (distributed)
+- Session-specific topics: `mcp/session/{sessionId}/message`
+- Broadcast topics: `mcp/broadcast/notification`
+
+**SSE Integration:**
+- Complete SSE support with session management and persistence
+- Message replay using Last-Event-ID for resumable connections
+- Heartbeat mechanism for connection health monitoring
+- Support for both GET and POST endpoints
+
+### File Structure
+
+```
+src/
+├── brokers/
+│   ├── message-broker.ts          # Interface definition
+│   ├── memory-message-broker.ts   # MQEmitter implementation
+│   └── redis-message-broker.ts    # Redis-backed implementation
+├── stores/
+│   ├── session-store.ts           # Interface definition
+│   ├── memory-session-store.ts    # In-memory implementation
+│   └── redis-session-store.ts     # Redis-backed implementation
+├── decorators/
+│   ├── decorators.ts              # Core MCP decorators
+│   └── pubsub-decorators.ts       # Pub/sub decorators
+├── handlers.ts                    # MCP protocol handlers
+├── routes.ts                      # SSE connection handling
+├── index.ts                       # Plugin entry point with backend selection
+├── schema.ts                      # MCP protocol types
+└── types.ts                       # Plugin types
 ```
 
-`Cargo.lock` **is tracked on purpose** — this repo ships binaries and reproducible builds gate the v0.1 release. Do not gitignore it.
+The complete MCP protocol TypeScript definitions are in `src/schema.ts`, which includes:
+- JSON-RPC 2.0 message types (requests, responses, notifications, batches)
+- MCP protocol lifecycle (initialization, capabilities, ping)
+- Core features: resources, prompts, tools, logging, sampling
+- Client/server request/response/notification types
+- Content types (text, image, audio, embedded resources)
+- Protocol constants and error codes
 
-## Non-obvious gotchas
+Key dependencies:
+- `fastify-plugin` for plugin registration
+- `typed-rpc` for RPC communication
+- `neostandard` for ESLint configuration
+- `ioredis` for Redis connectivity
+- `mqemitter` and `mqemitter-redis` for message broadcasting
 
-- **Vendored ed25519 / ed25519-dalek**. `Cargo.toml`'s `[patch.crates-io]` points at `vendored/ed25519` + `vendored/ed25519-dalek`. The published `ed25519-3.0.0-rc.4` is broken against current `pkcs8` (`Error::KeyMalformed` enum-variant break). Drop the patch only when upstream ships a working `ed25519-dalek`. See [TODOS.md](TODOS.md).
-- **MSRV is 1.89** (`workspace.package.rust-version`). Driven by the iroh stack itself (`iroh@0.97`, `iroh-blobs@0.99`, `iroh-gossip@0.97`, `iroh-relay@0.97` all require 1.89). CI gates on this; install.sh actively `rustup update`s when the user has an older toolchain.
-- **Hook trust boundary**. `cc-connect-hook` injects chat context only when `CC_CONNECT_ROOM` is set in its env (set by `cc-connect-tui` when it spawns the Claude PTY). Unrelated `claude` invocations on the same machine see nothing. Don't loosen this — it's the cross-process isolation guarantee in [SECURITY.md](SECURITY.md).
-- **PID-based active-rooms discovery** lives at `/tmp/cc-connect-$UID/active-rooms/<topic>.active`, not under `~`. PIDs are per-machine; cloud-synced homes would collide. See `docs/adr/0003-pid-based-active-rooms-discovery.md`.
-- **8 KB hook stdout budget.** `cc-connect-hook` keeps each `UserPromptSubmit` payload ≤ 8 KB so it stays inline; over that, Claude Code falls back to a 2 KB preview + persisted file. See `docs/adr/0004-hook-budget-and-graceful-overflow.md`.
-- **`cc_drop` path blocklist** rejects `~/.ssh`, `~/.aws`, `.env*`, `id_rsa*`, `*.pem`, etc. Don't widen it without a SECURITY.md update; don't narrow it without an explicit threat-model justification.
-- **iroh dependency pin** — `iroh 0.97`, `iroh-gossip 0.97`, `iroh-blobs 0.99`. The combo is non-trivial; bumping any one usually requires bumping all three together.
+The project uses ESM modules (`"type": "module"`) and includes comprehensive MCP protocol specifications in markdown format under `spec/` covering the same areas as the TypeScript schema.
 
-## Workflow
+## Configuration Options
 
-- **Plan before coding for protocol or hook work.** Anything touching wire format, identity, hook injection, or `cc_drop` semantics gets a Plan-mode pass first — these break compatibility silently if you guess.
-- **Treat ADRs as first-class.** When a decision is hard-to-reverse, surprising-without-context, and the result of a real trade-off, write one in `docs/adr/NNNN-kebab-name.md` (see `.claude/skills/grill-with-docs/ADR-FORMAT.md`). Don't write ADRs for ephemeral decisions.
-- **Domain-first naming.** New module names should reflect terms in @CONTEXT.md. If you need a new domain term, update CONTEXT.md in the same change. The `improve-codebase-architecture` and `grill-with-docs` skills enforce this — invoke them when in doubt.
-- **Tests over assertions.** Real bugs in this codebase have come from gossip ordering and hook concurrency, not from pure-function edge cases. Prefer integration smoke tests under `scripts/` over fine-grained mocks.
+### Plugin Options
+- `serverInfo`: Server identification (name, version)
+- `capabilities`: MCP capabilities configuration
+- `instructions`: Optional server instructions
+- `enableSSE`: Enable Server-Sent Events support (default: false)
+- `redis`: Redis configuration for horizontal scaling (optional)
+  - `host`: Redis server hostname
+  - `port`: Redis server port
+  - `db`: Redis database number
+  - `password`: Redis authentication password
+  - Additional ioredis connection options supported
 
-## Release checklist (read before tagging or merging release-shaped PRs)
+### Backend Selection
+The plugin automatically selects the appropriate backend based on configuration:
+- **Memory backends**: Used when `redis` option is not provided (development/single-instance)
+- **Redis backends**: Used when `redis` option is provided (production/multi-instance)
 
-### Tag namespaces (pick the right one)
+## TypeScript Configuration
 
-- `v0.X.Y` / `v0.X.Y-rc.1` → ships **Rust binaries** via
-  `.github/workflows/release.yml` (cc-connect, cc-connect-hook,
-  cc-chat-ui tarballs).
-- `vscode-extension-v0.X.Y` / `…-rc.1` → ships the **VSCode
-  extension .vsix** via
-  `.github/workflows/vscode-extension-release.yml`. The workflow
-  refuses to package if the tag's version doesn't match
-  `vscode-extension/package.json::version`, so bump that file in the
-  same commit you tag from.
+Uses a base TypeScript configuration (`tsconfig.base.json`) extended by the main `tsconfig.json`. The build targets ES modules with strict type checking enabled.
 
-The two pipelines are independent; tagging one does not trigger the
-other. The extension declares its required minimum cc-connect binary
-version in its `package.json` so users get a clear error when they
-mix incompatible versions.
+## Testing
 
-### Install / uninstall surface contract
+The project includes comprehensive test coverage:
+- **178 tests total** covering all functionality including OAuth 2.1 authorization
+- **Memory backend tests**: Session management, message broadcasting, SSE handling
+- **Redis backend tests**: Session persistence, cross-instance messaging, failover
+- **Integration tests**: Full plugin lifecycle, multi-instance deployment
+- **Authorization tests**: JWT validation, token introspection, OAuth 2.1 compliance
+- **Test utilities**: Redis test helpers with automatic cleanup, JWT utilities with dynamic JWKS generation
 
-Every release MUST keep `cc-connect uninstall` able to reverse the new
-install. The uninstall + upgrade flows promise users they can wipe a
-machine clean and start fresh; if a release adds new on-disk state but
-not the matching cleanup, every user upgrading after will accumulate
-dead files / settings forever.
+Run tests with: `npm run test` (requires Redis running on localhost:6379)
 
-The cleanup surface lives in `crates/cc-connect/src/lifecycle.rs`:
+### SSE Testing Best Practices
 
-- **`INSTALLED_BIN_NAMES`** — every binary `install.sh` symlinks into
-  `~/.local/bin`. New binary in the workspace? Add it here (and to
-  `install.sh`'s symlink loop).
-- **`MCP_SERVER_KEY`** — the key used in `~/.claude.json::mcpServers`
-  and by `claude mcp add`. Keep `setup.rs` and `lifecycle.rs` in sync.
-- **`run_clear`** — stops every long-running daemon. New daemon
-  variant? Add a `list_running` + `run_stop` and call them here.
-- **`remove_hook_from_settings` / `remove_mcp_from_claude_json`** —
-  the JSON-mutation paths. New `~/.claude/settings.json` key written
-  during install (e.g. a new hook event)? Strip it here too.
-- **`run_uninstall` --purge** — wipes `~/.cc-connect/`. New persistent
-  file written outside that tree? Either move it inside, or add an
-  explicit removal step here.
+When testing Server-Sent Events (SSE) endpoints, it's critical to properly clean up streams to prevent hanging event loops:
 
-Every release-shaped PR (anything touching `install.sh`, `setup.rs`,
-or any new persistent file location) MUST include a corresponding
-update to `lifecycle.rs` and a test exercising the cleanup. Reviewers:
-look for a paired commit; reject if missing.
+```typescript
+// ✅ Correct way to test SSE endpoints
+const response = await app.inject({
+  method: 'GET',
+  url: '/mcp',
+  payloadAsStream: true,  // Required for SSE responses
+  headers: {
+    accept: 'text/event-stream'
+  }
+})
 
-## Repository etiquette
+t.assert.strictEqual(response.statusCode, 200)
+t.assert.strictEqual(response.headers['content-type'], 'text/event-stream')
+response.stream().destroy()  // ⚠️ CRITICAL: Always destroy the stream
+```
 
-- **Commit messages**: `type(scope): subject`. Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`. Scopes are real components — `core`, `hook`, `mcp`, `tui`, `chat-ui`, `chat-daemon`, `install`, `room`, `security`, etc. Examples in `git log --oneline`.
-- **Branch model**: trunk-based on `main`. Feature work goes through PRs; ship small.
-- **PR title** mirrors the eventual commit subject. PR body has `## Summary` and `## Test plan` sections (see `.github/PULL_REQUEST_TEMPLATE.md`).
-- **License**: MIT OR Apache-2.0 (workspace-level). Every new crate inherits it via `license.workspace = true`.
+**Why this is important:**
+- SSE responses create readable streams that keep the event loop alive
+- Without explicit cleanup, tests will hang with "Promise resolution is still pending" errors
+- The `payloadAsStream: true` option is required for proper SSE response handling
+- Always call `response.stream().destroy()` after assertions to clean up resources
 
-## Agent skills
+### Test Utilities
 
-This repo's `.claude/skills/` includes the cc-connect-specific skills (`cc-connect-setup`, `cc-connect-chat`, `cc-connect-relay-setup`) plus the engineering skills from `mattpocock/skills`. Per-repo configuration the skills look for:
+**JWT Testing**: Uses dynamic JWKS generation with proper RSA key pairs:
+- `generateMockJWKSResponse()`: Dynamically generates JWKS from RSA public key
+- `setupMockAgent()`: Uses undici MockAgent for HTTP mocking instead of custom fetch mocks
+- `createTestJWT()`: Creates properly signed JWT tokens for testing
 
-- **Issue tracker** — GitHub Issues at `Minara-AI/cc-connect` (use the `gh` CLI). See `docs/agents/issue-tracker.md`.
-- **Triage labels** — defaults: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
-- **Domain docs** — single context. Glossary at @CONTEXT.md, ADRs under `docs/adr/`, wire spec at [PROTOCOL.md](PROTOCOL.md). See `docs/agents/domain-docs.md`.
-
-## What NOT to do
-
-- Don't introduce a JS/TS dep in the Rust crates or vice versa. The two halves talk through `~/.cc-connect/rooms/<topic>/chat.sock` (IPC) and `log.jsonl` (file tail) — keep that contract.
-- Don't add a build step that requires a network reach during `cargo build`. The vendored ed25519 patch and pinned iroh versions assume an offline-friendly build after first fetch.
-- Don't `unwrap()` in code paths the hook calls. Hook failures degrade to a no-op (Claude Code's `<persisted-output>` safety net), but a panic costs the whole prompt.
-- Don't store room state in a place that crosses machines (cloud-synced `~`). PID files belong in `/tmp/cc-connect-$UID/`; identity stays at `~/.cc-connect/identity.key` mode `0600`.
+**Mock HTTP Requests**: Uses undici's MockAgent for robust HTTP mocking:
+```typescript
+const restoreMock = setupMockAgent({
+  'https://auth.example.com/.well-known/jwks.json': generateMockJWKSResponse()
+})
+// Test code here
+restoreMock() // Clean up
+```
 
 ---
-> Source: [Minara-AI/cc-connect](https://github.com/Minara-AI/cc-connect) — distributed by [TomeVault](https://tomevault.io).
+> Source: [platformatic/mcp](https://github.com/platformatic/mcp) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:gemini_md:2026-05-06 -->
 
 ---
