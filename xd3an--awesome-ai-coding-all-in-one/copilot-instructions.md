@@ -1,119 +1,58 @@
-## cloudflare-workers-hono-angular-saas-cursorrules-prompt-file
+## code-guidelines-cursorrules-prompt-file
 
-> Cursor rules for full-stack SaaS applications on Cloudflare Workers with Hono APIs, Angular frontends, typed RPC, D1/Neon, and production observability.
+> Cursor rules for code development with guidelines integration.
 
-# Cloudflare Workers + Hono + Angular SaaS
+1. **Verify Information**: Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.
 
-Full-stack SaaS on Cloudflare Workers with Hono API, Angular frontend, and enterprise integrations.
+2. **File-by-File Changes**: Make changes file by file and give me a chance to spot mistakes.
 
-## Stack
-CF Workers+Hono v4.12+ | Angular 21+Ionic 8+PrimeNG 21 | D1/Neon | Drizzle v1 | Zod | Clerk Core 3 | Stripe | Inngest v4 | Resend | Bun 1.3 | Playwright v1.59+ | Vitest | ESLint+Prettier | PostHog | Sentry
+3. **No Apologies**: Never use apologies.
 
-## TypeScript
-- Strict mode, never `any` (use `unknown`), prefer `interface` over `type`
-- `readonly` when not reassigned, `undefined` over `null`
-- Zod as source of truth for validation
-- ESLint flat config (`eslint.config.ts`) + typescript-eslint + Prettier
+4. **No Understanding Feedback**: Avoid giving feedback about understanding in comments or documentation.
 
-## Hono API
-- Inline handlers for RPC type inference (never separate controller files)
-- Method chaining: `app.use().get().post()` preserves types
-- `hc<AppType>(BASE_URL)` for typed client
-- `@hono/zod-validator` on ALL request bodies
-- `app.onError()` + `app.notFound()` centralized
-- Split large apps: `app.route('/path', subApp)`
-- Error envelope: `{ error: string, code?: string, details?: unknown }`
-- `createFactory<{ Bindings: Env }>()` for reusable middleware chains
-- `GET /health` returns `{ status, version, timestamp }`
+5. **No Whitespace Suggestions**: Don't suggest whitespace changes.
 
-## Angular
-- Standalone only (no NgModules), Angular 21 zoneless by default
-- Signals stable: `signal()`, `computed()`, `effect()`, `linkedSignal()`, `resource()`
-- `HttpResource` for data fetching
-- Control flow: `@if`/`@for`/`@switch`/`@defer` (not `*ngIf`/`*ngFor`)
-- kebab-case files, one component per file, `providedIn: 'root'`
-- PrimeNG for UI components
+6. **No Summaries**: Don't summarize changes made.
 
-## Drizzle v1
-- `sqliteTable` for D1, plural snake_case tables
-- `$inferSelect`/`$inferInsert` for types
-- `createInsertSchema`/`createSelectSchema` from `drizzle-orm/zod`
-- Batch API (not `BEGIN` — D1 doesn't support transactions)
-- Prepared statements for repeated queries
+7. **No Inventions**: Don't invent changes other than what's explicitly requested.
 
-## CF Workers
-- CPU limit: 10ms free / 30s paid
-- `ctx.waitUntil()` for async post-response work
-- `ctx.passThroughOnException()` for graceful degradation
-- Bindings typed via `Env` interface
-- D1 global read replication for latency reduction
-- Workers Builds for native CI/CD (preview URLs per branch)
+8. **No Unnecessary Confirmations**: Don't ask for confirmation of information already provided in the context.
 
-## Inngest v4 (Background Jobs)
-- `eventType('name', { schema: z.object({...}) })` per-event (v4 breaking)
-- `inngest/cloudflare` adapter + `inngest.setEnvVars(c.env)` for Workers
-- Step functions: `step.run()`, `step.sleep()`, `step.waitForEvent()`, `step.sendEvent()`
-- `step.ai.infer()` offloads inference (zero compute during wait)
-- `step.realtime.publish()` for durable pub/sub
-- Each step idempotent, retried independently
+9. **Preserve Existing Code**: Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.
 
-## Testing (TDD)
-- Failing test FIRST, then implement
-- Playwright for E2E: 6 breakpoints (375, 390, 768, 1024, 1280, 1920)
-- Vitest for unit tests
-- No sleeps — use `waitFor`/`toBeVisible()`
-- Selectors: `data-testid` > role > text
-- axe-core 0 violations
-- `PROD_URL` env var for production testing
+10. **Single Chunk Edits**: Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.
 
-## Security (OWASP Top 10:2025)
-- Must: HSTS, CSP (nonce-based strict), X-Content-Type-Options, X-Frame-Options
-- Must: Referrer-Policy, Permissions-Policy, COOP, COEP, CORP
-- Remove: X-XSS-Protection, Expect-CT, Server, X-Powered-By
-- Turnstile on all forms, Zod validation on all inputs
-- Stripe webhooks: verify signature, deduplicate via KV
+11. **No Implementation Checks**: Don't ask the user to verify implementations that are visible in the provided context.
 
-## Auth (Clerk)
-- JWT verified per-request (no session store)
-- Webhook sync: Clerk → D1 for user data
-- RBAC: Clerk org roles for org-scoped, D1 for app-level
-- Route layers: public → auth-only → role-gated → owner-only
+12. **No Unnecessary Updates**: Don't suggest updates or changes to files when there are no actual modifications needed.
 
-## Quality
-- Lighthouse: a11y ≥95, perf ≥75
-- WCAG 2.2 AA compliance
-- LCP ≤2.5s, CLS ≤0.1, INP ≤200ms
-- JS ≤200KB gz, CSS ≤50KB gz
-- Functions ≤50 lines, cyclomatic complexity ≤10
+13. **Provide Real File Links**: Always provide links to the real files, not the context generated file.
 
-## Deploy
-```bash
-npx wrangler deploy && curl -sX POST \
-  "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
-  -H "Authorization: Bearer ${CF_API_TOKEN}" \
-  -H "Content-Type: application/json" \
-  -d '{"purge_everything":true}'
-```
+14. **No Current Implementation**: Don't show or discuss the current implementation unless specifically requested.
 
-## Hono Worker Starter
-```typescript
-import { Hono } from 'hono';
-import { secureHeaders } from 'hono/secure-headers';
-import { cors } from 'hono/cors';
+15. **Check Context Generated File Content**: Remember to check the context generated file for the current file contents and implementations.
 
-interface Env {
-  DB: D1Database;
-  KV: KVNamespace;
-  AI: Ai;
-  TURNSTILE_SECRET: string;
-}
+16. **Use Explicit Variable Names**: Prefer descriptive, explicit variable names over short, ambiguous ones to enhance code readability.
 
-const app = new Hono<{ Bindings: Env }>();
-app.use('*', secureHeaders());
-app.use('/api/*', cors({ origin: ['https://yourdomain.com'] }));
-app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
-export default app;
-```
+17. **Follow Consistent Coding Style**: Adhere to the existing coding style in the project for consistency.
+
+18. **Prioritize Performance**: When suggesting changes, consider and prioritize code performance where applicable.
+
+19. **Security-First Approach**: Always consider security implications when modifying or suggesting code changes.
+
+20. **Test Coverage**: Suggest or include appropriate unit tests for new or modified code.
+
+21. **Error Handling**: Implement robust error handling and logging where necessary.
+
+22. **Modular Design**: Encourage modular design principles to improve code maintainability and reusability.
+
+23. **Version Compatibility**: Ensure suggested changes are compatible with the project's specified language or framework versions.
+
+24. **Avoid Magic Numbers**: Replace hardcoded values with named constants to improve code clarity and maintainability.
+
+25. **Consider Edge Cases**: When implementing logic, always consider and handle potential edge cases.
+
+26. **Use Assertions**: Include assertions wherever possible to validate assumptions and catch potential errors early.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
