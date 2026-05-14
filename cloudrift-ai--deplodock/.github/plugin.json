@@ -1,0 +1,9 @@
+{
+  "name": "cloudrift-ai--deplodock",
+  "displayName": "deplodock",
+  "description": "Benchmark and deploy optimized LLM models on GPU servers with vLLM or SGLang. Chose from a list of optimized recipes for popular models or create your own with custom configurations. Run benchmarks ac",
+  "version": "1.0.0",
+  "author": "cloudrift-ai",
+  "homepage": "https://github.com/cloudrift-ai/deplodock",
+  "skills": []
+}
