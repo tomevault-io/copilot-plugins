@@ -1,0 +1,9 @@
+{
+  "name": "scenetest--scenetest-js",
+  "displayName": "scenetest-js",
+  "description": "Scene-based multi-actor E2E testing for modern JS applications",
+  "version": "1.0.0",
+  "author": "scenetest",
+  "homepage": "https://github.com/scenetest/scenetest-js",
+  "skills": []
+}
