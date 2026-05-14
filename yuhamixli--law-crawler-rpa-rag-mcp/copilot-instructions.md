@@ -1,38 +1,38 @@
-## 002-development-workflow
+## 003-code-generation
 
-> - Always include error handling and input validation
+> - Generate complete, runnable code without placeholders
 
-# Development Workflow Rules
+# Code Generation Quality Rules
 
-## Code Quality Standards
-- Always include error handling and input validation
-- Write clear, self-documenting code with meaningful variable names
-- Include appropriate comments for complex logic
-- Follow language-specific best practices and conventions
+## Code Completeness
+- Generate complete, runnable code without placeholders
+- Include all necessary imports and dependencies
+- Provide full implementation, not just function signatures
+- Include proper initialization and cleanup code
 
-## File Organization
-- Use consistent naming conventions across the project
-- Organize files in logical directory structures
-- Keep related files grouped together
-- Maintain a clean project root directory
+## Error Handling
+- Implement comprehensive error handling for all functions
+- Use appropriate exception types and error messages
+- Include input validation for all public functions
+- Log errors appropriately for debugging
 
-## Git Workflow
-- Make small, focused commits with descriptive messages
-- Include issue numbers in commit messages when applicable
-- Use semantic commit messages (feat:, fix:, docs:, etc.)
-- Always test code before committing
+## Code Style
+- Follow consistent indentation and formatting
+- Use meaningful variable and function names
+- Add helpful comments for complex logic
+- Organize code into logical sections with clear separation
 
-## Documentation
-- Keep README.md updated with current setup instructions
-- Document API endpoints and their usage
-- Include examples for complex functionality
-- Maintain changelog for significant updates
+## Performance Considerations
+- Write efficient algorithms when possible
+- Avoid unnecessary resource usage
+- Include performance comments for complex operations
+- Consider memory management best practices
 
-## Development Environment
-- Use consistent development tools across team members
-- Include necessary configuration files in version control
-- Document environment setup requirements
-- Use package managers for dependency management
+## Testing and Debugging
+- Include basic test cases or usage examples
+- Add debug logging where appropriate
+- Ensure code is easily testable and modular
+- Provide clear documentation for function parameters and return values
 
 ---
 > Source: [Yuhamixli/Law-Crawler-RPA-RAG-MCP](https://github.com/Yuhamixli/Law-Crawler-RPA-RAG-MCP) — distributed by [TomeVault](https://tomevault.io).
