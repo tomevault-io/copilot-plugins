@@ -1,166 +1,177 @@
 ## agents-md
 
-> My primary goal is to build performant, resilient, and maintainable server-rendered **Multi-Page Applications (MPAs)**.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# GitHub Copilot Instructions: MPA-First Mandate
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Core Philosophy
+## Overview
 
-My primary goal is to build performant, resilient, and maintainable server-rendered **Multi-Page Applications (MPAs)**.
+This is a production-ready Fastify adapter for the Model Context Protocol (MCP). The project implements a Fastify plugin that enables MCP communication through the JSON-RPC 2.0 specification with full horizontal scaling capabilities. The codebase includes MCP protocol specifications in the `spec/` directory that define the messaging format, lifecycle management, and various protocol features.
 
-- **Prioritize the Platform:** Use HTML, CSS, and server-side logic (PHP) first.
-- **Simplicity Over Complexity:** Choose simple, durable solutions over complex, trendy ones.
-- **Progressive Enhancement:** JavaScript is an enhancement, not a requirement. Core functionality must work without it. I use **jQuery** to implement these enhancements.
+## Key Features
 
----
+- **Complete MCP Protocol Support**: Implements the full Model Context Protocol specification
+- **Server-Sent Events (SSE)**: Real-time streaming communication with session management
+- **Horizontal Scaling**: Redis-backed session management and message broadcasting
+- **Session Persistence**: Message history and reconnection support with Last-Event-ID
+- **Dual Backend Support**: Memory-based for development, Redis-based for production
+- **Cross-Instance Broadcasting**: Messages sent from any instance reach all connected clients
+- **High Availability**: Sessions survive server restarts with automatic cleanup
 
-## 1. PRIME DIRECTIVE: MPA-Only Architecture
+## Development Commands
 
-- **You MUST build server-rendered MPAs.** Each distinct page or view is its own file (e.g., `.php`, `.html`) at a unique URL.
-- **Navigation MUST use standard anchor links (`<a href="...">`)** that trigger a full page load.
-- **Core functionality MUST work with JavaScript disabled.**
+- **Build**: `npm run build` - Compiles TypeScript to `dist/` directory
+- **Lint**: `npm run lint` - Run ESLint with caching
+- **Lint Fix**: `npm run lint:fix` - Run ESLint with auto-fix
+- **Type Check**: `npm run typecheck` - Run TypeScript compiler without emitting files
+- **Test Individual**: `node --experimental-strip-types --no-warnings --test test/filename.test.ts` - Run a specific test file
+- **Test**: `npm run test` - Run Node.js test runner on test files, do not use `npm run test -- individual.ts` to run individual test file
+- **CI**: `npm run ci` - Full CI pipeline (build + lint + test)
 
-### 🚫 BANNED TECHNOLOGIES & PATTERNS
+## Architecture
 
-- **DO NOT** use or reference any Single-Page Application (SPA) frameworks or libraries. This includes **React, Angular, Vue, Svelte, Next.js, and Nuxt.js**.
-- **DO NOT** use **JSX, TSX, or any form of client-side routing**.
+The main entry point is `src/index.ts` which exports a Fastify plugin built with `fastify-plugin`. The plugin structure follows Fastify's standard plugin pattern with proper TypeScript types and supports both memory and Redis backends for horizontal scaling.
 
----
+### Core Components
 
-## 2. JavaScript Rules (Progressive Enhancement with jQuery)
+**Session Management:**
+- `SessionStore` interface with `MemorySessionStore` and `RedisSessionStore` implementations
+- Session metadata storage with automatic TTL (1-hour expiration)
+- Message history storage with configurable limits and automatic trimming
 
-- **jQuery is the standard.** Use jQuery for all DOM manipulation, event handling, and AJAX requests.
-- **Include jQuery from a CDN** in the base layout file, just before the closing `</body>` tag.
-- **Write Unobtrusive JavaScript.** Always ensure the site is fully functional if JavaScript fails or is disabled.
-- Wrap all jQuery code in `$(function() { ... });` to ensure the DOM is ready.
-- Handle AJAX errors gracefully using `.done()`, `.fail()`, and `.always()`.
+**Message Broadcasting:**
+- `MessageBroker` interface with `MemoryMessageBroker` and `RedisMessageBroker` implementations
+- Topic-based pub/sub using MQEmitter (memory) or MQEmitter-Redis (distributed)
+- Session-specific topics: `mcp/session/{sessionId}/message`
+- Broadcast topics: `mcp/broadcast/notification`
 
-**Correct Pattern: Unobtrusive Toggle with jQuery**
-```html
-<!-- HTML works on its own -->
-<a href="?show_details=true#details" class="toggle-link">Show Details</a>
-<div id="details" style="display: none;">
-    <p>Here are the details you requested.</p>
-</div>
+**SSE Integration:**
+- Complete SSE support with session management and persistence
+- Message replay using Last-Event-ID for resumable connections
+- Heartbeat mechanism for connection health monitoring
+- Support for both GET and POST endpoints
+
+### File Structure
+
 ```
-```javascript
-// JS enhances the experience
-$(function() {
-  $('.toggle-link').on('click', function(event) {
-    event.preventDefault();
-    $('#details').slideToggle(300, () => {
-      const isVisible = $('#details').is(':visible');
-      $(this).text(isVisible ? 'Hide Details' : 'Show Details');
-    });
-  });
-});
+src/
+├── brokers/
+│   ├── message-broker.ts          # Interface definition
+│   ├── memory-message-broker.ts   # MQEmitter implementation
+│   └── redis-message-broker.ts    # Redis-backed implementation
+├── stores/
+│   ├── session-store.ts           # Interface definition
+│   ├── memory-session-store.ts    # In-memory implementation
+│   └── redis-session-store.ts     # Redis-backed implementation
+├── decorators/
+│   ├── decorators.ts              # Core MCP decorators
+│   └── pubsub-decorators.ts       # Pub/sub decorators
+├── handlers.ts                    # MCP protocol handlers
+├── routes.ts                      # SSE connection handling
+├── index.ts                       # Plugin entry point with backend selection
+├── schema.ts                      # MCP protocol types
+└── types.ts                       # Plugin types
 ```
 
----
+The complete MCP protocol TypeScript definitions are in `src/schema.ts`, which includes:
+- JSON-RPC 2.0 message types (requests, responses, notifications, batches)
+- MCP protocol lifecycle (initialization, capabilities, ping)
+- Core features: resources, prompts, tools, logging, sampling
+- Client/server request/response/notification types
+- Content types (text, image, audio, embedded resources)
+- Protocol constants and error codes
 
-## 3. HTML Rules
+Key dependencies:
+- `fastify-plugin` for plugin registration
+- `typed-rpc` for RPC communication
+- `neostandard` for ESLint configuration
+- `ioredis` for Redis connectivity
+- `mqemitter` and `mqemitter-redis` for message broadcasting
 
-- **Semantic HTML is Mandatory:** Use `<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`, etc., correctly.
-- **Accessibility (A11Y) is critical (WCAG 2.1 AA):**
-  - All form inputs must have a `<label>`.
-  - Use descriptive `alt` text for images. `alt=""` for decorative images.
-- **Use Speculation Rules** in the `<head>` to prerender links for instant navigation.
-  ```html
-  <script type="speculationrules">
-  { "prerender": [{"source": "document", "where": {"href_matches": "/*"}, "eagerness": "moderate"}] }
-  </script>
-  ```
-- **SEO is a top priority.** Every page needs a complete `<head>` with `title`, `meta description`, `canonical` link, and Open Graph tags.
+The project uses ESM modules (`"type": "module"`) and includes comprehensive MCP protocol specifications in markdown format under `spec/` covering the same areas as the TypeScript schema.
 
----
+## Configuration Options
 
-## 4. CSS Rules
+### Plugin Options
+- `serverInfo`: Server identification (name, version)
+- `capabilities`: MCP capabilities configuration
+- `instructions`: Optional server instructions
+- `enableSSE`: Enable Server-Sent Events support (default: false)
+- `redis`: Redis configuration for horizontal scaling (optional)
+  - `host`: Redis server hostname
+  - `port`: Redis server port
+  - `db`: Redis database number
+  - `password`: Redis authentication password
+  - Additional ioredis connection options supported
 
-- **Use Modern CSS:** Use Flexbox and Grid for all layouts.
-- **Use Custom Properties (`--var-name`)** for theming and maintainability.
-- **Use Native CSS View Transitions** for fluid "app-like" navigation.
-  ```css
-  @view-transition { navigation: auto; }
+### Backend Selection
+The plugin automatically selects the appropriate backend based on configuration:
+- **Memory backends**: Used when `redis` option is not provided (development/single-instance)
+- **Redis backends**: Used when `redis` option is provided (production/multi-instance)
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: fade-out 0.3s ease-out both;
+## TypeScript Configuration
+
+Uses a base TypeScript configuration (`tsconfig.base.json`) extended by the main `tsconfig.json`. The build targets ES modules with strict type checking enabled.
+
+## Testing
+
+The project includes comprehensive test coverage:
+- **178 tests total** covering all functionality including OAuth 2.1 authorization
+- **Memory backend tests**: Session management, message broadcasting, SSE handling
+- **Redis backend tests**: Session persistence, cross-instance messaging, failover
+- **Integration tests**: Full plugin lifecycle, multi-instance deployment
+- **Authorization tests**: JWT validation, token introspection, OAuth 2.1 compliance
+- **Test utilities**: Redis test helpers with automatic cleanup, JWT utilities with dynamic JWKS generation
+
+Run tests with: `npm run test` (requires Redis running on localhost:6379)
+
+### SSE Testing Best Practices
+
+When testing Server-Sent Events (SSE) endpoints, it's critical to properly clean up streams to prevent hanging event loops:
+
+```typescript
+// ✅ Correct way to test SSE endpoints
+const response = await app.inject({
+  method: 'GET',
+  url: '/mcp',
+  payloadAsStream: true,  // Required for SSE responses
+  headers: {
+    accept: 'text/event-stream'
   }
+})
 
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-  ```
+t.assert.strictEqual(response.statusCode, 200)
+t.assert.strictEqual(response.headers['content-type'], 'text/event-stream')
+response.stream().destroy()  // ⚠️ CRITICAL: Always destroy the stream
+```
 
----
+**Why this is important:**
+- SSE responses create readable streams that keep the event loop alive
+- Without explicit cleanup, tests will hang with "Promise resolution is still pending" errors
+- The `payloadAsStream: true` option is required for proper SSE response handling
+- Always call `response.stream().destroy()` after assertions to clean up resources
 
-## 5. PHP Rules
+### Test Utilities
 
-- **Target PHP 8.1+** and always start files with `declare(strict_types=1);`.
-- **Adhere to PSR-12** for clean, standardized code.
-- **Use modern PHP features:** constructor property promotion, `readonly` properties, `match` expressions, and enums.
+**JWT Testing**: Uses dynamic JWKS generation with proper RSA key pairs:
+- `generateMockJWKSResponse()`: Dynamically generates JWKS from RSA public key
+- `setupMockAgent()`: Uses undici MockAgent for HTTP mocking instead of custom fetch mocks
+- `createTestJWT()`: Creates properly signed JWT tokens for testing
 
-**Correct Pattern: Modern PHP Class**
-```php
-<?php
-declare(strict_types=1);
-namespace App\Models;
-
-readonly class User
-{
-    public function __construct(
-        public int $id,
-        public string $name,
-    ) {}
-}
+**Mock HTTP Requests**: Uses undici's MockAgent for robust HTTP mocking:
+```typescript
+const restoreMock = setupMockAgent({
+  'https://auth.example.com/.well-known/jwks.json': generateMockJWKSResponse()
+})
+// Test code here
+restoreMock() // Clean up
 ```
 
 ---
-
-## 6. Security Rules
-
-- **Always use parameterized queries** to prevent SQL injection. No exceptions.
-- **All POST forms must have CSRF protection.** Generate a token, store it in the session, and validate it on submission.
-- **Implement a strict Content Security Policy (CSP).** Whitelist any CDNs you use (like for jQuery).
-
-**Correct Pattern: CSP Header with jQuery CDN**
-```php
-<?php
-$csp = "default-src 'self'; " .
-       "script-src 'self' https://code.jquery.com; " . // Whitelist the CDN
-       "style-src 'self'; " .
-       "img-src 'self'; " .
-       "form-action 'self'; " .
-       "frame-ancestors 'none';";
-header("Content-Security-Policy: " . $csp);
-?>
-```
-
----
-
-## 7. Folder Structure
-
-Follow this MVC-style folder structure for all projects.
-
-```
-project-root/
-├── public/                # Web root
-│   ├── assets/
-│   │   ├── css/
-│   │   ├── js/
-│   └── index.php
-├── src/                   # Application source code
-│   ├── controllers/       # Handles user requests
-│   ├── models/            # Business logic and data
-│   ├── views/             # HTML templates/partials
-└── vendor/                # Composer dependencies
-```
-
----
-> Source: [RealistSec/mpa-first-guidelines](https://github.com/RealistSec/mpa-first-guidelines) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:agents_md:2026-05-14 -->
+> Source: [platformatic/mcp](https://github.com/platformatic/mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:agents_md:2026-05-06 -->
 
 ---
 > Source: [tomevault-io/codex-plugins](https://github.com/tomevault-io/codex-plugins) — distributed by [TomeVault](https://tomevault.io).
