@@ -1,58 +1,71 @@
-## clean-code
+## cloudflare-email-telegram-cursorrules-prompt-file
 
-> Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
+> Cursor rules for setting up email-to-Telegram forwarding via Cloudflare Email Routing and Workers using the mail2tg CLI.
 
-# Clean Code Guidelines
+You are an expert at setting up email-to-Telegram forwarding using Cloudflare Email Routing and Workers.
 
-## Constants Over Magic Numbers
-- Replace hard-coded values with named constants
-- Use descriptive constant names that explain the value's purpose
-- Keep constants at the top of the file or in a dedicated constants file
+When the user asks to set up email forwarding to Telegram, route domain email to Telegram, or mentions "mail2tg", "email to telegram", follow this workflow.
 
-## Meaningful Names
-- Variables, functions, and classes should reveal their purpose
-- Names should explain why something exists and how it's used
-- Avoid abbreviations unless they're universally understood
+## Tool
 
-## Smart Comments
-- Don't comment on what the code does - make the code self-documenting
-- Use comments to explain why something is done a certain way
-- Document APIs, complex algorithms, and non-obvious side effects
+Use the `mail2tg` CLI published on npm: https://www.npmjs.com/package/mail2tg
+Source: https://github.com/shatzibitten/mail2tg
 
-## Single Responsibility
-- Each function should do exactly one thing
-- Functions should be small and focused
-- If a function needs a comment to explain what it does, it should be split
+## Prerequisites
 
-## DRY (Don't Repeat Yourself)
-- Extract repeated code into reusable functions
-- Share common logic through proper abstraction
-- Maintain single sources of truth
+1. Domain DNS managed by Cloudflare (nameservers pointing to Cloudflare, status "Active").
+2. Cloudflare API token with scopes: Zone Read, DNS Edit, Worker Scripts Edit, Email Routing Rules Edit. Create at dash.cloudflare.com/profile/api-tokens → "Create Custom Token".
+3. Telegram bot created via @BotFather, token copied. User has sent /start to the bot.
+4. Node.js >= 20.
 
-## Clean Structure
-- Keep related code together
-- Organize code in a logical hierarchy
-- Use consistent file and folder naming conventions
+## Non-interactive workflow (recommended)
 
-## Encapsulation
-- Hide implementation details
-- Expose clear interfaces
-- Move nested conditionals into well-named functions
+```bash
+export CLOUDFLARE_API_TOKEN="<token>"
+export TELEGRAM_BOT_TOKEN="<bot-token>"
 
-## Code Quality Maintenance
-- Refactor continuously
-- Fix technical debt early
-- Leave code cleaner than you found it
+MAIL2TG_DOMAIN=example.com \
+MAIL2TG_MAILBOX=info@example.com \
+npx mail2tg init --non-interactive --json
 
-## Testing
-- Write tests before fixing bugs
-- Keep tests readable and maintainable
-- Test edge cases and error conditions
+npx mail2tg plan --json --non-interactive
+npx mail2tg apply --json --non-interactive
+npx mail2tg doctor --json --non-interactive
+```
 
-## Version Control
-- Write clear commit messages
-- Make small, focused commits
-- Use meaningful branch names
+## Interactive workflow
+
+```bash
+npx mail2tg init
+export CLOUDFLARE_API_TOKEN="<token>"
+export TELEGRAM_BOT_TOKEN="<bot-token>"
+npx mail2tg plan
+npx mail2tg apply
+npx mail2tg doctor
+```
+
+## What it does
+
+- Deploys a Cloudflare Worker that parses incoming emails (MIME) and forwards headers, body, and attachments (up to 50 MB) to a Telegram chat via Bot API.
+- Creates MX and SPF DNS records so Cloudflare receives mail for the domain.
+- Creates an Email Routing rule directing the configured address to the Worker.
+- Sets Worker secrets (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID).
+
+After apply, nothing runs locally. Everything is serverless on Cloudflare's edge. Free tier covers 100K emails/day.
+
+## Exit codes
+
+- 0: success
+- 2: missing config or env vars
+- 3: Cloudflare/Telegram API error
+- 4: doctor checks failed
+- 5: worker deployment failed
+
+## Common issues
+
+- "Telegram chat_id not found" → user must send /start to the bot, then re-run.
+- "Cloudflare zone not found" → domain not on Cloudflare or token lacks Zone Read scope.
+- "Worker deployment failed" → check internet; run `npx wrangler whoami` to debug.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
