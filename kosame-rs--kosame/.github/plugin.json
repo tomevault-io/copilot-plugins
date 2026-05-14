@@ -1,0 +1,9 @@
+{
+  "name": "kosame-rs--kosame",
+  "displayName": "kosame",
+  "description": "Macro-based Rust ORM focused on developer ergonomics, inspired by Prisma and Drizzle",
+  "version": "1.0.0",
+  "author": "kosame-rs",
+  "homepage": "https://github.com/kosame-rs/kosame",
+  "skills": []
+}
