@@ -1,237 +1,265 @@
-## tdd-comprehensive-testing
+## tdd-workflow-planning
 
-> Enforces comprehensive test-driven development practices based on lessons learned from testing gaps and failures
+> Enforces proper TDD workflow planning to prevent scope limitation and incomplete test coverage
 
 
-# Comprehensive Test-Driven Development Rules
+# TDD Workflow Planning Rules
 
-## Critical TDD Failures to Avoid
+## Critical TDD Planning Mistakes to Avoid
 
-**NEVER do "TDD Theater"** - Tests that look like they test but don't actually validate functionality.
+### ❌ Scope Limitation Failures
 
-### ❌ TDD Theater Examples (AVOID)
+**NEVER limit TDD scope to individual functions - always consider the entire system.**
+
 ```rust
-// ❌ BAD: Pseudo-test that proves nothing
+// ❌ BAD: Micro-TDD that misses the big picture
+// Writing test for just one tool function without considering:
+// - Integration with other tools
+// - Error handling across the system  
+// - Performance under load
+// - Edge cases in the broader context
+
 #[tokio::test]
-async fn test_analyze_code_quality_returns_real_analysis() {
-    let test_content = r#"fn example() { ... }"#;
-    assert!(test_content.contains("example")); // Tests string, not functionality!
-}
-
-// ❌ BAD: Test that doesn't call the actual function
-#[tokio::test] 
-async fn test_tool_exists() {
-    let server = create_server();
-    // Missing: Actually calling the tool and validating output
-    assert!(server.is_ok());
+async fn test_single_tool_basic_case() {
+    // Narrow focus that misses system-wide requirements
 }
 ```
 
-### ✅ Proper TDD Examples (FOLLOW)
 ```rust
-// ✅ GOOD: Test that actually calls and validates functionality
-#[tokio::test]
-async fn test_analyze_code_quality_comprehensive() {
-    let server = create_test_server().await;
-    
-    // Create actual test file with quality issues
-    let test_file = create_test_file_with_known_issues().await;
-    
-    // ACTUALLY CALL THE TOOL
-    let params = json!({
-        "target": test_file.path(),
-        "quality_types": ["all"],
-        "detailed_analysis": true
-    });
-    
-    let result = server.call_tool("analyze_code_quality", params).await;
-    
-    // VALIDATE REAL FUNCTIONALITY
-    assert!(result.is_ok());
-    let analysis = result.unwrap();
-    assert_eq!(analysis.is_error, Some(false));
-    
-    // Verify specific analysis content
-    let content = &analysis.content[0].text;
-    assert!(content.contains("quality_metrics"));
-    assert!(content.contains("overall_score"));
-    assert!(content.contains("code_smells"));
-}
+// ✅ GOOD: Macro-TDD that considers entire ecosystem
+// Plan comprehensive test coverage first:
+
+// 1. Individual tool functionality (26 tools)
+#[tokio::test] async fn test_all_tools_individually() { }
+
+// 2. Tool integration and workflow
+#[tokio::test] async fn test_tool_interaction_scenarios() { }
+
+// 3. Error handling across system
+#[tokio::test] async fn test_system_error_recovery() { }
+
+// 4. Performance and scalability  
+#[tokio::test] async fn test_concurrent_tool_execution() { }
+
+// 5. Edge cases and boundary conditions
+#[tokio::test] async fn test_edge_cases_comprehensive() { }
 ```
 
-## Mandatory TDD Workflow
+### ❌ Planning Sequence Failures
 
-### 1. STUDY EXISTING PATTERNS FIRST
-Before implementing ANY feature:
-- Study existing test patterns in related modules
-- Identify comprehensive test coverage requirements  
-- Plan test scenarios based on proven patterns
-- Reference: [codeprism-mcp-server tests](mdc:crates/codeprism-mcp-server/src/server.rs) for comprehensive examples
+**NEVER start implementation without comprehensive test planning.**
 
-### 2. COMPREHENSIVE TEST PLANNING
-For every feature, write tests covering:
-
-**Success Cases:**
-- Basic functionality with valid inputs
-- Complex scenarios with realistic data
-- Integration with dependent systems
-
-**Error Cases:**
-- Invalid parameters
-- Missing required inputs
-- System failures and timeouts
-- Resource exhaustion scenarios
-
-**Edge Cases:**
-- Boundary conditions
-- Empty inputs
-- Very large inputs
-- Concurrent access scenarios
-
-**Performance Cases:**
-- Response time requirements
-- Memory usage limits
-- Throughput under load
-
-### 3. TEST QUALITY STANDARDS
-
-**Every test MUST:**
-- Actually call the function under test
-- Use realistic input data
-- Validate meaningful outputs
-- Include descriptive failure messages
-- Exercise the actual code path being tested
-
-**Test Naming Convention:**
-```rust
-#[tokio::test]
-async fn test_{component}_{scenario}_{expected_outcome}() {
-    // Examples:
-    // test_analyze_code_quality_with_valid_file_returns_analysis()
-    // test_search_symbols_with_invalid_pattern_returns_error()
-    // test_trace_path_with_circular_dependency_detects_cycle()
-}
+**Wrong Sequence (What I did):**
+```
+1. Implement tool functionality ❌
+2. Write minimal test to pass ❌  
+3. Move to next feature ❌
+4. Discover massive testing gaps later ❌
 ```
 
-### 4. COVERAGE REQUIREMENTS
-
-**For Tool Implementation:**
-- ✅ Individual tool tests (one per tool)
-- ✅ Parameter validation tests  
-- ✅ Error handling tests
-- ✅ Edge case tests
-- ✅ Integration tests
-- ✅ Performance tests
-
-**Minimum Coverage Targets:**
-- Unit Tests: 90%+ of functions
-- Integration Tests: 80%+ of workflows  
-- Error Tests: 100% of error paths
-- Edge Cases: 75%+ of boundary conditions
-
-### 5. RED-GREEN-REFACTOR IMPLEMENTATION
-
-**RED Phase:** Write comprehensive failing tests
-```rust
-// Write tests for ALL scenarios before any implementation
-#[tokio::test] async fn test_tool_success_case() { /* ... */ }
-#[tokio::test] async fn test_tool_error_case() { /* ... */ }  
-#[tokio::test] async fn test_tool_edge_case() { /* ... */ }
-#[tokio::test] async fn test_tool_performance() { /* ... */ }
+**Correct Sequence:**
+```
+1. ✅ Study existing test patterns (codeprism-mcp-server)
+2. ✅ Analyze comprehensive requirements  
+3. ✅ Plan ALL test scenarios upfront
+4. ✅ Write ALL failing tests first
+5. ✅ Implement functionality to pass tests
+6. ✅ Refactor while maintaining coverage
 ```
 
-**GREEN Phase:** Implement functionality to pass ALL tests
-```rust
-// Implement complete functionality, not minimal stubs
-pub async fn analyze_code_quality(params: Params) -> Result<Analysis> {
-    // Real implementation that passes all test scenarios
-}
-```
+## Mandatory Pre-Implementation Analysis
 
-**REFACTOR Phase:** Optimize while maintaining ALL test coverage
-```rust
-// Refactor for performance/clarity while ensuring all tests still pass
-cargo test --all-features  // Must pass 100%
-```
+### 1. Study Existing Patterns FIRST
 
-## Enforcement Checks
+**Before implementing ANY feature:**
 
-**Before any commit:**
 ```bash
-# 1. All tests must pass
-cargo test --all-features
+# REQUIRED: Analyze existing comprehensive tests
+grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l
+# Expected: 80+ tests to study
 
-# 2. Check test coverage
+# REQUIRED: Identify test categories  
+grep -r "async fn test_.*_tool" crates/codeprism-mcp-server/src/
+# Study individual tool test patterns
+
+# REQUIRED: Map error handling patterns
+grep -r "test_.*_error\|test_.*_invalid" crates/codeprism-mcp-server/src/
+# Understand error test coverage
+
+# REQUIRED: Study edge case patterns  
+grep -r "test_.*_edge\|test_.*_boundary" crates/codeprism-mcp-server/src/
+# Learn edge case testing approaches
+```
+
+### 2. Comprehensive Requirement Analysis
+
+**Create test requirement matrix BEFORE coding:**
+
+| **Component** | **Success Tests** | **Error Tests** | **Edge Tests** | **Integration Tests** | **Performance Tests** |
+|---------------|-------------------|-----------------|----------------|----------------------|----------------------|
+| Tool 1: provide_guidance | ✅ Required | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+| Tool 2: optimize_code | ✅ Required | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+| Tool 3: analyze_dependencies | ✅ Required | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+| ... (All 26 tools) | ✅ Required | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
+| **Total Required** | **26 tests** | **26 tests** | **26 tests** | **26 tests** | **26 tests** |
+
+### 3. Test Planning Documentation
+
+**Document comprehensive test plan BEFORE implementation:**
+
+```rust
+// REQUIRED: Create test plan document before coding
+/*
+TEST PLAN: codeprism-mcp-server Tool Implementation
+
+SCOPE: All 26 tools with comprehensive coverage
+REFERENCE: codeprism-mcp-server test patterns
+
+COVERAGE REQUIREMENTS:
+1. Individual Tool Tests (26 tests)
+   - Each tool: success, error, edge cases
+   - Parameter validation
+   - Output format verification
+
+2. Integration Tests (10+ tests)  
+   - Tool interaction workflows
+   - Server lifecycle management
+   - Resource management
+
+3. Error Handling Tests (20+ tests)
+   - Invalid parameters for each tool
+   - System failures and recovery
+   - Timeout and resource exhaustion
+
+4. Edge Case Tests (15+ tests)
+   - Boundary conditions
+   - Empty/large inputs
+   - Concurrent access
+
+5. Performance Tests (5+ tests)
+   - Response time requirements
+   - Memory usage validation
+   - Concurrent execution stress
+
+TOTAL TARGET: 76+ tests (comprehensive coverage)
+*/
+```
+
+## TDD Implementation Workflow
+
+### Phase 1: Comprehensive Test Creation (RED)
+
+**Write ALL failing tests before ANY implementation:**
+
+```rust
+// 1. Individual tool tests (ALL 26 tools)
+#[tokio::test] async fn test_provide_guidance_success() { todo!() }
+#[tokio::test] async fn test_provide_guidance_error() { todo!() }  
+#[tokio::test] async fn test_optimize_code_success() { todo!() }
+#[tokio::test] async fn test_optimize_code_error() { todo!() }
+// ... Continue for all 26 tools
+
+// 2. Integration tests
+#[tokio::test] async fn test_full_mcp_workflow() { todo!() }
+#[tokio::test] async fn test_concurrent_tool_execution() { todo!() }
+
+// 3. Error handling tests
+#[tokio::test] async fn test_invalid_tool_parameters() { todo!() }
+#[tokio::test] async fn test_system_error_recovery() { todo!() }
+
+// 4. Edge case tests
+#[tokio::test] async fn test_boundary_conditions() { todo!() }
+#[tokio::test] async fn test_large_input_handling() { todo!() }
+
+// 5. Performance tests
+#[tokio::test] async fn test_response_time_requirements() { todo!() }
+#[tokio::test] async fn test_memory_usage_limits() { todo!() }
+```
+
+### Phase 2: Systematic Implementation (GREEN)
+
+**Implement functionality to pass ALL tests:**
+
+```rust
+// REQUIRED: Implement complete functionality, not minimal stubs
+impl CodePrismMcpServer {
+    #[tool]
+    fn provide_guidance(&self, params: ProvideGuidanceParams) -> Result<CallToolResult> {
+        // COMPLETE implementation that passes:
+        // - Success tests
+        // - Error tests  
+        // - Edge case tests
+        // - Integration tests
+        // - Performance tests
+    }
+}
+```
+
+### Phase 3: Quality Optimization (REFACTOR)
+
+**Optimize while maintaining ALL test coverage:**
+
+```bash
+# REQUIRED: All tests must pass after refactoring
+cargo test --all-features  # Must show 76+ tests passing
+
+# REQUIRED: Coverage must remain high
 cargo tarpaulin --out xml && python scripts/check_coverage.py --min 90
-
-# 3. Verify no "testing theater" patterns
-grep -r "assert.*contains" tests/ && echo "❌ Potential testing theater found"
-
-# 4. Validate actual function calls in tests
-grep -r "#\[tokio::test\]" -A 20 tests/ | grep "call_tool\|\..*(" || echo "❌ Tests may not call actual functions"
 ```
 
-## Test Organization Patterns
+## Quality Gates and Validation
 
-### Individual Tool Testing
-```rust
-// REQUIRED: Every tool needs individual validation
-#[tokio::test]
-async fn test_provide_guidance_tool() { /* comprehensive test */ }
+### Pre-Commit Requirements
 
-#[tokio::test] 
-async fn test_optimize_code_tool() { /* comprehensive test */ }
-
-#[tokio::test]
-async fn test_analyze_dependencies_tool() { /* comprehensive test */ }
-// ... All 26 tools
-```
-
-### Error Scenario Testing  
-```rust
-// REQUIRED: Every tool needs error validation
-#[tokio::test]
-async fn test_tool_with_invalid_parameters() { /* error test */ }
-
-#[tokio::test]
-async fn test_tool_with_missing_file() { /* error test */ }
-
-#[tokio::test] 
-async fn test_tool_with_timeout() { /* error test */ }
-```
-
-### Integration Testing
-```rust
-// REQUIRED: End-to-end workflow validation
-#[tokio::test]
-async fn test_full_mcp_workflow() { /* complete workflow */ }
-
-#[tokio::test]
-async fn test_concurrent_tool_execution() { /* stress test */ }
-```
-
-## Quality Gates
-
-**BLOCK COMMITS if:**
+**BLOCK commits that:**
+- Have < 76 total tests (comprehensive coverage)
+- Missing tool-specific tests for any of 26 tools
+- Missing error handling for any tool
+- Missing edge case coverage
 - Test coverage < 90%
-- Any test uses "testing theater" patterns
-- Missing error case tests
-- Missing edge case tests  
-- Tests don't actually call functions under test
 
-**REQUIRE for any new feature:**
-- Comprehensive test plan documented
-- All test scenarios implemented
-- Evidence of studying existing test patterns
-- Performance characteristics validated
+### Planning Validation
 
-## References
+**Before starting implementation, verify:**
 
-- Study comprehensive testing: [codeprism-mcp-server tests](mdc:crates/codeprism-mcp-server/src/server.rs) - comprehensive test patterns
-- Tool testing patterns: [codeprism-mcp-server integration tests](mdc:crates/codeprism-mcp-server/src/integration_test.rs) - tool testing patterns
-- Integration examples: [mcp integration tests](mdc:tests/test_mcp_test_harness_end_to_end.rs)
+```bash
+# 1. Test plan documented and comprehensive
+[ -f "test-plan-{feature}.md" ] || echo "❌ Missing test plan"
 
-**Remember: Real TDD means comprehensive testing that proves functionality works correctly, not mechanical RED-GREEN-REFACTOR with superficial tests.**
+# 2. Studied existing patterns
+grep -c "Reference:" test-plan-*.md || echo "❌ Missing pattern analysis"
+
+# 3. Requirements matrix complete  
+grep -c "Tool.*Required" test-plan-*.md | test $(cat) -ge 26 || echo "❌ Incomplete requirements"
+```
+
+### Implementation Validation
+
+**During implementation, verify:**
+
+```bash
+# 1. All planned tests exist
+test $(grep -c "#\[tokio::test\]" tests/ --include="*.rs") -ge 76 || echo "❌ Missing tests"
+
+# 2. Tests actually call functions
+grep -r "call_tool\|\..*(" tests/ --include="*.rs" | wc -l | test $(cat) -ge 50 || echo "❌ Tests don't call functions"
+
+# 3. Coverage meets targets
+cargo tarpaulin --out xml && python scripts/check_coverage.py --min 90 || echo "❌ Low coverage"
+```
+
+## References and Learning
+
+**Study these comprehensive patterns:**
+- [codeprism-mcp-server comprehensive testing](mdc:crates/codeprism-mcp-server/src/server.rs) - comprehensive test patterns
+- [Integration test workflows](mdc:crates/codeprism-mcp-server/src/integration_test.rs) - integration test patterns
+- [End-to-end test examples](mdc:tests/test_mcp_test_harness_end_to_end.rs)
+
+**Test planning templates:**
+- [Test requirement matrix template](mdc:docs/test-harness/comprehensive-testing-framework.md)
+- [Coverage validation scripts](mdc:scripts/check-implementation-completeness.sh)
+
+**Remember: Proper TDD means planning comprehensive test coverage BEFORE implementation, not writing minimal tests after coding.**
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
