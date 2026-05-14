@@ -1,17 +1,50 @@
-## core-principles
+## frontend-rules
 
-> Core coding principles (non-negotiable) for MediaJira. KISS, small files, single responsibility, thin edges, no secrets.
+> Frontend standards for Next.js, React, TypeScript (components, API layer, imports, state, styling, quality).
 
 
-# Core principles (non‑negotiable)
+# Frontend rules (Next.js / React / TypeScript)
 
-These rules are the default "how we build things" for this repo. Optimize for **KISS**: simplest thing that works, easy to review, easy to maintain.
+## Components: keep them small and composable
 
-- **Keep it small**: prefer many small files over one massive file.
-- **Single responsibility**: one component/module should have one reason to change.
-- **Thin edges, fat core**: pages/views/controllers stay thin; business logic lives in dedicated modules.
-- **Consistency beats cleverness**: follow existing patterns in this repo even if you know another "better" way.
-- **No secrets in git**: never commit `.env`, tokens, private keys, credentials.
+- **Avoid big components**: if a component is growing past ~200–300 lines, **split it**:
+  - Extract presentational pieces into `frontend/src/components/<feature>/...`
+  - Extract data/state into `frontend/src/hooks/...` or feature-level helpers
+- **Pages are composition only**: `frontend/src/app/**/page.tsx` should mostly:
+  - Read params
+  - Call APIs/hooks/stores
+  - Compose feature components
+  - Handle route-level loading/error UI
+- **Common components first**:
+  - If you copy/paste UI twice, extract it into `frontend/src/components/common` or `frontend/src/components/ui`.
+  - Feature-specific UI stays in `frontend/src/components/<feature>/...`.
+
+## Data access: never scatter API calls
+
+- **All HTTP calls live in** `frontend/src/lib/api/*`.
+- **Do not call `axios` directly from components/pages** (except inside the API layer).
+- **Types are required**: API functions should return typed results; prefer shared types in `frontend/src/types`.
+
+## Imports
+
+- **Prefer absolute imports** using the `@/` alias (configured in `frontend/tsconfig.json`).
+- **Avoid deep relative paths** like `../../../../...` unless you are staying inside a tiny feature folder.
+
+## State management
+
+- **Local first**: prefer React local state for local UI.
+- **Global only when shared**: use Zustand stores in `frontend/src/lib/*Store.ts` when multiple routes/features need the state.
+- **No "mega stores"**: keep stores domain-scoped (auth, chat, spreadsheet, …).
+
+## Styling / UI
+
+- **Tailwind only**: follow existing Tailwind + Radix patterns in this repo.
+- **Reuse layout primitives**: prefer `frontend/src/components/layout/*` instead of re-creating headers/sidebars/footers in pages.
+
+## Quality checks (frontend)
+
+- Run `npm run lint` before requesting review.
+- Add/adjust tests when behavior changes (`npm run test`, Storybook stories when useful).
 
 ---
 > Source: [quanwangniuniu/marketing-simplified](https://github.com/quanwangniuniu/marketing-simplified) — distributed by [TomeVault](https://tomevault.io).
