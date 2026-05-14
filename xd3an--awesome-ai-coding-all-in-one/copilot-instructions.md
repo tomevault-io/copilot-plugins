@@ -1,54 +1,43 @@
-## google-adk
+## graphical-apps-development-cursorrules-prompt-file
 
-> Google Agent Development Kit rules for agents, tools, sessions, memory, artifacts, evaluation, and deployment
+> Cursor rules for graphical apps development with integration.
 
+# Project Synopsis
 
-# Google ADK Rules
+Pyllments is a Python library for building graphical and API-based LLM applications through chaining together Elements in a potentially cyclic graph. Elements and Payloads are a type of Components. A Component is composed of a Model and Views. The Model handles the underlying data and logic, while the Views are the UI components that are used to display display the interactive UI used to interact with the Model.
 
-## Agent Design
+An Element is a type of Component that is responsible for a specific function. For instance, an Element can handle the LLM selection and generation by making calls to LLM providers. Another Element may handle the chat interface, whose Model would store the chat message history, and the Views would be the text boxes and buttons used to interact with the chat interface. Elements are meant to connect to other Elements through Ports. All that is necessary to link Elements together is to link the output port of one Element to the input port of Another. Each output port may have unlimited input ports it connects to, and each input port may have unlimited output ports it connects to. The ports follow an observer pattern where the output port is the subject and the input port is the observer. The subject notifies the observers when a certain event that we set within the Element is triggered.
 
-- Keep each agent focused on a clear goal, persona, and tool set.
-- Use LLM agents for flexible reasoning and workflow agents for deterministic orchestration.
-- Write instructions that define task boundaries, tool-use rules, and escalation behavior.
-- Split multi-agent systems by responsibility rather than by implementation convenience.
-- Keep model choices configurable.
+In order to connect an input and and output port, they need to be setup in a manner that sends and receives the same type of Payload. A Payload is also a Component with a Model as well as views responsible for the display logic. Elements may receive payloads and use methods of the Payload to generate the views for the UI. The sending Element is responsible for packing data into the Payload.
 
-## Tools
+I am currently working on making this a fully-fledged framework.
 
-- Give tools narrow, typed inputs and outputs.
-- Validate tool arguments before performing side effects.
-- Keep secrets, credentials, and privileged APIs out of agent prompts.
-- Handle tool errors explicitly and return actionable failure messages.
-- Be aware of ADK tool limitations; some built-in tools cannot be combined with other tools on the same agent.
+# Project Organization
 
-## Sessions, State, and Memory
+Here is an example of the file structure of an individual element:
 
-- Use session state for current-conversation data.
-- Use memory for cross-session recall and retrieval.
-- Keep state small and serializable.
-- Do not store large files or binary payloads in session state.
-- Make state keys stable and documented.
+chat_interface:
+  - __init__.py
+  - chat_interface_element.py
+  - chat_interface_model.py
+  - css:
+    - buttons.css
+    - column.css
+    - input.css
 
-## Artifacts
+# Primary Libraries Used
 
-- Use artifacts for generated files, uploaded files, reports, images, audio, and other binary data.
-- Configure an artifact service in the runner before relying on artifact operations.
-- Version artifact filenames intentionally and avoid overwriting semantically different outputs.
-- Store only references or summaries in state when full content belongs in artifacts.
+- Panel is used to create the visualization layer and run the GUI. Views tend to consist of Panel objects which can be styled with Python and CSS.
+- Param is used to create parameterized classes which help create parameters that handle type validation, default values, constraints, and most importantly, reactivity(setting event handlers to catch changes).
+- Langchain is responsible for the specific functions pertaining to incorporating LLM workflows.
 
-## Evaluation and Deployment
+# Development Priorities
 
-- Add tests for tool behavior, agent routing, prompt regressions, and unsafe tool calls.
-- Use trace or event logs to debug agent decisions.
-- Keep local development, staging, and production configuration separate.
-- Add observability for latency, tool failures, token use, and handoff failures.
+Pyllments code is prioritized on being developer-friendly, where extensibility and modularity are first-class citizens. Elements should be customizeable with clean and intuitive interfaces. It should also be easy to create new elements depending on the needs of the developer.
 
-## Common Mistakes
+# Documentation
 
-- Do not make one agent responsible for every workflow.
-- Do not let tools accept arbitrary shell, SQL, or HTTP input without validation.
-- Do not rely on prompt text for access control.
-- Do not hide important side effects behind generic tool names.
+Docstrings should use a NumPy/SciPy style.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
