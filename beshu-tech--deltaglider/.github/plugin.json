@@ -1,0 +1,9 @@
+{
+  "name": "beshu-tech--deltaglider",
+  "displayName": "deltaglider",
+  "description": "Store 4TB in 5GB: S3-compatible storage with 99.9% compression for versioned files",
+  "version": "1.0.0",
+  "author": "beshu-tech",
+  "homepage": "https://github.com/beshu-tech/deltaglider",
+  "skills": []
+}
