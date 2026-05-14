@@ -1,0 +1,706 @@
+## merlina
+
+> Validates configuration before training to prevent wasted GPU time.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Merlina is a magical LLM training system with support for ORPO, DPO, SimPO, CPO, IPO, KTO, and SFT training modes. It provides a delightful wizard-themed web interface for fine-tuning language models with LoRA adapters. The system supports flexible dataset loading from multiple sources and automatic chat template formatting.
+
+**New in v1.3:**
+- **Messages Format Support**: Automatic detection and conversion of common chat dataset format with multi-turn conversation support
+
+**New in v1.2:**
+- **SFT Mode**: Train with only chosen responses (rejected field not required)
+- Dynamic UI that adapts based on selected training mode
+
+**New in v1.1:**
+- Persistent job storage with SQLite database
+- Real-time WebSocket updates during training
+- Pre-flight validation to catch errors before training
+- Detailed metrics tracking and history
+- Support for both HuggingFace model IDs and local model directories
+- Private/public repository control for HuggingFace Hub uploads
+
+## Project Spirit
+
+Merlina is designed to make LLM fine-tuning approachable and delightful, not intimidating. The entire project is themed around a cute anime magician girl who guides you through the training process with charm and style.
+
+The philosophy is simple: **powerful ML training shouldn't require arcane command-line incantations or PhD-level expertise**. Whether you're a researcher experimenting with preference optimization or a hobbyist trying to make your first fine-tuned model, Merlina welcomes you with a friendly interface, clear feedback, and magical animations.
+
+Behind the whimsical wizard theme is a carefully architected system that handles the complex stuff (dataset formatting, memory management, quantization, GPU optimization) so you can focus on what matters: creating better models. The UI is playful, but the engineering is serious.
+
+**Key principles:**
+- **Approachable**: No config files to edit, no command-line arguments to memorize
+- **Visual**: See your datasets, preview formatting, watch training progress in real-time
+- **Safe**: Pre-flight checks catch errors before wasting GPU time
+- **Flexible**: Support for multiple dataset sources, formats, and model types
+- **Delightful**: Smooth animations, clear status updates, and a touch of magic
+
+When working on Merlina, preserve this spirit. Keep the code clean and well-documented, but remember that the end goal is to make someone smile while they train their model.
+
+## Development Commands
+
+### Running the Application
+```bash
+python merlina.py
+# Access UI at http://localhost:8000
+# API docs at http://localhost:8000/api/docs
+```
+
+### Testing
+```bash
+# Run all tests
+python -m pytest tests/
+
+# Run individual test files
+python tests/test_tokenizer_formatter.py
+python tests/test_dataset_loaders.py
+python tests/test_pipeline.py
+python tests/test_api_endpoints.py
+```
+
+### Installing Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Version Management
+
+Merlina uses [Semantic Versioning](https://semver.org/) (SemVer) for version control: `MAJOR.MINOR.PATCH`
+
+**Version Files:**
+- `version.py` - Single source of truth for version information
+- `CHANGELOG.md` - Detailed change history following [Keep a Changelog](https://keepachangelog.com/)
+
+**Bumping Versions:**
+```bash
+# Preview changes without applying
+python bump_version.py [major|minor|patch] --dry-run
+
+# Bump patch version (1.2.0 -> 1.2.1) for bug fixes
+python bump_version.py patch
+
+# Bump minor version (1.2.0 -> 1.3.0) for new features
+python bump_version.py minor
+
+# Bump major version (1.2.0 -> 2.0.0) for breaking changes
+python bump_version.py major
+
+# Add a release name
+python bump_version.py minor --release-name "Feature Name"
+```
+
+**What the bump script does:**
+1. Updates `version.py` with new version and release date
+2. Adds new version section to `CHANGELOG.md`
+3. Creates git tag (e.g., `v1.3.0`)
+4. Provides next steps for committing and pushing
+
+**Semantic Versioning Rules:**
+- **MAJOR (X.0.0)**: Breaking changes, incompatible API changes
+  - Example: Removing endpoints, changing data formats, incompatible config changes
+- **MINOR (1.X.0)**: New features, backwards-compatible additions
+  - Example: New training modes, additional API endpoints, new UI features
+- **PATCH (1.2.X)**: Bug fixes, backwards-compatible fixes
+  - Example: Bug fixes, performance improvements, documentation updates
+
+**Version Visibility:**
+- API exposes version at `GET /version` endpoint
+- Frontend displays version in footer (auto-loaded on page load)
+- FastAPI docs show version in OpenAPI spec
+- Logs include version on startup
+
+**Release Process:**
+1. Ensure all changes are committed
+2. Run `python bump_version.py [type]` to bump version
+3. Edit `CHANGELOG.md` to fill in the changes for the new version
+4. Commit: `git commit -am "Bump version to X.Y.Z"`
+5. Push: `git push origin <branch>`
+6. Push tag: `git push origin vX.Y.Z`
+7. Create GitHub release from tag with CHANGELOG excerpt
+
+**Current Version:** See `version.py` or run `python -c "from version import __version__; print(__version__)"`
+
+## Code Architecture
+
+### Core Components
+
+**Backend (merlina.py)**
+- FastAPI application serving REST API and static frontend
+- Main entry point for the application
+- Integrates all modules from `src/` and `dataset_handlers/`
+- Background task execution using FastAPI BackgroundTasks
+
+**Source Modules (src/)**
+- `job_manager.py` - SQLite persistence for jobs and metrics
+- `websocket_manager.py` - Real-time WebSocket connections
+- `preflight_checks.py` - Configuration validation
+- `training_runner.py` - Enhanced training with callbacks
+- `job_queue.py` - Job queue with priority and concurrency control
+
+**Dataset Handling Module (dataset_handlers/)**
+
+The dataset system uses a modular strategy pattern with three main abstractions:
+
+1. **DatasetLoader** (base.py, loaders.py)
+   - Abstract base class for loading strategies
+   - Implementations: `HuggingFaceLoader`, `LocalFileLoader`, `UploadedDatasetLoader`
+   - Each loader handles a specific source type (HF Hub, local files, uploaded content)
+
+2. **DatasetFormatter** (base.py, formatters.py)
+   - Abstract base class for formatting strategies
+   - Implementations: `ChatMLFormatter`, `Llama3Formatter`, `MistralFormatter`, `CustomFormatter`, `TokenizerFormatter`
+   - `TokenizerFormatter` is special - it uses the model's native chat template from tokenizer_config.json
+   - Factory function `get_formatter()` creates appropriate formatter instances
+
+3. **DatasetPipeline** (base.py)
+   - Orchestrates loading, validation, formatting, and train/test splitting
+   - Provides `preview()` for raw data and `preview_formatted()` for formatted samples
+   - Handles column mapping to standardize dataset schemas
+   - Automatically detects and converts "messages" format datasets (see messages_converter.py)
+   - Main interface: `prepare()` returns (train_dataset, eval_dataset)
+
+4. **Messages Format Converter** (messages_converter.py) - New in v1.3
+   - Utilities for converting common "messages" format to standard Merlina format
+   - Functions: `has_messages_format()`, `convert_messages_to_standard()`, `convert_messages_dataset()`
+   - Automatically invoked by DatasetPipeline when messages format is detected and `convert_messages_format=True`
+   - Can be toggled on/off via UI checkbox or API parameter
+
+**Frontend (frontend/)**
+- Pure HTML/CSS/JS interface (no build step)
+- Wizard theme with animations
+- Dataset configuration UI with live preview capabilities
+- Real-time job status polling
+
+### Key Design Patterns
+
+- **Strategy Pattern**: Interchangeable loaders and formatters
+- **Factory Pattern**: `get_formatter()` creates formatter instances
+- **Facade Pattern**: `DatasetPipeline` simplifies complex dataset operations
+- **Dependency Injection**: Pipeline receives loader and formatter instances
+
+### Dataset Schema
+
+All datasets must have these columns after loading and column mapping:
+- `prompt` (required) - User input/question
+- `chosen` (required) - Preferred response
+- `rejected` (required for ORPO, not used in SFT) - Non-preferred response
+- `system` (optional) - System message
+- `reasoning` (optional) - Reasoning/thinking process (used by Qwen3 format)
+
+Formatters transform these into chat-formatted strings with proper special tokens.
+
+**Training Mode Requirements**:
+- **ORPO Mode**: Requires all three fields (`prompt`, `chosen`, `rejected`) for preference optimization
+- **SFT Mode**: Only uses `prompt` and `chosen` fields. The `rejected` field is ignored if present.
+
+**Reasoning Field**: When using the Qwen3 format, if a `reasoning` column is present, it will be wrapped in `<think>` tags and prepended to both the chosen and rejected responses. This allows training models with explicit reasoning steps.
+
+**Messages Format Support** (New in v1.3):
+
+Merlina now automatically detects and converts datasets in the common "messages" format used by many chat datasets:
+
+```json
+{
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant"},
+    {"role": "user", "content": "Hello"},
+    {"role": "assistant", "content": "Hi there!"},
+    {"role": "user", "content": "How are you?"},
+    {"role": "assistant", "content": "I'm doing well!"}
+  ]
+}
+```
+
+**Conversion Logic**:
+- System messages are extracted into the `system` field
+- All user messages are combined into the `prompt` field (multi-turn conversations separated by double newlines)
+- All assistant messages are combined into the `chosen` field (multi-turn responses separated by double newlines)
+- The conversion happens automatically after loading and before column mapping (when enabled)
+- Best suited for **SFT mode** since the format doesn't include rejected responses
+- **Can be toggled on/off**: In the UI, when inspecting dataset columns, if a "messages" column is detected, a toggle checkbox appears to enable/disable automatic conversion
+- API parameter: `convert_messages_format` (default: `true`) in DatasetConfig
+
+**Example Conversion**:
+```python
+# Input (messages format)
+{"messages": [
+    {"role": "user", "content": "Who developed you?"},
+    {"role": "assistant", "content": "I'm a language model finetuned by Schneewolf Labs."}
+]}
+
+# Output (standard format)
+{
+    "prompt": "Who developed you?",
+    "chosen": "I'm a language model finetuined by Schneewolf Labs.",
+    "system": ""
+}
+```
+
+**Multi-turn Example**:
+```python
+# Input (multi-turn messages)
+{"messages": [
+    {"role": "user", "content": "Hello"},
+    {"role": "assistant", "content": "Hi!"},
+    {"role": "user", "content": "How are you?"},
+    {"role": "assistant", "content": "Great!"}
+]}
+
+# Output (combined)
+{
+    "prompt": "Hello\n\nHow are you?",
+    "chosen": "Hi!\n\nGreat!",
+    "system": ""
+}
+```
+
+The messages format is automatically detected and converted with no additional configuration required. Simply load your dataset and Merlina will handle the conversion transparently.
+
+### Model Loading
+
+Merlina supports loading models from two sources:
+
+**1. HuggingFace Hub** (default)
+- Use standard HuggingFace model IDs: `"meta-llama/Meta-Llama-3-8B-Instruct"`
+- Format: `organization/model-name`
+- Automatically downloads models from huggingface.co
+- Gated models (like Llama) require `hf_token` in configuration
+
+**2. Local Directory Paths**
+- Use absolute paths: `"/home/user/models/my-llama-model"`
+- Use relative paths: `"./models/my-model"` or `"../models/my-model"`
+- Model directory must contain required files (config.json, model weights)
+- Useful for pre-downloaded models or custom fine-tuned models
+
+**Path Detection Logic** (see `src/preflight_checks.py:is_local_model_path()`)
+- Paths starting with `/`, `./`, or `../` are treated as local
+- Paths with multiple slashes (e.g., `models/sub/folder`) are treated as local
+- Paths with backslashes (Windows) are treated as local
+- Existing directories with model files (config.json, *.safetensors) are treated as local
+- Format `org/model` with single slash is treated as HuggingFace ID
+
+**Pre-flight Validation**:
+- Local paths: Validates directory exists and contains config.json
+- HuggingFace models: Checks for gated models and required tokens
+- Both: Automatically detected via `is_local_model_path()` function
+
+### Model Type Detection (VLM Support)
+
+Merlina supports both text-only LLMs and vision-language models (VLMs). The `model_type` configuration parameter controls which AutoModel class is used for loading:
+
+- **`auto`** (default): Auto-detects by checking the model's config for `vision_config` or VLM architecture patterns (`ForConditionalGeneration`, `ForVision`, `ImageText`). Works for most models.
+- **`causal_lm`**: Forces `AutoModelForCausalLM` (text-only LLM).
+- **`vlm`**: Forces `AutoModelForVision2Seq` (vision-language model). Use this for models like Qwen-VL, LLaVA, etc. to preserve vision capabilities.
+
+**Why this matters**: Using `AutoModelForCausalLM` on a VLM (e.g., `Qwen3_5ForConditionalGeneration`) causes transformers to load the text-only variant (`Qwen3_5ForCausalLM`), stripping vision components.
+
+**Implementation**: `_detect_is_vlm()` and `_get_auto_model_class()` in `src/training_runner.py`. Both model loading (for training) and model reloading (for LoRA merge before upload) use the correct class.
+
+### Job Queue System (v1.1)
+
+Jobs are managed through a priority queue system with configurable concurrency:
+
+**Job States:**
+- `queued` - Job waiting in queue for execution
+- `running`/`initializing`/`loading_model`/`loading_dataset`/`training` - Job executing
+- `completed` - Job finished successfully
+- `failed` - Job failed with error
+- `stopped` - Job stopped by user request
+- `cancelled` - Job cancelled while in queue
+
+**Queue Features:**
+- Priority levels: LOW, NORMAL, HIGH (higher priority jobs run first)
+- Configurable max concurrent jobs (default: 1)
+- Thread-safe job management with worker threads
+- Automatic queue processing
+- Job cancellation support (queued or running)
+- Queue position tracking
+
+**Configuration:**
+- `MAX_CONCURRENT_JOBS` in `.env` (default: 1)
+- Set to 1 for single GPU to prevent OOM
+- Increase for multi-GPU systems with sufficient VRAM
+
+**Key Classes:**
+- `JobQueue` (src/job_queue.py) - Main queue manager
+- `QueuedJob` - Represents a job in the queue
+- `JobPriority` - Enum for priority levels
+
+### Training Modes
+
+Merlina supports multiple training modes, selectable via the `training_mode` configuration parameter:
+
+**1. ORPO (Odds Ratio Preference Optimization)** - Default
+- Requires: `prompt`, `chosen`, and `rejected` fields
+- Combines supervised learning with odds-ratio preference optimization in a single pass — no reference model needed
+- Parameters: `beta`
+
+**2. DPO (Direct Preference Optimization)**
+- Requires: `prompt`, `chosen`, and `rejected` fields
+- Directly optimizes the policy to prefer chosen over rejected responses using log-ratio trick
+- Parameters: `beta`, `label_smoothing`
+
+**3. SimPO (Simple Preference Optimization)**
+- Requires: `prompt`, `chosen`, and `rejected` fields
+- Reference-free DPO variant with length-normalized rewards and configurable margin
+- Parameters: `beta`, `gamma`
+
+**4. CPO (Contrastive Preference Optimization)**
+- Requires: `prompt`, `chosen`, and `rejected` fields
+- Reference-free contrastive learning on preference pairs
+- Parameters: `beta`, `label_smoothing`
+
+**5. IPO (Identity Preference Optimization)**
+- Requires: `prompt`, `chosen`, and `rejected` fields
+- Squared-loss variant of DPO, more robust to noisy preferences
+- Parameters: `beta`
+
+**6. KTO (Kahneman-Tversky Optimization)**
+- Requires: `prompt` and `chosen` fields. `rejected` is optional.
+- Uses prospect theory with unpaired binary feedback (good/bad)
+- Automatically splits chosen/rejected pairs into separate positive/negative examples
+- Works with SFT-style datasets (all positive) or preference datasets (split into positive/negative)
+- Best for: When you have binary feedback signals or want to use preference data without strict pairing
+- Parameters: `beta`
+
+**7. SFT (Supervised Fine-Tuning)**
+- Requires: `prompt` and `chosen` fields only (rejected field ignored)
+- Traditional supervised learning on chosen responses
+- Best for: General instruction following, adapting to new tasks, style transfer
+- Parameters: Does not use `beta` parameter
+
+**Choosing a Mode**:
+- Use **ORPO/DPO/SimPO/CPO/IPO** when you have paired chosen/rejected responses and want preference optimization
+- Use **KTO** when you have binary feedback (thumbs up/down) or want to use preference data without strict pairing
+- Use **SFT** when you only have good examples or want traditional fine-tuning
+
+### Training Flow
+
+1. User submits training config via POST /train with optional priority
+2. Job created with unique job_id and added to queue
+3. Worker thread picks up job when slot available
+4. `run_training()` executes:
+   - Load model and tokenizer with optional 4-bit quantization
+   - Create DatasetPipeline with appropriate loader and formatter
+   - Call `pipeline.prepare()` to get formatted train/eval datasets
+   - Setup LoRA config (if enabled)
+   - Choose trainer based on `training_mode`:
+     - **Preference Modes (ORPO/DPO/SimPO/CPO/IPO)**: Tokenize chosen/rejected pairs, train with preference loss
+     - **KTO Mode**: Split chosen/rejected into unpaired examples with binary labels, train with KTO loss
+     - **SFT Mode**: Train with supervised fine-tuning (uses only chosen)
+   - Save to ./models/{output_name}
+   - Optionally merge and push to HuggingFace Hub
+4. Frontend polls GET /status/{job_id} for progress updates
+
+### API Endpoints
+
+**Training**
+- POST /train?priority=normal - Submit training job to queue (priority: low/normal/high)
+- GET /status/{job_id} - Get job progress and queue status
+- GET /jobs - List all jobs
+- POST /jobs/{job_id}/stop - Cancel queued job or stop running job
+
+**Queue Management**
+- GET /queue/status - Get overall queue statistics and job lists
+- GET /queue/jobs - List queued and running jobs with positions
+
+**Dataset Management**
+- POST /dataset/preview - Preview raw dataset (10 samples)
+- POST /dataset/preview-formatted - Preview with formatting applied (5 samples)
+- POST /dataset/upload-file - Upload file, returns dataset_id
+- GET /dataset/uploads - List uploaded datasets
+
+## Important Implementation Notes
+
+### Tokenizer Format
+
+When using `format_type: "tokenizer"`, the system automatically uses the model's native chat template from `tokenizer_config.json`. This is the recommended approach as it ensures format compatibility with the base model.
+
+The TokenizerFormatter:
+- Uses `tokenizer.apply_chat_template()` with message dictionaries
+- Adds generation prompt for the prompt field
+- Extracts proper suffix formatting for chosen/rejected responses
+- Falls back to simple concatenation if chat_template is missing
+
+### Memory Management
+
+The training function includes explicit cleanup:
+```python
+del trainer, model
+gc.collect()
+torch.cuda.empty_cache()
+```
+
+This is critical for running multiple sequential training jobs.
+
+### 4-bit Quantization
+
+When `use_4bit=True`:
+- Uses BitsAndBytesConfig with NF4 quantization
+- Model prepared with `prepare_model_for_kbit_training()`
+- Significantly reduces VRAM requirements (7B model: ~10GB instead of ~28GB)
+
+### Flash Attention
+
+Automatically enabled for GPUs with compute capability >= 8 (Ampere and newer). Falls back to "eager" attention for older GPUs.
+
+### HuggingFace Hub Privacy Control
+
+When pushing models to HuggingFace Hub (`push_to_hub=True`):
+- `hf_hub_private=True` (default): Creates **private repository** (only you can access)
+- `hf_hub_private=False`: Creates **public repository** (anyone can access)
+- Both model and tokenizer are pushed with the same privacy setting
+- Requires valid `hf_token` for authentication
+- Repository visibility can be changed later on HuggingFace.co
+
+**Best Practices:**
+- Use private repositories for proprietary or experimental models
+- Use public repositories for open-source contributions
+- Never commit HF tokens to version control
+- Use tokens with appropriate write permissions
+
+## Testing Strategy
+
+Tests are structured for independent execution (not using pytest fixtures):
+- Each test file can run standalone: `python tests/test_*.py`
+- Tests use `sys.path.insert(0, '/path/to/merlina')` for imports
+- Fixtures stored in `tests/fixtures/` directory
+- Test data: `tests/fixtures/test_dataset.json`
+
+### Frontend Tests
+
+Playwright-based integration tests live in `tests/frontend/` (`test_integration.spec.mjs`, `test_ui.mjs`, `test_api.mjs`, `test_validation.mjs`, `test_theme.mjs`). They drive the real UI against `serve_for_tests.py`, which mocks ML dependencies so the server can boot without torch/transformers.
+
+**When you change anything in `frontend/` (index.html, CSS, or JS), update the corresponding frontend tests in the same change.** This includes:
+- Renaming, removing, or restructuring DOM elements — update selectors in the specs
+- Changing default states (what's visible/hidden on load) — update the assertions
+- Reworking flows (e.g. unifying primary/additional datasets into one list) — rewrite the affected describe blocks rather than leaving them pointing at dead IDs
+- Adding new user-facing behavior — add a test for it
+
+Don't land frontend changes that leave the specs referencing IDs or classes that no longer exist. A quick `grep -rn '#old-id' tests/frontend/` before committing catches most of these.
+
+## Common Workflows
+
+### Adding a New Dataset Formatter
+
+1. Create formatter class in `dataset_handlers/formatters.py`:
+```python
+class NewFormatter(DatasetFormatter):
+    def format(self, row: dict) -> dict:
+        # Transform row to chat format
+        return {"prompt": ..., "chosen": ..., "rejected": ...}
+
+    def get_format_info(self) -> dict:
+        return {"format_type": "new_format", ...}
+```
+
+2. Add case to `get_formatter()` factory function
+3. Update frontend dropdown in `frontend/index.html`
+4. Create test in `tests/test_*.py`
+
+### Adding a New Dataset Loader
+
+1. Create loader class in `dataset_handlers/loaders.py`:
+```python
+class NewLoader(DatasetLoader):
+    def load(self) -> Dataset:
+        # Load from your source
+        return dataset
+
+    def get_source_info(self) -> dict:
+        return {"source_type": "new_source", ...}
+```
+
+2. Add handling in `run_training()` and preview endpoints in `merlina.py`
+3. Update Pydantic models if needed
+4. Add UI controls in frontend
+
+### Modifying Training Parameters
+
+ORPO-specific parameters are in the `ORPOConfig` class:
+- `beta` - Controls preference optimization strength (higher = stronger preference)
+- `max_length` - Total sequence length (prompt + completion)
+- `max_prompt_length` - Maximum prompt length
+- `max_completion_length` - Calculated automatically
+
+LoRA parameters are in `LoraConfig`:
+- `r` - Rank (controls adapter size)
+- `lora_alpha` - Scaling factor (typically 2x rank)
+- `target_modules` - Which layers to apply LoRA (q_proj, v_proj, etc.)
+
+## New Features (v1.1)
+
+### Persistent Job Storage (job_manager.py)
+
+Jobs are now stored in SQLite database (`./data/jobs.db`) and persist across server restarts.
+
+**Key classes:**
+- `JobManager` - Main interface for job CRUD operations
+- `JobRecord` - Dataclass representing a job with all fields
+
+**Important methods:**
+- `create_job(job_id, config)` - Create new job
+- `update_job(job_id, **kwargs)` - Update job fields
+- `get_job(job_id)` - Retrieve job
+- `list_jobs(status, limit, offset)` - Query jobs with filtering
+- `add_metric(job_id, step, loss, ...)` - Record training metrics
+- `get_metrics(job_id)` - Retrieve time-series metrics
+
+**Database schema:**
+- `jobs` table - Main job records
+- `training_metrics` table - Time-series training data
+
+### WebSocket Real-time Updates (websocket_manager.py)
+
+Live training updates via WebSocket connections.
+
+**Key class:**
+- `WebSocketManager` - Manages connections and broadcasts
+
+**Message types sent to clients:**
+- `status_update` - Training status, progress, loss, GPU memory
+- `metrics` - Detailed metrics at specific steps
+- `completed` - Training finished successfully
+- `error` - Training failed with error message
+
+**WebSocket endpoint:**
+- `GET /ws/{job_id}` - Connect to receive real-time updates
+
+### Pre-flight Validation (preflight_checks.py)
+
+Validates configuration before training to prevent wasted GPU time.
+
+**Key class:**
+- `PreflightValidator` - Runs all validation checks
+
+**Checks performed:**
+1. GPU availability and compute capability
+2. VRAM estimation vs available memory
+3. Disk space for checkpoints
+4. Model access and gating (HF token check)
+5. Dataset configuration validity
+6. Training hyperparameter sanity checks
+7. API token validation (W&B, HF)
+8. Optional dependency checks (Flash Attention, xformers)
+
+**Returns:**
+- List of errors (blocking issues)
+- List of warnings (recommendations)
+- Detailed check results per category
+
+### Enhanced Training Runner (training_runner.py)
+
+New modular training function with WebSocket integration.
+
+**Key features:**
+- `WebSocketCallback` - Custom TRL callback that broadcasts metrics
+- Async WebSocket updates during training
+- Better error handling and logging
+- GPU memory tracking
+- Metric persistence to database
+
+**Functions:**
+- `run_training_sync(job_id, config, job_manager, uploaded_datasets)` - Main training function
+- Called by FastAPI background tasks
+
+## Project Structure
+
+```
+merlina/
+├── merlina.py                    # Main FastAPI application
+├── config.py                     # Configuration management
+├── .env                          # User configuration (gitignored)
+├── .env.example                  # Configuration template
+├── src/                          # Source modules (v1.1)
+│   ├── job_manager.py           # Job persistence
+│   ├── websocket_manager.py     # WebSocket manager
+│   ├── preflight_checks.py      # Validation
+│   └── training_runner.py       # Training logic
+├── dataset_handlers/             # Dataset pipeline
+│   ├── base.py
+│   ├── loaders.py
+│   ├── formatters.py
+│   └── validators.py
+├── frontend/                     # Web UI
+├── examples/                     # Example scripts
+├── tests/                        # Test suite
+└── data/                         # Runtime data
+    └── jobs.db                   # SQLite database
+```
+
+## File Locations
+
+- **Source code:** `src/` directory
+- **Models:** `./models/{output_name}/`
+- **Training artifacts:** `./results/{job_id}/`
+- **Job database:** `./data/jobs.db` (SQLite)
+- **Frontend:** `./frontend/`
+- **Test fixtures:** `./tests/fixtures/`
+
+## Configuration System
+
+Merlina uses a centralized configuration system (`config.py`) with support for environment variables and `.env` files.
+
+### Configuration Files
+
+**`.env` file** (create from `.env.example`):
+```bash
+# Copy the example file to get started
+cp .env.example .env
+
+# Edit .env with your settings
+nano .env
+```
+
+**Key Settings:**
+- **Server:** `HOST`, `PORT`, `DOMAIN` - Server binding and public URL
+- **Paths:** `DATA_DIR`, `MODELS_DIR`, `DATABASE_PATH` - Storage locations
+- **External Services:** `WANDB_API_KEY`, `HF_TOKEN` - API keys for W&B and HuggingFace
+- **System:** `CUDA_VISIBLE_DEVICES`, `LOG_LEVEL` - GPU selection and logging
+- **Security:** `CORS_ORIGINS`, `MAX_UPLOAD_SIZE_MB` - Access control and limits
+
+### Frontend URL Detection
+
+The frontend automatically detects the API URL from the browser's current location using `window.location`. This means:
+- Works on `localhost` during development
+- Works on any production domain (e.g., `https://merlina.example.com`)
+- Works behind reverse proxies
+- Automatically handles HTTP/HTTPS and WebSocket protocols
+
+No frontend configuration needed!
+
+## New API Endpoints
+
+**Validation:**
+- `POST /validate` - Validate configuration before training
+
+**Job Management:**
+- `GET /jobs/history?status=&limit=&offset=` - Get paginated job history
+- `GET /jobs/{job_id}/metrics` - Get detailed training metrics
+- `GET /stats` - Database and system statistics
+
+**WebSocket:**
+- `WebSocket /ws/{job_id}` - Real-time training updates
+
+## Testing New Features
+
+```bash
+# Test validation
+python examples/validate_and_train.py
+
+# Monitor training via WebSocket
+python examples/websocket_monitor.py <job_id>
+
+# View job history and metrics
+python examples/job_history.py
+python examples/job_history.py <job_id>
+```
+
+---
+> Source: [Schneewolf-Labs/Merlina](https://github.com/Schneewolf-Labs/Merlina) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
