@@ -1,0 +1,9 @@
+{
+  "name": "henriqueslab--rxiv-maker",
+  "displayName": "rxiv-maker",
+  "description": "Rxiv-Maker is a GitHub-native framework that converts markdown into a publication-ready PDF. It automates scientific preprint generation with a focus on reproducibility and version control",
+  "version": "1.0.0",
+  "author": "HenriquesLab",
+  "homepage": "https://github.com/HenriquesLab/rxiv-maker",
+  "skills": []
+}
