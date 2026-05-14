@@ -1,0 +1,9 @@
+{
+  "name": "paulrobello--par-term-emu-core-rust",
+  "displayName": "par-term-emu-core-rust",
+  "description": "Rust terminal emulator library with Python 3.12+ bindings (PyO3). Provides VT100/VT220/VT320/VT420 compatibility with PTY support.",
+  "version": "1.0.0",
+  "author": "paulrobello",
+  "homepage": "https://github.com/paulrobello/par-term-emu-core-rust",
+  "skills": []
+}
