@@ -1,0 +1,9 @@
+{
+  "name": "axiomhq--fsst",
+  "displayName": "fsst",
+  "description": "Go Fast Static Symbol Table Implementation",
+  "version": "1.0.0",
+  "author": "axiomhq",
+  "homepage": "https://github.com/axiomhq/fsst",
+  "skills": []
+}
