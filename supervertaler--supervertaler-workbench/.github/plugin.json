@@ -1,0 +1,9 @@
+{
+  "name": "supervertaler--supervertaler-workbench",
+  "displayName": "Supervertaler-Workbench",
+  "description": "Open-source, AI-enhanced CAT tool with multi-LLM support, translation memory, glossary management, Superbench translation quality benchmarking, \u2018Superlookup\u2019 concordance across TMs/glossaries/web reso",
+  "version": "1.0.0",
+  "author": "Supervertaler",
+  "homepage": "https://github.com/Supervertaler/Supervertaler-Workbench",
+  "skills": []
+}
