@@ -1,0 +1,9 @@
+{
+  "name": "k1-c--dotf",
+  "displayName": "dotf",
+  "description": "\u2699\u26a1 A modern dotfiles manager written in Rust",
+  "version": "1.0.0",
+  "author": "k1-c",
+  "homepage": "https://github.com/k1-c/dotf",
+  "skills": []
+}
