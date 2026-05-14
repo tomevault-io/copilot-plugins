@@ -1,0 +1,9 @@
+{
+  "name": "ryoppippi--gemistat",
+  "displayName": "gemistat",
+  "description": "Gemini CLI wrapper with usage tracking. just like ccusge but for gemini-cli",
+  "version": "1.0.0",
+  "author": "ryoppippi",
+  "homepage": "https://github.com/ryoppippi/gemistat",
+  "skills": []
+}
