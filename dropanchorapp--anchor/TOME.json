@@ -4,7 +4,7 @@
   "repo": "Anchor",
   "description": "\u26a0\ufe0f Closing down \u2014 https://bsky.app/profile/dropanchor.app/post/3mj3beavwhs2c | A system & app for doing location based checkins on ATProto a.k.a Bluesky",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dropanchorapp/Anchor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T21:31:04Z"
+  "distributed_at": "2026-05-14T21:42:38Z"
 }
