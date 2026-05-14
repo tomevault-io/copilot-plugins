@@ -1,0 +1,9 @@
+{
+  "name": "simm-is--repl-mcp",
+  "displayName": "repl-mcp",
+  "description": "Model Context Protocol Clojure support including REPL integration with development tools.",
+  "version": "1.0.0",
+  "author": "simm-is",
+  "homepage": "https://github.com/simm-is/repl-mcp",
+  "skills": []
+}
