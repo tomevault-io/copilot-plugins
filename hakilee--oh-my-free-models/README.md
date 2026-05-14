@@ -7,11 +7,11 @@ Route your coding agent to the fastest free LLM in real time.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hakilee/oh-my-free-models](https://github.com/hakilee/oh-my-free-models).
+Original source: `CLAUDE.md` in [hakilee/oh-my-free-models](https://github.com/hakilee/oh-my-free-models).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
