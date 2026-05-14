@@ -1,0 +1,9 @@
+{
+  "name": "ssmirnovpro--claude-code-documentation-crew",
+  "displayName": "claude-code-documentation-crew",
+  "description": "Multi-agent documentation generator for Claude Code CLI. Automatically creates professional docs, guides, and diagrams from your codebase.",
+  "version": "1.0.0",
+  "author": "ssmirnovpro",
+  "homepage": "https://github.com/ssmirnovpro/claude-code-documentation-crew",
+  "skills": []
+}
