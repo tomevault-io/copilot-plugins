@@ -1,0 +1,9 @@
+{
+  "name": "raytracer76--intentgraph",
+  "displayName": "IntentGraph",
+  "description": "Transform any codebase into rich, queryable intelligence for AI coding agents. Provides function-level dependencies, semantic analysis, design pattern   detection, and code quality metrics. Stop scann",
+  "version": "1.0.0",
+  "author": "Raytracer76",
+  "homepage": "https://github.com/Raytracer76/IntentGraph",
+  "skills": []
+}
