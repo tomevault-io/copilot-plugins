@@ -1,0 +1,9 @@
+{
+  "name": "jmandel--regulations-gov-comment-browser",
+  "displayName": "regulations.gov-comment-browser",
+  "description": "Explore public-comment data with an interactive, self-contained web app.",
+  "version": "1.0.0",
+  "author": "jmandel",
+  "homepage": "https://github.com/jmandel/regulations.gov-comment-browser",
+  "skills": []
+}
