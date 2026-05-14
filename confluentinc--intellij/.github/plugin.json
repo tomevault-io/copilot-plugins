@@ -1,0 +1,9 @@
+{
+  "name": "confluentinc--intellij",
+  "displayName": "intellij",
+  "description": "Confluent for JetBrains IDEs",
+  "version": "1.0.0",
+  "author": "confluentinc",
+  "homepage": "https://github.com/confluentinc/intellij",
+  "skills": []
+}
