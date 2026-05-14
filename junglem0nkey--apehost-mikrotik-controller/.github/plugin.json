@@ -1,0 +1,9 @@
+{
+  "name": "junglem0nkey--apehost-mikrotik-controller",
+  "displayName": "apehost-mikrotik-controller",
+  "description": "Mikrotik RouterOS dashboard with built-in AI assistant, analytics and network map. Supports Claude, LM-Studio and Cloudflare AI Agent models.",
+  "version": "1.0.0",
+  "author": "JungleM0nkey",
+  "homepage": "https://github.com/JungleM0nkey/apehost-mikrotik-controller",
+  "skills": []
+}
