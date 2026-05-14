@@ -1,35 +1,43 @@
-## project
+## mcp-picnic
 
-> This project follows a set of conventions to ensure code quality and consistency. The following rules should be followed when working on this project, especially when using AI tools like Cursor:
+> - Build: `npm run build`
 
+# Contentful GraphQL MCP - Development Guide
 
-This project follows a set of conventions to ensure code quality and consistency. The following rules should be followed when working on this project, especially when using AI tools like Cursor:
+## Common Commands
 
-### General
+- Build: `npm run build`
+- Type Check: `npm run typecheck`
+- Lint: `npm run lint`
+- Run Tests: `npm test`
+- Run Single Test: `npx vitest run test/path/to/test.test.ts`
+- Run Tests in Watch Mode: `npm run test:watch`
+- Dev Mode (watch & rebuild): `npm run dev`
 
-- **Keep it simple**: Write clean, readable, and easy-to-understand code.
-- **Code should be self-explanatory**: Avoid adding comments to code except when explaining complex structures.
-- **Follow the existing project structure**: When adding new files, be sure to place them in the appropriate directory.
+## Code Style Guidelines
 
-### TypeScript
+- **Formatting**: Uses Prettier with 100 char width, no semicolons, double quotes
+- **TypeScript**: Use strict typing, avoid `any` when possible
+- **Imports**: Order from external to internal, group related imports
+- **Naming**: Use camelCase for variables/functions, PascalCase for types/interfaces
+- **Error Handling**: Always handle errors in async functions with try/catch blocks
+- **Documentation**: Add JSDoc style comments for functions and interfaces
 
-- **Use strict mode**: All TypeScript code should be written in strict mode.
-- **Avoid `any`**: Avoid using the `any` type. If you need to use a dynamic type, use `unknown` instead. If you can't avoid using `any`, use the type `ANNIE` instead
+## Entity Structure
 
-### Testing
+- Each handler should focus on a single responsibility
 
-- **Use Vitest**: This project uses Vitest for testing. All new tests should be written using Vitest.
+## Testing
 
-### MCP Inner Workings
+Tests use Vitest with a lightweight unit testing approach. Current test structure:
 
-The Model Context Protocol (MCP) is an open protocol that standardizes how applications provide context to LLMs. It follows a client-server architecture:
+- `test/unit/` - Lightweight unit tests for public API functions
 
-- **MCP Hosts**: Applications that consume MCP data (e.g., IDEs, AI tools).
-- **MCP Clients**: Protocol clients that maintain connections with servers.
-- **MCP Servers**: Lightweight programs that expose capabilities (tools, prompts, resources) through the MCP protocol.
-- **Data Sources**: Local or remote data and services that MCP servers can securely access.
+Focus on testing behavior, not implementation details. See `test/README.md` for detailed testing guidelines.
 
-The core of the protocol is a series of requests and responses between the client and the server. The server exposes a set of capabilities, and the client can query these capabilities and execute them. The server is responsible for managing the lifecycle of these capabilities, including their registration, execution, and error handling.
+## Context
+
+This is a MCP Server that enables LLM's to connect to Contentful GraphQL Endpoint.
 
 ---
 > Source: [ivo-toby/mcp-picnic](https://github.com/ivo-toby/mcp-picnic) — distributed by [TomeVault](https://tomevault.io).
