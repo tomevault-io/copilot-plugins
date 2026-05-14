@@ -1,0 +1,9 @@
+{
+  "name": "garthdb--rust-things3",
+  "displayName": "rust-things3",
+  "description": "Rust library and CLI for Things 3 integration with integrated MCP server",
+  "version": "1.0.0",
+  "author": "GarthDB",
+  "homepage": "https://github.com/GarthDB/rust-things3",
+  "skills": []
+}
