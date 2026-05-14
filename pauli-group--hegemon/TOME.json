@@ -4,7 +4,7 @@
   "repo": "Hegemon",
   "description": "Quantum resistant and private blockchain",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pauli-Group/Hegemon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T14:50:03Z"
+  "distributed_at": "2026-05-14T03:05:21Z"
 }
