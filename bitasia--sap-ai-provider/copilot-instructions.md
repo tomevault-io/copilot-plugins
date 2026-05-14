@@ -1,33 +1,34 @@
-## build-and-publish
+## environment-and-config
 
-> Build, type-check, test, and publish workflow for the package
+> Environment variables, credentials, and configuration guidance
 
-# Build and Publish
+# Environment and Configuration
 
-## Build Outputs
+## Credentials
 
-- Bundler: tsup (CJS + ESM + DTS + sourcemaps) — see [tsup.config.ts](mdc:tsup.config.ts)
-- Output dir: [dist/](mdc:dist/)
-- Package exports configured in [package.json](mdc:package.json)
+- Preferred: Provide an SAP AI Core service key JSON to `createSAPAIProvider({ serviceKey })` (see [src/sap-ai-provider.ts](mdc:src/sap-ai-provider.ts)).
+- Alternative: Provide an OAuth token via `createSAPAIProviderSync({ token })` or set `SAP_AI_TOKEN`.
 
-## Commands
+## Environment Variables
 
-- Clean: `npm run clean`
-- Build: `npm run build`
-- Type-check: `npm run type-check`
-- Lint: `npm run lint`
-- Prettier check/fix: `npm run prettier-check` / `npm run prettier-fix`
-- Test (all): `npm test`
+See details in [README.md](mdc:README.md).
 
-`prepublishOnly` enforces type-check, tests, and build before publish (see [package.json](mdc:package.json)).
+- `SAP_AI_SERVICE_KEY` — full JSON string of your service key.
+- `SAP_AI_TOKEN` — direct OAuth token (used by default instance `sapai`).
+- `SAP_AI_BASE_URL` — override base URL if needed.
 
-## Node Engine
+Do not commit secrets. Prefer local `.env` and CI secrets. `dotenv` is available for local development.
 
-- Requires Node >= 18 (see `engines` in [package.json](mdc:package.json)).
+## Deployment and Resource Group
 
-## Verification
+- Default `deploymentId`: `d65d81e7c077e583`
+- Default `resourceGroup`: `default`
 
-- Verify distribution artifacts exist: `npm run check-build`.
+Both can be overridden in provider settings or via environment variables in your host app.
+
+## SAP BTP (xsenv)
+
+For BTP environments, consider loading credentials from `VCAP_SERVICES` via `@sap/xsenv` as shown in [README.md](mdc:README.md).
 
 ---
 > Source: [BITASIA/sap-ai-provider](https://github.com/BITASIA/sap-ai-provider) — distributed by [TomeVault](https://tomevault.io).
