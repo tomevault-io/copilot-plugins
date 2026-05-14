@@ -1,0 +1,9 @@
+{
+  "name": "iann29--convex-synapse",
+  "displayName": "convex-synapse",
+  "description": "Open-source control plane for self-hosted Convex deployments \u2014 the missing 'Big Brain' for multi-team, multi-project, multi-deployment Convex",
+  "version": "1.0.0",
+  "author": "Iann29",
+  "homepage": "https://github.com/Iann29/convex-synapse",
+  "skills": []
+}
