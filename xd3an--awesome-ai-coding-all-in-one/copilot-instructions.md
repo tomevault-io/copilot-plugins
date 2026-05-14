@@ -1,45 +1,57 @@
-## elixir-phoenix-docker-setup-cursorrules-prompt-fil
+## embedded-stm32-hal
 
-> Cursor rules for Elixir development with Phoenix and Docker integration.
+> Embedded C/C++ rules for MCU, STM32, HAL, interrupts, DMA, memory constraints, and hardware-focused testing
 
-Act as an expert senior Elixir engineer.
 
-Stack: Elixir, Phoenix, Docker, PostgreSQL, Tailwind CSS, LeftHook, Sobelow, Credo, Ecto, ExUnit, Plug, Phoenix LiveView, Phoenix LiveDashboard, Gettext, Jason, Swoosh, Finch, DNS Cluster, File System Watcher, Release Please, ExCoveralls
+# Embedded MCU, STM32, and HAL Rules
 
-- When writing code, you will think through any considerations or requirements to make sure we've thought of everything. Only after that do you write the code.
+## Project Structure
 
-- After a response, provide three follow-up questions worded as if I'm asking you. Format in bold as Q1, Q2, Q3. These questions should be thought-provoking and dig further into the original topic.
+- Keep board support, drivers, middleware, application logic, and tests separate.
+- Isolate generated CubeMX or vendor code from hand-written application code.
+- Put hardware abstraction behind narrow interfaces so logic can be tested without hardware.
+- Document clock tree, pin mappings, peripheral ownership, and interrupt priorities.
 
-- If my response starts with "VV", give the most succinct, concise, shortest answer possible.
+## STM32 HAL and Peripherals
 
-## Commit Message Guidelines:
+- Initialize peripherals in one place and avoid hidden reconfiguration.
+- Check return values from HAL calls and handle timeout/error cases.
+- Keep blocking HAL calls out of time-critical paths.
+- Use DMA for high-throughput UART, SPI, I2C, ADC, or timer capture paths when appropriate.
+- Document buffer ownership and lifetime for DMA operations.
+- Use `volatile` only for memory shared with ISRs or hardware registers.
 
-- Always suggest a conventional commit message with an optional scope in lowercase. Follow this structure:
-  [optional scope]: [optional body][optional footer(s)]
+## Interrupts and Concurrency
 
-Where:
+- Keep ISRs short and deterministic.
+- Defer heavy work from interrupts to the main loop, RTOS task, or event queue.
+- Protect shared data with critical sections, atomics, queues, or RTOS primitives.
+- Avoid dynamic allocation in interrupts.
+- Make interrupt priority decisions explicit.
 
-- **type:** One of the following:
-  - `build`: Changes that affect the build system or external dependencies (e.g., Maven, npm)
-  - `chore`: Other changes that don't modify src or test files
-  - `ci`: Changes to our CI configuration files and scripts (e.g., Circle, BrowserStack, SauceLabs)
-  - `docs`: Documentation only changes
-  - `feat`: A new feature
-  - `fix`: A bug fix
-  - `perf`: A code change that improves performance
-  - `refactor`: A code change that neither fixes a bug nor adds a feature
-  - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-  - `test`: Adding missing tests or correcting existing tests
+## Memory and Timing
 
-- **scope (optional):** A noun describing a section of the codebase (e.g., `fluxcd`, `deployment`).
+- Avoid heap allocation in firmware unless the project explicitly allows it.
+- Check stack usage for ISRs and RTOS tasks.
+- Keep lookup tables `const` so they can live in flash.
+- Use fixed-width integer types for hardware-facing code.
+- Add timeouts for hardware waits.
+- Treat watchdog configuration as part of application design, not a late add-on.
 
-- **description:** A brief summary of the change in present tense.
+## Testing and Debugging
 
-- **body (optional):** A more detailed explanation of the change.
+- Unit test pure logic on host builds.
+- Use hardware-in-the-loop tests for peripheral behavior.
+- Add assertions for impossible hardware states in debug builds.
+- Use SWD/JTAG, logic analyzers, and serial logs with rate limits.
+- Keep fault handlers useful: capture reset reason, fault registers, and build version when possible.
 
-- **footer (optional):** One or more footers in the following format:
-  - `BREAKING CHANGE: ` (for breaking changes)
-  - `<issue_tracker_id>: ` (e.g., `Jira-123: Fixed bug in authentication`)
+## Common Mistakes
+
+- Do not modify generated files unless the workflow preserves changes.
+- Do not busy-wait forever on hardware flags.
+- Do not share buffers between DMA and CPU without synchronization.
+- Do not assume peripheral reset state after low-power modes.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
