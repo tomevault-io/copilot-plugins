@@ -1,0 +1,9 @@
+{
+  "name": "dgriffith--bad-daves-robot-army",
+  "displayName": "bad-daves-robot-army",
+  "description": "Repository for Claude Code artifacts, including subagents, slash commands, and hooks",
+  "version": "1.0.0",
+  "author": "dgriffith",
+  "homepage": "https://github.com/dgriffith/bad-daves-robot-army",
+  "skills": []
+}
