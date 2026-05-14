@@ -1,0 +1,9 @@
+{
+  "name": "javiarmesto--aldc-al-development-collection",
+  "displayName": "ALDC-AL-Development-Collection",
+  "description": "ALDC (AL Development Collection) transforms how you develop Business Central extensions with GitHub Copilot and Claude Code. Instead of ad-hoc code generation, ALDC provides structured, contract-drive",
+  "version": "1.0.0",
+  "author": "javiarmesto",
+  "homepage": "https://github.com/javiarmesto/ALDC-AL-Development-Collection",
+  "skills": []
+}
