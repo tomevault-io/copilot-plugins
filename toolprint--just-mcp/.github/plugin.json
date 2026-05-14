@@ -1,0 +1,9 @@
+{
+  "name": "toolprint--just-mcp",
+  "displayName": "just-mcp",
+  "description": "Share the same project justfile tasks with your AI Coding Agent.",
+  "version": "1.0.0",
+  "author": "toolprint",
+  "homepage": "https://github.com/toolprint/just-mcp",
+  "skills": []
+}
