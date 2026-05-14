@@ -1,0 +1,9 @@
+{
+  "name": "xakpc--anymcp-io",
+  "displayName": "anymcp-io",
+  "description": "A catalog of single-file MCP servers for .NET 10",
+  "version": "1.0.0",
+  "author": "xakpc",
+  "homepage": "https://github.com/xakpc/anymcp-io",
+  "skills": []
+}
