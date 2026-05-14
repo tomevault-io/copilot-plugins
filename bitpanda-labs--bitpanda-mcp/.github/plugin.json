@@ -1,0 +1,9 @@
+{
+  "name": "bitpanda-labs--bitpanda-mcp",
+  "displayName": "bitpanda-mcp",
+  "description": "Official Bitpanda MCP server ",
+  "version": "1.0.0",
+  "author": "bitpanda-labs",
+  "homepage": "https://github.com/bitpanda-labs/bitpanda-mcp",
+  "skills": []
+}
