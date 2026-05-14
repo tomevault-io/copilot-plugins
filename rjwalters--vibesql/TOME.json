@@ -4,7 +4,7 @@
   "repo": "vibesql",
   "description": "Vibe-coded NIST compatible database in Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rjwalters/vibesql",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:56:13Z"
+  "distributed_at": "2026-05-14T01:30:37Z"
 }
