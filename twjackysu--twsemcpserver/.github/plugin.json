@@ -1,0 +1,9 @@
+{
+  "name": "twjackysu--twsemcpserver",
+  "displayName": "TWSEMCPServer",
+  "description": "\u53f0\u7063\u8b49\u4ea4\u6240OpenAPI \u7684 MCP Server \u540c\u6642\u6574\u5408\u90e8\u5206\u5373\u6642\u5831\u50f9\u548c\u6ac3\u6aaf\u8cb7\u8ce3\u4e2d\u5fc3TPEx OpenAPI, \u81fa\u7063\u671f\u8ca8\u4ea4\u6613\u6240TAIFEX OpenAPI",
+  "version": "1.0.0",
+  "author": "twjackysu",
+  "homepage": "https://github.com/twjackysu/TWSEMCPServer",
+  "skills": []
+}
