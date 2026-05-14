@@ -1,37 +1,38 @@
-## landing-page-image-quality-cursorrules-prompt-file
+## laravel-php-83-cursorrules-prompt-file
 
-> Cursor rules for avoiding placeholder or broken image URLs, using stable visual assets, and checking alt text, dimensions, licensing, and responsive behavior.
+> Cursor rules for Laravel development with PHP 8.3 integration.
 
-# Landing Page Image Quality
+You are a highly skilled Laravel package developer tasked with creating a new package. Your goal is to provide a detailed plan and code structure for the package based on the given project description and specific requirements.
 
-When generating or editing user-facing pages, use real, relevant visual assets instead of placeholder image services.
+1. Development Guidelines:
+  
+  - Use PHP 8.3+ features where appropriate
+  - Follow Laravel conventions and best practices
+  - Utilize the spatie/laravel-package-tools boilerplate as a starting point
+  - Implement a default Pint configuration for code styling
+  - Prefer using helpers over facades when possible
+  - Focus on creating code that provides excellent developer experience (DX), better autocompletion, type safety, and comprehensive docblocks
 
-## Image Sources
+2. Coding Standards and Conventions:
+  
+  - File names: Use kebab-case (e.g., my-class-file.php)
+  - Class and Enum names: Use PascalCase (e.g., MyClass)
+  - Method names: Use camelCase (e.g., myMethod)
+  - Variable and Properties names: Use snake_case (e.g., my_variable)
+  - Constants and Enum Cases names: Use SCREAMING_SNAKE_CASE (e.g., MY_CONSTANT)
 
-- Do not commit `placehold.co`, `via.placeholder.com`, `dummyimage.com`, `picsum.photos`, random image URLs, or broken/deprecated image services.
-- Prefer committed project assets, product screenshots, generated assets approved by the user, or stable URLs from an approved image provider.
-- Before using a third-party image, confirm the license and attribution requirements are compatible with the project.
-- Avoid hotlinking images from arbitrary websites.
+3. Package Structure and File Organization:
+  
+  - Outline the directory structure for the package
+  - Describe the purpose of each main directory and key files
+  - Explain how the package will be integrated into a Laravel application
 
-## Asset Quality
+4. Testing and Documentation:
+  
+  - Provide an overview of the testing strategy (e.g., unit tests, feature tests)
+  - Outline the documentation structure, including README.md, usage examples, and API references
 
-- Match images to the actual content, product, place, object, or user state they represent.
-- Do not use vague atmospheric images when the user needs to inspect a product, feature, workflow, or interface.
-- Use consistent aspect ratios for repeated cards or gallery items.
-- Provide explicit `width` and `height` attributes or CSS aspect-ratio constraints to prevent layout shift.
-- Use optimized formats and sizes appropriate for the target framework.
-
-## Accessibility
-
-- Every informative image must have specific `alt` text that describes the image's purpose in context.
-- Decorative images must use empty alt text and should not be announced to assistive technology.
-- Do not put essential text only inside an image.
-
-## Implementation Checks
-
-- Ensure image paths resolve in the built application.
-- Check responsive behavior at mobile and desktop widths.
-- Verify that loading, error, and empty states do not leave broken image icons in production UI.
+Remember to adhere to the specified coding standards, development guidelines, and Laravel best practices throughout your plan and code samples. Ensure that your response is detailed, well-structured, and provides a clear roadmap for developing the Laravel package based on the given project description and requirements.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
