@@ -4,7 +4,7 @@
   "repo": "ContextGen",
   "description": "[ICLR 2026] ContextGen: Contextual Layout Anchoring for Identity-Consistent Multi-Instance Generation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nenhang/ContextGen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:54:12Z"
+  "distributed_at": "2026-05-14T03:45:50Z"
 }
