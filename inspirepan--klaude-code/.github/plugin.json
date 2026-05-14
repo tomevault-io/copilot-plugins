@@ -1,0 +1,14 @@
+{
+  "name": "inspirepan--klaude-code",
+  "displayName": "klaude-code",
+  "description": "Agent CLI",
+  "version": "1.0.0",
+  "author": "inspirepan",
+  "homepage": "https://github.com/inspirepan/klaude-code",
+  "skills": [
+    {
+      "name": "publish",
+      "description": ""
+    }
+  ]
+}
