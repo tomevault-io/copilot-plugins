@@ -4,7 +4,7 @@
   "repo": "seo-brain",
   "description": "Agentic SEO operating system as a Claude Code plugin: project Wiki, DataForSEO workflows, content briefs, technical SEO, and human-approval gates.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agencia-conversion/seo-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T01:36:23Z"
+  "distributed_at": "2026-05-14T12:03:40Z"
 }
