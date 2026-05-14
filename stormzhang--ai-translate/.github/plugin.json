@@ -1,0 +1,9 @@
+{
+  "name": "stormzhang--ai-translate",
+  "displayName": "ai-translate",
+  "description": "AI translate tool for Claude Code, Codex, OpenCode & Cursor. One-line install, multi-language support with speech.",
+  "version": "1.0.0",
+  "author": "stormzhang",
+  "homepage": "https://github.com/stormzhang/ai-translate",
+  "skills": []
+}
