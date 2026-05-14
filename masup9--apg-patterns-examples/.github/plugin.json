@@ -1,0 +1,9 @@
+{
+  "name": "masup9--apg-patterns-examples",
+  "displayName": "apg-patterns-examples",
+  "description": "Accessible UI component implementations across React, Astro, Svelte, Vue, and Astro following WAI-ARIA APG patterns",
+  "version": "1.0.0",
+  "author": "masuP9",
+  "homepage": "https://github.com/masuP9/apg-patterns-examples",
+  "skills": []
+}
