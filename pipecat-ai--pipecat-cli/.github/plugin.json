@@ -1,0 +1,9 @@
+{
+  "name": "pipecat-ai--pipecat-cli",
+  "displayName": "pipecat-cli",
+  "description": "Official CLI for Pipecat development",
+  "version": "1.0.0",
+  "author": "pipecat-ai",
+  "homepage": "https://github.com/pipecat-ai/pipecat-cli",
+  "skills": []
+}
