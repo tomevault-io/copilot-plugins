@@ -1,0 +1,9 @@
+{
+  "name": "katelouie--bardic",
+  "displayName": "bardic",
+  "description": "A Python-first interactive fiction engine and authoring system. Frontend-agnostic and portable.",
+  "version": "1.0.0",
+  "author": "katelouie",
+  "homepage": "https://github.com/katelouie/bardic",
+  "skills": []
+}
