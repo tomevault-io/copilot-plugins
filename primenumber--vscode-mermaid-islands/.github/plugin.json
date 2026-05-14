@@ -1,0 +1,9 @@
+{
+  "name": "primenumber--vscode-mermaid-islands",
+  "displayName": "vscode-mermaid-islands",
+  "description": "A VSCode extension that renders and displays mermaids written in source code comments",
+  "version": "1.0.0",
+  "author": "primenumber",
+  "homepage": "https://github.com/primenumber/vscode-mermaid-islands",
+  "skills": []
+}
