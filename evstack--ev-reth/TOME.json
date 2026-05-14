@@ -1,0 +1,87 @@
+{
+  "name": "ev-r",
+  "owner": "evstack",
+  "repo": "ev-reth",
+  "description": "Reth instance with custom Payloads for ev-node",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "evolve-debugger",
+      "path": ".claude/skills/evolve-debugger",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-debugger",
+      "description": ""
+    },
+    {
+      "name": "evolve-modules",
+      "path": ".claude/skills/evolve-modules",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-modules",
+      "description": ""
+    },
+    {
+      "name": "evolve-node-composer",
+      "path": ".claude/skills/evolve-node-composer",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-node-composer",
+      "description": ""
+    },
+    {
+      "name": "evolve-proptest",
+      "path": ".claude/skills/evolve-proptest",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-proptest",
+      "description": ""
+    },
+    {
+      "name": "evolve-simulator",
+      "path": ".claude/skills/evolve-simulator",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-simulator",
+      "description": ""
+    },
+    {
+      "name": "evolve-testing",
+      "path": ".claude/skills/evolve-testing",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/evolve-testing",
+      "description": ""
+    },
+    {
+      "name": "stf-analysis",
+      "path": ".claude/skills/stf-analysis",
+      "github_url": "https://github.com/evstack/ev-reth/tree/main/.claude/skills/stf-analysis",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/evstack/ev-reth",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T20:31:00Z"
+}
