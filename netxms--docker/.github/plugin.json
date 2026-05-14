@@ -1,0 +1,9 @@
+{
+  "name": "netxms--docker",
+  "displayName": "docker",
+  "description": "Official NetXMS docker images",
+  "version": "1.0.0",
+  "author": "netxms",
+  "homepage": "https://github.com/netxms/docker",
+  "skills": []
+}
