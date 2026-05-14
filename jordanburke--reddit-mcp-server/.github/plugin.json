@@ -1,0 +1,9 @@
+{
+  "name": "jordanburke--reddit-mcp-server",
+  "displayName": "reddit-mcp-server",
+  "description": "\u2699\ufe0f A Model Context Protocol (MCP) that provides tools for fetching and creating Reddit content",
+  "version": "1.0.0",
+  "author": "jordanburke",
+  "homepage": "https://github.com/jordanburke/reddit-mcp-server",
+  "skills": []
+}
