@@ -1,0 +1,9 @@
+{
+  "name": "willianpinho--large-file-mcp",
+  "displayName": "large-file-mcp",
+  "description": "MCP Server for efficient large file operations in AI development workflows \u2014 chunk reading, smart search, replace",
+  "version": "1.0.0",
+  "author": "willianpinho",
+  "homepage": "https://github.com/willianpinho/large-file-mcp",
+  "skills": []
+}
