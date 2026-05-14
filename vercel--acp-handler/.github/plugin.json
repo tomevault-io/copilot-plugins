@@ -1,0 +1,9 @@
+{
+  "name": "vercel--acp-handler",
+  "displayName": "acp-handler",
+  "description": "Integrate the Agentic Commerce Protocol (ACP) into your servers",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/acp-handler",
+  "skills": []
+}
