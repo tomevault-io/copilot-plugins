@@ -4,7 +4,7 @@
   "repo": "interfazzle",
   "description": "A Swift CLI tool for building simple Markdown docs for a package's public interface from its symbol graphs. LLMs love that stuff, too!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/czottmann/interfazzle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T15:24:36Z"
+  "distributed_at": "2026-05-14T03:21:53Z"
 }
