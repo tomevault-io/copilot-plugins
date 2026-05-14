@@ -7,11 +7,11 @@ TUI terminal app to manage GitHub repos. Clean up your account in 5 minutes. Arc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wiiiimm/gh-manager-cli](https://github.com/wiiiimm/gh-manager-cli).
+Original source: `CLAUDE.md` in [wiiiimm/gh-manager-cli](https://github.com/wiiiimm/gh-manager-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
