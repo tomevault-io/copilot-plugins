@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--very-happy-dom",
+  "displayName": "very-happy-dom",
+  "description": "A very performant virtual DOM implementation.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/very-happy-dom",
+  "skills": []
+}
