@@ -1,0 +1,44 @@
+{
+  "name": "vmarker",
+  "owner": "ApeCodeAI",
+  "repo": "vmarker",
+  "description": "vmarker (Auto Chapter Bar or `acb` in CLI) is an open-source Python tool that converts SRT subtitle files into transparent video chapter progress bars with alpha channel. vmarker\uff08\u7b80\u79f0 `acb`\uff09\u662f\u4e00\u4e2a\u5f00\u6e90\u7684 Python \u5de5\u5177\uff0c\u53ef\u4ee5\u5feb\u901f\u5c06 SRT \u5b57\u5e55\u6587\u4ef6\u8f6c\u6362\u4e3a\u5e26\u6709 Alpha \u900f\u660e\u901a\u9053\u7684\u89c6\u9891\u7ae0\u8282\u8fdb\u5ea6\u6761",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ApeCodeAI/vmarker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T03:04:25Z"
+}
