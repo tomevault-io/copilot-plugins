@@ -1,0 +1,9 @@
+{
+  "name": "fguedes90--lazycelery",
+  "displayName": "lazycelery",
+  "description": "Terminal UI for monitoring and managing Celery workers and tasks, inspired by lazydocker and lazygit",
+  "version": "1.0.0",
+  "author": "Fguedes90",
+  "homepage": "https://github.com/Fguedes90/lazycelery",
+  "skills": []
+}
