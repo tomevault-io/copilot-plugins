@@ -4,7 +4,7 @@
   "repo": "dbcrust",
   "description": "The modern database CLI that speaks your language \u2014 PostgreSQL, MySQL, SQLite with zero compromises.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clement-tourriere/dbcrust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:53:45Z"
+  "distributed_at": "2026-05-14T08:09:39Z"
 }
