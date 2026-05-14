@@ -1,0 +1,9 @@
+{
+  "name": "zazencodes--random-number-mcp",
+  "displayName": "random-number-mcp",
+  "description": "Production-ready MCP server that provides LLMs with essential random generation abilities, built entirely on Python's standard library.",
+  "version": "1.0.0",
+  "author": "zazencodes",
+  "homepage": "https://github.com/zazencodes/random-number-mcp",
+  "skills": []
+}
