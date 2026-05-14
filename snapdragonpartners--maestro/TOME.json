@@ -4,7 +4,7 @@
   "repo": "maestro",
   "description": "The Maestro App Factory: a highly-opinionated multi-agent orchestration tool for app development that emulates the workflow of high-functioning human development teams using AI agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SnapdragonPartners/maestro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:11:19Z"
+  "distributed_at": "2026-05-14T07:43:07Z"
 }
