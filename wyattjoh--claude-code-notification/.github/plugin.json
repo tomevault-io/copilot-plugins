@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--claude-code-notification",
+  "displayName": "claude-code-notification",
+  "description": "A lightweight macOS desktop notification hook for Claude Code that displays native notifications with customizable system sounds when events occur during AI coding sessions.",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/claude-code-notification",
+  "skills": []
+}
