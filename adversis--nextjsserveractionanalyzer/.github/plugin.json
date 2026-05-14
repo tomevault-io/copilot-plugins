@@ -1,0 +1,9 @@
+{
+  "name": "adversis--nextjsserveractionanalyzer",
+  "displayName": "NextjsServerActionAnalyzer",
+  "description": "A Burp Suite extension for analyzing Next.js Server Actions - server-side functions identified by hash IDs and `Next-Action` headers.",
+  "version": "1.0.0",
+  "author": "Adversis",
+  "homepage": "https://github.com/Adversis/NextjsServerActionAnalyzer",
+  "skills": []
+}
