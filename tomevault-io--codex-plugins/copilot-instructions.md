@@ -1,212 +1,166 @@
 ## agents-md
 
-> Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
+> - Careti: Cline 기반 포크이며, 핵심은 유지하고 careti-src/로 확장합니다.
 
-# Objects2XLSX Project Context
+# Project Overview
+- Careti: Cline 기반 포크이며, 핵심은 유지하고 careti-src/로 확장합니다.
+- 이중 디렉토리: `.agents/` (AI용, 토큰 최적화), `.users/` (사람용, 상세 설명)
 
-## 项目概述
+# IMPORTANT: 세션 시작 시 필수 작업
+**아래 파일들을 반드시 먼저 읽어주세요:**
+1. `.agents/context/agents-rules.json` - 프로젝트 핵심 규칙 (SoT)
+2. `.agents/context/ai-work-index.yaml` - 작업 유형별 워크플로우 인덱스
 
-Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
+필요 시 `.agents/workflows/`에서 관련 워크플로우를 온디맨드로 로드합니다.
 
-## 核心架构
+# Operations
+- Proto 갱신: `npm run protos`, `npm run protos-go` (proto 변경 시 순서대로 실행)
+- 컴파일: `npm run compile`
+- CLI 컴파일: `npm run compile-cli` (Go 바이너리 빌드)
+- 패키지: `npm run package`
 
-### 主要组件
+## Desktop (Tauri)
 
-- **Book**: 对应 Excel 的 Workbook，包含多个工作表
-- **Sheet<ObjectType>**: 泛型工作表，将特定类型的对象集合转换为表格数据
-- **Column<ObjectType, InputType, OutputType>**: 定义对象属性到 Excel 列的映射
-- **Cell**: 单元格，包含位置、值和样式信息
-- **Row**: 行，包含多个单元格
-
-### 样式系统
-
-- **CellStyle**: 单元格样式（字体、填充、对齐、边框、数字格式）
-- **SheetStyle**: 工作表样式（行高、列宽、冻结窗格、网格线等）
-- **BookStyle**: 工作簿样式（主题、默认样式等）
-
-### 注册器
-
-- **StyleRegister**: 管理和去重样式，生成样式ID
-- **ShareStringRegister**: 管理共享字符串，优化文件大小
-
-## 项目状态
-
-### 🎯 当前状态：**功能完整，持续优化**
-
-Objects2XLSX 是一个功能完整的 Swift 库，具备：
-1. 完整的 XLSX 生成流程（对象 → XML → ZIP → .xlsx）
-2. 简化的列声明 API 和类型安全的数据转换
-3. 多工作表支持和自定义样式系统
-4. 跨平台兼容性（Linux/macOS）和 Swift 6 并发安全
-5. 完整的演示项目和 340+ 测试用例
-
-## 项目约定
-
-### 代码修改规则
-
-- **只有在获得明确认可后，才能自动修改这个项目的代码**
-- 所有代码修改建议应以示例代码形式提供
-- 修改前需要说明修改的目的和影响
-
-## 关键设计决策
-
-### 类型安全
-
-- 使用泛型确保编译时类型检查
-- KeyPath 用于安全的属性访问
-- 类型擦除（AnySheet、AnyColumn）支持异构集合
-
-### 并发安全
-
-- 使用 Swift 6 严格并发模式
-- 所有公共类型实现 Sendable 协议
-- 注意：Sheet 操作应在数据源的同一线程执行
-
-### 样式优先级
-
-1. 单元格级别样式（最高优先级）
-2. 列级别样式
-3. 工作表级别样式
-4. 工作簿默认样式（最低优先级）
-
-## 测试策略
-
-- ✅ **单元测试** - 340+ 测试覆盖所有核心组件
-- ✅ **集成测试** - 验证完整的 XLSX 文件生成流程
-- ✅ **演示项目** - 可执行的功能展示和性能验证
-- ✅ **跨平台测试** - Linux/macOS 兼容性验证
-
-## 常用命令
+**주의**: 루트에서 `npm run dev:webview` 실행 중이면 포트 충돌!
 
 ```bash
-# 运行测试
-swift test
+# 기존 vite 종료 (필수)
+pkill -f "npm run dev:webview"
 
-# 构建项目
-swift build
-
-# 运行演示项目
-swift run Objects2XLSXDemo --help
-swift run Objects2XLSXDemo -s medium -v demo.xlsx
+# 실행
+cd desktop
+npm run tauri dev      # 개발 모드
+npm run tauri build    # 프로덕션 빌드
 ```
 
-## 增强列 API
+상세 문서: `desktop/AGENTS.md`, `desktop/.agents/context/`
 
-### 简化语法
+# Testing (자동 테스트)
 
-新的 API 支持直观的列声明和链式配置：
+## 테스트 명령어
+| 명령어 | 설명 |
+|--------|------|
+| `npm run test:unit` | 백엔드 유닛 테스트 (mocha) |
+| `npm run test:webview` | 웹뷰 테스트 (vitest) |
+| `npm run test:report` | 전체 테스트 실행 및 요약 보고서 |
+| `npm run test:report:json` | JSON 형식 테스트 결과 (AI 파싱용) |
 
-```swift
-let sheet = Sheet<Employee>(name: "Employees", dataProvider: { employees }) {
-    // 基础列声明
-    Column(name: "Name", keyPath: \.name)
-    
-    // 可选值 + 默认值
-    Column(name: "Salary", keyPath: \.salary)
-        .defaultValue(0.0)
-        .width(12)
-    
-    // 类型转换
-    Column(name: "Level", keyPath: \.salary)
-        .defaultValue(0.0)
-        .toString { salary in salary < 50000 ? "Standard" : "Premium" }
-    
-    // 布尔值自定义格式
-    Column(name: "Manager", keyPath: \.isManager, booleanExpressions: .yesAndNo)
-    
-    // 日期时区支持
-    Column(name: "Hire Date", keyPath: \.hireDate, timeZone: .utc)
-}
+## AI 테스트 실행 가이드
+1. 코드 변경 후 `npm run test:report:json` 실행
+2. JSON 출력에서 `status` 필드 확인 (`pass` 또는 `fail`)
+3. 실패 시 `resultsDir` 경로에서 상세 로그 확인
+
+## 주요 테스트 파일 위치
+- Proto 변환 테스트: `src/shared/proto-conversions/models/__tests__/`
+- API Configuration 테스트: `src/shared/proto-conversions/models/__tests__/api-*.test.ts`
+- StateManager 테스트: `src/shared/proto-conversions/models/__tests__/state-manager-api-config.test.ts`
+- 웹뷰 테스트: `webview-ui/src/**/__tests__/`
+
+## 현재 테스트 상태 (2026-01-29)
+- Unit: 769+ passing, 7 failing (VRM/Vision 관련)
+- Webview: 140+ passing, 7 failing (i18n 조사 처리)
+
+# CLI Testing
+
+## 테스트 실행
+```bash
+cd cli && go test ./e2e/... -v           # 모든 E2E 테스트
+cd cli && go test ./e2e/... -v -short    # 빠른 테스트만 (통합 테스트 스킵)
+cd cli && go test ./e2e/... -v -run TestInteractive  # 특정 테스트만
 ```
 
-### 支持的数据类型
+## 테스트 구조 (cli/e2e/)
+| 파일 | 설명 |
+|-----|------|
+| `helpers_test.go` | 테스트 유틸리티 (바이너리 경로, gRPC 헬퍼 등) |
+| `cli_behavior_test.go` | CLI 동작 검증 (플래그, 명령어 구조) |
+| `cli_output_test.go` | 출력 형식 검증 |
+| `interactive_mode_test.go` | Interactive/Yolo 모드 동작 |
+| `start_list_test.go` | 인스턴스 시작/목록 테스트 |
 
-**✅ 完整支持**：
-- **String/String?**: 简化构造器 + defaultValue + toString
-- **Double/Double?**: 简化构造器 + defaultValue + toString/toInt
-- **Int/Int?**: 简化构造器 + defaultValue + toString/toInt
-- **Bool/Bool?**: 简化构造器 + defaultValue + 自定义表达式
-- **Date/Date?**: 简化构造器 + defaultValue + 时区支持
-- **URL/URL?**: 简化构造器 + defaultValue
-- **Percentage**: 精度控制和自定义格式
+## 주요 테스트 시나리오
+- **Interactive 모드**: 스트림 EOF 시 재연결, 프로세스 계속 실행
+- **Yolo/Headless 모드**: 완료 후 종료, followup ask를 완료로 처리
+- **스트림 재연결**: `handleStateStream`, `handlePartialMessageStream`의 EOF 처리
 
-### 类型安全特性
+## 테스트 전제조건
+- `npm run compile-cli` 실행 필요
+- 통합 테스트는 실행 중인 cline-core 인스턴스 필요 (없으면 skip)
 
-```swift
-// defaultValue 后，转换方法接收非可选类型
-Column(name: "Category", keyPath: \.price)  // Double?
-    .defaultValue(0.0)
-    .toString { (price: Double) in          // 非可选！
-        price < 50 ? "Budget" : "Premium"
-    }
+# Conventions
+- **항상 한국어로 응답**합니다.
+- **사전지식 의존 금지**: 작업 전 위의 필수 파일들을 먼저 읽습니다.
+- TDD: Integration 테스트 우선 → 최소 구현 → 리팩터.
+- 브랜드/경로/표기 계산은 `careti-src/utils/brand-utils.ts`를 사용합니다.
 
-// keepEmpty 时，显式处理可选值
-Column(name: "Status", keyPath: \.price)    // Double?
-    .toString { (price: Double?) in         // 可选
-        price.map { "¥\($0)" } ?? "未定价"
-    }
+# Work Logs (작업 로그)
+
+작업 로그는 parent의 `docs-work-logs/luke/project-careti/` 폴더에 기록합니다.
+
+## 규칙
+- **파일명 형식**: `YYYYMMDD-{번호}-{주제}.md` (예: `20260124-20-opencode-tool-complete-port.md`)
+- **폴더 구조**: `todo/`, `doing/`, `done/`
+- **날짜 기록**: 각 작업 단계마다 날짜 기록 (일간/주간/월간 요약용)
+- **언어**: 한국어 선호
+
+## 참조
+- `docs-work-logs/AGENTS.md` - 작업 로그 저장소 가이드
+- `docs-work-logs/.agents/context/agents-rules.json` - 상세 규칙
+
+# Boundaries
+- 보호 디렉토리(`src/`, `webview-ui/` 등)에 신규 파일 추가 시 파일 상단에 `// CARETI MODIFICATION:` 표기.
+- Cline 원본 파일 수정은 최소 침습 원칙(1~3줄)과 `// CARETI MODIFICATION:` 주석을 준수.
+- `.cline` 백업 파일 생성 규칙은 **deprecated** (새로 만들지 않음).
+- `work-logs`는 사용자가 요청하지 않는 한 언급/수정하지 않습니다.
+
+# Directory Structure (Dual-directory Architecture)
+```
+.agents/                    # AI용 (영어, 토큰 최적화)
+├── context/               # 시스템 규칙 (JSON/YAML)
+│   ├── agents-rules.json   # 메인 규칙 파일 (SoT) ← 필수 읽기
+│   └── ai-work-index.yaml  # 작업 인덱스 ← 필수 읽기
+├── workflows/             # 작업 워크플로우 (온디맨드)
+│   └── atoms/             # 재사용 가능한 빌딩 블록
+├── skills/
+└── hooks/
+
+.users/                     # 사람용 (한국어, 상세)
+├── context/               # 프로젝트 컨텍스트 (Markdown)
+├── workflows/
+├── skills/
+└── hooks/
+
+# Source Code Structure
+src/                        # Cline 원본 소스 (보호)
+careti-src/                 # Careti 전용 확장 소스
+cli/                        # Go 기반 CLI (Cline 원본)
+cli-careti/                 # Careti CLI (Node.js)
+standalone/                 # CLI용 VS Code 스텁 런타임
+desktop/                    # Tauri 데스크톱 앱 (독립)
+├── src/                   # 프론트엔드 (아바타 UI 등)
+├── src-tauri/             # Rust 백엔드
+│   ├── Cargo.toml
+│   ├── tauri.conf.json
+│   └── src/main.rs
+├── package.json
+└── vite.config.js
 ```
 
-## 注意事项
+# Skills
+- 표준 경로: `.agents/skills/<skill>/SKILL.md`
+- 호환 링크: `.github/skills`, `.claude/skills`
+- 사용자가 스킬을 지정하거나 요청이 스킬 설명과 일치하면 해당 스킬을 우선 사용합니다.
 
-1. 行列索引从 1 开始（Excel 标准）
-2. Sheet 名称会自动清理非法字符并限制长度
-3. 大数据集需要考虑内存使用
-4. 共享字符串用于优化文件大小（String 和 URL 类型自动注册）
-5. 方法链式调用支持灵活的列配置
+# MCP
+- MCP 설정은 프로젝트의 표준 설정(브랜드 유틸/설정 파일)을 따릅니다.
+- 토큰/비밀정보는 로그/문서에 남기지 않습니다.
 
-## 使用示例
-
-### 基础用法
-
-```swift
-import Objects2XLSX
-
-struct Person: Sendable {
-    let name: String
-    let age: Int
-    let salary: Double?
-}
-
-let people = [
-    Person(name: "Alice", age: 25, salary: 75000.0),
-    Person(name: "Bob", age: 30, salary: nil)
-]
-
-let sheet = Sheet<Person>(name: "People", dataProvider: { people }) {
-    Column(name: "姓名", keyPath: \.name)
-    
-    Column(name: "年龄分组", keyPath: \.age)
-        .toString { age in age < 18 ? "未成年" : "成年" }
-    
-    Column(name: "薪资等级", keyPath: \.salary)
-        .defaultValue(0.0)
-        .toString { salary in salary < 50000 ? "标准" : "高级" }
-}
-
-let book = Book(style: BookStyle()) { sheet }
-try book.write(to: URL(fileURLWithPath: "/path/to/output.xlsx"))
-```
-
-### 进度监控
-
-```swift
-let book = Book(style: BookStyle()) { /* sheets */ }
-
-Task {
-    for await progress in book.progressStream {
-        print("进度: \(Int(progress.progressPercentage * 100))% - \(progress.description)")
-        if progress.isFinal { break }
-    }
-}
-
-Task {
-    try book.write(to: outputURL)
-}
-```
+# Model List Documentation
+- **자동 업데이트**: `npm run models:generate` 실행
+- **스크립트**: `careti-scripts/build/generate-support-model-list.js`
 
 ---
-> Source: [fatbobman/Objects2XLSX](https://github.com/fatbobman/Objects2XLSX) — distributed by [TomeVault](https://tomevault.io).
+> Source: [caretive-ai/project-careti](https://github.com/caretive-ai/project-careti) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:agents_md:2026-05-06 -->
 
 ---
