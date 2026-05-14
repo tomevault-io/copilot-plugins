@@ -1,88 +1,20 @@
-## database
+## deno-integration-techniques-cursorrules-prompt-fil
 
-> Database best practices focusing on Prisma and Supabase integration
+> Cursor rules for Deno development with integration techniques.
 
-# Database Best Practices
+This project contains automation scripts and workflows for the @findhow packages, based on the original Deno automation repository. The goal is to provide consistent and efficient automation for the @findhow ecosystem.
 
-## Prisma Setup
-- Use proper schema design
-- Implement proper migrations
-- Use proper relation definitions
-- Configure proper connection
-- Implement proper seeding
-- Use proper client setup
+The purpose of this project is to refactor and adapt the automation scripts from [denoland/automation](https://github.com/denoland/automation) for use with the configured @findhow package repositories.
 
-## Prisma Models
-- Use proper model naming
-- Implement proper relations
-- Use proper field types
-- Define proper indexes
-- Implement proper constraints
-- Use proper enums
+When working on this project, Cursor AI should:
 
-## Prisma Queries
-- Use proper query optimization
-- Implement proper filtering
-- Use proper relations loading
-- Handle transactions properly
-- Implement proper pagination
-- Use proper aggregations
+When making changes:
 
-## Supabase Setup
-- Configure proper project setup
-- Implement proper authentication
-- Use proper database setup
-- Configure proper storage
-- Implement proper policies
-- Use proper client setup
+When updating documentation:
 
-## Supabase Security
-- Implement proper RLS policies
-- Use proper authentication
-- Configure proper permissions
-- Handle sensitive data properly
-- Implement proper backups
-- Use proper encryption
+When creating or modifying automation scripts:
 
-## Supabase Queries
-- Use proper query optimization
-- Implement proper filtering
-- Use proper joins
-- Handle real-time properly
-- Implement proper pagination
-- Use proper functions
-
-## Database Design
-- Use proper normalization
-- Implement proper indexing
-- Use proper constraints
-- Define proper relations
-- Implement proper cascades
-- Use proper data types
-
-## Performance
-- Use proper connection pooling
-- Implement proper caching
-- Use proper query optimization
-- Handle N+1 queries properly
-- Implement proper batching
-- Monitor performance metrics
-
-## Security
-- Use proper authentication
-- Implement proper authorization
-- Handle sensitive data properly
-- Use proper encryption
-- Implement proper backups
-- Monitor security issues
-
-## Best Practices
-- Follow database conventions
-- Use proper migrations
-- Implement proper versioning
-- Handle errors properly
-- Document schema properly
-- Monitor database health
+Remember to thoroughly test all modifications to ensure they work correctly with the @findhow ecosystem before merging changes into the main branch.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
