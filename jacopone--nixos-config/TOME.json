@@ -1,0 +1,44 @@
+{
+  "name": "nixos-config",
+  "owner": "jacopone",
+  "repo": "nixos-config",
+  "description": "NixOS for autonomous AI coding \u2014 kernel-level sandboxing, atomic rollbacks, reproducible AI toolchain. One repo, multiple machines, zero drift.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jacopone/nixos-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T06:57:31Z"
+}
