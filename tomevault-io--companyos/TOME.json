@@ -4,7 +4,7 @@
   "repo": "companyos",
   "description": "",
   "type": "tome",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -115,9 +115,51 @@
       "path": "skills/vocabulary-check.md",
       "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/vocabulary-check.md",
       "description": ""
+    },
+    {
+      "name": "docs-write.md",
+      "path": "skills/docs-write.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/docs-write.md",
+      "description": ""
+    },
+    {
+      "name": "grill-me.md",
+      "path": "skills/grill-me.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/grill-me.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "skills/improve-codebase-architecture/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/improve-codebase-architecture/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "morning-brief.md",
+      "path": "skills/morning-brief.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/morning-brief.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap-item.md",
+      "path": "skills/roadmap-item.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/roadmap-item.md",
+      "description": ""
+    },
+    {
+      "name": "to-prd.md",
+      "path": "skills/to-prd.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/to-prd.md",
+      "description": ""
+    },
+    {
+      "name": "tomevault-design.md",
+      "path": "skills/tomevault-design.md",
+      "github_url": "https://github.com/tomevault-io/companyos/tree/main/skills/tomevault-design.md",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/tomevault-io/companyos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:30:10Z"
+  "distributed_at": "2026-05-14T08:30:07Z"
 }
