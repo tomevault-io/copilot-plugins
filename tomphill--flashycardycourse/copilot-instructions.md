@@ -1,71 +1,277 @@
-## database-interactions
+## shadcn-ui
 
-> All database interactions in this project **MUST** use Drizzle ORM with the predefined schema and queries. Never use raw SQL or other ORMs.
+> This project MUST use ONLY shadcn/ui components for ALL UI elements. ABSOLUTELY NO custom UI components are allowed.
 
-# Database Interactions with Drizzle ORM
+# SHADCN/UI STRICT USAGE RULES
 
-## Overview
-All database interactions in this project **MUST** use Drizzle ORM with the predefined schema and queries. Never use raw SQL or other ORMs.
+## 🚨 CRITICAL MANDATE
+This project MUST use ONLY shadcn/ui components for ALL UI elements. ABSOLUTELY NO custom UI components are allowed.
 
-## Database Setup
-- Database connection: [src/db/index.ts](mdc:src/db/index.ts)
-- Database schema: [src/db/schema.ts](mdc:src/db/schema.ts)
-- Uses Neon serverless PostgreSQL with Drizzle ORM
+**MANDATORY Rules:**
+- ❌ NEVER create custom buttons, inputs, cards, modals, or any UI elements
+- ❌ NEVER use raw HTML elements (div, button, input) for UI
+- ❌ NEVER write custom CSS for components beyond Tailwind utilities
+- ✅ ALWAYS use shadcn/ui components for every UI element
+- ✅ ALWAYS compose complex UI by combining shadcn/ui components
+- ✅ This project is in dark mode so make sure there are no dark colored text on dark backgrounds (and vice versa)
 
-## Schema Structure
-The database schema includes:
-- **decksTable**: Flashcard decks with user association
-- **cardsTable**: Individual flashcards belonging to decks
-- **Relations**: Properly defined one-to-many relationships
+## 🛡️ ENFORCEMENT POLICY
+**NO EXCEPTIONS** - Every UI element must use shadcn/ui components. If a component doesn't exist in shadcn/ui, you must:
+1. First check if it can be composed from existing components
+2. If not, add the closest shadcn/ui component and adapt
+3. NEVER create custom components
 
-## Required Imports
-When working with database operations, always import:
-```typescript
-import { db } from '@/db';
-import { decksTable, cardsTable } from '@/db/schema';
+## 📋 BEFORE CODING CHECKLIST
+**Before creating any UI:** Run `npx shadcn@latest add [component-name]`
+
+Required components for this project:
+```bash
+npx shadcn@latest add button
+npx shadcn@latest add card  
+npx shadcn@latest add input
+npx shadcn@latest add dialog
+npx shadcn@latest add form
+npx shadcn@latest add badge
+npx shadcn@latest add separator
+npx shadcn@latest add avatar
+npx shadcn@latest add progress
+npx shadcn@latest add toast
+npx shadcn@latest add alert
+npx shadcn@latest add tabs
+npx shadcn@latest add select
+npx shadcn@latest add textarea
+npx shadcn@latest add label
 ```
 
-## Database Operations Guidelines
+## 🔐 CLERK INTEGRATION REQUIREMENTS
 
-### Query Operations
-- Use Drizzle's query syntax: `db.select()`, `db.insert()`, `db.update()`, `db.delete()`
-- Always use the schema tables: `decksTable`, `cardsTable`
-- Leverage Drizzle's type safety and IntelliSense
+### Authentication Buttons
+All Clerk sign-in/sign-up buttons MUST use shadcn/ui Button components:
 
-### Example Patterns
-```typescript
-// Select with relations
-const decksWithCards = await db.select().from(decksTable).leftJoin(cardsTable, eq(decksTable.id, cardsTable.deckId));
+```tsx
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
-// Insert new records
-const newDeck = await db.insert(decksTable).values({
-  title: "My Deck",
-  description: "Description",
-  userId: "user_123"
-}).returning();
+// ✅ CORRECT - Using shadcn/ui Button
+<SignInButton mode="modal">
+  <Button variant="default">Sign In</Button>
+</SignInButton>
 
-// Update records
-await db.update(decksTable).set({ title: "Updated Title" }).where(eq(decksTable.id, deckId));
+<SignUpButton mode="modal">
+  <Button variant="outline">Sign Up</Button>
+</SignUpButton>
 
-// Delete with cascade
-await db.delete(decksTable).where(eq(decksTable.id, deckId));
+// ❌ WRONG - Custom button or raw HTML
+<SignInButton>
+  <button className="custom-btn">Sign In</button>
+</SignInButton>
 ```
 
-### Authentication Integration
-- Always filter queries by `userId` from Clerk authentication
-- Use `userId` field in decksTable to ensure user data isolation
-- Never expose data across different users
+### Modal Requirements
+Clerk MUST use modal mode with shadcn/ui Dialog components:
 
-## Forbidden Practices
-- ❌ Raw SQL queries
-- ❌ Direct database connections outside of [src/db/index.ts](mdc:src/db/index.ts)
-- ❌ Schema modifications without updating [src/db/schema.ts](mdc:src/db/schema.ts)
-- ❌ Bypassing user-based filtering for security
+```tsx
+import { SignInButton } from "@clerk/nextjs";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
-## Migration & Schema Changes
-- Use Drizzle Kit for migrations
-- Always update schema definitions in [src/db/schema.ts](mdc:src/db/schema.ts)
-- Maintain referential integrity with proper foreign key constraints
+// ✅ CORRECT - Modal mode with shadcn/ui components
+<SignInButton mode="modal">
+  <Button>Access Dashboard</Button>
+</SignInButton>
+```
+
+### User Profile Integration
+```tsx
+import { UserButton } from "@clerk/nextjs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+// ✅ CORRECT - If customizing UserButton appearance
+<UserButton 
+  appearance={{
+    elements: {
+      avatarBox: "w-10 h-10", // Use Tailwind classes only
+    }
+  }}
+/>
+```
+
+## 🚫 ABSOLUTELY FORBIDDEN
+
+### Never Create These:
+- Custom Button components
+- Custom Input/Form components  
+- Custom Card components
+- Custom Modal/Dialog components
+- Custom Navigation components
+- Custom Loading spinners
+- Custom Icons (use Lucide React with shadcn/ui)
+- Custom Tooltips or Popovers
+
+### Never Use These:
+```tsx
+// ❌ WRONG - Raw HTML elements
+<button>Click me</button>
+<input type="text" />
+<div className="card">Content</div>
+<form>...</form>
+
+// ❌ WRONG - Custom CSS classes for components
+<div className="custom-button">Button</div>
+<div className="my-modal">Modal content</div>
+
+// ❌ WRONG - Third-party UI libraries
+import { Button } from 'some-other-ui-lib';
+```
+
+## ✅ REQUIRED PATTERNS
+
+### Button Usage
+```tsx
+import { Button } from "@/components/ui/button";
+
+// All button variants available
+<Button variant="default">Primary</Button>
+<Button variant="destructive">Delete</Button>
+<Button variant="outline">Secondary</Button>
+<Button variant="secondary">Alt</Button>
+<Button variant="ghost">Subtle</Button>
+<Button variant="link">Link Style</Button>
+```
+
+### Form Components
+```tsx
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+<Card>
+  <CardHeader>
+    <CardTitle>Form Title</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <form className="space-y-4">
+      <div>
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" type="email" />
+      </div>
+      <Button type="submit">Submit</Button>
+    </form>
+  </CardContent>
+</Card>
+```
+
+### Layout Components
+```tsx
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+
+<Card>
+  <CardHeader>
+    <CardTitle>Flashcard Deck</CardTitle>
+    <Badge variant="secondary">25 cards</Badge>
+  </CardHeader>
+  <Separator />
+  <CardContent>
+    Content here
+  </CardContent>
+</Card>
+```
+
+## 🔧 COMPONENT INSTALLATION
+
+### Immediate Installation Required
+Run these commands now if components are missing:
+
+```bash
+# Core components for flashcard app
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add input
+npx shadcn@latest add label
+npx shadcn@latest add dialog
+npx shadcn@latest add badge
+npx shadcn@latest add progress
+npx shadcn@latest add separator
+npx shadcn@latest add avatar
+npx shadcn@latest add tabs
+npx shadcn@latest add alert
+npx shadcn@latest add toast
+npx shadcn@latest add form
+```
+
+### Import Patterns
+```tsx
+// ✅ CORRECT - Always import from @/components/ui/
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+```
+
+## 🎨 STYLING RULES
+
+### Allowed Styling
+- ✅ Tailwind utility classes: `className="flex items-center space-x-2"`
+- ✅ shadcn/ui component variants: `<Button variant="outline" size="sm">`
+- ✅ Tailwind responsive classes: `className="md:flex-row flex-col"`
+
+### Forbidden Styling
+- ❌ Custom CSS files for components
+- ❌ Styled-components or CSS-in-JS
+- ❌ Inline styles: `style={{backgroundColor: 'red'}}`
+- ❌ Custom CSS classes for layout: `className="my-custom-grid"`
+
+## 🔍 COMPONENT REFERENCE
+
+### Available Components
+**Form Controls:** button, input, textarea, select, checkbox, radio-group, switch, label, form
+**Layout:** card, separator, sheet, tabs, accordion, collapsible, aspect-ratio
+**Feedback:** alert, toast, dialog, alert-dialog, popover, tooltip, hover-card
+**Navigation:** menubar, navigation-menu, breadcrumb, pagination, command
+**Data Display:** table, badge, avatar, progress, skeleton, calendar
+**Overlays:** drawer, context-menu, dropdown-menu
+
+### Component Composition
+Build complex interfaces by combining simple components:
+
+```tsx
+// ✅ CORRECT - Composing components
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+
+function FlashcardDeck({ deck }) {
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle>{deck.title}</CardTitle>
+        <Badge variant="secondary">{deck.cardCount} cards</Badge>
+      </CardHeader>
+      <CardContent>
+        <Progress value={deck.progress} className="mb-4" />
+        <div className="flex gap-2">
+          <Button>Study</Button>
+          <Button variant="outline">Edit</Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## 🚨 VIOLATION CONSEQUENCES
+Any code that violates these rules will be immediately rejected. There are no exceptions to using shadcn/ui components exclusively.
+
+## 📖 QUICK REFERENCE
+- **Documentation:** https://ui.shadcn.com
+- **Installation:** `npx shadcn@latest add [component]`
+- **Import Path:** `@/components/ui/[component]`
+- **Styling:** Tailwind utilities only
+- **Clerk Integration:** Modal mode with shadcn/ui buttons
 
 ---
 > Source: [tomphill/flashycardycourse](https://github.com/tomphill/flashycardycourse) — distributed by [TomeVault](https://tomevault.io).
