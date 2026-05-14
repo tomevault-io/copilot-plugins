@@ -7,13 +7,13 @@ Model Context Protocol (MCP) Gateway & Registry - Central hub for managing tools
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [theognis1002/mcp-gateway](https://github.com/theognis1002/mcp-gateway).
+Original source: `CLAUDE.md` in [theognis1002/mcp-gateway](https://github.com/theognis1002/mcp-gateway).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
