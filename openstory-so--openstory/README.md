@@ -7,13 +7,13 @@ Open-source AI-powered video sequence platform built with TanStack Start
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [openstory-so/openstory](https://github.com/openstory-so/openstory).
+Original source: `CLAUDE.md` in [openstory-so/openstory](https://github.com/openstory-so/openstory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
