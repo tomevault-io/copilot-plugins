@@ -4,7 +4,7 @@
   "repo": "eg4_web_monitor",
   "description": "Local (RS485 Modbus) + Cloud hybrid integration for EG4 and Luxpower inverters \u2014 GridBOSS, FlexBOSS, 18kPV, 12kPV, XP, LXP-LB, and batteries",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joyfulhouse/eg4_web_monitor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:03:15Z"
+  "distributed_at": "2026-05-14T05:05:00Z"
 }
