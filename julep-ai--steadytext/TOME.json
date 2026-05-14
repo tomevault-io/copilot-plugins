@@ -4,7 +4,7 @@
   "repo": "steadytext",
   "description": "Deterministic text generation and embeddings with zero configuration",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/julep-ai/steadytext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T03:01:27Z"
+  "distributed_at": "2026-05-14T20:16:00Z"
 }
