@@ -1,0 +1,9 @@
+{
+  "name": "nerdai--llm-agents-from-scratch",
+  "displayName": "llm-agents-from-scratch",
+  "description": "Build LLM agents and multi-agent systems from scratch, with MCP, Skills, and A2A",
+  "version": "1.0.0",
+  "author": "nerdai",
+  "homepage": "https://github.com/nerdai/llm-agents-from-scratch",
+  "skills": []
+}
