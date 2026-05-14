@@ -1,0 +1,9 @@
+{
+  "name": "jasiek--kicad-llm-plugin",
+  "displayName": "kicad-llm-plugin",
+  "description": "kicad-llm-plugin",
+  "version": "1.0.0",
+  "author": "jasiek",
+  "homepage": "https://github.com/jasiek/kicad-llm-plugin",
+  "skills": []
+}
