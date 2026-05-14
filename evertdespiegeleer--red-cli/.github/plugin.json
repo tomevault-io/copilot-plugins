@@ -1,0 +1,9 @@
+{
+  "name": "evertdespiegeleer--red-cli",
+  "displayName": "red-cli",
+  "description": "A TUI client for Redis",
+  "version": "1.0.0",
+  "author": "evertdespiegeleer",
+  "homepage": "https://github.com/evertdespiegeleer/red-cli",
+  "skills": []
+}
