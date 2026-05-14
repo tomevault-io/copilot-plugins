@@ -1,0 +1,9 @@
+{
+  "name": "rlabs-inc--memory",
+  "displayName": "memory",
+  "description": "Memory server for llms that can be easily integrated to any client. ",
+  "version": "1.0.0",
+  "author": "RLabs-Inc",
+  "homepage": "https://github.com/RLabs-Inc/memory",
+  "skills": []
+}
