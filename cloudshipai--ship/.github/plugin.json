@@ -1,0 +1,9 @@
+{
+  "name": "cloudshipai--ship",
+  "displayName": "ship",
+  "description": "CloudshipAI CLI",
+  "version": "1.0.0",
+  "author": "cloudshipai",
+  "homepage": "https://github.com/cloudshipai/ship",
+  "skills": []
+}
