@@ -1,0 +1,9 @@
+{
+  "name": "nicnocquee--dataqueue",
+  "displayName": "dataqueue",
+  "description": "A typesafe postgres/redis-backed job queue for Node.js/TypeScript projects in long running or serverless",
+  "version": "1.0.0",
+  "author": "nicnocquee",
+  "homepage": "https://github.com/nicnocquee/dataqueue",
+  "skills": []
+}
