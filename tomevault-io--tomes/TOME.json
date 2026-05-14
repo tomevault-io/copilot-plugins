@@ -1,0 +1,441 @@
+{
+  "name": "tomes",
+  "owner": "tomevault-io",
+  "repo": "tomes",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "typescript-coding-standards",
+      "path": "marvinrichter--clarc/skills/typescript-coding-standards",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/marvinrichter--clarc/skills/typescript-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "loom-typescript",
+      "path": "cosmix--loom/skills/loom-typescript",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/cosmix--loom/skills/loom-typescript",
+      "description": ""
+    },
+    {
+      "name": "react-render-types-setup",
+      "path": "horusgoul--eslint-plugin-react-render-types/skills/react-render-types-setup",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/horusgoul--eslint-plugin-react-render-types/skills/react-render-types-setup",
+      "description": ""
+    },
+    {
+      "name": "vue-data-ui-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/vue-data-ui-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/vue-data-ui-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-test-utils-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/vue-test-utils-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/vue-test-utils-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/vue-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-router-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/vue-router-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/vue-router-skilld",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai-vue-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/tanstack-ai-vue-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/tanstack-ai-vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-i18n-skilld",
+      "path": "skilld-dev--vue-ecosystem-skills/skills/vue-i18n-skilld",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/skilld-dev--vue-ecosystem-skills/skills/vue-i18n-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-form-generator",
+      "path": "christophevg--c3/skills/vue-form-generator",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/christophevg--c3/skills/vue-form-generator",
+      "description": ""
+    },
+    {
+      "name": "component-search",
+      "path": "yonatangross--orchestkit/skills/component-search",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/yonatangross--orchestkit/skills/component-search",
+      "description": ""
+    },
+    {
+      "name": "nextjs-i18n",
+      "path": "hoangnguyen0403--agent-skills-standard/skills/nextjs-i18n",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hoangnguyen0403--agent-skills-standard/skills/nextjs-i18n",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "path": "ai-dashboad--flutter-skill/skills/e2e-testing",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/ai-dashboad--flutter-skill/skills/e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "path": "jh941213--my-cc-harness/skills/stitch-design-md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/jh941213--my-cc-harness/skills/stitch-design-md",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": "yudefine--nuxt-supabase-starter/skills/vue-best-practices",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/yudefine--nuxt-supabase-starter/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "bobmatnyc--claude-mpm-skills/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/bobmatnyc--claude-mpm-skills/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-newsletter",
+      "path": "alexanderop--dotfiles/skills/vue-newsletter",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/alexanderop--dotfiles/skills/vue-newsletter",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": "uni-helper--skills/skills/vue-best-practices",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/uni-helper--skills/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "uni-helper--skills/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/uni-helper--skills/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "arbazkhan971--godmode/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/arbazkhan971--godmode/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "path": "travisjneuman---claude/skills/vue-development",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/travisjneuman---claude/skills/vue-development",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "hdkiller--coach/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hdkiller--coach/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "path": "vuralserhat86--antigravity-agentic-skills/skills/vue-expert",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/vuralserhat86--antigravity-agentic-skills/skills/vue-expert",
+      "description": ""
+    },
+    {
+      "name": "vue-expert-js",
+      "path": "hainamchung--agent-assistant/skills/vue-expert-js",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hainamchung--agent-assistant/skills/vue-expert-js",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "path": "hainamchung--agent-assistant/skills/vue-expert",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hainamchung--agent-assistant/skills/vue-expert",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "sequenzia--agent-alchemy/skills/language-patterns",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/sequenzia--agent-alchemy/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "wikimind-design",
+      "path": "manavgup--wikimind/skills/wikimind-design",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/manavgup--wikimind/skills/wikimind-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "dirnbauer--webconsulting-skills/skills/frontend-design",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/dirnbauer--webconsulting-skills/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "dylantarre--design-system-skills/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/dylantarre--design-system-skills/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "path": "hivellm--rulebook/skills/react-native",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hivellm--rulebook/skills/react-native",
+      "description": ""
+    },
+    {
+      "name": "migrate-ops",
+      "path": "0xdarkmatter--claude-mods/skills/migrate-ops",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/0xdarkmatter--claude-mods/skills/migrate-ops",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "path": "fradser--dotclaude/skills/best-practices",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/fradser--dotclaude/skills/best-practices",
+      "description": ""
+    },
+    {
+      "name": "code-exemplars-blueprint-generator",
+      "path": "github--awesome-copilot/skills/code-exemplars-blueprint-generator",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/github--awesome-copilot/skills/code-exemplars-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "port",
+      "path": "simota--agent-skills/skills/port",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/simota--agent-skills/skills/port",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "hivellm--rulebook/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/hivellm--rulebook/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-ops",
+      "path": "0xdarkmatter--claude-mods/skills/vue-ops",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/0xdarkmatter--claude-mods/skills/vue-ops",
+      "description": ""
+    },
+    {
+      "name": "vue-application-structure",
+      "path": "aj-geddes--useful-ai-prompts/skills/vue-application-structure",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/aj-geddes--useful-ai-prompts/skills/vue-application-structure",
+      "description": ""
+    },
+    {
+      "name": "vue-integration-testing",
+      "path": "alexanderop--workouttracker/skills/vue-integration-testing",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/alexanderop--workouttracker/skills/vue-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "path": "alexanderop--workouttracker/skills/vue-patterns",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/alexanderop--workouttracker/skills/vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "path": "alexanderop--workouttracker/skills/vue-composable-testing",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/alexanderop--workouttracker/skills/vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "path": "alexanderop--workouttracker/skills/vue-composables",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/alexanderop--workouttracker/skills/vue-composables",
+      "description": ""
+    },
+    {
+      "name": "vue-nuxt",
+      "path": "martinholovsky--claude-skills-generator/skills/vue-nuxt",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/martinholovsky--claude-skills-generator/skills/vue-nuxt",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-creator",
+      "path": "jeremylongshore--claude-code-plugins-plus-skills/skills/vue-composable-creator",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/jeremylongshore--claude-code-plugins-plus-skills/skills/vue-composable-creator",
+      "description": ""
+    },
+    {
+      "name": "vue-component-generator",
+      "path": "jeremylongshore--claude-code-plugins-plus-skills/skills/vue-component-generator",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/jeremylongshore--claude-code-plugins-plus-skills/skills/vue-component-generator",
+      "description": ""
+    },
+    {
+      "name": "clerk-vue-patterns",
+      "path": "clerk--skills/skills/clerk-vue-patterns",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/clerk--skills/skills/clerk-vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "excatt--superclaude-plusplus/skills/vue",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/excatt--superclaude-plusplus/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/adversarial-test/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/adversarial-test/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/changelog/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/changelog/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/decision-memo/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/decision-memo/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/diagnose-before-acting/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/diagnose-before-acting/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/first-time-action-gate/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/first-time-action-gate/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/hard-evidence-under-pushback/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/hard-evidence-under-pushback/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/incident-recovery/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/incident-recovery/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/memory-write/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/memory-write/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/multi-target-publish/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/multi-target-publish/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/pre-ship-adversary/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/pre-ship-adversary/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/session-debrief/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/session-debrief/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/strategic-realignment/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/strategic-realignment/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/vocabulary-check/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/vocabulary-check/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/docs-write-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/docs-write-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/grill-me-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/grill-me-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/skill-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/skill-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/morning-brief-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/morning-brief-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/roadmap-item-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/roadmap-item-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/to-prd-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/to-prd-md/SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "path": "tomevault-io--companyos/skills/tomevault-design-md/SKILL.md",
+      "github_url": "https://github.com/tomevault-io/tomes/tree/main/tomevault-io--companyos/skills/tomevault-design-md/SKILL.md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tomevault-io/tomes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T09:30:07Z"
+}
