@@ -1,0 +1,9 @@
+{
+  "name": "vals-ai--model-library",
+  "displayName": "model-library",
+  "description": "Simple provider agnostic LLM gateway",
+  "version": "1.0.0",
+  "author": "vals-ai",
+  "homepage": "https://github.com/vals-ai/model-library",
+  "skills": []
+}
