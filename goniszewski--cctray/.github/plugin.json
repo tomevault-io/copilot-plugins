@@ -1,0 +1,9 @@
+{
+  "name": "goniszewski--cctray",
+  "displayName": "cctray",
+  "description": "macOS menu bar app for monitoring Claude Code usage",
+  "version": "1.0.0",
+  "author": "goniszewski",
+  "homepage": "https://github.com/goniszewski/cctray",
+  "skills": []
+}
