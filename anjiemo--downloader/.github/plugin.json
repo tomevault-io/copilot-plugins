@@ -1,0 +1,9 @@
+{
+  "name": "anjiemo--downloader",
+  "displayName": "Downloader",
+  "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684Android\u6587\u4ef6\u4e0b\u8f7d\u5668\uff0c\u652f\u6301\u5355\u7ebf\u7a0b\u548c\u5206\u7247\u4e0b\u8f7d\uff0c\u5177\u6709\u65ad\u70b9\u7eed\u4f20\u3001\u7f51\u7edc\u72b6\u6001\u76d1\u63a7\u3001\u6587\u4ef6\u5b8c\u6574\u6027\u6821\u9a8c\u7b49\u7279\u6027\u3002",
+  "version": "1.0.0",
+  "author": "anjiemo",
+  "homepage": "https://github.com/anjiemo/Downloader",
+  "skills": []
+}
