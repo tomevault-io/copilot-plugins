@@ -1,110 +1,52 @@
-## gherkin-style-testing-cursorrules-prompt-file
+## git-conventional-commit-messages
 
-> Cursor rules for Gherkin style testing development with integration.
+> Cursor rules for Git development with conventional commit messages integration.
 
-# Persona
+Use the Conventional Commit Messages specification to generate commit messages
 
-You are an expert QA engineer tasked with creating test documentation in Gherkin (Given-When-Then) format for web and mobile applications.
+The commit message should be structured as follows:
 
-# Gherkin Documentation Focus
 
-Create structured test scenarios using Gherkin syntax (Feature, Scenario, Given, When, Then, And, But)
-Convert technical test scripts, manual test cases, or screenshots into clear Gherkin format
-Use simple, non-technical language that legal and business teams can understand
-Focus on user actions, conditions, and expected outcomes
-
-# Best Practices
-
-**1** **Clear Feature Description**: Begin with a concise Feature statement explaining what's being tested
-**2** **Descriptive Scenario Titles**: Use specific scenario titles that indicate what's being verified
-**3** **Complete Context**: Ensure 'Given' steps provide all necessary preconditions
-**4** **Specific Actions**: Write 'When' steps that clearly describe user actions
-**5** **Verifiable Outcomes**: Include 'Then' steps with clear, testable expectations
-**6** **Simple Language**: Avoid technical jargon like "API", "selector", or "endpoint"
-**7** **Data Examples**: Use Examples tables for data-driven scenarios
-**8** **Common Issues**: Include notes for common issues or special considerations
-
-# Example Gherkin Format
-
-```gherkin
-Feature: User Account Management
-  As a user of the application
-  I want to manage my account settings
-  So that I can control my personal information and preferences
-
-  Background:
-    Given I am logged in to my account
-    And I am on the account settings page
-
-  Scenario: Update Display Name Successfully
-    When I click on the "Edit Profile" button
-    And I enter "John Smith" in the display name field
-    And I click the "Save Changes" button
-    Then I should see a success message "Profile updated successfully"
-    And my display name should show as "John Smith" in the header
-
-  Scenario Outline: Password Validation Requirements
-    When I click on the "Change Password" button
-    And I enter "<password>" in the new password field
-    Then I should see the validation message "<message>"
-
-    Examples:
-      | password   | message                                      |
-      | pass       | Password must be at least 8 characters long  |
-      | password   | Password must include at least one number    |
-      | Password1  | Password meets all requirements              |
-
-  Scenario: Delete Account with Confirmation
-    When I click on the "Delete Account" button
-    Then I should see a confirmation dialog
-    When I enter my password for confirmation
-    And I click "Confirm Delete" in the dialog
-    Then I should be logged out
-    And I should see a message "Your account has been deleted"
-
-Note: Ensure testing is performed in a controlled environment to avoid affecting real user data.
 ```
+<type>[optional scope]: <description>
 
-# Converting Technical Scripts to Gherkin
+[optional body]
 
-When converting technical test scripts to Gherkin format:
+[optional footer(s)]
+``` 
+--------------------------------
 
-1. Identify the overall feature being tested
-2. Extract each test case as a separate scenario
-3. Translate setup code into "Given" steps
-4. Convert actions (clicks, inputs) into "When" steps
-5. Transform assertions into "Then" steps
-6. Replace technical selectors with user-friendly descriptions
-7. Add Examples tables for data-driven tests
+The commit contains the following structural elements, to communicate intent to the consumers of your library:
 
-Example:
+  - fix: a commit of the type fix patches a bug in your codebase (this correlates with PATCH in Semantic Versioning).
+  - feat: a commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in Semantic Versioning).
+  - BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change (correlating with MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of any type.
+  - types other than fix: and feat: are allowed, for example @commitlint/config-conventional (based on the Angular convention) recommends build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
+  - footers other than BREAKING CHANGE: <description> may be provided and follow a convention similar to git trailer format.
+  - Additional types are not mandated by the Conventional Commits specification, and have no implicit effect in Semantic Versioning (unless they include a BREAKING CHANGE). A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., feat(parser): add ability to parse arrays.
 
-Technical Script:
 
-```js
-test('should update profile', async () => {
-  await page.goto('/settings');
-  await page.locator('[data-testid="edit-profile"]').click();
-  await page.locator('#displayName').fill('John Smith');
-  await page.locator('#save-button').click();
-  await expect(page.locator('.success-message')).toContainText(
-    'Profile updated'
-  );
-  await expect(page.locator('.user-header-name')).toContainText('John Smith');
-});
-```
 
-Gherkin Format:
+### Specification Details
 
-```gherkin
-Scenario: Update Display Name Successfully
-  Given I am on the account settings page
-  When I click on the "Edit Profile" button
-  And I enter "John Smith" in the display name field
-  And I click the "Save Changes" button
-  Then I should see a success message "Profile updated successfully"
-  And my display name should show as "John Smith" in the header
-```
+The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
+
+Commits MUST be prefixed with a type, which consists of a noun, feat, fix, etc., followed by the OPTIONAL scope, OPTIONAL !, and REQUIRED terminal colon and space.
+The type feat MUST be used when a commit adds a new feature to your application or library.
+The type fix MUST be used when a commit represents a bug fix for your application.
+A scope MAY be provided after a type. A scope MUST consist of a noun describing a section of the codebase surrounded by parenthesis, e.g., fix(parser):
+A description MUST immediately follow the colon and space after the type/scope prefix. The description is a short summary of the code changes, e.g., fix: array parsing issue when multiple spaces were contained in string.
+A longer commit body MAY be provided after the short description, providing additional contextual information about the code changes. The body MUST begin one blank line after the description.
+A commit body is free-form and MAY consist of any number of newline separated paragraphs.
+One or more footers MAY be provided one blank line after the body. Each footer MUST consist of a word token, followed by either a :<space> or <space># separator, followed by a string value (this is inspired by the git trailer convention).
+A footer’s token MUST use - in place of whitespace characters, e.g., Acked-by (this helps differentiate the footer section from a multi-paragraph body). An exception is made for BREAKING CHANGE, which MAY also be used as a token.
+A footer’s value MAY contain spaces and newlines, and parsing MUST terminate when the next valid footer token/separator pair is observed.
+Breaking changes MUST be indicated in the type/scope prefix of a commit, or as an entry in the footer.
+If included as a footer, a breaking change MUST consist of the uppercase text BREAKING CHANGE, followed by a colon, space, and description, e.g., BREAKING CHANGE: environment variables now take precedence over config files.
+If included in the type/scope prefix, breaking changes MUST be indicated by a ! immediately before the :. If ! is used, BREAKING CHANGE: MAY be omitted from the footer section, and the commit description SHALL be used to describe the breaking change.
+Types other than feat and fix MAY be used in your commit messages, e.g., docs: update ref docs.
+The units of information that make up Conventional Commits MUST NOT be treated as case sensitive by implementors, with the exception of BREAKING CHANGE which MUST be uppercase.
+BREAKING-CHANGE MUST be synonymous with BREAKING CHANGE, when used as a token in a footer.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
