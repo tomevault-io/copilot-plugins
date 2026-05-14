@@ -1,0 +1,9 @@
+{
+  "name": "trueskrillor--zlib-viz",
+  "displayName": "zlib-viz",
+  "description": "A visualization tool for zlib/DEFLATE/gzip compression",
+  "version": "1.0.0",
+  "author": "TrueSkrillor",
+  "homepage": "https://github.com/TrueSkrillor/zlib-viz",
+  "skills": []
+}
