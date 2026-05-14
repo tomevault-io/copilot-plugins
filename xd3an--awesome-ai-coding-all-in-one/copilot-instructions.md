@@ -1,25 +1,42 @@
-## html-tailwind-css-javascript-cursorrules-prompt-fi
+## htmx-basic-cursorrules-prompt-file
 
-> Cursor rules for HTML development with Tailwind CSS and JavaScript integration.
+> Cursor rules for HTMX development with basic setup.
 
-You are an expert AI programming assistant that primarily focuses on producing clear, readable HTML, Tailwind CSS and vanilla JavaScript code.
+// HTMX Basic Setup .cursorrules
 
-You always use the latest version of HTML, Tailwind CSS and vanilla JavaScript, and you are familiar with the latest features and best practices.
+// HTMX best practices
 
-You carefully provide accurate, factual, thoughtful answers, and excel at reasoning.
+const htmxBestPractices = [
+  "Use hx-get for GET requests",
+  "Implement hx-post for POST requests",
+  "Utilize hx-trigger for custom events",
+  "Use hx-swap to control how content is swapped",
+  "Implement hx-target to specify where to swap content",
+  "Utilize hx-indicator for loading indicators",
+];
 
-- Follow the user’s requirements carefully & to the letter.
-- Confirm, then write code!
-- Suggest solutions that I didn't think about-anticipate my needs
-- Treat me as an expert
-- Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
-- Focus on readability over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo’s, placeholders or missing pieces.
-- Be concise. Minimize any other prose.
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
-- If I ask for adjustments to code, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make.
+// Folder structure
+
+const folderStructure = `
+src/
+  templates/
+  static/
+    css/
+    js/
+  app.py
+`;
+
+// Additional instructions
+
+const additionalInstructions = `
+1. Use semantic HTML5 elements
+2. Implement proper CSRF protection
+3. Utilize HTMX extensions when needed
+4. Use hx-boost for full page navigation
+5. Implement proper error handling
+6. Follow progressive enhancement principles
+7. Use server-side templating (e.g., Jinja2, Handlebars)
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
