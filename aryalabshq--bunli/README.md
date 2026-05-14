@@ -7,11 +7,11 @@ Complete CLI Development Ecosystem for Bun
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AryaLabsHQ/bunli](https://github.com/AryaLabsHQ/bunli).
+Original source: `CLAUDE.md` in [AryaLabsHQ/bunli](https://github.com/AryaLabsHQ/bunli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
