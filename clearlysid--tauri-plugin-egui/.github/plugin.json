@@ -1,0 +1,9 @@
+{
+  "name": "clearlysid--tauri-plugin-egui",
+  "displayName": "tauri-plugin-egui",
+  "description": "supercharge your tauri apps with egui",
+  "version": "1.0.0",
+  "author": "clearlysid",
+  "homepage": "https://github.com/clearlysid/tauri-plugin-egui",
+  "skills": []
+}
