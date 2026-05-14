@@ -1,0 +1,9 @@
+{
+  "name": "bijutharakan--multi-agent-squad",
+  "displayName": "multi-agent-squad",
+  "description": "Production-ready multi-agent orchestration framework for Claude Code. Features specialized AI agents, automated Git workflows, and comprehensive development automation.",
+  "version": "1.0.0",
+  "author": "bijutharakan",
+  "homepage": "https://github.com/bijutharakan/multi-agent-squad",
+  "skills": []
+}
