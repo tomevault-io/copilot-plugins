@@ -4,7 +4,7 @@
   "repo": "faf-cli",
   "description": "Persistent Project Context for AI \u2014 IANA-registered .faf format \u00b7 universal CLI",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Wolfe-Jam/faf-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T23:40:10Z"
+  "distributed_at": "2026-05-14T05:16:48Z"
 }
