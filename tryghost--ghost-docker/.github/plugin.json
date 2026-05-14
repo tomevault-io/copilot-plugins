@@ -1,0 +1,9 @@
+{
+  "name": "tryghost--ghost-docker",
+  "displayName": "ghost-docker",
+  "description": "ghost-docker",
+  "version": "1.0.0",
+  "author": "TryGhost",
+  "homepage": "https://github.com/TryGhost/ghost-docker",
+  "skills": []
+}
