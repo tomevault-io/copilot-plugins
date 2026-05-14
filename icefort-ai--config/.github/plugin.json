@@ -1,0 +1,9 @@
+{
+  "name": "icefort-ai--config",
+  "displayName": "config",
+  "description": "A web interface for managing AI CLI agent configurations: Claude Code, OpenAI Codex, Gemini CLI",
+  "version": "1.0.0",
+  "author": "icefort-ai",
+  "homepage": "https://github.com/icefort-ai/config",
+  "skills": []
+}
