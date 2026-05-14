@@ -1,0 +1,9 @@
+{
+  "name": "esaio--esa-mcp-server",
+  "displayName": "esa-mcp-server",
+  "description": "esa.io \u306e\u516c\u5f0f MCP(Model Context Protocol)\u30b5\u30fc\u30d0\u30fc(STDIO Transport\u7248)",
+  "version": "1.0.0",
+  "author": "esaio",
+  "homepage": "https://github.com/esaio/esa-mcp-server",
+  "skills": []
+}
