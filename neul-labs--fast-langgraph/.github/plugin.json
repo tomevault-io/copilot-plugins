@@ -1,0 +1,9 @@
+{
+  "name": "neul-labs--fast-langgraph",
+  "displayName": "fast-langgraph",
+  "description": "High-performance Rust accelerators for LangGraph applications. Drop-in components that provide up to 700x speedups for checkpoint operations and 10-50x speedups for state management.",
+  "version": "1.0.0",
+  "author": "neul-labs",
+  "homepage": "https://github.com/neul-labs/fast-langgraph",
+  "skills": []
+}
