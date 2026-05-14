@@ -1,0 +1,9 @@
+{
+  "name": "jovaneyck--fsi-mcp-server",
+  "displayName": "fsi-mcp-server",
+  "description": "A wrapper around F# interactive (fsi) that exposes an MCP server endpoint for AI agents allowing for fsi IO.",
+  "version": "1.0.0",
+  "author": "jovaneyck",
+  "homepage": "https://github.com/jovaneyck/fsi-mcp-server",
+  "skills": []
+}
