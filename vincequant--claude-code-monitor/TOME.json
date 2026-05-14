@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-monitor",
+  "owner": "vincequant",
+  "repo": "claude-code-monitor",
+  "description": "Real-time monitoring tool for Claude Code CLI usage and network status | \u5be6\u6642\u76e3\u63a7 Claude Code CLI \u4f7f\u7528\u72c0\u614b\u548c\u7db2\u7d61\u9023\u63a5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vincequant/claude-code-monitor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T16:08:39Z"
+}
