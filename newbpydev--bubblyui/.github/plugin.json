@@ -1,0 +1,9 @@
+{
+  "name": "newbpydev--bubblyui",
+  "displayName": "bubblyui",
+  "description": "Vue-inspired TUI framework for Go with type-safe reactivity, component-based architecture, and 30+ built-in components",
+  "version": "1.0.0",
+  "author": "newbpydev",
+  "homepage": "https://github.com/newbpydev/bubblyui",
+  "skills": []
+}
