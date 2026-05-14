@@ -4,7 +4,7 @@
   "repo": "agent-coding-playbook",
   "description": "AI Coding \u5de5\u7a0b\u5b9e\u8df5\u624b\u518c\uff1a\u628a\u5de5\u7a0b\u5224\u65ad\u5199\u7ed9 Agent \u770b",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bravekingzhang/agent-coding-playbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:49:28Z"
+  "distributed_at": "2026-05-14T02:33:00Z"
 }
