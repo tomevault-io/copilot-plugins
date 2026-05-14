@@ -1,0 +1,9 @@
+{
+  "name": "verygoodplugins--mcp-toggl",
+  "displayName": "mcp-toggl",
+  "description": "MCP server for Toggl Track integration with intelligent caching and reporting tools",
+  "version": "1.0.0",
+  "author": "verygoodplugins",
+  "homepage": "https://github.com/verygoodplugins/mcp-toggl",
+  "skills": []
+}
