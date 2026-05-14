@@ -1,90 +1,17 @@
 ## mcp-server
 
-> Follow this workflow whenever making ANY code changes to the MCP server
+> Before responding to a user request, you MUST complete the following:
 
-# Development Testing Workflow
+Before responding to a user request, you MUST complete the following:
 
-## 1. Run Unit Tests First
-
-Always run the unit test suite before and after making changes:
-
-```bash
-# Run all tests to ensure nothing is broken
-pytest
-
-# Run specific tests related to your changes
-pytest tests/tools/address/test_get_address_info.py -v
-```
-
-## 2. Add Tests for New Features
-
-When adding new functionality or modifying existing code:
-
-### Unit Tests (Always Required)
-
-**Create or update the appropriate test file:**
-
-- **Tool functions**: `tests/tools/<tool_category>/test_<tool_function>.py` (each file now maps 1:1 with an MCP tool)
-- **Server functionality**: `tests/test_server.py`
-- **REST API endpoints**: `tests/api/test_routes.py`
-- **Common utilities**: `tests/test_common.py`
-- **Other modules**: `tests/test_{module_name}.py`
-
-Follow the guidelines in [210-unit-testing-guidelines.mdc](mdc:.cursor/rules/210-unit-testing-guidelines.mdc)
-
-When editing REST API tests, follow the guidelines in [230-api-route-tests.mdc](mdc:.cursor/rules/230-api-route-tests.mdc).
-
-### Integration Tests (When Applicable)
-
-**Add integration tests when you:**
-
-- Introduce new API endpoints or external services
-- Modify helper functions in `tools/common.py`
-- Change data extraction or transformation logic
-- Add new tools that interact with live APIs
-
-**Integration test locations:**
-
-- **Helper functions**: `tests/integration/test_common_helpers.py`
-- **Tool functions**: Domain-specific folders under `tests/integration/` with modules named `test_<tool_name>_real.py` (for example, `tests/integration/address/test_get_address_info_real.py`).
-
-Follow the guidelines in [220-integration-testing-guidelines.mdc](mdc:.cursor/rules/220-integration-testing-guidelines.mdc)
-
-## 3. Check Test Coverage
-
-Ensure your changes are well-tested:
-
-```bash
-pytest --cov=blockscout_mcp_server --cov-report=term-missing
-```
-
-## 4. Run Integration Tests (Required in These Cases)
-
-**MANDATORY** when you have:
-
-- Added or modified any existing MCP tool function
-- Modified helper functions in `tools/common.py`
-- Added or changed any integration test
-- Changed data extraction or transformation logic
-
-**Optional** for minor documentation or configuration changes.
-
-```bash
-pytest -m integration
-```
-
-## 5. End-to-End Validation
-
-After unit tests pass, validate the changes using HTTP mode testing:
-
-```bash
-# Start the server
-python -m blockscout_mcp_server --http
-
-# Test your specific changes using curl commands
-# (See examples in the End-to-End HTTP Testing section in [TESTING.md](mdc:TESTING.md))
-```
+- Read the project introduction in `.cursor/rules/000-role-and-task.mdc`.
+- Read the project technical description in `SPEC.md` to clearly understand how the MCP server communicates with counterparties and important aspects of the server implementation.
+- Read `AGENTS.md` to understand the project structure. When adding a new module, ensure it is consistent with the approach reflected in this document.
+- Read `.cursor/rules/010-implementation-rules.mdc` for general coding instructions.
+- Read `.cursor/rules/110-new-mcp-tool.mdc` for instructions on adding a new MCP tool to the server or modifying an existing one.
+- Read `.cursor/rules/200-development-testing-workflow.mdc` for instructions related to unit and integration testing applicable when a new helper function or MCP tool function is added or modified.
+- Read `.cursor/rules/300-ruff-lint-and-format.mdc` for instructions applicable to identifying and fixing linting and formatting issues
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/blockscout) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [blockscout/mcp-server](https://github.com/blockscout/mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
