@@ -1,0 +1,9 @@
+{
+  "name": "earth-mover--xpublish-tiles",
+  "displayName": "xpublish-tiles",
+  "description": "Tile router for Xpublish",
+  "version": "1.0.0",
+  "author": "earth-mover",
+  "homepage": "https://github.com/earth-mover/xpublish-tiles",
+  "skills": []
+}
