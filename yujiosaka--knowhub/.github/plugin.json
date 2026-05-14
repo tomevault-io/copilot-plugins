@@ -1,0 +1,9 @@
+{
+  "name": "yujiosaka--knowhub",
+  "displayName": "knowhub",
+  "description": "Synchronize AI coding\u2013agent knowledge files (rules, templates, guidelines) across your project.",
+  "version": "1.0.0",
+  "author": "yujiosaka",
+  "homepage": "https://github.com/yujiosaka/knowhub",
+  "skills": []
+}
