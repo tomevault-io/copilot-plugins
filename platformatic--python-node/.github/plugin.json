@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--python-node",
+  "displayName": "python-node",
+  "description": "Run ASGI-compatible Python apps in Node.js",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/python-node",
+  "skills": []
+}
