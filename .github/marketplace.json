@@ -29779,6 +29779,11 @@
       "description": "MCP OAuth Proxy incl. dynamic client registration (DCR), MCP prompt analytics and MCP firewall to build enterprise grade MCP servers."
     },
     {
+      "name": "juniper--junos-mcp-server",
+      "source": "./juniper--junos-mcp-server",
+      "description": "This is a Junos Model Context Protocol (MCP) Server project that provides a bridge between MCP-compatible clients (like Claude Desktop) and Juniper Junos network devices."
+    },
+    {
       "name": "insajin--autopus-adk",
       "source": "./insajin--autopus-adk",
       "description": "Autopus-ADK is of the agents, by the agents. for the agents. Multi-model orchestration (consensus/pipeline/debate/fastest). Architecture-as-Code, Lore decision tracking, SPEC/EARS engine."
@@ -29947,6 +29952,11 @@
       "name": "terrytangyuan--social-media-kit",
       "source": "./terrytangyuan--social-media-kit",
       "description": "A comprehensive social media management tool designed to help you create, format, and post content across multiple platforms including LinkedIn, Twitter/X, Bluesky, and Mastodon. Features advanced sty"
+    },
+    {
+      "name": "obie--desiru",
+      "source": "./obie--desiru",
+      "description": "DeSIRu (Declarative Self-Improving Ruby)"
     },
     {
       "name": "sugarforever--01coder-agent-skills",
@@ -30162,6 +30172,11 @@
       "name": "schmidtwmark--betterblue",
       "source": "./schmidtwmark--betterblue",
       "description": "An iOS native app for controlling Kia and Hyundai vehicles"
+    },
+    {
+      "name": "hexsleeves--tailscale-mcp",
+      "source": "./hexsleeves--tailscale-mcp",
+      "description": "server that provides seamless integration with Tailscale's CLI commands and REST API, enabling automated network management and monitoring through a standardized interface"
     },
     {
       "name": "jjongguet--oh-my-product",
@@ -31147,6 +31162,11 @@
       "name": "athrael-soju--snappy",
       "source": "./athrael-soju--snappy",
       "description": "\ud83d\udc0a Snappy's unique approach unifies vision-language late interaction with structured OCR for region-level knowledge retrieval. Like the project? Drop a star! \u2b50"
+    },
+    {
+      "name": "nerdai--llm-agents-from-scratch",
+      "source": "./nerdai--llm-agents-from-scratch",
+      "description": "Build LLM agents and multi-agent systems from scratch, with MCP, Skills, and A2A"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -47839,6 +47859,16 @@
       "description": "A Model Context Protocol (MCP) server for discovering data products and requesting access in Data Mesh Manager, and executing queries on the data platform to access business data."
     },
     {
+      "name": "aodhanhayter--opencode-flake",
+      "source": "./aodhanhayter--opencode-flake",
+      "description": "opencode-flake"
+    },
+    {
+      "name": "0xbigboss--claude-code",
+      "source": "./0xbigboss--claude-code",
+      "description": "Comprehensive configuration system for Claude Code"
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -48447,6 +48477,16 @@
       "name": "orolol--familybench",
       "source": "./orolol--familybench",
       "description": "FamilyBench evaluation tool for testing the relational reasoning capabilities of Large Language Models (LLMs). "
+    },
+    {
+      "name": "stasshe--pyxis-codecanvas",
+      "source": "./stasshe--pyxis-codecanvas",
+      "description": "Pyxis is an FULL client-side  IDE that runs in the browser(static site) with Node.js emulator, Git, and a VSCode-like editor. Fully local, server-free, and optimized for iPad.Pyxis\u306f\u3001\u30d6\u30e9\u30a6\u30b6\u4e0a\u3067\u52d5\u4f5c\u3059\u308b\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u30b5\u30a4"
+    },
+    {
+      "name": "knifmelti--wau-settings-gui",
+      "source": "./knifmelti--wau-settings-gui",
+      "description": "Provides a user-friendly portable standalone interface to modify every aspect of Winget-AutoUpdate (WAU)"
     },
     {
       "name": "izittmarvin--memcoach",
@@ -49157,6 +49197,16 @@
       "name": "ghostwriternr--awesome-cloudflare",
       "source": "./ghostwriternr--awesome-cloudflare",
       "description": "awesome-cloudflare"
+    },
+    {
+      "name": "haindy--haindy",
+      "source": "./haindy--haindy",
+      "description": "haindy"
+    },
+    {
+      "name": "cmer81--open-meteo-mcp",
+      "source": "./cmer81--open-meteo-mcp",
+      "description": "A comprehensive MCP server providing access to Open-Meteo weather APIs for Large Language Models"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -50549,6 +50599,11 @@
       "description": "macOS menu bar app for monitoring Claude Code usage"
     },
     {
+      "name": "m-mizutani--seccamp-2025-b1",
+      "source": "./m-mizutani--seccamp-2025-b1",
+      "description": "seccamp-2025-b1"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -51344,6 +51399,11 @@
       "description": "Model Context Protocol (MCP) Gateway & Registry - Central hub for managing tools, resources, and prompts for MCP-compatible LLMs. Translates REST APIs into MCP, builds virtual MCP servers with securit"
     },
     {
+      "name": "badlogic--vs-claude",
+      "source": "./badlogic--vs-claude",
+      "description": "VS Code extension and MCP server so Claude Code can open files, diffs and manipulate VS Code in other ways."
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -51977,6 +52037,16 @@
       "name": "dimillian--hypergit",
       "source": "./dimillian--hypergit",
       "description": "A small & fast frontend to quickly search your Github repositories and files"
+    },
+    {
+      "name": "digitarald--vscode-agent-todos",
+      "source": "./digitarald--vscode-agent-todos",
+      "description": "Gives VS Code agent mode planning superpowers with dynamic todo lists"
+    },
+    {
+      "name": "vincequant--claude-code-monitor",
+      "source": "./vincequant--claude-code-monitor",
+      "description": "Real-time monitoring tool for Claude Code CLI usage and network status | \u5be6\u6642\u76e3\u63a7 Claude Code CLI \u4f7f\u7528\u72c0\u614b\u548c\u7db2\u7d61\u9023\u63a5"
     },
     {
       "name": "w3cj--ruta",
@@ -52659,6 +52729,11 @@
       "description": "Composable Python framework for LLM agent workflows focused on simplicity and developer experience. We \u2764\ufe0f OSS."
     },
     {
+      "name": "icefort-ai--config",
+      "source": "./icefort-ai--config",
+      "description": "A web interface for managing AI CLI agent configurations: Claude Code, OpenAI Codex, Gemini CLI"
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -53252,6 +53327,16 @@
       "name": "brandonp2412--blockdrop",
       "source": "./brandonp2412--blockdrop",
       "description": "A modern Tetris clone built with Flutter \ud83c\udfae"
+    },
+    {
+      "name": "vllm-project--vllm-gaudi",
+      "source": "./vllm-project--vllm-gaudi",
+      "description": "Community maintained hardware plugin for vLLM on Intel Gaudi"
+    },
+    {
+      "name": "artmann--package-registry-mcp",
+      "source": "./artmann--package-registry-mcp",
+      "description": "MCP server for searching and getting up-to-date information about NPM, Cargo, PyPi, and NuGet packages."
     },
     {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
@@ -88404,6 +88489,11 @@
       "description": "A Model Context Protocol (MCP) server that provides programmatic access to Israeli Land Authority (\u05e8\u05de\u05f4\u05d9) public tender data."
     },
     {
+      "name": "ruuda--deptool",
+      "source": "./ruuda--deptool",
+      "description": "A declarative configuration deployment tool"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -97624,6 +97714,21 @@
       "description": "Peer-to-peer chat substrate that lets multiple Claude Code instances share the same context."
     },
     {
+      "name": "rogervdo--tmdb",
+      "source": "./rogervdo--tmdb",
+      "description": "Aplicaci\u00f3n utilizando API de TMDB para buscar pel\u00edculas, g\u00e9neros, contactos, etc. Integrado con ODOO"
+    },
+    {
+      "name": "zie619--eckstein",
+      "source": "./zie619--eckstein",
+      "description": "Eckstein"
+    },
+    {
+      "name": "zie619--eckstein",
+      "source": "./zie619--eckstein",
+      "description": "Eckstein"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -101752,6 +101857,21 @@
       "name": "realistsec--mpa-first-guidelines",
       "source": "./realistsec--mpa-first-guidelines",
       "description": "MPA-First Development Mandate | Guiding principles for building performant, resilient Multi-Page Applications. Focus on native web platform strengths, minimal JS, and robust SEO. AI coding tools are b"
+    },
+    {
+      "name": "mothlike--mcp-graylog",
+      "source": "./mothlike--mcp-graylog",
+      "description": "mcp_graylog"
+    },
+    {
+      "name": "mothlike--mcp-graylog",
+      "source": "./mothlike--mcp-graylog",
+      "description": "mcp_graylog"
+    },
+    {
+      "name": "anjiemo--downloader",
+      "source": "./anjiemo--downloader",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684Android\u6587\u4ef6\u4e0b\u8f7d\u5668\uff0c\u652f\u6301\u5355\u7ebf\u7a0b\u548c\u5206\u7247\u4e0b\u8f7d\uff0c\u5177\u6709\u65ad\u70b9\u7eed\u4f20\u3001\u7f51\u7edc\u72b6\u6001\u76d1\u63a7\u3001\u6587\u4ef6\u5b8c\u6574\u6027\u6821\u9a8c\u7b49\u7279\u6027\u3002"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -114122,6 +114242,91 @@
       "name": "rajudandigam--agent-inspect",
       "source": "./rajudandigam--agent-inspect",
       "description": "Local execution trees for TypeScript AI agents.  agent-inspect helps you understand what happened inside an AI agent run \u2014 locally. It turns manual steps, tool calls, LLM calls, structured logs, failu"
+    },
+    {
+      "name": "phuetz--code-buddy",
+      "source": "./phuetz--code-buddy",
+      "description": "An open-source multi-provider AI coding agent that runs directly in your terminal."
+    },
+    {
+      "name": "gildaciolopes--bewear",
+      "source": "./gildaciolopes--bewear",
+      "description": "E-commerce de moda masculina"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "caido-community--compare",
+      "source": "./caido-community--compare",
+      "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
+    },
+    {
+      "name": "bitasia--sap-ai-provider",
+      "source": "./bitasia--sap-ai-provider",
+      "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core"
     },
     {
       "name": "ocrbase-hq--ocrbase",
@@ -217934,49 +218139,14 @@
       "description": "codex-plugins"
     },
     {
-      "name": "tomevault-io--codex-plugins",
-      "source": "./tomevault-io--codex-plugins",
-      "description": "codex-plugins"
-    },
-    {
-      "name": "tomevault-io--claude-code-plugins",
-      "source": "./tomevault-io--claude-code-plugins",
-      "description": "claude-code-plugins"
-    },
-    {
       "name": "forgeforward-labs--indexer",
       "source": "./forgeforward-labs--indexer",
       "description": "indexer"
     },
     {
-      "name": "tomevault-io--gemini-extensions",
-      "source": "./tomevault-io--gemini-extensions",
-      "description": "gemini-extensions"
-    },
-    {
       "name": "tomevault-io--codex-plugins",
       "source": "./tomevault-io--codex-plugins",
       "description": "codex-plugins"
-    },
-    {
-      "name": "tomevault-io--claude-code-plugins",
-      "source": "./tomevault-io--claude-code-plugins",
-      "description": "claude-code-plugins"
-    },
-    {
-      "name": "tomevault-io--gemini-extensions",
-      "source": "./tomevault-io--gemini-extensions",
-      "description": "gemini-extensions"
-    },
-    {
-      "name": "tomevault-io--codex-plugins",
-      "source": "./tomevault-io--codex-plugins",
-      "description": "codex-plugins"
-    },
-    {
-      "name": "tomevault-io--claude-code-plugins",
-      "source": "./tomevault-io--claude-code-plugins",
-      "description": "claude-code-plugins"
     },
     {
       "name": "tomevault-io--gemini-extensions",
@@ -218052,6 +218222,256 @@
       "name": "tomevault-io--codex-plugins",
       "source": "./tomevault-io--codex-plugins",
       "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--claude-code-plugins",
+      "source": "./tomevault-io--claude-code-plugins",
+      "description": "claude-code-plugins"
     },
     {
       "name": "tomevault-io--gemini-extensions",
