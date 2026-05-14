@@ -1,409 +1,582 @@
-## taskmaster
+## taskmaster-to-linear
 
-> Comprehensive reference for Taskmaster MCP tools and CLI commands.
-
-# Taskmaster Tool & Command Reference
-
-This document provides a detailed reference for interacting with Taskmaster, covering both the recommended MCP tools, suitable for integrations like Cursor, and the corresponding `task-master` CLI commands, designed for direct user interaction or fallback.
-
-**Note:** For interacting with Taskmaster programmatically or via integrated tools, using the **MCP tools is strongly recommended** due to better performance, structured data, and error handling. The CLI commands serve as a user-friendly alternative and fallback. 
-
-**Important:** Several MCP tools involve AI processing... The AI-powered tools include `parse_prd`, `analyze_project_complexity`, `update_subtask`, `update_task`, `update`, `expand_all`, `expand_task`, and `add_task`.
+> Request this rule when you need to convert Taskmaster tasks into Linear issues, maintaining proper relationships, preventing duplicates, and ensuring consistent formatting and structure.
 
 ---
-
-## Initialization & Setup
-
-### 1. Initialize Project (`init`)
-
-*   **MCP Tool:** `initialize_project`
-*   **CLI Command:** `task-master init [options]`
-*   **Description:** `Set up the basic Taskmaster file structure and configuration in the current directory for a new project.`
-*   **Key CLI Options:**
-    *   `--name <name>`: `Set the name for your project in Taskmaster's configuration.`
-    *   `--description <text>`: `Provide a brief description for your project.`
-    *   `--version <version>`: `Set the initial version for your project, e.g., '0.1.0'.`
-    *   `-y, --yes`: `Initialize Taskmaster quickly using default settings without interactive prompts.`
-*   **Usage:** Run this once at the beginning of a new project.
-*   **MCP Variant Description:** `Set up the basic Taskmaster file structure and configuration in the current directory for a new project by running the 'task-master init' command.`
-*   **Key MCP Parameters/Options:**
-    *   `projectName`: `Set the name for your project.` (CLI: `--name <name>`)
-    *   `projectDescription`: `Provide a brief description for your project.` (CLI: `--description <text>`)
-    *   `projectVersion`: `Set the initial version for your project, e.g., '0.1.0'.` (CLI: `--version <version>`)
-    *   `authorName`: `Author name.` (CLI: `--author <author>`)
-    *   `skipInstall`: `Skip installing dependencies. Default is false.` (CLI: `--skip-install`)
-    *   `addAliases`: `Add shell aliases tm and taskmaster. Default is false.` (CLI: `--aliases`)
-    *   `yes`: `Skip prompts and use defaults/provided arguments. Default is false.` (CLI: `-y, --yes`)
-*   **Usage:** Run this once at the beginning of a new project, typically via an integrated tool like Cursor. Operates on the current working directory of the MCP server. 
-*   **Important:** Once complete, you *MUST* parse a prd in order to generate tasks. There will be no tasks files until then. The next step after initializing should be to create a PRD using the example PRD in scripts/example_prd.txt. 
-
-### 2. Parse PRD (`parse_prd`)
-
-*   **MCP Tool:** `parse_prd`
-*   **CLI Command:** `task-master parse-prd [file] [options]`
-*   **Description:** `Parse a Product Requirements Document, PRD, or text file with Taskmaster to automatically generate an initial set of tasks in tasks.json.`
-*   **Key Parameters/Options:**
-    *   `input`: `Path to your PRD or requirements text file that Taskmaster should parse for tasks.` (CLI: `[file]` positional or `-i, --input <file>`)
-    *   `output`: `Specify where Taskmaster should save the generated 'tasks.json' file. Defaults to 'tasks/tasks.json'.` (CLI: `-o, --output <file>`)
-    *   `numTasks`: `Approximate number of top-level tasks Taskmaster should aim to generate from the document.` (CLI: `-n, --num-tasks <number>`)
-    *   `force`: `Use this to allow Taskmaster to overwrite an existing 'tasks.json' without asking for confirmation.` (CLI: `-f, --force`)
-*   **Usage:** Useful for bootstrapping a project from an existing requirements document.
-*   **Notes:** Task Master will strictly adhere to any specific requirements mentioned in the PRD, such as libraries, database schemas, frameworks, tech stacks, etc., while filling in any gaps where the PRD isn't fully specified. Tasks are designed to provide the most direct implementation path while avoiding over-engineering.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress. If the user does not have a PRD, suggest discussing their idea and then use the example PRD in `scripts/example_prd.txt` as a template for creating the PRD based on their idea, for use with `parse-prd`.
-
+description: Guidelines for creating Linear issues from Taskmaster tasks with proper structure and relationships
+globs: .taskmaster/tasks/*.txt
+alwaysApply: false
+ruleType: agent-requested
+taskDescription: Request this rule when you need to convert Taskmaster tasks into Linear issues, maintaining proper relationships, preventing duplicates, and ensuring consistent formatting and structure.
 ---
-
-## AI Model Configuration
-
-### 2. Manage Models (`models`)
-*   **MCP Tool:** `models`
-*   **CLI Command:** `task-master models [options]`
-*   **Description:** `View the current AI model configuration or set specific models for different roles (main, research, fallback). Allows setting custom model IDs for Ollama and OpenRouter.`
-*   **Key MCP Parameters/Options:**
-    *   `setMain <model_id>`: `Set the primary model ID for task generation/updates.` (CLI: `--set-main <model_id>`)
-    *   `setResearch <model_id>`: `Set the model ID for research-backed operations.` (CLI: `--set-research <model_id>`)
-    *   `setFallback <model_id>`: `Set the model ID to use if the primary fails.` (CLI: `--set-fallback <model_id>`)
-    *   `ollama <boolean>`: `Indicates the set model ID is a custom Ollama model.` (CLI: `--ollama`)
-    *   `openrouter <boolean>`: `Indicates the set model ID is a custom OpenRouter model.` (CLI: `--openrouter`)
-    *   `listAvailableModels <boolean>`: `If true, lists available models not currently assigned to a role.` (CLI: No direct equivalent; CLI lists available automatically)
-    *   `projectRoot <string>`: `Optional. Absolute path to the project root directory.` (CLI: Determined automatically)
-*   **Key CLI Options:**
-    *   `--set-main <model_id>`: `Set the primary model.`
-    *   `--set-research <model_id>`: `Set the research model.`
-    *   `--set-fallback <model_id>`: `Set the fallback model.`
-    *   `--ollama`: `Specify that the provided model ID is for Ollama (use with --set-*).`
-    *   `--openrouter`: `Specify that the provided model ID is for OpenRouter (use with --set-*). Validates against OpenRouter API.`
-    *   `--setup`: `Run interactive setup to configure models, including custom Ollama/OpenRouter IDs.`
-*   **Usage (MCP):** Call without set flags to get current config. Use `setMain`, `setResearch`, or `setFallback` with a valid model ID to update the configuration. Use `listAvailableModels: true` to get a list of unassigned models. To set a custom model, provide the model ID and set `ollama: true` or `openrouter: true`.
-*   **Usage (CLI):** Run without flags to view current configuration and available models. Use set flags to update specific roles. Use `--setup` for guided configuration, including custom models. To set a custom model via flags, use `--set-<role>=<model_id>` along with either `--ollama` or `--openrouter`.
-*   **Notes:** Configuration is stored in `.taskmasterconfig` in the project root. This command/tool modifies that file. Use `listAvailableModels` or `task-master models` to see internally supported models. OpenRouter custom models are validated against their live API. Ollama custom models are not validated live.
-*   **API note:** API keys for selected AI providers (based on their model) need to exist in the mcp.json file to be accessible in MCP context. The API keys must be present in the local .env file for the CLI to be able to read them.
-*   **Model costs:** The costs in supported models are expressed in dollars. An input/output value of 3 is $3.00. A value of 0.8 is $0.80. 
-*   **Warning:** DO NOT MANUALLY EDIT THE .taskmasterconfig FILE. Use the included commands either in the MCP or CLI format as needed. Always prioritize MCP tools when available and use the CLI as a fallback.
-
----
-
-## Task Listing & Viewing
-
-### 3. Get Tasks (`get_tasks`)
-
-*   **MCP Tool:** `get_tasks`
-*   **CLI Command:** `task-master list [options]`
-*   **Description:** `List your Taskmaster tasks, optionally filtering by status and showing subtasks.`
-*   **Key Parameters/Options:**
-    *   `status`: `Show only Taskmaster tasks matching this status, e.g., 'pending' or 'done'.` (CLI: `-s, --status <status>`)
-    *   `withSubtasks`: `Include subtasks indented under their parent tasks in the list.` (CLI: `--with-subtasks`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Get an overview of the project status, often used at the start of a work session.
-
-### 4. Get Next Task (`next_task`)
-
-*   **MCP Tool:** `next_task`
-*   **CLI Command:** `task-master next [options]`
-*   **Description:** `Ask Taskmaster to show the next available task you can work on, based on status and completed dependencies.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Identify what to work on next according to the plan.
-
-### 5. Get Task Details (`get_task`)
-
-*   **MCP Tool:** `get_task`
-*   **CLI Command:** `task-master show [id] [options]`
-*   **Description:** `Display detailed information for a specific Taskmaster task or subtask by its ID.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task, e.g., '15', or subtask, e.g., '15.2', you want to view.` (CLI: `[id]` positional or `-i, --id <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Understand the full details, implementation notes, and test strategy for a specific task before starting work.
-
----
-
-## Task Creation & Modification
-
-### 6. Add Task (`add_task`)
-
-*   **MCP Tool:** `add_task`
-*   **CLI Command:** `task-master add-task [options]`
-*   **Description:** `Add a new task to Taskmaster by describing it; AI will structure it.`
-*   **Key Parameters/Options:**
-    *   `prompt`: `Required. Describe the new task you want Taskmaster to create, e.g., "Implement user authentication using JWT".` (CLI: `-p, --prompt <text>`)
-    *   `dependencies`: `Specify the IDs of any Taskmaster tasks that must be completed before this new one can start, e.g., '12,14'.` (CLI: `-d, --dependencies <ids>`)
-    *   `priority`: `Set the priority for the new task: 'high', 'medium', or 'low'. Default is 'medium'.` (CLI: `--priority <priority>`)
-    *   `research`: `Enable Taskmaster to use the research role for potentially more informed task creation.` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Quickly add newly identified tasks during development.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 7. Add Subtask (`add_subtask`)
-
-*   **MCP Tool:** `add_subtask`
-*   **CLI Command:** `task-master add-subtask [options]`
-*   **Description:** `Add a new subtask to a Taskmaster parent task, or convert an existing task into a subtask.`
-*   **Key Parameters/Options:**
-    *   `id` / `parent`: `Required. The ID of the Taskmaster task that will be the parent.` (MCP: `id`, CLI: `-p, --parent <id>`)
-    *   `taskId`: `Use this if you want to convert an existing top-level Taskmaster task into a subtask of the specified parent.` (CLI: `-i, --task-id <id>`)
-    *   `title`: `Required if not using taskId. The title for the new subtask Taskmaster should create.` (CLI: `-t, --title <title>`)
-    *   `description`: `A brief description for the new subtask.` (CLI: `-d, --description <text>`)
-    *   `details`: `Provide implementation notes or details for the new subtask.` (CLI: `--details <text>`)
-    *   `dependencies`: `Specify IDs of other tasks or subtasks, e.g., '15' or '16.1', that must be done before this new subtask.` (CLI: `--dependencies <ids>`)
-    *   `status`: `Set the initial status for the new subtask. Default is 'pending'.` (CLI: `-s, --status <status>`)
-    *   `skipGenerate`: `Prevent Taskmaster from automatically regenerating markdown task files after adding the subtask.` (CLI: `--skip-generate`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Break down tasks manually or reorganize existing tasks.
-
-### 8. Update Tasks (`update`)
-
-*   **MCP Tool:** `update`
-*   **CLI Command:** `task-master update [options]`
-*   **Description:** `Update multiple upcoming tasks in Taskmaster based on new context or changes, starting from a specific task ID.`
-*   **Key Parameters/Options:**
-    *   `from`: `Required. The ID of the first task Taskmaster should update. All tasks with this ID or higher that are not 'done' will be considered.` (CLI: `--from <id>`)
-    *   `prompt`: `Required. Explain the change or new context for Taskmaster to apply to the tasks, e.g., "We are now using React Query instead of Redux Toolkit for data fetching".` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use the research role for more informed updates. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Handle significant implementation changes or pivots that affect multiple future tasks. Example CLI: `task-master update --from='18' --prompt='Switching to React Query.\nNeed to refactor data fetching...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 9. Update Task (`update_task`)
-
-*   **MCP Tool:** `update_task`
-*   **CLI Command:** `task-master update-task [options]`
-*   **Description:** `Modify a specific Taskmaster task or subtask by its ID, incorporating new information or changes.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The specific ID of the Taskmaster task, e.g., '15', or subtask, e.g., '15.2', you want to update.` (CLI: `-i, --id <id>`)
-    *   `prompt`: `Required. Explain the specific changes or provide the new information Taskmaster should incorporate into this task.` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use the research role for more informed updates. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Refine a specific task based on new understanding or feedback. Example CLI: `task-master update-task --id='15' --prompt='Clarification: Use PostgreSQL instead of MySQL.\nUpdate schema details...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 10. Update Subtask (`update_subtask`)
-
-*   **MCP Tool:** `update_subtask`
-*   **CLI Command:** `task-master update-subtask [options]`
-*   **Description:** `Append timestamped notes or details to a specific Taskmaster subtask without overwriting existing content. Intended for iterative implementation logging.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The specific ID of the Taskmaster subtask, e.g., '15.2', you want to add information to.` (CLI: `-i, --id <id>`)
-    *   `prompt`: `Required. Provide the information or notes Taskmaster should append to the subtask's details. Ensure this adds *new* information not already present.` (CLI: `-p, --prompt <text>`)
-    *   `research`: `Enable Taskmaster to use the research role for more informed updates. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Add implementation notes, code snippets, or clarifications to a subtask during development. Before calling, review the subtask's current details to append only fresh insights, helping to build a detailed log of the implementation journey and avoid redundancy. Example CLI: `task-master update-subtask --id='15.2' --prompt='Discovered that the API requires header X.\nImplementation needs adjustment...'`
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 11. Set Task Status (`set_task_status`)
-
-*   **MCP Tool:** `set_task_status`
-*   **CLI Command:** `task-master set-status [options]`
-*   **Description:** `Update the status of one or more Taskmaster tasks or subtasks, e.g., 'pending', 'in-progress', 'done'.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID(s) of the Taskmaster task(s) or subtask(s), e.g., '15', '15.2', or '16,17.1', to update.` (CLI: `-i, --id <id>`)
-    *   `status`: `Required. The new status to set, e.g., 'done', 'pending', 'in-progress', 'review', 'cancelled'.` (CLI: `-s, --status <status>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Mark progress as tasks move through the development cycle.
-
-### 12. Remove Task (`remove_task`)
-
-*   **MCP Tool:** `remove_task`
-*   **CLI Command:** `task-master remove-task [options]`
-*   **Description:** `Permanently remove a task or subtask from the Taskmaster tasks list.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task, e.g., '5', or subtask, e.g., '5.2', to permanently remove.` (CLI: `-i, --id <id>`)
-    *   `yes`: `Skip the confirmation prompt and immediately delete the task.` (CLI: `-y, --yes`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Permanently delete tasks or subtasks that are no longer needed in the project.
-*   **Notes:** Use with caution as this operation cannot be undone. Consider using 'blocked', 'cancelled', or 'deferred' status instead if you just want to exclude a task from active planning but keep it for reference. The command automatically cleans up dependency references in other tasks.
-
----
-
-## Task Structure & Breakdown
-
-### 13. Expand Task (`expand_task`)
-
-*   **MCP Tool:** `expand_task`
-*   **CLI Command:** `task-master expand [options]`
-*   **Description:** `Use Taskmaster's AI to break down a complex task into smaller, manageable subtasks. Appends subtasks by default.`
-*   **Key Parameters/Options:**
-    *   `id`: `The ID of the specific Taskmaster task you want to break down into subtasks.` (CLI: `-i, --id <id>`)
-    *   `num`: `Optional: Suggests how many subtasks Taskmaster should aim to create. Uses complexity analysis/defaults otherwise.` (CLI: `-n, --num <number>`)
-    *   `research`: `Enable Taskmaster to use the research role for more informed subtask generation. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `prompt`: `Optional: Provide extra context or specific instructions to Taskmaster for generating the subtasks.` (CLI: `-p, --prompt <text>`)
-    *   `force`: `Optional: If true, clear existing subtasks before generating new ones. Default is false (append).` (CLI: `--force`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Generate a detailed implementation plan for a complex task before starting coding. Automatically uses complexity report recommendations if available and `num` is not specified.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 14. Expand All Tasks (`expand_all`)
-
-*   **MCP Tool:** `expand_all`
-*   **CLI Command:** `task-master expand --all [options]` (Note: CLI uses the `expand` command with the `--all` flag)
-*   **Description:** `Tell Taskmaster to automatically expand all eligible pending/in-progress tasks based on complexity analysis or defaults. Appends subtasks by default.`
-*   **Key Parameters/Options:**
-    *   `num`: `Optional: Suggests how many subtasks Taskmaster should aim to create per task.` (CLI: `-n, --num <number>`)
-    *   `research`: `Enable research role for more informed subtask generation. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `prompt`: `Optional: Provide extra context for Taskmaster to apply generally during expansion.` (CLI: `-p, --prompt <text>`)
-    *   `force`: `Optional: If true, clear existing subtasks before generating new ones for each eligible task. Default is false (append).` (CLI: `--force`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Useful after initial task generation or complexity analysis to break down multiple tasks at once.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 15. Clear Subtasks (`clear_subtasks`)
-
-*   **MCP Tool:** `clear_subtasks`
-*   **CLI Command:** `task-master clear-subtasks [options]`
-*   **Description:** `Remove all subtasks from one or more specified Taskmaster parent tasks.`
-*   **Key Parameters/Options:**
-    *   `id`: `The ID(s) of the Taskmaster parent task(s) whose subtasks you want to remove, e.g., '15' or '16,18'. Required unless using `all`.) (CLI: `-i, --id <ids>`)
-    *   `all`: `Tell Taskmaster to remove subtasks from all parent tasks.` (CLI: `--all`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Used before regenerating subtasks with `expand_task` if the previous breakdown needs replacement.
-
-### 16. Remove Subtask (`remove_subtask`)
-
-*   **MCP Tool:** `remove_subtask`
-*   **CLI Command:** `task-master remove-subtask [options]`
-*   **Description:** `Remove a subtask from its Taskmaster parent, optionally converting it into a standalone task.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID(s) of the Taskmaster subtask(s) to remove, e.g., '15.2' or '16.1,16.3'.` (CLI: `-i, --id <id>`)
-    *   `convert`: `If used, Taskmaster will turn the subtask into a regular top-level task instead of deleting it.` (CLI: `-c, --convert`)
-    *   `skipGenerate`: `Prevent Taskmaster from automatically regenerating markdown task files after removing the subtask.` (CLI: `--skip-generate`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Delete unnecessary subtasks or promote a subtask to a top-level task.
-
-### 17. Move Task (`move_task`)
-
-*   **MCP Tool:** `move_task`
-*   **CLI Command:** `task-master move [options]`
-*   **Description:** `Move a task or subtask to a new position within the task hierarchy.`
-*   **Key Parameters/Options:**
-    *   `from`: `Required. ID of the task/subtask to move (e.g., "5" or "5.2"). Can be comma-separated for multiple tasks.` (CLI: `--from <id>`)
-    *   `to`: `Required. ID of the destination (e.g., "7" or "7.3"). Must match the number of source IDs if comma-separated.` (CLI: `--to <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Reorganize tasks by moving them within the hierarchy. Supports various scenarios like:
-    *   Moving a task to become a subtask
-    *   Moving a subtask to become a standalone task
-    *   Moving a subtask to a different parent
-    *   Reordering subtasks within the same parent
-    *   Moving a task to a new, non-existent ID (automatically creates placeholders)
-    *   Moving multiple tasks at once with comma-separated IDs
-*   **Validation Features:**
-    *   Allows moving tasks to non-existent destination IDs (creates placeholder tasks)
-    *   Prevents moving to existing task IDs that already have content (to avoid overwriting)
-    *   Validates that source tasks exist before attempting to move them
-    *   Maintains proper parent-child relationships
-*   **Example CLI:** `task-master move --from=5.2 --to=7.3` to move subtask 5.2 to become subtask 7.3.
-*   **Example Multi-Move:** `task-master move --from=10,11,12 --to=16,17,18` to move multiple tasks to new positions.
-*   **Common Use:** Resolving merge conflicts in tasks.json when multiple team members create tasks on different branches.
-
----
-
-## Dependency Management
-
-### 18. Add Dependency (`add_dependency`)
-
-*   **MCP Tool:** `add_dependency`
-*   **CLI Command:** `task-master add-dependency [options]`
-*   **Description:** `Define a dependency in Taskmaster, making one task a prerequisite for another.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task that will depend on another.` (CLI: `-i, --id <id>`)
-    *   `dependsOn`: `Required. The ID of the Taskmaster task that must be completed first, the prerequisite.` (CLI: `-d, --depends-on <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <path>`)
-*   **Usage:** Establish the correct order of execution between tasks.
-
-### 19. Remove Dependency (`remove_dependency`)
-
-*   **MCP Tool:** `remove_dependency`
-*   **CLI Command:** `task-master remove-dependency [options]`
-*   **Description:** `Remove a dependency relationship between two Taskmaster tasks.`
-*   **Key Parameters/Options:**
-    *   `id`: `Required. The ID of the Taskmaster task you want to remove a prerequisite from.` (CLI: `-i, --id <id>`)
-    *   `dependsOn`: `Required. The ID of the Taskmaster task that should no longer be a prerequisite.` (CLI: `-d, --depends-on <id>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Update task relationships when the order of execution changes.
-
-### 20. Validate Dependencies (`validate_dependencies`)
-
-*   **MCP Tool:** `validate_dependencies`
-*   **CLI Command:** `task-master validate-dependencies [options]`
-*   **Description:** `Check your Taskmaster tasks for dependency issues (like circular references or links to non-existent tasks) without making changes.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Audit the integrity of your task dependencies.
-
-### 21. Fix Dependencies (`fix_dependencies`)
-
-*   **MCP Tool:** `fix_dependencies`
-*   **CLI Command:** `task-master fix-dependencies [options]`
-*   **Description:** `Automatically fix dependency issues (like circular references or links to non-existent tasks) in your Taskmaster tasks.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Clean up dependency errors automatically.
-
----
-
-## Analysis & Reporting
-
-### 22. Analyze Project Complexity (`analyze_project_complexity`)
-
-*   **MCP Tool:** `analyze_project_complexity`
-*   **CLI Command:** `task-master analyze-complexity [options]`
-*   **Description:** `Have Taskmaster analyze your tasks to determine their complexity and suggest which ones need to be broken down further.`
-*   **Key Parameters/Options:**
-    *   `output`: `Where to save the complexity analysis report (default: 'scripts/task-complexity-report.json').` (CLI: `-o, --output <file>`)
-    *   `threshold`: `The minimum complexity score (1-10) that should trigger a recommendation to expand a task.` (CLI: `-t, --threshold <number>`)
-    *   `research`: `Enable research role for more accurate complexity analysis. Requires appropriate API key.` (CLI: `-r, --research`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Used before breaking down tasks to identify which ones need the most attention.
-*   **Important:** This MCP tool makes AI calls and can take up to a minute to complete. Please inform users to hang tight while the operation is in progress.
-
-### 23. View Complexity Report (`complexity_report`)
-
-*   **MCP Tool:** `complexity_report`
-*   **CLI Command:** `task-master complexity-report [options]`
-*   **Description:** `Display the task complexity analysis report in a readable format.`
-*   **Key Parameters/Options:**
-    *   `file`: `Path to the complexity report (default: 'scripts/task-complexity-report.json').` (CLI: `-f, --file <file>`)
-*   **Usage:** Review and understand the complexity analysis results after running analyze-complexity.
-
----
-
-## File Management
-
-### 24. Generate Task Files (`generate`)
-
-*   **MCP Tool:** `generate`
-*   **CLI Command:** `task-master generate [options]`
-*   **Description:** `Create or update individual Markdown files for each task based on your tasks.json.`
-*   **Key Parameters/Options:**
-    *   `output`: `The directory where Taskmaster should save the task files (default: in a 'tasks' directory).` (CLI: `-o, --output <directory>`)
-    *   `file`: `Path to your Taskmaster 'tasks.json' file. Default relies on auto-detection.` (CLI: `-f, --file <file>`)
-*   **Usage:** Run this after making changes to tasks.json to keep individual task files up to date.
-
----
-
-## Environment Variables Configuration (Updated)
-
-Taskmaster primarily uses the **`.taskmasterconfig`** file (in project root) for configuration (models, parameters, logging level, etc.), managed via `task-master models --setup`.
-
-Environment variables are used **only** for sensitive API keys related to AI providers and specific overrides like the Ollama base URL:
-
-*   **API Keys (Required for corresponding provider):**
-    *   `ANTHROPIC_API_KEY`
-    *   `PERPLEXITY_API_KEY`
-    *   `OPENAI_API_KEY`
-    *   `GOOGLE_API_KEY`
-    *   `MISTRAL_API_KEY`
-    *   `AZURE_OPENAI_API_KEY` (Requires `AZURE_OPENAI_ENDPOINT` too)
-    *   `OPENROUTER_API_KEY`
-    *   `XAI_API_KEY`
-    *   `OLLANA_API_KEY` (Requires `OLLAMA_BASE_URL` too)
-*   **Endpoints (Optional/Provider Specific inside .taskmasterconfig):**
-    *   `AZURE_OPENAI_ENDPOINT`
-    *   `OLLAMA_BASE_URL` (Default: `http://localhost:11434/api`)
-
-**Set API keys** in your **`.env`** file in the project root (for CLI use) or within the `env` section of your **`.cursor/mcp.json`** file (for MCP/Cursor integration). All other settings (model choice, max tokens, temperature, log level, custom endpoints) are managed in `.taskmasterconfig` via `task-master models` command or `models` MCP tool.
-
----
-
-For details on how these commands fit into the development process, see the [Development Workflow Guide](mdc:.cursor/rules/dev_workflow.mdc).
+# Universal Taskmaster → Linear Integration Protocol
+
+This rule defines the standardized process for converting Taskmaster tasks into Linear issues across any development project, ensuring proper relationships, preventing duplicates, and maintaining consistent structure within tag-aware workflows.
+
+## Core Integration Principles
+
+- **Tag-Aware Conversion**: Respect tag contexts and project boundaries when creating Linear issues
+- **Project Discovery**: Dynamically identify project names and structure for proper issue organization
+- **Duplicate Prevention**: Check existing Linear issues before creation to avoid conflicts
+- **Relationship Preservation**: Maintain parent-child subtask relationships in Linear
+- **Consistent Structure**: Standardized issue creation with complete information across all projects
+- **Status Synchronization**: Bidirectional sync between Taskmaster and Linear status updates
+- **Cross-Project Coordination**: Handle dependencies across different projects and tags
+
+## Mandatory Prerequisites
+
+### 1. Tag Context and Project Discovery
+```yaml
+before_linear_operations:
+  # STEP 1: Ensure proper tag context (from @taskmaster-base.mcp)
+  1. verify_tag_context:
+     - confirm_current_tag_is_appropriate()
+     - discover_project_name_from_tag_and_structure()
+     - validate_project_exists_in_monorepo()
+  
+  # STEP 2: Load Linear workspace context
+  2. linear_workspace_discovery:
+     - identify_linear_workspace_for_project()
+     - detect_team_assignments()
+     - map_project_to_linear_labels()
+  
+  # STEP 3: Validate permissions and access
+  3. permission_validation:
+     - verify_linear_api_access()
+     - confirm_project_team_membership()
+     - validate_issue_creation_permissions()
+```
+
+### 2. Pre-Conversion Analysis
+```yaml
+conversion_analysis:
+  task_assessment:
+    # Analyze task structure and requirements
+    - determine_if_conversion_needed(task_complexity, scope)
+    - identify_parent_child_relationships()
+    - extract_cross_project_dependencies()
+    - assess_linear_issue_type_requirements()
+  
+  duplicate_prevention:
+    # Comprehensive duplicate checking
+    - search_existing_linear_issues_by_title()
+    - check_taskmaster_id_references_in_linear()
+    - identify_potential_duplicate_patterns()
+    - validate_unique_conversion_opportunity()
+  
+  project_context_mapping:
+    # Map discovered project to Linear organization
+    - map_discovered_project_to_linear_team()
+    - determine_appropriate_linear_labels()
+    - identify_milestone_or_project_associations()
+    - assess_priority_level_mapping()
+```
+
+## Universal Conversion Strategies
+
+### Strategy 1: Single Task Conversion (Complexity 1-3)
+```yaml
+simple_task_conversion:
+  when: task.complexity <= 3 AND no_subtasks AND single_project_scope
+  
+  linear_issue_creation:
+    title: "{Discovered Project}: {Task Title}"
+    description: |
+      **Project**: {dynamically_discovered_project_name}
+      **Tag Context**: {current_tag}
+      **Taskmaster ID**: {task_id}
+      **Complexity**: {score}/10
+      
+      ## Description
+      {task.description}
+      
+      ## Implementation Details
+      {task.details}
+      
+      ## Test Strategy
+      {task.testStrategy}
+      
+      ## Success Criteria
+      - [ ] Implementation complete in {discovered_project_path}
+      - [ ] Tests pass using appropriate testing framework
+      - [ ] Task marked as 'done' in Taskmaster
+    
+    labels: ["{discovered_project}", "taskmaster-sync", "complexity-{score}"]
+    team: "{mapped_team_from_project_discovery}"
+    priority: "{mapped_priority_from_taskmaster}"
+    
+  post_creation:
+    - update_taskmaster_with_linear_issue_id()
+    - add_linear_url_to_task_details()
+    - set_bidirectional_sync_metadata()
+```
+
+### Strategy 2: Parent-Child Task Conversion (Complexity 4-7)
+```yaml
+hierarchical_task_conversion:
+  when: task.has_subtasks OR task.complexity >= 4
+  
+  parent_issue_creation:
+    title: "{Discovered Project}: {Parent Task Title}"
+    description: |
+      **Project**: {dynamically_discovered_project_name}  
+      **Tag Context**: {current_tag}
+      **Taskmaster Parent ID**: {parent_task_id}
+      **Complexity**: {score}/10
+      **Subtask Count**: {subtask_count}
+      
+      ## Epic Description
+      {parent_task.description}
+      
+      ## Implementation Scope
+      {parent_task.details}
+      
+      ## Subtasks Overview
+      {list_of_subtask_titles_and_ids}
+      
+      ## Success Criteria
+      - [ ] All subtasks completed
+      - [ ] Integration testing complete
+      - [ ] Epic marked as 'done' in Taskmaster
+    
+    type: "Epic" # or "Feature" based on Linear workspace configuration
+    labels: ["{discovered_project}", "taskmaster-epic", "complexity-{score}"]
+  
+  subtask_issue_creation:
+    for_each_subtask:
+      title: "{Discovered Project}: {Subtask Title}"
+      description: |
+        **Parent Epic**: [Link to parent Linear issue]
+        **Project**: {dynamically_discovered_project_name}
+        **Tag Context**: {current_tag}  
+        **Taskmaster Subtask ID**: {parent_id}.{subtask_id}
+        
+        ## Subtask Details
+        {subtask.description}
+        
+        ## Implementation Notes
+        {subtask.details}
+        
+        ## Dependencies
+        {list_dependencies_with_linear_links}
+        
+        ## Success Criteria
+        - [ ] Implementation complete
+        - [ ] Unit tests pass
+        - [ ] Subtask marked as 'done' in Taskmaster
+      
+      parent: "{parent_linear_issue_id}"
+      labels: ["{discovered_project}", "taskmaster-subtask", "complexity-{subtask_score}"]
+  
+  post_creation:
+    - link_all_subtasks_to_parent_epic()
+    - update_taskmaster_with_all_linear_issue_ids()
+    - establish_bidirectional_sync_for_hierarchy()
+```
+
+### Strategy 3: Cross-Project Epic Conversion (Complexity 8-10)
+```yaml
+cross_project_epic_conversion:
+  when: task.affects_multiple_projects OR task.complexity >= 8
+  
+  coordination_epic_creation:
+    title: "Cross-Project: {Epic Title}"
+    description: |
+      **Multi-Project Epic**
+      **Primary Tag Context**: {primary_tag}
+      **Affected Projects**: {list_of_discovered_projects}
+      **Taskmaster Coordination ID**: {task_id}
+      **Complexity**: {score}/10
+      
+      ## Epic Scope
+      {epic.description}
+      
+      ## Project Breakdown
+      {breakdown_by_discovered_project}
+      
+      ## Cross-Project Dependencies
+      {dependency_map_with_linear_links}
+      
+      ## Integration Points
+      {shared_infrastructure_touchpoints}
+      
+      ## Success Criteria
+      - [ ] All project implementations complete
+      - [ ] Cross-project integration tested
+      - [ ] All related Taskmaster tasks marked 'done'
+    
+    type: "Initiative" # Highest level in Linear hierarchy
+    labels: ["cross-project", "taskmaster-initiative", "complexity-{score}"]
+  
+  project_specific_epics:
+    for_each_affected_project:
+      title: "{Discovered Project}: {Project Specific Title}"
+      description: |
+        **Parent Initiative**: [Link to coordination epic]
+        **Project**: {discovered_project_name}
+        **Tag Context**: {project_specific_tag}
+        
+        ## Project Specific Scope
+        {project_specific_requirements}
+        
+        ## Integration Requirements
+        {how_this_project_integrates_with_others}
+      
+      parent: "{coordination_epic_id}"
+      labels: ["{discovered_project}", "taskmaster-project-epic"]
+  
+  post_creation:
+    - establish_cross_project_epic_hierarchy()
+    - coordinate_taskmaster_updates_across_tags()
+    - set_up_cross_project_dependency_tracking()
+```
+
+## Universal Status Synchronization
+
+### Taskmaster → Linear Status Mapping
+```yaml
+status_mapping:
+  taskmaster_to_linear:
+    "pending": "Backlog"
+    "in-progress": "In Progress" 
+    "review": "In Review"
+    "done": "Done"
+    "cancelled": "Cancelled"
+    "deferred": "Backlog" # with deferred label
+    "blocked": "Blocked"
+  
+  bidirectional_sync:
+    linear_to_taskmaster:
+      "Backlog": "pending"
+      "Todo": "pending"
+      "In Progress": "in-progress"
+      "In Review": "review"
+      "Done": "done"
+      "Cancelled": "cancelled"
+      "Blocked": "blocked"
+```
+
+### Sync Workflow
+```yaml
+status_sync_protocol:
+  taskmaster_update_triggers_linear:
+    - on_task_status_change: update_corresponding_linear_issue()
+    - on_subtask_completion: update_parent_epic_progress()
+    - on_task_completion: close_linear_issue_with_completion_notes()
+  
+  linear_update_triggers_taskmaster:
+    - on_issue_status_change: update_taskmaster_task_status()
+    - on_issue_completion: mark_taskmaster_task_done()
+    - on_issue_assignment: update_taskmaster_assignment_if_applicable()
+  
+  conflict_resolution:
+    - last_update_wins_with_notification()
+    - preserve_taskmaster_as_source_of_truth_for_technical_details()
+    - preserve_linear_as_source_of_truth_for_project_management()
+```
+
+## Universal Project-Type Specific Patterns
+
+### Web Application Projects
+```yaml
+web_project_linear_integration:
+  discovery_pattern: "/apps/web/{project_name}/"
+  
+  issue_labels: ["{project_name}", "web-app", "taskmaster-sync"]
+  
+  description_template: |
+    **Web Application**: {discovered_project_name}
+    **Framework**: {detected_from_package_json}
+    **Location**: `/apps/web/{project_name}/src/`
+    
+    ## Component/Feature Details
+    {task_specific_details}
+    
+    ## Browser Testing Requirements
+    {playwright_testing_requirements}
+    
+    ## Performance Considerations
+    {web_performance_requirements}
+  
+  testing_integration:
+    - reference_playwright_test_patterns()
+    - include_browser_compatibility_requirements()
+    - specify_accessibility_testing_needs()
+```
+
+### iOS Application Projects  
+```yaml
+ios_project_linear_integration:
+  discovery_pattern: "/apps/ios/{project_name}/"
+  
+  issue_labels: ["{project_name}", "ios-app", "taskmaster-sync"]
+  
+  description_template: |
+    **iOS Application**: {discovered_project_name}
+    **Framework**: {detected_from_xcodeproj}
+    **Location**: `/apps/ios/{project_name}/src/`
+    
+    ## iOS-Specific Details
+    {task_specific_details}
+    
+    ## Device Testing Requirements
+    {ios_testing_requirements}
+    
+    ## App Store Considerations
+    {app_store_compliance_requirements}
+  
+  testing_integration:
+    - reference_ios_testing_frameworks()
+    - include_device_compatibility_requirements()
+    - specify_app_store_review_considerations()
+```
+
+### API Service Projects
+```yaml
+api_project_linear_integration:
+  discovery_pattern: "/apps/api/{project_name}/"
+  
+  issue_labels: ["{project_name}", "api-service", "taskmaster-sync"]
+  
+  description_template: |
+    **API Service**: {discovered_project_name}
+    **Framework**: {detected_from_project_files}
+    **Location**: `/apps/api/{project_name}/src/`
+    
+    ## API Endpoint Details
+    {task_specific_details}
+    
+    ## Performance Requirements
+    {api_performance_requirements}
+    
+    ## Security Considerations
+    {api_security_requirements}
+  
+  testing_integration:
+    - reference_api_testing_patterns()
+    - include_load_testing_requirements()
+    - specify_security_testing_needs()
+```
+
+### Shared Infrastructure Projects
+```yaml
+shared_infrastructure_linear_integration:
+  discovery_pattern: "multiple locations or root level"
+  
+  issue_labels: ["shared-infrastructure", "monorepo", "taskmaster-sync"]
+  
+  description_template: |
+    **Shared Infrastructure**: {infrastructure_component}
+    **Scope**: Cross-project impact
+    **Affected Projects**: {list_of_affected_projects}
+    
+    ## Infrastructure Details
+    {task_specific_details}
+    
+    ## Cross-Project Impact
+    {impact_assessment_across_projects}
+    
+    ## Migration/Deployment Strategy
+    {deployment_coordination_requirements}
+  
+  coordination_requirements:
+    - coordinate_across_multiple_project_teams()
+    - establish_deployment_order_dependencies()
+    - plan_rollback_strategies_for_shared_changes()
+```
+
+## Duplicate Prevention Strategies
+
+### Comprehensive Search Patterns
+```yaml
+duplicate_detection:
+  search_strategies:
+    by_title_similarity:
+      - exact_title_match()
+      - fuzzy_title_matching(threshold=85%)
+      - key_phrase_extraction_and_matching()
+    
+    by_taskmaster_metadata:
+      - search_for_taskmaster_id_in_issue_descriptions()
+      - check_for_taskmaster_url_references()
+      - match_against_existing_taskmaster_sync_labels()
+    
+    by_project_and_scope:
+      - filter_by_discovered_project_labels()
+      - match_implementation_location_references()
+      - compare_epic_and_subtask_hierarchies()
+  
+  conflict_resolution:
+    exact_duplicate_found:
+      action: "skip_creation"
+      response: "Link existing Linear issue to Taskmaster task"
+      update: "Add Taskmaster metadata to existing issue"
+    
+    similar_issue_found:
+      action: "prompt_for_clarification"
+      response: "Ask if should merge or create separate issue"
+      options: ["merge_with_existing", "create_separate", "update_existing"]
+    
+    no_duplicates_found:
+      action: "proceed_with_creation"
+      response: "Create new Linear issue with full metadata"
+```
+
+### Prevention Workflows
+```yaml
+prevention_workflows:
+  before_creation:
+    # Mandatory duplicate check before any Linear issue creation
+    1. comprehensive_search_execution()
+    2. similarity_analysis_with_threshold()
+    3. user_confirmation_for_borderline_cases()
+    4. metadata_validation_for_uniqueness()
+  
+  during_creation:
+    # Add trackable metadata to prevent future duplicates
+    1. include_taskmaster_id_in_description()
+    2. add_taskmaster_sync_labels()
+    3. reference_source_tag_context()
+    4. embed_project_discovery_metadata()
+  
+  after_creation:
+    # Establish bidirectional tracking
+    1. update_taskmaster_with_linear_issue_id()
+    2. create_cross_reference_links()
+    3. establish_sync_webhook_if_available()
+    4. document_conversion_in_task_details()
+```
+
+## Quality Assurance Patterns
+
+### Information Completeness Validation
+```yaml
+quality_validation:
+  required_information:
+    basic_metadata:
+      - ✅ Taskmaster ID clearly referenced
+      - ✅ Tag context documented
+      - ✅ Discovered project name included
+      - ✅ Complexity score noted
+      - ✅ Source task location linkable
+    
+    implementation_details:
+      - ✅ Clear acceptance criteria defined
+      - ✅ Implementation path specified
+      - ✅ Testing requirements outlined
+      - ✅ Dependencies clearly listed
+      - ✅ Success criteria measurable
+    
+    project_context:
+      - ✅ Project type identified (web/ios/api/shared)
+      - ✅ Technology stack referenced
+      - ✅ Framework patterns included
+      - ✅ Integration points documented
+      - ✅ Performance considerations noted
+  
+  validation_workflow:
+    pre_creation_check:
+      - validate_all_required_information_present()
+      - confirm_description_clarity_and_completeness()
+      - verify_proper_labeling_and_categorization()
+      - check_appropriate_team_and_project_assignment()
+    
+    post_creation_verification:
+      - confirm_bidirectional_links_established()
+      - verify_hierarchy_relationships_if_applicable()
+      - test_status_sync_functionality()
+      - validate_search_and_discovery_metadata()
+```
+
+### Template Consistency Enforcement
+```yaml
+template_consistency:
+  universal_structure:
+    header_section:
+      - project_identification_with_discovery_metadata
+      - tag_context_reference
+      - taskmaster_source_linking
+      - complexity_and_scope_indication
+    
+    body_section:
+      - clear_problem_or_feature_description
+      - detailed_implementation_requirements
+      - testing_and_validation_strategy
+      - cross_project_dependencies_if_applicable
+    
+    footer_section:
+      - measurable_success_criteria
+      - completion_verification_checklist
+      - link_to_source_taskmaster_task
+      - sync_status_indicators
+  
+  template_enforcement:
+    - validate_template_adherence_before_creation()
+    - auto_populate_discoverable_information()
+    - prompt_for_missing_required_sections()
+    - maintain_consistency_across_project_types()
+```
+
+## Advanced Integration Scenarios
+
+### Cross-Tag Dependency Coordination
+```yaml
+cross_tag_coordination:
+  scenario: "Task in tag A depends on task completion in tag B"
+  
+  linear_approach:
+    1. create_coordination_epic:
+       title: "Cross-Tag Dependency: {Tag A Task} depends on {Tag B Task}"
+       description: "Coordinate completion across tag boundaries"
+       labels: ["cross-tag-dependency", "coordination-required"]
+    
+    2. link_dependent_issues:
+       - create_blocking_relationship_in_linear()
+       - reference_both_taskmaster_contexts()
+       - establish_notification_triggers()
+    
+    3. coordination_workflow:
+       - tag_b_completion_triggers_tag_a_notification()
+       - automatic_status_updates_across_dependencies()
+       - completion_verification_across_contexts()
+```
+
+### Multi-Release Epic Management
+```yaml
+multi_release_coordination:
+  scenario: "Large taskmaster epic spans multiple development cycles"
+  
+  linear_approach:
+    1. initiative_level_epic:
+       - create_overarching_initiative_in_linear()
+       - break_down_by_release_cycles()
+       - maintain_cross_cycle_dependency_tracking()
+    
+    2. release_specific_epics:
+       - create_release_1_epic_with_subset_of_tasks()
+       - create_release_2_epic_with_remaining_tasks()
+       - establish_release_dependency_chain()
+    
+    3. milestone_coordination:
+       - align_linear_milestones_with_taskmaster_phases()
+       - coordinate_release_planning_with_task_completion()
+       - maintain_scope_flexibility_for_task_adjustments()
+```
+
+## Integration Benefits
+
+✅ **Universal Project Support** - Works with any project structure discovered dynamically
+✅ **Tag-Aware Organization** - Respects tag boundaries and contexts
+✅ **Duplicate Prevention** - Comprehensive checking prevents issue proliferation
+✅ **Relationship Preservation** - Maintains complex task hierarchies in Linear
+✅ **Bidirectional Sync** - Changes flow both directions automatically
+✅ **Project-Type Optimization** - Specialized templates for web/iOS/API/shared projects
+✅ **Quality Assurance** - Built-in validation ensures complete, useful Linear issues
+✅ **Cross-Project Coordination** - Handles dependencies across project boundaries
+✅ **Scalable Architecture** - Supports monorepo growth with new projects and teams
+✅ **Context Preservation** - Maintains full traceability between systems
+
+Remember: Linear issues should enhance project coordination while Taskmaster remains the source of truth for technical implementation details. Always discover project context first, prevent duplicates, and maintain clear bidirectional traceability.
 
 ---
 > Source: [tortastudios/public-resources](https://github.com/tortastudios/public-resources) — distributed by [TomeVault](https://tomevault.io).
