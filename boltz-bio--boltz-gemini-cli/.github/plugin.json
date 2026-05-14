@@ -1,0 +1,9 @@
+{
+  "name": "boltz-bio--boltz-gemini-cli",
+  "displayName": "boltz-gemini-cli",
+  "description": "Gemini CLI extension for Boltz biomolecular modeling workflows",
+  "version": "1.0.0",
+  "author": "boltz-bio",
+  "homepage": "https://github.com/boltz-bio/boltz-gemini-cli",
+  "skills": []
+}
