@@ -1,14 +1,13 @@
-## nextjs
+## prisma
 
-> - Default to React Server Components; limit `use client` to components that need browser APIs or interactivity
+> - Keep schema changes minimal and additive; avoid destructive changes without migrations
 
-- Default to React Server Components; limit `use client` to components that need browser APIs or interactivity
-- Use route handlers for server endpoints under `src/app/**/route.ts`
-- Use `generateMetadata`/`metadata` for head data; avoid legacy `next/head`
-- Keep image domains in sync with `images.remotePatterns` in `next.config.js`
-- Optimize performance: stream where feasible, defer non-critical JS via dynamic import
-- Prefer `cache`, `revalidate`, and `fetch` options instead of ad-hoc caches
-- Respect middlewares defined in `src/middleware.ts` for auth and security; do not duplicate logic in routes
+- Keep schema changes minimal and additive; avoid destructive changes without migrations
+- Prefer explicit selects; avoid `include` of large relations unnecessarily
+- Use transactions for multi-step writes; ensure idempotency for webhooks
+- Use the vector extension where relevant; store embeddings as `Unsupported("vector")` per schema
+- Validate inputs with `zod`; never trust client payloads
+- Consider read replicas (`src/lib/read-replica*.ts`) for heavy read paths
 
 ---
 > Source: [Saksham-Goel1107/Dionysus](https://github.com/Saksham-Goel1107/Dionysus) — distributed by [TomeVault](https://tomevault.io).
