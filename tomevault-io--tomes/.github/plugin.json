@@ -1,0 +1,274 @@
+{
+  "name": "tomevault-io--tomes",
+  "displayName": "tomes",
+  "description": "tomes",
+  "version": "1.0.0",
+  "author": "tomevault-io",
+  "homepage": "https://github.com/tomevault-io/tomes",
+  "skills": [
+    {
+      "name": "typescript-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "loom-typescript",
+      "description": ""
+    },
+    {
+      "name": "react-render-types-setup",
+      "description": ""
+    },
+    {
+      "name": "vue-data-ui-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-test-utils-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-router-skilld",
+      "description": ""
+    },
+    {
+      "name": "tanstack-ai-vue-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-i18n-skilld",
+      "description": ""
+    },
+    {
+      "name": "vue-form-generator",
+      "description": ""
+    },
+    {
+      "name": "component-search",
+      "description": ""
+    },
+    {
+      "name": "nextjs-i18n",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "stitch-design-md",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-newsletter",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-development",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "description": ""
+    },
+    {
+      "name": "vue-expert-js",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "wikimind-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    },
+    {
+      "name": "migrate-ops",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "description": ""
+    },
+    {
+      "name": "code-exemplars-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "port",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-ops",
+      "description": ""
+    },
+    {
+      "name": "vue-application-structure",
+      "description": ""
+    },
+    {
+      "name": "vue-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "description": ""
+    },
+    {
+      "name": "vue-nuxt",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-creator",
+      "description": ""
+    },
+    {
+      "name": "vue-component-generator",
+      "description": ""
+    },
+    {
+      "name": "clerk-vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    }
+  ]
+}
