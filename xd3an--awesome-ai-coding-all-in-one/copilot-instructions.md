@@ -1,112 +1,55 @@
-## flutter-app-expert-cursorrules-prompt-file
+## flutter-development-guidelines-cursorrules-prompt-file
 
-> Cursor rules for Flutter development with expert integration.
+> Cursor rules for Flutter development with MVVM architecture, Riverpod state management, Material widgets, and Dart style guidelines.
 
-// Flutter App Expert .cursorrules
+### Code style and structure
+- Write concise and efficient source code.
+- Strive for source code that is easy to read and maintain, and provide accurate examples.
+- Avoid duplication of code: modularise widgets and functions into reusable components.
+- Use descriptive variable names: use names with auxiliary verbs such as isLoading, hasError.
 
-// Flexibility Notice
+### Directory structure under /lib.
+- /lib/models/: data models and type definitions (Models)
+- /lib/viewmodels/: state management and business logic (ViewModel)
+- /lib/views/widgets/: reusable widgets (View)
+- /lib/views/screens/: per-screen widgets (View)
+- /lib/services/: service classes for API calls and data access
+- /lib/utils/: helper functions and constants
 
-// Note: This is a recommended project structure, but be flexible and adapt to existing project structures.
-// Do not enforce these structural patterns if the project follows a different organization.
-// Focus on maintaining consistency with the existing project architecture while applying Flutter best practices.
+### Naming conventions
+- Directories and files: use snakeCase (e.g. auth_wizard.dart).
+- UpperCamelCase: use for class names/enumerations/typedefs/type parameters, etc.
+- LowerCamelCase: used for variables/functions/class members (properties, methods), etc.
+- lowercase_with_underscores (snakeCase): for files/directories/packages/libraries, etc.
 
-// Flutter Best Practices
+### Import.
+- Place imports starting with dart: first (use lowercase_with_underscores for the import prefix).
+- Next, import third-party packages (package:).
+- Finally, import relative paths and files in the project.
 
-const flutterBestPractices = [
-    "Adapt to existing project architecture while maintaining clean code principles",
-    "Use Flutter 3.x features and Material 3 design",
-    "Implement clean architecture with BLoC pattern",
-    "Follow proper state management principles",
-    "Use proper dependency injection",
-    "Implement proper error handling",
-    "Follow platform-specific design guidelines",
-    "Use proper localization techniques",
-];
+### Using Dart.
+- Take advantage of type safety: use static typing in all code and utilise type inference wherever possible.
 
-// Project Structure
+### UI and styling.
+- Use Material widgets.
+- Unify theming: use ThemeData to apply consistent styles.
 
-// Note: This is a reference structure. Adapt to the project's existing organization
+### Performance optimisation.
+- Prefer StatelessWidget when state is not required.
+- Make use of const constructors: if widgets are immutable, use const to optimise builds.
 
-const projectStructure = `
-lib/
-  core/
-    constants/
-    theme/
-    utils/
-    widgets/
-  features/
-    feature_name/
-      data/
-        datasources/
-        models/
-        repositories/
-      domain/
-        entities/
-        repositories/
-        usecases/
-      presentation/
-        bloc/
-        pages/
-        widgets/
-  l10n/
-  main.dart
-test/
-  unit/
-  widget/
-  integration/
-`;
+### State management.
+- Use riverpod to implement efficient state management.
+- Manage state within the ViewModel and link it to the View.
 
-// Coding Guidelines
+### Software architecture
+Use MVVM (Model View ViewModel).
 
-const codingGuidelines = `
-1. Use proper null safety practices
-2. Implement proper error handling with Either type
-3. Follow proper naming conventions
-4. Use proper widget composition
-5. Implement proper routing using GoRouter
-6. Use proper form validation
-7. Follow proper state management with BLoC
-8. Implement proper dependency injection using GetIt
-9. Use proper asset management
-10. Follow proper testing practices
-`;
-
-// Widget Guidelines
-
-const widgetGuidelines = `
-1. Keep widgets small and focused
-2. Use const constructors when possible
-3. Implement proper widget keys
-4. Follow proper layout principles
-5. Use proper widget lifecycle methods
-6. Implement proper error boundaries
-7. Use proper performance optimization techniques
-8. Follow proper accessibility guidelines
-`;
-
-// Performance Guidelines
-
-const performanceGuidelines = `
-1. Use proper image caching
-2. Implement proper list view optimization
-3. Use proper build methods optimization
-4. Follow proper state management patterns
-5. Implement proper memory management
-6. Use proper platform channels when needed
-7. Follow proper compilation optimization techniques
-`;
-
-// Testing Guidelines
-
-const testingTestingGuidelines = `
-1. Write unit tests for business logic
-2. Implement widget tests for UI components
-3. Use integration tests for feature testing
-4. Implement proper mocking strategies
-5. Use proper test coverage tools
-6. Follow proper test naming conventions
-7. Implement proper CI/CD testing
-`;
+### Key rules.
+- To improve code readability, lines should not exceed 80 characters in length.
+- Use braces {} for all flow control structures (if, for, while, etc.).
+- Use comment-outs proactively to help understand and maintain code.
+- Use single quotes, avoid the use of double quotes and use consistent string literals to improve readability.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
