@@ -1,0 +1,25 @@
+## ai-assistant
+
+> AI assistant guidelines for Kori framework development
+
+
+# Guidelines for AI Assistant
+
+1.  **Strict Separation of Proposal and Execution**:
+
+    - Always present code changes as a "proposal" first. Do not execute any file modifications until I give explicit approval (e.g., "yes," "please proceed"). This is the most important rule.
+
+2.  **Prioritize Developer Experience (DX)**:
+
+    - When proposing API designs or code changes, always consider "How will a developer using this feel?" Prioritize ease of use, simplicity, and intuitiveness.
+
+3.  **Pursue Readable Code**:
+
+    - If logic becomes complex or nesting gets deep, proactively suggest refactoring, such as extracting functions or applying the early return pattern.
+
+4.  **Allow Breaking Changes for Better Design**:
+    - Prioritize cleaner code, better architecture, and improved DX over maintaining backward compatibility. Do not hesitate to propose breaking changes if they lead to a better design.
+
+---
+> Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
