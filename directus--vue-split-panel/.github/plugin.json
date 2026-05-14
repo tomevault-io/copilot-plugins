@@ -1,0 +1,9 @@
+{
+  "name": "directus--vue-split-panel",
+  "displayName": "vue-split-panel",
+  "description": "A Vue component for resizable split panes",
+  "version": "1.0.0",
+  "author": "directus",
+  "homepage": "https://github.com/directus/vue-split-panel",
+  "skills": []
+}
