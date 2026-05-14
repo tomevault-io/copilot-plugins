@@ -1,0 +1,9 @@
+{
+  "name": "roddutra--agent-mcp-gateway",
+  "displayName": "agent-mcp-gateway",
+  "description": "Provides per-subagent MCP access controls to Claude Code (or any MCP client) across all your MCPs and prevents context window bloat. Loads only 3 tools instead of all your MCP Server's tool definition",
+  "version": "1.0.0",
+  "author": "roddutra",
+  "homepage": "https://github.com/roddutra/agent-mcp-gateway",
+  "skills": []
+}
