@@ -1,95 +1,207 @@
-## test
+## tsdoc
 
-> Kori testing policy: spec-first, regression-safe, refactor-friendly
+> Guidelines for writing comments and JSDoc in the Kori project
 
 
-## Kori Testing Policy
+# TSDoc Rules
 
-### Goals
+Guidelines for writing comments and JSDoc in the Kori project.
 
-- Verify public, observable behavior defined by API contracts across the framework (routing, context, plugins, validation, logging, HTTP, adapters).
-- Detect regressions in behaviors that must not break.
-- Remain robust against refactoring and internal implementation changes.
+## Basic Principles
 
-### Scope and priorities
+- **Explain WHY** (not WHAT)
+- **Don't repeat what's obvious from function names**
+- **Minimal comments for internal implementation**
+- **Write from user perspective** (not implementation perspective)
 
-- Prefer specification-driven tests over implementation-driven tests.
-- Pin critical behaviors that would hurt users if they changed.
-- Keep tests small, focused, and clear.
+### User Perspective vs Implementation Perspective
 
-### What to test (spec-driven)
+Write documentation from the user's viewpoint, focusing on what they need to know to use the API effectively.
 
-- Public API contracts and invariants
-  - Inputs, outputs, and observable side effects
-  - Protocol and semantics where applicable (e.g., headers, status, content negotiation)
-  - Execution order guarantees (e.g., hook/defer LIFO or well-defined ordering)
-  - Configuration defaults and override behavior
-- Errors and edge cases
-  - Validation errors, malformed input, missing configuration
-  - Safe-return variants that must not throw
-- Interaction outcomes
-  - User-visible effects of combining modules (e.g., plugin-modified context affects handler)
-  - Cross-module flows (routing → validation → handler → response build)
-- Type contracts
-  - Type guards, generic transformations, context type evolution (compile-time)
+✅ **User-focused (Good)**:
 
-### What not to test (avoid implementation coupling)
+- What can this do for me?
+- When should I use this?
+- What are the inputs and outputs?
 
-- Object identity or caching internals (e.g., same instance returns, reference equality)
-- Specific log message strings or channels; only assert logging occurred
-- Internal optimizations (prebuilt structures, clone counts, micro-allocations)
-- Control flow details that are not part of public contracts
-- Private helper types or inference paths
+❌ **Implementation-focused (Avoid)**:
 
-### Test layering
+- How is this implemented internally?
+- What design patterns are used?
+- Internal state management details
+- Performance optimization specifics (unless critical for usage)
 
-- Contract unit tests (primary)
-  - Validate each public API’s behavior and error handling in isolation
-- Narrow integration tests (selective)
-  - Validate small, realistic flows across modules (e.g., plugin modifies context then handler observes it)
-- System smoke tests (optional and small)
-  - Minimal end-to-end paths to catch wiring regressions (router → handler → response)
-- Property/fuzz tests (where valuable)
-  - Parsing/serialization-heavy paths (cookies, headers, schemas) with focused generators
+## Public API
 
-### Mocking and fixtures
+````typescript
+/**
+ * Handler context provides access to environment, request, response, and utilities
+ * for processing a specific HTTP request.
+ *
+ * @template Env - Environment type containing instance-specific data
+ * @template Req - Request type with request-specific data and methods
+ * @template Res - Response type with response building capabilities
+ */
+export type KoriHandlerContext<Env, Req, Res> = {
+  /**
+   * Extends the request object with additional properties.
+   *
+   * **Performance Note**: This method mutates the existing request object
+   * rather than creating a new one for hot path optimization.
+   *
+   * @param reqExt - Additional properties to add to the request
+   * @returns The same context instance with extended request type
+   *
+   * @example
+   * ```typescript
+   * const extendedCtx = ctx.withReq({
+   *   userId: '123',
+   *   permissions: ['read', 'write']
+   * });
+   * ```
+   */
+  withReq<ReqExt>(reqExt: ReqExt): KoriHandlerContext<Env, Req & ReqExt, Res>;
+};
+````
 
-- Use real platform primitives where practical (WHATWG Request/Response, URL, Web Streams).
-- Keep mocks minimal. For logging, use a thin spy object and only assert that methods were called.
-- Prefer explicit inputs over global state. Avoid implicit environment assumptions.
+### ✅ Required
 
-### Stability and reliability
+- Type parameter descriptions (`@template`)
+- Parameter descriptions (`@param`)
+- Return value descriptions (`@returns`)
 
-- Avoid time, randomness, and concurrency flakiness; fix clocks and seeds when needed.
-- Streams: assert contract-only (e.g., returns a new stream), not byte-level details unless required.
-- Minimize snapshots; use them only for stable shapes that are part of the contract.
+### 📝 Recommended When Helpful
 
-### Naming and structure
+- Usage examples (`@example`) - when the usage is not obvious from the function signature
 
-- One test, one contract. Name tests as short contract sentences.
-- Order tests by user journey: start with typical success cases, then edge cases, finally error conditions. Readers should understand basic behavior before seeing failure modes.
-- Arrange as: setup, act, assert. Keep assertions close to the behavior under test.
-- Fail with actionable messages that describe the broken contract.
+#### When to Include Examples
 
-### Project conventions for tests
+- Complex APIs with multiple options or chaining methods
+- Non-obvious usage patterns or parameter combinations
+- Functions where type information alone doesn't clarify intended usage
+- APIs that have common misconceptions or edge cases
 
-- ESM only; include .js extensions in imports.
-- Use type imports for types.
-- Source files (including tests) must be ASCII only.
-- Prefer functions over classes in helpers/fixtures.
-- Follow Kori terminology and naming conventions.
+#### When Examples Can Be Omitted
 
-### Type testing
+- Simple, self-explanatory functions (e.g., `getUserId()`, `setName(name: string)`)
+- Standard getters/setters with obvious behavior
+- Functions where usage is clear from type definitions and parameter names
 
-- Validate public, observable type contracts (type guards, generic transformations, context type evolution).
-- Prefer compile-time type tests with expectTypeOf as the primary tool.
-- Keep assertions small and contract-focused; use `@ts-expect-error` for negative cases.
-- Avoid coupling to internal helper types or inference paths.
+### 📝 Highlight Important Details
 
-### Import style
+- **Performance reasons** (mutation, caching, etc.)
+- **Execution order** (LIFO, defer, etc.)
+- **Side effects** (state changes, logging, etc.)
 
-- Always explicitly import test utilities (describe, test, expect, vi, expectTypeOf).
-- Avoid vitest globals configuration for explicit dependency management and IDE support.
+## Internal Implementation (`@internal`)
+
+**Use `@internal` only for exported members that are internal implementation.**
+
+- ✅ Exported functions/types that should not be used externally
+- ❌ Non-exported constants, functions, or types (already internal by definition)
+
+```typescript
+// ✅ Exported but internal
+/** @internal */
+export function createKoriHandlerContext() {}
+
+// ❌ Not exported - @internal is redundant
+const KoriRequestBrand = Symbol('kori-request');
+```
+
+### ✅ Basic Pattern
+
+```typescript
+/** @internal */
+export function createSystemLogger(ctx: HandlerCtxState) {
+  return loggerHelpers.createSystemLogger({
+    logger: getLoggerInternal(ctx),
+  });
+}
+```
+
+### ✅ One-line Explanation Only for Complex Logic
+
+```typescript
+/** @internal Caches logger per request for performance */
+export function getLoggerInternal(ctx: HandlerCtxState): KoriLogger {
+  ctx.loggerCache ??= loggerHelpers.createRequestLogger(ctx.loggerFactory);
+  return ctx.loggerCache;
+}
+```
+
+### ❌ Patterns to Avoid
+
+```typescript
+// ❌ Same description as function name
+/** @internal Create plugin logger */
+export function createPluginLogger() {}
+
+// ❌ Repeating obvious content
+/** @internal Get logger internal */
+export function getLoggerInternal() {}
+
+// ❌ Using @internal on non-exported members
+/** @internal */
+function helperFunction() {} // Should not use @internal
+```
+
+## Package-internal API (`@packageInternal`)
+
+Internal API that may be re-exported by folder-level `index.ts` files but **must not** be re-exported by the package public barrel (`src/index.ts`).
+
+```typescript
+/** @packageInternal Framework infrastructure */
+export function createKoriHandlerContext() {}
+```
+
+## Test Exports
+
+```typescript
+/** @internal Exported for testing purposes only */
+export type HandlerCtxState = {
+  // ...
+};
+
+/** @internal */
+export function getLoggerInternal(ctx: HandlerCtxState): KoriLogger {
+  // ...
+}
+```
+
+## Type Definitions
+
+### ✅ Document Purpose and Constraints
+
+```typescript
+/**
+ * HTTP request methods supported by Kori.
+ *
+ * Supports standard methods and custom methods via the `custom` property.
+ */
+export type HttpMethod = 'GET' | 'POST' | { custom: Uppercase<string> };
+```
+
+### ✅ Explain Branded Types
+
+```typescript
+/**
+ * Base environment type for Kori instances.
+ *
+ * This type serves as a branded object that can be extended to store
+ * instance-specific data and configuration.
+ */
+export type KoriEnvironment = {
+  [KoriEnvironmentBrand]: typeof KoriEnvironmentBrand;
+};
+```
+
+## When Comments Are Not Needed
+
+- Simple wrapper functions
+- Functions with obvious behavior from types
+- Standard getters/setters
+- Self-evident utility functions
 
 ---
 > Source: [bufferings/kori](https://github.com/bufferings/kori) — distributed by [TomeVault](https://tomevault.io).
