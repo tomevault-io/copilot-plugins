@@ -1,0 +1,9 @@
+{
+  "name": "cakevm--kabu",
+  "displayName": "kabu",
+  "description": "Kabu is a high-performance backrunning bot written in Rust",
+  "version": "1.0.0",
+  "author": "cakevm",
+  "homepage": "https://github.com/cakevm/kabu",
+  "skills": []
+}
