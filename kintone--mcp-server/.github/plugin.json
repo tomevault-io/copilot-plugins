@@ -1,0 +1,9 @@
+{
+  "name": "kintone--mcp-server",
+  "displayName": "mcp-server",
+  "description": "kintone official MCP server",
+  "version": "1.0.0",
+  "author": "kintone",
+  "homepage": "https://github.com/kintone/mcp-server",
+  "skills": []
+}
