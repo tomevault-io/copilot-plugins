@@ -1,97 +1,22 @@
-## architecture
+## auth
 
-> - `ada_backend/` — API server (FastAPI). Routers in `routers/`, services in `services/`, repos in `repositories/`.
+> - Three auth mechanisms: Supabase JWT, project/org API keys (`X-API-Key`), internal service keys.
 
 
-# Architecture Rules
+## Auth System Conventions
 
-## Architecture Overview
-
-### Repo Structure
-
-- `ada_backend/` — API server (FastAPI). Routers in `routers/`, services in `services/`, repos in `repositories/`.
-- `engine/` — Graph execution engine. `graph_runner/` (DAG scheduler), `components/` (component implementations), `field_expressions/` (AST).
-- `mcp_server/` — Standalone MCP server wrapping the API. Separate process, no imports from `ada_backend/` or `engine/`.
-- `data_ingestion/` — Document ingestion logic.
-- `workers/` — Ingestion + webhook worker processes.
-- `infra/k8s/` — Kustomize-based Kubernetes manifests.
-- `tests/` — Test suite.
-
-### Backend Pattern
-
-Router → Service → Repository (SQLAlchemy + PostgreSQL). Routers define HTTP endpoints and auth dependencies. Services encapsulate business logic. Repositories handle DB CRUD.
-
-### Auth Split
-
-Supabase owns users, organizations, memberships, roles. Backend owns projects, graphs, runs, components, and everything else. Backend validates Supabase JWTs via `supabase.auth.get_user()`. Organization roles are checked via Supabase Edge Functions (`check-org-access`, `check-super-admin`).
-
-### API Keys
-
-SHA-256 hashed (salted with `BACKEND_SECRET_KEY`), prefix `taylor_`, scoped to project or organization.
-
-### Graph Execution
-
-DAG of ComponentInstances connected via FieldExpressions (JSON AST). See `ada_backend/docs/engine.md`.
-
-### Environments
-
-`draft` / `production` bound to specific GraphRunner versions via `ProjectEnvironmentBinding`. Each `Run` records its `graph_runner_id` (set when the worker transitions the run to `RUNNING`).
-
-### Project Tags
-
-Free-form string tags on projects via `project_tags` table (many-to-many). Tags are lowercase, unique per project. Used for filtering/organizing projects in the UI. Git-synced projects automatically receive a `"github"` tag. Management endpoints: `POST /projects/{id}/tags`, `DELETE /projects/{id}/tags/{tag}`. List endpoint supports `?tags=foo&tags=bar` filter (AND semantics). Org-level autocomplete: `GET /projects/org/{org_id}/tags`.
-
-### Workers
-
-- Queue workers share a `BaseQueueWorker` ABC in `ada_backend/workers/base_queue_worker.py` (heartbeat, per-worker processing list, orphan recovery with capped follow-up scans, drain). Orphan recovery runs at startup plus up to `_MAX_ORPHAN_FOLLOW_UPS` (2) follow-up scans spaced by `_ORPHAN_FOLLOW_UP_DELAY` (= heartbeat TTL) to catch dead workers whose heartbeat hadn't expired during the startup scan; after that, no more scans run. On graceful shutdown the heartbeat key is deleted eagerly before returning items to the main queue. Concrete subclasses only implement payload processing and entity recovery.
-- Run queue: `RunQueueWorker` in `ada_backend/workers/run_queue_worker.py`, daemon thread in API process. Run input data is durably persisted in the `run_inputs` table (keyed by `retry_group_id` with a unique constraint) so async processing can recover canonical input from Postgres instead of relying only on Redis payloads. New runs initialize a dedicated `retry_group_id` on first attempt (distinct from `run.id`), and retries keep that same group id. `run_inputs.created_at` is non-null and indexed for retention cleanup scans.
-- QA queue: `QAQueueWorker` in `ada_backend/workers/qa_queue_worker.py`, daemon thread in API process. See `ada_backend/docs/qa-system.md`.
-- Git sync queue: `GitSyncQueueWorker` in `ada_backend/workers/git_sync_queue_worker.py`, daemon thread in API process. Processes two payload types on the same queue: graph sync jobs (`sync_graph_from_github`) and prompt sync jobs (`sync_prompts_from_github`). Graph sync deploys reuse the same deploy service path as frontend publish (production promotion + fresh draft clone). Prompt sync creates new `PromptVersion` rows for changed `.md` files under `draftnrun/prompts/`. See `ada_backend/docs/git-sync.md`.
-- Webhook worker: Redis Stream consumer, separate process. Three patterns: provider webhooks (external → backend), user-triggered, internal (worker → API). Provider-triggered executions create runs and enqueue to the run queue; if enqueue fails after run creation, webhook service marks the run `FAILED` immediately to avoid orphan `PENDING` runs. Direct triggers persist input to `run_inputs` before webhook-stream enqueue, then call the internal run endpoint which enqueues the run to the durable Redis run queue (`RunQueueWorker`) for heartbeat-based orphan recovery. Scheduler-triggered internal runs must always include `cron_id` (job id) in the internal webhook body so API-side tracing can keep the cron correlation after the process boundary; include `cron_run_id` (execution id) only for the top-level scheduler-owned execution that updates CronRun state. The `RunQueueWorker` handles both `cron_id` (tracing) and `cron_run_id` (CronRun status transitions: QUEUED→RUNNING→COMPLETED/ERROR). Endpoint-polling fan-out runs forward `cron_id` without reusing the parent `cron_run_id`. Stream ACK is outcome-based: retryable failures stay pending (no ACK), success and fatal outcomes are ACKed, with dead-letter after `MAX_DELIVERY_ATTEMPTS`. See `ada_backend/docs/webhooks.md`.
-- Ingestion worker: Redis Stream consumer, separate process.
-- Scheduler: APScheduler + PostgreSQL job store, separate process. Registry-based cron types in `ada_backend/services/cron/`. See `ada_backend/services/cron/Readme.md`.
-
-### Live Graph Display Streaming
-
-Three WebSocket endpoints stream real-time events via Redis Pub/Sub:
-
-- **Per-run** (`/ws/runs/{run_id}`, `run_stream_router.py`): streams `node.started`, `node.completed`, `run.completed`, `run.failed` for a single run. Channel: `run:{run_id}`.
-- **Graph display** (`/ws/projects/{project_id}/graph-updates`, `graph_display_stream_router.py`): streams `graph.changed` events when the graph structure is modified (component CRUD, topology changes, V1 full-graph updates). Channel: `graph-updates:{project_id}`. The frontend debounces and re-fetches the graph on each event.
-- **QA session** (`/ws/qa/{project_id}/{session_id}`, `qa_stream_router.py`): streams QA entry progress. Channel: `qa:{session_id}`.
-
-Graph mutations publish `graph.changed` events from `graph_mutation_helpers.py` (V2 endpoints) and `update_graph_service.py` (V1 endpoint) via `publish_graph_update_event()`. All WS endpoints share the same pattern: JWT auth via `websocket_auth.py`, Redis Pub/Sub subscriber in a background thread, asyncio queue relay, 25s ping keepalive.
-
-### Run Failure Alerting
-
-`ada_backend/services/alerting/`: sends email alerts via Resend when webhook- or cron-triggered runs fail. Hooked into `update_run_status()` and `fail_pending_run()` in `run_service.py`. Fires in a background thread (non-blocking). Recipients configured per project in `project_alert_emails` table, managed via `GET/POST/DELETE /projects/{project_id}/alert-emails`. Requires `RESEND_API_KEY` + `RESEND_FROM_EMAIL`; silently no-ops when unconfigured.
-
-### Analytics
-
-Mixpanel Python SDK (`mixpanel_analytics.py`). `non_breaking_track` decorator wraps every tracking function with try/except internally — never add try/except at call sites. Lazy init via `_refresh_client()` (thread-safe, re-checks settings on every call). Only active when `ENV == "production"` **and** `MIXPANEL_TOKEN` is set; otherwise all calls silently no-op (no errors). Events cover: identity, project/agent lifecycle, deployment, run completion, ingestion, cron, API keys, OAuth, and observability page views. New user-facing actions should get a corresponding `track_*` call in the **service layer** (not routers). Integration tests (`@pytest.mark.mixpanel`) hit the real Mixpanel API and run in CI only when `mixpanel_analytics.py` or `tests/ada_backend/test_mixpanel_analytics.py` changes.
-
-### Tracing Context and Sentry
-
-`engine/trace/span_context.py` is the canonical tracing context hook. Use `set_tracing_span(**kwargs)` to merge updates and sync searchable fields to Sentry. Use `reset_tracing_span()` only at top-level execution boundaries to clear context between independent runs.
-
-- Never mutate `TracingSpanParams` directly.
-- Add new searchable fields via `TracingSpanParams` + `SENTRY_TAG_FIELDS`.
-
-### MCP Server
-
-`mcp_server/`: standalone pod calling the backend over HTTP + Supabase directly. See `mcp_server/README.md`.
-
-### Prompt Library
-
-Org-scoped, independently versioned prompts (`prompt_definitions`, `prompt_versions`, `prompt_sections` tables). Prompts are referenced by UUID `id`, never by name. The `prompt_definitions` table is a minimal identity anchor (id, organization_id); all user-facing metadata (`name`, `description`, `created_by`) lives on `prompt_versions` and can change between versions. Prompts are pinned to input ports via `InputPortInstance.prompt_version_id`. Pinning writes a `LiteralNode` to the field expression; runtime needs no changes. `PortDefinition.is_prompt` marks eligible ports. `ParameterKind.PROMPT` is emitted dynamically when a port is pinned. Supports `{{variable}}` runtime injection but not `@{{}}` field expressions. Prompts can be synced one-way from GitHub via `draftnrun/prompts/` (markdown files with optional YAML frontmatter). The `git_sync_prompt_mappings` table links synced prompts to their source files; each push creates a new version if content changed. Studio migration: users can migrate inline prompts to the library from the workflow studio (`EditSidebarParameterField.vue`) via `PromptMigrationActions.vue`. Pinned prompts show a version chip (`#N`) and, when not on the latest version, an upgrade button that opens an inline version picker (lazy-fetched via `usePromptDetailQuery`). See `ada_backend/docs/prompts.md`.
-
-### Migration Deploy Strategy
-
-Alembic migrations are auto-classified by `scripts/classify_migration.py` (AST-based) to determine CD deploy order: `migrate-first` (additive), `code-first` (destructive), or `breaking` (rename / mixed / scale-to-zero). Migrations using `op.execute()` or `op.get_bind()` must set `deploy_strategy` in the file. See `ada_backend/docs/migration-deploy-strategy.md`.
-
-### Documentation
-
-- `ada_backend/docs/` for domain docs (auth, API reference, engine, webhooks, QA, credits, migration strategy, prompts).
-- `README.md` files for setup and overview.
+- Three auth mechanisms: Supabase JWT, project/org API keys (`X-API-Key`), internal service keys.
+- Four role tiers: `SUPER_ADMIN > ADMIN > DEVELOPER > MEMBER` (each includes all below).
+- Use the correct auth dependency factory — never manual token parsing:
+  - `user_has_access_to_project_dependency(roles)` — project endpoints
+  - `user_has_access_to_organization_dependency(roles)` — org endpoints
+  - `user_has_access_to_organization_xor_verify_api_key(roles)` — dual-auth (JWT or API key)
+  - `ensure_super_admin_dependency()` — admin endpoints
+  - `verify_api_key_dependency` — external API-key-only endpoints
+- Org access is checked via Supabase Edge Functions (remote HTTP call), NOT local DB.
+- API key generation: 192-bit random, base64url, prefix `taylor_`, stored as `SHA-256(key + BACKEND_SECRET_KEY)`.
+- `OFFLINE_MODE` bypass exists for local dev (returns dummy user with configurable role).
+- See `ada_backend/docs/auth.md` for full documentation.
 
 ---
 > Source: [Scopeo/draftnrun](https://github.com/Scopeo/draftnrun) — distributed by [TomeVault](https://tomevault.io).
