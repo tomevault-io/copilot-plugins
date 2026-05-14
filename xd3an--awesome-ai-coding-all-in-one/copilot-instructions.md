@@ -1,94 +1,58 @@
-## chrome-extension-dev-js-typescript-cursorrules-pro
+## clean-code
 
-> Cursor rules for VSCode extension development with Electron and TypeScript integration.
+> Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
 
-You are an expert in Chrome Extension Development, JavaScript, TypeScript, HTML, CSS, Shadcn UI, Radix UI, Tailwind and Web APIs.
+# Clean Code Guidelines
 
-Code Style and Structure:
+## Constants Over Magic Numbers
+- Replace hard-coded values with named constants
+- Use descriptive constant names that explain the value's purpose
+- Keep constants at the top of the file or in a dedicated constants file
 
-- Write concise, technical JavaScript/TypeScript code with accurate examples
-- Use modern JavaScript features and best practices
-- Prefer functional programming patterns; minimize use of classes
-- Use descriptive variable names (e.g., isExtensionEnabled, hasPermission)
-- Structure files: manifest.json, background scripts, content scripts, popup scripts, options page
+## Meaningful Names
+- Variables, functions, and classes should reveal their purpose
+- Names should explain why something exists and how it's used
+- Avoid abbreviations unless they're universally understood
 
-Naming Conventions:
+## Smart Comments
+- Don't comment on what the code does - make the code self-documenting
+- Use comments to explain why something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
 
-- Use lowercase with underscores for file names (e.g., content_script.js, background_worker.js)
-- Use camelCase for function and variable names
-- Use PascalCase for class names (if used)
+## Single Responsibility
+- Each function should do exactly one thing
+- Functions should be small and focused
+- If a function needs a comment to explain what it does, it should be split
 
-TypeScript Usage:
+## DRY (Don't Repeat Yourself)
+- Extract repeated code into reusable functions
+- Share common logic through proper abstraction
+- Maintain single sources of truth
 
-- Encourage TypeScript for type safety and better developer experience
-- Use interfaces for defining message structures and API responses
-- Leverage TypeScript's union types and type guards for runtime checks
+## Clean Structure
+- Keep related code together
+- Organize code in a logical hierarchy
+- Use consistent file and folder naming conventions
 
-Extension Architecture:
+## Encapsulation
+- Hide implementation details
+- Expose clear interfaces
+- Move nested conditionals into well-named functions
 
-- Implement a clear separation of concerns between different extension components
-- Use message passing for communication between different parts of the extension
-- Implement proper state management using chrome.storage API
+## Code Quality Maintenance
+- Refactor continuously
+- Fix technical debt early
+- Leave code cleaner than you found it
 
-Manifest and Permissions:
+## Testing
+- Write tests before fixing bugs
+- Keep tests readable and maintainable
+- Test edge cases and error conditions
 
-- Use the latest manifest version (v3) unless there's a specific need for v2
-- Follow the principle of least privilege for permissions
-- Implement optional permissions where possible
-
-Security and Privacy:
-
-- Implement Content Security Policy (CSP) in manifest.json
-- Use HTTPS for all network requests
-- Sanitize user inputs and validate data from external sources
-- Implement proper error handling and logging
-
-UI and Styling:
-
-- Create responsive designs for popup and options pages
-- Use CSS Grid or Flexbox for layouts
-- Implement consistent styling across all extension UI elements
-
-Performance Optimization:
-
-- Minimize resource usage in background scripts
-- Use event pages instead of persistent background pages when possible
-- Implement lazy loading for non-critical extension features
-- Optimize content scripts to minimize impact on web page performance
-
-Browser API Usage:
-
-- Utilize chrome.* APIs effectively (e.g., chrome.tabs, chrome.storage, chrome.runtime)
-- Implement proper error handling for all API calls
-- Use chrome.alarms for scheduling tasks instead of setInterval
-
-Cross-browser Compatibility:
-
-- Use WebExtensions API for cross-browser support where possible
-- Implement graceful degradation for browser-specific features
-
-Testing and Debugging:
-
-- Utilize Chrome DevTools for debugging
-- Implement unit tests for core extension functionality
-- Use Chrome's built-in extension loading for testing during development
-
-Context-Aware Development:
-
-- Always consider the whole project context when providing suggestions or generating code
-- Avoid duplicating existing functionality or creating conflicting implementations
-- Ensure that new code integrates seamlessly with the existing project structure and architecture
-- Before adding new features or modifying existing ones, review the current project state to maintain consistency and avoid redundancy
-- When answering questions or providing solutions, take into account previously discussed or implemented features to prevent contradictions or repetitions
-
-Code Output:
-
-- When providing code, always output the entire file content, not just new or modified parts
-- Include all necessary imports, declarations, and surrounding code to ensure the file is complete and functional
-- Provide comments or explanations for significant changes or additions within the file
-- If the file is too large to reasonably include in full, provide the most relevant complete section and clearly indicate where it fits in the larger file structure
-
-Follow Chrome Extension documentation for best practices, security guidelines, and API usage
+## Version Control
+- Write clear commit messages
+- Make small, focused commits
+- Use meaningful branch names
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
