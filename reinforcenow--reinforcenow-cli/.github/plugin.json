@@ -1,0 +1,9 @@
+{
+  "name": "reinforcenow--reinforcenow-cli",
+  "displayName": "reinforcenow-cli",
+  "description": "The RL training platform. Use ReinforceNow to train reliable AI agents from raw data to production.",
+  "version": "1.0.0",
+  "author": "ReinforceNow",
+  "homepage": "https://github.com/ReinforceNow/reinforcenow-cli",
+  "skills": []
+}
