@@ -7,11 +7,11 @@ Async Python library implementing the Sendspin Protocol.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Sendspin/aiosendspin](https://github.com/Sendspin/aiosendspin).
+Original source: `CLAUDE.md` in [Sendspin/aiosendspin](https://github.com/Sendspin/aiosendspin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
