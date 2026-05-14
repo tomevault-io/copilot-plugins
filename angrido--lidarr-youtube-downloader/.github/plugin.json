@@ -1,0 +1,9 @@
+{
+  "name": "angrido--lidarr-youtube-downloader",
+  "displayName": "Lidarr-YouTube-Downloader",
+  "description": "Seamlessly bridge Lidarr and YouTube. Automatically fetch missing albums, download them as fully tagged MP3s, and trigger instant Lidarr imports to complete your music library.",
+  "version": "1.0.0",
+  "author": "Angrido",
+  "homepage": "https://github.com/Angrido/Lidarr-YouTube-Downloader",
+  "skills": []
+}
