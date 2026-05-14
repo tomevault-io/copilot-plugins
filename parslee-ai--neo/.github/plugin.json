@@ -1,0 +1,9 @@
+{
+  "name": "parslee-ai--neo",
+  "displayName": "neo",
+  "description": "A self-improving code reasoning engine with persistent semantic memory",
+  "version": "1.0.0",
+  "author": "Parslee-ai",
+  "homepage": "https://github.com/Parslee-ai/neo",
+  "skills": []
+}
