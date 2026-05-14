@@ -1,0 +1,9 @@
+{
+  "name": "dexhorthy--shannon",
+  "displayName": "shannon",
+  "description": "alternative to claude -p that lifecycles interactive sessions in tmux",
+  "version": "1.0.0",
+  "author": "dexhorthy",
+  "homepage": "https://github.com/dexhorthy/shannon",
+  "skills": []
+}
