@@ -1,0 +1,9 @@
+{
+  "name": "jacopone--nixos-config",
+  "displayName": "nixos-config",
+  "description": "NixOS for autonomous AI coding \u2014 kernel-level sandboxing, atomic rollbacks, reproducible AI toolchain. One repo, multiple machines, zero drift.",
+  "version": "1.0.0",
+  "author": "jacopone",
+  "homepage": "https://github.com/jacopone/nixos-config",
+  "skills": []
+}
