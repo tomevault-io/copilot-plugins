@@ -1,0 +1,9 @@
+{
+  "name": "fiale-plus--tradingview-mcp-server",
+  "displayName": "tradingview-mcp-server",
+  "description": "Unofficial MCP and CLI for TradingView API",
+  "version": "1.0.0",
+  "author": "fiale-plus",
+  "homepage": "https://github.com/fiale-plus/tradingview-mcp-server",
+  "skills": []
+}
