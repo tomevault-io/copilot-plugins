@@ -1,0 +1,9 @@
+{
+  "name": "ronreiter--sqliter",
+  "displayName": "sqliter",
+  "description": "An SQLite web-based interface for serving an SQLite editor web application",
+  "version": "1.0.0",
+  "author": "ronreiter",
+  "homepage": "https://github.com/ronreiter/sqliter",
+  "skills": []
+}
