@@ -1,616 +1,192 @@
 ## claude-md
 
-> > This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
+> > Cursor rules for code development with style consistency integration.
 
-# markdown-flow-ui
+# code-style-consistency-cursorrules-prompt-file
 
-> This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
+> Cursor rules for code development with style consistency integration.
 
 ## Usage
 
 Add this to your project's CLAUDE.md to activate this skill:
 
 ```
-Read and follow the instructions in .claude/skills/markdown-flow-ui/SKILL.md
+Read and follow the instructions in .claude/skills/code-style-consistency-cursorrules-prompt-file/SKILL.md
 ```
 
 Or copy the instructions below directly into your CLAUDE.md:
 
-# AGENTS.md
+// Code Style Consistency - .cursorrules prompt file
+// Specialized prompt for analyzing codebase patterns and ensuring new code
+// follows the established style and conventions of the project.
 
-This file provides guidance to all Coding Agents such as Claude Code (claude.ai/code), Codex when working with code in this repository.
+// PERSONA: Code Style Analyst
+You are an expert code style analyst with a keen eye for pattern recognition and
+coding conventions. Your expertise lies in quickly identifying the stylistic patterns,
+architecture approaches, and coding preferences in existing codebases, then adapting
+new code to seamlessly integrate with those established patterns.
 
-## Quick Start
+// STYLE ANALYSIS FOCUS
+Before generating or suggesting any code, analyze the codebase for:
 
-### Most Common Tasks
+- Naming conventions (camelCase, snake_case, PascalCase, etc.)
+- Indentation patterns (spaces vs tabs, indentation size)
+- Comment style and frequency
+- Function and method size patterns
+- Error handling approaches
+- Import/module organization
+- Functional vs OOP paradigm usage
+- File organization and architecture patterns
+- Testing methodologies
+- State management patterns
+- Code block formatting (brackets, spacing, etc.)
 
-| Task                     | Command                                | Location       |
-| ------------------------ | -------------------------------------- | -------------- |
-| Start development server | `npm run dev`                          | Root directory |
-| Build library            | `npm run build`                        | Root directory |
-| Run Storybook            | `npm run storybook`                    | Root directory |
-| Run tests                | `npm test`                             | Root directory |
-| Run linting              | `npm run lint`                         | Root directory |
-| Format code              | `npm run format`                       | Root directory |
-| Check code quality       | `npm run lint && npm run format:check` | Root directory |
+// ANALYSIS METHODOLOGY
+Implement this step-by-step approach to style analysis:
 
-### Essential Files and Directories
+1. Examine Multiple Files: Look at 3-5 representative files from the codebase
+2. Identify Core Patterns: Catalog consistent patterns across these files
+3. Note Inconsistencies: Recognize areas where style varies
+4. Prioritize Recent Code: Give more weight to recently modified files as they may represent evolving standards
+5. Create Style Profile: Summarize the dominant style characteristics
+6. Adapt Recommendations: Ensure all suggestions conform to the identified style profile
 
-```bash
-# Core library components
-src/components/           # Main UI components
-src/lib/                 # Utility functions
-src/index.ts            # Main export file
+// STYLE PROFILE TEMPLATE
+Compile a style profile with these key elements:
 
-# Documentation and examples
-.storybook/             # Storybook configuration
-src/**/*.stories.ts     # Component stories
-README.md              # Project documentation
+```
+## Code Style Profile
 
-# Configuration
-package.json           # Dependencies and scripts
-tsconfig.json         # TypeScript configuration
-eslint.config.mjs     # ESLint configuration
-.prettierrc           # Prettier formatting rules
+### Naming Conventions
+- Variables: [pattern]
+- Functions: [pattern]
+- Classes: [pattern]
+- Constants: [pattern]
+- Component files: [pattern]
+- Other files: [pattern]
+
+### Formatting
+- Indentation: [tabs/spaces, amount]
+- Line length: [approximate maximum]
+- Bracket style: [same line/new line]
+- Spacing: [patterns around operators, parameters, etc.]
+
+### Architecture Patterns
+- Module organization: [pattern]
+- Component structure: [pattern]
+- State management: [approach]
+- Error handling: [approach]
+
+### Paradigm Preferences
+- Functional vs OOP balance: [observation]
+- Use of specific patterns: [factories, singletons, etc.]
+- Immutability approach: [observation]
+
+### Documentation
+- Comment style: [pattern]
+- JSDoc/other documentation: [usage pattern]
+- README conventions: [pattern]
+
+### Testing Approach
+- Testing framework: [observed]
+- Test organization: [pattern]
+- Test naming: [pattern]
 ```
 
-## Critical Warnings ⚠️
-
-### MUST DO Before Any Commit
-
-1. **Run lint and format checks**: `npm run lint && npm run format:check` (MANDATORY)
-2. **Test your changes**: Run `npm test` and verify Storybook examples work
-3. **Build the library**: Run `npm run build` to ensure no build errors
-4. **Use English for all code**: Comments, variables, commit messages
-5. **Follow Conventional Commits**: `type: description` (lowercase type, imperative mood)
-6. **Update Storybook stories**: Add/update stories for new or modified components
-
-### Common Pitfalls to Avoid
-
-- **Never hardcode user-facing strings** - Use props and make components configurable
-- **Don't skip linting/formatting** - Pre-commit hooks will catch these issues
-- **Don't commit secrets** - No API keys or sensitive data in code
-- **Don't use non-English in code** - English only (except for user-facing content examples)
-- **Don't break existing APIs** - Maintain backward compatibility for public interfaces
-- **Don't forget TypeScript types** - All public APIs must be properly typed
-
-## Project Overview
-
-markdown-flow-ui is a React UI library for rendering markdown with interactive flow components, typewriter effects, and plugin support. It provides components for creating dynamic, interactive markdown experiences with features like:
-
-- Real-time markdown rendering with syntax highlighting
-- Typewriter effect animations
-- Interactive flow components with single-select and multi-select support
-- Plugin system for custom components
-- Server-Sent Events (SSE) support for streaming content
-- Mermaid diagram rendering
-- Mathematical expressions with KaTeX
-- Internationalization (i18n) support for UI components
-
-## Architecture
-
-The project follows a component-based architecture with these main parts:
-
-- **Core Components (`src/components/`)**: Main UI components for markdown rendering
-- **Utility Functions (`src/lib/`)**: Helper functions and utilities
-- **Plugin System**: Extensible architecture for custom markdown components
-- **Storybook Integration**: Documentation and examples for all components
-
-### Main Components
-
-#### ContentRender (`src/components/ContentRender/`)
-
-- **Purpose**: Core markdown rendering component with typewriter effects
-- **Key Features**:
-  - Markdown-to-HTML conversion with syntax highlighting
-  - Typewriter animation support
-  - Plugin system for custom components
-  - Stream processing capabilities
-  - Interactive variable system with single-select and multi-select support
-  - Internationalization support for UI elements
-- **Key Files**:
-  - `ContentRender.tsx`: Main component implementation
-  - `useTypewriter.ts`: Typewriter effect logic
-  - `plugins/`: Custom component plugins (MermaidChart, CustomVariable)
-  - `utils/`: Processing utilities
-
-##### Interactive Variable System
-
-The CustomVariable plugin supports various interaction modes:
-
-**Single-Select Mode (using `|` separator):**
-
-```markdown
-Choose your role: ?[%{{role}}Developer|Designer|Manager]
-```
-
-**Multi-Select Mode (using `||` separator):**
-
-```markdown
-Select skills: ?[%{{skills}}React||Vue||Angular||Node.js]
-```
-
-**Mixed Mode (Multi-select + Text Input):**
-
-```markdown
-Choose technologies: ?[%{{tech}}Frontend||Backend||Mobile||...Other technologies]
-```
-
-**Props for Multi-Select Support:**
-
-- `confirmButtonText`: Text for the confirm button (supports i18n)
-- `selectedValues`: Array of selected values in callback
-- `isMultiSelect`: Automatically detected from syntax
-
-#### MarkdownFlow (`src/components/MarkdownFlow/`)
-
-- **Purpose**: Flow-based markdown rendering with scroll management
-- **Key Features**:
-  - Scrollable markdown container
-  - Auto-scroll to bottom functionality
-  - Flow-based content display
-- **Key Files**:
-  - `MarkdownFlow.tsx`: Main flow component
-  - `ScrollableMarkdownFlow.tsx`: Scrollable variant
-  - `useScrollToBottom.ts`: Scroll behavior logic
-
-#### MarkdownFlowEditor (`src/components/MarkdownFlowEditor/`)
-
-- **Purpose**: Interactive markdown editor with CodeMirror integration
-- **Key Features**:
-  - Syntax highlighting for markdown
-  - Real-time editing capabilities
-  - CodeMirror-based editing experience
-
-#### Playground (`src/components/Playground/`)
-
-- **Purpose**: Interactive playground for testing markdown rendering
-- **Key Features**:
-  - Live preview of markdown content
-  - Component testing interface
-  - Markdown information extraction
-
-### Plugin Architecture
-
-The plugin system allows for extensible markdown components:
-
-```typescript
-// Example plugin structure
-interface MarkdownPlugin {
-  component: React.ComponentType<any>;
-  matcher: (node: any) => boolean;
-  renderer: (node: any, props: any) => React.ReactElement;
-}
-```
-
-## Development Commands
-
-### Library Development
-
-```bash
-# Development server (Next.js for testing)
-npm run dev
-
-# Build library for distribution
-npm run build
-
-# Build Storybook documentation
-npm run build-storybook
-
-# Start Storybook development server
-npm run storybook
-```
-
-### Code Quality
-
-```bash
-# Linting
-npm run lint                    # Check for lint errors
-npm run lint:fix               # Fix lint errors automatically
-
-# Formatting
-npm run format                 # Format all files
-npm run format:check          # Check formatting without changing files
-
-# Testing
-npm test                       # Run tests (when implemented)
-```
-
-### Package Management
-
-```bash
-# Install dependencies
-npm install
-
-# Prepare package for publishing
-npm run prepublishOnly
-
-# The library uses pnpm as package manager, but npm commands work too
-pnpm install
-pnpm build
-```
-
-## Component Development Standards
-
-### Component Structure
-
-Follow this structure for new components:
-
-```typescript
-// ComponentName.tsx
-import React from 'react';
-import { cn } from '@/lib/utils';
-
-export interface ComponentNameProps {
-  /** Component description */
-  children?: React.ReactNode;
-  /** Additional CSS classes */
-  className?: string;
-  /** Other component-specific props */
-  variant?: 'default' | 'alternative';
-}
-
-export const ComponentName = React.forwardRef<
-  HTMLDivElement,
-  ComponentNameProps
->(({ children, className, variant = 'default', ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        'base-component-classes',
-        {
-          'variant-classes': variant === 'alternative',
-        },
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
-
-ComponentName.displayName = 'ComponentName';
-```
-
-### Story Structure
-
-Create Storybook stories for all components:
-
-```typescript
-// ComponentName.stories.ts
-import type { Meta, StoryObj } from "@storybook/react";
-import { ComponentName } from "./ComponentName";
-
-const meta: Meta<typeof ComponentName> = {
-  title: "Components/ComponentName",
-  component: ComponentName,
-  parameters: {
-    layout: "centered",
-  },
-  tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: { type: "select" },
-      options: ["default", "alternative"],
-    },
-  },
-};
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  args: {
-    children: "Default component content",
-  },
-};
-
-export const Alternative: Story = {
-  args: {
-    variant: "alternative",
-    children: "Alternative variant content",
-  },
-};
-```
-
-### TypeScript Standards
-
-- **Export all public interfaces**: Make component props interfaces available
-- **Use proper generics**: For reusable components
-- **Document props**: Use JSDoc comments for all public props
-- **Strict typing**: Avoid `any` types, use proper type definitions
-
-### CSS and Styling
-
-- **Tailwind CSS**: Use Tailwind classes for styling
-- **CSS Modules**: Use for component-specific styles when needed
-- **Class utility**: Use `cn()` utility for conditional classes
-- **Responsive design**: Consider mobile-first approach
-
-### Multi-Select Component Development
-
-When working with multi-select components:
-
-- **Use `||` separator** for multi-select syntax in markdown: `?[%{{var}}Option1||Option2]`
-- **Provide `confirmButtonText` prop** for internationalization support
-- **Handle `selectedValues` array** in callback functions
-- **Support mixed mode**: Multi-select + text input combination
-- **Consider disabled states**: Disable confirm when no selection
-- **Test both modes**: Ensure single-select (`|`) still works correctly
-
-**Example Multi-Select Implementation:**
-
-```typescript
-interface MultiSelectProps {
-  selectedValues?: string[];
-  onSelectedChange?: (values: string[]) => void;
-  confirmButtonText?: string;
-  isMultiSelect?: boolean;
-}
-```
-
-## Plugin Development Guidelines
-
-### Creating Custom Plugins
-
-1. **Create plugin component** in `src/components/ContentRender/plugins/`
-2. **Define plugin interface** with proper TypeScript types
-3. **Implement rendering logic** for markdown AST nodes
-4. **Add to plugin registry** in ContentRender component
-5. **Create stories** for plugin examples
-
-### Plugin Example
-
-```typescript
-// src/components/ContentRender/plugins/CustomPlugin.tsx
-import React from 'react';
-
-export interface CustomPluginProps {
-  value: string;
-  type?: string;
-}
-
-export const CustomPlugin: React.FC<CustomPluginProps> = ({
-  value,
-  type = 'default'
-}) => {
-  return (
-    <div className="custom-plugin-container">
-      <span className="custom-plugin-label">{type}:</span>
-      <span className="custom-plugin-value">{value}</span>
-    </div>
-  );
-};
-```
-
-## Testing Guidelines
-
-### Component Testing
-
-When tests are implemented, follow these patterns:
-
-```typescript
-// ComponentName.test.tsx
-import { render, screen } from '@testing-library/react';
-import { ComponentName } from './ComponentName';
-
-describe('ComponentName', () => {
-  it('renders children correctly', () => {
-    render(<ComponentName>Test content</ComponentName>);
-    expect(screen.getByText('Test content')).toBeInTheDocument();
+// INTEGRATION EXAMPLE
+Here's an example of how to adapt code based on style analysis:
+
+Original code sample from developer:
+
+```javascript
+function getData(id) {
+  return new Promise((resolve, reject) => {
+    apiClient
+      .get(`/data/${id}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
-
-  it('applies custom className', () => {
-    render(
-      <ComponentName className="custom-class">Content</ComponentName>
-    );
-    expect(screen.getByText('Content')).toHaveClass('custom-class');
-  });
-});
-```
-
-### Storybook Testing
-
-- **Visual testing**: Use Storybook for visual regression testing
-- **Interaction testing**: Test component interactions in stories
-- **Accessibility testing**: Use Storybook a11y addon
-- **Documentation**: Stories serve as living documentation
-
-## API Documentation Standards
-
-### Component Documentation
-
-Document all public APIs:
-
-````typescript
-/**
- * ContentRender component for rendering markdown with typewriter effects
- *
- * @example
- * ```tsx
- * <ContentRender
- *   content="# Hello World"
- *   typewriter={true}
- *   speed={50}
- * />
- * ```
- */
-export interface ContentRenderProps {
-  /** Markdown content to render */
-  content: string;
-  /** Enable typewriter effect animation */
-  typewriter?: boolean;
-  /** Typing speed in milliseconds per character */
-  speed?: number;
-  /** Custom CSS classes */
-  className?: string;
 }
-````
-
-### Hook Documentation
-
-````typescript
-/**
- * Hook for managing typewriter effect state and animations
- *
- * @param content - The text content to animate
- * @param speed - Animation speed in milliseconds
- * @returns Object with current text, completion status, and control functions
- *
- * @example
- * ```tsx
- * const { displayText, isComplete, start, pause } = useTypewriter(
- *   'Hello World',
- *   50
- * );
- * ```
- */
-export function useTypewriter(content: string, speed: number = 50) {
-  // Implementation
-}
-````
-
-## Build and Distribution
-
-### Build Process
-
-The library uses Vite for building:
-
-1. **TypeScript compilation**: Generates type definitions
-2. **Bundle creation**: Creates ESM and CJS bundles
-3. **Asset optimization**: Optimizes CSS and other assets
-4. **Type checking**: Ensures TypeScript correctness
-
-### Package Structure
-
-```text
-dist/
-├── index.esm.js        # ES modules build
-├── index.cjs.js        # CommonJS build
-├── index.d.ts          # TypeScript definitions
-├── assets/             # Bundled CSS and other assets
-└── components/         # Individual component builds
 ```
 
-### Publishing Checklist
+Style analysis reveals:
 
-- [ ] Version updated in `package.json`
-- [ ] Build completes successfully: `npm run build`
-- [ ] All tests pass: `npm test`
-- [ ] Linting passes: `npm run lint`
-- [ ] Storybook builds: `npm run build-storybook`
-- [ ] CHANGELOG updated with changes
-- [ ] Git tags applied for release
+- Project uses async/await rather than promise chains
+- Error handling is done with try/catch blocks
+- Functions use arrow syntax
+- 2-space indentation is standard
+- Early returns are preferred
 
-## Troubleshooting
+Style-adapted code:
 
-### Common Issues and Solutions
-
-| Issue                              | Solution                                         |
-| ---------------------------------- | ------------------------------------------------ |
-| Build fails with TypeScript errors | Check `tsconfig.json` and fix type errors        |
-| Storybook won't start              | Clear `.storybook` cache, reinstall dependencies |
-| Components not rendering           | Check imports and exports in `src/index.ts`      |
-| Styling not applied                | Verify Tailwind configuration and class names    |
-| Plugin not working                 | Check plugin registration in ContentRender       |
-| SSE connection fails               | Verify server endpoint and CORS settings         |
-
-### Debug Commands
-
-```bash
-# Check Node/npm versions
-node --version
-npm --version
-
-# Clear dependency cache
-rm -rf node_modules package-lock.json
-npm install
-
-# Check build output
-npm run build
-ls -la dist/
-
-# Check Storybook
-npm run storybook
-
-# Verify package structure
-npm pack --dry-run
+```javascript
+const getData = async (id) => {
+  try {
+    const response = await apiClient.get(`/data/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 ```
 
-## Code Quality Standards
+// STYLE CONSISTENCY BEST PRACTICES
+Follow these best practices when adapting code:
 
-### Language Requirements
+1. **Don't Refactor Beyond Scope**: Match the existing style without introducing broader changes
+2. **Comment Adaptation**: Match the existing comment style and frequency
+3. **Variable Naming**: Use consistent variable naming patterns even within new functions
+4. **Paradigm Alignment**: Favor the dominant paradigm (functional, OOP, etc.) seen in the codebase
+5. **Library Usage**: Prefer libraries already in use rather than introducing new ones
+6. **Gradual Enhancement**: Only introduce newer patterns if they're already appearing in more recent files
+7. **Organization Mirroring**: Structure new modules to mirror the organization of similar existing modules
+8. **Specificity Over Assumptions**: If styles are inconsistent, ask rather than assume
+9. **Documentation Matching**: Match documentation style in tone, detail level, and format
+10. **Testing Consistency**: Follow established testing patterns for new code
 
-**English-Only Policy for Code**: All code-related content MUST be written in English.
+// CONSISTENCY PROMPT TEMPLATE
+Use this template as a prefix to other prompts to maintain style consistency:
 
-#### What MUST be in English
+```
+Before implementing this feature, I need to:
 
-- **Code Comments**: All inline comments and documentation
-- **Variable and Function Names**: All identifiers
-- **Component Props**: All prop names and descriptions
-- **Type Definitions**: Interface names, type names, and documentation
-- **Error Messages**: All error messages and logging
-- **Git Commit Messages**: Must follow Conventional Commits format
-- **Documentation**: README, API docs, and inline documentation
+1. Analyze the existing codebase to determine the established style conventions
+2. Create a style profile based on the analysis
+3. Implement the requested feature following the identified style profile
+4. Verify my implementation maintains consistency with the codebase
 
-#### Conventional Commits Format
-
-**Required Format**: `<type>: <description>`
-
-**Common Types**:
-
-- `feat:` - New feature or component
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring
-- `test:` - Adding or updating tests
-- `chore:` - Maintenance tasks
-- `build:` - Build system changes
-- `ci:` - CI configuration changes
-- `perf:` - Performance improvements
-- `style:` - Code formatting (no functional changes)
-
-**Examples**:
-
-- `feat: add typewriter effect to ContentRender component`
-- `fix: resolve markdown parsing issue with nested lists`
-- `docs: update component API documentation`
-
-### Pre-commit Quality Checks
-
-Pre-commit hooks automatically run:
-
-- **ESLint**: Code quality and style checks
-- **Prettier**: Code formatting
-- **TypeScript**: Type checking
-- **Lint-staged**: Only check modified files
-
-```bash
-# Manual quality check
-npm run lint && npm run format:check
-
-# Fix formatting issues
-npm run format
-
-# Fix linting issues
-npm run lint:fix
+I'll start by examining representative files to understand the project's conventions.
 ```
 
-## Additional Resources
+// FILE ANALYSIS HINTS
+When examining files, focus on:
 
-- **React Documentation**: https://reactjs.org/
-- **TypeScript Documentation**: https://www.typescriptlang.org/
-- **Tailwind CSS**: https://tailwindcss.com/
-- **Storybook**: https://storybook.js.org/
-- **Vite**: https://vitejs.dev/
-- **Conventional Commits**: https://www.conventionalcommits.org/
-- **React Markdown**: https://github.com/remarkjs/react-markdown
-- **Remark Plugins**: https://github.com/remarkjs/remark/blob/main/doc/plugins.md
+- The most recently updated files (they reflect current standards)
+- Files that implement similar functionality to what you're adding
+- Core utility or helper files that are used widely (they set fundamental patterns)
+- Test files for insights on testing methodology
+- Import statements to understand dependency patterns
+
+// ADAPTATION TECHNIQUES
+Use these techniques to adapt your code to match the existing style:
+
+1. **Pattern Mirroring**: Copy structural patterns from similar functions/components
+2. **Variable Naming Dictionary**: Create a mapping of concept-to-name patterns
+3. **Comment Density Matching**: Count comments-per-line-of-code and match
+4. **Error Pattern Replication**: Use identical error handling approaches
+5. **Module Structure Cloning**: Organize new modules like existing ones
+6. **Import Order Replication**: Order imports using the same conventions
+7. **Test Case Templating**: Base new tests on the structure of existing tests
+8. **Function Size Consistency**: Match the granularity of functions/methods
+9. **State Management Consistency**: Use the same state management approaches
+10. **Type Definition Matching**: Format type definitions consistently with existing ones
 
 ---
-> Source: [ai-shifu/markdown-flow-ui](https://github.com/ai-shifu/markdown-flow-ui) — distributed by [TomeVault](https://tomevault.io).
+> Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:claude_md:2026-05-14 -->
 
 ---
