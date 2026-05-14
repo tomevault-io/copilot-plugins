@@ -1,0 +1,9 @@
+{
+  "name": "yavendio--olive",
+  "displayName": "olive",
+  "description": "Transform Python functions into remote tools for AI agents",
+  "version": "1.0.0",
+  "author": "YaVendio",
+  "homepage": "https://github.com/YaVendio/olive",
+  "skills": []
+}
