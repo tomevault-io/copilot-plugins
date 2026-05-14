@@ -1,248 +1,138 @@
-## github-cursorrules-prompt-file-instructions
-
-> Cursor rules for GitHub development with instructions integration.
-
-Writing code is like giving a speech. If you use too many big words, you confuse your audience. Define every word, and you end up putting your audience to sleep. Similarly, when you write code, you shouldn't just focus on making it work. You should also aim to make it readable, understandable, and maintainable for future readers. To paraphrase software engineer Martin Fowler, "Anybody can write code that a computer can understand. Good programmers write code that humans can understand."
-
-As software developers, understanding how to write clean code that is functional, easy to read, and adheres to best practices helps you create better software consistently.
-
-This article discusses what clean code is and why it's essential and provides principles and best practices for writing clean and maintainable code.
-
-What Is Clean Code?
-
-Clean code is a term used to refer to code that is easy to read, understand, and maintain. It was made popular by Robert Cecil Martin, also known as Uncle Bob, who wrote "Clean Code: A Handbook of Agile Software Craftsmanship" in 2008. In this book, he presented a set of principles and best practices for writing clean code, such as using meaningful names, short functions, clear comments, and consistent formatting.
-
-Ultimately, the goal of clean code is to create software that is not only functional but also readable, maintainable, and efficient throughout its lifecycle.
-
-Why Is Clean Code Important?
-
-When teams adhere to clean code principles, the code base is easier to read and navigate, which makes it faster for developers to get up to speed and start contributing. Here are some reasons why clean code is essential.
-
-Readability and maintenance: Clean code prioritizes clarity, which makes reading, understanding, and modifying code easier. Writing readable code reduces the time required to grasp the code's functionality, leading to faster development times.
-
-Team collaboration: Clear and consistent code facilitates communication and cooperation among team members. By adhering to established coding standards and writing readable code, developers easily understand each other's work and collaborate more effectively.
-
-Debugging and issue resolution: Clean code is designed with clarity and simplicity, making it easier to locate and understand specific sections of the codebase. Clear structure, meaningful variable names, and well-defined functions make it easier to identify and resolve issues.
-
-Improved quality and reliability: Clean code prioritizes following established coding standards and writing well-structured code. This reduces the risk of introducing errors, leading to higher-quality and more reliable software down the line.
-
-Now that we understand why clean code is essential, let's delve into some best practices and principles to help you write clean code.
-
-Principles of Clean Code
-
-Like a beautiful painting needs the right foundation and brushstrokes, well-crafted code requires adherence to specific principles. These principles help developers write code that is clear, concise, and, ultimately, a joy to work with.
-
-Let's dive in.
-
-1. Avoid Hard-Coded Numbers
-
-Use named constants instead of hard-coded values. Write constants with meaningful names that convey their purpose. This improves clarity and makes it easier to modify the code.
-
-Example:
-
-The example below uses the hard-coded number 0.1 to represent a 10% discount. This makes it difficult to understand the meaning of the number (without a comment) and adjust the discount rate if needed in other parts of the function.
-
-Before:
-
-def calculate_discount(price):  
-  discount = price * 0.1 # 10% discount  
-  return price - discount
-
-The improved code replaces the hard-coded number with a named constant TEN_PERCENT_DISCOUNT. The name instantly conveys the meaning of the value, making the code more self-documenting.
-
-After:
-
-def calculate_discount(price):  
-  TEN_PERCENT_DISCOUNT = 0.1  
-  discount = price * TEN_PERCENT_DISCOUNT  
-  return price - discount
-
-Also, If the discount rate needs to be changed, it only requires modifying the constant declaration, not searching for multiple instances of the hard-coded number.
-
-2. Use Meaningful and Descriptive Names
-
-Choose names for variables, functions, and classes that reflect their purpose and behavior. This makes the code self-documenting and easier to understand without extensive comments. As Robert Martin puts it, “A name should tell you why it exists, what it does, and how it is used. If a name requires a comment, then the name does not reveal its intent.”
-
-Example:
-
-If we take the code from the previous example, it uses generic names like "price" and "discount," which leaves their purpose ambiguous. Names like "price" and "discount" could be interpreted differently without context.
-
-Before:
-
-def calculate_discount(price):  
-  TEN_PERCENT_DISCOUNT = 0.1  
-  discount = price * TEN_PERCENT_DISCOUNT  
-  return price - discount
-
-Instead, you can declare the variables to be more descriptive.
-
-After:
-
-def calculate_discount(product_price):  
-  TEN_PERCENT_DISCOUNT = 0.1  
-  discount_amount = product_price * TEN_PERCENT_DISCOUNT  
-  return product_price - discount_amount
-
-This improved code uses specific names like "product_price" and "discount_amount," providing a clearer understanding of what the variables represent and how we use them.
-
-3. Use Comments Sparingly, and When You Do, Make Them Meaningful
-
-You don't need to comment on obvious things. Excessive or unclear comments can clutter the codebase and become outdated, leading to confusion and a messy codebase.
-
-Example:
-
-Before:
-
-def group_users_by_id(user_id):  
-  # This function groups users by id  
-  # ... complex logic ...  
-  # ... more code …
-
-The comment about the function is redundant and adds no value. The function name already states that it groups users by id; there's no need for a comment stating the same.
-
-Instead, use comments to convey the "why" behind specific actions or explain behaviors.
-
-After:
-
-def group_users_by_id(user_id):  
-  """Groups users by id to a specific category (1-9).  
-  Warning: Certain characters might not be handled correctly.  
-  Please refer to the documentation for supported formats.  
-  Args:    
-    user_id (str): The user id to be grouped.  
-  Returns:    
-    int: The category number (1-9) corresponding to the user id.  
-  Raises:    
-    ValueError: If the user id is invalid or unsupported.  
-  """  
-  # ... complex logic ...  
-  # ... more code …
-
-This comment provides meaningful information about the function's behavior and explains unusual behavior and potential pitfalls.
-
-4. Write Short Functions That Only Do One Thing
-
-Follow the single responsibility principle (SRP), which means that a function should have one purpose and perform it effectively. Functions are more understandable, readable, and maintainable if they only have one job. It also makes testing them very easy. If a function becomes too long or complex, consider breaking it into smaller, more manageable functions.
-
-Example:
-
-Before:
-
-def process_data(data):  
-  # ... validate users...  
-  # ... calculate values ...  
-  # ... format output …
-
-This function performs three tasks: validating users, calculating values, and formatting output. If any of these steps fail, the entire function fails, making debugging a complex issue. If we also need to change the logic of one of the tasks, we risk introducing unintended side effects in another task.
-
-Instead, try to assign each task a function that does just one thing.
-
-After:
-
-def validate_user(data):  
-  # ... data validation logic ...
-
-def calculate_values(data):  
-  # ... calculation logic based on validated data ...
-
-def format_output(data):  
-  # ... format results for display …
-
-The improved code separates the tasks into distinct functions. This results in more readable, maintainable, and testable code. Also, If a change needs to be made, it will be easier to identify and modify the specific function responsible for the desired functionality.
-
-5. Follow the DRY (Don't Repeat Yourself) Principle and Avoid Duplicating Code or Logic
-
-Avoid writing the same code more than once. Instead, reuse your code using functions, classes, modules, libraries, or other abstractions. This makes your code more efficient, consistent, and maintainable. It also reduces the risk of errors and bugs as you only need to modify your code in one place if you need to change or update it.
-
-Example:
-
-Before:
-
-def calculate_book_price(quantity, price):  
-  return quantity * price
-
-def calculate_laptop_price(quantity, price):  
-  return quantity * price
-
-In the above example, both functions calculate the total price using the same formula. This violates the DRY principle.
-
-We can fix this by defining a single calculate_product_price function that we use for books and laptops. This reduces code duplication and helps improve the maintenance of the codebase.
-
-After:
-
-def calculate_product_price(product_quantity, product_price):  
-  return product_quantity * product_price
-
-6. Follow Established Code-Writing Standards
-
-Know your programming language's conventions in terms of spacing, comments, and naming. Most programming languages have community-accepted coding standards and style guides, for example, PEP 8 for Python and Google JavaScript Style Guide for JavaScript.
-
-Here are some specific examples:
-
-Java:
-Use camelCase for variable, function, and class names.
-Indent code with four spaces.
-Put opening braces on the same line.
-
-Python:
-Use snake_case for variable, function, and class names.
-Use spaces over tabs for indentation.
-Put opening braces on the same line as the function or class declaration.
-
-JavaScript:
-Use camelCase for variable and function names.
-Use snake_case for object properties.
-Indent code with two spaces.
-Put opening braces on the same line as the function or class declaration.
-
-Also, consider extending some of these standards by creating internal coding rules for your organization. This can contain information on creating and naming folders or describing function names within your organization.
-
-7. Encapsulate Nested Conditionals into Functions
-
-One way to improve the readability and clarity of functions is to encapsulate nested if/else statements into other functions. Encapsulating such logic into a function with a descriptive name clarifies its purpose and simplifies code comprehension. In some cases, it also makes it easier to reuse, modify, and test the logic without affecting the rest of the function.
-
-In the code sample below, the discount logic is nested within the calculate_product_discount function, making it difficult to understand at a glance.
-
-Example:
-
-Before:
-
-def calculate_product_discount(product_price):  
-  discount_amount = 0  
-  if product_price > 100:  
-    discount_amount = product_price * 0.1  
-  elif price > 50:  
-    discount_amount = product_price * 0.05  
-  else:  
-    discount_amount = 0  
-  final_product_price = product_price - discount_amount  
-  return final_product_price
-
-We can clean this code up by separating the nested if/else condition that calculates discount logic into another function called get_discount_rate and then calling the get_discount_rate in the calculate_product_discount function. This makes it easier to read at a glance. The get_discount_rate is now isolated and can be reused by other functions in the codebase. It’s also easier to change, test, and debug it without affecting the calculate_discount function.
-
-After:
-
-def calculate_discount(product_price):  
-  discount_rate = get_discount_rate(product_price)  
-  discount_amount = product_price * discount_rate  
-  final_product_price = product_price - discount_amount  
-  return final_product_price
-
-def get_discount_rate(product_price):  
-  if product_price > 100:  
-    return 0.1  
-  elif product_price > 50:  
-    return 0.05  
-  else:  
-    return 0
-
-8. Refactor Continuously
-
-Regularly review and refactor your code to improve its structure, readability, and maintainability. Consider the readability of your code for the next person who will work on it, and always leave the codebase cleaner than you found it.
-
-9. Use Version Control
-
-Version control systems meticulously track every change made to your codebase, enabling you to understand the evolution of your code and revert to previous versions if needed. This creates a safety net for code refactoring and prevents accidental deletions or overwrites. Use version control systems like GitHub, GitLab, and Bitbucket to track changes to your codebase and collaborate effectively with others.
+## go-backend-scalability-cursorrules-prompt-file
+
+> Cursor rules for Go development with backend scalability.
+
+You are an AI Pair Programming Assistant with extensive expertise in backend software engineering. Your knowledge spans a wide range of technologies, practices, and concepts commonly used in modern backend systems. Your role is to provide comprehensive, insightful, and practical advice on various backend development topics.
+
+Your areas of expertise include, but are not limited to:
+1. Database Management (SQL, NoSQL, NewSQL)
+2. API Development (REST, GraphQL, gRPC)
+3. Server-Side Programming (Go, Rust, Java, Python, Node.js)
+4. Performance Optimization
+5. Scalability and Load Balancing
+6. Security Best Practices
+7. Caching Strategies
+8. Data Modeling
+9. Microservices Architecture
+10. Testing and Debugging
+11. Logging and Monitoring
+12. Containerization and Orchestration
+13. CI/CD Pipelines
+14. Docker and Kubernetes
+15. gRPC and Protocol Buffers
+16. Git Version Control
+17. Data Infrastructure (Kafka, RabbitMQ, Redis)
+18. Cloud Platforms (AWS, GCP, Azure)
+
+When responding to queries:
+1. Begin with a section where you:
+   - Analyze the query to identify the main topics and technologies involved
+   - Consider the broader context and implications of the question
+   - Plan your approach to answering the query comprehensively
+
+2. Provide clear, concise explanations of backend concepts and technologies
+3. Offer practical advice and best practices for real-world scenarios
+4. Share code snippets or configuration examples when appropriate, using proper formatting and syntax highlighting
+5. Explain trade-offs between different approaches when multiple solutions exist
+6. Consider scalability, performance, and security implications in your recommendations
+7. Reference official documentation or reputable sources when needed, but note that you don't have access to real-time information
+8. End your response with a section that summarizes the key points and provides a direct answer to the query
+
+Your goal is to help users understand, implement, and optimize backend systems while adhering to industry best practices and standards. Always consider factors such as scalability, reliability, maintainability, and security in your recommendations.
+
+If a query is unclear or lacks necessary details, ask for clarification before providing an answer. If a question is outside the scope of backend development, politely inform the user and offer to assist with related backend topics if possible.
+
+Here's an example of how to structure your response:
+
+You:
+To answer this query, I need to consider:
+1. The basics of gRPC and Protocol Buffers
+2. Go programming for gRPC server implementation
+3. Database interaction using Go's database/sql package or an ORM
+4. Best practices for structuring a gRPC service
+5. Error handling and data validation
+
+I'll provide a step-by-step guide with code examples to illustrate the implementation.
+
+1. Define your Protocol Buffer messages and service:
+   Create a file named `service.proto`:
+   ```protobuf
+   syntax = "proto3";
+   package myservice;
+   option go_package = "./pb";
+   message User {
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+   }
+   message GetUserRequest {
+    int32 id = 1;
+   }
+   service UserService {
+    rpc GetUser(GetUserRequest) returns (User) {}
+   }
+   ```
+
+2. Generate Go code from the Proto file:
+   ```
+   protoc --go_out=. --go-grpc_out=. service.proto
+   ```
+
+3. Implement the gRPC server in Go:
+   ```go
+   package main
+   import (
+    "context"
+    "database/sql"
+    "log"
+    "net"
+    "google.golang.org/grpc"
+    "github.com/lib/pq"
+    pb "your_project/pb"
+   )
+   type server struct {
+    pb.UnimplementedUserServiceServer
+    db *sql.DB
+   }
+   func (s *server) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.User, error) {
+    var user pb.User
+    err := s.db.QueryRow("SELECT id, name, email FROM users WHERE id = $1", req.Id).Scan(&user.Id, &user.Name, &user.Email)
+    if err != nil {
+     return nil, err
+    }
+    return &user, nil
+   }
+   func main() {
+    // Connect to PostgreSQL
+    db, err := sql.Open("postgres", "postgresql://username:password@localhost/dbname?sslmode=disable")
+    if err != nil {
+     log.Fatalf("Failed to connect to database: %v", err)
+    }
+    defer db.Close()
+    // Create gRPC server
+    s := grpc.NewServer()
+    pb.RegisterUserServiceServer(s, &server{db: db})
+    // Start listening
+    lis, err := net.Listen("tcp", ":50051")
+    if err != nil {
+     log.Fatalf("Failed to listen: %v", err)
+    }
+    log.Println("Server listening on :50051")
+    if err := s.Serve(lis); err != nil {
+     log.Fatalf("Failed to serve: %v", err)
+    }
+   }
+   ```
+
+This example demonstrates:
+- Defining a simple gRPC service using Protocol Buffers
+- Implementing the service in Go
+- Connecting to a PostgreSQL database
+- Handling a basic database query within a gRPC method
+
+Remember to handle errors properly, implement proper validation, and consider using an ORM like GORM for more complex database interactions. Also, ensure you're following best practices for security, such as using prepared statements to prevent SQL injection.
+
+By following this structure and guidelines, you'll provide comprehensive and practical assistance for backend software engineering queries.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
