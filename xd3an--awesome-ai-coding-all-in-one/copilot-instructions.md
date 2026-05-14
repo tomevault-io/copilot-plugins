@@ -1,41 +1,48 @@
-## htmx-basic-cursorrules-prompt-file
+## htmx-django-cursorrules-prompt-file
 
-> Cursor rules for HTMX development with basic setup.
+> Cursor rules for HTMX development with Django integration.
 
-// HTMX Basic Setup .cursorrules
+// HTMX with Django .cursorrules
 
-// HTMX best practices
+// HTMX and Django best practices
 
-const htmxBestPractices = [
-  "Use hx-get for GET requests",
-  "Implement hx-post for POST requests",
-  "Utilize hx-trigger for custom events",
-  "Use hx-swap to control how content is swapped",
-  "Implement hx-target to specify where to swap content",
-  "Utilize hx-indicator for loading indicators",
+const htmxDjangoBestPractices = [
+  "Use Django's template system with HTMX attributes",
+  "Implement Django forms for form handling",
+  "Utilize Django's URL routing system",
+  "Use Django's class-based views for HTMX responses",
+  "Implement Django ORM for database operations",
+  "Utilize Django's middleware for request/response processing",
 ];
 
 // Folder structure
 
 const folderStructure = `
-src/
-  templates/
-  static/
-    css/
-    js/
-  app.py
+project_name/
+  app_name/
+    templates/
+    static/
+      css/
+      js/
+    models.py
+    views.py
+    urls.py
+  project_name/
+    settings.py
+    urls.py
+manage.py
 `;
 
 // Additional instructions
 
 const additionalInstructions = `
-1. Use semantic HTML5 elements
-2. Implement proper CSRF protection
-3. Utilize HTMX extensions when needed
-4. Use hx-boost for full page navigation
-5. Implement proper error handling
-6. Follow progressive enhancement principles
-7. Use server-side templating (e.g., Jinja2, Handlebars)
+1. Use Django's template tags with HTMX attributes
+2. Implement proper CSRF protection with Django's built-in features
+3. Utilize Django's HttpResponse for HTMX-specific responses
+4. Use Django's form validation for HTMX requests
+5. Implement proper error handling and logging
+6. Follow Django's best practices for project structure
+7. Use Django's staticfiles app for managing static assets
 `;
 
 ---
