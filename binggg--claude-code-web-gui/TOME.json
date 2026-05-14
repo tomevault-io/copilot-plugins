@@ -1,0 +1,44 @@
+{
+  "name": "Claude-Code-Web-GUI",
+  "owner": "binggg",
+  "repo": "Claude-Code-Web-GUI",
+  "description": "Browse, view and share your Claude Code sessions - runs entirely in browser \u6d4f\u89c8\u548c\u67e5\u770b\u60a8\u7684 Claude Code \u4f1a\u8bdd\u5386\u53f2 - \u5b8c\u5168\u5728\u6d4f\u89c8\u5668\u4e2d\u8fd0\u884c\uff0c\u65e0\u9700\u670d\u52a1\u5668",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/binggg/Claude-Code-Web-GUI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T09:11:02Z"
+}
