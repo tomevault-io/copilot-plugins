@@ -1,0 +1,9 @@
+{
+  "name": "badlogic--vs-claude",
+  "displayName": "vs-claude",
+  "description": "VS Code extension and MCP server so Claude Code can open files, diffs and manipulate VS Code in other ways.",
+  "version": "1.0.0",
+  "author": "badlogic",
+  "homepage": "https://github.com/badlogic/vs-claude",
+  "skills": []
+}
