@@ -1,0 +1,918 @@
+## hexdag
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+hexDAG is an **operating system for AI agents** -- an orchestration framework that provides pipelines (processes), ports (syscalls), drivers, and a standard library so that AI agents don't reinvent orchestration. It transforms complex AI workflows into deterministic, testable, and maintainable systems through declarative YAML configurations and DAG-based execution.
+
+## Development Commands
+
+### Environment Setup
+```bash
+# Install dependencies using uv (Python package manager)
+uv sync
+
+# Install with notebook support (for documentation)
+uv sync --all-extras
+
+# Install pre-commit hooks
+uv run pre-commit install
+```
+
+### Notebooks
+```bash
+# Start Jupyter for interactive development
+jupyter notebook notebooks/
+
+# Execute and validate all notebooks
+uv run python scripts/check_notebooks.py
+
+# Format notebooks
+uv run nbqa ruff notebooks/ --fix
+uv run nbqa pyupgrade notebooks/ --py312-plus
+
+# Strip notebook outputs (automatic via pre-commit)
+uv run nbstripout notebooks/**/*.ipynb
+```
+
+### Testing
+```bash
+# Run all tests
+uv run pytest
+
+# Run tests with coverage
+uv run pytest --cov=hexdag --cov-report=html --cov-report=term-missing
+
+# Run specific test areas
+uv run pytest tests/hexdag/kernel/pipeline_builder/ -x --tb=short  # Pipeline builder tests
+uv run pytest tests/hexdag/kernel/                                 # Kernel tests
+uv run pytest tests/hexdag/stdlib/lib/                             # System lib tests
+
+# Run doctests (tests embedded in docstrings)
+uv run pytest --doctest-modules hexdag/ --ignore=hexdag/cli/
+uv run pytest --doctest-modules hexdag/ --ignore=hexdag/cli/ --doctest-continue-on-failure  # See all failures
+```
+
+### Code Quality
+```bash
+# Run all pre-commit hooks
+uv run pre-commit run --all-files
+
+# Linting and formatting
+uv run ruff check hexdag/ --fix         # Linting with auto-fix
+uv run ruff format hexdag/              # Code formatting
+uv run mypy hexdag/                     # Type checking
+uv run pyright hexdag/                  # Alternative type checker
+uv run bandit -r hexdag                 # Security scanning
+
+# Dependency analysis
+uv run deptry .                        # Unused dependencies
+uv run safety check                    # Vulnerability scanning
+
+# Code quality metrics
+uv run vulture hexdag/ --min-confidence 90    # Dead code detection
+uv run radon cc hexdag/ --min B               # Complexity analysis
+
+# Coverage and testing
+uv run pytest --cov=hexdag --cov-report=html --cov-report=term-missing
+```
+
+### Examples
+```bash
+# Run specific examples
+uv run examples/api_call_node_example.py         # API call nodes
+uv run examples/demo/run_demo_pitch.py           # Demo startup pitch
+uv run examples/libs/run_order_lifecycle.py       # Entity lifecycle
+uv run examples/libs/run_database_agent.py        # Database agent tools
+```
+
+### Utilities
+```bash
+# Check test structure consistency
+uv run scripts/check_test_structure.py
+
+# Check examples functionality
+uv run scripts/check_examples.py
+```
+
+## Architecture Overview
+
+hexDAG is structured like an operating system -- kernel (execution engine), stdlib (built-in components), drivers (infrastructure), and api (user-facing tools):
+
+### Framework Structure
+```
+hexdag/
+├── kernel/                  # Core execution engine (/kernel)
+│   ├── domain/              #   Domain models (DAG, NodeSpec, PipelineRun, etc.)
+│   ├── orchestration/       #   Orchestrator, events, observers
+│   ├── pipeline_builder/    #   YAML pipeline building and compilation
+│   ├── ports/               #   Port interfaces (LLM, DataStore, PipelineSpawner)
+│   ├── validation/          #   Type validation and schema conversion
+│   ├── service.py           #   Service base class + @tool/@step decorators
+│   └── lib_base.py          #   HexDAGLib base class (DEPRECATED → Service)
+├── stdlib/                  # Standard library (/lib)
+│   ├── adapters/            #   Built-in adapters (OpenAI, SQLite, Mock, etc.)
+│   ├── nodes/               #   Node factories (LLMNode, AgentNode, etc.)
+│   ├── macros/              #   Macro components (ReasoningAgent, etc.)
+│   ├── prompts/             #   Prompt templates (tool prompts, etc.)
+│   └── lib/                 #   System libs (ProcessRegistry, EntityState, Scheduler)
+├── drivers/                 # Low-level infrastructure (/drivers)
+│   ├── executors/           #   LocalExecutor (Executor)
+│   ├── observer_manager/    #   LocalObserverManager (ObserverManager)
+│   └── pipeline_spawner/    #   LocalPipelineSpawner (PipelineSpawner)
+├── api/                     # Unified API layer (/usr/bin)
+│   ├── execution.py         #   Pipeline execution
+│   ├── processes.py         #   Process management (9 MCP tools)
+│   └── ...                  #   Components, validation, documentation
+├── docs/                    # Documentation utilities
+└── cli/                     # Command-line interface
+```
+
+### Uniform Entity Pattern
+
+All framework entities follow one pattern: **kernel defines contract, stdlib ships builtins, users write their own.**
+
+| Entity   | Contract (kernel/)          | Builtins (stdlib/)                 | User custom        |
+|----------|----------------------------|------------------------------------|-------------------|
+| Ports    | `kernel/ports/llm.py`      | -                                  | `myapp.ports.X`   |
+| Adapters | `kernel/ports/` (Protocol) | `stdlib/adapters/openai/`          | `myapp.adapters.X`|
+| Nodes    | `stdlib/nodes/base_node_factory.py` | `stdlib/nodes/llm_node.py` | `myapp.nodes.X`   |
+| Macros   | (convention)               | `stdlib/macros/reasoning_agent.py` | `myapp.macros.X`  |
+| Prompts  | (convention)               | `stdlib/prompts/tool_prompts.py`   | `myapp.prompts.X` |
+| Libs *(deprecated)* | `kernel/lib_base.py` | `stdlib/lib/process_registry.py` | `myapp.lib.X` |
+| **Services** | **`kernel/service.py`** | *(stdlib builtins coming soon)* | **`myapp.services.X`** |
+
+### Services
+
+Services are the unified abstraction for port-backed operations.  They replace both `PortCallNode` (deprecated) and `HexDAGLib` (deprecated).
+
+A service wraps one or more ports/adapters behind a stable API. Methods use explicit decorators to declare how they can be invoked:
+
+- `@tool` — available as an agent-callable tool during ReAct reasoning
+- `@step` — available as a deterministic DAG node
+- Both decorators can be stacked on the same method
+
+```python
+from hexdag.kernel.service import Service, tool, step
+
+class OrderService(Service):
+    def __init__(self, store: SupportsKeyValue) -> None:
+        self._store = store
+
+    @tool
+    async def get_order(self, order_id: str) -> dict:
+        """Get order by ID."""
+        return await self._store.aget(f"order:{order_id}")
+
+    @step
+    async def save_order(self, order_id: str, data: dict) -> dict:
+        """Persist an order."""
+        await self._store.aset(f"order:{order_id}", data)
+        return {"saved": True, "order_id": order_id}
+
+    @tool
+    @step
+    async def validate_order(self, order_id: str) -> dict:
+        """Validate — usable as both agent tool and DAG step."""
+        ...
+```
+
+Built-in services (migrating from libs):
+
+- **ProcessRegistry** — tracks pipeline runs (like `ps` in Linux)
+- **EntityState** — declarative state machines for business entities (auto-registered from `spec.state_machines`)
+- **PipelineMemory** — run-scoped key-value store (auto-registered for every pipeline run)
+- **Scheduler** — delayed/recurring pipeline execution (asyncio timers)
+- **DatabaseTools** — agent-callable SQL query tools
+- **VFSTools** — virtual filesystem introspection
+
+### The Six Pillars
+1. **Async-First Architecture** - Non-blocking execution for maximum performance
+2. **Event-Driven Observability** - Real-time monitoring via comprehensive event system
+3. **Pydantic Validation Everywhere** - Type safety at every layer
+4. **Hexagonal Architecture** - Clean separation of business logic and infrastructure
+5. **Composable Declarative Files** - Complex workflows from simple YAML components
+6. **DAG-Based Orchestration** - Intelligent dependency management and parallelization
+
+### Port Naming Convention
+
+Ports follow a two-tier naming scheme inspired by Linux kernel structs:
+
+- **Standalone ports** use plain domain nouns (like Linux structs): `LLM`, `Executor`, `FileStorage`, `DataStore`, `SecretStore`, `Database`
+- **Capability sub-protocols** use the `Supports*` prefix (like struct fields): `SupportsGeneration`, `SupportsKeyValue`, `SupportsQuery`, `SupportsTTL`
+
+**Rule of thumb:** If it answers "what kind of port is this?" use a plain noun. If it answers "can this adapter do X?" use `Supports*`.
+
+**Location:**
+- Port protocols live in `kernel/ports/` (like `include/linux/`)
+- Drivers live in `drivers/` (like `drivers/`)
+
+**Export policy:** `Supports*` protocols are NOT exported from `hexdag/` top-level -- they are only importable from `hexdag.kernel.ports` (e.g., `from hexdag.kernel.ports.data_store import SupportsKeyValue`).
+
+## Key Concepts
+
+### DirectedGraph and NodeSpec
+- `DirectedGraph`: Manages workflow structure and dependencies
+- `NodeSpec`: Defines individual processing steps with type validation
+- DAG validation ensures acyclic execution paths
+
+### Orchestrator
+- Core execution engine that walks DirectedGraphs in topological order
+- Handles concurrent execution using asyncio.gather()
+- Provides comprehensive error handling and event emission
+
+### Node Types
+- `FunctionNode`: Execute Python functions with validation
+- `LLMNode`: Language model interactions with prompt templating
+- `ReActAgentNode`: ReAct pattern agents with tool access
+- `LoopNode`: Iterative processing with custom conditions
+- `ConditionalNode`: Conditional execution paths
+- `TransitionNode`: Entity state transitions (validates against state machine, fires handlers)
+
+### Event System
+- Comprehensive observability through events (NodeStarted, NodeCompleted, NodeFailed, etc.)
+- Entity lifecycle events: `StateTransitionEvent`, `EntityGarbageCollected`, `EntityObligationFailed`, `EntityCompensationEvent`
+- Event-driven memory and monitoring
+- Observer pattern for extensible monitoring
+
+### Validation Framework
+- Multi-strategy validation system supporting Pydantic, type checking, and custom converters
+- Automatic schema compatibility checking between connected nodes
+- Runtime type coercion and validation
+
+### Data Flow Model (n8n-like)
+
+hexDAG uses an **n8n-like data flow model** where upstream node outputs are automatically available to downstream nodes. You don't need to wire every field through `input_mapping` — just reference upstream data directly.
+
+**How it works:**
+- Every node can access upstream node outputs by name: `node_name.field.subfield`
+- `input_mapping` is **optional** — use it only to create short aliases
+- `$input.field` or `input.field` — access the initial pipeline input
+- Dependencies are **auto-inferred** from expressions and input_mapping references
+- Built-in functions like `coalesce()`, `default()`, `isnone()` handle optional fields
+
+**Expression node — reference upstream directly (no mapping needed):**
+```yaml
+- kind: expression_node
+  metadata:
+    name: compute_values
+  spec:
+    expressions:
+      target_pay: "coalesce(get_context.negotiation.snapshot_target_pay, get_context.load.target_pay)"
+      counter_round: "int(default(get_context.negotiation.counter_count, 0)) + 1"
+      rate: "normalize_rates.rate_low"
+    output_fields: [target_pay, counter_round, rate]
+    # No input_mapping needed! No dependencies needed!
+```
+
+**LLM node — template variables from upstream:**
+```yaml
+- kind: llm_node
+  metadata:
+    name: analyze
+  spec:
+    human_message: "Analyze load {{get_context.load.description}} for carrier {{input.carrier_name}}"
+```
+
+**When to still use `input_mapping`:**
+- `step_call` / `function_node` — maps fields to function parameter names
+- Creating short aliases for deeply nested paths used many times in expressions
+
+**Build-time safety:**
+- Expression variable names that collide with node names → **build error**
+- Expression variable names that collide with builtins (`len`, `coalesce`) → **build error**
+- Unknown first path segment (typo) → **build error** with "did you mean?" suggestion
+- Missing deep path at runtime → returns `None` (optional field), not silent failure
+
+# Claude Development Guidelines
+
+## Modern Python 3.12+ Type Hints
+
+This project enforces modern Python 3.12+ type hint syntax and prohibits legacy typing constructs.
+
+### ✅ DO USE (Modern Python 3.12+)
+```python
+# Built-in generics (Python 3.9+)
+def process_items(items: list[str]) -> dict[str, int]: ...
+def get_values() -> set[int]: ...
+def create_mapping() -> dict[str, list[int]]: ...
+
+# Union types with pipe operator (Python 3.10+)
+def parse_value(val: str | int | float) -> str: ...
+def find_user(id: int) -> User | None: ...
+
+# Type alias with 'type' statement (Python 3.12+)
+type UserId = int
+type UserDict = dict[str, User]
+```
+
+### ❌ DON'T USE (Legacy)
+```python
+# OLD: typing module imports
+from typing import Dict, List, Set, Optional, Union
+
+# OLD: Capitalized generic types
+def process_items(items: List[str]) -> Dict[str, int]: ...
+
+# OLD: Union and Optional
+def parse_value(val: Union[str, int, float]) -> str: ...
+def find_user(id: int) -> Optional[User]: ...
+
+# OLD: TypeAlias
+from typing import TypeAlias
+UserId: TypeAlias = int
+```
+
+### Enforcement Tools
+
+#### 1. Pyupgrade
+- **Purpose**: Automatically upgrades Python syntax to use modern patterns
+- **Configuration**: `--py312-plus` flag ensures Python 3.12+ syntax
+- **Pre-commit**: Runs automatically to upgrade legacy type hints
+
+#### 2. Ruff
+- **Purpose**: Fast Python linter that enforces modern type hints
+- **Key Rules**:
+  - `UP006`: Use `list` instead of `List`
+  - `UP007`: Use `X | Y` instead of `Union[X, Y]`
+  - `UP035`: Use `dict` instead of `Dict`
+  - `UP037`: Use `X | None` instead of `Optional[X]`
+  - `UP040`: Use `type` alias syntax instead of `TypeAlias`
+
+## Type Checking
+
+This project uses modern Python 3.12+ type checkers to ensure code quality and type safety:
+
+### Pyright
+- **Description**: Fast, feature-rich type checker developed by Microsoft
+- **Python Support**: Full Python 3.12+ compatibility including latest typing features
+- **Configuration**: Runs in both pre-commit hooks and Azure pipelines
+- **Command**: `uv run pyright ./hexdag`
+- **Key Features**:
+  - Excellent performance and speed
+  - Rich VS Code integration (Pylance)
+  - Comprehensive type inference
+  - Support for advanced typing patterns (TypeVars, Generics, Protocols)
+
+### MyPy
+- **Description**: Standard Python type checker with extensive ecosystem support
+- **Configuration**: Configured with pydantic and types-PyYAML support
+- **Command**: `uv run mypy ./hexdag`
+
+## Running Type Checks
+
+### Local Development
+```bash
+# Run all pre-commit hooks including type checkers
+uv run pre-commit run --all-files
+
+# Run Pyright specifically
+uv run pyright ./hexdag
+
+# Run MyPy specifically
+uv run mypy ./hexdag
+```
+
+### Pre-commit Integration
+Both type checkers automatically run on:
+- Every commit (pre-commit stage)
+- Can be manually triggered with `uv run pre-commit run pyright --all-files`
+
+
+## Type Checking Best Practices
+
+1. **Always add type hints** to function signatures and class attributes
+2. **Use modern typing features** from Python 3.12+ (e.g., `type` statement, improved generics)
+3. **Leverage Pydantic models** for data validation with automatic type inference
+4. **Fix type errors immediately** - don't use `# type: ignore` unless absolutely necessary
+5. **Run type checkers locally** before committing to catch issues early
+
+## Excluded Paths
+The following paths are excluded from type checking:
+- `tests/` - Test files often use dynamic mocking that confuses type checkers
+- `examples/` - Example code may intentionally show various usage patterns
+
+## Troubleshooting
+
+If you encounter type checking issues:
+1. Ensure you're using Python 3.12+: `python --version`
+2. Update dependencies: `uv sync`
+3. Clear pyright cache: `rm -rf .pyright`
+4. Check for conflicting type stubs: `uv pip list | grep types-`
+
+### Branch Naming Convention
+Branch names must match the pattern: `^(ci|dependabot\/pip|docs|experiment|feat|fix|refactor|test)\/[A-Za-z0-9._-]+$`
+
+Examples:
+- `feat/yaml-pipeline-builder`
+- `fix/validation-error-handling`
+- `refactor/orchestrator-performance`
+
+### Testing Approach
+- Unit tests for domain logic
+- Integration tests for orchestrator workflows
+- Mock adapters for external services
+- Example-based testing for user workflows
+
+### Async I/O Enforcement
+
+hexDAG enforces async-first architecture through:
+
+1. **Static Analysis** - `scripts/check_async_io.py` scans for blocking I/O in async functions
+2. **Runtime Warnings** - `hexdag/kernel/utils/async_warnings.py` detects blocking operations at runtime
+
+#### Running the Async I/O Checker
+
+```bash
+# Check entire codebase
+uv run python scripts/check_async_io.py
+
+# Verbose output
+uv run python scripts/check_async_io.py --verbose
+
+# Check specific paths
+uv run python scripts/check_async_io.py hexdag/drivers/
+```
+
+#### Using Runtime Warnings
+
+```python
+from hexdag.kernel.utils.async_warnings import warn_sync_io, warn_if_async
+
+# In async functions
+async def my_function():
+    warn_sync_io("file_open", "Use aiofiles.open()")
+
+# As decorator
+@warn_if_async
+def sync_helper():
+    return open('file.txt').read()
+```
+
+See `docs/async_io_enforcement.md` for complete documentation.
+
+### Error Handling
+- All framework exceptions inherit from `HexDAGError`
+- Use custom exception hierarchies (e.g., `OrchestratorError`, `NodeValidationError`)
+- Maintain error context and node information
+- Event emission for error tracking
+
+## Component Resolution
+
+hexDAG uses a **module path resolver** for component discovery. Components (nodes, adapters, tools) are referenced by their full Python module path.
+
+### How It Works
+
+```python
+from hexdag.kernel.resolver import resolve
+
+# Resolve a node class
+LLMNode = resolve("hexdag.stdlib.nodes.LLMNode")
+
+# Resolve an adapter class
+MockLLM = resolve("hexdag.stdlib.adapters.mock.MockLLM")
+
+# Resolve a custom component
+MyNode = resolve("myapp.nodes.MyNode")
+```
+
+### Using in YAML Pipelines
+
+Components are referenced by module path in YAML:
+
+```yaml
+apiVersion: hexdag/v1
+kind: Pipeline
+metadata:
+  name: my-pipeline
+spec:
+  ports:
+    llm:
+      adapter: hexdag.stdlib.adapters.openai.OpenAIAdapter
+      config:
+        model: gpt-4
+  nodes:
+    - kind: hexdag.stdlib.nodes.LLMNode
+      metadata:
+        name: analyzer
+      spec:
+        prompt_template: "Analyze: {{input}}"
+```
+
+### Built-in Aliases
+
+For convenience, built-in nodes have short aliases:
+
+```yaml
+# These are equivalent:
+- kind: llm_node                           # Short alias
+- kind: hexdag.stdlib.nodes.LLMNode       # Full path
+```
+
+Available aliases: `llm_node`, `function_node`, `agent_node`, `loop_node`, `conditional_node`, `transition`
+
+### Creating Custom Components
+
+**Adapters** implement port interfaces:
+
+```python
+from hexdag.kernel.ports.llm import LLM
+
+class MyLLMAdapter(LLM):
+    def __init__(self, model: str = "gpt-4", api_key: str | None = None):
+        self.model = model
+        self.api_key = api_key
+
+    async def aresponse(self, messages: list[dict]) -> str:
+        # Your implementation
+        ...
+```
+
+**Nodes** extend BaseNodeFactory:
+
+```python
+from hexdag.stdlib.nodes import BaseNodeFactory
+from hexdag.kernel.domain import NodeSpec
+
+class MyNode(BaseNodeFactory):
+    def __call__(self, name: str, config: dict, **kwargs) -> NodeSpec:
+        async def process(inputs: dict, context):
+            return {"result": "processed"}
+
+        return NodeSpec(id=name, fn=process)
+```
+
+**Services** extend Service (use `@tool` / `@step` decorators):
+
+```python
+from hexdag.kernel.service import Service, tool, step
+from hexdag.kernel.ports.data_store import SupportsKeyValue
+
+class OrderService(Service):
+    def __init__(self, store: SupportsKeyValue) -> None:
+        self._store = store
+
+    @tool
+    async def get_order(self, order_id: str) -> dict:
+        """Get order by ID. Agent-callable tool."""
+        ...
+
+    @step
+    async def save_order(self, order_id: str, data: dict) -> dict:
+        """Persist an order. Deterministic DAG step."""
+        ...
+
+    @tool
+    @step
+    async def validate_order(self, order_id: str) -> dict:
+        """Both agent tool and DAG step."""
+        ...
+```
+
+**Tools** are plain functions with type hints:
+
+```python
+def search_database(query: str, limit: int = 10) -> list[dict]:
+    """Search the database for matching records.
+
+    Args:
+        query: Search query string
+        limit: Maximum number of results
+
+    Returns:
+        List of matching records
+    """
+    # Your implementation
+    return results
+```
+
+### Explicit `__init__` Parameters (Convention)
+
+**IMPORTANT:** All adapter/component `__init__` methods MUST use **explicit typed parameters** instead of `**kwargs` for configuration. This enables automatic schema generation via `SchemaGenerator`.
+
+**Why this matters:**
+- `SchemaGenerator.from_callable()` introspects `__init__` signatures to generate JSON Schema
+- Studio UI, MCP server, and API all use these schemas to show configuration options
+- `**kwargs`-only signatures result in **empty schemas** - users can't see what options exist
+
+**✅ CORRECT - Explicit parameters:**
+```python
+class MockLLM(LLM):
+    def __init__(
+        self,
+        responses: str | list[str] | None = None,
+        delay_seconds: float = 0.0,
+        mock_tool_calls: list[dict[str, Any]] | None = None,
+        **kwargs: Any,  # Keep for forward compatibility
+    ) -> None:
+        self.responses = responses or ['{"result": "Mock response"}']
+        self.delay_seconds = delay_seconds
+        self.mock_tool_calls = mock_tool_calls
+```
+
+**❌ WRONG - kwargs-only (generates empty schema):**
+```python
+class MockLLM(LLM):
+    def __init__(self, **kwargs: Any) -> None:
+        # SchemaGenerator can't see these options!
+        self.responses = kwargs.get("responses", ['{"result": "Mock"}'])
+        self.delay_seconds = kwargs.get("delay_seconds", 0.0)
+```
+
+## Working with YAML Pipelines
+
+YAML pipelines are built using `YamlPipelineBuilder` in `hexdag/kernel/pipeline_builder/`:
+
+```yaml
+name: example_workflow
+description: AI-powered workflow
+
+nodes:
+  - type: agent
+    id: researcher
+    params:
+      initial_prompt_template: "Research: {{topic}}"
+      max_steps: 5
+    depends_on: []
+
+  - type: llm
+    id: analyzer
+    params:
+      prompt_template: "Analyze: {{researcher.results}}"
+    depends_on: [researcher]
+```
+
+Key components:
+- **Node Types**: agent, llm, function, conditional, loop
+- **Dependencies**: Explicit via `depends_on` array
+- **Parameters**: Node-specific configuration
+- **Template System**: Jinja2-style templating for dynamic content
+- **Libs**: System libraries whose methods auto-become agent tools (ProcessRegistry, EntityState, Scheduler)
+
+### Function Nodes with Module Path Strings
+
+Function nodes support fully declarative function references using module path strings:
+
+```yaml
+apiVersion: hexdag/v1
+kind: Pipeline
+metadata:
+  name: data-processing
+spec:
+  nodes:
+    # Standard library functions
+    - kind: function_node
+      metadata:
+        name: json_parser
+      spec:
+        fn: "json.loads"  # Module path string - no imports needed!
+      dependencies: []
+
+    # Your custom business logic
+    - kind: function_node
+      metadata:
+        name: process_order
+      spec:
+        fn: "myapp.business.process_order"
+        input_schema:
+          order_id: str
+          customer_id: str
+        output_schema:
+          status: str
+          total: float
+      dependencies: [json_parser]
+
+    # Third-party packages
+    - kind: function_node
+      metadata:
+        name: data_transform
+      spec:
+        fn: "pandas.DataFrame.from_dict"
+      dependencies: [process_order]
+```
+
+**Benefits:**
+- **100% Declarative** - No Python imports in YAML files
+- **Git-Friendly** - Pure YAML configurations version-controlled
+- **Clear Error Messages** - Validation at build time with descriptive errors
+- **Universal** - Works with stdlib, third-party packages, and custom code
+
+See [docs/reference/nodes.md](docs/reference/nodes.md#function_node) for complete documentation.
+
+## Entity Lifecycle
+
+hexDAG supports declarative entity lifecycle management. State machines can be declared in YAML at both the pipeline level and the system level.
+
+### Pipeline-Level State Machines
+
+For single-pipeline entities, declare state machines inline:
+
+```yaml
+kind: Pipeline
+spec:
+  state_machines:
+    document:
+      initial: RECEIVED
+      transitions:
+        RECEIVED: [CLASSIFIED, REJECTED]
+        CLASSIFIED: [EXTRACTED, REJECTED]
+        EXTRACTED: [VALIDATED]
+        VALIDATED: [FILED]
+  nodes:
+    - kind: transition
+      metadata:
+        name: mark_classified
+      spec:
+        entity: document
+        entity_id: $input.doc_id
+        to_state: CLASSIFIED
+```
+
+### Lifecycle-Aware Systems
+
+For multi-pipeline entities, declare state machines at the system level. Transitions trigger processes:
+
+```yaml
+kind: System
+spec:
+  state_machines:
+    ticket:
+      initial: OPEN
+      transitions:
+        OPEN: [INVESTIGATING, ESCALATED, CLOSED]
+        INVESTIGATING: [RESOLVED, ESCALATED]
+        RESOLVED: [CLOSED, REOPENED]
+      handlers:
+        on_transition: myapp.hooks.TicketTransitionHandler
+
+  states:
+    INVESTIGATING:
+      on_enter: ticket-investigate
+    CLOSED:
+      terminal: true
+      requires: [resolution_summary]
+
+  processes:
+    - name: ticket-investigate
+      pipeline: pipelines/ticket-investigate.yaml
+```
+
+### Key Concepts
+
+- **TransitionNode** (`kind: transition`): Built-in node for entity state transitions. Validates against the state machine, fires handlers, emits `StateTransitionEvent`.
+- **Transition Handlers**: Declared on state machines via `handlers.on_transition`. Handler failure = transition failure (transactional). Used for persistence and side effects.
+- **Agent Tool Scoping**: Agent nodes declare `entities: [ticket]` to opt into state machine tools. Agents without `entities` get no state machine tools.
+- **PipelineMemory**: Auto-registered run-scoped key-value store. Accessible via `memory('key')` in expressions or `get_pipeline_memory()` in code.
+- **LifecycleRunner**: Event-driven runner for lifecycle-aware Systems. Per-entity tracking, transition guards, cascade depth limits, terminal state GC.
+- **Safe Path Modifiers**: `field | required` (error on None), `field | default('x')` (fallback on None).
+- **Critical Nodes**: `critical: true` on a node means if the node is skipped, the pipeline fails.
+- **Required Inputs**: `required_inputs: [field1, field2]` validates inputs are non-None before execution.
+
+### Ports
+
+- **`SupportsSessionFactory`**: Per-step session factory for saga-safe database access. Each `@step` gets its own session.
+
+## External Dependencies
+
+The framework integrates with external services through ports:
+- **LLM Port**: Language model interactions (OpenAI, Anthropic, etc.)
+- **DataStore Port**: Unified data access (`SupportsKeyValue`, `SupportsQuery`, `SupportsTTL`, `SupportsSchema`, `SupportsTransactions`)
+- **PipelineSpawner Port**: Fork/exec for child pipelines
+- **Tool Router**: Function calling and tool execution
+
+Use mock adapters in `hexdag/stdlib/adapters/mock/` for development and testing.
+
+## YAML-First Philosophy
+
+hexDAG emphasizes a **declarative, YAML-first approach** to workflow orchestration:
+
+### Why YAML-First?
+
+1. **Declarative** - Describe what you want, not how to build it
+2. **Version Control** - Git-friendly, reviewable configurations
+3. **Team Collaboration** - Non-developers can read and modify workflows
+4. **Environment Management** - Easy dev/staging/prod configurations
+5. **Infrastructure as Code** - Deploy workflows like infrastructure
+6. **Testable** - Validate YAML before execution
+7. **Maintainable** - Change workflows without code changes
+
+### YAML-First Development
+
+When creating examples or documentation:
+- ✅ **START with YAML** - Show YAML pipeline definition first
+- ✅ **Python API is secondary** - Only show for advanced use cases
+- ✅ **Emphasize declarative benefits** - Version control, collaboration, maintainability
+- ✅ **Save to .yaml files** - Show file-based workflow management
+- ✅ **Environment configs** - Demonstrate dev/staging/prod patterns
+- ❌ **Avoid Python-first** - Don't start with DirectedGraph code unless necessary
+
+### Example Structure
+
+```python
+# ✅ GOOD - YAML-first approach
+pipeline_yaml = """
+apiVersion: hexdag/v1
+kind: Pipeline
+metadata:
+  name: my-workflow
+spec:
+  nodes:
+    - type: llm
+      id: analyzer
+      # ... config
+"""
+pipeline = YamlPipelineBuilder().build_from_string(pipeline_yaml)
+
+# ❌ AVOID - Python-first approach (unless teaching internals)
+graph = DirectedGraph()
+graph.add_node(NodeSpec(id="analyzer", ...))
+```
+
+## Notebook Development Guidelines
+
+hexDAG uses Jupyter notebooks for **interactive documentation and real-world use cases**.
+
+### Notebook Structure
+
+All notebooks follow this structure:
+
+```
+notebooks/
+├── 01_getting_started/       # YAML-first tutorials
+├── 02_real_world_use_cases/  # Production-ready examples
+└── 03_advanced_patterns/     # Enterprise patterns
+```
+
+### Writing Notebooks
+
+**✅ DO:**
+- Focus on **real-world business problems** with clear value
+- Use **YAML pipelines** as the primary interface
+- Include **comprehensive markdown** explaining concepts
+- Ensure **end-to-end execution** without errors
+- Use **mock adapters** to avoid external dependencies
+- Add **visualizations** (DAG graphs, metrics, results)
+- Follow the **standard structure** (Overview → Problem → Solution → Implementation → Analysis → Extensions)
+- **Strip outputs** before committing (automatic via pre-commit)
+
+**❌ DON'T:**
+- Create simple code examples (use integration tests instead)
+- Require external API keys when avoidable
+- Leave outputs in committed notebooks
+- Skip documentation in markdown cells
+- Focus on Python API over YAML
+
+### Notebook Categories
+
+1. **Getting Started (01/)** - YAML-first onboarding
+   - Introduction to YAML pipelines
+   - Component overview
+   - Validation and type safety
+
+2. **Real-World Use Cases (02/)** - Production scenarios
+   - Customer support automation
+   - Document intelligence
+   - Research assistants
+   - Data pipeline orchestration
+   - Code analysis and review
+
+3. **Advanced Patterns (03/)** - Enterprise techniques
+   - Multi-agent collaboration (YAML)
+   - Dynamic workflows (YAML)
+   - Production deployment patterns (YAML)
+   - Performance optimization
+   - Observability and monitoring
+
+### Notebook Quality Standards
+
+- **Validation**: Execute without errors via `scripts/check_notebooks.py`
+- **Formatting**: Auto-formatted via `nbqa-ruff` and `nbqa-pyupgrade`
+- **Outputs**: Stripped via `nbstripout` (pre-commit hook)
+- **CI/CD**: Executed in Azure pipelines to ensure freshness
+- **Structure**: Follow nbformat 4.4 specification
+
+### Creating New Notebooks
+
+```bash
+# Create notebook
+jupyter notebook notebooks/02_real_world_use_cases/new_use_case.ipynb
+
+# Validate
+uv run python scripts/check_notebooks.py
+
+# Format
+uv run nbqa ruff notebooks/ --fix
+
+# Commit (outputs automatically stripped)
+git add notebooks/
+git commit -m "docs: Add new use case notebook"
+```
+
+---
+> Source: [omniviser/hexDAG](https://github.com/omniviser/hexDAG) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
