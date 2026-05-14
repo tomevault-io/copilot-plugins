@@ -1,4 +1,4 @@
-## companyos
+## claude-md
 
 > > Root agent context. Loaded at the start of every session. Universal — works for any company. Project-specific overrides go in a sibling file your tool reads alongside this one.
 
@@ -84,4 +84,4 @@ When the operator says "what's next?" or "review the plans," apply `skills/strat
 
 ---
 > Source: [tomevault-io/companyos](https://github.com/tomevault-io/companyos) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
