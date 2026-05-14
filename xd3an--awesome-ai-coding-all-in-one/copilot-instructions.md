@@ -1,56 +1,264 @@
-## harmony-arkts
+## hol-hedera-typescript-cursorrules-prompt-file
 
-> HarmonyOS ArkTS rules for components, state, resources, layout, lifecycle, and accessibility
+> Cursor rules for Hashgraph Online development with TypeScript, building AI agents on Hedera with RegistryBrokerClient.
 
+# Hashgraph Online (HOL) Development Rules
 
-# HarmonyOS ArkTS Rules
+You are an expert TypeScript developer building applications with Hashgraph Online (HOL) - the open-source SDK for AI agents and decentralized applications on Hedera.
 
-## Component Structure
+## Technology Stack
 
-- Use `@Component` for component definitions and PascalCase for component structs.
-- Keep state declarations near the top of the component.
-- Group lifecycle hooks before `build()`.
-- Place `build()` last and keep it focused on UI composition.
-- Extract complex UI into smaller components.
+**Core:**
+- Language: TypeScript (strict mode)
+- Runtime: Node.js 20+
+- Package Manager: pnpm
+- Testing: Jest with @swc/jest
 
-## State and Data Flow
+**HOL SDK:**
+- @hashgraphonline/standards-sdk - Core SDK for HCS standards and Registry Broker
+- @hol-org/hashnet-mcp - MCP server for AI agent integration
 
-- Use `@State` for component-owned state.
-- Use `@Prop` for parent-to-child data.
-- Use `@Link` only for intentional two-way binding.
-- Keep derived values in methods or computed helpers rather than duplicating state.
-- Avoid broad global state unless the project has an established app-state pattern.
+**Frontend (when applicable):**
+- Framework: Next.js 14+ (App Router)
+- UI: shadcn/ui + Tailwind CSS
+- Icons: react-icons (Lucide preferred)
 
-## Layout and Styling
+## Coding Standards
 
-- Use `Column`, `Row`, `Stack`, `List`, and other ArkUI primitives intentionally.
-- Keep layout properties such as width, height, alignment, and layout weight grouped before visual properties.
-- Use object notation for margin and padding when sides differ.
-- Use logical pixels consistently.
-- Use percentage strings for relative sizes.
-- Keep reusable spacing, colors, and typography in resources when the project supports it.
+### TypeScript Requirements
+- NEVER use `any` - define proper interfaces
+- NEVER use `as any` casting - use type guards
+- ALWAYS define explicit return types
+- ALWAYS use generics for flexible code
+- Validate external data with type guards or zod
 
-## Events and Lifecycle
+### File Naming
+- Use kebab-case: `registry-client.ts`, `topic-manager.ts`
+- Test files: `__tests__/registry-client.test.ts`
+- Components: `registry-browser.tsx`
 
-- Use arrow functions for event handlers.
-- Keep event handlers short and delegate complex logic to methods.
-- Handle async failures explicitly and surface user-facing errors where appropriate.
-- Use lifecycle hooks for setup and teardown that genuinely depends on component lifecycle.
+### Code Style
+- Max 500 lines per file - split larger files
+- No nested ternaries
+- No inline comments - use JSDoc only
+- No console.log - use Logger from standards-sdk
+- Prettier formatting required
 
-## Resources and Accessibility
+### React Patterns (when applicable)
+- NO render functions like `renderContent()`
+- NO inline callbacks in JSX
+- NO hooks in loops/conditionals
+- ALWAYS use separate child components
+- ALWAYS define Props interfaces
 
-- Use `$r()` for app resources.
-- Group resource references consistently.
-- Add descriptive labels and focus handling for interactive elements.
-- Maintain color contrast and touch target size.
-- Test on representative device sizes and orientations.
+## HOL SDK Usage
 
-## Common Mistakes
+### RegistryBrokerClient - Initialization
+```typescript
+import { RegistryBrokerClient } from '@hashgraphonline/standards-sdk';
 
-- Do not bury business logic in `build()`.
-- Do not use two-way binding when one-way props are enough.
-- Do not hardcode repeated strings, colors, and dimensions that belong in resources.
-- Do not leave debug `console.log` calls in production code.
+const client = new RegistryBrokerClient({
+  baseUrl: 'https://api.hol.org',
+  apiKey: process.env.HOL_API_KEY,
+});
+```
+
+### RegistryBrokerClient - Search Agents
+```typescript
+import { RegistryBrokerClient, SearchParams, Logger } from '@hashgraphonline/standards-sdk';
+
+const logger = new Logger({ module: 'AgentSearch', level: 'info' });
+const client = new RegistryBrokerClient();
+
+const searchParams: SearchParams = {
+  q: 'weather',
+  registry: 'hcs-10',
+  limit: 10,
+  page: 1,
+};
+
+const results = await client.search(searchParams);
+logger.info('Search completed', { total: results.total });
+results.hits.forEach(agent => {
+  logger.debug('Agent found', { name: agent.name, description: agent.description });
+});
+```
+
+### RegistryBrokerClient - Resolve Agent (UAID)
+```typescript
+import { RegistryBrokerClient, Logger } from '@hashgraphonline/standards-sdk';
+
+const client = new RegistryBrokerClient();
+const logger = new Logger({ module: 'AgentResolver', level: 'info' });
+
+const agent = await client.resolveUaid('hcs10://0.0.123456/agent-name');
+logger.info('Agent resolved', { 
+  name: agent.name, 
+  protocols: agent.protocols, 
+  capabilities: agent.capabilities 
+});
+```
+
+### RegistryBrokerClient - Register Agent
+```typescript
+import { RegistryBrokerClient, AgentRegistrationRequest, Logger } from '@hashgraphonline/standards-sdk';
+
+const client = new RegistryBrokerClient();
+const logger = new Logger({ module: 'AgentRegistration', level: 'info' });
+
+const registration: AgentRegistrationRequest = {
+  name: 'My Agent',
+  description: 'A helpful AI agent',
+  protocols: ['hcs-10'],
+  capabilities: ['chat', 'search'],
+  endpoint: 'https://my-agent.example.com',
+};
+
+const response = await client.registerAgent(registration, {
+  autoTopUp: {
+    accountId: process.env.HEDERA_OPERATOR_ID!,
+    privateKey: process.env.HEDERA_OPERATOR_KEY!,
+  },
+});
+
+if (response.success) {
+  logger.info('Agent registered', { uaid: response.uaid });
+}
+```
+
+### RegistryBrokerClient - Chat with Agent
+```typescript
+import { RegistryBrokerClient, StartChatOptions, Logger } from '@hashgraphonline/standards-sdk';
+
+const client = new RegistryBrokerClient();
+const logger = new Logger({ module: 'AgentChat', level: 'info' });
+
+const options: StartChatOptions = {
+  uaid: 'hcs10://0.0.123456/agent-name',
+  auth: {
+    accountId: process.env.HEDERA_OPERATOR_ID!,
+    privateKey: process.env.HEDERA_OPERATOR_KEY!,
+  },
+};
+
+const conversation = await client.chat.start(options);
+
+const response = await conversation.send({
+  plaintext: 'Hello, can you help me?',
+});
+
+logger.info('Agent response received', { sessionId: conversation.sessionId });
+```
+
+### RegistryBrokerClient - Get Stats
+```typescript
+import { RegistryBrokerClient, Logger } from '@hashgraphonline/standards-sdk';
+
+const client = new RegistryBrokerClient();
+const logger = new Logger({ module: 'RegistryStats', level: 'info' });
+
+const stats = await client.stats();
+logger.info('Registry stats', { totalAgents: stats.totalAgents, protocols: stats.protocols });
+
+const registries = await client.registries();
+registries.forEach(r => logger.debug('Registry', { name: r.name }));
+```
+
+### RegistryBrokerClient - Vector Search
+```typescript
+import { RegistryBrokerClient, VectorSearchRequest, Logger } from '@hashgraphonline/standards-sdk';
+
+const client = new RegistryBrokerClient();
+const logger = new Logger({ module: 'VectorSearch', level: 'info' });
+
+const request: VectorSearchRequest = {
+  query: 'find me an agent that can help with weather forecasts',
+  limit: 5,
+  filter: {
+    registry: 'hcs-10',
+    protocols: ['a2a'],
+  },
+};
+
+const results = await client.vectorSearch(request);
+results.hits.forEach(hit => {
+  logger.info('Match found', { name: hit.agent.name, score: hit.score });
+});
+```
+
+## Testing Requirements
+
+### TDD Workflow
+1. RED: Write failing tests first
+2. GREEN: Implement minimum code to pass
+3. REFACTOR: Improve while keeping tests green
+
+### Test Structure
+```typescript
+describe('RegistryBrokerClient', () => {
+  let client: RegistryBrokerClient;
+
+  beforeEach(() => {
+    client = new RegistryBrokerClient();
+  });
+
+  describe('search', () => {
+    it('should return agents matching query', async () => {
+      const result = await client.search({ q: 'test' });
+      
+      expect(result.hits).toBeDefined();
+      expect(Array.isArray(result.hits)).toBe(true);
+    });
+  });
+
+  describe('resolveUaid', () => {
+    it('should resolve valid UAID', async () => {
+      const agent = await client.resolveUaid('hcs10://0.0.123456/test');
+      
+      expect(agent.name).toBeDefined();
+    });
+  });
+});
+```
+
+### Test Commands
+```bash
+pnpm test                    # Run all tests
+pnpm test -- --watch         # Watch mode
+pnpm test -- --coverage      # Coverage report
+pnpm test -- -t "pattern"    # Run specific tests
+```
+
+## Validation Checklist
+
+Before completing any task:
+1. `pnpm run lint` - Zero violations
+2. `pnpm run typecheck` - Zero errors  
+3. `pnpm run build` - Must compile
+4. `pnpm test` - All tests pass
+
+## Environment Configuration
+
+```typescript
+import 'dotenv/config';
+
+const config = {
+  baseUrl: process.env.HOL_API_URL || 'https://api.hol.org',
+  apiKey: process.env.HOL_API_KEY,
+  network: process.env.HEDERA_NETWORK || 'testnet',
+  operatorId: process.env.HEDERA_OPERATOR_ID,
+  operatorKey: process.env.HEDERA_OPERATOR_KEY,
+};
+```
+
+## Resources
+
+- HOL Website: https://hol.org
+- HOL Registry: https://hol.org/registry
+- SDK Docs: https://hol.org/docs/libraries/standards-sdk/overview/
+- Registry Broker Client: https://hol.org/docs/libraries/standards-sdk/registry-broker-client/
+- GitHub: https://github.com/hashgraph-online
+- NPM: @hashgraphonline/standards-sdk
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
