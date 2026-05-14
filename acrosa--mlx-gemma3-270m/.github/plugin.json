@@ -1,0 +1,9 @@
+{
+  "name": "acrosa--mlx-gemma3-270m",
+  "displayName": "mlx-gemma3-270m",
+  "description": "MLX scripts for fine-tunning the gemma3 270m local model",
+  "version": "1.0.0",
+  "author": "acrosa",
+  "homepage": "https://github.com/acrosa/mlx-gemma3-270m",
+  "skills": []
+}
