@@ -7,11 +7,11 @@ A modern Craft CMS starter kit for agencies and developers — featuring Vite, T
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [handplant/craftcms-lazy-starter-kit](https://github.com/handplant/craftcms-lazy-starter-kit).
+Original source: `CLAUDE.md` in [handplant/craftcms-lazy-starter-kit](https://github.com/handplant/craftcms-lazy-starter-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
