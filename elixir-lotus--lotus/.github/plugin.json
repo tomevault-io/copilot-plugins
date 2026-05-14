@@ -1,0 +1,9 @@
+{
+  "name": "elixir-lotus--lotus",
+  "displayName": "lotus",
+  "description": "Embeddable business intelligence engine for Elixir \u2014 SQL editor, dashboards, charts, and AI query generation that mount directly in   your Phoenix app.",
+  "version": "1.0.0",
+  "author": "elixir-lotus",
+  "homepage": "https://github.com/elixir-lotus/lotus",
+  "skills": []
+}
