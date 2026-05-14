@@ -4,7 +4,7 @@
   "repo": "synclaude",
   "description": "Interactive model selection tool for Claude Code with Synthetic AI models",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/parnexcodes/synclaude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:37:27Z"
+  "distributed_at": "2026-05-14T03:35:08Z"
 }
