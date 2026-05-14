@@ -1,0 +1,9 @@
+{
+  "name": "diffplug--gitcasso",
+  "displayName": "gitcasso",
+  "description": "Syntax highlighting for the GitHub issue/pr editor. Also, never lose a draft comment again!",
+  "version": "1.0.0",
+  "author": "diffplug",
+  "homepage": "https://github.com/diffplug/gitcasso",
+  "skills": []
+}
