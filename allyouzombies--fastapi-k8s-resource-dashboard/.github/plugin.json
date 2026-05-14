@@ -1,0 +1,9 @@
+{
+  "name": "allyouzombies--fastapi-k8s-resource-dashboard",
+  "displayName": "fastapi-k8s-resource-dashboard",
+  "description": "Kubernetes resource utilization monitoring & dashboard",
+  "version": "1.0.0",
+  "author": "AllYouZombies",
+  "homepage": "https://github.com/AllYouZombies/fastapi-k8s-resource-dashboard",
+  "skills": []
+}
