@@ -1,323 +1,199 @@
-## test-coverage-requirements
+## test-quality-validation
 
-> Enforces comprehensive test coverage requirements and validation standards
+> Validates test quality and prevents testing theater anti-patterns in Rust test files
 
 
-# Test Coverage Requirements and Validation
+# Test Quality Validation Rules
 
-## Mandatory Coverage Standards
+## Mandatory Test Quality Checks
 
-### ❌ Coverage Failures That Led to Testing Gaps
+### ❌ Prohibited "Testing Theater" Patterns
 
-**The codeprism-mcp-server testing gap (6 tests vs 80+ needed) occurred because:**
-
-1. **No systematic coverage planning** - Ad hoc test writing instead of comprehensive planning
-2. **No comparison to reference implementation** - Failed to study comprehensive testing patterns  
-3. **No coverage validation** - No enforcement of minimum coverage thresholds
-4. **Scope limitation** - Testing individual functions instead of entire system functionality
-
-### ✅ Required Coverage Standards
-
-**Minimum coverage targets for comprehensive testing:**
-
-| **Coverage Type** | **Target** | **Validation Method** | **Reference** |
-|-------------------|------------|----------------------|---------------|
-| **Overall Test Coverage** | **90%+** | `cargo tarpaulin --min 90` | [codeprism-mcp-server: comprehensive coverage](mdc:crates/codeprism-mcp-server/src/) |
-| **Tool-Specific Tests** | **100%** (26/26 tools) | Individual test per tool | [Tool test patterns](mdc:crates/codeprism-mcp-server/src/server.rs) |
-| **Error Handling Tests** | **100%** of error paths | Error scenario coverage | [Error test examples](mdc:crates/codeprism-mcp-server/src/integration_test.rs) |
-| **Integration Tests** | **80%** of workflows | End-to-end validation | [Integration patterns](mdc:tests/test_mcp_test_harness_end_to_end.rs) |
-| **Edge Case Tests** | **75%** of boundaries | Boundary condition testing | [Edge case patterns](mdc:crates/codeprism-mcp-server/src/server.rs) |
-
-## Coverage Validation Requirements
-
-### Pre-Commit Coverage Checks
-
-**MANDATORY: Run before every commit**
-
-```bash
-#!/bin/bash
-# .git/hooks/pre-commit
-
-set -e
-
-echo "🔍 Validating test coverage requirements..."
-
-# 1. Check total test count (must match reference implementation)
-CURRENT_TESTS=$(grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-REFERENCE_TESTS=80  # Based on comprehensive testing analysis
-MIN_REQUIRED_TESTS=76
-
-if [ "$CURRENT_TESTS" -lt "$MIN_REQUIRED_TESTS" ]; then
-    echo "❌ COVERAGE FAILURE: Only $CURRENT_TESTS tests found, need $MIN_REQUIRED_TESTS+"
-    echo "   Reference implementation has $REFERENCE_TESTS tests"
-    echo "   Add missing tests before committing"
-    exit 1
-fi
-
-# 2. Check tool-specific coverage (all 26 tools must have tests)
-TOOLS_WITH_TESTS=$(grep -r "test_.*_tool\|test_provide_guidance\|test_optimize_code\|test_analyze_" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-REQUIRED_TOOL_TESTS=26
-
-if [ "$TOOLS_WITH_TESTS" -lt "$REQUIRED_TOOL_TESTS" ]; then
-    echo "❌ TOOL COVERAGE FAILURE: Only $TOOLS_WITH_TESTS/26 tools have tests"
-    echo "   Every tool needs individual test coverage"
-    exit 1
-fi
-
-# 3. Check error handling coverage
-ERROR_TESTS=$(grep -r "test_.*_error\|test_.*_invalid\|test_.*_missing" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-MIN_ERROR_TESTS=20
-
-if [ "$ERROR_TESTS" -lt "$MIN_ERROR_TESTS" ]; then
-    echo "❌ ERROR COVERAGE FAILURE: Only $ERROR_TESTS error tests found, need $MIN_ERROR_TESTS+"
-    echo "   Add comprehensive error scenario testing"
-    exit 1
-fi
-
-# 4. Check integration test coverage
-INTEGRATION_TESTS=$(grep -r "test_.*_integration\|test_.*_workflow\|test_full_" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-MIN_INTEGRATION_TESTS=10
-
-if [ "$INTEGRATION_TESTS" -lt "$MIN_INTEGRATION_TESTS" ]; then
-    echo "❌ INTEGRATION COVERAGE FAILURE: Only $INTEGRATION_TESTS integration tests found, need $MIN_INTEGRATION_TESTS+"
-    echo "   Add end-to-end workflow testing"
-    exit 1
-fi
-
-# 5. Check code coverage percentage
-if command -v cargo-tarpaulin >/dev/null 2>&1; then
-    COVERAGE=$(cargo tarpaulin --skip-clean --out xml 2>/dev/null | grep -oP '(?<=line-rate=")[^"]*' | head -1 | awk '{print $1*100}')
-    MIN_COVERAGE=90
-    
-    if (( $(echo "$COVERAGE < $MIN_COVERAGE" | bc -l) )); then
-        echo "❌ CODE COVERAGE FAILURE: ${COVERAGE}% coverage, need ${MIN_COVERAGE}%+"
-        echo "   Add tests to cover untested code paths"
-        exit 1
-    fi
-    
-    echo "✅ Code coverage: ${COVERAGE}%"
-fi
-
-echo "✅ All coverage requirements met:"
-echo "   - Total tests: $CURRENT_TESTS (≥$MIN_REQUIRED_TESTS required)"
-echo "   - Tool tests: $TOOLS_WITH_TESTS/26 tools covered"
-echo "   - Error tests: $ERROR_TESTS (≥$MIN_ERROR_TESTS required)"  
-echo "   - Integration tests: $INTEGRATION_TESTS (≥$MIN_INTEGRATION_TESTS required)"
-```
-
-### Coverage Reporting
-
-**REQUIRED: Generate comprehensive coverage reports**
-
-```bash
-# Generate detailed coverage report
-cargo tarpaulin \
-    --out Html --out Xml \
-    --exclude-files "target/*" \
-    --exclude-files "tests/*" \
-    --fail-under 90 \
-    --timeout 300
-
-# Validate coverage against requirements
-python3 << 'EOF'
-import xml.etree.ElementTree as ET
-
-# Parse coverage XML
-tree = ET.parse('tarpaulin-report.xml')
-root = tree.getroot()
-
-# Extract coverage metrics
-line_coverage = float(root.attrib.get('line-rate', 0)) * 100
-branch_coverage = float(root.attrib.get('branch-rate', 0)) * 100
-
-# Validate against requirements
-print(f"Line Coverage: {line_coverage:.1f}%")
-print(f"Branch Coverage: {branch_coverage:.1f}%")
-
-if line_coverage < 90:
-    print(f"❌ Line coverage {line_coverage:.1f}% below required 90%")
-    exit(1)
-
-if branch_coverage < 80:
-    print(f"❌ Branch coverage {branch_coverage:.1f}% below required 80%")
-    exit(1)
-
-print("✅ Coverage requirements satisfied")
-EOF
-```
-
-## Test Quality Validation
-
-### Functional Coverage Requirements
-
-**VERIFY: Tests actually validate functionality**
-
-```bash
-# Check that tests call actual functions (not just test data)
-FUNCTION_CALLS=$(grep -r "call_tool\|\.analyze_\|\.trace_\|\.search_\|\.find_" crates/codeprism-mcp-server/src/ --include="*test*.rs" | wc -l)
-MIN_FUNCTION_CALLS=50
-
-if [ "$FUNCTION_CALLS" -lt "$MIN_FUNCTION_CALLS" ]; then
-    echo "❌ FUNCTIONAL COVERAGE FAILURE: Only $FUNCTION_CALLS function calls in tests"
-    echo "   Tests should actually call the functions they're testing"
-    exit 1
-fi
-
-# Check for testing theater patterns
-THEATER_PATTERNS=$(grep -r "assert.*contains.*" crates/codeprism-mcp-server/src/ --include="*test*.rs" | grep -v "// ✅" | wc -l)
-
-if [ "$THEATER_PATTERNS" -gt "0" ]; then
-    echo "❌ TESTING THEATER DETECTED: $THEATER_PATTERNS instances found"
-    echo "   Tests should validate functionality, not just string content"
-    grep -r "assert.*contains.*" crates/codeprism-mcp-server/src/ --include="*test*.rs" | grep -v "// ✅"
-    exit 1
-fi
-```
-
-### Performance Coverage Requirements
-
-**MEASURE: Performance characteristics in tests**
-
+**NEVER write tests that:**
 ```rust
-// REQUIRED: Performance validation in tests
+// ❌ BAD: Only test string content without functionality
+assert!(content.contains("some_string"));
+
+// ❌ BAD: Test compilation without execution
+assert!(server.is_ok()); // Server exists but tool never called
+
+// ❌ BAD: Meaningless assertions
+assert!(true); // Always passes
+assert_eq!(result.len(), result.len()); // Tautology
+
+// ❌ BAD: Test setup without actual testing
+let server = create_server();
+// Test ends here - no actual validation!
+
+// ❌ BAD: Indirect testing without calling target function
+let data = create_test_data();
+assert!(data.contains("expected")); // Tests data, not function
+```
+
+### ✅ Required Test Quality Standards
+
+**Every test MUST:**
+
+1. **Actually call the function under test**
+```rust
+// ✅ REQUIRED: Direct function invocation
+let result = server.call_tool("analyze_code_quality", params).await;
+let analysis = tool_manager.analyze_dependencies(&server, args).await;
+```
+
+2. **Use realistic test data**
+```rust
+// ✅ REQUIRED: Real file content, not mock strings
+let test_file = create_temp_file_with_rust_code(r#"
+    fn complex_function() {
+        // Actual code that would be analyzed
+        if condition { ... }
+    }
+"#).await;
+```
+
+3. **Validate meaningful outputs**
+```rust
+// ✅ REQUIRED: Check actual analysis results
+assert_eq!(result.is_error, Some(false));
+assert!(content.contains("quality_metrics"));
+assert!(content.contains("overall_score"));
+
+// ✅ REQUIRED: Validate specific behavior
+let metrics = parse_analysis_metrics(&content);
+assert!(metrics.complexity_score > 0);
+assert!(metrics.recommendations.len() > 0);
+```
+
+4. **Include descriptive failure messages**
+```rust
+// ✅ REQUIRED: Clear failure context
+assert!(
+    result.is_ok(),
+    "Tool execution failed: {:?}", result.err()
+);
+assert!(
+    content.contains("analysis_complete"),
+    "Analysis output incomplete: {}", content
+);
+```
+
+### Test Structure Requirements
+
+**Standard Test Template:**
+```rust
 #[tokio::test]
-async fn test_tool_performance_requirements() {
+async fn test_{component}_{scenario}_{expected_outcome}() {
+    // 1. SETUP: Create realistic test environment
     let server = create_test_server().await;
-    let start = std::time::Instant::now();
+    let test_file = create_test_file_with_known_patterns().await;
     
-    // Execute tool operation
-    let result = server.call_tool("analyze_code_quality", params).await;
+    // 2. EXECUTE: Actually call the function under test
+    let params = create_valid_parameters(&test_file);
+    let result = server.call_tool("tool_name", params).await;
     
-    let duration = start.elapsed();
-    
-    // VALIDATE: Performance requirements
+    // 3. VALIDATE: Check meaningful outputs
     assert!(result.is_ok(), "Tool execution should succeed");
-    assert!(
-        duration.as_millis() < 5000,
-        "Tool should complete within 5 seconds, took {}ms",
-        duration.as_millis()
-    );
+    let analysis = result.unwrap();
     
-    // VALIDATE: Memory usage stays reasonable
-    let memory_usage = get_memory_usage();
-    assert!(
-        memory_usage < 100 * 1024 * 1024, // 100MB
-        "Memory usage too high: {} bytes",
-        memory_usage
-    );
+    // 4. VERIFY: Validate specific behavior
+    assert_eq!(analysis.is_error, Some(false));
+    validate_analysis_content(&analysis.content);
+    
+    // 5. CLEANUP: Remove test files if needed
+    cleanup_test_file(test_file).await;
 }
 ```
 
-## Coverage Tracking and Improvement
+### Error Test Requirements
 
-### Coverage Dashboard
-
-**MAINTAIN: Continuous coverage monitoring**
-
-```bash
-# Generate coverage dashboard
-cat > coverage-dashboard.md << 'EOF'
-# CodePrism MCP Server Test Coverage Dashboard
-
-## Current Status
-- **Overall Coverage**: $(cargo tarpaulin --skip-clean | grep -oP '\d+\.\d+%' | tail -1)
-- **Total Tests**: $(grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-- **Tool Coverage**: $(grep -r "test_.*_tool" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)/26 tools
-
-## Required vs Actual
-| Metric | Required | Actual | Status |
-|--------|----------|--------|--------|
-| Total Tests | 76+ | $(grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) | $([ $(grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) -ge 76 ] && echo "✅" || echo "❌") |
-| Tool Tests | 26 | $(grep -r "test_.*_tool" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) | $([ $(grep -r "test_.*_tool" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) -ge 26 ] && echo "✅" || echo "❌") |
-| Error Tests | 20+ | $(grep -r "test_.*_error" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) | $([ $(grep -r "test_.*_error" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l) -ge 20 ] && echo "✅" || echo "❌") |
-
-## Missing Coverage
-$(echo "### Tools Missing Tests:"; for tool in provide_guidance optimize_code analyze_dependencies analyze_control_flow analyze_code_quality analyze_javascript specialized_analysis search_symbols find_references trace_path explain_symbol search_content find_files content_stats; do grep -q "test_${tool}" crates/codeprism-mcp-server/src/ --include="*.rs" || echo "- $tool"; done)
-EOF
+**Every tool needs error validation:**
+```rust
+#[tokio::test]
+async fn test_{tool}_with_invalid_params_returns_error() {
+    let server = create_test_server().await;
+    
+    // Test missing required parameters
+    let result = server.call_tool("tool_name", json!({})).await;
+    assert!(result.is_err() || result.unwrap().is_error == Some(true));
+    
+    // Test invalid file path
+    let result = server.call_tool("tool_name", json!({
+        "target": "/nonexistent/file.rs"
+    })).await;
+    assert!(result.is_err() || result.unwrap().is_error == Some(true));
+}
 ```
 
-### Coverage Improvement Plan
+### Edge Case Requirements
 
-**SYSTEMATIC: Address coverage gaps**
-
-```bash
-# Generate coverage improvement tasks
-python3 << 'EOF'
-import subprocess
-import re
-
-# Get current test count
-current_tests = int(subprocess.check_output(
-    "grep -r '#\\[tokio::test\\]' crates/codeprism-mcp-server/src/ --include='*.rs' | wc -l",
-    shell=True
-).decode().strip())
-
-target_tests = 76
-gap = target_tests - current_tests
-
-print(f"# Coverage Improvement Plan")
-print(f"")
-print(f"**Current Status**: {current_tests}/{target_tests} tests ({current_tests/target_tests*100:.1f}%)")
-print(f"**Gap**: {gap} tests needed")
-print(f"")
-
-if gap > 0:
-    print(f"## Required Actions:")
-    print(f"1. Add {min(gap, 26)} individual tool tests")
-    print(f"2. Add {min(gap-26 if gap > 26 else 0, 20)} error handling tests")  
-    print(f"3. Add {min(gap-46 if gap > 46 else 0, 15)} edge case tests")
-    print(f"4. Add {min(gap-61 if gap > 61 else 0, 10)} integration tests")
-    print(f"5. Add {max(0, gap-71)} performance tests")
-else:
-    print(f"✅ Coverage target achieved!")
-EOF
+**Test boundary conditions:**
+```rust
+#[tokio::test]
+async fn test_{tool}_edge_cases() {
+    let server = create_test_server().await;
+    
+    // Empty file
+    let empty_file = create_empty_file().await;
+    let result = server.call_tool("tool_name", params).await;
+    // Should handle gracefully
+    
+    // Very large file
+    let large_file = create_large_file(1_000_000).await;
+    let result = server.call_tool("tool_name", params).await;
+    // Should complete within reasonable time
+    
+    // Binary file
+    let binary_file = create_binary_file().await;
+    let result = server.call_tool("tool_name", params).await;
+    // Should detect and handle appropriately
+}
 ```
 
-## Quality Gates
+## Quality Validation Commands
 
-**ENFORCE: Coverage requirements at multiple levels**
+**Pre-commit validation:**
+```bash
+# Check for testing theater patterns
+grep -r "assert.*contains" tests/ --include="*.rs" | grep -v "// ✅" && echo "❌ Testing theater detected"
 
-### GitHub Actions Integration
+# Verify tests call actual functions
+grep -r "#\[tokio::test\]" -A 15 tests/ --include="*.rs" | grep -E "(call_tool|\.await)" || echo "❌ Tests may not call functions"
 
-```yaml
-# .github/workflows/coverage.yml
-name: Test Coverage Validation
+# Check for meaningless assertions  
+grep -r "assert!(true)" tests/ --include="*.rs" && echo "❌ Meaningless assertions found"
 
-on: [push, pull_request]
+# Validate test naming
+grep -r "fn test_" tests/ --include="*.rs" | grep -v "test_.*_.*_" && echo "❌ Poor test naming found"
+```
 
-jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      
-      - name: Install tarpaulin
-        run: cargo install cargo-tarpaulin
-        
-      - name: Validate test count
-        run: |
-          TESTS=$(grep -r "#\[tokio::test\]" crates/codeprism-mcp-server/src/ --include="*.rs" | wc -l)
-          if [ "$TESTS" -lt "76" ]; then
-            echo "❌ Only $TESTS tests found, need 76+"
-            exit 1
-          fi
-          
-      - name: Run coverage analysis
-        run: cargo tarpaulin --fail-under 90 --out Xml
-        
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+## Test Coverage Standards
+
+**Required for every tool:**
+- ✅ Success case with valid inputs
+- ✅ Error case with invalid inputs  
+- ✅ Edge case with boundary conditions
+- ✅ Integration test with real data
+- ✅ Performance test with realistic load
+
+**Validation checklist:**
+```rust
+// Each tool must have tests matching these patterns:
+#[tokio::test] async fn test_{tool}_success_case() { /* ... */ }
+#[tokio::test] async fn test_{tool}_error_case() { /* ... */ }  
+#[tokio::test] async fn test_{tool}_edge_case() { /* ... */ }
+#[tokio::test] async fn test_{tool}_integration() { /* ... */ }
+#[tokio::test] async fn test_{tool}_performance() { /* ... */ }
 ```
 
 ## References
 
-**Study comprehensive coverage examples:**
-- [codeprism-mcp-server test structure](mdc:crates/codeprism-mcp-server/src/server.rs) - comprehensive tests covering all scenarios
-- [Coverage validation scripts](mdc:scripts/check-implementation-completeness.sh) - Automated coverage checking
-- [Integration test patterns](mdc:tests/test_mcp_test_harness_end_to_end.rs) - End-to-end validation examples
+Study proper test patterns from:
+- [Comprehensive tool tests](mdc:crates/codeprism-mcp-server/src/server.rs) - reference comprehensive test patterns from current server implementation
+- [Server integration tests](mdc:crates/codeprism-mcp-server/src/integration_test.rs) - integration test patterns  
+- [End-to-end test examples](mdc:tests/test_mcp_test_harness_end_to_end.rs)
 
-**Remember: Test coverage is not just about percentages - it's about comprehensive validation of all functionality, error paths, and edge cases.**
+**Remember: If your test doesn't fail when the implementation is broken, it's not testing anything meaningful.**
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
