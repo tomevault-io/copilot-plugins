@@ -1,0 +1,9 @@
+{
+  "name": "mr-karan--prom2grafana",
+  "displayName": "prom2grafana",
+  "description": "Convert Prometheus metrics to Grafana dashboards and alert rules using AI",
+  "version": "1.0.0",
+  "author": "mr-karan",
+  "homepage": "https://github.com/mr-karan/prom2grafana",
+  "skills": []
+}
