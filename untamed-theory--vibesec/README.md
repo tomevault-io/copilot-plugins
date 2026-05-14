@@ -2,6 +2,8 @@
 
 > Sourced from [untamed-theory/vibesec](https://github.com/untamed-theory/vibesec) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Security Rules & Workflows for the new wave of AI Development.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [untamed-theory/vibesec](https://gith
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/untamed-theory)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/untamed-theory/vibesec](https://github.com/untamed-theory/vibesec)
 
 ---
 
