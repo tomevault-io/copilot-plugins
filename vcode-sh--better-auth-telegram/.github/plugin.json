@@ -1,0 +1,9 @@
+{
+  "name": "vcode-sh--better-auth-telegram",
+  "displayName": "better-auth-telegram",
+  "description": "Complete Telegram authentication plugin for Better Auth",
+  "version": "1.0.0",
+  "author": "vcode-sh",
+  "homepage": "https://github.com/vcode-sh/better-auth-telegram",
+  "skills": []
+}
