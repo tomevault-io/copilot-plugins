@@ -1,0 +1,9 @@
+{
+  "name": "wbrown--janus-datalog",
+  "displayName": "janus-datalog",
+  "description": "An embeddable Datalog database that is Datomic-inspired written in Golang",
+  "version": "1.0.0",
+  "author": "wbrown",
+  "homepage": "https://github.com/wbrown/janus-datalog",
+  "skills": []
+}
