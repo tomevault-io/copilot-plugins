@@ -1,0 +1,12 @@
+## claude-code-web-gui
+
+> 2. 规划的时候考虑基于测试驱动开发（TDD）的策略
+
+1. 首先理解我的需求
+2. 规划的时候考虑基于测试驱动开发（TDD）的策略
+3. 实现代码，测试，重构，直到满足需求
+4. 你将独立完成工作，必要的时候才向我求助
+
+---
+> Source: [binggg/Claude-Code-Web-GUI](https://github.com/binggg/Claude-Code-Web-GUI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
