@@ -1,0 +1,9 @@
+{
+  "name": "lstein--photomapai",
+  "displayName": "PhotoMapAI",
+  "description": "A modern image browser and search tool that uses AI to generate a \"semantic map\" of your collection.",
+  "version": "1.0.0",
+  "author": "lstein",
+  "homepage": "https://github.com/lstein/PhotoMapAI",
+  "skills": []
+}
