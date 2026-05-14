@@ -1,0 +1,9 @@
+{
+  "name": "kriasoft--oauth-callback",
+  "displayName": "oauth-callback",
+  "description": "Lightweight OAuth 2.0 authorization code capture for CLI tools & desktop   apps. Works with Node.js, Deno, Bun. MCP SDK ready.",
+  "version": "1.0.0",
+  "author": "kriasoft",
+  "homepage": "https://github.com/kriasoft/oauth-callback",
+  "skills": []
+}
