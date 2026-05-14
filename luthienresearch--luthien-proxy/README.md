@@ -7,11 +7,11 @@ AI Control for Claude Code in the real world
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LuthienResearch/luthien-proxy](https://github.com/LuthienResearch/luthien-proxy).
+Original source: `CLAUDE.md` in [LuthienResearch/luthien-proxy](https://github.com/LuthienResearch/luthien-proxy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
