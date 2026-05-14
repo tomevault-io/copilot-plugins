@@ -1,0 +1,9 @@
+{
+  "name": "samoht--cascade",
+  "displayName": "cascade",
+  "description": "Typed CSS AST, parser, pretty-printer, and optimiser for OCaml",
+  "version": "1.0.0",
+  "author": "samoht",
+  "homepage": "https://github.com/samoht/cascade",
+  "skills": []
+}
