@@ -1,88 +1,112 @@
-## fastapi
+## flutter-app-expert-cursorrules-prompt-file
 
-> FastAPI best practices and patterns for building modern Python web APIs
+> Cursor rules for Flutter development with expert integration.
 
-# FastAPI Best Practices
+// Flutter App Expert .cursorrules
 
-## Project Structure
-- Use proper directory structure
-- Implement proper module organization
-- Use proper dependency injection
-- Keep routes organized by domain
-- Implement proper middleware
-- Use proper configuration management
+// Flexibility Notice
 
-## API Design
-- Use proper HTTP methods
-- Implement proper status codes
-- Use proper request/response models
-- Implement proper validation
-- Use proper error handling
-- Document APIs with OpenAPI
+// Note: This is a recommended project structure, but be flexible and adapt to existing project structures.
+// Do not enforce these structural patterns if the project follows a different organization.
+// Focus on maintaining consistency with the existing project architecture while applying Flutter best practices.
 
-## Models
-- Use Pydantic models
-- Implement proper validation
-- Use proper type hints
-- Keep models organized
-- Use proper inheritance
-- Implement proper serialization
+// Flutter Best Practices
 
-## Database
-- Use proper ORM (SQLAlchemy)
-- Implement proper migrations
-- Use proper connection pooling
-- Implement proper transactions
-- Use proper query optimization
-- Handle database errors properly
+const flutterBestPractices = [
+    "Adapt to existing project architecture while maintaining clean code principles",
+    "Use Flutter 3.x features and Material 3 design",
+    "Implement clean architecture with BLoC pattern",
+    "Follow proper state management principles",
+    "Use proper dependency injection",
+    "Implement proper error handling",
+    "Follow platform-specific design guidelines",
+    "Use proper localization techniques",
+];
 
-## Authentication
-- Implement proper JWT authentication
-- Use proper password hashing
-- Implement proper role-based access
-- Use proper session management
-- Implement proper OAuth2
-- Handle authentication errors properly
+// Project Structure
 
-## Security
-- Implement proper CORS
-- Use proper rate limiting
-- Implement proper input validation
-- Use proper security headers
-- Handle security errors properly
-- Implement proper logging
+// Note: This is a reference structure. Adapt to the project's existing organization
 
-## Performance
-- Use proper caching
-- Implement proper async operations
-- Use proper background tasks
-- Implement proper connection pooling
-- Use proper query optimization
-- Monitor performance metrics
+const projectStructure = `
+lib/
+  core/
+    constants/
+    theme/
+    utils/
+    widgets/
+  features/
+    feature_name/
+      data/
+        datasources/
+        models/
+        repositories/
+      domain/
+        entities/
+        repositories/
+        usecases/
+      presentation/
+        bloc/
+        pages/
+        widgets/
+  l10n/
+  main.dart
+test/
+  unit/
+  widget/
+  integration/
+`;
 
-## Testing
-- Write proper unit tests
-- Implement proper integration tests
-- Use proper test fixtures
-- Implement proper mocking
-- Test error scenarios
-- Use proper test coverage
+// Coding Guidelines
 
-## Deployment
-- Use proper Docker configuration
-- Implement proper CI/CD
-- Use proper environment variables
-- Implement proper logging
-- Use proper monitoring
-- Handle deployment errors properly
+const codingGuidelines = `
+1. Use proper null safety practices
+2. Implement proper error handling with Either type
+3. Follow proper naming conventions
+4. Use proper widget composition
+5. Implement proper routing using GoRouter
+6. Use proper form validation
+7. Follow proper state management with BLoC
+8. Implement proper dependency injection using GetIt
+9. Use proper asset management
+10. Follow proper testing practices
+`;
 
-## Documentation
-- Use proper docstrings
-- Implement proper API documentation
-- Use proper type hints
-- Keep documentation updated
-- Document error scenarios
-- Use proper versioning
+// Widget Guidelines
+
+const widgetGuidelines = `
+1. Keep widgets small and focused
+2. Use const constructors when possible
+3. Implement proper widget keys
+4. Follow proper layout principles
+5. Use proper widget lifecycle methods
+6. Implement proper error boundaries
+7. Use proper performance optimization techniques
+8. Follow proper accessibility guidelines
+`;
+
+// Performance Guidelines
+
+const performanceGuidelines = `
+1. Use proper image caching
+2. Implement proper list view optimization
+3. Use proper build methods optimization
+4. Follow proper state management patterns
+5. Implement proper memory management
+6. Use proper platform channels when needed
+7. Follow proper compilation optimization techniques
+`;
+
+// Testing Guidelines
+
+const testingTestingGuidelines = `
+1. Write unit tests for business logic
+2. Implement widget tests for UI components
+3. Use integration tests for feature testing
+4. Implement proper mocking strategies
+5. Use proper test coverage tools
+6. Follow proper test naming conventions
+7. Implement proper CI/CD testing
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
