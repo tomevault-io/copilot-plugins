@@ -1,0 +1,9 @@
+{
+  "name": "dave1010--ceo-bench",
+  "displayName": "ceo-bench",
+  "description": "CEO Bench is a comprehensive evaluation framework measuring how well Large Language Models perform on executive-level decision making, strategic planning, and leadership tasks.",
+  "version": "1.0.0",
+  "author": "dave1010",
+  "homepage": "https://github.com/dave1010/ceo-bench",
+  "skills": []
+}
