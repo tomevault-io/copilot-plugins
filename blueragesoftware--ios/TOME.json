@@ -4,7 +4,7 @@
   "repo": "iOS",
   "description": "Craft and run Agents right from your phone",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blueragesoftware/iOS",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:02:33Z"
+  "distributed_at": "2026-05-14T07:37:53Z"
 }
