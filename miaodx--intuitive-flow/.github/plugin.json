@@ -1,0 +1,9 @@
+{
+  "name": "miaodx--intuitive-flow",
+  "displayName": "intuitive-flow",
+  "description": "Shared config, skills, and update scripts for Claude Code, Codex, and Gemini CLI",
+  "version": "1.0.0",
+  "author": "MiaoDX",
+  "homepage": "https://github.com/MiaoDX/intuitive-flow",
+  "skills": []
+}
