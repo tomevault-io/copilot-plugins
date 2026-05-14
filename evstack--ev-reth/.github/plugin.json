@@ -1,0 +1,38 @@
+{
+  "name": "evstack--ev-reth",
+  "displayName": "ev-r",
+  "description": "Reth instance with custom Payloads for ev-node",
+  "version": "1.0.0",
+  "author": "evstack",
+  "homepage": "https://github.com/evstack/ev-reth",
+  "skills": [
+    {
+      "name": "evolve-debugger",
+      "description": ""
+    },
+    {
+      "name": "evolve-modules",
+      "description": ""
+    },
+    {
+      "name": "evolve-node-composer",
+      "description": ""
+    },
+    {
+      "name": "evolve-proptest",
+      "description": ""
+    },
+    {
+      "name": "evolve-simulator",
+      "description": ""
+    },
+    {
+      "name": "evolve-testing",
+      "description": ""
+    },
+    {
+      "name": "stf-analysis",
+      "description": ""
+    }
+  ]
+}
