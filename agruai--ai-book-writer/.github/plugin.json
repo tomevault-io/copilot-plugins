@@ -1,0 +1,9 @@
+{
+  "name": "agruai--ai-book-writer",
+  "displayName": "ai-book-writer",
+  "description": "AI-powered book-writing system that converts ideas into full manuscripts in hours with multi-agent collaboration, real-time streaming, and built-in cost control.  Tech Stack: FastAPI \u00b7 PostgreSQL \u00b7 Re",
+  "version": "1.0.0",
+  "author": "agruai",
+  "homepage": "https://github.com/agruai/ai-book-writer",
+  "skills": []
+}
