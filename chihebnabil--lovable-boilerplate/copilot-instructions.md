@@ -1,187 +1,128 @@
-## typescript
+## lovable-boilerplate
 
-> TypeScript type definitions and utility patterns for the application
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# TypeScript & Utilities Rules
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Shared Type Definitions
+## Development Commands
 
-### Core Application Types
+### Core Development
+- `npm run dev` - Start development server on port 8080
+- `npm run build` - Create production build
+- `npm run build:dev` - Create development build
+- `npm run lint` - Run ESLint linter
+- `npm run preview` - Preview production build locally
+
+### Package Management
+- `npm install` - Install dependencies (or use `bun install` for faster installs)
+
+## Architecture & Structure
+
+### Framework Stack
+- **React 18.3.1** with TypeScript for UI
+- **Vite 5.4.1** as build tool with SWC for fast compilation
+- **shadcn/ui** component library built on Radix UI primitives
+- **Tailwind CSS 3.4.11** for styling with custom design system
+- **React Router DOM v6** for client-side routing
+- **TanStack Query** for server state management
+- **React Hook Form + Zod** for form handling and validation
+
+### Key Architecture Patterns
+
+#### Component Organization & Structure
+- `src/components/ui/` - Pre-built shadcn/ui components (40+ available, READ-ONLY)
+- `src/components/common/` - Reusable components (20-100 lines each)
+- `src/components/forms/` - Form-specific components
+- `src/components/features/` - Feature-specific components
+- `src/pages/` - Route-level page components
+- `src/hooks/` - Custom React hooks including `use-mobile.tsx` and `use-toast.ts`
+- `src/lib/utils.ts` - Utility functions with Tailwind class merging via `cn()` function
+- `src/lib/types.ts` - Shared TypeScript types and interfaces
+- `src/lib/constants.ts` - Application constants
+- `src/lib/validations/` - Zod validation schemas
+
+#### Critical Architecture Rules
+- **Component Size Limit**: Never exceed 300 lines per component
+- **Composition Over Complexity**: Build complex UI from smaller, focused components
+- **Single Responsibility**: Each component should have one clear purpose
+- **Extract Reusable Logic**: Use custom hooks instead of duplicating code
+- **Service Layer Pattern**: No inline API calls in components - use service layer in `src/lib/`
+
+#### Import Aliases (configured in vite.config.ts)
+- `@/` maps to `./src/`
+- `@/components` for components
+- `@/lib` for utilities
+- `@/hooks` for custom hooks
+
+#### Routing Structure
+Routes are defined in `src/App.tsx`. Add new routes above the catch-all `*` route:
 ```tsx
-// lib/types.ts - Always define shared types here
-export interface User {
-  id: string
-  email: string
-  name: string
-  avatar?: string
-  role: UserRole
-  createdAt: string
-  updatedAt: string
-}
-
-export interface ApiResponse<T> {
-  data: T
-  message: string
-  success: boolean
-  meta?: {
-    total: number
-    page: number
-    limit: number
-  }
-}
-
-export type UserRole = 'admin' | 'user' | 'guest'
-export type Theme = 'light' | 'dark' | 'system'
-export type LoadingState = 'idle' | 'loading' | 'success' | 'error'
+<Routes>
+  <Route path="/" element={<Index />} />
+  {/* ADD NEW ROUTES HERE */}
+  <Route path="*" element={<NotFound />} />
+</Routes>
 ```
 
-### Form Type Patterns
-```tsx
-// Derive form types from Zod schemas
-export type UserFormData = z.infer<typeof userSchema>
-export type CreateUserData = z.infer<typeof createUserSchema>
-export type UpdateUserData = z.infer<typeof updateUserSchema>
+### Design System Integration
 
-// Component prop types
-export interface UserCardProps {
-  user: User
-  onEdit: (id: string) => void
-  onDelete: (id: string) => void
-  className?: string
-}
-```
+This project uses a sophisticated design system based on comprehensive instructions in `.github/instructions/` and `.cursor/rules/`. Key principles:
 
-## Utility Functions
+#### shadcn/ui Components
+Over 40 pre-built components available in `src/components/ui/`:
+- **Layout**: `card`, `separator`, `sheet`, `sidebar`, `tabs`, `accordion`
+- **Forms**: `button`, `input`, `form`, `select`, `checkbox`, `radio-group`
+- **Overlays**: `dialog`, `alert-dialog`, `drawer`, `popover`, `tooltip`
+- **Data Display**: `table`, `badge`, `avatar`, `chart`, `carousel`
 
-### Keep Existing cn Function
-```tsx
-// lib/utils.ts - NEVER modify this function
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
+#### Styling Conventions & Quality Standards
+- Use Tailwind classes following the project's design system
+- Generous spacing: `py-16 lg:py-24` for sections
+- Consistent rhythm: `space-y-4 lg:space-y-6` for content
+- Mobile-first responsive design approach
+- Premium, sophisticated visual hierarchy with purposeful color psychology
+- **Accessibility**: Maintain WCAG 2.1 AA contrast ratios (4.5:1 minimum)
+- **Never ship** without running `npm run lint` - must pass without errors
+- **Industry-specific designs**: Adapt visual identity, emotional tone, and color psychology to target audience
+- **Design Philosophy**: Create unique, custom-crafted interfaces that feel premium and engaging
+- **Color Strategy**: Use colors intentionally to evoke the right emotions and enhance user experience
 
-### Common Utility Patterns
-```tsx
-// Date formatting
-export function formatDate(date: Date | string, format?: string): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    ...format
-  }).format(new Date(date))
-}
+### Configuration Files
 
-// Debounce utility
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }
-}
+- `vite.config.ts` - Vite configuration with path aliases and port 8080
+- `components.json` - shadcn/ui configuration with default style and slate base color
+- `tailwind.config.ts` - Tailwind configuration with dark mode support
+- `tsconfig.json` - TypeScript configuration with strict mode
 
-// Sleep utility for demos/testing
-export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-```
+### Environment Variables
+⚠️ **Security**: This is a client-side application. Only use `VITE_` prefixed environment variables for public configuration. Never expose sensitive data like API secrets.
 
-## Constants Organization
+### Testing & Quality
+- ESLint configured with React and TypeScript rules
+- No test framework currently configured - determine testing approach from codebase if tests are needed
 
-### API and Route Constants
-```tsx
-// lib/constants.ts
-export const API_ENDPOINTS = {
-  USERS: '/api/users',
-  PRODUCTS: '/api/products',
-  AUTH: '/api/auth',
-} as const
+### Development Patterns & Best Practices
 
-export const QUERY_KEYS = {
-  USERS: 'users',
-  PRODUCTS: 'products',
-  USER_PROFILE: 'user-profile',
-} as const
+#### Code Organization
+- Use TypeScript interfaces for type safety - define shared types in `src/lib/types.ts`
+- Implement responsive design mobile-first
+- Follow React Hook Form patterns with Zod validation for forms
+- Use TanStack Query for API state management
+- Import UI components from `@/components/ui/`
+- Use the toast system via `use-toast` hook for notifications
 
-export const ROUTES = {
-  HOME: '/',
-  DASHBOARD: '/dashboard',
-  USERS: '/users',
-  PROFILE: '/profile',
-} as const
-```
+#### Cursor Rules Integration
+This project includes comprehensive Cursor rules in `.cursor/rules/` that auto-apply based on file context:
+- **Core Rules** (`core.mdc`) - Always active architecture and quality rules
+- **Component Rules** (`components.mdc`) - Auto-loads when editing `src/components/**`
+- **Design Rules** (`design.mdc`) - Auto-loads when editing UI/styling files
+- **Form Rules** (`forms.mdc`) - Auto-loads when editing form components
+- **Hook Rules** (`hooks.mdc`) - Auto-loads when editing `src/hooks/**`
+- **Service Rules** (`services.mdc`) - Auto-loads when editing `src/lib/**`
 
-### Configuration Constants
-```tsx
-export const APP_CONFIG = {
-  APP_NAME: 'My App',
-  API_BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
-  ITEMS_PER_PAGE: 10,
-  MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB
-} as const
-
-export const BREAKPOINTS = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px',
-} as const
-```
-
-## TypeScript Best Practices
-
-### Generic Patterns
-```tsx
-// API response wrapper
-export interface PaginatedResponse<T> {
-  data: T[]
-  meta: {
-    total: number
-    page: number
-    limit: number
-    totalPages: number
-  }
-}
-
-// Generic hook return type
-export interface UseQueryResult<T> {
-  data: T | undefined
-  isLoading: boolean
-  error: Error | null
-  refetch: () => void
-}
-```
-
-### Environment Variables Typing
-```tsx
-// vite-env.d.ts additions
-interface ImportMetaEnv {
-  readonly VITE_API_URL: string
-  readonly VITE_APP_NAME: string
-  // Add more environment variables as needed
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-```
-
-## Type Anti-Patterns
-- Using `any` type
-- Inline interface definitions in components
-- Not leveraging Zod for runtime validation
-- Duplicate type definitions across files
-
-## Type Best Practices
-- Define shared types in `lib/types.ts`
-- Use Zod schemas for validation and type inference
-- Leverage TypeScript strict mode
-- Use proper generic constraints
+Reference with `@rule-name` in prompts (e.g., `@quality` for quality checklist)
 
 ---
 > Source: [chihebnabil/lovable-boilerplate](https://github.com/chihebnabil/lovable-boilerplate) — distributed by [TomeVault](https://tomevault.io).
