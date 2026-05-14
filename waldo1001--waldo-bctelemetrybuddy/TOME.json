@@ -4,7 +4,7 @@
   "repo": "waldo.BCTelemetryBuddy",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/waldo1001/waldo.BCTelemetryBuddy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:18:15Z"
+  "distributed_at": "2026-05-14T06:02:22Z"
 }
