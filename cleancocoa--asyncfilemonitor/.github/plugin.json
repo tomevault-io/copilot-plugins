@@ -1,0 +1,9 @@
+{
+  "name": "cleancocoa--asyncfilemonitor",
+  "displayName": "AsyncFileMonitor",
+  "description": "Swift Concurrency wrapper for monitoring file system events using FSEvents",
+  "version": "1.0.0",
+  "author": "CleanCocoa",
+  "homepage": "https://github.com/CleanCocoa/AsyncFileMonitor",
+  "skills": []
+}
