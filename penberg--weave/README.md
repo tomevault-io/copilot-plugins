@@ -7,11 +7,11 @@ Deterministic execution for reproducible debugging—for AI agents and humans.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [penberg/weave](https://github.com/penberg/weave).
+Original source: `CLAUDE.md` in [penberg/weave](https://github.com/penberg/weave).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
