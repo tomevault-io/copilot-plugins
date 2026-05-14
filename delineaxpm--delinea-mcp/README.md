@@ -7,11 +7,11 @@ MCP server for the Delinea Secret Server and Platform APIs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [DelineaXPM/delinea-mcp](https://github.com/DelineaXPM/delinea-mcp).
+Original source: `CLAUDE.md` in [DelineaXPM/delinea-mcp](https://github.com/DelineaXPM/delinea-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
