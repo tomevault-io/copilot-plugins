@@ -1,0 +1,9 @@
+{
+  "name": "posthog--code",
+  "displayName": "code",
+  "description": "Your product workbench",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/code",
+  "skills": []
+}
