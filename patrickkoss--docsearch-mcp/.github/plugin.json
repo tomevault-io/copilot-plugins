@@ -1,0 +1,9 @@
+{
+  "name": "patrickkoss--docsearch-mcp",
+  "displayName": "docsearch-mcp",
+  "description": "ripgrep for docs but via MCP",
+  "version": "1.0.0",
+  "author": "PatrickKoss",
+  "homepage": "https://github.com/PatrickKoss/docsearch-mcp",
+  "skills": []
+}
