@@ -1,0 +1,44 @@
+{
+  "name": "ai-book-writer",
+  "owner": "agruai",
+  "repo": "ai-book-writer",
+  "description": "AI-powered book-writing system that converts ideas into full manuscripts in hours with multi-agent collaboration, real-time streaming, and built-in cost control.  Tech Stack: FastAPI \u00b7 PostgreSQL \u00b7 Redis \u00b7 Next.js 14 \u00b7 Tailwind/shadcn \u00b7 CrewAI \u00b7 LiteLLM \u00b7 GPT-5 / Claude / Gemini \u00b7 Docker \u00b7 Kubernetes \u00b7 Prometheus + Grafana \u00b7 GitHub Actions CI/CD",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agruai/ai-book-writer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T06:40:10Z"
+}
