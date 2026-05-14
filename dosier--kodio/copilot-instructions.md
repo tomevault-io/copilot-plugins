@@ -1,86 +1,54 @@
-## architecture
+## documentation
 
-> Kodio KMP audio library architecture, module boundaries, and development patterns
+> Writerside documentation conventions and workflow for Kodio docs
 
 
-# Kodio Architecture
+# Kodio Documentation (Writerside)
 
-## Module Map
+## Structure
 
-| Module | Purpose | Package |
-|--------|---------|---------|
-| `kodio-core` | Core audio API (recording, playback, devices, formats, file I/O) | `space.kodio.core` |
-| `kodio-extensions/compose` | Compose UI integration (`RecorderState`, `PlayerState`, `AudioWaveform`) | `space.kodio.compose` |
-| `kodio-extensions/compose-material3` | Material 3 themed audio components | `space.kodio.compose.material3` |
-| `kodio-extensions/transcription` | Audio transcription via OpenAI Whisper | `space.kodio.transcription` |
-| `kodio-native/audio-permissions` | Platform permission handling | `space.kodio.native.permissions` |
-| `kodio-native/audio-processing` | Native audio processing utilities | `space.kodio.native.processing` |
-| `kodio-sample-app` | Demo app (desktop, Android, iOS, web) | `space.kodio.sample` |
-| `build-logic` | Gradle convention plugins (includeBuild) | — |
+Documentation lives in `kodio-docs/` as a JetBrains Writerside project. It is **not** a Gradle subproject — it has its own `build.gradle.kts` and is built/deployed via the `.github/workflows/docs.yml` CI workflow to GitHub Pages.
 
-## KMP Source Set Structure
-
-Each module follows the standard Kotlin Multiplatform source set layout:
+## File Layout
 
 ```
-src/
-├── commonMain/kotlin/     # Shared API (expect declarations, interfaces, pure Kotlin)
-├── commonTest/kotlin/     # Shared tests
-├── jvmMain/kotlin/        # JVM/Desktop (javax.sound.sampled)
-├── androidMain/kotlin/    # Android (AudioRecord, AudioTrack, MediaRecorder)
-├── iosMain/kotlin/        # iOS (AVAudioEngine, AVAudioSession)
-├── macosMain/kotlin/      # macOS (AudioQueue, CoreAudio)
-├── jsMain/kotlin/         # Browser (Web Audio API, MediaRecorder)
-└── nativeMain/kotlin/     # Shared native code (iOS + macOS)
+kodio-docs/
+├── topics/           # All documentation pages (Markdown)
+├── images/           # Diagrams and assets (e.g. kodio-architecture.svg)
+├── k.tree            # Table of contents / navigation tree
+├── writerside.cfg    # Writerside project config
+├── cfg/              # Build profiles
+├── v.list            # Variables (version numbers, URLs)
+├── c.list            # Custom elements
+└── labels.list       # Reusable labels
 ```
 
-## Core API Layers
+## Topic Inventory
 
-### Layer 1: Entry Point — `Kodio` object
-- `Kodio.recorder()` / `Kodio.player()` — create instances
-- `Kodio.record()` / `Kodio.play()` — convenience one-shot methods
-- `Kodio.listInputDevices()` / `Kodio.listOutputDevices()`
-- `Kodio.microphonePermission` — permission state
+### Getting Started
+- `Getting-Started.md`, `Quick-Start.md`, `Installation.md`, `Platform-Setup.md`
 
-### Layer 2: High-Level — `Recorder` / `Player`
-- Wraps sessions with simplified start/stop/toggle/release lifecycle
-- `Recorder.getRecording()` → `AudioRecording`
-- `Player.load(recording)` → ready for playback
+### Core
+- `Recording.md`, `Playback.md`, `Audio-Quality.md`, `Audio-Format.md`, `File-IO.md`, `Error-Handling.md`
 
-### Layer 3: Session — `AudioRecordingSession` / `AudioPlaybackSession`
-- Platform-specific implementations via `expect`/`actual`
-- State machines: `Idle → Recording → Stopped` / `Idle → Ready → Playing ⇄ Paused → Finished`
-- Exposes `StateFlow<State>` and `StateFlow<AudioFlow?>`
+### Compose
+- `Recorder-State.md`, `Player-State.md`, `Audio-Waveform.md`, `Material3-Components.md`
 
-### Layer 4: System — `AudioSystem` (expect/actual)
-- Factory for sessions and device enumeration
-- `SystemAudioSystem` singleton per platform
+### Advanced
+- `Low-Level-API.md`, `Device-Selection.md`, `Custom-Formats.md`
 
-## Key Types
+### Meta
+- `Migration.md`, `API-Reference.md`, `Release-Process.md`
 
-- `AudioFormat` — sample rate, channels, bit depth
-- `AudioQuality` — presets (Low, Standard, High, UltraHigh, Custom)
-- `AudioRecording` — completed recording (format + data)
-- `AudioFlow` — streaming audio data (format + `Flow<ByteArray>`)
-- `AudioDevice.Input` / `AudioDevice.Output` — device descriptors
-- `AudioError` — sealed class hierarchy for typed errors
+## Rules for Documentation Changes
 
-## Compose Extension Patterns
-
-- `RecorderState` / `PlayerState` — `@Composable` state holders wrapping `Recorder` / `Player`
-- `AudioWaveform` — real-time waveform visualizer composable
-- `RecordAudioButton` / `PlayAudioButton` — ready-to-use UI components
-- `KodioTheme` / `KodioComponents` — theming and component factory
-
-## Development Rules
-
-1. **Public API lives in `commonMain`**. Platform code implements via `expect`/`actual` or interfaces.
-2. **New platform support** = add a new source set with `actual` implementations. Never put platform-specific logic in `commonMain`.
-3. **State is always `StateFlow`**. All observable state uses Kotlin `StateFlow`, never mutable properties or callbacks.
-4. **Errors use `AudioError`**. Wrap platform exceptions into the `AudioError` sealed hierarchy. Never leak platform exceptions.
-5. **Resources must be released**. `Recorder.release()` / `Player.release()` or use the `.use {}` extension.
-6. **Tests run on JVM**. Primary CI runs `./gradlew jvmTest`. Platform-specific tests require their respective environments.
-7. **Version** is in `gradle.properties` (`kodio.version`). Never hardcode versions elsewhere.
+1. **Keep docs in sync with code.** When changing public API in `kodio-core` or `kodio-extensions`, update the corresponding topic page.
+2. **Register new pages in `k.tree`.** Every new `.md` file must have a `<toc-element>` entry in `k.tree` or it won't appear in navigation.
+3. **Use Writerside Markdown extensions.** Tabs, collapsible sections, code snippets with `src` attributes — use the Writerside feature set, not raw GitHub-flavored Markdown.
+4. **Code examples must compile.** Prefer snippets extracted from `kodio-sample-app` or inline examples that match real API signatures.
+5. **Version references** should use variables from `v.list` (e.g. `%kodio-version%`) rather than hardcoded strings.
+6. **Images** go in `kodio-docs/images/`. Reference them with relative paths in Markdown.
+7. **CI builds docs automatically.** The `docs.yml` workflow builds on push to master. Check the build if you're unsure about Writerside syntax.
 
 ---
 > Source: [dosier/kodio](https://github.com/dosier/kodio) — distributed by [TomeVault](https://tomevault.io).
