@@ -1,0 +1,9 @@
+{
+  "name": "oikon48--cc-doc-tracker",
+  "displayName": "cc-doc-tracker",
+  "description": "Automated tracker for Claude Code official documentation changes",
+  "version": "1.0.0",
+  "author": "oikon48",
+  "homepage": "https://github.com/oikon48/cc-doc-tracker",
+  "skills": []
+}
