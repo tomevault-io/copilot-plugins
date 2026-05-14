@@ -1,0 +1,9 @@
+{
+  "name": "bioinfo--slopless",
+  "displayName": "slopless",
+  "description": "Production-tested CLAUDE.md and rules that make Claude Code write better code and more human text. Anti-AI-slop writing system, behavioral guidelines, and model routing.",
+  "version": "1.0.0",
+  "author": "BioInfo",
+  "homepage": "https://github.com/BioInfo/slopless",
+  "skills": []
+}
