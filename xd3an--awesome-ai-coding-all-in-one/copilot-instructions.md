@@ -1,71 +1,119 @@
-## cloudflare-email-telegram-cursorrules-prompt-file
+## cloudflare-workers-hono-angular-saas-cursorrules-prompt-file
 
-> Cursor rules for setting up email-to-Telegram forwarding via Cloudflare Email Routing and Workers using the mail2tg CLI.
+> Cursor rules for full-stack SaaS applications on Cloudflare Workers with Hono APIs, Angular frontends, typed RPC, D1/Neon, and production observability.
 
-You are an expert at setting up email-to-Telegram forwarding using Cloudflare Email Routing and Workers.
+# Cloudflare Workers + Hono + Angular SaaS
 
-When the user asks to set up email forwarding to Telegram, route domain email to Telegram, or mentions "mail2tg", "email to telegram", follow this workflow.
+Full-stack SaaS on Cloudflare Workers with Hono API, Angular frontend, and enterprise integrations.
 
-## Tool
+## Stack
+CF Workers+Hono v4.12+ | Angular 21+Ionic 8+PrimeNG 21 | D1/Neon | Drizzle v1 | Zod | Clerk Core 3 | Stripe | Inngest v4 | Resend | Bun 1.3 | Playwright v1.59+ | Vitest | ESLint+Prettier | PostHog | Sentry
 
-Use the `mail2tg` CLI published on npm: https://www.npmjs.com/package/mail2tg
-Source: https://github.com/shatzibitten/mail2tg
+## TypeScript
+- Strict mode, never `any` (use `unknown`), prefer `interface` over `type`
+- `readonly` when not reassigned, `undefined` over `null`
+- Zod as source of truth for validation
+- ESLint flat config (`eslint.config.ts`) + typescript-eslint + Prettier
 
-## Prerequisites
+## Hono API
+- Inline handlers for RPC type inference (never separate controller files)
+- Method chaining: `app.use().get().post()` preserves types
+- `hc<AppType>(BASE_URL)` for typed client
+- `@hono/zod-validator` on ALL request bodies
+- `app.onError()` + `app.notFound()` centralized
+- Split large apps: `app.route('/path', subApp)`
+- Error envelope: `{ error: string, code?: string, details?: unknown }`
+- `createFactory<{ Bindings: Env }>()` for reusable middleware chains
+- `GET /health` returns `{ status, version, timestamp }`
 
-1. Domain DNS managed by Cloudflare (nameservers pointing to Cloudflare, status "Active").
-2. Cloudflare API token with scopes: Zone Read, DNS Edit, Worker Scripts Edit, Email Routing Rules Edit. Create at dash.cloudflare.com/profile/api-tokens → "Create Custom Token".
-3. Telegram bot created via @BotFather, token copied. User has sent /start to the bot.
-4. Node.js >= 20.
+## Angular
+- Standalone only (no NgModules), Angular 21 zoneless by default
+- Signals stable: `signal()`, `computed()`, `effect()`, `linkedSignal()`, `resource()`
+- `HttpResource` for data fetching
+- Control flow: `@if`/`@for`/`@switch`/`@defer` (not `*ngIf`/`*ngFor`)
+- kebab-case files, one component per file, `providedIn: 'root'`
+- PrimeNG for UI components
 
-## Non-interactive workflow (recommended)
+## Drizzle v1
+- `sqliteTable` for D1, plural snake_case tables
+- `$inferSelect`/`$inferInsert` for types
+- `createInsertSchema`/`createSelectSchema` from `drizzle-orm/zod`
+- Batch API (not `BEGIN` — D1 doesn't support transactions)
+- Prepared statements for repeated queries
 
+## CF Workers
+- CPU limit: 10ms free / 30s paid
+- `ctx.waitUntil()` for async post-response work
+- `ctx.passThroughOnException()` for graceful degradation
+- Bindings typed via `Env` interface
+- D1 global read replication for latency reduction
+- Workers Builds for native CI/CD (preview URLs per branch)
+
+## Inngest v4 (Background Jobs)
+- `eventType('name', { schema: z.object({...}) })` per-event (v4 breaking)
+- `inngest/cloudflare` adapter + `inngest.setEnvVars(c.env)` for Workers
+- Step functions: `step.run()`, `step.sleep()`, `step.waitForEvent()`, `step.sendEvent()`
+- `step.ai.infer()` offloads inference (zero compute during wait)
+- `step.realtime.publish()` for durable pub/sub
+- Each step idempotent, retried independently
+
+## Testing (TDD)
+- Failing test FIRST, then implement
+- Playwright for E2E: 6 breakpoints (375, 390, 768, 1024, 1280, 1920)
+- Vitest for unit tests
+- No sleeps — use `waitFor`/`toBeVisible()`
+- Selectors: `data-testid` > role > text
+- axe-core 0 violations
+- `PROD_URL` env var for production testing
+
+## Security (OWASP Top 10:2025)
+- Must: HSTS, CSP (nonce-based strict), X-Content-Type-Options, X-Frame-Options
+- Must: Referrer-Policy, Permissions-Policy, COOP, COEP, CORP
+- Remove: X-XSS-Protection, Expect-CT, Server, X-Powered-By
+- Turnstile on all forms, Zod validation on all inputs
+- Stripe webhooks: verify signature, deduplicate via KV
+
+## Auth (Clerk)
+- JWT verified per-request (no session store)
+- Webhook sync: Clerk → D1 for user data
+- RBAC: Clerk org roles for org-scoped, D1 for app-level
+- Route layers: public → auth-only → role-gated → owner-only
+
+## Quality
+- Lighthouse: a11y ≥95, perf ≥75
+- WCAG 2.2 AA compliance
+- LCP ≤2.5s, CLS ≤0.1, INP ≤200ms
+- JS ≤200KB gz, CSS ≤50KB gz
+- Functions ≤50 lines, cyclomatic complexity ≤10
+
+## Deploy
 ```bash
-export CLOUDFLARE_API_TOKEN="<token>"
-export TELEGRAM_BOT_TOKEN="<bot-token>"
-
-MAIL2TG_DOMAIN=example.com \
-MAIL2TG_MAILBOX=info@example.com \
-npx mail2tg init --non-interactive --json
-
-npx mail2tg plan --json --non-interactive
-npx mail2tg apply --json --non-interactive
-npx mail2tg doctor --json --non-interactive
+npx wrangler deploy && curl -sX POST \
+  "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/purge_cache" \
+  -H "Authorization: Bearer ${CF_API_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{"purge_everything":true}'
 ```
 
-## Interactive workflow
+## Hono Worker Starter
+```typescript
+import { Hono } from 'hono';
+import { secureHeaders } from 'hono/secure-headers';
+import { cors } from 'hono/cors';
 
-```bash
-npx mail2tg init
-export CLOUDFLARE_API_TOKEN="<token>"
-export TELEGRAM_BOT_TOKEN="<bot-token>"
-npx mail2tg plan
-npx mail2tg apply
-npx mail2tg doctor
+interface Env {
+  DB: D1Database;
+  KV: KVNamespace;
+  AI: Ai;
+  TURNSTILE_SECRET: string;
+}
+
+const app = new Hono<{ Bindings: Env }>();
+app.use('*', secureHeaders());
+app.use('/api/*', cors({ origin: ['https://yourdomain.com'] }));
+app.get('/health', (c) => c.json({ status: 'ok', timestamp: new Date().toISOString() }));
+export default app;
 ```
-
-## What it does
-
-- Deploys a Cloudflare Worker that parses incoming emails (MIME) and forwards headers, body, and attachments (up to 50 MB) to a Telegram chat via Bot API.
-- Creates MX and SPF DNS records so Cloudflare receives mail for the domain.
-- Creates an Email Routing rule directing the configured address to the Worker.
-- Sets Worker secrets (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID).
-
-After apply, nothing runs locally. Everything is serverless on Cloudflare's edge. Free tier covers 100K emails/day.
-
-## Exit codes
-
-- 0: success
-- 2: missing config or env vars
-- 3: Cloudflare/Telegram API error
-- 4: doctor checks failed
-- 5: worker deployment failed
-
-## Common issues
-
-- "Telegram chat_id not found" → user must send /start to the bot, then re-run.
-- "Cloudflare zone not found" → domain not on Cloudflare or token lacks Zone Read scope.
-- "Worker deployment failed" → check internet; run `npx wrangler whoami` to debug.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
