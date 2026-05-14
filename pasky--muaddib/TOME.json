@@ -4,7 +4,7 @@
   "repo": "muaddib",
   "description": "Multi-user AI assistant and agent",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pasky/muaddib",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T00:02:57Z"
+  "distributed_at": "2026-05-14T08:16:09Z"
 }
