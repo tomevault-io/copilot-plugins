@@ -1,0 +1,9 @@
+{
+  "name": "botingw--langgraph-dev-navigator",
+  "displayName": "langgraph-dev-navigator",
+  "description": "An opinionated development framework for building production-ready AI agents with LangGraph. It grounds AI coding assistants (Cursor, Windsurf, Cline) and guides them to use local, official documentat",
+  "version": "1.0.0",
+  "author": "botingw",
+  "homepage": "https://github.com/botingw/langgraph-dev-navigator",
+  "skills": []
+}
