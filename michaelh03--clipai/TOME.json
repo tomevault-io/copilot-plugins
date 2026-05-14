@@ -4,7 +4,7 @@
   "repo": "ClipAi",
   "description": "Clipboard manager with sparkle of AI \u2728",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/michaelh03/ClipAi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T20:11:06Z"
+  "distributed_at": "2026-05-14T05:55:18Z"
 }
