@@ -1,0 +1,9 @@
+{
+  "name": "nile-js--future",
+  "displayName": "future",
+  "description": "High-performance actor and task primitives for Typescript, inspired by Erlang",
+  "version": "1.0.0",
+  "author": "nile-js",
+  "homepage": "https://github.com/nile-js/future",
+  "skills": []
+}
