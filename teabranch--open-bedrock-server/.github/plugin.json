@@ -1,0 +1,9 @@
+{
+  "name": "teabranch--open-bedrock-server",
+  "displayName": "open-bedrock-server",
+  "description": "A unified, provider-agnostic chat completions API server that seamlessly integrates OpenAI and AWS Bedrock through a single endpoint with intelligent format detection and conversion.",
+  "version": "1.0.0",
+  "author": "teabranch",
+  "homepage": "https://github.com/teabranch/open-bedrock-server",
+  "skills": []
+}
