@@ -1,0 +1,9 @@
+{
+  "name": "mesailor--shadcn-chat",
+  "displayName": "shadcn-chat",
+  "description": "A customizable chat window component built with Shadcn UI and React.",
+  "version": "1.0.0",
+  "author": "Mesailor",
+  "homepage": "https://github.com/Mesailor/shadcn-chat",
+  "skills": []
+}
