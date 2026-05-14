@@ -1,0 +1,9 @@
+{
+  "name": "trocket-labs--vectorlint",
+  "displayName": "vectorlint",
+  "description": "\u2728 An LLM-based prose linter that lets you enforce your style guide in one prompt.",
+  "version": "1.0.0",
+  "author": "TRocket-Labs",
+  "homepage": "https://github.com/TRocket-Labs/vectorlint",
+  "skills": []
+}
