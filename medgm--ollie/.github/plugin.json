@@ -1,0 +1,9 @@
+{
+  "name": "medgm--ollie",
+  "displayName": "Ollie",
+  "description": "A fast, Linux\u2011native desktop GUI for Ollama. Built with Tauri 2 (Rust) and React + TypeScript.",
+  "version": "1.0.0",
+  "author": "MedGm",
+  "homepage": "https://github.com/MedGm/Ollie",
+  "skills": []
+}
