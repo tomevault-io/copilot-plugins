@@ -7,11 +7,11 @@ A pluggable interface for KV Stores
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [strawgate/py-key-value](https://github.com/strawgate/py-key-value).
+Original source: `CLAUDE.md` in [strawgate/py-key-value](https://github.com/strawgate/py-key-value).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
