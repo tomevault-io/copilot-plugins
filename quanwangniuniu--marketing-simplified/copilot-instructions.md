@@ -1,48 +1,17 @@
-## backend-rules
+## core-principles
 
-> Backend standards for Django, DRF, Celery, Channels (views, services, DB, API design, quality).
+> Core coding principles (non-negotiable) for MediaJira. KISS, small files, single responsibility, thin edges, no secrets.
 
 
-# Backend rules (Django / DRF / Celery / Channels)
+# Core principles (non‑negotiable)
 
-## Keep views thin, services focused
+These rules are the default "how we build things" for this repo. Optimize for **KISS**: simplest thing that works, easy to review, easy to maintain.
 
-- **Views**: parse input, permissions, call service layer, return response.
-- **Serializers**: validate and normalize input/output; keep side effects out of serializers.
-- **Services**: business logic goes in `services.py` (or a `services/` module if it grows).
-  - In this repo, most apps follow the pattern `views.py` + `serializers.py` + `services.py` + `urls.py`—prefer that before inventing new layers.
-
-## Database / ORM performance
-
-- **Avoid N+1**: use `select_related` / `prefetch_related`.
-- **Be explicit with transactions**: use `transaction.atomic()` for multi-write operations.
-- **Prefer bulk ops when appropriate**: but keep correctness first (imports/large batches may justify bulk operations).
-
-## API design
-
-- **Consistent errors**: raise DRF `ValidationError` with field keys where possible.
-- **Permissions first**: enforce auth/authorization early and consistently.
-
-## CSRF and JWT API views
-
-- **Always apply `@csrf_exempt` to JWT-based API views** (e.g. `LoginView`, `RegisterView`).
-  - Django's CSRF middleware activates whenever a request carries a `sessionid` cookie — including when a Django Admin session is open in the same browser.
-  - JWT frontends never send a CSRF token, so any POST endpoint that lacks `@csrf_exempt` will return **403 Forbidden** when an Admin session is active.
-  - Pattern to use on class-based views:
-    ```python
-    from django.views.decorators.csrf import csrf_exempt
-    from django.utils.decorators import method_decorator
-
-    @method_decorator(csrf_exempt, name='dispatch')
-    class MyJWTView(APIView):
-        ...
-    ```
-  - Reference: BGF-33 / SMP-511.
-
-## Quality checks (backend)
-
-- Run tests with `pytest` (coverage gate exists; don't lower it casually).
-- Add tests for new endpoints/services and for bug fixes.
+- **Keep it small**: prefer many small files over one massive file.
+- **Single responsibility**: one component/module should have one reason to change.
+- **Thin edges, fat core**: pages/views/controllers stay thin; business logic lives in dedicated modules.
+- **Consistency beats cleverness**: follow existing patterns in this repo even if you know another "better" way.
+- **No secrets in git**: never commit `.env`, tokens, private keys, credentials.
 
 ---
 > Source: [quanwangniuniu/marketing-simplified](https://github.com/quanwangniuniu/marketing-simplified) — distributed by [TomeVault](https://tomevault.io).
