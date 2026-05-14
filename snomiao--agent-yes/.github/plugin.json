@@ -1,0 +1,9 @@
+{
+  "name": "snomiao--agent-yes",
+  "displayName": "agent-yes",
+  "description": "A wrapper tool that automates interactions with the Claude CLI by automatically handling common prompts and responses",
+  "version": "1.0.0",
+  "author": "snomiao",
+  "homepage": "https://github.com/snomiao/agent-yes",
+  "skills": []
+}
