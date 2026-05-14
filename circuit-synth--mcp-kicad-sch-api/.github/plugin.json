@@ -1,0 +1,9 @@
+{
+  "name": "circuit-synth--mcp-kicad-sch-api",
+  "displayName": "mcp-kicad-sch-api",
+  "description": "Model Context Protocol server for KiCAD schematic manipulation - AI agent integration for electronic circuit design",
+  "version": "1.0.0",
+  "author": "circuit-synth",
+  "homepage": "https://github.com/circuit-synth/mcp-kicad-sch-api",
+  "skills": []
+}
