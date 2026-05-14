@@ -1,12 +1,13 @@
-## wf-comp
+## z-components
 
-> * Create simple props down, events up components that don't interact with any API endpoints.
+> * When creating a brand new stand alone component (that's not a child/tightly coupled component), use the `nlx hygen component new --name [ComponentNameHere]` from package.json*
 
-* Create simple props down, events up components that don't interact with any API endpoints.
-* Optimize them as if their consuming components WILL be getting data from API endpoints
-* Add a page in the `app/pages/playground` directory with hardcoded dummy data passed in to the props and reacting to events.
-* You can make curl requests and use the playwright mcp to check the results of the demo page
-* ALWAYS read the [components.mdc](mdc:.cursor/rules/components.mdc)
+* When creating a brand new stand alone component (that's not a child/tightly coupled component), use the `nlx hygen component new --name [ComponentNameHere]` from package.json* 
+* ALWAYS read the created files after running the hygen command.
+* When creating template refs always name them with the `El` suffix. For example:
+  * `const textareaEl = useTemplateRef('textareaEl')`  
+  * Always use `useTemplateRef('[ref identifier here]')` to define template refs (not `ref()`)
+  * ShadCN has components like `Textarea` that seem like native components but are not. Remember to account for that.
 
 ---
 > Source: [vueschool/aidd-workhop](https://github.com/vueschool/aidd-workhop) — distributed by [TomeVault](https://tomevault.io).
