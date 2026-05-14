@@ -1,0 +1,9 @@
+{
+  "name": "caido-community--compare",
+  "displayName": "Compare",
+  "description": "Side-by-side comparison of HTTP requests, responses, and files with visual difference highlighting",
+  "version": "1.0.0",
+  "author": "caido-community",
+  "homepage": "https://github.com/caido-community/Compare",
+  "skills": []
+}
