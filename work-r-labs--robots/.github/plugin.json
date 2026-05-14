@@ -1,0 +1,9 @@
+{
+  "name": "work-r-labs--robots",
+  "displayName": "robots",
+  "description": "A open source library of Industrial Robots to use in NVIDIA Isaac Sim",
+  "version": "1.0.0",
+  "author": "work-r-labs",
+  "homepage": "https://github.com/work-r-labs/robots",
+  "skills": []
+}
