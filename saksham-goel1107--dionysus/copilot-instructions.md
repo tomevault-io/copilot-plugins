@@ -1,19 +1,14 @@
-## global
+## nextjs
 
-> - Use Next.js App Router patterns (React Server Components by default; limit `use client` to UI/interaction surfaces)
+> - Default to React Server Components; limit `use client` to components that need browser APIs or interactivity
 
-- Use Next.js App Router patterns (React Server Components by default; limit `use client` to UI/interaction surfaces)
-- Prefer TypeScript everywhere; strict mode is enabled; avoid `any`; model inputs/outputs with `zod`
-- Match existing formatting (Prettier) and lint rules; run `npm run check` before proposing large edits
-- Respect path alias `@/*` mapped to `src/*`
-- Keep secrets and keys server-side; never expose credentials to the client; use `server-only` where appropriate
-- Data access via Prisma; validate at the edge of the system; avoid N+1 by selecting only required fields
-- API communication via tRPC where possible; keep routers cohesive and types end-to-end
-- UI with Tailwind + shadcn/ui + Radix; favor composition, accessibility, and responsive design
-- Observe security headers and CSP intent; sanitize any user-generated HTML with `sanitize-html` or `dompurify`
-- Prefer incremental, focused edits; avoid broad refactors unless requested and justified
-- Document assumptions and edge cases in code comments only when non-obvious; keep comments concise
-- Use Conventional Commits; do not modify unrelated files in a single edit
+- Default to React Server Components; limit `use client` to components that need browser APIs or interactivity
+- Use route handlers for server endpoints under `src/app/**/route.ts`
+- Use `generateMetadata`/`metadata` for head data; avoid legacy `next/head`
+- Keep image domains in sync with `images.remotePatterns` in `next.config.js`
+- Optimize performance: stream where feasible, defer non-critical JS via dynamic import
+- Prefer `cache`, `revalidate`, and `fetch` options instead of ad-hoc caches
+- Respect middlewares defined in `src/middleware.ts` for auth and security; do not duplicate logic in routes
 
 ---
 > Source: [Saksham-Goel1107/Dionysus](https://github.com/Saksham-Goel1107/Dionysus) — distributed by [TomeVault](https://tomevault.io).
