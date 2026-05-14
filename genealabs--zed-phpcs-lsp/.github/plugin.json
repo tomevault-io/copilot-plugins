@@ -1,0 +1,9 @@
+{
+  "name": "genealabs--zed-phpcs-lsp",
+  "displayName": "zed-phpcs-lsp",
+  "description": "PHPCS linter for Zed",
+  "version": "1.0.0",
+  "author": "GeneaLabs",
+  "homepage": "https://github.com/GeneaLabs/zed-phpcs-lsp",
+  "skills": []
+}
