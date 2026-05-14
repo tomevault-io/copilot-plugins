@@ -7,11 +7,11 @@ A lightweight, zero-dependency, type-safe dependency injection framework for mod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nslogmeng/swift-service](https://github.com/nslogmeng/swift-service).
+Original source: `CLAUDE.md` in [nslogmeng/swift-service](https://github.com/nslogmeng/swift-service).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
