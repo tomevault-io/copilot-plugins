@@ -4,7 +4,7 @@
   "repo": "Snappy",
   "description": "\ud83d\udc0a Snappy's unique approach unifies vision-language late interaction with structured OCR for region-level knowledge retrieval. Like the project? Drop a star! \u2b50",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/athrael-soju/Snappy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:54:49Z"
+  "distributed_at": "2026-05-14T08:10:07Z"
 }
