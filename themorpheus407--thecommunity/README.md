@@ -7,11 +7,11 @@ Community Coding Project - USE AT YOUR OWN RISK!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TheMorpheus407/TheCommunity](https://github.com/TheMorpheus407/TheCommunity).
+Original source: `CLAUDE.md` in [TheMorpheus407/TheCommunity](https://github.com/TheMorpheus407/TheCommunity).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
