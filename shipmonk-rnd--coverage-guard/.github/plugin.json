@@ -1,0 +1,9 @@
+{
+  "name": "shipmonk-rnd--coverage-guard",
+  "displayName": "coverage-guard",
+  "description": "\ud83e\uddea Enforce PHP code coverage in your CI. Not by percentage, but target core methods! Allows you to start enforcing coverage for new code only!   Also contains tooling to merge and convert PHPUnit cover",
+  "version": "1.0.0",
+  "author": "shipmonk-rnd",
+  "homepage": "https://github.com/shipmonk-rnd/coverage-guard",
+  "skills": []
+}
