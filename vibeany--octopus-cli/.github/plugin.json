@@ -1,0 +1,9 @@
+{
+  "name": "vibeany--octopus-cli",
+  "displayName": "octopus-cli",
+  "description": "A command-line tool for dynamic Claude Code API management and forwarding.",
+  "version": "1.0.0",
+  "author": "VibeAny",
+  "homepage": "https://github.com/VibeAny/octopus-cli",
+  "skills": []
+}
