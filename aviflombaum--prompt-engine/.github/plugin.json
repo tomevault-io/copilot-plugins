@@ -1,0 +1,9 @@
+{
+  "name": "aviflombaum--prompt-engine",
+  "displayName": "prompt_engine",
+  "description": "A Rails Engine for managing your LLM prompts without having to hardcode them. Includes testing, versioning, and more.",
+  "version": "1.0.0",
+  "author": "aviflombaum",
+  "homepage": "https://github.com/aviflombaum/prompt_engine",
+  "skills": []
+}
