@@ -1,0 +1,9 @@
+{
+  "name": "dogokit--dogokit-corgi",
+  "displayName": "dogokit-corgi",
+  "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui",
+  "version": "1.0.0",
+  "author": "dogokit",
+  "homepage": "https://github.com/dogokit/dogokit-corgi",
+  "skills": []
+}
