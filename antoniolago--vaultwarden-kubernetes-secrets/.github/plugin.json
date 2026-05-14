@@ -1,0 +1,9 @@
+{
+  "name": "antoniolago--vaultwarden-kubernetes-secrets",
+  "displayName": "vaultwarden-kubernetes-secrets",
+  "description": "Make your Vaultwarden a Kubernetes Secret Manager",
+  "version": "1.0.0",
+  "author": "antoniolago",
+  "homepage": "https://github.com/antoniolago/vaultwarden-kubernetes-secrets",
+  "skills": []
+}
