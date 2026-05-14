@@ -1,0 +1,129 @@
+{
+  "name": "code-buddy",
+  "owner": "phuetz",
+  "repo": "code-buddy",
+  "description": "An open-source multi-provider AI coding agent that runs directly in your terminal.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "blender",
+      "path": ".codebuddy/skills/bundled/blender",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/blender",
+      "description": ""
+    },
+    {
+      "name": "blog-watcher",
+      "path": ".codebuddy/skills/bundled/blog-watcher",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/blog-watcher",
+      "description": ""
+    },
+    {
+      "name": "brave-search",
+      "path": ".codebuddy/skills/bundled/brave-search",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/brave-search",
+      "description": ""
+    },
+    {
+      "name": "coding-agent",
+      "path": ".codebuddy/skills/bundled/coding-agent",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/coding-agent",
+      "description": ""
+    },
+    {
+      "name": "csharp-avalonia",
+      "path": ".codebuddy/skills/bundled/csharp-avalonia",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/csharp-avalonia",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "path": ".codebuddy/skills/bundled/databases",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/databases",
+      "description": ""
+    },
+    {
+      "name": "davinci-resolve",
+      "path": ".codebuddy/skills/bundled/davinci-resolve",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/davinci-resolve",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "path": ".codebuddy/skills/bundled/exa-search",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/exa-search",
+      "description": ""
+    },
+    {
+      "name": "game-engines",
+      "path": ".codebuddy/skills/bundled/game-engines",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/game-engines",
+      "description": ""
+    },
+    {
+      "name": "gif-search",
+      "path": ".codebuddy/skills/bundled/gif-search",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/gif-search",
+      "description": ""
+    },
+    {
+      "name": "gimp",
+      "path": ".codebuddy/skills/bundled/gimp",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/gimp",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": ".codebuddy/skills/bundled/github",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/github",
+      "description": ""
+    },
+    {
+      "name": "gitlab",
+      "path": ".codebuddy/skills/bundled/gitlab",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/gitlab",
+      "description": ""
+    },
+    {
+      "name": "healthcheck",
+      "path": ".codebuddy/skills/bundled/healthcheck",
+      "github_url": "https://github.com/phuetz/code-buddy/tree/main/.codebuddy/skills/bundled/healthcheck",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/phuetz/code-buddy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T15:30:08Z"
+}
