@@ -4,7 +4,7 @@
   "repo": "ibmi-mcp-server",
   "description": "MCP server for  IBM i systems",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IBM/ibmi-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T17:46:39Z"
+  "distributed_at": "2026-05-14T04:20:01Z"
 }
