@@ -1,216 +1,237 @@
 ## gemini-md
 
-> > Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
+> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## objects2xlsx
+## opencanvas
 
-> Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Objects2XLSX Project Context
+# CLAUDE.md
 
-## 项目概述
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Objects2XLSX 是一个 Swift 库，用于将对象数据导出为 Excel (.xlsx) 文件。通过类型安全的设计和灵活的配置选项，支持将 Swift 对象（如 Core Data、SwiftData 等）转换为格式化的 Excel 文件。
+## CRITICAL GLOBAL RULES
 
-## 核心架构
+### NEVER Create Synthetic/Fallback Data
+- **NEVER** create synthetic gaps, scores, or results as fallbacks
+- **NEVER** use fake data to mask real issues or keep systems running
+- If evaluation fails → Stop evolution, don't analyze error data
+- If no gaps found → This is SUCCESS (system optimized), not failure
+- Real failures should propagate and be fixed, not hidden with synthetic data
+- This applies to ALL components: evaluation, reflection, improvement, implementation
 
-### 主要组件
-
-- **Book**: 对应 Excel 的 Workbook，包含多个工作表
-- **Sheet<ObjectType>**: 泛型工作表，将特定类型的对象集合转换为表格数据
-- **Column<ObjectType, InputType, OutputType>**: 定义对象属性到 Excel 列的映射
-- **Cell**: 单元格，包含位置、值和样式信息
-- **Row**: 行，包含多个单元格
-
-### 样式系统
-
-- **CellStyle**: 单元格样式（字体、填充、对齐、边框、数字格式）
-- **SheetStyle**: 工作表样式（行高、列宽、冻结窗格、网格线等）
-- **BookStyle**: 工作簿样式（主题、默认样式等）
-
-### 注册器
-
-- **StyleRegister**: 管理和去重样式，生成样式ID
-- **ShareStringRegister**: 管理共享字符串，优化文件大小
-
-## 项目状态
-
-### 🎯 当前状态：**功能完整，持续优化**
-
-Objects2XLSX 是一个功能完整的 Swift 库，具备：
-1. 完整的 XLSX 生成流程（对象 → XML → ZIP → .xlsx）
-2. 简化的列声明 API 和类型安全的数据转换
-3. 多工作表支持和自定义样式系统
-4. 跨平台兼容性（Linux/macOS）和 Swift 6 并发安全
-5. 完整的演示项目和 340+ 测试用例
-
-## 项目约定
-
-### 代码修改规则
-
-- **只有在获得明确认可后，才能自动修改这个项目的代码**
-- 所有代码修改建议应以示例代码形式提供
-- 修改前需要说明修改的目的和影响
-
-## 关键设计决策
-
-### 类型安全
-
-- 使用泛型确保编译时类型检查
-- KeyPath 用于安全的属性访问
-- 类型擦除（AnySheet、AnyColumn）支持异构集合
-
-### 并发安全
-
-- 使用 Swift 6 严格并发模式
-- 所有公共类型实现 Sendable 协议
-- 注意：Sheet 操作应在数据源的同一线程执行
-
-### 样式优先级
-
-1. 单元格级别样式（最高优先级）
-2. 列级别样式
-3. 工作表级别样式
-4. 工作簿默认样式（最低优先级）
-
-## 测试策略
-
-- ✅ **单元测试** - 340+ 测试覆盖所有核心组件
-- ✅ **集成测试** - 验证完整的 XLSX 文件生成流程
-- ✅ **演示项目** - 可执行的功能展示和性能验证
-- ✅ **跨平台测试** - Linux/macOS 兼容性验证
-
-## 常用命令
+## Development Commands
 
 ```bash
-# 运行测试
-swift test
+# Install dependencies
+pip install -e .                    # Recommended: CLI + core functionality
+pip install -r requirements-all.txt # Complete installation (CLI + API)
+pip install -r requirements.txt     # Core functionality only
+pip install -r requirements-api.txt # API dependencies only
 
-# 构建项目
-swift build
+# Install browser drivers for PDF conversion
+playwright install chromium
 
-# 运行演示项目
-swift run Objects2XLSXDemo --help
-swift run Objects2XLSXDemo -s medium -v demo.xlsx
+# Setup environment variables
+cp .env.example .env
+# Edit .env with your API keys
+
+# CLI Usage
+opencanvas generate "AI in healthcare" --purpose "academic presentation" --theme "clean minimalist"
+opencanvas convert output/slides.html --output presentation.pdf --zoom 1.5
+opencanvas evaluate evaluation_folder/
+opencanvas pipeline "quantum computing" --purpose "conference talk" --evaluate
+
+# Start API server
+opencanvas api --host 0.0.0.0 --port 8000 --reload
+
+# Run tests
+python run_tests.py                 # Full E2E test suite
+python run_tests.py light           # Light mode (faster)
+python run_tests.py topic           # Topic tests only
+python run_tests.py pdf             # PDF tests only
+python run_tests.py force           # Force regenerate all files
+
+# Adversarial evaluation testing
+python run_adversarial_eval_test.py
+python run_adversarial_eval_test.py --regenerate
+
+# Topic Evolution System - Autonomous presentation improvement
+python topic_evolution.py --run  # Run complete autonomous evolution system (default: 2 iterations)
+python topic_evolution.py --run --max-iterations 1  # Single iteration test to verify tool/prompt changes
+python topic_evolution.py --run --max-iterations 1 --topic "AI in healthcare"  # Custom topic single iteration
+python topic_evolution.py --run --diagnostic  # Run with diagnostic output for debugging
+python topic_evolution.py --run --prompt-only  # Focus only on prompt optimization, skip tool creation
+python topic_evolution.py --run --initial-prompt evolution_runs/evolved_prompts/generation_prompt_v3.txt  # Start with custom prompt
+python topic_evolution.py --run --resume evolution_runs/tracked_evolution_20250815_162354  # Resume from existing experiment
+
+# PDF Evolution System - PDF-based presentation evolution
+python pdf_evolution.py --max-iterations 2 --prompt-only --test-pdfs https://arxiv.org/pdf/2505.20286
+python pdf_evolution.py --max-iterations 4 --prompt-only --test-pdfs URL1 URL2 URL3 --memory
+
+# Validate configuration
+python -c "from opencanvas.config import Config; Config.validate(); print('✅ Configuration valid')"
 ```
 
-## 增强列 API
+## Project Architecture
 
-### 简化语法
+This is a Python-based presentation generation and evaluation system with both CLI and REST API interfaces:
 
-新的 API 支持直观的列声明和链式配置：
+**Core Components:**
+- **CLI Interface** (`src/opencanvas/main.py`): Primary command-line interface with `generate`, `convert`, `evaluate`, `pipeline`, and `api` commands
+- **Generation Router** (`src/opencanvas/generators/router.py`): Routes between topic-based and PDF-based generation
+- **Topic Generator** (`src/opencanvas/generators/topic_generator.py`): Creates presentations from text topics with optional web research
+- **PDF Generator** (`src/opencanvas/generators/pdf_generator.py`): Extracts and converts PDF content to presentations
+- **HTML-to-PDF Converter** (`src/opencanvas/conversion/html_to_pdf.py`): Converts generated HTML slides to PDF using Selenium/Playwright
+- **AI Evaluator** (`src/opencanvas/evaluation/evaluator.py`): Evaluates presentation quality using Claude, GPT, or Gemini models
 
-```swift
-let sheet = Sheet<Employee>(name: "Employees", dataProvider: { employees }) {
-    // 基础列声明
-    Column(name: "Name", keyPath: \.name)
-    
-    // 可选值 + 默认值
-    Column(name: "Salary", keyPath: \.salary)
-        .defaultValue(0.0)
-        .width(12)
-    
-    // 类型转换
-    Column(name: "Level", keyPath: \.salary)
-        .defaultValue(0.0)
-        .toString { salary in salary < 50000 ? "Standard" : "Premium" }
-    
-    // 布尔值自定义格式
-    Column(name: "Manager", keyPath: \.isManager, booleanExpressions: .yesAndNo)
-    
-    // 日期时区支持
-    Column(name: "Hire Date", keyPath: \.hireDate, timeZone: .utc)
-}
+**Evolution System** (Autonomous Improvement):
+- **Evolution System** (`src/opencanvas/evolution/core/evolution.py`): Main orchestrator for autonomous presentation quality improvement
+- **Multi-Agent System** (`src/opencanvas/evolution/core/agents.py`): Reflection, improvement, and implementation agents
+- **Auto Tool Implementation** (`src/opencanvas/evolution/core/tool_implementation.py`): Fully autonomous tool creation and deployment system
+- **Evolved Router** (`src/opencanvas/evolution/core/evolved_router.py`): Enhanced generation router with evolved prompts and auto-generated tools
+- **Prompt Evolution** (`src/opencanvas/evolution/core/prompts.py`): Dynamic prompt improvement based on evaluation results
+- **Tools Manager** (`src/opencanvas/evolution/core/tools.py`): Tool discovery, specification, and lifecycle management
+
+**API Layer:**
+- **FastAPI Application** (`src/api/app.py`): REST API with auto-generated documentation
+- **API Routes** (`src/api/routes.py`): Endpoints for generation, conversion, evaluation, and pipeline operations
+- **Pydantic Models** (`src/api/models.py`): Request/response schemas
+
+### Key Features
+
+**Dual Input Support**: Generate from either text topics or PDF documents  
+**Smart Research**: Automatic web research using Brave Search API when knowledge is insufficient  
+**Multi-Provider Evaluation**: Support for Claude, GPT, and Gemini evaluation models  
+**Organized Output Structure**: Creates timestamped folders with slides/, evaluation/, and sources/ subdirectories  
+**Multiple Themes**: Professional themes defined in `src/opencanvas/shared/themes.py`  
+**Comprehensive Testing**: E2E test suite with adversarial evaluation testing
+
+**Autonomous Evolution System**: ML-style self-improvement system that automatically:
+- **Evaluates Current Performance**: Uses AI evaluation to identify quality weaknesses and improvement opportunities
+- **Proposes Tools & Prompts**: Multi-agent system designs specific improvements (tools, prompt enhancements) based on evaluation gaps
+- **Implements Tools Automatically**: 9-step pipeline generates, tests, and deploys Python tools without human intervention
+- **Evolves Prompts**: Dynamically improves generation prompts based on evaluation feedback and performance data
+- **Tracks Performance**: Measures tool effectiveness and maintains learning patterns for future iterations
+- **Checkpoint System**: ML-style checkpoints with full experiment reproducibility and continuation capability
+- **Resource-Constrained**: Only uses available APIs (Claude, GPT, Gemini, Brave Search) without requiring external service setup
+
+### Configuration Management
+
+**Environment Variables** (`.env`):
+- `ANTHROPIC_API_KEY`: Required for Claude models
+- `OPENAI_API_KEY`: Required for GPT evaluation
+- `GEMINI_API_KEY`: Required for Gemini evaluation (default provider)
+- `BRAVE_API_KEY`: Optional for web research
+- `EVALUATION_PROVIDER`: claude/gpt/gemini (default: gemini)
+- `EVALUATION_MODEL`: Model name matching provider
+- `DEFAULT_THEME`: Presentation theme (default: professional blue)
+- `DEFAULT_ZOOM`: PDF zoom factor (default: 1.2)
+
+**Smart Model Validation**: Config class automatically validates model/provider combinations and provides sensible defaults.
+
+### Pipeline Workflow
+
+**Standard Pipeline:**
+1. **Generation**: Creates HTML slides from topic or PDF input
+2. **Research** (if needed): Fetches additional information via Brave Search
+3. **Conversion**: Renders HTML to PDF using browser automation
+4. **Evaluation**: AI-powered quality assessment with scoring
+5. **Organization**: Saves all outputs in structured directories
+
+**Evolution Pipeline** (Autonomous Improvement):
+1. **Generate**: Create test presentations using current best prompts and tools
+2. **Evaluate**: AI evaluation with reference-required scoring for accuracy gaps
+3. **Reflect**: Multi-agent analysis identifies specific weaknesses and improvement opportunities
+4. **Improve**: Design targeted solutions (new tools, prompt enhancements) using reflection results
+5. **Implement**: Automatically generate, test, and deploy improvements with 9-step validation pipeline
+6. **Apply**: Integrate evolved prompts and auto-generated tools into production pipeline
+7. **Track**: Measure performance improvements and learn from successful/failed patterns
+8. **Checkpoint**: Save complete iteration state for reproducibility and continuation
+
+### Testing Architecture
+
+**E2E Test Suite** (`tests/test_e2e_pipeline.py`): Comprehensive testing of the full pipeline  
+**Adversarial Testing** (`run_adversarial_eval_test.py`): Tests evaluation robustness with 5 attack methods  
+**Individual Component Tests**: Separate test files for topics, PDFs, and conversion  
+**API Testing** (`test_api.py`): REST API endpoint testing  
+**Evolution Testing** (`topic_evolution.py`, `pdf_evolution.py`): Autonomous evolution systems for topic-based and PDF-based presentations
+
+The testing system supports light mode for faster validation and force regeneration for comprehensive testing.
+
+### Evolution System Details
+
+**Architecture**: ML-inspired autonomous improvement system with multi-agent coordination  
+**Goal**: Systematically improve presentation quality through iterative tool creation and prompt evolution  
+**Approach**: "Offline RL" style learning with complete observability and checkpoint-based training  
+
+**Key Components**:
+- **Multi-Agent System**: Reflection, improvement, and implementation agents working in coordination
+- **Automatic Tool Implementation**: 9-step pipeline (spec → code → test → performance → deploy)  
+- **Evolved Generation Router**: Production router enhanced with evolved prompts and auto-generated tools
+- **Performance Tracking**: Before/after measurement with learning from successful patterns
+- **Checkpoint Management**: ML-style experiment tracking with full reproducibility
+
+**Tool Creation Guidelines**:
+- **Resource Constraints**: Auto-generated tools can ONLY use Claude/GPT/Gemini APIs, Brave Search, Python stdlib, and configured services
+- **YAML Prompts**: All LLM prompts for tool generation use YAML format (NOT JSON) to avoid f-string nesting issues
+- **Centralized Prompts**: Tool generation prompts stored in `src/opencanvas/evolution/prompts/tool_generation.yaml`
+- **F-String Safety**: Generated tools are instructed to avoid nested f-strings and use .format() for complex string building
+- **Template-Based Approach**: Tools that generate LLM prompts use template-based string formatting to prevent syntax errors
+- **Autonomous Pipeline**: Tools are generated, tested, and deployed automatically without human intervention (unless explicitly configured)
+- **Learning System**: Failed and successful tool patterns are tracked to improve future tool creation
+
+**Output Structure** (matches successful 0815 runs): 
+```
+evolution_runs/experiment_name/
+├── config.json                    # Experiment configuration
+├── training.log                   # Complete evolution log (288+ entries)
+├── evolution/
+│   ├── iteration_1/
+│   │   ├── evaluation_results.json      # Iteration evaluation results
+│   │   └── presentations/               # Generated presentations for evaluation
+│   ├── iteration_2/
+│   │   ├── evaluation_results.json
+│   │   └── presentations/
+│   └── evolved_prompts/
+│       ├── generation_prompt_v1.txt     # Evolved prompts (iteration 1 → 2)
+│       ├── generation_prompt_v2.txt     # Evolved prompts (iteration 2 → 3)
+│       └── ...
+├── summary.json                   # Final results and metrics
+└── auto_generated_tools/          # Deployed tools integrated into pipeline
 ```
 
-### 支持的数据类型
+## Important File Locations
 
-**✅ 完整支持**：
-- **String/String?**: 简化构造器 + defaultValue + toString
-- **Double/Double?**: 简化构造器 + defaultValue + toString/toInt
-- **Int/Int?**: 简化构造器 + defaultValue + toString/toInt
-- **Bool/Bool?**: 简化构造器 + defaultValue + 自定义表达式
-- **Date/Date?**: 简化构造器 + defaultValue + 时区支持
-- **URL/URL?**: 简化构造器 + defaultValue
-- **Percentage**: 精度控制和自定义格式
+**Core System**:
+- **Main CLI**: `src/opencanvas/main.py` - Entry point with all command handling
+- **Configuration**: `src/opencanvas/config.py` - Environment variable management and validation
+- **Themes**: `src/opencanvas/shared/themes.py` - Visual theme definitions
+- **Evaluation Prompts**: `src/opencanvas/evaluation/prompts.py` - AI evaluation prompt templates
+- **Test Runner**: `run_tests.py` - Convenient wrapper for running E2E tests
+- **API Documentation**: Available at `/docs` when API server is running
 
-### 类型安全特性
+**Evolution System**:
+- **Evolution Orchestrator**: `src/opencanvas/evolution/core/evolution.py` - Main evolution system coordination
+- **Multi-Agent System**: `src/opencanvas/evolution/core/agents.py` - Reflection and improvement agents
+- **Tool Implementation**: `src/opencanvas/evolution/core/tool_implementation.py` - Autonomous tool creation pipeline
+- **Evolved Router**: `src/opencanvas/evolution/core/evolved_router.py` - Enhanced generation with evolved components
+- **Prompt Evolution**: `src/opencanvas/evolution/core/prompts.py` - Dynamic prompt improvement system
+- **Tools Manager**: `src/opencanvas/evolution/core/tools.py` - Tool lifecycle management
+- **Tool Generation Prompts**: `src/opencanvas/evolution/prompts/tool_generation.yaml` - Centralized YAML prompts for tool creation
+- **Topic Evolution**: `topic_evolution.py` - Topic-based autonomous evolution system
+- **PDF Evolution**: `pdf_evolution.py` - PDF-based autonomous evolution system
 
-```swift
-// defaultValue 后，转换方法接收非可选类型
-Column(name: "Category", keyPath: \.price)  // Double?
-    .defaultValue(0.0)
-    .toString { (price: Double) in          // 非可选！
-        price < 50 ? "Budget" : "Premium"
-    }
+## Required API Keys
 
-// keepEmpty 时，显式处理可选值
-Column(name: "Status", keyPath: \.price)    // Double?
-    .toString { (price: Double?) in         // 可选
-        price.map { "¥\($0)" } ?? "未定价"
-    }
-```
-
-## 注意事项
-
-1. 行列索引从 1 开始（Excel 标准）
-2. Sheet 名称会自动清理非法字符并限制长度
-3. 大数据集需要考虑内存使用
-4. 共享字符串用于优化文件大小（String 和 URL 类型自动注册）
-5. 方法链式调用支持灵活的列配置
-
-## 使用示例
-
-### 基础用法
-
-```swift
-import Objects2XLSX
-
-struct Person: Sendable {
-    let name: String
-    let age: Int
-    let salary: Double?
-}
-
-let people = [
-    Person(name: "Alice", age: 25, salary: 75000.0),
-    Person(name: "Bob", age: 30, salary: nil)
-]
-
-let sheet = Sheet<Person>(name: "People", dataProvider: { people }) {
-    Column(name: "姓名", keyPath: \.name)
-    
-    Column(name: "年龄分组", keyPath: \.age)
-        .toString { age in age < 18 ? "未成年" : "成年" }
-    
-    Column(name: "薪资等级", keyPath: \.salary)
-        .defaultValue(0.0)
-        .toString { salary in salary < 50000 ? "标准" : "高级" }
-}
-
-let book = Book(style: BookStyle()) { sheet }
-try book.write(to: URL(fileURLWithPath: "/path/to/output.xlsx"))
-```
-
-### 进度监控
-
-```swift
-let book = Book(style: BookStyle()) { /* sheets */ }
-
-Task {
-    for await progress in book.progressStream {
-        print("进度: \(Int(progress.progressPercentage * 100))% - \(progress.description)")
-        if progress.isFinal { break }
-    }
-}
-
-Task {
-    try book.write(to: outputURL)
-}
-```
+At minimum, one evaluation provider key is required:
+- **ANTHROPIC_API_KEY**: For generation (always required) and Claude evaluation
+- **GEMINI_API_KEY**: For Gemini evaluation (default provider)
+- **OPENAI_API_KEY**: For GPT evaluation
+- **BRAVE_API_KEY**: Optional for web research enhancement
 
 ---
-> Source: [fatbobman/Objects2XLSX](https://github.com/fatbobman/Objects2XLSX) — distributed by [TomeVault](https://tomevault.io).
+> Source: [genmini-ai/OpenCanvas](https://github.com/genmini-ai/OpenCanvas) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:gemini_md:2026-05-06 -->
 
 ---
