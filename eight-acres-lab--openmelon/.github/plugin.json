@@ -1,0 +1,9 @@
+{
+  "name": "eight-acres-lab--openmelon",
+  "displayName": "openmelon",
+  "description": "A content-creation agent runtime for reproducible multimodal production \u2014 projects, workflows, skills, provenance.",
+  "version": "1.0.0",
+  "author": "eight-acres-lab",
+  "homepage": "https://github.com/eight-acres-lab/openmelon",
+  "skills": []
+}
