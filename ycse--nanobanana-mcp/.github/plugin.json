@@ -1,0 +1,9 @@
+{
+  "name": "ycse--nanobanana-mcp",
+  "displayName": "nanobanana-mcp",
+  "description": "Gemini Vision & Image Generation MCP for Claude Desktop and Claude Code",
+  "version": "1.0.0",
+  "author": "YCSE",
+  "homepage": "https://github.com/YCSE/nanobanana-mcp",
+  "skills": []
+}
