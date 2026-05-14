@@ -1,0 +1,9 @@
+{
+  "name": "ca-srg--tosage",
+  "displayName": "tosage",
+  "description": "A Go application that tracks Claude Code and Cursor token usage and sends metrics to Prometheus. It can run in CLI mode (outputs today's token count) or daemon mode (system tray application with perio",
+  "version": "1.0.0",
+  "author": "ca-srg",
+  "homepage": "https://github.com/ca-srg/tosage",
+  "skills": []
+}
