@@ -1,25 +1,13 @@
-## repo-architecture
+## security-privacy
 
-> Repo layout and where code lives (backend apps, frontend app/components/api/stores/types).
+> Security and privacy (no secrets in logs, validate input, least privilege).
 
 
-# Repo architecture (what goes where)
+# Security & privacy (always)
 
-```text
-backend/                     Django (DRF + Channels + Celery)
-  <app>/                     One Django app per domain (task/, decision/, spreadsheet/, ...)
-  backend/                   Django project (settings/urls/asgi/wsgi)
-
-frontend/                    Next.js 14 (App Router)
-  src/app/                   Route pages/layouts (compose, don't implement features here)
-  src/components/            React components (feature folders live here)
-    common/                  Shared, app-agnostic primitives (Button-like, Modal-like, ConfirmDialog, ...)
-    ui/                      Reusable UI building blocks (Radix/shadcn-style wrappers)
-    layout/                  App shell (Sidebar, Layout, navigation)
-  src/lib/api/               All HTTP client code (Axios wrappers per domain)
-  src/lib/*Store.ts          Zustand stores
-  src/types/                 Shared TS types
-```
+- **Never log secrets** (tokens, passwords, full headers).
+- **Validate untrusted input** on the backend (treat everything from the client as hostile).
+- **Least privilege**: permissions/roles should default to "deny" unless explicitly allowed.
 
 ---
 > Source: [quanwangniuniu/marketing-simplified](https://github.com/quanwangniuniu/marketing-simplified) — distributed by [TomeVault](https://tomevault.io).
