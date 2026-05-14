@@ -7,11 +7,11 @@ Lattice zkVM (post-quantum zkVM)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LFDT-Nightstream/Nightstream](https://github.com/LFDT-Nightstream/Nightstream).
+Original source: `CLAUDE.md` in [LFDT-Nightstream/Nightstream](https://github.com/LFDT-Nightstream/Nightstream).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
