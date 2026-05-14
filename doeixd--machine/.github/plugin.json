@@ -1,0 +1,9 @@
+{
+  "name": "doeixd--machine",
+  "displayName": "machine",
+  "description": "Minimal TypeScript state machine library with compile-time safety through Type-State Programming where states are types, not strings.",
+  "version": "1.0.0",
+  "author": "doeixd",
+  "homepage": "https://github.com/doeixd/machine",
+  "skills": []
+}
