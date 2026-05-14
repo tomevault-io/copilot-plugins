@@ -1,0 +1,9 @@
+{
+  "name": "gridatek--tailwind-typography",
+  "displayName": "tailwind-typography",
+  "description": "CSS-only version of Tailwind Typography plugin for Tailwind CSS v4 with all prose variants.",
+  "version": "1.0.0",
+  "author": "gridatek",
+  "homepage": "https://github.com/gridatek/tailwind-typography",
+  "skills": []
+}
