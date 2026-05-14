@@ -1,44 +1,54 @@
-## go
+## google-adk
 
-> Idiomatic Go rules. Explicit error handling, interface-based design, context-first concurrency.
+> Google Agent Development Kit rules for agents, tools, sessions, memory, artifacts, evaluation, and deployment
 
-# Go Language Rules
 
-Expert Go developer. Simple, explicit, idiomatic.
+# Google ADK Rules
 
-## Error Handling
-- Always handle errors — never assign to _
-- fmt.Errorf("context: %w", err) for wrapping
-- errors.Is() / errors.As() for checking
-- Custom error types for structured errors
+## Agent Design
 
-## Naming
-- Short for short-lived vars: i, n, err, ok
-- No stuttering: user.UserID → user.ID
-- Acronyms: userID, httpClient (not userId, httpClient)
-- Interfaces: end in -er (Reader, Writer, Handler)
+- Keep each agent focused on a clear goal, persona, and tool set.
+- Use LLM agents for flexible reasoning and workflow agents for deterministic orchestration.
+- Write instructions that define task boundaries, tool-use rules, and escalation behavior.
+- Split multi-agent systems by responsibility rather than by implementation convenience.
+- Keep model choices configurable.
 
-## Interfaces
-- Accept interfaces, return concrete types
-- Define at call site, not implementation site
-- Single-method interfaces preferred
+## Tools
 
-## Concurrency
-- context.Context first param for blocking functions
-- defer cancel() after context creation
-- WaitGroup for goroutine groups
-- Channels for communication, Mutex for state
+- Give tools narrow, typed inputs and outputs.
+- Validate tool arguments before performing side effects.
+- Keep secrets, credentials, and privileged APIs out of agent prompts.
+- Handle tool errors explicitly and return actionable failure messages.
+- Be aware of ADK tool limitations; some built-in tools cannot be combined with other tools on the same agent.
 
-## Testing
-- Table-driven: for _, tc := range testCases { t.Run(tc.name, ...) }
-- Interface-based mocking
+## Sessions, State, and Memory
 
-## Forbidden
-- No _ to ignore errors
-- No init() for business logic
-- No global mutable state
-- No interface{} where generics work
-- No goroutines without termination condition
+- Use session state for current-conversation data.
+- Use memory for cross-session recall and retrieval.
+- Keep state small and serializable.
+- Do not store large files or binary payloads in session state.
+- Make state keys stable and documented.
+
+## Artifacts
+
+- Use artifacts for generated files, uploaded files, reports, images, audio, and other binary data.
+- Configure an artifact service in the runner before relying on artifact operations.
+- Version artifact filenames intentionally and avoid overwriting semantically different outputs.
+- Store only references or summaries in state when full content belongs in artifacts.
+
+## Evaluation and Deployment
+
+- Add tests for tool behavior, agent routing, prompt regressions, and unsafe tool calls.
+- Use trace or event logs to debug agent decisions.
+- Keep local development, staging, and production configuration separate.
+- Add observability for latency, tool failures, token use, and handoff failures.
+
+## Common Mistakes
+
+- Do not make one agent responsible for every workflow.
+- Do not let tools accept arbitrary shell, SQL, or HTTP input without validation.
+- Do not rely on prompt text for access control.
+- Do not hide important side effects behind generic tool names.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
