@@ -1,0 +1,9 @@
+{
+  "name": "pageloom--weft-id",
+  "displayName": "weft-id",
+  "description": "Weft ID is an open source federation layer that aggregates multiple identity providers into a single, consistent interface for your applications",
+  "version": "1.0.0",
+  "author": "Pageloom",
+  "homepage": "https://github.com/Pageloom/weft-id",
+  "skills": []
+}
