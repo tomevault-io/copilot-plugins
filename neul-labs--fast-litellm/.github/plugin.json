@@ -1,0 +1,9 @@
+{
+  "name": "neul-labs--fast-litellm",
+  "displayName": "fast-litellm",
+  "description": "High-performance Rust acceleration for LiteLLM - providing significant performance improvements for connection pooling, rate limiting, and memory-intensive workloads.",
+  "version": "1.0.0",
+  "author": "neul-labs",
+  "homepage": "https://github.com/neul-labs/fast-litellm",
+  "skills": []
+}
