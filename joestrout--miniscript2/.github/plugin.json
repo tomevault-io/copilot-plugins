@@ -1,0 +1,9 @@
+{
+  "name": "joestrout--miniscript2",
+  "displayName": "miniscript2",
+  "description": "Version 2 of the MiniScript language (including official C# and C++ versions)",
+  "version": "1.0.0",
+  "author": "JoeStrout",
+  "homepage": "https://github.com/JoeStrout/miniscript2",
+  "skills": []
+}
