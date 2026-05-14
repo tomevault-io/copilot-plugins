@@ -1,0 +1,9 @@
+{
+  "name": "wangbooth--claude-code-guardrails",
+  "displayName": "Claude-Code-Guardrails",
+  "description": "Protective hooks for Claude Code that prevent accidental code loss through branch protection,   automatic checkpointing, and safe commit squashing",
+  "version": "1.0.0",
+  "author": "wangbooth",
+  "homepage": "https://github.com/wangbooth/Claude-Code-Guardrails",
+  "skills": []
+}
