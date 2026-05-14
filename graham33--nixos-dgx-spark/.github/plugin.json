@@ -1,0 +1,9 @@
+{
+  "name": "graham33--nixos-dgx-spark",
+  "displayName": "nixos-dgx-spark",
+  "description": "Use Nix and NixOS on your DGX Spark!",
+  "version": "1.0.0",
+  "author": "graham33",
+  "homepage": "https://github.com/graham33/nixos-dgx-spark",
+  "skills": []
+}
