@@ -1,0 +1,9 @@
+{
+  "name": "entropy-data--dataproduct-mcp",
+  "displayName": "dataproduct-mcp",
+  "description": "A Model Context Protocol (MCP) server for discovering data products and requesting access in Data Mesh Manager, and executing queries on the data platform to access business data.",
+  "version": "1.0.0",
+  "author": "entropy-data",
+  "homepage": "https://github.com/entropy-data/dataproduct-mcp",
+  "skills": []
+}
