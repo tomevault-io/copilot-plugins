@@ -1,427 +1,356 @@
-## github-development-wf
-
-> Enforces structured development workflow using GitHub issues, milestones, and projects. Ensures systematic progression through milestone-focused development with comprehensive tracking and verification.
-
-# GitHub Development Workflow Rules
-
-**Purpose:** Enforces structured development workflow using GitHub issues, milestones, and projects. Ensures systematic progression through milestone-focused development with comprehensive tracking and verification.
-
-**When to use:** All development work in GitHub repositories, milestone-based projects, systematic feature development, and any work requiring complete traceability.
-
-## Milestone-Focused Development
-
-**Rule: Work on ONE milestone at a time from start to complete finish.**
-Why: Focused development ensures functional releases, prevents context switching, and maintains clear progress tracking. Milestones represent complete functional value delivery.
-
-**Milestone Requirements:**
-- **Start Only One**: Never work on multiple milestones simultaneously
-- **Complete ALL Issues**: Milestone is done only when 100% of issues are closed
-- **No Partial Releases**: Don't close milestone until every issue is resolved
-- **Emergency Exception**: Only P0 critical bugs can interrupt current milestone
-
-**Milestone Selection Process:**
-```bash
-# Check current milestone status
-gh issue list --milestone "current-milestone" --state open
-
-# If no open issues in current milestone, select next milestone
-# If issues remain, continue working on current milestone
-```
-
-## Issue Discovery and Creation
-
-**Rule: Immediately create new issues when discovering bugs, limitations, or missing work during development.**
-Why: Comprehensive tracking prevents lost work, maintains milestone completeness, and provides audit trail for all discovered requirements.
-
-**Discovery Triggers - Create New Issue When:**
-- **Bug Found**: Code doesn't work as expected during testing
-- **Design Limitation**: Current approach won't achieve requirements  
-- **Missing Functionality**: Additional work needed for completion
-- **Performance Issue**: Implementation doesn't meet requirements
-- **Integration Problem**: Feature doesn't work with existing code
-- **Documentation Gap**: Missing or incorrect documentation
-
-**New Issue Creation Process:**
-```bash
-# Stop current work, create issue immediately
-gh issue create --title "Bug: [description]" \
-  --body "Discovered while working on #123
-  
-## Problem
-[Description of discovered issue]
-
-## Impact  
-[How this affects original work]
-
-## Required Action
-[What needs to be done]" \
-  --label "found-during-dev,bug,P1" \
-  --milestone "current-milestone"
-
-# Link to original issue in description
-# Assign appropriate priority based on impact
-# Always assign to current milestone
-```
-
-**Issue Linking Requirements:**
-- **Reference Original**: "Discovered while working on #123"
-- **Explain Impact**: How discovery affects original work
-- **Set Priority**: Based on blocking impact on milestone
-- **Assign to Current Milestone**: Keep all related work together
-
-## Documentation-First + TDD Workflow
-
-**Rule: Every issue must follow Documentation-First + TDD workflow before any implementation.**
-Why: Documentation-first ensures clear requirements understanding, TDD ensures robust implementation, and this combination prevents rework and missing requirements.
-
-**Mandatory Workflow Sequence:**
-```markdown
-1. **Documentation Phase** (before any code)
-   - Write/update design documentation for the issue
-   - Document expected API and behavior
-   - Define acceptance criteria clearly
-   - Update user documentation if needed
-
-2. **TDD Phase** (before implementation)  
-   - Write failing tests first (red phase)
-   - Write minimal code to pass tests (green phase)
-   - Refactor code while keeping tests green
-   - Repeat until feature complete
-
-3. **Implementation Phase**
-   - Complete implementation following TDD cycle
-   - Maintain test coverage ≥90%
-   - Follow code quality rules from rust-essentials.md
-
-4. **Verification Phase** (mandatory before completion)
-   - Run complete verification checklist
-   - Create additional issues if problems discovered
-   - Only proceed to commit after verification passes
-
-5. **Commit & Push Phase** (mandatory after verification)
-   - Commit all changes with proper issue linking
-   - Push changes to upstream repository
-   - Ensure all work is saved and available
-
-6. **Issue Completion**
-   - Mark issue as done only after commit/push complete
-   - Update issue status to reflect completion
-```
-
-**Documentation Requirements:**
-- **API Documentation**: Every public function has rustdoc with examples
-- **User Documentation**: Feature usage and integration guides
-- **Design Documentation**: Technical approach and architecture decisions
-- **Test Documentation**: Test strategy and coverage rationale
-
-## Task Completion Verification
-
-**Rule: No issue can be marked as 'done' without completing the full verification checklist.**
-Why: Systematic verification prevents incomplete work, ensures quality standards, and catches integration issues before they compound.
-
-**Mandatory Verification Checklist:**
-```markdown
-## Task Completion Verification (Required Before Done)
-
-### Requirements Verification
-- [ ] Re-read original issue requirements completely
-- [ ] Verify each requirement is implemented and working
-- [ ] Test all scenarios mentioned in issue description  
-- [ ] Confirm acceptance criteria are met
-- [ ] Verify solution matches documented design
-
-### Discovery Assessment
-- [ ] Any bugs discovered during development?
-- [ ] Any design limitations or issues found?
-- [ ] Any missing functionality identified?
-- [ ] Any performance/integration problems found?
-- [ ] Any documentation gaps discovered?
-- [ ] **If yes to any above: Created new issues in current milestone**
-
-### Code Quality Verification
-- [ ] All tests pass (unit, integration, doc tests)
-- [ ] Code coverage ≥90% (verified with tarpaulin)
-- [ ] No clippy warnings remain (cargo clippy --deny warnings)
-- [ ] Code properly formatted (cargo fmt --check)
-- [ ] All public APIs have rustdoc with working examples
-
-### Documentation Verification  
-- [ ] API documentation updated and accurate
-- [ ] User documentation reflects new functionality
-- [ ] Code examples in docs work correctly
-- [ ] Breaking changes documented (if any)
-- [ ] Design decisions documented
-
-### Integration Verification
-- [ ] Feature works with existing functionality
-- [ ] No regressions introduced (full test suite passes)
-- [ ] Performance requirements met (benchmarks pass)
-- [ ] Error handling works as expected
-- [ ] Proper logging and observability added
-
-### Milestone Impact Verification
-- [ ] Task contributes to milestone completion goals
-- [ ] All discovered issues tracked and prioritized
-- [ ] No untracked work remaining
-- [ ] Implementation aligns with milestone objectives
-
-### Pre-Commit Verification
-- [ ] All changes staged and ready for commit
-- [ ] Commit message prepared with issue linking
-- [ ] Pre-commit hook will be allowed to run (no --no-verify)
-- [ ] Ready to fix any pre-commit failures properly
-- [ ] Ready to push to upstream repository after successful commit
-```
-
-**Verification Enforcement:**
-- **Change Status**: Move issue to `verification` status during checklist
-- **Document Results**: Add verification results as issue comment
-- **Create Issues**: For any problems discovered during verification
-- **Complete Commit/Push**: After ALL checklist items are confirmed
-- **Only Mark Done**: After successful commit and push to upstream
-
-## Priority-Based Work Within Milestones
-
-**Rule: Work on issues in strict priority order within the current milestone only.**
-Why: Priority order ensures critical work completes first, systematic progression prevents jumping between tasks, and milestone focus maintains delivery commitment.
-
-**Priority Definitions:**
-- **P0**: Critical blockers preventing milestone completion (work immediately)
-- **P1**: Core functionality required for milestone (work after P0s)
-- **P2**: Important features included in milestone scope (work after P1s)
-- **P3**: Additional enhancements committed to milestone (work after P2s)
-- **P4**: Lower priority items still required for completion (work after P3s)
-- **P5**: Nice-to-have items included in milestone (work last)
-
-**Work Selection Process:**
-```bash
-# Always work highest priority first within current milestone
-gh issue list --milestone "current-milestone" \
-  --label "P0" --state open
-
-# If no P0s, then P1s
-gh issue list --milestone "current-milestone" \
-  --label "P1" --state open
-
-# Continue through P2, P3, P4, P5 in order
-# Never skip priorities or work across milestones
-```
-
-**Priority Assignment for Discovered Issues:**
-- **P0**: Blocks completion of milestone functionality
-- **P1**: Required for milestone to work correctly  
-- **P2**: Important for milestone quality
-- **P3**: Enhancements discovered during work
-- **P4/P5**: Future considerations (consider moving to next milestone)
-
-## GitHub Status Management
-
-**Rule: Maintain accurate issue status throughout development lifecycle.**
-Why: Status tracking provides visibility into work progress, prevents duplicated effort, and enables proper project management.
-
-**Required Status Progression:**
-```
-todo → in-progress → (blocked) → needs-review → verification → commit/push → done
-```
-
-**Status Update Requirements:**
-- **Change Status Immediately**: When work state changes
-- **Add Context Comments**: Explain status changes and progress
-- **Link Related Work**: Reference PRs, commits, and related issues
-- **Update Project Board**: Ensure project view reflects current status
-- **Commit After Verification**: Always commit/push before marking done
-
-**Status Definitions:**
-- **todo**: Ready to start, requirements clear
-- **in-progress**: Actively working on implementation
-- **blocked**: Cannot proceed due to dependency or issue
-- **needs-review**: Implementation complete, ready for review
-- **verification**: Running completion verification checklist
-- **commit/push**: Committing changes and pushing to upstream
-- **done**: All work complete and changes pushed to repository
-
-## Milestone Completion Requirements
-
-**Rule: Milestone is complete only when ALL issues (original + discovered) are resolved.**
-Why: Complete milestone resolution ensures functional releases, maintains quality standards, and provides predictable delivery cadence.
-
-**Completion Verification:**
-```bash
-# Check milestone completion status
-gh issue list --milestone "current-milestone" --state open
-
-# Should return NO open issues for milestone to be complete
-# If any issues remain, milestone is not complete
-```
-
-**Pre-Release Checklist:**
-```markdown
-## Milestone Completion Verification
-
-### Issue Resolution
-- [ ] ALL original milestone issues closed
-- [ ] ALL discovered issues resolved  
-- [ ] No open issues remain in milestone
-- [ ] All issue verification checklists completed
-
-### Integration Testing
-- [ ] Full test suite passes for milestone
-- [ ] Integration tests verify feature interactions
-- [ ] Performance benchmarks meet requirements
-- [ ] Documentation reflects all changes
-
-### Release Preparation
-- [ ] Release notes generated from milestone issues
-- [ ] Breaking changes documented
-- [ ] Migration guides updated (if needed)
-- [ ] Version number incremented appropriately
-```
-
-## Commit and Push Requirements
-
-**Rule: After completing verification, immediately commit all changes and push to upstream repository.**
-Why: Ensures work is preserved, enables collaboration, maintains development history, and prevents loss of completed work.
-
-**Commit Process (Mandatory After Verification):**
-```bash
-# 1. Stage all changes
-git add .
-
-# 2. Commit with proper issue linking and detailed message
-# IMPORTANT: NEVER use --no-verify or -n to bypass pre-commit hooks
-git commit -m "feat(component): implement feature description
-
-- Detailed list of what was implemented
-- Include any important technical decisions
-- Note any discovered issues that were created
-- Reference verification completion
-
-closes #123"
-
-# If pre-commit hook fails, fix issues and retry - NEVER bypass
-# Pre-commit hook will run automatically and must pass before commit succeeds
-
-# 3. Push to upstream repository immediately (only after successful commit)
-git push origin main
-
-# 4. Verify push was successful
-git status
-# Should show "Your branch is up to date with 'origin/main'"
-```
-
-**Pre-commit Hook Compliance (CRITICAL):**
-- **ALWAYS run standard `git commit`** - triggers all quality gates
-- **NEVER use `git commit --no-verify`** - bypasses essential validation
-- **NEVER use `git commit -n`** - short form of --no-verify, also forbidden
-- **Fix issues if pre-commit fails** - don't bypass, fix the underlying problems
-- **Pre-commit must pass** before commit is allowed to complete
-
-**If Pre-commit Hook Fails:**
-```bash
-# DON'T do this - never bypass the hook
-# git commit --no-verify -m "quick fix"  ❌ FORBIDDEN
-
-# DO this - fix the issues properly
-cargo fmt                    # Fix formatting issues
-cargo clippy --fix          # Fix auto-fixable clippy issues  
-cargo test                  # Ensure tests pass
-# Then retry the commit
-git commit -m "fix: proper commit message"  ✅ CORRECT
-```
-
-**Commit Message Requirements:**
-- **Use GitHub Keywords**: `closes #123` for automatic issue closure
-- **Follow Conventional Commits**: `feat:`, `fix:`, `docs:`, `refactor:`, etc.
-- **Include Implementation Details**: What was built and why
-- **Reference Related Issues**: Link to any discovered issues created
-- **Note Verification**: Mention that verification checklist was completed
-
-**Push Verification:**
-```bash
-# Verify the commit appears on GitHub
-gh repo view --web
-# Check that latest commit shows in repository
-
-# Verify issue was automatically closed (if using closes #123)
-gh issue view 123
-# Should show status as "Closed"
-```
-
-**Never Skip Commit/Push:**
-- **Always commit after verification passes** - no exceptions
-- **Run standard git commit** - let pre-commit hook validate everything
-- **Fix pre-commit failures properly** - don't bypass with --no-verify
-- **Push immediately after successful commit** - don't leave work local
-- **Verify push success** before marking issue done
-- **Check automatic issue closure** worked correctly
-
-**Pre-commit Hook Failure Handling:**
-If pre-commit hook fails after verification passes, this indicates a gap in verification:
-1. **Fix the pre-commit issues** (formatting, linting, tests, etc.)
-2. **Update verification checklist** to catch this issue in future
-3. **Re-run verification** to ensure quality is maintained
-4. **Retry commit** with standard `git commit` (no --no-verify)
-5. **Create process improvement issue** to prevent recurrence
-
-## Branch and Commit Management
-
-**Rule: Link all commits and PRs to their corresponding issues using GitHub keywords.**
-Why: Automated issue tracking, clear audit trail, and automatic issue closure maintain project organization and provide development history.
-
-**Commit Message Requirements:**
-```bash
-# Use GitHub keywords to link commits to issues
-git commit -m "feat(auth): implement JWT validation
-
-- Add token signing and verification
-- Include expiration handling  
-- Add comprehensive error types
-- Add unit tests with 95% coverage
-
-closes #123"
-
-# For discovered issues
-git commit -m "fix(auth): handle edge case in token expiration
-
-- Fix token validation for edge case discovered in #123
-- Add regression tests
-- Update error handling
-
-closes #145, related to #123"
-```
-
-**Branch Naming Convention:**
-```bash
-# Branch naming should reference issue number
-feature/123-jwt-authentication
-fix/145-token-expiration-edge-case
-docs/167-api-documentation-update
-```
-
-**Pull Request Requirements:**
-- **Link to Issue**: Use `closes #123` in PR description
-- **Verification Results**: Include verification checklist results
-- **Breaking Changes**: Document any breaking changes
-- **Testing Notes**: Describe testing approach and coverage
-
-## Workflow Compliance Verification
-
-**Daily Workflow Checklist:**
-```markdown
-- [ ] Working on current milestone only (no cross-milestone work)
-- [ ] Working highest priority issue within milestone
-- [ ] Following Documentation-First + TDD process
-- [ ] Creating issues immediately when problems discovered
-- [ ] Updating issue status accurately as work progresses
-- [ ] Running verification checklist before committing
-- [ ] Using standard git commit (never --no-verify) to respect pre-commit hooks
-- [ ] Fixing any pre-commit failures properly before retrying commit
-- [ ] Committing and pushing all changes after verification passes
-- [ ] Linking all commits/PRs to corresponding issues
-- [ ] Marking issues done only after successful commit/push
-```
-
-**These rules ensure systematic, trackable, and complete development workflow using GitHub's project management capabilities.**
+## kubernetes
+
+> This rule provides comprehensive best practices for developing and maintaining Kubernetes applications and infrastructure, covering coding standards, security, performance, testing, and deployment.
+
+# Kubernetes Development and Operations Best Practices
+
+This document outlines a collection of guidelines, style suggestions, and tips for writing code and managing infrastructure within the Kubernetes ecosystem. It emphasizes clarity, maintainability, security, and performance.
+
+## 1. Code Organization and Structure
+
+### 1.1 Directory Structure
+
+- **Root Level:**
+  - `cmd/`:  Main application entry points. Each subdirectory represents a separate command-line tool or service.
+  - `pkg/`: Reusable libraries and components that can be imported by other projects.
+  - `internal/`: Private code that should not be imported by external projects.  Enforces encapsulation.
+  - `api/`:  API definitions, including protobuf files and OpenAPI specifications.
+  - `config/`: Configuration files, such as YAML manifests, Kustomize configurations, and Helm charts.
+  - `scripts/`: Utility scripts for building, testing, and deploying the application.
+  - `docs/`: Documentation for the project.
+  - `examples/`: Example usage of the library or application.
+  - `vendor/`: (If using `go modules` without external dependency management) Contains vendored dependencies.  Generally discouraged in modern Go with `go modules`.
+- **Component-Specific Directories:** Inside `pkg/` or `internal/`, organize code by component or module. Each component should have its own directory with clear separation of concerns.
+
+Example:
+
+
+my-kubernetes-project/
+├── cmd/
+│   └── controller/
+│       └── main.go
+├── pkg/
+│   └── api/
+│       ├── types.go
+│   └── controller/
+│       ├── controller.go
+│       ├── reconciler.go
+│   └── util/
+│       └── util.go
+├── internal/
+│   └── admission/
+│       └── webhook.go
+├── config/
+│   ├── deploy/
+│   │   └── deployment.yaml
+│   └── kustomize/
+│       ├── base/
+│       │   ├── kustomization.yaml
+│       │   └── ...
+│       └── overlays/
+│           ├── dev/
+│           │   ├── kustomization.yaml
+│           │   └── ...
+│           └── prod/
+│               ├── kustomization.yaml
+│               └── ...
+├── scripts/
+│   └── build.sh
+├── docs/
+│   └── architecture.md
+└── go.mod
+
+
+### 1.2 File Naming Conventions
+
+- **Go Files:** Use lowercase with underscores (e.g., `my_controller.go`).
+- **YAML Files:** Use lowercase with dashes (e.g., `deployment.yaml`).
+- **Configuration Files:** Be descriptive and consistent (e.g., `config.yaml`, `kustomization.yaml`).
+- **Test Files:** Follow the standard Go convention: `*_test.go` (e.g., `my_controller_test.go`).
+
+### 1.3 Module Organization (Go)
+
+- **Packages:**  Organize code into meaningful packages that represent logical units of functionality.
+- **Internal Packages:** Use `internal/` directories to create packages that are only visible within the project.
+- **Interfaces:** Define interfaces to abstract dependencies and promote testability.
+
+### 1.4 Component Architecture
+
+- **Microservices:** Design applications as a collection of loosely coupled microservices.
+- **Separation of Concerns:** Each component should have a single responsibility and well-defined interfaces.
+- **API Gateway:** Use an API gateway to handle routing, authentication, and rate limiting for external requests.
+- **Service Mesh:** Consider using a service mesh (e.g., Istio, Linkerd) to manage inter-service communication, observability, and security.
+
+### 1.5 Code Splitting Strategies
+
+- **Feature-Based Splitting:** Group code by feature or functionality.
+- **Layer-Based Splitting:** Separate code into layers, such as data access, business logic, and presentation.
+- **Component-Based Splitting:** Divide code into reusable components that can be shared across multiple projects.
+
+## 2. Common Patterns and Anti-Patterns
+
+### 2.1 Design Patterns
+
+- **Controller Pattern:** Implement controllers to reconcile the desired state of Kubernetes resources with the actual state.
+- **Operator Pattern:** Extend the Kubernetes API with custom resources and controllers to automate complex application management tasks.
+- **Sidecar Pattern:** Deploy a sidecar container alongside the main application container to provide supporting functionality, such as logging, monitoring, or security.
+- **Ambassador Pattern:**  Use an ambassador container to proxy network traffic to the main application container, providing features such as load balancing, routing, and authentication.
+- **Adapter Pattern:** Translate requests from one interface to another, allowing different components to work together.
+- **Singleton Pattern:** Implement a singleton pattern for managing global resources, such as database connections or configuration settings. Be extremely cautious, as this can hurt testability and introduce implicit dependencies.
+
+### 2.2 Recommended Approaches for Common Tasks
+
+- **Resource Management:** Use Kubernetes resource requests and limits to ensure that applications have sufficient resources and prevent resource contention.
+- **Configuration Management:** Use ConfigMaps and Secrets to manage configuration data and sensitive information separately from the application code.
+- **Service Discovery:** Use Kubernetes services to provide a stable endpoint for accessing applications, even when pods are scaled up or down.
+- **Health Checks:** Implement liveness and readiness probes to monitor the health of applications and automatically restart unhealthy pods.
+- **Logging and Monitoring:** Use a centralized logging and monitoring system to collect and analyze application logs and metrics.
+- **Rolling Updates:** Use Kubernetes deployments to perform rolling updates of applications with zero downtime.
+
+### 2.3 Anti-Patterns and Code Smells
+
+- **Naked Pods:** Avoid creating pods directly without a deployment or replica set, as they will not be automatically rescheduled if a node fails.
+- **Hardcoded Configuration:** Avoid hardcoding configuration data in the application code. Use ConfigMaps and Secrets instead.
+- **Ignoring Resource Limits:** Failing to set resource requests and limits can lead to resource contention and performance issues.
+- **Oversized Containers:**  Keep container images small and focused to improve startup time and reduce security risks.
+- **Privileged Containers:** Avoid running containers in privileged mode, as it can create security vulnerabilities.
+- **Long-Lived Branches:** Avoid creating long-lived branches, and prefer small, frequent merges to the main branch.
+- **God Classes:** Avoid creating classes that are too large and complex.  Break them down into smaller, more manageable classes.
+- **Shotgun Surgery:**  Avoid making changes to multiple classes when a single feature is modified. This suggests poor class design and coupling.
+- **Feature Envy:**  Avoid methods that access the data of another object more than their own.  This suggests that the method might be in the wrong class.
+
+### 2.4 State Management Best Practices
+
+- **Stateless Applications:** Prefer stateless applications whenever possible, as they are easier to scale and manage.
+- **Persistent Volumes:** Use Persistent Volumes to store persistent data for stateful applications.
+- **External Databases:** Consider using external databases for managing application state, such as databases hosted on cloud providers.
+- **Kubernetes Operators:** Implement Kubernetes operators to automate the management of stateful applications.
+- **Etcd:** Understand the importance of etcd as Kubernetes' data store and protect it accordingly.
+
+### 2.5 Error Handling Patterns
+
+- **Centralized Error Handling:** Implement a centralized error handling mechanism to handle exceptions and log errors consistently.
+- **Retry Mechanism:** Implement a retry mechanism to automatically retry failed operations.
+- **Circuit Breaker Pattern:** Use a circuit breaker pattern to prevent cascading failures in distributed systems.
+- **Logging Error Details:** Log detailed error messages, including stack traces and relevant context, to help with debugging.
+- **Graceful Degradation:** Design applications to gracefully degrade functionality when errors occur.
+- **Alerting on Critical Errors:** Set up alerts to notify administrators when critical errors occur.
+
+## 3. Performance Considerations
+
+### 3.1 Optimization Techniques
+
+- **Caching:** Implement caching to reduce latency and improve performance.
+- **Load Balancing:** Use load balancing to distribute traffic across multiple instances of an application.
+- **Connection Pooling:** Use connection pooling to reuse database connections and reduce overhead.
+- **Compression:** Use compression to reduce the size of data transmitted over the network.
+- **Gzip:** Enable Gzip compression in web servers to reduce the size of HTTP responses.
+
+### 3.2 Memory Management
+
+- **Memory Profiling:** Use memory profiling tools to identify memory leaks and optimize memory usage.
+- **Garbage Collection:** Understand how garbage collection works in the programming language used for the application.
+- **Resource Limits:** Set memory resource limits for containers to prevent them from consuming excessive memory.
+- **Monitor Memory Usage:** Monitor memory usage regularly to identify potential issues.
+
+### 3.3 Rendering Optimization
+
+- **Minimize DOM Manipulation:** Reduce the number of DOM manipulations to improve rendering performance in web applications.
+- **Virtual DOM:** Use a virtual DOM to optimize rendering updates in web applications.
+- **Lazy Loading:** Use lazy loading to load images and other resources only when they are needed.
+
+### 3.4 Bundle Size Optimization
+
+- **Code Minification:** Use code minification to reduce the size of JavaScript and CSS files.
+- **Tree Shaking:** Use tree shaking to remove unused code from JavaScript bundles.
+- **Image Optimization:** Optimize images to reduce their file size without sacrificing quality.
+- **Code Splitting:** Split the application code into smaller bundles that can be loaded on demand.
+
+### 3.5 Lazy Loading Strategies
+
+- **On-Demand Loading:** Load resources only when they are needed by the application.
+- **Intersection Observer:** Use the Intersection Observer API to detect when elements are visible in the viewport and load them accordingly.
+- **Placeholder Images:** Use placeholder images while loading the actual images to improve the user experience.
+
+## 4. Security Best Practices
+
+### 4.1 Common Vulnerabilities and How to Prevent Them
+
+- **Injection Attacks:** Prevent injection attacks by validating and sanitizing all user input.
+- **Cross-Site Scripting (XSS):** Prevent XSS attacks by escaping all user-generated content before rendering it in the browser.
+- **Cross-Site Request Forgery (CSRF):** Prevent CSRF attacks by using anti-CSRF tokens.
+- **Authentication and Authorization Flaws:** Implement robust authentication and authorization mechanisms to protect sensitive data and resources.
+- **Security Misconfiguration:** Avoid using default configurations and ensure that all components are properly configured with security in mind.
+- **Using Components with Known Vulnerabilities:** Keep all dependencies up to date to patch known vulnerabilities.
+- **Insufficient Logging and Monitoring:** Implement comprehensive logging and monitoring to detect and respond to security incidents.
+- **Container Security:** Follow best practices for securing containers, such as using minimal images, running as non-root, and limiting capabilities.
+- **Network Policies:** Use network policies to restrict network traffic between pods.
+- **RBAC (Role-Based Access Control):** Implement RBAC to control access to Kubernetes resources.
+- **Secrets Management:** Use Kubernetes Secrets to store sensitive information, and encrypt secrets at rest.
+- **Pod Security Policies/Pod Security Standards:** Enforce Pod Security Standards to restrict the capabilities of pods.
+
+### 4.2 Input Validation
+
+- **Validate All Input:** Validate all input, including user input, API requests, and configuration data.
+- **Use Strong Data Types:** Use strong data types to enforce data integrity.
+- **Sanitize Input:** Sanitize input to remove potentially harmful characters and prevent injection attacks.
+- **Whitelist Input:** Use a whitelist approach to only allow known good input.
+- **Blacklist Input:** Avoid using a blacklist approach, as it can be easily bypassed.
+
+### 4.3 Authentication and Authorization Patterns
+
+- **Multi-Factor Authentication (MFA):** Use MFA to enhance authentication security.
+- **OAuth 2.0:** Use OAuth 2.0 for authorization and delegation of access.
+- **JSON Web Tokens (JWT):** Use JWTs for securely transmitting claims between parties.
+- **Role-Based Access Control (RBAC):** Implement RBAC to control access to resources based on roles.
+- **Least Privilege Principle:** Grant users and applications only the minimum necessary permissions.
+
+### 4.4 Data Protection Strategies
+
+- **Encryption at Rest:** Encrypt sensitive data at rest to protect it from unauthorized access.
+- **Encryption in Transit:** Encrypt sensitive data in transit using HTTPS or other secure protocols.
+- **Data Masking:** Mask sensitive data to prevent it from being exposed to unauthorized users.
+- **Data Anonymization:** Anonymize data to remove personally identifiable information (PII).
+- **Data Loss Prevention (DLP):** Implement DLP measures to prevent sensitive data from leaving the organization.
+
+### 4.5 Secure API Communication
+
+- **HTTPS:** Use HTTPS for all API communication to encrypt data in transit.
+- **API Authentication:** Implement API authentication to verify the identity of clients.
+- **API Authorization:** Implement API authorization to control access to API endpoints.
+- **Rate Limiting:** Implement rate limiting to prevent abuse and denial-of-service attacks.
+- **Input Validation:** Validate all API requests to prevent injection attacks and other vulnerabilities.
+
+## 5. Testing Approaches
+
+### 5.1 Unit Testing Strategies
+
+- **Test-Driven Development (TDD):** Write unit tests before writing the application code.
+- **Mock Dependencies:** Use mocks to isolate the unit being tested from its dependencies.
+- **Test Boundary Conditions:** Test boundary conditions and edge cases to ensure that the code handles them correctly.
+- **Test Error Conditions:** Test error conditions to ensure that the code handles errors gracefully.
+- **Code Coverage:** Aim for high code coverage to ensure that all parts of the code are tested.
+- **Table-Driven Tests:**  Use table-driven tests to easily test multiple inputs and outputs.
+
+### 5.2 Integration Testing
+
+- **Test Interactions Between Components:** Test the interactions between different components of the application.
+- **Test with Real Dependencies:** Use real dependencies or integration mocks for integration tests.
+- **Test Data Flows:** Test the data flows through the application to ensure that data is processed correctly.
+- **Contract Tests:**  Use contract tests to ensure that services adhere to a defined contract.
+
+### 5.3 End-to-End Testing
+
+- **Test the Entire System:** Test the entire system from end to end to ensure that all components work together correctly.
+- **Automate End-to-End Tests:** Automate end-to-end tests to ensure that they are run regularly.
+- **Use Realistic Test Data:** Use realistic test data to simulate real-world scenarios.
+- **CI/CD Integration:** Integrate end-to-end tests into the CI/CD pipeline.
+
+### 5.4 Test Organization
+
+- **Keep Tests Separate from Code:** Keep tests separate from the application code in a dedicated `test/` directory.
+- **Organize Tests by Component:** Organize tests by component or module to make them easier to find and maintain.
+- **Use Clear Naming Conventions:** Use clear naming conventions for test files and test functions.
+
+### 5.5 Mocking and Stubbing
+
+- **Use Mocking Frameworks:** Use mocking frameworks to simplify the creation of mocks and stubs.
+- **Mock External Dependencies:** Mock external dependencies, such as databases and APIs, to isolate the unit being tested.
+- **Stub Responses:** Use stubs to provide predefined responses for external dependencies.
+- **Verify Interactions:** Verify that the code under test interacts with dependencies as expected.
+
+## 6. Common Pitfalls and Gotchas
+
+### 6.1 Frequent Mistakes Developers Make
+
+- **Ignoring Error Handling:** Failing to handle errors properly can lead to unexpected behavior and crashes.
+- **Not Using Version Control:** Not using version control can lead to lost code and conflicts.
+- **Hardcoding Configuration:** Hardcoding configuration data can make it difficult to deploy the application in different environments.
+- **Not Securing Sensitive Data:** Not securing sensitive data can lead to security breaches.
+- **Not Testing Thoroughly:** Not testing thoroughly can lead to bugs and performance issues.
+- **Over-Engineering:** Adding unnecessary complexity to the code can make it difficult to understand and maintain.
+- **Premature Optimization:** Optimizing code before it is necessary can waste time and make the code harder to read.
+- **Not Documenting Code:** Not documenting code can make it difficult for others to understand and maintain it.
+
+### 6.2 Edge Cases to Be Aware Of
+
+- **Network Connectivity Issues:** Handle network connectivity issues gracefully.
+- **Resource Exhaustion:** Handle resource exhaustion gracefully.
+- **Concurrency Issues:** Avoid concurrency issues by using proper synchronization mechanisms.
+- **Data Corruption:** Protect against data corruption by using checksums and other data integrity techniques.
+- **Time Zone Issues:** Be aware of time zone issues when working with dates and times.
+
+### 6.3 Version-Specific Issues
+
+- **API Version Compatibility:** Be aware of API version compatibility issues when upgrading Kubernetes or other dependencies.
+- **Feature Deprecation:** Be aware of feature deprecation when upgrading Kubernetes or other dependencies.
+- **Configuration Changes:** Be aware of configuration changes when upgrading Kubernetes or other dependencies.
+
+### 6.4 Compatibility Concerns
+
+- **Operating System Compatibility:** Ensure that the application is compatible with the target operating systems.
+- **Architecture Compatibility:** Ensure that the application is compatible with the target architectures (e.g., x86, ARM).
+- **Browser Compatibility:** Ensure that web applications are compatible with the target browsers.
+
+### 6.5 Debugging Strategies
+
+- **Logging:** Use detailed logging to help identify the root cause of issues.
+- **Debugging Tools:** Use debugging tools, such as debuggers and profilers, to analyze the code and identify performance bottlenecks.
+- **Remote Debugging:** Use remote debugging to debug applications running in Kubernetes.
+- **Log Aggregation:**  Use log aggregation tools (e.g., Elasticsearch, Loki) to centralize and analyze logs.
+- **Metrics Monitoring:** Use metrics monitoring tools (e.g., Prometheus, Grafana) to track application performance.
+- **Tracing:** Implement distributed tracing (e.g., Jaeger, Zipkin) to track requests across multiple services.
+
+## 7. Tooling and Environment
+
+### 7.1 Recommended Development Tools
+
+- **IDE:** Use a modern IDE with support for the programming language used for the application (e.g., VS Code, IntelliJ IDEA, GoLand).
+- **Kubectl:** Use `kubectl` for interacting with Kubernetes clusters.
+- **Minikube/Kind:** Use Minikube or Kind for local Kubernetes development.
+- **Helm:** Use Helm for managing Kubernetes packages.
+- **Kustomize:** Use Kustomize for customizing Kubernetes configurations.
+- **Docker:** Use Docker for building and managing container images.
+- **Tilt:** Use Tilt for fast, local Kubernetes development.
+- **Skaffold:** Use Skaffold for automated build, push, and deploy workflows.
+- **Telepresence:** Use Telepresence to debug applications running in Kubernetes from your local machine.
+
+### 7.2 Build Configuration
+
+- **Makefile:** Use a Makefile to automate common build tasks.
+- **CI/CD Pipeline:** Integrate the build process into a CI/CD pipeline.
+- **Dependency Management:** Use a dependency management tool, such as `go modules`, to manage dependencies.
+- **Version Control:** Use version control to track changes to the build configuration.
+
+### 7.3 Linting and Formatting
+
+- **Linters:** Use linters to enforce code style and best practices (e.g., `golangci-lint`, `eslint`, `stylelint`).
+- **Formatters:** Use formatters to automatically format code according to a predefined style (e.g., `go fmt`, `prettier`).
+- **Pre-Commit Hooks:** Use pre-commit hooks to run linters and formatters before committing code.
+
+### 7.4 Deployment Best Practices
+
+- **Infrastructure as Code (IaC):** Use IaC tools, such as Terraform or CloudFormation, to manage infrastructure.
+- **Immutable Infrastructure:** Deploy immutable infrastructure to ensure consistency and repeatability.
+- **Blue-Green Deployments:** Use blue-green deployments to minimize downtime during deployments.
+- **Canary Deployments:** Use canary deployments to test new versions of the application with a small subset of users.
+- **Rolling Updates:** Use rolling updates to gradually update the application with zero downtime.
+- **Automated Rollbacks:** Implement automated rollbacks to quickly revert to a previous version of the application if something goes wrong.
+
+### 7.5 CI/CD Integration
+
+- **Automated Testing:** Automate all tests in the CI/CD pipeline.
+- **Automated Deployment:** Automate the deployment process in the CI/CD pipeline.
+- **Continuous Integration:** Use continuous integration to automatically build and test the application whenever code is committed.
+- **Continuous Delivery:** Use continuous delivery to automatically deploy the application to production whenever a new version is released.
+- **Pipeline Security:** Secure the CI/CD pipeline to prevent unauthorized access and code injection.
+
+## Bibliography
+
+- Kubernetes documentation: [https://kubernetes.io/docs/](https://kubernetes.io/docs/)
+- Kubernetes Best Practices: [https://kubernetes.io/docs/concepts/configuration/overview/](https://kubernetes.io/docs/concepts/configuration/overview/)
+- Application Security Checklist: [https://kubernetes.io/docs/concepts/security/application-security-checklist/](https://kubernetes.io/docs/concepts/security/application-security-checklist/)
+- Kubernetes coding conventions: [https://www.kubernetes.dev/docs/guide/coding-convention/](https://www.kubernetes.dev/docs/guide/coding-convention/)
 
 ---
 > Source: [rustic-ai/codeprism](https://github.com/rustic-ai/codeprism) — distributed by [TomeVault](https://tomevault.io).
