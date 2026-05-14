@@ -6,171 +6,287 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Project Overview
 
-This is a production-ready Fastify adapter for the Model Context Protocol (MCP). The project implements a Fastify plugin that enables MCP communication through the JSON-RPC 2.0 specification with full horizontal scaling capabilities. The codebase includes MCP protocol specifications in the `spec/` directory that define the messaging format, lifecycle management, and various protocol features.
+Claude Gate is a high-performance Go OAuth proxy for Anthropic's Claude API that enables FREE Claude usage for Pro/Max subscribers by identifying as "Claude Code" (Anthropic's official CLI). This is the official Go port of the original Python implementation.
 
-## Key Features
+**Key Features:**
+- OAuth 2.0 PKCE authentication flow
+- Secure token storage with OS keychain integration (planned)
+- Interactive TUI dashboard for monitoring
+- Cross-platform support (macOS, Linux, Windows)
+- Multiple distribution methods (NPM, Homebrew, direct binary)
 
-- **Complete MCP Protocol Support**: Implements the full Model Context Protocol specification
-- **Server-Sent Events (SSE)**: Real-time streaming communication with session management
-- **Horizontal Scaling**: Redis-backed session management and message broadcasting
-- **Session Persistence**: Message history and reconnection support with Last-Event-ID
-- **Dual Backend Support**: Memory-based for development, Redis-based for production
-- **Cross-Instance Broadcasting**: Messages sent from any instance reach all connected clients
-- **High Availability**: Sessions survive server restarts with automatic cleanup
+## Quick Navigation
 
-## Development Commands
+### Core Implementation Files
+- Main entry: `cmd/claude-gate/main.go`
+- OAuth client: `internal/auth/client.go`
+- Proxy handler: `internal/proxy/handler.go`
+- Dashboard: `internal/ui/dashboard/dashboard.go`
 
-- **Build**: `npm run build` - Compiles TypeScript to `dist/` directory
-- **Lint**: `npm run lint` - Run ESLint with caching
-- **Lint Fix**: `npm run lint:fix` - Run ESLint with auto-fix
-- **Type Check**: `npm run typecheck` - Run TypeScript compiler without emitting files
-- **Test Individual**: `node --experimental-strip-types --no-warnings --test test/filename.test.ts` - Run a specific test file
-- **Test**: `npm run test` - Run Node.js test runner on test files, do not use `npm run test -- individual.ts` to run individual test file
-- **CI**: `npm run ci` - Full CI pipeline (build + lint + test)
+### Configuration Files
+- Go module: `go.mod`
+- Build config: `.goreleaser.yml`
+- CI/CD: `.github/workflows/release.yml`
+- NPM package: `npm/package.json`
+
+### Test Files
+- Unit tests: `*_test.go` (alongside source)
+- Integration: `internal/test/integration/*_test.go`
+- E2E: `internal/test/e2e/*_test.go`
+- Test helpers: `internal/test/helpers/helpers.go`
+
+### Scripts
+- Version update: `scripts/update-version.sh`
+- NPM test: `scripts/test-npm-local.sh`
+- Add co-author: `.claude/scripts/add-claude-coauthor.sh`
+
+## Common Commands
+
+### Building
+```bash
+make build        # Build for current platform
+make snapshot     # Build all platforms (uses GoReleaser)
+make install      # Install to ~/bin
+```
+
+### Testing
+```bash
+make test              # Run unit tests with coverage
+make test-unit         # Run unit tests only (short mode)
+make test-integration  # Run integration tests
+make test-e2e          # Run end-to-end tests
+make test-all          # Run all test types
+make npm-test          # Test NPM package locally
+go test -v ./...       # Quick test during development
+```
+
+### Running
+```bash
+claude-gate start --host 127.0.0.1 --port 5789  # Start proxy server
+claude-gate dashboard                            # Start with interactive dashboard
+claude-gate auth login                           # Authenticate with Claude
+```
+
+### Releasing
+```bash
+make release VERSION=0.2.0  # Create new release
+./scripts/update-version.sh # Update version in all files
+```
 
 ## Architecture
 
-The main entry point is `src/index.ts` which exports a Fastify plugin built with `fastify-plugin`. The plugin structure follows Fastify's standard plugin pattern with proper TypeScript types and supports both memory and Redis backends for horizontal scaling.
+The codebase follows clean architecture principles with clear separation of concerns:
 
 ### Core Components
 
-**Session Management:**
-- `SessionStore` interface with `MemorySessionStore` and `RedisSessionStore` implementations
-- Session metadata storage with automatic TTL (1-hour expiration)
-- Message history storage with configurable limits and automatic trimming
+1. **CLI Layer** (`cmd/claude-gate/`)
+   - Uses Kong framework for command parsing
+   - Entry point for all operations
 
-**Message Broadcasting:**
-- `MessageBroker` interface with `MemoryMessageBroker` and `RedisMessageBroker` implementations
-- Topic-based pub/sub using MQEmitter (memory) or MQEmitter-Redis (distributed)
-- Session-specific topics: `mcp/session/{sessionId}/message`
-- Broadcast topics: `mcp/broadcast/notification`
+2. **Auth Package** (`internal/auth/`)
+   - OAuth 2.0 PKCE implementation
+   - Token storage and management
+   - Browser automation for login flow
 
-**SSE Integration:**
-- Complete SSE support with session management and persistence
-- Message replay using Last-Event-ID for resumable connections
-- Heartbeat mechanism for connection health monitoring
-- Support for both GET and POST endpoints
+3. **Proxy Package** (`internal/proxy/`)
+   - HTTP proxy server implementation
+   - Request/response transformation
+   - Enhanced server with monitoring capabilities
 
-### File Structure
+4. **UI Package** (`internal/ui/`)
+   - Bubble Tea-based TUI components
+   - Interactive dashboard for monitoring
+   - Reusable components (spinner, progress, styles)
+
+### Request Flow
+1. Client connects to local proxy (default: 127.0.0.1:5789)
+2. Proxy validates authentication token
+3. Request transformed to identify as "Claude Code"
+4. Forwarded to Claude API with OAuth credentials
+5. Response streamed back to client
+
+### Security Model
+- OAuth 2.0 PKCE flow for authentication
+- Tokens stored securely (keychain integration planned)
+- Local-only proxy binding by default
+- Optional proxy authentication token for additional security
+
+## Project Structure
 
 ```
-src/
-├── brokers/
-│   ├── message-broker.ts          # Interface definition
-│   ├── memory-message-broker.ts   # MQEmitter implementation
-│   └── redis-message-broker.ts    # Redis-backed implementation
-├── stores/
-│   ├── session-store.ts           # Interface definition
-│   ├── memory-session-store.ts    # In-memory implementation
-│   └── redis-session-store.ts     # Redis-backed implementation
-├── decorators/
-│   ├── decorators.ts              # Core MCP decorators
-│   └── pubsub-decorators.ts       # Pub/sub decorators
-├── handlers.ts                    # MCP protocol handlers
-├── routes.ts                      # SSE connection handling
-├── index.ts                       # Plugin entry point with backend selection
-├── schema.ts                      # MCP protocol types
-└── types.ts                       # Plugin types
+claude-gate/
+├── cmd/
+│   └── claude-gate/          # CLI application entry point
+│       ├── main.go          # Main entry point with Kong CLI setup
+│       └── auth_storage.go  # Storage-related CLI commands
+├── internal/                 # Private application code (Go convention)
+│   ├── auth/                # Authentication & token management
+│   │   ├── client.go        # OAuth client implementation
+│   │   ├── oauth.go         # OAuth flow logic
+│   │   ├── storage_*.go     # Various storage backends
+│   │   └── *_test.go        # Unit tests
+│   ├── config/              # Configuration management
+│   ├── proxy/               # Proxy server implementation
+│   │   ├── handler.go       # Main proxy handler
+│   │   ├── server.go        # Enhanced server with monitoring
+│   │   └── transformer.go   # Request/response transformation
+│   ├── test/                # Test infrastructure
+│   │   ├── integration/     # Integration tests (build tag: integration)
+│   │   ├── e2e/            # End-to-end tests (build tag: e2e)
+│   │   ├── helpers/        # Shared test utilities
+│   │   └── testdata/       # Test fixtures
+│   └── ui/                  # Terminal UI components
+│       ├── components/      # Reusable UI components
+│       ├── dashboard/       # Interactive dashboard
+│       ├── styles/         # Terminal styling (Lipgloss)
+│       └── utils/          # UI utilities
+├── docs/                    # Project documentation
+│   ├── architecture/       # Architecture decisions and diagrams
+│   ├── deployment/         # Deployment guides
+│   ├── getting-started/    # User guides
+│   └── testing/           # Testing documentation
+├── npm/                    # NPM package distribution
+│   ├── package.json       # Main NPM package
+│   ├── platforms/         # Platform-specific packages
+│   └── scripts/           # Installation scripts
+├── scripts/               # Build and utility scripts
+├── .github/              # GitHub Actions workflows
+│   └── workflows/        # CI/CD pipelines
+├── .claude/              # Claude-specific files
+│   ├── todos/           # Active todo files
+│   ├── archive/         # Completed todos
+│   └── scripts/         # Claude utility scripts
+├── Makefile             # Build automation
+├── go.mod              # Go module definition
+└── .goreleaser.yml     # GoReleaser configuration
 ```
 
-The complete MCP protocol TypeScript definitions are in `src/schema.ts`, which includes:
-- JSON-RPC 2.0 message types (requests, responses, notifications, batches)
-- MCP protocol lifecycle (initialization, capabilities, ping)
-- Core features: resources, prompts, tools, logging, sampling
-- Client/server request/response/notification types
-- Content types (text, image, audio, embedded resources)
-- Protocol constants and error codes
+### File Naming Conventions
+- Test files: `*_test.go` alongside source files
+- Integration tests: `*_integration_test.go` with build tags
+- E2E tests: `*_e2e_test.go` with build tags
+- Mock implementations: `mock_*.go`
+- Interfaces: Often in the same file as primary implementation
 
-Key dependencies:
-- `fastify-plugin` for plugin registration
-- `typed-rpc` for RPC communication
-- `neostandard` for ESLint configuration
-- `ioredis` for Redis connectivity
-- `mqemitter` and `mqemitter-redis` for message broadcasting
+### Key Files
+- Entry point: `cmd/claude-gate/main.go`
+- OAuth config: `internal/auth/oauth.go` (contains client ID)
+- Proxy handler: `internal/proxy/handler.go`
+- Dashboard UI: `internal/ui/dashboard/dashboard.go`
+- Storage factory: `internal/auth/storage_factory.go`
 
-The project uses ESM modules (`"type": "module"`) and includes comprehensive MCP protocol specifications in markdown format under `spec/` covering the same areas as the TypeScript schema.
+## Testing Strategy
 
-## Configuration Options
+The project uses Test-Driven Development (TDD) with comprehensive test coverage:
 
-### Plugin Options
-- `serverInfo`: Server identification (name, version)
-- `capabilities`: MCP capabilities configuration
-- `instructions`: Optional server instructions
-- `enableSSE`: Enable Server-Sent Events support (default: false)
-- `redis`: Redis configuration for horizontal scaling (optional)
-  - `host`: Redis server hostname
-  - `port`: Redis server port
-  - `db`: Redis database number
-  - `password`: Redis authentication password
-  - Additional ioredis connection options supported
+- **Unit Tests**: Alongside source files (`*_test.go`)
+- **Integration Tests**: `internal/test/integration/`
+- **E2E Tests**: `internal/test/e2e/`
+- **Cross-Platform Tests**: Via Docker containers
+- **NPM Package Tests**: Validates installation and binary selection
 
-### Backend Selection
-The plugin automatically selects the appropriate backend based on configuration:
-- **Memory backends**: Used when `redis` option is not provided (development/single-instance)
-- **Redis backends**: Used when `redis` option is provided (production/multi-instance)
+Always write tests before implementing features. Use testify for assertions.
 
-## TypeScript Configuration
+### Go-Specific Testing Patterns
 
-Uses a base TypeScript configuration (`tsconfig.base.json`) extended by the main `tsconfig.json`. The build targets ES modules with strict type checking enabled.
+```go
+// Example: Table-driven test pattern
+func TestAuthenticateRequest(t *testing.T) {
+    tests := []struct {
+        name    string
+        token   string
+        want    bool
+        wantErr bool
+    }{
+        {"valid token", "Bearer valid-token", true, false},
+        {"invalid token", "Bearer invalid", false, true},
+        {"missing token", "", false, true},
+    }
 
-## Testing
-
-The project includes comprehensive test coverage:
-- **178 tests total** covering all functionality including OAuth 2.1 authorization
-- **Memory backend tests**: Session management, message broadcasting, SSE handling
-- **Redis backend tests**: Session persistence, cross-instance messaging, failover
-- **Integration tests**: Full plugin lifecycle, multi-instance deployment
-- **Authorization tests**: JWT validation, token introspection, OAuth 2.1 compliance
-- **Test utilities**: Redis test helpers with automatic cleanup, JWT utilities with dynamic JWKS generation
-
-Run tests with: `npm run test` (requires Redis running on localhost:6379)
-
-### SSE Testing Best Practices
-
-When testing Server-Sent Events (SSE) endpoints, it's critical to properly clean up streams to prevent hanging event loops:
-
-```typescript
-// ✅ Correct way to test SSE endpoints
-const response = await app.inject({
-  method: 'GET',
-  url: '/mcp',
-  payloadAsStream: true,  // Required for SSE responses
-  headers: {
-    accept: 'text/event-stream'
-  }
-})
-
-t.assert.strictEqual(response.statusCode, 200)
-t.assert.strictEqual(response.headers['content-type'], 'text/event-stream')
-response.stream().destroy()  // ⚠️ CRITICAL: Always destroy the stream
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := AuthenticateRequest(tt.token)
+            if tt.wantErr {
+                assert.Error(t, err)
+            } else {
+                assert.NoError(t, err)
+                assert.Equal(t, tt.want, got)
+            }
+        })
+    }
+}
 ```
 
-**Why this is important:**
-- SSE responses create readable streams that keep the event loop alive
-- Without explicit cleanup, tests will hang with "Promise resolution is still pending" errors
-- The `payloadAsStream: true` option is required for proper SSE response handling
-- Always call `response.stream().destroy()` after assertions to clean up resources
+## Development Workflow
 
-### Test Utilities
+This project follows the test-driven development workflow and requirements defined in the system CLAUDE.md. All features and bug fixes require tests to be written first.
 
-**JWT Testing**: Uses dynamic JWKS generation with proper RSA key pairs:
-- `generateMockJWKSResponse()`: Dynamically generates JWKS from RSA public key
-- `setupMockAgent()`: Uses undici MockAgent for HTTP mocking instead of custom fetch mocks
-- `createTestJWT()`: Creates properly signed JWT tokens for testing
+See system CLAUDE.md for complete workflow requirements.
 
-**Mock HTTP Requests**: Uses undici's MockAgent for robust HTTP mocking:
-```typescript
-const restoreMock = setupMockAgent({
-  'https://auth.example.com/.well-known/jwks.json': generateMockJWKSResponse()
-})
-// Test code here
-restoreMock() // Clean up
-```
+## NPM Package Management
+
+The project distributes platform-specific binaries via NPM:
+
+- Main package: `npm/package.json`
+- Platform packages: `npm/platforms/*/package.json`
+- Installation scripts: `npm/scripts/`
+- Binary wrappers: `npm/bin/`
+
+Test NPM changes with: `make npm-test`
+
+## Key Dependencies
+
+- **Kong**: CLI framework for command parsing
+- **Bubble Tea**: Terminal UI framework
+- **Lipgloss**: Terminal styling
+- **Testify**: Testing assertions and mocks
+- **GoReleaser**: Multi-platform release automation
+
+## Release Process
+
+1. Update version: `./scripts/update-version.sh`
+2. Create release: `make release VERSION=x.y.z`
+3. Push tags: `git push origin main && git push origin vx.y.z`
+4. GitHub Actions automatically:
+   - Builds binaries for all platforms
+   - Publishes to NPM registry
+   - Creates GitHub release
+
+## Important Patterns
+
+- **TEST FIRST**: Never write implementation before tests
+- Use `internal/` for private packages (Go convention)
+- Follow clean architecture: separate concerns between packages
+- Use interfaces for testability and flexibility
+- Implement context propagation for cancellation
+- Handle errors explicitly, never ignore them
+- Use structured logging with clear messages
+- Write self-documenting code with meaningful names
+
+## System CLAUDE.md Compliance
+
+This project adheres to all laws and workflows defined in the system CLAUDE.md. Refer to system CLAUDE.md for complete workflow requirements including TDD, plan mode, and todo management.
+
+## Contribution Guidelines
+
+See CONTRIBUTING.md for detailed guidelines. Key points:
+- All code must have tests
+- Follow Go best practices and idioms
+- Use `go fmt` and `go vet`
+- Document public APIs
+- Sign commits with GPG key
+- Squash commits before merging
+
+## Utility Scripts
+
+- `.claude/scripts/add-claude-coauthor.sh [num_commits]` - Add Claude as co-author to recent commits (default: 10)
+  - Creates backup branch before making changes
+  - Use when commits are missing Claude co-author attribution
 
 ---
-> Source: [platformatic/mcp](https://github.com/platformatic/mcp) — distributed by [TomeVault](https://tomevault.io).
+> Source: [ml0-1337/claude-gate](https://github.com/ml0-1337/claude-gate) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:agents_md:2026-05-06 -->
 
 ---
