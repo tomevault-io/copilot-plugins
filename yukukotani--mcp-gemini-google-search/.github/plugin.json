@@ -1,0 +1,9 @@
+{
+  "name": "yukukotani--mcp-gemini-google-search",
+  "displayName": "mcp-gemini-google-search",
+  "description": "MCP server for Google Search integration using Gemini's built-in search capabilities",
+  "version": "1.0.0",
+  "author": "yukukotani",
+  "homepage": "https://github.com/yukukotani/mcp-gemini-google-search",
+  "skills": []
+}
