@@ -7,11 +7,11 @@ MCP server for guiding Coding Agents via end-to-end requirements to implementati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hmldns/nautex](https://github.com/hmldns/nautex).
+Original source: `CLAUDE.md` in [hmldns/nautex](https://github.com/hmldns/nautex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
