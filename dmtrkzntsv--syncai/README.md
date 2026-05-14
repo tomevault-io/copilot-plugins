@@ -7,11 +7,11 @@ Sync AI rules and guidelines, and ignore files between agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dmtrkzntsv/syncai](https://github.com/dmtrkzntsv/syncai).
+Original source: `CLAUDE.md` in [dmtrkzntsv/syncai](https://github.com/dmtrkzntsv/syncai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
