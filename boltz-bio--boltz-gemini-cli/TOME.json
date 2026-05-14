@@ -1,0 +1,44 @@
+{
+  "name": "boltz-gemini-cli",
+  "owner": "boltz-bio",
+  "repo": "boltz-gemini-cli",
+  "description": "Gemini CLI extension for Boltz biomolecular modeling workflows",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/boltz-bio/boltz-gemini-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-14T02:33:59Z"
+}
