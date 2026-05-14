@@ -1,0 +1,9 @@
+{
+  "name": "greysquirr3l--coraline",
+  "displayName": "coraline",
+  "description": "Rust code graph indexer with 28 language support, MCP tools, and SQLite-backed analysis",
+  "version": "1.0.0",
+  "author": "greysquirr3l",
+  "homepage": "https://github.com/greysquirr3l/coraline",
+  "skills": []
+}
