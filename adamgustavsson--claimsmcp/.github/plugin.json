@@ -1,0 +1,9 @@
+{
+  "name": "adamgustavsson--claimsmcp",
+  "displayName": "ClaimsMCP",
+  "description": "An MCP server that extracts claims from a text",
+  "version": "1.0.0",
+  "author": "AdamGustavsson",
+  "homepage": "https://github.com/AdamGustavsson/ClaimsMCP",
+  "skills": []
+}
