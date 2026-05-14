@@ -1,0 +1,86 @@
+## vizza
+
+> - LUT: Look-up table. Used for color schemes.
+
+# Rules/Notes for the project
+
+## Common abbreviations
+
+- LUT: Look-up table. Used for color schemes.
+- PL: Particle Life. A simulation of particle behavior.
+  - IM: Interaction Matrix. A matrix of force relationships between particles.
+- GS: Gray-Scott. A simulation of Gray-Scott reaction-diffusion.
+- SM: Slime Mold. A simulation of slime molds.
+- FF: Flow Field. A simulation of a flow field.
+- PS: Pellets. A particle gravity simulation.
+- GEM: Gradient Editor. A gradient editor for color schemes.
+- VCA: Voronoi Cellular Automata. A simulation of a cellular automata with Voronoi cells.
+- MM: Moiré. A simulation of moiré patterns.
+
+## Color Schemes (LUTs)
+
+- Color schemes are in planar format `[r0, r1, ..., r255, g0, g1, ..., g255, b0, b1, ..., b255]`
+- Values are in the range 0-255
+- A color scheme can be "reversed" by reversing the order of the values in the array.
+- A "stop" is some point in the color scheme and color schemes have 255 stops. For example, choosing stop 128 means to use the middle color value of the color scheme.
+
+## State vs Settings
+
+- **Settings**: Data that can and should be saved when saving a preset. These are user-configurable parameters that define how the simulation behaves.
+  - Examples: agent count, speed, turn rate, diffusion rate, LUT selection, camera position, etc.
+  - Settings are serializable and persistable
+  - Settings can be modified by the user through the UI
+  - Settings are part of the simulation's configuration
+
+- **State**: Everything else that represents the current runtime condition of the simulation.
+  - Examples: current agent positions, trail map data, simulation time, render loop status, GUI visibility, etc.
+  - State is typically not saved with presets
+  - State may be transient or computed
+  - State represents the simulation's current execution state
+
+This distinction is crucial for:
+- Preset management (only save settings, not state)
+- State restoration after simulation restart
+- UI state management
+
+## Tauri Notes
+
+### Parameter Name Convention
+- **Backend (Rust)**: Uses snake_case parameter names (e.g., `preset_name`)
+- **Frontend (JavaScript)**: Must use camelCase parameter names (e.g., `presetName`)
+- **Tauri automatically converts** between snake_case and camelCase
+- When calling Tauri commands from frontend, always use camelCase parameter names
+- The Rust function signature uses snake_case, but JavaScript invocations use camelCase
+
+However, when calling `update_simulation_setting`/`update_simulation_state`, use snake_case parameter names for `setting_name`/`state_name`.
+
+### Example
+```rust
+// Backend (Rust)
+#[tauri::command]
+pub async fn save_preset(preset_name: String) -> Result<String, String>
+```
+
+```javascript
+// Frontend (JavaScript) - CORRECT
+await invoke('save_preset', { presetName: 'My Preset' });
+
+// Frontend (JavaScript) - WRONG
+await invoke('save_preset', { preset_name: 'My Preset' });
+
+// Frontend (JavaScript) - CORRECT
+await invoke('update_simulation_settings', { settingsName: 'particle_count', value: 1000 });
+
+// Frontend (JavaScript) - WRONG
+await invoke('update_simulation_settings', { settingsName: 'particleCount', value: 1000 });
+
+// Frontend (JavaScript) - CORRECT
+await invoke('update_simulation_state', { stateName: 'particle_size', value: 10 });
+
+// Frontend (JavaScript) - WRONG
+await invoke('update_simulation_state', { stateName: 'particleSize', value: 10 });
+```
+
+---
+> Source: [Velfi/Vizza](https://github.com/Velfi/Vizza) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
