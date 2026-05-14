@@ -1,115 +1,91 @@
-## gitflow
+## github-code-quality-cursorrules-prompt-file
 
-> Gitflow Workflow Rules. These rules should be applied when performing git operations.
+> Cursor rules for GitHub development with code quality integration.
 
-# Gitflow Workflow Rules
-
-## Main Branches
-
-### main (or master)
-- Contains production-ready code
-- Never commit directly to main
-- Only accepts merges from:
-  - hotfix/* branches
-  - release/* branches
-- Must be tagged with version number after each merge
-
-### develop
-- Main development branch
-- Contains latest delivered development changes
-- Source branch for feature branches
-- Never commit directly to develop
-
-## Supporting Branches
-
-### feature/*
-- Branch from: develop
-- Merge back into: develop
-- Naming convention: feature/[issue-id]-descriptive-name
-- Example: feature/123-user-authentication
-- Must be up-to-date with develop before creating PR
-- Delete after merge
-
-### release/*
-- Branch from: develop
-- Merge back into: 
-  - main
-  - develop
-- Naming convention: release/vX.Y.Z
-- Example: release/v1.2.0
-- Only bug fixes, documentation, and release-oriented tasks
-- No new features
-- Delete after merge
-
-### hotfix/*
-- Branch from: main
-- Merge back into:
-  - main
-  - develop
-- Naming convention: hotfix/vX.Y.Z
-- Example: hotfix/v1.2.1
-- Only for urgent production fixes
-- Delete after merge
-
-## Commit Messages
-
-- Format: `type(scope): description`
-- Types:
-  - feat: New feature
-  - fix: Bug fix
-  - docs: Documentation changes
-  - style: Formatting, missing semicolons, etc.
-  - refactor: Code refactoring
-  - test: Adding tests
-  - chore: Maintenance tasks
-
-## Version Control
-
-### Semantic Versioning
-- MAJOR version for incompatible API changes
-- MINOR version for backwards-compatible functionality
-- PATCH version for backwards-compatible bug fixes
-
-## Pull Request Rules
-
-1. All changes must go through Pull Requests
-2. Required approvals: minimum 1
-3. CI checks must pass
-4. No direct commits to protected branches (main, develop)
-5. Branch must be up to date before merging
-6. Delete branch after merge
-
-## Branch Protection Rules
-
-### main & develop
-- Require pull request reviews
-- Require status checks to pass
-- Require branches to be up to date
-- Include administrators in restrictions
-- No force pushes
-- No deletions
-
-## Release Process
-
-1. Create release branch from develop
-2. Bump version numbers
-3. Fix any release-specific issues
-4. Create PR to main
-5. After merge to main:
-   - Tag release
-   - Merge back to develop
-   - Delete release branch
-
-## Hotfix Process
-
-1. Create hotfix branch from main
-2. Fix the issue
-3. Bump patch version
-4. Create PR to main
-5. After merge to main:
-   - Tag release
-   - Merge back to develop
-   - Delete hotfix branch
+{
+  "rules": [
+    {
+      "name": "Verify Information",
+      "pattern": "(?i)\\b(assume|assumption|guess|speculate)\\b",
+      "message": "Always verify information before presenting it. Do not make assumptions or speculate without clear evidence."
+    },
+    {
+      "name": "File-by-File Changes",
+      "pattern": "// MULTI-FILE CHANGE:",
+      "message": "Make changes file by file and give me a chance to spot mistakes"
+    },
+    {
+      "name": "No Apologies",
+      "pattern": "(?i)\\b(sorry|apologize|apologies)\\b",
+      "message": "Never use apologies"
+    },
+    {
+      "name": "No Understanding Feedback",
+      "pattern": "(?i)\\b(understand|understood|got it)\\b",
+      "message": "Avoid giving feedback about understanding in comments or documentation"
+    },
+    {
+      "name": "No Whitespace Suggestions",
+      "pattern": "(?i)\\b(whitespace|indentation|spacing)\\b",
+      "message": "Don't suggest whitespace changes"
+    },
+    {
+      "name": "No Summaries",
+      "pattern": "(?i)\\b(summary|summarize|overview)\\b",
+      "message": "Don't summarize changes made"
+    },
+    {
+      "name": "No Inventions",
+      "pattern": "(?i)\\b(suggest|recommendation|propose)\\b",
+      "message": "Don't invent changes other than what's explicitly requested"
+    },
+    {
+      "name": "No Unnecessary Confirmations",
+      "pattern": "(?i)\\b(make sure|confirm|verify|check)\\b",
+      "message": "Don't ask for confirmation of information already provided in the context"
+    },
+    {
+      "name": "Preserve Existing Code",
+      "pattern": "(?i)\\b(remove|delete|eliminate|destroy)\\b",
+      "message": "Don't remove unrelated code or functionalities. Pay attention to preserving existing structures."
+    },
+    {
+      "name": "Single Chunk Edits",
+      "pattern": "(?i)\\b(first|then|next|after that|finally)\\b",
+      "message": "Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file"
+    },
+    {
+      "name": "No Implementation Checks",
+      "pattern": "(?i)\\b(make sure|verify|check|confirm) (it's|it is|that) (correctly|properly) implemented\\b",
+      "message": "Don't ask the user to verify implementations that are visible in the provided context"
+    },
+    {
+      "name": "No Unnecessary Updates",
+      "pattern": "(?i)\\b(update|change|modify|alter)\\b.*\\bno changes\\b",
+      "message": "Don't suggest updates or changes to files when there are no actual modifications needed"
+    },
+    {
+      "name": "Provide Real File Links",
+      "pattern": "(?i)\\b(file|in)\\b.*\\b(x\\.md)\\b",
+      "message": "Always provide links to the real files, not x.md"
+    },
+    {
+      "name": "No Previous x.md Consideration",
+      "pattern": "(?i)\\b(previous|earlier|last)\\b.*\\bx\\.md\\b",
+      "message": "Do not consider any previous x.md files in your memory. Complain if the contents are the same as previous runs."
+    },
+    {
+      "name": "No Current Implementation",
+      "pattern": "(?i)\\b(current|existing)\\s+(implementation|code)\\b",
+      "message": "Don't show or discuss the current implementation unless specifically requested"
+    },
+    {
+      "name": "Check x.md Content",
+      "pattern": "(?i)\\b(file|content|implementation)\\b",
+      "message": "Remember to check the x.md file for the current file contents and implementations"
+    }
+  ]
+}
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
