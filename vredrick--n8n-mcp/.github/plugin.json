@@ -1,0 +1,9 @@
+{
+  "name": "vredrick--n8n-mcp",
+  "displayName": "n8n-mcp",
+  "description": "n8n MCP Server - Documentation and tools for n8n nodes via Model Context Protocol with SSE support",
+  "version": "1.0.0",
+  "author": "vredrick",
+  "homepage": "https://github.com/vredrick/n8n-mcp",
+  "skills": []
+}
