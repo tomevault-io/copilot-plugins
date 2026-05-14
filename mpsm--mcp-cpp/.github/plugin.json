@@ -1,0 +1,9 @@
+{
+  "name": "mpsm--mcp-cpp",
+  "displayName": "mcp-cpp",
+  "description": "MCP server tailored to work with large C/C++ codebases",
+  "version": "1.0.0",
+  "author": "mpsm",
+  "homepage": "https://github.com/mpsm/mcp-cpp",
+  "skills": []
+}
