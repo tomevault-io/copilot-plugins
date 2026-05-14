@@ -1,0 +1,9 @@
+{
+  "name": "csenshi--nestjs-redis",
+  "displayName": "nestjs-redis",
+  "description": "\ud83d\udee0 Modular Redis toolkit for NestJS: Client, RedLock and more",
+  "version": "1.0.0",
+  "author": "CSenshi",
+  "homepage": "https://github.com/CSenshi/nestjs-redis",
+  "skills": []
+}
