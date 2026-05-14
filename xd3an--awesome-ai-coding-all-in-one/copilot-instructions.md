@@ -1,297 +1,104 @@
-## kotlin-ktor-development-cursorrules-prompt-file
+## kotlin-springboot-best-practices-cursorrules-prompt-file
 
-> Cursor rules for Kotlin development with Ktor integration.
+> Cursor rules for Kotlin Springboot Best Practices.
 
-## Instruction to developer: save this file as .cursorrules and place it on the root project directory
+# Kotlin Coding Best Practices for Spring Boot Development
 
-## Core Principles
-- Follow **SOLID**, **DRY**, **KISS**, and **YAGNI** principles
-- Adhere to **OWASP** security best practices
-- Break tasks into smallest units and solve problems step-by-step
+## Project Structure and Organization
 
-## Technology Stack
-- **Framework**: Kotlin Ktor with Kotlin 2.1.20+
-- **JDK**: 21 (LTS)
-- **Build**: Gradle with Kotlin DSL
-- **Dependencies**: Ktor Server Core/Netty, kotlinx.serialization, Exposed, HikariCP, kotlin-logging, Koin, Kotest
+1.	Group your source code into clearly defined packages like controller, service, repository, and model to separate concerns and improve maintainability.
+2.	Organize your file system so that each directory mirrors the Kotlin package name (e.g. put com.myapp.users under src/main/kotlin/com/myapp/users).
+3.	Name each Kotlin file after the primary class or concept it contains to make the codebase easier to navigate and understand.
+4.	Avoid vague file names like Utils.kt; instead, use concise and meaningful names that reflect the purpose of the file’s contents.
+5.	Place your Spring Boot application entry point in the root package and structure sub-packages by layer or feature to help Spring scan and organize components efficiently.
 
-## Application Structure (Feature-Based)
-- **Organize by business features, not technical layers**
-- Each feature is self-contained with all related components
-- Promotes modularity, reusability, and better team collaboration
-- Makes codebase easier to navigate and maintain
-- Enables parallel development on different features
-```
-src/main/kotlin/com/company/app/
-├── common/              # Shared utilities, extensions
-├── config/              # Application configuration, DI
-└── features/
-    ├── auth/            # Feature directory
-    │   ├── models/
-    │   ├── repositories/
-    │   ├── services/
-    │   └── routes/
-    └── users/           # Another feature
-        ├── ...
-```
+## Coding Style and Conventions
 
-Test structure mirrors the feature-based organization:
-```
-src/test/kotlin/com/company/app/
-├── common/
-└── features/
-    ├── auth/
-    │   ├── models/
-    │   ├── repositories/
-    │   ├── services/
-    │   └── routes/
-    └── users/
-        ├── ...
-```
+1.	Use PascalCase for class and object names, camelCase for functions and variables, and UPPER_SNAKE_CASE for constants to follow Kotlin naming conventions and improve readability.
+2.	Declare variables using `val` by default, and only use `var` when mutation is necessary to promote safer, more predictable code.
+    ```kotlin
+    val maxConnections = 10    // immutable reference
+    var currentUsers = 0       // mutable, try to avoid if possible
+    ``` 
+3.	Limit the scope of variables to where they are actually used—inside functions or smaller blocks—to avoid accidental misuse and make code easier to follow.
+4.	Format your code consistently using 4-space indentation, proper spacing around operators and commas, and short, focused functions to improve clarity and maintainability.
+5.	Write clear and expressive code instead of clever one-liners; break complex logic into intermediate variables or well-named functions to improve readability.
+6.	Name classes, functions, and variables descriptively to convey intent, and avoid vague suffixes like '-Manager' or '-Helper' that don’t add meaning.
+7.	Keep property getters and setters simple and free of heavy logic; if complex behavior is needed, move it into a separate method to keep property access predictable.
 
-## Application Logic Design
-1. Route handlers: Handle requests/responses only
-2. Services: Contain business logic, call repositories
-3. Repositories: Handle database operations
-4. Entity classes: Data classes for database models
-5. DTOs: Data transfer between layers
+## Idiomatic Kotlin Usage
 
-## Entities & Data Classes
-- Use Kotlin data classes with proper validation
-- Define Table objects when using Exposed ORM
-- Use UUID or auto-incrementing integers for IDs
+1.	Use data class to define DTOs and entities so you get useful methods like `equals()` and `copy()` without writing boilerplate code.
+2.	Replace overloaded constructors with default and named parameters to simplify function calls and make them more expressive.
+    ```kotlin
+    // Kotlin – use default parameters
+    fun createConnection(host: String, secure: Boolean = true) { … }
 
-## Repository Pattern
-```kotlin
-interface UserRepository {
-    suspend fun findById(id: UUID): UserDTO?
-    suspend fun create(user: CreateUserRequest): UserDTO
-    suspend fun update(id: UUID, user: UpdateUserRequest): UserDTO?
-    suspend fun delete(id: UUID): Boolean
-}
+    createConnection("example.com")                      // uses default secure=true
+    createConnection(host = "test.com", secure = false)  // named arg for clarity
+    ``` 
+3.	Use `when` expressions instead of long `if-else` chains to write cleaner, more readable conditional logic that clearly handles each case.
+4.	Create extension functions instead of utility classes to add reusable behavior to existing types in a more natural and readable way.
+    ```kotlin
+    fun String.capitalizeFirst(): String = replaceFirstChar { it.uppercaseChar() }
 
-class UserRepositoryImpl : UserRepository {
-    override suspend fun findById(id: UUID): UserDTO? = withContext(Dispatchers.IO) {
-        transaction {
-            Users.select { Users.id eq id }
-                .mapNotNull { it.toUserDTO() }
-                .singleOrNull()
-        }
-    }
-    // Other implementations...
-}
-```
-
-## Service Layer
-```kotlin
-interface UserService {
-    suspend fun getUserById(id: UUID): UserDTO
-    suspend fun createUser(request: CreateUserRequest): UserDTO
-    suspend fun updateUser(id: UUID, request: UpdateUserRequest): UserDTO
-    suspend fun deleteUser(id: UUID)
-}
-
-class UserServiceImpl(
-    private val userRepository: UserRepository
-) : UserService {
-    override suspend fun getUserById(id: UUID): UserDTO {
-        return userRepository.findById(id) ?: throw ResourceNotFoundException("User", id.toString())
-    }
-    // Other implementations...
-}
-```
-
-## Route Handlers
-```kotlin
-fun Application.configureUserRoutes(userService: UserService) {
-    routing {
-        route("/api/users") {
-            get("/{id}") {
-                val id = call.parameters["id"]?.let { UUID.fromString(it) }
-                    ?: throw ValidationException("Invalid ID format")
-                val user = userService.getUserById(id)
-                call.respond(ApiResponse("SUCCESS", "User retrieved", user))
-            }
-            // Other routes...
-        }
-    }
-}
-```
-
-## Error Handling
-```kotlin
-open class ApplicationException(
-    message: String,
-    val statusCode: HttpStatusCode = HttpStatusCode.InternalServerError
-) : RuntimeException(message)
-
-class ResourceNotFoundException(resource: String, id: String) :
-    ApplicationException("$resource with ID $id not found", HttpStatusCode.NotFound)
-
-fun Application.configureExceptions() {
-    install(StatusPages) {
-        exception<ResourceNotFoundException> { call, cause ->
-            call.respond(cause.statusCode, ApiResponse("ERROR", cause.message ?: "Resource not found"))
-        }
-        exception<Throwable> { call, cause ->
-            call.respond(HttpStatusCode.InternalServerError, ApiResponse("ERROR", "An internal error occurred"))
-        }
-    }
-}
-```
-
-## Testing Strategies and Coverage Requirements
-
-### Test Coverage Requirements
-- **Minimum coverage**: 80% overall code coverage required
-- **Critical components**: 90%+ coverage for repositories, services, and validation
-- **Test all edge cases**: Empty collections, null values, boundary conditions
-- **Test failure paths**: Exception handling, validation errors, timeouts
-- **All public APIs**: Must have integration tests
-- **Performance-critical paths**: Must have benchmarking tests
-
-### Unit Testing with Kotest
-```kotlin
-class UserServiceTest : DescribeSpec({
-    describe("UserService") {
-        val mockRepository = mockk<UserRepository>()
-        val userService = UserServiceImpl(mockRepository)
-
-        it("should return user when exists") {
-            val userId = UUID.randomUUID()
-            val user = UserDTO(userId.toString(), "Test User", "test@example.com")
-            coEvery { mockRepository.findById(userId) } returns user
-
-            val result = runBlocking { userService.getUserById(userId) }
-
-            result shouldBe user
-        }
-
-        it("should throw exception when user not found") {
-            val userId = UUID.randomUUID()
-            coEvery { mockRepository.findById(userId) } returns null
-
-            shouldThrow<ResourceNotFoundException> {
-                runBlocking { userService.getUserById(userId) }
-            }
-        }
-    }
-})
-```
-
-## Route Testing with Ktor 3.x
-```kotlin
-class UserRoutesTest : FunSpec({
-    test("GET /api/users/{id} returns 200 when user exists") {
-        val mockService = mockk<UserService>()
-        val userId = UUID.randomUUID()
-        val user = UserDTO(userId.toString(), "Test User", "test@example.com")
-
-        coEvery { mockService.getUserById(userId) } returns user
-
-        testApplication {
-            application {
-                configureRouting()
-                configureDI { single { mockService } }
-            }
-
-            client.get("/api/users/$userId").apply {
-                status shouldBe HttpStatusCode.OK
-                bodyAsText().let {
-                    Json.decodeFromString<ApiResponse<UserDTO>>(it)
-                }.data shouldBe user
-            }
-        }
-    }
-})
-```
-
-## Key Principles for Testable Code
-1. **Single Responsibility**: Each method should do one thing well
-2. **Pure Functions**: Same input always produces same output
-3. **Dependency Injection**: Constructor injection for testable components
-4. **Clear Boundaries**: Well-defined inputs and outputs
-5. **Small Methods**: Extract complex logic into testable helper functions
-
-## Configuration Management
-```kotlin
-// Type-safe configuration
-interface AppConfig {
-    val database: DatabaseConfig
-    val security: SecurityConfig
-}
-
-data class DatabaseConfig(
-    val driver: String,
-    val url: String,
-    val user: String,
-    val password: String
-)
-
-// Access in application
-fun Application.configureDI() {
-    val appConfig = HoconAppConfig(environment.config)
-
-    install(Koin) {
-        modules(module {
-            single<AppConfig> { appConfig }
-            single { appConfig.database }
-        })
-    }
-}
-```
-
-## Security Best Practices
-```kotlin
-fun Application.configureSecurity() {
-    install(Authentication) {
-        jwt("auth-jwt") {
-            // JWT configuration
-        }
+    println("kotlin".capitalizeFirst())  // prints "Kotlin"
+    ```
+5.	Use scope functions like `apply`, `let`, `also`, `run`, and `with` to reduce repetition and clearly express object configuration or null-safe operations.
+6.	Declare variables as nullable only when necessary, and handle them using safe-call operators (`?.`) and the Elvis operator (`?:`) to avoid runtime crashes.
+7.	Avoid using the not-null assertion (`!!`) and instead provide fallback values or explicit null checks to write safer and more predictable code.
+8.	Handle platform types from Java APIs immediately by explicitly casting them to `String` or `String?` to avoid spreading nullability uncertainty in your Kotlin code.
+9.	Use Kotlin’s functional collection operations like `filter`, `map`, and `forEach` instead of manual loops to write concise and expressive data transformation logic.
+    ```kotlin
+    // Imperative approach
+    val activeUsers = mutableListOf<User>()
+    for (user in users) {
+        if (user.isActive) activeUsers.add(user)
     }
 
-    install(DefaultHeaders) {
-        header(HttpHeaders.XContentTypeOptions, "nosniff")
-        header(HttpHeaders.XFrameOptions, "DENY")
-        header(HttpHeaders.ContentSecurityPolicy, "default-src 'self'")
-        header("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    // Idiomatic functional approach
+    val activeUsers = users.filter { it.isActive }
+    ``` 
+10.	Convert simple functions into single-expression functions when the logic is clear, to eliminate unnecessary syntax and improve code brevity.
+    ```kotlin
+    fun toDto(entity: User) = UserDto(name = entity.name, email = entity.email)
+    ``` 
+11.	Build strings using string templates (`$var` or `${expression}`) instead of concatenation, and use triple-quoted strings for clean multi-line text.
+
+## Implementation Patterns and Design
+
+1.	Inject dependencies via constructor parameters using `val` to keep them immutable and to align with Spring and Kotlin idioms.
+    ```kotlin
+    @Service
+    class OrderService(
+        private val orderRepo: OrderRepository,
+        private val notifier: Notifier
+    ) {
+        // ...
     }
-}
-```
-
-## Health Checks & Monitoring
-```kotlin
-fun Application.configureMonitoring() {
-    val startTime = System.currentTimeMillis()
-
-    routing {
-        get("/health") {
-            call.respond(mapOf("status" to "UP", "uptime" to "${(System.currentTimeMillis() - startTime) / 1000}s"))
-        }
-
-        get("/metrics") {
-            call.respond(prometheusRegistry.scrape())
-        }
-    }
-
-    install(MicrometerMetrics) {
-        registry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-        meterBinders = listOf(
-            JvmMemoryMetrics(),
-            JvmGcMetrics(),
-            ProcessorMetrics(),
-            JvmThreadMetrics()
-        )
-    }
-}
-```
-
-## Performance Tuning
-- **JVM Settings**: `-XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:MaxRAMPercentage=75.0`
-- **Connection Pooling**: Configure HikariCP with proper sizing based on workload
-- **Caching**: Use Caffeine for in-memory caching of frequently accessed data
-- **Coroutines**: Use structured concurrency for asynchronous processing
-- **Database Queries**: Optimize with proper indexing, batch operations, pagination
+    ``` 
+2.	Keep classes `final` by default, and let Spring’s 'all-open' plugin handle proxy generation so you don’t need to manually add the open modifier.
+3.	Use Kotlin’s `object` declaration for true singletons or stateless utility holders instead of static methods or Java-style singletons.
+4.	Favor composition by combining small, focused classes or using higher-order functions instead of relying on deep inheritance hierarchies.
+5.	Define sealed classes when a type has a limited, closed set of variants to enforce exhaustive handling and improve type safety in `when` expressions.
+    ```kotlin
+    sealed class Result<out T>
+    data class Success<T>(val data: T): Result<T>()
+    data class Error(val exception: Throwable): Result<Nothing>()
+    ``` 
+6.	Use enum class to model fixed sets of constants that may contain logic, avoiding magic strings or raw values in business logic.
+7.	Return nullable types, sealed classes, or result wrappers instead of throwing exceptions for expected scenarios like “not found” or “invalid input”.
+8.	Always `use` the use function to safely manage and close resources like streams and file handles, ensuring they are closed even if an exception occurs.
+    ```kotlin
+    FileInputStream("data.txt").use { stream ->
+        // read from stream 
+    } // stream is automatically closed here
+    ``` 
+9.	Minimize visibility of your components by using `private` or `internal` where possible, and only expose what’s truly necessary as public.
+10.	Use Kotlin coroutines with suspend functions and coroutine builders like `launch` or `async` to write clean, asynchronous backend code without callback hell.
+11.	Leverage Kotlin’s standard library features like `lazy`, `observable`, `infix`, and operator overloading to write concise, expressive, and idiomatic code.
+12.	Use immutable data class entities with `val` fields and Kotlin’s JPA plugin to satisfy JPA requirements while keeping your models safe and thread-friendly.
+13.	Write unit tests for your business logic using dependency injection and pure functions to make testing straightforward and independent from Spring’s context.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
