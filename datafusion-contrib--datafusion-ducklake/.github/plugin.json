@@ -1,0 +1,9 @@
+{
+  "name": "datafusion-contrib--datafusion-ducklake",
+  "displayName": "datafusion-ducklake",
+  "description": "A Rust-native DuckLake engine built on Apache DataFusion",
+  "version": "1.0.0",
+  "author": "datafusion-contrib",
+  "homepage": "https://github.com/datafusion-contrib/datafusion-ducklake",
+  "skills": []
+}
