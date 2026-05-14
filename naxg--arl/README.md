@@ -7,11 +7,11 @@ ARL 资产侦察灯塔系统二开 提高性能，升级到 python3.12 增强稳
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NAXG/ARL](https://github.com/NAXG/ARL).
+Original source: `CLAUDE.md` in [NAXG/ARL](https://github.com/NAXG/ARL).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
