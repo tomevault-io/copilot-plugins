@@ -57,6 +57,34 @@
     {
       "name": "vocabulary-check",
       "description": ""
+    },
+    {
+      "name": "docs-write.md",
+      "description": ""
+    },
+    {
+      "name": "grill-me.md",
+      "description": ""
+    },
+    {
+      "name": "SKILL.md",
+      "description": ""
+    },
+    {
+      "name": "morning-brief.md",
+      "description": ""
+    },
+    {
+      "name": "roadmap-item.md",
+      "description": ""
+    },
+    {
+      "name": "to-prd.md",
+      "description": ""
+    },
+    {
+      "name": "tomevault-design.md",
+      "description": ""
     }
   ]
 }
