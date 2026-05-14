@@ -1,0 +1,9 @@
+{
+  "name": "rajudandigam--agent-inspect",
+  "displayName": "agent-inspect",
+  "description": "Local execution trees for TypeScript AI agents.  agent-inspect helps you understand what happened inside an AI agent run \u2014 locally. It turns manual steps, tool calls, LLM calls, structured logs, failu",
+  "version": "1.0.0",
+  "author": "rajudandigam",
+  "homepage": "https://github.com/rajudandigam/agent-inspect",
+  "skills": []
+}
