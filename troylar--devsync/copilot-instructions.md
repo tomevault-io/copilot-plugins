@@ -1,0 +1,772 @@
+## devsync
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+**DevSync** is a CLI tool for AI-powered config distribution across AI coding assistants. It uses LLM intelligence to extract practices from projects and adapt them to recipients' existing setups — supporting 23+ AI tools including Claude Code, Cursor, Windsurf, GitHub Copilot, Kiro, Roo Code, Cline, and Codex.
+
+**CLI entry point:** `devsync` (installed via `pip install devsync`)
+
+## Architecture
+
+### Core Concepts
+
+1. **AI-Powered Extraction**: LLM reads a project's rules, MCP configs, and commands to produce abstract practice declarations (not file copies)
+2. **AI-Powered Installation**: LLM adapts incoming practices to recipient's existing setup with intelligent merging and conflict resolution
+3. **Project-Level Installation**: All installations are project-specific, stored in tool-specific directories (`.cursor/rules/`, `.claude/rules/`, `.kiro/steering/`, etc.)
+4. **Installation Tracking**: Tracked in `<project-root>/.devsync/packages.json` for packages
+5. **Graceful Degradation**: No API key? Extract copies files verbatim, install uses file-copy mode. `--no-ai` flag forces this explicitly
+6. **v1 Backward Compatibility**: Old `ai-config-kit-package.yaml` packages install via file-copy mode. v2 `devsync-package.yaml` adds `practices` section for AI-native content
+
+### Package Structure
+
+```
+devsync/
+├── ai_tools/          # AI tool integrations and detection (23+ tools)
+│   ├── base.py       # Abstract AITool base class
+│   ├── claude.py     # Claude Code (.claude/rules/*.md)
+│   ├── cursor.py     # Cursor (.cursor/rules/*.mdc)
+│   ├── cline.py      # Cline (.clinerules/*.md)
+│   ├── kiro.py       # Kiro (.kiro/steering/*.md)
+│   ├── roo.py        # Roo Code (.roo/rules/*.md)
+│   ├── winsurf.py    # Windsurf (.windsurf/rules/*.md)
+│   ├── codex.py      # OpenAI Codex CLI (AGENTS.md sections)
+│   ├── copilot.py    # GitHub Copilot (.github/instructions/*.md)
+│   ├── anteroom.py   # Anteroom (ANTEROOM.md sections)
+│   └── detector.py   # Tool detection logic
+├── cli/               # Typer CLI commands (v2 — 6 commands)
+│   ├── main.py       # CLI app definition (setup, tools, extract, install, list, uninstall)
+│   ├── setup.py      # Configure LLM provider
+│   ├── extract.py    # AI extraction command
+│   ├── install_v2.py # AI-powered install command
+│   ├── list_v2.py    # Simplified list command
+│   ├── uninstall.py  # Uninstall from projects
+│   └── tools.py      # List detected AI tools
+├── core/              # Core business logic
+│   ├── models.py     # Data models (Instruction, Repository, etc.)
+│   ├── practice.py   # PracticeDeclaration, MCPDeclaration, CredentialSpec
+│   ├── extractor.py  # AI extraction engine
+│   ├── adapter.py    # AI adaptation/merge engine
+│   ├── package_manifest_v2.py # v2 manifest parser (v1 compat)
+│   ├── mcp_credential_prompter.py # MCP credential prompting
+│   ├── repository.py # Parse ai-config-kit.yaml
+│   ├── git_operations.py # Git clone/pull operations
+│   ├── pip_utils.py  # Pip package validation, detection, installation
+│   ├── checksum.py   # File integrity checking
+│   ├── conflict_resolution.py # Handle file conflicts
+│   ├── component_detector.py # Multi-tool component detection and filtering
+│   └── capability_registry.py # AI tool capability metadata
+├── llm/               # LLM provider abstraction (HTTP-only, no SDK deps)
+│   ├── provider.py   # Abstract LLMProvider, LLMResponse, resolve_provider()
+│   ├── anthropic.py  # Anthropic Claude (HTTP via httpx)
+│   ├── openai_provider.py # OpenAI (HTTP via httpx)
+│   ├── openrouter.py # OpenRouter (HTTP via httpx)
+│   ├── config.py     # API key resolution, ~/.devsync/config.yaml
+│   ├── prompts.py    # All prompt templates
+│   └── response_models.py # Structured response types
+├── storage/           # Data persistence
+│   ├── tracker.py    # InstallationTracker for installations.json
+│   └── package_tracker.py # PackageTracker for packages.json
+└── utils/             # Utilities
+    ├── project.py    # Project root detection
+    └── logging.py    # Logging configuration
+```
+
+### Key Data Models
+
+From `devsync/core/models.py`:
+
+#### Instructions
+- **Instruction**: Single instruction file with name, description, content, file_path, tags, checksum
+- **InstructionBundle**: Group of related instructions
+- **Repository**: Instruction repository with instructions and bundles
+- **InstallationRecord**: Tracks installed instruction with ai_tool, source_repo, installed_path, scope
+- **LibraryInstruction**: Instruction in library (downloaded but not installed)
+- **LibraryRepository**: Downloaded repository in library
+
+#### Packages
+- **Package**: Configuration package containing multiple components (instructions, MCP servers, hooks, commands, resources)
+- **PackageComponents**: Container for all components in a package with methods to count and manage them
+- **ComponentType**: Enum for component types (INSTRUCTION, MCP_SERVER, HOOK, COMMAND, RESOURCE)
+- **InstalledComponent**: Tracks installed component with type, name, path, checksum, and status
+- **PackageInstallationRecord**: Tracks installed package with name, version, components, timestamps, scope, and status
+- **InstallationStatus**: Enum for installation status (COMPLETE, PARTIAL, FAILED, PENDING_CREDENTIALS)
+- **ConflictResolution**: Enum for conflict handling strategies (SKIP, OVERWRITE, RENAME)
+
+### AI Tool Integration
+
+Each AI tool integration (in `ai_tools/`) inherits from `AITool` base class:
+- `name`: Tool identifier
+- `install_path`: Where to install files (e.g., `.cursor/rules/`)
+- `file_extension`: File extension (e.g., `.mdc` for Cursor, `.md` for others)
+- `detect()`: Check if tool is installed
+- `get_install_path(scope, project_root)`: Get installation directory
+- `install(instruction, scope, project_root, conflict_strategy)`: Install instruction file
+
+## Development Commands
+
+### Setup
+```bash
+# Install in editable mode with dev dependencies
+pip install -e .[dev]
+
+# Or use invoke
+invoke dev-setup
+```
+
+### Testing
+```bash
+# Run all tests (preferred)
+invoke test
+
+# Run with coverage
+invoke test --coverage
+
+# Run specific test types
+invoke test-unit         # Unit tests only
+invoke test-integration  # Integration tests only
+
+# Manual pytest
+pytest                        # All tests
+pytest tests/unit/            # Unit tests
+pytest tests/integration/     # Integration tests
+pytest -k "test_name"         # Specific test pattern
+```
+
+### Code Quality
+```bash
+# Run all checks (lint, format, typecheck)
+invoke quality
+
+# Auto-fix issues
+invoke quality --fix
+
+# Individual checks
+invoke lint              # Ruff linting
+invoke lint --fix        # Auto-fix lint issues
+invoke format            # Black formatting
+invoke format --check    # Check without changes
+invoke typecheck         # MyPy type checking
+```
+
+### Build & Install
+```bash
+invoke clean             # Clean build artifacts
+invoke build             # Build package
+invoke install           # Install package
+invoke install --dev     # Install with dev dependencies
+```
+
+### Release
+```bash
+# Pre-release checks (runs clean, quality, test)
+invoke release-check
+
+# Build and publish to PyPI
+invoke build
+invoke publish           # Publish to PyPI
+invoke publish --repository testpypi  # Test PyPI first
+```
+
+### Utilities
+```bash
+invoke count             # Count lines of code
+invoke version           # Show current version
+invoke tree              # Show project structure
+invoke security-check    # Run security scans
+```
+
+## Testing Structure
+
+```
+tests/
+├── conftest.py              # Shared fixtures (temp_dir, mock repos)
+├── unit/                    # Unit tests (fast, isolated)
+│   ├── test_models.py      # Model validation
+│   ├── test_checksum.py    # Checksum utilities
+│   └── ...
+└── integration/             # Integration tests (file I/O, Git)
+    ├── test_library.py     # Library management
+    ├── test_repository.py  # Repository parsing
+    └── test_tracker.py     # Installation tracking
+```
+
+**Testing conventions:**
+- Use fixtures from `conftest.py` (especially `temp_dir` for file operations)
+- Integration tests may use actual Git operations and file I/O
+- All tests should clean up after themselves
+- Use `pytest -v` for verbose output, `pytest --cov` for coverage
+
+## Code Style
+
+- **Formatter**: Black (line length: 120)
+- **Linter**: Ruff (select: E, F, I, N, W)
+- **Type Checker**: MyPy (strict type hints required)
+- **Python Version**: 3.10+ (using modern type hints like `list[str]`, not `List[str]`)
+
+**Key conventions:**
+- All functions must have type hints
+- Use dataclasses for data models
+- Use Enum for constants (AIToolType, ConflictResolution, InstallationScope)
+- Docstrings for all public functions/classes (Google style)
+- Line length: 120 characters
+
+## Git & Commit Conventions
+
+**Commit Message Format:**
+```
+type(scope): description (#issue)
+```
+
+**IMPORTANT:** Do NOT include Claude as a co-author in commit messages. Do NOT add:
+- `Co-Authored-By: Claude <noreply@anthropic.com>`
+- `Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>`
+- `🤖 Generated with [Claude Code](https://claude.com/claude-code)`
+- Any other Claude attribution lines
+
+**Rules:**
+- **type** must be one of: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+- **scope** must be a module name: `cli`, `core`, `storage`, `ai_tools`, `tui`, `utils`
+- **description** is lowercase, imperative mood, no trailing period
+- **#issue** is a valid GitHub issue number — every commit MUST reference one
+- `docs` type may omit scope when the change is project-wide
+
+**Examples:**
+```bash
+# Feature with scope and issue
+git commit -m "feat(ai_tools): add zed tool support (#83)"
+
+# Bug fix
+git commit -m "fix(storage): handle missing installations.json (#91)"
+
+# Test addition
+git commit -m "test(core): add package model validation tests (#88)"
+
+# Docs (scope optional for project-wide)
+git commit -m "docs: update CLAUDE.md architecture section (#95)"
+```
+
+**Branch naming:** `issue-<N>-short-description` (e.g., `issue-83-zed-tool-support`)
+
+## Important Implementation Details
+
+### Project Root Detection
+The `utils/project.py` module detects project root by looking for markers like `.git/`, `pyproject.toml`, `package.json`, etc. This enables running `devsync` from any subdirectory within a project.
+
+### Installation Workflow (v2)
+1. **Parse Manifest**: Read `devsync-package.yaml` (or v1 `ai-config-kit-package.yaml`)
+2. **Detect Tools**: Auto-detect installed AI tools in the target project
+3. **AI Adaptation**: Use LLM to adapt practices to recipient's existing rules (or file-copy in `--no-ai` mode)
+4. **Review Plan**: Show user what will be installed/merged/skipped
+5. **Execute**: Write adapted files to tool-specific directories, prompt for MCP credentials
+6. **Track**: Record in `<project-root>/.devsync/packages.json`
+
+### Conflict Resolution
+When installing an instruction that already exists:
+- **SKIP**: Don't install, leave existing
+- **RENAME**: Install with suffix (e.g., `instruction-1.md`)
+- **OVERWRITE**: Replace existing file
+
+### Repository Format
+Instruction repositories must have `ai-config-kit.yaml`:
+```yaml
+name: My Instructions
+description: Description
+version: 1.0.0
+
+instructions:
+  - name: my-instruction
+    description: What it does
+    file: instructions/my-instruction.md
+    tags: [tag1, tag2]
+
+bundles:
+  - name: my-bundle
+    description: Bundle description
+    instructions: [instruction1, instruction2]
+    tags: [tag]
+```
+
+### Package Management System
+
+The package management system allows installing multi-component bundles that include instructions, MCP servers, hooks, commands, and resources.
+
+#### Package Structure
+Packages must contain an `ai-config-kit-package.yaml` manifest:
+```yaml
+name: package-name
+version: 1.0.0
+description: Package description
+author: Author Name
+license: MIT
+namespace: org/repo
+
+components:
+  instructions:
+    - name: instruction-name
+      file: instructions/file.md
+      description: Instruction description
+      tags: [tag1, tag2]
+
+  mcp_servers:
+    - name: server-name
+      file: mcp/config.json
+      description: MCP server configuration
+      credentials:
+        - name: ENV_VAR
+          description: Environment variable description
+          required: true
+          default: "default-value"
+
+  hooks:
+    - name: hook-name
+      file: hooks/script.sh
+      description: Hook description
+      hook_type: pre-commit
+
+  commands:
+    - name: command-name
+      file: commands/script.sh
+      description: Command description
+      command_type: shell
+
+  resources:
+    - name: resource-name
+      file: resources/file.txt
+      description: Resource file
+      checksum: sha256:...
+      size: 1234
+```
+
+#### v2 Commands
+```bash
+# Configure LLM provider (one-time)
+devsync setup
+
+# Detect installed AI tools
+devsync tools
+
+# Extract practices from a project
+devsync extract
+devsync extract --no-ai          # File-copy mode
+devsync extract --output ./pkg --name team-standards
+devsync extract --tool cursor                    # Extract from Cursor only
+devsync extract --component mcp                  # Extract MCP servers only
+devsync extract --scope all                      # Include global configs
+devsync extract --tool claude --component rules  # Combine filters
+
+# Install a package
+devsync install ./team-standards
+devsync install https://github.com/company/standards
+devsync install ./package --tool claude --tool cursor
+devsync install ./package --no-ai
+devsync install ./package --conflict skip
+devsync install ./package --skip-pip
+
+# List installed packages
+devsync list
+devsync list --tool claude
+devsync list --json
+
+# Uninstall
+devsync uninstall team-standards
+devsync uninstall team-standards --force
+```
+
+#### v2 Installation Workflow
+1. **Parse Manifest**: Read and validate `devsync-package.yaml` or `ai-config-kit-package.yaml` (v1 compat)
+2. **Auto-detect tools**: Detect installed AI tools
+3. **AI adaptation**: Use LLM to semantically merge practices with existing rules
+4. **Display plan**: Show user what will be installed/merged/skipped
+5. **Confirm and execute**: Write adapted files to tool-specific directories
+6. **MCP credentials**: Prompt for any required MCP server credentials
+7. **Track Installation**: Record in `.devsync/packages.json`
+
+#### IDE Capability Filtering
+Different IDEs support different component types:
+- **Claude Code**: All components (instructions, MCP, hooks, commands, resources)
+- **Cline**: Instructions and resources only
+- **Codex CLI**: Instructions and resources only (via AGENTS.md sections)
+- **Anteroom**: Instructions and resources only (via ANTEROOM.md sections)
+- **Cursor**: Instructions and resources only
+- **Kiro**: Instructions and resources only
+- **Roo Code**: Instructions, MCP, commands, and resources
+- **Windsurf**: Instructions and resources only
+- **GitHub Copilot**: Instructions only
+
+Unsupported components are automatically skipped and counted separately.
+
+#### Component Translation
+Components are translated to IDE-specific formats:
+- **Claude Code**: `.md` files in `.claude/rules/`, `.claude/hooks/`, `.claude/commands/`
+- **Cline**: `.md` files in `.clinerules/`
+- **Codex CLI**: Sections in `AGENTS.md` at project root (using HTML comment markers)
+- **Anteroom**: Sections in `ANTEROOM.md` at project root (using HTML comment markers)
+- **Cursor**: `.mdc` files in `.cursor/rules/`
+- **Roo Code**: `.md` files in `.roo/rules/`, `.roo/commands/`
+- **Kiro**: `.md` files in `.kiro/steering/`
+- **Windsurf**: `.md` files in `.windsurf/rules/`
+- **GitHub Copilot**: `.md` files in `.github/instructions/`
+
+#### Example Package
+See `example-package/` directory for a complete example with all component types.
+
+## CI/CD
+
+GitHub Actions workflow at `.github/workflows/ci.yml`:
+- Runs on Python 3.10, 3.11, 3.12, 3.13
+- Matrix testing on ubuntu-latest, macos-latest, windows-latest
+- Steps: lint, format check, typecheck, tests with coverage
+- Coverage uploaded to Codecov
+
+**Local pre-push hook** (`.githooks/pre-push`):
+```bash
+# Enable with:
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-push
+```
+
+## Common Tasks
+
+### Adding a New AI Tool
+1. Create `devsync/ai_tools/newtool.py` inheriting from `AITool`
+2. Implement `detect()`, `get_install_path()`, and `install()` methods
+3. Add to `AIToolType` enum in `models.py`
+4. Register in `detector.py`
+5. Add tests in `tests/unit/test_ai_tools.py`
+
+### Adding a New CLI Command
+1. Create command file in `devsync/cli/`
+2. Define Typer command with `@app.command()`
+3. Register in `cli/main.py`
+4. Add tests in `tests/unit/test_cli.py`
+5. Update README.md with usage examples
+
+### Modifying Data Models
+1. Update dataclass in `core/models.py`
+2. Update `to_dict()` and `from_dict()` methods
+3. Consider backwards compatibility for existing installations
+4. Add tests in `tests/unit/test_models.py`
+
+## Dependencies
+
+**Core:**
+- `typer[all]` - CLI framework
+- `rich` - Terminal formatting
+- `pyyaml` - YAML parsing
+- `textual` - TUI framework
+
+**Dev:**
+- `pytest`, `pytest-cov` - Testing
+- `black` - Formatting
+- `ruff` - Linting
+- `mypy` - Type checking
+- `invoke` - Task automation
+
+## Documentation Standards
+
+Follow the `.cursor/rules/documentation-practices.mdc` guide:
+- README-first approach
+- Comprehensive docstrings (Google style)
+- Explain WHY in comments, not WHAT
+- Keep CHANGELOG.md updated
+- Architecture decision records (ADRs) for major decisions
+
+## Debugging
+
+```bash
+# Enable debug logging
+LOGLEVEL=DEBUG devsync install
+
+# Run specific test with output
+pytest tests/unit/test_models.py -s -vv
+
+# Use breakpoints
+import pdb; pdb.set_trace()
+# or
+breakpoint()
+```
+
+## Release Workflow
+
+**IMPORTANT:** When the user asks to "create a new release" or "make a release", follow this complete workflow.
+
+This project uses **GitHub Actions with PyPI Trusted Publishing** for automated releases. Publishing to PyPI happens automatically when you create a GitHub release.
+
+### PyPI Trusted Publishing Setup
+
+**One-time setup** (if not already configured):
+
+1. Go to https://pypi.org/manage/account/publishing/
+2. Add a new publisher:
+   - **PyPI Project Name**: `devsync`
+   - **Owner**: `troylar`
+   - **Repository**: `devsync`
+   - **Workflow name**: `publish.yml`
+   - **Environment**: (leave empty)
+3. Save the trusted publisher
+
+This allows GitHub Actions to publish without needing API tokens or passwords.
+
+### Pre-Release Checklist
+
+**IMPORTANT:** Before creating a release, you **must** run `invoke release-check` locally to ensure everything is working. This prevents CI failures and failed releases.
+
+1. **Ensure you're on the main branch** (or merge feature branch PR first)
+2. **Working directory must be clean** (no uncommitted changes)
+3. **All checks must pass locally**: `invoke release-check`
+4. **CI/CD pipeline must be green** on GitHub Actions (if PR was merged)
+
+### Release Steps
+
+Follow these steps in order when creating a new release:
+
+#### 1. Check Current Branch and Status
+```bash
+# Check current branch
+git branch --show-current
+
+# If on feature branch with open PR, check PR status
+gh pr status
+
+# Check for uncommitted changes
+git status
+```
+
+**Action:** If on a feature branch with an open PR:
+- Ensure all CI checks are passing
+- Merge the PR to main
+- Then pull main locally
+
+#### 2. Switch to Main and Pull Latest
+```bash
+git checkout main
+git pull origin main
+```
+
+#### 3. Run Pre-Release Checks (REQUIRED)
+```bash
+# This runs clean, quality, and test
+invoke release-check
+```
+
+**IMPORTANT:** This step is **required** before proceeding with the release. It verifies locally that:
+- All tests pass
+- Code quality checks pass (lint, format, typecheck)
+- Build artifacts are clean
+
+**Action:** Fix any failures before proceeding. Do NOT create a release if this command fails.
+
+#### 4. Determine Version Bump
+
+Version is in `pyproject.toml`:
+```toml
+[project]
+version = "0.1.1"
+```
+
+**Semantic Versioning:**
+- **Patch** (0.1.1 → 0.1.2): Bug fixes, minor changes
+- **Minor** (0.1.1 → 0.2.0): New features, backwards compatible
+- **Major** (0.1.1 → 1.0.0): Breaking changes
+
+**Action:** Ask the user which version bump to apply if not specified.
+
+#### 5. Update Version in pyproject.toml
+
+Edit the version in `pyproject.toml`:
+```toml
+[project]
+version = "0.2.0"  # New version
+```
+
+#### 6. Update CHANGELOG.md
+
+Add a new version section at the top of CHANGELOG.md with changes since last release:
+```markdown
+## [0.2.0] - 2025-10-24
+
+### Added
+- New feature description
+
+### Changed
+- Modified behavior description
+
+### Fixed
+- Bug fix description
+```
+
+**Tip:** Review commits since last release:
+```bash
+git log v0.1.1..HEAD --oneline
+```
+
+#### 7. Commit Version Bump
+
+```bash
+git add pyproject.toml CHANGELOG.md
+git commit -m "chore: bump version to 0.2.0"
+```
+
+**IMPORTANT:** Do NOT include Claude co-author attribution.
+
+#### 8. Create and Push Git Tag
+
+```bash
+# Create annotated tag
+git tag -a v0.2.0 -m "Release version 0.2.0"
+
+# Push commits and tags
+git push origin main
+git push origin v0.2.0
+```
+
+#### 9. Create GitHub Release (Triggers Automated Publishing)
+
+```bash
+# Create release from tag
+gh release create v0.2.0 \
+  --title "v0.2.0" \
+  --notes "$(awk '/## \[0.2.0\]/,/## \[/' CHANGELOG.md | head -n -1)"
+```
+
+**Alternative:** Create release manually on GitHub:
+1. Go to https://github.com/troylar/devsync/releases/new
+2. Click "Choose a tag" and select `v0.2.0`
+3. Title: `v0.2.0`
+4. Copy the relevant section from CHANGELOG.md into the description
+5. Click "Publish release"
+
+**What happens next:** The `.github/workflows/publish.yml` workflow will automatically:
+1. Run quality checks and tests
+2. Build the package
+3. Publish to PyPI using trusted publishing
+
+#### 10. Monitor the Publish Workflow
+
+```bash
+# Watch workflow progress
+gh run watch
+
+# Or view in browser
+gh run list --workflow=publish.yml
+```
+
+You can also monitor at: https://github.com/troylar/devsync/actions
+
+### Post-Release Verification
+
+Wait for the GitHub Actions workflow to complete (usually 2-5 minutes), then:
+
+```bash
+# Verify package on PyPI
+pip install --upgrade devsync
+
+# Check installed version
+devsync --version
+
+# Verify GitHub release
+gh release view v0.2.0
+
+# Check PyPI page
+open https://pypi.org/project/devsync/
+```
+
+### Testing on TestPyPI (Optional)
+
+To test the release process without publishing to production PyPI:
+
+```bash
+# Manually trigger workflow with TestPyPI option
+gh workflow run publish.yml -f repository=testpypi
+
+# Monitor the test run
+gh run watch
+```
+
+Then verify on TestPyPI: https://test.pypi.org/project/devsync/
+
+### Rollback (If Needed)
+
+If issues are discovered after release:
+
+1. **Yank release from PyPI** (marks as unavailable, doesn't delete):
+   ```bash
+   # Install twine if needed
+   pip install twine
+
+   # Yank the version
+   twine upload --repository pypi --yank <version>
+   ```
+
+2. **Delete GitHub release**:
+   ```bash
+   gh release delete v0.2.0 --yes
+   ```
+
+3. **Optionally delete the tag**:
+   ```bash
+   git tag -d v0.2.0
+   git push origin :refs/tags/v0.2.0
+   ```
+
+4. **Fix issues and create new patch release** (e.g., 0.2.1)
+
+### Quick Reference
+
+For a standard release from main branch:
+
+```bash
+# 1. Ensure clean state
+git checkout main && git pull
+
+# 2. REQUIRED: Run checks locally (DO NOT SKIP!)
+invoke release-check
+
+# 3. Update version in pyproject.toml and CHANGELOG.md
+
+# 4. Commit and tag
+git add pyproject.toml CHANGELOG.md
+git commit -m "chore: bump version to X.Y.Z"
+git tag -a vX.Y.Z -m "Release version X.Y.Z"
+git push origin main && git push origin vX.Y.Z
+
+# 5. Create GitHub release (triggers automated publish)
+gh release create vX.Y.Z --title "vX.Y.Z" \
+  --notes "$(awk '/## \[X.Y.Z\]/,/## \[/' CHANGELOG.md | head -n -1)"
+
+# 6. Monitor workflow and verify
+gh run watch
+```
+
+The GitHub Actions workflow (`.github/workflows/publish.yml`) handles building and publishing automatically.
+
+## Developer Workflow
+
+This project uses Claude Code skills (`.claude/commands/`) and auto-loaded rules (`.claude/rules/`) to enforce development standards. See `VISION.md` for product identity and scope guardrails. See `ROADMAP.md` for the prioritized roadmap organized by VISION.md direction areas.
+
+**Skills** (invoke with `/command`): `/ideate`, `/new-issue`, `/start-work`, `/commit`, `/submit-pr`, `/pr-check`, `/code-review`, `/deploy`, `/cleanup`, `/next`, `/triage`, `/write-docs`, `/dev-help`. Run `/dev-help` for a full guide.
+
+**SpecKit Skills** (invoke with `/speckit.<command>`): `/speckit.analyze`, `/speckit.checklist`, `/speckit.clarify`, `/speckit.constitution`, `/speckit.implement`, `/speckit.plan`, `/speckit.specify`, `/speckit.tasks`.
+
+**Rules** (auto-loaded every session): commit format, issue requirement, output formatting, product vision alignment, security patterns, test requirements.
+
+## Active Technologies
+- Markdown (instruction content) | Python 3.10+ (for DevSync CLI - no changes needed) + Git (for repository hosting), existing DevSync commands (no new dependencies) (001-example-instruction-repo)
+- GitHub repository at `troylar/config-sync-examples` | Git-based versioning (001-example-instruction-repo)
+- Python 3.10+ (targeting 3.10-3.13) (002-template-sync-system)
+- Filesystem-based (MCP definitions in `~/.devsync/library/<namespace>/`, credentials in `.devsync/.env`, AI tool configs at standard locations) (003-mcp-server-management)
+- Python 3.10+ (minimum 3.10, support 3.10-3.13) + PyYAML (manifest parsing), Rich/Textual (TUI), Typer (CLI), existing ai-config-kit modules (004-config-package)
+- JSON files (registry, package tracker) + YAML (manifests) + filesystem (.devsync/ structure) (004-config-package)
+
+## Recent Changes
+- 001-example-instruction-repo: Added Markdown (instruction content) | Python 3.10+ (for DevSync CLI - no changes needed) + Git (for repository hosting), existing DevSync commands (no new dependencies)
+
+---
+> Source: [troylar/devsync](https://github.com/troylar/devsync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
