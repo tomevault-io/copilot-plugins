@@ -1,0 +1,9 @@
+{
+  "name": "commerce-operations-foundation--mcp-reference-server",
+  "displayName": "mcp-reference-server",
+  "description": "This is the reference implementation for the mcp server",
+  "version": "1.0.0",
+  "author": "commerce-operations-foundation",
+  "homepage": "https://github.com/commerce-operations-foundation/mcp-reference-server",
+  "skills": []
+}
