@@ -4,7 +4,7 @@
   "repo": "orpc-shield",
   "description": "\ud83d\udee1 An oRPC tool to ease the creation of permission layer",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omar-dulaimi/orpc-shield",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T19:07:39Z"
+  "distributed_at": "2026-05-14T05:06:49Z"
 }
