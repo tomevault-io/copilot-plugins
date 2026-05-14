@@ -4,7 +4,7 @@
   "repo": "md",
   "description": "My Development container",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caic-xyz/md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T16:38:57Z"
+  "distributed_at": "2026-05-14T03:35:35Z"
 }
