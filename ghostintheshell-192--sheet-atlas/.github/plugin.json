@@ -1,0 +1,9 @@
+{
+  "name": "ghostintheshell-192--sheet-atlas",
+  "displayName": "sheet-atlas",
+  "description": "Cross-platform desktop app to search, compare, normalize and analyze Excel files. Data regions, column-level type correction, in-place export. Built with .NET 8 + Avalonia UI.",
+  "version": "1.0.0",
+  "author": "ghostintheshell-192",
+  "homepage": "https://github.com/ghostintheshell-192/sheet-atlas",
+  "skills": []
+}
