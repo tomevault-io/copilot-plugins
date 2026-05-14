@@ -1,0 +1,9 @@
+{
+  "name": "tibuntu--homeassistant-kubernetes",
+  "displayName": "homeassistant-kubernetes",
+  "description": "Homeassistant integration for Kubernetes",
+  "version": "1.0.0",
+  "author": "tibuntu",
+  "homepage": "https://github.com/tibuntu/homeassistant-kubernetes",
+  "skills": []
+}
