@@ -1,0 +1,9 @@
+{
+  "name": "bemisguided--vscode-ink-language-tools",
+  "displayName": "vscode-ink-language-tools",
+  "description": "An unofficial Visual Studio Code Extension offering advanced language support for Inkle's Ink interactive fiction scripting language.",
+  "version": "1.0.0",
+  "author": "bemisguided",
+  "homepage": "https://github.com/bemisguided/vscode-ink-language-tools",
+  "skills": []
+}
