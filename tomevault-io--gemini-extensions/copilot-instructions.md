@@ -1,141 +1,287 @@
 ## gemini-md
 
-> > A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+> > This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## cc-connect
+## reddit-mcp-server
 
-> A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# cc-connect — agent guide
+# CLAUDE.md
 
-A peer-to-peer chat substrate that lets multiple Claude Code instances share the same context. See @README.md for the user story and demo flow; this file is for Claude.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## What this repo is (mental model)
+## Project Overview
 
-- **Rust workspace** with five crates (`cc-connect`, `cc-connect-core`, `cc-connect-hook`, `cc-connect-mcp`, `cc-connect-tui`) plus a **Bun + React + Ink** chat panel under `chat-ui/`. Both build into `target/release/`.
-- The substrate is **chat-as-context**: every Peer's Claude reads from a locally-replicated `~/.cc-connect/rooms/<topic>/log.jsonl`. The `UserPromptSubmit` hook (`cc-connect-hook`) injects unread messages into the next prompt. That's the magic.
-- The MCP server (`cc-connect-mcp`) lets Claude write back into the room — `cc_send`, `cc_at`, `cc_drop`, etc.
+This is a Reddit MCP (Model Context Protocol) server that provides tools for interacting with the Reddit API. It's built with TypeScript and uses FastMCP to expose Reddit functionality as tools that can be used by AI assistants.
 
-## Read these before deep work
+## Available Tools
 
-The canonical specs live in repo root, not in this file. Do not duplicate them here.
+### Read-only Tools (Client Credentials Only)
 
-- @CONTEXT.md — Ubiquitous Language. **Use these terms verbatim** (Room, Ticket, Substrate, Peer, Host, Identity, Pubkey, Message, Hook, Cursor, Backfill, Session, Injection, Context). Never drift to "channel", "session", "client", "history", "memory" except when the term genuinely applies.
-- [PROTOCOL.md](PROTOCOL.md) — wire spec, RFC 2119 keywords. Read on demand for anything touching gossip payloads, Tickets, Backfill RPC, file_drop, or on-disk layout. **Wire-format changes are breaking** — bump `v` and the ALPN.
-- [SECURITY.md](SECURITY.md) — threat model. Read on demand before changing anything in `cc_drop` blocklists, hook injection paths, identity handling, or relay routing.
-- [TODOS.md](TODOS.md) — known gaps and the v0.1 → v1.0 migration list. Read on demand when picking up unfinished work.
-- `docs/adr/` — decisions already made. Don't re-litigate; if you must reopen, mark the contradiction explicitly.
+- `get_reddit_post` - Get a specific Reddit post with engagement analysis
+- `get_top_posts` - Get top posts from a subreddit or home feed
+- `get_user_info` - Get detailed information about a Reddit user
+- `get_subreddit_info` - Get subreddit details, stats, and community insights
+- `get_trending_subreddits` - Get currently trending/popular subreddits
+- `search_reddit` - Search for posts across Reddit with filters
+- `get_post_comments` - Get comments from a specific post with threading
+- `get_user_posts` - Get posts submitted by a specific user
+- `get_user_comments` - Get comments made by a specific user
 
-## Commands you can't infer from the code
+### Write Tools (User Credentials Required)
+
+**IMPORTANT**: These tools require both REDDIT_USERNAME and REDDIT_PASSWORD to be configured.
+
+- `create_post` - Create a new post in a subreddit (text or link)
+- `reply_to_post` - Post a reply to an existing Reddit post or comment
+- `edit_post` - Edit your own Reddit post (self-text posts only, titles cannot be edited)
+- `edit_comment` - Edit your own Reddit comment
+- `delete_post` - **PERMANENTLY** delete your own Reddit post (cannot be undone!)
+- `delete_comment` - **PERMANENTLY** delete your own Reddit comment (cannot be undone!)
+
+### Server Modes
+
+The server supports two transport modes:
+
+1. **HTTP Server (Default)**: Runs on port 3000 with `/mcp` endpoint
+   - Used for Docker deployments and direct execution
+   - Access via: `http://localhost:3000/mcp`
+   - SSE endpoint: `http://localhost:3000/sse`
+
+2. **Stdio Mode**: For CLI and npx usage
+   - Automatically enabled when using `npx reddit-mcp-server` or the bin entry point
+   - Used for integration with Claude Desktop and other MCP clients
+
+## Development Commands
 
 ```bash
-# Workspace build (Rust + chat-ui together — install.sh wraps this)
-./install.sh                               # interactive, idempotent; sets up hook + MCP
-cargo build --workspace --release          # Rust only
-(cd chat-ui && bun install && bun run build)   # chat-ui → target/release/cc-chat-ui
+# Install dependencies
+pnpm install
 
-# Tests
-cargo test --workspace                     # Rust unit + integration
-scripts/smoke-test.sh                      # end-to-end: spin two peers, check gossip
-scripts/smoke-test-mcp.sh                  # MCP server tools
-scripts/smoke-test-bg.sh                   # background host-daemon path
-(cd chat-ui && bun test && bunx tsc --noEmit)
+# Build TypeScript to JavaScript with tsup
+pnpm build
 
-# Diagnostics
-./target/release/cc-connect doctor         # verify install (hook entry, identity, perms)
+# Run the MCP inspector for development/testing
+pnpm inspect
+
+# Build and run inspector in one command
+pnpm dev
+
+# Build and start the server via npx
+pnpm start
+
+# Format code with Prettier
+pnpm format
+
+# Check code formatting
+pnpm format:check
+
+# Lint code with ESLint
+pnpm lint
+
+# Fix linting issues
+pnpm lint:fix
 ```
 
-`Cargo.lock` **is tracked on purpose** — this repo ships binaries and reproducible builds gate the v0.1 release. Do not gitignore it.
+## Architecture
 
-## Non-obvious gotchas
+### Core Components
 
-- **Vendored ed25519 / ed25519-dalek**. `Cargo.toml`'s `[patch.crates-io]` points at `vendored/ed25519` + `vendored/ed25519-dalek`. The published `ed25519-3.0.0-rc.4` is broken against current `pkcs8` (`Error::KeyMalformed` enum-variant break). Drop the patch only when upstream ships a working `ed25519-dalek`. See [TODOS.md](TODOS.md).
-- **MSRV is 1.89** (`workspace.package.rust-version`). Driven by the iroh stack itself (`iroh@0.97`, `iroh-blobs@0.99`, `iroh-gossip@0.97`, `iroh-relay@0.97` all require 1.89). CI gates on this; install.sh actively `rustup update`s when the user has an older toolchain.
-- **Hook trust boundary**. `cc-connect-hook` injects chat context only when `CC_CONNECT_ROOM` is set in its env (set by `cc-connect-tui` when it spawns the Claude PTY). Unrelated `claude` invocations on the same machine see nothing. Don't loosen this — it's the cross-process isolation guarantee in [SECURITY.md](SECURITY.md).
-- **PID-based active-rooms discovery** lives at `/tmp/cc-connect-$UID/active-rooms/<topic>.active`, not under `~`. PIDs are per-machine; cloud-synced homes would collide. See `docs/adr/0003-pid-based-active-rooms-discovery.md`.
-- **8 KB hook stdout budget.** `cc-connect-hook` keeps each `UserPromptSubmit` payload ≤ 8 KB so it stays inline; over that, Claude Code falls back to a 2 KB preview + persisted file. See `docs/adr/0004-hook-budget-and-graceful-overflow.md`.
-- **`cc_drop` path blocklist** rejects `~/.ssh`, `~/.aws`, `.env*`, `id_rsa*`, `*.pem`, etc. Don't widen it without a SECURITY.md update; don't narrow it without an explicit threat-model justification.
-- **iroh dependency pin** — `iroh 0.97`, `iroh-gossip 0.97`, `iroh-blobs 0.99`. The combo is non-trivial; bumping any one usually requires bumping all three together.
+1. **Reddit Client** (`src/client/reddit-client.ts`): Singleton pattern implementation that handles:
+   - OAuth2 authentication (client credentials and password flow)
+   - Automatic token refresh via axios interceptors
+   - Rate limiting and error handling
+   - Both read-only and authenticated operations
 
-## Workflow
+2. **Tool Modules** (`src/tools/`): Modular organization by functionality:
+   - `post-tools.ts`: Post creation, retrieval, and management
+   - `comment-tools.ts`: Comment retrieval and threading
+   - `subreddit-tools.ts`: Subreddit info, statistics, trending
+   - `user-tools.ts`: User information and engagement insights
+   - `search-tools.ts`: Reddit search functionality
 
-- **Plan before coding for protocol or hook work.** Anything touching wire format, identity, hook injection, or `cc_drop` semantics gets a Plan-mode pass first — these break compatibility silently if you guess.
-- **Treat ADRs as first-class.** When a decision is hard-to-reverse, surprising-without-context, and the result of a real trade-off, write one in `docs/adr/NNNN-kebab-name.md` (see `.claude/skills/grill-with-docs/ADR-FORMAT.md`). Don't write ADRs for ephemeral decisions.
-- **Domain-first naming.** New module names should reflect terms in @CONTEXT.md. If you need a new domain term, update CONTEXT.md in the same change. The `improve-codebase-architecture` and `grill-with-docs` skills enforce this — invoke them when in doubt.
-- **Tests over assertions.** Real bugs in this codebase have come from gossip ordering and hook concurrency, not from pure-function edge cases. Prefer integration smoke tests under `scripts/` over fine-grained mocks.
+3. **Type Definitions** (`src/types.ts`): Comprehensive TypeScript types for all Reddit entities
 
-## Release checklist (read before tagging or merging release-shaped PRs)
+### Authentication Flow
 
-### Tag namespaces (pick the right one)
+The server supports three authentication modes configured via `REDDIT_AUTH_MODE`:
 
-- `v0.X.Y` / `v0.X.Y-rc.1` → ships **Rust binaries** via
-  `.github/workflows/release.yml` (cc-connect, cc-connect-hook,
-  cc-chat-ui tarballs).
-- `vscode-extension-v0.X.Y` / `…-rc.1` → ships the **VSCode
-  extension .vsix** via
-  `.github/workflows/vscode-extension-release.yml`. The workflow
-  refuses to package if the tag's version doesn't match
-  `vscode-extension/package.json::version`, so bump that file in the
-  same commit you tag from.
+1. **auto (default)**: Automatically chooses the best authentication method
+   - If REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET are provided: Uses OAuth (60-100 req/min)
+   - Otherwise: Falls back to anonymous mode (~10 req/min)
+   - Gracefully degrades without failing
 
-The two pipelines are independent; tagging one does not trigger the
-other. The extension declares its required minimum cc-connect binary
-version in its `package.json` so users get a clear error when they
-mix incompatible versions.
+2. **authenticated**: Requires OAuth credentials
+   - Requires REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET
+   - Server fails to start if credentials are missing
+   - Provides higher rate limits (60-100 req/min)
+   - Use for production environments with guaranteed credentials
 
-### Install / uninstall surface contract
+3. **anonymous**: Uses public JSON API without authentication
+   - No credentials required - zero-setup experience
+   - Lower rate limit (~10 req/min)
+   - Perfect for testing and development
+   - Read-only operations work without any Reddit app setup
 
-Every release MUST keep `cc-connect uninstall` able to reverse the new
-install. The uninstall + upgrade flows promise users they can wipe a
-machine clean and start fresh; if a release adds new on-disk state but
-not the matching cleanup, every user upgrading after will accumulate
-dead files / settings forever.
+**Write operations** (create_post, reply_to_post, edit_post, edit_comment, delete_post, delete_comment):
 
-The cleanup surface lives in `crates/cc-connect/src/lifecycle.rs`:
+- Require REDDIT_USERNAME and REDDIT_PASSWORD in **any** mode
+- Will fail gracefully with a clear error message if credentials are missing
+- Token management is handled automatically by the Reddit client
 
-- **`INSTALLED_BIN_NAMES`** — every binary `install.sh` symlinks into
-  `~/.local/bin`. New binary in the workspace? Add it here (and to
-  `install.sh`'s symlink loop).
-- **`MCP_SERVER_KEY`** — the key used in `~/.claude.json::mcpServers`
-  and by `claude mcp add`. Keep `setup.rs` and `lifecycle.rs` in sync.
-- **`run_clear`** — stops every long-running daemon. New daemon
-  variant? Add a `list_running` + `run_stop` and call them here.
-- **`remove_hook_from_settings` / `remove_mcp_from_claude_json`** —
-  the JSON-mutation paths. New `~/.claude/settings.json` key written
-  during install (e.g. a new hook event)? Strip it here too.
-- **`run_uninstall` --purge** — wipes `~/.cc-connect/`. New persistent
-  file written outside that tree? Either move it inside, or add an
-  explicit removal step here.
+### Safe Mode (Spam Protection)
 
-Every release-shaped PR (anything touching `install.sh`, `setup.rs`,
-or any new persistent file location) MUST include a corresponding
-update to `lifecycle.rs` and a test exercising the cleanup. Reviewers:
-look for a paired commit; reject if missing.
+The server includes optional safeguards to protect against Reddit's spam detection, configured via `REDDIT_SAFE_MODE`:
 
-## Repository etiquette
+1. **off (default)**: No safeguards, original behavior
+2. **standard**: Recommended for normal use
+   - 2-second delay between write operations
+   - Duplicate content detection (tracks last 10 items)
+3. **strict**: For cautious automated posting
+   - 5-second delay between write operations
+   - Aggressive duplicate detection (tracks last 20 items)
 
-- **Commit messages**: `type(scope): subject`. Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`. Scopes are real components — `core`, `hook`, `mcp`, `tui`, `chat-ui`, `chat-daemon`, `install`, `room`, `security`, etc. Examples in `git log --oneline`.
-- **Branch model**: trunk-based on `main`. Feature work goes through PRs; ship small.
-- **PR title** mirrors the eventual commit subject. PR body has `## Summary` and `## Test plan` sections (see `.github/PULL_REQUEST_TEMPLATE.md`).
-- **License**: MIT OR Apache-2.0 (workspace-level). Every new crate inherits it via `license.workspace = true`.
+**Features:**
 
-## Agent skills
+- **Rate Limiting**: Enforces minimum delays between write operations to avoid spam flags
+- **Duplicate Detection**: Blocks identical content from being posted, with clear error messages
+- **Smart User-Agent**: Auto-generates Reddit-compliant User-Agent format (`typescript:reddit-mcp-server:1.1.0 (by /u/USERNAME)`) when username is provided
 
-This repo's `.claude/skills/` includes the cc-connect-specific skills (`cc-connect-setup`, `cc-connect-chat`, `cc-connect-relay-setup`) plus the engineering skills from `mattpocock/skills`. Per-repo configuration the skills look for:
+## Environment Setup
 
-- **Issue tracker** — GitHub Issues at `Minara-AI/cc-connect` (use the `gh` CLI). See `docs/agents/issue-tracker.md`.
-- **Triage labels** — defaults: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
-- **Domain docs** — single context. Glossary at @CONTEXT.md, ADRs under `docs/adr/`, wire spec at [PROTOCOL.md](PROTOCOL.md). See `docs/agents/domain-docs.md`.
+Environment variables:
 
-## What NOT to do
+```bash
+# Reddit API Credentials (optional unless using authenticated mode)
+REDDIT_CLIENT_ID=your_client_id
+REDDIT_CLIENT_SECRET=your_client_secret
+REDDIT_USER_AGENT=YourApp/1.0.0  # Optional, defaults to "RedditMCPServer/1.1.0"
 
-- Don't introduce a JS/TS dep in the Rust crates or vice versa. The two halves talk through `~/.cc-connect/rooms/<topic>/chat.sock` (IPC) and `log.jsonl` (file tail) — keep that contract.
-- Don't add a build step that requires a network reach during `cargo build`. The vendored ed25519 patch and pinned iroh versions assume an offline-friendly build after first fetch.
-- Don't `unwrap()` in code paths the hook calls. Hook failures degrade to a no-op (Claude Code's `<persisted-output>` safety net), but a panic costs the whole prompt.
-- Don't store room state in a place that crosses machines (cloud-synced `~`). PID files belong in `/tmp/cc-connect-$UID/`; identity stays at `~/.cc-connect/identity.key` mode `0600`.
+# Reddit User Credentials (optional, for write operations)
+REDDIT_USERNAME=your_username
+REDDIT_PASSWORD=your_password
+
+# Authentication Mode (optional, defaults to 'auto')
+REDDIT_AUTH_MODE=auto            # Options: auto, authenticated, anonymous
+
+# Safe Mode (optional, defaults to 'off')
+REDDIT_SAFE_MODE=standard        # Options: off, standard, strict
+
+# Transport Configuration
+# TRANSPORT_TYPE=stdio            # Uncomment for stdio mode (default: httpStream for node, stdio for npx/bin)
+PORT=3000                          # HTTP server port (default: 3000)
+
+# OAuth Authentication (for HTTP server)
+OAUTH_ENABLED=true                # Set to "true" to enable OAuth protection
+OAUTH_TOKEN=your_secret_token     # Optional, will generate random token if not provided
+```
+
+### Quick Start Examples
+
+**Try without any setup:**
+
+```bash
+export REDDIT_AUTH_MODE=anonymous
+npx reddit-mcp-server
+```
+
+**With OAuth for higher rate limits:**
+
+```bash
+export REDDIT_AUTH_MODE=auto
+export REDDIT_CLIENT_ID=your_client_id
+export REDDIT_CLIENT_SECRET=your_client_secret
+npx reddit-mcp-server
+```
+
+**With Safe Mode for write operations:**
+
+```bash
+export REDDIT_USERNAME=your_username
+export REDDIT_PASSWORD=your_password
+export REDDIT_SAFE_MODE=standard
+npx reddit-mcp-server
+```
+
+### Transport Modes
+
+The server defaults to stdio mode for MCP client compatibility:
+
+- **Running directly**: `node dist/index.js` → stdio mode (default)
+- **Running via npx**: `npx reddit-mcp-server` → stdio mode
+- **Running via Docker**: Set `TRANSPORT_TYPE=httpStream` for HTTP server on port 3000
+- **Force HTTP mode**: Set `TRANSPORT_TYPE=httpStream` or `TRANSPORT_TYPE=http`
+
+### OAuth Security
+
+The HTTP server supports optional OAuth protection:
+
+- **Disabled by default**: The server runs without authentication
+- **Enable with**: `OAUTH_ENABLED=true`
+- **Token options**:
+  - Provide your own: `OAUTH_TOKEN=your-secure-token`
+  - Auto-generate: Server creates a random 32-character token on startup
+- **Usage**: Include `Authorization: Bearer <token>` header in requests to `/mcp`
+
+Example request with OAuth:
+
+```bash
+curl -H "Authorization: Bearer your-token" http://localhost:3000/mcp
+```
+
+## Key Implementation Details
+
+1. **Error Handling**: All tools use try-catch blocks and return MCP-compliant error responses
+2. **Rate Limiting**: Built into the Reddit client to respect API limits
+3. **Token Refresh**: Automatic when tokens expire via authentication checks
+4. **Singleton Client**: Ensures single authenticated instance across all tools
+5. **Thing IDs**: Reddit uses prefixed IDs (t3* for posts, t1* for comments). The client methods handle both prefixed and non-prefixed IDs automatically.
+6. **Edit Operations**: Only self-text posts can be edited. Titles and link posts cannot be edited per Reddit API limitations.
+7. **Delete Operations**: Deletions are permanent and cannot be undone. The content is removed but the post/comment ID remains.
+
+### Intentionally Excluded (Policy Compliance)
+
+The following Reddit API capabilities are intentionally NOT implemented per Reddit's Responsible Builder Policy:
+
+- **Direct Messages/Private Messages**: Bots must get explicit consent for private communications
+- **Voting (upvote/downvote)**: Manipulating Reddit features like voting or karma is prohibited
+- **Bulk data export/scraping**: Reddit data must not be scraped for AI training or commercialized without approval
+
+## Testing Approach
+
+The project uses Vitest for testing:
+
+- **Run tests**: `pnpm test`
+- **Watch mode**: `pnpm test:watch`
+- **Coverage**: `pnpm test:coverage`
+- **Manual testing**: Use the MCP inspector (`pnpm inspect`)
+- Test both authenticated and unauthenticated flows
+- Verify error handling for invalid inputs and API failures
+
+## Common Development Tasks
+
+1. **Adding a new Reddit tool**:
+   - Add method to RedditClient class (`src/client/reddit-client.ts`)
+   - Define TypeScript types in `src/types.ts` if needed
+   - Create MCP tool in main server (`src/index.ts`)
+   - Add tests to `src/client/__tests__/reddit-client.test.ts`
+   - Update documentation (README.md and CLAUDE.md)
+
+2. **Modifying Reddit client**:
+   - Update `src/client/reddit-client.ts`
+   - Ensure backward compatibility with existing tools
+   - Test both auth flows if authentication logic changes
+   - Add comprehensive tests for new functionality
+
+3. **Debugging**:
+   - Use `pnpm inspect` to test tools interactively
+   - Check authentication flow for auth issues
+   - Verify environment variables are set correctly
+   - Review console.error logs for Reddit API responses
+   - Test with real Reddit API using test scripts (e.g., create test post, edit, delete)
 
 ---
-> Source: [Minara-AI/cc-connect](https://github.com/Minara-AI/cc-connect) — distributed by [TomeVault](https://tomevault.io).
+> Source: [jordanburke/reddit-mcp-server](https://github.com/jordanburke/reddit-mcp-server) — distributed by [TomeVault](https://tomevault.io).
 <!-- tomevault:4.0:gemini_md:2026-05-06 -->
 
 ---
