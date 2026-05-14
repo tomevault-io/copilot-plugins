@@ -1,0 +1,9 @@
+{
+  "name": "plausible--prima",
+  "displayName": "prima",
+  "description": "Headless UI component library for Phoenix Liveview",
+  "version": "1.0.0",
+  "author": "plausible",
+  "homepage": "https://github.com/plausible/prima",
+  "skills": []
+}
