@@ -1,0 +1,9 @@
+{
+  "name": "cakevm--mev-builders",
+  "displayName": "mev-builders",
+  "description": "MEV builder endpoints, all in one place",
+  "version": "1.0.0",
+  "author": "cakevm",
+  "homepage": "https://github.com/cakevm/mev-builders",
+  "skills": []
+}
