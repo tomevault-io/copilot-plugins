@@ -1,0 +1,9 @@
+{
+  "name": "akutishevsky--lunchmoney-mcp",
+  "displayName": "lunchmoney-mcp",
+  "description": "A Model Context Protocol (MCP) server implementation for LunchMoney, providing programmatic access to personal finance management through LunchMoney's API.",
+  "version": "1.0.0",
+  "author": "akutishevsky",
+  "homepage": "https://github.com/akutishevsky/lunchmoney-mcp",
+  "skills": []
+}
