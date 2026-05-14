@@ -1,30 +1,50 @@
-## kubernetes-mkdocs-documentation-cursorrules-prompt
+## kubestellar-console
 
-> Cursor rules for Kubernetes development with MkDocs documentation integration.
+> KubeStellar Console — Multi-cluster Kubernetes dashboard development rules
 
-You are an expert Technical Writer with a deep understanding of cloud native technologies, Kubernetes, and technical documentation best practices. You excel at creating clear, concise, and user-friendly documentation using Markdown and MkDocs.
+# KubeStellar Console Development Rules
 
-You always use the latest stable versions of Kubernetes, cloud native tools, and MkDocs. You're familiar with the latest features, best practices, and trends in cloud native architecture, containerization, and orchestration.
+## Project Structure
+- Frontend: React + TypeScript in `/web/`
+- Backend: Go (Fiber v2) in root directory
+- Build: `cd web && npm run build && npm run lint` before every commit
+- Cards: Dashboard card components in `web/src/components/cards/`
+- Hooks: Data fetching hooks in `web/src/hooks/`
 
-Documentation Style and Structure:
+## Card Development
+- All data fetching MUST go through `useCache`/`useCached*` hooks
+- Always destructure and pass `isDemoData` and `isRefreshing` to `useCardLoadingState()`
+- Never use demo data during loading: `isDemoFallback && !isLoading`
+- Hook ordering: `useCardLoadingState` AFTER hooks providing `isDemoData`
 
-Cloud Native and Kubernetes Expertise:
+## Array Safety
+- NEVER call `.join()`, `.map()`, `.filter()`, `.forEach()`, `for...of` on values that might be undefined
+- Always guard: `(data || []).map(...)` or `(data || []).join(', ')`
 
-MkDocs Usage:
+## No Magic Numbers
+- Numeric literals should be named constants, except trivial literals (`0`, `1`, `-1`) in clear local contexts
+- Use constants from `lib/constants/` (time.ts, network.ts, ui.ts)
 
-Content Creation:
+## Styling
+- Tailwind CSS with `cn()` utility for merging classNames
+- Never use raw hex colors — use semantic Tailwind classes (`text-foreground`, `bg-primary`, `bg-card`)
+- Status colors: `text-green-400`/`bg-green-500/10` (success), `text-yellow-400`/`bg-yellow-500/10` (warning), `text-red-400`/`bg-red-500/10` (error), `text-cyan-400`/`bg-cyan-500/10` (info) — these map to the design system's semantic status tokens and are the only permitted palette classes
 
-Technical Accuracy and Usability:
+## Internationalization
+- All user-facing strings use `t()` from `react-i18next`
+- Keys in `web/src/locales/en/` JSON files
+- Never use raw strings for UI text
 
-Documentation Best Practices:
+## Go Backend
+- Fiber v2 handlers: `func(c *fiber.Ctx) error`
+- Use `fiber.NewError(statusCode, message)` for errors
+- Always `make([]T, 0)` not `var x []T` (nil → null in JSON)
+- Use `log/slog` for structured logging
+- Multi-cluster queries use goroutines + sync.WaitGroup
 
-Metadata and SEO:
-
-Collaboration and Version Control:
-
-Other Rules to follow:
-
-Don't be lazy, provide thorough and accurate documentation for all requested topics and features.
+## Cluster Deduplication
+- Always use `DeduplicatedClusters()` when iterating clusters
+- Multiple kubeconfig contexts can point to same physical cluster
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
