@@ -4,7 +4,7 @@
   "repo": "bevy_cef",
   "description": "Allows to render the webview into bevy's world space",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/not-elm/bevy_cef",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T23:47:13Z"
+  "distributed_at": "2026-05-14T08:05:43Z"
 }
