@@ -1,0 +1,9 @@
+{
+  "name": "flashbots--mosaik",
+  "displayName": "mosaik",
+  "description": "A Rust runtime for building self-organizing, leaderless distributed systems.",
+  "version": "1.0.0",
+  "author": "flashbots",
+  "homepage": "https://github.com/flashbots/mosaik",
+  "skills": []
+}
