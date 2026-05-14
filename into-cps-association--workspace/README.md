@@ -1,0 +1,26 @@
+# AI instruction files for workspace
+
+> Sourced from [INTO-CPS-Association/workspace](https://github.com/INTO-CPS-Association/workspace) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Workspace for Digital Twin as a Service
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [INTO-CPS-Association/workspace](https://github.com/INTO-CPS-Association/workspace).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/INTO-CPS-Association/workspace](https://github.com/INTO-CPS-Association/workspace)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-q -->
