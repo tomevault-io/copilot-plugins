@@ -1,0 +1,9 @@
+{
+  "name": "aryalabshq--agentree",
+  "displayName": "agentree",
+  "description": "Create and manage isolated Git worktrees for AI coding agents.",
+  "version": "1.0.0",
+  "author": "AryaLabsHQ",
+  "homepage": "https://github.com/AryaLabsHQ/agentree",
+  "skills": []
+}
