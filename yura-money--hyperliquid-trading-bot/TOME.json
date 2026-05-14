@@ -4,7 +4,7 @@
   "repo": "hyperliquid-trading-bot",
   "description": "hyperliquid trading bot A Node.js (TypeScript) grid trading bot for Hyperliquid: configurable grid levels, WebSocket mid prices, limit orders via the official API stack, and risk rules (drawdown, position size, optional stop / take profit).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yura-money/hyperliquid-trading-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T13:24:47Z"
+  "distributed_at": "2026-05-14T02:04:30Z"
 }
