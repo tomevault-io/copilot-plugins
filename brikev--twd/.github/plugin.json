@@ -1,0 +1,9 @@
+{
+  "name": "brikev--twd",
+  "displayName": "twd",
+  "description": "TWD is designed for runtime-first SPAs and SSR setups where routing and data are explicit and testable.",
+  "version": "1.0.0",
+  "author": "BRIKEV",
+  "homepage": "https://github.com/BRIKEV/twd",
+  "skills": []
+}
