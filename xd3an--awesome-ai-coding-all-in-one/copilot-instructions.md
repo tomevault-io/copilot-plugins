@@ -1,28 +1,96 @@
-## alpha-skills-quant-factor-research
+## android-jetpack-compose-cursorrules-prompt-file
 
-> Quantitative factor research skills for Cursor. Evaluate factors, run backtests, mine new alpha through natural language.
+> Cursor rules for Android development with Jetpack Compose integration.
 
-# Alpha Skills — Quantitative Factor Research
+// Android Jetpack Compose .cursorrules
 
-You are a senior quantitative researcher. Use these skills for factor research:
+// Flexibility Notice
 
-## Skills
+// Note: This is a recommended project structure, but be flexible and adapt to existing project structures.
+// Do not enforce these structural patterns if the project follows a different organization.
+// Focus on maintaining consistency with the existing project architecture while applying Jetpack Compose best practices.
 
-- **alpha-discover**: Design factors from natural language. Say "find me a low-volatility factor".
-- **alpha-evaluate**: Multi-level evaluation (IC/ICIR/quintile/robustness). Say "evaluate reversal_5".
-- **alpha-mine**: Automated factor mining with IC screening. Say "mine 50 factors".
-- **alpha-library**: Factor registry with lifecycle management. Say "show my factor library".
-- **alpha-backtest**: Single/multi-factor portfolio backtesting. Say "backtest with pv_diverge + turnover".
-- **alpha-monitor**: Detect IC decay and health issues. Say "check factor health".
-- **alpha-report**: Generate comprehensive analysis reports. Say "generate factor report".
+// Project Architecture and Best Practices
 
-## Full skill definitions
+const androidJetpackComposeBestPractices = [
+    "Adapt to existing project architecture while maintaining clean code principles",
+    "Follow Material Design 3 guidelines and components",
+    "Implement clean architecture with domain, data, and presentation layers",
+    "Use Kotlin coroutines and Flow for asynchronous operations",
+    "Implement dependency injection using Hilt",
+    "Follow unidirectional data flow with ViewModel and UI State",
+    "Use Compose navigation for screen management",
+    "Implement proper state hoisting and composition",
+];
 
-For complete skill implementations, see: https://github.com/VernonOY/alpha-skills/tree/main/skills
+// Folder Structure
 
-## Markets Supported
+// Note: This is a reference structure. Adapt to the project's existing organization
 
-A-share (China), Hong Kong, US equities. Auto-adapts trading rules per market.
+const projectStructure = `
+app/
+  src/
+    main/
+      java/com/package/
+        data/
+          repository/
+          datasource/
+          models/
+        domain/
+          usecases/
+          models/
+          repository/
+        presentation/
+          screens/
+          components/
+          theme/
+          viewmodels/
+        di/
+        utils/
+      res/
+        values/
+        drawable/
+        mipmap/
+    test/
+    androidTest/
+`;
+
+// Compose UI Guidelines
+
+const composeGuidelines = `
+1. Use remember and derivedStateOf appropriately
+2. Implement proper recomposition optimization
+3. Use proper Compose modifiers ordering
+4. Follow composable function naming conventions
+5. Implement proper preview annotations
+6. Use proper state management with MutableState
+7. Implement proper error handling and loading states
+8. Use proper theming with MaterialTheme
+9. Follow accessibility guidelines
+10. Implement proper animation patterns
+`;
+
+// Testing Guidelines
+
+const testingGuidelines = `
+1. Write unit tests for ViewModels and UseCases
+2. Implement UI tests using Compose testing framework
+3. Use fake repositories for testing
+4. Implement proper test coverage
+5. Use proper testing coroutine dispatchers
+`;
+
+// Performance Guidelines
+
+const performanceGuidelines = `
+1. Minimize recomposition using proper keys
+2. Use proper lazy loading with LazyColumn and LazyRow
+3. Implement efficient image loading
+4. Use proper state management to prevent unnecessary updates
+5. Follow proper lifecycle awareness
+6. Implement proper memory management
+7. Use proper background processing
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
