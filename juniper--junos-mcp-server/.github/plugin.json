@@ -1,0 +1,9 @@
+{
+  "name": "juniper--junos-mcp-server",
+  "displayName": "junos-mcp-server",
+  "description": "This is a Junos Model Context Protocol (MCP) Server project that provides a bridge between MCP-compatible clients (like Claude Desktop) and Juniper Junos network devices.",
+  "version": "1.0.0",
+  "author": "Juniper",
+  "homepage": "https://github.com/Juniper/junos-mcp-server",
+  "skills": []
+}
