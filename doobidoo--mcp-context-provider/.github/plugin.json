@@ -1,0 +1,9 @@
+{
+  "name": "doobidoo--mcp-context-provider",
+  "displayName": "MCP-Context-Provider",
+  "description": "A static MCP server that provides AI models with persistent tool context, preventing context loss between chats.",
+  "version": "1.0.0",
+  "author": "doobidoo",
+  "homepage": "https://github.com/doobidoo/MCP-Context-Provider",
+  "skills": []
+}
