@@ -1,59 +1,102 @@
-## kafka-core
+## python-testing
 
-> This is a multi-language Kafka Schema Registry demonstration with three microservices:
+> - Framework: pytest 7.4.4
 
 
-# Kafka & Schema Registry Core Patterns
+# Python Testing Standards
 
-This is a multi-language Kafka Schema Registry demonstration with three microservices:
-- **Order Service**: Java 17 + Spring Boot 3.x + Kotlin (port 9080)
-- **Inventory Service**: Python 3.9+ + FastAPI (port 9000)  
-- **Analytics API**: Node.js 18+ + Express + TypeScript (port 9300)
-- **Infrastructure**: Kafka + Schema Registry (Confluent Platform 7.9.x, KRaft mode)
+## Test Framework Configuration
 
-## Infrastructure Configuration
+- Framework: pytest 7.4.4
+- Test location: `tests/` directory (separate from package)
+- Virtual environment: `.venv` (always activate before testing)
 
-- Kafka broker: `localhost:29092` (external), `kafka:9092` (internal Docker)
-- Schema Registry: `http://localhost:8081`
-- Project uses KRaft mode (NO Zookeeper)
-- Start infrastructure: `docker-compose up -d` then `./scripts/wait-for-services.sh`
+## Running Tests
 
-## Schema Management Principles
-
-ALWAYS:
-- Define schemas in `schemas/` directory before implementing services
-- Use backward-compatible evolution when adding fields
-- Include default values for all new optional fields
-- Version schemas: v1/ for initial, v2/ for evolved versions
-- Regenerate code after schema changes: `make generate`
-
-NEVER:
-- Modify generated Avro classes directly
-- Remove required fields from existing schemas
-- Change field types in published schemas
-- Commit Schema Registry credentials to repository
-
-## Schema Evolution Pattern
-
-When evolving schemas:
-```json
-// Add new fields with union types and defaults
-{"name": "newField", "type": ["null", "string"], "default": null}
-{"name": "metadata", "type": ["null", {"type": "map", "values": "string"}], "default": null}
+```bash
+cd services/inventory-service
+source .venv/bin/activate                  # ALWAYS activate venv first
+python -m pytest                           # Run all tests
+python -m pytest tests/test_utils.py       # Run specific file
+python -m pytest -v                        # Verbose output
+python -m pytest -k "test_name"            # Run tests matching pattern
+python -m pytest --cov                     # With coverage
 ```
 
-## Kafka Topic Naming
+## Test Structure Pattern
 
-- Use lowercase with hyphens: `order-events`, `inventory-updates`
-- Prefix test topics: `test-[topic-name]`
-- Avoid underscores in topic names
+Use class-based organization with descriptive docstrings:
 
-## Error Handling
+```python
+import pytest
+from inventory_service.utils import validate_order_data
 
-- Route malformed messages to dead letter queue topics: `[topic-name]-dlq`
-- Include correlation IDs in all inter-service messages
-- Log Schema Registry errors with schema subject and version info
-- Implement circuit breaker for Schema Registry unavailability	
+class TestValidateOrderData:
+    """Tests for validate_order_data function"""
+    
+    def test_valid_order_data(self):
+        """Test validation with all required fields"""
+        order_data = {
+            'orderId': '123',
+            'userId': 'user456',
+            'amount': 99.99,
+            'status': 'PENDING'
+        }
+        assert validate_order_data(order_data) is True
+    
+    def test_missing_required_field(self):
+        """Test validation with missing required field"""
+        order_data = {'orderId': '123', 'userId': 'user456'}
+        assert validate_order_data(order_data) is False
+```
+
+## Virtual Environment Setup
+
+ALWAYS use virtual environment:
+
+```bash
+cd services/inventory-service
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Kafka Consumer Testing
+
+Use pytest-kafka for Kafka testing:
+
+```python
+@pytest.fixture
+def kafka_consumer():
+    consumer = KafkaConsumer(...)
+    yield consumer
+    consumer.close()
+
+def test_consume_order_event(kafka_consumer):
+    # Test implementation
+    pass
+```
+
+## Test File Naming
+
+MUST follow pytest discovery patterns:
+- Files: `test_*.py` or `*_test.py`
+- Functions: `test_*`
+- Classes: `Test*`
+
+## Code Style
+
+- Follow PEP 8 style guide
+- Use type hints for function signatures
+- Google-style docstrings for public functions
+- Black for formatting (line length: 100)
+
+## NEVER
+
+- Run tests without activating virtual environment
+- Import from generated/ directory in production code
+- Use blocking Kafka clients in async FastAPI routes
+- Skip cleanup in test teardown
 
 ---
 > Source: [gAmUssA/tower-of-babel](https://github.com/gAmUssA/tower-of-babel) — distributed by [TomeVault](https://tomevault.io).
