@@ -1,0 +1,158 @@
+## workflow
+
+> Go library for defining and executing multi-step processes as directed graphs.
+
+# Workflow Library
+
+Go library for defining and executing multi-step processes as directed graphs.
+Module: `github.com/deepnoodle-ai/workflow`
+
+Read `llms.txt` for the full API reference. The friendly tour lives in
+`documentation/` and `README.md`.
+
+## Scope
+
+This is a **pure execution engine**. It runs workflows in-process and lets
+consumers plug in everything else.
+
+**Does**: Define workflows as step graphs. Execute steps (activities). Branch
+and join execution paths. Retry with backoff. Catch and route errors. Checkpoint
+execution state. Resume from checkpoints. Suspend on signals, wall-clock sleeps,
+and operator pauses. Track step progress. Evaluate edge conditions and `${...}`
+parameter templates via a bundled expression engine
+(`github.com/deepnoodle-ai/expr`).
+
+**Does not**: Store workflows, checkpoints, or progress. Queue or schedule work.
+Manage distributed workers or leases. Provide a database, API, or UI.
+
+Storage is the consumer's problem. The library defines interfaces
+(`Checkpointer`, `StepProgressStore`, `ActivityLogger`, `SignalStore`,
+`WorkflowRegistry`) and the consumer plugs in whatever they like (Postgres,
+Redis, S3, etc.). The built-in `FileCheckpointer` and `MemoryCheckpointer` are
+for development and testing.
+
+## How Branch Execution Works
+
+A workflow starts with a single "main" branch executing from the start step.
+Each branch runs in its own goroutine and progresses step-by-step through the
+graph. When a step has multiple matching edges, the branch **forks**: the
+engine creates new child branches, each running in its own goroutine. When
+branches fork, each child receives a **deep copy** of the parent's state —
+after that point, branches are fully independent with no shared mutable state.
+
+The orchestrator (`execution.go`) coordinates branches through a channel-based
+snapshot loop:
+1. Branches send snapshot messages to a shared channel as they complete steps
+2. The orchestrator processes snapshots sequentially on the main goroutine
+3. This handles branching (spawn new branches), joining (wait for branches to
+   converge), checkpointing, and failure propagation
+4. The loop exits when no active branches remain
+
+Join steps (`JoinConfig`) block a branch until specified branches complete, then
+merge state from the completed branches into the waiting branch via
+`BranchMappings`.
+
+## Concurrency Model
+
+- **No shared mutable state between branches.** Copy-on-branch eliminates races.
+- **Single orchestrator goroutine** processes all branch snapshots sequentially.
+  This avoids concurrent mutation of `ExecutionState` from the orchestration side.
+- **`ExecutionState` is mutex-protected** (`sync.RWMutex`) because both the
+  orchestrator and activity execution goroutines access it (e.g., checkpointing
+  after activity completion happens under lock in `executeActivity`).
+- **Step progress dispatch is fire-and-forget.** Store calls run in detached
+  goroutines. Errors are logged, never block the workflow.
+- **Heartbeat runs in a separate goroutine** and cancels the execution context
+  on failure — cooperative shutdown via standard `context.Context` cancellation.
+
+## Commands
+
+`make test` runs the test suite. `make test-all` also runs `go vet`.
+`make cover` produces a coverage report.
+
+## Packages and modules
+
+The repository is a single Go module (`github.com/deepnoodle-ai/workflow`)
+with a single external dependency: `github.com/deepnoodle-ai/expr`.
+Everything ships from this one module, including the CLI and the
+example programs. The whole tree must compile with only the stdlib +
+expr.
+
+- Root (`workflow`) — the engine: definition, execution, checkpointing,
+  errors, and the default expression-language compiler. `DefaultScriptCompiler()`
+  wraps `github.com/deepnoodle-ai/expr` and is used automatically when no
+  custom compiler is provided via `WithScriptCompiler()`. Consumers that want a
+  different engine (Risor, expr-lang, CEL, etc.) implement `script.Compiler`
+  themselves and pass it explicitly.
+- `cmd/workflow/` — the CLI. Loads workflows from JSON files via
+  `encoding/json` and runs them with the built-in activity registry.
+- `examples/` — runnable example programs. Compile against the same
+  module, so adding an example must not introduce any new dependency.
+- `documentation/` — user guides covering activities, branching, checkpointing,
+  child workflows, edge matching, error handling, expressions, runner usage,
+  signals/sleep/pause, state management, and testing.
+
+Packages inside the root module:
+
+- `activities/` — stable built-in activities (print, time, json, random, fail).
+- `activities/contrib/` — less-stable activities (shell, file).
+- `activities/httpx/` — HTTP activity (separate subpackage due to net/http).
+- `script/` — engine-neutral interfaces (`Compiler`, `Script`, `Value`),
+  the `${…}` template parser, and shared helpers (`IsTruthyValue`,
+  `EachValue`) used by custom compiler adapters.
+- `internal/require/` — a tiny stdlib-only replacement for testify/require
+  so tests don't drag in an external assertion library.
+- `workflowtest/` — test helpers (Run, MockActivity, MemoryCheckpointer).
+
+Experimental submodules (separate `go.mod`, not imported by the root module):
+
+- `experimental/worker/` — queue-backed durable worker (claim loop, heartbeat,
+  reaper, credit reconciler). Defines the `QueueStore` and `HandlerStores`
+  interfaces. `Claim` carries `WorkerID`, `ProjectID`, `ParentRunID`,
+  `InitiatedBy`, and `Metadata`. Handlers receive a `*HandlerContext` carrying
+  the `Claim` plus optional pre-fenced `Checkpointer`, `StepProgressStore`,
+  `ActivityLogger`, and `SignalStore` — only `Checkpointer` is lease-fenced;
+  the others accept `*Claim` for API symmetry. `SignalStore` is shared across
+  claims and lives on `Config`, not the factory. Outbox row IDs (triggers,
+  webhooks) are generated worker-side via `Config.IDGenerator`.
+- `experimental/worker/runquery/` — backend-neutral run query package
+  (stdlib-only) that holds `Run`, `RunFilter`, `RunCursor`, `ErrRunNotFound`,
+  `ErrCannotDeleteRunning`, and the `Store` interface. Dashboards depend on
+  this package instead of importing a specific store implementation.
+- `experimental/store/postgres/` — pgx-backed persistence implementing
+  `Checkpointer`, `StepProgressStore`, `ActivityLogger`, `CreditStore`,
+  `QueueStore`, and `runquery.Store` (`GetRun`, `ListRuns` with keyset
+  pagination + metadata JSONB containment, `CountRuns`, `DeleteRun`).
+  `DeleteRun` is a single atomic statement that refuses running runs.
+  Schema namespace is configurable via `WithSchema(...)`; defaults to
+  `"public"`. `Migrate` issues `CREATE SCHEMA IF NOT EXISTS` and templates
+  `schema.sql` with the chosen schema. Schema names are validated as simple
+  SQL identifiers. The migration carries forward v0.0.3 single-tenant rows
+  by rewriting empty-string `org_id`/`initiated_by` to `NULL`.
+- `experimental/store/sqlite/` — `database/sql`-backed persistence with the
+  same interface surface. Single-writer, suitable for dev/testing and
+  single-process deployments. No schema namespacing escape hatch — consumers
+  who need coexistence should hand the library a dedicated `*sql.DB`.
+
+## Conventions
+
+- **Tests**: `internal/require` (local testify shim). Internal tests
+  (`package workflow`), except `workflowtest/` which uses
+  `package workflowtest_test`.
+- **Interfaces**: Small (one method when possible). Never modify exported
+  interfaces — use optional side interfaces (see `ProgressReporter` pattern).
+- **Errors**: Sentinels with `errors.Is`. Structured errors via `WorkflowError`.
+- **New features**: Additive only. The `NewExecution()` and `Execute()` signatures
+  are frozen. New behavior is added through functional options or the `Runner`.
+- **Compose, don't inherit.** Each piece works standalone. Runner isn't required.
+
+## Things to Know
+
+- The first step in the Steps slice is the start step.
+- `ErrFenceViolation` bypasses retry and catch — non-retryable by design.
+- `buildResult` classifies interrupted executions (context canceled mid-run)
+  as failed, even if `SetFinished()` was never called.
+
+---
+> Source: [deepnoodle-ai/workflow](https://github.com/deepnoodle-ai/workflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
