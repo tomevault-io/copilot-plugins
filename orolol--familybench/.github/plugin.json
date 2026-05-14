@@ -1,0 +1,9 @@
+{
+  "name": "orolol--familybench",
+  "displayName": "familyBench",
+  "description": "FamilyBench evaluation tool for testing the relational reasoning capabilities of Large Language Models (LLMs). ",
+  "version": "1.0.0",
+  "author": "Orolol",
+  "homepage": "https://github.com/Orolol/familyBench",
+  "skills": []
+}
