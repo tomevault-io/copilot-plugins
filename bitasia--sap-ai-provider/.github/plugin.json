@@ -1,0 +1,9 @@
+{
+  "name": "bitasia--sap-ai-provider",
+  "displayName": "sap-ai-provider",
+  "description": "Vercel AI Provider for running LLMs on SAP BTP using AI Core",
+  "version": "1.0.0",
+  "author": "BITASIA",
+  "homepage": "https://github.com/BITASIA/sap-ai-provider",
+  "skills": []
+}
