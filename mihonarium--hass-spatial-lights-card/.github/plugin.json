@@ -1,0 +1,9 @@
+{
+  "name": "mihonarium--hass-spatial-lights-card",
+  "displayName": "hass-spatial-lights-card",
+  "description": " Better picture-elements card. Spatially arrange and control multiple Home Assistant light entities from a single, highly visual Lovelace card. The Spatial Lights Card lets you drag your lights into m",
+  "version": "1.0.0",
+  "author": "Mihonarium",
+  "homepage": "https://github.com/Mihonarium/hass-spatial-lights-card",
+  "skills": []
+}
