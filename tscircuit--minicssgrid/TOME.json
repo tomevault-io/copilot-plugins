@@ -4,7 +4,7 @@
   "repo": "minicssgrid",
   "description": "A tiny CSS grid implementation in typescript",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tscircuit/minicssgrid",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T14:56:10Z"
+  "distributed_at": "2026-05-14T08:15:07Z"
 }
