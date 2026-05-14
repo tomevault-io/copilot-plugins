@@ -1,0 +1,9 @@
+{
+  "name": "ihainan--gemini-cli-git-ask",
+  "displayName": "Gemini-CLI-Git-Ask",
+  "description": "A code analysis tool that enables natural language queries about Git repositories using Google's Gemini CLI.",
+  "version": "1.0.0",
+  "author": "ihainan",
+  "homepage": "https://github.com/ihainan/Gemini-CLI-Git-Ask",
+  "skills": []
+}
