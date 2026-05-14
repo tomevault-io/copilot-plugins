@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--langsmith-agent-lifecycle-workshop",
+  "displayName": "langsmith-agent-lifecycle-workshop",
+  "description": "Workshop series teaching the AI Engineering Lifecycle using LangChain, LangGraph, and LangSmith",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/langsmith-agent-lifecycle-workshop",
+  "skills": []
+}
