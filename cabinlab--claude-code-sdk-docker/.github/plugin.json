@@ -1,0 +1,9 @@
+{
+  "name": "cabinlab--claude-code-sdk-docker",
+  "displayName": "claude-code-sdk-docker",
+  "description": "Docker containers for Claude Code Typescript and Python SDKs. Works with Claude Pro and Max plans",
+  "version": "1.0.0",
+  "author": "cabinlab",
+  "homepage": "https://github.com/cabinlab/claude-code-sdk-docker",
+  "skills": []
+}
