@@ -4,7 +4,7 @@
   "repo": "auroraview",
   "description": "A blazingly fast, lightweight WebView framework for DCC (Digital Content Creation) software, built with Rust and Python bindings.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/loonghao/auroraview",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:45:46Z"
+  "distributed_at": "2026-05-14T01:06:10Z"
 }
