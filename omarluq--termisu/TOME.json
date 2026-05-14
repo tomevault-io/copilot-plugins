@@ -4,7 +4,7 @@
   "repo": "termisu",
   "description": "\ud83c\udf6e Minimalistic API for writing text-based user interfaces in pure Crystal",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/omarluq/termisu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T14:12:36Z"
+  "distributed_at": "2026-05-14T02:52:59Z"
 }
