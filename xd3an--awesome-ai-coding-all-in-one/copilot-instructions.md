@@ -1,18 +1,18 @@
-## htmx-go-basic-cursorrules-prompt-file
+## htmx-go-fiber-cursorrules-prompt-file
 
-> Cursor rules for Go development with basic setup.
+> Cursor rules for Go development with Fiber integration.
 
-// HTMX with Go (Basic Setup) .cursorrules
+// HTMX with Go and Fiber .cursorrules
 
-// HTMX and Go best practices
+// HTMX, Go, and Fiber best practices
 
-const htmxGoBestPractices = [
-  "Use html/template for server-side rendering",
-  "Implement http.HandlerFunc for handling HTMX requests",
-  "Utilize gorilla/mux for routing if needed",
-  "Use encoding/json for JSON responses",
-  "Implement proper error handling and logging",
-  "Utilize context for request cancellation and timeouts",
+const htmxGoFiberBestPractices = [
+  "Use Fiber's HTML rendering for server-side templates",
+  "Implement Fiber's routing system for HTMX requests",
+  "Utilize Fiber's middleware for request processing",
+  "Use Fiber's JSON methods for API responses",
+  "Implement proper error handling with Fiber's error handling",
+  "Utilize Fiber's static file serving for assets",
 ];
 
 // Folder structure
@@ -34,13 +34,13 @@ go.sum
 // Additional instructions
 
 const additionalInstructions = `
-1. Use semantic HTML5 elements with HTMX attributes
-2. Implement proper CSRF protection
-3. Utilize HTMX extensions when needed
-4. Use hx-boost for full page navigation
-5. Follow Go's idiomatic error handling
-6. Implement graceful shutdown for the server
-7. Use Go modules for dependency management
+1. Use Fiber's App.Get/Post/etc for routing HTMX requests
+2. Implement CSRF protection with Fiber middleware
+3. Utilize Fiber's Context for handling HTMX-specific headers
+4. Use Fiber's template engine for server-side rendering
+5. Implement proper logging with Fiber's Logger middleware
+6. Follow Fiber's best practices for project structure
+7. Use environment variables for configuration
 `;
 
 ---
