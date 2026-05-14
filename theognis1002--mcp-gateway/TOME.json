@@ -4,7 +4,7 @@
   "repo": "mcp-gateway",
   "description": "Model Context Protocol (MCP) Gateway & Registry - Central hub for managing tools, resources, and prompts for MCP-compatible LLMs. Translates REST APIs into MCP, builds virtual MCP servers with security and observability, and bridges multiple transports (stdio, SSE, streamable HTTP).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theognis1002/mcp-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-10T04:58:34Z"
+  "distributed_at": "2026-05-14T05:43:31Z"
 }
