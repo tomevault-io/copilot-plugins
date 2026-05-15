@@ -1,0 +1,9 @@
+{
+  "name": "juev--hledger-vscode",
+  "displayName": "hledger-vscode",
+  "description": "vscode extension with language pack for hledger",
+  "version": "1.0.0",
+  "author": "juev",
+  "homepage": "https://github.com/juev/hledger-vscode",
+  "skills": []
+}
