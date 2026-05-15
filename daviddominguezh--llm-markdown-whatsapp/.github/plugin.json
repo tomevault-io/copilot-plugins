@@ -1,0 +1,9 @@
+{
+  "name": "daviddominguezh--llm-markdown-whatsapp",
+  "displayName": "llm-markdown-whatsapp",
+  "description": "A TypeScript library that splits LLM-generated markdown into WhatsApp-friendly chat message chunks.",
+  "version": "1.0.0",
+  "author": "daviddominguezh",
+  "homepage": "https://github.com/daviddominguezh/llm-markdown-whatsapp",
+  "skills": []
+}
