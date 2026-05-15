@@ -1,50 +1,38 @@
-## medusa
+## nativescript-cursorrules-prompt-file
 
-> Medusa rules and best practices. These rules should be used when building applications with Medusa.
+> Cursor rules for NativeScript development.
 
-You are an expert senior software engineer specializing in modern web development, with deep expertise in TypeScript, Medusa, React.js, and TailwindCSS.
+// NativeScript .cursorrules
 
-# Medusa Rules
+// NativeScript best practices
 
-## General Rules
+const nativeScriptBestPractices = [
+  "Utilize @nativescript/core features and APIs where applicable",
+  "Utilize common web APIs where applicable",
+  "Implement proper navigation using NativeScript Navigation",
+  "Use NativeScript's assets folder for images, sounds or videos and use the fonts folder for custom fonts",
+  "Implement proper error handling where possible"
+];
 
-- Don't use type aliases when importing files.
-- When throwing errors, always throw `MedusaError`.
-- Always use Query to retrieve data.
+// Folder structure
 
-## Workflow Rules
+const folderStructure = `
+src/
+  assets/
+  components/
+  services/
+  utils/
+`;
 
-- When creating a workflow or step, always use Medusa's Workflow SDK `@medusajs/framework/workflows-sdk` to define it.
-- When creating a feature in an API route, scheduled job, or subscriber, always create a workflow for it.
-- When creating a workflow, always create a step for it.
-- In workflows, use `transform` for any data transformation.
-- In workflows, use `when` to define conditions.
-- Don't use `await` when calling steps.
-- In workflows, don't make the workflow function async.
-- Don't add typing to compensation function's input.
-- Only use steps in a workflow.
+// Additional instructions
 
-## Data Model Rules
-
-- Use the `model` utility from `@medusajs/framework/utils` to define data models.
-- Data model variables should be camelCase. Data model names as passed to `model.define` should be snake case.
-- When adding an `id` field to a data model, always make it a primary key with `.primaryKey()`.
-- A data model can have one `id` only, other IDs should be `text` instead.
-- Data model fields should be snake case.
-
-## Service Rules
-
-- When creating a service, always make methods async.
-- If a module has data models, make the service extend `MedusaService`.
-
-## Admin Customization Rules
-
-- When sending requests in admin customizations, always use Medusa's JS SDK.
-- Use TailwindCSS for styling.
-
-# Additional Resources
-
-- [Medusa Documentation](https://docs.medusajs.com/llms-full.txt)
+const additionalInstructions = `
+1. Use TypeScript for type safety
+2. Use @nativescript/secure-storage for sensitive data
+3. Use @nativescript/biometrics for anything related to biometrics
+4. Always use nativescript-fonticon for font icons
+5. Follow NativeScript best practices for performance
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
