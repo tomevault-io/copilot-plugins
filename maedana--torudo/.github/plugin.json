@@ -1,0 +1,9 @@
+{
+  "name": "maedana--torudo",
+  "displayName": "torudo",
+  "description": "A todo list application for the terminal, using the todo.txt format.",
+  "version": "1.0.0",
+  "author": "maedana",
+  "homepage": "https://github.com/maedana/torudo",
+  "skills": []
+}
