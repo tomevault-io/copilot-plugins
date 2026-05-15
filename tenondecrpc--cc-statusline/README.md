@@ -7,11 +7,11 @@ Claude Statusline: a lightweight Bash + jq statusline for Claude Code with model
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tenondecrpc/cc-statusline](https://github.com/tenondecrpc/cc-statusline).
+Original source: `CLAUDE.md` in [tenondecrpc/cc-statusline](https://github.com/tenondecrpc/cc-statusline).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
