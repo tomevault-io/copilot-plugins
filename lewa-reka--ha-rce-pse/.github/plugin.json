@@ -1,0 +1,9 @@
+{
+  "name": "lewa-reka--ha-rce-pse",
+  "displayName": "ha-rce-pse",
+  "description": "Rynkowa Cena Energii (RCE) for HomeAssistant",
+  "version": "1.0.0",
+  "author": "Lewa-Reka",
+  "homepage": "https://github.com/Lewa-Reka/ha-rce-pse",
+  "skills": []
+}
