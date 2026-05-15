@@ -1,0 +1,9 @@
+{
+  "name": "agentdank--screentime-mcp",
+  "displayName": "screentime-mcp",
+  "description": "SQL-based MCP server for Apple Screen Time ",
+  "version": "1.0.0",
+  "author": "AgentDank",
+  "homepage": "https://github.com/AgentDank/screentime-mcp",
+  "skills": []
+}
