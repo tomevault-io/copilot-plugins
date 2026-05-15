@@ -4,7 +4,7 @@
   "repo": "svileo",
   "description": "An opinionated, physics-based toast notification library for Svelte 5 \u2014 a port of Sileo. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ElyasAsmad/svileo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:09:22Z"
+  "distributed_at": "2026-05-15T14:50:48Z"
 }
