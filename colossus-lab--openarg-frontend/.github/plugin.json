@@ -1,0 +1,9 @@
+{
+  "name": "colossus-lab--openarg-frontend",
+  "displayName": "openarg_frontend",
+  "description": "Interactive chat interface for querying Argentine public   datasets using natural language. Multi-agent pipeline   visualization, real-time streaming, chart generation, and   conversation history. Bui",
+  "version": "1.0.0",
+  "author": "colossus-lab",
+  "homepage": "https://github.com/colossus-lab/openarg_frontend",
+  "skills": []
+}
