@@ -1,0 +1,44 @@
+{
+  "name": "erpaval",
+  "owner": "theagenticguy",
+  "repo": "erpaval",
+  "description": "ERPAVal \u2014 autonomous software development. Six-phase Explore/Research/Plan/Act/Validate/Compound workflow with classifier-driven routing and a compounding lessons store.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theagenticguy/erpaval",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T18:41:18Z"
+}
