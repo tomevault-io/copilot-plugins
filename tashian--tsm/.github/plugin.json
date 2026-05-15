@@ -1,0 +1,9 @@
+{
+  "name": "tashian--tsm",
+  "displayName": "tsm",
+  "description": "\ud83e\udd2b Tiny Secrets Manager \u2014 lightweight agent secrets vault for macOS with Touch ID",
+  "version": "1.0.0",
+  "author": "tashian",
+  "homepage": "https://github.com/tashian/tsm",
+  "skills": []
+}
