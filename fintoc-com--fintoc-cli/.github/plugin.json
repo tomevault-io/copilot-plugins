@@ -1,0 +1,9 @@
+{
+  "name": "fintoc-com--fintoc-cli",
+  "displayName": "fintoc-cli",
+  "description": "A command-line tool for Fintoc",
+  "version": "1.0.0",
+  "author": "fintoc-com",
+  "homepage": "https://github.com/fintoc-com/fintoc-cli",
+  "skills": []
+}
