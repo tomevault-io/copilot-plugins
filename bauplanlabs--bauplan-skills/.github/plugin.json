@@ -1,0 +1,9 @@
+{
+  "name": "bauplanlabs--bauplan-skills",
+  "displayName": "bauplan-skills",
+  "description": "Hosting Bauplan skills to be used with coding assistants and autonomous AI agents.",
+  "version": "1.0.0",
+  "author": "BauplanLabs",
+  "homepage": "https://github.com/BauplanLabs/bauplan-skills",
+  "skills": []
+}
