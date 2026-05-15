@@ -1,0 +1,9 @@
+{
+  "name": "yulin-bi--codeauto",
+  "displayName": "CodeAuto",
+  "description": "CodeAuto is an intelligent programming assistant developed using Java, drawing inspiration from Claude Code and Minicode.",
+  "version": "1.0.0",
+  "author": "Yulin-Bi",
+  "homepage": "https://github.com/Yulin-Bi/CodeAuto",
+  "skills": []
+}
