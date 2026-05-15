@@ -1,54 +1,87 @@
-## rust-general
+## rust
 
-> General Rust rules for safe, idiomatic application and library development
+> Rust best practices for Solana smart contract development using Anchor framework and Solana SDK
 
+# Rust + Solana (Anchor) Best Practices
 
-# Rust General Rules
+## Program Structure
+- Structure Solana programs using `Anchor` framework standards
+- Place program entrypoint logic in `lib.rs`, not `main.rs`
+- Organize handlers into modules (e.g., `initialize`, `update`, `close`)
+- Separate state definitions, errors, instructions, and utils
+- Group reusable logic under a `utils` module (e.g., account validation)
+- Use `declare_id!()` to define program ID
 
-## Project Structure
+## Anchor Framework
+- Use `#[derive(Accounts)]` for all instruction contexts
+- Validate accounts strictly using constraint macros (e.g., `#[account(mut)]`, `seeds`, `bump]`)
+- Define all state structs with `#[account]` and `#[derive(AnchorSerialize, AnchorDeserialize)]`
+- Prefer `Init`, `Close`, `Realloc`, `Mut`, and constraint macros to avoid manual deserialization
+- Use `ctx.accounts` to access validated context accounts
+- Handle CPI (Cross-Program Invocation) calls via Anchor’s CPI helpers
 
-- Keep crates focused and name modules by domain responsibility.
-- Put reusable library code in `src/lib.rs` and binary entry points in `src/main.rs` or `src/bin/`.
-- Keep public APIs small and documented.
-- Use feature flags deliberately and document non-default features.
-- Commit `Cargo.lock` for applications; follow the project convention for libraries.
+## Serialization
+- Use **Borsh** or Anchor's custom serializer (not Serde) for on-chain data
+- Always include `#[account(zero_copy)]` or `#[repr(C)]` for packed structures
+- Avoid floating point types — use `u64`, `u128`, or fixed-point math
+- Zero out or close unused accounts to reduce rent costs
 
-## Ownership and Types
+## Testing
+- Write tests in TypeScript using Anchor’s Mocha + Chai setup (`tests/*.ts`)
+- Use `anchor.workspace.MyProgram` to load deployed contracts
+- Use `provider.simulate()` to inspect failed txs
+- Spin up a local validator (`anchor test`) and reset between tests
+- Airdrop SOL to wallets with `provider.connection.requestAirdrop(...)`
+- Validate program logs using `tx.confirmation.logMessages`
 
-- Prefer borrowing over cloning when ownership is not needed.
-- Use owned values at API boundaries when the callee must store data.
-- Model domain states with enums and structs instead of strings or booleans.
-- Use `Option<T>` for absence and `Result<T, E>` for fallible operations.
-- Avoid `unwrap()` and `expect()` outside tests, examples, and process-startup invariants.
+## Solana SDK (Manual)
+- Use `solana_program` crate when not using Anchor (bare-metal programs)
+- Carefully deserialize accounts using `AccountInfo`, `try_from_slice_unchecked`
+- Use `solana_program::msg!` for lightweight debugging logs
+- Verify accounts via `is_signer`, `is_writable`, `key == expected`
+- Never panic! Use `ProgramError::Custom(u32)` or `ErrorCode` enums
 
-## Error Handling
+## Security Patterns
+- Always validate `msg.sender`/signer with `account_info.is_signer`
+- Prevent replay attacks via `seeds`, `bump`, and unique PDAs
+- Use strict size checks before reallocating or deserializing
+- Avoid unsafe unchecked casting; prefer Anchor deserialization
+- For CPIs, validate `target_program` against expected program ID
+- When using randomness, never rely on timestamps — use oracles or off-chain VRFs
 
-- Use `thiserror` or project-standard custom errors for libraries.
-- Use `anyhow` or project-standard context-rich errors for applications.
-- Add context when crossing IO, network, database, or parsing boundaries.
-- Do not discard errors with `_` unless explicitly documented.
+## Performance
+- Prefer zero-copy deserialization when accounts are large
+- Minimize compute usage; avoid loops and recursion
+- Avoid memory reallocations mid-instruction
+- Use `#[account(zero_copy)]` and `#[repr(packed)]` for tight layout
+- Profile compute units with `solana logs` and `anchor run`
 
-## Concurrency and Async
+## Dev Workflow
+- Use `anchor init` to scaffold projects
+- Add Anchor IDL support for front-end usage (JSON ABI)
+- Use `anchor build`, `anchor deploy`, `anchor test` consistently
+- Use separate `Anchor.toml` environments for devnet/mainnet/localnet
+- Format all Rust code with `cargo fmt`, lint with `cargo clippy`
+- Keep `Cargo.lock` checked into `programs/` but not root
 
-- Use `Send` and `Sync` boundaries intentionally.
-- Prefer message passing or owned task inputs for async work.
-- Do not hold blocking locks across `.await`.
-- Use `tokio::task::spawn_blocking` or equivalent for blocking CPU or IO in async applications.
-- Propagate cancellation through futures rather than hiding it in detached tasks.
+## Documentation
+- Use `///` Rust doc comments for all instructions and accounts
+- Include doc examples for each instruction
+- Document PDA derivation logic and bump seed expectations
+- Maintain up-to-date `README.md` with test commands and deployment steps
 
-## Testing and Quality
+## Wallet & Network Handling
+- Use `anchorProvider.wallet.publicKey` for signer verification in tests
+- Do not hardcode keypairs — use env-based loading (`process.env.ANCHOR_WALLET`)
+- Deploy with clear `cluster` targets (`localnet`, `devnet`, `mainnet`)
+- Use `anchor keys sync` to propagate program ID changes
+- Commit `target/idl/` and `target/types/` to share with front end
 
-- Run `cargo fmt` and `cargo clippy` before delivery.
-- Add unit tests for pure logic and integration tests for public behavior.
-- Use property tests for parsers, serializers, and state machines when useful.
-- Use benchmarks only after identifying a real performance question.
-
-## Common Mistakes
-
-- Do not fight the borrow checker by adding unnecessary `Arc<Mutex<_>>`.
-- Do not expose internal module structure through public APIs by accident.
-- Do not allocate in hot loops without measuring.
-- Do not use unsafe code unless the invariant is documented and tested.
+## CI/CD & Deploy
+- Use GitHub Actions with `solana-cli`, `anchor-cli`, and `node` installed
+- Run `anchor test` in CI for every PR
+- Use `solana program deploy` with explicit `--program-id` on production deploys
+- Upload IDLs to a central registry (e.g., GitHub, IPFS, or `anchor.cloud`)
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
