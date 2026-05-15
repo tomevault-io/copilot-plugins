@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--settl",
+  "displayName": "settl",
+  "description": "Hex Settlement Game: TUI, written in Rust",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/settl",
+  "skills": []
+}
