@@ -1,0 +1,9 @@
+{
+  "name": "databrickslabs--coding-agents-databricks-apps",
+  "displayName": "coding-agents-databricks-apps",
+  "description": "Run coding agents on Databricks Apps \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "databrickslabs",
+  "homepage": "https://github.com/databrickslabs/coding-agents-databricks-apps",
+  "skills": []
+}
