@@ -1,0 +1,9 @@
+{
+  "name": "buyuk-dev--fmql",
+  "displayName": "fmql",
+  "description": "Graph queries for your directories of frontmatter markdown documents. Neo4j-inspired syntax. Manage personal knowledge graphs, static websites, or agentic workflows. pip install fmql && fmql --help",
+  "version": "1.0.0",
+  "author": "buyuk-dev",
+  "homepage": "https://github.com/buyuk-dev/fmql",
+  "skills": []
+}
