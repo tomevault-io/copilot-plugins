@@ -1,88 +1,43 @@
-## development-patterns
+## slack-extension-overview
 
-> Key patterns and practices for developing the Slack AI extension based on project history.
+> This project is a Slack desktop extension that adds AI-powered features to the Slack app by modifying the app.asar file.
 
-# Development Patterns and Best Practices
+# Slack AI Extension Project Overview
 
-Key patterns and practices for developing the Slack AI extension based on project history.
+This project is a Slack desktop extension that adds AI-powered features to the Slack app by modifying the app.asar file.
 
-## Code Organization Patterns
+## Core Files
 
-### Feature Implementation Approach
-1. **UI First, Then Functionality** - Build visual components before adding behavior
-2. **Incremental Development** - Add features step-by-step to avoid breaking existing functionality
-3. **Preserve Existing Logic** - Maintain working features when adding new ones
+- **[custom_slack_ext.js](mdc:custom_slack_ext.js)** - Main extension script with AI features (message summarization, text improvement, dropdown menus)
+- **[slack_patcher.sh](mdc:slack_patcher.sh)** - Shell script that patches Slack's app.asar file to inject the extension
+- **[integrity.js](mdc:integrity.js)** - Calculates ASAR file integrity checksums using crypto and @electron/asar
+- **[package.json](mdc:package.json)** - ES module configuration with required dependencies
 
-### Error Handling Patterns
-```javascript
-// OpenAI API calls with error handling
-try {
-  const response = await makeOpenAIRequest(prompt, text);
-  // Handle success
-} catch (error) {
-  console.error('AI request failed:', error);
-  // Graceful degradation
-}
-```
+## Key Features
 
-## Common Development Issues
+1. **Message Summarization** - AI-powered summarization of Slack conversations
+2. **AI Composer Menu** - Dropdown with 6 text processing options:
+   - Improve Writing
+   - Translate to English  
+   - Fix Spelling & Grammar
+   - Make Professional
+   - Make Casual
+   - Make Shorter
+3. **Text Extraction** - Advanced Quill editor text handling with paragraph extraction and placeholder removal
 
-### CSS Typos
-- **Critical**: Watch for "!importnat" vs "!important" typos
-- These break layout completely and are easy to miss
-- Always double-check CSS syntax
+## Development Workflow
 
-### Timing Issues
-- Use polling (200ms intervals) for UI initialization
-- Slack's DOM loads asynchronously, requiring careful timing
-- Avoid long delays that impact user experience
+1. Modify [custom_slack_ext.js](mdc:custom_slack_ext.js) for feature changes
+2. Use [slack_patcher.sh](mdc:slack_patcher.sh) to inject changes into Slack
+3. Calculate integrity with [integrity.js](mdc:integrity.js) for verification
+4. Test features in Slack desktop app
 
-### Text Extraction Complexity
-- Slack uses Quill editor with complex DOM structure
-- Always use `extractTextFromQuillEditor()` function
-- Handle placeholder text removal with regex patterns
-- Preserve paragraph structure when extracting text
+## Technical Notes
 
-## Testing Workflow
-
-### Local Development
-1. Modify [custom_slack_ext.js](mdc:custom_slack_ext.js)
-2. Run [slack_patcher.sh](mdc:slack_patcher.sh) to inject changes
-3. Restart Slack desktop app
-4. Test all features thoroughly
-
-### Verification Steps
-- Check AI menu dropdown functionality
-- Verify text extraction from composer
-- Test OpenAI API integration
-- Confirm message summarization still works
-
-## Git Workflow
-
-### Commit Messages
-Use conventional commit format:
-- `feat:` for new features
-- `fix:` for bug fixes  
-- `refactor:` for code improvements
-
-### Before Committing
-- Test all AI menu options
-- Verify no console errors
-- Check button styling and positioning
-- Ensure fast initialization (200ms polling)
-
-## API Integration Best Practices
-
-### OpenAI Requests
-- Use consistent prompt formatting
-- Implement proper error handling
-- Provide user feedback during processing
-- Handle API rate limits gracefully
-
-### Configuration Management
-- Store API keys securely
-- Use environment variables when possible
-- Provide clear setup instructions in [README.md](mdc:README.md)
+- Uses ES modules ("type": "module" in package.json)
+- OpenAI API integration for all AI features
+- CSP (Content Security Policy) considerations for external script loading
+- 200ms polling for fast UI initialization
 
 ---
 > Source: [alonhar/slack-ai-ext](https://github.com/alonhar/slack-ai-ext) — distributed by [TomeVault](https://tomevault.io).
