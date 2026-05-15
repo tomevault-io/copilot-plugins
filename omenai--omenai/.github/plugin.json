@@ -1,0 +1,9 @@
+{
+  "name": "omenai--omenai",
+  "displayName": "OmenAI",
+  "description": "Autonomous Polymarket scanner \u2014 Claude finds mispriced probabilities, Kelly sizes the edge",
+  "version": "1.0.0",
+  "author": "OmenAI",
+  "homepage": "https://github.com/OmenAI/OmenAI",
+  "skills": []
+}
