@@ -7,11 +7,11 @@ Manage Firecracker microVMs on macOS/Linux via Lima — one command from zero to
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tinylabscom/mvm](https://github.com/tinylabscom/mvm).
+Original source: `CLAUDE.md` in [tinylabscom/mvm](https://github.com/tinylabscom/mvm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
