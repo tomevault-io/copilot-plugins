@@ -1,37 +1,50 @@
-## project-overview
+## testing
 
-> General context for the Stock Portfolio Web project
+> Testing patterns and practices
 
 
-# Stock Portfolio Web - Overview
+# Testing
 
-A pure TypeScript SPA (no React/Vue/Angular) for calculating taxes on stock operations (E*Trade RSU/ESPP).
+## Setup
 
-## Stack
+- Framework: Vitest 4 with V8 coverage
+- Convention: `__tests__/ClassName.test.ts` alongside the source code
+- `@/` alias available in tests
 
-- **Runtime**: TypeScript 5.9, ES2020
-- **Build**: Vite 7
-- **Testing**: Vitest 4 with V8 coverage
-- **Linting**: ESLint + Prettier
-- **Main dependency**: pdfjs-dist (PDF parsing)
-- **External API**: BCB PTAX (exchange rates)
+## Test Structure
 
-## Layer Structure (Clean Architecture)
+```typescript
+describe('Money', () => {
+  describe('add', () => {
+    it('should sum amounts with same currency', () => {
+      const a = new Money(100, 'USD');
+      const b = new Money(50, 'USD');
+      expect(a.add(b).amount).toBe(150);
+    });
 
+    it('should throw on currency mismatch', () => {
+      const usd = new Money(100, 'USD');
+      const brl = new Money(50, 'BRL');
+      expect(() => usd.add(brl)).toThrow('Currency mismatch');
+    });
+  });
+});
 ```
-src/
-├── domain/          → Pure entities and services (no external dependencies)
-├── application/     → Use cases and interfaces (contracts)
-├── infrastructure/  → Repositories, APIs, concrete utilities
-└── presentation/    → UI, formatters, HTML builders
-```
 
-## Fundamental Rules
+## Testing Priorities
 
-- Never import from `infrastructure/` or `presentation/` inside `domain/`
-- Use cases orchestrate the flow, they never contain domain logic
-- All external API communication belongs in `infrastructure/`
-- The `presentation/` layer never accesses repositories directly
+1. **Domain entities and services**: maximum coverage (business logic)
+2. **Use cases**: test orchestration with mocked interfaces
+3. **Infrastructure**: test parsing and integration in isolation
+4. **Presentation**: test formatters; builders are visual (lower priority)
+
+## Best Practices
+
+- Independent tests — no shared state between `it()` blocks
+- Descriptive names: "should calculate average cost when multiple vestings exist"
+- Use factories or builders to create test data
+- Mock interfaces (`IOperationRepository`) — never concrete implementations
+- No `any` in tests
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
