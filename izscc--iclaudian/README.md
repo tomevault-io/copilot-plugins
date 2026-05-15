@@ -7,11 +7,11 @@ iClaudian: Claude, Codex,Copilot, OpenCode, and Gemini CLI inside Obsidian
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [izscc/iClaudian](https://github.com/izscc/iClaudian).
+Original source: `CLAUDE.md` in [izscc/iClaudian](https://github.com/izscc/iClaudian).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
