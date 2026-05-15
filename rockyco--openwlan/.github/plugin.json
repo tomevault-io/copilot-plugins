@@ -1,0 +1,9 @@
+{
+  "name": "rockyco--openwlan",
+  "displayName": "OpenWLAN",
+  "description": "AI-powered MATLAB-to-HLS framework for WLAN 802.11 synchronization. 3.88x fewer LUTs than HDL Coder on Zynq-7020.",
+  "version": "1.0.0",
+  "author": "rockyco",
+  "homepage": "https://github.com/rockyco/OpenWLAN",
+  "skills": []
+}
