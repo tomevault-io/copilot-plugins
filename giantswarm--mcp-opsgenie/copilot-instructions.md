@@ -1,63 +1,74 @@
-## mcp-debugging
+## self-improve
 
-> mcp-debug provides core debugging tools to test and explore the functionality implemented in the aggregated MCP server. This guide focuses on mcp-debugs internal debugging capabilities.
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
-## Debugging mcp-opsgenie via mcp-debug
 
-mcp-debug provides core debugging tools to test and explore the functionality implemented in the aggregated MCP server. This guide focuses on mcp-debugs internal debugging capabilities.
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-## Core Debugging Tools
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-mcp-debug exposes these categories of internal tools for debugging the aggregated mcp server end-to-end:
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-list_tools: list all the tools exposed by the aggregated mcp server
-describe_tool: describe a tool exposed by the aggregated mcp server
-call_tool: execute a tool exposed by the aggregated mcp server
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
 
-## Debugging Workflow
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-### 1. Verify All Services Are Running
-Start by checking the overall health of the system:
-```
-mcp_mcp-debug_call_tool(name="core_service_list", arguments={})
-```
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
 
-### 2. Check MCP Server Registration
-Verify that all expected MCP servers are properly registered with the aggregator:
-```
-mcp_mcp-debug_call_tool(name="core_mcp_server_list", arguments={})
-```
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
 
-### 5. Troubleshoot Connection Issues
-If a service shows as unhealthy:
-1. Check its detailed status: `core_service_status`
-2. Try restarting it: `core_service_restart`
-3. Check if its MCP client is attached in the service list
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
 
-## Important Notes
-
-- The prefix `x_` is configurable via `EnvctlPrefix` in the aggregator config
-- Tool names from individual MCP servers get prefixed to avoid conflicts
-- The agent automatically handles tool name resolution and routing
-- Service health is continuously monitored and reflected in the status
-- Workflows provide a way to test complex multi-step operations
-
-## Common Issues and Solutions
-
-**"CallTool not implemented" errors**
-- This means the MCP client is not properly attached to the service
-- Check `core_service_list` to see if the service shows a client
-- The fix involves ensuring `GetServiceData()` returns the MCP client
-
-**Service shows as unhealthy**
-- Check logs in the mcp-opsgenie TUI (if available)
-- Use `core_service_status` for detailed information
-- Try `core_service_restart` to recover
-
-**Workflow validation fails**
-- Use `core_workflow_validate` to check syntax
-- Ensure tool names exist (check with `mcp_mcp-debug_list_tools`)
-- Verify argument schemas match the tool requirements
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [giantswarm/mcp-opsgenie](https://github.com/giantswarm/mcp-opsgenie) — distributed by [TomeVault](https://tomevault.io).
