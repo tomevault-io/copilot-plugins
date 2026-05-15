@@ -1,0 +1,9 @@
+{
+  "name": "superops-team--markrender",
+  "displayName": "markrender",
+  "description": "A Gui tool that can convert any file into markdown and then convert markdonw to any type of file",
+  "version": "1.0.0",
+  "author": "superops-team",
+  "homepage": "https://github.com/superops-team/markrender",
+  "skills": []
+}
