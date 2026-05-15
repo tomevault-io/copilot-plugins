@@ -1,14 +1,18 @@
-## one-feature-at-a-time
+## user-rule
 
-> - Sempre implemente **uma funcionalidade por vez**.
+> Princípios e preferências pessoais globais para todos os projetos.
 
-# Regra de Foco e Escopo para Implementação
 
-- Sempre implemente **uma funcionalidade por vez**.
-- Divida prompts grandes em tarefas menores e trate cada uma separadamente.
-- Confirme o escopo da tarefa com o usuário antes de gerar código para demandas extensas ou ambíguas.
+# User Rule Global
 
-Essas práticas garantem organização, melhor rastreabilidade e maior qualidade no desenvolvimento do projeto.
+- Priorize clareza, simplicidade e legibilidade em todo o código e automação.
+- Valorize documentação clara e comunicação transparente entre os membros do time.
+- Sempre realize code review antes de qualquer merge.
+- Prefira automação para tarefas repetitivas e pipelines CI/CD robustos.
+- Incentive feedback construtivo e melhoria contínua.
+- Mantenha uma cultura colaborativa, aberta a sugestões e aprendizado constante.
+- Implemente **uma tarefa por vez** para evitar quebrar outras partes do código e garantir rastreabilidade.
+- Evite duplicidade de regras: consulte sempre as regras específicas do projeto antes de criar novas.
 
 ---
 > Source: [estudosdevops/opsmaster](https://github.com/estudosdevops/opsmaster) — distributed by [TomeVault](https://tomevault.io).
