@@ -1,9 +1,9 @@
 {
   "name": "andotherstuff--chorus",
   "displayName": "chorus",
-  "description": "chorus",
+  "description": "Grow your community and gather support on the decentralized Nostr protocol with eCash",
   "version": "1.0.0",
   "author": "andotherstuff",
-  "homepage": "https://tomevault.io/claim/andotherstuff",
+  "homepage": "https://github.com/andotherstuff/chorus",
   "skills": []
 }
