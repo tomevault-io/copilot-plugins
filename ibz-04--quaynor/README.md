@@ -7,11 +7,11 @@ Lightweight AI inference engine for mobile apps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iBz-04/quaynor](https://github.com/iBz-04/quaynor).
+Original source: `CLAUDE.md` in [iBz-04/quaynor](https://github.com/iBz-04/quaynor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
