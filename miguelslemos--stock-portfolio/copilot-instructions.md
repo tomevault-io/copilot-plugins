@@ -1,49 +1,54 @@
-## architecture
+## code-style
 
-> Clean Architecture patterns and layer separation
+> TypeScript code style standards
 
 
-# Architecture and Separation of Concerns
+# Code Style
 
-## Layers and Dependencies
+## Clarity Above All
 
-Dependencies flow only inward (presentation → application → domain).
+- Variable, function, and class names must be self-explanatory
+- Avoid obscure abbreviations. Prefer `calculateTotalGain` over `calcTG`
+- Small functions with a single responsibility (< 30 lines ideally)
+- No unnecessary comments. The code should explain itself
 
-### Domain (src/domain/)
-- Value entities: `Money`, `StockQuantity`, `StockPosition`
-- Operations: `VestingOperation`, `TradeOperation`
-- Domain services: `PortfolioCalculationService`, `PortfolioAnalyticsService`
-- Zero external dependencies. Pure, testable logic.
+```typescript
+// ❌ Bad: comment that repeats the code
+// Calculate the total gain
+const totalGain = this.calculateTotalGain(positions);
 
-### Application (src/application/)
-- Interfaces (contracts): `IOperationRepository`, `IDataExportService`
-- Use cases: `ProcessPortfolioUseCase`
-- Orchestrates the flow without containing business rules.
+// ✅ Good: self-explanatory name, no comment needed
+const totalGain = this.calculateTotalGain(positions);
+```
 
-### Infrastructure (src/infrastructure/)
-- Concrete implementations of contracts: `PDFOperationRepository`, `JSONOperationRepository`
-- External services: `BCBExchangeRateService`, `CSVExportService`
-- Utilities: `DateParser`
+## When to Comment
 
-### Presentation (src/presentation/)
-- UI controllers: `PortfolioApp`
-- HTML builders: `ModalBuilder`, `YearDetailsBuilder`
-- Formatters: `BRLFormatter`, `USDFormatter`
+Comment only:
+- Non-obvious business decisions (e.g., a specific tax rule)
+- Temporary workarounds with a link to the issue
+- Public interfaces (concise JSDoc)
 
-## Applied Patterns
+## Strict TypeScript
 
-- **Repository Pattern**: abstract data sources behind an interface
-- **Composite Pattern**: `CompositeOperationRepository` combines multiple sources
-- **Dependency Injection**: pass dependencies via constructor
-- **Use Case Pattern**: one class per use case
-- **Builder Pattern**: construct complex HTML elements
+- `strict: true` is active. Never use `any` (ESLint rule enforced)
+- Use discriminated unions instead of boolean flags
+- Prefer `readonly` for immutable properties
+- Use `interface` for contracts, `type` for unions and utility types
 
-## When Creating New Code
+```typescript
+// ❌ Bad
+function process(data: any): any { ... }
 
-1. Ask: "Is this business logic?" → `domain/`
-2. Ask: "Does this orchestrate a flow?" → `application/`
-3. Ask: "Does this communicate with something external?" → `infrastructure/`
-4. Ask: "Does this manipulate the UI?" → `presentation/`
+// ✅ Good
+function processOperations(operations: readonly Operation[]): PortfolioSnapshot { ... }
+```
+
+## Conventions
+
+- Imports use the `@/` alias for `src/`
+- One main class/type per file
+- Files named after the class/type they export
+- Private methods prefixed with clear purpose, not underscore
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
