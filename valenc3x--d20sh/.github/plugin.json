@@ -1,0 +1,9 @@
+{
+  "name": "valenc3x--d20sh",
+  "displayName": "d20sh",
+  "description": "A D&D-inspired terminal command execution. Roll for init!",
+  "version": "1.0.0",
+  "author": "valenc3x",
+  "homepage": "https://github.com/valenc3x/d20sh",
+  "skills": []
+}
