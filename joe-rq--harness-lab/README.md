@@ -7,11 +7,11 @@ Harness Engineering 实践框架 - 启发于 OpenAI、gstack、腾讯技术工�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Joe-rq/harness-lab](https://github.com/Joe-rq/harness-lab).
+Original source: `CLAUDE.md` in [Joe-rq/harness-lab](https://github.com/Joe-rq/harness-lab).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
