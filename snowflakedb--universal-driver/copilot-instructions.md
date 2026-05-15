@@ -1,29 +1,45 @@
-## datatype-gherkins
+## graphite-pr-workflow
 
-> Guidelines for generating datatype tests
+> Rules for creating commits and PRs using Graphite CLI with SNOW-ticket conventions
 
 
-# Test kinds
+# PR and Commit Workflow
 
-Focus on following types of tests
-- “Happy path” tests - simply select several hardcoded values, easy to debug.
-- Corner cases - “weird and special” values (min, max, NaN) or specific wrapper behaviours.
+## Commit Message Convention
 
-# Test scenarios
-- Simple selects - Selecting literals, selecting from table, both happy and corner cases (4 tests in total).
-- Binding tests - 2 tests:
-    - Select literals using binding - SELECT ?::DECFLOAT
-    - Insert to a table using binding - INSERT INTO {table_name} VALUES (?) and then performing SELECT *
-- Multiple chunks downloading - this should be a single test, which generates large but reasonable amount of data (~10^6 values - to ensure they’re downloaded in at least two chunks), inserts all to the Snowflake table using the driver, and then executing SELECT * from that table. The result should be equal to the original data.
-- Type casting (if applicable, for example ODBC skips this, as the user chooses which type data should be cast to) - simple select which ensures that data are being cast to appropriate types. This should be the only test which documents type conversion (not to duplicate complicated comments).
+Prefix with Jira ticket: `SNOW-{ticket}: {description}`
+Use `NO-SNOW:` for changes without a ticket.
 
-# General
-- Refer to online snowflake docs on details about how the datatypes function in Snowflake
-- Look to existing types/*.feature files for how the tests should look like
+## Creating a PR (Graphite)
 
-# Steps
-1. Research how certain datatype should be tested
-2. Generate .feature file in ./tests/definitions/shared/types according to research and guidelines
+```bash
+gt branch create {user}/{branch-name}
+git add <files>
+# When the change is associated with a SNOW ticket:
+gt commit create -m "SNOW-{ticket}: {description}"
+# For rare changes without a ticket (see NO-SNOW convention above):
+gt commit create -m "NO-SNOW: {description}"
+gt submit --no-edit
+```
+
+## Before Creating a PR
+
+1. **Ask for SNOW ticket** if not provided. Before committing, explicitly confirm either a valid SNOW ticket number (use `SNOW-{ticket}: ...`) or that there is intentionally no ticket (then use `NO-SNOW:`).
+2. **Check for stacked PR**: if the branch is not based off `main`, ask whether to use `gt submit --stack`.
+
+## PR Description Template
+
+```markdown
+## Summary
+- Bullet points describing what changed and why
+
+## Context
+How this fits into the larger effort
+
+## Test plan
+Explain how the change was tested: what commands were run, what was
+verified, and the results. Be specific to this PR.
+```
 
 ---
 > Source: [snowflakedb/universal-driver](https://github.com/snowflakedb/universal-driver) — distributed by [TomeVault](https://tomevault.io).
