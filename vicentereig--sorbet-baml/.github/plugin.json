@@ -1,0 +1,9 @@
+{
+  "name": "vicentereig--sorbet-baml",
+  "displayName": "sorbet-baml",
+  "description": "A Ruby gem that converts T::Struct and T::Enum to BAML (Boundary AI Markup Language) type definitions. BAML uses 60% fewer tokens than JSON Schema while maintaining type safety.",
+  "version": "1.0.0",
+  "author": "vicentereig",
+  "homepage": "https://github.com/vicentereig/sorbet-baml",
+  "skills": []
+}
