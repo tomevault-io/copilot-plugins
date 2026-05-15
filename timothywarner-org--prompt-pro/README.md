@@ -7,11 +7,11 @@ Master AI prompting for business innovation. O'Reilly Live Learning course by Ti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [timothywarner-org/prompt-pro](https://github.com/timothywarner-org/prompt-pro).
+Original source: `CLAUDE.md` in [timothywarner-org/prompt-pro](https://github.com/timothywarner-org/prompt-pro).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
