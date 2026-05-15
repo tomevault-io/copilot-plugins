@@ -1,0 +1,9 @@
+{
+  "name": "banyudu--claude-warden",
+  "displayName": "claude-warden",
+  "description": "Smart command safety filter for Claude Code \u2014 parses shell pipelines and evaluates per-command safety rules to auto-approve safe commands and block dangerous ones",
+  "version": "1.0.0",
+  "author": "banyudu",
+  "homepage": "https://github.com/banyudu/claude-warden",
+  "skills": []
+}
