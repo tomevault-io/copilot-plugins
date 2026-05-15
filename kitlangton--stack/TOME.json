@@ -4,7 +4,7 @@
   "repo": "stack",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kitlangton/stack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:57:02Z"
+  "distributed_at": "2026-05-15T18:59:25Z"
 }
