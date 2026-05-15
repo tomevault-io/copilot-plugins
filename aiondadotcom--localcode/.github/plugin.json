@@ -1,0 +1,9 @@
+{
+  "name": "aiondadotcom--localcode",
+  "displayName": "LocalCode",
+  "description": "Run LLMs locally in agent mode.",
+  "version": "1.0.0",
+  "author": "AiondaDotCom",
+  "homepage": "https://github.com/AiondaDotCom/LocalCode",
+  "skills": []
+}
