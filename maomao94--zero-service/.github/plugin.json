@@ -1,0 +1,18 @@
+{
+  "name": "maomao94--zero-service",
+  "displayName": "zero-service",
+  "description": "zero-service: \u26a1 \u57fa\u4e8e go-zero \u7684 Go \u5fae\u670d\u52a1\u811a\u624b\u67b6 | \u5f00\u7bb1\u5373\u7528 gRPC\u670d\u52a1\u548cAPI\u7f51\u5173\u3001\u6587\u4ef6\u4f20\u8f93\u3001\u56fd\u7f51\u7535\u529bIEC104\u534f\u8bae\u3001modbus \u534f\u8bae\u3001DJI \u673a\u5de2\u4e0a\u4e91 api \u652f\u6301",
+  "version": "1.0.0",
+  "author": "maomao94",
+  "homepage": "https://github.com/maomao94/zero-service",
+  "skills": [
+    {
+      "name": "module-deploy",
+      "description": ""
+    },
+    {
+      "name": "zero-skills",
+      "description": ""
+    }
+  ]
+}
