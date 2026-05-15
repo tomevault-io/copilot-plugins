@@ -1,0 +1,9 @@
+{
+  "name": "brennhill--sloppy-joe",
+  "displayName": "sloppy-joe",
+  "description": "Shields against supply-chain, slopsquatting, and typosquatting attacks from dependencies and code.",
+  "version": "1.0.0",
+  "author": "brennhill",
+  "homepage": "https://github.com/brennhill/sloppy-joe",
+  "skills": []
+}
