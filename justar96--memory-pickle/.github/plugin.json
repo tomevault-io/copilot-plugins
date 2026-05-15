@@ -1,0 +1,9 @@
+{
+  "name": "justar96--memory-pickle",
+  "displayName": "memory-pickle",
+  "description": "A Model Context Protocol server that gives AI agents precise memory for project management.",
+  "version": "1.0.0",
+  "author": "Justar96",
+  "homepage": "https://github.com/Justar96/memory-pickle",
+  "skills": []
+}
