@@ -1,0 +1,9 @@
+{
+  "name": "kousen--cosmic-catalog",
+  "displayName": "cosmic-catalog",
+  "description": "Curated astronomical observations from telescopes like Hubble and JWST",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/cosmic-catalog",
+  "skills": []
+}
