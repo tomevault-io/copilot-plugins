@@ -1,0 +1,9 @@
+{
+  "name": "ualberta-rcg--softmig",
+  "displayName": "SoftMig",
+  "description": "SLURM-native software GPU slicing for NVIDIA clusters using memory limits and compute time-slicing.",
+  "version": "1.0.0",
+  "author": "ualberta-rcg",
+  "homepage": "https://github.com/ualberta-rcg/SoftMig",
+  "skills": []
+}
