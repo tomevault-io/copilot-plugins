@@ -4,7 +4,7 @@
   "repo": "seedance-viral-forge",
   "description": "Reusable AI video prompt skills for Seedance 2.0 / \u5373\u68a6: product-selling scripts, merchant dance lead-gen scripts, and trend-driven traffic prompts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/11Yuxuanyang/seedance-viral-forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:17:05Z"
+  "distributed_at": "2026-05-15T17:40:58Z"
 }
