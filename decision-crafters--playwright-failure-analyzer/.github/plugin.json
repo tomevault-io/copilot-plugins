@@ -1,0 +1,9 @@
+{
+  "name": "decision-crafters--playwright-failure-analyzer",
+  "displayName": "playwright-failure-analyzer",
+  "description": "playwright-failure-analyzer",
+  "version": "1.0.0",
+  "author": "decision-crafters",
+  "homepage": "https://github.com/decision-crafters/playwright-failure-analyzer",
+  "skills": []
+}
