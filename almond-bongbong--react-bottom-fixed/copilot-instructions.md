@@ -1,42 +1,58 @@
-## default-exports
+## discriminated-unions
 
-> Unless explicitly required by the framework, do not use default exports.
+> Proactively use discriminated unions to model data that can be in one of a few different shapes.
 
-Unless explicitly required by the framework, do not use default exports.
+Proactively use discriminated unions to model data that can be in one of a few different shapes.
 
-```ts
-// BAD
-export default function myFunction() {
-  return <div>Hello</div>;
-}
-```
+For example, when sending events between environments:
 
 ```ts
-// GOOD
-export function myFunction() {
-  return <div>Hello</div>;
-}
+type UserCreatedEvent = {
+  type: "user.created";
+  data: { id: string; email: string };
+};
+
+type UserDeletedEvent = {
+  type: "user.deleted";
+  data: { id: string };
+};
+
+type Event = UserCreatedEvent | UserDeletedEvent;
 ```
 
-Default exports create confusion from the importing file.
+Use switch statements to handle the results of discriminated unions:
 
 ```ts
-// BAD
-import myFunction from "./myFunction";
+const handleEvent = (event: Event) => {
+  switch (event.type) {
+    case "user.created":
+      console.log(event.data.email);
+      break;
+    case "user.deleted":
+      console.log(event.data.id);
+      break;
+  }
+};
 ```
+
+Use discriminated unions to prevent the 'bag of optionals' problem.
+
+For example, when describing a fetching state:
 
 ```ts
-// GOOD
-import { myFunction } from "./myFunction";
-```
+// BAD - allows impossible states
+type FetchingState<TData> = {
+  status: "idle" | "loading" | "success" | "error";
+  data?: TData;
+  error?: Error;
+};
 
-There are certain situations where a framework may require a default export. For instance, Next.js requires a default export for pages.
-
-```tsx
-// This is fine, if required by the framework
-export default function MyPage() {
-  return <div>Hello</div>;
-}
+// GOOD - prevents impossible states
+type FetchingState<TData> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: TData }
+  | { status: "error"; error: Error };
 ```
 
 ---
