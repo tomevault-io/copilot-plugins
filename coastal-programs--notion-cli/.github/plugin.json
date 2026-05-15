@@ -1,0 +1,9 @@
+{
+  "name": "coastal-programs--notion-cli",
+  "displayName": "notion-cli",
+  "description": "Enterprise-grade Notion CLI for AI agents and automation.",
+  "version": "1.0.0",
+  "author": "Coastal-Programs",
+  "homepage": "https://github.com/Coastal-Programs/notion-cli",
+  "skills": []
+}
