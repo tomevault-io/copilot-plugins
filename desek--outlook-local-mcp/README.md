@@ -7,11 +7,11 @@ Local MCP server for Microsoft Outlook — calendars, events, and email via Micr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [desek/outlook-local-mcp](https://github.com/desek/outlook-local-mcp).
+Original source: `CLAUDE.md` in [desek/outlook-local-mcp](https://github.com/desek/outlook-local-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
