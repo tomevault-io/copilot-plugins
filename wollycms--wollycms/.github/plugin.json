@@ -1,0 +1,9 @@
+{
+  "name": "wollycms--wollycms",
+  "displayName": "wollycms",
+  "description": "Self-hosted headless CMS for Astro.js",
+  "version": "1.0.0",
+  "author": "WollyCMS",
+  "homepage": "https://github.com/WollyCMS/wollycms",
+  "skills": []
+}
