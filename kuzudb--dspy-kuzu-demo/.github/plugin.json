@@ -1,0 +1,9 @@
+{
+  "name": "kuzudb--dspy-kuzu-demo",
+  "displayName": "dspy-kuzu-demo",
+  "description": "Intro to using DSPy with Kuzu to enrich the data within the Nobel Laureate mentorship network",
+  "version": "1.0.0",
+  "author": "kuzudb",
+  "homepage": "https://github.com/kuzudb/dspy-kuzu-demo",
+  "skills": []
+}
