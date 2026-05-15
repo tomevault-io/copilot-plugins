@@ -1,0 +1,9 @@
+{
+  "name": "muzafferkal--axi-verif",
+  "displayName": "axi-verif",
+  "description": "# AXI SVA Assertion Library  SystemVerilog assertion library for AXI4 and AXI4-Lite, derived from *ARM IHI 0022C \u2014 AMBA AXI Protocol Specification v2.0*.",
+  "version": "1.0.0",
+  "author": "muzafferkal",
+  "homepage": "https://github.com/muzafferkal/axi-verif",
+  "skills": []
+}
