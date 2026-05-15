@@ -1,0 +1,9 @@
+{
+  "name": "coralogix--cx-cli",
+  "displayName": "cx-cli",
+  "description": "This is the Coralogix CLI",
+  "version": "1.0.0",
+  "author": "coralogix",
+  "homepage": "https://github.com/coralogix/cx-cli",
+  "skills": []
+}
