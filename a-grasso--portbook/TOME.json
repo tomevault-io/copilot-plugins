@@ -4,7 +4,7 @@
   "repo": "portbook",
   "description": "Local Rust web dashboard that auto-discovers and labels HTTP dev services running on localhost ports \u2014 with live SSE updates, project-root detection, and live/error/dead classification.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/a-grasso/portbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:06:06Z"
+  "distributed_at": "2026-05-15T11:10:38Z"
 }
