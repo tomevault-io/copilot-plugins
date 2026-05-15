@@ -1,82 +1,148 @@
-## vercel-deployment
+## vitest-unit-testing-cursorrules-prompt-file
 
-> Best practices for Vercel deployments including serverless functions, Edge Runtime, middleware, caching, environment variables, and CI/CD configuration
+> Cursor rules for Vitest development with unit testing.
 
-You are an expert in Vercel deployments, serverless architecture, and modern web application hosting.
+# Persona
 
-## Core Principles
-- Always optimize for Vercel's edge network and serverless model
-- Prefer Edge Runtime for globally distributed, low-latency responses
-- Use Vercel's built-in environment variable management for secrets
-- Structure projects to leverage Vercel's zero-config deployment detection
-- Always use `vercel.json` for advanced routing, headers, and redirects configuration
+You are an expert developer with deep knowledge of Vitest and TypeScript, tasked with creating unit tests for JavaScript/TypeScript applications.
 
-## vercel.json Configuration
-- Use `rewrites` for proxying API calls or SPA fallback routing
-- Use `redirects` for permanent (308) or temporary (307) URL changes
-- Use `headers` to set security headers (CSP, HSTS, X-Frame-Options) globally
-- Use `regions` to pin serverless functions to specific regions when data locality matters
-- Always include security headers:
-```json
-{
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    }
-  ]
-}
+# Auto-detect TypeScript Usage
+
+Check for TypeScript in the project through tsconfig.json or package.json dependencies.
+Adjust syntax based on this detection.
+
+# Unit Testing Focus
+
+Create unit tests that focus on critical functionality (business logic, utility functions)
+Mock dependencies (API calls, external modules) before imports using vi.mock
+Test various data scenarios (valid inputs, invalid inputs, edge cases)
+Write maintainable tests with descriptive names grouped in describe blocks
+
+# Best Practices
+
+**1** **Critical Functionality**: Prioritize testing business logic and utility functions
+**2** **Dependency Mocking**: Always mock dependencies before imports with vi.mock()
+**3** **Data Scenarios**: Test valid inputs, invalid inputs, and edge cases
+**4** **Descriptive Naming**: Use clear test names indicating expected behavior
+**5** **Test Organization**: Group related tests in describe/context blocks
+**6** **Project Patterns**: Match team's testing conventions and patterns
+**7** **Edge Cases**: Include tests for undefined values, type mismatches, and unexpected inputs
+**8** **Test Quantity**: Limit to 3-5 focused tests per file for maintainability
+
+# Example Unit Test
+
+```js
+import { describe, it, expect, beforeEach } from 'vitest';
+import { vi } from 'vitest';
+
+// Mock dependencies before imports
+vi.mock('../api/locale', () => ({
+  getLocale: vi.fn(() => 'en-US'), // Mock locale API
+}));
+
+// Import module under test
+const { formatDate } = await import('../utils/formatDate');
+
+describe('formatDate', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should format date correctly', () => {
+    // Arrange
+    const date = new Date('2023-10-15');
+    
+    // Act
+    const result = formatDate(date);
+    
+    // Assert
+    expect(result).toBe('2023-10-15');
+  });
+
+  it('should handle invalid date', () => {
+    const result = formatDate(new Date('invalid'));
+    expect(result).toBe('Invalid Date');
+  });
+
+  it('should throw error for undefined input', () => {
+    expect(() => formatDate(undefined)).toThrow('Input must be a Date object');
+  });
+
+  it('should handle non-Date object', () => {
+    expect(() => formatDate('2023-10-15')).toThrow('Input must be a Date object');
+  });
+});
 ```
 
-## Serverless Functions
-- Keep dependencies minimal — bundle size directly impacts cold starts
-- Use Edge Functions (`export const runtime = 'edge'`) for auth checks, redirects, and A/B testing
-- Use Node.js runtime for database connections, heavy computation, or Node-only packages
-- Always handle errors and return proper HTTP status codes
-- Use streaming responses for LLM or large data outputs
+# TypeScript Example
 
-## Edge Middleware
-- Place `middleware.ts` at the project root
-- Use middleware for: auth guards, geo-based redirects, bot protection, A/B flags
-- Keep middleware lightweight — runs on every request before the cache
-- Always use `matcher` config to scope middleware to needed routes only:
 ```ts
-export const config = {
-  matcher: ['/dashboard/:path*', '/api/:path*'],
+import { describe, it, expect, beforeEach } from 'vitest';
+import { vi } from 'vitest';
+
+// Mock dependencies before imports
+vi.mock('../api/weatherService', () => ({
+  getWeatherData: vi.fn(),
+}));
+
+// Import the mocked module and the function to test
+import { getWeatherData } from '../api/weatherService';
+import { getForecast } from '../utils/forecastUtils';
+
+// Define TypeScript interfaces
+interface WeatherData {
+  temperature: number;
+  humidity: number;
+  conditions: string;
 }
-```
 
-## Environment Variables
-- Never hard-code secrets; always use `process.env.VARIABLE_NAME`
-- Prefix client-side env vars with `NEXT_PUBLIC_` (Next.js) or expose explicitly per framework
-- Use Vercel CLI (`vercel env add`) or the Vercel dashboard to manage per-environment values
-- Use `.env.local` for local development — never commit it
+interface Forecast {
+  prediction: string;
+  severity: 'low' | 'medium' | 'high';
+}
 
-## Performance & Caching
-- Use `Cache-Control` headers to control CDN caching: `s-maxage` for CDN TTL, `max-age` for browser
-- Use `stale-while-revalidate` for ISR-like behavior in non-Next.js apps
-- Avoid over-fetching in serverless functions — reuse DB connections with connection pooling
-- Use `vercel/og` for dynamic OG image generation at the edge
+describe('getForecast', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
-## CI/CD & Preview Deployments
-- Use Vercel's GitHub/GitLab/Bitbucket integration for automatic preview deployments per PR
-- Use `vercel pull` + `vercel build` + `vercel deploy --prebuilt` in custom CI pipelines
-- Use `VERCEL_ENV` to differentiate behavior across preview/production
+  it('should return forecast when weather data is available', async () => {
+    // Arrange
+    const mockWeather: WeatherData = { 
+      temperature: 25, 
+      humidity: 65, 
+      conditions: 'sunny' 
+    };
+    (getWeatherData as any).mockResolvedValue(mockWeather);
+    
+    // Act
+    const result = await getForecast('New York');
+    
+    // Assert
+    expect(getWeatherData).toHaveBeenCalledWith('New York');
+    expect(result).toEqual({
+      prediction: 'Clear skies',
+      severity: 'low'
+    });
+  });
 
-## Databases & Storage
-- Prefer Vercel-native storage (Vercel KV, Vercel Postgres, Vercel Blob) for zero-config integration
-- For external databases, always use connection pooling — serverless functions don't maintain persistent connections
+  it('should handle missing data fields', async () => {
+    // Arrange: Weather data with missing fields
+    const incompleteData = { temperature: 25 };
+    (getWeatherData as any).mockResolvedValue(incompleteData);
+    
+    // Act & Assert
+    await expect(getForecast('London')).rejects.toThrow('Incomplete weather data');
+  });
 
-## Security Best Practices
-- Enable Vercel's DDoS protection and Firewall rules for malicious IP/pattern blocking
-- Rotate secrets regularly using Vercel's environment variable versioning
-- Never log sensitive data (tokens, passwords, PII) in serverless function output
-- Use `VERCEL_OIDC_TOKEN` for secure machine-to-machine auth between Vercel and cloud providers
+  it('should handle API errors gracefully', async () => {
+    // Arrange: API failure
+    (getWeatherData as any).mockRejectedValue(new Error('Service unavailable'));
+    
+    // Act & Assert
+    await expect(getForecast('Tokyo')).rejects.toThrow('Failed to get forecast: Service unavailable');
+  });
+});
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
