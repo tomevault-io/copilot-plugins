@@ -2,6 +2,8 @@
 
 > Source: [pemudakoding/Digital-Store-Assistant](https://github.com/pemudakoding/Digital-Store-Assistant) — distributed by [TomeVault](https://tomevault.io)
 
+🛍️ Complete WhatsApp store automation solution with Node.js, Baileys, and modern ES6+ architecture
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [pemudakoding/Digital-Store-Assistant]
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [pemudakoding/Digital-Store-Assistant](https://github.com/pemudakoding/Digital-Store-Assistant) — a repo with 0+ stars on GitHub.
+From [pemudakoding/Digital-Store-Assistant](https://github.com/pemudakoding/Digital-Store-Assistant) — a repo with 9+ stars on GitHub.
 
 ---
 
