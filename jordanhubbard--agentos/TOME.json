@@ -4,7 +4,7 @@
   "repo": "agentos",
   "description": "The world's first operating system for agents, not humans. Built on seL4 microkernel with capability-based security and agent-native vibe-coding.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jordanhubbard/agentos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:08:19Z"
+  "distributed_at": "2026-05-15T03:36:29Z"
 }
