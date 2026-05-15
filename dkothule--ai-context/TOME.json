@@ -4,7 +4,7 @@
   "repo": "ai-context",
   "description": "Unified context system for seamless multi-agent AI development. Works with Cursor, Claude Code, Codex, and Google Antigravity. Single source of truth, session continuity, and zero context loss when switching between AI assistants.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dkothule/ai-context",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:16:24Z"
+  "distributed_at": "2026-05-15T11:13:18Z"
 }
