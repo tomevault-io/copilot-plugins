@@ -1,0 +1,9 @@
+{
+  "name": "lazy-fortran--fortfront",
+  "displayName": "fortfront",
+  "description": "Core analysis frontend for lazy fortran - lexer, parser, semantic analysis, AST operations",
+  "version": "1.0.0",
+  "author": "lazy-fortran",
+  "homepage": "https://github.com/lazy-fortran/fortfront",
+  "skills": []
+}
