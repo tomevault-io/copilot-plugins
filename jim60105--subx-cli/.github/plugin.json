@@ -1,0 +1,9 @@
+{
+  "name": "jim60105--subx-cli",
+  "displayName": "subx-cli",
+  "description": "AI-powered CLI for automated subtitle matching, renaming, format conversion, and timeline correction. (Rust)",
+  "version": "1.0.0",
+  "author": "jim60105",
+  "homepage": "https://github.com/jim60105/subx-cli",
+  "skills": []
+}
