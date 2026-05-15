@@ -1,0 +1,9 @@
+{
+  "name": "clowrey--tesla-m3-bms-mod-chip",
+  "displayName": "tesla-m3-bms-mod-chip",
+  "description": "ESP32 replacement for both MCU in the Tesla M3 HVC/BMS module",
+  "version": "1.0.0",
+  "author": "clowrey",
+  "homepage": "https://github.com/clowrey/tesla-m3-bms-mod-chip",
+  "skills": []
+}
