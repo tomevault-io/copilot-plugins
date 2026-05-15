@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## codex-cursor-proxy
 
 > Use Bun instead of Node.js, npm, pnpm, or vite.
 
