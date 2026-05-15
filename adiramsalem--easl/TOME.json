@@ -4,7 +4,7 @@
   "repo": "easl",
   "description": "Instant hosting for AI agents \u2014 turn output into pages worth sharing",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AdirAmsalem/easl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:30:09Z"
+  "distributed_at": "2026-05-15T17:06:20Z"
 }
