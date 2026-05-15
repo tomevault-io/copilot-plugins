@@ -1,0 +1,9 @@
+{
+  "name": "gjinprelvukaj--breaks",
+  "displayName": "Breaks",
+  "description": "A small, quiet Pomodoro timer that lives in your Mac menu bar. SwiftUI, sandboxed, focus journal, streaks, global hotkeys.",
+  "version": "1.0.0",
+  "author": "GjinPrelvukaj",
+  "homepage": "https://github.com/GjinPrelvukaj/Breaks",
+  "skills": []
+}
