@@ -7,11 +7,11 @@ Human-in-the-loop playground for the talk “AI-Optimised Vim Keybindings: HCI-D
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ryoppippi/nvim-in-the-loop](https://github.com/ryoppippi/nvim-in-the-loop).
+Original source: `CLAUDE.md` in [ryoppippi/nvim-in-the-loop](https://github.com/ryoppippi/nvim-in-the-loop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
