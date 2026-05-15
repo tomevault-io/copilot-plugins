@@ -1,0 +1,9 @@
+{
+  "name": "timur00kh--whisper-wasm",
+  "displayName": "whisper.wasm",
+  "description": "A TypeScript wrapper for whisper.cpp that brings OpenAI's Whisper speech recognition to local browser",
+  "version": "1.0.0",
+  "author": "Timur00Kh",
+  "homepage": "https://github.com/Timur00Kh/whisper.wasm",
+  "skills": []
+}
