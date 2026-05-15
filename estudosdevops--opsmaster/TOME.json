@@ -1,0 +1,44 @@
+{
+  "name": "opsmaster",
+  "owner": "estudosdevops",
+  "repo": "opsmaster",
+  "description": "OpsMaster \u00e9 uma ferramenta de linha de comando (CLI) moderna, constru\u00edda em Go, projetada para simplificar e automatizar tarefas rotineiras de DevOps e SRE.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/estudosdevops/opsmaster",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T06:44:13Z"
+}
