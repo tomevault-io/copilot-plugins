@@ -4,7 +4,7 @@
   "repo": "copc-converter",
   "description": "A fast, memory-efficient converter that turns LAS/LAZ point cloud files into COPC (Cloud-Optimized Point Cloud) files.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/360-geo/copc-converter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:35:25Z"
+  "distributed_at": "2026-05-15T14:28:29Z"
 }
