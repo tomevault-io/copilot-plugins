@@ -1,0 +1,9 @@
+{
+  "name": "tky0065--springdocs-mcp",
+  "displayName": "springdocs-mcp",
+  "description": "Un serveur Model Context Protocol (MCP) public qui donne acc\u00e8s \u00e0 toute la documentation Spring Boot ",
+  "version": "1.0.0",
+  "author": "tky0065",
+  "homepage": "https://github.com/tky0065/springdocs-mcp",
+  "skills": []
+}
