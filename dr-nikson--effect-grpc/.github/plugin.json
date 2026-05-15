@@ -1,0 +1,9 @@
+{
+  "name": "dr-nikson--effect-grpc",
+  "displayName": "effect-grpc",
+  "description": "gRPC Protobuf capabilities for Effect ecosystem",
+  "version": "1.0.0",
+  "author": "Dr-Nikson",
+  "homepage": "https://github.com/Dr-Nikson/effect-grpc",
+  "skills": []
+}
