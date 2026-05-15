@@ -1,0 +1,9 @@
+{
+  "name": "chausner--vcxproj2cmake",
+  "displayName": "vcxproj2cmake",
+  "description": "Tool to convert Microsoft Visual C++ projects and solutions to CMake",
+  "version": "1.0.0",
+  "author": "chausner",
+  "homepage": "https://github.com/chausner/vcxproj2cmake",
+  "skills": []
+}
