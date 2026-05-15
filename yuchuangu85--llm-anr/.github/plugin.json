@@ -1,0 +1,9 @@
+{
+  "name": "yuchuangu85--llm-anr",
+  "displayName": "llm-anr",
+  "description": "Agent-driven Android ANR evidence extraction and AI-assisted root cause analysis pipeline.",
+  "version": "1.0.0",
+  "author": "yuchuangu85",
+  "homepage": "https://github.com/yuchuangu85/llm-anr",
+  "skills": []
+}
