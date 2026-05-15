@@ -1,143 +1,135 @@
-## nextjs-vercel-supabase-cursorrules-prompt-file
+## nextjs-vercel-typescript-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with Vercel and Supabase integration.
+> Cursor rules for Next.js development with Vercel and TypeScript integration.
 
-# Cursorrules
+To extend the provided rules to include usage of the `ai-sdk-rsc` library and integrate it with Vercel middleware and a KV database, here's an updated set of instructions tailored for use with Cursor IDE. These instructions are designed to help you effectively implement generative user interfaces using React Server Components (RSC) with the AI SDK.
 
-## Intro
+### Extended Rules for AI SDK RSC Integration with Vercel Middleware and KV Database
 
-I am building 'BA Copilot', where BA stands for Business Analysts. I will sometimes refer to it as bacp.
+**Environment and Tools**
+
+- You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI, Tailwind, and Vercel middleware.
+- You are familiar with Vercel's KV database for managing stateful data.
 
-## BA Copilot MVP
+**Code Style and Structure**
+
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
+- Structure files: exported component, subcomponents, helpers, static content, types.
 
-### Overview
+**Naming Conventions**
+
+- Use lowercase with dashes for directories (e.g., `components/auth-wizard`).
+- Favor named exports for components.
+
+**TypeScript Usage**
 
-It is an assistant for business analysts. The MVP will be a an ai chatbot type tool, which will render BPMN diagrams using bpmn-js. The user can then iterate on them either with:
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
 
-- additional discussion
-- editing the diagram directly (bpmn-js supports this)
+**Syntax and Formatting**
 
-### UI Description
+- Use the `function` keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
 
-Here is a hierarchical, indented bullet description of the BA Copilot MVP, focusing on its functionality for creating and iterating on BPMN diagrams:
+**UI and Styling**
 
-BA Copilot Interface
+- Use Shadcn UI, Radix UI, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-Question Input Section
+**Performance Optimization**
 
-Users can input questions or requests related to business processes. Example: "Based on the doc content what have I missed?"
+- Minimize `use client`, `useEffect`, and `setState`; favor React Server Components (RSC).
+- Wrap client components in `Suspense` with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
 
-Process Section (Optional)
+**Key Conventions**
 
-Allows users to upload or view BPMN diagrams in formats like .png, .vsdx, etc. Users can visualize and edit existing diagrams or create new ones. Example: A BPMN diagram showing a flow of "Register expense report", "Approve", and "Deny" processes.
+- Use `nuqs` for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit `use client`: 
+  - Favor server components and Next.js SSR.
+  - Use only for Web API access in small components.
+  - Avoid for data fetching or state management.
+- Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
-Documents Section (Optional)
+**AI SDK RSC Integration**
 
-Users can upload relevant documents, such as PDFs, that might contain process details. Example: "Shelter - employee handbook.pdf" uploaded to provide context for the BPMN diagram.
+- **Setup and Installation**: Integrate `ai-sdk-rsc` into your Next.js project.
+  - Install the library using `npm install ai-sdk-rsc` or `yarn add ai-sdk-rsc`.
+  - Configure middleware in `middleware.ts` to manage requests and sessions using Vercel's KV database.
 
-Artifacts Section
+- **Middleware Implementation**: Use Vercel middleware to handle incoming requests.
+  - Create a middleware file in the `middleware` directory (e.g., `middleware/ai-middleware.ts`).
+  - Use middleware to parse user input and manage sessions with the KV database.
+  - Example:
+    ```typescript
+    import { NextRequest, NextResponse } from 'next/server';
+    import { kv } from '@vercel/kv';
 
-Provides a space for related outputs or references to be displayed. Example: Diagram suggestions based on uploaded content.
+    export async function middleware(req: NextRequest) {
+      const sessionId = req.cookies.get('session-id');
+      if (!sessionId) {
+        const newSessionId = generateSessionId();
+        await kv.set(newSessionId, { state: {} }); // Initialize state in KV database
+        const res = NextResponse.next();
+        res.cookies.set('session-id', newSessionId);
+        return res;
+      }
+      // Fetch state from KV database
+      const state = await kv.get(sessionId);
+      req.nextUrl.searchParams.set('state', JSON.stringify(state));
+      return NextResponse.next();
+    }
 
-Iterative BPMN Diagram Creation and Modification
+    function generateSessionId() {
+      return Math.random().toString(36).substring(2);
+    }
+    ```
 
-Input Process
+- **React Server Components (RSC) and AI SDK**:
+  - Use `ai-sdk-rsc` hooks to manage state and stream generative content.
+  - Example usage of AI SDK hooks in a React Server Component:
+    ```typescript
+    import { useAIStream } from 'ai-sdk-rsc';
+    import { FC } from 'react';
 
-Users can pose questions or requests for modifications to existing processes. Example: Asking for missing steps in the process based on document content.
+    interface ChatProps {
+      initialMessage: string;
+    }
 
-AI-Powered Suggestions
+    const Chat: FC = ({ initialMessage }) => {
+      const { messages, sendMessage } = useAIStream({
+        initialMessage,
+        onMessage: (message) => console.log('New message:', message),
+      });
 
-The system suggests additions or modifications to the BPMN diagram based on the content of uploaded documents or user queries. Example: Suggestion to add a task for checking the expense policy, citing specific sections from the uploaded handbook.
+      return (
+        {msg.content}
+      );
 
-Diagram Editing
+    export default Chat;
+    ```
 
-Users can interactively edit the BPMN diagram based on suggestions. Example: Adding a task "Check expense policy" with inputs and outputs like "Expense report" and "Checked expense report".
+- **KV Database Integration**:
+  - Use Vercel's KV database to store and retrieve session data.
+  - Utilize `kv.set`, `kv.get`, and `kv.delete` to manage data.
+  - Ensure the database operations are asynchronous to avoid blocking server-side rendering (SSR).
 
-Documentation and References
+- **Data Fetching and State Management**:
+  - Use Next.js data fetching methods (`getServerSideProps`, `getStaticProps`) to manage server-side state.
+  - Avoid client-side data fetching methods (`useEffect`, `fetch`) except for critical, non-blocking operations.
 
-The system references uploaded documents and highlights relevant sections. Example: Citing "Section 7. Claiming reimbursement for payments made on behalf of the company" from the employee handbook.
+- **Deployment Considerations**:
+  - Ensure all environment variables (e.g., API keys, database credentials) are securely stored in Vercel's environment settings.
+  - Configure Vercel's KV and other serverless functions correctly to handle scalability and performance needs.
 
-User Workflow
-
-Start with a Question
-
-User initiates the process by asking a question or making a request.
-
-Upload Process Diagrams and Documents
-
-User uploads existing diagrams and documents for context.
-
-Receive AI-Generated Suggestions
-
-System provides suggestions to enhance or correct the process flow.
-
-Modify BPMN Diagram
-
-User edits the BPMN diagram based on the received suggestions.
-
-Iterate Until Satisfied
-
-User continues to ask follow-up questions and modify the diagram until the desired outcome is achieved.
-
-This BA Copilot MVP allows users to efficiently create, modify, and iterate on BPMN diagrams with contextual suggestions, leveraging uploaded documents and user queries.
-
-## BA Copilot Vision
-
-### Overview
-
-The vision for this is that it will be the home for business analysts to get assistance relating to their jobs. It will protect itself network effects to increase the value of the product e.g. BA agencies posting their products in the toolkit section, and members discussing BA topics in community section. It will also protect itself via an ever improving model for BA tasks e.g. BPMN generation. Although it will never be trained on user data. It will grow via virality via a dropbox style 'refer a friend and you both get 100 AI credits'. Revenue will be via companies paying for it for their BAs. Revenue will also be via companies paying to list on the job board.
-
-### UI Description
-
-This UI for the Business Analyst (BA) Copilot is designed to facilitate various tasks related to business analysis. Here's a description of its features:
-
-Header Section
-
-The top navigation bar displays the application name "BA Copilot" and provides options like sharing the prototype and accessing user settings.
-
-Left Sidebar Navigation
-
-Home: The main dashboard or landing page of the BA Copilot. Assistant: A section likely dedicated to personalized assistance or guided help. Vault: A storage area for important documents or resources. Library: A collection of resources, templates, or reference materials. History: Access to past interactions, tasks, or saved work. Toolkit: Tools or utilities that support various BA activities. Community: A section for engaging with other users, discussing best practices, or sharing knowledge. Job Board: An area for job-related resources, possibly listing openings or career opportunities. Settings: User-specific settings, located at the bottom, allowing for customization of the BA Copilot experience. User Information: At the bottom, the user's email is displayed (e.g., alex@tesla.com), along with a security note indicating data is secure.
-
-Main Content Area
-
-Central Interaction Box
-
-A prominent text box labeled "Ask anything..." invites users to enter questions, requests, or commands. This is the primary interface for interacting with the BA Copilot.
-
-Quick Action Buttons
-
-Below the interaction box, several buttons offer shortcuts to common BA tasks: Create flowchart from requirements: Generates a process flowchart based on a list of requirements. Create requirements from flowchart: Extracts and documents requirements from an existing flowchart. Create documentation from notes: Converts meeting notes or other informal documentation into formal documents. Create tests from documentation: Develops test cases or scripts based on existing documentation. Give me career advice: Provides personalized career guidance or resources. Recommend a toolkit: Suggests tools or software relevant to the user's current tasks or projects.
-
-Overall Layout
-
-The interface is clean, minimalist, and user-friendly, with a clear emphasis on functionality and ease of use. It is designed to guide users smoothly through typical BA tasks while providing easy access to tools and resources. This UI embodies the vision of a comprehensive yet streamlined tool tailored to assist business analysts in their day-to-day tasks, making their work more efficient and organized.
-
-## Technical
-
-### Overview
-
-The following elements of the stack are ones I'm confident I'll build with:
-
-- Next.js using App router, not Pages router always check that you have not made a recommendation that is for Pages router always check that your recommendation is appropriate for App router
-- Vercel AI
-- Supabase - db, including their type safety
-- Supabase - auth
-- Tanstack query
-- Material UI
-- Potentially Orval for API calls (typing, tanstack query, and mock service worker testing)
-- Quokka
-
-I have intermediate experience with React. However, I am new to Next.js. So whenever implementing something with Next.js, teach me as if I don't know about it. Then offer to explain more. If you feel I should replace elements of my stack above, always tell me. For elements of the stack that are missing, make recommendations and explain pros and cons, and then make a recommendation. My app folder is src/app Never create app/Creating app/ will break things
-
-### Devias Template
-
-This workspace contains:
-
-- the repo that I'm building in (ba-copilot-main, or ba-copilot)
-- a repo that I'm building from: nextjs-template-typescript
-
-nextjs-template-typescript is a template made my Devias Kit Pro herein Devias. I will bring elements in from their repo to mine. So be aware of that, and consider recommending bringing elements in from there as well, and following their coding style and structure.
+By following these extended rules, you'll be able to create a well-optimized, scalable, and efficient Next.js application that leverages `ai-sdk-rsc`, Vercel middleware, and KV database for building sophisticated AI-driven interfaces.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
