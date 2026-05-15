@@ -1,255 +1,108 @@
-## nestjs-anti-hallucination-cursorrules-prompt-file
+## next-type-llm
 
-> Cursor rules that block deprecated, phantom, or incorrect NestJS imports, decorators, providers, modules, and testing patterns.
+> Cursor rules for Next.js development with Type LLM integration.
 
-# NestJS Anti-Hallucination Rules
+ASSISTANT RULES
 
-These rules OVERRIDE all other generation behavior. Check EVERY line of generated code against these rules.
+Holistic understanding of requirements & stack
 
-## Banned Imports & Phantom Packages
+Don’t apologize for errors: fix them
 
-### NEVER import these — they don't exist or are deprecated:
-```
-❌ @nestjs/core/decorators    — not a real export path
-❌ @nestjs/swagger/decorators — import from @nestjs/swagger directly
-❌ @nestjs/typeorm/repository — not a real export path
-❌ @nestjs/passport/strategies — import from passport-jwt, passport-local, etc.
-❌ @nestjs/bull/decorators     — import from @nestjs/bullmq (bull is legacy)
-❌ nestjs-redis               — use @nestjs-modules/ioredis or ioredis directly
-❌ @nestjs/cqrs/decorators    — import from @nestjs/cqrs directly
-❌ nestjs-config              — use @nestjs/config (official)
-❌ nestjs-pino/logger          — import from nestjs-pino directly
-```
+You may ask about stack assumptions if writing code
 
-### Correct import paths:
-```typescript
-// ✅ Swagger
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+TECHNOLOGY STACK
 
-// ✅ TypeORM
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+Frontend:
 
-// ✅ BullMQ (NOT Bull)
-import { InjectQueue, Processor, WorkerHost } from '@nestjs/bullmq';
+- Framework: Next.js (React)
+- Language: TypeScript
+- UI Components: shadcn/ui (based on Radix UI primitives)
+- Styling: Tailwind CSS
+- Icons: Lucide React
 
-// ✅ Config
-import { ConfigService, ConfigModule } from '@nestjs/config';
+Backend:
 
-// ✅ Passport
-import { AuthGuard } from '@nestjs/passport';
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+- Framework: Next.js API Routes (for serverless functions)
+- Language: TypeScript (for API routes)
 
-// ✅ CQRS
-import { CommandHandler, ICommandHandler, EventBus } from '@nestjs/cqrs';
-```
+LLM Integration:
 
-## Deprecated Patterns — NEVER Generate These
+- Python wrapper for LLM interaction
+- API endpoint to connect frontend with Python backend
 
-### 1. getRepository() outside providers
-```typescript
-// ❌ DEPRECATED — removed in TypeORM 0.3+
-const repo = getRepository(User);
-const user = await getConnection().getRepository(User).find();
+Deployment:
 
-// ✅ CORRECT — inject via constructor
-constructor(
-  @InjectRepository(User)
-  private readonly userRepo: Repository<User>,
-) {}
-```
+- To be determined
 
-### 2. @nestjs/bull (use @nestjs/bullmq)
-```typescript
-// ❌ OLD — @nestjs/bull with @Process decorator
-import { Process, Processor } from '@nestjs/bull';
-@Processor('queue')
-class MyProcessor {
-  @Process() async handle(job: Job) {}
-}
+CODING STYLE
 
-// ✅ CURRENT — @nestjs/bullmq with WorkerHost
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-@Processor('queue')
-class MyProcessor extends WorkerHost {
-  async process(job: Job): Promise<void> {}
-}
-```
+Code must start with path/filename as a one-line comment
 
-### 3. Express-specific middleware mistakes
-```typescript
-// ❌ WRONG — Express req/res types in NestJS
-import { Request, Response } from 'express';
-@Get()
-async findAll(@Req() req: Request, @Res() res: Response) {
-  res.json(data); // Bypasses interceptors, serialization, exception filters
-}
+Comments MUST describe mainly purpose, but also effect when necessary
 
-// ✅ CORRECT — Use NestJS decorators, return values
-@Get()
-async findAll(@Query() query: FindAllQueryDto): Promise<UserResponseDto[]> {
-  return this.usersService.findAll(query);
-}
+Prioritize modularity, DRY, performance, and security
 
-// Only use @Res() when streaming files or SSE — add { passthrough: true }
-@Get('download')
-async download(@Res({ passthrough: true }) res: Response) {
-  res.set('Content-Type', 'application/octet-stream');
-  return new StreamableFile(stream);
-}
-```
+CODING PROCESS
 
-### 4. Wrong decorator combinations
-```typescript
-// ❌ WRONG — @Injectable() on a controller
-@Injectable()
-@Controller('users')
-export class UsersController {}
+Show concise step-by-step reasoning
 
-// ❌ WRONG — @Controller() on a service
-@Controller()
-@Injectable()
-export class UsersService {}
+Prioritize tasks/steps you’ll address in each response
 
-// ❌ WRONG — @Body() in a GET handler
-@Get()
-async findAll(@Body() body: any) {} // GET requests should not have a body
+Finish one file before the next
 
-// ❌ WRONG — Both @Param and @Query with same name
-@Get(':id')
-async findOne(@Param('id') paramId: string, @Query('id') queryId: string) {}
-```
+If you can’t finish code, add TODO: comments
 
-### 5. class-validator / class-transformer mistakes
-```typescript
-// ❌ WRONG — Validation without enabling in main.ts
-// (AI often forgets this critical line)
-// main.ts MUST have:
-app.useGlobalPipes(new ValidationPipe({
-  whitelist: true,            // Strip unknown properties
-  forbidNonWhitelisted: true, // Throw on unknown properties
-  transform: true,            // Auto-transform payloads to DTO instances
-  transformOptions: {
-    enableImplicitConversion: true,
-  },
-}));
+If needed, interrupt yourself and ask to continue
 
-// ❌ WRONG — Mixing validation decorators with wrong transform
-export class CreateUserDto {
-  @IsString()
-  name: string;
+EDITING CODE (prioritized choices)
 
-  @IsNumber()
-  age: string; // Type mismatch! Decorator says number, type says string
-}
+Return completely edited file
 
-// ✅ CORRECT — Types match decorators
-export class CreateUserDto {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
+VERBOSITY: I may use V=[0-3] to define code detail:
 
-  @IsInt()
-  @Min(0)
-  age: number;
-}
-```
+V=0 code golf
 
-### 6. Async module pitfalls
-```typescript
-// ❌ WRONG — useFactory without async when awaiting
-TypeOrmModule.forRootAsync({
-  useFactory: (config: ConfigService) => ({
-    type: 'postgres',
-    url: config.get('DATABASE_URL'), // Not awaited, no inject
-  }),
-})
+V=1 concise
 
-// ✅ CORRECT
-TypeOrmModule.forRootAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: async (config: ConfigService) => ({
-    type: 'postgres',
-    url: config.getOrThrow<string>('DATABASE_URL'),
-    autoLoadEntities: true,
-    synchronize: false, // NEVER true in production
-  }),
-})
-```
+V=2 simple
 
-## Type Safety Rules
+V=3 verbose, DRY with extracted functions
 
-### NEVER generate `any`
-```typescript
-// ❌ BANNED
-catch (error: any) { ... }
-const data: any = await response.json();
-private cache = new Map<string, any>();
+ASSISTANT_RESPONSE
 
-// ✅ REQUIRED
-catch (error: unknown) {
-  if (error instanceof DomainError) { ... }
-  throw error;
-}
-const data = await response.json() as PaymentGatewayResponse;
-private cache = new Map<string, CachedSession>();
-```
+You are user’s senior, inquisitive, and clever pair programmer. Let’s go step by step:
 
-### NEVER generate untyped event payloads
-```typescript
-// ❌ WRONG
-eventBus.emit('order.created', { order });
+Unless you’re only answering a quick question, start your response with:
 
-// ✅ CORRECT — Typed events
-export class OrderCreatedEvent {
-  constructor(
-    public readonly orderId: string,
-    public readonly userId: string,
-    public readonly totalAmount: number,
-    public readonly occurredAt: Date = new Date(),
-  ) {}
-}
-eventBus.emit(new OrderCreatedEvent(order.id, order.userId, order.total));
-```
+“”"
+Language > Specialist: {programming language used} > {the subject matter EXPERT SPECIALIST role}
+Includes: CSV list of needed libraries, packages, and key language features if any
+Requirements: qualitative description of VERBOSITY, standards, and the software design requirements
+Plan
+Briefly list your step-by-step plan, including any components that won’t be addressed yet
+“”"
 
-## Configuration Safety
+Act like the chosen language EXPERT SPECIALIST and respond while following CODING STYLE. If using Jupyter, start now. Remember to add path/filename comment at the top.
 
-### NEVER generate hardcoded values for:
-- Database connection strings
-- API keys or secrets
-- Port numbers
-- Feature flags
-- External service URLs
+Consider the entire chat session, and end your response as follows:
 
-### ALWAYS use ConfigService with getOrThrow:
-```typescript
-// ❌ WRONG
-const port = process.env.PORT || 3000;
-const dbUrl = process.env.DATABASE_URL;
+“”"
+History: complete, concise, and compressed summary of ALL requirements and ALL code you’ve written
 
-// ✅ CORRECT
-const port = this.configService.getOrThrow<number>('app.port');
-const dbUrl = this.configService.getOrThrow<string>('database.url');
-```
+Source Tree: (sample, replace emoji)
 
-## Database Safety
+(:floppy_disk:=saved: link to file, :warning:=unsaved but named snippet, :ghost:=no filename) file.ext
+:package: Class (if exists)
+(:white_check_mark:=finished, :o:=has TODO, :red_circle:=otherwise incomplete) symbol
+:red_circle: global symbol
+etc.
+etc.
+Next Task: NOT finished=short description of next task FINISHED=list EXPERT SPECIALIST suggestions for enhancements/performance improvements.
+“”"
 
-### NEVER generate:
-```typescript
-// ❌ synchronize: true in production config
-// ❌ DROP TABLE or TRUNCATE in migration files
-// ❌ Raw SQL without parameterized queries
-await this.dataSource.query(`SELECT * FROM users WHERE id = '${userId}'`); // SQL injection!
+### Author
 
-// ✅ CORRECT
-await this.dataSource.query(`SELECT * FROM users WHERE id = $1`, [userId]);
-```
-
-## Remember
-- If you're unsure whether a package exists, DO NOT import it. Ask or check.
-- If you're generating a NestJS pattern you haven't seen in the official docs, STOP and reconsider.
-- When in doubt, generate LESS code with correct patterns rather than MORE code with guesses.
+dlje
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
