@@ -7,11 +7,11 @@ A lightweight nanobot/OpenClaw variant in pure Julia
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [whanyu1212/Krill.jl](https://github.com/whanyu1212/Krill.jl).
+Original source: `CLAUDE.md` in [whanyu1212/Krill.jl](https://github.com/whanyu1212/Krill.jl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
