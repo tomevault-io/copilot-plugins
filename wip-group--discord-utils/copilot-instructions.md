@@ -1,29 +1,24 @@
-## development-commands
+## stack-overview
 
-> Development commands and workflow for the monorepo
+> Stack architecture and technology overview
 
+# Stack Architecture
 
-# Development Commands
+This is a Turborepo monorepo using:
+- **Runtime**: Bun
+- **Frontend**: Next.js 15 with App Router
+- **Backend**: Elysia with tRPC
+- **Auth**: Better Auth with MongoDB adapter
+- **Database**: MongoDB with Mongoose
+- **UI**: shadcn/ui components
+- **Styling**: TailwindCSS
+- **Linting/Formatting**: Biome (NOT Prettier)
 
-## Core Commands
-- `bun dev` - Start all applications in development mode
-- `bun build` - Build all applications
-- `bun check` - Run Biome formatting and linting (replaces Prettier)
-- `bun check-types` - TypeScript checking across entire monorepo
-
-## Selective Development
-- `turbo dev --filter=@repo/web` - Start only Next.js frontend (port 3000)
-- `turbo dev --filter=@repo/api` - Start only Elysia backend (port 3001)
-
-## Production Commands
-- `bun start:web` - Start production web server
-- `bun start:api` - Start production API server
-
-## Important Notes
-- Always use `bun check` instead of Prettier for formatting
-- Use Turbo's filtering for selective builds/dev in monorepo
-- Bun is the primary runtime - prefer it over npm/yarn/pnpm
-- Build system uses Turbo for parallel task execution
+## Key Patterns
+- End-to-end type safety from MongoDB → Elysia/tRPC → Next.js
+- Shared packages for database models, UI components, and TypeScript configs
+- Environment validation with @t3-oss/env-core and Zod schemas
+- Middleware handles auth protection and optional slug rewriting
 
 ---
 > Source: [wip-group/discord-utils](https://github.com/wip-group/discord-utils) — distributed by [TomeVault](https://tomevault.io).
