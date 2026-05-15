@@ -1,0 +1,9 @@
+{
+  "name": "pancrepal-xiaoyibao--mcp-pubmed-server-pancrpal",
+  "displayName": "mcp-pubmed-server-pancrpal",
+  "description": "\u4e00\u4e2a\u7528\u6765\u8ba9\u672c\u5730agent\u5229\u7528api\u9ad8\u6548\u722c\u53d6pubmed\u8bba\u6587\u7684mcp\u5de5\u5177;\u7b2c\u4e00\u5f00\u53d1hhx: https://github.com/hhx465453939/mcp-pubmed-server",
+  "version": "1.0.0",
+  "author": "PancrePal-xiaoyibao",
+  "homepage": "https://github.com/PancrePal-xiaoyibao/mcp-pubmed-server-pancrpal",
+  "skills": []
+}
