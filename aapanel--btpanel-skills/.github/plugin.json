@@ -1,0 +1,9 @@
+{
+  "name": "aapanel--btpanel-skills",
+  "displayName": "btpanel-skills",
+  "description": "The skill's code and runtime instructions match its stated purpose (BT-Panel monitoring) and do not request unrelated credentials or installation downloads, but you should review how it stores API tok",
+  "version": "1.0.0",
+  "author": "aaPanel",
+  "homepage": "https://github.com/aaPanel/btpanel-skills",
+  "skills": []
+}
