@@ -1,0 +1,9 @@
+{
+  "name": "sjorso--lit",
+  "displayName": "lit",
+  "description": "Lit is a CLI for deploying Laravel",
+  "version": "1.0.0",
+  "author": "SjorsO",
+  "homepage": "https://github.com/SjorsO/lit",
+  "skills": []
+}
