@@ -4,7 +4,7 @@
   "repo": "gettext_sigils",
   "description": "An Elixir library that provides a ~t sigil for using Gettext",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zebbra/gettext_sigils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:21:06Z"
+  "distributed_at": "2026-05-15T14:59:26Z"
 }
