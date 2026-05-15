@@ -1,99 +1,86 @@
-## contributing-workflow
+## cursor-rules
 
-> **ALWAYS provide options, tradeoffs, and recommendations** when answering questions or making suggestions:
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness
 
-# Contributing Workflow Patterns
+# Cursor Rules Structure and Maintenance
 
-## Essential Communication Pattern
+## Subtask Execution Flow
+When working on subtasks:
+- **Complete each subtask fully without pausing for approval** unless the subtask explicitly contains the phrase "PAUSE FOR MANUAL APPROVAL" or similar explicit instructions to stop and ask for approval
+- Follow appropriate structure based on subtask type (see [tdd_requirements.mdc](mdc:.cursor/rules/tdd_requirements.mdc))
+- **Pause only between subtasks** to confirm the next one to work on
+- When you see phrases like "GET APPROVAL FOR DESIGN CHOICES", "PAUSE FOR MANUAL APPROVAL", or similar explicit instructions to stop, pause and ask for approval on those specific items only
+- Never ask for approval on implementation details that aren't marked for approval
 
-**ALWAYS provide options, tradeoffs, and recommendations** when answering questions or making suggestions:
+## Automatic Documentation and Completion
+At the end of each subtask automatically:
+- Add documentation following [documentation.mdc](mdc:.cursor/rules/documentation.mdc) standards
+- Do not remove existing information unless it's incorrect
+- Do not ask for approval on documentation changes
+- Double check all subtask requirements are met
+- If all requirements are met, mark the subtask complete
+- Only ask for help if you can't determine whether requirements are met
 
-- **Options**: Present 2-3 clear alternatives with descriptive names
-- **Tradeoffs**: Explain pros and cons for each option  
-- **Recommendations**: State which option you recommend and why
-- **Discussion**: Wait for response before proceeding to next question
+## Explicit Approval Pauses
+- **If a subtask plan contains 'PAUSE FOR MANUAL APPROVAL' or similar instructions, always pause and request approval at that step, even if general rules say to proceed.**
+- After writing failing tests and a stub, check the subtask plan for required approval points before implementing.
+- Echo the next step and approval checkpoint to the user before proceeding.
+- Summarize required approval points at the start of each subtask.
+- This rule takes precedence over general 'no approval needed' rules.
 
-**Example format:**
-```
-Options:
-- Option A: [Description] 
-  - Tradeoff: [Pro vs Con]
-- Option B: [Description]
-  - Tradeoff: [Pro vs Con]
+## Rule Structure Guidelines
 
-My recommendation: Option A because [reasoning]
-
-What's your preference?
-```
-
-## Communication Style Requirements
-
-- **Ask ONE question at a time** - never present multiple design decisions simultaneously
-- **Provide options with tradeoffs** - present 2-3 options with clear pros/cons analysis
-- **Include recommendations** - always state which option you recommend and why
-- **Discuss before proceeding** - wait for developer response and discussion before moving to next question
-- **Be concise** - avoid lengthy explanations, focus on essential information
-- **Critical answers preferred** - honest assessment over diplomatic responses
-- **Direct communication** - no unnecessary preamble or corporate speak
-- **Concrete language** - specific problems and solutions rather than abstract buzzwords
-
-## Two-Phase Task Creation Workflow
-
-### Phase 1: Create Parent Task
-- Create task file with complete header: ID, Title, Status, Dependencies, Priority, Description
-- Write clear Requirements section (what needs to be accomplished)
-- Add Notes section with any initial context or constraints
-- Include "Design Decisions for Future Consideration" section for open questions
-- **Do NOT create subtasks yet** - leave Subtasks section empty or with placeholder
-- **Search codebase for similar implementations** to understand existing patterns
-- **Verify existing utilities** before planning new functionality
-
-### Phase 2: Design Discussion and Subtask Creation
-- Discuss design decisions [one question at a time](#essential-communication-pattern)
-- Update Notes section with "Design Decisions Made" as choices are finalized
-- Requirements may evolve during design discussions - update them as understanding improves
-- Convert Requirements section to checklist format once requirements are finalized
-- Create detailed subtasks only after design decisions are resolved
-- Add verification checklists to ALL subtasks using "[ ]" format (not "- [ ]")
-- Add "## Task Completion" section with "Final verification: [ ] All requirements above completed"
-
-## File-Based Task Management
-
-### Task Structure Requirements
-- **Requirements Section**: High-level "what" needs to be accomplished
-- **Implementation Strategy Section**: Specific "how" approaches and technical details
-- **Subtask Naming**: [TaskNumber].[SubtaskNumber] (e.g., 53.1, 53.2, 53.3)
-- **Dependencies**: Clear dependency relationships between tasks
-- **Status Management**: Use pending, in-progress, done, deferred, cancelled
-
-### Standard Subtask Types
-Most tasks should include these three boilerplate subtasks:
-1. **Integration Testing** - End-to-end workflow testing plus robust telemetry validation
-2. **Telemetry Verification** - Specific telemetry patterns and metrics validation  
-3. **Documentation Updates** - Update all relevant documentation to reflect changes
-
-## Planning Anti-Patterns to Avoid
-
-- **Making design assumptions** instead of asking the developer
-- **Over-engineering solutions** with unnecessary complexity
-- **Prescriptive implementation details** that lock in approaches too early
-- **Multiple questions at once** instead of one-at-a-time discussion
-- **Guessing at existing functionality** instead of searching codebase
-- **Asking questions answered by preferences** (e.g., "Should we use existing utilities?" - always yes)
-- **Asking questions answered by existing code** (e.g., "What pattern should we follow?" - check similar implementations)
-
-## Core Development Principles
-
-- **Solo OSS developer** valuing simple solutions over complex architectures
-- **Zero users currently** - backwards compatibility is not a concern
-- **MVP-focused** - ship working software rather than pursue architectural perfection
-- **Use existing code when possible** - don't reinvent existing functionality
-- **Follow existing patterns** - maintain consistency with established codebase patterns
-- **Verify assumptions with codebase** - check actual code instead of guessing what exists
-description:
-globs:
-alwaysApply: false
+### Required Rule Structure
+```markdown
 ---
+description: Clear, one-line description of what the rule enforces
+globs: path/to/files/*.ext, other/path/**/*
+alwaysApply: boolean
+---
+
+- **Main Points in Bold**
+  - Sub-points with details
+  - Examples and explanations
+```
+
+### File References
+- Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+- Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+- Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
+
+### Code Examples
+- Use language-specific code blocks
+```typescript
+// ✅ DO: Show good examples
+const goodExample = true;
+
+// ❌ DON'T: Show anti-patterns
+const badExample = false;
+```
+
+### Rule Content Guidelines
+- Start with high-level overview
+- Include specific, actionable requirements
+- Show examples of correct implementation
+- Reference existing code when possible
+- Keep rules DRY by referencing other rules
+
+### Rule Maintenance
+- Update rules when new patterns emerge
+- Add examples from actual codebase
+- Remove outdated patterns
+- Cross-reference related rules
+
+### Best Practices
+- Use bullet points for clarity
+- Keep descriptions concise
+- Include both DO and DON'T examples
+- Reference actual code over theoretical examples
+- Use consistent formatting across rules
+- **Present options as numbered lists**
+  - When offering the user a set of choices, always use numbers (1., 2., 3., etc.) so the user can quickly respond with a number.
+  - This improves response speed and clarity for the user.
+  
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
