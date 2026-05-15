@@ -1,80 +1,88 @@
-## svelte-5-vs-svelte-4-cursorrules-prompt-file
+## svelte
 
-> Cursor rules for comparing Svelte 5 and Svelte 4 development.
+> Svelte best practices and patterns for modern web applications
 
-I'm using svelte 5 instead of svelte 4 here is an overview of the changes.
-# .cursorrules for Svelte 5
+# Svelte Best Practices
 
-## Overview of Changes
+## Component Structure
+- Keep components small and focused
+- Use proper TypeScript integration
+- Implement proper props typing
+- Use proper event dispatching
+- Keep markup clean and readable
+- Use proper slot implementation
 
-Svelte 5 introduces runes, a set of advanced primitives for controlling reactivity. The runes replace certain non-runes features and provide more explicit control over state and effects.
+## Reactivity
+- Use proper reactive declarations
+- Implement proper stores
+- Use proper reactive statements
+- Handle derived values properly
+- Use proper lifecycle functions
+- Implement proper bindings
 
-Snippets, along with render tags, help create reusable chunks of markup inside your components, reducing duplication and enhancing maintainability.
+## State Management
+- Use proper Svelte stores
+- Keep stores modular
+- Use proper derived stores
+- Implement proper actions
+- Handle async state properly
+- Use proper store subscriptions
 
-## Event Handlers in Svelte 5
+## Performance
+- Use proper component lazy loading
+- Implement proper transitions
+- Use proper animations
+- Avoid unnecessary reactivity
+- Use proper event forwarding
+- Implement proper key blocks
 
-In Svelte 5, event handlers are treated as standard HTML properties rather than Svelte-specific directives, simplifying their use and integrating them more closely with the rest of the properties in the component.
+## Routing
+- Use SvelteKit for routing
+- Implement proper layouts
+- Use proper route parameters
+- Handle loading states properly
+- Implement proper error pages
+- Use proper navigation methods
 
-### Svelte 4 vs. Svelte 5:
+## Forms
+- Use proper form bindings
+- Implement proper validation
+- Handle form submission properly
+- Show proper loading states
+- Use proper error handling
+- Implement proper form reset
 
-**Before (Svelte 4):**
-```html
-<script>
-  let count = 0;
-  $: double = count * 2;
-  $: {
-    if (count > 10) alert('Too high!');
-  }
-</script>
-<button on:click={() => count++}> {count} / {double}</button>
-```
+## TypeScript Integration
+- Use proper component types
+- Implement proper prop types
+- Use proper event types
+- Handle proper type inference
+- Use proper store types
+- Implement proper action types
 
-**After (Svelte 5):**
-```html
-<script>
-  // Define state with runes
-  let count = $state(0);
-  
-  // Option 1: Using $derived for computed values
-  let double = $derived(count * 2);
-  
-  // Reactive effects using runes
-  $effect(() => {
-    if (count > 10) alert('Too high!');
-  });
-</script>
+## Testing
+- Write proper unit tests
+- Implement proper component tests
+- Use proper testing libraries
+- Test stores properly
+- Implement proper mocking
+- Test async operations
 
-<!-- Standard HTML event attributes instead of Svelte directives -->
-<button onclick={() => count++}>
-  {count} / {double}
-</button>
+## Best Practices
+- Follow Svelte style guide
+- Use proper naming conventions
+- Keep components organized
+- Implement proper error handling
+- Use proper event handling
+- Document complex logic
 
-<!-- Alternatively, you can compute values inline -->
-<!-- <button onclick={() => count++}>
-  {count} / {count * 2}
-</button> -->
-```
-
-## Key Differences:
-
-1. **Reactivity is Explicit**: 
-   - Svelte 5 uses `$state()` to explicitly mark reactive variables
-   - `$derived()` replaces `$:` for computed values 
-   - `$effect()` replaces `$: {}` blocks for side effects
-
-2. **Event Handling is Standardized**:
-   - Svelte 4: `on:click={handler}`
-   - Svelte 5: `onclick={handler}`
-
-3. **Runes are Compiler Syntax**:
-   - Do not import `$state`, `$derived`, `$effect`, `$props`, `$bindable`, or `$inspect`.
-   - Import only regular Svelte utilities that require imports, such as `tick`, `untrack`, `mount`, or `unmount`.
-
-4. **No More Event Modifiers**:
-   - Svelte 4: `on:click|preventDefault={handler}`
-   - Svelte 5: `onclick={e => { e.preventDefault(); handler(e); }}`
-
-This creates clearer, more maintainable components compared to Svelte 4's previous syntax by making reactivity explicit and using standardized web platform features.
+## Build and Tooling
+- Use Vite for development
+- Configure proper build setup
+- Use proper environment variables
+- Implement proper code splitting
+- Use proper asset handling
+- Configure proper optimization
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
