@@ -1,0 +1,9 @@
+{
+  "name": "works-on-your-machine--womm-skills",
+  "displayName": "womm-skills",
+  "description": "A suite of evolving Claude Code skills for a complete development flow.",
+  "version": "1.0.0",
+  "author": "works-on-your-machine",
+  "homepage": "https://github.com/works-on-your-machine/womm-skills",
+  "skills": []
+}
