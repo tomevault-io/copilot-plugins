@@ -1,0 +1,9 @@
+{
+  "name": "leninug--twitter-comment-pack",
+  "displayName": "twitter-comment-pack",
+  "description": "Self-contained Twitter comment bot \u2014 clone, run wizard, done. Modes: list+lang+style, amplify-own-tweets via list+hashtag, hybrid. Telegram alerts, Windows auto-start.",
+  "version": "1.0.0",
+  "author": "leninug",
+  "homepage": "https://github.com/leninug/twitter-comment-pack",
+  "skills": []
+}
