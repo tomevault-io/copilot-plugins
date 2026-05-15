@@ -1,0 +1,9 @@
+{
+  "name": "rsmets--arcade-foundaudio-toolkit",
+  "displayName": "arcade-foundaudio-toolkit",
+  "description": "Arcade.dev toolkit to interface with https://FoundAudio.club",
+  "version": "1.0.0",
+  "author": "rsmets",
+  "homepage": "https://github.com/rsmets/arcade-foundaudio-toolkit",
+  "skills": []
+}
