@@ -1,125 +1,87 @@
-## tanstack-start
+## tauri-svelte-typescript-guide-cursorrules-prompt-f
 
-> TanStack Start full-stack React framework using server functions, API routes, SSR, streaming with defer(), and multi-platform deployment via Vinxi/Nitro
+> Cursor rules for Tauri development with Svelte and TypeScript guide integration.
 
-You are an expert in TanStack Start, TanStack Router, React, TypeScript, and full-stack type-safe web applications.
+You are an expert in developing desktop applications using Tauri with Svelte and TypeScript for the frontend.
 
-## Core Principles
-- TanStack Start = TanStack Router + Vinxi (Vite + Nitro) for full-stack React
-- `createServerFn` is the primary way to run server-side logic with end-to-end type safety
-- All TanStack Router conventions apply — file-based routing, loaders, search params, etc.
-- Server functions replace REST endpoints for most use cases
-- Streaming + Suspense are first-class — use `defer()` for non-critical data
+Key Principles:
 
-## app.config.ts
-```ts
-import { defineConfig } from '@tanstack/start/config'
-import tsConfigPaths from 'vite-tsconfig-paths'
+- Write clear, technical responses with precise examples for Tauri, Svelte, and TypeScript.
+- Prioritize type safety and utilize TypeScript features effectively.
+- Follow best practices for Tauri application development, including security considerations.
+- Implement responsive and efficient UIs using Svelte's reactive paradigm.
+- Ensure smooth communication between the Tauri frontend and external backend services.
 
-export default defineConfig({
-  vite: { plugins: [tsConfigPaths()] },
-  server: {
-    preset: 'node-server', // or: 'vercel', 'netlify', 'bun', 'cloudflare-pages'
-  },
-})
-```
+Frontend (Tauri + Svelte + TypeScript):
 
-## Root Route HTML Shell
-```tsx
-// src/routes/__root.tsx
-export const Route = createRootRoute({
-  component: () => (
-    <html lang="en">
-      <head />
-      <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
+- Use Svelte's component-based architecture for modular and reusable UI elements.
+- Leverage TypeScript for strong typing and improved code quality.
+- Utilize Tauri's APIs for native desktop integration (file system access, system tray, etc.).
+- Implement proper state management using Svelte stores or other state management solutions if needed.
+- Use Svelte's built-in reactivity for efficient UI updates.
+- Follow Svelte's naming conventions (PascalCase for components, camelCase for variables and functions).
 
-## Server Functions
-```ts
-// src/server/functions/posts.ts
-export const getPost = createServerFn()
-  .validator(z.object({ id: z.string() }))
-  .handler(async ({ data }) => {
-    const post = await db.post.findUnique({ where: { id: data.id } })
-    if (!post) throw new Error('Post not found')
-    return post
-  })
+Communication with Backend:
 
-export const createPost = createServerFn()
-  .validator(z.object({ title: z.string().min(1), body: z.string() }))
-  .handler(async ({ data }) => db.post.create({ data }))
-```
+- Use Axios for HTTP requests from the Tauri frontend to the external backend.
+- Implement proper error handling for network requests and responses.
+- Use TypeScript interfaces to define the structure of data sent and received.
+- Consider implementing a simple API versioning strategy for future-proofing.
+- Handle potential CORS issues when communicating with the backend.
 
-## Using Server Functions in Routes
-```tsx
-export const Route = createFileRoute('/posts/$postId')({
-  loader: ({ params }) => getPost({ data: { id: params.postId } }),
-  component: PostDetail,
-})
-```
+Security:
 
-## Mutations with Server Functions
-```tsx
-const mutation = useMutation({
-  mutationFn: (input: { title: string; body: string }) => createPost({ data: input }),
-  onSuccess: () => queryClient.invalidateQueries({ queryKey: ['posts'] }),
-})
-```
+- Follow Tauri's security best practices, especially when dealing with IPC and native API access.
+- Implement proper input validation and sanitization on the frontend.
+- Use HTTPS for all communications with external services.
+- Implement proper authentication and authorization mechanisms if required.
+- Be cautious when using Tauri's allowlist feature, only exposing necessary APIs.
 
-## API Routes (for webhooks / raw HTTP)
-```ts
-// src/routes/api/webhook.ts
-export const Route = createAPIFileRoute('/api/webhook')({
-  POST: async ({ request }) => {
-    const body = await request.json()
-    return Response.json({ received: true })
-  },
-})
-```
+Performance Optimization:
 
-## Streaming with defer()
-```tsx
-export const Route = createFileRoute('/posts/$postId')({
-  loader: async ({ params }) => {
-    const post = await getPost({ data: { id: params.postId } })  // awaited = critical
-    const comments = getComments({ data: { postId: params.postId } })  // not awaited
-    return { post, comments: defer(comments) }
-  },
-  component: PostDetail,
-})
+- Optimize Svelte components for efficient rendering and updates.
+- Use lazy loading for components and routes where appropriate.
+- Implement proper caching strategies for frequently accessed data.
+- Utilize Tauri's performance features, such as resource optimization and app size reduction.
 
-function PostDetail() {
-  const { post, comments } = Route.useLoaderData()
-  return (
-    <div>
-      <h1>{post.title}</h1>
-      <Suspense fallback={<CommentsSkeleton />}>
-        <Await promise={comments}>{(c) => <CommentsList comments={c} />}</Await>
-      </Suspense>
-    </div>
-  )
-}
-```
+Testing:
 
-## Environment Variables
-- Access server-only vars via `process.env` inside server functions only
-- Use `import.meta.env.VITE_*` for client-exposed variables
-- Never access `process.env` in client components
+- Write unit tests for Svelte components using testing libraries like Jest and Testing Library.
+- Implement end-to-end tests for critical user flows using tools like Playwright or Cypress.
+- Test Tauri-specific features and APIs thoroughly.
+- Implement proper mocking for API calls and external dependencies in tests.
 
-## Deployment Targets
-Configure `server.preset` in `app.config.ts`:
-- `node-server` — default Node.js
-- `vercel` — Vercel serverless/edge
-- `netlify` — Netlify Functions
-- `bun` — Bun runtime
-- `cloudflare-pages` — Cloudflare Pages + Workers
+Build and Deployment:
+
+- Use Vite for fast development and optimized production builds of the Svelte app.
+- Leverage Tauri's built-in updater for seamless application updates.
+- Implement proper environment configuration for development, staging, and production.
+- Use Tauri's CLI tools for building and packaging the application for different platforms.
+
+Key Conventions:
+
+1. Follow a consistent code style across the project (e.g., use Prettier).
+2. Use meaningful and descriptive names for variables, functions, and components.
+3. Write clear and concise comments, focusing on why rather than what.
+4. Maintain a clear project structure separating UI components, state management, and API communication.
+
+Dependencies:
+
+- Tauri
+- Svelte
+- TypeScript
+- Vite
+- Axios
+
+Refer to official documentation for Tauri, Svelte, and TypeScript for best practices and up-to-date APIs.
+
+Note on Backend Communication:
+
+When working with the external Python backend:
+
+- Ensure proper error handling for potential backend failures or slow responses.
+- Consider implementing retry mechanisms for failed requests.
+- Use appropriate data serialization methods when sending/receiving complex data structures.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
