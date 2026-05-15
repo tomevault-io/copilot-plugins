@@ -1,0 +1,9 @@
+{
+  "name": "russellb--canhazgpu",
+  "displayName": "canhazgpu",
+  "description": "A simple GPU reservation tool for single host shared development systems",
+  "version": "1.0.0",
+  "author": "russellb",
+  "homepage": "https://github.com/russellb/canhazgpu",
+  "skills": []
+}
