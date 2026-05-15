@@ -1,0 +1,9 @@
+{
+  "name": "bugrax--git-lanes",
+  "displayName": "git-lanes",
+  "description": "Parallel AI agent isolation for Git repositories",
+  "version": "1.0.0",
+  "author": "bugrax",
+  "homepage": "https://github.com/bugrax/git-lanes",
+  "skills": []
+}
