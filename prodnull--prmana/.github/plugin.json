@@ -1,0 +1,9 @@
+{
+  "name": "prodnull--prmana",
+  "displayName": "prmana",
+  "description": "OIDC SSH login for Linux with DPoP \u2014 replace static SSH keys with IdP-issued tokens, no gateway",
+  "version": "1.0.0",
+  "author": "prodnull",
+  "homepage": "https://github.com/prodnull/prmana",
+  "skills": []
+}
