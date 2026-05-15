@@ -1,0 +1,9 @@
+{
+  "name": "dimplesy--fastapi-ai-starter",
+  "displayName": "fastapi-ai-starter",
+  "description": "\ud83d\ude80 \u73b0\u4ee3\u5316 FastAPI \u9879\u76ee\u6a21\u677f | Modern FastAPI template with Celery + PostgreSQL + Redis + Docker. Production-ready starter kit.",
+  "version": "1.0.0",
+  "author": "DimplesY",
+  "homepage": "https://github.com/DimplesY/fastapi-ai-starter",
+  "skills": []
+}
