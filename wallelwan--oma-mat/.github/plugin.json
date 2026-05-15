@@ -1,0 +1,9 @@
+{
+  "name": "wallelwan--oma-mat",
+  "displayName": "OMA-MAT",
+  "description": "[ICLR 2026] Online Navigation Refinement: Achieving Lane-Level Guidance by Associating Standard-Definition and Online Perception Maps",
+  "version": "1.0.0",
+  "author": "WallelWan",
+  "homepage": "https://github.com/WallelWan/OMA-MAT",
+  "skills": []
+}
