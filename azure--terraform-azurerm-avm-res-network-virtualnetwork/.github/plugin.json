@@ -1,0 +1,9 @@
+{
+  "name": "azure--terraform-azurerm-avm-res-network-virtualnetwork",
+  "displayName": "terraform-azurerm-avm-res-network-virtualnetwork",
+  "description": "Terraform Azure Verified Resource Module for Virtual Network",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/terraform-azurerm-avm-res-network-virtualnetwork",
+  "skills": []
+}
