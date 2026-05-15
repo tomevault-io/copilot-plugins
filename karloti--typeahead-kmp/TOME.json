@@ -1,0 +1,44 @@
+{
+  "name": "typeahead-kmp",
+  "owner": "karloti",
+  "repo": "typeahead-kmp",
+  "description": "A lock-free, in-memory fuzzy search engine for Kotlin Multiplatform. L2-normalized sparse vector embeddings with O(1) cosine similarity \u2014 handles typos, transpositions, and blind continuation. Zero-allocation search via         primitive arrays, reactive StateFlow results, and instant cold-start via JSONL import/export.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/karloti/typeahead-kmp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T17:46:19Z"
+}
