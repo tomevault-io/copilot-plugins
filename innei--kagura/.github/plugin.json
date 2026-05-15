@@ -1,0 +1,9 @@
+{
+  "name": "innei--kagura",
+  "displayName": "Kagura",
+  "description": "A divine dance of AI in Slack \u2014 Kagura runs Claude Agent SDK and OpenAI Codex CLI natively in your workspace with thread-aware context, streaming UX, and persistent memory.",
+  "version": "1.0.0",
+  "author": "Innei",
+  "homepage": "https://github.com/Innei/Kagura",
+  "skills": []
+}
