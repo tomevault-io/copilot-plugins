@@ -1,0 +1,9 @@
+{
+  "name": "neftedollar--fsmcp",
+  "displayName": "FsMcp",
+  "description": "FsMcp is an idiomatic F# toolkit for building Model Context Protocol (MCP) servers and clients with type safety, computation expressions, and zero boilerplate.",
+  "version": "1.0.0",
+  "author": "Neftedollar",
+  "homepage": "https://github.com/Neftedollar/FsMcp",
+  "skills": []
+}
