@@ -1,0 +1,9 @@
+{
+  "name": "agiflow--claude-code-prompt-analysis",
+  "displayName": "claude-code-prompt-analysis",
+  "description": "Analyze the difference between Agents, Skills, Commands and Styles",
+  "version": "1.0.0",
+  "author": "AgiFlow",
+  "homepage": "https://github.com/AgiFlow/claude-code-prompt-analysis",
+  "skills": []
+}
