@@ -1,0 +1,9 @@
+{
+  "name": "daynin--nano-context",
+  "displayName": "nano-context",
+  "description": "A tiny pi.dev extension that replaces the default context meter with a compact segmented bar under the editor",
+  "version": "1.0.0",
+  "author": "daynin",
+  "homepage": "https://github.com/daynin/nano-context",
+  "skills": []
+}
