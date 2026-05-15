@@ -1,0 +1,9 @@
+{
+  "name": "celestiaorg--celestia-app-fibre",
+  "displayName": "celestia-app-fibre",
+  "description": "Celestia consensus node",
+  "version": "1.0.0",
+  "author": "celestiaorg",
+  "homepage": "https://github.com/celestiaorg/celestia-app-fibre",
+  "skills": []
+}
