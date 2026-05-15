@@ -7,11 +7,11 @@ ACM算法题目生成和验证系统，支持自然语言提示生成完整的�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LastZeroAgent/ACMFlow](https://github.com/LastZeroAgent/ACMFlow).
+Original source: `CLAUDE.md` in [LastZeroAgent/ACMFlow](https://github.com/LastZeroAgent/ACMFlow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
