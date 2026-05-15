@@ -4,7 +4,7 @@
   "repo": "rune-admin",
   "description": "Infrastructure & Team Management for Rune-Vault",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CryptoLabInc/rune-admin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T01:05:53Z"
+  "distributed_at": "2026-05-15T19:41:14Z"
 }
