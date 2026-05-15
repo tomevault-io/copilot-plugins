@@ -1,0 +1,9 @@
+{
+  "name": "destrayon--connapse",
+  "displayName": "Connapse",
+  "description": "Open-source, self-hosted knowledge backend for AI agents \u2014 hybrid search (vector + keyword), MCP server, 5 connectors, Docker-ready",
+  "version": "1.0.0",
+  "author": "Destrayon",
+  "homepage": "https://github.com/Destrayon/Connapse",
+  "skills": []
+}
