@@ -1,0 +1,9 @@
+{
+  "name": "appspace--kwwhat",
+  "displayName": "kwwhat",
+  "description": "data analytics (dbt) models for EV charging \u2014 from OCPP logs to automated reliability/utilization reporting",
+  "version": "1.0.0",
+  "author": "appspace",
+  "homepage": "https://github.com/appspace/kwwhat",
+  "skills": []
+}
