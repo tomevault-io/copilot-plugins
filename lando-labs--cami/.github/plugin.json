@@ -1,0 +1,9 @@
+{
+  "name": "lando-labs--cami",
+  "displayName": "cami",
+  "description": "Claude Agent Management Interface - Agent deployment and management system",
+  "version": "1.0.0",
+  "author": "lando-labs",
+  "homepage": "https://github.com/lando-labs/cami",
+  "skills": []
+}
