@@ -1,0 +1,9 @@
+{
+  "name": "brianlovin--letterboxd-notion-sync",
+  "displayName": "letterboxd-notion-sync",
+  "description": "Sync your Letterboxd diary and watchlist into a Notion database",
+  "version": "1.0.0",
+  "author": "brianlovin",
+  "homepage": "https://github.com/brianlovin/letterboxd-notion-sync",
+  "skills": []
+}
