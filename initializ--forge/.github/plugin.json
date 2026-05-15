@@ -1,0 +1,9 @@
+{
+  "name": "initializ--forge",
+  "displayName": "forge",
+  "description": "Forge - OpenClaw for Enterprise: Forge is a secure, portable AI Agent runtime. Run agents locally, in cloud, or enterprise environments without exposing inbound tunnels.",
+  "version": "1.0.0",
+  "author": "initializ",
+  "homepage": "https://github.com/initializ/forge",
+  "skills": []
+}
