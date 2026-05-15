@@ -1,0 +1,9 @@
+{
+  "name": "qianfree--team-api",
+  "displayName": "team-api",
+  "description": "Team-API \u4e13\u4e3a\u56e2\u961f\u3001\u7ec4\u7ec7\u3001\u4f01\u4e1a\u6253\u9020\u7684\u591a\u79df\u6237\u5927\u6a21\u578b API\u7f51\u5173\u3002 \u5177\u5907\u5b8c\u6574\u6743\u9650\u7ba1\u7406\u4e0e\u5ba1\u8ba1\u80fd\u529b\uff0c\u52a9\u529b\u56e2\u961f\u66f4\u597d\u5730\u4f7f\u7528AI\u5927\u6a21\u578b\u3002QQ\u4ea4\u6d41\u7fa4\uff1a1095286563",
+  "version": "1.0.0",
+  "author": "qianfree",
+  "homepage": "https://github.com/qianfree/team-api",
+  "skills": []
+}
