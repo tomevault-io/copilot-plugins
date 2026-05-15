@@ -1,0 +1,85 @@
+## transcriptdebugmenu
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+TranscriptDebugMenu is a SwiftUI library for inspecting `LanguageModelSession` transcripts in Apple Intelligence applications. It provides a debug interface to view, search, and copy transcript entries, display approximate token counts, as well as generate feedback for Apple's Feedback Assistant.
+
+## Build and Development Commands
+
+### Documentation
+- **Build documentation**: `./build-docc.sh` - Generates static documentation site in `docs/` directory using Swift Package Manager's DocC plugin
+- **Preview documentation**: `./preview-docc.sh` - Opens live preview of DocC documentation in Xcode
+
+### Swift Package Manager
+- **Build**: `swift build`
+- **Test**: `swift test` (if tests are added)
+- **Clean**: `swift package clean`
+
+### Xcode
+- Open `Example/TranscriptDebugMenuExample.xcodeproj` to run the example app
+- The library targets iOS 26+, macOS 26+, visionOS 26+, and macCatalyst 26+
+- Requires Swift 6.0+ and Xcode 26.0
+
+## Architecture
+
+### Core Components
+
+**TranscriptDebugMenu.swift** (`Sources/TranscriptDebugMenu/TranscriptDebugMenu.swift:41`)
+- Main SwiftUI view that displays `LanguageModelSession` transcripts
+- Features search functionality with scoped filtering by entry type
+- Provides context menu for copying entries
+- Displays approximate token counts in navigation subtitle (~X tokens)
+- Includes sentiment feedback (positive/negative) and generates `LanguageModelFeedback` JSON for Apple
+
+**TranscriptEntryDetailView.swift** (`Sources/TranscriptDebugMenu/TranscriptEntryDetailView.swift:9`)
+- Detail view for individual transcript entries
+- Shows structured content for different entry types (instructions, prompts, tool calls, etc.)
+- Displays individual entry token counts in navigation subtitle
+- Provides copy functionality for detailed entry inspection
+
+**TokenCounter.swift** (`Sources/TranscriptDebugMenu/TokenCounter.swift`)
+- Uses `SystemLanguageModel.tokenUsage(for:)` API (iOS 26.4+) for accurate token counts
+- Provides `formattedCount(for:)` async helper used by both main and detail views
+- Handles errors via OSLog logger
+
+**View+TranscriptDebugMenu.swift** (`Sources/TranscriptDebugMenu/View+TranscriptDebugMenu.swift:37`)
+- SwiftUI view modifier that presents the debug menu as a sheet
+- Primary API for integrating the library into SwiftUI apps
+
+**SearchScope.swift** (`Sources/TranscriptDebugMenu/SearchScope.swift:5`)
+- Enum defining filter scopes for transcript entries: all, instructions, prompt, response, toolCalls, toolOutput
+- Uses emoji symbols for compact UI representation
+
+### Key Dependencies
+- **FoundationModels**: Core framework for `LanguageModelSession`, `Transcript.Entry`, and `LanguageModelFeedback`
+- **SwiftUI**: UI framework
+- **OSLog**: Logging for error handling
+- **UIKit/AppKit**: Platform-specific clipboard operations
+
+### Entry Points
+- `.transcriptDebugMenu(session, isPresented:)` - Primary API for presenting the debug menu
+- `TranscriptDebugMenu(session:)` - Direct view initialization
+
+## Development Patterns
+
+### Search Implementation
+The search functionality filters entries by type (using `SearchScope`) and then by text content. All filtering happens in the computed `entries` property.
+
+### Token Counting
+The library uses `SystemLanguageModel.tokenUsage(for:)` (iOS 26.4+) for accurate token counts. Token fetching is async and shared via `TokenCounter.formattedCount(for:)`.
+
+### Cross-Platform Support
+Uses conditional compilation (`#if canImport(UIKit)` / `#elseif canImport(AppKit)`) for clipboard operations across iOS/macOS platforms.
+
+### Documentation
+The project uses DocC for documentation with tutorials and code examples in `Sources/TranscriptDebugMenu/Documentation.docc/`.
+
+---
+> Source: [artemnovichkov/TranscriptDebugMenu](https://github.com/artemnovichkov/TranscriptDebugMenu) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
