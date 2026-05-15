@@ -1,0 +1,9 @@
+{
+  "name": "cncf--maintainer-d",
+  "displayName": "maintainer-d",
+  "description": "CNCF Internal (Staff Only) interim prototype managing CNCF Project Maintainers access to services centralises project data for the CNCF",
+  "version": "1.0.0",
+  "author": "cncf",
+  "homepage": "https://github.com/cncf/maintainer-d",
+  "skills": []
+}
