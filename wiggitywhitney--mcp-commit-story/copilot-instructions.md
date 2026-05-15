@@ -1,58 +1,99 @@
-## clean-code-priority
+## contributing-workflow
 
-> Prioritize clean code and maintainability over backwards compatibility since there are no external users
+> **ALWAYS provide options, tradeoffs, and recommendations** when answering questions or making suggestions:
 
+# Contributing Workflow Patterns
 
-## Clean Code Over Backwards Compatibility
+## Essential Communication Pattern
 
-**This project has no external users - prioritize code quality over compatibility.**
+**ALWAYS provide options, tradeoffs, and recommendations** when answering questions or making suggestions:
 
-- **Breaking Changes Are Acceptable**
-  - Refactor freely to improve code structure
-  - Remove deprecated patterns without transition periods
-  - Rename functions, classes, and modules for clarity
-  - Change APIs to be more intuitive or consistent
+- **Options**: Present 2-3 clear alternatives with descriptive names
+- **Tradeoffs**: Explain pros and cons for each option  
+- **Recommendations**: State which option you recommend and why
+- **Discussion**: Wait for response before proceeding to next question
 
-- **Code Quality Principles**
-  - **DRY (Don't Repeat Yourself)**: Remove duplicate code aggressively
-  - **KISS (Keep It Simple, Stupid)**: Simplify complex implementations
-  - **Single Responsibility**: Split overly complex functions/classes
-  - **Clear Naming**: Use descriptive names even if it requires breaking changes
+**Example format:**
+```
+Options:
+- Option A: [Description] 
+  - Tradeoff: [Pro vs Con]
+- Option B: [Description]
+  - Tradeoff: [Pro vs Con]
 
-- **Refactoring Guidelines**
-  - Remove dead code immediately rather than deprecating
-  - Consolidate similar functions into cleaner interfaces
-  - Extract common patterns into reusable utilities
-  - Fix import paths and module organization without compatibility layers
+My recommendation: Option A because [reasoning]
 
-- **Examples of Clean Code Priority**
-  ```python
-  # ✅ DO: Clean, direct approach
-  from mcp_commit_story.journal_generate import generate_summary_section
-  
-  # ❌ DON'T: Backwards compatibility shims
-  # Re-export old function names "for compatibility"
-  from mcp_commit_story.journal import old_function_name as generate_summary_section
-  ```
+What's your preference?
+```
 
-- **When This Rule Applies**
-  - **Always** - until the project has external users
-  - During refactoring and code organization
-  - When fixing import paths and module structure
-  - When consolidating duplicate functionality
+## Communication Style Requirements
 
-- **When To Reconsider**
-  - Once external users depend on the APIs
-  - When the project reaches stable release (1.0+)
-  - If breaking changes would affect documented public interfaces
+- **Ask ONE question at a time** - never present multiple design decisions simultaneously
+- **Provide options with tradeoffs** - present 2-3 options with clear pros/cons analysis
+- **Include recommendations** - always state which option you recommend and why
+- **Discuss before proceeding** - wait for developer response and discussion before moving to next question
+- **Be concise** - avoid lengthy explanations, focus on essential information
+- **Critical answers preferred** - honest assessment over diplomatic responses
+- **Direct communication** - no unnecessary preamble or corporate speak
+- **Concrete language** - specific problems and solutions rather than abstract buzzwords
 
-- **Implementation Strategy**
-  - Make changes in focused commits for easy tracking
-  - Update all references systematically in the same change
-  - Remove old patterns completely rather than leaving them
-  - Prioritize readability and maintainability in all decisions
+## Two-Phase Task Creation Workflow
 
-**Remember**: Clean, maintainable code is more valuable than compatibility when there are no users to break.
+### Phase 1: Create Parent Task
+- Create task file with complete header: ID, Title, Status, Dependencies, Priority, Description
+- Write clear Requirements section (what needs to be accomplished)
+- Add Notes section with any initial context or constraints
+- Include "Design Decisions for Future Consideration" section for open questions
+- **Do NOT create subtasks yet** - leave Subtasks section empty or with placeholder
+- **Search codebase for similar implementations** to understand existing patterns
+- **Verify existing utilities** before planning new functionality
+
+### Phase 2: Design Discussion and Subtask Creation
+- Discuss design decisions [one question at a time](#essential-communication-pattern)
+- Update Notes section with "Design Decisions Made" as choices are finalized
+- Requirements may evolve during design discussions - update them as understanding improves
+- Convert Requirements section to checklist format once requirements are finalized
+- Create detailed subtasks only after design decisions are resolved
+- Add verification checklists to ALL subtasks using "[ ]" format (not "- [ ]")
+- Add "## Task Completion" section with "Final verification: [ ] All requirements above completed"
+
+## File-Based Task Management
+
+### Task Structure Requirements
+- **Requirements Section**: High-level "what" needs to be accomplished
+- **Implementation Strategy Section**: Specific "how" approaches and technical details
+- **Subtask Naming**: [TaskNumber].[SubtaskNumber] (e.g., 53.1, 53.2, 53.3)
+- **Dependencies**: Clear dependency relationships between tasks
+- **Status Management**: Use pending, in-progress, done, deferred, cancelled
+
+### Standard Subtask Types
+Most tasks should include these three boilerplate subtasks:
+1. **Integration Testing** - End-to-end workflow testing plus robust telemetry validation
+2. **Telemetry Verification** - Specific telemetry patterns and metrics validation  
+3. **Documentation Updates** - Update all relevant documentation to reflect changes
+
+## Planning Anti-Patterns to Avoid
+
+- **Making design assumptions** instead of asking the developer
+- **Over-engineering solutions** with unnecessary complexity
+- **Prescriptive implementation details** that lock in approaches too early
+- **Multiple questions at once** instead of one-at-a-time discussion
+- **Guessing at existing functionality** instead of searching codebase
+- **Asking questions answered by preferences** (e.g., "Should we use existing utilities?" - always yes)
+- **Asking questions answered by existing code** (e.g., "What pattern should we follow?" - check similar implementations)
+
+## Core Development Principles
+
+- **Solo OSS developer** valuing simple solutions over complex architectures
+- **Zero users currently** - backwards compatibility is not a concern
+- **MVP-focused** - ship working software rather than pursue architectural perfection
+- **Use existing code when possible** - don't reinvent existing functionality
+- **Follow existing patterns** - maintain consistency with established codebase patterns
+- **Verify assumptions with codebase** - check actual code instead of guessing what exists
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
