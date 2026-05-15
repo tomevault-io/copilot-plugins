@@ -1,0 +1,9 @@
+{
+  "name": "xixu-me--tzst",
+  "displayName": "tzst",
+  "description": "Python 3.12+ library and CLI for creating, extracting, listing, and testing .tzst and .tar.zst archives",
+  "version": "1.0.0",
+  "author": "xixu-me",
+  "homepage": "https://github.com/xixu-me/tzst",
+  "skills": []
+}
