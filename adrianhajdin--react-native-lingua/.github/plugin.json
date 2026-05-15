@@ -1,0 +1,9 @@
+{
+  "name": "adrianhajdin--react-native-lingua",
+  "displayName": "react-native-lingua",
+  "description": "React Native Duolingo clone with a real-time AI voice teacher. Built with Expo, Stream Voice Agents, Clerk auth, and NativeWind for a complete, interactive mobile learning experience.",
+  "version": "1.0.0",
+  "author": "adrianhajdin",
+  "homepage": "https://github.com/adrianhajdin/react-native-lingua",
+  "skills": []
+}
