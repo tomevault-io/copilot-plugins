@@ -1,0 +1,9 @@
+{
+  "name": "smythp--tine",
+  "displayName": "tine",
+  "description": "Drive a GNOME Wayland desktop from AI agents. CLI-first, no portals, no consent dialogs.",
+  "version": "1.0.0",
+  "author": "smythp",
+  "homepage": "https://github.com/smythp/tine",
+  "skills": []
+}
