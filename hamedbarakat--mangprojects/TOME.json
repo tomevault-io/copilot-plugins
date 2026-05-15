@@ -4,7 +4,7 @@
   "repo": "mangprojects",
   "description": "Flutter app for managing engineering projects with Firestore database",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HamedBarakat/mangprojects",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T05:02:38Z"
+  "distributed_at": "2026-05-15T08:11:11Z"
 }
