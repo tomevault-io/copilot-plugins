@@ -53764,6 +53764,11 @@
       "description": "Wraps Blockscout APIs and exposes blockchain data by Model Context Protocol"
     },
     {
+      "name": "jonathan-vella--azure-agentic-infraops-accelerator",
+      "source": "./jonathan-vella--azure-agentic-infraops-accelerator",
+      "description": "Starter template for APEX. Contains custom Copilot agents, Azure Pricing MCP server, and an orchestrated multi-step workflow. Auto-syncs from the main repository."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -57107,6 +57112,11 @@
       "name": "paiml--bashrs",
       "source": "./paiml--bashrs",
       "description": "Bashrs: Rust-to-Shell Transpiler for Deterministic Bootstrap Scripts"
+    },
+    {
+      "name": "matthewp--countcachula",
+      "source": "./matthewp--countcachula",
+      "description": "cache-first library"
     },
     {
       "name": "rajjjaryan--career-copilot",
@@ -60867,6 +60877,11 @@
       "name": "igorganapolsky--trading",
       "source": "./igorganapolsky--trading",
       "description": "Paper-first SPY options validation platform with broker-backed scorecards, hard risk gates, paired-trade accounting, and live dashboards."
+    },
+    {
+      "name": "positron-solutions--mutate",
+      "source": "./positron-solutions--mutate",
+      "description": "\u00b5Tate - MuTating music visualizer - Rust + Vulkan & Slang"
     },
     {
       "name": "navikt--cplt",
@@ -64664,6 +64679,11 @@
       "description": "FPGA design toolkit with templates and standard modules"
     },
     {
+      "name": "chongzixuan-ai--mcp-server-website",
+      "source": "./chongzixuan-ai--mcp-server-website",
+      "description": "Quickly screenshots webpages and converts to an LLM friendly size"
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -67754,6 +67774,11 @@
       "description": "toolbox"
     },
     {
+      "name": "leegonzales--aiskills",
+      "source": "./leegonzales--aiskills",
+      "description": "Skills to pay the AI bills"
+    },
+    {
       "name": "shanraisshan--gemini-cli-best-practice",
       "source": "./shanraisshan--gemini-cli-best-practice",
       "description": "from vibe coding to agentic engineering - practice makes gemini perfect"
@@ -70762,6 +70787,16 @@
       "name": "bytedreamer--dotnetframeworkmcp",
       "source": "./bytedreamer--dotnetframeworkmcp",
       "description": "DotNetFrameworkMCP"
+    },
+    {
+      "name": "hxsltim--gamelink",
+      "source": "./hxsltim--gamelink",
+      "description": "GameLink \u662f\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684\u6e38\u620f\u966a\u73a9\u7ba1\u7406\u5e73\u53f0\uff0c\u91c7\u7528 Go \u540e\u7aef + React \u524d\u7aef\u7684\u67b6\u6784\uff0c\u4e3a\u6e38\u620f\u966a\u73a9\u670d\u52a1\u63d0\u4f9b\u9ad8\u6548\u7684\u8ba2\u5355\u5206\u53d1\u3001\u7528\u6237\u7ba1\u7406\u548c\u966a\u73a9\u5e08\u7ba1\u7406\u529f\u80fd\u3002  \u6838\u5fc3\u529f\u80fd \ud83c\udfaf \u667a\u80fd\u8ba2\u5355\u5206\u53d1 - \u81ea\u52a8\u5339\u914d\u7528\u6237\u4e0e\u966a\u73a9\u5e08\uff0c\u652f\u6301\u62a2\u5355\u6c60\u548c\u5ba2\u670d\u6307\u6d3e \ud83d\udc65 \u591a\u89d2\u8272\u7ba1\u7406 - \u7528\u6237/\u966a\u73a9\u5e08/\u7ba1\u7406\u5458\u6743\u9650\u4f53\u7cfb \ud83d\udcac \u5b9e\u65f6\u901a\u8baf - WebSocket \u5373\u65f6\u901a\u8baf\uff0c\u652f\u6301\u7fa4\u804a\u548c\u79c1\u804a \ud83d\udcb3 \u5b8c\u6574\u652f\u4ed8 - \u8ba2\u5355\u652f\u4ed8\u3001\u9000\u6b3e\u3001\u6536\u76ca\u7ed3\u7b97\u4e00\u4f53\u5316 "
+    },
+    {
+      "name": "ryoppippi--nvim-in-the-loop",
+      "source": "./ryoppippi--nvim-in-the-loop",
+      "description": "Human-in-the-loop playground for the talk \u201cAI-Optimised Vim Keybindings: HCI-Driven HITL Interfaces\u201d."
     },
     {
       "name": "lucianaib0318--geomind",
@@ -74709,6 +74744,11 @@
       "description": "Stop AI coding disasters before they cost you weeks. Real-time anti-pattern detection for vibe coders who love AI tools but need a safety net to avoid expensive overengineering traps."
     },
     {
+      "name": "valtiojs--valtio-y",
+      "source": "./valtiojs--valtio-y",
+      "description": "Two-way sync between Valtio proxies and Yjs CRDTs"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -77959,6 +77999,16 @@
       "description": "Independent open-source client library for Agno agents"
     },
     {
+      "name": "gurenjs--guren",
+      "source": "./gurenjs--guren",
+      "description": "Guren is a Bun-native TypeScript MVC framework that unites Laravel-like ergonomics with Hono, Inertia.js, React, and Drizzle ORM, aiming to deliver a fast, elegant full-stack workflow that keeps front"
+    },
+    {
+      "name": "optima-chat--cc-best-practice",
+      "source": "./optima-chat--cc-best-practice",
+      "description": "AI Native \u5f00\u53d1\u6700\u4f73\u5b9e\u8df5"
+    },
+    {
       "name": "nirholas--auto-kill-terminal",
       "source": "./nirholas--auto-kill-terminal",
       "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon"
@@ -79892,6 +79942,16 @@
       "name": "0x524a--onvif-go",
       "source": "./0x524a--onvif-go",
       "description": "Modern Go library for ONVIF IP camera integration - Control surveillance cameras with PTZ, streaming, imaging. Client & Server implementation. Works with Hikvision, Axis, Dahua, Bosch cameras or any O"
+    },
+    {
+      "name": "imaimai17468--docdd",
+      "source": "./imaimai17468--docdd",
+      "description": "Document Drivien Development"
+    },
+    {
+      "name": "abo896--obsidian-university-workflow",
+      "source": "./abo896--obsidian-university-workflow",
+      "description": "A powerful, context-aware Templater system for university students using Obsidian."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -82202,6 +82262,11 @@
       "name": "bsubio--cli",
       "source": "./bsubio--cli",
       "description": "CLI for https://www.bsub.io"
+    },
+    {
+      "name": "agiletec-inc--mindbase",
+      "source": "./agiletec-inc--mindbase",
+      "description": "AI Conversation Knowledge Management - PostgreSQL + pgvector + Ollama (Free, Local, Open Source)"
     },
     {
       "name": "13point5--agent-canvas",
@@ -86899,6 +86964,11 @@
       "description": "\u7535\u529b\u4ea4\u6613\u8f85\u52a9\u51b3\u7b56\u7cfb\u7edfWEB\u7aef\u5e94\u7528"
     },
     {
+      "name": "rekordcloud--openkeyscan-analyzer",
+      "source": "./rekordcloud--openkeyscan-analyzer",
+      "description": "openkeyscan-analyzer"
+    },
+    {
       "name": "claude-php--claude-php-agent",
       "source": "./claude-php--claude-php-agent",
       "description": "Claude PHP Agents Framework"
@@ -89247,6 +89317,11 @@
       "name": "aberoham--fumitm",
       "source": "./aberoham--fumitm",
       "description": "Script to automatically verify and fix MITM TLS distrust issues"
+    },
+    {
+      "name": "notmyself--claude-stack-dotnet",
+      "source": "./notmyself--claude-stack-dotnet",
+      "description": "An full stack example"
     },
     {
       "name": "mohiwalla--memes",
@@ -95204,6 +95279,16 @@
       "description": "Mezon Python SDK for realtime messaging and APIs"
     },
     {
+      "name": "stephendolan--omnifocus-cli",
+      "source": "./stephendolan--omnifocus-cli",
+      "description": "A command-line interface for OmniFocus on macOS"
+    },
+    {
+      "name": "claude-market--marketplace",
+      "source": "./claude-market--marketplace",
+      "description": "Open source, hand-curated marketplace for Claude Code tools, agents and skills."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -98552,6 +98637,26 @@
       "name": "sf-zhou--ruapc",
       "source": "./sf-zhou--ruapc",
       "description": "A high-performance Rust RPC library that supports multiple transport protocols (TCP, WebSocket, HTTP, RDMA) with unified API, and OpenAPI integration."
+    },
+    {
+      "name": "mlcommons--endpoints",
+      "source": "./mlcommons--endpoints",
+      "description": "MLCommons Inference Endpoints repository"
+    },
+    {
+      "name": "johannhartmann--mcpcodeanalysis",
+      "source": "./johannhartmann--mcpcodeanalysis",
+      "description": "A code understanding MCP server. Let's see if we can use it to refactor code."
+    },
+    {
+      "name": "rrnewton--minibeads",
+      "source": "./rrnewton--minibeads",
+      "description": "WIP: A minimalist drop-in replacement for steveyegge/beads"
+    },
+    {
+      "name": "jtdowney--distronomicon",
+      "source": "./jtdowney--distronomicon",
+      "description": "Linux tool that checks GitHub for repository releases and performs automatic updates"
     },
     {
       "name": "lightninglabs--lnget",
@@ -102772,6 +102877,36 @@
       "name": "azure--terraform-azurerm-avm-res-network-virtualnetwork",
       "source": "./azure--terraform-azurerm-avm-res-network-virtualnetwork",
       "description": "Terraform Azure Verified Resource Module for Virtual Network"
+    },
+    {
+      "name": "marclove--llmc",
+      "source": "./marclove--llmc",
+      "description": "AI-powered commit message generator that follows Conventional Commits specification. Simply run npx llmc and it will automatically generate a commit message from your staged changes and commit them fo"
+    },
+    {
+      "name": "librick--uplift-ble",
+      "source": "./librick--uplift-ble",
+      "description": "uplift-ble"
+    },
+    {
+      "name": "bgrins--the-zoo",
+      "source": "./bgrins--the-zoo",
+      "description": "the_zoo"
+    },
+    {
+      "name": "vegedon--open-computer-use",
+      "source": "./vegedon--open-computer-use",
+      "description": "\ud83d\udcbb Control AI agents to automate tasks on computers, enabling true autonomy with browser, terminal, and desktop interaction. Perfect for developers."
+    },
+    {
+      "name": "wordflowlab--storyboardify",
+      "source": "./wordflowlab--storyboardify",
+      "description": "\u5206\u955c\u4e0e\u5236\u4f5c\u5305\u5de5\u5177"
+    },
+    {
+      "name": "akirose--glm-proxy",
+      "source": "./akirose--glm-proxy",
+      "description": "GLM 4.x tool call proxy"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -116359,6 +116494,316 @@
       "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
     },
     {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "workwithafridi--immich-tv",
+      "source": "./workwithafridi--immich-tv",
+      "description": "immich-tv"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "martintrojer--jj-fugitive",
+      "source": "./martintrojer--jj-fugitive",
+      "description": "A Neovim plugin that brings vim-fugitive-style version control integration for Jujutsu (jj)."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "akfaiz--migris",
+      "source": "./akfaiz--migris",
+      "description": "Database migration library for Go with fluent schema builder and multi-database support"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "nhiroyasu--swiftgltf",
+      "source": "./nhiroyasu--swiftgltf",
+      "description": "Project to make 3D models from glTF files available in Swift and renderable in Metal"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "82deutschmark--arc-explainer",
+      "source": "./82deutschmark--arc-explainer",
+      "description": "ARC-AGI Prize Explainer (Includes ARC-AGI-3!)"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "kpritam--gremlin-mcp",
+      "source": "./kpritam--gremlin-mcp",
+      "description": " MCP server for Gremlin graph databases - Connect AI agents like Claude to TinkerPop, Neptune & more. Natural language   graph queries & analysis."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "b-mehta--polychromatic",
+      "source": "./b-mehta--polychromatic",
+      "description": "Polychromatic"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "entrepeneur4lyf--codeforge",
+      "source": "./entrepeneur4lyf--codeforge",
+      "description": "AI-powered coding assistant that provides intelligent, adaptive code assistance through comprehensive LLM support."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "mumez--pharosmalltalkinteropserver",
+      "source": "./mumez--pharosmalltalkinteropserver",
+      "description": "API server that bridges Pharo Smalltalk environments with external tools"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "ifrederico--accessible-web-widget",
+      "source": "./ifrederico--accessible-web-widget",
+      "description": "Script-tag accessibility preference widget with optional axe-core-powered dev checks."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "nezteb--telemetry-driven-development",
+      "source": "./nezteb--telemetry-driven-development",
+      "description": "My ElixirConf US 2025 talk"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "igmarin--rails-ai-bridge",
+      "source": "./igmarin--rails-ai-bridge",
+      "description": "Give AI assistants deep, live knowledge of your Rails app via MCP"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "anshuman008--zero-block-sniper",
+      "source": "./anshuman008--zero-block-sniper",
+      "description": "zero-block-sniper"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "metallegbob--drfraudsworth",
+      "source": "./metallegbob--drfraudsworth",
+      "description": "Dr. Fraudsworth's Finance Factory - A Solana DeFi protocol with tax-driven yield mechanics"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "matter-labs--zksync-os-server",
+      "source": "./matter-labs--zksync-os-server",
+      "description": "New server implementation for zksync-os"
+    },
+    {
+      "name": "openipc--waybeam-venc",
+      "source": "./openipc--waybeam-venc",
+      "description": "Standalone Video Encoder & Streamer for FPV"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "cbusillo--jetbrains-inspection-api",
+      "source": "./cbusillo--jetbrains-inspection-api",
+      "description": "jetbrains-inspection-api"
+    },
+    {
+      "name": "paulrobello--parsidion",
+      "source": "./paulrobello--parsidion",
+      "description": "Claude Code customization toolkit \u2014 skills, agents, and hook scripts"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "neo4j-partners--neo4j-kubernetes-operator",
+      "source": "./neo4j-partners--neo4j-kubernetes-operator",
+      "description": "The Neo4j Kuberenetes Operator automates the deployment and management of Neo4j Enterprise Edition."
+    },
+    {
+      "name": "sarveshsea--m-moire",
+      "source": "./sarveshsea--m-moire",
+      "description": "Shadcn-native Design CI for Tailwind apps: export registries that work with shadcn, v0, AI editors, and npm."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "bihua-university--alisten-ui",
+      "source": "./bihua-university--alisten-ui",
+      "description": "alisten-ui"
+    },
+    {
+      "name": "fab679--graphmind",
+      "source": "./fab679--graphmind",
+      "description": "A distributed open source property graph database that is AI focused."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "aman245002--funnel2",
+      "source": "./aman245002--funnel2",
+      "description": "Funnel2"
+    },
+    {
+      "name": "forge-sdlc--forge",
+      "source": "./forge-sdlc--forge",
+      "description": "An intelligent orchestration system that automates the software development lifecycle from Feature ideation through code delivery using AI-powered planning and execution."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "runtimed--runtime-agents",
+      "source": "./runtimed--runtime-agents",
+      "description": "Runtime Agents for Notebooks"
+    },
+    {
+      "name": "elizabethfuentes12--whatsapp-ai-agent-sample-for-aws-agentcore",
+      "source": "./elizabethfuentes12--whatsapp-ai-agent-sample-for-aws-agentcore",
+      "description": "A multichannel multimodal AI agent deployed on Amazon Bedrock AgentCore Runtime with Amazon Bedrock AgentCore Memory, demonstrated through two WhatsApp integration patterns. The agent processes text, "
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "pinax-network--substreams-solana-idls",
+      "source": "./pinax-network--substreams-solana-idls",
+      "description": "Type-safe Solana IDLs & instruction/event decoders for Substreams modules."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "smythos--sre-project-templates",
+      "source": "./smythos--sre-project-templates",
+      "description": "This repo contains multiple project templates for Smyth Runtime Core and SDK"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -123179,6 +123624,66 @@
       "description": "Docusaurus-Template"
     },
     {
+      "name": "mstryoda--pgtrace",
+      "source": "./mstryoda--pgtrace",
+      "description": "Rust based Postgres extension that adds query lifecycle events to OTEL traces."
+    },
+    {
+      "name": "christiaan-janssen--orgwarrior",
+      "source": "./christiaan-janssen--orgwarrior",
+      "description": "A task warrior inspired task manager, but using org-mode files as a back end."
+    },
+    {
+      "name": "ohdearquant--lattice",
+      "source": "./ohdearquant--lattice",
+      "description": "pure rust inference engine"
+    },
+    {
+      "name": "atomicstrata--atomicmemory-sdk",
+      "source": "./atomicstrata--atomicmemory-sdk",
+      "description": "Open-source AtomicMemory TypeScript SDK"
+    },
+    {
+      "name": "efailution--gitlab-component-helper",
+      "source": "./efailution--gitlab-component-helper",
+      "description": "gitlab-component-helper"
+    },
+    {
+      "name": "pickier--pickier",
+      "source": "./pickier--pickier",
+      "description": "Fast linting and formatting. Minimal defaults. Extensible. Built for speed."
+    },
+    {
+      "name": "thaitype--reeve",
+      "source": "./thaitype--reeve",
+      "description": "Hardened shell runtime for AI agents. Allowlist-first execution of Rhai scripts with declared command boundaries."
+    },
+    {
+      "name": "fispurring--lightvt",
+      "source": "./fispurring--lightvt",
+      "description": "A Lightweight Video Subtitle Translation Tool | \u4e00\u6b3e\u8f7b\u91cf\u7ea7\u89c6\u9891\u5b57\u5e55\u7ffb\u8bd1\u5de5\u5177"
+    },
+    {
+      "name": "lewenhaupt--ctx",
+      "source": "./lewenhaupt--ctx",
+      "description": "Easily initialize AGENTS.md, GEMINI.md, CLAUDE.md, etc. files from tagged fragment.md files"
+    },
+    {
+      "name": "maniaba--asset-connect",
+      "source": "./maniaba--asset-connect",
+      "description": "AssetConnect is a file management library for CodeIgniter 4 that allows you to associate files with any entity in your application."
+    },
+    {
+      "name": "automic-vault--automic-vault",
+      "source": "./automic-vault--automic-vault",
+      "description": "Run agents autonomously without losing secrets, control, or your mind."
+    },
+    {
+      "name": "ingar30--reviewer",
+      "source": "./ingar30--reviewer",
+      "description": "reviewer"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -124662,6 +125167,16 @@
       "name": "loulouw--rorganizer",
       "source": "./loulouw--rorganizer",
       "description": "Bascule entre tes comptes Dofus Unity avec un raccourci clavier ou souris. L\u00e9ger, rapide, hors-ligne."
+    },
+    {
+      "name": "xiarongwen--boss-auto-job",
+      "source": "./xiarongwen--boss-auto-job",
+      "description": "\ud83c\udfaf BOSS\u76f4\u8058 skill - \u641c\u7d22+AI\u5339\u914d+\u81ea\u52a8\u6295\u9012 (Camoufox\u9690\u8eab\u6a21\u5f0f)"
+    },
+    {
+      "name": "open-vera--openvera",
+      "source": "./open-vera--openvera",
+      "description": "OpenVera"
     },
     {
       "name": "keshavxa--keshav-portfolio",
