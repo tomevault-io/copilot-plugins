@@ -4,7 +4,7 @@
   "repo": "jetpack-compose-boilerplate",
   "description": "A Jetpack Compose template to build apps using Compose on Android and Compose Unstyled.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/composablehorizons/jetpack-compose-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T02:13:18Z"
+  "distributed_at": "2026-05-15T06:00:57Z"
 }
