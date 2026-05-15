@@ -1,0 +1,9 @@
+{
+  "name": "lukasz-fedor--claude-memory-template",
+  "displayName": "claude-memory-template",
+  "description": "Starter template for Claude Code memory system: modular rules with glob patterns, persistent   memory, session continuity with auto-handover hook, and .claudeignore setup.",
+  "version": "1.0.0",
+  "author": "lukasz-fedor",
+  "homepage": "https://github.com/lukasz-fedor/claude-memory-template",
+  "skills": []
+}
