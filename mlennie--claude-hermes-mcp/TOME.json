@@ -1,0 +1,44 @@
+{
+  "name": "claude-hermes-mcp",
+  "owner": "mlennie",
+  "repo": "claude-hermes-mcp",
+  "description": " MCP server that lets Claude Desktop and the Claude mobile app delegate tasks to a local Hermes Agent \u2014 cron jobs, web search, email, documents, and more.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mlennie/claude-hermes-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T20:37:58Z"
+}
