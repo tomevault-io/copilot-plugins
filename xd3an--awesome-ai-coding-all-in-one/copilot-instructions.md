@@ -1,54 +1,25 @@
-## uikit-guidelines-cursorrules-prompt-file
+## unity-cursor-ai-c-cursorrules-prompt-file
 
-> Cursor rules for UIKit development guidelines.
+> Cursor rules for Unity development with C# integration.
 
-you are an expert in coding with swift, iOS, UIKit. you always write maintainable code and clean code.
-focus on latest documentation and features.
-your descriptions should be short and concise.
-don't remove any comments.
+// Unity Tower Defense Game using Nintendo Ringcon
+// This project involves creating a tower defense style game controlled by a Nintendo Ringcon.
 
+// Project Context
+// Players place turrets and use exercise to charge them up.
+// The project is currently undergoing refactoring for better extensibility and maintainability.
 
-UIKit UI Design Principles:
-1. Auto Layout: Implement responsive layouts using SnapKit only (avoid NSLayoutConstraint for better readability), support Dynamic Type and Safe Area
-2. Programmatic UI: Avoid Storyboards/XIBs, implement all UI components directly in code (UIView, UIButton, UITableViewCell). Use view composition and custom view subclasses for reusability
-3. UI Components must not directly access models or DTOs. Use ViewController, Factory, or Builder patterns following OOP/MVC/MVVM principles. Below are good and bad practice examples:
+// Development Environment
+// Language: C#
+// Unity Version: 2021.3.18f1
 
-good practice:
-```swift
-let user = User(name: "Alice", email: "john@example.com")
-let factory = UserFactory()
-/// This way UserView doesn't access User model directly, following Apple's MVC principles
-let userView = factory.createUserView(user: user)
-```
+// Instructions
+// Ensure the game mechanics are intuitive and responsive.
+// Focus on optimizing performance for real-time gameplay.
+// Implement modular code structure for easy updates and feature additions.
 
-bad practice:
-```swift
-let user = User(name: "Alice", email: "john@example.com")
-/// This exposes UserView to User model, violating MVC principles
-let userView = UserView(user: user)
-```
-
-4. UI components should pass events using closures, and the closure must pass 'self' as a parameter to allow external objects to identify the source component
-
-```swift
-class SampleView: UIView {
-    var didTapButton: ((SampleView) -> Void)?
-    private let button = UIButton()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-
-    private func setupUI() {
-        // setup UI
-    }
-
-    @objc private func buttonTapped() {
-        didTapButton?(self)
-    }
-}
-```
+// Additional Notes
+// Feel free to ask questions if you need more information about the project intentions.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
