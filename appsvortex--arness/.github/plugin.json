@@ -1,0 +1,9 @@
+{
+  "name": "appsvortex--arness",
+  "displayName": "arness",
+  "description": "Structured AI workflows for Claude Code \u2014 from first idea to production deploy. Three plugins: Spark (discovery & prototyping), Code (development pipeline), Infra (infrastructure & deployment).",
+  "version": "1.0.0",
+  "author": "AppsVortex",
+  "homepage": "https://github.com/AppsVortex/arness",
+  "skills": []
+}
