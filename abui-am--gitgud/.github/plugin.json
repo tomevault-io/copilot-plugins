@@ -1,0 +1,9 @@
+{
+  "name": "abui-am--gitgud",
+  "displayName": "gitgud",
+  "description": "GitGud is a minimalist command-line interface (CLI) tool written in Go that enhances the Git experience with AI-assisted commit message generation. It seamlessly wraps standard Git commands while intr",
+  "version": "1.0.0",
+  "author": "abui-am",
+  "homepage": "https://github.com/abui-am/gitgud",
+  "skills": []
+}
