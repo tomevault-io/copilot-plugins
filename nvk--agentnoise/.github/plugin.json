@@ -1,0 +1,9 @@
+{
+  "name": "nvk--agentnoise",
+  "displayName": "agentnoise",
+  "description": "Chat with local coding agents through White Noise. agentnoise is a native desktop helper for using a phone running White Noise as the control surface for local Codex and Claude sessions. It is intenti",
+  "version": "1.0.0",
+  "author": "nvk",
+  "homepage": "https://github.com/nvk/agentnoise",
+  "skills": []
+}
