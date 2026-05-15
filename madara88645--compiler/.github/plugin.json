@@ -1,0 +1,9 @@
+{
+  "name": "madara88645--compiler",
+  "displayName": "Compiler",
+  "description": "A tool that compiles messy natural language prompts into a structured intermediate representation (IR) and optionally sends them to LLMs like ChatGPT for cleaner, more reliable responses.",
+  "version": "1.0.0",
+  "author": "madara88645",
+  "homepage": "https://github.com/madara88645/Compiler",
+  "skills": []
+}
