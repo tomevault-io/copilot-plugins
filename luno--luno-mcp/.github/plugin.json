@@ -1,0 +1,9 @@
+{
+  "name": "luno--luno-mcp",
+  "displayName": "luno-mcp",
+  "description": "MCP Server for the Luno Cryptocurrency API",
+  "version": "1.0.0",
+  "author": "luno",
+  "homepage": "https://github.com/luno/luno-mcp",
+  "skills": []
+}
