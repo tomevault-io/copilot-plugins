@@ -1,24 +1,38 @@
-## stack-overview
+## trpc-patterns
 
-> Stack architecture and technology overview
+> tRPC integration patterns and best practices
 
-# Stack Architecture
 
-This is a Turborepo monorepo using:
-- **Runtime**: Bun
-- **Frontend**: Next.js 15 with App Router
-- **Backend**: Elysia with tRPC
-- **Auth**: Better Auth with MongoDB adapter
-- **Database**: MongoDB with Mongoose
-- **UI**: shadcn/ui components
-- **Styling**: TailwindCSS
-- **Linting/Formatting**: Biome (NOT Prettier)
+# tRPC Integration Patterns
 
-## Key Patterns
-- End-to-end type safety from MongoDB → Elysia/tRPC → Next.js
-- Shared packages for database models, UI components, and TypeScript configs
-- Environment validation with @t3-oss/env-core and Zod schemas
-- Middleware handles auth protection and optional slug rewriting
+## Server-Side (API)
+- Server procedures live in `apps/api/src/routers/`
+- Add new routers to main router in `apps/api/src/routers/index.ts`
+- Use `protectedProcedure` for endpoints requiring authentication
+- Import procedure builders from `apps/api/src/lib/trpc.ts`
+
+## Client-Side (Web)
+- Frontend consumes APIs with full type inference via `apps/web/src/utils/trpc.ts`
+- Use tRPC React Query hooks for data fetching
+- Avoid manual API route handlers - use tRPC procedures instead
+- Don't directly import database models in frontend - use tRPC
+
+## Example Pattern
+```typescript
+// In router file
+export const exampleRouter = router({
+  getAll: publicProcedure.query(async () => {
+    return await SomeModel.find();
+  }),
+  
+  create: protectedProcedure
+    .input(z.object({ name: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      // ctx.user available in protected procedures
+      return await SomeModel.create(input);
+    }),
+});
+```
 
 ---
 > Source: [wip-group/discord-utils](https://github.com/wip-group/discord-utils) — distributed by [TomeVault](https://tomevault.io).
