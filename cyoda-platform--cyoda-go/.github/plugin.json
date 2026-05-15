@@ -1,0 +1,9 @@
+{
+  "name": "cyoda-platform--cyoda-go",
+  "displayName": "cyoda-go",
+  "description": "Cyoda-Go: The Enterprise EDBMS",
+  "version": "1.0.0",
+  "author": "Cyoda-platform",
+  "homepage": "https://github.com/Cyoda-platform/cyoda-go",
+  "skills": []
+}
