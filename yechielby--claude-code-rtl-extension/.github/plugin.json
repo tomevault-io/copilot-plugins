@@ -1,0 +1,9 @@
+{
+  "name": "yechielby--claude-code-rtl-extension",
+  "displayName": "claude-code-rtl-extension",
+  "description": "VS Code/Cursor extension that adds RTL (Right-to-Left) support for Hebrew and Arabic to the \"Claude Code for VS Code\" extension",
+  "version": "1.0.0",
+  "author": "yechielby",
+  "homepage": "https://github.com/yechielby/claude-code-rtl-extension",
+  "skills": []
+}
