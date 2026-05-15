@@ -4,7 +4,7 @@
   "repo": "calgacus-mlx",
   "description": "LLM Steganography: Hide a meaningful text inside another plausible text of comparable length.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hodgesmr/calgacus-mlx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:57:50Z"
+  "distributed_at": "2026-05-15T18:36:00Z"
 }
