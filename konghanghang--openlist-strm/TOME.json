@@ -4,7 +4,7 @@
   "repo": "openlist-strm",
   "description": "\u4e3aopenlist\u751f\u6210strm\u6587\u4ef6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/konghanghang/openlist-strm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:35:04Z"
+  "distributed_at": "2026-05-15T11:23:01Z"
 }
