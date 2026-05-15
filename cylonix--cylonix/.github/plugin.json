@@ -1,0 +1,9 @@
+{
+  "name": "cylonix--cylonix",
+  "displayName": "cylonix",
+  "description": "Fully open sourced client app alternative to Tailscale",
+  "version": "1.0.0",
+  "author": "cylonix",
+  "homepage": "https://github.com/cylonix/cylonix",
+  "skills": []
+}
