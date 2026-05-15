@@ -1,0 +1,9 @@
+{
+  "name": "ai-that-works--deslop",
+  "displayName": "deslop",
+  "description": "CLI tool to rewrite documents so they sound less like AI slop",
+  "version": "1.0.0",
+  "author": "ai-that-works",
+  "homepage": "https://github.com/ai-that-works/deslop",
+  "skills": []
+}
