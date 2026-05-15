@@ -1,14 +1,121 @@
-## project-specs
+## stories
 
-> This project is a beautiful component library built specifically for Nuxt. It uses the unstyled, primitive component library Reka under the hood for most components.
+> rules for writing stories
 
-# Project Specs
+Component stories are created with Histoire. 
 
-This project is a beautiful component library built specifically for Nuxt. It uses the unstyled, primitive component library Reka under the hood for most components. 
+You can find more info about creating stories with histoire via the following links:
+* Getting Started - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/getting-started.md
+* How to write stories - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/stories.md
+* State and Controls - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/controls.md
+* Documentation - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/docs.md
+* Events - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/events.md
+* Hierarchy - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/hierarchy.md
+* Wrapper - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/wrapper.md
 
-The component library is meant for use in the tech space and so should be modern and include cutting edge designs and features.
+Example of a component story:
 
-This job is perfectly fit for you, an expert UI designer with lots of experience making sleek, modern, yet distinct designs.
+```html
+<script setup lang="ts">
+import type { Story } from "histoire";
+import Button from "./Button.vue";
+
+const story = {
+  id: "components-button",
+  title: "Components/Button", // !important prefix with "Components/"
+  variants: [],
+} satisfies Story;
+
+const variants = ["primary", "secondary", "outline", "ghost"] as const;
+const sizes = ["sm", "md", "lg"] as const;
+</script>
+
+<template>
+  <Story :title="story.title" :layout="{ type: 'grid', width: '500px' }">
+    <!-- Variants -->
+    <Variant title="Variants">
+      <div class="flex gap-4">
+        <Button v-for="variant in variants" :key="variant" :variant="variant">
+          {{ variant }}
+        </Button>
+      </div>
+    </Variant>
+
+    <!-- Sizes -->
+    <Variant title="Sizes">
+      <div class="flex items-center gap-4">
+        <Button v-for="size in sizes" :key="size" :size="size">
+          Button {{ size }}
+        </Button>
+      </div>
+    </Variant>
+
+    <!-- States -->
+    <Variant title="States">
+      <div class="flex gap-4">
+        <Button loading>Loading</Button>
+        <Button disabled>Disabled</Button>
+      </div>
+    </Variant>
+
+    <!-- Icon Slots -->
+    <Variant title="Icon Slots">
+      <div class="flex gap-4">
+        <Button>
+          <template #before>
+            <Icon name="heroicons:plus" class="mr-2 h-5 w-5" />
+          </template>
+          Add Item
+        </Button>
+        <Button variant="secondary">
+          <template #after>
+            <Icon name="heroicons:arrow-right" class="ml-2 h-5 w-5" />
+          </template>
+          Next Step
+        </Button>
+        <Button variant="outline">
+          <template #before>
+            <Icon name="heroicons:document" class="mr-2 h-5 w-5" />
+          </template>
+          <template #after>
+            <Icon name="heroicons:chevron-down" class="ml-2 h-5 w-5" />
+          </template>
+          Select File
+        </Button>
+      </div>
+    </Variant>
+
+    <!-- All Variants with Loading -->
+    <Variant title="Loading Variants">
+      <div class="flex gap-4">
+        <Button
+          v-for="variant in variants"
+          :key="variant"
+          :variant="variant"
+          loading
+        >
+          {{ variant }}
+        </Button>
+      </div>
+    </Variant>
+
+    <!-- All Variants Disabled -->
+    <Variant title="Disabled Variants">
+      <div class="flex gap-4">
+        <Button
+          v-for="variant in variants"
+          :key="variant"
+          :variant="variant"
+          disabled
+        >
+          {{ variant }}
+        </Button>
+      </div>
+    </Variant>
+  </Story>
+</template>
+
+```
 
 ---
 > Source: [danielkellyio/component-library-ai](https://github.com/danielkellyio/component-library-ai) — distributed by [TomeVault](https://tomevault.io).
