@@ -1,0 +1,44 @@
+{
+  "name": "odtok-novakova",
+  "owner": "petrmiko",
+  "repo": "odtok-novakova",
+  "description": "Jednoduch\u00fd dashboard ukazuj\u00edc\u00ed evoluci hladiny odvodov\u00e9ho p\u0159\u00edkopu za rodinn\u00fdmi domky u valu v Nov\u00e1kov\u011b ulici v Dob\u0159anech.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/petrmiko/odtok-novakova",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T13:34:18Z"
+}
