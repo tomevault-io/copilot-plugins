@@ -1,0 +1,9 @@
+{
+  "name": "matter-labs--zksync-os-server",
+  "displayName": "zksync-os-server",
+  "description": "New server implementation for zksync-os",
+  "version": "1.0.0",
+  "author": "matter-labs",
+  "homepage": "https://github.com/matter-labs/zksync-os-server",
+  "skills": []
+}
