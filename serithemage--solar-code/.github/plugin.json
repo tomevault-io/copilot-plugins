@@ -1,0 +1,9 @@
+{
+  "name": "serithemage--solar-code",
+  "displayName": "solar-code",
+  "description": "Solar Pro2 powered code assistant based on Gemini CLI",
+  "version": "1.0.0",
+  "author": "serithemage",
+  "homepage": "https://github.com/serithemage/solar-code",
+  "skills": []
+}
