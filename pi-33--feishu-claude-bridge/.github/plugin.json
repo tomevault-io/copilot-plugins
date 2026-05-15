@@ -1,0 +1,9 @@
+{
+  "name": "pi-33--feishu-claude-bridge",
+  "displayName": "feishu-claude-bridge",
+  "description": "Chat with Claude Code from Feishu \u2014 discover and resume local CLI sessions from your phone",
+  "version": "1.0.0",
+  "author": "PI-33",
+  "homepage": "https://github.com/PI-33/feishu-claude-bridge",
+  "skills": []
+}
