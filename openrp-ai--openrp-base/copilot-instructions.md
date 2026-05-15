@@ -1,16 +1,17 @@
-## style-guide
+## testing
 
-> - Follow Google's Typescript style guide.
+> how to write tests for this project
 
-- Follow Google's Typescript style guide.
-- Don't use relative import paths (e.g. "../some_file"). Use absolute path (e.g. "@/a/b/some_file"), unless it is in the same folder.
-- For file names:
-  - React components should use CamelCase for convention.
-  - UI components under components/ui/ should use kebab-case for Shadcn UI convention.
-  - Web routes in app/ should use kebab-case for URL readability.
-  - Everything else should be snake_case as per Google style guide.
-- All APIs under app/api should be RESTful.
-- ALWAYS WRITE TESTS FOR WHATEVER YOU MODIFY!!! They will save you hours of compute time!!!
+- test files are placed in the same folder as the source code
+- test files have the suffix `.test`, so `Component.tsx` will have a test `Component.test.tsx`
+- write vitest tests
+- try to mock as little as possible - never mock unless absolutely necessary. If a test tests a component that references other components that we wrote, NEVER mock these and test real behavior.
+- the only exception for above are for API route tests, where we should mock lib/api responses.
+- this includes file systems and databases. Just use node's fs with a temp folder and we have an in-memory pglite database in [server_api.test.helper.ts](mdc:lib/drizzle/server_api.test.helper.ts).
+- remember separation of concerns. If component A includes component B, then you should test A is rendering B (by using data-testid) but not what B is rendering - that's for B's tests.
+- for mocks that we change values across tests, reset them in `before()` and introduce properly scoped variables for them.
+- put all test objects or helper/utility methods in `file.test.helper.ts`. Reuse existing test objects from logical places, like test users in `lib/api/users.test.helper.ts`.
+- for database test objects, see @server_api.test.helper.ts for seeded objects for testing.
 
 ---
 > Source: [openrp-ai/openrp-base](https://github.com/openrp-ai/openrp-base) — distributed by [TomeVault](https://tomevault.io).
