@@ -1,0 +1,9 @@
+{
+  "name": "florianbruniaux--cc-sessions",
+  "displayName": "cc-sessions",
+  "description": "Fast CLI to search, browse & analyze Claude Code session history",
+  "version": "1.0.0",
+  "author": "FlorianBruniaux",
+  "homepage": "https://github.com/FlorianBruniaux/cc-sessions",
+  "skills": []
+}
