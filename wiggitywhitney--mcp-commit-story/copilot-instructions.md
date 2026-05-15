@@ -1,74 +1,144 @@
-## self-improve
+## task-completion-workflow
 
-> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+> Task archival process for maintaining clean workspace with completed task preservation
 
+# Task Archival Process
 
-- **Rule Improvement Triggers:**
-  - New code patterns not covered by existing rules
-  - Repeated similar implementations across files
-  - Common error patterns that could be prevented
-  - New libraries or tools being used consistently
-  - Emerging best practices in the codebase
+## Overview
+When a task is completely finished, follow this archival process to maintain a clean, performant workspace while preserving all completed work.
 
-- **Analysis Process:**
-  - Compare new code with existing rules
-  - Identify patterns that should be standardized
-  - Look for references to external documentation
-  - Check for consistent error handling patterns
-  - Monitor test patterns and coverage
+## Step 1: Verify Completion
+[ ] All requirements in the task are met (check the Requirements checklist)
+[ ] All subtasks are marked complete
+[ ] Full test suite passes
+[ ] All deliverables are working as specified
 
-- **Rule Updates:**
-  - **Add New Rules When:**
-    - A new technology/pattern is used in 3+ files
-    - Common bugs could be prevented by a rule
-    - Code reviews repeatedly mention the same feedback
-    - New security or performance patterns emerge
+## Step 2: Archive Task File
+[ ] Move task file from `tasks/task_XXX.md` to `tasks/completed_tasks/task_XXX.md`
+[ ] Preserve all task content and history in the archived file
 
-  - **Modify Existing Rules When:**
-    - Better examples exist in the codebase
-    - Additional edge cases are discovered
-    - Related rules have been updated
-    - Implementation details have changed
+## Step 3: Clean Up Dependencies
+[ ] Search all active task files in `tasks/` directory for dependencies on the completed task
+[ ] Remove the completed task number from dependency lists of active tasks
+[ ] Update any task descriptions that reference the completed task if needed
 
-- **Example Pattern Recognition:**
-  ```typescript
-  // If you see repeated patterns like:
-  const data = await prisma.user.findMany({
-    select: { id: true, email: true },
-    where: { status: 'ACTIVE' }
-  });
-  
-  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
-  // - Standard select fields
-  // - Common where conditions
-  // - Performance optimization patterns
-  ```
+## Directory Structure
+```
+tasks/
+├── task_001.md                  # Active task files
+├── task_002.md
+├── task_003.md
+└── completed_tasks/
+    ├── task_010.md             # Completed task files
+    ├── task_015.md
+    └── task_020.md
+```
 
-- **Rule Quality Checks:**
-  - Rules should be actionable and specific
-  - Examples should come from actual code
-  - References should be up to date
-  - Patterns should be consistently enforced
+## Benefits of Archival
+- **Clean workspace**: Only active tasks visible in main tasks/ directory
+- **Preserved history**: All completed work maintained in completed_tasks/
+- **Dependency integrity**: No broken references to completed tasks
+- **Performance**: Smaller active task set for better navigation
 
-- **Continuous Improvement:**
-  - Monitor code review comments
-  - Track common development questions
-  - Update rules after major refactors
-  - Add links to relevant documentation
-  - Cross-reference related rules
+## Validation
+This process ensures:
+- Completed work is preserved with full context
+- Active task dependencies remain clean and accurate
+- No loss of historical information or decision context
+- Clean separation between active and completed work
 
-- **Rule Deprecation:**
-  - Mark outdated patterns as deprecated
-  - Remove rules that no longer apply
-  - Update references to deprecated rules
-  - Document migration paths for old patterns
+**This script will:**
+- ✅ Automatically identify complete task units (main + all subtasks done)
+- ✅ Move task files to archive directory
+- ✅ Update completed_tasks.json with proper metadata
+- ✅ Remove archived tasks from main tasks.json
+- ✅ Report file size improvements and performance gains
+- ✅ Preserve work integrity by only archiving complete units
 
-- **Documentation Updates:**
-  - Keep examples synchronized with code
-  - Update references to external docs
-  - Maintain links between related rules
-  - Document breaking changes
-Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
+**Run this script regularly** when multiple tasks have been completed to maintain optimal MCP performance.
+
+### **When to Run Archival**
+- ✅ **After completing major milestones** (3+ task units done)
+- ✅ **When MCP operations become slow** (tasks.json > 200KB)
+- ✅ **During project phase transitions**
+- ✅ **Before major task refactoring or reorganization**
+- ✅ **As part of regular project maintenance**
+
+### **Post-Archival Cleanup**
+After successful archival, clean up temporary files:
+- ✅ **Remove backup files**: Delete any `.bak` files created during the process
+- ✅ **Verify archival**: Confirm archived tasks are in `tasks/completed_tasks/`
+- ✅ **Test MCP performance**: Ensure taskmaster operations are faster
+
+## **JSON File Management**
+
+### **completed_tasks.json Structure**
+```json
+{
+  "archived_date": "2025-01-XX",
+  "project_name": "Project Name",
+  "tasks": [
+    {
+      "id": 3,
+      "title": "Completed Task Title",
+      "status": "done",
+      "completed_date": "2025-01-XX",
+      "dependencies": [...],
+      "subtasks": [...],
+      "archived_from_main": true
+    }
+  ]
+}
+```
+
+### **Maintain ID References**
+- ✅ **Keep original task IDs** in archived tasks
+- ✅ **Document completion dates** when archiving
+- ✅ **Preserve dependency relationships** for historical tracking
+- ✅ **Note archive date** for audit trail
+
+## **Best Practices**
+
+### **Archive Timing**
+- Archive tasks immediately after marking "done"
+- Archive in dependency order (prerequisites first)
+- Archive related tasks together when logical
+- Archive after major milestones for clean organization
+
+### **Dependency Management**
+- ✅ **Before archiving**: Verify no active tasks depend on this task
+- ✅ **Update references**: Change dependency lists in active tasks to indicate completion
+- ✅ **Preserve history**: Keep dependency info in archived task for reference
+
+### **File Organization**
+- Use consistent naming: `task_XXX.txt` format
+- Maintain chronological order in completed_tasks.json **by completion date** (newest completed tasks at end)
+- Include completion metadata for tracking
+- Keep archive directory clean and organized
+
+## **Performance Benefits**
+- **Smaller tasks.json** → Faster MCP operations
+- **Reduced parse time** → Quicker task-master commands  
+- **Better responsiveness** → Improved development workflow
+- **Scalable approach** → Handles projects of any size
+
+## **Verification Steps**
+After archiving tasks:
+1. ✅ **Test taskmaster operations** (list, next, show) for speed
+2. ✅ **Verify dependency chains** are intact
+3. ✅ **Confirm archive files** contain complete data
+4. ✅ **Check active tasks.json** for correct remaining tasks
+
+## **Recovery Process**
+If you need to "un-archive" a task:
+1. Move task file from `completed_tasks/` back to `tasks/`
+2. Move task data from `completed_tasks.json` back to `tasks.json`
+3. Update status from "done" to appropriate active status
+4. Run `task-master generate` to refresh files
+
+---
+
+**Note**: This workflow optimizes taskmaster performance while maintaining complete project documentation and history.
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
