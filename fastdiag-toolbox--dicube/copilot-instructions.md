@@ -1,37 +1,50 @@
-## project-structure
+## python-style
 
-> DiCube is a Python library for efficient storage and processing of 3D medical images with complete DICOM metadata preservation.
+> When writing or modifying Python code in this project, follow these guidelines:
 
+# Python Code Style Guide
 
-# DiCube Project Structure
+When writing or modifying Python code in this project, follow these guidelines:
 
-DiCube is a Python library for efficient storage and processing of 3D medical images with complete DICOM metadata preservation.
+1. Use **type annotations** wherever possible for improved code clarity and IDE support.
+2. Import order should be:
+   - Standard library imports
+   - Third-party imports
+   - Local imports (from dicube)
+3. Use **Google style docstrings** for all functions, classes, and modules:
 
-## Project Organization
+```python
+def function_example(param1, param2):
+    """Short description of function purpose.
+    
+    Args:
+        param1 (type): Description of parameter.
+        param2 (type): Description of parameter.
+        
+    Returns:
+        type: Description of return value.
+        
+    Raises:
+        ExceptionType: When and why this exception is raised.
+        
+    Example:
+        >>> result = function_example(1, 2)
+        >>> print(result)
+        3
+    """
+```
 
-- **Core modules** in [dicube/core/](mdc:dicube/core/)
-  - [image.py](mdc:dicube/core/image.py): DicomCubeImage (main interface)
-  - [io.py](mdc:dicube/core/io.py): DicomCubeImageIO (file format I/O)
-  - [pixel_header.py](mdc:dicube/core/pixel_header.py): PixelDataHeader (image metadata)
-
-- **DICOM handling** in [dicube/dicom/](mdc:dicube/dicom/)
-  - [dicom_meta.py](mdc:dicube/dicom/dicom_meta.py): DicomMeta (metadata container)
-  - [dicom_status.py](mdc:dicube/dicom/dicom_status.py): DICOM consistency checking
-  - [dicom_tags.py](mdc:dicube/dicom/dicom_tags.py): DICOM tag definitions
-  - [dicom_io.py](mdc:dicube/dicom/dicom_io.py): DICOM file I/O
-  - [merge_utils.py](mdc:dicube/dicom/merge_utils.py): Metadata merging utilities
-
-- **Storage formats** in [dicube/storage/](mdc:dicube/storage/)
-  - [dcb_file.py](mdc:dicube/storage/dcb_file.py): DCB file format implementations
-  - [pixel_utils.py](mdc:dicube/storage/pixel_utils.py): Pixel processing utilities
-
-- **Compression codecs** in [dicube/codecs/](mdc:dicube/codecs/)
-  - [jph/](mdc:dicube/codecs/jph/): HTJ2K codec implementation
-
-- **Entry point**: [dicube/__init__.py](mdc:dicube/__init__.py)
-- **Exceptions**: [dicube/exceptions.py](mdc:dicube/exceptions.py)
-
-This library works alongside `spacetransformer` (for 3D spatial transformations) and `medmask` (for medical image segmentation).
+4. Keep functions **focused** and **single-purpose**.
+5. For error handling:
+   - Use specific exceptions from [dicube/exceptions.py](mdc:dicube/exceptions.py)
+   - Validate input parameters early
+   - Add clear error messages
+6. For complex operations, add comments explaining the algorithm or approach.
+7. Use constants for magic values and define them at the module level.
+8. Performance matters - use numpy vectorized operations where possible.
+9. Method naming follows standard Python conventions:
+   - Methods that modify state: `set_`, `update_`, etc.
+   - Methods that return new objects without modifying state: `get_`, `compute_`, etc.
 
 ---
 > Source: [fastdiag-toolbox/dicube](https://github.com/fastdiag-toolbox/dicube) — distributed by [TomeVault](https://tomevault.io).
