@@ -1,0 +1,9 @@
+{
+  "name": "greitas-kodas--claudebox",
+  "displayName": "claudebox",
+  "description": "A macOS sandbox wrapper for Claude Code that provides secure, isolated execution environment",
+  "version": "1.0.0",
+  "author": "Greitas-Kodas",
+  "homepage": "https://github.com/Greitas-Kodas/claudebox",
+  "skills": []
+}
