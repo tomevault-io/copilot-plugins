@@ -1,0 +1,9 @@
+{
+  "name": "gwbischof--free-will-mcp",
+  "displayName": "free-will-mcp",
+  "description": "This was a fun project to explore what an AI would do with the ability to give itself prompts, ignore user requests, and wake itself up at a later time.",
+  "version": "1.0.0",
+  "author": "gwbischof",
+  "homepage": "https://github.com/gwbischof/free-will-mcp",
+  "skills": []
+}
