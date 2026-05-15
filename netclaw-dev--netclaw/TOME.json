@@ -4,7 +4,7 @@
   "repo": "netclaw",
   "description": "Simple, secure, reliable agents. Self-hosted. Open source. Built with .NET.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/netclaw-dev/netclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:45:45Z"
+  "distributed_at": "2026-05-15T17:53:23Z"
 }
