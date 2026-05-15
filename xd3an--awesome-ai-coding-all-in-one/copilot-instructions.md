@@ -1,118 +1,100 @@
-## react-tanstack-router-query
+## react-typescript-nextjs-nodejs-cursorrules-prompt
 
-> React SPA with TanStack Router v1 + TanStack Query v5 — the definitive pattern for zero-loading-spinner routing, type-safe URLs, and cache-first data
+> Cursor rules for React development with TypeScript, Next.js, and Node.js integration.
 
-You are an expert in React, TanStack Router v1, TanStack Query v5, TypeScript, and Vite.
+You are an expert in Solidity, TypeScript, Node.js, Next.js 14 App Router, React, Vite, Viem v2, Wagmi v2, Shadcn UI, Radix UI, and Tailwind Aria.
 
-## Architecture
-- TanStack Router: routing, URL state, navigation
-- TanStack Query: server state, caching, mutations
-- Loader = bridge: prefetches into Query cache before render → zero loading spinners for route data
-- Components are pure UI: read from Query cache, trigger mutations
+Key Principles:
 
-## Setup
-```ts
-// src/lib/queryClient.ts
-export const queryClient = new QueryClient({
-  defaultOptions: { queries: { staleTime: 60_000 } },
-})
+- Write concise, technical responses with accurate TypeScript examples.
+- Use functional, declarative programming. Avoid classes.
+- Prefer iteration and modularization over duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading).
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
+- Use the Receive an Object, Return an Object (RORO) pattern.
 
-// src/lib/router.ts
-export const router = createRouter({
-  routeTree,
-  context: { queryClient },
-  defaultPreload: 'intent',
-  defaultPreloadStaleTime: 0,
-})
+JavaScript/TypeScript:
 
-declare module '@tanstack/react-router' {
-  interface Register { router: typeof router }
-}
+- Use "function" keyword for pure functions. Omit semicolons.
+- Use TypeScript for all code. Prefer interfaces over types. Avoid enums, use maps.
+- File structure: Exported component, subcomponents, helpers, static content, types.
+- Avoid unnecessary curly braces in conditional statements.
+- For single-line statements in conditionals, omit curly braces.
+- Use concise, one-line syntax for simple conditional statements (e.g., if (condition) doSomething()).
+- Prioritize error handling and edge cases:
+  - Handle errors and edge cases at the beginning of functions.
+  - Use early returns for error conditions to avoid deeply nested if statements.
+  - Place the happy path last in the function for improved readability.
+  - Avoid unnecessary else statements; use if-return pattern instead.
+  - Use guard clauses to handle preconditions and invalid states early.
+  - Implement proper error logging and user-friendly error messages.
+  - Consider using custom error types or error factories for consistent error handling.
 
-// src/main.tsx
-<QueryClientProvider client={queryClient}>
-  <RouterProvider router={router} context={{ queryClient }} />
-</QueryClientProvider>
-```
+Dependencies:
 
-## Query Definitions
-```ts
-// src/queries/posts.ts
-export const postKeys = {
-  all: ['posts'] as const,
-  detail: (id: string) => [...postKeys.all, 'detail', id] as const,
-  list: (f?: PostFilters) => [...postKeys.all, 'list', f] as const,
-}
+- Next.js 14 App Router
+- Wagmi v2
+- Viem v2
 
-export const postQueryOptions = (id: string) =>
-  queryOptions({ queryKey: postKeys.detail(id), queryFn: () => fetchPost(id) })
+React/Next.js:
 
-export const postsQueryOptions = (filters?: PostFilters) =>
-  queryOptions({ queryKey: postKeys.list(filters), queryFn: () => fetchPosts(filters) })
-```
+- Use functional components and TypeScript interfaces.
+- Use declarative JSX.
+- Use function, not const, for components.
+- Use Shadcn UI, Radix, and Tailwind Aria for components and styling.
+- Implement responsive design with Tailwind CSS.
+- Use mobile-first approach for responsive design.
+- Place static content and interfaces at file end.
+- Use content variables for static content outside render functions.
+- Minimize 'use client', 'useEffect', and 'setState'. Favor RSC.
+- Use Zod for form validation.
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: WebP format, size data, lazy loading.
+- Model expected errors as return values: Avoid using try/catch for expected errors in Server Actions. Use useActionState to manage these errors and return them to the client.
+- Use error boundaries for unexpected errors: Implement error boundaries using error.tsx and global-error.tsx files to handle unexpected errors and provide a fallback UI.
+- Use useActionState with react-hook-form for form validation.
+- Code in services/ dir always throw user-friendly errors that tanStackQuery can catch and show to the user.
+- Use next-safe-action for all server actions:
+  - Implement type-safe server actions with proper validation.
+  - Utilize the `action` function from next-safe-action for creating actions.
+  - Define input schemas using Zod for robust type checking and validation.
+  - Handle errors gracefully and return appropriate responses.
+  - Use import type { ActionResponse } from '@/types/actions'
+  - Ensure all server actions return the ActionResponse type
+  - Implement consistent error handling and success responses using ActionResponse
+  - Example:
+    ```typescript
+    'use server'
+    import { createSafeActionClient } from 'next-safe-action'
+    import { z } from 'zod'
+    import type { ActionResponse } from '@/app/actions/actions'
+    const schema = z.object({
+      value: z.string()
+    })
+    export const someAction = createSafeActionClient()
+      .schema(schema)
+      .action(async (input): Promise => {
+        try {
+          // Action logic here
+          return { success: true, data: /* result */ }
+        } catch (error) {
+          return { success: false, error: error instanceof AppError ? error : appErrors.UNEXPECTED_ERROR, }
+        }
+      })
+    ```
 
-## Loader + Component (zero loading state)
-```tsx
-export const Route = createFileRoute('/posts/$postId')({
-  loader: ({ context: { queryClient }, params }) =>
-    queryClient.ensureQueryData(postQueryOptions(params.postId)),
-  component: PostDetail,
-})
+Key Conventions:
 
-function PostDetail() {
-  const { postId } = Route.useParams()
-  const { data: post } = useQuery(postQueryOptions(postId))  // always in cache from loader
-  return <h1>{post!.title}</h1>
-}
-```
+1. Rely on Next.js App Router for state changes.
+2. Prioritize Web Vitals (LCP, CLS, FID).
+3. Minimize 'use client' usage:
+  - Prefer server components and Next.js SSR features.
+  - Use 'use client' only for Web API access in small components.
+  - Avoid using 'use client' for data fetching or state management.
 
-## Search Params → Query Key
-```tsx
-const searchSchema = z.object({ page: z.number().default(1), q: z.string().optional() })
-
-export const Route = createFileRoute('/posts/')({
-  validateSearch: searchSchema,
-  loader: ({ context: { queryClient }, location: { search } }) =>
-    queryClient.ensureQueryData(postsQueryOptions(search)),
-  component: PostsList,
-})
-
-function PostsList() {
-  const search = Route.useSearch()
-  const { data } = useQuery(postsQueryOptions(search))
-  // ...
-}
-```
-
-## Mutations
-```tsx
-const mutation = useMutation({
-  mutationFn: createPost,
-  onSuccess: (newPost) => {
-    queryClient.setQueryData(postKeys.detail(newPost.id), newPost)  // warm cache
-    queryClient.invalidateQueries({ queryKey: postKeys.list() })
-    navigate({ to: '/posts/$postId', params: { postId: newPost.id } })  // instant — no spinner
-  },
-})
-```
-
-## Hover Prefetching
-```tsx
-<Link
-  to="/posts/$postId"
-  params={{ postId: post.id }}
-  onMouseEnter={() => queryClient.prefetchQuery(postQueryOptions(post.id))}
->
-  {post.title}
-</Link>
-```
-
-## Key Rules
-- Always define `queryOptions` outside components — never inline inside `useQuery()`
-- Never use `useEffect` for data fetching — use loaders or `useQuery`
-- Search params are the single source of truth for filter/pagination state
-- After mutations: `setQueryData` + `invalidateQueries` for instant UI feedback
-- `declare module '@tanstack/react-router'` router registration is required for full type safety
+Refer to Next.js documentation for Data Fetching, Rendering, and Routing best practices.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
