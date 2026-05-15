@@ -1,0 +1,9 @@
+{
+  "name": "elicunninghamdev--bashtorio",
+  "displayName": "bashtorio",
+  "description": "Bashtorio is a Factorio-inspired web game where the items are bytes and the machines are real VM-Backed Unix shells.",
+  "version": "1.0.0",
+  "author": "EliCunninghamDev",
+  "homepage": "https://github.com/EliCunninghamDev/bashtorio",
+  "skills": []
+}
