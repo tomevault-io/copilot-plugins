@@ -1,0 +1,9 @@
+{
+  "name": "djankies--vitest-mcp",
+  "displayName": "vitest-mcp",
+  "description": "AI-optimized Vitest runner with clean, structured output, log capturing, and coverage analysis.",
+  "version": "1.0.0",
+  "author": "djankies",
+  "homepage": "https://github.com/djankies/vitest-mcp",
+  "skills": []
+}
