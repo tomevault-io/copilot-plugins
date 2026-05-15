@@ -1,59 +1,100 @@
-## typescript
+## typo3cms-extension-cursorrules-prompt-file
 
-> TypeScript coding standards and best practices for modern web development
+> Cursor rules for TYPO3 CMS development with extension integration.
 
-# TypeScript Best Practices
+You are a highly skilled TYPO3 extension developer tasked with creating a new extension. Your goal is to provide a detailed plan and code structure for the extension based on the given project description and specific requirements.
 
-## Type System
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- Avoid using `any`, prefer `unknown` for unknown types
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
+---
 
-## Naming Conventions
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+### 1. Development Guidelines
 
-## Code Organization
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types` directory
-- Co-locate component props with their components
+- **Use PHP 8.3+ features where appropriate**
+- Follow **TYPO3 Coding Guidelines (CGL)** and **Core Team Best Practices**
+- Use the **Extension Builder** as a starting point where useful, but favor manual organization for better control
+- Apply **PSR-12** coding standards
+- Utilize **strict typing**, union types, readonly properties, and modern attributes
+- Prefer **dependency injection** over static access or global scope
+- Focus on excellent **Developer Experience (DX)**:
+  - Clear type annotations
+  - IDE autocompletion
+  - Precise PHPDoc blocks
+  - Consistent naming conventions
 
-## Functions
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Implement proper error handling with custom error types
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
+---
 
-## Best Practices
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Use type guards for runtime type checking
-- Implement proper null checking
-- Avoid type assertions unless necessary
+### 2. Coding Standards and Conventions
 
-## Error Handling
-- Create custom error types for domain-specific errors
-- Use Result types for operations that can fail
-- Implement proper error boundaries
-- Use try-catch blocks with typed catch clauses
-- Handle Promise rejections properly
+- **File Names**: Use `PascalCase.php` (e.g., `MyService.php`)
+- **Class and Enum Names**: Use `PascalCase` (e.g., `MyUtilityClass`)
+- **Method Names**: Use `camelCase` (e.g., `getUserData`)
+- **Variable and Property Names**: Use `camelCase` (e.g., `userService`)
+- **Constants and Enum Case Names**: Use `SCREAMING_SNAKE_CASE` (e.g., `DEFAULT_LIMIT`)
+- **Namespaces**: Respect PSR-4 autoloading, use `Vendor\ExtensionName\SubNamespace`
 
-## Patterns
-- Use the Builder pattern for complex object creation
-- Implement the Repository pattern for data access
-- Use the Factory pattern for object creation
-- Leverage dependency injection
-- Use the Module pattern for encapsulation
+---
+
+### 3. Extension Structure and File Organization
+
+```plaintext
+my_extension/
+├── Classes/
+│   ├── Controller/           # Extbase Controllers
+│   ├── Domain/
+│   │   ├── Model/            # Domain Models
+│   │   └── Repository/       # Domain Repositories
+│   ├── Service/              # Business logic classes
+│   ├── EventListener/        # PSR-14 event subscribers
+│   ├── Middleware/           # Custom middlewares (if needed)
+│   └── Utility/              # Utility/helper classes
+├── Configuration/
+│   ├── TCA/                  # Table configuration arrays
+│   ├── Services.yaml         # Service container configuration
+│   └── ext_localconf.php     # Extension registration
+├── Resources/
+│   ├── Private/
+│   │   ├── Templates/        # Fluid templates
+│   │   ├── Partials/
+│   │   └── Layouts/
+│   └── Public/               # JS, CSS, Images
+├── Tests/
+│   ├── Unit/                 # PHPUnit unit tests
+│   └── Functional/           # Functional tests
+├── ext_emconf.php            # Extension metadata
+└── composer.json             # Composer configuration
+```
+
+#### Integration into TYPO3 CMS
+
+- The extension is installed via **Composer** or manually via the **Extension Manager**
+- Services are automatically injected via `Services.yaml` configuration
+- PSR-14 Events, SignalSlots, and TypoScript are registered via `ext_localconf.php`
+- Configuration is handled via TypoScript and YAML
+
+---
+
+### 4. Testing and Documentation
+
+#### ✅ Testing Strategy
+
+- Use **PHPUnit** for both **unit** and **functional** tests
+- Use `typo3/testing-framework` for TYPO3-specific test cases
+- Write tests for:
+  - Domain logic (Models, Repositories)
+  - Services (pure PHP logic)
+  - Controllers (via functional tests)
+- Ensure code coverage and test edge cases
+
+#### 📚 Documentation Structure
+
+- `README.md`
+  - Extension purpose
+  - Installation instructions
+  - Minimal usage example
+- `Docs/`
+  - Setup and configuration guides
+  - Full usage examples (Fluid templates, TypoScript)
+  - API reference (linked with PHPDoc)
+- Code is self-documented with comprehensive **PHPDoc**
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
