@@ -4,7 +4,7 @@
   "repo": "tygodnik-sejmowy",
   "description": "Source code for tygodniksejmowy.pl  Final website displaying polish parliamentary data ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/miskibin/tygodnik-sejmowy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:06:28Z"
+  "distributed_at": "2026-05-15T18:40:49Z"
 }
