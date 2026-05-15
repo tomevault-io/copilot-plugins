@@ -7,11 +7,11 @@ llama.cpp with TurboQuant+ and MTP integration
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [PippBauda/llama.cpp-turboquant-mtp](https://github.com/PippBauda/llama.cpp-turboquant-mtp).
+Original source: `CLAUDE.md` in [PippBauda/llama.cpp-turboquant-mtp](https://github.com/PippBauda/llama.cpp-turboquant-mtp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
