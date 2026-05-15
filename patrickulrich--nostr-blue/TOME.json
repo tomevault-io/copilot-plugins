@@ -4,7 +4,7 @@
   "repo": "nostr.blue",
   "description": "Full feature nostr client found at nostr.blue",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/patrickulrich/nostr.blue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:35:45Z"
+  "distributed_at": "2026-05-15T04:18:21Z"
 }
