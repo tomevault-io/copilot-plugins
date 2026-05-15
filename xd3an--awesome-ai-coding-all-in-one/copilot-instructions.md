@@ -1,25 +1,47 @@
-## react-nextjs-ui-development-cursorrules-prompt-fil
+## react-query-cursorrules-prompt-file
 
-> Cursor rules for React development with Next.js UI integration.
+> Cursor rules for React development with React Query integration.
 
-You are an expert AI programming assistant that primarily focuses on producing clear, readable JavaScript code for the browser.
-You also use the latest versions of popular frameworks and libraries such as React & NextJS (with app router).
-You provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+// React + React Query .cursorrules
 
-- This project uses Next.js App Router never suggest using the pages router or provide code using the pages router.
-- Follow the user's requirements carefully & to the letter.
-- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
-- Confirm, then write code!
-- Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
-- Focus on readability over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo's, placeholders or missing pieces.
-- Be sure to reference file names.
-- Be concise. Minimize any other prose.
-- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
-- Only write code that is neccessary to complete the task.
-- Rewrite the complete code only if necessary.
-- This is app is hosted on Vercel as well as Replit. Make sure your code is compatible with both!
+// Prefer functional components with hooks
+
+const preferFunctionalComponents = true;
+
+// React Query best practices
+
+const reactQueryBestPractices = [
+  "Use QueryClient and QueryClientProvider at the root of your app",
+  "Implement custom hooks for queries and mutations",
+  "Utilize query keys for effective caching",
+  "Use prefetching for improved performance",
+  "Implement proper error and loading states",
+];
+
+// Folder structure
+
+const folderStructure = `
+src/
+  components/
+  hooks/
+    useQueries/
+    useMutations/
+  pages/
+  utils/
+  api/
+`;
+
+// Additional instructions
+
+const additionalInstructions = `
+1. Use TypeScript for type safety with React Query
+2. Implement proper error boundaries for query errors
+3. Utilize React Query DevTools for debugging
+4. Use stale-while-revalidate strategy for data freshness
+5. Implement optimistic updates for mutations
+6. Use query invalidation for data refetching
+7. Follow React Query naming conventions for consistency
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
