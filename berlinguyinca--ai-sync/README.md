@@ -7,11 +7,11 @@ Git-backed sync for ~/.claude across macOS, Linux, and Windows/WSL
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [berlinguyinca/ai-sync](https://github.com/berlinguyinca/ai-sync).
+Original source: `CLAUDE.md` in [berlinguyinca/ai-sync](https://github.com/berlinguyinca/ai-sync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
