@@ -4,7 +4,7 @@
   "repo": "snowmeth",
   "description": "use AI to write a novel using the snowflake method",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joelgrus/snowmeth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:06:18Z"
+  "distributed_at": "2026-05-15T10:00:29Z"
 }
