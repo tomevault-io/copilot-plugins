@@ -1,0 +1,9 @@
+{
+  "name": "dennysora--dgxtop",
+  "displayName": "dgxtop",
+  "description": "High-performance interactive system monitor for NVIDIA DGX systems \u2014 GPU, CPU, memory, disk, network in a beautiful TUI",
+  "version": "1.0.0",
+  "author": "DennySORA",
+  "homepage": "https://github.com/DennySORA/dgxtop",
+  "skills": []
+}
