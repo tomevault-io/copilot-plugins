@@ -4,7 +4,7 @@
   "repo": "skeeper",
   "description": "Version your spec artifacts \u2014 PRDs, tech specs, ADRs, AI plans \u2014 in a sidecar Git repository, without polluting your main PRs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/compozy/skeeper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:23:02Z"
+  "distributed_at": "2026-05-15T10:24:29Z"
 }
