@@ -1,0 +1,9 @@
+{
+  "name": "klerith--fernando-skills",
+  "displayName": "fernando-skills",
+  "description": "Spec-driven development skills for Claude Code, Cursor, Codex, and Antigravity. By Fernando Herrera.",
+  "version": "1.0.0",
+  "author": "Klerith",
+  "homepage": "https://github.com/Klerith/fernando-skills",
+  "skills": []
+}
