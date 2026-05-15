@@ -36389,6 +36389,11 @@
       "description": "Model Context Protocol server for Vikunja task management. Enables AI assistants to interact with Vikunja instances via MCP."
     },
     {
+      "name": "dominik1001--caldav-mcp",
+      "source": "./dominik1001--caldav-mcp",
+      "description": "\ud83d\uddd3\ufe0f A CalDAV Model Context Protocol (MCP) server to expose calendar operations as tools for AI assistants."
+    },
+    {
       "name": "knowsuchagency--fulcrum",
       "source": "./knowsuchagency--fulcrum",
       "description": "What if Openclaw, Vibe Kanban, Vibetunnel, and Dokploy had a baby?"
@@ -37199,6 +37204,16 @@
       "description": "An envoy-based MCP Gateway that integrates with Istio and policy attachment mechanisms for authN, authZ, rate limiting and more."
     },
     {
+      "name": "pulsemcp--mcp-servers",
+      "source": "./pulsemcp--mcp-servers",
+      "description": "MCP (Model Context Protocol) Servers authored and maintained by the PulseMCP team. We build reliable servers thoughtfully designed specifically for MCP Client-powered workflows."
+    },
+    {
+      "name": "rindevjunior--matterbridge-roborock-vacuum-plugin",
+      "source": "./rindevjunior--matterbridge-roborock-vacuum-plugin",
+      "description": "A Matterbridge plugin to bring my roborock vacuum to Apple Home"
+    },
+    {
       "name": "chongdashu--phaserjs-oakwoods",
       "source": "./chongdashu--phaserjs-oakwoods",
       "description": "A vibe coded implementation of an RPG platformer"
@@ -37477,6 +37492,11 @@
       "name": "dnnyngyen--iron-manus-mcp",
       "source": "./dnnyngyen--iron-manus-mcp",
       "description": "Iron Manus MCP"
+    },
+    {
+      "name": "novanglus96--lenoreshop",
+      "source": "./novanglus96--lenoreshop",
+      "description": "A simple shopping list"
     },
     {
       "name": "marciogranzotto--clawd-tank",
@@ -37907,6 +37927,11 @@
       "name": "csenshi--nestjs-redis",
       "source": "./csenshi--nestjs-redis",
       "description": "\ud83d\udee0 Modular Redis toolkit for NestJS: Client, RedLock and more"
+    },
+    {
+      "name": "liangdabiao--easy-amazon-voc",
+      "source": "./liangdabiao--easy-amazon-voc",
+      "description": "\u9488\u5bf9amazon\u5546\u54c1\u8bc4\u8bba\u8fdb\u884cAI\u5927\u6a21\u578b\u591a\u7ef4\u5ea6\u5206\u6790\u3002\u7528\u6237\u5229\u7528easy scraper\u6d4f\u89c8\u5668\u63d2\u4ef6\u722c\u53d6\u5546\u54c1\u3001\u5e16\u5b50\u8bc4\u8bba\uff0c\u7136\u540e\u76f4\u63a5\u4e0a\u4f20csv\u6587\u4ef6\u5230\u7cfb\u7edf\uff0c\u7cfb\u7edf\u8fdb\u884c\u8bc4\u8bba\u5206\u6790\uff0c\u7136\u540e\u63d0\u4f9b\u4e0b\u8f7d\u94fe\u63a5\uff0c\u4e0b\u8f7d\u66f4\u65b0\u7684\u5e26\u6709\u8bc4\u8bba\u5206\u6790\u7684csv\u6587\u4ef6,\u5f97\u5230AI\u5206\u6790\u7684\u7528\u6237\u753b\u50cf\u3002"
     },
     {
       "name": "jdiegosierra--contributor-report",
@@ -40519,6 +40544,11 @@
       "description": "MCP server for Claude Desktop to manage your n8n workflows "
     },
     {
+      "name": "ai-dynamo--modelexpress",
+      "source": "./ai-dynamo--modelexpress",
+      "description": "Model Express is a Rust-based component meant to be placed next to existing model inference systems to speed up their startup times and improve overall performance."
+    },
+    {
       "name": "rstackjs--agent-skills",
       "source": "./rstackjs--agent-skills",
       "description": "A collection of Agent Skills for Rstack."
@@ -41974,6 +42004,11 @@
       "description": "Claude Code SDK for Javascript & Typescript"
     },
     {
+      "name": "eleutherai--bergson",
+      "source": "./eleutherai--bergson",
+      "description": "Mapping out the \"memory\" of neural nets with data attribution"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -43254,6 +43289,16 @@
       "description": "MCP server for Perplexica"
     },
     {
+      "name": "midnightntwrk--midnight-node",
+      "source": "./midnightntwrk--midnight-node",
+      "description": "Bringing rational privacy to blockchain"
+    },
+    {
+      "name": "nexu-io--html-anything",
+      "source": "./nexu-io--html-anything",
+      "description": "\u2728 The agentic HTML editor \u2014 your local AI agent writes the HTML, you ship it. \ud83d\ude80 75 Skills \u00d7 9 Surfaces (magazine \u00b7 deck \u00b7 poster \u00b7 XHS / tweet \u00b7 prototype \u00b7 data report \u00b7 Hyperframes) \ud83d\udee1\ufe0f Sandboxed pre"
+    },
+    {
       "name": "andrew-malitchuk--kite-aos",
       "source": "./andrew-malitchuk--kite-aos",
       "description": "Modern, open-source Android kiosk application designed to transform tablets into dedicated smart home dashboards."
@@ -43767,6 +43812,11 @@
       "name": "ivo-toby--mcp-picnic",
       "source": "./ivo-toby--mcp-picnic",
       "description": "Unofficial MCP Server for Picnic"
+    },
+    {
+      "name": "harness--mcp-server",
+      "source": "./harness--mcp-server",
+      "description": "This is the official repo for the Harness MCP server"
     },
     {
       "name": "lktiep--cortex-hub",
@@ -45334,6 +45384,11 @@
       "description": "Laravel Livewire Chat UI Starter Kit"
     },
     {
+      "name": "owasp--www-project-agent-observability-standard",
+      "source": "./owasp--www-project-agent-observability-standard",
+      "description": "Agent Observability Standard"
+    },
+    {
       "name": "timoncool--ace-step-studio",
       "source": "./timoncool--ace-step-studio",
       "description": "Portable AI music generator \u2014 full songs with vocals, covers, music videos. One-click install, 100% offline, NVIDIA GPU."
@@ -46044,6 +46099,11 @@
       "description": "A simple MCP server extension for DuckDB"
     },
     {
+      "name": "thalesgroup--fred",
+      "source": "./thalesgroup--fred",
+      "description": "the UI and agentic backend of the fred innovation track"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -46737,6 +46797,11 @@
       "name": "breez--spark-sdk",
       "source": "./breez--spark-sdk",
       "description": "spark-sdk"
+    },
+    {
+      "name": "georgeleepatterson--clickhouse-arrow",
+      "source": "./georgeleepatterson--clickhouse-arrow",
+      "description": "ClickHouse Native Protocol Rust Client w/ Arrow Compatibility"
     },
     {
       "name": "rudrankriyam--foundation-models-framework-cli",
@@ -49517,6 +49582,16 @@
       "name": "cmer81--open-meteo-mcp",
       "source": "./cmer81--open-meteo-mcp",
       "description": "A comprehensive MCP server providing access to Open-Meteo weather APIs for Large Language Models"
+    },
+    {
+      "name": "hauptsachenet--clickup-mcp",
+      "source": "./hauptsachenet--clickup-mcp",
+      "description": "clickup-mcp"
+    },
+    {
+      "name": "stickerdaniel--notion-avatar-svelte",
+      "source": "./stickerdaniel--notion-avatar-svelte",
+      "description": "Notion-styled avatar editor for your Svelte project!"
     },
     {
       "name": "agents-squads--squads-cli",
@@ -55322,6 +55397,11 @@
       "name": "gwbischof--free-will-mcp",
       "source": "./gwbischof--free-will-mcp",
       "description": "This was a fun project to explore what an AI would do with the ability to give itself prompts, ignore user requests, and wake itself up at a later time."
+    },
+    {
+      "name": "graphene-data--graphene",
+      "source": "./graphene-data--graphene",
+      "description": "Turn your coding agent into a world-class data analyst"
     },
     {
       "name": "littlebunverse--dosphere",
@@ -69057,6 +69137,11 @@
       "name": "puri-adityakumar--astraa",
       "source": "./puri-adityakumar--astraa",
       "description": "Astraa (\u0905\u0938\u094d\u0924\u094d\u0930) browser-based utility toolkit that brings together a collection of powerful tools and games in one place."
+    },
+    {
+      "name": "strukto-ai--mirage",
+      "source": "./strukto-ai--mirage",
+      "description": "A Unified Virtual Filesystem For AI Agents"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -91954,6 +92039,11 @@
       "description": "reigh-app"
     },
     {
+      "name": "remrico--recall",
+      "source": "./remrico--recall",
+      "description": "A composed retrieval project"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -95022,6 +95112,11 @@
       "name": "agencia-conversion--seo-brain",
       "source": "./agencia-conversion--seo-brain",
       "description": "Agentic SEO operating system as a Claude Code plugin: project Wiki, DataForSEO workflows, content briefs, technical SEO, and human-approval gates."
+    },
+    {
+      "name": "emeraudeengine--emeraude-engine",
+      "source": "./emeraudeengine--emeraude-engine",
+      "description": "Cross-platform 3D scene engine using the Vulkan API."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -98357,6 +98452,11 @@
       "name": "arkavo-org--arkavo-edge",
       "source": "./arkavo-org--arkavo-edge",
       "description": "Local-first AI agent mesh in Rust. Hard budget enforcement, adaptive model routing, and end-to-end OpenTDF encryption. Built for individuals and small teams."
+    },
+    {
+      "name": "configbutler--gitops-reverser",
+      "source": "./configbutler--gitops-reverser",
+      "description": "Reconciles Kubernetes API resources into a git destination as clean deployable YAML files (audit trail through git commits)."
     },
     {
       "name": "lightninglabs--lnget",
@@ -102527,6 +102627,26 @@
       "name": "hyperfx-ai--marketing-skills",
       "source": "./hyperfx-ai--marketing-skills",
       "description": "Marketing skills for AI agents \u2014 paid ads, social media, SEO, competitor research, creative generation, email, analytics, and more. Powered by Hyper MCP."
+    },
+    {
+      "name": "shiguredo--github-actions",
+      "source": "./shiguredo--github-actions",
+      "description": "github-actions"
+    },
+    {
+      "name": "ethanlita--vfs-tracker",
+      "source": "./ethanlita--vfs-tracker",
+      "description": "This is a data tracker and analyzer for girls who has undergone VFS"
+    },
+    {
+      "name": "lemon-ant--glob-path-finder",
+      "source": "./lemon-ant--glob-path-finder",
+      "description": "Recursive file tree scanner with include/exclude glob patterns and extension filters"
+    },
+    {
+      "name": "techarohq--alexandria",
+      "source": "./techarohq--alexandria",
+      "description": "Techaro's log collection, aggregation, and analytics pipeline, to be made public"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -115684,6 +115804,201 @@
       "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
     },
     {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "gui-cs--editor",
+      "source": "./gui-cs--editor",
+      "description": "Terminal.Gui Text Editor based on AvaloniaEdit"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "jcflorville--rails-tanstack-starter",
+      "source": "./jcflorville--rails-tanstack-starter",
+      "description": "Production-ready monorepo template: Rails 8 API + Vite/React/TypeScript/TanStack Router & Query + Tailwind + Kamal 2 deploy"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "aiunlocked1412--tradingagentsgank",
+      "source": "./aiunlocked1412--tradingagentsgank",
+      "description": "TradingAgents \u2014 multi-agent LLM trading framework + WebUI"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "jaredgizersky--stash",
+      "source": "./jaredgizersky--stash",
+      "description": "TUI for bookmarking, browsing, previewing, and resuming Claude Code and Codex sessions"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "raftersecurity--rafter-cli",
+      "source": "./raftersecurity--rafter-cli",
+      "description": "Multi-language CLI for Rafter \u2014 the security toolkit built for AI coding agents and the developers who use them."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "barrulus--py-fmg",
+      "source": "./barrulus--py-fmg",
+      "description": "py-fmg"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "wheerd--strawbuild-studio",
+      "source": "./wheerd--strawbuild-studio",
+      "description": "Strawbale House Construction Planning Tool"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "sc30gsw--claude-code-customes",
+      "source": "./sc30gsw--claude-code-customes",
+      "description": "claude-code-customes"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "beixiyo--react-tool",
+      "source": "./beixiyo--react-tool",
+      "description": "react best practices\uff08react\u6700\u4f73\u5b9e\u8df5\uff09"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "zxiiic--srdrone",
+      "source": "./zxiiic--srdrone",
+      "description": "Implementation of SRDrone"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "reason-healthcare--rh",
+      "source": "./reason-healthcare--rh",
+      "description": "RH is a modular and extendible FHIR toolkit written in Rust with a CLI"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -122424,6 +122739,51 @@
       "description": "Easily initialize AGENTS.md, GEMINI.md, CLAUDE.md, etc. files from tagged fragment.md files"
     },
     {
+      "name": "lescuer97--nostr-oidc",
+      "source": "./lescuer97--nostr-oidc",
+      "description": "nostr-oidc"
+    },
+    {
+      "name": "deepu105--archdots",
+      "source": "./deepu105--archdots",
+      "description": "archdots"
+    },
+    {
+      "name": "martparve--production-ready",
+      "source": "./martparve--production-ready",
+      "description": "Production Ready: Building and Operating an AI Code Factory"
+    },
+    {
+      "name": "ryan-laws--easycodex",
+      "source": "./ryan-laws--easycodex",
+      "description": "easycodex"
+    },
+    {
+      "name": "wainejr--acelerado-desafios",
+      "source": "./wainejr--acelerado-desafios",
+      "description": "Reposit\u00f3rio dos desafios da comunidade do desempenho"
+    },
+    {
+      "name": "redhat-community-ai-tools--claude-code-setup-evaluator",
+      "source": "./redhat-community-ai-tools--claude-code-setup-evaluator",
+      "description": "A meta-repository for Claude Code  users  that includes workspace setup (skills, commands, hooks) and an  evaluator for your Claude Code configuration"
+    },
+    {
+      "name": "ibz-04--quaynor",
+      "source": "./ibz-04--quaynor",
+      "description": "Lightweight AI inference engine for mobile apps "
+    },
+    {
+      "name": "tashian--tsm",
+      "source": "./tashian--tsm",
+      "description": "\ud83e\udd2b Tiny Secrets Manager \u2014 lightweight agent secrets vault for macOS with Touch ID"
+    },
+    {
+      "name": "tronghieu--lumina-wiki",
+      "source": "./tronghieu--lumina-wiki",
+      "description": "An AI-powered research assistant for reading, understanding, organizing, and connecting knowledge, implementation of Karpathy's LLM Wiki"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -123877,6 +124237,26 @@
       "name": "veerps57--memento",
       "source": "./veerps57--memento",
       "description": "A local-first, LLM-agnostic memory layer for AI assistants"
+    },
+    {
+      "name": "yehyeokbang--orbit-mac",
+      "source": "./yehyeokbang--orbit-mac",
+      "description": "Mission Control\uc5d0 \ud0a4\ubcf4\ub4dc \ub124\ube44\uac8c\uc774\uc158\uc744 \ucd94\uac00\ud558\ub294 macOS \uc720\ud2f8\ub9ac\ud2f0"
+    },
+    {
+      "name": "reallygood83--master-of-slide",
+      "source": "./reallygood83--master-of-slide",
+      "description": "master-of-slide"
+    },
+    {
+      "name": "jeppsontaylor--jankurai",
+      "source": "./jeppsontaylor--jankurai",
+      "description": "Slay repo jank with proof lanes, audit receipts, bounded agents, and no-proof-no-merge governance."
+    },
+    {
+      "name": "orczh-hj--cc-box",
+      "source": "./orczh-hj--cc-box",
+      "description": "CC-Box \u2014 A multi-terminal manager for Claude Code power users"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -221162,6 +221542,46 @@
       "name": "tomevault-io--gemini-extensions",
       "source": "./tomevault-io--gemini-extensions",
       "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
     },
     {
       "name": "tomevault-io--codex-plugins",
