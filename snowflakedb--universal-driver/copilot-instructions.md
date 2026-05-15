@@ -1,45 +1,22 @@
-## graphite-pr-workflow
+## odbc-datatype-guidelines
 
-> Rules for creating commits and PRs using Graphite CLI with SNOW-ticket conventions
+> Those are guidelines for datatype implementation, including conversions. You should apply these when modyfing ODBC code and writing tests:
 
 
-# PR and Commit Workflow
+# Guidelines
 
-## Commit Message Convention
+Those are guidelines for datatype implementation, including conversions. You should apply these when modyfing ODBC code and writing tests:
 
-Prefix with Jira ticket: `SNOW-{ticket}: {description}`
-Use `NO-SNOW:` for changes without a ticket.
-
-## Creating a PR (Graphite)
-
-```bash
-gt branch create {user}/{branch-name}
-git add <files>
-# When the change is associated with a SNOW ticket:
-gt commit create -m "SNOW-{ticket}: {description}"
-# For rare changes without a ticket (see NO-SNOW convention above):
-gt commit create -m "NO-SNOW: {description}"
-gt submit --no-edit
-```
-
-## Before Creating a PR
-
-1. **Ask for SNOW ticket** if not provided. Before committing, explicitly confirm either a valid SNOW ticket number (use `SNOW-{ticket}: ...`) or that there is intentionally no ticket (then use `NO-SNOW:`).
-2. **Check for stacked PR**: if the branch is not based off `main`, ask whether to use `gt submit --stack`.
-
-## PR Description Template
-
-```markdown
-## Summary
-- Bullet points describing what changed and why
-
-## Context
-How this fits into the larger effort
-
-## Test plan
-Explain how the change was tested: what commands were run, what was
-verified, and the results. Be specific to this PR.
-```
+1. SQLBindCol
+  - Write size of bound column into length buffer when length buffer is not null. Example test for SQL_C_LONG type
+    ```cpp
+    // Test that length buffer receives correct size
+    SQLINTEGER value = 0;
+    SQLLEN indicator = 0;
+    ret = SQLBindCol(stmt.getHandle(), 1, SQL_C_LONG, &value, sizeof(value), &indicator);
+    ret = SQLFetch(stmt.getHandle());
+    CHECK(indicator == sizeof(SQLINTEGER)); // Length buffer should contain size of data
+    ```
 
 ---
 > Source: [snowflakedb/universal-driver](https://github.com/snowflakedb/universal-driver) — distributed by [TomeVault](https://tomevault.io).
