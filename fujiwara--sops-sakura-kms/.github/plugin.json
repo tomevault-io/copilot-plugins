@@ -1,0 +1,9 @@
+{
+  "name": "fujiwara--sops-sakura-kms",
+  "displayName": "sops-sakura-kms",
+  "description": "A SOPS wrapper that enables SOPS to use Sakura Cloud KMS for data key encryption.",
+  "version": "1.0.0",
+  "author": "fujiwara",
+  "homepage": "https://github.com/fujiwara/sops-sakura-kms",
+  "skills": []
+}
