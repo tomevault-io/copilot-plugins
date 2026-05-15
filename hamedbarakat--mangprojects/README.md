@@ -7,13 +7,13 @@ Flutter app for managing engineering projects with Firestore database
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [HamedBarakat/mangprojects](https://github.com/HamedBarakat/mangprojects).
+Original source: `CLAUDE.md` in [HamedBarakat/mangprojects](https://github.com/HamedBarakat/mangprojects).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
