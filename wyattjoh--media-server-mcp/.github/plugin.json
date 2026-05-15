@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--media-server-mcp",
+  "displayName": "media-server-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides AI assistants with tools to manage Radarr (movies), Sonarr (TV series) media servers, and access IMDB data through natural language interactions.",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/media-server-mcp",
+  "skills": []
+}
