@@ -1,0 +1,9 @@
+{
+  "name": "omercagatay--bddk-mcp",
+  "displayName": "bddk-mcp",
+  "description": "MCP server for BDDK (Turkish Banking Regulation) decisions and regulations",
+  "version": "1.0.0",
+  "author": "omercagatay",
+  "homepage": "https://github.com/omercagatay/bddk-mcp",
+  "skills": []
+}
