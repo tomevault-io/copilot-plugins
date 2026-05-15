@@ -1,0 +1,44 @@
+{
+  "name": "rustybt",
+  "owner": "jerryinyang",
+  "repo": "rustybt",
+  "description": "A high-performance backtesting framework combining the speed of Rust with the ease of Python. Built for quantitative traders, researchers, and financial institutions who need reliable, fast, and constitutionally compliant backtesting.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jerryinyang/rustybt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T07:56:11Z"
+}
