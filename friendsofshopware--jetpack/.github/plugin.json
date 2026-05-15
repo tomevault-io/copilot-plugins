@@ -1,0 +1,9 @@
+{
+  "name": "friendsofshopware--jetpack",
+  "displayName": "jetpack",
+  "description": "Jetpack is a rapid development framework for Shopware 6 administration",
+  "version": "1.0.0",
+  "author": "FriendsOfShopware",
+  "homepage": "https://github.com/FriendsOfShopware/jetpack",
+  "skills": []
+}
