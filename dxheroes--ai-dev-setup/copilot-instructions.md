@@ -1,107 +1,44 @@
-## error-handling
+## general-coding
 
-> Standardized error handling patterns and response structures
+> General coding standards and best practices for the project
 
 
-# Error Handling Standards
+# General Coding Standards
 
-All API errors must follow this standardized approach:
+Apply these standards across all code:
 
-## Error Response Structure
-```typescript
-{
-  error: {
-    code: string,       // Machine-readable error code
-    message: string,    // Human-readable error message
-    details?: unknown,  // Optional: Additional error details
-    path?: string       // Optional: Path to the error (for validation)
-  }
-}
-```
+## Code Quality
+- Use TypeScript strict mode
+- Prefer explicit types over `any`
+- Use descriptive variable and function names
+- Keep functions focused and small (single responsibility)
+- Add JSDoc comments for public APIs
 
-## HTTP Status Codes
-Use these specific status codes:
-- `400`: Validation errors, invalid input
-- `401`: Missing or invalid authentication (`AUTHENTICATION_ERROR`)
-- `403`: Insufficient permissions (`AUTHORIZATION_ERROR`)
-- `404`: Resource not found (`RESOURCE_NOT_FOUND`)
-- `409`: Resource conflicts (`RESOURCE_CONFLICT`)
-- `422`: Unprocessable entity
-- `429`: Rate limit exceeded (`RATE_LIMIT_EXCEEDED`)
-- `500`: Internal server error (`INTERNAL_ERROR`)
+## File Organization
+- Group related functionality in logical directories
+- Use consistent naming: `kebab-case` for files, `PascalCase` for components/classes
+- Separate concerns: types, validators, transformers, services
+- Keep business logic separate from framework-specific code
 
-## Standard Error Codes
-Always use these codes:
-- `VALIDATION_ERROR`: Input validation failed
-- `AUTHENTICATION_ERROR`: Authentication issues
-- `AUTHORIZATION_ERROR`: Permission issues
-- `RESOURCE_NOT_FOUND`: Resource not found
-- `RESOURCE_CONFLICT`: Resource state conflict
-- `RATE_LIMIT_EXCEEDED`: Rate limit exceeded
-- `INTERNAL_ERROR`: Unexpected server error
+## Import Organization
+1. External libraries (React, Prisma, etc.)
+2. Internal utilities and types
+3. Relative imports
+- Use absolute imports where configured
+- Group imports logically with blank lines
 
-## Error Handling Pattern
-```typescript
-try {
-  // Business logic
-} catch (error) {
-  if (error instanceof ValidationError) {
-    return c.json({
-      error: {
-        code: "VALIDATION_ERROR",
-        message: "Invalid input data",
-        details: error.details,
-      },
-    }, 400);
-  }
+## Error Handling
+- Always handle errors explicitly
+- Use typed error classes when possible
+- Provide meaningful error messages
+- Log errors appropriately (see error-handling rule)
 
-  if (error instanceof NotFoundError) {
-    return c.json({
-      error: {
-        code: "RESOURCE_NOT_FOUND",
-        message: error.message,
-      },
-    }, 404);
-  }
-
-  // Log unexpected errors
-  logger.error("Unexpected error", { error });
-
-  return c.json({
-    error: {
-      code: "INTERNAL_ERROR",
-      message: "An unexpected error occurred",
-    },
-  }, 500);
-}
-```
-
-## Validation Error Details
-For validation errors, include field-specific details:
-```typescript
-{
-  error: {
-    code: 'VALIDATION_ERROR',
-    message: 'Invalid input data',
-    details: [
-      {
-        path: 'email',
-        message: 'Invalid email format'
-      },
-      {
-        path: 'password', 
-        message: 'Password must be at least 8 characters'
-      }
-    ]
-  }
-}
-```
-
-## Logging Rules
-- Log all 5xx errors with full context
-- Log 4xx errors with minimal details
-- Include request ID in logs and responses
-- NEVER log sensitive data (passwords, tokens)
+## Security Mindset
+- Validate all external inputs
+- Use parameterized queries (Prisma handles this)
+- Never log sensitive data
+- Apply principle of least privilege
+- Use environment variables for secrets
 
 ---
 > Source: [DXHeroes/ai-dev-setup](https://github.com/DXHeroes/ai-dev-setup) — distributed by [TomeVault](https://tomevault.io).
