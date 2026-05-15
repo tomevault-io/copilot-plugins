@@ -1,0 +1,9 @@
+{
+  "name": "husniadil--cc-hooks",
+  "displayName": "cc-hooks",
+  "description": "Audio feedback plugin for Claude Code with TTS announcements, sound effects, and contextual AI messages. Supports multiple providers and languages.",
+  "version": "1.0.0",
+  "author": "husniadil",
+  "homepage": "https://github.com/husniadil/cc-hooks",
+  "skills": []
+}
