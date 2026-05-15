@@ -1,0 +1,9 @@
+{
+  "name": "rpostulart--claude-project-tracker",
+  "displayName": "Claude-Project-Tracker",
+  "description": "Track your AI agents with a virtual issue, comments and docs app in your repo",
+  "version": "1.0.0",
+  "author": "rpostulart",
+  "homepage": "https://github.com/rpostulart/Claude-Project-Tracker",
+  "skills": []
+}
