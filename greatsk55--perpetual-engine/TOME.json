@@ -4,7 +4,7 @@
   "repo": "perpetual-engine",
   "description": "AI Agent Startup Framework \u2014 Just invest tokens, AI builds the business.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/greatsk55/perpetual-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:12:53Z"
+  "distributed_at": "2026-05-15T13:44:02Z"
 }
