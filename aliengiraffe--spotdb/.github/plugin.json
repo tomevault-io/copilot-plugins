@@ -1,0 +1,9 @@
+{
+  "name": "aliengiraffe--spotdb",
+  "displayName": "spotdb",
+  "description": "Give your agents a secure, containerized SQL sandbox with MCP or API access enabled with DuckDB. No infra required, quick spin-up cycle. Push any CSV \u2014 query, analyze, and move on.",
+  "version": "1.0.0",
+  "author": "aliengiraffe",
+  "homepage": "https://github.com/aliengiraffe/spotdb",
+  "skills": []
+}
