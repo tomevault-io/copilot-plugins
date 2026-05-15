@@ -7,11 +7,11 @@ Tabbed terminal manager for Claude Code sessions — run multiple AI coding agen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Mr8BitHK/claude-terminal](https://github.com/Mr8BitHK/claude-terminal).
+Original source: `CLAUDE.md` in [Mr8BitHK/claude-terminal](https://github.com/Mr8BitHK/claude-terminal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
