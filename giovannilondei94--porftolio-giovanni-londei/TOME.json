@@ -1,0 +1,44 @@
+{
+  "name": "porftolio-giovanni-londei",
+  "owner": "giovannilondei94",
+  "repo": "porftolio-giovanni-londei",
+  "description": "Responsive personal portfolio website built with Next.js, Tailwind CSS and TypeScript. Multilingual (Italian / English), downloadable CV, and project showcase.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/giovannilondei94/porftolio-giovanni-londei",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T05:45:15Z"
+}
