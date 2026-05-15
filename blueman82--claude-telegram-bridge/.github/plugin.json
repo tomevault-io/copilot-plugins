@@ -1,0 +1,9 @@
+{
+  "name": "blueman82--claude-telegram-bridge",
+  "displayName": "claude-telegram-bridge",
+  "description": "Seamless 2-way communication between Claude Code and Telegram",
+  "version": "1.0.0",
+  "author": "blueman82",
+  "homepage": "https://github.com/blueman82/claude-telegram-bridge",
+  "skills": []
+}
