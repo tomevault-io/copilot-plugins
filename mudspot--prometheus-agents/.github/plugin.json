@@ -1,0 +1,9 @@
+{
+  "name": "mudspot--prometheus-agents",
+  "displayName": "prometheus-agents",
+  "description": "Claude Code Agents for the Elixir Phoenix Software Engineer",
+  "version": "1.0.0",
+  "author": "mudspot",
+  "homepage": "https://github.com/mudspot/prometheus-agents",
+  "skills": []
+}
