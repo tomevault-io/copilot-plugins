@@ -1,0 +1,9 @@
+{
+  "name": "hackerzhuli--unity-code-mcp",
+  "displayName": "unity_code_mcp",
+  "description": "Unity Code MCP is a MCP server that enables AI agents to work on Unity project autonomously, by providing tools to compile code and run tests in Unity Editor.",
+  "version": "1.0.0",
+  "author": "hackerzhuli",
+  "homepage": "https://github.com/hackerzhuli/unity_code_mcp",
+  "skills": []
+}
