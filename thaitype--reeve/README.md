@@ -7,11 +7,11 @@ Hardened shell runtime for AI agents. Allowlist-first execution of Rhai scripts 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [thaitype/reeve](https://github.com/thaitype/reeve).
+Original source: `CLAUDE.md` in [thaitype/reeve](https://github.com/thaitype/reeve).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
