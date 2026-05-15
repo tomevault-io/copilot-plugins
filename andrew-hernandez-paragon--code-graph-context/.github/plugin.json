@@ -1,0 +1,9 @@
+{
+  "name": "andrew-hernandez-paragon--code-graph-context",
+  "displayName": "code-graph-context",
+  "description": "A Model Context Protocol (MCP) server that builds rich code graphs to provide deep contextual understanding of TypeScript codebases to Large Language Models.",
+  "version": "1.0.0",
+  "author": "andrew-hernandez-paragon",
+  "homepage": "https://github.com/andrew-hernandez-paragon/code-graph-context",
+  "skills": []
+}
