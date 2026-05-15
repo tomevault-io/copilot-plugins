@@ -1,0 +1,9 @@
+{
+  "name": "chongzixuan-ai--mcp-server-website",
+  "displayName": "mcp-server-website",
+  "description": "Quickly screenshots webpages and converts to an LLM friendly size",
+  "version": "1.0.0",
+  "author": "chongzixuan-ai",
+  "homepage": "https://github.com/chongzixuan-ai/mcp-server-website",
+  "skills": []
+}
