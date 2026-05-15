@@ -4,7 +4,7 @@
   "repo": "gremlin-mcp",
   "description": " MCP server for Gremlin graph databases - Connect AI agents like Claude to TinkerPop, Neptune & more. Natural language   graph queries & analysis.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kpritam/gremlin-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T04:52:06Z"
+  "distributed_at": "2026-05-15T06:37:13Z"
 }
