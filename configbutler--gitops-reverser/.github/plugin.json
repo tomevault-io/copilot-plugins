@@ -1,0 +1,9 @@
+{
+  "name": "configbutler--gitops-reverser",
+  "displayName": "gitops-reverser",
+  "description": "Reconciles Kubernetes API resources into a git destination as clean deployable YAML files (audit trail through git commits).",
+  "version": "1.0.0",
+  "author": "ConfigButler",
+  "homepage": "https://github.com/ConfigButler/gitops-reverser",
+  "skills": []
+}
