@@ -1,0 +1,9 @@
+{
+  "name": "grazulex--laravel-api-idempotency",
+  "displayName": "laravel-api-idempotency",
+  "description": "Complete API idempotency lifecycle management for Laravel - Prevent duplicate operations, ensure safe retries",
+  "version": "1.0.0",
+  "author": "Grazulex",
+  "homepage": "https://github.com/Grazulex/laravel-api-idempotency",
+  "skills": []
+}
