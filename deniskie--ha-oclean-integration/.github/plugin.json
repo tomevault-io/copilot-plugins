@@ -1,0 +1,9 @@
+{
+  "name": "deniskie--ha-oclean-integration",
+  "displayName": "ha-oclean-integration",
+  "description": "Home Assistant Integration for Oclean Toothbrushes",
+  "version": "1.0.0",
+  "author": "deniskie",
+  "homepage": "https://github.com/deniskie/ha-oclean-integration",
+  "skills": []
+}
