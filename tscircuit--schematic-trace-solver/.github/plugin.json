@@ -1,0 +1,9 @@
+{
+  "name": "tscircuit--schematic-trace-solver",
+  "displayName": "schematic-trace-solver",
+  "description": "A schematic trace routing and net label placement algorithm with Minimum Spanning Tree",
+  "version": "1.0.0",
+  "author": "tscircuit",
+  "homepage": "https://github.com/tscircuit/schematic-trace-solver",
+  "skills": []
+}
