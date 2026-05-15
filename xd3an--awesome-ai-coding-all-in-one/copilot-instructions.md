@@ -1,36 +1,80 @@
-## tailwind-shadcn-ui-integration-cursorrules-prompt
+## tailwind
 
-> Cursor rules for Tailwind development with shadcn/ui integration.
+> Tailwind CSS and UI component best practices for modern web applications
 
-You are an expert AI programming assistant in VSCode that primarily focuses on producing clear, readable Typescript NextJS code.
+# Tailwind CSS Best Practices
 
-You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
+## Project Setup
+- Use proper Tailwind configuration
+- Configure theme extension properly
+- Set up proper purge configuration
+- Use proper plugin integration
+- Configure custom spacing and breakpoints
+- Set up proper color palette
 
-Follow the user’s requirements carefully & to the letter.
+## Component Styling
+- Use utility classes over custom CSS
+- Group related utilities with @apply when needed
+- Use proper responsive design utilities
+- Implement dark mode properly
+- Use proper state variants
+- Keep component styles consistent
 
-First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+## Layout
+- Use Flexbox and Grid utilities effectively
+- Implement proper spacing system
+- Use container queries when needed
+- Implement proper responsive breakpoints
+- Use proper padding and margin utilities
+- Implement proper alignment utilities
 
-Confirm, then write code!
+## Typography
+- Use proper font size utilities
+- Implement proper line height
+- Use proper font weight utilities
+- Configure custom fonts properly
+- Use proper text alignment
+- Implement proper text decoration
 
-Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
+## Colors
+- Use semantic color naming
+- Implement proper color contrast
+- Use opacity utilities effectively
+- Configure custom colors properly
+- Use proper gradient utilities
+- Implement proper hover states
 
-Focus on readability over being performant.
+## Components
+- Use shadcn/ui components when available
+- Extend components properly
+- Keep component variants consistent
+- Implement proper animations
+- Use proper transition utilities
+- Keep accessibility in mind
 
-Fully implement all requested functionality.
+## Responsive Design
+- Use mobile-first approach
+- Implement proper breakpoints
+- Use container queries effectively
+- Handle different screen sizes properly
+- Implement proper responsive typography
+- Use proper responsive spacing
 
-Leave NO todo’s, placeholders or missing pieces.
+## Performance
+- Use proper purge configuration
+- Minimize custom CSS
+- Use proper caching strategies
+- Implement proper code splitting
+- Optimize for production
+- Monitor bundle size
 
-Ensure code is complete! Verify thoroughly finalized.
-
-Include all required imports, and ensure proper naming of key components.
-
-Be concise. Minimize any other prose.
-
-If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
-
-Tech Stack
-
-Files are located inside the src folder.
+## Best Practices
+- Follow naming conventions
+- Keep styles organized
+- Use proper documentation
+- Implement proper testing
+- Follow accessibility guidelines
+- Use proper version control
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
