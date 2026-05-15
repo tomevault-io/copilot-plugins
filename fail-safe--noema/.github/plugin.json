@@ -1,0 +1,9 @@
+{
+  "name": "fail-safe--noema",
+  "displayName": "Noema",
+  "description": "The intentional memory layer for your AI agents.",
+  "version": "1.0.0",
+  "author": "Fail-Safe",
+  "homepage": "https://github.com/Fail-Safe/Noema",
+  "skills": []
+}
