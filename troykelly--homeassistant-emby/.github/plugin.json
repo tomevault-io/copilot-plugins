@@ -1,0 +1,9 @@
+{
+  "name": "troykelly--homeassistant-emby",
+  "displayName": "homeassistant-emby",
+  "description": "A working Emby integration component for Home Assistant",
+  "version": "1.0.0",
+  "author": "troykelly",
+  "homepage": "https://github.com/troykelly/homeassistant-emby",
+  "skills": []
+}
