@@ -1,0 +1,9 @@
+{
+  "name": "klever-io--mcp-klever-vm",
+  "displayName": "mcp-klever-vm",
+  "description": "MCP server for Klever blockchain smart contract development",
+  "version": "1.0.0",
+  "author": "klever-io",
+  "homepage": "https://github.com/klever-io/mcp-klever-vm",
+  "skills": []
+}
