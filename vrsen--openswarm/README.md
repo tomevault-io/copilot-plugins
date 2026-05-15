@@ -7,11 +7,11 @@ Claude code for everything except coding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [VRSEN/OpenSwarm](https://github.com/VRSEN/OpenSwarm).
+Original source: `CLAUDE.md` in [VRSEN/OpenSwarm](https://github.com/VRSEN/OpenSwarm).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
