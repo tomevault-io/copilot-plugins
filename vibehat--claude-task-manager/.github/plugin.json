@@ -1,0 +1,9 @@
+{
+  "name": "vibehat--claude-task-manager",
+  "displayName": "claude-task-manager",
+  "description": "Personal AI project manager with Claude Code integration and persistent context",
+  "version": "1.0.0",
+  "author": "vibehat",
+  "homepage": "https://github.com/vibehat/claude-task-manager",
+  "skills": []
+}
