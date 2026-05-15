@@ -4,7 +4,7 @@
   "repo": "jobpilot",
   "description": "Claude Code plugin that autonomously searches job boards, auto-fills applications, generates cover letters, and preps for interviews - powered by your resume",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/suxrobGM/jobpilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:36:01Z"
+  "distributed_at": "2026-05-15T17:07:55Z"
 }
