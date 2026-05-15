@@ -1,44 +1,43 @@
-## general-coding
+## models-and-schemas
 
-> General coding standards and best practices for the project
+> Data models, TypeScript types, and Zod validation schemas
 
 
-# General Coding Standards
+# Data Models and Schemas
 
-Apply these standards across all code:
+When working with data models, follow these patterns:
 
-## Code Quality
-- Use TypeScript strict mode
-- Prefer explicit types over `any`
-- Use descriptive variable and function names
-- Keep functions focused and small (single responsibility)
-- Add JSDoc comments for public APIs
+## Prisma Schema Definition
+- Use `@id @default(cuid())` for primary keys
+- Include `createdAt` and `updatedAt` timestamps with `@default(now())` and `@updatedAt`
+- Add proper indexes with `@@index()` for foreign keys and frequently queried fields
+- Use descriptive relation names and proper `@relation` attributes
 
-## File Organization
-- Group related functionality in logical directories
-- Use consistent naming: `kebab-case` for files, `PascalCase` for components/classes
-- Separate concerns: types, validators, transformers, services
-- Keep business logic separate from framework-specific code
+## TypeScript Types
+- Export base types for models in `src/types/` directory
+- Create extended types with relations (e.g., `UserWithRelations`)
+- Use consistent naming: `User`, `UserWithRelations`, `CreateUserRequest`
 
-## Import Organization
-1. External libraries (React, Prisma, etc.)
-2. Internal utilities and types
-3. Relative imports
-- Use absolute imports where configured
-- Group imports logically with blank lines
+## Zod Validation Schemas
+- Create validation schemas in `src/validators/` directory
+- Use descriptive error messages for all validation rules
+- Password validation must include: min 8 chars, uppercase, lowercase, number
+- Email validation using `.email()` method
+- Transform query parameters (page, limit) to numbers with defaults
+- Use `.optional()` for optional fields in update schemas
 
-## Error Handling
-- Always handle errors explicitly
-- Use typed error classes when possible
-- Provide meaningful error messages
-- Log errors appropriately (see error-handling rule)
+## Response Transformers
+- Create transformers in `src/transformers/` directory
+- Transform dates to ISO strings for API responses
+- Exclude sensitive fields (passwords, internal IDs)
+- Include pagination metadata for list responses
 
-## Security Mindset
-- Validate all external inputs
-- Use parameterized queries (Prisma handles this)
-- Never log sensitive data
-- Apply principle of least privilege
-- Use environment variables for secrets
+## Naming Conventions
+- Base schema: `UserSchema`
+- Create request: `CreateUserSchema`
+- Update request: `UpdateUserSchema`
+- Query params: `UserQuerySchema`
+- Transformer: `transformUser`, `transformUserList`
 
 ---
 > Source: [DXHeroes/ai-dev-setup](https://github.com/DXHeroes/ai-dev-setup) — distributed by [TomeVault](https://tomevault.io).
