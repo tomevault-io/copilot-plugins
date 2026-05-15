@@ -4,7 +4,7 @@
   "repo": "SparkEngine",
   "description": "A free, open-source C++23 3D game engine for FPS and beyond \u2014 DirectX 12, Vulkan, Jolt Physics, ECS, ImGui editor, AngelScript scripting",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Krilliac/SparkEngine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T18:40:39Z"
+  "distributed_at": "2026-05-15T22:48:42Z"
 }
