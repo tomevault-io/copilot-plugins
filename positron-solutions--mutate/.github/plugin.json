@@ -1,0 +1,9 @@
+{
+  "name": "positron-solutions--mutate",
+  "displayName": "MuTate",
+  "description": "\u00b5Tate - MuTating music visualizer - Rust + Vulkan & Slang",
+  "version": "1.0.0",
+  "author": "positron-solutions",
+  "homepage": "https://github.com/positron-solutions/MuTate",
+  "skills": []
+}
