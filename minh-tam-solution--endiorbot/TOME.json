@@ -4,7 +4,7 @@
   "repo": "EndiorBot",
   "description": "Local-first AI agent orchestrator for SDLC workflows \u2014 14 role-based agents, 5 channels, 39 unified commands. Tool-agnostic. MIT.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Minh-Tam-Solution/EndiorBot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T17:19:23Z"
+  "distributed_at": "2026-05-15T15:45:57Z"
 }
