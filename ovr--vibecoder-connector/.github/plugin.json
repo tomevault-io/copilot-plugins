@@ -1,0 +1,9 @@
+{
+  "name": "ovr--vibecoder-connector",
+  "displayName": "vibecoder-connector",
+  "description": "Bridges the gap between your IDE and your body",
+  "version": "1.0.0",
+  "author": "ovr",
+  "homepage": "https://github.com/ovr/vibecoder-connector",
+  "skills": []
+}
