@@ -1,0 +1,9 @@
+{
+  "name": "mrviduus--textstack",
+  "displayName": "textstack",
+  "description": "A reader that helps you finish dense tech books. Contextual word explanations, capped weekly SRS, offline reading. EPUB / PDF / FB2. ASP.NET Core + React + Expo.",
+  "version": "1.0.0",
+  "author": "mrviduus",
+  "homepage": "https://github.com/mrviduus/textstack",
+  "skills": []
+}
