@@ -1,82 +1,70 @@
-## docstring-standards
+## documentation
 
-> **Write docstrings that are succinct and direct - avoid verbose explanations.**
+> Documentation standards requiring external-reader accessibility and concrete language
 
-# Docstring Standards
+
+# Documentation Standards
 
 ## Core Principle
-**Write docstrings that are succinct and direct - avoid verbose explanations.**
+**Write for a future developer with zero project knowledge who needs to understand and modify this system.**
 
-## Docstring Requirements
-- **Succinct communication** - Essential information only, no verbose explanations
-- **Direct language** - Get to the point quickly
-- **Follow @documentation forbidden content rules**:
-  - No task references or historical processes
-  - No abstract corporate speak
-  - No development journey narratives
-- **External reader accessible** - Assume zero project knowledge but keep it brief
-- **Practical focus** - What they need to know, not extensive examples
+## Some Possible Elements
+- **Function-level docstrings** for all new functions following the core principle
+- **Module-level docstrings** for new modules explaining their purpose and approach
+- **Complete examples** that are copy-pasteable and work
+- **Technical context** explaining why decisions were made when it affects future changes
+- **Prerequisites**: What they need to install/know first
+- **Clear steps**: How to use, modify, or extend
 
-## Structure Guidelines
-- **Brief description** - One clear sentence about what the function does
-- **Essential args/returns** - Key parameters and return values only
-- **Minimal examples** - Only when necessary for clarity
-- **No extensive prerequisites** - Basic requirements only
+## Documentation Updates for Code Changes
+- **Evaluate existing documentation** before creating new files - determine if new information should be added to existing docs rather than creating separate files
+- **When code is changed** (as opposed to net-new), these must be evaluated and updated if needed:
+  - Documentation files
+  - README.md
+  - Engineering specifications
+  - PRD (Product Requirements Document)
+
+## Forbidden Content
+- **Process references**: No task IDs, sprint numbers, team workflows
+- **Historical narrative**: Skip "we tried X then Y" stories  
+- **Assumed knowledge**: No insider team decisions or project history
+- **Personal references**: No names, meetings, or timeline details
+- **Abstract corporate speak**: Use concrete problem descriptions instead
+- **Meaningless task references**: Describe actual accomplishments, not task numbers
+
+## Writing Style Requirements
+- **Specific, concrete language** - avoid abstract buzzwords
+- **Real problem/solution statements** - not theoretical concepts
+- **External reader accessibility** - assume no prior project context
+- **Focus on what's happening** - not the development journey
+
+## Quality Test
+**Could a new developer use this documentation successfully without asking questions?**
 
 ## Examples
 
-### ✅ Good Docstring
-```python
-def generate_daily_summary(date: str) -> Optional[DailySummary]:
-    """Generate a daily summary from journal entries.
-    
-    Args:
-        date: Date string in YYYY-MM-DD format.
-        
-    Returns:
-        DailySummary object or None if no entries found.
-    """
+### ✅ Good
+```markdown
+# Email Service
+
+## Prerequisites
+- Node.js 18+, environment vars: `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`
+
+## Usage
+```javascript
+import { sendEmail } from './email-service';
+await sendEmail('user@example.com', 'Welcome!', template);
 ```
 
-### ❌ Avoid Verbose Docstrings
-```python
-def generate_daily_summary(date: str) -> Optional[DailySummary]:
-    """Generate a daily summary from journal entries.
-    
-    This function orchestrates the complete workflow for generating daily summaries
-    from journal entries. It handles the entire process from loading configuration
-    to processing entries through AI and saving the final formatted results.
-    
-    ## Prerequisites
-    - Journal files must exist in the expected directory structure
-    - Configuration file must be properly set up with journal paths
-    - AI provider must be configured with valid API keys
-    
-    ## Usage Examples
-    ```python
-    # Generate for today
-    summary = generate_daily_summary("2025-01-15")
-    
-    # Handle the result
-    if summary:
-        print(f"Generated: {summary['summary']}")
-    else:
-        print("No entries found")
-    ```
-    
-    ## Technical Context
-    This function was created to replace the MCP-based approach...
-    """
+## Configuration
+- `TIMEOUT=10000`: 10s timeout prevents hanging on slow SMTP servers
 ```
 
-## Apply to Docstrings Only
-- **These standards apply specifically to docstrings** - not other documentation
-- **Other documentation** (README, docs/) can be more comprehensive
-- **Code comments** can be brief but don't need to follow these specific rules
-- **Module docstrings** should be concise but can include essential usage examples
-
-## Quality Check
-**Could a developer understand and use this function from the docstring alone, without reading a manual?**
+### ❌ Bad
+```markdown
+# Email Service
+After task #45, the team decided on nodemailer. Sarah's timeout fix solved our production issues.
+```
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
