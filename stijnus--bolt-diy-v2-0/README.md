@@ -7,11 +7,11 @@ AI-powered web development tool - Enhanced version of bolt.new with authenticati
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Stijnus/bolt.diy_V2.0](https://github.com/Stijnus/bolt.diy_V2.0).
+Original source: `CLAUDE.md` in [Stijnus/bolt.diy_V2.0](https://github.com/Stijnus/bolt.diy_V2.0).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
