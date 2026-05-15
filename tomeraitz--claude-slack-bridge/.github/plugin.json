@@ -1,0 +1,9 @@
+{
+  "name": "tomeraitz--claude-slack-bridge",
+  "displayName": "claude-slack-bridge",
+  "description": "MCP server that lets Claude Code pause mid-task and ask a human a question via Slack \u2014 then resume once you reply.",
+  "version": "1.0.0",
+  "author": "tomeraitz",
+  "homepage": "https://github.com/tomeraitz/claude-slack-bridge",
+  "skills": []
+}
