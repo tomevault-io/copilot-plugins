@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [solarice-media/OrcaSlicer-bambulab-standalone](https://github.com/solarice-media/OrcaSlicer-bambulab-standalone).
+Original source: `CLAUDE.md` in [solarice-media/OrcaSlicer-bambulab-standalone](https://github.com/solarice-media/OrcaSlicer-bambulab-standalone).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
