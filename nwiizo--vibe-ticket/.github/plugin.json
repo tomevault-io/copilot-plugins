@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--vibe-ticket",
+  "displayName": "vibe-ticket",
+  "description": "A high-performance ticket management system for developers, built with Rust. Features Git worktree integration for parallel development workflows.",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/vibe-ticket",
+  "skills": []
+}
