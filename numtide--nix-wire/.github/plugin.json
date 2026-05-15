@@ -1,0 +1,9 @@
+{
+  "name": "numtide--nix-wire",
+  "displayName": "nix-wire",
+  "description": "A collection of tools for the Nix daemon wire protocol",
+  "version": "1.0.0",
+  "author": "numtide",
+  "homepage": "https://github.com/numtide/nix-wire",
+  "skills": []
+}
