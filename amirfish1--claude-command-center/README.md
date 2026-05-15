@@ -7,11 +7,11 @@ Local kanban for Claude Code. Attaches to every session — terminal, headless, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [amirfish1/claude-command-center](https://github.com/amirfish1/claude-command-center).
+Original source: `CLAUDE.md` in [amirfish1/claude-command-center](https://github.com/amirfish1/claude-command-center).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
