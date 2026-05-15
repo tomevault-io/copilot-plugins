@@ -1,0 +1,9 @@
+{
+  "name": "bitropy--ccagents",
+  "displayName": "ccagents",
+  "description": "CLI tool for managing Claude Code agents in local projects\"",
+  "version": "1.0.0",
+  "author": "Bitropy",
+  "homepage": "https://github.com/Bitropy/ccagents",
+  "skills": []
+}
