@@ -1,0 +1,44 @@
+{
+  "name": "japanese-text-cleaner",
+  "owner": "Albertaworlds",
+  "repo": "japanese-text-cleaner",
+  "description": "Automated Japanese text cleaning web tool with 16-step pipeline, batch processing, encoding auto-detection, and Agent-ready API | 16\u7a2e\u985e\u306e\u30af\u30ea\u30fc\u30cb\u30f3\u30b0\u30eb\u30fc\u30eb\u3092\u642d\u8f09\u3057\u305f\u65e5\u672c\u8a9e\u30c6\u30ad\u30b9\u30c8\u81ea\u52d5\u6574\u5f62Web\u30c4\u30fc\u30eb",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Albertaworlds/japanese-text-cleaner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T07:13:42Z"
+}
