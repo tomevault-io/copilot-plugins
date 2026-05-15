@@ -1,0 +1,9 @@
+{
+  "name": "crisostomi--model-merging",
+  "displayName": "model-merging",
+  "description": "Utils and methods for weight-space merging.",
+  "version": "1.0.0",
+  "author": "crisostomi",
+  "homepage": "https://github.com/crisostomi/model-merging",
+  "skills": []
+}
