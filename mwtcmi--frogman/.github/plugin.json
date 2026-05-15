@@ -1,0 +1,9 @@
+{
+  "name": "mwtcmi--frogman",
+  "displayName": "frogman",
+  "description": "Headless FreePBX control. 219 tools via MCP, HTTP API, GraphQL, and CLI. Built on FreePBX's open-source-module interfaces (BMO, GraphQL, AMI, fwconsole).",
+  "version": "1.0.0",
+  "author": "mwtcmi",
+  "homepage": "https://github.com/mwtcmi/frogman",
+  "skills": []
+}
