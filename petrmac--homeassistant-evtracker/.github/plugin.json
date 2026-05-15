@@ -1,0 +1,9 @@
+{
+  "name": "petrmac--homeassistant-evtracker",
+  "displayName": "homeassistant-evtracker",
+  "description": "Track your electric vehicle charging costs",
+  "version": "1.0.0",
+  "author": "petrmac",
+  "homepage": "https://github.com/petrmac/homeassistant-evtracker",
+  "skills": []
+}
