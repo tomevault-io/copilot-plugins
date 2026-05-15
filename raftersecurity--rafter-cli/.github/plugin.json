@@ -1,0 +1,9 @@
+{
+  "name": "raftersecurity--rafter-cli",
+  "displayName": "rafter-cli",
+  "description": "Multi-language CLI for Rafter \u2014 the security toolkit built for AI coding agents and the developers who use them.",
+  "version": "1.0.0",
+  "author": "Raftersecurity",
+  "homepage": "https://github.com/Raftersecurity/rafter-cli",
+  "skills": []
+}
