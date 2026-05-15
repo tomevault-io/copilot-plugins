@@ -1,0 +1,9 @@
+{
+  "name": "macfall7--m87-governed-bridge",
+  "displayName": "m87-governed-bridge",
+  "description": "A governed orchestration bridge between Claude and Gemini CLI agents with emotional modulation, task delegation, and safe output containment.",
+  "version": "1.0.0",
+  "author": "MacFall7",
+  "homepage": "https://github.com/MacFall7/m87-governed-bridge",
+  "skills": []
+}
