@@ -1,0 +1,9 @@
+{
+  "name": "hoxxep--passwordentropy-com",
+  "displayName": "passwordentropy.com",
+  "description": "Estimate password entropy and cracking times. Inspired by xkcd #936.",
+  "version": "1.0.0",
+  "author": "hoxxep",
+  "homepage": "https://github.com/hoxxep/passwordentropy.com",
+  "skills": []
+}
