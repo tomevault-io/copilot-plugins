@@ -4,7 +4,7 @@
   "repo": "outlook-local-mcp",
   "description": "Local MCP server for Microsoft Outlook \u2014 calendars, events, and email via Microsoft Graph API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/desek/outlook-local-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T20:22:34Z"
+  "distributed_at": "2026-05-15T17:00:18Z"
 }
