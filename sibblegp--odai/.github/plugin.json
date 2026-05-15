@@ -1,9 +1,9 @@
 {
   "name": "sibblegp--odai",
   "displayName": "ODAI",
-  "description": "ODAI",
+  "description": "ODAI - Multi Agentic AI Tool System (Text and Voice)",
   "version": "1.0.0",
   "author": "sibblegp",
-  "homepage": "https://tomevault.io/claim/sibblegp",
+  "homepage": "https://github.com/sibblegp/ODAI",
   "skills": []
 }
