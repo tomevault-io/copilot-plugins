@@ -4,7 +4,7 @@
   "repo": "mcp-gateway",
   "description": "Gateway for inspecting and auditing your MCP servers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fiberplane/mcp-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T07:43:57Z"
+  "distributed_at": "2026-05-15T07:49:38Z"
 }
