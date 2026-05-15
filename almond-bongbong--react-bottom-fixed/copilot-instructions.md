@@ -1,15 +1,25 @@
-## naming-conventions
+## no-unchecked-indexed-access
 
-> - Use kebab-case for file names (e.g., `my-component.ts`)
+> If the user has this rule enabled in their `tsconfig.json`, indexing into objects and arrays will behave differently from how you expect.
 
-- Use kebab-case for file names (e.g., `my-component.ts`)
-- Use camelCase for variables and function names (e.g., `myVariable`, `myFunction()`)
-- Use UpperCamelCase (PascalCase) for classes, types, and interfaces (e.g., `MyClass`, `MyInterface`)
-- Use ALL_CAPS for constants and enum values (e.g., `MAX_COUNT`, `Color.RED`)
-- Inside generic types, functions or classes, prefix type parameters with `T` (e.g., `TKey`, `TValue`)
+If the user has this rule enabled in their `tsconfig.json`, indexing into objects and arrays will behave differently from how you expect.
 
 ```ts
-type RecordOfArrays<TItem> = Record<string, TItem[]>;
+const obj: Record<string, string> = {};
+
+// With noUncheckedIndexedAccess, value will
+// be `string | undefined`
+// Without it, value will be `string`
+const value = obj.key;
+```
+
+```ts
+const arr: string[] = [];
+
+// With noUncheckedIndexedAccess, value will
+// be `string | undefined`
+// Without it, value will be `string`
+const value = arr[0];
 ```
 
 ---
