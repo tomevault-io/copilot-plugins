@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--vibe-to-prd",
+  "displayName": "vibe-to-prd",
+  "description": "Drop a product idea, get a complete PRD. Hand it to Claude Code. Get your product.",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/vibe-to-prd",
+  "skills": []
+}
