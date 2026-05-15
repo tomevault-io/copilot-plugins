@@ -1,0 +1,9 @@
+{
+  "name": "beautyfree--skiller-desktop-skills-manager",
+  "displayName": "skiller-desktop-skills-manager",
+  "description": "AI agent skills manager for Claude Code, Cursor, Codex and more \u2014 install, sync, and manage skills from one desktop app.",
+  "version": "1.0.0",
+  "author": "beautyfree",
+  "homepage": "https://github.com/beautyfree/skiller-desktop-skills-manager",
+  "skills": []
+}
