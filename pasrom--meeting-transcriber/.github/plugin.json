@@ -1,0 +1,9 @@
+{
+  "name": "pasrom--meeting-transcriber",
+  "displayName": "meeting-transcriber",
+  "description": "macOS meeting transcription app with speaker diarization",
+  "version": "1.0.0",
+  "author": "pasrom",
+  "homepage": "https://github.com/pasrom/meeting-transcriber",
+  "skills": []
+}
