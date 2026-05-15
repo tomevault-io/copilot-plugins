@@ -4,7 +4,7 @@
   "repo": "NextFrame",
   "description": "AI Video Engine \u2014 Turn structured data into videos. JSON timeline \u2192 Scene components \u2192 HTML/MP4.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ChaosRealmsAI/NextFrame",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:07:39Z"
+  "distributed_at": "2026-05-15T13:37:50Z"
 }
