@@ -1,68 +1,81 @@
-## when-to-create-rules
+## qarote
 
-> This document outlines when you should create or update cursor rules in this codebase.
+> RabbitMQ monitoring dashboard with a freemium model. Core monitoring is free (MIT); premium features (workspaces, alerting, integrations) are unlocked via JWT license keys validated offline.
 
+# Qarote
 
-# When to Create or Update Cursor Rules
+RabbitMQ monitoring dashboard with a freemium model. Core monitoring is free (MIT); premium features (workspaces, alerting, integrations) are unlocked via JWT license keys validated offline.
 
-This document outlines when you should create or update cursor rules in this codebase.
+## Tech Stack
 
-## When to CREATE a new rule
+- **Monorepo**: pnpm 9 workspaces + Turborepo
+- **Backend** (`apps/api`): Hono.js, tRPC, Prisma (PostgreSQL), better-auth, Stripe
+- **Frontend** (`apps/app`): Vite, React 19, Tailwind CSS 4, Radix UI / shadcn, React Hook Form + Zod, TanStack Query, i18next
+- **Website** (`apps/web`): Vite + React (landing page)
+- **Portal** (`apps/portal`): Vite + React (customer portal)
+- **E2E** (`apps/e2e`): Playwright
+- **Shared**: `packages/i18n`
+- **Node**: v24, **pnpm**: v9
 
-Create a new cursor rule file when:
+## Common Commands
 
-1. **Architectural patterns or conventions** that are used across multiple files or modules
-   - Example: A specific pattern for handling errors, authentication, or data validation
-   - Example: A convention for organizing services or controllers
+```bash
+pnpm dev              # Start all apps in dev mode
+pnpm dev:api          # API only
+pnpm dev:app          # Frontend only
+pnpm build            # Build API
+pnpm build:app        # Build frontend
+pnpm test             # Run all tests
+pnpm lint             # ESLint across all workspaces
+pnpm format           # Prettier check
+pnpm format:fix       # Prettier fix
+pnpm type-check       # TypeScript check
+pnpm db:migrate:dev   # Create Prisma migration
+pnpm db:migrate       # Run migrations
+pnpm db:generate      # Generate Prisma client
+pnpm db:studio        # Open Prisma Studio
+```
 
-2. **Complex domain logic** that requires explanation beyond what's obvious from the code
-   - Example: Business rules that aren't self-evident
-   - Example: Workflows that span multiple components
+## Code Conventions
 
-3. **Important design decisions** that affect how code should be written or organized
-   - Example: Why certain patterns are preferred over alternatives
-   - Example: Constraints that must be maintained (e.g., database schema relationships)
+- **Commits**: Conventional Commits enforced by commitlint + Husky. Types: `feat`, `fix`, `refactor`, `chore`, `docs`, `style`, `perf`, `test`, `build`, `ci`, `revert`. Lowercase subject, no period, max 100 chars.
+- **Formatting**: Prettier — double quotes, semicolons, 2-space indent, trailing commas (ES5), LF line endings.
+- **Linting**: ESLint flat config per app. No `console.log` in production. `simple-import-sort` with strict group ordering. No `any`.
+- **Styling**: Tailwind CSS 4 utility classes. Radix UI primitives wrapped as shadcn components. Avoid inline `style={{}}` — prefer Tailwind classes, including arbitrary values like `shadow-[0_0_0_24px_hsl(var(--background))]`. Inline style is acceptable only for values that genuinely cannot be expressed in Tailwind (runtime-computed transforms, dynamic chart dimensions, etc.).
+- **Database**: Prisma schema at `apps/api/prisma/schema.prisma`. Generated client at `apps/api/src/generated/prisma`.
 
-4. **Recurring patterns** that appear in multiple places and should be followed consistently
-   - Example: API response formatting conventions
-   - Example: Error handling patterns
+## Architecture
 
-5. **Project structure conventions** that help navigate or understand the codebase
-   - Example: Where to find specific types of files
-   - Example: How different parts of the application interact
+- **API**: Hono.js serves tRPC routes. Auth via better-auth (email/password + SSO via OIDC/SAML). RabbitMQ connections via amqplib.
+- **Frontend**: SPA with React Router. Data fetching via TanStack Query + tRPC client.
+- **Licensing**: JWT license keys validated offline with baked-in public key. Two tiers: Developer ($348/yr), Enterprise ($1,188/yr).
+- **Deployment**: Dokku (recommended), Docker Compose, or standalone binary. Procfile workers: `web`, `worker` (alerts), `license-worker`, `release-notifier`.
 
-## When to UPDATE an existing rule
+## Key Directories
 
-Update an existing rule when:
+```text
+apps/api/src/          # Backend source
+apps/api/prisma/       # Prisma schema & migrations
+apps/app/src/          # Frontend source
+apps/app/src/components/ui/  # shadcn UI components
+apps/app/src/pages/    # Page components
+apps/web/              # Landing site
+apps/portal/           # Customer portal
+packages/i18n/         # Shared i18n
+scripts/               # Utility scripts (seed, migrate, stripe, etc.)
+docs/                  # Project documentation
+docs/adr/              # Architecture Decision Records
+```
 
-1. **The pattern or convention has changed** - Update the rule to reflect the new approach
-2. **New information is discovered** - Add missing details that would help future development
-3. **The rule is outdated** - Remove or update information that's no longer accurate
-4. **The scope has expanded** - Add new examples or use cases that weren't covered
+## Documentation
 
-## When NOT to create a rule
-
-Do NOT create a rule for:
-
-1. **One-off implementations** - Single-use code that won't be repeated
-2. **Simple, self-explanatory code** - Code that's clear without additional context
-3. **Temporary solutions** - Code that's meant to be replaced soon
-4. **Standard library usage** - Common patterns that are well-documented elsewhere
-5. **Minor variations** - Small differences that don't represent a pattern
-
-## Rule file organization
-
-- Place rules in `.cursor/rules/` directory at the appropriate level (root, `api/`, `app/`, etc.)
-- Use descriptive filenames that indicate the rule's purpose
-- Set `alwaysApply: true` for rules that should be active in every conversation
-- Group related rules logically (e.g., project structure, coding conventions, architecture)
-
-## Best practices
-
-- **Keep rules focused** - Each rule should cover a specific topic or pattern
-- **Keep rules current** - Review and update rules periodically as the codebase evolves
-- **Use examples** - Include concrete examples when they clarify the rule
-- **Be concise** - Rules should be helpful, not overwhelming
+- `docs/README.md` — Documentation hub
+- `docs/SELF_HOSTED_DEPLOYMENT.md` — Deployment guide (binary, Docker, Dokku)
+- `docs/COMMUNITY_EDITION.md` — Free edition guide
+- `docs/ENTERPRISE_EDITION.md` — Licensed features guide
+- `docs/FEATURE_COMPARISON.md` — Edition comparison
+- `docs/RELEASE_MANAGEMENT.md` — Versioning & release-it workflow
+- `docs/adr/` — Architecture Decision Records
 
 ---
 > Source: [getqarote/Qarote](https://github.com/getqarote/Qarote) — distributed by [TomeVault](https://tomevault.io).
