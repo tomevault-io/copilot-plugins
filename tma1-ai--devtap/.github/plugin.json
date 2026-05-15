@@ -1,0 +1,9 @@
+{
+  "name": "tma1-ai--devtap",
+  "displayName": "devtap",
+  "description": "Bridge build/dev process output to AI coding sessions via MCP \u2014 supports Claude Code, Codex, OpenCode, Gemini CLI, and aider",
+  "version": "1.0.0",
+  "author": "tma1-ai",
+  "homepage": "https://github.com/tma1-ai/devtap",
+  "skills": []
+}
