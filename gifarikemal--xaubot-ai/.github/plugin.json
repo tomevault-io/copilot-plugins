@@ -1,0 +1,9 @@
+{
+  "name": "gifarikemal--xaubot-ai",
+  "displayName": "xaubot-ai",
+  "description": "AI-powered XAUUSD (Gold) trading bot with XGBoost ML, Smart Money Concepts (SMC), and HMM regime detection for MetaTrader 5",
+  "version": "1.0.0",
+  "author": "GifariKemal",
+  "homepage": "https://github.com/GifariKemal/xaubot-ai",
+  "skills": []
+}
