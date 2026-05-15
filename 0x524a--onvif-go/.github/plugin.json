@@ -1,0 +1,9 @@
+{
+  "name": "0x524a--onvif-go",
+  "displayName": "onvif-go",
+  "description": "Modern Go library for ONVIF IP camera integration - Control surveillance cameras with PTZ, streaming, imaging. Client & Server implementation. Works with Hikvision, Axis, Dahua, Bosch cameras or any O",
+  "version": "1.0.0",
+  "author": "0x524a",
+  "homepage": "https://github.com/0x524a/onvif-go",
+  "skills": []
+}
