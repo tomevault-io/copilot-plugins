@@ -1,0 +1,9 @@
+{
+  "name": "jezweb--n8n-nodes-cloudflare-r2",
+  "displayName": "n8n-nodes-cloudflare-r2",
+  "description": "n8n community node for Cloudflare R2 object storage integration, featuring bucket management, object operations, batch operations, CORS policies, and full AI Agent compatibility",
+  "version": "1.0.0",
+  "author": "jezweb",
+  "homepage": "https://github.com/jezweb/n8n-nodes-cloudflare-r2",
+  "skills": []
+}
