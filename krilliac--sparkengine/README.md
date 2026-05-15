@@ -7,11 +7,11 @@ A free, open-source C++23 3D game engine for FPS and beyond — DirectX 12, Vulk
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Krilliac/SparkEngine](https://github.com/Krilliac/SparkEngine).
+Original source: `CLAUDE.md` in [Krilliac/SparkEngine](https://github.com/Krilliac/SparkEngine).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
