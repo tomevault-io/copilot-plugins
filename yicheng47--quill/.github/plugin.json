@@ -1,0 +1,9 @@
+{
+  "name": "yicheng47--quill",
+  "displayName": "quill",
+  "description": "An AI-powered ebook reader for desktop, built with Tauri + React",
+  "version": "1.0.0",
+  "author": "yicheng47",
+  "homepage": "https://github.com/yicheng47/quill",
+  "skills": []
+}
