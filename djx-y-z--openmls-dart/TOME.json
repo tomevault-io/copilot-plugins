@@ -1,0 +1,44 @@
+{
+  "name": "openmls_dart",
+  "owner": "djx-y-z",
+  "repo": "openmls_dart",
+  "description": "Wrapper for OpenMLS, implementing the Messaging Layer Security (MLS) protocol (RFC 9420) for scalable end-to-end encrypted group messaging. Features TreeKEM key agreement, encrypted storage (SQLCipher/IndexedDB), and Web Crypto support. Optimized for Flutter and cross-platform applications (Android, iOS, Linux, macOS, Windows, Web). MIT Licensed.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/djx-y-z/openmls_dart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T19:37:25Z"
+}
