@@ -1,0 +1,9 @@
+{
+  "name": "badchars--osint-mcp-server",
+  "displayName": "osint-mcp-server",
+  "description": "OSINT intelligence MCP server for AI agents \u2014 37 tools, 12 sources. Shodan, VirusTotal, Censys, SecurityTrails, DNS reconnaissance, WHOIS, certificate transparency, BGP routing, Wayback Machine, GeoIP",
+  "version": "1.0.0",
+  "author": "badchars",
+  "homepage": "https://github.com/badchars/osint-mcp-server",
+  "skills": []
+}
