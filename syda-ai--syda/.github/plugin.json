@@ -1,0 +1,9 @@
+{
+  "name": "syda-ai--syda",
+  "displayName": "syda",
+  "description": "Synthetic data generation with llms",
+  "version": "1.0.0",
+  "author": "syda-ai",
+  "homepage": "https://github.com/syda-ai/syda",
+  "skills": []
+}
