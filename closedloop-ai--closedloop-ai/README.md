@@ -7,11 +7,11 @@ ClosedLoop.AI — The open-source workspace for team-based agentic software deve
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [closedloop-ai/closedloop-ai](https://github.com/closedloop-ai/closedloop-ai).
+Original source: `CLAUDE.md` in [closedloop-ai/closedloop-ai](https://github.com/closedloop-ai/closedloop-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
