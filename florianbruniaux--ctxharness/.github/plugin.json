@@ -1,0 +1,9 @@
+{
+  "name": "florianbruniaux--ctxharness",
+  "displayName": "ctxharness",
+  "description": "Catch stale versions, broken paths, and missing scripts in your AI instruction files (CLAUDE.md, rules)",
+  "version": "1.0.0",
+  "author": "FlorianBruniaux",
+  "homepage": "https://github.com/FlorianBruniaux/ctxharness",
+  "skills": []
+}
