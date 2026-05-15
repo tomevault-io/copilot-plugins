@@ -1,0 +1,9 @@
+{
+  "name": "gfazioli--mantine-list-view-table",
+  "displayName": "mantine-list-view-table",
+  "description": "ListViewTable brings Finder-style List View to Mantine Table, with column reordering and resizing.",
+  "version": "1.0.0",
+  "author": "gfazioli",
+  "homepage": "https://github.com/gfazioli/mantine-list-view-table",
+  "skills": []
+}
