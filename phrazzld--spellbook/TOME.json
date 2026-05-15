@@ -4,7 +4,7 @@
   "repo": "spellbook",
   "description": "Portable skill library for AI coding agents: debugging, PR workflows, design systems, incident response, and domain playbooks.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phrazzld/spellbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T16:51:32Z"
+  "distributed_at": "2026-05-15T15:21:39Z"
 }
