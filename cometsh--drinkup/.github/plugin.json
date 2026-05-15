@@ -1,0 +1,9 @@
+{
+  "name": "cometsh--drinkup",
+  "displayName": "drinkup",
+  "description": "Elixir ATProtocol firehose & subscription listener",
+  "version": "1.0.0",
+  "author": "cometsh",
+  "homepage": "https://github.com/cometsh/drinkup",
+  "skills": []
+}
