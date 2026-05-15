@@ -1,0 +1,9 @@
+{
+  "name": "wzyxdwll--ccgx-workflow",
+  "displayName": "ccgx-workflow",
+  "description": "Successor to ccg-workflow. Multi-model dev workflow for Claude Code \u2014 auto-routes frontend \u2192 Gemini, backend \u2192 Codex, with quality tiers,   autonomous long-runs.",
+  "version": "1.0.0",
+  "author": "wzyxdwll",
+  "homepage": "https://github.com/wzyxdwll/ccgx-workflow",
+  "skills": []
+}
