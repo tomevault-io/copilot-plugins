@@ -4,7 +4,7 @@
   "repo": "skillos",
   "description": "PoC about how generate an Agentic OS, based in Skills as programs",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EvolvingAgentsLabs/skillos",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-09T06:41:18Z"
+  "distributed_at": "2026-05-15T14:40:47Z"
 }
