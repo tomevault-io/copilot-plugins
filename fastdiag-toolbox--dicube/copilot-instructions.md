@@ -1,56 +1,37 @@
-## key-classes
+## project-structure
 
-> Key classes and interfaces in the DiCube library
+> DiCube is a Python library for efficient storage and processing of 3D medical images with complete DICOM metadata preservation.
 
-# Key Classes and Interfaces
 
-## DicomCubeImage
-Main interface for medical image handling, defined in [dicube/core/image.py](mdc:dicube/core/image.py)
+# DiCube Project Structure
 
-```python
-import dicube
+DiCube is a Python library for efficient storage and processing of 3D medical images with complete DICOM metadata preservation.
 
-# Create from DICOM directory
-image = dicube.load_from_dicom_folder(\"path/to/dicom/\")
+## Project Organization
 
-# Save to compressed format 
-dicube.save(image, \"output.dcbs\", file_type=\"s\")  # HTJ2K (Speed format)
+- **Core modules** in [dicube/core/](mdc:dicube/core/)
+  - [image.py](mdc:dicube/core/image.py): DicomCubeImage (main interface)
+  - [io.py](mdc:dicube/core/io.py): DicomCubeImageIO (file format I/O)
+  - [pixel_header.py](mdc:dicube/core/pixel_header.py): PixelDataHeader (image metadata)
 
-# Load from file
-loaded_image = dicube.load(\"output.dcbs\")
+- **DICOM handling** in [dicube/dicom/](mdc:dicube/dicom/)
+  - [dicom_meta.py](mdc:dicube/dicom/dicom_meta.py): DicomMeta (metadata container)
+  - [dicom_status.py](mdc:dicube/dicom/dicom_status.py): DICOM consistency checking
+  - [dicom_tags.py](mdc:dicube/dicom/dicom_tags.py): DICOM tag definitions
+  - [dicom_io.py](mdc:dicube/dicom/dicom_io.py): DICOM file I/O
+  - [merge_utils.py](mdc:dicube/dicom/merge_utils.py): Metadata merging utilities
 
-# Get pixel data
-pixel_data = image.get_fdata()  # Returns float array
-raw_data = image.raw_image       # Returns original dtype
-```
+- **Storage formats** in [dicube/storage/](mdc:dicube/storage/)
+  - [dcb_file.py](mdc:dicube/storage/dcb_file.py): DCB file format implementations
+  - [pixel_utils.py](mdc:dicube/storage/pixel_utils.py): Pixel processing utilities
 
-## DicomMeta
-DICOM metadata container with efficient shared/non-shared value handling:
-Defined in [dicube/dicom/dicom_meta.py](mdc:dicube/dicom/dicom_meta.py)
+- **Compression codecs** in [dicube/codecs/](mdc:dicube/codecs/)
+  - [jph/](mdc:dicube/codecs/jph/): HTJ2K codec implementation
 
-```python
-from dicube import DicomMeta, read_dicom_dir
+- **Entry point**: [dicube/__init__.py](mdc:dicube/__init__.py)
+- **Exceptions**: [dicube/exceptions.py](mdc:dicube/exceptions.py)
 
-# Read DICOM directory
-meta = read_dicom_dir(\"dicom_folder/\")
-
-# Access shared values (same across all slices)
-patient_name = meta.get(\"PatientName\")  # Returns single value
-
-# Access non-shared values (different per slice)
-positions = meta.get(\"ImagePositionPatient\")  # Returns list
-```
-
-## DicomStatus
-DICOM consistency checking provided in [dicube/dicom/dicom_status.py](mdc:dicube/dicom/dicom_status.py)
-
-```python
-from dicube import DicomStatus, get_dicom_status
-
-status = get_dicom_status(meta)
-```
-
-Common status values include: `CONSISTENT`, `MISSING_SERIES_UID`, `DUPLICATE_INSTANCE_NUMBERS`, `NON_UNIFORM_SPACING`, etc.
+This library works alongside `spacetransformer` (for 3D spatial transformations) and `medmask` (for medical image segmentation).
 
 ---
 > Source: [fastdiag-toolbox/dicube](https://github.com/fastdiag-toolbox/dicube) — distributed by [TomeVault](https://tomevault.io).
