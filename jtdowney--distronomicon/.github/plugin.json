@@ -1,0 +1,9 @@
+{
+  "name": "jtdowney--distronomicon",
+  "displayName": "distronomicon",
+  "description": "Linux tool that checks GitHub for repository releases and performs automatic updates",
+  "version": "1.0.0",
+  "author": "jtdowney",
+  "homepage": "https://github.com/jtdowney/distronomicon",
+  "skills": []
+}
