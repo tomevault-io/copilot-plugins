@@ -4,7 +4,7 @@
   "repo": "iac-code",
   "description": "AI-powered Infrastructure as Code (IaC) assistant.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aliyun/iac-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T10:35:13Z"
+  "distributed_at": "2026-05-15T20:47:01Z"
 }
