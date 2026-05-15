@@ -4,7 +4,7 @@
   "repo": "sy",
   "description": "Modern file sync tool with delta transfers, 40-79% faster than rsync",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nijaru/sy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T06:58:52Z"
+  "distributed_at": "2026-05-15T06:36:40Z"
 }
