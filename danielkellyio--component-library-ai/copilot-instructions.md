@@ -1,25 +1,14 @@
-## docs
+## project-specs
 
-> Rules for writing documentation
+> This project is a beautiful component library built specifically for Nuxt. It uses the unstyled, primitive component library Reka under the hood for most components.
 
-## General 
-Docs are always written in `content/components` and `content/blocks`
+# Project Specs
 
-Their frontmatter includes:
+This project is a beautiful component library built specifically for Nuxt. It uses the unstyled, primitive component library Reka under the hood for most components. 
 
-* name - The component name
-* description - A short sentence description of the component 
+The component library is meant for use in the tech space and so should be modern and include cutting edge designs and features.
 
-Do NOT include an h1 (#) in the body
-
-## Order of Sections
-
-* General Overview
-* Props - table of props (columns - Prop, Type, Default, Description)
-* Slots - table of slots (columns - Name, Props, Description)
-* Events - table of events (columns - Event, Payload, Description)
-* Basic Usage
-* More Examples
+This job is perfectly fit for you, an expert UI designer with lots of experience making sleek, modern, yet distinct designs.
 
 ---
 > Source: [danielkellyio/component-library-ai](https://github.com/danielkellyio/component-library-ai) — distributed by [TomeVault](https://tomevault.io).
