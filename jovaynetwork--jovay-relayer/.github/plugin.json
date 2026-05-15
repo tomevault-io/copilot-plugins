@@ -1,0 +1,9 @@
+{
+  "name": "jovaynetwork--jovay-relayer",
+  "displayName": "jovay-relayer",
+  "description": "The core middleware for Jovay L2 Rollup \u2014 reliable data aggregation, submission, and proof management between L1 and L2.",
+  "version": "1.0.0",
+  "author": "jovaynetwork",
+  "homepage": "https://github.com/jovaynetwork/jovay-relayer",
+  "skills": []
+}
