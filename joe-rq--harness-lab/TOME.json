@@ -4,7 +4,7 @@
   "repo": "harness-lab",
   "description": "Harness Engineering \u5b9e\u8df5\u6846\u67b6 - \u542f\u53d1\u4e8e OpenAI\u3001gstack\u3001\u817e\u8baf\u6280\u672f\u5de5\u7a0b\u5b9e\u8df5",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Joe-rq/harness-lab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:43:14Z"
+  "distributed_at": "2026-05-15T14:35:37Z"
 }
