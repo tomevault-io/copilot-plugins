@@ -1,44 +1,120 @@
-## best-practices
+## caido-backend
 
-> Code Quality Best Practices
+> Caido Backend SDK Rules and Patterns
 
 
-## TypeScript and Code Quality
+## Caido Backend SDK
 
-- Use TypeScript for all files.
-- Only use types, not interfaces.
-- Do not use `any` type.
-- Use `undefined` over `null`.
-- Do not add any comments to the code that you generate.
-- Don’t cast to `any`.
-- Don’t unnecessarily add `try`/`catch`.
-- Use `computed` for derived state instead of reactive variables when possible.
-- Use `knip` to remove unused code if making large changes.
-- When refactoring, avoid creating alias types like this:
+### Overview
+
+The Caido Backend SDK is used for server-side logic, data processing, and creating API endpoints that can be called from frontend plugins.
+
+### Entry Point
+
+Backend plugins are initialized via `packages/backend/src/index.ts`:
+
+```typescript
+import { SDK, DefineAPI } from "caido:plugin";
+
+// Define your API functions
+function myCustomFunction(sdk: SDK, param: string) {
+  sdk.console.log(`Called with: ${param}`);
+  return `Processed: ${param}`;
+}
+
+// Export the API type definition
+export type API = DefineAPI<{
+  myCustomFunction: typeof myCustomFunction;
+}>;
+
+// Plugin initialization
+export function init(sdk: SDK<API>) {
+  // Register API endpoints
+  sdk.api.register("myCustomFunction", myCustomFunction);
+}
 ```
-export type Options = ScanConfig;
+
+### SDK Type Definitions
+
+#### Backend SDK with events:
+```typescript
+import { DefineEvents, SDK } from "caido:plugin";
+
+export type BackendEvents = DefineEvents<{
+  "data-updated": { message: string };
+  "status-changed": { status: "active" | "inactive" };
+}>;
+
+export type CaidoBackendSDK = SDK<never, BackendEvents>;
 ```
-Instead, actually rename the type and fix all occurrences if needed.
 
-## Structure, Naming, and Organization
+### Best Practices
 
-- Follow consistent naming conventions:
-    - Folders: camelCase (`intercept`, `replay`, `httpHistory`).
-    - Component folders: PascalCase (`PassiveFormCreate`, `PassiveTable`).
-    - All other files: camelCase (`useForm.ts`, `assistant.graphql`).
-- Avoid massive template blocks; compose smaller components.
-- Colocate code that changes together.
-- Declare variables close to their usage:
-    - Avoid declaring all variables at the top of functions/files.
-    - Place variable declarations as close as possible to where they are first used.
-    - Group related variables together (e.g., event bus declarations next to their corresponding listeners).
+When building API endpoints in the backend and calling them from the frontend, use Result types to handle errors gracefully without throwing exceptions:
 
-## Simplicity and Readability
+```typescript
+// Define the Result type
+export type Result<T> =
+  | { kind: "Error"; error: string }
+  | { kind: "Ok"; value: T };
 
-- Only create an abstraction if it is actually needed.
-- Prefer clear function and variable names over inline comments.
-- Avoid helper functions when a simple inline expression would suffice.
-- Use built-in Tailwind values, occasionally allow dynamic values, rarely globals.
+// Backend API function returning Result
+function processData(sdk: SDK, input: string): Result<ProcessedData> {
+  try {
+    // Your processing logic here
+    const processed = doSomeProcessing(input);
+    return { kind: "Ok", value: processed };
+  } catch (error) {
+    return { kind: "Error", error: error.message };
+  }
+}
+
+// Frontend usage - no try/catch needed
+const handleProcess = async () => {
+  const result = await sdk.backend.processData(inputValue);
+
+  if (result.kind === "Error") {
+    sdk.window.showToast(result.error, { variant: "error" });
+    return;
+  }
+
+  // Handle successful result
+  const data = result.value;
+  sdk.window.showToast("Processing completed!", { variant: "success" });
+};
+```
+
+
+#### Registering Multiple API Endpoints
+
+```typescript
+// Define multiple API functions
+function getData(sdk: SDK, id: string): Result<Data> {
+  // Implementation
+}
+
+function saveData(sdk: SDK, data: Data): Result<void> {
+  // Implementation
+}
+
+function deleteData(sdk: SDK, id: string): Result<boolean> {
+  // Implementation
+}
+
+// Export Caido Backend API
+export type API = DefineAPI<{
+  getData: typeof getData;
+  saveData: typeof saveData;
+  deleteData: typeof deleteData;
+}>;
+
+// Register all endpoints
+export function init(sdk: SDK<API>) {
+  sdk.api.register("getData", getData);
+  sdk.api.register("saveData", saveData);
+  sdk.api.register("deleteData", deleteData);
+}
+```
 
 ---
 > Source: [caido-community/JWT-Analyzer](https://github.com/caido-community/JWT-Analyzer) — distributed by [TomeVault](https://tomevault.io).
