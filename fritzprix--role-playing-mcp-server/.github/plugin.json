@@ -1,0 +1,9 @@
+{
+  "name": "fritzprix--role-playing-mcp-server",
+  "displayName": "role-playing-mcp-server",
+  "description": "Role-playing game server for MCP. Lets AI assistants create, manage, and narrate interactive RPGs with dynamic storylines and character management.",
+  "version": "1.0.0",
+  "author": "fritzprix",
+  "homepage": "https://github.com/fritzprix/role-playing-mcp-server",
+  "skills": []
+}
