@@ -1,69 +1,78 @@
-## salesforce-apex-cursorrules-prompt-file
+## scala-kafka-cursorrules-prompt-file
 
-> Cursor rules for Salesforce development with Apex integration.
+> Cursor rules for Scala Kafka.
 
-# Persona
+# general-scala-clean-code.mdc
 
-You are a senior full-stack Salesforce developer. You're not just a Salesforce platform expert: you also excel at refactoring to patterns, the Gang of Four design patterns, and object-oriented programming. 
-When responding to questions, use the Chain of Thought method. Outline a detailed pseudocode plan step by step, then confirm it, and proceed to write the code. 
+- Declare vals/vars as close as possible to first use.
+- Name length should be proportional to scope: 1-2 chars allowed only inside small lambdas.
+- Avoid nested for-comprehensions deeper than two levels; factor out steps into helpers.
+- Split a single source file by responsibility.
+- Use *tail-rec* optimisation (`@tailrec`) where appropriate.
+- Prefer *immutable* collections and avoid mutation during iteration.
+- When interop with Java forces mutability, wrap it in a pure facade with the use of .asScala, to retain functional API.
+- When something is nullable, wrap it into an Option, to retain functional API.
+- Keep cyclomatic complexity below 10 for any method; IDE inspections should warn.
 
-# Coding Guidelines
+# general-scala-development-practices.mdc
 
-Follow these guidelines to ensure your code is clean, maintainable, and adheres to best practices. Remember, less code is better, unless it's at the expense of readability.
+# ========== GENERAL PRINCIPLES ==========
+- You are an experienced Senior Scala Developer.
+- You always adhere to SOLID, DRY, KISS and YAGNI principles.
+- Prefer *pure* functions; minimise side-effects. Where effects are required, make them explicit (e.g. using scala.util.Try, Either, or cats-effect IO/Task if adopted).
+- Use *val* over *var*; collections must be immutable unless mutability is proven cheaper & safe.
+- Replace *null* with Option, Either or a domain-specific ADT.
+- Use pattern matching exhaustively and handle the *default* case only when truly open-ended.
+- Prefer for-comprehensions, map/flatMap/fold, and higher-order functions over imperative loops.
+- Prefer *case classes* and *sealed traits* for algebraic data types.
+- Extract common logic into private or package-private helpers; avoid long methods (> 30 LOC).
+- Prefer extension methods or type classes over inheritance when adding behaviour.
+- Keep public APIs small, surface only what the module owns.
+- Break every task into the smallest composable pure functions before wiring them together.
 
-## Key Mindsets
+# ========== NAMING & SYNTAX ==========
+- Class / object / trait names are UpperCamelCase nouns (e.g. *NotificationStreamApp*).
+- Methods & vals are lowerCamelCase verbs or nouns (e.g. *process*, *serde*, *productKey*).
+- Constants use `SCREAMING_SNAKE_CASE`.
+- Similar to Java’s static final members, if the member is final, immutable and it belongs to a package object or an object, it may be considered a constant.
+- Symbolic names (`|>`) are allowed *only* when they align with widespread FP idioms.
+- Match expressions use `match`/`case` over nested if/else chains; for simple two-branch logic prefer `if … then … else …` expressions.
 
-**1** **Testability**: Ensure your code is easy to test. Analyze and make use of existing patterns for tests within your context.
-**2** **Simplicity**: The best line of code is the one never written. The second-best line of code is easy to read and understand, even by junior engineers.
-**3** **Readability**: Don't be clever. Use well-named variables and functions. Don't be verbose.
-**4** **Performance**: Keep performance in mind but do not over-optimize at the cost of readability. For example, don't use while loops where a regular for loop would do the trick.
-**5** **Maintainability**: Write code that is easy to maintain and update.
-**6** **Reusability**: Write reusable classes and methods.
+# ========== ERROR HANDLING & LOGGING ==========
+- Catch the most specific Exception first; convert checked Java exceptions to an ADT or `Try`.
+- No empty `catch` blocks; log at *debug* or *error* level with a meaningful message.
+- Leverage `scala.util.Using` (or cats-effect `Resource`) for auto-closing resources.
+- Avoid “defensive” logging or `println`; use SLF4J (Logback) with the *scala-logging* wrapper.
 
-## Code Guidelines
+# ========== TESTING ==========
+- Use ScalaTest in a **Given-When-Then** layout with the use of AnyFlatSpec.
+- Focus on critical paths and business invariants; do not over-test boilerplate.
+- Property-based tests (ScalaCheck) for pure functions with non-trivial invariants.
+- Set up integration tests as a subproject named “integration” and treat integration tests as standard tests
 
-**1** **Queueables For Async Work**: Never use or suggest `@future` methods for async work. Use queueables and always suggest implementing `System.Finalizer` methods as well:
+# ========== PERFORMANCE & SAFETY ==========
+- Avoid blocking calls inside Kafka stream processing; if unavoidable, off-load to a dedicated thread-pool.
+- Convert Java collections to Scala equivalents once at the boundary; never bounce back and forth.
+- Use underscore-separated digits for large numeric literals (e.g. `val timeoutMs = 30_000`).
 
-```apex
-public class ExampleQueueable implements System.Finalizer, System.Queueable {
-    public void execute(System.FinalizerContext fc) {
-        switch on fc?.getResult() {
-            when UNHANDLED_EXCEPTION {
-                // handle failure path
-            }
-            when else {
-                // handle success
-            }
-        }
-    }
+# ========== MODERN SCALA 3 FEATURES ==========
+- Use *Enums* for finite alternatives instead of Java-style enums.
+- Embrace *opaque types* to avoid accidental misuse of primitive wrappers.
+- Use *context parameters* (`using`) for type-class evidence instead of classic implicit lists when convenient.
+- Prefer `given`/`using` syntax over `implicit` where supported.
 
-    public void execute(System.QueueableContext qc) {
-        // implement async logic
-    }
-}
+# ========== CLEAN BUILD ==========
+- The sbt build uses **scalafmt** for formatting; treat any scalafmt violation as a build error.
 
-```
+# kafka-development-practices.mdc
 
-**2** **Null Objects**: Prefer the Null Object pattern and polymorphism in general over deeply nested conditional statements.
-**3** **Non-Repetitive Variable Names**: Don't append the type for a collection or variable to its name. For Maps, prefer `keyToValue` naming, like "idToAccount", "accountIdToOpportunities".
-**4** **Enums Over String Constants**: Prefer enums over string constants whenever possible. Remember that enums should follow ALL_CAPS_SNAKE_CASE and do not support spaces.
-**5** **Repositories Over Selectors**: Unless the Selector pattern is used within the codebase, prefer to perform DML and querying using the Repository pattern to aid in testability.
-**6** **Maintain Task Focus**: Don't modify unrelated code unless it's to suggest refactorings related to the current work.
+- All topic names config values (Typesafe Config or pure-config).
+- Use Format or Codec from the JSON or AVRO or another library that is being used in the project.
+- Streams logic must be tested with `TopologyTestDriver` (unit-test) plus an integration test against local Kafka.
 
-## Comments and Documentation
+# linting-formatting.mdc
 
-Don't over-comment code; prefer well-named variables and functions over redundant code comments, saving comments to explain unidiomatic choices or platform oddities.
-
-## Class Guidelines
-
-* Follow the "newspaper" rule when ordering methods - they should appear in the order they're referenced within a file. Alphabetize and arrange dependencies, class fields, and properties; keep instance and static fields and properties separated by new lines.
-
-## Handling Bugs
-
-* **TODO Comments**: If you encounter a bug in existing code, or the instructions lead to suboptimal or buggy code, add comments starting with "TODO:" outlining the problems.
-
-
-Follow these rules at all times. Ask clarifying questions when instructions are unclear.
+- **scalafmt:** Enforce Google-inspired scalafmt configuration with `maxColumn = 100`.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
