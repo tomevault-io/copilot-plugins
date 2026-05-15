@@ -1,38 +1,26 @@
-## auth-patterns
+## code-style
 
-> Better Auth authentication patterns and middleware configuration
+> Code style and formatting rules for the project
 
 
-# Authentication Patterns
+# Code Style Rules
 
-## Better Auth Configuration
-- Server auth configured in `apps/api/src/lib/auth.ts` with MongoDB adapter
-- Client auth configured in `apps/web/src/lib/auth-client.ts`
-- Session validation uses `better-auth.session_token` cookie
-- Don't create custom auth logic - extend Better Auth configuration
+## Formatting
+- **Use Biome, never Prettier** - run `bun check` to format
+- Auto-organize imports with Biome
+- Sort TailwindCSS classes automatically
 
-## Middleware Protection
-- Routes in `protectedRoutes` array require authentication
-- Routes in `unauthedOnlyRoutes` redirect authenticated users away
-- Middleware redirects to login with `?redirect` parameter for return navigation
-- Configure via `MIDDLEWARE_CONFIG` in `apps/web/src/middleware.ts`
+## TypeScript
+- Prefer `type` over `interface` for definitions
+- Use path aliases: `@/*` for `src/*` in both apps
+- Leverage tRPC's type inference - avoid manual type annotations where possible
+- Strict mode enabled across all packages
 
-## Protected Procedures
-- Use `protectedProcedure` in tRPC routers for auth-required endpoints
-- Session context available as `ctx.user` in protected procedures
-- Check session validity via `protectedProcedure` builder in `apps/api/src/lib/trpc.ts`
-
-## Example Middleware Config
-```typescript
-const MIDDLEWARE_CONFIG = {
-  auth: {
-    protectedRoutes: ["/dashboard", "/profile", "/admin"],
-    unauthedOnlyRoutes: ["/auth/sign-in", "/auth/sign-up"],
-    loginPath: "/auth/sign-in",
-    defaultRedirect: "/dashboard"
-  }
-};
-```
+## Components
+- Import shadcn/ui components from `@repo/ui/components/*` or local `@/components/ui`
+- Follow New York variant style for shadcn/ui components
+- Check existing components before creating new ones
+- Use server actions and client components appropriately in App Router
 
 ---
 > Source: [wip-group/discord-utils](https://github.com/wip-group/discord-utils) — distributed by [TomeVault](https://tomevault.io).
