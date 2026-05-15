@@ -1,0 +1,9 @@
+{
+  "name": "moshehbenavraham--voice-agent-pupuplatter",
+  "displayName": "Voice-Agent-PuPuPlatter",
+  "description": "Multi-provider voice AI showcase featuring 7 providers (ElevenLabs + Widget, OpenAI, xAI, Ultravox, Vapi, Retell, Google Gemini Live) with real-time transcripts, audio visualization, and glassmorphism",
+  "version": "1.0.0",
+  "author": "moshehbenavraham",
+  "homepage": "https://github.com/moshehbenavraham/Voice-Agent-PuPuPlatter",
+  "skills": []
+}
