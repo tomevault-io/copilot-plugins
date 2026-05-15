@@ -4,7 +4,7 @@
   "repo": "vitest-react-native",
   "description": "Use vitest with react native",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/srsholmes/vitest-react-native",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T19:32:14Z"
+  "distributed_at": "2026-05-15T16:25:43Z"
 }
