@@ -1,62 +1,59 @@
-## typescript-zod-tailwind-nextjs-cursorrules-prompt
+## typescript
 
-> Cursor rules for TypeScript development with Zod, Tailwind, and Next.js integration.
+> TypeScript coding standards and best practices for modern web development
 
-# Coding Style Guide
+# TypeScript Best Practices
 
-Code Style and Structure:
-- Write concise, technical TypeScript code with accurate examples
-- Use functional and declarative programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-- Structure files: exported component, subcomponents, helpers, static content, types
+## Type System
+- Prefer interfaces over types for object definitions
+- Use type for unions, intersections, and mapped types
+- Avoid using `any`, prefer `unknown` for unknown types
+- Use strict TypeScript configuration
+- Leverage TypeScript's built-in utility types
+- Use generics for reusable type patterns
 
-Naming Conventions:
-- Use lowercase with dashes for directories (e.g., components/auth-wizard)
-- Favor named exports for components
+## Naming Conventions
+- Use PascalCase for type names and interfaces
+- Use camelCase for variables and functions
+- Use UPPER_CASE for constants
+- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
+- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
 
-TypeScript Usage:
-- Use TypeScript for all code; prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
-- Use Zod for form validation
+## Code Organization
+- Keep type definitions close to where they're used
+- Export types and interfaces from dedicated type files when shared
+- Use barrel exports (index.ts) for organizing exports
+- Place shared types in a `types` directory
+- Co-locate component props with their components
 
-Syntax and Formatting:
-- Use the "function" keyword for pure functions
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
-- Use declarative JSX
+## Functions
+- Use explicit return types for public functions
+- Use arrow functions for callbacks and methods
+- Implement proper error handling with custom error types
+- Use function overloads for complex type scenarios
+- Prefer async/await over Promises
 
-Error Handling and Validation:
-- Prioritize error handling: handle errors and edge cases early
-- Use early returns and guard clauses
-- Implement proper error logging and user-friendly messages
-- Use Zod for form validation
-- Model expected errors as return values in Server Actions
-- Use error boundaries for unexpected errors
+## Best Practices
+- Enable strict mode in tsconfig.json
+- Use readonly for immutable properties
+- Leverage discriminated unions for type safety
+- Use type guards for runtime type checking
+- Implement proper null checking
+- Avoid type assertions unless necessary
 
-UI and Styling:
-- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
-- Implement responsive design with Tailwind CSS; use a desktop-first approach
+## Error Handling
+- Create custom error types for domain-specific errors
+- Use Result types for operations that can fail
+- Implement proper error boundaries
+- Use try-catch blocks with typed catch clauses
+- Handle Promise rejections properly
 
-Performance Optimization:
-- Minimize 'useEffect', and 'setState'; favor React Remix Components (RSC)
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Optimize images: use WebP format, include size data, implement lazy loading
-
-Key Conventions:
-- Use proper URL search parameter state management
-- Optimize Web Vitals (LCP, CLS, FID)
-- Limit 'use client'
-
-When React Server Components (RSC) are used:
-- Favor server components and Next.js SSR
-- Use only for Web API access in small components
-- Avoid for data fetching or state management
-
-Follow React Remix docs for Data Fetching, Rendering, and Routing
-
-Follow Next.js docs for Data Fetching, Rendering, and Routing when Next JS is used instead of React Remix
+## Patterns
+- Use the Builder pattern for complex object creation
+- Implement the Repository pattern for data access
+- Use the Factory pattern for object creation
+- Leverage dependency injection
+- Use the Module pattern for encapsulation
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
