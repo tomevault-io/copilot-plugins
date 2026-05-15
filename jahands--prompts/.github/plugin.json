@@ -1,0 +1,26 @@
+{
+  "name": "jahands--prompts",
+  "displayName": "prompts",
+  "description": "My AI prompts",
+  "version": "1.0.0",
+  "author": "jahands",
+  "homepage": "https://github.com/jahands/prompts",
+  "skills": [
+    {
+      "name": "auto-commit",
+      "description": ""
+    },
+    {
+      "name": "python-inline-scripts",
+      "description": ""
+    },
+    {
+      "name": "typescript-inline-scripts",
+      "description": ""
+    },
+    {
+      "name": "zod-v4",
+      "description": ""
+    }
+  ]
+}
