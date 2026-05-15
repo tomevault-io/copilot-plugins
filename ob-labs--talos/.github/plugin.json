@@ -1,0 +1,9 @@
+{
+  "name": "ob-labs--talos",
+  "displayName": "talos",
+  "description": "Talos is a Ralph CLI\uff0cIt enables you to execute multiple Ralph Loop tasks in parallel across multiple repositories.",
+  "version": "1.0.0",
+  "author": "ob-labs",
+  "homepage": "https://github.com/ob-labs/talos",
+  "skills": []
+}
