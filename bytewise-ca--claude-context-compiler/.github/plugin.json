@@ -1,0 +1,9 @@
+{
+  "name": "bytewise-ca--claude-context-compiler",
+  "displayName": "claude-context-compiler",
+  "description": "claude-context-compiler",
+  "version": "1.0.0",
+  "author": "bytewise-ca",
+  "homepage": "https://github.com/bytewise-ca/claude-context-compiler",
+  "skills": []
+}
