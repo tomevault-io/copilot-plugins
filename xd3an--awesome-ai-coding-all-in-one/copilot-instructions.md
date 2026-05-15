@@ -1,48 +1,42 @@
-## react-chakra-ui-cursorrules-prompt-file
+## react-components-creation-cursorrules-prompt-file
 
-> Cursor rules for React development with Chakra UI integration.
+> Cursor rules for React component creation and development.
 
-// React + Chakra UI .cursorrules
+# Cursor Rules
 
-// Prefer functional components with hooks
+## Whenever you need a React component
 
-const preferFunctionalComponents = true;
+1. Carefully consider the component's purpose, functionality, and design
 
-// Chakra UI best practices
+2. Think slowly, step by step, and outline your reasoning
 
-const chakraUIBestPractices = [
-  "Use ChakraProvider at the root of your app",
-  "Utilize Chakra UI components for consistent design",
-  "Implement custom theme for brand-specific styling",
-  "Use responsive styles with the Chakra UI breakpoint system",
-  "Leverage Chakra UI hooks for enhanced functionality",
-];
+3. Check if a similar component already exists in any of the following locations
+   1. packages/ui/src/components
+   2. apps/spa/src/components
 
-// Folder structure
+4. If it doesn't exist, generate a detailed prompt for the component, including:
+   - Component name and purpose
+   - Desired props and their types
+   - Any specific styling or behavior requirements
+   - Mention of using Tailwind CSS for styling
+   - Request for TypeScript usage
 
-const folderStructure = `
-src/
-  components/
-  pages/
-  theme/
-    index.js
-    foundations/
-    components/
-  hooks/
-  utils/
-`;
+5. URL encode the prompt.
 
-// Additional instructions
+6. Create a clickable link in this format:
+   [ComponentName](https://v0.dev/chat?q={encoded_prompt})
 
-const additionalInstructions = `
-1. Use TypeScript for type safety with Chakra UI components
-2. Implement proper component composition using Chakra UI
-3. Utilize Chakra UI's built-in accessibility features
-4. Use the 'as' prop for semantic HTML rendering
-5. Implement dark mode using Chakra UI's color mode
-6. Use Chakra UI's layout components for responsive design
-7. Follow Chakra UI best practices for performance optimization
-`;
+7. After generating, adapt the component to fit our project structure:
+   - Import
+     - common shadcn/ui components from <ui_package_alias>@repo/ui/components/ui/</ui_package_alias>
+     - app specific components from <app_package_alias>@/components</app_package_alias>
+   - Ensure it follows our existing component patterns
+   - Add any necessary custom logic or state management
+
+Example prompt template:
+"Create a React component named {ComponentName} using TypeScript and Tailwind CSS. It should {description of functionality}. Props should include {list of props with types}. The component should {any specific styling or behavior notes}. Please provide the full component code."
+
+Remember to replace placeholders like <ui_package_path> and <app_package_alias> with the actual values used in your project.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
