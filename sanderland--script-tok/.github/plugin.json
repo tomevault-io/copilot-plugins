@@ -1,0 +1,9 @@
+{
+  "name": "sanderland--script-tok",
+  "displayName": "script_tok",
+  "description": "Code for the paper \"BPE stays on SCRIPT\"",
+  "version": "1.0.0",
+  "author": "sanderland",
+  "homepage": "https://github.com/sanderland/script_tok",
+  "skills": []
+}
