@@ -4,7 +4,7 @@
   "repo": "finagent-frontend",
   "description": "frontend in react",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fin-agent/finagent-frontend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T07:05:24Z"
+  "distributed_at": "2026-05-15T20:36:03Z"
 }
