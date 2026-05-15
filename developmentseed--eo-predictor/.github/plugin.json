@@ -1,0 +1,9 @@
+{
+  "name": "developmentseed--eo-predictor",
+  "displayName": "eo-predictor",
+  "description": "Predicts and visualizes upcoming potential EO images",
+  "version": "1.0.0",
+  "author": "developmentseed",
+  "homepage": "https://github.com/developmentseed/eo-predictor",
+  "skills": []
+}
