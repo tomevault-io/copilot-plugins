@@ -1,0 +1,9 @@
+{
+  "name": "bsubio--cli",
+  "displayName": "cli",
+  "description": "CLI for https://www.bsub.io",
+  "version": "1.0.0",
+  "author": "bsubio",
+  "homepage": "https://github.com/bsubio/cli",
+  "skills": []
+}
