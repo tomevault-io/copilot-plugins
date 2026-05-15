@@ -1,44 +1,111 @@
-## python-fastapi-cursorrules-prompt-file
+## python-fastapi-scalable-api-cursorrules-prompt-fil
 
-> Cursor rules for Python Fastapi.
+> Cursor rules for Python FastAPI development with scalable API integration.
 
-# Python FastAPI .cursorrules
+You are an expert in **Python, FastAPI, scalable API development, TypeScript, React, Tailwind,** and **Shadcn UI**.
 
-# FastAPI best practices
+### Key Principles
 
-fastapi_best_practices = [
-    "Use Pydantic models for request and response schemas",
-    "Implement dependency injection for shared resources",
-    "Utilize async/await for non-blocking operations",
-    "Use path operations decorators (@app.get, @app.post, etc.)",
-    "Implement proper error handling with HTTPException",
-    "Use FastAPI's built-in OpenAPI and JSON Schema support",
-]
+- Write concise, technical responses with accurate examples in both Python and TypeScript.
+- Use **functional and declarative programming patterns**; avoid classes unless absolutely necessary.
+- Prefer **iteration and modularization** over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`, `isLoading`, `hasError`).
+- Follow proper **naming conventions**:  
+  - For Python: use lowercase with underscores (e.g., `routers/user_routes.py`).  
+  - For TypeScript: use lowercase with dashes for directories (e.g., `components/auth-wizard`).
 
-# Folder structure
+### Project Structure
 
-folder_structure = """
-app/
-  main.py
-  models/
-  schemas/
-  routers/
-  dependencies/
-  services/
-  tests/
-"""
+- **Frontend**:  
+  - **Language**: TypeScript  
+  - **Framework**: React  
+  - **UI Library**: Tailwind CSS, Shadcn UI  
+  - **Build Tool**: Vite  
+  - **Directory Structure**:  
+    - `frontend/src/`: Main source code  
+    - `frontend/src/index.html`: Main HTML file  
+    - Configuration Files:  
+      - `vite.config.ts`  
+      - `tsconfig.json`  
+      - `tailwind.config.js`  
+      - `postcss.config.js`  
+    - **Docker Files**:  
+      - `Dockerfile`  
+      - `Dockerfile.dev`
 
-# Additional instructions
+- **Backend**:  
+  - **Language**: Python  
+  - **Framework**: FastAPI  
+  - **Database**: PostgreSQL  
+  - **Directory Structure**:  
+    - `backend/src/`: Main source code  
+    - `backend/tests/`: Tests  
+    - `document-processor/`: Document processing utilities  
+    - Environment Configuration:  
+      - `.env` / `.env.example`: Environment variables  
+    - Database Configuration:  
+      - `alembic.ini`  
+      - `ddialog.db`: SQLite database for local development  
+    - **Docker Files**:  
+      - `Dockerfile`  
+      - `Dockerfile.dev`
 
-additional_instructions = """
-1. Use type hints for all function parameters and return values
-2. Implement proper input validation using Pydantic
-3. Use FastAPI's background tasks for long-running operations
-4. Implement proper CORS handling
-5. Use FastAPI's security utilities for authentication
-6. Follow PEP 8 style guide for Python code
-7. Implement comprehensive unit and integration tests
-"""
+### Code Style and Structure
+
+**Backend (Python/FastAPI)**:
+
+- Use `def` for pure functions and `async def` for asynchronous operations.
+- **Type Hints**: Use Python type hints for all function signatures. Prefer Pydantic models for input validation.
+- **File Structure**: Follow clear separation with directories for routes, utilities, static content, and models/schemas.
+- **RORO Pattern**: Use the "Receive an Object, Return an Object" pattern.
+- **Error Handling**:  
+  - Handle errors at the beginning of functions with early returns.  
+  - Use guard clauses and avoid deeply nested if statements.  
+  - Implement proper logging and custom error types.
+
+**Frontend (TypeScript/React)**:
+
+- **TypeScript Usage**: Use TypeScript for all code. Prefer interfaces over types. Avoid enums; use maps instead.
+- **Functional Components**: Write all components as functional components with proper TypeScript interfaces.
+- **UI and Styling**: Implement responsive design using Tailwind CSS with Shadcn UI, adopting a mobile-first approach.
+- **Performance**:  
+  - Minimize `use client`, `useEffect`, and `setState` hooks. Favor server-side rendering where possible.  
+  - Wrap client components in `Suspense` with fallback for improved performance.
+
+### Performance Optimization
+
+**Backend**:
+
+- **Asynchronous Operations**: Minimize blocking I/O operations using async functions.
+- **Caching**: Implement caching strategies for frequently accessed data using Redis or in-memory stores.
+- **Lazy Loading**: Use lazy loading techniques for large datasets and API responses.
+
+**Frontend**:
+
+- **React Components**: Favor server-side rendering and avoid heavy client-side rendering where possible.
+- **Dynamic Loading**: Implement dynamic loading for non-critical components and optimize image loading using WebP format with lazy loading.
+
+### Project Conventions
+
+**Backend**:
+
+1. Follow **RESTful API design principles**.
+2. Rely on **FastAPI’s dependency injection system** for managing state and shared resources.
+3. Use **SQLAlchemy 2.0** for ORM features, if applicable.
+4. Ensure **CORS** is properly configured for local development.
+5. No authentication or authorization is required for users to access the platform.
+
+**Frontend**:
+
+1. Optimize **Web Vitals** (LCP, CLS, FID).
+2. Limit `use client` hooks to small, specific components for Web API access.
+3. Use **Docker** for containerization and ensure easy deployment.
+
+### Testing and Deployment
+
+- Implement **unit tests** for both frontend and backend.
+- Use **Docker** and **docker compose** for orchestration in both development and production environments. Avoid using the obsolete `docker-compose` command.
+- Ensure proper input validation, sanitization, and error handling throughout the application.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
