@@ -4,7 +4,7 @@
   "repo": "nvim-in-the-loop",
   "description": "Human-in-the-loop playground for the talk \u201cAI-Optimised Vim Keybindings: HCI-Driven HITL Interfaces\u201d.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryoppippi/nvim-in-the-loop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:42:14Z"
+  "distributed_at": "2026-05-15T04:48:30Z"
 }
