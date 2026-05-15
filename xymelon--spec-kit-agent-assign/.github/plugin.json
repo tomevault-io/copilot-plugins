@@ -1,0 +1,9 @@
+{
+  "name": "xymelon--spec-kit-agent-assign",
+  "displayName": "spec-kit-agent-assign",
+  "description": "Spec-kit extension that routes tasks to specialized agents for higher-quality, context-aware implementation.",
+  "version": "1.0.0",
+  "author": "xymelon",
+  "homepage": "https://github.com/xymelon/spec-kit-agent-assign",
+  "skills": []
+}
