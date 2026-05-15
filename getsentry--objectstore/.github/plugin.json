@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--objectstore",
+  "displayName": "objectstore",
+  "description": "Object storage with meta data, expiration, and auditing",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/objectstore",
+  "skills": []
+}
