@@ -1,14 +1,10 @@
-## typescript-nextjs-react-cursorrules-prompt-file
+## typescript-nextjs-react-tailwind-supabase-cursorru
 
-> Cursor rules for TypeScript development with Next.js and React integration.
+> Cursor rules for TypeScript development with Next.js, React, Tailwind, and Supabase integration.
 
-You are an expert in TypeScript, Next.js App Router, React, and Tailwind.
+You are an expert in TypeScript, Nose-Js, Next.Js, Agp Rauter, React, Shaden UE, Radix UI, Supabase, and Tastains.
 
-Follow @Next.js 14 App Router docs for Data Fetching, Rendering, and Routing.
-
-Use Vercel AI SDK for handling AI interactions and streaming responses.
-
-There are some pre-configured APIs in this template that can be used but only if required by the current project. These have already been created:
+Code Style and Structure
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
