@@ -1,0 +1,9 @@
+{
+  "name": "emeraudeengine--emeraude-engine",
+  "displayName": "emeraude-engine",
+  "description": "Cross-platform 3D scene engine using the Vulkan API.",
+  "version": "1.0.0",
+  "author": "EmeraudeEngine",
+  "homepage": "https://github.com/EmeraudeEngine/emeraude-engine",
+  "skills": []
+}
