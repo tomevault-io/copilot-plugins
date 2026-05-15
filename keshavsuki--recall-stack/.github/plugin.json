@@ -1,0 +1,9 @@
+{
+  "name": "keshavsuki--recall-stack",
+  "displayName": "recall-stack",
+  "description": "5-layer memory system for Claude Code: rules, session state, git context, behavioral learning, knowledge base",
+  "version": "1.0.0",
+  "author": "keshavsuki",
+  "homepage": "https://github.com/keshavsuki/recall-stack",
+  "skills": []
+}
