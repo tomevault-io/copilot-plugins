@@ -1,0 +1,9 @@
+{
+  "name": "flowing-abyss--obsidian-hybrid-search",
+  "displayName": "obsidian-hybrid-search",
+  "description": "Hybrid search over your Obsidian vault \u2013 CLI and MCP server",
+  "version": "1.0.0",
+  "author": "flowing-abyss",
+  "homepage": "https://github.com/flowing-abyss/obsidian-hybrid-search",
+  "skills": []
+}
