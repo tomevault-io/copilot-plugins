@@ -7,11 +7,11 @@ AI-powered QA orchestration for Claude Code. 10 agents, from diff analysis to bu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Anasss/qa-orchestra](https://github.com/Anasss/qa-orchestra).
+Original source: `CLAUDE.md` in [Anasss/qa-orchestra](https://github.com/Anasss/qa-orchestra).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
