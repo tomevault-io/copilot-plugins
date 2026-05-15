@@ -1,0 +1,9 @@
+{
+  "name": "rlnorthcutt--analyzerepo",
+  "displayName": "analyzeRepo",
+  "description": "Go cli tool that uses Claude to analyze a repo, create an onboarding doc, and/or generate CLAUDE.md for the repo.",
+  "version": "1.0.0",
+  "author": "rlnorthcutt",
+  "homepage": "https://github.com/rlnorthcutt/analyzeRepo",
+  "skills": []
+}
