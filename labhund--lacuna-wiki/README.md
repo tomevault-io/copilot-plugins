@@ -7,11 +7,11 @@ Give your agent a knowledge graph that compounds.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Labhund/lacuna-wiki](https://github.com/Labhund/lacuna-wiki).
+Original source: `CLAUDE.md` in [Labhund/lacuna-wiki](https://github.com/Labhund/lacuna-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
