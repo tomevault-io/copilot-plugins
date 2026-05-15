@@ -1,0 +1,44 @@
+{
+  "name": "agentnoise",
+  "owner": "nvk",
+  "repo": "agentnoise",
+  "description": "Chat with local coding agents through White Noise. agentnoise is a native desktop helper for using a phone running White Noise as the control surface for local Codex and Claude sessions. It is intentionally Rust-first and keeps Node/npm/bun out of the trusted bridge path.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nvk/agentnoise",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T16:34:48Z"
+}
