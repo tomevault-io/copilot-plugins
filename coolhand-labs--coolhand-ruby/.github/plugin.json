@@ -1,0 +1,9 @@
+{
+  "name": "coolhand-labs--coolhand-ruby",
+  "displayName": "coolhand-ruby",
+  "description": "Zero-config LLM cost & quality monitoring for Ruby apps - automatically log AI API calls and collect user feedback for analysis using Coolhand.",
+  "version": "1.0.0",
+  "author": "Coolhand-Labs",
+  "homepage": "https://github.com/Coolhand-Labs/coolhand-ruby",
+  "skills": []
+}
