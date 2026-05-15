@@ -1,0 +1,9 @@
+{
+  "name": "huta0kj--skill-scanner-agent",
+  "displayName": "skill-scanner-agent",
+  "description": "Skill Scan Agent \u2014 Automated scanning, identification, and assessment of SKILL security risks.",
+  "version": "1.0.0",
+  "author": "HuTa0kj",
+  "homepage": "https://github.com/HuTa0kj/skill-scanner-agent",
+  "skills": []
+}
