@@ -1,0 +1,9 @@
+{
+  "name": "rianvdm--lastfm-mcp",
+  "displayName": "lastfm-mcp",
+  "description": "An MCP server that provides seamless access to a user's Last.fm listening data and music information via AI assistants like Claude.",
+  "version": "1.0.0",
+  "author": "rianvdm",
+  "homepage": "https://github.com/rianvdm/lastfm-mcp",
+  "skills": []
+}
