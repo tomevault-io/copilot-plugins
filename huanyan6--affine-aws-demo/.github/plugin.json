@@ -1,0 +1,9 @@
+{
+  "name": "huanyan6--affine-aws-demo",
+  "displayName": "affine-aws-demo",
+  "description": "Self-host AFFiNE (open-source Notion alternative) on AWS",
+  "version": "1.0.0",
+  "author": "huanyan6",
+  "homepage": "https://github.com/huanyan6/affine-aws-demo",
+  "skills": []
+}
