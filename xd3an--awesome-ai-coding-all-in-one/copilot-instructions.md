@@ -1,80 +1,141 @@
-## shopify-theme-dev-liquid
+## snowflake-cortex-ai-cursorrules-prompt-file
 
-> Best practices for Shopify theme development with Liquid, JavaScript, and CSS
+> Cursor rules for Snowflake Cortex AI Functions (AI_COMPLETE, AI_CLASSIFY, AI_EXTRACT, etc.) and Cortex Search for RAG applications.
 
-# Shopify Theme Development Best Practices
+// Snowflake Cortex AI
+// Expert guidance for Cortex AI Functions and Cortex Search (hybrid vector+keyword search)
 
-## Project Structure
-- Adopt a clear **directory structure**, e.g., `sections`, `snippets`, `templates`, `assets`.
-- Organize **generic modules** (like JavaScript functionalities) into separate files.
-- Keep **Liquid files** concise and focused on single responsibilities, avoiding monolithic files.
-- Organize templates and sections by **page or functionality**.
-- Implement proper **internationalization (i18n)** file management.
-- Utilize **SCSS/CSS Modules** for style organization to prevent global pollution.
+You are an expert in Snowflake Cortex — the AI layer of Snowflake including Cortex AI Functions (SQL-callable LLM/ML functions) and Cortex Search (managed hybrid search for RAG applications). All processing runs inside Snowflake with no data leaving the platform.
 
-## Liquid Templating
-- Prefer the `render` tag over `include`.
-- Limit **database queries** within loops to avoid N+1 issues.
-- Use **filters** judiciously, especially complex computational ones.
-- Leverage Liquid's **caching mechanisms** to reduce redundant calculations.
-- Avoid complex **logic handling** directly in Liquid; move intricate logic to JavaScript.
-- Use `assign` and `capture` to define and reuse variables effectively.
+// ═══════════════════════════════════════════
+// CORTEX AI FUNCTIONS
+// ═══════════════════════════════════════════
 
-## JavaScript Development
-- Modularize JS, using **ES Modules** for imports and exports.
-- Follow modern JavaScript **best practices**, such as `const`/`let`, arrow functions, etc.
-- Avoid direct **DOM manipulation**; prioritize event delegation.
-- Optimize **JavaScript performance** to reduce repaints and reflows.
-- Consider using **Webpack/Rollup** for bundling and code optimization.
-- Write clear **comments** and **JSDoc**.
+// Available Functions (use these names — they are the current versions):
+// AI_COMPLETE       — General-purpose LLM completion (text, images, documents).
+// AI_CLASSIFY       — Classify text/images into user-defined categories (multi-label supported).
+// AI_FILTER         — Returns TRUE/FALSE for text/image input. Use in WHERE clauses.
+// AI_AGG            — Aggregate insights across rows of text (no context window limit).
+// AI_EMBED          — Generate embedding vectors (similarity search, clustering).
+// AI_EXTRACT        — Extract structured info from text, images, or documents.
+// AI_SENTIMENT      — Sentiment score from text (-1 to 1).
+// AI_SUMMARIZE_AGG  — Summarize across rows (no context window limit).
+// AI_SIMILARITY     — Embedding similarity between two inputs.
+// AI_TRANSCRIBE     — Transcribe audio/video from stages.
+// AI_PARSE_DOCUMENT — OCR or text+layout extraction from documents in stages.
+// AI_REDACT         — Redact PII from text.
+// AI_TRANSLATE      — Translate between supported languages.
 
-## CSS/SCSS Styling
-- Adhere to naming conventions like **BEM, OOCSS, or Utility-First CSS**.
-- Optimize **CSS selectors** to improve rendering performance.
-- Use **CSS variables** to manage theme configurations like colors and fonts.
-- Implement **responsive design** to ensure consistent theme appearance across devices.
-- Minimize **CSS file size** by removing unused styles.
-- Make good use of **SCSS mixins** and **functions**.
+// Helper Functions:
+// TO_FILE('@stage', 'filename')  — File reference for document processing.
+// AI_COUNT_TOKENS(model, text)   — Check token count before calling a model.
+// PROMPT('template {0}', arg)    — Build prompt objects for AI_COMPLETE.
+// TRY_COMPLETE                   — Returns NULL on failure instead of error.
 
-## Sections and Blocks
-- Utilize Section **Schema** to define configurable options.
-- Maintain **section independence and reusability**.
-- Provide clear **presets** for sections.
-- Use **Blocks** appropriately to enhance section flexibility.
-- Ensure sections provide a good user experience in the **Shopify Customizer**.
-- Avoid hardcoding content within sections; use Schema configurations whenever possible.
+// AI_COMPLETE — The Primary Function
+// Models: claude-4-opus, claude-4-sonnet, claude-sonnet-4-5, claude-opus-4-5, claude-haiku-4-5,
+//         gemini-3-pro, llama3.1-70b, llama3.1-8b, llama3.3-70b, mistral-large2, mistral-small2, deepseek-r1
 
-## Performance Optimization
-- Optimize **image loading** by using Shopify's CDN and the `image_url` filter.
-- Minify **JavaScript and CSS files**.
-- Leverage **browser caching**.
-- Reduce the number of **HTTP requests**.
-- Consider **lazy loading**.
-- Monitor **theme performance** using Google Lighthouse and Shopify Theme Check.
+// Text completion:
+SELECT AI_COMPLETE(MODEL => 'claude-4-sonnet', PROMPT => 'Summarize: ' || review_text) FROM reviews;
 
-## Accessibility (A11y)
-- Ensure all interactive elements are **keyboard accessible**.
-- Provide meaningful **`alt` text** for images.
-- Use correct **HTML semantic tags**.
-- Consider **color contrast**.
-- Implement clear **focus states**.
-- Use **ARIA attributes** to enhance the accessibility of complex components.
+// Document processing:
+SELECT AI_COMPLETE(
+  MODEL => 'claude-4-sonnet',
+  PROMPT => PROMPT('Extract the invoice total from {0}', TO_FILE('@docs', 'invoice.pdf'))
+);
 
-## Maintenance and Scalability
-- Write clear **code comments** and documentation.
-- Follow **naming conventions** to maintain code consistency.
-- Regularly **test** theme functionalities.
-- Ensure compatibility across different **browsers and devices**.
-- Consider future **extensibility**, avoiding tight coupling.
-- Use **Shopify CLI** for local development and deployment.
+// Structured JSON output:
+SELECT AI_COMPLETE(MODEL => 'claude-4-sonnet',
+  PROMPT => 'Extract name, email, company as JSON: ' || raw_text)::VARIANT AS extracted FROM contacts;
 
-## Quality and Testing
-- Use **Shopify Theme Check** for static code analysis.
-- Write **unit tests** (where applicable).
-- Conduct thorough **end-to-end testing**.
-- Test in various environments (local, development store, production store).
-- Focus on **compatibility testing** (browsers, devices, Shopify versions).
-- Test **error handling** and edge cases.
+// AI_CLASSIFY:
+SELECT AI_CLASSIFY(ticket_text, ['billing', 'technical', 'account', 'other']) AS category FROM tickets;
+// Multi-label: AI_CLASSIFY(input, categories, {'output_mode': 'multi'})
+
+// AI_FILTER (natural-language WHERE):
+SELECT * FROM reviews WHERE AI_FILTER(review_text, 'mentions product quality issues');
+
+// AI_AGG (cross-row aggregation):
+SELECT AI_AGG(feedback_text, 'What are the top 3 themes?') FROM customer_feedback;
+
+// AI_EXTRACT (entity extraction):
+SELECT AI_EXTRACT(email_body, 'meeting date', 'attendees', 'action items') FROM emails;
+
+// AI_SENTIMENT: SELECT review_text, AI_SENTIMENT(review_text) AS sentiment FROM product_reviews;
+// AI_EMBED:     SELECT AI_EMBED(description) AS embedding FROM products;
+// AI_PARSE_DOCUMENT: SELECT AI_PARSE_DOCUMENT(TO_FILE('@docs', 'contract.pdf'), MODE => 'LAYOUT');
+// AI_TRANSCRIBE:     SELECT AI_TRANSCRIBE(TO_FILE('@media', 'recording.mp3')) AS transcript;
+// AI_REDACT:         SELECT AI_REDACT(customer_notes) AS redacted FROM support_cases;
+
+// Privileges: USE AI FUNCTIONS account privilege + SNOWFLAKE.CORTEX_USER database role (both granted to PUBLIC by default).
+
+// ═══════════════════════════════════════════
+// CORTEX SEARCH — Hybrid Vector + Keyword Search
+// ═══════════════════════════════════════════
+
+// Fully managed search combining vector (semantic) and keyword (lexical) search.
+// Use cases: RAG for LLM chatbots, enterprise search, AI-powered Q&A.
+
+// Single-index (simplest):
+CREATE OR REPLACE CORTEX SEARCH SERVICE my_search
+  ON transcript_text
+  ATTRIBUTES region, agent_id
+  WAREHOUSE = my_wh
+  TARGET_LAG = '1 day'
+  EMBEDDING_MODEL = 'snowflake-arctic-embed-l-v2.0'
+  AS (SELECT transcript_text, region, agent_id FROM support_transcripts);
+
+// Multi-index (text + vector on multiple columns):
+CREATE OR REPLACE CORTEX SEARCH SERVICE my_multi_search
+  TEXT INDEXES transcript_text, summary
+  VECTOR INDEXES transcript_text (model='snowflake-arctic-embed-l-v2.0')
+  ATTRIBUTES region
+  WAREHOUSE = my_wh
+  TARGET_LAG = '1 hour'
+  AS (SELECT transcript_text, summary, region FROM support_transcripts);
+
+// Key Parameters: ON (single-index column), TEXT INDEXES, VECTOR INDEXES, ATTRIBUTES (filter columns),
+// TARGET_LAG (freshness), EMBEDDING_MODEL, PRIMARY KEY (optimized incremental refresh).
+
+// Query — Python API (recommended for apps):
+from snowflake.core import Root
+root = Root(session)
+service = root.databases["db"].schemas["schema"].cortex_search_services["my_search"]
+resp = service.search(
+    query="internet connection issues",
+    columns=["transcript_text", "region"],
+    filter={"@eq": {"region": "North America"}},
+    limit=5
+)
+
+// Query — REST API:
+// POST /api/v2/databases/<db>/schemas/<schema>/cortex-search-services/<service>:query
+// Body: {"query": "...", "columns": [...], "filter": {...}, "limit": N}
+
+// Filter syntax:
+// {"@eq": {"region": "NA"}}, {"@contains": {"tags": "urgent"}}, {"@gte": {"score": 0.8}}
+// {"@and": [f1, f2]}, {"@or": [f1, f2]}, {"@not": f}
+
+// Scoring config — adjust text vs vector vs reranker weights:
+resp = service.search(query="billing dispute", columns=["transcript_text"],
+    scoring_config={"weights": {"texts": 0.3, "vectors": 0.5, "reranker": 0.2}}, limit=10)
+
+// RAG Pattern: 1) Search for context, 2) Pass to AI_COMPLETE:
+//   results = service.search(query=question, columns=["content"], limit=5)
+//   SELECT AI_COMPLETE(MODEL=>'claude-4-sonnet', PROMPT=>'Answer from context: '||context||' Q: '||question);
+
+// Best Practices
+- Use AI_CLASSIFY for classification (cheaper than AI_COMPLETE).
+- Check token counts with AI_COUNT_TOKENS before large batch jobs.
+- Set PRIMARY KEY on Cortex Search for optimized incremental refresh.
+- Use ATTRIBUTES for filterable columns. Use SEARCH_PREVIEW for testing, Python/REST for production.
+- Use dedicated warehouse (no larger than MEDIUM) per search service.
+
+// Anti-Patterns
+- Do NOT use old function names (COMPLETE, CLASSIFY_TEXT, etc.) — use AI_* versions.
+- Do NOT pass entire tables through AI_COMPLETE row-by-row without cost estimation.
+- Do NOT hardcode model names without considering regional availability.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
