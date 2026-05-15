@@ -1,0 +1,44 @@
+{
+  "name": "Claudio",
+  "owner": "hllqkb",
+  "repo": "Claudio",
+  "description": "AI Music Radio - \u4e2a\u4eba\u5316 AI \u97f3\u4e50\u7535\u53f0\uff0c\u7ed3\u5408\u7f51\u6613\u4e91\u6b4c\u5355 + Claude AI \u7f16\u6392 + TTS \u64ad\u62a5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hllqkb/Claudio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T21:07:56Z"
+}
