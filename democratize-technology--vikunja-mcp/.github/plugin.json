@@ -1,0 +1,9 @@
+{
+  "name": "democratize-technology--vikunja-mcp",
+  "displayName": "vikunja-mcp",
+  "description": "Model Context Protocol server for Vikunja task management. Enables AI assistants to interact with Vikunja instances via MCP.",
+  "version": "1.0.0",
+  "author": "democratize-technology",
+  "homepage": "https://github.com/democratize-technology/vikunja-mcp",
+  "skills": []
+}
