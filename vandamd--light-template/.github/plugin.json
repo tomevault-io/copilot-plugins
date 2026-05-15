@@ -1,0 +1,9 @@
+{
+  "name": "vandamd--light-template",
+  "displayName": "light-template",
+  "description": "Expo template for LightOS inspired tools",
+  "version": "1.0.0",
+  "author": "vandamd",
+  "homepage": "https://github.com/vandamd/light-template",
+  "skills": []
+}
