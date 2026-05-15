@@ -1,217 +1,103 @@
-## web-app-optimization-cursorrules-prompt-file
+## webassembly-z80-cellular-automata-cursorrules-prom
 
-> Cursor rules for web app development with optimization integration.
+> Cursor rules for WebAssembly development with Z80 Cellular Automata integration.
 
-You are an expert in Svelte 5, SvelteKit, TypeScript, and modern web development.
+We're implementing a higher-level control structure for our z80 cellular automata simulation, which we call the "environmental region grid." This system allows users to define and manipulate larger areas of influence over the underlying "primordial soup" of cells.
 
-Key Principles
+Key Concepts:
 
-- Write concise, technical code with accurate Svelte 5 and SvelteKit examples.
-- Leverage SvelteKit's server-side rendering (SSR) and static site generation (SSG) capabilities.
-- Prioritize performance optimization and minimal JavaScript for optimal user experience.
-- Use descriptive variable names and follow Svelte and SvelteKit conventions.
-- Organize files using SvelteKit's file-based routing system.
+1. Soup Cells: The individual units of our cellular automata, which follow basic rules and interact with their neighbors.
+2. Regions: Larger areas that encompass multiple soup cells. Each region can have unique properties that influence the behavior of the soup cells within it.
+3. Environmental Region Grid: A grid overlaid on top of the soup cell grid, dividing the simulation space into discrete regions. This grid can be 4x4, 8x8, or 16x16, allowing for different levels of granularity.
+4. Region Parameters: Each region has a set of adjustable parameters that affect the soup cells within it. These could include:
+   - Obstacle (A region that blocks the movement of soup cells)
+   - Directional influence (biasing cell interactions in specific directions)
+   - Randomness factor (introducing more or less chaos in cell behavior)
+   - Temperature (affecting overall activity levels)
+   - Energy levels (influencing the likelihood of certain cell states or interactions)
+   - Other custom parameters as needed
+5. Dynamic Influence: The region parameters dynamically modify the behavior of soup cells, creating areas of distinct characteristics within the larger simulation.
+6. User Interaction: Users can interact with the simulation by adjusting region parameters in real-time, allowing for on-the-fly modification of the simulation's behavior.
+7. Visualization: The region grid and its effects are visually represented, allowing users to see the influence of their changes on the simulation.
 
-Code Style and Structure
+Purpose:
 
-- Write concise, technical TypeScript or JavaScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid unnecessary classes except for state machines.
-- Prefer iteration and modularization over code duplication.
-- Structure files: component logic, markup, styles, helpers, types.
-- Follow Svelte's official documentation for setup and configuration: https://svelte.dev/docs
+This system adds a new layer of complexity and control to the cellular automata simulation. It allows for the creation of diverse environments within a single simulation, enabling users to explore how different regional properties affect the emergent behavior of the cellular automata.
 
-Naming Conventions
+By implementing this region grid system, we're providing a powerful tool for users to experiment with large-scale influences on cellular automata behavior, potentially leading to new insights and interesting emergent phenomena.
 
-- Use lowercase with hyphens for component files (e.g., `components/auth-form.svelte`).
-- Use PascalCase for component names in imports and usage.
-- Use camelCase for variables, functions, and props.
+Plan:
 
-TypeScript Usage
+1. Define the Region Structure:
+   Create a comprehensive data structure to represent each region. This structure should be flexible enough to accommodate various parameters that can influence the behavior of soup cells within that region. Consider including:
+   - Obstacle
+   - Directional influence (for each cardinal direction)
+   - Randomness factor
+   - Temperature
+   - Energy level
+   - Any other relevant parameters
+   Ensure that each parameter is represented by an appropriate data type, typically using floating-point numbers for continuous values or integers for discrete states. This structure will be the foundation of your region system, so design it with extensibility in mind.
 
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use const objects instead.
-- Use functional components with TypeScript interfaces for props.
-- Enable strict mode in TypeScript for better type safety.
+2. Create the Region Grid:
+   Implement a two-dimensional array to represent the region grid. This grid should be flexible in size, allowing for configurations such as 4x4, 8x8, or 16x16. Each element of this array will be an instance of the region structure defined in step 1. Initialize this grid with default values for all parameters, ensuring a consistent starting state. Consider implementing methods to easily resize the grid and maintain the aspect ratio with the underlying soup cells.
 
-Svelte Runes
+3. Implement Soup Cell to Region Mapping:
+   Develop a system to efficiently map each soup cell to its corresponding region. This mapping is crucial for quick lookups during simulation. Create a separate array where each element represents a soup cell and contains the index or reference to its associated region. Implement functions to update this mapping whenever the region grid size changes. Ensure that this mapping system is optimized for performance, as it will be frequently accessed during the simulation.
 
-- `$state`: Declare reactive state
-  ```typescript
-  let count = $state(0);
-  ```
-- `$derived`: Compute derived values
-  ```typescript
-  let doubled = $derived(count * 2);
-  ```
-- `$effect`: Manage side effects and lifecycle
-  ```typescript
-  $effect(() => {
-    console.log(`Count is now ${count}`);
-  });
-  ```
-- `$props`: Declare component props
-  ```typescript
-  let { optionalProp = 42, requiredProp } = $props();
-  ```
-- `$bindable`: Create two-way bindable props
-  ```typescript
-  let { bindableProp = $bindable() } = $props();
-  ```
-- `$inspect`: Debug reactive state (development only)
-  ```typescript
-  $inspect(count);
-  ```
+4. Modify the Main Simulation Loop:
+   Update the core simulation logic to incorporate region parameters. For each soup cell update:
+   a. Determine the cell's corresponding region using the mapping created in step 3.
+   b. Retrieve the region's parameters.
+   c. Apply the effects of each parameter to the soup cell's behavior.
+   This might involve adjusting probabilities, modifying state transition rules, or influencing the cell's interaction with neighbors. Ensure that this integration is done efficiently to maintain simulation performance.
 
-UI and Styling
+5. Implement Parameter-Specific Logic:
+   For each parameter in the region structure, create dedicated functions or methods to apply its effects. For example:
+   - Obstacle: Turns the cell into an obstacle, preventing it from being randomly selected, and preventing neighbor soup cells from interacting with it.
+   - Directional influence: Adjust the probability of a cell interacting with neighbors in specific directions.
+   - Randomness: Introduce variability in state transitions or cell behavior.
+   - Temperature: Affect the overall activity level or energy of cells within the region.
+   - Energy level: Influence the likelihood of certain operations or state changes.
+   Design these functions to be modular and easily expandable, allowing for the addition of new parameters in the future without major code restructuring.
 
-- Use Tailwind CSS for utility-first styling approach.
-- Leverage Shadcn components for pre-built, customizable UI elements.
-- Import Shadcn components from `$lib/components/ui`.
-- Organize Tailwind classes using the `cn()` utility from `$lib/utils`.
-- Use Svelte's built-in transition and animation features.
+6. Enhance the WASM Interface:
+   Extend the WebAssembly interface to handle the new region grid system. This involves:
+   a. Creating functions to set and get the entire region grid state, allowing for efficient data transfer between JavaScript and WASM.
+   b. Implementing additional functions for manipulating individual regions or specific parameters.
+   c. Ensuring these functions are properly exported and accessible from the JavaScript side.
+   d. Optimizing data transfer to minimize performance overhead, especially for larger grid sizes.
 
-Shadcn Color Conventions
+7. Develop the User Interface:
+   Design and implement a comprehensive user interface for manipulating the region grid. This should include:
+   a. A visual representation of the region grid, possibly overlaid on the main simulation view.
+   b. Interactive elements for each region, allowing users to adjust parameters individually.
+   c. Global controls for setting grid size and applying presets.
+   d. A system for selecting different "brushes" or tools for painting parameter values across multiple regions.
+   e. Real-time feedback showing the effects of parameter changes on the simulation.
+   Ensure that the UI is intuitive and responsive, providing users with immediate visual feedback on their actions.
 
-- Use `background` and `foreground` convention for colors.
-- Define CSS variables without color space function:
-  ```css
-  --primary: 222.2 47.4% 11.2%;
-  --primary-foreground: 210 40% 98%;
-  ```
-- Usage example:
-  ```svelte
+8. Create a Region Visualization System:
+   Develop a robust visualization system for the regions. This should:
+   a. Visually represent the various parameters of each region, possibly using color coding, patterns, or overlays.
+   b. Update in real-time as parameters are changed, providing immediate feedback to the user.
+   c. Implement different visualization modes to focus on specific parameters or overall region states.
+   d. Ensure that the visualization is clear and distinguishable from the underlying soup cell simulation.
 
-SvelteKit Project Structure
+9. Implement Data Synchronization:
+   Create an efficient system for keeping the region grid data synchronized between the JavaScript UI and the WASM simulation. This might involve:
+   a. Implementing periodic updates at set intervals.
+   b. Creating an event-driven synchronization system that updates when changes occur.
+   c. Optimizing large data transfers to maintain smooth performance, possibly using typed arrays or other efficient data structures.
+   d. Implementing a queuing system for updates to prevent overwhelming the simulation with rapid changes.
 
-- Use the recommended SvelteKit project structure:
-  ```
-  - src/
-    - lib/
-    - routes/
-    - app.html
-    - static/
-    - svelte.config.js
-    - vite.config.js
-  ```
+10. Update the Shader Code:
+    Modify the fragment shader used for rendering the simulation to incorporate region effects. This involves:
+    a. Passing region data to the shader, either as a texture or uniform array.
+    b. Updating the shader logic to consider region parameters when rendering cells.
+    c. Implementing visual effects that reflect the influence of region parameters, such as color shifts, intensity variations, or particle effects.
+    d. Optimizing the shader code to maintain performance, especially for larger simulations or complex region effects.
 
-Component Development
-
-- Create .svelte files for Svelte components.
-- Use .svelte.ts files for component logic and state machines.
-- Implement proper component composition and reusability.
-- Use Svelte's props for data passing.
-- Leverage Svelte's reactive declarations for local state management.
-
-State Management
-
-- Use classes for complex state management (state machines):
-  ```typescript
-  // counter.svelte.ts
-  class Counter {
-    count = $state(0);
-    incrementor = $state(1);
-    increment() {
-      this.count += this.incrementor;
-    }
-    resetCount() {
-      this.count = 0;
-    }
-    resetIncrementor() {
-      this.incrementor = 1;
-    }
-  }
-  export const counter = new Counter();
-  ```
-- Use in components:
-  ```svelte
-  <br />
-  import { counter } from './counter.svelte.ts';
-  <br />
-  <button on:click={() => counter.increment()}>
-    Count: {counter.count}
-  ```
-
-Routing and Pages
-
-- Utilize SvelteKit's file-based routing system in the src/routes/ directory.
-- Implement dynamic routes using [slug] syntax.
-- Use load functions for server-side data fetching and pre-rendering.
-- Implement proper error handling with +error.svelte pages.
-
-Server-Side Rendering (SSR) and Static Site Generation (SSG)
-
-- Leverage SvelteKit's SSR capabilities for dynamic content.
-- Implement SSG for static pages using prerender option.
-- Use the adapter-auto for automatic deployment configuration.
-
-Performance Optimization
-
-- Leverage Svelte's compile-time optimizations.
-- Use `{#key}` blocks to force re-rendering of components when needed.
-- Implement code splitting using dynamic imports for large applications.
-- Profile and monitor performance using browser developer tools.
-- Use `$effect.tracking()` to optimize effect dependencies.
-- Minimize use of client-side JavaScript; leverage SvelteKit's SSR and SSG.
-- Implement proper lazy loading for images and other assets.
-
-Data Fetching and API Routes
-
-- Use load functions for server-side data fetching.
-- Implement proper error handling for data fetching operations.
-- Create API routes in the src/routes/api/ directory.
-- Implement proper request handling and response formatting in API routes.
-- Use SvelteKit's hooks for global API middleware.
-
-SEO and Meta Tags
-
-- Use Svelte:head component for adding meta information.
-- Implement canonical URLs for proper SEO.
-- Create reusable SEO components for consistent meta tag management.
-
-Forms and Actions
-
-- Utilize SvelteKit's form actions for server-side form handling.
-- Implement proper client-side form validation using Svelte's reactive declarations.
-- Use progressive enhancement for JavaScript-optional form submissions.
-
-Internationalization (i18n) with Paraglide.js
-
-- Use Paraglide.js for internationalization: https://inlang.com/m/gerre34r/library-inlang-paraglideJs
-- Install Paraglide.js: `npm install @inlang/paraglide-js`
-- Set up language files in the `languages` directory.
-- Use the `t` function to translate strings:
-  ```svelte
-  <br />
-  import { t } from '@inlang/paraglide-js';
-  <br />
-  - Support multiple languages and RTL layouts.
-  - Ensure text scaling and font adjustments for accessibility.
-
-Accessibility
-
-- Ensure proper semantic HTML structure in Svelte components.
-- Implement ARIA attributes where necessary.
-- Ensure keyboard navigation support for interactive elements.
-- Use Svelte's bind:this for managing focus programmatically.
-
-Key Conventions
-
-1. Embrace Svelte's simplicity and avoid over-engineering solutions.
-2. Use SvelteKit for full-stack applications with SSR and API routes.
-3. Prioritize Web Vitals (LCP, FID, CLS) for performance optimization.
-4. Use environment variables for configuration management.
-5. Follow Svelte's best practices for component composition and state management.
-6. Ensure cross-browser compatibility by testing on multiple platforms.
-7. Keep your Svelte and SvelteKit versions up to date.
-
-Documentation
-
-- Svelte 5 Runes: https://svelte-5-preview.vercel.app/docs/runes
-- Svelte Documentation: https://svelte.dev/docs
-- SvelteKit Documentation: https://kit.svelte.dev/docs
-- Paraglide.js Documentation: https://inlang.com/m/gerre34r/library-inlang-paraglideJs/usage
-
-Refer to Svelte, SvelteKit, and Paraglide.js documentation for detailed information on components, internationalization, and best practices.
+This system will allow for complex, user-defined behaviors across the simulation space, significantly enhancing the depth and interactivity of the cellular automata simulation.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
