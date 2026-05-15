@@ -1,0 +1,9 @@
+{
+  "name": "cboyd0319--jobsentinel",
+  "displayName": "JobSentinel",
+  "description": "Self-hosted job search automation: scrape multiple boards, de-dupe, score to your prefs, and alert you\u2014private by default; runs locally for free.",
+  "version": "1.0.0",
+  "author": "cboyd0319",
+  "homepage": "https://github.com/cboyd0319/JobSentinel",
+  "skills": []
+}
