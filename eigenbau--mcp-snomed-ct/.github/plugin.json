@@ -1,0 +1,9 @@
+{
+  "name": "eigenbau--mcp-snomed-ct",
+  "displayName": "mcp-snomed-ct",
+  "description": "MCP server for SNOMED CT concept lookup via any FHIR R4 terminology server",
+  "version": "1.0.0",
+  "author": "eigenbau",
+  "homepage": "https://github.com/eigenbau/mcp-snomed-ct",
+  "skills": []
+}
