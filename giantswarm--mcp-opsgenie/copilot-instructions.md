@@ -1,38 +1,55 @@
-## architecture
+## cursor-rules
 
-> This document outlines the fundamental architectural principles and patterns for the `mcp-opsgenie` codebase. Adherence to these guidelines is **mandatory** to maintain a clean, decoupled, and testable system.
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-# Architecture Principles
 
-This document outlines the fundamental architectural principles and patterns for the `mcp-opsgenie` codebase. Adherence to these guidelines is **mandatory** to maintain a clean, decoupled, and testable system.
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
----
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-## 1. Testing Standards
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
--   **Minimum Coverage:** All new code **MUST** achieve at least **80% unit test coverage**.
--   **No Flaky Tests:** Tests **MUST** be deterministic. Do not use `time.Sleep` or other mechanisms that can lead to race conditions. Use dependency injection for things like clocks or timers to make code testable.
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
----
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-## 2. Go Development & Style
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
 
--   **Formatting:** Before **every commit**, run:
-    ```bash
-    goimports -w .
-    go fmt ./...
-    ```
--   **Dependencies:** Before adding a new dependency with `go get`, search the web to find its latest stable version. This is a must!
--   **Error Handling:** Wrap errors with `fmt.Errorf("context: %w", err)` to preserve context.
--   **File Size:** Keep files focused and under **500 lines**. Refactor larger files.
-
----
-
-## 3. Documentation
-
--   **Packages:** Every package **MUST** have a `doc.go` file explaining its purpose.
--   **Exported Members:** Every exported function, type, and variable **MUST** have a GoDoc comment.
--   **Project Docs:** New features or significant changes require updates to the relevant documents in the `docs/` directory.
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [giantswarm/mcp-opsgenie](https://github.com/giantswarm/mcp-opsgenie) — distributed by [TomeVault](https://tomevault.io).
