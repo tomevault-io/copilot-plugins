@@ -7,11 +7,11 @@ This repository contains a comprehensive set of development rules, standards, an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LIDR-academy/lidr-specboot](https://github.com/LIDR-academy/lidr-specboot).
+Original source: `CLAUDE.md` in [LIDR-academy/lidr-specboot](https://github.com/LIDR-academy/lidr-specboot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
