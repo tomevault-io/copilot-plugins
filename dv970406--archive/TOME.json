@@ -1,0 +1,44 @@
+{
+  "name": "archive",
+  "owner": "dv970406",
+  "repo": "archive",
+  "description": "\ud504\ub860\ud2b8\uc5d4\ub4dc \uc5d4\uc9c0\ub2c8\uc5b4 \ucd5c\uc131\uc900\uc758 A to Z",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dv970406/archive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T18:39:23Z"
+}
