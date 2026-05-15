@@ -1,44 +1,145 @@
-## linting-setup
+## models-and-gateways
 
-> Selvage 프로젝트 린팅 설정
+> LLM 모델 및 게이트웨이 구조
 
-# Selvage 프로젝트 린팅 설정
+# Selvage LLM 모델 및 게이트웨이
 
-## Ruff 설정
+## 지원 모델 목록
 
-Selvage 프로젝트는 Python 린터로 Ruff를 사용합니다. 다음 설정을 통해 코드 품질을 관리합니다:
-### VSCode 설정
-[.vscode/settings.json](mdc:.vscode/settings.json) 파일에 정의된 Ruff 설정:
+**최신 지원 모델 목록은 `selvage/resources/models.yml` 파일을 참고하세요.**
 
-- 라인 길이: 88자 (Black 스타일)
-- 활성화된 린트 규칙:
-  - `E`: pycodestyle 오류
-  - `F`: Pyflakes 규칙
-  - `I`: isort 규칙
-  - `B`: flake8-bugbear 규칙
-  - `C4`: flake8-comprehensions
-  - `ARG`: flake8-unused-arguments
-  - `N`: PEP8 네이밍 규칙
-  - `UP`: pyupgrade 규칙
-  - `ANN`: flake8-annotations (타입 힌팅)
-  - `S`: flake8-bandit (보안)
-  - `A`: flake8-builtins
+현재 지원하는 제공자:
+- **OpenAI**: GPT-4 시리즈, o4-mini 시리즈
+- **Anthropic**: Claude Sonnet 4 시리즈 (recommend)
+- **Google**: Gemini 2.5 Pro/Flash 시리즈 (recommend)
+- **OpenRouter**: 다양한 LLM 모델에 대한 통합 게이트웨이
 
-### 자동화된 코드 정리
-- 파일 저장 시 자동 포맷팅 적용
-- 자동 import 정리
-- 코드 수정 제안(Code Actions)을 통한 문제 해결
+## 게이트웨이 아키텍처
 
-## 타입 체킹
-Python 타입 검사 모드는 `basic`으로 설정되어 있습니다. 이를 통해 타입 힌팅에 대한 기본적인 검사가 이루어집니다.
+Selvage는 각 LLM 제공업체의 API와 통신하기 위한 게이트웨이 클래스들을 구현했습니다. 이 게이트웨이 시스템은 팩토리 패턴을 통해 구현되었습니다.
 
-## 테스트 설정
-[pytest.ini](mdc:pytest.ini) 파일에서 pytest 설정을 관리합니다:
-- 테스트 경로: `tests/`
-- 테스트 파일 패턴: `test_*.py`
-- 테스트 클래스 패턴: `Test*`
-- 테스트 함수 패턴: `test_*`
-- legacy_tests 디렉토리 무시
+### 게이트웨이 클래스 구조
+
+```
+BaseGateway (추상 클래스)
+├── OpenAIGateway
+├── ClaudeGateway
+├── GoogleGateway
+└── OpenRouterGateway
+```
+
+- [BaseGateway](mdc:selvage/src/llm_gateway/base_gateway.py): 모든 게이트웨이의 기본 기능을 정의한 추상 클래스
+- [OpenAIGateway](mdc:selvage/src/llm_gateway/openai_gateway.py): OpenAI API와 통신하기 위한 게이트웨이
+- [ClaudeGateway](mdc:selvage/src/llm_gateway/claude_gateway.py): Anthropic Claude API와 통신하기 위한 게이트웨이
+- [GoogleGateway](mdc:selvage/src/llm_gateway/google_gateway.py): Google AI Studio API와 통신하기 위한 게이트웨이
+- [OpenRouterGateway](mdc:selvage/src/llm_gateway/openrouter/gateway.py): OpenRouter API를 통한 다양한 LLM 모델 접근을 위한 게이트웨이
+
+### 팩토리 패턴
+
+[GatewayFactory](mdc:selvage/src/llm_gateway/gateway_factory.py) 클래스는 모델 이름에 따라 적절한 게이트웨이 인스턴스를 생성합니다:
+
+```python
+# 게이트웨이 생성 예시
+factory = GatewayFactory()
+gateway = factory.create("gpt-4o")  # OpenAIGateway 인스턴스 반환
+gateway = factory.create("claude-3.7-sonnet")  # ClaudeGateway 인스턴스 반환
+gateway = factory.create("gemini-2.5-pro")  # GoogleGateway 인스턴스 반환
+gateway = factory.create("openrouter/claude-sonnet-4")  # OpenRouterGateway 인스턴스 반환
+```
+
+## 모델 정보 관리
+
+[available_models.py](mdc:selvage/src/available_models.py) 모듈은 지원되는 모든 모델의 정보를 관리합니다:
+
+```python
+# 모델 정보 예시
+AVAILABLE_MODELS: dict[str, ModelInfoDict] = {
+    "gpt-4o": {
+        "full_name": "gpt-4o",
+        "aliases": [],
+        "description": "GPT-4 Omni 모델",
+        "provider": "openai",
+        "params": {
+            "temperature": 0.0,
+        },
+    },
+    # 기타 모델 정보...
+}
+```
+
+- `full_name`: 모델의 정식 이름
+- `aliases`: 모델의 별칭 목록
+- `description`: 모델 설명
+- `provider`: 모델 제공자 ("openai", "claude", "google", "openrouter" 중 하나)
+- `params`: 모델별 파라미터 (temperature, reasoning_effort 등)
+- `openrouter_name`: OpenRouter에서 사용하는 모델명 (OpenRouter 게이트웨이 사용 시)
+
+## 게이트웨이 핵심 기능
+
+각 게이트웨이는 다음과 같은 공통 기능을 제공합니다:
+
+1. **모델 설정**: 모델 이름, 파라미터 설정
+2. **API 키 관리**: 각 제공자별 API 키 검증 및 관리
+3. **프롬프트 생성**: 코드 리뷰를 위한 프롬프트 생성
+4. **API 요청**: 각 제공자의 API에 맞는 요청 생성 및 전송
+5. **응답 처리**: API 응답을 파싱하고 구조화된 형식으로 변환
+6. **에러 처리**: API 오류, 타임아웃 등의 예외 처리
+
+### OpenRouter 게이트웨이 특징
+
+OpenRouter 게이트웨이는 다른 게이트웨이들과 몇 가지 중요한 차이점이 있습니다:
+
+1. **통합 API 접근**: 하나의 API 키로 여러 LLM 제공자의 모델들에 접근 가능
+2. **모델명 변환**: Selvage 내부 모델명을 OpenRouter 형식으로 자동 변환
+   - `models.yml`의 `openrouter_name` 필드 활용
+   - 예: `claude-sonnet-4` → `anthropic/claude-sonnet-4`
+3. **확장 사고 모드 지원**: Claude 모델의 thinking 모드를 OpenRouter의 reasoning API로 변환
+4. **JSON Schema 응답**: OpenAI 호환 API를 통한 구조화된 응답 획득
+5. **사용자 정의 HTTP 클라이언트**: OpenRouter의 확장 파라미터 지원을 위한 전용 클라이언트 사용
+
+#### OpenRouter 게이트웨이 사용 시 주의사항
+
+- **API 키 설정**: `OPENROUTER_API_KEY` 환경변수 필요
+- **모델 지원 범위**: OpenRouter에서 지원하는 모델만 사용 가능
+- **Thinking 모드 제한**: Claude 모델의 thinking 모드만 지원
+- **비용 계산**: OpenRouter는 현재 usage 정보를 제공하지 않아 비용 추정이 제한적
+
+## 코드 리뷰 프로세스
+
+게이트웨이를 사용한 코드 리뷰 프로세스는 다음과 같습니다:
+
+1. 사용자가 특정 모델을 지정하여 코드 리뷰 요청
+2. `GatewayFactory`를 통해 적절한 게이트웨이 인스턴스 생성
+3. 게이트웨이 객체가 코드 diff와 메타데이터를 사용하여 프롬프트 생성
+4. 해당 모델의 API에 요청 전송
+5. API 응답을 파싱하여 구조화된 리뷰 결과 생성
+6. 결과를 사용자에게 반환
+
+## 사용 예시
+
+```python
+from selvage.src.llm_gateway.gateway_factory import GatewayFactory
+from selvage.src.utils.models import ReviewRequest
+
+# 리뷰 요청 생성
+request = ReviewRequest(
+    diff_content="...",
+    file_paths=["main.py", "utils.py"],
+    language="python"
+)
+
+# 팩토리를 통한 게이트웨이 생성
+factory = GatewayFactory()
+gateway = factory.create("gpt-4o")  # OpenAI 모델 사용
+# 또는
+# gateway = factory.create("openrouter/claude-sonnet-4")  # OpenRouter를 통한 Claude 모델 사용
+
+# 코드 리뷰 실행
+review_result = gateway.review_code(request)
+
+# 결과 출력
+print(review_result.suggestions)
+```
 
 ---
 > Source: [selvage-lab/selvage](https://github.com/selvage-lab/selvage) — distributed by [TomeVault](https://tomevault.io).
