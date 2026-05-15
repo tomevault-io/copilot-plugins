@@ -1,18 +1,15 @@
-## back-end
+## front-end
 
-> - don't use `any` types
+> - server components for fetching (or tanstack/query in case of client requests)
 
 ## rules
+- server components for fetching (or tanstack/query in case of client requests)
+- never use useEffect for data fetching
+- create separate pages for forms (don't use dialogs), only exceptions is delete or simliar actions dialogs
+- use tanstack query mutations (useMutation) for actions.
 - don't use `any` types
-
-
-## Backend Stack Summary
-- **Server Framework**: ElysiaJS https://elysiajs.com/
-- **ORM**: Drizzle ORM https://orm.drizzle.team/docs/
-- **Authentication**: better-auth http://better-auth.com/docs
-- **Database**: PostgreSQL
-- use snake_case for all columns (but camelCase for ORM)
-- use full name for forign keys: property_units.id -> forign key for this is property_unit_id
+- use named export for anything except nextjs pages and layouts
+- use alias import when possible
 
 ---
 > Source: [aleppo-dev-community/aleppo.dev](https://github.com/aleppo-dev-community/aleppo.dev) — distributed by [TomeVault](https://tomevault.io).
