@@ -1,0 +1,9 @@
+{
+  "name": "alonhar--slack-ai-ext",
+  "displayName": "slack-ai-ext",
+  "description": "AI-powered Slack extension with intelligent writing assistance, translation, summarization, and custom operations using LLM",
+  "version": "1.0.0",
+  "author": "alonhar",
+  "homepage": "https://github.com/alonhar/slack-ai-ext",
+  "skills": []
+}
