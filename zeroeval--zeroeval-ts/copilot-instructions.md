@@ -1,154 +1,105 @@
-## documentation
+## testing
 
-> Documentation requirements for TypeScript SDK changes - update docs with examples
+> Testing requirements for TypeScript SDK - test after modifications and new features
 
 
-# Documentation Guidelines
+# Testing Guidelines
 
-## Documentation Requirement
+## Test After Every Modification
 
-**For every change in the TypeScript SDK, check the @docs/ folder and document the changes.**
+**After each modification, double check the tests and run them.**
 
-## Documentation Location
+## New Feature Testing
 
-SDK documentation is located at:
+**If it's a new feature, it should be tested.**
 
-- `/docs/tracing/sdks/typescript/` - Main TypeScript SDK docs
-- `/docs/tracing/sdks/typescript/setup.mdx` - Setup instructions
-- `/docs/tracing/sdks/typescript/reference.mdx` - API reference
-- `/docs/tracing/sdks/typescript/integrations.mdx` - Integration guides
+## Implementation Standards
 
-## Documentation Standards
+**Implementations should be concise and well designed. Simple.**
 
-**The documentation should be simple to understand, detailed, and with a mini example. Always readable and concise.**
+## Test Structure
 
-## Documentation Structure
+Tests are located in:
+
+- `/tests/` - Main test directory
+- `/tests/core/` - Core functionality tests
+- `/tests/performance/` - Performance tests
+
+## Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run specific test file
+npm test -- span.test.ts
+
+# Run with coverage
+npm run test:coverage
+```
+
+## Test Requirements
+
+### For Modifications
+
+1. **Run existing tests** to ensure nothing breaks
+2. **Update tests** if behavior changes
+3. **Verify test coverage** remains adequate
 
 ### For New Features
 
-````mdx
-## Feature Name
+1. **Write unit tests** for core functionality
+2. **Add integration tests** if needed
+3. **Include edge case tests**
+4. **Test error conditions**
 
-Brief description of what this feature does and why it's useful.
-
-### Setup
-
-```typescript
-import { FeatureName } from '@zeroeval/typescript';
-
-// Basic setup
-const feature = new FeatureName({
-  apiKey: 'your_key',
-});
-```
-````
-
-### Usage
+## Example Test Structure
 
 ```typescript
-// Simple example
-const result = await feature.execute({
-  inputData: 'example',
-  options: { param: 'value' },
-});
+// tests/core/new-feature.test.ts
+import { describe, it, expect, beforeEach } from 'vitest';
+import { NewFeature } from '../src/new-feature';
 
-console.log(result);
-```
+describe('NewFeature', () => {
+  let feature: NewFeature;
 
-### Parameters
+  beforeEach(() => {
+    feature = new NewFeature();
+  });
 
-| Parameter   | Type     | Required | Description                  |
-| ----------- | -------- | -------- | ---------------------------- |
-| `inputData` | `string` | Yes      | Description of the parameter |
-| `options`   | `object` | No       | Optional configuration       |
+  it('should execute basic functionality', () => {
+    const result = feature.execute();
+    expect(result).toBeDefined();
+    expect(result).toHaveProperty('data');
+  });
 
-### Returns
+  it('should handle edge cases', () => {
+    expect(() => {
+      feature.execute({ invalidInput: true });
+    }).toThrow('Invalid input provided');
+  });
 
-Returns a `Promise<FeatureResult>` with the following properties:
-
-- `data`: The processed result
-- `metadata`: Additional information about the operation
-
-````
-
-### For API Changes
-- Update the API reference section
-- Add deprecation warnings if needed
-- Update version information
-- Include migration examples
-
-### For Integration Changes
-- Update relevant integration guide (Langchain, Vercel AI, etc.)
-- Add new integration examples
-- Update compatibility matrix
-
-## Example Documentation Update
-
-When adding a new tracing feature:
-
-```mdx
-## Manual Span Creation
-
-Create custom spans to track specific operations in your application.
-
-### Basic Usage
-
-```typescript
-import { tracer } from '@zeroeval/typescript';
-
-// Create a custom span
-await tracer.span('custom_operation', { tags: { userId: '123' } }, async (span) => {
-  // Your operation here
-  const result = await performOperation();
-  span.setAttribute('result_count', result.length);
-  return result;
-});
-````
-
-### Advanced Usage
-
-```typescript
-// Nested spans with custom attributes
-await tracer.span('parent_operation', async (parent) => {
-  parent.setAttribute('operation_type', 'batch_process');
-
-  await tracer.span('child_operation', { parent }, async (child) => {
-    child.setAttribute('item_count', 10);
-    await processItems();
+  it('should integrate with other components', async () => {
+    // Integration test logic
+    const result = await feature.integrateWith(mockComponent);
+    expect(result.success).toBe(true);
   });
 });
 ```
 
-### TypeScript Types
-
-```typescript
-interface SpanOptions {
-  parent?: Span;
-  tags?: Record<string, string>;
-  attributes?: Record<string, any>;
-}
-
-interface Span {
-  setAttribute(key: string, value: any): void;
-  setTag(key: string, value: string): void;
-  finish(): void;
-}
-```
-
-```
-
 ## Checklist
 
-When making SDK changes:
-- [ ] Identify affected documentation sections
-- [ ] Update relevant .mdx files
-- [ ] Add mini examples for new features
-- [ ] Ensure examples are tested and work
-- [ ] Keep language simple and clear
-- [ ] Include parameter descriptions
-- [ ] Add return value documentation
-- [ ] Include TypeScript types where relevant
-```
+Before submitting changes:
+
+- [ ] All existing tests pass
+- [ ] New functionality is tested
+- [ ] Tests are simple and focused
+- [ ] Edge cases are covered
+- [ ] Error conditions are tested
+- [ ] TypeScript types are tested
 
 ---
 > Source: [zeroeval/zeroeval-ts](https://github.com/zeroeval/zeroeval-ts) — distributed by [TomeVault](https://tomevault.io).
