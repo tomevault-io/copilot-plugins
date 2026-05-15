@@ -1,0 +1,9 @@
+{
+  "name": "uberskillsdev--uberskills",
+  "displayName": "uberSKILLS",
+  "description": "Design, test, and deploy Claude Code Agent Skills through a visual, AI-assisted workflow.",
+  "version": "1.0.0",
+  "author": "uberskillsdev",
+  "homepage": "https://github.com/uberskillsdev/uberSKILLS",
+  "skills": []
+}
