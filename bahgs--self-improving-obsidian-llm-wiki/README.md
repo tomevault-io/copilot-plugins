@@ -7,11 +7,11 @@ An Obsidian-first, agent-maintained LLM Wiki framework that turns raw sources in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Bahgs/Self-Improving-Obsidian-LLM-Wiki](https://github.com/Bahgs/Self-Improving-Obsidian-LLM-Wiki).
+Original source: `CLAUDE.md` in [Bahgs/Self-Improving-Obsidian-LLM-Wiki](https://github.com/Bahgs/Self-Improving-Obsidian-LLM-Wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
