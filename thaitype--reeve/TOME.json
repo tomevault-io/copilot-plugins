@@ -4,7 +4,7 @@
   "repo": "reeve",
   "description": "Hardened shell runtime for AI agents. Allowlist-first execution of Rhai scripts with declared command boundaries.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thaitype/reeve",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:53:22Z"
+  "distributed_at": "2026-05-15T05:02:13Z"
 }
