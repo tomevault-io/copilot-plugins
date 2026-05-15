@@ -4,7 +4,7 @@
   "repo": "aifi",
   "description": "\ud83d\udcb0 AIFi (AI Finance) is an agent-first workspace for compounding investment research and insight.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iFurySt/aifi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:45:43Z"
+  "distributed_at": "2026-05-15T18:21:59Z"
 }
