@@ -1,0 +1,9 @@
+{
+  "name": "sf-zhou--ruapc",
+  "displayName": "ruapc",
+  "description": "A high-performance Rust RPC library that supports multiple transport protocols (TCP, WebSocket, HTTP, RDMA) with unified API, and OpenAPI integration.",
+  "version": "1.0.0",
+  "author": "SF-Zhou",
+  "homepage": "https://github.com/SF-Zhou/ruapc",
+  "skills": []
+}
