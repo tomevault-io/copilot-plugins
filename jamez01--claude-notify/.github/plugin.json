@@ -1,0 +1,9 @@
+{
+  "name": "jamez01--claude-notify",
+  "displayName": "claude-notify",
+  "description": "A multi-os notification tool for claude code hooks",
+  "version": "1.0.0",
+  "author": "jamez01",
+  "homepage": "https://github.com/jamez01/claude-notify",
+  "skills": []
+}
