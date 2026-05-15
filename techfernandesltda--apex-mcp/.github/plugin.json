@@ -1,0 +1,9 @@
+{
+  "name": "techfernandesltda--apex-mcp",
+  "displayName": "apex-mcp",
+  "description": "MCP Server for Oracle APEX 24.2 \u2014 create, inspect and modify APEX apps via natural language with Claude Code",
+  "version": "1.0.0",
+  "author": "TechFernandesLTDA",
+  "homepage": "https://github.com/TechFernandesLTDA/apex-mcp",
+  "skills": []
+}
