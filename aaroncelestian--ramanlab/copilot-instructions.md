@@ -1,61 +1,43 @@
-## canvas-redraw-debugging
+## matplotlib-plotting
 
-> Problem: Map plots gradually shrink when switching between different map features due to colorbar layout memory.
+> - Always use [matplotlib_config.py](mdc:ui/matplotlib_config.py) for matplotlib configuration
 
-# Canvas Redraw Debugging Guide
+# Matplotlib Plotting Guidelines for RamanLab
 
-## Map Tab Plot Shrinking Issue (SOLVED)
-Problem: Map plots gradually shrink when switching between different map features due to colorbar layout memory.
+## Configuration Requirements
+- Always use [matplotlib_config.py](mdc:ui/matplotlib_config.py) for matplotlib configuration
+- The config sets `figure.autolayout = True` by default, which can interfere with manual layout management
 
-### Root Cause
-- Matplotlib `autolayout=True` conflicts with manual `tight_layout()` calls
-- Colorbar space allocation gets accumulated across updates
-- Canvas not fully reset between plot updates
+## Canvas and Colorbar Management
+When updating plots with colorbars (especially in map visualizations):
 
-### Solution Pattern (Applied to update_map())
+### Proper Update Sequence
+1. **Disable autolayout temporarily** before clearing figure
+2. **Clear figure completely** with `fig.clear()`
+3. **Force garbage collection** to clean up matplotlib artists
+4. **Use manual layout control** with `subplots_adjust()` instead of `tight_layout()`
+5. **Restore autolayout setting** after plotting
+
+### Canvas Redrawing Best Practices
 ```python
-# 1. Save and disable autolayout
-original_autolayout = fig.get_autolayout()
-fig.set_autolayout(False)
-
-# 2. Complete figure reset
-fig.clear()
-import gc; gc.collect()  # Force cleanup
-
-# 3. Manual layout control
-if colorbar_exists:
-    fig.subplots_adjust(left=0.1, bottom=0.1, right=0.85, top=0.95)
-else:
-    fig.subplots_adjust(left=0.1, bottom=0.1, right=0.95, top=0.95)
-
-# 4. Multi-step canvas refresh
+# Force complete canvas refresh
 canvas.flush_events()
 canvas.draw_idle()
 canvas.draw()
-
-# 5. Always restore autolayout (even in except blocks)
-fig.set_autolayout(original_autolayout)
 ```
 
-## Debugging Canvas Issues
-### Symptoms to Look For
-- **Gradual shrinking**: Layout memory accumulation
-- **Inconsistent sizing**: Autolayout conflicts
-- **Incomplete updates**: Missing canvas refresh steps
-- **Widget positioning drift**: Qt/matplotlib layout conflicts
+### Colorbar Space Management
+- With colorbar: use `right=0.85` in `subplots_adjust()`
+- Without colorbar: use `right=0.95` in `subplots_adjust()`
+- This prevents plot shrinking when switching between features
 
-### Diagnostic Steps
-1. Check if `figure.autolayout` is enabled
-2. Verify complete figure clearing before updates
-3. Ensure proper colorbar removal/recreation
-4. Test with fixed `subplots_adjust()` parameters
-5. Add multiple canvas refresh calls
+## Common Issues
+- **Plot Shrinking**: Caused by matplotlib retaining layout memory from previous colorbars
+- **Layout Conflicts**: `autolayout=True` + `tight_layout()` can cause unpredictable behavior
+- **Incomplete Redraw**: Single `draw()` call may not fully refresh complex plots
 
-### Prevention
-- Use consistent layout management approach
-- Always pair layout changes with proper restoration
-- Implement robust error handling for matplotlib state
-- Test with rapid feature switching to catch accumulation bugs
+## Error Handling
+Always restore matplotlib settings in exception handlers to prevent state corruption.
 
 ---
 > Source: [aaroncelestian/RamanLab](https://github.com/aaroncelestian/RamanLab) — distributed by [TomeVault](https://tomevault.io).
