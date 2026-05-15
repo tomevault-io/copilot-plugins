@@ -1,0 +1,9 @@
+{
+  "name": "thelastfantasy--bangumi-rules-builder",
+  "displayName": "Bangumi-Rules-Builder",
+  "description": "Smart Bangumi qBittorrent Rule Generator - \u81ea\u52a8\u751f\u6210\u52a8\u6f2b\u5b63\u5ea6\u4e0b\u8f7d\u89c4\u5219\u7684\u667a\u80fd\u5de5\u5177\uff0c\u652f\u6301AI\u5904\u7406\u548cBangumi API\u96c6\u6210",
+  "version": "1.0.0",
+  "author": "thelastfantasy",
+  "homepage": "https://github.com/thelastfantasy/Bangumi-Rules-Builder",
+  "skills": []
+}
