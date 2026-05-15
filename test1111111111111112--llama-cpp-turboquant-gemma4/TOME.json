@@ -4,7 +4,7 @@
   "repo": "llama-cpp-turboquant-gemma4",
   "description": "TurboQuant llama.cpp fork with optimized turbo4 kernels for Gemma 4 D=256/512 heads \u2014 lazy K/V, batch decode, warp-cooperative write. 120 t/s with 3.8x KV compression on RTX 3090.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/test1111111111111112/llama-cpp-turboquant-gemma4",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:31:41Z"
+  "distributed_at": "2026-05-15T13:52:34Z"
 }
