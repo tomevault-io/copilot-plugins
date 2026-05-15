@@ -1,0 +1,9 @@
+{
+  "name": "loftusa--owls",
+  "displayName": "owls",
+  "description": "Subliminal learning in LLMs: language models can transmit hidden preferences through seemingly unrelated training data.",
+  "version": "1.0.0",
+  "author": "loftusa",
+  "homepage": "https://github.com/loftusa/owls",
+  "skills": []
+}
