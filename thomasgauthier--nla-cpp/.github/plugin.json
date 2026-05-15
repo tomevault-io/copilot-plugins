@@ -1,0 +1,9 @@
+{
+  "name": "thomasgauthier--nla-cpp",
+  "displayName": "nla.cpp",
+  "description": "UI and local inference server for Anthropic's Natural Language Encoders",
+  "version": "1.0.0",
+  "author": "thomasgauthier",
+  "homepage": "https://github.com/thomasgauthier/nla.cpp",
+  "skills": []
+}
