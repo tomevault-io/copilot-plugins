@@ -1,73 +1,122 @@
-## nextjs-seo-dev-cursorrules-prompt-file
+## nextjs-supabase-shadcn-pwa-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with SEO optimization.
+> Cursor rules for Nextjs Supabase Shadcn Pwa.
 
-Always add helpful comments to the code explaining what you are doing.
-Never delete old comments, unless they are no longer relevant because the code has been rewritten or deleted.
+## Key Principles
 
-This is the package.json file for the nextjs app.
+- **Code Quality & Style**
 
-Whenever you see a line with this following comment, do not touch it, rewrite it, or delete it "Do not touch this line Cursor"
+  - Write concise, maintainable, and strongly typed code with accurate TypeScript implementations.
+  - Embrace functional, declarative programming. Avoid OOP and classes.
+  - Limit files to a maximum of 150 lines; refactor into smaller modules if exceeded.
+  - Prefer iteration and modularization over duplication.
+  - Use descriptive, semantic variable names with auxiliary verbs (e.g., `isLoading`, `hasError`).
+  - Use lowercase with dashes for directories and files (e.g., `components/auth-wizard`).
+  - Favor named exports for components.
+  - Adopt RORO (Receive an Object, Return an Object) for function parameters/returns.
+  - Always attain to use DRY (Don't Repeat Yourself) principles.
+  - Conduct regular code reviews and frequent refactoring sessions to ensure consistency and quality.
+  - Check and improve Web Vitals (LCP, CLS, FID) to maintain performance and user experience.
 
-{
-  "name": "@se-2/nextjs",
-  "private": true,
-  "version": "0.1.0",
-  "scripts": {
-    "dev": "next dev",
-    "start": "next dev",
-    "build": "next build",
-    "serve": "next start",
-    "lint": "next lint",
-    "format": "prettier --write . '!(node_modules|.next|contracts)/*/'",
-    "check-types": "tsc --noEmit --incremental",
-    "vercel": "vercel",
-    "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
-  },
-  "dependencies": {
-    "@heroicons/react": "^2.0.11",
-    "@rainbow-me/rainbowkit": "2.1.2",
-    "@tanstack/react-query": "^5.28.6",
-    "@uniswap/sdk-core": "^4.0.1",
-    "@uniswap/v2-sdk": "^3.0.1",
-    "blo": "^1.0.1",
-    "burner-connector": "^0.0.8",
-    "daisyui": "4.5.0",
-    "next": "^14.0.4",
-    "next-themes": "^0.2.1",
-    "nprogress": "^0.2.0",
-    "qrcode.react": "^3.1.0",
-    "react": "^18.2.0",
-    "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.0",
-    "use-debounce": "^8.0.4",
-    "usehooks-ts": "^2.13.0",
-    "viem": "2.17.4",
-    "wagmi": "2.10.10",
-    "zustand": "^4.1.2"
-  },
-  "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
-    "@types/node": "^17.0.35",
-    "@types/nprogress": "^0",
-    "@types/react": "^18.0.9",
-    "@types/react-copy-to-clipboard": "^5.0.4",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "abitype": "1.0.5",
-    "autoprefixer": "^10.4.12",
-    "eslint": "^8.15.0",
-    "eslint-config-next": "^14.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "postcss": "^8.4.16",
-    "prettier": "^2.8.4",
-    "tailwindcss": "^3.4.3",
-    "type-fest": "^4.6.0",
-    "typescript": "5.5.3",
-    "vercel": "^32.4.1"
-  }
-}
+- **Create 'Build Notes':**
+
+  - You must create a 'Build Notes' file for each task group to track the progress of the task group we work on.
+  - **Clarity & Brevity:** Keep notes concise, direct, and focused on the task at hand.
+  - **Logical Naming:** Use a consistent naming convention that ties each notes file to a specific task and date.
+  - **Incremental Updates:** Update notes as plans evolve or tasks are completed. Append rather than overwrite.
+  - **Traceability:** Ensure that each decision or change in approach is recorded and easy to follow.
+
+- **Review 'Project Contexts':**
+
+  - You must review the `projectContext.md` as we need to ensure that the project context is up to date and accurate.
+  - **Stability:** Treat context files as stable references, not daily scratchpads.
+  - **Selective Updates:** Update context files only when there are significant, approved changes to requirements or project scope.
+  - **Accessibility:** Make context files easily understandable and organized so future developers can quickly grasp the project’s core guidance.
+
+- **Stack and Framework Conventions**
+
+  - Target **Next.js 15+** and leverage the App Router, React Server Components (RSC), and SSR capabilities.
+  - Use Zustand for state management in client components when necessary.
+  - Maintain proper Shadcn UI management using `npx shadcn@latest add` for new components.
+  - Follow a mobile-first approach and responsive design patterns.
+  - Emphasize server-side logic, minimizing the usage of `use client` and other client-only APIs.
+  - Structure project as Progressive Web App (PWA) with offline capabilities, app-like experience, and installability across devices.
+
+- **Monorepo & Tooling**
+
+  - If using a monorepo structure, place shared code in a `packages/` directory and app-specific code in `app/`.
+  - Use `Taskfile.yml` commands for development, testing, and deployment tasks.
+  - Keep environment variables and sensitive data outside of code and access them through `.env` files or similar configuration.
+
+Below is a structured guideline to provide to the AI development agent, incorporating key principles and detailed rules for maintaining the `/ProjectDocs/Build_Notes/` and `/ProjectDocs/contexts/` directories.
+
+---
+
+### Rules for Build Notes Files
+
+1. **Location & Naming:**
+
+   - Store all notes files in `/ProjectDocs/Build_Notes/`.
+   - Use a logical, descriptive naming convention, e.g., `build-title_phase-#_task-group-name.md`.
+   - Use the `<build-title>` to describe the build task.
+   - Use the `<phase-#>` to apply the Phase # to the build task.
+   - Use the `<task-group-name>` to describe the task group name.
+   - Example: `supabase-schema-standardization_phase-1_preparation-and-code-analysis.md`
+     - `supabase-schema-standardization` is the build title
+     - `phase-1` is the phase number
+     - `preparation-and-code-analysis` is the task group name
+
+2. **Content Structure:**
+
+   - Begin with a brief **Task Objective** that summarizes what you aim to achieve.
+   - Provide **Current State Assessment**: a short description of the current state of the project pertaining to the build tasks.
+   - Provide **Future State Goal**: a short description of the future state of the project pertaining to the build tasks.
+   - Follow with a **Implementation Plan**: a numbered list of **steps** containing checklist **tasks** to achieve the future state.
+   - Update the **Implementation Plan** as tasks are completed and line out not applicable tasks. NEVER DELETE TASKS FROM THE PLAN.
+   - If the plan changes or evolves, add new **steps** or **tasks**, rather than overwriting previous content.
+
+3. **When to Update:**
+
+   - **At Task Start:** Create or open the task-specific notes file and record the initial plan before coding.
+   - **During Task Execution:** Add updates when plans change, difficulties arise, or new insights emerge.
+   - **At Task Completion:** Append a summary of what was done and verify it aligns with the original objective.
+
+4. **Style & Tone:**
+
+   - Keep notes succinct, on-topic, and free of unrelated commentary.
+   - Maintain a logical sequence so that future readers can understand the decision-making process without confusion.
+
+5. **Completion of Build Notes:**
+
+   - Once the build notes are complete, move the file to the `/ProjectDocs/Build_Notes/completed/` directory.
+   - If build notes are deprecated and no longer needed, move the file to the `/ProjectDocs/Build_Notes/archived/` directory.
+
+---
+
+### Rules for Context Files
+
+1. **Master Project Context (`projectContext.md`):**
+
+   - Located in `/ProjectDocs/contexts/`.
+   - Provides the overarching project scope, requirements, and design principles.
+   - Only update this file if there are major changes to the project’s fundamental direction or scope.
+
+2. **Additional Context Files:**
+
+   - Supplementary files (e.g., `uiContext.md`, `featureAContext.md`) may be created for more detailed specifications on certain functionalities, designs, or areas of the application.
+   - Keep these files stable. Update them only when new, approved changes need to be documented.
+   - Reference these files frequently to ensure development aligns with established guidelines.
+
+3. **Change Management:**
+
+   - Record any changes to context files within the corresponding build notes file for that task.
+   - Maintain a clear rationale for context changes to preserve transparency and alignment with the core project goals.
+
+---
+
+## Project Structure
+
+Adopt a clear, modular directory structure:
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
