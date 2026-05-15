@@ -4,7 +4,7 @@
   "repo": "rabbit-panel",
   "description": "\u8f7b\u91cf\u7ea7AI\u667a\u80fd\u5bb9\u5668\u8fd0\u7ef4\u9762\u677f",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reisen7/rabbit-panel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:09:09Z"
+  "distributed_at": "2026-05-15T18:01:53Z"
 }
