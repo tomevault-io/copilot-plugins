@@ -1,0 +1,9 @@
+{
+  "name": "solana-program--escrow",
+  "displayName": "escrow",
+  "description": "Escrow Program",
+  "version": "1.0.0",
+  "author": "solana-program",
+  "homepage": "https://github.com/solana-program/escrow",
+  "skills": []
+}
