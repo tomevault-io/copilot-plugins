@@ -1,0 +1,9 @@
+{
+  "name": "maxim--tiny-mcp",
+  "displayName": "tiny_mcp",
+  "description": "Make local MCP tools in Ruby and easily serve them",
+  "version": "1.0.0",
+  "author": "maxim",
+  "homepage": "https://github.com/maxim/tiny_mcp",
+  "skills": []
+}
