@@ -1,0 +1,9 @@
+{
+  "name": "kousen--codex-training",
+  "displayName": "codex-training",
+  "description": "Slides and exercises for a training course on OpnenAI's Codex CLI tool",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/codex-training",
+  "skills": []
+}
