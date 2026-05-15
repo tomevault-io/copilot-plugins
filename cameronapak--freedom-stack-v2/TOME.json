@@ -4,7 +4,7 @@
   "repo": "freedom-stack-v2",
   "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cameronapak/freedom-stack-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T05:59:02Z"
+  "distributed_at": "2026-05-15T08:36:58Z"
 }
