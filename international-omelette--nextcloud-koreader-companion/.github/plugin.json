@@ -1,0 +1,9 @@
+{
+  "name": "international-omelette--nextcloud-koreader-companion",
+  "displayName": "nextcloud-koreader-companion",
+  "description": "Transform your Nextcloud into an authenticated OPDS ebook library with full KOReader sync support",
+  "version": "1.0.0",
+  "author": "international-omelette",
+  "homepage": "https://github.com/international-omelette/nextcloud-koreader-companion",
+  "skills": []
+}
