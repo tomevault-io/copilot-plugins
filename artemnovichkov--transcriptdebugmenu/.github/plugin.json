@@ -1,0 +1,9 @@
+{
+  "name": "artemnovichkov--transcriptdebugmenu",
+  "displayName": "TranscriptDebugMenu",
+  "description": "A SwiftUI library that provides a debug menu for viewing and copying LanguageModelSession transcripts.",
+  "version": "1.0.0",
+  "author": "artemnovichkov",
+  "homepage": "https://github.com/artemnovichkov/TranscriptDebugMenu",
+  "skills": []
+}
