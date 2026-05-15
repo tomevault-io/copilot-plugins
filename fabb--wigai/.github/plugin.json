@@ -1,0 +1,9 @@
+{
+  "name": "fabb--wigai",
+  "displayName": "WigAI",
+  "description": "Bitwig Controller Extension that provides an MCP Server for AI Agent control",
+  "version": "1.0.0",
+  "author": "fabb",
+  "homepage": "https://github.com/fabb/WigAI",
+  "skills": []
+}
