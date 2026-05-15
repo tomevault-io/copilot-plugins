@@ -1,0 +1,9 @@
+{
+  "name": "cylqwe7855-alt--personal-wiki",
+  "displayName": "personal-wiki",
+  "description": "\u5c06\u4f60\u7684\u7b14\u8bb0\u3001\u65e5\u8bb0\u3001\u6587\u6863\u7f16\u7e82\u6210\u4e00\u5ea7\u79c1\u4eba\u7ef4\u57fa\u767e\u79d1\u3002\u81ea\u52a8\u4ea4\u53c9\u5f15\u7528\uff0c\u751f\u6210 Wikipedia   \u98ce\u683c\u7684\u7f51\u9875 UI\uff0c\u8fd9\u5c31\u662f\u4f60\u7684\u4eba\u751f\u788e\u7247Wiki\uff01\u3002Build a personal knowledge wiki from your notes, journals, and documents. LLM ingests   your data, compiles cross-linked Wikipedia-",
+  "version": "1.0.0",
+  "author": "cylqwe7855-alt",
+  "homepage": "https://github.com/cylqwe7855-alt/personal-wiki",
+  "skills": []
+}
