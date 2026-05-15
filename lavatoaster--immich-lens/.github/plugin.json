@@ -1,0 +1,9 @@
+{
+  "name": "lavatoaster--immich-lens",
+  "displayName": "immich-lens",
+  "description": "Native SwiftUI app for viewing photos and videos on an Immich server (macOS & tvOS)",
+  "version": "1.0.0",
+  "author": "LavaToaster",
+  "homepage": "https://github.com/LavaToaster/immich-lens",
+  "skills": []
+}
