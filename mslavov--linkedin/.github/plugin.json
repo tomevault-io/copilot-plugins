@@ -1,0 +1,9 @@
+{
+  "name": "mslavov--linkedin",
+  "displayName": "linkedin",
+  "description": "Linkedin automation orchestrated with Github actions, powered by Claude",
+  "version": "1.0.0",
+  "author": "mslavov",
+  "homepage": "https://github.com/mslavov/linkedin",
+  "skills": []
+}
