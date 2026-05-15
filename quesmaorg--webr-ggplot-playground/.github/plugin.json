@@ -1,0 +1,9 @@
+{
+  "name": "quesmaorg--webr-ggplot-playground",
+  "displayName": "webr-ggplot-playground",
+  "description": "WebR ggplot2 & dplyr: Interactive R data viz entirely in your browser ",
+  "version": "1.0.0",
+  "author": "QuesmaOrg",
+  "homepage": "https://github.com/QuesmaOrg/webr-ggplot-playground",
+  "skills": []
+}
