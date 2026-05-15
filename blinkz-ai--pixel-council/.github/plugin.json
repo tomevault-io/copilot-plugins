@@ -1,0 +1,9 @@
+{
+  "name": "blinkz-ai--pixel-council",
+  "displayName": "pixel-council",
+  "description": "A Claude Code skill that summons the design wisdom of Apple, Google, and more to produce production-grade UI",
+  "version": "1.0.0",
+  "author": "blinkz-ai",
+  "homepage": "https://github.com/blinkz-ai/pixel-council",
+  "skills": []
+}
