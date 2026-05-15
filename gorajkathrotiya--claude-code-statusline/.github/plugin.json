@@ -1,0 +1,9 @@
+{
+  "name": "gorajkathrotiya--claude-code-statusline",
+  "displayName": "claude-code-statusline",
+  "description": "Claude Code statusline \u2014 session %, weekly limit, reset countdown. Pure shell, no npm.",
+  "version": "1.0.0",
+  "author": "GorajKathrotiya",
+  "homepage": "https://github.com/GorajKathrotiya/claude-code-statusline",
+  "skills": []
+}
