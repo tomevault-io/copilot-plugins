@@ -1,0 +1,9 @@
+{
+  "name": "fheinent--job-search-machine",
+  "displayName": "job-search-machine",
+  "description": "A Claude Code system that lands interviews through precision targeting, not volume.",
+  "version": "1.0.0",
+  "author": "fheinent",
+  "homepage": "https://github.com/fheinent/job-search-machine",
+  "skills": []
+}
