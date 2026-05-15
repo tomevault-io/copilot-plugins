@@ -1,0 +1,9 @@
+{
+  "name": "zendev-sh--zenflow",
+  "displayName": "zenflow",
+  "description": "Multi-agent orchestration & workflow engine. Declarative YAML workflows, LLM coordinator with hub-and-spoke mailboxes, race-safe delivery. One YAML file, one Go binary. Runs on any goai-supported prov",
+  "version": "1.0.0",
+  "author": "zendev-sh",
+  "homepage": "https://github.com/zendev-sh/zenflow",
+  "skills": []
+}
