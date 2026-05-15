@@ -313,6 +313,5 @@ The `dev-context/` directory contains comprehensive development standards and pa
 **Usage**: This context is automatically loaded by module CLAUDE.md and provides detailed technical context for effective development sessions.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/rayners)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/rayners)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [rayners/fvtt-seasons-and-stars](https://github.com/rayners/fvtt-seasons-and-stars) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
