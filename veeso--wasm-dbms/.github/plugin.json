@@ -1,0 +1,9 @@
+{
+  "name": "veeso--wasm-dbms",
+  "displayName": "wasm-dbms",
+  "description": "An embeddable relational database engine written in Rust, designed to run inside WASM runtimes, with first-class support for Internet Computer canisters.",
+  "version": "1.0.0",
+  "author": "veeso",
+  "homepage": "https://github.com/veeso/wasm-dbms",
+  "skills": []
+}
