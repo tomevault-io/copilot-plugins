@@ -1,0 +1,9 @@
+{
+  "name": "open-metadata--ai-sdk",
+  "displayName": "ai-sdk",
+  "description": "Bring Semantics to your AI Agents via the OpenMetadata & Collate AI SDK",
+  "version": "1.0.0",
+  "author": "open-metadata",
+  "homepage": "https://github.com/open-metadata/ai-sdk",
+  "skills": []
+}
