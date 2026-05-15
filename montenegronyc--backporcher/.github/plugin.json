@@ -1,0 +1,9 @@
+{
+  "name": "montenegronyc--backporcher",
+  "displayName": "backporcher",
+  "description": "Parallel Claude Code agent dispatcher: GitHub Issues as task queue, sandboxed worktrees, coordinator review, CI gating, auto-merge",
+  "version": "1.0.0",
+  "author": "montenegronyc",
+  "homepage": "https://github.com/montenegronyc/backporcher",
+  "skills": []
+}
