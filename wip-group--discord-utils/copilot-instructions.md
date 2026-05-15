@@ -1,26 +1,29 @@
-## code-style
+## development-commands
 
-> Code style and formatting rules for the project
+> Development commands and workflow for the monorepo
 
 
-# Code Style Rules
+# Development Commands
 
-## Formatting
-- **Use Biome, never Prettier** - run `bun check` to format
-- Auto-organize imports with Biome
-- Sort TailwindCSS classes automatically
+## Core Commands
+- `bun dev` - Start all applications in development mode
+- `bun build` - Build all applications
+- `bun check` - Run Biome formatting and linting (replaces Prettier)
+- `bun check-types` - TypeScript checking across entire monorepo
 
-## TypeScript
-- Prefer `type` over `interface` for definitions
-- Use path aliases: `@/*` for `src/*` in both apps
-- Leverage tRPC's type inference - avoid manual type annotations where possible
-- Strict mode enabled across all packages
+## Selective Development
+- `turbo dev --filter=@repo/web` - Start only Next.js frontend (port 3000)
+- `turbo dev --filter=@repo/api` - Start only Elysia backend (port 3001)
 
-## Components
-- Import shadcn/ui components from `@repo/ui/components/*` or local `@/components/ui`
-- Follow New York variant style for shadcn/ui components
-- Check existing components before creating new ones
-- Use server actions and client components appropriately in App Router
+## Production Commands
+- `bun start:web` - Start production web server
+- `bun start:api` - Start production API server
+
+## Important Notes
+- Always use `bun check` instead of Prettier for formatting
+- Use Turbo's filtering for selective builds/dev in monorepo
+- Bun is the primary runtime - prefer it over npm/yarn/pnpm
+- Build system uses Turbo for parallel task execution
 
 ---
 > Source: [wip-group/discord-utils](https://github.com/wip-group/discord-utils) — distributed by [TomeVault](https://tomevault.io).
