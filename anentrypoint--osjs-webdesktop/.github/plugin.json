@@ -1,0 +1,9 @@
+{
+  "name": "anentrypoint--osjs-webdesktop",
+  "displayName": "osjs-webdesktop",
+  "description": "Minimal OS.js implementation - a web desktop environment",
+  "version": "1.0.0",
+  "author": "AnEntrypoint",
+  "homepage": "https://github.com/AnEntrypoint/osjs-webdesktop",
+  "skills": []
+}
