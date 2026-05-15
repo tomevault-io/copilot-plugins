@@ -7,14 +7,14 @@ UniFi network management via MCP tools. Monitor devices, clients, network health
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [jmagar/unifi-mcp](https://github.com/jmagar/unifi-mcp).
+Original source: `AGENTS.md` in [jmagar/unifi-mcp](https://github.com/jmagar/unifi-mcp).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [jmagar/unifi-mcp](https://github.com/jmagar/unifi-mcp) — a repo with 10+ stars on GitHub.
