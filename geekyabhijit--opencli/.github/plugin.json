@@ -1,0 +1,9 @@
+{
+  "name": "geekyabhijit--opencli",
+  "displayName": "openCLI",
+  "description": "Local AI CLI alternative to Gemini CLI/Claude Code - works with LM Studio and local models",
+  "version": "1.0.0",
+  "author": "geekyabhijit",
+  "homepage": "https://github.com/geekyabhijit/openCLI",
+  "skills": []
+}
