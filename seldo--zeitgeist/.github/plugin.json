@@ -1,0 +1,9 @@
+{
+  "name": "seldo--zeitgeist",
+  "displayName": "zeitgeist",
+  "description": "A tiny webapp to summarize your social media feed so you don't have to read it all.",
+  "version": "1.0.0",
+  "author": "seldo",
+  "homepage": "https://github.com/seldo/zeitgeist",
+  "skills": []
+}
