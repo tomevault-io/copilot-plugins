@@ -1,16 +1,74 @@
-## css-style
+## firebase-standards
 
-> CSS/SCSS 전용 규칙
+> - **데이터 저장**: Firestore만 사용
 
-## CSS/SCSS 규칙
+# Firebase 사용 표준
 
-- 토큰/변수 우선: `:root` CSS 변수 또는 SCSS 변수 사용. 색상/스페이싱 하드코딩 금지
-- 전역 리셋/베이스는 1곳에서만 관리, 나머지는 모듈 범위로 제한
-- 접근성: 명도 대비 준수, 포커스 표시, 키보드 내비게이션 고려
-- 네온/야광 효과 지양: 가독성 저하 요소 금지(사용자 선호 반영)
-- 파일 크기 가이드: 400 라인 이하 권장, 500 라인 초과 금지(신규 추가 시 분리)
+## 데이터 저장 규칙
+- **데이터 저장**: Firestore만 사용
+- **파일 저장**: Firebase Storage만 사용
+- **인증**: Firebase Authentication만 사용
+- **절대 금지**: 로컬스토리지에 중복 저장
 
-참고: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
+## Firestore 컬렉션 구조
+```typescript
+// 프로모션 컬렉션
+interface Promotion {
+  id: string;
+  title: string;
+  content: string;
+  imageUrl?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  isActive: boolean;
+}
+
+// 고객 정보 컬렉션
+interface Customer {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+```
+
+## Firebase 서비스 함수 예시
+```typescript
+// services/firebase.ts
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
+// 프로모션 추가
+export const addPromotion = async (promotionData: Omit<Promotion, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const db = getFirestore();
+  const docRef = await addDoc(collection(db, 'promotions'), {
+    ...promotionData,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  });
+  return docRef.id;
+};
+
+// 이미지 업로드
+export const uploadImage = async (file: File): Promise<string> => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `promotions/${Date.now()}_${file.name}`);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+};
+```
+
+## 보안 규칙
+- **환경변수**: Firebase 설정은 환경변수로 관리
+- **API 키**: 코드에 하드코딩 금지
+- **권한 관리**: Firestore 보안 규칙 설정 필수
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
