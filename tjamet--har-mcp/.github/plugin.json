@@ -1,0 +1,9 @@
+{
+  "name": "tjamet--har-mcp",
+  "displayName": "har-mcp",
+  "description": "A MCP server for parsing and analyzing HAR (HTTP Archive) files",
+  "version": "1.0.0",
+  "author": "tjamet",
+  "homepage": "https://github.com/tjamet/har-mcp",
+  "skills": []
+}
