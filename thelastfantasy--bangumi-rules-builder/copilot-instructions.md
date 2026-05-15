@@ -1,0 +1,390 @@
+## bangumi-rules-builder
+
+> A Rust application that automatically generates qBittorrent RSS download rules for anime seasons by scraping websites, processing data with AI, and integrating with Bangumi API.
+
+# Smart Bangumi qBittorrent Rule Generator
+
+A Rust application that automatically generates qBittorrent RSS download rules for anime seasons by scraping websites, processing data with AI, and integrating with Bangumi API.
+
+## Overview
+
+This tool automates the process of creating download rules for new anime seasons by:
+1. **Web Scraping**: Extracts anime information from websites like kansou.me
+2. **AI Processing**: Uses AI API (currently DeepSeek) to clean titles and generate search keywords
+3. **Bangumi Integration**: Searches for official anime information via Bangumi API
+4. **Rule Generation**: Creates qBittorrent RSS download rules with proper naming and filtering
+
+## Architecture
+
+### Core Components
+
+#### Data Structures
+- `Task`: Configuration for processing (description, site, root_path)
+- `TableInfo`: Extracted HTML table with title and content
+- `AnimeWork`: Raw anime data with titles, dates, and keywords
+- `BangumiResult`: Processed anime data with official Bangumi information
+- `Statistics`: Processing metrics and API usage tracking
+- `QBRule`: qBittorrent RSS rule format with proper serialization
+
+#### Main Workflow
+1. **Configuration Loading** (`main.rs:112-130`)
+   - Loads `tasks.json` for season configuration
+   - Supports multiple sites (currently only "kansou")
+
+2. **Web Scraping** (`process_kansou_site`)
+   - Fetches HTML from kansou.me
+   - Extracts tables with `extract_tables_with_titles()`
+   - Parses anime works with `parse_table_works()`
+
+3. **AI Processing** (`match_and_process_with_ai`)
+   - Uses AI API (currently DeepSeek) for table selection and title cleaning
+   - Generates search keywords in multiple languages
+   - Processes works in batches to manage API limits
+
+4. **Bangumi API Integration** (`search_bangumi_for_works`)
+   - Searches Bangumi API with generated keywords
+   - Uses weighted scoring system for better matching accuracy
+   - Matches by air date, Japanese title, Chinese name, and aliases
+   - Extracts Chinese names and aliases from infobox
+   - **Improved Matching Logic** (since 2025-10-01):
+     - Weighted scoring: Japanese title (50%), Chinese name (30%), aliases (20%)
+     - Minimum score threshold of 0.5 to prevent false matches
+     - Enhanced title matching with longest common substring algorithm
+     - Date filtering handled by Bangumi API search parameters
+
+5. **Rule Generation** (`generate_qb_rules`)
+   - Creates qBittorrent RSS rules with proper regex patterns
+   - Sets up download paths and categories
+   - Generates season-based folder structure
+   - **Duplicate Handling**: Automatically merges works with identical names
+   - **Failure Tracking**: Captures and reports works that fail to generate rules
+
+### Key Features
+
+#### Date Processing
+- Parses Japanese date formats like "2025/09/01(火)"
+- Filters out undetermined dates
+- Matches Bangumi air dates with fuzzy logic
+
+#### Multi-language Support
+- Japanese title variants (with/without middle dots)
+- Chinese translations and aliases
+- English titles for international releases
+
+#### Smart Filtering
+- Quality filters (1080p, 2160p, WebRip)
+- Subtitle language detection (CHS, CHT, GB, BIG5)
+- Exclusion patterns for previews and compilations
+
+#### Detailed Reporting
+- Comprehensive statistics with failure tracking
+- Duplicate work detection and merging
+- Rule generation failure analysis with reasons
+- API usage metrics and token tracking
+
+## Configuration
+
+### tasks.json
+```json
+{
+  "description": "2025年10月新番",
+  "site": "kansou",
+  "root_path": "E:\\Anime\\新番"
+}
+```
+
+### Environment Variables
+- `DEEPSEEK_API_KEY`: Required for AI processing
+
+## Development
+
+### Dependencies
+- **serde/serde_json**: JSON serialization
+- **reqwest**: HTTP client for API calls
+- **scraper**: HTML parsing and extraction
+- **tokio**: Async runtime
+- **regex**: Pattern matching
+- **chrono**: Date/time handling
+- **log/env_logger/colored**: Logging system with colored output
+- **indicatif**: Progress bars
+
+### Planned Dependencies for AI Integration
+- **rig-core**: Unified AI model interface for multiple providers (DeepSeek, OpenAI, Claude, Ollama, local models)
+- **rig-openai** / **rig-anthropic**: Specific provider integrations (if needed)
+- **llm** / **llm-chain**: Local model inference (alternative to rig-core for direct local model support)
+
+### Building and Testing
+```bash
+# Build the project
+cargo build
+
+# Run tests
+cargo test
+
+# Check for warnings
+cargo check
+
+# Run specific test modules
+cargo test test_workflow_with_mock_data
+cargo test test_search_bangumi_with_keyword_logic
+cargo test test_logger_functionality
+
+# IMPORTANT: Do NOT automatically run the full program with `cargo run`
+# The program performs web scraping and multiple API calls which can take 5-10 minutes
+# Always ask the user to manually execute `cargo run` when needed
+```
+
+### Code Style
+- Follow Rust naming conventions (snake_case for fields)
+- Use `#[serde(rename)]` for external API compatibility
+- Document public functions and structs
+- Handle errors with `Result<_, Box<dyn std::error::Error>>`
+- **Testing**: All tests should be created in the `tests` module within `main.rs`, not in separate files
+
+### Git Branch Naming (Git Flow)
+Use Git Flow branch naming convention for better organization:
+
+**Main Branches:**
+- `main` - Stable production branch
+- `develop` - Development integration branch
+
+**Feature Branches:**
+- `feat/xxx` - New feature development (e.g., `feat/add-logging-system`)
+- `fix/xxx` - Bug fixes (e.g., `fix/date-parsing-issue`)
+- `docs/xxx` - Documentation updates
+- `refactor/xxx` - Code refactoring
+- `test/xxx` - Test-related changes
+- `chore/xxx` - Build process or tooling changes
+
+**Best Practices:**
+- Rename local branches before first push if they don't follow Git Flow
+- Use descriptive names that clearly indicate the purpose
+- Keep branch names lowercase with hyphens for readability
+
+## File Structure
+
+```
+src/
+├── main.rs              # Main application logic and tests
+├── logger.rs            # Custom logging system implementation
+├── models.rs            # Data structures and types
+├── sites/
+│   └── kansou.rs       # Kansou.me site processing
+├── ai/
+│   ├── deepseek/
+│   │   └── mod.rs      # DeepSeek API integration (current)
+│   ├── object_matcher/
+│   │   └── matcher.rs  # AI-powered work matching
+│   └── unified/
+│       └── mod.rs      # Planned: rig-core unified AI interface
+├── meta_providers/
+│   └── bangumi/
+│       └── mod.rs      # Bangumi API integration
+├── rules/
+│   └── q_bittorrent.rs # qBittorrent rule generation
+└── utils.rs            # Utility functions
+Cargo.toml              # Project dependencies
+tasks.json              # Processing configuration
+rules.json              # Generated qBittorrent rules
+bangumi_results.json    # Cached Bangumi API results
+test_small.rs           # Test utilities
+debug_date_matching.rs  # Date debugging tools
+```
+
+## API Integration
+
+### AI API Integration
+- **Current Provider**: DeepSeek API
+- Used for intelligent table selection
+- Title cleaning and keyword generation
+- Batch processing to manage token usage
+- **Extensible**: Supports multiple AI providers via `AiProvider` enum
+
+### Planned AI Integration Improvements
+- **rig-core Integration**: Plan to integrate rig-core crate for unified AI model interface
+  - **Benefits**: Unified interface for 20+ model providers, standardized request/response formats, built-in error handling and retry mechanisms
+  - **Features**: Support for local models (Llama), Ollama, OpenAI, Claude, and other providers through single API
+  - **Advantages**: Reduces boilerplate code, simplifies multi-model support, improves maintainability
+
+### Bangumi API
+- Search endpoint: `https://api.bgm.tv/v0/search/subjects`
+- Filters by anime type and air date
+- Extracts Chinese names and aliases from infobox
+
+### qBittorrent Compatibility
+- Rules use camelCase field names (handled by serde rename)
+- Supports multiple RSS feeds (acg.rip, nyaa.si, dmhy)
+- Creates proper folder structure and categories
+
+## Performance Considerations
+
+- **Batch Processing**: Works processed in batches of 20 for AI API
+- **Caching**: Bangumi results cached to avoid repeated API calls
+- **Rate Limiting**: 2-second delays between AI API requests
+- **Token Tracking**: Monitors API usage for cost management
+
+## Error Handling
+
+- Comprehensive error propagation with `?` operator
+- Fallback mechanisms when APIs fail
+- Graceful degradation when Bangumi data unavailable
+- **Custom logging system** with colored output and local time formatting
+- Progress bar compatible (errors/warnings use stderr)
+
+## Testing Strategy
+
+### Unit Tests
+- Date parsing and matching logic
+- Table extraction and parsing
+- Season name extraction
+- Mock API responses
+- Logging system functionality (`test_logger_functionality`)
+
+### Integration Tests
+- Full workflow with mock data
+- Actual API calls (marked with `#[tokio::test]`)
+- Error scenario testing
+- Bangumi API search and matching
+- AI batch processing
+
+## Common Development Tasks
+
+### Adding New Sites
+1. Add site enum value to `SiteType`
+2. Add site handler in `main()` match statement
+3. Implement site-specific table extraction
+4. Update `extract_tables_with_titles()` if needed
+
+### Adding New AI Providers
+1. Add provider enum value to `AiProvider`
+2. Add API key handling in `match_and_process_with_ai()`
+3. Add provider configuration in `AiConfig`
+4. Update API request/response handling if needed
+
+### Planned: rig-core Integration for Unified AI Interface
+1. **Add rig-core dependency** and configure for multiple providers
+2. **Refactor AI module** to use unified `Model` trait from rig-core
+3. **Implement provider adapters** for DeepSeek, OpenAI, Claude, Ollama, and local models
+4. **Update configuration system** to support rig-core model configurations
+5. **Migrate existing AI logic** to use standardized request/response formats
+6. **Add local model support** through rig-core's local inference capabilities
+
+**rig-core Benefits for This Project:**
+- **Unified Interface**: Single API for all AI providers (DeepSeek, OpenAI, Claude, Ollama, local models)
+- **Standardized Output**: Consistent response formats regardless of provider
+- **Built-in Best Practices**: Automatic error handling, retry mechanisms, rate limiting
+- **Reduced Boilerplate**: Eliminates need for provider-specific API call logic
+- **Future-Proof**: Easy to add new AI providers as they become available
+- **Local Model Support**: Native support for Llama and other local models through unified interface
+
+### Modifying Rule Patterns
+- Update `generate_qb_rules()` function
+- Modify `must_contain` and `must_not_contain` regex patterns
+- Test with actual torrent names
+
+### Debugging Date Matching
+- Use `debug_date_matching.rs` for isolated testing
+- Check `is_air_date_matching()` logic
+- Verify Bangumi date format compatibility
+
+## Troubleshooting
+
+### Common Issues
+- **AI API Limits**: Check token usage in statistics
+- **Bangumi API Rate Limits**: Implement retry logic if needed
+- **Date Parsing Failures**: Verify Japanese date format support
+- **Rule Import Issues**: Check qBittorrent field name compatibility
+- **Wrong Bangumi Matches**: Check if improved matching logic (since 2025-10-01) is working correctly
+- **Duplicate Works**: Verify if works with identical names are being properly merged
+
+### Debug Output
+- Enable debug prints in date matching functions
+- Check API request/response logging
+- Verify table extraction with intermediate HTML dumps
+
+## GitHub Actions and Release Workflow
+
+### Python Executable Build
+- **PyInstaller Configuration**: Used to build standalone Python GUI executables
+- **Platform-specific Options**:
+  - Windows: `--noconsole` flag to hide command line window
+  - Linux/macOS: Standard executable without console window
+- **Common Issues**:
+  - Linux build failure due to redundant file copy operations
+  - Ensure PyInstaller output directory structure is correct
+
+### GitHub Actions Debugging
+- **Error Investigation**: Use `gh run view --log-failed --job=<job-id>` to examine failed jobs
+- **Log Analysis**: Always check the last 20 lines first to avoid overwhelming output
+  ```bash
+  gh run view --log-failed --job=51864243752 | tail -20
+  ```
+- **Common Build Issues**:
+  - File copy conflicts (source and destination are the same)
+  - PyInstaller dependency resolution
+  - Cross-platform executable naming conventions
+
+## Release Workflow
+
+### Release Process
+- **Manual Trigger**: Releases are manually triggered by user request (e.g., "发布0.1.1版本")
+- **Tag-based Automation**: Creating and pushing a tag automatically triggers GitHub Actions to build and release
+- **Version Management**: User specifies the exact version number to release
+
+### Release Checklist
+Before creating a release, always:
+
+1. **Check for Open PRs**:
+   ```bash
+   gh pr list --state open
+   ```
+   - If there are open PRs, pause and ask user if they should be merged before release
+   - Some releases may intentionally include multiple PRs
+
+2. **Version Conflict Check**:
+   ```bash
+   gh release list
+   ```
+   - If the requested version already exists on GitHub, you must:
+     - Delete the existing remote tag: `git push --delete origin vX.X.X`
+     - Delete the existing release: `gh release delete vX.X.X`
+     - Then create the new release
+
+3. **Update Cargo.toml Version**:
+   - Always update the version in `Cargo.toml` to match the release version
+   - This ensures the built binaries have the correct version information
+
+### Release Commands
+```bash
+# Check for open PRs
+gh pr list --state open
+
+# Check existing releases
+gh release list
+
+# Delete existing release (if needed)
+gh release delete vX.X.X
+
+# Delete existing tag (if needed)
+git push --delete origin vX.X.X
+
+# Update Cargo.toml version
+# Then commit and push changes
+
+# Create and push tag
+git tag vX.X.X
+git push origin vX.X.X
+
+# Create release (optional - tag push triggers automation)
+gh release create vX.X.X --title "Version X.X.X" --notes "Release notes..."
+```
+
+### Important Notes
+- **Never Automatically Release**: Only create releases when explicitly requested by the user
+- **Version Override**: When a version already exists, always delete and recreate it
+- **PR Integration**: Some releases may intentionally bundle multiple PRs - always confirm with user
+- **Cargo.toml Sync**: Always ensure Cargo.toml version matches the release version
+
+---
+> Source: [thelastfantasy/Bangumi-Rules-Builder](https://github.com/thelastfantasy/Bangumi-Rules-Builder) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
