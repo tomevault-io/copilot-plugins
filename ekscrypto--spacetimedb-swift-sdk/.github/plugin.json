@@ -1,0 +1,9 @@
+{
+  "name": "ekscrypto--spacetimedb-swift-sdk",
+  "displayName": "spacetimedb-swift-sdk",
+  "description": "SDK to connect to SpacetimeDB from Swift",
+  "version": "1.0.0",
+  "author": "ekscrypto",
+  "homepage": "https://github.com/ekscrypto/spacetimedb-swift-sdk",
+  "skills": []
+}
