@@ -1,0 +1,9 @@
+{
+  "name": "b-erdem--lockstep",
+  "displayName": "lockstep",
+  "description": "Coyote-style controlled concurrency testing for the BEAM",
+  "version": "1.0.0",
+  "author": "b-erdem",
+  "homepage": "https://github.com/b-erdem/lockstep",
+  "skills": []
+}
