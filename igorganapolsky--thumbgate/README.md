@@ -7,11 +7,11 @@ Agent governance for ThumbGate: 👍/👎 become Pre-Action Checks that block re
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [IgorGanapolsky/ThumbGate](https://github.com/IgorGanapolsky/ThumbGate).
+Original source: `CLAUDE.md` in [IgorGanapolsky/ThumbGate](https://github.com/IgorGanapolsky/ThumbGate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
