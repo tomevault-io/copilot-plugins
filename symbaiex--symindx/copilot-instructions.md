@@ -1,95 +1,299 @@
-## symindx
+## 000-index
 
-> This document provides a high-level guide to working with **agents** in the SYMindX framework. It covers core concepts, lifecycle, configuration, and management via both the API and the CLI.
+> This master index provides intelligent navigation through the comprehensive SYMindX Cursor rules framework, documentation, and development tools. Use this as your primary entry point for context-aware rule selection and cross-reference navigation.
 
-# Agents Overview
+# SYMindX Cursor Rules Master Index
 
-This document provides a high-level guide to working with **agents** in the SYMindX framework. It covers core concepts, lifecycle, configuration, and management via both the API and the CLI.
+This master index provides intelligent navigation through the comprehensive SYMindX Cursor rules framework, documentation, and development tools. Use this as your primary entry point for context-aware rule selection and cross-reference navigation.
 
----
+## Quick Navigation by Development Context
 
-## What Is an Agent?
+### 🚀 Starting New Feature Development
+```
+🎯 Project Context: @001-symindx-workspace.mdc
+📋 Architecture Guide: @.cursor/docs/architecture.md
+🔧 TypeScript Standards: @003-typescript-standards.mdc
+🏗️ Architecture Patterns: @004-architecture-patterns.mdc
+📝 Code Generation: @.cursor/tools/code-generator.md
+```
 
-An **agent** is a running instance of a configured **character**. Agents encapsulate personality, memory, emotion, cognition, and integration modules to interact with users or other systems. Each agent is defined by a JSON-based character configuration and managed by the SYMindX runtime.
+### 🔧 Daily Development Tasks
+```
+⚡ Performance: @012-performance-optimization.mdc
+🛡️ Security: @010-security-and-authentication.mdc
+🐛 Error Handling: @013-error-handling-logging.mdc
+🔍 Debugging: @.cursor/tools/debugging-guide.md
+📊 Analysis: @.cursor/tools/project-analyzer.md
+```
 
-## Agent Architecture & Lifecycle
+### 🧠 Component Development
+```
+🤖 AI Portals: @005-ai-integration-patterns.mdc + @.cursor/tools/code-generator.md
+💾 Memory Systems: @011-data-management-patterns.mdc + @.cursor/docs/architecture.md
+🔌 Extensions: @007-extension-system-patterns.mdc + @.cursor/docs/contributing.md
+🌐 Web Interface: @006-web-interface-patterns.mdc
+⌨️ CLI Tools: @014-cli-and-tooling-patterns.mdc
+```
 
-Agents are orchestrated by the `SYMindXRuntime`, which handles:
+### 🤖 Automation & Integration
+```
+📜 Git Hooks: @018-git-hooks.mdc
+🔄 Background Agents: @019-background-agents.mdc
+🔗 MCP Integration: @020-mcp-integration.mdc
+🎭 Context Awareness: @021-advanced-context.mdc
+🎼 Workflow Orchestration: @022-workflow-automation.mdc
+```
 
-1. **Initialization**: Loading modules, portals (AI providers), and extensions
-2. **Agent Creation**: Spawning agents from character definitions
-3. **Runtime Loop**: Driving emotion decay, autonomous ticks (if enabled), and event dispatch
-4. **Communication**: Processing incoming messages and generating responses
-5. **Shutdown**: Gracefully stopping agents and releasing resources
+### 🚀 Deployment & Operations
+```
+🐳 Docker & Deployment: @009-deployment-and-operations.mdc
+⚙️ Configuration: @015-configuration-management.mdc
+🧪 Testing: @008-testing-and-quality-standards.mdc
+📚 Documentation: @016-documentation-standards.mdc
+```
 
-Refer to the detailed architecture in [ARCHITECTURE.md](mind-agents/docs/ARCHITECTURE.md).
+## Rule Dependencies and Prerequisites
 
-## Character Configuration
+### Foundation Layer (Start Here)
+Essential understanding required for all development:
 
-Agents are configured via **character files** (`*.json`) located in the characters directory. Each character defines traits, memory and emotion settings, cognition modules, communication style, extensions, and portals.
+```mermaid
+graph TD
+    A[@001-symindx-workspace.mdc] --> B[@003-typescript-standards.mdc]
+    A --> C[@.cursor/docs/architecture.md]
+    A --> D[@.cursor/docs/quick-start.md]
+    B --> E[@004-architecture-patterns.mdc]
+    C --> E
+```
 
+**Priority Order:**
+1. **@001-symindx-workspace.mdc** - Project architecture and standards
+2. **@.cursor/docs/architecture.md** - Detailed system architecture
+3. **@003-typescript-standards.mdc** - Language and runtime standards
+4. **@004-architecture-patterns.mdc** - Design patterns and modularity
+
+### Development Workflow Layer
+Build upon foundation with development standards:
+
+```mermaid
+graph TD
+    A[@004-architecture-patterns.mdc] --> B[@008-testing-and-quality-standards.mdc]
+    A --> C[@013-error-handling-logging.mdc]
+    A --> D[@015-configuration-management.mdc]
+    B --> E[@.cursor/tools/project-analyzer.md]
+    C --> F[@.cursor/tools/debugging-guide.md]
+```
+
+**Core Development Rules:**
+- **@008-testing-and-quality-standards.mdc** - Testing methodologies
+- **@013-error-handling-logging.mdc** - Error patterns and logging
+- **@015-configuration-management.mdc** - Configuration and secrets
+- **@.cursor/tools/debugging-guide.md** - Debugging strategies
+- **@.cursor/tools/project-analyzer.md** - Code analysis tools
+
+### Component Specialization Layer
+Choose based on your component type:
+
+#### AI Portal Development
+```mermaid
+graph TD
+    A[@005-ai-integration-patterns.mdc] --> B[@012-performance-optimization.mdc]
+    A --> C[@010-security-and-authentication.mdc]
+    A --> D[@.cursor/tools/code-generator.md]
+    B --> E[Portal Templates]
+    C --> E
+    D --> E
+```
+
+#### Memory System Development
+```mermaid
+graph TD
+    A[@011-data-management-patterns.mdc] --> B[@012-performance-optimization.mdc]
+    A --> C[@010-security-and-authentication.mdc]
+    A --> D[@.cursor/docs/architecture.md]
+    B --> E[Memory Implementation]
+    C --> E
+    D --> E
+```
+
+#### Platform Extension Development
+```mermaid
+graph TD
+    A[@007-extension-system-patterns.mdc] --> B[@010-security-and-authentication.mdc]
+    A --> C[@015-configuration-management.mdc]
+    A --> D[@.cursor/docs/contributing.md]
+    B --> E[Extension Implementation]
+    C --> E
+    D --> E
+```
+
+### Operations and Quality Layer
+Production readiness and maintenance:
+
+```mermaid
+graph TD
+    A[Component Development] --> B[@009-deployment-and-operations.mdc]
+    A --> C[@016-documentation-standards.mdc]
+    A --> D[@017-community-and-governance.mdc]
+    B --> E[Production Ready]
+    C --> E
+    D --> E
+```
+
+## Smart Rule Selection Guide
+
+### Context-Based Selection Matrix
+
+| Development Context | Primary Rule | Supporting Rules | Tools & Docs |
+|---------------------|--------------|------------------|--------------|
+| **New AI Portal** | @005-ai-integration-patterns.mdc | @012-performance-optimization.mdc, @010-security-and-authentication.mdc | @.cursor/tools/code-generator.md |
+| **Memory Issues** | @011-data-management-patterns.mdc | @012-performance-optimization.mdc, @013-error-handling-logging.mdc | @.cursor/tools/debugging-guide.md |
+| **Extension Bug** | @007-extension-system-patterns.mdc | @013-error-handling-logging.mdc, @015-configuration-management.mdc | @.cursor/tools/debugging-guide.md |
+| **Performance Problem** | @012-performance-optimization.mdc | @011-data-management-patterns.mdc, @005-ai-integration-patterns.mdc | @.cursor/tools/project-analyzer.md |
+| **Security Concern** | @010-security-and-authentication.mdc | @015-configuration-management.mdc, @005-ai-integration-patterns.mdc | @.cursor/docs/architecture.md |
+| **Web Interface** | @006-web-interface-patterns.mdc | @016-documentation-standards.mdc, @012-performance-optimization.mdc | @.cursor/tools/code-generator.md |
+| **CLI Development** | @014-cli-and-tooling-patterns.mdc | @013-error-handling-logging.mdc, @015-configuration-management.mdc | @.cursor/docs/contributing.md |
+| **Testing Strategy** | @008-testing-and-quality-standards.mdc | [Any component rule], @013-error-handling-logging.mdc | @.cursor/tools/project-analyzer.md |
+| **Deployment Setup** | @009-deployment-and-operations.mdc | @015-configuration-management.mdc, @010-security-and-authentication.mdc | @.cursor/docs/architecture.md |
+| **Documentation** | @016-documentation-standards.mdc | [Any component rule], @017-community-and-governance.mdc | @.cursor/docs/contributing.md |
+
+### Cross-Rule Integration Patterns
+
+#### Full-Stack Development Workflow
+```
+Phase 1 (Foundation):
+@001-symindx-workspace.mdc → @.cursor/docs/architecture.md → @003-typescript-standards.mdc
+
+Phase 2 (Component):
+@004-architecture-patterns.mdc → [Component-specific rule] → @.cursor/tools/code-generator.md
+
+Phase 3 (Quality):
+@008-testing-and-quality-standards.mdc → @013-error-handling-logging.mdc → @.cursor/tools/debugging-guide.md
+
+Phase 4 (Production):
+@012-performance-optimization.mdc → @009-deployment-and-operations.mdc
+```
+
+#### Common Rule Combinations
+- **Security + Performance**: @010-security-and-authentication.mdc + @012-performance-optimization.mdc
+- **Development + Testing**: Any component rule + @008-testing-and-quality-standards.mdc
+- **Configuration + Security**: @015-configuration-management.mdc + @010-security-and-authentication.mdc
+- **Analysis + Debugging**: @.cursor/tools/project-analyzer.md + @.cursor/tools/debugging-guide.md
+- **Architecture + Implementation**: @.cursor/docs/architecture.md + @.cursor/tools/code-generator.md
+
+## Documentation and Tools Reference
+
+### Core Documentation (@.cursor/docs/)
+
+**📋 @.cursor/docs/architecture.md**
+- Comprehensive system architecture
+- Component relationships and data flow
+- Integration patterns and design decisions
+- Reference for memory, portal, and extension layers
+
+**🚀 @.cursor/docs/quick-start.md** 
+- Developer onboarding guide
+- Environment setup and first agent creation
+- Basic usage patterns and examples
+- Prerequisites and system requirements
+
+**🤝 @.cursor/docs/contributing.md**
+- Development workflow and best practices
+- Code contribution standards and guidelines
+- Git workflow and branching strategy
+- Review process and community guidelines
+
+### Development Tools (@.cursor/tools/)
+
+**📊 @.cursor/tools/project-analyzer.md**
+- Project structure analysis commands
+- Dependency and code quality metrics
+- Performance and security analysis tools
+- Build configuration assessment
+
+**🔍 @.cursor/tools/debugging-guide.md**
+- Comprehensive debugging strategies
+- Common issue resolution patterns
+- Agent initialization troubleshooting
+- Portal and memory system debugging
+
+**🛠️ @.cursor/tools/code-generator.md**
+- Component templates and generators
+- AI portal and memory provider templates
+- Extension and CLI tool generators
+- Consistent code generation patterns
+
+**✅ @.cursor/tools/verify-rule-links.js**
+- Automated rule cross-reference verification
+- Quality scoring and framework health metrics
+- Broken reference detection and reporting
+- Framework integrity validation
+
+## Framework Quality Metrics
+
+### Current Framework Status
+- **Total Rules**: 24 (000-index.mdc + 000-022 core rules)
+- **Cross-References**: 125+ comprehensive links
+- **Quality Score**: 🌟 Excellent (105%+)
+- **Documentation Integration**: Complete
+- **Tools Integration**: Comprehensive
+- **Verification Status**: ✅ All links verified
+
+### Quality Verification
 ```bash
-mind-agents/src/characters/
-├── README.md           # Character system development guide
-├── nyx.json            # Unethical hacker personality (active)
-├── aria.json           # Creative artist (disabled)
-├── rex.json            # Strategic thinker (disabled)
-├── nova.json           # Empathetic counselor (disabled)
-└── examples/           # Sample character templates
+# Run framework verification
+node .cursor/tools/verify-rule-links.js
+
+# Expected output:
+# 🌟 Excellent (105%+ quality score)
+# 0 broken references
+# Comprehensive cross-reference coverage
 ```
 
-For full schema and examples, see [CHARACTER_GUIDE.md](mind-agents/docs/CHARACTER_GUIDE.md) and the characters README in the source tree.
+## Rule Completion Checklists
 
-## Agent Management via API
+### For New Component Development
+- [ ] Start with @000-index.mdc for navigation
+- [ ] Review @001-symindx-workspace.mdc for project context
+- [ ] Check @.cursor/docs/architecture.md for system understanding
+- [ ] Follow component-specific rule (AI portal, memory, extension)
+- [ ] Apply @008-testing-and-quality-standards.mdc
+- [ ] Use @.cursor/tools/code-generator.md for templates
+- [ ] Run @.cursor/tools/verify-rule-links.js for validation
 
-The primary API for programmatic agent management is exposed by `SYMindXRuntime`. Core methods include:
+### For Bug Fixes and Maintenance
+- [ ] Use @.cursor/tools/debugging-guide.md for systematic debugging
+- [ ] Apply @013-error-handling-logging.mdc for error patterns
+- [ ] Check @.cursor/tools/project-analyzer.md for analysis
+- [ ] Review relevant component rule for specific guidance
+- [ ] Follow @008-testing-and-quality-standards.mdc for testing
+- [ ] Update documentation per @016-documentation-standards.mdc
 
-```typescript
-const runtime = new SYMindXRuntime(runtimeConfig);
-await runtime.start();
+### For Performance Optimization
+- [ ] Start with @.cursor/tools/project-analyzer.md for metrics
+- [ ] Apply @012-performance-optimization.mdc patterns
+- [ ] Review component-specific performance guidance
+- [ ] Use @013-error-handling-logging.mdc for monitoring
+- [ ] Test with @008-testing-and-quality-standards.mdc
+- [ ] Document changes per @016-documentation-standards.mdc
 
-// Create and manage agents
-const agent = await runtime.createAgent('nyx');
-await runtime.listAgents();
-await runtime.getAgent(agent.id);
-await runtime.removeAgent(agent.id);
-await runtime.stop();
-```
+## Best Practices for Agents
 
-See [API_REFERENCE.md#agent-management-api](mind-agents/docs/API_REFERENCE.md#agent-management-api) for the complete interface.
+### Navigation Strategy
+1. **Always start here** (@000-index.mdc) for context-appropriate guidance
+2. **Follow dependency chains** - respect prerequisite relationships
+3. **Use multiple rules** - combine foundation + component + quality rules
+4. **Leverage tools** - use @.cursor/tools/ for analysis and generation
+5. **Reference docs** - check @.cursor/docs/ for architectural context
 
-## Agent Management via CLI
+### Rule Integration Approach
+1. **Foundation First** - establish project and language understanding
+2. **Component Focus** - apply specific patterns for your component type
+3. **Quality Standards** - always include testing and error handling
+4. **Operations Ready** - consider deployment and performance implications
+5. **Documentation Complete** - maintain standards and community practices
 
-SYMindX provides a rich CLI with built‑in agent management commands. Common operations:
-
-```bash
-# List all agents
-symindx agent list
-
-# Start or stop an agent
-symindx agent start nyx
-symindx agent stop nyx
-
-# Show agent details
-symindx agent info nyx
-
-# Interactive agent creation wizard
-symindx agent create
-```
-
-For more commands and interactive menus, refer to [CLI_USER_GUIDE.md#agent-management](mind-agents/docs/CLI_USER_GUIDE.md#agent-management).
-
-## Further Resources
-
-- **Character Configuration**: mind-agents/docs/CHARACTER_GUIDE.md
-- **API Reference**: mind-agents/docs/API_REFERENCE.md
-- **CLI Guide**: mind-agents/docs/CLI_USER_GUIDE.md
-- **Architecture Overview**: mind-agents/docs/ARCHITECTURE.md
-- **Characters Development**: mind-agents/src/characters/README.md
-
----
-
-*Generated by reviewing the SYMindX project structure and documentation.*
+This master index ensures efficient navigation through our comprehensive rule framework while providing clear pathways for any development scenario within SYMindX.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
