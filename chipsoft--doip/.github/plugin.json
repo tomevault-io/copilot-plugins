@@ -1,0 +1,9 @@
+{
+  "name": "chipsoft--doip",
+  "displayName": "doip",
+  "description": "Embedded DOIP client for SAME54 microcontroller with FreeRTOS, LwIP networking, and universal driver architecture",
+  "version": "1.0.0",
+  "author": "chipsoft",
+  "homepage": "https://github.com/chipsoft/doip",
+  "skills": []
+}
