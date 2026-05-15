@@ -1,0 +1,9 @@
+{
+  "name": "eric-cielo--moflo",
+  "displayName": "moflo",
+  "description": "Moflo is an opinionated fork of Ruflo/Claude Flow that is optimized for local Claude development and automation. It is intended to boost Claude's productivity while just working OOTB. No bloat, just b",
+  "version": "1.0.0",
+  "author": "eric-cielo",
+  "homepage": "https://github.com/eric-cielo/moflo",
+  "skills": []
+}
