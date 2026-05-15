@@ -1,0 +1,9 @@
+{
+  "name": "mstryoda--pgtrace",
+  "displayName": "pgtrace",
+  "description": "Rust based Postgres extension that adds query lifecycle events to OTEL traces.",
+  "version": "1.0.0",
+  "author": "mstrYoda",
+  "homepage": "https://github.com/mstrYoda/pgtrace",
+  "skills": []
+}
