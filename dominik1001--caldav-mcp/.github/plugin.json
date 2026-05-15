@@ -1,0 +1,9 @@
+{
+  "name": "dominik1001--caldav-mcp",
+  "displayName": "caldav-mcp",
+  "description": "\ud83d\uddd3\ufe0f A CalDAV Model Context Protocol (MCP) server to expose calendar operations as tools for AI assistants.",
+  "version": "1.0.0",
+  "author": "dominik1001",
+  "homepage": "https://github.com/dominik1001/caldav-mcp",
+  "skills": []
+}
