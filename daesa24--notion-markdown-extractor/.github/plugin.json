@@ -1,0 +1,9 @@
+{
+  "name": "daesa24--notion-markdown-extractor",
+  "displayName": "notion-markdown-extractor",
+  "description": "A Python CLI tool that extracts Notion pages and converts them to Markdown files with automatic project organization.",
+  "version": "1.0.0",
+  "author": "DAESA24",
+  "homepage": "https://github.com/DAESA24/notion-markdown-extractor",
+  "skills": []
+}
