@@ -1,0 +1,172 @@
+## taskwarrior-nvim
+
+> validates downstream output (mmdc for Mermaid, task export for
+
+# taskwarrior.nvim
+
+Neovim plugin + Python CLI for editing Taskwarrior tasks as markdown.
+
+## Structure
+- `bin/taskmd` — Python CLI tool (parser, adapter, render, diff, apply)
+- `lua/taskwarrior/init.lua` — thin orchestrator (~273 lines)
+- `lua/taskwarrior/{buffer,apply,capture,delegate,review,saved_views,projects,
+  completion,commands,help,validate,taskmd,config,views,diff_preview,feedback,
+  health,statusline,cmp}.lua` — focused modules (split landed in v1.2.0)
+- `lua/telescope/_extensions/task.lua` — Telescope extension (deliberately
+  named `task` even after the v1.3.0 rename, because the extension name is
+  the user-facing `:Telescope <name>` slug, not the module path)
+- `plugin/taskwarrior.lua` — runtime entrypoint (registers `:Task` lazily)
+- `doc/taskwarrior.txt` — vim help reference
+- `tests/test_taskmd*.py` — Python tests (pytest, 358 tests)
+- `tests/lua/spec/*_spec.lua` — Lua tests (plenary busted, 121 assertions)
+
+## Development
+- Python tests: `uv run --with pytest python -m pytest tests/ -q --ignore=tests/e2e`
+- Lua unit tests: `./tests/lua/bootstrap.sh`
+- **Lua e2e tests: `./tests/e2e/run.sh`** — spawns a temp TASKDATA,
+  seeds fixtures, drives each feature against a real `task` CLI, and
+  validates downstream output (mmdc for Mermaid, task export for
+  mutations, window state for floats). **This is where "verified"
+  lives**; unit tests catch syntax errors, e2e catches behaviour.
+- Integration tests use a temp TASKDATA dir — they don't touch real tasks
+- The CLI must have zero external dependencies (stdlib only)
+- `lua/taskwarrior/init.lua` should remain a thin orchestrator (≤300 lines);
+  business logic belongs in submodules
+
+## Demo Assets
+- Render demos: `demo/render-all.sh` (validates tapes + renders + size-checks)
+- Validate tapes only: `demo/validate-tapes.sh`
+- Never run `vhs` directly — the render wrapper enforces env isolation to prevent leaking real task data
+- Pre-commit hook (`.githooks/pre-commit`) blocks commits with unsafe tapes or oversized assets
+
+## Conventions
+- Python: type hints, argparse, no external deps
+- Lua: follow NvChad/lazy.nvim patterns
+- All Taskwarrior commands must include `rc.bulk=0 rc.confirmation=off` to avoid interactive prompts
+
+## Verification — "works" means end-to-end, not "module loads"
+
+Before reporting a feature done, it must be verified against a real
+Taskwarrior DB (use the `tw_env` fixture pattern from
+`tests/test_taskmd.py`: temp TASKDATA + isolated `.taskrc`). Unit
+tests that only assert "module loads", "command registers", or
+"helper returns a list" do NOT verify the feature. They catch syntax
+errors, nothing else.
+
+**Hard rule: every user-facing flow gets a smoke test.**
+
+A "user-facing flow" is any code path triggered by: a `:Task*` command
+callback, a `vim.ui.select` / `vim.ui.input` callback, a buffer-local
+keymap (e.g. `g?`, `<CR>`), a global keymap (e.g. `<leader>tF`), or any
+popup/picker/buffer the user can hit. For each one, add an entry to
+`tests/lua/spec/smoke_user_flows_spec.lua` that:
+
+  1. Stubs `vim.ui.select` / `vim.ui.input` so the flow doesn't block.
+  2. Invokes the entry point headlessly (e.g. `tutor.start()`,
+     `feedback.last_error()`, the keymap callback).
+  3. Drains pending `vim.schedule` callbacks via `vim.wait(50, …)` so
+     errors thrown inside scheduled closures fire before the assertion.
+  4. Asserts no real Lua / vim API error surfaced — match on
+     `Error executing`, `stack traceback:`, `attempt to`, vim error
+     codes (`E\d+:`), or specific error fragments like
+     `'replacement string'`. **Do not** treat intentional ERROR-level
+     `vim.notify()` calls as failures — those are user messages, not
+     bugs.
+
+The smoke test bar is "feature does not crash on the happy path of
+every selection / argument value". It is intentionally weaker than the
+feature-correctness bar (which requires asserting outputs). It exists
+to catch the class of bug that ships when unit tests verify primitives
+in isolation but no test ever drives the actual user journey.
+
+Concrete example: the v1.4.1 verify-buffer bug
+(`'replacement string' item contains newlines` at `init.lua:497`)
+shipped because every existing tutor test exercised _begin_session,
+_cleanup, the argv prefix, and orphan recovery — but none invoked
+`:TaskTutor` and selected "Show me the exact `task` commands first".
+The smoke spec added in that commit reproduces the original failure
+when the fix is reverted (verified) and is what you must add for any
+new user-facing flow before claiming "shipped".
+
+Bar per feature category:
+
+- **Commands that mutate a task** (`:TaskAppend`, `:TaskModifyField`, …):
+  seed a task, invoke the command headlessly, `task export` the UUID,
+  assert the field changed. Stubbing `vim.ui.input/select` is fine for
+  driving the flow.
+- **Commands that read and render** (`:TaskGraph`, `:TaskReport`,
+  `:TaskInbox`, dashboard, query blocks): actually run a downstream
+  validator on the output. For Mermaid, pipe through `mmdc` (it is
+  installed). For markdown export, round-trip through `taskmd apply`.
+  For reports, assert the buffer contents match the expected filter.
+- **Commands with side effects on Neovim state** (`:TaskFloat`, `gf`
+  float, embedded query blocks): assert the resulting buffer or window
+  exists with the expected properties (`nvim_list_wins`, `nvim_buf_get_lines`).
+- **Rendering that places virt_text / signs on buffer lines**
+  (relative date chips, overdue badges, urgency bars): checking that
+  the extmark *exists* with the right `virt_text_pos` is NOT enough.
+  `right_align` draws at the window's right edge unconditionally and
+  overwrites buffer text on wrapped long lines. Verify with a
+  *geometric* layout check: compute `strdisplaywidth` of the visible
+  line content, subtract `strdisplaywidth` of the virt_text, assert
+  the first wrap segment doesn't exceed `columns − virt_text_width`.
+  See `geometric_overlaps` in `tests/e2e/spec/e2e_spec.lua`.
+- **Background behaviour** (granulation auto-stop): drive the real
+  timer by advancing `vim.loop.now()`-equivalent or by calling the
+  internal check directly; verify `task +ACTIVE export` is empty.
+- **Degraded environment — missing or broken hard dependencies**: the
+  plugin shells out to `task` (always), `python3`/`bin/taskmd` (live
+  diff preview, optional CLI features), `mmdc` (`:TaskGraph`), and
+  `claude` (`:TaskDelegate`). Tests must cover the case where each
+  binary is absent. **CI installs Taskwarrior at the top of every
+  job, and the e2e harness requires `task` for its own seed step**,
+  so the only way to exercise the missing-binary path is to monkey-
+  patch `vim.fn.executable` in a Lua spec. The plugin must:
+  A. emit a clear, actionable `vim.notify(..., WARN)` at startup if
+     `task` is missing — not a Lua trace from `vim.fn.system`;
+  B. short-circuit `run()` in `taskmd.lua` (and any equivalent
+     wrapper) so subsequent calls return `"", 127` without touching
+     `vim.fn.system`;
+  C. throttle the missing-binary notify to at most one per session
+     (no per-call spam);
+  D. keep `:checkhealth taskwarrior` as the canonical post-install
+     verification path for users who skipped reading the README.
+  See `tests/lua/spec/degraded_env_spec.lua`. Issue #2 was a
+  manifestation of this gap — `task` not on PATH triggered
+  `E475: Invalid value for argument cmd: 'task' is not executable`
+  with no friendly fallback. Any new external-binary dep added in
+  the future (mmdc, claude, future Rust helpers) **must** ship with
+  a parallel degraded-env spec; otherwise the same class of bug
+  reappears the moment a user installs the plugin without that dep.
+
+- **Concurrent state — external Taskwarrior changes**: the plugin is
+  not the only writer. CLI `task add`, mobile sync, another editor, or
+  a background hook can mutate Taskwarrior between the time we render
+  a buffer and the time the user saves it. Any change to the save
+  path (`compute_diff`, `M.apply`, `apply.on_write`) must hold the
+  line against these scenarios:
+  A. external `task add` between render and save → not marked done/deleted;
+  B. external `task modify` adding a field → field survives the save;
+  C. externally completed task whose UUID is still in the buffer →
+     no pending duplicate resurrected;
+  D. both sides modified same task → conflict surfaced, buffer does
+     not silently overwrite external;
+  E. `--force` / `:w!` preserves the destructive escape hatch;
+  F. no external change → ordinary edits still apply (control).
+  See `tests/e2e/spec/external_changes_spec.lua` (Lua round-trip),
+  `tests/lua/spec/diff_external_changes_spec.lua` (pure compute_diff),
+  and `TestIntegrationConflicts` in `tests/test_taskmd_extended.py`
+  (Python mirror). Taskwarrior timestamps have 1-second precision;
+  e2e tests must `sleep 1.2s` between render and external mutation
+  to make `modified > rendered_at` hold reliably.
+
+"Runs the test suite and all tests pass" is necessary but not sufficient
+— the test suite must exercise the feature's real effect, not just its
+existence. When the user says "verify all features," expand the test
+suite to cover each feature's observable behaviour, don't just run what
+already exists. Do not claim a feature is verified if the only check is
+that `pcall(require, "taskwarrior.foo")` returned true.
+
+---
+> Source: [MattHandzel/taskwarrior.nvim](https://github.com/MattHandzel/taskwarrior.nvim) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-10 -->
