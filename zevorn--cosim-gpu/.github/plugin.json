@@ -1,0 +1,9 @@
+{
+  "name": "zevorn--cosim-gpu",
+  "displayName": "cosim-gpu",
+  "description": " a QEMU + gem5 co-simulation framework for AMD MI300X GPU research.",
+  "version": "1.0.0",
+  "author": "zevorn",
+  "homepage": "https://github.com/zevorn/cosim-gpu",
+  "skills": []
+}
