@@ -1,109 +1,177 @@
-## tanstack-query
+## tanstack-router-react-cursorrules-prompt-file
 
-> TanStack Query v5 (React Query) patterns including queryOptions helper, query key factories, mutations, optimistic updates, infinite queries, Suspense mode, and prefetching
+> Cursor rules for TanStack Router v1 with file-based routing, typed params, search validation, loaders, auth guards, and route preloading.
 
-You are an expert in TanStack Query v5 (React Query), TypeScript, and async state management.
+You are an expert in TanStack Router, React, TypeScript, and modern type-safe client-side routing.
 
-## Core Principles
-- TanStack Query manages server state — NOT a general client state manager
-- Every query needs a stable, serializable query key that uniquely describes the data
-- Mutations handle writes; queries handle reads — never blur this boundary
-- Use `queryOptions()` helper (v5) for reusable, co-located query definitions
-- v5 breaking change: `useQuery` only accepts options object form — no positional args
+# TanStack Router + React Guidelines
 
-## QueryClient Setup
-```tsx
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60,
-      retry: (count, error: any) => error?.status !== 404 && count < 2,
-    },
-  },
-})
+## Core Philosophy
+- TanStack Router is 100% type-safe — leverage TypeScript generics for route params, search params, and loader data
+- Prefer file-based routing for scalability; use code-based routing only for highly dynamic use cases
+- Always define routes with `createFileRoute` or `createRootRoute` — never use plain objects
+- Route data loading belongs in `loader` functions, not in component `useEffect`
+- Search params are first-class citizens — define their schema with Zod or Valibot for validation and type inference
+
+## Project Setup
+- Use `@tanstack/react-router` with Vite and the `@tanstack/router-vite-plugin` for file-based routing
+- Enable `routeTree.gen.ts` auto-generation — never manually edit this file
+- Structure routes under `src/routes/` directory
+- Root layout goes in `src/routes/__root.tsx`
+- Use `src/routes/index.tsx` for the home/index route
+
+## File-Based Route Conventions
+```
+src/routes/
+  __root.tsx          ← Root layout (wraps all routes)
+  index.tsx           ← / route
+  about.tsx           ← /about route
+  posts/
+    index.tsx         ← /posts route
+    $postId.tsx       ← /posts/:postId (dynamic segment)
+    _layout.tsx       ← Layout route (no path segment)
+  _auth/
+    login.tsx         ← /login (grouped under auth layout)
+  (admin)/
+    dashboard.tsx     ← /dashboard (pathless group)
 ```
 
-## Query Key Factory Pattern
-```ts
-export const postKeys = {
-  all: ['posts'] as const,
-  lists: () => [...postKeys.all, 'list'] as const,
-  list: (filters?: PostFilters) => [...postKeys.lists(), filters] as const,
-  details: () => [...postKeys.all, 'detail'] as const,
-  detail: (id: string) => [...postKeys.details(), id] as const,
+## Route Definition Patterns
+```tsx
+// src/routes/posts/$postId.tsx
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/posts/$postId')({
+  loader: async ({ params }) => {
+    return fetchPost(params.postId) // fully typed params
+  },
+  component: PostComponent,
+})
+
+function PostComponent() {
+  const post = Route.useLoaderData() // type-safe loader data
+  const { postId } = Route.useParams() // type-safe params
+  return <div>{post.title}</div>
 }
 ```
 
-## queryOptions Helper (v5)
-```ts
-export const postQueryOptions = (id: string) =>
-  queryOptions({
-    queryKey: postKeys.detail(id),
-    queryFn: () => fetchPost(id),
-    staleTime: 1000 * 60 * 5,
-  })
+## Type-Safe Search Params
+- Always define search param schemas using `z.object()` from Zod
+- Use `validateSearch` option on route definition
+- Access with `Route.useSearch()` — never read raw `window.location.search`
+```tsx
+import { z } from 'zod'
+import { createFileRoute } from '@tanstack/react-router'
 
-// In component
-const { data } = useQuery(postQueryOptions(postId))
+const searchSchema = z.object({
+  page: z.number().int().min(1).default(1),
+  q: z.string().optional(),
+})
 
-// In router loader
-loader: ({ params, context: { queryClient } }) =>
-  queryClient.ensureQueryData(postQueryOptions(params.postId))
+export const Route = createFileRoute('/search')({
+  validateSearch: searchSchema,
+  component: SearchPage,
+})
+
+function SearchPage() {
+  const { page, q } = Route.useSearch()
+  // ...
+}
 ```
 
-## Mutations
+## Navigation
+- Use `<Link>` from `@tanstack/react-router` — never `<a href>` for internal navigation
+- Use `useNavigate()` for programmatic navigation
+- Always pass typed `params` and `search` to Link — the compiler will catch mistakes
 ```tsx
-const { mutate, isPending } = useMutation({
-  mutationFn: (input: CreatePostInput) => createPost(input),
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: postKeys.lists() })
-  },
-  onError: (error) => toast.error(error.message),
+import { Link, useNavigate } from '@tanstack/react-router'
+
+// Declarative
+<Link to="/posts/$postId" params={{ postId: '123' }}>View Post</Link>
+
+// Programmatic
+const navigate = useNavigate()
+navigate({ to: '/posts/$postId', params: { postId: post.id } })
+```
+
+## Loaders & Data Fetching
+- Use `loader` for data that must be available before render (no loading spinners for critical data)
+- Integrate with TanStack Query by using `ensureQueryData` inside loaders for caching
+- Use `staleTime` on loaders to avoid redundant fetches during navigation
+- Return plain serializable data from loaders — no class instances
+```tsx
+export const Route = createFileRoute('/posts')({
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(postsQueryOptions()),
+  component: PostsPage,
 })
 ```
 
-## Optimistic Updates
+## Error Handling
+- Define `errorComponent` on routes to handle loader or render errors
+- Use `notFoundComponent` for 404 states within a route subtree
+- Use `pendingComponent` for showing skeletons/spinners during data loading
 ```tsx
-const mutation = useMutation({
-  mutationFn: updatePost,
-  onMutate: async (updated) => {
-    await queryClient.cancelQueries({ queryKey: postKeys.detail(updated.id) })
-    const previous = queryClient.getQueryData(postKeys.detail(updated.id))
-    queryClient.setQueryData(postKeys.detail(updated.id), updated)
-    return { previous }
-  },
-  onError: (_, updated, ctx) => {
-    queryClient.setQueryData(postKeys.detail(updated.id), ctx?.previous)
-  },
-  onSettled: (_, __, updated) => {
-    queryClient.invalidateQueries({ queryKey: postKeys.detail(updated.id) })
-  },
+export const Route = createFileRoute('/posts/$postId')({
+  loader: fetchPost,
+  errorComponent: ({ error }) => <ErrorBanner message={error.message} />,
+  pendingComponent: () => <PostSkeleton />,
+  notFoundComponent: () => <NotFound />,
+  component: PostDetail,
 })
 ```
 
-## Infinite Queries
+## Router Context
+- Use router context to inject global dependencies (queryClient, auth, theme) into loaders
+- Define context type in `__root.tsx` and pass it when creating the router
 ```tsx
-const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-  queryKey: postKeys.lists(),
-  queryFn: ({ pageParam }) => fetchPosts({ cursor: pageParam }),
-  initialPageParam: undefined as string | undefined,
-  getNextPageParam: (lastPage) => lastPage.nextCursor,
+// __root.tsx
+import { createRootRouteWithContext } from '@tanstack/react-router'
+
+interface RouterContext {
+  queryClient: QueryClient
+  auth: AuthState
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  component: RootLayout,
 })
-const allPosts = data?.pages.flatMap((p) => p.items) ?? []
+
+// main.tsx
+const router = createRouter({
+  routeTree,
+  context: { queryClient, auth },
+})
 ```
 
-## Suspense Mode (v5)
+## Route Guards / Auth
+- Use `beforeLoad` for authentication checks — redirect to login if unauthenticated
+- Never put auth logic inside components — handle it at the routing layer
 ```tsx
-// useSuspenseQuery — no isLoading needed, Suspense handles it
-const { data } = useSuspenseQuery(postQueryOptions(postId))
-// Wrap with <Suspense fallback={<Skeleton />}> + <ErrorBoundary>
+export const Route = createFileRoute('/_auth/dashboard')({
+  beforeLoad: ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({ to: '/login' })
+    }
+  },
+  component: Dashboard,
+})
 ```
 
-## Key Rules
-- Always define `queryOptions` outside components — never inline in `useQuery()`
-- Never use `useEffect` to fetch data — use loaders or `useQuery`
-- Use `placeholderData: keepPreviousData` for pagination to avoid layout shifts
-- Instantiate `QueryClient` once at app root — never inside a component
+## Performance
+- Use `preload` on `<Link>` to trigger loader prefetching on hover/focus
+- Set `defaultPreload: 'intent'` on the router for automatic preloading
+- Use `gcTime` and `staleTime` on loaders to tune cache behavior
+- Lazy-load route components with `React.lazy` for code splitting
+
+## DevTools
+- Install `@tanstack/router-devtools` and render `<TanStackRouterDevtools />` in development
+- Use devtools to inspect route tree, active matches, loader data, and search params
+
+## Testing
+- Use `createMemoryHistory` and `createRouter` to create isolated router instances in tests
+- Wrap components under test with `<RouterProvider router={testRouter} />`
+- Mock loaders by providing fake context values
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
