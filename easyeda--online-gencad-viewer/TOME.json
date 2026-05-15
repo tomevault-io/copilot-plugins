@@ -1,0 +1,44 @@
+{
+  "name": "online-gencad-viewer",
+  "owner": "easyeda",
+  "repo": "online-gencad-viewer",
+  "description": "Online GenCAD Viewer - \u5728\u7ebf\u67e5\u770b GenCAD (.cad) PCB \u6587\u4ef6\uff0c\u652f\u6301\u591a\u5c42\u5e03\u5c40\u3001\u8d70\u7ebf\u3001\u710a\u76d8\u3001\u8fc7\u5b54\u3001\u4e1d\u5370\u7b49\u5143\u7d20\u7684\u53ef\u89c6\u5316\u5c55\u793a\u3002Free online viewer for GenCAD PCB files with multi-layer routing, pads, vias, and silkscreen visualization.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/easyeda/online-gencad-viewer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T20:47:29Z"
+}
