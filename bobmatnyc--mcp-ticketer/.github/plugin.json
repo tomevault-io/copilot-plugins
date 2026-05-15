@@ -1,0 +1,9 @@
+{
+  "name": "bobmatnyc--mcp-ticketer",
+  "displayName": "mcp-ticketer",
+  "description": " Universal ticket management MCP server for AI agents. Connect Linear, GitHub, Jira, Asana to Claude & AI workflows with intelligent token optimization.",
+  "version": "1.0.0",
+  "author": "bobmatnyc",
+  "homepage": "https://github.com/bobmatnyc/mcp-ticketer",
+  "skills": []
+}
