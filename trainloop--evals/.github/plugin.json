@@ -1,0 +1,9 @@
+{
+  "name": "trainloop--evals",
+  "displayName": "evals",
+  "description": "Open Source Data Collection and Evaluation Framework",
+  "version": "1.0.0",
+  "author": "TrainLoop",
+  "homepage": "https://github.com/TrainLoop/evals",
+  "skills": []
+}
