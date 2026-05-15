@@ -1,0 +1,9 @@
+{
+  "name": "numikel--law-scrapper-mcp",
+  "displayName": "law-scrapper-mcp",
+  "description": "A comprehensive Model Context Protocol (MCP) server for accessing and analyzing Polish legal acts from the Sejm API, enabling AI-powered legal research and document analysis.",
+  "version": "1.0.0",
+  "author": "numikel",
+  "homepage": "https://github.com/numikel/law-scrapper-mcp",
+  "skills": []
+}
