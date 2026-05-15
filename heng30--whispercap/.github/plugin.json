@@ -1,0 +1,9 @@
+{
+  "name": "heng30--whispercap",
+  "displayName": "whispercap",
+  "description": "uses whisper models to transcribe videos or audio into subtitles.\uff08\u4f7f\u7528whisper\u6a21\u578b\u5c06\u89c6\u9891\u6216\u97f3\u9891\u8f6c\u5f55\u4e3a\u5b57\u5e55\uff09",
+  "version": "1.0.0",
+  "author": "heng30",
+  "homepage": "https://github.com/heng30/whispercap",
+  "skills": []
+}
