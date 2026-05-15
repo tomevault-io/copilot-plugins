@@ -1,0 +1,9 @@
+{
+  "name": "regent-vcs--re-gent",
+  "displayName": "re_gent",
+  "description": "Git for AI coding agents.",
+  "version": "1.0.0",
+  "author": "regent-vcs",
+  "homepage": "https://github.com/regent-vcs/re_gent",
+  "skills": []
+}
