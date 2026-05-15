@@ -1,0 +1,9 @@
+{
+  "name": "kashifkhn--remove-comments",
+  "displayName": "remove-comments",
+  "description": "Remove all comments from source files \u2014 Neovim plugin + standalone CLI tool (rmc). AST-based via Tree-sitter.",
+  "version": "1.0.0",
+  "author": "KashifKhn",
+  "homepage": "https://github.com/KashifKhn/remove-comments",
+  "skills": []
+}
