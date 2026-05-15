@@ -7,11 +7,11 @@ An agentic focused CLI that surfaces selected Neo4j features
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neo4j-labs/neo4j-cli](https://github.com/neo4j-labs/neo4j-cli).
+Original source: `CLAUDE.md` in [neo4j-labs/neo4j-cli](https://github.com/neo4j-labs/neo4j-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
