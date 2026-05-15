@@ -1,0 +1,9 @@
+{
+  "name": "daypunk--lockedin",
+  "displayName": "LockedIn",
+  "description": "Before Linked In \ud83d\udd17, get Locked In \ud83d\udd12. A Claude Code plugin that organizes your career once, then outputs everything your next opportunity needs.",
+  "version": "1.0.0",
+  "author": "daypunk",
+  "homepage": "https://github.com/daypunk/LockedIn",
+  "skills": []
+}
