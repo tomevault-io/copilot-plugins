@@ -1,0 +1,9 @@
+{
+  "name": "cortexkit--anthropic-auth",
+  "displayName": "anthropic-auth",
+  "description": "Anthropic auth, quota, cache, and relay support for OpenCode and Pi",
+  "version": "1.0.0",
+  "author": "cortexkit",
+  "homepage": "https://github.com/cortexkit/anthropic-auth",
+  "skills": []
+}
