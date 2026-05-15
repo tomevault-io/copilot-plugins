@@ -1,0 +1,9 @@
+{
+  "name": "tikoci--lsp-routeros-ts",
+  "displayName": "lsp-routeros-ts",
+  "description": "RouterOS LSP for syntax checking and accurate completions in VSCode, NeoVim, and others.",
+  "version": "1.0.0",
+  "author": "tikoci",
+  "homepage": "https://github.com/tikoci/lsp-routeros-ts",
+  "skills": []
+}
