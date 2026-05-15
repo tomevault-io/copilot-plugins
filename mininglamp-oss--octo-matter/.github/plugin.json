@@ -1,0 +1,9 @@
+{
+  "name": "mininglamp-oss--octo-matter",
+  "displayName": "octo-matter",
+  "description": "Lightweight task & matter service for the OCTO platform \u2014 REST API, timeline tracking, and LLM-powered extraction. Part of the OCTO open workplace for humans \u00d7 AI agents.",
+  "version": "1.0.0",
+  "author": "Mininglamp-OSS",
+  "homepage": "https://github.com/Mininglamp-OSS/octo-matter",
+  "skills": []
+}
