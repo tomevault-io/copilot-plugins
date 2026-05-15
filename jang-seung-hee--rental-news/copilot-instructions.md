@@ -1,50 +1,18 @@
-## styling-standards
+## typescript-react
 
-> - **우선순위**: TailwindCSS 클래스 사용
+> TypeScript/React 전용 규칙
 
-# 스타일링 표준
+## TypeScript/React 규칙
 
-## TailwindCSS 우선순위
-- **우선순위**: TailwindCSS 클래스 사용
-- **커스텀 스타일**: `src/globals.css`에만 작성
-- **반응형**: 모바일 최우선 (480px → 768px → 1024px)
+- 절대경로 임포트 사용: `@/*` 경로 별칭 유지. 상대경로 남용 금지
+- SRP 준수: 컴포넌트는 하나의 역할만, 복잡 로직은 훅/서비스로 분리
+- 훅 네이밍: `use*` 강제, 사이드이펙트는 훅이나 서비스에만
+- 파일 라인 수: 가급적 250~350, 450 경고, 500 초과 금지(신규 추가 시 분리)
+- UI와 비즈니스 로직 분리: 프리젠테이션 컴포넌트 vs 서비스/훅
+- 스타일: CSS Modules 또는 전역 토큰/유틸 우선. 무작위 전역 클래스 지양
+- 테스트: 중요한 로직은 유닛 테스트 동반(예: 유틸/훅)
 
-## 색상 시스템
-- **Primary**: 파란색 계열 (#87ceeb ~ #4682b4)
-- **Secondary**: 연한 파란색 계열 (#f0f8ff ~ #b0e0e6)
-- **Text**: 흰색 및 회색 계열
-
-## 반응형 브레이크포인트
-```css
-/* 모바일: 480px 이하 */
-/* 태블릿: 768px 이하 */
-/* 데스크톱: 768px 이상 */
-```
-
-## Shadcn UI 컴포넌트
-- **우선 사용**: Shadcn UI 컴포넌트 활용
-- **커스터마이징**: TailwindCSS 클래스로 스타일 조정
-- **일관성**: 프로젝트 전체에서 동일한 디자인 시스템 적용
-
-## 컴포넌트 스타일 예시
-```tsx
-// 올바른 예시
-<div className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors">
-  <h2 className="text-xl font-bold mb-2">프로모션 제목</h2>
-  <p className="text-sm opacity-90">프로모션 내용</p>
-</div>
-
-// 반응형 예시
-<div className="w-full md:w-1/2 lg:w-1/3 p-4">
-  <div className="bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg p-6">
-    {/* 내용 */}
-  </div>
-</div>
-```
-description:
-globs:
-alwaysApply: false
----
+참고: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
