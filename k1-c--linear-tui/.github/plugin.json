@@ -1,0 +1,9 @@
+{
+  "name": "k1-c--linear-tui",
+  "displayName": "linear-tui",
+  "description": "\u2728 A TUI client for Linear.app \u2014 manage issues, projects, and cycles from your terminal ",
+  "version": "1.0.0",
+  "author": "k1-c",
+  "homepage": "https://github.com/k1-c/linear-tui",
+  "skills": []
+}
