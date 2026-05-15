@@ -1,0 +1,9 @@
+{
+  "name": "psy-fer--rustar-aligner",
+  "displayName": "rustar-aligner",
+  "description": "A rust implementation of STAR",
+  "version": "1.0.0",
+  "author": "Psy-Fer",
+  "homepage": "https://github.com/Psy-Fer/rustar-aligner",
+  "skills": []
+}
