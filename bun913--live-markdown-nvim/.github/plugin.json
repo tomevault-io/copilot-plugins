@@ -1,0 +1,9 @@
+{
+  "name": "bun913--live-markdown-nvim",
+  "displayName": "live-markdown.nvim",
+  "description": "Real-time markdown preview for Neovim.",
+  "version": "1.0.0",
+  "author": "bun913",
+  "homepage": "https://github.com/bun913/live-markdown.nvim",
+  "skills": []
+}
