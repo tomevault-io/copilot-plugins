@@ -7,13 +7,13 @@ This toolkit represents a step toward AI-First DevOps AI-First DevOps - where in
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Nantero1/ai-first-devops-toolkit](https://github.com/Nantero1/ai-first-devops-toolkit).
+Original source: `CLAUDE.md` in [Nantero1/ai-first-devops-toolkit](https://github.com/Nantero1/ai-first-devops-toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
