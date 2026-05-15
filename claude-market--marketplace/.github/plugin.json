@@ -1,0 +1,9 @@
+{
+  "name": "claude-market--marketplace",
+  "displayName": "marketplace",
+  "description": "Open source, hand-curated marketplace for Claude Code tools, agents and skills.",
+  "version": "1.0.0",
+  "author": "claude-market",
+  "homepage": "https://github.com/claude-market/marketplace",
+  "skills": []
+}
