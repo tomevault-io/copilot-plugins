@@ -1,0 +1,9 @@
+{
+  "name": "soneso--kmp-stellar-sdk",
+  "displayName": "kmp-stellar-sdk",
+  "description": "The Kotlin Multiplatform Stellar SDK provides APIs to build transactions and connect to Horizon and Stellar RPC Server.",
+  "version": "1.0.0",
+  "author": "Soneso",
+  "homepage": "https://github.com/Soneso/kmp-stellar-sdk",
+  "skills": []
+}
