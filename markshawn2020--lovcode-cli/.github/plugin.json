@@ -1,0 +1,9 @@
+{
+  "name": "markshawn2020--lovcode-cli",
+  "displayName": "lovcode-cli",
+  "description": "We hacked Claude Code open-source, debugged it from scratch, and made it actually work. Full-featured AI coding CLI \u2014 your code, your keys, your rules.",
+  "version": "1.0.0",
+  "author": "MarkShawn2020",
+  "homepage": "https://github.com/MarkShawn2020/lovcode-cli",
+  "skills": []
+}
