@@ -1,0 +1,69 @@
+{
+  "name": "prompts",
+  "owner": "jahands",
+  "repo": "prompts",
+  "description": "My AI prompts",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-commit",
+      "path": "skills/auto-commit",
+      "github_url": "https://github.com/jahands/prompts/tree/main/skills/auto-commit",
+      "description": ""
+    },
+    {
+      "name": "python-inline-scripts",
+      "path": "skills/python-inline-scripts",
+      "github_url": "https://github.com/jahands/prompts/tree/main/skills/python-inline-scripts",
+      "description": ""
+    },
+    {
+      "name": "typescript-inline-scripts",
+      "path": "skills/typescript-inline-scripts",
+      "github_url": "https://github.com/jahands/prompts/tree/main/skills/typescript-inline-scripts",
+      "description": ""
+    },
+    {
+      "name": "zod-v4",
+      "path": "skills/zod-v4",
+      "github_url": "https://github.com/jahands/prompts/tree/main/skills/zod-v4",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jahands/prompts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T00:30:48Z"
+}
