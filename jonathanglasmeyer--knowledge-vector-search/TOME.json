@@ -1,0 +1,44 @@
+{
+  "name": "knowledge-vector-search",
+  "owner": "jonathanglasmeyer",
+  "repo": "knowledge-vector-search",
+  "description": "Find relevant information in your documents using natural language queries - no more keyword matching or manual browsing through hundreds of files. Built for speed and efficiency, this lightweight system searches through 500+ documents in under 300ms while using only 100MB of memory.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jonathanglasmeyer/knowledge-vector-search",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T08:22:59Z"
+}
