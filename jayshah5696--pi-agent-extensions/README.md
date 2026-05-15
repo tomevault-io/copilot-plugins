@@ -7,11 +7,11 @@ Collection of extensions for pi coding agent (sessions, ask_user, handoff)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jayshah5696/pi-agent-extensions](https://github.com/jayshah5696/pi-agent-extensions).
+Original source: `CLAUDE.md` in [jayshah5696/pi-agent-extensions](https://github.com/jayshah5696/pi-agent-extensions).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
