@@ -1,9 +1,9 @@
 {
   "name": "rayners--fvtt-seasons-and-stars",
   "displayName": "fvtt-seasons-and-stars",
-  "description": "fvtt-seasons-and-stars",
+  "description": "Calendar and timekeeping module for FoundryVTT v13+ with Simple Calendar compatibility bridge",
   "version": "1.0.0",
   "author": "rayners",
-  "homepage": "https://tomevault.io/claim/rayners",
+  "homepage": "https://github.com/rayners/fvtt-seasons-and-stars",
   "skills": []
 }
