@@ -1,0 +1,9 @@
+{
+  "name": "martin-ger--esp32-ethernet-router",
+  "displayName": "esp32_ethernet_router",
+  "description": "An Ethernet to WiFi router for the WT32-ETH01 and W5500",
+  "version": "1.0.0",
+  "author": "martin-ger",
+  "homepage": "https://github.com/martin-ger/esp32_ethernet_router",
+  "skills": []
+}
