@@ -1,0 +1,9 @@
+{
+  "name": "bwb03--amazon-catalog-cli",
+  "displayName": "amazon-catalog-cli",
+  "description": "Agent-native CLI for querying Amazon Category Listing Reports",
+  "version": "1.0.0",
+  "author": "BWB03",
+  "homepage": "https://github.com/BWB03/amazon-catalog-cli",
+  "skills": []
+}
