@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--claudelytics",
+  "displayName": "claudelytics",
+  "description": "A fast CLI tool for analyzing Claude Code usage patterns, token consumption, and costs",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/claudelytics",
+  "skills": []
+}
