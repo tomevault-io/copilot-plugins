@@ -1,0 +1,9 @@
+{
+  "name": "dxheroes--ai-dev-setup",
+  "displayName": "ai-dev-setup",
+  "description": "Starting point for your own AI-enhanced development setup, currently focused on Visual Studio Code with GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "DXHeroes",
+  "homepage": "https://github.com/DXHeroes/ai-dev-setup",
+  "skills": []
+}
