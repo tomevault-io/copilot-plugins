@@ -1,0 +1,9 @@
+{
+  "name": "afrotools--afrotools",
+  "displayName": "afrotools",
+  "description": "AI-ready registry of structured API specs for African providers. Powers the Afro.tools MCP server and Claude Code plugin.",
+  "version": "1.0.0",
+  "author": "afrotools",
+  "homepage": "https://github.com/afrotools/afrotools",
+  "skills": []
+}
