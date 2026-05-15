@@ -1,0 +1,9 @@
+{
+  "name": "sxdjt--ha-nws-alert-card",
+  "displayName": "ha-nws-alert-card",
+  "description": "A simple card to show US National Weather Service alerts for a given zone",
+  "version": "1.0.0",
+  "author": "sxdjt",
+  "homepage": "https://github.com/sxdjt/ha-nws-alert-card",
+  "skills": []
+}
