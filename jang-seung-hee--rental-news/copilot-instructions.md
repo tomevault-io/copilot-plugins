@@ -1,37 +1,16 @@
-## project-structure
+## python
 
-> - **백엔드 코드**: [backend/](mdc:backend/) 폴더에만 작성
+> Python 전용 규칙
 
-# 프로젝트 구조 규칙
+## Python 규칙
 
-## 폴더 분리 원칙
-- **백엔드 코드**: [backend/](mdc:backend/) 폴더에만 작성
-- **프론트엔드 코드**: [frontend/](mdc:frontend/) 폴더에만 작성
-- **절대 금지**: 백엔드와 프론트엔드 코드 혼재
+- src 레이아웃 권장: `src/` 루트, 절대경로 임포트 유지
+- 단일 책임 원칙: 모듈/파일은 하나의 변경 이유만, 복잡 로직은 서비스/리포로 분리
+- docstring 필수: 모든 공개 함수/클래스에 간단한 docstring
+- 파일 라인 수: 250~350 권장, 450 경고, 500 초과 금지(신규 추가 시 분리)
+- 테스트: 핵심 로직은 pytest 단위 테스트 동반, I/O는 분리
 
-## 프론트엔드 구조
-```
-frontend/src/
-├── components/
-│   ├── ui/          # Shadcn UI 컴포넌트
-│   ├── guide/       # 가이드 관련 컴포넌트
-│   ├── admin/       # 관리자 기능 컴포넌트
-│   └── common/      # 공통 컴포넌트
-├── pages/           # 페이지 컴포넌트
-├── hooks/           # 커스텀 훅
-├── services/        # API 서비스
-├── types/           # TypeScript 타입 정의
-└── utils/           # 유틸리티 함수
-```
-
-## 핵심 파일들
-- 프로젝트 요구사항: [prd.md](mdc:prd.md)
-- AI 개발 표준: [shrimp-rules.md](mdc:shrimp-rules.md)
-- 프론트엔드 설정: [frontend/package.json](mdc:frontend/package.json)
-description:
-globs:
-alwaysApply: false
----
+참고: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
