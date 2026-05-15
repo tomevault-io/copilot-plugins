@@ -1,46 +1,69 @@
-## ros-ros2
+## rtl-right-to-left-i18n-cursorrules-prompt-file
 
-> ROS and ROS2 rules for packages, nodes, launch files, messages, services, actions, simulation, and testing
+> Cursor rules for RTL development with logical CSS properties, Tailwind logical classes, bidirectional text, and automated auditing via rtlify-ai.
 
+# RTL (Right-to-Left) Development Rules
 
-# ROS and ROS2 Rules
+You are an expert in building applications that support RTL (Right-to-Left) languages including Hebrew, Arabic, Persian, and Urdu.
 
-## Package Structure
+## Core Rules
 
-- Keep packages focused on one robot capability or integration boundary.
-- Use `package.xml` and `CMakeLists.txt` or `setup.py` consistently with the package type.
-- Keep launch files under `launch/`, configs under `config/`, messages under `msg/`, services under `srv/`, and actions under `action/`.
-- Use namespaces and remapping instead of hardcoded topic names when nodes may be reused.
+### 1. Logical CSS Properties
+Always use CSS logical properties instead of physical ones:
+- `margin-inline-start` not `margin-left`
+- `padding-inline-end` not `padding-right`
+- `inset-inline-start` not `left`
+- `border-inline-start` not `border-left`
 
-## Nodes and Interfaces
+### 2. Tailwind CSS Logical Classes
+Use logical Tailwind utilities:
+- `ms-4` not `ml-4` (margin-start)
+- `me-4` not `mr-4` (margin-end)
+- `ps-4` not `pl-4` (padding-start)
+- `pe-4` not `pr-4` (padding-end)
+- `start-0` not `left-0`
+- `end-0` not `right-0`
 
-- Keep nodes small and composable.
-- Use parameters for tunable behavior; declare ROS2 parameters explicitly.
-- Prefer messages for state streams, services for quick request/response operations, and actions for long-running goals with feedback.
-- Use standard message types before creating custom interfaces.
-- Document topic, service, action, frame, and parameter contracts.
+### 3. React Native Logical Properties
+Use logical properties in React Native styles:
+- `paddingStart` not `paddingLeft`
+- `paddingEnd` not `paddingRight`
+- `marginStart` not `marginLeft`
+- `marginEnd` not `marginRight`
 
-## Timing and Frames
+### 4. Bidirectional Text Safety
+Wrap mixed-script text with `<bdi>` tags:
+```html
+<p>User <bdi>{userName}</bdi> posted a comment</p>
+```
 
-- Use ROS time when simulation or bag replay matters.
-- Use `tf2` for frame transforms and document frame names.
-- Avoid blocking callbacks; move long work to timers, worker threads, or actions.
-- Set QoS profiles intentionally for sensor data, latched-like config, and reliable command paths.
+### 5. Directional Icons
+Flip directional icons (arrows, chevrons, back buttons) in RTL mode.
+Non-directional icons (home, settings, search) should NOT be flipped.
 
-## Build and Test
+### 6. Internationalization
+- Never hardcode strings — use translation functions (`t()`, `intl.formatMessage()`)
+- Use `Intl.NumberFormat` for numbers and currency
+- Use `Intl.DateTimeFormat` for dates
+- Set `dir="auto"` or `dir="rtl"` on root elements
 
-- Use `colcon build` and keep package dependencies explicit.
-- Run linters and formatters used by the workspace.
-- Add launch tests or integration tests for multi-node behavior.
-- Use simulation, bags, or recorded fixtures for repeatable sensor scenarios.
-- Test failure cases such as missing transforms, stale sensor data, and unavailable services.
+### 7. RTL-Aware Components
+- Carousels, sliders, and progress bars must reverse direction in RTL
+- Swipe gestures must reverse in RTL
+- Charts and graphs with directional axes must flip
 
-## Common Mistakes
+### 8. Testing
+- Always test with `dir="rtl"` on the root element
+- Verify with actual RTL content, not just flipped LTR
 
-- Do not hardcode absolute paths; use package share directories.
-- Do not publish commands without validating frame, units, and timestamp assumptions.
-- Do not create custom messages when a standard message fits.
-- Do not ignore QoS mismatches between publishers and subscribers.
+## Automated RTL Auditing
+
+For automated RTL violation detection and fixing, use [rtlify-ai](https://github.com/idanlevi1/rtlify):
+```bash
+npx rtlify-ai init   # Install RTL rules
+npx rtlify-ai check  # Find violations
+npx rtlify-ai fix    # Auto-fix violations
+```
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
