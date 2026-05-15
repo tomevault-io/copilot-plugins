@@ -1,0 +1,9 @@
+{
+  "name": "karloti--typeahead-kmp",
+  "displayName": "typeahead-kmp",
+  "description": "A lock-free, in-memory fuzzy search engine for Kotlin Multiplatform. L2-normalized sparse vector embeddings with O(1) cosine similarity \u2014 handles typos, transpositions, and blind continuation. Zero-al",
+  "version": "1.0.0",
+  "author": "karloti",
+  "homepage": "https://github.com/karloti/typeahead-kmp",
+  "skills": []
+}
