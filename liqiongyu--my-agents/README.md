@@ -7,11 +7,11 @@ A monorepo for creating, managing, and publishing reusable Agent skills (Claude 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [liqiongyu/my-agents](https://github.com/liqiongyu/my-agents).
+Original source: `CLAUDE.md` in [liqiongyu/my-agents](https://github.com/liqiongyu/my-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
