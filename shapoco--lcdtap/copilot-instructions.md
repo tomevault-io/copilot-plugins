@@ -1,0 +1,31 @@
+## lcdtap
+
+> LCD コントローラコマンドを SPI/I2C スレーブで受信し、DVI-D 信号として出力するためのライブラリと、Raspberry Pi Pico2 向けの実装例を提供するプロジェクト。
+
+# LcdTap
+
+LCD コントローラコマンドを SPI/I2C スレーブで受信し、DVI-D 信号として出力するためのライブラリと、Raspberry Pi Pico2 向けの実装例を提供するプロジェクト。
+
+## コーディングスタイル
+
+- clang-format を使い、`.clang-format` に沿ってコードのスタイルを統一する。
+
+## アーキテクチャ
+
+- `lib/`: コアライブラリ。MCU 非依存で、LCD コマンドの処理と DVI-D 信号の生成を行う。
+- `example/`: MCU 別の実装例。
+    - `pico2/`: Raspberry Pi Pico2 向けの実装。Pico SDK を使用して、SPI/I2C スレーブとしてコマンドを受信し、DVI-D 信号を生成する。
+
+## 問題対応
+
+- 問題解析については `issues/` ディレクトリ配下の Markdown ファイルに記録する。
+- ファイル名は `<4桁の番号>_<問題の概要>.md` とする。
+
+## 注意事項
+
+- 入力の SPI クロックは最大 62.5 MHz まで対応する。クロック周波数が速いことを考慮して、スループットの高い実装が必要。
+- MCU で動作させることを前提としているため、メモリフットプリントはできるだけ小さくし、演算は整数ベースで行う。
+
+---
+> Source: [shapoco/lcdtap](https://github.com/shapoco/lcdtap) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-12 -->
