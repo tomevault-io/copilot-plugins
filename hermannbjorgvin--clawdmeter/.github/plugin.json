@@ -1,0 +1,9 @@
+{
+  "name": "hermannbjorgvin--clawdmeter",
+  "displayName": "Clawdmeter",
+  "description": "ESP32 desk dashboard that shows Claude Code usage",
+  "version": "1.0.0",
+  "author": "HermannBjorgvin",
+  "homepage": "https://github.com/HermannBjorgvin/Clawdmeter",
+  "skills": []
+}
