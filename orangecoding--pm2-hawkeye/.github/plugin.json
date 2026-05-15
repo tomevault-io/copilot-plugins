@@ -1,0 +1,9 @@
+{
+  "name": "orangecoding--pm2-hawkeye",
+  "displayName": "pm2-hawkeye",
+  "description": "Real-time web dashboard for managing PM2 processes. Monitor CPU, memory, and uptime at a glance, stream live logs directly in the browser, restart processes with one click, and trigger custom PM2 acti",
+  "version": "1.0.0",
+  "author": "orangecoding",
+  "homepage": "https://github.com/orangecoding/pm2-hawkeye",
+  "skills": []
+}
