@@ -7,11 +7,11 @@ AI workflow orchestration system exploring LLM provider abstraction, structured 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [eratchev/social-ai-poc](https://github.com/eratchev/social-ai-poc).
+Original source: `CLAUDE.md` in [eratchev/social-ai-poc](https://github.com/eratchev/social-ai-poc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
