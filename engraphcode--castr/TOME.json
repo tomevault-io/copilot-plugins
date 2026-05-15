@@ -4,7 +4,7 @@
   "repo": "castr",
   "description": "Ingest schemas in formats such as OpenAPI or Zod, convert to Canonical Ast Representation, output as another format",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EngraphCode/castr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T06:52:16Z"
+  "distributed_at": "2026-05-15T20:19:42Z"
 }
