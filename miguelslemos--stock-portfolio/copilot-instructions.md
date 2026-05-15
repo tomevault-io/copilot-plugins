@@ -1,51 +1,41 @@
-## domain-logic
+## new-features
 
-> Business rules and domain logic
+> 1. Identify which layer the feature belongs to
 
+# Implementing New Features
 
-# Business Rules (Domain Layer)
+## Checklist Before Coding
 
-## Principles
+1. Identify which layer the feature belongs to
+2. Define interfaces/contracts before implementations
+3. Start with the domain if business rules are involved
+4. Write tests alongside the implementation
 
-- **Total isolation**: zero imports from `infrastructure/`, `presentation/`, or external libs
-- **Immutability**: value entities (`Money`, `StockQuantity`) must be immutable
-- **Pure methods**: given the same input, always the same output
-- **Self-validation**: entities validate their own invariants in the constructor
+## Implementation Order
 
-```typescript
-// ✅ Value entity with validation
-class Money {
-  constructor(
-    readonly amount: number,
-    readonly currency: Currency,
-  ) {
-    if (amount < 0) throw new Error('Amount cannot be negative');
-  }
-
-  add(other: Money): Money {
-    if (this.currency !== other.currency) throw new Error('Currency mismatch');
-    return new Money(this.amount + other.amount, this.currency);
-  }
-}
+```
+1. Domain (entities, services)          → Unit tests
+2. Application (interfaces, use cases)  → Tests with mocks
+3. Infrastructure (repositories, APIs)  → Integration tests
+4. Presentation (UI, formatters)        → Visual verification
 ```
 
-## Domain Services
+## Patterns to Follow
 
-- `PortfolioCalculationService`: position calculations, gain/loss, average cost
-- `PortfolioAnalyticsService`: snapshots and analytical aggregations
-- Receive dependencies via interface (e.g., `IExchangeRateService`)
+- Single responsibility per class/function
+- Prefer composition over inheritance
+- Use discriminated unions to represent states
+- Inject dependencies — never instantiate services internally
+- Side-effect-free code in the domain
 
-## Operations
+## What to Avoid
 
-- `VestingOperation`: represents RSU/ESPP vesting
-- `TradeOperation`: represents stock buy/sell
-- Each operation is an immutable record with all required data
-
-## When Modifying Business Rules
-
-1. Change only in `domain/` — never in presentation
-2. Write unit tests for every scenario
-3. Validate against the business guide (`docs/guia_negocio.md`)
+- Classes with more than 200 lines
+- Functions with more than 5 parameters (use a config object)
+- Circular imports between layers
+- Complex conditional logic (extract into strategy/policy)
+- Magic strings (use enums or constants)
+- Comments explaining "what" — the code should be clear
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
