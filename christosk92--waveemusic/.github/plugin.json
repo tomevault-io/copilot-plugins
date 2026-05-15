@@ -1,0 +1,9 @@
+{
+  "name": "christosk92--waveemusic",
+  "displayName": "WaveeMusic",
+  "description": "A high-performance Spotify client for Windows, built with .NET 10 and WinUI 3.",
+  "version": "1.0.0",
+  "author": "christosk92",
+  "homepage": "https://github.com/christosk92/WaveeMusic",
+  "skills": []
+}
