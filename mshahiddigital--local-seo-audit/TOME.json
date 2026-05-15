@@ -4,7 +4,7 @@
   "repo": "local-seo-audit",
   "description": "Complete 21-phase local business SEO audit plugin for Claude Code \u2014 24 skills, 36 commands, 6 sub-agents, AI visibility, competitor analysis, and actionable roadmaps",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mshahiddigital/local-seo-audit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:17:09Z"
+  "distributed_at": "2026-05-15T19:19:25Z"
 }
