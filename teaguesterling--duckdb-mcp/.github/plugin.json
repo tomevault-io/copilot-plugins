@@ -1,0 +1,9 @@
+{
+  "name": "teaguesterling--duckdb-mcp",
+  "displayName": "duckdb_mcp",
+  "description": "A simple MCP server extension for DuckDB",
+  "version": "1.0.0",
+  "author": "teaguesterling",
+  "homepage": "https://github.com/teaguesterling/duckdb_mcp",
+  "skills": []
+}
