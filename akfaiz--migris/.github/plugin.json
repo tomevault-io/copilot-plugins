@@ -1,0 +1,9 @@
+{
+  "name": "akfaiz--migris",
+  "displayName": "migris",
+  "description": "Database migration library for Go with fluent schema builder and multi-database support",
+  "version": "1.0.0",
+  "author": "akfaiz",
+  "homepage": "https://github.com/akfaiz/migris",
+  "skills": []
+}
