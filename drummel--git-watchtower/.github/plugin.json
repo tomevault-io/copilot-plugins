@@ -1,0 +1,9 @@
+{
+  "name": "drummel--git-watchtower",
+  "displayName": "git-watchtower",
+  "description": "Terminal-based git branch monitor with auto-pull, live reload dev server, and real-time activity tracking.",
+  "version": "1.0.0",
+  "author": "drummel",
+  "homepage": "https://github.com/drummel/git-watchtower",
+  "skills": []
+}
