@@ -1,16 +1,8 @@
-## vibe-coding-tools
+## lesson1
 
-> - 以教學為導向，產出可讀性高、讓學生容易理解什麼是Vibe Coding
+> lesson1 專屬規則
 
-## 目標
-- 以教學為導向，產出可讀性高、讓學生容易理解什麼是Vibe Coding
-
-## 對像
-- 學生
-- 初學者
-
-## 範圍
-- 所有常用的vibe coding工具
+這是一個lesson1資料夾專用的system prompt
 
 ---
 > Source: [roberthsu2003/vibe_coding_tools](https://github.com/roberthsu2003/vibe_coding_tools) — distributed by [TomeVault](https://tomevault.io).
