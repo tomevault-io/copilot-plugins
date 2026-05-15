@@ -1,0 +1,9 @@
+{
+  "name": "kocakli--trello-desktop-mcp",
+  "displayName": "Trello-Desktop-MCP",
+  "description": "Trello integration for Claude Desktop via Model Context Protocol (MCP) - 19 tools for comprehensive board, card, and list management",
+  "version": "1.0.0",
+  "author": "kocakli",
+  "homepage": "https://github.com/kocakli/Trello-Desktop-MCP",
+  "skills": []
+}
