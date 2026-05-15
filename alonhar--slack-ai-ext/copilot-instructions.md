@@ -1,43 +1,72 @@
-## slack-extension-overview
+## slack-patching-process
 
-> This project is a Slack desktop extension that adds AI-powered features to the Slack app by modifying the app.asar file.
+> This project modifies Slack's desktop app by patching the app.asar file to inject custom JavaScript functionality.
 
-# Slack AI Extension Project Overview
+# Slack Patching Process and Integrity Management
 
-This project is a Slack desktop extension that adds AI-powered features to the Slack app by modifying the app.asar file.
+This project modifies Slack's desktop app by patching the app.asar file to inject custom JavaScript functionality.
 
-## Core Files
+## Patching Workflow
 
-- **[custom_slack_ext.js](mdc:custom_slack_ext.js)** - Main extension script with AI features (message summarization, text improvement, dropdown menus)
-- **[slack_patcher.sh](mdc:slack_patcher.sh)** - Shell script that patches Slack's app.asar file to inject the extension
-- **[integrity.js](mdc:integrity.js)** - Calculates ASAR file integrity checksums using crypto and @electron/asar
-- **[package.json](mdc:package.json)** - ES module configuration with required dependencies
+### 1. Backup and Extract
+[slack_patcher.sh](mdc:slack_patcher.sh) handles the complete patching process:
+- Creates backup of original app.asar
+- Extracts ASAR contents to temporary directory
+- Injects [custom_slack_ext.js](mdc:custom_slack_ext.js) into Slack's main process
 
-## Key Features
+### 2. Integrity Calculation
+[integrity.js](mdc:integrity.js) provides checksum verification:
+```bash
+# Calculate integrity hash
+node integrity.js /path/to/app.asar
+```
+- Uses crypto module for SHA-256 hashing
+- Integrates with @electron/asar for ASAR file handling
+- Outputs only hash value for scripting
 
-1. **Message Summarization** - AI-powered summarization of Slack conversations
-2. **AI Composer Menu** - Dropdown with 6 text processing options:
-   - Improve Writing
-   - Translate to English  
-   - Fix Spelling & Grammar
-   - Make Professional
-   - Make Casual
-   - Make Shorter
-3. **Text Extraction** - Advanced Quill editor text handling with paragraph extraction and placeholder removal
+### 3. macOS Specific Handling
+The patcher includes macOS-specific features:
+- Updates Info.plist files with new checksums
+- Uses grep/sed for plist modifications
+- Calculates before/after integrity hashes
 
-## Development Workflow
+## File Structure During Patching
 
-1. Modify [custom_slack_ext.js](mdc:custom_slack_ext.js) for feature changes
-2. Use [slack_patcher.sh](mdc:slack_patcher.sh) to inject changes into Slack
-3. Calculate integrity with [integrity.js](mdc:integrity.js) for verification
-4. Test features in Slack desktop app
+```
+Slack.app/Contents/Resources/
+├── app.asar (original)
+├── app.asar.backup (backup)
+└── app/ (extracted contents)
+    └── dist/
+        └── main.bundle.js (injection point)
+```
 
-## Technical Notes
+## Key Technical Details
 
-- Uses ES modules ("type": "module" in package.json)
-- OpenAI API integration for all AI features
-- CSP (Content Security Policy) considerations for external script loading
-- 200ms polling for fast UI initialization
+### ASAR File Modification
+- Extracts using @electron/asar package
+- Modifies main.bundle.js to include extension
+- Rebuilds ASAR with modifications
+
+### Integrity Verification
+- SHA-256 checksums for verification
+- Before/after comparison for change tracking
+- Info.plist updates for macOS code signing
+
+### ES Module Compatibility
+[package.json](mdc:package.json) configured with:
+```json
+{
+  "type": "module"
+}
+```
+
+## Safety Considerations
+
+1. **Always backup** original app.asar before patching
+2. **Verify integrity** before and after modifications
+3. **Test thoroughly** after patching
+4. **Keep backups** for easy restoration
 
 ---
 > Source: [alonhar/slack-ai-ext](https://github.com/alonhar/slack-ai-ext) — distributed by [TomeVault](https://tomevault.io).
