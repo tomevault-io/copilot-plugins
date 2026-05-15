@@ -1,0 +1,9 @@
+{
+  "name": "knavillus1--codex-bootstrap",
+  "displayName": "codex_bootstrap",
+  "description": "A minimal OpenAI Codex Agent repo demonstrating environment setup script and AGENTS.md handling",
+  "version": "1.0.0",
+  "author": "knavillus1",
+  "homepage": "https://github.com/knavillus1/codex_bootstrap",
+  "skills": []
+}
