@@ -1,0 +1,9 @@
+{
+  "name": "softleif--seqair",
+  "displayName": "seqair",
+  "description": "BAM/SAM/CRAM/FASTA reader, pileup engine, BCF/BAM writing",
+  "version": "1.0.0",
+  "author": "Softleif",
+  "homepage": "https://github.com/Softleif/seqair",
+  "skills": []
+}
