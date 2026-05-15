@@ -1,0 +1,44 @@
+{
+  "name": "OmniWire",
+  "owner": "weideng365",
+  "repo": "OmniWire",
+  "description": "OmniWire \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u7f51\u7edc\u5b89\u5168\u7f51\u5173\u7cfb\u7edf\uff0c\u96c6\u6210\u4e86 WireGuard / OpenVPN \u670d\u52a1\u7aef\u7ba1\u7406\u3001TCP/UDP \u7aef\u53e3\u8f6c\u53d1\u3001\u667a\u80fd\u7aef\u53e3\u7ba1\u7406\u7b49\u6838\u5fc3\u529f\u80fd\u3002\u91c7\u7528 GoFrame \u4f5c\u4e3a\u540e\u7aef\u6846\u67b6\uff0cVue 3 \u4f5c\u4e3a\u524d\u7aef\u6846\u67b6\uff0c\u63d0\u4f9b\u73b0\u4ee3\u5316\u7684 Web \u7ba1\u7406\u754c\u9762\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/weideng365/OmniWire",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T16:14:23Z"
+}
