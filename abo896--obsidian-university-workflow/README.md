@@ -7,11 +7,11 @@ A powerful, context-aware Templater system for university students using Obsidia
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ABO896/obsidian-university-workflow](https://github.com/ABO896/obsidian-university-workflow).
+Original source: `CLAUDE.md` in [ABO896/obsidian-university-workflow](https://github.com/ABO896/obsidian-university-workflow).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
