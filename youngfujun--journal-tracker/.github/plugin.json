@@ -1,0 +1,9 @@
+{
+  "name": "youngfujun--journal-tracker",
+  "displayName": "journal-tracker",
+  "description": "\u6bcf\u5468\u81ea\u52a8\u8ffd\u8e2a\u7ecf\u6d4e\u5b66/\u91d1\u878d/\u7ecf\u6d4e\u53f2\u7b49\u9886\u57df\u671f\u520a\u6700\u65b0\u6587\u7ae0\uff0c\u901a\u8fc7\u90ae\u4ef6\u53d1\u9001\u6587\u7ae0\u6807\u9898\u4e0e\u6458\u8981\uff08\u5982\u6709\uff09\u6e05\u5355\u3002\u57fa\u4e8e GitHub Actions\uff0c\u514d\u8d39\u65e0\u9700\u670d\u52a1\u5668\u3002",
+  "version": "1.0.0",
+  "author": "YoungFujun",
+  "homepage": "https://github.com/YoungFujun/journal-tracker",
+  "skills": []
+}
