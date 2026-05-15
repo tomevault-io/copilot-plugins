@@ -1,0 +1,9 @@
+{
+  "name": "pianonic--schulwareapi",
+  "displayName": "SchulwareAPI",
+  "description": "Unified API for Schulnetz, simplifying data access with dynamic routing",
+  "version": "1.0.0",
+  "author": "PianoNic",
+  "homepage": "https://github.com/PianoNic/SchulwareAPI",
+  "skills": []
+}
