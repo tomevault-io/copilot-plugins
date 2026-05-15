@@ -1,0 +1,9 @@
+{
+  "name": "easyclouddeploy--file-fridge",
+  "displayName": "file-fridge",
+  "description": "move files that aren't accessed as often to cold storage",
+  "version": "1.0.0",
+  "author": "EasyCloudDeploy",
+  "homepage": "https://github.com/EasyCloudDeploy/file-fridge",
+  "skills": []
+}
