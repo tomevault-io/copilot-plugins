@@ -1,0 +1,9 @@
+{
+  "name": "alphaonedev--ai-memory-mcp",
+  "displayName": "ai-memory-mcp",
+  "description": "Persistent memory for any AI \u2014 MCP server, HTTP API, CLI. Works with Claude, ChatGPT, Grok, Gemini, Codex, Cursor, OpenClaw, and any MCP client. 97.8% R@5 on LongMemEval. Pure SQLite FTS5, zero cloud ",
+  "version": "1.0.0",
+  "author": "alphaonedev",
+  "homepage": "https://github.com/alphaonedev/ai-memory-mcp",
+  "skills": []
+}
