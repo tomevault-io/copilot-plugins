@@ -1,49 +1,29 @@
-## enums
+## import-type
 
-> Do not introduce new enums into the codebase. Retain existing enums.
+> Use import type whenever you are importing a type.
 
-Do not introduce new enums into the codebase. Retain existing enums.
+Use import type whenever you are importing a type.
 
-If you require enum-like behaviour, use an `as const` object:
+Prefer top-level `import type` over inline `import { type ... }`.
 
 ```ts
-const backendToFrontendEnum = {
-  xs: "EXTRA_SMALL",
-  sm: "SMALL",
-  md: "MEDIUM",
-} as const;
-
-type LowerCaseEnum = keyof typeof backendToFrontendEnum; // "xs" | "sm" | "md"
-
-type UpperCaseEnum =
-  (typeof backendToFrontendEnum)[LowerCaseEnum]; // "EXTRA_SMALL" | "SMALL" | "MEDIUM"
+// BAD
+import { type User } from "./user";
 ```
 
-Remember that numeric enums behave differently to string enums. Numeric enums produce a reverse mapping:
-
 ```ts
-enum Direction {
-  Up,
-  Down,
-  Left,
-  Right,
-}
-
-const direction = Direction.Up; // 0
-const directionName = Direction[0]; // "Up"
+// GOOD
+import type { User } from "./user";
 ```
 
-This means that the enum `Direction` above will have eight keys instead of four.
+The reason for this is that in certain environments, the first version's import will not be erased. So you'll be left with:
 
 ```ts
-enum Direction {
-  Up,
-  Down,
-  Left,
-  Right,
-}
+// Before transpilation
+import { type User } from "./user";
 
-Object.keys(Direction).length; // 8
+// After transpilation
+import "./user";
 ```
 
 ---
