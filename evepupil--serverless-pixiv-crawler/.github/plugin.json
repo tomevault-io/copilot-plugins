@@ -1,0 +1,9 @@
+{
+  "name": "evepupil--serverless-pixiv-crawler",
+  "displayName": "serverless_pixiv_crawler",
+  "description": "Pixiv\u63d2\u753b\u722c\u866b\uff0cServerless\u67b6\u6784\uff0c\u96c6\u6210 Supabase \u6570\u636e\u5e93\uff0c\u5206\u5e03\u5f0f\u5b9a\u65f6\u4efb\u52a1\u722c\u53d6",
+  "version": "1.0.0",
+  "author": "evepupil",
+  "homepage": "https://github.com/evepupil/serverless_pixiv_crawler",
+  "skills": []
+}
