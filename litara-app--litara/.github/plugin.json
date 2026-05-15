@@ -1,0 +1,9 @@
+{
+  "name": "litara-app--litara",
+  "displayName": "litara",
+  "description": "monorepo with the litara backend and web ui.",
+  "version": "1.0.0",
+  "author": "litara-app",
+  "homepage": "https://github.com/litara-app/litara",
+  "skills": []
+}
