@@ -1,0 +1,9 @@
+{
+  "name": "jonathanjihwankim--pbip-lineage-explorer",
+  "displayName": "pbip-lineage-explorer",
+  "description": "Trace DAX measure lineage from visuals to source columns in Power BI PBIP projects \u2014 instantly, in your browser",
+  "version": "1.0.0",
+  "author": "JonathanJihwanKim",
+  "homepage": "https://github.com/JonathanJihwanKim/pbip-lineage-explorer",
+  "skills": []
+}
