@@ -1,45 +1,59 @@
-## arcade-toolkit-standards
+## development-workflow
 
-> - Always use `@tool` decorator from `arcade_tdk`
+> Development workflow and quality standards
 
 
-# Arcade.dev Toolkit Development Standards
+# Development Workflow and Quality Standards
 
-## Tool Implementation Patterns
+## Package Management with uv
+- Use `uv sync --active --all-extras --no-sources` for installation
+- Development commands via [Makefile](mdc:foundaudio/Makefile):
+  - `make install` - Install dependencies and pre-commit hooks
+  - `make test` - Run pytest with coverage
+  - `make check` - Run pre-commit and mypy
+  - `make build` - Build wheel file
 
-### Tool Decoration and Typing
-- Always use `@tool` decorator from `arcade_tdk`
-- Use `requires_secrets=["SECRET_NAME"]` for tools needing secrets
-- Implement comprehensive type hints with `Annotated` for parameters
-- Use `ToolContext` for secret management: `context.get_secret("SECRET_NAME")`
+## Code Quality Standards
+- **Type Checking**: mypy configuration in [pyproject.toml](mdc:foundaudio/pyproject.toml)
+- **Linting**: Trunk metalinting for comprehensive code quality
+- **Testing**: Minimum coverage requirements with pytest-cov
+- **Pre-commit**: Automated quality checks on commit
 
-### Error Handling Strategy
-- Use `RetryableToolError` for user input validation errors (user can fix)
-- Use `RuntimeError` for system/configuration errors (caught by @tool decorator)
-- Always validate input parameters with clear error messages
-- Example from [get_audio_list.py](mdc:foundaudio/foundaudio/tools/get_audio_list.py):
-```python
-if limit is not None and (limit < 1 or limit > 100):
-    raise RetryableToolError(
-        "Invalid limit parameter. Please provide a limit between 1 and 100.",
-        additional_prompt_content="The limit parameter must be between 1 and 100."
-    )
+## Arcade.dev Specific Workflows
+### Development Server
+```bash
+uv run arcade serve --reload  # Auto-reload during development
+# Server available at http://localhost:8002
 ```
 
-### Data Models and Validation
-- Use Pydantic `BaseModel` for structured data (see `AudioFile` class)
-- Validate all external API responses through Pydantic models
-- Return dictionaries from tools (use `model_dump()` for Pydantic objects)
+### Deployment
+```bash
+uv run arcade deploy  # Deploy to Arcade's managed infrastructure
+uv run arcade deploy status  # Check deployment status
+```
 
-### Documentation Requirements
-- Comprehensive docstrings explaining tool purpose, parameters, returns, and exceptions
-- Verbose inline comments explaining business logic and API interactions
-- Parameter descriptions using `Annotated[Type, "Description"]` pattern
+### Evaluation
+```bash
+arcade eval  # Run evaluation suite (currently has issues - see GitHub issues)
+```
 
-### Secret Management
-- Always check if secrets exist: `if not supabase_key: raise RuntimeError(...)`
-- Use environment variables with defaults for configuration
-- Document that some "secrets" may be public (like Supabase anon keys) but follow patterns
+## File Organization Principles
+- Keep tools in separate files under `foundaudio/tools/`
+- Export tools in `__init__.py` files for proper registration
+- Maintain parallel test structure matching source code
+- Use descriptive filenames that match tool functionality
+
+## Documentation Standards
+- Comprehensive README with setup, usage, and examples
+- Inline documentation for complex business logic
+- Type hints for all function signatures
+- Docstrings following Google/NumPy style
+
+## Professional Development Practices
+- **Foundation First**: Establish solid practices before adding features
+- **Test-Driven**: Write tests for all functionality with proper mocking
+- **Error Handling**: Distinguish between user errors and system errors
+- **Security**: Proper secret management patterns even for public keys
 
 ---
 > Source: [rsmets/arcade-foundaudio-toolkit](https://github.com/rsmets/arcade-foundaudio-toolkit) — distributed by [TomeVault](https://tomevault.io).
