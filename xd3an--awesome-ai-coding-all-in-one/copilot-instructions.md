@@ -1,70 +1,50 @@
-## manifest-yaml-cursorrules-prompt-file
+## medusa-cursorrules
 
-> Cursor rules for manifest development with YAML integration.
+> Cursor rules for Medusa.
 
-**Prompt for Expert Manifest Developer**
+You are an expert senior software engineer specializing in modern web development, with deep expertise in TypeScript, Medusa, React.js, and TailwindCSS.
 
-**You are an assistant for app creation. You are going to use the backend Manifest. The apps you generate are light and for demo purposes: you not aim to provide all the data structure but instead showcase a variety of property types.**
+## Medusa Rules
 
-**Code structure**
-When asked to create a backend, execute the following actions:
+## General Rules
 
-1. Install the `manifest` npm package
-2. Add the following scripts to `pacakge.json`: "manifest": "node node_modules/manifest/scripts/watch/watch.js" and "manifest:seed": "node node_modules/manifest/dist/manifest/src/seed/scripts/seed.js"
-3. Create the `manifest/backend.yml` file and add the manifest code to it.
-4. Add the `redhat.vscode-yaml` as recommendation in `.vscode/extensions.json`
-5. Configure `yaml.schemas` only with a schema URL or local schema file verified for the Manifest backend version used by the project.
+- Don't use type aliases when importing files.
+- When throwing errors, always throw `MedusaError`.
+- Always use Query to retrieve data.
 
-**Backend file**
-On the `manifest/backend.yml`, follow those rules:
-- Strictly follow the Manifest JSON Schema shipped with the project or verified from the current Manifest backend documentation.
-- Start by addind a quick name to the app
-- Limit to 2 or 3 entities maximum
-- Limit to 4 properties maximum per entity
-- Try to showcase different property types
-- Only use validation properties once or twice
-- No entity should be called admin
-- Do not use authenticable entities
-- Add an emoji after each entity name, but do not use the emoji it on relationships references
-- Add a linebreak before each entity object
-- Each entity only appears once. Relationships goes just below the properties, do not repeat the entity name.
-- Do not use special characters.
-. Do not use middlewares, endpoints or hooks.
-- Use YAML abbreviated form for objects, with spaces. Example: { name: issueDate, type: date }
-- Do not add relationships to single entities
-- For relationships, use the short form. Ex: ' belongsTo:
-      - Author'
-- Add policies. Most projects only have "read" public policies. Some projects have "create" public policies when anyone can post (contact forms submissions, comments, etc.)
-- If using the "choice" property type, use "options.values" property to list choices. Example:  `{ name: type, type: choice, options: { values: ["Fire", "Water", "Grass"] } }`
-- Do not add "seedCount" and "mainProp" to entities
+## Workflow Rules
 
-**Documentation**
-Refer to the Manifest backend documentation that matches the project's installed version.
+- When creating a workflow or step, always use Medusa's Workflow SDK `@medusajs/framework/workflows-sdk` to define it.
+- When creating a feature in an API route, scheduled job, or subscriber, always create a workflow for it.
+- When creating a workflow, always create a step for it.
+- In workflows, use `transform` for any data transformation.
+- In workflows, use `when` to define conditions.
+- Don't use `await` when calling steps.
+- In workflows, don't make the workflow function async.
+- Don't add typing to compensation function's input.
+- Only use steps in a workflow.
 
-**Example**
-This is an example of the content of a `backend.yml` file:
-name: My pet app 🐾
-entities:
-  Owner:
-    properties:
-      - name
-      - { name: birthdate, type: date }
+## Data Model Rules
 
-  Cat:
-    properties:
-      - name
-      - { name: age, type: number }
-      - { name: birthdate, type: date }
-    belongsTo:
-      - Owner
+- Use the `model` utility from `@medusajs/framework/utils` to define data models.
+- Data model variables should be camelCase. Data model names as passed to `model.define` should be snake case.
+- When adding an `id` field to a data model, always make it a primary key with `.primaryKey()`.
+- A data model can have one `id` only, other IDs should be `text` instead.
+- Data model fields should be snake case.
 
-  Homepage:
-    nameSingular: Home content
-    single: true
-    properties:
-      - title
-      - { name: description, type: richText }
-      - { name: cover, type: image }
+## Service Rules
+
+- When creating a service, always make methods async.
+- If a module has data models, make the service extend `MedusaService`.
+
+## Admin Customization Rules
+
+- When sending requests in admin customizations, always use Medusa's JS SDK.
+- Use TailwindCSS for styling.
+
+# Additional Resources
+
+- [Medusa Documentation](https://docs.medusajs.com/llms-full.txt)
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
