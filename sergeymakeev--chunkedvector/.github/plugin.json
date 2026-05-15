@@ -1,0 +1,9 @@
+{
+  "name": "sergeymakeev--chunkedvector",
+  "displayName": "ChunkedVector",
+  "description": "Chunked Vector : A high-performance, header-only C++17 chunked vector implementation",
+  "version": "1.0.0",
+  "author": "SergeyMakeev",
+  "homepage": "https://github.com/SergeyMakeev/ChunkedVector",
+  "skills": []
+}
