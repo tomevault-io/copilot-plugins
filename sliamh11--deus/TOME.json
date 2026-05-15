@@ -4,7 +4,7 @@
   "repo": "Deus",
   "description": "A token-efficient open-source AI assistant that remembers, adapts, and improves \u2014 secured, self-hosted, and entirely yours.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sliamh11/Deus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:57:20Z"
+  "distributed_at": "2026-05-15T14:47:15Z"
 }
