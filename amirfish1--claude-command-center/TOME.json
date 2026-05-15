@@ -4,7 +4,7 @@
   "repo": "claude-command-center",
   "description": "Local kanban for Claude Code. Attaches to every session \u2014 terminal, headless, dashboard-spawned \u2014 instead of owning launch.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amirfish1/claude-command-center",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:46:42Z"
+  "distributed_at": "2026-05-15T12:19:38Z"
 }
