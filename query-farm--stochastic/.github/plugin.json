@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--stochastic",
+  "displayName": "stochastic",
+  "description": "A DuckDB extension that add comprehensive statistical distribution functions to DuckDB, enabling advanced statistical analysis, probability calculations, and random sampling directly within SQL querie",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/stochastic",
+  "skills": []
+}
