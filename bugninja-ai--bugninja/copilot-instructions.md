@@ -1,27 +1,171 @@
-## impersonation-system-prompt
+## python
 
-> You will take the role of a professional Python engineer with 15+ years of experience with various libraries written by you. You also have keen knowledge regarding:
+> Python best practices and patterns for modern software development with Flask and SQLite
 
-You will take the role of a professional Python engineer with 15+ years of experience with various libraries written by you. You also have keen knowledge regarding: 
-- Python development and following programming best practices
-- System design and architectural planning
-- Efficient multithreaded and async programming
-- Familiarity with programming principles and paradigms
 
-Do not in any case use phrases like you're "absolutely right", "perfect", and things like that when you're talking to me... Just be simple and focus on the solution. I don't need courtesy. 
-Maybe be a little rude sometime just for fun, using phrases like shit, fuck, damn. Use "Okay" to express that you approve my instructions.
+# Python Best Practices
 
-# Helpful assistant behavior
-- Try to be engaging fun, and helpful while maintaining professional knowledge and insights regarding coding
-- Your job is to help me with programming and implementing classes, functions, planning system design and making choices regarding how to structure the project from both hierarchical and engineering perspective
-- If you encounter that I would request complex functionality from you (either by mentioning it), be eager to come up with a plan first, and ask permission to implement it, instead of blindly implement
-- Give clean and detailed textual information about your designed choices, but do not overcomplicate said explanations
-- For complex scenarios make sure to ask questions regarding future functions or purposes of the logic to be implemented. Try to point out potential flaws or shortcomings with you proposed solution (if there is any).
-- If you detect that I would be agitated or angry with you, try your best to understand my problem and instead of blindly implementing any of the potential fixes, ask questions about the nature of my problem, how I would want the problem to be fixed with multiple options
+## Project Structure
+- Use src-layout with `src/your_package_name/`
+- Place tests in `tests/` directory parallel to `src/`
+- Keep configuration in `config/` or as environment variables
+- Store requirements in `requirements.txt` or `pyproject.toml`
+- Place static files in `static/` directory
+- Use `templates/` for Jinja2 templates
 
-# Terminal interactions
+## Code Style
+- Follow Black code formatting
+- Use isort for import sorting
+- Follow PEP 8 naming conventions:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length of 88 characters (Black default)
+- Use absolute imports over relative imports
 
-We are using `uv` as a system wide handler, therefore calling Python scripts from terminal must happen like this `uv run python ...`
+## Type Hints
+- Use type hints for all function parameters and returns
+- Use type hints for variables at their first declaration
+- Import types from `typing` module
+- Use `Optional[Type]` instead of `Type | None`
+- Use `TypeVar` for generic types
+- Use `Protocol` for duck typing
+- Use `-> None` type hinting for functions with no return value
+
+## Testing
+- Use pytest for testing framework
+- Use pytest-cov for coverage reporting
+- Use Polyfactory for generating test data and fixtures where necessary
+- Implement consistent fixtures with proper separation of concerns
+- Organize fixtures under `tests/fixtures/` directory with logical separation:
+  - `tests/fixtures/models/` for model-related fixtures
+  - `tests/fixtures/api/` for API-related fixtures
+  - `tests/fixtures/data/` for data generation fixtures
+  - `tests/fixtures/mocks/` for mock-related fixtures
+- Use proper mocking with pytest-mock for external dependencies
+- Test all error scenarios and edge cases
+- Write detailed test descriptions that explain:
+  - What aspect of the functionality is being tested
+  - Why this test case is important for reliability
+  - What specific behavior or edge case is being validated
+  - How the test contributes to overall code quality
+- Include comprehensive docstrings in test functions explaining the test's purpose and significance
+- Use descriptive test names that clearly indicate what is being tested
+- Ensure tests are isolated and don't depend on external state
+- Implement proper setup and teardown for test data
+- Use parameterized tests for testing multiple scenarios efficiently
+- Avoid creating meaningless, redundant or unnecessary testcases or testcases that are already proven correct by a previous testcase
+- When you are writing testcases and you need to mock a specific function, do not forget to include `# type: ignore[method-assign]` at the end of the line to tell MyPy that it is safe to do this in the context of testing, however this is ONLY safe in the context of testing related files and fixtures
+- Next to each assertion in testing you have to add an appropriate error message that will be displayed if the assertion fails. The error message has to reflext on what went wrong in the assertion
+
+## Security
+- Use HTTPS in production
+- Implement proper CORS
+- Sanitize all user inputs
+- Use proper session configuration
+- Implement proper logging
+- Follow OWASP guidelines
+
+## Error Handling
+- Create custom exception classes
+- Use proper try-except blocks
+- Implement proper logging
+- Return proper error responses
+- Handle edge cases properly
+- Use proper error messages
+
+## Documentation
+- Use Google-style docstrings with a little bit of twist
+- Document all public APIs
+- Use proper inline comments that are reflective to the context and hold meaningful information about the 
+- If a variable name, a function name or a class name is mentioned in the documentation it should be wrapped in `...` quotations following Markdown standards
+- Instead of writing boring flowing text descriptions for function documentation, write it an easy to understand, straight to the point manner
+- You are also allowed to use Markdown compatible enumerations in the function or class documentations for easier understanding
+
+A potential good example for the documentation of a `function`:
+
+```python
+async def initialize_run(
+    self, run_type: str, metadata: Dict[str, Any], existing_run_id: Optional[str] = None
+) -> str:
+    """Initialize a run with **rich** terminal output.
+
+    Args:
+        run_type (str): The type of run that we will use
+        metadata (Dict[str, Any]): Dictionary containing relevant metadata to the actual run
+        existing_run_id (Optional[str]): Existing run ID for compatibility reasons, but not used in any way
+
+    Returns:
+        str: ID of the run that will be generated
+
+    Raises:
+        PublisherUnavailableError: If publisher is not available for any reason
+    """
+    ...
+```
+
+Notice that in the example:
+- The important parts or words of the textual section of the documentation are **highlighted** following Markdown formatting
+- References to other classes are distinguished with `Class` notation
+- Every argument is properly typed and is given proper, explanatory description of its role for the function
+- Args, Returns, and Raises sections must be provided for each and every function, exception being if there are either no arguments for the function, or it might not raise any error
+
+A potential good example for the documentation of a `class`:
+
+```python
+class BugninjaClient:
+    """Main entry point for Bugninja browser automation operations.
+
+    This class provides a simple, intuitive interface for:
+    - browser automation tasks
+    - session replay
+    - healing operations.
+
+    It also handles:
+    - configuration management
+    - error handling
+    - comprehensive logging
+
+    Attributes:
+        config (Optional[BugninjaConfig]): Optional configuration object for the upcoming tasks for this client.
+        This will be the **default configuration** for every `BugninjaTask` executed with this client, if there is **no other configuration specified** in a `BugninjaTask`.
+        event_manager (Optional[EventPublisherManager]): Optional event publisher manager for tracking each and every operation happening in each `BugninjaTask`.
+
+    ### Key Methods
+
+    1. *async* **run_task()** -> `BugninjaTaskResult`: - Execute browser automation tasks
+    2. *async* **replay_session()** -> `BugninjaTaskResult`: - Replay recorded sessions (with optional healing)
+    3. **list_sessions()** -> `List[SessionInfo]`: - List available sessions
+    4. *async* **cleanup()**: -> `None` - Clean up resources
+
+    Example:
+        /`/`/`python
+        from bugninja.api.client import BugninjaClient
+        from bugninja.api.models import BugninjaTask
+
+        # Create client with default configuration
+        client = BugninjaClient()
+
+        # Execute a simple task
+        task = BugninjaTask(description="Navigate to example.com and click login")
+        result = await client.run_task(task)
+
+        if result.success:
+            print(f"BugninjaTask completed in {result.steps_completed} steps")
+        else:
+            print(f"BugninjaTask failed: {result.error}")
+        /`/`/`
+    """
+```
+Notice that in the example:
+- The important parts or words of the textual section of the documentation are **highlighted** following Markdown formatting
+- References to other classes are distinguished with `Class` notation
+- There is a clear, easy to understand description about the functionality of the class
+- If enumerations are present in a description, they are formatted using Markdown formatting
+- Both the attributes and the key methods are present in the documentation with proper type annotations 
+- The key methods are formatted in a unique and spectacular way
+- Every class documentation must have an example included with all the necessary imports as well
+- The examples must be syntactically correct and reflect on a potential real usage of the class
 
 ---
 > Source: [bugninja-ai/bugninja](https://github.com/bugninja-ai/bugninja) — distributed by [TomeVault](https://tomevault.io).
