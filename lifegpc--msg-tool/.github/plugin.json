@@ -1,0 +1,9 @@
+{
+  "name": "lifegpc--msg-tool",
+  "displayName": "msg-tool",
+  "description": "Tools for export and import scripts",
+  "version": "1.0.0",
+  "author": "lifegpc",
+  "homepage": "https://github.com/lifegpc/msg-tool",
+  "skills": []
+}
