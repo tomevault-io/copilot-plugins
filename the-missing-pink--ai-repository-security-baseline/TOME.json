@@ -4,7 +4,7 @@
   "repo": "ai-repository-security-baseline",
   "description": "A baseline configuration and guidelines for securing source code repositories, covering branch protection, access controls, secret scanning, and CI/CD hardening.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-missing-pink/ai-repository-security-baseline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T15:10:16Z"
+  "distributed_at": "2026-05-15T18:15:23Z"
 }
