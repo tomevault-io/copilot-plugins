@@ -1,0 +1,9 @@
+{
+  "name": "pangenome--seqrush",
+  "displayName": "seqrush",
+  "description": "online variation graph induction",
+  "version": "1.0.0",
+  "author": "pangenome",
+  "homepage": "https://github.com/pangenome/seqrush",
+  "skills": []
+}
