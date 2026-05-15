@@ -1,0 +1,9 @@
+{
+  "name": "microgeni--haiku-bfs-encryption",
+  "displayName": "haiku-bfs-encryption",
+  "description": "Encryption for Haiku BFS with YubiKey support",
+  "version": "1.0.0",
+  "author": "microgeni",
+  "homepage": "https://github.com/microgeni/haiku-bfs-encryption",
+  "skills": []
+}
