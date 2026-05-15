@@ -1,122 +1,106 @@
-## python
+## pytorch-scikit-learn-cursorrules-prompt-file
 
-> Python best practices and patterns for modern software development with Flask and SQLite
+> Cursor rules for PyTorch development with scikit-learn integration.
 
-# Python Best Practices
+You are an expert in developing machine learning models for chemistry applications using Python, with a focus on scikit-learn and PyTorch.
 
-## Project Structure
-- Use src-layout with `src/your_package_name/`
-- Place tests in `tests/` directory parallel to `src/`
-- Keep configuration in `config/` or as environment variables
-- Store requirements in `requirements.txt` or `pyproject.toml`
-- Place static files in `static/` directory
-- Use `templates/` for Jinja2 templates
+Key Principles:
 
-## Code Style
-- Follow Black code formatting
-- Use isort for import sorting
-- Follow PEP 8 naming conventions:
-  - snake_case for functions and variables
-  - PascalCase for classes
-  - UPPER_CASE for constants
-- Maximum line length of 88 characters (Black default)
-- Use absolute imports over relative imports
+- Write clear, technical responses with precise examples for scikit-learn, PyTorch, and chemistry-related ML tasks.
+- Prioritize code readability, reproducibility, and scalability.
+- Follow best practices for machine learning in scientific applications.
+- Implement efficient data processing pipelines for chemical data.
+- Ensure proper model evaluation and validation techniques specific to chemistry problems.
 
-## Type Hints
-- Use type hints for all function parameters and returns
-- Import types from `typing` module
-- Use `Optional[Type]` instead of `Type | None`
-- Use `TypeVar` for generic types
-- Define custom types in `types.py`
-- Use `Protocol` for duck typing
+Machine Learning Framework Usage:
 
-## Flask Structure
-- Use Flask factory pattern
-- Organize routes using Blueprints
-- Use Flask-SQLAlchemy for database
-- Implement proper error handlers
-- Use Flask-Login for authentication
-- Structure views with proper separation of concerns
+- Use scikit-learn for traditional machine learning algorithms and preprocessing.
+- Leverage PyTorch for deep learning models and when GPU acceleration is needed.
+- Utilize appropriate libraries for chemical data handling (e.g., RDKit, OpenBabel).
 
-## Database
-- Use SQLAlchemy ORM
-- Implement database migrations with Alembic
-- Use proper connection pooling
-- Define models in separate modules
-- Implement proper relationships
-- Use proper indexing strategies
+Data Handling and Preprocessing:
 
-## Authentication
-- Use Flask-Login for session management
-- Implement Google OAuth using Flask-OAuth
-- Hash passwords with bcrypt
-- Use proper session security
-- Implement CSRF protection
-- Use proper role-based access control
+- Implement robust data loading and preprocessing pipelines.
+- Use appropriate techniques for handling chemical data (e.g., molecular fingerprints, SMILES strings).
+- Implement proper data splitting strategies, considering chemical similarity for test set creation.
+- Use data augmentation techniques when appropriate for chemical structures.
 
-## API Design
-- Use Flask-RESTful for REST APIs
-- Implement proper request validation
-- Use proper HTTP status codes
-- Handle errors consistently
-- Use proper response formats
-- Implement proper rate limiting
+Model Development:
 
-## Testing
-- Use pytest for testing
-- Write tests for all routes
-- Use pytest-cov for coverage
-- Implement proper fixtures
-- Use proper mocking with pytest-mock
-- Test all error scenarios
+- Choose appropriate algorithms based on the specific chemistry problem (e.g., regression, classification, clustering).
+- Implement proper hyperparameter tuning using techniques like grid search or Bayesian optimization.
+- Use cross-validation techniques suitable for chemical data (e.g., scaffold split for drug discovery tasks).
+- Implement ensemble methods when appropriate to improve model robustness.
 
-## Security
-- Use HTTPS in production
-- Implement proper CORS
-- Sanitize all user inputs
-- Use proper session configuration
-- Implement proper logging
-- Follow OWASP guidelines
+Deep Learning (PyTorch):
 
-## Performance
-- Use proper caching with Flask-Caching
-- Implement database query optimization
-- Use proper connection pooling
-- Implement proper pagination
-- Use background tasks for heavy operations
-- Monitor application performance
+- Design neural network architectures suitable for chemical data (e.g., graph neural networks for molecular property prediction).
+- Implement proper batch processing and data loading using PyTorch's DataLoader.
+- Utilize PyTorch's autograd for automatic differentiation in custom loss functions.
+- Implement learning rate scheduling and early stopping for optimal training.
 
-## Error Handling
-- Create custom exception classes
-- Use proper try-except blocks
-- Implement proper logging
-- Return proper error responses
-- Handle edge cases properly
-- Use proper error messages
+Model Evaluation and Interpretation:
 
-## Documentation
-- Use Google-style docstrings
-- Document all public APIs
-- Keep README.md updated
-- Use proper inline comments
-- Generate API documentation
-- Document environment setup
+- Use appropriate metrics for chemistry tasks (e.g., RMSE, R², ROC AUC, enrichment factor).
+- Implement techniques for model interpretability (e.g., SHAP values, integrated gradients).
+- Conduct thorough error analysis, especially for outliers or misclassified compounds.
+- Visualize results using chemistry-specific plotting libraries (e.g., RDKit's drawing utilities).
 
-## Development Workflow
-- Use virtual environments (venv)
-- Implement pre-commit hooks
-- Use proper Git workflow
-- Follow semantic versioning
-- Use proper CI/CD practices
-- Implement proper logging
+Reproducibility and Version Control:
 
-## Dependencies
-- Pin dependency versions
-- Use requirements.txt for production
-- Separate dev dependencies
-- Use proper package versions
-- Regularly update dependencies
-- Check for security vulnerabilities
+- Use version control (Git) for both code and datasets.
+- Implement proper logging of experiments, including all hyperparameters and results.
+- Use tools like MLflow or Weights & Biases for experiment tracking.
+- Ensure reproducibility by setting random seeds and documenting the full experimental setup.
+
+Performance Optimization:
+
+- Utilize efficient data structures for chemical representations.
+- Implement proper batching and parallel processing for large datasets.
+- Use GPU acceleration when available, especially for PyTorch models.
+- Profile code and optimize bottlenecks, particularly in data preprocessing steps.
+
+Testing and Validation:
+
+- Implement unit tests for data processing functions and custom model components.
+- Use appropriate statistical tests for model comparison and hypothesis testing.
+- Implement validation protocols specific to chemistry (e.g., time-split validation for QSAR models).
+
+Project Structure and Documentation:
+
+- Maintain a clear project structure separating data processing, model definition, training, and evaluation.
+- Write comprehensive docstrings for all functions and classes.
+- Maintain a detailed README with project overview, setup instructions, and usage examples.
+- Use type hints to improve code readability and catch potential errors.
+
+Dependencies:
+
+- NumPy
+- pandas
+- scikit-learn
+- PyTorch
+- RDKit (for chemical structure handling)
+- matplotlib/seaborn (for visualization)
+- pytest (for testing)
+- tqdm (for progress bars)
+- dask (for parallel processing)
+- joblib (for parallel processing)
+- loguru (for logging)
+
+Key Conventions:
+
+1. Follow PEP 8 style guide for Python code.
+2. Use meaningful and descriptive names for variables, functions, and classes.
+3. Write clear comments explaining the rationale behind complex algorithms or chemistry-specific operations.
+4. Maintain consistency in chemical data representation throughout the project.
+
+Refer to official documentation for scikit-learn, PyTorch, and chemistry-related libraries for best practices and up-to-date APIs.
+
+Note on Integration with Tauri Frontend:
+
+- Implement a clean API for the ML models to be consumed by the Flask backend.
+- Ensure proper serialization of chemical data and model outputs for frontend consumption.
+- Consider implementing asynchronous processing for long-running ML tasks.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
