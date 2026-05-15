@@ -1,0 +1,9 @@
+{
+  "name": "whiskeyjack96--obsidian-agent",
+  "displayName": "obsidian-agent",
+  "description": "An obsidian plugin providing an acp client implementation. This allows you to use claude-code or gemini-cli directly in obsidian!",
+  "version": "1.0.0",
+  "author": "WhiskeyJack96",
+  "homepage": "https://github.com/WhiskeyJack96/obsidian-agent",
+  "skills": []
+}
