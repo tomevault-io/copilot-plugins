@@ -4,7 +4,7 @@
   "repo": "purplemux",
   "description": "A web-native terminal multiplexer for Claude Code & Codex \u2014 monitor and manage multiple sessions from any browser",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/subicura/purplemux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:14:01Z"
+  "distributed_at": "2026-05-15T14:18:20Z"
 }
