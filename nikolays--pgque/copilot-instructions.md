@@ -39,13 +39,18 @@ snapshot isolation, batch_event_sql algorithm, dual-filter optimization).
 
 ## Style Rules
 
-Follow the shared rules at https://gitlab.com/postgres-ai/rules/-/tree/main/rules
+These rules are the source of truth for agentic engineering in this repo. Agents and AI coding tools must read this file before making changes.
 
 ### SQL Style
 
 - Lowercase SQL keywords: `select`, `create function`, not `SELECT`, `CREATE FUNCTION`
 - `snake_case` for all identifiers
 - Schema-qualify all internal references: `pgque.queue`, not just `queue`
+- **Root SQL keywords must be left-aligned within the statement.** Do not use
+  decorative vertical indentation like `select` / `from` / `where` shifted by
+  different amounts. This is non-negotiable for generated and source SQL.
+- Put `and` / `or` at the start of continuation lines, aligned under the
+  statement's `where` clause indentation.
 - All `SECURITY DEFINER` functions MUST include
   `SET search_path = pgque, pg_catalog`
 - Use `xid8` for transaction ID columns, `pg_snapshot` for snapshot columns
@@ -67,6 +72,28 @@ set -Eeuo pipefail
 
 - 2-space indent, no tabs
 - Quote all variable expansions
+
+### Documentation
+
+- **Write for new users.** README and docs target someone arriving today, not
+  someone migrating from an older state. Do not include "before X" or
+  "previously did Y, now does Z" framing in the README or under `docs/`.
+  Migration notes belong in release notes (`CHANGELOG.md` / GitHub releases),
+  full stop.
+- **No PR or issue numbers, and no concrete version tags, in the README or
+  `docs/` unless it really helps the reader.** No `#123`, no `(see PR #456)`,
+  no `refs #102, #106`, no `Breaking change in v0.2`, no `PgQue v0.2.0 has
+  …`. Refer to behavior, not the change history or release labels that
+  produced it. (External citations to other projects' issue trackers, used
+  as evidence for a claim, are fine. Version tags are fine in roadmap-style
+  contexts under `blueprints/` where the version IS the topic.) PR/issue
+  numbers and version tags may appear in commit messages, release notes,
+  `blueprints/`, and `CONTRIBUTING.md`.
+- **Installation docs must be self-complete but not bloated.** Every
+  install/quickstart doc covers: install command, ticker setup (or how to skip
+  it), and role grants (`pgque_reader` / `pgque_writer` / `pgque_admin`,
+  including the produce+consume case that needs both). One short snippet,
+  not a tour.
 
 ### Git Commits
 
@@ -93,7 +120,7 @@ pgque/
   docs/                -- user-facing documentation (flat layout)
     README.md          -- index of the docs directory
     tutorial.md        -- hands-on walkthrough (start here for new users)
-    reference.md       -- per-function reference for the v0.1 install
+    reference.md       -- per-function reference for the default install
     examples.md        -- short patterns (fan-out, exactly-once, etc.)
     benchmarks.md      -- throughput numbers + methodology
     pgq-concepts.md    -- contributor glossary (batch, tick, rotation)
@@ -104,6 +131,39 @@ pgque/
     typescript/        -- pgque-ts
   cli/                 -- pgque CLI (Go)
 ```
+
+## Agentic Engineering Rules
+
+- Use red/green TDD for new code: write the failing test first, then the implementation.
+- Keep changes surgical: one logical fix or feature per PR.
+- Preserve PgQ core behavior unless the change is intentional, documented, and tested.
+- Keep the default install managed-Postgres-compatible: no C extension, no `shared_preload_libraries`, no restart requirement.
+- Keep generated files and source changes consistent when both are affected.
+- Include the relevant test or manual verification command in PR descriptions.
+
+## PR Lifecycle
+
+Every PR walks through this loop. Do not skip steps; do not reorder them.
+
+1. **CI green.** All check runs on the head commit must pass before review.
+   If CI is red, fix the failure first (red/green TDD when the fix is code:
+   reproduce in a failing test, make it green, then refactor).
+2. **Review done.** Use REV (`https://gitlab.com/postgres-ai/rev/`) — it
+   targets GitLab MRs natively but works on GitHub PRs too. Ignore SOC2
+   findings; this repo does not need them. Address blocking findings;
+   reply to non-blocking with rationale or a follow-up.
+3. **Real testing, where it makes sense.** Walk the change as a new user
+   would. For docs PRs that means executing the snippets verbatim against
+   a fresh Postgres. For code PRs that means running the affected tests
+   and any manual verification command listed in the PR description. Post
+   the evidence (commands run, output, screenshots when relevant) as a
+   PR comment so a reviewer can see what was checked.
+4. **Approve and merge.** If 1–3 are clean, approve, merge, and delete
+   the branch. Otherwise return to the author with a concrete fix list
+   and LOOP from step 1 on the next push.
+
+For any code change made during the loop, follow red/green TDD: failing
+test first, then the implementation that turns it green.
 
 ## Key Design Rules
 
@@ -129,5 +189,5 @@ PgQue includes code derived from PgQ (ISC license, Marko Kreen / Skype Technolog
 Always preserve the PgQ copyright notice in source headers.
 
 ---
-> Source: [NikolayS/pgque](https://github.com/NikolayS/pgque) — distributed by [TomeVault](https://tomevault.io).
-<!-- tomevault:4.0:copilot_instructions:2026-04-19 -->
+> Source: [NikolayS/PgQue](https://github.com/NikolayS/PgQue) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-09 -->
