@@ -1,0 +1,9 @@
+{
+  "name": "useairfoil--wings",
+  "displayName": "wings",
+  "description": "The open source Zerobus Ingest alternative. Built on top of Apache DataFusion, Iceberg, and object storage.",
+  "version": "1.0.0",
+  "author": "useairfoil",
+  "homepage": "https://github.com/useairfoil/wings",
+  "skills": []
+}
