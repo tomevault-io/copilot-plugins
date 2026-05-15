@@ -1,25 +1,31 @@
-## no-unchecked-indexed-access
+## optional-properties
 
-> If the user has this rule enabled in their `tsconfig.json`, indexing into objects and arrays will behave differently from how you expect.
+> Use optional properties extremely sparingly. Only use them when the property is truly optional, and consider whether bugs may be caused by a failure to pass the property.
 
-If the user has this rule enabled in their `tsconfig.json`, indexing into objects and arrays will behave differently from how you expect.
+Use optional properties extremely sparingly. Only use them when the property is truly optional, and consider whether bugs may be caused by a failure to pass the property.
+
+In the example below we always want to pass user ID to `AuthOptions`. This is because if we forget to pass it somewhere in the code base, it will cause our function to be not authenticated.
 
 ```ts
-const obj: Record<string, string> = {};
+// BAD
+type AuthOptions = {
+  userId?: string;
+};
 
-// With noUncheckedIndexedAccess, value will
-// be `string | undefined`
-// Without it, value will be `string`
-const value = obj.key;
+const func = (options: AuthOptions) => {
+  const userId = options.userId;
+};
 ```
 
 ```ts
-const arr: string[] = [];
+// GOOD
+type AuthOptions = {
+  userId: string | undefined;
+};
 
-// With noUncheckedIndexedAccess, value will
-// be `string | undefined`
-// Without it, value will be `string`
-const value = arr[0];
+const func = (options: AuthOptions) => {
+  const userId = options.userId;
+};
 ```
 
 ---
