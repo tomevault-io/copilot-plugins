@@ -1,0 +1,9 @@
+{
+  "name": "wuji-technology--wujihandpy",
+  "displayName": "wujihandpy",
+  "description": "Wuji Hand SDK: C++ core with Python bindings, for controlling and communicating with Wuji Hand.",
+  "version": "1.0.0",
+  "author": "wuji-technology",
+  "homepage": "https://github.com/wuji-technology/wujihandpy",
+  "skills": []
+}
