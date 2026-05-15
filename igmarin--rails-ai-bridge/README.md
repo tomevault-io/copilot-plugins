@@ -7,11 +7,11 @@ Give AI assistants deep, live knowledge of your Rails app via MCP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [igmarin/rails-ai-bridge](https://github.com/igmarin/rails-ai-bridge).
+Original source: `CLAUDE.md` in [igmarin/rails-ai-bridge](https://github.com/igmarin/rails-ai-bridge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
