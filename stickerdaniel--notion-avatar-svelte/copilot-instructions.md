@@ -1,215 +1,47 @@
-## svelte-umami-integration
+## notion-avatar-svelte
 
-> How to use Umami Analytics in your Svelte projects
+> Usage instructions for the notion svelte avatar editor
 
-# Svelte Umami Analytics (Sumami)
+To render the Avatar Editor:
 
-Add Umami Analytics easily to your Svelte or SvelteKit app and track analytics and custom events.
-All by this type-safe Svelte component.
-
-_Important_ - this requires a [Umami Analytics](mdc:https:/umami.is) account.
-
-Components:
-
-- UmamiAnalytics: Umami initialization
-- UmamiAnalyticsEnv: Umami initialization with environment variables (SvelteKit needed)
-- UmamiTrackClicks: Track clicks in an area
-
-Functions:
-
-- trackPageView: Manual page view tracking
-- trackEvent: Event tracking
-- handleEvent: Svelte event handler for event tracking
-
-Stores:
-
-- isEnabled: Store for reading and writing if the tracking is enabled
-- status: Store for keeping track of the Script status
-
-## Install the package
-
-```bash
-bun add --dev @lukulent/svelte-umami
-```
-
-## Usage
-
-[Example usage](mdc:https:/saschalucius.github.io/svelte-umami)
-
-https://umami.is/docs/collect-data
-
-### Add tracking to your website
-
-- include somewhere, where it will be run once e.g. +layout.svelte
-
-```svelte
-<script>
-	import { UmamiAnalytics } from '@lukulent/svelte-umami';
-</script>
-
-<UmamiAnalytics websiteID="123456" srcURL="https://eu.umami.is/script.js" />
-```
-
-### Configure Tracking
-
-https://umami.is/docs/tracker-configuration
-
-```svelte
-<script>
-	import { UmamiAnalytics } from '@lukulent/svelte-umami';
-</script>
-
-<UmamiAnalytics
-	websiteID="123456"
-	srcURL="https://eu.umami.is/script.js"
-	configuration={{
-		'data-auto-track': true,
-		'data-tag': 'example',
-		'data-exclude-search': true,
-		'data-host-url': 'https://eu.umami.is',
-		'data-domains': 'saschalucius.github.io',
-		'data-cache': true
-	}}
-/>
-```
-
-### Add tracking to your website with Environment variables
-
-Note: SvelteKit needed
-
-- .env
-
-```bash
-PUBLIC_UMAMI_SRC=https://eu.umami.is/script.js
-PUBLIC_UMAMI_WEBSITE_ID=123456
-```
-
-- +layout.svelte
-
-```svelte
-<script>
-	import { UmamiAnalyticsEnv } from '@lukulent/svelte-umami';
-</script>
-
-<UmamiAnalyticsEnv />
-```
-
-### Track Page views
-
-https://umami.is/docs/tracker-functions
-
-Per default all page views will be tracked als long as, UmamiAnalytics is initialized.
-You can disable this behavior by adding 'data-auto-track': false to the configuration property.
-
-#### Track Page views manually
-
-```svelte
+<!-- src/routes/+page.svelte -->
 <script lang="ts">
-	import { trackPageView } from '@lukulent/svelte-umami';
-	import { onMount } from 'svelte';
-	onMount(() => {
-		trackPageView();
-	});
-</script>
-```
-
-or use custom properties as defined here https://umami.is/docs/tracker-functions
-
-```svelte
-<button on:click={(e) => trackPageView({ url: 'test', referrer: 'google' })}>
-```
-
-### Track events
-
-https://umami.is/docs/tracker-functions
-
-Per default all events will be tracked als long as, UmamiAnalytics is initialized and the element has the data-umami-event property.
-You can disable this behavior by adding 'data-auto-track': false to the configuration property.
-
-```svelte
-<script>
-	import { UmamiAnalytics } from '@lukulent/svelte-umami';
+	import AvatarCreator from '$lib/components/ui/avatar-editor/avatar-editor.svelte';
 </script>
 
-<UmamiAnalytics websiteID="123456" srcURL="https://eu.umami.is/script.js" />
+<AvatarCreator />
 
-<button data-umami-event="button pressed"> Click me </button>
-```
+To access the avatar context anywhere in your app add to your +layout.svelte:
 
-#### Track events manually
-
-```svelte
+<!-- src/routes/+layout.svelte -->
 <script lang="ts">
-	import { UmamiAnalytics, trackEvent } from '@lukulent/svelte-umami';
+	import '../app.css';
+	import { avatarContext } from '$lib/components/ui/avatar-editor/avatarContext';
+	import { AvatarStoreClass } from '$lib/components/ui/avatar-editor/AvatarStore.svelte';
+
+	let { children } = $props();
+
+	// Instantiate and set the AvatarStore in the context
+	// This makes it available to all child components within this layout.
+	avatarContext.set(new AvatarStoreClass());
 </script>
 
-<UmamiAnalytics
-	websiteID="123456"
-	srcURL="https://eu.umami.is/script.js"
-	configuration={{
-		'data-auto-track': false
-	}}
-/>
+{@render children()}
 
-<button on:click={(e) => trackEvent('button pressed', { key: 'value' })}> Track Event </button>
-```
+then you can use in any component 
 
-### Helpers
-
-#### Event Handler
-
-there is a pre-defined event handler in this library
-
-```svelte
 <script lang="ts">
-	import { UmamiAnalytics, handleEvent } from '@lukulent/svelte-umami';
+	import * as Avatar from '$lib/components/ui/avatar';
+	import { avatarContext } from '$lib/components/ui/avatar-editor/avatarContext';
+	// Get the shared avatar store
+	const avatar = avatarContext.get();
 </script>
 
-<UmamiAnalytics
-	websiteID="123456"
-	srcURL="https://eu.umami.is/script.js"
-	configuration={{
-		'data-auto-track': false
-	}}
-/>
-
-<button data-umami-event="clicker" on:click={handleEvent}> Clicker </button>
-
-<input data-umami-event="name" type="text" on:change={handleEvent} />
-
-<select on:change={handleEvent} data-umami-event="cars">
-	<option value="volvo">Volvo</option>
-	<option value="saab">Saab</option>
-</select>
-```
-
-#### ClickTracker
-
-If you want to track clicks for a complete section of your website or just multiple elements together, you can use UmamiTrackClicks.
-
-```svelte
-<script>
-	import { UmamiAnalytics, UmamiTrackClicks } from '@lukulent/svelte-umami';
-</script>
-
-<UmamiAnalytics
-	websiteID="123456"
-	srcURL="https://eu.umami.is/script.js"
-	configuration={{
-		'data-auto-track': false
-	}}
-/>
-
-<UmamiTrackClicks name="element clicked">
-	<section data-umami-event="section">
-		<h1 data-umami-event="header">Click Tracker Track</h1>
-
-		<h2>please add UmamiTrackClicks around your elements and add data-umami-event where needed</h2>
-
-		<button data-umami-event="button"> Click me </button>
-	</section>
-</UmamiTrackClicks>
-```
+<pre class="text-xs">{JSON.stringify(JSON.parse(avatar.configJSON), null, 2)}</pre>
+<Avatar.Root>
+	<Avatar.Image src={avatar.svgDataUrl} />
+	<Avatar.Fallback>Avatar</Avatar.Fallback>
+</Avatar.Root>
 
 ---
 > Source: [stickerdaniel/notion-avatar-svelte](https://github.com/stickerdaniel/notion-avatar-svelte) — distributed by [TomeVault](https://tomevault.io).
