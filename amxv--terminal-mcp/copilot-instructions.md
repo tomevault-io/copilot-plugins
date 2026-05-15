@@ -1,0 +1,142 @@
+## main
+
+> **terminal-mcp** is a standalone CLI tool (`tmcp`) that bridges AI coding agents with MCP (Model Context Protocol) servers via simple terminal commands.
+
+# Terminal MCP Project Instructions
+
+## What This Project Does
+
+**terminal-mcp** is a standalone CLI tool (`tmcp`) that bridges AI coding agents with MCP (Model Context Protocol) servers via simple terminal commands.
+
+**Core Purpose:** Enable AI agents (like OpenAI Codex) to access external tools and APIs through MCP servers without requiring native MCP support.
+
+## Key Features
+
+- 🚀 **Zero Dependencies**: Standalone executable that doesn't require Node.js, Python, or any other runtime to be installed
+- 🌐 **Cross-Platform**: Works on Linux (x64 & ARM64) and macOS (Intel & Apple Silicon)
+- ⚡ **Fast Startup**: Launches in under 100ms
+- 🔧 **Supports mcp.json config**: Support for common configuration files from popular MCP clients (Cursor, Claude Code, etc.)
+- 🔐 **Authentication**: Support for custom headers and environment variables
+- 🎯 **Direct Tool Calls**: Connect to any MCP server without configuration
+- 📦 **Agent-Safe Binary**: Zero risk of config changes or bypassing security controls because your agent literally gets a different binary that only allows listing and calling pre-configured tools.
+
+## How It Works
+
+1. **MCP Servers** host tools (APIs, documentation search, code analysis, etc.)
+2. **terminal-mcp** connects to these servers and exposes their tools via CLI
+3. **AI Agents** call tools using simple terminal commands: `tmcp call tool-name '{"param": "value"}'`
+
+## Key Components
+
+- **`tmcp init`**: Discovers tools from configured MCP servers and generates tools.json with all available tools
+- **`tmcp list`**: Shows all enabled tools with their schemas and example usage
+- **`tmcp call`**: Executes tools using `server__tool-name` aliases (only enabled tools)
+- **`tmcp direct`**: Bypasses configuration for one-off server communication
+- **`tmcp upgrade`**: Updates to latest version (developer version only)
+
+## Quick Setup Flow
+
+```bash
+# 1. Install (Developer Version)
+curl -fsSL https://raw.githubusercontent.com/zueai/terminal-mcp/main/install.sh | bash
+
+# 2. Configure (create servers.json with server URLs)
+# Example: ./terminal-mcp/servers.json
+{
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "ref": {
+      "url": "http://api.ref.tools/mcp",
+      "headers": {
+        "x-ref-api-key": "your-api-key"
+      }
+    }
+  }
+}
+
+# 3. Initialize and discover tools
+tmcp init
+
+# 4. Edit ./terminal-mcp/tools.json to disable unwanted tools (set enabled: false)
+
+# 5. For agents, install agent-safe binary:
+curl -fsSL https://raw.githubusercontent.com/zueai/terminal-mcp/main/install-agent.sh | bash
+
+# 6. Use tools
+tmcp call context7__resolve-library-id '{"libraryName": "react"}'
+```
+
+## Configuration Files Supported
+
+- `./.cursor/mcp.json` - Cursor IDE configuration
+- `./mcp.json` - Root level configuration
+- `./terminal-mcp/servers.json` - Terminal-mcp specific configuration
+
+## Agent-Safe Binary
+
+The project provides two versions:
+- **Developer Version**: Full control with `init`, `direct`, `upgrade` commands
+- **Agent Version**: Security-focused binary that only allows `list` and `call` operations
+
+This ensures AI agents stay within the boundaries you've set as a developer while still having full access to the tools they need to be productive.
+
+## Built With
+
+- **Bun** runtime (compiled to standalone binary)
+- **@modelcontextprotocol/sdk** for MCP communication
+- **Zero dependencies** in final binary
+
+---
+
+## Development Workflow
+
+### After Every Task Completion
+
+**1. Check README Updates**
+```bash
+# Review if README.md needs updates based on changes made
+# Update README.md if:
+# - New features were added
+# - Commands changed
+# - Installation process changed
+# - Examples need updating
+# - Documentation links changed
+```
+
+**2. Run Full Test Suite**
+```bash
+# Always run comprehensive tests after task completion
+bun run test
+
+# If tests fail, investigate and fix before considering task complete
+# Test suite covers:
+# - Direct server communication
+# - Configuration-based usage
+# - Error handling
+# - Help/usage commands
+```
+
+### Test Commands Available
+
+- `bun run test` - Full comprehensive test suite (~10-15 seconds)
+- `bun run test:ci` - Quick regression tests (~5 seconds)
+- Manual testing: `./dist/terminal-mcp-* direct https://mcp.context7.com/mcp list`
+
+### Development Commands
+
+- `bun run dev` - Run in development mode
+- `bun run build` - Build for current platform
+- `bun run build:all` - Build for all platforms
+- `bun run clean` - Clean build artifacts
+
+**Remember:** Every task completion = README check + full test run ✅
+
+### Releases
+
+If I tell you to release a "new minor" or a "new patch", here's what you should do: commit all the changes that are currently made, push it to main, and then  run `./scripts/release.sh minor -y` or `./scripts/release.sh patch -y`. This command will do everything to correctly release the new version using GitHub Actions.
+
+---
+> Source: [amxv/terminal-mcp](https://github.com/amxv/terminal-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
