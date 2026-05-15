@@ -1,0 +1,9 @@
+{
+  "name": "coairesearch--mlxterp",
+  "displayName": "mlxterp",
+  "description": "Mechanistic Interpretability Library for Apple Silicon",
+  "version": "1.0.0",
+  "author": "coairesearch",
+  "homepage": "https://github.com/coairesearch/mlxterp",
+  "skills": []
+}
