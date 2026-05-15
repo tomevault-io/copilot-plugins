@@ -1,0 +1,9 @@
+{
+  "name": "navidnabavi--styl",
+  "displayName": "styl",
+  "description": "A fast, opinionated linter, validator, and formatter for Mapbox GL and MapLibre GL style JSON files.",
+  "version": "1.0.0",
+  "author": "navidnabavi",
+  "homepage": "https://github.com/navidnabavi/styl",
+  "skills": []
+}
