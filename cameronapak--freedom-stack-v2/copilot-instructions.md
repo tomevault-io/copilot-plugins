@@ -1,55 +1,77 @@
-## product
+## structure
 
-> Freedom Stack v2 Product Overview
+> Freedom Stack v2 Structure
 
 
-# Product Overview
+# Project Structure
 
-Freedom Stack v2 is a modern web development stack designed to be elementary, financially accessible, and entirely self-hostable. It's built for developers who want a simple yet powerful foundation for building web applications with AI code editor assistance.
+## Root Directory
 
-## Core Philosophy
+- `astro.config.mjs` - Astro configuration with Netlify adapter and Tailwind
+- `bknd.config.ts` - Backend configuration, database schema, auth, and seeding
+- `package.json` - Dependencies and npm scripts
+- `tsconfig.json` - TypeScript config with `@/*` path alias for `src/*`
+- `.prettierrc` - Code formatting configuration
 
-1. **Elementary/Vanilla** - Easy to learn and use
-2. **Financially Accessible** - Can be hosted for free at base tier
-3. **Self-Hostable** - Complete control over deployment
-4. **Well-Maintained** - Uses actively developed packages for sustainability
-5. **AI-Friendly** - Optimized for AI code editor assistants
+## Source Structure (`src/`)
 
-## Key Features
+```
+src/
+├── assets/          # Static assets (SVG icons, images)
+├── components/      # Reusable Astro components
+├── layouts/         # Page layout templates
+├── pages/           # File-based routing (Astro pages)
+├── styles/          # Global CSS and Tailwind imports
+├── bknd.ts          # Bknd API helper functions
+├── bknd-types.d.ts  # Auto-generated database types
+├── middleware.ts    # Astro middleware for API routing
+└── env.d.ts         # Environment type definitions
+```
 
-- Full-stack web application with authentication
-- Admin panel for content management
-- Database with entity relationships
-- File upload and media handling
-- Responsive design with modern UI components
+## Key Directories
 
-## Current Status
+### `/src/pages/` - File-based Routing
 
-This is a work-in-progress project that's improving continuously. The main focus is on replacing previous dependencies with more modern, maintainable alternatives while keeping the stack simple and accessible.
+- `index.astro` - Homepage
+- `login.astro` - Authentication login page
+- `register.astro` - User registration page
+- `logout.astro` - Logout handler
+- `404.astro` - Error page
 
-# Product Overview
+### `/src/components/` - Reusable Components
 
-Freedom Stack v2 is a modern web development stack designed to be elementary, financially accessible, and entirely self-hostable. It's built for developers who want a simple yet powerful foundation for building web applications with AI code editor assistance.
+- `Header.astro` - Site navigation header
+- `Authenticated.astro` - Conditional rendering based on auth state
 
-## Core Philosophy
+### `/src/styles/` - Styling
 
-1. **Elementary/Vanilla** - Easy to learn and use
-2. **Financially Accessible** - Can be hosted for free at base tier
-3. **Self-Hostable** - Complete control over deployment
-4. **Well-Maintained** - Uses actively developed packages for sustainability
-5. **AI-Friendly** - Optimized for AI code editor assistants
+- `global.css` - Global styles with Tailwind imports and custom component classes
 
-## Key Features
+## Generated/Build Directories
 
-- Full-stack web application with authentication
-- Admin panel for content management
-- Database with entity relationships
-- File upload and media handling
-- Responsive design with modern UI components
+- `.astro/` - Astro build cache and generated types
+- `dist/` - Production build output
+- `public/` - Static assets served directly
+- `public/bknd/` - Bknd admin panel assets (auto-generated)
 
-## Current Status
+## Path Aliases
 
-This is a work-in-progress project that's improving continuously. The main focus is on replacing previous dependencies with more modern, maintainable alternatives while keeping the stack simple and accessible.
+- `@/*` maps to `src/*` (configured in tsconfig.json)
+- Use `@/components/Header.astro` instead of `../components/Header.astro`
+
+## File Naming Conventions
+
+- Astro components: PascalCase (e.g., `Header.astro`)
+- Pages: lowercase (e.g., `login.astro`)
+- TypeScript files: camelCase (e.g., `middleware.ts`)
+- CSS files: lowercase (e.g., `global.css`)
+
+## Component Patterns
+
+- Use Astro components for static/server-rendered content
+- Use Alpine.js for client-side interactivity
+- Leverage Basecoat UI classes for consistent styling
+- Follow the authentication pattern in `Authenticated.astro` for conditional rendering
 
 ---
 > Source: [cameronapak/freedom-stack-v2](https://github.com/cameronapak/freedom-stack-v2) — distributed by [TomeVault](https://tomevault.io).
