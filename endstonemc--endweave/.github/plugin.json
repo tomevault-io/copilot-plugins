@@ -1,0 +1,9 @@
+{
+  "name": "endstonemc--endweave",
+  "displayName": "endweave",
+  "description": "A plugin that lets newer Bedrock clients connect to older Endstone servers",
+  "version": "1.0.0",
+  "author": "EndstoneMC",
+  "homepage": "https://github.com/EndstoneMC/endweave",
+  "skills": []
+}
