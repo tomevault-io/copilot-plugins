@@ -1,0 +1,9 @@
+{
+  "name": "eleutherai--bergson",
+  "displayName": "bergson",
+  "description": "Mapping out the \"memory\" of neural nets with data attribution",
+  "version": "1.0.0",
+  "author": "EleutherAI",
+  "homepage": "https://github.com/EleutherAI/bergson",
+  "skills": []
+}
