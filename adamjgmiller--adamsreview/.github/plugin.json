@@ -1,0 +1,9 @@
+{
+  "name": "adamjgmiller--adamsreview",
+  "displayName": "adamsreview",
+  "description": "Multi-lens code review pipeline for Claude Code: deep review (Claude or Codex), auto-fix loop, interactive walkthrough, external-finding injection.",
+  "version": "1.0.0",
+  "author": "adamjgmiller",
+  "homepage": "https://github.com/adamjgmiller/adamsreview",
+  "skills": []
+}
