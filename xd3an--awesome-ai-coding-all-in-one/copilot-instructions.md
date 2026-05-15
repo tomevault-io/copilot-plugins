@@ -1,63 +1,70 @@
-## typescript-shadcn-ui-nextjs-cursorrules-prompt-fil
+## typescript-vite-tailwind-cursorrules-prompt-file
 
-> Cursor rules for TypeScript development with shadcn/ui and Next.js integration.
+> Cursor rules for TypeScript development with Vite and Tailwind integration.
 
-Code Style and Structure:
+You are an expert in TypeScript, Node.js, Vite, Vue.js, Vue Router, Pinia, VueUse, DaisyUI, and Tailwind, with a deep understanding of best practices and performance optimization techniques in these technologies.
 
-- Write concise, technical TypeScript code with accurate examples
-- Use functional and declarative programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-- Structure files: exported component, subcomponents, helpers, static content, types
+Code Style and Structure
 
-Naming Conventions:
+- Write concise, maintainable, and technically accurate TypeScript code with relevant examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Favor iteration and modularization to adhere to DRY principles and avoid code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Organize files systematically: each file should contain only related content, such as exported components, subcomponents, helpers, static content, and types.
 
-- Use lowercase with dashes for directories (e.g., components/auth-wizard)
-- Favor named exports for components
+Naming Conventions
 
-TypeScript Usage:
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for functions.
 
-- Use TypeScript for all code; prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
+TypeScript Usage
 
-Syntax and Formatting:
+- Use TypeScript for all code; prefer interfaces over types for their extendability and ability to merge.
+- Avoid enums; use maps instead for better type safety and flexibility.
+- Use functional components with TypeScript interfaces.
 
-- Use the "function" keyword for pure functions
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
-- Use declarative JSX
+Syntax and Formatting
 
-Error Handling and Validation:
+- Use the "function" keyword for pure functions to benefit from hoisting and clarity.
+- Always use the Vue Composition API script setup style.
 
-- Prioritize error handling: handle errors and edge cases early
-- Use early returns and guard clauses
-- Implement proper error logging and user-friendly messages
-- Use Zod for form validation
-- Model expected errors as return values in Server Actions
-- Use error boundaries for unexpected errors
+UI and Styling
 
-UI and Styling:
+- Use DaisyUI, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
-- Implement responsive design with Tailwind CSS; use a mobile-first approach
+Performance Optimization
 
-Performance Optimization:
+- Leverage VueUse functions where applicable to enhance reactivity and performance.
+- Wrap asynchronous components in Suspense with a fallback UI.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+- Implement an optimized chunking strategy during the Vite build process, such as code splitting, to generate smaller bundle sizes.
 
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC)
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Optimize images: use WebP format, include size data, implement lazy loading
+Key Conventions
 
-Key Conventions:
+- Optimize Web Vitals (LCP, CLS, FID) using tools like Lighthouse or WebPageTest.
+- Use the VueUse library for performance-enhancing functions.
+- Implement lazy loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+- Implement an optimized chunking strategy during the Vite build process, such as code splitting, to generate smaller bundle sizes.
 
-- Use 'nuqs' for URL search parameter state management
-- Optimize Web Vitals (LCP, CLS, FID)
-- Limit 'use client':
-  - Favor server components and Next.js SSR
-  - Use only for Web API access in small components
-  - Avoid for data fetching or state management
+Code Review
 
-Follow Next.js docs for Data Fetching, Rendering, and Routing
+- Review code for performance, readability, and adherence to best practices.
+- Ensure all components and functions are optimized for performance and maintainability.
+- Check for unnecessary re-renders and optimize them using VueUse functions.
+- Use the VueUse library for performance-enhancing functions.
+- Implement lazy loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+- Implement an optimized chunking strategy during the Vite build process, such as code splitting, to generate smaller bundle sizes.
+
+Best Practices
+
+- Use the VueUse library for performance-enhancing functions.
+- Implement lazy loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+- Implement an optimized chunking strategy during the Vite build process, such as code splitting, to generate smaller bundle sizes.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
