@@ -1,0 +1,9 @@
+{
+  "name": "enescaakir--notify",
+  "displayName": "notify",
+  "description": "Windows toast notifications for Claude Code \u2014 alerts on permission prompts and task completion.",
+  "version": "1.0.0",
+  "author": "enescaakir",
+  "homepage": "https://github.com/enescaakir/notify",
+  "skills": []
+}
