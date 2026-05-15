@@ -1,0 +1,388 @@
+## kato
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md - AI Assistant Navigation Index
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 📖 Documentation Navigation
+
+**Start here**: See [docs/00-START-HERE.md](docs/00-START-HERE.md) for complete documentation index organized by role and audience.
+
+### Quick Links by Task
+
+- **Getting started with KATO**: [docs/users/quick-start.md](docs/users/quick-start.md)
+- **Code examples**: [examples/README.md](examples/README.md) - Python client, token matching, hierarchical training
+- **Understanding architecture**: [docs/developers/architecture.md](docs/developers/architecture.md) + [ARCHITECTURE_DIAGRAM.md](ARCHITECTURE_DIAGRAM.md)
+- **Hybrid architecture (ClickHouse + Redis)**: [docs/developers/hybrid-architecture.md](docs/developers/hybrid-architecture.md)
+- **Node isolation (kb_id)**: [docs/developers/kb-id-isolation.md](docs/developers/kb-id-isolation.md)
+- **Database schema (ClickHouse/Redis/Qdrant fields)**: [docs/reference/database-schema.md](docs/reference/database-schema.md)
+- **Filter pipeline tuning (MinHash/LSH)**: [docs/reference/filter-pipeline-guide.md](docs/reference/filter-pipeline-guide.md)
+- **Deploying to production**: [docs/operations/docker-deployment.md](docs/operations/docker-deployment.md)
+- **Understanding algorithms**: [docs/research/README.md](docs/research/README.md)
+- **Integration patterns**: [docs/integration/README.md](docs/integration/README.md)
+- **Release management**: [docs/maintenance/releasing.md](docs/maintenance/releasing.md)
+- **API reference**: [docs/reference/api/](docs/reference/api/)
+- **Configuration reference**: [docs/reference/configuration-vars.md](docs/reference/configuration-vars.md)
+- **Historical documentation**: [docs/archive/](docs/archive/) - Past optimizations, evaluations, and completed phases
+
+## Project Overview
+
+KATO (Knowledge Abstraction for Traceable Outcomes) is a deterministic memory and prediction system for transparent, explainable AI. It processes multi-modal observations (text, vectors, emotions) and makes temporal predictions while maintaining complete transparency and traceability.
+
+**Core Concept**: **Patterns** - learned sequences (temporal) or profiles (non-temporal) that represent knowledge.
+
+### Storage Architecture (v3.0+)
+**IMPORTANT**: KATO now uses a **ClickHouse + Redis hybrid architecture** (MongoDB completely removed as of v3.0.0):
+- **ClickHouse**: Pattern data storage with multi-stage filter pipeline (billion-scale performance)
+- **Redis**: Session management, pattern metadata (frequency, emotives), caching
+- **Qdrant**: Vector embeddings (unchanged)
+- **Node Isolation**: Via `kb_id` partitioning (ClickHouse) and key namespacing (Redis)
+
+See [docs/developers/hybrid-architecture.md](docs/developers/hybrid-architecture.md) for complete details.
+
+### Stateless Processor Architecture (v3.0+)
+**IMPORTANT**: KATO processors use a **externally stateless architecture** with an internal bridge pattern:
+- **Externally Stateless**: API contract is stateless — session state passed in/out per request
+- **Bridge Pattern Internally**: Session state (STM, emotives, metadata) is temporarily loaded into processor instance variables for the duration of a request, then extracted back to session state. This is marked with `BRIDGE:` comments and `TODO (Phase 1.6/1.7)` for future refactoring.
+- **Config-as-Parameter**: Configuration passed as parameters, not stored in processor state
+- **True Concurrency**: No locks required, unlimited concurrent sessions per node_id (because each request loads/unloads its own state)
+- **Horizontal Scalability**: Processors can be scaled horizontally
+
+**Pattern**:
+```python
+# OLD (v2.x - stateful, with locks)
+processor.observe(observation)  # MUTATES self.stm
+predictions = processor.get_predictions()  # READS self.stm
+
+# NEW (v3.0+ - stateless, no locks)
+new_state = processor.observe(observation, session_state, config)  # PURE FUNCTION
+predictions = processor.get_predictions(session_state=session_state, config=config)  # PURE FUNCTION
+```
+
+**Benefits**:
+- ✅ Complete session isolation (no data leaks between sessions)
+- ✅ Zero lock contention (true concurrent execution)
+- ✅ Simplified debugging (no hidden state)
+- ✅ Deterministic behavior (same inputs → same outputs)
+- ✅ Horizontal scaling (stateless processors can be replicated)
+
+## Essential Development Commands
+
+### Dependency Management
+```bash
+# After editing requirements.txt, regenerate lock file
+pip-compile --output-file=requirements.lock requirements.txt
+docker compose build --no-cache kato
+```
+
+### Building and Running
+```bash
+./start.sh                    # Start all services
+docker compose down           # Stop services
+docker compose restart        # Restart services
+docker compose ps             # Check status
+docker compose logs kato      # View logs
+```
+
+### Service URLs
+- **KATO**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
+- **ClickHouse**: http://localhost:8123
+- **Qdrant**: http://localhost:6333
+- **Redis**: redis://localhost:6379
+
+### Testing
+```bash
+./start.sh  # Services must be running first!
+
+# Run all tests
+./run_tests.sh --no-start --no-stop
+
+# Run specific test suites
+./run_tests.sh --no-start --no-stop tests/tests/unit/
+./run_tests.sh --no-start --no-stop tests/tests/integration/
+./run_tests.sh --no-start --no-stop tests/tests/api/
+
+# Direct pytest
+python -m pytest tests/tests/unit/ -v
+```
+
+**Details**: See [docs/developers/testing.md](docs/developers/testing.md)
+
+## Architecture Quick Reference
+
+```
+FastAPI Service (Port 8000)
+    ↓
+Session Manager (Redis)
+    ↓
+KatoProcessor (Per node_id)
+    ↓
+├─ MemoryManager (STM/LTM)
+├─ PatternProcessor (Learning/Matching)
+├─ VectorProcessor (Embeddings)
+└─ ObservationProcessor (Input)
+    ↓
+Storage Layer (Hybrid Architecture)
+├─ ClickHouse (Pattern Data + Filter Pipeline)
+├─ Redis (Sessions + Metadata + Cache)
+└─ Qdrant (Vectors)
+```
+
+**Complete Architecture**: See [ARCHITECTURE_DIAGRAM.md](ARCHITECTURE_DIAGRAM.md) and [docs/developers/architecture.md](docs/developers/architecture.md)
+
+**Architecture Decisions**: See [docs/architecture-decisions/ADR-001-stateless-processor.md](docs/architecture-decisions/ADR-001-stateless-processor.md)
+
+## Important Files and Locations
+
+### API Layer
+- `kato/api/endpoints/sessions.py` - Session-based API (primary)
+- `kato/api/endpoints/kato_ops.py` - Utility endpoints
+
+### Core Processing
+- `kato/workers/kato_processor.py` - Main processing engine
+- `kato/workers/pattern_processor.py` - Pattern learning/matching
+- `kato/workers/observation_processor.py` - Input processing
+
+### Storage & Search
+- `kato/storage/clickhouse_writer.py` - ClickHouse pattern storage
+- `kato/storage/redis_writer.py` - Redis metadata storage
+- `kato/storage/qdrant_manager.py` - Vector operations
+- `kato/searches/pattern_search.py` - Pattern matching with filter pipeline
+- `kato/sessions/redis_session_manager.py` - Session management
+
+### Configuration
+- `kato/config/settings.py` - Environment-based configuration
+- `kato/config/session_config.py` - Per-session configuration
+
+### Testing
+- `tests/tests/fixtures/kato_fixtures.py` - Test fixtures
+- `./start.sh` - Service startup
+- `./run_tests.sh` - Test runner
+
+**Code Organization**: See [docs/developers/code-organization.md](docs/developers/code-organization.md)
+
+## Configuration Quick Reference
+
+### Key Environment Variables
+- `PROCESSOR_ID`: Unique identifier (required)
+- `LOG_LEVEL`: DEBUG, INFO, WARNING, ERROR (default: INFO)
+- `MAX_PATTERN_LENGTH`: Auto-learn trigger (default: 0 = manual)
+- `STM_MODE`: CLEAR or ROLLING (default: CLEAR)
+- `RECALL_THRESHOLD`: 0.0-1.0 (default: 0.1)
+- `SESSION_TTL`: Session timeout in seconds (default: 3600)
+- `SESSION_AUTO_EXTEND`: Auto-extend TTL on access (default: true)
+
+### Session Configuration
+Update configuration per session via API:
+```bash
+POST /sessions/{session_id}/config
+{
+  "config": {
+    "recall_threshold": 0.5,
+    "max_predictions": 100,
+    "use_token_matching": true
+  }
+}
+```
+
+**Complete Configuration**: See [docs/reference/configuration-vars.md](docs/reference/configuration-vars.md)
+
+## Key Behavioral Properties (Quick Reference)
+
+### Critical Rules
+1. **Minimum Sequence Length**: 1+ strings in STM required for predictions (single-symbol uses fast path via `_predict_single_symbol_fast`)
+2. **Alphanumeric Sorting**: Strings sorted within events (auto-toggled based on `use_token_matching`; token-level=sort on, character-level=sort off)
+3. **Deterministic**: Same inputs → same outputs (always)
+4. **Session Isolation**: Each session has isolated STM, shared LTM per node_id
+5. **Config-as-Parameter**: Configuration passed as parameters (not mutated)
+
+### Pattern Matching Modes
+- **Token-level** (default): EXACT difflib compatibility, 9x faster, use for tokenized text
+- **Character-level**: Fuzzy string matching, 75x faster, use for document chunks only
+
+**Details**: See [docs/research/pattern-matching.md](docs/research/pattern-matching.md)
+
+### Prediction Structure
+- **past**: Events before first match
+- **present**: ALL events containing matches (complete events, not just matches)
+- **future**: Events after last match
+- **missing**: Event-structured list of unobserved symbols (aligned with present)
+- **extras**: Event-structured list of unexpected symbols (aligned with STM)
+
+**Details**: See [docs/research/predictive-information.md](docs/research/predictive-information.md)
+
+### Pattern Naming Convention
+- **Storage**: Pattern names are stored as **SHA1 hashes WITHOUT 'PTRN|' prefix**
+- **Example**: Database stores `7729f0ed56a13a9373fc1b1c17e34f61d4512ab4` (not `PTRN|7729...`)
+- **Display**: The `PTRN|` prefix only appears in `Pattern.__repr__()` for human-readable output
+- **Debugging**: When querying ClickHouse or Redis, use the plain hash (e.g., `name='7729f0ed...'`)
+- **Generation**: Pattern names are generated via `sha1(pattern_data).hexdigest()`
+
+### Multi-Modal Processing
+- **Strings**: Discrete symbols
+- **Vectors**: 768-dim embeddings → hash-based names (VCTR|hash)
+- **Emotives**: Emotional context (-1 to +1), rolling window storage
+- **Metadata**: Contextual tags, set-union accumulation
+
+**Details**:
+- Vectors: [docs/research/vector-embeddings.md](docs/research/vector-embeddings.md)
+- Emotives: [docs/research/emotives-processing.md](docs/research/emotives-processing.md)
+- Metadata: [docs/research/metadata-processing.md](docs/research/metadata-processing.md)
+
+## Testing Architecture
+
+### Test Isolation
+- Each test gets unique `processor_id` for complete database isolation
+- Format: `test_{test_name}_{timestamp}_{uuid}`
+- Tests run in local Python, connect to Docker services
+- Fast iteration - no container rebuilds for tests
+
+### Test Organization
+- `tests/tests/unit/` - Component tests
+- `tests/tests/integration/` - End-to-end workflows
+- `tests/tests/api/` - REST endpoint tests
+- `tests/tests/performance/` - Stress tests
+
+**Details**: See [docs/developers/testing.md](docs/developers/testing.md)
+
+## Automated Planning System Protocol
+
+**Trigger project-manager agent when**:
+- Task completion
+- New tasks created
+- Blocker encountered/resolved
+- Architectural decision made
+- Milestone reached
+
+**Context Loading**:
+1. Always read `planning-docs/README.md` first
+2. Read `planning-docs/SESSION_STATE.md` for current task
+3. Load additional context on-demand
+
+## Test Execution Protocol
+
+### Local Testing (Recommended)
+```bash
+./start.sh  # Ensure services running
+./run_tests.sh --no-start --no-stop
+```
+
+### test-analyst Agent (Only for Docker-based testing)
+Use ONLY for:
+- Tests requiring container rebuilds
+- Complex test orchestration
+- Performance benchmarking
+
+**Details**: See [docs/developers/testing.md](docs/developers/testing.md)
+
+## Container Manager Workflow Protocol
+
+### When to Use
+- **patch**: Bug fixes, security patches, performance improvements
+- **minor**: New features, new endpoints, backward-compatible additions
+- **major**: Breaking changes, API incompatibilities, required migrations
+
+### Workflow
+Claude Code automatically:
+1. Analyzes git history and commit messages
+2. Determines appropriate version bump (patch/minor/major)
+3. Executes `./container-manager.sh [bump_type] "description"`
+4. Builds and pushes container images to ghcr.io
+
+**Details**: See [docs/maintenance/releasing.md](docs/maintenance/releasing.md)
+
+## Agent Usage Summary
+
+### Available Agents
+1. **project-manager**: Planning documentation updates
+2. **test-analyst**: Docker-based testing only
+3. **general-purpose**: Complex research, version management
+
+### Quick Decision Tree
+- Updating planning docs? → project-manager
+- Running Docker tests? → test-analyst
+- Running local tests? → Do directly with `./run_tests.sh`
+- Code ready to release? → Direct workflow (analyze + run container-manager.sh)
+- Complex research? → general-purpose
+- Everything else? → Do directly
+
+## Common Development Workflow
+
+1. Make changes to source files in `kato/`
+2. Restart services: `docker compose restart`
+3. Run tests: `./run_tests.sh --no-start --no-stop`
+4. Debug with print statements or debugger (tests run locally)
+5. Commit changes when tests pass
+6. Trigger project-manager agent to update planning docs
+
+## Critical Reminders
+
+- **ALWAYS** update `requirements.lock` after modifying `requirements.txt`
+- **NEVER** edit `planning-docs/` files directly (use project-manager agent)
+- **ALWAYS** rebuild KATO docker image after code updates: `docker compose build --no-cache kato`
+- **Services must be running** before tests: `./start.sh` (ClickHouse, Redis, Qdrant)
+- **Each test needs unique processor_id** for isolation
+- **Do NOT use MCPs** for this project
+- **Architecture**: ClickHouse + Redis hybrid is MANDATORY (no MongoDB fallback)
+- **Pattern names**: Stored WITHOUT 'PTRN|' prefix in databases (plain SHA1 hashes)
+
+## Additional Documentation
+
+### For Detailed Information, See:
+
+**Users**:
+- Quick Start: [docs/users/quick-start.md](docs/users/quick-start.md)
+- API Reference: [docs/users/api-reference.md](docs/users/api-reference.md)
+- Core Concepts: [docs/users/concepts.md](docs/users/concepts.md)
+- Code Examples: [examples/README.md](examples/README.md)
+
+**Developers**:
+- Contributing: [docs/developers/contributing.md](docs/developers/contributing.md)
+- Architecture: [docs/developers/architecture.md](docs/developers/architecture.md)
+- Hybrid Architecture: [docs/developers/hybrid-architecture.md](docs/developers/hybrid-architecture.md)
+- KB ID Isolation: [docs/developers/kb-id-isolation.md](docs/developers/kb-id-isolation.md)
+- Testing: [docs/developers/testing.md](docs/developers/testing.md)
+- Architecture Decisions: [docs/architecture-decisions/](docs/architecture-decisions/)
+
+**Operations**:
+- Deployment: [docs/operations/docker-deployment.md](docs/operations/docker-deployment.md)
+- Configuration: [docs/operations/configuration.md](docs/operations/configuration.md)
+- Monitoring: [docs/operations/monitoring.md](docs/operations/monitoring.md)
+
+**Research**:
+- Core Concepts: [docs/research/core-concepts.md](docs/research/core-concepts.md)
+- Pattern Matching: [docs/research/pattern-matching.md](docs/research/pattern-matching.md)
+- Predictive Information: [docs/research/predictive-information.md](docs/research/predictive-information.md)
+
+**Integration**:
+- Architecture Patterns: [docs/integration/architecture-patterns.md](docs/integration/architecture-patterns.md)
+- Multi-Instance: [docs/integration/multi-instance.md](docs/integration/multi-instance.md)
+- Hybrid Agents: [docs/integration/hybrid-agents-analysis.md](docs/integration/hybrid-agents-analysis.md)
+
+**Maintenance**:
+- Release Process: [docs/maintenance/releasing.md](docs/maintenance/releasing.md)
+- Security Review: [docs/maintenance/security-review-baseline.md](docs/maintenance/security-review-baseline.md)
+- Known Issues: [docs/maintenance/known-issues.md](docs/maintenance/known-issues.md)
+
+**Historical**:
+- Archived Documentation: [docs/archive/](docs/archive/)
+- Past Optimizations: [docs/archive/optimizations/](docs/archive/optimizations/)
+- Client Library Evaluation: [docs/archive/evaluations/client-library-evaluation-2024/](docs/archive/evaluations/client-library-evaluation-2024/)
+
+**Reference**:
+- API Reference: [docs/reference/api/](docs/reference/api/)
+- Configuration Variables: [docs/reference/configuration-vars.md](docs/reference/configuration-vars.md)
+- Glossary: [docs/reference/glossary.md](docs/reference/glossary.md)
+
+---
+
+**Last Updated**: November 2025
+**KATO Version**: 3.0+
+- remember to not create locks for this project. Remember to not regress when working on this project.
+
+---
+> Source: [sevakavakians/kato](https://github.com/sevakavakians/kato) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
