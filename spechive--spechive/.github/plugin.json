@@ -1,0 +1,9 @@
+{
+  "name": "spechive--spechive",
+  "displayName": "SpecHive",
+  "description": "OSS platform \u2014 NestJS + React + Drizzle + PostgreSQL",
+  "version": "1.0.0",
+  "author": "SpecHive",
+  "homepage": "https://github.com/SpecHive/SpecHive",
+  "skills": []
+}
