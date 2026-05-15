@@ -1,0 +1,9 @@
+{
+  "name": "anortham--coa-codesearch-mcp",
+  "displayName": "coa-codesearch-mcp",
+  "description": "AI-powered code search and analysis for Claude Code with advanced type extraction across 25+ languages. Lightning-fast Lucene indexing, intelligent type parsing   (Vue, Razor, C#, Python, Rust, Go, Ty",
+  "version": "1.0.0",
+  "author": "anortham",
+  "homepage": "https://github.com/anortham/coa-codesearch-mcp",
+  "skills": []
+}
