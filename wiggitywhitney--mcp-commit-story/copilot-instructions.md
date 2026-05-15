@@ -1,139 +1,58 @@
-## accurate-timestamps
+## clean-code-priority
 
-> Always check actual system time before using timestamps in documentation, changelogs, and manual entries
+> Prioritize clean code and maintainability over backwards compatibility since there are no external users
 
 
-# Accurate Timestamp Usage Rule
+## Clean Code Over Backwards Compatibility
 
-**Always verify actual system time before writing any timestamp in documentation, changelogs, analysis documents, or any manual time entries.**
+**This project has no external users - prioritize code quality over compatibility.**
 
-## Core Principle
+- **Breaking Changes Are Acceptable**
+  - Refactor freely to improve code structure
+  - Remove deprecated patterns without transition periods
+  - Rename functions, classes, and modules for clarity
+  - Change APIs to be more intuitive or consistent
 
-- **NEVER guess or assume dates/times**
-- **ALWAYS check system time first: `date` command or equivalent**
-- **Include both date AND time for same-day tracking**
-- **Use timezone abbreviation for clarity**
+- **Code Quality Principles**
+  - **DRY (Don't Repeat Yourself)**: Remove duplicate code aggressively
+  - **KISS (Keep It Simple, Stupid)**: Simplify complex implementations
+  - **Single Responsibility**: Split overly complex functions/classes
+  - **Clear Naming**: Use descriptive names even if it requires breaking changes
 
-## Implementation Patterns
+- **Refactoring Guidelines**
+  - Remove dead code immediately rather than deprecating
+  - Consolidate similar functions into cleaner interfaces
+  - Extract common patterns into reusable utilities
+  - Fix import paths and module organization without compatibility layers
 
-### ✅ DO: Check System Time First
+- **Examples of Clean Code Priority**
+  ```python
+  # ✅ DO: Clean, direct approach
+  from mcp_commit_story.journal_generate import generate_summary_section
+  
+  # ❌ DON'T: Backwards compatibility shims
+  # Re-export old function names "for compatibility"
+  from mcp_commit_story.journal import old_function_name as generate_summary_section
+  ```
 
-```bash
-# Always run this first
-date
-# Output: Fri Jul 11 07:39:24 CDT 2025
+- **When This Rule Applies**
+  - **Always** - until the project has external users
+  - During refactoring and code organization
+  - When fixing import paths and module structure
+  - When consolidating duplicate functionality
 
-# Then use in documentation
-### Subtask 63.1 Completed - 2025-07-11 07:39 CDT
-```
+- **When To Reconsider**
+  - Once external users depend on the APIs
+  - When the project reaches stable release (1.0+)
+  - If breaking changes would affect documented public interfaces
 
-### ✅ DO: Include Date and Time
+- **Implementation Strategy**
+  - Make changes in focused commits for easy tracking
+  - Update all references systematically in the same change
+  - Remove old patterns completely rather than leaving them
+  - Prioritize readability and maintainability in all decisions
 
-```markdown
-# ✅ Good - includes date and time for same-day tracking
-### Subtask 63.1 Completed - 2025-07-11 07:39 CDT
-### Subtask 63.2 Completed - 2025-07-11 09:15 CDT
-
-# ✅ Good - for longer intervals, date may be sufficient
-### Task 63 Completed - 2025-07-11
-```
-
-### ✅ DO: Use Consistent Format
-
-```markdown
-# ✅ Consistent format across all entries
-- 2025-07-11 07:39 CDT
-- 2025-07-11 09:15 CDT
-- 2025-07-11 14:22 CDT
-```
-
-### ❌ DON'T: Guess or Assume Timestamps
-
-```markdown
-# ❌ Wrong - guessing dates
-### Subtask 63.1 Completed - 2025-01-27
-
-# ❌ Wrong - vague time references  
-### Completed this morning
-
-# ❌ Wrong - no time for same-day tracking
-### Subtask 63.1 Completed - 2025-07-11
-### Subtask 63.2 Completed - 2025-07-11
-```
-
-## When This Rule Applies
-
-### **Documentation Updates**
-- Changelogs in analysis documents
-- Task completion tracking
-- README updates with timestamps
-- Any manual documentation entry
-
-### **Code Comments with Timestamps**
-- TODO comments with dates
-- Bug fix timestamps
-- Implementation notes with timing
-
-### **Configuration and Data Files**
-- JSON files with timestamp fields
-- Configuration updates
-- Manual data entries
-
-## Required Process
-
-1. **Before writing any timestamp:**
-   ```bash
-   date
-   ```
-
-2. **Extract the relevant parts:**
-   - Date: 2025-07-11
-   - Time: 07:39
-   - Timezone: CDT
-
-3. **Format consistently:**
-   - Full: `2025-07-11 07:39 CDT`
-   - Date only (for longer intervals): `2025-07-11`
-
-## Examples in Context
-
-### **Analysis Documents**
-```markdown
-## Changelog
-### Subtask 63.1 Completed - 2025-07-11 07:39 CDT
-- Initial analysis completed
-- Identified 18 total items
-
-### Subtask 63.2 Completed - 2025-07-11 09:15 CDT  
-- Created module structure
-- Moved core classes
-```
-
-### **Task Updates**
-```json
-{
-  "lastUpdated": "2025-07-11 07:39 CDT",
-  "completedAt": "2025-07-11 07:39 CDT"
-}
-```
-
-### **Code Comments**
-```python
-# Fixed circular import issue - 2025-07-11 07:39 CDT
-# TODO: Refactor this pattern - 2025-07-11 07:39 CDT
-```
-
-## Benefits
-
-- **Accuracy**: No more wrong dates/times
-- **Same-day tracking**: Can distinguish between subtasks completed on the same day
-- **Timezone clarity**: Clear what timezone the work was done in
-- **Professional**: Demonstrates attention to detail
-
-## Related Rules
-
-- [Git Timestamps](mdc:.cursor/rules/git_timestamps.mdc) - for git-related operations
-- [Documentation](mdc:.cursor/rules/documentation.mdc) - for general doc standards
+**Remember**: Clean, maintainable code is more valuable than compatibility when there are no users to break.
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
