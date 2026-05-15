@@ -1,0 +1,9 @@
+{
+  "name": "synadia-labs--n8n-nodes-synadia",
+  "displayName": "n8n-nodes-synadia",
+  "description": "Official N8N NATS Nodes",
+  "version": "1.0.0",
+  "author": "synadia-labs",
+  "homepage": "https://github.com/synadia-labs/n8n-nodes-synadia",
+  "skills": []
+}
