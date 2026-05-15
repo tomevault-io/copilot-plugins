@@ -1,0 +1,52 @@
+## contextmax
+
+> - Use the shadcn/vue as the component generator, use the "shadcn-vue docs" tool to know which component to add and how to add it.
+
+# Creating component
+
+- Use the shadcn/vue as the component generator, use the "shadcn-vue docs" tool to know which component to add and how to add it. 
+- The command to import the component is like this: `npx shadcn-vue@latest add COMPONENT`.
+
+# About server
+
+DO NOT run command to run or restart the server, always assume that server is running at port 3000.
+
+# Context Sets Tool Selection
+
+When a user references `@context:Name`, resolve it via `context-sets.json` → `sets["context:Name"]`.
+
+## Processing Order
+
+1. **Check workflows first**
+
+- If workflows exist: Start from `workflow.start.function` and trace to `end`
+- If workflows empty: Read all files in the context, prioritizing those with `functionRefs`
+
+2. **File Resolution**
+
+- String → filesIndex[fileId].path → read entire file
+- Object → filesIndex[fileId].path → locate specific functionRefs
+
+3. **Impact Analysis**
+- Direct: Check context's `uses` array
+- Indirect: Check `filesIndex[fileId].contexts` for shared files
+- When modifying file_X in ContextA, also consider ContextB if both use file_X
+
+## Quick Example
+
+User: "Fix the download button in @context:PhotoGallery"
+→ Load PhotoGallery context
+→ See it uses ["DownloadPhoto"]
+→ Find download button via workflow start point or grep functions
+→ Check if changes affect DownloadPhoto via shared files
+
+## Key Rules
+
+- Track changes in memory during session
+- Update context-sets.json only when explicitly requested  
+- Use functionRefs for surgical precision when available
+- No warnings for files outside contexts
+
+---
+> Source: [galliani/contextmax](https://github.com/galliani/contextmax) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-15 -->
