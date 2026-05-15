@@ -1,0 +1,9 @@
+{
+  "name": "ehebert7--salesforce-claude-framework",
+  "displayName": "salesforce-claude-framework",
+  "description": "Salesforce development framework with Claude Code integration, custom agents, commands, and skills",
+  "version": "1.0.0",
+  "author": "ehebert7",
+  "homepage": "https://github.com/ehebert7/salesforce-claude-framework",
+  "skills": []
+}
