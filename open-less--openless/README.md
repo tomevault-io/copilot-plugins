@@ -7,11 +7,11 @@ Hold a key, speak, release — AI-polished text appears at your cursor in any ap
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Open-Less/openless](https://github.com/Open-Less/openless).
+Original source: `CLAUDE.md` in [Open-Less/openless](https://github.com/Open-Less/openless).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
