@@ -1,0 +1,9 @@
+{
+  "name": "is-ahuan--quest3-teleoperation",
+  "displayName": "Quest3-Teleoperation",
+  "description": "Adapting from project XRoboToolkit-Teleop-Sample-Python for teleoperation.",
+  "version": "1.0.0",
+  "author": "is-aHuan",
+  "homepage": "https://github.com/is-aHuan/Quest3-Teleoperation",
+  "skills": []
+}
