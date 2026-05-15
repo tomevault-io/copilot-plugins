@@ -4,7 +4,7 @@
   "repo": "OpenBridge",
   "description": "The best open source codex alternative",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AFK-surf/OpenBridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T06:32:56Z"
+  "distributed_at": "2026-05-15T20:15:51Z"
 }
