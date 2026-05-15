@@ -1,0 +1,9 @@
+{
+  "name": "bozoyan--qwen-browser-plugin",
+  "displayName": "Qwen-Browser-plugin",
+  "description": "\u6839\u636e\u56fe\u7247\u4f7f\u7528\u9b54\u642dmodelscope\u793e\u533a\u6a21\u578b\u91cd\u7ed8\u56fe\u7247",
+  "version": "1.0.0",
+  "author": "bozoyan",
+  "homepage": "https://github.com/bozoyan/Qwen-Browser-plugin",
+  "skills": []
+}
