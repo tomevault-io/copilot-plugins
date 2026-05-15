@@ -1,0 +1,9 @@
+{
+  "name": "zipstack--rubberduck",
+  "displayName": "rubberduck",
+  "description": "LLM caching proxy server that emulates popular LLMs with the ability to simulate failures",
+  "version": "1.0.0",
+  "author": "Zipstack",
+  "homepage": "https://github.com/Zipstack/rubberduck",
+  "skills": []
+}
