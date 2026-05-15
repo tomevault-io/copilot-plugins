@@ -1,0 +1,9 @@
+{
+  "name": "regutierrez--ui-ux-skill",
+  "displayName": "ui-ux-skill",
+  "description": "UI-UX skill that is a fork of https://github.com/nextlevelbuilder/ui-ux-pro-max-skill, rewritten in Python",
+  "version": "1.0.0",
+  "author": "regutierrez",
+  "homepage": "https://github.com/regutierrez/ui-ux-skill",
+  "skills": []
+}
