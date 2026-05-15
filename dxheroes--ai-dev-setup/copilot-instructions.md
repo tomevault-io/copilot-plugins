@@ -1,64 +1,107 @@
-## authentication
+## error-handling
 
-> Authentication and authorization patterns, JWT handling, and security middleware
+> Standardized error handling patterns and response structures
 
 
-# Authentication & Authorization
+# Error Handling Standards
 
-Follow these security patterns when implementing authentication:
+All API errors must follow this standardized approach:
 
-## JWT Token Structure
-Always include these claims in JWT payload:
-- `sub`: User ID (subject)
-- `name`: User's display name
-- `email`: User's email address
-- `roles`: Array of user roles
-- `org`: Organization ID
-- `iat`: Issued at timestamp
-- `exp`: Expiration timestamp
-
-## Authentication Middleware Pattern
+## Error Response Structure
 ```typescript
-const authMiddleware = async (c, next) => {
-  const token = c.req.header("Authorization")?.replace("Bearer ", "");
-  
-  if (!token) {
-    return c.json({
-      error: {
-        code: "AUTHENTICATION_ERROR",
-        message: "Authentication required",
-      },
-    }, 401);
+{
+  error: {
+    code: string,       // Machine-readable error code
+    message: string,    // Human-readable error message
+    details?: unknown,  // Optional: Additional error details
+    path?: string       // Optional: Path to the error (for validation)
   }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    c.set("user", decoded);
-    return next();
-  } catch (error) {
-    return c.json({
-      error: {
-        code: "AUTHENTICATION_ERROR",
-        message: "Invalid or expired token",
-      },
-    }, 401);
-  }
-};
+}
 ```
 
-## Authorization Rules
-- **Role-based**: Use `requireRole(role)` middleware for role checks
-- **Organization-based**: Verify `user.org === organizationId` for org resources
-- **Resource ownership**: Check resource ownership before allowing access
-- Always return `403` for authorization failures with `AUTHORIZATION_ERROR` code
+## HTTP Status Codes
+Use these specific status codes:
+- `400`: Validation errors, invalid input
+- `401`: Missing or invalid authentication (`AUTHENTICATION_ERROR`)
+- `403`: Insufficient permissions (`AUTHORIZATION_ERROR`)
+- `404`: Resource not found (`RESOURCE_NOT_FOUND`)
+- `409`: Resource conflicts (`RESOURCE_CONFLICT`)
+- `422`: Unprocessable entity
+- `429`: Rate limit exceeded (`RATE_LIMIT_EXCEEDED`)
+- `500`: Internal server error (`INTERNAL_ERROR`)
 
-## Security Requirements
-- JWT expiration: 15-60 minutes maximum
-- Always use HTTPS in production
-- Implement refresh token rotation
-- Apply rate limiting to auth endpoints
-- Log all authentication events (excluding sensitive data)
-- Never log passwords or tokens
+## Standard Error Codes
+Always use these codes:
+- `VALIDATION_ERROR`: Input validation failed
+- `AUTHENTICATION_ERROR`: Authentication issues
+- `AUTHORIZATION_ERROR`: Permission issues
+- `RESOURCE_NOT_FOUND`: Resource not found
+- `RESOURCE_CONFLICT`: Resource state conflict
+- `RATE_LIMIT_EXCEEDED`: Rate limit exceeded
+- `INTERNAL_ERROR`: Unexpected server error
+
+## Error Handling Pattern
+```typescript
+try {
+  // Business logic
+} catch (error) {
+  if (error instanceof ValidationError) {
+    return c.json({
+      error: {
+        code: "VALIDATION_ERROR",
+        message: "Invalid input data",
+        details: error.details,
+      },
+    }, 400);
+  }
+
+  if (error instanceof NotFoundError) {
+    return c.json({
+      error: {
+        code: "RESOURCE_NOT_FOUND",
+        message: error.message,
+      },
+    }, 404);
+  }
+
+  // Log unexpected errors
+  logger.error("Unexpected error", { error });
+
+  return c.json({
+    error: {
+      code: "INTERNAL_ERROR",
+      message: "An unexpected error occurred",
+    },
+  }, 500);
+}
+```
+
+## Validation Error Details
+For validation errors, include field-specific details:
+```typescript
+{
+  error: {
+    code: 'VALIDATION_ERROR',
+    message: 'Invalid input data',
+    details: [
+      {
+        path: 'email',
+        message: 'Invalid email format'
+      },
+      {
+        path: 'password', 
+        message: 'Password must be at least 8 characters'
+      }
+    ]
+  }
+}
+```
+
+## Logging Rules
+- Log all 5xx errors with full context
+- Log 4xx errors with minimal details
+- Include request ID in logs and responses
+- NEVER log sensitive data (passwords, tokens)
 
 ---
 > Source: [DXHeroes/ai-dev-setup](https://github.com/DXHeroes/ai-dev-setup) — distributed by [TomeVault](https://tomevault.io).
