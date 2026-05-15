@@ -1,0 +1,9 @@
+{
+  "name": "antewall--avanza-mcp",
+  "displayName": "avanza-mcp",
+  "description": "A Model Context Protocol (MCP) server providing access to Avanza's API. Get real-time Swedish stock quotes, fund information, charts, and comprehensive market data.",
+  "version": "1.0.0",
+  "author": "AnteWall",
+  "homepage": "https://github.com/AnteWall/avanza-mcp",
+  "skills": []
+}
