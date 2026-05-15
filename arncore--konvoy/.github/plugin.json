@@ -1,0 +1,9 @@
+{
+  "name": "arncore--konvoy",
+  "displayName": "konvoy",
+  "description": "A build tool for Kotlin/Native - built with Rust",
+  "version": "1.0.0",
+  "author": "arncore",
+  "homepage": "https://github.com/arncore/konvoy",
+  "skills": []
+}
