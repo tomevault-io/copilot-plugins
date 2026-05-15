@@ -1,0 +1,9 @@
+{
+  "name": "ghostinshells--mosshell",
+  "displayName": "MOSShell",
+  "description": "A Bash-like shell not for humans, but for AI models (Model-oriented Operating System Shell) , that translates model reasoning into structured, executable commands for real-time tool and robot coordina",
+  "version": "1.0.0",
+  "author": "GhostInShells",
+  "homepage": "https://github.com/GhostInShells/MOSShell",
+  "skills": []
+}
