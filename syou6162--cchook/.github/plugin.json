@@ -1,0 +1,9 @@
+{
+  "name": "syou6162--cchook",
+  "displayName": "cchook",
+  "description": "A CLI tool that simplifies Claude Code's hook system by replacing complex JSON configurations with clean YAML syntax, template-based data access, and conditional logic",
+  "version": "1.0.0",
+  "author": "syou6162",
+  "homepage": "https://github.com/syou6162/cchook",
+  "skills": []
+}
