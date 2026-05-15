@@ -1,0 +1,9 @@
+{
+  "name": "serpin-taxt--openchief",
+  "displayName": "openchief",
+  "description": "AI agents that passively watch your business tools and produce daily reports. Open-source, serverless \u2014 run locally or deploy to Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "serpin-taxt",
+  "homepage": "https://github.com/serpin-taxt/openchief",
+  "skills": []
+}
