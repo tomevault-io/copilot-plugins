@@ -1,0 +1,9 @@
+{
+  "name": "akshetpandey--libimagequant-wasm",
+  "displayName": "libimagequant-wasm",
+  "description": "WASM bindings for libimagequant image quantization library with Web Worker support",
+  "version": "1.0.0",
+  "author": "akshetpandey",
+  "homepage": "https://github.com/akshetpandey/libimagequant-wasm",
+  "skills": []
+}
