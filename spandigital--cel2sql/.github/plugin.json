@@ -1,0 +1,9 @@
+{
+  "name": "spandigital--cel2sql",
+  "displayName": "cel2sql",
+  "description": "CEL expression to SQL condition, compatible with PostgreSQL, MySQL, SQLite, DuckDB, BigQuery, and Spark",
+  "version": "1.0.0",
+  "author": "SPANDigital",
+  "homepage": "https://github.com/SPANDigital/cel2sql",
+  "skills": []
+}
