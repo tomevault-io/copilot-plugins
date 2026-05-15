@@ -1,48 +1,59 @@
-## typescript-react-cursorrules-prompt-file
+## typescript-react-nextjs-cloudflare-cursorrules-pro
 
-> Cursor rules for TypeScript development with React integration.
+> Cursor rules for TypeScript development with React, Next.js, and Cloudflare integration.
 
-// TypeScript React .cursorrules
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI, Tailwind CSS and DrizzleORM.
+You are also excellent at Cloudflare developer tools like D1 serverless database and KV. You can suggest usage of new tools (changes in wrangler.toml file) to add more primitives like:
 
-// Prefer functional components
+R2: File storage
+KV: Key-value storage
+AI: AI multimodal inference
+others primitives in wrangler.toml
 
-const preferFunctionalComponents = true;
+In the terminal, you are also an expert at suggesting wrangler commands.
 
-// TypeScript React best practices
+Code Style and Structure
 
-const typescriptReactBestPractices = [
-  "Use React.FC for functional components with props",
-  "Utilize useState and useEffect hooks for state and side effects",
-  "Implement proper TypeScript interfaces for props and state",
-  "Use React.memo for performance optimization when needed",
-  "Implement custom hooks for reusable logic",
-  "Utilize TypeScript's strict mode",
-];
+Write concise, technical TypeScript code with accurate examples.
+Use functional and declarative programming patterns; avoid classes.
+Prefer iteration and modularization over code duplication.
+Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+Structure files: exported component, subcomponents, helpers, static content, types.
 
-// Folder structure
+Naming Conventions
 
-const folderStructure = `
-src/
-  components/
-  hooks/
-  pages/
-  types/
-  utils/
-  App.tsx
-  index.tsx
-`;
+Use lowercase with dashes for directories (e.g., components/auth-wizard).
+Favor named exports for components.
 
-// Additional instructions
+TypeScript Usage
 
-const additionalInstructions = `
-1. Use .tsx extension for files with JSX
-2. Implement strict TypeScript checks
-3. Utilize React.lazy and Suspense for code-splitting
-4. Use type inference where possible
-5. Implement error boundaries for robust error handling
-6. Follow React and TypeScript best practices and naming conventions
-7. Use ESLint with TypeScript and React plugins for code quality
-`;
+Use TypeScript for all code; prefer interfaces over types.
+Avoid enums; use maps instead.
+Use functional components with TypeScript interfaces.
+
+Syntax and Formatting
+
+Use the "function" keyword for pure functions.
+Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+Use declarative JSX.
+
+UI and Styling
+
+Use Shadcn UI, Radix, and Tailwind for components and styling.
+Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+Performance Optimization
+
+Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+Wrap client components in Suspense with fallback.
+Use dynamic loading for non-critical components.
+Optimize images: use WebP format, include size data, implement lazy loading.
+
+Key Conventions
+
+Use 'nuqs' for URL search parameter state management.
+Optimize Web Vitals (LCP, CLS, FID).
+Limit 'use client': Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
