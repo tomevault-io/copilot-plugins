@@ -1,138 +1,122 @@
-## tests-guide
+## ai-first-devops-toolkit
 
-> Tests
+> Provides unified interface for Stripe, PayPal, and Square payments.
 
-# Testing Guide 
+# GitHub Copilot Instructions
 
-## Directory Structure & Organization
+This file provides comprehensive guidance to AI to assist with development tasks in this Python project. Follow these instructions for all code generation, documentation, and testing activities.
 
-```
-tests/
-├── unit/                    # Unit tests with heavy mocking
-│   └── somedirectory/           # Mirror source code structure
-│       ├── langchain_related/
-│       ├── user_client/
-│       └── ...
-└── integration/            # Integration tests with mocking of external dependencies / APIs only
-```
+## 🐍 Python Development Standards
 
-**File Naming**: Test files prefixed with `test_` and mirror source structure:
-- Source: `somedirectory/langchain_related/tools/planer.py`
-- Test: `tests/unit/somedirectory/langchain_related/tools/test_planer.py`
+### Code Style & Structure
+- **Base Standard**: Google Python Style Guide with PEP 8 compliance
+- **Line Length**: 120 characters maximum
+- **Purpose Documentation**: Every file and class must explain its purpose with detailed docstrings
+- **Readability First**: Code is read more often than written - prioritize clarity
+- **Linting**: Use `ruff check` and `ruff format` for code quality and formatting
+- **Type Checking**: Use `mypy` for static type checking to catch type-related issues early
 
-## 🚨 **CRITICAL: AVOID OVER-TESTING**
-
-*Preventing excessive test code and maintaining focus on behavior*
-
-### **The Over-Testing Problem**
-
-**WARNING SIGNS:**
-- Test code exceeds business code by 2:1 ratio
-- Testing every possible internal error scenario
-- Multiple tests for the same behavior
-- Testing implementation details instead of user outcomes
-- Complex test setup for simple functions
-
-### **Test-to-Code Ratio Guidelines**
-
-**✅ HEALTHY RATIOS:**
-```
-Simple Functions (< 50 lines):    1:1 to 1.5:1 test-to-code ratio
-Complex Business Logic:           1.5:1 to 2:1 test-to-code ratio
-Critical System Components:       2:1 to 2.5:1 test-to-code ratio
-```
-
-**❌ UNHEALTHY RATIOS:**
-```
-> 3:1 ratio = Over-testing likely
-> 5:1 ratio = Definitely over-testing
-```
-
-### **Simple Function Testing Strategy**
-
-**For a simple function like `display_image()`:**
-
-**✅ GOOD - Behavior-Focused (5-6 tests max):**
+### Import Organization
 ```python
-class TestDisplayImage:
-    """Tests for display_image function - behavior focused."""
+from __future__ import annotations
 
-    def test_successfully_displays_image(self):
-        """Test that image is displayed when called."""
-        # Test the core behavior
+# Standard library
+import os
+from typing import Dict, List, Optional
 
-    def test_clears_screen_when_requested(self):
-        """Test clear_first=True behavior."""
-        # Test parameter behavior
+# Third-party
+import requests
+from pydantic import BaseModel, Field
 
-    def test_skips_clearing_when_not_requested(self):
-        """Test clear_first=False behavior."""
-        # Test parameter behavior
-
-    def test_handles_errors_gracefully(self):
-        """Test error handling behavior."""
-        # Test error scenarios
-
-    @pytest.mark.parametrize("image_name", [...])
-    def test_works_with_different_images(self):
-        """Test with various inputs."""
-        # Test input variations
+# Project imports
+from mixins.mixin_secrets import SecretsMixin
+from our_utils.our_logger import get_formatted_logger
 ```
 
-**❌ BAD - Implementation-Focused (10+ tests):**
+### Class Documentation Pattern
 ```python
-# DON'T DO THIS - Over-testing implementation details
-def test_display_image_handles_clear_error_during_error_recovery(self):
-    """Testing internal error recovery mechanisms."""
-
-def test_display_image_calls_correct_internal_methods_in_order(self):
-    """Testing internal method call patterns."""
-
-def test_display_image_prints_exact_messages_in_sequence(self):
-    """Testing internal print statement details."""
-```
-
-### **When to Stop Testing**
-
-**STOP adding tests when:**
-- You're testing the same behavior in different ways
-- You're testing internal implementation details
-- Your test setup is more complex than the function being tested
-- You have more test code than business logic code for simple functions
-- Tests are breaking when you refactor internals (not behavior)
-
-**ASK YOURSELF:**
-- "Does this test verify something the user cares about?"
-- "Would this test catch a real bug that affects end users?"
-- "Am I testing behavior or implementation?"
-
-## Running Tests
-
-### Direct UV Execution
-```bash
-uv run pytest tests/unit/ -v
-uv run pytest tests/unit/path/to/test.py::TestClass::test_method -v
-```
-
-## Test Structure Patterns
-
-### Test Organization
-```python
-class TestPlanModel:
-    """Tests for PlanModel class."""
+class PaymentProcessor:
+    """Processes payments through multiple payment gateways.
     
-    def test_valid_model(self):
-        """Test creating a valid PlanModel."""
+    Provides unified interface for Stripe, PayPal, and Square payments.
+    Handles validation, error handling, and transaction logging with
+    automatic retry logic for failed transactions.
+    
+    Attributes:
+        retry_attempts: Number of retries for failed transactions.
+        supported_currencies: List of supported currency codes.
+    """
+```
+
+### Error Handling Patterns
+- Use specific exception types with descriptive messages
+- Implement fallback mechanisms - avoid crashes when possible
+- Log errors but continue with sane defaults
+- Use `ToolException` for external service errors
+
+```python
+from langchain_core.tools import ToolException
+
+def process_data(data: str) -> dict:
+    """Process user data with proper error handling."""
+    try:
+        result = external_service.process(data)
+        LOGGER.info("Data processed successfully", data_size=len(data))
+        return result
+    except ValidationError as e:
+        LOGGER.error("Validation failed", error=str(e), data=data)
+        raise ToolException(f"Invalid data format: {e}")
+    except ExternalServiceError as e:
+        LOGGER.error("External service failed", service="processor", error=str(e))
+        raise ToolException("Service temporarily unavailable. Please try again.")
+```
+
+### Domain Models with Pydantic
+```python
+from pydantic import BaseModel, Field
+from datetime import datetime
+
+class User(BaseModel):
+    """Domain aggregate for user data and business logic."""
+    
+    id: str = Field(..., description="Unique user identifier")
+    preferences: Dict[str, Any] = Field(
+        default_factory=dict, 
+        description="User preferences and settings"
+    )
+    created_at: datetime = Field(
+        default_factory=datetime.now,
+        description="User creation timestamp"
+    )
+    
+    def has_active_subscription(self) -> bool:
+        """Check if user has an active subscription."""
+        return self.subscription is not None and self.subscription.is_active
+```
+
+## 🧪 Testing Standards
+
+### Test Structure & Organization
+- **Directory Structure**: Mirror source code structure in `tests/unit/` and `tests/integration/`
+- **File Naming**: Prefix with `test_` and mirror source structure
+- **Given-When-Then Pattern**: Mandatory for all tests
+
+### Test Template
+```python
+class TestMyComponent:
+    """Tests for MyComponent class."""
+    
+    def test_basic_functionality(self, component):
+        """Test basic component functionality."""
         # given
-        data = {"selected_tool_names": ["Tool1"], "main_goal": "Test"}
+        input_data = "test input"
         
         # when
-        model = PlanModel(**data)
+        result = component.process(input_data)
         
         # then
-        assert model.selected_tool_names == ["Tool1"]
-        assert model.main_goal == "Test"
-
+        assert result == "expected output"
+    
     @pytest.mark.parametrize("input_data, expected", [
         pytest.param("input1", "output1", id="scenario1"),
         pytest.param("input2", "output2", id="scenario2"),
@@ -147,22 +131,6 @@ class TestPlanModel:
         
         # then
         assert result == expected
-```
-
-### Given-When-Then Pattern (Required)
-```python
-def test_feature_functionality(self):
-    """Test description of what this validates."""
-    # given: setup test conditions
-    mock_data = {"key": "value"}
-    component = ComponentUnderTest()
-    
-    # when: execute the action being tested
-    result = component.method_under_test(mock_data)
-    
-    # then: verify expected outcomes
-    assert result == "expected_result"
-    assert component.state == "expected_state"
 ```
 
 ### Async Testing
@@ -182,198 +150,161 @@ async def test_async_functionality(self):
     mock_service.process.assert_called_once()
 ```
 
-## Common Test Patterns
+### Testing Best Practices
+- Use Given-When-Then structure for all tests
+- Group related tests in classes
+- Use descriptive test names explaining what is being tested
+- Leverage autouse fixtures - don't manually mock what's auto-mocked
+- Test both success and error paths
+- Use parametrization for multiple scenarios
+- Keep tests focused with one assertion per test concept
 
-### Unit Test Template
-```python
-class TestMyComponent:
-    """Tests for MyComponent class."""
-    
-    @pytest.fixture
-    def component(self):
-        """Create component instance for testing."""
-        return MyComponent()
-    
-    def test_basic_functionality(self, component):
-        """Test basic component functionality."""
-        # given
-        input_data = "test input"
-        
-        # when
-        result = component.process(input_data)
-        
-        # then
-        assert result == "expected output"
+## 📝 Documentation Standards
+
+### Inline Code Documentation
+- **Keep all existing comments** - only remove if wrong, not helpful, or outdated
+- **Quantum-detailed documentation** - explain why code is needed and its purpose in the bigger picture
+- **Context-aware explanations** - show how components fit into the larger system
+- **Cross-referencing** - link related documentation
+- **Real-time updates** - maintain documentation as code changes
+
+### Documentation Categories
+1. **Inline Code Documentation**: Complex code blocks must include:
+   - Feature context explaining component's role
+   - Dependency listings that auto-update
+   - Usage examples that stay current
+   - Performance considerations
+   - Security implications
+
+2. **Feature Documentation**: Each feature requires:
+   - Feature overview
+   - Detailed implementation explanations
+   - Comprehensive dependency mapping
+   - Current usage examples
+   - Security consideration notes
+
+### Comment Style
+- Use `#` followed by a space
+- Write complete sentences with proper capitalization
+- Keep comments up-to-date with code changes
+- Comment only when code is not self-explanatory
+
+## 🔄 Git Commit Standards
+
+### Conventional Commits Format
+- **Types**: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `style`, `test`, `perf`, `refactor`
+- **Title**: Keep under 60 characters, use present tense
+- **Focus on Purpose**: Explain why the change was made, not just what was changed
+- **Body**: Include detailed explanation for complex changes
+
+### Commit Message Examples
+```bash
+# Basic commit
+git commit -m "fix: enhance user registration validation to prevent invalid data entry"
+
+# Commit with body
+git commit -m "feat(auth): introduce two-factor authentication to strengthen account security
+
+- implement sms and email options for 2fa to provide flexibility
+- update user model to store 2fa preferences, ensuring personalized security settings
+- create new api endpoints for 2fa setup and verification, facilitating easy integration"
+
+# Commit with resolved issues
+git commit -m "docs: expand troubleshooting steps for arm64 architecture on macOS to aid developers
+
+- clarify the instruction to replace debuggerPath in launch.json, reducing setup confusion
+- add steps to verify compatibility of cmake, clang, and clang++ with arm64 architecture, ensuring smooth development
+- provide example output for architecture verification commands, aiding in quick identification of issues"
 ```
 
+## 🏗️ Project Architecture
 
-## Best Practices
-
-1. **Use Given-When-Then structure** - Always structure tests with these comments
-2. **Group tests in classes** - Organize related tests together
-3. **Use descriptive test names** - Test name should explain what is being tested
-4. **Leverage autouse fixtures** - Don't manually mock what's auto-mocked
-5. **Test both success and error paths** - Include error handling tests
-6. **Use parametrization** - Test multiple scenarios efficiently
-7. **Keep tests focused** - One assertion per test concept
-8. **Use appropriate markers** - `@pytest.mark.asyncio`, `@pytest.mark.essential`
-9. **🚨 AVOID OVER-TESTING** - Don't test implementation details or internal mechanics
-10. **Monitor test-to-code ratios** - Keep ratios reasonable for function complexity
-
-## 🎯 **CRITICAL: Test BEHAVIOR, Not IMPLEMENTATION**
-
-*The most important testing principle for maintainable, refactoring-safe tests*
-
-### **Why This Matters**
-
-**✅ GOOD - Behavior-Focused Tests:**
+### Module Structure
 ```python
-@pytest.mark.asyncio
-async def test_execute_llm_task_structured_mode(self, mock_kernel):
-    """Test executing LLM task in structured mode (with schema)."""
-    # given
-    kernel = mock_kernel
-    chat_history = [{"role": "user", "content": "Hello"}]
-    schema_file = "mock_schema_file"
-    
-    # when - Testing PUBLIC interface
-    result = await execute_llm_task(kernel, chat_history, schema_file)
-    
-    # then - Verifying BEHAVIOR/OUTCOMES
-    assert result["mode"] == "structured"
-    assert result["schema_enforced"] == True
-    # ✅ Tests WHAT the function does, not HOW
+"""Brief description of module's business purpose."""
+
+from __future__ import annotations
+
+# Imports...
+
+LOGGER = get_formatted_logger(__name__)
+
+# Constants
+DEFAULT_TIMEOUT = 30
+
+# Classes and functions...
 ```
 
-**❌ BAD - Implementation-Focused Tests:**
-```python
-async def test_execute_llm_task_internal_details(self):
-    """DON'T DO THIS - Testing internal implementation."""
-    # ❌ Testing internal function calls
-    with patch("module._internal_helper_function") as mock_helper:
-        # ❌ Testing how schema loading works internally
-        with patch("module._load_schema_internal") as mock_schema:
-            result = await execute_llm_task(...)
-            # ❌ Verifying internal call patterns
-            mock_helper.assert_called_with_specific_params()
-            mock_schema.assert_called_once()
-```
+### Key Development Principles
+1. **PURPOSE-Driven**: Every file and class explains its business purpose
+2. **Validation-Heavy**: Extensive Pydantic validation with examples
+3. **Error-Specific**: Descriptive error messages with proper exception types
+4. **Test-Structured**: Given-When-Then pattern with comprehensive coverage
+5. **Async-Aware**: Proper async/sync patterns using utilities
+6. **Fallback-Mechanisms**: Log errors but try not to crash, use sane fallbacks
+7. **Performance-conscious**: Use efficient coding patterns
+8. **Security-aware**: Consider security implications in all implementations
+9. **Type-Safe**: Use mypy for static type checking and catch issues early
+10. **Lint-Clean**: Ensure ruff passes for code quality and consistency
 
-### **Real-World Success Example**
+## 🚀 Development Workflow
 
-**Phase 2 Refactoring Proof**: During our major architecture refactoring from parameter pollution to class-based design:
+### Code Generation Guidelines
+- Always include descriptive inline comments for long-term memory
+- Use Pydantic models for type safety
+- Follow established patterns from existing codebase
+- Implement comprehensive error handling with fallbacks
+- Add unit tests for new functionality
+- Update documentation as code changes
 
-**BEFORE (Internal Complexity):**
-```python
-async def execute_llm_task(...):
-    schema_model = None
-    schema_dict = None
-    if schema_file:
-        schema_result = load_schema_file(...)
-        # 50+ lines of complex internal logic
-    enhanced_history = _enhance_prompt_with_one_shot_example(...)
-    result = await _execute_semantic_kernel_with_schema(...)
-```
+### Quality Assurance
+- Verify all imports are properly organized
+- Ensure error handling covers edge cases
+- Validate that tests follow Given-When-Then pattern
+- Check that documentation explains purpose and context
+- Confirm code follows PEP 8 and project style guidelines
+- **Pre-commit Checks**: Run `ruff check` and `ruff format` before committing
+- **Type Safety**: Ensure `mypy` passes with no type errors
+- **CI Compliance**: All code must pass the CI pipeline (linting, type checking, tests)
 
-**AFTER (Clean Class Architecture):**
-```python
-async def execute_llm_task(...):
-    executor = LLMExecutor(kernel=kernel, schema_file=schema_file, output_file=output_file)
-    return await executor.execute(chat_history)
-```
+### Performance Considerations
+- Use efficient data structures and algorithms
+- Implement caching where appropriate
+- Consider memory usage and garbage collection
+- Profile code for bottlenecks in critical paths
+- Use async patterns for I/O operations
 
-**Test Results**: **209/209 tests passed** with **ZERO test changes** because tests focused on behavior, not implementation!
+## 🔒 Security Guidelines
 
-### **Behavior vs Implementation Guidelines**
+### Input Validation
+- Validate all user inputs with Pydantic models
+- Sanitize data before processing
+- Use parameterized queries for database operations
+- Implement rate limiting for API endpoints
 
-| ✅ **Test This (BEHAVIOR)**    | ❌ **Don't Test This (IMPLEMENTATION)** |
-| ----------------------------- | -------------------------------------- |
-| Function return values        | Internal function calls                |
-| Error conditions and messages | How errors are generated internally    |
-| State changes in the system   | Which internal methods are called      |
-| Public API contracts          | Private method implementations         |
-| Input validation rules        | How validation is implemented          |
-| Business logic outcomes       | Code organization patterns             |
+### Error Handling
+- Don't expose sensitive information in error messages
+- Log security events appropriately
+- Use secure defaults for configuration
+- Implement proper authentication and authorization
 
-### **Benefits of Behavior-Focused Testing**
+### Code Security
+- Avoid hardcoded secrets in code
+- Use environment variables for configuration
+- Implement proper session management
+- Follow OWASP security guidelines
 
-1. **🔄 Refactoring Safety** - Tests survive major internal changes
-2. **📈 Maintenance** - Tests remain stable during code evolution  
-3. **🎯 Focus** - Tests verify what users/consumers actually care about
-4. **⚡ Speed** - Less brittle tests mean fewer test maintenance cycles
-5. **🧠 Clarity** - Tests document actual requirements, not implementation details
+# Command Output Handling
 
-### **Practical Application**
+Whenever you run a command in the terminal, pipe the output to a file, output.txt, that you can read from. Make sure to overwrite each time so that it doesn't grow too big. There is a bug in the current version of Copilot that causes it to not read the output of commands correctly. This workaround allows you to read the output from the temporary file instead. 
 
-**When writing tests, ask:**
-- ❓ "If I completely rewrote this function's internals, should this test still pass?"
-- ❓ "Does this test verify what a user of this function cares about?"
-- ❓ "Would this test help me catch a bug that affects the end user?"
+# Progress and task tracking
 
-**If the answer is YES → You're testing behavior ✅**  
-**If the answer is NO → You're testing implementation ❌**
+Always update .cursor/scratchpad.md to keep track of your progress and tasks. This file serves as a scratchpad for ongoing work, ideas, and reminders. Use it to document what you have done, what needs to be done, and any issues you encounter. Make sure to read the file before starting a new task to understand the current state of the project.
 
-This principle is the foundation of maintainable test suites that survive architectural changes.
+---
 
-## Adding New Tests
-
-1. **Create test file** mirroring source structure with `test_` prefix
-2. **Import necessary modules** and fixtures
-3. **Organize tests in classes** by functionality
-4. **Use Given-When-Then pattern** for all tests
-5. **Add fixtures** in local `conftest.py` if needed
-6. **Run tests locally** before committing: `./run_tests.sh unit/path/to/test.py`
-7. **Check test-to-code ratio** - Avoid over-testing simple functions
-
-## 🛠️ **SYSTEMATIC TEST FAILURE RESOLUTION FOR CURSOR**
-
-*Advanced debugging methodology for large-scale test failures during refactoring*
-
-### **When to Use Systematic Approach**
-
-Use this methodology when facing:
-- **Large refactoring impacts** (20+ failing tests)
-- **Architectural changes** (module moves, domain model evolution)
-- **Infrastructure updates** (Pydantic adoption, API changes)
-- **Multiple failure categories** (imports, types, business logic)
-
-### **Phase-Based Debugging Strategy**
-
-#### **🚨 Phase 1: Import/Module Errors (Fix First)**
-```python
-# Common pattern: Module refactoring breaks imports
-# ❌ OLD: from handlers.google_calendar_handler import Handler
-# ✅ NEW: from langchain_related.tools.google_calendar_tool import Tool
-
-# Strategy: Update import paths systematically
-# 1. Fix conftest.py fixtures first (prevents cascade failures)
-# 2. Update patch targets to match new module structure
-# 3. Create import mapping for large refactors
-```
-
-#### **🔧 Phase 2: Domain Model Evolution (High Impact)**
-```python
-# Common pattern: Business logic changes break tests
-# ❌ OLD: consent.category == ConsentCategory.BASIC_TERMS
-# ✅ NEW: consent.category == ConsentCategory.BASIC_DATA_PROCESSING
-
-# Strategy: Understand business changes before fixing
-# 1. Analyze current domain model structure
-# 2. Add delegation methods for backward compatibility
-# 3. Update test expectations to match new business rules
-```
-
-#### **🔒 Phase 3: Type Safety Migration (Pydantic Focus)**
-```python
-# Common pattern: Dict access → Pydantic attribute access
-# ❌ OLD: result['allowed'], limits['minute_limit']
-# ✅ NEW: result.allowed, limits.minute_limit
-
-# Strategy: Systematic type safety conversion
-# 1. Find all dictionary access patterns
-# 2. Convert to attribute access systematically
-# 3. Update all related assertions
-```
+*This file serves as the primary source of truth for GitHub Copilot assistance. Follow these guidelines for all code generation, documentation, and testing activities to maintain consistency and quality across the project.* 
 
 ---
 > Source: [Nantero1/ai-first-devops-toolkit](https://github.com/Nantero1/ai-first-devops-toolkit) — distributed by [TomeVault](https://tomevault.io).
