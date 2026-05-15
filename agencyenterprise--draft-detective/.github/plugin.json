@@ -1,0 +1,9 @@
+{
+  "name": "agencyenterprise--draft-detective",
+  "displayName": "draft-detective",
+  "description": "AI-powered assistant for academic peer review. Built with LangGraph, this tool validates references against claims, flags unsupported assertions, performs literature reviews, and suggests relevant cit",
+  "version": "1.0.0",
+  "author": "agencyenterprise",
+  "homepage": "https://github.com/agencyenterprise/draft-detective",
+  "skills": []
+}
