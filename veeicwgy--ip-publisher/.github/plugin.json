@@ -1,0 +1,9 @@
+{
+  "name": "veeicwgy--ip-publisher",
+  "displayName": "ip-publisher",
+  "description": "Knowledge-base-driven article generation, fact audit, and 7-platform publish packs for WeChat, Xiaohongshu, Zhihu, Juejin, CSDN, Toutiao, and Weibo, with Wechatsync draft-sync handoff.",
+  "version": "1.0.0",
+  "author": "veeicwgy",
+  "homepage": "https://github.com/veeicwgy/ip-publisher",
+  "skills": []
+}
