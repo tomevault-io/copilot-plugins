@@ -1,37 +1,26 @@
-## components
+## linter
 
-> 1. Use Primevue components for all UI components.
+> Linter Guidelines
 
 
-# Components
+# Linter
 
-1. Use Primevue components for all UI components.
-2. Use `<script setup lang="ts">` for all components.
+We have a built-in ESLint linter configured at the root folder. After making any significant change, always run the linter with `pnpm lint` and fix all potential issues.
 
-## Structure
+## Most common mistakes that lead to linter errors
 
-Use the following layout for every component to keep imports and growth consistent:
+### Lint Rule: Unexpected nullable string value in conditional. Please handle nullish or empty cases explicitly
 
-```text
-ComponentName/
-  ├─ index.ts           # Re-export (single public entry)
-  ├─ Container.vue      # Main component implementation
-  ├─ useForm.ts         # Optional: composable when logic grows (e.g. forms)
-  └─ DependentComponent.vue
+To prevent this, when comparing strings, instead of writing:
+
+```
+if (!str) {}
 ```
 
-ComponentName/index.ts
-```ts
-export { default as ComponentName } from "./Container.vue";
+do this:
+
 ```
-
-When a child piece becomes complex or needs its own hook, use the same pattern as the parent:
-
-```text
-ComponentName/
-  └─ DependentComponent/
-       ├─ index.ts
-       └─ Container.vue
+if (str !== undefined) {}
 ```
 
 ---
