@@ -4,7 +4,7 @@
   "repo": "vibe-debug",
   "description": "CLI debugger that lets coding agents inspect live Python runtime state, with optional MCP integration.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/illscience/vibe-debug",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:50:08Z"
+  "distributed_at": "2026-05-15T11:45:49Z"
 }
