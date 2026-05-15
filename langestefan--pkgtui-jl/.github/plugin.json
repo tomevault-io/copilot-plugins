@@ -1,0 +1,9 @@
+{
+  "name": "langestefan--pkgtui-jl",
+  "displayName": "PkgTUI.jl",
+  "description": "Terminal UI application for managing Julia projects with Pkg.",
+  "version": "1.0.0",
+  "author": "langestefan",
+  "homepage": "https://github.com/langestefan/PkgTUI.jl",
+  "skills": []
+}
