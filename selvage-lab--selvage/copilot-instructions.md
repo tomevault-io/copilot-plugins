@@ -1,50 +1,44 @@
-## github-pr-create-workflow
+## linting-setup
 
-> GitHub PR 생성 가이드라인
+> Selvage 프로젝트 린팅 설정
 
-# GitHub 저장소 작업 및 PR 생성 가이드라인
+# Selvage 프로젝트 린팅 설정
 
-## 1. 저장소 정보 확인
-- GitHub 작업 시작 전에 항상 저장소 경로 확인하기
-  ```bash
-  git remote -v
-  ```
-- 출력된 URL에서 'github.com/' 이후 부분이 '{owner}/{repo}' 형식의 저장소 경로
+## Ruff 설정
 
-## 2. PR 생성 전 준비사항
-- 현재 브랜치 확인 (PR의 'head' 값)
-  ```bash
-  git branch --show-current
-  ```
-- 목표 브랜치 확인 (PR의 'base' 값, 일반적으로 'main' 또는 'master')
-- 변경사항이 모두 원격에 푸시되었는지 확인
-  ```bash
-  git status
-  ```
+Selvage 프로젝트는 Python 린터로 Ruff를 사용합니다. 다음 설정을 통해 코드 품질을 관리합니다:
+### VSCode 설정
+[.vscode/settings.json](mdc:.vscode/settings.json) 파일에 정의된 Ruff 설정:
 
-## 3. PR 내용 작성
-- title: 간결하고 명확하게 (prefix는 "[{현재 브랜치명}]"으로 예) ([CR-1]))
-- body: 변경사항, 영향 범위, 기타 정보 등 구조화
-- commit message 참조하여 title, body 작성 ("Refs: {현재 브랜치명}" 텍스트가 포함된 commit message 검색하면 주요 변경 사항 알 수 있음)
+- 라인 길이: 88자 (Black 스타일)
+- 활성화된 린트 규칙:
+  - `E`: pycodestyle 오류
+  - `F`: Pyflakes 규칙
+  - `I`: isort 규칙
+  - `B`: flake8-bugbear 규칙
+  - `C4`: flake8-comprehensions
+  - `ARG`: flake8-unused-arguments
+  - `N`: PEP8 네이밍 규칙
+  - `UP`: pyupgrade 규칙
+  - `ANN`: flake8-annotations (타입 힌팅)
+  - `S`: flake8-bandit (보안)
+  - `A`: flake8-builtins
 
-## 4. PR 생성 방법
-- 자동화 도구 사용 시:
-  ```
-  mcp_github_create_pull_request
-  owner: {저장소 소유자 이름}  # git remote -v에서 확인
-  repo: {저장소 이름}          # git remote -v에서 확인
-  title: {PR 제목}
-  body: {PR 설명}
-  head: {소스 브랜치}          # 현재 작업 브랜치
-  base: {대상 브랜치}          # 일반적으로 main
-  ```
+### 자동화된 코드 정리
+- 파일 저장 시 자동 포맷팅 적용
+- 자동 import 정리
+- 코드 수정 제안(Code Actions)을 통한 문제 해결
 
-## 5. 오류 처리
-- 저장소 경로 오류 발생 시 즉시 수정하여 재시도
-- 권한 문제 발생 시 웹 인터페이스 사용 대안 제공:
-  ```
-  https://github.com/{owner}/{repo}/compare/{base}...{head}
-  ```
+## 타입 체킹
+Python 타입 검사 모드는 `basic`으로 설정되어 있습니다. 이를 통해 타입 힌팅에 대한 기본적인 검사가 이루어집니다.
+
+## 테스트 설정
+[pytest.ini](mdc:pytest.ini) 파일에서 pytest 설정을 관리합니다:
+- 테스트 경로: `tests/`
+- 테스트 파일 패턴: `test_*.py`
+- 테스트 클래스 패턴: `Test*`
+- 테스트 함수 패턴: `test_*`
+- legacy_tests 디렉토리 무시
 
 ---
 > Source: [selvage-lab/selvage](https://github.com/selvage-lab/selvage) — distributed by [TomeVault](https://tomevault.io).
