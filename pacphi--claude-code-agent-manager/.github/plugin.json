@@ -1,0 +1,9 @@
+{
+  "name": "pacphi--claude-code-agent-manager",
+  "displayName": "claude-code-agent-manager",
+  "description": "A powerful, YAML-driven system for managing Claude Code subagents from multiple sources with intelligent conflict resolution, transformations, and tracking.",
+  "version": "1.0.0",
+  "author": "pacphi",
+  "homepage": "https://github.com/pacphi/claude-code-agent-manager",
+  "skills": []
+}
