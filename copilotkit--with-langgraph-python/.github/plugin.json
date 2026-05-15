@@ -1,0 +1,9 @@
+{
+  "name": "copilotkit--with-langgraph-python",
+  "displayName": "with-langgraph-python",
+  "description": "CopilotKit utilizing LangGraph with Python",
+  "version": "1.0.0",
+  "author": "CopilotKit",
+  "homepage": "https://github.com/CopilotKit/with-langgraph-python",
+  "skills": []
+}
