@@ -1,0 +1,9 @@
+{
+  "name": "democratize-technology--chronos-mcp",
+  "displayName": "chronos-mcp",
+  "description": "MCP (Model Context Protocol) server for calendar operations",
+  "version": "1.0.0",
+  "author": "democratize-technology",
+  "homepage": "https://github.com/democratize-technology/chronos-mcp",
+  "skills": []
+}
