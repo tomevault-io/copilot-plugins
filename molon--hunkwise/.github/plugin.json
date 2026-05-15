@@ -1,0 +1,9 @@
+{
+  "name": "molon--hunkwise",
+  "displayName": "hunkwise",
+  "description": "Per-hunk accept/discard review in VSCode for Claude Code, OpenCode",
+  "version": "1.0.0",
+  "author": "molon",
+  "homepage": "https://github.com/molon/hunkwise",
+  "skills": []
+}
