@@ -1,0 +1,9 @@
+{
+  "name": "caelinsutch--marketplace-watcher",
+  "displayName": "marketplace-watcher",
+  "description": "Setup alerts for facebook marketplace items based on search queries or images",
+  "version": "1.0.0",
+  "author": "caelinsutch",
+  "homepage": "https://github.com/caelinsutch/marketplace-watcher",
+  "skills": []
+}
