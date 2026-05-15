@@ -7,11 +7,11 @@ An Android app that provides contextual word translations by leveraging the huma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AnySoftKeyboard/janus](https://github.com/AnySoftKeyboard/janus).
+Original source: `CLAUDE.md` in [AnySoftKeyboard/janus](https://github.com/AnySoftKeyboard/janus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
