@@ -7,11 +7,11 @@ An AI-powered research assistant for reading, understanding, organizing, and con
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tronghieu/lumina-wiki](https://github.com/tronghieu/lumina-wiki).
+Original source: `CLAUDE.md` in [tronghieu/lumina-wiki](https://github.com/tronghieu/lumina-wiki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
