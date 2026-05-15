@@ -1,0 +1,9 @@
+{
+  "name": "joaompfp--hermes-vscode",
+  "displayName": "hermes-vscode",
+  "description": "Hermes AI coding agent for VS Code \u2014 streams chat, runs tools, manages sessions, switches models (Claude/Codex), and tracks context live via ACP.",
+  "version": "1.0.0",
+  "author": "joaompfp",
+  "homepage": "https://github.com/joaompfp/hermes-vscode",
+  "skills": []
+}
