@@ -2,9 +2,9 @@
   "name": "ODAI",
   "owner": "sibblegp",
   "repo": "ODAI",
-  "description": "",
+  "description": "ODAI - Multi Agentic AI Tool System (Text and Voice)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/sibblegp",
+  "source_url": "https://github.com/sibblegp/ODAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T20:42:05Z"
+  "distributed_at": "2026-05-15T04:09:02Z"
 }
