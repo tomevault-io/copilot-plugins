@@ -4,7 +4,7 @@
   "repo": "toolkit-ai",
   "description": "Package manager for AI coding assistants \u2014 manage skills, agents & MCPs across Claude Code, Codex, Copilot, and Cursor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/barleviatias/toolkit-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:55:39Z"
+  "distributed_at": "2026-05-15T14:12:30Z"
 }
