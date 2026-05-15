@@ -1,0 +1,9 @@
+{
+  "name": "sohumsuthar--simulink-mcp",
+  "displayName": "simulink-mcp",
+  "description": "MCP server for MATLAB Simulink \u2014 let LLMs take control of and understand Simulink.",
+  "version": "1.0.0",
+  "author": "sohumsuthar",
+  "homepage": "https://github.com/sohumsuthar/simulink-mcp",
+  "skills": []
+}
