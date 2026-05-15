@@ -1,0 +1,9 @@
+{
+  "name": "open-vide--openvide",
+  "displayName": "openvide",
+  "description": "Mobile app for managing Codex, Claude Code, and soon Gemini on remote servers through a chat-style interface with terminal, diff viewer and file browser",
+  "version": "1.0.0",
+  "author": "open-vide",
+  "homepage": "https://github.com/open-vide/openvide",
+  "skills": []
+}
