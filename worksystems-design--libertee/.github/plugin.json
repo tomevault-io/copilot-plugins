@@ -1,0 +1,9 @@
+{
+  "name": "worksystems-design--libertee",
+  "displayName": "libertee",
+  "description": "Structured thinking methods as multi-agent sessions for Claude Code",
+  "version": "1.0.0",
+  "author": "worksystems-design",
+  "homepage": "https://github.com/worksystems-design/libertee",
+  "skills": []
+}
