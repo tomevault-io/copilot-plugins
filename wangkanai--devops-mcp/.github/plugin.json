@@ -1,0 +1,9 @@
+{
+  "name": "wangkanai--devops-mcp",
+  "displayName": "devops-mcp",
+  "description": "Dynamic Azure DevOps MCP Server with directory-based authentication switching between organization",
+  "version": "1.0.0",
+  "author": "wangkanai",
+  "homepage": "https://github.com/wangkanai/devops-mcp",
+  "skills": []
+}
