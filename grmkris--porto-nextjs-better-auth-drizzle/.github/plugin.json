@@ -1,0 +1,9 @@
+{
+  "name": "grmkris--porto-nextjs-better-auth-drizzle",
+  "displayName": "porto-nextjs-better-auth-drizzle",
+  "description": "Starter kit for building a full-stack app with Next.js, Drizzle ORM + Neon Postgres, Better Auth, and Porto passwordless/web3 accounts\u2014typed end-to-end, serverless-ready.",
+  "version": "1.0.0",
+  "author": "grmkris",
+  "homepage": "https://github.com/grmkris/porto-nextjs-better-auth-drizzle",
+  "skills": []
+}
