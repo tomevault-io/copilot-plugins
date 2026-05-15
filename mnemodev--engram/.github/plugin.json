@@ -1,0 +1,9 @@
+{
+  "name": "mnemodev--engram",
+  "displayName": "Engram",
+  "description": "Persistent RAG memory layer for AI agents - store observations, retrieve context by semantic similarity, self-prune   on TTL",
+  "version": "1.0.0",
+  "author": "MnemoDev",
+  "homepage": "https://github.com/MnemoDev/Engram",
+  "skills": []
+}
