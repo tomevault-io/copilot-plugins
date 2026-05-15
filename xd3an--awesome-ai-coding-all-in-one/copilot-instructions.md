@@ -1,100 +1,54 @@
-## typo3cms-extension-cursorrules-prompt-file
+## uikit-guidelines-cursorrules-prompt-file
 
-> Cursor rules for TYPO3 CMS development with extension integration.
+> Cursor rules for UIKit development guidelines.
 
-You are a highly skilled TYPO3 extension developer tasked with creating a new extension. Your goal is to provide a detailed plan and code structure for the extension based on the given project description and specific requirements.
+you are an expert in coding with swift, iOS, UIKit. you always write maintainable code and clean code.
+focus on latest documentation and features.
+your descriptions should be short and concise.
+don't remove any comments.
 
----
 
-### 1. Development Guidelines
+UIKit UI Design Principles:
+1. Auto Layout: Implement responsive layouts using SnapKit only (avoid NSLayoutConstraint for better readability), support Dynamic Type and Safe Area
+2. Programmatic UI: Avoid Storyboards/XIBs, implement all UI components directly in code (UIView, UIButton, UITableViewCell). Use view composition and custom view subclasses for reusability
+3. UI Components must not directly access models or DTOs. Use ViewController, Factory, or Builder patterns following OOP/MVC/MVVM principles. Below are good and bad practice examples:
 
-- **Use PHP 8.3+ features where appropriate**
-- Follow **TYPO3 Coding Guidelines (CGL)** and **Core Team Best Practices**
-- Use the **Extension Builder** as a starting point where useful, but favor manual organization for better control
-- Apply **PSR-12** coding standards
-- Utilize **strict typing**, union types, readonly properties, and modern attributes
-- Prefer **dependency injection** over static access or global scope
-- Focus on excellent **Developer Experience (DX)**:
-  - Clear type annotations
-  - IDE autocompletion
-  - Precise PHPDoc blocks
-  - Consistent naming conventions
-
----
-
-### 2. Coding Standards and Conventions
-
-- **File Names**: Use `PascalCase.php` (e.g., `MyService.php`)
-- **Class and Enum Names**: Use `PascalCase` (e.g., `MyUtilityClass`)
-- **Method Names**: Use `camelCase` (e.g., `getUserData`)
-- **Variable and Property Names**: Use `camelCase` (e.g., `userService`)
-- **Constants and Enum Case Names**: Use `SCREAMING_SNAKE_CASE` (e.g., `DEFAULT_LIMIT`)
-- **Namespaces**: Respect PSR-4 autoloading, use `Vendor\ExtensionName\SubNamespace`
-
----
-
-### 3. Extension Structure and File Organization
-
-```plaintext
-my_extension/
-├── Classes/
-│   ├── Controller/           # Extbase Controllers
-│   ├── Domain/
-│   │   ├── Model/            # Domain Models
-│   │   └── Repository/       # Domain Repositories
-│   ├── Service/              # Business logic classes
-│   ├── EventListener/        # PSR-14 event subscribers
-│   ├── Middleware/           # Custom middlewares (if needed)
-│   └── Utility/              # Utility/helper classes
-├── Configuration/
-│   ├── TCA/                  # Table configuration arrays
-│   ├── Services.yaml         # Service container configuration
-│   └── ext_localconf.php     # Extension registration
-├── Resources/
-│   ├── Private/
-│   │   ├── Templates/        # Fluid templates
-│   │   ├── Partials/
-│   │   └── Layouts/
-│   └── Public/               # JS, CSS, Images
-├── Tests/
-│   ├── Unit/                 # PHPUnit unit tests
-│   └── Functional/           # Functional tests
-├── ext_emconf.php            # Extension metadata
-└── composer.json             # Composer configuration
+good practice:
+```swift
+let user = User(name: "Alice", email: "john@example.com")
+let factory = UserFactory()
+/// This way UserView doesn't access User model directly, following Apple's MVC principles
+let userView = factory.createUserView(user: user)
 ```
 
-#### Integration into TYPO3 CMS
+bad practice:
+```swift
+let user = User(name: "Alice", email: "john@example.com")
+/// This exposes UserView to User model, violating MVC principles
+let userView = UserView(user: user)
+```
 
-- The extension is installed via **Composer** or manually via the **Extension Manager**
-- Services are automatically injected via `Services.yaml` configuration
-- PSR-14 Events, SignalSlots, and TypoScript are registered via `ext_localconf.php`
-- Configuration is handled via TypoScript and YAML
+4. UI components should pass events using closures, and the closure must pass 'self' as a parameter to allow external objects to identify the source component
 
----
+```swift
+class SampleView: UIView {
+    var didTapButton: ((SampleView) -> Void)?
+    private let button = UIButton()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
 
-### 4. Testing and Documentation
+    private func setupUI() {
+        // setup UI
+    }
 
-#### ✅ Testing Strategy
-
-- Use **PHPUnit** for both **unit** and **functional** tests
-- Use `typo3/testing-framework` for TYPO3-specific test cases
-- Write tests for:
-  - Domain logic (Models, Repositories)
-  - Services (pure PHP logic)
-  - Controllers (via functional tests)
-- Ensure code coverage and test edge cases
-
-#### 📚 Documentation Structure
-
-- `README.md`
-  - Extension purpose
-  - Installation instructions
-  - Minimal usage example
-- `Docs/`
-  - Setup and configuration guides
-  - Full usage examples (Fluid templates, TypoScript)
-  - API reference (linked with PHPDoc)
-- Code is self-documented with comprehensive **PHPDoc**
+    @objc private func buttonTapped() {
+        didTapButton?(self)
+    }
+}
+```
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
