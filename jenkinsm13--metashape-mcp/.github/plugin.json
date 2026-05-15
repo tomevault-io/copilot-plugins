@@ -1,0 +1,9 @@
+{
+  "name": "jenkinsm13--metashape-mcp",
+  "displayName": "metashape-mcp",
+  "description": "AI-powered photogrammetry automation \u2014 MCP server for Agisoft Metashape Professional 2.3+. Control the full pipeline (alignment, dense cloud, mesh, texture, DEM, orthomosaic, export) using natural lan",
+  "version": "1.0.0",
+  "author": "jenkinsm13",
+  "homepage": "https://github.com/jenkinsm13/metashape-mcp",
+  "skills": []
+}
