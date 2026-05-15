@@ -4,7 +4,7 @@
   "repo": "DropCar",
   "description": "sistema de estacionamento",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PedroHenrique-Maia/DropCar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:51:30Z"
+  "distributed_at": "2026-05-15T18:57:23Z"
 }
