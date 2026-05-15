@@ -1,0 +1,44 @@
+{
+  "name": "e-shiwake",
+  "owner": "shuji-bonji",
+  "repo": "e-shiwake",
+  "description": "\u30d5\u30ea\u30fc\u30e9\u30f3\u30b9\u30fb\u500b\u4eba\u4e8b\u696d\u4e3b\u5411\u3051\u306e\u4ed5\u8a33\u5e33 + \u8a3c\u6191\u7ba1\u7406 PWA\u30a2\u30d7\u30ea",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/shuji-bonji/e-shiwake",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T11:07:34Z"
+}
