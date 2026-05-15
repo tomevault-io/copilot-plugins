@@ -1,0 +1,9 @@
+{
+  "name": "isene--show",
+  "displayName": "show",
+  "description": "Pure assembly file viewer with syntax highlighting. Part of CHasm.",
+  "version": "1.0.0",
+  "author": "isene",
+  "homepage": "https://github.com/isene/show",
+  "skills": []
+}
