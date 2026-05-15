@@ -1,0 +1,9 @@
+{
+  "name": "epam--statgpt-admin-frontend",
+  "displayName": "statgpt-admin-frontend",
+  "description": "StatGPT Admin Frontend",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/statgpt-admin-frontend",
+  "skills": []
+}
