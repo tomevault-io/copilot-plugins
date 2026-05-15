@@ -1,0 +1,9 @@
+{
+  "name": "xemantic--markanywhere",
+  "displayName": "markanywhere",
+  "description": "Incremental Markdown parser that emits streams of semantic events, plus tools to manipulate them \u2014 designed for real-time rendering of streamed LLM output.",
+  "version": "1.0.0",
+  "author": "xemantic",
+  "homepage": "https://github.com/xemantic/markanywhere",
+  "skills": []
+}
