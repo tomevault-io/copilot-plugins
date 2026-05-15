@@ -1,0 +1,9 @@
+{
+  "name": "dean0x--skim",
+  "displayName": "skim",
+  "description": "The most intelligent context optimization engine for coding agents. Code-aware AST parsing across 17 languages. Command rewriting. Test, build, and git output compression. Token budget cascading. Buil",
+  "version": "1.0.0",
+  "author": "dean0x",
+  "homepage": "https://github.com/dean0x/skim",
+  "skills": []
+}
