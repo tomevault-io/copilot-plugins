@@ -4,7 +4,7 @@
   "repo": "nanotracker-api-sdk",
   "description": "Drive a live nanoTracker session (https://federatedindustrial.com/tracker) from any AI coding agent. Local relay + MCP server + CLI + adapter snippets for Claude Code, Cursor, Cline, Continue, Aider, Codex, Gemini CLI, opencode, openclaude.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/savannah-i-g/nanotracker-api-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:50:46Z"
+  "distributed_at": "2026-05-15T12:23:48Z"
 }
