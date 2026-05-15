@@ -7,11 +7,11 @@ OpenCode plugin for Windsurf/Codeium models - OpenAI-compatible local API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gabslocked/opencode-windsurf-auth](https://github.com/gabslocked/opencode-windsurf-auth).
+Original source: `CLAUDE.md` in [gabslocked/opencode-windsurf-auth](https://github.com/gabslocked/opencode-windsurf-auth).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
