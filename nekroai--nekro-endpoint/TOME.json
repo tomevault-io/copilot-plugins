@@ -4,7 +4,7 @@
   "repo": "nekro-endpoint",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NekroAI/nekro-endpoint",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T11:52:11Z"
+  "distributed_at": "2026-05-15T11:22:01Z"
 }
