@@ -1,0 +1,262 @@
+## playabletools
+
+> <!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+
+<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+
+# PlayableTools Project Architecture Guide
+
+## Tech Stack
+- **Build Tool**: Vite 7.x with TypeScript 5.8
+- **Frontend Framework**: Lit 3.x web components
+- **CSS Framework**: Pico CSS 2.x for styling with custom theme overrides
+- **PWA**: Vite PWA plugin for service worker and offline support
+- **Dependencies**: JSZip for archive handling, Pako for compression, Marked for markdown parsing, D3.js for visualizations
+
+## Project Structure
+
+### Core Framework (`src/fw/`)
+This project uses a custom lightweight framework built on Lit:
+- **ComponentBase**: Light DOM Lit components (no shadow DOM by default)
+- **LayoutComponentBase**: Base class for layout components  
+- **Dependency Injection**: Custom DI container with `@injectable` and `@inject` decorators
+- **Router**: Clean URL routing with `@route` decorator, History API navigation helpers, and metadata support
+- **Service Lifetimes**: Singleton (default), Scoped, Transient
+- **Update Notification**: Version checking and update prompts
+
+### Import Pattern
+Always import from the `fw` alias:
+```typescript
+import { ComponentBase, customElement, html, route, inject, injectable, ServiceLifetime } from "fw";
+```
+
+### Component Conventions
+
+#### Pages (`src/pages/`)
+- Location: `src/pages/` folder
+- Naming: kebab-case files (e.g., `home-page.ts`)
+- Structure:
+```typescript
+import { ComponentBase, customElement, html, route } from "fw";
+
+@customElement("page-name")
+@route("/path", {
+  title: "Page Title for SEO",
+  description: "Page description for SEO"
+})
+export class PageName extends ComponentBase {
+  render() {
+    return html`<div>Content</div>`;
+  }
+}
+```
+
+#### Reusable Components
+- Co-located CSS files: `component-name.ts.css`
+- Light DOM by default (no shadow DOM)
+- Use `@property` for public component APIs (data passed from parent) and `@state` for internal component state (data managed by the component itself)
+
+#### Layout Components (`src/Layout/`)
+- Use `LayoutComponentBase` for layouts
+- Main layout: `main-layout.ts` with sidebar, navigation
+- Components: `nav-menu.ts`, `site-logo.ts`
+
+### Services (`src/services/`)
+Use dependency injection for all services:
+
+```typescript
+import { injectable, ServiceLifetime, inject } from "fw";
+
+@injectable(ServiceLifetime.Singleton) // or omit for default Singleton
+export class MyService {
+  constructor() {}
+  
+  async doSomething(): Promise<void> {
+    // Service logic
+  }
+}
+
+// In components/other services:
+export class MyComponent extends ComponentBase {
+  @inject()
+  private myService!: MyService;
+}
+```
+
+**Available Services:**
+- `PlayablePublishService` - Publishing to 10+ ad networks with platform-specific transformations
+- `ImbaPackerService` - HTML compression with Pako
+- `Base64ConverterService` - File to base64 conversion
+- `PreviewService` - Playable preview functionality with ZIP support
+- `PortfolioService` - GitHub portfolio integration
+- `VersionService` - App version checking and PWA updates
+- `MetadataService` - SEO metadata management
+- `Video2SpriteService` - Video to PNG sprite sequence conversion
+- **Validators** (`PreviewServiceValidators/`) - Platform-specific validation tools
+  - `FacebookValidator` - Facebook ad requirements validation
+  - `GeneralValidator` - General platform validation
+  - `MraidValidator` - MRAID compliance validation
+
+### Routing & Navigation
+- **Clean URL routing** based on `window.location.pathname`
+- **History API helpers** are exported from `fw`: `navigate()`, `getCurrentPath()`, `getCurrentSearch()`
+- Routes defined with `@route("/path", { title, description })`
+- Automatic page loading via `import.meta.glob("./pages/**/*.ts", { eager: true })`
+- Navigation handled by `nav-menu.ts`
+- Legacy `/#/...` links are migrated at bootstrap time in `index.html`
+- Public SEO landing pages are declared in `src/seo/route-manifest.json`
+
+### File Organization
+```
+src/
+├── fw/                    # Custom framework
+├── Layout/               # Layout components  
+├── pages/               # Page components
+│   ├── publish/         # Publishing tools (playable-publisher, publish-page)
+│   ├── preview/         # Preview tools (playable-previewer, preview-page)
+│   ├── portfolio/       # Portfolio management (portfolio-page)
+│   ├── folder-size/     # Folder visualization (multiple view components)
+│   ├── spritesheet-maker/ # Sprite sheet creation
+│   ├── video2sprite/    # Video to sprite conversion
+│   ├── base64-converter.ts # File encoding tool
+│   ├── compress-assets-page.ts # Asset compression
+│   ├── cta-sdk-page.ts # CTA SDK documentation
+│   ├── home-page.ts # Main landing page
+│   ├── imba-packer-page.ts # HTML compression tool
+│   └── validate-page.ts # Platform validation
+├── services/            # Business logic services
+│   └── PreviewServiceValidators/ # Validation services
+├── utils/               # Utility functions (framework-agnostic helpers)
+├── assets/              # Static assets and configurations
+│   ├── platforms-config.json # Ad platform configurations
+│   ├── preview-presets.json # Preview settings
+│   └── cta-sdk.md # CTA SDK documentation
+└── sw-version-handler.js # Service worker version handling
+```
+
+### Styling Guidelines
+- **Pico CSS base** with extensive custom theme overrides in `theme.css`
+- Component-specific styles in co-located `.ts.css` files
+- **Custom Theme**: Tailwind-inspired aesthetic with Inter font, shadows, and modern styling
+- CSS custom properties pattern: `var(--pico-*)`
+
+### Build & Development
+- **Dev server**: don't run directly. It's already run by developer.
+- **Build**: `npm run build` (TypeScript compilation + Vite build + prerender pass)
+- **Base path**: `/` for dev, `/PlayableTools/` for production
+- **PWA**: Auto-update service worker with version checking. The `VersionService` fetches `/version.json` to detect new builds and prompt the user to update.
+- **ZIP Preview System**: Dedicated service worker (`/zip-preview-sw.js`) for serving ZIP contents at virtual URLs
+- **SEO Output**: build generates prerendered HTML for selected public routes, plus `dist/404.html`, `dist/sitemap.xml`, and `dist/robots.txt`
+
+## README / Landing page guidelines
+This repository doubles as a small landing page for users who come to the project looking for tools to run locally. To keep the README helpful and welcoming to non-developers, follow these guidelines when editing `README.md`:
+
+- Place a small project logo and primary hero visuals (screenshots / PWA badge) immediately under the main H1/title. This creates a visual landing section so users can quickly see the app and install it.
+- Prefer 1–2 centered screenshots (max width ~600px) and a compact PWA badge (around 200px) beneath them. Keep the visuals near the top — before long introductory text or lists.
+- Keep image files inside `media/` or `public/` and reference them with relative paths (e.g., `media/app-screenshots/previewer.jpg`).
+- If the README grows long, move additional screenshots to a dedicated "Screenshots" section later in the file, but keep the hero visuals at the top.
+- Use descriptive alt text for accessibility and SEO.
+
+Example recommended header layout (Markdown):
+
+```markdown
+# <img src="./media/small-logo.jpg" width="28" style="border-radius:16px;"/> PlayableTools
+
+<p align="center">
+  <img src="media/app-screenshots/previewer.jpg" alt="Playable Previewer Screenshot" width="600"/>
+</p>
+
+<p align="center">
+  <img src="media/app-screenshots/base64.png" alt="Base64 Converter Screenshot" width="600"/>
+</p>
+
+<p align="center">
+  <a href="https://tools.gritsenko.biz/"><img src="./media/pwa.png" width="200" alt="PWA Badge"/></a>
+</p>
+
+PlayableTools is a web-based toolkit for preparing and publishing HTML5 playables... (continue intro)
+```
+
+Rationale:
+- Many users land on the README first; presenting visuals up-front quickly communicates what the app does and reduces friction for new users who want to try the tools.
+- Keeping a consistent, compact hero layout makes the repo friendly to both developers (who need the run instructions) and non-developers (who need quick visuals / install badge).
+
+### Best Practices
+1. Always use TypeScript with strict mode
+2. Prefer dependency injection over direct instantiation
+3. Use `@property` for public component APIs, `@state` for internal state
+4. Implement proper error handling in services and display user-facing errors in the UI
+5. Use semantic HTML and accessible patterns
+6. Leverage Pico CSS with custom theme overrides for modern aesthetics
+7. Keep components focused and single-responsibility
+8. Use async/await for asynchronous operations
+
+### Common Patterns
+```typescript
+// Service injection in components
+@inject()
+private publishService!: PlayablePublishService;
+
+// File handling and error handling pattern
+@state()
+private errorMessage = '';
+
+async handleFileSelect(files: FileList) {
+  const file = files[0];
+  if (file) {
+    this.errorMessage = ''; // Clear previous errors
+    try {
+      const result = await this.someService.processFile(file);
+      // Handle result
+    } catch (error) {
+      console.error('Processing failed:', error);
+      this.errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+    }
+  }
+}
+
+// Progress reporting pattern
+onProgress: (progress: number, platform?: string) => {
+  this.progress = progress;
+  this.currentPlatform = platform;
+}
+
+// ZIP Preview system
+// Upload ZIP → Extract in memory → Serve via service worker at virtual URLs
+// Perfect for testing complex multi-file playables with relative asset paths
+```
+
+### Platform Publishing Patterns
+```typescript
+// Platform-specific configuration in platforms-config.json
+{
+  "Name": "Facebook",
+  "format": "html", // or "zip"
+  "replaceTokens": {
+    "{{google}}": "https://play.google.com/store/apps/details?id=...",
+    "{{apple}}": "https://apps.apple.com/app/..."
+  },
+  "InjeectScripts": ["cta.Facebook.js"],
+  "ExtractScripts": true,
+  "ExtraFiles": [...],
+  "OutputIndexHtmlName": "index.html"
+}
+```
+
+### ZIP Preview System
+The application supports comprehensive ZIP file preview:
+- **Upload ZIP** → Extract archive in memory
+- **Virtual URL Serving** → Each file served at `/zip-preview/<session-id>/<file-path>`
+- **Complete Asset Support** → All relative paths work exactly as in original ZIP
+- **Service Worker Integration** → Dedicated `/zip-preview-sw.js` handles routing
+- **Session Management** → Automatic cleanup and new session creation
+
+This approach ensures:
+- No blob: URLs (better debugging experience)
+- Real asset URLs in browser devtools
+- Existing relative path logic works unchanged
+- Perfect fidelity to production deployment environment
+
+---
+> Source: [gritsenko/PlayableTools](https://github.com/gritsenko/PlayableTools) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
