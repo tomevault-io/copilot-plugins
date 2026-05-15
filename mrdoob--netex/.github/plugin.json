@@ -1,0 +1,9 @@
+{
+  "name": "mrdoob--netex",
+  "displayName": "netex",
+  "description": "A minimal Android browser with a built-in devtools panel.",
+  "version": "1.0.0",
+  "author": "mrdoob",
+  "homepage": "https://github.com/mrdoob/netex",
+  "skills": []
+}
