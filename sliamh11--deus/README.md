@@ -7,11 +7,11 @@ A token-efficient open-source AI assistant that remembers, adapts, and improves 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sliamh11/Deus](https://github.com/sliamh11/Deus).
+Original source: `CLAUDE.md` in [sliamh11/Deus](https://github.com/sliamh11/Deus).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
