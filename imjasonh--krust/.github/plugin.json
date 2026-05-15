@@ -1,0 +1,9 @@
+{
+  "name": "imjasonh--krust",
+  "displayName": "krust",
+  "description": "A simple container image build tool for Rust",
+  "version": "1.0.0",
+  "author": "imjasonh",
+  "homepage": "https://github.com/imjasonh/krust",
+  "skills": []
+}
