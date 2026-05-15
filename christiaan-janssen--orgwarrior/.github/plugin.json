@@ -1,0 +1,9 @@
+{
+  "name": "christiaan-janssen--orgwarrior",
+  "displayName": "orgwarrior",
+  "description": "A task warrior inspired task manager, but using org-mode files as a back end.",
+  "version": "1.0.0",
+  "author": "christiaan-janssen",
+  "homepage": "https://github.com/christiaan-janssen/orgwarrior",
+  "skills": []
+}
