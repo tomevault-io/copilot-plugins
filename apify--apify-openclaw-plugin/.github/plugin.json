@@ -1,0 +1,9 @@
+{
+  "name": "apify--apify-openclaw-plugin",
+  "displayName": "apify-openclaw-plugin",
+  "description": "OpenClaw extension integration",
+  "version": "1.0.0",
+  "author": "apify",
+  "homepage": "https://github.com/apify/apify-openclaw-plugin",
+  "skills": []
+}
