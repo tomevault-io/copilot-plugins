@@ -1,0 +1,9 @@
+{
+  "name": "streamatico--polymarketviewer",
+  "displayName": "PolymarketViewer",
+  "description": "A clean Android app for browsing Polymarket prediction markets, event forecasts, charts, and watchlists. Free & Open Source.",
+  "version": "1.0.0",
+  "author": "Streamatico",
+  "homepage": "https://github.com/Streamatico/PolymarketViewer",
+  "skills": []
+}
