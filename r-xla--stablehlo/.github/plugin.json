@@ -1,0 +1,9 @@
+{
+  "name": "r-xla--stablehlo",
+  "displayName": "stablehlo",
+  "description": "Create stableHLO programs in R",
+  "version": "1.0.0",
+  "author": "r-xla",
+  "homepage": "https://github.com/r-xla/stablehlo",
+  "skills": []
+}
