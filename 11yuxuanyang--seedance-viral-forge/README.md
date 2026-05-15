@@ -7,11 +7,11 @@ Reusable AI video prompt skills for Seedance 2.0 / 即梦: product-selling scrip
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [11Yuxuanyang/seedance-viral-forge](https://github.com/11Yuxuanyang/seedance-viral-forge).
+Original source: `CLAUDE.md` in [11Yuxuanyang/seedance-viral-forge](https://github.com/11Yuxuanyang/seedance-viral-forge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
