@@ -1,0 +1,9 @@
+{
+  "name": "forge-sdlc--forge",
+  "displayName": "forge",
+  "description": "An intelligent orchestration system that automates the software development lifecycle from Feature ideation through code delivery using AI-powered planning and execution.",
+  "version": "1.0.0",
+  "author": "forge-sdlc",
+  "homepage": "https://github.com/forge-sdlc/forge",
+  "skills": []
+}
