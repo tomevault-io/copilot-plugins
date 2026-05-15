@@ -1,0 +1,9 @@
+{
+  "name": "jmagar--unifi-mcp",
+  "displayName": "unifi-mcp",
+  "description": "UniFi network management via MCP tools. Monitor devices, clients, network health, firewall rules, and perform management operations.",
+  "version": "1.0.0",
+  "author": "jmagar",
+  "homepage": "https://github.com/jmagar/unifi-mcp",
+  "skills": []
+}
