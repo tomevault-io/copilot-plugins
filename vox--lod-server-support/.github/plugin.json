@@ -1,0 +1,9 @@
+{
+  "name": "vox--lod-server-support",
+  "displayName": "lod-server-support",
+  "description": "LOD Server Support (aka LSS) is a Fabric client/server mod and Paper Plugin that provides unofficial multiplayer support for Voxy. ",
+  "version": "1.0.0",
+  "author": "VoX",
+  "homepage": "https://github.com/VoX/lod-server-support",
+  "skills": []
+}
