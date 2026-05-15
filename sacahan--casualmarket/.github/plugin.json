@@ -1,0 +1,9 @@
+{
+  "name": "sacahan--casualmarket",
+  "displayName": "CasualMarket",
+  "description": "\u529f\u80fd\u5b8c\u6574\u7684\u53f0\u7063\u80a1\u7968\u4ea4\u6613 Model Context Protocol (MCP) Server\uff0c\u63d0\u4f9b\u5373\u6642\u80a1\u50f9\u67e5\u8a62\u3001\u8ca1\u52d9\u5206\u6790\u3001\u5e02\u5834\u8cc7\u8a0a\u7b49\u591a\u7a2e\u529f\u80fd",
+  "version": "1.0.0",
+  "author": "sacahan",
+  "homepage": "https://github.com/sacahan/CasualMarket",
+  "skills": []
+}
