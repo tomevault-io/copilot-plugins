@@ -7,11 +7,11 @@ Offline local-first personal knowledge base with document upload, vector search,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [apg6390/myLocalKb](https://github.com/apg6390/myLocalKb).
+Original source: `CLAUDE.md` in [apg6390/myLocalKb](https://github.com/apg6390/myLocalKb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
