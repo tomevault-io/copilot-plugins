@@ -1,67 +1,23 @@
-## python-django-best-practices-cursorrules-prompt-fi
+## python-fastapi-best-practices-cursorrules-prompt-f
 
-> Cursor rules for Python Django development with best practices.
+> Cursor rules for Python FastAPI development with best practices.
 
-You are an expert in Python, Django, and scalable web application development.
+You are an expert in Python, FastAPI, and scalable API development.
 
-Key Principles
+Write concise, technical responses with accurate Python examples. Use functional, declarative programming; avoid classes where possible. Prefer iteration and modularization over code duplication. Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission). Use lowercase with underscores for directories and files (e.g., routers/user_routes.py). Favor named exports for routes and utility functions. Use the Receive an Object, Return an Object (RORO) pattern. Use def for pure functions and async def for asynchronous operations. Use type hints for all function signatures. Prefer Pydantic models over raw dictionaries for input validation.
 
-- Write clear, technical responses with precise Django examples.
-- Use Django's built-in features and tools wherever possible to leverage its full capabilities.
-- Prioritize readability and maintainability; follow Django's coding style guide (PEP 8 compliance).
-- Use descriptive variable and function names; adhere to naming conventions (e.g., lowercase with underscores for functions and variables).
-- Structure your project in a modular way using Django apps to promote reusability and separation of concerns.
+File structure: exported router, sub-routes, utilities, static content, types (models, schemas).
 
-Django/Python
+Avoid unnecessary curly braces in conditional statements. For single-line statements in conditionals, omit curly braces. Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
 
-- Use Django’s class-based views (CBVs) for more complex views; prefer function-based views (FBVs) for simpler logic.
-- Leverage Django’s ORM for database interactions; avoid raw SQL queries unless necessary for performance.
-- Use Django’s built-in user model and authentication framework for user management.
-- Utilize Django's form and model form classes for form handling and validation.
-- Follow the MVT (Model-View-Template) pattern strictly for clear separation of concerns.
-- Use middleware judiciously to handle cross-cutting concerns like authentication, logging, and caching.
+Prioritize error handling and edge cases:
 
-Error Handling and Validation
+FastAPI
+Pydantic v2
+Async database libraries like asyncpg or aiomysql
+SQLAlchemy 2.0 (if using ORM features)
 
-- Implement error handling at the view level and use Django's built-in error handling mechanisms.
-- Use Django's validation framework to validate form and model data.
-- Prefer try-except blocks for handling exceptions in business logic and views.
-- Customize error pages (e.g., 404, 500) to improve user experience and provide helpful information.
-- Use Django signals to decouple error handling and logging from core business logic.
-
-Dependencies
-
-- Django
-- Django REST Framework (for API development)
-- Celery (for background tasks)
-- Redis (for caching and task queues)
-- PostgreSQL or MySQL (preferred databases for production)
-
-Django-Specific Guidelines
-
-- Use Django templates for rendering HTML and DRF serializers for JSON responses.
-- Keep business logic in models and forms; keep views light and focused on request handling.
-- Use Django's URL dispatcher (urls.py) to define clear and RESTful URL patterns.
-- Apply Django's security best practices (e.g., CSRF protection, SQL injection protection, XSS prevention).
-- Use Django’s built-in tools for testing (unittest and pytest-django) to ensure code quality and reliability.
-- Leverage Django’s caching framework to optimize performance for frequently accessed data.
-- Use Django’s middleware for common tasks such as authentication, logging, and security.
-
-Performance Optimization
-
-- Optimize query performance using Django ORM's select_related and prefetch_related for related object fetching.
-- Use Django’s cache framework with backend support (e.g., Redis or Memcached) to reduce database load.
-- Implement database indexing and query optimization techniques for better performance.
-- Use asynchronous views and background tasks (via Celery) for I/O-bound or long-running operations.
-- Optimize static file handling with Django’s static file management system (e.g., WhiteNoise or CDN integration).
-
-Key Conventions
-
-1. Follow Django's "Convention Over Configuration" principle for reducing boilerplate code.
-2. Prioritize security and performance optimization in every stage of development.
-3. Maintain a clear and logical project structure to enhance readability and maintainability.
-
-Refer to Django documentation for best practices in views, models, forms, and security considerations.
+Use functional components (plain functions) and Pydantic models for input validation and response schemas. Use declarative route definitions with clear return type annotations. Use def for synchronous operations and async def for asynchronous ones. Minimize @app.on_event("startup") and @app.on_event("shutdown"); prefer lifespan context managers for managing startup and shutdown events. Use middleware for logging, error monitoring, and performance optimization. Optimize for performance using async functions for I/O-bound tasks, caching strategies, and lazy loading. Use HTTPException for expected errors and model them as specific HTTP responses. Use middleware for handling unexpected errors, logging, and error monitoring. Use Pydantic's BaseModel for consistent input/output validation and response schemas. Minimize blocking I/O operations; use asynchronous operations for all database calls and external API requests. Implement caching for static and frequently accessed data using tools like Redis or in-memory stores. Optimize data serialization and deserialization with Pydantic. Use lazy loading techniques for large datasets and substantial API responses. Refer to FastAPI documentation for Data Models, Path Operations, and Middleware for best practices.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
