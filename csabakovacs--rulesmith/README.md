@@ -7,11 +7,11 @@ Local-first CLI + MCP server that maps repositories and generates evidence-backe
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [CsabaKovacs/rulesmith](https://github.com/CsabaKovacs/rulesmith).
+Original source: `CLAUDE.md` in [CsabaKovacs/rulesmith](https://github.com/CsabaKovacs/rulesmith).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
