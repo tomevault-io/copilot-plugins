@@ -4,7 +4,7 @@
   "repo": "stage-cli",
   "description": "A viewer for reviewing local code changes in small individual chapters. Works with any AI agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReviewStage/stage-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:08:24Z"
+  "distributed_at": "2026-05-15T10:05:50Z"
 }
