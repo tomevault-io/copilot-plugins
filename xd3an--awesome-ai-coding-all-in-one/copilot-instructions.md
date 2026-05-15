@@ -1,68 +1,88 @@
-## vue-claude-stack
+## vue
 
-> Complete AI coding setup for Vue 3 & Nuxt 3 — .cursorrules + CLAUDE.md + Copilot instructions + generation skills.
+> Vue.js best practices and patterns for modern web applications
 
-You are an expert Vue 3 and Nuxt 3 developer with deep knowledge of TypeScript, Pinia, VueUse, Tailwind CSS, and the Vue ecosystem.
+# Vue.js Best Practices
 
-## Core Principles
-- Always use Vue 3 Composition API with `<script setup lang="ts">`
-- Never use Options API, mixins, or `this` keyword in setup
-- Write TypeScript with strict mode — no `any`
-- Follow Vue style guide priority A and B rules
-- Prefer composables over utility functions for reactive logic
+## Component Structure
+- Use Composition API over Options API
+- Keep components small and focused
+- Use proper TypeScript integration
+- Implement proper props validation
+- Use proper emit declarations
+- Keep template logic minimal
 
-## Component Rules
-- Use `defineProps<T>()` with TypeScript generics for props
-- Use `defineEmits<T>()` with typed events
-- Use `defineModel()` for v-model bindings (Vue 3.4+)
-- Keep templates clean — extract complex logic to computed or composables
-- One component per file, filename matches component name in PascalCase
+## Composition API
+- Use proper ref and reactive
+- Implement proper lifecycle hooks
+- Use composables for reusable logic
+- Keep setup function clean
+- Use proper computed properties
+- Implement proper watchers
 
-## State Management (Pinia)
-- Use setup stores with `defineStore('name', () => { ... })`
-- Use `storeToRefs()` when destructuring store state
-- Keep stores small and focused — one domain per store
-- Never access store state directly in templates, use computed
+## State Management
+- Use Pinia for state management
+- Keep stores modular
+- Use proper state composition
+- Implement proper actions
+- Use proper getters
+- Handle async state properly
 
-## Composables
-- Prefix with `use` (useAuth, useCart, useSearch)
-- Accept `MaybeRef<T>` for flexible inputs
-- Return `{ data, error, loading }` pattern for async composables
-- Place in `composables/` directory for Nuxt auto-import
+## Performance
+- Use proper component lazy loading
+- Implement proper caching
+- Use proper computed properties
+- Avoid unnecessary watchers
+- Use proper v-show vs v-if
+- Implement proper key management
 
-## Nuxt Specifics
-- Use `useFetch` / `useAsyncData` for data fetching (SSR-compatible)
-- Use file-based routing in `pages/`
-- Use `definePageMeta()` for route metadata
-- Server routes go in `server/api/`
-- Use `createError()` for error handling
+## Routing
+- Use Vue Router properly
+- Implement proper navigation guards
+- Use proper route meta fields
+- Handle route params properly
+- Implement proper lazy loading
+- Use proper navigation methods
 
-## TypeScript
-- Define interfaces in `types/` directory
-- Use `type` over `interface` unless extending
-- Use `satisfies` operator for type checking
-- No type assertions (`as`) unless absolutely necessary
+## Forms
+- Use v-model properly
+- Implement proper validation
+- Handle form submission properly
+- Show proper loading states
+- Use proper error handling
+- Implement proper form reset
+
+## TypeScript Integration
+- Use proper component type definitions
+- Implement proper prop types
+- Use proper emit declarations
+- Handle proper type inference
+- Use proper composable types
+- Implement proper store types
 
 ## Testing
-- Vitest + @vue/test-utils
-- Test files next to source: `*.test.ts`
-- Test behavior, not implementation
-- Use `mount()` over `shallowMount()`
+- Write proper unit tests
+- Implement proper component tests
+- Use Vue Test Utils properly
+- Test composables properly
+- Implement proper mocking
+- Test async operations
 
-## Tailwind CSS
-- Use utility classes directly in templates
-- Extract repeated patterns to components, not CSS classes
-- Use `@apply` sparingly — only in base styles
-- Dark mode: use `dark:` variant
+## Best Practices
+- Follow Vue style guide
+- Use proper naming conventions
+- Keep components organized
+- Implement proper error handling
+- Use proper event handling
+- Document complex logic
 
-## Do NOT
-- Generate Options API code
-- Use `any` type — use `unknown` and narrow
-- Put business logic in components
-- Skip TypeScript on any file
-- Use `v-html` with user input
-- Mutate props
-- Use `var` — always `const` or `let`
+## Build and Tooling
+- Use Vite for development
+- Configure proper build setup
+- Use proper environment variables
+- Implement proper code splitting
+- Use proper asset handling
+- Configure proper optimization
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
