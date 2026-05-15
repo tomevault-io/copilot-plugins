@@ -1,0 +1,9 @@
+{
+  "name": "flagify-com--soar-mcp",
+  "displayName": "soar-mcp",
+  "description": "SOAR MCP Server \u662f\u4e00\u4e2a\u521b\u65b0\u7684\u5b89\u5168\u7f16\u6392\u5e73\u53f0\u96c6\u6210\u89e3\u51b3\u65b9\u6848\uff0c\u901a\u8fc7 Model Context Protocol \u5c06 SOAR (Security Orchestration, Automation and Response) \u80fd\u529b\u76f4\u63a5\u96c6\u6210\u5230\u5404\u79cd AI \u5ba2\u6237\u7aef\u4e2d\uff0c\u5305\u62ec Claude Desktop\u3001Cherry Studio\u3001Cursor\u3001Trae \u7b49\u3002\u5b83\u63d0\u4f9b\u4e86\u5b8c\u6574\u7684\u5b89\u5168\u4e8b\u4ef6\u7ba1\u7406\u3001\u5267\u672c\u6267\u884c",
+  "version": "1.0.0",
+  "author": "flagify-com",
+  "homepage": "https://github.com/flagify-com/soar-mcp",
+  "skills": []
+}
