@@ -7,11 +7,11 @@ High-quality automatic BGM and sound effect composition engine with 4-channel ch
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [abagames/algo-chip](https://github.com/abagames/algo-chip).
+Original source: `CLAUDE.md` in [abagames/algo-chip](https://github.com/abagames/algo-chip).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
