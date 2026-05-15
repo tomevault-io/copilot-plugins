@@ -7,11 +7,11 @@ Open-source pass-handling kernel for the Walt wallet app. PKPASS parsing, signat
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [walt-app/walt-passes-android](https://github.com/walt-app/walt-passes-android).
+Original source: `CLAUDE.md` in [walt-app/walt-passes-android](https://github.com/walt-app/walt-passes-android).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
