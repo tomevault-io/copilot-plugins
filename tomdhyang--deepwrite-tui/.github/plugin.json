@@ -1,0 +1,9 @@
+{
+  "name": "tomdhyang--deepwrite-tui",
+  "displayName": "deepwrite-tui",
+  "description": "A terminal Markdown writing tool with Focus Mode",
+  "version": "1.0.0",
+  "author": "tomdhyang",
+  "homepage": "https://github.com/tomdhyang/deepwrite-tui",
+  "skills": []
+}
