@@ -4,7 +4,7 @@
   "repo": "everything_claudecode",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SiniyaYousuf/everything_claudecode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:51:52Z"
+  "distributed_at": "2026-05-15T14:43:16Z"
 }
