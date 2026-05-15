@@ -1,0 +1,9 @@
+{
+  "name": "quinck-io--chimera",
+  "displayName": "chimera",
+  "description": "100% drop-in replacement for GitHub self-hosted runners, written from scratch",
+  "version": "1.0.0",
+  "author": "quinck-io",
+  "homepage": "https://github.com/quinck-io/chimera",
+  "skills": []
+}
