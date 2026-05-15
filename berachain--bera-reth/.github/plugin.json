@@ -1,0 +1,9 @@
+{
+  "name": "berachain--bera-reth",
+  "displayName": "bera-reth",
+  "description": "\ud83d\udc3b\u26d3\ufe0f Bera-Reth. A high performance Rust Execution Client for Berachain built on Reth SDK \ud83d\udc3b\u26d3\ufe0f",
+  "version": "1.0.0",
+  "author": "berachain",
+  "homepage": "https://github.com/berachain/bera-reth",
+  "skills": []
+}
