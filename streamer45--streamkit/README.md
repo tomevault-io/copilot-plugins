@@ -7,11 +7,11 @@ StreamKit is a self-hosted real-time media processing engine with pluggable node
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [streamer45/streamkit](https://github.com/streamer45/streamkit).
+Original source: `CLAUDE.md` in [streamer45/streamkit](https://github.com/streamer45/streamkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
