@@ -1,0 +1,9 @@
+{
+  "name": "odysa--mini-claw-code",
+  "displayName": "mini-claw-code",
+  "description": "Build your own mini coding agent in Rust.",
+  "version": "1.0.0",
+  "author": "odysa",
+  "homepage": "https://github.com/odysa/mini-claw-code",
+  "skills": []
+}
