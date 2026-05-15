@@ -8689,6 +8689,16 @@
       "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
     },
     {
+      "name": "doist--todoist-mcp",
+      "source": "./doist--todoist-mcp",
+      "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
+    },
+    {
+      "name": "doist--todoist-mcp",
+      "source": "./doist--todoist-mcp",
+      "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
+    },
+    {
       "name": "hesamsheikh--octogent",
       "source": "./hesamsheikh--octogent",
       "description": "A thin orchestration dashboard over Claude Code for managing context, automation, and developer headspace. You need tentacles. \ud83e\udd91"
@@ -30584,6 +30594,11 @@
       "description": "AI-powered LinkedIn job application bot with Playwright automation, LLM integration, data anonymization, and Telegram reporting. Applies to ALL job types (not just Easy Apply), generates custom resume"
     },
     {
+      "name": "zhangfengcdt--memoir",
+      "source": "./zhangfengcdt--memoir",
+      "description": "Hierarchical Agent Memory with Git-Like Version Control"
+    },
+    {
       "name": "pikapikaspeedup--antigravity-mobility-cli",
       "source": "./pikapikaspeedup--antigravity-mobility-cli",
       "description": "\u4e00\u4e2a\u5b9e\u73b0 antigravity \u81ea\u7531\u7684\u9879\u76ee\uff0c\u4f60\u7684 OpenClaw \u4f55\u5fc5\u662f OpenClaw"
@@ -51039,6 +51054,11 @@
       "description": "seccamp-2025-b1"
     },
     {
+      "name": "andotherstuff--chorus",
+      "source": "./andotherstuff--chorus",
+      "description": "Grow your community and gather support on the decentralized Nostr protocol with eCash"
+    },
+    {
       "name": "66reapollo2--agentsge",
       "source": "./66reapollo2--agentsge",
       "description": " Open-source CLI for AGENTS.md, .agents project   memory, MCP sync, and automatic knowledge   capture across AI coding agents"
@@ -52519,6 +52539,11 @@
       "description": "Synchronize AI coding\u2013agent knowledge files (rules, templates, guidelines) across your project."
     },
     {
+      "name": "timothywarner-org--prompt-pro",
+      "source": "./timothywarner-org--prompt-pro",
+      "description": "Master AI prompting for business innovation. O'Reilly Live Learning course by Tim Warner covering ChatGPT, Claude, Copilot, and enterprise prompt engineering with MCP implementation."
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -53834,6 +53859,11 @@
       "description": "Starter template for APEX. Contains custom Copilot agents, Azure Pricing MCP server, and an orchestrated multi-step workflow. Auto-syncs from the main repository."
     },
     {
+      "name": "ncosentino--needlr",
+      "source": "./ncosentino--needlr",
+      "description": "An opinionated framework for scanning assemblies for types and registering them in your dependency injection container."
+    },
+    {
       "name": "nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "source": "./nikolasburk--livestore-tanstack-cloudflare-auth-example",
       "description": "Demo app showing how to implement authentication with BetterAuth in a TanStack Start app with LiveStore."
@@ -54627,6 +54657,11 @@
       "name": "cylonix--cylonix",
       "source": "./cylonix--cylonix",
       "description": "Fully open sourced client app alternative to Tailscale"
+    },
+    {
+      "name": "redberryproducts--mailbox-for-laravel",
+      "source": "./redberryproducts--mailbox-for-laravel",
+      "description": "mailbox-for-laravel"
     },
     {
       "name": "affitor--open-affiliate",
@@ -57999,6 +58034,26 @@
       "description": "selvage"
     },
     {
+      "name": "selvage-lab--selvage",
+      "source": "./selvage-lab--selvage",
+      "description": "selvage"
+    },
+    {
+      "name": "selvage-lab--selvage",
+      "source": "./selvage-lab--selvage",
+      "description": "selvage"
+    },
+    {
+      "name": "selvage-lab--selvage",
+      "source": "./selvage-lab--selvage",
+      "description": "selvage"
+    },
+    {
+      "name": "selvage-lab--selvage",
+      "source": "./selvage-lab--selvage",
+      "description": "selvage"
+    },
+    {
       "name": "skywind3000--gamesample",
       "source": "./skywind3000--gamesample",
       "description": "Game Samples for GameLib"
@@ -59972,6 +60027,11 @@
       "name": "henriqueslab--rxiv-maker",
       "source": "./henriqueslab--rxiv-maker",
       "description": "Rxiv-Maker is a GitHub-native framework that converts markdown into a publication-ready PDF. It automates scientific preprint generation with a focus on reproducibility and version control"
+    },
+    {
+      "name": "logeable--certmgr",
+      "source": "./logeable--certmgr",
+      "description": "certmgr"
     },
     {
       "name": "compozy--kb",
@@ -62112,6 +62172,11 @@
       "name": "cometsh--comet",
       "source": "./cometsh--comet",
       "description": "Music streaming on ATProto!"
+    },
+    {
+      "name": "advancedcommunities--salesforce-mcp-server",
+      "source": "./advancedcommunities--salesforce-mcp-server",
+      "description": "MCP server that enables AI assistants to interact with Salesforce orgs through the Salesforce CLI, providing tools for Apex    execution, SOQL queries, metadata management, code analysis, and developm"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -64847,6 +64912,106 @@
       "name": "airuchen--pomo-tui",
       "source": "./airuchen--pomo-tui",
       "description": "A Pomodoro TUI suits my taste."
+    },
+    {
+      "name": "cameronapak--freedom-stack-v2",
+      "source": "./cameronapak--freedom-stack-v2",
+      "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)"
+    },
+    {
+      "name": "cameronapak--freedom-stack-v2",
+      "source": "./cameronapak--freedom-stack-v2",
+      "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)"
+    },
+    {
+      "name": "cameronapak--freedom-stack-v2",
+      "source": "./cameronapak--freedom-stack-v2",
+      "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)"
+    },
+    {
+      "name": "cameronapak--freedom-stack-v2",
+      "source": "./cameronapak--freedom-stack-v2",
+      "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)"
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "almond-bongbong--react-bottom-fixed",
+      "source": "./almond-bongbong--react-bottom-fixed",
+      "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance)."
+    },
+    {
+      "name": "openkaiden--kaiden",
+      "source": "./openkaiden--kaiden",
+      "description": "kaiden"
     },
     {
       "name": "10xchengtu--mux0",
@@ -69389,6 +69554,16 @@
       "description": "BreakGlass"
     },
     {
+      "name": "tjamet--har-mcp",
+      "source": "./tjamet--har-mcp",
+      "description": "A MCP server for parsing and analyzing HAR (HTTP Archive) files"
+    },
+    {
+      "name": "lainra--claude-code-telemetry",
+      "source": "./lainra--claude-code-telemetry",
+      "description": "Claude Code Telemetry is a lightweight bridge that captures telemetry data from Claude Code and forwards it to Langfuse for visualization, with a secure local turnkey installation under a minute."
+    },
+    {
       "name": "iamtouchskyer--logex",
       "source": "./iamtouchskyer--logex",
       "description": "Turn Claude Code session transcripts into blog-style articles \u2014 narrative, not logs"
@@ -73254,6 +73429,16 @@
       "description": "n8n community nodes for Yandex Cloud services integration"
     },
     {
+      "name": "0bs-chat--zerobs",
+      "source": "./0bs-chat--zerobs",
+      "description": "the ai chat app for the power users."
+    },
+    {
+      "name": "felipemotarocha--doutor-agenda-final",
+      "source": "./felipemotarocha--doutor-agenda-final",
+      "description": "doutor-agenda-final"
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -74979,6 +75164,16 @@
       "description": "Stop AI coding disasters before they cost you weeks. Real-time anti-pattern detection for vibe coders who love AI tools but need a safety net to avoid expensive overengineering traps."
     },
     {
+      "name": "wuji-technology--wujihandpy",
+      "source": "./wuji-technology--wujihandpy",
+      "description": "Wuji Hand SDK: C++ core with Python bindings, for controlling and communicating with Wuji Hand."
+    },
+    {
+      "name": "marukun712--aikyo",
+      "source": "./marukun712--aikyo",
+      "description": "aikyo\u306f\u3001\u76f8\u4e92\u306b\u3064\u306a\u304c\u308bAI\u30b3\u30f3\u30d1\u30cb\u30aa\u30f3\u3092\u4f5c\u6210\u3059\u308b\u305f\u3081\u306e\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u3067\u3059\u3002"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -76492,6 +76687,21 @@
       "name": "kousen--codex-training",
       "source": "./kousen--codex-training",
       "description": "Slides and exercises for a training course on OpnenAI's Codex CLI tool"
+    },
+    {
+      "name": "bitropy--ccagents",
+      "source": "./bitropy--ccagents",
+      "description": "CLI tool for managing Claude Code agents in local projects\""
+    },
+    {
+      "name": "melbournedeveloper--flutter-audio-widgets",
+      "source": "./melbournedeveloper--flutter-audio-widgets",
+      "description": "Professional grade gauges and controls for Flutter audio applications and VSTs"
+    },
+    {
+      "name": "yangchengshuai--ros-monitor",
+      "source": "./yangchengshuai--ros-monitor",
+      "description": "ROS\u76d1\u63a7\u7cfb\u7edf - \u57fa\u4e8eFastAPI\u548cReact\u7684\u591a\u4f20\u611f\u5668\u76d1\u63a7\u5e73\u53f0\uff0c\u652f\u6301\u6fc0\u5149\u96f7\u8fbe\u3001IMU\u3001\u76f8\u673a\u7b49\u4f20\u611f\u5668\u6570\u636e\u7684\u5b9e\u65f6\u76d1\u63a7\u548c\u53ef\u89c6\u5316"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -78292,6 +78502,16 @@
       "name": "shenjingnan--home-mcp",
       "source": "./shenjingnan--home-mcp",
       "description": "\u667a\u80fd\u5bb6\u5c45MCP"
+    },
+    {
+      "name": "aexy-io--graphzep",
+      "source": "./aexy-io--graphzep",
+      "description": "GraphZep: A temporal knowledge graph memory system for AI agents in Typescript based on the Zep paper"
+    },
+    {
+      "name": "lexrus--appaboutview",
+      "source": "./lexrus--appaboutview",
+      "description": "A drop in micro-framework for \"About\" views in your next macOS/iOS/visionOS/tvOS app"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -80272,6 +80492,26 @@
       "name": "dansnow--orpc-msw",
       "source": "./dansnow--orpc-msw",
       "description": "A utility library for type-safe mocking of OpenAPI-based oRPC contracts using Mock Service Worker (MSW) for robust testing and development."
+    },
+    {
+      "name": "roxybrowserlabs--roxybrowser-playwright-mcp",
+      "source": "./roxybrowserlabs--roxybrowser-playwright-mcp",
+      "description": "roxybrowser-playwright-mcp"
+    },
+    {
+      "name": "heng30--whispercap",
+      "source": "./heng30--whispercap",
+      "description": "uses whisper models to transcribe videos or audio into subtitles.\uff08\u4f7f\u7528whisper\u6a21\u578b\u5c06\u89c6\u9891\u6216\u97f3\u9891\u8f6c\u5f55\u4e3a\u5b57\u5e55\uff09"
+    },
+    {
+      "name": "ukgovernmentbeis--sandbox-escape-bench",
+      "source": "./ukgovernmentbeis--sandbox-escape-bench",
+      "description": "sandbox_escape_bench"
+    },
+    {
+      "name": "patrickkuei--cyberui",
+      "source": "./patrickkuei--cyberui",
+      "description": "The AI-first cyberpunk React UI library \u2014 built-in coding assistant context for Claude, Cursor, and Copilot out of the box."
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -82637,6 +82877,31 @@
       "name": "husniadil--cc-hooks",
       "source": "./husniadil--cc-hooks",
       "description": "Audio feedback plugin for Claude Code with TTS announcements, sound effects, and contextual AI messages. Supports multiple providers and languages."
+    },
+    {
+      "name": "jovaynetwork--jovay-relayer",
+      "source": "./jovaynetwork--jovay-relayer",
+      "description": "The core middleware for Jovay L2 Rollup \u2014 reliable data aggregation, submission, and proof management between L1 and L2."
+    },
+    {
+      "name": "virtuslab-open-source--astro-strapi-loader",
+      "source": "./virtuslab-open-source--astro-strapi-loader",
+      "description": "Integration of Astro with Strapi CMS that enables easy data loading from Strapi Content API"
+    },
+    {
+      "name": "digital-defense-institute--lc-claude-workbench",
+      "source": "./digital-defense-institute--lc-claude-workbench",
+      "description": "A workbench for using the LimaCharlie MCP with Claude Code"
+    },
+    {
+      "name": "artemnovichkov--transcriptdebugmenu",
+      "source": "./artemnovichkov--transcriptdebugmenu",
+      "description": "A SwiftUI library that provides a debug menu for viewing and copying LanguageModelSession transcripts."
+    },
+    {
+      "name": "legout--veritascribe",
+      "source": "./legout--veritascribe",
+      "description": "AI-Powered Thesis Review Tool"
     },
     {
       "name": "13point5--agent-canvas",
@@ -85139,6 +85404,16 @@
       "description": "Backup sensitive files to friends and family"
     },
     {
+      "name": "brutski--go-code-graph",
+      "source": "./brutski--go-code-graph",
+      "description": "A powerful Go codebase analyzer that transforms code into explorable graphs, enabling AI assistants to understand complex codebases through the Model Context Protocol (MCP)."
+    },
+    {
+      "name": "mudspot--prometheus-agents",
+      "source": "./mudspot--prometheus-agents",
+      "description": "Claude Code Agents for the Elixir Phoenix Software Engineer"
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -87427,6 +87702,81 @@
       "name": "microsoft--mcscatblog",
       "source": "./microsoft--mcscatblog",
       "description": "mcscatblog"
+    },
+    {
+      "name": "tky0065--springdocs-mcp",
+      "source": "./tky0065--springdocs-mcp",
+      "description": "Un serveur Model Context Protocol (MCP) public qui donne acc\u00e8s \u00e0 toute la documentation Spring Boot "
+    },
+    {
+      "name": "yurenju--eye-rolling-workflow",
+      "source": "./yurenju--eye-rolling-workflow",
+      "description": "eye-rolling-workflow"
+    },
+    {
+      "name": "ahoo-wang--fetcher",
+      "source": "./ahoo-wang--fetcher",
+      "description": "Fetcher is not just another HTTP client\u2014it's a complete ecosystem designed for modern web development with native LLM streaming API support. Built on the native Fetch API, Fetcher provides an Axios-li"
+    },
+    {
+      "name": "bugninja-ai--bugninja",
+      "source": "./bugninja-ai--bugninja",
+      "description": "Python library and CLI tool for E2E testing"
+    },
+    {
+      "name": "bugninja-ai--bugninja",
+      "source": "./bugninja-ai--bugninja",
+      "description": "Python library and CLI tool for E2E testing"
+    },
+    {
+      "name": "bugninja-ai--bugninja",
+      "source": "./bugninja-ai--bugninja",
+      "description": "Python library and CLI tool for E2E testing"
+    },
+    {
+      "name": "bugninja-ai--bugninja",
+      "source": "./bugninja-ai--bugninja",
+      "description": "Python library and CLI tool for E2E testing"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "wiggitywhitney--mcp-commit-story",
+      "source": "./wiggitywhitney--mcp-commit-story",
+      "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin"
+    },
+    {
+      "name": "macalinao--grill",
+      "source": "./macalinao--grill",
+      "description": "TypeScript library for interacting with the Solana blockchain, built on Gill"
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -89832,6 +90182,31 @@
       "name": "agencyenterprise--ai-reviewer",
       "source": "./agencyenterprise--ai-reviewer",
       "description": "AI-powered assistant for academic peer review. Built with LangGraph, this tool validates references against claims, flags unsupported assertions, performs literature reviews, and suggests relevant cit"
+    },
+    {
+      "name": "hxueh--beancount-nvim",
+      "source": "./hxueh--beancount-nvim",
+      "description": "Comprehensive Neovim plugin for Beancount plain text accounting with syntax highlighting, diagnostics, auto-completion, formatting, and navigation features."
+    },
+    {
+      "name": "raeperd--obsidian-default-template",
+      "source": "./raeperd--obsidian-default-template",
+      "description": "obsidian plugin to set default template for new notes"
+    },
+    {
+      "name": "mucsbr--lunes-live",
+      "source": "./mucsbr--lunes-live",
+      "description": "nothing"
+    },
+    {
+      "name": "lesleslie--excalidraw-mcp",
+      "source": "./lesleslie--excalidraw-mcp",
+      "description": "Unofficial Excalidraw MCP Server "
+    },
+    {
+      "name": "brad-edwards--aptl",
+      "source": "./brad-edwards--aptl",
+      "description": "SOC-in-a-Box for AI purple teaming"
     },
     {
       "name": "mohiwalla--memes",
@@ -92772,6 +93147,46 @@
       "name": "technicallycorrectco--requires-claude",
       "source": "./technicallycorrectco--requires-claude",
       "description": "Claude Code /command for requirements-driven development."
+    },
+    {
+      "name": "theantichris--ghost",
+      "source": "./theantichris--ghost",
+      "description": "A local, general-purpose AI assistant built in Go, powered by Ollama \u2014 inspired by cyberpunk worlds like Shadowrun, Cyberpunk 2077, and The Matrix."
+    },
+    {
+      "name": "mega-gorilla--pywac",
+      "source": "./mega-gorilla--pywac",
+      "description": "PyWAC"
+    },
+    {
+      "name": "dogokit--dogokit-corgi",
+      "source": "./dogokit--dogokit-corgi",
+      "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui"
+    },
+    {
+      "name": "dogokit--dogokit-corgi",
+      "source": "./dogokit--dogokit-corgi",
+      "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui"
+    },
+    {
+      "name": "dogokit--dogokit-corgi",
+      "source": "./dogokit--dogokit-corgi",
+      "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui"
+    },
+    {
+      "name": "dogokit--dogokit-corgi",
+      "source": "./dogokit--dogokit-corgi",
+      "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui"
+    },
+    {
+      "name": "dogokit--dogokit-corgi",
+      "source": "./dogokit--dogokit-corgi",
+      "description": "\ud83d\udc36Dogokit Corgi: React Router v7 Framework, tRPC, Prisma, Better Auth, Tailwind CSS, shadcn/ui"
+    },
+    {
+      "name": "przeprogramowani--10x-mvp-tracker",
+      "source": "./przeprogramowani--10x-mvp-tracker",
+      "description": "10x-mvp-tracker"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -95932,6 +96347,66 @@
       "name": "songunity--ccswitch-cli",
       "source": "./songunity--ccswitch-cli",
       "description": " Claude Code \u914d\u7f6e\u5207\u6362\u5668 - \u547d\u4ee4\u884c\u5de5\u5177\uff0c\u8f7b\u677e\u7ba1\u7406\u548c\u5207\u6362\u591a\u4e2a Claude Code \u914d\u7f6e\u3002"
+    },
+    {
+      "name": "taylorhuston--ai-toolkit",
+      "source": "./taylorhuston--ai-toolkit",
+      "description": "A lightweight, fully customizable framework to enable Spec Driven Development with Claude Code."
+    },
+    {
+      "name": "moinsen-dev--claude-code-vibe-coding-guide",
+      "source": "./moinsen-dev--claude-code-vibe-coding-guide",
+      "description": "Master the art of vibe coding with Claude Code - achieve flow-state development through    AI collaboration"
+    },
+    {
+      "name": "dtannen--claude-stacks",
+      "source": "./dtannen--claude-stacks",
+      "description": "Import/Export your Claude mcps/agents/commands/hooks/settings in seconds"
+    },
+    {
+      "name": "jieyuego--webteam",
+      "source": "./jieyuego--webteam",
+      "description": "AI\u8d85\u7ea7\u56e2\u961f - Web\u5168\u6808\u5f00\u53d1\u68a6\u4e4b\u961f | \u9769\u547d\u6027\u7684Claude Code/Trae/Cursor/Code Buddy\u9a71\u52a8\u5f00\u53d1\u5e73\u53f0\ud83d\udd25\u4e0b\u4e00\u4ee3\u667a\u80fd\u5f00\u53d1\u9769\u547d\uff01 \u4e09\u5927AI\u4e13\u5bb6\u5f3a\u5f3a\u8054\u5408\uff1a10\u5e74\u4ea7\u54c1\u7ecf\u7406 + 8\u5e74\u8bbe\u8ba1\u5e08 + 10\u5e74\u5168\u6808\u5de5\u7a0b\u5e08\uff0c\u6253\u9020\u5206\u949f\u7ea7\u9700\u6c42\u2192\u8bbe\u8ba1\u2192\u4ee3\u7801\u5b8c\u6574\u4ea4\u4ed8\uff01\u96f6\u6c9f\u901a\u6210\u672c\u3001\u6781\u81f4\u6548\u7387\u3001\u4e13\u4e1a\u54c1\u8d28\uff0c\u91cd\u65b0\u5b9a\u4e49Web\u5f00\u53d1\u4f53\u9a8c\uff01\ud83c\udf1f"
+    },
+    {
+      "name": "craibo--ha-red-energy-au",
+      "source": "./craibo--ha-red-energy-au",
+      "description": "Home Assistant Red Energy Integration"
+    },
+    {
+      "name": "raphaelbusquet--doutor-agenda",
+      "source": "./raphaelbusquet--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "aleppo-dev-community--aleppo-dev",
+      "source": "./aleppo-dev-community--aleppo-dev",
+      "description": "Where Aleppo developers meet"
+    },
+    {
+      "name": "imartincei--vscode-calcpad",
+      "source": "./imartincei--vscode-calcpad",
+      "description": "VS Code Extension for Calcpad"
+    },
+    {
+      "name": "aleppo-dev-community--aleppo-dev",
+      "source": "./aleppo-dev-community--aleppo-dev",
+      "description": "Where Aleppo developers meet"
+    },
+    {
+      "name": "wyattjoh--media-server-mcp",
+      "source": "./wyattjoh--media-server-mcp",
+      "description": "A Model Context Protocol (MCP) server that provides AI assistants with tools to manage Radarr (movies), Sonarr (TV series) media servers, and access IMDB data through natural language interactions."
+    },
+    {
+      "name": "aleppo-dev-community--aleppo-dev",
+      "source": "./aleppo-dev-community--aleppo-dev",
+      "description": "Where Aleppo developers meet"
+    },
+    {
+      "name": "fritzprix--role-playing-mcp-server",
+      "source": "./fritzprix--role-playing-mcp-server",
+      "description": "Role-playing game server for MCP. Lets AI assistants create, manage, and narrate interactive RPGs with dynamic storylines and character management."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -99347,6 +99822,26 @@
       "name": "cdklabs--cdk-appmod-catalog-blueprints",
       "source": "./cdklabs--cdk-appmod-catalog-blueprints",
       "description": "Library of composable well-architected CDK solution blueprints for real-world use cases \u2014 AI agents, document processing, serverless applications and more. Deploy or customize on AWS in minutes."
+    },
+    {
+      "name": "d8a-tech--d8a",
+      "source": "./d8a-tech--d8a",
+      "description": "Warehouse-native Analytics compatible with Google Analytics and Matomo tracking protocols. Ingest into ClickHouse, BigQuery or CSV/Parquet on S3/GCS/local fs while maintaining complete control over yo"
+    },
+    {
+      "name": "bkper--claude-eval",
+      "source": "./bkper--claude-eval",
+      "description": "An evaluation tool for Claude Code, using a LLM-as-a-judge simplified approach."
+    },
+    {
+      "name": "thewaywithin--agent-11",
+      "source": "./thewaywithin--agent-11",
+      "description": "Opensource AI development agent suite for solo founders. Deploy 11 specialized agents in Claude Code with one command. https://buymeacoffee.com/jamiewatters"
+    },
+    {
+      "name": "jfpedroza--claude-code-guardian",
+      "source": "./jfpedroza--claude-code-guardian",
+      "description": "Validation and permission system for Claude Code"
     },
     {
       "name": "lightninglabs--lnget",
@@ -103722,6 +104217,41 @@
       "name": "joemastersemison--google-sheets-to-code",
       "source": "./joemastersemison--google-sheets-to-code",
       "description": "Convert google sheets to code."
+    },
+    {
+      "name": "arthurfantaci--qlik-mcp-server",
+      "source": "./arthurfantaci--qlik-mcp-server",
+      "description": "MCP server providing AI assistants with comprehensive access to Qlik Sense applications - 9 powerful tools for measures, dimensions, scripts, and more"
+    },
+    {
+      "name": "iixingchen--prompt",
+      "source": "./iixingchen--prompt",
+      "description": "prompt"
+    },
+    {
+      "name": "k8s-kr--kubelingoassist",
+      "source": "./k8s-kr--kubelingoassist",
+      "description": "vscode extenstion for translating k8s docs"
+    },
+    {
+      "name": "blueragesoftware--backend",
+      "source": "./blueragesoftware--backend",
+      "description": "Craft and run Agents right from your phone"
+    },
+    {
+      "name": "vadiml1024--whisper-speech-to-text",
+      "source": "./vadiml1024--whisper-speech-to-text",
+      "description": "whisper-speech-to-text"
+    },
+    {
+      "name": "jilio--ebu",
+      "source": "./jilio--ebu",
+      "description": "Lightweight, type-safe event bus for Go"
+    },
+    {
+      "name": "aiexplorations--praval",
+      "source": "./aiexplorations--praval",
+      "description": "Multi-agent framework for building large scale Agentic AI. Simple agents, powerful results"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -125179,6 +125709,21 @@
       "description": "\u4e00\u952e\u914d\u7f6e\u5404\u7c7b AI Agent \u5de5\u5177\u7684 MCP\u3001Skills \u548c\u89c4\u5219\uff1b\u652f\u6301 Claude Code\u3001Codex\u3001Cursor\u3001Gemini CLI\u3001Qwen Code \u7b49\u3002 One-click local setup for MCP servers, skills, and rules across AI coding agents."
     },
     {
+      "name": "atomicstrata--atomicmemory-python",
+      "source": "./atomicstrata--atomicmemory-python",
+      "description": "Open-source AtomicMemory Python SDK"
+    },
+    {
+      "name": "atomicstrata--atomicmemory-python",
+      "source": "./atomicstrata--atomicmemory-python",
+      "description": "Open-source AtomicMemory Python SDK"
+    },
+    {
+      "name": "microsoft--ignite25-lab534-build-real-time-analytics-with-cosmos-db-in-microsoft-fabric",
+      "source": "./microsoft--ignite25-lab534-build-real-time-analytics-with-cosmos-db-in-microsoft-fabric",
+      "description": "ignite25-LAB534-build-real-time-analytics-with-cosmos-db-in-microsoft-fabric"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -126722,6 +127267,11 @@
       "name": "generative-computing--granite-switch",
       "source": "./generative-computing--granite-switch",
       "description": "Granite Switch: the accuracy of many fine-tuned models with the footprint of one."
+    },
+    {
+      "name": "wzj998--chatccc",
+      "source": "./wzj998--chatccc",
+      "description": "\u98de\u4e66\uff08lark\uff09\u6216\u5fae\u4fe1\uff08wechat\uff09\u804a\u5929\u63a7\u5236 Claude Code / Cursor / Codex"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -224282,6 +224832,11 @@
       "name": "jang-seung-hee--rental-news",
       "source": "./jang-seung-hee--rental-news",
       "description": "\ub80c\ud0c8\ud1a1\ud1a1 \uc6d4\uac04 \ud504\ub85c\ubaa8\uc158 \ub274\uc2a4"
+    },
+    {
+      "name": "ideavoai--ideavo-nextjs-template",
+      "source": "./ideavoai--ideavo-nextjs-template",
+      "description": "ideavo-nextjs-template"
     }
   ]
 }
