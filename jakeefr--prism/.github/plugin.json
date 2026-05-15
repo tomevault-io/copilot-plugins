@@ -1,0 +1,9 @@
+{
+  "name": "jakeefr--prism",
+  "displayName": "prism",
+  "description": "Session intelligence for Claude Code - find extra token usage, why your sessions fail, and how to fix it.",
+  "version": "1.0.0",
+  "author": "jakeefr",
+  "homepage": "https://github.com/jakeefr/prism",
+  "skills": []
+}
