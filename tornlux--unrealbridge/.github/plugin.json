@@ -1,0 +1,9 @@
+{
+  "name": "tornlux--unrealbridge",
+  "displayName": "UnrealBridge",
+  "description": "Typed control surface for Unreal Engine that lets AI agents introspect assets, author Blueprints/AnimBPs,   and edit levels \u2014 with reactive events and undoable writes.",
+  "version": "1.0.0",
+  "author": "TornLux",
+  "homepage": "https://github.com/TornLux/UnrealBridge",
+  "skills": []
+}
