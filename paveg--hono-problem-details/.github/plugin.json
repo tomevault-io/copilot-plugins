@@ -1,0 +1,9 @@
+{
+  "name": "paveg--hono-problem-details",
+  "displayName": "hono-problem-details",
+  "description": "RFC 9457 Problem Details middleware for Hono",
+  "version": "1.0.0",
+  "author": "paveg",
+  "homepage": "https://github.com/paveg/hono-problem-details",
+  "skills": []
+}
