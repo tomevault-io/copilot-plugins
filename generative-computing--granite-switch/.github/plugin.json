@@ -1,0 +1,9 @@
+{
+  "name": "generative-computing--granite-switch",
+  "displayName": "granite-switch",
+  "description": "Granite Switch: the accuracy of many fine-tuned models with the footprint of one.",
+  "version": "1.0.0",
+  "author": "generative-computing",
+  "homepage": "https://github.com/generative-computing/granite-switch",
+  "skills": []
+}
