@@ -1,0 +1,9 @@
+{
+  "name": "crossplane-contrib--crossplane-diff",
+  "displayName": "crossplane-diff",
+  "description": "A command line diff tool for crossplane.",
+  "version": "1.0.0",
+  "author": "crossplane-contrib",
+  "homepage": "https://github.com/crossplane-contrib/crossplane-diff",
+  "skills": []
+}
