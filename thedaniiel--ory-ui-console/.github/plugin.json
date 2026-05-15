@@ -1,0 +1,9 @@
+{
+  "name": "thedaniiel--ory-ui-console",
+  "displayName": "ory-ui-console",
+  "description": "Ory Console is an open-source admin dashboard for managing an Ory stack from one modern interface. It provides a clean web UI for Ory Kratos identity management, Ory Hydra OAuth2 administration, and O",
+  "version": "1.0.0",
+  "author": "THEDANIIEL",
+  "homepage": "https://github.com/THEDANIIEL/ory-ui-console",
+  "skills": []
+}
