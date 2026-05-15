@@ -1,0 +1,9 @@
+{
+  "name": "jhd3197--cachibot",
+  "displayName": "CachiBot",
+  "description": "The Armored AI Agent \u2014 visual dashboard, sandboxed execution, multi-provider LLM support. See what your bots do.",
+  "version": "1.0.0",
+  "author": "jhd3197",
+  "homepage": "https://github.com/jhd3197/CachiBot",
+  "skills": []
+}
