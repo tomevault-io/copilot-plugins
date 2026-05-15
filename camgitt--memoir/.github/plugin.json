@@ -1,0 +1,9 @@
+{
+  "name": "camgitt--memoir",
+  "displayName": "memoir",
+  "description": "Persistent memory for AI coding tools. Sync Claude, Cursor, Gemini, Copilot, Windsurf + 6 more across machines via MCP. E2E encrypted. Open source.",
+  "version": "1.0.0",
+  "author": "camgitt",
+  "homepage": "https://github.com/camgitt/memoir",
+  "skills": []
+}
