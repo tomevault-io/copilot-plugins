@@ -1,0 +1,9 @@
+{
+  "name": "djx-y-z--openmls-dart",
+  "displayName": "openmls_dart",
+  "description": "Wrapper for OpenMLS, implementing the Messaging Layer Security (MLS) protocol (RFC 9420) for scalable end-to-end encrypted group messaging. Features TreeKEM key agreement, encrypted storage (SQLCipher",
+  "version": "1.0.0",
+  "author": "djx-y-z",
+  "homepage": "https://github.com/djx-y-z/openmls_dart",
+  "skills": []
+}
