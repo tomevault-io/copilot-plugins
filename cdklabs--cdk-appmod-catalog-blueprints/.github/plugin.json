@@ -1,0 +1,9 @@
+{
+  "name": "cdklabs--cdk-appmod-catalog-blueprints",
+  "displayName": "cdk-appmod-catalog-blueprints",
+  "description": "Library of composable well-architected CDK solution blueprints for real-world use cases \u2014 AI agents, document processing, serverless applications and more. Deploy or customize on AWS in minutes.",
+  "version": "1.0.0",
+  "author": "cdklabs",
+  "homepage": "https://github.com/cdklabs/cdk-appmod-catalog-blueprints",
+  "skills": []
+}
