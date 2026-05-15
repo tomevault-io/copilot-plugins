@@ -4,7 +4,7 @@
   "repo": "zotero2eagle",
   "description": "A Zotero plugin that seamlessly integrates with Eagle, allowing you to save PDF image annotations directly to your Eagle library for better visual content management.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yueneiqi/zotero2eagle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T14:36:58Z"
+  "distributed_at": "2026-05-15T20:58:27Z"
 }
