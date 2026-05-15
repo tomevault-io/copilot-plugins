@@ -1,0 +1,9 @@
+{
+  "name": "jonhoo--avdl",
+  "displayName": "avdl",
+  "description": "Rust port of avro-tools' IDL tooling",
+  "version": "1.0.0",
+  "author": "jonhoo",
+  "homepage": "https://github.com/jonhoo/avdl",
+  "skills": []
+}
