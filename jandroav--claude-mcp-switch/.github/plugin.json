@@ -1,0 +1,9 @@
+{
+  "name": "jandroav--claude-mcp-switch",
+  "displayName": "claude-mcp-switch",
+  "description": "Simple CLI tool that lets you quickly enable/disable MCP servers in Claude Code without manually editing config files",
+  "version": "1.0.0",
+  "author": "jandroav",
+  "homepage": "https://github.com/jandroav/claude-mcp-switch",
+  "skills": []
+}
