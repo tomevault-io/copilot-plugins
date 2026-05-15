@@ -1,0 +1,9 @@
+{
+  "name": "dayflower--mac-whisper-tool",
+  "displayName": "mac-whisper-tool",
+  "description": "A CLI tool and MCP server for accessing meeting transcriptions from MacWhisper's database.",
+  "version": "1.0.0",
+  "author": "dayflower",
+  "homepage": "https://github.com/dayflower/mac-whisper-tool",
+  "skills": []
+}
