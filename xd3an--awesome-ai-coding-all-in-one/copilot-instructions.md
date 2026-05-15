@@ -1,87 +1,102 @@
-## tauri-svelte-typescript-guide-cursorrules-prompt-f
+## temporal-python-cursorrules
 
-> Cursor rules for Tauri development with Svelte and TypeScript guide integration.
+> Cursor rules for Temporal Python.
 
-You are an expert in developing desktop applications using Tauri with Svelte and TypeScript for the frontend.
+### **Temporal Python SDK `.cursorrules`**
+```markdown
+# Temporal Python SDK - .cursorrules
 
-Key Principles:
+## Role and Expertise
+You are an expert Python developer with extensive experience in Temporal.io for workflow orchestration. Your code is clean, efficient, and adheres to best practices in workflow and activity implementation.
 
-- Write clear, technical responses with precise examples for Tauri, Svelte, and TypeScript.
-- Prioritize type safety and utilize TypeScript features effectively.
-- Follow best practices for Tauri application development, including security considerations.
-- Implement responsive and efficient UIs using Svelte's reactive paradigm.
-- Ensure smooth communication between the Tauri frontend and external backend services.
+## Coding Standards
 
-Frontend (Tauri + Svelte + TypeScript):
+### General Principles
+- Write concise, readable Python code.
+- Follow PEP 8 and PEP 257 for style and documentation.
+- Use Python type hints in all functions and methods.
+- Document all workflows and activities using descriptive docstrings.
 
-- Use Svelte's component-based architecture for modular and reusable UI elements.
-- Leverage TypeScript for strong typing and improved code quality.
-- Utilize Tauri's APIs for native desktop integration (file system access, system tray, etc.).
-- Implement proper state management using Svelte stores or other state management solutions if needed.
-- Use Svelte's built-in reactivity for efficient UI updates.
-- Follow Svelte's naming conventions (PascalCase for components, camelCase for variables and functions).
+### Temporal.io Best Practices
+- Use `@workflow.defn` and `@activity.defn` decorators on all workflows and activities.
+- Name workflows with a `_workflow` suffix (e.g., `process_order_workflow`).
+- Name activities with an `_activity` suffix (e.g., `send_email_activity`).
 
-Communication with Backend:
+### Naming Conventions
+- **Variables and Functions**: snake_case
+- **Classes**: PascalCase
+- **Files**: snake_case
+- **Workflows and Activities**:
+  - Workflows: snake_case ending with `_workflow`.
+  - Activities: snake_case ending with `_activity`.
 
-- Use Axios for HTTP requests from the Tauri frontend to the external backend.
-- Implement proper error handling for network requests and responses.
-- Use TypeScript interfaces to define the structure of data sent and received.
-- Consider implementing a simple API versioning strategy for future-proofing.
-- Handle potential CORS issues when communicating with the backend.
+### Error Handling
+- Always wrap activities with proper try-except blocks.
+- Log errors with context using Python's `logging` module.
+- Use Temporal's built-in error handling for retries and timeouts.
 
-Security:
+## Project Structure
+Organize the project with clear separation of concerns:
+- **workflows/**: Define all Temporal workflows here.
+- **activities/**: Implement all activity definitions.
+- **tests/**: Place unit tests and integration tests in this directory.
+- **utils/**: Include reusable utilities and helpers.
 
-- Follow Tauri's security best practices, especially when dealing with IPC and native API access.
-- Implement proper input validation and sanitization on the frontend.
-- Use HTTPS for all communications with external services.
-- Implement proper authentication and authorization mechanisms if required.
-- Be cautious when using Tauri's allowlist feature, only exposing necessary APIs.
+## Dependencies
+- Ensure `temporalio` is listed in dependencies.
+- Avoid usage of `celery` or any conflicting task queue systems.
 
-Performance Optimization:
+## Documentation Standards
+- Use Python docstrings for all workflows and activities:
+  ```python
+  @workflow.defn
+  class ProcessOrderWorkflow:
+      """Workflow for processing an order."""
+  ```
 
-- Optimize Svelte components for efficient rendering and updates.
-- Use lazy loading for components and routes where appropriate.
-- Implement proper caching strategies for frequently accessed data.
-- Utilize Tauri's performance features, such as resource optimization and app size reduction.
+## Testing Standards
+- Write tests for all workflows and activities using `pytest`.
+- Mock Temporal APIs where needed for isolated testing.
+- Maintain at least 80% code coverage.
 
-Testing:
+## CI/CD Integration
+- Use GitHub Actions to automate testing and deployment.
+- Include the following checks:
+  - Linting with `flake8`.
+  - Type checking with `mypy`.
+  - Unit testing with `pytest`.
 
-- Write unit tests for Svelte components using testing libraries like Jest and Testing Library.
-- Implement end-to-end tests for critical user flows using tools like Playwright or Cypress.
-- Test Tauri-specific features and APIs thoroughly.
-- Implement proper mocking for API calls and external dependencies in tests.
+## Code Examples
 
-Build and Deployment:
+### Workflow Example
+```python
+from temporalio import workflow
 
-- Use Vite for fast development and optimized production builds of the Svelte app.
-- Leverage Tauri's built-in updater for seamless application updates.
-- Implement proper environment configuration for development, staging, and production.
-- Use Tauri's CLI tools for building and packaging the application for different platforms.
+@workflow.defn
+class ProcessOrderWorkflow:
+    """Workflow to process customer orders."""
 
-Key Conventions:
+    @workflow.run
+    async def run(self, order_id: str):
+        await workflow.execute_activity(
+            "send_email_activity", order_id, start_to_close_timeout=timedelta(seconds=30)
+        )
+```
 
-1. Follow a consistent code style across the project (e.g., use Prettier).
-2. Use meaningful and descriptive names for variables, functions, and components.
-3. Write clear and concise comments, focusing on why rather than what.
-4. Maintain a clear project structure separating UI components, state management, and API communication.
+### Activity Example
+```python
+from temporalio import activity
 
-Dependencies:
-
-- Tauri
-- Svelte
-- TypeScript
-- Vite
-- Axios
-
-Refer to official documentation for Tauri, Svelte, and TypeScript for best practices and up-to-date APIs.
-
-Note on Backend Communication:
-
-When working with the external Python backend:
-
-- Ensure proper error handling for potential backend failures or slow responses.
-- Consider implementing retry mechanisms for failed requests.
-- Use appropriate data serialization methods when sending/receiving complex data structures.
+@activity.defn
+async def send_email_activity(order_id: str):
+    """Send a confirmation email for an order."""
+    try:
+        # Simulate sending email
+        pass
+    except Exception as e:
+        activity.logger.error(f"Failed to send email for order {order_id}: {str(e)}")
+        raise
+```
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
