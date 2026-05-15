@@ -7,11 +7,11 @@ Base prática para aprender observabilidade com LGTM Stack, FastAPI, Grafana, Lo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [luizomf/lgtm1](https://github.com/luizomf/lgtm1).
+Original source: `CLAUDE.md` in [luizomf/lgtm1](https://github.com/luizomf/lgtm1).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
