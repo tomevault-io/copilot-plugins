@@ -1,0 +1,9 @@
+{
+  "name": "nanobot-ai--blackjack",
+  "displayName": "blackjack",
+  "description": "Blackjack MCP Server",
+  "version": "1.0.0",
+  "author": "nanobot-ai",
+  "homepage": "https://github.com/nanobot-ai/blackjack",
+  "skills": []
+}
