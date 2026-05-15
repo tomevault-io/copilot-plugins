@@ -1,159 +1,98 @@
-## caido-frontend
+## caido
 
-> Caido Frontend SDK Rules and Patterns
+> Caido HTTP Proxy Overview
 
 
-## Caido Frontend SDK
+## What is Caido
 
-### Overview
+Caido is a lightweight web application security auditing toolkit designed to help security professionals audit web applications with efficiency and ease
 
-The Caido Frontend SDK is used for creating UI components, pages, and handling user interactions in Caido plugins.
+Key features include:
+  - HTTP proxy for intercepting and viewing requests in real-time
+  - Replay functionality for resending and modifying requests to test endpoints
+  - Automate feature for testing requests against wordlists
+  - Match & Replace for automatically modifying requests with regex rules
+  - HTTPQL query language for filtering through HTTP traffic
+  - Workflow system for creating custom encoders/decoders and plugins
+  - Project management for organizing different security assessments
 
-### Entry Point
+## Environment
 
-Frontend plugins are initialized via `packages/frontend/src/index.ts`:
+We are running in a plugin environment where we can interact with Caido through the Caido Backend or Frontend SDK.
+
+### Plugin Structure
+
+- `packages/backend` → Backend plugin code - handles server-side logic, data processing, and API endpoints
+- `packages/frontend` → Frontend plugin code - handles UI components, user interactions, and calls to backend
+
+### Plugin Development
+
+Plugins consist of:
+- A `caido.config.ts` configuration file
+- Frontend plugin (optional) - provides UI using Caido Frontend SDK
+- Backend plugin (optional) - provides server-side functionality using Caido Backend SDK
+
+These are packaged together as a single plugin package that can be installed in Caido.
+
+### Key Development Concepts
+
+- Frontend plugins create pages, UI components, and handle user interactions
+- Backend plugins register API endpoints that can be called from frontend
+- Communication between frontend and backend happens through registered API calls
+
+### Caido Findings SDK
+
+Findings allow you to create alerts when Caido detects notable characteristics in requests/responses based on conditional statements. When triggered, they generate alerts to draw attention to interesting traffic.
+
+Example - Create a finding for successful responses:
+```typescript
+await sdk.findings.create({
+  title: `Success Response ${response.getCode()}`,
+  description: `Request ID: ${request.getId()}\nResponse Code: ${response.getCode()}`,
+  reporter: "Response Logger Plugin",
+  request: request,
+  dedupeKey: `${request.getPath()}-${response.getCode()}` // Prevents duplicates
+});
+```
+
+### Important Caido SDK Types
 
 ```typescript
-import { Caido } from "@caido/sdk-frontend";
-import { API, BackendEvents } from "backend";
+export type Request = {
+  getId(): ID;
+  getHost(): string;
+  getPort(): number;
+  getTls(): boolean;
+  getMethod(): string;
+  getPath(): string;
+  getQuery(): string;
+  getUrl(): string;
+  getHeaders(): Record<string, Array<string>>;
+  getHeader(name: string): Array<string> | undefined;
+  getBody(): Body | undefined;
+  getRaw(): RequestRaw;
+  getCreatedAt(): Date;
+  toSpec(): RequestSpec;
+  toSpecRaw(): RequestSpecRaw;
+};
 
-// Define SDK type with backend API
-export type FrontendSDK = Caido<API, BackendEvents>;
-
-// Plugin initialization
-export const init = (sdk: FrontendSDK) => {
-  // Create pages and UI
-  createPage(sdk);
-
-  // Register sidebar items
-  sdk.sidebar.registerItem("My Plugin", "/my-plugin-page", {
-    icon: "fas fa-rocket"
-  });
-
-  // Register commands
-  sdk.commands.register("my-command", {
-    name: "My Custom Command",
-    run: () => sdk.backend.myCustomFunction("Hello"),
-  });
+export type Response = {
+  getId(): ID;
+  getCode(): number;
+  getHeaders(): Record<string, Array<string>>;
+  getHeader(name: string): Array<string> | undefined;
+  getBody(): Body | undefined;
+  getRaw(): ResponseRaw;
+  getRoundtripTime(): number;
+  getCreatedAt(): Date;
 };
 ```
 
-### SDK Type Definitions
+For Body and Raw you can use methods like `getBody()?.toText()` to extract text content.
 
-#### For plugins WITHOUT backend, this is fine:
-```typescript
-export type FrontendSDK = Caido<Record<string, never>, Record<string, never>>;
+These types can be imported by:
 ```
-
-#### For plugins WITH backend:
-```typescript
-import { Caido } from "@caido/sdk-frontend";
-import { API, BackendEvents } from "backend";
-
-export type FrontendSDK = Caido<API, BackendEvents>;
-```
-
-### Command Pattern
-
-Commands provide a unified way to register actions that can be triggered from:
-- Command palette (Ctrl/Cmd+Shift+P)
-- Context menus (right-click)
-- UI buttons
-- Keyboard shortcuts
-
-Commands is a frontend-only concept.
-
-```typescript
-// Define command IDs as constants
-const Commands = {
-  processData: "my-plugin.process-data",
-  exportResults: "my-plugin.export-results",
-} as const;
-
-// Register commands
-sdk.commands.register(Commands.processData, {
-  name: "Process Data",
-  run: async () => {
-    const result = await sdk.backend.processData();
-    sdk.window.showToast(`Processed ${result.count} items`, {
-      variant: "success"
-    });
-  },
-  group: "My Plugin",
-});
-
-// Add to command palette
-sdk.commandPalette.register(Commands.processData);
-
-// Add to context menus
-sdk.menu.registerItem({
-  type: "Request",
-  commandId: Commands.processData,
-  leadingIcon: "fas fa-cog",
-});
-```
-
-### Working with Requests and Responses
-
-#### Creating and Sending Requests
-
-```typescript
-import { RequestSpec } from "caido:utils";
 import { type Request, type Response } from "caido:utils";
-
-// Create a new request
-const spec = new RequestSpec("https://api.example.com/data");
-spec.setMethod("POST");
-spec.setHeader("Content-Type", "application/json");
-spec.setBody(JSON.stringify({ key: "value" }));
-
-// Send the request
-const result = await sdk.requests.send(spec);
-if (result.response) {
-  const statusCode = result.response.getCode();
-  const responseBody = result.response.getBody()?.toText();
-}
-```
-
-#### Working with Request/Response Editors
-
-```typescript
-// Create editors for viewing/editing HTTP data
-const reqEditor = sdk.ui.httpRequestEditor();
-const respEditor = sdk.ui.httpResponseEditor();
-
-// Get DOM elements
-const reqElement = reqEditor.getElement();
-const respElement = respEditor.getElement();
-
-// Style and layout
-reqElement.style.width = "50%";
-respElement.style.width = "50%";
-
-const editorsContainer = document.createElement("div");
-editorsContainer.style.display = "flex";
-editorsContainer.appendChild(reqElement);
-editorsContainer.appendChild(respElement);
-```
-
-### Frontend Error Handling
-
-When calling backend APIs from the frontend, handle Result types gracefully:
-
-```typescript
-// Frontend usage - no try/catch needed
-const handleProcess = async () => {
-  const result = await sdk.backend.processData(inputValue);
-
-  if (result.kind === "Error") {
-    sdk.window.showToast(result.error, { variant: "error" });
-    return;
-  }
-
-  // Handle successful result
-  const data = result.value;
-  sdk.window.showToast("Processing completed!", { variant: "success" });
-};
 ```
 
 ---
