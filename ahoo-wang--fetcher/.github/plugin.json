@@ -1,0 +1,9 @@
+{
+  "name": "ahoo-wang--fetcher",
+  "displayName": "fetcher",
+  "description": "Fetcher is not just another HTTP client\u2014it's a complete ecosystem designed for modern web development with native LLM streaming API support. Built on the native Fetch API, Fetcher provides an Axios-li",
+  "version": "1.0.0",
+  "author": "Ahoo-Wang",
+  "homepage": "https://github.com/Ahoo-Wang/fetcher",
+  "skills": []
+}
