@@ -1,0 +1,9 @@
+{
+  "name": "jkwa--learn-funx",
+  "displayName": "learn_funx",
+  "description": "A hands-on learning environment for functional programming in Elixir, built around the Funx library and the Advanced Functional Programming with Elixir book.",
+  "version": "1.0.0",
+  "author": "JKWA",
+  "homepage": "https://github.com/JKWA/learn_funx",
+  "skills": []
+}
