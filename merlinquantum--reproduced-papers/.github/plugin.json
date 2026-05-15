@@ -1,0 +1,9 @@
+{
+  "name": "merlinquantum--reproduced-papers",
+  "displayName": "reproduced_papers",
+  "description": "Benchmarking photonic QML against the wider QML landscape to reveal what truly works, what scales, and where the community can push next.",
+  "version": "1.0.0",
+  "author": "merlinquantum",
+  "homepage": "https://github.com/merlinquantum/reproduced_papers",
+  "skills": []
+}
