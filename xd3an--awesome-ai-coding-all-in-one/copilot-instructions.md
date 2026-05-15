@@ -1,69 +1,54 @@
-## rtl-right-to-left-i18n-cursorrules-prompt-file
+## rust-general
 
-> Cursor rules for RTL development with logical CSS properties, Tailwind logical classes, bidirectional text, and automated auditing via rtlify-ai.
+> General Rust rules for safe, idiomatic application and library development
 
-# RTL (Right-to-Left) Development Rules
 
-You are an expert in building applications that support RTL (Right-to-Left) languages including Hebrew, Arabic, Persian, and Urdu.
+# Rust General Rules
 
-## Core Rules
+## Project Structure
 
-### 1. Logical CSS Properties
-Always use CSS logical properties instead of physical ones:
-- `margin-inline-start` not `margin-left`
-- `padding-inline-end` not `padding-right`
-- `inset-inline-start` not `left`
-- `border-inline-start` not `border-left`
+- Keep crates focused and name modules by domain responsibility.
+- Put reusable library code in `src/lib.rs` and binary entry points in `src/main.rs` or `src/bin/`.
+- Keep public APIs small and documented.
+- Use feature flags deliberately and document non-default features.
+- Commit `Cargo.lock` for applications; follow the project convention for libraries.
 
-### 2. Tailwind CSS Logical Classes
-Use logical Tailwind utilities:
-- `ms-4` not `ml-4` (margin-start)
-- `me-4` not `mr-4` (margin-end)
-- `ps-4` not `pl-4` (padding-start)
-- `pe-4` not `pr-4` (padding-end)
-- `start-0` not `left-0`
-- `end-0` not `right-0`
+## Ownership and Types
 
-### 3. React Native Logical Properties
-Use logical properties in React Native styles:
-- `paddingStart` not `paddingLeft`
-- `paddingEnd` not `paddingRight`
-- `marginStart` not `marginLeft`
-- `marginEnd` not `marginRight`
+- Prefer borrowing over cloning when ownership is not needed.
+- Use owned values at API boundaries when the callee must store data.
+- Model domain states with enums and structs instead of strings or booleans.
+- Use `Option<T>` for absence and `Result<T, E>` for fallible operations.
+- Avoid `unwrap()` and `expect()` outside tests, examples, and process-startup invariants.
 
-### 4. Bidirectional Text Safety
-Wrap mixed-script text with `<bdi>` tags:
-```html
-<p>User <bdi>{userName}</bdi> posted a comment</p>
-```
+## Error Handling
 
-### 5. Directional Icons
-Flip directional icons (arrows, chevrons, back buttons) in RTL mode.
-Non-directional icons (home, settings, search) should NOT be flipped.
+- Use `thiserror` or project-standard custom errors for libraries.
+- Use `anyhow` or project-standard context-rich errors for applications.
+- Add context when crossing IO, network, database, or parsing boundaries.
+- Do not discard errors with `_` unless explicitly documented.
 
-### 6. Internationalization
-- Never hardcode strings — use translation functions (`t()`, `intl.formatMessage()`)
-- Use `Intl.NumberFormat` for numbers and currency
-- Use `Intl.DateTimeFormat` for dates
-- Set `dir="auto"` or `dir="rtl"` on root elements
+## Concurrency and Async
 
-### 7. RTL-Aware Components
-- Carousels, sliders, and progress bars must reverse direction in RTL
-- Swipe gestures must reverse in RTL
-- Charts and graphs with directional axes must flip
+- Use `Send` and `Sync` boundaries intentionally.
+- Prefer message passing or owned task inputs for async work.
+- Do not hold blocking locks across `.await`.
+- Use `tokio::task::spawn_blocking` or equivalent for blocking CPU or IO in async applications.
+- Propagate cancellation through futures rather than hiding it in detached tasks.
 
-### 8. Testing
-- Always test with `dir="rtl"` on the root element
-- Verify with actual RTL content, not just flipped LTR
+## Testing and Quality
 
-## Automated RTL Auditing
+- Run `cargo fmt` and `cargo clippy` before delivery.
+- Add unit tests for pure logic and integration tests for public behavior.
+- Use property tests for parsers, serializers, and state machines when useful.
+- Use benchmarks only after identifying a real performance question.
 
-For automated RTL violation detection and fixing, use [rtlify-ai](https://github.com/idanlevi1/rtlify):
-```bash
-npx rtlify-ai init   # Install RTL rules
-npx rtlify-ai check  # Find violations
-npx rtlify-ai fix    # Auto-fix violations
-```
+## Common Mistakes
+
+- Do not fight the borrow checker by adding unnecessary `Arc<Mutex<_>>`.
+- Do not expose internal module structure through public APIs by accident.
+- Do not allocate in hot loops without measuring.
+- Do not use unsafe code unless the invariant is documented and tested.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
