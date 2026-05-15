@@ -1,0 +1,9 @@
+{
+  "name": "codeduet--codeduet-microvm-ai-agent-sandbox",
+  "displayName": "codeduet-microvm-ai-agent-sandbox",
+  "description": "MicroVM AI agent sandbox system using Cloud Hypervisor and Python with support for both Linux and Windows guest operating systems. The system provides hardware-level isolation through MicroVMs while m",
+  "version": "1.0.0",
+  "author": "CodeDuet",
+  "homepage": "https://github.com/CodeDuet/codeduet-microvm-ai-agent-sandbox",
+  "skills": []
+}
