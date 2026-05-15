@@ -4,7 +4,7 @@
   "repo": "tone",
   "description": "Open source Ai voice agent builder platform",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tonehq/tone",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T14:39:01Z"
+  "distributed_at": "2026-05-15T20:59:22Z"
 }
