@@ -1,215 +1,195 @@
-## 01-context
+## 02-gremlin-cheatsheet
 
-> This is a TypeScript-based MCP (Model Context Protocol) server that enables AI agents to interact with Gremlin-compatible graph databases. The server provides 6 tools and 2 resources for comprehensive graph database operations.
+> Manages a side-effect value during the traversal.
 
-## Project Overview
+# Gremlin Groovy Cheatsheet
 
-This is a TypeScript-based MCP (Model Context Protocol) server that enables AI agents to interact with Gremlin-compatible graph databases. The server provides 6 tools and 2 resources for comprehensive graph database operations.
+## Rules
 
-**Implementation Status**: This project is fully implemented using **Effect.ts** functional programming patterns throughout.
+- All node and edge labels are case-sensitive
+- Our Gremlin environment is based on Gremlin-Groovy. For current timestamps, use new Date()
 
-## Architecture
+## Non-Obvious DSL Steps
 
-### Core Components
-
-- **server.ts** - Effect-based MCP server with graceful startup/shutdown using Effect composition
-- **gremlin/service.ts** - Effect-based Gremlin service with Context.Tag service pattern
-- **gremlin/schema-service.ts** - Effect-based schema management with dependency injection
-- **config.ts** - Effect.Config-based configuration validation (no backward compatibility)
-- **handlers/** - Effect-based modular MCP request handlers with service injection
-- **utils/** - Effect-based utility modules with composable operations
-
-### Available Tools
-
-1. `get_graph_status` - Check database connection status
-2. `get_graph_schema` - Get complete schema with vertex/edge labels and relationship patterns
-3. `run_gremlin_query` - Execute any Gremlin traversal query
-4. `refresh_schema_cache` - Force immediate refresh of cached schema
-5. `import_graph_data` - Import data from GraphSON or CSV formats with batch processing
-6. `export_subgraph` - Export subgraph data to JSON, GraphSON, or CSV formats
-
-### Available Resources
-
-1. `gremlin://status` - Real-time connection status
-2. `gremlin://schema` - Cached schema information (JSON format)
-
-## Development Rules
-
-### MUST Follow RULES.md
-
-Always follow the development rules in `RULES.md` - these are mandatory for all code changes, testing, security, and architecture decisions.
-
-### Code Standards
-
-- Use TypeScript with strict type checking
-- Follow ESLint and Prettier configurations
-- Use Effect.ts functional programming patterns throughout
-- Use Zod for runtime validation with Effect.Config
-- Implement Effect-based error handling with custom error types
-- Write tests for all new functionality using Effect testing patterns
-
-### Testing Requirements
-
-- Use Jest with ts-jest for ESM support
-- Mock external dependencies properly
-- Include integration tests for end-to-end validation
-- Maintain high test coverage
-
-### Key Patterns
-
-- **Effect.ts Functional Programming**: All operations use Effect's composable, type-safe approach
-- **Service-Oriented Architecture**: Dependencies managed through Effect's Context.Tag patterns
-- **Layer-Based Composition**: Application built using Effect.Layer for dependency resolution
-- **Immutable State Management**: All state changes handled through Effect.Ref
-- **Type Safety**: Comprehensive TypeScript with Effect's type system + Zod validation
-- **Configuration Management**: Effect.Config-based environment validation
-- **Error Handling**: Effect-based error handling with custom error types
-- **Generic Gremlin Support**: Compatible with any Gremlin database
-
-## Development Commands
-
-### Essential Commands
-
-```bash
-npm run validate    # Run complete validation (format, lint, type-check, test)
-npm run dev        # Development mode with hot reload
-npm test          # Run all tests
-npm run build     # Compile TypeScript to JavaScript
+### coalesce()
+Returns the first non-null value from a list of traversals.
+```gremlin
+g.V().coalesce(values('name'), constant('Unknown'))
 ```
 
-### Testing Commands
-
-```bash
-npm run test:watch     # Run tests in watch mode
-npm run test:coverage  # Generate test coverage report
-npm run test:it       # Run integration tests (requires GREMLIN_ENDPOINT)
+### choose()
+Conditional branching based on a predicate.
+```gremlin
+g.V().choose(has('age', gt(30)), out('knows'), in('knows'))
 ```
 
-### Code Quality Commands
-
-```bash
-npm run lint          # Run ESLint on source and test files
-npm run lint:fix      # Auto-fix ESLint issues
-npm run format        # Format code with Prettier
-npm run format:check  # Check code formatting
+### repeat()
+Loops a traversal a specified number of times or until a condition is met.
+```gremlin
+g.V().repeat(out()).times(2)
 ```
 
-## Environment Variables
-
-Required:
-
-- `GREMLIN_ENDPOINT` - Server endpoint (host:port or host:port/traversal_source)
-
-Optional:
-
-- `GREMLIN_USE_SSL` - Enable SSL/TLS connections (default: false)
-- `GREMLIN_USERNAME` - Authentication username
-- `GREMLIN_PASSWORD` - Authentication password
-- `GREMLIN_IDLE_TIMEOUT` - Connection idle timeout in seconds (default: 300)
-- `LOG_LEVEL` - Logging level: error, warn, info, debug (default: info)
-
-## File Structure Guidelines
-
-### Source Code (`src/`)
-
-- **server.ts** - Effect-based MCP server with graceful startup/shutdown
-- **config.ts** - Effect.Config-based configuration validation (no backward compatibility)
-- **constants.ts** - Application constants integrated with Effect configuration
-- **gremlin/** - Effect-based graph database code
-  - **service.ts** - GremlinService using Effect.Context.Tag pattern
-  - **schema-service.ts** - SchemaService with Effect dependency injection
-  - **models.ts** - Zod schemas and TypeScript types
-- **handlers/** - Effect-based MCP request handlers
-  - **resources.ts** - Effect-based resource handlers with service injection
-  - **tools.ts** - Effect-based tool handlers with createEffectTool helpers
-  - **runtime-context.ts** - ManagedRuntime container for Effect execution
-- **utils/** - Effect-based utility modules
-  - **type-guards.ts** - Runtime type checking functions
-  - **result-parser.ts** - Gremlin result parsing with metadata extraction
-  - **result-metadata.ts** - Metadata extraction from Gremlin results
-  - **effect-tool-helpers.ts** - Effect-based tool creation helpers
-  - **tool-helpers.ts** - Legacy tool helpers (Effect.ts based)
-  - **data-operations.ts** - Effect-based graph data import/export operations
-- **errors.ts** - Effect-based error management with custom error classes
-
-### Test Code (`tests/`)
-
-- **setup.ts** - Jest configuration for ESM support
-- **config.test.ts** - Effect-based configuration management and validation
-- **models.test.ts** - Zod schema validation and type checking
-- **mcp-integration.test.ts** - Comprehensive integration tests against real Gremlin servers
-
-## Common Tasks
-
-### Adding a New Tool
-
-1. Add tool name to `TOOL_NAMES` in `constants.ts`
-2. Define input schema in `gremlin/models.ts` if needed
-3. Implement Effect-based tool handler in `handlers/tools.ts` using `createEffectTool`
-4. Add tests using Effect testing patterns
-5. Update documentation
-
-### Adding Configuration
-
-1. Add to Effect.Config schema in `config.ts`
-2. Export from config Effect composition
-3. Update environment variable documentation
-4. Add tests for Effect.Config validation
-
-### Debugging
-
-- Set `LOG_LEVEL=debug` for detailed logging
-- Use `npm run test:watch` for test-driven development
-- Check connection with `get_graph_status` tool
-- Verify schema with `get_graph_schema` tool
-
-## Error Handling
-
-- Use Effect-based custom error types (GremlinConnectionError, GremlinQueryError, etc.)
-- Use Effect.catchAll and Effect.either for structured error management
-- Provide detailed error messages with context and cause information
-- Log errors with appropriate levels using Effect composition
-- Return structured error responses for tools using Effect patterns
-
-## Performance Considerations
-
-- Effect.Ref-based state management for thread-safe connection state
-- Effect-based schema caching with configurable refresh intervals
-- Effect-based batch processing for import operations with composable error handling
-- Lazy service initialization through Effect's Layer system
-- Automatic cleanup using Effect.addFinalizer and managed runtimes
-- Optimize Gremlin queries for large datasets using Effect composition
-
-## Effect.ts Patterns
-
-### Service Definition
-```typescript
-const MyService = Context.Tag<MyService>()
+### until()
+Used with `repeat()` to specify the loop condition.
+```gremlin
+g.V().repeat(out()).until(has('name', 'marko'))
 ```
 
-### Layer Composition
-```typescript
-const AppLive = Layer.mergeAll(
-  GremlinServiceLive,
-  SchemaServiceLive,
-  ConfigLive
-)
+### emit()
+Used with `repeat()` to control when to emit results.
+```gremlin
+g.V().repeat(out()).emit().times(2)
 ```
 
-### Error Handling
-```typescript
-const operation = pipe(
-  someEffect,
-  Effect.catchTag("MyError", (error) => 
-    Effect.fail(new MyCustomError({ cause: error }))
-  )
-)
+### barrier()
+Controls the flow of traversers through the traversal.
+```gremlin
+g.V().barrier().out()
 ```
 
-### State Management
-```typescript
-const state = Effect.Ref.make(initialValue)
+### sack()
+Manages a side-effect value during the traversal.
+```gremlin
+g.withSack(0).V().repeat(out().sack(sum, 'weight')).times(2)
 ```
+
+### aggregate()
+Collects values into a list as a side-effect.
+```gremlin
+g.V().aggregate('x').by('name')
+```
+
+### group()
+Groups values based on a key.
+```gremlin
+g.V().group().by(label).by(count())
+```
+
+### project()
+Projects properties into a map.
+```gremlin
+g.V().project('name', 'age').by('name').by('age')
+```
+
+## Built-In Functions
+
+### id()
+Returns the ID of an element.
+```gremlin
+g.V().id()
+```
+
+### label()
+Returns the label of an element.
+```gremlin
+g.V().label()
+```
+
+### values()
+Returns the values of specified properties.
+```gremlin
+g.V().values('name')
+```
+
+### valueMap()
+Returns a map of property keys and values.
+```gremlin
+g.V().valueMap()
+```
+
+### has()
+Filters elements based on properties.
+```gremlin
+g.V().has('name', 'marko')
+```
+
+### hasLabel()
+Filters elements based on labels.
+```gremlin
+g.V().hasLabel('person')
+```
+
+### out()
+Traverses outgoing edges.
+```gremlin
+g.V().out()
+```
+
+### in()
+Traverses incoming edges.
+```gremlin
+g.V().in()
+```
+
+### both()
+Traverses both incoming and outgoing edges.
+```gremlin
+g.V().both()
+```
+
+### count()
+Counts the number of elements.
+```gremlin
+g.V().count()
+```
+
+## Date-Time Functions
+
+### datetime()
+Creates a datetime object from a string or epoch milliseconds.
+```gremlin
+datetime('2023-01-01T00:00:00Z')
+```
+
+### plus()
+Adds a duration to a datetime.
+```gremlin
+datetime('2023-01-01T00:00:00Z').plus(duration('P1D'))
+```
+
+### minus()
+Subtracts a duration from a datetime.
+```gremlin
+datetime('2023-01-01T00:00:00Z').minus(duration('P1D'))
+```
+
+### isBefore()
+Checks if one datetime is before another.
+```gremlin
+datetime('2023-01-01T00:00:00Z').isBefore(datetime('2023-01-02T00:00:00Z'))
+```
+
+### isAfter()
+Checks if one datetime is after another.
+```gremlin
+datetime('2023-01-02T00:00:00Z').isAfter(datetime('2023-01-01T00:00:00Z'))
+```
+
+### isEqual()
+Checks if two datetimes are equal.
+```gremlin
+datetime('2023-01-01T00:00:00Z').isEqual(datetime('2023-01-01T00:00:00Z'))
+```
+
+### format()
+Formats a datetime as a string.
+```gremlin
+datetime('2023-01-01T00:00:00Z').format('yyyy-MM-dd')
+```
+
+### parse()
+Parses a string into a datetime.
+```gremlin
+datetime.parse('2023-01-01', 'yyyy-MM-dd')
+```
+
+### duration()
+Creates a duration object.
+```gremlin
+duration('P1DT2H')
+```
+
+**Note**: All examples in this cheatsheet are compatible with the Gremlin Server HTTP submit endpoint and do not rely on Groovy-specific features. For a complete reference, consult the [Apache TinkerPop documentation](mdc:https:/tinkerpop.apache.org/docs/current/reference).
 
 ---
 > Source: [kpritam/gremlin-mcp](https://github.com/kpritam/gremlin-mcp) — distributed by [TomeVault](https://tomevault.io).
