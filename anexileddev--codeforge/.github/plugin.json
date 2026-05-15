@@ -1,0 +1,9 @@
+{
+  "name": "anexileddev--codeforge",
+  "displayName": "CodeForge",
+  "description": "Drop-in DevContainer that transforms any project into an AI-powered development environment; pre-configured with safety guards, specialized agents, code intelligence, and 38 domain skills for Claude C",
+  "version": "1.0.0",
+  "author": "AnExiledDev",
+  "homepage": "https://github.com/AnExiledDev/CodeForge",
+  "skills": []
+}
