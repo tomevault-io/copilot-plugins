@@ -1,0 +1,9 @@
+{
+  "name": "sprklai--zenii",
+  "displayName": "zenii",
+  "description": "Your machine's AI brain. One 20MB binary gives every tool, script, and cron job shared AI memory + 136 API routes. Desktop app, CLI, Telegram \u2014 all connected. Rust-powered.",
+  "version": "1.0.0",
+  "author": "sprklai",
+  "homepage": "https://github.com/sprklai/zenii",
+  "skills": []
+}
