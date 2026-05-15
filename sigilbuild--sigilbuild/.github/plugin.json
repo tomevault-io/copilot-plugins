@@ -1,0 +1,9 @@
+{
+  "name": "sigilbuild--sigilbuild",
+  "displayName": "SigilBuild",
+  "description": "Describe a Solana program in plain English - Sigil's AI agent writes the Anchor code.",
+  "version": "1.0.0",
+  "author": "SigilBuild",
+  "homepage": "https://github.com/SigilBuild/SigilBuild",
+  "skills": []
+}
