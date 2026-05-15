@@ -1,69 +1,16 @@
-## component-standards
+## css-style
 
-> // components/admin/PromotionEditor.tsx
+> CSS/SCSS 전용 규칙
 
-# 컴포넌트 개발 표준
+## CSS/SCSS 규칙
 
-## 컴포넌트 구조
-```tsx
-// components/admin/PromotionEditor.tsx
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+- 토큰/변수 우선: `:root` CSS 변수 또는 SCSS 변수 사용. 색상/스페이싱 하드코딩 금지
+- 전역 리셋/베이스는 1곳에서만 관리, 나머지는 모듈 범위로 제한
+- 접근성: 명도 대비 준수, 포커스 표시, 키보드 내비게이션 고려
+- 네온/야광 효과 지양: 가독성 저하 요소 금지(사용자 선호 반영)
+- 파일 크기 가이드: 400 라인 이하 권장, 500 라인 초과 금지(신규 추가 시 분리)
 
-interface PromotionEditorProps {
-  onSave: (data: PromotionData) => void;
-  initialData?: PromotionData;
-}
-
-export const PromotionEditor: React.FC<PromotionEditorProps> = ({
-  onSave,
-  initialData
-}) => {
-  // 상태 관리
-  const [formData, setFormData] = useState<PromotionData>(initialData || {
-    title: '',
-    content: '',
-    imageUrl: ''
-  });
-
-  // 이벤트 핸들러
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSave(formData);
-  };
-
-  return (
-    <Card className="p-6">
-      <form onSubmit={handleSubmit}>
-        {/* 폼 내용 */}
-      </form>
-    </Card>
-  );
-};
-```
-
-## 컴포넌트 분류
-- **ui/**: Shadcn UI 기본 컴포넌트
-- **guide/**: 가이드 관련 컴포넌트
-- **admin/**: 관리자 기능 컴포넌트
-- **common/**: 공통 컴포넌트
-
-## Props 인터페이스 규칙
-- **필수 props**: 기본값 없이 정의
-- **선택적 props**: `?` 표시로 정의
-- **이벤트 핸들러**: `on` 접두사 사용
-- **데이터 props**: 명확한 타입 정의
-
-## 스타일링 규칙
-- **Shadcn UI 컴포넌트** 우선 사용
-- **TailwindCSS 클래스**로 커스터마이징
-- **반응형 디자인** 필수 적용
-- **접근성** 고려 (aria-label, role 등)
-description:
-globs:
-alwaysApply: false
----
+참고: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
