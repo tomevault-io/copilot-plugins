@@ -1,0 +1,9 @@
+{
+  "name": "erketellal--dicomassist",
+  "displayName": "DICOMassist",
+  "description": "AI-powered DICOM viewer with smart slice selection for medical image analysis",
+  "version": "1.0.0",
+  "author": "erketellal",
+  "homepage": "https://github.com/erketellal/DICOMassist",
+  "skills": []
+}
