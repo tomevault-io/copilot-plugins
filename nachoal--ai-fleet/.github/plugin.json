@@ -1,0 +1,9 @@
+{
+  "name": "nachoal--ai-fleet",
+  "displayName": "ai-fleet",
+  "description": "AI Agent fleet manager for parallel agentic systems like claude code and codex",
+  "version": "1.0.0",
+  "author": "nachoal",
+  "homepage": "https://github.com/nachoal/ai-fleet",
+  "skills": []
+}
