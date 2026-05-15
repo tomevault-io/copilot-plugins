@@ -4,7 +4,7 @@
   "repo": "pulseOS-lite",
   "description": "Company Memory for AI Agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jp-carrilloe/pulseOS-lite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:22:05Z"
+  "distributed_at": "2026-05-15T18:10:46Z"
 }
