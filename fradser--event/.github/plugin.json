@@ -1,0 +1,9 @@
+{
+  "name": "fradser--event",
+  "displayName": "event",
+  "description": "A pure Swift CLI tool for managing Apple Reminders and Calendar on macOS",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/event",
+  "skills": []
+}
