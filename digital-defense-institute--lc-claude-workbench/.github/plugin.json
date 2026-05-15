@@ -1,0 +1,9 @@
+{
+  "name": "digital-defense-institute--lc-claude-workbench",
+  "displayName": "lc-claude-workbench",
+  "description": "A workbench for using the LimaCharlie MCP with Claude Code",
+  "version": "1.0.0",
+  "author": "Digital-Defense-Institute",
+  "homepage": "https://github.com/Digital-Defense-Institute/lc-claude-workbench",
+  "skills": []
+}
