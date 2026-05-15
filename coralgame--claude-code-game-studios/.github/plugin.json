@@ -1,0 +1,9 @@
+{
+  "name": "coralgame--claude-code-game-studios",
+  "displayName": "Claude-Code-Game-Studios",
+  "description": "Turn Claude Code into a full game dev studio \u2014 48 AI agents, 36 workflow skills, and a complete coordination system mirroring real studio hierarchy.",
+  "version": "1.0.0",
+  "author": "CoralGame",
+  "homepage": "https://github.com/CoralGame/Claude-Code-Game-Studios",
+  "skills": []
+}
