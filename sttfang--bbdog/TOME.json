@@ -1,0 +1,44 @@
+{
+  "name": "bbdog",
+  "owner": "SttFang",
+  "repo": "bbdog",
+  "description": "\u77ed\u5267\u6d17\u7a3f\u5236\u4f5c\u5de5\u5177\u94fe\uff1aAI \u6539\u5199 + \u8d44\u4ea7\u751f\u6210 + \u7ec4\u88c5\u6210\u7247",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SttFang/bbdog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T06:30:37Z"
+}
