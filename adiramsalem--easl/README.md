@@ -7,11 +7,11 @@ Instant hosting for AI agents — turn output into pages worth sharing
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AdirAmsalem/easl](https://github.com/AdirAmsalem/easl).
+Original source: `CLAUDE.md` in [AdirAmsalem/easl](https://github.com/AdirAmsalem/easl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
