@@ -7,11 +7,11 @@ Self-programming autonomous AI agent on Raspberry Pi Zero 2W. 960+ cycles, 47 se
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [seedpi867-cmd/seed](https://github.com/seedpi867-cmd/seed).
+Original source: `CLAUDE.md` in [seedpi867-cmd/seed](https://github.com/seedpi867-cmd/seed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
