@@ -1,0 +1,44 @@
+{
+  "name": "open-u60-pro",
+  "owner": "jesther-ai",
+  "repo": "open-u60-pro",
+  "description": "ZTE U60 Pro (MU5250) 5G router toolkit \u2014 Rust on-device REST agent + native iOS/Android/web companions. Reverse-engineered, 143-endpoint coverage, OpenWrt 23.05.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jesther-ai/open-u60-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T15:13:02Z"
+}
