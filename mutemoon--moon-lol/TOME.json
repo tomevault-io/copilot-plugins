@@ -1,0 +1,44 @@
+{
+  "name": "moon-lol",
+  "owner": "mutemoon",
+  "repo": "moon-lol",
+  "description": "moon-lol \u662f\u4e00\u4e2a\u57fa\u4e8e Bevy \u5f15\u64ce\u5f00\u53d1\u7684\u300a\u82f1\u96c4\u8054\u76df\u300b\u590d\u523b\u9879\u76ee\u3002\u8be5\u9879\u76ee\u5229\u7528 Rust \u8bed\u8a00\u7684\u9ad8\u6027\u80fd\u548c Bevy \u5f15\u64ce\u7684\u73b0\u4ee3 ECS \u67b6\u6784\uff0c\u5b9e\u73b0\u4e86\u5bf9 LoL \u8d44\u6e90\u6587\u4ef6\uff08WAD, PROP, TEX \u7b49\uff09\u7684\u89e3\u6790\u52a0\u8f7d\uff0c\u5e76\u521d\u6b65\u6784\u5efa\u4e86\u6218\u6597\u7cfb\u7edf\u3001\u6280\u80fd\u7cfb\u7edf\u4ee5\u53ca UI \u754c\u9762\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mutemoon/moon-lol",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T21:23:38Z"
+}
