@@ -1,0 +1,9 @@
+{
+  "name": "nakaokarei--metalcanvas",
+  "displayName": "MetalCanvas",
+  "description": "MetalCanvas is a Swift library for rendering Metal shaders on macOS and iOS, inspired by glsl-canvas.",
+  "version": "1.0.0",
+  "author": "NakaokaRei",
+  "homepage": "https://github.com/NakaokaRei/MetalCanvas",
+  "skills": []
+}
