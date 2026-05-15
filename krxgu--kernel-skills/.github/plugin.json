@@ -1,0 +1,9 @@
+{
+  "name": "krxgu--kernel-skills",
+  "displayName": "kernel-skills",
+  "description": "Open source skill library for AI coding agents to write, optimize, and debug high performance compute kernels across CUDA, Triton, and quantized workloads.",
+  "version": "1.0.0",
+  "author": "KrxGu",
+  "homepage": "https://github.com/KrxGu/kernel-skills",
+  "skills": []
+}
