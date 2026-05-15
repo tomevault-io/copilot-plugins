@@ -1,0 +1,9 @@
+{
+  "name": "canvascomputing--agentwerk",
+  "displayName": "agentwerk",
+  "description": "A minimal Rust crate that gives any  application agentic capabilities",
+  "version": "1.0.0",
+  "author": "canvascomputing",
+  "homepage": "https://github.com/canvascomputing/agentwerk",
+  "skills": []
+}
