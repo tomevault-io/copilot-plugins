@@ -1,0 +1,9 @@
+{
+  "name": "jesther-ai--open-u60-pro",
+  "displayName": "open-u60-pro",
+  "description": "ZTE U60 Pro (MU5250) 5G router toolkit \u2014 Rust on-device REST agent + native iOS/Android/web companions. Reverse-engineered, 143-endpoint coverage, OpenWrt 23.05.",
+  "version": "1.0.0",
+  "author": "jesther-ai",
+  "homepage": "https://github.com/jesther-ai/open-u60-pro",
+  "skills": []
+}
