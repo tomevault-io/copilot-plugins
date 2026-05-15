@@ -4,7 +4,7 @@
   "repo": "streamkit",
   "description": "StreamKit is a self-hosted real-time media processing engine with pluggable node-based pipelines",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/streamer45/streamkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T18:46:48Z"
+  "distributed_at": "2026-05-15T23:00:02Z"
 }
