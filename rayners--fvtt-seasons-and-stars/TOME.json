@@ -2,9 +2,9 @@
   "name": "fvtt-seasons-and-stars",
   "owner": "rayners",
   "repo": "fvtt-seasons-and-stars",
-  "description": "",
+  "description": "Calendar and timekeeping module for FoundryVTT v13+ with Simple Calendar compatibility bridge",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/rayners",
+  "source_url": "https://github.com/rayners/fvtt-seasons-and-stars",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T06:50:57Z"
+  "distributed_at": "2026-05-15T06:13:43Z"
 }
