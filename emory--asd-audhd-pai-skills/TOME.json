@@ -1,0 +1,44 @@
+{
+  "name": "ASD-AuDHD-PAI-Skills",
+  "owner": "emory",
+  "repo": "ASD-AuDHD-PAI-Skills",
+  "description": "A collection of Skills for your Personal AI Infrastructure and mobile apps like Claude Mobile useful for parents of children of autism spectrum disorders or anyone else that has demand avoidance impulses.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/emory/ASD-AuDHD-PAI-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T17:59:16Z"
+}
