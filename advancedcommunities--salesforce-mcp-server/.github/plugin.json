@@ -1,0 +1,9 @@
+{
+  "name": "advancedcommunities--salesforce-mcp-server",
+  "displayName": "salesforce-mcp-server",
+  "description": "MCP server that enables AI assistants to interact with Salesforce orgs through the Salesforce CLI, providing tools for Apex    execution, SOQL queries, metadata management, code analysis, and developm",
+  "version": "1.0.0",
+  "author": "advancedcommunities",
+  "homepage": "https://github.com/advancedcommunities/salesforce-mcp-server",
+  "skills": []
+}
