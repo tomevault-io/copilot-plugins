@@ -7,11 +7,11 @@ Convert Claude Code conversation to Markdown with TUI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [annenpolka/cclog](https://github.com/annenpolka/cclog).
+Original source: `CLAUDE.md` in [annenpolka/cclog](https://github.com/annenpolka/cclog).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
