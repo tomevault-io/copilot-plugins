@@ -7,11 +7,11 @@ SQL to Redis command translation utility
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [redis-developer/sql-redis](https://github.com/redis-developer/sql-redis).
+Original source: `CLAUDE.md` in [redis-developer/sql-redis](https://github.com/redis-developer/sql-redis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
