@@ -1,0 +1,9 @@
+{
+  "name": "khaentertainment--the-hive",
+  "displayName": "the-hive",
+  "description": "Claude can now control Gemini CLI and Openrouter agents as part of it's swarm, thanks to The Hive! \ud83d\udc1d",
+  "version": "1.0.0",
+  "author": "KHAEntertainment",
+  "homepage": "https://github.com/KHAEntertainment/the-hive",
+  "skills": []
+}
