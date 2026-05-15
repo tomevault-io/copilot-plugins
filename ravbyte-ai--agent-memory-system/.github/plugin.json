@@ -1,0 +1,9 @@
+{
+  "name": "ravbyte-ai--agent-memory-system",
+  "displayName": "agent-memory-system",
+  "description": "Generate and maintain AI-readable project memory, worklogs, and handoffs for any repository.",
+  "version": "1.0.0",
+  "author": "RavByte-AI",
+  "homepage": "https://github.com/RavByte-AI/agent-memory-system",
+  "skills": []
+}
