@@ -4,7 +4,7 @@
   "repo": "ccg-switch",
   "description": "\u7ba1\u7406\u60a8\u7684 Claude \u00b7 Codex \u00b7 Gemini \u914d\u7f6e",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cus45/ccg-switch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:29:40Z"
+  "distributed_at": "2026-05-15T15:06:01Z"
 }
