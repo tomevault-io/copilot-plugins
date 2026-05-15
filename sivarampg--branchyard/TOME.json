@@ -4,7 +4,7 @@
   "repo": "branchyard",
   "description": "Your shipyard for parallel development workflows. Maintain your digital yard with clean branches, productive workflows, and AI-era readiness",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SivaramPg/branchyard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:09:48Z"
+  "distributed_at": "2026-05-15T12:06:30Z"
 }
