@@ -1,0 +1,44 @@
+{
+  "name": "rust-ai-browser-automation",
+  "owner": "maulanasdqn",
+  "repo": "rust-ai-browser-automation",
+  "description": "Convert natural language into real browser automation using AI Vision and execute tests immediately with live process logs",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maulanasdqn/rust-ai-browser-automation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T07:54:54Z"
+}
