@@ -1,0 +1,9 @@
+{
+  "name": "solana-program--subscriptions",
+  "displayName": "subscriptions",
+  "description": "Solana program for third party assets delegations",
+  "version": "1.0.0",
+  "author": "solana-program",
+  "homepage": "https://github.com/solana-program/subscriptions",
+  "skills": []
+}
