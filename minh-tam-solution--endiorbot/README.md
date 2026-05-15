@@ -7,11 +7,11 @@ Local-first AI agent orchestrator for SDLC workflows — 14 role-based agents, 5
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Minh-Tam-Solution/EndiorBot](https://github.com/Minh-Tam-Solution/EndiorBot).
+Original source: `CLAUDE.md` in [Minh-Tam-Solution/EndiorBot](https://github.com/Minh-Tam-Solution/EndiorBot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
