@@ -1,0 +1,9 @@
+{
+  "name": "bikekoala--here-macos",
+  "displayName": "here-macos",
+  "description": "A tiny native macOS menu bar widget that shows your current public IP's country and region at a glance, with a rich popover for details. Swift 6 + SwiftUI + AppKit, zero third-party dependencies.",
+  "version": "1.0.0",
+  "author": "bikekoala",
+  "homepage": "https://github.com/bikekoala/here-macos",
+  "skills": []
+}
