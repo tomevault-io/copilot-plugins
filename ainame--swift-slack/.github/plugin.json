@@ -1,0 +1,9 @@
+{
+  "name": "ainame--swift-slack",
+  "displayName": "swift-slack",
+  "description": "Swift library for building Slack Apps powered by swift-openapi-generator with CI-driven schema updates",
+  "version": "1.0.0",
+  "author": "ainame",
+  "homepage": "https://github.com/ainame/swift-slack",
+  "skills": []
+}
