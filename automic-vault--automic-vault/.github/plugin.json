@@ -1,0 +1,9 @@
+{
+  "name": "automic-vault--automic-vault",
+  "displayName": "automic-vault",
+  "description": "Run agents autonomously without losing secrets, control, or your mind.",
+  "version": "1.0.0",
+  "author": "automic-vault",
+  "homepage": "https://github.com/automic-vault/automic-vault",
+  "skills": []
+}
