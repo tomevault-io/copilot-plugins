@@ -1,0 +1,9 @@
+{
+  "name": "wiggitywhitney--mcp-commit-story",
+  "displayName": "mcp-commit-story",
+  "description": "mcp-commit-story is a Model Context Protocol (MCP) server designed to capture and generate engineering journal entries within a code repository. The journal captures technical progress, decision-makin",
+  "version": "1.0.0",
+  "author": "wiggitywhitney",
+  "homepage": "https://github.com/wiggitywhitney/mcp-commit-story",
+  "skills": []
+}
