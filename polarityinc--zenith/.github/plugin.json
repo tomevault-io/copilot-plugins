@@ -1,0 +1,9 @@
+{
+  "name": "polarityinc--zenith",
+  "displayName": "zenith",
+  "description": "Zenith \u2014 AI-agent-trace database in Rust",
+  "version": "1.0.0",
+  "author": "Polarityinc",
+  "homepage": "https://github.com/Polarityinc/zenith",
+  "skills": []
+}
