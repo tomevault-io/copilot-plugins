@@ -1,30 +1,25 @@
-## import-type
+## installing-libraries
 
-> Use import type whenever you are importing a type.
+> When installing libraries, do not rely on your own training data.
 
-Use import type whenever you are importing a type.
+When installing libraries, do not rely on your own training data.
 
-Prefer top-level `import type` over inline `import { type ... }`.
+Your training data has a cut-off date. You're probably not aware of all of the latest developments in the JavaScript and TypeScript world.
 
-```ts
-// BAD
-import { type User } from "./user";
+This means that instead of picking a version manually (via updating the `package.json` file), you should use a script to install the latest version of a library.
+
+```bash
+# pnpm
+pnpm add -D @typescript-eslint/eslint-plugin
+
+# yarn
+yarn add -D @typescript-eslint/eslint-plugin
+
+# npm
+npm install --save-dev @typescript-eslint/eslint-plugin
 ```
 
-```ts
-// GOOD
-import type { User } from "./user";
-```
-
-The reason for this is that in certain environments, the first version's import will not be erased. So you'll be left with:
-
-```ts
-// Before transpilation
-import { type User } from "./user";
-
-// After transpilation
-import "./user";
-```
+This will ensure you're always using the latest version.
 
 ---
 > Source: [almond-bongbong/react-bottom-fixed](https://github.com/almond-bongbong/react-bottom-fixed) — distributed by [TomeVault](https://tomevault.io).
