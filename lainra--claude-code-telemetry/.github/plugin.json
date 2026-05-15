@@ -1,0 +1,9 @@
+{
+  "name": "lainra--claude-code-telemetry",
+  "displayName": "claude-code-telemetry",
+  "description": "Claude Code Telemetry is a lightweight bridge that captures telemetry data from Claude Code and forwards it to Langfuse for visualization, with a secure local turnkey installation under a minute.",
+  "version": "1.0.0",
+  "author": "lainra",
+  "homepage": "https://github.com/lainra/claude-code-telemetry",
+  "skills": []
+}
