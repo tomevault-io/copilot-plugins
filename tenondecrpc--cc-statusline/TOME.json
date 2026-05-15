@@ -4,7 +4,7 @@
   "repo": "cc-statusline",
   "description": "Claude Statusline: a lightweight Bash + jq statusline for Claude Code with model, context, rate limit, git/worktree,   cost, duration, and install/uninstall support. No heavy runtime required.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tenondecrpc/cc-statusline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:50:51Z"
+  "distributed_at": "2026-05-15T19:35:29Z"
 }
