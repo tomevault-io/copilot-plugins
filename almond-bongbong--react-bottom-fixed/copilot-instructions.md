@@ -1,58 +1,49 @@
-## discriminated-unions
+## enums
 
-> Proactively use discriminated unions to model data that can be in one of a few different shapes.
+> Do not introduce new enums into the codebase. Retain existing enums.
 
-Proactively use discriminated unions to model data that can be in one of a few different shapes.
+Do not introduce new enums into the codebase. Retain existing enums.
 
-For example, when sending events between environments:
+If you require enum-like behaviour, use an `as const` object:
 
 ```ts
-type UserCreatedEvent = {
-  type: "user.created";
-  data: { id: string; email: string };
-};
+const backendToFrontendEnum = {
+  xs: "EXTRA_SMALL",
+  sm: "SMALL",
+  md: "MEDIUM",
+} as const;
 
-type UserDeletedEvent = {
-  type: "user.deleted";
-  data: { id: string };
-};
+type LowerCaseEnum = keyof typeof backendToFrontendEnum; // "xs" | "sm" | "md"
 
-type Event = UserCreatedEvent | UserDeletedEvent;
+type UpperCaseEnum =
+  (typeof backendToFrontendEnum)[LowerCaseEnum]; // "EXTRA_SMALL" | "SMALL" | "MEDIUM"
 ```
 
-Use switch statements to handle the results of discriminated unions:
+Remember that numeric enums behave differently to string enums. Numeric enums produce a reverse mapping:
 
 ```ts
-const handleEvent = (event: Event) => {
-  switch (event.type) {
-    case "user.created":
-      console.log(event.data.email);
-      break;
-    case "user.deleted":
-      console.log(event.data.id);
-      break;
-  }
-};
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+
+const direction = Direction.Up; // 0
+const directionName = Direction[0]; // "Up"
 ```
 
-Use discriminated unions to prevent the 'bag of optionals' problem.
-
-For example, when describing a fetching state:
+This means that the enum `Direction` above will have eight keys instead of four.
 
 ```ts
-// BAD - allows impossible states
-type FetchingState<TData> = {
-  status: "idle" | "loading" | "success" | "error";
-  data?: TData;
-  error?: Error;
-};
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
 
-// GOOD - prevents impossible states
-type FetchingState<TData> =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "success"; data: TData }
-  | { status: "error"; error: Error };
+Object.keys(Direction).length; // 8
 ```
 
 ---
