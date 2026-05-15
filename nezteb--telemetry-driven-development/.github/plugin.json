@@ -1,0 +1,9 @@
+{
+  "name": "nezteb--telemetry-driven-development",
+  "displayName": "telemetry-driven-development",
+  "description": "My ElixirConf US 2025 talk",
+  "version": "1.0.0",
+  "author": "Nezteb",
+  "homepage": "https://github.com/Nezteb/telemetry-driven-development",
+  "skills": []
+}
