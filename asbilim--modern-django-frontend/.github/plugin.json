@@ -1,0 +1,9 @@
+{
+  "name": "asbilim--modern-django-frontend",
+  "displayName": "modern-django-frontend",
+  "description": "A modern django frontend dashboard , build on top nextjs 15 and app router",
+  "version": "1.0.0",
+  "author": "asbilim",
+  "homepage": "https://github.com/asbilim/modern-django-frontend",
+  "skills": []
+}
