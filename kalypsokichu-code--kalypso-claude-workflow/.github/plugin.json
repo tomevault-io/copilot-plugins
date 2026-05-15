@@ -1,0 +1,9 @@
+{
+  "name": "kalypsokichu-code--kalypso-claude-workflow",
+  "displayName": "kalypso-claude-workflow",
+  "description": "My Claude Code setup - three-tier permissions, hook router, slash commands, subagents, scaffolding. Opinionated.",
+  "version": "1.0.0",
+  "author": "Kalypsokichu-code",
+  "homepage": "https://github.com/Kalypsokichu-code/kalypso-claude-workflow",
+  "skills": []
+}
