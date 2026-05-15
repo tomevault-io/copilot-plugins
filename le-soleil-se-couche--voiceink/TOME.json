@@ -1,0 +1,44 @@
+{
+  "name": "VoiceInk",
+  "owner": "le-soleil-se-couche",
+  "repo": "VoiceInk",
+  "description": "\u57fa\u4e8eOpen Whisper \u7684\u6539\u8fdb\u7248\uff0c\u901a\u8fc7\u6a21\u578b\u9009\u62e9\u548c\u529f\u80fd\u6dfb\u52a0\u5c1d\u8bd5\u8fbe\u5230\u4ed8\u8d39\u8f6f\u4ef6\u7684\u6548\u679c",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/le-soleil-se-couche/VoiceInk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T14:56:53Z"
+}
