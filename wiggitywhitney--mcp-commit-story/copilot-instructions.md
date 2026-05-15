@@ -1,144 +1,226 @@
-## tdd-requirements
+## test-suite-integrity
 
-> **Strict TDD methodology** is **REQUIRED** for:
+> **All tests in the entire test suite must pass. Never skip addressing a failing test, even if it appears unrelated to the current task.**
 
-# TDD Requirements and Subtask Structure
+# Test Suite Integrity Rule
 
-## TDD Methodology Requirements
+**All tests in the entire test suite must pass. Never skip addressing a failing test, even if it appears unrelated to the current task.**
 
-**Strict TDD methodology** is **REQUIRED** for:
-- Creating/modifying application logic
-- Adding new functions
-- Changing business logic
-- Core code changes
+## Core Principle
 
-**TDD is NOT required** for:
-- Integration testing subtasks
-- Documentation updates
-- Cleanup tasks
-- Telemetry verification
-- Boilerplate subtasks
+- **The test suite is the foundation of code quality and system reliability**
+- **Every failing test represents a potential bug or broken functionality**
+- **Ignoring "unrelated" test failures leads to technical debt and system instability**
+- **Test suite integrity is a prerequisite for any code changes**
 
-## Subtask Structure Patterns
+## Implementation Requirements
 
-### For Core Code Changes (TDD Required)
+### ✅ DO: Always Fix All Failing Tests
 
-All subtasks that modify core application logic must follow this exact pattern:
+```bash
+# ✅ Run full test suite before any implementation
+python -m pytest tests/ -v
 
-#### 1. GET APPROVAL FOR DESIGN CHOICES (if needed)
-```
-**PAUSE FOR MANUAL APPROVAL**: [Specific design choice 1]
-**PAUSE FOR MANUAL APPROVAL**: [Specific design choice 2]
-```
-- Include this section only if design decisions are needed
-- The developer prefers to answer design questions during planning phase rather than having pauses in implementation plans
+# ✅ Fix ALL failing tests, not just related ones
+python -m pytest tests/ -x --tb=short
 
-#### 2. WRITE TESTS FIRST
-```
-- Create tests/[unit|integration]/test_[module_name].py
-- Test [function_name]() function  
-- Test cases: [specific scenarios - success, failures, edge cases]
-- RUN TESTS - VERIFY THEY FAIL
+# ✅ Verify test suite health after changes
+python -m pytest tests/ --tb=short
 ```
 
-#### 3. IMPLEMENT FUNCTIONALITY
-```
-- Implement [function_name]() in src/[module_path]/[file_name].py
-- Handle all error cases identified in tests
-- Include comprehensive telemetry with specific metrics/spans
-- RUN TESTS - VERIFY THEY PASS
-```
+### ✅ DO: Address Test Failures by Priority
 
-#### 4. DOCUMENT AND COMPLETE
-```
-- Add documentation in code docstrings
-  1. Do not reference tasks
-  2. Do not reference historical implementations or development processes  
-  3. Write for the reader: A user with no preexisting project knowledge
-- Do not remove existing information unless it's incorrect
-- No approval needed - make documentation edits directly
-- Run the entire test suite and make sure all tests are passing
-- Verify that all requirements have been met
-- Double check all subtask requirements are met before marking this subtask as complete
-- MARK COMPLETE
+1. **Critical System Tests**: Core functionality, integration tests
+2. **Unit Test Failures**: Individual component failures
+3. **Edge Case Tests**: Boundary condition tests
+4. **Documentation Tests**: Import tests, structure validation
+
+### ✅ DO: Update Tests When Implementation Changes
+
+```python
+# ✅ Update test expectations to match new behavior
+def test_enhanced_hook_content():
+    """Updated test for enhanced git hook functionality."""
+    content = generate_hook_content()
+    assert "python -m mcp_commit_story.git_hook_worker" in content
+    assert '"$PWD"' in content
 ```
 
-### For Boilerplate Tasks (Simplified Structure)
+### ✅ DO: Maintain Backward Compatibility Tests
 
-For integration testing, documentation, cleanup, and telemetry verification subtasks:
-
-#### Steps:
-```
-- [Step 1 description]
-- [Step 2 description]
-- [Step 3 description]
-- Run the entire test suite and make sure all tests are passing
-- Verify that all requirements have been met
-- MARK COMPLETE
+```python
+# ✅ Keep backward compatibility tests working
+def test_custom_command_still_works():
+    """Ensure legacy behavior still functions."""
+    custom = "echo 'hello world'"
+    content = generate_hook_content(custom)
+    assert custom in content
 ```
 
-## Test Requirements
+### ❌ DON'T: Skip "Unrelated" Test Failures
 
-### Test Coverage Standards
-- **Test all error cases** - comprehensive error scenario coverage
-- **Integration tests** - verify end-to-end workflows work correctly
-- **Unit tests** - test individual functions and components
-- **Mock external dependencies** - isolate units under test
+```bash
+# ❌ Wrong - ignoring failures
+pytest tests/unit/test_my_feature.py  # Only testing related code
 
-### Test Execution Pattern
-1. **Write tests before implementation** - this is non-negotiable for core code changes
-2. **Run tests to verify they fail** - confirm tests are testing the right thing
-3. **Implement functionality** - make tests pass
-4. **Run tests to verify they pass** - confirm implementation works
-5. **Run full test suite** - ensure no regressions
+# ❌ Wrong - proceeding with failures
+# "The git_utils tests are failing but that's not related to my change"
+```
 
-## Telemetry Requirements in Tests
+### ❌ DON'T: Leave Broken Tests "For Later"
 
-Every subtask involving code changes must include telemetry:
+```python
+# ❌ Wrong - commenting out broken tests
+# def test_important_functionality():
+#     # TODO: Fix this later
+#     pass
 
-### Required Telemetry Components
-- **Duration histograms** for operations: `[component].[operation]_duration_seconds`
-- **Operation counters** with success/failure labels: `[component].[operation]_total`
-- **Error categorization** with specific error types
-- **Performance correlation** tracking (e.g., context size vs duration)
+# ❌ Wrong - marking tests as xfail without justification
+@pytest.mark.xfail(reason="Will fix later")  # Not acceptable
+def test_core_feature():
+    pass
+```
 
-### Telemetry Testing Pattern
-- Use `TelemetryCollector` for isolated telemetry testing
-- Use assertion helpers: `assert_operation_traced`, `assert_trace_continuity`, `assert_performance_within_bounds`
-- Test both successful and error scenarios
-- Validate trace relationships and span attributes
+## Implementation Workflow
 
-## Anti-Patterns to Avoid
+### **1. Pre-Implementation Check**
+```bash
+# Always start with clean test suite
+python -m pytest tests/ -v
+# If failures exist: STOP and fix them first
+```
 
-### TDD Anti-Patterns
-- **Skipping tests** or writing implementation before tests for core code changes
-- **Forcing TDD on boilerplate subtasks** like integration testing, documentation, or cleanup tasks
-- **Missing telemetry** on new functionality
-- **Poor test coverage** of error scenarios
+### **2. During Implementation**
+```bash
+# Run tests frequently during development
+python -m pytest tests/unit/test_current_module.py -v
+python -m pytest tests/ -x  # Stop on first failure
+```
 
-### Implementation Anti-Patterns
-- **Breaking existing patterns** instead of following established conventions
-- **Over-engineering** simple solutions
-- **Ignoring existing utilities** when they could be reused
+### **3. Post-Implementation Verification**
+```bash
+# Comprehensive test suite validation
+python -m pytest tests/ --tb=short
+# All tests must pass before considering task complete
+```
 
-## Success Criteria
+### **4. Integration Test Validation**
+```bash
+# Run integration tests to catch system-level issues
+python -m pytest tests/integration/ -v
+```
 
-### Good TDD Implementation
-- Tests written before implementation for core code changes
-- Tests fail initially, then pass after implementation
-- Comprehensive error case coverage
-- Full test suite passes
-- Appropriate telemetry included and tested
+## Common Failure Patterns and Solutions
 
-### Good Boilerplate Subtasks
-- Clear, actionable steps
-- Verification that all requirements are met
-- Full test suite validation
-- Proper completion marking
-description:
-globs:
-alwaysApply: false
----
+### **Import Errors**
+```python
+# ✅ Fix missing imports in new modules
+import git  # Add missing GitPython import
+
+# ✅ Update __init__.py files if needed
+from .new_module import new_function
+```
+
+### **API Changes**
+```python
+# ✅ Update function signatures in tests
+def test_function_with_new_parameter():
+    result = my_function(param1, new_param=default_value)
+```
+
+### **Test Data Updates**
+```python
+# ✅ Update test expectations for new behavior
+def test_enhanced_functionality():
+    # Updated assertion for new enhanced behavior
+    assert "enhanced_feature" in result
+```
+
+### **Mock Updates**
+```python
+# ✅ Update mocks to match new function signatures
+@patch('module.function')
+def test_with_updated_mock(mock_func):
+    mock_func.return_value = new_expected_value
+```
+
+## Test Categories and Treatment
+
+### **Unit Tests** - Must All Pass
+- Individual function and class tests
+- Isolated component testing
+- Mock-based testing
+
+### **Integration Tests** - Must All Pass
+- Cross-component interaction tests
+- File system operation tests
+- CLI integration tests
+
+### **Expected Failures (xfail)** - Acceptable Only When:
+- Clearly documented with specific reason
+- Temporary due to external dependencies (AI services)
+- Marked with specific condition for when to revisit
+
+```python
+# ✅ Acceptable xfail usage
+@pytest.mark.xfail(reason="Requires AI agent or mock AI")
+def test_ai_dependent_feature():
+    pass
+```
+
+### **Skipped Tests** - Use Sparingly
+- Only for tests requiring external resources
+- Must have clear reason and condition
+
+```python
+# ✅ Acceptable skip usage
+@pytest.mark.skipif(not AI_SERVICE_AVAILABLE, reason="AI service not configured")
+def test_ai_integration():
+    pass
+```
+
+## Benefits of Complete Test Suite Integrity
+
+- **Confidence**: Every code change is validated against the entire system
+- **Quality**: Prevents regression bugs from reaching production
+- **Documentation**: Tests serve as living documentation of system behavior
+- **Refactoring Safety**: Can safely refactor with confidence
+- **Debugging**: Failing tests provide immediate feedback on issues
+
+## Exceptions
+
+**The only acceptable reasons for temporarily proceeding with failing tests:**
+
+1. **External Service Outage**: Tests failing due to temporary external service issues
+2. **Environment Setup**: Tests failing due to missing development environment setup
+3. **Explicit Stakeholder Decision**: Business decision to proceed with known issues
+
+**All exceptions must be:**
+- Documented with clear reasoning
+- Tracked with specific remediation plan
+- Resolved within defined timeframe
+
+## Integration with Development Workflow
+
+### **Task Completion Criteria**
+1. All task requirements implemented ✅
+2. New functionality tested ✅  
+3. **ALL tests in suite passing** ✅
+4. Documentation updated ✅
+5. Code review ready ✅
+
+### **Before Marking Task Complete**
+```bash
+# Final validation checklist
+python -m pytest tests/ --tb=short
+# If exit code != 0: Task is NOT complete
+```
+
+## Related Rules
+
+- [TDD Workflow](mdc:.cursor/rules/cursor_rules.mdc) - Test-driven development patterns
+- [Git Operations](mdc:.cursor/rules/git_operations.mdc) - Git workflow integration
+- [Code Quality](mdc:.cursor/rules/code_quality.mdc) - Overall quality standards
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
