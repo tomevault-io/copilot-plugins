@@ -1,290 +1,357 @@
-## backend
+## coding-standards
 
-> Follow these rules when working on the backend.
+> handleSuccess(result)
 
-### Backend Rules
+Rule Name: coding-standards
+Description: 
+This rule defines the coding standards and formatting guidelines that must be followed for all code changes in this project.
 
-Follow these rules when working on the backend.
+<coding_format>
 
-It uses Postgres, Supabase, Drizzle ORM, and Server Actions.
+A. Syntax & Structure
+- File names must be dash-case (word-cloud.service.ts) unless an existing pattern differs.
+- Group imports: node/standard → npm packages → internal paths. No unused imports.
+- Use arrow functions everywhere except inside class bodies, where concise method syntax is allowed.
+- Prefer early returns; nested if/else blocks deeper than two levels are disallowed.
+- Early returns must use block format with braces (e.g., `if (!value) { return }`) for readability.
+- Extract function call results as scope variables before using in conditions (e.g., `const trimmedText = text.trim(); if (!trimmedText) {...}` instead of `if (!text.trim()) {...}`).
+- Use async/await—never chain .then().
+- No .forEach for side effects; use for (const x of arr) instead.
+- Array combinators (map, reduce, filter) are allowed only when you return their result.
+- Identifiers must be English.
+- No commented code allowed.
 
-#### General Rules
+B. Functional-Programming Rules
+- Each function must:
+    * Be ≤ 50 lines (preferably; extract helpers if longer).
+    * Take ≤ 4 parameters (optional ones last).
+    * Have a single responsibility.
+    * Be pure unless it is an intentional I/O wrapper (e.g. DB write); such wrappers must be ≤ 15 lines.
+    * Name functions with camelCase imperative verbs (calculateTotals, getUserById).
 
-- Never generate migrations. You do not have to do anything in the `db/migrations` folder including migrations and metadata. Ignore it.
+C. Type Safety & Error Handling
+- Explicitly type all function parameters, return types, and exported constants.
+- Type all local variables inside a function.
+- **Special attention for async operations**: Variables from awaited functions (e.g., `const { userId } = await auth()`) must be explicitly typed, especially in Next.js components where auth results should use proper domain types.
+- No any; if an external library forces it, wrap and narrow.
+- Error handling in catch blocks:
+  - If the error variable is not used, use `catch {}` (no parameter).
+  - If the error is used, type it as `unknown` and handle it safely within the catch block.
 
-#### Organization
+D. React Component Standards
 
-#### Schemas
+- Always define props with interfaces, never inline types
+- Place interfaces directly above component definitions
+- Use const arrow functions for component definitions
+- Use implicit return syntax when components only return JSX (no logic before return)
+- Export components using export default pattern (required for Next.js pages/layouts)
+- Handler functions inside components must be ≤ 20 lines and have a single, clear responsibility. Extract helper functions for complex logic.
 
-- When importing schemas, use `@/db/schema`
-- Name files like `example-schema.ts`
-- All schemas should go in `db/schema`
-- Make sure to export the schema in `db/schema/index.ts`
-- Make sure to add the schema to the `schema` object in `db/db.ts`
-- If using a userId, always use `userId: text("user_id").notNull()`
-- Always include createdAt and updatedAt columns in all tables
-- Make sure to cascade delete when necessary
-- Use enums for columns that have a limited set of possible values such as:
-
-```ts
-import { pgEnum } from "drizzle-orm/pg-core"
-
-export const MEMBERSHIP: PgEnum<Membership> = pgEnum(
-  "membership",
-  MEMBERSHIP_VALUES
-)
-
-membership: MEMBERSHIP("membership").notNull().default("free")
-```
-
-Example of a schema:
-
-`db/schema/todos-schema.ts`
-
-```ts
-import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
-
-export const todosTable = pgTable("todos", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  userId: text("user_id").notNull(),
-  content: text("content").notNull(),
-  completed: boolean("completed").default(false).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
-})
-
-export type InsertTodo = typeof todosTable.$inferInsert
-export type SelectTodo = typeof todosTable.$inferSelect
-```
-
-And exporting it:
-
-`db/schema/index.ts`
-
-```ts
-export * from "./todos-schema"
-```
-
-And adding it to the schema in `db/db.ts`:
-
-`db/db.ts`
-
-```ts
-import { todosTable } from "@/db/schema"
-
-const schema = {
-  todos: todosTable
-}
-```
-
-And a more complex schema:
-
-```ts
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
-
-export const chatsTable = pgTable("chats", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  userId: text("user_id").notNull(),
-  name: text("name").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
-})
-
-export type InsertChat = typeof chatsTable.$inferInsert
-export type SelectChat = typeof chatsTable.$inferSelect
-```
-
-```ts
-import { pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
-import { chatsTable } from "./chats-schema"
-
-export const roleEnum = pgEnum("role", ["assistant", "user"])
-
-export const messagesTable = pgTable("messages", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  chatId: uuid("chat_id")
-    .references(() => chatsTable.id, { onDelete: "cascade" })
-    .notNull(),
-  content: text("content").notNull(),
-  role: roleEnum("role").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
-})
-
-export type InsertMessage = typeof messagesTable.$inferInsert
-export type SelectMessage = typeof messagesTable.$inferSelect
-```
-
-And exporting it:
-
-`db/schema/index.ts`
-
-```ts
-export * from "./chats-schema"
-export * from "./messages-schema"
-```
-
-And adding it to the schema in `db/db.ts`:
-
-`db/db.ts`
-
-```ts
-import { chatsTable, messagesTable } from "@/db/schema"
-
-const schema = {
-  chats: chatsTable,
-  messages: messagesTable
-}
-```
-
-#### Server Actions
-
-- When importing actions, use `@/actions` or `@/actions/db` if db related
-- DB related actions should go in the `actions/db` folder
-- Other actions should go in the `actions` folder
-- Name files like `example-actions.ts`
-- All actions should go in the `actions` folder
-- Only write the needed actions
-- Return an ActionState with the needed data type from actions
-- Include Action at the end of function names `Ex: exampleFunction -> exampleFunctionAction`
-- Actions should return a Promise<ActionState<T>>
-- Sort in CRUD order: Create, Read, Update, Delete
-- Make sure to return undefined as the data type if the action is not supposed to return any data
-- **Date Handling:** For columns defined as `PgDateString` (or any date string type), always convert JavaScript `Date` objects to ISO strings using `.toISOString()` before performing operations (e.g., comparisons or insertions). This ensures value type consistency and prevents type errors.
-
-```ts
-export type ActionState<T> =
-  | { isSuccess: true; message: string; data: T }
-  | { isSuccess: false; message: string; data?: never }
-```
-
-Example of an action:
-
-`actions/db/todos-actions.ts`
-
-```ts
-"use server"
-
-import { db } from "@/db/db"
-import { InsertTodo, SelectTodo, todosTable } from "@/db/schema/todos-schema"
-import { ActionState } from "@/types"
-import { eq } from "drizzle-orm"
-
-export async function createTodoAction(
-  todo: InsertTodo
-): Promise<ActionState<SelectTodo>> {
-  try {
-    const [newTodo] = await db.insert(todosTable).values(todo).returning()
-    return {
-      isSuccess: true,
-      message: "Todo created successfully",
-      data: newTodo
+  **Wrong (~50 lines in one handler):**
+  ```tsx
+  const handleFormSubmit = async (): Promise<void> => {
+    const trimmedName: string = formData.name.trim()
+    const trimmedEmail: string = formData.email.trim()
+    const trimmedMessage: string = formData.message.trim()
+    
+    if (!trimmedName) {
+      setErrors({ ...errors, name: "Name is required" })
+      toast({ title: "Error", description: "Name is required", variant: "destructive" })
+      return
     }
-  } catch (error) {
-    console.error("Error creating todo:", error)
-    return { isSuccess: false, message: "Failed to create todo" }
+    
+    if (!trimmedEmail || !trimmedEmail.includes("@")) {
+      setErrors({ ...errors, email: "Valid email is required" })
+      toast({ title: "Error", description: "Valid email is required", variant: "destructive" })
+      return
+    }
+    
+    if (!trimmedMessage || trimmedMessage.length < 10) {
+      setErrors({ ...errors, message: "Message must be at least 10 characters" })
+      toast({ title: "Error", description: "Message too short", variant: "destructive" })
+      return
+    }
+    
+    setIsSubmitting(true)
+    setErrors({})
+    
+    try {
+      const payload: FormPayload = {
+        name: trimmedName,
+        email: trimmedEmail,
+        message: trimmedMessage,
+        timestamp: new Date().toISOString()
+      }
+      
+      const response: Response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      
+      if (!response.ok) {
+        throw new Error("Failed to submit")
+      }
+      
+      const result: SubmissionResult = await response.json()
+      
+      setFormData({ name: "", email: "", message: "" })
+      setSubmissionCount(prev => prev + 1)
+      
+      toast({ title: "Success", description: "Message sent successfully!" })
+      
+      if (onSuccess) {
+        onSuccess(result)
+      }
+    } catch (error: unknown) {
+      const errorMessage: string = error instanceof Error ? error.message : "Unknown error"
+      console.error("Submission error:", errorMessage)
+      setErrors({ submit: "Failed to send message" })
+      toast({ title: "Error", description: "Failed to send message", variant: "destructive" })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
-}
+  ```
 
-export async function getTodosAction(
-  userId: string
-): Promise<ActionState<SelectTodo[]>> {
-  try {
-    const todos = await db.query.todos.findMany({
-      where: eq(todosTable.userId, userId)
+  **Good (broken into focused helpers ≤ 20 lines each):**
+  ```tsx
+  const validateForm = (): boolean => {
+    const trimmedName: string = formData.name.trim()
+    const trimmedEmail: string = formData.email.trim()
+    const trimmedMessage: string = formData.message.trim()
+    
+    if (!trimmedName) {
+      setErrors({ ...errors, name: "Name is required" })
+      toast({ title: "Error", description: "Name is required", variant: "destructive" })
+      return false
+    }
+    
+    if (!trimmedEmail || !trimmedEmail.includes("@")) {
+      setErrors({ ...errors, email: "Valid email is required" })
+      toast({ title: "Error", description: "Valid email is required", variant: "destructive" })
+      return false
+    }
+    
+    if (!trimmedMessage || trimmedMessage.length < 10) {
+      setErrors({ ...errors, message: "Message must be at least 10 characters" })
+      toast({ title: "Error", description: "Message too short", variant: "destructive" })
+      return false
+    }
+    
+    return true
+  }
+  
+  const submitForm = async (): Promise<SubmissionResult> => {
+    const payload: FormPayload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+      timestamp: new Date().toISOString()
+    }
+    
+    const response: Response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     })
-    return {
-      isSuccess: true,
-      message: "Todos retrieved successfully",
-      data: todos
+    
+    if (!response.ok) {
+      throw new Error("Failed to submit")
     }
-  } catch (error) {
-    console.error("Error getting todos:", error)
-    return { isSuccess: false, message: "Failed to get todos" }
+    
+    return response.json()
   }
-}
-
-export async function updateTodoAction(
-  id: string,
-  data: Partial<InsertTodo>
-): Promise<ActionState<SelectTodo>> {
-  try {
-    const [updatedTodo] = await db
-      .update(todosTable)
-      .set(data)
-      .where(eq(todosTable.id, id))
-      .returning()
-
-    return {
-      isSuccess: true,
-      message: "Todo updated successfully",
-      data: updatedTodo
+  
+  const handleSuccess = (result: SubmissionResult): void => {
+    setFormData({ name: "", email: "", message: "" })
+    setSubmissionCount((prev: number) => prev + 1)
+    toast({ title: "Success", description: "Message sent successfully!" })
+    
+    if (onSuccess) {
+      onSuccess(result)
     }
-  } catch (error) {
-    console.error("Error updating todo:", error)
-    return { isSuccess: false, message: "Failed to update todo" }
   }
-}
-
-export async function deleteTodoAction(id: string): Promise<ActionState<void>> {
-  try {
-    await db.delete(todosTable).where(eq(todosTable.id, id))
-    return {
-      isSuccess: true,
-      message: "Todo deleted successfully",
-      data: undefined
+  
+  const handleError = (error: unknown): void => {
+    const errorMessage: string = error instanceof Error ? error.message : "Unknown error"
+    console.error("Submission error:", errorMessage)
+    setErrors({ submit: "Failed to send message" })
+    toast({ title: "Error", description: "Failed to send message", variant: "destructive" })
+  }
+  
+  const handleFormSubmit = async (): Promise<void> => {
+    const isValid: boolean = validateForm()
+    
+    if (!isValid) {
+      return
     }
-  } catch (error) {
-    console.error("Error deleting todo:", error)
-    return { isSuccess: false, message: "Failed to delete todo" }
+    
+    setIsSubmitting(true)
+    setErrors({})
+    
+    try {
+      const result: SubmissionResult = await submitForm()
+      handleSuccess(result)
+    } catch (error: unknown) {
+      handleError(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
-}
+  ```
+- Example with implicit return:
+
+  ```tsx
+  interface MyComponentProps {
+    title: string
+    children: React.ReactNode
+  }
+
+  const MyComponent = ({ title, children }: MyComponentProps) => (
+    <div>
+      {title}
+      {children}
+    </div>
+  )
+
+  export default MyComponent
+  ```
+
+- Example with explicit return (when logic is present):
+
+  ```tsx
+  interface MyComponentProps {
+    title: string
+    children: React.ReactNode
+  }
+
+  const MyComponent = ({ title, children }: MyComponentProps) => {
+    const processedTitle = title.toUpperCase()
+    
+    return (
+      <div>
+        {processedTitle}
+        {children}
+      </div>
+    )
+  }
+
+  export default MyComponent
+  ```
+
+- Normal components that are not Next.js pages/layouts should be exported
+  using export const pattern
+- Example with implicit return:
+
+  ```tsx
+  interface NotAPageOrLayoutComponentProps {
+    title: string
+    children: React.ReactNode
+  }
+
+  export const NotAPageOrLayoutComponent = ({
+    title,
+    children
+  }: NotAPageOrLayoutComponentProps) => (
+    <div>
+      {title}
+      {children}
+    </div>
+  )
+
+E. Component Granularity & Organization
+- Break down large components into smaller, focused components for better maintainability.
+- When a component contains multiple logical sections (e.g., Card with CardHeader + CardContent), extract each section into separate components.
+- Create dedicated folders for related component groups:
+  * Use kebab-case folder names matching the main component concept
+  * Place related sub-components within the same folder using kebab-case file names
+  * Example structure: `component-name/component-name-header.tsx`, `component-name/component-name-content.tsx`
+- Each sub-component should have a single, clear responsibility.
+- Maintain the parent component as a composition wrapper that orchestrates child components.
+- Follow this pattern when refactoring existing components or creating new feature components.
+
+F. Advanced Component Architecture Patterns
+
+F.1. Pure Functions and Constants Organization
+- **Pure functions** (no side effects, deterministic output) must be extracted outside components:
+  * Place above the component definition
+  * Examples: `getGreeting()`, `getMembershipBadgeColor()`, `formatDate()`
+- **Constants and static data** must be moved outside components:
+  * Place after imports and interfaces, before pure functions
+  * Use SCREAMING_SNAKE_CASE for naming (e.g., `TEMPLATE_FEATURES`, `TECH_STACK`)
+  * **Always explicitly type constants** with appropriate type annotations
+  * Examples: `const API_URL: string = "..."`, `const MAX_RETRIES: number = 3`
+  * Use `as const` for immutable values when type inference is sufficient
+  * Group related constants together
+
+F.1.1. Custom Hooks Organization
+- **Custom hooks** must be extracted to separate files in the `/hooks/` directory:
+  * Use kebab-case file naming: `use-scroll-detection.ts`, `use-local-storage.ts`
+  * Start hook names with `use` prefix following React conventions
+  * Place hooks in `/hooks/` folder at project root level
+  * Export hooks using named exports: `export const useScrollDetection = () => {}`
+  * **Always explicitly type hook return values** and parameters
+  * Examples: `useScrollDetection(): boolean`, `useLocalStorage<T>(key: string): [T, (value: T) => void]`
+  * Group related hooks in the same file only if they're tightly coupled
+
+F.1.2. Whitespace and Formatting Rules
+- **Component variable organization**: Maintain consistent whitespace between different types of declarations:
+  * Add a blank line between React state declarations and custom hook calls
+  * Add a blank line between custom hook calls and other variable declarations
+  * Example:
+    ```tsx
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+    const [isVisible, setIsVisible] = useState<boolean>(true)
+    
+    const isScrolled: boolean = useScrollDetection()
+    const userData: UserData = useUserData()
+    
+    const processedData: ProcessedData = processUserData(userData)
+    ```
+
+F.2. Nested Component Structure for Complex Components
+When a component has multiple distinct sections, create nested folder structure:
+
+```
+dashboard-welcome/
+├── dashboard-welcome.tsx           // Main orchestrator component  
+├── greeting.tsx                    // Self-contained greeting section
+├── whats-included/                 // Folder for multi-part section
+│   ├── whats-included.tsx         // Section orchestrator
+│   ├── whats-included-title.tsx   // Title sub-component  
+│   └── whats-included-features.tsx // Features list sub-component
+├── core-technologies/              // Folder for multi-part section
+│   ├── core-technologies.tsx      // Section orchestrator
+│   ├── core-technologies-title.tsx // Title sub-component
+│   └── core-technologies-list.tsx  // Tech list sub-component
+└── get-started/                    // Folder for multi-part section
+    ├── get-started.tsx             // Section orchestrator  
+    ├── get-started-title.tsx       // Title sub-component
+    ├── get-started-features.tsx    // Features grid sub-component
+    └── get-started-feature-2.tsx   // Individual feature card
 ```
 
-#### Services
+F.3. Component Organization Rules
+1. **Main orchestrator**: Composition only, minimal logic, imports and renders sub-components
+2. **Section orchestrators**: Handle section-specific logic, render related sub-components  
+3. **Leaf components**: Single responsibility, pure presentation, accept props only
+4. **Shared constants**: Extract to file level, use proper naming conventions
+5. **Pure functions**: Extract above component definitions, properly typed
+6. **File structure**: Mirror logical component hierarchy in folder structure
 
-- When importing services, use `@/lib/services`
-- Name files like `example-service.ts`
-- All services should go in the `lib/services` folder
-- Services handle complex business logic that would otherwise make server actions too large
-- Services should be pure functions that take inputs and return outputs
-- Services should not directly handle HTTP requests or database operations
-- Use services for external API integrations, complex calculations, and domain-specific logic
-- Follow the data flow: Components → Actions → Services
-- Export functions using named exports
+</coding_format>
 
-Example of a service:
+<usage_guidelines>
 
-`lib/services/grammar-correction.ts`
+1. Apply these standards to all new code and when refactoring existing code.
+2. When making any code changes, ensure they conform to these guidelines.
+3. If existing code doesn't follow these standards, update it to comply when modifying those files.
+4. Use these standards as a checklist when reviewing code changes.
+5. Prefer extracting helper functions over writing long, complex functions.
+6. Always prioritize code readability and maintainability.
 
-```ts
-import OpenAI from "openai"
-import { getCompletion } from "@/lib/services/open-ai"
-
-const SYSTEM_MESSAGE: string = `You are a grammar correction assistant...`
-
-export const getPunchyText = async (
-  userMessage: string
-): Promise<string | undefined> => {
-  const completion: OpenAI.Chat.Completions.ChatCompletion =
-    await getCompletion(userMessage, {
-      systemMessage: SYSTEM_MESSAGE,
-      maxTokens: 280,
-      temperature: 0.7
-    })
-
-  return completion?.choices?.[0]?.message?.content?.trim()
-}
-```
+</usage_guidelines>
 
 ---
 > Source: [sportiz91/vibe-template](https://github.com/sportiz91/vibe-template) — distributed by [TomeVault](https://tomevault.io).
