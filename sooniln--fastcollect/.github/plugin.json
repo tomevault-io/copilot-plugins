@@ -1,0 +1,9 @@
+{
+  "name": "sooniln--fastcollect",
+  "displayName": "fastcollect",
+  "description": "A library for high-performance primitive collections in the JVM/Kotlin ecosystem.",
+  "version": "1.0.0",
+  "author": "sooniln",
+  "homepage": "https://github.com/sooniln/fastcollect",
+  "skills": []
+}
