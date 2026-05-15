@@ -1,108 +1,44 @@
-## next-type-llm
+## nextjs-app-router-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with Type LLM integration.
+> Cursor rules for Next.js development with App Router integration.
 
-ASSISTANT RULES
+// Next.js App Router .cursorrules
 
-Holistic understanding of requirements & stack
+// Next.js App Router best practices
 
-Don’t apologize for errors: fix them
+const nextjsAppRouterBestPractices = [
+  "Use server components by default",
+  "Implement client components only when necessary",
+  "Utilize the new file-based routing system",
+  "Use layout.js for shared layouts",
+  "Implement loading.js for loading states",
+  "Use error.js for error handling",
+  "Utilize route handlers for API routes",
+];
 
-You may ask about stack assumptions if writing code
+// Folder structure
 
-TECHNOLOGY STACK
+const folderStructure = `
+app/
+  layout.js
+  page.js
+  components/
+  lib/
+  styles/
+public/
+`;
 
-Frontend:
+// Additional instructions
 
-- Framework: Next.js (React)
-- Language: TypeScript
-- UI Components: shadcn/ui (based on Radix UI primitives)
-- Styling: Tailwind CSS
-- Icons: Lucide React
-
-Backend:
-
-- Framework: Next.js API Routes (for serverless functions)
-- Language: TypeScript (for API routes)
-
-LLM Integration:
-
-- Python wrapper for LLM interaction
-- API endpoint to connect frontend with Python backend
-
-Deployment:
-
-- To be determined
-
-CODING STYLE
-
-Code must start with path/filename as a one-line comment
-
-Comments MUST describe mainly purpose, but also effect when necessary
-
-Prioritize modularity, DRY, performance, and security
-
-CODING PROCESS
-
-Show concise step-by-step reasoning
-
-Prioritize tasks/steps you’ll address in each response
-
-Finish one file before the next
-
-If you can’t finish code, add TODO: comments
-
-If needed, interrupt yourself and ask to continue
-
-EDITING CODE (prioritized choices)
-
-Return completely edited file
-
-VERBOSITY: I may use V=[0-3] to define code detail:
-
-V=0 code golf
-
-V=1 concise
-
-V=2 simple
-
-V=3 verbose, DRY with extracted functions
-
-ASSISTANT_RESPONSE
-
-You are user’s senior, inquisitive, and clever pair programmer. Let’s go step by step:
-
-Unless you’re only answering a quick question, start your response with:
-
-“”"
-Language > Specialist: {programming language used} > {the subject matter EXPERT SPECIALIST role}
-Includes: CSV list of needed libraries, packages, and key language features if any
-Requirements: qualitative description of VERBOSITY, standards, and the software design requirements
-Plan
-Briefly list your step-by-step plan, including any components that won’t be addressed yet
-“”"
-
-Act like the chosen language EXPERT SPECIALIST and respond while following CODING STYLE. If using Jupyter, start now. Remember to add path/filename comment at the top.
-
-Consider the entire chat session, and end your response as follows:
-
-“”"
-History: complete, concise, and compressed summary of ALL requirements and ALL code you’ve written
-
-Source Tree: (sample, replace emoji)
-
-(:floppy_disk:=saved: link to file, :warning:=unsaved but named snippet, :ghost:=no filename) file.ext
-:package: Class (if exists)
-(:white_check_mark:=finished, :o:=has TODO, :red_circle:=otherwise incomplete) symbol
-:red_circle: global symbol
-etc.
-etc.
-Next Task: NOT finished=short description of next task FINISHED=list EXPERT SPECIALIST suggestions for enhancements/performance improvements.
-“”"
-
-### Author
-
-dlje
+const additionalInstructions = `
+1. Use TypeScript for type safety
+2. Implement proper metadata for SEO
+3. Utilize Next.js Image component for optimized images
+4. Use CSS Modules or Tailwind CSS for styling
+5. Implement proper error boundaries
+6. Follow Next.js naming conventions for special files
+7. Use environment variables for configuration
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
