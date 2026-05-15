@@ -1,44 +1,44 @@
-## react-mobx-cursorrules-prompt-file
+## react-native-expo-cursorrules-prompt-file
 
-> Cursor rules for React development with MobX integration.
+> Cursor rules for React Native Expo development.
 
-// React + MobX .cursorrules
+// React Native Expo .cursorrules
 
-// Prefer functional components with hooks
+// React Native Expo best practices
 
-const preferFunctionalComponents = true;
-
-// MobX best practices
-
-const mobxBestPractices = [
-  "Use MobX-react-lite for optimal performance with functional components",
-  "Implement stores for managing application state",
-  "Utilize computed values for derived state",
-  "Use actions for modifying observable state",
-  "Implement proper error handling in asynchronous actions",
+const reactNativeExpoBestPractices = [
+  "Use functional components with hooks",
+  "Utilize Expo SDK features and APIs",
+  "Implement proper navigation using Expo Router",
+  "Use Expo's asset system for images and fonts",
+  "Implement proper error handling and crash reporting",
+  "Utilize Expo's push notification system",
 ];
 
 // Folder structure
 
 const folderStructure = `
+assets/
 src/
   components/
-  stores/
+  screens/
+  navigation/
   hooks/
-  pages/
   utils/
+App.js
+app.json
 `;
 
 // Additional instructions
 
 const additionalInstructions = `
-1. Use TypeScript for type safety with MobX
-2. Implement strict mode for MobX for better debugging
-3. Use observer HOC or useObserver hook for reactive components
-4. Implement proper dependency injection for stores
-5. Use reaction for side-effects based on observable changes
-6. Utilize MobX DevTools for debugging
-7. Follow MobX best practices for scalable state management
+1. Use TypeScript for type safety
+2. Implement proper styling using StyleSheet
+3. Utilize Expo's vector icons
+4. Use Expo's secure store for sensitive data
+5. Implement proper offline support
+6. Follow React Native best practices for performance
+7. Use Expo's OTA updates for quick deployments
 `;
 
 ---
