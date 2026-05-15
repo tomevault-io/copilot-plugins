@@ -4,7 +4,7 @@
   "repo": "claude-terminal",
   "description": "Tabbed terminal manager for Claude Code sessions \u2014 run multiple AI coding agents side-by-side with worktree integration, session persistence,  and auto-naming. Built with Electron for Windows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mr8BitHK/claude-terminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T16:47:23Z"
+  "distributed_at": "2026-05-15T15:17:25Z"
 }
