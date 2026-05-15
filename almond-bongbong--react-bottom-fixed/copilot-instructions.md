@@ -1,48 +1,43 @@
-## any-inside-generic-functions
+## default-exports
 
-> When building generic functions, you may need to use any inside the function body.
+> Unless explicitly required by the framework, do not use default exports.
 
-When building generic functions, you may need to use any inside the function body.
-
-This is because TypeScript often cannot match your runtime logic to the logic done inside your types.
-
-One example:
+Unless explicitly required by the framework, do not use default exports.
 
 ```ts
-const youSayGoodbyeISayHello = <
-  TInput extends "hello" | "goodbye",
->(
-  input: TInput,
-): TInput extends "hello" ? "goodbye" : "hello" => {
-  if (input === "goodbye") {
-    return "hello"; // Error!
-  } else {
-    return "goodbye"; // Error!
-  }
-};
+// BAD
+export default function myFunction() {
+  return <div>Hello</div>;
+}
 ```
-
-On the type level (and the runtime), this function returns `goodbye` when the input is `hello`.
-
-There is no way to make this work concisely in TypeScript.
-
-So using `any` is the most concise solution:
 
 ```ts
-const youSayGoodbyeISayHello = <
-  TInput extends "hello" | "goodbye",
->(
-  input: TInput,
-): TInput extends "hello" ? "goodbye" : "hello" => {
-  if (input === "goodbye") {
-    return "hello" as any;
-  } else {
-    return "goodbye" as any;
-  }
-};
+// GOOD
+export function myFunction() {
+  return <div>Hello</div>;
+}
 ```
 
-Outside of generic functions, use `any` extremely sparingly.
+Default exports create confusion from the importing file.
+
+```ts
+// BAD
+import myFunction from "./myFunction";
+```
+
+```ts
+// GOOD
+import { myFunction } from "./myFunction";
+```
+
+There are certain situations where a framework may require a default export. For instance, Next.js requires a default export for pages.
+
+```tsx
+// This is fine, if required by the framework
+export default function MyPage() {
+  return <div>Hello</div>;
+}
+```
 
 ---
 > Source: [almond-bongbong/react-bottom-fixed](https://github.com/almond-bongbong/react-bottom-fixed) — distributed by [TomeVault](https://tomevault.io).
