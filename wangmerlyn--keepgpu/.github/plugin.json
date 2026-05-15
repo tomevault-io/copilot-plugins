@@ -1,0 +1,9 @@
+{
+  "name": "wangmerlyn--keepgpu",
+  "displayName": "KeepGPU",
+  "description": "KeepGPU is a simple CLI app that keeps your GPUs running.",
+  "version": "1.0.0",
+  "author": "Wangmerlyn",
+  "homepage": "https://github.com/Wangmerlyn/KeepGPU",
+  "skills": []
+}
