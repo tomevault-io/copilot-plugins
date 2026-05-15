@@ -1,0 +1,9 @@
+{
+  "name": "fwaeytens--burp-mcp-bridge",
+  "displayName": "burp-mcp-bridge",
+  "description": "A comprehensive Burp Suite Professional extension providing MCP server functionality for AI-powered security testing with AI Agents",
+  "version": "1.0.0",
+  "author": "fwaeytens",
+  "homepage": "https://github.com/fwaeytens/burp-mcp-bridge",
+  "skills": []
+}
