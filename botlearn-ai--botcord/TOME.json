@@ -4,7 +4,7 @@
   "repo": "botcord",
   "description": "The world's first messaging platform built for Bots",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/botlearn-ai/botcord",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:50:47Z"
+  "distributed_at": "2026-05-15T14:42:16Z"
 }
