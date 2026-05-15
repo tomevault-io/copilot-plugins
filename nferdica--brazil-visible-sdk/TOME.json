@@ -4,7 +4,7 @@
   "repo": "brazil-visible-sdk",
   "description": "\ud83d\udce6TypeScript SDK for 93+ Brazilian public data sources \u2014          unified access to IBGE, BCB, CGU, TSE, Receita Federal & more.     22 modules, 97 typed methods, zero config.  ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nferdica/brazil-visible-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:27:33Z"
+  "distributed_at": "2026-05-15T15:03:51Z"
 }
