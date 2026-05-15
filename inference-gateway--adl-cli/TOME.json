@@ -2,9 +2,9 @@
   "name": "adl-cli",
   "owner": "inference-gateway",
   "repo": "adl-cli",
-  "description": "",
+  "description": "A command-line tool to scaffold and manage enterprise-ready AI Agents powered by the A2A (Agent-to-Agent) protocol",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/inference-gateway",
+  "source_url": "https://github.com/inference-gateway/adl-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T23:43:18Z"
+  "distributed_at": "2026-05-15T04:01:01Z"
 }
