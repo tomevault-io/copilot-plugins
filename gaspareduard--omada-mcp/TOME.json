@@ -4,7 +4,7 @@
   "repo": "Omada-mcp",
   "description": "Security-first MCP server for TP-Link Omada, with a stdio-first runtime, capability-gated tools, and OpenAPI-based network automation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gaspareduard/Omada-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:52:33Z"
+  "distributed_at": "2026-05-15T14:10:17Z"
 }
