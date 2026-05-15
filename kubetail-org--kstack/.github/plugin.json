@@ -1,0 +1,9 @@
+{
+  "name": "kubetail-org--kstack",
+  "displayName": "kstack",
+  "description": "Skill pack for Claude Code that helps you monitor and troubleshoot your K8s clusters superintelligently",
+  "version": "1.0.0",
+  "author": "kubetail-org",
+  "homepage": "https://github.com/kubetail-org/kstack",
+  "skills": []
+}
