@@ -1,0 +1,9 @@
+{
+  "name": "dtinth--bizdocgen",
+  "displayName": "bizdocgen",
+  "description": "Business document generator widget for Grist",
+  "version": "1.0.0",
+  "author": "dtinth",
+  "homepage": "https://github.com/dtinth/bizdocgen",
+  "skills": []
+}
