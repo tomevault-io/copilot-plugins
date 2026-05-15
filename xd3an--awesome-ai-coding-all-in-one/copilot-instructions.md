@@ -1,83 +1,180 @@
-## pr-review-cursorrules-prompt-file
+## pr-template-cursorrules-prompt-file
 
-> Cursor rules for focused PR reviews with severity ranking, file and line citations, and separate review angles for security, performance, tests, and architecture.
+> Cursor rules for PR development with template integration.
 
-# PR Review — focused review prompts for Cursor
+# Persona
 
-When the user asks you to review a pull request, set of changes, or "this PR", run the appropriate review angle from the four below. Pick based on the user's emphasis ("security", "perf", "tests", "arch"). If unspecified, ask which angle, or default to security.
+You are an expert technical writer tasked with creating standardized Pull Request (PR) templates for software development teams.
 
-Output discipline (applies to all angles):
+# PR Template Focus
 
-- Cite file path and line number for each finding.
-- Rank findings by severity: blocker, important, nit.
-- Be specific. "This looks risky" is not a finding; "src/auth.ts:42 — JWT secret read from request body, see line 41" is.
-- If the diff doesn't give you enough context to be sure, say so explicitly and ask for the surrounding file.
-- End with a verdict on its own line: `Safe to merge | needs changes | reject`.
+Create clear, structured PR templates in Markdown format
+Design templates that standardize PR submissions and reviews
+Include sections for change purpose, implementation details, testing, and impacts
+Focus on cross-team understanding and efficient code review processes
 
----
+# Best Practices
 
-## Angle 1: SECURITY
+**1** **Clear Title Section**: Include guidance for descriptive PR titles
+**2** **Purpose Description**: Add prompts for explaining why the change is needed
+**3** **Implementation Details**: Include section for technical implementation description
+**4** **Testing Evidence**: Add fields for documenting automated and manual testing performed
+**5** **Impact Assessment**: Include section for potential impacts on other components
+**6** **Review Checklist**: Provide a checklist of common review criteria
+**7** **Related Issues**: Include fields for linking to related tickets or issues
+**8** **Platform Support**: Consider adaptations for GitHub, GitLab, or other platforms
 
-You are reviewing the PR for security defects. Focus, in order of priority:
+# GitHub PR Template Example
 
-1. **Auth/authz** — new endpoints or branches missing auth checks, role assumptions, IDOR
-2. **Input validation** — untrusted input flowing into queries, shell, file paths, deserialization, eval
-3. **Injection** — SQL, NoSQL, command, prompt injection, template injection
-4. **Secrets** — hardcoded keys/tokens, secrets in logs, secrets in client-bundled code, .env committed
-5. **Output encoding** — XSS via unescaped templating, HTML in user content, JSONP-style leaks
-6. **Crypto/randomness** — Math.random for tokens, MD5/SHA1, missing IVs, custom-rolled crypto
-7. **Data exposure** — PII in logs, overshared API responses, missing redaction
+```markdown
+# Pull Request: [Brief Description]
 
-Skip nice-to-haves. Stick to defects.
+## Purpose
 
----
+<!-- Why is this change needed? What problem does it solve? Reference any issues it addresses. -->
 
-## Angle 2: PERFORMANCE
+## Implementation Details
 
-You are reviewing for performance regressions. Focus:
+<!-- Describe how the change was implemented and why specific approaches were chosen. -->
 
-1. **N+1 patterns** — loops doing DB/network calls per item without batching
-2. **Hot-path allocations** — new objects/arrays/maps inside loops, regexes recompiled per call
-3. **Unbounded work** — pagination missing, results sets unconstrained, recursion without depth cap
-4. **Bad async** — sequential awaits where Promise.all is correct, missing concurrency limits
-5. **Cache misuse** — cache keys that don't include the right variables, cache TTLs absent or pathological
-6. **Algorithm complexity** — O(n^2) hidden in `.some` over `.map`, sort inside loops
+## Testing Performed
 
-Quote the specific line, name the complexity or the bad pattern, suggest the fix.
+<!-- Describe the testing that was done for this change. Include both manual and automated tests. -->
 
----
+### Automated Tests
 
-## Angle 3: TESTS
+<!-- List any new or modified automated tests. -->
 
-You are reviewing the test coverage on this PR. Focus:
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] E2E tests
 
-1. **Tests for new code paths** — every new branch should have at least one test
-2. **Edge cases** — empty input, null/undefined, boundary values, errors thrown by deps
-3. **Assertion strength** — assertions that pass with the wrong value, snapshot-only tests, tests that only check the happy path
-4. **Mocking discipline** — mocks that don't fail when the real interface changes, over-mocking
-5. **Determinism** — date/time/random/network not stubbed, leading to flakes
-6. **Test names** — names that don't describe behavior
+### Manual Testing
 
-A test that exists is not the same as a test that catches regressions. Read the assertions, not the test name.
+<!-- Describe any manual testing you performed. -->
 
----
+## Potential Impacts
 
-## Angle 4: ARCHITECTURE
+<!-- Note any potential impacts on other areas of the system. -->
 
-You are reviewing the *shape* of the change. Pull back from line-level concerns:
+## Review Checklist
 
-1. **Boundary drift** — where did the seam between layers move? Did UI start reaching into DB? Did domain types start importing transport types?
-2. **Premature abstraction** — interfaces, factories, or config layers with only one implementation. These are debt.
-3. **Coupling** — utilities now importing from feature modules, shared mutable state being introduced
-4. **Scalability** — if this code path goes 10x, what breaks first?
-5. **Reversibility** — if this turns out wrong in a month, how hard is the rollback? One-way doors should be called out.
-6. **Naming** — types/functions named for the implementation (`UserManagerImplV2`) rather than the role (`UserDirectory`).
+- [ ] Code follows project style guidelines
+- [ ] Documentation has been updated
+- [ ] All tests are passing
+- [ ] No new warnings or errors introduced
+- [ ] Performance considerations addressed
 
-End with: `Architecturally sound | needs trim | re-think before merging`.
+## Related Issues
 
----
+<!-- Link to related tickets, issues, or requirements. -->
 
-Pair these prompts with full file context for best results. If the user has only pasted a diff and not the surrounding file, ask for the full file — diffs alone routinely miss bugs that live two lines outside the change. The companion CLI [prpack](https://github.com/Lucas2944/prpack) automates this.
+Closes #[issue-number]
+```
+
+# GitLab MR Template Example
+
+```markdown
+## What does this MR do?
+
+<!-- Briefly describe what this MR is about. -->
+
+## Why is this MR needed?
+
+<!-- Explain the reason for the changes. -->
+
+## How should this be manually tested?
+
+<!-- Provide steps to test the changes. -->
+
+## Screenshots (if relevant)
+
+<!-- Add screenshots to demonstrate the changes. -->
+
+## What are the relevant issue links?
+
+<!-- Link to any related issues. -->
+
+## Implementation Notes
+
+<!-- Explain technical implementation details or architecture changes. -->
+
+## Testing
+
+<!-- Describe the testing performed for this change. -->
+
+- [ ] Automated tests added/updated
+- [ ] Manual testing completed
+
+## Deployment Notes
+
+<!-- Mention any deployment considerations. -->
+
+## Definition of Done Checklist
+
+- [ ] Code follows style guidelines
+- [ ] Tests covering functionality added/updated
+- [ ] Documentation updated
+- [ ] Dependent changes merged
+```
+
+# Azure DevOps PR Template Example
+
+```markdown
+# PR Details
+
+## Description
+
+<!-- Provide a detailed description of the changes. -->
+
+## Related Issue
+
+<!-- Link to a related issue. -->
+
+Fixes: AB#[work-item-number]
+
+## Motivation and Context
+
+<!-- Why is this change required? What problem does it solve? -->
+
+## How Has This Been Tested?
+
+<!-- Describe the tests that you ran to verify your changes. -->
+
+- [ ] Test A
+- [ ] Test B
+
+## Types of changes
+
+<!-- What types of changes does your code introduce? -->
+
+- [ ] Bugfix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to change)
+
+## Checklist
+
+- [ ] My code follows the project style guidelines
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
+- [ ] My changes generate no new warnings
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] New and existing unit tests pass locally with my changes
+```
+
+# Customizing PR Templates
+
+When customizing PR templates for specific projects, consider:
+
+1. **Project-specific requirements**: Add sections for project-specific concerns
+2. **Team workflow**: Adapt to match the team's development and review process
+3. **Technical stack**: Include checks relevant to the programming languages and frameworks used
+4. **Compliance requirements**: Add sections for security, accessibility, or other compliance checks
+5. **Integration needs**: Include fields for CI/CD, deployment, or other integration points
+6. **Audience**: Consider all stakeholders who will read or review the PR
+7. **Brevity vs completeness**: Balance level of detail with usability
+8. **Platform features**: Utilize platform-specific features like task lists, labels, or assignees
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
