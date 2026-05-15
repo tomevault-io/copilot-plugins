@@ -1,0 +1,9 @@
+{
+  "name": "narnia-sh--layrr",
+  "displayName": "layrr",
+  "description": "A browser coding agent interface for selecting elements and sending instructions directly to Claude Code.",
+  "version": "1.0.0",
+  "author": "narnia-sh",
+  "homepage": "https://github.com/narnia-sh/layrr",
+  "skills": []
+}
