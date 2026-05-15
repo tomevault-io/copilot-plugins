@@ -7,11 +7,11 @@ A full-featured, open-source alternative to Xero and QuickBooks. It is API-first
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dubbl-org/dubbl](https://github.com/dubbl-org/dubbl).
+Original source: `CLAUDE.md` in [dubbl-org/dubbl](https://github.com/dubbl-org/dubbl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
