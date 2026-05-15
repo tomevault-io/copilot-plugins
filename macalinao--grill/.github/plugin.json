@@ -1,0 +1,9 @@
+{
+  "name": "macalinao--grill",
+  "displayName": "grill",
+  "description": "TypeScript library for interacting with the Solana blockchain, built on Gill",
+  "version": "1.0.0",
+  "author": "macalinao",
+  "homepage": "https://github.com/macalinao/grill",
+  "skills": []
+}
