@@ -1,181 +1,123 @@
-## preferences
+## sub-folder-rules
 
 > Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-# General preferences for development
-You are an expert developer focused on producing clear, readable code.
+## Folder Path-Based Sub Rule Management System
 
-## 1. Coding styles
+### Basic Structure
+1. All subfolder rules are stored in the `.cursor/rules/subrules/` directory.
+2. The rules of each subfolder are stored according to the directory structure reflecting the folder path.
+3. The paths of all rule files are recorded in `.cursor/rules/subrules/rule_list.txt`.
 
-### 1.1 General rules
-- Follow the user's requirements carefully & to the letter.
-- Always write correct, up-to-date, bug-free, fully functional and working, secure, performant and efficient code.
-- Focus on readability over being performant.
-- Fully implement all requested functionality.
-- Leave NO todo's, placeholders or missing pieces in the code.
-- Be sure to reference file names.
-- Be concise. Minimize any other prose.
-- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.    
-- Don't forget to update codebase documentation with changes.
-- Always add a blank line at the end of the file
-- Use UTF-8 encoding
+### Rule File Path Rules
+1. Rule files for a specific folder reflect the folder path as it is:
+   - Example: Rules related to `./src/components/auth.ts` are stored in `.cursor/rules/subrules/src/components/subrule.txt`
 
-### 1.2 Naming Conventions
-- Variable name: camelCase
-- Class name: PascalCase
-- Constant: UPPER_SNAKE_CASE
-- File name: kebab-case
-- Function name: camelCase
-
-### 1.3 Commenting conventions
-- Write comments that explain the "why" of the code
-- Write documentation comments for all public APIs
-
-## 2. Documentation
-
-### 2.1 README Essentials
-- Project overview
-- How to install
-- How to run
-- Environment Setup
-- License Information
-
-### 2.2 API Documentation
-- Use the OpenAPI/Swagger format
-- All endpoints should include example requests/responses
-- Clearly document error responses
-
-## 3. Project Structure
-
-### 3.1 Basic directory structure
+2. The rule_list.txt file records the full paths of all subrule files, one per line:
 ```
-project/
-├── src/ # source code
-├── tests/ # test code
-├── docs/ # Documentation
-├── utils/ # utility scripts
-└── config/ # Configuration files
+./cursor/rules/subrules/src/components/subrule.txt
+./cursor/rules/subrules/src/utils/api/subrule.txt
+./cursor/rules/subrules/src/auth/subrule.txt
 ```
 
-### 3.2 Setting up the environment
-- Provide an .env.example file
-- Configuration is managed by environment variables
-- Never include sensitive information in the repository
+### Rule Application Mechanism
+1. When modifying or creating a specific file:
+   - Read the `.cursor/rules/subrules/rule_list.txt` file first.
+   - Check the path of the file you are currently working on. - Check if there is a subfolder rule file related to the path.
+   - If there is a related rule file, add its contents to the context.
 
-## 4. Versioning
+2. Path matching method:
+   - If the file path is a subpath of the rule file path, the rule is applied.
+   - Example: When modifying the file `./src/components/auth/login.ts`, the rule `./cursor/rules/subrules/src/components/subrule.txt` is applied.
 
-### 4.1 Commit Message Conventions
+## How to create and register a rule file
+
+### When special subrules are needed
+1. When there is a requirement to record separately in the process of creating, modifying, or deleting the subcode of the corresponding subfolder
+2. Special arcitecture pattern applied only under the corresponding subfolder
+3. Special technical context applied only under the corresponding subfolder
+4. Bug fixes found in the subcode of the corresponding subfolder and handled as an exception
+5. Other exception measures applied only under the corresponding subfolder
+
+### Create a new rule file
+
+1. When a special rule for a specific subfolder is needed:
 ```
-<type>(<scope>): <subject>
-
-<body>.
-
-<footer>
+If a special rule related to ./src/components/auth.ts is needed:
 ```
 
-- type: feat, fix, docs, style, refactor, test, chore
-- scope: Changed components/modules
-- subject: Summary of changes (50 characters or less)
-- body: Detailed description (optional)
-- footer: Breaking changes, issue reference (optional)
+2. Create a rule file reflecting the path:
+```
+./cursor/rules/subrules/src/components/subrule.txt
+```
 
-### 4.2 Branching strategy
-- main: Production code
-- develop: Development branch
-- feature/*: Feature development
-- bugfix/*: Bug fixes
-- release/*: Release preparation
+3. Write the context, architecture, exceptions, etc. required in the rule file.
 
+### Update rule_list.txt
 
-## 5. Security
+1. After creating a new rule file, add the full path to it in `.cursor/rules/subrules/rule_list.txt`:
+```
+./cursor/rules/subrules/src/components/subrule.txt
+```
 
-### 5.1 Basic rules
-- Never put security token or security key values in your code.
-- Never expose security token and security key values to clients.
-- Update all dependencies regularly
-- Run security vulnerability scans regularly
-- Use validated libraries for authentication/authorization
-- Use HTTPS by default
+2. Write multiple rule files, one per line:
+```
+./cursor/rules/subrules/src/components/subrule.txt
+./cursor/rules/subrules/src/utils/api/subrule.txt
+./cursor/rules/subrules/src/models/subrule.txt
+```
 
-### 5.2 Data Security
-- Store personal information encrypted
-- Do not include sensitive information in logs
-- Perform thorough input validation
+## Real-world application example
 
-### 5.3 Environment Variables
-- .env and .env.local is not accessible to LLM due to .gitignore, .aiexclude, etc. but if there is .env.example, it is likely to be set up normally.
-- Assume that .env and .env.local already exists. For template see .env.example. This is an LLM AI inaccessible file, but since it's in env, it can be converted to a variable at runtime
+### Scenario: Modifying the Auth component
 
+1. A developer wants to modify the file `./src/components/auth/Login.tsx`
 
-## 6. Test
+2. The AI ​​assistant:
+- Reads the file `.cursor/rules/subrules/rule_list.txt`
+- Checks that the file it is currently working on is in the path `./src/components/auth/`
+- Finds the relevant rule file in rule_list.txt: `./cursor/rules/subrules/src/components/subrule.txt`
+- Adds the contents of that rule file to the context
+- Makes a code change suggestion considering this context
 
-### 6.1 Testing Requirements
-- Unit test coverage of at least 80%.
-- Integration tests cover key functional flows
-- E2E tests cover key user scenarios
+### Example Rule File Contents
 
-### 6.2 Test Writing Rules
-- Be sure to typecheck when you’re done making a series of code changes
-- Prefer running single tests, and not the whole test suite, for performance
-- Tests must be independent
-- Test data is generated within the test code
-- All tests should be automated
+File: `.cursor/rules/subrules/src/components/subrule.txt`
+```
+# Auth Component Rules
 
-### 6.3 Applying Tests
-- When developing a web app or React Native app, we start with a test-driven development approach using Jest + React or React Native Testing Library as a minimum
-- If you're using python, we default to a test-driven approach with pytest
-- If you are specifically instructed to do so, you should always start with test-driven development
-- When you start test-driven development, you write tests by default for functions with pure logic, such as utility functions and hook functions, for functions with complex logic, and for edge cases.
-- As your project grows in size and complexity, you write tests for classes or components that are already developed but need to be modified frequently.
+All authentication-related components in this folder must follow these rules:
 
-### 6.4 Local Test Server
-- Once you run a local server for testing, it usually stays up. Don't start local server automatically unless I tell it to (ex: npm run dev, python manage.py runserver)
-- If the environment supports HMR (Hot Module Replacement) and Hot Reloading, any file modifications will already be reflected on the screen, so test with this in mind
+1. Store JWT tokens only in HttpOnly cookies. Never store them in localStorage.
+2. All authentication logic must be handled through the AuthService. 3. Authentication state changes must be done via AuthContext.
+4. All authentication errors must be routed to a centralized error handling system.
+5. Do not use React.memo for security-critical components (to prevent side-channel attacks).
 
-## 7. Performance
+Exceptions:
+- Social login components follow a separate OAuth flow.
+- MockAuthService can be used in development environments.
 
-### 7.1 Optimization Criteria
-- Page load time within 3 seconds
-- API response time within 300ms
-- Bundle size optimization
+Related files:
+- src/services/AuthService.ts
+- src/contexts/AuthContext.tsx
+- src/utils/auth/tokenStorage.ts
+```
 
-### 7.2 Monitoring
-- Implement error logging
-- Collect performance metrics
-- Analyze user behavior
+## System Maintenance
 
-### 8. Accessibility
+1. When adding a new subfolder rule:
+- Create a rule file in the appropriate path
+- Add the path to rule_list.txt
 
-### 8.1 Basic Requirements
-- Conform to WCAG 2.1 Level AA
-- Ensure screen reader compatibility
+2. When modifying a rule:
+- Edit the rule file directly
+- No need to change rule_list.txt
 
-### 9. Deployment
+3. When deleting a rule:
+- Delete the rule file
+- Remove the path from rule_list.txt
 
-### 9.1 Deployment Process
-- Configure your CI/CD pipeline
-- Run automated tests
-- Staged deployment (staging -> production)
-- Create a rollback plan
-
-### 9.2 Monitoring
-- Log centralization
-- Setting up alerts
-- Performance monitoring
-- Error tracking
-
-## 10. Maintenance
-
-### 10.1 Code Quality
-- Regular code reviews
-- Managing technical debt
-- Legacy code modernization plan
-
-### 10.2 Documentation
-- Documenting changes
-- Modernize API documentation
-- Maintain troubleshooting guides
-- Use time mcp when you need the current time, such as adding the last update time of activeContext
+With this system, the AI ​​coding assistant can always automatically refer to special rules related to the path of the file you are working on, and generate and modify code while being aware of the special context of each folder.
 
 ---
 > Source: [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank) — distributed by [TomeVault](https://tomevault.io).
