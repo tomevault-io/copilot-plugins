@@ -1,0 +1,9 @@
+{
+  "name": "joladev--jola-dev",
+  "displayName": "jola.dev",
+  "description": "My personal blog and portfolio, built in Elixir using Phoenix and NimblePublisher.",
+  "version": "1.0.0",
+  "author": "joladev",
+  "homepage": "https://github.com/joladev/jola.dev",
+  "skills": []
+}
