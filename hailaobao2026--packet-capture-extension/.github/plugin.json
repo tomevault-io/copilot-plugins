@@ -1,0 +1,9 @@
+{
+  "name": "hailaobao2026--packet-capture-extension",
+  "displayName": "packet-capture-extension",
+  "description": "\u8fd9\u4e2a\u662f\u57fa\u4e8echrome\u6d4f\u89c8\u5668\u63d2\u4ef6\u7684\u6293\u5305\u5de5\u5177\u57fa\u4e8e\u57fa\u4e8e chrome.debugger (CDP) \u6355\u83b7\u5b8c\u6574\u8bf7\u6c42/\u54cd\u5e94",
+  "version": "1.0.0",
+  "author": "hailaobao2026",
+  "homepage": "https://github.com/hailaobao2026/packet-capture-extension",
+  "skills": []
+}
