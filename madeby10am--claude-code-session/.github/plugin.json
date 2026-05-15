@@ -1,0 +1,9 @@
+{
+  "name": "madeby10am--claude-code-session",
+  "displayName": "claude-code-session",
+  "description": "Live VS Code sidebar for Claude Code \u2014 animated pixel-art robot, per-session dashboards, pace-based usage meters, token-rate chart, git + skills + MCP browsers. Auto-matches your VS Code theme.",
+  "version": "1.0.0",
+  "author": "madeby10am",
+  "homepage": "https://github.com/madeby10am/claude-code-session",
+  "skills": []
+}
