@@ -1,0 +1,9 @@
+{
+  "name": "elizabethfuentes12--whatsapp-ai-agent-sample-for-aws-agentcore",
+  "displayName": "whatsapp-ai-agent-sample-for-aws-agentcore",
+  "description": "A multichannel multimodal AI agent deployed on Amazon Bedrock AgentCore Runtime with Amazon Bedrock AgentCore Memory, demonstrated through two WhatsApp integration patterns. The agent processes text, ",
+  "version": "1.0.0",
+  "author": "elizabethfuentes12",
+  "homepage": "https://github.com/elizabethfuentes12/whatsapp-ai-agent-sample-for-aws-agentcore",
+  "skills": []
+}
