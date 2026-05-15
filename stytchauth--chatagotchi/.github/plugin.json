@@ -1,0 +1,9 @@
+{
+  "name": "stytchauth--chatagotchi",
+  "displayName": "chatagotchi",
+  "description": "An interactive pet in ChatGPT using Apps SDK",
+  "version": "1.0.0",
+  "author": "stytchauth",
+  "homepage": "https://github.com/stytchauth/chatagotchi",
+  "skills": []
+}
