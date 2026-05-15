@@ -1,0 +1,9 @@
+{
+  "name": "wojtyniak--mcp-mcp",
+  "displayName": "mcp-mcp",
+  "description": "Meta-MCP Server that acts as a tool discovery and provisioning service for the Model Context Protocol",
+  "version": "1.0.0",
+  "author": "wojtyniak",
+  "homepage": "https://github.com/wojtyniak/mcp-mcp",
+  "skills": []
+}
