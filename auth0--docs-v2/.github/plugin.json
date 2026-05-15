@@ -1,0 +1,9 @@
+{
+  "name": "auth0--docs-v2",
+  "displayName": "docs-v2",
+  "description": "Auth0 docs content repository",
+  "version": "1.0.0",
+  "author": "auth0",
+  "homepage": "https://github.com/auth0/docs-v2",
+  "skills": []
+}
