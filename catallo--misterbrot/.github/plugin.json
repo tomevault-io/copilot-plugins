@@ -1,0 +1,9 @@
+{
+  "name": "catallo--misterbrot",
+  "displayName": "MiSTerbrot",
+  "description": "Mandelbrot eye candy for MiSTer FPGA in 240p",
+  "version": "1.0.0",
+  "author": "catallo",
+  "homepage": "https://github.com/catallo/MiSTerbrot",
+  "skills": []
+}
