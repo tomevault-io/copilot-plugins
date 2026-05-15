@@ -1,14 +1,58 @@
-## bugninja-ai-project
+## clean-code
 
-> **Bugninja** is a Python library for AI-powered browser automation, designed to make testing modern web applications intuitive, resilient, and intelligent. With Bugninja, users can write natural language test case descriptions, which AI agents then use to interact with and test web interfaces just like a real user would. Each interaction is saved as a *traversal*, which can later be replayed for automated testing using frameworks like Playwright. If something breaks during a replay, Bugninja’s **self-healing agent** automatically tries to fix the test by adapting to changes in the page. This ensures reliable testing even as your web app evolves. It’s especially helpful for developers and QA teams who want smart, AI-assisted, and future-proof test automation.
+> - Replace hard-coded values with named constants
 
-### 📦 What is Bugninja?
+# Clean Code Guidelines
 
-**Bugninja** is a Python library for AI-powered browser automation, designed to make testing modern web applications intuitive, resilient, and intelligent. With Bugninja, users can write natural language test case descriptions, which AI agents then use to interact with and test web interfaces just like a real user would. Each interaction is saved as a *traversal*, which can later be replayed for automated testing using frameworks like Playwright. If something breaks during a replay, Bugninja’s **self-healing agent** automatically tries to fix the test by adapting to changes in the page. This ensures reliable testing even as your web app evolves. It’s especially helpful for developers and QA teams who want smart, AI-assisted, and future-proof test automation.
+## Constants Over Magic Numbers
+- Replace hard-coded values with named constants
+- Use descriptive constant names that explain the value's purpose
+- Keep constants at the top of the file or in a dedicated constants file
 
-### 🔧 About the Library
+## Meaningful Names
+- Variables, functions, and classes should reveal their purpose
+- Names should explain why something exists and how it's used
+- Avoid abbreviations unless they're universally understood
 
-Bugninja is a **Python-first** open-source project built on top of the `browser-use` library. It extends browser automation functionality through its custom framework and specialized AI agents. You can use Bugninja either as a **CLI tool** or import it as a standalone Python module. Its modular architecture follows professional engineering standards, maintains high code quality, and is built with scalability and best practices in mind. Whether you're running quick browser tasks, building complex test flows, or integrating it into your CI pipeline, Bugninja is designed to be both powerful and easy to use — a tool any open-source developer would be proud to contribute to.
+## Smart Comments
+- Don't comment on what the code does - make the code self-documenting
+- Use comments to explain why something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
+
+## Single Responsibility
+- Each function should do exactly one thing
+- Functions should be small and focused
+- If a function needs a comment to explain what it does, it should be split
+
+## DRY (Don't Repeat Yourself)
+- Extract repeated code into reusable functions
+- Share common logic through proper abstraction
+- Maintain single sources of truth
+
+## Clean Structure
+- Keep related code together
+- Organize code in a logical hierarchy
+- Use consistent file and folder naming conventions
+
+## Encapsulation
+- Hide implementation details
+- Expose clear interfaces
+- Move nested conditionals into well-named functions
+
+## Code Quality Maintenance
+- Refactor continuously
+- Fix technical debt early
+- Leave code cleaner than you found it
+
+## Testing
+- Write tests before fixing bugs
+- Keep tests readable and maintainable
+- Test edge cases and error conditions
+
+## Version Control
+- Write clear commit messages
+- Make small, focused commits
+- Use meaningful branch names 
 
 ---
 > Source: [bugninja-ai/bugninja](https://github.com/bugninja-ai/bugninja) — distributed by [TomeVault](https://tomevault.io).
