@@ -1,0 +1,44 @@
+{
+  "name": "beancount.nvim",
+  "owner": "hxueh",
+  "repo": "beancount.nvim",
+  "description": "Comprehensive Neovim plugin for Beancount plain text accounting with syntax highlighting, diagnostics, auto-completion, formatting, and navigation features.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hxueh/beancount.nvim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T08:42:01Z"
+}
