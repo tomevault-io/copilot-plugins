@@ -1,0 +1,9 @@
+{
+  "name": "julianoczkowski--notebooklm-mcp-2026",
+  "displayName": "notebooklm-mcp-2026",
+  "description": "MCP server for querying Google NotebookLM notebooks. Works with Claude Code, Claude Desktop, Cursor, and VS Code.",
+  "version": "1.0.0",
+  "author": "julianoczkowski",
+  "homepage": "https://github.com/julianoczkowski/notebooklm-mcp-2026",
+  "skills": []
+}
