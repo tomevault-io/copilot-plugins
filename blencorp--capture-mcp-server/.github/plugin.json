@@ -1,0 +1,9 @@
+{
+  "name": "blencorp--capture-mcp-server",
+  "displayName": "capture-mcp-server",
+  "description": "AI-native Model Context Protocol (MCP) server that integrates SAM.gov, USASpending.gov, and Tango APIs to capture and analyze federal procurement and spending data through natural language queries. Re",
+  "version": "1.0.0",
+  "author": "blencorp",
+  "homepage": "https://github.com/blencorp/capture-mcp-server",
+  "skills": []
+}
