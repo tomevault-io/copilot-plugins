@@ -1,0 +1,9 @@
+{
+  "name": "dogacel--attention-drift",
+  "displayName": "Attention-Drift",
+  "description": "Code for the paper *Attention Drift: What Speculative Decoding Models Learn*.",
+  "version": "1.0.0",
+  "author": "Dogacel",
+  "homepage": "https://github.com/Dogacel/Attention-Drift",
+  "skills": []
+}
