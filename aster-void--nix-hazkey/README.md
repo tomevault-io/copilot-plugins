@@ -7,11 +7,11 @@ fcitx5-hazkey packaged for NixOS and Home Manager
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aster-void/nix-hazkey](https://github.com/aster-void/nix-hazkey).
+Original source: `CLAUDE.md` in [aster-void/nix-hazkey](https://github.com/aster-void/nix-hazkey).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
