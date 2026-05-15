@@ -4,7 +4,7 @@
   "repo": "seo-dungeon",
   "description": "Gamified 16-bit dungeon crawler that turns SEO audits into boss battles. Runs with Claude or Codex using the Claude SEO v1.9.8 engine.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/avalonreset/seo-dungeon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:15:03Z"
+  "distributed_at": "2026-05-15T18:08:11Z"
 }
