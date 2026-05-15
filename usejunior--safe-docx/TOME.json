@@ -4,7 +4,7 @@
   "repo": "safe-docx",
   "description": "Safe DOCX suite: docx-primitives, docx-comparison, safe-docx MCP server",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UseJunior/safe-docx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T17:08:33Z"
+  "distributed_at": "2026-05-15T15:32:07Z"
 }
