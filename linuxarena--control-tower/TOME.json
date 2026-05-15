@@ -4,7 +4,7 @@
   "repo": "control-tower",
   "description": "A python library built on top of UKAISI Inspect to support Control research, by Redwood",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/linuxarena/control-tower",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:36:59Z"
+  "distributed_at": "2026-05-15T14:30:43Z"
 }
