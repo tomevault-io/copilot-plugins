@@ -1,0 +1,57 @@
+{
+  "name": "zero-service",
+  "owner": "maomao94",
+  "repo": "zero-service",
+  "description": "zero-service: \u26a1 \u57fa\u4e8e go-zero \u7684 Go \u5fae\u670d\u52a1\u811a\u624b\u67b6 | \u5f00\u7bb1\u5373\u7528 gRPC\u670d\u52a1\u548cAPI\u7f51\u5173\u3001\u6587\u4ef6\u4f20\u8f93\u3001\u56fd\u7f51\u7535\u529bIEC104\u534f\u8bae\u3001modbus \u534f\u8bae\u3001DJI \u673a\u5de2\u4e0a\u4e91 api \u652f\u6301",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "module-deploy",
+      "path": ".trae/skills/module-deploy",
+      "github_url": "https://github.com/maomao94/zero-service/tree/main/.trae/skills/module-deploy",
+      "description": ""
+    },
+    {
+      "name": "zero-skills",
+      "path": ".trae/skills/zero-skills",
+      "github_url": "https://github.com/maomao94/zero-service/tree/main/.trae/skills/zero-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maomao94/zero-service",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T22:30:08Z"
+}
