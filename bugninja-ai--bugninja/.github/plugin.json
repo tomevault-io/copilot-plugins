@@ -1,0 +1,9 @@
+{
+  "name": "bugninja-ai--bugninja",
+  "displayName": "bugninja",
+  "description": "Python library and CLI tool for E2E testing",
+  "version": "1.0.0",
+  "author": "bugninja-ai",
+  "homepage": "https://github.com/bugninja-ai/bugninja",
+  "skills": []
+}
