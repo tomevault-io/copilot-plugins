@@ -1,0 +1,9 @@
+{
+  "name": "atomicstrata--atomicmemory-python",
+  "displayName": "atomicmemory-python",
+  "description": "Open-source AtomicMemory Python SDK",
+  "version": "1.0.0",
+  "author": "atomicstrata",
+  "homepage": "https://github.com/atomicstrata/atomicmemory-python",
+  "skills": []
+}
