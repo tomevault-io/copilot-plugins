@@ -1,0 +1,9 @@
+{
+  "name": "mumez--pharosmalltalkinteropserver",
+  "displayName": "PharoSmalltalkInteropServer",
+  "description": "API server that bridges Pharo Smalltalk environments with external tools",
+  "version": "1.0.0",
+  "author": "mumez",
+  "homepage": "https://github.com/mumez/PharoSmalltalkInteropServer",
+  "skills": []
+}
