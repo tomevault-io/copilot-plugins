@@ -1,0 +1,9 @@
+{
+  "name": "bugenzhao--xcraft",
+  "displayName": "xcraft",
+  "description": "CLI for building and running Xcode projects from the terminal, aiming to simplify agentic development on Apple platforms.",
+  "version": "1.0.0",
+  "author": "BugenZhao",
+  "homepage": "https://github.com/BugenZhao/xcraft",
+  "skills": []
+}
