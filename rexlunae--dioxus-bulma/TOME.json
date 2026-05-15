@@ -4,7 +4,7 @@
   "repo": "dioxus-bulma",
   "description": "A rust library for Dioxus that offers the Bulma CSS components.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rexlunae/dioxus-bulma",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T16:50:27Z"
+  "distributed_at": "2026-05-15T21:14:50Z"
 }
