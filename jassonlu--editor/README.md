@@ -7,11 +7,11 @@ Forked from pascalorg/editor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jassonlu/editor](https://github.com/jassonlu/editor).
+Original source: `CLAUDE.md` in [jassonlu/editor](https://github.com/jassonlu/editor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
