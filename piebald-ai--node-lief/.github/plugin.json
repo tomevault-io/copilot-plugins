@@ -1,0 +1,9 @@
+{
+  "name": "piebald-ai--node-lief",
+  "displayName": "node-lief",
+  "description": "Node.js bindings for LIEF, a library to parse and manipulate ELF, PE, and Mach-O executables.",
+  "version": "1.0.0",
+  "author": "Piebald-AI",
+  "homepage": "https://github.com/Piebald-AI/node-lief",
+  "skills": []
+}
