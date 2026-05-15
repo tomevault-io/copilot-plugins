@@ -1,0 +1,9 @@
+{
+  "name": "with-logic--intent",
+  "displayName": "intent",
+  "description": "A small, well-typed LLM-based reranker for semantic search.",
+  "version": "1.0.0",
+  "author": "with-logic",
+  "homepage": "https://github.com/with-logic/intent",
+  "skills": []
+}
