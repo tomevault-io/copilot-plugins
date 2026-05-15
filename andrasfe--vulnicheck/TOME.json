@@ -4,7 +4,7 @@
   "repo": "vulnicheck",
   "description": "Python vulnerability scanner & MCP security toolkit. Real-time dependency checking via OSV/NVD/GitHub Advisory DBs, Docker analysis, secrets detection, MCP config validation, LLM-powered risk assessment & interactive security audits. Full CVE details,    CVSS scores & remediation guidance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andrasfe/vulnicheck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:30:09Z"
+  "distributed_at": "2026-05-15T10:40:48Z"
 }
