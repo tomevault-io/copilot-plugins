@@ -1,0 +1,9 @@
+{
+  "name": "remiphilippe--mcp-unreal",
+  "displayName": "mcp-unreal",
+  "description": "MCP server that gives AI coding agents (Claude Code, Cursor, etc.) full control over Unreal Engine 5.7 projects \u2014 headless builds & tests, Blueprint editing, actor manipulation, procedural mesh genera",
+  "version": "1.0.0",
+  "author": "remiphilippe",
+  "homepage": "https://github.com/remiphilippe/mcp-unreal",
+  "skills": []
+}
