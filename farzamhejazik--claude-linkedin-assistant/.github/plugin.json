@@ -1,0 +1,9 @@
+{
+  "name": "farzamhejazik--claude-linkedin-assistant",
+  "displayName": "claude-linkedin-assistant",
+  "description": "Minimal Claude Code workspace for tracking jobs + sending first-DM LinkedIn outreach via the Claude in Chrome extension. Tracker CRUD, job discovery, and 1st-degree-only outreach. Reply handling, foll",
+  "version": "1.0.0",
+  "author": "FarzamHejaziK",
+  "homepage": "https://github.com/FarzamHejaziK/claude-linkedin-assistant",
+  "skills": []
+}
