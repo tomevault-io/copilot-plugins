@@ -1,0 +1,44 @@
+{
+  "name": "vibe-sensei",
+  "owner": "VictorVVedtion",
+  "repo": "vibe-sensei",
+  "description": "AI Trading Terminal \u2014 68 historical masters watch your trades. Buffett warns on risk, Soros spots reflexivity, SBF's ghost appears before you 10x leverage. Paper trading sandbox, terminal-native.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VictorVVedtion/vibe-sensei",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T14:03:10Z"
+}
