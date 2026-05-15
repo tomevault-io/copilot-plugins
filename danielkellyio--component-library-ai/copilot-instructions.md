@@ -1,121 +1,114 @@
-## stories
+## theming
 
-> rules for writing stories
+> - Use inline tailwind classes to style. NEVER use @apply. If you need to use a tailwind color in the style section you can do so with a css custom property like this: var(--color-primary)
 
-Component stories are created with Histoire. 
+## Component Styles/Theming
+- Use inline tailwind classes to style. NEVER use @apply. If you need to use a tailwind color in the style section you can do so with a css custom property like this: var(--color-primary)
+- Backgrounds colored with brand or status theme colors should use the proper class as defined in theme.css (for example: .bg-primary)
+- ALWAYS read `assets/theme.css` to understand available design tokens.
+- prefer container queries over media queries for making the site responsive
+- container queries are built into Tailwind v4 - https://raw.githubusercontent.com/tailwindlabs/tailwindcss.com/refs/heads/main/src/docs/responsive-design.mdx
 
-You can find more info about creating stories with histoire via the following links:
-* Getting Started - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/getting-started.md
-* How to write stories - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/stories.md
-* State and Controls - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/controls.md
-* Documentation - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/docs.md
-* Events - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/events.md
-* Hierarchy - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/hierarchy.md
-* Wrapper - https://raw.githubusercontent.com/histoire-dev/histoire/refs/heads/main/docs/guide/vue3/wrapper.md
+# .cursor/rules
 
-Example of a component story:
+## 🎨 Design System Overview
 
-```html
-<script setup lang="ts">
-import type { Story } from "histoire";
-import Button from "./Button.vue";
+This project defines a **dark-mode-first**, techy and futuristic design system aimed at **indie developers** building a new social media platform. It uses **TailwindCSS v4 theming**, **Reka UI**, and **VueUse Motion**.
 
-const story = {
-  id: "components-button",
-  title: "Components/Button", // !important prefix with "Components/"
-  variants: [],
-} satisfies Story;
+---
 
-const variants = ["primary", "secondary", "outline", "ghost"] as const;
-const sizes = ["sm", "md", "lg"] as const;
-</script>
+## 🌑 Theme: Dark Mode Only
 
-<template>
-  <Story :title="story.title" :layout="{ type: 'grid', width: '500px' }">
-    <!-- Variants -->
-    <Variant title="Variants">
-      <div class="flex gap-4">
-        <Button v-for="variant in variants" :key="variant" :variant="variant">
-          {{ variant }}
-        </Button>
-      </div>
-    </Variant>
+This system assumes dark mode is the default and only mode. Backgrounds, shadows, and borders are optimized for high contrast on dark surfaces.
 
-    <!-- Sizes -->
-    <Variant title="Sizes">
-      <div class="flex items-center gap-4">
-        <Button v-for="size in sizes" :key="size" :size="size">
-          Button {{ size }}
-        </Button>
-      </div>
-    </Variant>
+---
 
-    <!-- States -->
-    <Variant title="States">
-      <div class="flex gap-4">
-        <Button loading>Loading</Button>
-        <Button disabled>Disabled</Button>
-      </div>
-    </Variant>
+## 🎯 Target Audience
 
-    <!-- Icon Slots -->
-    <Variant title="Icon Slots">
-      <div class="flex gap-4">
-        <Button>
-          <template #before>
-            <Icon name="heroicons:plus" class="mr-2 h-5 w-5" />
-          </template>
-          Add Item
-        </Button>
-        <Button variant="secondary">
-          <template #after>
-            <Icon name="heroicons:arrow-right" class="ml-2 h-5 w-5" />
-          </template>
-          Next Step
-        </Button>
-        <Button variant="outline">
-          <template #before>
-            <Icon name="heroicons:document" class="mr-2 h-5 w-5" />
-          </template>
-          <template #after>
-            <Icon name="heroicons:chevron-down" class="ml-2 h-5 w-5" />
-          </template>
-          Select File
-        </Button>
-      </div>
-    </Variant>
+- Indie web developers
+- Designers who build
+- Makers and community builders
 
-    <!-- All Variants with Loading -->
-    <Variant title="Loading Variants">
-      <div class="flex gap-4">
-        <Button
-          v-for="variant in variants"
-          :key="variant"
-          :variant="variant"
-          loading
-        >
-          {{ variant }}
-        </Button>
-      </div>
-    </Variant>
+---
 
-    <!-- All Variants Disabled -->
-    <Variant title="Disabled Variants">
-      <div class="flex gap-4">
-        <Button
-          v-for="variant in variants"
-          :key="variant"
-          :variant="variant"
-          disabled
-        >
-          {{ variant }}
-        </Button>
-      </div>
-    </Variant>
-  </Story>
-</template>
+## 🎨 Design Tokens
 
-```
+### Colors
+
+- `--color-primary`: Electric Purple `#6f00ff`
+- `--color-secondary`: Neon Cyan `#00e0ff`
+- `--color-bg`: Darkest surface `#0a0a0f`
+- `--color-surface`: UI panels `#191933`
+- `--color-border`: Soft borders `#2a2a40`
+- `--color-muted`: Muted text `#6b7280`
+- `--color-accent`: Vibrant accent `#8b5cf6`
+- `--color-text`: White text on dark background
+
+### Typography
+
+- `--font-heading`: `Inter`, sans-serif
+- `--font-body`: `Inter`, sans-serif
+- Bold, loud heading sizes and generous line height for rhythm
+
+### Spacing Scale
+
+| Token     | Value   |
+|-----------|---------|
+| `--space-xs` | 0.5rem |
+| `--space-sm` | 1rem   |
+| `--space-md` | 1.5rem |
+| `--space-lg` | 2rem   |
+| `--space-xl` | 3rem   |
+| `--space-2xl`| 4rem   |
+
+### Radius
+
+- `--radius-sm`: 6px
+- `--radius-md`: 12px
+- `--radius-lg`: 24px
+- `--radius-full`: 9999px (for pills or avatars)
+
+### Shadow
+
+- `--shadow-glow`: `0 0 8px #6f00ff, 0 0 16px #00e0ff`
+
+### Gradients
+
+- `--gradient-primary`: Linear blend from electric purple to cyan
+- `--gradient-card`: Dimmed variation for backgrounds
+
+### Z-Index
+
+| Layer    | Token         | Value |
+|----------|---------------|-------|
+| Dropdown | `--z-dropdown`| 1000  |
+| Modal    | `--z-modal`   | 1100  |
+| Popover  | `--z-popover` | 1200  |
+| Toast    | `--z-toast`   | 1300  |
+
+---
+
+## 🧩 Component Strategy
+
+- **Component Library**: Reka UI (unstyled primitives)
+- **Motion Library**: VueUse Motion (custom transitions) - https://context7.com/vueuse/motion/llms.txt
+- **Grid System**: 12-column layout for page structure
+
+---
+
+## 🛠️ Tooling & Theming
+
+- TailwindCSS 4 + `theme.extend` integration
+- All tokens defined via `:root` CSS variables
+- Works seamlessly with utility-first and component-scoped styling
+
+---
+
+## 🧪 Dev Notes
+
+- Keep the system modular and light
+- Encourage experimentation in gradients, shadows, and composition
+- Use Tailwind layers and safelist if extending components
 
 ---
 > Source: [danielkellyio/component-library-ai](https://github.com/danielkellyio/component-library-ai) — distributed by [TomeVault](https://tomevault.io).
