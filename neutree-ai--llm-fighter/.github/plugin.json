@@ -1,0 +1,9 @@
+{
+  "name": "neutree-ai--llm-fighter",
+  "displayName": "llm-fighter",
+  "description": "Evaluate LLM agentic capabilities through combat games",
+  "version": "1.0.0",
+  "author": "neutree-ai",
+  "homepage": "https://github.com/neutree-ai/llm-fighter",
+  "skills": []
+}
