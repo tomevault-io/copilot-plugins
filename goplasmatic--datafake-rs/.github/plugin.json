@@ -1,0 +1,9 @@
+{
+  "name": "goplasmatic--datafake-rs",
+  "displayName": "datafake-rs",
+  "description": "High-Performance JSON Mock Data Generation Library",
+  "version": "1.0.0",
+  "author": "GoPlasmatic",
+  "homepage": "https://github.com/GoPlasmatic/datafake-rs",
+  "skills": []
+}
