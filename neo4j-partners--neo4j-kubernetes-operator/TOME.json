@@ -1,0 +1,44 @@
+{
+  "name": "neo4j-kubernetes-operator",
+  "owner": "neo4j-partners",
+  "repo": "neo4j-kubernetes-operator",
+  "description": "The Neo4j Kuberenetes Operator automates the deployment and management of Neo4j Enterprise Edition.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/neo4j-partners/neo4j-kubernetes-operator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T05:12:59Z"
+}
