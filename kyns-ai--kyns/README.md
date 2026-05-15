@@ -7,11 +7,11 @@ Uncensored AI platform — chat, roleplay, image generation. Built on open-sourc
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Kyns-ai/kyns](https://github.com/Kyns-ai/kyns).
+Original source: `CLAUDE.md` in [Kyns-ai/kyns](https://github.com/Kyns-ai/kyns).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
