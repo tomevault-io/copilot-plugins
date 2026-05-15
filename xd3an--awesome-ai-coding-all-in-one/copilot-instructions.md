@@ -1,18 +1,46 @@
-## readme-best-practices-cursorrules-prompt-file
+## ros-ros2
 
-> Cursor rules for README documentation with best practices integration.
+> ROS and ROS2 rules for packages, nodes, launch files, messages, services, actions, simulation, and testing
 
-Write READMEs like landing pages, not API docs. The reader decides in 3-5 seconds.
 
-Start with a bold one-liner saying what it does and why someone should care. Not "A tool that..." - a punchline.
-Put a working code example in the first 5 lines. Show the value prop immediately.
-Use feature tables (two columns) instead of **Feature:** bullet lists. Tables scan faster.
-Quick Start must be copy-paste ready. No $ prefix on bash commands. Zero to running in 30 seconds.
-Vary sentence lengths and structure. Mix one-liners with short paragraphs and tables. Not walls of same-length bullets.
-Never use "seamless", "robust", "comprehensive", "cutting-edge", or other AI marketing words.
-Never open with "In today's..." or close with "Happy coding!"
-Check that referenced assets (demo.gif, screenshots) actually exist on disk before adding image links.
-Author section should include a visual card or badge, not just plain text "Made by username".
+# ROS and ROS2 Rules
+
+## Package Structure
+
+- Keep packages focused on one robot capability or integration boundary.
+- Use `package.xml` and `CMakeLists.txt` or `setup.py` consistently with the package type.
+- Keep launch files under `launch/`, configs under `config/`, messages under `msg/`, services under `srv/`, and actions under `action/`.
+- Use namespaces and remapping instead of hardcoded topic names when nodes may be reused.
+
+## Nodes and Interfaces
+
+- Keep nodes small and composable.
+- Use parameters for tunable behavior; declare ROS2 parameters explicitly.
+- Prefer messages for state streams, services for quick request/response operations, and actions for long-running goals with feedback.
+- Use standard message types before creating custom interfaces.
+- Document topic, service, action, frame, and parameter contracts.
+
+## Timing and Frames
+
+- Use ROS time when simulation or bag replay matters.
+- Use `tf2` for frame transforms and document frame names.
+- Avoid blocking callbacks; move long work to timers, worker threads, or actions.
+- Set QoS profiles intentionally for sensor data, latched-like config, and reliable command paths.
+
+## Build and Test
+
+- Use `colcon build` and keep package dependencies explicit.
+- Run linters and formatters used by the workspace.
+- Add launch tests or integration tests for multi-node behavior.
+- Use simulation, bags, or recorded fixtures for repeatable sensor scenarios.
+- Test failure cases such as missing transforms, stale sensor data, and unavailable services.
+
+## Common Mistakes
+
+- Do not hardcode absolute paths; use package share directories.
+- Do not publish commands without validating frame, units, and timestamp assumptions.
+- Do not create custom messages when a standard message fits.
+- Do not ignore QoS mismatches between publishers and subscribers.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
