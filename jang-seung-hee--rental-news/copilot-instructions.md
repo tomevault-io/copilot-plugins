@@ -1,20 +1,69 @@
-## ai-coding-standards
+## component-standards
 
-> 이 규칙은 전 파일 공통으로 항상 적용됩니다. 세부 원문은 팀 정책 문서를 참고하세요.
+> // components/admin/PromotionEditor.tsx
 
-## AI 코딩/바이브 코딩 표준 (요약 규칙)
+# 컴포넌트 개발 표준
 
-이 규칙은 전 파일 공통으로 항상 적용됩니다. 세부 원문은 팀 정책 문서를 참고하세요.
+## 컴포넌트 구조
+```tsx
+// components/admin/PromotionEditor.tsx
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
-- 한 줄 요약: 중복 금지 · 400~450 라인 목표(최대 500) · 단일 책임(SRP) · 메인은 조립만 · 절대경로 임포트
-- 기존 코드 재사용 의무: 신규 기능 전, 유사 함수/모듈을 검색하고 재사용 또는 개선으로 일원화
-- 파일 라인 수: 가급적 250~350 라인, 450 라인 경고, 500 라인 초과 금지(기존 코드 보수는 예외)
-- 모듈화: 한 파일=한 책임. 복수 책임 감지 시 분리
-- 임포트 경로: 절대경로 기본(`@/*`), 상대경로 남용 금지
-- 공개 API 최소화: 내부 구현은 캡슐화, 간단한 JSDoc/docstring 유지
-- 사이드이펙트는 훅/서비스 등 전담 레이어로 격리, UI 컴포넌트는 프리젠테이션 중심
+interface PromotionEditorProps {
+  onSave: (data: PromotionData) => void;
+  initialData?: PromotionData;
+}
 
-원문 정책: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
+export const PromotionEditor: React.FC<PromotionEditorProps> = ({
+  onSave,
+  initialData
+}) => {
+  // 상태 관리
+  const [formData, setFormData] = useState<PromotionData>(initialData || {
+    title: '',
+    content: '',
+    imageUrl: ''
+  });
+
+  // 이벤트 핸들러
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  return (
+    <Card className="p-6">
+      <form onSubmit={handleSubmit}>
+        {/* 폼 내용 */}
+      </form>
+    </Card>
+  );
+};
+```
+
+## 컴포넌트 분류
+- **ui/**: Shadcn UI 기본 컴포넌트
+- **guide/**: 가이드 관련 컴포넌트
+- **admin/**: 관리자 기능 컴포넌트
+- **common/**: 공통 컴포넌트
+
+## Props 인터페이스 규칙
+- **필수 props**: 기본값 없이 정의
+- **선택적 props**: `?` 표시로 정의
+- **이벤트 핸들러**: `on` 접두사 사용
+- **데이터 props**: 명확한 타입 정의
+
+## 스타일링 규칙
+- **Shadcn UI 컴포넌트** 우선 사용
+- **TailwindCSS 클래스**로 커스터마이징
+- **반응형 디자인** 필수 적용
+- **접근성** 고려 (aria-label, role 등)
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
