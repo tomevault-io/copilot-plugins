@@ -1,0 +1,9 @@
+{
+  "name": "skytruth--offshore-methane",
+  "displayName": "offshore-methane",
+  "description": "Offshore methane detection",
+  "version": "1.0.0",
+  "author": "SkyTruth",
+  "homepage": "https://github.com/SkyTruth/offshore-methane",
+  "skills": []
+}
