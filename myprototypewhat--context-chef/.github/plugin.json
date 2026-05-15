@@ -1,0 +1,9 @@
+{
+  "name": "myprototypewhat--context-chef",
+  "displayName": "context-chef",
+  "description": "Context compiler for TypeScript/JavaScript AI agents. Automatically compiles agent state into optimized LLM payloads with history compression, tool pruning, multi-provider support, and more.",
+  "version": "1.0.0",
+  "author": "MyPrototypeWhat",
+  "homepage": "https://github.com/MyPrototypeWhat/context-chef",
+  "skills": []
+}
