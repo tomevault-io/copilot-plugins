@@ -1,0 +1,9 @@
+{
+  "name": "mshykov--local-review",
+  "displayName": "local-review",
+  "description": "Local, BYOK code review for any language. No SaaS, no telemetry.",
+  "version": "1.0.0",
+  "author": "mshykov",
+  "homepage": "https://github.com/mshykov/local-review",
+  "skills": []
+}
