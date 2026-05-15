@@ -1,0 +1,44 @@
+{
+  "name": "Auto-Review-ClaudeMCP",
+  "owner": "IskanderAl",
+  "repo": "Auto-Review-ClaudeMCP",
+  "description": "A Python MCP (Model Context Protocol) server that connects Claude Desktop to GitHub Pull Requests. It fetches PR diffs, filters out binary and asset files (Unity `.meta`, images, audio, shaders, etc.), and gives Claude only the actual code to review.  Built as a QA automation tool to speed up pull request reviews using AI.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/IskanderAl/Auto-Review-ClaudeMCP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T15:38:23Z"
+}
