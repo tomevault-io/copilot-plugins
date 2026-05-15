@@ -1,0 +1,9 @@
+{
+  "name": "eyalzh--context-kit",
+  "displayName": "context-kit",
+  "description": "A CLI tool and MCP client, used to create spec files for AI coding agents with context baked in",
+  "version": "1.0.0",
+  "author": "eyalzh",
+  "homepage": "https://github.com/eyalzh/context-kit",
+  "skills": []
+}
