@@ -1,0 +1,9 @@
+{
+  "name": "owasp--www-project-agent-observability-standard",
+  "displayName": "www-project-agent-observability-standard",
+  "description": "Agent Observability Standard",
+  "version": "1.0.0",
+  "author": "OWASP",
+  "homepage": "https://github.com/OWASP/www-project-agent-observability-standard",
+  "skills": []
+}
