@@ -4,7 +4,7 @@
   "repo": "authsome",
   "description": "Local auth cli for AI agents. Log in once via Oauth2/API Key. Every agent stays authenticated \u2014 headless, no SaaS, credentials never leave your machine. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/agentrhq/authsome",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:17:04Z"
+  "distributed_at": "2026-05-15T18:46:09Z"
 }
