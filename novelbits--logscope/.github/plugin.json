@@ -1,0 +1,9 @@
+{
+  "name": "novelbits--logscope",
+  "displayName": "logscope",
+  "description": "Modern embedded log viewer for VS Code \u2014 Zephyr logs with filtering, search, and color-coding",
+  "version": "1.0.0",
+  "author": "NovelBits",
+  "homepage": "https://github.com/NovelBits/logscope",
+  "skills": []
+}
