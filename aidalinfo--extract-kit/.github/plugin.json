@@ -1,0 +1,9 @@
+{
+  "name": "aidalinfo--extract-kit",
+  "displayName": "extract-kit",
+  "description": "Powerful PDF data extraction library powered by AI vision models. Transform PDFs into structured, validated data using TypeScript, Zod, and AI providers like Scaleway and Ollama.",
+  "version": "1.0.0",
+  "author": "aidalinfo",
+  "homepage": "https://github.com/aidalinfo/extract-kit",
+  "skills": []
+}
