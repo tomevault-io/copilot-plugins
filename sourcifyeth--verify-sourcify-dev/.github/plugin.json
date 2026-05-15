@@ -1,0 +1,9 @@
+{
+  "name": "sourcifyeth--verify-sourcify-dev",
+  "displayName": "verify.sourcify.dev",
+  "description": "Contract verification UI for Sourcify",
+  "version": "1.0.0",
+  "author": "sourcifyeth",
+  "homepage": "https://github.com/sourcifyeth/verify.sourcify.dev",
+  "skills": []
+}
