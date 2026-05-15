@@ -1,14 +1,38 @@
-## contentful-component-template
+## contentful-live-preview
 
-> When creating new Contentful components, use this template pattern based on existing components like [hero.tsx](mdc:apps/web/src/components/sections/hero.tsx), [cta.tsx](mdc:apps/web/src/components/sections/cta.tsx), and [feature-cards-with-icon.tsx](mdc:apps/web/src/components/sections/feature-cards-with-icon.tsx).
+> This project uses Contentful Live Preview functionality to enable real-time content editing with visual indicators and live updates. The implementation follows Contentful's best practices for Next.js 14 App Router.
 
-# Contentful Component Creation Template
+# Contentful Live Preview Implementation Guide
 
-## New Component Template
+## Overview
 
-When creating new Contentful components, use this template pattern based on existing components like [hero.tsx](mdc:apps/web/src/components/sections/hero.tsx), [cta.tsx](mdc:apps/web/src/components/sections/cta.tsx), and [feature-cards-with-icon.tsx](mdc:apps/web/src/components/sections/feature-cards-with-icon.tsx).
+This project uses Contentful Live Preview functionality to enable real-time content editing with visual indicators and live updates. The implementation follows Contentful's best practices for Next.js 14 App Router.
 
-### 1. Basic Component Structure Template
+## Core Files Structure
+
+### Provider Setup
+- [contentful-preview-provider.tsx](mdc:apps/web/src/components/contentful-preview-provider.tsx) - Wrapper for ContentfulLivePreviewProvider
+- [layout.tsx](mdc:apps/web/src/app/layout.tsx) - Root layout with preview provider configuration
+
+### API Routes
+- [draft/route.ts](mdc:apps/web/src/app/api/draft/route.ts) - Enables draft mode with token validation
+- [disable-draft/route.ts](mdc:apps/web/src/app/api/disable-draft/route.ts) - Disables draft mode
+- [preview/route.ts](mdc:apps/web/src/app/api/preview/route.ts) - Contentful toolkit handler
+
+### Preview Components
+- [preview-bar.tsx](mdc:apps/web/src/components/preview-bar.tsx) - Visual preview mode indicator
+- All section components in [sections/](mdc:apps/web/src/components/sections) use live preview hooks
+
+### Configuration
+- [next.config.ts](mdc:apps/web/next.config.ts) - Headers configuration for Contentful integration
+- [client.ts](mdc:apps/web/src/lib/contentful/client.ts) - Contentful client with preview support
+- [env.ts](mdc:apps/web/src/lib/env.ts) - Environment variables configuration
+
+## Implementation Patterns
+
+### 1. Component Live Preview Pattern
+
+Every Contentful component MUST follow this pattern:
 
 ```typescript
 "use client";
@@ -17,17 +41,8 @@ import {
   useContentfulInspectorMode,
   useContentfulLiveUpdates,
 } from "@contentful/live-preview/react";
-import { Badge } from "@workspace/ui/components/badge";
 
-import type { Type[ComponentName] } from "@/lib/contentful/types";
-
-import { ContentfulImage } from "../contentful-image";
-import { ContentfulRichText } from "../contentful-richtext";
-import { ContentfulButtons } from "../contentful-button";
-
-export type [ComponentName]Props = Type[ComponentName]<"WITHOUT_UNRESOLVABLE_LINKS">;
-
-export function [ComponentName](mdc:props: [ComponentName]Props) {
+export function MyComponent(props: MyContentfulType) {
   // Apply live updates to props
   const updatedProps = useContentfulLiveUpdates(props);
   
@@ -35,272 +50,181 @@ export function [ComponentName](mdc:props: [ComponentName]Props) {
   const inspectorProps = useContentfulInspectorMode({
     entryId: updatedProps.sys.id,
   });
-
-  // Destructure fields from updated props
-  const { field1, field2, field3 } = updatedProps.fields ?? {};
-
-  return (
-    <section id="[section-id]" className="my-6 md:my-16">
-      <div className="container mx-auto px-4 md:px-6">
-        {/* Apply inspector props to each editable field */}
-        <h2
-          className="text-3xl font-semibold md:text-5xl"
-          {...inspectorProps({ fieldId: "field1" })}
-        >
-          {field1}
-        </h2>
-        
-        <ContentfulRichText
-          richText={field2}
-          className="text-base md:text-lg"
-          {...inspectorProps({ fieldId: "field2" })}
-        />
-        
-        {field3 && (
-          <ContentfulImage
-            image={field3}
-            {...inspectorProps({ fieldId: "field3" })}
-          />
-        )}
-      </div>
-    </section>
-  );
-}
-```
-
-### 2. Component Creation Checklist
-
-#### Required Steps:
-- [ ] Add `"use client";` directive at the top
-- [ ] Import `useContentfulInspectorMode` and `useContentfulLiveUpdates`
-- [ ] Import TypeScript type from `@/lib/contentful/types`
-- [ ] Create props type with `"WITHOUT_UNRESOLVABLE_LINKS"`
-- [ ] Apply `useContentfulLiveUpdates` to props
-- [ ] Setup `useContentfulInspectorMode` with `entryId`
-- [ ] Destructure fields from `updatedProps.fields ?? {}`
-- [ ] Apply `inspectorProps({ fieldId: "fieldName" })` to each editable element
-
-#### Optional Contentful Components:
-- [ ] `<ContentfulRichText>` for rich text fields
-- [ ] `<ContentfulImage>` for image fields  
-- [ ] `<ContentfulButtons>` for button arrays
-- [ ] `<Badge>` for eyebrow/category fields
-
-### 3. Field Mapping Patterns
-
-#### Common Field Types and Components:
-
-```typescript
-// Text Fields
-<h1 {...inspectorProps({ fieldId: "title" })}>
-  {title}
-</h1>
-
-// Rich Text Fields
-<ContentfulRichText
-  richText={richText}
-  className="text-base"
-  {...inspectorProps({ fieldId: "richText" })}
-/>
-
-// Image Fields
-<ContentfulImage
-  image={image}
-  width={800}
-  height={600}
-  className="rounded-lg"
-  {...inspectorProps({ fieldId: "image" })}
-/>
-
-// Button Arrays
-<ContentfulButtons
-  buttons={buttons}
-  className="flex gap-4"
-  {...inspectorProps({ fieldId: "buttons" })}
-/>
-
-// Badge/Eyebrow Fields
-{eyebrow && (
-  <Badge
-    variant="secondary"
-    {...inspectorProps({ fieldId: "eyebrow" })}
-  >
-    {eyebrow}
-  </Badge>
-)}
-
-// Reference Arrays (e.g., cards, items)
-{cards?.map((card, index) => (
-  <SubComponent
-    key={`card-${card?.sys.id || index}`}
-    card={card}
-    {...inspectorProps({ fieldId: "cards" })}
-  />
-))}
-```
-
-### 4. Nested Component Pattern
-
-For components with nested items (like cards or FAQs):
-
-```typescript
-function SubComponent({ item, ...props }: SubComponentProps) {
-  const updatedItem = useContentfulLiveUpdates(item);
-  const inspectorProps = useContentfulInspectorMode({
-    entryId: updatedItem?.sys?.id,
-  });
   
-  const { title, content } = updatedItem?.fields ?? {};
+  const { field1, field2 } = updatedProps.fields ?? {};
   
   return (
-    <div {...props}>
-      <h3 {...inspectorProps({ fieldId: "title" })}>
-        {title}
-      </h3>
-      <ContentfulRichText
-        richText={content}
-        {...inspectorProps({ fieldId: "content" })}
-      />
-    </div>
-  );
-}
-
-export function MainComponent(props: MainComponentProps) {
-  const updatedProps = useContentfulLiveUpdates(props);
-  const inspectorProps = useContentfulInspectorMode({
-    entryId: updatedProps.sys.id,
-  });
-  
-  const { items } = updatedProps.fields ?? {};
-  
-  return (
-    <section>
-      {items?.map((item, index) => (
-        <SubComponent
-          key={`item-${item?.sys.id || index}`}
-          item={item}
-          {...inspectorProps({ fieldId: "items" })}
-        />
-      ))}
-    </section>
-  );
-}
-```
-
-### 5. Naming Conventions
-
-#### Component Names:
-- Use PascalCase: `HeroBlock`, `FeatureCardsWithIcon`, `FaqAccordion`
-- Match Contentful content type name
-- Add descriptive suffix if needed: `Block`, `Section`, `Grid`
-
-#### Props Types:
-- Format: `[ComponentName]Props`
-- Example: `HeroBlockProps`, `CTABlockProps`
-
-#### File Names:
-- Use kebab-case: `hero.tsx`, `feature-cards-with-icon.tsx`
-- Place in `apps/web/src/components/sections/`
-
-#### Field IDs:
-- Use exact Contentful field names in `inspectorProps({ fieldId: "exactFieldName" })`
-- Common fields: `title`, `richText`, `image`, `buttons`, `eyebrow`
-
-### 6. Required Imports Reference
-
-```typescript
-// Always required for live preview
-import {
-  useContentfulInspectorMode,
-  useContentfulLiveUpdates,
-} from "@contentful/live-preview/react";
-
-// UI components (as needed)
-import { Badge } from "@workspace/ui/components/badge";
-import { Button } from "@workspace/ui/components/button";
-
-// Contentful-specific components (as needed)
-import { ContentfulImage } from "../contentful-image";
-import { ContentfulRichText } from "../contentful-richtext";
-import { ContentfulButtons } from "../contentful-button";
-
-// TypeScript types
-import type { Type[ContentTypeName] } from "@/lib/contentful/types";
-```
-
-### 7. Section Container Pattern
-
-Use consistent section structure:
-
-```typescript
-return (
-  <section id="[unique-id]" className="my-6 md:my-16">
-    <div className="container mx-auto px-4 md:px-6">
-      {/* Content here */}
-    </div>
-  </section>
-);
-```
-
-### 8. Conditional Rendering Pattern
-
-Always check if fields exist before rendering:
-
-```typescript
-const { title, image, buttons } = updatedProps.fields ?? {};
-
-return (
-  <section>
-    {title && (
-      <h1 {...inspectorProps({ fieldId: "title" })}>
-        {title}
+    <div>
+      <h1 {...inspectorProps({ fieldId: "field1" })}>
+        {field1}
       </h1>
-    )}
-    
-    {image && (
-      <ContentfulImage
-        image={image}
-        {...inspectorProps({ fieldId: "image" })}
-      />
-    )}
-    
-    {buttons && buttons.length > 0 && (
-      <ContentfulButtons
-        buttons={buttons}
-        {...inspectorProps({ fieldId: "buttons" })}
-      />
-    )}
-  </section>
-);
+      <p {...inspectorProps({ fieldId: "field2" })}>
+        {field2}
+      </p>
+    </div>
+  );
+}
 ```
 
-### 9. Error Handling
+### 2. Required Environment Variables
 
-Include basic error handling for missing sys properties:
+```bash
+CONTENTFUL_SPACE_ID=your_space_id
+CONTENTFUL_ACCESS_TOKEN=your_delivery_token
+CONTENTFUL_PREVIEW_ACCESS_TOKEN=your_preview_token
+CONTENTFUL_DRAFT_TOKEN=your_draft_secret_token
+```
+
+### 3. Draft Mode Integration
+
+Pages MUST check draft mode status:
 
 ```typescript
-const inspectorProps = useContentfulInspectorMode({
-  entryId: updatedProps?.sys?.id,
-});
+import { draftMode } from "next/headers";
+import { getClient } from "@/lib/contentful/client";
 
-// For nested components
-const inspectorProps = useContentfulInspectorMode({
-  entryId: updatedItem?.sys?.id,
-});
+export default async function Page() {
+  const { isEnabled } = await draftMode();
+  const client = getClient(isEnabled);
+  
+  // Fetch data with preview mode based on draft status
+  const data = await client.getEntries({ /* query */ });
+  
+  return <YourComponent {...data} />;
+}
 ```
 
-## Quick Reference
+### 4. Contentful Client Configuration
 
-### Existing Component Examples:
-- [hero.tsx](mdc:apps/web/src/components/sections/hero.tsx) - Basic hero with image, text, and buttons
-- [cta.tsx](mdc:apps/web/src/components/sections/cta.tsx) - Call-to-action with background styling  
-- [feature-cards-with-icon.tsx](mdc:apps/web/src/components/sections/feature-cards-with-icon.tsx) - Grid layout with nested components
-- [faq-accordion.tsx](mdc:apps/web/src/components/sections/faq-accordion.tsx) - Accordion with nested FAQ items
+The client automatically switches between delivery and preview APIs based on the preview parameter:
 
-### Contentful Helper Components:
-- [contentful-image.tsx](mdc:apps/web/src/components/contentful-image.tsx)
-- [contentful-richtext.tsx](mdc:apps/web/src/components/contentful-richtext.tsx)  
-- [contentful-button.tsx](mdc:apps/web/src/components/contentful-button.tsx)
+```typescript
+export function getClient(preview = false) {
+  return contentful.createClient({
+    host: preview ? "preview.contentful.com" : "cdn.contentful.com",
+    accessToken: preview ? previewToken || accessToken : accessToken,
+    space: spaceId,
+  });
+}
+```
+
+## Security Configuration
+
+### Next.js Headers (Required)
+
+The [next.config.ts](mdc:apps/web/next.config.ts) MUST include these headers for Contentful integration:
+
+```typescript
+async headers() {
+  return [
+    {
+      source: "/:path*",
+      headers: [
+        {
+          key: "X-Frame-Options",
+          value: "SAMEORIGIN",
+        },
+        {
+          key: "Content-Security-Policy",
+          value: `frame-ancestors 'self' https://app.contentful.com`,
+        },
+      ],
+    },
+  ];
+}
+```
+
+## Preview Provider Setup
+
+### Root Layout Configuration
+
+The [layout.tsx](mdc:apps/web/src/app/layout.tsx) MUST wrap the app with ContentfulPreviewProvider:
+
+```typescript
+import { draftMode } from "next/headers";
+import { ContentfulPreviewProvider } from "@/components/contentful-preview-provider";
+
+export default async function RootLayout({ children }) {
+  const { isEnabled } = await draftMode();
+  
+  return (
+    <html>
+      <body>
+        <ContentfulPreviewProvider
+          locale="en-US"
+          enableInspectorMode={isEnabled}
+          enableLiveUpdates={isEnabled}
+          debugMode
+        >
+          {children}
+        </ContentfulPreviewProvider>
+        
+        {isEnabled && <PreviewBar />}
+      </body>
+    </html>
+  );
+}
+```
+
+## Live Preview Features
+
+### Inspector Mode
+- Highlights editable fields when hovering in Contentful
+- Requires `useContentfulInspectorMode` hook
+- Pass `inspectorProps({ fieldId: "fieldName" })` to each editable element
+
+### Live Updates  
+- Real-time content updates without page refresh
+- Requires `useContentfulLiveUpdates` hook
+- Apply to component props to get updated content
+
+### Preview Bar
+- Visual indicator showing preview mode is active
+- Provides exit link to disable draft mode
+- Only shown when `isEnabled` from draftMode is true
+
+## API Routes
+
+### Draft Mode Enable: `/api/draft`
+- Validates token against `CONTENTFUL_DRAFT_TOKEN`
+- Enables Next.js draft mode
+- Redirects to specified path
+
+### Draft Mode Disable: `/api/disable-draft`
+- Disables Next.js draft mode
+- Redirects to specified slug
+- Includes 1-second delay for state synchronization
+
+### Contentful Preview Handler: `/api/preview`
+- Uses Contentful's Vercel toolkit
+- Handles preview mode activation from Contentful
+
+## Best Practices
+
+### DO:
+- Always use `"use client"` directive for components with live preview hooks
+- Apply `useContentfulLiveUpdates` to all Contentful props
+- Use `useContentfulInspectorMode` for field highlighting
+- Check draft mode status in pages before fetching data
+- Include error handling for missing environment variables
+
+### DON'T:
+- Use live preview hooks in Server Components
+- Forget to pass `inspectorProps` to editable fields
+- Skip token validation in draft API routes
+- Omit required security headers in Next.js config
+- Use live preview in production without proper token protection
+
+## Troubleshooting
+
+### Common Issues:
+1. **Inspector mode not working**: Check CSP headers and X-Frame-Options
+2. **Live updates not working**: Ensure `useContentfulLiveUpdates` is applied to props
+3. **Preview mode not enabling**: Verify `CONTENTFUL_DRAFT_TOKEN` matches
+4. **Content not updating**: Check if component is using updated props from live updates hook
+
+### Debug Mode:
+Enable `debugMode: true` in ContentfulPreviewProvider for console logging of live preview events.
 
 ---
 > Source: [robotostudio/turbo-start-contentful](https://github.com/robotostudio/turbo-start-contentful) — distributed by [TomeVault](https://tomevault.io).
