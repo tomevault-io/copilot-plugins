@@ -2,9 +2,9 @@
   "name": "devclarity-coding-tutorial",
   "owner": "devclarityai",
   "repo": "devclarity-coding-tutorial",
-  "description": "AI instruction files for devclarity-coding-tutorial by devclarityai",
+  "description": "",
   "type": "tome",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -63,7 +63,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/devclarityai",
+  "source_url": "https://github.com/devclarityai/devclarity-coding-tutorial",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T05:33:49Z"
+  "distributed_at": "2026-05-15T00:30:06Z"
 }
