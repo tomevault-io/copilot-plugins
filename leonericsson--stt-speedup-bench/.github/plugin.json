@@ -1,0 +1,9 @@
+{
+  "name": "leonericsson--stt-speedup-bench",
+  "displayName": "stt-speedup-bench",
+  "description": "an investigation into the robustness of speech recognition models to audio speedup",
+  "version": "1.0.0",
+  "author": "LeonEricsson",
+  "homepage": "https://github.com/LeonEricsson/stt-speedup-bench",
+  "skills": []
+}
