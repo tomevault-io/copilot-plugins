@@ -1,0 +1,9 @@
+{
+  "name": "jnsgruk--brewlog",
+  "displayName": "brewlog",
+  "description": "B{rew}log is a self-hosted coffee logging platform for tracking your roasters, roasts, brews, cafes and brewing gear.",
+  "version": "1.0.0",
+  "author": "jnsgruk",
+  "homepage": "https://github.com/jnsgruk/brewlog",
+  "skills": []
+}
