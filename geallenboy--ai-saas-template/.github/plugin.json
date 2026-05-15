@@ -1,0 +1,9 @@
+{
+  "name": "geallenboy--ai-saas-template",
+  "displayName": "ai-saas-template",
+  "description": "\u4e00\u4e2a\u73b0\u4ee3\u5316\u3001\u751f\u4ea7\u5c31\u7eea\u7684 AI SaaS \u5e94\u7528\u6a21\u677f\u3002 \u57fa\u4e8e Next.js 15 \u6784\u5efa\uff0c\u96c6\u6210\u4e86\u7528\u6237\u8ba4\u8bc1\u3001\u652f\u4ed8\u7cfb\u7edf\u3001AI \u529f\u80fd\u3001\u56fd\u9645\u5316\u3001\u6587\u6863\u7cfb\u7edf\u548c\u5b8c\u6574\u7684\u7ba1\u7406\u540e\u53f0\u3002",
+  "version": "1.0.0",
+  "author": "geallenboy",
+  "homepage": "https://github.com/geallenboy/ai-saas-template",
+  "skills": []
+}
