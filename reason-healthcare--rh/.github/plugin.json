@@ -1,0 +1,9 @@
+{
+  "name": "reason-healthcare--rh",
+  "displayName": "rh",
+  "description": "RH is a modular and extendible FHIR toolkit written in Rust with a CLI",
+  "version": "1.0.0",
+  "author": "reason-healthcare",
+  "homepage": "https://github.com/reason-healthcare/rh",
+  "skills": []
+}
