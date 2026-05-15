@@ -1,0 +1,9 @@
+{
+  "name": "pickier--pickier",
+  "displayName": "pickier",
+  "description": "Fast linting and formatting. Minimal defaults. Extensible. Built for speed.",
+  "version": "1.0.0",
+  "author": "pickier",
+  "homepage": "https://github.com/pickier/pickier",
+  "skills": []
+}
