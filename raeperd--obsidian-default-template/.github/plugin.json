@@ -1,0 +1,9 @@
+{
+  "name": "raeperd--obsidian-default-template",
+  "displayName": "obsidian-default-template",
+  "description": "obsidian plugin to set default template for new notes",
+  "version": "1.0.0",
+  "author": "raeperd",
+  "homepage": "https://github.com/raeperd/obsidian-default-template",
+  "skills": []
+}
