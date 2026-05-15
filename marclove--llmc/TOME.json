@@ -4,7 +4,7 @@
   "repo": "llmc",
   "description": "AI-powered commit message generator that follows Conventional Commits specification. Simply run npx llmc and it will automatically generate a commit message from your staged changes and commit them for you",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marclove/llmc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T01:52:26Z"
+  "distributed_at": "2026-05-15T04:30:08Z"
 }
