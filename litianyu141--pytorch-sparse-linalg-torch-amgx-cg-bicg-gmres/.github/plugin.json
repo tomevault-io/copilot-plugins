@@ -1,0 +1,9 @@
+{
+  "name": "litianyu141--pytorch-sparse-linalg-torch-amgx-cg-bicg-gmres",
+  "displayName": "Pytorch-Sparse-Linalg-torch-amgx.cg.bicg.gmres",
+  "description": "A PyTorch implementation of sparse linear algebra solvers, mirroring JAX's scipy.sparse.linalg module with PyTorch-specific optimizations.",
+  "version": "1.0.0",
+  "author": "Litianyu141",
+  "homepage": "https://github.com/Litianyu141/Pytorch-Sparse-Linalg-torch-amgx.cg.bicg.gmres",
+  "skills": []
+}
