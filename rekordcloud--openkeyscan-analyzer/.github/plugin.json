@@ -1,0 +1,9 @@
+{
+  "name": "rekordcloud--openkeyscan-analyzer",
+  "displayName": "openkeyscan-analyzer",
+  "description": "openkeyscan-analyzer",
+  "version": "1.0.0",
+  "author": "rekordcloud",
+  "homepage": "https://github.com/rekordcloud/openkeyscan-analyzer",
+  "skills": []
+}
