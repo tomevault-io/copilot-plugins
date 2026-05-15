@@ -1,0 +1,9 @@
+{
+  "name": "estudosdevops--opsmaster",
+  "displayName": "opsmaster",
+  "description": "OpsMaster \u00e9 uma ferramenta de linha de comando (CLI) moderna, constru\u00edda em Go, projetada para simplificar e automatizar tarefas rotineiras de DevOps e SRE.",
+  "version": "1.0.0",
+  "author": "estudosdevops",
+  "homepage": "https://github.com/estudosdevops/opsmaster",
+  "skills": []
+}
