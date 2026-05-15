@@ -1,0 +1,9 @@
+{
+  "name": "pjt222--agent-almanac",
+  "displayName": "agent-almanac",
+  "description": "Agent Almanac \u2014 a curated reference of executable skills, specialist agents, and teams for AI-assisted development, with interactive visualization",
+  "version": "1.0.0",
+  "author": "pjt222",
+  "homepage": "https://github.com/pjt222/agent-almanac",
+  "skills": []
+}
