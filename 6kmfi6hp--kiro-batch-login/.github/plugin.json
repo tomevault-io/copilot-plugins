@@ -1,0 +1,9 @@
+{
+  "name": "6kmfi6hp--kiro-batch-login",
+  "displayName": "kiro-batch-login",
+  "description": "\u6279\u91cf\u534a\u81ea\u52a8\u767b\u5f55\u5de5\u5177\uff0c\u4f7f\u7528 AWS SSO OIDC \u8fdb\u884c\u8eab\u4efd\u9a8c\u8bc1\uff0c\u65e0\u9700\u914d\u7f6e OAuth \u5ba2\u6237\u7aef\u51ed\u8bc1 | Batch semi-automatic login tool using AWS SSO OIDC without OAuth client credentials",
+  "version": "1.0.0",
+  "author": "6Kmfi6HP",
+  "homepage": "https://github.com/6Kmfi6HP/kiro-batch-login",
+  "skills": []
+}
