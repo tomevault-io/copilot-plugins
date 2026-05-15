@@ -1,0 +1,9 @@
+{
+  "name": "martintrojer--jj-fugitive",
+  "displayName": "jj-fugitive",
+  "description": "A Neovim plugin that brings vim-fugitive-style version control integration for Jujutsu (jj).",
+  "version": "1.0.0",
+  "author": "martintrojer",
+  "homepage": "https://github.com/martintrojer/jj-fugitive",
+  "skills": []
+}
