@@ -1,0 +1,9 @@
+{
+  "name": "contentful--skill-kit",
+  "displayName": "skill-kit",
+  "description": "TypeScript SDK for building agent skills as typed state machines \u2014 define steps, validate outputs, compile to self-contained executables.",
+  "version": "1.0.0",
+  "author": "contentful",
+  "homepage": "https://github.com/contentful/skill-kit",
+  "skills": []
+}
