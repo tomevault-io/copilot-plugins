@@ -4,7 +4,7 @@
   "repo": "bytebot-hawkeye-holo",
   "description": "A bytebot variant that uses Holo 1.5 7b to control the desktop",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhound420/bytebot-hawkeye-holo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T07:06:57Z"
+  "distributed_at": "2026-05-15T06:47:52Z"
 }
