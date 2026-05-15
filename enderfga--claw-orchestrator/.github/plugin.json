@@ -1,0 +1,9 @@
+{
+  "name": "enderfga--claw-orchestrator",
+  "displayName": "claw-orchestrator",
+  "description": "Run Claude Code, Codex, Gemini, Cursor Agent and custom coding CLIs as one unified runtime for claw-style agent systems. Runs standalone, with first-class OpenClaw plugin support.",
+  "version": "1.0.0",
+  "author": "Enderfga",
+  "homepage": "https://github.com/Enderfga/claw-orchestrator",
+  "skills": []
+}
