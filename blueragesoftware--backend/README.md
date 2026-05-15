@@ -7,11 +7,11 @@ Craft and run Agents right from your phone
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [blueragesoftware/backend](https://github.com/blueragesoftware/backend).
+Original source: `CLAUDE.md` in [blueragesoftware/backend](https://github.com/blueragesoftware/backend).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
