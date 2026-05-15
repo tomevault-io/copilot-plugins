@@ -1,0 +1,44 @@
+{
+  "name": "OpenWLAN",
+  "owner": "rockyco",
+  "repo": "OpenWLAN",
+  "description": "AI-powered MATLAB-to-HLS framework for WLAN 802.11 synchronization. 3.88x fewer LUTs than HDL Coder on Zynq-7020.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rockyco/OpenWLAN",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T20:54:40Z"
+}
