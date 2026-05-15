@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-session",
+  "owner": "madeby10am",
+  "repo": "claude-code-session",
+  "description": "Live VS Code sidebar for Claude Code \u2014 animated pixel-art robot, per-session dashboards, pace-based usage meters, token-rate chart, git + skills + MCP browsers. Auto-matches your VS Code theme.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/madeby10am/claude-code-session",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T16:49:04Z"
+}
