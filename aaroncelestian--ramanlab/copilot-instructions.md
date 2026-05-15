@@ -1,43 +1,47 @@
-## matplotlib-plotting
+## ramanlab-project-structure
 
-> - Always use [matplotlib_config.py](mdc:ui/matplotlib_config.py) for matplotlib configuration
+> - [map_analysis_2d_qt6.py](mdc:map_analysis_2d_qt6.py) - Main 2D Map Analysis application (9600+ lines)
 
-# Matplotlib Plotting Guidelines for RamanLab
+# RamanLab Project Structure Guide
 
-## Configuration Requirements
-- Always use [matplotlib_config.py](mdc:ui/matplotlib_config.py) for matplotlib configuration
-- The config sets `figure.autolayout = True` by default, which can interfere with manual layout management
+## Main Application Files
+- [map_analysis_2d_qt6.py](mdc:map_analysis_2d_qt6.py) - Main 2D Map Analysis application (9600+ lines)
+- [map_analysis_2d/main.py](mdc:map_analysis_2d/main.py) - Modular entry point for 2D analysis
+- [raman_analysis_app_qt6.py](mdc:raman_analysis_app_qt6.py) - General Raman analysis application
 
-## Canvas and Colorbar Management
-When updating plots with colorbars (especially in map visualizations):
+## UI and Configuration
+- [ui/matplotlib_config.py](mdc:ui/matplotlib_config.py) - Centralized matplotlib configuration
+- [ui/](mdc:ui/) - UI components and widgets directory
 
-### Proper Update Sequence
-1. **Disable autolayout temporarily** before clearing figure
-2. **Clear figure completely** with `fig.clear()`
-3. **Force garbage collection** to clean up matplotlib artists
-4. **Use manual layout control** with `subplots_adjust()` instead of `tight_layout()`
-5. **Restore autolayout setting** after plotting
+## Key Classes and Components
+### TwoDMapAnalysisQt6 Class (in map_analysis_2d_qt6.py)
+- **Line ~4745**: `update_map()` function - handles map visualization updates
+- **Line ~1273**: Main class definition
+- **Map Tab**: Primary visualization interface for 2D maps
 
-### Canvas Redrawing Best Practices
-```python
-# Force complete canvas refresh
-canvas.flush_events()
-canvas.draw_idle()
-canvas.draw()
-```
+### Important Methods
+- `update_map()` - Core map plotting function (prone to colorbar shrinking issues)
+- `create_*_map()` functions - Generate different map types (intensity, template, cosmic ray, etc.)
+- `apply_map_interpolation()` - Handle map data processing
 
-### Colorbar Space Management
-- With colorbar: use `right=0.85` in `subplots_adjust()`
-- Without colorbar: use `right=0.95` in `subplots_adjust()`
-- This prevents plot shrinking when switching between features
+## Analysis Modules
+- **Cosmic Ray Elimination (CRE)**: Advanced cosmic ray detection and removal
+- **Template Analysis**: Template fitting and coefficient mapping  
+- **Machine Learning**: Classification and clustering features
+- **PCA/NMF**: Dimensionality reduction analysis
 
-## Common Issues
-- **Plot Shrinking**: Caused by matplotlib retaining layout memory from previous colorbars
-- **Layout Conflicts**: `autolayout=True` + `tight_layout()` can cause unpredictable behavior
-- **Incomplete Redraw**: Single `draw()` call may not fully refresh complex plots
+## Common Data Flow
+1. Load map data from directory structure
+2. Process spectra (with optional CRE)
+3. Generate maps based on selected features
+4. Visualize with matplotlib canvas
+5. Export results and analysis
 
-## Error Handling
-Always restore matplotlib settings in exception handlers to prevent state corruption.
+## Architecture Notes
+- Large monolithic structure in main file (~9600 lines)
+- Modular components being developed in `map_analysis_2d/` directory
+- Heavy use of Qt6 for GUI components
+- Matplotlib for all plotting operations
 
 ---
 > Source: [aaroncelestian/RamanLab](https://github.com/aaroncelestian/RamanLab) — distributed by [TomeVault](https://tomevault.io).
