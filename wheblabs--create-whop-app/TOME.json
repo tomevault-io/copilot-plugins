@@ -4,7 +4,7 @@
   "repo": "create-whop-app",
   "description": "The best way to create a whop app",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wheblabs/create-whop-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T03:00:43Z"
+  "distributed_at": "2026-05-15T07:03:39Z"
 }
