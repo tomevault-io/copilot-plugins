@@ -1,0 +1,9 @@
+{
+  "name": "taylorhuston--ai-toolkit",
+  "displayName": "ai-toolkit",
+  "description": "A lightweight, fully customizable framework to enable Spec Driven Development with Claude Code.",
+  "version": "1.0.0",
+  "author": "TaylorHuston",
+  "homepage": "https://github.com/TaylorHuston/ai-toolkit",
+  "skills": []
+}
