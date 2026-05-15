@@ -1,0 +1,9 @@
+{
+  "name": "maulanasdqn--rust-ai-browser-automation",
+  "displayName": "rust-ai-browser-automation",
+  "description": "Convert natural language into real browser automation using AI Vision and execute tests immediately with live process logs",
+  "version": "1.0.0",
+  "author": "maulanasdqn",
+  "homepage": "https://github.com/maulanasdqn/rust-ai-browser-automation",
+  "skills": []
+}
