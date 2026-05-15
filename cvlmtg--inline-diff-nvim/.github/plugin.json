@@ -1,0 +1,9 @@
+{
+  "name": "cvlmtg--inline-diff-nvim",
+  "displayName": "inline-diff.nvim",
+  "description": "High performance, live, VSCode-style inline diff for Neovim. Shows the current buffer's changes against a git ref as you type, with word-level highlighting.",
+  "version": "1.0.0",
+  "author": "cvlmtg",
+  "homepage": "https://github.com/cvlmtg/inline-diff.nvim",
+  "skills": []
+}
