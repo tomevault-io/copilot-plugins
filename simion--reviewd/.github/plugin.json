@@ -1,0 +1,9 @@
+{
+  "name": "simion--reviewd",
+  "displayName": "reviewd",
+  "description": "Local AI pull request reviewer \u2014 review GitHub and BitBucket PRs right from your terminal, powered by the Claude Code, Gemini, and Codex CLIs.",
+  "version": "1.0.0",
+  "author": "simion",
+  "homepage": "https://github.com/simion/reviewd",
+  "skills": []
+}
