@@ -1,0 +1,9 @@
+{
+  "name": "helliott20--prunerr",
+  "displayName": "prunerr",
+  "description": "Smart media library cleanup for Plex \u2014 automated rules, watch history analysis, Sonarr/Radarr/Overseerr integration, grace periods, and disk space reclamation. Docker & Unraid ready.",
+  "version": "1.0.0",
+  "author": "helliott20",
+  "homepage": "https://github.com/helliott20/prunerr",
+  "skills": []
+}
