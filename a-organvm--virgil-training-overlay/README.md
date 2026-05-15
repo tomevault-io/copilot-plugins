@@ -7,11 +7,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [a-organvm/virgil-training-overlay](https://github.com/a-organvm/virgil-training-overlay).
+Original source: `CLAUDE.md` in [a-organvm/virgil-training-overlay](https://github.com/a-organvm/virgil-training-overlay).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
