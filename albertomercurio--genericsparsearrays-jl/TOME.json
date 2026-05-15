@@ -2,9 +2,9 @@
   "name": "GenericSparseArrays.jl",
   "owner": "albertomercurio",
   "repo": "GenericSparseArrays.jl",
-  "description": "",
+  "description": "Julia package GeneralSparseArrays.jl",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/albertomercurio",
+  "source_url": "https://github.com/albertomercurio/GenericSparseArrays.jl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T21:39:48Z"
+  "distributed_at": "2026-05-15T07:46:48Z"
 }
