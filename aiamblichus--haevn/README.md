@@ -7,11 +7,11 @@ A Chrome extension for exporting and preserving conversations from various AI pl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aiamblichus/haevn](https://github.com/aiamblichus/haevn).
+Original source: `CLAUDE.md` in [aiamblichus/haevn](https://github.com/aiamblichus/haevn).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
