@@ -1,0 +1,9 @@
+{
+  "name": "otaviocc--obsidianmcpserver",
+  "displayName": "ObsidianMCPServer",
+  "description": "A Model Context Protocol (MCP) server that enables AI assistants to interact with your Obsidian vault ",
+  "version": "1.0.0",
+  "author": "otaviocc",
+  "homepage": "https://github.com/otaviocc/ObsidianMCPServer",
+  "skills": []
+}
