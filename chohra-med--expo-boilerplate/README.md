@@ -7,11 +7,11 @@ AI-first React Native + Expo boilerplate. Feature-first architecture, TypeScript
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chohra-med/expo_boilerplate](https://github.com/chohra-med/expo_boilerplate).
+Original source: `CLAUDE.md` in [chohra-med/expo_boilerplate](https://github.com/chohra-med/expo_boilerplate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
