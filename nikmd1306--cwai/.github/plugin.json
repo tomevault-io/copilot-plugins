@@ -1,0 +1,9 @@
+{
+  "name": "nikmd1306--cwai",
+  "displayName": "cwai",
+  "description": "AI-powered conventional commit message generator from staged git changes",
+  "version": "1.0.0",
+  "author": "nikmd1306",
+  "homepage": "https://github.com/nikmd1306/cwai",
+  "skills": []
+}
