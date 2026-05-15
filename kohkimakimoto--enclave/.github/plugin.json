@@ -1,0 +1,9 @@
+{
+  "name": "kohkimakimoto--enclave",
+  "displayName": "enclave",
+  "description": "A tool to run any command in a sandboxed environment using macOS's sandbox-exec",
+  "version": "1.0.0",
+  "author": "kohkimakimoto",
+  "homepage": "https://github.com/kohkimakimoto/enclave",
+  "skills": []
+}
