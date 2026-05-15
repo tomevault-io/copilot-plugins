@@ -1,584 +1,285 @@
 ## vibe-check-mcp
 
-> - Technical Implementation Guide: docs/TECHNICAL.md (architecture, validation results, roadmap)
+> VIBE CHECK MCP ENGINEERING GUIDELINES
 
-CLAUDE.md Sample
+VIBE CHECK MCP ENGINEERING GUIDELINES
 
-# VIBE CHECK MCP ENGINEERING GUIDELINES
+CRITICAL: Apply documentation-first rule to ALL third-party integrations.
 
-CORE DOCUMENTS:
-- Technical Implementation Guide: docs/TECHNICAL.md (architecture, validation results, roadmap)
-- Product Requirements Document: docs/PRD.md (vision, requirements, success metrics)
-- Claude Code CLI Usage: docs/api/CLAUDE_CODE_CLI_USAGE.md (standard CLI patterns, MCP integration)
-- Claude Code SDK: docs/api/CLAUDE_CODE_SDK.md (programmatic integration, output formats)
+STARTUP CHECKS:
+Step 1: Verify Python environment with pip install -r requirements.txt
+Step 2: Run PYTHONPATH=src python -m vibe_check server
+Step 3: Execute pytest to verify all tests pass
+Step 4: Check current version from VERSION file
 
-DOCUMENTATION-FIRST RULE:
-Before ANY custom third-party integration:
-1. Check official documentation for standard approach
-2. Research existing solutions online
-3. Test documented standard approach first
-4. Build custom only if standard demonstrably fails
-5. Document WHY standard is insufficient
+ABSOLUTE RULES:
+1. ALWAYS check official docs before custom solutions
+2. ALWAYS use SDK over custom HTTP clients
+3. ALWAYS test documented approach first
+4. NEVER work on main branch directly
+5. NEVER create files outside /tmp/ for temporary data
+6. NEVER use oneOf/allOf/anyOf in MCP tool schemas
+7. Files <700 lines, functions <40 lines
+8. MANDATORY: Use vibe_check_mentor for ALL architecture decisions
+9. MANDATORY: Use vibe_check_mentor when stuck for >30 minutes
 
-RESEARCH HIERARCHY:
-1. Official documentation
-2. Online solutions (GitHub, Stack Overflow)
-3. Third-party alternatives
-4. Build custom (last resort)
+THIRD-PARTY INTEGRATION WORKFLOW:
+$$
+Step 1: Check official documentation for standard approach
+Step 2: Research existing solutions (GitHub, Stack Overflow)
+Step 3: Create minimal POC with real data
+Step 4: If complex, use mcp__clear-thought-server__mentalmodel
+        Parameters: modelName="first_principles", problem="Is this complexity necessary?"
+Step 5: If considering workaround, use mcp__clear-thought-server__decisionframework
+        Parameters: decisionStatement="Work around bug vs use different API", analysisType="weighted-criteria"
+Step 6: Build custom only if standard demonstrably fails
+Step 7: Document WHY standard approach insufficient
 
-COMPLEXITY AUDIT CHECKLIST:
-When encountering existing complex code:
-- QUESTION if complexity is necessary
-- VERIFY if official documentation suggests simpler approach
-- TEST if standard APIs achieve same result
-- Use mcp__clear-thought-server__mentalmodel(First Principles) for analysis
-
-ENGINEERING RED FLAGS (Auto-trigger vibe_check_mentor):
-- Building workarounds for third-party bugs instead of using different APIs
-- Spending >30 minutes without checking official docs
-- Assuming complex code is necessary without testing alternatives
-- Continuing investment due to sunk cost fallacy
-- Any "should I build X vs Y" decisions
-- Integration/architecture planning sessions
-
-THIRD-PARTY INTEGRATION PROTOCOL:
-Phase 1: Research & Validation
-- MANDATORY: vibe_check_mentor(query="Integration approach for X API", reasoning_depth="standard")
-- Review standard docs for simplest API patterns
-- Create minimal POC with real data
-- Use mcp__clear-thought-server__mentalmodel(First Principles) if complex
-Phase 2: Implementation (only if POC proves standard insufficient)
-- Use mcp__clear-thought-server__decisionframework(Standard vs Custom Integration)
-- Handle bugs by avoiding buggy code paths (DEFAULT behavior)
-- Document rationale in ADR
-
-FORBIDDEN PATTERNS:
+RED FLAGS requiring immediate vibe_check_mentor:
+- Building workarounds without checking docs
+- Spending >30 minutes without progress
 - Custom HTTP clients when SDKs exist
-- Infrastructure-first without API validation
-- Symptom fixes without root cause analysis
-- Complex workarounds for API misunderstanding
-
-ENGINEERING CHECKLIST:
-- Verify problem understanding (First Principles if complex)
-- Confirm official docs checked
-- Research existing solutions
-- Audit complexity of existing code
-- Plan for modularity (files <700 lines, functions <50 lines)
-- Consider scalability/maintainability impact
-
-ANTI-PATTERN COACH DEVELOPMENT:
-
-CLAUDE CODE INTEGRATION:
-- CLI-first architecture with Claude Code compatibility (docs/api/CLAUDE_CODE_CLI_USAGE.md)
-- SDK patterns for programmatic integration (docs/api/CLAUDE_CODE_SDK.md)
-- Educational anti-pattern prevention focus
-- Export patterns in Claude Code compatible format
-
-CLI PRINCIPLES:
-- Click framework for enterprise patterns
-- Single responsibility per command
-- Early input validation with clear errors
-- Structured educational output
-- Type hints for all parameters
-- Clear tool descriptions
-
-DETECTION ARCHITECTURE:
-- AST parsing for sophisticated analysis
-- Regex for quick pattern matching
-- Leverage existing tools (pylint, mypy, bandit)
-- JSON/YAML knowledge base
-- Extensible pattern system
-
-BUILD/TEST COMMANDS:
-- Install: pip install -r requirements.txt
-- Run server: PYTHONPATH=src python -m vibe_check server
-- Test: pytest
-- Coverage: pytest --cov=src --cov-report=html
-- Type check: mypy src/
-- Lint: pylint src/
-- Security: bandit -r src/
-- Format: black src/ tests/
-- Imports: isort src/ tests/
-
-CLAUDE CODE MCP INTEGRATION:
-
-WORKING SOLUTION ✅ (v0.4.1 - Claude Code compatibility fixed):
-
-Method 1 - NPM Package (recommended):
-claude mcp add vibe-check "npx -y vibe-check-mcp --stdio"
-
-Method 2 - With environment variables:
-claude mcp add vibe-check npx -y vibe-check-mcp --stdio -e GITHUB_TOKEN=your_token
-
-Method 3 - Direct JSON in mcp.json:
-{
-  "mcpServers": {
-    "vibe-check": {
-      "command": "npx",
-      "args": ["-y", "vibe-check-mcp", "--stdio"],
-      "env": {
-        "GITHUB_TOKEN": "your_github_token_here"
-      }
-    }
-  }
-}
-
-COMPATIBILITY FIX DETAILS:
-- ✅ ISSUE #1604 RESOLVED: Switched from standalone FastMCP to official mcp.server.fastmcp
-- ✅ PROTOCOL COMPLIANCE: Official MCP implementation properly handles Claude Code initialization sequence
-- ✅ PUBLISHED: vibe-check-mcp@0.4.1 with working Claude Code compatibility
-- ✅ VALIDATION: Manual protocol testing confirms proper MCP handshake
-
-TECHNICAL SOLUTION:
-```python
-# OLD (incompatible):
-from fastmcp import FastMCP
-
-# NEW (working):
-from mcp.server.fastmcp import FastMCP
-```
-
-The official MCP server implementation correctly handles the initialization sequence that Claude Code expects, eliminating the "Failed to validate request: Received request before initialization was complete" error.
-
-After adding, restart Claude Code to activate the server.
-Verify with /mcp command in Claude Code chat.
-
-NPM PACKAGE MANAGEMENT:
-- Published as: vibe-check-mcp@0.4.1
-- Publish updates: npm publish
-- The npm package includes a bash wrapper that handles Python dependencies automatically
-
-VERSIONING SYSTEM:
-- Semantic Versioning (MAJOR.MINOR.PATCH): https://semver.org/
-- Version source of truth: VERSION file in project root
-- Centralized version utilities: src/vibe_check/utils/version_utils.py
-- Release script: scripts/release.sh (automated version management)
-
-VERSION POLICIES:
-- MAJOR: Breaking changes, API incompatibilities (1.0.0 -> 2.0.0)
-- MINOR: New features, backward compatible (0.1.0 -> 0.2.0)
-- PATCH: Bug fixes, no new features (0.1.0 -> 0.1.1)
-- Pre-release: Alpha/Beta versions (0.1.0-alpha.1, 0.1.0-beta.1)
-
-RELEASE PROCESS:
-1. Ensure main branch is clean and up-to-date
-2. Run full test suite: pytest
-3. Run release script: ./scripts/release.sh
-4. Select release type (major/minor/patch)
-5. Update CHANGELOG.md with release notes
-6. Script handles version bump, tagging, and GitHub release
-
-VERSION COMMANDS:
-- Check current: python -c "from vibe_check import __version__; print(__version__)"
-- Validate version: python -c "from vibe_check.utils.version_utils import parse_semantic_version; parse_semantic_version('1.2.3')"
-- Compare versions: python -c "from vibe_check.utils.version_utils import compare_versions; print(compare_versions('1.2.3', '1.2.4'))"
-
-CHANGELOG REQUIREMENTS:
-- Follow Keep a Changelog format: https://keepachangelog.com/
-- Categorize changes: Added, Changed, Deprecated, Removed, Fixed, Security
-- Link versions to GitHub releases
-- Include migration notes for breaking changes
-
-CODE PRINCIPLES:
-- Python: Strict typing, prefer functions over classes
-- FastMCP: Use decorators, structured error responses
-- Config: Environment variables, no hardcoded secrets, .env support
-- Errors: Specific try/catch with detailed messages
-- Logging: Python logging with correlation IDs
-- Temporary Files: ALWAYS use /tmp/, NEVER in project directories
-
-CODE STYLE:
-- PEP 8 with Black (88 char lines)
-- Functions <40 lines (SRP)
-- PascalCase (classes), snake_case (functions/vars), UPPER_CASE (constants)
-- Type hints mandatory, docstrings for public functions
-- Standard -> Third-party -> Local imports
-
-TESTING:
-- ALL tests in /tests directory
-- pytest with test_*.py naming
-- Use pytest fixtures and @pytest.mark.asyncio
-- Integration tests: @pytest.mark.integration
-- Clean up resources, skip if dependencies unavailable
-
-MCP TOOL SCHEMAS:
-- NEVER use oneOf/allOf/anyOf at root level
-- Handle either/or validation in runtime code
-- Clear parameter names and descriptions
-- Include examples in descriptions
-
-MCP TOOL RESPONSE HANDLING:
-- When MCP tools return "comment_url" or "user_message" fields, ALWAYS include the full GitHub URL in your response to help users access posted comments/reviews directly
-- Don't summarize GitHub URLs - show them explicitly so users can click through
-
-GITHUB WORKFLOW:
-
-CRITICAL: Create PRs to your own repository unless told otherwise
-
-NAMING CONVENTION:
-Tools follow `action_what.py` pattern:
-- analyze_issue.py, analyze_text.py
-- review_pr.py, review_issue.py, review_code.py
-
-Makes tool discovery intuitive.
-
-PREFERRED MCP APPROACH:
-Use GitHub MCP server for comprehensive GitHub operations with natural language commands for PR creation, issue management
-
-FALLBACK COMMANDS (if MCP unavailable):
-git checkout -b feature/<name> && git add . && git commit -m "Feature: <desc>" && git push -u origin HEAD && gh pr create -t "Feature: <desc>" -b "<details>"
-
-PR REVIEW PROCESS:
-
-When asked to "check PR review" or similar:
-1. FETCH PR COMMENTS: Use GitHub MCP server natural language queries like "show comments on PR <NUMBER> by kesslerio"
-2. CHECK EXISTING ISSUES: Search for existing issues that might already address recommendations to avoid duplicates
-3. SYSTEMATIC ANALYSIS: Use mcp__clear-thought-server__decisionframework for each review item:
-   - "PR Review Item Evaluation"
-   - Options: ["Fix in current PR", "Create follow-up issue", "Nice-to-have (ignore)", "Overengineering concern"]
-   - Analysis Type: "Engineering Decision"
-4. CATEGORIZE FEEDBACK WITH CLEAR RECOMMENDATIONS:
-   - CRITICAL (blocking): ⚠️ Must fix in current PR before merging
-   - IMPORTANT (actionable): 📋 Could create follow-up issue (if not already exists)
-   - NICE-TO-HAVE (optional): 💡 Consider but likely YAGNI
-   - OVERENGINEERING (reject): ❌ Adds unnecessary complexity
-5. COMMUNICATE CLEARLY: Include specific action recommendation in review response
-6. ADDRESS ISSUES: Fix only critical blocking issues in current PR
-7. CREATE FOLLOW-UP ISSUES: Only if genuinely valuable and not already tracked
-8. UPDATE PR: Commit and push critical fixes only
-9. FINAL UPDATE: If PR was changed due to review feedback, add comment summarizing what was addressed
-10. MERGE PR: Use GitHub MCP server merge functionality
-11. CLEAN UP: Delete feature branch after merge
-
-DECISION FRAMEWORK FOR PR FEEDBACK:
-Use Clear-Thought decision framework to evaluate each review item:
-
-CRITERIA FOR "FIX IN CURRENT PR":
-- Blocks merge (missing issue linkage, breaking functionality)
-- Security vulnerabilities or critical bugs
-- Simple fixes that don't change scope
-
-CRITERIA FOR "CREATE FOLLOW-UP ISSUE":
-- Good ideas that expand scope beyond current PR
-- Performance improvements that require analysis
-- Documentation enhancements not critical to current functionality
-- Refactoring suggestions that don't affect core functionality
-
-CRITERIA FOR "NICE-TO-HAVE (IGNORE)":
-- Subjective style preferences already covered by linting
-- Minor optimizations with unclear value
-- Features that may never be needed (YAGNI principle)
-
-CRITERIA FOR "OVERENGINEERING CONCERN":
-- Adds complexity without clear business value
-- Premature optimization
-- Over-abstraction for current use case
-- Violates KISS principle
-
-ALWAYS APPLY: Question if each suggestion truly improves the solution or adds unnecessary complexity
-
-PR REVIEW COMMENT FORMATTING:
-Each review comment should clearly indicate the recommended action:
-
-CRITICAL ISSUES (Fix before merge):
-```
-⚠️ **BLOCKING**: Missing issue linkage
-**Action Required**: Add "Fixes #XX" to PR description before merging
-**Rationale**: Required for traceability
-```
-
-FOLLOW-UP SUGGESTIONS (Optional future work):
-```
-📋 **FOLLOW-UP**: Consider adding input validation
-**Suggestion**: Could create follow-up issue for enhanced error handling
-**Check**: Issue #XX already covers this - see [link]
-**Value**: Medium - improves user experience but not blocking
-```
-
-NICE-TO-HAVE (Likely ignore):
-```
-💡 **CONSIDER**: Extract helper function
-**Assessment**: Minor optimization, YAGNI applies
-**Action**: No action needed unless part of larger refactor
-```
-
-OVERENGINEERING CONCERNS (Reject):
-```
-❌ **COMPLEXITY**: Abstract factory pattern suggested
-**Concern**: Adds unnecessary complexity for current use case
-**Recommendation**: Keep simple implementation, revisit if requirements change
-```
-
-FOLLOW-UP ISSUE CREATION POLICY:
-- Limit to 1-2 genuinely valuable suggestions per PR
-- Always check if issue already exists first
-- Include clear business value justification
-- Avoid creating issues for subjective style preferences
-
-FINAL PR UPDATE POLICY:
-If PR changed due to review feedback, add comment before merge:
-✅ Fixed: [list changes made]
-📋 Follow-ups: [link issues created] 
-💡 Skipped: [what ignored and why]
-
-COMMON PR REVIEW ISSUES:
-- Missing issue linkage: Add "Fixes #XX" to PR description
-- Missing tests: Add appropriate test coverage
-- Documentation updates: Update relevant docs
-- Type errors: Fix mypy/typing issues
-- Lint issues: Run formatters and fix style
-
-PR REVIEW COMMANDS (MCP PREFERRED):
-- Check comments: Use GitHub MCP server with natural language "show comments on PR 42"
-- Update description: Use GitHub MCP server "update PR 42 description to <new content>"
-- Merge PR: Use GitHub MCP server "merge PR 42 with squash strategy"
-- View status: Use GitHub MCP server "show status of my PRs"
-
-FALLBACK CLI COMMANDS (if MCP unavailable):
-- Check comments: gh pr view 42 --json comments
-- Update description: gh pr edit 42 --body "new description"
-- Merge PR: gh pr merge 42 --squash --delete-branch
-- View status: gh pr status
-
-ISSUE MANAGEMENT (GITHUB MCP SERVER):
-
-Use GitHub MCP server for comprehensive repository operations through natural language
-
-MANDATORY LABELS:
-Priority (every issue): P0 (critical), P1 (high), P2 (medium), P3 (low), P4 (trivial)
-Type (every issue): bug, feature, enhancement, documentation, test, refactor, security, performance, maintenance
-Area (at least one): area:pattern-detection, area:educational-content, area:case-studies, area:validation, area:cli, area:mcp-integration, area:data-management
-
-STATUS LABELS: status:untriaged, status:needs-info, status:blocked, status:in-progress, status:review, status:testing, status:ready
-
-VALIDATED ISSUE CREATION PATTERN:
-1. VALIDATE required components: TITLE="[Type]: Description", PRIORITY, TYPE, AREA
-2. VALIDATE label requirements exist
-3. CREATE: Use GitHub MCP server "create issue in kesslerio/vibe-check-mcp with title '<title>' body '<body>' labels '<labels>'"
-
-MANDATORY ISSUE BODY TEMPLATE:
-## Problem Description
-[Clear description]
-## Solution Approach  
-[Proposed solution]
-## Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Anti-pattern prevention validated
-## Labels Applied
-- Priority: [P0-P4]
-- Type: [bug/feature/etc]
-- Area: [area:*]
-
-SYSTEMATIC ISSUE LIFECYCLE:
-1. Research: Use GitHub MCP server "search issues in kesslerio/vibe-check-mcp for keywords"
-2. Analyze: Use mcp__clear-thought-server__mentalmodel(First Principles) for complex issues
-3. Create: Use GitHub MCP server with validated pattern above
-4. Track: Update status through GitHub MCP server operations
-5. Comment: Use GitHub MCP server for issue updates
-6. Close: Include verification comment via GitHub MCP server
-
-LABEL VALIDATION ENFORCEMENT:
-Before closing ANY issue verify:
-- Has Priority label (P0-P4)
-- Has Type label (bug, feature, etc.)
-- Has Area label (area:*)
-- Has appropriate Status progression
-
-BRANCH STRATEGY:
-- NEVER work on main directly
-- ALWAYS check branch: git branch --show-current
-- Create feature branch: git checkout -b feature/issue-{number}-{description}
-- Commit format: "Type: Description #issue-number"
-
-DOCUMENTATION SEARCH PRIORITY:
-1. PRIMARY: mcp__crawl4ai-rag__perform_rag_query(query, source?, match_count=5)
-2. Check sources: mcp__crawl4ai-rag__get_available_sources()
-3. SECONDARY: mcp__crawl4ai-rag__crawl_single_page(url) or smart_crawl_url(url)
-4. TERTIARY: Web search as last resort
-
-Key sources: modelcontextprotocol.io, github.com/jlowin/fastmcp, Python docs
-
-GITHUB MCP INTEGRATION:
-
-NATURAL LANGUAGE OPERATIONS:
-- "Create an issue in my repo about X"
-- "Show me PR #42 comments" 
-- "Search for issues with label 'bug'"
-- "Merge PR #42 with squash"
-- "Update issue #15 description"
-
-GITHUB MCP SERVER CAPABILITIES:
-- Add comments to issues with natural language commands
-- Comprehensive repository management and automation
-
-USAGE PRIORITY:
-1. Use GitHub MCP server for all GitHub operations through natural language
-2. Fall back to CLI only when MCP unavailable
-3. Always prefer GitHub MCP server's comprehensive functionality
-
-CLEAR THOUGHT INTEGRATION:
-
-MCP TOOL NAMESPACES:
-- mcp__clear-thought-server__mentalmodel(modelName, problem)
-- mcp__clear-thought-server__designpattern(patternName, context)
-- mcp__clear-thought-server__programmingparadigm(paradigmName, problem)
-- mcp__clear-thought-server__debuggingapproach(approachName, issue)
-- mcp__clear-thought-server__sequentialthinking(thought, thoughtNumber, totalThoughts, nextThoughtNeeded)
-- mcp__clear-thought-server__decisionframework(decisionStatement, options, analysisType)
-
-CONTEXTUAL TOOL APPLICATION:
-- Pattern Detection Logic: programmingparadigm + designpattern
-- New Anti-Pattern Integration: mentalmodel + designpattern  
-- Detection Accuracy Issues: debuggingapproach + sequentialthinking
-- Performance Optimization: mentalmodel(Opportunity Cost) + programmingparadigm
-- Complex Problem Analysis: mentalmodel(First Principles)
-- Architectural Decisions: decisionframework
-
-ANTI-PATTERN DETECTION:
-
-CORE PATTERNS:
-1. Infrastructure Without Implementation: Custom solutions when standard APIs exist
-2. Symptom-Driven Development: Treating symptoms vs root causes
-3. Complexity Escalation: Adding complexity vs questioning necessity
-4. Documentation Neglect: Building custom before checking official approaches
-
-DETECTION METHODS:
-- AST analysis for code patterns
-- Regex for quick scanning
-- Static analysis integration (pylint, mypy, bandit)
-- Knowledge base matching with confidence scoring
-- Actionable remediation suggestions
-
-EXTERNAL MCP SERVERS:
-- mcp__crawl4ai-rag__: Web crawling and documentation research
-- mcp__clear-thought-server__: Systematic problem-solving and analysis
-- mcp__vibe-check__: Anti-pattern detection with dual-mode analysis
-- @modelcontextprotocol/server-github: Comprehensive GitHub API operations
-
-Vibe Check MCP TOOLS:
-- mcp__vibe-check__analyze_github_issue(issue_number, repository?, analysis_mode?, post_comment?, detail_level?)
-  * QUICK MODE: Fast pattern detection for development workflow
-    - analysis_mode: "quick" (default)
-    - Returns: Concise anti-pattern detection results
-  * COMPREHENSIVE MODE: Detailed analysis with GitHub integration
-    - analysis_mode: "comprehensive" 
-    - post_comment: true/false (posts analysis to GitHub issue)
-    - detail_level: "brief"/"standard"/"comprehensive"
-    - Returns: Full analysis with educational content and risk assessment
-- mcp__vibe-check__analyze_text_demo(text, detail_level?)
-- mcp__vibe-check__server_status()
-- mcp__vibe-check__analyze_doom_loops("${tech_discussion}", "technology_choice")
-
-MANDATORY COLLABORATIVE REASONING (auto-triggered by red flags):
-
-Architecture decisions (MANDATORY before implementation):
-vibe_check_mentor(query="Should I build X or use Y?", reasoning_depth="standard")
-
-Integration planning (MANDATORY for all APIs):
-vibe_check_mentor(query="Custom HTTP client vs SDK for Z API", reasoning_depth="comprehensive")
-
-Technical debt assessment:
-vibe_check_mentor(query="Consolidate auth systems?", context="3 different implementations", reasoning_depth="standard")
-
-Stuck >30 minutes (MANDATORY intervention):
-vibe_check_mentor(query="Problem description", context="what I've tried", reasoning_depth="quick")
-
+- Continuing due to sunk cost
+- Any "should I build X vs Y" decision
+- Integration/architecture planning
 
 DEVELOPMENT WORKFLOW:
-Phase 1: Issue definition with First Principles analysis + documentation search
-Phase 2: Development following modularity principles + Clear Thought design patterns
-Phase 3: Testing with debugging approaches + systematic validation
-Phase 4: Integration, deployment, and learning extraction
 
-DOOM LOOP DETECTION:
-Core Detection Patterns:
-- Decision cycling: "should we", "what about", "on the other hand"
-- Analysis paralysis: endless pros/cons without concrete steps
-- Architecture astronaut syndrome: future-proofing without MVP
-- Technology choice loops: comparing options without prototyping
+PHASE 1 - ISSUE CREATION:
+Step 1: Search existing using GitHub MCP: "search issues in kesslerio/vibe-check-mcp for keywords"
+Step 2: For complex problems, use mcp__clear-thought-server__sequentialthinking
+        Parameters: thought="Define anti-pattern detection problem", thoughtNumber=1, totalThoughts=5
+Step 3: Create issue using GitHub MCP: "create issue in kesslerio/vibe-check-mcp with title '[Type]: Description' body '<template>' labels 'P2,feature,area:pattern-detection'"
 
-Tool Usage Templates:
+Required issue components:
+- Title format: "[Type]: Clear description"
+- Priority label: P0-P4 (MANDATORY)
+- Type label: bug|feature|enhancement|documentation|test|refactor|security|performance|maintenance
+- Area label: area:pattern-detection|area:educational-content|area:cli|area:mcp-integration|etc
 
-ANALYSIS PARALYSIS DETECTION (20+ min sessions, 4+ decision cycles):
-analyze_doom_loops("${conversation_content}")
-Response: "⚠️ Analysis paralysis detected. Set 15-min decision deadline and pick any viable option."
-Trigger: After 3+ "should we" patterns or endless option generation
+PHASE 2 - IMPLEMENTATION:
+Step 1: Create branch: git checkout -b feature/issue-{number}-{description}
+Step 2: MANDATORY vibe_check_mentor consultation:
+        vibe_check_mentor(query="Architecture approach for {feature}", reasoning_depth="standard")
+Step 3: For architecture, use mcp__clear-thought-server__designpattern
+        Parameters: patternName="modular_architecture", context="Anti-pattern detection system"
+Step 4: For detection logic, use mcp__clear-thought-server__programmingparadigm
+        Parameters: paradigmName="functional", problem="Pattern matching pipeline"
+Step 5: Implement with FastMCP decorators and structured responses
+Step 6: Keep functions <40 lines, files <700 lines
 
-ARCHITECTURE OVERTHINKING (theoretical discussions):
-session_health_check()
-Response: "🏗️ Build simplest version first. Test with real users before complexity."
-Trigger: Future-proofing language without concrete requirements
+PHASE 3 - TESTING:
+Step 1: Write tests in tests/ directory with test_*.py naming
+Step 2: For debugging, use mcp__clear-thought-server__debuggingapproach
+        Parameters: approachName="divide_conquer", issue="Isolating detection accuracy issue"
+Step 3: Run: pytest --cov=src --cov-report=html
+Step 4: Verify type hints: mypy src/
 
-TECHNOLOGY CHOICE PARALYSIS (comparison without decision):
-analyze_doom_loops("${tech_discussion}", "technology_choice")
-Response: "⚙️ What does team know best? Pick that. Start building in 30 minutes."
-Trigger: Multiple technology comparisons lasting >15 minutes
+PHASE 4 - PR REVIEW:
+Step 1: Create PR using GitHub MCP: "create PR from feature/issue-X to main"
+Step 2: Check reviews: "show comments on PR X by kesslerio"
+Step 3: For each review item, use mcp__clear-thought-server__decisionframework
+        Parameters: decisionStatement="PR Review Item", options=["Fix now","Follow-up issue","Ignore"], analysisType="pros-cons"
+Step 4: Categorize feedback:
+        - CRITICAL ⚠️: Fix before merge
+        - FOLLOW-UP 📋: Create issue if valuable
+        - NICE-TO-HAVE 💡: Likely ignore (YAGNI)
+        - OVERENGINEERING ❌: Reject complexity
+Step 5: Update PR with critical fixes only
+Step 6: Document changes: "add comment to PR X with summary of changes"
+Step 7: Merge: "merge PR X with squash strategy"
 
-EMERGENCY INTERVENTION (critical loops):
-productivity_intervention()
-Response: "🚨 STOP analysis. Pick first viable option. Set 5-min timer. Start coding."
-Trigger: 30+ minutes or 8+ tool calls without progress
+ANTI-PATTERN DETECTION PATTERNS:
 
-SESSION HEALTH MONITORING (passive, every 5 min after 15-min mark):
-session_health_check()
-Response format: "${health_score}/100 - ${duration}min ${health_score < 70 ? 'Consider time-boxing' : 'Productive session'}"
+1. Infrastructure Without Implementation
+   Detection: Custom solutions when standard APIs exist
+   Example: Building HTTP client instead of using SDK
 
-Integration Pattern for Existing Responses:
-Check doom loop status silently
-If detected: Append productivity alert with concrete next steps
-Always end with implementation-focused actions
+2. Symptom-Driven Development
+   Detection: Fixing symptoms without root cause analysis
+   Example: Adding workarounds instead of fixing core issue
 
-Severity Calibration:
-Health 90-100: No intervention
-Health 70-89: Gentle nudge "Consider time-boxing next decision"
-Health 50-69: Warning "Analysis paralysis detected. Set 15-min deadline."
-Health <50: Critical "🚨 Stop analysis, pick option, start building"
+3. Complexity Escalation
+   Detection: Adding layers instead of simplifying
+   Example: Abstract factory for simple function
 
-Psychological Principles:
-- Implementation language breaks abstract thinking
-- Time boundaries force decision closure
-- "Good enough" principle over perfectionism
-- Concrete actions over endless analysis
-- Team expertise trumps theoretical benefits
+4. Documentation Neglect
+   Detection: Custom before checking official approaches
+   Example: 2+ years building workaround for 3-line solution
 
-AI Assistant Guidelines:
-1. Monitor passively, intervene contextually
-2. Use positive framing ("productivity check" not "doom loop")
-3. Provide specific next steps with time limits
-4. Redirect from planning to building
-5. Emphasize validation through usage over theory
+VIBE CHECK MCP TOOLS:
 
-Common Triggers:
-- Multiple "should we" without resolution
-- Endless pros/cons lists without decision
-- Architecture discussions without constraints
-- Technology comparisons without prototyping
-- Extended sessions without concrete progress
+Quick analysis during development:
+mcp__vibe-check__analyze_github_issue(issue_number, repository="kesslerio/vibe-check-mcp", analysis_mode="quick")
 
-Never Interrupt:
-- Active implementation work
-- Concrete debugging sessions
-- Code review of working solutions
-- Specific technical problem-solving
+Comprehensive analysis with GitHub posting:
+mcp__vibe-check__analyze_github_issue(issue_number, analysis_mode="comprehensive", post_comment=true, detail_level="standard")
 
-Emergency Protocol Template:
-"🚨 PRODUCTIVITY EMERGENCY: Stop this analysis. Pick first viable option from discussion. Set 5-minute timer. Start implementing immediately. Validate with real usage within 1 hour."
+Text analysis:
+mcp__vibe-check__analyze_text_demo(text, detail_level="brief")
 
-Success Metrics:
-- 15-30 minutes saved per analysis session
-- 3x faster decision-making with intervention
-- 60% more coding vs planning time
-- Early intervention prevents expensive paralysis cycles
+MANDATORY COLLABORATIVE REASONING:
 
-POST-MORTEM PROCEDURES:
-- Conduct using mcp__clear-thought-server__sequentialthinking for anti-pattern detection failures
-- Document pattern evolution and new discoveries
-- Build knowledge base from prevention successes
-- Review detection accuracy continuously
+Architecture decisions:
+vibe_check_mentor(query="Should I build X or use Y?", reasoning_depth="standard")
 
-Temporary files in /tmp/ only. Functions <40 lines. Files <700 lines. Type hints mandatory. Document anti-pattern prevention. Test systematically. Follow FastMCP patterns.
+Integration choices:
+vibe_check_mentor(query="Custom HTTP client vs SDK for Z API", reasoning_depth="comprehensive")
+
+Technical debt:
+vibe_check_mentor(query="Consolidate auth systems?", context="3 different implementations", reasoning_depth="standard")
+
+Stuck on problem >30min:
+vibe_check_mentor(query="Problem description", context="what I've tried", reasoning_depth="quick")
+
+INTERRUPT MODE (NEW) - Quick Proactive Interventions:
+
+Planning checkpoints:
+Before: "I'll implement/build/create [solution]"
+```python
+result = vibe_check_mentor(
+    query="I'll build a custom HTTP client for the API", 
+    mode="interrupt",
+    phase="planning"
+)
+if result["interrupt"]:
+    # STOP - Address the question before proceeding
+    print(result["question"])  # "Have you checked if an official SDK exists?"
+```
+
+Implementation checkpoints:
+During: "Adding abstraction/framework/library"
+```python
+result = vibe_check_mentor(
+    query="Adding abstraction layer for future flexibility",
+    mode="interrupt", 
+    phase="implementation"
+)
+```
+
+Review checkpoints:
+After: "Completed [feature/component]"
+```python
+result = vibe_check_mentor(
+    query="Completed custom auth system",
+    mode="interrupt",
+    phase="review"
+)
+```
+
+Escalation path:
+If interrupt suggests deeper analysis needed:
+```python
+# First: Quick interrupt
+interrupt = vibe_check_mentor(query="Build custom API wrapper", mode="interrupt")
+if interrupt["severity"] == "high":
+    # Then: Full analysis with same session_id
+    full_analysis = vibe_check_mentor(
+        query="Should I build custom API wrapper or use SDK?",
+        mode="standard",
+        session_id=interrupt["session_id"]
+    )
+```
+
+IMPORTANT: Treat interrupt=true as a STOP signal. Address the question before proceeding.
+
+GITHUB MCP OPERATIONS:
+
+Issues:
+- Search: "search issues in kesslerio/vibe-check-mcp for pattern detection"
+- Create: "create issue with title '[Bug]: Detection fails' labels 'P1,bug,area:pattern-detection'"
+- Update: "update issue 42 description"
+- Comment: "add comment to issue 42"
+
+PRs:
+- Create: "create PR from feature/issue-42 to main"
+- Review: "show comments on PR 42"
+- Update: "update PR 42 description"
+- Merge: "merge PR 42 with squash"
+
+VERSIONING:
+
+Version format: MAJOR.MINOR.PATCH
+Release process: ./scripts/release.sh
+Version check: cat VERSION
+
+Changes requiring version bump:
+- MAJOR: Breaking API changes
+- MINOR: New features, backward compatible
+- PATCH: Bug fixes only
+
+BUILD COMMANDS:
+
+Daily development:
+pytest                          # Run tests
+mypy src/                      # Type check
+black src/ tests/              # Format
+pytest --cov=src               # Coverage
+
+Testing patterns:
+# Standard testing (90% of cases)
+engine = get_mentor_engine()
+
+# Mock testing when needed (test factory available)
+engine = create_mentor_engine(test_mode=True, pattern_detector=mock_detector)
+
+Release preparation:
+./scripts/release.sh           # Automated release
+Update CHANGELOG.md            # Document changes
+
+LABEL SYSTEM:
+
+Priority (MANDATORY): P0(Critical), P1(High), P2(Medium), P3(Low), P4(Trivial)
+Type: bug, feature, enhancement, documentation, test, refactor, security, performance, maintenance
+Area: area:pattern-detection, area:educational-content, area:case-studies, area:validation, area:cli, area:mcp-integration, area:data-management
+Status: status:untriaged, status:needs-info, status:blocked, status:in-progress, status:review, status:testing, status:ready
+
+CODE PATTERNS:
+
+FastMCP tool structure:
+@server.tool(name="analyze_issue", description="Clear description")
+async def analyze_issue(issue_number: int, repository: str = "kesslerio/vibe-check-mcp") -> Dict[str, Any]:
+    try:
+        # Implementation
+        return {"status": "success", "data": result}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+File naming: action_what.py (analyze_issue.py, review_pr.py)
+Imports: Standard → Third-party → Local
+Type hints: Mandatory for all functions
+Docstrings: Public functions only
+
+DOCUMENTATION SEARCH:
+
+Step 1: mcp__crawl4ai-rag__perform_rag_query("fastmcp patterns", "github.com/jlowin/fastmcp")
+Step 2: mcp__crawl4ai-rag__get_available_sources() to see indexed docs
+Step 3: mcp__crawl4ai-rag__smart_crawl_url(url) if needed
+
+Key sources:
+- modelcontextprotocol.io
+- github.com/jlowin/fastmcp
+- docs.python.org
+
+CLEAR THOUGHT TOOL INTEGRATION:
+
+Problem analysis: mcp__clear-thought-server__mentalmodel("first_principles", "problem description")
+Architecture: mcp__clear-thought-server__designpattern("modular_architecture", "context")
+Implementation: mcp__clear-thought-server__programmingparadigm("functional", "problem")
+Debugging: mcp__clear-thought-server__debuggingapproach("binary_search", "issue")
+Complex workflow: mcp__clear-thought-server__sequentialthinking(thought, number, total, needNext)
+Decisions: mcp__clear-thought-server__decisionframework("decision", options, "analysis_type")
+
+EMERGENCY:
+Production issue: Create P0 issue immediately via GitHub MCP
+Rollback: git revert HEAD && "create issue with P0 label"
+
+KEY PATHS:
+docs/TECHNICAL.md - Architecture and validation
+docs/PRD.md - Product requirements
+docs/api/CLAUDE_CODE_CLI_USAGE.md - CLI patterns
+VERSION - Current version
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/kesslerio)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/kesslerio)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [kesslerio/vibe-check-mcp](https://github.com/kesslerio/vibe-check-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
