@@ -1,0 +1,9 @@
+{
+  "name": "atomicstrata--atomicmemory-sdk",
+  "displayName": "atomicmemory-sdk",
+  "description": "Open-source AtomicMemory TypeScript SDK",
+  "version": "1.0.0",
+  "author": "atomicstrata",
+  "homepage": "https://github.com/atomicstrata/atomicmemory-sdk",
+  "skills": []
+}
