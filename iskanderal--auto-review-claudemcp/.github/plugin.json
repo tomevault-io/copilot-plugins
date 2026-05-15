@@ -1,0 +1,9 @@
+{
+  "name": "iskanderal--auto-review-claudemcp",
+  "displayName": "Auto-Review-ClaudeMCP",
+  "description": "A Python MCP (Model Context Protocol) server that connects Claude Desktop to GitHub Pull Requests. It fetches PR diffs, filters out binary and asset files (Unity `.meta`, images, audio, shaders, etc.)",
+  "version": "1.0.0",
+  "author": "IskanderAl",
+  "homepage": "https://github.com/IskanderAl/Auto-Review-ClaudeMCP",
+  "skills": []
+}
