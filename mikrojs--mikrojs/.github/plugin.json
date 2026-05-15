@@ -1,0 +1,9 @@
+{
+  "name": "mikrojs--mikrojs",
+  "displayName": "mikrojs",
+  "description": "TypeScript runtime for microcontrollers",
+  "version": "1.0.0",
+  "author": "mikrojs",
+  "homepage": "https://github.com/mikrojs/mikrojs",
+  "skills": []
+}
