@@ -1,0 +1,9 @@
+{
+  "name": "limbicnation--comfyui-promptgenerator",
+  "displayName": "ComfyUI-PromptGenerator",
+  "description": "A custom ComfyUI node that integrates the Qwen Prompt Generator functionality directly into ComfyUI workflows.",
+  "version": "1.0.0",
+  "author": "Limbicnation",
+  "homepage": "https://github.com/Limbicnation/ComfyUI-PromptGenerator",
+  "skills": []
+}
