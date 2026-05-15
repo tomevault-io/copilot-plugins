@@ -7,11 +7,11 @@ Your smart, reliable, and friendly personal AI assistant.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Joanium/Joanium](https://github.com/Joanium/Joanium).
+Original source: `CLAUDE.md` in [Joanium/Joanium](https://github.com/Joanium/Joanium).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
