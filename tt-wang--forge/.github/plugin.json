@@ -1,0 +1,9 @@
+{
+  "name": "tt-wang--forge",
+  "displayName": "forge",
+  "description": "Turn Claude Code into a plan-execute-validate loop with parallel work, intelligent retry, and memory",
+  "version": "1.0.0",
+  "author": "TT-Wang",
+  "homepage": "https://github.com/TT-Wang/forge",
+  "skills": []
+}
