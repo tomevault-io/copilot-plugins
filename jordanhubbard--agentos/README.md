@@ -7,11 +7,11 @@ The world's first operating system for agents, not humans. Built on seL4 microke
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jordanhubbard/agentos](https://github.com/jordanhubbard/agentos).
+Original source: `CLAUDE.md` in [jordanhubbard/agentos](https://github.com/jordanhubbard/agentos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
