@@ -1,0 +1,9 @@
+{
+  "name": "modernrelay--omnigraph-cookbooks",
+  "displayName": "omnigraph-cookbooks",
+  "description": "Graph starters and skills built for Omnigraph. Reference starter: AI industry intelligence.",
+  "version": "1.0.0",
+  "author": "ModernRelay",
+  "homepage": "https://github.com/ModernRelay/omnigraph-cookbooks",
+  "skills": []
+}
