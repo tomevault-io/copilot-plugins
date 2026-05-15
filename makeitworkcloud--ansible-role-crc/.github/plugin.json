@@ -1,0 +1,9 @@
+{
+  "name": "makeitworkcloud--ansible-role-crc",
+  "displayName": "ansible-role-crc",
+  "description": "Ansible role to deploy OpenShift Local (CRC) with a custom domain name and external API access.",
+  "version": "1.0.0",
+  "author": "makeitworkcloud",
+  "homepage": "https://github.com/makeitworkcloud/ansible-role-crc",
+  "skills": []
+}
