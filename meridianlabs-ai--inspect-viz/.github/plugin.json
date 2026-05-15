@@ -1,0 +1,9 @@
+{
+  "name": "meridianlabs-ai--inspect-viz",
+  "displayName": "inspect_viz",
+  "description": "Data visualization for Inspect AI large language model evalutions.",
+  "version": "1.0.0",
+  "author": "meridianlabs-ai",
+  "homepage": "https://github.com/meridianlabs-ai/inspect_viz",
+  "skills": []
+}
