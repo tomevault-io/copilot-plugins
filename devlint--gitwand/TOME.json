@@ -4,7 +4,7 @@
   "repo": "GitWand",
   "description": "GitWand automatically resolves trivial Git merge conflicts \u2014 the ones that waste your time but don't need human judgment. Think of it as PhpStorm's magic wand, everywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devlint/GitWand",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T12:24:22Z"
+  "distributed_at": "2026-05-15T13:49:04Z"
 }
