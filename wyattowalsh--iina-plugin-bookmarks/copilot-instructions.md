@@ -1,27 +1,42 @@
-## project-overview
+## ui-components
 
-> This project is an IINA plugin for managing media bookmarks. It allows users to add, view, and navigate to saved timestamps in videos.
+> The plugin features three distinct user interface components, all built with React and TypeScript (.tsx), and styled with SCSS. They reside in the [ui/](mdc:ui/) directory.
 
-# IINA Bookmarks Plugin: Overview
+# UI Components (ui/)
 
-This project is an IINA plugin for managing media bookmarks. It allows users to add, view, and navigate to saved timestamps in videos.
+The plugin features three distinct user interface components, all built with React and TypeScript (.tsx), and styled with SCSS. They reside in the [ui/](mdc:ui/) directory.
 
-**Key Technologies:**
+**Common Structure for each UI Component (e.g., `ui/overlay/`):**
 
-*   **Plugin Core:** TypeScript ([src/index.ts](mdc:src/index.ts))
-*   **User Interface (UI):** React with TypeScript (.tsx files in [ui/](mdc:ui/))
-*   **Styling:** SCSS ([ui/shared.scss](mdc:ui/shared.scss) and component-specific .scss files)
-*   **Build Tool:** Parcel ([.parcelrc](mdc:.parcelrc), [package.json](mdc:package.json) scripts)
-*   **IINA Plugin Manifest:** [Info.json](mdc:Info.json)
+*   **[app.tsx](mdc:ui/overlay/app.tsx):** The main React root component for the UI. It handles:
+    *   State management for the UI (e.g., list of bookmarks, current file path).
+    *   Rendering the UI elements.
+    *   Sending messages to the plugin core via `appWindow.iina.postMessage()` (see [communication-patterns.mdc](mdc:.cursor/rules/communication-patterns.mdc)).
+    *   Receiving messages from the plugin core via `appWindow.iina.onMessage` (e.g., `BOOKMARKS_UPDATED`, `CURRENT_FILE_PATH`).
+    *   Sending a `UI_READY` message upon mounting to signal the plugin core that it can start sending data.
+*   **[index.html](mdc:ui/overlay/index.html):** The HTML entry point loaded by IINA for this UI view. It typically includes a root div (e.g., `<div id="root"></div>`) where the React app is mounted.
+*   **[index.js](mdc:ui/overlay/index.js):** The JavaScript entry point that imports the `app.tsx` component and renders it into the root div of `index.html` using `ReactDOM.render()`.
+*   **[*.scss](mdc:ui/overlay/overlay.scss):** Component-specific SCSS styles. Global styles can be found in [ui/shared.scss](mdc:ui/shared.scss).
 
-**Main Components:**
+**UI Component Specifics:**
 
-*   **Plugin Logic (`src/`):** Handles bookmark storage, communication with IINA player, and serves as the backend for UIs.
-*   **Overlay UI (`ui/overlay/`):** Displays bookmarks directly on the video.
-*   **Sidebar UI (`ui/sidebar/`):** Provides a tab in IINA's sidebar for managing bookmarks.
-*   **Standalone Window UI (`ui/window/`):** A separate window for comprehensive bookmark management.
+1.  **Video Overlay (`ui/overlay/`):**
+    *   Displays bookmarks relevant to the currently playing video directly on the video player.
+    *   Is made clickable via `overlay.setClickable(true)` in [src/index.ts](mdc:src/index.ts).
+    *   Interactive elements (buttons, list items) are marked with `data-clickable="true"` to ensure IINA passes click events to them.
+    *   Includes a close button to hide the overlay.
 
-Refer to [Project Structure in iina-plugin-bookmarks.md.txt](mdc:.cursor/context/iina-plugin-bookmarks.md.txt) for a detailed file tree.
+2.  **Sidebar Tab (`ui/sidebar/`):**
+    *   Provides a dedicated tab within IINA's sidebar.
+    *   Displays and manages bookmarks for the currently playing video.
+
+3.  **Standalone Window (`ui/window/`):**
+    *   A separate, persistent window for managing *all* bookmarks across different media files.
+    *   Includes features like search and sorting of bookmarks.
+
+**Communication:**
+
+All UIs communicate with the plugin core ([src/index.ts](mdc:src/index.ts)) exclusively through the `postMessage` API. They do not have direct access to the `BookmarkManager` instance. For details, see [communication-patterns.mdc](mdc:.cursor/rules/communication-patterns.mdc).
 
 ---
 > Source: [wyattowalsh/iina-plugin-bookmarks](https://github.com/wyattowalsh/iina-plugin-bookmarks) — distributed by [TomeVault](https://tomevault.io).
