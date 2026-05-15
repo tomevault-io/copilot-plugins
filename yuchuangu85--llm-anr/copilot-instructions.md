@@ -1,14 +1,15 @@
-## llm-anr
+## project
 
-> Agent-driven Android ANR (App Not Responding) analysis pipeline: evidence extraction → normalization → assisted analysis → hypothesis → root-cause report → remediation drafts → final delivery.
+> ANR evidence extraction and analysis pipeline — project layout, workflows, and conventions
 
-# agent-anr — ANR evidence extraction and analysis
 
-Agent-driven Android ANR (App Not Responding) analysis pipeline: evidence extraction → normalization → assisted analysis → hypothesis → root-cause report → remediation drafts → final delivery.
+# llm-anr — ANR evidence extraction and analysis
+
+LLM-assisted Android ANR (App Not Responding) analysis pipeline: evidence extraction → normalization → assisted analysis → hypothesis → root-cause report → remediation drafts → final delivery.
 
 ## ANR Analysis Workflow
 
-When a user asks you to analyze an ANR bugreport (providing a directory, ZIP, TAR, or fixture JSON), follow this workflow:
+When a user asks you to analyze an ANR bugreport (directory, ZIP, TAR, or fixture JSON), follow this workflow:
 
 ### Step 1: Generate AI context
 
@@ -22,7 +23,7 @@ This produces `anr_ai_context/` containing:
 
 ### Step 2: Read and analyze the evidence
 
-Read `anr_ai_context/<group-id>/anr_analysis.md` and perform the analysis following the instructions within — the prompt tells you exactly how to structure the output (timeline, blocking point, candidate root-cause chains, evidence quality assessment, remediation suggestions). Write results directly into the `#### AI Analysis — <source>` slots. The comprehensive synthesis must be written back under `#### AI Analysis — Final ANR` in the same file (for example starting with `## 综合分析结论`), not only returned in chat.
+Read `anr_ai_context/<group-id>/anr_analysis.md` and perform the analysis following the instructions within. Write results directly into the `#### AI Analysis — <source>` slots.
 
 ### Step 3: Output the analysis report
 
@@ -33,7 +34,7 @@ Output a structured Markdown report covering:
 4. Evidence quality assessment (gaps, contradictions)
 5. Remediation suggestions
 
-### Quick reference: ANR type strategies
+### ANR type strategies
 
 | Type | Key signals |
 |------|-------------|
@@ -45,12 +46,12 @@ Output a structured Markdown report covering:
 
 Run without `--package` and infer the package from the evidence (the `AnrManager` block or `am_anr` line will contain it).
 
-### ANR Domain Knowledge (wiki skills)
+### ANR Domain Knowledge
 
-When deeper ANR domain expertise is needed during analysis, load the relevant skill from `skills/`:
+When deeper ANR domain expertise is needed, read the relevant skill from `skills/`:
 
-| Analysis phase | Skill to load |
-|---------------|---------------|
+| Analysis phase | Skill |
+|---------------|-------|
 | 1. Confirm ANR type and characteristics | `skills/anr-classification.md` |
 | 2. Understand triggering mechanism | `skills/anr-principle.md` |
 | 3. Follow standard analysis flow | `skills/anr-analysis.md` |
@@ -63,7 +64,7 @@ When deeper ANR domain expertise is needed during analysis, load the relevant sk
 ```
 anr_evidence/          # Core Python library (CLI via anr_evidence.cli / -m anr_evidence)
 scripts/               # Standalone entrypoint scripts
-tests/                 # Unit + integration tests (171 tests, discoverable via unittest)
+tests/                 # Unit + integration tests
 docs/                  # Algorithm design docs + gap analysis
 wiki/                  # ANR domain reference material
 ```
@@ -74,57 +75,14 @@ wiki/                  # ANR domain reference material
 # === Primary workflow: AI context generation ===
 python3 scripts/anr_to_ai.py <input> [--package <pkg>] [--anr-type <type>]
 
-# === Deterministic pipeline (Phases 1-8) ===
+# === Deterministic pipeline ===
 python3 -m anr_evidence tests/fixtures/nfw_01.json
 python3 -m anr_evidence --analyze tests/fixtures/nfw_01.json
 python3 -m anr_evidence --report tests/fixtures/nfw_01.json
 python3 -m anr_evidence --deliver tests/fixtures/nfw_01.json
 
-# === Multi-Agent AI Analysis (requires API key) ===
-python3 -c "
-from anr_evidence import run_ai_agent_analysis, ProviderConfig, ProviderKind, AgentConfig
-from anr_evidence import load_package_from_fixture
-package = load_package_from_fixture('tests/fixtures/nfw_01.json')
-result = run_ai_agent_analysis(
-    package,
-    provider_config=ProviderConfig(kind=ProviderKind.ANTHROPIC, model='claude-sonnet-4-20250514'),
-    agent_config=AgentConfig(provider=provider_config, max_iterations=3, verbose=True),
-)
-"
-
-# === Standalone scripts ===
-python3 scripts/anr_preprocessor.py tests/fixtures/nfw_01.json
-python3 scripts/anr_log_pattern_filter.py path/to/events.txt --tags docs/event_log_tags_master.md
-python3 scripts/extract_bugreport.py path/to/bugreport.zip -o output_dir/
-python3 scripts/compare_replays.py path/to/run_a path/to/run_b
-python3 scripts/web_server.py --port 8080
-
-# === Replay ===
-python3 -m anr_evidence --replay samples/replay/manifest.json --replay-out /tmp/anr-replay
-python3 scripts/run_replay.py samples/replay/manifest.json --out-root samples/replay/runs --label nightly
-```
-
-## API — use from Python (within agent session)
-
-```python
-from anr_evidence import (
-    # AI context
-    build_ai_context, AiContextOptions, AiContextResult,
-    # Package loading
-    load_package_from_archive, load_package_from_directory, load_package_from_fixture,
-    # Multi-Agent AI
-    run_ai_agent_analysis, ProviderConfig, ProviderKind, AgentConfig,
-    # Evidence Slice Schema
-    EvidenceSlice, build_evidence_slices, annotate_slices_with_tags,
-    # Entity linkage
-    EntityMap, build_entity_map, entity_summary_for_ai,
-    # Weighting
-    ImportanceLevel, EVENT_LOG_TAG_WEIGHTS, filter_by_importance,
-    # Context flooding prevention
-    TruncationConfig, truncate_evidence,
-    # Time normalization
-    TimeNormalizedLine, compute_delta_t,
-)
+# === Test ===
+python3 -m unittest discover -s tests -v
 ```
 
 ## Design rules
@@ -137,12 +95,14 @@ from anr_evidence import (
 - AnrManager lines are always CRITICAL — they contain the ANR diagnostic summary
 - Use the AnrManager block as a secondary anchor for logcat, cross-referencing with event_log's am_anr timestamp
 
-## Test
+## Coding conventions
 
-```bash
-python3 -m unittest discover -s tests -v
-python3 -m compileall -q anr_evidence tests
-```
+- Python 3.14+, use `from __future__ import annotations`
+- Follow PEP 8, type hints for all public APIs
+- Tests via `unittest`, discoverable: `python3 -m unittest discover -s tests -v`
+- No comments for obvious code; only document non-obvious WHY
+- Prefer editing existing files over creating new ones
+- Don't add features, refactors, or abstractions beyond what the task requires
 
 ---
 > Source: [yuchuangu85/llm-anr](https://github.com/yuchuangu85/llm-anr) — distributed by [TomeVault](https://tomevault.io).
