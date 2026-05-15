@@ -1,0 +1,9 @@
+{
+  "name": "alxmrs--duckdb-zarr",
+  "displayName": "duckdb-zarr",
+  "description": "duckdb-zarr",
+  "version": "1.0.0",
+  "author": "alxmrs",
+  "homepage": "https://github.com/alxmrs/duckdb-zarr",
+  "skills": []
+}
