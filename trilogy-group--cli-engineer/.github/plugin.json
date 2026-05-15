@@ -1,0 +1,9 @@
+{
+  "name": "trilogy-group--cli-engineer",
+  "displayName": "cli_engineer",
+  "description": "autonomous CLI software engineering agent",
+  "version": "1.0.0",
+  "author": "trilogy-group",
+  "homepage": "https://github.com/trilogy-group/cli_engineer",
+  "skills": []
+}
