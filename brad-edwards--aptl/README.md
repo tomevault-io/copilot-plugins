@@ -1,0 +1,30 @@
+# aptl
+
+> Source: [Brad-Edwards/aptl](https://github.com/Brad-Edwards/aptl) — distributed by [TomeVault](https://tomevault.io)
+
+SOC-in-a-Box for AI purple teaming
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [Brad-Edwards/aptl](https://github.com/Brad-Edwards/aptl).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [Brad-Edwards/aptl](https://github.com/Brad-Edwards/aptl) — a repo with 14+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install Brad-Edwards/aptl
+```
+Source: [github.com/Brad-Edwards/aptl](https://github.com/Brad-Edwards/aptl).
+
+<!-- genome:d-i-s -->
