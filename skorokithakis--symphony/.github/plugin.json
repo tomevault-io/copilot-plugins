@@ -1,0 +1,9 @@
+{
+  "name": "skorokithakis--symphony",
+  "displayName": "symphony",
+  "description": "An implementation of OpenAI's symphony with OpenCode and Linear.",
+  "version": "1.0.0",
+  "author": "skorokithakis",
+  "homepage": "https://github.com/skorokithakis/symphony",
+  "skills": []
+}
