@@ -1,0 +1,9 @@
+{
+  "name": "agent-ship--agent-ship",
+  "displayName": "agent-ship",
+  "description": "\ud83d\ude80 Production-ready AI agents framework. Fork \u2192 Deploy \u2192 Ship in minutes.  Multi-agent patterns, FastAPI backend, observability with Opik.  Built with Google ADK or Langgraph. MIT License.",
+  "version": "1.0.0",
+  "author": "Agent-Ship",
+  "homepage": "https://github.com/Agent-Ship/agent-ship",
+  "skills": []
+}
