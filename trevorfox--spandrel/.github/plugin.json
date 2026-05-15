@@ -1,0 +1,9 @@
+{
+  "name": "trevorfox--spandrel",
+  "displayName": "spandrel",
+  "description": "Turn markdown file trees into navigable, queryable knowledge graphs served via GraphQL and MCP",
+  "version": "1.0.0",
+  "author": "trevorfox",
+  "homepage": "https://github.com/trevorfox/spandrel",
+  "skills": []
+}
