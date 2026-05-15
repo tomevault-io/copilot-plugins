@@ -1,0 +1,9 @@
+{
+  "name": "runtimed--runtime-agents",
+  "displayName": "runtime-agents",
+  "description": "Runtime Agents for Notebooks",
+  "version": "1.0.0",
+  "author": "runtimed",
+  "homepage": "https://github.com/runtimed/runtime-agents",
+  "skills": []
+}
