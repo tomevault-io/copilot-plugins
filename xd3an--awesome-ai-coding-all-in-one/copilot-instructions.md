@@ -1,60 +1,23 @@
-## react-tanstack-router-query-cursorrules-prompt-file
+## react-tanstack-router-query
 
-> Cursor rules for React SPAs combining TanStack Router v1 and TanStack Query v5 for zero-loading-spinner routing and type-safe server state.
+> React SPA with TanStack Router v1 + TanStack Query v5 — the definitive pattern for zero-loading-spinner routing, type-safe URLs, and cache-first data
 
-You are an expert in React, TanStack Router v1, TanStack Query v5, TypeScript, Vite, and building fully type-safe single-page applications.
+You are an expert in React, TanStack Router v1, TanStack Query v5, TypeScript, and Vite.
 
-# React + TanStack Router + TanStack Query Guidelines
+## Architecture
+- TanStack Router: routing, URL state, navigation
+- TanStack Query: server state, caching, mutations
+- Loader = bridge: prefetches into Query cache before render → zero loading spinners for route data
+- Components are pure UI: read from Query cache, trigger mutations
 
-## Architecture Overview
-- TanStack Router handles all routing, URL state, and navigation
-- TanStack Query manages all server state, caching, and async data
-- React components are pure UI — they read from Query cache and trigger mutations
-- Loaders bridge Router and Query: they prefetch into the Query cache before render
-- This eliminates loading spinners for route-level data; Suspense handles component-level loading
-
-## Project Setup
-```
-src/
-  routes/
-    __root.tsx
-    index.tsx
-    posts/
-      index.tsx
-      $postId.tsx
-  queries/            ← Query definitions (queryOptions factories)
-    posts.ts
-    users.ts
-  api/                ← API client functions (fetchers)
-    posts.ts
-    users.ts
-  lib/
-    queryClient.ts
-    router.ts
-  main.tsx
-```
-
-## QueryClient + Router Setup
+## Setup
 ```ts
 // src/lib/queryClient.ts
-import { QueryClient } from '@tanstack/react-query'
-
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60,
-      retry: (count, error: any) => error?.status !== 404 && count < 2,
-    },
-  },
+  defaultOptions: { queries: { staleTime: 60_000 } },
 })
-```
 
-```tsx
 // src/lib/router.ts
-import { createRouter } from '@tanstack/react-router'
-import { routeTree } from '../routeTree.gen'
-import { queryClient } from './queryClient'
-
 export const router = createRouter({
   routeTree,
   context: { queryClient },
@@ -63,213 +26,93 @@ export const router = createRouter({
 })
 
 declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router
-  }
+  interface Register { router: typeof router }
 }
-```
 
-```tsx
 // src/main.tsx
-import { RouterProvider } from '@tanstack/react-router'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { router } from './lib/router'
-import { queryClient } from './lib/queryClient'
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} context={{ queryClient }} />
-  </QueryClientProvider>
-)
+<QueryClientProvider client={queryClient}>
+  <RouterProvider router={router} context={{ queryClient }} />
+</QueryClientProvider>
 ```
 
-## Query Definitions (queryOptions factories)
-- Co-locate query key, fetcher, and staleTime in one place
-- Share between Router loaders and component hooks
+## Query Definitions
 ```ts
 // src/queries/posts.ts
-import { queryOptions, infiniteQueryOptions } from '@tanstack/react-query'
-import { fetchPost, fetchPosts } from '../api/posts'
-
 export const postKeys = {
   all: ['posts'] as const,
-  lists: () => [...postKeys.all, 'list'] as const,
-  list: (filters?: PostFilters) => [...postKeys.lists(), filters] as const,
-  details: () => [...postKeys.all, 'detail'] as const,
-  detail: (id: string) => [...postKeys.details(), id] as const,
+  detail: (id: string) => [...postKeys.all, 'detail', id] as const,
+  list: (f?: PostFilters) => [...postKeys.all, 'list', f] as const,
 }
 
-export const postDetailQueryOptions = (id: string) =>
-  queryOptions({
-    queryKey: postKeys.detail(id),
-    queryFn: () => fetchPost(id),
-    staleTime: 1000 * 60 * 5,
-  })
+export const postQueryOptions = (id: string) =>
+  queryOptions({ queryKey: postKeys.detail(id), queryFn: () => fetchPost(id) })
 
-export const postsListQueryOptions = (filters?: PostFilters) =>
-  queryOptions({
-    queryKey: postKeys.list(filters),
-    queryFn: () => fetchPosts(filters),
-    staleTime: 1000 * 60,
-  })
+export const postsQueryOptions = (filters?: PostFilters) =>
+  queryOptions({ queryKey: postKeys.list(filters), queryFn: () => fetchPosts(filters) })
 ```
 
-## Router Loader + Query Integration
-- Loaders call `queryClient.ensureQueryData` — populates cache, renders immediately without spinner
-- Components then call `useQuery` with the same options — reads from cache synchronously
+## Loader + Component (zero loading state)
 ```tsx
-// src/routes/posts/$postId.tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
-import { postDetailQueryOptions } from '../../queries/posts'
-
 export const Route = createFileRoute('/posts/$postId')({
   loader: ({ context: { queryClient }, params }) =>
-    queryClient.ensureQueryData(postDetailQueryOptions(params.postId)),
-
-  errorComponent: ({ error }) => <ErrorMessage error={error} />,
-  pendingComponent: PostSkeleton,
+    queryClient.ensureQueryData(postQueryOptions(params.postId)),
   component: PostDetail,
 })
 
 function PostDetail() {
   const { postId } = Route.useParams()
-  // data is already in cache from loader — no loading state
-  const { data: post } = useQuery(postDetailQueryOptions(postId))
-
-  return <article><h1>{post!.title}</h1></article>
+  const { data: post } = useQuery(postQueryOptions(postId))  // always in cache from loader
+  return <h1>{post!.title}</h1>
 }
 ```
 
-## Search Params + Query Integration
-- Use TanStack Router search params as the source of truth for filter/pagination state
-- Pass search params into queryOptions to drive query key and fetcher
+## Search Params → Query Key
 ```tsx
-// src/routes/posts/index.tsx
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useQuery } from '@tanstack/react-query'
-import { z } from 'zod'
-import { postsListQueryOptions } from '../../queries/posts'
-
-const searchSchema = z.object({
-  page: z.number().int().min(1).default(1),
-  category: z.string().optional(),
-})
+const searchSchema = z.object({ page: z.number().default(1), q: z.string().optional() })
 
 export const Route = createFileRoute('/posts/')({
   validateSearch: searchSchema,
   loader: ({ context: { queryClient }, location: { search } }) =>
-    queryClient.ensureQueryData(postsListQueryOptions(search)),
+    queryClient.ensureQueryData(postsQueryOptions(search)),
   component: PostsList,
 })
 
 function PostsList() {
   const search = Route.useSearch()
-  const navigate = Route.useNavigate()
-  const { data: posts } = useQuery(postsListQueryOptions(search))
-
-  return (
-    <div>
-      {posts?.map(post => (
-        <Link key={post.id} to="/posts/$postId" params={{ postId: post.id }}>
-          {post.title}
-        </Link>
-      ))}
-      <button onClick={() => navigate({ search: { ...search, page: search.page + 1 } })}>
-        Next Page
-      </button>
-    </div>
-  )
+  const { data } = useQuery(postsQueryOptions(search))
+  // ...
 }
 ```
 
 ## Mutations
 ```tsx
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useNavigate } from '@tanstack/react-router'
-import { postKeys } from '../../queries/posts'
-
-function CreatePostForm() {
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
-
-  const mutation = useMutation({
-    mutationFn: createPost,
-    onSuccess: (newPost) => {
-      // Populate detail cache immediately
-      queryClient.setQueryData(postKeys.detail(newPost.id), newPost)
-      // Invalidate list queries
-      queryClient.invalidateQueries({ queryKey: postKeys.lists() })
-      // Navigate to new post (no loading — cache is warm)
-      navigate({ to: '/posts/$postId', params: { postId: newPost.id } })
-    },
-  })
-
-  return (/* form JSX */)
-}
-```
-
-## Authentication Pattern
-```tsx
-// src/routes/__root.tsx
-import { createRootRouteWithContext } from '@tanstack/react-router'
-
-export interface RouterContext {
-  queryClient: QueryClient
-  auth: { isAuthenticated: boolean; user: User | null }
-}
-
-export const Route = createRootRouteWithContext<RouterContext>()({
-  component: RootLayout,
-})
-
-// src/routes/_auth.tsx (pathless layout for protected routes)
-export const Route = createFileRoute('/_auth')({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({ to: '/login', search: { redirect: location.pathname } })
-    }
+const mutation = useMutation({
+  mutationFn: createPost,
+  onSuccess: (newPost) => {
+    queryClient.setQueryData(postKeys.detail(newPost.id), newPost)  // warm cache
+    queryClient.invalidateQueries({ queryKey: postKeys.list() })
+    navigate({ to: '/posts/$postId', params: { postId: newPost.id } })  // instant — no spinner
   },
 })
 ```
 
-## Prefetching on Hover
+## Hover Prefetching
 ```tsx
-function PostCard({ post }: { post: Post }) {
-  const queryClient = useQueryClient()
-  return (
-    <Link
-      to="/posts/$postId"
-      params={{ postId: post.id }}
-      onMouseEnter={() => queryClient.prefetchQuery(postDetailQueryOptions(post.id))}
-    >
-      {post.title}
-    </Link>
-  )
-}
-```
-
-## DevTools (Development Only)
-```tsx
-// In __root.tsx
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-// Inside component
-{import.meta.env.DEV && (
-  <>
-    <TanStackRouterDevtools position="bottom-left" />
-    <ReactQueryDevtools buttonPosition="bottom-right" />
-  </>
-)}
+<Link
+  to="/posts/$postId"
+  params={{ postId: post.id }}
+  onMouseEnter={() => queryClient.prefetchQuery(postQueryOptions(post.id))}
+>
+  {post.title}
+</Link>
 ```
 
 ## Key Rules
-- Always define `queryOptions` outside of components — not inline in `useQuery()`
-- Never use `useEffect` to fetch data — use loaders or `useQuery`
-- Always type router context — `declare module '@tanstack/react-router'` registration is required
-- Search params are the only source of truth for URL-driven filter state
-- Mutations should `setQueryData` + `invalidateQueries`, not just invalidate, for instant UI feedback
+- Always define `queryOptions` outside components — never inline inside `useQuery()`
+- Never use `useEffect` for data fetching — use loaders or `useQuery`
+- Search params are the single source of truth for filter/pagination state
+- After mutations: `setQueryData` + `invalidateQueries` for instant UI feedback
+- `declare module '@tanstack/react-router'` router registration is required for full type safety
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
