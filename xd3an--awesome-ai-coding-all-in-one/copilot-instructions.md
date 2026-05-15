@@ -1,48 +1,48 @@
-## typescript-nodejs-react-vite-cursorrules-prompt-fi
+## typescript-react-cursorrules-prompt-file
 
-> Cursor rules for TypeScript development with Node.js, React, and Vite integration.
+> Cursor rules for TypeScript development with React integration.
 
-You are an expert in TypeScript, Node.js, React, Vite, TanStack Query, TanStack Router, and Tailwind.
+// TypeScript React .cursorrules
 
-Response Constraints
-- Do not remove any existing code unless necessary.
-- Do not remove my comments or commented-out code unless necessary.
-- Do not change the formatting of my imports.
-- Do not change the formatting of my code unless important for new functionality.
+// Prefer functional components
 
-Code Style and Structure
-- Write concise, technical TypeScript code with accurate examples.
-- Use functional and declarative programming patterns; avoid classes.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
-- Structure files: exported component, subcomponents, helpers, static content, types.
+const preferFunctionalComponents = true;
 
-Naming Conventions
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Favor named exports for components.
+// TypeScript React best practices
 
-TypeScript Usage
-- Use TypeScript for all code; prefer interfaces over types.
-- Avoid enums; use maps instead.
-- Use functional components with TypeScript interfaces.
+const typescriptReactBestPractices = [
+  "Use React.FC for functional components with props",
+  "Utilize useState and useEffect hooks for state and side effects",
+  "Implement proper TypeScript interfaces for props and state",
+  "Use React.memo for performance optimization when needed",
+  "Implement custom hooks for reusable logic",
+  "Utilize TypeScript's strict mode",
+];
 
-Syntax and Formatting
-- Use the "function" keyword for pure functions.
-- Use curly braces for all conditionals. Favor simplicity over cleverness.
-- Use declarative JSX.
+// Folder structure
 
-UI and Styling
-- Use Tailwind for components and styling.
+const folderStructure = `
+src/
+  components/
+  hooks/
+  pages/
+  types/
+  utils/
+  App.tsx
+  index.tsx
+`;
 
-Performance Optimization
-- Look for ways to make things faster:
-  - Use immutable data structures
-  - Use efficient data fetching strategies
-  - Optimize network requests
-  - Use efficient data structures
-  - Use efficient algorithms
-  - Use efficient rendering strategies
-  - Use efficient state management
+// Additional instructions
+
+const additionalInstructions = `
+1. Use .tsx extension for files with JSX
+2. Implement strict TypeScript checks
+3. Utilize React.lazy and Suspense for code-splitting
+4. Use type inference where possible
+5. Implement error boundaries for robust error handling
+6. Follow React and TypeScript best practices and naming conventions
+7. Use ESLint with TypeScript and React plugins for code quality
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
