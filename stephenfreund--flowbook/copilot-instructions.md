@@ -1,0 +1,532 @@
+## flowbook
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+FlowBook is a JupyterLab 4.0+ extension that combines a TypeScript frontend with a Python server extension and custom IPython kernels. The extension provides notebook analysis, validation, execution, reproducibility enforcement, and AI-powered capabilities through a command-based architecture.
+
+## Development Commands
+
+### Initial Setup
+
+```bash
+# Install package in development mode
+pip install -e "."
+
+# Link development version with JupyterLab
+jupyter labextension develop . --overwrite
+
+# Enable server extension
+jupyter server extension enable flowbook
+```
+
+### Building
+
+```bash
+# Development build (with source maps)
+jlpm build
+
+# Production build
+jlpm build:prod
+
+# Clean build artifacts
+jlpm clean:all
+```
+
+### Development Workflow
+
+```bash
+# Terminal 1: Auto-rebuild TypeScript on changes
+jlpm watch
+
+# Terminal 2: Run JupyterLab
+jupyter lab
+```
+
+After making changes, refresh JupyterLab in the browser. The `jlpm watch` command automatically rebuilds TypeScript and the labextension.
+
+### Linting
+
+```bash
+# Run all linters with auto-fix
+jlpm lint
+
+# Individual linters
+jlpm eslint          # TypeScript/JavaScript
+jlpm prettier        # Code formatting
+jlpm stylelint       # CSS
+
+# Check without fixing
+jlpm lint:check
+```
+
+### Testing
+
+```bash
+# Run Python tests
+pytest flowbook/
+
+# Run specific test file
+pytest flowbook/kernel/tests/test_reproducibility_enforcer.py
+```
+
+Test files (`test_*.py`) must be placed in a `tests/` subdirectory of the package they test. For example, tests for `flowbook/kernel/` go in `flowbook/kernel/tests/`. Each `tests/` directory must contain an `__init__.py` file.
+
+### Verification
+
+```bash
+# Check server extension is enabled
+jupyter server extension list
+
+# Check frontend extension is installed
+jupyter labextension list
+```
+
+## Architecture
+
+### Four-Tier Structure
+
+1. **Frontend (TypeScript)**: `src/` - JupyterLab UI plugin for reproducibility visualization
+2. **Server Extension (Python)**: `flowbook/server/` - HTTP handlers and command processing
+3. **MCP Server (Python)**: `flowbook/mcp/` - MCP tools for AI-driven notebook analysis, with real-time collaboration with JupyterLab
+4. **Custom Kernels**: IPython kernels for different use cases
+   - `flowbook/kernel/` - FlowBook kernel with always-on reproducibility tracking
+   - `flowbook/checkpoint_kernel/` - Checkpoint kernel for timing/benchmarking
+
+### Frontend Components (`src/`)
+
+The frontend exports a single JupyterLab plugin that activates for `flowbook_kernel`:
+
+```
+src/
+├── index.ts                 # Exports [flowbookPlugin]
+├── api.ts                   # FlowbookAPI for HTTP communication
+├── kernel.ts                # KernelUtils (startup, info)
+├── handler.ts               # Request handler (ServerConnection wrapper)
+├── cellindex.ts             # Cell index DOM overlay manager (@A notation)
+├── cellindexutils.ts        # indexToAlpha/alphaToIndex + getCodeCellOrder utility
+├── shared/
+│   ├── kerneldetection.ts   # KernelDetector class
+│   └── types.ts             # IKernelInfo, ICommandResult, IExecuteCommandRequest
+├── flowbook/                # FlowBook kernel plugin (reproducibility tracking)
+│   ├── plugin.ts            # Plugin activation, kernel discovery, activation manager
+│   ├── types.ts             # IReproducibilityMetadata, IPredicateViolation, IStalenessReason
+│   ├── protocol.ts          # FlowBook comm protocol types (shared with kernel)
+│   ├── stalenessmanager.ts  # Tracks stale cells per notebook with signals
+│   ├── stalenessnotice.ts   # Manages staleness notice outputs in cell output areas
+│   ├── violationnotice.ts   # Manages violation notice outputs in cell output areas
+│   ├── cellhighlighter.ts   # CSS highlighting + coordination (delegates to notice managers)
+│   ├── executionhook.ts     # Comm-based kernel communication + cell edit detection
+│   ├── toolbar.ts           # "Run Next Stale/Unrun" button
+│   ├── metadatapanel.tsx    # Reproducibility metadata panel (reads, writes, stale cells)
+│   └── dependenciespanel.tsx # ReactFlow dependency DAG visualization
+└── _archived/               # Mothballed experimental plugin (excluded from build)
+    ├── experimental/        # AI commands plugin (11 files)
+    ├── logpanel.tsx         # SSE event stream display
+    ├── executiondialog.tsx  # Modal dialog with real-time command output
+    └── messagecomponents.tsx # Shared React message formatting
+```
+
+**Plugin Activation**: `flowbook:plugin` activates UI only when kernel is `flowbook_kernel`. On activation, writes a kernel discovery file so MCP can find and share the kernel.
+
+### Server Extension (`flowbook/server/`)
+
+The server uses the modern **ExtensionApp** pattern (not legacy extension points).
+
+- `__init__.py` - `FlowBookExtension(ExtensionApp)` class with `initialize_handlers()` method
+- `handlers.py` - HTTP request handlers:
+  - `POST /flowbook/execute` - Execute a command (FlowbookCommandHandler)
+  - `GET /flowbook/list` - List available commands (CommandListHandler)
+  - `GET/PUT /flowbook/kernel-discovery/{path}` - Kernel discovery for MCP↔JupyterLab sharing (KernelDiscoveryHandler)
+- `base.py` - `NotebookCommand` abstract base class
+- `registry.py` - `CommandRegistry` singleton managing available commands
+- `commands/` - Built-in command implementations:
+  - `CompareBaselineCommand` - Compare baseline vs FlowBook execution with timing/memory metrics
+  - `ExecuteCommand` - Execute cells with reproducibility enforcement
+  - `ExecuteBaseCommand` - Run all cells (requires kernel)
+- `kernel_manager.py` - `KernelConnectionManager` and `FlowbookKernelClient` for kernel communication
+- `cli.py` - Command-line interface entry point
+
+### FlowBook Kernel (`flowbook/kernel/`)
+
+The primary kernel with always-on reproducibility enforcement:
+
+- `flowbook_kernel.py` - Main `FlowbookKernel` implementation with comm channel + magic commands
+- `flowbook_client.py` - `FlowbookKernelClient` with `cell_order` injection and `send_flowbook_command()`
+- `protocol.py` - FlowBook communication protocol (message types, builders, validation)
+- `reproducibility_enforcer.py` - `ReproducibilityEnforcer` implements formal transition rules (see below)
+- `models.py` - `ReproducibilityMetadata`, `ReproducibilityResult`, `ReproducibilityError`, `CellStatus`, `Reason` data classes
+- `changes.py` - Typed records of what changed between checkpoints (`ValueChanged`, `ColumnAdded`, etc.)
+- `access_events.py` - Typed records of variable/column/structural access during cell execution
+- `change_detector.py` - Converts `MemoryCheckpointDiffResult` to typed `Change` list and `WriteLocSet`
+- `locations.py` - Typed `ReadLoc` (5 types: Var, Col, Cols, Rows, File) / `WriteLoc` (5 types: Var, Col, Cols, Rows, File) with `write_conflicts_read()` (▷) and set operations
+
+**Formal Transition Rules** (from `FORMAL_DEVELOPMENT.md`):
+
+The enforcer implements two instrumented transition rules:
+
+**[Inst-Edit]**: When cell source is modified, mark it STALE. Read/write sets are preserved (they describe the last execution).
+
+**[Inst-Run]**: When cell i executes, the enforcer:
+
+1. Records new read/write sets: R' = R[i := r], W' = W[i := w]
+2. Checks four **validity predicates** (all must pass):
+   - `NoReadAndWrite(R', W', i)` — Rᵢ ∩ Wᵢ = ∅ (cell doesn't read and write same location)
+   - `WriteBeforeRead(R', W', i)` — Rᵢ ⊆ W\_{1..i-1} (reads only defined variables)
+   - `NoReadBeforeWrite(R', W', i)` — Rᵢ ∩ W\_{i+1..n} = ∅ (no forward contamination)
+   - `NoWriteAfterRead(R', W', i)` — Wᵢ ∩ R\_{1..i-1} = ∅ (no backward mutation)
+3. Checks `RecoverableMutation` — all diff-detected changes are in tracking writes
+4. If all predicates pass: marks cell i CLEAN, computes **staleness propagation**:
+   - `ForwardStale(R, W, W', i, j)` — cell j > i reads/writes location that i wrote → mark stale
+   - `BackwardStale(W, W', i, j)` — cell j < i was last writer of location i no longer writes → mark stale
+5. If any predicate fails: execution rejected, namespace rolled back
+
+All conflict checks use the typed `▷` relation (`write_conflicts_read`) from `locations.py`.
+
+**Communication Protocol** (`flowbook/kernel/protocol.py`, `src/flowbook/protocol.ts`):
+
+The kernel communicates with clients via a unified JSON protocol with a `"type"` discriminator:
+
+| Transport       | Frontend (TypeScript)                         | Python clients                                  |
+| --------------- | --------------------------------------------- | ----------------------------------------------- |
+| Client → Kernel | Comm channel (`comm.send()`)                  | Execute request metadata (`cell_meta.flowbook`) |
+| Kernel → Client | Comm channel + custom IOPub `flowbook_update` | Custom IOPub `flowbook_update`                  |
+
+Kernel → Client message types:
+
+- `"metadata"` — post-execution reproducibility data (read/write locs, stale cells, timing, errors)
+- `"violation"` — predicate violation (NO_READ_AND_WRITE, etc.)
+- `"status"` — status line (icon + text, displayed in panel header)
+
+Client → Kernel message types:
+
+- `"notebook_structure"` — set cell order
+- `"cell_edited"` — mark cell stale ([Inst-Edit])
+- `"continue_after_violation"` — toggle violation handling
+- `"sync"` — request full current state
+
+**User-facing magic commands** (typed by users in code cells, produce visible output):
+
+| Command                              | Description                               |
+| ------------------------------------ | ----------------------------------------- |
+| `%flowbook_status`                   | Display current reproducibility state     |
+| `%flowbook_stale`                    | Show stale cells                          |
+| `%continue_after_violation <on/off>` | Control whether violations reject or warn |
+| `%notebook_structure <ids...>`       | Set notebook cell order (thin wrapper)    |
+| `%cell_edited <cell_id>`             | Mark edited cell stale (thin wrapper)     |
+
+**Features** (always enabled):
+
+- Variable and column-level tracking for all executions
+- Staleness computation via typed `ReadLoc`/`WriteLoc` with `▷` conflict relation
+- Forward and backward staleness propagation
+- Forward contamination detection (violation, not just staleness)
+- Backward mutation detection with automatic rollback
+- Unrecoverable mutation detection (in-place mutation without rebinding)
+- Edit-triggered staleness via frontend notification
+- Structural mutation tracking at operation time via `TrackingData` fields (`row_mutations`, `index_mutations`, `dtype_changes`, `column_deletions`)
+
+**Metadata Format** (sent via `flowbook_update` IOPub / comm):
+
+Uses typed `ReadLoc`/`WriteLoc` dicts. ReadLoc types: `var`, `col`, `cols`, `rows`, `file`. WriteLoc types: `var`, `col`, `cols`, `rows`, `file`. (The former `col_add`, `col_del`, and `attr` types were removed; column-set and row-set mutations are now tracked as `cols` and `rows` writes respectively.)
+
+```python
+{
+  "type": "metadata",
+  "cell_id": str,
+  "execution_seq": int,
+  "read_locs": List[{"type": str, "name": str, "qualifier"?: str}],
+  "write_locs": List[{"type": str, "name": str, "qualifier"?: str}],
+  "changed_locs": List[{"type": str, "name": str, "qualifier"?: str}],
+  "stale_cells": List[str],
+  "cell_order": List[str],
+  "structural_warnings": List[str],
+  "execute_duration_ms": float,
+  "code_duration_ms": float,
+  "state_duration_ms": float,
+  "check_duration_ms": float,
+  "staleness_reasons": Dict[str, List[dict]],
+  "errors": List[dict],
+}
+```
+
+### Experimental Kernel (`flowbook/kernel_support/`) — Archived
+
+The experimental kernel and its JupyterLab plugin (`src/_archived/experimental/`) are no longer active. The Python backend remains in `flowbook/kernel_support/` for reference but the frontend plugin is excluded from the build.
+
+Key modules (for reference): `experimental_kernel.py`, `checkpoint.py`, `tracking.py`, `magics.py`.
+
+### Checkpoint Kernel (`flowbook/checkpoint_kernel/`)
+
+- `checkpoint_kernel.py` - `CheckpointKernel` for timing and benchmarking
+- `checkpoint_client.py` - `CheckpointKernelClient`
+
+**Key Feature**: Both `FlowbookKernelClient` and `ExperimentalKernelClient` inject `cell_id` and metadata into kernel messages, enabling cell-level tracking.
+
+### Command Pattern
+
+Commands follow a registry pattern:
+
+```python
+class SomeCommand(NotebookCommand):
+    @property
+    def command_name(self) -> str:
+        return "command_id"
+
+    @property
+    def display_name(self) -> str:
+        return "Human Readable Name"
+
+    @property
+    def requires_kernel(self) -> bool:
+        return True  # If kernel communication needed
+
+    def process(self, notebook_content: dict, kernel_client=None, **kwargs) -> dict:
+        # Process notebook, optionally execute code via kernel_client
+        return {"notebook": modified_notebook, "metadata": {...}}
+```
+
+Commands are auto-discovered by the registry from `flowbook/server/commands/`.
+
+### MCP Server (`flowbook/mcp/`)
+
+Exposes notebook reproducibility analysis as MCP tools for AI clients (e.g., Claude Code). 23 tools organized into core, algorithmic refactoring, and logging categories.
+
+- `server.py` - FastMCP server with `@_logged_tool` decorator for automatic event logging
+- `session.py` - `NotebookSession` manages a single (notebook, kernel) pair with reproducibility metadata
+- `jupyter_config.py` - Auto-discovers running Jupyter Server (URL, token, root_dir) from runtime directory or environment variables
+
+**Key MCP Tools:**
+
+| Tool                                                  | Purpose                                                    |
+| ----------------------------------------------------- | ---------------------------------------------------------- |
+| `load_notebook`                                       | Load notebook, start/join kernel, set up Contents API sync |
+| `run_cell`                                            | Execute cell, return outputs + flowbook metadata           |
+| `edit_cell`                                           | Edit source, sync to Y.js, notify kernel                   |
+| `list_cells` / `get_cell`                             | Read cell state (polls IOPub for external updates)         |
+| `get_status`                                          | Reproducibility status (violations, staleness)             |
+| `get_next_actionable_cell`                            | First cell needing attention                               |
+| `alpha_rename` / `remove_inplace` / `insert_deepcopy` | Algorithmic refactoring                                    |
+| `checkpoint` / `restore`                              | Save/restore notebook state                                |
+| `save_notebook`                                       | Write to disk                                              |
+
+### MCP ↔ JupyterLab Collaboration
+
+The MCP server and JupyterLab can share a single kernel and notebook document for real-time collaboration. Either can start first. See `MCP_ARCHITECTURE.md` for the full architecture document.
+
+**Architecture:**
+
+```
+MCP ──── Contents API GET ────► Jupyter Server ◄──── Y.js ──── JupyterLab
+MCP ──── Contents API PUT ────► Jupyter Server ────► Y.js ────► JupyterLab
+MCP ──── ZMQ ────────────────► Shared Kernel  ◄──── ZMQ ─────── JupyterLab
+```
+
+**Kernel Discovery** (`flowbook/kernel_discovery.py`):
+
+Discovery files in `~/.jupyter/runtime/flowbook-{sha256[:12]}.json` enable kernel sharing:
+
+- Whoever starts a kernel writes the discovery file (contains connection file path, PID, etc.)
+- The second participant reads it and connects as a second ZMQ client
+- PID liveness validation auto-cleans stale files
+- `read_discovery()` / `write_discovery()` / `remove_discovery()` are the public API
+
+**Contents API Sync** (in `session.py`):
+
+MCP syncs notebook state with JupyterLab via the Jupyter Contents API. With `jupyter-collaboration` installed, the API returns/accepts the live Y.js document state:
+
+1. **JupyterLab → MCP** (reading edits): `GET /api/contents/{path}` returns live cell sources; MCP merges into in-memory notebook preserving local outputs/metadata
+2. **MCP → JupyterLab** (pushing edits): `PUT /api/contents/{path}` updates the Y.js document; called after `edit_cell`, refactoring tools, and `save_notebook`
+3. **MCP → JupyterLab** (outputs): Shared kernel IOPub broadcasts execution results to both clients; FlowBook metadata propagates via comm channel
+4. Structural changes (cell add/delete/reorder in JupyterLab) are detected and synced
+
+**Cell ID Normalization in Shared Mode:**
+
+- MCP only normalizes cell IDs when starting fresh (no existing kernel/session)
+- When joining an existing session, MCP uses IDs as-is to avoid clobbering JupyterLab's IDs
+
+**Protocol Reconciliation:**
+
+- Both clients send `notebook_structure` and `cell_edited` to the kernel independently
+- This is safe because kernel handlers are idempotent
+- MCP polls IOPub on read operations (`get_cell`, `get_status`) to catch JupyterLab-initiated executions
+
+**Graceful Degradation:**
+
+- If no Jupyter Server is running, MCP works standalone (own kernel, file-based notebook)
+- Contents API sync is best-effort — connection failures don't block MCP operations
+
+**Dependencies:** `jupyter-collaboration` (required for live Contents API state; without it, API returns disk state only)
+
+**Tests:** `flowbook/mcp/tests/` — 45 tests covering kernel discovery, Jupyter config, shared-kernel integration, and Contents API sync
+
+## Cell ID Normalization
+
+All notebooks entering the system (via CLI or server) are automatically normalized to ensure consistent cell identification:
+
+- **4-character lowercase IDs**: All cells receive unique 4-character lowercase alphanumeric IDs (e.g., "abcd", "623a")
+- **Automatic ID generation**: Cells without IDs are assigned new unique IDs
+- **ID replacement**: Non-4-character IDs (like UUIDs or custom IDs) are replaced with new 4-character IDs
+- **Duplicate handling**: Duplicate IDs are automatically regenerated to ensure uniqueness
+- **Source normalization**: Cell sources are converted from list to string format
+
+This normalization happens transparently at entry points:
+
+- **CLI**: `load_notebook()` in `flowbook/cli/helpers.py`
+- **Server**: `FlowbookCommandHandler.post()` in `flowbook/server/handlers.py`
+- **Core function**: `normalize_notebook()` in `flowbook/util/cell_ids.py`
+
+### Why 4-character IDs?
+
+- **Readability**: Short IDs are easy to read in logs and debugging (26^4 = 456,976 possible IDs)
+- **Consistency**: All notebooks use the same ID format regardless of source
+- **Simplicity**: Easier to reference and track cells in development and testing
+
+## Code Style
+
+### Python
+
+- Follow standard Python conventions
+- Use type hints where applicable
+- Abstract base classes for extensibility (e.g., `NotebookCommand`)
+- **No relative imports**: All imports must use absolute paths (e.g., `from flowbook.kernel.models import ...`, not `from .models import ...`)
+- Test files go in `tests/` subdirectories with `__init__.py` files
+
+### TypeScript
+
+- **Interfaces**: Must start with `I` and use PascalCase (e.g., `ICommandInfo`)
+- **Quotes**: Single quotes, avoid template literals unless necessary
+- **Equality**: Use strict equality (`===`)
+- **Callbacks**: Prefer arrow functions
+- **Curly braces**: Always use for control structures
+
+## Important Files
+
+### Configuration
+
+- `pyproject.toml` - Python package config, dependencies, build system (hatchling)
+- `package.json` - NPM package config, scripts, linting rules
+- `tsconfig.json` - TypeScript compiler settings (ES2020, strict mode)
+- `jupyter-config/server-config/flowbook.json` - Jupyter server extension registration
+
+### Build Artifacts
+
+- `lib/` - Compiled TypeScript output (gitignored)
+- `flowbook/labextension/` - JupyterLab extension bundle (auto-generated)
+- `flowbook/_version.py` - Auto-generated from package.json version
+
+## Extension Points
+
+### Adding a New Command
+
+1. Create class in `flowbook/server/commands.py` inheriting `NotebookCommand`
+2. Implement required properties: `command_name`, `display_name`, `icon_name`, `requires_kernel`
+3. Implement `process()` method
+4. Register in `CommandRegistry` (typically auto-registered via import)
+5. Frontend automatically discovers via `GET /flowbook/list`
+
+### Modifying Kernel Behavior
+
+**FlowBook Kernel** (reproducibility):
+
+- Kernel spec: `flowbook/kernel/kernelspec/`
+- Main kernel class: `flowbook/kernel/flowbook_kernel.py`
+- Reproducibility logic: `flowbook/kernel/reproducibility_enforcer.py`
+- Conflict detection pipeline: `change_detector.py` → `locations.py` (ReadLoc/WriteLoc with ▷). WriteLoc has 5 types: Var, Col, Cols, Rows, File. Structural mutations (rows, index, dtype, column deletion) are tracked at operation time via `TrackingData` fields and converted to WriteLocs in `tracking_to_write_locs()`.
+- Formal specification: `FORMAL_DEVELOPMENT.md`
+
+**MCP Server**:
+
+- Server entry point: `flowbook/mcp/server.py` (23 tools)
+- Session management: `flowbook/mcp/session.py`
+- Jupyter server discovery: `flowbook/mcp/jupyter_config.py`
+- Kernel discovery: `flowbook/kernel_discovery.py`
+- Tests: `flowbook/mcp/tests/`
+
+**Checkpoint Kernel** (benchmarking):
+
+- Kernel spec: `flowbook/checkpoint_kernel/kernelspec/`
+- Main kernel class: `flowbook/checkpoint_kernel/checkpoint_kernel.py`
+
+**Frontend**:
+
+- Shared kernel utilities: `src/kernel.ts`
+- Kernel detection: `src/shared/kerneldetection.ts`
+
+## Dependencies
+
+### Python (Key)
+
+- `jupyter_server>=2.4.0` - Server extension base
+- `jupyterlab>=4.0.0` - Lab integration
+- `jupyter-collaboration` - Real-time collaboration (Contents API returns live Y.js state for MCP↔JupyterLab sync)
+- `mcp` (FastMCP) - MCP server framework
+- Data science stack: `pandas`, `numpy`, `scikit-learn`, `scipy`, `seaborn`, `matplotlib`
+- Testing: `pytest`, `hypothesis`
+
+### TypeScript (Key)
+
+- `@jupyterlab/application`, `@jupyterlab/notebook`, `@jupyterlab/cells` - JupyterLab APIs
+- `@jupyterlab/services` - Kernel and server communication
+- Build: `@jupyterlab/builder`, TypeScript ~5.4
+- Linting: ESLint, Prettier, Stylelint
+
+## Troubleshooting
+
+### Extension Not Loading
+
+```bash
+# Check server extension
+jupyter server extension list
+# Should show "flowbook" as enabled
+
+# Check frontend extension
+jupyter labextension list
+# Should show "flowbook" in enabled extensions
+```
+
+### Build Issues
+
+```bash
+# Clean everything and rebuild
+jlpm clean:all
+jlpm build
+pip install -e "." --force-reinstall
+jupyter labextension develop . --overwrite
+```
+
+### Development Mode Not Updating
+
+- Ensure `jlpm watch` is running
+- Hard refresh browser (Cmd+Shift+R / Ctrl+Shift+F5)
+- Check browser console for errors
+- Verify `jupyter lab` is running from repo root
+
+## Notes
+
+- The extension uses **modern ExtensionApp** architecture (not legacy `_load_jupyter_server_extension`)
+- Kernel installation happens automatically on import via `make_kernels()` in `__init__.py`
+- Timer utilities (`flowbook/util/output.py`) provide performance instrumentation throughout
+- Cell metadata tracking requires `FlowbookKernelClient` for proper `cell_id` propagation
+- Formal specification of reproducibility rules is in `FORMAL_DEVELOPMENT.md` with an Implementation Map linking formal definitions to code locations
+- The frontend `executionhook.ts` sends `notebook_structure` via comm before each cell execution and `cell_edited` (debounced 1s) when a previously-executed cell's source changes
+- The experimental plugin is archived in `src/_archived/` — excluded from TypeScript compilation (`tsconfig.json` exclude) and ESLint (`package.json` eslintIgnore)
+- MCP and JupyterLab can share a kernel via discovery files in `~/.jupyter/runtime/`. Either can start first. Contents API live sync requires `jupyter-collaboration`
+
+## Formal Specification Sync
+
+This project maintains a formal specification in `FORMAL_DEVELOPMENT.md` that maps formal concepts to their source code implementations. The spec and the code must always be kept in sync — **changes flow in both directions:**
+
+- **Spec → Code:** When a formal concept in `FORMAL_DEVELOPMENT.md` is added, modified, or removed, the corresponding source code MUST be updated to reflect the change. The spec is the source of truth for _what_ the system should do.
+- **Code → Spec:** When source code implementing a formal concept is created, modified, renamed, or deleted, the mapping in `FORMAL_DEVELOPMENT.md` MUST be updated to reflect the change.
+
+Before completing any task, verify that `FORMAL_DEVELOPMENT.md` and the source code it references are consistent with each other.
+
+---
+> Source: [stephenfreund/FlowBook](https://github.com/stephenfreund/FlowBook) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
