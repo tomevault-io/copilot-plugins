@@ -1,0 +1,44 @@
+{
+  "name": "dev-workflow",
+  "owner": "xujx1",
+  "repo": "dev-workflow",
+  "description": "\u4e00\u5957\u8dd1\u5728 Claude Code \u91cc\u7684 Java TDD \u5168\u6d41\u7a0b\u81ea\u52a8\u5316\u63d2\u4ef6\u3002\u4ece MRD \u5230\u53ef\u8dd1\u901a\u5355\u6d4b\u7684\u4ee3\u7801\uff0c\u5168\u7a0b AI \u9a71\u52a8\uff0c\u4eba\u5728\u5173\u952e\u8282\u70b9\u786e\u8ba4\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xujx1/dev-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T19:01:26Z"
+}
