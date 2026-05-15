@@ -1,0 +1,9 @@
+{
+  "name": "jilio--ebu",
+  "displayName": "ebu",
+  "description": "Lightweight, type-safe event bus for Go",
+  "version": "1.0.0",
+  "author": "jilio",
+  "homepage": "https://github.com/jilio/ebu",
+  "skills": []
+}
