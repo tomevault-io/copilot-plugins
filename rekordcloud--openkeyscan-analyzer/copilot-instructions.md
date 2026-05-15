@@ -1,0 +1,979 @@
+## openkeyscan-analyzer
+
+> This file contains technical documentation and important context about this project for future reference.
+
+# Musical Key CNN - Project Documentation
+
+This file contains technical documentation and important context about this project for future reference.
+
+---
+
+## Project Overview
+
+**Musical Key CNN** is a convolutional neural network-based system for musical key detection and classification. It predicts the musical key of audio files using the Camelot Wheel notation system (1A-12A for minor keys, 1B-12B for major keys).
+
+**Supported Audio Formats:**
+- Native (via PySoundFile): WAV, FLAC, OGG
+- Compressed (via audioread): MP3, MP4, M4A, AAC, AIFF, AU
+
+**Key Features:**
+- Predicts musical keys for individual audio files or entire folders
+- Supports 9 common audio formats (MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU)
+- Uses CNN architecture based on Korzeniowski & Widmer (2018)
+- Outputs both Camelot notation (e.g., "9A") and traditional key notation (e.g., "E minor")
+- Can be packaged as a standalone executable for distribution
+
+**Based on Research:**
+- Korzeniowski & Widmer. "Genre-Agnostic Key Classification With Convolutional Neural Networks" (ISMIR 2018)
+- Training dataset: GiantSteps MTG Key Dataset
+- Evaluation dataset: GiantSteps Key Dataset
+
+---
+
+## Project Architecture
+
+### Core Components
+
+1. **openkeyscan_analyzer.py** - Main entry point for key prediction
+   - Command-line interface for predicting keys from audio files
+   - Supports 9 audio formats: MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU
+   - Uses librosa for audio loading (modified from original torchaudio)
+   - Preprocesses audio to CQT spectrograms
+   - Outputs formatted results with Camelot notation
+
+2. **model.py** - Neural network architecture
+   - `KeyNet` class: CNN with 9 convolutional layers
+   - Uses batch normalization, ELU activation, and dropout
+   - Global average pooling for variable-length inputs
+   - 24 output classes (12 keys × 2 modes)
+
+3. **dataset.py** - Dataset handling and Camelot mapping
+   - `CAMELOT_MAPPING` dictionary: maps key strings to indices (0-23)
+   - `KeyDataset` class for training data loading
+
+4. **eval.py** - Model evaluation utilities
+   - `load_model()` function for loading trained weights
+   - MIREX key evaluation metrics implementation
+
+5. **train.py** - Training script (not modified in recent work)
+
+6. **openkeyscan_analyzer_server.py** - Long-running server mode (NEW)
+   - stdin/stdout JSON protocol for IPC
+   - Loads model once, keeps in memory for efficiency
+   - ThreadPoolExecutor for concurrent audio preprocessing
+   - Ideal for Electron/desktop app integration
+   - Supports high-throughput analysis (20+ files/min)
+
+7. **test/test_server.py** - Server test harness
+   - Spawns server as subprocess
+   - Tests with random MP3 files
+   - Validates protocol and performance
+
+### Audio Processing Pipeline
+
+1. **Load audio**: librosa.load() with mono conversion and resampling to 44.1kHz
+   - Supports: MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU
+   - Native formats (WAV, FLAC, OGG) use PySoundFile backend
+   - Compressed formats (MP3, MP4, M4A, AAC, etc.) use audioread backend
+2. **Compute CQT**: Constant-Q Transform with 105 bins, 24 bins/octave
+3. **Apply log scaling**: log1p() for magnitude compression
+4. **Slice spectrogram**: Remove last 2 time frames and last frequency bin
+5. **Batch and predict**: Pass through CNN model
+6. **Output**: Argmax to get class index, map to Camelot notation
+
+---
+
+## Important Modifications Made
+
+### 1. Audio Loading Backend Change & Multi-Format Support
+
+**File:** `openkeyscan_analyzer.py:99-101`
+
+**Original:**
+```python
+waveform, sr = torchaudio.load(mp3_path)
+# ... stereo to mono conversion
+# ... resampling with torchaudio.transforms.Resample
+```
+
+**Modified:**
+```python
+# Use librosa to load and resample audio (supports multiple formats)
+waveform, sr = librosa.load(audio_path, sr=sample_rate, mono=True)
+waveform = waveform.astype(np.float32)
+```
+
+**Supported Formats:**
+```python
+SUPPORTED_FORMATS = {'.mp3', '.mp4', '.wav', '.flac', '.ogg', '.m4a', '.aac', '.aiff', '.au'}
+```
+
+**Reason:**
+- torchaudio.load() requires torchcodec which has FFmpeg dependency issues
+- librosa.load() uses native audio backends (Core Audio on macOS) and is more reliable
+- Simplifies code by handling mono conversion and resampling in one call
+- Supports 9 common audio formats out of the box with no code changes needed
+- WAV/FLAC/OGG work natively via soundfile, compressed formats via audioread
+
+### 2. Resource Path Resolution for PyInstaller
+
+**File:** `openkeyscan_analyzer.py:12-29`
+
+**Added:**
+```python
+def get_resource_path(relative_path):
+    """Get absolute path to resource, works for dev and PyInstaller."""
+    try:
+        base_path = Path(sys._MEIPASS)  # PyInstaller temp folder
+    except AttributeError:
+        base_path = Path(__file__).parent  # Normal execution
+    return base_path / relative_path
+```
+
+**Usage:** Default model path now uses `get_resource_path('checkpoints/openkeyscan3.pt')`
+
+**Reason:** Allows the bundled executable to find the model file in PyInstaller's temporary extraction directory
+
+---
+
+## Dependencies
+
+### Production Dependencies
+- **torch** (>=2.0): PyTorch deep learning framework
+- **torchaudio**: Audio I/O (not actively used due to librosa change)
+- **librosa**: Audio processing and CQT computation
+- **numpy**: Numerical computing
+- **tqdm**: Progress bars
+- **scipy**: Scientific computing (transitive via librosa)
+- **scikit-learn**: Machine learning utilities (transitive via librosa)
+- **numba**: JIT compilation for librosa
+- **soundfile**: Audio I/O backend for librosa
+
+### Development Dependencies
+- **pyinstaller**: Executable packaging
+
+### Dependency Management
+
+**Pipenv (recommended):**
+```sh
+pipenv install          # Production dependencies
+pipenv install --dev    # Add PyInstaller
+```
+
+**Traditional (legacy):**
+```sh
+pip install -r requirements.txt
+```
+
+---
+
+## Building Standalone Executable
+
+### Prerequisites
+- macOS (tested on macOS 15.6.1, ARM64)
+- Python 3.13
+- All dependencies installed
+
+### Build Process
+
+```sh
+# Install dev dependencies
+pipenv install --dev
+
+# Build executable
+pyinstaller openkeyscan_analyzer.spec
+```
+
+### What Happens During Build
+
+1. **Analysis**: PyInstaller analyzes dependencies and imports
+2. **Collection**: Gathers all required Python modules and binaries
+3. **Bundling**: Creates `dist/openkeyscan-analyzer/` folder with:
+   - Executable binary
+   - Python runtime and libraries
+   - All dependencies (PyTorch, librosa, etc.)
+   - Trained model (`checkpoints/custom/openkeyscan3.pt`)
+4. **Post-processing**: Automatically dereferences 15 symlinks to actual files
+
+### Build Output
+
+- **Location**: `dist/openkeyscan-analyzer/`
+- **Size**: ~780MB (uncompressed), ~224MB (zipped)
+- **Portability**: Fully self-contained, can run on any macOS system
+
+### Symlinks Replaced During Build
+
+The following symlinks are automatically replaced with actual files:
+- `libtorch.dylib`, `libtorch_cpu.dylib`, `libtorch_python.dylib`
+- `libc10.dylib`, `libshm.dylib`, `libomp.dylib`
+- `libtorchaudio.so`
+- `libc++.1.0.dylib`
+- `libgfortran.5.dylib`, `libquadmath.0.dylib`, `libgcc_s.1.1.dylib`
+- Python framework symlinks (Python, Resources, Current)
+
+---
+
+## Platform-Specific Notes
+
+### macOS
+- **Audio Backend**: Uses Core Audio (native) via librosa/audioread
+- **Native Formats**: WAV, FLAC, OGG work via PySoundFile (no dependencies)
+- **Compressed Formats**: MP3, M4A, AAC work via audioread + Core Audio
+- **FFmpeg**: NOT required for any format on macOS
+- **Distribution**: Executable is fully self-contained
+- **Tested On**: macOS 15.6.1 (Sequoia), ARM64 architecture
+
+### Windows
+- **Audio Backend**: Uses audioread for compressed formats
+- **Native Formats**: WAV, FLAC, OGG work natively via PySoundFile
+- **Compressed Formats**: MP3, MP4, M4A, AAC, AIFF, AU work via audioread backends
+- **FFmpeg**: Required for MP3/MP4/M4A/AAC support (must be in PATH or bundled)
+- **Distribution**: PyInstaller builds tested and working on Windows
+- **Tested On**: Windows 10 (Build 26100), MSYS2/Git Bash environment
+- **Performance Note**: ~20+ seconds per file (significantly slower than macOS due to Windows overhead and CPU differences)
+- **Build Output**: `.exe` executable (works without Python installation)
+
+### Linux
+- **Audio Backend**: Would require FFmpeg for compressed format decoding
+- **Native Formats**: WAV, FLAC, OGG work natively via PySoundFile
+- **Compressed Formats**: MP3, M4A, AAC require FFmpeg or GStreamer
+- **FFmpeg**: Must be bundled or installed on target system for MP3/M4A/AAC
+- **Distribution**: Not currently configured, would need platform-specific builds
+
+---
+
+## File Structure
+
+```
+MusicalKeyCNN-main/
+├── openkeyscan_analyzer.py          # Main CLI entry point
+├── openkeyscan_analyzer_server.py   # Server mode (stdin/stdout JSON protocol)
+├── model.py                 # CNN architecture
+├── dataset.py               # Dataset and Camelot mapping
+├── eval.py                  # Evaluation utilities
+├── train.py                 # Training script
+├── preprocess_data.py       # Dataset preprocessing
+├── openkeyscan_analyzer.spec        # PyInstaller configuration (both CLI and server)
+├── dereference_symlinks.py  # Manual symlink dereferencing utility
+├── profile_performance.py   # Performance profiling script (standalone)
+├── Pipfile                  # Pipenv dependencies
+├── requirements.txt         # Pip dependencies (legacy)
+├── README.md               # User documentation
+├── CLAUDE.md               # This file (technical documentation)
+├── PERFORMANCE_INVESTIGATION.md  # Windows performance investigation
+├── checkpoints/
+│   └── keynet.pt           # Trained model weights
+│   └── openkeyscan1.pt     # Trained model weights with more data
+│   └── openkeyscan3.pt     # Trained model weights with optimized parameters
+├── test/                   # Test scripts and test data
+│   ├── test_server.py      # Server test harness (full test with file discovery)
+│   ├── test_exe_quick.py   # Quick executable test with specific files
+│   ├── test_exe_simple.py  # Simple executable stdout/stderr test
+│   ├── test_*.py           # Additional test scripts
+│   └── test_*.sh           # Shell test scripts
+└── dist/                   # Build output (gitignored)
+    └── openkeyscan-analyzer/       # Standalone executable distribution
+        └── openkeyscan-analyzer.exe    # Server executable (Windows)
+```
+
+---
+
+## Common Workflows
+
+### Predict Key for Single File
+```sh
+# Works with any supported format: MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU
+python openkeyscan_analyzer.py -f path/to/song.mp3
+python openkeyscan_analyzer.py -f path/to/song.wav
+python openkeyscan_analyzer.py -f path/to/song.flac
+```
+
+### Predict Keys for Folder
+```sh
+# Automatically finds all supported audio files in the folder
+python openkeyscan_analyzer.py -f path/to/music/folder/
+```
+
+### Using Custom Model
+```sh
+python openkeyscan_analyzer.py -f song.mp3 -m path/to/custom_model.pt
+```
+
+### Force CPU Usage
+```sh
+python openkeyscan_analyzer.py -f song.mp3 --device cpu
+```
+
+### Build and Distribute
+```sh
+# Build
+pyinstaller openkeyscan_analyzer.spec
+
+# Test the built executable (quick test with 3 specific files)
+python test/test_exe_quick.py
+
+# Test with the full test harness (requires Python dependencies)
+python test/test_server.py --exe
+
+# Package for distribution
+cd dist
+zip -r openkeyscan-analyzer.zip openkeyscan-analyzer/
+```
+
+### Server Mode (Electron/IPC Integration)
+
+```sh
+# Start server in development
+python openkeyscan_analyzer_server.py
+
+# Test server with Python script (requires dependencies installed)
+python test/test_server.py
+
+# Test the built executable with specific files (Windows-friendly)
+python test/test_exe_quick.py
+```
+
+---
+
+## Server Mode Architecture
+
+**Purpose**: Long-running process for integration with Electron/JavaScript applications. Avoids model reload overhead by keeping model in memory.
+
+### Protocol: Line-Delimited JSON (NDJSON)
+
+**Communication**: stdin (requests) / stdout (responses)
+
+**Request Format:**
+```json
+{"id": "uuid-1234", "path": "/absolute/path/to/song.mp3"}
+```
+*Note: Works with any supported format (MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU)*
+
+**Success Response:**
+```json
+{
+  "id": "uuid-1234",
+  "status": "success",
+  "camelot": "9A",
+  "openkey": "2m",
+  "key": "E minor",
+  "class_id": 8,
+  "filename": "song.mp3"
+}
+```
+
+**Error Response:**
+```json
+{
+  "id": "uuid-1234",
+  "status": "error",
+  "error": "File not found",
+  "filename": "song.mp3"
+}
+```
+*Or: "Unsupported format. Supported: .aac, .aiff, .au, .flac, .m4a, .mp3, .mp4, .ogg, .wav"*
+
+**System Messages:**
+```json
+{"type": "ready"}       // Sent on startup
+{"type": "heartbeat"}   // Sent every 30s
+```
+
+**Reset Command (NEW):**
+```json
+// Request (stops all processing without restarting)
+{"type": "reset"}
+
+// Response
+{"type": "reset_complete", "generation": 1}
+```
+
+The reset command allows the parent process to:
+- Stop all pending/running analysis tasks
+- Clear internal state and queues
+- **Keep models loaded in memory** (no reload delay)
+- Discard any results from tasks that were running before reset
+
+**How it works:**
+- Server maintains a "generation" counter that increments on each reset
+- Each analysis task is tagged with the generation it was submitted in
+- When a task completes, the server checks if the result is from the current generation
+- Results from old generations are silently discarded (never sent to parent)
+- This allows instant reset without killing the subprocess or reloading models
+
+**Use case:** When the user clears the analysis queue in the UI, send a reset command instead of restarting the subprocess. This eliminates the 1-2 second model reload delay.
+
+### Server Features
+
+1. **Thread-Safe**: Each worker thread loads its own model instance (default: 1 worker)
+2. **Fast Startup**: Models pre-loaded during initialization - no delay on first request
+3. **Configurable Concurrency**: `-w` flag controls worker count (1-8 threads)
+4. **Fast Processing**: ~0.41-0.90s per file average (tested with 10 files)
+5. **Reliable**: Auto-restart capability via parent process
+6. **Async**: Non-blocking - returns results as they complete
+7. **Simple IPC**: Direct pipe communication, no network overhead
+
+### Electron Integration Example
+
+```javascript
+const { spawn } = require('child_process');
+const readline = require('readline');
+
+// Spawn the server
+const server = spawn('./dist/openkeyscan-analyzer/openkeyscan-analyzer');
+
+// Set up line reader for responses
+const rl = readline.createInterface({
+  input: server.stdout,
+  crlfDelay: Infinity
+});
+
+// Handle responses
+rl.on('line', (line) => {
+  const response = JSON.parse(line);
+
+  if (response.type === 'ready') {
+    console.log('Server ready!');
+  } else if (response.id) {
+    // Match response to request by ID
+    handleResult(response);
+  }
+});
+
+// Send request
+function analyzeFile(filePath) {
+  const request = {
+    id: generateUUID(),
+    path: filePath
+  };
+
+  server.stdin.write(JSON.stringify(request) + '\n');
+}
+
+// Auto-restart on crash
+server.on('exit', (code) => {
+  console.log(`Server exited with code ${code}`);
+  // Implement restart logic
+});
+```
+
+### Performance Characteristics
+
+**Throughput (Tested):**
+- Single file: ~440ms average
+- 10 files concurrent: 4.37s total (437ms avg per file)
+- Expected: 20-40 files/min single-threaded
+- With batching: 100-200 files/min potential
+
+**Memory Profile:**
+- Model: ~80-100MB (loaded once)
+- Per-file spectrogram: ~5-10MB (temporary)
+- Thread pool: ~10MB
+- Total baseline: ~100-150MB
+
+**Startup Time:**
+- Model loading: ~1-2s
+- Server initialization: ~0.5s
+- Total: ~1.5-2.5s ready time
+
+### Testing the Server
+
+```sh
+# Run test harness (analyzes 10 random files from ~/Music/spotify)
+python test/test_server.py
+```
+
+**Expected Output:**
+```
+Starting key detection server...
+[SERVER] Loading model...
+[SERVER] Model loaded on cpu
+Server ready!
+
+Finding 10 random MP3 files from ~/Music/spotify...
+Found 10 files to analyze
+Sending 10 requests...
+
+Results:
+----------------------------------------------------------------------
+Track1.mp3: 9A (E minor)
+Track2.mp3: 4A (F minor)
+...
+Track10.mp3: 6A (G minor)
+----------------------------------------------------------------------
+
+Processed 10 files in 4.37s
+Success: 10, Failed: 0
+Average: 0.44s per file
+```
+
+### Testing Reset Functionality
+
+**Quick Reset Test (Basic):**
+```sh
+# Test reset acknowledgment and server responsiveness (fast)
+python test/test_reset_basic.py
+```
+
+This test verifies:
+1. Server starts and sends ready signal
+2. Reset command is acknowledged with reset_complete
+3. Server remains responsive after reset (processes one file)
+
+**Expected Output:**
+```
+Starting server...
+Waiting for ready signal...
+[OK] Server ready
+
+Sending reset command...
+Waiting for reset_complete...
+[OK] Reset complete (generation: 1)
+
+Verifying server is still responsive...
+Testing with file: song.mp3
+(This may take 20-60 seconds on Windows...)
+[OK] Server responded: 6A
+
+============================================================
+TEST PASSED!
+  - Reset acknowledged: YES
+  - Server stayed alive: YES
+  - Server responsive after reset: YES
+============================================================
+```
+
+**Comprehensive Reset Test:**
+```sh
+# Test that stale results are actually discarded (comprehensive)
+python test/test_reset_comprehensive.py
+```
+
+This test verifies:
+1. Server processes multiple requests before reset
+2. Reset command is sent while requests are processing
+3. NO stale results from pre-reset tasks are received
+4. New requests after reset work correctly
+5. Models stay loaded (no restart)
+
+**Expected Output:**
+```
+======================================================================
+Comprehensive Reset Test
+======================================================================
+
+Found 3 test files in ~/Music/spotify
+
+Starting server...
+Waiting for server to be ready...
+[OK] Server ready
+
+Phase 1: Sending requests before reset
+----------------------------------------------------------------------
+  Sent: pre-reset-0 (song1.mp3)
+  Sent: pre-reset-1 (song2.mp3)
+  Sent: pre-reset-2 (song3.mp3)
+
+Waiting 1 second for processing to start...
+
+Phase 2: Sending reset command
+----------------------------------------------------------------------
+Waiting for reset_complete...
+[OK] Reset complete (generation: 1)
+
+Phase 3: Checking for stale results
+----------------------------------------------------------------------
+Waiting 10 seconds to collect any responses...
+[OK] No stale results received (all discarded by server)
+
+Phase 4: Testing new requests after reset
+----------------------------------------------------------------------
+  Sent: post-reset-0 (song1.mp3)
+  Sent: post-reset-1 (song2.mp3)
+
+Waiting for new results (may take 40-120 seconds on Windows)...
+  [OK] post-reset-0: 8A
+  [OK] post-reset-1: 4A
+
+[OK] All 2 new requests completed
+
+======================================================================
+TEST PASSED!
+
+  Reset acknowledged: YES
+  Stale results discarded: YES
+  New requests work: YES
+  Server stayed alive: YES (no model reload)
+======================================================================
+```
+
+**What the tests confirm:**
+- ✅ Reset command is acknowledged with `reset_complete` message
+- ✅ Results from pre-reset tasks are **never sent to parent** (discarded by server)
+- ✅ New requests after reset work correctly
+- ✅ Subprocess stays alive with models loaded (no 1-2s reload delay)
+- ✅ Generation counter prevents race conditions
+
+**Note:** Tests use non-blocking I/O via threading to work reliably on Windows.
+
+### Testing Built Executables
+
+**Quick Test (Recommended for Windows):**
+```sh
+# Tests the executable with 3 specific MP3 files
+# Faster and more reliable than recursive file search on Windows
+python test/test_exe_quick.py
+```
+
+**Expected Output:**
+```
+Starting executable: C:\...\dist\openkeyscan-analyzer\openkeyscan-analyzer.exe
+Waiting for server to be ready...
+[OK] Server ready!
+
+Sending 3 requests...
+Waiting for results (may take 10-15s per file on Windows)...
+
+======================================================================
+RESULTS:
+======================================================================
+[OK] Athys & Duster - Barfight.mp3
+  Camelot: 4A | Open Key: 9m | Key: F minor
+
+[OK] Audio - Combust.mp3
+  Camelot: 4A | Open Key: 9m | Key: F minor
+
+[OK] Balthazar & JackRock - Andromeda.mp3
+  Camelot: 11A | Open Key: 4m | Key: F# minor/Gb minor
+======================================================================
+
+Processed 3/3 files in 63.21s
+Average: 21.07s per file
+
+Done!
+```
+
+**Full Test Harness (with executable):**
+```sh
+# Tests executable with random MP3 files from a directory
+# Note: File discovery can be slow on Windows with large directories
+python test/test_server.py --exe -d ~/Music -n 5
+```
+
+**Performance Notes:**
+- **macOS**: ~0.44s per file (as documented in original tests)
+- **Windows**: ~20-21s per file (**~45x slower**, tested on Windows 10/MSYS2)
+- Windows slowdown likely due to:
+  - **librosa.cqt() performance** (most likely bottleneck - heavy FFT computations)
+  - **numpy/scipy BLAS optimization** (Windows numpy may not use MKL/OpenBLAS)
+  - **librosa.load() audio decoding** (audioread backend performance)
+  - **MSYS2/Git Bash overhead** (emulation layer)
+- **See PERFORMANCE_INVESTIGATION.md** for detailed analysis and profiling instructions
+- **Profiling enabled**: Set `PROFILE_PERFORMANCE=1` environment variable to get timing breakdown
+
+### Command-Line Options
+
+```sh
+# Start server with custom model
+python openkeyscan_analyzer_server.py -m path/to/model.pt
+
+# Force CPU usage
+python openkeyscan_analyzer_server.py --device cpu
+
+# Adjust worker threads (default: 1, each loads own model)
+python openkeyscan_analyzer_server.py -w 2  # 2 workers = 2 model instances
+
+# Note: Each worker loads its own model instance to avoid thread safety issues
+# Memory usage = ~200MB per worker + preprocessing buffers
+# Workers=1: ~1GB peak | Workers=2: ~1.2GB peak | Workers=4: ~1.6GB peak (estimated)
+```
+
+**Threading Model:**
+- **Default: 1 worker** (safest, lowest memory)
+- Each worker thread has its own model instance (pre-loaded during startup)
+- No locks needed - true parallel processing if workers > 1
+- Increase workers for higher throughput, but monitor memory usage
+- All models are loaded before the "ready" message is sent
+
+### Error Handling
+
+**File Errors:**
+- File not found → Returns error JSON
+- Invalid format → Returns error JSON
+- Corrupted audio → Returns error JSON
+
+**Protocol Errors:**
+- Malformed JSON → Logged to stderr, skipped
+- Missing fields → Logged to stderr, skipped
+
+**Process Errors:**
+- Model inference failure → Returns error JSON
+- Out of memory → Process exits (parent should restart)
+
+### Advantages Over API Server
+
+✅ **Lower latency**: No HTTP overhead
+✅ **Simpler**: No port management or CORS
+✅ **Process isolation**: Easy to restart on crash
+✅ **Resource efficient**: Single model instance
+✅ **Built-in IPC**: Node.js child_process handles pipes
+
+### When to Use Server Mode
+
+- ✅ Electron/desktop app integration
+- ✅ High-volume batch processing
+- ✅ Need to analyze 10+ files without reload
+- ✅ Want async/streaming results
+- ✅ Memory-constrained environments
+
+### When to Use CLI Mode
+
+- ✅ One-off analysis
+- ✅ Shell scripting
+- ✅ Manual testing
+- ✅ Simple use cases
+
+---
+
+## Technical Details
+
+### Model Architecture
+- **Input**: CQT spectrogram (1 channel, 104 frequency bins, variable time frames)
+- **Layers**: 9 convolutional layers with increasing feature maps (20 → 160)
+- **Pooling**: 3 MaxPool2d layers + Global Average Pooling
+- **Regularization**: Dropout2d (p=0.5) after each pooling stage
+- **Output**: 24-dimensional logits (one per key class)
+
+### Key Notation Systems
+
+**Camelot Wheel Mapping:**
+- **Indices 0-11**: Minor keys (A, e.g., 1A = G# minor)
+- **Indices 12-23**: Major keys (B, e.g., 1B = B major)
+- **Calculation**: `idx = (class % 12) + 1`, `mode = "A" if class < 12 else "B"`
+
+**Open Key Notation:**
+- Alternative notation system used by some DJ software (Traktor, etc.)
+- Minor keys: 1m-12m (m = minor)
+- Major keys: 1d-12d (d = dur/major, from German)
+- **Conversion** (both use the same offset):
+  - `openkey_num = ((camelot_num - 8) % 12) + 1`
+  - `openkey_mode = "m" if minor else "d"`
+- **Examples**:
+  - 8A (A minor) = 1m
+  - 8B (C major) = 1d
+  - 9A (E minor) = 2m
+  - 12A (C# minor) = 5m
+  - 6A (G minor) = 11m
+
+Both notations are provided in server responses for compatibility with different DJ applications.
+
+### CQT Parameters
+- **Sample Rate**: 44,100 Hz
+- **Hop Length**: 8,820 samples (~200ms)
+- **Bins**: 105 frequency bins
+- **Bins per Octave**: 24
+- **Frequency Min**: 65 Hz (C2)
+
+### Performance Metrics
+The included model (`keynet.pt`) achieves:
+- **Weighted Score**: 73.51% (MIREX metric)
+- **Correct**: 66.72%
+- **Fifth**: 8.11%
+- **Relative**: 6.79%
+- **Parallel**: 3.48%
+- **Other**: 14.90%
+
+The model trained with more data and optimized parameters (`openkeyscan3.pt`) achieves:
+- **Weighted Score**: 79.00% (MIREX metric)
+- **Correct**: 73.46%
+- **Fifth**: 4.46%
+- **Relative**: 8.16%
+- **Parallel**: 4.32%
+- **Other**: 9.61%
+
+---
+
+## Troubleshooting
+
+### Issue: "ModuleNotFoundError: No module named 'torch'"
+**Solution:** Install dependencies with `pipenv install` or `pip install -r requirements.txt`
+
+### Issue: "Could not load libtorchcodec" (if using torchaudio.load)
+**Solution:** This is resolved by using librosa.load() instead (already implemented)
+
+### Issue: Executable doesn't work on other machines
+**Solution:** Ensure symlinks were dereferenced (automatic in spec file). Verify by running `find dist/openkeyscan-analyzer -type l` (should return nothing)
+
+### Issue: "FileNotFoundError" when running executable
+**Solution:** Use absolute paths, not tilde (~) expansion. The executable doesn't expand `~` like shells do.
+
+### Issue: Slow first-time execution
+**Solution:** Normal. PyTorch and model loading take a few seconds on first run.
+
+---
+
+## Future Enhancements
+
+### Potential Improvements
+1. **Cross-platform builds**: Configure PyInstaller for Linux and Windows
+2. **Bundle FFmpeg**: For non-macOS platforms
+3. **GPU acceleration**: Add CUDA support for faster inference
+4. **Batch processing**: Optimize for processing many files at once
+5. **Web interface**: Add Flask/FastAPI wrapper for web-based predictions
+6. **Real-time processing**: Stream audio for live key detection
+7. **Confidence scores**: Output prediction confidence alongside key
+
+### Build Optimization
+- Exclude unused scipy/sklearn modules to reduce size
+- Use UPX compression more aggressively
+- Consider single-file executable (may increase startup time)
+
+---
+
+## Development Notes
+
+### Testing Changes
+Always test after modifications:
+```sh
+# Test in development environment
+python openkeyscan_analyzer.py -f test.mp3
+
+# Test built executable
+./dist/openkeyscan-analyzer/openkeyscan-analyzer
+
+# Test distribution portability
+cd /tmp
+unzip path/to/openkeyscan-analyzer.zip
+./openkeyscan-analyzer/openkeyscan-analyzer
+```
+
+### Code Style
+- Follow existing patterns in codebase
+- Use type hints where applicable
+- Document functions with docstrings
+- Keep openkeyscan_analyzer.py compatible with both dev and PyInstaller environments
+
+### Git Ignore
+Ensure these are gitignored:
+- `dist/`
+- `build/`
+- `*.spec` (if generating custom ones)
+- `venv/`
+- `.venv/`
+- `__pycache__/`
+- `*.pyc`
+
+---
+
+## References
+
+### Papers
+- [Korzeniowski & Widmer, 2018 - Genre-Agnostic Key Classification](https://arxiv.org/abs/1808.05340)
+- [Korzeniowski & Widmer, 2017 - End-to-End Musical Key Estimation](https://arxiv.org/abs/1706.02921)
+
+### Datasets
+- [GiantSteps MTG Key Dataset](https://github.com/GiantSteps/giantsteps-mtg-key-dataset)
+- [GiantSteps Key Dataset](https://github.com/GiantSteps/giantsteps-key-dataset)
+
+### Tools
+- [PyTorch](https://pytorch.org/)
+- [librosa](https://librosa.org/)
+- [PyInstaller](https://pyinstaller.org/)
+
+---
+
+## Changelog
+
+### Recent Modifications (2025-11-04 to 2025-11-05)
+1. ✅ Changed audio loading from torchaudio to librosa (FFmpeg independence)
+2. ✅ Added resource path resolution for PyInstaller bundling
+3. ✅ Created PyInstaller spec file with model bundling
+4. ✅ Implemented automatic symlink dereferencing in spec file
+5. ✅ Migrated to Pipenv for dependency management
+6. ✅ Updated README with Pipenv instructions and build process
+7. ✅ Uncommented torch/torchaudio in requirements.txt for legacy support
+8. ✅ Created standalone dereference_symlinks.py utility
+9. ✅ Verified executable portability on macOS ARM64
+10. ✅ **Implemented server mode (openkeyscan_analyzer_server.py)** for Electron/IPC integration
+11. ✅ Created stdin/stdout JSON protocol (NDJSON) for async communication
+12. ✅ Added ThreadPoolExecutor for concurrent audio preprocessing
+13. ✅ Created test_server.py for validation and testing
+14. ✅ Updated PyInstaller spec to build server-only executable (removed CLI build)
+15. ✅ Achieved ~0.44s per file throughput (tested with 10 concurrent files)
+16. ✅ **Added Open Key notation** support alongside Camelot (1m-12m, 1d-12d)
+17. ✅ Implemented camelot_to_openkey() conversion function
+18. ✅ Updated server response JSON to include both notations
+19. ✅ **Fixed Open Key conversion bug** - corrected formula to use same offset (-8) for both minor and major keys
+20. ✅ **Implemented per-thread model loading** - each worker gets own model instance for thread safety
+21. ✅ **Changed default workers from 4 to 1** - reduces memory usage and prevents crashes
+22. ✅ **Added memory tracking to test_server.py** - psutil integration with granular per-file tracking
+23. ✅ **Reduced peak memory usage** - 1.1GB (1 worker) vs 1.3GB (4 workers) for 10 files
+24. ✅ **Changed to eager model loading** - all worker models pre-loaded during startup instead of lazy loading on first request
+25. ✅ **Added multi-format audio support** - now supports 8 formats: MP3, WAV, FLAC, OGG, M4A, AAC, AIFF, AU
+26. ✅ Renamed functions from `preprocess_mp3` to `preprocess_audio` and `get_mp3_list` to `get_audio_list`
+27. ✅ Updated both CLI and server modes to accept all supported formats
+28. ✅ Added `SUPPORTED_FORMATS` constant for centralized format management
+29. ✅ **Added MP4 support** (2025-11-04) - expanded from 8 to 9 supported formats, MP4 works via audioread/Core Audio on macOS
+30. ✅ **Windows executable testing** (2025-11-05) - verified build works on Windows 10/MSYS2
+31. ✅ **Created test_exe_quick.py** - fast test script with specific files (Windows-friendly)
+32. ✅ **Created test_exe_simple.py** - minimal stdout/stderr test script
+33. ✅ **Updated test_server.py** - added --exe flag to test built executables
+34. ✅ **Documented Windows performance** - ~20-21s per file (vs 0.44s on macOS)
+35. ✅ **Fixed Windows compatibility issues** - absolute paths, Python vs python3, encoding
+36. ✅ **Added performance profiling** (2025-11-05) - instrumented server with PROFILE_PERFORMANCE env var
+37. ✅ **Created PERFORMANCE_INVESTIGATION.md** - detailed analysis of Windows slowdown
+38. ✅ **Created profile_performance.py** - standalone profiling script for detailed timing analysis
+39. ✅ **Downgraded to Python 3.12 and PyTorch 2.2.2** (2025-11-06) - for cross-architecture support (ARM64 + x86_64)
+    - PyTorch 2.3+ dropped macOS x86_64 support, only ARM64 available
+    - PyTorch 2.2.2 is last version with both ARM64 and x86_64 wheels
+    - Updated Pipfile to require Python 3.12.x and pin torch==2.2.2, numpy<2.0
+    - Added Python version check to _build-mac.sh with detailed error messaging
+    - Updated README.md with Python version requirement explanation
+    - Regenerated Pipfile.lock with Python 3.12 + torch 2.2.2 + numpy 1.26.4
+    - Verified x64 build works in Rosetta 2 terminal
+    - Set PIPENV_PYTHON=python3.12 in build script to ensure correct Python
+40. ✅ **Reorganized test files into test/ folder** (2025-11-09) - improved project structure
+    - Created test/ folder for all test scripts
+    - Moved all test_*.py, test_*.sh, and test_*.txt files
+    - Updated documentation references
+41. ✅ **Implemented reset command** (2025-11-12) - allows stopping all processing without subprocess restart
+    - Added generation counter to track task epochs in Python server
+    - Modified process_request() to tag results with generation number
+    - Added reset() method that increments generation and discards stale results
+    - Created TypeScript reset() method in KeyDetectionService
+    - Updated main.ts IPC handler to use reset() instead of stopAndRestart()
+    - Eliminates 1-2 second model reload delay when clearing analysis queue
+    - Created test/test_reset.py for comprehensive reset testing
+    - Created test/test_reset_simple.py for quick development testing
+    - Updated CLAUDE.md with reset command protocol documentation
+
+### Known Working Configuration
+
+**Dependencies:**
+- Python: 3.12.10 (**Required:** 3.12.x for cross-architecture support)
+- torch: 2.2.2 (last version with macOS x86_64 wheels)
+- torchaudio: 2.2.2
+- librosa: 0.11.0
+- numpy: 1.26.4 (pinned to <2.0 for PyTorch 2.2.2 compatibility)
+- PyInstaller: 6.16.0
+- Supported Audio Formats: MP3, MP4, WAV, FLAC, OGG, M4A, AAC, AIFF, AU (9 total)
+
+**Python Version Requirement:**
+This project **requires Python 3.12.x** (not 3.13+) to support both ARM64 and x86_64 builds:
+- PyTorch 2.3.0+ dropped macOS x86_64 (Intel) support, only ARM64 wheels available
+- PyTorch 2.2.2 is the last version with both ARM64 and x86_64 macOS wheels
+- PyTorch 2.2.2 requires Python 3.8-3.12 (not compatible with 3.13+)
+- Use the universal2 installer from python.org for both architectures
+
+**Tested Platforms:**
+- **macOS ARM64**: 15.6.1 (Sequoia), Apple Silicon - Performance: ~0.44s per file
+- **macOS x86_64**: 15.6.1 (Sequoia), Rosetta 2/Intel - Performance: ~45s per file (tested with Python 3.12 + torch 2.2.2)
+- **Windows**: 10 (Build 26100), MSYS2/Git Bash - Performance: ~20-21s per file
+
+---
+
+*Last Updated: 2025-11-09*
+
+---
+> Source: [rekordcloud/openkeyscan-analyzer](https://github.com/rekordcloud/openkeyscan-analyzer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
