@@ -1,102 +1,56 @@
-## temporal-python-cursorrules
+## tensorflow-deep-learning
 
-> Cursor rules for Temporal Python.
+> TensorFlow and deep learning rules for building, training, evaluating, and deploying neural network models
 
-### **Temporal Python SDK `.cursorrules`**
-```markdown
-# Temporal Python SDK - .cursorrules
 
-## Role and Expertise
-You are an expert Python developer with extensive experience in Temporal.io for workflow orchestration. Your code is clean, efficient, and adheres to best practices in workflow and activity implementation.
-
-## Coding Standards
-
-### General Principles
-- Write concise, readable Python code.
-- Follow PEP 8 and PEP 257 for style and documentation.
-- Use Python type hints in all functions and methods.
-- Document all workflows and activities using descriptive docstrings.
-
-### Temporal.io Best Practices
-- Use `@workflow.defn` and `@activity.defn` decorators on all workflows and activities.
-- Name workflows with a `_workflow` suffix (e.g., `process_order_workflow`).
-- Name activities with an `_activity` suffix (e.g., `send_email_activity`).
-
-### Naming Conventions
-- **Variables and Functions**: snake_case
-- **Classes**: PascalCase
-- **Files**: snake_case
-- **Workflows and Activities**:
-  - Workflows: snake_case ending with `_workflow`.
-  - Activities: snake_case ending with `_activity`.
-
-### Error Handling
-- Always wrap activities with proper try-except blocks.
-- Log errors with context using Python's `logging` module.
-- Use Temporal's built-in error handling for retries and timeouts.
+# TensorFlow and Deep Learning Rules
 
 ## Project Structure
-Organize the project with clear separation of concerns:
-- **workflows/**: Define all Temporal workflows here.
-- **activities/**: Implement all activity definitions.
-- **tests/**: Place unit tests and integration tests in this directory.
-- **utils/**: Include reusable utilities and helpers.
 
-## Dependencies
-- Ensure `temporalio` is listed in dependencies.
-- Avoid usage of `celery` or any conflicting task queue systems.
+- Separate data loading, model definition, training, evaluation, and serving code.
+- Use `tf.data` pipelines for scalable input processing.
+- Keep model hyperparameters in typed config files or dataclasses.
+- Store checkpoints, logs, and exported models outside source directories.
+- Keep notebooks exploratory; move repeatable training code into modules.
 
-## Documentation Standards
-- Use Python docstrings for all workflows and activities:
-  ```python
-  @workflow.defn
-  class ProcessOrderWorkflow:
-      """Workflow for processing an order."""
-  ```
+## Model Development
 
-## Testing Standards
-- Write tests for all workflows and activities using `pytest`.
-- Mock Temporal APIs where needed for isolated testing.
-- Maintain at least 80% code coverage.
+- Start with a small baseline model and a tiny overfit test before scaling.
+- Use Keras layers and models unless lower-level TensorFlow APIs are required.
+- Prefer explicit input shapes and named inputs/outputs.
+- Use callbacks for checkpointing, early stopping, learning-rate scheduling, and TensorBoard logging.
+- Use mixed precision only after validating numerical stability.
+- Pin random seeds where reproducibility matters, while documenting nondeterministic GPU behavior.
 
-## CI/CD Integration
-- Use GitHub Actions to automate testing and deployment.
-- Include the following checks:
-  - Linting with `flake8`.
-  - Type checking with `mypy`.
-  - Unit testing with `pytest`.
+## Training
 
-## Code Examples
+- Validate data shapes, dtypes, label ranges, and class balance before training.
+- Split data before augmentation or normalization fitting.
+- Use validation data for tuning and a separate test set for final reporting.
+- Track loss curves, metrics, learning rate, and resource use.
+- Save the best checkpoint by validation metric, not by final epoch.
 
-### Workflow Example
-```python
-from temporalio import workflow
+## Evaluation
 
-@workflow.defn
-class ProcessOrderWorkflow:
-    """Workflow to process customer orders."""
+- Report task-appropriate metrics such as AUROC, F1, calibration, perplexity, BLEU/ROUGE, or MAE/RMSE.
+- Include confusion matrices or error slices for classification tasks.
+- Evaluate on edge cases and distribution shifts when data allows.
+- Compare against non-neural baselines when the dataset is small or tabular.
 
-    @workflow.run
-    async def run(self, order_id: str):
-        await workflow.execute_activity(
-            "send_email_activity", order_id, start_to_close_timeout=timedelta(seconds=30)
-        )
-```
+## Deployment
 
-### Activity Example
-```python
-from temporalio import activity
+- Export models with clear input signatures.
+- Keep preprocessing consistent between training and serving.
+- Add smoke tests that load the exported model and run inference on sample inputs.
+- Monitor latency, memory, prediction drift, and input schema changes.
 
-@activity.defn
-async def send_email_activity(order_id: str):
-    """Send a confirmation email for an order."""
-    try:
-        # Simulate sending email
-        pass
-    except Exception as e:
-        activity.logger.error(f"Failed to send email for order {order_id}: {str(e)}")
-        raise
-```
+## Common Mistakes
+
+- Do not tune architecture before verifying labels and data quality.
+- Do not leak validation data through preprocessing or augmentation.
+- Do not rely on accuracy alone for imbalanced data.
+- Do not deploy a notebook-only model.
+- Do not ignore batch size, dtype, and device differences between training and inference.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
