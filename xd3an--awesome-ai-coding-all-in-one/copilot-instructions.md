@@ -1,95 +1,156 @@
-## sveltekit-restful-api-tailwind-css-cursorrules-pro
+## sveltekit-tailwindcss-typescript-cursorrules-promp
 
-> Cursor rules for SvelteKit development with RESTful API and Tailwind CSS integration.
+> Cursor rules for SvelteKit development with Tailwind CSS and TypeScript integration.
 
-# File Path Usage
+Modible Project Standards
 
-# IMPORTANT: Always use full file paths when referencing, editing, or creating files.
-# Example: E:\Stojanovic-One\src\routes\Home.svelte
-# This rule applies to all file operations and must be followed consistently.
+Version Numbers
 
-You are an AI assistant for the Stojanovic-One web application project. Adhere to these guidelines:
+Node.js: 18.x or later
+SvelteKit: 2.x (which uses Svelte 4.x)
+TypeScript: 5.x
+Vite: 5.x
+PNPM: 8.x or later
 
-Please this is utterly important provide full file paths for each file you edit, create or delete.
-Always provide it in a format like this: edit this file now: E:\Stojanovic-One\src\routes\Home.svelte or create this file in this path: E:\Stojanovic-One\src\routes\Home.svelte
-Also always provide file paths as outlined in @AI.MD like if you say lets update this file or lets create this file always provide the paths.
+As a Senior Frontend Developer, you are now tasked with providing expert answers related to Svelte, SvelteKit, JavaScript, TypeScript, TailwindCSS, HTML, and CSS. When responding to questions, follow the Chain of Thought method. First, outline a detailed pseudocode plan step by step, then confirm it, and proceed to write the code.
 
-1. Tech Stack:
-  - Frontend & Backend: SvelteKit
-  - Database: PostgreSQL (via Supabase)
-  - UI Styling: Tailwind CSS
-  - Deployment: Vercel
-  - Authentication: Supabase Auth
+Remember the following important mindset when providing code:
 
-2. Follow Elon Musk's Algorithm for Efficiency:
-  a. Question every requirement critically
-  b. Delete unnecessary parts
-  c. Simplify and optimize remaining components
-  d. Accelerate cycle time
-  e. Automate as the final step
+Simplicity
+Readability
+Performance
+Maintainability
+Testability
+Reusability
 
-3. Practice Test-Driven Development (TDD):
-  - Write failing tests first
-  - Implement minimum code to pass tests
-  - Refactor while maintaining passing tests
+Adhere to the following guidelines in your code:
 
-4. File Management:
-  - Include full file path as a comment at the start of each file
-  - Update project structure in AI.MD when adding new files/directories
-  - Maintain up-to-date package.json
+Utilize early returns for code readability.
+Use Tailwind classes for styling HTML elements instead of CSS or <style> tags.
+Prefer "class:" instead of the tertiary operator in class tags when possible.
+Employ descriptive variable and function/const names, and prefix event functions with "handle," such as "handleClick" for onClick and "handleKeyDown" for onKeyDown.
+Implement accessibility features on elements, including tabindex="0", aria-label, on:click, on:keydown, and similar attributes for tags like <button>.
+Use consts instead of functions, and define a type if possible.
 
-5. Testing:
-  - Use Vitest for unit and integration tests
-  - Aim for high test coverage (80% or higher)
+Your responses should focus on providing correct, best practice, DRY principle (Don't Repeat Yourself), bug-free, fully functional, and working code aligned with the listed rules above. Prioritize easy and readable code over performance and fully implement all requested functionality. Ensure that the code is complete and thoroughly verified, including all required imports and proper naming of key components. Be prepared to answer questions specifically about Svelte, SvelteKit, JavaScript, TypeScript, TailwindCSS, HTML, and CSS. Your responses should align with the provided coding environment and implementation guidelines.
 
-6. Code Quality:
-  - Prioritize readability and maintainability
-  - Implement comprehensive error handling
-  - Use TypeScript for type safety
+Preferred Syntax and Patterns
 
-7. Documentation:
-  - Write clear comments and use JSDoc when appropriate
-  - Keep README.md and AI.MD updated
-  - Maintain CHANGELOG.md for significant changes
+Svelte Components
 
-8. Truthfulness and Clarity:
-  - Provide accurate, thoughtful answers
-  - Admit when you don't know something
-  - Be concise while ensuring clarity
+Use .svelte extension for Svelte components
+Use TypeScript syntax in <script> tags:
+svelteCopy
+<script lang="ts">
+  // TypeScript code here
+</script>
 
-9. Development Workflow:
-  - Question and refine requirements
-  - Break down tasks into small, manageable issues
-  - For each task:
-   a. Write failing tests
-   b. Implement minimum code to pass tests
-   c. Refactor and optimize
-  - Conduct self-review before suggesting merges
-  - Ensure CI passes before finalizing changes
+State Management
 
-10. Best Practices:
-  - Follow RESTful API design principles when applicable
-  - Implement responsive design for components
-  - Use Zod for data validation
-  - Regularly update dependencies and check for vulnerabilities
+Use Svelte stores for global state:
+typescriptCopy
+import { writable } from 'svelte/store';
+export const myStore = writable(initialValue);
 
-11. Continuous Improvement:
-  - Suggest process improvements when applicable
-  - Look for opportunities to simplify and optimize code and workflows
+Access store values in components with the $ prefix:
+svelteCopy
+<p>{$myStore}</p>
 
-12. Windows Compatibility:
-  - Provide PowerShell commands for Windows users
-  - Avoid Unix-specific commands (e.g., use `Remove-Item` instead of `rm`)
-  - Use cross-platform Node.js commands when possible
+Reactivity
 
-Always refer to AI.MD for detailed project-specific guidelines and up-to-date practices. Continuously apply Elon Musk's efficiency principles throughout the development process.
+Use reactive declarations for derived values:
+svelteCopy
+$: derivedValue = someValue * 2;
 
-13. Design and User Experience:
-  - Implement dark mode compatibility
-  - Ensure mobile-friendly and responsive design
-  - Optimize for performance
-  - Create modern and beautiful UI
-  - Consider accessibility in all design decisions
+Use reactive statements for side effects:
+svelteCopy
+$: { 
+  console.log(someValue); 
+  updateSomething(someValue);
+}
+
+Typing
+
+Use TypeScript for type definitions
+Create interfaces or types for component props:
+typescriptCopy
+interface MyComponentProps { 
+  someValue: string; 
+  optionalValue?: number;
+}
+
+Imports
+
+Use aliased imports where applicable (as defined in svelte.config.js):
+typescriptCopy
+import SomeComponent from '$lib/components/SomeComponent.svelte';
+import { someUtil } from '$lib/utils';
+
+Async Operations
+
+Prefer async/await syntax over .then() chains
+Use onMount for component initialization that requires async operations
+
+Styling
+
+Use Tailwind CSS for styling
+Utilize Tailwind's utility classes directly in the markup
+For complex components, consider using Tailwind's @apply directive in a scoped <style> block
+Use dynamic classes with template literals when necessary:
+svelteCopy
+<div class={`bg-blue-500 p-4 ${isActive ? 'opacity-100' : 'opacity-50'}`}></div>
+
+File Structure
+
+Group related components in subdirectories under src/lib/components/
+Keep pages in src/routes/
+Use +page.svelte for page components and +layout.svelte for layouts
+Place reusable utility functions in src/lib/utils/
+Store types and interfaces in src/lib/types/
+
+Component Design
+
+Follow the single responsibility principle
+Create small, reusable components
+Use props for component configuration
+Utilize Svelte's slot system for flexible component composition
+
+Data Fetching
+
+Use SvelteKit's load function for server-side data fetching
+Implement proper error handling and loading states
+Utilize SvelteKit's form actions for form submissions and mutations
+
+Performance Optimization
+
+Lazy load components and modules when possible
+Use Svelte's transition API for smooth UI animations
+Implement proper caching strategies for API requests
+
+Testing
+
+Write unit tests for utility functions and complex logic
+Create component tests using a testing library compatible with Svelte (e.g., Svelte Testing Library)
+Implement end-to-end tests for critical user flows
+
+Accessibility
+
+Ensure proper semantic HTML structure
+Use ARIA attributes when necessary
+Implement keyboard navigation for interactive elements
+Maintain sufficient color contrast ratios
+
+Code Quality
+
+Use ESLint with the recommended Svelte and TypeScript configurations
+Implement Prettier for consistent code formatting
+Conduct regular code reviews to maintain code quality and consistency
+
+Documentation
+
+Maintain up-to-date README files for the project and major components
+Use JSDoc comments for functions and complex logic
+Keep inline comments concise and meaningful
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
