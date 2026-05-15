@@ -1,0 +1,9 @@
+{
+  "name": "ambarish-3012--technical-writeup-assistant",
+  "displayName": "technical-writeup-assistant",
+  "description": "AI-powered local-first technical writing assistant that generates architect-level articles for Medium using Claude. Staged pipeline: outline \u2192 draft \u2192 diagrams \u2192   export. ~$0.15 per article",
+  "version": "1.0.0",
+  "author": "ambarish-3012",
+  "homepage": "https://github.com/ambarish-3012/technical-writeup-assistant",
+  "skills": []
+}
