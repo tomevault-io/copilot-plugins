@@ -1,7 +1,7 @@
 {
   "name": "vibercode--cli",
   "displayName": "cli",
-  "description": "cli",
+  "description": "Vibercode CLI",
   "version": "1.0.0",
   "author": "vibercode",
   "homepage": "https://github.com/vibercode/cli",
