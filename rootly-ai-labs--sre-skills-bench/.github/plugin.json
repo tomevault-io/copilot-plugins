@@ -1,0 +1,9 @@
+{
+  "name": "rootly-ai-labs--sre-skills-bench",
+  "displayName": "sre-skills-bench",
+  "description": "SRE-skills-bench: Can Language Models Resolve Real-world SRE Tasks?",
+  "version": "1.0.0",
+  "author": "Rootly-AI-Labs",
+  "homepage": "https://github.com/Rootly-AI-Labs/sre-skills-bench",
+  "skills": []
+}
