@@ -1,0 +1,9 @@
+{
+  "name": "intent-driven-dev--intent-driven-template",
+  "displayName": "intent-driven-template",
+  "description": "OpenSpec and OpenCode template for intent-driven development with specs, ADRs, C4 diagrams, Gherkin, TDD, and reusable engineering workflows.",
+  "version": "1.0.0",
+  "author": "intent-driven-dev",
+  "homepage": "https://github.com/intent-driven-dev/intent-driven-template",
+  "skills": []
+}
