@@ -1,0 +1,9 @@
+{
+  "name": "cfdude--mcp-finnhub",
+  "displayName": "mcp-finnhub",
+  "description": "Model Context Protocol server for Finnhub financial market data API",
+  "version": "1.0.0",
+  "author": "cfdude",
+  "homepage": "https://github.com/cfdude/mcp-finnhub",
+  "skills": []
+}
