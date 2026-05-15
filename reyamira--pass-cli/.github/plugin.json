@@ -1,0 +1,9 @@
+{
+  "name": "reyamira--pass-cli",
+  "displayName": "pass-cli",
+  "description": "A secure, cross-platform, always-free, and open-source alternative to 1password, bitwarden, etc., Password and API key manager for folks who live in the command line. (CLI + TUI)",
+  "version": "1.0.0",
+  "author": "reyamira",
+  "homepage": "https://github.com/reyamira/pass-cli",
+  "skills": []
+}
