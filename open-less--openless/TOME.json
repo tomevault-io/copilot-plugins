@@ -4,7 +4,7 @@
   "repo": "openless",
   "description": "Hold a key, speak, release \u2014 AI-polished text appears at your cursor in any app. Open-source voice input for macOS & Windows. (\u6309\u4f4f\u5feb\u6377\u952e\u8bf4\u8bdd\uff0c\u677e\u5f00\u5373\u5f97\u6da6\u8272\u540e\u7684\u6587\u5b57)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Open-Less/openless",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:51:26Z"
+  "distributed_at": "2026-05-15T17:55:24Z"
 }
