@@ -1,0 +1,9 @@
+{
+  "name": "s-soroosh--claude-code-js",
+  "displayName": "claude-code-js",
+  "description": "Claude Code SDK for Javascript & Typescript",
+  "version": "1.0.0",
+  "author": "s-soroosh",
+  "homepage": "https://github.com/s-soroosh/claude-code-js",
+  "skills": []
+}
