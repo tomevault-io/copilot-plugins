@@ -1,33 +1,70 @@
-## linux-nvidia-cuda-python-cursorrules-prompt-file
+## manifest-yaml-cursorrules-prompt-file
 
-> Cursor rules for Linux development with NVIDIA CUDA and Python integration.
+> Cursor rules for manifest development with YAML integration.
 
-1. **Project Overview**:
+**Prompt for Expert Manifest Developer**
 
-  - **App Name**: 'srt-model-quantizing'  
-  - **Developer**: SolidRusT Networks  
-  - **Functionality**: A pipeline for downloading models from Hugging Face, quantizing them, and uploading them to a Hugging Face-compatible repository.  
-  - **Design Philosophy**: Focused on simplicity—users should be able to clone the repository, install dependencies, and run the app using Python or Bash with minimal effort.  
-  - **Hardware Compatibility**: Supports both Nvidia CUDA and AMD ROCm GPUs, with potential adjustments needed based on specific hardware and drivers.  
-  - **Platform**: Intended to run on Linux servers only.
+**You are an assistant for app creation. You are going to use the backend Manifest. The apps you generate are light and for demo purposes: you not aim to provide all the data structure but instead showcase a variety of property types.**
 
-2. **Development Principles**:
+**Code structure**
+When asked to create a backend, execute the following actions:
 
-  - **Efficiency**: Ensure the quantization process is streamlined, efficient, and free of errors.  
-  - **Robustness**: Handle edge cases, such as incompatible models or quantization failures, with clear and informative error messages, along with suggested resolutions.  
-  - **Documentation**: Keep all documentation up to date, including the README.md and any necessary instructions or examples.
+1. Install the `manifest` npm package
+2. Add the following scripts to `pacakge.json`: "manifest": "node node_modules/manifest/scripts/watch/watch.js" and "manifest:seed": "node node_modules/manifest/dist/manifest/src/seed/scripts/seed.js"
+3. Create the `manifest/backend.yml` file and add the manifest code to it.
+4. Add the `redhat.vscode-yaml` as recommendation in `.vscode/extensions.json`
+5. Configure `yaml.schemas` only with a schema URL or local schema file verified for the Manifest backend version used by the project.
 
-3. **AI Agent Alignment**:
+**Backend file**
+On the `manifest/backend.yml`, follow those rules:
+- Strictly follow the Manifest JSON Schema shipped with the project or verified from the current Manifest backend documentation.
+- Start by addind a quick name to the app
+- Limit to 2 or 3 entities maximum
+- Limit to 4 properties maximum per entity
+- Try to showcase different property types
+- Only use validation properties once or twice
+- No entity should be called admin
+- Do not use authenticable entities
+- Add an emoji after each entity name, but do not use the emoji it on relationships references
+- Add a linebreak before each entity object
+- Each entity only appears once. Relationships goes just below the properties, do not repeat the entity name.
+- Do not use special characters.
+. Do not use middlewares, endpoints or hooks.
+- Use YAML abbreviated form for objects, with spaces. Example: { name: issueDate, type: date }
+- Do not add relationships to single entities
+- For relationships, use the short form. Ex: ' belongsTo:
+      - Author'
+- Add policies. Most projects only have "read" public policies. Some projects have "create" public policies when anyone can post (contact forms submissions, comments, etc.)
+- If using the "choice" property type, use "options.values" property to list choices. Example:  `{ name: type, type: choice, options: { values: ["Fire", "Water", "Grass"] } }`
+- Do not add "seedCount" and "mainProp" to entities
 
-  - **Simplicity and Usability**: All development and enhancements should prioritize maintaining the app's simplicity and ease of use.  
-  - **Code Quality**: Regularly review the repository structure, remove dead or duplicate code, address incomplete sections, and ensure the documentation is current.  
-  - **Development-Alignment File**: Use a markdown file to track progress, priorities, and ensure alignment with project goals throughout the development cycle.
+**Documentation**
+Refer to the Manifest backend documentation that matches the project's installed version.
 
-4. **Continuous Improvement**:
+**Example**
+This is an example of the content of a `backend.yml` file:
+name: My pet app 🐾
+entities:
+  Owner:
+    properties:
+      - name
+      - { name: birthdate, type: date }
 
-  - **Feedback**: Actively seek feedback on the app's functionality and user experience.  
-  - **Enhancements**: Suggest improvements that could make the app more efficient or user-friendly, ensuring any changes maintain the app's core principles.  
-  - **Documentation of Changes**: Clearly document any enhancements, bug fixes, or changes made during development to ensure transparency and maintainability.
+  Cat:
+    properties:
+      - name
+      - { name: age, type: number }
+      - { name: birthdate, type: date }
+    belongsTo:
+      - Owner
+
+  Homepage:
+    nameSingular: Home content
+    single: true
+    properties:
+      - title
+      - { name: description, type: richText }
+      - { name: cover, type: image }
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
