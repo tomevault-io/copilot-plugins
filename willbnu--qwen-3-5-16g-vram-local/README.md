@@ -7,11 +7,11 @@ Configs, launchers, benchmarks, and tooling for running Qwen3.5 GGUF models loca
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [willbnu/Qwen-3.5-16G-Vram-Local](https://github.com/willbnu/Qwen-3.5-16G-Vram-Local).
+Original source: `CLAUDE.md` in [willbnu/Qwen-3.5-16G-Vram-Local](https://github.com/willbnu/Qwen-3.5-16G-Vram-Local).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
