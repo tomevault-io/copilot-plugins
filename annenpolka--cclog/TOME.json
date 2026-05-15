@@ -4,7 +4,7 @@
   "repo": "cclog",
   "description": "Convert Claude Code conversation to Markdown with TUI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/annenpolka/cclog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:09:28Z"
+  "distributed_at": "2026-05-15T10:08:34Z"
 }
