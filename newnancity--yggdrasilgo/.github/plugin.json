@@ -1,0 +1,9 @@
+{
+  "name": "newnancity--yggdrasilgo",
+  "displayName": "YggdrasilGo",
+  "description": "A high-performance Yggdrasil API server implementation in Go, supporting blessing-skin-server",
+  "version": "1.0.0",
+  "author": "NewNanCity",
+  "homepage": "https://github.com/NewNanCity/YggdrasilGo",
+  "skills": []
+}
