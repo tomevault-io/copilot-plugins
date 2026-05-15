@@ -1,0 +1,9 @@
+{
+  "name": "ghanithan--rust-tour",
+  "displayName": "rust-tour",
+  "description": "An interactive Rust learning platform featuring progressive exercises aligned with \"The Rust Programming Language\" book.",
+  "version": "1.0.0",
+  "author": "ghanithan",
+  "homepage": "https://github.com/ghanithan/rust-tour",
+  "skills": []
+}
