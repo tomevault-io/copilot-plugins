@@ -7,11 +7,11 @@ Local auth cli for AI agents. Log in once via Oauth2/API Key. Every agent stays 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agentrhq/authsome](https://github.com/agentrhq/authsome).
+Original source: `CLAUDE.md` in [agentrhq/authsome](https://github.com/agentrhq/authsome).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
