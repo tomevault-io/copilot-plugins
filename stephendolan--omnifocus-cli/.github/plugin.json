@@ -1,0 +1,9 @@
+{
+  "name": "stephendolan--omnifocus-cli",
+  "displayName": "omnifocus-cli",
+  "description": "A command-line interface for OmniFocus on macOS",
+  "version": "1.0.0",
+  "author": "stephendolan",
+  "homepage": "https://github.com/stephendolan/omnifocus-cli",
+  "skills": []
+}
