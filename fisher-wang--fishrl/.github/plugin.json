@@ -1,0 +1,9 @@
+{
+  "name": "fisher-wang--fishrl",
+  "displayName": "fishrl",
+  "description": "Collection of RL algorithms for state-based and RGB-based robot control",
+  "version": "1.0.0",
+  "author": "Fisher-Wang",
+  "homepage": "https://github.com/Fisher-Wang/fishrl",
+  "skills": []
+}
