@@ -4,7 +4,7 @@
   "repo": "iClaudian",
   "description": "iClaudian: Claude, Codex,Copilot, OpenCode, and Gemini CLI inside Obsidian",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/izscc/iClaudian",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:58:10Z"
+  "distributed_at": "2026-05-15T17:56:51Z"
 }
