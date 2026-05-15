@@ -1,114 +1,13 @@
-## theming
+## workflow
 
-> - Use inline tailwind classes to style. NEVER use @apply. If you need to use a tailwind color in the style section you can do so with a css custom property like this: var(--color-primary)
+> Follow this workflow for all NEW components and/or blocks
 
-## Component Styles/Theming
-- Use inline tailwind classes to style. NEVER use @apply. If you need to use a tailwind color in the style section you can do so with a css custom property like this: var(--color-primary)
-- Backgrounds colored with brand or status theme colors should use the proper class as defined in theme.css (for example: .bg-primary)
-- ALWAYS read `assets/theme.css` to understand available design tokens.
-- prefer container queries over media queries for making the site responsive
-- container queries are built into Tailwind v4 - https://raw.githubusercontent.com/tailwindlabs/tailwindcss.com/refs/heads/main/src/docs/responsive-design.mdx
+Follow this workflow for all NEW components and/or blocks
 
-# .cursor/rules
-
-## 🎨 Design System Overview
-
-This project defines a **dark-mode-first**, techy and futuristic design system aimed at **indie developers** building a new social media platform. It uses **TailwindCSS v4 theming**, **Reka UI**, and **VueUse Motion**.
-
----
-
-## 🌑 Theme: Dark Mode Only
-
-This system assumes dark mode is the default and only mode. Backgrounds, shadows, and borders are optimized for high contrast on dark surfaces.
-
----
-
-## 🎯 Target Audience
-
-- Indie web developers
-- Designers who build
-- Makers and community builders
-
----
-
-## 🎨 Design Tokens
-
-### Colors
-
-- `--color-primary`: Electric Purple `#6f00ff`
-- `--color-secondary`: Neon Cyan `#00e0ff`
-- `--color-bg`: Darkest surface `#0a0a0f`
-- `--color-surface`: UI panels `#191933`
-- `--color-border`: Soft borders `#2a2a40`
-- `--color-muted`: Muted text `#6b7280`
-- `--color-accent`: Vibrant accent `#8b5cf6`
-- `--color-text`: White text on dark background
-
-### Typography
-
-- `--font-heading`: `Inter`, sans-serif
-- `--font-body`: `Inter`, sans-serif
-- Bold, loud heading sizes and generous line height for rhythm
-
-### Spacing Scale
-
-| Token     | Value   |
-|-----------|---------|
-| `--space-xs` | 0.5rem |
-| `--space-sm` | 1rem   |
-| `--space-md` | 1.5rem |
-| `--space-lg` | 2rem   |
-| `--space-xl` | 3rem   |
-| `--space-2xl`| 4rem   |
-
-### Radius
-
-- `--radius-sm`: 6px
-- `--radius-md`: 12px
-- `--radius-lg`: 24px
-- `--radius-full`: 9999px (for pills or avatars)
-
-### Shadow
-
-- `--shadow-glow`: `0 0 8px #6f00ff, 0 0 16px #00e0ff`
-
-### Gradients
-
-- `--gradient-primary`: Linear blend from electric purple to cyan
-- `--gradient-card`: Dimmed variation for backgrounds
-
-### Z-Index
-
-| Layer    | Token         | Value |
-|----------|---------------|-------|
-| Dropdown | `--z-dropdown`| 1000  |
-| Modal    | `--z-modal`   | 1100  |
-| Popover  | `--z-popover` | 1200  |
-| Toast    | `--z-toast`   | 1300  |
-
----
-
-## 🧩 Component Strategy
-
-- **Component Library**: Reka UI (unstyled primitives)
-- **Motion Library**: VueUse Motion (custom transitions) - https://context7.com/vueuse/motion/llms.txt
-- **Grid System**: 12-column layout for page structure
-
----
-
-## 🛠️ Tooling & Theming
-
-- TailwindCSS 4 + `theme.extend` integration
-- All tokens defined via `:root` CSS variables
-- Works seamlessly with utility-first and component-scoped styling
-
----
-
-## 🧪 Dev Notes
-
-- Keep the system modular and light
-- Encourage experimentation in gradients, shadows, and composition
-- Use Tailwind layers and safelist if extending components
+1. Think about the current design system and sample a few existing components for inspiration
+2. Implement the component defintion ([components.mdc](mdc:.cursor/rules/components.mdc)). Spend the most time here to get it right.
+3. Write a story for the component with histoire (follow rules in [stories.mdc](mdc:.cursor/rules/stories.mdc) and sample a few existing stories for inspiration)
+4. Write documentation for the component (follow rules in [docs.mdc](mdc:.cursor/rules/docs.mdc) and sample a few existing docs for inspiration)
 
 ---
 > Source: [danielkellyio/component-library-ai](https://github.com/danielkellyio/component-library-ai) — distributed by [TomeVault](https://tomevault.io).
