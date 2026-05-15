@@ -4,7 +4,7 @@
   "repo": "advanced-agentic-dev-patterns",
   "description": "\"Advanced\" agentic dev patterns \u2014 we made the mistakes in production so you can make them in staging.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PanQiWei/advanced-agentic-dev-patterns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:02:45Z"
+  "distributed_at": "2026-05-15T19:05:30Z"
 }
