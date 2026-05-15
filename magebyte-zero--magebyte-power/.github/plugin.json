@@ -1,0 +1,9 @@
+{
+  "name": "magebyte-zero--magebyte-power",
+  "displayName": "magebyte-power",
+  "description": "7-phase feature development workflow with 4-round cross-verification for Claude Code \u2014 catches concurrency, idempotency and cross-service bugs before production",
+  "version": "1.0.0",
+  "author": "MageByte-Zero",
+  "homepage": "https://github.com/MageByte-Zero/magebyte-power",
+  "skills": []
+}
