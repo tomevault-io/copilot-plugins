@@ -1,78 +1,48 @@
-## scala-kafka-cursorrules-prompt-file
+## security-devsecops-ssdls-appsec
 
-> Cursor rules for Scala Kafka.
+> Cursor rules for secure coding, secret handling, dependency hygiene, authentication, authorization, security testing, and compliance documentation.
 
-# general-scala-clean-code.mdc
+# DevSecOps + SSDLC + AppSec Cursor Rule
 
-- Declare vals/vars as close as possible to first use.
-- Name length should be proportional to scope: 1-2 chars allowed only inside small lambdas.
-- Avoid nested for-comprehensions deeper than two levels; factor out steps into helpers.
-- Split a single source file by responsibility.
-- Use *tail-rec* optimisation (`@tailrec`) where appropriate.
-- Prefer *immutable* collections and avoid mutation during iteration.
-- When interop with Java forces mutability, wrap it in a pure facade with the use of .asScala, to retain functional API.
-- When something is nullable, wrap it into an Option, to retain functional API.
-- Keep cyclomatic complexity below 10 for any method; IDE inspections should warn.
+## General Security Principles
+- Never hardcode secrets, credentials, or API keys. Use environment variables or secure vaults for sensitive data.
+- Prohibit the inclusion of `.env`, secret config files, or unknown tokens in source control.
+- Never log sensitive data, secrets, or session tokens in application logs.
+- Validate and sanitize all user input. Escape output in HTML, JS, and SQL contexts.
+- Avoid unsafe functions such as `exec`, `eval`, or similar dynamic code execution.
 
-# general-scala-development-practices.mdc
+## Database Security
+- Use parameterized queries or ORM for all database access. Do not use string concatenation for query building.
+- Ensure database users have the least privilege required for their tasks.
+- Regularly review and update database access policies.
 
-# ========== GENERAL PRINCIPLES ==========
-- You are an experienced Senior Scala Developer.
-- You always adhere to SOLID, DRY, KISS and YAGNI principles.
-- Prefer *pure* functions; minimise side-effects. Where effects are required, make them explicit (e.g. using scala.util.Try, Either, or cats-effect IO/Task if adopted).
-- Use *val* over *var*; collections must be immutable unless mutability is proven cheaper & safe.
-- Replace *null* with Option, Either or a domain-specific ADT.
-- Use pattern matching exhaustively and handle the *default* case only when truly open-ended.
-- Prefer for-comprehensions, map/flatMap/fold, and higher-order functions over imperative loops.
-- Prefer *case classes* and *sealed traits* for algebraic data types.
-- Extract common logic into private or package-private helpers; avoid long methods (> 30 LOC).
-- Prefer extension methods or type classes over inheritance when adding behaviour.
-- Keep public APIs small, surface only what the module owns.
-- Break every task into the smallest composable pure functions before wiring them together.
+## Dependency Management
+- Only use packages from verified sources.
+- Do not add new dependencies without explicit approval and security review.
+- Regularly update dependencies and scan for known vulnerabilities (SCA).
 
-# ========== NAMING & SYNTAX ==========
-- Class / object / trait names are UpperCamelCase nouns (e.g. *NotificationStreamApp*).
-- Methods & vals are lowerCamelCase verbs or nouns (e.g. *process*, *serde*, *productKey*).
-- Constants use `SCREAMING_SNAKE_CASE`.
-- Similar to Java’s static final members, if the member is final, immutable and it belongs to a package object or an object, it may be considered a constant.
-- Symbolic names (`|>`) are allowed *only* when they align with widespread FP idioms.
-- Match expressions use `match`/`case` over nested if/else chains; for simple two-branch logic prefer `if … then … else …` expressions.
+## Authentication & Authorization
+- Use secure authentication frameworks; never implement custom authentication.
+- Store passwords using strong, salted hashes (e.g., Argon2, bcrypt).
+- Implement Role-Based Access Control (RBAC) for sensitive operations.
+- Enforce the principle of least privilege for APIs and UI actions.
 
-# ========== ERROR HANDLING & LOGGING ==========
-- Catch the most specific Exception first; convert checked Java exceptions to an ADT or `Try`.
-- No empty `catch` blocks; log at *debug* or *error* level with a meaningful message.
-- Leverage `scala.util.Using` (or cats-effect `Resource`) for auto-closing resources.
-- Avoid “defensive” logging or `println`; use SLF4J (Logback) with the *scala-logging* wrapper.
+## Secure SDLC Practices
+- Integrate Static Application Security Testing (SAST) and Software Composition Analysis (SCA) into the CI pipeline.
+- Scan all code for secrets before merging (Secret Scanning).
+- Use Infrastructure as Code (IaC) scanning for all infrastructure code.
+- Integrate Dynamic Application Security Testing (DAST) in the CD pipeline for deployed applications.
+- Enforce Policy as Code (PaC) for automated, version-controlled security policies.
 
-# ========== TESTING ==========
-- Use ScalaTest in a **Given-When-Then** layout with the use of AnyFlatSpec.
-- Focus on critical paths and business invariants; do not over-test boilerplate.
-- Property-based tests (ScalaCheck) for pure functions with non-trivial invariants.
-- Set up integration tests as a subproject named “integration” and treat integration tests as standard tests
+## Monitoring & Feedback
+- Enable continuous vulnerability monitoring and alerting.
+- Integrate Runtime Application Self-Protection (RASP) and Web Application Firewall (WAF) as appropriate.
+- Encourage regular vulnerability assessments and penetration testing.
+- Maintain a feedback loop to update rules and prompts based on recurring vulnerabilities.
 
-# ========== PERFORMANCE & SAFETY ==========
-- Avoid blocking calls inside Kafka stream processing; if unavoidable, off-load to a dedicated thread-pool.
-- Convert Java collections to Scala equivalents once at the boundary; never bounce back and forth.
-- Use underscore-separated digits for large numeric literals (e.g. `val timeoutMs = 30_000`).
-
-# ========== MODERN SCALA 3 FEATURES ==========
-- Use *Enums* for finite alternatives instead of Java-style enums.
-- Embrace *opaque types* to avoid accidental misuse of primitive wrappers.
-- Use *context parameters* (`using`) for type-class evidence instead of classic implicit lists when convenient.
-- Prefer `given`/`using` syntax over `implicit` where supported.
-
-# ========== CLEAN BUILD ==========
-- The sbt build uses **scalafmt** for formatting; treat any scalafmt violation as a build error.
-
-# kafka-development-practices.mdc
-
-- All topic names config values (Typesafe Config or pure-config).
-- Use Format or Codec from the JSON or AVRO or another library that is being used in the project.
-- Streams logic must be tested with `TopologyTestDriver` (unit-test) plus an integration test against local Kafka.
-
-# linting-formatting.mdc
-
-- **scalafmt:** Enforce Google-inspired scalafmt configuration with `maxColumn = 100`.
+## Compliance & Documentation
+- Align with industry standards (e.g., OWASP Top 10, NIST, ISO 27001).
+- Document all security controls and decisions for auditability.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
