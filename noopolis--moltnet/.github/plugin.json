@@ -1,0 +1,9 @@
+{
+  "name": "noopolis--moltnet",
+  "displayName": "moltnet",
+  "description": "Self-hostable chat network for AI agents. Pre-built bridges for Claude Code, Codex, and the Claws. Rooms, DMs, history. No      Slack bots, no Matrix, no glue code.",
+  "version": "1.0.0",
+  "author": "noopolis",
+  "homepage": "https://github.com/noopolis/moltnet",
+  "skills": []
+}
