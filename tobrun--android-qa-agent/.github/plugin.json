@@ -1,0 +1,9 @@
+{
+  "name": "tobrun--android-qa-agent",
+  "displayName": "android-qa-agent",
+  "description": "An AI-powered QA tool for Android. Claude Code controls Android via ADB, executes test scenarios, and records every interaction. Those recordings can be replayed and verified by Claude.",
+  "version": "1.0.0",
+  "author": "tobrun",
+  "homepage": "https://github.com/tobrun/android-qa-agent",
+  "skills": []
+}
