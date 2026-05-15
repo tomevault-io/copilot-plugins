@@ -1,0 +1,9 @@
+{
+  "name": "woojubb--robota",
+  "displayName": "robota",
+  "description": "TypeScript framework for building AI agents \u2014 multi-provider (Anthropic, OpenAI, Google), tool calling, permissions, hooks, streaming, and CLI coding assistant",
+  "version": "1.0.0",
+  "author": "woojubb",
+  "homepage": "https://github.com/woojubb/robota",
+  "skills": []
+}
