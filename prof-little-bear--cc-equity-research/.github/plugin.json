@@ -1,0 +1,9 @@
+{
+  "name": "prof-little-bear--cc-equity-research",
+  "displayName": "cc-equity-research",
+  "description": "Turn Claude Code into an equity-research agent: 24 analysis skills (Anthropic's open-source bundle + community), a single data MCP, and a personalization layer for investors at any level.",
+  "version": "1.0.0",
+  "author": "prof-little-bear",
+  "homepage": "https://github.com/prof-little-bear/cc-equity-research",
+  "skills": []
+}
