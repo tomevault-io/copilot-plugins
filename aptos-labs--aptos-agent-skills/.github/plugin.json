@@ -1,0 +1,9 @@
+{
+  "name": "aptos-labs--aptos-agent-skills",
+  "displayName": "aptos-agent-skills",
+  "description": "AI skills for building secure, modern Aptos dApps \u2014 Move contracts, TypeScript SDK, and frontend integration for Claude Code, Cursor, and Copilot.",
+  "version": "1.0.0",
+  "author": "aptos-labs",
+  "homepage": "https://github.com/aptos-labs/aptos-agent-skills",
+  "skills": []
+}
