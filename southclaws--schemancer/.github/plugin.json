@@ -1,0 +1,9 @@
+{
+  "name": "southclaws--schemancer",
+  "displayName": "schemancer",
+  "description": "Schemancer transmutes your JSON Schemas into classes, structs or types for various languages.",
+  "version": "1.0.0",
+  "author": "Southclaws",
+  "homepage": "https://github.com/Southclaws/schemancer",
+  "skills": []
+}
