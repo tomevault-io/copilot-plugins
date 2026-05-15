@@ -1,16 +1,18 @@
-## zmk
+## zmk-layout-shift
 
-> For detailed project overview, features, and usage instructions, please refer to [README.md](mdc:../../README.md).
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# ZMK Project Coding Instructions for AI
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-For detailed project overview, features, and usage instructions, please refer to [README.md](mdc:../../README.md).
+For detailed project overview, features, and usage instructions, please refer to [README.md](README.md).
 
-## Critical Prerequisites
+## ZMK Development Guidelines
 
-**MANDATORY: Before making ANY implementation changes, you MUST:**
+**CRITICAL PREREQUISITES - MANDATORY BEFORE ANY IMPLEMENTATION CHANGES:**
 
 1. **Consult the ZMK Repository Expert**: Query the Deepwiki MCP server (repoName: `zmkfirmware/zmk`) to understand the current implementation and identify potential issues.
 
@@ -25,13 +27,10 @@ For detailed project overview, features, and usage instructions, please refer to
 
 5. **Update Documentation**: After making any changes, always update the README.md with relevant information about new features, usage instructions, or implementation status.
 
-## Why This Process is Essential
-
+**Why This Process is Essential:**
 - **Pre-trained Knowledge Limitations**: LLM training data may not reflect the latest ZMK architecture, APIs, or best practices
 - **Build Failure Prevention**: ZMK has specific conventions and dependencies that may not be obvious from general knowledge
 - **Implementation Accuracy**: The ZMK codebase has evolved significantly, and outdated approaches will likely fail
-
-## Remember
 
 **NO ASSUMPTIONS**: Always verify current ZMK practices before implementation. What worked in older versions may not work in current releases.
 
@@ -48,7 +47,6 @@ just build roBa_R -S zmk-usb-logging
 If build fails, fix the issue and try again until it passes.
 
 Important: Build may take several minutes to complete. Make sure to wait for the build to finish completely before determining if the build is successful.
-
 
 ## Branch Strategy
 
