@@ -1,0 +1,9 @@
+{
+  "name": "dtannen--claude-stacks",
+  "displayName": "claude-stacks",
+  "description": "Import/Export your Claude mcps/agents/commands/hooks/settings in seconds",
+  "version": "1.0.0",
+  "author": "dtannen",
+  "homepage": "https://github.com/dtannen/claude-stacks",
+  "skills": []
+}
