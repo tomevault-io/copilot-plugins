@@ -1,0 +1,9 @@
+{
+  "name": "almond-bongbong--react-bottom-fixed",
+  "displayName": "react-bottom-fixed",
+  "description": "\ud83d\udcd0 A React component for iOS that keeps your bottom-positioned elements fixed and safely visible, automatically adjusting their positions when viewport changes (e.g., virtual keyboard appearance).",
+  "version": "1.0.0",
+  "author": "almond-bongbong",
+  "homepage": "https://github.com/almond-bongbong/react-bottom-fixed",
+  "skills": []
+}
