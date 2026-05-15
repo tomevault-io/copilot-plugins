@@ -1,0 +1,9 @@
+{
+  "name": "rindevjunior--matterbridge-roborock-vacuum-plugin",
+  "displayName": "matterbridge-roborock-vacuum-plugin",
+  "description": "A Matterbridge plugin to bring my roborock vacuum to Apple Home",
+  "version": "1.0.0",
+  "author": "RinDevJunior",
+  "homepage": "https://github.com/RinDevJunior/matterbridge-roborock-vacuum-plugin",
+  "skills": []
+}
