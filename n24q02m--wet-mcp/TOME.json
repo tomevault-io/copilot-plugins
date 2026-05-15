@@ -4,7 +4,7 @@
   "repo": "wet-mcp",
   "description": "Open-source MCP Server for web search, content extraction, library docs & multimodal analysis.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/n24q02m/wet-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T01:07:49Z"
+  "distributed_at": "2026-05-15T19:43:09Z"
 }
