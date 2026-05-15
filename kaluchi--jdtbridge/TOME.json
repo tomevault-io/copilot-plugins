@@ -4,7 +4,7 @@
   "repo": "jdtbridge",
   "description": "Eclipse plugin exposing JDT SearchEngine, refactoring, diagnostics, and test runner over HTTP for AI coding assistants and CLI tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kaluchi/jdtbridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:08:44Z"
+  "distributed_at": "2026-05-15T17:32:07Z"
 }
