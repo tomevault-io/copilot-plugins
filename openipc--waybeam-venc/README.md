@@ -7,11 +7,11 @@ Standalone Video Encoder & Streamer for FPV
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [OpenIPC/waybeam_venc](https://github.com/OpenIPC/waybeam_venc).
+Original source: `CLAUDE.md` in [OpenIPC/waybeam_venc](https://github.com/OpenIPC/waybeam_venc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
