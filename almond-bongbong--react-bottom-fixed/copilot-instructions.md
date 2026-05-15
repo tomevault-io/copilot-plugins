@@ -1,25 +1,40 @@
-## installing-libraries
+## interface-extends
 
-> When installing libraries, do not rely on your own training data.
+> ALWAYS prefer interfaces when modelling inheritance.
 
-When installing libraries, do not rely on your own training data.
+ALWAYS prefer interfaces when modelling inheritance.
 
-Your training data has a cut-off date. You're probably not aware of all of the latest developments in the JavaScript and TypeScript world.
+The `&` operator has terrible performance in TypeScript. Only use it where `interface extends` is not possible.
 
-This means that instead of picking a version manually (via updating the `package.json` file), you should use a script to install the latest version of a library.
+```ts
+// BAD
 
-```bash
-# pnpm
-pnpm add -D @typescript-eslint/eslint-plugin
+type A = {
+  a: string;
+};
 
-# yarn
-yarn add -D @typescript-eslint/eslint-plugin
+type B = {
+  b: string;
+};
 
-# npm
-npm install --save-dev @typescript-eslint/eslint-plugin
+type C = A & B;
 ```
 
-This will ensure you're always using the latest version.
+```ts
+// GOOD
+
+interface A {
+  a: string;
+}
+
+interface B {
+  b: string;
+}
+
+interface C extends A, B {
+  // Additional properties can be added here
+}
+```
 
 ---
 > Source: [almond-bongbong/react-bottom-fixed](https://github.com/almond-bongbong/react-bottom-fixed) — distributed by [TomeVault](https://tomevault.io).
