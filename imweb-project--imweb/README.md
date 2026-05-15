@@ -7,14 +7,14 @@ Browser-based reimagining of Steina Vasulka's & Tom Demeyer's Image/ine video sy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [imweb-project/ImWeb](https://github.com/imweb-project/ImWeb).
+Original source: `CLAUDE.md` in [imweb-project/ImWeb](https://github.com/imweb-project/ImWeb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/imweb-project/ImWeb](https://github.com/imweb-project/ImWeb)
