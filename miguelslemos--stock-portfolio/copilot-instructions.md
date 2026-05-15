@@ -1,54 +1,51 @@
-## code-style
+## domain-logic
 
-> TypeScript code style standards
+> Business rules and domain logic
 
 
-# Code Style
+# Business Rules (Domain Layer)
 
-## Clarity Above All
+## Principles
 
-- Variable, function, and class names must be self-explanatory
-- Avoid obscure abbreviations. Prefer `calculateTotalGain` over `calcTG`
-- Small functions with a single responsibility (< 30 lines ideally)
-- No unnecessary comments. The code should explain itself
-
-```typescript
-// ❌ Bad: comment that repeats the code
-// Calculate the total gain
-const totalGain = this.calculateTotalGain(positions);
-
-// ✅ Good: self-explanatory name, no comment needed
-const totalGain = this.calculateTotalGain(positions);
-```
-
-## When to Comment
-
-Comment only:
-- Non-obvious business decisions (e.g., a specific tax rule)
-- Temporary workarounds with a link to the issue
-- Public interfaces (concise JSDoc)
-
-## Strict TypeScript
-
-- `strict: true` is active. Never use `any` (ESLint rule enforced)
-- Use discriminated unions instead of boolean flags
-- Prefer `readonly` for immutable properties
-- Use `interface` for contracts, `type` for unions and utility types
+- **Total isolation**: zero imports from `infrastructure/`, `presentation/`, or external libs
+- **Immutability**: value entities (`Money`, `StockQuantity`) must be immutable
+- **Pure methods**: given the same input, always the same output
+- **Self-validation**: entities validate their own invariants in the constructor
 
 ```typescript
-// ❌ Bad
-function process(data: any): any { ... }
+// ✅ Value entity with validation
+class Money {
+  constructor(
+    readonly amount: number,
+    readonly currency: Currency,
+  ) {
+    if (amount < 0) throw new Error('Amount cannot be negative');
+  }
 
-// ✅ Good
-function processOperations(operations: readonly Operation[]): PortfolioSnapshot { ... }
+  add(other: Money): Money {
+    if (this.currency !== other.currency) throw new Error('Currency mismatch');
+    return new Money(this.amount + other.amount, this.currency);
+  }
+}
 ```
 
-## Conventions
+## Domain Services
 
-- Imports use the `@/` alias for `src/`
-- One main class/type per file
-- Files named after the class/type they export
-- Private methods prefixed with clear purpose, not underscore
+- `PortfolioCalculationService`: position calculations, gain/loss, average cost
+- `PortfolioAnalyticsService`: snapshots and analytical aggregations
+- Receive dependencies via interface (e.g., `IExchangeRateService`)
+
+## Operations
+
+- `VestingOperation`: represents RSU/ESPP vesting
+- `TradeOperation`: represents stock buy/sell
+- Each operation is an immutable record with all required data
+
+## When Modifying Business Rules
+
+1. Change only in `domain/` — never in presentation
+2. Write unit tests for every scenario
+3. Validate against the business guide (`docs/guia_negocio.md`)
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
