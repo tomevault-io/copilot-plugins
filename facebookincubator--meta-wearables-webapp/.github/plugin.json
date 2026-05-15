@@ -1,0 +1,9 @@
+{
+  "name": "facebookincubator--meta-wearables-webapp",
+  "displayName": "meta-wearables-webapp",
+  "description": "AI-assisted development toolkit for building web applications on Meta Ray-Ban Display glasses.",
+  "version": "1.0.0",
+  "author": "facebookincubator",
+  "homepage": "https://github.com/facebookincubator/meta-wearables-webapp",
+  "skills": []
+}
