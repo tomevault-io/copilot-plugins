@@ -1,50 +1,80 @@
-## solidjs-typescript-cursorrules-prompt-file
+## svelte-5-vs-svelte-4-cursorrules-prompt-file
 
-> Cursor rules for Solid.js development with TypeScript integration.
+> Cursor rules for comparing Svelte 5 and Svelte 4 development.
 
-// Solid.js with TypeScript .cursorrules
+I'm using svelte 5 instead of svelte 4 here is an overview of the changes.
+# .cursorrules for Svelte 5
 
-// Prefer functional components
+## Overview of Changes
 
-const preferFunctionalComponents = true;
+Svelte 5 introduces runes, a set of advanced primitives for controlling reactivity. The runes replace certain non-runes features and provide more explicit control over state and effects.
 
-// Solid.js and TypeScript best practices
+Snippets, along with render tags, help create reusable chunks of markup inside your components, reducing duplication and enhancing maintainability.
 
-const solidjsTypeScriptBestPractices = [
-  "Use createSignal<T>() for typed reactive state",
-  "Implement proper type definitions for components",
-  "Utilize TypeScript's strict mode",
-  "Use type inference where possible",
-  "Implement interfaces for complex prop types",
-  "Utilize utility types provided by Solid.js",
-];
+## Event Handlers in Svelte 5
 
-// Folder structure
+In Svelte 5, event handlers are treated as standard HTML properties rather than Svelte-specific directives, simplifying their use and integrating them more closely with the rest of the properties in the component.
 
-const folderStructure = `
-src/
-  components/
-  pages/
-  utils/
-  types/
-  App.tsx
-  index.tsx
-public/
-  index.html
-tsconfig.json
-`;
+### Svelte 4 vs. Svelte 5:
 
-// Additional instructions
+**Before (Svelte 4):**
+```html
+<script>
+  let count = 0;
+  $: double = count * 2;
+  $: {
+    if (count > 10) alert('Too high!');
+  }
+</script>
+<button on:click={() => count++}> {count} / {double}</button>
+```
 
-const additionalInstructions = `
-1. Use .tsx extension for files with JSX
-2. Implement strict TypeScript checks
-3. Utilize Solid Router with proper typing
-4. Use type-safe context with createContext
-5. Implement proper typing for event handlers
-6. Follow TypeScript best practices and naming conventions
-7. Use type assertions sparingly and only when necessary
-`;
+**After (Svelte 5):**
+```html
+<script>
+  // Define state with runes
+  let count = $state(0);
+  
+  // Option 1: Using $derived for computed values
+  let double = $derived(count * 2);
+  
+  // Reactive effects using runes
+  $effect(() => {
+    if (count > 10) alert('Too high!');
+  });
+</script>
+
+<!-- Standard HTML event attributes instead of Svelte directives -->
+<button onclick={() => count++}>
+  {count} / {double}
+</button>
+
+<!-- Alternatively, you can compute values inline -->
+<!-- <button onclick={() => count++}>
+  {count} / {count * 2}
+</button> -->
+```
+
+## Key Differences:
+
+1. **Reactivity is Explicit**: 
+   - Svelte 5 uses `$state()` to explicitly mark reactive variables
+   - `$derived()` replaces `$:` for computed values 
+   - `$effect()` replaces `$: {}` blocks for side effects
+
+2. **Event Handling is Standardized**:
+   - Svelte 4: `on:click={handler}`
+   - Svelte 5: `onclick={handler}`
+
+3. **Runes are Compiler Syntax**:
+   - Do not import `$state`, `$derived`, `$effect`, `$props`, `$bindable`, or `$inspect`.
+   - Import only regular Svelte utilities that require imports, such as `tick`, `untrack`, `mount`, or `unmount`.
+
+4. **No More Event Modifiers**:
+   - Svelte 4: `on:click|preventDefault={handler}`
+   - Svelte 5: `onclick={e => { e.preventDefault(); handler(e); }}`
+
+This creates clearer, more maintainable components compared to Svelte 4's previous syntax by making reactivity explicit and using standardized web platform features.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
