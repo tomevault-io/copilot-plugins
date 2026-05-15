@@ -1,0 +1,9 @@
+{
+  "name": "corbett3000--opendna",
+  "displayName": "OpenDNA",
+  "description": "Local-first precision-medicine synthesis for consumer DNA files (23andMe / AncestryDNA / MyHeritage). Apache 2.0.",
+  "version": "1.0.0",
+  "author": "corbett3000",
+  "homepage": "https://github.com/corbett3000/OpenDNA",
+  "skills": []
+}
