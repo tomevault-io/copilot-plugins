@@ -1,0 +1,44 @@
+{
+  "name": "Orbit-Mac",
+  "owner": "YehyeokBang",
+  "repo": "Orbit-Mac",
+  "description": "Mission Control\uc5d0 \ud0a4\ubcf4\ub4dc \ub124\ube44\uac8c\uc774\uc158\uc744 \ucd94\uac00\ud558\ub294 macOS \uc720\ud2f8\ub9ac\ud2f0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/YehyeokBang/Orbit-Mac",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T03:13:49Z"
+}
