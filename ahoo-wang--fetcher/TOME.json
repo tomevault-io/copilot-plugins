@@ -1,0 +1,44 @@
+{
+  "name": "fetcher",
+  "owner": "Ahoo-Wang",
+  "repo": "fetcher",
+  "description": "Fetcher is not just another HTTP client\u2014it's a complete ecosystem designed for modern web development with native LLM streaming API support. Built on the native Fetch API, Fetcher provides an Axios-like experience with powerful features while maintaining an incredibly small footprint.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ahoo-Wang/fetcher",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T08:41:03Z"
+}
