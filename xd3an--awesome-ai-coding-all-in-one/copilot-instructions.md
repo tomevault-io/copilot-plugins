@@ -1,16 +1,48 @@
-## rails-cursorrules-prompt-file
+## react-chakra-ui-cursorrules-prompt-file
 
-> Cursor rules for Rails development with basic setup.
+> Cursor rules for React development with Chakra UI integration.
 
-Rails 8 Development Guidelines
+// React + Chakra UI .cursorrules
 
-- Prefer Rails command-line generators over hand-written boilerplate.
-- Use `bin/dev` for local development and check logs after significant changes.
-- Follow Rails 8 conventions for Solid Queue, Solid Cache, Solid Cable, Propshaft, and Kamal where appropriate.
-- Keep controllers RESTful and focused; use service objects for complex business logic.
-- Use PostgreSQL, proper indexes, connection pooling, and safe migrations.
-- Write Minitest coverage for models, controllers, and integration flows.
-- Use Hotwire for standard Rails interactivity and Vite only when npm-managed JavaScript is needed.
+// Prefer functional components with hooks
+
+const preferFunctionalComponents = true;
+
+// Chakra UI best practices
+
+const chakraUIBestPractices = [
+  "Use ChakraProvider at the root of your app",
+  "Utilize Chakra UI components for consistent design",
+  "Implement custom theme for brand-specific styling",
+  "Use responsive styles with the Chakra UI breakpoint system",
+  "Leverage Chakra UI hooks for enhanced functionality",
+];
+
+// Folder structure
+
+const folderStructure = `
+src/
+  components/
+  pages/
+  theme/
+    index.js
+    foundations/
+    components/
+  hooks/
+  utils/
+`;
+
+// Additional instructions
+
+const additionalInstructions = `
+1. Use TypeScript for type safety with Chakra UI components
+2. Implement proper component composition using Chakra UI
+3. Utilize Chakra UI's built-in accessibility features
+4. Use the 'as' prop for semantic HTML rendering
+5. Implement dark mode using Chakra UI's color mode
+6. Use Chakra UI's layout components for responsive design
+7. Follow Chakra UI best practices for performance optimization
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
