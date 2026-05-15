@@ -1,0 +1,9 @@
+{
+  "name": "icaldav--icaldav",
+  "displayName": "iCalDAV",
+  "description": "Kotlin CalDAV client with offline sync and conflict resolution. Works with iCloud, Nextcloud, and other CalDAV servers.",
+  "version": "1.0.0",
+  "author": "iCalDAV",
+  "homepage": "https://github.com/iCalDAV/iCalDAV",
+  "skills": []
+}
