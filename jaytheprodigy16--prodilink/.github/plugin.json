@@ -1,0 +1,9 @@
+{
+  "name": "jaytheprodigy16--prodilink",
+  "displayName": "Prodilink",
+  "description": "Open-source Python library for the Mudra Link wristband. Full device control over BLE, no proprietary software required.",
+  "version": "1.0.0",
+  "author": "JayTheProdigy16",
+  "homepage": "https://github.com/JayTheProdigy16/Prodilink",
+  "skills": []
+}
