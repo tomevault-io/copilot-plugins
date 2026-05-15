@@ -1,0 +1,9 @@
+{
+  "name": "brianlovin--notion-skills",
+  "displayName": "notion-skills",
+  "description": "Use Notion as your source of truth for agent skills",
+  "version": "1.0.0",
+  "author": "brianlovin",
+  "homepage": "https://github.com/brianlovin/notion-skills",
+  "skills": []
+}
