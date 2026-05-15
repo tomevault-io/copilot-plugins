@@ -1,0 +1,9 @@
+{
+  "name": "azuma520--obsidian-graph-query",
+  "displayName": "obsidian-graph-query",
+  "description": "Let your AI agent query your Obsidian vault's knowledge graph directly.",
+  "version": "1.0.0",
+  "author": "azuma520",
+  "homepage": "https://github.com/azuma520/obsidian-graph-query",
+  "skills": []
+}
