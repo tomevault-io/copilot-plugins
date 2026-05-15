@@ -1,0 +1,9 @@
+{
+  "name": "toolprint--cco-mcp",
+  "displayName": "cco-mcp",
+  "description": "Real-time audit and approval system for Claude Code tool calls.",
+  "version": "1.0.0",
+  "author": "toolprint",
+  "homepage": "https://github.com/toolprint/cco-mcp",
+  "skills": []
+}
