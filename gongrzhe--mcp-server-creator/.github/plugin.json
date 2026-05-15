@@ -1,0 +1,9 @@
+{
+  "name": "gongrzhe--mcp-server-creator",
+  "displayName": "MCP-Server-Creator",
+  "description": "A powerful Model Context Protocol (MCP) server that creates other MCP servers! This meta-server provides tools for dynamically generating FastMCP server configurations and Python code.",
+  "version": "1.0.0",
+  "author": "GongRzhe",
+  "homepage": "https://github.com/GongRzhe/MCP-Server-Creator",
+  "skills": []
+}
