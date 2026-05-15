@@ -1,0 +1,9 @@
+{
+  "name": "smythos--sre-project-templates",
+  "displayName": "sre-project-templates",
+  "description": "This repo contains multiple project templates for Smyth Runtime Core and SDK",
+  "version": "1.0.0",
+  "author": "SmythOS",
+  "homepage": "https://github.com/SmythOS/sre-project-templates",
+  "skills": []
+}
