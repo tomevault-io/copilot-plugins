@@ -4,7 +4,7 @@
   "repo": "pumpfun-cli",
   "description": "CLI for trading with pump.fun",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chainstacklabs/pumpfun-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:38:13Z"
+  "distributed_at": "2026-05-15T18:16:25Z"
 }
