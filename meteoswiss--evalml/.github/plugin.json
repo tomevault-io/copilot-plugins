@@ -1,0 +1,9 @@
+{
+  "name": "meteoswiss--evalml",
+  "displayName": "evalml",
+  "description": "Run evaluation pipelines for Anemoi models.",
+  "version": "1.0.0",
+  "author": "MeteoSwiss",
+  "homepage": "https://github.com/MeteoSwiss/evalml",
+  "skills": []
+}
