@@ -1,0 +1,44 @@
+{
+  "name": "cargo-hold",
+  "owner": "Ellipsis-Labs",
+  "repo": "cargo-hold",
+  "description": "cargo-hold makes your Rust CI caching actually work \u2728\ud83d\udc96",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ellipsis-Labs/cargo-hold",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T04:12:22Z"
+}
