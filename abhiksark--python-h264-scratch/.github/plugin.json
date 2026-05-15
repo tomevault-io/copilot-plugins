@@ -1,0 +1,9 @@
+{
+  "name": "abhiksark--python-h264-scratch",
+  "displayName": "python-h264-scratch",
+  "description": "Pure Python H.264 video decoder \u2014 pixel-perfect, from scratch, no C extensions. Decodes real MP4 files.",
+  "version": "1.0.0",
+  "author": "abhiksark",
+  "homepage": "https://github.com/abhiksark/python-h264-scratch",
+  "skills": []
+}
