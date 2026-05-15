@@ -1,0 +1,9 @@
+{
+  "name": "nikoro--many-lints",
+  "displayName": "many_lints",
+  "description": "A useful collection of custom lints for Flutter & Dart projects",
+  "version": "1.0.0",
+  "author": "Nikoro",
+  "homepage": "https://github.com/Nikoro/many_lints",
+  "skills": []
+}
