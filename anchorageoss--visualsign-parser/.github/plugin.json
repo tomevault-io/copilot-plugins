@@ -1,0 +1,9 @@
+{
+  "name": "anchorageoss--visualsign-parser",
+  "displayName": "visualsign-parser",
+  "description": "Rust-based transaction parser that converts raw blockchain transactions into human-readable VisualSign payloads.",
+  "version": "1.0.0",
+  "author": "anchorageoss",
+  "homepage": "https://github.com/anchorageoss/visualsign-parser",
+  "skills": []
+}
