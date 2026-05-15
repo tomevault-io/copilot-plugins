@@ -1,143 +1,83 @@
-## git-timestamps
+## pyproject-dependencies
 
-> **Always use git commit timestamps instead of current system time for logging, data storage, and operations throughout the system.**
+> - **Critical Rule: All Production Dependencies Must Be in pyproject.toml**
 
-# Git Timestamp Consistency Rule
+## **pyproject.toml Dependency Management**
 
-**Always use git commit timestamps instead of current system time for logging, data storage, and operations throughout the system.**
+- **Critical Rule: All Production Dependencies Must Be in pyproject.toml**
+  - CI environment ONLY installs from `pyproject.toml` main dependencies section
+  - Never rely on `requirements.txt` or other dependency files for production code
+  - Dev dependencies go in `[project.optional-dependencies.dev]` section
 
-## Core Principle
+- **When to Update pyproject.toml Dependencies:**
+  - **Every time you add a new import statement** in production code (`src/` directory)
+  - **When adding new test dependencies** that import external packages
+  - **Before committing code that uses new libraries**
+  - **When CI fails with ModuleNotFoundError but tests pass locally**
 
-- **Use `commit.committed_datetime` or `commit.committed_date` from GitPython for all timestamp operations**
-- **Never use `datetime.now()`, `time.time()`, or other current-time functions when git context is available**
-- **Maintain temporal consistency with the actual development timeline**
+- **Common CI Failure Pattern Recognition:**
+  ```bash
+  # CI Error Pattern:
+  ModuleNotFoundError: No module named 'some_package'
+  # But locally: tests pass ✅
+  
+  # Root Cause: Package installed locally but missing from pyproject.toml
+  # Solution: Add to main dependencies section
+  ```
 
-## Implementation Patterns
+- **Dependency Addition Checklist:**
+  ```python
+  # ✅ DO: When you add imports like this
+  from opentelemetry.exporter.prometheus import PrometheusMetricReader
+  from opentelemetry.instrumentation.requests import RequestsInstrumentor
+  
+  # ✅ DO: Immediately add to pyproject.toml
+  dependencies = [
+      "opentelemetry-exporter-prometheus>=0.54b0",
+      "opentelemetry-instrumentation-requests>=0.41b0",
+  ]
+  ```
 
-### ✅ DO: Use Git Commit Timestamps
+- **Version Specification Best Practices:**
+  - **Research actual available versions** on PyPI before specifying
+  - **Don't assume version patterns** across related packages (e.g., OpenTelemetry packages have different schemes)
+  - **Check for yanked versions** if you get "no matching distribution" errors
+  - **Use conservative version constraints** (`>=X.Y.Z`) rather than exact pins for libraries
 
-```python
-# For ISO format timestamps
-timestamp = commit.committed_datetime.isoformat()
+- **Local vs CI Environment Differences:**
+  - **Local development** often has extra packages from manual installs, requirements.txt, or previous environments
+  - **CI is clean** and only installs what's explicitly declared in pyproject.toml
+  - **Always test dependency changes** with a clean virtual environment when possible
+  - **Push dependency updates immediately** after adding new imports to catch issues early
 
-# For date strings  
-date_str = commit.committed_datetime.strftime("%Y-%m-%d")
+- **Error Resolution Workflow:**
+  1. **CI fails with ModuleNotFoundError** → Check if package is in pyproject.toml main dependencies
+  2. **Local tests pass but CI fails** → Almost always a missing dependency issue
+  3. **"No matching distribution found"** → Check available versions on PyPI, look for yanked versions
+  4. **Import works locally** → Verify the package name and version in pyproject.toml
 
-# For Unix timestamps
-timestamp = commit.committed_date
+- **Prevention Strategy:**
+  - **Add dependencies BEFORE writing the import** when possible
+  - **Use `pip install package-name` AND update pyproject.toml** when adding new packages
+  - **Review imports in every commit** to ensure corresponding dependencies exist
+  - **Test in clean environments** periodically to catch environment drift
 
-# For datetime objects
-dt = commit.committed_datetime
-```
+- **Examples from This Project:**
+  ```python
+  # ❌ DON'T: Add imports without updating pyproject.toml
+  from opentelemetry.exporter.prometheus import PrometheusMetricReader  # CI will fail!
+  
+  # ✅ DO: Add import AND update pyproject.toml
+  from opentelemetry.exporter.prometheus import PrometheusMetricReader
+  # In pyproject.toml: "opentelemetry-exporter-prometheus>=0.54b0"
+  ```
 
-### ✅ DO: Access Latest Commit Timestamp
+- **Historical Issues Resolved:**
+  - **Auto-instrumentation packages** (requests, aiohttp, asyncio, logging instrumentors)
+  - **Prometheus exporter** with version specification corrections
+  - **Pattern**: Code worked locally, CI failed on import, fixed by adding to pyproject.toml
 
-```python
-def get_git_commit_timestamp(repo_path: str) -> Optional[str]:
-    """Get timestamp from most recent git commit."""
-    try:
-        repo = git.Repo(repo_path)
-        if not repo.heads:
-            return None
-        latest_commit = repo.head.commit
-        return latest_commit.committed_datetime.isoformat()
-    except Exception:
-        return None
-```
-
-### ✅ DO: Use in Logging with Fallback
-
-```python
-def log_with_git_timestamp(message: str, repo_path: str = None):
-    """Log with git commit timestamp for consistency."""
-    timestamp = get_git_commit_timestamp(repo_path) if repo_path else None
-    if timestamp:
-        log_message = f"[{timestamp}] {message}"
-    else:
-        # Fallback only when git context unavailable
-        log_message = f"[{datetime.now().isoformat()}] {message}"
-    logger.info(log_message)
-```
-
-### ❌ DON'T: Use Current System Time When Git Context Available
-
-```python
-# ❌ Wrong - ignores git timeline
-timestamp = datetime.now().isoformat()
-log_entry = f"[{datetime.now()}] Generated summary"
-
-# ❌ Wrong - inconsistent with commit history
-file_timestamp = time.time()
-```
-
-### ❌ DON'T: Mix Timestamp Sources
-
-```python
-# ❌ Wrong - mixing git and system timestamps
-commit_time = commit.committed_datetime
-system_time = datetime.now()  # Creates inconsistency
-```
-
-## System Areas Where This Applies
-
-### **Journal Entries**
-- Use commit timestamp for journal file timestamps
-- Use commit timestamp for entry metadata
-- Reference: [`journal_workflow.py`](mdc:src/mcp_commit_story/journal_workflow.py)
-
-### **Summary Generation**
-- Use commit timestamp for summary metadata
-- Use commit timestamp for determining generation boundaries
-- Reference: [`daily_summary.py`](mdc:src/mcp_commit_story/daily_summary.py)
-
-### **Git Hook Operations**
-- Use commit timestamp for hook activity logging
-- Maintain consistency with commit timeline
-- Reference: [`git_hook_worker.py`](mdc:src/mcp_commit_story/git_hook_worker.py)
-
-### **MCP Operations**
-- Use commit timestamp for operation metadata
-- Use commit timestamp for telemetry data
-- Reference: MCP server implementations
-
-## Testing Considerations
-
-### **Mock Git Timestamps in Tests**
-
-```python
-# ✅ DO: Mock git commit timestamps consistently
-mock_commit.committed_datetime = datetime(2025, 6, 3, 14, 30)
-mock_commit.committed_date = 1717426200  # Unix timestamp
-
-# ✅ DO: Test timestamp consistency
-def test_timestamp_consistency():
-    timestamp1 = get_git_commit_timestamp(repo_path)
-    timestamp2 = commit.committed_datetime.isoformat()
-    assert timestamp1 == timestamp2
-```
-
-## Benefits
-
-- **Temporal Consistency**: All timestamps reflect the actual development timeline
-- **Reproducible Builds**: Same commit always produces same timestamps
-- **Debugging**: Log entries match commit history timeline
-- **Testing**: Deterministic timestamp behavior
-- **User Experience**: Consistent time references across all features
-
-## Exceptions
-
-**Only use system time when:**
-- Git context is completely unavailable
-- Real-time operations require current time (e.g., rate limiting)
-- Temporary operations that don't persist data
-
-**Always document exceptions with clear reasoning.**
-
-## Related Rules
-
-- [Git Operations](mdc:.cursor/rules/git_operations.mdc)
-- [Testing Patterns](mdc:.cursor/rules/testing.mdc)
-- [Logging Standards](mdc:.cursor/rules/logging.mdc)
+This rule prevents the "works on my machine" problem that has caused multiple CI failures in this project.
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
