@@ -1,0 +1,9 @@
+{
+  "name": "babamba2--superclaude-for-sap",
+  "displayName": "superclaude-for-sap",
+  "description": "SuperClaude for SAP \u2014 Claude Code plugin for SAP On-Premise S/4HANA ABAP development (24 agents, 14 skills, 150+ MCP tools)",
+  "version": "1.0.0",
+  "author": "babamba2",
+  "homepage": "https://github.com/babamba2/superclaude-for-sap",
+  "skills": []
+}
