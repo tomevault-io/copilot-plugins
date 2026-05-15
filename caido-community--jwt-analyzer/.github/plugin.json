@@ -1,0 +1,9 @@
+{
+  "name": "caido-community--jwt-analyzer",
+  "displayName": "JWT-Analyzer",
+  "description": "Detect, analyze, test and Attack JSON Web Tokens in web traffic",
+  "version": "1.0.0",
+  "author": "caido-community",
+  "homepage": "https://github.com/caido-community/JWT-Analyzer",
+  "skills": []
+}
