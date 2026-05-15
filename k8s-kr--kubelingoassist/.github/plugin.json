@@ -1,0 +1,9 @@
+{
+  "name": "k8s-kr--kubelingoassist",
+  "displayName": "kubelingoassist",
+  "description": "vscode extenstion for translating k8s docs",
+  "version": "1.0.0",
+  "author": "k8s-kr",
+  "homepage": "https://github.com/k8s-kr/kubelingoassist",
+  "skills": []
+}
