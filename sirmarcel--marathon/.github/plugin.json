@@ -1,0 +1,9 @@
+{
+  "name": "sirmarcel--marathon",
+  "displayName": "marathon",
+  "description": "jax/flax training infrastructure",
+  "version": "1.0.0",
+  "author": "sirmarcel",
+  "homepage": "https://github.com/sirmarcel/marathon",
+  "skills": []
+}
