@@ -1,50 +1,98 @@
-## mang-projects-rules
+## mangprojects
 
-> Mang Projects Rules - Flutter Web Engineering Project Management
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-You are an expert Flutter + Dart 3+ developer specialized in Engineering Project Management applications.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Application:** Mang Projects (Flutter Web deployed on Firebase Hosting)
+## Commands
 
-**Tech Stack:**
-- Riverpod (AsyncNotifierProvider + AsyncValue)
-- Firebase Auth + Firestore
-- Supabase Storage for file attachments
-- Freezed for all Models
-- Feature-first Architecture
+```bash
+# Install / update dependencies
+flutter pub get
 
-**Project Structure (always respect it):**
-- lib/features/ contains: auth, home, office, projects, employees, clients, reports, settings, attendance, developer
-- Every feature has:
-  - data/ (models + repositories)
-  - presentation/ (providers + screens + widgets)
-- core/ for shared services (e.g. supabase_storage_service.dart)
-- Most important file: project_details_screen.dart (4 tabs: Overview, Tasks, My Notes, Report)
+# Run on a connected device or emulator
+flutter run
 
-**User Roles:**
-- admin → full access
-- team_leader → manage tasks and change their status
-- engineer → sees only assigned tasks
-- reviewer/qc → review tasks + add notes
-- client → sees only their projects' tasks
+# Run on Chrome (web)
+flutter run -d chrome
 
-**Task Workflow (very important):**
-not_started → in_progress → team_leader_review → qc_review → client_review → completed
-with automatic progress: 0% / 0-60% / 70% / 80% / 90% / 100%
+# Build
+flutter build apk --release        # Android APK
+flutter build appbundle --release   # Android App Bundle
+flutter build web --release         # Web
 
-**Strict Rules:**
-- Use AsyncValue for all async operations
-- For showModalBottomSheet with Riverpod → always use UncontrolledProviderScope + ProviderScope.containerOf(context)
-- All Models must use Freezed
-- All Firebase/Supabase operations must be inside Repository classes
-- Use Logger instead of print()
-- Prefer const constructors + trailing commas
-- Always handle loading, error, and empty states
-- Categories and Disciplines must come from providers (never hardcoded)
-- Never accidentally overwrite or break project_details_screen.dart
+# Lint / static analysis
+flutter analyze
 
-Always follow these rules 100%. Write clean, professional, production-ready code suitable for an engineering project management app.
+# Tests
+flutter test                        # all tests
+flutter test test/path/to/test.dart # single test file
+
+# Deploy Firebase (hosting + functions)
+firebase deploy
+firebase deploy --only hosting
+firebase deploy --only functions
+
+# Cloud Functions
+cd functions && npm install
+```
+
+## Architecture
+
+### Stack
+- **Flutter / Dart** (SDK ^3.11.0, stable channel)
+- **State management:** Riverpod (`flutter_riverpod ^2.5.1`)
+- **Backend:** Firebase (Auth, Firestore, Storage, Cloud Messaging, Hosting) + Supabase (secondary, for storage)
+- **Cloud Functions:** Node.js 20 (`functions/index.js`) — Firestore-triggered FCM notifications
+- **Platforms:** Android (minSdk 32, targetSdk 36, Java 17), iOS, Web (PWA with service worker)
+
+### Feature structure (`lib/features/`)
+Each feature follows a consistent MVVM-like pattern:
+```
+features/<feature>/
+├── data/
+│   ├── models/          # Dart data classes
+│   └── repositories/    # Firestore queries (return Streams or Futures)
+└── presentation/
+    ├── controllers/     # Riverpod providers wrapping repository calls
+    └── screens/         # Stateless/ConsumerWidget UI
+```
+
+Features: `auth`, `home`, `projects`, `employees`, `attendance`, `leaves`, `client`, `developer`, `office`, `notifications`, `reports`, `settings`.
+
+### Shared code (`lib/core/`)
+- `providers/` — global Riverpod providers (theme, shared preferences)
+- `services/` — FCM, local storage, location, Supabase storage wrappers
+- `theme/` — `AppTheme` definition
+- `widgets/` — reusable UI components
+
+### Entry point (`lib/main.dart`)
+Initialises Firebase and Supabase, disables Firestore offline persistence for web, then routes based on Firebase Auth state.
+
+### Role-based access
+Users have roles: `admin`, `management`, `dc`, `team_lead`, `engineer`, `qa`, `client`. Dashboards and permissions are gated by role. Multi-office support: users select an office via `EnterOfficeCodeScreen`.
+
+### Task workflow
+`not_started → in_progress → team_leader_review → qc_review → client_review → completed`
+
+Cloud Functions send FCM notifications to relevant stakeholders (office admins, management, team leads) on Firestore document writes.
+
+### Key config files
+| File | Purpose |
+|---|---|
+| `pubspec.yaml` | Flutter dependencies & assets |
+| `firebase.json` | Firebase Hosting rewrites, Functions runtime (Node 20) |
+| `firestore.rules` | Firestore security rules |
+| `firestore.indexes.json` | Composite index definitions |
+| `.firebaserc` | Firebase project alias (`mangprojects`) |
+| `lib/firebase_options.dart` | Auto-generated by FlutterFire CLI — do not edit manually |
+| `android/app/build.gradle.kts` | App package: `com.afaq.mang_projects` |
+| `web/index.html` | FCM service worker registration for web |
+
+### Typography
+Cairo font family (Arabic/Latin) loaded from `assets/fonts/`.
 
 ---
 > Source: [HamedBarakat/mangprojects](https://github.com/HamedBarakat/mangprojects) — distributed by [TomeVault](https://tomevault.io).
