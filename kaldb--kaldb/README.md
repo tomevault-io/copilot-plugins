@@ -7,11 +7,11 @@ KalDB is a cloud-native polystore for search and analytics
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kaldb/kaldb](https://github.com/kaldb/kaldb).
+Original source: `CLAUDE.md` in [kaldb/kaldb](https://github.com/kaldb/kaldb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
