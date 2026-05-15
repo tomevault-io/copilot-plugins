@@ -1,0 +1,9 @@
+{
+  "name": "lexfrei--extractedprism",
+  "displayName": "extractedprism",
+  "description": "Standalone Kubernetes API server local TCP load balancer inspired by Talos KubePrism",
+  "version": "1.0.0",
+  "author": "lexfrei",
+  "homepage": "https://github.com/lexfrei/extractedprism",
+  "skills": []
+}
