@@ -1,21 +1,19 @@
 # devclarity-coding-tutorial
 
-> Tome by [devclarityai](https://github.com/devclarityai/devclarity-coding-tutorial) — distributed by [TomeVault](https://tomevault.io/claim/devclarityai)
-
-AI instruction files for devclarity-coding-tutorial by devclarityai
+> Tome by [devclarityai](https://github.com/devclarityai/devclarity-coding-tutorial) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [devclarityai/devclarity-coding-tutorial](https://github.com/devclarityai/devclarity-coding-tutorial).
+Original source: `CLAUDE.md` in [devclarityai/devclarity-coding-tutorial](https://github.com/devclarityai/devclarity-coding-tutorial).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 ## Bundled Skills (4)
 
@@ -24,7 +22,7 @@ Original source: `.windsurf/rules/*.md` in [devclarityai/devclarity-coding-tutor
 - [implement-it](https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/implement-it)
 - [task-creator](https://github.com/devclarityai/devclarity-coding-tutorial/tree/main/.cursor/skills/task-creator)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/devclarityai#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/devclarityai/devclarity-coding-tutorial](https://github.com/devclarityai/devclarity-coding-tutorial)
 
 ---
 
