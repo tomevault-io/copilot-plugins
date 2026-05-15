@@ -1,0 +1,9 @@
+{
+  "name": "mikesparr--enterprise-api-starter-nodejs",
+  "displayName": "enterprise-api-starter-nodejs",
+  "description": "Full-featured enterprise API starter for NodeJS / Typescript with passwordless login, RBAC, webhooks, events, and more.",
+  "version": "1.0.0",
+  "author": "mikesparr",
+  "homepage": "https://github.com/mikesparr/enterprise-api-starter-nodejs",
+  "skills": []
+}
