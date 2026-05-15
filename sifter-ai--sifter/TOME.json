@@ -1,0 +1,44 @@
+{
+  "name": "sifter",
+  "owner": "sifter-ai",
+  "repo": "sifter",
+  "description": "Sifter is an open-source, developer-first document extraction engine that turns unstructured documents \u2014 invoices, contracts, receipts, reports \u2014 into a structured, queryable database",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sifter-ai/sifter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T12:17:26Z"
+}
