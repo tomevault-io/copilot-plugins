@@ -1,0 +1,9 @@
+{
+  "name": "oalanicolas--blog-template",
+  "displayName": "blog-template",
+  "description": "Canonical Astro + Cloudflare Workers + D1 blog template for Sinkra Hub GEO blogs",
+  "version": "1.0.0",
+  "author": "oalanicolas",
+  "homepage": "https://github.com/oalanicolas/blog-template",
+  "skills": []
+}
