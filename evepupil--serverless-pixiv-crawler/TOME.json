@@ -1,0 +1,44 @@
+{
+  "name": "serverless_pixiv_crawler",
+  "owner": "evepupil",
+  "repo": "serverless_pixiv_crawler",
+  "description": "Pixiv\u63d2\u753b\u722c\u866b\uff0cServerless\u67b6\u6784\uff0c\u96c6\u6210 Supabase \u6570\u636e\u5e93\uff0c\u5206\u5e03\u5f0f\u5b9a\u65f6\u4efb\u52a1\u722c\u53d6",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/evepupil/serverless_pixiv_crawler",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T21:11:05Z"
+}
