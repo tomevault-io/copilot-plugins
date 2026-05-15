@@ -1,0 +1,9 @@
+{
+  "name": "isiahw1--mcp-server-bing-webmaster",
+  "displayName": "mcp-server-bing-webmaster",
+  "description": "MCP server providing access to Bing Webmaster Tools API endpoints for SEO management and analytics",
+  "version": "1.0.0",
+  "author": "isiahw1",
+  "homepage": "https://github.com/isiahw1/mcp-server-bing-webmaster",
+  "skills": []
+}
