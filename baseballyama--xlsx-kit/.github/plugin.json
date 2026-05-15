@@ -1,0 +1,9 @@
+{
+  "name": "baseballyama--xlsx-kit",
+  "displayName": "xlsx-kit",
+  "description": "A JavaScript library for Excel (XLSX) files, inspired by openpyxl",
+  "version": "1.0.0",
+  "author": "baseballyama",
+  "homepage": "https://github.com/baseballyama/xlsx-kit",
+  "skills": []
+}
