@@ -4,7 +4,7 @@
   "repo": "codesesh",
   "description": "One place to see every AI coding session you've ever had.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xingkaixin/codesesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T22:21:05Z"
+  "distributed_at": "2026-05-15T18:10:16Z"
 }
