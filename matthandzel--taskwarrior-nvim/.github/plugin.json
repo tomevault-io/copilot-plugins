@@ -1,0 +1,9 @@
+{
+  "name": "matthandzel--taskwarrior-nvim",
+  "displayName": "taskwarrior.nvim",
+  "description": "Edit Taskwarrior tasks as markdown in Neovim. Inspired by oil.nvim.",
+  "version": "1.0.0",
+  "author": "MattHandzel",
+  "homepage": "https://github.com/MattHandzel/taskwarrior.nvim",
+  "skills": []
+}
