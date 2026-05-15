@@ -1,0 +1,9 @@
+{
+  "name": "sonaiengine--ku-portal-mcp",
+  "displayName": "ku-portal-mcp",
+  "description": "MCP server for Korea University KUPID portal & Canvas LMS \u2014 notices, schedules, library seats, assignments, grades from Claude",
+  "version": "1.0.0",
+  "author": "SonAIengine",
+  "homepage": "https://github.com/SonAIengine/ku-portal-mcp",
+  "skills": []
+}
