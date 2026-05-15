@@ -7,11 +7,11 @@ Shadcn-native Design CI for Tailwind apps: export registries that work with shad
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sarveshsea/memi](https://github.com/sarveshsea/memi).
+Original source: `CLAUDE.md` in [sarveshsea/memi](https://github.com/sarveshsea/memi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
