@@ -4,7 +4,7 @@
   "repo": "logwiz",
   "description": "Open-source, self-hosted log management platform built with SvelteKit and Quickwit!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oleksandr-zhyhalo/logwiz",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:20:01Z"
+  "distributed_at": "2026-05-15T17:42:55Z"
 }
