@@ -1,0 +1,9 @@
+{
+  "name": "dwalleck--catalyst",
+  "displayName": "catalyst",
+  "description": "High-performance Rust hooks for Claude Code skill auto-activation. ~2ms startup, zero dependencies, production-tested patterns.",
+  "version": "1.0.0",
+  "author": "dwalleck",
+  "homepage": "https://github.com/dwalleck/catalyst",
+  "skills": []
+}
