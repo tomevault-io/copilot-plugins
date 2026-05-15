@@ -1,0 +1,9 @@
+{
+  "name": "leifericf--eido",
+  "displayName": "eido",
+  "description": "Data-driven 2D & 3D graphics for Clojure \u2014 shapes, animation, lighting, and compositing from data. Pure Clojure; zero dependencies.",
+  "version": "1.0.0",
+  "author": "leifericf",
+  "homepage": "https://github.com/leifericf/eido",
+  "skills": []
+}
