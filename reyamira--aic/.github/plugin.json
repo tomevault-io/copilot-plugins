@@ -1,0 +1,9 @@
+{
+  "name": "reyamira--aic",
+  "displayName": "aic",
+  "description": "CLI to fetch the latest changelogs for AI coding assistants \u2014 Claude Code, Codex, OpenCode, Gemini CLI, Openclaw, and a few more",
+  "version": "1.0.0",
+  "author": "reyamira",
+  "homepage": "https://github.com/reyamira/aic",
+  "skills": []
+}
