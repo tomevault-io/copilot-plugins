@@ -1,0 +1,44 @@
+{
+  "name": "openchief",
+  "owner": "serpin-taxt",
+  "repo": "openchief",
+  "description": "AI agents that passively watch your business tools and produce daily reports. Open-source, serverless \u2014 run locally or deploy to Cloudflare Workers.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/serpin-taxt/openchief",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T15:38:54Z"
+}
