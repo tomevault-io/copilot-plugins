@@ -1,0 +1,9 @@
+{
+  "name": "jerryinyang--rustybt",
+  "displayName": "rustybt",
+  "description": "A high-performance backtesting framework combining the speed of Rust with the ease of Python. Built for quantitative traders, researchers, and financial institutions who need reliable, fast, and const",
+  "version": "1.0.0",
+  "author": "jerryinyang",
+  "homepage": "https://github.com/jerryinyang/rustybt",
+  "skills": []
+}
