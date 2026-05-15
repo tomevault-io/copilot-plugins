@@ -1,625 +1,765 @@
-## global
+## nekro-endpoint
 
-> 你好，AI 助手！这份文档是你的核心工作指南。在你进行任何编码、重构或分析工作之前，**必须**完整阅读并理解本文档。你的首要任务是确保你的所有操作都与本文档中描述的架构和原则保持一致，并在你对项目架构做出任何修改后，**主动更新本文档本身 [global.mdc](mdc:.cursor/rules/global.mdc) **。
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# 工作指导手册
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-你好，AI 助手！这份文档是你的核心工作指南。在你进行任何编码、重构或分析工作之前，**必须**完整阅读并理解本文档。你的首要任务是确保你的所有操作都与本文档中描述的架构和原则保持一致，并在你对项目架构做出任何修改后，**主动更新本文档本身 [global.mdc](mdc:.cursor/rules/global.mdc) **。
+## 项目概述
 
-## 1. 项目核心定位
+**NekroEndpoint** 是一个基于 Cloudflare Workers 构建的**端点编排平台**，允许用户在全球边缘节点上创建和管理 API 端点。
 
-这是一个基于 **Cloudflare** 技术栈的、**生产级**、**类型安全**的 **Hono + React + D1** 全栈应用模板。
+### 核心功能
 
-- **核心价值**: 提供开箱即用的开发体验，整合最佳实践，实现从数据库到前端的端到端类型安全。
-- **目标用户**: 希望在 Cloudflare 生态中快速构建现代化 Web 应用的开发者。
-- **你的角色**: 维护并增强这个模板的工程化能力、易用性和健壮性。始终以"最佳实践"和"最低维护成本"为原则进行开发。
+- **三种端点类型**：
+  - **静态端点**（Static）：托管文本内容、配置文件
+  - **代理端点**（Proxy）：转发请求到目标 URL（如加速 GitHub raw 内容）
+  - **脚本端点**（Script）：运行自定义 JavaScript 脚本（Phase 3）
 
-**当前项目状态**（NekroEndpoint 实现）：
+- **双层密钥机制**：
+  - **Platform API Key**：用户管理平台功能的凭证（创建/编辑端点、管理权限组）
+  - **Endpoint Access Key**：访问已发布端点的凭证（通过权限组管理，可对外分发）
 
-- **Phase 1（MVP）**：100% 完成 ✅
-- **Phase 2（权限组系统）**：100% 完成 ✅
-- **Phase 3.1（动态代理端点）**：100% 完成 ✅
-- **Phase 3.2（脚本端点）**：计划中 ⏳
-- **可投入生产使用**：适用于静态内容托管、固定代理和动态子路径代理场景
+- **权限组系统**：创建权限组 → 生成访问密钥 → 端点关联权限组 → 细粒度访问控制
 
-## 2. 核心技术与架构
+- **树形端点管理**：层级化组织端点，支持拖拽排序，每个节点都是完整的端点
 
-### 2.1. 整体架构
+- **用户激活制**：管理员手动激活后才能发布端点（未激活用户可创建和编辑，但不能发布）
 
-这是一个**混合渲染模式 (Hybrid Rendering)** 的单体应用，部署在 Cloudflare Pages & Workers 上。
+- **管理员审查**：查看所有用户的端点树和内容，强制下线任何端点
 
-- **开发环境 (`pnpm dev`)**:
-  - Hono 后端 (Wrangler) 运行在 `localhost:8787`，作为**主入口**。
-  - Vite 前端服务器运行在 `localhost:5173`。
-  - **关键认知**: `index.ts` 中的开发逻辑会将所有非 API 的前端请求**代理**到 Vite 服务器 (`5173`)。这使得前端能享受 Vite 带来的**热更新 (HMR)**。**你绝不能假设开发时后端可以直接访问 `frontend/dist` 下的任何文件**。
-- **生产环境 (`pnpm deploy`)**:
-  - Vite 将前端代码构建为静态资源，输出到 `frontend/dist` 目录。
-  - Hono 后端 (`src/index.ts`) 会根据 `manifest.json` **服务器端渲染 (SSR)** 初始 HTML，并由 Cloudflare Pages 提供静态资源。
-  - **关键认知**: `index.ts` 中通过**动态 `import()`** 来加载生产构建产物 (`manifest.json` 和 `index.html`)，这是为了避免在开发环境中因找不到这些文件而导致构建失败。**这是本项目的核心架构设计，必须理解并维护**。
+### 技术栈
 
-### 2.2. 后端 (`src/`)
+- **后端**：Hono (OpenAPI)、Cloudflare Workers、Cloudflare D1 (SQLite)
+- **前端**：React 18、Material-UI、Monaco Editor、React Router、Vite
+- **数据库 ORM**：Drizzle ORM
+- **类型安全**：Zod（验证）、TypeScript
+- **认证**：GitHub OAuth + 会话管理
+- **部署**：Cloudflare Pages & Workers
 
-- **入口: `src/index.ts`**:
-  - 这是应用的统一入口。
-  - 使用 `if (c.env.NODE_ENV === "development")` 来分离开发和生产逻辑。
-  - **OpenAPI 注册**: API 路由通过一个独立的 `OpenAPIHono` 实例 (`apiApp`) 进行注册，然后统一挂载到主 `app` 上。这是为了确保 Swagger UI 能正确发现所有端点。在添加新的 API 模块时，必须遵循这个模式。
-- **路由: `src/routes/`**:
-  - Hono 的路由模块。包含功能示例和认证路由。
-  - 使用 `@hono/zod-openapi` 的 `createRoute` 来创建类型安全且自动生成文档的路由。
-  - **认证路由** (`auth.ts`): 实现 GitHub OAuth 登录、用户信息获取、登出和 API Key 重新生成功能。
-- **中间件: `src/middleware/`**:
-  - **认证中间件** (`auth.ts`): 验证用户会话，注入用户信息到 context，保护需要认证的路由。
-- **数据校验: `src/validators/` 和 `common/validators/`**:
-  - 使用 Zod 定义所有 API 的请求/响应/路径参数的 Schema。这些 Schema 是类型安全和 API 文档的来源。
-  - **认证 Schema** (`common/validators/auth.schema.ts`): 定义认证相关的数据结构。
-- **数据库 ORM: `src/db/`**:
-  - `schema.ts` 文件使用 Drizzle ORM 定义数据库表结构。这是**唯一的数据源 (Single Source of Truth)**。
-  - 包含 `features`（功能开关）、`users`（用户）、`userSessions`（会话）表。
-- **工具函数: `src/utils/`**:
-  - **加密工具** (`encryption.ts`): 生成用户专属的 API Key。
-  - **HTML 模板**: 统一的 HTML 模板生成器，避免重复代码。
-- **集中化配置管理**:
-  - **SEO 配置**: `src/config/seo.ts` - 所有 SEO 相关配置的单一数据源
-  - **自动化脚本**: `scripts/generateHtml.ts` - 自动生成开发环境的 HTML 模板
+## 常用开发命令
 
-### 2.3. 前端 (`frontend/`)
+### 开发环境
 
-#### 路由与入口
+```bash
+# 启动全栈开发服务器（后端 :8787 + 前端 :5173）
+pnpm dev
 
-- **统一路由配置**:
-  - **核心改进**: `frontend/src/routes.tsx` - 唯一的路由定义文件，被客户端和服务端入口共享使用。
-  - **开发友好**: 添加新页面时，只需要在此文件中修改一次，避免了在多个入口文件中重复定义。
-- **入口文件**:
-  - `entry-client.tsx`: **客户端入口**。负责在浏览器中"激活"(hydrate) 由服务器渲染的 HTML。使用统一的路由配置。
-  - `entry-server.tsx`: **服务器端渲染入口**。负责在后端生成初始的 HTML 字符串。使用统一的路由配置。
-  - **关键优化**: 两个入口文件都使用 `AppRoutes` 组件，确保路由定义的一致性。
+# 仅启动后端（Wrangler）
+pnpm dev:backend
 
-#### 页面结构（完整实现）
+# 仅启动前端（Vite）
+pnpm dev:frontend
 
-- **pages/HomePage.tsx**: 首页，展示项目介绍
-- **pages/AuthCallbackPage.tsx**: GitHub OAuth 回调处理页面
-- **pages/DashboardPage.tsx**: 用户仪表盘
-  - 用户信息展示
-  - API Key 查看/复制/重新生成
-  - 账户统计信息
-- **pages/EndpointsPage.tsx**: 端点管理页面（核心功能）
-  - 左侧：路径树视图（TreeView）
-  - 右侧：端点编辑器（Monaco Editor）
-  - 功能：创建、编辑、删除、发布、移动端点
-  - 支持：静态端点、代理端点配置
-- **pages/PermissionGroupsPage.tsx**: 权限组管理页面
-  - 权限组列表
-  - 访问密钥管理（生成、编辑、撤销、删除）
-  - 密钥显示/隐藏切换
-  - 快捷到期时间设置
-- **pages/InitPage.tsx**: 系统初始化页面
-  - 检查系统状态
-  - 选择首个管理员
-  - 自动激活用户
-- **pages/admin/AdminUsersPage.tsx**: 管理员用户管理页面
-  - 用户列表（分页、搜索、筛选）
-  - 激活/停用用户
-  - 删除用户
-- **pages/DocsPage.tsx**: 文档页面
-- **pages/Features.tsx**: 功能开关页面（模板遗留）
-
-#### 主题系统
-
-- **核心**:
-  - `frontend/src/context/ThemeContextProvider.tsx` 提供了一个全局的 `AppThemeProvider` 和 `useAppTheme` hook。
-  - `frontend/src/theme/` 目录是我们中心化的主题定义模块。
-- **架构与规则**:
-  - **自定义主题**: 我们通过对 Material-UI 主题进行模块扩展 (module augmentation) 来添加自定义、类型安全的主题属性。类型定义位于 `frontend/src/theme/types.ts`。
-  - **中心化管理**: 所有与主题相关的样式（如特定页面的背景、自定义组件颜色等）都**必须**在 `frontend/src/theme/index.ts` 中的 `lightTheme` 和 `darkTheme` 对象里进行定义。
-  - **组件内使用**: 组件**禁止**通过 `theme.palette.mode === 'dark'` 这样的条件判断来硬编码样式。**必须**直接从主题对象中获取预先定义好的自定义属性 (例如 `theme.pageBackground`)。
-  - **状态切换**: 所有主题状态的读取和切换都**必须**通过 `useAppTheme` hook 进行。
-
-#### 认证系统
-
-- **useAuth Hook** (`hooks/useAuth.ts`): 统一的认证状态管理，提供 login/logout/refetch 方法。
-- **Storage 工具** (`utils/storage.ts`): SSR 安全的 localStorage 封装，支持跨标签页状态同步。
-- **认证流程**:
-  1. 用户点击登录按钮
-  2. 调用 `/api/auth/github` 获取 OAuth URL
-  3. 跳转到 GitHub 授权页面
-  4. GitHub 回调到 `/auth/callback`
-  5. `AuthCallbackPage` 处理回调，获取 sessionToken
-  6. 存储 sessionToken 到 localStorage
-  7. 跳转到 Dashboard
-
-#### 状态管理
-
-- **React Query**: 用于服务器状态管理
-  - `hooks/useEndpoints.ts`: 端点数据管理
-  - `hooks/usePermissionGroups.ts`: 权限组数据管理
-  - `hooks/useAccessKeys.ts`: 访问密钥数据管理
-  - `hooks/useAuth.ts`: 认证状态管理
-- **React Context**: 用于全局客户端状态
-  - `ThemeContext`: 主题状态管理
-
-#### 核心组件
-
-- **components/WorkspaceTopBar.tsx**: 工作区顶栏组件
-  - macOS 风格紧凑设计（40px 高度）
-  - Logo + 导航按钮 + 更多菜单 + 用户头像
-  - 主题切换按钮
-- **components/endpoints/EndpointEditor.tsx**: 端点编辑器组件
-  - Monaco Editor 集成
-  - 静态端点内容编辑
-  - 代理端点配置表单
-  - 动态代理端点配置表单（Phase 3.1）
-- **App.tsx**: 标准网页布局
-  - 导航栏
-  - 用户头像菜单
-  - 登录按钮
-  - 页脚
-  - 主题切换按钮
-  - 用于首页、文档、控制台等内容页面
-
-#### 布局系统
-
-项目现有**两套布局系统**，根据页面类型选择：
-
-**1. 标准网页布局（App.tsx）**
-
-- 用途：首页、文档等内容展示页面
-- 特点：完整的导航栏（64px）+ 内容区 + 页脚
-- 滚动：内容区可整页滚动
-- 风格：传统网页体验
-
-**2. 工作区布局（WorkspaceLayout.tsx）** ⭐
-
-- 用途：控制台、端点管理、权限组管理、管理后台等专业工具页面
-- 特点：紧凑的 macOS 风格顶栏（40px）+ 无页脚 + 全高度内容
-- 滚动：内部容器管理滚动，无整页滚动
-- 风格：类桌面应用的沉浸式工作区
-- 顶栏功能：Logo、导航按钮（控制台、端点管理、权限组、管理后台）、文档图标、主题切换、用户头像菜单
-
-**路由配置规则**（`frontend/src/routes.tsx`）：
-
-```tsx
-// 工作区布局（专业工具页面）
-<Route element={<WorkspaceLayout />}>
-  <Route path="/dashboard" element={<DashboardPage />} />
-  <Route path="/endpoints" element={<EndpointsPage />} />
-  <Route path="/permissions" element={<PermissionGroupsPage />} />
-  <Route path="/admin/users" element={<AdminUsersPage />} />
-</Route>
-
-// 标准布局（内容页面）
-<Route path="/" element={<App />}>
-  <Route index element={<HomePage />} />
-  <Route path="docs" element={<DocsPage />} />
-</Route>
+# 类型检查（前后端）
+pnpm typecheck
 ```
 
-#### 构建配置
+### 数据库操作
 
-- **Vite 配置: `vite.config.mts`**:
-  - **路径别名**: `@/` 指向 `frontend/src/`
-  - **SSR 兼容**: `ssr.noExternal` 包含 React Router、Material-UI、Emotion 等库
-  - **构建输出**:
-    - 客户端：`dist/client/`
-    - 服务端：`dist/server/`
+```bash
+# 修改 schema 后生成迁移文件
+pnpm db:generate
 
-### 2.4. 数据库与迁移
+# 应用迁移（本地开发）
+pnpm db:migrate
 
-- **ORM**: Drizzle ORM。
-- **Schema**: `src/db/schema.ts`。
-- **迁移工作流**:
-  1.  修改 `src/db/schema.ts`。
-  2.  运行 `pnpm db:generate` 生成 SQL 迁移文件。
-  3.  运行 `pnpm db:migrate` (本地) 或 `pnpm db:migrate:prod` (生产) 应用迁移。
+# 应用迁移（生产环境）
+pnpm db:migrate:prod
 
-### 2.5. 文档体系 (`docs/`)
+# 打开 Drizzle Studio（数据库可视化工具）
+pnpm db:studio
 
-项目现已建立完整的**集中化文档体系**，遵循模块化和渐进式学习原则：
+# 检查 schema 一致性
+pnpm db:check
 
-- **主文档**: `README.md` - 精简的项目介绍和5分钟快速开始
-- **安装指南**: `docs/INSTALLATION.md` - 详细的环境搭建和配置
-- **认证指南**: `docs/AUTHENTICATION.md` - GitHub OAuth 登录集成和 API Key 管理
-- **开发指南**: `docs/DEVELOPMENT.md` - 日常开发工作流和最佳实践
-- **API 指南**: `docs/API_GUIDE.md` - 后端 API 开发完整流程（包含认证端点文档）
-- **主题指南**: `docs/THEMING.md` - 主题系统和UI定制
-- **部署指南**: `docs/DEPLOYMENT.md` - 生产环境部署流程
-- **故障排除**: `docs/TROUBLESHOOTING.md` - 常见问题解决方案
-- **项目架构**: `docs/ARCHITECTURE.md` - 技术栈和设计决策
-- **SEO 指南**: `docs/SEO_GUIDE.md` - 搜索引擎优化配置
-
-**文档维护原则**: 确保每个功能领域都有专门的文档，避免重复内容，便于团队协作和知识管理。
-
-### 2.6. 实际实现与设计文档的差异
-
-基于 `.cursor/trace/design.md` 的产品设计文档，以下是当前实现的关键差异点：
-
-#### 数据库 Schema 差异
-
-**已实现的表（6/7 核心表）**：
-
-- ✅ **users**（用户表）- 完整实现
-  - 包含 githubId、username、email、avatarUrl
-  - apiKey（格式：`sec-{64位十六进制}`）
-  - platformApiKey（PBKDF2 哈希存储）
-  - role（user/admin）、isActivated
-- ✅ **userSessions**（会话表）- 完整实现
-  - sessionToken（cuid2，30天有效期）
-  - 替代原设计的 OAuth Session 表
-- ✅ **endpoints**（端点表）- 完整实现，支持树形结构
-  - 支持 static、proxy、dynamicProxy、script 四种类型
-  - 路径树虚拟节点自动构建
-  - 发布/启用状态控制
-  - dynamicProxy 类型强制为叶子节点（无子节点）
-- ✅ **permissionGroups**（权限组表）- 完整实现
-- ✅ **accessKeys**（访问密钥表）- 完整实现
-  - ⚠️ keyValue 字段**明文存储**（与设计不同）
-  - 格式：`ep-{32位十六进制}`
-- ✅ **features**（功能开关表）- 模板遗留，非设计要求
-
-**未实现的表（1/7）**：
-
-- ❌ **accessLogs**（访问日志表）- 监控统计功能
-  - 影响：无法记录端点访问历史
-  - 影响：无法提供访问统计和分析
-
-**已弃用的设计**：
-
-- ~~envVars（环境变量表）~~ - 使用 Cloudflare Workers 原生环境变量系统替代
-
-**⚠️ 关键实现差异**：
-
-1. **密钥存储策略**：
-   - Platform API Key：✅ PBKDF2 哈希存储（符合设计）
-   - Endpoint Access Key：⚠️ **明文存储**（与设计不同）
-     - 原因：简化验证逻辑，避免哈希计算开销
-     - 验证：直接字符串比较（`accessKey === key.keyValue`）
-     - 影响：降低安全性，但适合非敏感场景
-     - 位置：`src/routes/execution.ts` 第 102 行
-
-2. **会话管理**：
-   - 未单独存储 OAuth access_token
-   - 使用 sessionToken 进行认证
-   - 会话过期后需重新 OAuth 登录
-
-3. **环境变量**：
-   - 使用 Cloudflare Workers 平台能力
-   - 配置位置：`.dev.vars`（本地）或 Cloudflare Dashboard（生产）
-
-#### API 实现差异
-
-**⚠️ 鉴权方式差异**：
-
-- **设计文档**：`Authorization: Bearer <access_key>` 或 `?token=<access_key>`
-- **实际实现**：`X-Access-Key: <access_key>` 或 `?access_key=<access_key>`
-- **位置**：`src/routes/execution.ts` 第 63 行
-- **影响**：客户端需使用实际实现的鉴权方式
-
-**✅ 已完整实现的 API 模块**：
-
-- ✅ 认证系统（`/api/auth/*`）
-  - GitHub OAuth 登录/回调
-  - 用户信息获取
-  - 登出
-  - API Key 重新生成
-- ✅ 端点管理（`/api/endpoints/*`）
-  - 完整 CRUD
-  - 发布/取消发布
-  - 移动端点
-  - 批量排序
-- ✅ 权限组管理（`/api/permission-groups/*`）
-  - 完整 CRUD
-  - 关联端点统计
-- ✅ 访问密钥管理（`/api/access-keys/*`）
-  - 生成/撤销/删除
-  - 编辑备注和到期时间
-- ✅ 管理员功能（`/api/admin/*`）
-  - 用户管理（激活/停用/删除）
-  - 端点审查
-  - 系统统计
-- ✅ 初始化系统（`/api/init/*`）
-  - 检查初始化状态
-  - 设置首个管理员
-- ✅ 端点执行层（`/e/:username/:path/*`）
-  - 静态端点
-  - 代理端点（固定 URL 转发）
-  - 动态代理端点（子路径转发 + SSRF 防护）
-  - 访问控制验证
-
-**❌ 未实现的 API**：
-
-- ❌ 环境变量管理（4个 API）- 已弃用设计，使用平台能力
-- ❌ Platform API Key 撤销 API（`DELETE /api/user/api-key`）
-- ❌ Platform API Key 查看 API（`GET /api/user/api-key/info`）
-- ❌ 访问日志统计 API（依赖 accessLogs 表）
-- ❌ 脚本端点执行（Phase 3.2）
-
-#### 安全实现差异
-
-**密钥存储与加密策略**：
-
-1. **Platform API Key**（用户管理密钥）✅：
-   - 格式：`sec-{64位十六进制}`
-   - 生成：`generateUserApiKey()` in `src/utils/encryption.ts`
-   - 存储：PBKDF2 哈希（100,000 次迭代，SHA-256）
-   - 用途：操作平台功能（创建端点、管理权限组等）
-   - 安全性：符合设计，高安全性
-
-2. **Endpoint Access Key**（端点访问密钥）⚠️：
-   - 格式：`ep-{32位十六进制}`
-   - 生成：`generateAccessKey()` in `src/utils/encryption.ts`
-   - 存储：**明文存储**（与设计不同）
-   - 验证：直接字符串比较
-   - 用途：访问用户发布的端点
-   - 安全性：较低，但适合非敏感场景
-   - 备注：`hashAccessKey()` 和 `verifyAccessKey()` 函数已实现但未使用
-
-3. **Session Token**（会话令牌）✅：
-   - 格式：cuid2 生成的随机字符串
-   - 存储：明文存储在 userSessions 表
-   - 有效期：30天
-   - 验证：查询数据库 + 过期时间检查
-   - 传输：`Authorization: Bearer {sessionToken}`
-
-**动态代理安全防护** ✅（Phase 3.1 新增）：
-
-- **SSRF 防护**：`isTargetUrlSafe()` 函数
-  - 协议白名单：仅允许 HTTP/HTTPS
-  - 主机黑名单：localhost、内网 IP、云厂商 metadata 端点
-  - IP 范围检查：阻止 10.x、172.16-31.x、192.168.x 等私有网段
-- **路径遍历防护**：`sanitizePath()` 函数
-  - 移除 `..` 路径穿越符号
-  - 规范化多余斜杠
-- **路径白名单**：`isPathAllowed()` 函数
-  - 支持通配符模式（如 `/repos/*`）
-  - 可选配置，默认允许所有路径
-- **树结构约束**：
-  - dynamicProxy 端点不能有子节点
-  - 不能在 dynamicProxy 端点下创建/移动子端点
-  - 前后端双重验证
-
-**环境变量管理** ✅：
-
-- **实现方式**：使用 Cloudflare Workers 原生环境变量系统
-- **配置位置**：
-  - 本地开发：`.dev.vars` 文件（已加入 .gitignore）
-  - 生产环境：Cloudflare Dashboard 或 `wrangler.jsonc`
-- **必需变量**：
-  - `GITHUB_CLIENT_ID`
-  - `GITHUB_CLIENT_SECRET`
-  - `APP_BASE_URL`
-  - `NODE_ENV`
-  - `VITE_PORT`（可选，默认 5173）
-- **优势**：无需应用层加密存储，利用平台级安全保障
-
-**OAuth Token 处理** ✅：
-
-- GitHub access_token 仅在登录时使用
-- 不持久化存储，降低泄露风险
-- 使用 sessionToken 进行后续认证
-
-#### 额外实现的功能（超出设计）
-
-以下功能超出原设计文档，显著增强了用户体验：
-
-1. **初始化系统可视化** ✅
-   - 路由：`/init`
-   - API：`/api/init/*`
-   - 功能：可视化选择首个管理员，自动激活
-   - 安全：已有管理员后自动禁用访问
-
-2. **路径树虚拟节点** ✅
-   - 实现：`src/utils/pathTree.ts` 中的 `buildPathTree()`
-   - 功能：基于端点路径自动构建类似 IDE 的文件树
-   - 特性：虚拟目录节点、多层级路径、自动排序
-   - 用户体验：类似 VSCode 文件浏览器
-
-3. **密钥编辑功能增强** ✅
-   - 快捷到期时间预设（1天到2年，含永久）
-   - 延期功能（7天到365天）
-   - 编辑对话框（修改备注、到期时间、启用/禁用）
-
-4. **密钥显示/隐藏切换** ✅
-   - 功能：点击眼睛图标切换显示状态
-   - 隐藏格式：`ep-abc***def`（保留前6位和后4位）
-   - 实现：`maskKey()` 函数
-
-5. **端点地址复制功能** ✅
-   - 公开端点：直接复制 URL
-   - 鉴权端点：选择密钥后复制带密钥的 URL
-   - 密钥选择对话框：显示可用密钥、备注、到期时间
-
-6. **Monaco Editor 集成** ✅
-   - 依赖：`@monaco-editor/react`
-   - 用途：静态端点内容编辑
-   - 特性：语法高亮、代码折叠、自动补全、多语言支持
-
-#### 当前可投入使用的场景
-
-**✅ 已支持的生产场景**：
-
-1. **静态内容托管**
-   - 规则列表（如广告过滤规则）
-   - 配置文件（JSON、YAML、TOML 等）
-   - API 文档（Markdown、HTML）
-   - 文本内容分发
-   - 支持自定义 Content-Type 和响应头
-
-2. **固定代理端点**（proxy 类型）
-   - GitHub Raw 内容加速
-   - 第三方 API 转发（固定 URL）
-   - 跨域资源代理
-   - 请求头注入/移除
-   - 超时控制（默认 10 秒）
-
-3. **动态子路径代理**（dynamicProxy 类型，Phase 3.1 新增）
-   - 资源完整路径代理（如 `/e/user/myrepo/assets/logo.png` → `https://raw.githubusercontent.com/user/repo/main/assets/logo.png`）
-   - 自动移除端点路径前缀，仅转发子路径部分
-   - 支持代理任意 URL 下的子路径资源（CDN、仓库、API 等）
-   - 支持所有 HTTP 方法（GET、POST、PUT、DELETE 等）
-   - 查询参数自动转发
-   - 请求体透传
-   - 路径白名单限制（可选）
-   - SSRF 攻击防护（内网地址阻断）
-   - 路径遍历防护
-   - 超时控制（默认 15 秒）
-
-4. **多用户协作管理**
-   - 权限组分发密钥
-   - 细粒度访问控制
-   - 密钥到期管理
-   - 使用统计追踪
-
-5. **访问控制场景**
-   - 公开端点（无需鉴权）
-   - 鉴权端点（需要访问密钥）
-   - 用户激活状态控制
-   - 端点发布/下线控制
-
-**❌ 不支持的场景**：
-
-1. **脚本端点**（Phase 3.2 未实现）
-   - 自定义 JavaScript 执行
-   - 动态内容生成
-   - 数据处理和转换
-
-2. **访问统计分析**（accessLogs 表未实现）
-   - 访问历史记录
-   - 流量统计
-   - 地理位置分析
-   - 请求速率监控
-
-3. **高级功能**
-   - 请求速率限制
-   - 自动缓存策略
-   - Webhook 触发器
-
-## 3. UI/UX 设计规范
-
-### 3.1. 滚动条样式规范
-
-**全局滚动条样式已在主题配置中统一定义**（`frontend/src/theme/index.ts`）：
-
-- **宽度/高度**: 8px（细窄设计）
-- **轨道背景**: 透明
-- **滚动块颜色**:
-  - 亮色模式: `rgba(0, 0, 0, 0.2)` | hover: `rgba(0, 0, 0, 0.3)`
-  - 暗色模式: `rgba(255, 255, 255, 0.2)` | hover: `rgba(255, 255, 255, 0.3)`
-- **圆角**: 4px
-
-**使用规则**:
-
-1. ✅ **所有需要滚动的容器直接使用 `overflow: "auto"`**，样式会自动应用
-2. ❌ **禁止在组件中重复定义滚动条样式**（已全局配置）
-3. ✅ 滚动容器必须设置明确的高度约束（如 `height: "100%"` 或 `flexGrow: 1`）
-
-**示例**:
-
-```tsx
-// ✅ 正确：直接使用 overflow，自动应用全局样式
-<Box sx={{ flexGrow: 1, overflow: "auto", p: 3 }}>
-  {/* 可滚动内容 */}
-</Box>
-
-// ❌ 错误：不要重复定义滚动条样式
-<Box sx={{
-  overflow: "auto",
-  "&::-webkit-scrollbar": { ... }  // 多余！
-}}>
+# 数据库填充（seed）
+pnpm db:seed         # 本地
+pnpm db:seed:prod    # 生产
 ```
 
-## 4. 你的工作原则
+### 构建与部署
 
-1.  **首要原则：维护本文档**: 如果你的任何操作（如添加新技术、修改架构）导致本文档过时，**你必须在提交最终代码前，先更新本文档** ([global.mdc](mdc:.cursor/rules/global.mdc))。
-2.  **遵循既定模式**:
-    - **API**: 创建新 API 时，必须在 `validators` 和 `routes` 目录下创建对应的 `*.schema.ts` 和 `*.ts` 文件，并遵循 `createRoute` 模式。
-    - **路由**: 添加新页面时，只需要在 `frontend/src/routes.tsx` 中修改，避免在多个入口文件中重复定义。
-    - **组件**: 创建新组件时，应考虑其在亮/暗模式下的显示效果，并优先使用主题系统提供的颜色 (`theme.palette`)。
-    - **状态管理**: 优先使用 React Query 进行服务器状态管理。对于全局客户端状态（如主题），使用 React Context。
-    - **配置管理**: 所有配置信息都应集中管理，如 SEO 配置在 `src/config/seo.ts` 中统一定义。
-3.  **禁止直接操作 DOM**: 遵循 React 的声明式范式，禁止使用 `document.getElementById` 等命令式 API（除非是在框架入口文件，如 `entry-client.tsx` 中）。
+```bash
+# 构建前端（客户端 + 服务端 SSR 包）
+pnpm build
 
-4.  **用户获取模板的推荐方式**:
-    - **首选**: 使用 GitHub 的 "Use this template" 功能，自动创建独立的 Git 历史
-    - **次选**: Fork 仓库（适合贡献代码）
-    - **不推荐**: 直接克隆（仅用于快速测试）
+# 生产构建（包含数据库迁移）
+pnpm build:prod
 
-5.  **解决构建问题**:
-    - 如果 `pnpm dev` 失败，检查 `wrangler dev` 的日志。如果是文件加载问题 (`.html`, `.svg` 等)，检查 `wrangler.jsonc` 中的 `esbuild` 配置。
-    - 如果 `pnpm build:frontend` 失败，检查 Vite 配置 (`frontend/vite.config.mts`)，特别是路径别名等。
+# 部署到 Cloudflare
+pnpm deploy
 
-6.  **保持专业与优雅**:
-    - 始终编写简洁、可读、易于维护的代码。
-    - 禁止为了"快速修复"而使用 hacky 的手段或添加 `@ts-ignore`。从根源上解决问题。
-    - **深刻教训**: 在修复问题时，必须同时考虑 Vite 前端和 Wrangler 后端两种构建环境的差异。同时，在更新文档时，必须严格遵守既定格式和结构，绝不能随意添加内容破坏布局。**此外，在处理任何构建或配置问题时，必须遵循以下铁律：**
-      1.  **禁止臆断**：绝不能基于对相似工具的经验，去假设平台特定配置文件（如 `wrangler.jsonc`）的行为。**必须**第一时间查阅官方文档，确认每一个配置项的有效性和语法。
-      2.  **日志优先**：必须逐行、仔细地审查所有日志输出，特别是警告信息。一个被忽略的警告往往是定位问题根源的关键。
-      3.  **验证语法**：在提出任何代码或配置修改，特别是针对包管理器（如 `pnpm`）或构建工具的复杂语法时，**必须**通过官方文档或实例进行交叉验证。严禁提供任何未经证实或凭空捏造的解决方案。
-      4.  **承认局限**：当问题源于平台本身的限制时，必须清晰地向用户阐明这一事实，并解释为何需要采用"变通方案"（Workaround）。变通方案本身也必须是经过验证的、社区公认的最佳实践，而非临时拼凑的"黑魔法"。
+# 本地测试生产构建
+pnpm serve:prod
+```
 
-7.  **集中化管理原则**:
-    - **单一数据源**: 避免在多个文件中重复定义相同的配置信息
-    - **模块化设计**: 每个功能模块都有清晰的职责边界
-    - **自动化优先**: 通过脚本和工具减少手动操作，降低出错概率
-    - **文档同步**: 确保代码变更与文档更新同步进行
+### 测试
 
-8.  **Cloudflare Workers & SSR 特殊规则**:
-    - **现代化配置优先**: 始终使用最新的 `assets` binding，禁止使用已废弃的 `site.bucket` 配置
-    - **SSR 兼容性处理**: 对于 React 生态库（特别是 Material-UI 相关），必须在 `frontend/vite.config.mts` 的 `ssr.noExternal` 中显式声明
-    - **本地调试优先**: 使用 `wrangler dev --env production` 进行本地生产环境调试，避免依赖云端部署进行故障排查
-    - **静态资源服务**: 生产环境中通过 `c.env.ASSETS.fetch()` 处理静态文件请求，确保正确的 MIME 类型
-    - **关键库清单**: 以下库必须包含在 `ssr.noExternal` 中：`react-router-dom`, `@mui/material`, `@mui/system`, `@mui/icons-material`, `@emotion/react`, `@emotion/styled`, `react-i18next`, `i18next`
+```bash
+# 运行测试
+pnpm test
 
-## 4. 用户认证系统
+# 运行特定测试文件
+pnpm test <test-file-name>
+```
 
-项目现已集成完整的 GitHub OAuth 登录功能，包含：
+## 核心架构原理
 
-### 4.1. 后端认证架构
+### 1. 混合渲染模式（开发 vs 生产）
 
-- **OAuth 流程**: 完整的 GitHub OAuth 2.0 授权码流程
-- **会话管理**: 基于 cuid2 生成的会话 token，有效期 30 天
-- **API Key 系统**: 每个用户拥有唯一的 API Key（`ak-` 前缀 + 64 位十六进制）
-- **中间件保护**: 使用 `authMiddleware` 保护需要认证的端点
-- **安全实践**: CSRF 防护（state 参数）、会话自动过期、安全的密钥生成
-- **激活系统**:
-  - 未激活用户可以使用所有管理功能（创建端点、编辑配置、管理权限组等）
-  - **唯一限制**: 未激活用户无法**发布**端点
-  - `activationMiddleware` 仅应用于 `/endpoints/:id/publish` 路由
+**这是本项目最关键的架构设计，必须深刻理解。**
 
-### 4.2. 前端认证体验
+#### 开发模式 (`pnpm dev`)
 
-- **统一状态管理**: 通过 `useAuth` hook 管理全局认证状态
-- **跨标签页同步**: localStorage 变化自动同步到所有标签页
-- **SSR 兼容**: 所有 localStorage 操作使用安全封装，避免 SSR 错误
-- **用户体验**: 加载状态、错误提示、自动跳转、头像菜单
-- **Dashboard 功能**: 用户信息展示、API Key 查看/复制/重新生成
+- Hono 后端运行在 `localhost:8787`（通过 Wrangler）
+- Vite 前端运行在 `localhost:5173`
+- **关键机制**：所有非 API 请求到 `:8787` 都会被**代理**到 `:5173`，实现 HMR（热模块替换）
+- **禁止假设**：`frontend/dist` 目录在开发环境下**不存在**
 
-### 4.3. 数据库设计
+```typescript
+// src/index.ts:84-97
+if (c.env.NODE_ENV === "development") {
+  // 代理所有前端请求到 Vite 开发服务器
+  const url = new URL(c.req.url);
+  url.hostname = "localhost";
+  url.port = "5173";
+  return fetch(url.toString());
+}
+```
 
-- **users 表**: 存储用户基本信息（GitHub ID、用户名、邮箱、头像、API Key）
-- **userSessions 表**: 管理会话 token 和过期时间
-- **级联删除**: 用户删除时自动清理相关会话
+#### 生产模式 (`pnpm deploy`)
 
-### 4.4. 环境配置
+- Vite 将前端构建到：
+  - `frontend/dist/client`（静态资源）
+  - `dist/server`（SSR 渲染包）
+- Hono 通过 `ASSETS` binding 服务静态文件
+- **动态导入**：使用 `import()` 加载构建产物，避免开发环境找不到文件导致构建失败
 
-- **必需变量**: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `APP_BASE_URL`
-- **本地开发**: 使用 `.dev.vars` 文件（已加入 .gitignore）
-- **生产环境**: 通过 Cloudflare Dashboard 或 `wrangler.jsonc` 配置
+```typescript
+// src/index.ts:116-127
+const manifestModule = await import("../dist/client/.vite/manifest.json");
+const { render } = await import("../dist/server/entry-server.mjs");
+```
 
-详细配置请参考 `docs/AUTHENTICATION.md`。
+**为什么使用动态 import？** 因为这些文件只在生产构建后才存在。如果使用静态 `import`，开发环境下会立即报错导致无法启动。
 
-## 5. 最新架构优势总结
+### 2. 端到端类型安全（单一数据源）
 
-通过最近的架构重构，项目现已实现：
+**所有类型定义只在 `common/` 目录下维护一次，前后端共享。**
 
-1. **用户认证系统**: 完整的 GitHub OAuth 登录、会话管理和 API Key 系统
-2. **集中化配置管理**: SEO、主题、路由等关键配置都采用单一数据源模式
-3. **统一路由架构**: 消除了客户端和服务端路由定义的重复，提升开发效率
-4. **完整文档体系**: 模块化的文档结构，为不同水平的开发者提供渐进式学习路径
-5. **自动化工作流**: 通过脚本减少手动操作，提升开发体验
-6. **类型安全保障**: 从数据库到前端的端到端类型安全
-7. **用户友好**: 推荐使用 GitHub 模板功能，降低用户接触成本
+#### 目录结构
 
-这些改进确保了 NekroEdge 既能提供出色的开发体验，又能满足生产环境的可维护性和扩展性需求。
+```
+common/
+├── types/index.ts              # TypeScript 类型（从 Zod 推导）
+├── validators/                 # Zod Schema（验证 + 类型生成）
+│   ├── endpoint.schema.ts      # 端点 Schema
+│   ├── permission.schema.ts    # 权限组 Schema
+│   ├── auth.schema.ts          # 认证 Schema
+│   └── admin.schema.ts         # 管理员 Schema
+└── config/api.ts               # 共享 API 配置
+```
+
+#### 工作流
+
+1. **定义 Schema**（`common/validators/`）：
+
+```typescript
+export const EndpointSchema = z.object({
+  id: z.string(),
+  path: z.string(),
+  type: z.enum(["static", "proxy", "script"]),
+  // ...
+});
+```
+
+2. **推导类型**（`common/types/index.ts`）：
+
+```typescript
+export type Endpoint = z.infer<typeof EndpointSchema>;
+```
+
+3. **后端使用**（`src/routes/`）：
+
+```typescript
+import { EndpointSchema } from "../../common/validators/endpoint.schema";
+
+const route = createRoute({
+  responses: {
+    200: {
+      content: { "application/json": { schema: EndpointSchema } },
+    },
+  },
+});
+```
+
+4. **前端使用**（`frontend/src/hooks/`）：
+
+```typescript
+import type { Endpoint } from "../../../common/types";
+
+export function useEndpoints() {
+  return useQuery({
+    queryFn: async () => {
+      const res = await fetch(`${getApiBase()}/endpoints`);
+      return res.json() as Promise<ApiResponse<{ tree: Endpoint[] }>>;
+    },
+  });
+}
+```
+
+### 3. 统一路由系统
+
+**唯一路由定义文件**：`frontend/src/routes.tsx`
+
+客户端入口（`entry-client.tsx`）和服务端入口（`entry-server.tsx`）都使用这个文件，避免重复定义。
+
+#### 添加新页面的步骤
+
+1. 创建页面组件：`frontend/src/pages/NewPage.tsx`
+2. 在 `frontend/src/routes.tsx` 中导入并添加路由：
+
+```typescript
+import NewPage from './pages/NewPage';
+
+<Route path="new-page" element={<NewPage />} />
+```
+
+3. **完成** —— 无需修改任何入口文件
+
+### 4. 数据库 Schema 与迁移
+
+**单一数据源**：`src/db/schema.ts`
+
+#### 核心数据表
+
+根据设计文档（`design.md`），项目包含以下数据表：
+
+- **users**：用户表（GitHub ID、用户名、邮箱、角色、激活状态、Platform API Key）
+- **userSessions**：会话表（token、过期时间）
+- **endpoints**：端点表（支持树形结构，`parent_id` 字段）
+  - `path`：相对路径（如 `/clash-config`）
+  - `type`：`static` | `proxy` | `script`
+  - `config`：JSON 配置（根据类型不同结构不同）
+  - `access_control`：`public` | `authenticated`
+  - `required_permission_groups`：JSON array of group IDs
+  - `is_published`：是否已发布
+  - `sort_order`：排序字段（支持手动拖拽排序）
+- **permissionGroups**：权限组表
+- **accessKeys**：访问密钥表（格式：`ep-<32位随机字符串>`）
+- **envVars**：环境变量表（加密存储）
+- **accessLogs**：访问日志表（统计端点访问情况）
+
+#### 迁移工作流
+
+```bash
+# 1. 修改 src/db/schema.ts
+# 2. 生成迁移文件
+pnpm db:generate
+
+# 3. 查看生成的 SQL（drizzle/ 目录）
+# 4. 应用迁移
+pnpm db:migrate         # 本地
+pnpm db:migrate:prod    # 生产
+```
+
+### 5. 主题系统（Material-UI）
+
+**集中化主题管理**：所有主题定义在 `frontend/src/theme/index.ts`
+
+#### 规则
+
+1. **定义自定义主题属性**：在 `theme/types.ts` 中扩展 MUI 主题类型
+2. **集中配置**：所有主题相关样式在 `lightTheme` 和 `darkTheme` 中定义
+3. **禁止条件判断**：组件**不允许**使用 `theme.palette.mode === 'dark'` 这样的条件
+4. **正确方式**：直接使用预定义的主题属性，如 `theme.pageBackground`
+
+#### 使用方法
+
+```typescript
+import { useAppTheme } from '@/context/ThemeContextProvider';
+
+function MyComponent() {
+  const { theme, toggleTheme } = useAppTheme();
+
+  return (
+    <Box sx={{ backgroundColor: theme.pageBackground }}>
+      {/* 正确：使用主题属性 */}
+    </Box>
+  );
+}
+```
+
+### 6. 认证与权限系统
+
+#### 认证流程
+
+**GitHub OAuth → Session Token → Cookie 认证**
+
+#### 后端 API（`src/routes/auth.ts`）
+
+- `GET /api/auth/github` - 生成 GitHub OAuth 授权 URL
+- `GET /api/auth/github/callback` - 处理 OAuth 回调，创建会话
+- `GET /api/auth/me` - 获取当前用户信息（需认证）
+- `POST /api/auth/logout` - 登出（需认证）
+- `POST /api/auth/regenerate-key` - 重新生成 Platform API Key（需认证）
+
+#### 前端 Hook（`frontend/src/hooks/useAuth.ts`）
+
+```typescript
+const { user, isAuthenticated, isLoading, login, logout, refetch } = useAuth();
+```
+
+- 跨标签页同步（通过 `localStorage` + `storage-event`）
+- SSR 安全的 localStorage 封装（`utils/storage.ts`）
+
+#### 中间件（`src/middleware/`）
+
+1. **authMiddleware**：验证会话 token，注入用户信息到 context
+2. **activationMiddleware**：检查用户是否已激活
+   - **仅应用于**：`/api/endpoints/:id/publish`（发布端点）
+   - **不应用于**：创建、编辑、删除端点等管理接口
+3. **adminMiddleware**：验证管理员角色
+
+#### 用户激活机制
+
+根据设计文档：
+
+- **未激活用户**：可以创建、编辑端点，管理权限组，查看所有界面
+- **唯一限制**：无法**发布**端点（`is_published` 字段无法设为 `true`）
+- **激活后**：可以发布端点，使其通过 `/e/:username/:path` 访问
+
+### 7. API 开发标准流程
+
+**必须遵循以下模式**：
+
+#### Step 1：定义 Schema（`common/validators/`）
+
+```typescript
+// common/validators/feature.schema.ts
+import { z } from "zod";
+
+export const CreateFeatureSchema = z.object({
+  name: z.string().min(1),
+  type: z.enum(["typeA", "typeB"]),
+});
+
+export const FeatureSchema = CreateFeatureSchema.extend({
+  id: z.string(),
+  createdAt: z.string().datetime(),
+});
+```
+
+#### Step 2：推导类型（`common/types/index.ts`）
+
+```typescript
+export type Feature = z.infer<typeof FeatureSchema>;
+export type CreateFeatureInput = z.infer<typeof CreateFeatureSchema>;
+```
+
+#### Step 3：创建路由（`src/routes/feature.ts`）
+
+```typescript
+import { OpenAPIHono, createRoute } from "@hono/zod-openapi";
+import { FeatureSchema, CreateFeatureSchema } from "../../common/validators/feature.schema";
+
+const app = new OpenAPIHono();
+
+const createRoute = createRoute({
+  method: "post",
+  path: "/features",
+  request: {
+    body: {
+      content: {
+        "application/json": { schema: CreateFeatureSchema },
+      },
+    },
+  },
+  responses: {
+    201: {
+      content: {
+        "application/json": { schema: FeatureSchema },
+      },
+      description: "创建成功",
+    },
+  },
+  tags: ["Features"],
+});
+
+app.openapi(createRoute, async (c) => {
+  const data = c.req.valid("json");
+  const db = c.get("db");
+
+  // 实现业务逻辑
+  const result = await db.insert(features).values(data).returning();
+
+  return c.json(result[0], 201);
+});
+
+export default app;
+```
+
+#### Step 4：注册路由（`src/routes/api.ts`）
+
+```typescript
+import feature from "./feature";
+
+const api = new OpenAPIHono().use("*", dbMiddleware).route("/features", feature);
+// ...其他路由
+```
+
+#### Step 5：创建前端 Hook（`frontend/src/hooks/useFeature.ts`）
+
+```typescript
+import { useMutation, useQuery } from "@tanstack/react-query";
+import type { Feature, CreateFeatureInput } from "../../../common/types";
+
+export function useCreateFeature() {
+  return useMutation({
+    mutationFn: async (data: CreateFeatureInput) => {
+      const response = await fetch(`${getApiBase()}/features`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      return response.json() as Promise<ApiResponse<Feature>>;
+    },
+  });
+}
+```
+
+### 8. SSR 兼容性（Cloudflare Workers 专属）
+
+#### 关键配置（`frontend/vite.config.mts`）
+
+**必须**在 `ssr.noExternal` 中显式声明需要 SSR 处理的库：
+
+```typescript
+export default defineConfig({
+  ssr: {
+    noExternal: [
+      "react-router-dom",
+      "@mui/material",
+      "@mui/system",
+      "@mui/icons-material",
+      "@emotion/react",
+      "@emotion/styled",
+      "react-i18next",
+      "i18next",
+      // 所有 React 生态库都需要添加
+    ],
+  },
+});
+```
+
+**原因**：Cloudflare Workers 环境与 Node.js 不同，React 生态库必须被 Vite 处理才能在 SSR 中正常工作。
+
+#### Assets Binding（`wrangler.jsonc`）
+
+```jsonc
+{
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist/client",
+  },
+}
+```
+
+- 使用现代化的 `assets` binding（**禁止**使用已废弃的 `site.bucket`）
+- 生产环境通过 `c.env.ASSETS.fetch()` 服务静态文件
+
+### 9. 树形端点管理（NekroEndpoint 特色功能）
+
+根据设计文档，端点采用**纯粹的层次结构**：
+
+#### 数据模型
+
+```typescript
+// endpoints 表
+{
+  id: string,
+  parent_id: string | null,  // null 表示根节点
+  path: string,              // 相对路径，如 /api/config
+  name: string,              // 显示名称
+  type: 'static' | 'proxy' | 'script',
+  sort_order: number,        // 手动排序
+  // ...
+}
+```
+
+#### 排序规则
+
+1. **优先**：按 `sort_order` 字段排序（用户手动拖拽后更新）
+2. **其次**：按名称字母顺序（中文按拼音）
+
+#### 树结构特点
+
+- **每个节点都是完整的端点**，无论是否有子节点
+- 有子节点的端点（容器节点）：既可以配置自己的内容，也可以包含子端点
+- 无子节点的端点（叶子节点）：仅配置自己的内容
+- 类型只是端点的属性，与树结构无关
+
+#### 前端实现
+
+- 使用 `@mui/x-tree-view` 组件（已添加依赖）
+- 右键菜单：新建子端点、删除、发布/取消发布
+- 配合 Monaco Editor 编辑端点内容
+
+### 10. 权限组与访问密钥系统
+
+根据设计文档，这是 Phase 2 的核心功能。
+
+#### 数据流
+
+```
+用户 → 权限组 → 访问密钥
+           ↓
+         端点
+```
+
+#### 使用流程
+
+1. **创建权限组**：如 "VIP客户"、"免费试用"
+2. **生成访问密钥**：
+   - 格式：`ep-<32位随机字符串>`
+   - 支持备注（`description`）
+   - 支持到期时间（`expires_at`）
+   - **仅在创建时返回明文**，后续无法再查看
+3. **端点关联权限组**：在端点的 `required_permission_groups` 字段中指定
+4. **客户端访问**：携带密钥访问端点
+   - HTTP Header: `Authorization: Bearer ep-xxx`
+   - 或 Query 参数: `?token=ep-xxx`
+
+#### API 设计（参考 design.md）
+
+- `GET /api/permission-groups` - 列出权限组
+- `POST /api/permission-groups` - 创建权限组
+- `POST /api/permission-groups/:groupId/keys` - 生成访问密钥
+- `POST /api/access-keys/:id/revoke` - 撤销密钥
+
+### 11. 端点执行层（公开访问）
+
+#### 访问路径
+
+```
+/e/:username/:path/*
+```
+
+例如：`https://ep.nekro.ai/e/alice/clash-config`
+
+#### 执行逻辑（`src/routes/execution.ts`）
+
+1. 解析用户名和路径
+2. 查询数据库获取端点配置
+3. 检查发布状态（`is_published`）
+4. 验证访问控制：
+   - `public`：直接返回
+   - `authenticated`：验证 Access Key
+5. 根据端点类型执行：
+   - **static**：返回 `config.content`
+   - **proxy**：转发到 `config.target_url_template`
+   - **script**：执行沙箱脚本（Phase 3）
+6. 记录访问日志（`accessLogs` 表）
+
+## 常见开发任务
+
+### 添加新的 API 端点
+
+1. 在 `src/db/schema.ts` 中定义数据表（如需要）
+2. 运行 `pnpm db:generate && pnpm db:migrate`
+3. 在 `common/validators/` 中创建 Zod Schema
+4. 在 `common/types/index.ts` 中推导类型
+5. 在 `src/routes/` 中创建路由文件，使用 `createRoute`
+6. 在 `src/routes/api.ts` 中注册路由
+7. 在 `frontend/src/hooks/` 中创建 React Query hook
+8. 访问 `http://localhost:8787/doc` 查看 Swagger 文档
+
+### 添加新页面
+
+1. 创建 `frontend/src/pages/NewPage.tsx`
+2. 在 `frontend/src/routes.tsx` 中导入并添加路由：
+
+```typescript
+import NewPage from './pages/NewPage';
+<Route path="new-page" element={<NewPage />} />
+```
+
+3. 完成（自动支持 SSR 和 CSR）
+
+### 保护路由（需要认证）
+
+**后端**：
+
+```typescript
+import { authMiddleware } from "../middleware/auth";
+
+protectedRoutes.use("/*", authMiddleware);
+```
+
+**前端**：
+
+```typescript
+const { isAuthenticated } = useAuth();
+if (!isAuthenticated) return <Navigate to="/" />;
+```
+
+### 仅限管理员访问
+
+**后端**：
+
+```typescript
+import { adminMiddleware } from "../middleware/admin";
+
+adminRoutes.use("/*", adminMiddleware);
+```
+
+### 调试生产构建
+
+```bash
+# 本地模拟生产环境
+pnpm serve:prod
+
+# 或手动执行
+pnpm build
+wrangler dev --env production
+```
+
+## 环境变量配置
+
+### 本地开发（`.dev.vars`）
+
+```bash
+GITHUB_CLIENT_ID=your_github_oauth_client_id
+GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+APP_BASE_URL=http://localhost:8787
+SESSION_SECRET=your_session_secret
+ENCRYPTION_KEY=your_encryption_key
+```
+
+### 生产环境（Cloudflare Dashboard 或 `wrangler.jsonc`）
+
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+- `APP_BASE_URL`
+- `SESSION_SECRET`
+- `ENCRYPTION_KEY`
+- `NODE_ENV`（自动设为 "production"）
+
+## 项目特定规则
+
+### 必须遵守
+
+1. **更新文档**：架构变更后，立即更新 `.cursor/rules/global.mdc`
+2. **统一路由**：始终使用 `frontend/src/routes.tsx` 定义路由
+3. **Schema 优先**：先在 `common/validators/` 定义 Zod Schema，再实现 API
+4. **禁止直接操作 DOM**：使用 React 声明式编程（入口文件除外）
+5. **使用主题属性**：禁止 `theme.palette.mode` 条件判断，使用预定义属性
+6. **类型导入**：从 `common/types/` 导入类型，从 `common/validators/` 导入 Schema
+7. **统一响应格式**：
+
+```typescript
+interface ApiResponse<T> {
+  success: boolean;
+  data?: T;
+  message?: string;
+  error?: { code?: string; message?: string; details?: unknown };
+}
+```
+
+8. **禁止 Hacky 修复**：不使用 `@ts-ignore`，从根源解决问题
+9. **SSR 安全**：所有 `localStorage` 操作使用 `utils/storage.ts` 封装
+10. **激活中间件**：仅对发布端点应用 `activationMiddleware`，不阻止管理操作
+
+### 禁止行为
+
+1. ❌ 假设开发环境下 `frontend/dist` 存在
+2. ❌ 使用废弃的 `site.bucket` 配置
+3. ❌ 在前端 hooks 中重复定义类型
+4. ❌ 硬编码 API 基础路径（使用 `getApiBase()`）
+5. ❌ 遗漏 `ssr.noExternal` 声明
+6. ❌ 跳过 Schema 生成直接修改数据库
+7. ❌ 阻止未激活用户创建/编辑端点（仅限制发布）
+
+### 遇到构建问题时
+
+1. **开发环境失败**：检查 Wrangler 日志，确认代理到 `:5173` 正常
+2. **生产 SSR 失败**：检查 `dist/server/` 是否存在，验证 `ssr.noExternal` 配置
+3. **资源加载失败**：检查 `wrangler.jsonc` 的 `assets` binding，验证 MIME 类型
+4. **类型错误**：运行 `pnpm typecheck`
+
+### Cloudflare Workers 特性
+
+1. **无 Node.js API**：不能使用 `fs`、`path`、`process`（除非通过 `nodejs_compat` flag）
+2. **冷启动优化**：保持 bundle 体积小，使用动态 import
+3. **静态资源**：通过 `ASSETS` binding 服务 `dist/client` 文件
+4. **数据库**：D1 基于 SQLite，使用 Drizzle ORM
+5. **Bindings**：通过 `c.env.DB`、`c.env.ASSETS` 访问
+
+## 文档体系
+
+- **README.md**：快速开始（5分钟）
+- **docs/INSTALLATION.md**：详细安装指南
+- **docs/AUTHENTICATION.md**：GitHub OAuth 集成
+- **docs/DEVELOPMENT.md**：日常开发流程
+- **docs/API_GUIDE.md**：完整 API 开发指南
+- **docs/THEMING.md**：主题系统定制
+- **docs/DEPLOYMENT.md**：生产部署
+- **docs/PROJECT_STRUCTURE.md**：代码架构和类型系统
+- **docs/SEO_GUIDE.md**：SEO 配置
+- **.cursor/trace/design.md**：NekroEndpoint 产品设计文档（总设计规范）
+- **.cursor/rules/global.mdc**：AI 助手工作指导手册
+
+添加新功能时，同步更新相关文档。
+
+## 系统初始化
+
+**首次部署后，必须访问 `/init` 页面完成管理员分配。**
+
+#### 初始化流程
+
+1. 访问 `http://localhost:8787/init`（或生产环境 `/init`）
+2. 系统检查是否存在管理员
+3. 如果无用户：点击 "使用 GitHub 登录" 注册
+4. 从用户列表中选择一个用户，点击 "设置为管理员"
+5. 系统设置用户为管理员（`role='admin'`）并激活（`is_activated=true`）
+6. 3秒后自动跳转到首页
+7. 初始化完成后，`/init` 端点被禁用（安全措施）
+
+这种可视化方式替代了手动执行 SQL 命令。
+
+## API 基础路径配置
+
+**集中化配置**（`common/config/api.ts`）：
+
+- 生产环境（SSR）：`/api`
+- 开发环境：`http://localhost:8787/api`
+
+**始终**使用 `getApiBase()` 获取基础路径，**禁止**硬编码。
+
+## 关键文件索引
+
+- **入口**：`src/index.ts` - Hono 应用主入口
+- **API 注册**：`src/routes/api.ts` - 所有 API 路由在此注册
+- **数据库 Schema**：`src/db/schema.ts` - 数据库结构唯一定义
+- **路由配置**：`frontend/src/routes.tsx` - 统一路由定义
+- **认证 Hook**：`frontend/src/hooks/useAuth.ts` - 认证状态管理
+- **主题配置**：`frontend/src/theme/index.ts` - 亮/暗主题定义
+- **Wrangler 配置**：`wrangler.jsonc` - Cloudflare Workers 配置
+- **Vite 配置**：`frontend/vite.config.mts` - 前端构建配置
+- **设计文档**：`.cursor/trace/design.md` - 产品设计总规范
+- **工作手册**：`.cursor/rules/global.mdc` - AI 助手工作指南
+
+## OpenAPI 文档
+
+开发环境访问 Swagger UI：`http://localhost:8787/doc`
+
+所有使用 `createRoute` 定义的路由自动生成 API 文档。
+
+---
+
+**重要提醒**：这是一个生产级的边缘端点编排平台，强调类型安全、开发体验和可维护性。遇到问题时，优先查阅 `src/routes/` 和 `frontend/src/hooks/` 中的现有模式，遵循既定架构。
 
 ---
 > Source: [NekroAI/nekro-endpoint](https://github.com/NekroAI/nekro-endpoint) — distributed by [TomeVault](https://tomevault.io).
