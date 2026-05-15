@@ -1,0 +1,9 @@
+{
+  "name": "agent-3-7--hermes-agent-mission-control",
+  "displayName": "hermes-agent-mission-control",
+  "description": "Mission Control Kanban for your Hermes Agent",
+  "version": "1.0.0",
+  "author": "Agent-3-7",
+  "homepage": "https://github.com/Agent-3-7/hermes-agent-mission-control",
+  "skills": []
+}
