@@ -1,0 +1,9 @@
+{
+  "name": "symbiosika--n8n-embedded-chat-interface",
+  "displayName": "n8n-embedded-chat-interface",
+  "description": "A simple Chat interface to embed on your website to chat with an n8n AI Flow",
+  "version": "1.0.0",
+  "author": "symbiosika",
+  "homepage": "https://github.com/symbiosika/n8n-embedded-chat-interface",
+  "skills": []
+}
