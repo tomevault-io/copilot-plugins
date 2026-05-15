@@ -4,7 +4,7 @@
   "repo": "stl-shelf",
   "description": "Personal library management for 3D printable models. Organize your designs, track versions, and preview models in your browser. Built for makers building businesses.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CQ-Fabrication/stl-shelf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:04:36Z"
+  "distributed_at": "2026-05-15T11:52:58Z"
 }
