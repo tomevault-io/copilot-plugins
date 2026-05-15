@@ -4,7 +4,7 @@
   "repo": "reworker",
   "description": "Type-safe, chunked message passing for Chrome extensions/WebWorkers/ServiceWorkers with zero runtime dependencies. Built with ReScript GADTs for compile-time safety.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BlueHotDog/reworker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:53:18Z"
+  "distributed_at": "2026-05-15T11:48:13Z"
 }
