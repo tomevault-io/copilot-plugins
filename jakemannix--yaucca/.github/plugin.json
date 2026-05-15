@@ -1,0 +1,9 @@
+{
+  "name": "jakemannix--yaucca",
+  "displayName": "yaucca",
+  "description": "Yet Another Useless Claude Code Agent \u2014 persistent long-term memory for Claude Code",
+  "version": "1.0.0",
+  "author": "jakemannix",
+  "homepage": "https://github.com/jakemannix/yaucca",
+  "skills": []
+}
