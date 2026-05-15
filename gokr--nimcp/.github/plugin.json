@@ -1,0 +1,9 @@
+{
+  "name": "gokr--nimcp",
+  "displayName": "nimcp",
+  "description": "A Nim library to easily make MCP servers for use by LLMs",
+  "version": "1.0.0",
+  "author": "gokr",
+  "homepage": "https://github.com/gokr/nimcp",
+  "skills": []
+}
