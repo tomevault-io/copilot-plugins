@@ -1,0 +1,9 @@
+{
+  "name": "clonable-eden--cekernel",
+  "displayName": "cekernel",
+  "description": "Parallel agent infrastructure for Claude Code. Modeled after the OS process model, it distributes, monitors, and reaps issues via independent Workers.",
+  "version": "1.0.0",
+  "author": "clonable-eden",
+  "homepage": "https://github.com/clonable-eden/cekernel",
+  "skills": []
+}
