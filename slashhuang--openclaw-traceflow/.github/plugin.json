@@ -1,0 +1,9 @@
+{
+  "name": "slashhuang--openclaw-traceflow",
+  "displayName": "openclaw-traceflow",
+  "description": "watch dog and metrics dashboard for openclaw",
+  "version": "1.0.0",
+  "author": "slashhuang",
+  "homepage": "https://github.com/slashhuang/openclaw-traceflow",
+  "skills": []
+}
