@@ -1,0 +1,9 @@
+{
+  "name": "inferiaai--inferiallm",
+  "displayName": "InferiaLLM",
+  "description": "https://inferia.ai",
+  "version": "1.0.0",
+  "author": "InferiaAI",
+  "homepage": "https://github.com/InferiaAI/InferiaLLM",
+  "skills": []
+}
