@@ -1,0 +1,9 @@
+{
+  "name": "heleninsights-dot--phd-deepread-workflow",
+  "displayName": "phd-deepread-workflow",
+  "description": "A professinal CLI workflow for PhD students to extract, analyze, and visualize academic papers into structured Markdown and Obsidian Canvas.",
+  "version": "1.0.0",
+  "author": "heleninsights-dot",
+  "homepage": "https://github.com/heleninsights-dot/phd-deepread-workflow",
+  "skills": []
+}
