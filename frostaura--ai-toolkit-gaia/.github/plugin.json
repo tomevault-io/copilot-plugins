@@ -1,0 +1,9 @@
+{
+  "name": "frostaura--ai-toolkit-gaia",
+  "displayName": "ai.toolkit.gaia",
+  "description": "A toolkit for building full-stack systems. Battle-tested with Copilot in VS Code, with agents for Github Copilot CLI.",
+  "version": "1.0.0",
+  "author": "frostaura",
+  "homepage": "https://github.com/frostaura/ai.toolkit.gaia",
+  "skills": []
+}
