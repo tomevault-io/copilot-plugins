@@ -1,7 +1,7 @@
 {
   "name": "mubbi--laravel-blog-api",
   "displayName": "laravel-blog-api",
-  "description": "laravel-blog-api",
+  "description": "Production-ready Laravel Blog API with Docker, testing, code quality tools, semantic commits, and SonarQube integration. Clean structure, scalable setup, and full local dev automation.",
   "version": "1.0.0",
   "author": "mubbi",
   "homepage": "https://github.com/mubbi/laravel-blog-api",
