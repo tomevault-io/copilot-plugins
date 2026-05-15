@@ -1,0 +1,9 @@
+{
+  "name": "thecodacus--rendiv",
+  "displayName": "rendiv",
+  "description": "The video editor built for AI. Create videos with React + TypeScript \u2014 designed for AI agents, LLM pipelines, and automated production. Fully open source.",
+  "version": "1.0.0",
+  "author": "thecodacus",
+  "homepage": "https://github.com/thecodacus/rendiv",
+  "skills": []
+}
