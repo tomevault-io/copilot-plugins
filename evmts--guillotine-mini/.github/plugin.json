@@ -1,0 +1,9 @@
+{
+  "name": "evmts--guillotine-mini",
+  "displayName": "guillotine-mini",
+  "description": "A tiny and simple EVM. Written in zig",
+  "version": "1.0.0",
+  "author": "evmts",
+  "homepage": "https://github.com/evmts/guillotine-mini",
+  "skills": []
+}
