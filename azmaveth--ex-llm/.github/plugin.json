@@ -1,0 +1,9 @@
+{
+  "name": "azmaveth--ex-llm",
+  "displayName": "ex_llm",
+  "description": "All-in-one LLM library for Elixir with unified provider interface and structured outputs",
+  "version": "1.0.0",
+  "author": "azmaveth",
+  "homepage": "https://github.com/azmaveth/ex_llm",
+  "skills": []
+}
