@@ -1,0 +1,9 @@
+{
+  "name": "lemon-ant--glob-path-finder",
+  "displayName": "glob-path-finder",
+  "description": "Recursive file tree scanner with include/exclude glob patterns and extension filters",
+  "version": "1.0.0",
+  "author": "lemon-ant",
+  "homepage": "https://github.com/lemon-ant/glob-path-finder",
+  "skills": []
+}
