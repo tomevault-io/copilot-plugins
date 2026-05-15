@@ -7,11 +7,11 @@ Autonomous research harness for AI agents. Give it a measurable goal — it hypo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [theam/limina](https://github.com/theam/limina).
+Original source: `CLAUDE.md` in [theam/limina](https://github.com/theam/limina).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
