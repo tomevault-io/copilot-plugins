@@ -7,11 +7,11 @@ F# Computation Expression Interface for CDKTF
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nelknet/Nelknet.Cdktf](https://github.com/nelknet/Nelknet.Cdktf).
+Original source: `CLAUDE.md` in [nelknet/Nelknet.Cdktf](https://github.com/nelknet/Nelknet.Cdktf).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
