@@ -4,7 +4,7 @@
   "repo": "GENesis-AGI",
   "description": "Autonomous AI agent with persistent memory, self-learning, and earned autonomy. Cognitive partner that remembers, learns, and evolves.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WingedGuardian/GENesis-AGI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T14:58:27Z"
+  "distributed_at": "2026-05-15T14:47:45Z"
 }
