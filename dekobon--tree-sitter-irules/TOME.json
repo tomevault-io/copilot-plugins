@@ -4,7 +4,7 @@
   "repo": "tree-sitter-irules",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dekobon/tree-sitter-irules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T23:44:04Z"
+  "distributed_at": "2026-05-15T18:55:53Z"
 }
