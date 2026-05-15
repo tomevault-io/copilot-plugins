@@ -2,7 +2,7 @@
   "name": "laravel-blog-api",
   "owner": "mubbi",
   "repo": "laravel-blog-api",
-  "description": "",
+  "description": "Production-ready Laravel Blog API with Docker, testing, code quality tools, semantic commits, and SonarQube integration. Clean structure, scalable setup, and full local dev automation.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mubbi/laravel-blog-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T15:58:06Z"
+  "distributed_at": "2026-05-15T06:41:25Z"
 }
