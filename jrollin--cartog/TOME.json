@@ -4,7 +4,7 @@
   "repo": "cartog",
   "description": "claude code with treesitter and query capability (RLM)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jrollin/cartog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:47:11Z"
+  "distributed_at": "2026-05-15T19:32:09Z"
 }
