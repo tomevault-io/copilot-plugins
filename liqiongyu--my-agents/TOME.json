@@ -4,7 +4,7 @@
   "repo": "my-agents",
   "description": "A monorepo for creating, managing, and publishing reusable Agent skills (Claude Code skills).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liqiongyu/my-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T13:26:48Z"
+  "distributed_at": "2026-05-15T14:26:48Z"
 }
