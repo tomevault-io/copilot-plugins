@@ -1,211 +1,109 @@
-## tanstack-query-v5-cursorrules-prompt-file
+## tanstack-query
 
-> Cursor rules for TanStack Query v5 with query options, query key factories, mutations, optimistic updates, infinite queries, Suspense, and prefetching.
+> TanStack Query v5 (React Query) patterns including queryOptions helper, query key factories, mutations, optimistic updates, infinite queries, Suspense mode, and prefetching
 
-You are an expert in TanStack Query v5 (formerly React Query), TypeScript, and async state management for React applications.
+You are an expert in TanStack Query v5 (React Query), TypeScript, and async state management.
 
-# TanStack Query v5 Guidelines
-
-## Core Philosophy
-- TanStack Query manages server state — it is NOT a general state manager for client-only state
-- Every query should have a stable, serializable query key that uniquely describes the data
+## Core Principles
+- TanStack Query manages server state — NOT a general client state manager
+- Every query needs a stable, serializable query key that uniquely describes the data
 - Mutations handle writes; queries handle reads — never blur this boundary
-- Prefer `queryOptions()` helper for reusable, co-located query definitions
-- v5 breaking changes: `useQuery` no longer accepts positional args; always use the options object form
+- Use `queryOptions()` helper (v5) for reusable, co-located query definitions
+- v5 breaking change: `useQuery` only accepts options object form — no positional args
 
-## Setup
+## QueryClient Setup
 ```tsx
-// main.tsx
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60, // 1 minute default stale time
-      retry: 2,
-      refetchOnWindowFocus: true,
+      staleTime: 1000 * 60,
+      retry: (count, error: any) => error?.status !== 404 && count < 2,
     },
   },
 })
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <YourApp />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  )
-}
 ```
 
-## Query Keys
-- Always structure keys as arrays: `['entity', 'list']`, `['entity', 'detail', id]`
-- Use a query key factory to avoid typos and enable easy invalidation
+## Query Key Factory Pattern
 ```ts
-// queryKeys.ts
 export const postKeys = {
   all: ['posts'] as const,
   lists: () => [...postKeys.all, 'list'] as const,
-  list: (filters: PostFilters) => [...postKeys.lists(), filters] as const,
+  list: (filters?: PostFilters) => [...postKeys.lists(), filters] as const,
   details: () => [...postKeys.all, 'detail'] as const,
   detail: (id: string) => [...postKeys.details(), id] as const,
 }
 ```
 
 ## queryOptions Helper (v5)
-- Use `queryOptions()` to define queries once and reuse across components and loaders
 ```ts
-import { queryOptions } from '@tanstack/react-query'
-
 export const postQueryOptions = (id: string) =>
   queryOptions({
     queryKey: postKeys.detail(id),
     queryFn: () => fetchPost(id),
-    staleTime: 1000 * 60 * 5, // 5 min
+    staleTime: 1000 * 60 * 5,
   })
 
 // In component
 const { data } = useQuery(postQueryOptions(postId))
 
-// In router loader (TanStack Router integration)
+// In router loader
 loader: ({ params, context: { queryClient } }) =>
   queryClient.ensureQueryData(postQueryOptions(params.postId))
 ```
 
-## useQuery
+## Mutations
 ```tsx
-const {
-  data,
-  isLoading,    // true only on first load with no cached data
-  isFetching,   // true whenever a fetch is in-flight
-  isError,
-  error,
-  isSuccess,
-} = useQuery({
-  queryKey: postKeys.detail(postId),
-  queryFn: () => fetchPost(postId),
-  enabled: !!postId, // disable query if params not ready
-})
-```
-
-## useMutation
-```tsx
-const { mutate, mutateAsync, isPending } = useMutation({
-  mutationFn: (newPost: CreatePostInput) => createPost(newPost),
-  onSuccess: (data) => {
-    // Invalidate and refetch
+const { mutate, isPending } = useMutation({
+  mutationFn: (input: CreatePostInput) => createPost(input),
+  onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: postKeys.lists() })
-    toast.success('Post created!')
   },
-  onError: (error) => {
-    toast.error(error.message)
-  },
+  onError: (error) => toast.error(error.message),
 })
-
-// Usage
-mutate({ title: 'Hello', body: '...' })
 ```
 
 ## Optimistic Updates
 ```tsx
-const queryClient = useQueryClient()
-
 const mutation = useMutation({
   mutationFn: updatePost,
-  onMutate: async (updatedPost) => {
-    await queryClient.cancelQueries({ queryKey: postKeys.detail(updatedPost.id) })
-    const previous = queryClient.getQueryData(postKeys.detail(updatedPost.id))
-    queryClient.setQueryData(postKeys.detail(updatedPost.id), updatedPost)
+  onMutate: async (updated) => {
+    await queryClient.cancelQueries({ queryKey: postKeys.detail(updated.id) })
+    const previous = queryClient.getQueryData(postKeys.detail(updated.id))
+    queryClient.setQueryData(postKeys.detail(updated.id), updated)
     return { previous }
   },
-  onError: (err, updatedPost, context) => {
-    queryClient.setQueryData(postKeys.detail(updatedPost.id), context?.previous)
+  onError: (_, updated, ctx) => {
+    queryClient.setQueryData(postKeys.detail(updated.id), ctx?.previous)
   },
-  onSettled: (_, __, updatedPost) => {
-    queryClient.invalidateQueries({ queryKey: postKeys.detail(updatedPost.id) })
+  onSettled: (_, __, updated) => {
+    queryClient.invalidateQueries({ queryKey: postKeys.detail(updated.id) })
   },
 })
 ```
 
 ## Infinite Queries
 ```tsx
-const {
-  data,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-} = useInfiniteQuery({
+const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
   queryKey: postKeys.lists(),
   queryFn: ({ pageParam }) => fetchPosts({ cursor: pageParam }),
   initialPageParam: undefined as string | undefined,
   getNextPageParam: (lastPage) => lastPage.nextCursor,
 })
-
-// data.pages is an array of page results — flatten for rendering
-const allPosts = data?.pages.flatMap((page) => page.items) ?? []
+const allPosts = data?.pages.flatMap((p) => p.items) ?? []
 ```
 
-## Prefetching
-- Prefetch on hover or during routing to eliminate loading states
-```ts
-// Hover prefetch
-const handleMouseEnter = () => {
-  queryClient.prefetchQuery(postQueryOptions(postId))
-}
-
-// In router loader (eliminates all loading spinners)
-export const Route = createFileRoute('/posts/$postId')({
-  loader: ({ context: { queryClient }, params }) =>
-    queryClient.ensureQueryData(postQueryOptions(params.postId)),
-})
-```
-
-## Cache Invalidation Patterns
-```ts
-// Invalidate all post queries
-queryClient.invalidateQueries({ queryKey: postKeys.all })
-
-// Invalidate only post lists
-queryClient.invalidateQueries({ queryKey: postKeys.lists() })
-
-// Remove from cache entirely
-queryClient.removeQueries({ queryKey: postKeys.detail(id) })
-
-// Directly update cache without refetch
-queryClient.setQueryData(postKeys.detail(id), newData)
-```
-
-## Suspense Mode
-- Use `useSuspenseQuery` for Suspense-based data fetching (v5)
-- Wrap with `<Suspense fallback={<Skeleton />}>`
-- Pair with `<ErrorBoundary>` for error handling
+## Suspense Mode (v5)
 ```tsx
-// No need to handle isLoading — Suspense handles it
+// useSuspenseQuery — no isLoading needed, Suspense handles it
 const { data } = useSuspenseQuery(postQueryOptions(postId))
+// Wrap with <Suspense fallback={<Skeleton />}> + <ErrorBoundary>
 ```
 
-## Performance Best Practices
-- Set appropriate `staleTime` per query — defaults to `0` (always stale)
-- Use `select` to transform/subscribe to only relevant slices of data
+## Key Rules
+- Always define `queryOptions` outside components — never inline in `useQuery()`
+- Never use `useEffect` to fetch data — use loaders or `useQuery`
 - Use `placeholderData: keepPreviousData` for pagination to avoid layout shifts
-- Avoid creating `QueryClient` inside components — instantiate once at app root
-- Use `notifyOnChangeProps` to limit re-renders to only relevant data changes
-
-## Error Handling
-- Use `throwOnError: true` to bubble errors to the nearest ErrorBoundary
-- Use `retry` function for conditional retry logic (e.g., skip retry on 404)
-```ts
-retry: (failureCount, error) => {
-  if (error.status === 404) return false
-  return failureCount < 3
-},
-```
-
-## TypeScript Tips
-- Always type `queryFn` return value explicitly or infer from typed API functions
-- Use `QueryObserverResult<TData, TError>` to type hook return values
-- Use `UseMutationResult<TData, TError, TVariables>` for mutations
+- Instantiate `QueryClient` once at app root — never inside a component
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
