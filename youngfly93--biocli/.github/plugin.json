@@ -1,0 +1,9 @@
+{
+  "name": "youngfly93--biocli",
+  "displayName": "biocli",
+  "description": "Agent execution layer for biology workflows: batch gene scanning, tumor cohort briefing, target discovery \u2014 with structured outputs, resume, and pipeline-ready artifacts",
+  "version": "1.0.0",
+  "author": "youngfly93",
+  "homepage": "https://github.com/youngfly93/biocli",
+  "skills": []
+}
