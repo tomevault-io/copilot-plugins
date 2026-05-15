@@ -4,7 +4,7 @@
   "repo": "Claude-Praxis",
   "description": "The most systematic harness system for Claude Code. Constitutional, file-based execution framework with anti-XY discipline, plan-as-files memory, validated completion, and mode-aware overhead.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ZIONISREAL/Claude-Praxis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:46:05Z"
+  "distributed_at": "2026-05-15T11:33:57Z"
 }
