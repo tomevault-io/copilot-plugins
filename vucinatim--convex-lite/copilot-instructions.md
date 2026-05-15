@@ -1,21 +1,20 @@
-## npm-scripts
+## project-setup
 
-> This project uses `pnpm` as the package manager. Key scripts defined in [package.json](mdc:package.json) are:
+> This project is a full-stack application with:
 
-# NPM Scripts Guide
+# Project Setup Overview
 
-This project uses `pnpm` as the package manager. Key scripts defined in [package.json](mdc:package.json) are:
+This project is a full-stack application with:
 
-*   `"dev"`: Runs both the frontend Vite development server and the backend Node.js server concurrently.
-    *   Command: `concurrently "vite" "pnpm run dev:server"`
-*   `"dev:server"`: Runs the backend Node.js/Express server using `nodemon` for automatic restarts and `ts-node` to execute TypeScript directly. It specifically uses `tsconfig-server.json` for its TypeScript configuration.
-    *   Command: `cross-env TS_NODE_PROJECT=tsconfig-server.json nodemon --watch server.ts --exec node --loader ts-node/esm server.ts`
-*   `"build"`: Builds both the frontend and potentially the backend (though the backend build step might need further refinement for production).
-    *   Command: `tsc -b && vite build`
-*   `"lint"`: Lints the codebase using ESLint.
-    *   Command: `eslint .`
-*   `"preview"`: Serves the production build of the Vite frontend locally.
-    *   Command: `vite preview`
+1.  **Frontend:** A [Vite](mdc:https:/vitejs.dev) + [React](mdc:https:/react.dev) application built with [TypeScript](mdc:https:/www.typescriptlang.org). The main source code is in the `src` directory.
+    *   The Vite configuration is in [vite.config.ts](mdc:vite.config.ts).
+    *   The primary TypeScript configuration for the frontend is [tsconfig.json](mdc:tsconfig.json).
+2.  **Backend:** A [Node.js](mdc:https:/nodejs.org) server using the [Express](mdc:https:/expressjs.com) framework, also built with [TypeScript](mdc:https:/www.typescriptlang.org).
+    *   The main server file is [server.ts](mdc:server.ts).
+    *   The TypeScript configuration for the backend is [tsconfig-server.json](mdc:tsconfig-server.json).
+
+API requests from the frontend to `/api` are proxied to the backend server during development (configured in [vite.config.ts](mdc:vite.config.ts)).
+The project uses `pnpm` as the package manager ([package.json](mdc:package.json)).
 
 ---
 > Source: [vucinatim/convex-lite](https://github.com/vucinatim/convex-lite) — distributed by [TomeVault](https://tomevault.io).
