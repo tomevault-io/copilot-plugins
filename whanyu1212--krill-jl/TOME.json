@@ -4,7 +4,7 @@
   "repo": "Krill.jl",
   "description": "A lightweight nanobot/OpenClaw variant in pure Julia",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whanyu1212/Krill.jl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T15:02:53Z"
+  "distributed_at": "2026-05-15T14:48:46Z"
 }
