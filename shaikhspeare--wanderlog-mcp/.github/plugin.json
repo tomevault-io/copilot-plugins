@@ -1,0 +1,9 @@
+{
+  "name": "shaikhspeare--wanderlog-mcp",
+  "displayName": "wanderlog-mcp",
+  "description": "MCP server for Wanderlog \u2014 build and edit trip itineraries through conversation",
+  "version": "1.0.0",
+  "author": "shaikhspeare",
+  "homepage": "https://github.com/shaikhspeare/wanderlog-mcp",
+  "skills": []
+}
