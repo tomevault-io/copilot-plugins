@@ -1,0 +1,21 @@
+## clickup-mcp
+
+> - ClickUp api documentation is available here: https://developer.clickup.com/reference/gettasks
+
+- ClickUp api documentation is available here: https://developer.clickup.com/reference/gettasks
+- Think about api limits. ClickUp allows 100 api calls per minute per user. A typical workflow must not exceed that.
+- Implement caching by using a global variable and setting it to null after a setTimeout with GLOBAL_REFRESH_INTERVAL. The ClickUp Api limit resets after a minute, so we usually don't need to cache longer than a minute.
+- Cache promises, not results, to prevent race conditions when multiple concurrent calls happen before the first completes (see getAllTeamMembers, getCurrentUser, getTaskSearchIndex, getSpaceSearchIndex patterns).
+- Use "npm run build" to compile the typescript for validation.
+- Use "npm run cli" to test mcp calls.
+- CLI syntax: npm run cli <tool> key=value key2="\"quoted string\"" arrayKey='["item1","item2"]' objectKey='{"field":"value"}'
+- Use "npm run test" to run tests.
+- Use console.error to prevent writing log messages to stdout.
+- MCPB manifest.json spec is at https://github.com/anthropics/mcpb/blob/main/README.md - update tools section when adding new MCP tools.
+- Update the CHANGELOG.md when changing or implementing a new feature.
+- Backwards compatibility does not matter, an LLM will understand new parameters.
+- Mention ID's, not just names, when outputting references. for example "User: Username (user_id: 12345)"
+
+---
+> Source: [hauptsacheNet/clickup-mcp](https://github.com/hauptsacheNet/clickup-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
