@@ -1,0 +1,9 @@
+{
+  "name": "olavocarvalho--vscode-runtime-notebook-mcp",
+  "displayName": "vscode-runtime-notebook-mcp",
+  "description": "Embedded MCP server for the VS Code Jupyter runtime: edit cells, run code, fetch outputs.",
+  "version": "1.0.0",
+  "author": "olavocarvalho",
+  "homepage": "https://github.com/olavocarvalho/vscode-runtime-notebook-mcp",
+  "skills": []
+}
