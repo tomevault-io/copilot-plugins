@@ -1,132 +1,156 @@
-## backend
+## config
 
-> A modern Django admin interface with auto-generated REST API for any Django project.
+> This guide provides a detailed explanation of the auto-generated API metadata. It is designed to give a frontend developer everything they need to dynamically build a beautiful and functional admin dashboard without having to guess at API behavior.
 
-# Django Admin API
+# API Field & UI Metadata Guide
 
-A modern Django admin interface with auto-generated REST API for any Django project.
+This guide provides a detailed explanation of the auto-generated API metadata. It is designed to give a frontend developer everything they need to dynamically build a beautiful and functional admin dashboard without having to guess at API behavior.
 
-Created by: **asbilim**
+**Core Principle: Backend-Driven UI**
 
-- **Twitter:** [@iampaullilian](mdc:https:/twitter.com/iampaullilian)
-- **GitHub:** [asbilim](mdc:https:/github.com/asbilim)
-- **Portfolio:** [paullilian.dev](mdc:https:/paullilian.dev)
+The fundamental design of this system is that the **backend dictates the UI**. All data validation, file handling, and business logic are securely managed on the server. The API's metadata response is the "instruction manual" that tells the frontend exactly what form fields, buttons, and layouts to render.
 
-## Features
+The frontend's job is to:
 
-- **Auto-generated API:** Automatically creates REST API endpoints for all models registered in the Django admin.
-- **Dashboard Analytics:** A new `/api/admin/dashboard-stats/` endpoint provides a comprehensive overview of site activity, including user signups, content creation statistics, and recent activities.
-- **Pre-built Blog App:** Includes a full-featured, RESTful blog API with posts, categories, tags, comments, and more.
-- **Dynamic Configuration:** Manage site settings like email and file storage directly through the API.
-- **Enhanced Site Identity:** More detailed site identity management, including author information, contact details, and social media links.
-- **Admin User Preferences:** Users can have their own admin UI preferences, such as theme and layout density.
-- **API Request Logging:** Automatically logs API requests for analytics and monitoring.
-- **Site Identity & SEO:** Manage your site's name, logo, favicon, and SEO tags from a central place.
-- **User & Group Management:** Super admins can manage users and groups via the API.
-- **Frontend Ready:** Provides configuration endpoints for easy integration with a frontend dashboard.
-- **Customizable:** Easily extend and customize serializers, viewsets, and permissions.
-- **Automatic Translations:** All text fields are available in English, German and French. The public-facing APIs (like the Blog API) serve translated content based on the `Accept-Language` header. See the `BLOG_API_GUIDE.md` for more details.
-- **UI Component Metadata:** Each API response includes suggested components for creating, editing and displaying fields, plus predefined choices for things like icons and categories to ensure a consistent look and feel.
+1.  Fetch the configuration for a model.
+2.  Use that configuration to dynamically render the appropriate UI components.
+3.  Submit data back to the backend's REST endpoints.
 
-## Quick Start
+The frontend should **not** contain any hardcoded field names, validation rules, or endpoint paths.
 
-1. **Setup Environment**
+## The `/config` Endpoint
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   # or
-   venv\Scripts\activate  # Windows
-   ```
+For every model exposed through the Admin API, there is a special endpoint that provides its UI "recipe":
 
-2. **Install Dependencies**
+```
+GET /api/admin/models/<model-name>/config/
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+This endpoint doesn't return model _data_; instead, it returns a JSON object containing a complete guide on how to interact with the model.
 
-3. **Environment Variables**
+## Response Structure
 
-   Create a `.env` file from the example:
+Here is an example response for a `category` model, which we will use to break down the structure.
 
-   ```bash
-   cp .env.example .env
-   ```
+```json
+{
+  "model_name": "category",
+  "verbose_name": "Category",
+  "verbose_name_plural": "Categories",
+  "fields": {
+    // ... field objects ...
+  },
+  "admin_config": {
+    // ... Django admin settings ...
+  },
+  "permissions": {
+    // ... user permissions for this model ...
+  },
+  "frontend_config": {
+    // ... custom frontend hints ...
+  }
+}
+```
 
-   Then, edit the `.env` file with your settings. See the `.env.example` file for detailed explanations of each variable. This now includes optional configuration for Cloudflare R2 storage.
+### 1. Top-Level Properties
 
-4. **Database Setup**
+- `model_name`: The machine-readable name of the model (e.g., `category`). Used for constructing API request URLs.
+- `verbose_name`: The human-readable singular name (e.g., `Category`). Perfect for page titles.
+- `verbose_name_plural`: The human-readable plural name (e.g., `Categories`). Perfect for table headers and button labels.
+- `fields`: An object containing metadata for every field in the model.
+- `admin_config`: An object mirroring the model's configuration in Django's admin (`list_display`, `search_fields`, etc.).
+- `permissions`: An object indicating the current user's permissions (`add`, `change`, `delete`, `view`). The frontend should use this to show/hide buttons and UI elements.
+- `frontend_config`: Custom hints for the frontend, defined in the model's `Admin` class in `admin.py`.
 
-   ```bash
-   python manage.py migrate
-   python manage.py createsuperuser
-   ```
+### 2. The `fields` Object: The Heart of the UI
 
-5. **Run Development Server**
+This is the most critical section for building forms. Each key is a field name, and its value is an object describing how to render a UI control for that field.
 
-   ```bash
-   python manage.py runserver
-   ```
+```json
+"fields": {
+    "title": {
+      "name": "title",
+      "verbose_name": "Title",
+      "type": "CharField",
+      "ui_component": "textfield",
+      "required": true,
+      "max_length": 200,
+      "help_text": "The main title of the post.",
+      "is_translation": false
+    },
+    "title_en": {
+      "name": "title_en",
+      "verbose_name": "Title [en]",
+      "type": "TranslationCharField",
+      "ui_component": "textfield",
+      "is_translation": true
+    },
+    "featured_image": {
+        "name": "featured_image",
+        "type": "ImageField",
+        "ui_component": "image_upload",
+        "required": false
+    },
+    "parent": {
+        "name": "parent",
+        "type": "ForeignKey",
+        "ui_component": "foreignkey_select",
+        "related_model": {
+            "app_label": "core",
+            "model_name": "category",
+            "api_url": "/api/admin/models/category/"
+        }
+    }
+}
+```
 
-6. **(Optional) Create Dummy Data**
+#### Field Properties Explained:
 
-   To populate the database with some sample data for testing, you can run the following command:
+- `ui_component`: **Your most important key.** This is a direct suggestion for what kind of form control to render. The backend guarantees that the data format will be compatible with this component type.
+  - `textfield`: A standard single-line text input.
+  - `textarea`: A multi-line text area.
+  - `checkbox`: A true/false checkbox.
+  - `select`: A dropdown list. The `choices` property will be populated.
+  - `datetime_picker`: A component for selecting a date and time.
+  - `image_upload` / `file_upload`: A file input. **The frontend only needs to render the input control.** The file upload is a standard `multipart/form-data` POST/PUT request to the backend, which handles the actual storage process (local or cloud).
+  - `foreignkey_select`: A dropdown that should be populated with items from another model. Use the `related_model.api_url` to fetch the list of items.
+- `is_translation`: A boolean that is `true` if this field is for a specific language. The frontend should use this to group translated fields together, for instance, under tabs labeled "English," "German," etc.
+- `required`: Whether the frontend should mark the field as mandatory. Final validation is always done on the backend.
+- `max_length`, `help_text`, `verbose_name`: Use these to enrich the UI with labels, hints, and character counters.
+- `related_model`: For `ForeignKey` fields, this object tells the frontend where to fetch the list of choices for a dropdown.
 
-   ```bash
-   python manage.py create_dummy_todos
-   ```
+### 3. `frontend_config`: Custom UI Hints
 
-## API Endpoints
+This object provides extra, high-level guidance for how to display the model's UI.
 
-- **Admin API Root**: `http://localhost:8000/api/admin/`
-- **Dashboard Analytics**: `http://localhost:8000/api/admin/dashboard-stats/`
-- **API for a model**: `http://localhost:8000/api/admin/models/<model-name>/`
-- **Blog API**:
-  - Posts: `http://localhost:8000/api/blog/posts/`
-  - Categories: `http://localhost:8000/api/blog/categories/`
-  - Tags: `http://localhost:8000/api/blog/tags/`
-  - Search: `http://localhost:8000/api/blog/search/?q=<query>`
-- **Traditional Admin**: `http://localhost:8000/admin/`
-- **API Schema**:
-  - `http://localhost:8000/api/schema/` (Download OpenAPI Schema)
-  - `http://localhost:8000/api/schema/swagger-ui/` (Swagger UI)
-  - `http://localhost:8000/api/schema/redoc/` (Redoc)
+```json
+"frontend_config": {
+    "icon": "folder",
+    "category": "Configuration",
+    "description": "Organize content with categories",
+    "tree_view": true,
+    "parent_field": "parent"
+}
+```
 
-## Authentication Flow
+- `icon`: A suggested icon name from the global icon set.
+- `category`: The UI group this model belongs to. Perfect for organizing navigation menus.
+- `tree_view` & `parent_field`: A hint that this model's data is hierarchical. A frontend can use this to render a tree view instead of a simple table.
 
-This project uses JWT for authentication. Here is a summary of the authentication and user management endpoints.
+## Global Frontend Options
 
-### 1. Token Management
+Finally, the root admin endpoint provides globally available choices for building a consistent UI:
 
-- **Get Tokens (Login Step 1)**: `POST /api/token/`
+```
+GET /api/admin/
+```
 
-  - Provide `username` and `password`.
-  - If 2FA is **disabled**, this returns `access` and `refresh` tokens directly.
-  - If 2FA is **enabled**, it returns a temporary message: `{"detail": "OTP required.", "is_2fa_enabled": true}`.
+In its response, the `frontend_options` key contains:
 
-- **Verify 2FA and Get Tokens (Login Step 2)**: `POST /api/auth/token/verify/`
+- `categories`: A list of all available model categories for building navigation.
+- `icons`: A comprehensive list of suggested icon names that can be used throughout the frontend dashboard.
 
-  - If 2FA is enabled, use this endpoint.
-  - Provide `username`, `password`, and the `otp` from an authenticator app.
-  - On success, this returns the final `access` and `refresh` tokens.
-  - _Note: If you receive an "Invalid OTP" error, please ensure your phone's clock is synchronized with an internet time server._
-
-- **Refresh Token**: `POST /api/token/refresh/`
-  - Provide the `refresh` token to get a new `access` token.
-
-### 2. Password Reset
-
-- **Request Reset**: `POST /api/auth/password_reset/`
-  - Provide the user's `email` to receive a password reset link.
-- **Confirm Reset**: `POST /api/auth/password_reset/confirm/`
-  - Provide the `token` from the email and a `new_password`.
-
-### 3. Account Management (Authenticated)
-
-These endpoints require an active `access` token in the authorization header.
-
-- **User Profile**:
-  - `GET /api/auth/me/`: Retrieve the current user's profile (`
+By combining the global options with the per-model `/config/` endpoint, a frontend application has a complete, backend-driven blueprint for building a dynamic, powerful, and user-friendly admin interface.
 
 ---
 > Source: [asbilim/modern-django-frontend](https://github.com/asbilim/modern-django-frontend) — distributed by [TomeVault](https://tomevault.io).
