@@ -1,0 +1,9 @@
+{
+  "name": "prompt-scheduler--cli",
+  "displayName": "cli",
+  "description": "Modern TypeScript automation tool for scheduling and executing prompts for AI agents with intelligent usage limit detection. Currently supports Claude Code with tmux integration.",
+  "version": "1.0.0",
+  "author": "prompt-scheduler",
+  "homepage": "https://github.com/prompt-scheduler/cli",
+  "skills": []
+}
