@@ -4,7 +4,7 @@
   "repo": "m-moire",
   "description": "Shadcn-native Design CI for Tailwind apps: export registries that work with shadcn, v0, AI editors, and npm.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sarveshsea/m-moire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T06:02:52Z"
+  "distributed_at": "2026-05-15T05:13:28Z"
 }
