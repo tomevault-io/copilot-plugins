@@ -1,0 +1,9 @@
+{
+  "name": "theantichris--ghost",
+  "displayName": "ghost",
+  "description": "A local, general-purpose AI assistant built in Go, powered by Ollama \u2014 inspired by cyberpunk worlds like Shadowrun, Cyberpunk 2077, and The Matrix.",
+  "version": "1.0.0",
+  "author": "theantichris",
+  "homepage": "https://github.com/theantichris/ghost",
+  "skills": []
+}
