@@ -1,0 +1,9 @@
+{
+  "name": "istefox--istefox-dt-mcp",
+  "displayName": "istefox-dt-mcp",
+  "description": "MCP server for DEVONthink 4 - best-in-class connector with RAG-augmented search",
+  "version": "1.0.0",
+  "author": "istefox",
+  "homepage": "https://github.com/istefox/istefox-dt-mcp",
+  "skills": []
+}
