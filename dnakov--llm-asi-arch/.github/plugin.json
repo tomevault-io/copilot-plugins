@@ -1,0 +1,9 @@
+{
+  "name": "dnakov--llm-asi-arch",
+  "displayName": "llm-asi-arch",
+  "description": "\ud83e\udd16 Complete reproduction of 'AlphaGo Moment for Model Architecture Discovery' using MLX-LM instead of GPT-4. Autonomous neural architecture discovery with local LLM inference on Apple Silicon.",
+  "version": "1.0.0",
+  "author": "dnakov",
+  "homepage": "https://github.com/dnakov/llm-asi-arch",
+  "skills": []
+}
