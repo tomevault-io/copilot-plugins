@@ -1,0 +1,45 @@
+## todoist-mcp
+
+> - Google Gemini API fails with nullable types in OpenAPI 3.1 format
+
+# Todoist AI MCP Server - Cursor Rules
+
+## Critical: Tool Schema Compatibility
+
+### NEVER use .nullable() in tool schemas
+- Google Gemini API fails with nullable types in OpenAPI 3.1 format
+- Use `.optional()` only for optional string fields
+- See PR #181 for reference
+
+### Pattern for clearing optional fields:
+```typescript
+// ❌ WRONG - breaks Gemini
+fieldName: z.string().nullable().optional()
+
+// ✅ CORRECT
+fieldName: z.string().optional()
+
+// Runtime handling for clearing:
+if (fieldValue === null || fieldValue === 'remove') {
+    updateArgs = { ...updateArgs, fieldName: null }
+}
+```
+
+### Use special strings for removal:
+- Use "unassign" for assignments
+- Use "remove" for other clearable fields
+- Document in schema descriptions
+
+## Testing Requirements
+- Add tests for new parameters
+- All 333+ tests must pass
+- Verify build and type-check
+
+## Documentation
+- Update schema descriptions
+- Update src/mcp-server.ts guidelines
+- Add usage examples
+
+---
+> Source: [Doist/todoist-mcp](https://github.com/Doist/todoist-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
