@@ -1,8 +1,56 @@
-## build-and-config
+## communication-patterns
 
-> AI instruction file for iina-plugin-bookmarks by wyattowalsh
+> Communication between the IINA Bookmarks plugin core ([src/index.ts](mdc:src/index.ts)) and its various UI components ([ui/overlay/app.tsx](mdc:ui/overlay/app.tsx), [ui/sidebar/app.tsx](mdc:ui/sidebar/app.tsx), [ui/window/app.tsx](mdc:ui/window/app.tsx)) is exclusively handled via IINA's `postMessage` API. This ensures a decoupled architecture where UIs do not have direct access to the plugin's internal `BookmarkManager` instance.
 
-# Build Process and Configuration Files\n\nThis rule describes the key configuration files and the build process for the IINA Bookmarks plugin.\n\n**Key Configuration Files:**\n\n*   **[Info.json](mdc:Info.json):** The IINA plugin manifest file. It contains metadata about the plugin, such as:\n    *   `identifier`: Unique ID for the plugin.\n    *   `name`: Display name of the plugin.\n    *   `version`: Plugin version.\n    *   `description`: A brief description of the plugin.\n    *   `author`: Plugin author information.\n    *   `entry`: Specifies the main compiled JavaScript file for the plugin core (e.g., `dist/index.js`).\n    *   `permissions`: Declares any special permissions the plugin requires (e.g., `event`, `fs`, `network`).\n    *   `minIINAVersion`: Minimum IINA version required to run the plugin.\n    *   `sidebarTab`: Configuration for the sidebar UI, including its ID, title, and HTML entry point.\n    *   `window`: Configuration for the standalone window UI.\n*   **[package.json](mdc:package.json):** Standard npm package file. It defines:\n    *   Project metadata (name, version, description, author, license).\n    *   `main`: Points to the main TypeScript entry file (`src/index.ts`).\n    *   `scripts`: Contains build commands, primarily using Parcel:\n        *   `build`: Compiles TypeScript/TSX and SCSS files into the `dist/` directory.\n        *   `build:watch`: Similar to `build` but watches for file changes and rebuilds automatically.\n        *   Specific build targets for plugin core (`build:plugin`), overlay (`build:overlay`), sidebar (`build:sidebar`), and window (`build:window`) UIs.\n    *   `devDependencies`: Lists development dependencies, including:\n        *   `parcel`: The application bundler.\n        *   `@parcel/transformer-typescript-tsc`: For TypeScript compilation.\n        *   `@parcel/transformer-sass`: For SCSS compilation.\n        *   `typescript`: The TypeScript compiler.\n        *   `@types/*`: Type definitions for React, ReactDOM, etc.\n        *   `iina-plugin-definition`: Type definitions for the IINA plugin API.\n*   **[tsconfig.json](mdc:tsconfig.json):** TypeScript compiler configuration file. It specifies:\n    *   `compilerOptions` such as `target` (ES version), `module` system, `jsx` (for React), `strict` mode, `esModuleInterop`, `skipLibCheck`.\n    *   `include`: Glob patterns for files to be included in compilation (e.g., `src/**/*`, `ui/**/*`).\n    *   `exclude`: Glob patterns for files to be excluded (e.g., `node_modules`, `dist`).\n    *   `typeRoots`: Specifies directories for type definitions.\n*   **[.parcelrc](mdc:.parcelrc):** Configuration file for the Parcel bundler. It extends the default Parcel configuration and might specify transformers (e.g., `*.ts` -> `@parcel/transformer-typescript-tsc`).\n*   **[.gitignore](mdc:.gitignore):** Specifies intentionally untracked files that Git should ignore (e.g., `node_modules/`, `dist/`, `.DS_Store`).\n\n**Build Process:**\n\nThe project uses **Parcel** as its build tool. The primary build command is typically `npm run build` (or `yarn build`).\n\n1.  **Plugin Core ([src/index.ts](mdc:src/index.ts)):** Parcel compiles `src/index.ts` (and its imports like `src/global.ts`) into a JavaScript file, usually output to `dist/index.js` as specified in `Info.json`\'s `entry` field and `package.json` build scripts.\n2.  **UI Components ([ui/\*\*/index.js](mdc:ui/overlay/index.js)):** For each UI component (overlay, sidebar, window), Parcel processes its JavaScript entry point (e.g., `ui/overlay/index.js`). This entry point imports the respective `app.tsx` React component.\n    *   Parcel compiles the `.tsx` files into JavaScript.\n    *   It also compiles the associated `.scss` files into CSS, which is typically bundled with the JavaScript or linked from the `index.html`.\n    *   The output for each UI component includes its `index.html` and the bundled JavaScript/CSS, placed in `dist/ui/<component_name>/` (e.g., `dist/ui/overlay/index.html`, `dist/ui/overlay/index.js`).\n\nThe `dist/` directory contains all the compiled assets ready to be loaded by IINA.
+# Plugin-UI Communication Patterns
+
+Communication between the IINA Bookmarks plugin core ([src/index.ts](mdc:src/index.ts)) and its various UI components ([ui/overlay/app.tsx](mdc:ui/overlay/app.tsx), [ui/sidebar/app.tsx](mdc:ui/sidebar/app.tsx), [ui/window/app.tsx](mdc:ui/window/app.tsx)) is exclusively handled via IINA's `postMessage` API. This ensures a decoupled architecture where UIs do not have direct access to the plugin's internal `BookmarkManager` instance.
+
+**Key Principles:**
+
+*   **Bidirectional Communication:** Messages can be sent from the plugin core to UIs and from UIs to the plugin core.
+*   **Message-Based:** All interactions are defined by structured messages.
+*   **Serialization:** Data sent via `postMessage` must be JSON-serializable. For example, `Date` objects are converted to ISO 8601 strings (`BookmarkData.createdAt`).
+
+**Message Structure:**
+
+A `UIMessage` interface is defined in [src/index.ts](mdc:src/index.ts) (though not explicitly shared as a type with UIs, the structure is adhered to):
+
+```typescript
+interface UIMessage {
+  type: string; // e.g., 'ADD_BOOKMARK', 'BOOKMARKS_UPDATED'
+  payload?: any; // Data associated with the message
+  source?: 'overlay' | 'sidebar' | 'window'; // Optional: identifies the UI source
+}
+```
+
+**Plugin Core to UI Communication (`plugin.postMessage()`):**
+
+The `BookmarkManager` in [src/index.ts](mdc:src/index.ts) sends messages to the UIs, typically to provide data or notify of state changes:
+
+*   **`BOOKMARKS_UPDATED`**: Sent when the list of bookmarks changes (add, delete, update). The `payload` contains the updated array of `BookmarkData` objects, filtered by `filepath` for overlay and sidebar, and unfiltered for the main window.
+*   **`CURRENT_FILE_PATH`**: Sent when a UI signals it's ready (`UI_READY`) or when a new file is loaded in IINA. The `payload` is the current media file path.
+
+**UI to Plugin Core Communication (`appWindow.iina.postMessage()`):**
+
+UI components (e.g., [ui/overlay/app.tsx](mdc:ui/overlay/app.tsx)) send messages to the plugin core to request actions or data:
+
+*   **`UI_READY`**: Sent when a UI component mounts. The plugin core responds by sending initial data like `BOOKMARKS_UPDATED` and `CURRENT_FILE_PATH`.
+*   **`REQUEST_FILE_PATH`**: (Less common now with `UI_READY` providing initial path) UIs can request the current file path.
+*   **CRUD Operations:**
+    *   `ADD_BOOKMARK`: `payload` contains the `BookmarkData` (without `id` and `createdAt`, which are set by the core).
+    *   `UPDATE_BOOKMARK`: `payload` contains the full, updated `BookmarkData`.
+    *   `DELETE_BOOKMARK`: `payload` contains the `id` of the bookmark to delete.
+*   **`JUMP_TO_BOOKMARK`**: `payload` contains the `timestamp` (in seconds) to seek to.
+*   **`HIDE_OVERLAY`**: Sent by the overlay UI to request the plugin core to hide it.
+*   **Other specific actions** as needed by each UI.
+
+**Message Handling:**
+
+*   **Plugin Core ([src/index.ts](mdc:src/index.ts)):** The `setupUIMessageListeners()` method in `BookmarkManager` uses `iina.event.on('message', handler)` to listen for messages from all UIs. A `switch` statement on `message.type` routes the message to the appropriate handler function.
+*   **UI Components (e.g., [ui/overlay/app.tsx](mdc:ui/overlay/app.tsx)):** Each UI uses `appWindow.iina.onMessage((messageName: string, messageData: any) => { ... });` (or similar, depending on the exact IINA webview API) to listen for messages. They typically check `messageName` (equivalent to `UIMessage.type`) to handle relevant updates.
+
+This message-passing system is crucial for maintaining separation of concerns and adhering to IINA plugin development best practices.
 
 ---
 > Source: [wyattowalsh/iina-plugin-bookmarks](https://github.com/wyattowalsh/iina-plugin-bookmarks) — distributed by [TomeVault](https://tomevault.io).
