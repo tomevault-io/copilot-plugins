@@ -1,0 +1,9 @@
+{
+  "name": "paulrobello--parsidion",
+  "displayName": "parsidion",
+  "description": "Claude Code customization toolkit \u2014 skills, agents, and hook scripts",
+  "version": "1.0.0",
+  "author": "paulrobello",
+  "homepage": "https://github.com/paulrobello/parsidion",
+  "skills": []
+}
