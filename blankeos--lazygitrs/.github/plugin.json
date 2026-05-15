@@ -1,0 +1,9 @@
+{
+  "name": "blankeos--lazygitrs",
+  "displayName": "lazygitrs",
+  "description": "\u2650 A 'faster' rewrite of lazygit in rust \ud83e\udd80. w/ ai commit gen + better diffs + better UX.",
+  "version": "1.0.0",
+  "author": "Blankeos",
+  "homepage": "https://github.com/Blankeos/lazygitrs",
+  "skills": []
+}
