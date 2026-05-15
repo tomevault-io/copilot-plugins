@@ -1,0 +1,9 @@
+{
+  "name": "beorn--termless",
+  "displayName": "termless",
+  "description": "Like Playwright, but for terminal apps \u2014 headless testing across xterm.js, Ghostty, Alacritty, WezTerm, and more",
+  "version": "1.0.0",
+  "author": "beorn",
+  "homepage": "https://github.com/beorn/termless",
+  "skills": []
+}
