@@ -1,0 +1,9 @@
+{
+  "name": "scross01--searxngr",
+  "displayName": "searxngr",
+  "description": "SearXNG from the command line, inspired by `ddgr` and `googler`.",
+  "version": "1.0.0",
+  "author": "scross01",
+  "homepage": "https://github.com/scross01/searxngr",
+  "skills": []
+}
