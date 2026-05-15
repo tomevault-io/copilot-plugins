@@ -1,0 +1,9 @@
+{
+  "name": "jach8--highlowticker-tui",
+  "displayName": "highlowticker-tui",
+  "description": "HighlowTicker is a desktop terminal application for active traders. It monitors    real-time intraday session highs and lows across a user-defined watchlist of stocks and ETFs, alerting traders to bre",
+  "version": "1.0.0",
+  "author": "jach8",
+  "homepage": "https://github.com/jach8/highlowticker-tui",
+  "skills": []
+}
