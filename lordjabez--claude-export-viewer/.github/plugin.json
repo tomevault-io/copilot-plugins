@@ -1,0 +1,9 @@
+{
+  "name": "lordjabez--claude-export-viewer",
+  "displayName": "claude-export-viewer",
+  "description": "Tool to convert a Claude data export into a browsable static HTML website",
+  "version": "1.0.0",
+  "author": "lordjabez",
+  "homepage": "https://github.com/lordjabez/claude-export-viewer",
+  "skills": []
+}
