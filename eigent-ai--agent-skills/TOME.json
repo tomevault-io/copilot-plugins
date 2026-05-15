@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Open-Source Cowork Agent Skills Collection | High Quality for Exceptional Productivity",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eigent-ai/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T19:47:21Z"
+  "distributed_at": "2026-05-15T16:41:54Z"
 }
