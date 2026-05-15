@@ -1,0 +1,9 @@
+{
+  "name": "imxcstar--sharpclaw",
+  "displayName": "sharpclaw",
+  "description": "AI agent with long-term memory, built on .NET 10. Supports Anthropic, OpenAI, and Gemini, featuring a Python WASM sandbox for secure code execution.",
+  "version": "1.0.0",
+  "author": "imxcstar",
+  "homepage": "https://github.com/imxcstar/sharpclaw",
+  "skills": []
+}
