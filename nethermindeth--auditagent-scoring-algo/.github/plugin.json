@@ -1,0 +1,9 @@
+{
+  "name": "nethermindeth--auditagent-scoring-algo",
+  "displayName": "auditagent-scoring-algo",
+  "description": "AuditAgent scoring algorithm to evaluate the results of AI security scans versus a source of truth.",
+  "version": "1.0.0",
+  "author": "NethermindEth",
+  "homepage": "https://github.com/NethermindEth/auditagent-scoring-algo",
+  "skills": []
+}
