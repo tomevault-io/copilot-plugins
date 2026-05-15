@@ -1,0 +1,9 @@
+{
+  "name": "gurenjs--guren",
+  "displayName": "guren",
+  "description": "Guren is a Bun-native TypeScript MVC framework that unites Laravel-like ergonomics with Hono, Inertia.js, React, and Drizzle ORM, aiming to deliver a fast, elegant full-stack workflow that keeps front",
+  "version": "1.0.0",
+  "author": "gurenjs",
+  "homepage": "https://github.com/gurenjs/guren",
+  "skills": []
+}
