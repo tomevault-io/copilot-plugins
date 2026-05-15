@@ -4,7 +4,7 @@
   "repo": "ai-first-devops-toolkit",
   "description": "This toolkit represents a step toward AI-First DevOps AI-First DevOps - where intelligent automation handles the entire development lifecycle.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Nantero1/ai-first-devops-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T08:06:40Z"
+  "distributed_at": "2026-05-15T10:10:11Z"
 }
