@@ -1,0 +1,9 @@
+{
+  "name": "cottongeeks--ytt-mcp",
+  "displayName": "ytt-mcp",
+  "description": "MCP server to fetch YouTube transcripts",
+  "version": "1.0.0",
+  "author": "cottongeeks",
+  "homepage": "https://github.com/cottongeeks/ytt-mcp",
+  "skills": []
+}
