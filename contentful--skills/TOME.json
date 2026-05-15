@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "Skills for teaching agents how to build on Contentful.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/contentful/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:12:24Z"
+  "distributed_at": "2026-05-15T19:13:28Z"
 }
