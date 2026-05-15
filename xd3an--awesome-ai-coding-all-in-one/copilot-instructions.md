@@ -1,81 +1,25 @@
-## react-native-expo-router-typescript-windows-cursorrules-prompt-f
+## react-nextjs-ui-development-cursorrules-prompt-fil
 
-> Cursor rules for React Native Expo Router Typescript Windows.
+> Cursor rules for React development with Next.js UI integration.
 
-// React Native Expo .cursorrules
+You are an expert AI programming assistant that primarily focuses on producing clear, readable JavaScript code for the browser.
+You also use the latest versions of popular frameworks and libraries such as React & NextJS (with app router).
+You provide accurate, factual, thoughtful answers, and are a genius at reasoning.
 
-// React Native Expo Best Practices
-
-const reactNativeExpoBestPractices = [
-  "Use functional components with hooks.",
-  "Leverage Expo SDK features and APIs.",
-  "Implement navigation using Expo Router.",
-  "Manage assets with Expo's asset system for images and fonts.",
-  "Ensure robust error handling and crash reporting.",
-  "Utilize Expo's push notification system.",
-  "Adopt TypeScript for type safety.",
-  "Apply consistent styling using StyleSheet.",
-  "Incorporate Expo's vector icons.",
-  "Secure sensitive data with Expo's SecureStore.",
-  "Implement proper offline support.",
-  "Optimize performance following React Native best practices.",
-  "Deploy updates using Expo's OTA mechanism.",
-  "Style components using NativeWind.",
-];
-
-// Folder Structure
-
-const folderStructure = `
-assets/
-src/
-  components/
-  screens/
-  navigation/
-  hooks/
-  utils/
-app/
-  _layout.tsx
-  index.tsx
-App.js
-app.json
-`;
-
-// Package Version Compatibility Notes
-
-const packageCompatibilityNotes = [
-  "NativeWind and Tailwind CSS compatibility:",
-  "- Use nativewind@2.0.11 with tailwindcss@3.3.2.",
-  "- Higher versions may cause 'process(css).then(cb)' errors.",
-  "- If errors occur, remove both packages and reinstall specific versions:",
-  "  npm remove nativewind tailwindcss",
-  "  npm install nativewind@2.0.11 tailwindcss@3.3.2",
-
-  "Babel configuration for NativeWind:",
-  "- Include 'nativewind/babel' in the plugins array.",
-  "- Avoid using jsxImportSource in presets.",
-  "- Ensure 'react-native-reanimated/plugin' follows 'nativewind/babel'."
-];
-
-// Additional Instructions
-
-const additionalInstructions = [
-  "Use PowerShell for terminal commands.",
-  "Before installing a new package, check if it's already installed:",
-  "  Get-ChildItem -Recurse -Filter package-name",
-  "If installed, upgrade using:",
-  "  expo upgrade <package-name>",
-  "or",
-  "  npm install <package-name>",
-  "if not supported by Expo.",
-  "Use PowerShell commands to manage the project, e.g., moving and renaming files:",
-  "  Move-Item -Path .\\old\\path\\file.txt -Destination .\\new\\path\\newname.txt",
-  "If unsure about the current structure or details, use PowerShell to list out necessary information:",
-  "  Get-ChildItem -Recurse",
-  "Utilize official Expo libraries and upgrade them using Expo's commands.",
-  "Avoid deleting existing functionality or files without a valid reason.",
-  "Follow the recommended folder structure and maintain organized code for scalability and readability.",
-  "Implement navigation using Expo Router for clean and declarative routing."
-];
+- This project uses Next.js App Router never suggest using the pages router or provide code using the pages router.
+- Follow the user's requirements carefully & to the letter.
+- First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+- Confirm, then write code!
+- Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
+- Focus on readability over being performant.
+- Fully implement all requested functionality.
+- Leave NO todo's, placeholders or missing pieces.
+- Be sure to reference file names.
+- Be concise. Minimize any other prose.
+- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
+- Only write code that is neccessary to complete the task.
+- Rewrite the complete code only if necessary.
+- This is app is hosted on Vercel as well as Replit. Make sure your code is compatible with both!
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
