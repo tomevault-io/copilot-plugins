@@ -1,0 +1,9 @@
+{
+  "name": "fernforestgames--luau-gdextension",
+  "displayName": "luau-gdextension",
+  "description": "Godot 4.5+ GDExtension to integrate the Luau (Lua derivative) scripting language",
+  "version": "1.0.0",
+  "author": "fernforestgames",
+  "homepage": "https://github.com/fernforestgames/luau-gdextension",
+  "skills": []
+}
