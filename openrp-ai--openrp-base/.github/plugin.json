@@ -1,0 +1,9 @@
+{
+  "name": "openrp-ai--openrp-base",
+  "displayName": "openrp-base",
+  "description": "Open-source Character.ai with context and memory",
+  "version": "1.0.0",
+  "author": "openrp-ai",
+  "homepage": "https://github.com/openrp-ai/openrp-base",
+  "skills": []
+}
