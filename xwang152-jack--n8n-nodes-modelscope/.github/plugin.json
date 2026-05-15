@@ -1,0 +1,9 @@
+{
+  "name": "xwang152-jack--n8n-nodes-modelscope",
+  "displayName": "n8n-nodes-modelscope",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u7528\u4e8e n8n \u7684 ModelScope API \u96c6\u6210\u8282\u70b9\uff0c\u652f\u6301\u5927\u8bed\u8a00\u6a21\u578b\u3001\u89c6\u89c9\u6a21\u578b\u548c\u6587\u751f\u56fe\u6a21\u578b\u7684\u8c03\u7528\u3002",
+  "version": "1.0.0",
+  "author": "xwang152-jack",
+  "homepage": "https://github.com/xwang152-jack/n8n-nodes-modelscope",
+  "skills": []
+}
