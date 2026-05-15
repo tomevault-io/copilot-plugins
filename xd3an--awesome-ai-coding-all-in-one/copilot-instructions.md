@@ -1,139 +1,88 @@
-## nextjs15-supabase-cursorrules-prompt-file
+## node-express
 
-> 27 architecture rules preventing AI hallucinations: insecure auth (getSession vs getUser), synchronous params, deprecated imports, missing RLS, and Stripe key exposure. Built for Cursor Agent and Claude Code.
+> Node.js and Express.js best practices for backend development
 
-# Next.js 15 + Supabase Architecture Rules
+# Node.js and Express.js Best Practices
 
-You are an expert Next.js 15 developer working with Supabase, TypeScript (strict), and shadcn/ui.
-Follow ALL rules below unconditionally. If you are tempted to deviate, re-read the rule.
+## Project Structure
+- Use proper directory structure
+- Implement proper module organization
+- Use proper middleware organization
+- Keep routes organized by domain
+- Implement proper error handling
+- Use proper configuration management
 
-## Tech Stack
-- Framework: Next.js 15 (App Router) with React 19
-- Language: TypeScript (strict mode)
-- Styling: Tailwind CSS + shadcn/ui
-- Database: Supabase (PostgreSQL + RLS)
-- Auth: Supabase SSR (cookie-based, @supabase/ssr)
-- Validation: Zod
-- Payments: Stripe (server-side only)
+## Express Setup
+- Use proper middleware setup
+- Implement proper routing
+- Use proper error handling
+- Configure proper security middleware
+- Implement proper validation
+- Use proper static file serving
 
-## RULE 1: NEVER use getSession() on the server
+## API Design
+- Use proper REST principles
+- Implement proper versioning
+- Use proper request validation
+- Handle errors properly
+- Implement proper response formats
+- Document APIs properly
 
-SECURITY CRITICAL. getSession() reads the JWT from cookies WITHOUT verifying it.
-A forged cookie passes silently. ALWAYS use getUser() for server-side auth.
+## Database Integration
+- Use proper ORM/ODM
+- Implement proper migrations
+- Use proper connection pooling
+- Implement proper transactions
+- Use proper query optimization
+- Handle database errors properly
 
-```typescript
-// ✅ CORRECT — verified with Supabase auth server
-const supabase = await createClient()
-const { data: { user } } = await supabase.auth.getUser()
-if (!user) redirect('/login')
+## Authentication
+- Implement proper JWT handling
+- Use proper password hashing
+- Implement proper session management
+- Use proper OAuth integration
+- Implement proper role-based access
+- Handle auth errors properly
 
-// ❌ WRONG — reads JWT without verification, session can be forged
-const { data: { session } } = await supabase.auth.getSession()
-```
+## Security
+- Use proper CORS setup
+- Implement proper rate limiting
+- Use proper security headers
+- Implement proper input validation
+- Use proper encryption
+- Handle security vulnerabilities
 
-## RULE 2: NEVER access params synchronously in Next.js 15
+## Performance
+- Use proper caching
+- Implement proper async operations
+- Use proper connection pooling
+- Implement proper logging
+- Use proper monitoring
+- Handle high traffic properly
 
-In Next.js 15, params and searchParams are Promises. Synchronous access compiles
-but crashes at runtime.
+## Testing
+- Write proper unit tests
+- Implement proper integration tests
+- Use proper test runners
+- Implement proper mocking
+- Test error scenarios
+- Use proper test coverage
 
-```typescript
-// ✅ CORRECT
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-}
+## Deployment
+- Use proper Docker setup
+- Implement proper CI/CD
+- Use proper environment variables
+- Configure proper logging
+- Implement proper monitoring
+- Handle deployment errors
 
-// ❌ WRONG — runtime crash
-export default function Page({ params }: { params: { id: string } }) {
-  const { id } = params // TypeError at runtime
-}
-```
-
-## RULE 3: NEVER import from @supabase/auth-helpers-nextjs
-
-This package is deprecated. It does NOT work with Next.js 15 App Router cookies.
-ALWAYS use @supabase/ssr with manual cookie handling.
-
-```typescript
-// ✅ CORRECT
-import { createServerClient } from '@supabase/ssr'
-
-// ❌ WRONG — deprecated, broken with App Router
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-```
-
-## RULE 4: All database tables MUST have RLS enabled
-
-Every Supabase table must have Row Level Security enabled. Without RLS, any
-user with the anon key can read ALL data from the table.
-
-```sql
--- ✅ Always add after CREATE TABLE:
-ALTER TABLE public.my_table ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Users can only read their own data"
-  ON public.my_table FOR SELECT
-  USING (auth.uid() = user_id);
-```
-
-## RULE 5: Default to Server Components
-
-Only add 'use client' when the component needs interactivity (event handlers,
-useState, useEffect). Push 'use client' to the smallest leaf component possible.
-
-## RULE 6: All mutations via Server Actions
-
-All data mutations happen through Server Actions, never client-side fetch().
-Always validate with Zod, authenticate with getUser(), and return ActionResponse<T>.
-
-```typescript
-'use server'
-import { z } from 'zod'
-
-type ActionResponse<T = void> =
-  | { success: true; data: T }
-  | { success: false; error: string }
-
-const Schema = z.object({ title: z.string().min(1).max(200) })
-
-export async function createItem(input: unknown): Promise<ActionResponse> {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { success: false, error: 'Unauthorized' }
-
-  const result = Schema.safeParse(input)
-  if (!result.success) return { success: false, error: 'Invalid input' }
-
-  const { error } = await supabase.from('items').insert({ ...result.data, user_id: user.id })
-  if (error) return { success: false, error: 'Failed to create item' }
-
-  revalidatePath('/items')
-  return { success: true, data: undefined }
-}
-```
-
-## RULE 7: Error boundaries for every data-fetching page
-
-Every page that fetches data MUST have sibling loading.tsx and error.tsx files.
-
-## RULE 8: NEVER expose Stripe secret keys
-
-Stripe keys starting with `sk_` must NEVER be in NEXT_PUBLIC_ variables.
-Use process.env.STRIPE_SECRET_KEY (server-only).
-
-## RULE 9: TypeScript strict mode, no `any`
-
-NEVER use `any`. Use `unknown` with Zod validation or type narrowing.
-tsconfig.json MUST have `strict: true`.
-
-## RULE 10: Middleware is for session REFRESH only
-
-NEVER put auth enforcement in Next.js middleware. Middleware runs on Edge Runtime
-and cannot verify Supabase JWTs. Auth enforcement belongs in layouts/pages with getUser().
-
----
-
-Full rule set (27 rules) available at: https://github.com/vibestackdev/vibe-stack
-Quick install: npx vibe-stack-rules init
+## Best Practices
+- Follow Node.js best practices
+- Use proper async/await
+- Implement proper error handling
+- Use proper logging
+- Handle process signals properly
+- Document code properly
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
