@@ -1,86 +1,82 @@
-## cursor-rules
+## docstring-standards
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness
+> **Write docstrings that are succinct and direct - avoid verbose explanations.**
 
-# Cursor Rules Structure and Maintenance
+# Docstring Standards
 
-## Subtask Execution Flow
-When working on subtasks:
-- **Complete each subtask fully without pausing for approval** unless the subtask explicitly contains the phrase "PAUSE FOR MANUAL APPROVAL" or similar explicit instructions to stop and ask for approval
-- Follow appropriate structure based on subtask type (see [tdd_requirements.mdc](mdc:.cursor/rules/tdd_requirements.mdc))
-- **Pause only between subtasks** to confirm the next one to work on
-- When you see phrases like "GET APPROVAL FOR DESIGN CHOICES", "PAUSE FOR MANUAL APPROVAL", or similar explicit instructions to stop, pause and ask for approval on those specific items only
-- Never ask for approval on implementation details that aren't marked for approval
+## Core Principle
+**Write docstrings that are succinct and direct - avoid verbose explanations.**
 
-## Automatic Documentation and Completion
-At the end of each subtask automatically:
-- Add documentation following [documentation.mdc](mdc:.cursor/rules/documentation.mdc) standards
-- Do not remove existing information unless it's incorrect
-- Do not ask for approval on documentation changes
-- Double check all subtask requirements are met
-- If all requirements are met, mark the subtask complete
-- Only ask for help if you can't determine whether requirements are met
+## Docstring Requirements
+- **Succinct communication** - Essential information only, no verbose explanations
+- **Direct language** - Get to the point quickly
+- **Follow @documentation forbidden content rules**:
+  - No task references or historical processes
+  - No abstract corporate speak
+  - No development journey narratives
+- **External reader accessible** - Assume zero project knowledge but keep it brief
+- **Practical focus** - What they need to know, not extensive examples
 
-## Explicit Approval Pauses
-- **If a subtask plan contains 'PAUSE FOR MANUAL APPROVAL' or similar instructions, always pause and request approval at that step, even if general rules say to proceed.**
-- After writing failing tests and a stub, check the subtask plan for required approval points before implementing.
-- Echo the next step and approval checkpoint to the user before proceeding.
-- Summarize required approval points at the start of each subtask.
-- This rule takes precedence over general 'no approval needed' rules.
+## Structure Guidelines
+- **Brief description** - One clear sentence about what the function does
+- **Essential args/returns** - Key parameters and return values only
+- **Minimal examples** - Only when necessary for clarity
+- **No extensive prerequisites** - Basic requirements only
 
-## Rule Structure Guidelines
+## Examples
 
-### Required Rule Structure
-```markdown
----
-description: Clear, one-line description of what the rule enforces
-globs: path/to/files/*.ext, other/path/**/*
-alwaysApply: boolean
----
-
-- **Main Points in Bold**
-  - Sub-points with details
-  - Examples and explanations
+### ✅ Good Docstring
+```python
+def generate_daily_summary(date: str) -> Optional[DailySummary]:
+    """Generate a daily summary from journal entries.
+    
+    Args:
+        date: Date string in YYYY-MM-DD format.
+        
+    Returns:
+        DailySummary object or None if no entries found.
+    """
 ```
 
-### File References
-- Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
-- Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
-- Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
-
-### Code Examples
-- Use language-specific code blocks
-```typescript
-// ✅ DO: Show good examples
-const goodExample = true;
-
-// ❌ DON'T: Show anti-patterns
-const badExample = false;
+### ❌ Avoid Verbose Docstrings
+```python
+def generate_daily_summary(date: str) -> Optional[DailySummary]:
+    """Generate a daily summary from journal entries.
+    
+    This function orchestrates the complete workflow for generating daily summaries
+    from journal entries. It handles the entire process from loading configuration
+    to processing entries through AI and saving the final formatted results.
+    
+    ## Prerequisites
+    - Journal files must exist in the expected directory structure
+    - Configuration file must be properly set up with journal paths
+    - AI provider must be configured with valid API keys
+    
+    ## Usage Examples
+    ```python
+    # Generate for today
+    summary = generate_daily_summary("2025-01-15")
+    
+    # Handle the result
+    if summary:
+        print(f"Generated: {summary['summary']}")
+    else:
+        print("No entries found")
+    ```
+    
+    ## Technical Context
+    This function was created to replace the MCP-based approach...
+    """
 ```
 
-### Rule Content Guidelines
-- Start with high-level overview
-- Include specific, actionable requirements
-- Show examples of correct implementation
-- Reference existing code when possible
-- Keep rules DRY by referencing other rules
+## Apply to Docstrings Only
+- **These standards apply specifically to docstrings** - not other documentation
+- **Other documentation** (README, docs/) can be more comprehensive
+- **Code comments** can be brief but don't need to follow these specific rules
+- **Module docstrings** should be concise but can include essential usage examples
 
-### Rule Maintenance
-- Update rules when new patterns emerge
-- Add examples from actual codebase
-- Remove outdated patterns
-- Cross-reference related rules
-
-### Best Practices
-- Use bullet points for clarity
-- Keep descriptions concise
-- Include both DO and DON'T examples
-- Reference actual code over theoretical examples
-- Use consistent formatting across rules
-- **Present options as numbered lists**
-  - When offering the user a set of choices, always use numbers (1., 2., 3., etc.) so the user can quickly respond with a number.
-  - This improves response speed and clarity for the user.
-  
+## Quality Check
+**Could a developer understand and use this function from the docstring alone, without reading a manual?**
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
