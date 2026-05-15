@@ -7,11 +7,11 @@ Unofficial Community Maintained Wiro AI Sdk package for Node.js developers.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [altudev/wiro-ai-sdk](https://github.com/altudev/wiro-ai-sdk).
+Original source: `CLAUDE.md` in [altudev/wiro-ai-sdk](https://github.com/altudev/wiro-ai-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
