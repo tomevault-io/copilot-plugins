@@ -1,0 +1,9 @@
+{
+  "name": "sonomirco--agents-and-commands",
+  "displayName": "agents-and-commands",
+  "description": "A curated list of agents, commands, and prompts for Claude Code and Codex. This compilation covers general coding as well as tailored scopes for the AEC development.",
+  "version": "1.0.0",
+  "author": "sonomirco",
+  "homepage": "https://github.com/sonomirco/agents-and-commands",
+  "skills": []
+}
