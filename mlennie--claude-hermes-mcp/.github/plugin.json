@@ -1,0 +1,9 @@
+{
+  "name": "mlennie--claude-hermes-mcp",
+  "displayName": "claude-hermes-mcp",
+  "description": " MCP server that lets Claude Desktop and the Claude mobile app delegate tasks to a local Hermes Agent \u2014 cron jobs, web search, email, documents, and more.",
+  "version": "1.0.0",
+  "author": "mlennie",
+  "homepage": "https://github.com/mlennie/claude-hermes-mcp",
+  "skills": []
+}
