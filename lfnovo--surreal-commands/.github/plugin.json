@@ -1,0 +1,9 @@
+{
+  "name": "lfnovo--surreal-commands",
+  "displayName": "surreal-commands",
+  "description": "A celery inspired background command queue that users SurrealDB live queries as the backend. ",
+  "version": "1.0.0",
+  "author": "lfnovo",
+  "homepage": "https://github.com/lfnovo/surreal-commands",
+  "skills": []
+}
