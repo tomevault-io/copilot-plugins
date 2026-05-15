@@ -1,70 +1,48 @@
-## firebase-standards
+## performance-standards
 
-> - **데이터 저장**: Firestore만 사용
+> - **압축**: 모든 이미지는 압축 후 업로드
 
-# Firebase 사용 표준
+# 성능 최적화 표준
 
-## 데이터 저장 규칙
-- **데이터 저장**: Firestore만 사용
-- **파일 저장**: Firebase Storage만 사용
-- **인증**: Firebase Authentication만 사용
-- **절대 금지**: 로컬스토리지에 중복 저장
+## 이미지 최적화
+- **압축**: 모든 이미지는 압축 후 업로드
+- **포맷**: WebP, AVIF 우선 사용
+- **지연 로딩**: `loading="lazy"` 속성 사용
+- **반응형 이미지**: `srcset` 속성 활용
 
-## Firestore 컬렉션 구조
-```typescript
-// 프로모션 컬렉션
-interface Promotion {
-  id: string;
-  title: string;
-  content: string;
-  imageUrl?: string;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-  isActive: boolean;
-}
+## 번들 최적화
+- **코드 분할**: React.lazy() 사용
+- **트리 쉐이킹**: 사용하지 않는 코드 제거
+- **캐싱**: 적절한 캐시 헤더 설정
 
-// 고객 정보 컬렉션
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
-}
+## React 최적화
+```tsx
+// 메모이제이션 사용
+const MemoizedComponent = React.memo(({ data }) => {
+  return <div>{data}</div>;
+});
+
+// useMemo로 계산 최적화
+const expensiveValue = useMemo(() => {
+  return heavyCalculation(data);
+}, [data]);
+
+// useCallback으로 함수 최적화
+const handleClick = useCallback(() => {
+  // 클릭 핸들러
+}, [dependencies]);
 ```
 
-## Firebase 서비스 함수 예시
-```typescript
-// services/firebase.ts
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+## 로딩 상태 관리
+- **스켈레톤 UI**: 로딩 중 사용자 경험 개선
+- **에러 바운더리**: 에러 상황 처리
+- **오프라인 지원**: Service Worker 활용
 
-// 프로모션 추가
-export const addPromotion = async (promotionData: Omit<Promotion, 'id' | 'createdAt' | 'updatedAt'>) => {
-  const db = getFirestore();
-  const docRef = await addDoc(collection(db, 'promotions'), {
-    ...promotionData,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  });
-  return docRef.id;
-};
-
-// 이미지 업로드
-export const uploadImage = async (file: File): Promise<string> => {
-  const storage = getStorage();
-  const storageRef = ref(storage, `promotions/${Date.now()}_${file.name}`);
-  await uploadBytes(storageRef, file);
-  return getDownloadURL(storageRef);
-};
-```
-
-## 보안 규칙
-- **환경변수**: Firebase 설정은 환경변수로 관리
-- **API 키**: 코드에 하드코딩 금지
-- **권한 관리**: Firestore 보안 규칙 설정 필수
+## 성능 목표
+- **페이지 로딩**: 3초 이내
+- **이미지 로딩**: 1초 이내
+- **인터랙션**: 100ms 이내 응답
+- **번들 크기**: 500KB 이하
 description:
 globs:
 alwaysApply: false
