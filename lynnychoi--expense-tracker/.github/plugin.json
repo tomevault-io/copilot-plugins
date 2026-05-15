@@ -1,0 +1,9 @@
+{
+  "name": "lynnychoi--expense-tracker",
+  "displayName": "expense-tracker",
+  "description": "A modern finance tracking application built with Next.js, TypeScript, and Tailwind CSS",
+  "version": "1.0.0",
+  "author": "lynnychoi",
+  "homepage": "https://github.com/lynnychoi/expense-tracker",
+  "skills": []
+}
