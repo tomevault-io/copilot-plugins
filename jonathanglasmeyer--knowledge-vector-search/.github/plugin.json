@@ -1,0 +1,9 @@
+{
+  "name": "jonathanglasmeyer--knowledge-vector-search",
+  "displayName": "knowledge-vector-search",
+  "description": "Find relevant information in your documents using natural language queries - no more keyword matching or manual browsing through hundreds of files. Built for speed and efficiency, this lightweight sys",
+  "version": "1.0.0",
+  "author": "jonathanglasmeyer",
+  "homepage": "https://github.com/jonathanglasmeyer/knowledge-vector-search",
+  "skills": []
+}
