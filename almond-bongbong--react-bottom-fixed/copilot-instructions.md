@@ -1,35 +1,25 @@
-## readonly-properties
+## return-types
 
-> Use `readonly` properties for object types by default. This will prevent accidental mutation at runtime.
+> When declaring functions on the top-level of a module,
 
-Use `readonly` properties for object types by default. This will prevent accidental mutation at runtime.
-
-Omit `readonly` only when the property is genuinely mutable.
+When declaring functions on the top-level of a module,
+declare their return types. This will help future AI
+assistants understand the function's purpose.
 
 ```ts
-// BAD
-type User = {
-  id: string;
+const myFunc = (): string => {
+  return "hello";
 };
-
-const user: User = {
-  id: "1",
-};
-
-user.id = "2";
 ```
 
-```ts
-// GOOD
-type User = {
-  readonly id: string;
-};
+One exception to this is components which return JSX.
+No need to declare the return type of a component,
+as it is always JSX.
 
-const user: User = {
-  id: "1",
+```tsx
+const MyComponent = () => {
+  return <div>Hello</div>;
 };
-
-user.id = "2"; // Error
 ```
 
 ---
