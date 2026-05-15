@@ -1,0 +1,9 @@
+{
+  "name": "jaredgizersky--stash",
+  "displayName": "stash",
+  "description": "TUI for bookmarking, browsing, previewing, and resuming Claude Code and Codex sessions",
+  "version": "1.0.0",
+  "author": "jaredgizersky",
+  "homepage": "https://github.com/jaredgizersky/stash",
+  "skills": []
+}
