@@ -1,0 +1,9 @@
+{
+  "name": "verylabs--veryterm",
+  "displayName": "veryterm",
+  "description": "Multi-project terminal manager for vibe coders \u2014 manage CLI tools, dev servers, and prompt history in one window ",
+  "version": "1.0.0",
+  "author": "verylabs",
+  "homepage": "https://github.com/verylabs/veryterm",
+  "skills": []
+}
