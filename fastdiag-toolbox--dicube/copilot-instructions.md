@@ -1,30 +1,56 @@
-## file-formats
+## key-classes
 
-> Information about DiCube file formats and specifications
+> Key classes and interfaces in the DiCube library
 
-# DiCube File Formats
+# Key Classes and Interfaces
 
-DiCube defines three file format specifications:
+## DicomCubeImage
+Main interface for medical image handling, defined in [dicube/core/image.py](mdc:dicube/core/image.py)
 
-## Currently Implemented
+```python
+import dicube
 
-### .dcbs (Speed Format)
-- **Magic**: `DCMCUBES`
-- **Target**: I/O speed suitable for deep learning training with high compression ratio
-- **Codec**: High Throughput JPEG 2000 (HTJ2K)
-- **Implementation**: [storage/dcb_file.py](mdc:dicube/storage/dcb_file.py) and [codecs/jph/](mdc:dicube/codecs/jph/)
+# Create from DICOM directory
+image = dicube.load_from_dicom_folder(\"path/to/dicom/\")
 
-## Placeholder Formats (Future Implementation)
+# Save to compressed format 
+dicube.save(image, \"output.dcbs\", file_type=\"s\")  # HTJ2K (Speed format)
 
-### .dcba (Archive Format) 
-- **Magic**: `DCMCUBEA`
-- **Target**: 20% better compression ratio than dcbs
-- **Use case**: Long-term storage and archiving
+# Load from file
+loaded_image = dicube.load(\"output.dcbs\")
 
-### .dcbl (Lossy Format)
-- **Magic**: `DCMCUBEL`
-- **Target**: 60%+ compression ratio with imperceptible quality loss
-- **Use case**: High-compression scenarios where minor quality trade-offs are acceptable
+# Get pixel data
+pixel_data = image.get_fdata()  # Returns float array
+raw_data = image.raw_image       # Returns original dtype
+```
+
+## DicomMeta
+DICOM metadata container with efficient shared/non-shared value handling:
+Defined in [dicube/dicom/dicom_meta.py](mdc:dicube/dicom/dicom_meta.py)
+
+```python
+from dicube import DicomMeta, read_dicom_dir
+
+# Read DICOM directory
+meta = read_dicom_dir(\"dicom_folder/\")
+
+# Access shared values (same across all slices)
+patient_name = meta.get(\"PatientName\")  # Returns single value
+
+# Access non-shared values (different per slice)
+positions = meta.get(\"ImagePositionPatient\")  # Returns list
+```
+
+## DicomStatus
+DICOM consistency checking provided in [dicube/dicom/dicom_status.py](mdc:dicube/dicom/dicom_status.py)
+
+```python
+from dicube import DicomStatus, get_dicom_status
+
+status = get_dicom_status(meta)
+```
+
+Common status values include: `CONSISTENT`, `MISSING_SERIES_UID`, `DUPLICATE_INSTANCE_NUMBERS`, `NON_UNIFORM_SPACING`, etc.
 
 ---
 > Source: [fastdiag-toolbox/dicube](https://github.com/fastdiag-toolbox/dicube) — distributed by [TomeVault](https://tomevault.io).
