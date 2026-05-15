@@ -1,0 +1,9 @@
+{
+  "name": "dbmcco--shell-scenario-panel",
+  "displayName": "shell-scenario-panel",
+  "description": "Claude Code-powered Shell scenario planning system with multi-specialist consultation",
+  "version": "1.0.0",
+  "author": "dbmcco",
+  "homepage": "https://github.com/dbmcco/shell-scenario-panel",
+  "skills": []
+}
