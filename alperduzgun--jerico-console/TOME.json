@@ -4,7 +4,7 @@
   "repo": "jerico-console",
   "description": "Claude Code orchestrator - manage multiple AI coding sessions from a single terminal via tmux",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alperduzgun/jerico-console",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:20:58Z"
+  "distributed_at": "2026-05-15T19:20:23Z"
 }
