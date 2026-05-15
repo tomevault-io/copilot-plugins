@@ -1,0 +1,44 @@
+{
+  "name": "india-trade-cli",
+  "owner": "hopit-ai",
+  "repo": "india-trade-cli",
+  "description": "Vibe Trading \u2014 agentic AI trading platform for Indian markets. 7 LLM analyst agents analyze stocks in parallel, debate bull vs bear, and deliver trade plans. Open-source agentic quantitative researcher for NSE/BSE/NFO.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hopit-ai/india-trade-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T14:14:04Z"
+}
