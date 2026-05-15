@@ -1,115 +1,89 @@
-## tailwind-css-nextjs-guide-cursorrules-prompt-file
+## tailwind-react-firebase-cursorrules-prompt-file
 
-> Cursor rules for Tailwind CSS development with Next.js integration.
+> Cursor rules for Tailwind development with React and Firebase integration.
 
-Prompt Generation Rules:
+Here are some best practices and rules to follow for creating a high-quality, mobile-first web app with excellent UI/UX using Tailwind, React, and Firebase:
 
-- Analyze the component requirements thoroughly
-- Include specific DaisyUI component suggestions
-- Specify desired Tailwind CSS classes for styling
-- Mention any required TypeScript types or interfaces
-- Include instructions for responsive design
-- Suggest appropriate Next.js features if applicable
-- Specify any necessary state management or hooks
-- Include accessibility considerations
-- Mention any required icons or assets
-- Suggest error handling and loading states
-- Include instructions for animations or transitions if needed
-- Specify any required API integrations or data fetching
-- Mention performance optimization techniques if applicable
-- Include instructions for testing the component
-- Suggest documentation requirements for the component
+Mobile-First Design:
+Always design and implement for mobile screens first, then scale up to larger screens.
+Use Tailwind's responsive prefixes (sm:, md:, lg:, xl:) to adjust layouts for different screen sizes.
 
-General Component Creation Guidelines:
+Consistent Design System:
+Create a design system with consistent colors, typography, spacing, and component styles.
+Utilize Tailwind's configuration file (tailwind.config.js) to define your custom design tokens.
 
-- Prioritize reusability and modularity
-- Ensure consistent naming conventions
-- Follow React best practices and patterns
-- Implement proper prop validation
-- Consider internationalization requirements
-- Optimize for SEO when applicable
-- Ensure compatibility with different browsers and devices
+Performance Optimization:
+Use React.lazy() and Suspense for code-splitting and lazy-loading components.
+Implement virtualization for long lists using libraries like react-window.
+Optimize images and use next/image for automatic image optimization in Next.js.
 
-General Rules:
+Responsive Typography:
+Use Tailwind's text utilities with responsive prefixes to adjust font sizes across different screens.
+Consider using a fluid typography system for seamless scaling.
 
-- Enable strict TypeScript (strict: true in tsconfig.json)
-- Avoid 'any', prefer 'unknown' with runtime checks
-- Explicitly type function inputs and outputs
-- Use advanced TypeScript features (type guards, mapped types, conditional types)
-- Organize project structure: components, pages, hooks, utils, styles, contracts, services
-- Separate concerns: presentational components, business logic, side effects
-- Use Biome for code formatting and linting
-- Configure Biome as a pre-commit hook
+Accessibility:
+Ensure proper color contrast ratios using Tailwind's text-* and bg-* classes.
+Use semantic HTML elements and ARIA attributes where necessary.
+Implement keyboard navigation support.
 
-Next.js Rules:
+Touch-Friendly UI:
+Make interactive elements (buttons, links) at least 44x44 pixels for easy tapping.
+Implement touch gestures for common actions (swipe, pinch-to-zoom) where appropriate.
 
-- Use dynamic routes with bracket notation ([id].tsx)
-- Validate and sanitize route parameters
-- Prefer flat, descriptive routes
-- Use getServerSideProps for dynamic data, getStaticProps/getStaticPaths for static
-- Implement Incremental Static Regeneration (ISR) where appropriate
-- Use next/image for optimized images
-- Configure image layout, priority, sizes, and srcSet attributes
+USE THE IMAGES IN THE MOCKUPS FOLDER AS EXAMPLE OF HOW TO STYLE THE APP AND CREATE THE LAYOUT
 
-TypeScript Rules:
+WHEN CREATING A FILE DON'T CONFLICT IT WITH .TSX AND .JSX FILES
 
-- Enable all strict mode options in tsconfig.json
-- Explicitly type all variables, parameters, and return values
-- Use utility types, mapped types, and conditional types
-- Prefer 'interface' for extendable object shapes
-- Use 'type' for unions, intersections, and primitive compositions
-- Document complex types with JSDoc
-- Avoid ambiguous union types, use discriminated unions when necessary
+Firebase Best Practices:
+Implement proper security rules in Firebase.
+Use Firebase SDK's offline persistence for better performance and offline support.
+Optimize queries to minimize read/write operations.
 
-TailwindCSS and DaisyUI Rules:
+Error Handling and Feedback:
+Implement proper error boundaries in React.
+Provide clear feedback for user actions (loading states, success/error messages).
 
-- Use TailwindCSS utility classes for styling
-- Avoid custom CSS unless absolutely necessary
-- Maintain consistent order of utility classes
-- Use Tailwind's responsive variants for adaptive designs
-- Leverage DaisyUI components for rapid development
-- Customize DaisyUI components only when necessary
-- Define and use design tokens in tailwind.config.js
+Animation and Transitions:
+Use subtle animations to enhance UX (e.g., page transitions, micro-interactions).
+Utilize Tailwind's transition utilities or consider libraries like Framer Motion.
 
-Starknet React Rules:
+Form Handling:
+Use libraries like Formik or react-hook-form for efficient form management.
+Implement proper form validation with clear error messages.
 
-- Centralize blockchain connection management
-- Implement automatic reconnection and error handling
-- Use React hooks for transaction status management
-- Provide clear UI feedback for blockchain interactions
-- Implement comprehensive error handling for blockchain operations
+Code Organization:
+Follow a consistent folder structure (e.g., components, hooks, pages, services).
+Use custom hooks to encapsulate and reuse logic.
 
-Cairo Rules:
+Native-like Features:
+Implement pull-to-refresh for content updates.
+Use smooth scrolling and momentum scrolling.
+Consider using libraries like react-spring for physics-based animations.
 
-- Design modular and maintainable contract structures
-- Optimize for gas efficiency
-- Minimize state changes and storage access
-- Document all contracts and functions thoroughly
-- Explain complex logic and implementation choices
+Here’s a concise prompt for a language model to help you with the logic for creating AI-powered medication insights in your app:
 
-Development Process:
+Prompt:
+Design a feature for a pill management app that tracks user interactions with medications (Take/Skip) and generates monthly adherence reports.
 
-- Conduct thorough code reviews via Pull Requests
-- Include clear PR descriptions with context and screenshots
-- Implement comprehensive automated testing (unit, integration, e2e)
-- Prioritize meaningful tests over high coverage numbers
-- Use Conventional Commits for commit messages (feat:, fix:, docs:, chore:)
-- Make small, incremental commits for easier review and debugging
+The app should:
 
-Biome Rules:
+User Interface:
+Display pills for "Morning," "Afternoon," and "Night" with buttons for "Take" and "Skip."
+Show a confirmation modal for user actions.
 
-- Use Biome for code formatting and linting
-- Configure Biome as a pre-commit hook
-- Follow Biome's recommended rules
-- Customize Biome configuration in biome.json as needed
-- Ensure consistent code style across the project
-- Run Biome checks before committing changes
-- Address all Biome warnings and errors promptly
-- Use Biome's organize imports feature to maintain clean import statements
-- Leverage Biome's advanced linting capabilities for TypeScript
-- Integrate Biome into the CI/CD pipeline for automated checks
-- Keep Biome updated to the latest stable version
-- Use Biome's ignore patterns to exclude specific files or directories when necessary
+Data Collection:
+Log user interactions (pill ID, action, timestamp, notes) in a database.
+
+Monthly Report:
+Aggregate data to calculate total pills scheduled vs. taken, adherence percentage, and trends (e.g., frequently skipped pills).
+
+AI Insights:
+Use basic statistical analysis to generate personalized suggestions based on user feedback (e.g., side effects, missed doses).
+
+Dashboard:
+Create a section for users to view their monthly reports, including adherence percentage, trends, and AI-generated suggestions.
+
+This prompt provides a clear and structured request for assistance in developing the feature, focusing on key components and functionality.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
