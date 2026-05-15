@@ -1,0 +1,9 @@
+{
+  "name": "openraiser--paperfit",
+  "displayName": "PaperFit",
+  "description": "\ud83d\udcc4 Vision-in-the-loop LaTeX typesetting agent \u2014 auto-compile, render, diagnose, and fix paper layouts",
+  "version": "1.0.0",
+  "author": "OpenRaiser",
+  "homepage": "https://github.com/OpenRaiser/PaperFit",
+  "skills": []
+}
