@@ -1,0 +1,9 @@
+{
+  "name": "lumindigital--juno",
+  "displayName": "juno",
+  "description": "Juno makes it easy to define Argo Workflows with Typescript.",
+  "version": "1.0.0",
+  "author": "lumindigital",
+  "homepage": "https://github.com/lumindigital/juno",
+  "skills": []
+}
