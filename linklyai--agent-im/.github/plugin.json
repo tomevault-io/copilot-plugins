@@ -1,0 +1,9 @@
+{
+  "name": "linklyai--agent-im",
+  "displayName": "agent-im",
+  "description": "IM, but for agents.",
+  "version": "1.0.0",
+  "author": "LinklyAI",
+  "homepage": "https://github.com/LinklyAI/agent-im",
+  "skills": []
+}
