@@ -1,0 +1,9 @@
+{
+  "name": "vermont42--ios-build-verify",
+  "displayName": "ios-build-verify",
+  "description": "Build and verify SwiftUI iOS apps. Drives xcodebuild and xcbeautify for builds and AXe for UI verification. Operations are in named scripts and use per-project config.",
+  "version": "1.0.0",
+  "author": "vermont42",
+  "homepage": "https://github.com/vermont42/ios-build-verify",
+  "skills": []
+}
