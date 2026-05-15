@@ -4,7 +4,7 @@
   "repo": "humla",
   "description": "Personal macOS meeting transcription \u2014 OpenAI / Speechmatics / on-device Whisper, per-note summary presets, Tauri 2 + Rust + Swift",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/michaelwilhelmsen/humla",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:51:56Z"
+  "distributed_at": "2026-05-15T11:02:27Z"
 }
