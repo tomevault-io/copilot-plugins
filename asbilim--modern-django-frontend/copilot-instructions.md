@@ -1,4 +1,4 @@
-## backend-doc
+## backend
 
 > A modern Django admin interface with auto-generated REST API for any Django project.
 
@@ -8,9 +8,9 @@ A modern Django admin interface with auto-generated REST API for any Django proj
 
 Created by: **asbilim**
 
-- **Twitter:** [@iampaullilian](https://twitter.com/iampaullilian)
-- **GitHub:** [asbilim](https://github.com/asbilim)
-- **Portfolio:** [paullilian.dev](https://paullilian.dev)
+- **Twitter:** [@iampaullilian](mdc:https:/twitter.com/iampaullilian)
+- **GitHub:** [asbilim](mdc:https:/github.com/asbilim)
+- **Portfolio:** [paullilian.dev](mdc:https:/paullilian.dev)
 
 ## Features
 
@@ -25,7 +25,7 @@ Created by: **asbilim**
 - **User & Group Management:** Super admins can manage users and groups via the API.
 - **Frontend Ready:** Provides configuration endpoints for easy integration with a frontend dashboard.
 - **Customizable:** Easily extend and customize serializers, viewsets, and permissions.
-- **Automatic Translations:** All text fields are available in English, German and French without manual setup.
+- **Automatic Translations:** All text fields are available in English, German and French. The public-facing APIs (like the Blog API) serve translated content based on the `Accept-Language` header. See the `BLOG_API_GUIDE.md` for more details.
 - **UI Component Metadata:** Each API response includes suggested components for creating, editing and displaying fields, plus predefined choices for things like icons and categories to ensure a consistent look and feel.
 
 ## Quick Start
@@ -126,151 +126,7 @@ This project uses JWT for authentication. Here is a summary of the authenticatio
 These endpoints require an active `access` token in the authorization header.
 
 - **User Profile**:
-  - `GET /api/auth/me/`: Retrieve the current user's profile (`username`, `email`, `first_name`, `last_name`).
-  - `PATCH /api/auth/me/`: Update the current user's profile data.
-- **Change Password**:
-  - `POST /api/auth/me/change-password/`: Change the password by providing `old_password` and `new_password`.
-- **Two-Factor Authentication (2FA)**:
-  - **Enable (Step 1)**: `GET /api/auth/2fa/enable/` to get a secret key and a QR code for your authenticator app.
-  - **Verify & Activate (Step 2)**: `POST /api/auth/2fa/verify/` with an `otp` to confirm the setup and activate 2FA on your account.
-  - **Disable**: `POST /api/auth/2fa/disable/` with your current `password` to deactivate 2FA.
-
-## Field Metadata and UI Components
-
-Each model endpoint returns metadata describing its fields. This includes a
-suggested `ui_component` for rendering forms or detail pages. The same
-component type can be used when creating, editing or simply displaying data.
-Translation fields are automatically added for every text field so your frontend
-can present forms in English, German and French without extra setup.
-
-To provide more specific control over the UI components, you can define a `field_metadata` dictionary within your `ModelAdmin`'s `Meta` class. This allows you to override the default component for any field. For example, to specify that a `content` field should use a Markdown editor:
-
-```python
-# in your_app/admin.py
-
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    # ... other admin settings
-
-    class Meta:
-        frontend_config = {
-            'icon': 'file-text',
-            'category': 'Blog',
-            'include_in_dashboard': True,
-        }
-        field_metadata = {
-            'content': {'ui_component': 'markdown_editor'},
-            'excerpt': {'ui_component': 'textarea'},
-        }
-```
-
-This gives you fine-grained control over the frontend rendering hints provided by the API.
-
-The main admin endpoint (`/api/admin/`) also provides a `frontend_options` object
-that contains lists of predefined choices, such as available model
-categories and a comprehensive icon set. This allows the frontend to build UIs
-with consistent dropdowns and selection tools.
-
-**For a detailed guide on how this system works, please see the [API Metadata Guide](./API_METADATA_GUIDE.md).**
-
-## File Storage
-
-This project supports both local file storage and Cloudflare R2 for media uploads.
-By default, it uses the local filesystem. To use Cloudflare R2, you must provide
-the appropriate `AWS_*` environment variables as detailed in the `.env.example` file.
-When configured, all file uploads (like logos, user attachments, etc.) will be
-sent to your R2 bucket.
-
-## Project Structure
-
-- `admin_api/` - The core app for the auto-generated admin API.
-- `config/` - Django settings, main URL configuration, and WSGI entry point.
-- `apps/` - Your project's applications (e.g., `core`, `blog`, `site_config`, `site_identity`).
-
----
-
-## Guide d'utilisation pour tous (même ma grand-mère) 👵
-
-Cette section est en français pour vous montrer à quel point ce projet est amical.
-
-### Partie 1 : Installer le projet sur votre ordinateur
-
-Imaginez que votre ordinateur possède une fenêtre de discussion magique (nous l'appelons un "terminal") où vous pouvez lui donner des instructions directes. C'est ce que nous allons utiliser.
-
-1.  **Créer un bac à sable pour notre projet**
-    Nous allons d'abord créer un petit espace privé sur votre ordinateur, juste pour notre projet. C'est comme un bac à sable, pour que nos jouets ne se mélangent pas avec les autres.
-
-    ```bash
-    python -m venv env
-    ```
-
-    Puis, on dit à l'ordinateur de "rentrer" dans ce bac à sable pour commencer à jouer.
-
-    ```bash
-    # Sur Windows
-    env\\Scripts\\activate
-    # Sur Mac ou Linux
-    source env/bin/activate
-    ```
-
-2.  **Donner la liste de courses au projet**
-    Notre projet a besoin de quelques "ingrédients" ou "outils" pour fonctionner. Nous lui donnons une liste de courses, et il va tout chercher et installer tout seul.
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Préparer les fondations**
-    Maintenant que nous avons les outils, nous devons construire la "mémoire" du projet (sa base de données). C'est comme monter une étagère ou un classeur pour pouvoir ranger toutes les informations.
-
-    ```bash
-    python manage.py migrate
-    ```
-
-4.  **Créer votre clé de "Super-Admin"**
-    Vous êtes le chef de ce projet ! Nous allons donc vous créer une clé secrète (un nom d'utilisateur et un mot de passe) qui vous donnera accès à tout.
-
-    ```bash
-    python manage.py createsuperuser
-    ```
-
-5.  **Lancer la machine !**
-    Et voilà ! Il ne reste plus qu'à démarrer le moteur.
-    ```bash
-    python manage.py runserver
-    ```
-    Votre projet est maintenant en ligne et accessible depuis votre navigateur à l'adresse `http://127.0.0.1:8000/`.
-
-### Partie 2 : Créer une interface pour contrôler le projet
-
-Maintenant que le projet fonctionne, imaginez-le comme une cuisine magique prête à préparer n'importe quel "plat de données". Votre interface (le "frontend") sera la salle du restaurant, où vous prendrez les commandes et afficherez les plats.
-
-**Comment connaître le menu ?**
-
-La cuisine a un "directeur" très intelligent. Vous n'avez pas besoin de deviner le menu, il vous suffit de lui demander !
-
-1.  **Demander le Menu Principal**
-    Envoyez une requête à l'endpoint `http://localhost:8000/api/admin/`. Le directeur vous donnera la liste de _tous les types de plats_ que la cuisine peut préparer (par exemple : "Utilisateurs", "Articles de blog", "Catégories").
-    Pour chaque plat, il vous donnera aussi son **adresse exacte** (la clé `api_url`). C'est comme un menu qui vous dit : "Pour la soupe, allez au comptoir N°1".
-    En plus, le directeur vous donnera une liste de "décorations" prédéfinies (la clé `frontend_options`). Cela inclut une liste d'icônes et de catégories que vous pouvez utiliser dans votre interface pour que tout soit joli et cohérent.
-
-2.  **Demander la Recette de Chaque Plat**
-    Une fois que vous savez que vous voulez un "Article de blog", comment savoir de quels ingrédients vous avez besoin pour en créer un ?
-    Il suffit de demander la recette ! Chaque plat a une adresse de "configuration" (`/config/`).
-    Cette recette vous dit tout ce dont vous avez besoin pour chaque ingrédient (chaque "champ") :
-    - **Le type d'ingrédient** : Est-ce un texte court, une longue histoire, une date, une image ?
-    - **La boîte à utiliser** : La recette vous suggère même le type de "boîte" ou de "composant" à utiliser dans votre interface. C'est la clé `ui_component`. Elle vous dira d'utiliser un petit champ de texte, une grande zone de texte, un éditeur de texte riche (Markdown), un calendrier, un bouton pour télécharger une image, etc. C'est comme un kit de peinture par numéros pour construire vos formulaires !
-    - **Les traductions** : Pour chaque champ de texte, la cuisine a déjà préparé des versions en français, anglais et allemand. Votre interface peut donc facilement afficher des onglets pour chaque langue.
-
-**Comment passer une commande ?**
-
-Une fois que votre interface est construite avec les bons formulaires (grâce aux recettes !), vous pouvez commencer à envoyer des commandes à la cuisine.
-
-- Pour **VOIR** tous les articles de blog : `GET` sur l'adresse `api_url` des articles.
-- Pour **CRÉER** un nouvel article : `POST` sur la même adresse, avec les données du formulaire.
-- Pour **MODIFIER** un article existant : `PUT` ou `PATCH` sur l'adresse de cet article précis.
-
-N'oubliez pas que pour entrer dans la cuisine, il faut montrer votre clé de "Super-Admin" (le token JWT) à chaque demande. C'est notre système de sécurité pour s'assurer que seul le chef peut donner des ordres !
+  - `GET /api/auth/me/`: Retrieve the current user's profile (`
 
 ---
 > Source: [asbilim/modern-django-frontend](https://github.com/asbilim/modern-django-frontend) — distributed by [TomeVault](https://tomevault.io).
