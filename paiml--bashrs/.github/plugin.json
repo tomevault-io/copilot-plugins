@@ -1,0 +1,9 @@
+{
+  "name": "paiml--bashrs",
+  "displayName": "bashrs",
+  "description": "Bashrs: Rust-to-Shell Transpiler for Deterministic Bootstrap Scripts",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/bashrs",
+  "skills": []
+}
