@@ -1,0 +1,9 @@
+{
+  "name": "meta-pytorch--autoparallel",
+  "displayName": "autoparallel",
+  "description": "An experimental implementation of compiler-driven automatic sharding of models across a given device mesh.",
+  "version": "1.0.0",
+  "author": "meta-pytorch",
+  "homepage": "https://github.com/meta-pytorch/autoparallel",
+  "skills": []
+}
