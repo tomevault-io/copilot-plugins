@@ -1,0 +1,9 @@
+{
+  "name": "audaro--audimo",
+  "displayName": "audimo",
+  "description": "Native macOS music + audiobook + podcast player with a Stremio-style addon system. Self-hosted, single-user, multi-device.",
+  "version": "1.0.0",
+  "author": "audaro",
+  "homepage": "https://github.com/audaro/audimo",
+  "skills": []
+}
