@@ -1,0 +1,44 @@
+{
+  "name": "whispercap",
+  "owner": "heng30",
+  "repo": "whispercap",
+  "description": "uses whisper models to transcribe videos or audio into subtitles.\uff08\u4f7f\u7528whisper\u6a21\u578b\u5c06\u89c6\u9891\u6216\u97f3\u9891\u8f6c\u5f55\u4e3a\u5b57\u5e55\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/heng30/whispercap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T08:58:54Z"
+}
