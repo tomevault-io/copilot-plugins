@@ -1,25 +1,122 @@
-## python-projects-guide-cursorrules-prompt-file
+## python
 
-> Cursor rules for Python development with projects guide integration.
+> Python best practices and patterns for modern software development with Flask and SQLite
 
-You are an AI assistant specialized in Python development. Your approach emphasizes:
+# Python Best Practices
 
-1. Clear project structure with separate directories for source code, tests, docs, and config.
-2. Modular design with distinct files for models, services, controllers, and utilities.
-3. Configuration management using environment variables.
-4. Robust error handling and logging, including context capture.
-5. Comprehensive testing with pytest.
-6. Detailed documentation using docstrings and README files.
-7. Dependency management via https://github.com/astral-sh/rye and virtual environments.
-8. Code style consistency using Ruff.
-9. CI/CD implementation with GitHub Actions or GitLab CI.
-10. AI-friendly coding practices:
-   - Descriptive variable and function names
-   - Type hints
-   - Detailed comments for complex logic
-   - Rich error context for debugging
+## Project Structure
+- Use src-layout with `src/your_package_name/`
+- Place tests in `tests/` directory parallel to `src/`
+- Keep configuration in `config/` or as environment variables
+- Store requirements in `requirements.txt` or `pyproject.toml`
+- Place static files in `static/` directory
+- Use `templates/` for Jinja2 templates
 
-You provide code snippets and explanations tailored to these principles, optimizing for clarity and AI-assisted development.
+## Code Style
+- Follow Black code formatting
+- Use isort for import sorting
+- Follow PEP 8 naming conventions:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+- Maximum line length of 88 characters (Black default)
+- Use absolute imports over relative imports
+
+## Type Hints
+- Use type hints for all function parameters and returns
+- Import types from `typing` module
+- Use `Optional[Type]` instead of `Type | None`
+- Use `TypeVar` for generic types
+- Define custom types in `types.py`
+- Use `Protocol` for duck typing
+
+## Flask Structure
+- Use Flask factory pattern
+- Organize routes using Blueprints
+- Use Flask-SQLAlchemy for database
+- Implement proper error handlers
+- Use Flask-Login for authentication
+- Structure views with proper separation of concerns
+
+## Database
+- Use SQLAlchemy ORM
+- Implement database migrations with Alembic
+- Use proper connection pooling
+- Define models in separate modules
+- Implement proper relationships
+- Use proper indexing strategies
+
+## Authentication
+- Use Flask-Login for session management
+- Implement Google OAuth using Flask-OAuth
+- Hash passwords with bcrypt
+- Use proper session security
+- Implement CSRF protection
+- Use proper role-based access control
+
+## API Design
+- Use Flask-RESTful for REST APIs
+- Implement proper request validation
+- Use proper HTTP status codes
+- Handle errors consistently
+- Use proper response formats
+- Implement proper rate limiting
+
+## Testing
+- Use pytest for testing
+- Write tests for all routes
+- Use pytest-cov for coverage
+- Implement proper fixtures
+- Use proper mocking with pytest-mock
+- Test all error scenarios
+
+## Security
+- Use HTTPS in production
+- Implement proper CORS
+- Sanitize all user inputs
+- Use proper session configuration
+- Implement proper logging
+- Follow OWASP guidelines
+
+## Performance
+- Use proper caching with Flask-Caching
+- Implement database query optimization
+- Use proper connection pooling
+- Implement proper pagination
+- Use background tasks for heavy operations
+- Monitor application performance
+
+## Error Handling
+- Create custom exception classes
+- Use proper try-except blocks
+- Implement proper logging
+- Return proper error responses
+- Handle edge cases properly
+- Use proper error messages
+
+## Documentation
+- Use Google-style docstrings
+- Document all public APIs
+- Keep README.md updated
+- Use proper inline comments
+- Generate API documentation
+- Document environment setup
+
+## Development Workflow
+- Use virtual environments (venv)
+- Implement pre-commit hooks
+- Use proper Git workflow
+- Follow semantic versioning
+- Use proper CI/CD practices
+- Implement proper logging
+
+## Dependencies
+- Pin dependency versions
+- Use requirements.txt for production
+- Separate dev dependencies
+- Use proper package versions
+- Regularly update dependencies
+- Check for security vulnerabilities
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
