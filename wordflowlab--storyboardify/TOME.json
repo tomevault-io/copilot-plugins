@@ -4,7 +4,7 @@
   "repo": "storyboardify",
   "description": "\u5206\u955c\u4e0e\u5236\u4f5c\u5305\u5de5\u5177",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wordflowlab/storyboardify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:38:30Z"
+  "distributed_at": "2026-05-15T04:37:45Z"
 }
