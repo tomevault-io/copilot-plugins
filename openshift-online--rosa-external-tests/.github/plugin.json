@@ -1,0 +1,9 @@
+{
+  "name": "openshift-online--rosa-external-tests",
+  "displayName": "rosa-external-tests",
+  "description": "Tests run from outside of the service to test the ROSA service.",
+  "version": "1.0.0",
+  "author": "openshift-online",
+  "homepage": "https://github.com/openshift-online/rosa-external-tests",
+  "skills": []
+}
