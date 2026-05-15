@@ -1,0 +1,9 @@
+{
+  "name": "danielmadsendk--servicenow-helper",
+  "displayName": "servicenow-helper",
+  "description": "AI-powered ServiceNow assistance tool built with Next.js 15, featuring real-time responses via n8n workflows, multiple AI models through OpenRouter, and secure JWT authentication.",
+  "version": "1.0.0",
+  "author": "DanielMadsenDK",
+  "homepage": "https://github.com/DanielMadsenDK/servicenow-helper",
+  "skills": []
+}
