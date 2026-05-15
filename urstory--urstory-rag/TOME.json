@@ -1,0 +1,44 @@
+{
+  "name": "urstory-rag",
+  "owner": "urstory",
+  "repo": "urstory-rag",
+  "description": "\ud55c\uad6d\uc5b4 \ud2b9\ud654 \ud504\ub85c\ub355\uc158 RAG \uc2dc\uc2a4\ud15c. \ud558\uc774\ube0c\ub9ac\ub4dc \uac80\uc0c9(PGVector + Elasticsearch Nori), \ud55c\uad6d\uc5b4 \ub9ac\ub7ad\ucee4(bge-reranker-v2-m3-ko), HyDE, \uba40\ud2f0\ucffc\ub9ac \uad6c\uc870\ubd84\ud574, \uac00\ub4dc\ub808\uc77c(PII/\uc778\uc81d\uc158/\ud560\ub8e8\uc2dc\ub124\uc774\uc158), RAGAS \uc790\ub3d9 \ud3c9\uac00, Langfuse \ubaa8\ub2c8\ud130\ub9c1\uc744 \ud3ec\ud568\ud569\ub2c8\ub2e4. \uad00\ub9ac\uc790 UI\uc5d0\uc11c \ubaa8\ub4e0 \uae30\ub2a5\uc744 \ucf54\ub4dc \ubcc0\uacbd \uc5c6\uc774 ON/OFF \uc81c\uc5b4\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4. FastAPI + Haystack 2.x \ubc31\uc5d4\ub4dc, Next.js 15 + shadcn/ui \ud504\ub860\ud2b8\uc5d4\ub4dc.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/urstory/urstory-rag",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T14:57:24Z"
+}
