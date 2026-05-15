@@ -4,7 +4,7 @@
   "repo": "iina-plugin-bookmarks",
   "description": "media bookmark manager plugin for the iina video player",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wyattowalsh/iina-plugin-bookmarks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T22:37:17Z"
+  "distributed_at": "2026-05-15T22:53:27Z"
 }
