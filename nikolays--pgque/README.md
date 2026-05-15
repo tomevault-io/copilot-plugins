@@ -1,13 +1,13 @@
-# pgque
+# AI instruction files for PgQue
 
-> Tome by [NikolayS](https://github.com/NikolayS/pgque) — distributed by [TomeVault](https://tomevault.io)
+> Sourced from [NikolayS/PgQue](https://github.com/NikolayS/PgQue) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-PgQue – Zero-bloat Postgres queue. One SQL file to install, pg_cron to tick.
+PgQue – Zero-bloat Postgres queue built on top of on battle-proven Skype's PgQ. One SQL file to install, pg_cron to tick.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NikolayS/pgque](https://github.com/NikolayS/pgque).
+Original source: `CLAUDE.md` in [NikolayS/PgQue](https://github.com/NikolayS/PgQue).
 
 ## Also available for
 
@@ -17,14 +17,10 @@ Original source: `CLAUDE.md` in [NikolayS/pgque](https://github.com/NikolayS/pgq
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/NikolayS/pgque](https://github.com/NikolayS/pgque)
+From [NikolayS/PgQue](https://github.com/NikolayS/PgQue) — a repo with 1337+ stars on GitHub.
 
 ---
 
-Install this config instantly:
-```
-npx tomevault install NikolayS/pgque
-```
-Source: [github.com/NikolayS/pgque](https://github.com/NikolayS/pgque).
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
 
-<!-- genome:t-i-q -->
+<!-- genome:a-e-s -->
