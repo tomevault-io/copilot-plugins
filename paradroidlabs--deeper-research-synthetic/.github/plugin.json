@@ -1,0 +1,9 @@
+{
+  "name": "paradroidlabs--deeper-research-synthetic",
+  "displayName": "deeper_research_synthetic",
+  "description": "Using agentic prompting and workflows to build 10k+ long reports and podcasts",
+  "version": "1.0.0",
+  "author": "paradroidlabs",
+  "homepage": "https://github.com/paradroidlabs/deeper_research_synthetic",
+  "skills": []
+}
