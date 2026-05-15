@@ -4,7 +4,7 @@
   "repo": "walt-passes-android",
   "description": "Open-source pass-handling kernel for the Walt wallet app. PKPASS parsing, signature verification, encrypted storage, and security-critical UI flows. Transparency-for-trust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/walt-app/walt-passes-android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T10:26:26Z"
+  "distributed_at": "2026-05-15T11:19:00Z"
 }
