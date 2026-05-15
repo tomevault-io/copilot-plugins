@@ -1,0 +1,44 @@
+{
+  "name": "claudeCO-webui",
+  "owner": "B143KC47",
+  "repo": "claudeCO-webui",
+  "description": "\ud83d\ude80 A modern, full-featured web interface for Claude AI with advanced coding capabilities. Features multi-language support, terminal integration, file management, session handling, and MCP server management. Built with React + TypeScript frontend and Deno backend.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/B143KC47/claudeCO-webui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T10:11:15Z"
+}
