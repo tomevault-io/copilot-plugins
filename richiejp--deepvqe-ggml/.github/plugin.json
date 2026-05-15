@@ -1,0 +1,9 @@
+{
+  "name": "richiejp--deepvqe-ggml",
+  "displayName": "deepvqe-ggml",
+  "description": "DeepVQE reimplementation in PyTorch and GGML \u2014 real-time acoustic echo cancellation with soft delay estimation",
+  "version": "1.0.0",
+  "author": "richiejp",
+  "homepage": "https://github.com/richiejp/deepvqe-ggml",
+  "skills": []
+}
