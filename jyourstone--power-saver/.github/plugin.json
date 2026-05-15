@@ -1,0 +1,9 @@
+{
+  "name": "jyourstone--power-saver",
+  "displayName": "power_saver",
+  "description": "Home Assistant custom integration that schedules appliances based on Nordpool electricity prices.",
+  "version": "1.0.0",
+  "author": "jyourstone",
+  "homepage": "https://github.com/jyourstone/power_saver",
+  "skills": []
+}
