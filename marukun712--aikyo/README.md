@@ -7,11 +7,11 @@ aikyoは、相互につながるAIコンパニオンを作成するためのフ�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [marukun712/aikyo](https://github.com/marukun712/aikyo).
+Original source: `CLAUDE.md` in [marukun712/aikyo](https://github.com/marukun712/aikyo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
