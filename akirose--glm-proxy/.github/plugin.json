@@ -1,0 +1,9 @@
+{
+  "name": "akirose--glm-proxy",
+  "displayName": "glm-proxy",
+  "description": "GLM 4.x tool call proxy",
+  "version": "1.0.0",
+  "author": "akirose",
+  "homepage": "https://github.com/akirose/glm-proxy",
+  "skills": []
+}
