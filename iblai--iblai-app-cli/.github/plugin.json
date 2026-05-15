@@ -1,0 +1,9 @@
+{
+  "name": "iblai--iblai-app-cli",
+  "displayName": "iblai-app-cli",
+  "description": "Scaffold ibl.ai frontend apps or add auth, chat, and notifications to existing Next.js projects. Supports AI-assisted customization via Anthropic and OpenAI.",
+  "version": "1.0.0",
+  "author": "iblai",
+  "homepage": "https://github.com/iblai/iblai-app-cli",
+  "skills": []
+}
