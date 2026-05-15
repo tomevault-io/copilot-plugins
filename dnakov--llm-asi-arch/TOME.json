@@ -1,0 +1,44 @@
+{
+  "name": "llm-asi-arch",
+  "owner": "dnakov",
+  "repo": "llm-asi-arch",
+  "description": "\ud83e\udd16 Complete reproduction of 'AlphaGo Moment for Model Architecture Discovery' using MLX-LM instead of GPT-4. Autonomous neural architecture discovery with local LLM inference on Apple Silicon.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dnakov/llm-asi-arch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T21:24:34Z"
+}
