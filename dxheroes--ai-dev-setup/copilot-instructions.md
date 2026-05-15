@@ -1,75 +1,64 @@
-## api-development
+## authentication
 
-> API development patterns, CRUD operations, and endpoint structure
+> Authentication and authorization patterns, JWT handling, and security middleware
 
 
-# API Development Standards
+# Authentication & Authorization
 
-Follow these patterns when building API endpoints:
+Follow these security patterns when implementing authentication:
 
-## Endpoint Structure (in order)
-1. **Route Definition**: RESTful resource-based naming
-2. **Middleware**: Authentication, logging, rate limiting
-3. **Input Validation**: Zod schemas for params, query, body
-4. **Business Logic**: Extract to service functions
-5. **Response Handling**: Standardized format with proper status
-6. **Error Handling**: Proper error catching with informative messages
+## JWT Token Structure
+Always include these claims in JWT payload:
+- `sub`: User ID (subject)
+- `name`: User's display name
+- `email`: User's email address
+- `roles`: Array of user roles
+- `org`: Organization ID
+- `iat`: Issued at timestamp
+- `exp`: Expiration timestamp
 
-## CRUD Operations
-Implement these standard operations for resources:
-- **POST /resources**: Create with validated input
-- **GET /resources**: List with filtering and pagination
-- **GET /resources/:id**: Retrieve single resource
-- **PUT/PATCH /resources/:id**: Update with validation
-- **DELETE /resources/:id**: Remove with authorization checks
-
-## Response Format Standards
+## Authentication Middleware Pattern
 ```typescript
-// Success response
-{
-  data: any,          // Response data
-  meta?: {            // Optional metadata
-    page: number,
-    limit: number,
-    total: number,
-    pages: number
+const authMiddleware = async (c, next) => {
+  const token = c.req.header("Authorization")?.replace("Bearer ", "");
+  
+  if (!token) {
+    return c.json({
+      error: {
+        code: "AUTHENTICATION_ERROR",
+        message: "Authentication required",
+      },
+    }, 401);
   }
-}
 
-// Error response
-{
-  error: {
-    code: string,     // Error code
-    message: string,  // User-friendly message
-    details?: any     // Additional error details
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    c.set("user", decoded);
+    return next();
+  } catch (error) {
+    return c.json({
+      error: {
+        code: "AUTHENTICATION_ERROR",
+        message: "Invalid or expired token",
+      },
+    }, 401);
   }
-}
+};
 ```
 
-## Input Validation Requirements
-- Validate ALL inputs using Zod schemas
-- Route parameters: ID format validation
-- Query parameters: Transform strings to numbers/booleans
-- Request body: Complete schema validation with descriptive errors
+## Authorization Rules
+- **Role-based**: Use `requireRole(role)` middleware for role checks
+- **Organization-based**: Verify `user.org === organizationId` for org resources
+- **Resource ownership**: Check resource ownership before allowing access
+- Always return `403` for authorization failures with `AUTHORIZATION_ERROR` code
 
 ## Security Requirements
-- Apply `authMiddleware` to all protected endpoints
-- Use role-based access control where appropriate
-- Validate organization/user ownership for resource access
-- Include CSRF protection for browser clients
-
-## Documentation Requirements
-- Use OpenAPI annotations for all endpoints
-- Document request/response schemas
-- Provide example requests and responses
-- Document all possible error scenarios and status codes
-
-## Testing Requirements
-For each endpoint, include:
-- Unit tests for business logic functions
-- Integration tests for full request/response cycle
-- Test both happy paths and error scenarios
-- Test authentication and authorization cases
+- JWT expiration: 15-60 minutes maximum
+- Always use HTTPS in production
+- Implement refresh token rotation
+- Apply rate limiting to auth endpoints
+- Log all authentication events (excluding sensitive data)
+- Never log passwords or tokens
 
 ---
 > Source: [DXHeroes/ai-dev-setup](https://github.com/DXHeroes/ai-dev-setup) — distributed by [TomeVault](https://tomevault.io).
