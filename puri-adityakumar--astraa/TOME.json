@@ -4,7 +4,7 @@
   "repo": "astraa",
   "description": "Astraa (\u0905\u0938\u094d\u0924\u094d\u0930) browser-based utility toolkit that brings together a collection of powerful tools and games in one place.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/puri-adityakumar/astraa",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T04:37:48Z"
+  "distributed_at": "2026-05-15T01:57:46Z"
 }
