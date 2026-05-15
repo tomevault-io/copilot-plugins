@@ -7,11 +7,11 @@ GitWand automatically resolves trivial Git merge conflicts — the ones that was
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [devlint/GitWand](https://github.com/devlint/GitWand).
+Original source: `CLAUDE.md` in [devlint/GitWand](https://github.com/devlint/GitWand).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
