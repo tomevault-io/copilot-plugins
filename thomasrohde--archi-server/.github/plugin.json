@@ -1,0 +1,9 @@
+{
+  "name": "thomasrohde--archi-server",
+  "displayName": "archi-server",
+  "description": "A production-ready HTTP REST API server that runs inside Archi, exposing your ArchiMate models for automation, integration, and programmatic access.",
+  "version": "1.0.0",
+  "author": "ThomasRohde",
+  "homepage": "https://github.com/ThomasRohde/archi-server",
+  "skills": []
+}
