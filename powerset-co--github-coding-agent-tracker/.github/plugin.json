@@ -1,0 +1,9 @@
+{
+  "name": "powerset-co--github-coding-agent-tracker",
+  "displayName": "github-coding-agent-tracker",
+  "description": "Tracking the use of AI coding agents in public GitHub commits",
+  "version": "1.0.0",
+  "author": "powerset-co",
+  "homepage": "https://github.com/powerset-co/github-coding-agent-tracker",
+  "skills": []
+}
