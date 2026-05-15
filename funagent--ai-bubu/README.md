@@ -7,11 +7,11 @@ A desktop pet that tracks your AI coding activity (Cursor, Claude Code, Codex, T
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu).
+Original source: `CLAUDE.md` in [funAgent/ai-bubu](https://github.com/funAgent/ai-bubu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
