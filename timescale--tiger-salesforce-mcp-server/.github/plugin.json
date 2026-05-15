@@ -1,0 +1,9 @@
+{
+  "name": "timescale--tiger-salesforce-mcp-server",
+  "displayName": "tiger-salesforce-mcp-server",
+  "description": "API wrapped around our salesforce database",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/tiger-salesforce-mcp-server",
+  "skills": []
+}
