@@ -1,0 +1,44 @@
+{
+  "name": "github-search-mirror",
+  "owner": "Panda-995",
+  "repo": "github-search-mirror",
+  "description": "\u4e00\u4e2a\u529f\u80fd\u4e30\u5bcc\u7684 GitHub \u4ed3\u5e93\u641c\u7d22\u955c\u50cf\u7ad9\uff0c\u652f\u6301\u667a\u80fd\u641c\u7d22\u3001AI \u6458\u8981\u3001\u7ffb\u8bd1\u3001\u6536\u85cf\u5939\u7ba1\u7406\u548c\u8bc4\u8bba\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Panda-995/github-search-mirror",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T20:31:10Z"
+}
