@@ -1,0 +1,9 @@
+{
+  "name": "yoezasapoetro--pantoupper",
+  "displayName": "pantoupper",
+  "description": "A Windows service that collects device information and exposes it via HTTP API for Android app consumption over local network.",
+  "version": "1.0.0",
+  "author": "yoezasapoetro",
+  "homepage": "https://github.com/yoezasapoetro/pantoupper",
+  "skills": []
+}
