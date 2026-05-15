@@ -1,156 +1,476 @@
-## config
+## frontend
 
-> This guide provides a detailed explanation of the auto-generated API metadata. It is designed to give a frontend developer everything they need to dynamically build a beautiful and functional admin dashboard without having to guess at API behavior.
+> - Always write clean, readable, and maintainable code
 
-# API Field & UI Metadata Guide
+# Frontend Cursor AI Rules - Next.js + shadcn/ui + TypeScript
 
-This guide provides a detailed explanation of the auto-generated API metadata. It is designed to give a frontend developer everything they need to dynamically build a beautiful and functional admin dashboard without having to guess at API behavior.
+## General Development Rules
 
-**Core Principle: Backend-Driven UI**
+### Code Quality & Style
+- Always write clean, readable, and maintainable code
+- Use consistent naming conventions (camelCase for variables/functions, PascalCase for components)
+- Add meaningful comments for complex logic
+- Follow DRY (Don't Repeat Yourself) principles
+- Implement proper error handling and logging
+- Write self-documenting code with descriptive names
 
-The fundamental design of this system is that the **backend dictates the UI**. All data validation, file handling, and business logic are securely managed on the server. The API's metadata response is the "instruction manual" that tells the frontend exactly what form fields, buttons, and layouts to render.
+### TypeScript Standards
+- Use strict TypeScript configuration
+- Define proper interfaces and types for all data structures
+- Avoid using 'any' type - use 'unknown' or proper typing instead
+- Create custom types for API responses and component props
+- Use proper generic types where applicable
+- Implement proper type guards for runtime type checking
 
-The frontend's job is to:
+## Next.js Best Practices
 
-1.  Fetch the configuration for a model.
-2.  Use that configuration to dynamically render the appropriate UI components.
-3.  Submit data back to the backend's REST endpoints.
+### App Router Implementation
+- Use App Router over Pages Router for new projects
+- Implement proper Server Components vs Client Components separation
+- Use Next.js built-in Image component for optimization
+- Implement proper metadata and SEO optimization with next-intl locale support
+- Use dynamic imports for code splitting
+- Implement proper loading.tsx and error.tsx files with internationalization
+- Use Server Actions for form submissions and mutations
+- Implement proper caching strategies with revalidation
+- Configure proper middleware for locale detection and routing
+- Use generateStaticParams for static generation with multiple locales
 
-The frontend should **not** contain any hardcoded field names, validation rules, or endpoint paths.
+### Server vs Client Components
+```typescript
+// Server Component (default)
+export default async function ServerPage() {
+  const data = await fetch('api/data')
+  return <div>{data}</div>
+}
 
-## The `/config` Endpoint
+// Client Component (when needed)
+'use client'
+import { useState } from 'react'
 
-For every model exposed through the Admin API, there is a special endpoint that provides its UI "recipe":
-
+export default function ClientComponent() {
+  const [state, setState] = useState('')
+  return <input onChange={(e) => setState(e.target.value)} />
+}
 ```
-GET /api/admin/models/<model-name>/config/
+
+## shadcn/ui Component Usage
+
+### Component Implementation
+- Use shadcn/ui components as base building blocks
+- Customize components through className props and CSS variables
+- Create compound components by combining shadcn/ui primitives
+- Use proper form components with react-hook-form integration
+- Implement consistent theming through CSS variables
+- Use Radix UI primitives understanding for advanced customization
+- Follow shadcn/ui naming conventions for custom components
+
+### Form Pattern with shadcn/ui
+```typescript
+const form = useForm<FormData>({
+  resolver: zodResolver(formSchema),
+  defaultValues: {...}
+})
+
+return (
+  <Form {...form}>
+    <FormField
+      control={form.control}
+      name="email"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{t('email')}</FormLabel>
+          <FormControl>
+            <Input {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  </Form>
+)
 ```
 
-This endpoint doesn't return model _data_; instead, it returns a JSON object containing a complete guide on how to interact with the model.
+## React/Next.js Component Development
 
-## Response Structure
+### Component Architecture
+- Use functional components with hooks exclusively
+- Implement proper state management with useState/useReducer
+- Use Server Components by default, Client Components when needed
+- Create reusable custom hooks for shared logic
+- Implement proper prop validation with TypeScript interfaces
+- Use React.memo() for expensive components
+- Follow compound component patterns for complex UI
 
-Here is an example response for a `category` model, which we will use to break down the structure.
+### Custom Hooks Pattern
+```typescript
+// Custom hook for API data
+const useApiData = <T>(endpoint: string) => {
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-```json
-{
-  "model_name": "category",
-  "verbose_name": "Category",
-  "verbose_name_plural": "Categories",
-  "fields": {
-    // ... field objects ...
-  },
-  "admin_config": {
-    // ... Django admin settings ...
-  },
-  "permissions": {
-    // ... user permissions for this model ...
-  },
-  "frontend_config": {
-    // ... custom frontend hints ...
+  useEffect(() => {
+    // Fetch data logic
+  }, [endpoint])
+
+  return { data, loading, error }
+}
+```
+
+## Styling and UI
+
+### Tailwind CSS Implementation
+- Use Tailwind CSS utility classes following shadcn/ui patterns
+- Implement responsive design with Tailwind breakpoints
+- Use CSS variables for theming (light/dark mode)
+- Follow mobile-first responsive design principles
+- Use proper spacing scale (4, 8, 16, 24, 32px multiples)
+- Implement proper focus states and accessibility
+- Use shadcn/ui theme system for consistent colors
+
+### Theme Configuration
+```typescript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        // ... other shadcn/ui colors
+      }
+    }
   }
 }
 ```
 
-### 1. Top-Level Properties
+## Animation Rules
 
-- `model_name`: The machine-readable name of the model (e.g., `category`). Used for constructing API request URLs.
-- `verbose_name`: The human-readable singular name (e.g., `Category`). Perfect for page titles.
-- `verbose_name_plural`: The human-readable plural name (e.g., `Categories`). Perfect for table headers and button labels.
-- `fields`: An object containing metadata for every field in the model.
-- `admin_config`: An object mirroring the model's configuration in Django's admin (`list_display`, `search_fields`, etc.).
-- `permissions`: An object indicating the current user's permissions (`add`, `change`, `delete`, `view`). The frontend should use this to show/hide buttons and UI elements.
-- `frontend_config`: Custom hints for the frontend, defined in the model's `Admin` class in `admin.py`.
+### Framer Motion Best Practices
+- Use Framer Motion for React component animations and transitions
+- Implement layout animations with `layout` prop for smooth element repositioning
+- Use `AnimatePresence` for enter/exit animations and route transitions
+- Create reusable motion variants for consistent animation patterns
+- Use `motion.div` and other motion components for declarative animations
+- Implement proper `initial`, `animate`, and `exit` states
+- Use `whileHover`, `whileTap`, and `whileFocus` for interactive animations
+- Optimize performance with `layoutId` for shared element transitions
+- Use `useAnimation` hook for imperative animation control
+- Implement proper `transition` configurations for timing and easing
 
-### 2. The `fields` Object: The Heart of the UI
+### Framer Motion Patterns
+```typescript
+// Page transitions
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 }
+}
 
-This is the most critical section for building forms. Each key is a field name, and its value is an object describing how to render a UI control for that field.
+// Layout animations
+<motion.div layout layoutId="unique-id">
+  <AnimatePresence mode="wait">
+    {items.map(item => (
+      <motion.div
+        key={item.id}
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+      />
+    ))}
+  </AnimatePresence>
+</motion.div>
 
-```json
-"fields": {
-    "title": {
-      "name": "title",
-      "verbose_name": "Title",
-      "type": "CharField",
-      "ui_component": "textfield",
-      "required": true,
-      "max_length": 200,
-      "help_text": "The main title of the post.",
-      "is_translation": false
-    },
-    "title_en": {
-      "name": "title_en",
-      "verbose_name": "Title [en]",
-      "type": "TranslationCharField",
-      "ui_component": "textfield",
-      "is_translation": true
-    },
-    "featured_image": {
-        "name": "featured_image",
-        "type": "ImageField",
-        "ui_component": "image_upload",
-        "required": false
-    },
-    "parent": {
-        "name": "parent",
-        "type": "ForeignKey",
-        "ui_component": "foreignkey_select",
-        "related_model": {
-            "app_label": "core",
-            "model_name": "category",
-            "api_url": "/api/admin/models/category/"
-        }
+// Custom animation hook
+const useScrollAnimation = () => {
+  const controls = useAnimation()
+  const { scrollY } = useScroll()
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // Trigger animations based on scroll
+  })
+  
+  return controls
+}
+```
+
+### GSAP Advanced Animations
+- Use GSAP for complex timeline animations and scroll-triggered effects
+- Implement ScrollTrigger for scroll-based animations and parallax effects
+- Use GSAP Timeline for sequenced and complex animation choreography
+- Implement proper GSAP cleanup in useEffect cleanup functions
+- Use GSAP for high-performance animations requiring precise control
+- Optimize GSAP animations with proper batching and transforms
+- Use GSAP's built-in performance optimizations (will-change, transform3d)
+
+### GSAP Patterns
+```typescript
+// Timeline animations
+useEffect(() => {
+  const tl = gsap.timeline()
+  
+  tl.from(".hero-title", { duration: 1, y: 100, opacity: 0 })
+    .from(".hero-subtitle", { duration: 0.8, y: 50, opacity: 0 }, "-=0.5")
+    .from(".hero-cta", { duration: 0.6, scale: 0, ease: "back.out(1.7)" }, "-=0.3")
+  
+  return () => tl.kill()
+}, [])
+
+// ScrollTrigger pattern
+useEffect(() => {
+  gsap.registerPlugin(ScrollTrigger)
+  
+  gsap.to(".parallax-element", {
+    yPercent: -50,
+    scrollTrigger: {
+      trigger: ".parallax-container",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true
     }
+  })
+  
+  return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+}, [])
+```
+
+### Animation Performance
+- Use transform properties (translateX/Y, scale, rotate) for better performance
+- Avoid animating layout-triggering properties (width, height, padding)
+- Use `will-change` CSS property appropriately and remove after animation
+- Implement proper animation cleanup to prevent memory leaks
+- Use `useLayoutEffect` for animations that need to run before paint
+- Consider reduced motion preferences with `prefers-reduced-motion`
+- Use hardware acceleration for smooth 60fps animations
+
+## State Management & Data Fetching
+
+### State Management Strategy
+- Use React Query/TanStack Query for server state management
+- Use zustand or React Context for client state when needed
+- Implement proper loading and error states
+- Use optimistic updates for better UX
+- Cache API responses appropriately
+- Handle race conditions in async operations
+- Implement proper pagination and infinite scrolling
+
+### React Query Pattern
+```typescript
+const usePostsQuery = () => {
+  return useQuery({
+    queryKey: ['posts'],
+    queryFn: async () => {
+      const response = await fetch('/api/posts')
+      if (!response.ok) throw new Error('Failed to fetch')
+      return response.json()
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  })
 }
 ```
 
-#### Field Properties Explained:
+## Internationalization (next-intl)
 
-- `ui_component`: **Your most important key.** This is a direct suggestion for what kind of form control to render. The backend guarantees that the data format will be compatible with this component type.
-  - `textfield`: A standard single-line text input.
-  - `textarea`: A multi-line text area.
-  - `checkbox`: A true/false checkbox.
-  - `select`: A dropdown list. The `choices` property will be populated.
-  - `datetime_picker`: A component for selecting a date and time.
-  - `image_upload` / `file_upload`: A file input. **The frontend only needs to render the input control.** The file upload is a standard `multipart/form-data` POST/PUT request to the backend, which handles the actual storage process (local or cloud).
-  - `foreignkey_select`: A dropdown that should be populated with items from another model. Use the `related_model.api_url` to fetch the list of items.
-- `is_translation`: A boolean that is `true` if this field is for a specific language. The frontend should use this to group translated fields together, for instance, under tabs labeled "English," "German," etc.
-- `required`: Whether the frontend should mark the field as mandatory. Final validation is always done on the backend.
-- `max_length`, `help_text`, `verbose_name`: Use these to enrich the UI with labels, hints, and character counters.
-- `related_model`: For `ForeignKey` fields, this object tells the frontend where to fetch the list of choices for a dropdown.
+### Implementation Strategy
+- Use next-intl for comprehensive i18n support in Next.js App Router
+- Implement proper locale routing with middleware configuration
+- Create properly structured translation files (JSON) organized by features/pages
+- Use useTranslations hook for client components and getTranslations for server components
+- Implement proper pluralization rules using ICU message format
+- Use proper namespace organization for translations (common, navigation, forms, etc.)
+- Handle dynamic content translation with interpolation and rich text formatting
+- Implement proper locale switching with useRouter and Link components
+- Use proper date, number, and currency formatting with next-intl formatters
+- Handle translation loading states and fallbacks gracefully
+- Use proper TypeScript integration with translation keys for type safety
 
-### 3. `frontend_config`: Custom UI Hints
+### next-intl Patterns
+```typescript
+// Server Component translation
+import { getTranslations } from 'next-intl/server'
 
-This object provides extra, high-level guidance for how to display the model's UI.
+export default async function ServerPage() {
+  const t = await getTranslations('HomePage')
+  
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <p>{t('description', { name: 'John' })}</p>
+    </div>
+  )
+}
 
-```json
-"frontend_config": {
-    "icon": "folder",
-    "category": "Configuration",
-    "description": "Organize content with categories",
-    "tree_view": true,
-    "parent_field": "parent"
+// Client Component translation
+'use client'
+import { useTranslations } from 'next-intl'
+
+export default function ClientComponent() {
+  const t = useTranslations('Navigation')
+  
+  return (
+    <nav>
+      <Link href="/about">{t('about')}</Link>
+      <Link href="/contact">{t('contact')}</Link>
+    </nav>
+  )
+}
+
+// Translation file structure (messages/en.json)
+{
+  "HomePage": {
+    "title": "Welcome",
+    "description": "Hello {name}!"
+  },
+  "Navigation": {
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  }
 }
 ```
 
-- `icon`: A suggested icon name from the global icon set.
-- `category`: The UI group this model belongs to. Perfect for organizing navigation menus.
-- `tree_view` & `parent_field`: A hint that this model's data is hierarchical. A frontend can use this to render a tree view instead of a simple table.
+### Middleware Configuration
+```typescript
+import createMiddleware from 'next-intl/middleware'
 
-## Global Frontend Options
+export default createMiddleware({
+  locales: ['en', 'fr', 'es'],
+  defaultLocale: 'en',
+  localePrefix: 'as-needed'
+})
+```
 
-Finally, the root admin endpoint provides globally available choices for building a consistent UI:
+## Form Handling
+
+### Form Implementation
+- Use react-hook-form with shadcn/ui form components
+- Implement proper form validation with zod schemas
+- Create reusable form components
+- Handle form errors gracefully
+- Implement proper form submission states
+- Use proper ARIA labels and form accessibility
+
+### Form Validation with i18n
+```typescript
+const createFormSchema = (t: ReturnType<typeof useTranslations>) =>
+  z.object({
+    email: z.string().email(t('validation.invalidEmail')),
+    name: z.string().min(2, t('validation.nameRequired'))
+  })
+```
+
+## Project Structure
 
 ```
-GET /api/admin/
+Frontend (Next.js):
+app/
+├── [locale]/
+│   ├── (dashboard)/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── api/
+├── components/
+│   ├── ui/ (shadcn components)
+│   └── custom/
+├── lib/
+├── hooks/
+├── types/
+├── utils/
+├── messages/ (i18n translations)
+│   ├── en.json
+│   ├── fr.json
+│   └── es.json
+├── middleware.ts
+└── i18n.ts
 ```
 
-In its response, the `frontend_options` key contains:
+## Testing
 
-- `categories`: A list of all available model categories for building navigation.
-- `icons`: A comprehensive list of suggested icon names that can be used throughout the frontend dashboard.
+### Frontend Testing Strategy
+- Use Jest and React Testing Library
+- Test components in isolation
+- Test user interactions and workflows
+- Mock API calls properly
+- Test responsive behavior
+- Use proper accessibility testing
+- Test form validation and submission
 
-By combining the global options with the per-model `/config/` endpoint, a frontend application has a complete, backend-driven blueprint for building a dynamic, powerful, and user-friendly admin interface.
+### Testing Pattern
+```typescript
+// Component test
+import { render, screen } from '@testing-library/react'
+import { NextIntlClientProvider } from 'next-intl'
+
+const renderWithIntl = (component: React.ReactElement) => {
+  return render(
+    <NextIntlClientProvider locale="en" messages={{}}>
+      {component}
+    </NextIntlClientProvider>
+  )
+}
+
+test('renders component correctly', () => {
+  renderWithIntl(<MyComponent />)
+  expect(screen.getByRole('button')).toBeInTheDocument()
+})
+```
+
+## Performance Optimization
+
+### Performance Best Practices
+- Use Next.js Image component for optimized images
+- Implement proper code splitting with dynamic imports
+- Use React.memo() for expensive components
+- Optimize bundle size with proper tree shaking
+- Use proper caching strategies
+- Implement lazy loading for non-critical components
+- Monitor Core Web Vitals
+
+### Dynamic Import Pattern
+```typescript
+const DynamicComponent = dynamic(() => import('./HeavyComponent'), {
+  loading: () => <Skeleton />,
+  ssr: false
+})
+```
+
+## Accessibility
+
+### Accessibility Guidelines
+- Use semantic HTML elements
+- Implement proper ARIA labels and roles
+- Ensure keyboard navigation works properly
+- Test with screen readers
+- Maintain proper color contrast ratios
+- Use focus indicators
+- Implement proper heading hierarchy
+
+## Security
+
+### Frontend Security
+- Sanitize user inputs
+- Use proper CSP headers
+- Avoid XSS vulnerabilities
+- Use HTTPS for all requests
+- Implement proper authentication state management
+- Validate data on both client and server
+- Use secure cookie settings
+
+Remember to:
+- Keep components small and focused
+- Use proper TypeScript types throughout
+- Implement proper error boundaries
+- Follow React and Next.js best practices
+- Optimize for performance and accessibility
+
+- Use proper version control and deployment strategies
 
 ---
 > Source: [asbilim/modern-django-frontend](https://github.com/asbilim/modern-django-frontend) — distributed by [TomeVault](https://tomevault.io).
