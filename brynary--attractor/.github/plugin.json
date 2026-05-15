@@ -1,0 +1,9 @@
+{
+  "name": "brynary--attractor",
+  "displayName": "attractor",
+  "description": "Full implementation of StrongDM Attractor specs in TypeScript",
+  "version": "1.0.0",
+  "author": "brynary",
+  "homepage": "https://github.com/brynary/attractor",
+  "skills": []
+}
