@@ -1,51 +1,54 @@
-## react-redux-typescript-cursorrules-prompt-file
+## react-router-v7
 
-> Cursor rules for React development with Redux and TypeScript integration.
+> React Router v7 rules for framework mode, data routers, loaders, actions, route modules, and progressive enhancement
 
-// React + Redux + TypeScript .cursorrules
 
-// Prefer functional components with hooks
+# React Router v7 Rules
 
-const preferFunctionalComponents = true;
+## Route Modules
 
-// Use TypeScript for type safety
+- Use route modules as the boundary for route UI, loader data, actions, metadata, and error boundaries.
+- Keep route modules small; move shared UI to components and reusable data access to services.
+- Prefer file-based routing in framework mode when the project is configured for it.
+- Use nested routes for shared layouts and progressive disclosure.
+- Export route-specific `ErrorBoundary` components for recoverable route failures.
 
-const useTypeScript = true;
+## Data Loading
 
-// Redux best practices
+- Use loaders for route data that should be available before render.
+- Keep loaders deterministic and side-effect free.
+- Validate params and search params at the loader boundary.
+- Return typed data and consume it through route hooks rather than duplicating fetch logic in components.
+- Use deferred or streaming patterns only when they improve perceived performance.
 
-const reduxBestPractices = [
-  "Use Redux Toolkit for efficient Redux development",
-  "Implement slice pattern for organizing Redux code",
-  "Utilize createAsyncThunk for handling async actions",
-  "Use selectors for accessing state in components",
-];
+## Mutations
 
-// Folder structure
+- Use actions for route mutations and form submissions.
+- Prefer `Form`, `useFetcher`, and `useSubmit` for progressive enhancement.
+- Revalidate affected loader data after mutations.
+- Handle validation errors as typed action data instead of generic exceptions.
+- Keep server-only secrets and privileged operations out of client actions.
 
-const folderStructure = `
-src/
-  components/
-  features/
-  store/
-    slices/
-    hooks.ts
-    store.ts
-  types/
-  utils/
-`;
+## Navigation and State
 
-// Additional instructions
+- Store shareable state in URL params or search params.
+- Keep ephemeral UI state local to components.
+- Use pending navigation state to show optimistic or loading UI.
+- Avoid global state for data that belongs to route loaders.
 
-const additionalInstructions = `
-1. Use React.FC for functional components with props
-2. Implement strict TypeScript checks
-3. Use Redux hooks (useSelector, useDispatch) in components
-4. Create reusable typed hooks for Redux operations
-5. Implement proper error handling in async operations
-6. Use Redux DevTools for debugging
-7. Follow Redux style guide for naming conventions
-`;
+## TypeScript and Testing
+
+- Type loader and action return values.
+- Add tests for route loaders, actions, validation failures, and error boundaries.
+- Use integration tests for critical form and navigation flows.
+- Mock network and persistence at the route-service boundary.
+
+## Common Mistakes
+
+- Do not duplicate loader fetches in `useEffect`.
+- Do not mutate data in loaders.
+- Do not hide route errors behind a single generic app-level catch-all.
+- Do not put auth checks only in components when loader data is protected.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
