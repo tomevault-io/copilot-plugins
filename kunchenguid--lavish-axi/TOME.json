@@ -4,7 +4,7 @@
   "repo": "lavish-axi",
   "description": "HTML is the new markdown. Lavish is the new editor for your HTML artifacts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunchenguid/lavish-axi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T01:30:09Z"
+  "distributed_at": "2026-05-15T19:54:09Z"
 }
