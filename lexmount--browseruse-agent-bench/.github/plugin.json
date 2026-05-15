@@ -1,0 +1,9 @@
+{
+  "name": "lexmount--browseruse-agent-bench",
+  "displayName": "browseruse-agent-bench",
+  "description": "Real-world browser-agent benchmark: 210 tasks across 107 websites, multi-agent/multi-browser evaluation, reproducible leaderboard and result submissions.",
+  "version": "1.0.0",
+  "author": "lexmount",
+  "homepage": "https://github.com/lexmount/browseruse-agent-bench",
+  "skills": []
+}
