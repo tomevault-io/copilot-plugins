@@ -1,0 +1,9 @@
+{
+  "name": "vucinatim--convex-lite",
+  "displayName": "convex-lite",
+  "description": "An open-source, self-hostable full-stack framework inspired by Convex.dev, providing end-to-end typesafety and real-time updates on a Node.js & Drizzle ORM stack.",
+  "version": "1.0.0",
+  "author": "vucinatim",
+  "homepage": "https://github.com/vucinatim/convex-lite",
+  "skills": []
+}
