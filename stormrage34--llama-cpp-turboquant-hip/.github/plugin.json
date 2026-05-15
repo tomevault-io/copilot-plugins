@@ -1,0 +1,9 @@
+{
+  "name": "stormrage34--llama-cpp-turboquant-hip",
+  "displayName": "llama.cpp-turboquant-hip",
+  "description": "Fork of turbo quant tom-tom and TurboQuant KV cache from domwox",
+  "version": "1.0.0",
+  "author": "Stormrage34",
+  "homepage": "https://github.com/Stormrage34/llama.cpp-turboquant-hip",
+  "skills": []
+}
