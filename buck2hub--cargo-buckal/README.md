@@ -7,11 +7,11 @@ Seamlessly build Cargo projects with Buck2 — the simpler alternative to Reinde
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [buck2hub/cargo-buckal](https://github.com/buck2hub/cargo-buckal).
+Original source: `CLAUDE.md` in [buck2hub/cargo-buckal](https://github.com/buck2hub/cargo-buckal).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
