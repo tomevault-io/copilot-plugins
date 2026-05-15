@@ -1,195 +1,93 @@
-## 02-gremlin-cheatsheet
+## 03-clean-code
 
-> Manages a side-effect value during the traversal.
+> Guidelines for writing clean, maintainable, and human-readable code. Apply these rules when writing or reviewing code to ensure consistency and quality.
 
-# Gremlin Groovy Cheatsheet
 
-## Rules
+# Code Guidelines
 
-- All node and edge labels are case-sensitive
-- Our Gremlin environment is based on Gremlin-Groovy. For current timestamps, use new Date()
+## Core Principles
+- **KISS**: Keep code simple, avoid over-engineering
+- **YAGNI**: Don’t add features until they are needed
+- **DRY**: Eliminate duplication via abstraction or reuse
+- **Small Functions**: Each function should do one thing well
+- **No Side Effects**: Prefer pure functions; isolate effects at the edges
 
-## Non-Obvious DSL Steps
+## Naming & Structure
+- Use **meaningful, self-explanatory names**
+- Group related code logically; use barrel exports for modules
+- Keep types/interfaces close to where they’re used; extract only when shared
+- Constants should replace all magic numbers and strings
 
-### coalesce()
-Returns the first non-null value from a list of traversals.
-```gremlin
-g.V().coalesce(values('name'), constant('Unknown'))
-```
+## Comments & Documentation
+- Document **public APIs and complex logic only**
+- Use comments to explain **why**, not **what**
+- For tricky/effects-heavy code, describe gotchas and assumptions
+- Use TypeDoc (`/** ... */`) format
 
-### choose()
-Conditional branching based on a predicate.
-```gremlin
-g.V().choose(has('age', gt(30)), out('knows'), in('knows'))
-```
+## TypeScript Practices
+- Enable **strict mode** in `tsconfig.json`
+- Avoid `any`; prefer `unknown` with type guards
+- Use `interface` for objects, `type` for unions/intersections
+- Always type public function signatures explicitly
+- Prefer readonly types for immutability
+- Use discriminated unions for safer branching
+- Avoid type assertions except at clear boundaries (e.g., parsing JSON)
 
-### repeat()
-Loops a traversal a specified number of times or until a condition is met.
-```gremlin
-g.V().repeat(out()).times(2)
-```
+## Error Handling
+- **Never throw** — instead:
+  - Use `Either` / `Option` / `Result` types from effect libraries
+  - Represent expected failures in the type system
+- Always handle errors at the boundary of the system (e.g., API layer)
+- Include contextual information in error values (not stack traces)
 
-### until()
-Used with `repeat()` to specify the loop condition.
-```gremlin
-g.V().repeat(out()).until(has('name', 'marko'))
-```
+## Effect-TS / Functional Code
+- Model side effects with **typed effects**, not untyped Promises
+- Prefer composition over nesting (`pipe`, `flatMap`, `mapError`)
+- Use `Layer` for dependency injection
+- Always annotate effect return types for clarity
+- Avoid calling `unsafeRun*` in core logic; restrict it to the application entrypoint
 
-### emit()
-Used with `repeat()` to control when to emit results.
-```gremlin
-g.V().repeat(out()).emit().times(2)
-```
+## Testing
+- Write tests for **public APIs** and **critical logic**
+- Include edge cases, failure cases, and effectful code
+- Keep test code clean and readable; use descriptive test names
 
-### barrier()
-Controls the flow of traversers through the traversal.
-```gremlin
-g.V().barrier().out()
-```
+---
 
-### sack()
-Manages a side-effect value during the traversal.
-```gremlin
-g.withSack(0).V().repeat(out().sack(sum, 'weight')).times(2)
-```
+# Code Quality Process
 
-### aggregate()
-Collects values into a list as a side-effect.
-```gremlin
-g.V().aggregate('x').by('name')
-```
+## Version Control
+- Small, focused commits
+- Clear commit messages (imperative mood: "Add...", "Fix...", "Remove...")
+- Branch names should reflect feature or fix (`feature/mcp-traversal-api`)
 
-### group()
-Groups values based on a key.
-```gremlin
-g.V().group().by(label).by(count())
-```
+## Maintenance
+- Refactor when adding features to keep code clean
+- Remove dead code immediately
+- Leave code cleaner than you found it
+- Review PRs for **readability, correctness, and maintainability**
 
-### project()
-Projects properties into a map.
-```gremlin
-g.V().project('name', 'age').by('name').by('age')
-```
+---
+description: Documentation Rules
+globs: **/*.ts, **/*.tsx
+---
 
-## Built-In Functions
+# Documentation Rules
 
-### id()
-Returns the ID of an element.
-```gremlin
-g.V().id()
-```
+## Scope
+- Document **only public APIs** and **complex or tricky internals**
+- Skip trivial helpers, obvious code, or boilerplate
 
-### label()
-Returns the label of an element.
-```gremlin
-g.V().label()
-```
+## Style
+- Use concise TypeDoc comments
+- Explain **inputs, outputs, side effects**
+- Highlight **gotchas, edge cases, and implicit assumptions**
+- Provide examples only when code is non-trivial
 
-### values()
-Returns the values of specified properties.
-```gremlin
-g.V().values('name')
-```
-
-### valueMap()
-Returns a map of property keys and values.
-```gremlin
-g.V().valueMap()
-```
-
-### has()
-Filters elements based on properties.
-```gremlin
-g.V().has('name', 'marko')
-```
-
-### hasLabel()
-Filters elements based on labels.
-```gremlin
-g.V().hasLabel('person')
-```
-
-### out()
-Traverses outgoing edges.
-```gremlin
-g.V().out()
-```
-
-### in()
-Traverses incoming edges.
-```gremlin
-g.V().in()
-```
-
-### both()
-Traverses both incoming and outgoing edges.
-```gremlin
-g.V().both()
-```
-
-### count()
-Counts the number of elements.
-```gremlin
-g.V().count()
-```
-
-## Date-Time Functions
-
-### datetime()
-Creates a datetime object from a string or epoch milliseconds.
-```gremlin
-datetime('2023-01-01T00:00:00Z')
-```
-
-### plus()
-Adds a duration to a datetime.
-```gremlin
-datetime('2023-01-01T00:00:00Z').plus(duration('P1D'))
-```
-
-### minus()
-Subtracts a duration from a datetime.
-```gremlin
-datetime('2023-01-01T00:00:00Z').minus(duration('P1D'))
-```
-
-### isBefore()
-Checks if one datetime is before another.
-```gremlin
-datetime('2023-01-01T00:00:00Z').isBefore(datetime('2023-01-02T00:00:00Z'))
-```
-
-### isAfter()
-Checks if one datetime is after another.
-```gremlin
-datetime('2023-01-02T00:00:00Z').isAfter(datetime('2023-01-01T00:00:00Z'))
-```
-
-### isEqual()
-Checks if two datetimes are equal.
-```gremlin
-datetime('2023-01-01T00:00:00Z').isEqual(datetime('2023-01-01T00:00:00Z'))
-```
-
-### format()
-Formats a datetime as a string.
-```gremlin
-datetime('2023-01-01T00:00:00Z').format('yyyy-MM-dd')
-```
-
-### parse()
-Parses a string into a datetime.
-```gremlin
-datetime.parse('2023-01-01', 'yyyy-MM-dd')
-```
-
-### duration()
-Creates a duration object.
-```gremlin
-duration('P1DT2H')
-```
-
-**Note**: All examples in this cheatsheet are compatible with the Gremlin Server HTTP submit endpoint and do not rely on Groovy-specific features. For a complete reference, consult the [Apache TinkerPop documentation](mdc:https:/tinkerpop.apache.org/docs/current/reference).
+## Prohibited
+- Don’t include AI-specific notes
+- Don’t reference history or past refactors
+- Don’t document simple/private code
 
 ---
 > Source: [kpritam/gremlin-mcp](https://github.com/kpritam/gremlin-mcp) — distributed by [TomeVault](https://tomevault.io).
