@@ -1,62 +1,93 @@
-## nextjs-material-ui-tailwind-css-cursorrules-prompt
+## nextjs-react-tailwind-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with Material UI and Tailwind CSS integration.
+> Cursor rules for Next.js development with React and Tailwind CSS integration.
 
-Ce projet s'appel Portfolio2
+- You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, and Tailwind and Framer Motion.
 
-Il est basé sur Next.Js, il a tailwindcss, materialui, shadcn/ui et aceternityui
+- Code Style and Structure
 
-What is your project named? portfolio2
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
 
-Would you like to use TypeScript? Yes
+- Naming Conventions
 
-Would you like to use ESLint? No
+  - All components should go in src/components and be named like new-component.tsx
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor named exports for components.
 
-Would you like to use Tailwind CSS? Yes
+- TypeScript Usage
 
-Would you like to use `src/` directory? Yes
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
 
-Would you like to use App Router? (recommended) Yes
+- Syntax and Formatting
 
-Would you like to customize the default import alias (@/)? No
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
 
-What import alias would you like configured? @/
+- UI and Styling
 
-Nola liste des dépendance
+  - Use Shadcn UI, and Tailwind for components and styling.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-"dependencies": {
-  "@ckeditor/ckeditor5-react": "^6.3.0",
-  "@emotion/react": "^11.11.4",
-  "@emotion/styled": "^11.11.5",
-  "@mui/icons-material": "^5.15.18",
-  "@mui/material": "^5.15.18",
-  "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-  "@prisma/client": "^5.14.0",
-  "autoprefixer": "^10.4.19",
-  "bcryptjs": "^2.4.3",
-  "ckeditor5": "^41.4.2",
-  "clsx": "^2.1.1",
-  "framer-motion": "^11.2.5",
-  "init": "^0.1.2",
-  "next": "^14.2.3",
-  "next-auth": "^4.24.7",
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "shadcn-ui": "^0.8.0",
-  "styled-components": "^6.1.11",
-  "tailwind-merge": "^2.3.0"
-},
+- Performance Optimization
 
-"devDependencies": {
-  "@types/bcryptjs": "^2.4.6",
-  "@types/node": "^20",
-  "@types/react": "^18",
-  "@types/react-dom": "^18",
-  "postcss": "^8.4.38",
-  "prisma": "^5.14.0",
-  "tailwindcss": "^3.4.3",
-  "typescript": "^5.4.5"
-}
+  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+
+- Key Conventions
+
+  - Use 'nuqs' for URL search parameter state management.
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+  - Follow Next.js docs for Data Fetching, Rendering, and Routing.
+  - While creating placeholder images as a part of your seed data, use local fixtures or a stable project-approved image source instead of deprecated placeholder services.
+  - Place both the /app and /components folders under a /src directory. This organization offers several benefits:
+    - It helps maintain a clean and organized project structure.
+    - It allows for easier navigation and management of components and pages.
+    - It adheres to common industry standards, making it easier for other developers to understand and contribute to the project.
+    - It provides a clear separation between application logic (in /src/app) and UI components (in /src/components), improving code readability and reusability.
+    - It simplifies the process of creating new pages and components, as you can easily find the corresponding files in the /src directory.
+    - It makes the project more modular and easier to scale as the application grows.
+    - It adheres to the principle of separation of concerns, where different aspects of the application are handled by different directories.
+
+## Components Organization
+
+Within the /src/components folder, consider organizing components by type or feature:
+
+By Type: Group components like forms, buttons, layout elements, etc.
+
+By Feature: For larger applications, group components related to specific features or domains
+
+For example:
+
+  /src/components
+  ├── /ui
+  │   ├── /Button
+  │   ├── /Modal
+  │   └── /Card
+  ├── /forms
+  │   ├── /TextField
+  │   └── /Select
+  └── /layout
+      ├── /Navbar
+      └── /Footer
+
+- Private Components: For components used only within specific pages, you can create a _components folder within the relevant /app subdirectory.
+
+- Shared Components: The /src/components folder should contain reusable components used across multiple pages or features.
+
+- Modular Approach: As your project grows, consider adopting a more modular structure, where each feature or domain has its own folder containing components, hooks, and utilities specific to that feature.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
