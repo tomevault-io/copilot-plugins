@@ -1,80 +1,105 @@
-## general
+## git
 
-> 描述了项目通用规范
+> - **重要**：不要自动提交 git 代码，除非有明确的提示
 
-# 项目通用规范
+# Git 规则
 
-## 技术栈
-- **语言**: Java 8+
-- **构建工具**: Maven
-- **框架**: Spring Boot 2.7.18
-- **日志**: SLF4J 2.0.9
-- **工具库**: Lombok 1.18.30, Hutool 5.8.35, Guava 33.4.0-jre, MapStruct 1.6.3
-- **测试**: JUnit 5.10.0, Mockito-inline 5.2.0
-- **依赖管理**: flexpoint-dependencies-bom (BOM统一管理)
+## 重要原则
+- **重要**：不要自动提交 git 代码，除非有明确的提示
+- 提交前确保代码通过所有测试
+- 保持提交信息简洁明了，描述清楚变更内容
+- 避免大型提交，尽量将变更分解为小的、相关的提交
 
-## FlexPoint 框架核心原则
-- **扩展点优先**：优先使用扩展点模式解决业务问题
-- **选择器驱动**：通过选择器实现动态路由和策略切换
-- **监控可观测**：所有扩展点调用都要有监控和统计
-- **配置驱动**：通过配置控制框架行为，避免硬编码
-- **线程安全**：使用 ThreadLocal 管理上下文，避免共享状态
-- **异步处理**：监控和告警使用异步处理，不影响业务性能
+## 提交规范
+git 提交模板 `<type>(<scope>): <subject>`，具体要求如下：
+1. 注意冒号 `:` 后有空格
+2. type 的枚举值有：
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档注释
+- style: 代码格式(不影响代码运行的变动)
+- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
+- perf: 性能优化
+- test: 增加测试
+- chore: 构建过程或辅助工具的变动
+- revert: 回退
+- build: 打包
 
-## 项目结构规则
-- **分层组织**：按功能或领域划分目录，遵循"关注点分离"原则
-- **命名一致**：使用一致且描述性的目录和文件命名，反映其用途和内容
-- **模块化**：相关功能放在同一模块，减少跨模块依赖
-- **适当嵌套**：避免过深的目录嵌套，一般不超过3-4层
-- **资源分类**：区分代码、资源、配置和测试文件
-- **依赖管理**：集中管理依赖，避免多处声明
-- **约定优先**：遵循语言或框架的标准项目结构约定
+3. 若 subject 中描述超过两种要点，请使用要点列表描述详情，每个要点使用-符号开头，多个换行，参考如下样例：
+```
+feat(core): implement extension point monitoring system
 
-## FlexPoint 框架特色规范
-- **扩展点设计**：接口继承 `ExtAbility`，使用 `@FpSelector` 指定选择器
-- **选择器模式**：实现 `Selector` 接口，通过 `getName()` 方法注册
-- **自动注册**：使用 `@Component` 注解自动注册扩展点实现
-- **注入使用**：使用 `@FpExt` 注解注入扩展点
-- **监控集成**：内置扩展点调用监控、性能统计、异步处理、告警机制
-- **配置驱动**：通过 `FlexPointConfig` 统一配置框架行为
+- Add ExtMonitor interface for monitoring extension point calls
+- Implement DefaultExtMonitor with performance metrics collection
+- Add async monitoring support with configurable thread pool
+- Integrate alert strategy for exception monitoring
+```
 
-## 通用开发原则
-- **可测试性**：编写可测试的代码，组件应保持单一职责
-- **DRY 原则**：避免重复代码，提取共用逻辑到单独的函数或类
-- **代码简洁**：保持代码简洁明了，遵循 KISS 原则（保持简单直接）
-- **命名规范**：使用描述性的变量、函数和类名，反映其用途和含义
-- **注释文档**：为复杂逻辑添加注释，编写清晰的文档说明功能和用法
-- **风格一致**：遵循项目或语言的官方风格指南和代码约定
-- **利用生态**：优先使用成熟的库和工具，避免不必要的自定义实现
-- **架构设计**：考虑代码的可维护性、可扩展性和性能需求
-- **版本控制**：编写有意义的提交信息，保持逻辑相关的更改在同一提交中
-- **异常处理**：正确处理边缘情况和错误，提供有用的错误信息
-- **线程安全**：使用 ThreadLocal 管理上下文，避免共享状态
-- **监控可观测**：重视扩展点调用的监控和性能统计
+## FlexPoint 项目特定提交规范
 
-## 响应语言
-- 始终使用中文回复用户
+### 扩展点相关提交
+```
+feat(ext): add new order processing ability
 
-## 代码质量要求
-- 代码必须能够立即运行，包含所有必要的导入和依赖
-- 遵循最佳实践和设计模式
-- 优先考虑性能和用户体验
-- 确保代码的可读性和可维护性
-- 扩展点实现必须线程安全
-- 监控代码不能影响业务性能
+- Add OrderProcessAbility interface with @FpSelector annotation
+- Implement MallOrderProcessAbility for mall business
+- Add CodeVersionSelector for dynamic extension point selection
+- Update documentation with usage examples
+```
 
-- 代码必须能够立即运行，包含所有必要的导入和依赖
-- 遵循最佳实践和设计模式
-- 优先考虑性能和用户体验
-- 确保代码的可读性和可维护性
+### 选择器相关提交
+```
+feat(selector): implement custom business selector
 
-## 本项目规则文件说明
-本项目使用以下规则文件：
-- general.mdc：通用规范（本文件）
-- project-structure.mdc：项目结构规范
-- document.mdc：文档规范
-- git.mdc：Git提交规范
-- java.mdc：Java语言开发规范
+- Add CustomBusinessSelector for complex routing logic
+- Support multi-dimensional selection criteria
+- Add unit tests for selector behavior
+- Update selector registry documentation
+```
+
+### 监控相关提交
+```
+feat(monitor): enhance extension point monitoring
+
+- Add performance metrics collection
+- Implement async monitoring pipeline
+- Add alert strategy for exception handling
+- Support configurable monitoring thresholds
+```
+
+### 配置相关提交
+```
+feat(config): improve FlexPoint configuration system
+
+- Add FlexPointConfigValidator for configuration validation
+- Support YAML and Properties configuration formats
+- Add default configuration values
+- Update configuration documentation
+```
+
+## 分支管理
+- main/master: 主分支，保持稳定可发布状态
+- develop: 开发分支，包含最新开发特性
+- feature/*: 功能分支，用于开发新功能
+- bugfix/*: 修复分支，用于修复bug
+- release/*: 发布分支，用于准备发布
+
+**常用分支命名约定**：
+
+| 分支类型   | 命名格式             | 示例                      |
+| ---------- | -------------------- | ------------------------- |
+| 功能分支   | feature/[描述]       | feature/extension-monitor |
+| 修复分支   | fix/[问题ID]-[描述]  | fix/issue-42-selector-crash |
+| 发布分支   | release/[版本]       | release/v1.0.0            |
+| 热修复分支 | hotfix/[版本]-[描述] | hotfix/v1.0.1-config-fix |
+
+## FlexPoint 项目特定分支命名
+- `feature/ext-[功能]`: 扩展点功能开发
+- `feature/selector-[功能]`: 选择器功能开发
+- `feature/monitor-[功能]`: 监控功能开发
+- `feature/config-[功能]`: 配置功能开发
+- `fix/ext-[问题]`: 扩展点相关修复
+- `fix/selector-[问题]`: 选择器相关修复
 
 ---
 > Source: [xiangganLuo/flex-point](https://github.com/xiangganLuo/flex-point) — distributed by [TomeVault](https://tomevault.io).
