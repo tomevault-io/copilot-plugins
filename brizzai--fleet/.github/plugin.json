@@ -1,0 +1,9 @@
+{
+  "name": "brizzai--fleet",
+  "displayName": "fleet",
+  "description": "TUI tool for managing multiple Claude Code sessions in parallel using tmux",
+  "version": "1.0.0",
+  "author": "brizzai",
+  "homepage": "https://github.com/brizzai/fleet",
+  "skills": []
+}
