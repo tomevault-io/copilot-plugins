@@ -1,0 +1,9 @@
+{
+  "name": "galliani--contextmax",
+  "displayName": "contextmax",
+  "description": "\ud83d\ude80 Browser-based tool for creating reusable sets of context for LLM. Improve response quality & time and reduce token usage. Privacy-first, works with any LLM (Claude, GPT-4, Gemini). Stop re-explainin",
+  "version": "1.0.0",
+  "author": "galliani",
+  "homepage": "https://github.com/galliani/contextmax",
+  "skills": []
+}
