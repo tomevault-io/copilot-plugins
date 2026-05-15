@@ -1,68 +1,49 @@
-## tanstack-router-react-cursorrules-prompt-file
+## tanstack-router
 
-> Cursor rules for TanStack Router v1 with file-based routing, typed params, search validation, loaders, auth guards, and route preloading.
+> Type-safe routing with TanStack Router v1 for React apps, including file-based routing, loaders, search params validation, auth guards, and TanStack Query integration
 
-You are an expert in TanStack Router, React, TypeScript, and modern type-safe client-side routing.
+You are an expert in TanStack Router v1, React, TypeScript, and type-safe client-side routing.
 
-# TanStack Router + React Guidelines
-
-## Core Philosophy
-- TanStack Router is 100% type-safe — leverage TypeScript generics for route params, search params, and loader data
-- Prefer file-based routing for scalability; use code-based routing only for highly dynamic use cases
-- Always define routes with `createFileRoute` or `createRootRoute` — never use plain objects
+## Core Principles
+- TanStack Router is 100% type-safe — leverage TypeScript generics for params, search params, and loader data
+- Prefer file-based routing with `@tanstack/router-vite-plugin` for scalability
+- Always define routes with `createFileRoute` or `createRootRoute`
 - Route data loading belongs in `loader` functions, not in component `useEffect`
-- Search params are first-class citizens — define their schema with Zod or Valibot for validation and type inference
-
-## Project Setup
-- Use `@tanstack/react-router` with Vite and the `@tanstack/router-vite-plugin` for file-based routing
-- Enable `routeTree.gen.ts` auto-generation — never manually edit this file
-- Structure routes under `src/routes/` directory
-- Root layout goes in `src/routes/__root.tsx`
-- Use `src/routes/index.tsx` for the home/index route
+- Search params are first-class — always define their schema with Zod for type safety
 
 ## File-Based Route Conventions
 ```
 src/routes/
-  __root.tsx          ← Root layout (wraps all routes)
+  __root.tsx          ← Root layout
   index.tsx           ← / route
-  about.tsx           ← /about route
   posts/
-    index.tsx         ← /posts route
-    $postId.tsx       ← /posts/:postId (dynamic segment)
+    index.tsx         ← /posts
+    $postId.tsx       ← /posts/:postId (dynamic)
     _layout.tsx       ← Layout route (no path segment)
-  _auth/
-    login.tsx         ← /login (grouped under auth layout)
-  (admin)/
-    dashboard.tsx     ← /dashboard (pathless group)
+  _auth/              ← Pathless auth layout group
+    dashboard.tsx
 ```
 
-## Route Definition Patterns
+## Route Definition
 ```tsx
-// src/routes/posts/$postId.tsx
-import { createFileRoute } from '@tanstack/react-router'
-
 export const Route = createFileRoute('/posts/$postId')({
-  loader: async ({ params }) => {
-    return fetchPost(params.postId) // fully typed params
-  },
+  loader: async ({ params }) => fetchPost(params.postId),
   component: PostComponent,
+  errorComponent: ({ error }) => <ErrorBanner message={error.message} />,
+  pendingComponent: () => <PostSkeleton />,
 })
 
 function PostComponent() {
-  const post = Route.useLoaderData() // type-safe loader data
-  const { postId } = Route.useParams() // type-safe params
+  const post = Route.useLoaderData()     // type-safe
+  const { postId } = Route.useParams()  // type-safe
   return <div>{post.title}</div>
 }
 ```
 
 ## Type-Safe Search Params
-- Always define search param schemas using `z.object()` from Zod
-- Use `validateSearch` option on route definition
-- Access with `Route.useSearch()` — never read raw `window.location.search`
+- Always define search params with Zod and `validateSearch`
+- Access with `Route.useSearch()` — never read `window.location.search` directly
 ```tsx
-import { z } from 'zod'
-import { createFileRoute } from '@tanstack/react-router'
-
 const searchSchema = z.object({
   page: z.number().int().min(1).default(1),
   q: z.string().optional(),
@@ -72,33 +53,16 @@ export const Route = createFileRoute('/search')({
   validateSearch: searchSchema,
   component: SearchPage,
 })
-
-function SearchPage() {
-  const { page, q } = Route.useSearch()
-  // ...
-}
 ```
 
 ## Navigation
-- Use `<Link>` from `@tanstack/react-router` — never `<a href>` for internal navigation
-- Use `useNavigate()` for programmatic navigation
-- Always pass typed `params` and `search` to Link — the compiler will catch mistakes
+- Use `<Link>` for internal navigation — never `<a href>`
+- Always pass typed `params` and `search` — the compiler will catch mistakes
 ```tsx
-import { Link, useNavigate } from '@tanstack/react-router'
-
-// Declarative
 <Link to="/posts/$postId" params={{ postId: '123' }}>View Post</Link>
-
-// Programmatic
-const navigate = useNavigate()
-navigate({ to: '/posts/$postId', params: { postId: post.id } })
 ```
 
-## Loaders & Data Fetching
-- Use `loader` for data that must be available before render (no loading spinners for critical data)
-- Integrate with TanStack Query by using `ensureQueryData` inside loaders for caching
-- Use `staleTime` on loaders to avoid redundant fetches during navigation
-- Return plain serializable data from loaders — no class instances
+## Loaders + TanStack Query Integration
 ```tsx
 export const Route = createFileRoute('/posts')({
   loader: ({ context: { queryClient } }) =>
@@ -107,71 +71,30 @@ export const Route = createFileRoute('/posts')({
 })
 ```
 
-## Error Handling
-- Define `errorComponent` on routes to handle loader or render errors
-- Use `notFoundComponent` for 404 states within a route subtree
-- Use `pendingComponent` for showing skeletons/spinners during data loading
-```tsx
-export const Route = createFileRoute('/posts/$postId')({
-  loader: fetchPost,
-  errorComponent: ({ error }) => <ErrorBanner message={error.message} />,
-  pendingComponent: () => <PostSkeleton />,
-  notFoundComponent: () => <NotFound />,
-  component: PostDetail,
-})
-```
-
-## Router Context
-- Use router context to inject global dependencies (queryClient, auth, theme) into loaders
-- Define context type in `__root.tsx` and pass it when creating the router
+## Router Context for Dependency Injection
 ```tsx
 // __root.tsx
-import { createRootRouteWithContext } from '@tanstack/react-router'
-
-interface RouterContext {
-  queryClient: QueryClient
-  auth: AuthState
-}
-
-export const Route = createRootRouteWithContext<RouterContext>()({
-  component: RootLayout,
-})
+interface RouterContext { queryClient: QueryClient; auth: AuthState }
+export const Route = createRootRouteWithContext<RouterContext>()({ component: RootLayout })
 
 // main.tsx
-const router = createRouter({
-  routeTree,
-  context: { queryClient, auth },
-})
+const router = createRouter({ routeTree, context: { queryClient, auth } })
 ```
 
-## Route Guards / Auth
-- Use `beforeLoad` for authentication checks — redirect to login if unauthenticated
-- Never put auth logic inside components — handle it at the routing layer
+## Auth Guards
 ```tsx
 export const Route = createFileRoute('/_auth/dashboard')({
   beforeLoad: ({ context }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({ to: '/login' })
-    }
+    if (!context.auth.isAuthenticated) throw redirect({ to: '/login' })
   },
   component: Dashboard,
 })
 ```
 
 ## Performance
-- Use `preload` on `<Link>` to trigger loader prefetching on hover/focus
-- Set `defaultPreload: 'intent'` on the router for automatic preloading
-- Use `gcTime` and `staleTime` on loaders to tune cache behavior
-- Lazy-load route components with `React.lazy` for code splitting
-
-## DevTools
+- Set `defaultPreload: 'intent'` on router for automatic prefetching on hover/focus
+- Use `React.lazy` for route component code splitting
 - Install `@tanstack/router-devtools` and render `<TanStackRouterDevtools />` in development
-- Use devtools to inspect route tree, active matches, loader data, and search params
-
-## Testing
-- Use `createMemoryHistory` and `createRouter` to create isolated router instances in tests
-- Wrap components under test with `<RouterProvider router={testRouter} />`
-- Mock loaders by providing fake context values
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
