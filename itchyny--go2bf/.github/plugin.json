@@ -1,0 +1,9 @@
+{
+  "name": "itchyny--go2bf",
+  "displayName": "go2bf",
+  "description": "Compile Go to Brainfuck!",
+  "version": "1.0.0",
+  "author": "itchyny",
+  "homepage": "https://github.com/itchyny/go2bf",
+  "skills": []
+}
