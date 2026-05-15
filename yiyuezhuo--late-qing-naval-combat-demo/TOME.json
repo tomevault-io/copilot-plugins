@@ -1,0 +1,44 @@
+{
+  "name": "Late-Qing-Naval-Combat-Demo",
+  "owner": "yiyuezhuo",
+  "repo": "Late-Qing-Naval-Combat-Demo",
+  "description": "A open source historical simulation wargame about First Sino-Japanese War (1894-1895) & Russo-Japanese War (1904-1905), featuring SEEKRIEG 5 based naval tactical and a hex based strategic wargame.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yiyuezhuo/Late-Qing-Naval-Combat-Demo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T06:57:14Z"
+}
