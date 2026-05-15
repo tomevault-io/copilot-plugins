@@ -1,0 +1,9 @@
+{
+  "name": "neikidev--jlab-desktop",
+  "displayName": "jlab-desktop",
+  "description": "Cross-platform desktop client for the public JLab static JAR scanner. Drop a .jar (or .zip / .mcpack / .mrpack), get the matched signatures grouped by severity.",
+  "version": "1.0.0",
+  "author": "NeikiDev",
+  "homepage": "https://github.com/NeikiDev/jlab-desktop",
+  "skills": []
+}
