@@ -7,11 +7,11 @@ A collection of tools for Claude Code to operate more efficiently
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bang9/ai-tools](https://github.com/bang9/ai-tools).
+Original source: `CLAUDE.md` in [bang9/ai-tools](https://github.com/bang9/ai-tools).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
