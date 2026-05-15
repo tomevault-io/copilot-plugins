@@ -1,0 +1,9 @@
+{
+  "name": "wyattowalsh--iina-plugin-bookmarks",
+  "displayName": "iina-plugin-bookmarks",
+  "description": "media bookmark manager plugin for the iina video player",
+  "version": "1.0.0",
+  "author": "wyattowalsh",
+  "homepage": "https://github.com/wyattowalsh/iina-plugin-bookmarks",
+  "skills": []
+}
