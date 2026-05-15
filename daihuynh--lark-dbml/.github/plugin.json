@@ -1,0 +1,9 @@
+{
+  "name": "daihuynh--lark-dbml",
+  "displayName": "lark-dbml",
+  "description": "DBML parser using LARK provides structured output, Pydantic models, and supports multiple converters, e.g., SQL with SQLGlot",
+  "version": "1.0.0",
+  "author": "daihuynh",
+  "homepage": "https://github.com/daihuynh/lark-dbml",
+  "skills": []
+}
