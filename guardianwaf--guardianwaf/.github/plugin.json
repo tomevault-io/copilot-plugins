@@ -1,0 +1,9 @@
+{
+  "name": "guardianwaf--guardianwaf",
+  "displayName": "GuardianWAF",
+  "description": "Zero-dependency Web Application Firewall in Go. Single binary. Three deployment modes. Tokenizer-based detection.",
+  "version": "1.0.0",
+  "author": "GuardianWAF",
+  "homepage": "https://github.com/GuardianWAF/GuardianWAF",
+  "skills": []
+}
