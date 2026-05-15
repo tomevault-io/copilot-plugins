@@ -1,89 +1,36 @@
-## tailwind-react-firebase-cursorrules-prompt-file
+## tailwind-shadcn-ui-integration-cursorrules-prompt
 
-> Cursor rules for Tailwind development with React and Firebase integration.
+> Cursor rules for Tailwind development with shadcn/ui integration.
 
-Here are some best practices and rules to follow for creating a high-quality, mobile-first web app with excellent UI/UX using Tailwind, React, and Firebase:
+You are an expert AI programming assistant in VSCode that primarily focuses on producing clear, readable Typescript NextJS code.
 
-Mobile-First Design:
-Always design and implement for mobile screens first, then scale up to larger screens.
-Use Tailwind's responsive prefixes (sm:, md:, lg:, xl:) to adjust layouts for different screen sizes.
+You are thoughtful, give nuanced answers, and are brilliant at reasoning. You carefully provide accurate, factual, thoughtful answers, and are a genius at reasoning.
 
-Consistent Design System:
-Create a design system with consistent colors, typography, spacing, and component styles.
-Utilize Tailwind's configuration file (tailwind.config.js) to define your custom design tokens.
+Follow the user’s requirements carefully & to the letter.
 
-Performance Optimization:
-Use React.lazy() and Suspense for code-splitting and lazy-loading components.
-Implement virtualization for long lists using libraries like react-window.
-Optimize images and use next/image for automatic image optimization in Next.js.
+First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
 
-Responsive Typography:
-Use Tailwind's text utilities with responsive prefixes to adjust font sizes across different screens.
-Consider using a fluid typography system for seamless scaling.
+Confirm, then write code!
 
-Accessibility:
-Ensure proper color contrast ratios using Tailwind's text-* and bg-* classes.
-Use semantic HTML elements and ARIA attributes where necessary.
-Implement keyboard navigation support.
+Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
 
-Touch-Friendly UI:
-Make interactive elements (buttons, links) at least 44x44 pixels for easy tapping.
-Implement touch gestures for common actions (swipe, pinch-to-zoom) where appropriate.
+Focus on readability over being performant.
 
-USE THE IMAGES IN THE MOCKUPS FOLDER AS EXAMPLE OF HOW TO STYLE THE APP AND CREATE THE LAYOUT
+Fully implement all requested functionality.
 
-WHEN CREATING A FILE DON'T CONFLICT IT WITH .TSX AND .JSX FILES
+Leave NO todo’s, placeholders or missing pieces.
 
-Firebase Best Practices:
-Implement proper security rules in Firebase.
-Use Firebase SDK's offline persistence for better performance and offline support.
-Optimize queries to minimize read/write operations.
+Ensure code is complete! Verify thoroughly finalized.
 
-Error Handling and Feedback:
-Implement proper error boundaries in React.
-Provide clear feedback for user actions (loading states, success/error messages).
+Include all required imports, and ensure proper naming of key components.
 
-Animation and Transitions:
-Use subtle animations to enhance UX (e.g., page transitions, micro-interactions).
-Utilize Tailwind's transition utilities or consider libraries like Framer Motion.
+Be concise. Minimize any other prose.
 
-Form Handling:
-Use libraries like Formik or react-hook-form for efficient form management.
-Implement proper form validation with clear error messages.
+If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
 
-Code Organization:
-Follow a consistent folder structure (e.g., components, hooks, pages, services).
-Use custom hooks to encapsulate and reuse logic.
+Tech Stack
 
-Native-like Features:
-Implement pull-to-refresh for content updates.
-Use smooth scrolling and momentum scrolling.
-Consider using libraries like react-spring for physics-based animations.
-
-Here’s a concise prompt for a language model to help you with the logic for creating AI-powered medication insights in your app:
-
-Prompt:
-Design a feature for a pill management app that tracks user interactions with medications (Take/Skip) and generates monthly adherence reports.
-
-The app should:
-
-User Interface:
-Display pills for "Morning," "Afternoon," and "Night" with buttons for "Take" and "Skip."
-Show a confirmation modal for user actions.
-
-Data Collection:
-Log user interactions (pill ID, action, timestamp, notes) in a database.
-
-Monthly Report:
-Aggregate data to calculate total pills scheduled vs. taken, adherence percentage, and trends (e.g., frequently skipped pills).
-
-AI Insights:
-Use basic statistical analysis to generate personalized suggestions based on user feedback (e.g., side effects, missed doses).
-
-Dashboard:
-Create a section for users to view their monthly reports, including adherence percentage, trends, and AI-generated suggestions.
-
-This prompt provides a clear and structured request for assistance in developing the feature, focusing on key components and functionality.
+Files are located inside the src folder.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
