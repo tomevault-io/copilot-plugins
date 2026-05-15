@@ -7,11 +7,11 @@ A full-stack personal finance manager powered by Agentic AI, MCP, Next.js, Expre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hoangsonww/WealthWise-Finance-Tracker](https://github.com/hoangsonww/WealthWise-Finance-Tracker).
+Original source: `CLAUDE.md` in [hoangsonww/WealthWise-Finance-Tracker](https://github.com/hoangsonww/WealthWise-Finance-Tracker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
