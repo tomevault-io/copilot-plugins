@@ -1,0 +1,9 @@
+{
+  "name": "ttpears--bookstack-mcp",
+  "displayName": "bookstack-mcp",
+  "description": "MCP server for BookStack wiki \u2014 search, read, create, and manage documentation via AI assistants",
+  "version": "1.0.0",
+  "author": "ttpears",
+  "homepage": "https://github.com/ttpears/bookstack-mcp",
+  "skills": []
+}
