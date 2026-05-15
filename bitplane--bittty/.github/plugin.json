@@ -1,0 +1,9 @@
+{
+  "name": "bitplane--bittty",
+  "displayName": "bittty",
+  "description": "A terminal library written in Python",
+  "version": "1.0.0",
+  "author": "bitplane",
+  "homepage": "https://github.com/bitplane/bittty",
+  "skills": []
+}
