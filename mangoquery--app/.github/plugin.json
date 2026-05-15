@@ -1,0 +1,9 @@
+{
+  "name": "mangoquery--app",
+  "displayName": "app",
+  "description": "A fast, native MongoDB GUI \u2014 built with Perry",
+  "version": "1.0.0",
+  "author": "MangoQuery",
+  "homepage": "https://github.com/MangoQuery/app",
+  "skills": []
+}
