@@ -1,0 +1,492 @@
+## servicenow-helper
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a multi-service application called "ServiceNow Helper" that provides an AI-powered interface for ServiceNow assistance featuring **multi-agent AI architecture**. The entire system is containerized using Docker Compose.
+
+The core components are:
+- **Next.js 16.0.0 Frontend**: A web application for user interaction, authentication, and displaying results with agent model configuration, knowledge store management, and multimodal capabilities.
+- **n8n Workflow Engine (1.118.2)**: Handles the backend AI processing with multi-agent support, integrating with services like Anthropic Claude.
+- **PostgreSQL Database (15.x with pgvector 0.8.1)**: Provides data storage for n8n, session storage, agent model configurations, and knowledge store for the Next.js app.
+- **ServiceNow Helper Companion App**: A ServiceNow application that facilitates integration using staging table architecture for secure data synchronization.
+
+## Development Commands
+
+- `docker compose up -d` - **Recommended method.** Starts all services.
+- `docker compose --profile setup up -d` - **First time setup.** Starts all services and runs initial setup.
+- `./scripts/setup-n8n.sh` - Manual setup script (only needed if automatic setup fails).
+- `npm run dev` - Start the Next.js development server (requires separate n8n/Postgres instances).
+- `npm run build` - Build production application with PWA optimization.
+- `npm run build:analyze` - Build with webpack bundle analyzer for performance insights.
+- `npm run start` - Start production server.
+- `npm run lint` - Run ESLint checks with enhanced code quality rules.
+- `npm run type-check` - Run TypeScript type checking.
+- `npm test` - Run Jest unit tests (non-interactive mode).
+- `npm run test:watch` - Run Jest tests in watch mode.
+- `npm run test:coverage` - Run Jest tests with coverage reporting.
+- `npm run test:ci` - Run Jest unit tests for CI/CD environments.
+- `npm run test:e2e` - Run Playwright integration tests.
+- `npm run test:e2e:ui` - Run Playwright tests with UI mode.
+- `npm run test:e2e:headed` - Run Playwright tests in headed mode.
+- `npm run test:e2e:debug` - Run Playwright tests in debug mode.
+- `npm run test:performance` - Run performance-specific tests.
+
+## Architecture
+
+The application follows a containerized, multi-service architecture orchestrated by Docker Compose.
+
+### Authentication System
+- JWT-based authentication using httpOnly cookies.
+- Auth middleware in `src/lib/auth-middleware.ts` verifies tokens server-side.
+- `AuthContext` provides client-side authentication state management.
+
+### API Integration & Data Flow (Multi-Agent Streaming Architecture)
+1.  User submits a question via the `SearchInterface` in the Next.js app.
+2.  The request is sent to `/api/submit-question-stream`, which is protected by JWT authentication and includes agent model configurations.
+3.  The Next.js API establishes a **Server-Sent Events (SSE) streaming connection** to the n8n webhook with agent-specific model settings.
+4.  **Real-time streaming**: Response chunks are streamed back immediately as n8n generates them using configured agent models (Orchestration, Business Rule, Client Script).
+5.  The UI updates in real-time, displaying content as it streams, similar to ChatGPT/Claude interfaces.
+6.  Enhanced cancellation system allows users to stop streaming requests at any time.
+7.  **Script Deployment**: Users can deploy generated scripts directly to ServiceNow via `/api/send-script` endpoint, which uses the N8NClient server-side to communicate with N8N workflows.
+
+### Settings System
+- **User Settings Management**: Persistent user preferences stored in PostgreSQL database
+- **Agent Model Configuration**: Individual AI model selection per specialized agent with expandable UI cards
+- **AI Model Management**: Comprehensive AI model management with capabilities tracking (text, image, audio)
+- **Settings Context**: React context providing settings state management and API integration
+- **AgentModelContext**: Dedicated React context for multi-agent model state management
+- **AIModelContext**: React context for AI model state and configuration management
+- **ThemeContext**: Dark/light theme management with persistent user preferences
+- **Authentication-Aware**: Settings are user-specific and require authentication to save
+- **Real-time Sync**: Settings changes immediately reflect across the application
+- **Default Fallbacks**: Works gracefully when unauthenticated with sensible defaults
+
+### Multi-Agent AI Architecture
+- **Orchestration Agent**: Coordinates overall response and routing between different specialized agents
+- **Business Rule Agent**: Specialized for ServiceNow business logic and rule configuration
+- **Client Script Agent**: Optimized for client-side scripting and UI component development
+- **Scalable Design**: Architecture supports unlimited agents without code changes
+- **Individual Model Configuration**: Each agent can use a different AI model optimized for its tasks
+- **Database Migration**: Comprehensive migration system from single-model to multi-agent configuration
+- **Backward Compatibility**: Preserves existing user settings during migration
+
+### Streaming System Architecture
+- **Real-time Responses**: Server-Sent Events (SSE) provide immediate AI response streaming
+- **Enhanced UX**: Chat-like interface with typing indicators, streaming cursors, and status updates
+- **Robust Cancellation**: Multi-layer cancellation system with `StreamingCancellationManager`
+- **Connection Management**: Automatic retry with exponential backoff and error classification
+- **Network Resilience**: Network status monitoring and connection recovery
+- **Performance Optimized**: Efficient chunk handling with incremental markdown rendering
+
+### Component Structure
+- `SearchInterface` - Main application interface with streaming support and settings integration
+- `ResultsSection` - Real-time response display with incremental markdown rendering and streaming indicators
+- `ProcessingOverlay` - Dynamic status display for connection and streaming states
+- `Settings` - User settings page with expandable agent model configuration cards and preferences
+- `LoginForm` - User authentication form
+- `BurgerMenu` - Navigation menu with settings access
+- `KnowledgeStorePanel` - Knowledge store management interface
+- `KnowledgeStoreItem` - Individual knowledge store entry display
+- `AIModelModal` - AI model configuration modal
+- `FileUpload` - Multimodal file attachment component
+- `StreamingMarkdownRenderer` - Real-time markdown rendering with streaming support
+- `UserManual` - User manual and documentation component
+- `ThemeToggle` - Dark/light theme switching component
+- `CodeBlock` - Enhanced code blocks with Send to ServiceNow functionality
+- `SendScriptButton` - Button component for script deployment with modal integration
+- `SendScriptModal` - Modal for script type selection (Business Rule, Script Include, Client Script)
+- `VoiceRecordButton` - WhatsApp-style press-and-hold voice recording button
+- `VoiceRecordingModal` - Voice recording confirmation modal with timer and waveform
+- `IOSPWAWarning` - iOS PWA standalone mode limitation warning component
+- `ManifestLink` - Dynamic PWA manifest injection for iOS compatibility
+
+### Streaming Infrastructure
+- `StreamingClient` (`src/lib/streaming-client.ts`) - Core streaming connection management
+- `StreamingCancellationManager` (`src/lib/streaming-cancellation.ts`) - Enhanced cancellation system
+- `useNetworkStatus` (`src/hooks/useNetworkStatus.ts`) - Network monitoring and connection health
+- `/api/submit-question-stream` - Server-Sent Events API endpoint with agent model support
+- `/api/agent-models` - Agent model configuration API endpoints
+- `/api/ai-models` - AI model management API endpoints
+- `/api/capabilities` - AI model capabilities API
+- `/api/knowledge-store` - Knowledge store management API
+- `/api/send-script` - Script deployment API endpoint using N8NClient
+- `/api/cancel-request` - Request cancellation API
+- `/api/voice-to-text` - Voice transcription API endpoint with N8N proxy
+- Custom streaming animations and CSS in `src/styles/streaming-animations.css`
+
+### Voice Input Infrastructure
+- `useVoiceRecorder` (`src/hooks/useVoiceRecorder.ts`) - MediaRecorder API integration with platform detection
+- `platform-detection` (`src/lib/platform-detection.ts`) - iOS/Android detection and capability checking
+- `manifest-ios.json` - iOS-specific PWA manifest with browser display mode for getUserMedia support
+- Voice settings: `voice_mode_enabled`, `voice_auto_submit`, `voice_auto_send`
+- Cross-platform audio format support (webm for Android/Desktop, mp4 for iOS)
+
+### Agent Model Management
+- `AgentModelContext` (`src/contexts/AgentModelContext.tsx`) - Agent model state management
+- `AIModelContext` (`src/contexts/AIModelContext.tsx`) - AI model state management
+- `AgentModelManager` (`src/lib/database.ts`) - Database operations for agent models
+- `ai-models.ts` (`src/lib/`) - AI model utilities and management
+- `N8NClient` (`src/lib/n8n-client.ts`) - Enhanced N8N client with createTask method for script deployment
+- Database migration scripts in `scripts/`:
+  - `migrate-to-agent-models.sql` - Agent model migration
+  - `add-multimodal-capabilities.sql` - Multimodal capabilities
+  - `create-agent-prompts-table.sql` - Agent prompt management
+  - `seed-agent-prompts.sql` - Default agent prompts
+  - `seed-ai-models.sql` - Default AI models
+
+## Technical Stack
+
+- **Frontend**: Next.js 16.0.0 (App Router), React 19.2.0, TypeScript 5.9.3, TailwindCSS 4.1.16
+- **Backend/Workflow**: n8n 1.118.2
+- **Database**: PostgreSQL 15.x with pgvector 0.8.1 (with tables: `ServiceNowSupportTool` for conversations, `user_settings` for user preferences, `agent_models` for agent model configurations)
+- **Containerization**: Docker, Docker Compose (Dockerfile with Node.js 22 and docker-compose.yml in root)
+- **Libraries**: Axios 1.13.2, ReactMarkdown 10.1.0, Lucide React 0.553.0, JWT 9.0.2, highlight.js 11.11.1, Mermaid 11.12.1
+- **Performance**: Dynamic imports, lazy loading, React.memo, code splitting, bundle analysis, and Core Web Vitals monitoring
+- **Streaming**: Server-Sent Events (SSE), real-time UI updates, connection pooling, retry logic, and performance monitoring
+- **Voice Input**: MediaRecorder API, getUserMedia, platform detection (iOS/Android), cross-platform audio format support (webm/mp4)
+- **Security**: Comprehensive security headers, XSS protection, CSRF prevention, streaming validation, and rate limiting
+- **Accessibility**: ARIA attributes, keyboard navigation, screen reader support, and WCAG compliance
+- **PWA Support**: Advanced Progressive Web App with offline support, install prompts, and app shortcuts
+- **Testing**: Jest 30.1.1 with coverage reporting, Playwright 1.56.1 for E2E, enhanced ESLint 9.39.1 rules, and pre-commit quality gates
+- **Quality Assurance**: Husky 9.1.7 pre-commit hooks, lint-staged 16.1.6, TypeScript strict mode, and automated testing
+
+## Project Structure
+
+Key directories:
+- `src/` - Application source code
+  - `app/` - Next.js App Router with API routes and pages
+  - `components/` - React components for UI and functionality
+  - `contexts/` - React contexts (Auth, Settings, Agent Models, AI Models, Theme)
+  - `hooks/` - Custom React hooks (Network status, Session management, Voice recording, etc.)
+  - `lib/` - Utilities and business logic
+  - `styles/` - Custom CSS including streaming animations
+  - `types/` - TypeScript type definitions
+- `tests/` - Unit and integration tests with mocks
+- `docs/` - Detailed documentation
+- `n8n/` - Workflow templates
+- `scripts/` - Database migrations and setup utilities
+- `public/` - Static assets including PWA manifests (manifest.json, manifest-ios.json) and icons
+- `848250f153632210030191e0a0490ed5/` - ServiceNow Helper Companion App (excluded from code review, linting, and testing)
+- Configuration files: `Dockerfile`, `docker-compose.yml`, `package.json`, `tsconfig.json`, `jest.config.ts`, `playwright.config.ts`
+
+### ServiceNow Companion App Exclusions
+
+The `848250f153632210030191e0a0490ed5/` directory contains a ServiceNow application built using ServiceNow technologies and should be handled differently:
+
+- **No Code Review**: This directory should not be included in code reviews as it's a ServiceNow application managed separately
+- **No Linting**: ESLint and other JavaScript/TypeScript linting tools do not apply to ServiceNow XML files and scripts
+- **No Testing**: Jest and Playwright tests are not applicable to ServiceNow applications
+- **Manual Management**: This companion app follows ServiceNow development and deployment practices, not Node.js/React workflows
+
+## UI Design Principles
+
+This project follows a modern, cohesive design system with consistent styling across all components. **All UI changes must maintain this consistency.**
+
+### Design System Standards
+
+#### Chip-Style Buttons
+- **Border Radius**: Use `rounded-full` for all primary and secondary buttons
+- **Gradients**: Primary buttons use `bg-gradient-to-r from-blue-500 to-indigo-600` with hover states `hover:from-blue-600 hover:to-indigo-700`
+- **Shadows**: Apply colored shadows with opacity variants: `shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/30`
+- **Animations**: Always include `hover:scale-105 active:scale-95` for tactile feedback
+- **Disabled States**: Use `disabled:from-gray-400 disabled:to-gray-400 disabled:hover:scale-100`
+- **Font Weight**: Use `font-medium` for button text
+
+#### Pill-Style Badges
+- **Shape**: Use `rounded-full` for all badges and status indicators
+- **Padding**: Apply `px-2.5 py-1` for consistent sizing
+- **Typography**: Use `text-xs font-medium` for badge text
+- **Colors**: Use semantic colors with dark mode variants (e.g., `bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400`)
+
+#### Modern Cards & Containers
+- **Border Radius**: Use `rounded-2xl` or `rounded-3xl` for cards
+- **Glassmorphism**: Apply `bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl` for semi-transparent backgrounds
+- **Borders**: Use semi-transparent borders: `border border-gray-200/50 dark:border-gray-700/50`
+- **Shadows**: Apply colored shadows for depth: `shadow-lg shadow-blue-500/5` or `shadow-2xl shadow-blue-500/10`
+- **Hover Effects**: Cards should have `hover:shadow-xl hover:shadow-blue-500/10` transitions
+
+#### Modal Overlays
+- **Backdrop**: Use `backdrop-blur-md bg-black/40` for modal overlays
+- **Animations**: Include `animate-in fade-in-0 duration-200` for overlay entrance
+- **Modal Container**: Apply glassmorphism with `bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl`
+- **Modal Animation**: Use `animate-in slide-in-from-bottom-4 duration-300` for modal entrance
+
+#### Interactive Elements
+- **Scale Animations**: All clickable elements should have `hover:scale-110 active:scale-95` (small elements) or `hover:scale-105 active:scale-95` (buttons)
+- **Transitions**: Use `transition-all duration-200` for smooth animations
+- **Hover Backgrounds**: Apply `hover:bg-gray-100 dark:hover:bg-gray-700` for icon buttons
+- **Icon Sizes**: Standard icon size is `w-5 h-5` for most UI elements, `w-4 h-4` for smaller contexts
+
+#### Close Buttons
+- **Styling**: Use `p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg`
+- **Animations**: Include `hover:scale-110 active:scale-95 hover:bg-gray-100 dark:hover:bg-gray-700`
+- **Transitions**: Apply `transition-all duration-200`
+
+#### Color System
+- **Primary**: Blue-to-indigo gradients (`from-blue-500 to-indigo-600`)
+- **Shadows**: Use opacity variants `/5`, `/10`, `/25`, `/30` for colored shadows
+- **Borders**: Semi-transparent borders with `/50` opacity
+- **Backgrounds**: Use `/95` opacity for glassmorphism effects
+
+### Component-Specific Patterns
+
+#### Forms & Inputs
+- Use `border-2` for input borders to create stronger visual hierarchy
+- Apply `focus:ring-2 focus:ring-blue-500 focus:border-transparent` for focus states
+- Secondary buttons should have `border-2 border-gray-300 dark:border-gray-600`
+
+#### Navigation & Menus
+- Back buttons and navigation icons should have `hover:scale-110 active:scale-95`
+- Menu items should include smooth hover backgrounds
+
+#### Status Indicators
+- Use pill-style badges with semantic colors
+- Include appropriate icons from `lucide-react`
+
+### Accessibility Requirements
+- All interactive elements must have proper `aria-label` and `title` attributes
+- Maintain color contrast ratios (WCAG AA minimum)
+- Ensure keyboard navigation works with visible focus states
+- Disabled states must be visually distinct and include `disabled:cursor-not-allowed`
+
+### Dark Mode Support
+- All components must support dark mode with appropriate `dark:` variants
+- Use semantic color classes that work in both light and dark themes
+- Test all UI changes in both light and dark modes
+
+### Consistency Enforcement
+When creating or modifying UI components:
+1. **Reference existing components** (e.g., `AIModelModal`, `FilterModal`, `SendScriptModal`) as examples
+2. **Apply all design patterns** listed above consistently
+3. **Test hover states, animations, and transitions** thoroughly
+4. **Verify dark mode** appearance
+5. **Check accessibility** with keyboard navigation
+
+## Documentation & Best Practices
+
+### Context7 Tool for Latest Documentation
+When working with libraries or frameworks, **use the Context7 tool (via MCP)** to access the latest documentation and best practice information. The Context7 tool provides:
+- **Up-to-date documentation** for libraries like Next.js, React, TailwindCSS, TypeScript, and more
+- **Code examples** and implementation patterns
+- **Best practices** and recommended approaches
+- **Version-specific information** to ensure compatibility
+
+**Example usage**: Before implementing new features or making significant changes to existing libraries, use Context7 to:
+1. Verify current best practices for the library version in use
+2. Check for new features or patterns that might improve the implementation
+3. Ensure compatibility with the project's tech stack
+4. Access code examples for reference
+
+This ensures that all code follows current best practices and takes advantage of the latest library features.
+
+### Detailed Documentation
+
+*   [Getting Started & Setup](./docs/SETUP.md)
+*   [Voice Mode Guide](./docs/VOICE_MODE.md)
+*   [Progressive Web App (PWA)](./docs/PWA.md)
+*   [Environment Variables](./docs/ENVIRONMENT_VARIABLES.md)
+*   [Development Guide](./docs/DEVELOPMENT.md)
+*   [Testing](./docs/TESTING.md)
+*   [Contributing](./docs/CONTRIBUTING.md)
+
+## Playwright Testing Best Practices
+
+Based on Playwright documentation and successful test implementations:
+
+### Key Principles
+1. **Use Web-First Assertions**: Prefer `await expect(locator).toBeVisible()` over manual waits
+2. **Prioritize User-Facing Selectors**: Use `getByRole()`, `getByText()`, and `getByPlaceholder()` over CSS selectors
+3. **Handle Strict Mode**: When multiple elements match, use more specific selectors like `getByRole('button', { name: 'Text' })`
+4. **Test User Behavior**: Focus on what users see and do, not implementation details
+
+### React-Specific Considerations
+- **State Updates**: React state may not update immediately with `fill()`. Use `dispatchEvent()` if needed
+- **Form Submission**: Test actual user interactions (clicking buttons, pressing keys) rather than forcing form submission
+- **Component Interactions**: Use semantic selectors that match how users interact with the interface
+
+### Common Patterns
+```javascript
+// Good: Specific, user-facing selector
+await expect(page.getByRole('button', { name: 'Get Help' })).toBeVisible();
+
+// Good: Wait for authentication completion
+await page.waitForFunction(() => !!document.querySelector('textarea'), { timeout: 10000 });
+
+// Good: Web-first assertion with timeout
+await expect(element).toBeEnabled({ timeout: 10000 });
+```
+
+### Testing Strategy
+- Test authentication flows and basic UI interactions
+- Verify interface elements are present and accessible
+- Focus on user-visible behavior rather than internal state
+- Use mocking for external API calls to ensure test reliability
+
+## Next.js 16 Best Practices Implementation
+
+This codebase implements comprehensive Next.js 16 best practices:
+
+### Performance Optimizations
+- **Dynamic Imports**: Heavy components (`HistoryPanel`, `ReactMarkdown`) are lazy-loaded
+- **React.memo**: Expensive components (`HistoryItem`, `ThemeToggle`, `StepGuide`) are memoized
+- **Code Splitting**: Automatic code splitting with Suspense boundaries
+- **Bundle Optimization**: Selective imports for optimal tree-shaking
+
+### Error Handling & UX
+- **Error Boundaries**: Route-level error handling with `src/app/error.tsx`
+- **Loading States**: Global loading UI with `src/app/loading.tsx`
+- **Fallback Components**: Suspense fallbacks for lazy-loaded components
+
+### Security Enhancements
+- **Security Headers**: Comprehensive headers in `next.config.ts`:
+  - X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+  - Referrer-Policy, Permissions-Policy
+- **API Protection**: Enhanced API route security
+
+### Accessibility Improvements
+- **ARIA Attributes**: Proper ARIA labels, roles, and states
+- **Keyboard Navigation**: Full keyboard support (Escape, Enter, Space)
+- **Skip Links**: Skip-to-content links for screen readers
+- **Focus Management**: Proper focus handling for modals and dropdowns
+
+### Architecture Benefits
+- **App Router**: Full utilization of Next.js 16 App Router features with async APIs
+- **Server Components**: Optimal mix of server and client components
+- **Modern React**: Latest React 19.2 patterns with concurrent features and useEffectEvent hook
+- **Type Safety**: Enhanced TypeScript 5.9.3 with strict mode compliance
+
+### Key Files for Best Practices
+- `src/app/error.tsx` - Route-level error handling
+- `src/app/loading.tsx` - Global loading states
+- `next.config.ts` - Security headers configuration
+- `src/middleware.ts` - Next.js middleware for authentication
+- Components with `React.memo` - Performance optimization (HistoryItem, ThemeToggle, StepGuide)
+- Dynamic imports with `Suspense` - Code splitting (HistoryPanel, ReactMarkdown)
+- Custom hooks for performance and state management
+- Streaming infrastructure for real-time responses
+
+## Performance Monitoring & Core Web Vitals
+
+The application includes comprehensive performance monitoring and Core Web Vitals tracking:
+
+### Performance Monitoring System
+- **PerformanceMonitor** (`src/lib/performance-monitor.ts`) - Singleton class for tracking Core Web Vitals
+- **Real-time Metrics**: FCP (First Contentful Paint), LCP (Largest Contentful Paint), FID (First Input Delay), CLS (Cumulative Layout Shift)
+- **Streaming Performance**: Tracks connection times, chunk sizes, and streaming efficiency
+- **Memory Management**: Monitors for memory leaks and cleanup tracking
+
+### Bundle Analysis & Optimization
+- **Webpack Bundle Analyzer**: Integrated with `npm run build:analyze` for detailed bundle insights
+- **Code Splitting**: Automatic vendor and React chunk separation
+- **Package Import Optimization**: Selective imports for `lucide-react`, `react-markdown`, `highlight.js`
+- **CSS Optimization**: TailwindCSS optimization with tree-shaking
+
+### Caching Strategy
+- **Multi-tier Service Worker**: Advanced caching with different strategies per resource type
+- **API Caching**: Network-first strategy with 5-minute cache for API responses
+- **Static Asset Caching**: Cache-first strategy with 1-year expiration for immutable assets
+- **Image Optimization**: WebP/AVIF support with responsive sizing
+
+## Testing & Quality Assurance
+
+### Enhanced Testing Suite
+- **Jest Configuration**: Coverage thresholds (70% branches, 75% functions, 80% lines/statements)
+- **Performance Tests**: Dedicated performance test suite with Core Web Vitals validation
+- **Unit Tests**: Comprehensive unit tests for performance monitor and utilities
+- **Test Utilities**: Enhanced test helpers with all React contexts and mocking
+
+### Code Quality Gates
+- **ESLint Rules**: Enhanced rules for performance, accessibility, and code quality
+- **Pre-commit Hooks**: Husky with lint-staged for automated quality checks
+- **TypeScript Strict Mode**: Enhanced type checking with `npm run type-check`
+- **Import Organization**: Automatic import sorting and validation
+
+### Testing Commands
+- `npm run test:coverage` - Generate coverage reports
+- `npm run test:performance` - Run performance-specific tests
+- `npm run type-check` - TypeScript validation
+- `npm run lint` - ESLint with auto-fix capabilities
+
+## Progressive Web App (PWA) Features
+
+### Advanced PWA Manifest
+- **App Shortcuts**: Quick access to New Question, Knowledge Store, and Settings
+- **Display Modes**: Support for window-controls-overlay, standalone, and minimal-ui
+- **File Handling**: Support for text, JSON, PDF files with drag-and-drop
+- **Share Target**: Receive shared content from other applications
+- **Protocol Handlers**: Custom URL scheme support (`web+servicenow://`)
+
+### Service Worker & Offline Support
+- **Offline Fallback**: Dedicated offline page with available features
+- **Advanced Caching**: Multi-strategy caching for different resource types
+- **Background Sync**: Service worker handles updates and sync operations
+- **Network Resilience**: Automatic retry and connection recovery
+
+### PWA Installation Experience
+- **Smart Install Prompts**: Appears after user engagement with dismiss tracking
+- **Cross-platform Support**: iOS, Android, and Desktop PWA compatibility
+- **Install State Tracking**: Monitors installation success and app usage
+- **Feature Highlights**: Showcases offline support and native app benefits
+
+### PWA Commands
+- `npm run build` - Production build with PWA optimization
+- Service worker automatically registers and manages caching
+- Offline page accessible at `/offline` when network unavailable
+
+## Key Performance Features
+
+### Real-time Monitoring
+- **Core Web Vitals**: Continuous tracking of user experience metrics
+- **Streaming Analytics**: Connection quality and response time monitoring
+- **Bundle Size Tracking**: Automated bundle size validation
+- **Memory Usage**: Leak detection and cleanup verification
+
+### Next.js 16 Features (Latest Implementation)
+- **Turbopack Stable**: Now the default bundler, 5-10x faster development builds with `npm run dev --turbopack`
+- **React Compiler Support**: Built-in support for React Compiler for automatic performance optimizations
+- **Enhanced Package Optimization**: Optimized imports for `lucide-react`, `react-markdown`, `highlight.js`, `axios`, `jsonwebtoken`
+- **Advanced Bundle Analysis**: Integrated webpack bundle analyzer with `npm run build:analyze`
+- **Improved Development DX**: Faster HMR and compilation with Turbopack as default
+- **Async Request APIs**: Modern async/await patterns for params, searchParams, cookies, and headers
+- **Node.js 22 LTS**: Requires Node.js 20.9.0+ (project uses Node.js 22)
+
+### Streaming Performance Optimizations (Phase 1)
+- **Virtual Scrolling**: Efficient rendering of large content (>10k characters)
+- **React.memo**: Optimized component re-renders with custom comparison functions
+- **Smart Batching**: Dynamic intervals based on content type analysis (code/text/mixed)
+- **Incremental Updates**: Memory-efficient DOM updates during streaming
+- **Performance Monitoring**: Real-time analytics with detailed metrics reporting
+
+### Image Optimization (Phase 2)
+- **OptimizedImage Component**: Next.js Image with lazy loading, blur placeholders, responsive sizing
+- **ImageGallery Component**: Modal viewer with keyboard navigation and thumbnail controls
+- **useLazyImage Hook**: Intersection Observer for viewport-based loading
+- **Enhanced Next.js Config**: Advanced image settings with WebP/AVIF, extended caching
+- **Service Worker Updates**: Improved image caching (500 entries, 180 days)
+- **Automatic Format Conversion**: WebP/AVIF optimization with fallbacks
+- **Responsive Images**: Proper `sizes` attributes for optimal device loading
+- **Blur Placeholders**: Smooth loading transitions with default blur data URLs
+
+### Optimization Features
+- **Lazy Loading**: Components and images loaded on-demand for better initial load
+- **Image Optimization**: Next.js Image component with WebP/AVIF support and lazy loading
+- **Font Optimization**: Google Fonts caching and optimization
+- **CSS Optimization**: TailwindCSS purging and minification
+- **Bundle Optimization**: Advanced code splitting and tree-shaking with Turbopack
+
+### Quality Assurance
+- **Automated Testing**: Pre-commit test execution with 347 passing tests
+- **Code Coverage**: Minimum coverage thresholds enforced
+- **Performance Budgets**: Bundle size and performance metric validation
+- **Accessibility Testing**: Automated accessibility rule validation
+- **Security Updates**: Fixed axios vulnerability and deprecated package warnings
+
+---
+> Source: [DanielMadsenDK/servicenow-helper](https://github.com/DanielMadsenDK/servicenow-helper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-13 -->
