@@ -1,0 +1,9 @@
+{
+  "name": "luminarylane--fal-mcp-server",
+  "displayName": "fal-mcp-server",
+  "description": "MCP server for Fal.ai - Generate images, videos, music and audio with Claude",
+  "version": "1.0.0",
+  "author": "luminarylane",
+  "homepage": "https://github.com/luminarylane/fal-mcp-server",
+  "skills": []
+}
