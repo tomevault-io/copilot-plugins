@@ -1,0 +1,9 @@
+{
+  "name": "facets-cloud--flow",
+  "displayName": "flow",
+  "description": "Turn isolated Claude sessions into a continuous working relationship",
+  "version": "1.0.0",
+  "author": "Facets-cloud",
+  "homepage": "https://github.com/Facets-cloud/flow",
+  "skills": []
+}
