@@ -8684,6 +8684,11 @@
       "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
     },
     {
+      "name": "doist--todoist-mcp",
+      "source": "./doist--todoist-mcp",
+      "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
+    },
+    {
       "name": "hesamsheikh--octogent",
       "source": "./hesamsheikh--octogent",
       "description": "A thin orchestration dashboard over Claude Code for managing context, automation, and developer headspace. You need tentacles. \ud83e\udd91"
@@ -46104,6 +46109,11 @@
       "description": "the UI and agentic backend of the fred innovation track"
     },
     {
+      "name": "lewa-reka--ha-rce-pse",
+      "source": "./lewa-reka--ha-rce-pse",
+      "description": "Rynkowa Cena Energii (RCE) for HomeAssistant"
+    },
+    {
       "name": "mikkelkrogsholm--skills",
       "source": "./mikkelkrogsholm--skills",
       "description": "skills"
@@ -48244,6 +48254,11 @@
       "description": "Security Rules & Workflows for the new wave of AI Development."
     },
     {
+      "name": "recallai--muesli-public",
+      "source": "./recallai--muesli-public",
+      "description": "Public muesli sdk repo."
+    },
+    {
       "name": "zhaono1--agent-playbook",
       "source": "./zhaono1--agent-playbook",
       "description": "agent-playbook"
@@ -48862,6 +48877,11 @@
       "name": "knifmelti--wau-settings-gui",
       "source": "./knifmelti--wau-settings-gui",
       "description": "Provides a user-friendly portable standalone interface to modify every aspect of Winget-AutoUpdate (WAU)"
+    },
+    {
+      "name": "streamatico--polymarketviewer",
+      "source": "./streamatico--polymarketviewer",
+      "description": "A clean Android app for browsing Polymarket prediction markets, event forecasts, charts, and watchlists. Free & Open Source."
     },
     {
       "name": "izittmarvin--memcoach",
@@ -49592,6 +49612,11 @@
       "name": "stickerdaniel--notion-avatar-svelte",
       "source": "./stickerdaniel--notion-avatar-svelte",
       "description": "Notion-styled avatar editor for your Svelte project!"
+    },
+    {
+      "name": "scross01--searxngr",
+      "source": "./scross01--searxngr",
+      "description": "SearXNG from the command line, inspired by `ddgr` and `googler`."
     },
     {
       "name": "agents-squads--squads-cli",
@@ -52454,6 +52479,11 @@
       "description": "A powerful Model Context Protocol (MCP) server that creates other MCP servers! This meta-server provides tools for dynamically generating FastMCP server configurations and Python code."
     },
     {
+      "name": "devx-op--effectify",
+      "source": "./devx-op--effectify",
+      "description": "Monorepo of utilities for integrating Effect with different frameworks and libraries."
+    },
+    {
       "name": "w3cj--ruta",
       "source": "./w3cj--ruta",
       "description": "A tiny type-safe client-side router for hono/jsx"
@@ -54557,6 +54587,11 @@
       "name": "crossplane-contrib--crossplane-diff",
       "source": "./crossplane-contrib--crossplane-diff",
       "description": "A command line diff tool for crossplane."
+    },
+    {
+      "name": "cylonix--cylonix",
+      "source": "./cylonix--cylonix",
+      "description": "Fully open sourced client app alternative to Tailscale"
     },
     {
       "name": "affitor--open-affiliate",
@@ -58759,6 +58794,11 @@
       "description": "Official CLI of Thunder Compute"
     },
     {
+      "name": "softnanolab--boileroom",
+      "source": "./softnanolab--boileroom",
+      "description": "Protein prediction models implemented with Modal"
+    },
+    {
       "name": "inureyes--gyeol",
       "source": "./inureyes--gyeol",
       "description": "gyeol"
@@ -60882,6 +60922,11 @@
       "name": "positron-solutions--mutate",
       "source": "./positron-solutions--mutate",
       "description": "\u00b5Tate - MuTating music visualizer - Rust + Vulkan & Slang"
+    },
+    {
+      "name": "frostaura--ai-toolkit-gaia",
+      "source": "./frostaura--ai-toolkit-gaia",
+      "description": "A toolkit for building full-stack systems. Battle-tested with Copilot in VS Code, with agents for Github Copilot CLI."
     },
     {
       "name": "navikt--cplt",
@@ -64682,6 +64727,11 @@
       "name": "chongzixuan-ai--mcp-server-website",
       "source": "./chongzixuan-ai--mcp-server-website",
       "description": "Quickly screenshots webpages and converts to an LLM friendly size"
+    },
+    {
+      "name": "cameronapak--freedom-stack-v2",
+      "source": "./cameronapak--freedom-stack-v2",
+      "description": "Simply create full-stack web apps with Astro, Basecoat UI, and bknd. (CHECK OUT V3!)"
     },
     {
       "name": "10xchengtu--mux0",
@@ -73034,6 +73084,11 @@
       "description": "Magento 2 - Performance review module"
     },
     {
+      "name": "apssouza22--web-video-edit",
+      "source": "./apssouza22--web-video-edit",
+      "description": "WebVideoEdit is a browser-based video editor that lets you perform basic video edition directly on the browser - no downloads or installations required."
+    },
+    {
       "name": "seven7763--windsurf-tools",
       "source": "./seven7763--windsurf-tools",
       "description": "Windsurf IDE \u53f7\u6c60 + \u7eaf MITM \u4ee3\u7406\u4e00\u4f53\u5316\u5de5\u5177\uff1aprotobuf \u5c42\u8eab\u4efd & \u8ba1\u8d39\u5b57\u6bb5\u66ff\u6362\u3001\u65e0\u611f\u5207\u53f7\u3001\u7528\u91cf\u5b9e\u65f6\u540c\u6b65\u3001\u672c\u5730 OpenAI \u517c\u5bb9\u63a5\u53e3\u3002Wails v2 (Go + Vue 3)\u3002"
@@ -74749,6 +74804,16 @@
       "description": "Two-way sync between Valtio proxies and Yjs CRDTs"
     },
     {
+      "name": "mdr-tutorials--mdr-front-engine",
+      "source": "./mdr-tutorials--mdr-front-engine",
+      "description": "A Open-source Visual Frontend Platform blending blueprints, node graphs, and code. Streamlines design-to-deployment workflow with local/cloud collaboration. Perfect for cross-disciplinary teams, rapid"
+    },
+    {
+      "name": "kesslerio--vibe-check-mcp",
+      "source": "./kesslerio--vibe-check-mcp",
+      "description": "Stop AI coding disasters before they cost you weeks. Real-time anti-pattern detection for vibe coders who love AI tools but need a safety net to avoid expensive overengineering traps."
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -76247,6 +76312,11 @@
       "name": "aster-void--nix-hazkey",
       "source": "./aster-void--nix-hazkey",
       "description": "fcitx5-hazkey packaged for NixOS and Home Manager"
+    },
+    {
+      "name": "r3dbars--transcripted",
+      "source": "./r3dbars--transcripted",
+      "description": "Turn meetings, dictation, and audio files into local Markdown memory for Claude, Codex, and any agent."
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -78007,6 +78077,16 @@
       "name": "optima-chat--cc-best-practice",
       "source": "./optima-chat--cc-best-practice",
       "description": "AI Native \u5f00\u53d1\u6700\u4f73\u5b9e\u8df5"
+    },
+    {
+      "name": "natea--exomind",
+      "source": "./natea--exomind",
+      "description": "Highly skilled voice-based assistant with intimate knowledge of your preferences, interests, worldview who can synthesize random thoughts from curated info sources, and act on your behalf.  "
+    },
+    {
+      "name": "yeraze--eerovista",
+      "source": "./yeraze--eerovista",
+      "description": "Tool for monitoring Eero Mesh Networks"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -79952,6 +80032,11 @@
       "name": "abo896--obsidian-university-workflow",
       "source": "./abo896--obsidian-university-workflow",
       "description": "A powerful, context-aware Templater system for university students using Obsidian."
+    },
+    {
+      "name": "schlunsen--claude-agent-sdk-go",
+      "source": "./schlunsen--claude-agent-sdk-go",
+      "description": "Port of the [official Python SDK](https://github.com/anthropics/claude-agent-sdk-python) to Go"
     },
     {
       "name": "skenetechnologies--plg-skills",
@@ -82267,6 +82352,31 @@
       "name": "agiletec-inc--mindbase",
       "source": "./agiletec-inc--mindbase",
       "description": "AI Conversation Knowledge Management - PostgreSQL + pgvector + Ollama (Free, Local, Open Source)"
+    },
+    {
+      "name": "agiflow--claude-code-prompt-analysis",
+      "source": "./agiflow--claude-code-prompt-analysis",
+      "description": "Analyze the difference between Agents, Skills, Commands and Styles"
+    },
+    {
+      "name": "agencia-conversion--agentic-seo-skills",
+      "source": "./agencia-conversion--agentic-seo-skills",
+      "description": "Agentic SEO operating system as a Claude Code plugin: project Wiki, DataForSEO workflows, content briefs, technical SEO, and human-approval gates."
+    },
+    {
+      "name": "context-foundry--context-foundry",
+      "source": "./context-foundry--context-foundry",
+      "description": "Stop vibe coding. Start building. "
+    },
+    {
+      "name": "aaronr7734--rimworld-access",
+      "source": "./aaronr7734--rimworld-access",
+      "description": "Adds keyboard accessibility for the blind to RimWorld by Ludeon Studios"
+    },
+    {
+      "name": "sanderland--script-tok",
+      "source": "./sanderland--script-tok",
+      "description": "Code for the paper \"BPE stays on SCRIPT\""
     },
     {
       "name": "13point5--agent-canvas",
@@ -84749,6 +84859,11 @@
       "description": "PostgreSQL database branching"
     },
     {
+      "name": "jinzhongjia--codecompanion-gitcommit-nvim",
+      "source": "./jinzhongjia--codecompanion-gitcommit-nvim",
+      "description": "A CodeCompanion extension that generates AI-powered git commit messages following the Conventional Commits specification."
+    },
+    {
       "name": "vm--nila-code",
       "source": "./vm--nila-code",
       "description": "nila-code"
@@ -86967,6 +87082,46 @@
       "name": "rekordcloud--openkeyscan-analyzer",
       "source": "./rekordcloud--openkeyscan-analyzer",
       "description": "openkeyscan-analyzer"
+    },
+    {
+      "name": "nickcrew--claude-cortex",
+      "source": "./nickcrew--claude-cortex",
+      "description": "Claude Cortex"
+    },
+    {
+      "name": "fernforestgames--luau-gdextension",
+      "source": "./fernforestgames--luau-gdextension",
+      "description": "Godot 4.5+ GDExtension to integrate the Luau (Lua derivative) scripting language"
+    },
+    {
+      "name": "christosk92--waveemusic",
+      "source": "./christosk92--waveemusic",
+      "description": "A high-performance Spotify client for Windows, built with .NET 10 and WinUI 3."
+    },
+    {
+      "name": "composablehorizons--jetpack-compose-boilerplate",
+      "source": "./composablehorizons--jetpack-compose-boilerplate",
+      "description": "A Jetpack Compose template to build apps using Compose on Android and Compose Unstyled."
+    },
+    {
+      "name": "nelknet--nelknet-cdktf",
+      "source": "./nelknet--nelknet-cdktf",
+      "description": "F# Computation Expression Interface for CDKTF"
+    },
+    {
+      "name": "namastexlabs--automagik-tools",
+      "source": "./namastexlabs--automagik-tools",
+      "description": "From API to AI in 30 Seconds - Transform any API into an intelligent MCP agent that learns, adapts, and speaks human"
+    },
+    {
+      "name": "trilogy-group--cli-engineer",
+      "source": "./trilogy-group--cli-engineer",
+      "description": "autonomous CLI software engineering agent"
+    },
+    {
+      "name": "facebookincubator--meta-wearables-webapp",
+      "source": "./facebookincubator--meta-wearables-webapp",
+      "description": "AI-assisted development toolkit for building web applications on Meta Ray-Ban Display glasses."
     },
     {
       "name": "claude-php--claude-php-agent",
@@ -89322,6 +89477,21 @@
       "name": "notmyself--claude-stack-dotnet",
       "source": "./notmyself--claude-stack-dotnet",
       "description": "An full stack example"
+    },
+    {
+      "name": "mikelane--dioxide",
+      "source": "./mikelane--dioxide",
+      "description": "Opinionated, Zero-ceremony, Rust-backed dependency injection for Python"
+    },
+    {
+      "name": "doismellburning--samoyed",
+      "source": "./doismellburning--samoyed",
+      "description": "Samoyed is a fully-featured software modem/TNC for packet radio. It supports AX.25 v2.2, FX.25, IL2P, APRS, multi-speed modems (300-9600 bps), digipeating, IGates, and more. Samoyed is a Go port of Di"
+    },
+    {
+      "name": "demonixis--openxr-osx",
+      "source": "./demonixis--openxr-osx",
+      "description": "OpenXR-OSX"
     },
     {
       "name": "mohiwalla--memes",
@@ -92187,6 +92357,56 @@
       "name": "patrickulrich--nostr-blue",
       "source": "./patrickulrich--nostr-blue",
       "description": "Full feature nostr client found at nostr.blue"
+    },
+    {
+      "name": "sgaunet--claude-plugins",
+      "source": "./sgaunet--claude-plugins",
+      "description": "A curated collection of specialized Claude Code plugins designed to enhance your development workflow with intelligent agents, skills, and commands."
+    },
+    {
+      "name": "steve-z-wang--webtask",
+      "source": "./steve-z-wang--webtask",
+      "description": "Easy-to-use LLM-powered web automation."
+    },
+    {
+      "name": "fal3--claude-skills-collection",
+      "source": "./fal3--claude-skills-collection",
+      "description": "claude-skills-collection"
+    },
+    {
+      "name": "6kmfi6hp--kiro-batch-login",
+      "source": "./6kmfi6hp--kiro-batch-login",
+      "description": "\u6279\u91cf\u534a\u81ea\u52a8\u767b\u5f55\u5de5\u5177\uff0c\u4f7f\u7528 AWS SSO OIDC \u8fdb\u884c\u8eab\u4efd\u9a8c\u8bc1\uff0c\u65e0\u9700\u914d\u7f6e OAuth \u5ba2\u6237\u7aef\u51ed\u8bc1 | Batch semi-automatic login tool using AWS SSO OIDC without OAuth client credentials"
+    },
+    {
+      "name": "cometsh--drinkup",
+      "source": "./cometsh--drinkup",
+      "description": "Elixir ATProtocol firehose & subscription listener"
+    },
+    {
+      "name": "just-every--task",
+      "source": "./just-every--task",
+      "description": "Thoughtfully Completes Tasks"
+    },
+    {
+      "name": "rayners--fvtt-seasons-and-stars",
+      "source": "./rayners--fvtt-seasons-and-stars",
+      "description": "Calendar and timekeeping module for FoundryVTT v13+ with Simple Calendar compatibility bridge"
+    },
+    {
+      "name": "pq-25-summer--dev-coach-kit",
+      "source": "./pq-25-summer--dev-coach-kit",
+      "description": "\u8f6f\u4ef6\u5f00\u53d1\u6559\u5b66\u6307\u5357+\u5de5\u5177\u5305"
+    },
+    {
+      "name": "zeroeval--zeroeval-ts",
+      "source": "./zeroeval--zeroeval-ts",
+      "description": "zeroeval-ts"
+    },
+    {
+      "name": "zeroeval--zeroeval-ts",
+      "source": "./zeroeval--zeroeval-ts",
+      "description": "zeroeval-ts"
     },
     {
       "name": "scardoso-lu--google-antigravity-settings",
@@ -95287,6 +95507,31 @@
       "name": "claude-market--marketplace",
       "source": "./claude-market--marketplace",
       "description": "Open source, hand-curated marketplace for Claude Code tools, agents and skills."
+    },
+    {
+      "name": "hongxin--realconsole",
+      "source": "./hongxin--realconsole",
+      "description": "RealConsole: A smart console application in Rust"
+    },
+    {
+      "name": "numikel--law-scrapper-mcp",
+      "source": "./numikel--law-scrapper-mcp",
+      "description": "A comprehensive Model Context Protocol (MCP) server for accessing and analyzing Polish legal acts from the Sejm API, enabling AI-powered legal research and document analysis."
+    },
+    {
+      "name": "cristianps1988--agents-workflow",
+      "source": "./cristianps1988--agents-workflow",
+      "description": "A practical methodology for building complex, production-grade applications with AI assistance. Uses specialized agents,   context optimization, and token-efficient strategies to maintain consistency "
+    },
+    {
+      "name": "guzus--tg-claude",
+      "source": "./guzus--tg-claude",
+      "description": "Telegram/Discord client for Claude Code"
+    },
+    {
+      "name": "fuego-wtf--graphyn-code",
+      "source": "./fuego-wtf--graphyn-code",
+      "description": "Your AI dev team member, one command away."
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -98657,6 +98902,11 @@
       "name": "jtdowney--distronomicon",
       "source": "./jtdowney--distronomicon",
       "description": "Linux tool that checks GitHub for repository releases and performs automatic updates"
+    },
+    {
+      "name": "regscale--oscal-hub",
+      "source": "./regscale--oscal-hub",
+      "description": "Visual User Experience for Interacting with NIST OSCAL"
     },
     {
       "name": "lightninglabs--lnget",
@@ -102907,6 +103157,51 @@
       "name": "akirose--glm-proxy",
       "source": "./akirose--glm-proxy",
       "description": "GLM 4.x tool call proxy"
+    },
+    {
+      "name": "shanemcd--jirahhh",
+      "source": "./shanemcd--jirahhh",
+      "description": "jirahhh \u2014 because that\u2019s how it feels using it."
+    },
+    {
+      "name": "altudev--wiro-ai-sdk",
+      "source": "./altudev--wiro-ai-sdk",
+      "description": "Unofficial Community Maintained Wiro AI Sdk package for Node.js developers."
+    },
+    {
+      "name": "ekg--ragc",
+      "source": "./ekg--ragc",
+      "description": "ragc"
+    },
+    {
+      "name": "home-lang--craft",
+      "source": "./home-lang--craft",
+      "description": "Performant, native desktop & mobile apps with web languages."
+    },
+    {
+      "name": "rachittshah--cc-codex",
+      "source": "./rachittshah--cc-codex",
+      "description": "Codex + Claude Code Integration: Use OpenAI Codex for planning/reasoning and Claude Code CLI for implementation"
+    },
+    {
+      "name": "pancrepal-xiaoyibao--mcp-pubmed-server-pancrpal",
+      "source": "./pancrepal-xiaoyibao--mcp-pubmed-server-pancrpal",
+      "description": "\u4e00\u4e2a\u7528\u6765\u8ba9\u672c\u5730agent\u5229\u7528api\u9ad8\u6548\u722c\u53d6pubmed\u8bba\u6587\u7684mcp\u5de5\u5177;\u7b2c\u4e00\u5f00\u53d1hhx: https://github.com/hhx465453939/mcp-pubmed-server"
+    },
+    {
+      "name": "pauljphilp--effect-json",
+      "source": "./pauljphilp--effect-json",
+      "description": "effect-json"
+    },
+    {
+      "name": "daoflow-dev--daoflow",
+      "source": "./daoflow-dev--daoflow",
+      "description": "Instead of AWS wrapper, we're building bare metal  / VM wrappers for you. Open source alternative to AWS/Vercel/Heroku. Hosting your flow, from Vibe Coding to IPO."
+    },
+    {
+      "name": "kashifkhn--remove-comments",
+      "source": "./kashifkhn--remove-comments",
+      "description": "Remove all comments from source files \u2014 Neovim plugin + standalone CLI tool (rmc). AST-based via Tree-sitter."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -116804,6 +117099,221 @@
       "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
     },
     {
+      "name": "merlinquantum--reproduced-papers",
+      "source": "./merlinquantum--reproduced-papers",
+      "description": "Benchmarking photonic QML against the wider QML landscape to reveal what truly works, what scales, and where the community can push next."
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "aman245002--funnel4",
+      "source": "./aman245002--funnel4",
+      "description": "Funnel4"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "aman245002--funnel3",
+      "source": "./aman245002--funnel3",
+      "description": "Funnel3"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "superops-team--markrender",
+      "source": "./superops-team--markrender",
+      "description": "A Gui tool that can convert any file into markdown and then convert markdonw to any type of file"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "daihuynh--lark-dbml",
+      "source": "./daihuynh--lark-dbml",
+      "description": "DBML parser using LARK provides structured output, Pydantic models, and supports multiple converters, e.g., SQL with SQLGlot"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "roberthsu2003--vibe-coding-tools",
+      "source": "./roberthsu2003--vibe-coding-tools",
+      "description": "\u5de5\u5177\u7bc7"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "aryanpyx--auracast",
+      "source": "./aryanpyx--auracast",
+      "description": "AuraCast"
+    },
+    {
+      "name": "vibecodingdev--vibe-coding-fps-game",
+      "source": "./vibecodingdev--vibe-coding-fps-game",
+      "description": "Multiplayer FPS Game build by vibe coding"
+    },
+    {
+      "name": "whtsky--copilot2api",
+      "source": "./whtsky--copilot2api",
+      "description": "Lightweight Go proxy that exposes GitHub Copilot as OpenAI and Anthropic compatible API endpoints"
+    },
+    {
+      "name": "steviee--git-issues",
+      "source": "./steviee--git-issues",
+      "description": "Repository based Issue Tracker (think Github Issues) for AI Agents"
+    },
+    {
+      "name": "techfernandesltda--apex-mcp",
+      "source": "./techfernandesltda--apex-mcp",
+      "description": "MCP Server for Oracle APEX 24.2 \u2014 create, inspect and modify APEX apps via natural language with Claude Code"
+    },
+    {
+      "name": "emisso-ai--emisso-sii",
+      "source": "./emisso-ai--emisso-sii",
+      "description": "TypeScript SDK for Chile's SII \u2014 electronic invoicing (DTE), certificate auth, and invoice listing (RCV)"
+    },
+    {
+      "name": "pionex-official--pionex-ai-kit",
+      "source": "./pionex-official--pionex-ai-kit",
+      "description": "Pionex AI Kit"
+    },
+    {
+      "name": "wip-group--discord-utils",
+      "source": "./wip-group--discord-utils",
+      "description": "A comprehensive toolkit for Discord communities."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -123684,6 +124194,31 @@
       "description": "reviewer"
     },
     {
+      "name": "nillionnetwork--nilai-py",
+      "source": "./nillionnetwork--nilai-py",
+      "description": "nilai-py"
+    },
+    {
+      "name": "bparsons0904--phantom-err-nvim",
+      "source": "./bparsons0904--phantom-err-nvim",
+      "description": "phantom-err.nvim"
+    },
+    {
+      "name": "r-xla--stablehlo",
+      "source": "./r-xla--stablehlo",
+      "description": "Create stableHLO programs in R"
+    },
+    {
+      "name": "arnaudmiribel--neat-streamlit-dashboard",
+      "source": "./arnaudmiribel--neat-streamlit-dashboard",
+      "description": "A clean and modern Streamlit analytics dashboard with interactive charts and beautiful UI"
+    },
+    {
+      "name": "arnaudmiribel--neat-streamlit-dashboard",
+      "source": "./arnaudmiribel--neat-streamlit-dashboard",
+      "description": "A clean and modern Streamlit analytics dashboard with interactive charts and beautiful UI"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -125177,6 +125712,11 @@
       "name": "open-vera--openvera",
       "source": "./open-vera--openvera",
       "description": "OpenVera"
+    },
+    {
+      "name": "vinvcn--mattpocock-skills-zh-cn",
+      "source": "./vinvcn--mattpocock-skills-zh-cn",
+      "description": "\u8fd9\u662f mattpocock/skills \u7684\u7b80\u4f53\u4e2d\u6587\u672c\u5730\u5316\u7248\u672c\u3002"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -222612,6 +223152,26 @@
       "name": "strangebrewer--gql-home-maintenance",
       "source": "./strangebrewer--gql-home-maintenance",
       "description": "gql-home-maintenance"
+    },
+    {
+      "name": "timsmykov--synapse",
+      "source": "./timsmykov--synapse",
+      "description": "synapse"
+    },
+    {
+      "name": "ixpl0--dom-cash",
+      "source": "./ixpl0--dom-cash",
+      "description": "dom.cash"
+    },
+    {
+      "name": "giovannilondei94--porftolio-giovanni-londei",
+      "source": "./giovannilondei94--porftolio-giovanni-londei",
+      "description": "Responsive personal portfolio website built with Next.js, Tailwind CSS and TypeScript. Multilingual (Italian / English), downloadable CV, and project showcase."
+    },
+    {
+      "name": "openshift-online--rosa-external-tests",
+      "source": "./openshift-online--rosa-external-tests",
+      "description": "Tests run from outside of the service to test the ROSA service."
     }
   ]
 }
