@@ -1,0 +1,9 @@
+{
+  "name": "omexit--claude-skills-pack",
+  "displayName": "claude-skills-pack",
+  "description": "30 ready-to-use Claude Code skills covering the full product development lifecycle \u2014 discovery, planning, quality, release, operations, and team communication.",
+  "version": "1.0.0",
+  "author": "OmexIT",
+  "homepage": "https://github.com/OmexIT/claude-skills-pack",
+  "skills": []
+}
