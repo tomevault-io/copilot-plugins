@@ -1,0 +1,44 @@
+{
+  "name": "fastapi-ai-starter",
+  "owner": "DimplesY",
+  "repo": "fastapi-ai-starter",
+  "description": "\ud83d\ude80 \u73b0\u4ee3\u5316 FastAPI \u9879\u76ee\u6a21\u677f | Modern FastAPI template with Celery + PostgreSQL + Redis + Docker. Production-ready starter kit.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DimplesY/fastapi-ai-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T06:41:48Z"
+}
