@@ -1,0 +1,9 @@
+{
+  "name": "georgeleepatterson--clickhouse-arrow",
+  "displayName": "clickhouse-arrow",
+  "description": "ClickHouse Native Protocol Rust Client w/ Arrow Compatibility",
+  "version": "1.0.0",
+  "author": "GeorgeLeePatterson",
+  "homepage": "https://github.com/GeorgeLeePatterson/clickhouse-arrow",
+  "skills": []
+}
