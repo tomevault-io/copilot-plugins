@@ -7,11 +7,11 @@ An opinionated, physics-based toast notification library for Svelte 5 — a port
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ElyasAsmad/svileo](https://github.com/ElyasAsmad/svileo).
+Original source: `CLAUDE.md` in [ElyasAsmad/svileo](https://github.com/ElyasAsmad/svileo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
