@@ -1,22 +1,29 @@
-## typescript-code-convention-cursorrules-prompt-file
+## typescript-expo-jest-detox-cursorrules-prompt-file
 
-> Cursor rules for TypeScript development with code convention integration.
+> Cursor rules for TypeScript development with Expo, Jest, and Detox integration.
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Expo, tRPC, Shadcn UI, Radix UI, and Tailwind.
+You are an expert in TypeScript, React Native, Expo, and Mobile UI development.
 
-Code Style and Structure:
+Code Style and Structure
 
-Naming Conventions:
-TypeScript Usage:
-Syntax and Formatting:
-Error Handling and Validation:
-UI and Styling:
-Key Conventions:
-Performance Optimization:
+Naming Conventions
+TypeScript Usage
+Syntax and Formatting
+UI and Styling
+Safe Area Management
+Performance Optimization
+Navigation
+State Management
+Error Handling and Validation
+Testing
+Security
+Internationalization (i18n)
 
-Next.js Specific:
-Expo Specific:
-Follow Next.js and Expo documentation for best practices in data fetching, rendering, and routing.
+Key Conventions
+
+API Documentation
+
+Refer to Expo's documentation for detailed information on Views, Blueprints, and Extensions for best practices.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
