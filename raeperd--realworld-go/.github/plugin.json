@@ -1,0 +1,9 @@
+{
+  "name": "raeperd--realworld-go",
+  "displayName": "realworld.go",
+  "description": "golang net/http implementation of realworld example.app",
+  "version": "1.0.0",
+  "author": "raeperd",
+  "homepage": "https://github.com/raeperd/realworld.go",
+  "skills": []
+}
