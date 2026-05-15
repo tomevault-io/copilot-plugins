@@ -1,0 +1,9 @@
+{
+  "name": "fluskapp--flusk-dev",
+  "displayName": "flusk-dev",
+  "description": "Open-source LLM cost optimization and observability",
+  "version": "1.0.0",
+  "author": "fluskapp",
+  "homepage": "https://github.com/fluskapp/flusk-dev",
+  "skills": []
+}
