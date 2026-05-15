@@ -1,0 +1,9 @@
+{
+  "name": "mazrean--dockportless",
+  "displayName": "dockportless",
+  "description": "Local service router with automatic port assignment, like vercel/portless but for any compose-compatible tool.",
+  "version": "1.0.0",
+  "author": "mazrean",
+  "homepage": "https://github.com/mazrean/dockportless",
+  "skills": []
+}
