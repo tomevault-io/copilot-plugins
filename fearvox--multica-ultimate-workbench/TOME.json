@@ -4,7 +4,7 @@
   "repo": "multica-ultimate-workbench",
   "description": "Public multi-agent workbench skill pack for SDD, review gates, context discipline, VM lanes, Sanity context, and autonomous agent coordination.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fearvox/multica-ultimate-workbench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:57:20Z"
+  "distributed_at": "2026-05-15T19:39:21Z"
 }
