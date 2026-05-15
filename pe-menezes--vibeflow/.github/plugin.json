@@ -1,0 +1,9 @@
+{
+  "name": "pe-menezes--vibeflow",
+  "displayName": "vibeflow",
+  "description": "Spec-driven development for AI agents. Define what to build, let the agent build it right. Claude Code \u00b7 Cursor \u00b7 Copilot.",
+  "version": "1.0.0",
+  "author": "pe-menezes",
+  "homepage": "https://github.com/pe-menezes/vibeflow",
+  "skills": []
+}
