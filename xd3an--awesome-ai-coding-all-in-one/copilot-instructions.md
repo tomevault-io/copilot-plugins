@@ -1,83 +1,115 @@
-## swiftui-guidelines-cursorrules-prompt-file
+## tailwind-css-nextjs-guide-cursorrules-prompt-file
 
-> Cursor rules for SwiftUI development guidelines.
+> Cursor rules for Tailwind CSS development with Next.js integration.
 
-# Role & Perspective
-You are a Senior iOS Engineer and SwiftUI Expert. You are also an expert in Clean Architecture, SOLID Principles, Design Patterns (MVVM-C, VIPER), and Performance Optimization.
+Prompt Generation Rules:
 
-# Code Generation Guidelines
+- Analyze the component requirements thoroughly
+- Include specific DaisyUI component suggestions
+- Specify desired Tailwind CSS classes for styling
+- Mention any required TypeScript types or interfaces
+- Include instructions for responsive design
+- Suggest appropriate Next.js features if applicable
+- Specify any necessary state management or hooks
+- Include accessibility considerations
+- Mention any required icons or assets
+- Suggest error handling and loading states
+- Include instructions for animations or transitions if needed
+- Specify any required API integrations or data fetching
+- Mention performance optimization techniques if applicable
+- Include instructions for testing the component
+- Suggest documentation requirements for the component
 
-## 1. General Principles
-- **Language:** Swift 6.0+ (Strict Concurrency).
-- **Framework:** SwiftUI (Targeting iOS 15+).
-- **Architecture:** MVVM or Clean Architecture. Use Coordinators for complex navigation.
-- **Design Principles (SOLID):**
-  - **Single Responsibility (SRP):** Each View/ViewModel must have a single purpose.
-  - **Open/Closed (OCP):** Open for extension, closed for modification.
-  - **Liskov Substitution (LSP):** Subtypes must be substitutable for base types.
-  - **Interface Segregation (ISP):** Clients should not be forced to depend on interfaces they do not use.
-  - **Dependency Inversion (DIP):** Depend on abstractions (Protocols), not concretions.
-- **Safety:** STRICTLY enforce Swift 6 concurrency safety (`Sendable`, `MainActor`, `actor`). Treat warnings as errors.
+General Component Creation Guidelines:
 
-## 2. SwiftUI Best Practices (Performance First)
-- **View Composition:**
-  - **Strict Size Limit:** The `body` property MUST NOT exceed **50 lines**. Relentlessly extract subviews into small, reusable `structs` or private extension functions.
-  - **GeometryReader:** Avoid unless absolutely necessary. It consumes all available space and affects layout performance. Prefer `.background(GeometryReader ...)` or `Layout` protocol.
-- **Modifiers:**
-  - **Hit Testing:** Always add `.contentShape(Rectangle())` to `HStack`/`VStack` rows with explicitly transparent backgrounds to ensure tap gestures work correctly.
-  - **Shorthand Syntax:** Prefer type-inferred dot syntax where available (e.g., `.background(.blue)`).
-- **State Management:**
-  - `@State`: For local value-type properties (Bool, Int, String).
-  - `@StateObject`: ONLY in the view that *creates/owns* the lifecycle.
-  - `@ObservedObject`: In child views that react to changes but *do not* own the object.
-  - `@EnvironmentObject`: Use sparingly. Prefer explicit Dependency Injection via `init`.
-- **List & Grids:**
-  - Use `LazyVStack` / `LazyHStack` for dynamic content.
-  - **Identifiers:** Always use stable `id` (avoid `\.self`).
-- **Animation:**
-  - Use `.animation(_:value:)` explicitly linked to a state variable.
-  - Avoid `withAnimation` inside `body` purely for state changes unless triggered by user interaction.
-  - **TimelineView:** Use `TimelineView` for high-frequency visual updates instead of `Timer`.
+- Prioritize reusability and modularity
+- Ensure consistent naming conventions
+- Follow React best practices and patterns
+- Implement proper prop validation
+- Consider internationalization requirements
+- Optimize for SEO when applicable
+- Ensure compatibility with different browsers and devices
 
-## 3. Swift 6 Concurrency & Threading
-- **Main Thread:** UI updates MUST be executed on the MainActor.
-  - Annotate ViewModels with `@MainActor`.
-  - Use `MainActor.run { ... }` or `Task { @MainActor in ... }` context switching.
-- **Lifecycle:**
-  - **Prefer `.task(id: ...)` over `.onAppear`**. Ensures async work is automatically cancelled.
-- **Data Layer:**
-  - Prefer `actor` for shared mutable state/services.
-  - Mark pure logic functions as `nonisolated` if they do not touch the MainActor.
-- **Blocking:**
-  - NEVER block the main thread. Move heavy computation to a detached `Task`.
+General Rules:
 
-## 4. Memory Management & Safety
-- **Closures:**
-  - Default to `[weak self]`.
-  - Strictly use `guard let self else { return }` at the start of async closures.
-  - ONLY use `[unowned self]` if you can mathematically prove the lifecycle.
-- **Image Handling:**
-  - Use `AsyncImage` (with caching) or Nuke/Kingfisher.
-  - Always apply `.resizable()` immediately on images.
+- Enable strict TypeScript (strict: true in tsconfig.json)
+- Avoid 'any', prefer 'unknown' with runtime checks
+- Explicitly type function inputs and outputs
+- Use advanced TypeScript features (type guards, mapped types, conditional types)
+- Organize project structure: components, pages, hooks, utils, styles, contracts, services
+- Separate concerns: presentational components, business logic, side effects
+- Use Biome for code formatting and linting
+- Configure Biome as a pre-commit hook
 
-## 5. Coding Style & Naming
-- **Naming:** Verbose and clear. `fetchUserData` > `getData`.
-- **Structure:**
-  - Use `MARK: - Section Name` to organize code.
-  - Place private helper functions in `private extension`.
-- **Previews:**
-  - Always provide a Preview using `#Preview` (if Xcode 15+) or `PreviewProvider`.
-  - Inject Mock data into previews.
+Next.js Rules:
 
-## 6. Testing Strategy
-- **Unit Tests:** Follow the `Given-When-Then` pattern.
-- **Mocks:** Generate Protocol-based Mocks for all external dependencies.
-- **UITests:** Assign distinct `accessibilityIdentifier` strings to UI elements.
+- Use dynamic routes with bracket notation ([id].tsx)
+- Validate and sanitize route parameters
+- Prefer flat, descriptive routes
+- Use getServerSideProps for dynamic data, getStaticProps/getStaticPaths for static
+- Implement Incremental Static Regeneration (ISR) where appropriate
+- Use next/image for optimized images
+- Configure image layout, priority, sizes, and srcSet attributes
 
-# Response Format
-- **Block-based:** Return code in formatted code blocks.
-- **Reasoning:** Briefly explain *why* a specific approach was chosen (Performance/Safety/SOLID).
-- **Diffs:** Prioritize showing specific changes or full corrected context.
+TypeScript Rules:
+
+- Enable all strict mode options in tsconfig.json
+- Explicitly type all variables, parameters, and return values
+- Use utility types, mapped types, and conditional types
+- Prefer 'interface' for extendable object shapes
+- Use 'type' for unions, intersections, and primitive compositions
+- Document complex types with JSDoc
+- Avoid ambiguous union types, use discriminated unions when necessary
+
+TailwindCSS and DaisyUI Rules:
+
+- Use TailwindCSS utility classes for styling
+- Avoid custom CSS unless absolutely necessary
+- Maintain consistent order of utility classes
+- Use Tailwind's responsive variants for adaptive designs
+- Leverage DaisyUI components for rapid development
+- Customize DaisyUI components only when necessary
+- Define and use design tokens in tailwind.config.js
+
+Starknet React Rules:
+
+- Centralize blockchain connection management
+- Implement automatic reconnection and error handling
+- Use React hooks for transaction status management
+- Provide clear UI feedback for blockchain interactions
+- Implement comprehensive error handling for blockchain operations
+
+Cairo Rules:
+
+- Design modular and maintainable contract structures
+- Optimize for gas efficiency
+- Minimize state changes and storage access
+- Document all contracts and functions thoroughly
+- Explain complex logic and implementation choices
+
+Development Process:
+
+- Conduct thorough code reviews via Pull Requests
+- Include clear PR descriptions with context and screenshots
+- Implement comprehensive automated testing (unit, integration, e2e)
+- Prioritize meaningful tests over high coverage numbers
+- Use Conventional Commits for commit messages (feat:, fix:, docs:, chore:)
+- Make small, incremental commits for easier review and debugging
+
+Biome Rules:
+
+- Use Biome for code formatting and linting
+- Configure Biome as a pre-commit hook
+- Follow Biome's recommended rules
+- Customize Biome configuration in biome.json as needed
+- Ensure consistent code style across the project
+- Run Biome checks before committing changes
+- Address all Biome warnings and errors promptly
+- Use Biome's organize imports feature to maintain clean import statements
+- Leverage Biome's advanced linting capabilities for TypeScript
+- Integrate Biome into the CI/CD pipeline for automated checks
+- Keep Biome updated to the latest stable version
+- Use Biome's ignore patterns to exclude specific files or directories when necessary
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
