@@ -1,0 +1,9 @@
+{
+  "name": "easynet-cn--enote",
+  "displayName": "enote",
+  "description": "A cross-platform desktop note-taking application built with Tauri, featuring a modern user interface using Vue, TypeScript, and Rust for high performance and security",
+  "version": "1.0.0",
+  "author": "easynet-cn",
+  "homepage": "https://github.com/easynet-cn/enote",
+  "skills": []
+}
