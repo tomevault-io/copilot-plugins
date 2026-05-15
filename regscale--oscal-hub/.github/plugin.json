@@ -1,0 +1,9 @@
+{
+  "name": "regscale--oscal-hub",
+  "displayName": "oscal-hub",
+  "description": "Visual User Experience for Interacting with NIST OSCAL",
+  "version": "1.0.0",
+  "author": "RegScale",
+  "homepage": "https://github.com/RegScale/oscal-hub",
+  "skills": []
+}
