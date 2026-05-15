@@ -1,0 +1,9 @@
+{
+  "name": "ryan-ressmeyer--quench-nvim",
+  "displayName": "quench.nvim",
+  "description": "Interactive Python development in Neovim with cell-based execution, IPython kernels, and rich media output in your browser",
+  "version": "1.0.0",
+  "author": "ryan-ressmeyer",
+  "homepage": "https://github.com/ryan-ressmeyer/quench.nvim",
+  "skills": []
+}
