@@ -1,0 +1,9 @@
+{
+  "name": "epam--statgpt-portal-frontend",
+  "displayName": "statgpt-portal-frontend",
+  "description": "StatGPT Portal Frontend",
+  "version": "1.0.0",
+  "author": "epam",
+  "homepage": "https://github.com/epam/statgpt-portal-frontend",
+  "skills": []
+}
