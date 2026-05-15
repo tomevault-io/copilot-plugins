@@ -1,10 +1,10 @@
 {
   "name": "devclarityai--devclarity-coding-tutorial",
   "displayName": "devclarity-coding-tutorial",
-  "description": "AI instruction files for devclarity-coding-tutorial by devclarityai",
+  "description": "devclarity-coding-tutorial",
   "version": "1.0.0",
   "author": "devclarityai",
-  "homepage": "https://tomevault.io/claim/devclarityai",
+  "homepage": "https://github.com/devclarityai/devclarity-coding-tutorial",
   "skills": [
     {
       "name": "code-explainer",
