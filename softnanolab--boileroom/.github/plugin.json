@@ -1,0 +1,9 @@
+{
+  "name": "softnanolab--boileroom",
+  "displayName": "boileroom",
+  "description": "Protein prediction models implemented with Modal",
+  "version": "1.0.0",
+  "author": "softnanolab",
+  "homepage": "https://github.com/softnanolab/boileroom",
+  "skills": []
+}
