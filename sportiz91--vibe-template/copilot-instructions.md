@@ -1,150 +1,102 @@
-## frontend
+## general
 
-> Follow these rules when working on the frontend.
+> Follow these rules for all requests.
 
-### Frontend Rules
+# Project Instructions
+# Project Instructions
 
-Follow these rules when working on the frontend.
+Use specification and guidelines as you build the app.
 
-It uses Next.js, Tailwind, Shadcn, and Framer Motion.
+Write the complete code for every step. Do not get lazy.
 
-#### General Rules
+Your goal is to completely finish whatever I ask for.
 
-- Use `lucide-react` for icons
-- useSidebar must be used within a SidebarProvider
+You will see <ai_context> tags in the code. These are context tags that you should use to help you understand the codebase.
 
-#### Components
+## Overview
 
-- Use divs instead of other html tags unless otherwise specified
-- Separate the main parts of a component's html with an extra blank line for visual spacing
-- Always tag a component with either `use server` or `use client` at the top, including layouts and pages
+This is a web app template.
 
-##### Organization
+## Tech Stack
 
-- All components be named using kebab case like `example-component.tsx` unless otherwise specified
-- Put components in `/_components` in the route if one-off components
-- Put components in `/components` from the root if shared components
+- Frontend: Next.js, Tailwind, Shadcn, Framer Motion
+- Backend: Postgres, Supabase, Drizzle ORM, Server Actions
+- Auth: Clerk
+- Payments: Stripe
+- Analytics: PostHog
+- Deployment: Vercel
 
-##### Data Fetching
+## Project Structure
 
-- Fetch data in server components and pass the data down as props to client components.
-- Use server actions from `/actions` to mutate data.
+- `actions` - Server actions
+  - `db` - Database related actions
+  - Other actions
+- `app` - Next.js app router
+  - `api` - API routes
+  - `route` - An example route
+    - `_components` - One-off components for the route
+    - `layout.tsx` - Layout for the route
+    - `page.tsx` - Page for the route
+- `components` - Shared components
+  - `ui` - UI components
+  - `utilities` - Utility components
+- `db` - Database
+  - `schema` - Database schemas
+- `lib` - Library code
+  - `hooks` - Custom hooks
+  - `services` - Business logic services
+- `prompts` - Prompt files
+- `public` - Static assets
+- `types` - Type definitions
 
-##### Data Flow Architecture
+## Rules
 
-Follow this layered architecture pattern:
-- **React Components** → **Server Actions** → **Services** (when complex logic is needed)
-- Services handle domain-specific logic, external API integrations, and complex business rules
-- Keep Server Actions lightweight and focused on data validation and orchestration
+Follow these rules when building the app.
 
-##### Server Components
+### General Rules
 
-- Use `"use server"` at the top of the file.
-- Implement Suspense for asynchronous data fetching to show loading states while data is being fetched.
-- If no asynchronous logic is required for a given server component, you do not need to wrap the component in `<Suspense>`. You can simply return the final UI directly since there is no async boundary needed.
-- If asynchronous fetching is required, you can use a `<Suspense>` boundary and a fallback to indicate a loading state while data is loading.
-- Server components cannot be imported into client components. If you want to use a server component in a client component, you must pass the as props using the "children" prop
-- params in server pages should be awaited such as `const { courseId } = await params` where the type is `params: Promise<{ courseId: string }>`
+- Use `@` to import anything from the app unless otherwise specified
+- Use kebab case for all files and folders unless otherwise specified
+- Don't update shadcn components unless otherwise specified
 
-Example of a server layout:
+#### Env Rules
 
-```tsx
-"use server"
+- If you update environment variables, update the `.env.example` file
+- All environment variables should go in `.env.local`
+- Do not expose environment variables to the frontend
+- Use `NEXT_PUBLIC_` prefix for environment variables that need to be accessed from the frontend
+- Always access environment variables via the centralized config module (`serverConfig` and `publicEnv` from `@/lib/config`). Do not use `process.env` directly in application code.
 
-export default async function ExampleServerLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
-  return children
-}
+#### Type Rules
+
+Follow these rules when working with types.
+
+- When importing types, use `@/types`
+- Name files like `example-types.ts`
+- All types should go in `types`
+- Make sure to export the types in `types/index.ts`
+- Prefer interfaces over type aliases
+- If referring to db types, use `@/db/schema` such as `SelectTodo` from `todos-schema.ts`
+
+An example of a type:
+
+`types/actions-types.ts`
+
+```ts
+export type ActionState<T> =
+  | { isSuccess: true; message: string; data: T }
+  | { isSuccess: false; message: string; data?: never }
 ```
 
-Example of a server page (with async logic):
+And exporting it:
 
-```tsx
-"use server"
+`types/index.ts`
 
-import { Suspense } from "react"
-import { SomeAction } from "@/actions/some-actions"
-import SomeComponent from "./_components/some-component"
-import SomeSkeleton from "./_components/some-skeleton"
-
-export default async function ExampleServerPage() {
-  return (
-    <Suspense fallback={<SomeSkeleton className="some-class" />}>
-      <SomeComponentFetcher />
-    </Suspense>
-  )
-}
-
-async function SomeComponentFetcher() {
-  const { data } = await SomeAction()
-  return <SomeComponent className="some-class" initialData={data || []} />
-}
+```ts
+export * from "./actions-types"
 ```
 
-Example of a server page (no async logic required):
-
-```tsx
-"use server"
-
-import SomeClientComponent from "./_components/some-client-component"
-
-// In this case, no asynchronous work is being done, so no Suspense or fallback is required.
-export default async function ExampleServerPage() {
-  return <SomeClientComponent initialData={[]} />
-}
-```
-
-Example of a server component:
-
-```tsx
-"use server"
-
-interface ExampleServerComponentProps {
-  // Your props here
-}
-
-export async function ExampleServerComponent({
-  props
-}: ExampleServerComponentProps) {
-  // Your code here
-}
-```
-
-##### Client Components
-
-- Use `"use client"` at the top of the file
-- Client components can safely rely on props passed down from server components, or handle UI interactions without needing <Suspense> if there’s no async logic.
-- Never use server actions in client components. If you need to create a new server action, create it in `/actions`
-
-Example of a client page:
-
-```tsx
-"use client"
-
-export default function ExampleClientPage() {
-  // Your code here
-}
-```
-
-Example of a client component:
-
-```tsx
-"use client"
-
-interface ExampleClientComponentProps {
-  initialData: any[]
-}
-
-export default function ExampleClientComponent({
-  initialData
-}: ExampleClientComponentProps) {
-  // Client-side logic here
-  return <div>{initialData.length} items</div>
-}
-```
+- Always access environment variables via the centralized config module (`serverConfig` and `publicEnv` from `@/lib/config`). Do not use `process.env` directly in application code.
 
 ---
 > Source: [sportiz91/vibe-template](https://github.com/sportiz91/vibe-template) — distributed by [TomeVault](https://tomevault.io).
