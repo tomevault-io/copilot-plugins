@@ -8679,6 +8679,11 @@
       "description": "\ud83d\ude80 Pytorch Distributed native training library for LLMs/VLMs with OOTB Hugging Face support"
     },
     {
+      "name": "doist--todoist-mcp",
+      "source": "./doist--todoist-mcp",
+      "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support."
+    },
+    {
       "name": "hesamsheikh--octogent",
       "source": "./hesamsheikh--octogent",
       "description": "A thin orchestration dashboard over Claude Code for managing context, automation, and developer headspace. You need tentacles. \ud83e\udd91"
@@ -30994,6 +30999,11 @@
       "description": "MCP Server to manage a Wordpress CMS system."
     },
     {
+      "name": "dbt-labs--ade-bench",
+      "source": "./dbt-labs--ade-bench",
+      "description": "ade-bench"
+    },
+    {
       "name": "mag123c--toktrack",
       "source": "./mag123c--toktrack",
       "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)"
@@ -31207,6 +31217,16 @@
       "name": "nerdai--llm-agents-from-scratch",
       "source": "./nerdai--llm-agents-from-scratch",
       "description": "Build LLM agents and multi-agent systems from scratch, with MCP, Skills, and A2A"
+    },
+    {
+      "name": "6664555--machinelearningbasedmalwaredetection",
+      "source": "./6664555--machinelearningbasedmalwaredetection",
+      "description": "A machine learning-based malware detection system (featuring a clean, user-friendly interface and a detailed user guide)"
+    },
+    {
+      "name": "marckrenn--rtfmbro-mcp",
+      "source": "./marckrenn--rtfmbro-mcp",
+      "description": "rtfmbro provides always-up-to-date, version-specific package documentation as context for coding agents. An alternative to context7"
     },
     {
       "name": "kulterryan--who-to-bother-at-on-x",
@@ -32197,6 +32217,11 @@
       "name": "dollspace-gay--aurora-prism",
       "source": "./dollspace-gay--aurora-prism",
       "description": "A third party Appview for ATproto"
+    },
+    {
+      "name": "nwiizo--claudelytics",
+      "source": "./nwiizo--claudelytics",
+      "description": "A fast CLI tool for analyzing Claude Code usage patterns, token consumption, and costs"
     },
     {
       "name": "sonarsource--sonarqube-agent-plugins",
@@ -33919,6 +33944,16 @@
       "description": "gdserial"
     },
     {
+      "name": "symbiosika--n8n-embedded-chat-interface",
+      "source": "./symbiosika--n8n-embedded-chat-interface",
+      "description": "A simple Chat interface to embed on your website to chat with an n8n AI Flow"
+    },
+    {
+      "name": "zipstack--rubberduck",
+      "source": "./zipstack--rubberduck",
+      "description": "LLM caching proxy server that emulates popular LLMs with the ability to simulate failures"
+    },
+    {
       "name": "liangdabiao--tikhub-api-skill",
       "source": "./liangdabiao--tikhub-api-skill",
       "description": "TikHub API \u52a9\u624b\u662f\u4e00\u4e2a Claude Code Agent Skill\uff0c\u7528\u4e8e\u5e2e\u52a9\u7528\u6237\u641c\u7d22\u3001\u53d1\u73b0\u548c\u8c03\u7528 TikHub API\u3002TikHub \u63d0\u4f9b\u4e86\u591a\u5e73\u53f0\u793e\u4ea4\u5a92\u4f53\u6570\u636e API\uff0c\u652f\u6301\u6296\u97f3\u3001TikTok\u3001\u5c0f\u7ea2\u4e66\u3001Instagram\u3001YouTube\u3001Twitter\u3001Reddit \u7b49\u5e73\u53f0\u3002This is a TikHub API skill/documentation repository. Tik"
@@ -34754,6 +34789,21 @@
       "description": "flutter-mcp"
     },
     {
+      "name": "meta-pytorch--autoparallel",
+      "source": "./meta-pytorch--autoparallel",
+      "description": "An experimental implementation of compiler-driven automatic sharding of models across a given device mesh."
+    },
+    {
+      "name": "cr458--geovibes",
+      "source": "./cr458--geovibes",
+      "description": "geovibes"
+    },
+    {
+      "name": "science-of-finetuning--diffing-toolkit",
+      "source": "./science-of-finetuning--diffing-toolkit",
+      "description": "A toolkit that provides a range of model diffing techniques including a UI to visualize them interactively."
+    },
+    {
       "name": "tmdgusya--engineering-discipline",
       "source": "./tmdgusya--engineering-discipline",
       "description": "SKILL for engineering-discipline"
@@ -35187,6 +35237,11 @@
       "name": "jakub-k-slys--substack-api",
       "source": "./jakub-k-slys--substack-api",
       "description": "Substack API client is a modern TypeScript library provides a clean, entity-based interface to interact with Substack publications, posts, comments, and user profiles."
+    },
+    {
+      "name": "cottongeeks--ytt-mcp",
+      "source": "./cottongeeks--ytt-mcp",
+      "description": "MCP server to fetch YouTube transcripts"
     },
     {
       "name": "dceoy--speckit-agent-skills",
@@ -36292,6 +36347,26 @@
       "name": "cyanheads--clinicaltrialsgov-mcp-server",
       "source": "./cyanheads--clinicaltrialsgov-mcp-server",
       "description": "MCP server for the ClinicalTrials.gov v2 API. Search trials, retrieve study details and results, and match patients to eligible trials."
+    },
+    {
+      "name": "maxim--tiny-mcp",
+      "source": "./maxim--tiny-mcp",
+      "description": "Make local MCP tools in Ruby and easily serve them"
+    },
+    {
+      "name": "kiyo-e--claude-code-proxy",
+      "source": "./kiyo-e--claude-code-proxy",
+      "description": "claude-code-proxy"
+    },
+    {
+      "name": "nachoal--ai-fleet",
+      "source": "./nachoal--ai-fleet",
+      "description": "AI Agent fleet manager for parallel agentic systems like claude code and codex"
+    },
+    {
+      "name": "democratize-technology--vikunja-mcp",
+      "source": "./democratize-technology--vikunja-mcp",
+      "description": "Model Context Protocol server for Vikunja task management. Enables AI assistants to interact with Vikunja instances via MCP."
     },
     {
       "name": "knowsuchagency--fulcrum",
@@ -39099,6 +39174,11 @@
       "description": "\ud83e\udd16 The most comprehensive directory of AI agent frameworks, platforms, tools, and resources - hundreds of curated entries covering open-source, no-code, enterprise, and autonomous solutions.  NEW Boile"
     },
     {
+      "name": "trainloop--evals",
+      "source": "./trainloop--evals",
+      "description": "Open Source Data Collection and Evaluation Framework"
+    },
+    {
       "name": "hw-native-sys--pypto",
       "source": "./hw-native-sys--pypto",
       "description": "A community-driven pypto implementation "
@@ -40974,6 +41054,11 @@
       "description": "A open source library of Industrial Robots to use in NVIDIA Isaac Sim"
     },
     {
+      "name": "chaitanyya--lookout",
+      "source": "./chaitanyya--lookout",
+      "description": "<Vibecoded> Track, analyze, and improve what LLMs are saying"
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
@@ -41859,6 +41944,16 @@
       "description": "tradingview"
     },
     {
+      "name": "xixu-me--tzst",
+      "source": "./xixu-me--tzst",
+      "description": "Python 3.12+ library and CLI for creating, extracting, listing, and testing .tzst and .tar.zst archives"
+    },
+    {
+      "name": "s-soroosh--claude-code-js",
+      "source": "./s-soroosh--claude-code-js",
+      "description": "Claude Code SDK for Javascript & Typescript"
+    },
+    {
       "name": "domye--solace",
       "source": "./domye--solace",
       "description": "Solace - \u57fa\u4e8e Go + React + TypeScript + PostgreSQL \u7684\u5168\u6808\u535a\u5ba2\u7cfb\u7edf\u3002\u652f\u6301 Markdown \u7f16\u8f91\u3001\u76f8\u518c\u7ba1\u7406\u3001\u6df1\u8272\u6a21\u5f0f\u3001SEO \u4f18\u5316\u3001Docker \u90e8\u7f72\u3002\u91c7\u7528\u6574\u6d01\u67b6\u6784\uff0c\u9002\u5408\u4e2a\u4eba\u535a\u5ba2\u3001\u6280\u672f\u535a\u5ba2\u3001\u5f00\u53d1\u8005\u4f5c\u54c1\u96c6\u3002MIT \u5f00\u6e90\uff0c\u751f\u4ea7\u5c31\u7eea"
@@ -42362,6 +42457,11 @@
       "name": "jdrhyne--volks-typo",
       "source": "./jdrhyne--volks-typo",
       "description": "Astro blog theme exploring Bauhaus modernism and WW2-era monumental design"
+    },
+    {
+      "name": "bilalbudhani--logspect",
+      "source": "./bilalbudhani--logspect",
+      "description": "Ruby on Rails Log Viewer"
     },
     {
       "name": "anhtester--antigravity-testing-kit",
@@ -43122,6 +43222,16 @@
       "name": "0xkaz--claude-auto-commit",
       "source": "./0xkaz--claude-auto-commit",
       "description": "AI-powered Git commit message generator using   Claude Code SDK. Intelligently analyzes code changes and   generates contextual commit messages with multi-language support and advanced features."
+    },
+    {
+      "name": "clafollett--agenterra",
+      "source": "./clafollett--agenterra",
+      "description": "agenterra"
+    },
+    {
+      "name": "thetom42--perplexica-mcp",
+      "source": "./thetom42--perplexica-mcp",
+      "description": "MCP server for Perplexica"
     },
     {
       "name": "andrew-malitchuk--kite-aos",
@@ -44337,6 +44447,11 @@
       "name": "cloudshipai--ship",
       "source": "./cloudshipai--ship",
       "description": "CloudshipAI CLI"
+    },
+    {
+      "name": "viperjuice--code-index-mcp",
+      "source": "./viperjuice--code-index-mcp",
+      "description": "Code indexing MCP server to provide context to coding agents. "
     },
     {
       "name": "hyhmrright--brooks-lint",
@@ -52912,6 +53027,11 @@
       "name": "jem-computer--capacities-mcp",
       "source": "./jem-computer--capacities-mcp",
       "description": "Capacities\u00d7MCP"
+    },
+    {
+      "name": "devclarityai--devclarity-coding-tutorial",
+      "source": "./devclarityai--devclarity-coding-tutorial",
+      "description": "devclarity-coding-tutorial"
     },
     {
       "name": "bobmatnyc--claude-mpm-skills",
@@ -65904,6 +66024,11 @@
       "description": "An arc inspired next generation browser built with xenon and svelte. "
     },
     {
+      "name": "bbbmoney--awsome-chatgpt-prompts",
+      "source": "./bbbmoney--awsome-chatgpt-prompts",
+      "description": "awsome-chatgpt-prompts"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -77607,6 +77732,11 @@
       "name": "astrodragonv--claudecode-rule2hook",
       "source": "./astrodragonv--claudecode-rule2hook",
       "description": "Transform natural language project rules into Claude Code hooks effortlessly with claudecode-rule2hook. Automate your workflows with ease! \ud83d\ude80\ud83e\ude9d"
+    },
+    {
+      "name": "jahands--prompts",
+      "source": "./jahands--prompts",
+      "description": "My AI prompts"
     },
     {
       "name": "nirholas--auto-kill-terminal",
@@ -91699,6 +91829,11 @@
       "description": "A unified, provider-agnostic chat completions API server that seamlessly integrates OpenAI and AWS Bedrock through a single endpoint with intelligent format detection and conversion."
     },
     {
+      "name": "banodoco--reigh-app",
+      "source": "./banodoco--reigh-app",
+      "description": "reigh-app"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -102252,6 +102387,11 @@
       "name": "cklxx--elephant-ai",
       "source": "./cklxx--elephant-ai",
       "description": "A leader agent for attention-heavy work."
+    },
+    {
+      "name": "buildwithtract--scout",
+      "source": "./buildwithtract--scout",
+      "description": "scout"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -114952,6 +115092,111 @@
       "name": "sportiz91--vibe-template",
       "source": "./sportiz91--vibe-template",
       "description": "vibe-template"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
+    },
+    {
+      "name": "xd3an--awesome-ai-coding-all-in-one",
+      "source": "./xd3an--awesome-ai-coding-all-in-one",
+      "description": "A curated collection of AI-powered coding tools, configurations, and resources to enhance developer productivity. This repository automatically syncs with upstream sources like GitHub Copilot and Clau"
     },
     {
       "name": "xd3an--awesome-ai-coding-all-in-one",
@@ -220357,6 +220602,221 @@
       "name": "tomevault-io--gemini-extensions",
       "source": "./tomevault-io--gemini-extensions",
       "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
+    },
+    {
+      "name": "tomevault-io--gemini-extensions",
+      "source": "./tomevault-io--gemini-extensions",
+      "description": "gemini-extensions"
+    },
+    {
+      "name": "tomevault-io--codex-plugins",
+      "source": "./tomevault-io--codex-plugins",
+      "description": "codex-plugins"
     }
   ]
 }
