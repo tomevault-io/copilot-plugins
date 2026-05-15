@@ -1,0 +1,9 @@
+{
+  "name": "englacial--xopr",
+  "displayName": "xopr",
+  "description": "Tools for scalable, repoducible access to Open Polar Radar data in the Python data ecosystem",
+  "version": "1.0.0",
+  "author": "englacial",
+  "homepage": "https://github.com/englacial/xopr",
+  "skills": []
+}
