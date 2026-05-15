@@ -4,7 +4,7 @@
   "repo": "lacuna-wiki",
   "description": "Give your agent a knowledge graph that compounds.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Labhund/lacuna-wiki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:47:42Z"
+  "distributed_at": "2026-05-15T12:22:18Z"
 }
