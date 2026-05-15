@@ -1,9 +1,9 @@
 {
   "name": "caoyuhaocarl--seedx",
-  "displayName": "SeedX",
-  "description": "Turn any question into a structured, agent-evaluated mastery path with plans, exercises, checkpoints, and real-world transfer.",
+  "displayName": "seedx",
+  "description": "SeedX turns any idea/question into a structured, agent-evaluated mastery path with plans, exercises, checkpoints, and real-world transfer.",
   "version": "1.0.0",
   "author": "CaoYuhaoCarl",
-  "homepage": "https://github.com/CaoYuhaoCarl/SeedX",
+  "homepage": "https://github.com/CaoYuhaoCarl/seedx",
   "skills": []
 }
