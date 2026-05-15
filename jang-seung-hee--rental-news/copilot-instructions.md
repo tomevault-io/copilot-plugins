@@ -1,15 +1,50 @@
-## security-secrets
+## styling-standards
 
-> 시크릿/보안 관련 금지 및 가이드
+> - **우선순위**: TailwindCSS 클래스 사용
 
-## 보안/시크릿 가이드
+# 스타일링 표준
 
-- 민감정보는 `.env` 등 시크릿 매니저/CI 변수로만 관리. 저장소 커밋 금지
-- 금지 파일 예시: `google-services.json`, `serviceAccountKey.json`, `firebase-adminsdk-*.json`, `client_secret*.json`, `*.p12`, `*.pem`, `*.pfx`, `*.keystore`, `AppleAuthKey_*.p8`, `aws_credentials`, `*.ovpn`, `postman_environment*.json`, 압축 아카이브(`*.zip`, `*.rar`, `*.7z`, `*.tar`, `*.gz`)
-- `.gitignore`에 상기 패턴을 추가하고, 과거 커밋 노출 시 즉시 폐기/회전
-- 필요 시 pre-commit 훅으로 차단 규칙 적용 권장
+## TailwindCSS 우선순위
+- **우선순위**: TailwindCSS 클래스 사용
+- **커스텀 스타일**: `src/globals.css`에만 작성
+- **반응형**: 모바일 최우선 (480px → 768px → 1024px)
 
-참고: [템플릿-AI 코딩,바이브 코딩 표준 정책.md](mdc:템플릿-AI 코딩,바이브 코딩 표준 정책.md)
+## 색상 시스템
+- **Primary**: 파란색 계열 (#87ceeb ~ #4682b4)
+- **Secondary**: 연한 파란색 계열 (#f0f8ff ~ #b0e0e6)
+- **Text**: 흰색 및 회색 계열
+
+## 반응형 브레이크포인트
+```css
+/* 모바일: 480px 이하 */
+/* 태블릿: 768px 이하 */
+/* 데스크톱: 768px 이상 */
+```
+
+## Shadcn UI 컴포넌트
+- **우선 사용**: Shadcn UI 컴포넌트 활용
+- **커스터마이징**: TailwindCSS 클래스로 스타일 조정
+- **일관성**: 프로젝트 전체에서 동일한 디자인 시스템 적용
+
+## 컴포넌트 스타일 예시
+```tsx
+// 올바른 예시
+<div className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition-colors">
+  <h2 className="text-xl font-bold mb-2">프로모션 제목</h2>
+  <p className="text-sm opacity-90">프로모션 내용</p>
+</div>
+
+// 반응형 예시
+<div className="w-full md:w-1/2 lg:w-1/3 p-4">
+  <div className="bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg p-6">
+    {/* 내용 */}
+  </div>
+</div>
+```
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [jang-seung-hee/rental-news](https://github.com/jang-seung-hee/rental-news) — distributed by [TomeVault](https://tomevault.io).
