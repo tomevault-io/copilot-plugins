@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## effect-json
 
 > Development guidelines and context for effect-json library
 
