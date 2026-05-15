@@ -1,0 +1,9 @@
+{
+  "name": "mitchellkellerlg--techsight-cli",
+  "displayName": "techsight-cli",
+  "description": "Free tech stack detection CLI \u2014 7,500+ technologies via HTTP/DNS/TLS fingerprinting",
+  "version": "1.0.0",
+  "author": "MitchellkellerLG",
+  "homepage": "https://github.com/MitchellkellerLG/techsight-cli",
+  "skills": []
+}
