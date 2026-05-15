@@ -1,0 +1,9 @@
+{
+  "name": "54yyyu--pyapple-mcp",
+  "displayName": "pyapple-mcp",
+  "description": "PyApple-MCP: A Python implementation of Apple-native tools for the Model Context Protocol (MCP), providing seamless integration with macOS applications.",
+  "version": "1.0.0",
+  "author": "54yyyu",
+  "homepage": "https://github.com/54yyyu/pyapple-mcp",
+  "skills": []
+}
