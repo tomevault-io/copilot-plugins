@@ -1,0 +1,9 @@
+{
+  "name": "wyattjoh--astro-bun-adapter",
+  "displayName": "astro-bun-adapter",
+  "description": "Astro adapter for Bun with optimized static file serving and ISR (Incremental Static Regeneration)",
+  "version": "1.0.0",
+  "author": "wyattjoh",
+  "homepage": "https://github.com/wyattjoh/astro-bun-adapter",
+  "skills": []
+}
