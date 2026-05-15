@@ -1,0 +1,44 @@
+{
+  "name": "inline-diff.nvim",
+  "owner": "cvlmtg",
+  "repo": "inline-diff.nvim",
+  "description": "High performance, live, VSCode-style inline diff for Neovim. Shows the current buffer's changes against a git ref as you type, with word-level highlighting.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cvlmtg/inline-diff.nvim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T17:38:02Z"
+}
