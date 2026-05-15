@@ -4,7 +4,7 @@
   "repo": "valtio-y",
   "description": "Two-way sync between Valtio proxies and Yjs CRDTs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/valtiojs/valtio-y",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T05:43:09Z"
+  "distributed_at": "2026-05-15T04:49:51Z"
 }
