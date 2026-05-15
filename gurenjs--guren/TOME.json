@@ -1,0 +1,44 @@
+{
+  "name": "guren",
+  "owner": "gurenjs",
+  "repo": "guren",
+  "description": "Guren is a Bun-native TypeScript MVC framework that unites Laravel-like ergonomics with Hono, Inertia.js, React, and Drizzle ORM, aiming to deliver a fast, elegant full-stack workflow that keeps frontend and backend work in sync.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gurenjs/guren",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T04:51:12Z"
+}
