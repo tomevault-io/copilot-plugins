@@ -1,88 +1,45 @@
-## vue
+## vue3-composition-api-cursorrules-prompt-file
 
-> Vue.js best practices and patterns for modern web applications
+> Cursor rules for Vue 3 development with Composition API integration.
 
-# Vue.js Best Practices
+// Vue 3 Composition API .cursorrules
 
-## Component Structure
-- Use Composition API over Options API
-- Keep components small and focused
-- Use proper TypeScript integration
-- Implement proper props validation
-- Use proper emit declarations
-- Keep template logic minimal
+// Vue 3 Composition API best practices
 
-## Composition API
-- Use proper ref and reactive
-- Implement proper lifecycle hooks
-- Use composables for reusable logic
-- Keep setup function clean
-- Use proper computed properties
-- Implement proper watchers
+const vue3CompositionApiBestPractices = [
+  "Use setup() function for component logic",
+  "Utilize ref and reactive for reactive state",
+  "Implement computed properties with computed()",
+  "Use watch and watchEffect for side effects",
+  "Implement lifecycle hooks with onMounted, onUpdated, etc.",
+  "Utilize provide/inject for dependency injection",
+];
 
-## State Management
-- Use Pinia for state management
-- Keep stores modular
-- Use proper state composition
-- Implement proper actions
-- Use proper getters
-- Handle async state properly
+// Folder structure
 
-## Performance
-- Use proper component lazy loading
-- Implement proper caching
-- Use proper computed properties
-- Avoid unnecessary watchers
-- Use proper v-show vs v-if
-- Implement proper key management
+const folderStructure = `
+src/
+  components/
+  composables/
+  views/
+  router/
+  store/
+  assets/
+  App.vue
+  main.js
+`;
 
-## Routing
-- Use Vue Router properly
-- Implement proper navigation guards
-- Use proper route meta fields
-- Handle route params properly
-- Implement proper lazy loading
-- Use proper navigation methods
+// Additional instructions
 
-## Forms
-- Use v-model properly
-- Implement proper validation
-- Handle form submission properly
-- Show proper loading states
-- Use proper error handling
-- Implement proper form reset
-
-## TypeScript Integration
-- Use proper component type definitions
-- Implement proper prop types
-- Use proper emit declarations
-- Handle proper type inference
-- Use proper composable types
-- Implement proper store types
-
-## Testing
-- Write proper unit tests
-- Implement proper component tests
-- Use Vue Test Utils properly
-- Test composables properly
-- Implement proper mocking
-- Test async operations
-
-## Best Practices
-- Follow Vue style guide
-- Use proper naming conventions
-- Keep components organized
-- Implement proper error handling
-- Use proper event handling
-- Document complex logic
-
-## Build and Tooling
-- Use Vite for development
-- Configure proper build setup
-- Use proper environment variables
-- Implement proper code splitting
-- Use proper asset handling
-- Configure proper optimization
+const additionalInstructions = `
+1. Use TypeScript for type safety
+2. Implement proper props and emits definitions
+3. Utilize Vue 3's Teleport component when needed
+4. Use Suspense for async components
+5. Implement proper error handling
+6. Follow Vue 3 style guide and naming conventions
+7. Use Vite for fast development and building
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
