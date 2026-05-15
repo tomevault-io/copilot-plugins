@@ -1,50 +1,45 @@
-## testing
+## ui-presentation
 
-> Testing patterns and practices
+> UI patterns and presentation components
 
 
-# Testing
+# UI and Presentation
 
-## Setup
+## Professional Look with Low Complexity
 
-- Framework: Vitest 4 with V8 coverage
-- Convention: `__tests__/ClassName.test.ts` alongside the source code
-- `@/` alias available in tests
+- Clean, professional appearance using pure CSS (no CSS framework)
+- CSS variables for colors, shadows, and spacing (already defined in `styles.css`)
+- Inter font as the typographic standard
+- Responsive layout with native grid/flexbox
 
-## Test Structure
+## Component Reuse
+
+- Use Builders for complex HTML (`ModalBuilder`, `YearDetailsBuilder`)
+- Extract repeated visual patterns into reusable functions/builders
+- Never duplicate markup — if a pattern appears 2+ times, create a builder
 
 ```typescript
-describe('Money', () => {
-  describe('add', () => {
-    it('should sum amounts with same currency', () => {
-      const a = new Money(100, 'USD');
-      const b = new Money(50, 'USD');
-      expect(a.add(b).amount).toBe(150);
-    });
+// ❌ Bad: duplicated HTML
+const card1 = `<div class="card"><h3>${title1}</h3>...</div>`;
+const card2 = `<div class="card"><h3>${title2}</h3>...</div>`;
 
-    it('should throw on currency mismatch', () => {
-      const usd = new Money(100, 'USD');
-      const brl = new Money(50, 'BRL');
-      expect(() => usd.add(brl)).toThrow('Currency mismatch');
-    });
-  });
-});
+// ✅ Good: reusable builder
+const card1 = CardBuilder.create(title1).withContent(...).build();
+const card2 = CardBuilder.create(title2).withContent(...).build();
 ```
 
-## Testing Priorities
+## Presentation vs Domain Separation
 
-1. **Domain entities and services**: maximum coverage (business logic)
-2. **Use cases**: test orchestration with mocked interfaces
-3. **Infrastructure**: test parsing and integration in isolation
-4. **Presentation**: test formatters; builders are visual (lower priority)
+- Formatters (`BRLFormatter`, `USDFormatter`) belong in `presentation/`
+- Never put calculation logic in builders or UI controllers
+- `PortfolioApp` coordinates the UI but delegates logic to use cases
+- Data arrives at the presentation layer already processed — just format and display
 
-## Best Practices
+## CSS
 
-- Independent tests — no shared state between `it()` blocks
-- Descriptive names: "should calculate average cost when multiple vestings exist"
-- Use factories or builders to create test data
-- Mock interfaces (`IOperationRepository`) — never concrete implementations
-- No `any` in tests
+- Use existing CSS variables (`--color-*`, `--shadow-*`, `--radius-*`)
+- Avoid inline styles — use classes
+- Maintain a single `styles.css` file organized by section
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
