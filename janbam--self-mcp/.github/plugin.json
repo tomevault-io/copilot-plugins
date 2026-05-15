@@ -1,0 +1,9 @@
+{
+  "name": "janbam--self-mcp",
+  "displayName": "self-mcp",
+  "description": "Metacognitive self-prompting MCP server for Claude",
+  "version": "1.0.0",
+  "author": "janbam",
+  "homepage": "https://github.com/janbam/self-mcp",
+  "skills": []
+}
