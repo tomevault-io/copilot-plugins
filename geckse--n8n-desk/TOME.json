@@ -1,0 +1,44 @@
+{
+  "name": "n8n-desk",
+  "owner": "geckse",
+  "repo": "n8n-desk",
+  "description": "Bringing n8n to your Machine \u2014 a desktop & mobile companion app for n8n. Chat with agents, build workflows conversationally, work with local files.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/geckse/n8n-desk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T19:14:57Z"
+}
