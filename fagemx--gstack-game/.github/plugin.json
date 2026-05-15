@@ -1,0 +1,9 @@
+{
+  "name": "fagemx--gstack-game",
+  "displayName": "gstack-game",
+  "description": "Complete game production workflow for Claude Code \u2014 27 skills from concept to shipped build. Design review, prototype planning, game feel diagnosis, playability assessment, QA with fix loop, and relea",
+  "version": "1.0.0",
+  "author": "fagemx",
+  "homepage": "https://github.com/fagemx/gstack-game",
+  "skills": []
+}
