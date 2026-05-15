@@ -1,0 +1,9 @@
+{
+  "name": "andrewjamesford--claude-code",
+  "displayName": "claude-code",
+  "description": "This repository contains my configuration files and supporting documentation for using Claude (Anthropic\u2019s AI assistant) in coding workflows.",
+  "version": "1.0.0",
+  "author": "andrewjamesford",
+  "homepage": "https://github.com/andrewjamesford/claude-code",
+  "skills": []
+}
