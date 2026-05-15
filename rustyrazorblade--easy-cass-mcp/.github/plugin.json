@@ -1,0 +1,9 @@
+{
+  "name": "rustyrazorblade--easy-cass-mcp",
+  "displayName": "easy-cass-mcp",
+  "description": "An MCP serverr for Apache Cassandra",
+  "version": "1.0.0",
+  "author": "rustyrazorblade",
+  "homepage": "https://github.com/rustyrazorblade/easy-cass-mcp",
+  "skills": []
+}
