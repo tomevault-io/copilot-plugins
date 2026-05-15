@@ -1,0 +1,9 @@
+{
+  "name": "misaelzapata--memoirs",
+  "displayName": "memoirs",
+  "description": "Local-first long-term memory engine for AI agents \u00b7 MCP + HTTP + CLI \u00b7 SQLite + sqlite-vec + FTS5 \u00b7 100% local, no cloud",
+  "version": "1.0.0",
+  "author": "misaelzapata",
+  "homepage": "https://github.com/misaelzapata/memoirs",
+  "skills": []
+}
