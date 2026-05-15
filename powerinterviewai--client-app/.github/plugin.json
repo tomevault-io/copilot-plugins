@@ -1,0 +1,9 @@
+{
+  "name": "powerinterviewai--client-app",
+  "displayName": "client-app",
+  "description": "Privacy-first AI interview assistant with live transcription, real-time AI suggestions for any type of interviews and coding challenges",
+  "version": "1.0.0",
+  "author": "PowerInterviewAI",
+  "homepage": "https://github.com/PowerInterviewAI/client-app",
+  "skills": []
+}
