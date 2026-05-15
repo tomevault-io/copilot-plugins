@@ -7,11 +7,11 @@ A playground to split, visualize, and edit complex CSS background layers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vii120/css-bg-layers](https://github.com/vii120/css-bg-layers).
+Original source: `CLAUDE.md` in [vii120/css-bg-layers](https://github.com/vii120/css-bg-layers).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
