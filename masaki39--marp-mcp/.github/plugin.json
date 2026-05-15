@@ -1,0 +1,9 @@
+{
+  "name": "masaki39--marp-mcp",
+  "displayName": "marp-mcp",
+  "description": "MCP server that lets AI agents build and edit Marp slide decks via structured tools.",
+  "version": "1.0.0",
+  "author": "masaki39",
+  "homepage": "https://github.com/masaki39/marp-mcp",
+  "skills": []
+}
