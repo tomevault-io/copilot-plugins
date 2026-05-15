@@ -1,0 +1,9 @@
+{
+  "name": "bkper--claude-eval",
+  "displayName": "claude-eval",
+  "description": "An evaluation tool for Claude Code, using a LLM-as-a-judge simplified approach.",
+  "version": "1.0.0",
+  "author": "bkper",
+  "homepage": "https://github.com/bkper/claude-eval",
+  "skills": []
+}
