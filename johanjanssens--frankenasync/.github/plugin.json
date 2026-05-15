@@ -1,0 +1,9 @@
+{
+  "name": "johanjanssens--frankenasync",
+  "displayName": "frankenasync",
+  "description": "Async subrequests for FrankenPHP",
+  "version": "1.0.0",
+  "author": "johanjanssens",
+  "homepage": "https://github.com/johanjanssens/frankenasync",
+  "skills": []
+}
