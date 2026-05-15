@@ -1,30 +1,27 @@
-## plugin-core
+## project-overview
 
-> The primary logic for the IINA Bookmarks plugin resides in the [src/](mdc:src/) directory.
+> This project is an IINA plugin for managing media bookmarks. It allows users to add, view, and navigate to saved timestamps in videos.
 
-# Plugin Core Logic (src/)
+# IINA Bookmarks Plugin: Overview
 
-The primary logic for the IINA Bookmarks plugin resides in the [src/](mdc:src/) directory.
+This project is an IINA plugin for managing media bookmarks. It allows users to add, view, and navigate to saved timestamps in videos.
 
-**Key Files:**
+**Key Technologies:**
 
-*   **[src/index.ts](mdc:src/index.ts):** This is the main entry point for the plugin. It contains the `BookmarkManager` class which is responsible for:
-    *   Loading and saving bookmarks (using IINA's `preferences` API).
-    *   Handling communication with the UIs (overlay, sidebar, window) via IINA's `postMessage` API.
-    *   Managing event listeners (e.g., `file-loaded`).
-    *   Adding menu items to the IINA interface.
-    *   Interacting with IINA core functions (e.g., `core.status`, `core.seek`, `core.open`).
-*   **[src/global.ts](mdc:src/global.ts):** Intended for any global configurations or utility functions that might be needed across the plugin. Currently, it's minimal.
+*   **Plugin Core:** TypeScript ([src/index.ts](mdc:src/index.ts))
+*   **User Interface (UI):** React with TypeScript (.tsx files in [ui/](mdc:ui/))
+*   **Styling:** SCSS ([ui/shared.scss](mdc:ui/shared.scss) and component-specific .scss files)
+*   **Build Tool:** Parcel ([.parcelrc](mdc:.parcelrc), [package.json](mdc:package.json) scripts)
+*   **IINA Plugin Manifest:** [Info.json](mdc:Info.json)
 
-**Core Class: `BookmarkManager`**
+**Main Components:**
 
-*   Manages an array of `BookmarkData` objects.
-*   `BookmarkData` interface defines the structure for a bookmark, including `id`, `title`, `timestamp`, `filepath`, `description`, and `createdAt` (as an ISO string).
-*   Initializes Web UIs by loading their respective `index.html` files from the `dist/ui/` directory.
-*   Sets up message listeners (`setupUIMessageListeners`) to handle requests and data from the UI components.
-*   Provides methods for adding, removing, updating, and jumping to bookmarks.
+*   **Plugin Logic (`src/`):** Handles bookmark storage, communication with IINA player, and serves as the backend for UIs.
+*   **Overlay UI (`ui/overlay/`):** Displays bookmarks directly on the video.
+*   **Sidebar UI (`ui/sidebar/`):** Provides a tab in IINA's sidebar for managing bookmarks.
+*   **Standalone Window UI (`ui/window/`):** A separate window for comprehensive bookmark management.
 
-See [communication-patterns.mdc](mdc:.cursor/rules/communication-patterns.mdc) for details on how the plugin core interacts with the UIs.
+Refer to [Project Structure in iina-plugin-bookmarks.md.txt](mdc:.cursor/context/iina-plugin-bookmarks.md.txt) for a detailed file tree.
 
 ---
 > Source: [wyattowalsh/iina-plugin-bookmarks](https://github.com/wyattowalsh/iina-plugin-bookmarks) — distributed by [TomeVault](https://tomevault.io).
