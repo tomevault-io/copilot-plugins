@@ -1,0 +1,9 @@
+{
+  "name": "oksure--openalex-research-mcp",
+  "displayName": "openalex-research-mcp",
+  "description": "MCP server for the OpenAlex API \u2014 search 240M+ scholarly works, analyze citations, track research trends, and map collaboration networks",
+  "version": "1.0.0",
+  "author": "oksure",
+  "homepage": "https://github.com/oksure/openalex-research-mcp",
+  "skills": []
+}
