@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--agent-toolbox",
+  "displayName": "agent-toolbox",
+  "description": "Commands, rules, setups, useful wrappers for Claude Code, plus some Claude/Gemini interoperability",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/agent-toolbox",
+  "skills": []
+}
