@@ -1,0 +1,9 @@
+{
+  "name": "ellipsis-labs--cargo-hold",
+  "displayName": "cargo-hold",
+  "description": "cargo-hold makes your Rust CI caching actually work \u2728\ud83d\udc96",
+  "version": "1.0.0",
+  "author": "Ellipsis-Labs",
+  "homepage": "https://github.com/Ellipsis-Labs/cargo-hold",
+  "skills": []
+}
