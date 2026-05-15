@@ -1,0 +1,9 @@
+{
+  "name": "gkinsman--almostservicebus",
+  "displayName": "AlmostServiceBus",
+  "description": "A test-friendly Azure Service Bus emulator",
+  "version": "1.0.0",
+  "author": "gkinsman",
+  "homepage": "https://github.com/gkinsman/AlmostServiceBus",
+  "skills": []
+}
