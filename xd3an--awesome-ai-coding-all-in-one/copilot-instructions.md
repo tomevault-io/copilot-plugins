@@ -1,88 +1,98 @@
-## node-express
+## nodejs-mongodb-cursorrules-prompt-file-tutorial
 
-> Node.js and Express.js best practices for backend development
+> Cursor rules for Node.js development with MongoDB integration.
 
-# Node.js and Express.js Best Practices
+Tech Stack:
 
-## Project Structure
-- Use proper directory structure
-- Implement proper module organization
-- Use proper middleware organization
-- Keep routes organized by domain
-- Implement proper error handling
-- Use proper configuration management
+Backend: Node.js with Express.js
 
-## Express Setup
-- Use proper middleware setup
-- Implement proper routing
-- Use proper error handling
-- Configure proper security middleware
-- Implement proper validation
-- Use proper static file serving
+Database: MongoDB with Mongoose ODM
 
-## API Design
-- Use proper REST principles
-- Implement proper versioning
-- Use proper request validation
-- Handle errors properly
-- Implement proper response formats
-- Document APIs properly
+Frontend: React.js (for admin panel, if required)
 
-## Database Integration
-- Use proper ORM/ODM
-- Implement proper migrations
-- Use proper connection pooling
-- Implement proper transactions
-- Use proper query optimization
-- Handle database errors properly
+Authentication: JSON Web Tokens (JWT)
 
-## Authentication
-- Implement proper JWT handling
-- Use proper password hashing
-- Implement proper session management
-- Use proper OAuth integration
-- Implement proper role-based access
-- Handle auth errors properly
+Version Control: Git
 
-## Security
-- Use proper CORS setup
-- Implement proper rate limiting
-- Use proper security headers
-- Implement proper input validation
-- Use proper encryption
-- Handle security vulnerabilities
+Deployment: Docker (optional)
 
-## Performance
-- Use proper caching
-- Implement proper async operations
-- Use proper connection pooling
-- Implement proper logging
-- Use proper monitoring
-- Handle high traffic properly
+Precision in User Requirements:
 
-## Testing
-- Write proper unit tests
-- Implement proper integration tests
-- Use proper test runners
-- Implement proper mocking
-- Test error scenarios
-- Use proper test coverage
+Strictly adhere to specified user flow and game rules.
 
-## Deployment
-- Use proper Docker setup
-- Implement proper CI/CD
-- Use proper environment variables
-- Configure proper logging
-- Implement proper monitoring
-- Handle deployment errors
+Strategy: 
 
-## Best Practices
-- Follow Node.js best practices
-- Use proper async/await
-- Implement proper error handling
-- Use proper logging
-- Handle process signals properly
-- Document code properly
+Summarize the pick submission process and outline the API endpoint and business logic in pseudocode before coding.
+
+Strategic Planning with Pseudocode:
+
+Begin each feature with detailed pseudocode.
+
+Example: Provide pseudocode for the weekly scoring process, detailing steps from game result input to entry status updates.
+
+Code Quality:
+
+Ensure secure, efficient code following RESTful API best practices.
+
+Implement proper error handling and input validation.
+
+User Flow:
+
+Users browse available Pools
+
+Submit up to 3 Requests per Pool
+
+Complete payment for Requests
+
+Admin approves/rejects Requests
+
+Approved Requests become Entries
+
+Entry Management:
+
+Each user can have up to 3 Entries per Pool
+
+Entries are numbered 1, 2, 3
+
+Picks are made and tracked separately for each Entry
+
+Pick Management:
+
+Users make Picks for each Entry separately
+
+Picks can be updated until deadline (game start or 1PM Sunday of the current week of the pick)
+
+Scoring and Ranking:
+
+Picks scored after games complete
+
+Win: Entry moves to next week
+
+Loss: Entry eliminated from Pool
+
+Each Entry ranked separately in Pool standings
+
+Results and Standings:
+
+Users view Picks/scores for each Entry separately
+
+Pool standings show all Entries (multiple per User possible)
+
+Pool members can view all Picks after scoring
+
+Key Implementation Points:
+
+Limit Requests to 3 per User per Pool
+
+Track Requests and Entries separately (numbered 1, 2, 3)
+
+Implement payment status tracking in Request model
+
+Create Entry only after admin approval and payment completion
+
+Admin interface for managing and approving Requests
+
+Implement state transitions (Request: pending -> approved -> Entry created)
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
