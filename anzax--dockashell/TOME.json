@@ -4,7 +4,7 @@
   "repo": "dockashell",
   "description": "DockaShell is an MCP server that gives AI agents isolated Docker containers to work in. MCP tools for shell access, file operations, and full audit trail.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anzax/dockashell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T04:36:00Z"
+  "distributed_at": "2026-05-15T01:53:17Z"
 }
