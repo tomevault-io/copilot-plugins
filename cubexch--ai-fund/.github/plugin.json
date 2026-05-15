@@ -1,0 +1,9 @@
+{
+  "name": "cubexch--ai-fund",
+  "displayName": "ai-fund",
+  "description": "AI trading desk with 42 hedge fund agents for Claude Code. Trade crypto & stocks like James Livermore, Jim Simons, or George Soros. Works with Cube.Exchange, OKX, Kraken, Binance, Coinbase, and 100+ e",
+  "version": "1.0.0",
+  "author": "cubexch",
+  "homepage": "https://github.com/cubexch/ai-fund",
+  "skills": []
+}
