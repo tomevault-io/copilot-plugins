@@ -1,0 +1,9 @@
+{
+  "name": "shsharkar--mcp-mathematics",
+  "displayName": "MCP-Mathematics",
+  "description": "A comprehensive Model Context Protocol (MCP) server that turns any AI assistant into a powerful mathematical computation engine.",
+  "version": "1.0.0",
+  "author": "SHSharkar",
+  "homepage": "https://github.com/SHSharkar/MCP-Mathematics",
+  "skills": []
+}
