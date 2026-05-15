@@ -1,0 +1,44 @@
+{
+  "name": "algorithmic-trading-utilities",
+  "owner": "konradbachusz",
+  "repo": "algorithmic-trading-utilities",
+  "description": "This repo contains a set of utilities and helpers that I use in my algorithmic trading strategies.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/konradbachusz/algorithmic-trading-utilities",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T22:47:19Z"
+}
