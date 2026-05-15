@@ -1,41 +1,37 @@
-## new-features
+## project-overview
 
-> 1. Identify which layer the feature belongs to
+> General context for the Stock Portfolio Web project
 
-# Implementing New Features
 
-## Checklist Before Coding
+# Stock Portfolio Web - Overview
 
-1. Identify which layer the feature belongs to
-2. Define interfaces/contracts before implementations
-3. Start with the domain if business rules are involved
-4. Write tests alongside the implementation
+A pure TypeScript SPA (no React/Vue/Angular) for calculating taxes on stock operations (E*Trade RSU/ESPP).
 
-## Implementation Order
+## Stack
+
+- **Runtime**: TypeScript 5.9, ES2020
+- **Build**: Vite 7
+- **Testing**: Vitest 4 with V8 coverage
+- **Linting**: ESLint + Prettier
+- **Main dependency**: pdfjs-dist (PDF parsing)
+- **External API**: BCB PTAX (exchange rates)
+
+## Layer Structure (Clean Architecture)
 
 ```
-1. Domain (entities, services)          → Unit tests
-2. Application (interfaces, use cases)  → Tests with mocks
-3. Infrastructure (repositories, APIs)  → Integration tests
-4. Presentation (UI, formatters)        → Visual verification
+src/
+├── domain/          → Pure entities and services (no external dependencies)
+├── application/     → Use cases and interfaces (contracts)
+├── infrastructure/  → Repositories, APIs, concrete utilities
+└── presentation/    → UI, formatters, HTML builders
 ```
 
-## Patterns to Follow
+## Fundamental Rules
 
-- Single responsibility per class/function
-- Prefer composition over inheritance
-- Use discriminated unions to represent states
-- Inject dependencies — never instantiate services internally
-- Side-effect-free code in the domain
-
-## What to Avoid
-
-- Classes with more than 200 lines
-- Functions with more than 5 parameters (use a config object)
-- Circular imports between layers
-- Complex conditional logic (extract into strategy/policy)
-- Magic strings (use enums or constants)
-- Comments explaining "what" — the code should be clear
+- Never import from `infrastructure/` or `presentation/` inside `domain/`
+- Use cases orchestrate the flow, they never contain domain logic
+- All external API communication belongs in `infrastructure/`
+- The `presentation/` layer never accesses repositories directly
 
 ---
 > Source: [miguelslemos/stock_portfolio](https://github.com/miguelslemos/stock_portfolio) — distributed by [TomeVault](https://tomevault.io).
