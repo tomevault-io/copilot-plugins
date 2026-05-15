@@ -1,0 +1,44 @@
+{
+  "name": "jovay-relayer",
+  "owner": "jovaynetwork",
+  "repo": "jovay-relayer",
+  "description": "The core middleware for Jovay L2 Rollup \u2014 reliable data aggregation, submission, and proof management between L1 and L2.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jovaynetwork/jovay-relayer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T08:39:10Z"
+}
