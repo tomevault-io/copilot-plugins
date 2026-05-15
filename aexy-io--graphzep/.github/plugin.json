@@ -1,0 +1,9 @@
+{
+  "name": "aexy-io--graphzep",
+  "displayName": "graphzep",
+  "description": "GraphZep: A temporal knowledge graph memory system for AI agents in Typescript based on the Zep paper",
+  "version": "1.0.0",
+  "author": "aexy-io",
+  "homepage": "https://github.com/aexy-io/graphzep",
+  "skills": []
+}
