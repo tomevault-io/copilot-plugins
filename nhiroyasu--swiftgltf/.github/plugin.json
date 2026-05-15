@@ -1,0 +1,9 @@
+{
+  "name": "nhiroyasu--swiftgltf",
+  "displayName": "SwiftGLTF",
+  "description": "Project to make 3D models from glTF files available in Swift and renderable in Metal",
+  "version": "1.0.0",
+  "author": "nhiroyasu",
+  "homepage": "https://github.com/nhiroyasu/SwiftGLTF",
+  "skills": []
+}
