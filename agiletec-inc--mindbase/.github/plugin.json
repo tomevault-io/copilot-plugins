@@ -1,0 +1,9 @@
+{
+  "name": "agiletec-inc--mindbase",
+  "displayName": "mindbase",
+  "description": "AI Conversation Knowledge Management - PostgreSQL + pgvector + Ollama (Free, Local, Open Source)",
+  "version": "1.0.0",
+  "author": "agiletec-inc",
+  "homepage": "https://github.com/agiletec-inc/mindbase",
+  "skills": []
+}
