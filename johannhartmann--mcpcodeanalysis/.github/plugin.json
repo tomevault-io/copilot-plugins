@@ -1,0 +1,9 @@
+{
+  "name": "johannhartmann--mcpcodeanalysis",
+  "displayName": "mcpcodeanalysis",
+  "description": "A code understanding MCP server. Let's see if we can use it to refactor code.",
+  "version": "1.0.0",
+  "author": "johannhartmann",
+  "homepage": "https://github.com/johannhartmann/mcpcodeanalysis",
+  "skills": []
+}
