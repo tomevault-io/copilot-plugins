@@ -1,80 +1,18 @@
-## wordpress-claude-stack
+## wordpress-php-guzzle-gutenberg-cursorrules-prompt
 
-> Complete AI coding setup for WordPress — themes, plugins, Gutenberg, WooCommerce, ACF, REST API with .cursorrules + CLAUDE.md + Copilot instructions + 5 generation skills.
+> Cursor rules for WordPress development with PHP, Guzzle, and Gutenberg integration.
 
-You are an expert WordPress developer with deep knowledge of PHP, Gutenberg, WooCommerce, ACF, and the WordPress ecosystem.
+- You are operating in a WordPress plugin context, that has a Guzzle-based HTTP client, WP REST endpoint addition(s), and new Gutenberg editor blocks.
 
-## Core Principles
-- Follow WordPress Coding Standards (WPCS) strictly
-- Always use `declare(strict_types=1)` in PHP files
-- Escape ALL output, sanitize ALL input, prepare ALL queries
-- Use WordPress APIs — never reinvent what WordPress provides
-- Prefix everything with project namespace to avoid conflicts
+- Always use WordPress coding standards when writing PHP, JavaScript, and TypeScript.
 
-## PHP Rules
-- Type hints on all parameters and return types
-- Use `WP_Query` or `get_posts()` — never `query_posts()`
-- Use `$wpdb->prepare()` for ALL database queries
-- Use `wp_verify_nonce()` on ALL form submissions
-- Use `current_user_can()` for ALL permission checks
-- Use `esc_html()`, `esc_attr()`, `esc_url()`, `wp_kses_post()` for output
-- Use `sanitize_text_field()`, `absint()`, `wp_unslash()` for input
+- Always type hint PHP code.
 
-## Theme Development
-- Use `add_theme_support()` for WordPress features
-- Enqueue scripts/styles with `wp_enqueue_script()` / `wp_enqueue_style()`
-- Use template hierarchy: `single-{post_type}.php`, `archive-{post_type}.php`
-- Use `get_template_part()` for reusable components
-- Keep logic in `functions.php` / `inc/`, templates should only render
+- Prefer writing TypeScript over JavaScript.
 
-## Plugin Development
-- Main plugin class pattern with singleton or DI
-- Activation/deactivation hooks with `register_activation_hook()`
-- `uninstall.php` for cleanup on uninstall
-- Use WordPress Settings API for admin pages
-- Use `register_rest_route()` for REST endpoints
+- Favor functional paradigms over object-oriented ones, favor composition over inheritance, but be consistent with WordPress ecosystem best practices.
 
-## Gutenberg Blocks
-- Use `block.json` for metadata
-- Use `@wordpress/scripts` for build tooling
-- Use `useBlockProps()` and `InnerBlocks` in React/JSX
-- Register with `register_block_type()` in PHP
-- Dynamic blocks: use `render_callback` or `render.php`
-
-## WooCommerce
-- Override templates via `theme/woocommerce/` directory
-- Use WooCommerce hooks, never modify core
-- Use `wc_get_product()`, `WC()->cart`, `WC()->session`
-- Use HPOS-compatible code (no direct postmeta for orders)
-
-## Advanced Custom Fields
-- Register field groups in PHP for version control
-- Use `get_field()`, `the_field()`, `have_rows()`
-- Use ACF blocks for Gutenberg integration
-- Always provide fallback values
-
-## Security
-- Never trust user input
-- Always escape, sanitize, prepare, verify nonces, check capabilities
-- Never use `extract()`, `eval()`, or short PHP tags
-
-## Database
-- `get_option()` / `update_option()` for settings
-- `get_post_meta()` / `update_post_meta()` for post data
-- `get_transient()` / `set_transient()` for caching
-- Custom tables only when WP data structures don't fit
-- Always `$wpdb->prepare()` for custom queries
-
-## Do NOT
-- Modify WordPress core files
-- Use `query_posts()`
-- Echo unescaped data
-- Write raw SQL without prepare
-- Use `extract()` or `eval()`
-- Hardcode URLs — use `home_url()`, `admin_url()`
-- Skip nonce verification
-- Put business logic in templates
-- Use short PHP tags
+- Optimize for readability.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
