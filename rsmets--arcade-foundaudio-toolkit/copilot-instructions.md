@@ -1,34 +1,59 @@
-## project-structure
+## testing-standards
 
-> This is an [Arcade.dev](https://arcade.dev) toolkit demonstrating professional Python development practices for AI tool orchestration. The project structure is:
+> Testing standards and patterns for Arcade.dev toolkit
 
 
-# Arcade.dev Found Audio Toolkit - Project Structure
+# Testing Standards for Arcade.dev Toolkit
 
-This is an [Arcade.dev](https://arcade.dev) toolkit demonstrating professional Python development practices for AI tool orchestration. The project structure is:
+## Test Organization and Categories
+Follow the comprehensive testing pattern established in [test_get_audio_list.py](mdc:foundaudio/tests/test_get_audio_list.py):
 
-## Core Architecture
-- **Main Package**: [foundaudio/foundaudio/](mdc:foundaudio/foundaudio/) - Core toolkit package
-- **Tools**: [foundaudio/foundaudio/tools/](mdc:foundaudio/foundaudio/tools/) - Arcade tools implementation
-- **Tests**: [foundaudio/tests/](mdc:foundaudio/tests/) - Comprehensive test suite with mocking
-- **Evals**: [foundaudio/evals/](mdc:foundaudio/evals/) - Evaluation suite for tool performance
-- **Configuration**: [foundaudio/pyproject.toml](mdc:foundaudio/pyproject.toml) - Project metadata and dependencies
+### 1. NORMAL OPERATION TESTS
+- Test basic functionality without filters
+- Test functionality with various parameter combinations
+- Test edge cases like empty results
+- Verify correct data structure and content
 
-## Key Files
-- **Entry Point**: [foundaudio/foundaudio/__init__.py](mdc:foundaudio/foundaudio/__init__.py) - Package initialization and tool exports
-- **Tool Registration**: [foundaudio/foundaudio/tools/__init__.py](mdc:foundaudio/foundaudio/tools/__init__.py) - Tool catalog registration
-- **Main Tool**: [foundaudio/foundaudio/tools/get_audio_list.py](mdc:foundaudio/foundaudio/tools/get_audio_list.py) - Primary audio search functionality
-- **Development**: [foundaudio/Makefile](mdc:foundaudio/Makefile) - Build, test, and development commands
+### 2. INPUT VALIDATION TESTS  
+- Test boundary conditions (min/max limits)
+- Verify `RetryableToolError` is raised for invalid user input
+- Test parameter validation logic
 
-## Technology Stack
-- **Package Manager**: uv (modern Python package management)
-- **Testing**: pytest with async support and comprehensive mocking
-- **Database**: Supabase Python client for Found Audio API
-- **Framework**: Arcade TDK (Toolkit Development Kit)
-- **Quality**: Trunk metalinting, mypy type checking, pre-commit hooks
+### 3. ERROR HANDLING TESTS
+- Test missing configuration (secrets, environment variables)
+- Verify `ToolExecutionError` is raised for system issues
+- Test external API failure scenarios
 
-## Development Philosophy
-This project emphasizes **Foundation First** - establishing solid development practices before adding features, with comprehensive testing, proper error handling, and professional documentation standards.
+## Mocking Patterns
+### ToolContext Mocking
+```python
+mock_context = Mock(spec=ToolContext)
+mock_context.get_secret.return_value = "test-secret-key"
+```
+
+### External API Mocking
+- Mock `create_client` for Supabase interactions
+- Mock complex query chains: `from_ -> select -> or_ -> contains -> order -> limit -> execute`
+- Use detailed response mocking with realistic data structures
+
+### Environment Mocking
+```python
+mock_getenv.side_effect = lambda key, default=None: {
+    "SUPABASE_URL": "https://test.supabase.co"
+}.get(key, default)
+```
+
+## Assertion Patterns
+- Use explicit assertions with descriptive error messages
+- Verify data types: `if not isinstance(result, dict): raise AssertionError(...)`
+- Check structure and content separately
+- Verify metadata fields match expected filters
+
+## Test Documentation
+- Include comprehensive docstrings explaining test purpose
+- Use section comments: `# SETUP:`, `# EXECUTE:`, `# VERIFY:`
+- Document why specific error types are expected
+- Explain business logic being tested
 
 ---
 > Source: [rsmets/arcade-foundaudio-toolkit](https://github.com/rsmets/arcade-foundaudio-toolkit) — distributed by [TomeVault](https://tomevault.io).
