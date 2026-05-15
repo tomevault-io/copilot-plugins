@@ -1,0 +1,9 @@
+{
+  "name": "bbar0n234--learnflow-ai",
+  "displayName": "learnflow-ai",
+  "description": "Universal LangGraph-based educational content generator with OCR, HITL workflow, multi-provider LLM support, and Telegram/Web interfaces",
+  "version": "1.0.0",
+  "author": "Bbar0n234",
+  "homepage": "https://github.com/Bbar0n234/learnflow-ai",
+  "skills": []
+}
