@@ -1,59 +1,34 @@
-## development-workflow
+## project-structure
 
-> Development workflow and quality standards
+> This is an [Arcade.dev](https://arcade.dev) toolkit demonstrating professional Python development practices for AI tool orchestration. The project structure is:
 
 
-# Development Workflow and Quality Standards
+# Arcade.dev Found Audio Toolkit - Project Structure
 
-## Package Management with uv
-- Use `uv sync --active --all-extras --no-sources` for installation
-- Development commands via [Makefile](mdc:foundaudio/Makefile):
-  - `make install` - Install dependencies and pre-commit hooks
-  - `make test` - Run pytest with coverage
-  - `make check` - Run pre-commit and mypy
-  - `make build` - Build wheel file
+This is an [Arcade.dev](https://arcade.dev) toolkit demonstrating professional Python development practices for AI tool orchestration. The project structure is:
 
-## Code Quality Standards
-- **Type Checking**: mypy configuration in [pyproject.toml](mdc:foundaudio/pyproject.toml)
-- **Linting**: Trunk metalinting for comprehensive code quality
-- **Testing**: Minimum coverage requirements with pytest-cov
-- **Pre-commit**: Automated quality checks on commit
+## Core Architecture
+- **Main Package**: [foundaudio/foundaudio/](mdc:foundaudio/foundaudio/) - Core toolkit package
+- **Tools**: [foundaudio/foundaudio/tools/](mdc:foundaudio/foundaudio/tools/) - Arcade tools implementation
+- **Tests**: [foundaudio/tests/](mdc:foundaudio/tests/) - Comprehensive test suite with mocking
+- **Evals**: [foundaudio/evals/](mdc:foundaudio/evals/) - Evaluation suite for tool performance
+- **Configuration**: [foundaudio/pyproject.toml](mdc:foundaudio/pyproject.toml) - Project metadata and dependencies
 
-## Arcade.dev Specific Workflows
-### Development Server
-```bash
-uv run arcade serve --reload  # Auto-reload during development
-# Server available at http://localhost:8002
-```
+## Key Files
+- **Entry Point**: [foundaudio/foundaudio/__init__.py](mdc:foundaudio/foundaudio/__init__.py) - Package initialization and tool exports
+- **Tool Registration**: [foundaudio/foundaudio/tools/__init__.py](mdc:foundaudio/foundaudio/tools/__init__.py) - Tool catalog registration
+- **Main Tool**: [foundaudio/foundaudio/tools/get_audio_list.py](mdc:foundaudio/foundaudio/tools/get_audio_list.py) - Primary audio search functionality
+- **Development**: [foundaudio/Makefile](mdc:foundaudio/Makefile) - Build, test, and development commands
 
-### Deployment
-```bash
-uv run arcade deploy  # Deploy to Arcade's managed infrastructure
-uv run arcade deploy status  # Check deployment status
-```
+## Technology Stack
+- **Package Manager**: uv (modern Python package management)
+- **Testing**: pytest with async support and comprehensive mocking
+- **Database**: Supabase Python client for Found Audio API
+- **Framework**: Arcade TDK (Toolkit Development Kit)
+- **Quality**: Trunk metalinting, mypy type checking, pre-commit hooks
 
-### Evaluation
-```bash
-arcade eval  # Run evaluation suite (currently has issues - see GitHub issues)
-```
-
-## File Organization Principles
-- Keep tools in separate files under `foundaudio/tools/`
-- Export tools in `__init__.py` files for proper registration
-- Maintain parallel test structure matching source code
-- Use descriptive filenames that match tool functionality
-
-## Documentation Standards
-- Comprehensive README with setup, usage, and examples
-- Inline documentation for complex business logic
-- Type hints for all function signatures
-- Docstrings following Google/NumPy style
-
-## Professional Development Practices
-- **Foundation First**: Establish solid practices before adding features
-- **Test-Driven**: Write tests for all functionality with proper mocking
-- **Error Handling**: Distinguish between user errors and system errors
-- **Security**: Proper secret management patterns even for public keys
+## Development Philosophy
+This project emphasizes **Foundation First** - establishing solid development practices before adding features, with comprehensive testing, proper error handling, and professional documentation standards.
 
 ---
 > Source: [rsmets/arcade-foundaudio-toolkit](https://github.com/rsmets/arcade-foundaudio-toolkit) — distributed by [TomeVault](https://tomevault.io).
