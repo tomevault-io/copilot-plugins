@@ -1,0 +1,9 @@
+{
+  "name": "robantunes--lingodb",
+  "displayName": "lingodb",
+  "description": "The SQLite of Semantic Search",
+  "version": "1.0.0",
+  "author": "RobAntunes",
+  "homepage": "https://github.com/RobAntunes/lingodb",
+  "skills": []
+}
