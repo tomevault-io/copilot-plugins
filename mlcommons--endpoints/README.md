@@ -7,11 +7,11 @@ MLCommons Inference Endpoints repository
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mlcommons/endpoints](https://github.com/mlcommons/endpoints).
+Original source: `CLAUDE.md` in [mlcommons/endpoints](https://github.com/mlcommons/endpoints).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
