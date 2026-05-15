@@ -7,11 +7,11 @@ Multiplayer UNO card game with real-time gameplay, voice chat, and 33 house rule
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [letsuno/uno-online](https://github.com/letsuno/uno-online).
+Original source: `CLAUDE.md` in [letsuno/uno-online](https://github.com/letsuno/uno-online).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
