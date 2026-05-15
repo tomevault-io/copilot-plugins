@@ -1,44 +1,62 @@
-## nextjs-app-router-cursorrules-prompt-file
+## nextjs-material-ui-tailwind-css-cursorrules-prompt
 
-> Cursor rules for Next.js development with App Router integration.
+> Cursor rules for Next.js development with Material UI and Tailwind CSS integration.
 
-// Next.js App Router .cursorrules
+Ce projet s'appel Portfolio2
 
-// Next.js App Router best practices
+Il est basé sur Next.Js, il a tailwindcss, materialui, shadcn/ui et aceternityui
 
-const nextjsAppRouterBestPractices = [
-  "Use server components by default",
-  "Implement client components only when necessary",
-  "Utilize the new file-based routing system",
-  "Use layout.js for shared layouts",
-  "Implement loading.js for loading states",
-  "Use error.js for error handling",
-  "Utilize route handlers for API routes",
-];
+What is your project named? portfolio2
 
-// Folder structure
+Would you like to use TypeScript? Yes
 
-const folderStructure = `
-app/
-  layout.js
-  page.js
-  components/
-  lib/
-  styles/
-public/
-`;
+Would you like to use ESLint? No
 
-// Additional instructions
+Would you like to use Tailwind CSS? Yes
 
-const additionalInstructions = `
-1. Use TypeScript for type safety
-2. Implement proper metadata for SEO
-3. Utilize Next.js Image component for optimized images
-4. Use CSS Modules or Tailwind CSS for styling
-5. Implement proper error boundaries
-6. Follow Next.js naming conventions for special files
-7. Use environment variables for configuration
-`;
+Would you like to use `src/` directory? Yes
+
+Would you like to use App Router? (recommended) Yes
+
+Would you like to customize the default import alias (@/)? No
+
+What import alias would you like configured? @/
+
+Nola liste des dépendance
+
+"dependencies": {
+  "@ckeditor/ckeditor5-react": "^6.3.0",
+  "@emotion/react": "^11.11.4",
+  "@emotion/styled": "^11.11.5",
+  "@mui/icons-material": "^5.15.18",
+  "@mui/material": "^5.15.18",
+  "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+  "@prisma/client": "^5.14.0",
+  "autoprefixer": "^10.4.19",
+  "bcryptjs": "^2.4.3",
+  "ckeditor5": "^41.4.2",
+  "clsx": "^2.1.1",
+  "framer-motion": "^11.2.5",
+  "init": "^0.1.2",
+  "next": "^14.2.3",
+  "next-auth": "^4.24.7",
+  "react": "^18.3.1",
+  "react-dom": "^18.3.1",
+  "shadcn-ui": "^0.8.0",
+  "styled-components": "^6.1.11",
+  "tailwind-merge": "^2.3.0"
+},
+
+"devDependencies": {
+  "@types/bcryptjs": "^2.4.6",
+  "@types/node": "^20",
+  "@types/react": "^18",
+  "@types/react-dom": "^18",
+  "postcss": "^8.4.38",
+  "prisma": "^5.14.0",
+  "tailwindcss": "^3.4.3",
+  "typescript": "^5.4.5"
+}
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
