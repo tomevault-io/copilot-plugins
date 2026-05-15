@@ -7,14 +7,14 @@ Keep your skills sharp. Intelligence for agent context.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [stbenjam/skillsaw](https://github.com/stbenjam/skillsaw).
+Original source: `GEMINI.md` in [stbenjam/skillsaw](https://github.com/stbenjam/skillsaw).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 From [stbenjam/skillsaw](https://github.com/stbenjam/skillsaw) — a repo with 8+ stars on GitHub.
