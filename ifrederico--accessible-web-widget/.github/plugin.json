@@ -1,0 +1,9 @@
+{
+  "name": "ifrederico--accessible-web-widget",
+  "displayName": "accessible-web-widget",
+  "description": "Script-tag accessibility preference widget with optional axe-core-powered dev checks.",
+  "version": "1.0.0",
+  "author": "ifrederico",
+  "homepage": "https://github.com/ifrederico/accessible-web-widget",
+  "skills": []
+}
