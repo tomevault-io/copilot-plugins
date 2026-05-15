@@ -7,11 +7,11 @@ Warehouse-native Analytics compatible with Google Analytics and Matomo tracking 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [d8a-tech/d8a](https://github.com/d8a-tech/d8a).
+Original source: `CLAUDE.md` in [d8a-tech/d8a](https://github.com/d8a-tech/d8a).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
