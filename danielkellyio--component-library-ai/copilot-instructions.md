@@ -1,47 +1,25 @@
-## components
+## docs
 
-> Rules for creating components
+> Rules for writing documentation
 
+## General 
+Docs are always written in `content/components` and `content/blocks`
 
-# Component Rules
-- When possible components should be built on top of Reka UI (VERY IMPORTANT!!!)
-- Lookup info about RekaUI the context7 MCP 
-- All components should exist in the `/components` directory
-- They should be documented in the `/content/components` directory and mirror the file structure from the components directory
-- Each component should exist in it's own folder and be prefixed by it's folder name. The folder can also include sublementary components that are only meant for use within the slot of the main component. And example of this structure is as follows:
+Their frontmatter includes:
 
-```
-- components
-    - Modal
-        - Modal.vue
-        - ModalBody.vue
-        - ModalHead.vue
-        - ModalActions.vue
-```
+* name - The component name
+* description - A short sentence description of the component 
 
-- No need to import vue functions like ref, they are auto-imported
-- If using a prop named class, make sure to alway reference it as `props.class` and NEVER just `class` in the template.
-- Each component should also include a histoire story in the same directory as it's defined
+Do NOT include an h1 (#) in the body
 
-- Always check `types/props.ts` for commonly used props to keep our component API's consistent. If a new prop is needed for a newly created component that's likely to be needed across multiple components add it here. 
-- import props from `types/props.ts` when possible for use in components.
+## Order of Sections
 
-- All more "generic" type components should exist at the root of the components directory. 
-- Nuxt icon module is installed to use for displaying icons (it's auto-imported everywhere)
-- Placeholder images can be used where relevant from lorempicusm (https://picsum.photos/[height as a number]/[width as a number])
-- Do NOT add comments within html elements. This does not work! For example:
-  ```
-  <div class="bg-primary" <!--This comment about the classses causes an error--> >
-  ```
-
-
-## "Block" Components
-
-- Blocks (or more app specific components) should exist under the folder `Component/Block/Block[ComponentName].vue` (for example, a user card, a navbar, etc)
-
-- If you are unsure if a new component should be "block" or not, just ask and wait for me to reply.
-
-- If you don't have the proper generic components to build up a block app, stop and let me know that too!
+* General Overview
+* Props - table of props (columns - Prop, Type, Default, Description)
+* Slots - table of slots (columns - Name, Props, Description)
+* Events - table of events (columns - Event, Payload, Description)
+* Basic Usage
+* More Examples
 
 ---
 > Source: [danielkellyio/component-library-ai](https://github.com/danielkellyio/component-library-ai) — distributed by [TomeVault](https://tomevault.io).
