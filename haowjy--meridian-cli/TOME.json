@@ -4,7 +4,7 @@
   "repo": "meridian-cli",
   "description": "text is qi for llms",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/haowjy/meridian-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:38:55Z"
+  "distributed_at": "2026-05-15T19:23:14Z"
 }
