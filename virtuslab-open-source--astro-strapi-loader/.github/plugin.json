@@ -1,0 +1,9 @@
+{
+  "name": "virtuslab-open-source--astro-strapi-loader",
+  "displayName": "astro-strapi-loader",
+  "description": "Integration of Astro with Strapi CMS that enables easy data loading from Strapi Content API",
+  "version": "1.0.0",
+  "author": "VirtusLab-Open-Source",
+  "homepage": "https://github.com/VirtusLab-Open-Source/astro-strapi-loader",
+  "skills": []
+}
