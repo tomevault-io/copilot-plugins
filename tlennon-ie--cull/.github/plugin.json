@@ -1,0 +1,9 @@
+{
+  "name": "tlennon-ie--cull",
+  "displayName": "cull",
+  "description": "The curation engine for AI image datasets.",
+  "version": "1.0.0",
+  "author": "tlennon-ie",
+  "homepage": "https://github.com/tlennon-ie/cull",
+  "skills": []
+}
