@@ -1,0 +1,9 @@
+{
+  "name": "banton--claude-dementia",
+  "displayName": "claude-dementia",
+  "description": "Transform Claude Code into a reliable developer with persistent memory. Battle-tested template for AI-assisted development that solves context loss through structured documentation.",
+  "version": "1.0.0",
+  "author": "banton",
+  "homepage": "https://github.com/banton/claude-dementia",
+  "skills": []
+}
