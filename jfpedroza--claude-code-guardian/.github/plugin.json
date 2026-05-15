@@ -1,0 +1,9 @@
+{
+  "name": "jfpedroza--claude-code-guardian",
+  "displayName": "claude-code-guardian",
+  "description": "Validation and permission system for Claude Code",
+  "version": "1.0.0",
+  "author": "jfpedroza",
+  "homepage": "https://github.com/jfpedroza/claude-code-guardian",
+  "skills": []
+}
