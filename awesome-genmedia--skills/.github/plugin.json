@@ -1,0 +1,9 @@
+{
+  "name": "awesome-genmedia--skills",
+  "displayName": "skills",
+  "description": "Awesome skills for AI image generation, video generation, song generation and more! ",
+  "version": "1.0.0",
+  "author": "awesome-genmedia",
+  "homepage": "https://github.com/awesome-genmedia/skills",
+  "skills": []
+}
