@@ -1,87 +1,56 @@
 ## genericsparsearrays-jl
 
-> `GenericSparseArrays.jl` is a Julia package that provides backend-agnostic sparse array types and operations for CPUs, GPUs, and other accelerators. It aims to offer a unified interface for sparse data structures that can seamlessly operate across different hardware backends.
+> These guidelines give AI coding agents the minimum project-specific context to be productive. They reflect the repository as it exists now and should NOT assume unimplemented features.
 
-# Gemini Project Context: GenericSparseArrays.jl
+# Copilot Instructions for GenericSparseArrays.jl
 
-## Project Overview
+These guidelines give AI coding agents the minimum project-specific context to be productive. They reflect the repository as it exists now and should NOT assume unimplemented features.
 
-`GenericSparseArrays.jl` is a Julia package that provides backend-agnostic sparse array types and operations for CPUs, GPUs, and other accelerators. It aims to offer a unified interface for sparse data structures that can seamlessly operate across different hardware backends.
+## 1. Purpose & Current State
+- Package name: `GenericSparseArrays` — intended focus: backend-agnostic sparse array types & operations for CPU/GPU/accelerators.
+- Unlike traditional SparseArrays.jl, this package aims to provide a unified interface for sparse data structures that can seamlessly operate across different hardware backends.
+- Any new functionality you add must be inside this module and accompanied by tests + docstrings.
 
-The package supports various sparse formats like CSC, CSR, and COO, and can be used with backends such as:
-- CPU (standard Julia arrays)
-- GPUs (CUDA, Metal)
-- XLA (via Reactant.jl)
+## 2. Repository Layout
+- `Project.toml` / `Manifest.toml`: Project environment. Add deps with compat bounds in alphabetical order; do not remove existing `[compat]` or test extras.
+- `src/GenericSparseArrays.jl`: Single entry point. Keep exports explicit (add an `export` block when you introduce public APIs). Keep imports explicit (use `import PackageName: symbol` or `using PackageName: symbol` as needed).
+- `docs/` (Documenter): `make.jl` sets up docs + doctests. `docs/src/index.md` auto-docs the module; adding docstrings automatically surfaces them.
 
-It uses `KernelAbstractions.jl` and `AcceleratedKernels.jl` to provide a consistent interface for kernel execution across different hardware backends.
+## 3. Development Workflows
+- Run tests locally: `make test` from the repo root folder. Important: this runs with the latest stable Julia version, and might fail in some cases like code quality checks (Aqua, JET).
+- The tests are divided into GROUPs defined in `runtests.jl`. For example, to run only the tests for the CUDA backend, use `GROUP=CUDA make test`.
+- Avoid to run generic tests like `make test`. Instead, run tests for specific backends depending on the available hardware on your machine. For example prefer running `GROUP=CUDA make test` on a machine with an NVIDIA GPU or `GROUP=Metal make test` on an Apple Silicon machine.
+- Add a dependency: `julia --project -e 'using Pkg; Pkg.add("PackageName")'` from the repo root folder, then update `[compat]` manually with a bounded version.
+- Build docs locally: `make docs`.
+- Doctests: Any code block in docstrings marked for execution must pass CI doctest phase.
+- Format code: `make format`.
+- Always check in which directory you are running commands. Change directory to the repo root if needed.
 
-## Building and Running
+## 4. Coding Conventions
+- Public API: add docstrings starting with a concise one-line summary, then details (Documenter picks them up). Write docstrings *only* for functions/types that are part of the package's public API, and not methods of other Modules (e.g., Base, LinearAlgebra, SparseArrays).
+- Keep internal helpers non-exported; prefix with an underscore only if truly private.
+- Avoid type piracy: only extend Base / external methods for types you own OR clearly justify in comments.
+- Prefer parametric methods that remain type-stable (JET will flag instability; address before committing).
+- Write minimal, composable functions; avoid global state.
+- Avoid scalar indexing. The arrays defined in this package could be on the GPU, so use KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl), [AcceleratedKernels.jl](https://github.com/JuliaGPU/AcceleratedKernels.jl), or similar abstractions to maintain backend-agnosticism.
 
-### Dependencies
+## 5. Testing Patterns
+- Always test the same functionality on all the supported backends (CPU, GPU, etc.) to ensure consistent behavior and avoid repetitions when generating the problem. Make tests reusable across backends when possible using shared functions in the `test/shared` folder.
+- The test for different CPU/GPU architectures should be in a separate Julia environment, as each machine may not have all the backends available.
+- When you run tests locally, only tests for the CPU and CUDA backends, as the others are not always available.
+- All added code must pass Aqua + JET. If JET warns about type instability, refactor or add an inline comment explaining any intentional dynamic behavior. Usually code quality tests fail on the latest stable Julia version; prefer to run them on the latest LTS Julia version.
 
-The project's Julia dependencies are listed in `Project.toml`. Key dependencies include:
-- `AcceleratedKernels`
-- `Adapt`
-- `ArrayInterface`
-- `KernelAbstractions`
-- `LinearAlgebra`
-- `SparseArrays`
+## 6. Documentation Patterns
 
-### Key Commands
+## 7. DO / DON'T for AI Agents
+- DO keep changes minimal & incremental, with tests + docs in same PR.
+- DO update docs & exports when adding public symbols.
+- DO NOT introduce broad dependencies without justification (prefer lightweight, widely-used packages).
+- DO NOT silence JET/Aqua warnings by removing the checks; fix root causes.
 
-The `Makefile` provides several useful commands for development:
-
-- **Run tests:**
-  ```bash
-  make test
-  ```
-  This command runs the test suite. The tests are structured to run against different backends (CPU, CUDA, etc.) based on the `GROUP` environment variable. For example, to run only the CUDA tests, you would use `GROUP=CUDA make test`.
-
-- **Format code:**
-  ```bash
-  make format
-  ```
-  This formats the code using `JuliaFormatter.jl`, based on the configuration in `.JuliaFormatter.toml`.
-
-- **Build documentation:**
-  ```bash
-  make docs
-  ```
-  This builds the project documentation using `Documenter.jl`.
-
-- **Run benchmarks:**
-  ```bash
-  make benchmark
-  ```
-  This runs the benchmark suite located in the `benchmarks/` directory.
-
-You **must be in the project root directory** to run these commands.
-
-## Development Conventions
-
-### Code Style
-
-The project uses `JuliaFormatter.jl` to enforce a consistent code style. The configuration is in `.JuliaFormatter.toml`. Before committing, run `make format` to format your changes.
-
-### Testing
-
-- Tests are located in the `test/` directory.
-- `test/runtests.jl` is the main entry point for running tests.
-- Tests are organized by backend and data structure. Shared tests are in the `test/shared/` directory.
-- The test suite uses environment variables (`GROUP`) to select which tests to run. This is useful for CI and for testing specific backends.
-- The project uses `Aqua.jl` for code quality checks (e.g., ambiguities, unbound type parameters) and `JET.jl` for static analysis.
-
-### Guidelines for Adding New Features
-
-When adding new features or resolving issues:
-- Follow the existing code style and structure.
-- Don't implement all the changes at once, but rather in small, reviewable increments that are tested step-by-step.
-- Ensure that new features are covered by tests, ideally in the appropriate backend-specific test files.
-
-### Contribution
-
-The `README.md` indicates that contributions are welcome. Given the structure of the project, contributions would likely involve adding support for new sparse formats, new backends, or new operations on the existing data structures.
+## 8. When Unsure
+Add a TODO comment with a brief rationale instead of guessing hidden requirements; keep TODOs concise so maintainers can triage.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/albertomercurio) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [albertomercurio/GenericSparseArrays.jl](https://github.com/albertomercurio/GenericSparseArrays.jl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
