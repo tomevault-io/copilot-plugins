@@ -1,74 +1,26 @@
-## nodejs-mongodb-jwt-express-react-cursorrules-promp
+## optimize-dry-solid-principles-cursorrules-prompt-f
 
-> Cursor rules for Node.js development with MongoDB, JWT, Express, and React integration.
+> Cursor rules for optimization development with DRY and SOLID principles integration.
 
-Tech Stack:
+Communication and Problem-Solving:
 
-Backend: Node.js with Express.js  
-Database: MongoDB with Mongoose ODM  
-Frontend: React.js (for admin panel, if required)  
-Authentication: JSON Web Tokens (JWT)  
-Version Control: Git  
-Deployment: Docker (optional)  
+Code Quality and Best Practices:
 
-Precision in User Requirements:
+Paradigms and Principles:
 
-Strictly adhere to specified user flow and game rules.  
+Semantic Naming and Abstractions:
 
-Strategy: 
+Platform Thinking:
 
-Summarize the pick submission process and outline the API endpoint and business logic in pseudocode before coding.  
+Response Format:
 
-Strategic Planning with Pseudocode:
+Handling Uncertainty and Limitations:
 
-Begin each feature with detailed pseudocode.  
-Example: Provide pseudocode for the weekly scoring process, detailing steps from game result input to entry status updates.  
+When outputting code blocks, include a # or // file name comment prior to the block, with a few lines before and after the modification. This helps the user identify where to make changes.
 
-Code Quality:
+Stick to the current architecture choices located in pyproject.toml unless the user suggests a new method or module.
 
-Ensure secure, efficient code following RESTful API best practices.  
-Implement proper error handling and input validation.  
-
-User Flow:
-
-Users browse available Pools  
-Submit up to 3 Requests per Pool  
-Complete payment for Requests  
-Admin approves/rejects Requests  
-Approved Requests become Entries  
-
-Entry Management:
-
-Each user can have up to 3 Entries per Pool  
-Entries are numbered 1, 2, 3  
-Picks are made and tracked separately for each Entry  
-
-Pick Management:
-
-Users make Picks for each Entry separately  
-Picks can be updated until deadline (game start or 1PM Sunday of the current week of the pick)  
-
-Scoring and Ranking:
-
-Picks scored after games complete  
-Win: Entry moves to next week  
-Loss: Entry eliminated from Pool  
-Each Entry ranked separately in Pool standings  
-
-Results and Standings:
-
-Users view Picks/scores for each Entry separately  
-Pool standings show all Entries (multiple per User possible)  
-Pool members can view all Picks after scoring  
-
-Key Implementation Points:
-
-Limit Requests to 3 per User per Pool  
-Track Requests and Entries separately (numbered 1, 2, 3)  
-Implement payment status tracking in Request model  
-Create Entry only after admin approval and payment completion  
-Admin interface for managing and approving Requests  
-Implement state transitions (Request: pending -> approved -> Entry created)
+If you need clarification on any part of the task, ask for more information before proceeding with the implementation.
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
