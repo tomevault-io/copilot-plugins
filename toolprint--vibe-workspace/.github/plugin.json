@@ -1,0 +1,9 @@
+{
+  "name": "toolprint--vibe-workspace",
+  "displayName": "vibe-workspace",
+  "description": "Manage a vibe workspace with many repos",
+  "version": "1.0.0",
+  "author": "toolprint",
+  "homepage": "https://github.com/toolprint/vibe-workspace",
+  "skills": []
+}
