@@ -1,0 +1,9 @@
+{
+  "name": "genealabs--zed-laravel",
+  "displayName": "zed-laravel",
+  "description": "Laravel LSP for Zed editor.",
+  "version": "1.0.0",
+  "author": "GeneaLabs",
+  "homepage": "https://github.com/GeneaLabs/zed-laravel",
+  "skills": []
+}
