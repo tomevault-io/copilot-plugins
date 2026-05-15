@@ -1,77 +1,71 @@
-## structure
+## tech
 
-> Freedom Stack v2 Structure
+> Freedom Stack v2 Technology Stack
 
 
-# Project Structure
+# Technology Stack
 
-## Root Directory
+## Core Framework
 
-- `astro.config.mjs` - Astro configuration with Netlify adapter and Tailwind
-- `bknd.config.ts` - Backend configuration, database schema, auth, and seeding
-- `package.json` - Dependencies and npm scripts
-- `tsconfig.json` - TypeScript config with `@/*` path alias for `src/*`
-- `.prettierrc` - Code formatting configuration
+- **Astro** - Static site generator with server-side rendering
+- **Alpine.js** + **Alpine AJAX** - Lightweight JavaScript framework for interactivity
+- **TailwindCSS v4** - Utility-first CSS framework
+- **Basecoat UI** - Component library (shadcn-ui alternative without React)
 
-## Source Structure (`src/`)
+## Backend & Database
 
+- **Bknd** - Lightweight, self-hostable backend (Supabase alternative)
+- **libSQL** - Local SQLite-compatible database for development
+- **Turso** - Recommended production database service
+
+## Deployment
+
+- **Netlify** - Primary deployment target (can host anywhere)
+- **Node.js** - Runtime environment
+
+## Development Tools
+
+- **TypeScript** - Type safety and better developer experience
+- **Prettier** - Code formatting with Astro and Tailwind plugins
+- **Vite** - Build tool and development server
+
+## Common Commands
+
+### Development
+
+```bash
+npm run dev          # Start development server with asset copying
+npm run build        # Build for production with asset copying
+npm run preview      # Preview production build
 ```
-src/
-├── assets/          # Static assets (SVG icons, images)
-├── components/      # Reusable Astro components
-├── layouts/         # Page layout templates
-├── pages/           # File-based routing (Astro pages)
-├── styles/          # Global CSS and Tailwind imports
-├── bknd.ts          # Bknd API helper functions
-├── bknd-types.d.ts  # Auto-generated database types
-├── middleware.ts    # Astro middleware for API routing
-└── env.d.ts         # Environment type definitions
+
+### Database
+
+```bash
+npm run db:reset-local    # Reset local database
+npx tsx node_modules/.bin/bknd user create    # Create admin user
 ```
 
-## Key Directories
+### Code Quality
 
-### `/src/pages/` - File-based Routing
+```bash
+npm run format       # Format code with Prettier
+```
 
-- `index.astro` - Homepage
-- `login.astro` - Authentication login page
-- `register.astro` - User registration page
-- `logout.astro` - Logout handler
-- `404.astro` - Error page
+## Key Dependencies
 
-### `/src/components/` - Reusable Components
+- `@astrojs/netlify` - Netlify adapter for Astro
+- `@imacrayon/alpine-ajax` - AJAX functionality for Alpine.js
+- `bknd` - Backend framework
+- `alpinejs` - Frontend reactivity
+- `basecoat-css` - UI component styles
 
-- `Header.astro` - Site navigation header
-- `Authenticated.astro` - Conditional rendering based on auth state
+## Configuration Files
 
-### `/src/styles/` - Styling
-
-- `global.css` - Global styles with Tailwind imports and custom component classes
-
-## Generated/Build Directories
-
-- `.astro/` - Astro build cache and generated types
-- `dist/` - Production build output
-- `public/` - Static assets served directly
-- `public/bknd/` - Bknd admin panel assets (auto-generated)
-
-## Path Aliases
-
-- `@/*` maps to `src/*` (configured in tsconfig.json)
-- Use `@/components/Header.astro` instead of `../components/Header.astro`
-
-## File Naming Conventions
-
-- Astro components: PascalCase (e.g., `Header.astro`)
-- Pages: lowercase (e.g., `login.astro`)
-- TypeScript files: camelCase (e.g., `middleware.ts`)
-- CSS files: lowercase (e.g., `global.css`)
-
-## Component Patterns
-
-- Use Astro components for static/server-rendered content
-- Use Alpine.js for client-side interactivity
-- Leverage Basecoat UI classes for consistent styling
-- Follow the authentication pattern in `Authenticated.astro` for conditional rendering
+- `astro.config.mjs` - Astro configuration with Netlify adapter
+- `bknd.config.ts` - Backend configuration, schema, and auth setup
+- `tsconfig.json` - TypeScript configuration with path aliases
+- `.prettierrc` - Code formatting rules
 
 ---
 > Source: [cameronapak/freedom-stack-v2](https://github.com/cameronapak/freedom-stack-v2) — distributed by [TomeVault](https://tomevault.io).
