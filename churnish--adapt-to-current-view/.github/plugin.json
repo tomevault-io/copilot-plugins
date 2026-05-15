@@ -1,0 +1,9 @@
+{
+  "name": "churnish--adapt-to-current-view",
+  "displayName": "adapt-to-current-view",
+  "description": "Obsidian plugin to set different accent colors for Reading view, Live Preview and Source view.",
+  "version": "1.0.0",
+  "author": "churnish",
+  "homepage": "https://github.com/churnish/adapt-to-current-view",
+  "skills": []
+}
