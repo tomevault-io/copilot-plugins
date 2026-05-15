@@ -1,374 +1,225 @@
 ## odai
 
-> ODAI (ODAI AI Assistant) is a comprehensive AI assistant platform built on FastAPI that orchestrates multiple specialized agents to handle diverse user requests. The system uses OpenAI's Agent framework with a hub-and-spoke architecture where a central orchestrator routes requests to specialized agents.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# ODAI AI Assistant Agents Documentation
+# CLAUDE.md
 
-## Overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-ODAI (ODAI AI Assistant) is a comprehensive AI assistant platform built on FastAPI that orchestrates multiple specialized agents to handle diverse user requests. The system uses OpenAI's Agent framework with a hub-and-spoke architecture where a central orchestrator routes requests to specialized agents.
+## Common Commands
 
-## Architecture
+### Testing
+```bash
+# Run all tests with advanced test runner
+python run_tests.py                               # Run all tests with parallel execution
+python run_tests.py --coverage                    # Run tests with coverage report
+python run_tests.py --file auth_service           # Run specific test file
+python run_tests.py --verbose                     # Run tests with verbose output
+python run_tests.py --workers 8                   # Run tests with 8 parallel workers
+
+# Direct pytest commands
+pytest tests/                                     # Run all tests
+pytest tests/test_auth_service.py                 # Run specific test file
+pytest tests/ --cov=services --cov-report=html    # Generate HTML coverage report
+pytest tests/ -xvs                                # Stop on first failure with verbose output
+```
+
+### Development
+```bash
+# Install dependencies
+pip install -r requirements.txt                   # 173 production dependencies
+pip install -r test_requirements.txt              # Testing dependencies
+
+# Run locally (set LOCAL=true in environment)
+uvicorn api:APP --reload                          # Run with auto-reload
+uvicorn api:APP --host 0.0.0.0 --port 8080       # Run on specific host/port
+
+# Deploy to environments
+./deploy_development.sh                           # Deploy to dev (odai-dev-5e4fd)
+./deploy_production.sh                            # Deploy to prod (odai-prod)
+```
+
+## Project Overview
+
+ODAI is a sophisticated AI assistant platform built with FastAPI, featuring:
+- **30+ Third-Party Integrations**: Financial, travel, communication, entertainment services
+- **Real-time WebSocket Support**: Streaming chat responses with connection lifecycle management
+- **Voice Interface**: Twilio integration for voice-based AI interactions
+- **Enterprise Security**: Google Cloud KMS encryption, OAuth 2.0 authentication
+- **Comprehensive Testing**: 700+ tests with 90%+ coverage across 67 test files
+- **Cloud-Native Architecture**: Google App Engine with auto-scaling (2-20 instances in production)
+
+## Code Architecture
+
+### High-Level Structure
+```
+api.py (FastAPI main)
+├── routers/              # API endpoints & route handlers
+│   ├── app_voice.py      # Voice interaction endpoints
+│   ├── google.py         # Google services integration
+│   ├── twilio_handler.py # SMS/voice handling
+│   └── voice_utils/      # Audio processing utilities
+├── services/             # Business logic layer
+│   ├── auth_service.py   # Authentication & OAuth
+│   ├── chat_service.py   # OpenAI chat management
+│   └── api_service.py    # Non-chat API endpoints
+├── connectors/           # 30+ third-party integrations
+│   ├── orchestrator.py   # Agent tool orchestration
+│   └── [integration].py  # Individual service connectors
+├── firebase/models/      # Data models & encryption
+│   ├── user.py           # User profiles
+│   ├── chat.py           # Chat sessions
+│   └── [model]_token.py  # Encrypted token storage
+├── websocket/            # Real-time communication
+│   └── handlers/         # WebSocket connection handlers
+├── middleware/           # Application middleware
+└── tests/                # 67 test files, 700+ tests
+```
 
 ### Core Components
 
-1. **Main Application** (`api.py`): FastAPI application with WebSocket support
-2. **Orchestrator** (`connectors/orchestrator.py`): Central agent that routes requests
-3. **Voice Orchestrator** (`connectors/voice_orchestrator.py`): Specialized for voice interactions
-4. **Individual Agents**: Specialized tools for specific services and APIs
-5. **Services Layer**: Authentication, chat management, location services
-6. **Firebase Integration**: User management, chat history, token tracking
-
-### Agent Communication Flow
-
-```
-User Request → WebSocket → Orchestrator → Specialized Agent(s) → Response → User
-```
-
-The orchestrator uses the **H.A.N.D.O.F.F.** decision framework:
-- **H**as capability: Does the agent solve this task?
-- **A**ccess: Does it have the right data/API permissions?
-- **N**ovelty/Need: Is a tool call necessary vs. known info?
-- **D**elay/Cost: Prefer fewer/cheaper calls if quality unaffected
-- **O**utput quality: Will it return the needed format/info?
-- **F**ailure fallback: Choose alternates if first likely fails
-- **F**usion: Orchestrate multiple agents and merge results
-
-## Agent Categories
-
-### 1. Communication & Productivity
-- **GMail Agent**: Email management (send, receive, search, reply)
-- **Google Calendar Agent**: Event scheduling and calendar management
-- **Google Docs Agent**: Document creation, search, and collaboration
-- **Slack Agent**: Team communication integration
-- **Twilio Assistant**: Voice and SMS capabilities
-
-### 2. Information & Search
-- **Google Search Agent**: Web search functionality
-- **Google News Agent**: News headlines and stories
-- **Fetch Website Agent**: Website content extraction
-- **Google Shopping Agent**: Product search and price comparison
-
-### 3. Financial Services
-- **Plaid Agent**: Bank account integration (balances, transactions)
-- **Plaid Connector Agent**: Account connection setup
-- **FinnHub Agent**: Stock market data and financial information
-- **CoinMarketCap Agent**: Cryptocurrency prices and market data
-- **Exchange Rate Agent**: Currency conversion
-
-### 4. Travel & Transportation
-- **FlightAware Agent**: Real-time flight status and tracking
-- **Flights Agent**: Flight booking and information
-- **AMADEUS Agent**: Flight and hotel search
-- **Amtrak Agent**: Train status and schedules
-- **Caltrain Agent**: Regional train information
-
-### 5. Local Services & Entertainment
-- **Yelp Agent**: Restaurant and business search with reviews
-- **TripAdvisor Agent**: Travel recommendations and reviews
-- **Ticketmaster Agent**: Event tickets and venue information
-- **MovieGlu Agent**: Movie showtimes and theater information
-
-### 6. Weather & Location
-- **AccuWeather Agent**: Detailed weather forecasts
-- **WeatherAPI Agent**: Current weather and forecasts
-- **Location Service**: IP-based location detection
-
-### 7. E-commerce & Shopping
-- **Amazon Agent**: Product search and details
-- **Google Shopping Agent**: Cross-retailer product comparison
-
-### 8. Utilities & Tools
-- **EasyPost Agent**: Package tracking across carriers
-- **Open External URL Agent**: URL opening in browser
-- **Google Connections Agent**: Google account OAuth setup
-
-## Individual Agent Details
-
-### Gmail Agent (`connectors/gmail.py`)
-**Capabilities:**
-- Fetch and search inbox messages
-- Send emails with attachments
-- Reply to existing threads
-- Search emails by sender or content
-- HTML and plain text message processing
-
-**Key Functions:**
-- `fetch_google_email_inbox()`: Retrieve inbox messages
-- `search_google_mail()`: Search emails by query
-- `send_google_email()`: Send new emails
-- `reply_to_google_email()`: Reply to existing threads
-
-**Authentication:** Google OAuth2 with Gmail scope
-
-### Plaid Agent (`connectors/plaid_agent.py`)
-**Capabilities:**
-- Connect to bank and credit card accounts
-- Retrieve account balances
-- Fetch transaction history
-- Support multiple financial institutions
-
-**Key Functions:**
-- `get_accounts_at_plaid()`: Get account balances and details
-- `get_transactions_at_plaid()`: Retrieve transaction history
-
-**Environment:** Sandbox (development) and Production environments
-
-### Google Search Agent (`connectors/google_search.py`)
-**Capabilities:**
-- Perform web searches using SerpAPI
-- Return organic search results with metadata
-- Extract rich snippets and sitelinks
-
-**Key Functions:**
-- `search_google()`: Execute search queries and return results
-
-**Integration:** SerpAPI for Google search results
-
-### Weather Agents
-**WeatherAPI Agent** (`connectors/weatherapi.py`):
-- Current weather conditions
-- Multi-day forecasts (1-14 days)
-- Hourly predictions
-- Supports various location formats
-
-**AccuWeather Agent** (`connectors/accuweather.py`):
-- Real-time weather by coordinates
-- Detailed hourly and daily forecasts
-- Weather alerts and conditions
-
-### Flight Tracking Agents
-**FlightAware Agent** (`connectors/flightaware.py`):
-- Real-time flight status
-- Departure/arrival information
-- Gate and terminal details
-
-**Flight Agent** (`connectors/flights.py`):
-- IATA flight code lookups
-- Airport information
-- Booking capabilities (inactive in current version)
-
-## Orchestrator System
-
-### Main Orchestrator (`connectors/orchestrator.py`)
-
-The central ODAI orchestrator uses gpt-4o and implements the **O.D.A.R.** loop:
-1. **Observe**: Parse user input and context
-2. **Decide**: Choose appropriate agent(s)
-3. **Act**: Execute tool calls (parallel when safe)
-4. **Respond**: Synthesize results for user
-
-**Handoff Agents (35+ available):**
-```python
-ORCHESTRATOR_AGENT = Agent(
-    name="ODAI",
-    model="gpt-4o",
-    handoffs=[
-        YELP_AGENT, COINMARKETCAP_AGENT, GMAIL_AGENT,
-        PLAID_AGENT, GOOGLE_CALENDAR_AGENT, GOOGLE_DOCS_AGENT,
-        # ... all 35+ agents
-    ]
-)
-```
-
-**Tool Call Tracking:**
-The system tracks 100+ tool calls with user-friendly progress messages:
-```python
-TOOL_CALLS = {
-    "search_businesses_at_yelp": "Searching Yelp...",
-    "get_stock_price_at_finnhub": "Getting Stock Price...",
-    "send_google_email": "Sending Email...",
-    # ... 100+ tool mappings
-}
-```
-
-### Voice Orchestrator (`connectors/voice_orchestrator.py`)
-
-Specialized for real-time voice interactions using `RealtimeAgent`:
-- Optimized for conversational speech
-- Reduced tool set for faster responses
-- Voice-specific prompting and response formatting
-- Integration with Twilio for phone calls
-
-## Configuration & Setup
-
-### Settings Management (`config.py`)
-- **Local Development**: Uses `.env` files
-- **Production**: Google Secret Manager integration
-- **API Keys**: 25+ service integrations managed
-- **Environment Detection**: Automatic local vs. production switching
-
-### Key Configuration Classes:
-```python
-class Settings(BaseSettings):
-    openai_api_key: str
-    production: bool
-    # 25+ API keys for various services
-    plaid_client_id: str
-    google_client_id: str
-    serpapi_api_key: str
-    # ... additional service keys
-```
-
-### Firebase Integration
-- **Models** (`firebase/models/`): User, Chat, Tokens, Usage tracking
-- **Authentication**: Token-based user management
-- **Chat History**: Persistent conversation storage
-- **Analytics**: Segment integration for usage tracking
-
-## API Structure
-
-### WebSocket Endpoint
-```
-WSS /chats/{chat_id}?token={auth_token}
-```
-
-**Message Format:**
-```json
-{
-    "message": "User prompt text",
-    "thread_id": "unique_thread_identifier"
-}
-```
-
-### REST Endpoints
-- `GET /`: Health check and static file serving
-- `POST /waitlist`: Email collection
-- `POST /google_access_request`: OAuth initiation
-- `GET /update_integrations`: Refresh agent configurations
-- Development-only endpoints for token reset
-
-### Agent Integration Pattern
-
-Each agent follows a consistent pattern:
-
-```python
-@function_tool(is_enabled=enable_check_function)
-def agent_function(wrapper: RunContextWrapper[ChatContext], ...params) -> dict:
-    """Tool description and usage instructions."""
-    # API call logic
-    return ToolResponse(
-        response_type="agent_specific_type",
-        agent_name="Service Name",
-        friendly_name="Human Readable Name",
-        display_response=True,
-        response=processed_data
-    ).to_dict()
-
-AGENT = Agent(
-    name="Agent Name",
-    instructions=PROMPT_PREFIX + specific_instructions,
-    handoffs=[related_agents],
-    tools=[agent_function, other_tools]
-)
-```
-
-## Voice vs Regular Agents
-
-### Regular Agents
-- Full feature set available
-- Detailed responses with formatting
-- Support for complex multi-step operations
-- Can handle long-form content
-
-### Voice Agents (`REALTIME_*` variants)
-- Optimized for speech synthesis
-- Concise, conversational responses
-- Limited tool set for faster execution
-- Special formatting for voice output
-- Integration with phone system via Twilio
-
-## Development & Testing
-
-### Project Structure
-```
-backend/
-├── api.py                 # Main FastAPI application
-├── connectors/           # All agent implementations
-│   ├── orchestrator.py   # Central orchestrator
-│   ├── voice_orchestrator.py # Voice-specific orchestrator
-│   ├── gmail.py          # Email agent
-│   ├── plaid_agent.py    # Financial services
-│   └── [35+ other agents]
-├── services/             # Core business logic
-├── websocket/            # Real-time communication
-├── firebase/             # Database models
-├── routers/              # API route handlers
-└── tests/                # Comprehensive test suite
-```
-
-### Agent Registration
-Agents are automatically registered through:
-1. Import in orchestrator files
-2. Addition to handoffs list
-3. Integration configuration in `integrations.yaml`
-4. Tool call mapping in `TOOL_CALLS` dictionary
-
-### Testing
-- **Unit Tests**: Individual agent functionality
-- **Integration Tests**: Full agent workflows
-- **E2E Tests**: Complete user journeys
-- **Firebase Tests**: Database operations
-- **WebSocket Tests**: Real-time communication
-
-## Integration Configuration (`integrations.yaml`)
-
-Each agent has a standardized configuration:
-
-```yaml
-- id: AgentID
-  name: "Human Readable Name"
-  description: "Detailed capability description"
-  logo: "https://logo-url"
-  prompts:
-    - "Example usage prompt 1"
-    - "Example usage prompt 2"
-```
-
-This configuration drives:
-- Frontend integration display
-- User onboarding prompts
-- Agent capability documentation
-- Marketing and user education materials
-
-## Security & Authentication
-
-### Multi-layer Security
-1. **Firebase Authentication**: User identity management
-2. **OAuth2 Integration**: Google, Plaid, and other service auth
-3. **API Key Management**: Secure secret storage
-4. **Token Validation**: All requests authenticated
-5. **Rate Limiting**: Built into individual agents
-6. **Environment Isolation**: Separate dev/prod configurations
-
-### Privacy Considerations
-- User data encrypted in transit and at rest
-- Service tokens stored securely in Firebase
-- Agent responses filtered for sensitive information
-- Audit logging for all user interactions
-
-## Monitoring & Analytics
-
-### Usage Tracking
-- **Segment Integration**: User behavior analytics
-- **Token Usage**: OpenAI API consumption tracking
-- **Agent Performance**: Success rates and latencies
-- **Error Monitoring**: Sentry integration for error tracking
-
-### Metrics Collected
-- Agent usage frequency
-- Tool call success rates
-- User engagement patterns
-- Error rates and types
-- Performance benchmarks
-
-## Conclusion
-
-ODAI represents a sophisticated multi-agent AI system capable of handling diverse user needs through specialized, interconnected agents. The architecture prioritizes modularity, scalability, and user experience while maintaining security and performance standards. The system continues to evolve with new agent integrations and enhanced capabilities.
-
-For development questions or agent integration requests, refer to the individual agent files and test suites for implementation details.
+#### 1. **API Layer** (`api.py`, `routers/`)
+- FastAPI application with CORS middleware and authentication
+- RESTful endpoints + WebSocket support for real-time chat
+- Routers:
+  - `app_voice.py`: Voice-based AI interactions
+  - `google.py`: Google OAuth and services (Calendar, Docs, Gmail)
+  - `plaid.py`: Banking integration
+  - `evernote.py`: Note-taking integration
+  - `twilio_handler.py`: SMS/voice communication
+
+#### 2. **Service Layer** (`services/`)
+- `auth_service.py`: Google OAuth, JWT tokens, user management (84% coverage)
+- `chat_service.py`: OpenAI integration, message processing, agent tools (97% coverage)
+- `api_service.py`: Non-chat API endpoint orchestration
+- `location_service.py`: IP-based geolocation services
+
+#### 3. **WebSocket Layer** (`websocket/`)
+- Real-time bidirectional communication for streaming chat
+- Connection lifecycle management with authentication
+- Message queuing and error handling
+- Support for both text and voice interactions
+
+#### 4. **Data Layer** (`firebase/models/`)
+- **User Management**: `user.py` - profiles, preferences, integration settings
+- **Chat Storage**: `chat.py` - sessions, messages, conversation history
+- **Token Management**: Encrypted storage using Google Cloud KMS
+  - `google_token.py`: Google OAuth tokens
+  - `plaid_token.py`: Banking credentials
+  - `evernote_token.py`: Note service tokens
+- **Analytics**: `token_usage.py` - OpenAI API usage and cost tracking
+- **Error Tracking**: `unhandled_request.py` - Failed request logging
+
+#### 5. **Integration Layer** (`connectors/`)
+
+##### Financial & Banking
+- `plaid_agent.py`: Bank account access and transactions
+- `finnhub_agent.py`: Stock market data and financial news
+- `coinmarketcap.py`: Cryptocurrency prices and market data
+- `exchange_rate.py`: Currency conversion rates
+
+##### Travel & Transportation
+- `amadeus_agent.py`: Flight booking and travel planning
+- `flightaware.py`: Real-time flight tracking
+- `amtrak.py`: Train schedules and bookings
+- `caltrain.py`: California commuter rail status
+
+##### Communication & Productivity
+- `gmail.py`: Email management and sending
+- `google_calendar.py`: Calendar events and scheduling
+- `google_docs.py`: Document creation and editing
+- `slack.py`: Team messaging integration
+- `twilio_assistant.py`: SMS and voice communication
+
+##### E-commerce & Shopping
+- `amazon.py`: Product search and shopping
+- `google_shopping.py`: Price comparison and product search
+- `yelp.py`: Restaurant and business reviews
+
+##### Entertainment & Media
+- `spotify.py`: Music streaming and playlist management
+- `movieglu.py`: Movie showtimes and theater information
+- `ticketmaster.py`: Event tickets and entertainment
+- `tripadvisor.py`: Travel reviews and recommendations
+
+##### Weather & Location
+- `accuweather.py`: Weather forecasts and conditions
+- `weatherapi.py`: Alternative weather data source
+
+##### Core Infrastructure
+- `orchestrator.py`: Agent tool management and routing
+- `voice_orchestrator.py`: Voice-specific agent handling
+- `google_connections.py`: Google API connection pooling
+
+### Key Design Patterns
+
+- **Agent Tool Architecture**: Function-based tools for AI capabilities with OpenAI agents
+- **Repository Pattern**: Firebase models abstract database operations
+- **Dependency Injection**: Services receive dependencies via constructors
+- **Middleware Pipeline**: Authentication, CORS, error handling in layers
+- **Async/Await**: Consistent async patterns for WebSocket and external APIs
+- **Encryption at Rest**: Google Cloud KMS for sensitive data protection
+- **Connection Pooling**: Efficient management of external API connections
+
+### Testing Strategy
+
+- **Test Suite Statistics**:
+  - 67 test files covering all modules
+  - 700+ individual test cases
+  - 90%+ code coverage across tested modules
+  - Parallel test execution with 8 workers in CI/CD
+
+- **Test Categories**:
+  - **Unit Tests**: Isolated component testing with mocked dependencies
+  - **Integration Tests**: End-to-end workflow validation
+  - **WebSocket Tests**: Real-time connection and streaming tests
+  - **Authentication Tests**: OAuth flow and token validation
+  - **Connector Tests**: Each third-party integration thoroughly tested
+
+- **Testing Tools & Configuration**:
+  - `run_tests.py`: Advanced test runner with coverage reporting
+  - `pytest.ini`: Async support, timeout settings, warning filters
+  - Comprehensive mocking of external services (OpenAI, Google Cloud, Firebase)
+  - Edge case coverage including empty data, invalid inputs, error conditions
+
+### Environment Configuration
+
+- **Local Development**:
+  - Set `LOCAL=true` environment variable
+  - Use `.env` file for API keys and secrets
+  - Python 3.13 recommended
+  - 4GB RAM minimum for development
+
+- **Cloud Deployment**:
+  - Google App Engine with auto-scaling
+  - Development: 1 instance, 4GB RAM (`odai-dev-5e4fd`)
+  - Production: 2-20 instances, 4GB RAM (`odai-prod`)
+  - Google Secret Manager for API key storage
+  - Cloud KMS for encryption keys
+
+- **Configuration Files**:
+  - `app.yaml`: Development environment settings
+  - `prod.yaml`: Production environment settings
+  - `pytest.ini`: Test configuration
+  - `requirements.txt`: 173 production dependencies
+  - `test_requirements.txt`: Testing dependencies
+
+### Recent Architectural Improvements
+
+- **Modular Service Refactoring**: Migrated from monolithic 614-line file to modular service architecture
+- **Centralized Import Management**: `utils/imports.py` for clean dependency handling
+- **Enhanced WebSocket Support**: Improved streaming with connection lifecycle management
+- **Voice Interface Addition**: Twilio integration for voice-based AI interactions
+- **Advanced Testing Infrastructure**: Parallel test execution with comprehensive coverage reporting
+- **Security Enhancements**: Cloud KMS encryption for all sensitive tokens
+
+### Additional Documentation
+
+- `TESTING_README.md`: Comprehensive testing guide (504 lines)
+- `REFACTORING_SUMMARY.md`: Details of modular architecture migration
+- `LAUNCH_PLAN.md`: Product launch and go-to-market strategy
+- `README.md`: Main project documentation
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/sibblegp)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/sibblegp)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [sibblegp/ODAI](https://github.com/sibblegp/ODAI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
