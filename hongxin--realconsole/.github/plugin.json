@@ -1,0 +1,9 @@
+{
+  "name": "hongxin--realconsole",
+  "displayName": "RealConsole",
+  "description": "RealConsole: A smart console application in Rust",
+  "version": "1.0.0",
+  "author": "hongxin",
+  "homepage": "https://github.com/hongxin/RealConsole",
+  "skills": []
+}
