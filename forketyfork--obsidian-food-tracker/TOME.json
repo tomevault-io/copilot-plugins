@@ -4,7 +4,7 @@
   "repo": "obsidian-food-tracker",
   "description": "An Obsidian plugin to track your food intake (calories, macronutrients) and nutritional information.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/forketyfork/obsidian-food-tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T09:38:16Z"
+  "distributed_at": "2026-05-15T10:48:25Z"
 }
