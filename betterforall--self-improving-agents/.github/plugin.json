@@ -1,0 +1,9 @@
+{
+  "name": "betterforall--self-improving-agents",
+  "displayName": "self-improving-agents",
+  "description": "Self-Improving Agents -- A Progression Four levels of self-improving code agents, from the simplest loop to a full adversarial arena with self-modifying agents. Each level adds one key idea.",
+  "version": "1.0.0",
+  "author": "BetterForAll",
+  "homepage": "https://github.com/BetterForAll/self-improving-agents",
+  "skills": []
+}
