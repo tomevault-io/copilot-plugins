@@ -1,0 +1,9 @@
+{
+  "name": "mryll--claudebar",
+  "displayName": "claudebar",
+  "description": "Waybar widget showing Claude AI usage limits with progress bars and countdowns",
+  "version": "1.0.0",
+  "author": "mryll",
+  "homepage": "https://github.com/mryll/claudebar",
+  "skills": []
+}
