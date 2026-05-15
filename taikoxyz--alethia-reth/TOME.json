@@ -4,7 +4,7 @@
   "repo": "alethia-reth",
   "description": "A high-performance Rust execution client for the Taiko Alethia protocol.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/taikoxyz/alethia-reth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T11:13:49Z"
+  "distributed_at": "2026-05-15T11:56:54Z"
 }
