@@ -1,70 +1,143 @@
-## documentation
+## git-timestamps
 
-> Documentation standards requiring external-reader accessibility and concrete language
+> **Always use git commit timestamps instead of current system time for logging, data storage, and operations throughout the system.**
 
+# Git Timestamp Consistency Rule
 
-# Documentation Standards
+**Always use git commit timestamps instead of current system time for logging, data storage, and operations throughout the system.**
 
 ## Core Principle
-**Write for a future developer with zero project knowledge who needs to understand and modify this system.**
 
-## Some Possible Elements
-- **Function-level docstrings** for all new functions following the core principle
-- **Module-level docstrings** for new modules explaining their purpose and approach
-- **Complete examples** that are copy-pasteable and work
-- **Technical context** explaining why decisions were made when it affects future changes
-- **Prerequisites**: What they need to install/know first
-- **Clear steps**: How to use, modify, or extend
+- **Use `commit.committed_datetime` or `commit.committed_date` from GitPython for all timestamp operations**
+- **Never use `datetime.now()`, `time.time()`, or other current-time functions when git context is available**
+- **Maintain temporal consistency with the actual development timeline**
 
-## Documentation Updates for Code Changes
-- **Evaluate existing documentation** before creating new files - determine if new information should be added to existing docs rather than creating separate files
-- **When code is changed** (as opposed to net-new), these must be evaluated and updated if needed:
-  - Documentation files
-  - README.md
-  - Engineering specifications
-  - PRD (Product Requirements Document)
+## Implementation Patterns
 
-## Forbidden Content
-- **Process references**: No task IDs, sprint numbers, team workflows
-- **Historical narrative**: Skip "we tried X then Y" stories  
-- **Assumed knowledge**: No insider team decisions or project history
-- **Personal references**: No names, meetings, or timeline details
-- **Abstract corporate speak**: Use concrete problem descriptions instead
-- **Meaningless task references**: Describe actual accomplishments, not task numbers
+### ✅ DO: Use Git Commit Timestamps
 
-## Writing Style Requirements
-- **Specific, concrete language** - avoid abstract buzzwords
-- **Real problem/solution statements** - not theoretical concepts
-- **External reader accessibility** - assume no prior project context
-- **Focus on what's happening** - not the development journey
+```python
+# For ISO format timestamps
+timestamp = commit.committed_datetime.isoformat()
 
-## Quality Test
-**Could a new developer use this documentation successfully without asking questions?**
+# For date strings  
+date_str = commit.committed_datetime.strftime("%Y-%m-%d")
 
-## Examples
+# For Unix timestamps
+timestamp = commit.committed_date
 
-### ✅ Good
-```markdown
-# Email Service
-
-## Prerequisites
-- Node.js 18+, environment vars: `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS`
-
-## Usage
-```javascript
-import { sendEmail } from './email-service';
-await sendEmail('user@example.com', 'Welcome!', template);
+# For datetime objects
+dt = commit.committed_datetime
 ```
 
-## Configuration
-- `TIMEOUT=10000`: 10s timeout prevents hanging on slow SMTP servers
+### ✅ DO: Access Latest Commit Timestamp
+
+```python
+def get_git_commit_timestamp(repo_path: str) -> Optional[str]:
+    """Get timestamp from most recent git commit."""
+    try:
+        repo = git.Repo(repo_path)
+        if not repo.heads:
+            return None
+        latest_commit = repo.head.commit
+        return latest_commit.committed_datetime.isoformat()
+    except Exception:
+        return None
 ```
 
-### ❌ Bad
-```markdown
-# Email Service
-After task #45, the team decided on nodemailer. Sarah's timeout fix solved our production issues.
+### ✅ DO: Use in Logging with Fallback
+
+```python
+def log_with_git_timestamp(message: str, repo_path: str = None):
+    """Log with git commit timestamp for consistency."""
+    timestamp = get_git_commit_timestamp(repo_path) if repo_path else None
+    if timestamp:
+        log_message = f"[{timestamp}] {message}"
+    else:
+        # Fallback only when git context unavailable
+        log_message = f"[{datetime.now().isoformat()}] {message}"
+    logger.info(log_message)
 ```
+
+### ❌ DON'T: Use Current System Time When Git Context Available
+
+```python
+# ❌ Wrong - ignores git timeline
+timestamp = datetime.now().isoformat()
+log_entry = f"[{datetime.now()}] Generated summary"
+
+# ❌ Wrong - inconsistent with commit history
+file_timestamp = time.time()
+```
+
+### ❌ DON'T: Mix Timestamp Sources
+
+```python
+# ❌ Wrong - mixing git and system timestamps
+commit_time = commit.committed_datetime
+system_time = datetime.now()  # Creates inconsistency
+```
+
+## System Areas Where This Applies
+
+### **Journal Entries**
+- Use commit timestamp for journal file timestamps
+- Use commit timestamp for entry metadata
+- Reference: [`journal_workflow.py`](mdc:src/mcp_commit_story/journal_workflow.py)
+
+### **Summary Generation**
+- Use commit timestamp for summary metadata
+- Use commit timestamp for determining generation boundaries
+- Reference: [`daily_summary.py`](mdc:src/mcp_commit_story/daily_summary.py)
+
+### **Git Hook Operations**
+- Use commit timestamp for hook activity logging
+- Maintain consistency with commit timeline
+- Reference: [`git_hook_worker.py`](mdc:src/mcp_commit_story/git_hook_worker.py)
+
+### **MCP Operations**
+- Use commit timestamp for operation metadata
+- Use commit timestamp for telemetry data
+- Reference: MCP server implementations
+
+## Testing Considerations
+
+### **Mock Git Timestamps in Tests**
+
+```python
+# ✅ DO: Mock git commit timestamps consistently
+mock_commit.committed_datetime = datetime(2025, 6, 3, 14, 30)
+mock_commit.committed_date = 1717426200  # Unix timestamp
+
+# ✅ DO: Test timestamp consistency
+def test_timestamp_consistency():
+    timestamp1 = get_git_commit_timestamp(repo_path)
+    timestamp2 = commit.committed_datetime.isoformat()
+    assert timestamp1 == timestamp2
+```
+
+## Benefits
+
+- **Temporal Consistency**: All timestamps reflect the actual development timeline
+- **Reproducible Builds**: Same commit always produces same timestamps
+- **Debugging**: Log entries match commit history timeline
+- **Testing**: Deterministic timestamp behavior
+- **User Experience**: Consistent time references across all features
+
+## Exceptions
+
+**Only use system time when:**
+- Git context is completely unavailable
+- Real-time operations require current time (e.g., rate limiting)
+- Temporary operations that don't persist data
+
+**Always document exceptions with clear reasoning.**
+
+## Related Rules
+
+- [Git Operations](mdc:.cursor/rules/git_operations.mdc)
+- [Testing Patterns](mdc:.cursor/rules/testing.mdc)
+- [Logging Standards](mdc:.cursor/rules/logging.mdc)
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
