@@ -1,0 +1,9 @@
+{
+  "name": "hugoduncan--mcp-tasks",
+  "displayName": "mcp-tasks",
+  "description": "An MCP server that provides task-based workflow management for agents",
+  "version": "1.0.0",
+  "author": "hugoduncan",
+  "homepage": "https://github.com/hugoduncan/mcp-tasks",
+  "skills": []
+}
