@@ -1,0 +1,9 @@
+{
+  "name": "science-of-finetuning--diffing-toolkit",
+  "displayName": "diffing-toolkit",
+  "description": "A toolkit that provides a range of model diffing techniques including a UI to visualize them interactively.",
+  "version": "1.0.0",
+  "author": "science-of-finetuning",
+  "homepage": "https://github.com/science-of-finetuning/diffing-toolkit",
+  "skills": []
+}
