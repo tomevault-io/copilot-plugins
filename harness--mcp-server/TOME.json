@@ -4,7 +4,7 @@
   "repo": "mcp-server",
   "description": "This is the official repo for the Harness MCP server",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harness/mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T04:54:21Z"
+  "distributed_at": "2026-05-15T02:44:43Z"
 }
