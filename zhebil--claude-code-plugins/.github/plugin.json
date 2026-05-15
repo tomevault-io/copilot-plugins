@@ -1,0 +1,9 @@
+{
+  "name": "zhebil--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "Claude Code plugin marketplace with developer productivity hooks",
+  "version": "1.0.0",
+  "author": "zhebil",
+  "homepage": "https://github.com/zhebil/claude-code-plugins",
+  "skills": []
+}
