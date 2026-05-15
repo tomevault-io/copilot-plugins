@@ -1,40 +1,63 @@
-## typescript-react-nextui-supabase-cursorrules-promp
+## typescript-shadcn-ui-nextjs-cursorrules-prompt-fil
 
-> Cursor rules for TypeScript development with React, NextUI, and Supabase integration.
+> Cursor rules for TypeScript development with shadcn/ui and Next.js integration.
 
-# Codebase Overview
+Code Style and Structure:
 
-This codebase appears to be part of a web application built using TypeScript, React, and various NextUI components. It is structured to support a landing page, authentication flows, and a dashboard for logged-in users. The application integrates with Supabase for backend services, including authentication and database interactions.
+- Write concise, technical TypeScript code with accurate examples
+- Use functional and declarative programming patterns; avoid classes
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Structure files: exported component, subcomponents, helpers, static content, types
 
-# Stack and Key Technologies
+Naming Conventions:
 
-Frontend Framework: React
-TypeScript: Used for type-safe code across the frontend.
-NextUI: A React UI library used for building the UI components like buttons, modals, inputs, etc.
-Supabase: An open-source Firebase alternative used for backend services like authentication, database, and storage.
-Next.js: Likely used as the React framework, indicated by the usage of next/navigation and server utilities.
-Iconify: For icons across the application.
+- Use lowercase with dashes for directories (e.g., components/auth-wizard)
+- Favor named exports for components
 
-Purpose and Functionality
+TypeScript Usage:
 
-## Authentication
+- Use TypeScript for all code; prefer interfaces over types
+- Avoid enums; use maps instead
+- Use functional components with TypeScript interfaces
 
-The application includes a comprehensive authentication flow:
-Login: Users can log in using email/password or GitHub OAuth. The login logic is handled in frontend/app/(landing-page)/login/action.ts.
-Signup: New users can sign up with an email and password. The signup logic is also in frontend/app/(landing-page)/login/action.ts.
-Logout: Users can log out, with the logic located in frontend/app/(landing-page)/logout/action.ts.
-Email Confirmation: The application handles email confirmation through a callback route in frontend/app/auth/callback/confirm/route.ts.
+Syntax and Formatting:
 
-## User Interface
+- Use the "function" keyword for pure functions
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
+- Use declarative JSX
 
-Landing Page: Contains components like SubmitButton, LoginPage, and LogoutModal to facilitate user interactions.
-Dashboard: For logged-in users, showing personalized content and a sidebar for navigation within the dashboard.
-Error Handling: A generic error component is used to display errors and provide a retry mechanism.
+Error Handling and Validation:
 
-## Navigation and Layout
+- Prioritize error handling: handle errors and edge cases early
+- Use early returns and guard clauses
+- Implement proper error logging and user-friendly messages
+- Use Zod for form validation
+- Model expected errors as return values in Server Actions
+- Use error boundaries for unexpected errors
 
-Navbar: A responsive navbar for the landing page and possibly other public pages.
-Sidebar: A collapsible sidebar for the dashboard, indicating a more complex, multi-page application structure for authenticated users.
+UI and Styling:
+
+- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
+- Implement responsive design with Tailwind CSS; use a mobile-first approach
+
+Performance Optimization:
+
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC)
+- Wrap client components in Suspense with fallback
+- Use dynamic loading for non-critical components
+- Optimize images: use WebP format, include size data, implement lazy loading
+
+Key Conventions:
+
+- Use 'nuqs' for URL search parameter state management
+- Optimize Web Vitals (LCP, CLS, FID)
+- Limit 'use client':
+  - Favor server components and Next.js SSR
+  - Use only for Web API access in small components
+  - Avoid for data fetching or state management
+
+Follow Next.js docs for Data Fetching, Rendering, and Routing
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
