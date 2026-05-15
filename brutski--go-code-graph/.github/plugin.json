@@ -1,0 +1,9 @@
+{
+  "name": "brutski--go-code-graph",
+  "displayName": "go-code-graph",
+  "description": "A powerful Go codebase analyzer that transforms code into explorable graphs, enabling AI assistants to understand complex codebases through the Model Context Protocol (MCP).",
+  "version": "1.0.0",
+  "author": "brutski",
+  "homepage": "https://github.com/brutski/go-code-graph",
+  "skills": []
+}
