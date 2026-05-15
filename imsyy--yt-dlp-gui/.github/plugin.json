@@ -1,0 +1,9 @@
+{
+  "name": "imsyy--yt-dlp-gui",
+  "displayName": "yt-dlp-gui",
+  "description": "A modern cross-platform GUI for yt-dlp. Download videos from YouTube, Bilibili, TikTok and 1000+ sites. Built with Tauri + Vue.",
+  "version": "1.0.0",
+  "author": "imsyy",
+  "homepage": "https://github.com/imsyy/yt-dlp-gui",
+  "skills": []
+}
