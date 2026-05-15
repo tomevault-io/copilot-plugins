@@ -1,0 +1,9 @@
+{
+  "name": "senrecep--tsentials",
+  "displayName": "tsentials",
+  "description": "Railway-oriented programming for TypeScript \u2014 Result<T>, Maybe<T>, Rule Engine, and DDD base classes with full    async pipeline support",
+  "version": "1.0.0",
+  "author": "senrecep",
+  "homepage": "https://github.com/senrecep/tsentials",
+  "skills": []
+}
