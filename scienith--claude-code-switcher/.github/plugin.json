@@ -1,0 +1,9 @@
+{
+  "name": "scienith--claude-code-switcher",
+  "displayName": "claude-code-switcher",
+  "description": "Switch LLM models behind Claude Code CLI, Gemini CLI, Qwen CLI etc",
+  "version": "1.0.0",
+  "author": "scienith",
+  "homepage": "https://github.com/scienith/claude-code-switcher",
+  "skills": []
+}
