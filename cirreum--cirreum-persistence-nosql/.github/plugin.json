@@ -1,0 +1,9 @@
+{
+  "name": "cirreum--cirreum-persistence-nosql",
+  "displayName": "Cirreum.Persistence.NoSql",
+  "description": "A comprehensive .NET persistence NoSql based abstraction library that provides type-safe, feature-rich repository patterns for data access operations without external dependencies. This library offers",
+  "version": "1.0.0",
+  "author": "cirreum",
+  "homepage": "https://github.com/cirreum/Cirreum.Persistence.NoSql",
+  "skills": []
+}
