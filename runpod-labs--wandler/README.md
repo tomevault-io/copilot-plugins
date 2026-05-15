@@ -7,11 +7,11 @@ transformers.js inference server
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runpod-labs/wandler](https://github.com/runpod-labs/wandler).
+Original source: `CLAUDE.md` in [runpod-labs/wandler](https://github.com/runpod-labs/wandler).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
