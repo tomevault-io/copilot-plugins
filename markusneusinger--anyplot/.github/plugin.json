@@ -1,0 +1,9 @@
+{
+  "name": "markusneusinger--anyplot",
+  "displayName": "anyplot",
+  "description": "AI-powered plotting gallery. One spec, nine libraries \u2014 matplotlib, plotly, seaborn, bokeh, altair & more. Compare and copy working code.",
+  "version": "1.0.0",
+  "author": "MarkusNeusinger",
+  "homepage": "https://github.com/MarkusNeusinger/anyplot",
+  "skills": []
+}
