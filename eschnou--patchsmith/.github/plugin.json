@@ -1,0 +1,9 @@
+{
+  "name": "eschnou--patchsmith",
+  "displayName": "patchsmith",
+  "description": "Use AI to scan code for security issues, investigate them, research fix and create PRs ",
+  "version": "1.0.0",
+  "author": "eschnou",
+  "homepage": "https://github.com/eschnou/patchsmith",
+  "skills": []
+}
