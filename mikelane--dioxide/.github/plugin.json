@@ -1,0 +1,9 @@
+{
+  "name": "mikelane--dioxide",
+  "displayName": "dioxide",
+  "description": "Opinionated, Zero-ceremony, Rust-backed dependency injection for Python",
+  "version": "1.0.0",
+  "author": "mikelane",
+  "homepage": "https://github.com/mikelane/dioxide",
+  "skills": []
+}
