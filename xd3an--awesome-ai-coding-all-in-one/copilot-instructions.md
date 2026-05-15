@@ -1,77 +1,73 @@
-## nextjs-react-typescript-cursorrules-prompt-file
+## nextjs-seo-dev-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with React and TypeScript integration.
+> Cursor rules for Next.js development with SEO optimization.
 
-You are an expert in Solidity, TypeScript, Node.js, Next.js 14 App Router, React, Vite, Viem v2, Wagmi v2, Shadcn UI, Radix UI, and Tailwind Aria.  
+Always add helpful comments to the code explaining what you are doing.
+Never delete old comments, unless they are no longer relevant because the code has been rewritten or deleted.
 
-Key Principles
+This is the package.json file for the nextjs app.
 
-- Write concise, technical responses with accurate TypeScript examples.
-- Use functional, declarative programming. Avoid classes.
-- Prefer iteration and modularization over duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading).
-- Use lowercase with dashes for directories (e.g., components/auth-wizard).
-- Favor named exports for components.
-- Use the Receive an Object, Return an Object (RORO) pattern.  
+Whenever you see a line with this following comment, do not touch it, rewrite it, or delete it "Do not touch this line Cursor"
 
-JavaScript/TypeScript
-
-- Use "function" keyword for pure functions. Omit semicolons.
-- Use TypeScript for all code. Prefer interfaces over types. Avoid enums, use maps.
-- File structure: Exported component, subcomponents, helpers, static content, types.
-- Avoid unnecessary curly braces in conditional statements.
-- For single-line statements in conditionals, omit curly braces.
-- Use concise, one-line syntax for simple conditional statements (e.g., if (condition) doSomething()).  
-
-Error Handling and Validation
-
-- Prioritize error handling and edge cases:
-  - Handle errors and edge cases at the beginning of functions.
-  - Use early returns for error conditions to avoid deeply nested if statements.
-  - Place the happy path last in the function for improved readability.
-  - Avoid unnecessary else statements; use if-return pattern instead.
-  - Use guard clauses to handle preconditions and invalid states early.
-  - Implement proper error logging and user-friendly error messages.
-  - Consider using custom error types or error factories for consistent error handling.  
-
-React/Next.js
-
-- Use functional components and TypeScript interfaces.
-- Use declarative JSX.
-- Use function, not const, for components.
-- Use Shadcn UI, Radix, and Tailwind Aria for components and styling.
-- Implement responsive design with Tailwind CSS.
-- Use mobile-first approach for responsive design.
-- Place static content and interfaces at file end.
-- Use content variables for static content outside render functions.
-- Minimize 'use client', 'useEffect', and 'setState'. Favor RSC.
-- Use Zod for form validation.
-- Wrap client components in Suspense with fallback.
-- Use dynamic loading for non-critical components.
-- Optimize images: WebP format, size data, lazy loading.
-- Model expected errors as return values: Avoid using try/catch for expected errors in Server Actions. Use useActionState to manage these errors and return them to the client.
-- Use error boundaries for unexpected errors: Implement error boundaries using error.tsx and global-error.tsx files to handle unexpected errors and provide a fallback UI.
-- Use useActionState with react-hook-form for form validation.
-- Code in services/ dir always throw user-friendly errors that tanStackQuery can catch and show to the user.
-- Use next-safe-action for all server actions:
-  - Implement type-safe server actions with proper validation.
-  - Utilize the action function from next-safe-action for creating actions.
-  - Define input schemas using Zod for robust type checking and validation.
-  - Handle errors gracefully and return appropriate responses.
-  - Use import type { ActionResponse } from '@/types/actions'
-  - Ensure all server actions return the ActionResponse type
-  - Implement consistent error handling and success responses using ActionResponse  
-
-Key Conventions
-
-1. Rely on Next.js App Router for state changes.
-2. Prioritize Web Vitals (LCP, CLS, FID).
-3. Minimize 'use client' usage:
-  - Prefer server components and Next.js SSR features.
-  - Use 'use client' only for Web API access in small components.
-  - Avoid using 'use client' for data fetching or state management.
-  Refer to Next.js documentation for Data Fetching, Rendering, and Routing best practices.
-  - https://nextjs.org/docs
+{
+  "name": "@se-2/nextjs",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next dev",
+    "build": "next build",
+    "serve": "next start",
+    "lint": "next lint",
+    "format": "prettier --write . '!(node_modules|.next|contracts)/*/'",
+    "check-types": "tsc --noEmit --incremental",
+    "vercel": "vercel",
+    "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.11",
+    "@rainbow-me/rainbowkit": "2.1.2",
+    "@tanstack/react-query": "^5.28.6",
+    "@uniswap/sdk-core": "^4.0.1",
+    "@uniswap/v2-sdk": "^3.0.1",
+    "blo": "^1.0.1",
+    "burner-connector": "^0.0.8",
+    "daisyui": "4.5.0",
+    "next": "^14.0.4",
+    "next-themes": "^0.2.1",
+    "nprogress": "^0.2.0",
+    "qrcode.react": "^3.1.0",
+    "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "use-debounce": "^8.0.4",
+    "usehooks-ts": "^2.13.0",
+    "viem": "2.17.4",
+    "wagmi": "2.10.10",
+    "zustand": "^4.1.2"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/node": "^17.0.35",
+    "@types/nprogress": "^0",
+    "@types/react": "^18.0.9",
+    "@types/react-copy-to-clipboard": "^5.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "abitype": "1.0.5",
+    "autoprefixer": "^10.4.12",
+    "eslint": "^8.15.0",
+    "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.16",
+    "prettier": "^2.8.4",
+    "tailwindcss": "^3.4.3",
+    "type-fest": "^4.6.0",
+    "typescript": "5.5.3",
+    "vercel": "^32.4.1"
+  }
+}
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
