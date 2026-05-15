@@ -1,0 +1,44 @@
+{
+  "name": "AsrTools",
+  "owner": "bozoyan",
+  "repo": "AsrTools",
+  "description": "\u2728 AsrTools\uff1a\u667a\u80fd\u8bed\u97f3\u8f6c\u6587\u5b57\u5de5\u5177 | \u9ad8\u6548\u6279\u91cf\u5904\u7406 | \u7528\u6237\u53cb\u597d\u754c\u9762 | \u65e0\u9700 GPU | \u652f\u6301 SRT/TXT \u8f93\u51fa | \u77ac\u95f4\u5c06\u60a8\u7684\u97f3\u9891\u8f6c\u6362\u4e3a\u51c6\u786e\u6587\u5b57\uff01",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bozoyan/AsrTools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T09:31:05Z"
+}
