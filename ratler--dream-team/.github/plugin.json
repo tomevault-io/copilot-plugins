@@ -1,0 +1,9 @@
+{
+  "name": "ratler--dream-team",
+  "displayName": "dream-team",
+  "description": "Dream Team is a Claude Code plugin offering structured planning capabilities that generate specification files. It features a universal build skill that interprets these specifications and executes th",
+  "version": "1.0.0",
+  "author": "Ratler",
+  "homepage": "https://github.com/Ratler/dream-team",
+  "skills": []
+}
