@@ -1,0 +1,9 @@
+{
+  "name": "hyve-ide--hyve",
+  "displayName": "Hyve",
+  "description": "IntelliJ plugin for Hytale modding: visual UI editor, prefab editor, mod project wizard, and knowledge base with semantic search over game code and data. ",
+  "version": "1.0.0",
+  "author": "Hyve-IDE",
+  "homepage": "https://github.com/Hyve-IDE/Hyve",
+  "skills": []
+}
