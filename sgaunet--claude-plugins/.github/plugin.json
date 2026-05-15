@@ -1,0 +1,9 @@
+{
+  "name": "sgaunet--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "A curated collection of specialized Claude Code plugins designed to enhance your development workflow with intelligent agents, skills, and commands.",
+  "version": "1.0.0",
+  "author": "sgaunet",
+  "homepage": "https://github.com/sgaunet/claude-plugins",
+  "skills": []
+}
