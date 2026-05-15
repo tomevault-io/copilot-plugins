@@ -1,0 +1,44 @@
+{
+  "name": "kiro-batch-login",
+  "owner": "6Kmfi6HP",
+  "repo": "kiro-batch-login",
+  "description": "\u6279\u91cf\u534a\u81ea\u52a8\u767b\u5f55\u5de5\u5177\uff0c\u4f7f\u7528 AWS SSO OIDC \u8fdb\u884c\u8eab\u4efd\u9a8c\u8bc1\uff0c\u65e0\u9700\u914d\u7f6e OAuth \u5ba2\u6237\u7aef\u51ed\u8bc1 | Batch semi-automatic login tool using AWS SSO OIDC without OAuth client credentials",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/6Kmfi6HP/kiro-batch-login",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T06:06:52Z"
+}
