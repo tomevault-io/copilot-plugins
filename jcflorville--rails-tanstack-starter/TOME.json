@@ -4,7 +4,7 @@
   "repo": "rails-tanstack-starter",
   "description": "Production-ready monorepo template: Rails 8 API + Vite/React/TypeScript/TanStack Router & Query + Tailwind + Kamal 2 deploy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jcflorville/rails-tanstack-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T04:58:57Z"
+  "distributed_at": "2026-05-15T02:57:15Z"
 }
