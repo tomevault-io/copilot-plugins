@@ -1,0 +1,9 @@
+{
+  "name": "jinzhongjia--codecompanion-gitcommit-nvim",
+  "displayName": "codecompanion-gitcommit.nvim",
+  "description": "A CodeCompanion extension that generates AI-powered git commit messages following the Conventional Commits specification.",
+  "version": "1.0.0",
+  "author": "jinzhongjia",
+  "homepage": "https://github.com/jinzhongjia/codecompanion-gitcommit.nvim",
+  "skills": []
+}
