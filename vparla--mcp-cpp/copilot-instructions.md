@@ -1,29 +1,29 @@
-## 00-agent-skill-enforcement
+## mcp-cpp
 
-> >-
-
+> ==========================================================================================================
 
 <!--
 ==========================================================================================================
 SPDX-License-Identifier: MIT
 Copyright (c) 2025 Vinny Parla
-File: .cursor/rules/00-agent-skill-enforcement.mdc
-Purpose: Cursor rule that enforces mcp-cpp agent and skill guardrails
+File: .github/copilot-instructions.md
+Purpose: VS Code Copilot instructions for enforcing mcp-cpp agent and skill rules
 ==========================================================================================================
 -->
 
-# mcp-cpp Agent And Skill Enforcement
+# mcp-cpp Copilot Instructions
 
-- Read `agents.md` and `SKILLS.MD` at session start and before each materially new task.
-- Select every matching skill from `SKILLS.MD` before proposing or running commands.
-- Use Docker only. Windows commands go through `wsl -d Ubuntu -- bash -lc "..."`.
-- Do not use bind mounts, named volumes, `docker cp`, `-o type=local`, or any Docker pattern that writes back to
-  the host.
-- Use sequential verification for auth, remotes, repo creation, commits, and pushes. Never parallelize a
-  state-changing command with its verification command.
-- Treat every failure as blocking, even if it looks unrelated to the active request. Fix it immediately, rerun the
-  failed gate, and only then continue.
-- If a task truly requires host writes, host IPC, or host network access, stop and ask the human first.
+Start every task by reading `agents.md` and `SKILLS.MD`.
+
+- Use the matching skill sections from `SKILLS.MD` before proposing commands or edits.
+- Run architecture checks before broader validation.
+- Use `.vscode/tasks.json` for repeatable editor-run Docker workflows.
+- Use Docker-first execution only. Windows commands go through WSL; Linux and macOS use `bash`.
+- Do not use bind mounts, named volumes, `docker cp`, or any Docker export that writes back to the host.
+- Use sequential verification for auth, remotes, repo creation, commits, and pushes. Verify active account, target
+  repo, remote URL, and branch tracking in order before diagnosing failures.
+- Treat every failure as blocking, even if it is not directly tied to the active request. Fix it immediately before
+  continuing.
 
 ---
 > Source: [vparla/mcp-cpp](https://github.com/vparla/mcp-cpp) — distributed by [TomeVault](https://tomevault.io).
