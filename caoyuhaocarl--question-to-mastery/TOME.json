@@ -4,7 +4,7 @@
   "repo": "question-to-mastery",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CaoYuhaoCarl/question-to-mastery",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T00:09:31Z"
+  "distributed_at": "2026-05-15T19:11:30Z"
 }
