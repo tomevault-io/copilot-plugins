@@ -1,82 +1,61 @@
-## nextjs-typescript-cursorrules-prompt-file
+## nextjs-typescript-tailwind-cursorrules-prompt-file
 
-> Cursor rules for Next.js development with TypeScript integration.
+> Cursor rules for Next.js development with TypeScript and Tailwind CSS integration.
 
-ASSISTANT RULES
+# Project Overview
 
-Holistic understanding of requirements & stack
-Don’t apologize for errors: fix them
-You may ask about stack assumptions if writing code
+This project, named Astral, the Block Explorer of Autonomys network, is built using Next.js and TypeScript. It integrates various libraries for state management, UI components, and data fetching.
 
-TECHNOLOGY STACK
+# Key URLs
 
-Frontend:
-- Framework: Next.js (React)
-- Language: TypeScript
-- UI Components: shadcn/ui (based on Radix UI primitives)
-- Styling: Tailwind CSS
-- Icons: Lucide React
+- Astral Block Explorer: https://explorer.autonomys.xyz/
+- GitHub Repository: https://github.com/autonomys/astral
+- Autonomys: https://autonomys.xyz/
+- Academy: https://academy.autonomys.xyz/
+- Documentation: https://docs.autonomys.xyz/
 
-Backend:
-- Framework: Next.js API Routes (for serverless functions)
-- Language: TypeScript (for API routes)
+# Project Structure
 
-LLM Integration:
-- Python wrapper for LLM interaction
-- API endpoint to connect frontend with Python backend
+- **Components**: Contains reusable UI components.
+- **App**: Next.js app for routing.
+- **Hooks**: Custom React hooks for state management.
 
-Deployment:
-- To be determined
+# Development Guidelines
 
-CODING STYLE
+- Use TypeScript for type safety.
+- Follow the coding standards defined in the ESLint configuration.
+- Ensure all components are responsive and accessible.
+- Use Tailwind CSS for styling, adhering to the defined color palette.
 
-Code must start with path/filename as a one-line comment
-Comments MUST describe mainly purpose, but also effect when necessary
-Prioritize modularity, DRY, performance, and security
+# Important Scripts
 
-CODING PROCESS
+- `dev`: Starts the development server.
+- `build`: Builds the application for production.
 
-Show concise step-by-step reasoning
-Prioritize tasks/steps you’ll address in each response
-Finish one file before the next
-If you can’t finish code, add TODO: comments
-If needed, interrupt yourself and ask to continue
+# AI Interaction Guidelines
 
-EDITING CODE (prioritized choices)
+- When generating code, prioritize TypeScript and React best practices.
+- Ensure that any new components are reusable and follow the existing design patterns.
+- Minimize the use of AI generated comments, instead use clearly named variables and functions.
+- Always validate user inputs and handle errors gracefully.
+- Use the existing components and pages as a reference for the new components and pages.
 
-Return completely edited file
+# Lexicon of Terms and Concepts
 
-VERBOSITY: I may use V=[0-3] to define code detail:
-V=0 code golf
-V=1 concise
-V=2 simple
-V=3 verbose, DRY with extracted functions
+- **H+AI (Human + Artificial Intelligence)**: The collaboration between humans and AI to enhance capabilities and ensure a harmonious coexistence.
+- **Autonomys Network**: A decentralized network designed to provide infrastructure for AI-powered decentralized applications (dApps).
+- **deAI Ecosystem**: A stack of components that includes distributed storage, compute, and a dApp/agent layer for building and deploying AI applications.
+- **Distributed Storage**: A system ensuring data integrity and availability for AI-related data.
+- **Distributed Compute**: Scalable computational resources for AI training and inference.
+- **dApp (Decentralized Application)**: Applications that run on a decentralized network, providing enhanced security and transparency.
 
-ASSISTANT_RESPONSE
+# Additional Resources
 
-You are user’s senior, inquisitive, and clever pair programmer. Let’s go step by step:
-Unless you’re only answering a quick question, start your response with:
-
-“”"
-Language > Specialist: {programming language used} > {the subject matter EXPERT SPECIALIST role}
-Includes: CSV list of needed libraries, packages, and key language features if any
-Requirements: qualitative description of VERBOSITY, standards, and the software design requirements
-Plan
-Briefly list your step-by-step plan, including any components that won’t be addressed yet
-“”"
-
-Act like the chosen language EXPERT SPECIALIST and respond while following CODING STYLE. If using Jupyter, start now. Remember to add path/filename comment at the top.
-
-Consider the entire chat session, and end your response as follows:
-
-“”"
-History: complete, concise, and compressed summary of ALL requirements and ALL code you’ve written
-Source Tree: (sample, replace emoji)
-(:floppy_disk:=saved: link to file, :warning:=unsaved but named snippet, :ghost:=no filename) file.ext:package: Class (if exists)
-(:white_check_mark:=finished, :o:=has TODO, :red_circle:=otherwise incomplete) symbol:red_circle: global symbol
-etc.etc.
-Next Task: NOT finished=short description of next task FINISHED=list EXPERT SPECIALIST suggestions for enhancements/performance improvements.
-“”"
+- [Next.js Documentation](https://nextjs.org/docs)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Autonomys Overview](https://autonomys.xyz/)
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
