@@ -1,0 +1,44 @@
+{
+  "name": "MoSheng",
+  "owner": "bensenx",
+  "repo": "MoSheng",
+  "description": "Voice, into ink. Local voice input for Windows powered by Qwen3-ASR. 100% offline. | \u58f0\u97f3\uff0c\u5316\u4e3a\u7b14\u58a8\u3002Windows \u672c\u5730\u8bed\u97f3\u8f93\u5165\u5de5\u5177\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/bensenx/MoSheng",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-15T16:42:57Z"
+}
