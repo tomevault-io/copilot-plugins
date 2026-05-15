@@ -1,54 +1,88 @@
-## ai-menu-implementation
+## development-patterns
 
-> The AI composer menu in [custom_slack_ext.js](mdc:custom_slack_ext.js) transforms a single button into a dropdown with multiple text processing options.
+> Key patterns and practices for developing the Slack AI extension based on project history.
 
-# AI Dropdown Menu Implementation Guide
+# Development Patterns and Best Practices
 
-The AI composer menu in [custom_slack_ext.js](mdc:custom_slack_ext.js) transforms a single button into a dropdown with multiple text processing options.
+Key patterns and practices for developing the Slack AI extension based on project history.
 
-## Menu Structure
+## Code Organization Patterns
 
-The dropdown menu includes 6 AI-powered text processing options:
-- **Improve Writing** - General text enhancement
-- **Translate to English** - Language translation
-- **Fix Spelling & Grammar** - Grammar and spelling correction
-- **Make Professional** - Professional tone adjustment
-- **Make Casual** - Casual tone adjustment  
-- **Make Shorter** - Text condensation
+### Feature Implementation Approach
+1. **UI First, Then Functionality** - Build visual components before adding behavior
+2. **Incremental Development** - Add features step-by-step to avoid breaking existing functionality
+3. **Preserve Existing Logic** - Maintain working features when adding new ones
 
-## Key Implementation Patterns
-
-### Button Creation
+### Error Handling Patterns
 ```javascript
-// Creates horizontal layout with icon + text + dropdown arrow
-const button = document.createElement('button');
-button.innerHTML = `<span class="ai-icon">✨</span> AI <span class="dropdown-arrow">▼</span>`;
+// OpenAI API calls with error handling
+try {
+  const response = await makeOpenAIRequest(prompt, text);
+  // Handle success
+} catch (error) {
+  console.error('AI request failed:', error);
+  // Graceful degradation
+}
 ```
 
-### Text Extraction Logic
-- Uses `extractTextFromQuillEditor()` function for complex Slack editor handling
-- Removes placeholder text with regex: `/Type a message\.\.\./g`
-- Extracts paragraphs and joins with newlines
-- Handles both simple text and complex Quill editor structures
+## Common Development Issues
 
-### OpenAI Integration
-Each menu option uses specific prompts:
-- Consistent API call pattern with `makeOpenAIRequest()`
-- Error handling for API failures
-- Text replacement in editor after successful processing
+### CSS Typos
+- **Critical**: Watch for "!importnat" vs "!important" typos
+- These break layout completely and are easy to miss
+- Always double-check CSS syntax
 
-## Critical Implementation Notes
+### Timing Issues
+- Use polling (200ms intervals) for UI initialization
+- Slack's DOM loads asynchronously, requiring careful timing
+- Avoid long delays that impact user experience
 
-1. **CSS Styling** - Watch for typos like "!importnat" vs "!important"
-2. **Initialization Timing** - Uses 200ms polling for fast button appearance
-3. **Event Handling** - Dropdown toggles on button click, closes on outside clicks
-4. **Text Replacement** - Preserves Slack's editor state and formatting
+### Text Extraction Complexity
+- Slack uses Quill editor with complex DOM structure
+- Always use `extractTextFromQuillEditor()` function
+- Handle placeholder text removal with regex patterns
+- Preserve paragraph structure when extracting text
 
-## Common Issues
+## Testing Workflow
 
-- **CSP Blocking** - External script loading may be blocked by Content Security Policy
-- **Editor State** - Must handle Slack's complex Quill editor properly
-- **Timing** - Button must appear quickly after composer loads (200ms polling)
+### Local Development
+1. Modify [custom_slack_ext.js](mdc:custom_slack_ext.js)
+2. Run [slack_patcher.sh](mdc:slack_patcher.sh) to inject changes
+3. Restart Slack desktop app
+4. Test all features thoroughly
+
+### Verification Steps
+- Check AI menu dropdown functionality
+- Verify text extraction from composer
+- Test OpenAI API integration
+- Confirm message summarization still works
+
+## Git Workflow
+
+### Commit Messages
+Use conventional commit format:
+- `feat:` for new features
+- `fix:` for bug fixes  
+- `refactor:` for code improvements
+
+### Before Committing
+- Test all AI menu options
+- Verify no console errors
+- Check button styling and positioning
+- Ensure fast initialization (200ms polling)
+
+## API Integration Best Practices
+
+### OpenAI Requests
+- Use consistent prompt formatting
+- Implement proper error handling
+- Provide user feedback during processing
+- Handle API rate limits gracefully
+
+### Configuration Management
+- Store API keys securely
+- Use environment variables when possible
+- Provide clear setup instructions in [README.md](mdc:README.md)
 
 ---
 > Source: [alonhar/slack-ai-ext](https://github.com/alonhar/slack-ai-ext) — distributed by [TomeVault](https://tomevault.io).
