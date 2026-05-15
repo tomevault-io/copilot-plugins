@@ -4,7 +4,7 @@
   "repo": "AppImage-Manager",
   "description": "Lightweight MacOS style AppImage installer with management options. Built for KDE Plasma 6.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/strandzen/AppImage-Manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T02:31:33Z"
+  "distributed_at": "2026-05-15T18:47:06Z"
 }
