@@ -1,0 +1,9 @@
+{
+  "name": "dilllxd--obs-distroav",
+  "displayName": "obs-distroav",
+  "description": "Docker images for running OBS Studio with DistroAV and GPU acceleration on Intel and AMD GPUs. Easy setup for streaming with NDI support.",
+  "version": "1.0.0",
+  "author": "dilllxd",
+  "homepage": "https://github.com/dilllxd/obs-distroav",
+  "skills": []
+}
