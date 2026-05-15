@@ -1,0 +1,9 @@
+{
+  "name": "temporal-community--pydantic-ai-demos",
+  "displayName": "pydantic-ai-demos",
+  "description": "Pydantic AI Demos with Temporal's durable execution",
+  "version": "1.0.0",
+  "author": "temporal-community",
+  "homepage": "https://github.com/temporal-community/pydantic-ai-demos",
+  "skills": []
+}
