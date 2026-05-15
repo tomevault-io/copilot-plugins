@@ -1,0 +1,9 @@
+{
+  "name": "ciscoittech--containerlab-free-labs",
+  "displayName": "containerlab-free-labs",
+  "description": "Free containerlab network labs - Learn OSPF, BGP, and Linux networking with hands-on exercises. 75% less memory than GNS3/EVE-NG. One-click VS Code devcontainer setup.",
+  "version": "1.0.0",
+  "author": "ciscoittech",
+  "homepage": "https://github.com/ciscoittech/containerlab-free-labs",
+  "skills": []
+}
