@@ -1,0 +1,9 @@
+{
+  "name": "imartincei--vscode-calcpad",
+  "displayName": "vscode-calcpad",
+  "description": "VS Code Extension for Calcpad",
+  "version": "1.0.0",
+  "author": "imartincei",
+  "homepage": "https://github.com/imartincei/vscode-calcpad",
+  "skills": []
+}
