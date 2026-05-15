@@ -1,113 +1,50 @@
-## code-conventions
+## github-pr-create-workflow
 
-> - **라인 길이**: 최대 88자 (Black 스타일)
+> GitHub PR 생성 가이드라인
 
-# Selvage 프로젝트 코드 컨벤션
+# GitHub 저장소 작업 및 PR 생성 가이드라인
 
-## Python 스타일 가이드
+## 1. 저장소 정보 확인
+- GitHub 작업 시작 전에 항상 저장소 경로 확인하기
+  ```bash
+  git remote -v
+  ```
+- 출력된 URL에서 'github.com/' 이후 부분이 '{owner}/{repo}' 형식의 저장소 경로
 
-### 코드 스타일
-- **라인 길이**: 최대 88자 (Black 스타일)
-- **들여쓰기**: 4 스페이스
-- **따옴표**: 큰따옴표(") 보다 작은따옴표(')를 우선적으로 사용
-- **변수명**: snake_case 사용 (예: `user_name`, `api_key`)
-- **클래스명**: PascalCase 사용 (예: `ApiClient`, `ReviewProcessor`)
-- **상수**: 대문자와 언더스코어 사용 (예: `MAX_TOKEN_COUNT`, `DEFAULT_MODEL`)
-
-### 임포트 스타일
-- 내장 라이브러리, 서드파티 라이브러리, 로컬 모듈 순으로 그룹화
-- 각 그룹 사이에는 빈 줄 추가
-- 알파벳 순으로 정렬
-
-### 타입 힌팅
-- 함수 파라미터와 반환값에 타입 힌팅 추가
-- 최신 Python 타입 어노테이션 사용 (Ruff UP 규칙 준수)
-  - 대문자 타입 대신 소문자 타입 사용: `list[str]`, `dict[str, Any]`
-  - `Optional` 대신 유니온 연산자(`|`) 사용: `int | None`
-  - PEP 585 스타일 준수 (Python 3.9+)
-- 복잡한 타입은 타입 별칭으로 정의: `ModelInfoDict = dict[str, Any]`
-- `collection.abc` 모듈의 타입 사용 권장 (예: `Mapping`, `Sequence`)
-
-예시:
-```python
-def process_data(items: list[str], config: dict[str, Any] | None = None) -> bool:
-    """데이터를 처리합니다."""
-    # 함수 내용
-```
-
-### 클래스 당 1개의 파일 구성
-
-- **파일당 하나의 클래스**
-  - 각 파일에는 하나의 최상위 클래스만 정의합니다.  
-  - 보조 클래스가 필요할 경우 `_Helper`처럼 private 클래스로 정의하거나 별도의 파일로 분리합니다.
-
-- **파일명과 클래스명 일치**
-  - 파일명은 클래스명을 snake_case로 변환하여 사용합니다.  
-    - `ReviewProcessor` → `review_processor.py`  
-    - `ApiClient` → `api_client.py`
-
-- **모듈 Docstring**
-  - 파일 최상단에 짧은 모듈 설명 docstring을 추가합니다.  
-  ```python
-  # review_processor.py
-  """ReviewProcessor: 사용자 리뷰를 분석하고 처리하는 로직을 포함한 모듈."""
+## 2. PR 생성 전 준비사항
+- 현재 브랜치 확인 (PR의 'head' 값)
+  ```bash
+  git branch --show-current
+  ```
+- 목표 브랜치 확인 (PR의 'base' 값, 일반적으로 'main' 또는 'master')
+- 변경사항이 모두 원격에 푸시되었는지 확인
+  ```bash
+  git status
   ```
 
-### 패키지 구성
-- 관련 클래스들은 디렉터리(패키지)로 묶어 관리합니다.
+## 3. PR 내용 작성
+- title: 간결하고 명확하게 (prefix는 "[{현재 브랜치명}]"으로 예) ([CR-1]))
+- body: 변경사항, 영향 범위, 기타 정보 등 구조화
+- commit message 참조하여 title, body 작성 ("Refs: {현재 브랜치명}" 텍스트가 포함된 commit message 검색하면 주요 변경 사항 알 수 있음)
 
-```text
-selvage/
-├─ __init__.py
-├─ review_processor.py      # ReviewProcessor 클래스
-├─ result_serializer.py     # ResultSerializer 클래스
-└─ exceptions.py            # 예외 클래스 모듈
-```
+## 4. PR 생성 방법
+- 자동화 도구 사용 시:
+  ```
+  mcp_github_create_pull_request
+  owner: {저장소 소유자 이름}  # git remote -v에서 확인
+  repo: {저장소 이름}          # git remote -v에서 확인
+  title: {PR 제목}
+  body: {PR 설명}
+  head: {소스 브랜치}          # 현재 작업 브랜치
+  base: {대상 브랜치}          # 일반적으로 main
+  ```
 
-
-## 문서화 규칙
-
-### 함수 및 클래스 문서화
-- 모든 함수와 클래스에 문서 문자열(docstring) 추가
-- 함수 설명, 인자 설명, 반환값 설명, 예외 설명 포함
-
-예시:
-```python
-def function_name(param1: str, param2: int) -> bool:
-    """함수에 대한 간략한 설명.
-
-    Args:
-        param1: 첫 번째 매개변수에 대한 설명
-        param2: 두 번째 매개변수에 대한 설명
-
-    Returns:
-        반환 값에 대한 설명
-
-    Raises:
-        ValueError: 예외 발생 조건 설명
-    """
-    # 함수 내용
-```
-
-## 오류 처리
-- 구체적인 예외 사용하기 (`Exception` 대신 `ValueError`, `TypeError` 등)
-- 예외 처리 시 구체적인 오류 메시지 포함
-- 사용자 정의 예외 클래스 활용
-
-## 테스트 규칙
-- 테스트 함수명은 `test_`로 시작
-- 테스트 함수명은 테스트 대상 기능을 명확히 설명
-- 각 테스트는 독립적으로 실행 가능해야 함
-- 필요한 경우 pytest 픽스처 활용
-- 모킹(Mocking)은 `unittest.mock` 또는 `pytest-mock` 사용
-
-## 코드 리뷰 체크리스트
-- 모든 코드는 자동화된 테스트 포함
-- 린터 경고 없음 (Ruff 규칙 준수)
-- 타입 힌팅 적용
-- 적절한 문서화
-- 코드 중복 없음
-- 명확한 변수명과 함수명
+## 5. 오류 처리
+- 저장소 경로 오류 발생 시 즉시 수정하여 재시도
+- 권한 문제 발생 시 웹 인터페이스 사용 대안 제공:
+  ```
+  https://github.com/{owner}/{repo}/compare/{base}...{head}
+  ```
 
 ---
 > Source: [selvage-lab/selvage](https://github.com/selvage-lab/selvage) — distributed by [TomeVault](https://tomevault.io).
