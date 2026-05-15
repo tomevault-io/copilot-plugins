@@ -4,7 +4,7 @@
   "repo": "anotherai",
   "description": "MCP server for AI engineering. Tools to compare any models, debug production, deploy prompts without a code change. Initial preview.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anotherai-dev/anotherai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-11T12:00:45Z"
+  "distributed_at": "2026-05-15T12:02:25Z"
 }
