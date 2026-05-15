@@ -1,0 +1,9 @@
+{
+  "name": "jimmyma99--treeskill",
+  "displayName": "TreeSkill",
+  "description": "Skill optimization framework for LLMs \u2014 evolve system prompts via textual gradient descent with beam search, human-in-the-loop annotation, and DPO preference data export.",
+  "version": "1.0.0",
+  "author": "JimmyMa99",
+  "homepage": "https://github.com/JimmyMa99/TreeSkill",
+  "skills": []
+}
