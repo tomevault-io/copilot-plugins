@@ -1,0 +1,9 @@
+{
+  "name": "kpritam--gremlin-mcp",
+  "displayName": "gremlin-mcp",
+  "description": " MCP server for Gremlin graph databases - Connect AI agents like Claude to TinkerPop, Neptune & more. Natural language   graph queries & analysis.",
+  "version": "1.0.0",
+  "author": "kpritam",
+  "homepage": "https://github.com/kpritam/gremlin-mcp",
+  "skills": []
+}
