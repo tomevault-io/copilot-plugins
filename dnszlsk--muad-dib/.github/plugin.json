@@ -1,0 +1,9 @@
+{
+  "name": "dnszlsk--muad-dib",
+  "displayName": "muad-dib",
+  "description": "Real-time npm/PyPI supply-chain threat detection. Production sensor with gVisor sandbox, behavioral analysis, and 200+ heuristic rules.",
+  "version": "1.0.0",
+  "author": "DNSZLSK",
+  "homepage": "https://github.com/DNSZLSK/muad-dib",
+  "skills": []
+}
