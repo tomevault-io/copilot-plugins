@@ -7,11 +7,11 @@ GameLink 是一个现代化的游戏陪玩管理平台，采用 Go 后端 + Reac
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HXSLtim/GameLink](https://github.com/HXSLtim/GameLink).
+Original source: `CLAUDE.md` in [HXSLtim/GameLink](https://github.com/HXSLtim/GameLink).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
