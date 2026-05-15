@@ -4,7 +4,7 @@
   "repo": "opencode-windsurf-auth",
   "description": "OpenCode plugin for Windsurf/Codeium models - OpenAI-compatible local API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gabslocked/opencode-windsurf-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T16:37:32Z"
+  "distributed_at": "2026-05-15T15:11:59Z"
 }
