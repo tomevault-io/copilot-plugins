@@ -1,15 +1,48 @@
-## solidity-react-blockchain-apps-cursorrules-prompt
+## solidjs-basic-cursorrules-prompt-file
 
-> Cursor rules for Solidity development with React Blockchain apps integration.
+> Cursor rules for Solid.js development with basic setup.
 
-Solidity React Blockchain Apps Guidelines
+// Solid.js Basic Setup .cursorrules
 
-- Prioritize secure Solidity smart contracts with explicit visibility, access control, and clear NatSpec documentation.
-- Use established security tooling such as Slither, Mythril, and property-based tests for critical contract behavior.
-- Prefer OpenZeppelin contracts for common primitives such as ownership, access control, multisig, and timelocks.
-- Optimize gas deliberately by reviewing storage layout, function visibility, and unnecessary writes.
-- Use pull-payment patterns, event logging, and defensive error handling for production-grade contracts.
-- Keep Web3 frontend code type-safe and explicit when interacting with wallets, providers, and transactions.
+// Prefer functional components
+
+const preferFunctionalComponents = true;
+
+// Solid.js best practices
+
+const solidjsBestPractices = [
+  "Use createSignal() for reactive state",
+  "Utilize createEffect() for side effects",
+  "Implement createMemo() for derived values",
+  "Use createResource() for data fetching",
+  "Implement Show and For components for conditional and list rendering",
+  "Utilize createStore() for complex state management",
+];
+
+// Folder structure
+
+const folderStructure = `
+src/
+  components/
+  pages/
+  utils/
+  App.jsx
+  index.jsx
+public/
+  index.html
+`;
+
+// Additional instructions
+
+const additionalInstructions = `
+1. Use JSX for component templates
+2. Implement proper error boundaries
+3. Utilize Solid Router for routing when applicable
+4. Use Solid's built-in optimization features
+5. Implement lazy-loading for improved performance
+6. Follow Solid.js naming conventions and best practices
+7. Use server-side rendering (SSR) when needed
+`;
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
