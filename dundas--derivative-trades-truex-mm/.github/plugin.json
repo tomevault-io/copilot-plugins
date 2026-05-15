@@ -1,0 +1,9 @@
+{
+  "name": "dundas--derivative-trades-truex-mm",
+  "displayName": "derivative-trades-truex-mm",
+  "description": "TrueX FIX 5.0 SP2 Market Maker - Production-ready standalone repository for algorithmic trading on TrueX exchange",
+  "version": "1.0.0",
+  "author": "dundas",
+  "homepage": "https://github.com/dundas/derivative-trades-truex-mm",
+  "skills": []
+}
