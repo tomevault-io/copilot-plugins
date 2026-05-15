@@ -1,0 +1,9 @@
+{
+  "name": "pinax-network--substreams-solana-idls",
+  "displayName": "substreams-solana-idls",
+  "description": "Type-safe Solana IDLs & instruction/event decoders for Substreams modules.",
+  "version": "1.0.0",
+  "author": "pinax-network",
+  "homepage": "https://github.com/pinax-network/substreams-solana-idls",
+  "skills": []
+}
