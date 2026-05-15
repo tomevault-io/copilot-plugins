@@ -1,0 +1,30 @@
+# robota
+
+> Tome by [woojubb](https://github.com/woojubb/robota) — distributed by [TomeVault](https://tomevault.io)
+
+TypeScript framework for building AI agents — multi-provider (Anthropic, OpenAI, Google), tool calling, permissions, hooks, streaming, and CLI coding assistant
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [woojubb/robota](https://github.com/woojubb/robota).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+From [woojubb/robota](https://github.com/woojubb/robota) — a repo with 16+ stars on GitHub.
+
+---
+
+Install this config instantly:
+```
+npx tomevault install woojubb/robota
+```
+Source: [github.com/woojubb/robota](https://github.com/woojubb/robota).
+
+<!-- genome:t-i-s -->
