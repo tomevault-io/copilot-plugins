@@ -1,0 +1,9 @@
+{
+  "name": "hssqz--plate-rotation-skill",
+  "displayName": "plate-rotation-skill",
+  "description": "A \u80a1\u677f\u5757\u8f6e\u52a8 & \u5f3a\u52bf\u677f\u5757\u8bc6\u522b Claude Code Skill \u2014 \u53cc\u6e90(\u540c\u82b1\u987a/\u5f00\u76d8\u5566)\u5bf9\u7167, 4 \u63a5\u53e3 + 4 \u9ad8\u7ea7 helper + CLI",
+  "version": "1.0.0",
+  "author": "hssqz",
+  "homepage": "https://github.com/hssqz/plate-rotation-skill",
+  "skills": []
+}
