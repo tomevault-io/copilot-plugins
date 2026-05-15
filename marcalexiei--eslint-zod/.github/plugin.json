@@ -1,0 +1,9 @@
+{
+  "name": "marcalexiei--eslint-zod",
+  "displayName": "eslint-zod",
+  "description": "ESLint plugin that adds custom linting rules to enforce best practices when using Zod",
+  "version": "1.0.0",
+  "author": "marcalexiei",
+  "homepage": "https://github.com/marcalexiei/eslint-zod",
+  "skills": []
+}
