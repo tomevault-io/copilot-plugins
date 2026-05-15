@@ -4,7 +4,7 @@
   "repo": "chro",
   "description": "Chro is basically Codex / Claude Code x Obsidian: a local-first markdown workspace with parallel agents, worktree isolation, diffs, and built-in git.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/n-asuy/chro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T21:42:50Z"
+  "distributed_at": "2026-05-15T17:50:50Z"
 }
