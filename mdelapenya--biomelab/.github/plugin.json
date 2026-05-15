@@ -1,0 +1,9 @@
+{
+  "name": "mdelapenya--biomelab",
+  "displayName": "biomelab",
+  "description": "BiomeLab is a TUI to manage worktrees in the context of Coding agent Sandboxes",
+  "version": "1.0.0",
+  "author": "mdelapenya",
+  "homepage": "https://github.com/mdelapenya/biomelab",
+  "skills": []
+}
