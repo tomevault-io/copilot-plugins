@@ -1,0 +1,9 @@
+{
+  "name": "lewenhaupt--ctx",
+  "displayName": "ctx",
+  "description": "Easily initialize AGENTS.md, GEMINI.md, CLAUDE.md, etc. files from tagged fragment.md files",
+  "version": "1.0.0",
+  "author": "Lewenhaupt",
+  "homepage": "https://github.com/Lewenhaupt/ctx",
+  "skills": []
+}
