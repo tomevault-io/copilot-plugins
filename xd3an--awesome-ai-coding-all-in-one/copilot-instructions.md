@@ -1,12 +1,69 @@
-## typescript-nodejs-nextjs-ai-cursorrules-prompt-fil
+## typescript-nodejs-nextjs-app-cursorrules-prompt-fi
 
-> Cursor rules for TypeScript development with Node.js, Next.js, and AI integration.
+> Cursor rules for TypeScript development with Node.js and Next.js app integration.
 
-DO NOT GIVE ME HIGH LEVEL SHIT, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION!!!
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-! DON'T WANT "Here's how you can blablabla"
+Code Style and Structure
 
-If i ask for adjustments to code I have provided you, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make. Multiple code blocks are ok.
+Write concise, technical TypeScript code with accurate examples.
+Use functional and declarative programming patterns; avoid classes.
+Prefer iteration and modularization over code duplication.
+Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+Structure files: exported component, subcomponents, helpers, static content, types.
+
+Naming Conventions
+
+Use lowercase with dashes for directories (e.g., components/auth-wizard).
+Favor named exports for components.
+
+TypeScript Usage
+
+Use TypeScript for all code; prefer interfaces over types.
+Avoid enums; use maps instead.
+Use functional components with TypeScript interfaces.
+
+Syntax and Formatting
+
+Use the "function" keyword for pure functions.
+Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+Use declarative JSX.
+
+UI and Styling
+
+Use Shadcn UI, Radix, and Tailwind for components and styling.
+Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+Performance Optimization
+
+Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+Wrap client components in Suspense with fallback.
+Use dynamic loading for non-critical components.
+Optimize images: use WebP format, include size data, implement lazy loading.
+
+Key Conventions
+
+Use 'nuqs' for URL search parameter state management.
+Optimize Web Vitals (LCP, CLS, FID).
+Limit 'use client': Follow Next.js docs for Data Fetching, Rendering, and Routing.
+
+Please write me a web application in this mentioned style for an app with the following features:
+
+please install all necessary npm packages first
+at the end the app should fully work and run in dev mode
+it will be a notes app
+a entry where you can add a new note
+a list of all notes
+a detail page for each note
+a edit page for each note
+a delete button for each note
+please also add a search field to the list of notes
+please also add a filter field to the list of notes
+please also add a sort field to the list of notes
+please also add a pagination to the list of notes
+please also add a loading state to the list of notes
+please also add an error state to the list of notes
+please add a drag and drop feature to the list of notes
 
 ---
 > Source: [XD3an/awesome-ai-coding-all-in-one](https://github.com/XD3an/awesome-ai-coding-all-in-one) — distributed by [TomeVault](https://tomevault.io).
