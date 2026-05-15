@@ -7,11 +7,11 @@ HTTP/3 Library
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shiguredo/http3-rs](https://github.com/shiguredo/http3-rs).
+Original source: `CLAUDE.md` in [shiguredo/http3-rs](https://github.com/shiguredo/http3-rs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
