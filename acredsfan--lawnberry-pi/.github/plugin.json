@@ -1,0 +1,9 @@
+{
+  "name": "acredsfan--lawnberry-pi",
+  "displayName": "lawnberry_pi",
+  "description": "LawnBerryPi is an autonomous lawn mower platform designed for Raspberry Pi OS Bookworm (ARM64). It features a Python backend for managing hardware, navigation, safety, and power, exposing a FastAPI we",
+  "version": "1.0.0",
+  "author": "acredsfan",
+  "homepage": "https://github.com/acredsfan/lawnberry_pi",
+  "skills": []
+}
