@@ -1,0 +1,9 @@
+{
+  "name": "amxv--terminal-mcp",
+  "displayName": "terminal-mcp",
+  "description": "A minimal, zero-dependency terminal MCP (Model Context Protocol) client built for cloud coding agents like OpenAI Codex.",
+  "version": "1.0.0",
+  "author": "amxv",
+  "homepage": "https://github.com/amxv/terminal-mcp",
+  "skills": []
+}
