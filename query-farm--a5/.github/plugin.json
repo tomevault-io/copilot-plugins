@@ -1,0 +1,9 @@
+{
+  "name": "query-farm--a5",
+  "displayName": "a5",
+  "description": "A5 Geospatial Extension for DuckDB",
+  "version": "1.0.0",
+  "author": "Query-farm",
+  "homepage": "https://github.com/Query-farm/a5",
+  "skills": []
+}
