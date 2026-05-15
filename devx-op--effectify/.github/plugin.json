@@ -1,0 +1,9 @@
+{
+  "name": "devx-op--effectify",
+  "displayName": "effectify",
+  "description": "Monorepo of utilities for integrating Effect with different frameworks and libraries.",
+  "version": "1.0.0",
+  "author": "devx-op",
+  "homepage": "https://github.com/devx-op/effectify",
+  "skills": []
+}
