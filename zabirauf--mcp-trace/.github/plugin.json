@@ -1,0 +1,9 @@
+{
+  "name": "zabirauf--mcp-trace",
+  "displayName": "mcp-trace",
+  "description": "A TUI to probe the calls between MCP client and server",
+  "version": "1.0.0",
+  "author": "zabirauf",
+  "homepage": "https://github.com/zabirauf/mcp-trace",
+  "skills": []
+}
