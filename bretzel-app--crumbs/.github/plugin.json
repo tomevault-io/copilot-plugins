@@ -1,0 +1,9 @@
+{
+  "name": "bretzel-app--crumbs",
+  "displayName": "crumbs",
+  "description": "Crumbs by Bretzel - a self-hosted, privacy-first Google Keep alternative. Capture your thoughts, ideas and notes. Built with SvelteKit.",
+  "version": "1.0.0",
+  "author": "bretzel-app",
+  "homepage": "https://github.com/bretzel-app/crumbs",
+  "skills": []
+}
