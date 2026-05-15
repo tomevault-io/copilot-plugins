@@ -1,23 +1,15 @@
-## jsdoc-comments
+## naming-conventions
 
-> Use JSDoc comments to annotate functions and types.
+> - Use kebab-case for file names (e.g., `my-component.ts`)
 
-Use JSDoc comments to annotate functions and types.
-
-Be concise in JSDoc comments, and only provide JSDoc comments if the function's behaviour is not self-evident.
-
-Use the JSDoc inline `@link` tag to link to other functions and types within the same file.
+- Use kebab-case for file names (e.g., `my-component.ts`)
+- Use camelCase for variables and function names (e.g., `myVariable`, `myFunction()`)
+- Use UpperCamelCase (PascalCase) for classes, types, and interfaces (e.g., `MyClass`, `MyInterface`)
+- Use ALL_CAPS for constants and enum values (e.g., `MAX_COUNT`, `Color.RED`)
+- Inside generic types, functions or classes, prefix type parameters with `T` (e.g., `TKey`, `TValue`)
 
 ```ts
-/**
- * Subtracts two numbers
- */
-const subtract = (a: number, b: number) => a - b;
-
-/**
- * Does the opposite to {@link subtract}
- */
-const add = (a: number, b: number) => a + b;
+type RecordOfArrays<TItem> = Record<string, TItem[]>;
 ```
 
 ---
