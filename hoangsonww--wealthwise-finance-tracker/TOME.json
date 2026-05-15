@@ -4,7 +4,7 @@
   "repo": "WealthWise-Finance-Tracker",
   "description": "A full-stack personal finance manager powered by Agentic AI, MCP, Next.js, Express, MongoDB, and a TypeScript Turborepo. Track accounts, transactions, budgets, goals, and analytics with a responsive UI, CSV import, and production-ready DevOps infrastructure (Docker, Kubernetes, Terraform, & multi-cloud support - AWS, Azure, OCI, and GCP)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/WealthWise-Finance-Tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-12T16:49:28Z"
+  "distributed_at": "2026-05-15T15:20:35Z"
 }
