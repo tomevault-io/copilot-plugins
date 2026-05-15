@@ -1,144 +1,144 @@
-## task-completion-workflow
+## tdd-requirements
 
-> Task archival process for maintaining clean workspace with completed task preservation
+> **Strict TDD methodology** is **REQUIRED** for:
 
-# Task Archival Process
+# TDD Requirements and Subtask Structure
 
-## Overview
-When a task is completely finished, follow this archival process to maintain a clean, performant workspace while preserving all completed work.
+## TDD Methodology Requirements
 
-## Step 1: Verify Completion
-[ ] All requirements in the task are met (check the Requirements checklist)
-[ ] All subtasks are marked complete
-[ ] Full test suite passes
-[ ] All deliverables are working as specified
+**Strict TDD methodology** is **REQUIRED** for:
+- Creating/modifying application logic
+- Adding new functions
+- Changing business logic
+- Core code changes
 
-## Step 2: Archive Task File
-[ ] Move task file from `tasks/task_XXX.md` to `tasks/completed_tasks/task_XXX.md`
-[ ] Preserve all task content and history in the archived file
+**TDD is NOT required** for:
+- Integration testing subtasks
+- Documentation updates
+- Cleanup tasks
+- Telemetry verification
+- Boilerplate subtasks
 
-## Step 3: Clean Up Dependencies
-[ ] Search all active task files in `tasks/` directory for dependencies on the completed task
-[ ] Remove the completed task number from dependency lists of active tasks
-[ ] Update any task descriptions that reference the completed task if needed
+## Subtask Structure Patterns
 
-## Directory Structure
+### For Core Code Changes (TDD Required)
+
+All subtasks that modify core application logic must follow this exact pattern:
+
+#### 1. GET APPROVAL FOR DESIGN CHOICES (if needed)
 ```
-tasks/
-├── task_001.md                  # Active task files
-├── task_002.md
-├── task_003.md
-└── completed_tasks/
-    ├── task_010.md             # Completed task files
-    ├── task_015.md
-    └── task_020.md
+**PAUSE FOR MANUAL APPROVAL**: [Specific design choice 1]
+**PAUSE FOR MANUAL APPROVAL**: [Specific design choice 2]
 ```
+- Include this section only if design decisions are needed
+- The developer prefers to answer design questions during planning phase rather than having pauses in implementation plans
 
-## Benefits of Archival
-- **Clean workspace**: Only active tasks visible in main tasks/ directory
-- **Preserved history**: All completed work maintained in completed_tasks/
-- **Dependency integrity**: No broken references to completed tasks
-- **Performance**: Smaller active task set for better navigation
-
-## Validation
-This process ensures:
-- Completed work is preserved with full context
-- Active task dependencies remain clean and accurate
-- No loss of historical information or decision context
-- Clean separation between active and completed work
-
-**This script will:**
-- ✅ Automatically identify complete task units (main + all subtasks done)
-- ✅ Move task files to archive directory
-- ✅ Update completed_tasks.json with proper metadata
-- ✅ Remove archived tasks from main tasks.json
-- ✅ Report file size improvements and performance gains
-- ✅ Preserve work integrity by only archiving complete units
-
-**Run this script regularly** when multiple tasks have been completed to maintain optimal MCP performance.
-
-### **When to Run Archival**
-- ✅ **After completing major milestones** (3+ task units done)
-- ✅ **When MCP operations become slow** (tasks.json > 200KB)
-- ✅ **During project phase transitions**
-- ✅ **Before major task refactoring or reorganization**
-- ✅ **As part of regular project maintenance**
-
-### **Post-Archival Cleanup**
-After successful archival, clean up temporary files:
-- ✅ **Remove backup files**: Delete any `.bak` files created during the process
-- ✅ **Verify archival**: Confirm archived tasks are in `tasks/completed_tasks/`
-- ✅ **Test MCP performance**: Ensure taskmaster operations are faster
-
-## **JSON File Management**
-
-### **completed_tasks.json Structure**
-```json
-{
-  "archived_date": "2025-01-XX",
-  "project_name": "Project Name",
-  "tasks": [
-    {
-      "id": 3,
-      "title": "Completed Task Title",
-      "status": "done",
-      "completed_date": "2025-01-XX",
-      "dependencies": [...],
-      "subtasks": [...],
-      "archived_from_main": true
-    }
-  ]
-}
+#### 2. WRITE TESTS FIRST
+```
+- Create tests/[unit|integration]/test_[module_name].py
+- Test [function_name]() function  
+- Test cases: [specific scenarios - success, failures, edge cases]
+- RUN TESTS - VERIFY THEY FAIL
 ```
 
-### **Maintain ID References**
-- ✅ **Keep original task IDs** in archived tasks
-- ✅ **Document completion dates** when archiving
-- ✅ **Preserve dependency relationships** for historical tracking
-- ✅ **Note archive date** for audit trail
+#### 3. IMPLEMENT FUNCTIONALITY
+```
+- Implement [function_name]() in src/[module_path]/[file_name].py
+- Handle all error cases identified in tests
+- Include comprehensive telemetry with specific metrics/spans
+- RUN TESTS - VERIFY THEY PASS
+```
 
-## **Best Practices**
+#### 4. DOCUMENT AND COMPLETE
+```
+- Add documentation in code docstrings
+  1. Do not reference tasks
+  2. Do not reference historical implementations or development processes  
+  3. Write for the reader: A user with no preexisting project knowledge
+- Do not remove existing information unless it's incorrect
+- No approval needed - make documentation edits directly
+- Run the entire test suite and make sure all tests are passing
+- Verify that all requirements have been met
+- Double check all subtask requirements are met before marking this subtask as complete
+- MARK COMPLETE
+```
 
-### **Archive Timing**
-- Archive tasks immediately after marking "done"
-- Archive in dependency order (prerequisites first)
-- Archive related tasks together when logical
-- Archive after major milestones for clean organization
+### For Boilerplate Tasks (Simplified Structure)
 
-### **Dependency Management**
-- ✅ **Before archiving**: Verify no active tasks depend on this task
-- ✅ **Update references**: Change dependency lists in active tasks to indicate completion
-- ✅ **Preserve history**: Keep dependency info in archived task for reference
+For integration testing, documentation, cleanup, and telemetry verification subtasks:
 
-### **File Organization**
-- Use consistent naming: `task_XXX.txt` format
-- Maintain chronological order in completed_tasks.json **by completion date** (newest completed tasks at end)
-- Include completion metadata for tracking
-- Keep archive directory clean and organized
+#### Steps:
+```
+- [Step 1 description]
+- [Step 2 description]
+- [Step 3 description]
+- Run the entire test suite and make sure all tests are passing
+- Verify that all requirements have been met
+- MARK COMPLETE
+```
 
-## **Performance Benefits**
-- **Smaller tasks.json** → Faster MCP operations
-- **Reduced parse time** → Quicker task-master commands  
-- **Better responsiveness** → Improved development workflow
-- **Scalable approach** → Handles projects of any size
+## Test Requirements
 
-## **Verification Steps**
-After archiving tasks:
-1. ✅ **Test taskmaster operations** (list, next, show) for speed
-2. ✅ **Verify dependency chains** are intact
-3. ✅ **Confirm archive files** contain complete data
-4. ✅ **Check active tasks.json** for correct remaining tasks
+### Test Coverage Standards
+- **Test all error cases** - comprehensive error scenario coverage
+- **Integration tests** - verify end-to-end workflows work correctly
+- **Unit tests** - test individual functions and components
+- **Mock external dependencies** - isolate units under test
 
-## **Recovery Process**
-If you need to "un-archive" a task:
-1. Move task file from `completed_tasks/` back to `tasks/`
-2. Move task data from `completed_tasks.json` back to `tasks.json`
-3. Update status from "done" to appropriate active status
-4. Run `task-master generate` to refresh files
+### Test Execution Pattern
+1. **Write tests before implementation** - this is non-negotiable for core code changes
+2. **Run tests to verify they fail** - confirm tests are testing the right thing
+3. **Implement functionality** - make tests pass
+4. **Run tests to verify they pass** - confirm implementation works
+5. **Run full test suite** - ensure no regressions
 
+## Telemetry Requirements in Tests
+
+Every subtask involving code changes must include telemetry:
+
+### Required Telemetry Components
+- **Duration histograms** for operations: `[component].[operation]_duration_seconds`
+- **Operation counters** with success/failure labels: `[component].[operation]_total`
+- **Error categorization** with specific error types
+- **Performance correlation** tracking (e.g., context size vs duration)
+
+### Telemetry Testing Pattern
+- Use `TelemetryCollector` for isolated telemetry testing
+- Use assertion helpers: `assert_operation_traced`, `assert_trace_continuity`, `assert_performance_within_bounds`
+- Test both successful and error scenarios
+- Validate trace relationships and span attributes
+
+## Anti-Patterns to Avoid
+
+### TDD Anti-Patterns
+- **Skipping tests** or writing implementation before tests for core code changes
+- **Forcing TDD on boilerplate subtasks** like integration testing, documentation, or cleanup tasks
+- **Missing telemetry** on new functionality
+- **Poor test coverage** of error scenarios
+
+### Implementation Anti-Patterns
+- **Breaking existing patterns** instead of following established conventions
+- **Over-engineering** simple solutions
+- **Ignoring existing utilities** when they could be reused
+
+## Success Criteria
+
+### Good TDD Implementation
+- Tests written before implementation for core code changes
+- Tests fail initially, then pass after implementation
+- Comprehensive error case coverage
+- Full test suite passes
+- Appropriate telemetry included and tested
+
+### Good Boilerplate Subtasks
+- Clear, actionable steps
+- Verification that all requirements are met
+- Full test suite validation
+- Proper completion marking
+description:
+globs:
+alwaysApply: false
 ---
-
-**Note**: This workflow optimizes taskmaster performance while maintaining complete project documentation and history.
 
 ---
 > Source: [wiggitywhitney/mcp-commit-story](https://github.com/wiggitywhitney/mcp-commit-story) — distributed by [TomeVault](https://tomevault.io).
