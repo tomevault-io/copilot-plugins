@@ -1,0 +1,9 @@
+{
+  "name": "pinto0309--human-instance-segmentation",
+  "displayName": "human-instance-segmentation",
+  "description": "ROI-based Instance Segmentation for Human Detection (CNN)",
+  "version": "1.0.0",
+  "author": "PINTO0309",
+  "homepage": "https://github.com/PINTO0309/human-instance-segmentation",
+  "skills": []
+}
