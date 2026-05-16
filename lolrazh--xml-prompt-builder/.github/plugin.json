@@ -1,0 +1,9 @@
+{
+  "name": "lolrazh--xml-prompt-builder",
+  "displayName": "xml-prompt-builder",
+  "description": "A tool that helps you build XML-style prompts",
+  "version": "1.0.0",
+  "author": "lolrazh",
+  "homepage": "https://github.com/lolrazh/xml-prompt-builder",
+  "skills": []
+}
