@@ -1,178 +1,101 @@
-## registry-creation
+## ui-nowts-app
 
-> This guide covers the complete process for creating a new component registry entry in the Now.ts UI project.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Registry Creation Guide
+# CLAUDE.md
 
-This guide covers the complete process for creating a new component registry entry in the Now.ts UI project.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## Project Overview
 
-Creating a new registry component involves 4 main steps:
-1. Add the component to the main [registry.json](mdc:registry.json)
-2. Add documentation in `app/_docs/`
-3. Create examples if needed
-4. Build the registry with `pnpm registry:build` (auto-generates public files)
+**Now.ts Registry** is a custom shadcn/ui component registry built with Next.js 15. It distributes reusable React components, hooks, and blocks that can be installed via the shadcn CLI using the URL pattern: `npx shadcn@latest add https://ui.nowts.app/r/[component-name].json`
 
-## Step 1: Main Registry Entry
+## Key Technologies
 
-Add your component to [registry.json](mdc:registry.json) following this structure:
+- **Next.js 15.3.4** with App Router and Turbopack in development
+- **React 19.1.0** with TypeScript 5
+- **Tailwind CSS v4** (latest version)
+- **shadcn/ui** as the base component system
+- **PNPM** as package manager
+- **MDX** for documentation with next-mdx-remote
 
-```json
-{
-  "name": "component-name",
-  "type": "registry:block",
-  "title": "Component Title",
-  "description": "Brief description of what the component does.",
-  "registryDependencies": ["button", "input", "sonner"],
-  "dependencies": ["motion", "react-use-measure"],
-  "docs": "Important setup instructions (optional)",
-  "files": [
-    {
-      "path": "registry/nowts/blocks/component-name/component.tsx",
-      "type": "registry:component"
-    },
-    {
-      "path": "registry/nowts/blocks/component-name/hooks/use-hook.ts",
-      "type": "registry:hook"
-    },
-    {
-      "path": "registry/nowts/blocks/component-name/lib.ts",
-      "type": "registry:lib",
-      "target": "/lib/component-name/lib.ts"
-    }
-  ]
-}
-```
+## Essential Commands
 
-### File Types
-- `registry:component` - React components
-- `registry:hook` - Custom hooks
-- `registry:lib` - Library/utility files (use `target` for custom placement)
-
-### Dependencies
-- `registryDependencies` - shadcn/ui components (from [components.json](mdc:components.json))
-- `dependencies` - npm packages
-
-You should add all dependencies. You can refer internal dependencies using `https://ui.nowts.app/r/<internal-deps>.json` that you can find inside the public/r folder.
-
-## Step 2: Documentation
-
-Create `app/_docs/component-name.mdx` following the structure of [server-toast.mdx](mdc:app/_docs/server-toast.mdx):
-
-### Required frontmatter:
-```yaml
----
-title: "Component Title"
-description: "Description for SEO and component list"
-slug: "component-name"
-externalDocs: "https://link-to-external-docs" # optional
-type: "hook"
----
-```
-
-### Documentation structure:
-1. **Introduction** - Brief description with external links if applicable
-2. **Tabs component** with Preview and Code tabs
-3. **About section** - Detailed description and features list
-4. **Installation section** - CommandBlock with the install command
-5. **Usage section** - Multiple code examples
-
-### Key components to use:
-- `<Tabs>` and `<TabsContent>` for preview/code switching
-- `<ComponentView>` for component previews
-- `<CodeBlock>` for code examples with syntax highlighting
-- `<CommandBlock>` for installation commands
-- `<CopyCode>` for quick copy functionality
-
-## Step 3: Examples (Optional)
-
-If your component needs interactive examples, create `app/ui/_components/examples/component-name-examples.tsx`.
-
-Reference [server-toast-examples.tsx](mdc:app/ui/_components/examples/server-toast-examples.tsx) for structure:
-
-```tsx
-import { Button } from "@/components/ui/button";
-import { componentFunction } from "@/registry/nowts/blocks/component-name/component";
-
-export function ComponentExamples() {
-  return (
-    <div className="space-y-4">
-      {/* Interactive examples here */}
-    </div>
-  );
-}
-```
-
-**Important**: Export the main example component and import it in your MDX documentation.
-
-Add in [MDXComponents.tsx](mdc:app/ui/_components/mdx/MDXComponents.tsx) afterward.
-
-The examples SHOULD BE SIMPLE, UI MINIMALIST, USE SHADCN/UI COMPONENT WITHOUT ANYTHING USELESS. Please keep things simple.
-
-## Step 5: Build Registry
-
-After completing all steps, run:
+### Development
 
 ```bash
-pnpm registry:build
+pnpm dev              # Start development server with Turbopack
+pnpm build            # Build for production
+pnpm start            # Start production server
+pnpm lint             # Run ESLint
+pnpm ts               # TypeScript type checking
 ```
 
-This executes `shadcn build` which:
-- Validates the registry structure
-- Auto-generates public registry files in `public/r/`
-- Updates all component files with proper content
-- Validates TypeScript compilation and dependencies
+### Registry Operations
 
-## Component Patterns
+```bash
+pnpm registry:build   # Build registry JSON files from registry.json
+shadcn build          # Alternative registry build command
+pnpm knip             # Detect unused code
+```
 
-### Server Components
-For server-side functionality (like [server-toast](mdc:registry/nowts/blocks/server-toast/server-toast.ts)):
-- Use `"use server"` directive
-- Handle cookies/headers appropriately
-- Include both server and client components
+## Architecture & File Structure
 
-### Client Components  
-For interactive components:
-- Use `"use client"` directive
-- Include proper state management
-- Handle loading/error states
+### Registry System
 
-### Hooks
-Follow the pattern in [use-countdown.ts](mdc:registry/nowts/blocks/better-auth-otp/hooks/use-countdown.ts):
-- Export custom hooks with proper TypeScript
-- Include cleanup in useEffect
-- Return stable object references
+- `/registry/nowts/` - Source components, hooks, and blocks
+- `registry.json` - Registry configuration and metadata
+- `/public/r/` - Generated JSON files for distribution (auto-generated by `shadcn build`)
+- Components are installed via: `npx shadcn@latest add https://ui.nowts.app/r/[name].json`
 
-## Registry File Validation
+### Core Directories
 
-The registry build process validates:
-- JSON schema compliance
-- File path existence
-- TypeScript compilation
-- Dependency resolution
+- `/app/` - Next.js App Router pages and layouts
+- `/app/_docs/` - MDX documentation files
+- `/components/ui/` - shadcn/ui base components
+- `/lib/` - Utilities, hooks, and shared logic
+- `/lib/mdx/` - MDX processing utilities
 
-Common issues:
-- Missing dependencies in `registryDependencies`
-- Incorrect file paths in [registry.json](mdc:registry.json)
-- Missing required frontmatter in MDX
+### Component Types
 
-## Best Practices
+1. **registry:component** - Individual UI components
+2. **registry:hook** - Custom React hooks
+3. **registry:block** - Complex component compositions
 
-1. **Naming**: Use kebab-case for all file and component names
-2. **Types**: Always include comprehensive TypeScript definitions
-3. **Documentation**: Include both basic and advanced examples
-4. **Dependencies**: Minimize external dependencies
-5. **Testing**: Ensure examples work before publishing
-6. **Accessibility**: Follow a11y best practices
-7. **Performance**: Use React best practices (memo, callback, etc.)
+## Registry Development Workflow
 
-## Docs
+1. **Add Component**: Create in `/registry/nowts/[type]/[name]/`
+2. **Update Registry**: Add entry to `registry.json` with dependencies
+3. **Build Registry**: Run `pnpm registry:build` to generate JSON files
+4. **Test Installation**: Use `npx shadcn@latest add` with local/remote URL
 
-* https://ui.shadcn.com/docs/registry/registry-json
-* https://ui.shadcn.com/docs/registry/registry-item-json
-* [mdx.ts](mdc:lib/mdx/mdx.ts)
-* [docs.ts](mdc:lib/mdx/docs.ts)
+## Key Features
+
+### Modern React Patterns
+
+- Server Components support with Next.js 15
+- Strict TypeScript configuration
+- Component variants with Class Variance Authority
+- Form handling with React Hook Form + Zod validation
+
+### Documentation System
+
+- MDX-based docs in `/app/_docs/`
+- Live component examples
+- Copy-paste ready code snippets
+- "Open in v0" integration for components
+
+## Important Notes
+
+- **No formal testing framework** - tests should be added if implementing test coverage
+- **Registry files in `/public/r/` are auto-generated** - never edit manually
+- **Always run `pnpm registry:build`** after modifying `registry.json`
+- **Follow shadcn/ui conventions** for component structure and naming
+- **Use server components by default** unless client interactivity is needed
+
+## Code Style Guidelines
+
+- Always use named export without default for component and only use default export for Next.js pages
 
 ---
 > Source: [Melvynx/ui.nowts.app](https://github.com/Melvynx/ui.nowts.app) — distributed by [TomeVault](https://tomevault.io).
