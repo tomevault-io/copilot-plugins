@@ -1,0 +1,44 @@
+{
+  "name": "deepseek-lane",
+  "owner": "guangzan",
+  "repo": "deepseek-lane",
+  "description": "A local proxy that connects Cursor to DeepSeek thinking models, fixing the reasoning_content must be passed back error. \u8fde\u63a5 Cursor \u4e0e DeepSeek \u63a8\u7406\u6a21\u578b\u7684\u672c\u5730\u4ee3\u7406\uff0c\u4fee\u590d reasoning_content must be passed back \u95ee\u9898\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/guangzan/deepseek-lane",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T10:32:26Z"
+}
