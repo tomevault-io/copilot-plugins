@@ -1,0 +1,9 @@
+{
+  "name": "robertdcurrier--erddap2mcp",
+  "displayName": "erddap2mcp",
+  "description": "ERDDAP interface to LLMs using MCP",
+  "version": "1.0.0",
+  "author": "robertdcurrier",
+  "homepage": "https://github.com/robertdcurrier/erddap2mcp",
+  "skills": []
+}
