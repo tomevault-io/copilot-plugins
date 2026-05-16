@@ -1,0 +1,9 @@
+{
+  "name": "dubs3c--council",
+  "displayName": "council",
+  "description": "The Council - Multi-agent discussion system for reaching consensus through structured debate",
+  "version": "1.0.0",
+  "author": "dubs3c",
+  "homepage": "https://github.com/dubs3c/council",
+  "skills": []
+}
