@@ -1,0 +1,9 @@
+{
+  "name": "telagod--llm-probe",
+  "displayName": "llm-probe",
+  "description": "Claude API Endpoint Probe \u2014 \u68c0\u6d4b\u771f\u4f2a\u3001\u9a8c\u8bc1\u534f\u8bae\u3001\u8bc4\u4f30\u6ce8\u5165\u6297\u6027\u3001\u751f\u6210\u591a\u7ef4\u4fe1\u4efb\u8bc4\u5206",
+  "version": "1.0.0",
+  "author": "telagod",
+  "homepage": "https://github.com/telagod/llm-probe",
+  "skills": []
+}
