@@ -1,0 +1,9 @@
+{
+  "name": "dylan-labs--nom-pet",
+  "displayName": "nom-pet",
+  "description": "A desktop pet that eats the AI tokens you burn through Claude Code.",
+  "version": "1.0.0",
+  "author": "dylan-labs",
+  "homepage": "https://github.com/dylan-labs/nom-pet",
+  "skills": []
+}
