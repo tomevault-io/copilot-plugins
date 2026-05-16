@@ -1,0 +1,18 @@
+{
+  "name": "tylerbutler--repoverlay",
+  "displayName": "repoverlay",
+  "description": "A command line tool to overlay files on top of a git repo without committing them.",
+  "version": "1.0.0",
+  "author": "tylerbutler",
+  "homepage": "https://github.com/tylerbutler/repoverlay",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    }
+  ]
+}
