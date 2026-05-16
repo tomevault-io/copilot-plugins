@@ -1,0 +1,129 @@
+{
+  "name": "claude-code-p",
+  "owner": "motlin",
+  "repo": "claude-code-prompts",
+  "description": "AI instruction skills by motlin",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "team-lead",
+      "path": "plugins/builtin-tasks/skills/team-lead",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/builtin-tasks/skills/team-lead",
+      "description": ""
+    },
+    {
+      "name": "team-member",
+      "path": "plugins/builtin-tasks/skills/team-member",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/builtin-tasks/skills/team-member",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "path": "plugins/code/skills/cli",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/code/skills/cli",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": "plugins/code/skills/code-quality",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/code/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "comment-cleanup",
+      "path": "plugins/code/skills/comment-cleanup",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/code/skills/comment-cleanup",
+      "description": ""
+    },
+    {
+      "name": "conversation-style",
+      "path": "plugins/orchestration/skills/conversation-style",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/orchestration/skills/conversation-style",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "plugins/git/skills/git-workflow",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/git/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "justfile-style",
+      "path": "plugins/justfile/skills/justfile-style",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/justfile/skills/justfile-style",
+      "description": ""
+    },
+    {
+      "name": "llm-context",
+      "path": "plugins/orchestration/skills/llm-context",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/orchestration/skills/llm-context",
+      "description": ""
+    },
+    {
+      "name": "offline-claude-code-guide",
+      "path": "plugins/offline-claude-code-guide/skills/offline-claude-code-guide",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/offline-claude-code-guide/skills/offline-claude-code-guide",
+      "description": ""
+    },
+    {
+      "name": "openrewrite",
+      "path": "plugins/java/skills/openrewrite",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/java/skills/openrewrite",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "path": "plugins/orchestration/skills/orchestration",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/orchestration/skills/orchestration",
+      "description": ""
+    },
+    {
+      "name": "pom-ordering",
+      "path": "plugins/java/skills/pom-ordering",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/java/skills/pom-ordering",
+      "description": ""
+    },
+    {
+      "name": "precommit",
+      "path": "plugins/build/skills/precommit",
+      "github_url": "https://github.com/motlin/claude-code-prompts/tree/main/plugins/build/skills/precommit",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/motlin/claude-code-prompts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T00:30:07Z"
+}
