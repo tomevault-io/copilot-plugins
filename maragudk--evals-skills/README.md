@@ -7,11 +7,11 @@ Skills for AIs to do evals, error analysis, and more.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [maragudk/evals-skills](https://github.com/maragudk/evals-skills).
+Original source: `CLAUDE.md` in [maragudk/evals-skills](https://github.com/maragudk/evals-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
