@@ -491,5 +491,5 @@ Whenever you modify code, you must run the **test** script using the **run_scrip
 **Your task is not considered finished until this test passes without errors.**
 
 ---
-> Source: [derekross/plektos](https://github.com/derekross/plektos) — distributed by [TomeVault](https://tomevault.io/claim/derekross).
-<!-- tomevault:4.0:copilot_instructions:2026-04-18 -->
+> Source: [derekross/plektos](https://github.com/derekross/plektos) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-15 -->
