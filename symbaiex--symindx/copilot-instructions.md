@@ -1,646 +1,361 @@
-## 017-community-and-governance
+## 018-git-hooks
 
-> APPLY open source best practices when working with community and governance files
+> **Rule Priority:** Advanced Integration
 
+# Git Hooks Integration with Cursor AI Agents
 
-# Community and Governance Standards
+**Rule Priority:** Advanced Integration  
+**Activation:** Git operations and commit workflows  
+**Scope:** All repository files and Git operations
 
-This rule establishes comprehensive community management, contribution workflows, and project governance standards for the SYMindX open source project.
+## Overview
 
-## Project Governance
+Cursor v1.2+ enables powerful Git commit hook integration where AI agents can automatically respond to Git events, performing validation, testing, and quality checks without manual intervention. This creates a seamless development workflow where code quality is enforced automatically.
 
-### Governance Structure
+## Pre-Commit Hook Patterns
 
-```
-SYMindX Project Structure:
-├── Core Maintainers (2-4 people)
-│   ├── Project Lead (1 person)
-│   ├── Technical Lead (1 person)
-│   └── Community Manager (1 person)
-├── Active Contributors (5-10 people)
-├── Community Contributors (unlimited)
-└── Advisors/Emeritus (as needed)
-```
-
-### Roles and Responsibilities
-
-#### Core Maintainers
-
-**Project Lead**
-
-- Overall project direction and vision
-- Final decision authority on major changes
-- Community representation and external partnerships
-- Release planning and roadmap management
-
-**Technical Lead**
-
-- Architecture decisions and technical direction
-- Code quality and review standards
-- Performance and security oversight
-- Technical roadmap alignment
-
-**Community Manager**
-
-- Community engagement and support
-- Documentation and onboarding
-- Issue triage and contributor guidance
-- Event planning and outreach
-
-#### Active Contributors
-
-- Regular code contributions and reviews
-- Issue triage and community support
-- Documentation improvements
-- Feature development and bug fixes
-
-#### Community Contributors
-
-- Bug reports and feature requests
-- Code contributions and documentation
-- Community support and engagement
-- Testing and feedback
-
-### Decision Making Process
-
-#### 1. Consensus Building
-
-```markdown
-# Decision Framework
-
-## Minor Changes (Bug fixes, docs, small features)
-- Single maintainer approval
-- Community input welcomed
-- Fast-track for obvious improvements
-
-## Major Changes (API changes, architecture, new features)
-- Multiple maintainer review required
-- Community discussion period (1 week minimum)
-- RFC process for significant changes
-
-## Breaking Changes
-- All maintainer approval required
-- Extended community discussion (2+ weeks)
-- Migration guide required
-- Deprecation period when possible
-```
-
-#### 2. RFC Process
-
-**Request for Comments (RFC) Structure**
-
-```markdown
-# RFC: [Feature Name]
-
-## Summary
-Brief description of the proposed change
-
-## Motivation
-- What problem does this solve?
-- Why is this change needed?
-- What are the use cases?
-
-## Detailed Design
-- Technical implementation details
-- API changes and additions
-- Migration strategy
-- Performance implications
-
-## Drawbacks
-- What are the downsides?
-- What alternatives were considered?
-- What are the trade-offs?
-
-## Alternatives
-- Other approaches considered
-- Why this approach was chosen
-- Future possibilities
-
-## Unresolved Questions
-- What needs to be figured out?
-- What are the unknowns?
-- What decisions need community input?
-
-## Implementation Timeline
-- Development phases
-- Release target
-- Migration period
-```
-
-## Contribution Workflow
-
-### Getting Started for Contributors
-
-#### 1. Onboarding Process
-
-```markdown
-# Contributor Onboarding Checklist
-
-## Before Your First Contribution
-- [ ] Read CODE_OF_CONDUCT.md
-- [ ] Review CONTRIBUTING.md guidelines
-- [ ] Set up development environment
-- [ ] Join community Discord/Slack
-- [ ] Introduce yourself in #introductions
-
-## First Contribution
-- [ ] Look for "good first issue" labels
-- [ ] Comment on issue before starting work
-- [ ] Create feature branch from main
-- [ ] Follow commit message conventions
-- [ ] Create pull request with template
-- [ ] Respond to review feedback
-```
-
-#### 2. Development Environment Setup
+### Automatic Code Quality Validation
 
 ```bash
-# Quick setup script
+# .git/hooks/pre-commit (or use husky/lint-staged)
 #!/bin/bash
 
-# Clone the repository
-git clone https://github.com/symindx/symindx.git
-cd symindx
+# Let Cursor AI agent handle all validation
+echo "🤖 Cursor AI Agent: Running pre-commit validation..."
 
-# Install dependencies
-bun install
+# TypeScript type checking
+npm run type-check || {
+    echo "❌ TypeScript errors detected. Let Cursor AI fix them..."
+    # Cursor agent will see this output and automatically fix type errors
+    exit 1
+}
 
-# Set up pre-commit hooks
-bun run setup:hooks
+# ESLint validation
+npm run lint || {
+    echo "❌ ESLint errors detected. Let Cursor AI fix them..."
+    # Cursor agent will automatically apply lint fixes
+    exit 1
+}
 
-# Copy environment template
-cp .env.example .env.local
+# Test suite
+npm run test || {
+    echo "❌ Tests failing. Let Cursor AI investigate and fix..."
+    exit 1
+}
 
-# Run tests to verify setup
-bun test
-
-# Start development server
-bun dev
+echo "✅ All pre-commit checks passed!"
 ```
 
-### Contribution Guidelines
+### SYMindX-Specific Pre-Commit Validation
 
-#### 1. Code Contributions
+```typescript
+// scripts/pre-commit-validation.ts
+import { validateAgentConfig } from '../mind-agents/src/utils/validation';
+import { checkMemoryProviders } from '../mind-agents/src/memory/validation';
+import { validatePortalConfigs } from '../mind-agents/src/portals/validation';
 
-**Branch Naming Convention**
-
-```
-feature/description-of-feature
-bugfix/issue-number-short-description
-hotfix/critical-issue-description
-docs/documentation-improvement
-refactor/component-or-system-name
-```
-
-**Commit Message Format**
-
-```
-type(scope): description
-
-[optional body]
-
-[optional footer]
-```
-
-**Types:**
-
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
-
-**Examples:**
-
-```
-feat(ai-portal): add support for Claude-3.5 Sonnet
-fix(memory): resolve SQLite connection pooling issue
-docs(api): update authentication examples
-refactor(core): simplify agent lifecycle management
+async function preCommitValidation(): Promise<void> {
+  console.log('🧠 SYMindX Pre-Commit Validation');
+  
+  // Validate agent configurations
+  await validateAgentConfig();
+  
+  // Check memory provider configurations
+  await checkMemoryProviders();
+  
+  // Validate AI portal configurations
+  await validatePortalConfigs();
+  
+  // Ensure all emotion modules are properly typed
+  await validateEmotionSystem();
+  
+  console.log('✅ SYMindX validation complete');
+}
 ```
 
-#### 2. Pull Request Process
+## Post-Commit Hook Automation
 
-**Pull Request Template**
+### Automatic Documentation Updates
 
-```markdown
-## Description
-Brief description of changes
+```bash
+# .git/hooks/post-commit
+#!/bin/bash
 
-## Type of Change
-- [ ] Bug fix (non-breaking change that fixes an issue)
-- [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Documentation update
+# Let Cursor AI agent handle post-commit tasks
+echo "🤖 Cursor AI Agent: Running post-commit automation..."
 
-## Testing
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] Manual testing completed
-- [ ] Added tests for new functionality
+# Update documentation if code changes
+if git diff --name-only HEAD~1 HEAD | grep -E '\.(ts|tsx)$'; then
+    echo "📚 Code changes detected. Updating documentation..."
+    # Cursor agent will automatically update docs
+fi
 
-## Screenshots (if applicable)
-[Include screenshots for UI changes]
+# Update type definitions
+if git diff --name-only HEAD~1 HEAD | grep -E 'src/types/'; then
+    echo "🔧 Type changes detected. Regenerating exports..."
+    npm run build:types
+fi
 
-## Breaking Changes
-[Describe any breaking changes and migration steps]
-
-## Checklist
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Documentation updated
-- [ ] Tests added/updated
-- [ ] Changelog updated (for significant changes)
+# Trigger deployment if on main branch
+if [ "$(git branch --show-current)" = "main" ]; then
+    echo "🚀 Main branch updated. Preparing deployment..."
+fi
 ```
 
-**Review Process**
+### Character System Updates
 
-```
-1. Automated Checks
-   ├── Code style (Prettier, ESLint)
-   ├── Type checking (TypeScript)
-   ├── Tests (Jest, integration tests)
-   ├── Security scan
-   └── Build verification
+```typescript
+// scripts/post-commit-character-sync.ts
+import { syncCharacterDefinitions } from '../mind-agents/src/characters/sync';
 
-2. Code Review
-   ├── Functionality review
-   ├── Code quality assessment
-   ├── Performance considerations
-   ├── Security implications
-   └── Documentation review
-
-3. Final Approval
-   ├── Maintainer approval
-   ├── CI/CD pipeline success
-   ├── Merge conflicts resolved
-   └── Ready for merge
+async function postCommitCharacterSync(): Promise<void> {
+  const changedFiles = process.env.CHANGED_FILES?.split(',') || [];
+  
+  // Check if character definitions were modified
+  const characterFiles = changedFiles.filter(file => 
+    file.includes('characters/') && file.endsWith('.json')
+  );
+  
+  if (characterFiles.length > 0) {
+    console.log('🎭 Character definitions updated. Syncing...');
+    await syncCharacterDefinitions(characterFiles);
+    console.log('✅ Character sync complete');
+  }
+}
 ```
 
-### Issue Management
+## Branch-Specific Hook Workflows
 
-#### 1. Issue Templates
+### Development Branch Hooks
 
-**Bug Report Template**
-
-```markdown
----
-name: Bug Report
-about: Create a report to help us improve
-title: '[BUG] '
-labels: 'bug'
-assignees: ''
----
-
-## Bug Description
-A clear and concise description of what the bug is.
-
-## Steps to Reproduce
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-## Expected Behavior
-A clear and concise description of what you expected to happen.
-
-## Actual Behavior
-What actually happened instead.
-
-## Environment
-- OS: [e.g. Ubuntu 22.04]
-- Node.js Version: [e.g. 18.17.0]
-- SYMindX Version: [e.g. 1.2.3]
-- AI Provider: [e.g. OpenAI GPT-4]
-
-## Additional Context
-Add any other context about the problem here.
-
-## Logs
-```
-[Paste relevant logs here]
-```
+```bash
+# Branch-specific pre-commit (development branches)
+if [[ $(git branch --show-current) =~ ^(feature|bugfix|hotfix)/ ]]; then
+    echo "🔧 Development branch detected. Running extended validation..."
+    
+    # Extended type checking for experimental features
+    npm run type-check:strict
+    
+    # Performance regression testing
+    npm run test:performance
+    
+    # Memory leak detection for agent modules
+    npm run test:memory-leaks
+fi
 ```
 
-**Feature Request Template**
+### Production Branch Hooks
 
-```markdown
----
-name: Feature Request
-about: Suggest an idea for this project
-title: '[FEATURE] '
-labels: 'enhancement'
-assignees: ''
----
-
-## Feature Summary
-A clear and concise description of what you want to happen.
-
-## Problem/Use Case
-Describe the problem you're trying to solve or the use case this feature would enable.
-
-## Proposed Solution
-A clear and concise description of what you want to happen.
-
-## Alternatives Considered
-A clear and concise description of any alternative solutions or features you've considered.
-
-## Implementation Ideas
-If you have ideas about how this could be implemented, share them here.
-
-## Additional Context
-Add any other context or screenshots about the feature request here.
+```bash
+# Production branch pre-commit (main/production)
+if [[ $(git branch --show-current) =~ ^(main|production)$ ]]; then
+    echo "🏭 Production branch detected. Running full validation suite..."
+    
+    # Full test suite including integration tests
+    npm run test:full
+    
+    # Security vulnerability scanning
+    npm audit --audit-level=moderate
+    
+    # Build validation
+    npm run build
+    
+    # Bundle size analysis
+    npm run analyze:bundle
+fi
 ```
 
-#### 2. Issue Triage Process
+## AI Agent Hook Integration
 
-**Issue Labels**
+### Cursor Agent Response Patterns
 
-```yaml
-# Priority Labels
-priority/critical: Critical issues that break core functionality
-priority/high: High priority features or important bugs
-priority/medium: Standard priority items
-priority/low: Nice-to-have features or minor issues
+```typescript
+// Integration with Cursor AI agents for hook responses
+interface HookResponse {
+  hookType: 'pre-commit' | 'post-commit' | 'pre-push';
+  success: boolean;
+  errors: Array<{
+    file: string;
+    line: number;
+    message: string;
+    fixable: boolean;
+  }>;
+  autoFixes: string[];
+}
 
-# Type Labels
-bug: Something isn't working
-enhancement: New feature or request
-documentation: Improvements or additions to documentation
-question: Further information is requested
-duplicate: This issue or pull request already exists
-wontfix: This will not be worked on
-
-# Status Labels
-status/needs-triage: Needs initial triage
-status/needs-reproduction: Bug needs reproduction steps
-status/blocked: Blocked by external dependency
-status/in-progress: Currently being worked on
-status/needs-review: Ready for review
-
-# Area Labels
-area/core: Core agent functionality
-area/ai-portal: AI provider integrations
-area/memory: Memory system
-area/extensions: Extension system
-area/web: Web interface
-area/docs: Documentation
-area/ci-cd: CI/CD and automation
+// Cursor agent will automatically:
+// 1. Parse hook output
+// 2. Identify fixable issues
+// 3. Apply fixes automatically
+// 4. Re-run hooks until success
+// 5. Commit fixes with descriptive messages
 ```
 
-**Triage Workflow**
+### Hook Configuration
 
-```
-New Issue Created
-├── Auto-label based on template
-├── Community member triage (within 24h)
-│   ├── Add appropriate labels
-│   ├── Ask for clarification if needed
-│   └── Assign if straightforward
-├── Maintainer review (within 48h)
-│   ├── Validate priority
-│   ├── Provide technical guidance
-│   └── Add to project board
-└── Regular triage meetings (weekly)
-```
-
-## Release Management
-
-### Release Process
-
-#### 1. Release Cycles
-
-**Release Schedule**
-
-```
-Major Releases (x.0.0): Every 6 months
-- Breaking changes allowed
-- New major features
-- Architecture improvements
-
-Minor Releases (x.y.0): Every 4-6 weeks
-- New features
-- Non-breaking improvements
-- Performance enhancements
-
-Patch Releases (x.y.z): As needed
-- Bug fixes
-- Security patches
-- Critical hotfixes
+```json
+// .cursor/git-hooks.json
+{
+  "preCommit": {
+    "enabled": true,
+    "autoFix": true,
+    "checks": [
+      "typescript",
+      "eslint", 
+      "tests",
+      "formatting",
+      "symindx-validation"
+    ]
+  },
+  "postCommit": {
+    "enabled": true,
+    "tasks": [
+      "update-docs",
+      "sync-types",
+      "character-sync"
+    ]
+  },
+  "agentIntegration": {
+    "autoFixErrors": true,
+    "commitAutoFixes": true,
+    "maxRetries": 3
+  }
+}
 ```
 
-#### 2. Release Preparation
+## Advanced Hook Patterns
 
-**Pre-Release Checklist**
+### Context-Aware Validation
 
-```markdown
-# Release Checklist
+```typescript
+// Smart validation based on changed files
+interface ValidationContext {
+  changedFiles: string[];
+  branch: string;
+  commitMessage: string;
+  stagingChanges: boolean;
+}
 
-## Code Preparation
-- [ ] All planned features completed
-- [ ] All tests passing
-- [ ] Performance benchmarks met
-- [ ] Security scan completed
-- [ ] Documentation updated
-
-## Version Management
-- [ ] Version number decided
-- [ ] CHANGELOG.md updated
-- [ ] Migration guides written (if needed)
-- [ ] Breaking changes documented
-
-## Testing
-- [ ] Integration tests pass
-- [ ] End-to-end tests complete
-- [ ] Manual testing on all platforms
-- [ ] Beta testing with community
-
-## Release Notes
-- [ ] Release notes drafted
-- [ ] Breaking changes highlighted
-- [ ] Migration instructions clear
-- [ ] Contributors acknowledged
+function getValidationStrategy(context: ValidationContext): string[] {
+  const strategies: string[] = [];
+  
+  // AI portal changes
+  if (context.changedFiles.some(f => f.includes('portals/'))) {
+    strategies.push('validate-ai-portals');
+  }
+  
+  // Memory system changes
+  if (context.changedFiles.some(f => f.includes('memory/'))) {
+    strategies.push('validate-memory-providers');
+  }
+  
+  // Extension changes
+  if (context.changedFiles.some(f => f.includes('extensions/'))) {
+    strategies.push('validate-extensions');
+  }
+  
+  return strategies;
+}
 ```
 
-**Release Automation**
+### Parallel Hook Execution
 
-```yaml
-# .github/workflows/release.yml
-name: Release
-
-on:
-  push:
-    tags:
-      - 'v*'
-
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
-        run: bun install
-      - name: Run tests
-        run: bun test
-      - name: Build packages
-        run: bun run build
-      - name: Publish to npm
-        run: bun run publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body_path: RELEASE_NOTES.md
+```bash
+# Parallel execution for faster validation
+run_hooks_parallel() {
+    local pids=()
+    
+    # Run type checking in background
+    npm run type-check &
+    pids+=($!)
+    
+    # Run linting in background
+    npm run lint &
+    pids+=($!)
+    
+    # Run tests in background
+    npm run test:unit &
+    pids+=($!)
+    
+    # Wait for all to complete
+    for pid in "${pids[@]}"; do
+        wait $pid || exit 1
+    done
+    
+    echo "✅ All parallel validation complete"
+}
 ```
 
-### Versioning Strategy
+## Hook Installation and Management
 
-#### 1. Semantic Versioning
+### Automatic Hook Setup
 
-**Version Format: MAJOR.MINOR.PATCH**
+```bash
+# scripts/setup-git-hooks.sh
+#!/bin/bash
 
-```
-MAJOR version: Breaking changes
-- API changes that break backward compatibility
-- Significant architecture changes
-- Removal of deprecated features
+echo "🔧 Setting up Cursor AI-enhanced Git hooks..."
 
-MINOR version: New features
-- New functionality that is backward compatible
-- New AI provider support
-- New extension capabilities
+# Copy hook scripts
+cp scripts/hooks/* .git/hooks/
+chmod +x .git/hooks/*
 
-PATCH version: Bug fixes
-- Bug fixes that don't break compatibility
-- Security patches
-- Performance improvements
-```
+# Install hook dependencies
+npm install --save-dev husky lint-staged
 
-#### 2. Pre-Release Versions
+# Configure package.json
+npm pkg set scripts.prepare="husky install"
+npm pkg set lint-staged='{"*.{ts,tsx}": ["eslint --fix", "git add"], "*.{json,md}": ["prettier --write", "git add"]}'
 
-```
-Alpha: x.y.z-alpha.n
-- Early development
-- Internal testing
-- Major features in development
-
-Beta: x.y.z-beta.n
-- Feature complete
-- Community testing
-- Bug fixes and polishing
-
-Release Candidate: x.y.z-rc.n
-- Production ready candidate
-- Final testing phase
-- Only critical fixes
+echo "✅ Git hooks setup complete with Cursor AI integration"
 ```
 
-## Community Engagement
+### Hook Monitoring
 
-### Communication Channels
+```typescript
+// scripts/hook-monitoring.ts
+interface HookMetrics {
+  hookType: string;
+  duration: number;
+  success: boolean;
+  autoFixesApplied: number;
+  errorsFound: number;
+}
 
-#### 1. Official Channels
-
-```
-Primary Channels:
-├── GitHub Discussions: Technical discussions, Q&A
-├── Discord Server: Real-time chat, community support
-├── Twitter/X: Announcements, news, community highlights
-├── Newsletter: Monthly updates, feature highlights
-└── Blog: Deep dives, tutorials, case studies
-
-Support Channels:
-├── GitHub Issues: Bug reports, feature requests
-├── Discord #support: Community help
-├── Stack Overflow: Technical questions (tag: symindx)
-└── Email: security@symindx.com (security issues)
+function logHookMetrics(metrics: HookMetrics): void {
+  // Send metrics to monitoring system
+  console.log(`📊 Hook Metrics: ${JSON.stringify(metrics, null, 2)}`);
+}
 ```
 
-#### 2. Community Events
+## Integration with SYMindX Workflow
 
-**Regular Events**
+### Agent Module Validation
 
-```markdown
-# Community Calendar
-
-## Weekly Events
-- Community Office Hours (Fridays, 3 PM UTC)
-- Contributor Sync (Tuesdays, 4 PM UTC)
-
-## Monthly Events
-- Community Showcase (First Friday)
-- Technical Deep Dive (Third Thursday)
-- Maintainer Q&A (Last Wednesday)
-
-## Quarterly Events
-- Release Planning Sessions
-- Community Survey Reviews
-- Roadmap Updates
-
-## Annual Events
-- SYMindX Conference
-- Contributor Summit
-- Hackathon Events
+```typescript
+// Specific validation for SYMindX components
+const symindxHooks = {
+  validateAgentModules: async () => {
+    // Validate hot-swappable module interfaces
+    // Check emotion system configuration
+    // Verify memory provider connections
+  },
+  
+  validateCharacterDefinitions: async () => {
+    // Validate character JSON schema
+    // Check emotion mappings
+    // Verify trait inheritance
+  },
+  
+  validatePortalConfigurations: async () => {
+    // Check AI provider configurations
+    // Validate API key patterns (without exposing keys)
+    // Test provider availability
+  }
+};
 ```
 
-### Code of Conduct
-
-#### 1. Community Standards
-
-**Our Pledge**
-
-```markdown
-# Contributor Covenant Code of Conduct
-
-## Our Pledge
-We pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
-
-## Our Standards
-Examples of behavior that contributes to a positive environment:
-- Using welcoming and inclusive language
-- Being respectful of differing viewpoints and experiences
-- Gracefully accepting constructive criticism
-- Focusing on what is best for the community
-- Showing empathy towards other community members
-
-Examples of unacceptable behavior:
-- The use of sexualized language or imagery
-- Trolling, insulting/derogatory comments, and personal attacks
-- Public or private harassment
-- Publishing others' private information without permission
-- Other conduct which could reasonably be considered inappropriate
-```
-
-#### 2. Enforcement
-
-**Enforcement Process**
-
-```
-1. Report Incident
-   ├── Contact: conduct@symindx.com
-   ├── Provide detailed information
-   └── Include evidence if available
-
-2. Investigation
-   ├── Review by conduct team
-   ├── Interview involved parties
-   └── Gather additional context
-
-3. Resolution
-   ├── Warning (first offense)
-   ├── Temporary ban (repeated violations)
-   ├── Permanent ban (severe violations)
-   └── Appeal process available
-```
-
-This community and governance framework ensures that SYMindX maintains a healthy, inclusive, and productive open source community while establishing clear processes for contribution, decision-making, and conflict resolution.
+This rule enables powerful Git hook integration with Cursor's AI agents, creating an automated development workflow that maintains code quality while leveraging AI assistance for fixing issues automatically.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
