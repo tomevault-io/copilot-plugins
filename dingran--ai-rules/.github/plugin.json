@@ -1,0 +1,9 @@
+{
+  "name": "dingran--ai-rules",
+  "displayName": "ai-rules",
+  "description": "claude.md cursor.rules and other project rule files for ai coding assistant",
+  "version": "1.0.0",
+  "author": "dingran",
+  "homepage": "https://github.com/dingran/ai-rules",
+  "skills": []
+}
