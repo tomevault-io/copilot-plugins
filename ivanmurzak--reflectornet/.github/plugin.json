@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--reflectornet",
+  "displayName": "ReflectorNet",
+  "description": "Advanced .NET reflection toolkit for AI-driven scenarios. Dynamically invoke methods with JSON, generate schemas, and serialize complex objects with type preservation. Perfect for automation, testing,",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/ReflectorNet",
+  "skills": []
+}
