@@ -4,7 +4,7 @@
   "repo": "cargo-hold",
   "description": "cargo-hold makes your Rust CI caching actually work \u2728\ud83d\udc96",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ellipsis-Labs/cargo-hold",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T04:12:22Z"
+  "distributed_at": "2026-05-16T04:56:49Z"
 }
