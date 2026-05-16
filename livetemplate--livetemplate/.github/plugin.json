@@ -1,0 +1,9 @@
+{
+  "name": "livetemplate--livetemplate",
+  "displayName": "livetemplate",
+  "description": "(Alpha software) Build liveview apps in Go",
+  "version": "1.0.0",
+  "author": "livetemplate",
+  "homepage": "https://github.com/livetemplate/livetemplate",
+  "skills": []
+}
