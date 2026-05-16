@@ -1,0 +1,9 @@
+{
+  "name": "troykelly--claude-skills",
+  "displayName": "claude-skills",
+  "description": "Opinionated GitHub-native development workflow with 28 skills for autonomous, issue-driven software development with Claude Code",
+  "version": "1.0.0",
+  "author": "troykelly",
+  "homepage": "https://github.com/troykelly/claude-skills",
+  "skills": []
+}
