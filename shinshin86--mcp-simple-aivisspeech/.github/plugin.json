@@ -1,0 +1,9 @@
+{
+  "name": "shinshin86--mcp-simple-aivisspeech",
+  "displayName": "mcp-simple-aivisspeech",
+  "description": "A Model Context Protocol (MCP) server for seamless integration with AivisSpeech text-to-speech engine. This project enables AI assistants and applications to convert text to natural-sounding Japanese ",
+  "version": "1.0.0",
+  "author": "shinshin86",
+  "homepage": "https://github.com/shinshin86/mcp-simple-aivisspeech",
+  "skills": []
+}
