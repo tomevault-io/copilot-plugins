@@ -1,0 +1,9 @@
+{
+  "name": "epastorc--context-engineering-template-claude",
+  "displayName": "context-engineering-template-claude",
+  "description": "Angular TypeScript template demonstrating context engineering for   AI-assisted development. Features Domain-Driven Design (DDD), SOLID   principles, and PRP workflow for generating high-quality code ",
+  "version": "1.0.0",
+  "author": "epastorc",
+  "homepage": "https://github.com/epastorc/context-engineering-template-claude",
+  "skills": []
+}
