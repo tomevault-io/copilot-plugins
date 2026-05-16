@@ -7,11 +7,11 @@ A structured methodology for AI-assisted development using specialized personas,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [emanuelcasco/.ai](https://github.com/emanuelcasco/.ai).
+Original source: `CLAUDE.md` in [emanuelcasco/.ai](https://github.com/emanuelcasco/.ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
