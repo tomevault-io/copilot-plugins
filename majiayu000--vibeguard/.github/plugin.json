@@ -1,0 +1,18 @@
+{
+  "name": "majiayu000--vibeguard",
+  "displayName": "vibeguard",
+  "description": "Native rules, hooks, and guards that prevent Claude Code and Codex from hallucinating code, duplicating files, or shipping unverified changes.",
+  "version": "1.0.0",
+  "author": "majiayu000",
+  "homepage": "https://github.com/majiayu000/vibeguard",
+  "skills": [
+    {
+      "name": "auto-optimize",
+      "description": ""
+    },
+    {
+      "name": "fixflow",
+      "description": ""
+    }
+  ]
+}
