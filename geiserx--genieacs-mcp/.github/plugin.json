@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--genieacs-mcp",
+  "displayName": "genieacs-mcp",
+  "description": "MCP Server for GenieACS written in Go",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/genieacs-mcp",
+  "skills": []
+}
