@@ -1,0 +1,44 @@
+{
+  "name": "OwlUploader",
+  "owner": "sanvibyfish",
+  "repo": "OwlUploader",
+  "description": "macOS \u684c\u9762\u5ba2\u6237\u7aef\uff0c\u7528\u4e8e\u5c06\u6587\u4ef6\u4e0a\u4f20\u5230 Cloudflare R2\uff0c\u5bf9\u5f00\u53d1\u8005\u53cb\u597d\uff0c\u7b80\u6d01\u6613\u7528\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sanvibyfish/OwlUploader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:02:32Z"
+}
