@@ -7,11 +7,11 @@ Terminal.Gui Text Editor based on AvaloniaEdit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gui-cs/Editor](https://github.com/gui-cs/Editor).
+Original source: `CLAUDE.md` in [gui-cs/Editor](https://github.com/gui-cs/Editor).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
