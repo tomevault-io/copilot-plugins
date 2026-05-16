@@ -1,0 +1,9 @@
+{
+  "name": "anilzeybek--vizy",
+  "displayName": "vizy",
+  "description": "One-line tensor visualization for PyTorch, JAX and NumPy",
+  "version": "1.0.0",
+  "author": "anilzeybek",
+  "homepage": "https://github.com/anilzeybek/vizy",
+  "skills": []
+}
