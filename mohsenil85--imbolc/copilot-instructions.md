@@ -1,0 +1,164 @@
+## imbolc
+
+> Multi-crate Rust workspace for Imbolc, a terminal-based DAW (Digital Audio Workstation).
+
+# Imbolc Workspace
+
+Multi-crate Rust workspace for Imbolc, a terminal-based DAW (Digital Audio Workstation).
+
+## Design Philosophy
+
+For each proposed change, examine the existing system and redesign it into the most elegant solution that would have emerged if the change had been a foundational assumption from the start.
+
+**Keybinding convention:** Although Imbolc takes inspiration from vim, never use j/k for scrolling. Always use the arrow keys for scrolling.
+
+## Workspace Structure
+
+```
+imbolc/
+├── imbolc-ui/      Terminal UI binary (ratatui + crossterm)
+├── imbolc-core/    Core engine (state, dispatch, persistence)
+├── imbolc-audio/   Audio engine (SuperCollider OSC, playback, routing)
+├── imbolc-types/   Shared type definitions
+└── imbolc-net/     Network/collaboration layer
+```
+
+## Dependency Flow
+
+```
+imbolc-types  (leaf crate, no internal deps)
+     │
+     ├──────────────────┐
+     ▼                  ▼
+imbolc-audio          imbolc-net
+(audio engine)        (collaboration)
+     │
+     ▼
+imbolc-core   (state, dispatch, persistence)
+     │
+     ▼
+imbolc-ui     (terminal interface)
+```
+
+## Building
+
+```bash
+cargo build                 # Build all crates
+cargo build -p imbolc-ui    # Build UI only
+cargo test                  # Run all tests
+cargo run -p imbolc-ui      # Run the DAW
+```
+
+## Crate Responsibilities
+
+| Crate | Purpose | Key Files |
+|-------|---------|-----------|
+| `imbolc-types` | Shared types: Track, Action, SourceType, etc. | `src/state/`, `src/action.rs` |
+| `imbolc-audio` | Audio engine: SuperCollider OSC, playback, routing | `src/engine/`, `src/handle.rs` |
+| `imbolc-core` | State management, action dispatch, persistence | `src/dispatch/`, `src/state/` |
+| `imbolc-ui` | Terminal rendering, panes, keybindings | `src/panes/`, `src/ui/` |
+
+## Code Map
+
+**Read [CODE_MAP.md](CODE_MAP.md) first** for dispatch routing tables, type hierarchy, AudioDirty flags reference, module maps, and enum quick reference. This avoids re-exploring the codebase.
+
+## Per-Crate Documentation
+
+Each crate has its own `CLAUDE.md` with detailed guidance:
+
+- [imbolc-ui/CLAUDE.md](imbolc-ui/CLAUDE.md) — UI architecture, pane system, keybindings
+- [imbolc-core/CLAUDE.md](imbolc-core/CLAUDE.md) — State, dispatch, persistence
+- [imbolc-audio/CLAUDE.md](imbolc-audio/CLAUDE.md) — Audio engine, SuperCollider, playback
+- [imbolc-types/CLAUDE.md](imbolc-types/CLAUDE.md) — Shared type definitions
+- [imbolc-net/CLAUDE.md](imbolc-net/CLAUDE.md) — Network protocol, LAN collaboration
+
+## Common Workflows
+
+### Adding a new action
+1. Add variant to `Action` in `imbolc-types/src/action.rs`
+2. Return it from pane handler in `imbolc-ui/src/panes/`
+3. Handle it in `imbolc-core/src/dispatch/mod.rs`
+4. Add REPL command in `imbolc-ui/src/repl/registry.rs` (`repl_actions!` macro)
+5. Add `ReplParseable` impl in `imbolc-ui/src/repl/parse.rs` if using new argument types
+
+### Adding a new pane
+1. Create in `imbolc-ui/src/panes/`
+2. Register in `imbolc-ui/src/main.rs`
+3. Add keybinding if navigable
+
+### Modifying state types
+1. Update type in `imbolc-types/src/state/`
+2. Update any dispatch handlers in `imbolc-core/`
+3. Update persistence if needed in `imbolc-core/src/state/persistence/`
+
+### Adding a new SynthDef
+**Hard rule: One SynthDef per file.**
+1. Create file in `imbolc-core/synthdefs/defs/<category>/<name>.scd`
+2. Compile: `imbolc-core/bin/compile-synthdefs` (or `cd imbolc-core/synthdefs && sclang compile.scd`)
+3. Add `SourceType` variant in `imbolc-types/src/state/track/source_type.rs` if needed
+
+See [imbolc-core/synthdefs/defs/README.md](imbolc-core/synthdefs/defs/README.md) for file template and conventions.
+
+## Code Navigation (CCLSP)
+
+An MCP server (`cclsp`) wraps rust-analyzer for LSP-powered code navigation. **Always use CCLSP tools for navigating and editing Rust code** — they understand types, scopes, and cross-file references. Only fall back to Grep/Glob for non-Rust files or text pattern searches that aren't symbol-based.
+
+**Navigation:**
+- `find_definition` — Jump to symbol definition
+- `find_references` — Find all references to a symbol
+- `find_workspace_symbols` — Search symbols by name across workspace
+- `find_implementation` — Find implementations of traits/interfaces
+
+**Analysis:**
+- `get_diagnostics` — Get compiler errors/warnings for a file
+- `get_hover` — Get type info and docs at a position
+- `prepare_call_hierarchy` — Prepare for call hierarchy queries
+- `get_incoming_calls` — Find all callers of a function
+- `get_outgoing_calls` — Find all callees from a function
+
+**Refactoring:**
+- `rename_symbol` — Rename a symbol across the workspace
+- `rename_symbol_strict` — Rename at a specific position (when multiple candidates)
+
+**Maintenance:**
+- `restart_server` — Restart LSP servers if results seem stale
+
+All tools are prefixed `mcp__cclsp__` when invoking. Configuration: `.mcp.json` + `cclsp.json` at workspace root.
+
+## Configuration
+
+- Musical defaults: `~/.config/imbolc/config.toml`
+- Keybindings: `~/.config/imbolc/keybindings.toml`
+- Projects: SQLite databases (`.imbolc` / `.sqlite`)
+
+## Documentation
+
+All docs live at workspace root in `./docs/`. See [docs/README.md](docs/README.md) for the full index.
+- [docs/dev/architecture.md](docs/dev/architecture.md) — threading model, latency, OSC timetags, voice allocation
+
+## Scratch Space
+
+[SCRATCH.md](SCRATCH.md) is your working scratchpad. Feel free to overwrite it with whatever you need — notes, analysis, intermediate results, code sketches. It's yours to use as additional thinking space.
+
+## Task Tracking
+
+- [TASKS.md](TASKS.md) — current bugs, features, and refactors
+- [TASKS_DONE.md](TASKS_DONE.md) — completed work history
+
+## Green Build Policy
+
+Before finishing any work, ensure a clean build:
+
+1. `cargo fmt --all` — consistent formatting
+2. `cargo clippy --all -- -D warnings` — no lint warnings
+3. `cargo test` — all tests pass
+
+Do not leave the codebase in a broken state. Every session should end green.
+
+## Plans
+
+Implementation plans live in `./plans/` at workspace root.
+
+---
+> Source: [mohsenil85/imbolc](https://github.com/mohsenil85/imbolc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-16 -->
