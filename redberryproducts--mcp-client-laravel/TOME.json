@@ -4,7 +4,7 @@
   "repo": "mcp-client-laravel",
   "description": "Laravel-native client for Model Context Protocol (MCP) servers. Built by Redberry (Diamond-tier Laravel partner). Used by LarAgent and other frameworks to enable AI agent functionality.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RedberryProducts/mcp-client-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T23:10:16Z"
+  "distributed_at": "2026-05-16T02:51:20Z"
 }
