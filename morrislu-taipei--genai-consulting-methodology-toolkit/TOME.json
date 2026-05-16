@@ -4,7 +4,7 @@
   "repo": "GenAI-Consulting-Methodology-Toolkit",
   "description": "\u4f01\u696d GenAI \u8f49\u578b\u6210\u719f\u5ea6\u8a3a\u65b7\u8207\u5c0e\u5165\u65b9\u6cd5\u8ad6\u5de5\u5177\u5305 \u2014 L1-L5 \u6210\u719f\u5ea6\u6a21\u578b + \u516b\u968e\u6bb5\u9867\u554f\u7d50\u69cb\u3002Enterprise GenAI transformation maturity assessment & implementation methodology toolkit (L1-L5 + eight-stage consulting). Apache 2.0.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MorrisLu-Taipei/GenAI-Consulting-Methodology-Toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:10:40Z"
+  "distributed_at": "2026-05-16T07:06:27Z"
 }
