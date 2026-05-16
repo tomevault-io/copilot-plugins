@@ -1,55 +1,62 @@
-## 04-auxiliaryfeaturesandtools
+## 05-recentkeyfixesandoptimizations
 
-> 本规则介绍了 OwlUploader 应用中使用的一些辅助功能模块和工具类，它们为核心功能提供支持或增强用户体验。
+> 本规则文件是对开发日志 `docs/dev/DEV-2025-05-25.md` 中记录的近期关键 BUG 修复、功能增强和用户体验优化的一个总结。这些变更是当前代码库状态的重要组成部分。
 
-# 规则 04: 辅助功能与工具
+# 规则 05: 近期的关键修复与优化总结
 
 ## 概述
-本规则介绍了 OwlUploader 应用中使用的一些辅助功能模块和工具类，它们为核心功能提供支持或增强用户体验。
+本规则文件是对开发日志 `docs/dev/DEV-2025-05-25.md` 中记录的近期关键 BUG 修复、功能增强和用户体验优化的一个总结。这些变更是当前代码库状态的重要组成部分。
 
-## 诊断工具: DiagnosticsView
-`DiagnosticsView.swift` 提供了一个用户界面，允许用户主动检查应用与 R2 服务的连接状态和配置的健康状况。
+## 核心功能与健壮性
 
-### 主要功能
-- 显示当前的连接状态、账户配置信息、选定的存储桶等。
-- 执行一系列诊断检查，如：
-    - 验证 R2 服务连接。
-    - 检查账户配置的完整性。
-    - 验证 API Token 权限（概念性，实际权限检查在 `R2Service`）。
-    - 检查端点 URL 格式。
-    - 确认存储桶选择状态。
-- 提供诊断结果和潜在问题的解决建议。
+- **R2 `listBuckets` 权限兼容性**: 
+    - 添加了 `selectBucketDirectly()` 和 `checkListBucketsPermission()` 方法到 `R2Service`，使得应用能够支持没有 `listBuckets` 全局权限、仅有特定存储桶操作权限的 API Token。
+    - 相关的 UI 流程（如 `BucketListView`）也进行了调整以支持此场景，包括自动尝试连接默认配置的存储桶。
 
-### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **macOS 兼容性修复**: 移除了 iOS 特有的修饰符 (`navigationBarTitleDisplayMode`, `navigationBarTrailing`)，调整了工具栏按钮位置，修复了中文引号导致的字符串解析错误，使其能在 macOS 上正确编译和显示。
-- **界面尺寸优化**: 多次调整了 `DiagnosticsView` 的 frame 参数，以确保其内容（特别是较长的诊断信息文本）能够完整显示，解决了因外部 frame 覆盖导致内部尺寸设置无效的问题。
-- **上传问题诊断集成**: 诊断视图现在也用于帮助用户排查文件上传失败的问题，提供系统性的前置条件检查。
+- **新建文件夹功能系列修复**: ([OwlUploader/CreateFolderSheet.swift](mdc:OwlUploader/CreateFolderSheet.swift), [OwlUploader/R2Service.swift](mdc:OwlUploader/R2Service.swift))
+    - 修复了对话框无法输入文件夹名称的问题（通过改用 Sheet 弹窗）。
+    - 修正了文件夹名称验证逻辑，确保连字符 `-` 等合法字符被正确允许。
+    - 解决了因 R2 服务对文件夹对象键（key）的特殊处理（返回时不带末尾 `/`）导致的文件夹被错误识别为文件对象的问题。更新了 `R2Service.listObjects()` 中的检测逻辑以兼容此行为。
+    - 修复了 `R2Service.createFolder()` 中因路径处理和变量名冲突导致最终发送给 R2 的 key 缺少末尾 `/` 的问题。
 
-## 消息提示: MessageBanner
-`MessageBanner.swift` 实现了一个通用的消息横幅组件，用于在应用顶部显示成功、错误或信息性提示。
+- **macOS 沙盒文件上传权限彻底解决**: ([OwlUploader/FileListView.swift](mdc:OwlUploader/FileListView.swift), [OwlUploader/R2Service.swift](mdc:OwlUploader/R2Service.swift))
+    - 最终解决方案：在 `fileImporter` 的回调中，立即使用 `startAccessingSecurityScopedResource()` 获取权限，并在 `defer` 中确保释放。在权限有效的同步上下文中，立即读取文件数据 (`Data(contentsOf: fileURL)`)。然后将此 `Data` 对象传递给异步的上传任务。`R2Service` 中添加了新的 `uploadData()` 方法来处理已读取的数据。
+    - 此方案解决了因异步 Task 不继承权限上下文导致 `NSCocoaErrorDomain Code=257` (文件无访问权限) 的问题。
 
-### 主要功能
-- 支持不同类型的消息（成功、错误、信息、警告）。
-- 消息可以自动消失，也可以手动关闭。
-- 通过 `MessageManager`（一个 `ObservableObject`）在应用各处触发显示。
+- **错误处理与诊断增强**: 
+    - `R2Service` 中针对多种错误类型（如权限不足、网络问题、文件大小限制等）进行了更细致的分类和诊断信息输出。
+    - `DiagnosticsView` 集成了上传问题诊断功能，并修复了其在 macOS 上的兼容性和界面显示问题。
 
-## Keychain服务: KeychainService
-`KeychainService.swift` 封装了与 macOS Keychain 的交互，用于安全地存储和读取敏感数据，如 R2 账户的 Secret Access Key。
+## 用户体验 (UX) 与界面 (UI) 优化
 
-### 主要功能
-- 保存数据到 Keychain。
-- 从 Keychain 读取数据。
-- 从 Keychain 删除数据。
-- 更新 Keychain 中的数据。
-- 为应用的账户管理 (`R2AccountManager`) 提供底层的安全存储能力。
+- **账户配置 (`AccountSettingsView.swift`)**: 
+    - 新增"默认存储桶名称"和"R2公共域名"配置项。
+    - 修复了 SECRET_ACCESS_KEY 在断开连接后需重新输入的问题，现在会从 Keychain 安全加载。
+    - 多次优化了配置界面的布局、样式、边距和最大宽度，包括采用卡片式设计，提升了视觉美观度和空间利用率。
+    - 优化了"断开连接"按钮的样式和布局。
 
-### 关键文件
-- 诊断工具界面: [OwlUploader/DiagnosticsView.swift](mdc:OwlUploader/DiagnosticsView.swift)
-- 消息横幅组件: [OwlUploader/MessageBanner.swift](mdc:OwlUploader/MessageBanner.swift)
-- Keychain 服务封装: [OwlUploader/KeychainService.swift](mdc:OwlUploader/KeychainService.swift)
-- 开发日志: [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)
+- **主导航与视图 (`ContentView.swift`)**: 
+    - 修复了侧边栏显示不稳定的问题 (通过 `.navigationViewStyle(.columns)`)。
+    - 优化了连接成功后的导航流程，使其更加顺畅。
+    - 修复了侧边栏菜单项（`NavigationLink`）禁用状态更新不及时的 BUG (通过条件渲染)。
+    - 在欢迎页添加了始终可用的"重新配置账户"按钮。
+    - 优化了应用主内容区域和默认窗口的尺寸设置。
+    - 优化了左侧菜单栏底部"断开连接"按钮的布局和样式。
 
-这些辅助工具对于提升应用的健壮性、易用性和安全性起到了重要作用。
+- **文件与文件夹列表 (`FileListView.swift`)**: 
+    - 文件夹和面包屑导航统一改为单击操作，提升了交互一致性和效率。
+    - 简化了文件夹列表项的视觉样式，移除了不必要的背景和边框。
+    - 修复了因 `R2Service.listObjects()` 中对来自 R2 的重复对象处理不当导致的 SwiftUI `ForEach` ID 冲突警告。
+    - 优化了文件夹导航时的加载状态处理，消除了不必要的闪屏。
+
+- **诊断界面 (`DiagnosticsView.swift`)**: 
+    - 解决了因外部 `.frame()` 修饰符覆盖内部设置导致尺寸调整无效的问题。
+    - 调整了其尺寸参数以确保内容能完整显示。
+
+### 参考开发日志
+详细的变更历史、问题分析和解决方案记录在 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)。
+
+这个规则文件是理解当前代码库状态和近期演进的关键，它突出了那些对功能、稳定性和用户体验有显著影响的变更。
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
