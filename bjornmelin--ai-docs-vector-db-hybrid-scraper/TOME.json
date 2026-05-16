@@ -1,0 +1,44 @@
+{
+  "name": "ai-docs-vector-db-hybrid-scraper",
+  "owner": "BjornMelin",
+  "repo": "ai-docs-vector-db-hybrid-scraper",
+  "description": "Retrieval-augmented docs ingestion stack: Firecrawl + Crawl4AI + Qdrant vector search with FastAPI and MCP interfaces for AI engineers.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BjornMelin/ai-docs-vector-db-hybrid-scraper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T00:50:44Z"
+}
