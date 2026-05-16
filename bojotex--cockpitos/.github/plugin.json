@@ -1,0 +1,9 @@
+{
+  "name": "bojotex--cockpitos",
+  "displayName": "CockpitOS",
+  "description": "ESP32 firmware for DCS World (DCS-BIOS) DIY cockpit panels. Friendly to non-programmers. Build switches to dense LED panels, selectors, and TFT gauges. Features headless UDP debugging, robust aircraft",
+  "version": "1.0.0",
+  "author": "BojoteX",
+  "homepage": "https://github.com/BojoteX/CockpitOS",
+  "skills": []
+}
