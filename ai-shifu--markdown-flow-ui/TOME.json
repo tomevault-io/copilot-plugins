@@ -4,7 +4,7 @@
   "repo": "markdown-flow-ui",
   "description": "React component library to render interactive MarkdownFlow documents with typewriter effects and real-time streaming",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-shifu/markdown-flow-ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:50:16Z"
+  "distributed_at": "2026-05-16T04:19:30Z"
 }
