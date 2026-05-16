@@ -1,0 +1,9 @@
+{
+  "name": "masuidrive--ticket-sh",
+  "displayName": "ticket.sh",
+  "description": "A self-contained ticket management system using shell script, files, and Git. Perfect for managing coding tasks, especially when working with AI coding assistants.",
+  "version": "1.0.0",
+  "author": "masuidrive",
+  "homepage": "https://github.com/masuidrive/ticket.sh",
+  "skills": []
+}
