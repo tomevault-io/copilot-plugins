@@ -4,7 +4,7 @@
   "repo": "zenflow",
   "description": "Multi-agent orchestration & workflow engine. Declarative YAML workflows, LLM coordinator with hub-and-spoke mailboxes, race-safe delivery. One YAML file, one Go binary. Runs on any goai-supported provider.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zendev-sh/zenflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:21:11Z"
+  "distributed_at": "2026-05-16T07:08:16Z"
 }
