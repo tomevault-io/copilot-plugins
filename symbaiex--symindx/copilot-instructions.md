@@ -1,819 +1,610 @@
-## 020-mcp-integration
+## 021-advanced-context
 
-> **Rule Priority:** Advanced Integration
+> **Rule Priority:** Advanced Intelligence
 
-# Model Context Protocol (MCP) Integration
+# Advanced Context Awareness and Dynamic Rule Activation
 
-**Rule Priority:** Advanced Integration  
-**Activation:** External tool integration and service connections  
-**Scope:** All MCP-compatible tools and service integrations
+**Rule Priority:** Advanced Intelligence  
+**Activation:** All development activities with dynamic context switching  
+**Scope:** Global context management and intelligent rule selection
 
 ## Overview
 
-Model Context Protocol (MCP) in Cursor v1.2+ enables seamless integration with external tools and services through standardized interfaces. This allows one-click installation of tools, OAuth authentication flows, and powerful service integrations without complex setup.
+Cursor's advanced context system in v1.2+ enables sophisticated awareness of development environment, file types, git status, time of day, project phase, and user patterns. This rule creates intelligent context switching that dynamically activates relevant rules and optimizes AI assistance based on current conditions.
 
-## MCP Architecture
+## Context Detection Systems
 
-### Core MCP Components
-
-```typescript
-// MCP Server Implementation
-interface MCPServer {
-  name: string;
-  version: string;
-  capabilities: MCPCapabilities;
-  tools: MCPTool[];
-  resources: MCPResource[];
-  prompts: MCPPrompt[];
-}
-
-interface MCPCapabilities {
-  logging?: boolean;
-  notifications?: boolean;
-  resources?: {
-    subscribe?: boolean;
-    listChanged?: boolean;
-  };
-  tools?: {
-    listChanged?: boolean;
-  };
-  prompts?: {
-    listChanged?: boolean;
-  };
-}
-
-interface MCPTool {
-  name: string;
-  description: string;
-  inputSchema: JSONSchema;
-  handler: (params: any) => Promise<MCPResult>;
-}
-
-interface MCPResource {
-  uri: string;
-  name: string;
-  description?: string;
-  mimeType?: string;
-}
-
-interface MCPPrompt {
-  name: string;
-  description: string;
-  arguments?: MCPPromptArgument[];
-}
-```
-
-### MCP Client Configuration
-
-```json
-// .cursor/mcp-config.json
-{
-  "mcpServers": {
-    "supabase": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-supabase"],
-      "env": {
-        "SUPABASE_URL": "process.env.SUPABASE_URL",
-        "SUPABASE_ANON_KEY": "process.env.SUPABASE_ANON_KEY"
-      }
-    },
-    "github": {
-      "command": "npx", 
-      "args": ["@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "process.env.GITHUB_TOKEN"
-      }
-    },
-    "memory": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-memory"],
-      "env": {
-        "MEMORY_STORE_PATH": "./data/mcp-memory"
-      }
-    },
-    "sequential-thinking": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-sequential-thinking"]
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-playwright"]
-    },
-    "context7": {
-      "command": "npx", 
-      "args": ["@context7/mcp-server"]
-    }
-  },
-  "allowedOrigins": [
-    "cursor://",
-    "vscode://",
-    "localhost"
-  ],
-  "enableOAuth": true,
-  "oauthConfig": {
-    "providers": ["github", "google", "microsoft"],
-    "redirectUrl": "cursor://oauth/callback"
-  }
-}
-```
-
-## One-Click Tool Installation
-
-### Built-in MCP Tools
+### Environment Context Detection
 
 ```typescript
-// Available MCP tools for one-click installation
-const availableMCPTools = {
-  // Database and Storage
-  supabase: {
-    name: '@modelcontextprotocol/server-supabase',
-    description: 'Supabase database operations',
-    category: 'database',
-    requiresAuth: true,
-    capabilities: ['read', 'write', 'schema', 'realtime']
-  },
+// Advanced context detection engine
+interface ContextState {
+  // File and Project Context
+  currentFile: string;
+  fileType: string;
+  fileSize: number;
+  projectType: string;
   
-  // Code and Documentation
-  github: {
-    name: '@modelcontextprotocol/server-github',
-    description: 'GitHub repository operations',
-    category: 'development',
-    requiresAuth: true,
-    capabilities: ['repos', 'issues', 'prs', 'files']
-  },
+  // Git Context
+  gitBranch: string;
+  gitStatus: 'clean' | 'modified' | 'staged' | 'conflict';
+  uncommittedChanges: number;
+  lastCommitTime: Date;
   
-  // AI and ML
-  context7: {
-    name: '@context7/mcp-server',
-    description: 'Context7 library documentation',
-    category: 'ai',
-    requiresAuth: false,
-    capabilities: ['search', 'documentation', 'examples']
-  },
+  // Development Context
+  activeRules: string[];
+  recentFiles: string[];
+  openTabs: string[];
+  cursorPosition: { line: number; column: number };
   
-  // Web and Testing
-  playwright: {
-    name: '@modelcontextprotocol/server-playwright',
-    description: 'Web browser automation',
-    category: 'testing',
-    requiresAuth: false,
-    capabilities: ['navigate', 'interact', 'screenshot', 'test']
-  },
+  // Temporal Context
+  timeOfDay: 'morning' | 'afternoon' | 'evening' | 'night';
+  dayOfWeek: string;
+  timezone: string;
   
-  // Productivity
-  memory: {
-    name: '@modelcontextprotocol/server-memory',
-    description: 'Persistent knowledge graphs',
-    category: 'productivity',
-    requiresAuth: false,
-    capabilities: ['store', 'retrieve', 'search', 'graph']
-  },
+  // User Context
+  workingPattern: 'focused' | 'exploratory' | 'debugging' | 'reviewing';
+  errorCount: number;
+  productivityScore: number;
   
-  // AI Reasoning
-  'sequential-thinking': {
-    name: '@modelcontextprotocol/server-sequential-thinking',
-    description: 'Step-by-step problem solving',
-    category: 'ai',
-    requiresAuth: false,
-    capabilities: ['reasoning', 'analysis', 'planning']
-  }
-};
-
-// Installation workflow
-class MCPInstaller {
-  async installTool(toolName: string): Promise<InstallResult> {
-    const tool = availableMCPTools[toolName];
-    if (!tool) throw new Error(`Tool ${toolName} not found`);
-    
-    // 1. Install package
-    await this.installPackage(tool.name);
-    
-    // 2. Configure MCP server
-    await this.configureMCPServer(toolName, tool);
-    
-    // 3. Setup authentication if required
-    if (tool.requiresAuth) {
-      await this.setupAuthentication(toolName);
-    }
-    
-    // 4. Verify installation
-    return this.verifyInstallation(toolName);
-  }
-  
-  private async setupAuthentication(toolName: string): Promise<void> {
-    // Launch OAuth flow or prompt for API keys
-    const authMethod = await this.detectAuthMethod(toolName);
-    
-    if (authMethod === 'oauth') {
-      await this.launchOAuthFlow(toolName);
-    } else {
-      await this.promptForAPIKey(toolName);
-    }
-  }
+  // System Context
+  cpuUsage: number;
+  memoryUsage: number;
+  networkStatus: 'online' | 'offline' | 'slow';
 }
-```
 
-### SYMindX-Specific MCP Integrations
-
-```typescript
-// Custom MCP server for SYMindX
-export class SYMindXMCPServer implements MCPServer {
-  name = 'symindx-server';
-  version = '1.0.0';
+class ContextEngine {
+  private state: ContextState;
+  private listeners: ContextListener[] = [];
   
-  capabilities: MCPCapabilities = {
-    logging: true,
-    notifications: true,
-    tools: { listChanged: true },
-    resources: { subscribe: true }
-  };
-  
-  tools: MCPTool[] = [
-    // Agent Management
-    {
-      name: 'create-agent',
-      description: 'Create new SYMindX agent instance',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          character: { type: 'string' },
-          modules: { type: 'array', items: { type: 'string' } }
-        },
-        required: ['name', 'character']
-      },
-      handler: this.createAgent.bind(this)
-    },
-    
-    // Memory Operations
-    {
-      name: 'store-memory',
-      description: 'Store data in agent memory',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          agentId: { type: 'string' },
-          data: { type: 'object' },
-          tags: { type: 'array', items: { type: 'string' } }
-        },
-        required: ['agentId', 'data']
-      },
-      handler: this.storeMemory.bind(this)
-    },
-    
-    // Portal Management
-    {
-      name: 'switch-portal',
-      description: 'Switch AI portal for agent',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          agentId: { type: 'string' },
-          portal: { type: 'string', enum: ['openai', 'anthropic', 'groq', 'xai'] },
-          model: { type: 'string' }
-        },
-        required: ['agentId', 'portal']
-      },
-      handler: this.switchPortal.bind(this)
-    },
-    
-    // Emotion System
-    {
-      name: 'set-emotion',
-      description: 'Set agent emotional state',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          agentId: { type: 'string' },
-          emotion: { type: 'string' },
-          intensity: { type: 'number', minimum: 0, maximum: 1 }
-        },
-        required: ['agentId', 'emotion', 'intensity']
-      },
-      handler: this.setEmotion.bind(this)
-    }
-  ];
-  
-  resources: MCPResource[] = [
-    {
-      uri: 'symindx://agents',
-      name: 'Active Agents',
-      description: 'List of currently active agents'
-    },
-    {
-      uri: 'symindx://memory',
-      name: 'Memory Store',
-      description: 'Agent memory contents'
-    },
-    {
-      uri: 'symindx://emotions',
-      name: 'Emotion States',
-      description: 'Current emotion states of all agents'
-    }
-  ];
-  
-  prompts: MCPPrompt[] = [
-    {
-      name: 'agent-status',
-      description: 'Get comprehensive agent status report',
-      arguments: [
-        { name: 'agentId', description: 'Agent ID', required: false }
-      ]
-    },
-    {
-      name: 'memory-search',
-      description: 'Search agent memory with semantic queries',
-      arguments: [
-        { name: 'query', description: 'Search query', required: true },
-        { name: 'agentId', description: 'Agent ID', required: false }
-      ]
-    }
-  ];
-  
-  async createAgent(params: any): Promise<MCPResult> {
-    // Implementation for creating new agent
-    const agent = await AgentManager.create({
-      name: params.name,
-      character: params.character,
-      modules: params.modules || ['memory', 'emotion', 'cognition']
-    });
-    
+  async detectContext(): Promise<ContextState> {
     return {
-      content: [{
-        type: 'text',
-        text: `Created agent ${agent.id} with character ${params.character}`
-      }]
-    };
-  }
-  
-  async storeMemory(params: any): Promise<MCPResult> {
-    const agent = await AgentManager.get(params.agentId);
-    await agent.memory.store(params.data, params.tags);
-    
-    return {
-      content: [{
-        type: 'text',
-        text: `Stored memory for agent ${params.agentId}`
-      }]
-    };
-  }
-  
-  async switchPortal(params: any): Promise<MCPResult> {
-    const agent = await AgentManager.get(params.agentId);
-    await agent.switchPortal(params.portal, params.model);
-    
-    return {
-      content: [{
-        type: 'text',
-        text: `Switched agent ${params.agentId} to ${params.portal}${params.model ? ` (${params.model})` : ''}`
-      }]
-    };
-  }
-  
-  async setEmotion(params: any): Promise<MCPResult> {
-    const agent = await AgentManager.get(params.agentId);
-    await agent.emotion.setState(params.emotion, params.intensity);
-    
-    return {
-      content: [{
-        type: 'text',
-        text: `Set ${params.emotion} emotion to ${params.intensity} for agent ${params.agentId}`
-      }]
-    };
-  }
-}
-```
-
-## OAuth Integration Patterns
-
-### OAuth Flow Implementation
-
-```typescript
-// OAuth provider configurations
-interface OAuthProvider {
-  name: string;
-  authUrl: string;
-  tokenUrl: string;
-  scope: string[];
-  clientId: string;
-  redirectUri: string;
-}
-
-const oauthProviders: Record<string, OAuthProvider> = {
-  github: {
-    name: 'GitHub',
-    authUrl: 'https://github.com/login/oauth/authorize',
-    tokenUrl: 'https://github.com/login/oauth/access_token',
-    scope: ['repo', 'user:email', 'admin:org'],
-    clientId: process.env.GITHUB_CLIENT_ID!,
-    redirectUri: 'cursor://oauth/callback'
-  },
-  
-  google: {
-    name: 'Google',
-    authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-    tokenUrl: 'https://oauth2.googleapis.com/token',
-    scope: ['openid', 'email', 'profile'],
-    clientId: process.env.GOOGLE_CLIENT_ID!,
-    redirectUri: 'cursor://oauth/callback'
-  },
-  
-  supabase: {
-    name: 'Supabase',
-    authUrl: 'https://supabase.com/dashboard/oauth/authorize',
-    tokenUrl: 'https://supabase.com/dashboard/oauth/token',
-    scope: ['projects:read', 'projects:write'],
-    clientId: process.env.SUPABASE_CLIENT_ID!,
-    redirectUri: 'cursor://oauth/callback'
-  }
-};
-
-// OAuth flow handler
-class OAuthManager {
-  async startFlow(provider: string): Promise<OAuthResult> {
-    const config = oauthProviders[provider];
-    if (!config) throw new Error(`Provider ${provider} not supported`);
-    
-    // Generate state for CSRF protection
-    const state = this.generateState();
-    
-    // Build authorization URL
-    const authUrl = this.buildAuthUrl(config, state);
-    
-    // Launch browser for user authorization
-    await this.launchBrowser(authUrl);
-    
-    // Wait for callback
-    return this.waitForCallback(state);
-  }
-  
-  private buildAuthUrl(config: OAuthProvider, state: string): string {
-    const params = new URLSearchParams({
-      client_id: config.clientId,
-      redirect_uri: config.redirectUri,
-      scope: config.scope.join(' '),
-      state: state,
-      response_type: 'code'
-    });
-    
-    return `${config.authUrl}?${params}`;
-  }
-  
-  async exchangeCodeForToken(provider: string, code: string): Promise<AccessToken> {
-    const config = oauthProviders[provider];
-    
-    const response = await fetch(config.tokenUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        client_id: config.clientId,
-        client_secret: process.env[`${provider.toUpperCase()}_CLIENT_SECRET`]!,
-        code: code,
-        redirect_uri: config.redirectUri
-      })
-    });
-    
-    return response.json();
-  }
-}
-```
-
-### Secure Token Storage
-
-```typescript
-// Secure token management
-class TokenManager {
-  private readonly keychain = new Keychain();
-  
-  async storeToken(service: string, token: AccessToken): Promise<void> {
-    // Encrypt token before storage
-    const encrypted = await this.encrypt(token);
-    
-    // Store in OS keychain
-    await this.keychain.setPassword('cursor-mcp', service, encrypted);
-    
-    // Update MCP configuration
-    await this.updateMCPConfig(service, token);
-  }
-  
-  async getToken(service: string): Promise<AccessToken | null> {
-    try {
-      const encrypted = await this.keychain.getPassword('cursor-mcp', service);
-      if (!encrypted) return null;
+      // File context
+      currentFile: await this.getCurrentFile(),
+      fileType: await this.detectFileType(),
+      fileSize: await this.getFileSize(),
+      projectType: await this.detectProjectType(),
       
-      return this.decrypt(encrypted);
-    } catch (error) {
-      console.warn(`Failed to retrieve token for ${service}:`, error);
-      return null;
-    }
-  }
-  
-  async refreshToken(service: string): Promise<AccessToken> {
-    const token = await this.getToken(service);
-    if (!token?.refresh_token) {
-      throw new Error(`No refresh token available for ${service}`);
-    }
-    
-    // Refresh using provider's refresh endpoint
-    const refreshed = await this.performRefresh(service, token.refresh_token);
-    
-    // Store new token
-    await this.storeToken(service, refreshed);
-    
-    return refreshed;
-  }
-  
-  private async updateMCPConfig(service: string, token: AccessToken): Promise<void> {
-    // Update .cursor/mcp-config.json with new token
-    const config = await this.loadMCPConfig();
-    
-    if (config.mcpServers[service]) {
-      config.mcpServers[service].env = {
-        ...config.mcpServers[service].env,
-        [`${service.toUpperCase()}_ACCESS_TOKEN`]: token.access_token
-      };
+      // Git context
+      gitBranch: await this.getGitBranch(),
+      gitStatus: await this.getGitStatus(),
+      uncommittedChanges: await this.countUncommittedChanges(),
+      lastCommitTime: await this.getLastCommitTime(),
       
-      await this.saveMCPConfig(config);
-    }
-  }
-}
-```
-
-## External Service Integration
-
-### Service Provider Templates
-
-```typescript
-// Template for integrating external services via MCP
-abstract class MCPServiceProvider {
-  abstract name: string;
-  abstract version: string;
-  protected token?: AccessToken;
-  
-  async authenticate(): Promise<void> {
-    const tokenManager = new TokenManager();
-    this.token = await tokenManager.getToken(this.name);
-    
-    if (!this.token) {
-      // Trigger OAuth flow
-      const oauthManager = new OAuthManager();
-      const result = await oauthManager.startFlow(this.name);
-      this.token = result.token;
-    }
-  }
-  
-  abstract getTools(): MCPTool[];
-  abstract getResources(): MCPResource[];
-  abstract getPrompts(): MCPPrompt[];
-}
-
-// Supabase service provider
-class SupabaseMCPProvider extends MCPServiceProvider {
-  name = 'supabase';
-  version = '1.0.0';
-  
-  getTools(): MCPTool[] {
-    return [
-      {
-        name: 'list-projects',
-        description: 'List Supabase projects',
-        inputSchema: { type: 'object', properties: {} },
-        handler: this.listProjects.bind(this)
-      },
-      {
-        name: 'execute-sql',
-        description: 'Execute SQL query',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            projectId: { type: 'string' },
-            query: { type: 'string' }
-          },
-          required: ['projectId', 'query']
-        },
-        handler: this.executeSql.bind(this)
-      },
-      {
-        name: 'create-table',
-        description: 'Create database table',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            projectId: { type: 'string' },
-            tableName: { type: 'string' },
-            columns: { type: 'array' }
-          },
-          required: ['projectId', 'tableName', 'columns']
-        },
-        handler: this.createTable.bind(this)
-      }
-    ];
-  }
-  
-  getResources(): MCPResource[] {
-    return [
-      {
-        uri: 'supabase://projects',
-        name: 'Projects',
-        description: 'Available Supabase projects'
-      },
-      {
-        uri: 'supabase://tables',
-        name: 'Tables',
-        description: 'Database tables and schemas'
-      }
-    ];
-  }
-  
-  getPrompts(): MCPPrompt[] {
-    return [
-      {
-        name: 'database-schema',
-        description: 'Get complete database schema',
-        arguments: [
-          { name: 'projectId', description: 'Project ID', required: true }
-        ]
-      }
-    ];
-  }
-  
-  private async listProjects(): Promise<MCPResult> {
-    // Implementation using Supabase Management API
-    const response = await fetch('https://api.supabase.com/v1/projects', {
-      headers: {
-        'Authorization': `Bearer ${this.token?.access_token}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    const projects = await response.json();
-    
-    return {
-      content: [{
-        type: 'text',
-        text: JSON.stringify(projects, null, 2)
-      }]
+      // Development context
+      activeRules: await this.getActiveRules(),
+      recentFiles: await this.getRecentFiles(),
+      openTabs: await this.getOpenTabs(),
+      cursorPosition: await this.getCursorPosition(),
+      
+      // Temporal context
+      timeOfDay: this.getTimeOfDay(),
+      dayOfWeek: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      
+      // User context
+      workingPattern: await this.detectWorkingPattern(),
+      errorCount: await this.getErrorCount(),
+      productivityScore: await this.calculateProductivityScore(),
+      
+      // System context
+      cpuUsage: await this.getCPUUsage(),
+      memoryUsage: await this.getMemoryUsage(),
+      networkStatus: await this.getNetworkStatus()
     };
   }
-}
-```
-
-## Advanced MCP Patterns
-
-### Dynamic Tool Registration
-
-```typescript
-// Dynamic tool loading based on project context
-class DynamicMCPRegistry {
-  private tools = new Map<string, MCPTool>();
-  private providers = new Map<string, MCPServiceProvider>();
   
-  async scanProject(): Promise<void> {
-    // Scan package.json for dependencies
-    const packageJson = await this.loadPackageJson();
-    
-    // Auto-register relevant MCP tools
-    if (packageJson.dependencies?.['@supabase/supabase-js']) {
-      await this.registerProvider(new SupabaseMCPProvider());
-    }
-    
-    if (packageJson.dependencies?.['@octokit/rest']) {
-      await this.registerProvider(new GitHubMCPProvider());
-    }
-    
-    // Scan for custom MCP servers
-    await this.scanCustomProviders();
+  onContextChange(listener: ContextListener): void {
+    this.listeners.push(listener);
   }
   
-  async registerProvider(provider: MCPServiceProvider): Promise<void> {
-    await provider.authenticate();
+  private async detectWorkingPattern(): Promise<string> {
+    // Analyze recent activity patterns
+    const recentActions = await this.getRecentActions();
     
-    // Register all tools from provider
-    for (const tool of provider.getTools()) {
-      this.tools.set(tool.name, tool);
-    }
-    
-    this.providers.set(provider.name, provider);
-  }
-  
-  private async scanCustomProviders(): Promise<void> {
-    // Look for .mcp files in project
-    const mcpFiles = await glob('./**/*.mcp.{js,ts}');
-    
-    for (const file of mcpFiles) {
-      try {
-        const provider = await import(file);
-        if (provider.default && typeof provider.default === 'function') {
-          await this.registerProvider(new provider.default());
-        }
-      } catch (error) {
-        console.warn(`Failed to load MCP provider from ${file}:`, error);
-      }
-    }
+    if (recentActions.includes('debugging')) return 'debugging';
+    if (recentActions.includes('exploring')) return 'exploratory';
+    if (recentActions.includes('reviewing')) return 'reviewing';
+    return 'focused';
   }
 }
 ```
 
-### MCP Server Monitoring
+### SYMindX-Specific Context
 
 ```typescript
-// Monitor MCP server health and performance
-class MCPMonitor {
-  private servers = new Map<string, MCPServerHealth>();
-  
-  async startMonitoring(): Promise<void> {
-    setInterval(async () => {
-      await this.checkAllServers();
-    }, 30000); // Check every 30 seconds
-  }
-  
-  private async checkAllServers(): Promise<void> {
-    for (const [name, server] of this.servers) {
-      try {
-        const health = await this.pingServer(server);
-        this.updateHealth(name, health);
-      } catch (error) {
-        this.markUnhealthy(name, error);
-      }
-    }
-  }
-  
-  private async pingServer(server: MCPServerHealth): Promise<HealthStatus> {
-    const start = Date.now();
-    
-    // Send ping request
-    const response = await fetch(`${server.url}/ping`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ method: 'ping' })
-    });
-    
-    const latency = Date.now() - start;
+// SYMindX project-specific context detection
+class SYMindXContextDetector {
+  async detectSYMindXContext(): Promise<SYMindXContext> {
+    const currentFile = await this.getCurrentFile();
     
     return {
-      healthy: response.ok,
-      latency,
-      lastCheck: new Date(),
-      version: server.version
+      // Component detection
+      component: this.detectComponent(currentFile),
+      
+      // Agent context
+      agentType: this.detectAgentType(currentFile),
+      
+      // Module context
+      moduleType: this.detectModuleType(currentFile),
+      
+      // Portal context
+      portalProvider: this.detectPortalProvider(currentFile),
+      
+      // Architecture layer
+      layer: this.detectArchitectureLayer(currentFile)
     };
+  }
+  
+  private detectComponent(filePath: string): string {
+    if (filePath.includes('mind-agents/src/core/')) return 'core-runtime';
+    if (filePath.includes('mind-agents/src/portals/')) return 'ai-portal';
+    if (filePath.includes('mind-agents/src/memory/')) return 'memory-system';
+    if (filePath.includes('mind-agents/src/emotion/')) return 'emotion-system';
+    if (filePath.includes('mind-agents/src/cognition/')) return 'cognition-module';
+    if (filePath.includes('mind-agents/src/extensions/')) return 'platform-extension';
+    if (filePath.includes('mind-agents/src/characters/')) return 'character-system';
+    if (filePath.includes('website/')) return 'web-interface';
+    if (filePath.includes('docs-site/')) return 'documentation';
+    return 'general';
+  }
+  
+  private detectAgentType(filePath: string): string | null {
+    // Extract agent type from file path or content
+    if (filePath.includes('characters/')) {
+      const filename = filePath.split('/').pop();
+      return filename?.replace('.json', '') || null;
+    }
+    return null;
+  }
+  
+  private detectModuleType(filePath: string): string | null {
+    if (filePath.includes('memory/providers/')) return 'memory-provider';
+    if (filePath.includes('memory/embeddings/')) return 'embedding-service';
+    if (filePath.includes('emotion/engines/')) return 'emotion-engine';
+    if (filePath.includes('cognition/planners/')) return 'task-planner';
+    return null;
+  }
+  
+  private detectPortalProvider(filePath: string): string | null {
+    const providers = ['openai', 'anthropic', 'groq', 'xai', 'google-vertex', 'google-generative'];
+    for (const provider of providers) {
+      if (filePath.includes(`portals/${provider}/`)) return provider;
+    }
+    return null;
+  }
+  
+  private detectArchitectureLayer(filePath: string): string {
+    if (filePath.includes('src/core/')) return 'infrastructure';
+    if (filePath.includes('src/modules/')) return 'domain';
+    if (filePath.includes('src/extensions/')) return 'application';
+    if (filePath.includes('website/src/')) return 'presentation';
+    return 'unknown';
   }
 }
 ```
 
-## Integration with SYMindX Workflow
+## Dynamic Rule Activation
 
-### Agent-MCP Bridge
+### Context-Based Rule Selection
 
 ```typescript
-// Bridge MCP tools with SYMindX agents
-class AgentMCPBridge {
-  async enableMCPForAgent(agentId: string, tools: string[]): Promise<void> {
-    const agent = await AgentManager.get(agentId);
+// Dynamic rule activation based on context
+interface RuleActivationConfig {
+  ruleId: string;
+  priority: number;
+  conditions: ContextCondition[];
+  conflictResolution: 'override' | 'merge' | 'skip';
+}
+
+interface ContextCondition {
+  type: 'file' | 'git' | 'time' | 'user' | 'system' | 'project';
+  field: string;
+  operator: 'equals' | 'contains' | 'matches' | 'greater' | 'less';
+  value: any;
+  weight: number;
+}
+
+class DynamicRuleEngine {
+  private rules: Map<string, RuleActivationConfig> = new Map();
+  
+  constructor() {
+    this.initializeRules();
+  }
+  
+  private initializeRules(): void {
+    // Core TypeScript rules - always active
+    this.addRule({
+      ruleId: '003-typescript-standards',
+      priority: 100,
+      conditions: [
+        { type: 'file', field: 'fileType', operator: 'matches', value: /\.(ts|tsx)$/, weight: 1.0 }
+      ],
+      conflictResolution: 'merge'
+    });
     
-    // Register MCP tools as agent capabilities
-    for (const toolName of tools) {
-      const tool = await MCPRegistry.getTool(toolName);
-      if (tool) {
-        agent.addCapability(tool);
+    // Git hooks - active during git operations
+    this.addRule({
+      ruleId: '018-git-hooks',
+      priority: 90,
+      conditions: [
+        { type: 'git', field: 'gitStatus', operator: 'equals', value: 'staged', weight: 0.8 },
+        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'focused', weight: 0.6 }
+      ],
+      conflictResolution: 'override'
+    });
+    
+    // Background agents - active during complex tasks
+    this.addRule({
+      ruleId: '019-background-agents',
+      priority: 85,
+      conditions: [
+        { type: 'file', field: 'fileSize', operator: 'greater', value: 1000, weight: 0.7 },
+        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'exploratory', weight: 0.8 },
+        { type: 'system', field: 'cpuUsage', operator: 'less', value: 80, weight: 0.5 }
+      ],
+      conflictResolution: 'merge'
+    });
+    
+    // MCP integration - active when working with external services
+    this.addRule({
+      ruleId: '020-mcp-integration',
+      priority: 80,
+      conditions: [
+        { type: 'file', field: 'currentFile', operator: 'contains', value: 'mcp', weight: 0.9 },
+        { type: 'project', field: 'component', operator: 'equals', value: 'platform-extension', weight: 0.7 }
+      ],
+      conflictResolution: 'merge'
+    });
+    
+    // AI portal rules - active when working with AI providers
+    this.addRule({
+      ruleId: '005-ai-integration-patterns',
+      priority: 75,
+      conditions: [
+        { type: 'project', field: 'component', operator: 'equals', value: 'ai-portal', weight: 1.0 },
+        { type: 'project', field: 'portalProvider', operator: 'matches', value: /.+/, weight: 0.8 }
+      ],
+      conflictResolution: 'merge'
+    });
+    
+    // Memory system rules - active in memory components
+    this.addRule({
+      ruleId: '011-data-management-patterns',
+      priority: 70,
+      conditions: [
+        { type: 'project', field: 'component', operator: 'equals', value: 'memory-system', weight: 1.0 },
+        { type: 'file', field: 'currentFile', operator: 'contains', value: 'memory', weight: 0.8 }
+      ],
+      conflictResolution: 'merge'
+    });
+    
+    // Testing rules - active during testing
+    this.addRule({
+      ruleId: '008-testing-and-quality-standards',
+      priority: 65,
+      conditions: [
+        { type: 'file', field: 'currentFile', operator: 'contains', value: '__tests__', weight: 1.0 },
+        { type: 'file', field: 'currentFile', operator: 'contains', value: '.test.', weight: 1.0 },
+        { type: 'file', field: 'currentFile', operator: 'contains', value: '.spec.', weight: 1.0 }
+      ],
+      conflictResolution: 'override'
+    });
+    
+    // Performance rules - active during optimization
+    this.addRule({
+      ruleId: '012-performance-optimization',
+      priority: 60,
+      conditions: [
+        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'debugging', weight: 0.9 },
+        { type: 'system', field: 'cpuUsage', operator: 'greater', value: 70, weight: 0.7 },
+        { type: 'user', field: 'errorCount', operator: 'greater', value: 5, weight: 0.6 }
+      ],
+      conflictResolution: 'merge'
+    });
+  }
+  
+  async getActiveRules(context: ContextState): Promise<string[]> {
+    const scored = new Map<string, number>();
+    
+    for (const [ruleId, config] of this.rules) {
+      const score = this.calculateRuleScore(config, context);
+      if (score > 0.5) { // Activation threshold
+        scored.set(ruleId, score);
       }
     }
     
-    // Enable agent to use MCP resources
-    agent.enableMCPAccess();
+    // Sort by score (highest first)
+    return Array.from(scored.entries())
+      .sort(([, a], [, b]) => b - a)
+      .map(([ruleId]) => ruleId);
   }
   
-  async executeMCPTool(agentId: string, toolName: string, params: any): Promise<any> {
-    const agent = await AgentManager.get(agentId);
-    const tool = await MCPRegistry.getTool(toolName);
+  private calculateRuleScore(config: RuleActivationConfig, context: ContextState): number {
+    let totalScore = 0;
+    let totalWeight = 0;
     
-    if (!tool) {
-      throw new Error(`MCP tool ${toolName} not found`);
+    for (const condition of config.conditions) {
+      const conditionMet = this.evaluateCondition(condition, context);
+      if (conditionMet) {
+        totalScore += condition.weight;
+      }
+      totalWeight += condition.weight;
     }
     
-    // Execute with agent context
-    return tool.handler(params, { agentId, agent });
+    return totalWeight > 0 ? totalScore / totalWeight : 0;
+  }
+  
+  private evaluateCondition(condition: ContextCondition, context: ContextState): boolean {
+    const value = this.getContextValue(condition.type, condition.field, context);
+    
+    switch (condition.operator) {
+      case 'equals':
+        return value === condition.value;
+      case 'contains':
+        return typeof value === 'string' && value.includes(condition.value);
+      case 'matches':
+        return condition.value instanceof RegExp && condition.value.test(value);
+      case 'greater':
+        return typeof value === 'number' && value > condition.value;
+      case 'less':
+        return typeof value === 'number' && value < condition.value;
+      default:
+        return false;
+    }
+  }
+  
+  private getContextValue(type: string, field: string, context: ContextState): any {
+    switch (type) {
+      case 'file':
+        return context[field as keyof ContextState];
+      case 'git':
+        return context[field as keyof ContextState];
+      case 'time':
+        return context[field as keyof ContextState];
+      case 'user':
+        return context[field as keyof ContextState];
+      case 'system':
+        return context[field as keyof ContextState];
+      case 'project':
+        // Would need to integrate with SYMindXContextDetector
+        return null;
+      default:
+        return null;
+    }
   }
 }
-
-// Usage in agent workflow
-const agent = await AgentManager.create({ name: 'DataAgent' });
-const bridge = new AgentMCPBridge();
-
-// Enable Supabase tools for the agent
-await bridge.enableMCPForAgent(agent.id, [
-  'list-projects',
-  'execute-sql', 
-  'create-table'
-]);
-
-// Agent can now use MCP tools
-const projects = await bridge.executeMCPTool(agent.id, 'list-projects', {});
 ```
 
-This rule enables powerful MCP integration for extending Cursor capabilities with external services, tools, and custom implementations while maintaining secure authentication and efficient workflows.
+## Smart Context Switching
+
+### Temporal Context Rules
+
+```typescript
+// Time-based rule activation
+class TemporalRuleEngine {
+  getTimeBasedRules(timeOfDay: string, dayOfWeek: string): string[] {
+    const rules: string[] = [];
+    
+    // Morning rules - focus on planning and architecture
+    if (timeOfDay === 'morning') {
+      rules.push('004-architecture-patterns');
+      rules.push('016-documentation-standards');
+    }
+    
+    // Afternoon rules - implementation and testing
+    if (timeOfDay === 'afternoon') {
+      rules.push('003-typescript-standards');
+      rules.push('008-testing-and-quality-standards');
+      rules.push('019-background-agents'); // Delegate tasks
+    }
+    
+    // Evening rules - review and optimization
+    if (timeOfDay === 'evening') {
+      rules.push('012-performance-optimization');
+      rules.push('013-error-handling-logging');
+    }
+    
+    // Weekend rules - exploration and experimentation
+    if (dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday') {
+      rules.push('020-mcp-integration');
+      rules.push('007-extension-system-patterns');
+    }
+    
+    return rules;
+  }
+  
+  getProductivityBasedRules(productivityScore: number): string[] {
+    const rules: string[] = [];
+    
+    // High productivity - tackle complex tasks
+    if (productivityScore > 0.8) {
+      rules.push('004-architecture-patterns');
+      rules.push('005-ai-integration-patterns');
+      rules.push('019-background-agents');
+    }
+    
+    // Medium productivity - standard development
+    if (productivityScore > 0.5 && productivityScore <= 0.8) {
+      rules.push('003-typescript-standards');
+      rules.push('008-testing-and-quality-standards');
+    }
+    
+    // Low productivity - simplify and delegate
+    if (productivityScore <= 0.5) {
+      rules.push('019-background-agents'); // Delegate tasks
+      rules.push('020-mcp-integration'); // Use tools
+      rules.push('016-documentation-standards'); // Light tasks
+    }
+    
+    return rules;
+  }
+}
+```
+
+### Intelligent Assistance Optimization
+
+```typescript
+// Optimize AI assistance based on context
+class AssistanceOptimizer {
+  optimizeForContext(context: ContextState, activeRules: string[]): AssistanceConfig {
+    return {
+      suggestionLevel: this.getSuggestionLevel(context),
+      autocompletionMode: this.getAutocompletionMode(context),
+      errorHighlighting: this.getErrorHighlighting(context),
+      codeGeneration: this.getCodeGenerationMode(context),
+      backgroundTasks: this.getBackgroundTasksMode(context)
+    };
+  }
+  
+  private getSuggestionLevel(context: ContextState): 'minimal' | 'moderate' | 'aggressive' {
+    if (context.workingPattern === 'focused') return 'minimal';
+    if (context.workingPattern === 'exploratory') return 'aggressive';
+    if (context.errorCount > 5) return 'aggressive';
+    return 'moderate';
+  }
+  
+  private getAutocompletionMode(context: ContextState): 'off' | 'basic' | 'intelligent' {
+    if (context.fileSize > 5000) return 'basic'; // Large files - reduce overhead
+    if (context.cpuUsage > 80) return 'basic'; // High CPU - reduce load
+    if (context.workingPattern === 'debugging') return 'off'; // Debugging - avoid distractions
+    return 'intelligent';
+  }
+  
+  private getErrorHighlighting(context: ContextState): 'disabled' | 'passive' | 'active' {
+    if (context.workingPattern === 'reviewing') return 'active';
+    if (context.errorCount > 10) return 'active';
+    if (context.fileType.includes('test')) return 'active';
+    return 'passive';
+  }
+  
+  private getCodeGenerationMode(context: ContextState): 'manual' | 'assisted' | 'automatic' {
+    if (context.workingPattern === 'focused') return 'manual';
+    if (context.productivityScore < 0.5) return 'automatic';
+    if (context.timeOfDay === 'evening') return 'assisted';
+    return 'assisted';
+  }
+  
+  private getBackgroundTasksMode(context: ContextState): 'disabled' | 'selective' | 'aggressive' {
+    if (context.cpuUsage > 85) return 'disabled';
+    if (context.workingPattern === 'debugging') return 'disabled';
+    if (context.productivityScore < 0.6) return 'aggressive';
+    return 'selective';
+  }
+}
+```
+
+## Context-Aware Notifications
+
+### Smart Notification System
+
+```typescript
+// Context-aware notification management
+class ContextNotificationManager {
+  shouldNotify(event: NotificationEvent, context: ContextState): boolean {
+    // Don't interrupt during focused work
+    if (context.workingPattern === 'focused' && event.priority < 8) {
+      return false;
+    }
+    
+    // Batch notifications during debugging
+    if (context.workingPattern === 'debugging' && event.type === 'suggestion') {
+      return false;
+    }
+    
+    // More aggressive notifications during exploration
+    if (context.workingPattern === 'exploratory') {
+      return event.priority >= 5;
+    }
+    
+    // Time-based filtering
+    if (context.timeOfDay === 'evening' && event.type === 'error') {
+      return event.priority >= 7; // Only important errors
+    }
+    
+    return event.priority >= 6; // Default threshold
+  }
+  
+  getNotificationStyle(event: NotificationEvent, context: ContextState): NotificationStyle {
+    if (context.workingPattern === 'focused') {
+      return { mode: 'subtle', duration: 'short', position: 'corner' };
+    }
+    
+    if (context.errorCount > 5) {
+      return { mode: 'prominent', duration: 'long', position: 'center' };
+    }
+    
+    return { mode: 'normal', duration: 'medium', position: 'sidebar' };
+  }
+}
+```
+
+## Integration with SYMindX Development Flow
+
+### Project Phase Detection
+
+```typescript
+// Detect current development phase
+class ProjectPhaseDetector {
+  detectPhase(context: ContextState): ProjectPhase {
+    const recentCommits = context.lastCommitTime;
+    const filePattern = context.currentFile;
+    
+    // Initial development
+    if (!recentCommits || this.isNewProject()) {
+      return 'initial-development';
+    }
+    
+    // Feature development
+    if (context.gitBranch.includes('feature/')) {
+      return 'feature-development';
+    }
+    
+    // Bug fixing
+    if (context.gitBranch.includes('bugfix/') || context.errorCount > 5) {
+      return 'bug-fixing';
+    }
+    
+    // Testing phase
+    if (filePattern.includes('test') || filePattern.includes('spec')) {
+      return 'testing';
+    }
+    
+    // Documentation
+    if (filePattern.includes('docs') || filePattern.includes('README')) {
+      return 'documentation';
+    }
+    
+    // Optimization
+    if (context.cpuUsage > 70 || context.workingPattern === 'debugging') {
+      return 'optimization';
+    }
+    
+    return 'maintenance';
+  }
+  
+  getPhaseRules(phase: ProjectPhase): string[] {
+    switch (phase) {
+      case 'initial-development':
+        return ['001-symindx-workspace', '004-architecture-patterns'];
+      case 'feature-development':
+        return ['003-typescript-standards', '005-ai-integration-patterns'];
+      case 'bug-fixing':
+        return ['013-error-handling-logging', '012-performance-optimization'];
+      case 'testing':
+        return ['008-testing-and-quality-standards'];
+      case 'documentation':
+        return ['016-documentation-standards'];
+      case 'optimization':
+        return ['012-performance-optimization', '019-background-agents'];
+      default:
+        return ['003-typescript-standards'];
+    }
+  }
+}
+```
+
+This rule creates an intelligent context-aware system that dynamically optimizes Cursor's assistance based on current development conditions, user patterns, and project state, ensuring the most relevant rules and features are activated at the right time.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
