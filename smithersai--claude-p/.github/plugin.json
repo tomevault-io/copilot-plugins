@@ -1,0 +1,9 @@
+{
+  "name": "smithersai--claude-p",
+  "displayName": "claude-p",
+  "description": "Drop-in replacement for `claude -p` that drives the interactive Claude Code TUI inside an in-process zmux PTY session.",
+  "version": "1.0.0",
+  "author": "smithersai",
+  "homepage": "https://github.com/smithersai/claude-p",
+  "skills": []
+}
