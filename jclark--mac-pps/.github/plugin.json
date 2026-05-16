@@ -1,0 +1,9 @@
+{
+  "name": "jclark--mac-pps",
+  "displayName": "mac-pps",
+  "description": "PPS input on macOS for chrony",
+  "version": "1.0.0",
+  "author": "jclark",
+  "homepage": "https://github.com/jclark/mac-pps",
+  "skills": []
+}
