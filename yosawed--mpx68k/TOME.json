@@ -4,7 +4,7 @@
   "repo": "MPX68K",
   "description": "MPX68K: Sharp X68000 emulator for macOS (Apple Silicon and Intel Mac). SpriteKit UI, GameController, FDD/HDD, TATE.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YosAwed/MPX68K",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T21:01:28Z"
+  "distributed_at": "2026-05-16T01:41:17Z"
 }
