@@ -1,0 +1,9 @@
+{
+  "name": "codingiran--asynctimer",
+  "displayName": "AsyncTimer",
+  "description": "A lightweight, modern Swift async/await timer implementation for Apple platforms.",
+  "version": "1.0.0",
+  "author": "codingiran",
+  "homepage": "https://github.com/codingiran/AsyncTimer",
+  "skills": []
+}
