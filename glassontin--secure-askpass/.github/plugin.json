@@ -1,0 +1,9 @@
+{
+  "name": "glassontin--secure-askpass",
+  "displayName": "secure-askpass",
+  "description": "SSH Askpass Helper: Secure sudo password storage using SSH key encryption",
+  "version": "1.0.0",
+  "author": "GlassOnTin",
+  "homepage": "https://github.com/GlassOnTin/secure-askpass",
+  "skills": []
+}
