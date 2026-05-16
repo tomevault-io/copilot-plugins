@@ -1,0 +1,9 @@
+{
+  "name": "aaronsb--texflow-mcp",
+  "displayName": "texflow-mcp",
+  "description": "LaTeX document compiler with MCP interface \u2014 AI agents author documents via structured model, TeXFlow handles LaTeX mechanics",
+  "version": "1.0.0",
+  "author": "aaronsb",
+  "homepage": "https://github.com/aaronsb/texflow-mcp",
+  "skills": []
+}
