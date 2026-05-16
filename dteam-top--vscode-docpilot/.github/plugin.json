@@ -1,0 +1,9 @@
+{
+  "name": "dteam-top--vscode-docpilot",
+  "displayName": "vscode-docpilot",
+  "description": "VSCode extension for PDF viewing, AI-powered document analysis, and productivity tools.",
+  "version": "1.0.0",
+  "author": "DTeam-Top",
+  "homepage": "https://github.com/DTeam-Top/vscode-docpilot",
+  "skills": []
+}
