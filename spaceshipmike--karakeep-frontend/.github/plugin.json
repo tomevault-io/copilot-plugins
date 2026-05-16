@@ -1,0 +1,9 @@
+{
+  "name": "spaceshipmike--karakeep-frontend",
+  "displayName": "karakeep-frontend",
+  "description": "Editorial-style frontend for Karakeep bookmark manager. Next.js, Tailwind CSS, shadcn/ui.",
+  "version": "1.0.0",
+  "author": "spaceshipmike",
+  "homepage": "https://github.com/spaceshipmike/karakeep-frontend",
+  "skills": []
+}
