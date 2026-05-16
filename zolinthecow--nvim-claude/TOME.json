@@ -4,7 +4,7 @@
   "repo": "nvim-claude",
   "description": "cursor style nvim+claude code integration.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zolinthecow/nvim-claude",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T21:03:46Z"
+  "distributed_at": "2026-05-16T01:46:02Z"
 }
