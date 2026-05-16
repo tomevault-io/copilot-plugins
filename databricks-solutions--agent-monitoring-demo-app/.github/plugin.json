@@ -1,0 +1,9 @@
+{
+  "name": "databricks-solutions--agent-monitoring-demo-app",
+  "displayName": "agent-monitoring-demo-app",
+  "description": "MLFlow 3.0 Agent Monitoring + Databricks Apps + FastAPI",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/agent-monitoring-demo-app",
+  "skills": []
+}
