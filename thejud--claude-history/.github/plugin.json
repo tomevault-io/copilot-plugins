@@ -1,0 +1,9 @@
+{
+  "name": "thejud--claude-history",
+  "displayName": "claude-history",
+  "description": "A command-line utility to extract and format conversation history from Claude Code session files",
+  "version": "1.0.0",
+  "author": "thejud",
+  "homepage": "https://github.com/thejud/claude-history",
+  "skills": []
+}
