@@ -7,11 +7,11 @@ Laravel-native client for Model Context Protocol (MCP) servers. Built by Redberr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [RedberryProducts/mcp-client-laravel](https://github.com/RedberryProducts/mcp-client-laravel).
+Original source: `CLAUDE.md` in [RedberryProducts/mcp-client-laravel](https://github.com/RedberryProducts/mcp-client-laravel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
