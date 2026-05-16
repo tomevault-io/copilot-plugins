@@ -1,0 +1,9 @@
+{
+  "name": "build-trust--autonomy",
+  "displayName": "autonomy",
+  "description": "The source code for the Autonomy framework and command. This SDK is what you use to build agents and applications that you can deploy to the Autonomy platform.",
+  "version": "1.0.0",
+  "author": "build-trust",
+  "homepage": "https://github.com/build-trust/autonomy",
+  "skills": []
+}
