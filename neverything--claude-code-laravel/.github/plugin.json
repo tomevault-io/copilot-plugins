@@ -1,0 +1,9 @@
+{
+  "name": "neverything--claude-code-laravel",
+  "displayName": "claude-code-laravel",
+  "description": "Experimental Claude Code setup for Laravel development with Livewire and Filament",
+  "version": "1.0.0",
+  "author": "neverything",
+  "homepage": "https://github.com/neverything/claude-code-laravel",
+  "skills": []
+}
