@@ -7,11 +7,11 @@ Explore public-comment data with an interactive, self-contained web app.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jmandel/regulations.gov-comment-browser](https://github.com/jmandel/regulations.gov-comment-browser).
+Original source: `CLAUDE.md` in [jmandel/regulations.gov-comment-browser](https://github.com/jmandel/regulations.gov-comment-browser).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
