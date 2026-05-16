@@ -1,0 +1,9 @@
+{
+  "name": "smolinskip--glassist",
+  "displayName": "GLaSSIST",
+  "description": "Desktop voice-assistant application for Home Assistant with visual animations and VAD (Voice Activity Detection).",
+  "version": "1.0.0",
+  "author": "SmolinskiP",
+  "homepage": "https://github.com/SmolinskiP/GLaSSIST",
+  "skills": []
+}
