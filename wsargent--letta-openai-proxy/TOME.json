@@ -1,0 +1,44 @@
+{
+  "name": "letta-openai-proxy",
+  "owner": "wsargent",
+  "repo": "letta-openai-proxy",
+  "description": "An OpenAI API compatible proxy for Letta agents.  Use this for Open WebUI etc.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wsargent/letta-openai-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:54:54Z"
+}
