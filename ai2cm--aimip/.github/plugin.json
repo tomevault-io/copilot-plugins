@@ -1,0 +1,9 @@
+{
+  "name": "ai2cm--aimip",
+  "displayName": "AIMIP",
+  "description": "Specification for intercomparison of AI-based climate models",
+  "version": "1.0.0",
+  "author": "ai2cm",
+  "homepage": "https://github.com/ai2cm/AIMIP",
+  "skills": []
+}
