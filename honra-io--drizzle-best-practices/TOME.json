@@ -4,7 +4,7 @@
   "repo": "drizzle-best-practices",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/honra-io/drizzle-best-practices",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:38:11Z"
+  "distributed_at": "2026-05-16T08:47:37Z"
 }
