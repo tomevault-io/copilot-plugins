@@ -4,7 +4,7 @@
   "repo": "llm-anr",
   "description": "Agent-driven Android ANR evidence extraction and AI-assisted root cause analysis pipeline.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yuchuangu85/llm-anr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T10:06:31Z"
+  "distributed_at": "2026-05-16T07:10:07Z"
 }
