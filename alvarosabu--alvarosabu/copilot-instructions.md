@@ -1,144 +1,67 @@
-## global
+## vue-components
 
-> Project conventions and standards
-
-
-
-# Alvaro Saburido's Website
-
-Alvaro Saburido's personal website. Built with latest Nuxt, TypeScript, Nuxt UI Pro, TresJS, Motion Framer Vue and TailwindCSS, this site provides:
-
-- Blog and news
-- Showcase of projects built with TresJS
-- Talks and workshops
-- Uses
-- Resources for learning and contributing to the community
+> Best practices for Vue components
 
 
+- Name files consistently using PascalCase (`UserProfile.vue`) OR kebab-case (`user-profile.vue`)
+- ALWAYS use PascalCase for component names in source code
+- Compose names from the most general to the most specific: `SearchButtonClear.vue` not `ClearSearchButton.vue`
+- ALWAYS define props with `defineProps<{ propOne: number }>()` and TypeScript types, WITHOUT `const props =`
+- Use `const props =` ONLY if props are used in the script block
+- Destructure props to declare default values
+- ALWAYS define emits with `const emit = defineEmits<{ eventName: [argOne: type]; otherEvent: [] }>()` for type safety
+- ALWAYS use camelCase in JS for props and emits, even if they are kebab-case in templates
+- ALWAYS use kebab-case in templates for props and emits
+- ALWAYS use the prop shorthand if possible: `<MyComponent :count />` instead of `<MyComponent :count="count" />` (value has the same name as the prop)
+- ALWAYS Use the shorthand for slots: `<template #default>` instead of `<template v-slot:default>`
+- ALWAYS use explicit `<template>` tags for ALL used slots
+- ALWAYS use `defineModel<type>({ required, get, set, default })` to define allowed v-model bindings in components. This avoids defining `modelValue` prop and `update:modelValue` event manually
 
-## Standards
+## Examples
 
-- Stack: Nuxt 4, Vue.js, TypeScript, TailwindCSS v4, Vue Router, Nuxt UI Pro v3, TresJS, Motion Framer Vue.
-- Patterns: ALWAYS use Composition API + `<script setup>`, NEVER use Options API
-- ALWAYS Keep types alongside your code, use TypeScript for type safety, prefer `interface` over `type` for defining types
-- Keep unit and integration tests alongside the file they test: `src/ui/Button.vue` + `src/ui/Button.spec.ts`
-- ALWAYS use TailwindCSS classes rather than manual CSS
-- DO NOT hard code colors, use Tailwind's color system unless it is used on TresJS components
-- ONLY add meaningful comments that explain why something is done, not what it does
-- Dev server is already running on `http://localhost:3000` with HMR enabled. NEVER launch it yourself
-- ALWAYS use named functions when declaring methods, use arrow functions only for callbacks
-- ALWAYS prefer named exports over default exports
+### defineModel()
 
-## Project Structure
+```vue
+<script setup lang="ts">
+// ✅ Simple two-way binding for modelvalue
+const title = defineModel<string>()
 
-Below is the current structure of this repository. Use it as a reference for finding files and understanding the organization of the project.
-
-```
-public/                       # Public static files (favicons, robots.txt, static images, etc.)
-assets/
-├── imgs/
-│   └── showcase/             # Showcase images and media
-│   └── styles/
-│       └── main.css          # Main CSS file (UnoCSS/TailwindCSS entry)
-components/
-├── Home/
-│   ├── BrownianDistributionGroup.vue
-│   ├── constants.ts
-│   ├── Hero.vue
-│   ├── HeroExperience.vue
-│   └── Imagotype.vue
-├── Showcase/
-│   └── Card.vue
-└── TheHeader.vue             # Main header component
-content/
-├── authors/                  # Author markdown files
-├── blog/                     # Blog post markdown files
-└── showcase/                 # Showcase entry markdown files
-content.config.ts             # Content module configuration
-layouts/
-└── default.vue               # Default layout for Nuxt
-pages/
-├── blog/
-│   ├── [...slug].vue
-│   └── index.vue
-├── index.vue                 # Home page
-└── showcase/
-    └── index.vue
-server/
-└── tsconfig.json             # Server-side TypeScript config
-app.config.ts                 # Nuxt app configuration
-app.vue                       # Root Vue component
-nuxt.config.ts                # Nuxt configuration
-package.json                  # Project manifest
-pnpm-lock.yaml                # pnpm lockfile
-README.md                     # Project readme
-tsconfig.json                 # Root TypeScript config
-eslint.config.mjs            # ESLint configuration
-netlify.toml                  # Netlify deployment config
+// ✅ With options and modifiers
+const [title, modifiers] = defineModel<string>({
+  default: 'default value',
+  required: true,
+  get: (value) => value.trim(), // transform value before binding
+  set: (value) => {
+    if (modifiers.capitalize) {
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+    return value
+  },
+})
+</script>
 ```
 
-## Project Commands
+### Multiple Models
 
-Frequently used commands for this project
+By default `defineModel()` assumes a prop named `modelValue` but if we want to define multiple v-model bindings, we need to give them explicit names:
 
-- `pnpm dev`: Start the Nuxt development server (http://localhost:3000)
-- `pnpm build`: Bundle the project for production
-- `pnpm generate`: Generate a static version of the site
-- `pnpm preview`: Preview the production build locally
-- `pnpm install`: Install dependencies (runs `nuxt prepare` automatically after install)
-- `pnpm lint`: Lint the codebase
-- `pnpm lint:fix`: Fix linting errors
+```vue
+<script setup lang="ts">
+// ✅ Multiple v-model bindings
+const firstName = defineModel<string>('firstName')
+const age = defineModel<number>('age')
+</script>
+```
 
-## Development Workflow
+They can be used in the template like this:
 
-ALWAYS follow the workflow when implementing a new feature or fixing a bug in this project. This ensures consistency, quality, and maintainability of the codebase.
+```html
+<UserForm v-model:first-name="user.firstName" v-model:age="user.age" />
+```
 
-1. Plan your tasks, review them with user. Include tests when possible
-2. Write code, following the [project structure](#project-structure) and [conventions](#standards)
-3. **ALWAYS test implementations work**:
-   - Write [tests](#using-playwright-mcp-server) for logic and components
-   - Use the Playwright MCP server to test like a real user
-4. Stage your changes with `git add` once a feature works
-5. Review changes and analyze the need of refactoring
+### Modifiers & Transformations
 
-## Testing Workflow
-
-## Unit and Integration Tests
-
-- Test critical logic first
-- Split the code if needed to make it testable
-
-### Using Playwright MCP Server
-
-1. Navigate to the relevant page
-2. Wait for content to load completely
-3. Test primary user interactions
-4. Test secondary functionality (error states, edge cases)
-5. Check the JS console for errors or warnings
-   - If you see errors, investigate and fix them immediately
-   - If you see warnings, document them and consider fixing if they affect user experience
-6. Document any bugs found and fix them immediately
-
-## Research & Documentation
-
-- **NEVER hallucinate or guess URLs**
-- ALWAYS try accessing the `llms.txt` file first to find relevant documentation. EXAMPLE: `https://pinia-colada.esm.dev/llms.txt`
-  - If it exists, it will contain other links to the documentation for the LLMs used in this project
-- ALWAYS follow existing links in table of contents or documentation indices
-- Verify examples and patterns from documentation before using
-
-## MCP Servers
-
-You have these MCP servers configured globally:
-
-- **Playwright**: Browser automation for visual testing and UI interactions. Use this server when testing UI changes (Playwright can navigate, screenshot, and interact)
-
-Note: These are user-level servers available in all your projects.
-
-
-- **Playwright**: Browser automation for visual testing and UI interactions. Use this server when testing UI changes (Playwright can navigate, screenshot, and interact)
-
-Note: These are user-level servers available in all your projects.
+Native elements `v-model` has built-in modifiers like `.lazy`, `.number`, and `.trim`. We can implement similar functionality in components, fetch and read <https://vuejs.org/guide/components/v-model.md#handling-v-model-modifiers> if the user needs that.
 
 ---
 > Source: [alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu) — distributed by [TomeVault](https://tomevault.io).
