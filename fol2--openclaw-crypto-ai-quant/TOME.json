@@ -1,0 +1,44 @@
+{
+  "name": "openclaw-crypto-ai-quant",
+  "owner": "fol2",
+  "repo": "openclaw-crypto-ai-quant",
+  "description": "AI-powered crypto perpetual futures trading engine with GPU-accelerated backtesting",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fol2/openclaw-crypto-ai-quant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:44:46Z"
+}
