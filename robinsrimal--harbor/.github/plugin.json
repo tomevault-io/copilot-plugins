@@ -1,0 +1,9 @@
+{
+  "name": "robinsrimal--harbor",
+  "displayName": "harbor",
+  "description": "Harbor is a decentralized peer-to-peer communication protocol for offline-first apps. It lets your users communicate directly when they're online and keeps delivery working when they're not.",
+  "version": "1.0.0",
+  "author": "RobinSrimal",
+  "homepage": "https://github.com/RobinSrimal/harbor",
+  "skills": []
+}
