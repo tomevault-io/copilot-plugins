@@ -1,0 +1,9 @@
+{
+  "name": "cdzombak--lychee-ai-organizer",
+  "displayName": "lychee-ai-organizer",
+  "description": "Use local LLMs to organize your unsorted photos in Lychee",
+  "version": "1.0.0",
+  "author": "cdzombak",
+  "homepage": "https://github.com/cdzombak/lychee-ai-organizer",
+  "skills": []
+}
