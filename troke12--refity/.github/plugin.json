@@ -1,0 +1,9 @@
+{
+  "name": "troke12--refity",
+  "displayName": "refity",
+  "description": "A simple container private registry with SFTP backend storage. Store and manage your container images securely on any SFTP server.",
+  "version": "1.0.0",
+  "author": "troke12",
+  "homepage": "https://github.com/troke12/refity",
+  "skills": []
+}
