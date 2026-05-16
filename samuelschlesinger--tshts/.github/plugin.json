@@ -1,0 +1,9 @@
+{
+  "name": "samuelschlesinger--tshts",
+  "displayName": "tshts",
+  "description": "A fast, lightweight terminal-based spreadsheet application built in Rust with full formula support, cell references, and keyboard-driven navigation - perfect for command-line workflows.",
+  "version": "1.0.0",
+  "author": "SamuelSchlesinger",
+  "homepage": "https://github.com/SamuelSchlesinger/tshts",
+  "skills": []
+}
