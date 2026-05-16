@@ -1,0 +1,9 @@
+{
+  "name": "sergiogallegos--rust-ethernet-ip",
+  "displayName": "rust-ethernet-ip",
+  "description": "High-performance EtherNet/IP driver for Allen-Bradley PLCs, written in Rust.",
+  "version": "1.0.0",
+  "author": "sergiogallegos",
+  "homepage": "https://github.com/sergiogallegos/rust-ethernet-ip",
+  "skills": []
+}
