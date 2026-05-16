@@ -1,0 +1,9 @@
+{
+  "name": "twingate--gateway",
+  "displayName": "gateway",
+  "description": "The Twingate Gateway enables secure, privileged access to your infrastructure, including Kubernetes and SSH servers.",
+  "version": "1.0.0",
+  "author": "Twingate",
+  "homepage": "https://github.com/Twingate/gateway",
+  "skills": []
+}
