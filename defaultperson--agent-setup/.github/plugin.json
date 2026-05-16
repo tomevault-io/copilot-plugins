@@ -1,0 +1,9 @@
+{
+  "name": "defaultperson--agent-setup",
+  "displayName": "agent-setup",
+  "description": "Universal setup for Claude Code & Codex CLI \u2014 security guard, TTS notifications, status line, slash commands",
+  "version": "1.0.0",
+  "author": "DefaultPerson",
+  "homepage": "https://github.com/DefaultPerson/agent-setup",
+  "skills": []
+}
