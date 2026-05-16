@@ -1,184 +1,372 @@
-## vibe-tools
+## chorus
 
-> Global Rule. This rule should ALWAYS be loaded
+> This project is a Nostr client application built with React 18.x, TailwindCSS 3.x, Vite, shadcn/ui, and Nostrify.
 
-vibe-tools is a CLI tool that allows you to interact with AI models and other tools.
-vibe-tools is installed on this machine and it is available to you to execute. You're encouraged to use it.
+# Project Overview
 
-<vibe-tools Integration>
-# Instructions
-Use the following commands to get AI assistance:
+This project is a Nostr client application built with React 18.x, TailwindCSS 3.x, Vite, shadcn/ui, and Nostrify.
 
-**Direct Model Queries:**
-`vibe-tools ask "<your question>" --provider <provider> --model <model>` - Ask any model from any provider a direct question (e.g., `vibe-tools ask "What is the capital of France?" --provider openai --model o3-mini`). Note that this command is generally less useful than other commands like `repo` or `plan` because it does not include any context from your codebase or repository. In general you should not use the ask command because it does not include any context. The other commands like `web`, `doc`, `repo`, or `plan` are usually better. If you are using it, make sure to include in your question all the information and context that the model might need to answer usefully.
+## Technology Stack
 
-**Ask Command Options:**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, modelbox, openrouter, or xai)
---model=<model>: Model to use (required for the ask command)
---reasoning-effort=<low|medium|high>: Control the depth of reasoning for supported models (OpenAI o1/o3-mini models and Claude 3.7 Sonnet). Higher values produce more thorough responses for complex questions.
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
+- **React 18.x**: Stable version of React with hooks, concurrent rendering, and improved performance
+- **TailwindCSS 3.x**: Utility-first CSS framework for styling
+- **Vite**: Fast build tool and development server
+- **shadcn/ui**: Unstyled, accessible UI components built with Radix UI and Tailwind
+- **Nostrify**: Nostr protocol framework for Deno and web
+- **React Router**: For client-side routing
+- **TanStack Query**: For data fetching, caching, and state management
+- **TypeScript**: For type-safe JavaScript development
 
-**Implementation Planning:**
-`vibe-tools plan "<query>"` - Generate a focused implementation plan using AI (e.g., `vibe-tools plan "Add user authentication to the login page"`)
-The plan command uses multiple AI models to:
-1. Identify relevant files in your codebase (using Gemini by default)
-2. Extract content from those files
-3. Generate a detailed implementation plan (using OpenAI o3-mini by default)
+## Project Structure
 
-**Plan Command Options:**
---fileProvider=<provider>: Provider for file identification (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---thinkingProvider=<provider>: Provider for plan generation (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---fileModel=<model>: Model to use for file identification
---thinkingModel=<model>: Model to use for plan generation
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context for both file identification and planning. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
+- `/src/components/`: UI components including NostrProvider for Nostr integration
+- `/src/hooks/`: Custom hooks including `useNostr` and `useNostrQuery`
+- `/src/pages/`: Page components used by React Router
+- `/src/lib/`: Utility functions and shared logic
+- `/public/`: Static assets
 
-**Web Search:**
-`vibe-tools web "<your question>"` - Get answers from the web using a provider that supports web search (e.g., Perplexity models and Gemini Models either directly or from OpenRouter or ModelBox) (e.g., `vibe-tools web "latest shadcn/ui installation instructions"`)
-Note: web is a smart autonomous agent with access to the internet and an extensive up to date knowledge base. Web is NOT a web search engine. Always ask the agent for what you want using a proper sentence, do not just send it a list of keywords. In your question to web include the context and the goal that you're trying to acheive so that it can help you most effectively.
-when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md. However if user provides a specific url, you should always use any command with --with-doc instead of web.
+## UI Components
 
-**Web Command Options:**
---provider=<provider>: AI provider to use (perplexity, gemini, modelbox, or openrouter)
+The project uses shadcn/ui components located in `@/components/ui`. These are unstyled, accessible components built with Radix UI and styled with Tailwind CSS. Available components include:
 
-**Repository Context:**
-`vibe-tools repo "<your question>" [--subdir=<path>] [--from-github=<username/repo>] [--with-doc=<doc_url>...]` - Get context-aware answers about this repository using Google Gemini (e.g., `vibe-tools repo "explain authentication flow"`)
-Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter multiple times to include content from several URLs as additional context (e.g., `vibe-tools repo "summarize findings" --with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`).
+- **Accordion**: Vertically collapsing content panels
+- **Alert**: Displays important messages to users
+- **AlertDialog**: Modal dialog for critical actions requiring confirmation
+- **AspectRatio**: Maintains consistent width-to-height ratio
+- **Avatar**: User profile pictures with fallback support
+- **Badge**: Small status descriptors for UI elements
+- **Breadcrumb**: Navigation aid showing current location in hierarchy
+- **Button**: Customizable button with multiple variants and sizes
+- **Calendar**: Date picker component 
+- **Card**: Container with header, content, and footer sections
+- **Carousel**: Slideshow for cycling through elements
+- **Chart**: Data visualization component
+- **Checkbox**: Selectable input element
+- **Collapsible**: Toggle for showing/hiding content
+- **Command**: Command palette for keyboard-first interfaces
+- **ContextMenu**: Right-click menu component
+- **Dialog**: Modal window overlay
+- **Drawer**: Side-sliding panel
+- **DropdownMenu**: Menu that appears from a trigger element
+- **Form**: Form validation and submission handling
+- **HoverCard**: Card that appears when hovering over an element
+- **InputOTP**: One-time password input field
+- **Input**: Text input field
+- **Label**: Accessible form labels
+- **Menubar**: Horizontal menu with dropdowns
+- **NavigationMenu**: Accessible navigation component
+- **Pagination**: Controls for navigating between pages
+- **Popover**: Floating content triggered by a button
+- **Progress**: Progress indicator
+- **RadioGroup**: Group of radio inputs
+- **Resizable**: Resizable panels and interfaces
+- **ScrollArea**: Scrollable container with custom scrollbars
+- **Select**: Dropdown selection component
+- **Separator**: Visual divider between content
+- **Sheet**: Side-anchored dialog component
+- **Sidebar**: Navigation sidebar component
+- **Skeleton**: Loading placeholder
+- **Slider**: Input for selecting a value from a range
+- **Sonner**: Toast notification manager
+- **Switch**: Toggle switch control
+- **Table**: Data table with headers and rows
+- **Tabs**: Tabbed interface component
+- **Textarea**: Multi-line text input
+- **Toast**: Toast notification component
+- **ToggleGroup**: Group of toggle buttons
+- **Toggle**: Two-state button
+- **Tooltip**: Informational text that appears on hover
 
-**Documentation Generation:**
-`vibe-tools doc [options] [--with-doc=<doc_url>...]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from multiple URLs (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs --with-doc=https://example.com/new-spec`).
+These components follow a consistent pattern using React's `forwardRef` and use the `cn()` utility for class name merging. Many are built on Radix UI primitives for accessibility and customized with Tailwind CSS.
 
-**YouTube Video Analysis:**
-`vibe-tools youtube "<youtube-url>" [question] [--type=<summary|transcript|plan|review|custom>]` - Analyze YouTube videos and generate detailed reports (e.g., `vibe-tools youtube "https://youtu.be/43c-Sm5GMbc" --type=summary`)
-Note: The YouTube command requires a `GEMINI_API_KEY` to be set in your environment or .vibe-tools.env file as the GEMINI API is the only interface that supports YouTube analysis.
+## Nostr Protocol Integration
 
-**GitHub Information:**
-`vibe-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `vibe-tools github pr 123`)
-`vibe-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `vibe-tools github issue 456`)
+This project comes with custom hooks for querying and publishing events on the Nostr network.
 
-**ClickUp Information:**
-`vibe-tools clickup task <task_id>` - Get detailed information about a ClickUp task including description, comments, status, assignees, and metadata (e.g., `vibe-tools clickup task "task_id"`)
+### The `useNostr` Hook
 
-**Model Context Protocol (MCP) Commands:**
-Use the following commands to interact with MCP servers and their specialized tools:
-`vibe-tools mcp search "<query>"` - Search the MCP Marketplace for available servers that match your needs (e.g., `vibe-tools mcp search "git repository management"`)
-`vibe-tools mcp run "<query>"` - Execute MCP server tools using natural language queries (e.g., `vibe-tools mcp run "list files in the current directory" --provider=openrouter`). The query must include sufficient information for vibe-tools to determine which server to use, provide plenty of context.
+The `useNostr` hook returns an object containing a `nostr` property, with `.query()` and `.event()` methods for querying and publishing Nostr events respectively.
 
-The `search` command helps you discover servers in the MCP Marketplace based on their capabilities and your requirements. The `run` command automatically selects and executes appropriate tools from these servers based on your natural language queries. If you want to use a specific server include the server name in your query. E.g. `vibe-tools mcp run "using the mcp-server-sqlite list files in directory --provider=openrouter"`
+```typescript
+import { useNostr } from '@nostrify/react';
 
-**Notes on MCP Commands:**
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` to be set in your environment
-- By default the `mcp` command uses Anthropic, but takes a --provider argument that can be set to 'anthropic' or 'openrouter'
-- Results are streamed in real-time for immediate feedback
-- Tool calls are automatically cached to prevent redundant operations
-- Often the MCP server will not be able to run because environment variables are not set. If this happens ask the user to add the missing environment variables to the cursor tools env file at ~/.vibe-tools/.env
+function useCustomHook() {
+  const { nostr } = useNostr();
 
-**Stagehand Browser Automation:**
-`vibe-tools browser open <url> [options]` - Open a URL and capture page content, console logs, and network activity (e.g., `vibe-tools browser open "https://example.com" --html`)
-`vibe-tools browser act "<instruction>" --url=<url | 'current'> [options]` - Execute actions on a webpage using natural language instructions (e.g., `vibe-tools browser act "Click Login" --url=https://example.com`)
-`vibe-tools browser observe "<instruction>" --url=<url> [options]` - Observe interactive elements on a webpage and suggest possible actions (e.g., `vibe-tools browser observe "interactive elements" --url=https://example.com`)
-`vibe-tools browser extract "<instruction>" --url=<url> [options]` - Extract data from a webpage based on natural language instructions (e.g., `vibe-tools browser extract "product names" --url=https://example.com/products`)
+  // ...
+}
+```
 
-**Notes on Browser Commands:**
-- All browser commands are stateless unless --connect-to is used to connect to a long-lived interactive session. In disconnected mode each command starts with a fresh browser instance and closes it when done.
-- When using `--connect-to`, special URL values are supported:
-  - `current`: Use the existing page without reloading
-  - `reload-current`: Use the existing page and refresh it (useful in development)
-  - If working interactively with a user you should always use --url=current unless you specifically want to navigate to a different page. Setting the url to anything else will cause a page refresh loosing current state.
-- Multi step workflows involving state or combining multiple actions are supported in the `act` command using the pipe (|) separator (e.g., `vibe-tools browser act "Click Login | Type 'user@example.com' into email | Click Submit" --url=https://example.com`)
-- Video recording is available for all browser commands using the `--video=<directory>` option. This will save a video of the entire browser interaction at 1280x720 resolution. The video file will be saved in the specified directory with a timestamp.
-- DO NOT ask browser act to "wait" for anything, the wait command is currently disabled in Stagehand.
+### Query Nostr Data with `useNostr` and Tanstack Query
 
-**Tool Recommendations:**
-- `vibe-tools web` is best for general web information not specific to the repository. Generally call this without additional arguments.
-- `vibe-tools repo` is ideal for repository-specific questions, planning, code review and debugging. E.g. `vibe-tools repo "Review recent changes to command error handling looking for mistakes, omissions and improvements"`. Generally call this without additional arguments.
-- `vibe-tools plan` is ideal for planning tasks. E.g. `vibe-tools plan "Adding authentication with social login using Google and Github"`. Generally call this without additional arguments.
-- `vibe-tools doc` generates documentation for local or remote repositories.
-- `vibe-tools youtube` analyzes YouTube videos to generate summaries, transcripts, implementation plans, or custom analyses
-- `vibe-tools browser` is useful for testing and debugging web apps and uses Stagehand
-- `vibe-tools mcp` enables interaction with specialized tools through MCP servers (e.g., for Git operations, file system tasks, or custom tools)
-- When implementing features based on documentation, specifications, or any external content, always use the `--with-doc=<url>` flag instead of built-in web search. For example: `vibe-tools plan "Implement login page according to specs" --with-doc=https://example.com/specs.pdf` or `vibe-tools repo "How should I implement this feature?" --with-doc=https://example.com/feature-spec.md`.
+When querying Nostr, the best practice is to create custom hooks that combine `useNostr` and `useQuery` to get the required data.
 
-- When a user provides a specific URL for documentation or reference material, always use the `--with-doc=<url>` flag with that URL rather than attempting to search for or summarize the content independently. This ensures the exact document is used as context.
+```typescript
+import { useNostr } from '@nostrify/react';
+import { useQuery } from '@tanstack/query';
 
-**Running Commands:**
-1. Use `vibe-tools <command>` to execute commands (make sure vibe-tools is installed globally using npm install -g vibe-tools so that it is in your PATH)
+function usePosts() {
+  const { nostr } = useNostr();
 
-**General Command Options (Supported by all commands):**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, openrouter, modelbox, or xai). If provider is not specified, the default provider for that task will be used.
---model=<model name>: Specify an alternative AI model to use. If model is not specified, the provider's default model for that task will be used.
---max-tokens=<number>: Control response length
---save-to=<file path>: Save command output to a file (in *addition* to displaying it)
---debug: Show detailed logs and error information
+  return useQuery({
+    queryKey: ['posts'],
+    queryFn: async (c) => {
+      const signal = AbortSignal.any([c.signal, AbortSignal.timeout(1500)]);
+      const events = await nostr.query([{ kinds: [1], limit: 20 }], { signal });
+      return events; // these events could be transformed into another format
+    },
+  });
+}
+```
 
-**Repository Command Options:**
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for repository analysis
---max-tokens=<number>: Maximum tokens for response
---from-github=<GitHub username>/<repository name>[@<branch>]: Analyze a remote GitHub repository without cloning it locally
---subdir=<path>: Analyze a specific subdirectory instead of the entire repository
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
+The data may be transformed into a more appropriate format if needed, and multiple calls to `nostr.query()` may be made in a single queryFn.
 
-**Documentation Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for documentation generation
---max-tokens=<number>: Maximum tokens for response
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
+### The `useAuthor` Hook
 
-**YouTube Command Options:**
---type=<summary|transcript|plan|review|custom>: Type of analysis to perform (default: summary)
+To display profile data for a user by their Nostr pubkey (such as an event author), use the `useAuthor` hook.
 
-**GitHub Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Access PRs/issues from a specific GitHub repository
+```tsx
+import { NostrEvent, NostrMetadata } from '@nostrify/nostrify';
+import { useAuthor } from '@/hooks/useAuthor';
 
-**Browser Command Options (for 'open', 'act', 'observe', 'extract'):**
---console: Capture browser console logs (enabled by default, use --no-console to disable)
---html: Capture page HTML content (disabled by default)
---network: Capture network activity (enabled by default, use --no-network to disable)
---screenshot=<file path>: Save a screenshot of the page
---timeout=<milliseconds>: Set navigation timeout (default: 120000ms for Stagehand operations, 30000ms for navigation)
---viewport=<width>x<height>: Set viewport size (e.g., 1280x720). When using --connect-to, viewport is only changed if this option is explicitly provided
---headless: Run browser in headless mode (default: true)
---no-headless: Show browser UI (non-headless mode) for debugging
---connect-to=<port>: Connect to existing Chrome instance. Special values: 'current' (use existing page), 'reload-current' (refresh existing page)
---wait=<time:duration or selector:css-selector>: Wait after page load (e.g., 'time:5s', 'selector:#element-id')
---video=<directory>: Save a video recording (1280x720 resolution, timestamped subdirectory). Not available when using --connect-to
---url=<url>: Required for `act`, `observe`, and `extract` commands. Url to navigate to before the main command or one of the special values 'current' (to stay on the current page without navigating or reloading) or 'reload-current' (to reload the current page)
---evaluate=<string>: JavaScript code to execute in the browser before the main command
+function Post({ event }: { event: NostrEvent }) {
+  const author = useAuthor(event.pubkey);
+  const metadata: NostrMetadata | undefined = author.data?.metadata;
 
-**Nicknames**
-Users can ask for these tools using nicknames
-Gemini is a nickname for vibe-tools repo
-Perplexity is a nickname for vibe-tools web
-Stagehand is a nickname for vibe-tools browser
-If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to use the `vibe-tools` command with the `repo`, `web`, or `browser` commands respectively.
+  const displayName = metadata?.name || event.pubkey.slice(0, 8);
+  const profileImage = metadata?.picture;
 
-**Xcode Commands:**
-`vibe-tools xcode build [buildPath=<path>] [destination=<destination>]` - Build Xcode project and report errors.
-**Build Command Options:**
---buildPath=<path>: (Optional) Specifies a custom directory for derived build data. Defaults to ./.build/DerivedData.
---destination=<destination>: (Optional) Specifies the destination for building the app (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+  // ...render elements with this data
+}
+```
 
-`vibe-tools xcode run [destination=<destination>]` - Build and run the Xcode project on a simulator.
-**Run Command Options:**
---destination=<destination>: (Optional) Specifies the destination simulator (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+#### `NostrMetadata` type
 
-`vibe-tools xcode lint` - Run static analysis on the Xcode project to find and fix issues.
+```ts
+/** Kind 0 metadata. */
+interface NostrMetadata {
+  /** A short description of the user. */
+  about?: string;
+  /** A URL to a wide (~1024x768) picture to be optionally displayed in the background of a profile screen. */
+  banner?: string;
+  /** A boolean to clarify that the content is entirely or partially the result of automation, such as with chatbots or newsfeeds. */
+  bot?: boolean;
+  /** An alternative, bigger name with richer characters than `name`. `name` should always be set regardless of the presence of `display_name` in the metadata. */
+  display_name?: string;
+  /** A bech32 lightning address according to NIP-57 and LNURL specifications. */
+  lud06?: string;
+  /** An email-like lightning address according to NIP-57 and LNURL specifications. */
+  lud16?: string;
+  /** A short name to be displayed for the user. */
+  name?: string;
+  /** An email-like Nostr address according to NIP-05. */
+  nip05?: string;
+  /** A URL to the user's avatar. */
+  picture?: string;
+  /** A web URL related in any way to the event author. */
+  website?: string;
+}
+```
 
-**Additional Notes:**
-- For detailed information, see `node_modules/vibe-tools/README.md` (if installed locally).
-- Configuration is in `vibe-tools.config.json` (or `~/.vibe-tools/config.json`).
-- API keys are loaded from `.vibe-tools.env` (or `~/.vibe-tools/.env`).
-- ClickUp commands require a `CLICKUP_API_TOKEN` to be set in your `.vibe-tools.env` file.
-- Available models depend on your configured provider (OpenAI, Anthropic, xAI, etc.) in `vibe-tools.config.json`.
-- repo has a limit of 2M tokens of context. The context can be reduced by filtering out files in a .repomixignore file.
-- problems running browser commands may be because playwright is not installed. Recommend installing playwright globally.
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY`
-- **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
-- **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
+### The `useNostrPublish` Hook
 
-<!-- vibe-tools-version: 0.60.9 -->
-</vibe-tools Integration>
+To publish events, use the `useNostrPublish` hook in this project.
+
+```tsx
+import { useState } from 'react';
+
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useNostrPublish } from '@/hooks/useNostrPublish';
+
+export function MyComponent() {
+  const [ data, setData] = useState<Record<string, string>>({});
+
+  const { user } = useCurrentUser();
+  const { mutate: createEvent } = useNostrPublish();
+
+  const handleSubmit = () => {
+    createEvent({ kind: 1, content: data.content });
+  };
+
+  if (!user) {
+    return <span>You must be logged in to use this form.</span>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit} disabled={!user}>
+      {/* ...some input fields */}
+    </form>
+  );
+}
+```
+
+The `useCurrentUser` hook should be used to ensure that the user is logged in before they are able to publish Nostr events.
+
+### Nostr Login
+
+To enable login with Nostr, simply use the `LoginArea` component already included in this project.
+
+```tsx
+import { LoginArea } from "@/components/auth/LoginArea";
+
+function MyComponent() {
+  return (
+    <div>
+      {/* other components ... */}
+
+      <LoginArea />
+    </div>
+  );
+}
+```
+
+The `LoginArea` component displays a "Log in" button when the user is logged out, and changes to an account switcher once the user is logged in. It handles all the login-related UI and interactions internally, including displaying login dialogs and switching between accounts. It should not be wrapped in any conditional logic.
+
+### `npub`, `naddr`, and other Nostr addresses
+
+Nostr defines a set identifiers in NIP-19. Their prefixes:
+
+- `npub`: public keys
+- `nsec`: private keys
+- `note`: note ids
+- `nprofile`: a nostr profile
+- `nevent`: a nostr event
+- `naddr`: a nostr replaceable event coordinate
+- `nrelay`: a nostr relay (deprecated)
+
+NIP-19 identifiers include a prefix, the number "1", then a base32-encoded data string.
+
+#### Use in Filters
+
+The base Nostr protocol uses hex string identifiers when filtering by event IDs and pubkeys. Nostr filters only accept hex strings.
+
+```ts
+// ❌ Wrong: naddr is not decoded
+const events = await nostr.query(
+  [{ ids: [naddr] }],
+  { signal }
+);
+```
+
+Corrected example:
+
+```ts
+// Import nip19 from nostr-tools
+import { nip19 } from 'nostr-tools';
+
+// Decode a NIP-19 identifier
+const decoded = nip19.decode(value);
+
+// Optional: guard certain types (depending on the use-case)
+if (decoded.type !== 'naddr') {
+  throw new Error('Unsupported Nostr identifier');
+}
+
+// Get the addr object
+const naddr = decoded.data;
+
+// ✅ Correct: naddr is expanded into the correct filter
+const events = await nostr.query(
+  [{
+    kinds: [naddr.kind],
+    authors: [naddr.pubkey],
+    '#d': [naddr.identifier],
+  }],
+  { signal }
+);
+```
+
+### Nostr Edit Profile
+
+To include an Edit Profile form, place the `EditProfileForm` component in the project:
+
+```tsx
+import { EditProfileForm } from "@/components/EditProfileForm";
+
+function EditProfilePage() {
+  return (
+    <div>
+      {/* you may want to wrap this in a layout or include other components depending on the project ... */}
+
+      <EditProfileForm />
+    </div>
+  );
+}
+```
+
+The `EditProfileForm` component displays just the form. It requires no props, and will "just work" automatically.
+
+### Uploading Files on Nostr
+
+Use the `useUploadFile` hook to upload files.
+
+```tsx
+import { useUploadFile } from "@/hooks/useUploadFile";
+
+function MyComponent() {
+  const { mutateAsync: uploadFile, isPending: isUploading } = useUploadFile();
+
+  const handleUpload = async (file: File) => {
+    try {
+      // Provides an array of NIP-94 compatible tags
+      // The first tag in the array contains the URL
+      const [[_, url]] = await uploadFile(file);
+      // ...use the url
+    } catch (error) {
+      // ...handle errors
+    }
+  };
+
+  // ...rest of component
+}
+```
+
+To attach files to kind 1 events, each file's URL should be appended to the event's `content`, and an `imeta` tag should be added for each file. For kind 0 events, the URL by itself can be used in relevant fields of the JSON content.
+
+### Nostr Encryption and Decryption
+
+The logged-in user has a `signer` object (matching the NIP-07 signer interface) that can be used for encryption and decryption.
+
+```ts
+// Get the current user
+const { user } = useCurrentUser();
+
+// Optional guard to check that nip44 is available
+if (!user.signer.nip44) {
+  throw new Error("Please upgrade your signer extension to a version that supports NIP-44 encryption");
+}
+
+// Encrypt message to self
+const encrypted = await user.signer.nip44.encrypt(user.pubkey, "hello world");
+// Decrypt message to self
+const decrypted = await user.signer.nip44.decrypt(user.pubkey, encrypted) // "hello world"
+```
+
+## Development Practices
+
+- Uses React Query for data fetching and caching
+- Follows shadcn/ui component patterns
+- Implements Path Aliases with `@/` prefix for cleaner imports
+- Uses Vite for fast development and production builds
+- Component-based architecture with React hooks
+- Default connection to multiple Nostr relays for network redundancy
+
+## Build & Deployment
+
+- Build for production: `npm run build`
+- Development build: `npm run build:dev`
+
+## Testing Your Changes
+
+Whenever you modify code, you should test your changes after you're finished by running:
+
+```bash
+npm run ci
+```
+
+This command will typecheck the code and attempt to build it.
+
+Your task is not considered finished until this test passes without errors.
 
 ---
 > Source: [andotherstuff/chorus](https://github.com/andotherstuff/chorus) — distributed by [TomeVault](https://tomevault.io).
