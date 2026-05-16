@@ -7,11 +7,11 @@ Sync your Letterboxd diary and watchlist into a Notion database
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [brianlovin/letterboxd-notion-sync](https://github.com/brianlovin/letterboxd-notion-sync).
+Original source: `CLAUDE.md` in [brianlovin/letterboxd-notion-sync](https://github.com/brianlovin/letterboxd-notion-sync).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
