@@ -1,0 +1,9 @@
+{
+  "name": "onyx-dot-app--agent-wiki",
+  "displayName": "agent-wiki",
+  "description": "A wiki app to supercharge human/agent collaboration. A self-updating knowledge base.",
+  "version": "1.0.0",
+  "author": "onyx-dot-app",
+  "homepage": "https://github.com/onyx-dot-app/agent-wiki",
+  "skills": []
+}
