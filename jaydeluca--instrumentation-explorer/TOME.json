@@ -4,7 +4,7 @@
   "repo": "instrumentation-explorer",
   "description": "Experimental demo using the java instrumentation metadata",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jaydeluca/instrumentation-explorer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:41:09Z"
+  "distributed_at": "2026-05-16T02:17:21Z"
 }
