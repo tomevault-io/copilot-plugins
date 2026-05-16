@@ -1,0 +1,9 @@
+{
+  "name": "kriasoft--syncguard",
+  "displayName": "syncguard",
+  "description": "TypeScript distributed lock library that prevents race conditions across services. Because nobody wants their payment processed twice! \ud83d\udcb8",
+  "version": "1.0.0",
+  "author": "kriasoft",
+  "homepage": "https://github.com/kriasoft/syncguard",
+  "skills": []
+}
