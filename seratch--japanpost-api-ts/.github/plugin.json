@@ -1,0 +1,9 @@
+{
+  "name": "seratch--japanpost-api-ts",
+  "displayName": "japanpost-api-ts",
+  "description": "Japan Post Service API Client / \u90f5\u4fbf\u756a\u53f7\u30fb\u30c7\u30b8\u30bf\u30eb\u30a2\u30c9\u30ec\u30b9 API \u30af\u30e9\u30a4\u30a2\u30f3\u30c8",
+  "version": "1.0.0",
+  "author": "seratch",
+  "homepage": "https://github.com/seratch/japanpost-api-ts",
+  "skills": []
+}
