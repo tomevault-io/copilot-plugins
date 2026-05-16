@@ -1,0 +1,9 @@
+{
+  "name": "trysurface--surface-aeo-geo-engine",
+  "displayName": "surface-aeo-geo-engine",
+  "description": "AEO/GEO content engine built with Claude Code agents and skills",
+  "version": "1.0.0",
+  "author": "trysurface",
+  "homepage": "https://github.com/trysurface/surface-aeo-geo-engine",
+  "skills": []
+}
