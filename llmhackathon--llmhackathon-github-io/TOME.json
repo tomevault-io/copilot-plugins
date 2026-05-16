@@ -1,0 +1,44 @@
+{
+  "name": "llmhackathon.github.io",
+  "owner": "llmhackathon",
+  "repo": "llmhackathon.github.io",
+  "description": "Official website for Hackathon on LLM Applications for Materials and Chemistry",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/llmhackathon/llmhackathon.github.io",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T04:43:54Z"
+}
