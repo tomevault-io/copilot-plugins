@@ -1,0 +1,9 @@
+{
+  "name": "musicadam--openspec-viewer",
+  "displayName": "openspec-viewer",
+  "description": "Interactive browser viewer for OpenSpec directories - live-reloading documentation viewer with markdown rendering, file watching, and search",
+  "version": "1.0.0",
+  "author": "MusicAdam",
+  "homepage": "https://github.com/MusicAdam/openspec-viewer",
+  "skills": []
+}
