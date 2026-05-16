@@ -1,0 +1,9 @@
+{
+  "name": "xcanwin--manyoyo",
+  "displayName": "manyoyo",
+  "description": "AI Agent CLI Security Sandbox. \u4e00\u6b3eAI\u667a\u80fd\u4f53\u5b89\u5168\u6c99\u7bb1\uff0c\u4fdd\u969cPC\u5b89\u5168\uff0c\u53ef\u4ee5\u968f\u5fc3\u6240\u6b32\u8fd0\u884cYOLO/SOLO\u6a21\u5f0f\uff0c\u4f8b\u5982claude --dangerously-skip-permissions",
+  "version": "1.0.0",
+  "author": "xcanwin",
+  "homepage": "https://github.com/xcanwin/manyoyo",
+  "skills": []
+}
