@@ -1,29 +1,144 @@
-## content
+## global
 
-> Best practices for content
+> Project conventions and standards
 
 
-## Markdown
 
-- Use the `---` prefix for metadata
-- Use the `#` prefix for headings
-- Use the `-` prefix for lists
-- Use the `*` prefix for bold text
-- Use the `_` prefix for italic text
+# Alvaro Saburido's Website
 
-## Blog Posts
+Alvaro Saburido's personal website. Built with latest Nuxt, TypeScript, Nuxt UI Pro, TresJS, Motion Framer Vue and TailwindCSS, this site provides:
 
-- Use the `content/blog` folder for blog posts
+- Blog and news
+- Showcase of projects built with TresJS
+- Talks and workshops
+- Uses
+- Resources for learning and contributing to the community
 
-### Frontmatter
 
-- Use the `title` field for the title of the blog post
-- Use the `description` field for the description of the blog post
-- Use the `date` field for the date of the blog post
-- Use the `thumbnail` field for the thumbnail of the blog post
-- Use the `tags` field for the tags of the blog post
 
-### Content
+## Standards
+
+- Stack: Nuxt 4, Vue.js, TypeScript, TailwindCSS v4, Vue Router, Nuxt UI Pro v3, TresJS, Motion Framer Vue.
+- Patterns: ALWAYS use Composition API + `<script setup>`, NEVER use Options API
+- ALWAYS Keep types alongside your code, use TypeScript for type safety, prefer `interface` over `type` for defining types
+- Keep unit and integration tests alongside the file they test: `src/ui/Button.vue` + `src/ui/Button.spec.ts`
+- ALWAYS use TailwindCSS classes rather than manual CSS
+- DO NOT hard code colors, use Tailwind's color system unless it is used on TresJS components
+- ONLY add meaningful comments that explain why something is done, not what it does
+- Dev server is already running on `http://localhost:3000` with HMR enabled. NEVER launch it yourself
+- ALWAYS use named functions when declaring methods, use arrow functions only for callbacks
+- ALWAYS prefer named exports over default exports
+
+## Project Structure
+
+Below is the current structure of this repository. Use it as a reference for finding files and understanding the organization of the project.
+
+```
+public/                       # Public static files (favicons, robots.txt, static images, etc.)
+assets/
+├── imgs/
+│   └── showcase/             # Showcase images and media
+│   └── styles/
+│       └── main.css          # Main CSS file (UnoCSS/TailwindCSS entry)
+components/
+├── Home/
+│   ├── BrownianDistributionGroup.vue
+│   ├── constants.ts
+│   ├── Hero.vue
+│   ├── HeroExperience.vue
+│   └── Imagotype.vue
+├── Showcase/
+│   └── Card.vue
+└── TheHeader.vue             # Main header component
+content/
+├── authors/                  # Author markdown files
+├── blog/                     # Blog post markdown files
+└── showcase/                 # Showcase entry markdown files
+content.config.ts             # Content module configuration
+layouts/
+└── default.vue               # Default layout for Nuxt
+pages/
+├── blog/
+│   ├── [...slug].vue
+│   └── index.vue
+├── index.vue                 # Home page
+└── showcase/
+    └── index.vue
+server/
+└── tsconfig.json             # Server-side TypeScript config
+app.config.ts                 # Nuxt app configuration
+app.vue                       # Root Vue component
+nuxt.config.ts                # Nuxt configuration
+package.json                  # Project manifest
+pnpm-lock.yaml                # pnpm lockfile
+README.md                     # Project readme
+tsconfig.json                 # Root TypeScript config
+eslint.config.mjs            # ESLint configuration
+netlify.toml                  # Netlify deployment config
+```
+
+## Project Commands
+
+Frequently used commands for this project
+
+- `pnpm dev`: Start the Nuxt development server (http://localhost:3000)
+- `pnpm build`: Bundle the project for production
+- `pnpm generate`: Generate a static version of the site
+- `pnpm preview`: Preview the production build locally
+- `pnpm install`: Install dependencies (runs `nuxt prepare` automatically after install)
+- `pnpm lint`: Lint the codebase
+- `pnpm lint:fix`: Fix linting errors
+
+## Development Workflow
+
+ALWAYS follow the workflow when implementing a new feature or fixing a bug in this project. This ensures consistency, quality, and maintainability of the codebase.
+
+1. Plan your tasks, review them with user. Include tests when possible
+2. Write code, following the [project structure](#project-structure) and [conventions](#standards)
+3. **ALWAYS test implementations work**:
+   - Write [tests](#using-playwright-mcp-server) for logic and components
+   - Use the Playwright MCP server to test like a real user
+4. Stage your changes with `git add` once a feature works
+5. Review changes and analyze the need of refactoring
+
+## Testing Workflow
+
+## Unit and Integration Tests
+
+- Test critical logic first
+- Split the code if needed to make it testable
+
+### Using Playwright MCP Server
+
+1. Navigate to the relevant page
+2. Wait for content to load completely
+3. Test primary user interactions
+4. Test secondary functionality (error states, edge cases)
+5. Check the JS console for errors or warnings
+   - If you see errors, investigate and fix them immediately
+   - If you see warnings, document them and consider fixing if they affect user experience
+6. Document any bugs found and fix them immediately
+
+## Research & Documentation
+
+- **NEVER hallucinate or guess URLs**
+- ALWAYS try accessing the `llms.txt` file first to find relevant documentation. EXAMPLE: `https://pinia-colada.esm.dev/llms.txt`
+  - If it exists, it will contain other links to the documentation for the LLMs used in this project
+- ALWAYS follow existing links in table of contents or documentation indices
+- Verify examples and patterns from documentation before using
+
+## MCP Servers
+
+You have these MCP servers configured globally:
+
+- **Playwright**: Browser automation for visual testing and UI interactions. Use this server when testing UI changes (Playwright can navigate, screenshot, and interact)
+
+Note: These are user-level servers available in all your projects.
+
+
+- **Playwright**: Browser automation for visual testing and UI interactions. Use this server when testing UI changes (Playwright can navigate, screenshot, and interact)
+
+Note: These are user-level servers available in all your projects.
 
 ---
 > Source: [alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu) — distributed by [TomeVault](https://tomevault.io).
