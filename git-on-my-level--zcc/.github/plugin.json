@@ -1,0 +1,9 @@
+{
+  "name": "git-on-my-level--zcc",
+  "displayName": "zcc",
+  "description": "A lightweight Claude Code framework to set up multi-agent workflows, common repetitive tasks, and manage long-running projects",
+  "version": "1.0.0",
+  "author": "Git-on-my-level",
+  "homepage": "https://github.com/Git-on-my-level/zcc",
+  "skills": []
+}
