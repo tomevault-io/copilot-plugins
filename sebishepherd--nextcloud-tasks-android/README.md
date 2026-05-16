@@ -7,11 +7,11 @@ An Android app for the Nextcloud Tasks module.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SebiShepherd/nextcloud_tasks_android](https://github.com/SebiShepherd/nextcloud_tasks_android).
+Original source: `CLAUDE.md` in [SebiShepherd/nextcloud_tasks_android](https://github.com/SebiShepherd/nextcloud_tasks_android).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
