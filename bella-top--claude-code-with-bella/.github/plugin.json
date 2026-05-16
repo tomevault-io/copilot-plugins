@@ -1,0 +1,9 @@
+{
+  "name": "bella-top--claude-code-with-bella",
+  "displayName": "claude-code-with-bella",
+  "description": "Bella Openapi \u5b9e\u73b0\u4e86Claude Code\u4f9d\u8d56\u7684 /v1/messsages \u63a5\u53e3\u3002\u6240\u6709\u5728Bella-Openapi\u4e2d\u63a5\u5165\u7684LLM\u534f\u8bae\u5747\u53ef\u4f7f\u7528Claude Code\uff0c\u4e0d\u4ec5\u4ec5\u652f\u6301Claude\u7cfb\u5217\u6a21\u578b\uff0c\u540c\u65f6\u652f\u6301\u4e86Openai\u5168\u7cfb\u5217\u3001Gemini\u3001DeepSeek\u3001Qwen\u3001Doubao\u7b49\u4e3b\u6d41\u6a21\u578b\u3002",
+  "version": "1.0.0",
+  "author": "bella-top",
+  "homepage": "https://github.com/bella-top/claude-code-with-bella",
+  "skills": []
+}
