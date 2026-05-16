@@ -1,77 +1,232 @@
-## project-structure
+## selvage
 
-> 프로젝트 개요 및 프로젝트 구조
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Selvage - AI 기반 코드 리뷰 도구 구조
+# CLAUDE.md
 
-## 프로젝트 개요
-Selvage는 AI를 활용하여 코드 리뷰를 자동화하는 도구입니다. OpenAI, Anthropic, Google의 LLM 모델을 사용하여 코드를 분석하고 개선점, 버그, 보안 취약점 등을 찾아 제공합니다.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 디렉토리 구조
-- `selvage/`: 메인 패키지
-  - `src/`: 핵심 소스 코드
-    - `llm_gateway/`: LLM 게이트웨이 모듈
-    - `diff_parser/`: 코드 diff 파싱 로직
-    - `exceptions/`: 예외 클래스 모음
-    - `utils/`: 유틸리티 함수 및 클래스
-      - `token/`: 토큰 관련 유틸리티 및 모델
-      - `prompts/`: 프롬프트 생성 및 관리
-      - `logging/`: 로깅 설정 및 관리
-  - `cli.py`: 명령줄 인터페이스
-- `tests/`: 테스트 코드
-- `sample_data/`: 샘플 데이터
-- `logs/`: 로그 저장 디렉토리
-- `resources/`: 리소스 파일
-- `llm_evla`: llm evaluation 파일 디렉토리
-  - `data_set`: 테스트 데이터
-  - `results`: llm evaludation 결과 디렉토리
-  
-## 주요 파일
-- [setup.py](mdc:setup.py): 패키지 설정 및 의존성 관리
-- [requirements.txt](mdc:requirements.txt): 프로덕션 의존성
-- [requirements-dev.txt](mdc:requirements-dev.txt): 개발 의존성
-- [pyproject.toml](mdc:pyproject.toml): 프로젝트 메타데이터
-- [pytest.ini](mdc:pytest.ini): pytest 설정
+## Development Commands
 
-## 핵심 모듈
-- [selvage/cli.py](mdc:selvage/cli.py): 명령줄 인터페이스 및 진입점
-- [selvage/src/llm_gateway/base_gateway.py](mdc:selvage/src/llm_gateway/base_gateway.py): LLM 게이트웨이 기본 클래스
-- [selvage/src/llm_gateway/gateway_factory.py](mdc:selvage/src/llm_gateway/gateway_factory.py): 게이트웨이 팩토리 패턴 구현
-- [selvage/src/available_models.py](mdc:selvage/src/available_models.py): 지원되는 AI 모델 정의
-- [selvage/src/config.py](mdc:selvage/src/config.py): 설정 관리
-- [selvage/src/review_processor.py](mdc:selvage/src/review_processor.py): 코드 리뷰 처리 로직
-- [selvage/src/ui.py](mdc:selvage/src/ui.py): 리뷰 결과 UI 인터페이스
+### Testing
 
-## 게이트웨이 모듈
-- [selvage/src/llm_gateway/openai_gateway.py](mdc:selvage/src/llm_gateway/openai_gateway.py): OpenAI API 게이트웨이
-- [selvage/src/llm_gateway/claude_gateway.py](mdc:selvage/src/llm_gateway/claude_gateway.py): Anthropic Claude API 게이트웨이
-- [selvage/src/llm_gateway/google_gateway.py](mdc:selvage/src/llm_gateway/google_gateway.py): Google AI API 게이트웨이
+```bash
+# Run unit and integration tests
+pytest tests/
 
-## 유틸리티 모듈
-- [selvage/src/utils/file_utils.py](mdc:selvage/src/utils/file_utils.py): 파일 처리 유틸리티 함수
-- [selvage/src/utils/git_utils.py](mdc:selvage/src/utils/git_utils.py): Git 관련 작업 유틸리티
-- [selvage/src/utils/prompt_utils.py](mdc:selvage/src/utils/prompt_utils.py): 프롬프트 처리 유틸리티
-- [selvage/src/utils/llm_client_factory.py](mdc:selvage/src/utils/llm_client_factory.py): LLM 클라이언트 팩토리 유틸리티
+# Run E2E tests (requires testcontainers and docker)
+pytest e2e/
 
-### 토큰 관련 유틸리티
-- [selvage/src/utils/token/token_utils.py](mdc:selvage/src/utils/token/token_utils.py): 토큰 처리 유틸리티
-- [selvage/src/utils/token/models.py](mdc:selvage/src/utils/token/models.py): 토큰 관련 데이터 모델
+# Build fresh TestPyPI Docker image (ensures latest selvage version)
+./scripts/build_testpypi_image.sh
 
-### 프롬프트 관련 유틸리티
-- [selvage/src/utils/prompts/prompt_generator.py](mdc:selvage/src/utils/prompts/prompt_generator.py): 프롬프트 생성 로직
-- [selvage/src/utils/prompts/models/system_prompt.py](mdc:selvage/src/utils/prompts/models/system_prompt.py): 시스템 프롬프트 모델
-- [selvage/src/utils/prompts/models/user_prompt.py](mdc:selvage/src/utils/prompts/models/user_prompt.py): 사용자 프롬프트 모델
-- [selvage/src/utils/prompts/models/review_prompt_with_file_content.py](mdc:selvage/src/utils/prompts/models/review_prompt_with_file_content.py): 파일 컨텍스트가 포함된 리뷰 프롬프트 모델
+# Or rebuild manually with cache bypass
+docker build --no-cache --build-arg CACHEBUST=$(date +%s) -t selvage-testpypi:latest -f e2e/dockerfiles/testpypi/Dockerfile .
 
-### 로깅 관련 유틸리티
-- [selvage/src/utils/logging/config.py](mdc:selvage/src/utils/logging/config.py): 로깅 설정 및 구성
+# Run LLM evaluation tests
+pytest llm_eval/
 
-## 테스트
-- [tests/test_llm_gateway.py](mdc:tests/test_llm_gateway.py): LLM 게이트웨이 기본 테스트
-- [tests/test_llm_gateway_request.py](mdc:tests/test_llm_gateway_request.py): 게이트웨이 요청 테스트
-- [tests/test_llm_gateway_review_code.py](mdc:tests/test_llm_gateway_review_code.py): 코드 리뷰 기능 테스트
-- [tests/test_diff_parser.py](mdc:tests/test_diff_parser.py): 디프 파서 테스트
-- [tests/test_prompt_generator.py](mdc:tests/test_prompt_generator.py): 프롬프트 생성 테스트
+# Run tests with coverage
+pytest tests/ --cov
+
+# Run specific test patterns
+pytest tests/test_llm_gateway.py -v
+
+# Run specific test files
+pytest tests/test_config_env_vars.py::test_config_language -v
+pytest tests/test_cli_flags.py -v
+
+# Run tests with parallel execution
+pytest tests/ -n auto
+
+# Run tests with timeout
+pytest tests/ --timeout=300
+```
+
+### Package Management
+
+```bash
+# Install for development
+pip install -e .[dev]
+
+# Install with E2E test dependencies
+pip install -e .[dev,e2e]
+
+# Build package
+python -m build
+
+# Upload to PyPI (requires twine)
+twine upload dist/*
+```
+
+### Running the Application
+
+```bash
+# Basic code review
+selvage review
+
+# Review staged changes
+selvage review --staged
+
+# Review with specific model
+selvage review --model claude-sonnet-4
+
+# Launch UI to view results
+selvage view
+
+# Set API keys (환경변수)
+export OPENAI_API_KEY=your_openai_key
+export ANTHROPIC_API_KEY=your_claude_key
+export GEMINI_API_KEY=your_gemini_key
+export OPENROUTER_API_KEY=your_openrouter_key
+
+# Configure default model and language
+selvage config model claude-sonnet-4
+selvage config language ko  # Set Korean language
+selvage config debug-mode on
+
+# View current configuration
+selvage config list
+```
+
+## Architecture Overview
+
+Selvage is an LLM-based code review tool with a modular architecture:
+
+### Core Components
+
+**CLI Interface** (`selvage/cli.py`)
+
+- Main entry point using Click framework
+- Handles command parsing and user interaction
+- Manages API key setup and configuration
+
+**LLM Gateway System** (`selvage/src/llm_gateway/`)
+
+- `gateway_factory.py`: Factory pattern for creating LLM clients
+- `base_gateway.py`: Abstract base class for all LLM providers
+- Provider-specific gateways: `openai_gateway.py`, `claude_gateway.py`, `google_gateway.py`, `openrouter_gateway.py`
+- Handles API communication, token counting, and cost estimation
+
+**Diff Processing** (`selvage/src/diff_parser/`)
+
+- `parser.py`: Git diff parsing and processing
+- `models/`: Data models for diff representation (DiffResult, FileDiff, Hunk)
+- Converts git diff output into structured data for LLM analysis
+
+**Prompt System** (`selvage/src/utils/prompts/`)
+
+- `prompt_generator.py`: Creates structured prompts for LLM review
+- `models/`: Prompt data models (ReviewPromptWithFileContent, SystemPrompt, UserPromptWithFileContent)
+- **Context Extraction System**: Intelligent file context extraction with three types:
+  - `SMART_CONTEXT`: AST-based tree-sitter analysis for related code blocks
+  - `FALLBACK_CONTEXT`: Text-based pattern matching when AST analysis fails
+  - `FULL_CONTEXT`: Complete file content for new/rewritten files
+
+**Configuration Management** (`selvage/src/config.py`)
+
+- Platform-specific config directory handling
+- API key management (environment variables take precedence)
+- User preferences storage (default model, debug mode, etc.)
+
+### Data Flow
+
+1. **Git Diff Extraction**: `GitDiffUtility` extracts changes from repository
+2. **Diff Parsing**: `DiffParser` converts raw diff into structured `DiffResult`
+3. **Prompt Generation**: `PromptGenerator` creates context-aware prompts
+4. **LLM Review**: Gateway sends prompts to configured AI model
+5. **Result Processing**: Response is formatted and saved as review log
+6. **UI Display**: Streamlit interface shows results with markdown/JSON views
+
+### Key Design Patterns
+
+- **Factory Pattern**: `GatewayFactory` for LLM provider instantiation
+- **Strategy Pattern**: Different diff modes (staged, unstaged, target branch/commit)
+- **Template Method**: Base gateway class with provider-specific implementations
+- **Configuration**: Environment variables override file-based settings
+
+### Model Support
+
+The tool supports multiple AI providers:
+
+- **OpenAI**: GPT-5.2 Codex
+- **Anthropic**: Claude Opus 4.6, Claude Sonnet 4.5
+- **Google**: Gemini 3 Pro, Gemini 3 Flash
+- **OpenRouter**: MiniMax M2.5, GLM-5, Qwen3 Coder, Kimi K2.5, DeepSeek R1/V3 and more
+
+Model configuration is centralized in `selvage/resources/models.yml` with provider-specific settings.
+
+## Testing Strategy
+
+- **Unit Tests** (`tests/`): Component-level testing
+- **E2E Tests** (`e2e/`): Full workflow testing with Docker containers
+- **LLM Evaluation** (`llm_eval/`): AI model response quality assessment using DeepEval
+
+## Git Workflow Integration
+
+Selvage supports various Git diff modes for flexible code review:
+
+```bash
+# Review unstaged changes (default)
+selvage review
+
+# Review staged changes only
+selvage review --staged
+
+# Review changes against specific branch
+selvage review --target-branch main
+selvage review --target-branch develop
+
+# Review changes from specific commit to HEAD
+selvage review --target-commit abc1234
+
+```
+
+## Coding Conventions
+
+### Python Style Guide
+
+- **Line Length**: Maximum 88 characters (Black style)
+- **Indentation**: 4 spaces
+- **Quotes**: Prefer single quotes (') over double quotes (")
+- **Naming**: snake_case for variables/functions, PascalCase for classes, UPPER_CASE for constants
+
+### Type Hints
+
+- Use modern Python type annotations (Python 3.9+ style)
+- Prefer lowercase types: `list[str]`, `dict[str, Any]`
+- Use union operator: `int | None` instead of `Optional[int]`
+- Define type aliases for complex types: `ModelInfoDict = dict[str, Any]`
+
+### File Organization
+
+- One class per file when possible
+- File names match class names in snake_case: `ReviewProcessor` → `review_processor.py`
+- Module docstrings at file top
+- Group related classes in packages/directories
+
+## Detailed Development Guides
+
+For comprehensive development information, refer to these detailed guides in `.cursor/rules/`:
+
+- **[Code Conventions](file://.cursor/rules/code-conventions.mdc)** - Detailed Python style guide, type hints, file organization, docstring standards, and code review checklist
+- **[Models and Gateways](file://.cursor/rules/models-and-gateways.mdc)** - LLM model information, gateway architecture, factory patterns, and API integration details
+- **[App Architecture Workflow](file://.cursor/rules/app-architecture-workflow.mdc)** - Complete data flow, Git diff processing, prompt generation, and cost estimation systems
+- **[Multiturn Review System](file://.cursor/rules/multiturn-review-system.mdc)** - 컨텍스트 제한 초과 시 프롬프트 분할 및 결과 합성 시스템
+- **[Project Structure](file://.cursor/rules/project-structure.mdc)** - Directory organization and module dependencies
+- **[Linting Setup](file://.cursor/rules/linting-setup.mdc)** - Ruff configuration and code quality tools
+- **[GitHub PR Workflow](file://.cursor/rules/github-pr-create-workflow.mdc)** - Pull request creation and review processes
+
+## Important Notes
+
+- The codebase uses Python 3.10+ with type hints throughout
+- Configuration follows platform conventions (XDG on Linux, Application Support on macOS)
+- All user-facing text is in Korean (this is intentional for the target audience)
+- The tool maintains review logs in structured JSON format for audit trails
+- API keys are validated and securely stored with appropriate file permissions
+- Uses Instructor library for structured LLM responses with Pydantic models
+- Prompt versions are managed in `selvage/resources/prompt/` with version-specific directories (current: v3)
+- **Unified Prompt Generation**: Single-path prompt creation using `ReviewPromptWithFileContent` with intelligent context extraction
 
 ---
 > Source: [selvage-lab/selvage](https://github.com/selvage-lab/selvage) — distributed by [TomeVault](https://tomevault.io).
