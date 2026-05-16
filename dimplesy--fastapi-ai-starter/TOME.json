@@ -4,7 +4,7 @@
   "repo": "fastapi-ai-starter",
   "description": "\ud83d\ude80 \u73b0\u4ee3\u5316 FastAPI \u9879\u76ee\u6a21\u677f | Modern FastAPI template with Celery + PostgreSQL + Redis + Docker. Production-ready starter kit.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DimplesY/fastapi-ai-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:41:48Z"
+  "distributed_at": "2026-05-16T06:48:48Z"
 }
