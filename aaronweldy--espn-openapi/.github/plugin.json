@@ -1,0 +1,9 @@
+{
+  "name": "aaronweldy--espn-openapi",
+  "displayName": "espn-openapi",
+  "description": "OpenAPI spec for the undocumented ESPN API.",
+  "version": "1.0.0",
+  "author": "aaronweldy",
+  "homepage": "https://github.com/aaronweldy/espn-openapi",
+  "skills": []
+}
