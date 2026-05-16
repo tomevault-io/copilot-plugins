@@ -4,7 +4,7 @@
   "repo": "microverse",
   "description": "Elegant system monitoring for macOS with desktop widgets. Track battery, CPU, and memory with a beautiful menu bar app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ashwch/microverse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:53:50Z"
+  "distributed_at": "2026-05-16T04:39:50Z"
 }
