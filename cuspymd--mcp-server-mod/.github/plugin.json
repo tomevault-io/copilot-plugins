@@ -1,0 +1,9 @@
+{
+  "name": "cuspymd--mcp-server-mod",
+  "displayName": "mcp-server-mod",
+  "description": "A Fabric mod that implements a Model Context Protocol (MCP) server, enabling AI assistants like Claude to interact with Minecraft through structured commands.",
+  "version": "1.0.0",
+  "author": "cuspymd",
+  "homepage": "https://github.com/cuspymd/mcp-server-mod",
+  "skills": []
+}
