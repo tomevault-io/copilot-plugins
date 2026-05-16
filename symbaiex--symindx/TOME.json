@@ -4,7 +4,7 @@
   "repo": "SYMindX",
   "description": "A modular, agent-based AI runtime designed to simulate intelligent, emotionally reactive characters that can operate autonomously in games, on the web, and across social platforms.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SYMBaiEX/SYMindX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:04:13Z"
+  "distributed_at": "2026-05-16T07:59:58Z"
 }
