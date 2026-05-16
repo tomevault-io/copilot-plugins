@@ -1,0 +1,9 @@
+{
+  "name": "eddmann--whatsapp-cli",
+  "displayName": "whatsapp-cli",
+  "description": "WhatsApp from your terminal. Pipe it, script it, automate it.",
+  "version": "1.0.0",
+  "author": "eddmann",
+  "homepage": "https://github.com/eddmann/whatsapp-cli",
+  "skills": []
+}
