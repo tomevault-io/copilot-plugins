@@ -1,0 +1,9 @@
+{
+  "name": "framist--n2n-maid",
+  "displayName": "n2n-maid",
+  "description": "\u4e00\u4e2a\u5f00\u6e90\u8de8\u5e73\u53f0\u5e76\u4e14\u53ef\u7231\u7684 N2N \u56fe\u5f62\u754c\u9762\u5ba2\u6237\u7aef | Cute N2N GUI Client based on Tauri 2 + React 18",
+  "version": "1.0.0",
+  "author": "framist",
+  "homepage": "https://github.com/framist/n2n-maid",
+  "skills": []
+}
