@@ -1,0 +1,9 @@
+{
+  "name": "thaitype--monguard",
+  "displayName": "monguard",
+  "description": "A lightweight, zero-boilerplate toolkit designed to enhance MongoDB models with production-ready features",
+  "version": "1.0.0",
+  "author": "thaitype",
+  "homepage": "https://github.com/thaitype/monguard",
+  "skills": []
+}
