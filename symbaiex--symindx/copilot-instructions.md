@@ -1,208 +1,253 @@
-## 001-symindx-workspace
+## 002-cursor-rules-framework
 
-> APPLY SYMindX architecture standards when working with any file to ensure consistency
+> description: UNDERSTAND SYMindX Cursor rules hierarchy when working with project rules
 
-# SYMindX Workspace Architecture
 
-## Project Overview
+---
+description: UNDERSTAND SYMindX Cursor rules hierarchy when working with project rules
+globs: .cursor/rules/*.mdc
+---
 
-SYMindX is an intelligent AI agent framework built with TypeScript, using Bun as the runtime and package manager. The system provides modular, hot-swappable components for memory, emotion, and cognition with multi-platform capabilities.
+# Cursor Rules Framework for SYMindX
 
-### Core Architecture Components
+This document outlines the comprehensive rule framework used in the SYMindX project, providing intelligent navigation and context-aware rule activation for AI agents working within Cursor IDE.
 
-**🧠 Core Runtime System** (`mind-agents/`)
-- Event-driven architecture with centralized Event Bus
-- Hot-swappable module registry for memory, emotion, cognition
-- Multi-agent coordination and lifecycle management
-- Extension system for platform integrations
+## Framework Overview
 
-**🌐 AI Portal Architecture** (`mind-agents/src/portals/`)
-- Multi-provider AI integration (OpenAI, Anthropic, Groq, xAI, Google)
-- Vercel AI SDK v5 implementation
-- Unified interface for model switching and optimization
+The SYMindX Cursor rules framework consists of **24 comprehensive rules** (000-index.mdc + 000-022 core rules) organized in a hierarchical, extensible structure with intelligent cross-referencing and automated verification tools.
 
-**💾 Memory System** (`mind-agents/src/memory/`)
-- SQLite, PostgreSQL, Supabase, Neon providers
-- Vector embeddings and semantic search
-- Conversation persistence and context management
+### Complete Rule Index
 
-**❤️ Emotion System** (`mind-agents/src/emotion/`)
-- 11 distinct emotions (RuneScape-inspired)
-- Dynamic emotional state management
-- Contextual emotion weighting and responses
+| Rule | Purpose | Dependencies | Triggers |
+|------|---------|--------------|----------|
+| 000-index.mdc | Master navigation hub | All rules | Always active |
+| 000-rules.mdc | Meta-rule defining framework standards | None | *.mdc files |
+| 001-symindx-workspace.mdc | Core project architecture | None | Always active |
+| 002-cursor-rules-framework.mdc | Framework organization | 000-rules.mdc | *.mdc files |
+| 003-typescript-standards.mdc | TypeScript and Bun standards | 001-symindx-workspace.mdc | **/*.ts,**/*.js |
+| 004-architecture-patterns.mdc | Modular design patterns | 003-typescript-standards.mdc | Core development |
+| 005-ai-integration-patterns.mdc | AI portal integration | 004-architecture-patterns.mdc | AI provider work |
+| 006-web-interface-patterns.mdc | React and frontend | 003-typescript-standards.mdc | **/*.tsx,website/** |
+| 007-extension-system-patterns.mdc | Platform integrations | 004-architecture-patterns.mdc | Extensions work |
+| 008-testing-and-quality-standards.mdc | Testing strategies | All development rules | **/*.test.ts,**/*.spec.ts |
+| 009-deployment-and-operations.mdc | Docker and deployment | 001-symindx-workspace.mdc | Docker files |
+| 010-security-and-authentication.mdc | Security standards | All system rules | Security-related code |
+| 011-data-management-patterns.mdc | Database and memory | 003-typescript-standards.mdc | Memory/database work |
+| 012-performance-optimization.mdc | Performance patterns | All development rules | Performance-critical code |
+| 013-error-handling-logging.mdc | Error handling patterns | All development rules | Error-prone code |
+| 014-cli-and-tooling-patterns.mdc | CLI design patterns | 003-typescript-standards.mdc | CLI development |
+| 015-configuration-management.mdc | Config and environment | 010-security-and-authentication.mdc | Config files |
+| 016-documentation-standards.mdc | Documentation patterns | None | **/*.md,docs/** |
+| 017-community-and-governance.mdc | Open source practices | 016-documentation-standards.mdc | Community files |
+| 018-git-hooks.mdc | Git automation | 008-testing-and-quality-standards.mdc | Git operations |
+| 019-background-agents.mdc | Cloud-powered agents | 004-architecture-patterns.mdc | Background tasks |
+| 020-mcp-integration.mdc | Model Context Protocol | 005-ai-integration-patterns.mdc | MCP work |
+| 021-advanced-context.mdc | Context-aware activation | All rules | Dynamic contexts |
+| 022-workflow-automation.mdc | Workflow orchestration | All automation rules | Workflow files |
 
-**🎯 Cognition Modules** (`mind-agents/src/cognition/`)
-- HTN (Hierarchical Task Network) planner
-- Reactive response system
-- Hybrid cognitive architectures
+## Documentation and Tools Integration
 
-**🔌 Platform Extensions** (`mind-agents/src/extensions/`)
-- Telegram, Slack, Discord integrations
-- RuneLite/RuneScape game integration
-- Twitter/X social platform support
+### Core Documentation (@.cursor/docs/)
 
-### Directory Structure
+The framework integrates closely with comprehensive documentation that agents should reference:
 
-```
-symindx/                          # Root project (Bun workspace)
-├── .cursor/                      # Cursor IDE configuration
-│   ├── rules/                    # Cursor rules (001-017 core)
-│   ├── docs/                     # Quick start, architecture, contributing
-│   └── tools/                    # Project analyzer, code generator, debugging
-├── mind-agents/                  # Core agent runtime system
-│   ├── src/
-│   │   ├── core/                 # Runtime, EventBus, ModuleRegistry
-│   │   ├── portals/              # AI providers (15+ workspaces)
-│   │   │   ├── openai/           # OpenAI portal workspace
-│   │   │   ├── anthropic/        # Anthropic portal workspace
-│   │   │   ├── groq/             # Groq portal workspace
-│   │   │   ├── xai/              # xAI portal workspace
-│   │   │   ├── google-vertex/    # Google Vertex workspace
-│   │   │   ├── google-generative/ # Google Generative workspace
-│   │   │   ├── mistral/          # Mistral portal workspace
-│   │   │   ├── cohere/           # Cohere portal workspace
-│   │   │   ├── azure-openai/     # Azure OpenAI workspace
-│   │   │   ├── ollama/           # Ollama portal workspace
-│   │   │   ├── lmstudio/         # LM Studio workspace
-│   │   │   ├── openrouter/       # OpenRouter workspace
-│   │   │   ├── multimodal/       # Multimodal workspace
-│   │   │   ├── kluster.ai/       # Kluster.ai workspace
-│   │   │   └── vercel/           # Vercel portal workspace
-│   │   ├── modules/              # Memory, emotion, cognition modules
-│   │   ├── extensions/           # Platform integrations
-│   │   ├── characters/           # Character definitions
-│   │   ├── utils/                # Shared utilities
-│   │   ├── types/                # TypeScript type definitions
-│   │   ├── cli/                  # Command-line interface
-│   │   └── __tests__/           # Test files
-│   ├── data/                     # Runtime data storage
-│   ├── scripts/                  # Build and utility scripts
-│   ├── docs/                     # Agent documentation
-│   └── dist/                     # Build output
-├── website/                      # React web interface (Vite + Tailwind)
-│   ├── src/
-│   │   ├── components/           # React components
-│   │   ├── pages/                # Page components
-│   │   └── styles/               # Styling files
-│   ├── public/                   # Static assets
-│   ├── dist/                     # Build output
-│   ├── storybook-static/         # Storybook build
-│   └── .storybook/              # Storybook configuration
-├── docs-site/                    # Documentation site (separate workspace)
-├── redirect-package/             # NPM redirect package
-├── testing/                      # Comprehensive test suites
-├── monitoring/                   # System monitoring tools
-├── config/                       # Configuration management
-├── .github/                      # GitHub workflows
-├── .claude/                      # Claude AI configuration
-├── .gitmodules                   # Git submodules
-├── docker-compose.yml            # Multi-service deployment
-├── Dockerfile                    # Container configuration
-└── package.json                  # Root workspace configuration
+- **@.cursor/docs/quick-start.md** - Developer onboarding and first-time setup
+- **@.cursor/docs/architecture.md** - Detailed system architecture documentation  
+- **@.cursor/docs/contributing.md** - Development workflow and contribution guidelines
+
+These docs provide essential context for:
+- New developer onboarding
+- System architecture understanding
+- Development workflow guidance
+- Code contribution standards
+
+### Development Tools (@.cursor/tools/)
+
+The framework leverages specialized development tools that agents can utilize:
+
+- **@.cursor/tools/project-analyzer.md** - Project structure analysis and code metrics
+- **@.cursor/tools/debugging-guide.md** - Comprehensive debugging strategies and troubleshooting
+- **@.cursor/tools/code-generator.md** - Component templates and code generation patterns
+- **@.cursor/tools/verify-rule-links.js** - Automated cross-reference verification tool
+
+These tools enable:
+- Automated project analysis and insights
+- Systematic debugging approaches
+- Consistent code generation
+- Framework quality assurance
+
+## Cross-Reference System
+
+### Reference Syntax
+```markdown
+@rule-name.mdc           # Direct rule reference
+@.cursor/docs/file.md    # Documentation reference
+@.cursor/tools/file.md   # Development tool reference
 ```
 
-## Development Standards
+### Smart Navigation by Context
 
-### Code Quality
-- **TypeScript Required**: All code must use TypeScript with strict mode
-- **Bun Runtime**: Use Bun for package management and execution
-- **Modular Design**: Components must be hot-swappable and independently testable
-- **Event-Driven**: Use EventBus for inter-component communication
+**🚀 Starting New Features**
+```
+Foundation: @001-symindx-workspace.mdc → @003-typescript-standards.mdc
+Architecture: @004-architecture-patterns.mdc
+Component-Specific: @005-ai-integration-patterns.mdc OR @007-extension-system-patterns.mdc
+Quality: @008-testing-and-quality-standards.mdc
+Documentation: @.cursor/docs/architecture.md, @.cursor/tools/code-generator.md
+```
 
-### Architecture Principles
-- **Single Responsibility**: Each module has one clear purpose
-- **Dependency Injection**: Use registry pattern for component management
-- **Configuration-Driven**: All behavior configurable via JSON/YAML
-- **Platform Agnostic**: Core logic independent of platform implementations
+**🔧 Daily Development Tasks**
+```
+Standards: @003-typescript-standards.mdc
+Performance: @012-performance-optimization.mdc  
+Error Handling: @013-error-handling-logging.mdc
+Tools: @.cursor/tools/debugging-guide.md, @.cursor/tools/project-analyzer.md
+```
 
-### Performance Requirements
-- **Hot-Swapping**: Module replacement without system restart
-- **Memory Efficient**: Vector operations optimized for large datasets
-- **Real-time**: WebSocket support for live communication
-- **Scalable**: Multi-agent coordination capabilities
+**🤖 Setting Up Automation**
+```
+Git Integration: @018-git-hooks.mdc
+Background Processing: @019-background-agents.mdc
+MCP Integration: @020-mcp-integration.mdc
+Workflow Orchestration: @022-workflow-automation.mdc
+Documentation: @.cursor/docs/contributing.md
+```
 
-### Testing Standards
-- **Unit Tests**: Jest for component testing
-- **Integration Tests**: Full agent lifecycle testing
-- **Performance Tests**: Load testing for multi-agent scenarios
-- **Platform Tests**: Extension compatibility verification
+**🧠 Component Development**
 
-## Key Constraints
+*AI Portal Development:*
+```
+Foundation: @005-ai-integration-patterns.mdc
+Performance: @012-performance-optimization.mdc
+Security: @010-security-and-authentication.mdc
+Tools: @.cursor/tools/code-generator.md (Portal templates)
+```
 
-### Memory Management
-- Vector embeddings must be chunked for efficiency
-- Conversation history with configurable retention policies
-- Memory provider abstraction for seamless switching
+*Memory System Development:*
+```
+Foundation: @011-data-management-patterns.mdc
+Performance: @012-performance-optimization.mdc
+Security: @010-security-and-authentication.mdc
+Architecture: @.cursor/docs/architecture.md (Memory layer)
+```
 
-### AI Portal Integration
-- Unified interface across all AI providers
-- Error handling and fallback strategies
-- Token management and cost optimization
+*Extension Development:*
+```
+Foundation: @007-extension-system-patterns.mdc
+Security: @010-security-and-authentication.mdc
+Configuration: @015-configuration-management.mdc
+Debugging: @.cursor/tools/debugging-guide.md
+```
 
-### Platform Extensions
-- Stateless design for platform integrations
-- Webhook-based event handling where possible
-- Platform-specific configuration isolation
+## Rule Dependencies and Prerequisites
 
-### Character System
-- JSON-based character definitions
-- Personality trait inheritance and override
-- Dynamic character switching capabilities
+### Foundation Layer (Required First)
+- @001-symindx-workspace.mdc (Project understanding)
+- @003-typescript-standards.mdc (Language standards)
+- @.cursor/docs/architecture.md (System architecture)
 
-## Development Workflow
+### Development Layer (Build Upon Foundation)
+- @004-architecture-patterns.mdc
+- @008-testing-and-quality-standards.mdc
+- @013-error-handling-logging.mdc
+- @015-configuration-management.mdc
 
-1. **Module Development**: Use registry pattern for new components
-2. **Configuration**: Update relevant JSON/YAML configs
-3. **Testing**: Comprehensive test coverage before integration
-4. **Documentation**: Update docs-site with API changes
-5. **Integration**: Hot-swap testing in development environment
+### Component Layer (Specialized Development)
+- @005-ai-integration-patterns.mdc (AI portals)
+- @007-extension-system-patterns.mdc (Platform integrations)
+- @011-data-management-patterns.mdc (Memory systems)
+- @006-web-interface-patterns.mdc (Frontend)
+- @014-cli-and-tooling-patterns.mdc (CLI tools)
 
-## Related Rules and Deep Dives
+### Operations Layer (Deployment & Management)
+- @009-deployment-and-operations.mdc
+- @010-security-and-authentication.mdc
+- @012-performance-optimization.mdc
+- @016-documentation-standards.mdc
+- @017-community-and-governance.mdc
 
-### Core Development Standards
-- @003-typescript-standards.mdc - TypeScript strict configuration and Bun optimization
-- @004-architecture-patterns.mdc - Modular design principles and hot-swappable patterns
-- @008-testing-and-quality-standards.mdc - Testing strategies for all component types
+### Automation Layer (Advanced Features)
+- @018-git-hooks.mdc
+- @019-background-agents.mdc
+- @020-mcp-integration.mdc
+- @021-advanced-context.mdc
+- @022-workflow-automation.mdc
 
-### Component-Specific Guidelines
+## Agent Usage Patterns
 
-#### AI Portal Development
-- @005-ai-integration-patterns.mdc - AI provider integration standards and patterns
-- @012-performance-optimization.mdc - Portal caching and performance optimization
-- @010-security-and-authentication.mdc - API key management and secure connections
+### Context-Aware Rule Selection
 
-#### Memory System Development
-- @011-data-management-patterns.mdc - Database schemas, migrations, and vector operations
-- @012-performance-optimization.mdc - Vector embedding optimization and caching strategies
-- @010-security-and-authentication.mdc - Data encryption and privacy protection
+**When starting any task:**
+1. Begin with @000-index.mdc for navigation
+2. Reference @001-symindx-workspace.mdc for project context
+3. Check @.cursor/docs/architecture.md for system understanding
 
-#### Extension System Development
-- @007-extension-system-patterns.mdc - Platform integration patterns and webhook handling
-- @015-configuration-management.mdc - Extension configuration and environment management
-- @010-security-and-authentication.mdc - Platform authentication and security protocols
+**For specific development contexts:**
+```markdown
+New AI Portal → @005-ai-integration-patterns.mdc + @.cursor/tools/code-generator.md
+Memory Issues → @011-data-management-patterns.mdc + @.cursor/tools/debugging-guide.md
+Performance Problems → @012-performance-optimization.mdc + @.cursor/tools/project-analyzer.md
+Extension Development → @007-extension-system-patterns.mdc + @.cursor/docs/contributing.md
+```
 
-#### Web Interface Development
-- @006-web-interface-patterns.mdc - React component patterns and Storybook integration
-- @016-documentation-standards.mdc - Component documentation and API reference generation
-- @012-performance-optimization.mdc - Frontend performance and bundle optimization
+### Cross-Rule Integration Patterns
 
-### Operations and Deployment
-- @009-deployment-and-operations.mdc - Docker containerization and multi-service deployment
-- @015-configuration-management.mdc - Environment configuration and secrets management
-- @013-error-handling-logging.mdc - Centralized logging and error monitoring
+**Full-Stack Development Chain:**
+```
+@001-symindx-workspace.mdc (Foundation)
+  ↓
+@003-typescript-standards.mdc (Language)
+  ↓  
+@004-architecture-patterns.mdc (Structure)
+  ↓
+@005-ai-integration-patterns.mdc (AI Layer)
+  ↓
+@006-web-interface-patterns.mdc (Frontend)
+  ↓
+@008-testing-and-quality-standards.mdc (Quality)
+```
 
-### Advanced Automation (Cursor v1.2+ Features)
-- @018-git-hooks.mdc - Automated commit validation and quality gates
-- @019-background-agents.mdc - Parallel task automation and CI/CD integration
-- @020-mcp-integration.mdc - External service integration and OAuth flows
-- @021-advanced-context.mdc - Context-aware rule activation for different development phases
-- @022-workflow-automation.mdc - Multi-agent coordination for complex development workflows
+**Common Rule Combinations:**
+- Security + Performance: @010-security-and-authentication.mdc + @012-performance-optimization.mdc
+- Development + Testing: Any development rule + @008-testing-and-quality-standards.mdc  
+- Configuration + Security: @015-configuration-management.mdc + @010-security-and-authentication.mdc
+- Debugging + Analysis: @.cursor/tools/debugging-guide.md + @.cursor/tools/project-analyzer.md
 
-### Development Tools and CLI
-- @014-cli-and-tooling-patterns.mdc - Command-line interface design and script automation
-- @017-community-and-governance.mdc - Contribution guidelines and open source practices
+## Quality Assurance
 
-This architecture serves as the foundation for all specialized component development. Always reference component-specific rules for detailed implementation guidance.
+### Automated Verification
+Use `@.cursor/tools/verify-rule-links.js` to ensure framework integrity:
+
+```bash
+node .cursor/tools/verify-rule-links.js
+# Expected: 🌟 Excellent (100%+ quality score)
+# 0 broken references, comprehensive cross-linking
+```
+
+### Framework Health Metrics
+- **Total Rules**: 24 (000-index.mdc + 000-022 core rules)
+- **Cross-References**: 125+ comprehensive links
+- **Quality Score**: 🌟 Excellent (105%+)
+- **Coverage**: Foundation → Component → Advanced progression
+- **Tools Integration**: Complete docs and tools referencing
+
+## Best Practices
+
+### For Agents
+1. **Start with context**: Always check @000-index.mdc for navigation guidance
+2. **Follow dependencies**: Respect rule prerequisite chains  
+3. **Use tools**: Leverage @.cursor/tools/ for analysis and generation
+4. **Reference docs**: Check @.cursor/docs/ for architectural understanding
+5. **Verify quality**: Run verification tools to ensure rule compliance
+
+### For Rule Maintenance
+1. **Cross-reference everything**: Each rule should link to 3-5 related rules
+2. **Update dependencies**: When adding rules, update dependency chains
+3. **Document integrations**: Include docs and tools references where relevant
+4. **Test verification**: Ensure verify-rule-links.js passes after changes
+5. **Maintain hierarchy**: Respect Foundation → Component → Advanced layers
+
+This framework provides comprehensive guidance for any development task within SYMindX, ensuring agents can navigate efficiently through our hierarchical, cross-referenced rule system while leveraging our full documentation and tooling ecosystem.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
