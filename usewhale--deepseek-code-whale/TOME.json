@@ -1,0 +1,44 @@
+{
+  "name": "DeepSeek-Code-Whale",
+  "owner": "usewhale",
+  "repo": "DeepSeek-Code-Whale",
+  "description": "Whale \u662f\u4e13\u4e3a DeepSeek \u6a21\u578b\u4f18\u5316\u7684\u7ec8\u7aef AI \u7f16\u7801\u52a9\u624b\uff0c\u652f\u6301 MCP, Skills, \u7f13\u5b58\u4f18\u5316\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/usewhale/DeepSeek-Code-Whale",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T15:30:08Z"
+}
