@@ -1,0 +1,9 @@
+{
+  "name": "sjennings--cc-management",
+  "displayName": "cc-management",
+  "description": "Claude Code configuration and commands to establish some order from chaos.",
+  "version": "1.0.0",
+  "author": "sjennings",
+  "homepage": "https://github.com/sjennings/cc-management",
+  "skills": []
+}
