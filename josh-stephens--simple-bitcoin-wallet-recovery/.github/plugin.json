@@ -1,0 +1,9 @@
+{
+  "name": "josh-stephens--simple-bitcoin-wallet-recovery",
+  "displayName": "simple-bitcoin-wallet-recovery",
+  "description": "Recover Bitcoin from old wallet.dat files - Successfully recovered 0.12+ BTC",
+  "version": "1.0.0",
+  "author": "josh-stephens",
+  "homepage": "https://github.com/josh-stephens/simple-bitcoin-wallet-recovery",
+  "skills": []
+}
