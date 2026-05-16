@@ -1,0 +1,9 @@
+{
+  "name": "bear-san--kubernetes-oidc-delegator",
+  "displayName": "kubernetes-oidc-delegator",
+  "description": "kubernetes-oidc-delegator",
+  "version": "1.0.0",
+  "author": "bear-san",
+  "homepage": "https://github.com/bear-san/kubernetes-oidc-delegator",
+  "skills": []
+}
