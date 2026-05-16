@@ -7,11 +7,11 @@ Core analysis frontend for lazy fortran - lexer, parser, semantic analysis, AST 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lazy-fortran/fortfront](https://github.com/lazy-fortran/fortfront).
+Original source: `CLAUDE.md` in [lazy-fortran/fortfront](https://github.com/lazy-fortran/fortfront).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
