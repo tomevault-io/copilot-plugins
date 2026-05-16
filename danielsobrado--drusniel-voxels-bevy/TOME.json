@@ -4,7 +4,7 @@
   "repo": "drusniel-voxels-bevy",
   "description": "Voxel based world with Rust and Bevy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielsobrado/drusniel-voxels-bevy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T12:35:04Z"
+  "distributed_at": "2026-05-16T12:38:20Z"
 }
