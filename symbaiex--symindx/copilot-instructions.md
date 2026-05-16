@@ -1,352 +1,573 @@
-## 004-architecture-patterns
+## 005-ai-integration-patterns
 
-> APPLY modern modular architecture patterns when developing core agent systems to ensure scalability and edge-first design
+> APPLY AI portal integration standards when working with AI provider code
 
-# Modern SYMindX Architecture Patterns 2025
+globs: mind-agents/src/portals/**/*
+alwaysApply: false
+---
+# AI Integration Patterns
 
 **Rule Priority:** Core Architecture  
 **Activation:** Always Active  
-**Scope:** System design, modular architecture, and edge computing
+**Scope:** AI provider integrations and portal management
 
-## System Architecture Overview
+## AI Portal Architecture
 
-SYMindX follows a **modular, event-driven architecture** designed for scalability, hot-swappable components, and multi-platform agent deployment. The system is organized as a workspace with three main components:
+SYMindX implements a **unified portal architecture** that abstracts AI provider interactions through the Vercel AI SDK v5, enabling seamless switching between providers and models.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     SYMindX Workspace                        │
-├─────────────────────────────────────────────────────────────┤
-│  mind-agents/     │  website/        │  docs-site/          │
-│  (Core Runtime)   │  (React UI)      │  (Documentation)     │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                    ┌─────────┴─────────┐
-                    │  SYMindX Runtime  │
-                    │   (Event-Driven)  │
-                    └─────────┬─────────┘
-                              │
-        ┌─────────────────────┼─────────────────────┐
-        │                     │                     │
-   ┌────▼────┐        ┌──────▼──────┐       ┌─────▼─────┐
-   │ Module  │        │   Event     │       │ Extension │
-   │Registry │◄──────►│    Bus      │◄─────►│  Loader   │
-   └─────────┘        └─────────────┘       └───────────┘
-```
-
-## 2025 Architectural Principles
-
-### 1. Edge-First Modular Design
-
-- **Hot-swappable modules** for memory, emotion, and cognition
-- **Edge-deployable components** for distributed processing
-- **Plugin-based extensions** for platform integrations
-- **Provider pattern** with edge-compatible AI service abstractions
-- **Registry pattern** for component discovery and lifecycle
-- **Micro-frontend integration** for distributed UI components
-
-### 2. Event-Driven Architecture with Edge Distribution
-
-- **Centralized Event Bus** for component communication
-- **Edge-distributed event processing** for reduced latency
-- **Pub/Sub pattern** with WebSocket and WebRTC support
-- **Message-driven interactions** between agents and extensions
-- **Real-time event processing** with streaming capabilities
-- **Event sourcing** for distributed state management
-
-### 3. Multi-Agent Coordination with Cloud-Edge Hybrid
-
-- **Agent isolation** with shared resource management
-- **Centralized coordination** through multi-agent manager
-- **Edge deployment** for latency-sensitive operations
-- **Resource pooling** for memory and AI portals
-- **Conflict resolution** for concurrent operations
-- **Auto-scaling** based on demand and resource availability
-
-### 4. 2025 Performance Optimization Patterns
-
-- **Progressive Web App (PWA)** architecture for offline capabilities
-- **Service Worker** integration for background processing
-- **WebAssembly (WASM)** modules for compute-intensive operations
-- **HTTP/3 and QUIC** protocol support for faster communication
-- **Streaming data processing** with backpressure handling
-- **Adaptive resource allocation** based on device capabilities
-
-## Module Architecture Patterns
-
-### Memory Module Pattern
-```typescript
-interface MemoryProvider {
-  readonly id: string;
-  readonly type: 'sqlite' | 'supabase' | 'neon' | 'postgres' | 'memory';
-  
-  initialize(config: MemoryConfig): Promise<void>;
-  store(conversation: Conversation): Promise<void>;
-  retrieve(query: SearchQuery): Promise<Memory[]>;
-  search(embedding: number[]): Promise<Memory[]>;
-  shutdown(): Promise<void>;
-}
-
-// Hot-swappable implementation
-abstract class BaseMemoryProvider implements MemoryProvider {
-  protected abstract onHotReload(newConfig: MemoryConfig): Promise<void>;
-  protected abstract validateConfig(config: MemoryConfig): boolean;
-}
-```
-
-**Available Providers:**
-
-- `sqlite/` - Local SQLite database with vector search
-- `supabase/` - Supabase with pgvector for embeddings
-- `neon/` - Neon database with vector capabilities
-- `postgres/` - Direct PostgreSQL with pgvector
-- `memory/` - In-memory storage (non-persistent)
-
-### Emotion Module Pattern
-```typescript
-interface EmotionModule {
-  readonly id: string;
-  readonly emotions: EmotionType[];
-  
-  processEvent(event: EmotionalEvent): Promise<EmotionState>;
-  getCurrentState(): EmotionState;
-  getEmotionHistory(): EmotionHistory[];
-  influenceResponse(response: string): string;
-}
-
-// Composite emotion system
-class CompositeEmotion implements EmotionModule {
-  private readonly emotions = [
-    'happy', 'sad', 'angry', 'curious', 'confident', 
-    'anxious', 'empathetic', 'nostalgic', 'proud', 
-    'confused', 'neutral'
-  ];
-}
-```
-
-**11 Distinct Emotions** (RuneScape-inspired):
-
-- Individual emotion modules in `emotion/{type}/`
-- Composite emotion system combining multiple states
-- Context-aware emotional transitions
-- Emotion influence on response generation
-
-### Cognition Module Pattern
-```typescript
-interface CognitionModule {
-  readonly id: string;
-  readonly type: 'htn_planner' | 'reactive' | 'hybrid';
-  
-  plan(goal: Goal, context: Context): Promise<Plan>;
-  execute(plan: Plan): Promise<ActionResult>;
-  adapt(feedback: Feedback): Promise<void>;
-  reflect(outcome: Outcome): Promise<void>;
-}
-```
-
-**Available Cognition Types:**
-
-- `htn_planner` - Hierarchical Task Network planning
-- `reactive` - Immediate response to stimuli
-- `hybrid` - Combined planning and reactive behaviors
-
-## Portal Architecture Pattern
-
-### AI Provider Abstraction
+### Portal Abstraction Layer
 ```typescript
 interface AIPortal {
-  readonly provider: string;
-  readonly models: string[];
-  
-  generate(prompt: string, options: GenerationOptions): Promise<AIResponse>;
-  stream(prompt: string, options: StreamOptions): AsyncIterable<AIChunk>;
-  embed(text: string): Promise<number[]>;
-  moderate(content: string): Promise<ModerationResult>;
-}
-
-// Vercel AI SDK v5 integration
-abstract class BasePortal implements AIPortal {
-  protected abstract createProvider(): Provider;
-  protected abstract handleRateLimit(): Promise<void>;
-  protected abstract handleFallback(error: Error): Promise<AIResponse>;
-}
-```
-
-**Supported Providers:**
-
-- `openai/` - OpenAI GPT models
-- `anthropic/` - Anthropic Claude models
-- `groq/` - Groq fast inference
-- `xai/` - xAI Grok models
-- `google-vertex/` - Google Vertex AI
-- `google-generative/` - Google Generative AI
-- `mistral/` - Mistral AI models
-- `cohere/` - Cohere models
-- `azure-openai/` - Azure OpenAI
-- `openrouter/` - OpenRouter API
-- `ollama/` - Local Ollama models
-- `lmstudio/` - LM Studio local models
-- `kluster.ai/` - Kluster.ai models
-- `vercel/` - Vercel AI SDK providers
-- `multimodal/` - Multi-modal AI capabilities
-
-## Extension Architecture Pattern
-
-### Platform Extension Pattern
-```typescript
-interface Extension {
   readonly id: string;
-  readonly platform: string;
-  readonly capabilities: string[];
+  readonly provider: string;
+  readonly models: ModelInfo[];
+  readonly capabilities: PortalCapability[];
   
-  initialize(config: ExtensionConfig): Promise<void>;
-  handleMessage(message: IncomingMessage): Promise<void>;
-  sendMessage(message: OutgoingMessage): Promise<void>;
+  // Core operations
+  generate(request: GenerationRequest): Promise<GenerationResponse>;
+  stream(request: StreamRequest): AsyncIterable<StreamChunk>;
+  embed(text: string, options?: EmbedOptions): Promise<number[]>;
+  moderate(content: string): Promise<ModerationResult>;
+  
+  // Management
+  initialize(config: PortalConfig): Promise<void>;
+  healthCheck(): Promise<HealthStatus>;
   shutdown(): Promise<void>;
 }
 
-// Communication abstraction
-abstract class CommunicationExtension implements Extension {
-  protected abstract parseIncomingMessage(raw: unknown): IncomingMessage;
-  protected abstract formatOutgoingMessage(msg: OutgoingMessage): unknown;
-  protected abstract establishConnection(): Promise<void>;
+// Base portal implementation
+abstract class BasePortal implements AIPortal {
+  protected abstract createProvider(): Provider;
+  protected abstract handleRateLimit(error: Error): Promise<void>;
+  protected abstract selectModel(task: TaskType): string;
 }
 ```
 
-**Extension Types:**
+## Supported AI Providers
 
-- `communication/` - Base communication abstractions
-- `api/` - REST/WebSocket API server
-- `telegram/` - Telegram bot integration
-- `mcp-server/` - Model Context Protocol server
-- `mcp-client/` - Model Context Protocol client
-
-## Character System Pattern
-
-### Agent Configuration Pattern
+### OpenAI Portal (`portals/openai/`)
 ```typescript
-interface AgentCharacter {
-  readonly id: string;
-  readonly core: {
-    name: string;
-    tone: string;
-    personality: string[];
+interface OpenAIConfig {
+  apiKey: string;
+  organization?: string;
+  baseURL?: string;
+  models: {
+    chat: string;          // Default: "gpt-4o"
+    tools: string;         // Default: "gpt-4.1-mini"
+    embedding: string;     // Default: "text-embedding-3-small"
   };
-  readonly lore: {
-    origin: string;
-    motive: string;
-    background: string;
-  };
-  readonly psyche: {
-    traits: string[];
-    defaults: {
-      memory: string;
-      emotion: string;
-      cognition: string;
-      portal: string;
-    };
-  };
-  readonly modules: ModuleConfigurations;
-}
-```
-
-**Character Definition:**
-
-- JSON-based character configurations in `characters/`
-- Personality-driven behavior patterns
-- Module preference specifications
-- Lore and backstory integration
-
-## Runtime Coordination Pattern
-
-### Event Bus Architecture
-```typescript
-interface EventBus {
-  subscribe<T>(event: string, handler: EventHandler<T>): void;
-  unsubscribe(event: string, handler: EventHandler): void;
-  emit<T>(event: string, data: T): Promise<void>;
-  emitSync<T>(event: string, data: T): void;
 }
 
-// Core runtime coordination
-class SYMindXRuntime {
-  private readonly eventBus: EventBus;
-  private readonly registry: ModuleRegistry;
-  private readonly multiAgentManager: MultiAgentManager;
+// Implementation with retries and fallbacks
+class OpenAIPortal extends BasePortal {
+  private readonly client: OpenAI;
   
-  async tick(): Promise<void> {
-    // Main runtime loop
-    await this.processEvents();
-    await this.updateAgentStates();
-    await this.executeScheduledTasks();
+  async generate(request: GenerationRequest): Promise<GenerationResponse> {
+    return await this.withRetry(async () => {
+      const result = await generateText({
+        model: this.openai(this.selectModel('chat')),
+        messages: request.messages,
+        temperature: request.temperature,
+        maxTokens: request.maxTokens,
+        tools: request.tools
+      });
+      
+      return this.transformResponse(result);
+    });
   }
 }
 ```
 
-### Registry Pattern
+### Anthropic Portal (`portals/anthropic/`)
 ```typescript
-interface ModuleRegistry {
-  register<T>(module: T, metadata: ModuleMetadata): void;
-  unregister(id: string): void;
-  get<T>(id: string): T | null;
-  list(type?: string): ModuleInfo[];
-  hot_reload(id: string, newModule: unknown): Promise<void>;
+interface AnthropicConfig {
+  apiKey: string;
+  baseURL?: string;
+  models: {
+    chat: string;          // Default: "claude-3-6-sonnet-20250101"
+tools: string;         // Default: "claude-3-6-haiku-20250101"
+  };
+}
+
+class AnthropicPortal extends BasePortal {
+  private readonly client: Anthropic;
+  
+  // Handle Anthropic-specific message format
+  protected transformMessages(messages: Message[]): AnthropicMessage[] {
+    return messages.map(msg => ({
+      role: msg.role === 'assistant' ? 'assistant' : 'user',
+      content: msg.content
+    }));
+  }
 }
 ```
 
-## Workspace Organization
+### Groq Portal (`portals/groq/`)
+```typescript
+interface GroqConfig {
+  apiKey: string;
+  models: {
+    chat: string;          // Default: "llama-3.3-70b-versatile"
+    tools: string;         // Default: "llama-3.1-8b-instant"
+  };
+}
 
-### Multi-Package Workspace
-```json
-{
-  "workspaces": [
-    "mind-agents",                    // Core runtime
-    "website",                        // React interface
-    "docs-site",                      // Documentation
-    "mind-agents/src/portals/*"       // AI provider packages
-  ]
+// Optimized for speed
+class GroqPortal extends BasePortal {
+  // Ultra-fast inference configuration
+  protected getDefaultOptions(): GenerationOptions {
+    return {
+      temperature: 0.7,
+      maxTokens: 2048,
+      stream: true,           // Always stream for responsiveness
+      parallel_tool_calls: true
+    };
+  }
 }
 ```
 
-### Package Management
+### Google Vertex AI Portal (`portals/google-vertex/`)
+```typescript
+interface VertexConfig {
+  projectId: string;
+  location: string;
+  credentialsPath?: string;
+  models: {
+    chat: string;          // Default: "gemini-1.5-pro"
+    embedding: string;     // Default: "text-embedding-004"
+  };
+}
 
-- **Bun** as primary runtime and package manager
-- **TypeScript** for type safety across all packages
-- **Hot module replacement** for development workflow
-- **Monorepo** structure with workspace dependencies
+class GoogleVertexPortal extends BasePortal {
+  // Handle Google's safety settings
+  protected getSafetySettings(): SafetySetting[] {
+    return [
+      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' }
+    ];
+  }
+}
+```
 
-## Performance Patterns
+### Local AI Portals
 
-### Resource Management
+#### Ollama Portal (`portals/ollama/`)
+```typescript
+interface OllamaConfig {
+  baseURL: string;       // Default: "http://localhost:11434"
+  models: {
+    chat: string;        // e.g., "llama3.2:latest"
+    embedding: string;   // e.g., "nomic-embed-text"
+  };
+}
 
-- **Connection pooling** for database providers
-- **Rate limiting** for AI provider APIs
-- **Caching layers** for frequently accessed data
-- **Memory optimization** for long-running agents
+class OllamaPortal extends BasePortal {
+  // Check model availability
+  async checkModelAvailability(model: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this.baseURL}/api/tags`);
+      const { models } = await response.json();
+      return models.some((m: any) => m.name === model);
+    } catch {
+      return false;
+    }
+  }
+}
+```
 
-### Scalability Patterns
+#### LM Studio Portal (`portals/lmstudio/`)
+```typescript
+interface LMStudioConfig {
+  baseURL: string;       // Default: "http://localhost:1234"
+  model: string;         // Currently loaded model
+}
 
-- **Horizontal scaling** through multiple runtime instances
-- **Vertical scaling** through resource allocation
-- **Load balancing** across AI providers
-- **State persistence** for agent continuity
+class LMStudioPortal extends BasePortal {
+  // OpenAI-compatible API
+  protected createProvider(): Provider {
+    return openai({
+      baseURL: this.config.baseURL + '/v1',
+      apiKey: 'not-needed'  // LM Studio doesn't require API key
+    });
+  }
+}
+```
 
-## Security Architecture
+## Portal Integration Patterns
 
-### Access Control
+### Provider Selection Strategy
+```typescript
+interface ProviderSelector {
+  selectProvider(task: TaskType, requirements: Requirements): AIPortal;
+  getFallbackChain(primary: string): string[];
+  estimateCost(provider: string, tokens: number): number;
+}
 
-- **API key management** through configuration
-- **Rate limiting** on external APIs
-- **Input validation** on all user interactions
-- **Error boundary isolation** between modules
+class IntelligentProviderSelector implements ProviderSelector {
+  selectProvider(task: TaskType, requirements: Requirements): AIPortal {
+    // Cost optimization for embeddings
+    if (task === 'embedding') {
+      return this.registry.get('openai'); // Most cost-effective
+    }
+    
+    // Speed optimization for real-time chat
+    if (requirements.speed === 'realtime') {
+      return this.registry.get('groq'); // Fastest inference
+    }
+    
+    // Quality optimization for complex reasoning
+    if (requirements.quality === 'maximum') {
+      return this.registry.get('anthropic'); // Claude for reasoning
+    }
+    
+    return this.registry.get(this.defaultProvider);
+  }
+}
+```
 
-### Data Protection
+### Fallback and Resilience
+```typescript
+class ResilientPortalManager {
+  async executeWithFallback<T>(
+    operation: (portal: AIPortal) => Promise<T>,
+    task: TaskType
+  ): Promise<T> {
+    const fallbackChain = this.getFallbackChain(task);
+    
+    for (const providerId of fallbackChain) {
+      try {
+        const portal = this.registry.get(providerId);
+        if (await portal.healthCheck()) {
+          return await operation(portal);
+        }
+      } catch (error) {
+        this.logger.warn(`Provider ${providerId} failed:`, error);
+        // Continue to next fallback
+      }
+    }
+    
+    throw new Error('All AI providers failed');
+  }
+  
+  private getFallbackChain(task: TaskType): string[] {
+    switch (task) {
+      case 'chat':
+        return ['openai', 'anthropic', 'groq', 'ollama'];
+      case 'embedding':
+        return ['openai', 'google-vertex', 'ollama'];
+      case 'tools':
+        return ['openai', 'anthropic', 'groq'];
+      default:
+        return ['openai', 'anthropic'];
+    }
+  }
+}
+```
 
-- **Encryption at rest** for sensitive memory data
-- **Secure communication** channels for extensions
-- **Audit logging** for security monitoring
-- **Privacy controls** for user data
+### Rate Limiting and Cost Management
+```typescript
+interface RateLimiter {
+  canExecute(provider: string): boolean;
+  waitTime(provider: string): number;
+  recordUsage(provider: string, tokens: number): void;
+}
 
-This architecture ensures SYMindX maintains modularity, scalability, and extensibility while providing a robust foundation for intelligent agent development.
+class TokenBucketRateLimiter implements RateLimiter {
+  private buckets = new Map<string, TokenBucket>();
+  
+  canExecute(provider: string): boolean {
+    const bucket = this.getBucket(provider);
+    return bucket.hasTokens(1);
+  }
+  
+  private getBucket(provider: string): TokenBucket {
+    if (!this.buckets.has(provider)) {
+      const limits = this.getProviderLimits(provider);
+      this.buckets.set(provider, new TokenBucket(limits));
+    }
+    return this.buckets.get(provider)!;
+  }
+  
+  private getProviderLimits(provider: string): RateLimits {
+    const limits = {
+      'openai': { rpm: 3500, tpm: 200000 },
+      'anthropic': { rpm: 1000, tpm: 100000 },
+      'groq': { rpm: 30, tpm: 6000 },
+      'ollama': { rpm: 1000, tpm: 1000000 }, // Local unlimited
+    };
+    return limits[provider] || { rpm: 60, tpm: 10000 };
+  }
+}
+```
+
+## Message Format Standardization
+
+### Universal Message Format
+```typescript
+interface StandardMessage {
+  role: 'system' | 'user' | 'assistant' | 'tool';
+  content: string | MultimodalContent[];
+  name?: string;
+  tool_calls?: ToolCall[];
+  tool_call_id?: string;
+}
+
+interface MultimodalContent {
+  type: 'text' | 'image' | 'audio';
+  content: string | Uint8Array;
+  mimeType?: string;
+}
+
+// Portal-specific message transformation
+abstract class MessageTransformer {
+  abstract transformToProvider(messages: StandardMessage[]): unknown;
+  abstract transformFromProvider(response: unknown): StandardMessage;
+}
+```
+
+### Tool Calling Standardization
+```typescript
+interface ToolDefinition {
+  name: string;
+  description: string;
+  parameters: JSONSchema;
+}
+
+interface ToolCall {
+  id: string;
+  name: string;
+  arguments: Record<string, unknown>;
+}
+
+class UnifiedToolSystem {
+  async executeTool(toolCall: ToolCall, context: AgentContext): Promise<ToolResult> {
+    const tool = this.toolRegistry.get(toolCall.name);
+    if (!tool) {
+      throw new Error(`Unknown tool: ${toolCall.name}`);
+    }
+    
+    // Validate arguments against schema
+    const isValid = this.validateArguments(tool.parameters, toolCall.arguments);
+    if (!isValid) {
+      throw new Error(`Invalid arguments for tool: ${toolCall.name}`);
+    }
+    
+    return await tool.execute(toolCall.arguments, context);
+  }
+}
+```
+
+## Multi-Modal Capabilities
+
+### Multi-Modal Portal (`portals/multimodal/`)
+```typescript
+interface MultiModalCapabilities {
+  vision: boolean;
+  audio: boolean;
+  generation: boolean;
+}
+
+class MultiModalPortal extends BasePortal {
+  async analyzeImage(
+    image: Uint8Array,
+    prompt: string,
+    mimeType: string
+  ): Promise<ImageAnalysisResult> {
+    return await generateText({
+      model: this.getVisionModel(),
+      messages: [{
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { 
+            type: 'image', 
+            image: this.encodeImage(image, mimeType)
+          }
+        ]
+      }]
+    });
+  }
+  
+  async generateImage(
+    prompt: string,
+    options: ImageGenerationOptions
+  ): Promise<GeneratedImage> {
+    // Integrate with DALL-E, Midjourney, etc.
+    return await this.imageProvider.generate(prompt, options);
+  }
+}
+```
+
+## Configuration Management
+
+### Portal Configuration
+```typescript
+interface PortalConfiguration {
+  portals: {
+    [providerId: string]: {
+      enabled: boolean;
+      config: ProviderConfig;
+      priority: number;
+      models: ModelConfiguration;
+    };
+  };
+  defaults: {
+    chat: string;
+    tools: string;
+    embedding: string;
+  };
+  fallbacks: {
+    [taskType: string]: string[];
+  };
+}
+
+// Runtime configuration example
+const portalConfig: PortalConfiguration = {
+  portals: {
+    openai: {
+      enabled: true,
+      config: {
+        apiKey: process.env.OPENAI_API_KEY!,
+        models: {
+          chat: "gpt-4o",
+          tools: "gpt-4.1-mini",
+          embedding: "text-embedding-3-small"
+        }
+      },
+      priority: 1
+    },
+    anthropic: {
+      enabled: true,
+      config: {
+        apiKey: process.env.ANTHROPIC_API_KEY!,
+        models: {
+          chat: "claude-3-6-sonnet-20250101",
+tools: "claude-3-6-haiku-20250101"
+        }
+      },
+      priority: 2
+    },
+    groq: {
+      enabled: true,
+      config: {
+        apiKey: process.env.GROQ_API_KEY!,
+        models: {
+          chat: "llama-3.3-70b-versatile",
+          tools: "llama-3.1-8b-instant"
+        }
+      },
+      priority: 3
+    }
+  },
+  defaults: {
+    chat: "openai",
+    tools: "openai", 
+    embedding: "openai"
+  },
+  fallbacks: {
+    chat: ["openai", "anthropic", "groq"],
+    tools: ["openai", "anthropic"],
+    embedding: ["openai"]
+  }
+};
+```
+
+## Performance Optimization
+
+### Caching Strategy
+```typescript
+interface ResponseCache {
+  get(key: string): Promise<CachedResponse | null>;
+  set(key: string, response: CachedResponse, ttl: number): Promise<void>;
+  invalidate(pattern: string): Promise<void>;
+}
+
+class IntelligentCache implements ResponseCache {
+  async get(key: string): Promise<CachedResponse | null> {
+    // Check if response is still valid
+    const cached = await this.storage.get(key);
+    if (cached && !this.isExpired(cached)) {
+      return cached.response;
+    }
+    return null;
+  }
+  
+  private generateKey(request: GenerationRequest): string {
+    // Create deterministic cache key
+    return crypto
+      .createHash('sha256')
+      .update(JSON.stringify({
+        messages: request.messages,
+        temperature: request.temperature,
+        model: request.model
+      }))
+      .digest('hex');
+  }
+}
+```
+
+### Connection Pooling
+```typescript
+class PortalConnectionPool {
+  private pools = new Map<string, ConnectionPool>();
+  
+  async getConnection(provider: string): Promise<PortalConnection> {
+    const pool = this.getPool(provider);
+    return await pool.acquire();
+  }
+  
+  private getPool(provider: string): ConnectionPool {
+    if (!this.pools.has(provider)) {
+      this.pools.set(provider, new ConnectionPool({
+        max: this.getMaxConnections(provider),
+        min: 1,
+        acquireTimeoutMillis: 30000,
+        createTimeoutMillis: 30000,
+        destroyTimeoutMillis: 5000,
+        idleTimeoutMillis: 30000,
+        reapIntervalMillis: 1000
+      }));
+    }
+    return this.pools.get(provider)!;
+  }
+}
+```
+
+This AI integration pattern ensures SYMindX can efficiently utilize multiple AI providers while maintaining reliability, performance, and cost-effectiveness.
+
+## Related Rules and Integration
+
+### Foundation Requirements
+- @001-symindx-workspace.mdc - SYMindX architecture and AI portal directory structure  
+- @003-typescript-standards.mdc - TypeScript development standards for portal implementations
+- @004-architecture-patterns.mdc - Modular design principles and hot-swappable portal patterns
+- @.cursor/docs/architecture.md - Detailed AI portal layer architecture and design decisions
+
+### Security and Configuration
+- @010-security-and-authentication.mdc - API key management and secure AI provider connections
+- @015-configuration-management.mdc - Portal configuration and environment variable management
+
+### Performance and Quality
+- @012-performance-optimization.mdc - Portal caching strategies and connection pooling optimization
+- @008-testing-and-quality-standards.mdc - AI portal testing strategies and integration testing
+- @013-error-handling-logging.mdc - Portal error handling and monitoring patterns
+- @.cursor/tools/project-analyzer.md - Portal performance analysis and metrics collection
+
+### Development Tools and Templates
+- @.cursor/tools/code-generator.md - AI portal templates and consistent code generation patterns
+- @.cursor/tools/debugging-guide.md - Portal connection debugging and troubleshooting strategies
+- @.cursor/docs/contributing.md - Development workflow for AI portal contributions
+
+### Advanced Integration
+- @020-mcp-integration.mdc - External AI service integration via Model Context Protocol
+- @022-workflow-automation.mdc - Automated AI portal validation and deployment workflows
+- @019-background-agents.mdc - Background portal optimization and maintenance tasks
+
+### Deployment and Operations
+- @009-deployment-and-operations.mdc - AI portal deployment and infrastructure requirements
+- @016-documentation-standards.mdc - Portal API documentation and integration guides
+
+This rule defines the core patterns for AI provider integration that support the entire SYMindX agent ecosystem.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
