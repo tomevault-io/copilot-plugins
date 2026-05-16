@@ -7,11 +7,11 @@ API server that bridges Pharo Smalltalk environments with external tools
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mumez/PharoSmalltalkInteropServer](https://github.com/mumez/PharoSmalltalkInteropServer).
+Original source: `CLAUDE.md` in [mumez/PharoSmalltalkInteropServer](https://github.com/mumez/PharoSmalltalkInteropServer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
