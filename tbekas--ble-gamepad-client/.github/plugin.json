@@ -1,0 +1,9 @@
+{
+  "name": "tbekas--ble-gamepad-client",
+  "displayName": "BLE-Gamepad-Client",
+  "description": "Enables connecting BLE gamepads to ESP32 boards",
+  "version": "1.0.0",
+  "author": "tbekas",
+  "homepage": "https://github.com/tbekas/BLE-Gamepad-Client",
+  "skills": []
+}
