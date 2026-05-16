@@ -1,0 +1,9 @@
+{
+  "name": "iksaif--pimoroni-emu",
+  "displayName": "pimoroni-emu",
+  "description": "Unofficial community desktop emulator for Pimoroni devices (Tufty, Presto, Badger, Blinky, Inky)",
+  "version": "1.0.0",
+  "author": "iksaif",
+  "homepage": "https://github.com/iksaif/pimoroni-emu",
+  "skills": []
+}
