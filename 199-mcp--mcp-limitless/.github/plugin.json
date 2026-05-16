@@ -1,0 +1,9 @@
+{
+  "name": "199-mcp--mcp-limitless",
+  "displayName": "mcp-limitless",
+  "description": "Advanced MCP Server with AI-powered Limitless API features: natural time queries, meeting detection, action item extraction, daily summaries, and speaker analytics",
+  "version": "1.0.0",
+  "author": "199-mcp",
+  "homepage": "https://github.com/199-mcp/mcp-limitless",
+  "skills": []
+}
