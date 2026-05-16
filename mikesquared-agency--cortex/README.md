@@ -2,20 +2,22 @@
 
 > Sourced from [MikeSquared-Agency/cortex](https://github.com/MikeSquared-Agency/cortex) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Warren's Graph Memory Engine — embedded Rust knowledge graph with vector similarity, auto-linking, and agent briefings
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [MikeSquared-Agency/cortex](https://github.com/MikeSquared-Agency/cortex).
+Original source: `CLAUDE.md` in [MikeSquared-Agency/cortex](https://github.com/MikeSquared-Agency/cortex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/MikeSquared-Agency)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/MikeSquared-Agency/cortex](https://github.com/MikeSquared-Agency/cortex)
 
 ---
 
