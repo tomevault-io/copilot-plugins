@@ -4,7 +4,7 @@
   "repo": "ai-store",
   "description": "Low-level abstraction for storing and retrieving documents in a vector store.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/symfony/ai-store",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T20:55:30Z"
+  "distributed_at": "2026-05-16T01:19:05Z"
 }
