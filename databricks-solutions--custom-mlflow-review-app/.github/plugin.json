@@ -1,0 +1,9 @@
+{
+  "name": "databricks-solutions--custom-mlflow-review-app",
+  "displayName": "custom-mlflow-review-app",
+  "description": "Customize the MLflow Review App. Change the UI for your subject matter experts, and deploy on Databricks Apps!",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/custom-mlflow-review-app",
+  "skills": []
+}
