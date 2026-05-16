@@ -1,0 +1,9 @@
+{
+  "name": "chrisuthe--multi-sendspin-player-container",
+  "displayName": "Multi-SendSpin-Player-Container",
+  "description": "Multiple Virtual Sendspin Players to Audio Outputs with UI configuration via HAOS and Docker",
+  "version": "1.0.0",
+  "author": "chrisuthe",
+  "homepage": "https://github.com/chrisuthe/Multi-SendSpin-Player-Container",
+  "skills": []
+}
