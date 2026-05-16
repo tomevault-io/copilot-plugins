@@ -7,11 +7,11 @@ A modern, Rust-based tmux session manager with centralized configuration and dir
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [beijaflor/tmuxrs](https://github.com/beijaflor/tmuxrs).
+Original source: `CLAUDE.md` in [beijaflor/tmuxrs](https://github.com/beijaflor/tmuxrs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
