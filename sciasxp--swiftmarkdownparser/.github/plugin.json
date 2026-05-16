@@ -1,0 +1,9 @@
+{
+  "name": "sciasxp--swiftmarkdownparser",
+  "displayName": "SwiftMarkdownParser",
+  "description": "A modern, Swift-native Markdown parser that generates Abstract Syntax Trees (AST) with support for multiple output renderers. Built with Swift 6 concurrency and designed for performance, extensibility",
+  "version": "1.0.0",
+  "author": "sciasxp",
+  "homepage": "https://github.com/sciasxp/SwiftMarkdownParser",
+  "skills": []
+}
