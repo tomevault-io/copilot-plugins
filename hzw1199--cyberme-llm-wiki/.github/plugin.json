@@ -1,0 +1,9 @@
+{
+  "name": "hzw1199--cyberme-llm-wiki",
+  "displayName": "CyberMe-LLM-Wiki",
+  "description": "A faithful llm-wiki implementation with agent-maintained Markdown knowledge bases and Wikipedia-style web browsing.",
+  "version": "1.0.0",
+  "author": "hzw1199",
+  "homepage": "https://github.com/hzw1199/CyberMe-LLM-Wiki",
+  "skills": []
+}
