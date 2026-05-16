@@ -4,7 +4,7 @@
   "repo": "verdify",
   "description": "Verdify baseline scaffold",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jrvallery/verdify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:57:22Z"
+  "distributed_at": "2026-05-16T04:43:28Z"
 }
