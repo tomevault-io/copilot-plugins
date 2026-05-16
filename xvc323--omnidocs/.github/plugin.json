@@ -1,0 +1,9 @@
+{
+  "name": "xvc323--omnidocs",
+  "displayName": "omnidocs",
+  "description": "Automated documentation crawler that generates LLM-friendly Markdown from any docs site. Export as single or multi-file, ready for AI ingestion.",
+  "version": "1.0.0",
+  "author": "xVc323",
+  "homepage": "https://github.com/xVc323/omnidocs",
+  "skills": []
+}
