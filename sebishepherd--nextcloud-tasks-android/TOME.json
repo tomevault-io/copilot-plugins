@@ -4,7 +4,7 @@
   "repo": "nextcloud_tasks_android",
   "description": "An Android app for the Nextcloud Tasks module.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SebiShepherd/nextcloud_tasks_android",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T12:32:45Z"
+  "distributed_at": "2026-05-16T12:35:31Z"
 }
