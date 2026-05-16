@@ -4,7 +4,7 @@
   "repo": "resume",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hasanraiyan/resume",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T22:30:36Z"
+  "distributed_at": "2026-05-16T22:31:36Z"
 }
