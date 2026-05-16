@@ -1,0 +1,18 @@
+{
+  "name": "demerzels-lab--elsamultiskillagent",
+  "displayName": "elsamultiskillagent",
+  "description": "OpenClaw AI Agent Skills Directory - Discover 1700+ AI Agent Skills",
+  "version": "1.0.0",
+  "author": "Demerzels-lab",
+  "homepage": "https://github.com/Demerzels-lab/elsamultiskillagent",
+  "skills": [
+    {
+      "name": "vue-expert-js",
+      "description": ""
+    },
+    {
+      "name": "vue-expert",
+      "description": ""
+    }
+  ]
+}
