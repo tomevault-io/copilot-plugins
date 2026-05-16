@@ -1,0 +1,9 @@
+{
+  "name": "reddepot--polybuild-v3",
+  "displayName": "polybuild_v3",
+  "description": "POLYBUILD v3 \u2014 M\u00e9ta-orchestrateur multi-LLM pour g\u00e9n\u00e9ration de code en production (spec-first, adversarial review, grounding AST).",
+  "version": "1.0.0",
+  "author": "reddepot",
+  "homepage": "https://github.com/reddepot/polybuild_v3",
+  "skills": []
+}
