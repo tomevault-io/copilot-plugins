@@ -1,1012 +1,602 @@
-## 009-deployment-and-operations
+## 010-security-and-authentication
 
-> APPLY deployment best practices when working with Docker and infrastructure files
+> ENFORCE security standards when handling authentication or sensitive data
 
-globs: Dockerfile, docker-compose.yml, .github/workflows/*, config/**/*
-alwaysApply: false
----
-# Deployment and Operations
 
-**Rule Priority:** Core Architecture  
-**Activation:** Always Active  
-**Scope:** Production deployment, monitoring, scaling, and operational procedures
+# Security and Authentication Patterns
 
-## Deployment Architecture Overview
+## Security Architecture Overview
 
-SYMindX implements a **containerized, cloud-native deployment strategy** designed for scalability, reliability, and ease of maintenance across different environments.
+SYMindX implements defense-in-depth security patterns across all layers of the agent framework, with particular focus on AI provider API key management, multi-platform authentication, and secure inter-agent communication.
 
-### Deployment Stack Structure
-```
-┌─────────────────────────────────────────────────────────────┐
-│                  SYMindX Deployment Stack                    │
-├─────────────────────────────────────────────────────────────┤
-│  Load Balancer    │  Container Orchestration │  Monitoring  │
-│  ├─ NGINX/Caddy   │  ├─ Docker Compose       │  ├─ Grafana │
-│  ├─ SSL/TLS       │  ├─ Kubernetes (opt)     │  ├─ Prometheus │
-│  └─ Rate Limiting │  ├─ Health Checks        │  ├─ Loki    │
-│                   │  └─ Auto-scaling         │  └─ Alerts  │
-├─────────────────────────────────────────────────────────────┤
-│  Application Layer                                          │
-│  ├─ Mind Agents Service ├─ Website Service ├─ Docs Service │
-│  ├─ Extension Services  ├─ API Gateway     ├─ MCP Server   │
-│  └─ Worker Services     └─ WebSocket       └─ Background   │
-├─────────────────────────────────────────────────────────────┤
-│  Data Layer                                                 │
-│  ├─ PostgreSQL/Supabase ├─ Redis Cache ├─ File Storage     │
-│  ├─ Vector Database     ├─ Log Storage ├─ Backup Storage   │
-│  └─ Configuration Store └─ Metrics DB  └─ Artifact Store   │
-└─────────────────────────────────────────────────────────────┘
-```
+### Core Security Principles
 
-## Docker Configuration
+**🔐 Zero Trust Architecture**
 
-### Multi-Stage Dockerfile
-```dockerfile
-# mind-agents/Dockerfile
-FROM oven/bun:1-alpine AS base
-WORKDIR /app
+- All components authenticate and authorize every request
+- No implicit trust between internal services
+- Continuous verification of security posture
 
-# Install dependencies
-FROM base AS deps
-COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile --production
+**🛡️ Least Privilege Access**
 
-# Build stage
-FROM base AS build
-COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile
-COPY . .
-RUN bun run build
-RUN bun run test
+- Agents receive minimum permissions needed for their role
+- Platform extensions isolated with specific scopes
+- API keys restricted to required endpoints only
 
-# Production stage
-FROM base AS runtime
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 mindagent
+**🔄 Security by Design**
 
-COPY --from=deps --chown=mindagent:nodejs /app/node_modules ./node_modules
-COPY --from=build --chown=mindagent:nodejs /app/dist ./dist
-COPY --from=build --chown=mindagent:nodejs /app/package.json ./
+- Security controls integrated into development workflow
+- Automated security testing in CI/CD pipeline
+- Regular security audits and penetration testing
 
-USER mindagent
+## API Key Management
 
-EXPOSE 8080
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD bun run healthcheck
+### Secure Storage Patterns
 
-ENV NODE_ENV=production
-CMD ["bun", "run", "start"]
-```
-
-### Website Dockerfile
-```dockerfile
-# website/Dockerfile
-FROM node:20-alpine AS base
-WORKDIR /app
-
-# Dependencies
-FROM base AS deps
-COPY package.json package-lock.json ./
-RUN npm ci --only=production
-
-# Build stage
-FROM base AS build
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Production stage with NGINX
-FROM nginx:alpine AS runtime
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 80
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD curl -f http://localhost/health || exit 1
-
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-### Docker Compose Configuration
-```yaml
-# docker-compose.yml
-version: '3.8'
-
-services:
-  # Core mind agents service
-  mind-agents:
-    build: 
-      context: ./mind-agents
-      dockerfile: Dockerfile
-    container_name: symindx-mind-agents
-    restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=${DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./config:/app/config:ro
-      - mind-agents-data:/app/data
-      - mind-agents-logs:/app/logs
-    networks:
-      - symindx-network
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD", "bun", "run", "healthcheck"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-
-  # Website service
-  website:
-    build:
-      context: ./website
-      dockerfile: Dockerfile
-    container_name: symindx-website
-    restart: unless-stopped
-    ports:
-      - "3000:80"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://mind-agents:8080
-    networks:
-      - symindx-network
-    depends_on:
-      - mind-agents
-
-  # Documentation site
-  docs-site:
-    build:
-      context: ./docs-site
-      dockerfile: Dockerfile
-    container_name: symindx-docs
-    restart: unless-stopped
-    ports:
-      - "3001:80"
-    networks:
-      - symindx-network
-
-  # PostgreSQL database
-  postgres:
-    image: pgvector/pgvector:pg16
-    container_name: symindx-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-symindx}
-      POSTGRES_USER: ${POSTGRES_USER:-symindx}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./config/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-    ports:
-      - "5432:5432"
-    networks:
-      - symindx-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-symindx}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Redis cache
-  redis:
-    image: redis:7-alpine
-    container_name: symindx-redis
-    restart: unless-stopped
-    command: redis-server --requirepass ${REDIS_PASSWORD}
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
-    volumes:
-      - redis-data:/data
-    ports:
-      - "6379:6379"
-    networks:
-      - symindx-network
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-
-  # NGINX reverse proxy
-  nginx:
-    image: nginx:alpine
-    container_name: symindx-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./config/nginx/sites:/etc/nginx/sites-available:ro
-      - ./ssl:/etc/nginx/ssl:ro
-      - nginx-logs:/var/log/nginx
-    networks:
-      - symindx-network
-    depends_on:
-      - mind-agents
-      - website
-      - docs-site
-
-  # Monitoring stack
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: symindx-prometheus
-    restart: unless-stopped
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
-      - '--web.enable-lifecycle'
-    volumes:
-      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - prometheus-data:/prometheus
-    ports:
-      - "9090:9090"
-    networks:
-      - symindx-network
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: symindx-grafana
-    restart: unless-stopped
-    environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
-      - GF_USERS_ALLOW_SIGN_UP=false
-    volumes:
-      - grafana-data:/var/lib/grafana
-      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
-    ports:
-      - "3002:3000"
-    networks:
-      - symindx-network
-    depends_on:
-      - prometheus
-
-volumes:
-  mind-agents-data:
-  mind-agents-logs:
-  postgres-data:
-  redis-data:
-  prometheus-data:
-  grafana-data:
-  nginx-logs:
-
-networks:
-  symindx-network:
-    driver: bridge
-```
-
-## Production Environment Configuration
-
-### Environment Variables
-```bash
-# .env.production
-NODE_ENV=production
-
-# Database Configuration
-DATABASE_URL=postgresql://symindx:${POSTGRES_PASSWORD}@postgres:5432/symindx
-POSTGRES_DB=symindx
-POSTGRES_USER=symindx
-POSTGRES_PASSWORD=your_secure_password_here
-
-# Cache Configuration
-REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
-REDIS_PASSWORD=your_redis_password_here
-
-# AI Provider Keys
-OPENAI_API_KEY=your_openai_key_here
-ANTHROPIC_API_KEY=your_anthropic_key_here
-GROQ_API_KEY=your_groq_key_here
-
-# Security
-JWT_SECRET=your_jwt_secret_here
-ENCRYPTION_KEY=your_encryption_key_here
-
-# External Services
-SUPABASE_URL=your_supabase_url_here
-SUPABASE_ANON_KEY=your_supabase_anon_key_here
-
-# Monitoring
-GRAFANA_USER=admin
-GRAFANA_PASSWORD=your_grafana_password_here
-
-# SSL Configuration
-SSL_CERTIFICATE_PATH=/etc/nginx/ssl/cert.pem
-SSL_PRIVATE_KEY_PATH=/etc/nginx/ssl/private.key
-
-# Backup Configuration
-BACKUP_SCHEDULE="0 2 * * *"  # Daily at 2 AM
-BACKUP_RETENTION_DAYS=30
-BACKUP_STORAGE_PATH=/backups
-```
-
-### NGINX Configuration
-```nginx
-# config/nginx/nginx.conf
-worker_processes auto;
-error_log /var/log/nginx/error.log warn;
-pid /var/run/nginx.pid;
-
-events {
-    worker_connections 1024;
-    use epoll;
-    multi_accept on;
-}
-
-http {
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-
-    # Logging format
-    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                    '$status $body_bytes_sent "$http_referer" '
-                    '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log /var/log/nginx/access.log main;
-
-    # Performance optimizations
-    sendfile on;
-    tcp_nopush on;
-    tcp_nodelay on;
-    keepalive_timeout 65;
-    types_hash_max_size 2048;
-    client_max_body_size 50M;
-
-    # Gzip compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_types text/plain text/css text/xml text/javascript 
-               application/javascript application/xml+rss 
-               application/json application/xml;
-
-    # Rate limiting
-    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
-    limit_req_zone $binary_remote_addr zone=websocket:10m rate=5r/s;
-
-    # Upstream definitions
-    upstream mind_agents {
-        server mind-agents:8080;
-        keepalive 32;
-    }
-
-    upstream website {
-        server website:80;
-        keepalive 16;
-    }
-
-    upstream docs {
-        server docs-site:80;
-        keepalive 16;
-    }
-
-    # Main server configuration
-    server {
-        listen 80;
-        server_name symindx.ai www.symindx.ai;
-        return 301 https://$server_name$request_uri;
-    }
-
-    server {
-        listen 443 ssl http2;
-        server_name symindx.ai www.symindx.ai;
-
-        # SSL configuration
-        ssl_certificate /etc/nginx/ssl/cert.pem;
-        ssl_certificate_key /etc/nginx/ssl/private.key;
-        ssl_protocols TLSv1.2 TLSv1.3;
-        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
-        ssl_prefer_server_ciphers off;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 10m;
-
-        # Security headers
-        add_header X-Frame-Options DENY;
-        add_header X-Content-Type-Options nosniff;
-        add_header X-XSS-Protection "1; mode=block";
-        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
-
-        # Main website
-        location / {
-            proxy_pass http://website;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-
-        # API endpoints
-        location /api/ {
-            limit_req zone=api burst=20 nodelay;
-            
-            proxy_pass http://mind_agents;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            
-            # API-specific settings
-            proxy_connect_timeout 30s;
-            proxy_send_timeout 30s;
-            proxy_read_timeout 30s;
-        }
-
-        # WebSocket endpoints
-        location /ws/ {
-            limit_req zone=websocket burst=10 nodelay;
-            
-            proxy_pass http://mind_agents;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            
-            # WebSocket-specific settings
-            proxy_connect_timeout 7d;
-            proxy_send_timeout 7d;
-            proxy_read_timeout 7d;
-        }
-
-        # Documentation site
-        location /docs/ {
-            proxy_pass http://docs;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-
-        # Health check endpoint
-        location /health {
-            access_log off;
-            return 200 "healthy\n";
-            add_header Content-Type text/plain;
-        }
-    }
-}
-```
-
-## Monitoring and Observability
-
-### Prometheus Configuration
-```yaml
-# config/prometheus/prometheus.yml
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-rule_files:
-  - "alert_rules.yml"
-
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          - alertmanager:9093
-
-scrape_configs:
-  # SYMindX application metrics
-  - job_name: 'symindx-mind-agents'
-    static_configs:
-      - targets: ['mind-agents:8080']
-    metrics_path: '/metrics'
-    scrape_interval: 15s
-
-  # System metrics
-  - job_name: 'node-exporter'
-    static_configs:
-      - targets: ['node-exporter:9100']
-
-  # PostgreSQL metrics
-  - job_name: 'postgres-exporter'
-    static_configs:
-      - targets: ['postgres-exporter:9187']
-
-  # Redis metrics
-  - job_name: 'redis-exporter'
-    static_configs:
-      - targets: ['redis-exporter:9121']
-
-  # NGINX metrics
-  - job_name: 'nginx-exporter'
-    static_configs:
-      - targets: ['nginx-exporter:9113']
-```
-
-### Application Metrics Implementation
 ```typescript
-// src/monitoring/metrics.ts
-import { register, Counter, Histogram, Gauge } from 'prom-client';
-
-export class MetricsCollector {
-  private static instance: MetricsCollector;
-  
-  // Counters
-  public readonly messagesProcessed = new Counter({
-    name: 'symindx_messages_processed_total',
-    help: 'Total number of messages processed',
-    labelNames: ['agent_id', 'platform', 'status']
-  });
-  
-  public readonly apiRequestsTotal = new Counter({
-    name: 'symindx_api_requests_total',
-    help: 'Total number of API requests',
-    labelNames: ['method', 'endpoint', 'status_code']
-  });
-  
-  // Histograms
-  public readonly messageProcessingDuration = new Histogram({
-    name: 'symindx_message_processing_duration_seconds',
-    help: 'Time spent processing messages',
-    labelNames: ['agent_id', 'complexity'],
-    buckets: [0.1, 0.5, 1, 2, 5, 10, 30]
-  });
-  
-  public readonly aiProviderLatency = new Histogram({
-    name: 'symindx_ai_provider_latency_seconds',
-    help: 'AI provider response latency',
-    labelNames: ['provider', 'model', 'operation'],
-    buckets: [0.1, 0.5, 1, 2, 5, 10, 30]
-  });
-  
-  // Gauges
-  public readonly activeAgents = new Gauge({
-    name: 'symindx_active_agents',
-    help: 'Number of currently active agents'
-  });
-  
-  public readonly activeConnections = new Gauge({
-    name: 'symindx_active_connections',
-    help: 'Number of active WebSocket connections',
-    labelNames: ['extension_type']
-  });
-  
-  public readonly memoryUsage = new Gauge({
-    name: 'symindx_memory_usage_bytes',
-    help: 'Memory usage by component',
-    labelNames: ['component']
-  });
-  
-  public static getInstance(): MetricsCollector {
-    if (!MetricsCollector.instance) {
-      MetricsCollector.instance = new MetricsCollector();
-    }
-    return MetricsCollector.instance;
-  }
-  
-  public getRegistry() {
-    return register;
-  }
-  
-  // Helper methods for common metrics
-  public recordMessageProcessed(agentId: string, platform: string, success: boolean): void {
-    this.messagesProcessed.inc({
-      agent_id: agentId,
-      platform,
-      status: success ? 'success' : 'error'
-    });
-  }
-  
-  public recordApiRequest(method: string, endpoint: string, statusCode: number): void {
-    this.apiRequestsTotal.inc({
-      method,
-      endpoint,
-      status_code: statusCode.toString()
-    });
-  }
-  
-  public recordMessageProcessingTime(agentId: string, complexity: string, duration: number): void {
-    this.messageProcessingDuration.observe(
-      { agent_id: agentId, complexity },
-      duration
-    );
-  }
+// Environment-based configuration (development)
+interface SecureConfig {
+  vault: {
+    enabled: boolean;
+    url: string;
+    token: string;
+  };
+  encryption: {
+    algorithm: 'aes-256-gcm';
+    keyDerivation: 'pbkdf2';
+    saltRounds: 100000;
+  };
 }
 
-// Metrics middleware for Express
-export const metricsMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const start = Date.now();
-  const metrics = MetricsCollector.getInstance();
+// Production vault integration
+class SecureConfigManager {
+  private vault: VaultClient;
+  private cache: Map<string, EncryptedValue> = new Map();
   
-  res.on('finish', () => {
-    const duration = (Date.now() - start) / 1000;
-    metrics.recordApiRequest(req.method, req.route?.path || req.path, res.statusCode);
-  });
-  
-  next();
-};
-```
-
-### Grafana Dashboard Configuration
-```json
-{
-  "dashboard": {
-    "title": "SYMindX Operations Dashboard",
-    "tags": ["symindx", "production"],
-    "time": {
-      "from": "now-1h",
-      "to": "now"
-    },
-    "panels": [
-      {
-        "title": "Active Agents",
-        "type": "stat",
-        "targets": [
-          {
-            "expr": "symindx_active_agents",
-            "legendFormat": "Active Agents"
-          }
-        ]
-      },
-      {
-        "title": "Message Processing Rate",
-        "type": "graph",
-        "targets": [
-          {
-            "expr": "rate(symindx_messages_processed_total[5m])",
-            "legendFormat": "{{agent_id}} - {{platform}}"
-          }
-        ]
-      },
-      {
-        "title": "API Response Times",
-        "type": "graph", 
-        "targets": [
-          {
-            "expr": "histogram_quantile(0.95, rate(symindx_api_request_duration_seconds_bucket[5m]))",
-            "legendFormat": "95th percentile"
-          },
-          {
-            "expr": "histogram_quantile(0.50, rate(symindx_api_request_duration_seconds_bucket[5m]))",
-            "legendFormat": "50th percentile"
-          }
-        ]
-      },
-      {
-        "title": "Error Rate",
-        "type": "graph",
-        "targets": [
-          {
-            "expr": "rate(symindx_messages_processed_total{status=\"error\"}[5m]) / rate(symindx_messages_processed_total[5m])",
-            "legendFormat": "Error Rate"
-          }
-        ]
+  async getAPIKey(provider: string): Promise<string> {
+    const cacheKey = `api_key_${provider}`;
+    
+    // Check cache first (with TTL)
+    if (this.cache.has(cacheKey)) {
+      const cached = this.cache.get(cacheKey)!;
+      if (cached.expiresAt > Date.now()) {
+        return this.decrypt(cached.value);
       }
-    ]
-  }
-}
-```
-
-## Health Checks and Auto-Recovery
-
-### Application Health Checks
-```typescript
-// src/health/health-checker.ts
-interface HealthCheck {
-  name: string;
-  check(): Promise<HealthStatus>;
-}
-
-interface HealthStatus {
-  healthy: boolean;
-  message?: string;
-  details?: Record<string, any>;
-}
-
-export class HealthChecker {
-  private checks: HealthCheck[] = [];
-  
-  registerCheck(check: HealthCheck): void {
-    this.checks.push(check);
-  }
-  
-  async checkHealth(): Promise<{
-    status: 'healthy' | 'unhealthy';
-    checks: Record<string, HealthStatus>;
-  }> {
-    const results: Record<string, HealthStatus> = {};
-    let overallHealthy = true;
-    
-    await Promise.all(
-      this.checks.map(async (check) => {
-        try {
-          const status = await check.check();
-          results[check.name] = status;
-          if (!status.healthy) {
-            overallHealthy = false;
-          }
-        } catch (error) {
-          results[check.name] = {
-            healthy: false,
-            message: error instanceof Error ? error.message : 'Unknown error'
-          };
-          overallHealthy = false;
-        }
-      })
-    );
-    
-    return {
-      status: overallHealthy ? 'healthy' : 'unhealthy',
-      checks: results
-    };
-  }
-}
-
-// Database health check
-export class DatabaseHealthCheck implements HealthCheck {
-  name = 'database';
-  
-  constructor(private db: Database) {}
-  
-  async check(): Promise<HealthStatus> {
-    try {
-      const result = await this.db.query('SELECT 1');
-      return {
-        healthy: true,
-        message: 'Database connection OK',
-        details: { connectionCount: this.db.pool.totalCount }
-      };
-    } catch (error) {
-      return {
-        healthy: false,
-        message: `Database connection failed: ${error.message}`
-      };
     }
+    
+    // Fetch from vault
+    const secret = await this.vault.read(`secret/ai-providers/${provider}`);
+    const encrypted = this.encrypt(secret.data.api_key);
+    
+    // Cache with 1-hour TTL
+    this.cache.set(cacheKey, {
+      value: encrypted,
+      expiresAt: Date.now() + 3600000
+    });
+    
+    return secret.data.api_key;
   }
 }
+```
 
-// AI Portal health check
-export class AIPortalHealthCheck implements HealthCheck {
-  name = 'ai_portals';
-  
-  constructor(private portalManager: AIPortalManager) {}
-  
-  async check(): Promise<HealthStatus> {
-    const portals = this.portalManager.getAllPortals();
-    const results = await Promise.all(
-      portals.map(async (portal) => {
-        try {
-          await portal.healthCheck();
-          return { id: portal.id, healthy: true };
-        } catch (error) {
-          return { 
-            id: portal.id, 
-            healthy: false, 
-            error: error.message 
-          };
-        }
-      })
-    );
+### Key Rotation Strategies
+
+```typescript
+interface KeyRotationConfig {
+  rotationSchedule: {
+    openai: '30d';      // Rotate every 30 days
+    anthropic: '30d';
+    groq: '60d';
+    localProviders: 'never';
+  };
+  gracePeriod: '24h';   // Keep old keys valid during rotation
+  notification: {
+    webhooks: string[];
+    email: string[];
+  };
+}
+
+class KeyRotationManager {
+  async rotateProviderKey(provider: string): Promise<void> {
+    const oldKey = await this.configManager.getAPIKey(provider);
     
-    const unhealthyPortals = results.filter(r => !r.healthy);
+    // Generate new key via provider API
+    const newKey = await this.generateNewKey(provider);
+    
+    // Store new key in vault
+    await this.vault.write(`secret/ai-providers/${provider}`, {
+      api_key: newKey,
+      previous_key: oldKey,
+      rotated_at: new Date().toISOString()
+    });
+    
+    // Update all active agents gradually
+    await this.updateAgentConfigurations(provider, newKey);
+    
+    // Schedule old key deletion after grace period
+    setTimeout(() => {
+      this.revokeOldKey(provider, oldKey);
+    }, this.parseTimespan(this.config.gracePeriod));
+  }
+}
+```
+
+## Authentication Flows
+
+### Agent Authentication
+
+```typescript
+interface AgentIdentity {
+  agentId: string;
+  characterId: string;
+  platform: string;
+  permissions: Permission[];
+  sessionToken: string;
+  expiresAt: Date;
+}
+
+class AgentAuthenticator {
+  async authenticateAgent(credentials: AgentCredentials): Promise<AgentIdentity> {
+    // Validate agent exists and is active
+    const agent = await this.agentRegistry.getAgent(credentials.agentId);
+    if (!agent || agent.status === 'disabled') {
+      throw new UnauthorizedError('Agent not found or disabled');
+    }
+    
+    // Verify character permissions
+    const character = await this.characterRegistry.getCharacter(agent.characterId);
+    const permissions = this.calculatePermissions(character, credentials.platform);
+    
+    // Generate session token with platform-specific scope
+    const sessionToken = await this.tokenManager.generateSessionToken({
+      agentId: credentials.agentId,
+      platform: credentials.platform,
+      permissions,
+      expiresIn: '24h'
+    });
     
     return {
-      healthy: unhealthyPortals.length === 0,
-      message: unhealthyPortals.length > 0 
-        ? `${unhealthyPortals.length} portals unhealthy`
-        : 'All portals healthy',
-      details: { portals: results }
+      agentId: credentials.agentId,
+      characterId: agent.characterId,
+      platform: credentials.platform,
+      permissions,
+      sessionToken,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000)
     };
   }
 }
 ```
 
-## Backup and Disaster Recovery
+### Platform Extension Authentication
 
-### Automated Backup System
-```bash
-#!/bin/bash
-# scripts/backup.sh
+```typescript
+// Platform-specific authentication patterns
+abstract class PlatformAuthenticator {
+  abstract authenticate(credentials: PlatformCredentials): Promise<PlatformSession>;
+  abstract refreshToken(session: PlatformSession): Promise<PlatformSession>;
+  abstract validatePermissions(session: PlatformSession, action: string): boolean;
+}
 
-set -euo pipefail
+// Telegram authentication
+class TelegramAuthenticator extends PlatformAuthenticator {
+  async authenticate(credentials: TelegramCredentials): Promise<TelegramSession> {
+    // Validate bot token with Telegram API
+    const botInfo = await this.telegram.getMe(credentials.botToken);
+    
+    // Verify webhook signature for incoming updates
+    const isValidWebhook = this.verifyWebhookSignature(
+      credentials.webhookData,
+      credentials.secretToken
+    );
+    
+    if (!isValidWebhook) {
+      throw new UnauthorizedError('Invalid webhook signature');
+    }
+    
+    return {
+      platform: 'telegram',
+      botId: botInfo.id,
+      botUsername: botInfo.username,
+      permissions: ['message.send', 'message.receive', 'chat.manage'],
+      token: credentials.botToken,
+      expiresAt: null // Telegram tokens don't expire
+    };
+  }
+}
 
-# Configuration
-BACKUP_DIR="/backups"
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-30}
-
-# Database backup
-echo "Starting database backup..."
-docker exec symindx-postgres pg_dump -U symindx symindx | gzip > \
-  "${BACKUP_DIR}/database_${TIMESTAMP}.sql.gz"
-
-# Redis backup
-echo "Starting Redis backup..."
-docker exec symindx-redis redis-cli --rdb /data/backup.rdb
-docker cp symindx-redis:/data/backup.rdb "${BACKUP_DIR}/redis_${TIMESTAMP}.rdb"
-
-# Configuration backup
-echo "Backing up configuration..."
-tar -czf "${BACKUP_DIR}/config_${TIMESTAMP}.tar.gz" \
-  ./config ./docker-compose.yml ./.env.production
-
-# Application data backup
-echo "Backing up application data..."
-docker run --rm -v symindx_mind-agents-data:/data \
-  -v "${BACKUP_DIR}:/backup" alpine \
-  tar -czf "/backup/app_data_${TIMESTAMP}.tar.gz" -C /data .
-
-# Cleanup old backups
-echo "Cleaning up old backups..."
-find "${BACKUP_DIR}" -name "*.gz" -o -name "*.rdb" -mtime +${RETENTION_DAYS} -delete
-
-# Verify backup integrity
-echo "Verifying backup integrity..."
-gzip -t "${BACKUP_DIR}/database_${TIMESTAMP}.sql.gz"
-tar -tzf "${BACKUP_DIR}/config_${TIMESTAMP}.tar.gz" > /dev/null
-tar -tzf "${BACKUP_DIR}/app_data_${TIMESTAMP}.tar.gz" > /dev/null
-
-echo "Backup completed successfully: ${TIMESTAMP}"
-
-# Optional: Upload to cloud storage
-if [ -n "${BACKUP_UPLOAD_ENABLED:-}" ]; then
-  echo "Uploading to cloud storage..."
-  aws s3 sync "${BACKUP_DIR}" "s3://${BACKUP_BUCKET}/symindx/" \
-    --exclude "*" --include "*${TIMESTAMP}*"
-fi
+// Slack authentication (OAuth2)
+class SlackAuthenticator extends PlatformAuthenticator {
+  async authenticate(credentials: SlackCredentials): Promise<SlackSession> {
+    // Exchange authorization code for access token
+    const tokenResponse = await fetch('https://slack.com/api/oauth.v2.access', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': `Basic ${Buffer.from(`${this.clientId}:${this.clientSecret}`).toString('base64')}`
+      },
+      body: new URLSearchParams({
+        code: credentials.authCode,
+        redirect_uri: credentials.redirectUri
+      })
+    });
+    
+    const { access_token, scope, team, authed_user } = await tokenResponse.json();
+    
+    return {
+      platform: 'slack',
+      teamId: team.id,
+      userId: authed_user.id,
+      permissions: scope.split(','),
+      token: access_token,
+      expiresAt: null // Slack tokens don't expire unless revoked
+    };
+  }
+}
 ```
 
-### Disaster Recovery Playbook
-```bash
-#!/bin/bash
-# scripts/disaster-recovery.sh
+## Security Middleware
 
-set -euo pipefail
+### Request Validation
 
-RESTORE_DATE=${1:-$(ls /backups/database_*.sql.gz | tail -1 | grep -o '[0-9]\{8\}_[0-9]\{6\}')}
+```typescript
+interface SecurityMiddleware {
+  rateLimiting: RateLimitConfig;
+  authentication: AuthConfig;
+  encryption: EncryptionConfig;
+  audit: AuditConfig;
+}
 
-echo "Starting disaster recovery for backup: ${RESTORE_DATE}"
-
-# Stop all services
-echo "Stopping services..."
-docker-compose down
-
-# Restore database
-echo "Restoring database..."
-docker-compose up -d postgres
-sleep 30
-
-# Wait for database to be ready
-while ! docker exec symindx-postgres pg_isready -U symindx; do
-  echo "Waiting for database..."
-  sleep 5
-done
-
-# Restore database data
-gunzip -c "/backups/database_${RESTORE_DATE}.sql.gz" | \
-  docker exec -i symindx-postgres psql -U symindx -d symindx
-
-# Restore Redis
-echo "Restoring Redis..."
-docker-compose up -d redis
-sleep 10
-docker cp "/backups/redis_${RESTORE_DATE}.rdb" symindx-redis:/data/dump.rdb
-docker restart symindx-redis
-
-# Restore application data
-echo "Restoring application data..."
-docker run --rm -v symindx_mind-agents-data:/data \
-  -v "/backups:/backup" alpine \
-  tar -xzf "/backup/app_data_${RESTORE_DATE}.tar.gz" -C /data
-
-# Restore configuration (if needed)
-if [ -f "/backups/config_${RESTORE_DATE}.tar.gz" ]; then
-  echo "Configuration backup found, manual restore may be needed"
-fi
-
-# Start all services
-echo "Starting all services..."
-docker-compose up -d
-
-# Verify system health
-echo "Waiting for system to be ready..."
-sleep 60
-
-# Health check
-if curl -f http://localhost/health; then
-  echo "Disaster recovery completed successfully!"
-else
-  echo "Health check failed, manual intervention required"
-  exit 1
-fi
-```
-
-## Scaling and Performance
-
-### Horizontal Scaling Configuration
-```yaml
-# docker-compose.scale.yml
-version: '3.8'
-
-services:
-  mind-agents:
-    deploy:
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 4G
-        reservations:
-          cpus: '1.0'
-          memory: 2G
-
-  website:
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-
-  # Load balancer for mind-agents
-  haproxy:
-    image: haproxy:latest
-    volumes:
-      - ./config/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mind-agents
-```
-
-### Auto-scaling Script
-```bash
-#!/bin/bash
-# scripts/auto-scale.sh
-
-# Monitor CPU and memory usage
-CPU_THRESHOLD=80
-MEMORY_THRESHOLD=80
-SCALE_UP_REPLICAS=5
-SCALE_DOWN_REPLICAS=2
-
-while true; do
-  # Get current resource usage
-  CPU_USAGE=$(docker stats --no-stream --format "table {{.CPUPerc}}" symindx-mind-agents | tail -n +2 | sed 's/%//' | awk '{sum+=$1} END {print sum/NR}')
-  MEMORY_USAGE=$(docker stats --no-stream --format "table {{.MemPerc}}" symindx-mind-agents | tail -n +2 | sed 's/%//' | awk '{sum+=$1} END {print sum/NR}')
+class SecurityManager {
+  // Rate limiting per agent per platform
+  async rateLimitCheck(agentId: string, platform: string): Promise<boolean> {
+    const key = `rate_limit:${agentId}:${platform}`;
+    const current = await this.redis.get(key);
+    
+    if (!current) {
+      await this.redis.setex(key, 3600, '1'); // 1 request per hour window
+      return true;
+    }
+    
+    const requests = parseInt(current);
+    const limit = this.getRateLimit(platform);
+    
+    if (requests >= limit) {
+      throw new TooManyRequestsError(`Rate limit exceeded for ${agentId} on ${platform}`);
+    }
+    
+    await this.redis.incr(key);
+    return true;
+  }
   
-  CURRENT_REPLICAS=$(docker-compose ps -q mind-agents | wc -l)
-  
-  if (( $(echo "$CPU_USAGE > $CPU_THRESHOLD" | bc -l) )) || (( $(echo "$MEMORY_USAGE > $MEMORY_THRESHOLD" | bc -l) )); then
-    if [ "$CURRENT_REPLICAS" -lt "$SCALE_UP_REPLICAS" ]; then
-      echo "High resource usage detected, scaling up..."
-      docker-compose up -d --scale mind-agents=$((CURRENT_REPLICAS + 1))
-    fi
-  elif (( $(echo "$CPU_USAGE < 30" | bc -l) )) && (( $(echo "$MEMORY_USAGE < 30" | bc -l) )); then
-    if [ "$CURRENT_REPLICAS" -gt "$SCALE_DOWN_REPLICAS" ]; then
-      echo "Low resource usage detected, scaling down..."
-      docker-compose up -d --scale mind-agents=$((CURRENT_REPLICAS - 1))
-    fi
-  fi
-  
-  sleep 60
-done
+  // Input sanitization and validation
+  async validateAndSanitizeInput(input: any, schema: ValidationSchema): Promise<any> {
+    // XSS prevention
+    const sanitized = this.sanitizeHTML(input);
+    
+    // SQL injection prevention (even though we use ORMs)
+    const escaped = this.escapeSQL(sanitized);
+    
+    // Schema validation with Zod
+    const validated = await schema.parseAsync(escaped);
+    
+    // Additional business logic validation
+    await this.businessRuleValidation(validated);
+    
+    return validated;
+  }
+}
 ```
 
-This comprehensive deployment and operations framework ensures SYMindX can be reliably deployed, monitored, and maintained in production environments with high availability and performance. [[memory:2184189]]
+### Encryption Patterns
+
+```typescript
+class EncryptionManager {
+  private readonly algorithm = 'aes-256-gcm';
+  private readonly keyDerivation = 'pbkdf2';
+  
+  // Encrypt sensitive agent data
+  async encryptAgentData(data: any, agentId: string): Promise<EncryptedData> {
+    const key = await this.deriveKey(agentId);
+    const iv = crypto.randomBytes(16);
+    
+    const cipher = crypto.createCipher(this.algorithm, key);
+    cipher.setAAD(Buffer.from(agentId)); // Additional authenticated data
+    
+    let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    
+    const authTag = cipher.getAuthTag();
+    
+    return {
+      data: encrypted,
+      iv: iv.toString('hex'),
+      authTag: authTag.toString('hex'),
+      algorithm: this.algorithm
+    };
+  }
+  
+  // Decrypt agent data
+  async decryptAgentData(encryptedData: EncryptedData, agentId: string): Promise<any> {
+    const key = await this.deriveKey(agentId);
+    
+    const decipher = crypto.createDecipher(encryptedData.algorithm, key);
+    decipher.setAAD(Buffer.from(agentId));
+    decipher.setAuthTag(Buffer.from(encryptedData.authTag, 'hex'));
+    
+    let decrypted = decipher.update(encryptedData.data, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    
+    return JSON.parse(decrypted);
+  }
+}
+```
+
+## Vulnerability Prevention
+
+### Common Attack Vectors
+
+**🚫 Injection Attacks**
+
+```typescript
+class InjectionPrevention {
+  // Prevent prompt injection in AI interactions
+  sanitizeAIPrompt(userInput: string): string {
+    // Remove common prompt injection patterns
+    const dangerousPatterns = [
+      /ignore.{0,20}previous.{0,20}instructions/gi,
+      /system.{0,10}prompt/gi,
+      /\[.{0,50}INST.{0,50}\]/gi,
+      /<.{0,20}system.{0,20}>/gi
+    ];
+    
+    let sanitized = userInput;
+    for (const pattern of dangerousPatterns) {
+      sanitized = sanitized.replace(pattern, '[FILTERED]');
+    }
+    
+    // Limit input length
+    return sanitized.substring(0, 4000);
+  }
+  
+  // Prevent code injection in dynamic module loading
+  validateModulePath(modulePath: string): boolean {
+    const allowedPaths = [
+      /^modules\/memory\/providers\/.+\.js$/,
+      /^modules\/emotion\/.+\.js$/,
+      /^modules\/cognition\/.+\.js$/
+    ];
+    
+    return allowedPaths.some(pattern => pattern.test(modulePath));
+  }
+}
+```
+
+**🛡️ Access Control**
+
+```typescript
+interface Permission {
+  resource: string;
+  action: string;
+  conditions?: Record<string, any>;
+}
+
+class AccessController {
+  async checkPermission(
+    agentId: string, 
+    resource: string, 
+    action: string, 
+    context?: any
+  ): Promise<boolean> {
+    const agent = await this.getAgent(agentId);
+    const permissions = await this.getAgentPermissions(agent);
+    
+    for (const permission of permissions) {
+      if (this.matchesPermission(permission, resource, action)) {
+        // Check additional conditions
+        if (permission.conditions) {
+          return this.evaluateConditions(permission.conditions, context);
+        }
+        return true;
+      }
+    }
+    
+    // Log unauthorized access attempt
+    await this.auditLogger.logUnauthorizedAccess({
+      agentId,
+      resource,
+      action,
+      timestamp: new Date(),
+      context
+    });
+    
+    return false;
+  }
+}
+```
+
+## Security Monitoring
+
+### Audit Logging
+
+```typescript
+interface AuditEvent {
+  eventType: 'auth' | 'access' | 'error' | 'admin';
+  agentId?: string;
+  userId?: string;
+  resource: string;
+  action: string;
+  result: 'success' | 'failure' | 'blocked';
+  metadata: Record<string, any>;
+  timestamp: Date;
+  ipAddress?: string;
+  userAgent?: string;
+}
+
+class AuditLogger {
+  async logSecurityEvent(event: AuditEvent): Promise<void> {
+    // Store in secure audit log
+    await this.auditDB.insert('security_events', {
+      ...event,
+      hash: this.calculateEventHash(event) // Tamper detection
+    });
+    
+    // Real-time alerting for critical events
+    if (this.isCriticalEvent(event)) {
+      await this.alertManager.sendSecurityAlert(event);
+    }
+    
+    // Update security metrics
+    await this.metricsCollector.updateSecurityMetrics(event);
+  }
+  
+  // Detect suspicious patterns
+  async detectAnomalies(agentId: string): Promise<SecurityAlert[]> {
+    const recentEvents = await this.getRecentEvents(agentId, '24h');
+    const alerts: SecurityAlert[] = [];
+    
+    // Unusual access patterns
+    if (this.detectUnusualAccessPatterns(recentEvents)) {
+      alerts.push({
+        type: 'unusual_access',
+        severity: 'medium',
+        agentId,
+        description: 'Unusual access patterns detected'
+      });
+    }
+    
+    // Multiple failed authentications
+    const failedAuths = recentEvents.filter(e => 
+      e.eventType === 'auth' && e.result === 'failure'
+    );
+    
+    if (failedAuths.length > 5) {
+      alerts.push({
+        type: 'brute_force',
+        severity: 'high',
+        agentId,
+        description: 'Multiple authentication failures detected'
+      });
+    }
+    
+    return alerts;
+  }
+}
+```
+
+### Security Health Checks
+
+```typescript
+class SecurityHealthChecker {
+  async performSecurityAudit(): Promise<SecurityAuditReport> {
+    const report: SecurityAuditReport = {
+      timestamp: new Date(),
+      overallScore: 0,
+      checks: []
+    };
+    
+    // API key security check
+    report.checks.push(await this.checkAPIKeySecurity());
+    
+    // Agent authentication check
+    report.checks.push(await this.checkAgentAuthentication());
+    
+    // Permission configuration check
+    report.checks.push(await this.checkPermissionConfiguration());
+    
+    // Encryption implementation check
+    report.checks.push(await this.checkEncryptionImplementation());
+    
+    // Vulnerability scan
+    report.checks.push(await this.performVulnerabilityScan());
+    
+    // Calculate overall score
+    report.overallScore = this.calculateSecurityScore(report.checks);
+    
+    return report;
+  }
+}
+```
+
+## Configuration Requirements
+
+### Security Configuration Schema
+
+```typescript
+interface SecurityConfig {
+  authentication: {
+    sessionTimeout: string;        // Default: "24h"
+    maxConcurrentSessions: number; // Default: 5
+    requireMFA: boolean;           // Default: false
+    passwordPolicy: {
+      minLength: number;           // Default: 12
+      requireSpecialChars: boolean; // Default: true
+      maxAge: string;              // Default: "90d"
+    };
+  };
+  
+  encryption: {
+    algorithm: string;             // Default: "aes-256-gcm"
+    keyRotationInterval: string;   // Default: "30d"
+    enableTransitEncryption: boolean; // Default: true
+  };
+  
+  audit: {
+    enableAuditLogging: boolean;   // Default: true
+    retentionPeriod: string;       // Default: "1y"
+    enableRealTimeAlerts: boolean; // Default: true
+    alertThresholds: {
+      failedAuthAttempts: number;  // Default: 5
+      unusualAccessCount: number;  // Default: 10
+    };
+  };
+  
+  rateLimiting: {
+    enabled: boolean;              // Default: true
+    windowSize: string;            // Default: "1h"
+    maxRequests: {
+      telegram: number;            // Default: 30
+      slack: number;               // Default: 100
+      discord: number;             // Default: 50
+      api: number;                 // Default: 1000
+    };
+  };
+}
+```
+
+## Security Testing Requirements
+
+**🧪 Security Test Patterns**
+
+- Penetration testing for all authentication flows
+- API key rotation testing
+- Injection attack simulation
+- Access control verification
+- Encryption/decryption validation
+- Audit log integrity testing
+- Performance impact assessment
+
+**🔍 Continuous Security Monitoring**
+
+- Real-time threat detection
+- Automated vulnerability scanning
+- Security metrics dashboard
+- Incident response automation
+- Compliance reporting
+
+**📋 Security Checklist**
+
+Before deploying any agent or extension:
+
+- [ ] All API keys stored securely (never in code)
+- [ ] Authentication flows tested
+- [ ] Permission boundaries verified
+- [ ] Input validation implemented
+- [ ] Audit logging configured
+- [ ] Rate limiting enabled
+- [ ] Encryption keys rotated
+- [ ] Security tests passing
+- [ ] Vulnerability scan clean
+- [ ] Access patterns documented
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
