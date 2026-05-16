@@ -1,0 +1,9 @@
+{
+  "name": "stolostron--acm-infra",
+  "displayName": "acm-infra",
+  "description": "acm-infra",
+  "version": "1.0.0",
+  "author": "stolostron",
+  "homepage": "https://github.com/stolostron/acm-infra",
+  "skills": []
+}
