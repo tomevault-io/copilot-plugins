@@ -1,0 +1,9 @@
+{
+  "name": "january-ai--food-scan-benchmarks",
+  "displayName": "food-scan-benchmarks",
+  "description": "Benchmarks of January's AI Food Scanner against other multimodal LLMs",
+  "version": "1.0.0",
+  "author": "January-ai",
+  "homepage": "https://github.com/January-ai/food-scan-benchmarks",
+  "skills": []
+}
