@@ -2,9 +2,9 @@
   "name": "eventcore",
   "owner": "jwilger",
   "repo": "eventcore",
-  "description": "",
+  "description": "Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jwilger",
+  "source_url": "https://github.com/jwilger/eventcore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T08:44:01Z"
+  "distributed_at": "2026-05-16T02:53:08Z"
 }
