@@ -1,0 +1,9 @@
+{
+  "name": "yellowcooln--meshcore-mqtt-dashboard",
+  "displayName": "meshcore-mqtt-dashboard",
+  "description": "A lightweight dashboard for MQTT brokers that tracks nodes",
+  "version": "1.0.0",
+  "author": "yellowcooln",
+  "homepage": "https://github.com/yellowcooln/meshcore-mqtt-dashboard",
+  "skills": []
+}
