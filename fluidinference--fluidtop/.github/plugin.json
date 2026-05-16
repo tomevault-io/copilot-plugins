@@ -1,0 +1,9 @@
+{
+  "name": "fluidinference--fluidtop",
+  "displayName": "fluidtop",
+  "description": "MacOS hardware performance monitoring CLI tool with a focus on AI Workloads",
+  "version": "1.0.0",
+  "author": "FluidInference",
+  "homepage": "https://github.com/FluidInference/fluidtop",
+  "skills": []
+}
