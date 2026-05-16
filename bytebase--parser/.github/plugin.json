@@ -1,0 +1,9 @@
+{
+  "name": "bytebase--parser",
+  "displayName": "parser",
+  "description": "Mono repository of ANTLR v4 based parsers.",
+  "version": "1.0.0",
+  "author": "bytebase",
+  "homepage": "https://github.com/bytebase/parser",
+  "skills": []
+}
