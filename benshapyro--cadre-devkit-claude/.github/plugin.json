@@ -1,0 +1,42 @@
+{
+  "name": "benshapyro--cadre-devkit-claude",
+  "displayName": "cadre-devkit-claude",
+  "description": "Cadre team development kit for Claude Code - quality gates, security hooks, workflow commands, skills & agents",
+  "version": "1.0.0",
+  "author": "benshapyro",
+  "homepage": "https://github.com/benshapyro/cadre-devkit-claude",
+  "skills": [
+    {
+      "name": "api-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-formatter",
+      "description": ""
+    },
+    {
+      "name": "devkit-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "error-handler",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "tailwind-conventions",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    }
+  ]
+}
