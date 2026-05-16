@@ -1,0 +1,9 @@
+{
+  "name": "gyvastis--chrome-extension-meshy-ai-easy-download",
+  "displayName": "chrome-extension-meshy.ai-easy-download",
+  "description": "adds download buttons to meshy.ai for quick GLB/STL downloads",
+  "version": "1.0.0",
+  "author": "Gyvastis",
+  "homepage": "https://github.com/Gyvastis/chrome-extension-meshy.ai-easy-download",
+  "skills": []
+}
