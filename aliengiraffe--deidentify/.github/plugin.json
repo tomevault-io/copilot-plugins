@@ -1,0 +1,9 @@
+{
+  "name": "aliengiraffe--deidentify",
+  "displayName": "deidentify",
+  "description": "Simple yet powerful tool for identifying and anonymizing personal information in various formats.",
+  "version": "1.0.0",
+  "author": "aliengiraffe",
+  "homepage": "https://github.com/aliengiraffe/deidentify",
+  "skills": []
+}
