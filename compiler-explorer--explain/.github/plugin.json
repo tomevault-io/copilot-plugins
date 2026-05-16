@@ -1,0 +1,9 @@
+{
+  "name": "compiler-explorer--explain",
+  "displayName": "explain",
+  "description": "Explain Compiler Explorer output using AI",
+  "version": "1.0.0",
+  "author": "compiler-explorer",
+  "homepage": "https://github.com/compiler-explorer/explain",
+  "skills": []
+}
