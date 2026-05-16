@@ -1,0 +1,44 @@
+{
+  "name": "how-AI-superchange-your-crazy-Final-Week",
+  "owner": "NoviaMiller",
+  "repo": "how-AI-superchange-your-crazy-Final-Week",
+  "description": "\u57fa\u4e8eclaude\uff0c\u4ee5TJU - 24252 - \u6570\u636e\u5e93\u8bd5\u5377\u4e3a\u4f8b\uff0c\u6559\u4f60\u5982\u4f55\u8fc5\u901f\u4ece\u96f6\u5f00\u59cb\u9762\u5411\u8bd5\u5377\u5b66\u4e60\uff0c\u987a\u5229\u7a81\u51fb\u8003\u8bd5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NoviaMiller/how-AI-superchange-your-crazy-Final-Week",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T03:42:09Z"
+}
