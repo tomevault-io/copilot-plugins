@@ -1,0 +1,9 @@
+{
+  "name": "bukhr--atlas",
+  "displayName": "atlas",
+  "description": "Atlas turns Google Workspace into an organizational wiki. A lightweight, low-cost alternative to Notion, Coda, or Confluence.",
+  "version": "1.0.0",
+  "author": "bukhr",
+  "homepage": "https://github.com/bukhr/atlas",
+  "skills": []
+}
