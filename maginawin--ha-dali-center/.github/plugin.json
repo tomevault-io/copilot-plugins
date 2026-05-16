@@ -1,0 +1,9 @@
+{
+  "name": "maginawin--ha-dali-center",
+  "displayName": "ha-dali-center",
+  "description": "A Home Assistant custom integration that provides comprehensive DALI lighting control through DALI Center gateways.",
+  "version": "1.0.0",
+  "author": "maginawin",
+  "homepage": "https://github.com/maginawin/ha-dali-center",
+  "skills": []
+}
