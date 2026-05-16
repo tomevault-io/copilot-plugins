@@ -1,0 +1,9 @@
+{
+  "name": "amperity--chuck-data",
+  "displayName": "chuck-data",
+  "description": "Command-line AI for customer data",
+  "version": "1.0.0",
+  "author": "amperity",
+  "homepage": "https://github.com/amperity/chuck-data",
+  "skills": []
+}
