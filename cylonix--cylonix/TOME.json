@@ -4,7 +4,7 @@
   "repo": "cylonix",
   "description": "Fully open sourced client app alternative to Tailscale",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cylonix/cylonix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T05:54:54Z"
+  "distributed_at": "2026-05-16T06:07:08Z"
 }
