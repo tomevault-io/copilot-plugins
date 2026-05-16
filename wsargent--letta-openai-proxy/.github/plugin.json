@@ -1,0 +1,9 @@
+{
+  "name": "wsargent--letta-openai-proxy",
+  "displayName": "letta-openai-proxy",
+  "description": "An OpenAI API compatible proxy for Letta agents.  Use this for Open WebUI etc.",
+  "version": "1.0.0",
+  "author": "wsargent",
+  "homepage": "https://github.com/wsargent/letta-openai-proxy",
+  "skills": []
+}
