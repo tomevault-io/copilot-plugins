@@ -1,0 +1,9 @@
+{
+  "name": "vheissu--helix-stadium-tools",
+  "displayName": "helix-stadium-tools",
+  "description": "A repository for tools/scripts and info on the Helix Stadium wireless editing protocol. This repository is not official and unaffiliated with Line 6. Be careful.",
+  "version": "1.0.0",
+  "author": "Vheissu",
+  "homepage": "https://github.com/Vheissu/helix-stadium-tools",
+  "skills": []
+}
