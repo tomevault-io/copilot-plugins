@@ -1,0 +1,9 @@
+{
+  "name": "urtti--ez",
+  "displayName": "ez",
+  "description": "Source code repo for the Mac command line tool ez, distribution Homebrew",
+  "version": "1.0.0",
+  "author": "urtti",
+  "homepage": "https://github.com/urtti/ez",
+  "skills": []
+}
