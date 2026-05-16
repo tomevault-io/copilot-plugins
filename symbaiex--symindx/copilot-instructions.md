@@ -1,610 +1,534 @@
-## 021-advanced-context
+## 022-workflow-automation
 
-> **Rule Priority:** Advanced Intelligence
+> This rule defines comprehensive patterns for leveraging Cursor's workflow automation capabilities, including background agents, action-based triggers, and multi-agent coordination for complex development tasks.
 
-# Advanced Context Awareness and Dynamic Rule Activation
+# Cursor Workflow Automation & Action Orchestration
 
-**Rule Priority:** Advanced Intelligence  
-**Activation:** All development activities with dynamic context switching  
-**Scope:** Global context management and intelligent rule selection
+This rule defines comprehensive patterns for leveraging Cursor's workflow automation capabilities, including background agents, action-based triggers, and multi-agent coordination for complex development tasks.
 
-## Overview
+## Core Workflow Architecture
 
-Cursor's advanced context system in v1.2+ enables sophisticated awareness of development environment, file types, git status, time of day, project phase, and user patterns. This rule creates intelligent context switching that dynamically activates relevant rules and optimizes AI assistance based on current conditions.
+### Workflow Definition Patterns
 
-## Context Detection Systems
+**Declarative Workflow Files**
+```yaml
+# .cursor/workflows/ai-portal-validation.yaml
+name: "AI Portal Validation Pipeline"
+description: "Automated validation of new AI portal configurations"
+triggers:
+  - type: file_change
+    patterns: ["mind-agents/src/portals/*/config.json"]
+  - type: manual
+    command: "validate-portal"
+  - type: schedule
+    cron: "0 2 * * *"  # Daily at 2 AM
 
-### Environment Context Detection
+actions:
+  - name: "validate-config"
+    agent: "config-validator"
+    inputs:
+      config_file: "${trigger.file_path}"
+    timeout: 300
+    
+  - name: "test-connection"
+    agent: "connection-tester"
+    depends_on: ["validate-config"]
+    inputs:
+      portal_name: "${actions.validate-config.outputs.portal_name}"
+    parallel: false
+    
+  - name: "generate-docs"
+    agent: "doc-generator"
+    depends_on: ["test-connection"]
+    inputs:
+      portal_config: "${actions.validate-config.outputs.config}"
+      test_results: "${actions.test-connection.outputs.results}"
 
+error_handling:
+  retry_attempts: 3
+  retry_delay: 30
+  fallback: "notify-maintainers"
+```
+
+**Workflow Orchestration Rules**
 ```typescript
-// Advanced context detection engine
-interface ContextState {
-  // File and Project Context
-  currentFile: string;
-  fileType: string;
-  fileSize: number;
-  projectType: string;
-  
-  // Git Context
-  gitBranch: string;
-  gitStatus: 'clean' | 'modified' | 'staged' | 'conflict';
-  uncommittedChanges: number;
-  lastCommitTime: Date;
-  
-  // Development Context
-  activeRules: string[];
-  recentFiles: string[];
-  openTabs: string[];
-  cursorPosition: { line: number; column: number };
-  
-  // Temporal Context
-  timeOfDay: 'morning' | 'afternoon' | 'evening' | 'night';
-  dayOfWeek: string;
-  timezone: string;
-  
-  // User Context
-  workingPattern: 'focused' | 'exploratory' | 'debugging' | 'reviewing';
-  errorCount: number;
-  productivityScore: number;
-  
-  // System Context
-  cpuUsage: number;
-  memoryUsage: number;
-  networkStatus: 'online' | 'offline' | 'slow';
+// .cursor/workflows/types.ts
+interface WorkflowDefinition {
+  name: string;
+  description: string;
+  triggers: WorkflowTrigger[];
+  actions: WorkflowAction[];
+  error_handling: ErrorHandlingConfig;
+  monitoring: MonitoringConfig;
 }
 
-class ContextEngine {
-  private state: ContextState;
-  private listeners: ContextListener[] = [];
-  
-  async detectContext(): Promise<ContextState> {
-    return {
-      // File context
-      currentFile: await this.getCurrentFile(),
-      fileType: await this.detectFileType(),
-      fileSize: await this.getFileSize(),
-      projectType: await this.detectProjectType(),
-      
-      // Git context
-      gitBranch: await this.getGitBranch(),
-      gitStatus: await this.getGitStatus(),
-      uncommittedChanges: await this.countUncommittedChanges(),
-      lastCommitTime: await this.getLastCommitTime(),
-      
-      // Development context
-      activeRules: await this.getActiveRules(),
-      recentFiles: await this.getRecentFiles(),
-      openTabs: await this.getOpenTabs(),
-      cursorPosition: await this.getCursorPosition(),
-      
-      // Temporal context
-      timeOfDay: this.getTimeOfDay(),
-      dayOfWeek: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      
-      // User context
-      workingPattern: await this.detectWorkingPattern(),
-      errorCount: await this.getErrorCount(),
-      productivityScore: await this.calculateProductivityScore(),
-      
-      // System context
-      cpuUsage: await this.getCPUUsage(),
-      memoryUsage: await this.getMemoryUsage(),
-      networkStatus: await this.getNetworkStatus()
-    };
-  }
-  
-  onContextChange(listener: ContextListener): void {
-    this.listeners.push(listener);
-  }
-  
-  private async detectWorkingPattern(): Promise<string> {
-    // Analyze recent activity patterns
-    const recentActions = await this.getRecentActions();
-    
-    if (recentActions.includes('debugging')) return 'debugging';
-    if (recentActions.includes('exploring')) return 'exploratory';
-    if (recentActions.includes('reviewing')) return 'reviewing';
-    return 'focused';
-  }
+interface WorkflowAction {
+  name: string;
+  agent: string;
+  inputs: Record<string, any>;
+  outputs?: Record<string, any>;
+  depends_on?: string[];
+  parallel?: boolean;
+  timeout?: number;
+  retry_policy?: RetryPolicy;
 }
 ```
 
-### SYMindX-Specific Context
+### Action-Based Trigger System
 
-```typescript
-// SYMindX project-specific context detection
-class SYMindXContextDetector {
-  async detectSYMindXContext(): Promise<SYMindXContext> {
-    const currentFile = await this.getCurrentFile();
-    
-    return {
-      // Component detection
-      component: this.detectComponent(currentFile),
+**Event-Driven Automation**
+```yaml
+# .cursor/workflows/triggers/git-events.yaml
+triggers:
+  git_commit:
+    patterns:
+      - "feat(portals): *"
+      - "fix(memory): *"
+    actions:
+      - validate-affected-systems
+      - run-integration-tests
+      - update-documentation
       
-      // Agent context
-      agentType: this.detectAgentType(currentFile),
+  git_merge:
+    branches: ["main", "develop"]
+    actions:
+      - deploy-to-staging
+      - run-performance-tests
+      - notify-team
       
-      // Module context
-      moduleType: this.detectModuleType(currentFile),
+  file_change:
+    patterns:
+      - "mind-agents/src/characters/*.json"
+    actions:
+      - validate-character-schema
+      - update-character-docs
+      - test-character-behavior
+```
+
+**Development Lifecycle Integration**
+```yaml
+# .cursor/workflows/triggers/development.yaml
+triggers:
+  pr_opened:
+    conditions:
+      - label: "needs-review"
+      - files_changed: "*.ts"
+    actions:
+      - code-quality-check
+      - security-scan
+      - documentation-check
       
-      // Portal context
-      portalProvider: this.detectPortalProvider(currentFile),
+  issue_labeled:
+    labels: ["bug", "high-priority"]
+    actions:
+      - create-hotfix-branch
+      - assign-emergency-team
+      - schedule-investigation
       
-      // Architecture layer
-      layer: this.detectArchitectureLayer(currentFile)
-    };
-  }
-  
-  private detectComponent(filePath: string): string {
-    if (filePath.includes('mind-agents/src/core/')) return 'core-runtime';
-    if (filePath.includes('mind-agents/src/portals/')) return 'ai-portal';
-    if (filePath.includes('mind-agents/src/memory/')) return 'memory-system';
-    if (filePath.includes('mind-agents/src/emotion/')) return 'emotion-system';
-    if (filePath.includes('mind-agents/src/cognition/')) return 'cognition-module';
-    if (filePath.includes('mind-agents/src/extensions/')) return 'platform-extension';
-    if (filePath.includes('mind-agents/src/characters/')) return 'character-system';
-    if (filePath.includes('website/')) return 'web-interface';
-    if (filePath.includes('docs-site/')) return 'documentation';
-    return 'general';
-  }
-  
-  private detectAgentType(filePath: string): string | null {
-    // Extract agent type from file path or content
-    if (filePath.includes('characters/')) {
-      const filename = filePath.split('/').pop();
-      return filename?.replace('.json', '') || null;
-    }
-    return null;
-  }
-  
-  private detectModuleType(filePath: string): string | null {
-    if (filePath.includes('memory/providers/')) return 'memory-provider';
-    if (filePath.includes('memory/embeddings/')) return 'embedding-service';
-    if (filePath.includes('emotion/engines/')) return 'emotion-engine';
-    if (filePath.includes('cognition/planners/')) return 'task-planner';
-    return null;
-  }
-  
-  private detectPortalProvider(filePath: string): string | null {
-    const providers = ['openai', 'anthropic', 'groq', 'xai', 'google-vertex', 'google-generative'];
-    for (const provider of providers) {
-      if (filePath.includes(`portals/${provider}/`)) return provider;
-    }
-    return null;
-  }
-  
-  private detectArchitectureLayer(filePath: string): string {
-    if (filePath.includes('src/core/')) return 'infrastructure';
-    if (filePath.includes('src/modules/')) return 'domain';
-    if (filePath.includes('src/extensions/')) return 'application';
-    if (filePath.includes('website/src/')) return 'presentation';
-    return 'unknown';
-  }
-}
+  deployment_complete:
+    environment: "production"
+    actions:
+      - run-smoke-tests
+      - update-monitoring
+      - notify-stakeholders
 ```
 
-## Dynamic Rule Activation
+## Agent Coordination Patterns
 
-### Context-Based Rule Selection
+### Multi-Agent Workflows
 
+**Sequential Agent Pipeline**
+```yaml
+# .cursor/workflows/memory-optimization.yaml
+name: "Memory System Optimization"
+description: "Automated memory system maintenance and optimization"
+
+agents:
+  memory-analyzer:
+    model: "gpt-4o"
+    context: ["@mind-agents/src/memory/", "@docs/memory/"]
+    capabilities: ["analysis", "reporting"]
+    
+  memory-optimizer:
+    model: "claude-3.5-sonnet"
+    context: ["@mind-agents/src/memory/", "@AI_MEMORY.md"]
+    capabilities: ["code-modification", "optimization"]
+    
+  memory-tester:
+    model: "gpt-4.1-mini"
+    context: ["@mind-agents/src/__tests__/memory/"]
+    capabilities: ["testing", "validation"]
+
+workflow:
+  - step: "analyze"
+    agent: "memory-analyzer"
+    task: "Analyze memory usage patterns and identify optimization opportunities"
+    outputs: ["analysis_report", "optimization_candidates"]
+    
+  - step: "optimize"
+    agent: "memory-optimizer"
+    depends_on: ["analyze"]
+    task: "Implement optimizations based on analysis report"
+    inputs: 
+      analysis: "${steps.analyze.outputs.analysis_report}"
+      candidates: "${steps.analyze.outputs.optimization_candidates}"
+    outputs: ["optimized_code", "change_summary"]
+    
+  - step: "test"
+    agent: "memory-tester"
+    depends_on: ["optimize"]
+    task: "Test optimized memory system for correctness and performance"
+    inputs:
+      changes: "${steps.optimize.outputs.change_summary}"
+    outputs: ["test_results", "performance_metrics"]
+```
+
+**Parallel Agent Execution**
+```yaml
+# .cursor/workflows/comprehensive-testing.yaml
+name: "Comprehensive System Testing"
+description: "Parallel testing across all SYMindX components"
+
+parallel_groups:
+  core_systems:
+    - agent: "portal-tester"
+      task: "Test all AI portal configurations"
+      context: ["@mind-agents/src/portals/"]
+      
+    - agent: "memory-tester"
+      task: "Test memory provider implementations"
+      context: ["@mind-agents/src/memory/"]
+      
+    - agent: "emotion-tester"
+      task: "Test emotion system responses"
+      context: ["@mind-agents/src/emotion/"]
+      
+  extensions:
+    - agent: "telegram-tester"
+      task: "Test Telegram integration"
+      context: ["@mind-agents/src/extensions/telegram/"]
+      
+    - agent: "api-tester"
+      task: "Test REST/WebSocket APIs"
+      context: ["@mind-agents/src/extensions/api/"]
+      
+    - agent: "mcp-tester"
+      task: "Test MCP server implementation"
+      context: ["@mind-agents/src/extensions/mcp-server/"]
+
+coordination:
+  wait_for_all: true
+  aggregate_results: true
+  failure_threshold: 0.8  # 80% must pass
+```
+
+### Agent Handoff Patterns
+
+**Context Transfer Protocol**
 ```typescript
-// Dynamic rule activation based on context
-interface RuleActivationConfig {
-  ruleId: string;
-  priority: number;
-  conditions: ContextCondition[];
-  conflictResolution: 'override' | 'merge' | 'skip';
+// .cursor/workflows/agent-handoff.ts
+interface AgentHandoff {
+  from_agent: string;
+  to_agent: string;
+  context_transfer: {
+    preserve: string[];  // What to keep
+    transform: string[]; // What to modify
+    summarize: string[]; // What to compress
+  };
+  validation: {
+    required_outputs: string[];
+    quality_checks: string[];
+  };
 }
 
-interface ContextCondition {
-  type: 'file' | 'git' | 'time' | 'user' | 'system' | 'project';
-  field: string;
-  operator: 'equals' | 'contains' | 'matches' | 'greater' | 'less';
-  value: any;
-  weight: number;
-}
-
-class DynamicRuleEngine {
-  private rules: Map<string, RuleActivationConfig> = new Map();
-  
-  constructor() {
-    this.initializeRules();
+// Example handoff configuration
+const codeGenToReviewHandoff: AgentHandoff = {
+  from_agent: "code-generator",
+  to_agent: "code-reviewer",
+  context_transfer: {
+    preserve: ["original_requirements", "generated_code", "test_cases"],
+    transform: ["context_summary"],
+    summarize: ["implementation_decisions", "alternative_approaches"]
+  },
+  validation: {
+    required_outputs: ["code_diff", "implementation_plan"],
+    quality_checks: ["syntax_valid", "tests_passing", "style_compliant"]
   }
-  
-  private initializeRules(): void {
-    // Core TypeScript rules - always active
-    this.addRule({
-      ruleId: '003-typescript-standards',
-      priority: 100,
-      conditions: [
-        { type: 'file', field: 'fileType', operator: 'matches', value: /\.(ts|tsx)$/, weight: 1.0 }
-      ],
-      conflictResolution: 'merge'
-    });
-    
-    // Git hooks - active during git operations
-    this.addRule({
-      ruleId: '018-git-hooks',
-      priority: 90,
-      conditions: [
-        { type: 'git', field: 'gitStatus', operator: 'equals', value: 'staged', weight: 0.8 },
-        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'focused', weight: 0.6 }
-      ],
-      conflictResolution: 'override'
-    });
-    
-    // Background agents - active during complex tasks
-    this.addRule({
-      ruleId: '019-background-agents',
-      priority: 85,
-      conditions: [
-        { type: 'file', field: 'fileSize', operator: 'greater', value: 1000, weight: 0.7 },
-        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'exploratory', weight: 0.8 },
-        { type: 'system', field: 'cpuUsage', operator: 'less', value: 80, weight: 0.5 }
-      ],
-      conflictResolution: 'merge'
-    });
-    
-    // MCP integration - active when working with external services
-    this.addRule({
-      ruleId: '020-mcp-integration',
-      priority: 80,
-      conditions: [
-        { type: 'file', field: 'currentFile', operator: 'contains', value: 'mcp', weight: 0.9 },
-        { type: 'project', field: 'component', operator: 'equals', value: 'platform-extension', weight: 0.7 }
-      ],
-      conflictResolution: 'merge'
-    });
-    
-    // AI portal rules - active when working with AI providers
-    this.addRule({
-      ruleId: '005-ai-integration-patterns',
-      priority: 75,
-      conditions: [
-        { type: 'project', field: 'component', operator: 'equals', value: 'ai-portal', weight: 1.0 },
-        { type: 'project', field: 'portalProvider', operator: 'matches', value: /.+/, weight: 0.8 }
-      ],
-      conflictResolution: 'merge'
-    });
-    
-    // Memory system rules - active in memory components
-    this.addRule({
-      ruleId: '011-data-management-patterns',
-      priority: 70,
-      conditions: [
-        { type: 'project', field: 'component', operator: 'equals', value: 'memory-system', weight: 1.0 },
-        { type: 'file', field: 'currentFile', operator: 'contains', value: 'memory', weight: 0.8 }
-      ],
-      conflictResolution: 'merge'
-    });
-    
-    // Testing rules - active during testing
-    this.addRule({
-      ruleId: '008-testing-and-quality-standards',
-      priority: 65,
-      conditions: [
-        { type: 'file', field: 'currentFile', operator: 'contains', value: '__tests__', weight: 1.0 },
-        { type: 'file', field: 'currentFile', operator: 'contains', value: '.test.', weight: 1.0 },
-        { type: 'file', field: 'currentFile', operator: 'contains', value: '.spec.', weight: 1.0 }
-      ],
-      conflictResolution: 'override'
-    });
-    
-    // Performance rules - active during optimization
-    this.addRule({
-      ruleId: '012-performance-optimization',
-      priority: 60,
-      conditions: [
-        { type: 'user', field: 'workingPattern', operator: 'equals', value: 'debugging', weight: 0.9 },
-        { type: 'system', field: 'cpuUsage', operator: 'greater', value: 70, weight: 0.7 },
-        { type: 'user', field: 'errorCount', operator: 'greater', value: 5, weight: 0.6 }
-      ],
-      conflictResolution: 'merge'
-    });
-  }
-  
-  async getActiveRules(context: ContextState): Promise<string[]> {
-    const scored = new Map<string, number>();
-    
-    for (const [ruleId, config] of this.rules) {
-      const score = this.calculateRuleScore(config, context);
-      if (score > 0.5) { // Activation threshold
-        scored.set(ruleId, score);
-      }
-    }
-    
-    // Sort by score (highest first)
-    return Array.from(scored.entries())
-      .sort(([, a], [, b]) => b - a)
-      .map(([ruleId]) => ruleId);
-  }
-  
-  private calculateRuleScore(config: RuleActivationConfig, context: ContextState): number {
-    let totalScore = 0;
-    let totalWeight = 0;
-    
-    for (const condition of config.conditions) {
-      const conditionMet = this.evaluateCondition(condition, context);
-      if (conditionMet) {
-        totalScore += condition.weight;
-      }
-      totalWeight += condition.weight;
-    }
-    
-    return totalWeight > 0 ? totalScore / totalWeight : 0;
-  }
-  
-  private evaluateCondition(condition: ContextCondition, context: ContextState): boolean {
-    const value = this.getContextValue(condition.type, condition.field, context);
-    
-    switch (condition.operator) {
-      case 'equals':
-        return value === condition.value;
-      case 'contains':
-        return typeof value === 'string' && value.includes(condition.value);
-      case 'matches':
-        return condition.value instanceof RegExp && condition.value.test(value);
-      case 'greater':
-        return typeof value === 'number' && value > condition.value;
-      case 'less':
-        return typeof value === 'number' && value < condition.value;
-      default:
-        return false;
-    }
-  }
-  
-  private getContextValue(type: string, field: string, context: ContextState): any {
-    switch (type) {
-      case 'file':
-        return context[field as keyof ContextState];
-      case 'git':
-        return context[field as keyof ContextState];
-      case 'time':
-        return context[field as keyof ContextState];
-      case 'user':
-        return context[field as keyof ContextState];
-      case 'system':
-        return context[field as keyof ContextState];
-      case 'project':
-        // Would need to integrate with SYMindXContextDetector
-        return null;
-      default:
-        return null;
-    }
-  }
-}
+};
 ```
 
-## Smart Context Switching
+## SYMindX-Specific Workflows
 
-### Temporal Context Rules
+### AI Portal Management Automation
 
+**Portal Validation Pipeline**
+```yaml
+# .cursor/workflows/portal-lifecycle.yaml
+name: "AI Portal Lifecycle Management"
+
+workflows:
+  new_portal_setup:
+    trigger: "file_created:mind-agents/src/portals/*/index.ts"
+    steps:
+      - validate_portal_interface
+      - test_api_connection
+      - generate_configuration_docs
+      - create_test_suite
+      - update_portal_registry
+      
+  portal_configuration_change:
+    trigger: "file_modified:**/config.json"
+    steps:
+      - validate_configuration_schema
+      - test_backward_compatibility
+      - update_environment_configs
+      - refresh_documentation
+      - notify_dependent_services
+      
+  portal_performance_monitoring:
+    trigger: "schedule:0 */6 * * *"  # Every 6 hours
+    steps:
+      - benchmark_all_portals
+      - analyze_response_times
+      - check_error_rates
+      - generate_performance_report
+      - alert_on_degradation
+```
+
+### Memory System Maintenance
+
+**Automated Memory Operations**
+```yaml
+# .cursor/workflows/memory-maintenance.yaml
+name: "Memory System Maintenance"
+
+workflows:
+  vector_optimization:
+    trigger: "schedule:0 1 * * 0"  # Weekly on Sunday at 1 AM
+    steps:
+      - analyze_vector_usage_patterns
+      - identify_stale_embeddings
+      - compress_sparse_vectors
+      - reindex_frequently_accessed_data
+      - validate_search_performance
+      
+  conversation_cleanup:
+    trigger: "schedule:0 2 * * *"  # Daily at 2 AM
+    steps:
+      - identify_expired_conversations
+      - archive_old_sessions
+      - cleanup_orphaned_memories
+      - optimize_database_indexes
+      - backup_critical_memories
+      
+  memory_consistency_check:
+    trigger: "file_modified:mind-agents/src/memory/**/*.ts"
+    steps:
+      - validate_schema_migrations
+      - test_provider_compatibility
+      - check_data_integrity
+      - verify_backup_systems
+      - update_memory_documentation
+```
+
+### Character System Workflows
+
+**Character Management Automation**
+```yaml
+# .cursor/workflows/character-system.yaml
+name: "Character System Management"
+
+workflows:
+  character_validation:
+    trigger: "file_modified:mind-agents/src/characters/*.json"
+    steps:
+      - validate_character_schema
+      - test_personality_consistency
+      - verify_emotion_mappings
+      - check_trait_compatibility
+      - update_character_registry
+      
+  personality_testing:
+    trigger: "manual:test-character-personality"
+    steps:
+      - generate_test_scenarios
+      - simulate_character_responses
+      - analyze_personality_consistency
+      - evaluate_emotion_authenticity
+      - generate_personality_report
+      
+  batch_character_updates:
+    trigger: "manual:update-all-characters"
+    steps:
+      - backup_current_characters
+      - apply_schema_migrations
+      - validate_updated_characters
+      - test_behavior_changes
+      - deploy_character_updates
+```
+
+## Workflow Monitoring & Debugging
+
+### Status Tracking System
+
+**Workflow Dashboard Configuration**
+```yaml
+# .cursor/workflows/monitoring/dashboard.yaml
+monitoring:
+  real_time_status:
+    enabled: true
+    refresh_interval: 5  # seconds
+    display_metrics:
+      - active_workflows
+      - queued_actions
+      - agent_utilization
+      - error_rates
+      - completion_times
+      
+  workflow_history:
+    retention_days: 30
+    log_levels: ["info", "warn", "error"]
+    include_context: true
+    export_formats: ["json", "csv"]
+    
+  alerting:
+    channels: ["slack", "email", "webhook"]
+    conditions:
+      - type: "failure_rate"
+        threshold: 0.1  # 10% failure rate
+        window: "1h"
+      - type: "execution_time"
+        threshold: "30m"
+        action: "timeout_alert"
+      - type: "agent_unavailable"
+        threshold: "5m"
+        action: "escalate"
+```
+
+**Debugging Workflow Issues**
 ```typescript
-// Time-based rule activation
-class TemporalRuleEngine {
-  getTimeBasedRules(timeOfDay: string, dayOfWeek: string): string[] {
-    const rules: string[] = [];
-    
-    // Morning rules - focus on planning and architecture
-    if (timeOfDay === 'morning') {
-      rules.push('004-architecture-patterns');
-      rules.push('016-documentation-standards');
-    }
-    
-    // Afternoon rules - implementation and testing
-    if (timeOfDay === 'afternoon') {
-      rules.push('003-typescript-standards');
-      rules.push('008-testing-and-quality-standards');
-      rules.push('019-background-agents'); // Delegate tasks
-    }
-    
-    // Evening rules - review and optimization
-    if (timeOfDay === 'evening') {
-      rules.push('012-performance-optimization');
-      rules.push('013-error-handling-logging');
-    }
-    
-    // Weekend rules - exploration and experimentation
-    if (dayOfWeek === 'Saturday' || dayOfWeek === 'Sunday') {
-      rules.push('020-mcp-integration');
-      rules.push('007-extension-system-patterns');
-    }
-    
-    return rules;
-  }
-  
-  getProductivityBasedRules(productivityScore: number): string[] {
-    const rules: string[] = [];
-    
-    // High productivity - tackle complex tasks
-    if (productivityScore > 0.8) {
-      rules.push('004-architecture-patterns');
-      rules.push('005-ai-integration-patterns');
-      rules.push('019-background-agents');
-    }
-    
-    // Medium productivity - standard development
-    if (productivityScore > 0.5 && productivityScore <= 0.8) {
-      rules.push('003-typescript-standards');
-      rules.push('008-testing-and-quality-standards');
-    }
-    
-    // Low productivity - simplify and delegate
-    if (productivityScore <= 0.5) {
-      rules.push('019-background-agents'); // Delegate tasks
-      rules.push('020-mcp-integration'); // Use tools
-      rules.push('016-documentation-standards'); // Light tasks
-    }
-    
-    return rules;
-  }
+// .cursor/workflows/debug.ts
+interface WorkflowDebugger {
+  traceExecution(workflowId: string): ExecutionTrace;
+  analyzeFailure(workflowId: string): FailureAnalysis;
+  replayWorkflow(workflowId: string, fromStep?: string): void;
+  inspectAgentState(agentId: string): AgentState;
 }
+
+// Debug commands for workflow troubleshooting
+const debugCommands = {
+  "trace-workflow": "Show execution trace for workflow ID",
+  "replay-from-step": "Replay workflow from specific step",
+  "inspect-agent": "Show current agent state and context",
+  "analyze-failure": "Deep analysis of workflow failure",
+  "export-logs": "Export workflow logs for external analysis"
+};
 ```
 
-### Intelligent Assistance Optimization
+### Performance Optimization
 
-```typescript
-// Optimize AI assistance based on context
-class AssistanceOptimizer {
-  optimizeForContext(context: ContextState, activeRules: string[]): AssistanceConfig {
-    return {
-      suggestionLevel: this.getSuggestionLevel(context),
-      autocompletionMode: this.getAutocompletionMode(context),
-      errorHighlighting: this.getErrorHighlighting(context),
-      codeGeneration: this.getCodeGenerationMode(context),
-      backgroundTasks: this.getBackgroundTasksMode(context)
-    };
-  }
-  
-  private getSuggestionLevel(context: ContextState): 'minimal' | 'moderate' | 'aggressive' {
-    if (context.workingPattern === 'focused') return 'minimal';
-    if (context.workingPattern === 'exploratory') return 'aggressive';
-    if (context.errorCount > 5) return 'aggressive';
-    return 'moderate';
-  }
-  
-  private getAutocompletionMode(context: ContextState): 'off' | 'basic' | 'intelligent' {
-    if (context.fileSize > 5000) return 'basic'; // Large files - reduce overhead
-    if (context.cpuUsage > 80) return 'basic'; // High CPU - reduce load
-    if (context.workingPattern === 'debugging') return 'off'; // Debugging - avoid distractions
-    return 'intelligent';
-  }
-  
-  private getErrorHighlighting(context: ContextState): 'disabled' | 'passive' | 'active' {
-    if (context.workingPattern === 'reviewing') return 'active';
-    if (context.errorCount > 10) return 'active';
-    if (context.fileType.includes('test')) return 'active';
-    return 'passive';
-  }
-  
-  private getCodeGenerationMode(context: ContextState): 'manual' | 'assisted' | 'automatic' {
-    if (context.workingPattern === 'focused') return 'manual';
-    if (context.productivityScore < 0.5) return 'automatic';
-    if (context.timeOfDay === 'evening') return 'assisted';
-    return 'assisted';
-  }
-  
-  private getBackgroundTasksMode(context: ContextState): 'disabled' | 'selective' | 'aggressive' {
-    if (context.cpuUsage > 85) return 'disabled';
-    if (context.workingPattern === 'debugging') return 'disabled';
-    if (context.productivityScore < 0.6) return 'aggressive';
-    return 'selective';
-  }
-}
+**Workflow Performance Tuning**
+```yaml
+# .cursor/workflows/performance/optimization.yaml
+performance:
+  agent_pooling:
+    enabled: true
+    pool_size: 5
+    warm_up_agents: true
+    load_balancing: "round_robin"
+    
+  caching:
+    enabled: true
+    cache_duration: "1h"
+    cache_keys:
+      - "agent_context_hash"
+      - "workflow_inputs_hash"
+    invalidation_triggers:
+      - "file_modified"
+      - "config_changed"
+      
+  resource_limits:
+    max_concurrent_workflows: 10
+    max_agent_memory: "2GB"
+    max_execution_time: "30m"
+    timeout_grace_period: "2m"
+    
+  optimization_strategies:
+    - "parallel_execution_where_possible"
+    - "context_caching_for_repeated_operations"
+    - "agent_specialization_for_specific_tasks"
+    - "incremental_processing_for_large_datasets"
 ```
 
-## Context-Aware Notifications
+## Best Practices & Guidelines
 
-### Smart Notification System
+### Workflow Design Principles
 
-```typescript
-// Context-aware notification management
-class ContextNotificationManager {
-  shouldNotify(event: NotificationEvent, context: ContextState): boolean {
-    // Don't interrupt during focused work
-    if (context.workingPattern === 'focused' && event.priority < 8) {
-      return false;
-    }
-    
-    // Batch notifications during debugging
-    if (context.workingPattern === 'debugging' && event.type === 'suggestion') {
-      return false;
-    }
-    
-    // More aggressive notifications during exploration
-    if (context.workingPattern === 'exploratory') {
-      return event.priority >= 5;
-    }
-    
-    // Time-based filtering
-    if (context.timeOfDay === 'evening' && event.type === 'error') {
-      return event.priority >= 7; // Only important errors
-    }
-    
-    return event.priority >= 6; // Default threshold
-  }
-  
-  getNotificationStyle(event: NotificationEvent, context: ContextState): NotificationStyle {
-    if (context.workingPattern === 'focused') {
-      return { mode: 'subtle', duration: 'short', position: 'corner' };
-    }
-    
-    if (context.errorCount > 5) {
-      return { mode: 'prominent', duration: 'long', position: 'center' };
-    }
-    
-    return { mode: 'normal', duration: 'medium', position: 'sidebar' };
-  }
-}
-```
+**Idempotent Operations**
+- Design actions to be safely repeatable
+- Include state validation before execution
+- Implement proper rollback mechanisms
+- Use checksums and verification steps
 
-## Integration with SYMindX Development Flow
+**Error Boundaries**
+- Define clear failure scopes
+- Implement circuit breaker patterns
+- Provide meaningful error messages
+- Enable partial workflow recovery
 
-### Project Phase Detection
+**Security Considerations**
+- Validate all workflow inputs
+- Restrict agent permissions appropriately
+- Audit workflow execution logs
+- Encrypt sensitive workflow data
 
-```typescript
-// Detect current development phase
-class ProjectPhaseDetector {
-  detectPhase(context: ContextState): ProjectPhase {
-    const recentCommits = context.lastCommitTime;
-    const filePattern = context.currentFile;
-    
-    // Initial development
-    if (!recentCommits || this.isNewProject()) {
-      return 'initial-development';
-    }
-    
-    // Feature development
-    if (context.gitBranch.includes('feature/')) {
-      return 'feature-development';
-    }
-    
-    // Bug fixing
-    if (context.gitBranch.includes('bugfix/') || context.errorCount > 5) {
-      return 'bug-fixing';
-    }
-    
-    // Testing phase
-    if (filePattern.includes('test') || filePattern.includes('spec')) {
-      return 'testing';
-    }
-    
-    // Documentation
-    if (filePattern.includes('docs') || filePattern.includes('README')) {
-      return 'documentation';
-    }
-    
-    // Optimization
-    if (context.cpuUsage > 70 || context.workingPattern === 'debugging') {
-      return 'optimization';
-    }
-    
-    return 'maintenance';
-  }
-  
-  getPhaseRules(phase: ProjectPhase): string[] {
-    switch (phase) {
-      case 'initial-development':
-        return ['001-symindx-workspace', '004-architecture-patterns'];
-      case 'feature-development':
-        return ['003-typescript-standards', '005-ai-integration-patterns'];
-      case 'bug-fixing':
-        return ['013-error-handling-logging', '012-performance-optimization'];
-      case 'testing':
-        return ['008-testing-and-quality-standards'];
-      case 'documentation':
-        return ['016-documentation-standards'];
-      case 'optimization':
-        return ['012-performance-optimization', '019-background-agents'];
-      default:
-        return ['003-typescript-standards'];
-    }
-  }
-}
-```
+### Integration Guidelines
 
-This rule creates an intelligent context-aware system that dynamically optimizes Cursor's assistance based on current development conditions, user patterns, and project state, ensuring the most relevant rules and features are activated at the right time.
+**SYMindX Workflow Integration**
+1. **Context Preservation**: Maintain SYMindX project context across workflow steps
+2. **Module Awareness**: Respect hot-swappable module boundaries
+3. **Event Bus Integration**: Leverage SYMindX EventBus for workflow coordination
+4. **Configuration Management**: Use SYMindX config system for workflow parameters
+5. **Testing Integration**: Align with SYMindX testing standards and practices
+
+**Performance Considerations**
+- Cache frequently accessed project context
+- Optimize agent model selection for workflow tasks
+- Implement progressive complexity (simple → advanced workflows)
+- Monitor resource usage and adjust limits appropriately
+
+This workflow automation framework enables sophisticated orchestration of development tasks while maintaining the flexibility and modularity that defines the SYMindX architecture.
+
+## Related Rules and Integration
+
+### Foundation Requirements
+- @001-symindx-workspace.mdc - Core SYMindX architecture and project structure
+- @003-typescript-standards.mdc - TypeScript/Bun development standards for workflow scripts
+- @004-architecture-patterns.mdc - Modular design principles for workflow components
+
+### Core Integration Rules
+- @018-git-hooks.mdc - Git automation that triggers workflow executions
+- @019-background-agents.mdc - Background task execution within workflows
+- @020-mcp-integration.mdc - External tool integration for workflow actions
+- @021-advanced-context.mdc - Context-aware workflow activation and rule selection
+
+### Supporting Development Rules
+- @008-testing-and-quality-standards.mdc - Testing strategies for workflow validation
+- @013-error-handling-logging.mdc - Error handling and monitoring for workflow execution
+- @015-configuration-management.mdc - Workflow configuration and environment management
+- @012-performance-optimization.mdc - Performance optimization for workflow execution
+
+### Component-Specific Workflow Integration
+- @005-ai-integration-patterns.mdc - AI portal workflows and automated validation
+- @011-data-management-patterns.mdc - Memory system maintenance workflows
+- @007-extension-system-patterns.mdc - Platform extension deployment workflows
+- @009-deployment-and-operations.mdc - Production deployment and monitoring workflows
+
+### Documentation and Governance
+- @016-documentation-standards.mdc - Workflow documentation standards
+- @017-community-and-governance.mdc - Contribution workflows and governance automation
+
+This rule builds upon the entire SYMindX rules framework to provide comprehensive workflow orchestration capabilities.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
