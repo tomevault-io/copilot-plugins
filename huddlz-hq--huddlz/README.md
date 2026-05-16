@@ -7,11 +7,11 @@ A community event platform for organizing and discovering local huddlz (gatherin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huddlz-hq/huddlz](https://github.com/huddlz-hq/huddlz).
+Original source: `CLAUDE.md` in [huddlz-hq/huddlz](https://github.com/huddlz-hq/huddlz).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
