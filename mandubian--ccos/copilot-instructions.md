@@ -1,25 +1,13 @@
-## ccos-rules
+## no-specific-code-in-generic-code
 
-> CCOS concepts and specification compliance rules
+> - Do not add fixes for custom demos/examples directly in generic modules (`arbiter`, `intent`, `runtime`, etc.).
 
 
-# CCOS Compliance Quick Reference
+# Keep Generic Code Example-Agnostic
 
-- Specs live in `docs/ccos/specs/`. Core refs: `000` architecture, `001` intent graph, `002` orchestration, `003` causal chain, `004` capabilities, `014` step form, `017` checkpoint/resume.
-- RTFS/CCOS wiring: follow `.cursor/rules/rtfs-2.0-rules.mdc` plus `docs/rtfs-2.0/specs/13-rtfs-ccos-integration-guide.md`.
-- Intent → Plan → Action chain is mandatory. Log every step via CCOS causal chain primitives.
-- Plans must stay immutable post-archive; resume flows use checkpoint spec `017`.
-- Capability calls require attestation checks and marketplace registration (`004`, `011`).
-- Always enforce security gates: intent sanitization (`012`), governance (`010`), context limits (`009`), working memory rules (`013`).
-- Delegation must use Arbiter / Delegation Engine patterns (`006`, `008`) and respect human-in-loop pauses when flagged.
-- Never bypass intent graph, causal chain, capability attestation, or CCOS step special form; doing so violates core compliance.
-
-## Code Factorization and Shared Utilities
-
-- **ALWAYS check `ccos::utils` modules before implementing utility functions**: Look for existing shared utilities, especially in `ccos::utils::value_conversion` for RTFS↔JSON conversions.
-- **Use shared value conversion utilities**: For any RTFS Value ↔ serde_json::Value conversion, use `ccos::utils::value_conversion::{rtfs_value_to_json, json_to_rtfs_value}` instead of implementing custom conversion logic.
-- **Factorize common patterns**: If you find yourself writing similar code in multiple places, extract it to a shared utility module in `ccos::utils`.
-- **Avoid code duplication**: Before implementing helper functions for map keys, string manipulation, or value conversions, check if they exist in `ccos::utils::value_conversion` (e.g., `map_key_to_string`, `strip_leading_colon`).
+- Do not add fixes for custom demos/examples directly in generic modules (`arbiter`, `intent`, `runtime`, etc.).
+- Avoid hard-coded values, fixtures, or tests derived from a single example inside shared libraries; keep them alongside the example instead.
+- If an example requires custom handling, isolate it in the example/capability layer and leave the generic code untouched.
 
 ---
 > Source: [mandubian/ccos](https://github.com/mandubian/ccos) — distributed by [TomeVault](https://tomevault.io).
