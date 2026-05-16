@@ -1,0 +1,9 @@
+{
+  "name": "jamesbrink--mcp-coroot",
+  "displayName": "mcp-coroot",
+  "description": "MCP server for Coroot observability platform - integrate monitoring, troubleshooting, and configuration tools with AI agents",
+  "version": "1.0.0",
+  "author": "jamesbrink",
+  "homepage": "https://github.com/jamesbrink/mcp-coroot",
+  "skills": []
+}
