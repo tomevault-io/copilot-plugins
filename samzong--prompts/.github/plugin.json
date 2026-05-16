@@ -1,0 +1,9 @@
+{
+  "name": "samzong--prompts",
+  "displayName": "prompts",
+  "description": "only manage prompts, the future of LLMs is prompt engineering.",
+  "version": "1.0.0",
+  "author": "samzong",
+  "homepage": "https://github.com/samzong/prompts",
+  "skills": []
+}
