@@ -4,7 +4,7 @@
   "repo": "ARAM-Mayhem-Database",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lanternko/ARAM-Mayhem-Database",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T20:30:08Z"
+  "distributed_at": "2026-05-16T20:30:36Z"
 }
