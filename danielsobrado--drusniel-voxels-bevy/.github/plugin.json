@@ -1,0 +1,9 @@
+{
+  "name": "danielsobrado--drusniel-voxels-bevy",
+  "displayName": "drusniel-voxels-bevy",
+  "description": "Voxel based world with Rust and Bevy",
+  "version": "1.0.0",
+  "author": "danielsobrado",
+  "homepage": "https://github.com/danielsobrado/drusniel-voxels-bevy",
+  "skills": []
+}
