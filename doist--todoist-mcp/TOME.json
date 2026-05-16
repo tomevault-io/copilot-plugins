@@ -4,7 +4,7 @@
   "repo": "todoist-mcp",
   "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Doist/todoist-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T09:14:03Z"
+  "distributed_at": "2026-05-16T06:44:46Z"
 }
