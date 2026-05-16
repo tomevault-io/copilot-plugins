@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol-security--mcpserver-audit",
+  "displayName": "mcpserver-audit",
+  "description": "mcpserver-audit: Helps you check if MCP servers are safe before using them. Examines servers for security problems, supports publishing findings in audit-db and vulnerability-db. Part of the Model Con",
+  "version": "1.0.0",
+  "author": "ModelContextProtocol-Security",
+  "homepage": "https://github.com/ModelContextProtocol-Security/mcpserver-audit",
+  "skills": []
+}
