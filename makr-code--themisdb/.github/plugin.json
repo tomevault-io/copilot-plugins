@@ -1,0 +1,9 @@
+{
+  "name": "makr-code--themisdb",
+  "displayName": "ThemisDB",
+  "description": "Themis Database System - High-performance C++ hybrid-database (graph-vector-relational-file) with AQL support and MVCC",
+  "version": "1.0.0",
+  "author": "makr-code",
+  "homepage": "https://github.com/makr-code/ThemisDB",
+  "skills": []
+}
