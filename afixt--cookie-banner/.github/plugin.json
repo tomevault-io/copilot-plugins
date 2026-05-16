@@ -1,0 +1,9 @@
+{
+  "name": "afixt--cookie-banner",
+  "displayName": "cookie-banner",
+  "description": "An accessible, GDPR-compliant cookie banner",
+  "version": "1.0.0",
+  "author": "AFixt",
+  "homepage": "https://github.com/AFixt/cookie-banner",
+  "skills": []
+}
