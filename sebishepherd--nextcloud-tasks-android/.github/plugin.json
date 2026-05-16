@@ -1,0 +1,9 @@
+{
+  "name": "sebishepherd--nextcloud-tasks-android",
+  "displayName": "nextcloud_tasks_android",
+  "description": "An Android app for the Nextcloud Tasks module.",
+  "version": "1.0.0",
+  "author": "SebiShepherd",
+  "homepage": "https://github.com/SebiShepherd/nextcloud_tasks_android",
+  "skills": []
+}
