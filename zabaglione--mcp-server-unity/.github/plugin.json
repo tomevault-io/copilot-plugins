@@ -1,0 +1,9 @@
+{
+  "name": "zabaglione--mcp-server-unity",
+  "displayName": "mcp-server-unity",
+  "description": "Model Context Protocol (MCP) server for Unity - enables Claude to interact with Unity projects",
+  "version": "1.0.0",
+  "author": "zabaglione",
+  "homepage": "https://github.com/zabaglione/mcp-server-unity",
+  "skills": []
+}
