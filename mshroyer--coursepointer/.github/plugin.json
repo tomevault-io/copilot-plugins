@@ -1,0 +1,9 @@
+{
+  "name": "mshroyer--coursepointer",
+  "displayName": "coursepointer",
+  "description": "A command-line tool and library for converting GPX waypoints into Garmin FIT course points",
+  "version": "1.0.0",
+  "author": "mshroyer",
+  "homepage": "https://github.com/mshroyer/coursepointer",
+  "skills": []
+}
