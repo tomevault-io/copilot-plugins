@@ -1,0 +1,44 @@
+{
+  "name": "second-brain",
+  "owner": "raold",
+  "repo": "second-brain",
+  "description": "\ud83e\udde0 AI Second Brain \u2014 100% Local Knowledge Management Private, self-hosted second brain. Store, search, and synthesize documents, images, and ideas with local LLMs (LLaVA, CLIP) and PostgreSQL + pgvector. Features multimodal search, knowledge graphs, gDrive streaming, and real-time analysis \u2014 all offline, no API keys, no cloud, no limits.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raold/second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:10:34Z"
+}
