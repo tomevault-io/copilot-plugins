@@ -1,0 +1,9 @@
+{
+  "name": "armatrix--claude-agent-sdk-go",
+  "displayName": "claude-agent-sdk-go",
+  "description": "Pure Go SDK for building Claude AI agents with pluggable team topologies \u2014   no subprocess, goroutine-native concurrency",
+  "version": "1.0.0",
+  "author": "armatrix",
+  "homepage": "https://github.com/armatrix/claude-agent-sdk-go",
+  "skills": []
+}
