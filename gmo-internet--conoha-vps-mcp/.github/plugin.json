@@ -1,0 +1,9 @@
+{
+  "name": "gmo-internet--conoha-vps-mcp",
+  "displayName": "conoha_vps_mcp",
+  "description": "ConoHa VPS MCP server",
+  "version": "1.0.0",
+  "author": "gmo-internet",
+  "homepage": "https://github.com/gmo-internet/conoha_vps_mcp",
+  "skills": []
+}
