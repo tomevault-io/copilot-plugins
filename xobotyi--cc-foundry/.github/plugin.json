@@ -1,0 +1,114 @@
+{
+  "name": "xobotyi--cc-foundry",
+  "displayName": "cc-foundry",
+  "description": "Claude Code foundry - plugins, skills, and tools",
+  "version": "1.0.0",
+  "author": "xobotyi",
+  "homepage": "https://github.com/xobotyi/cc-foundry",
+  "skills": [
+    {
+      "name": "accessibility",
+      "description": ""
+    },
+    {
+      "name": "bun",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdk",
+      "description": ""
+    },
+    {
+      "name": "code-quality-evaluation",
+      "description": ""
+    },
+    {
+      "name": "coding",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "description": ""
+    },
+    {
+      "name": "css",
+      "description": ""
+    },
+    {
+      "name": "design-documents",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "description": ""
+    },
+    {
+      "name": "javascript",
+      "description": ""
+    },
+    {
+      "name": "nodejs",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "description": ""
+    },
+    {
+      "name": "output-style-engineering",
+      "description": ""
+    },
+    {
+      "name": "prometheus",
+      "description": ""
+    },
+    {
+      "name": "quality-validation",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "skill-engineering",
+      "description": ""
+    },
+    {
+      "name": "statsd",
+      "description": ""
+    },
+    {
+      "name": "subagent-engineering",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "technical-design",
+      "description": ""
+    },
+    {
+      "name": "templ",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
