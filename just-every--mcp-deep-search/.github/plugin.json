@@ -1,0 +1,9 @@
+{
+  "name": "just-every--mcp-deep-search",
+  "displayName": "mcp-deep-search",
+  "description": "Runs a search across all major providers simultaneously",
+  "version": "1.0.0",
+  "author": "just-every",
+  "homepage": "https://github.com/just-every/mcp-deep-search",
+  "skills": []
+}
