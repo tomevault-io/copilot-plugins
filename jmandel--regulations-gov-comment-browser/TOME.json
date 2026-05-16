@@ -4,7 +4,7 @@
   "repo": "regulations.gov-comment-browser",
   "description": "Explore public-comment data with an interactive, self-contained web app.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmandel/regulations.gov-comment-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T00:56:00Z"
+  "distributed_at": "2026-05-16T03:16:51Z"
 }
