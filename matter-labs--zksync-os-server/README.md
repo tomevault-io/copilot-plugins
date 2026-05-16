@@ -7,11 +7,11 @@ New server implementation for zksync-os
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matter-labs/zksync-os-server](https://github.com/matter-labs/zksync-os-server).
+Original source: `CLAUDE.md` in [matter-labs/zksync-os-server](https://github.com/matter-labs/zksync-os-server).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
