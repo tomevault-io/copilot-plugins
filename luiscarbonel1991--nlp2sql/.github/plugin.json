@@ -1,0 +1,9 @@
+{
+  "name": "luiscarbonel1991--nlp2sql",
+  "displayName": "nlp2sql",
+  "description": "Enterprise-ready Natural Language to SQL converter with multi-provider AI support (OpenAI, Anthropic, Gemini). Built for production scale databases (1000+ tables) with Clean Architecture.",
+  "version": "1.0.0",
+  "author": "luiscarbonel1991",
+  "homepage": "https://github.com/luiscarbonel1991/nlp2sql",
+  "skills": []
+}
