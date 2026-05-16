@@ -7,11 +7,11 @@ A Neovim plugin that brings vim-fugitive-style version control integration for J
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [martintrojer/jj-fugitive](https://github.com/martintrojer/jj-fugitive).
+Original source: `CLAUDE.md` in [martintrojer/jj-fugitive](https://github.com/martintrojer/jj-fugitive).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
