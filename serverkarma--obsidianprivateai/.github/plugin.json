@@ -1,0 +1,9 @@
+{
+  "name": "serverkarma--obsidianprivateai",
+  "displayName": "ObsidianPrivateAI",
+  "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only.",
+  "version": "1.0.0",
+  "author": "ServerKarma",
+  "homepage": "https://github.com/ServerKarma/ObsidianPrivateAI",
+  "skills": []
+}
