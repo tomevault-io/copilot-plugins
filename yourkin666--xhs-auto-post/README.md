@@ -1,24 +1,26 @@
-# xhs-auto-post — distributed by TomeVault
+# xhs-auto-post
 
-> Originally from [yourkin666/xhs-auto-post](https://github.com/yourkin666/xhs-auto-post). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [yourkin666/xhs-auto-post](https://github.com/yourkin666/xhs-auto-post) — distributed by [TomeVault](https://tomevault.io)
+
+This tool can improve the efficiency of operators and automatically send posts on the platform
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [yourkin666/xhs-auto-post](https://github.com/yourkin666/xhs-auto-post).
+Original source: `CLAUDE.md` in [yourkin666/xhs-auto-post](https://github.com/yourkin666/xhs-auto-post).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/yourkin666)
+From [yourkin666/xhs-auto-post](https://github.com/yourkin666/xhs-auto-post) — a repo with 8+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/yourkin666) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
