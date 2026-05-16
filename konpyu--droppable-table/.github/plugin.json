@@ -1,0 +1,9 @@
+{
+  "name": "konpyu--droppable-table",
+  "displayName": "droppable_table",
+  "description": "A gem to detect ghost tables in Rails",
+  "version": "1.0.0",
+  "author": "konpyu",
+  "homepage": "https://github.com/konpyu/droppable_table",
+  "skills": []
+}
