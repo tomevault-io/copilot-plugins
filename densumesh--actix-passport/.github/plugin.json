@@ -1,0 +1,9 @@
+{
+  "name": "densumesh--actix-passport",
+  "displayName": "actix-passport",
+  "description": "A comprehensive, flexible authentication framework for actix-web applications in Rust.",
+  "version": "1.0.0",
+  "author": "densumesh",
+  "homepage": "https://github.com/densumesh/actix-passport",
+  "skills": []
+}
