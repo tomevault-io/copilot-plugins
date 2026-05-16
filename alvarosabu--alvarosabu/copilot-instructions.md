@@ -1,50 +1,73 @@
-## vueuse
+## alvarosabu
 
-> - Use `useStorage()` for persistent state management
+> Alvaro Saburido's personal website.
 
-# VueUse Integration Standards
+# Alvaro Saburido's Website
 
-## Preferred Composables
-- Use `useStorage()` for persistent state management
-- Use `useMediaQuery()` for responsive design
-- Use `useDark()` for dark mode implementation
-- Use `useElementSize()` for dynamic measurements
-- Import directly from @vueuse/core
+Alvaro Saburido's personal website.
 
-## Implementation Guidelines
-- Always handle cleanup in components when necessary
-- Use proper typing with VueUse composables
-- Prefer VueUse solutions over custom implementations
+- Discover what I've been working on
+- Discover articles I've written
+- Get in touch with me
 
-@example-dark-mode.vue
+This website serves as a portfolio of my work and a place to share my thoughts and ideas.
+
+
+## Standards
+
+- Stack: Vue.js, TypeScript, TailwindCSS v4, Vue Router, Nuxt UI Pro v3, TresJS, Motion Framer Vue.
+- ALWAYS Keep types alongside your code, use TypeScript for type safety, prefer `interface` over `type` for defining types
+- Keep unit and integration tests alongside the file they test: `src/ui/Button.vue` + `src/ui/Button.spec.ts`
+- ALWAYS use TailwindCSS classes rather than manual CSS
+- DO NOT hard code colors, use Nuxt UI Pro v3's Tailwind's color system unless it is used on TresJS components
+- ONLY add meaningful comments that explain why something is done, not what it does
+- Dev server is already running on `https://localhost:2590` with HMR enabled. NEVER launch it yourself
+- ALWAYS use named functions when declaring methods, use arrow functions only for callbacks
+- ALWAYS prefer named exports over default exports
+
+
+## Development Workflow
+
+ALWAYS follow the workflow when implementing a new feature or fixing a bug in this project. This ensures consistency, quality, and maintainability of the codebase.
+
+1. Plan your tasks, review them with user. Include tests when possible
+2. Write code, following the [project structure](#project-structure) and [conventions](#standards)
+3. Stage your changes with `git add` once a feature works
+4. Review changes and analyze the need of refactoring
+
+## TresJS v5 Essentials
+
+### Core Patterns
+- **ALWAYS USE** `useLoop()` for animations (not `useRenderLoop`)
+- **ALWAYS USE** `useTres()` for context
+- **ALWAYS USE** `@pointerenter` not `@pointer-enter` for events
+- **ALWAYS SEPARATE** DOM components from 3D scene components
+
+### Component Architecture
 ```vue
-<script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core'
-
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
-
-// Persistent storage example
-const settings = useStorage('user-settings', {
-  theme: 'auto',
-  fontSize: 16
-})
-
-// Responsive design example
-const isLargeScreen = useMediaQuery('(min-width: 1024px)')
-</script>
-
+<!-- Scene3D.vue: TresCanvas + DOM siblings -->
 <template>
-  <div>
-    <UButton @click="toggleDark()">
-      Toggle Dark Mode
-    </UButton>
-    
-    <div v-if="isLargeScreen">
-      Large Screen Content
-    </div>
-  </div>
+  <TresCanvas window-size @ready="onReady">
+    <TheExperience />
+  </TresCanvas>
 </template>
+
+<!-- TheExperience.vue: 3D scene root -->
+<script setup>
+const { onBeforeRender } = useLoop()
+const { scene, camera } = useTres()
+</script>
+```
+
+### Asset Loading (v5)
+```vue
+<script setup>
+const { state: model, isLoading, error } = useLoader(GLTFLoader, '/model.glb')
+</script>
+<template>
+  <primitive v-if="model?.scene && !isLoading" :object="model.scene" />
+</template>
+```
 
 ---
 > Source: [alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu) — distributed by [TomeVault](https://tomevault.io).
