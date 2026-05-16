@@ -1,0 +1,44 @@
+{
+  "name": "liuren-ts-lib",
+  "owner": "look-fate",
+  "repo": "liuren-ts-lib",
+  "description": "\u4e00\u4e2a\u4f7f\u7528 TypeScript \u7f16\u5199\u7684\uff0c\u57fa\u4e8e tyme \u7684\u516d\u58ec\u795e\u8bfe- TypeScript lib \u5e93\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/look-fate/liuren-ts-lib",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T04:50:36Z"
+}
