@@ -1,0 +1,9 @@
+{
+  "name": "aj-geddes--terry-form-mcp",
+  "displayName": "terry-form-mcp",
+  "description": "MCP server that enables AI assistants to execute Terraform commands locally through secure, containerized environment using HashiCorp's official Terraform Docker image.",
+  "version": "1.0.0",
+  "author": "aj-geddes",
+  "homepage": "https://github.com/aj-geddes/terry-form-mcp",
+  "skills": []
+}
