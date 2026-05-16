@@ -1,0 +1,9 @@
+{
+  "name": "nibzard--lmdb-tui",
+  "displayName": "lmdb-tui",
+  "description": "lmdb-tui is a terminal user interface for exploring LMDB databases",
+  "version": "1.0.0",
+  "author": "nibzard",
+  "homepage": "https://github.com/nibzard/lmdb-tui",
+  "skills": []
+}
