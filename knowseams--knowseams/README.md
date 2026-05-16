@@ -7,14 +7,14 @@ Fast, accurate sentence detection for English narrative with proper dialog handl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [KnowSeams/KnowSeams](https://github.com/KnowSeams/KnowSeams).
+Original source: `CLAUDE.md` in [KnowSeams/KnowSeams](https://github.com/KnowSeams/KnowSeams).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [KnowSeams/KnowSeams](https://github.com/KnowSeams/KnowSeams) — a repo with 12+ stars on GitHub.
