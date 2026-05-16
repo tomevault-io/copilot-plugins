@@ -1,0 +1,9 @@
+{
+  "name": "glazperle--kimai-mcp",
+  "displayName": "kimai_mcp",
+  "description": "A comprehensive Model Context Protocol (MCP) server for Kimai time-tracking integration. Provides tools for timesheet management, project tracking, team collaboration, and reporting with smart user se",
+  "version": "1.0.0",
+  "author": "glazperle",
+  "homepage": "https://github.com/glazperle/kimai_mcp",
+  "skills": []
+}
