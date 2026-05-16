@@ -2,9 +2,9 @@
   "name": "cortex",
   "owner": "MikeSquared-Agency",
   "repo": "cortex",
-  "description": "",
+  "description": "Warren's Graph Memory Engine \u2014 embedded Rust knowledge graph with vector similarity, auto-linking, and agent briefings",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/MikeSquared-Agency/cortex",
-  "claim_url": "https://tomevault.io/claim/MikeSquared-Agency",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T09:10:33Z"
+  "distributed_at": "2026-05-16T08:45:50Z"
 }
