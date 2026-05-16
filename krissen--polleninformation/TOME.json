@@ -2,9 +2,9 @@
   "name": "polleninformation",
   "owner": "krissen",
   "repo": "polleninformation",
-  "description": "",
+  "description": "Integration for homeassistant, creating sensors based on polleninformation.eu",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/krissen",
+  "source_url": "https://github.com/krissen/polleninformation",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T00:53:42Z"
+  "distributed_at": "2026-05-16T08:19:29Z"
 }
