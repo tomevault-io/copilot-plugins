@@ -1,0 +1,9 @@
+{
+  "name": "rvben--rumdl-vscode",
+  "displayName": "rumdl-vscode",
+  "description": "rumdl extension for VS Code \u2014 fast Markdown linting and formatting",
+  "version": "1.0.0",
+  "author": "rvben",
+  "homepage": "https://github.com/rvben/rumdl-vscode",
+  "skills": []
+}
