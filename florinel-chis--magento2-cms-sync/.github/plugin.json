@@ -1,0 +1,9 @@
+{
+  "name": "florinel-chis--magento2-cms-sync",
+  "displayName": "magento2-cms-sync",
+  "description": "A powerful web-based tool for synchronizing CMS content (blocks and pages) between multiple Magento 2 instances. Built with FastAPI (Python) backend and React (TypeScript) frontend.",
+  "version": "1.0.0",
+  "author": "florinel-chis",
+  "homepage": "https://github.com/florinel-chis/magento2-cms-sync",
+  "skills": []
+}
