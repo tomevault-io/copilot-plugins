@@ -1,0 +1,9 @@
+{
+  "name": "comfyassets--comfyui-kikotools",
+  "displayName": "ComfyUI-KikoTools",
+  "description": "Simple tools for ComfyUI",
+  "version": "1.0.0",
+  "author": "ComfyAssets",
+  "homepage": "https://github.com/ComfyAssets/ComfyUI-KikoTools",
+  "skills": []
+}
