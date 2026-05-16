@@ -1,0 +1,9 @@
+{
+  "name": "claude-code-mafia--md-agents",
+  "displayName": "md-agents",
+  "description": "Build intelligent agent systems with markdown",
+  "version": "1.0.0",
+  "author": "claude-code-mafia",
+  "homepage": "https://github.com/claude-code-mafia/md-agents",
+  "skills": []
+}
