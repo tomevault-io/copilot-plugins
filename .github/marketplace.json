@@ -127869,6 +127869,41 @@
       "description": "Sandbox Runtime is a high-performance code execution service designed for AI Agent applications. It provides multi-layered security isolation mechanisms to ensure untrusted code executes safely in con"
     },
     {
+      "name": "benshapyro--cadre-devkit-claude",
+      "source": "./benshapyro--cadre-devkit-claude",
+      "description": "Cadre team development kit for Claude Code - quality gates, security hooks, workflow commands, skills & agents"
+    },
+    {
+      "name": "defaultperson--agent-setup",
+      "source": "./defaultperson--agent-setup",
+      "description": "Universal setup for Claude Code & Codex CLI \u2014 security guard, TTS notifications, status line, slash commands"
+    },
+    {
+      "name": "sebishepherd--nextcloud-tasks-android",
+      "source": "./sebishepherd--nextcloud-tasks-android",
+      "description": "An Android app for the Nextcloud Tasks module."
+    },
+    {
+      "name": "gyvastis--chrome-extension-meshy-ai-easy-download",
+      "source": "./gyvastis--chrome-extension-meshy-ai-easy-download",
+      "description": "adds download buttons to meshy.ai for quick GLB/STL downloads"
+    },
+    {
+      "name": "defaultperson--agent-setup",
+      "source": "./defaultperson--agent-setup",
+      "description": "Universal setup for Claude Code & Codex CLI \u2014 security guard, TTS notifications, status line, slash commands"
+    },
+    {
+      "name": "sebishepherd--nextcloud-tasks-android",
+      "source": "./sebishepherd--nextcloud-tasks-android",
+      "description": "An Android app for the Nextcloud Tasks module."
+    },
+    {
+      "name": "geiserx--wayback-archive",
+      "source": "./geiserx--wayback-archive",
+      "description": "Download complete websites from the Wayback Machine with full asset preservation for offline viewing"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136179,6 +136214,36 @@
       "description": "Claude Code Agent Team/Swarm Management Interface with kitty support"
     },
     {
+      "name": "republique-et-canton-de-geneve--retrogemini",
+      "source": "./republique-et-canton-de-geneve--retrogemini",
+      "description": "An agile retrospective application."
+    },
+    {
+      "name": "danielsobrado--drusniel-voxels-bevy",
+      "source": "./danielsobrado--drusniel-voxels-bevy",
+      "description": "Voxel based world with Rust and Bevy"
+    },
+    {
+      "name": "troykelly--claude-skills",
+      "source": "./troykelly--claude-skills",
+      "description": "Opinionated GitHub-native development workflow with 28 skills for autonomous, issue-driven software development with Claude Code"
+    },
+    {
+      "name": "danielsobrado--drusniel-voxels-bevy",
+      "source": "./danielsobrado--drusniel-voxels-bevy",
+      "description": "Voxel based world with Rust and Bevy"
+    },
+    {
+      "name": "johnf--actron-air-esphome",
+      "source": "./johnf--actron-air-esphome",
+      "description": "Actron Air ESP32 Keypad Component for ESPHome"
+    },
+    {
+      "name": "scthornton--securecode-web",
+      "source": "./scthornton--securecode-web",
+      "description": "Real-World Security Conversations for AI Training"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -138002,6 +138067,11 @@
       "name": "th3-h4xx0r--intellistock",
       "source": "./th3-h4xx0r--intellistock",
       "description": "IntelliStock is a self-hosted algorithmic trading platform you run on your own infrastructure. It builds strategies, runs backtests, monitors live positions, and answers questions about your portfolio"
+    },
+    {
+      "name": "skbays03--absentia",
+      "source": "./skbays03--absentia",
+      "description": "Find the holes your code already drew."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -236537,6 +236607,31 @@
       "name": "rambotsteam1350--rebuilt-2026",
       "source": "./rambotsteam1350--rebuilt-2026",
       "description": "official code for rebuilt competitions"
+    },
+    {
+      "name": "wimmen--rittenregistratie",
+      "source": "./wimmen--rittenregistratie",
+      "description": "rittenregistratie"
+    },
+    {
+      "name": "asmeril--xideai-pro",
+      "source": "./asmeril--xideai-pro",
+      "description": "XiDeAI_Pro"
+    },
+    {
+      "name": "showchen168--job-management-system",
+      "source": "./showchen168--job-management-system",
+      "description": "Job-Management-System"
+    },
+    {
+      "name": "kaveeken--health-tracker",
+      "source": "./kaveeken--health-tracker",
+      "description": "health-tracker"
+    },
+    {
+      "name": "topher200--a-bullcity-z",
+      "source": "./topher200--a-bullcity-z",
+      "description": "a-bullcity-z"
     }
   ]
 }
