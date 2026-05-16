@@ -1,0 +1,9 @@
+{
+  "name": "willer--claude-fsd",
+  "displayName": "claude-fsd",
+  "description": "Run Claude Code (and codex) to generate a project plan, then run them in a loop for days until they're done",
+  "version": "1.0.0",
+  "author": "willer",
+  "homepage": "https://github.com/willer/claude-fsd",
+  "skills": []
+}
