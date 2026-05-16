@@ -1,0 +1,9 @@
+{
+  "name": "qr-rp--go-midi",
+  "displayName": "GO_Midi",
+  "description": "\u4e00\u4e2a\u7b80\u5355\u7684midi\u81ea\u52a8\u6f14\u594f\u5de5\u5177\uff0c\u652f\u6301\u6700\u7ec8\u5e7b\u60f314\u3001\u71d5\u4e91\u5341\u516d\u58f0\u3001mumu\u6a21\u62df\u5668",
+  "version": "1.0.0",
+  "author": "qr-rp",
+  "homepage": "https://github.com/qr-rp/GO_Midi",
+  "skills": []
+}
