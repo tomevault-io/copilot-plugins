@@ -1,0 +1,9 @@
+{
+  "name": "cemini23--cybersecurity-wiki",
+  "displayName": "Cybersecurity-wiki",
+  "description": "Local knowledge hub for cybersecurity research, training, and offensive/defensive operations. Seeded from a 227-PDF corpus by Joas A Santos.",
+  "version": "1.0.0",
+  "author": "cemini23",
+  "homepage": "https://github.com/cemini23/Cybersecurity-wiki",
+  "skills": []
+}
