@@ -1,0 +1,212 @@
+## claude-fsd
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+claude-fsd is an automated development system that runs continuous AI agent-driven development cycles. It operates like "Tesla FSD for code" - multiple specialized AI agents (Developer, Planner, Reviewer, Tester) work together autonomously to build projects while allowing human oversight and intervention.
+
+## Core Commands
+
+```bash
+# Main entry points
+claude-fsd              # Interactive mode with guided setup
+claude-fsd dev          # Jump directly to development mode
+claudefsd-dev           # Main development script with intelligent loop
+
+# Planning and setup
+claudefsd-interview     # Interactive expert Q&A to gather requirements (uses opus with ultrathink)
+claudefsd-create-plan   # Create development plan from interview results (uses opus with ultrathink)
+
+# Testing and validation
+./test-failure-detection.sh  # Test failure detection mechanisms
+```
+
+## Model Selection Strategy
+
+The system uses Claude Opus throughout with strategic ultrathinking for complex work:
+
+- **Opus + Ultrathink**: Used for complex architectural work requiring deep thinking
+  - Requirements gathering (`claudefsd-interview`)
+  - Architecture planning (`claudefsd-create-plan`)
+  - Megathinking mode (every 4th iteration in development cycle)
+
+- **Opus (Standard)**: Used for regular development iterations
+  - Standard development tasks (iterations 1, 2, 3, 5, 6, 7, etc.)
+  - All agents (Developer, Verifier, Tester) use opus consistently
+
+## Development Mode
+
+The system uses an intelligent development loop that combines task planning with parallel execution:
+
+- **Architecture**: Intelligent task selection with parallel Task agents
+- **Features**: Loop-based with failure detection, megathinking every 4th iteration, adaptive execution
+- **Approach**: Builds bulletproof systems while staying focused on the plan
+- **Adaptability**: Automatically adjusts approach based on task complexity - can use single agent for complex sequential work or multiple parallel agents for independent tasks
+
+### Command Line Options
+
+```bash
+claudefsd-dev [--working-dir=DIR] [--max-time=MINUTES]
+```
+
+- `--working-dir=DIR` - Directory containing BRIEF.md and PLAN.md (default: `docs`)
+- `--max-time=MINUTES` - Maximum total runtime in minutes (default: `120`)
+
+### @STOP Checkpoint Marker
+
+Add `@STOP` on its own line in PLAN.md to create a checkpoint. When all tasks before `@STOP` are complete, the system pauses for human review, deployment, or intervention. To continue, remove or move the `@STOP` marker and restart.
+
+Example:
+```markdown
+## Phase 1: Core Implementation
+- [x] Set up project structure
+- [x] Implement database models
+
+@STOP
+
+## Phase 2: Integration (requires Phase 1 deployment)
+- [ ] Add API endpoints
+- [ ] Connect to external services
+```
+
+## Architecture
+
+### Development Loop Design (Three-Agent Flow)
+Each iteration runs three specialized agents in sequence:
+
+```
+Developer (TDD) → Verifier (code review) → Tester (test execution)
+```
+
+1. **Developer Agent**: Implements tasks using TDD (test-first)
+2. **Verifier Agent**: Code review only, creates git commits
+3. **Tester Agent**: Runs unit tests (every iteration) + acceptance tests (every 4th)
+
+### Key Files Structure
+```
+docs/
+├── BRIEF.md         # Project description (preferred location)
+├── PLAN.md          # Development roadmap (see structure below)
+├── CLAUDE-NOTES.md  # AI architect analysis
+├── QUESTIONS.md     # Clarification questions
+├── IDEAS.md         # Future improvements
+└── FEEDBACK.md      # Human feedback (temporary, archived after processing)
+logs/                # AI session logs with timestamps
+PAUSE                # Create to pause development (project root)
+```
+
+### PLAN.md Required Structure
+```markdown
+## Tasks
+- [ ] Task description here
+- [ ] Another task
+
+## Test Infrastructure
+<!-- Required - Tester uses these commands -->
+- Unit tests: `pytest tests/`
+- Lint: `ruff check .`
+- Type check: `mypy src/`
+- Acceptance: `playwright test`
+
+## Acceptance Criteria
+<!-- Tester checks every 4th iteration -->
+- [ ] Feature X works end-to-end
+- [ ] API returns correct data
+- [ ] Performance meets requirements
+```
+
+### Human Intervention
+
+**PAUSE file**: Create `PAUSE` in project root to pause the loop. Remove to resume.
+```bash
+touch PAUSE    # Pause development
+rm PAUSE       # Resume development
+```
+
+**FEEDBACK.md**: Add urgent feedback for the next iteration.
+- Create `docs/FEEDBACK.md` with instructions/corrections
+- Developer reads it as HIGH PRIORITY
+- Archived to `logs/` after processing
+
+### Failure Detection System
+- Monitors iteration timing (minimum 5 minutes expected)
+- Tracks consecutive fast iterations (< 5 minutes)
+- Exits after 3 consecutive fast iterations (indicates API throttling)
+- Implements exponential backoff delays
+
+## Development Workflow
+
+### Loop Mechanics in claudefsd-dev
+1. **Developer Phase**: TDD - write test first, then implementation
+2. **Verifier Phase**: Code review, cheating detection, git commit
+3. **Tester Phase**: Run unit tests, check acceptance criteria (every 4th)
+4. **Human Check**: Process PAUSE file, archive FEEDBACK.md
+5. **Repeat**: Until all tasks complete or `<VERIFIED_ALL_DONE>` detected
+
+### Megathinking Mode + Acceptance Tests
+Every 4th iteration activates:
+- Ultrathink mode for architectural planning
+- Full acceptance test suite execution
+- Regression detection (adds `[BUG]` tasks if criteria fail)
+
+## Error Handling Philosophy
+- **No cheating patterns**: Never disable tests, exclude files from compilation, or use silent fallbacks
+- **Fail fast**: Integration failures should throw exceptions, not return mock data
+- **No production fallbacks**: Avoid try/catch blocks that hide errors with default values
+- **Defensive programming**: All edge cases must throw proper exceptions
+
+## Dependencies
+- **Required**: `claude` command (Claude CLI) - this is the only dependency needed
+
+## Git Branch Strategy
+- Stays on current branch if it's a proper feature branch
+- Avoids branch switching during automated cycles
+- Uses git for version control (no backup copies needed)
+
+## Testing Strategy
+
+### TDD Mandate
+Developer MUST follow Test-Driven Development:
+1. **RED**: Write a failing test first
+2. **GREEN**: Write minimum code to pass
+3. **REFACTOR**: Clean up while tests pass
+
+### Two-Tier Testing
+| Type | When | Purpose |
+|------|------|---------|
+| **Unit tests** | Every iteration | Verify current change works |
+| **Acceptance tests** | Every 4th iteration | Verify features work end-to-end, detect regressions |
+
+### Test Infrastructure Required
+Projects must have `## Test Infrastructure` section in PLAN.md.
+If missing, Tester adds: `- [ ] [INFRA] Set up test infrastructure`
+
+### Regression Handling
+If acceptance test was passing but now fails:
+- Tester adds: `- [ ] [BUG] <description of regression>`
+- Bug tasks take priority in next iteration
+
+### Testing Philosophy
+- Emphasizes integration tests over unit tests
+- Tests should exercise real systems (databases, APIs) non-destructively
+- No mocking without explicit permission
+- Lint and architecture tests run frequently
+
+## Common Bash Scripting Mistakes to Avoid
+- **Never use `local` outside of functions**: The `local` keyword can only be used inside bash functions. Use regular variable assignment instead.
+  ```bash
+  # WRONG (outside function):
+  local var_name=$(some_command)
+  
+  # CORRECT (outside function):
+  var_name=$(some_command)
+  ```
+
+---
+> Source: [willer/claude-fsd](https://github.com/willer/claude-fsd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-15 -->
