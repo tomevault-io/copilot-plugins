@@ -1,0 +1,9 @@
+{
+  "name": "opencomp-eu--compass",
+  "displayName": "compass",
+  "description": "A provider-agnostic and privacy-respecting AI application, based on React Native and the AI SDK",
+  "version": "1.0.0",
+  "author": "opencomp-eu",
+  "homepage": "https://github.com/opencomp-eu/compass",
+  "skills": []
+}
