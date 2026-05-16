@@ -1,753 +1,1012 @@
-## 008-testing-and-quality-standards
+## 009-deployment-and-operations
 
-> ENFORCE comprehensive testing standards when writing or modifying test files
+> APPLY deployment best practices when working with Docker and infrastructure files
 
-globs: **/*.test.ts, **/*.spec.ts, jest.config.js
+globs: Dockerfile, docker-compose.yml, .github/workflows/*, config/**/*
 alwaysApply: false
 ---
-# Testing and Quality Standards
+# Deployment and Operations
 
 **Rule Priority:** Core Architecture  
 **Activation:** Always Active  
-**Scope:** Testing strategies, quality assurance, and code standards
+**Scope:** Production deployment, monitoring, scaling, and operational procedures
 
-## Testing Architecture Overview
+## Deployment Architecture Overview
 
-SYMindX follows a **comprehensive testing strategy** that ensures reliability, performance, and maintainability across all system components through multiple testing layers.
+SYMindX implements a **containerized, cloud-native deployment strategy** designed for scalability, reliability, and ease of maintenance across different environments.
 
-### Testing Pyramid Structure
+### Deployment Stack Structure
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     SYMindX Testing Pyramid                  │
+│                  SYMindX Deployment Stack                    │
 ├─────────────────────────────────────────────────────────────┤
-│              E2E Tests (10%)                │              │
-│         ┌─────────────────────────────────────┐              │
-│         │  Integration Tests (20%)            │              │
-│    ┌─────────────────────────────────────────────────┐       │
-│    │           Unit Tests (70%)                      │       │
-│    └─────────────────────────────────────────────────┘       │
-│                                                               │
-│  Coverage Requirements:                                       │
-│  • Unit Tests: 90%+ coverage                                │
-│  • Integration Tests: Critical paths                         │
-│  • E2E Tests: User journeys                                 │
+│  Load Balancer    │  Container Orchestration │  Monitoring  │
+│  ├─ NGINX/Caddy   │  ├─ Docker Compose       │  ├─ Grafana │
+│  ├─ SSL/TLS       │  ├─ Kubernetes (opt)     │  ├─ Prometheus │
+│  └─ Rate Limiting │  ├─ Health Checks        │  ├─ Loki    │
+│                   │  └─ Auto-scaling         │  └─ Alerts  │
+├─────────────────────────────────────────────────────────────┤
+│  Application Layer                                          │
+│  ├─ Mind Agents Service ├─ Website Service ├─ Docs Service │
+│  ├─ Extension Services  ├─ API Gateway     ├─ MCP Server   │
+│  └─ Worker Services     └─ WebSocket       └─ Background   │
+├─────────────────────────────────────────────────────────────┤
+│  Data Layer                                                 │
+│  ├─ PostgreSQL/Supabase ├─ Redis Cache ├─ File Storage     │
+│  ├─ Vector Database     ├─ Log Storage ├─ Backup Storage   │
+│  └─ Configuration Store └─ Metrics DB  └─ Artifact Store   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Unit Testing Standards
+## Docker Configuration
 
-### Jest Configuration
-```typescript
-// jest.config.ts
-import type { Config } from '@jest/types';
+### Multi-Stage Dockerfile
+```dockerfile
+# mind-agents/Dockerfile
+FROM oven/bun:1-alpine AS base
+WORKDIR /app
 
-const config: Config.InitialOptions = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
-  testMatch: [
-    '**/__tests__/**/*.ts',
-    '**/?(*.)+(spec|test).ts'
-  ],
-  transform: {
-    '^.+\\.ts$': ['ts-jest', {
-      useESM: true,
-      tsconfig: {
-        module: 'esnext'
-      }
-    }]
-  },
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/**/*.types.ts',
-    '!src/**/index.ts'
-  ],
-  coverageThreshold: {
-    global: {
-      branches: 90,
-      functions: 90,
-      lines: 90,
-      statements: 90
+# Install dependencies
+FROM base AS deps
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile --production
+
+# Build stage
+FROM base AS build
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
+COPY . .
+RUN bun run build
+RUN bun run test
+
+# Production stage
+FROM base AS runtime
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 mindagent
+
+COPY --from=deps --chown=mindagent:nodejs /app/node_modules ./node_modules
+COPY --from=build --chown=mindagent:nodejs /app/dist ./dist
+COPY --from=build --chown=mindagent:nodejs /app/package.json ./
+
+USER mindagent
+
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD bun run healthcheck
+
+ENV NODE_ENV=production
+CMD ["bun", "run", "start"]
+```
+
+### Website Dockerfile
+```dockerfile
+# website/Dockerfile
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Dependencies
+FROM base AS deps
+COPY package.json package-lock.json ./
+RUN npm ci --only=production
+
+# Build stage
+FROM base AS build
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage with NGINX
+FROM nginx:alpine AS runtime
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/health || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+### Docker Compose Configuration
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Core mind agents service
+  mind-agents:
+    build: 
+      context: ./mind-agents
+      dockerfile: Dockerfile
+    container_name: symindx-mind-agents
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/app/config:ro
+      - mind-agents-data:/app/data
+      - mind-agents-logs:/app/logs
+    networks:
+      - symindx-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bun", "run", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Website service
+  website:
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    container_name: symindx-website
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://mind-agents:8080
+    networks:
+      - symindx-network
+    depends_on:
+      - mind-agents
+
+  # Documentation site
+  docs-site:
+    build:
+      context: ./docs-site
+      dockerfile: Dockerfile
+    container_name: symindx-docs
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    networks:
+      - symindx-network
+
+  # PostgreSQL database
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: symindx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-symindx}
+      POSTGRES_USER: ${POSTGRES_USER:-symindx}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./config/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - symindx-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-symindx}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis cache
+  redis:
+    image: redis:7-alpine
+    container_name: symindx-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - symindx-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # NGINX reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: symindx-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/sites:/etc/nginx/sites-available:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx-logs:/var/log/nginx
+    networks:
+      - symindx-network
+    depends_on:
+      - mind-agents
+      - website
+      - docs-site
+
+  # Monitoring stack
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: symindx-prometheus
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - symindx-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: symindx-grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3002:3000"
+    networks:
+      - symindx-network
+    depends_on:
+      - prometheus
+
+volumes:
+  mind-agents-data:
+  mind-agents-logs:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+  nginx-logs:
+
+networks:
+  symindx-network:
+    driver: bridge
+```
+
+## Production Environment Configuration
+
+### Environment Variables
+```bash
+# .env.production
+NODE_ENV=production
+
+# Database Configuration
+DATABASE_URL=postgresql://symindx:${POSTGRES_PASSWORD}@postgres:5432/symindx
+POSTGRES_DB=symindx
+POSTGRES_USER=symindx
+POSTGRES_PASSWORD=your_secure_password_here
+
+# Cache Configuration
+REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+REDIS_PASSWORD=your_redis_password_here
+
+# AI Provider Keys
+OPENAI_API_KEY=your_openai_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
+GROQ_API_KEY=your_groq_key_here
+
+# Security
+JWT_SECRET=your_jwt_secret_here
+ENCRYPTION_KEY=your_encryption_key_here
+
+# External Services
+SUPABASE_URL=your_supabase_url_here
+SUPABASE_ANON_KEY=your_supabase_anon_key_here
+
+# Monitoring
+GRAFANA_USER=admin
+GRAFANA_PASSWORD=your_grafana_password_here
+
+# SSL Configuration
+SSL_CERTIFICATE_PATH=/etc/nginx/ssl/cert.pem
+SSL_PRIVATE_KEY_PATH=/etc/nginx/ssl/private.key
+
+# Backup Configuration
+BACKUP_SCHEDULE="0 2 * * *"  # Daily at 2 AM
+BACKUP_RETENTION_DAYS=30
+BACKUP_STORAGE_PATH=/backups
+```
+
+### NGINX Configuration
+```nginx
+# config/nginx/nginx.conf
+worker_processes auto;
+error_log /var/log/nginx/error.log warn;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+    use epoll;
+    multi_accept on;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Logging format
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /var/log/nginx/access.log main;
+
+    # Performance optimizations
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    client_max_body_size 50M;
+
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript 
+               application/javascript application/xml+rss 
+               application/json application/xml;
+
+    # Rate limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+    limit_req_zone $binary_remote_addr zone=websocket:10m rate=5r/s;
+
+    # Upstream definitions
+    upstream mind_agents {
+        server mind-agents:8080;
+        keepalive 32;
     }
-  },
-  setupFilesAfterEnv: [
-    '<rootDir>/tests/setup.ts'
-  ],
-  moduleNameMapping: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  }
-};
 
-export default config;
-```
+    upstream website {
+        server website:80;
+        keepalive 16;
+    }
 
-### Test File Organization
-```typescript
-// Standard test file structure
-describe('AIPortalManager', () => {
-  let portalManager: AIPortalManager;
-  let mockEventBus: jest.Mocked<EventBus>;
-  let mockConfig: AIPortalConfig;
-  
-  beforeEach(() => {
-    // Setup mocks and test instances
-    mockEventBus = createMockEventBus();
-    mockConfig = createTestConfig();
-    portalManager = new AIPortalManager(mockEventBus, mockConfig);
-  });
-  
-  afterEach(() => {
-    // Cleanup resources
-    jest.clearAllMocks();
-  });
-  
-  describe('initialization', () => {
-    it('should initialize all enabled portals', async () => {
-      // Test setup and execution
-    });
-    
-    it('should handle initialization failures gracefully', async () => {
-      // Error condition testing
-    });
-  });
-  
-  describe('provider selection', () => {
-    it('should select primary provider for standard requests', async () => {
-      // Normal flow testing
-    });
-    
-    it('should fallback to secondary provider when primary fails', async () => {
-      // Fallback behavior testing
-    });
-  });
-  
-  describe('error handling', () => {
-    it('should retry failed requests with exponential backoff', async () => {
-      // Retry logic testing
-    });
-    
-    it('should circuit break after repeated failures', async () => {
-      // Circuit breaker testing
-    });
-  });
-});
-```
+    upstream docs {
+        server docs-site:80;
+        keepalive 16;
+    }
 
-### Mock Factory Patterns
-```typescript
-// Mock factories for consistent test data
-export class TestFactories {
-  static createMockAgent(overrides: Partial<Agent> = {}): Agent {
-    return {
-      id: 'test-agent-id',
-      name: 'Test Agent',
-      characterId: 'nyx',
-      status: 'inactive',
-      config: {
-        memoryProvider: 'sqlite',
-        emotionModule: 'confident',
-        cognitiveModule: 'reactive',
-        aiPortal: 'openai'
-      },
-      metadata: {
-        createdAt: new Date('2024-01-01'),
-        lastActive: null,
-        version: '1.0.0'
-      },
-      ...overrides
-    };
-  }
-  
-  static createMockMessage(overrides: Partial<Message> = {}): Message {
-    return {
-      id: `msg-${Date.now()}`,
-      content: 'Test message content',
-      sender: {
-        id: 'test-user',
-        name: 'Test User',
-        platform: 'test'
-      },
-      channel: {
-        id: 'test-channel',
-        type: 'direct',
-        platform: 'test'
-      },
-      timestamp: new Date(),
-      ...overrides
-    };
-  }
-  
-  static createMockEventBus(): jest.Mocked<EventBus> {
-    return {
-      emit: jest.fn(),
-      emitAndWait: jest.fn(),
-      on: jest.fn(),
-      off: jest.fn(),
-      once: jest.fn(),
-      removeAllListeners: jest.fn()
-    } as jest.Mocked<EventBus>;
-  }
+    # Main server configuration
+    server {
+        listen 80;
+        server_name symindx.ai www.symindx.ai;
+        return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 443 ssl http2;
+        server_name symindx.ai www.symindx.ai;
+
+        # SSL configuration
+        ssl_certificate /etc/nginx/ssl/cert.pem;
+        ssl_certificate_key /etc/nginx/ssl/private.key;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512;
+        ssl_prefer_server_ciphers off;
+        ssl_session_cache shared:SSL:10m;
+        ssl_session_timeout 10m;
+
+        # Security headers
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+        add_header X-XSS-Protection "1; mode=block";
+        add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
+
+        # Main website
+        location / {
+            proxy_pass http://website;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # API endpoints
+        location /api/ {
+            limit_req zone=api burst=20 nodelay;
+            
+            proxy_pass http://mind_agents;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # API-specific settings
+            proxy_connect_timeout 30s;
+            proxy_send_timeout 30s;
+            proxy_read_timeout 30s;
+        }
+
+        # WebSocket endpoints
+        location /ws/ {
+            limit_req zone=websocket burst=10 nodelay;
+            
+            proxy_pass http://mind_agents;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # WebSocket-specific settings
+            proxy_connect_timeout 7d;
+            proxy_send_timeout 7d;
+            proxy_read_timeout 7d;
+        }
+
+        # Documentation site
+        location /docs/ {
+            proxy_pass http://docs;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Health check endpoint
+        location /health {
+            access_log off;
+            return 200 "healthy\n";
+            add_header Content-Type text/plain;
+        }
+    }
 }
 ```
 
-### Testing AI Portal Integrations
-```typescript
-describe('OpenAIPortal', () => {
-  let portal: OpenAIPortal;
-  let mockOpenAI: jest.Mocked<OpenAI>;
-  
-  beforeEach(() => {
-    mockOpenAI = {
-      chat: {
-        completions: {
-          create: jest.fn()
-        }
-      }
-    } as any;
-    
-    portal = new OpenAIPortal({
-      apiKey: 'test-key',
-      models: {
-        chat: 'gpt-4o',
-        tools: 'gpt-4.1-mini'
-      }
-    });
-    
-    // Inject mock
-    (portal as any).client = mockOpenAI;
-  });
-  
-  describe('text generation', () => {
-    it('should generate text response with correct parameters', async () => {
-      const mockResponse = {
-        choices: [{
-          message: {
-            content: 'Test response',
-            role: 'assistant'
-          }
-        }],
-        usage: {
-          prompt_tokens: 10,
-          completion_tokens: 5,
-          total_tokens: 15
-        }
-      };
-      
-      mockOpenAI.chat.completions.create.mockResolvedValue(mockResponse as any);
-      
-      const request: GenerationRequest = {
-        messages: [{ role: 'user', content: 'Test prompt' }],
-        temperature: 0.7,
-        maxTokens: 100
-      };
-      
-      const result = await portal.generate(request);
-      
-      expect(result.content).toBe('Test response');
-      expect(result.usage.totalTokens).toBe(15);
-      expect(mockOpenAI.chat.completions.create).toHaveBeenCalledWith({
-        model: 'gpt-4o',
-        messages: request.messages,
-        temperature: 0.7,
-        max_tokens: 100
-      });
-    });
-    
-    it('should handle rate limiting with exponential backoff', async () => {
-      const rateLimitError = new Error('Rate limit exceeded');
-      (rateLimitError as any).status = 429;
-      
-      mockOpenAI.chat.completions.create
-        .mockRejectedValueOnce(rateLimitError)
-        .mockRejectedValueOnce(rateLimitError)
-        .mockResolvedValueOnce({
-          choices: [{ message: { content: 'Success after retries' } }]
-        } as any);
-      
-      const request: GenerationRequest = {
-        messages: [{ role: 'user', content: 'Test' }]
-      };
-      
-      const result = await portal.generate(request);
-      
-      expect(result.content).toBe('Success after retries');
-      expect(mockOpenAI.chat.completions.create).toHaveBeenCalledTimes(3);
-    });
-  });
-});
+## Monitoring and Observability
+
+### Prometheus Configuration
+```yaml
+# config/prometheus/prometheus.yml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # SYMindX application metrics
+  - job_name: 'symindx-mind-agents'
+    static_configs:
+      - targets: ['mind-agents:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 15s
+
+  # System metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # PostgreSQL metrics
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+
+  # Redis metrics
+  - job_name: 'redis-exporter'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+
+  # NGINX metrics
+  - job_name: 'nginx-exporter'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
 ```
 
-### Memory Provider Testing
+### Application Metrics Implementation
 ```typescript
-describe('SQLiteMemoryProvider', () => {
-  let provider: SQLiteMemoryProvider;
-  let testDb: Database;
+// src/monitoring/metrics.ts
+import { register, Counter, Histogram, Gauge } from 'prom-client';
+
+export class MetricsCollector {
+  private static instance: MetricsCollector;
   
-  beforeEach(async () => {
-    // Use in-memory database for testing
-    testDb = new Database(':memory:');
-    provider = new SQLiteMemoryProvider(testDb);
-    await provider.initialize();
+  // Counters
+  public readonly messagesProcessed = new Counter({
+    name: 'symindx_messages_processed_total',
+    help: 'Total number of messages processed',
+    labelNames: ['agent_id', 'platform', 'status']
   });
   
-  afterEach(async () => {
-    await provider.shutdown();
-    testDb.close();
+  public readonly apiRequestsTotal = new Counter({
+    name: 'symindx_api_requests_total',
+    help: 'Total number of API requests',
+    labelNames: ['method', 'endpoint', 'status_code']
   });
   
-  describe('memory storage', () => {
-    it('should store and retrieve memories with embeddings', async () => {
-      const memory: Memory = {
-        id: 'test-memory',
-        content: 'Test memory content',
-        agentId: 'test-agent',
-        timestamp: new Date(),
-        embedding: new Array(1536).fill(0.1),
-        metadata: { importance: 0.8 }
-      };
-      
-      await provider.storeMemory(memory);
-      
-      const retrieved = await provider.getMemory('test-memory');
-      
-      expect(retrieved).toEqual(memory);
+  // Histograms
+  public readonly messageProcessingDuration = new Histogram({
+    name: 'symindx_message_processing_duration_seconds',
+    help: 'Time spent processing messages',
+    labelNames: ['agent_id', 'complexity'],
+    buckets: [0.1, 0.5, 1, 2, 5, 10, 30]
+  });
+  
+  public readonly aiProviderLatency = new Histogram({
+    name: 'symindx_ai_provider_latency_seconds',
+    help: 'AI provider response latency',
+    labelNames: ['provider', 'model', 'operation'],
+    buckets: [0.1, 0.5, 1, 2, 5, 10, 30]
+  });
+  
+  // Gauges
+  public readonly activeAgents = new Gauge({
+    name: 'symindx_active_agents',
+    help: 'Number of currently active agents'
+  });
+  
+  public readonly activeConnections = new Gauge({
+    name: 'symindx_active_connections',
+    help: 'Number of active WebSocket connections',
+    labelNames: ['extension_type']
+  });
+  
+  public readonly memoryUsage = new Gauge({
+    name: 'symindx_memory_usage_bytes',
+    help: 'Memory usage by component',
+    labelNames: ['component']
+  });
+  
+  public static getInstance(): MetricsCollector {
+    if (!MetricsCollector.instance) {
+      MetricsCollector.instance = new MetricsCollector();
+    }
+    return MetricsCollector.instance;
+  }
+  
+  public getRegistry() {
+    return register;
+  }
+  
+  // Helper methods for common metrics
+  public recordMessageProcessed(agentId: string, platform: string, success: boolean): void {
+    this.messagesProcessed.inc({
+      agent_id: agentId,
+      platform,
+      status: success ? 'success' : 'error'
     });
-    
-    it('should perform semantic search correctly', async () => {
-      // Store test memories
-      const memories = [
-        TestFactories.createMemory({ content: 'AI and machine learning' }),
-        TestFactories.createMemory({ content: 'Cooking recipes' }),
-        TestFactories.createMemory({ content: 'Artificial intelligence research' })
-      ];
-      
-      for (const memory of memories) {
-        await provider.storeMemory(memory);
-      }
-      
-      // Search for AI-related content
-      const results = await provider.searchMemories('artificial intelligence', {
-        limit: 10,
-        threshold: 0.7
-      });
-      
-      expect(results).toHaveLength(2);
-      expect(results[0].content).toContain('AI');
+  }
+  
+  public recordApiRequest(method: string, endpoint: string, statusCode: number): void {
+    this.apiRequestsTotal.inc({
+      method,
+      endpoint,
+      status_code: statusCode.toString()
     });
+  }
+  
+  public recordMessageProcessingTime(agentId: string, complexity: string, duration: number): void {
+    this.messageProcessingDuration.observe(
+      { agent_id: agentId, complexity },
+      duration
+    );
+  }
+}
+
+// Metrics middleware for Express
+export const metricsMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const start = Date.now();
+  const metrics = MetricsCollector.getInstance();
+  
+  res.on('finish', () => {
+    const duration = (Date.now() - start) / 1000;
+    metrics.recordApiRequest(req.method, req.route?.path || req.path, res.statusCode);
   });
-});
+  
+  next();
+};
 ```
 
-## Integration Testing
-
-### Agent Integration Tests
-```typescript
-describe('Agent Integration', () => {
-  let agent: Agent;
-  let testContainer: TestContainer;
-  
-  beforeEach(async () => {
-    testContainer = await createTestContainer();
-    agent = await testContainer.createAgent({
-      characterId: 'nyx',
-      memoryProvider: 'sqlite',
-      aiPortal: 'mock'
-    });
-  });
-  
-  afterEach(async () => {
-    await testContainer.cleanup();
-  });
-  
-  describe('message processing', () => {
-    it('should process messages through complete pipeline', async () => {
-      const message = TestFactories.createMockMessage({
-        content: 'Hello, can you help me?'
-      });
-      
-      const response = await agent.processMessage(message);
-      
-      expect(response).toBeDefined();
-      expect(response.content).toBeTruthy();
-      expect(response.metadata.agentId).toBe(agent.id);
-    });
-    
-    it('should maintain conversation context across messages', async () => {
-      const firstMessage = TestFactories.createMockMessage({
-        content: 'My name is John'
-      });
-      
-      const secondMessage = TestFactories.createMockMessage({
-        content: 'What is my name?'
-      });
-      
-      await agent.processMessage(firstMessage);
-      const response = await agent.processMessage(secondMessage);
-      
-      expect(response.content.toLowerCase()).toContain('john');
-    });
-  });
-  
-  describe('module hot-swapping', () => {
-    it('should swap memory providers without losing data', async () => {
-      // Store initial memory
-      await agent.storeMemory('Important information');
-      
-      // Swap to different provider
-      await agent.swapMemoryProvider('postgres');
-      
-      // Verify memory is accessible
-      const memories = await agent.searchMemories('Important');
-      expect(memories).toHaveLength(1);
-    });
-    
-    it('should swap emotion modules and maintain state', async () => {
-      // Set initial emotion
-      await agent.setEmotion('confident', 0.8);
-      
-      // Swap emotion module
-      await agent.swapEmotionModule('empathetic');
-      
-      // Verify emotion influence continues
-      const message = TestFactories.createMockMessage({
-        content: 'I am feeling sad'
-      });
-      
-      const response = await agent.processMessage(message);
-      expect(response.emotionState.empathy).toBeGreaterThan(0.5);
-    });
-  });
-});
-```
-
-### Extension Integration Tests
-```typescript
-describe('Extension Integration', () => {
-  let extensionRegistry: ExtensionRegistry;
-  let testContainer: TestContainer;
-  
-  beforeEach(async () => {
-    testContainer = await createTestContainer();
-    extensionRegistry = testContainer.getExtensionRegistry();
-  });
-  
-  describe('communication extensions', () => {
-    it('should route messages between platforms correctly', async () => {
-      // Register mock extensions
-      const telegramExt = new MockTelegramExtension();
-      const discordExt = new MockDiscordExtension();
-      
-      await extensionRegistry.register(telegramExt);
-      await extensionRegistry.register(discordExt);
-      
-      // Send message from Telegram
-      const telegramMessage = TestFactories.createMockMessage({
-        sender: { platform: 'telegram' },
-        content: 'Forward this to Discord'
-      });
-      
-      await telegramExt.handleMessage(telegramMessage);
-      
-      // Verify Discord received the message
-      expect(discordExt.lastSentMessage).toBeDefined();
-      expect(discordExt.lastSentMessage.content).toContain('Forward this');
-    });
-  });
-  
-  describe('API extensions', () => {
-    it('should handle concurrent API requests correctly', async () => {
-      const apiExt = new APIExtension();
-      await extensionRegistry.register(apiExt);
-      
-      // Send multiple concurrent requests
-      const requests = Array.from({ length: 10 }, (_, i) => 
-        testContainer.apiClient.post('/chat', {
-          message: `Test message ${i}`,
-          agentId: 'test-agent'
-        })
-      );
-      
-      const responses = await Promise.all(requests);
-      
-      // Verify all requests succeeded
-      responses.forEach((response, i) => {
-        expect(response.status).toBe(200);
-        expect(response.data.success).toBe(true);
-      });
-    });
-  });
-});
-```
-
-## End-to-End Testing
-
-### User Journey Tests
-```typescript
-describe('E2E User Journeys', () => {
-  let browser: Browser;
-  let page: Page;
-  let testAgent: Agent;
-  
-  beforeAll(async () => {
-    browser = await chromium.launch();
-    page = await browser.newPage();
-    testAgent = await createTestAgent();
-  });
-  
-  afterAll(async () => {
-    await browser.close();
-    await cleanupTestAgent(testAgent);
-  });
-  
-  describe('Web Interface', () => {
-    it('should complete agent creation workflow', async () => {
-      // Navigate to agent creation page
-      await page.goto('http://localhost:3000/agents/new');
-      
-      // Fill out agent form
-      await page.fill('[data-testid="agent-name"]', 'Test Agent');
-      await page.selectOption('[data-testid="character-select"]', 'nyx');
-      await page.selectOption('[data-testid="memory-provider"]', 'sqlite');
-      await page.selectOption('[data-testid="ai-portal"]', 'openai');
-      
-      // Submit form
-      await page.click('[data-testid="create-agent-btn"]');
-      
-      // Verify agent appears in dashboard
-      await page.waitForSelector('[data-testid="agent-card"]');
-      const agentName = await page.textContent('[data-testid="agent-card"] h3');
-      expect(agentName).toBe('Test Agent');
-      
-      // Start agent
-      await page.click('[data-testid="start-agent-btn"]');
-      await page.waitForSelector('[data-testid="agent-status-active"]');
-      
-      // Send test message
-      await page.fill('[data-testid="chat-input"]', 'Hello, test agent!');
-      await page.click('[data-testid="send-message-btn"]');
-      
-      // Verify response
-      await page.waitForSelector('[data-testid="agent-response"]');
-      const response = await page.textContent('[data-testid="agent-response"]');
-      expect(response).toBeTruthy();
-    });
-  });
-  
-  describe('Multi-Platform Communication', () => {
-    it('should handle cross-platform message routing', async () => {
-      // Setup mock platforms
-      const telegramBot = new MockTelegramBot();
-      const discordBot = new MockDiscordBot();
-      
-      // Connect agent to both platforms
-      await testAgent.addExtension('telegram', telegramBot);
-      await testAgent.addExtension('discord', discordBot);
-      
-      // Send message from Telegram
-      await telegramBot.sendMessage('Hello from Telegram!');
-      
-      // Verify agent processes and responds
-      await waitFor(() => {
-        expect(telegramBot.lastResponse).toBeDefined();
-      });
-      
-      // Verify cross-platform notification if configured
-      if (testAgent.config.crossPlatformNotifications) {
-        await waitFor(() => {
-          expect(discordBot.lastNotification).toBeDefined();
-        });
-      }
-    });
-  });
-});
-```
-
-## Performance Testing
-
-### Load Testing
-```typescript
-describe('Performance Tests', () => {
-  describe('Concurrent Message Processing', () => {
-    it('should handle 100 concurrent messages within SLA', async () => {
-      const agent = await createPerformanceTestAgent();
-      const startTime = Date.now();
-      
-      // Generate 100 concurrent messages
-      const messages = Array.from({ length: 100 }, (_, i) => 
-        TestFactories.createMockMessage({
-          content: `Performance test message ${i}`
-        })
-      );
-      
-      // Process all messages concurrently
-      const responses = await Promise.all(
-        messages.map(msg => agent.processMessage(msg))
-      );
-      
-      const endTime = Date.now();
-      const totalTime = endTime - startTime;
-      
-      // Verify all responses received
-      expect(responses).toHaveLength(100);
-      responses.forEach(response => {
-        expect(response).toBeDefined();
-        expect(response.content).toBeTruthy();
-      });
-      
-      // Verify SLA (< 5 seconds for 100 messages)
-      expect(totalTime).toBeLessThan(5000);
-      
-      // Verify average response time (< 200ms per message)
-      const avgResponseTime = totalTime / 100;
-      expect(avgResponseTime).toBeLessThan(200);
-    });
-  });
-  
-  describe('Memory Performance', () => {
-    it('should maintain search performance with large memory datasets', async () => {
-      const memoryProvider = new SQLiteMemoryProvider();
-      await memoryProvider.initialize();
-      
-      // Store 10,000 memories
-      const memories = Array.from({ length: 10000 }, (_, i) => 
-        TestFactories.createMemory({
-          content: `Memory ${i}: ${generateRandomContent()}`
-        })
-      );
-      
-      const storeStartTime = Date.now();
-      await Promise.all(
-        memories.map(memory => memoryProvider.storeMemory(memory))
-      );
-      const storeEndTime = Date.now();
-      
-      // Verify storage performance (< 30 seconds for 10k memories)
-      expect(storeEndTime - storeStartTime).toBeLessThan(30000);
-      
-      // Test search performance
-      const searchStartTime = Date.now();
-      const results = await memoryProvider.searchMemories('test query', {
-        limit: 10
-      });
-      const searchEndTime = Date.now();
-      
-      // Verify search performance (< 100ms)
-      expect(searchEndTime - searchStartTime).toBeLessThan(100);
-      expect(results).toHaveLength(10);
-    });
-  });
-});
-```
-
-## Quality Assurance
-
-### Code Quality Tools
+### Grafana Dashboard Configuration
 ```json
 {
-  "scripts": {
-    "lint": "eslint src/ --ext .ts,.tsx",
-    "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
-    "type-check": "tsc --noEmit",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:e2e": "playwright test",
-    "quality": "npm run lint && npm run type-check && npm run test"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
+  "dashboard": {
+    "title": "SYMindX Operations Dashboard",
+    "tags": ["symindx", "production"],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "title": "Active Agents",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "symindx_active_agents",
+            "legendFormat": "Active Agents"
+          }
+        ]
+      },
+      {
+        "title": "Message Processing Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(symindx_messages_processed_total[5m])",
+            "legendFormat": "{{agent_id}} - {{platform}}"
+          }
+        ]
+      },
+      {
+        "title": "API Response Times",
+        "type": "graph", 
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(symindx_api_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "95th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.50, rate(symindx_api_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "50th percentile"
+          }
+        ]
+      },
+      {
+        "title": "Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(symindx_messages_processed_total{status=\"error\"}[5m]) / rate(symindx_messages_processed_total[5m])",
+            "legendFormat": "Error Rate"
+          }
+        ]
+      }
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run quality"
-    }
   }
 }
 ```
 
-### ESLint Configuration
+## Health Checks and Auto-Recovery
+
+### Application Health Checks
 ```typescript
-// .eslintrc.js
-module.exports = {
-  extends: [
-    '@typescript-eslint/recommended',
-    '@typescript-eslint/recommended-requiring-type-checking'
-  ],
-  rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'warn',
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/prefer-nullish-coalescing': 'error',
-    '@typescript-eslint/prefer-optional-chain': 'error',
-    'complexity': ['error', 10],
-    'max-lines-per-function': ['error', 50],
-    'max-depth': ['error', 4]
+// src/health/health-checker.ts
+interface HealthCheck {
+  name: string;
+  check(): Promise<HealthStatus>;
+}
+
+interface HealthStatus {
+  healthy: boolean;
+  message?: string;
+  details?: Record<string, any>;
+}
+
+export class HealthChecker {
+  private checks: HealthCheck[] = [];
+  
+  registerCheck(check: HealthCheck): void {
+    this.checks.push(check);
   }
-};
-```
-
-### Continuous Integration
-```yaml
-# .github/workflows/ci.yml
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20]
+  
+  async checkHealth(): Promise<{
+    status: 'healthy' | 'unhealthy';
+    checks: Record<string, HealthStatus>;
+  }> {
+    const results: Record<string, HealthStatus> = {};
+    let overallHealthy = true;
     
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-          
-      - name: Install dependencies
-        run: bun install
-        
-      - name: Type checking
-        run: bun run type-check
-        
-      - name: Linting
-        run: bun run lint
-        
-      - name: Unit tests
-        run: bun run test:coverage
-        
-      - name: Integration tests
-        run: bun run test:integration
-        
-      - name: E2E tests
-        run: bun run test:e2e
-        
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage/lcov.info
+    await Promise.all(
+      this.checks.map(async (check) => {
+        try {
+          const status = await check.check();
+          results[check.name] = status;
+          if (!status.healthy) {
+            overallHealthy = false;
+          }
+        } catch (error) {
+          results[check.name] = {
+            healthy: false,
+            message: error instanceof Error ? error.message : 'Unknown error'
+          };
+          overallHealthy = false;
+        }
+      })
+    );
+    
+    return {
+      status: overallHealthy ? 'healthy' : 'unhealthy',
+      checks: results
+    };
+  }
+}
+
+// Database health check
+export class DatabaseHealthCheck implements HealthCheck {
+  name = 'database';
+  
+  constructor(private db: Database) {}
+  
+  async check(): Promise<HealthStatus> {
+    try {
+      const result = await this.db.query('SELECT 1');
+      return {
+        healthy: true,
+        message: 'Database connection OK',
+        details: { connectionCount: this.db.pool.totalCount }
+      };
+    } catch (error) {
+      return {
+        healthy: false,
+        message: `Database connection failed: ${error.message}`
+      };
+    }
+  }
+}
+
+// AI Portal health check
+export class AIPortalHealthCheck implements HealthCheck {
+  name = 'ai_portals';
+  
+  constructor(private portalManager: AIPortalManager) {}
+  
+  async check(): Promise<HealthStatus> {
+    const portals = this.portalManager.getAllPortals();
+    const results = await Promise.all(
+      portals.map(async (portal) => {
+        try {
+          await portal.healthCheck();
+          return { id: portal.id, healthy: true };
+        } catch (error) {
+          return { 
+            id: portal.id, 
+            healthy: false, 
+            error: error.message 
+          };
+        }
+      })
+    );
+    
+    const unhealthyPortals = results.filter(r => !r.healthy);
+    
+    return {
+      healthy: unhealthyPortals.length === 0,
+      message: unhealthyPortals.length > 0 
+        ? `${unhealthyPortals.length} portals unhealthy`
+        : 'All portals healthy',
+      details: { portals: results }
+    };
+  }
+}
 ```
 
-This comprehensive testing and quality assurance framework ensures SYMindX maintains high reliability, performance, and code quality standards across all development phases. [[memory:2184189]]
+## Backup and Disaster Recovery
+
+### Automated Backup System
+```bash
+#!/bin/bash
+# scripts/backup.sh
+
+set -euo pipefail
+
+# Configuration
+BACKUP_DIR="/backups"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-30}
+
+# Database backup
+echo "Starting database backup..."
+docker exec symindx-postgres pg_dump -U symindx symindx | gzip > \
+  "${BACKUP_DIR}/database_${TIMESTAMP}.sql.gz"
+
+# Redis backup
+echo "Starting Redis backup..."
+docker exec symindx-redis redis-cli --rdb /data/backup.rdb
+docker cp symindx-redis:/data/backup.rdb "${BACKUP_DIR}/redis_${TIMESTAMP}.rdb"
+
+# Configuration backup
+echo "Backing up configuration..."
+tar -czf "${BACKUP_DIR}/config_${TIMESTAMP}.tar.gz" \
+  ./config ./docker-compose.yml ./.env.production
+
+# Application data backup
+echo "Backing up application data..."
+docker run --rm -v symindx_mind-agents-data:/data \
+  -v "${BACKUP_DIR}:/backup" alpine \
+  tar -czf "/backup/app_data_${TIMESTAMP}.tar.gz" -C /data .
+
+# Cleanup old backups
+echo "Cleaning up old backups..."
+find "${BACKUP_DIR}" -name "*.gz" -o -name "*.rdb" -mtime +${RETENTION_DAYS} -delete
+
+# Verify backup integrity
+echo "Verifying backup integrity..."
+gzip -t "${BACKUP_DIR}/database_${TIMESTAMP}.sql.gz"
+tar -tzf "${BACKUP_DIR}/config_${TIMESTAMP}.tar.gz" > /dev/null
+tar -tzf "${BACKUP_DIR}/app_data_${TIMESTAMP}.tar.gz" > /dev/null
+
+echo "Backup completed successfully: ${TIMESTAMP}"
+
+# Optional: Upload to cloud storage
+if [ -n "${BACKUP_UPLOAD_ENABLED:-}" ]; then
+  echo "Uploading to cloud storage..."
+  aws s3 sync "${BACKUP_DIR}" "s3://${BACKUP_BUCKET}/symindx/" \
+    --exclude "*" --include "*${TIMESTAMP}*"
+fi
+```
+
+### Disaster Recovery Playbook
+```bash
+#!/bin/bash
+# scripts/disaster-recovery.sh
+
+set -euo pipefail
+
+RESTORE_DATE=${1:-$(ls /backups/database_*.sql.gz | tail -1 | grep -o '[0-9]\{8\}_[0-9]\{6\}')}
+
+echo "Starting disaster recovery for backup: ${RESTORE_DATE}"
+
+# Stop all services
+echo "Stopping services..."
+docker-compose down
+
+# Restore database
+echo "Restoring database..."
+docker-compose up -d postgres
+sleep 30
+
+# Wait for database to be ready
+while ! docker exec symindx-postgres pg_isready -U symindx; do
+  echo "Waiting for database..."
+  sleep 5
+done
+
+# Restore database data
+gunzip -c "/backups/database_${RESTORE_DATE}.sql.gz" | \
+  docker exec -i symindx-postgres psql -U symindx -d symindx
+
+# Restore Redis
+echo "Restoring Redis..."
+docker-compose up -d redis
+sleep 10
+docker cp "/backups/redis_${RESTORE_DATE}.rdb" symindx-redis:/data/dump.rdb
+docker restart symindx-redis
+
+# Restore application data
+echo "Restoring application data..."
+docker run --rm -v symindx_mind-agents-data:/data \
+  -v "/backups:/backup" alpine \
+  tar -xzf "/backup/app_data_${RESTORE_DATE}.tar.gz" -C /data
+
+# Restore configuration (if needed)
+if [ -f "/backups/config_${RESTORE_DATE}.tar.gz" ]; then
+  echo "Configuration backup found, manual restore may be needed"
+fi
+
+# Start all services
+echo "Starting all services..."
+docker-compose up -d
+
+# Verify system health
+echo "Waiting for system to be ready..."
+sleep 60
+
+# Health check
+if curl -f http://localhost/health; then
+  echo "Disaster recovery completed successfully!"
+else
+  echo "Health check failed, manual intervention required"
+  exit 1
+fi
+```
+
+## Scaling and Performance
+
+### Horizontal Scaling Configuration
+```yaml
+# docker-compose.scale.yml
+version: '3.8'
+
+services:
+  mind-agents:
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+
+  website:
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+  # Load balancer for mind-agents
+  haproxy:
+    image: haproxy:latest
+    volumes:
+      - ./config/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mind-agents
+```
+
+### Auto-scaling Script
+```bash
+#!/bin/bash
+# scripts/auto-scale.sh
+
+# Monitor CPU and memory usage
+CPU_THRESHOLD=80
+MEMORY_THRESHOLD=80
+SCALE_UP_REPLICAS=5
+SCALE_DOWN_REPLICAS=2
+
+while true; do
+  # Get current resource usage
+  CPU_USAGE=$(docker stats --no-stream --format "table {{.CPUPerc}}" symindx-mind-agents | tail -n +2 | sed 's/%//' | awk '{sum+=$1} END {print sum/NR}')
+  MEMORY_USAGE=$(docker stats --no-stream --format "table {{.MemPerc}}" symindx-mind-agents | tail -n +2 | sed 's/%//' | awk '{sum+=$1} END {print sum/NR}')
+  
+  CURRENT_REPLICAS=$(docker-compose ps -q mind-agents | wc -l)
+  
+  if (( $(echo "$CPU_USAGE > $CPU_THRESHOLD" | bc -l) )) || (( $(echo "$MEMORY_USAGE > $MEMORY_THRESHOLD" | bc -l) )); then
+    if [ "$CURRENT_REPLICAS" -lt "$SCALE_UP_REPLICAS" ]; then
+      echo "High resource usage detected, scaling up..."
+      docker-compose up -d --scale mind-agents=$((CURRENT_REPLICAS + 1))
+    fi
+  elif (( $(echo "$CPU_USAGE < 30" | bc -l) )) && (( $(echo "$MEMORY_USAGE < 30" | bc -l) )); then
+    if [ "$CURRENT_REPLICAS" -gt "$SCALE_DOWN_REPLICAS" ]; then
+      echo "Low resource usage detected, scaling down..."
+      docker-compose up -d --scale mind-agents=$((CURRENT_REPLICAS - 1))
+    fi
+  fi
+  
+  sleep 60
+done
+```
+
+This comprehensive deployment and operations framework ensures SYMindX can be reliably deployed, monitored, and maintained in production environments with high availability and performance. [[memory:2184189]]
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
