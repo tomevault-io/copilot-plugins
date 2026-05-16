@@ -1,0 +1,9 @@
+{
+  "name": "hikariming--pindata",
+  "displayName": "pindata",
+  "description": "PinData is a modern, open-source dataset management platform designed specifically for large language model (LLM) training workflows",
+  "version": "1.0.0",
+  "author": "hikariming",
+  "homepage": "https://github.com/hikariming/pindata",
+  "skills": []
+}
