@@ -1,0 +1,9 @@
+{
+  "name": "dvcrn--mcp-server-subagent",
+  "displayName": "mcp-server-subagent",
+  "description": "MCP for letting agents delegate tasks to sub-agents (Claude Code, Aider, Q)",
+  "version": "1.0.0",
+  "author": "dvcrn",
+  "homepage": "https://github.com/dvcrn/mcp-server-subagent",
+  "skills": []
+}
