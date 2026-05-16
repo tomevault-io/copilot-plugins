@@ -1,0 +1,9 @@
+{
+  "name": "esc5221--claude-code-viewer",
+  "displayName": "claude-code-viewer",
+  "description": "desktop application for viewing and analyzing Claude Code CLI session logs.",
+  "version": "1.0.0",
+  "author": "esc5221",
+  "homepage": "https://github.com/esc5221/claude-code-viewer",
+  "skills": []
+}
