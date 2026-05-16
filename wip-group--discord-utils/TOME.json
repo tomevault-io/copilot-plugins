@@ -4,7 +4,7 @@
   "repo": "discord-utils",
   "description": "A comprehensive toolkit for Discord communities.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wip-group/discord-utils",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:35:50Z"
+  "distributed_at": "2026-05-16T05:05:26Z"
 }
