@@ -1,0 +1,9 @@
+{
+  "name": "microsofthackathons--microclaw",
+  "displayName": "MicroClaw",
+  "description": "One click to install OpenClaw on Windows, one click to run it securely and seamlessly.",
+  "version": "1.0.0",
+  "author": "microsofthackathons",
+  "homepage": "https://github.com/microsofthackathons/MicroClaw",
+  "skills": []
+}
