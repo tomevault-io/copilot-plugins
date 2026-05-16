@@ -1,0 +1,9 @@
+{
+  "name": "hoangsonww--petswipe-match-app",
+  "displayName": "PetSwipe-Match-App",
+  "description": "\ud83d\udc3b A Tinder-inspired pet adoption app where you swipe to navigate, \u201cadopt\u201d, or \u201cpass\u201d on shelter animals. Built & deployed with PostgreSQL, Express, Node.js, TypeORM, Next.js, AWS, Agentic AI, MCP, Dat",
+  "version": "1.0.0",
+  "author": "hoangsonww",
+  "homepage": "https://github.com/hoangsonww/PetSwipe-Match-App",
+  "skills": []
+}
