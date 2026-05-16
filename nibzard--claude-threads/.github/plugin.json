@@ -1,0 +1,9 @@
+{
+  "name": "nibzard--claude-threads",
+  "displayName": "claude-threads",
+  "description": "A lightweight web viewer for Claude Code conversation files with a terminal-inspired ASCII aesthetic",
+  "version": "1.0.0",
+  "author": "nibzard",
+  "homepage": "https://github.com/nibzard/claude-threads",
+  "skills": []
+}
