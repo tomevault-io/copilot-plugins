@@ -4,7 +4,7 @@
   "repo": "stream-coding",
   "description": "Stream Coding v2.1.0 \u2014 Documentation-first development methodology. 59 skills, 5-gate enforcement, multi-agent support (Antigravity, Claude Code, Gemini CLI). When docs are clear enough, code generation becomes automatic.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pyl-Tech/stream-coding",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T02:32:06Z"
+  "distributed_at": "2026-05-16T03:38:34Z"
 }
