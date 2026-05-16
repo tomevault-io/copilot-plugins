@@ -1,0 +1,9 @@
+{
+  "name": "dyadlang--spacepowerworkshop-jl",
+  "displayName": "SpacePowerWorkshop.jl",
+  "description": "Analysing a solar power system for a CubeSat",
+  "version": "1.0.0",
+  "author": "DyadLang",
+  "homepage": "https://github.com/DyadLang/SpacePowerWorkshop.jl",
+  "skills": []
+}
