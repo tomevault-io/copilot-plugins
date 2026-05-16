@@ -1,0 +1,9 @@
+{
+  "name": "subhashkhileri--testtriage",
+  "displayName": "TestTriage",
+  "description": "TestTriage is a RAG agent that analyzes nightly Playwright e2e and CI test failures from OpenShift CI pipelines in GCS. It uses AI vision on screenshots, parses logs, and generates root cause analysis",
+  "version": "1.0.0",
+  "author": "subhashkhileri",
+  "homepage": "https://github.com/subhashkhileri/TestTriage",
+  "skills": []
+}
