@@ -7,13 +7,13 @@ macOS 桌面客户端，用于将文件上传到 Cloudflare R2，对开发者友
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader).
+Original source: `CLAUDE.md` in [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
