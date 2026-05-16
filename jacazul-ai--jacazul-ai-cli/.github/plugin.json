@@ -1,9 +1,9 @@
 {
   "name": "jacazul-ai--jacazul-ai-cli",
   "displayName": "jacazul-ai-cli",
-  "description": "jacazul-ai-cli",
+  "description": "Jacazul AI CLI",
   "version": "1.0.0",
   "author": "jacazul-ai",
-  "homepage": "https://tomevault.io/claim/jacazul-ai",
+  "homepage": "https://github.com/jacazul-ai/jacazul-ai-cli",
   "skills": []
 }
