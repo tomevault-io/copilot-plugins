@@ -1,0 +1,9 @@
+{
+  "name": "2mawi2--para",
+  "displayName": "para",
+  "description": "Manage sandboxed parallel claude code sessions on git worktrees",
+  "version": "1.0.0",
+  "author": "2mawi2",
+  "homepage": "https://github.com/2mawi2/para",
+  "skills": []
+}
