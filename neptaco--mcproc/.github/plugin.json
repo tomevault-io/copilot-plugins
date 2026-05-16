@@ -1,0 +1,9 @@
+{
+  "name": "neptaco--mcproc",
+  "displayName": "mcproc",
+  "description": "A Model Context Protocol (MCP) server for comfortable background process management on AI agents.",
+  "version": "1.0.0",
+  "author": "neptaco",
+  "homepage": "https://github.com/neptaco/mcproc",
+  "skills": []
+}
