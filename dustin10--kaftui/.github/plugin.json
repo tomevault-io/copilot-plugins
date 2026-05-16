@@ -1,0 +1,9 @@
+{
+  "name": "dustin10--kaftui",
+  "displayName": "kaftui",
+  "description": "A TUI application for consuming records from a Kafka topic",
+  "version": "1.0.0",
+  "author": "dustin10",
+  "homepage": "https://github.com/dustin10/kaftui",
+  "skills": []
+}
