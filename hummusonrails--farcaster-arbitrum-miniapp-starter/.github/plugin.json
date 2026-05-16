@@ -1,0 +1,9 @@
+{
+  "name": "hummusonrails--farcaster-arbitrum-miniapp-starter",
+  "displayName": "farcaster-arbitrum-miniapp-starter",
+  "description": "Template to begin creating a Farcaster Mini-App with Arbitrum",
+  "version": "1.0.0",
+  "author": "hummusonrails",
+  "homepage": "https://github.com/hummusonrails/farcaster-arbitrum-miniapp-starter",
+  "skills": []
+}
