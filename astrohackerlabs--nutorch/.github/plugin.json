@@ -1,0 +1,9 @@
+{
+  "name": "astrohackerlabs--nutorch",
+  "displayName": "nutorch",
+  "description": "Like PyTorch but for Nushell.",
+  "version": "1.0.0",
+  "author": "astrohackerlabs",
+  "homepage": "https://github.com/astrohackerlabs/nutorch",
+  "skills": []
+}
