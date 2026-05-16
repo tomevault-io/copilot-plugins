@@ -1,0 +1,9 @@
+{
+  "name": "leakix--httpiocscan",
+  "displayName": "HttpIOCScan",
+  "description": "Configurable tool to scan for webshell indicators of compromise (IOCs) across HTTP/HTTPS services with rate-limiting and abnormal reply detection. Uses JSON configuration files to define detection rul",
+  "version": "1.0.0",
+  "author": "LeakIX",
+  "homepage": "https://github.com/LeakIX/HttpIOCScan",
+  "skills": []
+}
