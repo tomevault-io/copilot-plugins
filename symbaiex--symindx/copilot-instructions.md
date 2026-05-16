@@ -1,895 +1,753 @@
-## 007-extension-system-patterns
+## 008-testing-and-quality-standards
 
-> APPLY extension patterns when developing platform integrations
+> ENFORCE comprehensive testing standards when writing or modifying test files
 
-globs: mind-agents/src/extensions/**/*
+globs: **/*.test.ts, **/*.spec.ts, jest.config.js
 alwaysApply: false
 ---
-# Extension System Patterns
+# Testing and Quality Standards
 
 **Rule Priority:** Core Architecture  
 **Activation:** Always Active  
-**Scope:** Platform integrations, extensions, and external service connections
+**Scope:** Testing strategies, quality assurance, and code standards
 
-## Extension Architecture Overview
+## Testing Architecture Overview
 
-SYMindX implements a **pluggable extension system** that enables seamless integration with multiple communication platforms, APIs, and external services through a unified interface architecture.
+SYMindX follows a **comprehensive testing strategy** that ensures reliability, performance, and maintainability across all system components through multiple testing layers.
 
-### Extension System Structure
+### Testing Pyramid Structure
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                  SYMindX Extension System                    │
+│                     SYMindX Testing Pyramid                  │
 ├─────────────────────────────────────────────────────────────┤
-│  Communication Extensions  │  API Extensions  │  MCP       │
-│  ├─ Telegram Bot           │  ├─ REST API     │  ├─ Server │
-│  ├─ Discord Bot            │  ├─ WebSocket    │  ├─ Client │
-│  ├─ Slack Integration      │  ├─ GraphQL      │  └─ Tools  │
-│  ├─ Twitter/X Bot          │  └─ Webhooks     │            │
-│  └─ RuneLite Plugin        │                  │            │
+│              E2E Tests (10%)                │              │
+│         ┌─────────────────────────────────────┐              │
+│         │  Integration Tests (20%)            │              │
+│    ┌─────────────────────────────────────────────────┐       │
+│    │           Unit Tests (70%)                      │       │
+│    └─────────────────────────────────────────────────┘       │
+│                                                               │
+│  Coverage Requirements:                                       │
+│  • Unit Tests: 90%+ coverage                                │
+│  • Integration Tests: Critical paths                         │
+│  • E2E Tests: User journeys                                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Base Extension Framework
+## Unit Testing Standards
 
-### Extension Interface
+### Jest Configuration
 ```typescript
-interface Extension {
-  readonly id: string;
-  readonly name: string;
-  readonly version: string;
-  readonly capabilities: ExtensionCapability[];
-  readonly dependencies: ExtensionDependency[];
-  
-  // Lifecycle methods
-  initialize(context: ExtensionContext): Promise<void>;
-  activate(): Promise<void>;
-  deactivate(): Promise<void>;
-  dispose(): Promise<void>;
-  
-  // Event handling
-  onMessage(message: Message): Promise<void>;
-  onEvent(event: SystemEvent): Promise<void>;
-  handleError(error: Error): Promise<void>;
-}
+// jest.config.ts
+import type { Config } from '@jest/types';
 
-abstract class BaseExtension implements Extension {
-  protected context: ExtensionContext;
-  protected eventBus: EventBus;
-  protected logger: Logger;
-  
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly version: string
-  ) {}
-  
-  async initialize(context: ExtensionContext): Promise<void> {
-    this.context = context;
-    this.eventBus = context.eventBus;
-    this.logger = context.logger.child({ extension: this.id });
-    
-    await this.onInitialize();
+const config: Config.InitialOptions = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
+  testMatch: [
+    '**/__tests__/**/*.ts',
+    '**/?(*.)+(spec|test).ts'
+  ],
+  transform: {
+    '^.+\\.ts$': ['ts-jest', {
+      useESM: true,
+      tsconfig: {
+        module: 'esnext'
+      }
+    }]
+  },
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.types.ts',
+    '!src/**/index.ts'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90
+    }
+  },
+  setupFilesAfterEnv: [
+    '<rootDir>/tests/setup.ts'
+  ],
+  moduleNameMapping: {
+    '^@/(.*)$': '<rootDir>/src/$1'
   }
-  
-  protected abstract onInitialize(): Promise<void>;
-  protected abstract onActivate(): Promise<void>;
-  protected abstract onDeactivate(): Promise<void>;
-}
+};
+
+export default config;
 ```
 
-### Extension Registry
+### Test File Organization
 ```typescript
-interface ExtensionRegistry {
-  register(extension: Extension): Promise<void>;
-  unregister(extensionId: string): Promise<void>;
-  get(extensionId: string): Extension | null;
-  getAll(): Extension[];
-  getByCapability(capability: ExtensionCapability): Extension[];
-}
+// Standard test file structure
+describe('AIPortalManager', () => {
+  let portalManager: AIPortalManager;
+  let mockEventBus: jest.Mocked<EventBus>;
+  let mockConfig: AIPortalConfig;
+  
+  beforeEach(() => {
+    // Setup mocks and test instances
+    mockEventBus = createMockEventBus();
+    mockConfig = createTestConfig();
+    portalManager = new AIPortalManager(mockEventBus, mockConfig);
+  });
+  
+  afterEach(() => {
+    // Cleanup resources
+    jest.clearAllMocks();
+  });
+  
+  describe('initialization', () => {
+    it('should initialize all enabled portals', async () => {
+      // Test setup and execution
+    });
+    
+    it('should handle initialization failures gracefully', async () => {
+      // Error condition testing
+    });
+  });
+  
+  describe('provider selection', () => {
+    it('should select primary provider for standard requests', async () => {
+      // Normal flow testing
+    });
+    
+    it('should fallback to secondary provider when primary fails', async () => {
+      // Fallback behavior testing
+    });
+  });
+  
+  describe('error handling', () => {
+    it('should retry failed requests with exponential backoff', async () => {
+      // Retry logic testing
+    });
+    
+    it('should circuit break after repeated failures', async () => {
+      // Circuit breaker testing
+    });
+  });
+});
+```
 
-class RuntimeExtensionRegistry implements ExtensionRegistry {
-  private extensions = new Map<string, Extension>();
-  private capabilityIndex = new Map<ExtensionCapability, Set<string>>();
-  
-  async register(extension: Extension): Promise<void> {
-    // Validate dependencies
-    await this.validateDependencies(extension);
-    
-    // Initialize extension
-    await extension.initialize(this.createContext(extension));
-    
-    // Register in indexes
-    this.extensions.set(extension.id, extension);
-    this.indexCapabilities(extension);
-    
-    this.logger.info(`Extension registered: ${extension.id}`);
-  }
-  
-  private createContext(extension: Extension): ExtensionContext {
+### Mock Factory Patterns
+```typescript
+// Mock factories for consistent test data
+export class TestFactories {
+  static createMockAgent(overrides: Partial<Agent> = {}): Agent {
     return {
-      extensionId: extension.id,
-      eventBus: this.eventBus,
-      logger: this.logger,
-      config: this.getExtensionConfig(extension.id),
-      storage: this.createExtensionStorage(extension.id)
+      id: 'test-agent-id',
+      name: 'Test Agent',
+      characterId: 'nyx',
+      status: 'inactive',
+      config: {
+        memoryProvider: 'sqlite',
+        emotionModule: 'confident',
+        cognitiveModule: 'reactive',
+        aiPortal: 'openai'
+      },
+      metadata: {
+        createdAt: new Date('2024-01-01'),
+        lastActive: null,
+        version: '1.0.0'
+      },
+      ...overrides
     };
   }
-}
-```
-
-## Communication Extensions
-
-### Telegram Extension (`extensions/communication/telegram/`)
-```typescript
-interface TelegramConfig {
-  botToken: string;
-  webhookUrl?: string;
-  allowedUsers?: string[];
-  commandPrefix: string;
-  features: {
-    inlineKeyboards: boolean;
-    fileUploads: boolean;
-    groupChats: boolean;
-  };
-}
-
-class TelegramExtension extends BaseExtension {
-  private bot: TelegramBot;
-  private config: TelegramConfig;
   
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as TelegramConfig;
-    this.bot = new TelegramBot(this.config.botToken, {
-      polling: !this.config.webhookUrl,
-      webhook: this.config.webhookUrl ? {
-        url: this.config.webhookUrl,
-        port: process.env.WEBHOOK_PORT ? parseInt(process.env.WEBHOOK_PORT) : 3000
-      } : undefined
-    });
-    
-    this.setupEventHandlers();
-  }
-  
-  private setupEventHandlers(): void {
-    this.bot.on('message', async (msg) => {
-      try {
-        await this.handleTelegramMessage(msg);
-      } catch (error) {
-        await this.handleError(error as Error);
-      }
-    });
-    
-    this.bot.on('callback_query', async (query) => {
-      await this.handleCallbackQuery(query);
-    });
-  }
-  
-  private async handleTelegramMessage(msg: TelegramMessage): Promise<void> {
-    // Security check
-    if (!this.isAuthorizedUser(msg.from?.id)) {
-      await this.bot.sendMessage(msg.chat.id, 'Unauthorized access');
-      return;
-    }
-    
-    // Convert to internal message format
-    const message: Message = {
-      id: msg.message_id.toString(),
-      content: msg.text || '',
+  static createMockMessage(overrides: Partial<Message> = {}): Message {
+    return {
+      id: `msg-${Date.now()}`,
+      content: 'Test message content',
       sender: {
-        id: msg.from!.id.toString(),
-        name: msg.from!.first_name,
-        platform: 'telegram'
+        id: 'test-user',
+        name: 'Test User',
+        platform: 'test'
       },
       channel: {
-        id: msg.chat.id.toString(),
-        type: msg.chat.type,
-        platform: 'telegram'
-      },
-      timestamp: new Date(msg.date * 1000),
-      attachments: this.extractAttachments(msg)
-    };
-    
-    // Route to agent
-    await this.eventBus.emit('message.received', message);
-  }
-  
-  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
-    const telegramOptions: any = {
-      parse_mode: 'Markdown',
-      disable_web_page_preview: true
-    };
-    
-    if (options?.inlineKeyboard) {
-      telegramOptions.reply_markup = {
-        inline_keyboard: this.convertToTelegramKeyboard(options.inlineKeyboard)
-      };
-    }
-    
-    await this.bot.sendMessage(parseInt(channelId), content, telegramOptions);
-  }
-}
-```
-
-### Discord Extension (`extensions/communication/discord/`)
-```typescript
-interface DiscordConfig {
-  botToken: string;
-  clientId: string;
-  guildIds?: string[];
-  commandPrefix: string;
-  features: {
-    slashCommands: boolean;
-    embedMessages: boolean;
-    voiceChannels: boolean;
-    threads: boolean;
-  };
-}
-
-class DiscordExtension extends BaseExtension {
-  private client: Client;
-  private config: DiscordConfig;
-  
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as DiscordConfig;
-    
-    this.client = new Client({
-      intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.DirectMessages
-      ]
-    });
-    
-    await this.setupEventHandlers();
-    await this.registerSlashCommands();
-  }
-  
-  private async setupEventHandlers(): Promise<void> {
-    this.client.on('ready', () => {
-      this.logger.info(`Discord bot ready: ${this.client.user?.tag}`);
-    });
-    
-    this.client.on('messageCreate', async (msg) => {
-      if (msg.author.bot) return;
-      await this.handleDiscordMessage(msg);
-    });
-    
-    this.client.on('interactionCreate', async (interaction) => {
-      if (interaction.isChatInputCommand()) {
-        await this.handleSlashCommand(interaction);
-      }
-    });
-  }
-  
-  private async registerSlashCommands(): Promise<void> {
-    if (!this.config.features.slashCommands) return;
-    
-    const commands = [
-      {
-        name: 'ask',
-        description: 'Ask the AI agent a question',
-        options: [{
-          name: 'question',
-          description: 'Your question',
-          type: ApplicationCommandOptionType.String,
-          required: true
-        }]
-      },
-      {
-        name: 'status',
-        description: 'Check agent status'
-      }
-    ];
-    
-    const rest = new REST({ version: '10' }).setToken(this.config.botToken);
-    
-    try {
-      await rest.put(
-        Routes.applicationCommands(this.config.clientId),
-        { body: commands }
-      );
-      this.logger.info('Discord slash commands registered');
-    } catch (error) {
-      this.logger.error('Failed to register slash commands:', error);
-    }
-  }
-  
-  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
-    const channel = await this.client.channels.fetch(channelId) as TextChannel;
-    
-    if (options?.embed) {
-      const embed = new EmbedBuilder()
-        .setColor(0x0099FF)
-        .setTitle(options.embed.title)
-        .setDescription(options.embed.description)
-        .setTimestamp();
-        
-      await channel.send({ embeds: [embed] });
-    } else {
-      await channel.send(content);
-    }
-  }
-}
-```
-
-### Slack Extension (`extensions/communication/slack/`)
-```typescript
-interface SlackConfig {
-  botToken: string;
-  signingSecret: string;
-  appToken?: string;
-  socketMode: boolean;
-  features: {
-    blockKit: boolean;
-    fileSharing: boolean;
-    reactions: boolean;
-    shortcuts: boolean;
-  };
-}
-
-class SlackExtension extends BaseExtension {
-  private app: App;
-  private config: SlackConfig;
-  
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as SlackConfig;
-    
-    this.app = new App({
-      token: this.config.botToken,
-      signingSecret: this.config.signingSecret,
-      socketMode: this.config.socketMode,
-      appToken: this.config.appToken,
-      port: process.env.SLACK_PORT ? parseInt(process.env.SLACK_PORT) : 3001
-    });
-    
-    await this.setupEventHandlers();
-  }
-  
-  private async setupEventHandlers(): Promise<void> {
-    // Message events
-    this.app.message(async ({ message, say, client }) => {
-      await this.handleSlackMessage(message, say, client);
-    });
-    
-    // Slash commands
-    this.app.command('/ask', async ({ command, ack, respond }) => {
-      await ack();
-      await this.handleSlashCommand(command, respond);
-    });
-    
-    // Interactive components
-    this.app.action('button_click', async ({ body, ack, respond }) => {
-      await ack();
-      await this.handleButtonInteraction(body, respond);
-    });
-  }
-  
-  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
-    const messageOptions: any = {
-      channel: channelId,
-      text: content
-    };
-    
-    if (options?.blocks && this.config.features.blockKit) {
-      messageOptions.blocks = this.convertToSlackBlocks(options.blocks);
-    }
-    
-    await this.app.client.chat.postMessage(messageOptions);
-  }
-}
-```
-
-### RuneLite Extension (`extensions/communication/runelite/`)
-```typescript
-interface RuneLiteConfig {
-  pluginName: string;
-  gameEvents: string[];
-  overlayEnabled: boolean;
-  chatIntegration: boolean;
-  features: {
-    questHelper: boolean;
-    priceChecker: boolean;
-    skillTracker: boolean;
-    clanChat: boolean;
-  };
-}
-
-class RuneLiteExtension extends BaseExtension {
-  private wsServer: WebSocketServer;
-  private gameClients = new Map<string, WebSocket>();
-  
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as RuneLiteConfig;
-    
-    // Create WebSocket server for RuneLite plugin communication
-    this.wsServer = new WebSocketServer({
-      port: process.env.RUNELITE_WS_PORT ? parseInt(process.env.RUNELITE_WS_PORT) : 8081
-    });
-    
-    this.setupWebSocketHandlers();
-  }
-  
-  private setupWebSocketHandlers(): void {
-    this.wsServer.on('connection', (ws, request) => {
-      const clientId = this.generateClientId();
-      this.gameClients.set(clientId, ws);
-      
-      ws.on('message', async (data) => {
-        try {
-          const gameEvent = JSON.parse(data.toString());
-          await this.handleGameEvent(clientId, gameEvent);
-        } catch (error) {
-          this.logger.error('Failed to parse game event:', error);
-        }
-      });
-      
-      ws.on('close', () => {
-        this.gameClients.delete(clientId);
-      });
-    });
-  }
-  
-  private async handleGameEvent(clientId: string, event: GameEvent): Promise<void> {
-    const message: Message = {
-      id: `${clientId}-${Date.now()}`,
-      content: this.formatGameEvent(event),
-      sender: {
-        id: clientId,
-        name: event.playerName || 'Unknown Player',
-        platform: 'runelite'
-      },
-      channel: {
-        id: 'game',
-        type: 'game',
-        platform: 'runelite'
+        id: 'test-channel',
+        type: 'direct',
+        platform: 'test'
       },
       timestamp: new Date(),
-      metadata: {
-        eventType: event.type,
-        location: event.location,
-        skills: event.skills
-      }
+      ...overrides
     };
-    
-    await this.eventBus.emit('game.event', message);
   }
   
-  async sendGameNotification(clientId: string, message: string, type: NotificationType): Promise<void> {
-    const ws = this.gameClients.get(clientId);
-    if (!ws) return;
-    
-    const notification = {
-      type: 'notification',
-      message,
-      notificationType: type,
-      timestamp: Date.now()
-    };
-    
-    ws.send(JSON.stringify(notification));
+  static createMockEventBus(): jest.Mocked<EventBus> {
+    return {
+      emit: jest.fn(),
+      emitAndWait: jest.fn(),
+      on: jest.fn(),
+      off: jest.fn(),
+      once: jest.fn(),
+      removeAllListeners: jest.fn()
+    } as jest.Mocked<EventBus>;
   }
 }
 ```
 
-## API Extensions
-
-### REST API Extension (`extensions/api/`)
+### Testing AI Portal Integrations
 ```typescript
-interface APIConfig {
-  port: number;
-  cors: CorsOptions;
-  authentication: {
-    type: 'apikey' | 'jwt' | 'none';
-    secret?: string;
-  };
-  rateLimit: {
-    windowMs: number;
-    maxRequests: number;
-  };
-  endpoints: {
-    agents: boolean;
-    chat: boolean;
-    status: boolean;
-    metrics: boolean;
-  };
-}
-
-class APIExtension extends BaseExtension {
-  private app: Express;
-  private server: Server;
+describe('OpenAIPortal', () => {
+  let portal: OpenAIPortal;
+  let mockOpenAI: jest.Mocked<OpenAI>;
   
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as APIConfig;
-    this.app = express();
-    
-    await this.setupMiddleware();
-    await this.setupRoutes();
-  }
-  
-  private async setupMiddleware(): Promise<void> {
-    // CORS
-    this.app.use(cors(this.config.cors));
-    
-    // Body parsing
-    this.app.use(express.json({ limit: '10mb' }));
-    this.app.use(express.urlencoded({ extended: true }));
-    
-    // Rate limiting
-    const limiter = rateLimit({
-      windowMs: this.config.rateLimit.windowMs,
-      max: this.config.rateLimit.maxRequests,
-      message: 'Too many requests from this IP'
-    });
-    this.app.use(limiter);
-    
-    // Authentication
-    if (this.config.authentication.type !== 'none') {
-      this.app.use(this.createAuthMiddleware());
-    }
-    
-    // Logging
-    this.app.use(this.createLoggingMiddleware());
-  }
-  
-  private async setupRoutes(): Promise<void> {
-    const router = express.Router();
-    
-    // Agent endpoints
-    if (this.config.endpoints.agents) {
-      router.get('/agents', this.handleGetAgents.bind(this));
-      router.post('/agents', this.handleCreateAgent.bind(this));
-      router.get('/agents/:id', this.handleGetAgent.bind(this));
-      router.put('/agents/:id', this.handleUpdateAgent.bind(this));
-      router.delete('/agents/:id', this.handleDeleteAgent.bind(this));
-    }
-    
-    // Chat endpoints
-    if (this.config.endpoints.chat) {
-      router.post('/chat', this.handleChat.bind(this));
-      router.post('/chat/stream', this.handleChatStream.bind(this));
-    }
-    
-    // Status and metrics
-    if (this.config.endpoints.status) {
-      router.get('/status', this.handleGetStatus.bind(this));
-    }
-    
-    if (this.config.endpoints.metrics) {
-      router.get('/metrics', this.handleGetMetrics.bind(this));
-    }
-    
-    this.app.use('/api/v1', router);
-  }
-  
-  private async handleChat(req: Request, res: Response): Promise<void> {
-    try {
-      const { message, agentId, sessionId } = req.body;
-      
-      const chatMessage: Message = {
-        id: uuidv4(),
-        content: message,
-        sender: {
-          id: req.headers['user-id'] as string || 'api-user',
-          name: 'API User',
-          platform: 'api'
-        },
-        channel: {
-          id: sessionId || 'default',
-          type: 'api',
-          platform: 'api'
-        },
-        timestamp: new Date()
-      };
-      
-      // Route to specific agent or use default
-      const response = await this.eventBus.emitAndWait('chat.request', {
-        message: chatMessage,
-        agentId
-      });
-      
-      res.json({
-        success: true,
-        response: response.content,
-        metadata: response.metadata
-      });
-      
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  }
-}
-```
-
-### WebSocket Extension (`extensions/api/websocket/`)
-```typescript
-interface WebSocketConfig {
-  port: number;
-  path: string;
-  authentication: boolean;
-  heartbeat: {
-    interval: number;
-    timeout: number;
-  };
-  maxConnections: number;
-}
-
-class WebSocketExtension extends BaseExtension {
-  private wsServer: WebSocketServer;
-  private connections = new Map<string, WebSocketConnection>();
-  
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as WebSocketConfig;
-    
-    this.wsServer = new WebSocketServer({
-      port: this.config.port,
-      path: this.config.path
-    });
-    
-    this.setupConnectionHandlers();
-    this.startHeartbeat();
-  }
-  
-  private setupConnectionHandlers(): void {
-    this.wsServer.on('connection', (ws, request) => {
-      const connectionId = uuidv4();
-      const connection = new WebSocketConnection(connectionId, ws);
-      
-      this.connections.set(connectionId, connection);
-      
-      ws.on('message', async (data) => {
-        await this.handleWebSocketMessage(connectionId, data);
-      });
-      
-      ws.on('close', () => {
-        this.connections.delete(connectionId);
-      });
-      
-      // Send connection confirmation
-      ws.send(JSON.stringify({
-        type: 'connection',
-        connectionId,
-        timestamp: Date.now()
-      }));
-    });
-  }
-  
-  async broadcastToAll(message: object): Promise<void> {
-    const data = JSON.stringify(message);
-    
-    for (const connection of this.connections.values()) {
-      if (connection.isAlive) {
-        connection.ws.send(data);
-      }
-    }
-  }
-  
-  async sendToConnection(connectionId: string, message: object): Promise<void> {
-    const connection = this.connections.get(connectionId);
-    if (connection && connection.isAlive) {
-      connection.ws.send(JSON.stringify(message));
-    }
-  }
-}
-```
-
-## MCP (Model Context Protocol) Extensions
-
-### MCP Server Extension (`extensions/mcp-server/`)
-```typescript
-interface MCPServerConfig {
-  port: number;
-  capabilities: MCPCapability[];
-  tools: MCPToolDefinition[];
-  resources: MCPResourceDefinition[];
-}
-
-class MCPServerExtension extends BaseExtension {
-  private mcpServer: MCPServer;
-  
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as MCPServerConfig;
-    
-    this.mcpServer = new MCPServer({
-      name: 'symindx-mcp-server',
-      version: '1.0.0',
-      capabilities: this.config.capabilities
-    });
-    
-    await this.registerTools();
-    await this.registerResources();
-  }
-  
-  private async registerTools(): Promise<void> {
-
-    for (const toolDef of this.config.tools) {
-      this.mcpServer.addTool(toolDef.name, {
-        description: toolDef.description,
-        parameters: toolDef.parameters,
-        handler: async (params) => {
-          return await this.executeAgentTool(toolDef.name, params);
+  beforeEach(() => {
+    mockOpenAI = {
+      chat: {
+        completions: {
+          create: jest.fn()
         }
-      });
-    }
-  }
+      }
+    } as any;
+    
+    portal = new OpenAIPortal({
+      apiKey: 'test-key',
+      models: {
+        chat: 'gpt-4o',
+        tools: 'gpt-4.1-mini'
+      }
+    });
+    
+    // Inject mock
+    (portal as any).client = mockOpenAI;
+  });
   
-  private async executeAgentTool(toolName: string, params: any): Promise<MCPToolResult> {
-    try {
-      const result = await this.eventBus.emitAndWait('tool.execute', {
-        tool: toolName,
-        parameters: params
+  describe('text generation', () => {
+    it('should generate text response with correct parameters', async () => {
+      const mockResponse = {
+        choices: [{
+          message: {
+            content: 'Test response',
+            role: 'assistant'
+          }
+        }],
+        usage: {
+          prompt_tokens: 10,
+          completion_tokens: 5,
+          total_tokens: 15
+        }
+      };
+      
+      mockOpenAI.chat.completions.create.mockResolvedValue(mockResponse as any);
+      
+      const request: GenerationRequest = {
+        messages: [{ role: 'user', content: 'Test prompt' }],
+        temperature: 0.7,
+        maxTokens: 100
+      };
+      
+      const result = await portal.generate(request);
+      
+      expect(result.content).toBe('Test response');
+      expect(result.usage.totalTokens).toBe(15);
+      expect(mockOpenAI.chat.completions.create).toHaveBeenCalledWith({
+        model: 'gpt-4o',
+        messages: request.messages,
+        temperature: 0.7,
+        max_tokens: 100
+      });
+    });
+    
+    it('should handle rate limiting with exponential backoff', async () => {
+      const rateLimitError = new Error('Rate limit exceeded');
+      (rateLimitError as any).status = 429;
+      
+      mockOpenAI.chat.completions.create
+        .mockRejectedValueOnce(rateLimitError)
+        .mockRejectedValueOnce(rateLimitError)
+        .mockResolvedValueOnce({
+          choices: [{ message: { content: 'Success after retries' } }]
+        } as any);
+      
+      const request: GenerationRequest = {
+        messages: [{ role: 'user', content: 'Test' }]
+      };
+      
+      const result = await portal.generate(request);
+      
+      expect(result.content).toBe('Success after retries');
+      expect(mockOpenAI.chat.completions.create).toHaveBeenCalledTimes(3);
+    });
+  });
+});
+```
+
+### Memory Provider Testing
+```typescript
+describe('SQLiteMemoryProvider', () => {
+  let provider: SQLiteMemoryProvider;
+  let testDb: Database;
+  
+  beforeEach(async () => {
+    // Use in-memory database for testing
+    testDb = new Database(':memory:');
+    provider = new SQLiteMemoryProvider(testDb);
+    await provider.initialize();
+  });
+  
+  afterEach(async () => {
+    await provider.shutdown();
+    testDb.close();
+  });
+  
+  describe('memory storage', () => {
+    it('should store and retrieve memories with embeddings', async () => {
+      const memory: Memory = {
+        id: 'test-memory',
+        content: 'Test memory content',
+        agentId: 'test-agent',
+        timestamp: new Date(),
+        embedding: new Array(1536).fill(0.1),
+        metadata: { importance: 0.8 }
+      };
+      
+      await provider.storeMemory(memory);
+      
+      const retrieved = await provider.getMemory('test-memory');
+      
+      expect(retrieved).toEqual(memory);
+    });
+    
+    it('should perform semantic search correctly', async () => {
+      // Store test memories
+      const memories = [
+        TestFactories.createMemory({ content: 'AI and machine learning' }),
+        TestFactories.createMemory({ content: 'Cooking recipes' }),
+        TestFactories.createMemory({ content: 'Artificial intelligence research' })
+      ];
+      
+      for (const memory of memories) {
+        await provider.storeMemory(memory);
+      }
+      
+      // Search for AI-related content
+      const results = await provider.searchMemories('artificial intelligence', {
+        limit: 10,
+        threshold: 0.7
       });
       
-      return {
-        success: true,
-        data: result
-      };
-    } catch (error) {
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : 'Tool execution failed'
-      };
-    }
-  }
-}
+      expect(results).toHaveLength(2);
+      expect(results[0].content).toContain('AI');
+    });
+  });
+});
 ```
 
-### MCP Client Extension (`extensions/mcp-client/`)
+## Integration Testing
+
+### Agent Integration Tests
 ```typescript
-interface MCPClientConfig {
-  servers: MCPServerConnection[];
-  autoConnect: boolean;
-  reconnectInterval: number;
-}
-
-class MCPClientExtension extends BaseExtension {
-  private clients = new Map<string, MCPClient>();
+describe('Agent Integration', () => {
+  let agent: Agent;
+  let testContainer: TestContainer;
   
-  protected async onInitialize(): Promise<void> {
-    this.config = this.context.config as MCPClientConfig;
+  beforeEach(async () => {
+    testContainer = await createTestContainer();
+    agent = await testContainer.createAgent({
+      characterId: 'nyx',
+      memoryProvider: 'sqlite',
+      aiPortal: 'mock'
+    });
+  });
+  
+  afterEach(async () => {
+    await testContainer.cleanup();
+  });
+  
+  describe('message processing', () => {
+    it('should process messages through complete pipeline', async () => {
+      const message = TestFactories.createMockMessage({
+        content: 'Hello, can you help me?'
+      });
+      
+      const response = await agent.processMessage(message);
+      
+      expect(response).toBeDefined();
+      expect(response.content).toBeTruthy();
+      expect(response.metadata.agentId).toBe(agent.id);
+    });
     
-    if (this.config.autoConnect) {
-      await this.connectToServers();
-    }
-  }
+    it('should maintain conversation context across messages', async () => {
+      const firstMessage = TestFactories.createMockMessage({
+        content: 'My name is John'
+      });
+      
+      const secondMessage = TestFactories.createMockMessage({
+        content: 'What is my name?'
+      });
+      
+      await agent.processMessage(firstMessage);
+      const response = await agent.processMessage(secondMessage);
+      
+      expect(response.content.toLowerCase()).toContain('john');
+    });
+  });
   
-  private async connectToServers(): Promise<void> {
+  describe('module hot-swapping', () => {
+    it('should swap memory providers without losing data', async () => {
+      // Store initial memory
+      await agent.storeMemory('Important information');
+      
+      // Swap to different provider
+      await agent.swapMemoryProvider('postgres');
+      
+      // Verify memory is accessible
+      const memories = await agent.searchMemories('Important');
+      expect(memories).toHaveLength(1);
+    });
+    
+    it('should swap emotion modules and maintain state', async () => {
+      // Set initial emotion
+      await agent.setEmotion('confident', 0.8);
+      
+      // Swap emotion module
+      await agent.swapEmotionModule('empathetic');
+      
+      // Verify emotion influence continues
+      const message = TestFactories.createMockMessage({
+        content: 'I am feeling sad'
+      });
+      
+      const response = await agent.processMessage(message);
+      expect(response.emotionState.empathy).toBeGreaterThan(0.5);
+    });
+  });
+});
+```
 
-    for (const serverConfig of this.config.servers) {
-      try {
-        const client = new MCPClient({
-          serverUrl: serverConfig.url,
-          capabilities: serverConfig.capabilities
+### Extension Integration Tests
+```typescript
+describe('Extension Integration', () => {
+  let extensionRegistry: ExtensionRegistry;
+  let testContainer: TestContainer;
+  
+  beforeEach(async () => {
+    testContainer = await createTestContainer();
+    extensionRegistry = testContainer.getExtensionRegistry();
+  });
+  
+  describe('communication extensions', () => {
+    it('should route messages between platforms correctly', async () => {
+      // Register mock extensions
+      const telegramExt = new MockTelegramExtension();
+      const discordExt = new MockDiscordExtension();
+      
+      await extensionRegistry.register(telegramExt);
+      await extensionRegistry.register(discordExt);
+      
+      // Send message from Telegram
+      const telegramMessage = TestFactories.createMockMessage({
+        sender: { platform: 'telegram' },
+        content: 'Forward this to Discord'
+      });
+      
+      await telegramExt.handleMessage(telegramMessage);
+      
+      // Verify Discord received the message
+      expect(discordExt.lastSentMessage).toBeDefined();
+      expect(discordExt.lastSentMessage.content).toContain('Forward this');
+    });
+  });
+  
+  describe('API extensions', () => {
+    it('should handle concurrent API requests correctly', async () => {
+      const apiExt = new APIExtension();
+      await extensionRegistry.register(apiExt);
+      
+      // Send multiple concurrent requests
+      const requests = Array.from({ length: 10 }, (_, i) => 
+        testContainer.apiClient.post('/chat', {
+          message: `Test message ${i}`,
+          agentId: 'test-agent'
+        })
+      );
+      
+      const responses = await Promise.all(requests);
+      
+      // Verify all requests succeeded
+      responses.forEach((response, i) => {
+        expect(response.status).toBe(200);
+        expect(response.data.success).toBe(true);
+      });
+    });
+  });
+});
+```
+
+## End-to-End Testing
+
+### User Journey Tests
+```typescript
+describe('E2E User Journeys', () => {
+  let browser: Browser;
+  let page: Page;
+  let testAgent: Agent;
+  
+  beforeAll(async () => {
+    browser = await chromium.launch();
+    page = await browser.newPage();
+    testAgent = await createTestAgent();
+  });
+  
+  afterAll(async () => {
+    await browser.close();
+    await cleanupTestAgent(testAgent);
+  });
+  
+  describe('Web Interface', () => {
+    it('should complete agent creation workflow', async () => {
+      // Navigate to agent creation page
+      await page.goto('http://localhost:3000/agents/new');
+      
+      // Fill out agent form
+      await page.fill('[data-testid="agent-name"]', 'Test Agent');
+      await page.selectOption('[data-testid="character-select"]', 'nyx');
+      await page.selectOption('[data-testid="memory-provider"]', 'sqlite');
+      await page.selectOption('[data-testid="ai-portal"]', 'openai');
+      
+      // Submit form
+      await page.click('[data-testid="create-agent-btn"]');
+      
+      // Verify agent appears in dashboard
+      await page.waitForSelector('[data-testid="agent-card"]');
+      const agentName = await page.textContent('[data-testid="agent-card"] h3');
+      expect(agentName).toBe('Test Agent');
+      
+      // Start agent
+      await page.click('[data-testid="start-agent-btn"]');
+      await page.waitForSelector('[data-testid="agent-status-active"]');
+      
+      // Send test message
+      await page.fill('[data-testid="chat-input"]', 'Hello, test agent!');
+      await page.click('[data-testid="send-message-btn"]');
+      
+      // Verify response
+      await page.waitForSelector('[data-testid="agent-response"]');
+      const response = await page.textContent('[data-testid="agent-response"]');
+      expect(response).toBeTruthy();
+    });
+  });
+  
+  describe('Multi-Platform Communication', () => {
+    it('should handle cross-platform message routing', async () => {
+      // Setup mock platforms
+      const telegramBot = new MockTelegramBot();
+      const discordBot = new MockDiscordBot();
+      
+      // Connect agent to both platforms
+      await testAgent.addExtension('telegram', telegramBot);
+      await testAgent.addExtension('discord', discordBot);
+      
+      // Send message from Telegram
+      await telegramBot.sendMessage('Hello from Telegram!');
+      
+      // Verify agent processes and responds
+      await waitFor(() => {
+        expect(telegramBot.lastResponse).toBeDefined();
+      });
+      
+      // Verify cross-platform notification if configured
+      if (testAgent.config.crossPlatformNotifications) {
+        await waitFor(() => {
+          expect(discordBot.lastNotification).toBeDefined();
         });
-        
-        await client.connect();
-        this.clients.set(serverConfig.id, client);
-        
-        this.logger.info(`Connected to MCP server: ${serverConfig.id}`);
-      } catch (error) {
-        this.logger.error(`Failed to connect to MCP server ${serverConfig.id}:`, error);
       }
-    }
-  }
+    });
+  });
+});
+```
+
+## Performance Testing
+
+### Load Testing
+```typescript
+describe('Performance Tests', () => {
+  describe('Concurrent Message Processing', () => {
+    it('should handle 100 concurrent messages within SLA', async () => {
+      const agent = await createPerformanceTestAgent();
+      const startTime = Date.now();
+      
+      // Generate 100 concurrent messages
+      const messages = Array.from({ length: 100 }, (_, i) => 
+        TestFactories.createMockMessage({
+          content: `Performance test message ${i}`
+        })
+      );
+      
+      // Process all messages concurrently
+      const responses = await Promise.all(
+        messages.map(msg => agent.processMessage(msg))
+      );
+      
+      const endTime = Date.now();
+      const totalTime = endTime - startTime;
+      
+      // Verify all responses received
+      expect(responses).toHaveLength(100);
+      responses.forEach(response => {
+        expect(response).toBeDefined();
+        expect(response.content).toBeTruthy();
+      });
+      
+      // Verify SLA (< 5 seconds for 100 messages)
+      expect(totalTime).toBeLessThan(5000);
+      
+      // Verify average response time (< 200ms per message)
+      const avgResponseTime = totalTime / 100;
+      expect(avgResponseTime).toBeLessThan(200);
+    });
+  });
   
-  async callTool(serverId: string, toolName: string, params: any): Promise<any> {
-    const client = this.clients.get(serverId);
-    if (!client) {
-      throw new Error(`MCP server not found: ${serverId}`);
+  describe('Memory Performance', () => {
+    it('should maintain search performance with large memory datasets', async () => {
+      const memoryProvider = new SQLiteMemoryProvider();
+      await memoryProvider.initialize();
+      
+      // Store 10,000 memories
+      const memories = Array.from({ length: 10000 }, (_, i) => 
+        TestFactories.createMemory({
+          content: `Memory ${i}: ${generateRandomContent()}`
+        })
+      );
+      
+      const storeStartTime = Date.now();
+      await Promise.all(
+        memories.map(memory => memoryProvider.storeMemory(memory))
+      );
+      const storeEndTime = Date.now();
+      
+      // Verify storage performance (< 30 seconds for 10k memories)
+      expect(storeEndTime - storeStartTime).toBeLessThan(30000);
+      
+      // Test search performance
+      const searchStartTime = Date.now();
+      const results = await memoryProvider.searchMemories('test query', {
+        limit: 10
+      });
+      const searchEndTime = Date.now();
+      
+      // Verify search performance (< 100ms)
+      expect(searchEndTime - searchStartTime).toBeLessThan(100);
+      expect(results).toHaveLength(10);
+    });
+  });
+});
+```
+
+## Quality Assurance
+
+### Code Quality Tools
+```json
+{
+  "scripts": {
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "eslint src/ --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "quality": "npm run lint && npm run type-check && npm run test"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run quality"
     }
-    
-    return await client.callTool(toolName, params);
   }
 }
 ```
 
-## Extension Configuration Management
-
-### Extension Configuration Schema
+### ESLint Configuration
 ```typescript
-interface ExtensionConfigSchema {
-  [extensionId: string]: {
-    enabled: boolean;
-    config: Record<string, any>;
-    dependencies: string[];
-    autoStart: boolean;
-    priority: number;
-  };
-}
-
-// Runtime configuration example
-const extensionConfig: ExtensionConfigSchema = {
-  'telegram': {
-    enabled: true,
-    config: {
-      botToken: process.env.TELEGRAM_BOT_TOKEN!,
-      commandPrefix: '/',
-      features: {
-        inlineKeyboards: true,
-        fileUploads: true,
-        groupChats: false
-      }
-    },
-    dependencies: [],
-    autoStart: true,
-    priority: 1
-  },
-  'discord': {
-    enabled: false,
-    config: {
-      botToken: process.env.DISCORD_BOT_TOKEN!,
-      clientId: process.env.DISCORD_CLIENT_ID!,
-      features: {
-        slashCommands: true,
-        embedMessages: true,
-        voiceChannels: false
-      }
-    },
-    dependencies: [],
-    autoStart: false,
-    priority: 2
-  },
-  'api': {
-    enabled: true,
-    config: {
-      port: 8080,
-      authentication: { type: 'apikey' },
-      endpoints: {
-        agents: true,
-        chat: true,
-        status: true,
-        metrics: true
-      }
-    },
-    dependencies: [],
-    autoStart: true,
-    priority: 0
+// .eslintrc.js
+module.exports = {
+  extends: [
+    '@typescript-eslint/recommended',
+    '@typescript-eslint/recommended-requiring-type-checking'
+  ],
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/prefer-nullish-coalescing': 'error',
+    '@typescript-eslint/prefer-optional-chain': 'error',
+    'complexity': ['error', 10],
+    'max-lines-per-function': ['error', 50],
+    'max-depth': ['error', 4]
   }
 };
 ```
 
-This extension system pattern enables SYMindX to seamlessly integrate with any platform or service while maintaining consistent behavior and reliability across all integrations.
+### Continuous Integration
+```yaml
+# .github/workflows/ci.yml
+name: CI/CD Pipeline
 
-## Related Rules and Integration
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
-### Foundation Requirements
-- @001-symindx-workspace.mdc - SYMindX architecture and extension system directory structure
-- @003-typescript-standards.mdc - TypeScript development standards for extension implementation
-- @004-architecture-patterns.mdc - Modular design principles and hot-swappable extension patterns
-- @.cursor/docs/architecture.md - Detailed extension layer architecture and platform integration patterns
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+          
+      - name: Install dependencies
+        run: bun install
+        
+      - name: Type checking
+        run: bun run type-check
+        
+      - name: Linting
+        run: bun run lint
+        
+      - name: Unit tests
+        run: bun run test:coverage
+        
+      - name: Integration tests
+        run: bun run test:integration
+        
+      - name: E2E tests
+        run: bun run test:e2e
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+```
 
-### Security and Configuration
-- @010-security-and-authentication.mdc - Platform authentication, secure token storage, and webhook security
-- @015-configuration-management.mdc - Extension configuration and environment variable management
-- @020-mcp-integration.mdc - Model Context Protocol integration for external platform connections
-
-### Development Tools and Templates
-- @.cursor/tools/code-generator.md - Extension templates and platform integration code generation
-- @.cursor/tools/debugging-guide.md - Extension debugging strategies and platform troubleshooting
-- @.cursor/docs/contributing.md - Development workflow for extension contributions
-
-### Development and Quality
-- @008-testing-and-quality-standards.mdc - Extension testing strategies, integration testing, and platform compatibility testing
-- @013-error-handling-logging.mdc - Extension error handling patterns and platform-specific error monitoring
-- @009-deployment-and-operations.mdc - Extension deployment, containerization, and operational monitoring
-- @.cursor/tools/project-analyzer.md - Extension performance analysis and platform integration metrics
-
-### Performance and Data Integration
-- @012-performance-optimization.mdc - Extension performance optimization and platform rate limiting
-- @011-data-management-patterns.mdc - Platform-specific data storage and conversation persistence
-
-### Advanced Integration
-- @018-git-hooks.mdc - Git automation for extension deployment and validation
-- @019-background-agents.mdc - Background task automation for extension maintenance
-- @022-workflow-automation.mdc - Automated extension testing, deployment, and monitoring workflows
-
-### Documentation and Community
-- @016-documentation-standards.mdc - Extension API documentation and integration guides
-- @017-community-and-governance.mdc - Community extension contribution guidelines
-
-This rule defines the extension patterns that enable SYMindX to integrate with communication platforms, external services, and custom integrations while maintaining consistency and reliability.
+This comprehensive testing and quality assurance framework ensures SYMindX maintains high reliability, performance, and code quality standards across all development phases. [[memory:2184189]]
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
