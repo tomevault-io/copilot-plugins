@@ -7,11 +7,11 @@ A comprehensive Dart implementation of the libp2p networking stack with modular 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stephanfeb/dart_libp2p](https://github.com/stephanfeb/dart_libp2p).
+Original source: `CLAUDE.md` in [stephanfeb/dart_libp2p](https://github.com/stephanfeb/dart_libp2p).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
