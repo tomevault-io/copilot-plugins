@@ -4,7 +4,7 @@
   "repo": "tooler",
   "description": "Automate CLI tool management from GitHub Releases. Simple runs, version control, and auto-updates. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/morgaesis/tooler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T20:59:23Z"
+  "distributed_at": "2026-05-16T01:36:30Z"
 }
