@@ -1,0 +1,9 @@
+{
+  "name": "camoneart--maestro",
+  "displayName": "maestro",
+  "description": "A CLI tool that conducts Git worktrees like an orchestra and accelerates parallel development with Claude Code.",
+  "version": "1.0.0",
+  "author": "camoneart",
+  "homepage": "https://github.com/camoneart/maestro",
+  "skills": []
+}
