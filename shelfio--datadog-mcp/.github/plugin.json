@@ -1,0 +1,9 @@
+{
+  "name": "shelfio--datadog-mcp",
+  "displayName": "datadog-mcp",
+  "description": "Datadog MCP Server - Comprehensive monitoring and observability tools for Datadog via Model Context Protocol",
+  "version": "1.0.0",
+  "author": "shelfio",
+  "homepage": "https://github.com/shelfio/datadog-mcp",
+  "skills": []
+}
