@@ -4,7 +4,7 @@
   "repo": "BA-Kit",
   "description": "Agent Squad for Requirements Engineering \u2014 33 Specialists with System 2 Reflection, BM25+ Knowledge Engine (831 entries), Mermaid Diagramming, Jira + Confluence Integration. Runs on Antigravity IDE, Claude Code, Claude CoWork.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/olbboy/BA-Kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T08:34:28Z"
+  "distributed_at": "2026-05-16T09:06:19Z"
 }
