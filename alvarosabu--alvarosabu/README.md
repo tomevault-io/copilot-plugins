@@ -1,6 +1,6 @@
-# alvarosabu — distributed by TomeVault
+# alvarosabu
 
-> Originally from [alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [alvarosabu/alvarosabu](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/alvarosabu)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install alvarosabu/alvarosabu
 ```
-Or browse all formats at [https://tomevault.io/claim/alvarosabu](https://tomevault.io/claim/alvarosabu).
+Source: [github.com/alvarosabu/alvarosabu](https://github.com/alvarosabu/alvarosabu).
 
 <!-- genome:d-i-p -->
