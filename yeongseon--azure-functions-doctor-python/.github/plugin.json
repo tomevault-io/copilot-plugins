@@ -1,0 +1,9 @@
+{
+  "name": "yeongseon--azure-functions-doctor-python",
+  "displayName": "azure-functions-doctor-python",
+  "description": "Pre-deploy diagnostic CLI for Azure Functions Python v2 \u2014 Part of the Azure Functions Python DX Toolkit",
+  "version": "1.0.0",
+  "author": "yeongseon",
+  "homepage": "https://github.com/yeongseon/azure-functions-doctor-python",
+  "skills": []
+}
