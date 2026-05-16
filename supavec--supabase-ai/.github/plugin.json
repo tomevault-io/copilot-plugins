@@ -1,0 +1,9 @@
+{
+  "name": "supavec--supabase-ai",
+  "displayName": "supabase-ai",
+  "description": "TypeScript SDK for building RAG applications with Supabase and pgvector. Features semantic search, OpenAI embeddings, LangChain support, and comprehensive type definitions.",
+  "version": "1.0.0",
+  "author": "supavec",
+  "homepage": "https://github.com/supavec/supabase-ai",
+  "skills": []
+}
