@@ -1,0 +1,22 @@
+{
+  "name": "marcelorodrigo--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agents Skills",
+  "version": "1.0.0",
+  "author": "marcelorodrigo",
+  "homepage": "https://github.com/marcelorodrigo/agent-skills",
+  "skills": [
+    {
+      "name": "filament-pro",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-testing",
+      "description": ""
+    }
+  ]
+}
