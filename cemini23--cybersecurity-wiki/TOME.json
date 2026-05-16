@@ -1,0 +1,44 @@
+{
+  "name": "Cybersecurity-wiki",
+  "owner": "cemini23",
+  "repo": "Cybersecurity-wiki",
+  "description": "Local knowledge hub for cybersecurity research, training, and offensive/defensive operations. Seeded from a 227-PDF corpus by Joas A Santos.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cemini23/Cybersecurity-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T10:30:36Z"
+}
