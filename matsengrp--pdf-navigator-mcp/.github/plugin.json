@@ -1,0 +1,9 @@
+{
+  "name": "matsengrp--pdf-navigator-mcp",
+  "displayName": "pdf-navigator-mcp",
+  "description": "Comprehensive MCP server for PDF reading, navigation, and text search",
+  "version": "1.0.0",
+  "author": "matsengrp",
+  "homepage": "https://github.com/matsengrp/pdf-navigator-mcp",
+  "skills": []
+}
