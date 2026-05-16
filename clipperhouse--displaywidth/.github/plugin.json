@@ -1,0 +1,9 @@
+{
+  "name": "clipperhouse--displaywidth",
+  "displayName": "displaywidth",
+  "description": "Measure the display column width of strings in Go",
+  "version": "1.0.0",
+  "author": "clipperhouse",
+  "homepage": "https://github.com/clipperhouse/displaywidth",
+  "skills": []
+}
