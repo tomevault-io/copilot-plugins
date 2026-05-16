@@ -1,0 +1,9 @@
+{
+  "name": "gpt-cmdr--ras-commander-mcp",
+  "displayName": "ras-commander-mcp",
+  "description": "MCP Server to Access HEC-RAS Project Data via Claude Desktop, Claude Code and other LLMs",
+  "version": "1.0.0",
+  "author": "gpt-cmdr",
+  "homepage": "https://github.com/gpt-cmdr/ras-commander-mcp",
+  "skills": []
+}
