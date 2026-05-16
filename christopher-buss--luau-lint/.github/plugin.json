@@ -1,0 +1,9 @@
+{
+  "name": "christopher-buss--luau-lint",
+  "displayName": "luau-lint",
+  "description": "A modern linter for Luau, built in Luau.",
+  "version": "1.0.0",
+  "author": "christopher-buss",
+  "homepage": "https://github.com/christopher-buss/luau-lint",
+  "skills": []
+}
