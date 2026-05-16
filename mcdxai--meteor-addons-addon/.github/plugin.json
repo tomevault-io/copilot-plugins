@@ -1,0 +1,9 @@
+{
+  "name": "mcdxai--meteor-addons-addon",
+  "displayName": "meteor-addons-addon",
+  "description": "Browse, install, and update addons from within Meteor Client",
+  "version": "1.0.0",
+  "author": "MCDxAI",
+  "homepage": "https://github.com/MCDxAI/meteor-addons-addon",
+  "skills": []
+}
