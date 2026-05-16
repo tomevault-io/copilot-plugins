@@ -1,0 +1,9 @@
+{
+  "name": "heimann--wat",
+  "displayName": "wat",
+  "description": "A modern ctags replacement built on tree-sitter",
+  "version": "1.0.0",
+  "author": "heimann",
+  "homepage": "https://github.com/heimann/wat",
+  "skills": []
+}
