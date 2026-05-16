@@ -1,0 +1,9 @@
+{
+  "name": "prog-time--git-hooks",
+  "displayName": "git-hooks",
+  "description": "Useful shell scripts for git hooks",
+  "version": "1.0.0",
+  "author": "prog-time",
+  "homepage": "https://github.com/prog-time/git-hooks",
+  "skills": []
+}
