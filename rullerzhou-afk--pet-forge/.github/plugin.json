@@ -1,0 +1,9 @@
+{
+  "name": "rullerzhou-afk--pet-forge",
+  "displayName": "pet-forge",
+  "description": "A reusable toolkit for building SVG and APNG desktop pets, with route guides, prompt templates, vectorization tools, animation conventions, and runnable demos.",
+  "version": "1.0.0",
+  "author": "rullerzhou-afk",
+  "homepage": "https://github.com/rullerzhou-afk/pet-forge",
+  "skills": []
+}
