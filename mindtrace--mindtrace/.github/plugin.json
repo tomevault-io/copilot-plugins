@@ -1,0 +1,9 @@
+{
+  "name": "mindtrace--mindtrace",
+  "displayName": "mindtrace",
+  "description": "Primitives and utilities for deploying ML Python projects to production environments",
+  "version": "1.0.0",
+  "author": "Mindtrace",
+  "homepage": "https://github.com/Mindtrace/mindtrace",
+  "skills": []
+}
