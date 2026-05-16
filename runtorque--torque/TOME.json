@@ -4,7 +4,7 @@
   "repo": "torque",
   "description": "Torque is a single-user product development powerhouse",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runtorque/torque",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T04:30:45Z"
+  "distributed_at": "2026-05-16T03:41:41Z"
 }
