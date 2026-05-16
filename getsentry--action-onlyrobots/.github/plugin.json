@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--action-onlyrobots",
+  "displayName": "action-onlyrobots",
+  "description": "Stop letting those pesky humans contribute to your software",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/action-onlyrobots",
+  "skills": []
+}
