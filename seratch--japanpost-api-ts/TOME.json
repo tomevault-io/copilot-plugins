@@ -4,7 +4,7 @@
   "repo": "japanpost-api-ts",
   "description": "Japan Post Service API Client / \u90f5\u4fbf\u756a\u53f7\u30fb\u30c7\u30b8\u30bf\u30eb\u30a2\u30c9\u30ec\u30b9 API \u30af\u30e9\u30a4\u30a2\u30f3\u30c8",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seratch/japanpost-api-ts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:11:41Z"
+  "distributed_at": "2026-05-16T08:39:57Z"
 }
