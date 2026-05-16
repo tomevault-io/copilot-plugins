@@ -4,7 +4,7 @@
   "repo": "dart_libp2p",
   "description": "A comprehensive Dart implementation of the libp2p networking stack with modular architecture, multiple transports (TCP/UDX), Noise security, and peer-to-peer capabilities.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stephanfeb/dart_libp2p",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:03:56Z"
+  "distributed_at": "2026-05-16T00:42:28Z"
 }
