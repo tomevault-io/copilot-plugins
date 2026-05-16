@@ -1,0 +1,9 @@
+{
+  "name": "patternfly--ai-helpers",
+  "displayName": "ai-helpers",
+  "description": "AI plugin marketplace for Red Hat UXD \u2014 PatternFly development, design, and productivity.",
+  "version": "1.0.0",
+  "author": "patternfly",
+  "homepage": "https://github.com/patternfly/ai-helpers",
+  "skills": []
+}
