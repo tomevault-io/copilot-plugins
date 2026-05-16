@@ -1,0 +1,9 @@
+{
+  "name": "seqeralabs--criu-static",
+  "displayName": "criu-static",
+  "description": "Static build of CRIU (Checkpoint/Restore tool)",
+  "version": "1.0.0",
+  "author": "seqeralabs",
+  "homepage": "https://github.com/seqeralabs/criu-static",
+  "skills": []
+}
