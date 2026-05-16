@@ -1,38 +1,46 @@
-## 00-projectoverviewandcoreservice
+## 01-useraccountsandconfiguration
 
-> OwlUploader 是一个用于上传文件到 Cloudflare R2 存储服务的 macOS 应用。它旨在提供一个用户友好的界面来管理 R2 存储桶和文件。
+> 本规则描述了 OwlUploader 应用中用户账户管理和配置界面的相关功能和实现。核心目标是提供安全、易用的账户设置体验。
 
-# 规则 00: 项目概述与核心服务
+\
+# 规则 01: 用户账户与配置
 
-## 项目目标
-OwlUploader 是一个用于上传文件到 Cloudflare R2 存储服务的 macOS 应用。它旨在提供一个用户友好的界面来管理 R2 存储桶和文件。
+## 概述
+本规则描述了 OwlUploader 应用中用户账户管理和配置界面的相关功能和实现。核心目标是提供安全、易用的账户设置体验。
 
-## 核心服务: R2Service
-`R2Service.swift` 是应用的核心服务类，负责所有与 Cloudflare R2 API 的交互。
+## 账户数据模型与管理
+- **`R2Account.swift`**: 定义了 R2 账户的数据模型，包含账户 ID、Access Key ID、Endpoint URL 等。近期添加了 `defaultBucketName: String?` 和 `publicDomain: String?` 属性以支持新功能。
+- **`R2AccountManager.swift`**: 负责账户的持久化存储（使用 Keychain）、加载和管理。它提供了获取当前账户、保存账户配置、清除账户信息等方法。
+- **`KeychainService.swift`**: 提供了一个通用的 Keychain 操作封装，用于安全地存储和读取敏感信息，如 Secret Access Key。
+
+## 配置界面: AccountSettingsView
+`AccountSettingsView.swift` 提供了用户配置 R2 账户信息的界面。
 
 ### 主要功能
-- 初始化 R2 客户端
-- 账户连接与验证
-- 列出存储桶 (在权限允许的情况下)
-- **手动选择和验证指定存储桶 (新功能)**: 允许用户在没有 `listBuckets` 权限时，通过直接输入存储桶名称来访问。这是为了支持权限受限的 API Token。参考 `selectBucketDirectly(_ bucketName: String)` 方法。
-- 列出存储桶中的对象 (文件和文件夹)
-- 创建文件夹
-- 上传文件
-- 删除文件/文件夹
-- **权限检测 (新功能)**: 添加了 `checkListBucketsPermission()` 方法来检测当前 API Token 是否拥有 `listBuckets` 权限，以便 UI 层做出相应调整。
+- 输入和编辑账户 ID, Access Key ID, Secret Access Key, Endpoint URL。
+- **新增默认存储桶名称配置**: 用户可以预设一个默认的存储桶名称，应用启动或连接后会自动尝试选择此存储桶。这是一个可选字段，旨在简化权限受限用户的操作流程。
+- **新增公共域名配置**: 用户可以配置一个自定义的公共域名 (`R2_PUBLIC_DOMAIN`) 用于生成文件链接，代替默认的 Cloudflare R2 域名。
+- 测试连接功能。
+- 保存账户配置。
+- 重置表单。
+- 断开连接。
 
 ### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **解决了 `listBuckets` API 权限不足的问题**: 通过添加手动指定存储桶的功能，应用现在可以更好地适配只授予特定存储桶访问权限的 API Token。
-- **优化了错误处理**: 特别是针对 `AccessDenied` 错误，提供了更详细的诊断信息和解决建议。
-- **移除了 `listBuckets` 的强制依赖**: 应用现在可以不依赖 `listBuckets` API 调用，改为手动输入存储桶名称。
-- **文件夹创建逻辑修复**: 解决了文件夹名称验证、路径提取和 R2 平台兼容性相关的多个 BUG。
-- **上传文件错误诊断增强**: 改进了上传错误分类和诊断逻辑，包括对 macOS 文件权限错误的处理。
+- **添加了默认存储桶名称输入框**。
+- **添加了 R2 公共域名输入框**。
+- **修复了 SECRET_ACCESS_KEY 在断开连接后需要重新输入的问题**: 现在会从 Keychain 安全加载已保存的 Secret Access Key。
+- **界面布局和样式优化**: 
+    - 对配置表单的排版进行了多次优化，包括限制最大宽度、调整边距、采用卡片式布局等，以提升视觉效果和空间利用率。
+    - 优化了断开连接按钮的样式和布局，使其更美观和直观。
 
 ### 关键文件
-- 主要实现: [OwlUploader/R2Service.swift](mdc:OwlUploader/R2Service.swift)
+- 账户数据模型: [OwlUploader/R2Account.swift](mdc:OwlUploader/R2Account.swift)
+- 账户管理器: [OwlUploader/R2AccountManager.swift](mdc:OwlUploader/R2AccountManager.swift)
+- Keychain 服务: [OwlUploader/KeychainService.swift](mdc:OwlUploader/KeychainService.swift)
+- 配置界面: [OwlUploader/AccountSettingsView.swift](mdc:OwlUploader/AccountSettingsView.swift)
 - 开发日志: [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)
 
-这个规则文件提供了项目的高层概览和核心服务 `R2Service` 的关键信息，帮助 AI 理解其主要职责和最近的开发重点。
+此规则旨在帮助 AI 理解账户配置流程、数据存储方式以及相关的 UI 实现和近期改进。
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
