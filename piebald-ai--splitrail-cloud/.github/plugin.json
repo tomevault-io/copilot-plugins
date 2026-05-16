@@ -1,0 +1,9 @@
+{
+  "name": "piebald-ai--splitrail-cloud",
+  "displayName": "splitrail-cloud",
+  "description": "The cloud for Splitrail - analyzer for agentic AI coding tool usage. Sync your usage data across devices, and optionally show off your stats on the leaderboard.  https://github.com/Piebald-AI/splitrai",
+  "version": "1.0.0",
+  "author": "Piebald-AI",
+  "homepage": "https://github.com/Piebald-AI/splitrail-cloud",
+  "skills": []
+}
