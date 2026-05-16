@@ -1,0 +1,9 @@
+{
+  "name": "json-object--claude-code-ui-kt",
+  "displayName": "claude-code-ui-kt",
+  "description": "A modern, high-performance wrapper for Claude Code CLI with real-time streaming capabilities, built with cutting-edge JVM technology.",
+  "version": "1.0.0",
+  "author": "JSON-OBJECT",
+  "homepage": "https://github.com/JSON-OBJECT/claude-code-ui-kt",
+  "skills": []
+}
