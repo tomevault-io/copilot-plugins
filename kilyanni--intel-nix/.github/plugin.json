@@ -1,0 +1,9 @@
+{
+  "name": "kilyanni--intel-nix",
+  "displayName": "intel-nix",
+  "description": "WIP Packaging of Intel LLVM, OneAPI and related tools for Nix, hopefully to be upstreamed to nixpkgs at some point",
+  "version": "1.0.0",
+  "author": "kilyanni",
+  "homepage": "https://github.com/kilyanni/intel-nix",
+  "skills": []
+}
