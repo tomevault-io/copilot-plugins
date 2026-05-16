@@ -1,0 +1,9 @@
+{
+  "name": "khromov--context-coder",
+  "displayName": "context-coder",
+  "description": "MCP for agentic full-context coding",
+  "version": "1.0.0",
+  "author": "khromov",
+  "homepage": "https://github.com/khromov/context-coder",
+  "skills": []
+}
