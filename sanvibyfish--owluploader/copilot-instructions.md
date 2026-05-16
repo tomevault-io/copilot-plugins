@@ -1,46 +1,57 @@
-## 01-useraccountsandconfiguration
+## 02-fileandbucketlistviews
 
-> 本规则描述了 OwlUploader 应用中用户账户管理和配置界面的相关功能和实现。核心目标是提供安全、易用的账户设置体验。
+> 本规则关注 OwlUploader 应用中用于展示和操作存储桶及文件列表的核心视图组件，以及相关的用户体验优化。
 
-\
-# 规则 01: 用户账户与配置
+# 规则 02: 文件与存储桶列表视图
 
 ## 概述
-本规则描述了 OwlUploader 应用中用户账户管理和配置界面的相关功能和实现。核心目标是提供安全、易用的账户设置体验。
+本规则关注 OwlUploader 应用中用于展示和操作存储桶及文件列表的核心视图组件，以及相关的用户体验优化。
 
-## 账户数据模型与管理
-- **`R2Account.swift`**: 定义了 R2 账户的数据模型，包含账户 ID、Access Key ID、Endpoint URL 等。近期添加了 `defaultBucketName: String?` 和 `publicDomain: String?` 属性以支持新功能。
-- **`R2AccountManager.swift`**: 负责账户的持久化存储（使用 Keychain）、加载和管理。它提供了获取当前账户、保存账户配置、清除账户信息等方法。
-- **`KeychainService.swift`**: 提供了一个通用的 Keychain 操作封装，用于安全地存储和读取敏感信息，如 Secret Access Key。
-
-## 配置界面: AccountSettingsView
-`AccountSettingsView.swift` 提供了用户配置 R2 账户信息的界面。
+## 存储桶选择: BucketListView
+`BucketListView.swift` 负责在用户连接账户后，展示存储桶列表（如果权限允许）或提供手动输入存储桶名称的界面。
 
 ### 主要功能
-- 输入和编辑账户 ID, Access Key ID, Secret Access Key, Endpoint URL。
-- **新增默认存储桶名称配置**: 用户可以预设一个默认的存储桶名称，应用启动或连接后会自动尝试选择此存储桶。这是一个可选字段，旨在简化权限受限用户的操作流程。
-- **新增公共域名配置**: 用户可以配置一个自定义的公共域名 (`R2_PUBLIC_DOMAIN`) 用于生成文件链接，代替默认的 Cloudflare R2 域名。
-- 测试连接功能。
-- 保存账户配置。
-- 重置表单。
-- 断开连接。
+- 如果 API Token 有 `listBuckets` 权限，则列出所有可访问的存储桶。
+- 如果没有 `listBuckets` 权限，或用户配置了默认存储桶，则尝试自动连接默认存储桶。
+- 提供手动输入存储桶名称的界面，并通过 `R2Service.selectBucketDirectly()` 方法验证和选择。
+- 显示连接状态和错误信息。
 
 ### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **添加了默认存储桶名称输入框**。
-- **添加了 R2 公共域名输入框**。
-- **修复了 SECRET_ACCESS_KEY 在断开连接后需要重新输入的问题**: 现在会从 Keychain 安全加载已保存的 Secret Access Key。
-- **界面布局和样式优化**: 
-    - 对配置表单的排版进行了多次优化，包括限制最大宽度、调整边距、采用卡片式布局等，以提升视觉效果和空间利用率。
-    - 优化了断开连接按钮的样式和布局，使其更美观和直观。
+- **智能化改进**: 如果配置时设置过默认存储桶，此界面会尝试自动连接，避免用户重复输入。
+- **多状态支持**: 界面能根据连接状态（已选择、自动连接中、手动输入等）显示不同内容。
+
+## 文件列表: FileListView & FileListItemView
+- **`FileListView.swift`**: 这是应用的主要文件管理界面，负责展示当前选定存储桶中的文件和文件夹列表。它处理文件/文件夹的点击操作、导航、加载状态等。
+- **`FileListItemView.swift`**: 定义了文件列表中每一行（文件或文件夹）的显示样式和交互。
+- **`FileObject.swift`**: 代表文件或文件夹的数据模型，包含名称、路径、大小、是否为文件夹等属性。
+
+### 主要功能
+- 显示文件和文件夹列表，区分图标。
+- 支持进入文件夹、返回上一级。
+- **新建文件夹**: 通过 `CreateFolderSheet.swift` 弹窗实现。近期修复了文件夹名称验证逻辑中的多个 BUG，包括对连字符的支持以及 R2 平台对于文件夹对象键处理的兼容性问题。
+- 上传文件: 通过 `.fileImporter` 选择文件，并调用 `R2Service.uploadFile`。近期重点解决了 macOS 沙盒环境下的文件访问权限问题。
+- **复制文件链接 (新功能)**: 为文件行添加了复制其公共访问链接到剪贴板的功能。链接的生成会考虑用户是否配置了公共域名。
+- 删除文件/文件夹。
+- 显示加载状态、空列表提示、错误信息等。
+
+### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
+- **新建文件夹流程修复**: 解决了输入框无法输入、文件夹名称验证错误（特别是连字符 `-` 的处理）、以及 Cloudflare R2 对文件夹对象 key 处理方式不一致导致的问题。
+- **macOS 沙盒文件上传权限修复**: 通过在 `fileImporter` 回调中立即读取文件数据，并在权限范围内完成所有必要操作，彻底解决了沙盒环境下的文件访问权限问题 (NSCocoaErrorDomain Code=257)。
+- **交互模式优化**: 文件夹和面包屑导航统一改为单击操作，移除了双击。
+- **文件夹样式简化**: 移除了文件夹列表项额外的背景色和边框，使其样式更简洁，与文件项统一。
+- **ForEach ID 重复警告修复**: 在 `R2Service.listObjects()` 中添加了去重逻辑，避免因 R2 返回的 `CommonPrefixes` 和 `Contents` 中可能存在的重复对象导致 SwiftUI 列表渲染问题。
+- **列表跳转闪屏优化**: 移除了不必要的加载状态设置，使文件夹导航更流畅。
 
 ### 关键文件
-- 账户数据模型: [OwlUploader/R2Account.swift](mdc:OwlUploader/R2Account.swift)
-- 账户管理器: [OwlUploader/R2AccountManager.swift](mdc:OwlUploader/R2AccountManager.swift)
-- Keychain 服务: [OwlUploader/KeychainService.swift](mdc:OwlUploader/KeychainService.swift)
-- 配置界面: [OwlUploader/AccountSettingsView.swift](mdc:OwlUploader/AccountSettingsView.swift)
+- 存储桶选择界面: [OwlUploader/BucketListView.swift](mdc:OwlUploader/BucketListView.swift)
+- 存储桶数据模型: [OwlUploader/BucketItem.swift](mdc:OwlUploader/BucketItem.swift)
+- 文件列表界面: [OwlUploader/FileListView.swift](mdc:OwlUploader/FileListView.swift)
+- 文件列表项视图: [OwlUploader/FileListItemView.swift](mdc:OwlUploader/FileListItemView.swift)
+- 文件对象模型: [OwlUploader/FileObject.swift](mdc:OwlUploader/FileObject.swift)
+- 新建文件夹弹窗: [OwlUploader/CreateFolderSheet.swift](mdc:OwlUploader/CreateFolderSheet.swift)
 - 开发日志: [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)
 
-此规则旨在帮助 AI 理解账户配置流程、数据存储方式以及相关的 UI 实现和近期改进。
+此规则详细介绍了文件和存储桶的展示逻辑、用户交互以及近期大量的 BUG 修复和体验优化，这些是用户直接感知的功能核心。
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
