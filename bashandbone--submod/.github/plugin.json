@@ -1,0 +1,9 @@
+{
+  "name": "bashandbone--submod",
+  "displayName": "submod",
+  "description": "Manage git submodules without the fuss",
+  "version": "1.0.0",
+  "author": "bashandbone",
+  "homepage": "https://github.com/bashandbone/submod",
+  "skills": []
+}
