@@ -1,7 +1,7 @@
 {
   "name": "mikesquared-agency--cortex",
   "displayName": "cortex",
-  "description": "cortex",
+  "description": "Warren's Graph Memory Engine \u2014 embedded Rust knowledge graph with vector similarity, auto-linking, and agent briefings",
   "version": "1.0.0",
   "author": "MikeSquared-Agency",
   "homepage": "https://github.com/MikeSquared-Agency/cortex",
