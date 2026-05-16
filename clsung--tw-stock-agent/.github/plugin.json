@@ -1,0 +1,9 @@
+{
+  "name": "clsung--tw-stock-agent",
+  "displayName": "tw-stock-agent",
+  "description": "A Model Context Protocol (MCP) server for Taiwan stock data.",
+  "version": "1.0.0",
+  "author": "clsung",
+  "homepage": "https://github.com/clsung/tw-stock-agent",
+  "skills": []
+}
