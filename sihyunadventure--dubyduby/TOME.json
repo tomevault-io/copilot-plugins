@@ -4,7 +4,7 @@
   "repo": "dubyduby",
   "description": "\uc5b4\ub5a4 YouTube \uc601\uc0c1\uc774\ub4e0 \ud55c\uad6d\uc5b4\ub85c \ub354\ube59 \u2014 \uc5d0\uc774\uc804\ud2b8 \uae30\ubc18, 2\uc778 \ubcf4\uc774\uc2a4, \uc790\ub9c9 \ud3ec\ud568. Soniox STT + AI \uc5d0\uc774\uc804\ud2b8 + Supertonic TTS.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SihyunAdventure/dubyduby",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:06:10Z"
+  "distributed_at": "2026-05-16T07:05:33Z"
 }
