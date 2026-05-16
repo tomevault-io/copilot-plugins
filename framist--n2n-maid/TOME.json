@@ -1,0 +1,44 @@
+{
+  "name": "n2n-maid",
+  "owner": "framist",
+  "repo": "n2n-maid",
+  "description": "\u4e00\u4e2a\u5f00\u6e90\u8de8\u5e73\u53f0\u5e76\u4e14\u53ef\u7231\u7684 N2N \u56fe\u5f62\u754c\u9762\u5ba2\u6237\u7aef | Cute N2N GUI Client based on Tauri 2 + React 18",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/framist/n2n-maid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T10:37:27Z"
+}
