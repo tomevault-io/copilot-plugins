@@ -4,7 +4,7 @@
   "repo": "citum-core",
   "description": "Next generation citation styling system in Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/citum/citum-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T04:37:33Z"
+  "distributed_at": "2026-05-16T08:53:50Z"
 }
