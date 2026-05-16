@@ -1,0 +1,39 @@
+## skills
+
+> `llm/skills` is a **Composer plugin** that discovers AI Skills bundled in vendor packages and
+
+# `llm/skills` — Project Guide for AI Agents
+
+`llm/skills` is a **Composer plugin** that discovers AI Skills bundled in vendor packages and
+installs them into the consumer project (default `.agents/skills/`, configurable per project).
+
+- Package type: `composer-plugin`
+- Minimum PHP: **8.2**
+- Root namespace: `LLM\Skills\` (PSR-4 → `src/`)
+- Test namespace: `LLM\Skills\Tests\` (PSR-4 → `tests/`)
+- Test framework: **testo** (not PHPUnit) — config in `testo.php`
+- Mutation testing: **infection** with the `testo` test framework — config in `infection.json`
+- Static analysis: **psalm** — config in `psalm.xml`
+- Code style: **php-cs-fixer** with the `spiral/code-style` ruleset
+
+## Common Tasks (composer scripts)
+
+| Task                | Command                       |
+|---------------------|-------------------------------|
+| Run tests           | `composer test`               |
+| Static analysis     | `composer psalm`              |
+| Code style — diff   | `composer cs:diff`            |
+| Code style — fix    | `composer cs:fix`             |
+
+## Notes for Agents
+
+- Do **not** introduce PHPUnit-style tests — this project uses testo. If you see
+  `self::assertX()` it is wrong code, not a pattern to copy.
+- The `LLM\Skills\…` namespace appearing in some files is legacy from an earlier project
+  name and should be migrated to `LLM\Skills\…`; do not propagate it in new code.
+- File paths in commands and services should flow through the `Internal\Path` value object
+  (provided by the `internal/path` dependency).
+
+---
+> Source: [roxblnfk/skills](https://github.com/roxblnfk/skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-15 -->
