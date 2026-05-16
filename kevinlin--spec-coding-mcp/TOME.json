@@ -4,7 +4,7 @@
   "repo": "spec-coding-mcp",
   "description": "An MCP server that brings AI spec-driven development workflow to any AI-powered IDE besides Kiro",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kevinlin/spec-coding-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:05:03Z"
+  "distributed_at": "2026-05-16T00:44:16Z"
 }
