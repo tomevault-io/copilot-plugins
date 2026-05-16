@@ -1,0 +1,9 @@
+{
+  "name": "braid-ink--braid",
+  "displayName": "braid",
+  "description": "LangGraph Agent Development System. Build production-ready AI agents through natural conversation with Claude Code.",
+  "version": "1.0.0",
+  "author": "braid-ink",
+  "homepage": "https://github.com/braid-ink/braid",
+  "skills": []
+}
