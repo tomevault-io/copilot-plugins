@@ -1,0 +1,9 @@
+{
+  "name": "multisynq--synchronizer-cli",
+  "displayName": "synchronizer-cli",
+  "description": "synchronizer-cli",
+  "version": "1.0.0",
+  "author": "multisynq",
+  "homepage": "https://github.com/multisynq/synchronizer-cli",
+  "skills": []
+}
