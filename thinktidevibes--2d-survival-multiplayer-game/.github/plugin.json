@@ -1,0 +1,9 @@
+{
+  "name": "thinktidevibes--2d-survival-multiplayer-game",
+  "displayName": "2D-Survival-Multiplayer-Game",
+  "description": "A lightweight 2D multiplayer survival game starter kit built with modern web technologies. Create interactive survival experiences with persistent player state, real-time multiplayer synchronization, ",
+  "version": "1.0.0",
+  "author": "thinktidevibes",
+  "homepage": "https://github.com/thinktidevibes/2D-Survival-Multiplayer-Game",
+  "skills": []
+}
