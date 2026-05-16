@@ -1,0 +1,9 @@
+{
+  "name": "ouisolutions--c-react",
+  "displayName": "C-React",
+  "description": "React Port to C Language using c2wasm and ecmescripten",
+  "version": "1.0.0",
+  "author": "OUIsolutions",
+  "homepage": "https://github.com/OUIsolutions/C-React",
+  "skills": []
+}
