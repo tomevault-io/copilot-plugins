@@ -4,7 +4,7 @@
   "repo": "mcpcodeanalysis",
   "description": "A code understanding MCP server. Let's see if we can use it to refactor code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/johannhartmann/mcpcodeanalysis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T04:33:43Z"
+  "distributed_at": "2026-05-16T05:01:22Z"
 }
