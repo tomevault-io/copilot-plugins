@@ -1,0 +1,9 @@
+{
+  "name": "obot-platform--nanobot",
+  "displayName": "nanobot",
+  "description": "Build MCP Agents",
+  "version": "1.0.0",
+  "author": "obot-platform",
+  "homepage": "https://github.com/obot-platform/nanobot",
+  "skills": []
+}
