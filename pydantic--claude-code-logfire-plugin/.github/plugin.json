@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--claude-code-logfire-plugin",
+  "displayName": "claude-code-logfire-plugin",
+  "description": "Claude Code plugin that sends OpenTelemetry traces to Logfire.",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/claude-code-logfire-plugin",
+  "skills": []
+}
