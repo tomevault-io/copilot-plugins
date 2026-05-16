@@ -4,7 +4,7 @@
   "repo": "intuitive-flow",
   "description": "Shared config, skills, and update scripts for Claude Code, Codex, and Gemini CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MiaoDX/intuitive-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T06:30:09Z"
+  "distributed_at": "2026-05-16T03:43:05Z"
 }
