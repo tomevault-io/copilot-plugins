@@ -4,7 +4,7 @@
   "repo": "unifi-mcp",
   "description": "UniFi network management via MCP tools. Monitor devices, clients, network health, firewall rules, and perform management operations.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmagar/unifi-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T22:45:30Z"
+  "distributed_at": "2026-05-16T07:57:16Z"
 }
