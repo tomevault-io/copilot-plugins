@@ -1,0 +1,9 @@
+{
+  "name": "wwbweibo--live2d-assistant",
+  "displayName": "live2d-assistant",
+  "description": "Live2d Assistant is an extensive assistant application with mcp server and multi-agent support.",
+  "version": "1.0.0",
+  "author": "wwbweibo",
+  "homepage": "https://github.com/wwbweibo/live2d-assistant",
+  "skills": []
+}
