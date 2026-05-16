@@ -7,11 +7,11 @@ Torque is a single-user product development powerhouse
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [runtorque/torque](https://github.com/runtorque/torque).
+Original source: `CLAUDE.md` in [runtorque/torque](https://github.com/runtorque/torque).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
