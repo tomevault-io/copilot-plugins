@@ -1,0 +1,9 @@
+{
+  "name": "marksstuff--github-agent",
+  "displayName": "github-agent",
+  "description": "An MCP-based agent to route pr reviews to coding agents",
+  "version": "1.0.0",
+  "author": "MarksStuff",
+  "homepage": "https://github.com/MarksStuff/github-agent",
+  "skills": []
+}
