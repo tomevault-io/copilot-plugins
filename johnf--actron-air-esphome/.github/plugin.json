@@ -1,0 +1,9 @@
+{
+  "name": "johnf--actron-air-esphome",
+  "displayName": "actron-air-esphome",
+  "description": "Actron Air ESP32 Keypad Component for ESPHome",
+  "version": "1.0.0",
+  "author": "johnf",
+  "homepage": "https://github.com/johnf/actron-air-esphome",
+  "skills": []
+}
