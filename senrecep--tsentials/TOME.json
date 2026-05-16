@@ -4,7 +4,7 @@
   "repo": "tsentials",
   "description": "Railway-oriented programming for TypeScript \u2014 Result<T>, Maybe<T>, Rule Engine, and DDD base classes with full    async pipeline support",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/senrecep/tsentials",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T20:30:09Z"
+  "distributed_at": "2026-05-16T07:48:43Z"
 }
