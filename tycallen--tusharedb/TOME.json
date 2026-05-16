@@ -1,0 +1,44 @@
+{
+  "name": "TushareDB",
+  "owner": "tycallen",
+  "repo": "TushareDB",
+  "description": "\ud83d\ude80 A high-performance, locally-cached \ud83d\udcbe Tushare \ud83d\udcc8 data interface powered by \ud83e\udd86 DuckDB  ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tycallen/TushareDB",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:59:50Z"
+}
