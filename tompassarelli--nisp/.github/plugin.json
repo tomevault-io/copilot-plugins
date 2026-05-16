@@ -1,0 +1,9 @@
+{
+  "name": "tompassarelli--nisp",
+  "displayName": "nisp",
+  "description": "Statically-checked Lisp for Nix",
+  "version": "1.0.0",
+  "author": "tompassarelli",
+  "homepage": "https://github.com/tompassarelli/nisp",
+  "skills": []
+}
