@@ -7,11 +7,11 @@ Samoyed is a fully-featured software modem/TNC for packet radio. It supports AX.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [doismellburning/samoyed](https://github.com/doismellburning/samoyed).
+Original source: `CLAUDE.md` in [doismellburning/samoyed](https://github.com/doismellburning/samoyed).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
