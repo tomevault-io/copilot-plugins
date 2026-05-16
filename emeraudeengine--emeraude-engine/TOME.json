@@ -4,7 +4,7 @@
   "repo": "emeraude-engine",
   "description": "Cross-platform 3D scene engine using the Vulkan API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/EmeraudeEngine/emeraude-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T02:53:10Z"
+  "distributed_at": "2026-05-16T03:51:46Z"
 }
