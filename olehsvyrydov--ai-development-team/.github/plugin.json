@@ -1,0 +1,9 @@
+{
+  "name": "olehsvyrydov--ai-development-team",
+  "displayName": "AI-development-team",
+  "description": "AI Development Team - 15 specialized Claude Code skills (agents) that simulate a complete software development team. Includes Product Owner, Architects, Developers, Testers, DevOps, and more.",
+  "version": "1.0.0",
+  "author": "olehsvyrydov",
+  "homepage": "https://github.com/olehsvyrydov/AI-development-team",
+  "skills": []
+}
