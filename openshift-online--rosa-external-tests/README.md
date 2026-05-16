@@ -7,11 +7,11 @@ Tests run from outside of the service to test the ROSA service.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openshift-online/rosa-external-tests](https://github.com/openshift-online/rosa-external-tests).
+Original source: `CLAUDE.md` in [openshift-online/rosa-external-tests](https://github.com/openshift-online/rosa-external-tests).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
