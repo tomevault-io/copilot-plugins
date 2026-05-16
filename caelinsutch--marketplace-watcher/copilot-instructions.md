@@ -1,11 +1,36 @@
-## main
+## marketplace-watcher
 
-> Marketplace Watcher is a full-stack web application that monitors Facebook Marketplace listings and alerts users when items matching their criteria become available. Built as a monorepo using pnpm workspaces.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
 Marketplace Watcher is a full-stack web application that monitors Facebook Marketplace listings and alerts users when items matching their criteria become available. Built as a monorepo using pnpm workspaces.
 
+## Feature Implementation System Guidelines
+
+### Feature Implementation Priority Rules
+- IMMEDIATE EXECUTION: Launch parallel Tasks immediately upon feature requests
+- NO CLARIFICATION: Skip asking what type of implementation unless absolutely critical
+- PARALLEL BY DEFAULT: Always use 7-parallel-Task method for efficiency
+
+### Parallel Feature Implementation Workflow
+1. **Component**: Create main component file
+2. **Styles**: Add subcomponents and styles
+3. **Tests**: Create test files  
+4. **Types**: Create type definitions
+5. **Hooks**: Create custom hooks/utilities
+6. **Integration**: Update routing, imports, exports
+7. **Remaining**: Update package.json, documentation, configuration files
+8. **Review and Validation**: Coordinate integration, run tests, verify build, check for conflicts
+
+### Context Optimization Rules
+- Strip out all comments when reading code files for analysis
+- Each task handles ONLY specified files or file types
+- Task 7 combines small config/doc updates to prevent over-splitting
 
 ### Feature Implementation Guidelines
 - **CRITICAL**: Make MINIMAL CHANGES to existing patterns and structures
@@ -19,7 +44,7 @@ Marketplace Watcher is a full-stack web application that monitors Facebook Marke
 ```bash
 pnpm dev              # Start Next.js development server with Turbopack
 pnpm build            # Build all packages
-pnpm format-lint # Format and lint all code with Biome
+pnpm format-lint  # Format and lint all code with Biome
 ```
 
 ### Database
