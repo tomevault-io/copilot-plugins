@@ -4,7 +4,7 @@
   "repo": "dribble",
   "description": "AI-powered, open source IDE for Databases",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/azhakhan/dribble",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:16:56Z"
+  "distributed_at": "2026-05-16T08:08:49Z"
 }
