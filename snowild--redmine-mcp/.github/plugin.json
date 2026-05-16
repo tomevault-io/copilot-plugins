@@ -1,0 +1,9 @@
+{
+  "name": "snowild--redmine-mcp",
+  "displayName": "redmine-mcp",
+  "description": "MCP (Model Context Protocol) server for Redmine integration",
+  "version": "1.0.0",
+  "author": "snowild",
+  "homepage": "https://github.com/snowild/redmine-mcp",
+  "skills": []
+}
