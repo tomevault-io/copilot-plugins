@@ -4,7 +4,7 @@
   "repo": "helix-stadium-tools",
   "description": "A repository for tools/scripts and info on the Helix Stadium wireless editing protocol. This repository is not official and unaffiliated with Line 6. Be careful.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Vheissu/helix-stadium-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T08:36:18Z"
+  "distributed_at": "2026-05-16T09:08:41Z"
 }
