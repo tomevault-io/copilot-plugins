@@ -1,0 +1,9 @@
+{
+  "name": "lifthrasiir--angel",
+  "displayName": "angel",
+  "description": "Experimental LLM agent based on gemini-cli",
+  "version": "1.0.0",
+  "author": "lifthrasiir",
+  "homepage": "https://github.com/lifthrasiir/angel",
+  "skills": []
+}
