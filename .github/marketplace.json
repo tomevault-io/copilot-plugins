@@ -41364,6 +41364,16 @@
       "description": "<Vibecoded> Track, analyze, and improve what LLMs are saying"
     },
     {
+      "name": "serverkarma--obsidianprivateai",
+      "source": "./serverkarma--obsidianprivateai",
+      "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only."
+    },
+    {
+      "name": "serverkarma--obsidianprivateai",
+      "source": "./serverkarma--obsidianprivateai",
+      "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only."
+    },
+    {
       "name": "tencentcloud--cubesandbox",
       "source": "./tencentcloud--cubesandbox",
       "description": "Instant, Concurrent, Secure & Lightweight Sandbox for AI Agents."
