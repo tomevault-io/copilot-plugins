@@ -1,0 +1,9 @@
+{
+  "name": "gizmodata--adbc-driver-quack",
+  "displayName": "adbc-driver-quack",
+  "description": "Go ADBC driver for DuckDB's Quack remote protocol (quack:// URI scheme). Returns Apache Arrow RecordBatches; supports bulk-ingest via APPEND_REQUEST. Distributed as a Go module + pip-installable Pytho",
+  "version": "1.0.0",
+  "author": "gizmodata",
+  "homepage": "https://github.com/gizmodata/adbc-driver-quack",
+  "skills": []
+}
