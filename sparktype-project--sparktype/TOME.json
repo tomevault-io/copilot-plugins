@@ -4,7 +4,7 @@
   "repo": "sparktype",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sparktype-project/sparktype",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:53:14Z"
+  "distributed_at": "2026-05-16T02:32:40Z"
 }
