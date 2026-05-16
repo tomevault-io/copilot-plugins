@@ -1,0 +1,9 @@
+{
+  "name": "loonghao--rez-next",
+  "displayName": "rez-next",
+  "description": "Experimental Rust rewrite of Rez package manager core components. Not for production use.",
+  "version": "1.0.0",
+  "author": "loonghao",
+  "homepage": "https://github.com/loonghao/rez-next",
+  "skills": []
+}
