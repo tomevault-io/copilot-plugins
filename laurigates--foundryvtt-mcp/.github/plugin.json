@@ -1,0 +1,9 @@
+{
+  "name": "laurigates--foundryvtt-mcp",
+  "displayName": "foundryvtt-mcp",
+  "description": "A Model Context Protocol (MCP) server that integrates with FoundryVTT, allowing AI assistants to interact with your tabletop gaming sessions. Query actors, roll dice, generate content, and manage your",
+  "version": "1.0.0",
+  "author": "laurigates",
+  "homepage": "https://github.com/laurigates/foundryvtt-mcp",
+  "skills": []
+}
