@@ -7,13 +7,13 @@ Agent-driven Android ANR evidence extraction and AI-assisted root cause analysis
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [yuchuangu85/llm-anr](https://github.com/yuchuangu85/llm-anr).
+Original source: `CLAUDE.md` in [yuchuangu85/llm-anr](https://github.com/yuchuangu85/llm-anr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
