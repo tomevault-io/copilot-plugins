@@ -1,0 +1,9 @@
+{
+  "name": "diogoseca--bjjgraph",
+  "displayName": "bjjgraph",
+  "description": "BJJ as a State Machine. Navigate the graph of BJJ, or random roll to discover the game.",
+  "version": "1.0.0",
+  "author": "diogoseca",
+  "homepage": "https://github.com/diogoseca/bjjgraph",
+  "skills": []
+}
