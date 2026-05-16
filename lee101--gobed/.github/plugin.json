@@ -1,0 +1,9 @@
+{
+  "name": "lee101--gobed",
+  "displayName": "gobed",
+  "description": "static embedding models in golang",
+  "version": "1.0.0",
+  "author": "lee101",
+  "homepage": "https://github.com/lee101/gobed",
+  "skills": []
+}
