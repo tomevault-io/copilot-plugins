@@ -4,7 +4,7 @@
   "repo": "vibe-check-mcp",
   "description": "Stop AI coding disasters before they cost you weeks. Real-time anti-pattern detection for vibe coders who love AI tools but need a safety net to avoid expensive overengineering traps.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kesslerio/vibe-check-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:01:56Z"
+  "distributed_at": "2026-05-16T06:16:54Z"
 }
