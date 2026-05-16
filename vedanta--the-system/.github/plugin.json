@@ -1,0 +1,9 @@
+{
+  "name": "vedanta--the-system",
+  "displayName": "the-system",
+  "description": "Org-aligned multi-agent orchestration framework with roles, stages, human gates and autonomous execution",
+  "version": "1.0.0",
+  "author": "vedanta",
+  "homepage": "https://github.com/vedanta/the-system",
+  "skills": []
+}
