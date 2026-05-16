@@ -1,0 +1,9 @@
+{
+  "name": "tuya--tyutool",
+  "displayName": "tyutool",
+  "description": "TuyaOpen && TuyaOS download uart tool",
+  "version": "1.0.0",
+  "author": "tuya",
+  "homepage": "https://github.com/tuya/tyutool",
+  "skills": []
+}
