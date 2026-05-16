@@ -1,0 +1,44 @@
+{
+  "name": "uniswap-v4-sdk-rs",
+  "owner": "suzuki-kenji0627",
+  "repo": "uniswap-v4-sdk-rs",
+  "description": "Opinionated Rust implementation of the Uniswap V4 SDK with a focus on readability and performance",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/suzuki-kenji0627/uniswap-v4-sdk-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:04:40Z"
+}
