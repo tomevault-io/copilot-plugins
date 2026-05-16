@@ -1,9 +1,9 @@
 {
   "name": "krissen--polleninformation",
   "displayName": "polleninformation",
-  "description": "polleninformation",
+  "description": "Integration for homeassistant, creating sensors based on polleninformation.eu",
   "version": "1.0.0",
   "author": "krissen",
-  "homepage": "https://tomevault.io/claim/krissen",
+  "homepage": "https://github.com/krissen/polleninformation",
   "skills": []
 }
