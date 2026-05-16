@@ -1,76 +1,108 @@
-## chrome-extension-guidelines
+## coding-standards
 
-> Provides configuration settings for the extension.
+> - Component files should use PascalCase (e.g., `ButtonCounter.vue`)
 
-# Chrome Extension Development Guidelines
+# Coding Standards for Dify Tools Chrome Extension
 
-## Manifest.json
+## Vue Component Guidelines
 
-The [manifest.json](mdc:manifest.json) file is the configuration file for the extension. It defines:
+### File Organization
+- Component files should use PascalCase (e.g., `ButtonCounter.vue`)
+- Each component should be in its own file
+- Related components should be grouped in subdirectories
 
-- Basic metadata (name, version, description)
-- Permissions required by the extension
-- Extension resources (icons, scripts, HTML pages)
-- Extension behavior (background scripts, content scripts)
+### Component Structure
+```vue
+<script setup>
+// imports first
+import { ref } from 'vue'
+import ChildComponent from './ChildComponent.vue'
 
-## Extension Components
+// props
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  }
+})
 
-### Popup
-The popup UI appears when users click the extension icon in the browser toolbar.
-- Keep the popup UI simple and focused
-- Design for limited screen space
-- Avoid heavy operations that might cause the popup to freeze
+// emits
+const emit = defineEmits(['update', 'delete'])
 
-### Background Script
-Runs in the background and manages extension state.
-- Use for long-running tasks
-- Avoid heavy computation in the background script
-- Use message passing to communicate with other parts of the extension
+// reactive state
+const count = ref(0)
 
-### Content Scripts
-Run in the context of web pages.
-- Use to interact with page content
-- Avoid injecting unnecessary scripts
-- Follow Chrome's security guidelines
+// computed properties
+const doubleCount = computed(() => count.value * 2)
 
-### Options Page
-Provides configuration settings for the extension.
-- Group related settings together
-- Provide clear descriptions for each setting
-- Save settings automatically when changed
+// methods
+const increment = () => {
+  count.value++
+  emit('update', count.value)
+}
+</script>
 
-## Security Guidelines
+<template>
+  <div class="component-container">
+    <!-- Component template -->
+  </div>
+</template>
 
-### Permissions
-- Request only the permissions you need
-- Explain to users why each permission is needed
-- Use optional permissions when possible
+<style scoped>
+/* Component styles */
+</style>
+```
 
-### Content Security Policy
-- Set appropriate Content Security Policy in the manifest
-- Avoid inline JavaScript
-- Avoid `eval()` and other unsafe functions
+## CSS Guidelines
 
-### Data Storage
-- Use Chrome Storage API for persistent data
-- Encrypt sensitive data before storing
-- Clean up data when it's no longer needed
+### CSS Priority
+1. Use Tailwind CSS utility classes whenever possible
+2. Use Element Plus's built-in customization (when using Element Plus components)
+3. Use scoped CSS for component-specific styles
+4. Follow BEM naming convention for custom CSS classes
 
-## Performance Best Practices
+### BEM Naming Example
+```css
+/* Block */
+.card {
+  /* ... */
+}
 
-- Minimize the use of background resources
-- Use event-driven architecture
-- Optimize assets for size
-- Cache responses when appropriate
+/* Element */
+.card__title {
+  /* ... */
+}
+
+/* Modifier */
+.card--featured {
+  /* ... */
+}
+```
+
+## JavaScript Guidelines
+
+### General
+- Use ES6+ features
+- Use arrow functions for callbacks
 - Use async/await for asynchronous operations
+- Use destructuring for props and state
 
-## Publishing Guidelines
+### Naming Conventions
+- Use camelCase for variables, functions, and methods
+- Use PascalCase for components and classes
+- Use UPPER_SNAKE_CASE for constants
 
-- Provide clear descriptions and screenshots
-- Keep the extension size under 10MB if possible
-- Follow Chrome Web Store policies
-- Test on different Chrome versions
-- Provide regular updates and maintenance
+### Imports Order
+1. External libraries
+2. Internal modules
+3. Components
+4. Assets/styles
+
+## Testing Guidelines
+
+- Write unit tests for utility functions
+- Write component tests for complex components
+- Make sure tests cover edge cases
 
 ---
 > Source: [roylee1024/dify-tools](https://github.com/roylee1024/dify-tools) — distributed by [TomeVault](https://tomevault.io).
