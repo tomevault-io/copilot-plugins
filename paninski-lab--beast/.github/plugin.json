@@ -1,0 +1,9 @@
+{
+  "name": "paninski-lab--beast",
+  "displayName": "beast",
+  "description": "Behavioral analysis via self-supervised pretraining of transformers",
+  "version": "1.0.0",
+  "author": "paninski-lab",
+  "homepage": "https://github.com/paninski-lab/beast",
+  "skills": []
+}
