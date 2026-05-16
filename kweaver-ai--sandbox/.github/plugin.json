@@ -1,0 +1,9 @@
+{
+  "name": "kweaver-ai--sandbox",
+  "displayName": "sandbox",
+  "description": "Sandbox Runtime is a high-performance code execution service designed for AI Agent applications. It provides multi-layered security isolation mechanisms to ensure untrusted code executes safely in con",
+  "version": "1.0.0",
+  "author": "kweaver-ai",
+  "homepage": "https://github.com/kweaver-ai/sandbox",
+  "skills": []
+}
