@@ -1,0 +1,9 @@
+{
+  "name": "keijiro--halfedge",
+  "displayName": "HalfEdge",
+  "description": "Half-edge structure library for Unity (experimental; unfinished)",
+  "version": "1.0.0",
+  "author": "keijiro",
+  "homepage": "https://github.com/keijiro/HalfEdge",
+  "skills": []
+}
