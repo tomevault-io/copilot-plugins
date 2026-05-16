@@ -1,0 +1,9 @@
+{
+  "name": "little-scale--slewenv-max-external",
+  "displayName": "slewenv-max-external",
+  "description": "A Max/MSP external that recreates the function generator capabilities of the Make Noise Maths module. This audio-rate integrator provides configurable rise and fall times with exponential-to-logarithm",
+  "version": "1.0.0",
+  "author": "little-scale",
+  "homepage": "https://github.com/little-scale/slewenv-max-external",
+  "skills": []
+}
