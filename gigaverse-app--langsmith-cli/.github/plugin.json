@@ -1,0 +1,9 @@
+{
+  "name": "gigaverse-app--langsmith-cli",
+  "displayName": "langsmith-cli",
+  "description": "A context-efficient, feature-complete CLI for LangSmith. Packaged as a Claude Code plugin to replace heavy MCP servers with lightweight, on-demand skills.",
+  "version": "1.0.0",
+  "author": "gigaverse-app",
+  "homepage": "https://github.com/gigaverse-app/langsmith-cli",
+  "skills": []
+}
