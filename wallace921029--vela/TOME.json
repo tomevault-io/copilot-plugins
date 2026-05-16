@@ -4,7 +4,7 @@
   "repo": "vela",
   "description": "A simple, clean, and elegant navigation page designed for the modern web.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wallace921029/vela",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:39:14Z"
+  "distributed_at": "2026-05-16T07:11:03Z"
 }
