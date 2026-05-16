@@ -1,0 +1,9 @@
+{
+  "name": "ethancod1ng--bybit-mcp-server",
+  "displayName": "bybit-mcp-server",
+  "description": "A Model Context Protocol (MCP) server for integrating AI assistants with Bybit cryptocurrency exchange APIs, enabling automated trading, market data access, and account management.",
+  "version": "1.0.0",
+  "author": "ethancod1ng",
+  "homepage": "https://github.com/ethancod1ng/bybit-mcp-server",
+  "skills": []
+}
