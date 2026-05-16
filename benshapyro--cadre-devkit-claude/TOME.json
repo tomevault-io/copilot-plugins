@@ -1,0 +1,93 @@
+{
+  "name": "cadre-devkit-claude",
+  "owner": "benshapyro",
+  "repo": "cadre-devkit-claude",
+  "description": "Cadre team development kit for Claude Code - quality gates, security hooks, workflow commands, skills & agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-design-patterns",
+      "path": "skills/api-design-patterns",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/api-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-formatter",
+      "path": "skills/code-formatter",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/code-formatter",
+      "description": ""
+    },
+    {
+      "name": "devkit-knowledge",
+      "path": "skills/devkit-knowledge",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/devkit-knowledge",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "path": "skills/documentation-templates",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "error-handler",
+      "path": "skills/error-handler",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/error-handler",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "tailwind-conventions",
+      "path": "skills/tailwind-conventions",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/tailwind-conventions",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": "skills/test-generator",
+      "github_url": "https://github.com/benshapyro/cadre-devkit-claude/tree/main/skills/test-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/benshapyro/cadre-devkit-claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T12:30:07Z"
+}
