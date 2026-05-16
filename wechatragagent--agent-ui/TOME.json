@@ -1,0 +1,44 @@
+{
+  "name": "agent-ui",
+  "owner": "WechatRagAgent",
+  "repo": "agent-ui",
+  "description": "\u57fa\u4e8e Next.js 15 \u548c React 19 \u6784\u5efa\u7684\u73b0\u4ee3\u5316\u804a\u5929\u754c\u9762\uff0c\u4e3a WeChat RAG Agent \u540e\u7aef \u63d0\u4f9b\u7528\u6237\u53cb\u597d\u7684 Web \u754c\u9762",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/WechatRagAgent/agent-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T03:54:25Z"
+}
