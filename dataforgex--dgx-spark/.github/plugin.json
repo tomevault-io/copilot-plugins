@@ -1,0 +1,9 @@
+{
+  "name": "dataforgex--dgx-spark",
+  "displayName": "dgx_spark",
+  "description": "Multi-model LLM serving for NVIDIA DGX Spark with vLLM, web UI, and tool calling",
+  "version": "1.0.0",
+  "author": "dataforgex",
+  "homepage": "https://github.com/dataforgex/dgx_spark",
+  "skills": []
+}
