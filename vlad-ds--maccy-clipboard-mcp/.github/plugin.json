@@ -1,0 +1,9 @@
+{
+  "name": "vlad-ds--maccy-clipboard-mcp",
+  "displayName": "maccy-clipboard-mcp",
+  "description": "MCP server for accessing Maccy clipboard history on macOS. Search, retrieve, and manage your clipboard content through Claude with support for text and images.",
+  "version": "1.0.0",
+  "author": "vlad-ds",
+  "homepage": "https://github.com/vlad-ds/maccy-clipboard-mcp",
+  "skills": []
+}
