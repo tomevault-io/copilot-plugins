@@ -4,7 +4,7 @@
   "repo": "st-chat-input-multimodal",
   "description": "A multimodal chat input component for Streamlit with file upload, voice recording, and text input capabilities",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsuzukia21/st-chat-input-multimodal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T23:11:49Z"
+  "distributed_at": "2026-05-16T02:52:41Z"
 }
