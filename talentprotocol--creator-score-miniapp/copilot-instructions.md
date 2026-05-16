@@ -1,43 +1,25 @@
-## tech-stackexample
+## versioning
 
-> - Tech stack: Next.JS, React, Tailwind, ShadCN, Supabase postgres, npm
+> every time we make a relevant/sizable GitHub commit
 
+# Versioning
 
-- Tech stack: Next.JS, React, Tailwind, ShadCN, Supabase postgres, npm
-- Use `npx shadcn add` to add new shadcn components.
-- You are not able to see or modify .env files directly - so tell the user what they should add to the file if needed.
-- Avoid classes/OOP and use a functional programming style.
-- Never try to start the app itself (I have it running in a separate terminal)
-- Recommend frequent GitHub commits but never execute without user approval 
+## Commands
+```bash
+npm run version:patch    # 1.0.0 → 1.0.1
+npm run version:minor    # 1.0.0 → 1.1.0  
+npm run version:major    # 1.0.0 → 2.0.0
+```
 
-- Interact with Supabase, Posthog and Notion directly via MCP
-- Interact with GitHub using CLI commands
+## Auto-Generated
+- Build date automatically set during `npm run build`
+- Footer shows: `Creator Score App v1.0.0 (2025.01.13)`
+- Changelog entries auto-created in Notion when version changes
 
-- Follow @coding-principles.md and @design-system.md when proposing implementation plans
-
-Framework: Next.js (App Router)
-Language: TypeScript
-Library: React
-Styling: Tailwind CSS
-UI Components: shadcn/ui
-Authentication: Privy
-Database: Supabase
-AI Integration: Vercel AI SDK
-State & Cache: TanStack Query + Vercel unstable_cache
-Hosting: Vercel
-Package Manager: npm
-Code Quality: ESLint + Prettier
-
-
-
-### CODING INSTRUCTIONS ###
-- Write the absolute minimum code required
-- No sweeping changes
-- No unrelated edits - focus on just the task you're on
-- Make code precise, modular, testable
-- Don’t break existing functionality
-- If I need to do anything (e.g. Supabase/AWS config), tell me clearly
-- Avoid custom components as much as possible. Default to shadcn/ui components and reuse existing components before creating new ones
+## Files
+- `lib/version.ts` - Version utilities
+- `package.json` - Version source
+- `scripts/version-bump.js` - Version bumping script # Versioning
 
 ---
 > Source: [talentprotocol/creator-score-miniapp](https://github.com/talentprotocol/creator-score-miniapp) — distributed by [TomeVault](https://tomevault.io).
