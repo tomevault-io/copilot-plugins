@@ -4,7 +4,7 @@
   "repo": "specmint-core",
   "description": "Persistent, resumable specs for AI coding agents. Deep research, iterative interviews, phased implementation, resume context. Claude Code plugin + universal skill (Codex, Cursor, Windsurf, Cline, Gemini CLI, Devin, Antigravity).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ngvoicu/specmint-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:40:02Z"
+  "distributed_at": "2026-05-16T08:48:03Z"
 }
