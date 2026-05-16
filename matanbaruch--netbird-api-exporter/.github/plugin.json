@@ -1,0 +1,9 @@
+{
+  "name": "matanbaruch--netbird-api-exporter",
+  "displayName": "netbird-api-exporter",
+  "description": "A Prometheus exporter for NetBird API",
+  "version": "1.0.0",
+  "author": "matanbaruch",
+  "homepage": "https://github.com/matanbaruch/netbird-api-exporter",
+  "skills": []
+}
