@@ -1,0 +1,9 @@
+{
+  "name": "czottmann--render-claude-context",
+  "displayName": "render-claude-context",
+  "description": "Collects CLAUDE.md files from directory hierarchy (project folder up to `~/.claude/`), embeds their `@`-imports and commands, and generates processed context files that can then be used as context wit",
+  "version": "1.0.0",
+  "author": "czottmann",
+  "homepage": "https://github.com/czottmann/render-claude-context",
+  "skills": []
+}
