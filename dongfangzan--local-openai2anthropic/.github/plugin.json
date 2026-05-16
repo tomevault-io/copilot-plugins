@@ -1,0 +1,9 @@
+{
+  "name": "dongfangzan--local-openai2anthropic",
+  "displayName": "local-openai2anthropic",
+  "description": "Convert your locally deployed OpenAI-compatible API to the Anthropic API format for use with Claude Code.",
+  "version": "1.0.0",
+  "author": "dongfangzan",
+  "homepage": "https://github.com/dongfangzan/local-openai2anthropic",
+  "skills": []
+}
