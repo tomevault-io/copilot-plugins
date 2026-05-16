@@ -4,7 +4,7 @@
   "repo": "clairvoyance",
   "description": "Clairvoyance is a real-time companion that listens, understands, and responds. It streams audio and text as they happen, unlocking rich insights and enabling intuitive interactions. Whether you're seeking clarity, context, or a capable personal agent, Clairvoyance brings intelligence closer to you\u2014fluid, aware, and always ready.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/juspay/clairvoyance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:55:49Z"
+  "distributed_at": "2026-05-16T06:57:48Z"
 }
