@@ -1,0 +1,9 @@
+{
+  "name": "jhaizhou-ops--karma",
+  "displayName": "karma",
+  "description": "Make AI Agents never violate your rules in long tasks \u2014 auto-correct violations before they frustrate you. Pure-engineering zero-LLM hook system for Claude Code / Codex CLI / Gemini CLI. Measured viol",
+  "version": "1.0.0",
+  "author": "jhaizhou-ops",
+  "homepage": "https://github.com/jhaizhou-ops/karma",
+  "skills": []
+}
