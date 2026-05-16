@@ -1,0 +1,9 @@
+{
+  "name": "beaucronin--anytype-python-client",
+  "displayName": "anytype-python-client",
+  "description": "A comprehensive Python client for the Anytype API with both synchronous and asynchronous support",
+  "version": "1.0.0",
+  "author": "beaucronin",
+  "homepage": "https://github.com/beaucronin/anytype-python-client",
+  "skills": []
+}
