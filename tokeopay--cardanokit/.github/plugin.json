@@ -1,0 +1,9 @@
+{
+  "name": "tokeopay--cardanokit",
+  "displayName": "CardanoKit",
+  "description": "CardanoKit",
+  "version": "1.0.0",
+  "author": "TokeoPay",
+  "homepage": "https://github.com/TokeoPay/CardanoKit",
+  "skills": []
+}
