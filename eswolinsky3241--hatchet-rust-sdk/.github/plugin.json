@@ -1,0 +1,9 @@
+{
+  "name": "eswolinsky3241--hatchet-rust-sdk",
+  "displayName": "hatchet-rust-sdk",
+  "description": "Integrate the Hatchet task queue into your Rust applications.",
+  "version": "1.0.0",
+  "author": "eswolinsky3241",
+  "homepage": "https://github.com/eswolinsky3241/hatchet-rust-sdk",
+  "skills": []
+}
