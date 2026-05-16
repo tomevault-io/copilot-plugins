@@ -1,0 +1,9 @@
+{
+  "name": "paulrobello--voxel-world",
+  "displayName": "voxel-world",
+  "description": "GPU-accelerated voxel sandbox using Vulkan compute shaders for real-time ray marching",
+  "version": "1.0.0",
+  "author": "paulrobello",
+  "homepage": "https://github.com/paulrobello/voxel-world",
+  "skills": []
+}
