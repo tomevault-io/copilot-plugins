@@ -1,0 +1,9 @@
+{
+  "name": "fblissjr--shrug-prompter",
+  "displayName": "shrug-prompter",
+  "description": "ComfyUI nodes using uses local vision LLMs / VLMs (and other providers) optimized for wan2.2, wan2.1, and flux kontext. with pushdown image resizing and caching and loop accumulation aware nodes",
+  "version": "1.0.0",
+  "author": "fblissjr",
+  "homepage": "https://github.com/fblissjr/shrug-prompter",
+  "skills": []
+}
