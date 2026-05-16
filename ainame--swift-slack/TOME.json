@@ -4,7 +4,7 @@
   "repo": "swift-slack",
   "description": "Swift library for building Slack Apps powered by swift-openapi-generator with CI-driven schema updates",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ainame/swift-slack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:54:25Z"
+  "distributed_at": "2026-05-16T06:55:34Z"
 }
