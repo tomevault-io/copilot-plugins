@@ -1,0 +1,9 @@
+{
+  "name": "pondersome--by-your-command",
+  "displayName": "by_your_command",
+  "description": "A ROS2 voice command processor using LLMs",
+  "version": "1.0.0",
+  "author": "pondersome",
+  "homepage": "https://github.com/pondersome/by_your_command",
+  "skills": []
+}
