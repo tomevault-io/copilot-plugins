@@ -1,0 +1,9 @@
+{
+  "name": "fol2--openclaw-crypto-ai-quant",
+  "displayName": "openclaw-crypto-ai-quant",
+  "description": "AI-powered crypto perpetual futures trading engine with GPU-accelerated backtesting",
+  "version": "1.0.0",
+  "author": "fol2",
+  "homepage": "https://github.com/fol2/openclaw-crypto-ai-quant",
+  "skills": []
+}
