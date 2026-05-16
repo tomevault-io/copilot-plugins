@@ -1,0 +1,9 @@
+{
+  "name": "newmatrixcap--agentic-saas-blueprint",
+  "displayName": "agentic-saas-blueprint",
+  "description": "Production blueprint for building SaaS with Claude: prompts, theme system templates, and the workflow that prevents looping. Distilled from a 3-month real-world build.",
+  "version": "1.0.0",
+  "author": "NewMatrixCap",
+  "homepage": "https://github.com/NewMatrixCap/agentic-saas-blueprint",
+  "skills": []
+}
