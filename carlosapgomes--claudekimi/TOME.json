@@ -1,0 +1,44 @@
+{
+  "name": "claudekimi",
+  "owner": "carlosapgomes",
+  "repo": "claudekimi",
+  "description": "An enhanced proxy for AI-assisted coding. It enables Claude Code to work with Kimi K2",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/carlosapgomes/claudekimi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T04:17:17Z"
+}
