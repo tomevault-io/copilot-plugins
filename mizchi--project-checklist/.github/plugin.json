@@ -1,0 +1,9 @@
+{
+  "name": "mizchi--project-checklist",
+  "displayName": "project-checklist",
+  "description": "A Deno-based CLI tool to recursively find and display TODOs in your project",
+  "version": "1.0.0",
+  "author": "mizchi",
+  "homepage": "https://github.com/mizchi/project-checklist",
+  "skills": []
+}
