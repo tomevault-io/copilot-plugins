@@ -1,0 +1,9 @@
+{
+  "name": "cldotdev--claude-bash-completion",
+  "displayName": "claude-bash-completion",
+  "description": "Bash completion script for Claude Code CLI, providing tab completion for both built-in slash commands and custom commands.",
+  "version": "1.0.0",
+  "author": "cldotdev",
+  "homepage": "https://github.com/cldotdev/claude-bash-completion",
+  "skills": []
+}
