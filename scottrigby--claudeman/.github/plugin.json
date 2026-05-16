@@ -1,0 +1,9 @@
+{
+  "name": "scottrigby--claudeman",
+  "displayName": "claudeman",
+  "description": "Run Claude Code with Podman",
+  "version": "1.0.0",
+  "author": "scottrigby",
+  "homepage": "https://github.com/scottrigby/claudeman",
+  "skills": []
+}
