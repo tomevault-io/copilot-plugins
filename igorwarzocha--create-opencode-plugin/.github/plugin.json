@@ -1,0 +1,9 @@
+{
+  "name": "igorwarzocha--create-opencode-plugin",
+  "displayName": "create-opencode-plugin",
+  "description": "Automatic opencode plugin creation pack.",
+  "version": "1.0.0",
+  "author": "IgorWarzocha",
+  "homepage": "https://github.com/IgorWarzocha/create-opencode-plugin",
+  "skills": []
+}
