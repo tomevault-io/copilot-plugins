@@ -1,0 +1,9 @@
+{
+  "name": "guiguijke--smartthc",
+  "displayName": "SmartTHC",
+  "description": "Smart THC that works standalone with the power of Arduino Uno R4",
+  "version": "1.0.0",
+  "author": "guiguijke",
+  "homepage": "https://github.com/guiguijke/SmartTHC",
+  "skills": []
+}
