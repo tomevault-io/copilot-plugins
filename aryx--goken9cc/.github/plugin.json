@@ -1,0 +1,9 @@
+{
+  "name": "aryx--goken9cc",
+  "displayName": "goken9cc",
+  "description": "goken9cc \u2014 A portable multi-platform C compiler, assembler, and linker rooted in Ken Thompson\u2019s Plan 9 and Inferno toolchains, extended by Go developers to support also Linux, macOS, and Windows.",
+  "version": "1.0.0",
+  "author": "aryx",
+  "homepage": "https://github.com/aryx/goken9cc",
+  "skills": []
+}
