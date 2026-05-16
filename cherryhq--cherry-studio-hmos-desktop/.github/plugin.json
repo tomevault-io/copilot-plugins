@@ -1,0 +1,9 @@
+{
+  "name": "cherryhq--cherry-studio-hmos-desktop",
+  "displayName": "cherry-studio-hmos-desktop",
+  "description": "\ud83c\udf52 Cherry Studio is a desktop client that supports for multiple LLM providers.",
+  "version": "1.0.0",
+  "author": "CherryHQ",
+  "homepage": "https://github.com/CherryHQ/cherry-studio-hmos-desktop",
+  "skills": []
+}
