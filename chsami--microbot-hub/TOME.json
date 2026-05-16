@@ -4,7 +4,7 @@
   "repo": "Microbot-Hub",
   "description": "Create your Microbot Plugins in the Microbot Hub",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chsami/Microbot-Hub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T19:07:15Z"
+  "distributed_at": "2026-05-16T00:51:11Z"
 }
