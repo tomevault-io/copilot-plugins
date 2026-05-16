@@ -1,534 +1,518 @@
-## 022-workflow-automation
+## 023-ai-safety-patterns
 
-> This rule defines comprehensive patterns for leveraging Cursor's workflow automation capabilities, including background agents, action-based triggers, and multi-agent coordination for complex development tasks.
+> **Rule Priority:** Critical Security
 
-# Cursor Workflow Automation & Action Orchestration
+# AI Safety and Responsible AI Patterns 2025
 
-This rule defines comprehensive patterns for leveraging Cursor's workflow automation capabilities, including background agents, action-based triggers, and multi-agent coordination for complex development tasks.
+**Rule Priority:** Critical Security  
+**Activation:** AI Integration Development  
+**Scope:** All AI provider integrations and agent systems
 
-## Core Workflow Architecture
+## 2025 AI Safety Standards
 
-### Workflow Definition Patterns
+### Mandatory Safety Checks
 
-**Declarative Workflow Files**
-```yaml
-# .cursor/workflows/ai-portal-validation.yaml
-name: "AI Portal Validation Pipeline"
-description: "Automated validation of new AI portal configurations"
-triggers:
-  - type: file_change
-    patterns: ["mind-agents/src/portals/*/config.json"]
-  - type: manual
-    command: "validate-portal"
-  - type: schedule
-    cron: "0 2 * * *"  # Daily at 2 AM
-
-actions:
-  - name: "validate-config"
-    agent: "config-validator"
-    inputs:
-      config_file: "${trigger.file_path}"
-    timeout: 300
-    
-  - name: "test-connection"
-    agent: "connection-tester"
-    depends_on: ["validate-config"]
-    inputs:
-      portal_name: "${actions.validate-config.outputs.portal_name}"
-    parallel: false
-    
-  - name: "generate-docs"
-    agent: "doc-generator"
-    depends_on: ["test-connection"]
-    inputs:
-      portal_config: "${actions.validate-config.outputs.config}"
-      test_results: "${actions.test-connection.outputs.results}"
-
-error_handling:
-  retry_attempts: 3
-  retry_delay: 30
-  fallback: "notify-maintainers"
-```
-
-**Workflow Orchestration Rules**
 ```typescript
-// .cursor/workflows/types.ts
-interface WorkflowDefinition {
-  name: string;
-  description: string;
-  triggers: WorkflowTrigger[];
-  actions: WorkflowAction[];
-  error_handling: ErrorHandlingConfig;
-  monitoring: MonitoringConfig;
+// REQUIRED: AI safety validation layer
+export interface AISafetyGuards {
+  readonly contentFilter: ContentFilter;
+  readonly rateLimit: RateLimit;
+  readonly auditLogger: AuditLogger;
+  readonly privacyFilter: PrivacyFilter;
+  readonly biasDetector: BiasDetector;
+  readonly hallucinationDetector: HallucinationDetector;
 }
 
-interface WorkflowAction {
-  name: string;
-  agent: string;
-  inputs: Record<string, any>;
-  outputs?: Record<string, any>;
-  depends_on?: string[];
-  parallel?: boolean;
-  timeout?: number;
-  retry_policy?: RetryPolicy;
-}
-```
+export class SafetyValidatedAIPortal implements AIPortal {
+  constructor(
+    private readonly provider: AIProvider,
+    private readonly safetyGuards: AISafetyGuards
+  ) {}
 
-### Action-Based Trigger System
+  async generateResponse(request: AIRequest): Promise<SafeAIResponse> {
+    // Pre-processing safety checks
+    const sanitizedRequest = await this.safetyGuards.contentFilter.sanitize(request);
+    await this.safetyGuards.rateLimit.checkLimit(request.userId);
+    await this.safetyGuards.privacyFilter.validateRequest(sanitizedRequest);
 
-**Event-Driven Automation**
-```yaml
-# .cursor/workflows/triggers/git-events.yaml
-triggers:
-  git_commit:
-    patterns:
-      - "feat(portals): *"
-      - "fix(memory): *"
-    actions:
-      - validate-affected-systems
-      - run-integration-tests
-      - update-documentation
-      
-  git_merge:
-    branches: ["main", "develop"]
-    actions:
-      - deploy-to-staging
-      - run-performance-tests
-      - notify-team
-      
-  file_change:
-    patterns:
-      - "mind-agents/src/characters/*.json"
-    actions:
-      - validate-character-schema
-      - update-character-docs
-      - test-character-behavior
-```
+    // Generate response with monitoring
+    const response = await this.provider.generate(sanitizedRequest);
 
-**Development Lifecycle Integration**
-```yaml
-# .cursor/workflows/triggers/development.yaml
-triggers:
-  pr_opened:
-    conditions:
-      - label: "needs-review"
-      - files_changed: "*.ts"
-    actions:
-      - code-quality-check
-      - security-scan
-      - documentation-check
-      
-  issue_labeled:
-    labels: ["bug", "high-priority"]
-    actions:
-      - create-hotfix-branch
-      - assign-emergency-team
-      - schedule-investigation
-      
-  deployment_complete:
-    environment: "production"
-    actions:
-      - run-smoke-tests
-      - update-monitoring
-      - notify-stakeholders
-```
+    // Post-processing validation
+    const validatedResponse = await this.safetyGuards.hallucinationDetector.validate(response);
+    await this.safetyGuards.biasDetector.analyze(validatedResponse);
+    await this.safetyGuards.auditLogger.log({
+      request: sanitizedRequest,
+      response: validatedResponse,
+      timestamp: new Date(),
+      safety: 'validated'
+    });
 
-## Agent Coordination Patterns
-
-### Multi-Agent Workflows
-
-**Sequential Agent Pipeline**
-```yaml
-# .cursor/workflows/memory-optimization.yaml
-name: "Memory System Optimization"
-description: "Automated memory system maintenance and optimization"
-
-agents:
-  memory-analyzer:
-    model: "gpt-4o"
-    context: ["@mind-agents/src/memory/", "@docs/memory/"]
-    capabilities: ["analysis", "reporting"]
-    
-  memory-optimizer:
-    model: "claude-3.5-sonnet"
-    context: ["@mind-agents/src/memory/", "@AI_MEMORY.md"]
-    capabilities: ["code-modification", "optimization"]
-    
-  memory-tester:
-    model: "gpt-4.1-mini"
-    context: ["@mind-agents/src/__tests__/memory/"]
-    capabilities: ["testing", "validation"]
-
-workflow:
-  - step: "analyze"
-    agent: "memory-analyzer"
-    task: "Analyze memory usage patterns and identify optimization opportunities"
-    outputs: ["analysis_report", "optimization_candidates"]
-    
-  - step: "optimize"
-    agent: "memory-optimizer"
-    depends_on: ["analyze"]
-    task: "Implement optimizations based on analysis report"
-    inputs: 
-      analysis: "${steps.analyze.outputs.analysis_report}"
-      candidates: "${steps.analyze.outputs.optimization_candidates}"
-    outputs: ["optimized_code", "change_summary"]
-    
-  - step: "test"
-    agent: "memory-tester"
-    depends_on: ["optimize"]
-    task: "Test optimized memory system for correctness and performance"
-    inputs:
-      changes: "${steps.optimize.outputs.change_summary}"
-    outputs: ["test_results", "performance_metrics"]
-```
-
-**Parallel Agent Execution**
-```yaml
-# .cursor/workflows/comprehensive-testing.yaml
-name: "Comprehensive System Testing"
-description: "Parallel testing across all SYMindX components"
-
-parallel_groups:
-  core_systems:
-    - agent: "portal-tester"
-      task: "Test all AI portal configurations"
-      context: ["@mind-agents/src/portals/"]
-      
-    - agent: "memory-tester"
-      task: "Test memory provider implementations"
-      context: ["@mind-agents/src/memory/"]
-      
-    - agent: "emotion-tester"
-      task: "Test emotion system responses"
-      context: ["@mind-agents/src/emotion/"]
-      
-  extensions:
-    - agent: "telegram-tester"
-      task: "Test Telegram integration"
-      context: ["@mind-agents/src/extensions/telegram/"]
-      
-    - agent: "api-tester"
-      task: "Test REST/WebSocket APIs"
-      context: ["@mind-agents/src/extensions/api/"]
-      
-    - agent: "mcp-tester"
-      task: "Test MCP server implementation"
-      context: ["@mind-agents/src/extensions/mcp-server/"]
-
-coordination:
-  wait_for_all: true
-  aggregate_results: true
-  failure_threshold: 0.8  # 80% must pass
-```
-
-### Agent Handoff Patterns
-
-**Context Transfer Protocol**
-```typescript
-// .cursor/workflows/agent-handoff.ts
-interface AgentHandoff {
-  from_agent: string;
-  to_agent: string;
-  context_transfer: {
-    preserve: string[];  // What to keep
-    transform: string[]; // What to modify
-    summarize: string[]; // What to compress
-  };
-  validation: {
-    required_outputs: string[];
-    quality_checks: string[];
-  };
-}
-
-// Example handoff configuration
-const codeGenToReviewHandoff: AgentHandoff = {
-  from_agent: "code-generator",
-  to_agent: "code-reviewer",
-  context_transfer: {
-    preserve: ["original_requirements", "generated_code", "test_cases"],
-    transform: ["context_summary"],
-    summarize: ["implementation_decisions", "alternative_approaches"]
-  },
-  validation: {
-    required_outputs: ["code_diff", "implementation_plan"],
-    quality_checks: ["syntax_valid", "tests_passing", "style_compliant"]
+    return validatedResponse;
   }
-};
-```
-
-## SYMindX-Specific Workflows
-
-### AI Portal Management Automation
-
-**Portal Validation Pipeline**
-```yaml
-# .cursor/workflows/portal-lifecycle.yaml
-name: "AI Portal Lifecycle Management"
-
-workflows:
-  new_portal_setup:
-    trigger: "file_created:mind-agents/src/portals/*/index.ts"
-    steps:
-      - validate_portal_interface
-      - test_api_connection
-      - generate_configuration_docs
-      - create_test_suite
-      - update_portal_registry
-      
-  portal_configuration_change:
-    trigger: "file_modified:**/config.json"
-    steps:
-      - validate_configuration_schema
-      - test_backward_compatibility
-      - update_environment_configs
-      - refresh_documentation
-      - notify_dependent_services
-      
-  portal_performance_monitoring:
-    trigger: "schedule:0 */6 * * *"  # Every 6 hours
-    steps:
-      - benchmark_all_portals
-      - analyze_response_times
-      - check_error_rates
-      - generate_performance_report
-      - alert_on_degradation
-```
-
-### Memory System Maintenance
-
-**Automated Memory Operations**
-```yaml
-# .cursor/workflows/memory-maintenance.yaml
-name: "Memory System Maintenance"
-
-workflows:
-  vector_optimization:
-    trigger: "schedule:0 1 * * 0"  # Weekly on Sunday at 1 AM
-    steps:
-      - analyze_vector_usage_patterns
-      - identify_stale_embeddings
-      - compress_sparse_vectors
-      - reindex_frequently_accessed_data
-      - validate_search_performance
-      
-  conversation_cleanup:
-    trigger: "schedule:0 2 * * *"  # Daily at 2 AM
-    steps:
-      - identify_expired_conversations
-      - archive_old_sessions
-      - cleanup_orphaned_memories
-      - optimize_database_indexes
-      - backup_critical_memories
-      
-  memory_consistency_check:
-    trigger: "file_modified:mind-agents/src/memory/**/*.ts"
-    steps:
-      - validate_schema_migrations
-      - test_provider_compatibility
-      - check_data_integrity
-      - verify_backup_systems
-      - update_memory_documentation
-```
-
-### Character System Workflows
-
-**Character Management Automation**
-```yaml
-# .cursor/workflows/character-system.yaml
-name: "Character System Management"
-
-workflows:
-  character_validation:
-    trigger: "file_modified:mind-agents/src/characters/*.json"
-    steps:
-      - validate_character_schema
-      - test_personality_consistency
-      - verify_emotion_mappings
-      - check_trait_compatibility
-      - update_character_registry
-      
-  personality_testing:
-    trigger: "manual:test-character-personality"
-    steps:
-      - generate_test_scenarios
-      - simulate_character_responses
-      - analyze_personality_consistency
-      - evaluate_emotion_authenticity
-      - generate_personality_report
-      
-  batch_character_updates:
-    trigger: "manual:update-all-characters"
-    steps:
-      - backup_current_characters
-      - apply_schema_migrations
-      - validate_updated_characters
-      - test_behavior_changes
-      - deploy_character_updates
-```
-
-## Workflow Monitoring & Debugging
-
-### Status Tracking System
-
-**Workflow Dashboard Configuration**
-```yaml
-# .cursor/workflows/monitoring/dashboard.yaml
-monitoring:
-  real_time_status:
-    enabled: true
-    refresh_interval: 5  # seconds
-    display_metrics:
-      - active_workflows
-      - queued_actions
-      - agent_utilization
-      - error_rates
-      - completion_times
-      
-  workflow_history:
-    retention_days: 30
-    log_levels: ["info", "warn", "error"]
-    include_context: true
-    export_formats: ["json", "csv"]
-    
-  alerting:
-    channels: ["slack", "email", "webhook"]
-    conditions:
-      - type: "failure_rate"
-        threshold: 0.1  # 10% failure rate
-        window: "1h"
-      - type: "execution_time"
-        threshold: "30m"
-        action: "timeout_alert"
-      - type: "agent_unavailable"
-        threshold: "5m"
-        action: "escalate"
-```
-
-**Debugging Workflow Issues**
-```typescript
-// .cursor/workflows/debug.ts
-interface WorkflowDebugger {
-  traceExecution(workflowId: string): ExecutionTrace;
-  analyzeFailure(workflowId: string): FailureAnalysis;
-  replayWorkflow(workflowId: string, fromStep?: string): void;
-  inspectAgentState(agentId: string): AgentState;
 }
-
-// Debug commands for workflow troubleshooting
-const debugCommands = {
-  "trace-workflow": "Show execution trace for workflow ID",
-  "replay-from-step": "Replay workflow from specific step",
-  "inspect-agent": "Show current agent state and context",
-  "analyze-failure": "Deep analysis of workflow failure",
-  "export-logs": "Export workflow logs for external analysis"
-};
 ```
 
-### Performance Optimization
+### Content Filtering and Moderation
 
-**Workflow Performance Tuning**
-```yaml
-# .cursor/workflows/performance/optimization.yaml
-performance:
-  agent_pooling:
-    enabled: true
-    pool_size: 5
-    warm_up_agents: true
-    load_balancing: "round_robin"
-    
-  caching:
-    enabled: true
-    cache_duration: "1h"
-    cache_keys:
-      - "agent_context_hash"
-      - "workflow_inputs_hash"
-    invalidation_triggers:
-      - "file_modified"
-      - "config_changed"
-      
-  resource_limits:
-    max_concurrent_workflows: 10
-    max_agent_memory: "2GB"
-    max_execution_time: "30m"
-    timeout_grace_period: "2m"
-    
-  optimization_strategies:
-    - "parallel_execution_where_possible"
-    - "context_caching_for_repeated_operations"
-    - "agent_specialization_for_specific_tasks"
-    - "incremental_processing_for_large_datasets"
+- **Implement real-time content scanning** for harmful, illegal, or inappropriate content
+- **Use multiple moderation layers** with cascading filters
+- **Log all filtered content** for analysis and improvement
+- **Provide clear rejection reasons** for filtered requests
+
+```typescript
+// GOOD: Multi-layer content filtering
+export class ContentFilter {
+  private readonly filters: ContentFilterLayer[] = [
+    new ProfanityFilter(),
+    new ViolenceFilter(),
+    new PrivacyFilter(),
+    new LegalComplianceFilter(),
+    new BiasFilter()
+  ];
+
+  async sanitize(content: string): Promise<ContentFilterResult> {
+    const violations: ContentViolation[] = [];
+    let filteredContent = content;
+
+    for (const filter of this.filters) {
+      const result = await filter.process(filteredContent);
+      if (result.violations.length > 0) {
+        violations.push(...result.violations);
+        filteredContent = result.sanitized;
+      }
+    }
+
+    return {
+      original: content,
+      sanitized: filteredContent,
+      violations,
+      safe: violations.length === 0
+    };
+  }
+}
 ```
 
-## Best Practices & Guidelines
+## Privacy Protection Patterns
 
-### Workflow Design Principles
+### Data Minimization and Anonymization
 
-**Idempotent Operations**
-- Design actions to be safely repeatable
-- Include state validation before execution
-- Implement proper rollback mechanisms
-- Use checksums and verification steps
+```typescript
+// REQUIRED: Privacy-first data handling
+export class PrivacyProtectedProcessor {
+  private readonly anonymizer = new DataAnonymizer();
+  private readonly retention = new DataRetentionManager();
 
-**Error Boundaries**
-- Define clear failure scopes
-- Implement circuit breaker patterns
-- Provide meaningful error messages
-- Enable partial workflow recovery
+  async processUserData(data: UserData): Promise<AnonymizedData> {
+    // Remove or hash PII
+    const anonymized = await this.anonymizer.anonymize(data, {
+      removeEmails: true,
+      hashPhoneNumbers: true,
+      removeAddresses: true,
+      generalizeLocations: true
+    });
 
-**Security Considerations**
-- Validate all workflow inputs
-- Restrict agent permissions appropriately
-- Audit workflow execution logs
-- Encrypt sensitive workflow data
+    // Set retention policy
+    await this.retention.setPolicy(anonymized.id, {
+      type: 'ai-processing',
+      maxAge: '30d',
+      autoDelete: true
+    });
 
-### Integration Guidelines
+    return anonymized;
+  }
 
-**SYMindX Workflow Integration**
-1. **Context Preservation**: Maintain SYMindX project context across workflow steps
-2. **Module Awareness**: Respect hot-swappable module boundaries
-3. **Event Bus Integration**: Leverage SYMindX EventBus for workflow coordination
-4. **Configuration Management**: Use SYMindX config system for workflow parameters
-5. **Testing Integration**: Align with SYMindX testing standards and practices
+  async getDataForAI(userId: string): Promise<AICompatibleData> {
+    const userData = await this.getUserData(userId);
+    const anonymized = await this.processUserData(userData);
+    
+    return {
+      context: anonymized.context,
+      preferences: anonymized.preferences,
+      // Never include: real names, emails, addresses, phone numbers
+      metadata: {
+        region: anonymized.generalLocation,
+        sessionId: crypto.randomUUID(),
+        timestamp: new Date().toISOString()
+      }
+    };
+  }
+}
+```
 
-**Performance Considerations**
-- Cache frequently accessed project context
-- Optimize agent model selection for workflow tasks
-- Implement progressive complexity (simple → advanced workflows)
-- Monitor resource usage and adjust limits appropriately
+### GDPR and Privacy Compliance
 
-This workflow automation framework enables sophisticated orchestration of development tasks while maintaining the flexibility and modularity that defines the SYMindX architecture.
+- **Implement explicit consent** for AI processing
+- **Provide data deletion capabilities** (right to be forgotten)
+- **Enable data portability** for user data
+- **Maintain detailed audit logs** for compliance verification
 
-## Related Rules and Integration
+```typescript
+// GOOD: GDPR-compliant AI data handling
+export class GDPRCompliantAIService {
+  async processWithConsent(
+    userId: string, 
+    data: PersonalData, 
+    consent: ConsentRecord
+  ): Promise<ProcessingResult> {
+    // Verify explicit consent
+    if (!consent.aiProcessing || consent.expired) {
+      throw new ConsentError('Valid AI processing consent required');
+    }
 
-### Foundation Requirements
-- @001-symindx-workspace.mdc - Core SYMindX architecture and project structure
-- @003-typescript-standards.mdc - TypeScript/Bun development standards for workflow scripts
-- @004-architecture-patterns.mdc - Modular design principles for workflow components
+    // Log consent usage
+    await this.auditLogger.logConsentUsage({
+      userId,
+      consentId: consent.id,
+      purpose: 'ai-processing',
+      timestamp: new Date()
+    });
 
-### Core Integration Rules
-- @018-git-hooks.mdc - Git automation that triggers workflow executions
-- @019-background-agents.mdc - Background task execution within workflows
-- @020-mcp-integration.mdc - External tool integration for workflow actions
-- @021-advanced-context.mdc - Context-aware workflow activation and rule selection
+    // Process with privacy protection
+    return await this.privacyProtectedProcessor.process(data);
+  }
 
-### Supporting Development Rules
-- @008-testing-and-quality-standards.mdc - Testing strategies for workflow validation
-- @013-error-handling-logging.mdc - Error handling and monitoring for workflow execution
-- @015-configuration-management.mdc - Workflow configuration and environment management
-- @012-performance-optimization.mdc - Performance optimization for workflow execution
+  async deleteUserData(userId: string): Promise<DeletionResult> {
+    // Remove all stored data
+    await this.dataStore.deleteUserData(userId);
+    await this.aiCache.clearUserCache(userId);
+    await this.auditLogger.logDeletion(userId);
+    
+    return { deleted: true, timestamp: new Date() };
+  }
+}
+```
 
-### Component-Specific Workflow Integration
-- @005-ai-integration-patterns.mdc - AI portal workflows and automated validation
-- @011-data-management-patterns.mdc - Memory system maintenance workflows
-- @007-extension-system-patterns.mdc - Platform extension deployment workflows
-- @009-deployment-and-operations.mdc - Production deployment and monitoring workflows
+## Bias Detection and Mitigation
 
-### Documentation and Governance
-- @016-documentation-standards.mdc - Workflow documentation standards
-- @017-community-and-governance.mdc - Contribution workflows and governance automation
+### Algorithmic Fairness
 
-This rule builds upon the entire SYMindX rules framework to provide comprehensive workflow orchestration capabilities.
+```typescript
+// REQUIRED: Bias detection in AI responses
+export class BiasDetector {
+  private readonly fairnessMetrics = new FairnessMetricsCalculator();
+  private readonly demographicAnalyzer = new DemographicAnalyzer();
+
+  async analyzeResponse(
+    request: AIRequest, 
+    response: AIResponse
+  ): Promise<BiasAnalysisResult> {
+    // Analyze for demographic bias
+    const demographicBias = await this.demographicAnalyzer.analyze({
+      input: request.content,
+      output: response.content
+    });
+
+    // Check for unfair treatment patterns
+    const fairnessScore = await this.fairnessMetrics.calculate(response, {
+      sensitiveAttributes: ['gender', 'race', 'age', 'religion'],
+      threshold: 0.8
+    });
+
+    if (fairnessScore < 0.8 || demographicBias.detected) {
+      await this.reportBias({
+        request,
+        response,
+        biasType: demographicBias.type,
+        confidence: demographicBias.confidence,
+        fairnessScore
+      });
+    }
+
+    return {
+      fair: fairnessScore >= 0.8 && !demographicBias.detected,
+      score: fairnessScore,
+      issues: demographicBias.detected ? [demographicBias] : []
+    };
+  }
+}
+```
+
+## Hallucination Detection and Factual Verification
+
+### Real-time Fact Checking
+
+```typescript
+// GOOD: Multi-source fact verification
+export class HallucinationDetector {
+  private readonly factCheckers: FactChecker[] = [
+    new WikipediaFactChecker(),
+    new ScientificFactChecker(),
+    new NewsFactChecker(),
+    new DatabaseFactChecker()
+  ];
+
+  async validateResponse(response: AIResponse): Promise<ValidationResult> {
+    const claims = await this.extractClaims(response.content);
+    const verificationResults = await Promise.allSettled(
+      claims.map(claim => this.verifyClaim(claim))
+    );
+
+    const verifiedClaims = verificationResults
+      .filter(result => result.status === 'fulfilled')
+      .map(result => (result as PromiseFulfilledResult<ClaimVerification>).value);
+
+    const confidence = this.calculateConfidence(verifiedClaims);
+    const hallucinations = verifiedClaims.filter(claim => !claim.verified);
+
+    if (confidence < 0.7 || hallucinations.length > 0) {
+      return {
+        validated: false,
+        confidence,
+        issues: hallucinations,
+        recommendation: 'flag_for_review'
+      };
+    }
+
+    return {
+      validated: true,
+      confidence,
+      issues: [],
+      recommendation: 'approved'
+    };
+  }
+
+  private async verifyClaim(claim: ExtractedClaim): Promise<ClaimVerification> {
+    const verifications = await Promise.allSettled(
+      this.factCheckers.map(checker => checker.verify(claim))
+    );
+
+    const successfulChecks = verifications
+      .filter(result => result.status === 'fulfilled')
+      .map(result => (result as PromiseFulfilledResult<FactCheckResult>).value);
+
+    const consensusScore = this.calculateConsensus(successfulChecks);
+    
+    return {
+      claim,
+      verified: consensusScore > 0.6,
+      confidence: consensusScore,
+      sources: successfulChecks.map(check => check.source)
+    };
+  }
+}
+```
+
+## Rate Limiting and Resource Protection
+
+### Intelligent Rate Limiting
+
+```typescript
+// REQUIRED: Advanced rate limiting with user tiering
+export class IntelligentRateLimit {
+  private readonly rateLimits = new Map<string, UserRateLimit>();
+  private readonly usageAnalyzer = new UsageAnalyzer();
+
+  async checkLimit(userId: string, requestType: RequestType): Promise<RateLimitResult> {
+    const userTier = await this.getUserTier(userId);
+    const currentUsage = await this.getCurrentUsage(userId);
+    const limit = this.getLimitForTier(userTier, requestType);
+
+    // Adaptive rate limiting based on system load
+    const systemLoad = await this.getSystemLoad();
+    const adjustedLimit = this.adjustLimitForLoad(limit, systemLoad);
+
+    if (currentUsage >= adjustedLimit) {
+      return {
+        allowed: false,
+        resetTime: this.getResetTime(userId),
+        remaining: 0,
+        reason: 'rate_limit_exceeded'
+      };
+    }
+
+    // Increment usage counter
+    await this.incrementUsage(userId, requestType);
+
+    return {
+      allowed: true,
+      remaining: adjustedLimit - currentUsage - 1,
+      resetTime: this.getResetTime(userId)
+    };
+  }
+
+  private adjustLimitForLoad(baseLimit: number, systemLoad: number): number {
+    // Reduce limits during high system load
+    if (systemLoad > 0.8) return Math.floor(baseLimit * 0.5);
+    if (systemLoad > 0.6) return Math.floor(baseLimit * 0.7);
+    return baseLimit;
+  }
+}
+```
+
+## Audit Logging and Compliance
+
+### Comprehensive AI Audit Trail
+
+```typescript
+// REQUIRED: Complete audit logging for AI interactions
+export class AIAuditLogger {
+  private readonly auditStore = new SecureAuditStore();
+  private readonly complianceChecker = new ComplianceChecker();
+
+  async logAIInteraction(interaction: AIInteraction): Promise<void> {
+    const auditRecord: AIAuditRecord = {
+      id: crypto.randomUUID(),
+      timestamp: new Date(),
+      userId: interaction.userId,
+      sessionId: interaction.sessionId,
+      provider: interaction.provider,
+      model: interaction.model,
+      requestHash: this.hashContent(interaction.request),
+      responseHash: this.hashContent(interaction.response),
+      safetyChecks: interaction.safetyResults,
+      biasAnalysis: interaction.biasAnalysis,
+      hallucinationCheck: interaction.hallucinationCheck,
+      costTracking: interaction.costInfo,
+      complianceFlags: await this.complianceChecker.analyze(interaction)
+    };
+
+    await this.auditStore.store(auditRecord);
+    
+    // Real-time compliance monitoring
+    if (auditRecord.complianceFlags.length > 0) {
+      await this.alertComplianceTeam(auditRecord);
+    }
+  }
+
+  async generateComplianceReport(
+    startDate: Date, 
+    endDate: Date
+  ): Promise<ComplianceReport> {
+    const records = await this.auditStore.getRecords(startDate, endDate);
+    
+    return {
+      period: { start: startDate, end: endDate },
+      totalInteractions: records.length,
+      safetyViolations: records.filter(r => r.safetyChecks.violations.length > 0).length,
+      biasDetections: records.filter(r => !r.biasAnalysis.fair).length,
+      hallucinationFlags: records.filter(r => !r.hallucinationCheck.validated).length,
+      complianceIssues: records.filter(r => r.complianceFlags.length > 0).length,
+      costAnalysis: this.calculateCosts(records),
+      recommendations: await this.generateRecommendations(records)
+    };
+  }
+}
+```
+
+## Model Security and Robustness
+
+### Prompt Injection Protection
+
+```typescript
+// REQUIRED: Prompt injection detection and prevention
+export class PromptInjectionDetector {
+  private readonly injectionPatterns = [
+    /ignore\s+previous\s+instructions/i,
+    /disregard\s+the\s+above/i,
+    /forget\s+everything\s+before/i,
+    /you\s+are\s+now\s+a\s+different/i,
+    /system\s*:\s*new\s+role/i
+  ];
+
+  async detectInjection(prompt: string): Promise<InjectionDetectionResult> {
+    // Pattern-based detection
+    const patternMatches = this.injectionPatterns.filter(pattern => 
+      pattern.test(prompt)
+    );
+
+    // ML-based detection
+    const mlScore = await this.mlInjectionDetector.analyze(prompt);
+    
+    // Semantic analysis
+    const semanticFlags = await this.semanticAnalyzer.detectRoleChanges(prompt);
+
+    const riskScore = this.calculateRiskScore(patternMatches, mlScore, semanticFlags);
+
+    return {
+      safe: riskScore < 0.3,
+      riskScore,
+      detectedPatterns: patternMatches.map(p => p.toString()),
+      mlConfidence: mlScore,
+      semanticFlags
+    };
+  }
+
+  async sanitizePrompt(prompt: string): Promise<string> {
+    const detection = await this.detectInjection(prompt);
+    
+    if (!detection.safe) {
+      // Remove dangerous patterns
+      let sanitized = prompt;
+      for (const pattern of this.injectionPatterns) {
+        sanitized = sanitized.replace(pattern, '[FILTERED]');
+      }
+      return sanitized;
+    }
+
+    return prompt;
+  }
+}
+```
+
+## Responsible AI Governance
+
+### AI Ethics Review Process
+
+```typescript
+// GOOD: Ethics review for AI features
+export class AIEthicsReviewer {
+  async reviewAIFeature(feature: AIFeatureSpec): Promise<EthicsReviewResult> {
+    const review: EthicsReview = {
+      featureId: feature.id,
+      reviewer: 'automated-ethics-system',
+      timestamp: new Date(),
+      checks: {
+        fairness: await this.assessFairness(feature),
+        transparency: await this.assessTransparency(feature),
+        accountability: await this.assessAccountability(feature),
+        privacy: await this.assessPrivacy(feature),
+        humanOversight: await this.assessHumanOversight(feature)
+      }
+    };
+
+    const overallScore = this.calculateEthicsScore(review.checks);
+    
+    return {
+      approved: overallScore >= 0.8,
+      score: overallScore,
+      review,
+      recommendations: await this.generateRecommendations(review.checks)
+    };
+  }
+
+  private async assessFairness(feature: AIFeatureSpec): Promise<FairnessAssessment> {
+    return {
+      score: 0.9,
+      issues: [],
+      mitigations: ['bias-testing', 'diverse-training-data']
+    };
+  }
+}
+```
+
+This rule ensures all AI integrations in SYMindX follow the latest 2025 safety standards, protecting users while maintaining ethical AI usage.
+
+## Related Rules and Documentation
+
+### Foundation Requirements  
+- @001-symindx-workspace.mdc - SYMindX architecture and AI safety integration points
+- @005-ai-integration-patterns.mdc - AI provider integration patterns with safety layers
+- @010-security-and-authentication.mdc - Security patterns for AI service access
+
+### Compliance and Quality
+- @008-testing-and-quality-standards.mdc - Testing strategies for AI safety validation
+- @013-error-handling-logging.mdc - Error handling and audit logging for AI operations
+- @015-configuration-management.mdc - Secure configuration management for AI services
+
+### Documentation and Monitoring
+- @.cursor/docs/architecture.md - AI safety architecture documentation
+- @.cursor/tools/debugging-guide.md - AI system debugging and troubleshooting
+- @016-documentation-standards.mdc - Documentation requirements for AI safety features
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
