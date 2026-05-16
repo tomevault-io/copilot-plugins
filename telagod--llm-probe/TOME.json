@@ -1,0 +1,44 @@
+{
+  "name": "llm-probe",
+  "owner": "telagod",
+  "repo": "llm-probe",
+  "description": "Claude API Endpoint Probe \u2014 \u68c0\u6d4b\u771f\u4f2a\u3001\u9a8c\u8bc1\u534f\u8bae\u3001\u8bc4\u4f30\u6ce8\u5165\u6297\u6027\u3001\u751f\u6210\u591a\u7ef4\u4fe1\u4efb\u8bc4\u5206",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/telagod/llm-probe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T08:44:28Z"
+}
