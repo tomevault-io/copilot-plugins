@@ -1,602 +1,824 @@
-## 010-security-and-authentication
+## 011-data-management-patterns
 
-> ENFORCE security standards when handling authentication or sensitive data
+> APPLY data management best practices when working with memory providers
 
 
-# Security and Authentication Patterns
+# Data Management and Database Patterns
 
-## Security Architecture Overview
+## Data Architecture Overview
 
-SYMindX implements defense-in-depth security patterns across all layers of the agent framework, with particular focus on AI provider API key management, multi-platform authentication, and secure inter-agent communication.
+SYMindX implements a multi-provider data storage architecture supporting SQLite, PostgreSQL, Supabase, and Neon with vector embeddings, conversation persistence, and real-time synchronization across multiple agent instances.
 
-### Core Security Principles
+### Core Data Principles
 
-**🔐 Zero Trust Architecture**
+**🗃️ Provider Abstraction**
 
-- All components authenticate and authorize every request
-- No implicit trust between internal services
-- Continuous verification of security posture
+- Unified interface across all memory providers
+- Hot-swappable database backends
+- Provider-specific optimization strategies
 
-**🛡️ Least Privilege Access**
+**📊 Vector-First Design**
 
-- Agents receive minimum permissions needed for their role
-- Platform extensions isolated with specific scopes
-- API keys restricted to required endpoints only
+- All text data stored with semantic embeddings
+- Hybrid search capabilities (text + semantic)
+- Efficient similarity search and clustering
 
-**🔄 Security by Design**
+**🔄 Real-time Synchronization**
 
-- Security controls integrated into development workflow
-- Automated security testing in CI/CD pipeline
-- Regular security audits and penetration testing
+- Multi-agent conversation synchronization
+- Event-driven data updates
+- Conflict resolution for concurrent modifications
 
-## API Key Management
+## Database Schema Design
 
-### Secure Storage Patterns
+### Core Agent Tables
+
+```sql
+-- Agent registry and metadata
+CREATE TABLE agents (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL,
+  character_id VARCHAR(100) NOT NULL,
+  status VARCHAR(50) DEFAULT 'inactive',
+  config JSONB NOT NULL,
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  last_active TIMESTAMP WITH TIME ZONE
+);
+
+-- Character definitions and personalities
+CREATE TABLE characters (
+  id VARCHAR(100) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  personality_traits JSONB NOT NULL,
+  behavioral_patterns JSONB DEFAULT '{}',
+  voice_settings JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Platform integrations and sessions
+CREATE TABLE platform_sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  platform VARCHAR(50) NOT NULL,
+  platform_user_id VARCHAR(255),
+  session_data JSONB NOT NULL,
+  is_active BOOLEAN DEFAULT true,
+  expires_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  
+  UNIQUE(agent_id, platform, platform_user_id)
+);
+```
+
+### Conversation and Memory Tables
+
+```sql
+-- Conversation threads
+CREATE TABLE conversations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  platform VARCHAR(50) NOT NULL,
+  platform_conversation_id VARCHAR(255),
+  title VARCHAR(255),
+  participants JSONB NOT NULL,
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  
+  UNIQUE(agent_id, platform, platform_conversation_id)
+);
+
+-- Individual messages with vector embeddings
+CREATE TABLE messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES conversations(id) ON DELETE CASCADE,
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  sender_id VARCHAR(255) NOT NULL,
+  sender_name VARCHAR(255),
+  content TEXT NOT NULL,
+  content_embedding vector(1536), -- OpenAI embedding dimension
+  message_type VARCHAR(50) DEFAULT 'text',
+  platform_message_id VARCHAR(255),
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  
+  -- Vector similarity search index
+  INDEX USING ivfflat (content_embedding vector_cosine_ops) WITH (lists = 100)
+);
+
+-- Memory fragments for long-term storage
+CREATE TABLE memory_fragments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  content_embedding vector(1536),
+  fragment_type VARCHAR(50) NOT NULL, -- 'conversation', 'knowledge', 'preference', 'experience'
+  importance_score FLOAT DEFAULT 0.5,
+  access_count INTEGER DEFAULT 0,
+  last_accessed TIMESTAMP WITH TIME ZONE,
+  source_conversation_id UUID REFERENCES conversations(id) ON DELETE SET NULL,
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  
+  INDEX USING ivfflat (content_embedding vector_cosine_ops) WITH (lists = 100)
+);
+```
+
+### Emotion and Cognition Data
+
+```sql
+-- Emotional state tracking
+CREATE TABLE emotion_states (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  emotion_type VARCHAR(50) NOT NULL,
+  intensity FLOAT NOT NULL CHECK (intensity >= 0 AND intensity <= 1),
+  triggers JSONB DEFAULT '[]',
+  context JSONB DEFAULT '{}',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  expires_at TIMESTAMP WITH TIME ZONE
+);
+
+-- Cognitive state and decision history
+CREATE TABLE cognition_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  agent_id UUID REFERENCES agents(id) ON DELETE CASCADE,
+  event_type VARCHAR(50) NOT NULL, -- 'decision', 'planning', 'reflection'
+  cognitive_module VARCHAR(50) NOT NULL,
+  input_data JSONB NOT NULL,
+  output_data JSONB NOT NULL,
+  processing_time_ms INTEGER,
+  success BOOLEAN DEFAULT true,
+  error_message TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
+
+## Data Provider Implementations
+
+### Base Provider Interface
 
 ```typescript
-// Environment-based configuration (development)
-interface SecureConfig {
-  vault: {
-    enabled: boolean;
-    url: string;
-    token: string;
-  };
-  encryption: {
-    algorithm: 'aes-256-gcm';
-    keyDerivation: 'pbkdf2';
-    saltRounds: 100000;
-  };
+interface DataProvider {
+  // Connection management
+  connect(): Promise<void>;
+  disconnect(): Promise<void>;
+  healthCheck(): Promise<boolean>;
+  
+  // Agent management
+  createAgent(agent: AgentData): Promise<Agent>;
+  getAgent(agentId: string): Promise<Agent | null>;
+  updateAgent(agentId: string, updates: Partial<AgentData>): Promise<Agent>;
+  deleteAgent(agentId: string): Promise<void>;
+  listAgents(filters?: AgentFilters): Promise<Agent[]>;
+  
+  // Conversation management
+  createConversation(conversation: ConversationData): Promise<Conversation>;
+  getConversation(conversationId: string): Promise<Conversation | null>;
+  addMessage(message: MessageData): Promise<Message>;
+  getMessages(conversationId: string, options?: MessageQueryOptions): Promise<Message[]>;
+  
+  // Memory operations
+  storeMemoryFragment(fragment: MemoryFragmentData): Promise<MemoryFragment>;
+  searchMemories(query: string, options?: SearchOptions): Promise<MemoryFragment[]>;
+  getRelevantMemories(context: string, limit?: number): Promise<MemoryFragment[]>;
+  
+  // Vector operations
+  generateEmbedding(text: string): Promise<number[]>;
+  similaritySearch(embedding: number[], threshold?: number): Promise<SimilarityResult[]>;
+  
+  // Transactions and consistency
+  transaction<T>(callback: (tx: Transaction) => Promise<T>): Promise<T>;
+}
+```
+
+### PostgreSQL Provider Implementation
+
+```typescript
+class PostgreSQLProvider implements DataProvider {
+  private pool: Pool;
+  private vectorClient: VectorClient;
+  
+  constructor(config: PostgreSQLConfig) {
+    this.pool = new Pool({
+      connectionString: config.connectionString,
+      max: config.maxConnections || 20,
+      idleTimeoutMillis: config.idleTimeout || 30000,
+      connectionTimeoutMillis: config.connectionTimeout || 2000,
+    });
+  }
+  
+  async addMessage(message: MessageData): Promise<Message> {
+    const client = await this.pool.connect();
+    
+    try {
+      await client.query('BEGIN');
+      
+      // Generate embedding for content
+      const embedding = await this.generateEmbedding(message.content);
+      
+      // Insert message with embedding
+      const result = await client.query(`
+        INSERT INTO messages (
+          conversation_id, agent_id, sender_id, sender_name,
+          content, content_embedding, message_type, platform_message_id, metadata
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        RETURNING *
+      `, [
+        message.conversationId,
+        message.agentId,
+        message.senderId,
+        message.senderName,
+        message.content,
+        `[${embedding.join(',')}]`, // PostgreSQL vector format
+        message.messageType || 'text',
+        message.platformMessageId,
+        JSON.stringify(message.metadata || {})
+      ]);
+      
+      // Update conversation timestamp
+      await client.query(`
+        UPDATE conversations 
+        SET updated_at = NOW() 
+        WHERE id = $1
+      `, [message.conversationId]);
+      
+      await client.query('COMMIT');
+      
+      return this.mapRowToMessage(result.rows[0]);
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+  
+  async searchMemories(query: string, options: SearchOptions = {}): Promise<MemoryFragment[]> {
+    const queryEmbedding = await this.generateEmbedding(query);
+    const threshold = options.threshold || 0.7;
+    const limit = options.limit || 10;
+    
+    const result = await this.pool.query(`
+      SELECT *
+      FROM memory_fragments
+      WHERE agent_id = $1
+        AND content_embedding <=> $2 < $3
+      ORDER BY content_embedding <=> $2
+      LIMIT $4
+    `, [
+      options.agentId,
+      `[${queryEmbedding.join(',')}]`,
+      1 - threshold, // Convert similarity to distance
+      limit
+    ]);
+    
+    return result.rows.map(row => this.mapRowToMemoryFragment(row));
+  }
+}
+```
+
+### Supabase Provider Implementation
+
+```typescript
+class SupabaseProvider implements DataProvider {
+  private client: SupabaseClient;
+  private vectorSearch: VectorSearch;
+  
+  constructor(config: SupabaseConfig) {
+    this.client = createClient(config.url, config.anonKey);
+    this.vectorSearch = new VectorSearch(config.embeddingProvider);
+  }
+  
+  async addMessage(message: MessageData): Promise<Message> {
+    // Generate embedding
+    const embedding = await this.generateEmbedding(message.content);
+    
+    // Insert message with RPC call for vector operations
+    const { data, error } = await this.client
+      .rpc('insert_message_with_embedding', {
+        p_conversation_id: message.conversationId,
+        p_agent_id: message.agentId,
+        p_sender_id: message.senderId,
+        p_sender_name: message.senderName,
+        p_content: message.content,
+        p_content_embedding: embedding,
+        p_message_type: message.messageType || 'text',
+        p_platform_message_id: message.platformMessageId,
+        p_metadata: message.metadata || {}
+      });
+    
+    if (error) {
+      throw new DatabaseError(`Failed to insert message: ${error.message}`);
+    }
+    
+    return data;
+  }
+  
+  async getRelevantMemories(context: string, limit: number = 5): Promise<MemoryFragment[]> {
+    const contextEmbedding = await this.generateEmbedding(context);
+    
+    const { data, error } = await this.client
+      .rpc('search_memory_fragments', {
+        query_embedding: contextEmbedding,
+        similarity_threshold: 0.7,
+        match_count: limit
+      });
+    
+    if (error) {
+      throw new DatabaseError(`Memory search failed: ${error.message}`);
+    }
+    
+    // Update access counts
+    if (data.length > 0) {
+      await this.client
+        .from('memory_fragments')
+        .update({ 
+          access_count: data[0].access_count + 1,
+          last_accessed: new Date().toISOString()
+        })
+        .in('id', data.map(f => f.id));
+    }
+    
+    return data;
+  }
+}
+```
+
+## Migration Management
+
+### Schema Migration Framework
+
+```typescript
+interface Migration {
+  version: string;
+  description: string;
+  up: (provider: DataProvider) => Promise<void>;
+  down: (provider: DataProvider) => Promise<void>;
 }
 
-// Production vault integration
-class SecureConfigManager {
-  private vault: VaultClient;
-  private cache: Map<string, EncryptedValue> = new Map();
+class MigrationManager {
+  private migrations: Map<string, Migration> = new Map();
+  private provider: DataProvider;
   
-  async getAPIKey(provider: string): Promise<string> {
-    const cacheKey = `api_key_${provider}`;
+  constructor(provider: DataProvider) {
+    this.provider = provider;
+    this.loadMigrations();
+  }
+  
+  async migrate(targetVersion?: string): Promise<void> {
+    const currentVersion = await this.getCurrentVersion();
+    const sortedMigrations = this.getSortedMigrations();
     
-    // Check cache first (with TTL)
-    if (this.cache.has(cacheKey)) {
-      const cached = this.cache.get(cacheKey)!;
-      if (cached.expiresAt > Date.now()) {
-        return this.decrypt(cached.value);
+    for (const migration of sortedMigrations) {
+      if (targetVersion && migration.version > targetVersion) {
+        break;
+      }
+      
+      if (migration.version > currentVersion) {
+        console.log(`Running migration ${migration.version}: ${migration.description}`);
+        
+        await this.provider.transaction(async (tx) => {
+          await migration.up(this.provider);
+          await this.recordMigration(migration.version);
+        });
+        
+        console.log(`✅ Migration ${migration.version} completed`);
       }
     }
-    
-    // Fetch from vault
-    const secret = await this.vault.read(`secret/ai-providers/${provider}`);
-    const encrypted = this.encrypt(secret.data.api_key);
-    
-    // Cache with 1-hour TTL
-    this.cache.set(cacheKey, {
-      value: encrypted,
-      expiresAt: Date.now() + 3600000
-    });
-    
-    return secret.data.api_key;
-  }
-}
-```
-
-### Key Rotation Strategies
-
-```typescript
-interface KeyRotationConfig {
-  rotationSchedule: {
-    openai: '30d';      // Rotate every 30 days
-    anthropic: '30d';
-    groq: '60d';
-    localProviders: 'never';
-  };
-  gracePeriod: '24h';   // Keep old keys valid during rotation
-  notification: {
-    webhooks: string[];
-    email: string[];
-  };
-}
-
-class KeyRotationManager {
-  async rotateProviderKey(provider: string): Promise<void> {
-    const oldKey = await this.configManager.getAPIKey(provider);
-    
-    // Generate new key via provider API
-    const newKey = await this.generateNewKey(provider);
-    
-    // Store new key in vault
-    await this.vault.write(`secret/ai-providers/${provider}`, {
-      api_key: newKey,
-      previous_key: oldKey,
-      rotated_at: new Date().toISOString()
-    });
-    
-    // Update all active agents gradually
-    await this.updateAgentConfigurations(provider, newKey);
-    
-    // Schedule old key deletion after grace period
-    setTimeout(() => {
-      this.revokeOldKey(provider, oldKey);
-    }, this.parseTimespan(this.config.gracePeriod));
-  }
-}
-```
-
-## Authentication Flows
-
-### Agent Authentication
-
-```typescript
-interface AgentIdentity {
-  agentId: string;
-  characterId: string;
-  platform: string;
-  permissions: Permission[];
-  sessionToken: string;
-  expiresAt: Date;
-}
-
-class AgentAuthenticator {
-  async authenticateAgent(credentials: AgentCredentials): Promise<AgentIdentity> {
-    // Validate agent exists and is active
-    const agent = await this.agentRegistry.getAgent(credentials.agentId);
-    if (!agent || agent.status === 'disabled') {
-      throw new UnauthorizedError('Agent not found or disabled');
-    }
-    
-    // Verify character permissions
-    const character = await this.characterRegistry.getCharacter(agent.characterId);
-    const permissions = this.calculatePermissions(character, credentials.platform);
-    
-    // Generate session token with platform-specific scope
-    const sessionToken = await this.tokenManager.generateSessionToken({
-      agentId: credentials.agentId,
-      platform: credentials.platform,
-      permissions,
-      expiresIn: '24h'
-    });
-    
-    return {
-      agentId: credentials.agentId,
-      characterId: agent.characterId,
-      platform: credentials.platform,
-      permissions,
-      sessionToken,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000)
-    };
-  }
-}
-```
-
-### Platform Extension Authentication
-
-```typescript
-// Platform-specific authentication patterns
-abstract class PlatformAuthenticator {
-  abstract authenticate(credentials: PlatformCredentials): Promise<PlatformSession>;
-  abstract refreshToken(session: PlatformSession): Promise<PlatformSession>;
-  abstract validatePermissions(session: PlatformSession, action: string): boolean;
-}
-
-// Telegram authentication
-class TelegramAuthenticator extends PlatformAuthenticator {
-  async authenticate(credentials: TelegramCredentials): Promise<TelegramSession> {
-    // Validate bot token with Telegram API
-    const botInfo = await this.telegram.getMe(credentials.botToken);
-    
-    // Verify webhook signature for incoming updates
-    const isValidWebhook = this.verifyWebhookSignature(
-      credentials.webhookData,
-      credentials.secretToken
-    );
-    
-    if (!isValidWebhook) {
-      throw new UnauthorizedError('Invalid webhook signature');
-    }
-    
-    return {
-      platform: 'telegram',
-      botId: botInfo.id,
-      botUsername: botInfo.username,
-      permissions: ['message.send', 'message.receive', 'chat.manage'],
-      token: credentials.botToken,
-      expiresAt: null // Telegram tokens don't expire
-    };
-  }
-}
-
-// Slack authentication (OAuth2)
-class SlackAuthenticator extends PlatformAuthenticator {
-  async authenticate(credentials: SlackCredentials): Promise<SlackSession> {
-    // Exchange authorization code for access token
-    const tokenResponse = await fetch('https://slack.com/api/oauth.v2.access', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': `Basic ${Buffer.from(`${this.clientId}:${this.clientSecret}`).toString('base64')}`
-      },
-      body: new URLSearchParams({
-        code: credentials.authCode,
-        redirect_uri: credentials.redirectUri
-      })
-    });
-    
-    const { access_token, scope, team, authed_user } = await tokenResponse.json();
-    
-    return {
-      platform: 'slack',
-      teamId: team.id,
-      userId: authed_user.id,
-      permissions: scope.split(','),
-      token: access_token,
-      expiresAt: null // Slack tokens don't expire unless revoked
-    };
-  }
-}
-```
-
-## Security Middleware
-
-### Request Validation
-
-```typescript
-interface SecurityMiddleware {
-  rateLimiting: RateLimitConfig;
-  authentication: AuthConfig;
-  encryption: EncryptionConfig;
-  audit: AuditConfig;
-}
-
-class SecurityManager {
-  // Rate limiting per agent per platform
-  async rateLimitCheck(agentId: string, platform: string): Promise<boolean> {
-    const key = `rate_limit:${agentId}:${platform}`;
-    const current = await this.redis.get(key);
-    
-    if (!current) {
-      await this.redis.setex(key, 3600, '1'); // 1 request per hour window
-      return true;
-    }
-    
-    const requests = parseInt(current);
-    const limit = this.getRateLimit(platform);
-    
-    if (requests >= limit) {
-      throw new TooManyRequestsError(`Rate limit exceeded for ${agentId} on ${platform}`);
-    }
-    
-    await this.redis.incr(key);
-    return true;
   }
   
-  // Input sanitization and validation
-  async validateAndSanitizeInput(input: any, schema: ValidationSchema): Promise<any> {
-    // XSS prevention
-    const sanitized = this.sanitizeHTML(input);
+  async rollback(targetVersion: string): Promise<void> {
+    const currentVersion = await this.getCurrentVersion();
+    const sortedMigrations = this.getSortedMigrations().reverse();
     
-    // SQL injection prevention (even though we use ORMs)
-    const escaped = this.escapeSQL(sanitized);
-    
-    // Schema validation with Zod
-    const validated = await schema.parseAsync(escaped);
+    for (const migration of sortedMigrations) {
+      if (migration.version <= targetVersion) {
+        break;
+      }
+      
+      if (migration.version <= currentVersion) {
+        console.log(`Rolling back migration ${migration.version}`);
+        
+        await this.provider.transaction(async (tx) => {
+          await migration.down(this.provider);
+          await this.removeMigrationRecord(migration.version);
+        });
+        
+        console.log(`↩️ Migration ${migration.version} rolled back`);
+      }
+    }
+  }
+}
+```
+
+### Example Migrations
+
+```typescript
+// Migration: Add emotion intensity tracking
+const migration_20250103_001: Migration = {
+  version: '20250103_001',
+  description: 'Add emotion intensity tracking and triggers',
+  
+  async up(provider: DataProvider): Promise<void> {
+    await provider.query(`
+      ALTER TABLE emotion_states 
+      ADD COLUMN IF NOT EXISTS intensity FLOAT DEFAULT 0.5 CHECK (intensity >= 0 AND intensity <= 1);
+      
+      ALTER TABLE emotion_states 
+      ADD COLUMN IF NOT EXISTS triggers JSONB DEFAULT '[]';
+      
+      CREATE INDEX IF NOT EXISTS idx_emotion_states_intensity 
+      ON emotion_states(agent_id, emotion_type, intensity DESC);
+    `);
+  },
+  
+  async down(provider: DataProvider): Promise<void> {
+    await provider.query(`
+      DROP INDEX IF EXISTS idx_emotion_states_intensity;
+      ALTER TABLE emotion_states DROP COLUMN IF EXISTS triggers;
+      ALTER TABLE emotion_states DROP COLUMN IF EXISTS intensity;
+    `);
+  }
+};
+
+// Migration: Add vector similarity search optimization
+const migration_20250103_002: Migration = {
+  version: '20250103_002',
+  description: 'Optimize vector similarity search with better indexing',
+  
+  async up(provider: DataProvider): Promise<void> {
+    await provider.query(`
+      -- Drop old index
+      DROP INDEX IF EXISTS messages_content_embedding_idx;
+      
+      -- Create optimized IVFFlat index
+      CREATE INDEX messages_content_embedding_ivfflat_idx 
+      ON messages USING ivfflat (content_embedding vector_cosine_ops) 
+      WITH (lists = 100);
+      
+      -- Create similar index for memory fragments
+      CREATE INDEX memory_fragments_embedding_ivfflat_idx 
+      ON memory_fragments USING ivfflat (content_embedding vector_cosine_ops) 
+      WITH (lists = 50);
+      
+      -- Add memory importance-based filtering
+      CREATE INDEX memory_fragments_importance_idx 
+      ON memory_fragments(agent_id, importance_score DESC);
+    `);
+  },
+  
+  async down(provider: DataProvider): Promise<void> {
+    await provider.query(`
+      DROP INDEX IF EXISTS messages_content_embedding_ivfflat_idx;
+      DROP INDEX IF EXISTS memory_fragments_embedding_ivfflat_idx;
+      DROP INDEX IF EXISTS memory_fragments_importance_idx;
+    `);
+  }
+};
+```
+
+## Data Validation Patterns
+
+### Input Validation
+
+```typescript
+import { z } from 'zod';
+
+// Agent configuration validation
+const AgentConfigSchema = z.object({
+  name: z.string().min(1).max(255),
+  characterId: z.string().min(1).max(100),
+  status: z.enum(['active', 'inactive', 'disabled']).default('inactive'),
+  config: z.object({
+    memoryProvider: z.enum(['sqlite', 'postgresql', 'supabase', 'neon']),
+    emotionModule: z.string(),
+    cognitiveModule: z.string(),
+    aiPortal: z.string()
+  }),
+  metadata: z.record(z.any()).default({})
+});
+
+// Message validation
+const MessageSchema = z.object({
+  conversationId: z.string().uuid(),
+  agentId: z.string().uuid(),
+  senderId: z.string().min(1).max(255),
+  senderName: z.string().min(1).max(255).optional(),
+  content: z.string().min(1).max(4000),
+  messageType: z.enum(['text', 'image', 'file', 'system']).default('text'),
+  platformMessageId: z.string().optional(),
+  metadata: z.record(z.any()).default({})
+});
+
+// Memory fragment validation
+const MemoryFragmentSchema = z.object({
+  agentId: z.string().uuid(),
+  content: z.string().min(1).max(2000),
+  fragmentType: z.enum(['conversation', 'knowledge', 'preference', 'experience']),
+  importanceScore: z.number().min(0).max(1).default(0.5),
+  sourceConversationId: z.string().uuid().optional(),
+  metadata: z.record(z.any()).default({})
+});
+
+class DataValidator {
+  async validateAgentConfig(data: unknown): Promise<AgentData> {
+    return AgentConfigSchema.parseAsync(data);
+  }
+  
+  async validateMessage(data: unknown): Promise<MessageData> {
+    const validated = await MessageSchema.parseAsync(data);
     
     // Additional business logic validation
-    await this.businessRuleValidation(validated);
+    await this.validateConversationExists(validated.conversationId);
+    await this.validateAgentExists(validated.agentId);
+    await this.validateContentSafety(validated.content);
     
     return validated;
   }
-}
-```
-
-### Encryption Patterns
-
-```typescript
-class EncryptionManager {
-  private readonly algorithm = 'aes-256-gcm';
-  private readonly keyDerivation = 'pbkdf2';
   
-  // Encrypt sensitive agent data
-  async encryptAgentData(data: any, agentId: string): Promise<EncryptedData> {
-    const key = await this.deriveKey(agentId);
-    const iv = crypto.randomBytes(16);
-    
-    const cipher = crypto.createCipher(this.algorithm, key);
-    cipher.setAAD(Buffer.from(agentId)); // Additional authenticated data
-    
-    let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    
-    const authTag = cipher.getAuthTag();
-    
-    return {
-      data: encrypted,
-      iv: iv.toString('hex'),
-      authTag: authTag.toString('hex'),
-      algorithm: this.algorithm
-    };
-  }
-  
-  // Decrypt agent data
-  async decryptAgentData(encryptedData: EncryptedData, agentId: string): Promise<any> {
-    const key = await this.deriveKey(agentId);
-    
-    const decipher = crypto.createDecipher(encryptedData.algorithm, key);
-    decipher.setAAD(Buffer.from(agentId));
-    decipher.setAuthTag(Buffer.from(encryptedData.authTag, 'hex'));
-    
-    let decrypted = decipher.update(encryptedData.data, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    
-    return JSON.parse(decrypted);
-  }
-}
-```
-
-## Vulnerability Prevention
-
-### Common Attack Vectors
-
-**🚫 Injection Attacks**
-
-```typescript
-class InjectionPrevention {
-  // Prevent prompt injection in AI interactions
-  sanitizeAIPrompt(userInput: string): string {
-    // Remove common prompt injection patterns
-    const dangerousPatterns = [
-      /ignore.{0,20}previous.{0,20}instructions/gi,
-      /system.{0,10}prompt/gi,
-      /\[.{0,50}INST.{0,50}\]/gi,
-      /<.{0,20}system.{0,20}>/gi
-    ];
-    
-    let sanitized = userInput;
-    for (const pattern of dangerousPatterns) {
-      sanitized = sanitized.replace(pattern, '[FILTERED]');
+  private async validateContentSafety(content: string): Promise<void> {
+    // Check for malicious content
+    if (this.containsMaliciousPatterns(content)) {
+      throw new ValidationError('Content contains potentially malicious patterns');
     }
     
-    // Limit input length
-    return sanitized.substring(0, 4000);
-  }
-  
-  // Prevent code injection in dynamic module loading
-  validateModulePath(modulePath: string): boolean {
-    const allowedPaths = [
-      /^modules\/memory\/providers\/.+\.js$/,
-      /^modules\/emotion\/.+\.js$/,
-      /^modules\/cognition\/.+\.js$/
-    ];
-    
-    return allowedPaths.some(pattern => pattern.test(modulePath));
+    // Check content length and encoding
+    if (Buffer.byteLength(content, 'utf8') > 10000) {
+      throw new ValidationError('Content exceeds maximum byte length');
+    }
   }
 }
 ```
 
-**🛡️ Access Control**
+## Performance Optimization
+
+### Caching Strategies
 
 ```typescript
-interface Permission {
-  resource: string;
-  action: string;
-  conditions?: Record<string, any>;
+interface CacheConfig {
+  provider: 'redis' | 'memory';
+  ttl: number;
+  maxSize?: number;
+  enableMetrics: boolean;
 }
 
-class AccessController {
-  async checkPermission(
-    agentId: string, 
-    resource: string, 
-    action: string, 
-    context?: any
-  ): Promise<boolean> {
-    const agent = await this.getAgent(agentId);
-    const permissions = await this.getAgentPermissions(agent);
+class DataCache {
+  private cache: Map<string, CacheEntry>;
+  private redis?: RedisClient;
+  private metrics: CacheMetrics;
+  
+  constructor(config: CacheConfig) {
+    this.cache = new Map();
+    this.metrics = new CacheMetrics();
     
-    for (const permission of permissions) {
-      if (this.matchesPermission(permission, resource, action)) {
-        // Check additional conditions
-        if (permission.conditions) {
-          return this.evaluateConditions(permission.conditions, context);
-        }
-        return true;
+    if (config.provider === 'redis') {
+      this.redis = new RedisClient(config);
+    }
+  }
+  
+  async get<T>(key: string): Promise<T | null> {
+    this.metrics.recordAccess(key);
+    
+    // Try memory cache first
+    const memoryEntry = this.cache.get(key);
+    if (memoryEntry && !this.isExpired(memoryEntry)) {
+      this.metrics.recordHit('memory');
+      return memoryEntry.value;
+    }
+    
+    // Try Redis cache if available
+    if (this.redis) {
+      const redisValue = await this.redis.get(key);
+      if (redisValue) {
+        const parsed = JSON.parse(redisValue);
+        // Populate memory cache
+        this.cache.set(key, {
+          value: parsed,
+          expiresAt: Date.now() + this.config.ttl * 1000
+        });
+        this.metrics.recordHit('redis');
+        return parsed;
       }
     }
     
-    // Log unauthorized access attempt
-    await this.auditLogger.logUnauthorizedAccess({
+    this.metrics.recordMiss();
+    return null;
+  }
+  
+  async set<T>(key: string, value: T, ttl?: number): Promise<void> {
+    const expiresAt = Date.now() + (ttl || this.config.ttl) * 1000;
+    
+    // Store in memory cache
+    this.cache.set(key, { value, expiresAt });
+    
+    // Store in Redis if available
+    if (this.redis) {
+      await this.redis.setex(key, ttl || this.config.ttl, JSON.stringify(value));
+    }
+    
+    this.metrics.recordSet(key);
+  }
+}
+```
+
+### Query Optimization
+
+```typescript
+class QueryOptimizer {
+  // Optimize conversation queries with proper indexing
+  async getConversationMessages(
+    conversationId: string, 
+    options: MessageQueryOptions
+  ): Promise<Message[]> {
+    const { limit = 50, offset = 0, since, until } = options;
+    
+    // Build optimized query with selective fields
+    let query = `
+      SELECT id, sender_id, sender_name, content, message_type, created_at
+      FROM messages 
+      WHERE conversation_id = $1
+    `;
+    
+    const params: any[] = [conversationId];
+    let paramIndex = 2;
+    
+    // Add time-based filtering
+    if (since) {
+      query += ` AND created_at >= $${paramIndex}`;
+      params.push(since);
+      paramIndex++;
+    }
+    
+    if (until) {
+      query += ` AND created_at <= $${paramIndex}`;
+      params.push(until);
+      paramIndex++;
+    }
+    
+    // Order and paginate
+    query += ` ORDER BY created_at DESC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
+    params.push(limit, offset);
+    
+    return this.provider.query(query, params);
+  }
+  
+  // Batch memory fragment retrieval
+  async getRelevantMemoriesBatch(
+    agentId: string,
+    contexts: string[],
+    limit: number = 5
+  ): Promise<Map<string, MemoryFragment[]>> {
+    const results = new Map<string, MemoryFragment[]>();
+    
+    // Generate embeddings in batch for efficiency
+    const embeddings = await this.batchGenerateEmbeddings(contexts);
+    
+    // Single query with multiple similarity searches
+    const query = `
+      WITH context_searches AS (
+        SELECT unnest($2::vector[]) as query_embedding,
+               unnest($3::text[]) as context_key
+      )
+      SELECT 
+        cs.context_key,
+        mf.*,
+        (mf.content_embedding <=> cs.query_embedding) as distance
+      FROM context_searches cs
+      CROSS JOIN LATERAL (
+        SELECT * FROM memory_fragments mf
+        WHERE mf.agent_id = $1
+          AND mf.content_embedding <=> cs.query_embedding < 0.3
+        ORDER BY mf.content_embedding <=> cs.query_embedding
+        LIMIT $4
+      ) mf
+    `;
+    
+    const rows = await this.provider.query(query, [
       agentId,
-      resource,
-      action,
-      timestamp: new Date(),
-      context
-    });
+      embeddings.map(e => `[${e.join(',')}]`),
+      contexts,
+      limit
+    ]);
     
-    return false;
-  }
-}
-```
-
-## Security Monitoring
-
-### Audit Logging
-
-```typescript
-interface AuditEvent {
-  eventType: 'auth' | 'access' | 'error' | 'admin';
-  agentId?: string;
-  userId?: string;
-  resource: string;
-  action: string;
-  result: 'success' | 'failure' | 'blocked';
-  metadata: Record<string, any>;
-  timestamp: Date;
-  ipAddress?: string;
-  userAgent?: string;
-}
-
-class AuditLogger {
-  async logSecurityEvent(event: AuditEvent): Promise<void> {
-    // Store in secure audit log
-    await this.auditDB.insert('security_events', {
-      ...event,
-      hash: this.calculateEventHash(event) // Tamper detection
-    });
-    
-    // Real-time alerting for critical events
-    if (this.isCriticalEvent(event)) {
-      await this.alertManager.sendSecurityAlert(event);
+    // Group results by context
+    for (const row of rows) {
+      const contextKey = row.context_key;
+      if (!results.has(contextKey)) {
+        results.set(contextKey, []);
+      }
+      results.get(contextKey)!.push(this.mapRowToMemoryFragment(row));
     }
     
-    // Update security metrics
-    await this.metricsCollector.updateSecurityMetrics(event);
-  }
-  
-  // Detect suspicious patterns
-  async detectAnomalies(agentId: string): Promise<SecurityAlert[]> {
-    const recentEvents = await this.getRecentEvents(agentId, '24h');
-    const alerts: SecurityAlert[] = [];
-    
-    // Unusual access patterns
-    if (this.detectUnusualAccessPatterns(recentEvents)) {
-      alerts.push({
-        type: 'unusual_access',
-        severity: 'medium',
-        agentId,
-        description: 'Unusual access patterns detected'
-      });
-    }
-    
-    // Multiple failed authentications
-    const failedAuths = recentEvents.filter(e => 
-      e.eventType === 'auth' && e.result === 'failure'
-    );
-    
-    if (failedAuths.length > 5) {
-      alerts.push({
-        type: 'brute_force',
-        severity: 'high',
-        agentId,
-        description: 'Multiple authentication failures detected'
-      });
-    }
-    
-    return alerts;
+    return results;
   }
 }
 ```
 
-### Security Health Checks
+## Configuration Management
+
+### Data Provider Configuration
 
 ```typescript
-class SecurityHealthChecker {
-  async performSecurityAudit(): Promise<SecurityAuditReport> {
-    const report: SecurityAuditReport = {
-      timestamp: new Date(),
-      overallScore: 0,
-      checks: []
-    };
-    
-    // API key security check
-    report.checks.push(await this.checkAPIKeySecurity());
-    
-    // Agent authentication check
-    report.checks.push(await this.checkAgentAuthentication());
-    
-    // Permission configuration check
-    report.checks.push(await this.checkPermissionConfiguration());
-    
-    // Encryption implementation check
-    report.checks.push(await this.checkEncryptionImplementation());
-    
-    // Vulnerability scan
-    report.checks.push(await this.performVulnerabilityScan());
-    
-    // Calculate overall score
-    report.overallScore = this.calculateSecurityScore(report.checks);
-    
-    return report;
-  }
-}
-```
-
-## Configuration Requirements
-
-### Security Configuration Schema
-
-```typescript
-interface SecurityConfig {
-  authentication: {
-    sessionTimeout: string;        // Default: "24h"
-    maxConcurrentSessions: number; // Default: 5
-    requireMFA: boolean;           // Default: false
-    passwordPolicy: {
-      minLength: number;           // Default: 12
-      requireSpecialChars: boolean; // Default: true
-      maxAge: string;              // Default: "90d"
-    };
+interface DataProviderConfig {
+  provider: 'sqlite' | 'postgresql' | 'supabase' | 'neon';
+  connection: {
+    url?: string;
+    host?: string;
+    port?: number;
+    database?: string;
+    username?: string;
+    password?: string;
   };
-  
-  encryption: {
-    algorithm: string;             // Default: "aes-256-gcm"
-    keyRotationInterval: string;   // Default: "30d"
-    enableTransitEncryption: boolean; // Default: true
+  pool: {
+    min: number;           // Default: 2
+    max: number;           // Default: 20
+    idleTimeout: number;   // Default: 30000ms
+    acquireTimeout: number; // Default: 60000ms
   };
-  
-  audit: {
-    enableAuditLogging: boolean;   // Default: true
-    retentionPeriod: string;       // Default: "1y"
-    enableRealTimeAlerts: boolean; // Default: true
-    alertThresholds: {
-      failedAuthAttempts: number;  // Default: 5
-      unusualAccessCount: number;  // Default: 10
-    };
+  cache: {
+    enabled: boolean;      // Default: true
+    provider: 'redis' | 'memory'; // Default: 'memory'
+    ttl: number;          // Default: 3600s
   };
-  
-  rateLimiting: {
-    enabled: boolean;              // Default: true
-    windowSize: string;            // Default: "1h"
-    maxRequests: {
-      telegram: number;            // Default: 30
-      slack: number;               // Default: 100
-      discord: number;             // Default: 50
-      api: number;                 // Default: 1000
-    };
+  vector: {
+    dimensions: number;    // Default: 1536 (OpenAI)
+    provider: 'openai' | 'anthropic' | 'local';
+    indexType: 'ivfflat' | 'hnsw'; // Default: 'ivfflat'
+  };
+  monitoring: {
+    enableMetrics: boolean; // Default: true
+    slowQueryThreshold: number; // Default: 1000ms
+    enableQueryLogging: boolean; // Default: false
   };
 }
 ```
 
-## Security Testing Requirements
+## Data Integrity and Consistency
 
-**🧪 Security Test Patterns**
+**🔒 ACID Compliance**
 
-- Penetration testing for all authentication flows
-- API key rotation testing
-- Injection attack simulation
-- Access control verification
-- Encryption/decryption validation
-- Audit log integrity testing
-- Performance impact assessment
+- All multi-table operations use transactions
+- Referential integrity enforced via foreign keys
+- Optimistic locking for concurrent updates
 
-**🔍 Continuous Security Monitoring**
+**📊 Vector Consistency**
 
-- Real-time threat detection
-- Automated vulnerability scanning
-- Security metrics dashboard
-- Incident response automation
-- Compliance reporting
+- Embedding generation retry logic
+- Vector index maintenance automation
+- Similarity threshold validation
 
-**📋 Security Checklist**
+**🔄 Cross-Provider Synchronization**
 
-Before deploying any agent or extension:
+- Change data capture for real-time sync
+- Conflict resolution strategies
+- Backup and restore procedures
 
-- [ ] All API keys stored securely (never in code)
-- [ ] Authentication flows tested
-- [ ] Permission boundaries verified
-- [ ] Input validation implemented
-- [ ] Audit logging configured
-- [ ] Rate limiting enabled
-- [ ] Encryption keys rotated
-- [ ] Security tests passing
-- [ ] Vulnerability scan clean
-- [ ] Access patterns documented
+**📈 Performance Monitoring**
+
+- Query performance tracking
+- Cache hit rate monitoring
+- Vector search latency metrics
+- Data growth trend analysis
+
+## Related Rules and Integration
+
+### Foundation Requirements
+- @001-symindx-workspace.mdc - SYMindX architecture and memory system directory structure
+- @003-typescript-standards.mdc - TypeScript development standards for data layer implementation
+- @004-architecture-patterns.mdc - Modular design principles and hot-swappable provider patterns
+- @.cursor/docs/architecture.md - Detailed memory layer architecture and data flow patterns
+
+### Security and Performance
+- @010-security-and-authentication.mdc - Database security, encryption at rest, and connection security
+- @012-performance-optimization.mdc - Vector embedding optimization, caching strategies, and query performance
+- @015-configuration-management.mdc - Database configuration and connection management
+- @.cursor/tools/project-analyzer.md - Database performance analysis and query optimization metrics
+
+### Development Tools and Templates
+- @.cursor/tools/code-generator.md - Memory provider templates and database schema generation
+- @.cursor/tools/debugging-guide.md - Database debugging strategies and connection troubleshooting
+- @.cursor/docs/contributing.md - Development workflow for memory system contributions
+
+### Development and Quality
+- @008-testing-and-quality-standards.mdc - Database testing strategies, migration testing, and data integrity validation
+- @013-error-handling-logging.mdc - Database error handling patterns and query monitoring
+- @009-deployment-and-operations.mdc - Database deployment, backup strategies, and operational monitoring
+
+### Advanced Integration
+- @005-ai-integration-patterns.mdc - AI provider integration for embedding generation and vector operations
+- @020-mcp-integration.mdc - External database service integration via Model Context Protocol
+- @022-workflow-automation.mdc - Automated database maintenance, migration workflows, and optimization tasks
+
+### Component Integration
+- @007-extension-system-patterns.mdc - Platform-specific data storage requirements and integration patterns
+- @016-documentation-standards.mdc - Database schema documentation and API reference standards
+
+This rule defines the data management foundation that supports all SYMindX components including memory systems, conversation persistence, and vector-based semantic search.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
