@@ -1,13 +1,17 @@
-## no-specific-code-in-generic-code
+## rtfs-2-0-rules
 
-> - Do not add fixes for custom demos/examples directly in generic modules (`arbiter`, `intent`, `runtime`, etc.).
+> RTFS 2.0 syntax and specification compliance rules
 
 
-# Keep Generic Code Example-Agnostic
+# RTFS 2.0 Compliance Snapshot
 
-- Do not add fixes for custom demos/examples directly in generic modules (`arbiter`, `intent`, `runtime`, etc.).
-- Avoid hard-coded values, fixtures, or tests derived from a single example inside shared libraries; keep them alongside the example instead.
-- If an example requires custom handling, isolate it in the example/capability layer and leave the generic code untouched.
+- Specs live in `docs/rtfs-2.0/specs/`. Core refs: `01` grammar & syntax, `02` evaluation, `03` host boundary, `04` stdlib, `05` macros, `07` immutability, `08` concurrency, `09` continuations, `10` formal spec.
+- Follow capability system contract (`06`) and CCOS bridge (`13-rtfs-ccos-integration-guide.md`).
+- Programs stay pure and deterministic; mutate state only via host-coordinated continuations or checkpoints.
+- All values must validate against declared schemas; types inferred from spec `03-object-schemas.md`.
+- Capability calls require attestation, provenance, and secure parameters per `06` and `00-philosophy.md` security model.
+- Continuation handoffs must honor host yield protocol (`09`) and resume through checkpoint design (`98-migration-plan-immutability.md`).
+- Never bypass step special forms, capability marketplace rules, or security gates defined in the RTFS specs.
 
 ---
 > Source: [mandubian/ccos](https://github.com/mandubian/ccos) — distributed by [TomeVault](https://tomevault.io).
