@@ -1,0 +1,9 @@
+{
+  "name": "morry98--fastapi-task-manager",
+  "displayName": "fastapi-task-manager",
+  "description": "Lightweight, efficient and fast to code scheduled task management system built on FastAPI",
+  "version": "1.0.0",
+  "author": "Morry98",
+  "homepage": "https://github.com/Morry98/fastapi-task-manager",
+  "skills": []
+}
