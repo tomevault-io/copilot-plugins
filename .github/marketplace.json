@@ -127989,6 +127989,26 @@
       "description": "ARAM-Mayhem-Database"
     },
     {
+      "name": "hasanraiyan--resume",
+      "source": "./hasanraiyan--resume",
+      "description": "resume"
+    },
+    {
+      "name": "hasanraiyan--resume",
+      "source": "./hasanraiyan--resume",
+      "description": "resume"
+    },
+    {
+      "name": "homebridge-plugins--homebridge-matter",
+      "source": "./homebridge-plugins--homebridge-matter",
+      "description": "Homebridge plugin to showcase examples of Matter devices in Homebridge."
+    },
+    {
+      "name": "hasanraiyan--resume",
+      "source": "./hasanraiyan--resume",
+      "description": "resume"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136349,6 +136369,16 @@
       "description": "Tsukuyomi\uff08\u6708\u8a60\uff09\u662f\u4e00\u6b3e\u4e13\u6ce8\u65e5\u6587\u8f7b\u5c0f\u8bf4 \u2192 \u4e2d\u6587\u7684 AI \u7ffb\u8bd1\u5de5\u5177\u3002 \u57fa\u4e8e\u73b0\u4ee3 Web \u6280\u672f\u6784\u5efa\uff0c\u63d0\u4f9b\u6d41\u7545\u3001\u53ef\u672c\u5730\u8fd0\u884c\u7684\u9605\u8bfb\u4e0e\u7ffb\u8bd1\u4f53\u9a8c\u3002 A moonlit, lightweight translator designed for clarity and elegance."
     },
     {
+      "name": "tompassarelli--nisp",
+      "source": "./tompassarelli--nisp",
+      "description": "Statically-checked Lisp for Nix"
+    },
+    {
+      "name": "chameleon-nexus--gemini-cli-openrouter",
+      "source": "./chameleon-nexus--gemini-cli-openrouter",
+      "description": "gemini-cli-openrouter"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -138192,6 +138222,11 @@
       "name": "mario-ezquerro--gubernator",
       "source": "./mario-ezquerro--gubernator",
       "description": "Gubernator (gbnt) Is a minimalist, distributed container orchestrator designed for those who find Kubernetes (K8s) too heavy for their needs. Inspired by the Roman efficiency of governance, Gubernator"
+    },
+    {
+      "name": "mikehostetler--intent-ledger",
+      "source": "./mikehostetler--intent-ledger",
+      "description": "intent_ledger"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -236797,6 +236832,11 @@
       "name": "rodrigogpx--cr-workflow",
       "source": "./rodrigogpx--cr-workflow",
       "description": "cr-workflow"
+    },
+    {
+      "name": "dawei1898--dw-admin",
+      "source": "./dawei1898--dw-admin",
+      "description": "dw-admin"
     }
   ]
 }
