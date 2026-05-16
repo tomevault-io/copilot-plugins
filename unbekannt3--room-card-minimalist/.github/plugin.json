@@ -1,0 +1,9 @@
+{
+  "name": "unbekannt3--room-card-minimalist",
+  "displayName": "room-card-minimalist",
+  "description": "Simple room overview card for Lovelace with GUI support in UI-Lovelace-Minimalist style",
+  "version": "1.0.0",
+  "author": "unbekannt3",
+  "homepage": "https://github.com/unbekannt3/room-card-minimalist",
+  "skills": []
+}
