@@ -4,7 +4,7 @@
   "repo": "evals-skills",
   "description": "Skills for AIs to do evals, error analysis, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/maragudk/evals-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:36:20Z"
+  "distributed_at": "2026-05-16T08:46:17Z"
 }
