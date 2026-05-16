@@ -1,0 +1,9 @@
+{
+  "name": "jheddings--obsidian-chopro",
+  "displayName": "obsidian-chopro",
+  "description": "An Obsibian plugin for rendering ChoPro code blocks.",
+  "version": "1.0.0",
+  "author": "jheddings",
+  "homepage": "https://github.com/jheddings/obsidian-chopro",
+  "skills": []
+}
