@@ -1,0 +1,9 @@
+{
+  "name": "ai-firstly--langfuse-ruby",
+  "displayName": "langfuse-ruby",
+  "description": "Langfuse Ruby SDK",
+  "version": "1.0.0",
+  "author": "ai-firstly",
+  "homepage": "https://github.com/ai-firstly/langfuse-ruby",
+  "skills": []
+}
