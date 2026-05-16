@@ -4,7 +4,7 @@
   "repo": "dom.cash",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ixpl0/dom.cash",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T05:43:53Z"
+  "distributed_at": "2026-05-16T05:59:46Z"
 }
