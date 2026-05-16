@@ -1,9 +1,9 @@
 {
   "name": "jwilger--eventcore",
   "displayName": "eventcore",
-  "description": "eventcore",
+  "description": "Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/",
   "version": "1.0.0",
   "author": "jwilger",
-  "homepage": "https://tomevault.io/claim/jwilger",
+  "homepage": "https://github.com/jwilger/eventcore",
   "skills": []
 }
