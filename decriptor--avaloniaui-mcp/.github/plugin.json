@@ -1,0 +1,9 @@
+{
+  "name": "decriptor--avaloniaui-mcp",
+  "displayName": "AvaloniaUI.MCP",
+  "description": "MCP server for AvaloniaUI",
+  "version": "1.0.0",
+  "author": "decriptor",
+  "homepage": "https://github.com/decriptor/AvaloniaUI.MCP",
+  "skills": []
+}
