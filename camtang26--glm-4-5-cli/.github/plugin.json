@@ -1,0 +1,9 @@
+{
+  "name": "camtang26--glm-4-5-cli",
+  "displayName": "glm-4.5-cli",
+  "description": "A powerful command-line AI workflow tool for GLM-4.5 models. Forked from Qwen-code with enhanced support for Zhipu AI's GLM-4.5 and GLM-4.5-Air models.",
+  "version": "1.0.0",
+  "author": "camtang26",
+  "homepage": "https://github.com/camtang26/glm-4.5-cli",
+  "skills": []
+}
