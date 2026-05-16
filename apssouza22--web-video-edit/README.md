@@ -7,11 +7,11 @@ WebVideoEdit is a browser-based video editor that lets you perform basic video e
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [apssouza22/web-video-edit](https://github.com/apssouza22/web-video-edit).
+Original source: `CLAUDE.md` in [apssouza22/web-video-edit](https://github.com/apssouza22/web-video-edit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
