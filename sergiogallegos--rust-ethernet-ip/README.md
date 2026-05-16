@@ -7,11 +7,11 @@ High-performance EtherNet/IP driver for Allen-Bradley PLCs, written in Rust.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sergiogallegos/rust-ethernet-ip](https://github.com/sergiogallegos/rust-ethernet-ip).
+Original source: `CLAUDE.md` in [sergiogallegos/rust-ethernet-ip](https://github.com/sergiogallegos/rust-ethernet-ip).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
