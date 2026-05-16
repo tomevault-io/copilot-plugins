@@ -1,0 +1,9 @@
+{
+  "name": "machinelearningzh--document-research-tool",
+  "displayName": "document-research-tool",
+  "description": "Perform intelligent research over document collections using hybrid search and LLMs.",
+  "version": "1.0.0",
+  "author": "machinelearningZH",
+  "homepage": "https://github.com/machinelearningZH/document-research-tool",
+  "skills": []
+}
