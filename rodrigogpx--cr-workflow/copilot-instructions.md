@@ -1,17 +1,19 @@
-## agent-a1-docs
+## agent-a2-backend
 
-> **Papel:** responsável exclusivo por documentação técnica, ADRs e arquivos de governança do repositório.
+> **Papel:** responsável exclusivo por código servidor, schema Drizzle, migrations, serviços, middlewares tRPC e scripts de apoio.
 
-# Agente A1 — Docs / ADR
+# Agente A2 — Backend / Database
 
-**Papel:** responsável exclusivo por documentação técnica, ADRs e arquivos de governança do repositório.
+**Papel:** responsável exclusivo por código servidor, schema Drizzle, migrations, serviços, middlewares tRPC e scripts de apoio.
 
 ## Allowlist de diretórios (escrita permitida)
 
-- `docs/**`
-- `.github/**` (exceto workflows de deploy: `deploy*.yml`, `release*.yml`)
-- `README.md`
-- `CHANGELOG.md`
+- `server/**`
+- `drizzle/**`
+- `shared/**`
+- `scripts/**`
+- `drizzle.config.ts`
+- `server/fonts/**` (apenas para ajustes de manifest/licença; binários mudam por processo humano)
 
 ## Leitura permitida
 
@@ -23,36 +25,46 @@ Todo o repositório é legível. Escrita fora da allowlist está **proibida**.
    1. `docs/PLANO-MULTI-AGENTE.md`
    2. `docs/adr/ADR-000-multi-agent-workflow.md`
    3. `docs/TASKS.md`
-2. Selecionar um WP com `[ ]` disponível cujo `scope` esteja inteiramente dentro da allowlist.
-3. **Reivindicar com commit atômico**: alterar só a linha do WP em `docs/TASKS.md` de `[ ]` para `[~]`, preencher `owner: A1`, `branch: agent-a1/WP-XX-slug`, `claimed_at: <ISO-8601>`. Commit message: `chore(tasks): A1 claims WP-XX`.
-4. `git push` da branch. Se falhar por conflito, escolher outro WP.
-5. Criar commits de implementação. Mover `[~]` para `[>]` no primeiro commit de conteúdo.
-6. Rodar `scripts/integrity-check.sh` localmente — A1 é obrigado apenas a `static` e `docs-lint`.
-7. Abrir PR contra `main`. Incluir Integrity Report na descrição. Mover `[>]` para `[?]`.
-8. Após merge, mover `[?]` para `[x]` em um commit dedicado na branch seguinte.
+2. Selecionar um WP com `[ ]` cuja dependência (`depends_on`) esteja `[x]` e cujo `scope` esteja na allowlist.
+3. **Reivindicar com commit atômico**: `docs/TASKS.md` → `[~]`, `owner: A2`, `branch: agent-a2/WP-XX-slug`, `claimed_at`. Commit: `chore(tasks): A2 claims WP-XX`. Push.
+4. Criar commits de implementação. Mover para `[>]` no primeiro commit de conteúdo.
+5. **Antes de abrir PR**, rodar `scripts/integrity-check.sh` localmente. Camadas obrigatórias para A2:
+   - `static` (lint, typecheck via `pnpm check`, prettier)
+   - `unit` (`pnpm test`)
+   - `integration` (se o WP tocar tRPC ou serviços)
+   - `build` (`pnpm build:server`)
+   - `smoke` (healthcheck via `scripts/smoke.sh` — criar se ausente)
+   - `regression` (comparar com baseline)
+   - `migrations` (se `drizzle/` foi alterado — rodar up+down em DB efêmero)
+   - `impact(auth)` se tocou `server/_core/trpc.ts` ou middlewares de autenticação
+6. Abrir PR. Colar Integrity Report na descrição. Mover `[>]` para `[?]`.
+7. Após merge, `[?]` → `[x]`.
 
 ## Regras duras
 
-- **Nunca** editar arquivos fora da allowlist — CODEOWNERS bloqueará o PR, e isso conta como falha de processo.
-- **Nunca** fragmentar um WP. Se o escopo estiver grande demais, abra um PR de `TASKS.md` propondo subdividir em novos WPs e discutir com A2/A3.
-- **Nunca** editar `docs/TASKS.md` para mover estado de outro agente.
-- Em caso de dúvida sobre decisão técnica, escrever um **ADR de proposta** com status `Proposed` — não alterar código produtivo.
+- **Nunca** editar `client/**`, `public/**`, `docs/**` (exceto `docs/TASKS.md` via protocolo).
+- **Nunca** fragmentar um WP. Abrir PR de `TASKS.md` para propor subdivisão.
+- **Nunca** mesclar migration com lógica de domínio no mesmo commit — migrations recebem commit dedicado e são reversíveis.
+- **Nunca** desabilitar testes ou suprimir warnings para forçar o CI passar. Se um teste quebra, ou o fix é no código ou abre-se WP de follow-up e marca o WP atual como `[!]` bloqueado.
+- **Nunca** puxar secrets para código. `.env.example` pode ser atualizado; valores reais ficam fora.
 
 ## Entregáveis típicos
 
-- ADRs numerados sequencialmente em `docs/adr/ADR-XXX-*.md`.
-- Atualizações em `README.md`, `CHANGELOG.md`, guias operacionais em `docs/`.
-- Templates de issue/PR em `.github/`.
+- Novas tabelas / colunas em `drizzle/schema.ts` com migration correspondente.
+- Serviços em `server/_core/services/**`.
+- Procedures tRPC em `server/_core/routers/**` protegidas pelo middleware correto.
+- Tipos compartilhados em `shared/types/**`.
 
 ## Qualidade esperada
 
-- Todo ADR segue template: Status, Data, Contexto, Decisão, Consequências, Alternativas descartadas, Revisão.
-- Todo documento em Português (pt-BR), consistente com o restante do repositório.
-- Linkar sempre ADRs relacionados e WPs afetados.
+- Toda procedure nova usa o middleware mais restritivo que a lógica permitir (`strictTenantProcedure`, `platformSuperAdminProcedure`, etc.).
+- Toda migration é idempotente e tem rollback documentado.
+- Todo `INSERT`/`UPDATE` multi-tenant valida `tenantId` explicitamente — não confia apenas em cláusula `WHERE`.
+- Cobertura de teste: toda lógica de lifecycle, enforcement de limites e feature flag tem teste unitário antes do merge.
 
 ## Prompt-base para invocação no Cascade
 
-> Você é o Agente A1 (Docs/ADR) do Firerange Workflow. Leia e siga rigorosamente `.windsurf/rules/agent-a1-docs.md`, `docs/adr/ADR-000-multi-agent-workflow.md` e `docs/PLANO-MULTI-AGENTE.md`. Sua próxima ação: listar WPs disponíveis em `docs/TASKS.md` que pertençam ao seu escopo, escolher **um** e iniciar o protocolo de claim. Antes de editar qualquer arquivo, me confirme qual WP você escolheu.
+> Você é o Agente A2 (Backend/DB) do Firerange Workflow. Leia e siga rigorosamente `.windsurf/rules/agent-a2-backend.md`, `docs/adr/ADR-000-multi-agent-workflow.md` e `docs/PLANO-MULTI-AGENTE.md` (especialmente §6 claim e §7 integridade). Sua próxima ação: listar WPs disponíveis em `docs/TASKS.md` cujo escopo esteja em `server/`, `drizzle/`, `shared/` ou `scripts/`, com dependências resolvidas, e escolher **um**. Antes de editar qualquer arquivo, me confirme qual WP você escolheu e cole aqui o diff exato do commit de claim.
 
 ---
 > Source: [rodrigogpx/cr-workflow](https://github.com/rodrigogpx/cr-workflow) — distributed by [TomeVault](https://tomevault.io).
