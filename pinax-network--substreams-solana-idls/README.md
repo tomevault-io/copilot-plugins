@@ -7,11 +7,11 @@ Type-safe Solana IDLs & instruction/event decoders for Substreams modules.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pinax-network/substreams-solana-idls](https://github.com/pinax-network/substreams-solana-idls).
+Original source: `CLAUDE.md` in [pinax-network/substreams-solana-idls](https://github.com/pinax-network/substreams-solana-idls).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
