@@ -7,11 +7,11 @@ A Prometheus exporter for NetBird API
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [matanbaruch/netbird-api-exporter](https://github.com/matanbaruch/netbird-api-exporter).
+Original source: `CLAUDE.md` in [matanbaruch/netbird-api-exporter](https://github.com/matanbaruch/netbird-api-exporter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
