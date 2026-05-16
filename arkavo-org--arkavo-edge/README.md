@@ -7,11 +7,11 @@ Local-first AI agent mesh in Rust. Hard budget enforcement, adaptive model routi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arkavo-org/arkavo-edge](https://github.com/arkavo-org/arkavo-edge).
+Original source: `CLAUDE.md` in [arkavo-org/arkavo-edge](https://github.com/arkavo-org/arkavo-edge).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
