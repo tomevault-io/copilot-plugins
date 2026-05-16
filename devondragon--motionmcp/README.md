@@ -7,11 +7,11 @@ MCP Server for Use Motion Task Management System
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [devondragon/MotionMCP](https://github.com/devondragon/MotionMCP).
+Original source: `CLAUDE.md` in [devondragon/MotionMCP](https://github.com/devondragon/MotionMCP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
