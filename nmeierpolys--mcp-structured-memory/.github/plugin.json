@@ -1,0 +1,9 @@
+{
+  "name": "nmeierpolys--mcp-structured-memory",
+  "displayName": "mcp-structured-memory",
+  "description": "Structured Memory MCP Server",
+  "version": "1.0.0",
+  "author": "nmeierpolys",
+  "homepage": "https://github.com/nmeierpolys/mcp-structured-memory",
+  "skills": []
+}
