@@ -1,0 +1,9 @@
+{
+  "name": "wazzamo--vecfs",
+  "displayName": "vecfs",
+  "description": "A local MCP server that provides a vector file store to give AI agents a long-term memory.",
+  "version": "1.0.0",
+  "author": "WazzaMo",
+  "homepage": "https://github.com/WazzaMo/vecfs",
+  "skills": []
+}
