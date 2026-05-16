@@ -7,11 +7,11 @@ Voxel based world with Rust and Bevy
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [danielsobrado/drusniel-voxels-bevy](https://github.com/danielsobrado/drusniel-voxels-bevy).
+Original source: `CLAUDE.md` in [danielsobrado/drusniel-voxels-bevy](https://github.com/danielsobrado/drusniel-voxels-bevy).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
