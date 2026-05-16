@@ -1,111 +1,91 @@
-## playground-component-demo-guide
+## playground-demo-page-template
 
-> 이 문서는 `apps/playground/app/components/` 디렉터리에 새로운 컴포넌트 예제 페이지를 작성할 때 따라야 할 규칙을 정의합니다.
+> > 이 문서는 Playground의 컴포넌트 데모 페이지(`/components/[slug].tsx`) 작성 시 따라야 할 표준 템플릿을 정의합니다.
 
-# Playground 컴포넌트 예제 페이지 작성 가이드
+# Playground 컴포넌트 데모 페이지 템플릿
 
-이 문서는 `apps/playground/app/components/` 디렉터리에 새로운 컴포넌트 예제 페이지를 작성할 때 따라야 할 규칙을 정의합니다.
+> 이 문서는 Playground의 컴포넌트 데모 페이지(`/components/[slug].tsx`) 작성 시 따라야 할 표준 템플릿을 정의합니다.
 
-> **참조**: 
-> - 전체 Playground 아키텍처: `playground-architecture-guide.mdc`
-> - 상세 템플릿 및 패턴: `playground-demo-page-template.mdc` ⭐
+---
 
-## 1. 기본 원칙
+## 1. 페이지 목적 및 철학
 
-1. **1:1 매핑**: `@fleet-ui/components` 패키지의 모든 컴포넌트는 Playground에 대응하는 예제 페이지가 있어야 합니다.
-2. **전수 조사**: Layer 2 Spec(`component-spec-template.md`)에 정의된 모든 Public Props를 예제로 시연해야 합니다.
-3. **Unistyles 사용**: 모든 스타일링은 `react-native-unistyles`와 테마 토큰을 사용해야 합니다. 하드코딩된 값(색상 코드 등)은 금지됩니다.
-4. **레지스트리 등록**: 새 컴포넌트 페이지 생성 시 `common/registry/components.ts`에 등록해야 합니다.
+### 1.1 목적
 
-## 2. 컴포넌트 사용 (Mandatory)
+컴포넌트 데모 페이지는 **시각적 속성(Visual Props)**에 집중하여 Fleet UI 컴포넌트가 어떻게 보이는지 보여줍니다.
 
-### 2.1 Fleet UI 컴포넌트 우선 사용
+**Docs vs Playground 역할 구분:**
 
-**Playground의 모든 페이지는 `@fleet-ui/components` 패키지의 컴포넌트를 기반으로 구축해야 합니다.**
+| | Docs 페이지 | Playground 페이지 |
+|---|-------------|-------------------|
+| **목적** | 기술 문서 | 시각적 데모 |
+| **내용** | API, Props 타입, 사용법, 코드 예제 | 실제 렌더링 결과 |
+| **대상** | 개발자 (구현 중) | 디자이너, PM, 개발자 (탐색 중) |
+| **표시 속성** | 모든 Props (기능 포함) | 시각적 Props 중심 |
+| **임베딩** | - | Docs/랜딩에 iframe 임베딩 |
 
-```typescript
-// ✅ 올바른 예시
-import {
-  LayoutTop,
-  Section,
-  Item,
-  ItemContent,
-  Input,
-  Icon,
-  Button,
-} from '@fleet-ui/components';
-import { PageHeader, Section as DemoSection, DemoIcon } from '../../common/views'; // 데모 전용만
-```
+### 1.2 표시할 Props
 
-**작성 원칙:**
-1. **`@fleet-ui/components` 먼저 확인** - 필요한 컴포넌트가 Fleet UI에 있는지 검토
-2. **Fleet UI 컴포넌트 사용** - 있다면 반드시 Fleet UI 컴포넌트 사용
-3. **데모 전용만 `common/views/` 사용** - PageHeader, Section, DemoIcon 등 데모 목적 컴포넌트만
-4. **신규 생성 금지** - 범용 UI 컴포넌트를 `common/views/`에 생성하지 않음
+**필수 표시 (시각적 속성):**
+- `variant` - 스타일 변형 (filled, outlined, ghost 등)
+- `colorScheme` - 색상 테마 (primary, success, error 등)
+- `size` - 크기 (sm, md, lg, xl 등)
+- `rounded` - 모서리 둥글기 (none, sm, md, lg, full 등)
+- `shadow` - 그림자 (none, sm, md, lg 등)
+- `state` - 상태 (default, hover, focus, disabled, loading 등)
+- 컴포넌트별 특수 시각적 Props
 
-### 2.2 컴포넌트 데모 페이지용 Import
+**표시하지 않음:**
+- 이벤트 핸들러 (`onPress`, `onChange` 등)
+- 제어 Props (`value`, `checked` 등)
+- Ref, testID 등 기술적 Props
 
-```typescript
-// Fleet UI 컴포넌트 (우선)
-import { Button } from '@fleet-ui/components';
+---
 
-// Playground 데모 전용 컴포넌트
-import { PageHeader, Section, DemoIcon, commonStyles } from '../../common/views';
+## 2. 페이지 구조
 
-// React Native 기본
-import { ScrollView, View } from 'react-native';
-import { useUnistyles } from 'react-native-unistyles';
-```
-
-### 2.3 컴포넌트 선택 가이드
-
-| 용도 | 사용할 컴포넌트 | 출처 |
-| :--- | :--- | :--- |
-| 데모 페이지 헤더 | `PageHeader` | `common/views` |
-| Props 그룹 섹션 | `Section` | `common/views` |
-| 더미 아이콘 | `DemoIcon` | `common/views` |
-| 공통 레이아웃 | `commonStyles` | `common/views` |
-| 기타 모든 UI | Fleet UI 컴포넌트 | `@fleet-ui/components` |
-
-## 3. 작성 패턴
-
-> **⭐ 상세 템플릿**: 섹션별 패턴, 스타일링 규칙, 완전한 예제는 `playground-demo-page-template.mdc`를 참조하세요.
-
-### 3.1 기본 구조 (Section 자체가 collapsible)
+### 2.1 전체 레이아웃
 
 ```typescript
-import { MyComponent } from '@fleet-ui/components';
+import { ComponentName } from '@fleet-ui/components';
 import { ScrollView, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { PageHeader, Section, commonStyles } from '../../common/views';
+import { commonStyles, PageHeader, Section, DemoIcon } from '../../common/views';
 
 // 1. Props 상수 정의
 const VARIANTS = ['filled', 'outlined', 'ghost'] as const;
-const COLOR_SCHEMES = ['primary', 'neutral', 'success'] as const;
-const SIZES = ['sm', 'md', 'lg'] as const;
+const COLOR_SCHEMES = ['primary', 'neutral', 'success', 'error'] as const;
+const SIZES = ['sm', 'md', 'lg', 'xl'] as const;
+const ROUNDED = ['none', 'sm', 'md', 'lg', 'full'] as const;
+const SHADOWS = ['none', 'sm', 'md', 'lg'] as const;
 
-export default function MyComponentScreen() {
+export default function ComponentNameScreen() {
   useUnistyles();
   
   return (
     <ScrollView style={commonStyles.container}>
       <View style={commonStyles.content}>
+        {/* 2. 페이지 헤더 */}
         <PageHeader 
-          title="MyComponent" 
-          description="Visual characteristics and variations." 
+          title="ComponentName" 
+          description="Brief description of component purpose and visual characteristics." 
         />
 
-        {/* Section은 내부적으로 Accordion을 생성합니다 (기본: 열림) */}
+        {/* 3. 섹션들 (Section 내부가 collapsible) */}
         <Section title="Overview" value="overview">
           <View style={styles.overviewContainer}>
-            <MyComponent variant="filled">Basic</MyComponent>
+            <ComponentName variant="filled">
+              Basic Example
+            </ComponentName>
           </View>
         </Section>
 
         <Section title="Variants" value="variants">
           <View style={commonStyles.row}>
             {VARIANTS.map(variant => (
-              <MyComponent key={variant} variant={variant}>{variant}</MyComponent>
+              <ComponentName key={variant} variant={variant}>
+                {variant}
+              </ComponentName>
             ))}
           </View>
         </Section>
@@ -114,19 +94,35 @@ export default function MyComponentScreen() {
           {COLOR_SCHEMES.map(scheme => (
             <View key={scheme} style={commonStyles.row}>
               {VARIANTS.map(variant => (
-                <MyComponent 
+                <ComponentName 
                   key={`${scheme}-${variant}`}
                   colorScheme={scheme} 
                   variant={variant}
                 >
                   {scheme}
-                </MyComponent>
+                </ComponentName>
               ))}
             </View>
           ))}
         </Section>
 
-        {/* Sizes, States 등 추가 섹션들... */}
+        <Section title="Sizes" value="sizes">
+          <View style={commonStyles.row}>
+            {SIZES.map(size => (
+              <ComponentName key={size} size={size}>
+                {size}
+              </ComponentName>
+            ))}
+          </View>
+        </Section>
+
+        <Section title="States" value="states">
+          <View style={commonStyles.row}>
+            <ComponentName>Default</ComponentName>
+            <ComponentName disabled>Disabled</ComponentName>
+            <ComponentName loading>Loading</ComponentName>
+          </View>
+        </Section>
       </View>
     </ScrollView>
   );
@@ -141,41 +137,15 @@ const styles = StyleSheet.create((theme) => ({
 }));
 ```
 
-**주요 특징:**
+**주요 변경사항:**
 - `Section` 컴포넌트가 내부적으로 `Accordion.Item` 사용
-- 코드가 간결하고 읽기 쉬움
-- 자동 스타일링 및 간격 처리
-- 기존 데모 페이지와 호환 가능
+- `Section`에 `value` prop 전달 (없으면 title 기반 자동 생성)
+- 코드가 더 간결하고 읽기 쉬워짐
+- 기존 데모 페이지 호환성 유지
 
-### 3.2 섹션 구성 순서
+### 2.2 Accordion 기반 섹션 구성
 
-**필수 섹션 (순서대로, 모두 기본 열림):**
-0. **Overview** - 기본 형태 단일 예제 ⭐ 최상단 필수
-   ```typescript
-   <Section title="Overview" value="overview">...</Section>
-   ```
-1. **Variants** - 스타일 변형
-   ```typescript
-   <Section title="Variants" value="variants">...</Section>
-   ```
-2. **Color Schemes** - 색상 테마
-   ```typescript
-   <Section title="Color Schemes" value="colorSchemes">...</Section>
-   ```
-3. **Sizes** - 크기 변형
-   ```typescript
-   <Section title="Sizes" value="sizes">...</Section>
-   ```
-4. **States** - 상태
-   ```typescript
-   <Section title="States" value="states">...</Section>
-   ```
-
-**선택 섹션 (필요시 추가):**
-5. Rounded - 모서리 둥글기 (`value="rounded"`)
-6. Shadows - 그림자 (`value="shadows"`)
-7. Icon Compositions - 아이콘 조합 (`value="iconCompositions"`)
-8. Full Width - 전체 너비 (`value="fullWidth"`)
+**`Section` 컴포넌트는 내부적으로 Accordion을 생성하여 섹션을 접고 펼칠 수 있습니다.**\n\n- 페이지는 `Section`을 그대로 나열하면 됩니다.\n- 기본은 **모두 열린 상태(defaultOpen=true)** 입니다.\n\n```typescript\n<Section title=\"Overview\" value=\"overview\">\n  {/* 내용 */}\n</Section>\n\n<Section title=\"Variants\" value=\"variants\">\n  {/* 내용 */}\n</Section>\n```
 
 **Section Props:**
 - `title` (필수): 섹션 제목
@@ -183,56 +153,551 @@ const styles = StyleSheet.create((theme) => ({
 - `description`: 섹션 설명 (선택)
 - `defaultOpen`: 기본 열림 상태 (기본값: true)
 
-**상세 내용**: `playground-demo-page-template.mdc` 섹션 2, 3 참조
+### 2.3 섹션 구성 순서 (표준)
 
-## 4. 체크리스트
+| 순서 | 섹션 이름 | value | 설명 | 필수 여부 | defaultValue 포함 |
+|------|-----------|-------|------|-----------|-------------------|
+| 0 | **Overview** | `overview` | 기본 형태 단일 예제 | **필수** | ✅ |
+| 1 | **Variants** | `variants` | 스타일 변형 | 필수 | ✅ |
+| 2 | **Color Schemes** | `colorSchemes` | 색상 테마 | 필수 | ✅ |
+| 3 | **Variants × Color Schemes** | `variantsColorSchemes` | 조합 매트릭스 | 선택 | ✅ |
+| 4 | **Sizes** | `sizes` | 크기 변형 | 필수 | ✅ |
+| 5 | **States** | `states` | 상태 | 필수 | ✅ |
+| 6 | **Rounded** | `rounded` | 모서리 둥글기 | 선택 | 선택 |
+| 7 | **Shadows** | `shadows` | 그림자 | 선택 | 선택 |
+| 8 | **Icon Compositions** | `iconCompositions` | 아이콘 조합 | 선택 | 선택 |
+| 9 | **Special Props** | `specialProps` | 컴포넌트 고유 속성 | 선택 | 선택 |
+| 10 | **Full Width** | `fullWidth` | 전체 너비 | 선택 | 선택 |
+
+**주요 규칙:**
+- **Overview 섹션은 최상단 필수**: 컴포넌트의 가장 기본 형태 표시
+- **기본 열림**: 필수 섹션(Overview, Variants, Color Schemes, Sizes, States)은 `defaultValue`에 포함
+- **선택 섹션**: 필요에 따라 `defaultValue`에 추가하거나 제외
+
+---
+
+## 3. 섹션별 작성 패턴
+
+### 3.0 Overview 섹션 (필수, 최상단)
+
+```typescript
+<Section title="Overview" value="overview">
+  <View style={styles.overviewContainer}>
+    <ComponentName variant="filled">
+      Basic Example
+    </ComponentName>
+  </View>
+</Section>
+
+// 스타일
+const styles = StyleSheet.create((theme) => ({
+  overviewContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing[8],
+  },
+}));
+```
+
+**패턴:**
+- **최상단 필수 섹션**
+- 컴포넌트의 가장 기본 형태 표시
+- 최소 required props만 전달 (variant는 `filled` 또는 `flat`)
+- 중앙 정렬 레이아웃
+- 단일 컴포넌트만 표시
+- `value="overview"` 명시적 전달
+- Accordion의 `defaultValue`에 `'overview'` 포함하여 기본 열림
+
+### 3.1 Variants 섹션
+
+```typescript
+<Section title="Variants" value="variants">
+  <View style={commonStyles.row}>
+    {VARIANTS.map(variant => (
+      <ComponentName key={variant} variant={variant}>
+        {variant}
+      </ComponentName>
+    ))}
+  </View>
+</Section>
+```
+
+**패턴:**
+- 단일 행으로 모든 variant 표시
+- 각 variant 라벨을 children으로 표시
+- 기본 colorScheme, size 사용
+- `value="variants"` 명시적 전달
+- Accordion의 `defaultValue`에 포함하여 기본 열림
+
+### 3.2 Color Schemes 섹션
+
+**패턴 A: 단일 variant로 모든 color schemes**
+```typescript
+<Section title="Color Schemes" value="colorSchemes">
+  <View style={commonStyles.row}>
+    {COLOR_SCHEMES.map(scheme => (
+      <ComponentName key={scheme} colorScheme={scheme}>
+        {scheme}
+      </ComponentName>
+    ))}
+  </View>
+</Section>
+```
+
+**패턴 B: 각 color scheme마다 모든 variants**
+```typescript
+<Section title="Color Schemes" value="colorSchemes">
+  {COLOR_SCHEMES.map(scheme => (
+    <View key={scheme} style={commonStyles.row}>
+      {VARIANTS.map(variant => (
+        <ComponentName 
+          key={`${scheme}-${variant}`}
+          colorScheme={scheme} 
+          variant={variant}
+        >
+          {scheme}
+        </ComponentName>
+      ))}
+    </View>
+  ))}
+</Section>
+```
+
+**선택 기준:**
+- Variants 3개 이하 → 패턴 B (조합 매트릭스)
+- Variants 4개 이상 → 패턴 A 또는 별도 "Variants × Color Schemes" 섹션
+- `value="colorSchemes"` 명시적 전달
+- Accordion의 `defaultValue`에 포함하여 기본 열림
+
+**Note:** Section의 `sectionBodyStyle`에 `gap`이 이미 적용되어 있어 별도 스타일 불필요
+
+### 3.3 Sizes 섹션
+
+```typescript
+<Section title="Sizes" value="sizes">
+  <View style={commonStyles.row}>
+    {SIZES.map(size => (
+      <ComponentName key={size} size={size}>
+        {size}
+      </ComponentName>
+    ))}
+  </View>
+</Section>
+```
+
+**패턴:**
+- 단일 행으로 크기 순서대로 배치 (sm → xl)
+- `commonStyles.row`가 자동으로 align-items: 'center' 처리
+- Accordion의 `defaultValue`에 포함하여 기본 열림
+
+### 3.4 States 섹션
+
+```typescript
+<Section title="States" value="states">
+  <View style={commonStyles.row}>
+    <ComponentName>Default</ComponentName>
+    <ComponentName disabled>Disabled</ComponentName>
+    <ComponentName loading>Loading</ComponentName>
+    {/* 컴포넌트별 추가 상태 */}
+  </View>
+</Section>
+```
+
+**표시할 상태:**
+- `default` - 기본 (명시적 표시)
+- `disabled` - 비활성화
+- `loading` - 로딩 (해당 시)
+- `error` - 에러 (Form 컴포넌트)
+- `success` - 성공 (Form 컴포넌트)
+- 컴포넌트별 커스텀 상태
+- Accordion의 `defaultValue`에 포함하여 기본 열림
+
+### 3.5 Rounded 섹션 (선택)
+
+```typescript
+<Section title="Rounded" value="rounded">
+  <View style={commonStyles.row}>
+    {ROUNDED.map(rounded => (
+      <ComponentName key={rounded} rounded={rounded}>
+        {rounded}
+      </ComponentName>
+    ))}
+  </View>
+</Section>
+```
+
+**패턴:**
+- 필요에 따라 Accordion의 `defaultValue`에 `'rounded'` 추가
+
+### 3.6 Shadows 섹션 (선택)
+
+```typescript
+<Section title="Shadows" value="shadows">
+  <View style={commonStyles.row}>
+    {SHADOWS.map(shadow => (
+      <ComponentName key={shadow} shadow={shadow}>
+        {shadow}
+      </ComponentName>
+    ))}
+  </View>
+</Section>
+```
+
+**주의사항:**
+- 배경색이 있는 container에서 테스트
+- Light/Dark 모드에서 shadow 가시성 확인
+- 필요에 따라 Accordion의 `defaultValue`에 `'shadows'` 추가
+
+### 3.7 Icon Compositions 섹션 (선택)
+
+```typescript
+<Section title="Icon Compositions" value="iconCompositions">
+  <View style={commonStyles.row}>
+    <ComponentName>Text Only</ComponentName>
+    <ComponentName leftIcon={<DemoIcon />}>Left Icon</ComponentName>
+    <ComponentName rightIcon={<DemoIcon />}>Right Icon</ComponentName>
+  </View>
+  <View style={commonStyles.row}>
+    <ComponentName leftIcon={<DemoIcon />} rightIcon={<DemoIcon />}>
+      Both Icons
+    </ComponentName>
+    <ComponentName leftIcon={<DemoIcon />} />
+    <ComponentName rightIcon={<DemoIcon />} />
+  </View>
+</Section>
+```
+
+**패턴:**
+- Text Only / Icon Left / Icon Right / Both Icons
+- Icon Only (왼쪽, 오른쪽)
+- `DemoIcon` 사용 (일관된 더미 아이콘)
+- Section의 기본 `gap`이 자동 적용됨
+- 필요에 따라 Accordion의 `defaultValue`에 `'iconCompositions'` 추가
+
+### 3.8 Full Width 섹션 (선택)
+
+```typescript
+<Section title="Full Width" value="fullWidth">
+  <View style={commonStyles.fullWidthContainer}>
+    <ComponentName fullWidth>Full Width Button</ComponentName>
+    <ComponentName extend>Extended Width</ComponentName>
+  </View>
+</Section>
+```
+
+**패턴:**
+- 필요에 따라 Accordion의 `defaultValue`에 `'fullWidth'` 추가
+
+---
+
+## 4. Props 상수 정의 규칙
+
+### 4.1 상수 위치
+
+파일 최상단, import 직후에 정의:
+
+```typescript
+import { ComponentName, type ComponentNameProps } from '@fleet-ui/components';
+// ... other imports
+
+// Props 상수 정의
+const VARIANTS: ComponentNameProps['variant'][] = ['filled', 'outlined', 'ghost'];
+const COLOR_SCHEMES: ComponentNameProps['colorScheme'][] = ['primary', 'neutral'];
+const SIZES: ComponentNameProps['size'][] = ['sm', 'md', 'lg'];
+
+export default function ComponentNameScreen() {
+  // ...
+}
+```
+
+### 4.2 타입 안전성
+
+```typescript
+// ✅ 올바른 - 타입 참조
+const VARIANTS: ComponentNameProps['variant'][] = ['filled', 'outlined'];
+
+// ✅ 올바른 - as const 사용
+const VARIANTS = ['filled', 'outlined'] as const;
+
+// ❌ 잘못된 - 타입 없음
+const VARIANTS = ['filled', 'outlined'];
+```
+
+### 4.3 순서 규칙
+
+**Variants**: 디자인 시스템 우선순위
+```typescript
+const VARIANTS = ['filled', 'outlined', 'flat', 'ghost', 'faded'] as const;
+```
+
+**Color Schemes**: 중요도 순서
+```typescript
+const COLOR_SCHEMES = [
+  'primary',   // 1순위
+  'neutral',   // 기본
+  'success',   // 긍정
+  'warning',   // 주의
+  'error',     // 에러
+  'info',      // 정보
+] as const;
+```
+
+**Sizes**: 작은 것부터 큰 순서
+```typescript
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+```
+
+**Rounded/Shadows**: 강도 순서
+```typescript
+const ROUNDED = ['none', 'xs', 'sm', 'md', 'lg', 'xl', 'full'] as const;
+const SHADOWS = ['none', 'sm', 'md', 'lg'] as const;
+```
+
+---
+
+## 5. 스타일링 규칙
+
+### 5.1 commonStyles 사용
+
+```typescript
+import { commonStyles } from '../../common/views';
+
+// ✅ 올바른 - commonStyles 사용
+<ScrollView style={commonStyles.container}>
+  <View style={commonStyles.content}>
+    <Accordion.Content>
+      <View style={commonStyles.row}>
+        {/* components */}
+      </View>
+    </Accordion.Content>
+  </View>
+</ScrollView>
+
+// ❌ 잘못된 - 인라인 스타일
+<View style={{ flexDirection: 'row', gap: 8 }}>
+```
+
+### 5.2 사용 가능한 commonStyles
+
+```typescript
+commonStyles.container       // ScrollView 기본 컨테이너 (insets 포함)
+commonStyles.content         // 내부 padding wrapper
+commonStyles.row             // 가로 배치 (gap, alignItems 포함)
+commonStyles.column          // 세로 배치 (gap 포함)
+commonStyles.fullWidthContainer  // 전체 너비 컨테이너
+```
+
+### 5.3 필수 페이지별 스타일
+
+```typescript
+const styles = StyleSheet.create((theme) => ({
+  // Overview 섹션용 (필수)
+  overviewContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing[8],
+  },
+  // 복잡한 섹션 내용용 (선택)
+  sectionContent: {
+    gap: theme.spacing[3],
+  },
+}));
+```
+
+### 5.4 커스텀 스타일 원칙
+
+**필수 스타일:**
+- `overviewContainer` - Overview 섹션에 사용
+- `sectionContent` - 여러 행이 있는 섹션에 사용
+
+**선택 스타일:**
+- 컴포넌트 특수성이 명확한 경우에만 추가
+- 토큰 기반 스타일링 (`theme.spacing`, `theme.colors` 등)
+- 가능한 한 `commonStyles` 재사용
+
+---
+
+## 6. 접근성 고려사항
+
+### 6.1 라벨 명확성
+
+```typescript
+// ✅ 올바른 - 명확한 라벨
+<ComponentName variant="filled">Filled Variant</ComponentName>
+
+// ❌ 잘못된 - 불명확한 라벨
+<ComponentName variant="filled">Click</ComponentName>
+```
+
+### 6.2 색상 대비
+
+- Color Schemes 섹션에서 모든 조합의 색상 대비 확인
+- Light/Dark 모드 모두 테스트
+
+### 6.3 터치 타겟
+
+- 작은 크기(xs, sm)도 최소 44x44 터치 영역 확보
+- 데모 목적이므로 spacing 충분히 확보
+
+---
+
+## 7. 체크리스트
+
+새 컴포넌트 데모 페이지 작성 시 확인:
 
 ### 필수 항목
 - [ ] `PageHeader`에 컴포넌트 이름과 설명 포함
-- [ ] **Overview 섹션** 최상단 구현 (`value="overview"`) ⭐
+- [ ] **Accordion 구조** 적용 (`type="multiple"`, `variant="flat"`)
+- [ ] **Overview 섹션** 최상단 구현 (기본 형태, `value="overview"`)
 - [ ] **Variants 섹션** 구현 (`value="variants"`)
 - [ ] **Color Schemes 섹션** 구현 (`value="colorSchemes"`)
 - [ ] **Sizes 섹션** 구현 (`value="sizes"`)
 - [ ] **States 섹션** 구현 (`value="states"`)
-- [ ] 모든 `Section`이 기본 열림인지 확인 (`defaultOpen` 기본값 true)
+- [ ] `defaultValue` 배열에 필수 섹션 모두 포함 (기본 열림)
 - [ ] Props 상수를 파일 상단에 타입 안전하게 정의
 - [ ] `commonStyles` 사용 (인라인 스타일 최소화)
 - [ ] 페이지별 스타일 (`overviewContainer`, `sectionContent`) 정의
-- [ ] 하드코딩된 색상/spacing 없음 (토큰 사용)
 - [ ] `_layout.tsx`에 `Stack.Screen` 추가
-- [ ] `components/index.tsx`의 COMPONENTS 배열에 추가
 
 ### 선택 항목
 - [ ] **Rounded** 섹션 (`value="rounded"`)
 - [ ] **Shadows** 섹션 (`value="shadows"`)
 - [ ] **Icon Compositions** 섹션 (`value="iconCompositions"`)
 - [ ] **Full Width** 섹션 (`value="fullWidth"`)
+- [ ] 컴포넌트별 특수 시각적 Props 섹션
 - [ ] 선택 섹션 필요 시 `defaultValue`에 추가
-- [ ] Showcase 필요 여부 검토 (섹션 5 참조)
 
 ### Accordion 구조 확인
-- [ ] 모든 `Section`에 고유한 `value`가 있거나 (권장) title 기반 자동 생성이 충돌하지 않는지
-- [ ] Overview 섹션이 기본 열림 상태인지 확인
+- [ ] 모든 `Accordion.Item`이 고유한 `value` prop 가짐
+- [ ] 각 `Accordion.Item`이 `Header`와 `Content` 포함
+- [ ] `Accordion.Header` 내부에 `<Text>` 컴포넌트로 제목 표시
+- [ ] `defaultValue`가 배열 형태로 올바르게 정의됨
 
 ### 품질 확인
 - [ ] Light/Dark 모드 모두 확인
 - [ ] 모든 variant/colorScheme 조합 렌더링 확인
-- [ ] 각 섹션 펼침/접힘 정상 작동 확인
+- [ ] Accordion 펼침/접힘 정상 작동 확인
+- [ ] Overview 섹션이 기본 열림 상태 확인
 - [ ] Embed 모드(`?embed=1`)에서 정상 작동 확인
+- [ ] 하드코딩된 색상/spacing 없음 (토큰 사용)
 
-**상세 체크리스트**: `playground-demo-page-template.mdc` 섹션 7 참조
+---
 
-## 5. Showcase 추가 기준
+## 8. 예제: Button 데모 페이지
 
-다음 조건에 해당하는 컴포넌트는 `/showcases/[slug].tsx`도 함께 작성을 고려합니다:
+완전한 예제는 `apps/playground/app/components/button.tsx`와 `apps/playground/app/components/actionbutton.tsx`를 참조하세요.
 
-| 조건 | 예시 컴포넌트 |
-| :--- | :--- |
-| 전체 화면/레이아웃 차지 | `TabBar`, `BottomSheetModal`, `Modal` |
-| 인터랙티브 시나리오 중심 | `Swiper`, `OTPInput`, `Accordion` |
-| 실제 사용 맥락이 중요 | `Toast`, `Menu`, `ContextHeader` |
+### 최소 구조 예제 (Section 컴포넌트 사용)
 
-Showcase는 `/components/[slug]`의 문서형 데모와 달리, **실제 앱처럼 보이는 인터랙티브 데모**입니다.
+```typescript
+import { Button, Accordion, type ButtonProps } from '@fleet-ui/components';
+import { ScrollView, View } from 'react-native';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { commonStyles, PageHeader, Section } from '../../common/views';
+
+const VARIANTS: ButtonProps['variant'][] = ['filled', 'outlined', 'ghost'];
+const COLOR_SCHEMES: ButtonProps['colorScheme'][] = ['primary', 'neutral', 'success', 'error'];
+const SIZES: ButtonProps['size'][] = ['sm', 'md', 'lg', 'xl'];
+
+export default function ButtonScreen() {
+  useUnistyles();
+  
+  return (
+    <ScrollView style={commonStyles.container}>
+      <View style={commonStyles.content}>
+        <PageHeader 
+          title="Button" 
+          description="Primary action component with variants, sizes, and color schemes." 
+        />
+
+        <Accordion 
+          type="multiple" 
+          defaultValue={['overview', 'variants', 'colorSchemes', 'sizes', 'states']}
+          variant="flat"
+          colorScheme="neutral"
+          gap="md"
+        >
+          {/* Overview */}
+          <Section title="Overview" value="overview">
+            <View style={styles.overviewContainer}>
+              <Button variant="filled">Click Me</Button>
+            </View>
+          </Section>
+
+          {/* Variants */}
+          <Section title="Variants" value="variants">
+            <View style={commonStyles.row}>
+              {VARIANTS.map(variant => (
+                <Button key={variant} variant={variant}>{variant}</Button>
+              ))}
+            </View>
+          </Section>
+
+          {/* Color Schemes */}
+          <Section title="Color Schemes" value="colorSchemes">
+            {COLOR_SCHEMES.map(scheme => (
+              <View key={scheme} style={commonStyles.row}>
+                {VARIANTS.map(variant => (
+                  <Button 
+                    key={`${scheme}-${variant}`}
+                    colorScheme={scheme} 
+                    variant={variant}
+                  >
+                    {scheme}
+                  </Button>
+                ))}
+              </View>
+            ))}
+          </Section>
+
+          {/* Sizes */}
+          <Section title="Sizes" value="sizes">
+            <View style={commonStyles.row}>
+              {SIZES.map(size => (
+                <Button key={size} size={size}>{size}</Button>
+              ))}
+            </View>
+          </Section>
+
+          {/* States */}
+          <Section title="States" value="states">
+            <View style={commonStyles.row}>
+              <Button>Default</Button>
+              <Button disabled>Disabled</Button>
+              <Button loading>Loading</Button>
+            </View>
+          </Section>
+        </Accordion>
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create((theme) => ({
+  overviewContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing[8],
+  },
+}));
+```
+
+**주요 개선사항:**
+- `Section` 컴포넌트 사용으로 코드 간결화
+- 중복 코드 제거 (Header, Content 래핑 불필요)
+- 자동 스타일링 (Section 내부에서 처리)
+- 기존 데모 페이지와 호환 가능
+
+---
+
+## 9. 참조
+
+- **Architecture Guide**: `playground-architecture-guide.mdc`
+- **Component Demo Guide**: `playground-component-demo-guide.mdc`
+- **Layer 2 Spec**: `design-system/layer2/component-spec-template.md`
+- **실제 예제**: 
+  - `apps/playground/app/components/button.tsx`
+  - `apps/playground/app/components/actionbutton.tsx`
 
 ---
 > Source: [Rengod95/Fleet-UI](https://github.com/Rengod95/Fleet-UI) — distributed by [TomeVault](https://tomevault.io).
