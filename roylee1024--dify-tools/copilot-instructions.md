@@ -1,108 +1,35 @@
-## coding-standards
+## project-overview
 
-> - Component files should use PascalCase (e.g., `ButtonCounter.vue`)
+> This is a Chrome extension built with Vue 3 that provides tools related to Dify functionality. The extension uses a modern frontend tech stack including Vue 3 (Composition API), Element Plus, and Tailwind CSS.
 
-# Coding Standards for Dify Tools Chrome Extension
+# Dify Tools Chrome Extension Overview
 
-## Vue Component Guidelines
+This is a Chrome extension built with Vue 3 that provides tools related to Dify functionality. The extension uses a modern frontend tech stack including Vue 3 (Composition API), Element Plus, and Tailwind CSS.
 
-### File Organization
-- Component files should use PascalCase (e.g., `ButtonCounter.vue`)
-- Each component should be in its own file
-- Related components should be grouped in subdirectories
+## Key Project Areas
 
-### Component Structure
-```vue
-<script setup>
-// imports first
-import { ref } from 'vue'
-import ChildComponent from './ChildComponent.vue'
+### Core Structure
+- [manifest.json](mdc:manifest.json) - The extension configuration file
+- [vite.config.js](mdc:vite.config.js) - Build configuration with Vite and CRXJS
 
-// props
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
-  }
-})
+### Pages
+- [src/pages/popup](mdc:src/pages/popup) - The extension popup UI
+- [src/pages/welcome](mdc:src/pages/welcome) - Welcome page for new users
 
-// emits
-const emit = defineEmits(['update', 'delete'])
+### Components
+- [src/components](mdc:src/components) - Reusable Vue components
 
-// reactive state
-const count = ref(0)
+### Utils
+- [src/utils](mdc:src/utils) - Helper functions and utilities
 
-// computed properties
-const doubleCount = computed(() => count.value * 2)
+## Development Guidelines
 
-// methods
-const increment = () => {
-  count.value++
-  emit('update', count.value)
-}
-</script>
-
-<template>
-  <div class="component-container">
-    <!-- Component template -->
-  </div>
-</template>
-
-<style scoped>
-/* Component styles */
-</style>
-```
-
-## CSS Guidelines
-
-### CSS Priority
-1. Use Tailwind CSS utility classes whenever possible
-2. Use Element Plus's built-in customization (when using Element Plus components)
-3. Use scoped CSS for component-specific styles
-4. Follow BEM naming convention for custom CSS classes
-
-### BEM Naming Example
-```css
-/* Block */
-.card {
-  /* ... */
-}
-
-/* Element */
-.card__title {
-  /* ... */
-}
-
-/* Modifier */
-.card--featured {
-  /* ... */
-}
-```
-
-## JavaScript Guidelines
-
-### General
-- Use ES6+ features
-- Use arrow functions for callbacks
-- Use async/await for asynchronous operations
-- Use destructuring for props and state
-
-### Naming Conventions
-- Use camelCase for variables, functions, and methods
-- Use PascalCase for components and classes
-- Use UPPER_SNAKE_CASE for constants
-
-### Imports Order
-1. External libraries
-2. Internal modules
-3. Components
-4. Assets/styles
-
-## Testing Guidelines
-
-- Write unit tests for utility functions
-- Write component tests for complex components
-- Make sure tests cover edge cases
+- Use Vue 3 Composition API for component development
+- Follow PascalCase for component filenames
+- Use kebab-case for component properties
+- Prefer Tailwind CSS classes for styling
+- Create scoped CSS for component-specific styles
+- Follow BEM naming convention for custom CSS classes
 
 ---
 > Source: [roylee1024/dify-tools](https://github.com/roylee1024/dify-tools) — distributed by [TomeVault](https://tomevault.io).
