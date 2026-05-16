@@ -1,0 +1,9 @@
+{
+  "name": "dmythro--terminal-setup",
+  "displayName": "terminal-setup",
+  "description": "One-command macOS Terminal.app bootstrap",
+  "version": "1.0.0",
+  "author": "dmythro",
+  "homepage": "https://github.com/dmythro/terminal-setup",
+  "skills": []
+}
