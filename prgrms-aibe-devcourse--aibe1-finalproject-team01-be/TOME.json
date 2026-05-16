@@ -1,0 +1,44 @@
+{
+  "name": "AIBE1-FinalProject-Team01-BE",
+  "owner": "prgrms-aibe-devcourse",
+  "repo": "AIBE1-FinalProject-Team01-BE",
+  "description": "\ud504\ub85c\uadf8\ub798\uba38\uc2a4 \ub370\ube0c\ucf54\uc2a4 \uc218\uac15\uc0dd\ub4e4\uc744 \uc704\ud55c \ucee4\ubba4\ub2c8\ud2f0",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/prgrms-aibe-devcourse/AIBE1-FinalProject-Team01-BE",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T08:07:52Z"
+}
