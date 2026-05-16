@@ -1,0 +1,9 @@
+{
+  "name": "uos--minot",
+  "displayName": "minot",
+  "description": "A versatile toolset for debugging and verifying stateful robot perception software.",
+  "version": "1.0.0",
+  "author": "uos",
+  "homepage": "https://github.com/uos/minot",
+  "skills": []
+}
