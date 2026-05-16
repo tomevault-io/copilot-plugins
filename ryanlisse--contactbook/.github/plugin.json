@@ -1,0 +1,9 @@
+{
+  "name": "ryanlisse--contactbook",
+  "displayName": "Contactbook",
+  "description": "macOS CLI and MCP server for Apple Contacts",
+  "version": "1.0.0",
+  "author": "RyanLisse",
+  "homepage": "https://github.com/RyanLisse/Contactbook",
+  "skills": []
+}
