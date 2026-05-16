@@ -7,11 +7,11 @@ Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ayrshare/marketingskills](https://github.com/ayrshare/marketingskills).
+Original source: `CLAUDE.md` in [ayrshare/marketingskills](https://github.com/ayrshare/marketingskills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
