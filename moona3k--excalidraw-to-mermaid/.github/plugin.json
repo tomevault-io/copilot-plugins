@@ -1,0 +1,9 @@
+{
+  "name": "moona3k--excalidraw-to-mermaid",
+  "displayName": "excalidraw-to-mermaid",
+  "description": "Convert Excalidraw diagrams to Mermaid syntax",
+  "version": "1.0.0",
+  "author": "moona3k",
+  "homepage": "https://github.com/moona3k/excalidraw-to-mermaid",
+  "skills": []
+}
