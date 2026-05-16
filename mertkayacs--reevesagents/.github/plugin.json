@@ -1,0 +1,9 @@
+{
+  "name": "mertkayacs--reevesagents",
+  "displayName": "reevesagents",
+  "description": "Multi-agent AI orchestration across Claude, Codex, and Gemini \u2014 no API keys, just subscriptions",
+  "version": "1.0.0",
+  "author": "mertkayacs",
+  "homepage": "https://github.com/mertkayacs/reevesagents",
+  "skills": []
+}
