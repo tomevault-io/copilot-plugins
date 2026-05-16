@@ -1,0 +1,9 @@
+{
+  "name": "w-m--latent-viewer",
+  "displayName": "latent-viewer",
+  "description": "A web viewer to explore latent spaces of generative 3DGS models",
+  "version": "1.0.0",
+  "author": "w-m",
+  "homepage": "https://github.com/w-m/latent-viewer",
+  "skills": []
+}
