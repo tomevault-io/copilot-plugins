@@ -1,0 +1,9 @@
+{
+  "name": "6--ccusage-macos-menubar",
+  "displayName": "ccusage-macos-menubar",
+  "description": "Small macOS menubar app to track Claude Code usage (wraps `ccusage` CLI)",
+  "version": "1.0.0",
+  "author": "6",
+  "homepage": "https://github.com/6/ccusage-macos-menubar",
+  "skills": []
+}
