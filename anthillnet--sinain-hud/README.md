@@ -7,11 +7,11 @@ Ambient intelligence that sees what you see, hears what you hear, and acts on yo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [anthillnet/sinain-hud](https://github.com/anthillnet/sinain-hud).
+Original source: `CLAUDE.md` in [anthillnet/sinain-hud](https://github.com/anthillnet/sinain-hud).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
