@@ -7,13 +7,13 @@ A collection of integrated memory bank rules for AI development tools.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank).
+Original source: `CLAUDE.md` in [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
