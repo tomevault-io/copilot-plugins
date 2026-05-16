@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-autofill-save-password",
+  "displayName": "capacitor-autofill-save-password",
+  "description": "Capacitor plugin to prompt to display dialog for saving password to keychain for iOS webview app.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-autofill-save-password",
+  "skills": []
+}
