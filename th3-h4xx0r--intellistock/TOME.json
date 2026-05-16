@@ -4,7 +4,7 @@
   "repo": "IntelliStock",
   "description": "IntelliStock is a self-hosted algorithmic trading platform you run on your own infrastructure. It builds strategies, runs backtests, monitors live positions, and answers questions about your portfolio; all from one workspace, against your own broker accounts.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Th3-H4xx0r/IntelliStock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T10:33:49Z"
+  "distributed_at": "2026-05-16T10:35:38Z"
 }
