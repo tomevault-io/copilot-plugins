@@ -1,0 +1,9 @@
+{
+  "name": "aaronontheweb--ubuntu-elgato-facecam",
+  "displayName": "ubuntu-elgato-facecam",
+  "description": "A Linux tray application aimed at making it easy to work with Elgato Facecam.",
+  "version": "1.0.0",
+  "author": "Aaronontheweb",
+  "homepage": "https://github.com/Aaronontheweb/ubuntu-elgato-facecam",
+  "skills": []
+}
