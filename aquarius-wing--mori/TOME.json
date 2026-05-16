@@ -4,7 +4,7 @@
   "repo": "mori",
   "description": "A privacy-first AI Agent app on iOS, help you build a better life.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aquarius-wing/mori",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:16:01Z"
+  "distributed_at": "2026-05-16T08:06:57Z"
 }
