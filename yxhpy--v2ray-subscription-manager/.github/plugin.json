@@ -1,0 +1,9 @@
+{
+  "name": "yxhpy--v2ray-subscription-manager",
+  "displayName": "v2ray-subscription-manager",
+  "description": "\u5f3a\u5927\u7684V2Ray\u8ba2\u9605\u89e3\u6790\u548c\u4ee3\u7406\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301VLESS\u3001SS\u3001Hysteria2\u534f\u8bae\uff0c\u81ea\u52a8\u4e0b\u8f7d\u6838\u5fc3\uff0c\u667a\u80fd\u4ee3\u7406\u7ba1\u7406",
+  "version": "1.0.0",
+  "author": "yxhpy",
+  "homepage": "https://github.com/yxhpy/v2ray-subscription-manager",
+  "skills": []
+}
