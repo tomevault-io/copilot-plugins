@@ -1,0 +1,9 @@
+{
+  "name": "guangzan--deepseek-lane",
+  "displayName": "deepseek-lane",
+  "description": "A local proxy that connects Cursor to DeepSeek thinking models, fixing the reasoning_content must be passed back error. \u8fde\u63a5 Cursor \u4e0e DeepSeek \u63a8\u7406\u6a21\u578b\u7684\u672c\u5730\u4ee3\u7406\uff0c\u4fee\u590d reasoning_content must be passed back \u95ee\u9898\u3002",
+  "version": "1.0.0",
+  "author": "guangzan",
+  "homepage": "https://github.com/guangzan/deepseek-lane",
+  "skills": []
+}
