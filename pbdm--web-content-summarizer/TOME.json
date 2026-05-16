@@ -4,7 +4,7 @@
   "repo": "web-content-summarizer",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pbdm/web-content-summarizer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T10:32:02Z"
+  "distributed_at": "2026-05-16T10:43:00Z"
 }
