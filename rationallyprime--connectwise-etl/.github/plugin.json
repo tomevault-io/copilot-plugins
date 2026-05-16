@@ -1,0 +1,9 @@
+{
+  "name": "rationallyprime--connectwise-etl",
+  "displayName": "connectwise-etl",
+  "description": "ConnectWise ETL framework for Microsoft Fabric",
+  "version": "1.0.0",
+  "author": "RationallyPrime",
+  "homepage": "https://github.com/RationallyPrime/connectwise-etl",
+  "skills": []
+}
