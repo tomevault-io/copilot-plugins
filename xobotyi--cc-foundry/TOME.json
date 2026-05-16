@@ -1,0 +1,201 @@
+{
+  "name": "cc-foundry",
+  "owner": "xobotyi",
+  "repo": "cc-foundry",
+  "description": "Claude Code foundry - plugins, skills, and tools",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility",
+      "path": "plugins/frontend/skills/accessibility",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/frontend/skills/accessibility",
+      "description": ""
+    },
+    {
+      "name": "bun",
+      "path": "plugins/javascript/skills/bun",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/javascript/skills/bun",
+      "description": ""
+    },
+    {
+      "name": "claude-code-sdk",
+      "path": "plugins/ai-helpers/skills/claude-code-sdk",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/ai-helpers/skills/claude-code-sdk",
+      "description": ""
+    },
+    {
+      "name": "code-quality-evaluation",
+      "path": "plugins/the-crucible/skills/code-quality-evaluation",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-crucible/skills/code-quality-evaluation",
+      "description": ""
+    },
+    {
+      "name": "coding",
+      "path": "plugins/the-coder/skills/coding",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-coder/skills/coding",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "path": "plugins/git-commit/skills/commit-message",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/git-commit/skills/commit-message",
+      "description": ""
+    },
+    {
+      "name": "css",
+      "path": "plugins/frontend/skills/css",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/frontend/skills/css",
+      "description": ""
+    },
+    {
+      "name": "design-documents",
+      "path": "plugins/the-blueprint/skills/design-documents",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-blueprint/skills/design-documents",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "path": "plugins/golang/skills/golang",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/golang/skills/golang",
+      "description": ""
+    },
+    {
+      "name": "javascript",
+      "path": "plugins/javascript/skills/javascript",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/javascript/skills/javascript",
+      "description": ""
+    },
+    {
+      "name": "nodejs",
+      "path": "plugins/javascript/skills/nodejs",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/javascript/skills/nodejs",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "path": "plugins/backend/skills/observability",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/backend/skills/observability",
+      "description": ""
+    },
+    {
+      "name": "output-style-engineering",
+      "path": "plugins/ai-helpers/skills/output-style-engineering",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/ai-helpers/skills/output-style-engineering",
+      "description": ""
+    },
+    {
+      "name": "prometheus",
+      "path": "plugins/backend/skills/prometheus",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/backend/skills/prometheus",
+      "description": ""
+    },
+    {
+      "name": "quality-validation",
+      "path": "plugins/the-crucible/skills/quality-validation",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-crucible/skills/quality-validation",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "plugins/frontend/skills/react",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/frontend/skills/react",
+      "description": ""
+    },
+    {
+      "name": "skill-engineering",
+      "path": "plugins/ai-helpers/skills/skill-engineering",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/ai-helpers/skills/skill-engineering",
+      "description": ""
+    },
+    {
+      "name": "statsd",
+      "path": "plugins/backend/skills/statsd",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/backend/skills/statsd",
+      "description": ""
+    },
+    {
+      "name": "subagent-engineering",
+      "path": "plugins/ai-helpers/skills/subagent-engineering",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/ai-helpers/skills/subagent-engineering",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "path": "plugins/frontend/skills/svelte",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/frontend/skills/svelte",
+      "description": ""
+    },
+    {
+      "name": "task-decomposition",
+      "path": "plugins/the-blueprint/skills/task-decomposition",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-blueprint/skills/task-decomposition",
+      "description": ""
+    },
+    {
+      "name": "technical-design",
+      "path": "plugins/the-blueprint/skills/technical-design",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/the-blueprint/skills/technical-design",
+      "description": ""
+    },
+    {
+      "name": "templ",
+      "path": "plugins/golang/skills/templ",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/golang/skills/templ",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "plugins/javascript/skills/typescript",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/javascript/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": "plugins/javascript/skills/vitest",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/javascript/skills/vitest",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "plugins/frontend/skills/vue",
+      "github_url": "https://github.com/xobotyi/cc-foundry/tree/main/plugins/frontend/skills/vue",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xobotyi/cc-foundry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T04:30:46Z"
+}
