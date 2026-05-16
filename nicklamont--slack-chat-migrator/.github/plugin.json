@@ -1,0 +1,9 @@
+{
+  "name": "nicklamont--slack-chat-migrator",
+  "displayName": "slack-chat-migrator",
+  "description": "Slack to Google Chat Migration Tool",
+  "version": "1.0.0",
+  "author": "nicklamont",
+  "homepage": "https://github.com/nicklamont/slack-chat-migrator",
+  "skills": []
+}
