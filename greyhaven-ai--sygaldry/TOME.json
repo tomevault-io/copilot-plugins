@@ -4,7 +4,7 @@
   "repo": "sygaldry",
   "description": "Discover and integrate reusable agents and tools into your Python projects",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/greyhaven-ai/sygaldry",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T00:57:31Z"
+  "distributed_at": "2026-05-16T01:51:01Z"
 }
