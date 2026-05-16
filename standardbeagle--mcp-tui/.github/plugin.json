@@ -1,0 +1,9 @@
+{
+  "name": "standardbeagle--mcp-tui",
+  "displayName": "mcp-tui",
+  "description": "Fast terminal UI and CLI for testing, debugging, and automating Model Context Protocol (MCP) servers. STDIO, SSE, HTTP, Streamable HTTP. Built on the official MCP Go SDK.",
+  "version": "1.0.0",
+  "author": "standardbeagle",
+  "homepage": "https://github.com/standardbeagle/mcp-tui",
+  "skills": []
+}
