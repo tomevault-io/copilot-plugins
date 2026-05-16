@@ -1,0 +1,9 @@
+{
+  "name": "qfpqhyl--webmonitor",
+  "displayName": "WebMonitor",
+  "description": "\ud83d\udc0d \u57fa\u4e8e Python \u7684\u7f51\u9875\u5185\u5bb9\u81ea\u52a8\u76d1\u63a7\u53ca\u90ae\u4ef6\u901a\u77e5\u5de5\u5177\uff0c\u9002\u7528\u4e8e\u68c0\u6d4b\u7f51\u9875\u6307\u5b9a\u533a\u57df\u5185\u5bb9\u7684\u53d8\u5316\uff0c\u5e76\u5728\u53d1\u751f\u53d8\u52a8\u65f6\u901a\u8fc7\u90ae\u4ef6\u8fdb\u884c\u63d0\u9192\u3002 | \ud83d\udc0d A Python-based web content monitoring and email notification tool, designed to detect changes in specific sections of a webpage and s",
+  "version": "1.0.0",
+  "author": "qfpqhyl",
+  "homepage": "https://github.com/qfpqhyl/WebMonitor",
+  "skills": []
+}
