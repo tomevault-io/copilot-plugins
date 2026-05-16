@@ -1,0 +1,9 @@
+{
+  "name": "zuoliangyu--wos-fetch",
+  "displayName": "wos-fetch",
+  "description": "Web of Science literature fetcher with full-text downloading. Runs locally, uses your own WoS access.",
+  "version": "1.0.0",
+  "author": "zuoliangyu",
+  "homepage": "https://github.com/zuoliangyu/wos-fetch",
+  "skills": []
+}
