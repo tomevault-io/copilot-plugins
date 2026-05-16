@@ -1,0 +1,9 @@
+{
+  "name": "mumez--pharo-smalltalk-interop-mcp-server",
+  "displayName": "pharo-smalltalk-interop-mcp-server",
+  "description": "A local MCP server to communicate local Pharo Smalltalk image",
+  "version": "1.0.0",
+  "author": "mumez",
+  "homepage": "https://github.com/mumez/pharo-smalltalk-interop-mcp-server",
+  "skills": []
+}
