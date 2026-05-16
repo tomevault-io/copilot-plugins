@@ -1,0 +1,9 @@
+{
+  "name": "hongsw--claude-agents-power-mcp-server",
+  "displayName": "claude-agents-power-mcp-server",
+  "description": "MCP server for recommending and installing project-specific pair programming roles",
+  "version": "1.0.0",
+  "author": "hongsw",
+  "homepage": "https://github.com/hongsw/claude-agents-power-mcp-server",
+  "skills": []
+}
