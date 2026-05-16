@@ -1,0 +1,9 @@
+{
+  "name": "tideshift-labs--fathom",
+  "displayName": "Fathom",
+  "description": "A Rider Plugin for improving UE5 C++ development for your LLM agent of choice ",
+  "version": "1.0.0",
+  "author": "Tideshift-Labs",
+  "homepage": "https://github.com/Tideshift-Labs/Fathom",
+  "skills": []
+}
