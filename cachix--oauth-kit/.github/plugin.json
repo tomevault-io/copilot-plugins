@@ -1,0 +1,9 @@
+{
+  "name": "cachix--oauth-kit",
+  "displayName": "oauth-kit",
+  "description": "Batteries-included OAuth/OIDC client library for Rust with normalized user profiles and plug-and-play axum integration.",
+  "version": "1.0.0",
+  "author": "cachix",
+  "homepage": "https://github.com/cachix/oauth-kit",
+  "skills": []
+}
