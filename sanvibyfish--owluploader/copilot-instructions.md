@@ -1,57 +1,60 @@
-## 02-fileandbucketlistviews
+## 03-mainappviewandnavigation
 
-> 本规则关注 OwlUploader 应用中用于展示和操作存储桶及文件列表的核心视图组件，以及相关的用户体验优化。
+> 本规则主要描述 OwlUploader 应用的整体结构、主视图 (`ContentView.swift`)、应用入口 (`OwlUploaderApp.swift`) 以及导航相关的组件和逻辑。
 
-# 规则 02: 文件与存储桶列表视图
+\
+# 规则 03: 应用主视图与导航
 
 ## 概述
-本规则关注 OwlUploader 应用中用于展示和操作存储桶及文件列表的核心视图组件，以及相关的用户体验优化。
+本规则主要描述 OwlUploader 应用的整体结构、主视图 (`ContentView.swift`)、应用入口 (`OwlUploaderApp.swift`) 以及导航相关的组件和逻辑。
 
-## 存储桶选择: BucketListView
-`BucketListView.swift` 负责在用户连接账户后，展示存储桶列表（如果权限允许）或提供手动输入存储桶名称的界面。
+## 应用入口: OwlUploaderApp
+`OwlUploaderApp.swift` 是 SwiftUI 应用的入口点。
 
-### 主要功能
-- 如果 API Token 有 `listBuckets` 权限，则列出所有可访问的存储桶。
-- 如果没有 `listBuckets` 权限，或用户配置了默认存储桶，则尝试自动连接默认存储桶。
-- 提供手动输入存储桶名称的界面，并通过 `R2Service.selectBucketDirectly()` 方法验证和选择。
-- 显示连接状态和错误信息。
+### 主要职责
+- 定义应用的主场景 (`WindowGroup`)，其中包含 `ContentView`。
+- 设置应用的默认窗口大小。参考近期优化：`.defaultSize(width: 1200, height: 800)`。
+- 可以包含应用级别的命令和菜单配置。例如，移除了不必要的"新建"菜单项。
 
-### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **智能化改进**: 如果配置时设置过默认存储桶，此界面会尝试自动连接，避免用户重复输入。
-- **多状态支持**: 界面能根据连接状态（已选择、自动连接中、手动输入等）显示不同内容。
+## 主视图: ContentView
+`ContentView.swift` 是应用的顶层视图，负责组织应用的整体布局和主要导航流程。
 
-## 文件列表: FileListView & FileListItemView
-- **`FileListView.swift`**: 这是应用的主要文件管理界面，负责展示当前选定存储桶中的文件和文件夹列表。它处理文件/文件夹的点击操作、导航、加载状态等。
-- **`FileListItemView.swift`**: 定义了文件列表中每一行（文件或文件夹）的显示样式和交互。
-- **`FileObject.swift`**: 代表文件或文件夹的数据模型，包含名称、路径、大小、是否为文件夹等属性。
-
-### 主要功能
-- 显示文件和文件夹列表，区分图标。
-- 支持进入文件夹、返回上一级。
-- **新建文件夹**: 通过 `CreateFolderSheet.swift` 弹窗实现。近期修复了文件夹名称验证逻辑中的多个 BUG，包括对连字符的支持以及 R2 平台对于文件夹对象键处理的兼容性问题。
-- 上传文件: 通过 `.fileImporter` 选择文件，并调用 `R2Service.uploadFile`。近期重点解决了 macOS 沙盒环境下的文件访问权限问题。
-- **复制文件链接 (新功能)**: 为文件行添加了复制其公共访问链接到剪贴板的功能。链接的生成会考虑用户是否配置了公共域名。
-- 删除文件/文件夹。
-- 显示加载状态、空列表提示、错误信息等。
+### 主要功能与布局
+- **`NavigationView`**: 使用 `.navigationViewStyle(.columns)` 来确保在 macOS 上侧边栏始终可见，这是近期修复侧边栏显示不稳定问题的一部分。
+- **侧边栏 (Sidebar)**: 
+    - 提供到不同功能模块的导航链接，如欢迎页、账户设置、存储桶选择、文件管理。
+    - 侧边栏的菜单项会根据连接状态和存储桶选择状态动态启用/禁用。近期通过条件渲染替代 `.disabled()` 修复了状态同步问题。
+    - 底部包含连接状态显示和断开连接按钮。近期对断开连接按钮的样式和布局进行了优化。
+- **内容区域**: 根据侧边栏的选择动态显示不同的视图（欢迎、设置、存储桶列表、文件列表）。
+- **状态管理**: 观察 `R2Service` 的状态变化 (如 `isConnected`, `selectedBucket`) 来更新 UI 和导航行为。
+- **智能引导流程**: 
+    - 欢迎页面会根据连接状态提供不同的操作引导按钮（配置账户、选择存储桶、开始管理文件）。
+    - 连接成功或选择存储桶后，会自动导航到相应的下一步视图。
+    - 近期添加了始终可用的"重新配置账户"按钮到欢迎页，以提高容错性。
 
 ### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **新建文件夹流程修复**: 解决了输入框无法输入、文件夹名称验证错误（特别是连字符 `-` 的处理）、以及 Cloudflare R2 对文件夹对象 key 处理方式不一致导致的问题。
-- **macOS 沙盒文件上传权限修复**: 通过在 `fileImporter` 回调中立即读取文件数据，并在权限范围内完成所有必要操作，彻底解决了沙盒环境下的文件访问权限问题 (NSCocoaErrorDomain Code=257)。
-- **交互模式优化**: 文件夹和面包屑导航统一改为单击操作，移除了双击。
-- **文件夹样式简化**: 移除了文件夹列表项额外的背景色和边框，使其样式更简洁，与文件项统一。
-- **ForEach ID 重复警告修复**: 在 `R2Service.listObjects()` 中添加了去重逻辑，避免因 R2 返回的 `CommonPrefixes` 和 `Contents` 中可能存在的重复对象导致 SwiftUI 列表渲染问题。
-- **列表跳转闪屏优化**: 移除了不必要的加载状态设置，使文件夹导航更流畅。
+- **侧边栏显示修复**: 将 `NavigationView` 样式从 `.automatic` 改为 `.columns`，确保侧边栏始终可见。
+- **连接成功后流程优化**: 实现了测试连接成功后自动保存配置、自动连接服务并导航到存储桶选择页面的顺畅流程。
+- **侧边栏菜单状态同步修复**: 改用条件渲染（`if r2Service.isConnected`) 替代 `.disabled()`，解决了 `NavigationLink` 禁用状态更新不及时的 BUG。
+- **欢迎页面配置入口优化**: 添加了在任何状态下都可用的"重新配置账户"按钮。
+- **主内容区域尺寸优化**: 为内容区域设置了 `minWidth`, `idealWidth`, `maxWidth` 等约束，以优化不同窗口尺寸下的显示效果。
+- **左侧菜单栏断开连接按钮布局优化**: 改进了按钮样式和周围元素的间距，提升了视觉效果。
+
+## 路径导航: BreadcrumbView
+`BreadcrumbView.swift` 用于在文件列表中显示当前的文件夹路径，并允许用户通过点击路径组件快速跳转到上级目录。
+
+### 主要功能
+- 解析当前文件路径并显示为可点击的面包屑导航项。
+- 点击面包屑项可以导航到对应的父文件夹。
+- 交互模式近期从双击优化为单击，与文件列表的文件夹点击行为保持一致。
 
 ### 关键文件
-- 存储桶选择界面: [OwlUploader/BucketListView.swift](mdc:OwlUploader/BucketListView.swift)
-- 存储桶数据模型: [OwlUploader/BucketItem.swift](mdc:OwlUploader/BucketItem.swift)
-- 文件列表界面: [OwlUploader/FileListView.swift](mdc:OwlUploader/FileListView.swift)
-- 文件列表项视图: [OwlUploader/FileListItemView.swift](mdc:OwlUploader/FileListItemView.swift)
-- 文件对象模型: [OwlUploader/FileObject.swift](mdc:OwlUploader/FileObject.swift)
-- 新建文件夹弹窗: [OwlUploader/CreateFolderSheet.swift](mdc:OwlUploader/CreateFolderSheet.swift)
+- 应用入口: [OwlUploader/OwlUploaderApp.swift](mdc:OwlUploader/OwlUploaderApp.swift)
+- 主视图与导航: [OwlUploader/ContentView.swift](mdc:OwlUploader/ContentView.swift)
+- 路径导航栏: [OwlUploader/BreadcrumbView.swift](mdc:OwlUploader/BreadcrumbView.swift)
 - 开发日志: [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)
 
-此规则详细介绍了文件和存储桶的展示逻辑、用户交互以及近期大量的 BUG 修复和体验优化，这些是用户直接感知的功能核心。
+此规则帮助 AI 理解应用的整体结构、主要的 UI 容器以及导航逻辑和相关的近期改进。
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
