@@ -1,0 +1,9 @@
+{
+  "name": "foxtrottwist--shortcuts-mcp",
+  "displayName": "shortcuts-mcp",
+  "description": "TypeScript MCP server that connects Claude to your macOS Shortcuts. See your available shortcuts and execute workflows with custom input.",
+  "version": "1.0.0",
+  "author": "foxtrottwist",
+  "homepage": "https://github.com/foxtrottwist/shortcuts-mcp",
+  "skills": []
+}
