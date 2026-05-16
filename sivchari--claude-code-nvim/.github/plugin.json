@@ -1,0 +1,9 @@
+{
+  "name": "sivchari--claude-code-nvim",
+  "displayName": "claude-code.nvim",
+  "description": "A streamlined Neovim plugin for seamlessly using Claude Code with git worktree support.",
+  "version": "1.0.0",
+  "author": "sivchari",
+  "homepage": "https://github.com/sivchari/claude-code.nvim",
+  "skills": []
+}
