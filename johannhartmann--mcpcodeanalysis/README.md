@@ -7,11 +7,11 @@ A code understanding MCP server. Let's see if we can use it to refactor code.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [johannhartmann/mcpcodeanalysis](https://github.com/johannhartmann/mcpcodeanalysis).
+Original source: `CLAUDE.md` in [johannhartmann/mcpcodeanalysis](https://github.com/johannhartmann/mcpcodeanalysis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
