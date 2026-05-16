@@ -1,0 +1,9 @@
+{
+  "name": "ministryplatform-community--mpnext",
+  "displayName": "MPNext",
+  "description": "NextJS Application Integrated with MP Authentication and REST API",
+  "version": "1.0.0",
+  "author": "MinistryPlatform-Community",
+  "homepage": "https://github.com/MinistryPlatform-Community/MPNext",
+  "skills": []
+}
