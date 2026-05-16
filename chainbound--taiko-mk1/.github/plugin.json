@@ -1,0 +1,9 @@
+{
+  "name": "chainbound--taiko-mk1",
+  "displayName": "taiko-mk1",
+  "description": "MK1 Taiko sequencer sidecar",
+  "version": "1.0.0",
+  "author": "chainbound",
+  "homepage": "https://github.com/chainbound/taiko-mk1",
+  "skills": []
+}
