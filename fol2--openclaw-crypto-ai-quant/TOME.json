@@ -4,7 +4,7 @@
   "repo": "openclaw-crypto-ai-quant",
   "description": "AI-powered crypto perpetual futures trading engine with GPU-accelerated backtesting",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fol2/openclaw-crypto-ai-quant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:44:46Z"
+  "distributed_at": "2026-05-16T08:50:42Z"
 }
