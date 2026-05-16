@@ -1,0 +1,9 @@
+{
+  "name": "twitchax--triage-bot",
+  "displayName": "triage-bot",
+  "description": "An OpenAI-powered triage bot for a slack support channel designed to tag oncalls, prioritize issues, suggest solutions, and streamline communication.",
+  "version": "1.0.0",
+  "author": "twitchax",
+  "homepage": "https://github.com/twitchax/triage-bot",
+  "skills": []
+}
