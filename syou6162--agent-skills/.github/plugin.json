@@ -1,0 +1,9 @@
+{
+  "name": "syou6162--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Claude Code\u7528\u30ab\u30b9\u30bf\u30e0\u30b9\u30e9\u30c3\u30b7\u30e5\u30b3\u30de\u30f3\u30c9\u96c6 - PR\u4f5c\u6210\u30fb\u30ec\u30d3\u30e5\u30fc\u30fb\u30b3\u30df\u30c3\u30c8\u7ba1\u7406\u3092\u52b9\u7387\u5316\u3059\u308b\u30b3\u30de\u30f3\u30c9\u30bb\u30c3\u30c8",
+  "version": "1.0.0",
+  "author": "syou6162",
+  "homepage": "https://github.com/syou6162/agent-skills",
+  "skills": []
+}
