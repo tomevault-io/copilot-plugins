@@ -4,7 +4,7 @@
   "repo": "go-shp",
   "description": "\u4e00\u4e2a\u7528\u4e8e\u8bfb\u5199 ESRI Shapefile \u683c\u5f0f\u7684 Go \u8bed\u8a00\u5e93\u3002\u652f\u6301\u6240\u6709\u6807\u51c6\u7684 Shapefile \u51e0\u4f55\u7c7b\u578b\uff0c\u5305\u62ec\u70b9\u3001\u7ebf\u3001\u9762\u4ee5\u53ca\u5b83\u4eec\u7684 Z \u503c\u548c M \u503c\u53d8\u4f53\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WangNingkai/go-shp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T03:30:08Z"
+  "distributed_at": "2026-05-16T04:03:29Z"
 }
