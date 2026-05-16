@@ -1,0 +1,9 @@
+{
+  "name": "sean7218--bazel-build-server",
+  "displayName": "bazel-build-server",
+  "description": "bazel build server for sourcekit-lsp",
+  "version": "1.0.0",
+  "author": "sean7218",
+  "homepage": "https://github.com/sean7218/bazel-build-server",
+  "skills": []
+}
