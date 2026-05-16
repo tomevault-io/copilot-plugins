@@ -1,26 +1,43 @@
-## posthog-integration
+## tech-stackexample
 
-> apply when interacting with PostHog/analytics tasks
+> - Tech stack: Next.JS, React, Tailwind, ShadCN, Supabase postgres, npm
 
-Never hallucinate an API key. Instead, always use the API key populated in the .env file.
 
-# Feature flags
+- Tech stack: Next.JS, React, Tailwind, ShadCN, Supabase postgres, npm
+- Use `npx shadcn add` to add new shadcn components.
+- You are not able to see or modify .env files directly - so tell the user what they should add to the file if needed.
+- Avoid classes/OOP and use a functional programming style.
+- Never try to start the app itself (I have it running in a separate terminal)
+- Recommend frequent GitHub commits but never execute without user approval 
 
-A given feature flag should be used in as few places as possible. Do not increase the risk of undefined behavior by scattering the same feature flag across multiple areas of code. If the same feature flag needs to be introduced at multiple callsites, flag this for the developer to inspect carefully.
+- Interact with Supabase, Posthog and Notion directly via MCP
+- Interact with GitHub using CLI commands
 
-If a job requires creating new feature flag names, make them as clear and descriptive as possible.
+- Follow @coding-principles.md and @design-system.md when proposing implementation plans
 
-If using TypeScript, use an enum to store flag names. If using JavaScript, store flag names as strings to an object declared as a constant, to simulate an enum. Use a consistent naming convention for this storage. enum/const object members should be written UPPERCASE_WITH_UNDERSCORE.
+Framework: Next.js (App Router)
+Language: TypeScript
+Library: React
+Styling: Tailwind CSS
+UI Components: shadcn/ui
+Authentication: Privy
+Database: Supabase
+AI Integration: Vercel AI SDK
+State & Cache: TanStack Query + Vercel unstable_cache
+Hosting: Vercel
+Package Manager: npm
+Code Quality: ESLint + Prettier
 
-Gate flag-dependent code on a check that verifies the flag's values are valid and expected.
 
-# Custom properties
 
-If a custom property for a person or event is at any point referenced in two or more files or two or more callsites in the same file, use an enum or const object, as above in feature flags.
-
-# Naming
-
-Before creating any new event or property names, consult with the developer for any existing naming convention. Consistency in naming is essential, and additional context may exist outside this project. Similarly, be careful about any changes to existing event and property names, as this may break reporting and distort data for the project.
+### CODING INSTRUCTIONS ###
+- Write the absolute minimum code required
+- No sweeping changes
+- No unrelated edits - focus on just the task you're on
+- Make code precise, modular, testable
+- Don’t break existing functionality
+- If I need to do anything (e.g. Supabase/AWS config), tell me clearly
+- Avoid custom components as much as possible. Default to shadcn/ui components and reuse existing components before creating new ones
 
 ---
 > Source: [talentprotocol/creator-score-miniapp](https://github.com/talentprotocol/creator-score-miniapp) — distributed by [TomeVault](https://tomevault.io).
