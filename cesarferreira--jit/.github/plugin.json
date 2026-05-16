@@ -1,0 +1,9 @@
+{
+  "name": "cesarferreira--jit",
+  "displayName": "jit",
+  "description": "Jira CLI for ticket lookup, detailed issue inspection, sprint views, and creating or editing issues from the terminal.",
+  "version": "1.0.0",
+  "author": "cesarferreira",
+  "homepage": "https://github.com/cesarferreira/jit",
+  "skills": []
+}
