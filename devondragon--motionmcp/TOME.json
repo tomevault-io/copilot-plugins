@@ -4,7 +4,7 @@
   "repo": "MotionMCP",
   "description": "MCP Server for Use Motion Task Management System",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/devondragon/MotionMCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:03:12Z"
+  "distributed_at": "2026-05-16T08:34:55Z"
 }
