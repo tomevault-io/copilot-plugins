@@ -1,0 +1,9 @@
+{
+  "name": "basionwang-bot--hermespet",
+  "displayName": "HermesPet",
+  "description": "\u8ba9 AI \u4f4f\u5728\u4f60 MacBook \u7684\u5218\u6d77\u91cc \u00b7 \u96f6\u4f9d\u8d56\u5f00\u7bb1\u5373\u7528 \u00b7 \u591a\u5f15\u64ce\u5e76\u884c\u7684\u684c\u9762 AI \u4f34\u4fa3\uff08Swift 6 / SwiftUI / macOS 14+\uff09",
+  "version": "1.0.0",
+  "author": "basionwang-bot",
+  "homepage": "https://github.com/basionwang-bot/HermesPet",
+  "skills": []
+}
