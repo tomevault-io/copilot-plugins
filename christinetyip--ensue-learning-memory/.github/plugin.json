@@ -1,0 +1,9 @@
+{
+  "name": "christinetyip--ensue-learning-memory",
+  "displayName": "ensue-learning-memory",
+  "description": "Learning-focused Ensue memory plugin for Claude Code - build deep understanding, not just notes",
+  "version": "1.0.0",
+  "author": "christinetyip",
+  "homepage": "https://github.com/christinetyip/ensue-learning-memory",
+  "skills": []
+}
