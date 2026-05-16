@@ -1,0 +1,9 @@
+{
+  "name": "joypad-ai--joypad-tester",
+  "displayName": "joypad-tester",
+  "description": "Multi-console homebrew controller test ROMs (GameCube/Wii, N64-via-adapter, more to come)",
+  "version": "1.0.0",
+  "author": "joypad-ai",
+  "homepage": "https://github.com/joypad-ai/joypad-tester",
+  "skills": []
+}
