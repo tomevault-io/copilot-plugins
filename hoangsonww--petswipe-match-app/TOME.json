@@ -4,7 +4,7 @@
   "repo": "PetSwipe-Match-App",
   "description": "\ud83d\udc3b A Tinder-inspired pet adoption app where you swipe to navigate, \u201cadopt\u201d, or \u201cpass\u201d on shelter animals. Built & deployed with PostgreSQL, Express, Node.js, TypeORM, Next.js, AWS, Agentic AI, MCP, Datadog, and many other modern technologies for a fun, real-time experience \ud83d\udc31\ud83d\udc36",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/PetSwipe-Match-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:05:59Z"
+  "distributed_at": "2026-05-16T08:36:45Z"
 }
