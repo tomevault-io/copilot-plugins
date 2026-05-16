@@ -1,0 +1,9 @@
+{
+  "name": "ksterx--srunx",
+  "displayName": "srunx",
+  "description": "A modern Python library for SLURM workload manager integration with workflow orchestration capabilities.",
+  "version": "1.0.0",
+  "author": "ksterx",
+  "homepage": "https://github.com/ksterx/srunx",
+  "skills": []
+}
