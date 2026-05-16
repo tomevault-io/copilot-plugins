@@ -1,0 +1,9 @@
+{
+  "name": "little-scale--chiller-max-external",
+  "displayName": "chiller-max-external",
+  "description": "A Max/MSP external that performs real-time spectral freezing of audio buffer content, creating evolving drones and textural sounds through FFT-based granular synthesis.",
+  "version": "1.0.0",
+  "author": "little-scale",
+  "homepage": "https://github.com/little-scale/chiller-max-external",
+  "skills": []
+}
