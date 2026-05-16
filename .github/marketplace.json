@@ -127829,6 +127829,46 @@
       "description": "Learning-focused Ensue memory plugin for Claude Code - build deep understanding, not just notes"
     },
     {
+      "name": "huanmin123--juhe-ai",
+      "source": "./huanmin123--juhe-ai",
+      "description": "\u9762\u5411\u4e2a\u4eba\u4e0e\u56e2\u961f\u7684\u8f7b\u91cf\u7ea7\u805a\u5408 AI \u4e2d\u8f6c\u4e0e\u8d26\u53f7\u7ba1\u7406\u7cfb\u7edf\uff0c\u805a\u7126 OpenAI \u517c\u5bb9\u63a5\u5165\uff0c\u652f\u6301\u591a\u8d26\u6237\u7edf\u4e00\u7ba1\u7406\u3001\u6388\u6743\u5206\u7ec4\u3001API Key \u7ed1\u5b9a\u4e0e\u81ea\u52a8\u5207\u6362\uff0c\u964d\u4f4e\u8d26\u53f7\u8c03\u5ea6\u548c\u6743\u9650\u7ba1\u7406\u590d\u6742\u5ea6\uff0c\u8ba9 AI \u670d\u52a1\u66f4\u7a33\u5b9a\u4e0d\u4e2d\u65ad\u3002"
+    },
+    {
+      "name": "sleepypod--core",
+      "source": "./sleepypod--core",
+      "description": "Sleepypod Core \u2014 server for pod hardware control, scheduling, biometrics processing, and API"
+    },
+    {
+      "name": "eddmann--whatsapp-cli",
+      "source": "./eddmann--whatsapp-cli",
+      "description": "WhatsApp from your terminal. Pipe it, script it, automate it."
+    },
+    {
+      "name": "sleepypod--core",
+      "source": "./sleepypod--core",
+      "description": "Sleepypod Core \u2014 server for pod hardware control, scheduling, biometrics processing, and API"
+    },
+    {
+      "name": "framist--n2n-maid",
+      "source": "./framist--n2n-maid",
+      "description": "\u4e00\u4e2a\u5f00\u6e90\u8de8\u5e73\u53f0\u5e76\u4e14\u53ef\u7231\u7684 N2N \u56fe\u5f62\u754c\u9762\u5ba2\u6237\u7aef | Cute N2N GUI Client based on Tauri 2 + React 18"
+    },
+    {
+      "name": "eddmann--whatsapp-cli",
+      "source": "./eddmann--whatsapp-cli",
+      "description": "WhatsApp from your terminal. Pipe it, script it, automate it."
+    },
+    {
+      "name": "ezyang--ghinbox",
+      "source": "./ezyang--ghinbox",
+      "description": "GitHub simulator"
+    },
+    {
+      "name": "kweaver-ai--sandbox",
+      "source": "./kweaver-ai--sandbox",
+      "description": "Sandbox Runtime is a high-performance code execution service designed for AI Agent applications. It provides multi-layered security isolation mechanisms to ensure untrusted code executes safely in con"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136064,6 +136104,81 @@
       "description": "A repository for tools/scripts and info on the Helix Stadium wireless editing protocol. This repository is not official and unaffiliated with Line 6. Be careful."
     },
     {
+      "name": "cemini23--cybersecurity-wiki",
+      "source": "./cemini23--cybersecurity-wiki",
+      "description": "Local knowledge hub for cybersecurity research, training, and offensive/defensive operations. Seeded from a 227-PDF corpus by Joas A Santos."
+    },
+    {
+      "name": "rengod95--fleet-ui",
+      "source": "./rengod95--fleet-ui",
+      "description": "Fleet-UI"
+    },
+    {
+      "name": "roy2100--lizhi-song-player",
+      "source": "./roy2100--lizhi-song-player",
+      "description": "\u4e00\u4e2a Apple Music \u98ce\u683c\u7684\u674e\u5fd7\u97f3\u4e50\u64ad\u653e\u5668"
+    },
+    {
+      "name": "rengod95--fleet-ui",
+      "source": "./rengod95--fleet-ui",
+      "description": "Fleet-UI"
+    },
+    {
+      "name": "trevorwise16--ray-tracer",
+      "source": "./trevorwise16--ray-tracer",
+      "description": "ray-tracer"
+    },
+    {
+      "name": "rengod95--fleet-ui",
+      "source": "./rengod95--fleet-ui",
+      "description": "Fleet-UI"
+    },
+    {
+      "name": "rengod95--fleet-ui",
+      "source": "./rengod95--fleet-ui",
+      "description": "Fleet-UI"
+    },
+    {
+      "name": "musicadam--openspec-viewer",
+      "source": "./musicadam--openspec-viewer",
+      "description": "Interactive browser viewer for OpenSpec directories - live-reloading documentation viewer with markdown rendering, file watching, and search"
+    },
+    {
+      "name": "run-vibes--vibes",
+      "source": "./run-vibes--vibes",
+      "description": "The vibe engineering mech suit"
+    },
+    {
+      "name": "double-tu--blinko-to-obsidian",
+      "source": "./double-tu--blinko-to-obsidian",
+      "description": "blinko-to-obsidian"
+    },
+    {
+      "name": "olehsvyrydov--ai-development-team",
+      "source": "./olehsvyrydov--ai-development-team",
+      "description": "AI Development Team - 15 specialized Claude Code skills (agents) that simulate a complete software development team. Includes Product Owner, Architects, Developers, Testers, DevOps, and more."
+    },
+    {
+      "name": "yellowcooln--meshcore-mqtt-dashboard",
+      "source": "./yellowcooln--meshcore-mqtt-dashboard",
+      "description": "A lightweight dashboard for MQTT brokers that tracks nodes"
+    },
+    {
+      "name": "vedanta--the-system",
+      "source": "./vedanta--the-system",
+      "description": "Org-aligned multi-agent orchestration framework with roles, stages, human gates and autonomous execution"
+    },
+    {
+      "name": "danielss-dev--dbfordevs",
+      "source": "./danielss-dev--dbfordevs",
+      "description": "dbfordevs is a modern, lightweight, cross-platform database management application designed specifically for developers."
+    },
+    {
+      "name": "und3rf10w--claude-litter",
+      "source": "./und3rf10w--claude-litter",
+      "description": "Claude Code Agent Team/Swarm Management Interface with kitty support"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -137872,6 +137987,21 @@
       "name": "samix2026--saudi-legal-ai-framework",
       "source": "./samix2026--saudi-legal-ai-framework",
       "description": "\u0625\u0637\u0627\u0631 \u0645\u0641\u062a\u0648\u062d \u0627\u0644\u0645\u0635\u062f\u0631 \u0644\u062a\u0643\u064a\u064a\u0641 \u0645\u0633\u0627\u0639\u062f\u0627\u062a \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064a \u0648\u0633\u064a\u0631 \u0627\u0644\u0639\u0645\u0644 \u0627\u0644\u0642\u0627\u0646\u0648\u0646\u064a \u0645\u0639 \u0627\u0644\u0628\u064a\u0626\u0629 \u0627\u0644\u0642\u0627\u0646\u0648\u0646\u064a\u0629 \u0627\u0644\u0633\u0639\u0648\u062f\u064a\u0629. Open-source framework for adapting AI assistants and legal workflows to the Saudi Arabian legal envi"
+    },
+    {
+      "name": "guangzan--deepseek-lane",
+      "source": "./guangzan--deepseek-lane",
+      "description": "A local proxy that connects Cursor to DeepSeek thinking models, fixing the reasoning_content must be passed back error. \u8fde\u63a5 Cursor \u4e0e DeepSeek \u63a8\u7406\u6a21\u578b\u7684\u672c\u5730\u4ee3\u7406\uff0c\u4fee\u590d reasoning_content must be passed back \u95ee\u9898\u3002"
+    },
+    {
+      "name": "th3-h4xx0r--intellistock",
+      "source": "./th3-h4xx0r--intellistock",
+      "description": "IntelliStock is a self-hosted algorithmic trading platform you run on your own infrastructure. It builds strategies, runs backtests, monitors live positions, and answers questions about your portfolio"
+    },
+    {
+      "name": "th3-h4xx0r--intellistock",
+      "source": "./th3-h4xx0r--intellistock",
+      "description": "IntelliStock is a self-hosted algorithmic trading platform you run on your own infrastructure. It builds strategies, runs backtests, monitors live positions, and answers questions about your portfolio"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -236387,6 +236517,26 @@
       "name": "nekoyoubi--xript",
       "source": "./nekoyoubi--xript",
       "description": "xript \u2013 extensibility framework"
+    },
+    {
+      "name": "pbdm--web-content-summarizer",
+      "source": "./pbdm--web-content-summarizer",
+      "description": "web-content-summarizer"
+    },
+    {
+      "name": "pbdm--web-content-summarizer",
+      "source": "./pbdm--web-content-summarizer",
+      "description": "web-content-summarizer"
+    },
+    {
+      "name": "jordanhudson--moviecal",
+      "source": "./jordanhudson--moviecal",
+      "description": "A better cinema clock for Vancouver"
+    },
+    {
+      "name": "rambotsteam1350--rebuilt-2026",
+      "source": "./rambotsteam1350--rebuilt-2026",
+      "description": "official code for rebuilt competitions"
     }
   ]
 }
