@@ -1,0 +1,9 @@
+{
+  "name": "evanlong-me--claude-code-usage",
+  "displayName": "claude-code-usage",
+  "description": "\ud83d\udcca CLI tool to track Claude Code usage, costs & token consumption. Analyze your AI coding assistant spending locally.",
+  "version": "1.0.0",
+  "author": "evanlong-me",
+  "homepage": "https://github.com/evanlong-me/claude-code-usage",
+  "skills": []
+}
