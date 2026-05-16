@@ -1,0 +1,9 @@
+{
+  "name": "emorymlip--rampde",
+  "displayName": "rampde",
+  "description": "Mixed precision Neural ODE solvers (RAMPDE) for PyTorch",
+  "version": "1.0.0",
+  "author": "EmoryMLIP",
+  "homepage": "https://github.com/EmoryMLIP/rampde",
+  "skills": []
+}
