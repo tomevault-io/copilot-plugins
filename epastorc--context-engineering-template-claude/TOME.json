@@ -1,0 +1,44 @@
+{
+  "name": "context-engineering-template-claude",
+  "owner": "epastorc",
+  "repo": "context-engineering-template-claude",
+  "description": "Angular TypeScript template demonstrating context engineering for   AI-assisted development. Features Domain-Driven Design (DDD), SOLID   principles, and PRP workflow for generating high-quality code with   structured AI guidance.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/epastorc/context-engineering-template-claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T05:16:05Z"
+}
