@@ -1,0 +1,9 @@
+{
+  "name": "nwant--obsidian-ai-curator",
+  "displayName": "obsidian-ai-curator",
+  "description": "Smart note consolidation for Obsidian using Claude AI. Automatically identifies and merges scattered fragments    into structured knowledge via MCP. Like Tetris for your thoughts - pieces fall into pl",
+  "version": "1.0.0",
+  "author": "nwant",
+  "homepage": "https://github.com/nwant/obsidian-ai-curator",
+  "skills": []
+}
