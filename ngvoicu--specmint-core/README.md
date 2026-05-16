@@ -7,11 +7,11 @@ Persistent, resumable specs for AI coding agents. Deep research, iterative inter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ngvoicu/specmint-core](https://github.com/ngvoicu/specmint-core).
+Original source: `CLAUDE.md` in [ngvoicu/specmint-core](https://github.com/ngvoicu/specmint-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
