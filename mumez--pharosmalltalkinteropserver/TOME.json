@@ -4,7 +4,7 @@
   "repo": "PharoSmalltalkInteropServer",
   "description": "API server that bridges Pharo Smalltalk environments with external tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mumez/PharoSmalltalkInteropServer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T04:56:10Z"
+  "distributed_at": "2026-05-16T05:15:38Z"
 }
