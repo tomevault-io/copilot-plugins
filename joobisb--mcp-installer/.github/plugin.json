@@ -1,0 +1,9 @@
+{
+  "name": "joobisb--mcp-installer",
+  "displayName": "mcp-installer",
+  "description": "Simplifies the installation and management of MCP (Model Context Protocol) servers across different AI clients.",
+  "version": "1.0.0",
+  "author": "joobisb",
+  "homepage": "https://github.com/joobisb/mcp-installer",
+  "skills": []
+}
