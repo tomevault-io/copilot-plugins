@@ -1,0 +1,9 @@
+{
+  "name": "a2anet--a2a-ui",
+  "displayName": "a2a-ui",
+  "description": "A UI for the A2A protocol built with Next.js and Material UI",
+  "version": "1.0.0",
+  "author": "a2anet",
+  "homepage": "https://github.com/a2anet/a2a-ui",
+  "skills": []
+}
