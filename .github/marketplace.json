@@ -127969,6 +127969,16 @@
       "description": "Features Darwin (code evolution), Atlas (database automation), Phantom (browser control), Mission Control (orchestration), and 24 more. Meta-evolution capable. The Singularity achieved!"
     },
     {
+      "name": "lanternko--aram-mayhem-database",
+      "source": "./lanternko--aram-mayhem-database",
+      "description": "ARAM-Mayhem-Database"
+    },
+    {
+      "name": "lanternko--aram-mayhem-database",
+      "source": "./lanternko--aram-mayhem-database",
+      "description": "ARAM-Mayhem-Database"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -138167,6 +138177,11 @@
       "name": "lizilaywer--lawyercasetool-local-offline",
       "source": "./lizilaywer--lawyercasetool-local-offline",
       "description": "\u6848\u4ef6\u6587\u4ef6\u5939\u7ba1\u7406\u7cfb\u7edf \u2014 \u9762\u5411\u6cd5\u5f8b\u4ece\u4e1a\u8005\u7684\u672c\u5730\u79bb\u7ebf\u7684\u6848\u4ef6\u76ee\u5f55\u7ba1\u7406\u5de5\u5177"
+    },
+    {
+      "name": "mario-ezquerro--gubernator",
+      "source": "./mario-ezquerro--gubernator",
+      "description": "Gubernator (gbnt) Is a minimalist, distributed container orchestrator designed for those who find Kubernetes (K8s) too heavy for their needs. Inspired by the Roman efficiency of governance, Gubernator"
     },
     {
       "name": "keshavxa--keshav-portfolio",
