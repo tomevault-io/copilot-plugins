@@ -1,0 +1,44 @@
+{
+  "name": "Find",
+  "owner": "Abhash-Chakraborty",
+  "repo": "Find",
+  "description": "A local-first, AI-powered image search engine. Find your photos using natural language queries\u2014100% private and self-hosted.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Abhash-Chakraborty/Find",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T01:34:14Z"
+}
