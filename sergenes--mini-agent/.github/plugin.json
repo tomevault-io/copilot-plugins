@@ -1,0 +1,9 @@
+{
+  "name": "sergenes--mini-agent",
+  "displayName": "mini_agent",
+  "description": "A minimal AI agent built from scratch \u2014 no agent framework, just Python, the OpenAI SDK, and a `while` loop. Accompanies the Medium article \"Build Your Own AI Agent from Scratch.\" Three execution mode",
+  "version": "1.0.0",
+  "author": "sergenes",
+  "homepage": "https://github.com/sergenes/mini_agent",
+  "skills": []
+}
