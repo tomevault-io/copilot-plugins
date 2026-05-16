@@ -1,21 +1,23 @@
-# eventcore — distributed by TomeVault
+# eventcore
 
-> Originally from [jwilger/eventcore](https://github.com/jwilger/eventcore). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [jwilger/eventcore](https://github.com/jwilger/eventcore) — distributed by [TomeVault](https://tomevault.io)
+
+Moved to https://git.johnwilger.com/jwilger/eventcore because my home lab has better uptime than GitHub :-/
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jwilger/eventcore](https://github.com/jwilger/eventcore).
+Original source: `CLAUDE.md` in [jwilger/eventcore](https://github.com/jwilger/eventcore).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jwilger#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jwilger/eventcore](https://github.com/jwilger/eventcore)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install jwilger/eventcore
 ```
-Or browse all formats at [https://tomevault.io/claim/jwilger](https://tomevault.io/claim/jwilger).
+Source: [github.com/jwilger/eventcore](https://github.com/jwilger/eventcore).
 
 <!-- genome:d-i-q -->
