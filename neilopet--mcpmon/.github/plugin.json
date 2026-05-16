@@ -1,0 +1,9 @@
+{
+  "name": "neilopet--mcpmon",
+  "displayName": "mcpmon",
+  "description": "Hot Module Replacement (HMR) for MCP (Model Context Protocol) servers - instant reloading on file changes",
+  "version": "1.0.0",
+  "author": "neilopet",
+  "homepage": "https://github.com/neilopet/mcpmon",
+  "skills": []
+}
