@@ -1,0 +1,9 @@
+{
+  "name": "kugel-masa--kugelpos-backend",
+  "displayName": "kugelpos-backend",
+  "description": "Kugel POS Backend Services (API Services for POS Application)",
+  "version": "1.0.0",
+  "author": "kugel-masa",
+  "homepage": "https://github.com/kugel-masa/kugelpos-backend",
+  "skills": []
+}
