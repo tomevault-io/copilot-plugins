@@ -1,0 +1,9 @@
+{
+  "name": "iepathos--prodigy",
+  "displayName": "prodigy",
+  "description": "Prodigy is a workflow orchestration tool that enables development teams to automate complex tasks using Claude AI through structured YAML workflows.",
+  "version": "1.0.0",
+  "author": "iepathos",
+  "homepage": "https://github.com/iepathos/prodigy",
+  "skills": []
+}
