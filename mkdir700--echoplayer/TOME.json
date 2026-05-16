@@ -4,7 +4,7 @@
   "repo": "EchoPlayer",
   "description": "EchoPlayer allows you to systematically train your listening, pronunciation, and speaking skills using authentic movies and TV shows.  EchoPlayer \u8ba9\u4f60\u5728\u771f\u5b9e\u5f71\u89c6\u4e2d\uff0c\u7cfb\u7edf\u5730\u8bad\u7ec3\u542c\u529b\u3001\u53d1\u97f3\u4e0e\u8868\u8fbe\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mkdir700/EchoPlayer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:07:24Z"
+  "distributed_at": "2026-05-16T08:39:02Z"
 }
