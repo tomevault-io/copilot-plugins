@@ -1,0 +1,9 @@
+{
+  "name": "wienans--vsc-opencode-zen-chat-provider",
+  "displayName": "vsc-opencode-zen-chat-provider",
+  "description": "VS Code Chat Provider for OpenCode Zen ",
+  "version": "1.0.0",
+  "author": "wienans",
+  "homepage": "https://github.com/wienans/vsc-opencode-zen-chat-provider",
+  "skills": []
+}
