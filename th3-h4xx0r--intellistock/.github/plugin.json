@@ -1,0 +1,9 @@
+{
+  "name": "th3-h4xx0r--intellistock",
+  "displayName": "IntelliStock",
+  "description": "IntelliStock is a self-hosted algorithmic trading platform you run on your own infrastructure. It builds strategies, runs backtests, monitors live positions, and answers questions about your portfolio",
+  "version": "1.0.0",
+  "author": "Th3-H4xx0r",
+  "homepage": "https://github.com/Th3-H4xx0r/IntelliStock",
+  "skills": []
+}
