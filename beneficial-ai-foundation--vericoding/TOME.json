@@ -4,7 +4,7 @@
   "repo": "vericoding",
   "description": "tools and benchmarks for verified coding",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Beneficial-AI-Foundation/vericoding",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T01:04:17Z"
+  "distributed_at": "2026-05-16T03:21:53Z"
 }
