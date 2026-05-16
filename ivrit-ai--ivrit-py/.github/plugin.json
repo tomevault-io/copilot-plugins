@@ -1,0 +1,9 @@
+{
+  "name": "ivrit-ai--ivrit-py",
+  "displayName": "ivrit-py",
+  "description": "ivrit's pypi package",
+  "version": "1.0.0",
+  "author": "ivrit-ai",
+  "homepage": "https://github.com/ivrit-ai/ivrit-py",
+  "skills": []
+}
