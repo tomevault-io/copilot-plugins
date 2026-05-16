@@ -1,0 +1,44 @@
+{
+  "name": "TestTriage",
+  "owner": "subhashkhileri",
+  "repo": "TestTriage",
+  "description": "TestTriage is a RAG agent that analyzes nightly Playwright e2e and CI test failures from OpenShift CI pipelines in GCS. It uses AI vision on screenshots, parses logs, and generates root cause analysis with test context, failure reasons, and fix suggestions. It can also file JIRA bugs on request.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/subhashkhileri/TestTriage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T05:33:16Z"
+}
