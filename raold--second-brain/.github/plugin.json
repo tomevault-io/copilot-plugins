@@ -1,0 +1,9 @@
+{
+  "name": "raold--second-brain",
+  "displayName": "second-brain",
+  "description": "\ud83e\udde0 AI Second Brain \u2014 100% Local Knowledge Management Private, self-hosted second brain. Store, search, and synthesize documents, images, and ideas with local LLMs (LLaVA, CLIP) and PostgreSQL + pgvecto",
+  "version": "1.0.0",
+  "author": "raold",
+  "homepage": "https://github.com/raold/second-brain",
+  "skills": []
+}
