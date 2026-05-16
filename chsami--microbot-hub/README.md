@@ -7,11 +7,11 @@ Create your Microbot Plugins in the Microbot Hub
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chsami/Microbot-Hub](https://github.com/chsami/Microbot-Hub).
+Original source: `CLAUDE.md` in [chsami/Microbot-Hub](https://github.com/chsami/Microbot-Hub).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
