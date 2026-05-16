@@ -127904,6 +127904,31 @@
       "description": "Download complete websites from the Wayback Machine with full asset preservation for offline viewing"
     },
     {
+      "name": "nuraddin-abdusharipov--first-next-js",
+      "source": "./nuraddin-abdusharipov--first-next-js",
+      "description": "first-next-js"
+    },
+    {
+      "name": "nuraddin-abdusharipov--app-router-next-js",
+      "source": "./nuraddin-abdusharipov--app-router-next-js",
+      "description": "App-Router-next-js"
+    },
+    {
+      "name": "jsv4--react-docxodus-viewer",
+      "source": "./jsv4--react-docxodus-viewer",
+      "description": "**Client-Side** React Docx Redlines and Rendering using Docxodus WASM Library"
+    },
+    {
+      "name": "noovoweb--kotlin-validator",
+      "source": "./noovoweb--kotlin-validator",
+      "description": "A high-performance, type-safe, coroutine-native validation library for Kotlin. Validators are generated at compile time with KSP, eliminating runtime reflection, annotation scanning, and hidden behavi"
+    },
+    {
+      "name": "wudi--php-parser",
+      "source": "./wudi--php-parser",
+      "description": "A fast PHP parser written in Rust"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136242,6 +136267,21 @@
       "name": "scthornton--securecode-web",
       "source": "./scthornton--securecode-web",
       "description": "Real-World Security Conversations for AI Training"
+    },
+    {
+      "name": "bishopfox--joro",
+      "source": "./bishopfox--joro",
+      "description": "A collaborative web exploitation framework."
+    },
+    {
+      "name": "mcdxai--meteor-addons-addon",
+      "source": "./mcdxai--meteor-addons-addon",
+      "description": "Browse, install, and update addons from within Meteor Client"
+    },
+    {
+      "name": "mcdxai--meteor-addons-addon",
+      "source": "./mcdxai--meteor-addons-addon",
+      "description": "Browse, install, and update addons from within Meteor Client"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -236632,6 +236672,26 @@
       "name": "topher200--a-bullcity-z",
       "source": "./topher200--a-bullcity-z",
       "description": "a-bullcity-z"
+    },
+    {
+      "name": "mrshanebarron--socialapparatus",
+      "source": "./mrshanebarron--socialapparatus",
+      "description": "socialapparatus"
+    },
+    {
+      "name": "axisalberti--axis-apuntes",
+      "source": "./axisalberti--axis-apuntes",
+      "description": "Axis_Apuntes"
+    },
+    {
+      "name": "manti-by--odin",
+      "source": "./manti-by--odin",
+      "description": "Home server with IoT dashboard"
+    },
+    {
+      "name": "manti-by--odin",
+      "source": "./manti-by--odin",
+      "description": "Home server with IoT dashboard"
     }
   ]
 }
