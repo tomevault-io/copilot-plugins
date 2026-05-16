@@ -1,0 +1,9 @@
+{
+  "name": "aliou--pi-toolchain",
+  "displayName": "pi-toolchain",
+  "description": "Opinionated toolchain enforcement for Pi. Transparently rewrites commands to use preferred tools.",
+  "version": "1.0.0",
+  "author": "aliou",
+  "homepage": "https://github.com/aliou/pi-toolchain",
+  "skills": []
+}
