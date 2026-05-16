@@ -1,0 +1,44 @@
+{
+  "name": "direito-lux-mvp",
+  "owner": "opiagile",
+  "repo": "direito-lux-mvp",
+  "description": "\ud83c\udfdb\ufe0f Direito Lux - SaaS para monitoramento automatizado de processos jur\u00eddicos com integra\u00e7\u00e3o DataJud (CNJ)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/opiagile/direito-lux-mvp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T03:35:28Z"
+}
