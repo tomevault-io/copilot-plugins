@@ -1,0 +1,9 @@
+{
+  "name": "kellylford--quickmail",
+  "displayName": "QuickMail",
+  "description": "A screen reader friendly email client for IMAP servers.",
+  "version": "1.0.0",
+  "author": "kellylford",
+  "homepage": "https://github.com/kellylford/QuickMail",
+  "skills": []
+}
