@@ -1,0 +1,9 @@
+{
+  "name": "siigari--claude-heartbeat",
+  "displayName": "claude-heartbeat",
+  "description": "Keep Claude Code alive and autonomous without -p. Heartbeat hook + inbox/outbox pattern.",
+  "version": "1.0.0",
+  "author": "Siigari",
+  "homepage": "https://github.com/Siigari/claude-heartbeat",
+  "skills": []
+}
