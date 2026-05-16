@@ -4,7 +4,7 @@
   "repo": "cloudflare-workers-react-boilerplate",
   "description": "Full-stack React 19 + Cloudflare Workers template optimised for Claude Code. AI integration, edge databases, and automated deployment - from idea to production in minutes.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henkisdabro/cloudflare-workers-react-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T16:31:32Z"
+  "distributed_at": "2026-05-16T16:32:57Z"
 }
