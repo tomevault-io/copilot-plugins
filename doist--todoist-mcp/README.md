@@ -7,13 +7,13 @@ A set of tools to connect to AI agents, to allow them to use Todoist on a user's
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Doist/todoist-mcp](https://github.com/Doist/todoist-mcp).
+Original source: `CLAUDE.md` in [Doist/todoist-mcp](https://github.com/Doist/todoist-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
