@@ -1,0 +1,9 @@
+{
+  "name": "db-mobile--resonance",
+  "displayName": "resonance",
+  "description": "Local-first, zero-account Open Source API Client",
+  "version": "1.0.0",
+  "author": "db-mobile",
+  "homepage": "https://github.com/db-mobile/resonance",
+  "skills": []
+}
