@@ -1,0 +1,9 @@
+{
+  "name": "bradcypert--httpspec",
+  "displayName": "httpspec",
+  "description": "HTTP Files as Integration Tests",
+  "version": "1.0.0",
+  "author": "bradcypert",
+  "homepage": "https://github.com/bradcypert/httpspec",
+  "skills": []
+}
