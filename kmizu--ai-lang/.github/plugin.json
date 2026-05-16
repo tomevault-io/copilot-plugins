@@ -1,0 +1,9 @@
+{
+  "name": "kmizu--ai-lang",
+  "displayName": "ai-lang",
+  "description": "A dependently-typed programming language implemented in Python by AI (Claude Code).",
+  "version": "1.0.0",
+  "author": "kmizu",
+  "homepage": "https://github.com/kmizu/ai-lang",
+  "skills": []
+}
