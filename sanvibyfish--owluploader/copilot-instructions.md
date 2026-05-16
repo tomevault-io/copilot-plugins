@@ -1,62 +1,74 @@
-## 05-recentkeyfixesandoptimizations
+## owluploader
 
-> 本规则文件是对开发日志 `docs/dev/DEV-2025-05-25.md` 中记录的近期关键 BUG 修复、功能增强和用户体验优化的一个总结。这些变更是当前代码库状态的重要组成部分。
+> OwlUploader — macOS 原生多云对象存储管理工具。支持 Cloudflare R2 和阿里云 OSS（S3 兼容 API 统一抽象）。SwiftUI 构建，面向开发者和内容创作者。当前已发布 v1.0.1。
 
-# 规则 05: 近期的关键修复与优化总结
+# CLAUDE.md
 
-## 概述
-本规则文件是对开发日志 `docs/dev/DEV-2025-05-25.md` 中记录的近期关键 BUG 修复、功能增强和用户体验优化的一个总结。这些变更是当前代码库状态的重要组成部分。
+## Project Overview
 
-## 核心功能与健壮性
+OwlUploader — macOS 原生多云对象存储管理工具。支持 Cloudflare R2 和阿里云 OSS（S3 兼容 API 统一抽象）。SwiftUI 构建，面向开发者和内容创作者。当前已发布 v1.0.1。
 
-- **R2 `listBuckets` 权限兼容性**: 
-    - 添加了 `selectBucketDirectly()` 和 `checkListBucketsPermission()` 方法到 `R2Service`，使得应用能够支持没有 `listBuckets` 全局权限、仅有特定存储桶操作权限的 API Token。
-    - 相关的 UI 流程（如 `BucketListView`）也进行了调整以支持此场景，包括自动尝试连接默认配置的存储桶。
+## Tech Stack
 
-- **新建文件夹功能系列修复**: ([OwlUploader/CreateFolderSheet.swift](mdc:OwlUploader/CreateFolderSheet.swift), [OwlUploader/R2Service.swift](mdc:OwlUploader/R2Service.swift))
-    - 修复了对话框无法输入文件夹名称的问题（通过改用 Sheet 弹窗）。
-    - 修正了文件夹名称验证逻辑，确保连字符 `-` 等合法字符被正确允许。
-    - 解决了因 R2 服务对文件夹对象键（key）的特殊处理（返回时不带末尾 `/`）导致的文件夹被错误识别为文件对象的问题。更新了 `R2Service.listObjects()` 中的检测逻辑以兼容此行为。
-    - 修复了 `R2Service.createFolder()` 中因路径处理和变量名冲突导致最终发送给 R2 的 key 缺少末尾 `/` 的问题。
+- Language: Swift 5.9+
+- Framework: SwiftUI + Combine
+- Build: Xcode 15.0+
+- Dependencies: AWS SDK for Swift (S3 兼容 API)
+- Platform: macOS 13.0+ (Ventura)
+- Localization: en + zh-Hans（`Localizable.xcstrings` + `AppStrings.swift` alias `L`）
 
-- **macOS 沙盒文件上传权限彻底解决**: ([OwlUploader/FileListView.swift](mdc:OwlUploader/FileListView.swift), [OwlUploader/R2Service.swift](mdc:OwlUploader/R2Service.swift))
-    - 最终解决方案：在 `fileImporter` 的回调中，立即使用 `startAccessingSecurityScopedResource()` 获取权限，并在 `defer` 中确保释放。在权限有效的同步上下文中，立即读取文件数据 (`Data(contentsOf: fileURL)`)。然后将此 `Data` 对象传递给异步的上传任务。`R2Service` 中添加了新的 `uploadData()` 方法来处理已读取的数据。
-    - 此方案解决了因异步 Task 不继承权限上下文导致 `NSCocoaErrorDomain Code=257` (文件无访问权限) 的问题。
+## Architecture
 
-- **错误处理与诊断增强**: 
-    - `R2Service` 中针对多种错误类型（如权限不足、网络问题、文件大小限制等）进行了更细致的分类和诊断信息输出。
-    - `DiagnosticsView` 集成了上传问题诊断功能，并修复了其在 macOS 上的兼容性和界面显示问题。
+- MVVM + ObservableObject
+- `R2Service` 是 `@MainActor`，纯工具方法用 `nonisolated static`
+- Queue managers (`UploadQueueManager`, `DownloadQueueManager`) 都是 `@MainActor`
+- `ThumbnailCache` 用 `NSCache` + private `actor LoadingTaskManager`
+- `CloudProvider` 枚举抽象多云供应商（`.r2` / `.oss`），`R2Account` 含 `provider` 字段
+- Keychain 存 `SecretAccessKey` + `CloudflareAPIToken`（R2 only），账户删除时按 provider 清理
+- CDN purge 通过 Cloudflare API（仅 R2），单次最多 30 URLs
 
-## 用户体验 (UX) 与界面 (UI) 优化
+## Development Rules
 
-- **账户配置 (`AccountSettingsView.swift`)**: 
-    - 新增"默认存储桶名称"和"R2公共域名"配置项。
-    - 修复了 SECRET_ACCESS_KEY 在断开连接后需重新输入的问题，现在会从 Keychain 安全加载。
-    - 多次优化了配置界面的布局、样式、边距和最大宽度，包括采用卡片式设计，提升了视觉美观度和空间利用率。
-    - 优化了"断开连接"按钮的样式和布局。
+1. 任何代码改动如果与 `docs/` 下的文档不一致，必须同步更新对应文档
+2. 产品决策变更（功能取舍、交互调整、设计修改）必须写入对应文档，不能只存在于对话中
+3. 不确定的产品问题先问我，不要自行决定
+4. 单个文件不超过 500 行
+5. 遵循 Swift 官方编码规范
 
-- **主导航与视图 (`ContentView.swift`)**: 
-    - 修复了侧边栏显示不稳定的问题 (通过 `.navigationViewStyle(.columns)`)。
-    - 优化了连接成功后的导航流程，使其更加顺畅。
-    - 修复了侧边栏菜单项（`NavigationLink`）禁用状态更新不及时的 BUG (通过条件渲染)。
-    - 在欢迎页添加了始终可用的"重新配置账户"按钮。
-    - 优化了应用主内容区域和默认窗口的尺寸设置。
-    - 优化了左侧菜单栏底部"断开连接"按钮的布局和样式。
+## Common Commands
 
-- **文件与文件夹列表 (`FileListView.swift`)**: 
-    - 文件夹和面包屑导航统一改为单击操作，提升了交互一致性和效率。
-    - 简化了文件夹列表项的视觉样式，移除了不必要的背景和边框。
-    - 修复了因 `R2Service.listObjects()` 中对来自 R2 的重复对象处理不当导致的 SwiftUI `ForEach` ID 冲突警告。
-    - 优化了文件夹导航时的加载状态处理，消除了不必要的闪屏。
+```bash
+# Build (command line)
+xcodebuild -project OwlUploader.xcodeproj -scheme OwlUploader -configuration Debug build
 
-- **诊断界面 (`DiagnosticsView.swift`)**: 
-    - 解决了因外部 `.frame()` 修饰符覆盖内部设置导致尺寸调整无效的问题。
-    - 调整了其尺寸参数以确保内容能完整显示。
+# Test
+xcodebuild -project OwlUploader.xcodeproj -scheme OwlUploader -configuration Debug test
 
-### 参考开发日志
-详细的变更历史、问题分析和解决方案记录在 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)。
+# Clean
+xcodebuild -project OwlUploader.xcodeproj -scheme OwlUploader clean
+```
 
-这个规则文件是理解当前代码库状态和近期演进的关键，它突出了那些对功能、稳定性和用户体验有显著影响的变更。
+> 日常开发建议直接用 Xcode GUI（Cmd+B 构建，Cmd+U 测试）
+
+## Documentation
+
+- 功能文档 → docs/features/（含 README.md 索引）
+- 需求文档 → docs/requirements/（`XXX-短名称.md`，三位数字编号，格式规范见 ~/.claude/CLAUDE.md）
+- 开发进度 → docs/progress.md
+- 工作日志 → docs/dev/
+- 复盘记录 → docs/postmortem/
+- 版本记录 → docs/releases/
+- 支持文档 → docs/support.md
+
+## Key Files
+
+- `OwlUploader/CloudProvider.swift` — 多云供应商枚举和 OSS Region 定义
+- `OwlUploader/R2Service.swift` — 核心业务逻辑（S3 兼容多云）
+- `OwlUploader/R2AccountManager.swift` — 账户状态管理
+- `OwlUploader/KeychainService.swift` — 安全凭证存储
+- `OwlUploader/UploadQueueManager.swift` — 上传队列
+- `OwlUploader/Localization/AppStrings.swift` — 本地化字符串（alias `L`）
+- `OwlUploader/ContentView.swift` — 主视图容器
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
