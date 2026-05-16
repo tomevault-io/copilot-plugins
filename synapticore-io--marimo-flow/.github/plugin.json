@@ -1,0 +1,9 @@
+{
+  "name": "synapticore-io--marimo-flow",
+  "displayName": "marimo-flow",
+  "description": "Interactive ML notebooks with reactive updates, AI assistance, and MLflow tracking",
+  "version": "1.0.0",
+  "author": "synapticore-io",
+  "homepage": "https://github.com/synapticore-io/marimo-flow",
+  "skills": []
+}
