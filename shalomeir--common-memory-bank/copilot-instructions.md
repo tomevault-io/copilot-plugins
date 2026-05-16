@@ -1,123 +1,116 @@
-## sub-folder-rules
+## common-memory-bank
 
-> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Folder Path-Based Sub Rule Management System
+# CLAUDE.md
 
-### Basic Structure
-1. All subfolder rules are stored in the `.cursor/rules/subrules/` directory.
-2. The rules of each subfolder are stored according to the directory structure reflecting the folder path.
-3. The paths of all rule files are recorded in `.cursor/rules/subrules/rule_list.txt`.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-### Rule File Path Rules
-1. Rule files for a specific folder reflect the folder path as it is:
-   - Example: Rules related to `./src/components/auth.ts` are stored in `.cursor/rules/subrules/src/components/subrule.txt`
+## Project Overview
 
-2. The rule_list.txt file records the full paths of all subrule files, one per line:
+Common Memory Bank is a collection of integrated memory bank rules for AI development tools. It provides memory bank rule files that can be used across various AI development tools such as Cursor, Windsurf, Cline, RooCode, etc. It's specifically designed to work with TaskMaster AI for maintaining context across sessions.
+
+## Memory Bank Architecture
+
+The Memory Bank follows a structured hierarchy with these core files:
+
 ```
-./cursor/rules/subrules/src/components/subrule.txt
-./cursor/rules/subrules/src/utils/api/subrule.txt
-./cursor/rules/subrules/src/auth/subrule.txt
-```
-
-### Rule Application Mechanism
-1. When modifying or creating a specific file:
-   - Read the `.cursor/rules/subrules/rule_list.txt` file first.
-   - Check the path of the file you are currently working on. - Check if there is a subfolder rule file related to the path.
-   - If there is a related rule file, add its contents to the context.
-
-2. Path matching method:
-   - If the file path is a subpath of the rule file path, the rule is applied.
-   - Example: When modifying the file `./src/components/auth/login.ts`, the rule `./cursor/rules/subrules/src/components/subrule.txt` is applied.
-
-## How to create and register a rule file
-
-### When special subrules are needed
-1. When there is a requirement to record separately in the process of creating, modifying, or deleting the subcode of the corresponding subfolder
-2. Special arcitecture pattern applied only under the corresponding subfolder
-3. Special technical context applied only under the corresponding subfolder
-4. Bug fixes found in the subcode of the corresponding subfolder and handled as an exception
-5. Other exception measures applied only under the corresponding subfolder
-
-### Create a new rule file
-
-1. When a special rule for a specific subfolder is needed:
-```
-If a special rule related to ./src/components/auth.ts is needed:
+memory-bank/
+├── projectbrief.md       # Foundation document with core requirements and goals
+├── productContext.md     # Product purpose, problems solved, user experience
+├── systemPatterns.md     # System architecture, design patterns, technical decisions
+├── techContext.md        # Technologies, development setup, technical constraints
+└── activeContext.md      # Current focus, recent changes, next steps
 ```
 
-2. Create a rule file reflecting the path:
-```
-./cursor/rules/subrules/src/components/subrule.txt
-```
+When working with this project, always check the memory bank files first to understand the current state and context of the project.
 
-3. Write the context, architecture, exceptions, etc. required in the rule file.
+## TaskMaster Integration
 
-### Update rule_list.txt
+This project is designed to work with TaskMaster AI. When using TaskMaster:
 
-1. After creating a new rule file, add the full path to it in `.cursor/rules/subrules/rule_list.txt`:
-```
-./cursor/rules/subrules/src/components/subrule.txt
-```
+1. Always synchronize memory bank files with task status changes
+2. Update `activeContext.md` whenever a task status changes
+3. Check consistency between TaskMaster state and memory bank contents
 
-2. Write multiple rule files, one per line:
-```
-./cursor/rules/subrules/src/components/subrule.txt
-./cursor/rules/subrules/src/utils/api/subrule.txt
-./cursor/rules/subrules/src/models/subrule.txt
-```
+### Task Status Change Process
 
-## Real-world application example
+When changing a task status:
+1. Change the task status with TaskMaster command (e.g., `set_task_status`)
+2. Update `activeContext.md` to reflect the current task focus change
+3. Update the next steps and considerations
 
-### Scenario: Modifying the Auth component
+## Common Commands
 
-1. A developer wants to modify the file `./src/components/auth/Login.tsx`
+### TaskMaster Commands
 
-2. The AI ​​assistant:
-- Reads the file `.cursor/rules/subrules/rule_list.txt`
-- Checks that the file it is currently working on is in the path `./src/components/auth/`
-- Finds the relevant rule file in rule_list.txt: `./cursor/rules/subrules/src/components/subrule.txt`
-- Adds the contents of that rule file to the context
-- Makes a code change suggestion considering this context
+```bash
+# Initialize TaskMaster
+task-master init
 
-### Example Rule File Contents
+# Parse PRD to generate tasks
+task-master parse-prd scripts/prd.txt
 
-File: `.cursor/rules/subrules/src/components/subrule.txt`
-```
-# Auth Component Rules
+# Generate individual task files
+task-master generate
 
-All authentication-related components in this folder must follow these rules:
+# Show all tasks
+task-master list
 
-1. Store JWT tokens only in HttpOnly cookies. Never store them in localStorage.
-2. All authentication logic must be handled through the AuthService. 3. Authentication state changes must be done via AuthContext.
-4. All authentication errors must be routed to a centralized error handling system.
-5. Do not use React.memo for security-critical components (to prevent side-channel attacks).
+# Get next task
+task-master next
 
-Exceptions:
-- Social login components follow a separate OAuth flow.
-- MockAuthService can be used in development environments.
+# Set task status
+task-master set-task-status <id> <status>
 
-Related files:
-- src/services/AuthService.ts
-- src/contexts/AuthContext.tsx
-- src/utils/auth/tokenStorage.ts
+# Add a subtask
+task-master add-subtask <id>
+
+# Expand a task into subtasks
+task-master expand-task <id>
 ```
 
-## System Maintenance
+## Project Workflow
 
-1. When adding a new subfolder rule:
-- Create a rule file in the appropriate path
-- Add the path to rule_list.txt
+### Setup Workflow
 
-2. When modifying a rule:
-- Edit the rule file directly
-- No need to change rule_list.txt
+1. Install TaskMaster AI globally: `npm install -g task-master-ai`
+2. Initialize TaskMaster: `task-master init`
+3. Set up LLM API keys in `.env` for TaskMaster
+4. Initialize memory bank based on project requirements
+5. Create `scripts/prd.txt` if it doesn't exist
+6. Parse PRD to generate tasks: `task-master parse-prd scripts/prd.txt`
+7. Generate task files: `task-master generate`
 
-3. When deleting a rule:
-- Delete the rule file
-- Remove the path from rule_list.txt
+### Development Workflow
 
-With this system, the AI ​​coding assistant can always automatically refer to special rules related to the path of the file you are working on, and generate and modify code while being aware of the special context of each folder.
+1. Check current task status: `task-master list`
+2. Get next task: `task-master next`
+3. Work on task and update status when complete
+4. Update `activeContext.md` with changes
+5. Create/update subrules for specific folders when needed
+
+## Additional Features
+
+### Subfolder Rules
+
+The project supports a Folder Path-Based Sub Rule Management System:
+- Rules are stored in `.cursor/rules/subrules/` directory
+- Rule paths are recorded in `.cursor/rules/subrules/rule_list.txt`
+- Create subrules for folders that need special architectural patterns or context
+
+### PRD and Task Chain Review
+
+When core memory bank files are modified:
+1. Review consistency with PRD (`scripts/prd.txt`)
+2. If PRD is modified, analyze impact on tasks and propose updates
+
+## Consistency Checks
+
+Regularly perform these consistency checks:
+- Verify TaskMaster state matches memory bank content
+- Ensure `activeContext.md` reflects current task focus
+- Check that dependencies between tasks are reflected in documentation
 
 ---
 > Source: [shalomeir/common-memory-bank](https://github.com/shalomeir/common-memory-bank) — distributed by [TomeVault](https://tomevault.io).
