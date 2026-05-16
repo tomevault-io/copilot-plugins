@@ -4,7 +4,7 @@
   "repo": "a2a-langgraph-boilerplate",
   "description": "a boilerplate for developers who want to start building an AI agent cluster with A2A and MCP servers integration faster and more efficiently.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mrgoonie/a2a-langgraph-boilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:34:20Z"
+  "distributed_at": "2026-05-16T02:18:13Z"
 }
