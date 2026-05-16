@@ -1,0 +1,9 @@
+{
+  "name": "ckelsoe--obsidian-shell-path-copy",
+  "displayName": "obsidian-shell-path-copy",
+  "description": "Obsidian plugin to copy file and folder paths with shell-friendly formatting for Linux\\Mac and Windows",
+  "version": "1.0.0",
+  "author": "ckelsoe",
+  "homepage": "https://github.com/ckelsoe/obsidian-shell-path-copy",
+  "skills": []
+}
