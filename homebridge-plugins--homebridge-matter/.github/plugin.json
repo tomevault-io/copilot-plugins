@@ -1,0 +1,9 @@
+{
+  "name": "homebridge-plugins--homebridge-matter",
+  "displayName": "homebridge-matter",
+  "description": "Homebridge plugin to showcase examples of Matter devices in Homebridge.",
+  "version": "1.0.0",
+  "author": "homebridge-plugins",
+  "homepage": "https://github.com/homebridge-plugins/homebridge-matter",
+  "skills": []
+}
