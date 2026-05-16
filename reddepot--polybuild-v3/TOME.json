@@ -1,0 +1,44 @@
+{
+  "name": "polybuild_v3",
+  "owner": "reddepot",
+  "repo": "polybuild_v3",
+  "description": "POLYBUILD v3 \u2014 M\u00e9ta-orchestrateur multi-LLM pour g\u00e9n\u00e9ration de code en production (spec-first, adversarial review, grounding AST).",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/reddepot/polybuild_v3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:45:45Z"
+}
