@@ -4,7 +4,7 @@
   "repo": "chat-frame",
   "description": "Frame your AI conversations as beautiful, shareable image cards.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StarDxxx/chat-frame",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T20:32:11Z"
+  "distributed_at": "2026-05-16T07:49:10Z"
 }
