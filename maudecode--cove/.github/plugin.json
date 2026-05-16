@@ -1,0 +1,9 @@
+{
+  "name": "maudecode--cove",
+  "displayName": "cove",
+  "description": "A cozy WebUI for OpenClaw chat",
+  "version": "1.0.0",
+  "author": "MaudeCode",
+  "homepage": "https://github.com/MaudeCode/cove",
+  "skills": []
+}
