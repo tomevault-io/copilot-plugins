@@ -4,7 +4,7 @@
   "repo": "little-guitar",
   "description": "https://littleguitar.pages.dev/#/blues  \u4e00\u6b3eblues\u5373\u5174\u7ec3\u4e60\u5b66\u4e60\u5de5\u5177",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zourunfa/little-guitar",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T21:45:24Z"
+  "distributed_at": "2026-05-16T02:11:28Z"
 }
