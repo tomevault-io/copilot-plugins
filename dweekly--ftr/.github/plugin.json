@@ -1,0 +1,9 @@
+{
+  "name": "dweekly--ftr",
+  "displayName": "ftr",
+  "description": "Fast TraceRoute: massively parallel CLI & Rust library for network observation",
+  "version": "1.0.0",
+  "author": "dweekly",
+  "homepage": "https://github.com/dweekly/ftr",
+  "skills": []
+}
