@@ -1,0 +1,9 @@
+{
+  "name": "th3nolo--openrouter-mcp",
+  "displayName": "openrouter-mcp",
+  "description": "Mcp compatible with claude code cli tool to use open router models",
+  "version": "1.0.0",
+  "author": "th3nolo",
+  "homepage": "https://github.com/th3nolo/openrouter-mcp",
+  "skills": []
+}
