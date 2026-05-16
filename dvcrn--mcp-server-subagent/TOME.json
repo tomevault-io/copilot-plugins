@@ -4,7 +4,7 @@
   "repo": "mcp-server-subagent",
   "description": "MCP for letting agents delegate tasks to sub-agents (Claude Code, Aider, Q)",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dvcrn/mcp-server-subagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:45:40Z"
+  "distributed_at": "2026-05-16T08:14:00Z"
 }
