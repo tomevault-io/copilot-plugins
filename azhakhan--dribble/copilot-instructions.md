@@ -1,90 +1,106 @@
-## server
+## dribble
 
-> You are an expert coding assistant helping users understand and contribute to the open source project **Dribble**.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# Instructions
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-You are an expert coding assistant helping users understand and contribute to the open source project **Dribble**.
+## Development Commands
 
-## About Dribble
+**Main development:**
+- `just start` - Start the entire application stack (builds missing images automatically)
+- `just up` - Start stack in foreground mode
+- `just down` - Stop the application stack
 
-Dribble is an open source SQL IDE with AI assistance. It supports:
+**Testing:**
+- `just test` - Run complete test suite with setup and cleanup
+- `just test-setup` - Set up test environment only
+- `just test-cov` - Generate and open test coverage report
 
-- Writing, editing, and executing SQL queries
-- Connecting to multiple databases (PostgreSQL, MySQL, Snowflake, etc.)
-- AI chat that helps with SQL tasks, context-aware
-- Spreadsheet-style result display using glide-data-grid
-- Built with React (Vite, ShadCN, Tailwind) and FastAPI backend
+**Building:**
+- `just build-server` - Build server Docker image
+- `just build-client` - Build client Docker image  
+- `just build-worker <name>` - Build worker image (e.g., `just build-worker pg` for postgres)
 
-The repo is designed to be easy to run locally with Docker.
+**Client development (from /client directory):**
+- `yarn dev` - Start development server
+- `yarn build` - Build for production
+- `yarn lint` - Run ESLint
 
-## Usage Guidelines
+**Server development (from /server directory):**
+- `uv run app.main:app` - Run FastAPI server directly
+- `pytest tests/` - Run tests
+- `ruff check .` - Run linting
+- `ruff format .` - Format code
 
-When answering questions or generating code:
+## Architecture Overview
 
-- Follow existing coding styles (e.g., Tailwind for styling, FastAPI patterns for backend)
-- If unsure, prefer simplicity and readability over cleverness
-- Use async/await in backend
-- Use TypeScript in frontend
-- Use `dribble-network` Docker network if referencing containers
-- Don't mix dataclasses and pydantic models
+Dribble is a multi-container SQL IDE with AI assistance that follows a client-server-worker architecture:
 
-## Project Structure
+**Client (React/TypeScript):**
+- Built with Vite, React 19, TypeScript, ShadCN/UI, Tailwind
+- State management via Zustand stores (centralized in `/shared/store/`)
+- Monaco editor for SQL editing with syntax highlighting
+- Glide Data Grid for spreadsheet-style results display
+- Feature-based organization under `/features/` (chat, editor, query, sources, tables)
 
-Brief layout:
-/client → React app with Vite, chat, and query editor
-/server → FastAPI server for API and task routing
-/workers → Dockerized FastAPI containers to run queries (PostgreSQL, MySQL, etc.)
+**Server (FastAPI/Python):**
+- FastAPI backend with async/await patterns
+- SQLAlchemy ORM with Alembic migrations
+- Pydantic schemas for API validation
+- Route organization: `/routes/` with corresponding `/controllers/` and `/schemas/`
+- Core services in `/core/` for database operations, encryption, worker management
 
-## Key Features
+**Workers (Dockerized FastAPI):**
+- Isolated per-database-type containers (`/worker/postgres/`, `/worker/mysql/`) 
+- Handle query execution against specific database types
+- Communicate via `dribble-network` Docker network
+- Spawned dynamically by server for database connections
 
-- Queries are treated as first-class citizens. They have versions and logs (query_runs)
-- Client states are synchronized using Zustand
-- AI Assistant receives context in a form of query sql (pulled from query version) and db schema for each relevant source
-- SQL Editor is a monaco editor with SQL syntax highlighting
+**Key Data Models:**
+- Queries are first-class entities with version history (`query_version` table)
+- Query runs logged for observability (`query_run` table)
+- Chat messages with SQL context for AI assistance
+- Sources represent database connections with isolated workers
 
-## Preferences
+## State Management
 
-- Use small and extra small font sizes for UI components like buttons and inputs
-- For big feature changes, create an .md file in the internal_docs directory to explain the change
+The client uses Zustand with feature-specific stores:
+- `useQueryStore` - Query CRUD, active query state
+- `useTabManagerStore` - Tab management and navigation  
+- `useChatStore` - AI chat messages and context
+- `useSourceStore` - Database connection management
+- `useUIStore` - UI state (sidebars, modals, themes)
 
-## Technical Details
+## Development Patterns
 
-- Client uses:
-  - yarn for package management in the client
-  - Zustand for state management
-  - ShadCN for UI components
-  - Tailwind for styling
-  - Vite for bundling
-  - TypeScript for type safety
-- Server uses:
-  - uv to install packages and run the server
-  - FastAPI for API endpoints
-  - Pydantic for data validation
-  - async/await for asynchronous operations
-  - SQLAlchemy for database interactions
-- Workers uses:
-  - Dockerized FastAPI containers that run queries against databases
-  - `dribble-network` for inter-container communication
-- When testing your changes:
-  - Use browser MCP to inspect the client
-  - Both the client and server are already running in Docker containers at port 3000 and 8000 respectively, so you can access them directly
-- Formatting is done with ruff. I also have pre-commit installed (.pre-commit-config.yaml).
-- To run tests, use just command "just test"
+**Frontend:**
+- Components follow ShadCN patterns with Tailwind styling
+- Prefer small/extra-small font sizes for UI elements
+- Feature-based folder structure with co-located components, hooks, services
+- TypeScript throughout with strict type checking
+- Support both light and dark themes
 
-## What You Should Do
+**Backend:**
+- Use async/await for all FastAPI routes
+- Pydantic models for request/response validation
+- Don't mix dataclasses with Pydantic models
+- Database operations via SQLAlchemy with proper transaction handling
+- Worker communication through HTTP API calls
 
-- Help users debug issues in Dribble
-- Guide new contributors through setup or development
-- Summarize code behavior and explain components
-- Explain FastAPI routes, Docker setup, and client-server interaction
-- Make sure changes to the client work both in light and dark mode
+**Testing:**
+- Server tests use pytest with asyncio support
+- Test database setup via Docker containers with temporary data
+- Coverage reporting configured (minimum 35% threshold)
 
-## What You Should Avoid
+## AI Integration
 
-- Don't invent APIs or libraries not used in the project
-- Don't generate production credentials or secrets
+The AI chat assistant receives context including:
+- Current query SQL from query versions
+- Database schema information for relevant sources
+- Previous chat history for conversational context
+- Supports context-aware SQL assistance and debugging
 
 ---
 > Source: [azhakhan/dribble](https://github.com/azhakhan/dribble) — distributed by [TomeVault](https://tomevault.io).
