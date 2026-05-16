@@ -1,0 +1,9 @@
+{
+  "name": "tensortemplar--slopometry",
+  "displayName": "slopometry",
+  "description": "Quantify cli agent vibes, run experiments, look at pretty numbers",
+  "version": "1.0.0",
+  "author": "TensorTemplar",
+  "homepage": "https://github.com/TensorTemplar/slopometry",
+  "skills": []
+}
