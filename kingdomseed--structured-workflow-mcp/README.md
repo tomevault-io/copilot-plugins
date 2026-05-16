@@ -7,11 +7,11 @@ An MCP server that tries to force an AI agent to follow structured problem solvi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kingdomseed/structured-workflow-mcp](https://github.com/kingdomseed/structured-workflow-mcp).
+Original source: `CLAUDE.md` in [kingdomseed/structured-workflow-mcp](https://github.com/kingdomseed/structured-workflow-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
