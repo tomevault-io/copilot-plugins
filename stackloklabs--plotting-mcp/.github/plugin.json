@@ -1,0 +1,9 @@
+{
+  "name": "stackloklabs--plotting-mcp",
+  "displayName": "plotting-mcp",
+  "description": "MCP server that transforms CSV data into visualizations",
+  "version": "1.0.0",
+  "author": "StacklokLabs",
+  "homepage": "https://github.com/StacklokLabs/plotting-mcp",
+  "skills": []
+}
