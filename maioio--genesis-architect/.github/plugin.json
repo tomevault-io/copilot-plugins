@@ -1,0 +1,9 @@
+{
+  "name": "maioio--genesis-architect",
+  "displayName": "genesis-architect",
+  "description": "Claude skill for strategic project scaffolding with pre-build market research",
+  "version": "1.0.0",
+  "author": "maioio",
+  "homepage": "https://github.com/maioio/genesis-architect",
+  "skills": []
+}
