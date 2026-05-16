@@ -1,0 +1,57 @@
+{
+  "name": "vibeguard",
+  "owner": "majiayu000",
+  "repo": "vibeguard",
+  "description": "Native rules, hooks, and guards that prevent Claude Code and Codex from hallucinating code, duplicating files, or shipping unverified changes.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-optimize",
+      "path": "workflows/auto-optimize",
+      "github_url": "https://github.com/majiayu000/vibeguard/tree/main/workflows/auto-optimize",
+      "description": ""
+    },
+    {
+      "name": "fixflow",
+      "path": "workflows/fixflow",
+      "github_url": "https://github.com/majiayu000/vibeguard/tree/main/workflows/fixflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/majiayu000/vibeguard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:30:09Z"
+}
