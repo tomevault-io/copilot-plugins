@@ -1,0 +1,9 @@
+{
+  "name": "thrillfall--journeys",
+  "displayName": "journeys",
+  "description": "Clusters your images into journeys (vacations/trips) and creates albums and video reels for each journey. Integrates with the Memories app to access image metadata.",
+  "version": "1.0.0",
+  "author": "thrillfall",
+  "homepage": "https://github.com/thrillfall/journeys",
+  "skills": []
+}
