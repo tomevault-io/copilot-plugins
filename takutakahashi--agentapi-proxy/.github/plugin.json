@@ -1,0 +1,9 @@
+{
+  "name": "takutakahashi--agentapi-proxy",
+  "displayName": "agentapi-proxy",
+  "description": "Proxy and Process Provisioner for coder/agentapi",
+  "version": "1.0.0",
+  "author": "takutakahashi",
+  "homepage": "https://github.com/takutakahashi/agentapi-proxy",
+  "skills": []
+}
