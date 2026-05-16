@@ -1,0 +1,9 @@
+{
+  "name": "learnsyslab--crisp-gym",
+  "displayName": "crisp_gym",
+  "description": "Gym environments for manipulators based on crisp_py and ROS2: collect data and deploy policies on real ROS2 enabled manipulators.",
+  "version": "1.0.0",
+  "author": "learnsyslab",
+  "homepage": "https://github.com/learnsyslab/crisp_gym",
+  "skills": []
+}
