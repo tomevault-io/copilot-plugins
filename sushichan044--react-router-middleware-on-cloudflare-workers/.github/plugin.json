@@ -1,0 +1,9 @@
+{
+  "name": "sushichan044--react-router-middleware-on-cloudflare-workers",
+  "displayName": "react-router-middleware-on-cloudflare-workers",
+  "description": "A sample of React Router with unstable middleware enabled, running on the Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "sushichan044",
+  "homepage": "https://github.com/sushichan044/react-router-middleware-on-cloudflare-workers",
+  "skills": []
+}
