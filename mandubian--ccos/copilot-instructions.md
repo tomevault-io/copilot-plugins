@@ -1,17 +1,113 @@
-## rtfs-2-0-rules
+## rust-rules
 
-> RTFS 2.0 syntax and specification compliance rules
+> rust rules for the project
 
+rules:
+  - id: rust-use-semicolons
+    description: "Ensure statements are terminated with semicolons except for tail expressions in blocks."
+    pattern: |
+      $EXPR
+    condition: |
+      not is_tail_expression($EXPR)
+    message: "Statements in Rust must be terminated with a semicolon."
+    severity: warning
 
-# RTFS 2.0 Compliance Snapshot
+  - id: rust-unwrap-usage
+    description: "Discourage use of unwrap() and expect() on Result/Option types."
+    pattern: |
+      $VAL.unwrap()
+    message: "Avoid using unwrap(); handle errors explicitly."
+    severity: warning
 
-- Specs live in `docs/rtfs-2.0/specs/`. Core refs: `01` grammar & syntax, `02` evaluation, `03` host boundary, `04` stdlib, `05` macros, `07` immutability, `08` concurrency, `09` continuations, `10` formal spec.
-- Follow capability system contract (`06`) and CCOS bridge (`13-rtfs-ccos-integration-guide.md`).
-- Programs stay pure and deterministic; mutate state only via host-coordinated continuations or checkpoints.
-- All values must validate against declared schemas; types inferred from spec `03-object-schemas.md`.
-- Capability calls require attestation, provenance, and secure parameters per `06` and `00-philosophy.md` security model.
-- Continuation handoffs must honor host yield protocol (`09`) and resume through checkpoint design (`98-migration-plan-immutability.md`).
-- Never bypass step special forms, capability marketplace rules, or security gates defined in the RTFS specs.
+  - id: rust-missing-doc-comments
+    description: "Public items should have documentation comments."
+    pattern: |
+      pub $ITEM $NAME $REST
+    condition: |
+      not has_doc_comment($ITEM)
+    message: "Public item is missing a documentation comment."
+    severity: info
+
+  - id: rust-unused-mut
+    description: "Detect variables declared as mutable but never mutated."
+    pattern: |
+      let mut $VAR = $VAL;
+    condition: |
+      not is_mutated($VAR)
+    message: "Variable is declared as mutable but never mutated."
+    severity: warning
+
+  - id: rust-inefficient-string-concat
+    description: "Suggest using format! macro for string concatenation."
+    pattern: |
+      $A.to_string() + $B
+    message: "Consider using format! macro for string concatenation."
+    severity: info
+
+  - id: rust-avoid-clone
+    description: "Warn when .clone() is used unnecessarily."
+    pattern: |
+      $VAL.clone()
+    condition: |
+      not is_required_clone($VAL)
+    message: "Avoid unnecessary .clone(); prefer borrowing or references."
+    severity: info
+
+  - id: rust-struct-field-privacy
+    description: "Warn if struct fields are public without need."
+    pattern: |
+      pub struct $NAME { pub $FIELD: $TYPE, $REST }
+    message: "Struct field is public; consider making it private and using getter/setter methods."
+    severity: info
+
+  - id: rust-async-await
+    description: "Encourage use of async/await for asynchronous code."
+    pattern: |
+      $FUTURE.wait()
+    message: "Consider using async/await syntax instead of .wait()."
+    severity: info
+
+  - id: rust-vec-init
+    description: "Suggest using Vec::with_capacity when capacity is known."
+    pattern: |
+      let mut $VEC = Vec::new();
+    condition: |
+      is_capacity_known($VEC)
+    message: "Use Vec::with_capacity when the capacity is known in advance."
+    severity: info
+
+  - id: rust-match-exhaustiveness
+    description: "Warn if match statements are not exhaustive."
+    pattern: |
+      match $EXPR { $ARMS }
+    condition: |
+      not is_exhaustive($EXPR, $ARMS)
+    message: "Match statement is not exhaustive; consider handling all cases."
+    severity: warning
+
+  - id: rust-specific-test
+    description: "Run specific tests for the project."
+    pattern: |
+      cargo test --test custom_tests -- --option1 --option2 
+    message: "Run custom tests for the project."
+    severity: info
+
+# Code Factorization Guidelines
+# 
+# IMPORTANT: Before implementing utility functions, especially for value conversions,
+# ALWAYS check ccos::utils modules for existing shared utilities.
+#
+# Key shared utilities available:
+# - ccos::utils::value_conversion::rtfs_value_to_json - Convert RTFS Value to JSON
+# - ccos::utils::value_conversion::json_to_rtfs_value - Convert JSON to RTFS Value  
+# - ccos::utils::value_conversion::map_key_to_string - Convert MapKey to String
+# - ccos::utils::value_conversion::strip_leading_colon - Strip leading colon from strings
+#
+# When writing code:
+# 1. Check ccos::utils::value_conversion before implementing any RTFS↔JSON conversion
+# 2. Factorize common patterns into shared utility modules
+# 3. Avoid duplicating conversion logic - use existing utilities
+# 4. If you find duplicate code, extract it to ccos::utils
 
 ---
 > Source: [mandubian/ccos](https://github.com/mandubian/ccos) — distributed by [TomeVault](https://tomevault.io).
