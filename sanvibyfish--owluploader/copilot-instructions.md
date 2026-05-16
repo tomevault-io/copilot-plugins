@@ -1,60 +1,55 @@
-## 03-mainappviewandnavigation
+## 04-auxiliaryfeaturesandtools
 
-> 本规则主要描述 OwlUploader 应用的整体结构、主视图 (`ContentView.swift`)、应用入口 (`OwlUploaderApp.swift`) 以及导航相关的组件和逻辑。
+> 本规则介绍了 OwlUploader 应用中使用的一些辅助功能模块和工具类，它们为核心功能提供支持或增强用户体验。
 
-\
-# 规则 03: 应用主视图与导航
+# 规则 04: 辅助功能与工具
 
 ## 概述
-本规则主要描述 OwlUploader 应用的整体结构、主视图 (`ContentView.swift`)、应用入口 (`OwlUploaderApp.swift`) 以及导航相关的组件和逻辑。
+本规则介绍了 OwlUploader 应用中使用的一些辅助功能模块和工具类，它们为核心功能提供支持或增强用户体验。
 
-## 应用入口: OwlUploaderApp
-`OwlUploaderApp.swift` 是 SwiftUI 应用的入口点。
-
-### 主要职责
-- 定义应用的主场景 (`WindowGroup`)，其中包含 `ContentView`。
-- 设置应用的默认窗口大小。参考近期优化：`.defaultSize(width: 1200, height: 800)`。
-- 可以包含应用级别的命令和菜单配置。例如，移除了不必要的"新建"菜单项。
-
-## 主视图: ContentView
-`ContentView.swift` 是应用的顶层视图，负责组织应用的整体布局和主要导航流程。
-
-### 主要功能与布局
-- **`NavigationView`**: 使用 `.navigationViewStyle(.columns)` 来确保在 macOS 上侧边栏始终可见，这是近期修复侧边栏显示不稳定问题的一部分。
-- **侧边栏 (Sidebar)**: 
-    - 提供到不同功能模块的导航链接，如欢迎页、账户设置、存储桶选择、文件管理。
-    - 侧边栏的菜单项会根据连接状态和存储桶选择状态动态启用/禁用。近期通过条件渲染替代 `.disabled()` 修复了状态同步问题。
-    - 底部包含连接状态显示和断开连接按钮。近期对断开连接按钮的样式和布局进行了优化。
-- **内容区域**: 根据侧边栏的选择动态显示不同的视图（欢迎、设置、存储桶列表、文件列表）。
-- **状态管理**: 观察 `R2Service` 的状态变化 (如 `isConnected`, `selectedBucket`) 来更新 UI 和导航行为。
-- **智能引导流程**: 
-    - 欢迎页面会根据连接状态提供不同的操作引导按钮（配置账户、选择存储桶、开始管理文件）。
-    - 连接成功或选择存储桶后，会自动导航到相应的下一步视图。
-    - 近期添加了始终可用的"重新配置账户"按钮到欢迎页，以提高容错性。
-
-### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
-- **侧边栏显示修复**: 将 `NavigationView` 样式从 `.automatic` 改为 `.columns`，确保侧边栏始终可见。
-- **连接成功后流程优化**: 实现了测试连接成功后自动保存配置、自动连接服务并导航到存储桶选择页面的顺畅流程。
-- **侧边栏菜单状态同步修复**: 改用条件渲染（`if r2Service.isConnected`) 替代 `.disabled()`，解决了 `NavigationLink` 禁用状态更新不及时的 BUG。
-- **欢迎页面配置入口优化**: 添加了在任何状态下都可用的"重新配置账户"按钮。
-- **主内容区域尺寸优化**: 为内容区域设置了 `minWidth`, `idealWidth`, `maxWidth` 等约束，以优化不同窗口尺寸下的显示效果。
-- **左侧菜单栏断开连接按钮布局优化**: 改进了按钮样式和周围元素的间距，提升了视觉效果。
-
-## 路径导航: BreadcrumbView
-`BreadcrumbView.swift` 用于在文件列表中显示当前的文件夹路径，并允许用户通过点击路径组件快速跳转到上级目录。
+## 诊断工具: DiagnosticsView
+`DiagnosticsView.swift` 提供了一个用户界面，允许用户主动检查应用与 R2 服务的连接状态和配置的健康状况。
 
 ### 主要功能
-- 解析当前文件路径并显示为可点击的面包屑导航项。
-- 点击面包屑项可以导航到对应的父文件夹。
-- 交互模式近期从双击优化为单击，与文件列表的文件夹点击行为保持一致。
+- 显示当前的连接状态、账户配置信息、选定的存储桶等。
+- 执行一系列诊断检查，如：
+    - 验证 R2 服务连接。
+    - 检查账户配置的完整性。
+    - 验证 API Token 权限（概念性，实际权限检查在 `R2Service`）。
+    - 检查端点 URL 格式。
+    - 确认存储桶选择状态。
+- 提供诊断结果和潜在问题的解决建议。
+
+### 近期重要变更 (参考 [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md))
+- **macOS 兼容性修复**: 移除了 iOS 特有的修饰符 (`navigationBarTitleDisplayMode`, `navigationBarTrailing`)，调整了工具栏按钮位置，修复了中文引号导致的字符串解析错误，使其能在 macOS 上正确编译和显示。
+- **界面尺寸优化**: 多次调整了 `DiagnosticsView` 的 frame 参数，以确保其内容（特别是较长的诊断信息文本）能够完整显示，解决了因外部 frame 覆盖导致内部尺寸设置无效的问题。
+- **上传问题诊断集成**: 诊断视图现在也用于帮助用户排查文件上传失败的问题，提供系统性的前置条件检查。
+
+## 消息提示: MessageBanner
+`MessageBanner.swift` 实现了一个通用的消息横幅组件，用于在应用顶部显示成功、错误或信息性提示。
+
+### 主要功能
+- 支持不同类型的消息（成功、错误、信息、警告）。
+- 消息可以自动消失，也可以手动关闭。
+- 通过 `MessageManager`（一个 `ObservableObject`）在应用各处触发显示。
+
+## Keychain服务: KeychainService
+`KeychainService.swift` 封装了与 macOS Keychain 的交互，用于安全地存储和读取敏感数据，如 R2 账户的 Secret Access Key。
+
+### 主要功能
+- 保存数据到 Keychain。
+- 从 Keychain 读取数据。
+- 从 Keychain 删除数据。
+- 更新 Keychain 中的数据。
+- 为应用的账户管理 (`R2AccountManager`) 提供底层的安全存储能力。
 
 ### 关键文件
-- 应用入口: [OwlUploader/OwlUploaderApp.swift](mdc:OwlUploader/OwlUploaderApp.swift)
-- 主视图与导航: [OwlUploader/ContentView.swift](mdc:OwlUploader/ContentView.swift)
-- 路径导航栏: [OwlUploader/BreadcrumbView.swift](mdc:OwlUploader/BreadcrumbView.swift)
+- 诊断工具界面: [OwlUploader/DiagnosticsView.swift](mdc:OwlUploader/DiagnosticsView.swift)
+- 消息横幅组件: [OwlUploader/MessageBanner.swift](mdc:OwlUploader/MessageBanner.swift)
+- Keychain 服务封装: [OwlUploader/KeychainService.swift](mdc:OwlUploader/KeychainService.swift)
 - 开发日志: [docs/dev/DEV-2025-05-25.md](mdc:docs/dev/DEV-2025-05-25.md)
 
-此规则帮助 AI 理解应用的整体结构、主要的 UI 容器以及导航逻辑和相关的近期改进。
+这些辅助工具对于提升应用的健壮性、易用性和安全性起到了重要作用。
 
 ---
 > Source: [sanvibyfish/OwlUploader](https://github.com/sanvibyfish/OwlUploader) — distributed by [TomeVault](https://tomevault.io).
