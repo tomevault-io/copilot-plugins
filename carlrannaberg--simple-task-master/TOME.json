@@ -4,7 +4,7 @@
   "repo": "simple-task-master",
   "description": "A powerful, lightweight command-line task management tool built for developers who prefer markdown files over complex project management systems",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/carlrannaberg/simple-task-master",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T20:48:40Z"
+  "distributed_at": "2026-05-16T02:09:12Z"
 }
