@@ -1,0 +1,9 @@
+{
+  "name": "danii1--claude-intern",
+  "displayName": "claude-intern",
+  "description": "Your AI intern for automatically implementing JIRA tasks, so you can concentrate on important stuff.",
+  "version": "1.0.0",
+  "author": "danii1",
+  "homepage": "https://github.com/danii1/claude-intern",
+  "skills": []
+}
