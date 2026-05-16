@@ -1,0 +1,9 @@
+{
+  "name": "dreamshive--adonis-odm",
+  "displayName": "adonis-odm",
+  "description": "A MongoDB Object Document Mapper (ODM) for AdonisJS v6 that provides a familiar Lucid ORM-like interface for working with MongoDB databases",
+  "version": "1.0.0",
+  "author": "DreamsHive",
+  "homepage": "https://github.com/DreamsHive/adonis-odm",
+  "skills": []
+}
