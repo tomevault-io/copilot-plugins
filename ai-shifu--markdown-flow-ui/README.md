@@ -7,11 +7,11 @@ React component library to render interactive MarkdownFlow documents with typewr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ai-shifu/markdown-flow-ui](https://github.com/ai-shifu/markdown-flow-ui).
+Original source: `CLAUDE.md` in [ai-shifu/markdown-flow-ui](https://github.com/ai-shifu/markdown-flow-ui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
