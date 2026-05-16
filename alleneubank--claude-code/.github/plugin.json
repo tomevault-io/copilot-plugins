@@ -1,0 +1,9 @@
+{
+  "name": "alleneubank--claude-code",
+  "displayName": "claude-code",
+  "description": "Comprehensive configuration system for Claude Code",
+  "version": "1.0.0",
+  "author": "alleneubank",
+  "homepage": "https://github.com/alleneubank/claude-code",
+  "skills": []
+}
