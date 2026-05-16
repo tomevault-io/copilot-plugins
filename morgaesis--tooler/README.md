@@ -7,11 +7,11 @@ Automate CLI tool management from GitHub Releases. Simple runs, version control,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [morgaesis/tooler](https://github.com/morgaesis/tooler).
+Original source: `CLAUDE.md` in [morgaesis/tooler](https://github.com/morgaesis/tooler).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
