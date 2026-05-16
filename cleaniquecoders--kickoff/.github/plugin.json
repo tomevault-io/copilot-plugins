@@ -1,0 +1,9 @@
+{
+  "name": "cleaniquecoders--kickoff",
+  "displayName": "kickoff",
+  "description": "Allow configure new Laravel project with all required packages and setup.",
+  "version": "1.0.0",
+  "author": "cleaniquecoders",
+  "homepage": "https://github.com/cleaniquecoders/kickoff",
+  "skills": []
+}
