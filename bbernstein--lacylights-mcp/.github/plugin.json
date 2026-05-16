@@ -1,0 +1,9 @@
+{
+  "name": "bbernstein--lacylights-mcp",
+  "displayName": "lacylights-mcp",
+  "description": "AI-powered Model Context Protocol server for theatrical lighting design and control. Features intelligent fixture management, script-based scene generation, and dynamic cue sequencing for professional",
+  "version": "1.0.0",
+  "author": "bbernstein",
+  "homepage": "https://github.com/bbernstein/lacylights-mcp",
+  "skills": []
+}
