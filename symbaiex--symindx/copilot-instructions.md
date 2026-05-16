@@ -1,573 +1,895 @@
-## 005-ai-integration-patterns
+## 007-extension-system-patterns
 
-> APPLY AI portal integration standards when working with AI provider code
+> APPLY extension patterns when developing platform integrations
 
-globs: mind-agents/src/portals/**/*
+globs: mind-agents/src/extensions/**/*
 alwaysApply: false
 ---
-# AI Integration Patterns
+# Extension System Patterns
 
 **Rule Priority:** Core Architecture  
 **Activation:** Always Active  
-**Scope:** AI provider integrations and portal management
+**Scope:** Platform integrations, extensions, and external service connections
 
-## AI Portal Architecture
+## Extension Architecture Overview
 
-SYMindX implements a **unified portal architecture** that abstracts AI provider interactions through the Vercel AI SDK v5, enabling seamless switching between providers and models.
+SYMindX implements a **pluggable extension system** that enables seamless integration with multiple communication platforms, APIs, and external services through a unified interface architecture.
 
-### Portal Abstraction Layer
+### Extension System Structure
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  SYMindX Extension System                    │
+├─────────────────────────────────────────────────────────────┤
+│  Communication Extensions  │  API Extensions  │  MCP       │
+│  ├─ Telegram Bot           │  ├─ REST API     │  ├─ Server │
+│  ├─ Discord Bot            │  ├─ WebSocket    │  ├─ Client │
+│  ├─ Slack Integration      │  ├─ GraphQL      │  └─ Tools  │
+│  ├─ Twitter/X Bot          │  └─ Webhooks     │            │
+│  └─ RuneLite Plugin        │                  │            │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Base Extension Framework
+
+### Extension Interface
 ```typescript
-interface AIPortal {
+interface Extension {
   readonly id: string;
-  readonly provider: string;
-  readonly models: ModelInfo[];
-  readonly capabilities: PortalCapability[];
+  readonly name: string;
+  readonly version: string;
+  readonly capabilities: ExtensionCapability[];
+  readonly dependencies: ExtensionDependency[];
   
-  // Core operations
-  generate(request: GenerationRequest): Promise<GenerationResponse>;
-  stream(request: StreamRequest): AsyncIterable<StreamChunk>;
-  embed(text: string, options?: EmbedOptions): Promise<number[]>;
-  moderate(content: string): Promise<ModerationResult>;
+  // Lifecycle methods
+  initialize(context: ExtensionContext): Promise<void>;
+  activate(): Promise<void>;
+  deactivate(): Promise<void>;
+  dispose(): Promise<void>;
   
-  // Management
-  initialize(config: PortalConfig): Promise<void>;
-  healthCheck(): Promise<HealthStatus>;
-  shutdown(): Promise<void>;
+  // Event handling
+  onMessage(message: Message): Promise<void>;
+  onEvent(event: SystemEvent): Promise<void>;
+  handleError(error: Error): Promise<void>;
 }
 
-// Base portal implementation
-abstract class BasePortal implements AIPortal {
-  protected abstract createProvider(): Provider;
-  protected abstract handleRateLimit(error: Error): Promise<void>;
-  protected abstract selectModel(task: TaskType): string;
+abstract class BaseExtension implements Extension {
+  protected context: ExtensionContext;
+  protected eventBus: EventBus;
+  protected logger: Logger;
+  
+  constructor(
+    public readonly id: string,
+    public readonly name: string,
+    public readonly version: string
+  ) {}
+  
+  async initialize(context: ExtensionContext): Promise<void> {
+    this.context = context;
+    this.eventBus = context.eventBus;
+    this.logger = context.logger.child({ extension: this.id });
+    
+    await this.onInitialize();
+  }
+  
+  protected abstract onInitialize(): Promise<void>;
+  protected abstract onActivate(): Promise<void>;
+  protected abstract onDeactivate(): Promise<void>;
 }
 ```
 
-## Supported AI Providers
-
-### OpenAI Portal (`portals/openai/`)
+### Extension Registry
 ```typescript
-interface OpenAIConfig {
-  apiKey: string;
-  organization?: string;
-  baseURL?: string;
-  models: {
-    chat: string;          // Default: "gpt-4o"
-    tools: string;         // Default: "gpt-4.1-mini"
-    embedding: string;     // Default: "text-embedding-3-small"
+interface ExtensionRegistry {
+  register(extension: Extension): Promise<void>;
+  unregister(extensionId: string): Promise<void>;
+  get(extensionId: string): Extension | null;
+  getAll(): Extension[];
+  getByCapability(capability: ExtensionCapability): Extension[];
+}
+
+class RuntimeExtensionRegistry implements ExtensionRegistry {
+  private extensions = new Map<string, Extension>();
+  private capabilityIndex = new Map<ExtensionCapability, Set<string>>();
+  
+  async register(extension: Extension): Promise<void> {
+    // Validate dependencies
+    await this.validateDependencies(extension);
+    
+    // Initialize extension
+    await extension.initialize(this.createContext(extension));
+    
+    // Register in indexes
+    this.extensions.set(extension.id, extension);
+    this.indexCapabilities(extension);
+    
+    this.logger.info(`Extension registered: ${extension.id}`);
+  }
+  
+  private createContext(extension: Extension): ExtensionContext {
+    return {
+      extensionId: extension.id,
+      eventBus: this.eventBus,
+      logger: this.logger,
+      config: this.getExtensionConfig(extension.id),
+      storage: this.createExtensionStorage(extension.id)
+    };
+  }
+}
+```
+
+## Communication Extensions
+
+### Telegram Extension (`extensions/communication/telegram/`)
+```typescript
+interface TelegramConfig {
+  botToken: string;
+  webhookUrl?: string;
+  allowedUsers?: string[];
+  commandPrefix: string;
+  features: {
+    inlineKeyboards: boolean;
+    fileUploads: boolean;
+    groupChats: boolean;
   };
 }
 
-// Implementation with retries and fallbacks
-class OpenAIPortal extends BasePortal {
-  private readonly client: OpenAI;
+class TelegramExtension extends BaseExtension {
+  private bot: TelegramBot;
+  private config: TelegramConfig;
   
-  async generate(request: GenerationRequest): Promise<GenerationResponse> {
-    return await this.withRetry(async () => {
-      const result = await generateText({
-        model: this.openai(this.selectModel('chat')),
-        messages: request.messages,
-        temperature: request.temperature,
-        maxTokens: request.maxTokens,
-        tools: request.tools
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as TelegramConfig;
+    this.bot = new TelegramBot(this.config.botToken, {
+      polling: !this.config.webhookUrl,
+      webhook: this.config.webhookUrl ? {
+        url: this.config.webhookUrl,
+        port: process.env.WEBHOOK_PORT ? parseInt(process.env.WEBHOOK_PORT) : 3000
+      } : undefined
+    });
+    
+    this.setupEventHandlers();
+  }
+  
+  private setupEventHandlers(): void {
+    this.bot.on('message', async (msg) => {
+      try {
+        await this.handleTelegramMessage(msg);
+      } catch (error) {
+        await this.handleError(error as Error);
+      }
+    });
+    
+    this.bot.on('callback_query', async (query) => {
+      await this.handleCallbackQuery(query);
+    });
+  }
+  
+  private async handleTelegramMessage(msg: TelegramMessage): Promise<void> {
+    // Security check
+    if (!this.isAuthorizedUser(msg.from?.id)) {
+      await this.bot.sendMessage(msg.chat.id, 'Unauthorized access');
+      return;
+    }
+    
+    // Convert to internal message format
+    const message: Message = {
+      id: msg.message_id.toString(),
+      content: msg.text || '',
+      sender: {
+        id: msg.from!.id.toString(),
+        name: msg.from!.first_name,
+        platform: 'telegram'
+      },
+      channel: {
+        id: msg.chat.id.toString(),
+        type: msg.chat.type,
+        platform: 'telegram'
+      },
+      timestamp: new Date(msg.date * 1000),
+      attachments: this.extractAttachments(msg)
+    };
+    
+    // Route to agent
+    await this.eventBus.emit('message.received', message);
+  }
+  
+  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
+    const telegramOptions: any = {
+      parse_mode: 'Markdown',
+      disable_web_page_preview: true
+    };
+    
+    if (options?.inlineKeyboard) {
+      telegramOptions.reply_markup = {
+        inline_keyboard: this.convertToTelegramKeyboard(options.inlineKeyboard)
+      };
+    }
+    
+    await this.bot.sendMessage(parseInt(channelId), content, telegramOptions);
+  }
+}
+```
+
+### Discord Extension (`extensions/communication/discord/`)
+```typescript
+interface DiscordConfig {
+  botToken: string;
+  clientId: string;
+  guildIds?: string[];
+  commandPrefix: string;
+  features: {
+    slashCommands: boolean;
+    embedMessages: boolean;
+    voiceChannels: boolean;
+    threads: boolean;
+  };
+}
+
+class DiscordExtension extends BaseExtension {
+  private client: Client;
+  private config: DiscordConfig;
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as DiscordConfig;
+    
+    this.client = new Client({
+      intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.DirectMessages
+      ]
+    });
+    
+    await this.setupEventHandlers();
+    await this.registerSlashCommands();
+  }
+  
+  private async setupEventHandlers(): Promise<void> {
+    this.client.on('ready', () => {
+      this.logger.info(`Discord bot ready: ${this.client.user?.tag}`);
+    });
+    
+    this.client.on('messageCreate', async (msg) => {
+      if (msg.author.bot) return;
+      await this.handleDiscordMessage(msg);
+    });
+    
+    this.client.on('interactionCreate', async (interaction) => {
+      if (interaction.isChatInputCommand()) {
+        await this.handleSlashCommand(interaction);
+      }
+    });
+  }
+  
+  private async registerSlashCommands(): Promise<void> {
+    if (!this.config.features.slashCommands) return;
+    
+    const commands = [
+      {
+        name: 'ask',
+        description: 'Ask the AI agent a question',
+        options: [{
+          name: 'question',
+          description: 'Your question',
+          type: ApplicationCommandOptionType.String,
+          required: true
+        }]
+      },
+      {
+        name: 'status',
+        description: 'Check agent status'
+      }
+    ];
+    
+    const rest = new REST({ version: '10' }).setToken(this.config.botToken);
+    
+    try {
+      await rest.put(
+        Routes.applicationCommands(this.config.clientId),
+        { body: commands }
+      );
+      this.logger.info('Discord slash commands registered');
+    } catch (error) {
+      this.logger.error('Failed to register slash commands:', error);
+    }
+  }
+  
+  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
+    const channel = await this.client.channels.fetch(channelId) as TextChannel;
+    
+    if (options?.embed) {
+      const embed = new EmbedBuilder()
+        .setColor(0x0099FF)
+        .setTitle(options.embed.title)
+        .setDescription(options.embed.description)
+        .setTimestamp();
+        
+      await channel.send({ embeds: [embed] });
+    } else {
+      await channel.send(content);
+    }
+  }
+}
+```
+
+### Slack Extension (`extensions/communication/slack/`)
+```typescript
+interface SlackConfig {
+  botToken: string;
+  signingSecret: string;
+  appToken?: string;
+  socketMode: boolean;
+  features: {
+    blockKit: boolean;
+    fileSharing: boolean;
+    reactions: boolean;
+    shortcuts: boolean;
+  };
+}
+
+class SlackExtension extends BaseExtension {
+  private app: App;
+  private config: SlackConfig;
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as SlackConfig;
+    
+    this.app = new App({
+      token: this.config.botToken,
+      signingSecret: this.config.signingSecret,
+      socketMode: this.config.socketMode,
+      appToken: this.config.appToken,
+      port: process.env.SLACK_PORT ? parseInt(process.env.SLACK_PORT) : 3001
+    });
+    
+    await this.setupEventHandlers();
+  }
+  
+  private async setupEventHandlers(): Promise<void> {
+    // Message events
+    this.app.message(async ({ message, say, client }) => {
+      await this.handleSlackMessage(message, say, client);
+    });
+    
+    // Slash commands
+    this.app.command('/ask', async ({ command, ack, respond }) => {
+      await ack();
+      await this.handleSlashCommand(command, respond);
+    });
+    
+    // Interactive components
+    this.app.action('button_click', async ({ body, ack, respond }) => {
+      await ack();
+      await this.handleButtonInteraction(body, respond);
+    });
+  }
+  
+  async sendMessage(channelId: string, content: string, options?: MessageOptions): Promise<void> {
+    const messageOptions: any = {
+      channel: channelId,
+      text: content
+    };
+    
+    if (options?.blocks && this.config.features.blockKit) {
+      messageOptions.blocks = this.convertToSlackBlocks(options.blocks);
+    }
+    
+    await this.app.client.chat.postMessage(messageOptions);
+  }
+}
+```
+
+### RuneLite Extension (`extensions/communication/runelite/`)
+```typescript
+interface RuneLiteConfig {
+  pluginName: string;
+  gameEvents: string[];
+  overlayEnabled: boolean;
+  chatIntegration: boolean;
+  features: {
+    questHelper: boolean;
+    priceChecker: boolean;
+    skillTracker: boolean;
+    clanChat: boolean;
+  };
+}
+
+class RuneLiteExtension extends BaseExtension {
+  private wsServer: WebSocketServer;
+  private gameClients = new Map<string, WebSocket>();
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as RuneLiteConfig;
+    
+    // Create WebSocket server for RuneLite plugin communication
+    this.wsServer = new WebSocketServer({
+      port: process.env.RUNELITE_WS_PORT ? parseInt(process.env.RUNELITE_WS_PORT) : 8081
+    });
+    
+    this.setupWebSocketHandlers();
+  }
+  
+  private setupWebSocketHandlers(): void {
+    this.wsServer.on('connection', (ws, request) => {
+      const clientId = this.generateClientId();
+      this.gameClients.set(clientId, ws);
+      
+      ws.on('message', async (data) => {
+        try {
+          const gameEvent = JSON.parse(data.toString());
+          await this.handleGameEvent(clientId, gameEvent);
+        } catch (error) {
+          this.logger.error('Failed to parse game event:', error);
+        }
       });
       
-      return this.transformResponse(result);
+      ws.on('close', () => {
+        this.gameClients.delete(clientId);
+      });
     });
   }
-}
-```
-
-### Anthropic Portal (`portals/anthropic/`)
-```typescript
-interface AnthropicConfig {
-  apiKey: string;
-  baseURL?: string;
-  models: {
-    chat: string;          // Default: "claude-3-6-sonnet-20250101"
-tools: string;         // Default: "claude-3-6-haiku-20250101"
-  };
-}
-
-class AnthropicPortal extends BasePortal {
-  private readonly client: Anthropic;
   
-  // Handle Anthropic-specific message format
-  protected transformMessages(messages: Message[]): AnthropicMessage[] {
-    return messages.map(msg => ({
-      role: msg.role === 'assistant' ? 'assistant' : 'user',
-      content: msg.content
-    }));
-  }
-}
-```
-
-### Groq Portal (`portals/groq/`)
-```typescript
-interface GroqConfig {
-  apiKey: string;
-  models: {
-    chat: string;          // Default: "llama-3.3-70b-versatile"
-    tools: string;         // Default: "llama-3.1-8b-instant"
-  };
-}
-
-// Optimized for speed
-class GroqPortal extends BasePortal {
-  // Ultra-fast inference configuration
-  protected getDefaultOptions(): GenerationOptions {
-    return {
-      temperature: 0.7,
-      maxTokens: 2048,
-      stream: true,           // Always stream for responsiveness
-      parallel_tool_calls: true
+  private async handleGameEvent(clientId: string, event: GameEvent): Promise<void> {
+    const message: Message = {
+      id: `${clientId}-${Date.now()}`,
+      content: this.formatGameEvent(event),
+      sender: {
+        id: clientId,
+        name: event.playerName || 'Unknown Player',
+        platform: 'runelite'
+      },
+      channel: {
+        id: 'game',
+        type: 'game',
+        platform: 'runelite'
+      },
+      timestamp: new Date(),
+      metadata: {
+        eventType: event.type,
+        location: event.location,
+        skills: event.skills
+      }
     };
+    
+    await this.eventBus.emit('game.event', message);
+  }
+  
+  async sendGameNotification(clientId: string, message: string, type: NotificationType): Promise<void> {
+    const ws = this.gameClients.get(clientId);
+    if (!ws) return;
+    
+    const notification = {
+      type: 'notification',
+      message,
+      notificationType: type,
+      timestamp: Date.now()
+    };
+    
+    ws.send(JSON.stringify(notification));
   }
 }
 ```
 
-### Google Vertex AI Portal (`portals/google-vertex/`)
+## API Extensions
+
+### REST API Extension (`extensions/api/`)
 ```typescript
-interface VertexConfig {
-  projectId: string;
-  location: string;
-  credentialsPath?: string;
-  models: {
-    chat: string;          // Default: "gemini-1.5-pro"
-    embedding: string;     // Default: "text-embedding-004"
+interface APIConfig {
+  port: number;
+  cors: CorsOptions;
+  authentication: {
+    type: 'apikey' | 'jwt' | 'none';
+    secret?: string;
+  };
+  rateLimit: {
+    windowMs: number;
+    maxRequests: number;
+  };
+  endpoints: {
+    agents: boolean;
+    chat: boolean;
+    status: boolean;
+    metrics: boolean;
   };
 }
 
-class GoogleVertexPortal extends BasePortal {
-  // Handle Google's safety settings
-  protected getSafetySettings(): SafetySetting[] {
-    return [
-      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' }
-    ];
+class APIExtension extends BaseExtension {
+  private app: Express;
+  private server: Server;
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as APIConfig;
+    this.app = express();
+    
+    await this.setupMiddleware();
+    await this.setupRoutes();
   }
-}
-```
-
-### Local AI Portals
-
-#### Ollama Portal (`portals/ollama/`)
-```typescript
-interface OllamaConfig {
-  baseURL: string;       // Default: "http://localhost:11434"
-  models: {
-    chat: string;        // e.g., "llama3.2:latest"
-    embedding: string;   // e.g., "nomic-embed-text"
-  };
-}
-
-class OllamaPortal extends BasePortal {
-  // Check model availability
-  async checkModelAvailability(model: string): Promise<boolean> {
+  
+  private async setupMiddleware(): Promise<void> {
+    // CORS
+    this.app.use(cors(this.config.cors));
+    
+    // Body parsing
+    this.app.use(express.json({ limit: '10mb' }));
+    this.app.use(express.urlencoded({ extended: true }));
+    
+    // Rate limiting
+    const limiter = rateLimit({
+      windowMs: this.config.rateLimit.windowMs,
+      max: this.config.rateLimit.maxRequests,
+      message: 'Too many requests from this IP'
+    });
+    this.app.use(limiter);
+    
+    // Authentication
+    if (this.config.authentication.type !== 'none') {
+      this.app.use(this.createAuthMiddleware());
+    }
+    
+    // Logging
+    this.app.use(this.createLoggingMiddleware());
+  }
+  
+  private async setupRoutes(): Promise<void> {
+    const router = express.Router();
+    
+    // Agent endpoints
+    if (this.config.endpoints.agents) {
+      router.get('/agents', this.handleGetAgents.bind(this));
+      router.post('/agents', this.handleCreateAgent.bind(this));
+      router.get('/agents/:id', this.handleGetAgent.bind(this));
+      router.put('/agents/:id', this.handleUpdateAgent.bind(this));
+      router.delete('/agents/:id', this.handleDeleteAgent.bind(this));
+    }
+    
+    // Chat endpoints
+    if (this.config.endpoints.chat) {
+      router.post('/chat', this.handleChat.bind(this));
+      router.post('/chat/stream', this.handleChatStream.bind(this));
+    }
+    
+    // Status and metrics
+    if (this.config.endpoints.status) {
+      router.get('/status', this.handleGetStatus.bind(this));
+    }
+    
+    if (this.config.endpoints.metrics) {
+      router.get('/metrics', this.handleGetMetrics.bind(this));
+    }
+    
+    this.app.use('/api/v1', router);
+  }
+  
+  private async handleChat(req: Request, res: Response): Promise<void> {
     try {
-      const response = await fetch(`${this.baseURL}/api/tags`);
-      const { models } = await response.json();
-      return models.some((m: any) => m.name === model);
-    } catch {
-      return false;
+      const { message, agentId, sessionId } = req.body;
+      
+      const chatMessage: Message = {
+        id: uuidv4(),
+        content: message,
+        sender: {
+          id: req.headers['user-id'] as string || 'api-user',
+          name: 'API User',
+          platform: 'api'
+        },
+        channel: {
+          id: sessionId || 'default',
+          type: 'api',
+          platform: 'api'
+        },
+        timestamp: new Date()
+      };
+      
+      // Route to specific agent or use default
+      const response = await this.eventBus.emitAndWait('chat.request', {
+        message: chatMessage,
+        agentId
+      });
+      
+      res.json({
+        success: true,
+        response: response.content,
+        metadata: response.metadata
+      });
+      
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   }
 }
 ```
 
-#### LM Studio Portal (`portals/lmstudio/`)
+### WebSocket Extension (`extensions/api/websocket/`)
 ```typescript
-interface LMStudioConfig {
-  baseURL: string;       // Default: "http://localhost:1234"
-  model: string;         // Currently loaded model
+interface WebSocketConfig {
+  port: number;
+  path: string;
+  authentication: boolean;
+  heartbeat: {
+    interval: number;
+    timeout: number;
+  };
+  maxConnections: number;
 }
 
-class LMStudioPortal extends BasePortal {
-  // OpenAI-compatible API
-  protected createProvider(): Provider {
-    return openai({
-      baseURL: this.config.baseURL + '/v1',
-      apiKey: 'not-needed'  // LM Studio doesn't require API key
+class WebSocketExtension extends BaseExtension {
+  private wsServer: WebSocketServer;
+  private connections = new Map<string, WebSocketConnection>();
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as WebSocketConfig;
+    
+    this.wsServer = new WebSocketServer({
+      port: this.config.port,
+      path: this.config.path
+    });
+    
+    this.setupConnectionHandlers();
+    this.startHeartbeat();
+  }
+  
+  private setupConnectionHandlers(): void {
+    this.wsServer.on('connection', (ws, request) => {
+      const connectionId = uuidv4();
+      const connection = new WebSocketConnection(connectionId, ws);
+      
+      this.connections.set(connectionId, connection);
+      
+      ws.on('message', async (data) => {
+        await this.handleWebSocketMessage(connectionId, data);
+      });
+      
+      ws.on('close', () => {
+        this.connections.delete(connectionId);
+      });
+      
+      // Send connection confirmation
+      ws.send(JSON.stringify({
+        type: 'connection',
+        connectionId,
+        timestamp: Date.now()
+      }));
     });
   }
-}
-```
-
-## Portal Integration Patterns
-
-### Provider Selection Strategy
-```typescript
-interface ProviderSelector {
-  selectProvider(task: TaskType, requirements: Requirements): AIPortal;
-  getFallbackChain(primary: string): string[];
-  estimateCost(provider: string, tokens: number): number;
-}
-
-class IntelligentProviderSelector implements ProviderSelector {
-  selectProvider(task: TaskType, requirements: Requirements): AIPortal {
-    // Cost optimization for embeddings
-    if (task === 'embedding') {
-      return this.registry.get('openai'); // Most cost-effective
-    }
+  
+  async broadcastToAll(message: object): Promise<void> {
+    const data = JSON.stringify(message);
     
-    // Speed optimization for real-time chat
-    if (requirements.speed === 'realtime') {
-      return this.registry.get('groq'); // Fastest inference
-    }
-    
-    // Quality optimization for complex reasoning
-    if (requirements.quality === 'maximum') {
-      return this.registry.get('anthropic'); // Claude for reasoning
-    }
-    
-    return this.registry.get(this.defaultProvider);
-  }
-}
-```
-
-### Fallback and Resilience
-```typescript
-class ResilientPortalManager {
-  async executeWithFallback<T>(
-    operation: (portal: AIPortal) => Promise<T>,
-    task: TaskType
-  ): Promise<T> {
-    const fallbackChain = this.getFallbackChain(task);
-    
-    for (const providerId of fallbackChain) {
-      try {
-        const portal = this.registry.get(providerId);
-        if (await portal.healthCheck()) {
-          return await operation(portal);
-        }
-      } catch (error) {
-        this.logger.warn(`Provider ${providerId} failed:`, error);
-        // Continue to next fallback
+    for (const connection of this.connections.values()) {
+      if (connection.isAlive) {
+        connection.ws.send(data);
       }
     }
+  }
+  
+  async sendToConnection(connectionId: string, message: object): Promise<void> {
+    const connection = this.connections.get(connectionId);
+    if (connection && connection.isAlive) {
+      connection.ws.send(JSON.stringify(message));
+    }
+  }
+}
+```
+
+## MCP (Model Context Protocol) Extensions
+
+### MCP Server Extension (`extensions/mcp-server/`)
+```typescript
+interface MCPServerConfig {
+  port: number;
+  capabilities: MCPCapability[];
+  tools: MCPToolDefinition[];
+  resources: MCPResourceDefinition[];
+}
+
+class MCPServerExtension extends BaseExtension {
+  private mcpServer: MCPServer;
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as MCPServerConfig;
     
-    throw new Error('All AI providers failed');
-  }
-  
-  private getFallbackChain(task: TaskType): string[] {
-    switch (task) {
-      case 'chat':
-        return ['openai', 'anthropic', 'groq', 'ollama'];
-      case 'embedding':
-        return ['openai', 'google-vertex', 'ollama'];
-      case 'tools':
-        return ['openai', 'anthropic', 'groq'];
-      default:
-        return ['openai', 'anthropic'];
-    }
-  }
-}
-```
-
-### Rate Limiting and Cost Management
-```typescript
-interface RateLimiter {
-  canExecute(provider: string): boolean;
-  waitTime(provider: string): number;
-  recordUsage(provider: string, tokens: number): void;
-}
-
-class TokenBucketRateLimiter implements RateLimiter {
-  private buckets = new Map<string, TokenBucket>();
-  
-  canExecute(provider: string): boolean {
-    const bucket = this.getBucket(provider);
-    return bucket.hasTokens(1);
-  }
-  
-  private getBucket(provider: string): TokenBucket {
-    if (!this.buckets.has(provider)) {
-      const limits = this.getProviderLimits(provider);
-      this.buckets.set(provider, new TokenBucket(limits));
-    }
-    return this.buckets.get(provider)!;
-  }
-  
-  private getProviderLimits(provider: string): RateLimits {
-    const limits = {
-      'openai': { rpm: 3500, tpm: 200000 },
-      'anthropic': { rpm: 1000, tpm: 100000 },
-      'groq': { rpm: 30, tpm: 6000 },
-      'ollama': { rpm: 1000, tpm: 1000000 }, // Local unlimited
-    };
-    return limits[provider] || { rpm: 60, tpm: 10000 };
-  }
-}
-```
-
-## Message Format Standardization
-
-### Universal Message Format
-```typescript
-interface StandardMessage {
-  role: 'system' | 'user' | 'assistant' | 'tool';
-  content: string | MultimodalContent[];
-  name?: string;
-  tool_calls?: ToolCall[];
-  tool_call_id?: string;
-}
-
-interface MultimodalContent {
-  type: 'text' | 'image' | 'audio';
-  content: string | Uint8Array;
-  mimeType?: string;
-}
-
-// Portal-specific message transformation
-abstract class MessageTransformer {
-  abstract transformToProvider(messages: StandardMessage[]): unknown;
-  abstract transformFromProvider(response: unknown): StandardMessage;
-}
-```
-
-### Tool Calling Standardization
-```typescript
-interface ToolDefinition {
-  name: string;
-  description: string;
-  parameters: JSONSchema;
-}
-
-interface ToolCall {
-  id: string;
-  name: string;
-  arguments: Record<string, unknown>;
-}
-
-class UnifiedToolSystem {
-  async executeTool(toolCall: ToolCall, context: AgentContext): Promise<ToolResult> {
-    const tool = this.toolRegistry.get(toolCall.name);
-    if (!tool) {
-      throw new Error(`Unknown tool: ${toolCall.name}`);
-    }
-    
-    // Validate arguments against schema
-    const isValid = this.validateArguments(tool.parameters, toolCall.arguments);
-    if (!isValid) {
-      throw new Error(`Invalid arguments for tool: ${toolCall.name}`);
-    }
-    
-    return await tool.execute(toolCall.arguments, context);
-  }
-}
-```
-
-## Multi-Modal Capabilities
-
-### Multi-Modal Portal (`portals/multimodal/`)
-```typescript
-interface MultiModalCapabilities {
-  vision: boolean;
-  audio: boolean;
-  generation: boolean;
-}
-
-class MultiModalPortal extends BasePortal {
-  async analyzeImage(
-    image: Uint8Array,
-    prompt: string,
-    mimeType: string
-  ): Promise<ImageAnalysisResult> {
-    return await generateText({
-      model: this.getVisionModel(),
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'text', text: prompt },
-          { 
-            type: 'image', 
-            image: this.encodeImage(image, mimeType)
-          }
-        ]
-      }]
+    this.mcpServer = new MCPServer({
+      name: 'symindx-mcp-server',
+      version: '1.0.0',
+      capabilities: this.config.capabilities
     });
+    
+    await this.registerTools();
+    await this.registerResources();
   }
   
-  async generateImage(
-    prompt: string,
-    options: ImageGenerationOptions
-  ): Promise<GeneratedImage> {
-    // Integrate with DALL-E, Midjourney, etc.
-    return await this.imageProvider.generate(prompt, options);
+  private async registerTools(): Promise<void> {
+
+    for (const toolDef of this.config.tools) {
+      this.mcpServer.addTool(toolDef.name, {
+        description: toolDef.description,
+        parameters: toolDef.parameters,
+        handler: async (params) => {
+          return await this.executeAgentTool(toolDef.name, params);
+        }
+      });
+    }
+  }
+  
+  private async executeAgentTool(toolName: string, params: any): Promise<MCPToolResult> {
+    try {
+      const result = await this.eventBus.emitAndWait('tool.execute', {
+        tool: toolName,
+        parameters: params
+      });
+      
+      return {
+        success: true,
+        data: result
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Tool execution failed'
+      };
+    }
   }
 }
 ```
 
-## Configuration Management
-
-### Portal Configuration
+### MCP Client Extension (`extensions/mcp-client/`)
 ```typescript
-interface PortalConfiguration {
-  portals: {
-    [providerId: string]: {
-      enabled: boolean;
-      config: ProviderConfig;
-      priority: number;
-      models: ModelConfiguration;
-    };
-  };
-  defaults: {
-    chat: string;
-    tools: string;
-    embedding: string;
-  };
-  fallbacks: {
-    [taskType: string]: string[];
+interface MCPClientConfig {
+  servers: MCPServerConnection[];
+  autoConnect: boolean;
+  reconnectInterval: number;
+}
+
+class MCPClientExtension extends BaseExtension {
+  private clients = new Map<string, MCPClient>();
+  
+  protected async onInitialize(): Promise<void> {
+    this.config = this.context.config as MCPClientConfig;
+    
+    if (this.config.autoConnect) {
+      await this.connectToServers();
+    }
+  }
+  
+  private async connectToServers(): Promise<void> {
+
+    for (const serverConfig of this.config.servers) {
+      try {
+        const client = new MCPClient({
+          serverUrl: serverConfig.url,
+          capabilities: serverConfig.capabilities
+        });
+        
+        await client.connect();
+        this.clients.set(serverConfig.id, client);
+        
+        this.logger.info(`Connected to MCP server: ${serverConfig.id}`);
+      } catch (error) {
+        this.logger.error(`Failed to connect to MCP server ${serverConfig.id}:`, error);
+      }
+    }
+  }
+  
+  async callTool(serverId: string, toolName: string, params: any): Promise<any> {
+    const client = this.clients.get(serverId);
+    if (!client) {
+      throw new Error(`MCP server not found: ${serverId}`);
+    }
+    
+    return await client.callTool(toolName, params);
+  }
+}
+```
+
+## Extension Configuration Management
+
+### Extension Configuration Schema
+```typescript
+interface ExtensionConfigSchema {
+  [extensionId: string]: {
+    enabled: boolean;
+    config: Record<string, any>;
+    dependencies: string[];
+    autoStart: boolean;
+    priority: number;
   };
 }
 
 // Runtime configuration example
-const portalConfig: PortalConfiguration = {
-  portals: {
-    openai: {
-      enabled: true,
-      config: {
-        apiKey: process.env.OPENAI_API_KEY!,
-        models: {
-          chat: "gpt-4o",
-          tools: "gpt-4.1-mini",
-          embedding: "text-embedding-3-small"
-        }
-      },
-      priority: 1
+const extensionConfig: ExtensionConfigSchema = {
+  'telegram': {
+    enabled: true,
+    config: {
+      botToken: process.env.TELEGRAM_BOT_TOKEN!,
+      commandPrefix: '/',
+      features: {
+        inlineKeyboards: true,
+        fileUploads: true,
+        groupChats: false
+      }
     },
-    anthropic: {
-      enabled: true,
-      config: {
-        apiKey: process.env.ANTHROPIC_API_KEY!,
-        models: {
-          chat: "claude-3-6-sonnet-20250101",
-tools: "claude-3-6-haiku-20250101"
-        }
-      },
-      priority: 2
+    dependencies: [],
+    autoStart: true,
+    priority: 1
+  },
+  'discord': {
+    enabled: false,
+    config: {
+      botToken: process.env.DISCORD_BOT_TOKEN!,
+      clientId: process.env.DISCORD_CLIENT_ID!,
+      features: {
+        slashCommands: true,
+        embedMessages: true,
+        voiceChannels: false
+      }
     },
-    groq: {
-      enabled: true,
-      config: {
-        apiKey: process.env.GROQ_API_KEY!,
-        models: {
-          chat: "llama-3.3-70b-versatile",
-          tools: "llama-3.1-8b-instant"
-        }
-      },
-      priority: 3
-    }
+    dependencies: [],
+    autoStart: false,
+    priority: 2
   },
-  defaults: {
-    chat: "openai",
-    tools: "openai", 
-    embedding: "openai"
-  },
-  fallbacks: {
-    chat: ["openai", "anthropic", "groq"],
-    tools: ["openai", "anthropic"],
-    embedding: ["openai"]
+  'api': {
+    enabled: true,
+    config: {
+      port: 8080,
+      authentication: { type: 'apikey' },
+      endpoints: {
+        agents: true,
+        chat: true,
+        status: true,
+        metrics: true
+      }
+    },
+    dependencies: [],
+    autoStart: true,
+    priority: 0
   }
 };
 ```
 
-## Performance Optimization
-
-### Caching Strategy
-```typescript
-interface ResponseCache {
-  get(key: string): Promise<CachedResponse | null>;
-  set(key: string, response: CachedResponse, ttl: number): Promise<void>;
-  invalidate(pattern: string): Promise<void>;
-}
-
-class IntelligentCache implements ResponseCache {
-  async get(key: string): Promise<CachedResponse | null> {
-    // Check if response is still valid
-    const cached = await this.storage.get(key);
-    if (cached && !this.isExpired(cached)) {
-      return cached.response;
-    }
-    return null;
-  }
-  
-  private generateKey(request: GenerationRequest): string {
-    // Create deterministic cache key
-    return crypto
-      .createHash('sha256')
-      .update(JSON.stringify({
-        messages: request.messages,
-        temperature: request.temperature,
-        model: request.model
-      }))
-      .digest('hex');
-  }
-}
-```
-
-### Connection Pooling
-```typescript
-class PortalConnectionPool {
-  private pools = new Map<string, ConnectionPool>();
-  
-  async getConnection(provider: string): Promise<PortalConnection> {
-    const pool = this.getPool(provider);
-    return await pool.acquire();
-  }
-  
-  private getPool(provider: string): ConnectionPool {
-    if (!this.pools.has(provider)) {
-      this.pools.set(provider, new ConnectionPool({
-        max: this.getMaxConnections(provider),
-        min: 1,
-        acquireTimeoutMillis: 30000,
-        createTimeoutMillis: 30000,
-        destroyTimeoutMillis: 5000,
-        idleTimeoutMillis: 30000,
-        reapIntervalMillis: 1000
-      }));
-    }
-    return this.pools.get(provider)!;
-  }
-}
-```
-
-This AI integration pattern ensures SYMindX can efficiently utilize multiple AI providers while maintaining reliability, performance, and cost-effectiveness.
+This extension system pattern enables SYMindX to seamlessly integrate with any platform or service while maintaining consistent behavior and reliability across all integrations.
 
 ## Related Rules and Integration
 
 ### Foundation Requirements
-- @001-symindx-workspace.mdc - SYMindX architecture and AI portal directory structure  
-- @003-typescript-standards.mdc - TypeScript development standards for portal implementations
-- @004-architecture-patterns.mdc - Modular design principles and hot-swappable portal patterns
-- @.cursor/docs/architecture.md - Detailed AI portal layer architecture and design decisions
+- @001-symindx-workspace.mdc - SYMindX architecture and extension system directory structure
+- @003-typescript-standards.mdc - TypeScript development standards for extension implementation
+- @004-architecture-patterns.mdc - Modular design principles and hot-swappable extension patterns
+- @.cursor/docs/architecture.md - Detailed extension layer architecture and platform integration patterns
 
 ### Security and Configuration
-- @010-security-and-authentication.mdc - API key management and secure AI provider connections
-- @015-configuration-management.mdc - Portal configuration and environment variable management
-
-### Performance and Quality
-- @012-performance-optimization.mdc - Portal caching strategies and connection pooling optimization
-- @008-testing-and-quality-standards.mdc - AI portal testing strategies and integration testing
-- @013-error-handling-logging.mdc - Portal error handling and monitoring patterns
-- @.cursor/tools/project-analyzer.md - Portal performance analysis and metrics collection
+- @010-security-and-authentication.mdc - Platform authentication, secure token storage, and webhook security
+- @015-configuration-management.mdc - Extension configuration and environment variable management
+- @020-mcp-integration.mdc - Model Context Protocol integration for external platform connections
 
 ### Development Tools and Templates
-- @.cursor/tools/code-generator.md - AI portal templates and consistent code generation patterns
-- @.cursor/tools/debugging-guide.md - Portal connection debugging and troubleshooting strategies
-- @.cursor/docs/contributing.md - Development workflow for AI portal contributions
+- @.cursor/tools/code-generator.md - Extension templates and platform integration code generation
+- @.cursor/tools/debugging-guide.md - Extension debugging strategies and platform troubleshooting
+- @.cursor/docs/contributing.md - Development workflow for extension contributions
+
+### Development and Quality
+- @008-testing-and-quality-standards.mdc - Extension testing strategies, integration testing, and platform compatibility testing
+- @013-error-handling-logging.mdc - Extension error handling patterns and platform-specific error monitoring
+- @009-deployment-and-operations.mdc - Extension deployment, containerization, and operational monitoring
+- @.cursor/tools/project-analyzer.md - Extension performance analysis and platform integration metrics
+
+### Performance and Data Integration
+- @012-performance-optimization.mdc - Extension performance optimization and platform rate limiting
+- @011-data-management-patterns.mdc - Platform-specific data storage and conversation persistence
 
 ### Advanced Integration
-- @020-mcp-integration.mdc - External AI service integration via Model Context Protocol
-- @022-workflow-automation.mdc - Automated AI portal validation and deployment workflows
-- @019-background-agents.mdc - Background portal optimization and maintenance tasks
+- @018-git-hooks.mdc - Git automation for extension deployment and validation
+- @019-background-agents.mdc - Background task automation for extension maintenance
+- @022-workflow-automation.mdc - Automated extension testing, deployment, and monitoring workflows
 
-### Deployment and Operations
-- @009-deployment-and-operations.mdc - AI portal deployment and infrastructure requirements
-- @016-documentation-standards.mdc - Portal API documentation and integration guides
+### Documentation and Community
+- @016-documentation-standards.mdc - Extension API documentation and integration guides
+- @017-community-and-governance.mdc - Community extension contribution guidelines
 
-This rule defines the core patterns for AI provider integration that support the entire SYMindX agent ecosystem.
+This rule defines the extension patterns that enable SYMindX to integrate with communication platforms, external services, and custom integrations while maintaining consistency and reliability.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
