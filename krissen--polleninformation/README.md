@@ -1,21 +1,23 @@
-# polleninformation — distributed by TomeVault
+# polleninformation
 
-> Originally from [krissen/polleninformation](https://github.com/krissen/polleninformation). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [krissen/polleninformation](https://github.com/krissen/polleninformation) — distributed by [TomeVault](https://tomevault.io)
+
+Integration for homeassistant, creating sensors based on polleninformation.eu
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [krissen/polleninformation](https://github.com/krissen/polleninformation).
+Original source: `CLAUDE.md` in [krissen/polleninformation](https://github.com/krissen/polleninformation).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/krissen)
+From [krissen/polleninformation](https://github.com/krissen/polleninformation) — a repo with 33+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install krissen/polleninformation
 ```
-Or browse all formats at [https://tomevault.io/claim/krissen](https://tomevault.io/claim/krissen).
+Source: [github.com/krissen/polleninformation](https://github.com/krissen/polleninformation).
 
 <!-- genome:d-i-s -->
