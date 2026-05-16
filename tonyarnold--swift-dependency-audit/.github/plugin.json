@@ -1,0 +1,9 @@
+{
+  "name": "tonyarnold--swift-dependency-audit",
+  "displayName": "swift-dependency-audit",
+  "description": "Analyze Swift package dependencies and imports",
+  "version": "1.0.0",
+  "author": "tonyarnold",
+  "homepage": "https://github.com/tonyarnold/swift-dependency-audit",
+  "skills": []
+}
