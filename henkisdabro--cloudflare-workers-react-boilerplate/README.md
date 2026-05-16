@@ -7,11 +7,11 @@ Full-stack React 19 + Cloudflare Workers template optimised for Claude Code. AI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [henkisdabro/cloudflare-workers-react-boilerplate](https://github.com/henkisdabro/cloudflare-workers-react-boilerplate).
+Original source: `CLAUDE.md` in [henkisdabro/cloudflare-workers-react-boilerplate](https://github.com/henkisdabro/cloudflare-workers-react-boilerplate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
