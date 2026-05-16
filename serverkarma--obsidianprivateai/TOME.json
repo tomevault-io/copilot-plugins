@@ -1,0 +1,44 @@
+{
+  "name": "ObsidianPrivateAI",
+  "owner": "ServerKarma",
+  "repo": "ObsidianPrivateAI",
+  "description": "Effortlessly chat with your Obsidian notes using a privacy first LLM. Private by design, your notes never leave the device and use local processing only.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ServerKarma/ObsidianPrivateAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T21:30:13Z"
+}
