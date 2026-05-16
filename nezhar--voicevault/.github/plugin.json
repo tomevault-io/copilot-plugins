@@ -1,0 +1,9 @@
+{
+  "name": "nezhar--voicevault",
+  "displayName": "voicevault",
+  "description": "VoiceVault -  transform voice conversations into actionable insights using ASR and LLMs",
+  "version": "1.0.0",
+  "author": "nezhar",
+  "homepage": "https://github.com/nezhar/voicevault",
+  "skills": []
+}
