@@ -1,0 +1,9 @@
+{
+  "name": "duongdev--karakeep-social-ai",
+  "displayName": "karakeep-social-ai",
+  "description": "A personal bookmark manager that auto-syncs saved posts from multiple social platforms (X, Reddit, YouTube, TikTok, Dribbble, Instagram, Facebook), with AI-powered summarization, categorization, and i",
+  "version": "1.0.0",
+  "author": "duongdev",
+  "homepage": "https://github.com/duongdev/karakeep-social-ai",
+  "skills": []
+}
