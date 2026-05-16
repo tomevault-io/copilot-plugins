@@ -1,0 +1,526 @@
+## agent-wiki
+
+> CRITICAL: When starting new work, make sure to check the wiki for relevant documentation and update accordingly.
+
+# CLAUDE.md
+
+CRITICAL: When starting new work, make sure to check the wiki for relevant documentation and update accordingly.
+As you make progress, make sure to periodically update the wiki so that nothing is inconsistent with the code base.
+
+## Stack at a glance
+
+- **Backend** — FastAPI (uvicorn) + Postgres 17 (with `pg_textsearch` for BM25 search and `pgmq` for the task queue) + custom workers. Git is shelled out to.
+- **Frontend** — Next.js 14 (App Router) + TypeScript.
+- **Nginx** in front, reverse-proxying `/api/*` → backend, everything else → frontend.
+- App state and queues both live in Postgres (connection via `DATABASE_URL`). Wiki working tree on volume `wiki-data`.
+
+See `docs/architecture.md` for the data flows.
+
+## Pre-commit hooks
+
+**Run `pre-commit install` once after cloning** — every commit then runs the
+same checks CI runs on PRs, so type or lint failures surface locally before
+they hit a review. Hook config lives in `.pre-commit-config.yaml`. Run
+`pre-commit run --all-files` ad-hoc to lint the whole tree.
+
+What runs on backend Python files:
+
+- **ruff** (`backend/pyproject.toml [tool.ruff]`) — fast lint.
+- **basedpyright** (`backend/pyproject.toml [tool.basedpyright]`, strict mode)
+  — type check. Runs whole-project on any backend `.py` change because it
+  needs the import graph; passing only the changed files would miss
+  cross-file errors.
+
+Both hooks resolve their version via `uv run --project backend --extra dev`
+so the pre-commit run uses the exact same tools as `uv sync --extra dev`.
+Make sure you've run `uv sync --extra dev` in `backend/` first.
+
+Add new checks as hooks here, not as one-off CI steps.
+
+## Layout
+
+```
+backend/app/
+  api/            FastAPI routers — thin HTTP layer, no business logic
+  auth/           sessions, bcrypt, whitelist, admin flags
+  db/             SQLAlchemy ORM models (Postgres + pg_textsearch BM25)
+  llm/            provider-agnostic LLM client + DB-backed settings + agents
+  models/         pydantic schemas (request/response shapes)
+  tasks/          tasks (workers run in their own container)
+  triggers/       NL-trigger evaluation engine
+  wiki/           git subprocess wrapper + path utilities + search
+frontend/src/
+  app/            Next.js routes
+  components/     UI components (AppShell, etc.)
+  lib/            api.ts, auth.tsx — the only place pages talk to the network/auth
+  types/          shared TS types
+nginx/            reverse proxy
+wiki/seed/        sample content for fresh installs
+docs/             architecture + API reference
+```
+
+## Architectural rules — required interfaces and seams
+
+These exist so the system stays testable and swappable. Honor them.
+
+### LLM calls — always through `app/llm/client.py`
+
+`stream(messages, ...)` and `complete(messages, ...)` (a drainer) in
+`app/llm/client.py` are the **only** allowed entry points for talking to a
+model. They yield/return a normalized shape (`text_delta`/`tool_call`/`done`
+events; `{text, tool_calls, stop_reason, usage}` dicts) so callers don't
+branch on provider.
+
+Provider implementations live as a plural seam under `app/llm/providers/`:
+one module per backend (`anthropic.py`, `openai.py`, `gemini.py`, `ollama.py`),
+each exposing a module-level `PROVIDER` satisfying the `Provider` protocol
+(`name`, `check_configured(settings)`, `stream(messages, *, model, tools,
+max_tokens, settings)`).
+
+- Do **not** `import anthropic`, `import openai`, `from google import genai`,
+  or `import ollama` outside the matching `app/llm/providers/<name>.py` module.
+- Provider, model, and credentials come from `app/llm/settings.py:get()`
+  (DB-backed, configured via the admin page). Don't read provider keys from
+  `CONFIG` or `os.environ` anywhere else.
+- Add a new provider by dropping `app/llm/providers/<name>.py` with a
+  `PROVIDER` instance and importing+registering it from
+  `app/llm/providers/__init__.py`. Don't add if/elif branches in `client.py`.
+- In tests, patch `app.llm.client.stream`/`complete` for caller-level tests,
+  or the per-provider `_client` for SDK-shape tests. Never import the real
+  provider SDKs in tests.
+
+### Auth — `Depends(...)`, not raw session reads
+
+In API code, gate routes with `Depends(require_user)` or
+`Depends(require_admin)` from `app.auth.deps`. The dependency
+function returns a typed `User`; bind it on the route signature and
+pass it down (e.g. to `require_can(action, path, user)`). For
+non-HTTP code paths (worker tasks, agent tools), read the active
+user with `app.auth.current_user()` — it reads the ContextVar bound
+by ``app.auth.deps.CurrentUserMiddleware`` for HTTP requests or by
+``set_current_user(user)`` for background tasks. Don't touch
+`request.session["user_id"]` outside `app/api/auth.py`.
+
+- Public endpoints (signup, login, `/auth/config`, inbound webhooks)
+  are explicit — everything else takes a `Depends(require_user)`
+  parameter.
+- The first registered user is auto-admin (`users_repo.create` checks
+  `count() == 0`). Admin can't be left at zero (see `app/api/admin.py`
+  — demote/delete guard against `admin_count() <= 1`).
+- The session cookie is signed by Starlette's ``SessionMiddleware``
+  (installed in ``app/main.py:create_app``); ``app.auth.deps.current_user``
+  reads ``request.session["user_id"]``.
+
+### Wiki page authorization — `require_can` + `app/wiki/acl.py`
+
+Per-page permissions live in Postgres (`acl_entries`, `wiki_owners`,
+`groups`, `group_members`). Routes that read or mutate a wiki page
+must gate via `app.auth.require_can("read"|"write", path, user)`
+where ``user`` is the value resolved by ``Depends(require_user)``.
+Search and listing endpoints filter through
+`app.wiki.acl.visible_paths_filter` (SQL predicate) or
+`acl.filter_paths_in_python` (in-memory).
+
+- New pages get default-public ACL rows + an owner stamp via the
+  lifecycle hook in `app.wiki.notify.after_doc_write` — call that helper
+  with `change_kind="create"` and pass `owner_user_id`.
+- Don't read/write `acl_entries` or `wiki_owners` directly from routers
+  or agent tools — go through `app.wiki.acl` (`grant`, `revoke`,
+  `set_owner`, `effective`, `visible_paths_filter`).
+- Group membership goes through `app.auth.groups` (CRUD + lookup).
+- Permission rows are **Postgres-only** — they are not committed to the
+  wiki repo or stored on the `wiki-data` volume. See
+  `local_data/wiki/permissions/permissions.md` and the export warning in
+  `local_data/wiki/running-locally.md`.
+
+### Database — SQLAlchemy 2.0 ORM, small repo modules
+
+Schema lives in `app/db/models.py` as `DeclarativeBase` subclasses with
+`Mapped[T]` / `mapped_column()`. Repos are small free-function modules
+(`app/auth/users.py` is the canonical example) that go through the ORM
+session.
+
+- **Connection seam**: `app/db/session.py` exposes `session()` (a context
+  manager that commits on clean exit, rolls back on exception) and
+  `init_db()`. Every repo opens its own session per call. Don't share a
+  session across unrelated work in a request.
+- **Repos return dicts**, not ORM objects, so the rest of the app
+  doesn't depend on SQLAlchemy. `User`, `Trigger`, etc. are DB-shape
+  declarations, not the data type returned by the API. Pydantic models
+  in `app/models/` are for HTTP shapes — keep those separate from the
+  ORM layer.
+- One repo module per logical aggregate (`users`, `documents`,
+  `triggers`, …). New schema = edit `app/db/models.py` and generate a
+  migration: `cd backend && alembic revision --autogenerate -m
+  "<short slug>"`. The new file lands in
+  `app/db/migrations/versions/`; review it (autogenerate doesn't see
+  every kind of change) and commit. `init_db()` runs `alembic upgrade
+  head` on every boot so deploys apply pending migrations
+  automatically. The bootstrap migration `0001_initial` materializes
+  the entire current schema via `Base.metadata.create_all` and seeds
+  the catalog rows the app expects (e.g. `trigger_destinations`).
+  Everything after it should be an explicit `op.alter_table` /
+  `op.add_column` diff.
+- **Raw SQL is allowed only for things the ORM can't express** — today
+  that means pg_textsearch's `<@>` operator + `to_bm25query()` (in
+  `app/db/fts.py`) and pgmq's `pgmq.send/read/delete/archive` (in
+  `app/tasks/queue.py`). Both go through `session.execute(text(...))`.
+  Don't add new raw-SQL sites elsewhere — write the model expression
+  instead.
+- **Tests**: shared seed/inspection helpers live in `tests/_seed.py`
+  (`seed_user`, `seed_trigger`, `insert_event`, `list_events`,
+  `list_fts_rows`, `count_rows`, `clear_events`). They use the ORM
+  session under the hood; tests should reach for them rather than
+  hand-writing SQL.
+
+### Data classes — pydantic, not `@dataclass`
+
+Use `pydantic.BaseModel` for any new structured class — config blocks,
+settings, value objects, internal records. Don't use `@dataclass` /
+`dataclasses.field` anywhere. Pydantic gives us validation, `model_copy`,
+`model_dump`, and a single mental model that matches the HTTP-shape
+classes in `app/models/`.
+
+- Frozen value objects: `model_config = ConfigDict(frozen=True)`.
+- Default factories: `Field(default_factory=...)`.
+- `dataclasses.replace(obj, x=1)` → `obj.model_copy(update={"x": 1})`.
+- Field names can't start with `_` — use a public name (or `PrivateAttr`
+  if it's truly internal).
+
+### LLM tracing — `app/tracing/`, never instrument inline
+
+Every LLM exchange and tool dispatch is already wrapped at the
+chokepoint (`app/llm/client.py:stream` and
+`app/llm/agents/chat.py:_drive_loop`). Anything new that calls
+`client.stream` / `client.complete` picks up an `llm:<provider>`
+span automatically; tool dispatch through the chat loop picks up
+`tool:<name>` spans automatically.
+
+For a new top-level flow (a new agent, a new background task, a new
+API handler that drives the LLM), wrap its entry point:
+
+```python
+from app.tracing import trace_flow
+with trace_flow("agent.my_thing", user_id=user_id, ...):
+    ...
+```
+
+That's the whole API. Don't reach for `start_llm_span` /
+`start_tool_span` directly — they're already wired at the seams.
+Don't `import braintrust` outside `app/tracing/braintrust.py`.
+
+Config (project, API key, enabled flag) is admin-managed at
+`/admin/braintrust`. No env-var fallback. See
+`local_data/wiki/observability/braintrust-tracing.md`.
+
+### Wiki edits — through `app/wiki/git.py`
+
+Never `subprocess.run(["git", ...])` from anywhere else. The wrapper enforces
+working dir, identity, and commit-on-write. Path validation goes through
+`app/wiki/filesystem.py:safe_rel_path` to block traversal.
+
+- For any user/agent write to the wiki: `commit_file()`, then enqueue
+  `tasks.reindex.reindex_document`. The web request shouldn't index inline.
+
+### Background work — pgmq queues, not threads
+
+If something might take more than ~100ms, queue it. Tasks live under
+`app/tasks/` and bind to one of three `TaskQueue` instances in
+`app/tasks/queues.py` — `documents_queue` (LLM doc-reconciliation),
+`triggers_queue` (NL trigger eval, delta + scheduled), or
+`lightweight_maintenance_queue` (sub-second upkeep — BM25 reindex,
+agent-activity expiration cleanup). Each queue's messages live in
+`pgmq.q_<name>` in the same Postgres as app state; the abstraction
+itself is in `app/tasks/queue.py`. Each queue has its own worker
+process (`python -m app.tasks.run_worker <queue>`); make sure new
+task modules are imported by `run_worker.py` so they register on
+boot. The variable names and the `queues.py` filename are kept
+from the TaskQueue era so call sites didn't have to change.
+
+The placement rule for `lightweight_maintenance_queue`: handlers must
+be sub-second, no LLM, no external HTTP, no wiki commits. Anything
+slower belongs on its own queue — that's the contract that lets us
+run wider concurrency on this one without a slow task starving the
+others.
+
+**For all the detail — queue rationale, routing rules, run commands,
+docker / launch.json wiring, what breaks if a worker isn't running —
+see `local_data/wiki/background-tasks/background-tasks.md`.** Don't
+duplicate that doc; update it.
+
+### Logging — `app.utils.logging.setup_logging` once per process
+
+Module code uses standard `log = logging.getLogger(__name__)` and emits at
+`debug/info/warning/error/exception` levels. Process entry points
+(`app/main.py:create_app`, `app/tasks/run_worker.py:main`) call
+`setup_logging()` exactly once to install the formatter on the root logger.
+
+- Format: `<ts> [<level>] <logger> (<file>:<line>): <msg>` — level is
+  controlled by the `LOG_LEVEL` env var (default `INFO`).
+- Don't `print()` from app code; don't call `logging.basicConfig` anywhere
+  outside `setup_logging`.
+- Use `log.exception(...)` inside `except` blocks to capture the traceback.
+- Set `LOG_LEVEL=DEBUG` to dump full LLM message history, tool definitions,
+  tool calls, and tool results untruncated. Hot-path serialization is gated
+  behind `log.isEnabledFor(DEBUG)`, so leaving it at INFO has no cost.
+
+### Triggers — git-backed, Postgres is a cache
+
+The source of truth for a trigger is its YAML file in the wiki repo, sitting
+inline next to the scope it acts on:
+
+- doc-scoped: `<dir>/.trigger_<id>_<docbase>.yaml` next to the doc
+- folder-scoped: `<dir>/.trigger_<id>.yaml` inside the folder
+
+The `triggers` row in Postgres (including `file_path`) is a denormalized
+cache for fast fan-out lookup and id→path resolution. When mutating
+triggers, write/delete the file first via `app/triggers/storage.py`, then
+upsert/delete the row, in the same task. `app/triggers/repo.py:rebuild_from_filesystem`
+re-converges the cache by walking tracked `.trigger_*.yaml` paths.
+
+### HTTP API — routers stay thin
+
+`APIRouter`s in `app/api/` parse the request, call into a domain module,
+and serialize the result. Business logic lives in `app/auth/`,
+`app/wiki/`, `app/triggers/`, `app/llm/agents/`. If you find yourself
+doing a multi-step workflow inside a route handler, push it down.
+
+Error responses use `{"error": "<message>"}` with the right status
+code — domain exceptions (``HTTPException``, ``PermissionDenied``,
+``RequestError``, ``QueueFullError``) are translated by the handlers
+installed in `app/main.py:_install_error_handlers`. The frontend's
+`ApiError` parses this shape.
+
+## Frontend rules
+
+### Every change considers light mode, dark mode, and responsiveness
+
+Before declaring a frontend change done, verify it in **both themes** and at
+**both viewport sizes**. The app supports light and dark mode (toggled via
+`data-theme` on `<html>`; tokens live in `src/lib/theme.ts` + `globals.css`)
+and a mobile breakpoint (`useIsMobile()` from `src/lib/viewport.ts`).
+
+- Don't introduce raw hex/rgb/named colors — always go through `color.*` /
+  `shadow.*` from `src/lib/theme.ts`. New shades must be added to both
+  `:root` and `:root[data-theme="dark"]` in `globals.css`.
+- Don't use `background: "white"` (or any literal) — use `color.bg.page`.
+- Bare `<input>` / `<textarea>` / `<select>` inherit themed defaults from
+  `globals.css`; keep them themed when overriding.
+- Layouts must hold up at the mobile breakpoint — gate dense desktop
+  chrome with `isMobile`, and avoid hardcoded widths that overflow
+  narrow viewports.
+
+### Network — only via `src/lib/api.ts:apiFetch`
+
+`apiFetch<T>(path, init?)` sets `credentials: "include"`, JSON content type,
+and parses the `{error}` envelope into `ApiError` with a `.status`. Don't
+call `fetch` directly.
+
+### Auth — only via `src/lib/auth.tsx`
+
+Pages call `useRequireAuth()` to gate, `useAuth()` to read state. Don't
+call `/api/auth/me` from a component — let the provider own that. New auth
+flows (e.g. password reset) extend the context, not the pages.
+
+### Shared chrome — `<AppShell>`
+
+Top-level pages wrap their content in `AppShell` (in
+`src/components/common/`). Navigation, the user badge, and sign-out live
+there.
+
+### Markdown
+
+Use `react-markdown` + `remark-gfm` (already wired in the wiki page). Don't
+inject HTML from the backend.
+
+### Design tokens — only via `src/lib/theme.ts`
+
+The frontend has no Tailwind / CSS-in-JS — components style themselves with
+inline `style={{...}}`. Centralized tokens live in `src/lib/theme.ts` and
+are the **only** source of color, radius, and shadow values:
+
+- `color.text` — `primary | secondary | muted | faint | inverse`
+- `color.bg` — `page | panel | sunken | hover | active`
+- `color.border` — `subtle | default | strong | focus`
+- `color.accent` — primary action surface (`bg`, `bgHover`, `fg`) + subtle
+  variants (`subtleBg`, `subtleFg`, `subtleBorder`) for selected rows /
+  badges / hover-active states
+- `color.state` — `success | warning | danger | info`, each with
+  `{ bg, border, fg }` for banners, alerts, semantic chips
+- `color.overlay` — fixed warm-near-black tint for modal scrims
+- `radius` — `xs (4) | sm (6) | md (8) | lg (12) | pill (9999)`
+- `shadow` — `sm | md | popover | fab | modal | panel`
+
+**Rules:**
+
+- Don't write a raw hex (`#xxxxxx`) in a component. If the shade you need
+  isn't in `theme.ts`, add it there (with a name that describes intent, not
+  appearance — `accent.bg` not `nearBlack`) and import it.
+- The accent color is **near-black warm grey**, not a hue. Primary buttons,
+  selected sidebar avatars, FABs, and active text all flow from
+  `color.accent`. If you find yourself reaching for blue/indigo/purple to
+  mark "primary," use the accent instead.
+- Status colors (`color.state.*`) are reserved for semantic signals
+  (banners, error toasts, "destructive" buttons). Don't use them as
+  decorative chips — use `color.accent.subtle*` for that.
+- Pick a radius from the scale; don't sprinkle arbitrary integers. Inputs
+  / pills inside dense rows = `xs`. Buttons / inputs / list items = `sm`.
+  Cards / popovers / modals = `md`–`lg`.
+- Decorative SVG icon glyphs (e.g. the amber folder, the blue file icon)
+  are the only place raw hex is acceptable — they're illustrations, not UI
+  surfaces. Don't extend that exception to anything that paints chrome.
+
+### Buttons — only via `<Button>` from `src/components/common/Button.tsx`
+
+There's one button component, four variants, two sizes:
+
+- `variant="primary"` — accent surface; one per row at most (form submit,
+  primary CTA in a header)
+- `variant="secondary"` (default) — neutral with subtle border; the
+  workhorse
+- `variant="danger"` — destructive (Revoke, Delete); uses `state.danger`
+- `variant="ghost"` — transparent surface for low-emphasis text actions
+- `size="md"` (default) — forms, modal actions, page headers
+- `size="sm"` — dense rows, table cells, inline actions
+
+Don't write ad-hoc `<button style={{ ... }}>` for primary/secondary/danger
+chrome. If you need an unusual one-off (icon-only toolbar buttons in
+`AppShell` / `ChatWidget`, the wiki row hover actions), keep them inline
+but pull every color/radius from the theme — never raw hex.
+
+### Modals — fixed scrim and shadow
+
+All modal-style dialogs (`TriggerModal`, `TriggerHistoryModal`,
+`RunAgentModal`, `ShareDialog`) use:
+
+- scrim: `color.overlay` (warm near-black, never slate, never pure black)
+- shadow: `shadow.modal`
+- radius: `radius.lg` for the surface
+- buttons: `<Button>`, with the action row at `justifyContent: flex-end`,
+  Cancel first, primary action last
+
+Side panels anchored to a screen edge use `shadow.panel`.
+
+### Inputs / selects — consistent border and radius
+
+Form inputs and `<select>` controls use:
+
+- border: `1px solid ${color.border.default}` (use `border.strong` only
+  for emphasis — most inputs should be `default`)
+- radius: `radius.sm`
+- padding: `8px 10px` (or `padding: 8` for compact contexts)
+
+Don't set `appearance: "auto"` on a `<select>` — it bypasses the rest of
+the styling and produces a native control next to custom-looking ones.
+- Modal scrims are `rgba(15, 15, 15, 0.45)` (warm-neutral, matches the
+  greyscale palette). Don't use slate-tinted scrims (`rgba(15, 23, 42, ...)`).
+
+Adding a new token: edit `theme.ts`, leave a one-line comment if the
+intent isn't obvious from the name, and migrate any callers in the same
+PR. Don't accumulate parallel ad-hoc colors.
+
+### Components
+
+- Functional, typed props.
+- Server components are fine, but anything reading auth must be `"use client"`.
+- Place reusable components under `src/components/<area>/` and route-scoped
+  components co-located with the route.
+
+## Testing
+
+### Backend
+
+- `pytest`. The FastAPI app exposes `create_app()` → wrap with
+  `fastapi.testclient.TestClient`. Sign in a test client via
+  `tests/_auth.py:login_fastapi(client, user_id)` which mints a
+  ``SessionMiddleware``-compatible cookie.
+- Per-test isolation:
+  - the conftest creates a unique Postgres schema per test against
+    `TEST_DATABASE_URL` (default `postgresql://postgres:postgres@localhost:5432/agent_wiki_test`)
+    and points `CONFIG.database_url` at it via libpq's `options=-csearch_path=...`;
+    the schema is dropped on teardown. The test database itself must already
+    exist with `pg_textsearch` and `pgmq` installed.
+  - point `WIKI_DIR` at a tmp directory; `ensure_wiki_repo()` will init it.
+- **Mock at the seam, not the SDK.** Patch `app.llm.client.complete` to return
+  a canned normalized dict. Never patch `anthropic.Anthropic` directly.
+- **Don't mock git.** The git wrapper is small and shelling out against a
+  real tmp repo gives you real coverage. Mocking `subprocess` is brittle.
+- **Don't mock the database.** Use a real per-test schema; `init_db()`
+  runs `alembic upgrade head` against it. Shared seed/inspection
+  helpers live in `tests/_seed.py`.
+- For tasks, use `queue.immediate_mode()` (a context manager that
+  saves/restores the flag) in the test fixture and call the task
+  synchronously, asserting on side effects. Don't set
+  `queue.immediate = True` directly — the bare assignment will leak
+  state across tests if the body raises.
+- Full-stack flow tests live under `tests/integration/`. The
+  `integration` fixture there wires a FastAPI ``TestClient`` + real
+  DB + real wiki repo + scripted LLM mock. See
+  `local_data/wiki/integration-tests.md`.
+
+### Frontend
+
+Type-check with `npm run typecheck`. Component tests can be added with Vitest
++ React Testing Library when needed. Keep components pure functions of props
+so they're trivially testable.
+
+## Adding a feature — checklist
+
+1. New persistent state? Edit `app/db/models.py`.
+2. New repo functions in `app/<area>/<thing>.py` — keep them tight, return rows.
+3. New domain logic next to the repo, not inside the API route.
+4. Expose via an `APIRouter` in `app/api/<thing>.py`, registered in
+   `app/main.py:create_app`. Gate with `Depends(require_user)` or
+   `Depends(require_admin)`.
+5. If the work is non-trivial or hits the LLM, queue a task.
+6. Add a pydantic model in `app/models/` for any non-trivial request/response.
+7. Frontend: add a typed call in a `src/lib/<thing>.ts` (or extend an existing
+   lib), then a page or component that uses it via `apiFetch` and `useAuth`.
+
+## What not to do
+
+- Don't import `anthropic`, `openai`, `google.genai`, or `ollama` outside the
+  matching `app/llm/providers/<name>.py` module.
+- Don't read `request.session` outside `app/api/auth.py` (where login/logout
+  write it) and `app/auth/deps.py` (where ``current_user`` reads it).
+- Don't shell out to `git` outside `app/wiki/git.py`.
+- Don't put business logic inside a FastAPI route handler — push it to a
+  domain module.
+- Don't write raw SQL outside `app/db/fts.py` (pg_textsearch operator)
+  and `app/tasks/queue.py` (pgmq functions). Use the ORM session.
+- Don't read provider keys from `os.environ` or `CONFIG` at call time —
+  go through `app/llm/settings.py:get()` so the admin UI overrides take effect.
+- Don't leak raw exceptions through the API. Translate to `{error: msg}` with
+  a sensible status.
+- Don't make destructive CLI calls (force push, hard reset on the wiki repo)
+  — every wiki commit should be additive history.
+- Don't reach for `@dataclass` — use `pydantic.BaseModel` (see the data
+  classes seam above).
+- Don't write a raw hex color, border-radius integer, or shadow string in a
+  React component — import from `src/lib/theme.ts`. If the shade isn't
+  there, add it there. (See the design tokens seam above.)
+- Don't roll a new primary/secondary/danger button in a component — use
+  `<Button>` from `src/components/common/Button.tsx`. (See the buttons seam.)
+- Don't use slate-tinted (`rgba(15,23,42,…)`) or pure-black modal scrims —
+  use `color.overlay`. Don't invent ad-hoc modal shadows — use
+  `shadow.modal`. (See the modals seam.)
+
+## Open questions worth knowing
+
+- **Cost** — every connector update fans out to a doc-updater LLM pass.
+  Batching/debounce isn't built yet; new ingestion paths should land behind
+  a task so we can add backpressure later without changing the API.
+- **Doc bloat / loss** — the `document_updater` system prompt forbids both,
+  but we'll need eval data. If you change the prompt, save the old version
+  in git history (it already does — don't squash).
+- **Permissioning** — implemented. Per-page read/write ACLs with users,
+  groups, and an `everyone` principal; folder grants cascade; admins
+  bypass; pages with no owner row and no ACL row are implicit-public
+  until managed (covers test setups and seed scripts that bypass the
+  lifecycle hook).
+  Open follow-ups (deny rows, `.acl.yaml`-in-git mirror, group
+  self-service) are tracked in `local_data/wiki/permissions/permissions.md`.
+
+---
+> Source: [onyx-dot-app/agent-wiki](https://github.com/onyx-dot-app/agent-wiki) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
