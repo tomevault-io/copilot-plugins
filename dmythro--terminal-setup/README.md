@@ -7,11 +7,11 @@ One-command macOS Terminal.app bootstrap
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dmythro/terminal-setup](https://github.com/dmythro/terminal-setup).
+Original source: `CLAUDE.md` in [dmythro/terminal-setup](https://github.com/dmythro/terminal-setup).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
