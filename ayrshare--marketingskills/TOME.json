@@ -4,7 +4,7 @@
   "repo": "marketingskills",
   "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ayrshare/marketingskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:33:34Z"
+  "distributed_at": "2026-05-16T08:43:07Z"
 }
