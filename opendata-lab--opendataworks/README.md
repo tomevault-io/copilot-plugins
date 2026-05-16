@@ -7,11 +7,11 @@ opendataworks 是一个面向大数据平台的统一数据门户系统，基于
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [opendata-lab/opendataworks](https://github.com/opendata-lab/opendataworks).
+Original source: `CLAUDE.md` in [opendata-lab/opendataworks](https://github.com/opendata-lab/opendataworks).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
