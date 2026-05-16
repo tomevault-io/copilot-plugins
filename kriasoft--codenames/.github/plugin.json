@@ -1,0 +1,9 @@
+{
+  "name": "kriasoft--codenames",
+  "displayName": "codenames",
+  "description": "A tiny, zero-dependency library for generating memorable codenames from numbers.",
+  "version": "1.0.0",
+  "author": "kriasoft",
+  "homepage": "https://github.com/kriasoft/codenames",
+  "skills": []
+}
