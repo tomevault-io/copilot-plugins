@@ -1,0 +1,9 @@
+{
+  "name": "sleepypod--core",
+  "displayName": "core",
+  "description": "Sleepypod Core \u2014 server for pod hardware control, scheduling, biometrics processing, and API",
+  "version": "1.0.0",
+  "author": "sleepypod",
+  "homepage": "https://github.com/sleepypod/core",
+  "skills": []
+}
