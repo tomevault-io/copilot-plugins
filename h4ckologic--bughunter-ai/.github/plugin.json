@@ -1,0 +1,9 @@
+{
+  "name": "h4ckologic--bughunter-ai",
+  "displayName": "bughunter-ai",
+  "description": "Autonomous Bug Bounty Hunting Framework powered by Claude Code. 20 AI agents, state-machine orchestration, Burp Suite MCP, credential vault, LLM security track. Type 'hunt target.com' and let AI find ",
+  "version": "1.0.0",
+  "author": "h4ckologic",
+  "homepage": "https://github.com/h4ckologic/bughunter-ai",
+  "skills": []
+}
