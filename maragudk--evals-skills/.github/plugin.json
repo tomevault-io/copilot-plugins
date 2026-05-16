@@ -1,0 +1,9 @@
+{
+  "name": "maragudk--evals-skills",
+  "displayName": "evals-skills",
+  "description": "Skills for AIs to do evals, error analysis, and more.",
+  "version": "1.0.0",
+  "author": "maragudk",
+  "homepage": "https://github.com/maragudk/evals-skills",
+  "skills": []
+}
