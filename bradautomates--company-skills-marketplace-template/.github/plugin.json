@@ -1,0 +1,9 @@
+{
+  "name": "bradautomates--company-skills-marketplace-template",
+  "displayName": "company-skills-marketplace-template",
+  "description": "Fork-and-go template for a private team skills marketplace usable from Claude Code and Codex CLI",
+  "version": "1.0.0",
+  "author": "bradautomates",
+  "homepage": "https://github.com/bradautomates/company-skills-marketplace-template",
+  "skills": []
+}
