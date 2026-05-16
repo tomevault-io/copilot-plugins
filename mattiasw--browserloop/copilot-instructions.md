@@ -1,25 +1,25 @@
-## code-conventions
+## license-notice
 
-> We follow these guidelines:
+> Always when creating a new file, add this license notice at the top:
 
-# Code conventions
+Always when creating a new file, add this license notice at the top:
 
-## Coding guidelines
-
-We follow these guidelines:
-
-- Make sure to use full, named functions, _NOT_ arrow functions, unless they're inline callbacks.
-- Place functions in the order they are used. That means the definition of a function is placed after the location from where it is called. Local functions _MUST_ to be placed at the end of the parent function, that means even after the return statement if there is one.
-- For new packages, _ALWAYS_ ask for permission to add them. Try to avoid them as much as possible unless it's a really necessary one. Often it's just better to do it ourselves.
-- Don't use excessive commenting. A comment should only be used if it's not possible to use names and code structure to explain the same thing.
-- There mustn't be any linter or type errors or warnings.
-- If there is an error, make sure to show a clear message to the user.
-- We write suitable tests to cover all new functionality we add.
-
-## Other notes
-
-- All tests should pass before we say we're done with a task.
-- Git commit messages should have titles that are no longer than 50 characters and a description that wraps at 72 characters.
+/*
+ * This file is part of BrowserLoop.
+ *
+ * BrowserLoop is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * BrowserLoop is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with BrowserLoop. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 ---
 > Source: [mattiasw/browserloop](https://github.com/mattiasw/browserloop) — distributed by [TomeVault](https://tomevault.io).
