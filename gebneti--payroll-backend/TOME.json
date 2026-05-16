@@ -4,7 +4,7 @@
   "repo": "payroll_backend",
   "description": "N\u00f3mina API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GEBNETI/payroll_backend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:47:43Z"
+  "distributed_at": "2026-05-16T07:14:18Z"
 }
