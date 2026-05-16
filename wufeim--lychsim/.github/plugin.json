@@ -1,0 +1,9 @@
+{
+  "name": "wufeim--lychsim",
+  "displayName": "LychSim",
+  "description": "A controllable and interactive simulation framework for vision research.",
+  "version": "1.0.0",
+  "author": "wufeim",
+  "homepage": "https://github.com/wufeim/LychSim",
+  "skills": []
+}
