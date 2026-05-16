@@ -1,0 +1,9 @@
+{
+  "name": "mario-ezquerro--gubernator",
+  "displayName": "gubernator",
+  "description": "Gubernator (gbnt) Is a minimalist, distributed container orchestrator designed for those who find Kubernetes (K8s) too heavy for their needs. Inspired by the Roman efficiency of governance, Gubernator",
+  "version": "1.0.0",
+  "author": "mario-ezquerro",
+  "homepage": "https://github.com/mario-ezquerro/gubernator",
+  "skills": []
+}
