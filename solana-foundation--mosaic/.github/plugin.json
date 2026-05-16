@@ -1,0 +1,9 @@
+{
+  "name": "solana-foundation--mosaic",
+  "displayName": "mosaic",
+  "description": "TypeScript SDK, CLI, and dashboard for creating and managing Token-2022 tokens on Solana",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/mosaic",
+  "skills": []
+}
