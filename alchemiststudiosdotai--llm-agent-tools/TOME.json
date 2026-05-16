@@ -4,7 +4,7 @@
   "repo": "llm-agent-tools",
   "description": "Bash scripts to enhance LLM agent capabilities: task tracking, architecture documentation, and online research",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alchemiststudiosDOTai/llm-agent-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T00:50:04Z"
+  "distributed_at": "2026-05-16T03:11:17Z"
 }
