@@ -1,0 +1,9 @@
+{
+  "name": "gustavo-meilus--logseq-api-mcp",
+  "displayName": "logseq-api-mcp",
+  "description": "A MCP server that uses Logseq API to extract and interact with Logseq notes.",
+  "version": "1.0.0",
+  "author": "gustavo-meilus",
+  "homepage": "https://github.com/gustavo-meilus/logseq-api-mcp",
+  "skills": []
+}
