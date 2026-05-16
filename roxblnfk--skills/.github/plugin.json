@@ -1,0 +1,9 @@
+{
+  "name": "roxblnfk--skills",
+  "displayName": "skills",
+  "description": "Distribute AI Skills as Composer dependencies",
+  "version": "1.0.0",
+  "author": "roxblnfk",
+  "homepage": "https://github.com/roxblnfk/skills",
+  "skills": []
+}
