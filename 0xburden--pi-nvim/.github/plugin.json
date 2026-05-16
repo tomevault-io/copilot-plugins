@@ -1,0 +1,9 @@
+{
+  "name": "0xburden--pi-nvim",
+  "displayName": "pi.nvim",
+  "description": "re-implementation of the pi agent harness in neovim",
+  "version": "1.0.0",
+  "author": "0xburden",
+  "homepage": "https://github.com/0xburden/pi.nvim",
+  "skills": []
+}
