@@ -4,7 +4,7 @@
   "repo": "llama.cpp-turboq-mtp",
   "description": "Fused TBQ4 Flash Attention + MTP + Shared Tensors for llama.cpp \u2014 82+ tok/s with lossless 4.25 bpv KV cache at 200K context on RTX 4090",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Indras-Mirror/llama.cpp-turboq-mtp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-14T07:30:10Z"
+  "distributed_at": "2026-05-16T03:44:00Z"
 }
