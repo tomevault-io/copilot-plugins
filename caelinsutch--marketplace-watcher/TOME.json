@@ -4,7 +4,7 @@
   "repo": "marketplace-watcher",
   "description": "Setup alerts for facebook marketplace items based on search queries or images",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caelinsutch/marketplace-watcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T06:58:18Z"
+  "distributed_at": "2026-05-16T05:38:38Z"
 }
