@@ -1,0 +1,9 @@
+{
+  "name": "msousa202--contextpilot",
+  "displayName": "ContextPilot",
+  "description": "Python middleware that compresses and optimizes LLM context before each API call: lower token cost for apps and agents, with quality scoring and safe fallback. Wraps OpenAI, Anthropic, and Google SDKs",
+  "version": "1.0.0",
+  "author": "msousa202",
+  "homepage": "https://github.com/msousa202/ContextPilot",
+  "skills": []
+}
