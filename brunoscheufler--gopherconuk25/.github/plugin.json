@@ -1,0 +1,9 @@
+{
+  "name": "brunoscheufler--gopherconuk25",
+  "displayName": "GopherConUK25",
+  "description": "Slides and code for the session on Building a framework for reliable data migrations in Go",
+  "version": "1.0.0",
+  "author": "BrunoScheufler",
+  "homepage": "https://github.com/BrunoScheufler/GopherConUK25",
+  "skills": []
+}
