@@ -4,7 +4,7 @@
   "repo": "browseruse-agent-bench",
   "description": "Real-world browser-agent benchmark: 210 tasks across 107 websites, multi-agent/multi-browser evaluation, reproducible leaderboard and result submissions.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lexmount/browseruse-agent-bench",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:37:48Z"
+  "distributed_at": "2026-05-16T07:10:36Z"
 }
