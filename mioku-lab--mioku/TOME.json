@@ -4,7 +4,7 @@
   "repo": "mioku",
   "description": "\u4ee5\u521d\u97f3\u672a\u6765\u4e3a\u4e3b\u9898\u3001\u57fa\u4e8emioki\u3001AI\u4f18\u5148\u7684QQ\u673a\u5668\u4eba\u6846\u67b6",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mioku-lab/mioku",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T02:42:50Z"
+  "distributed_at": "2026-05-16T08:49:50Z"
 }
