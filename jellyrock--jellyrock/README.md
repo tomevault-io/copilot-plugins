@@ -7,11 +7,11 @@ Jellyfin client for Roku devices with a focus on stability and UX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jellyrock/jellyrock](https://github.com/jellyrock/jellyrock).
+Original source: `CLAUDE.md` in [jellyrock/jellyrock](https://github.com/jellyrock/jellyrock).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
