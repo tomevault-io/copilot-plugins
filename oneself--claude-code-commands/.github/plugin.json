@@ -1,0 +1,9 @@
+{
+  "name": "oneself--claude-code-commands",
+  "displayName": "claude-code-commands",
+  "description": "Some useful Claude Code commands",
+  "version": "1.0.0",
+  "author": "oneself",
+  "homepage": "https://github.com/oneself/claude-code-commands",
+  "skills": []
+}
