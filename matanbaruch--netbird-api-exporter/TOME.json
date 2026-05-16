@@ -4,7 +4,7 @@
   "repo": "netbird-api-exporter",
   "description": "A Prometheus exporter for NetBird API",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/matanbaruch/netbird-api-exporter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T01:00:16Z"
+  "distributed_at": "2026-05-16T08:18:10Z"
 }
