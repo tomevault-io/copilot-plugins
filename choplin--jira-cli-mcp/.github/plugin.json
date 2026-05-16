@@ -1,0 +1,9 @@
+{
+  "name": "choplin--jira-cli-mcp",
+  "displayName": "jira-cli-mcp",
+  "description": "MCP server that wraps jira-cli to enable AI assistants to interact with Jira",
+  "version": "1.0.0",
+  "author": "choplin",
+  "homepage": "https://github.com/choplin/jira-cli-mcp",
+  "skills": []
+}
