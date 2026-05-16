@@ -1,0 +1,9 @@
+{
+  "name": "theventures--caret",
+  "displayName": "caret",
+  "description": "Unofficial Node.js API client for the Caret HTTP API",
+  "version": "1.0.0",
+  "author": "theventures",
+  "homepage": "https://github.com/theventures/caret",
+  "skills": []
+}
