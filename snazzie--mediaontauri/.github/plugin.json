@@ -1,0 +1,9 @@
+{
+  "name": "snazzie--mediaontauri",
+  "displayName": "MediaOnTauri",
+  "description": "Native web client wrapper written in Tauri, works well with Plex Web Client",
+  "version": "1.0.0",
+  "author": "Snazzie",
+  "homepage": "https://github.com/Snazzie/MediaOnTauri",
+  "skills": []
+}
