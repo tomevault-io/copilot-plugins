@@ -1,0 +1,9 @@
+{
+  "name": "tycallen--tusharedb",
+  "displayName": "TushareDB",
+  "description": "\ud83d\ude80 A high-performance, locally-cached \ud83d\udcbe Tushare \ud83d\udcc8 data interface powered by \ud83e\udd86 DuckDB  ",
+  "version": "1.0.0",
+  "author": "tycallen",
+  "homepage": "https://github.com/tycallen/TushareDB",
+  "skills": []
+}
