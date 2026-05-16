@@ -4,7 +4,7 @@
   "repo": "nla.cpp",
   "description": "UI and local inference server for Anthropic's Natural Language Encoders",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thomasgauthier/nla.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T10:34:05Z"
+  "distributed_at": "2026-05-16T07:19:45Z"
 }
