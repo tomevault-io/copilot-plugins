@@ -1,409 +1,352 @@
-## 003-typescript-standards
+## 004-architecture-patterns
 
-> **Rule Priority:** Core Architecture
+> APPLY modern modular architecture patterns when developing core agent systems to ensure scalability and edge-first design
 
-# TypeScript & Bun Development Standards 2025
+# Modern SYMindX Architecture Patterns 2025
 
 **Rule Priority:** Core Architecture  
 **Activation:** Always Active  
-**Scope:** All TypeScript/JavaScript development
+**Scope:** System design, modular architecture, and edge computing
 
-## 2025 TypeScript Configuration Standards
+## System Architecture Overview
 
-### Ultra-Strict Type Safety
-```typescript
-// REQUIRED: Advanced TypeScript 5.6+ configuration
-{
-  "compilerOptions": {
-    "strict": true,
-    "exactOptionalPropertyTypes": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "moduleDetection": "force",
-    "target": "ES2025",
-    "module": "ESNext",
-    "moduleResolution": "bundler"
-  }
-}
+SYMindX follows a **modular, event-driven architecture** designed for scalability, hot-swappable components, and multi-platform agent deployment. The system is organized as a workspace with three main components:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     SYMindX Workspace                        │
+├─────────────────────────────────────────────────────────────┤
+│  mind-agents/     │  website/        │  docs-site/          │
+│  (Core Runtime)   │  (React UI)      │  (Documentation)     │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                    ┌─────────┴─────────┐
+                    │  SYMindX Runtime  │
+                    │   (Event-Driven)  │
+                    └─────────┬─────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+   ┌────▼────┐        ┌──────▼──────┐       ┌─────▼─────┐
+   │ Module  │        │   Event     │       │ Extension │
+   │Registry │◄──────►│    Bus      │◄─────►│  Loader   │
+   └─────────┘        └─────────────┘       └───────────┘
 ```
 
-### Type Definitions 2025
+## 2025 Architectural Principles
 
-- **Use `satisfies` operator** for type narrowing with inference preservation
-- **Leverage `const` assertions** with template literal types
-- **Implement branded types** for domain-specific validation
-- **Utilize mapped types** with conditional logic for complex transformations
+### 1. Edge-First Modular Design
 
+- **Hot-swappable modules** for memory, emotion, and cognition
+- **Edge-deployable components** for distributed processing
+- **Plugin-based extensions** for platform integrations
+- **Provider pattern** with edge-compatible AI service abstractions
+- **Registry pattern** for component discovery and lifecycle
+- **Micro-frontend integration** for distributed UI components
+
+### 2. Event-Driven Architecture with Edge Distribution
+
+- **Centralized Event Bus** for component communication
+- **Edge-distributed event processing** for reduced latency
+- **Pub/Sub pattern** with WebSocket and WebRTC support
+- **Message-driven interactions** between agents and extensions
+- **Real-time event processing** with streaming capabilities
+- **Event sourcing** for distributed state management
+
+### 3. Multi-Agent Coordination with Cloud-Edge Hybrid
+
+- **Agent isolation** with shared resource management
+- **Centralized coordination** through multi-agent manager
+- **Edge deployment** for latency-sensitive operations
+- **Resource pooling** for memory and AI portals
+- **Conflict resolution** for concurrent operations
+- **Auto-scaling** based on demand and resource availability
+
+### 4. 2025 Performance Optimization Patterns
+
+- **Progressive Web App (PWA)** architecture for offline capabilities
+- **Service Worker** integration for background processing
+- **WebAssembly (WASM)** modules for compute-intensive operations
+- **HTTP/3 and QUIC** protocol support for faster communication
+- **Streaming data processing** with backpressure handling
+- **Adaptive resource allocation** based on device capabilities
+
+## Module Architecture Patterns
+
+### Memory Module Pattern
 ```typescript
-// GOOD: 2025 pattern with satisfies and branded types
-type UserId = string & { readonly __brand: unique symbol };
-type EmailAddress = string & { readonly __brand: unique symbol };
-
-const userConfig = {
-  id: "user123" as UserId,
-  email: "user@example.com" as EmailAddress,
-  settings: {
-    theme: "dark",
-    notifications: true
-  }
-} satisfies UserConfig;
-
-// GOOD: Advanced mapped type patterns
-type StrictPick<T, K extends keyof T> = {
-  [P in K]: T[P];
-} & { [P in Exclude<keyof T, K>]?: never };
-
-// GOOD: Template literal validation
-type HTTPMethod = `${'GET' | 'POST' | 'PUT' | 'DELETE'}`;
-type APIEndpoint<T extends string> = `/api/v1/${T}`;
-```
-
-## Bun Runtime Standards 2025
-
-### Advanced Bun 1.2+ Features
-
-```bash
-# REQUIRED: Use Bun's latest performance optimizations
-bun install --frozen-lockfile    # Production builds
-bun add --dev --optional         # Development dependencies
-bun --bun run build             # Force Bun runtime (not Node.js)
-bun build --target browser --outdir dist --splitting
-```
-
-### High-Performance Patterns
-
-- **Use `Bun.file()` with streaming** for large file operations
-- **Leverage `Bun.spawn()` with IPC** for multi-process coordination
-- **Implement `Bun.serve()` with WebSocket upgrades** for real-time features
-- **Utilize built-in PostgreSQL driver** for database operations
-
-```typescript
-// GOOD: Bun 1.2 native PostgreSQL integration
-import { Database } from 'bun:sqlite';
-import postgres from 'bun:postgres'; // Native driver
-
-// High-performance file streaming
-const file = Bun.file('./large-dataset.json');
-const stream = file.stream();
-
-// WebSocket server with HTTP/2 support
-export default {
-  port: 3000,
-  fetch(req: Request, server: Server) {
-    if (server.upgrade(req)) {
-      return; // WebSocket upgrade handled
-    }
-    return new Response("Regular HTTP response");
-  },
-  websocket: {
-    message(ws, message) {
-      ws.send(`Echo: ${message}`);
-    },
-  },
-  error(error) {
-    return new Response(`Error: ${error.message}`, { status: 500 });
-  },
-};
-```
-
-## 2025 Error Handling Patterns
-
-### AI-Assisted Error Recovery
-```typescript
-// 2025 pattern: Self-healing error handlers with context
-export abstract class SYMindXError extends Error {
-  abstract readonly code: string;
-  abstract readonly category: ErrorCategory;
-  abstract readonly severity: 'low' | 'medium' | 'high' | 'critical';
-  
-  constructor(
-    message: string,
-    public readonly context?: Record<string, unknown>,
-    public readonly recoveryHint?: string,
-    public readonly aiAssisted: boolean = true
-  ) {
-    super(message);
-    this.name = this.constructor.name;
-  }
-
-  toStructuredLog() {
-    return {
-      error: this.name,
-      code: this.code,
-      category: this.category,
-      severity: this.severity,
-      message: this.message,
-      context: this.context,
-      recovery: this.recoveryHint,
-      timestamp: new Date().toISOString(),
-      aiEnabled: this.aiAssisted
-    };
-  }
-}
-
-// Enhanced Result pattern with recovery strategies
-export type EnhancedResult<T, E = SYMindXError> = 
-  | { success: true; data: T; metrics?: PerformanceMetrics }
-  | { success: false; error: E; recovery?: () => Promise<EnhancedResult<T, E>> };
-```
-
-### Async Error Handling with Observability
-
-```typescript
-// GOOD: 2025 observability-first error handling
-export async function executeWithTelemetry<T>(
-  operation: string,
-  fn: () => Promise<T>,
-  fallback?: () => Promise<T>
-): Promise<EnhancedResult<T>> {
-  const startTime = performance.now();
-  const traceId = crypto.randomUUID();
-  
-  try {
-    console.time(`${operation}:${traceId}`);
-    const result = await fn();
-    const metrics = {
-      duration: performance.now() - startTime,
-      traceId,
-      operation
-    };
-    
-    return { success: true, data: result, metrics };
-  } catch (error) {
-    const enhancedError = new OperationError(
-      `Failed to execute ${operation}`,
-      { operation, traceId, duration: performance.now() - startTime },
-      fallback ? "Fallback available" : "No recovery strategy",
-      true
-    );
-    
-    if (fallback) {
-      return {
-        success: false,
-        error: enhancedError,
-        recovery: () => executeWithTelemetry(`${operation}:fallback`, fallback)
-      };
-    }
-    
-    return { success: false, error: enhancedError };
-  } finally {
-    console.timeEnd(`${operation}:${traceId}`);
-  }
-}
-```
-
-## Advanced Module Architecture 2025
-
-### Dependency Injection with Modern Patterns
-
-```typescript
-// 2025 pattern: Container-less DI with symbols and decorators
-const ServiceToken = {
-  Logger: Symbol.for('Logger'),
-  MemoryProvider: Symbol.for('MemoryProvider'),
-  AIPortal: Symbol.for('AIPortal')
-} as const;
-
-type ServiceRegistry = {
-  [ServiceToken.Logger]: Logger;
-  [ServiceToken.MemoryProvider]: MemoryProvider;
-  [ServiceToken.AIPortal]: AIPortal;
-};
-
-export class ServiceContainer {
-  private services = new Map<symbol, unknown>();
-  
-  register<K extends keyof ServiceRegistry>(
-    token: K,
-    factory: () => ServiceRegistry[K] | Promise<ServiceRegistry[K]>
-  ): void {
-    this.services.set(token, factory);
-  }
-  
-  async resolve<K extends keyof ServiceRegistry>(token: K): Promise<ServiceRegistry[K]> {
-    const factory = this.services.get(token);
-    if (!factory || typeof factory !== 'function') {
-      throw new ServiceError(`Service not registered: ${String(token)}`);
-    }
-    return await factory();
-  }
-}
-```
-
-### Hot-Swappable Module Patterns
-
-```typescript
-// 2025 pattern: Module registry with lifecycle hooks
-export interface ModuleV2 {
+interface MemoryProvider {
   readonly id: string;
-  readonly version: string;
-  readonly dependencies: readonly string[];
-  readonly capabilities: readonly string[];
+  readonly type: 'sqlite' | 'supabase' | 'neon' | 'postgres' | 'memory';
   
-  initialize(context: ModuleContext): Promise<void>;
-  healthCheck(): Promise<HealthStatus>;
+  initialize(config: MemoryConfig): Promise<void>;
+  store(conversation: Conversation): Promise<void>;
+  retrieve(query: SearchQuery): Promise<Memory[]>;
+  search(embedding: number[]): Promise<Memory[]>;
   shutdown(): Promise<void>;
-  
-  // 2025: Hot reload capabilities
-  beforeReload?(): Promise<ModuleState>;
-  afterReload?(state: ModuleState): Promise<void>;
-  validateConfig(config: unknown): config is ModuleConfig;
 }
 
-export abstract class HotSwappableModuleV2 implements ModuleV2 {
-  protected abstract onHotReload(oldState?: ModuleState): Promise<void>;
-  protected abstract captureState(): Promise<ModuleState>;
-  protected abstract restoreState(state: ModuleState): Promise<void>;
-  
-  async beforeReload(): Promise<ModuleState> {
-    return await this.captureState();
-  }
-  
-  async afterReload(state: ModuleState): Promise<void> {
-    await this.restoreState(state);
-    await this.onHotReload(state);
-  }
+// Hot-swappable implementation
+abstract class BaseMemoryProvider implements MemoryProvider {
+  protected abstract onHotReload(newConfig: MemoryConfig): Promise<void>;
+  protected abstract validateConfig(config: MemoryConfig): boolean;
 }
 ```
 
-## Performance Guidelines 2025
+**Available Providers:**
 
-### Edge-Optimized Patterns
+- `sqlite/` - Local SQLite database with vector search
+- `supabase/` - Supabase with pgvector for embeddings
+- `neon/` - Neon database with vector capabilities
+- `postgres/` - Direct PostgreSQL with pgvector
+- `memory/` - In-memory storage (non-persistent)
 
+### Emotion Module Pattern
 ```typescript
-// GOOD: Edge-first design with Bun's WebAPI compatibility
-export class EdgeOptimizedService {
-  private cache = new Map<string, { data: unknown; expires: number }>();
+interface EmotionModule {
+  readonly id: string;
+  readonly emotions: EmotionType[];
   
-  async handleRequest(request: Request): Promise<Response> {
-    const url = new URL(request.url);
-    const cacheKey = `${request.method}:${url.pathname}`;
-    
-    // Edge-compatible caching
-    const cached = this.cache.get(cacheKey);
-    if (cached && Date.now() < cached.expires) {
-      return Response.json(cached.data, {
-        headers: { 'X-Cache': 'HIT' }
-      });
-    }
-    
-    // Process with streaming support
-    const data = await this.processRequest(request);
-    
-    // Cache with TTL
-    this.cache.set(cacheKey, {
-      data,
-      expires: Date.now() + 60000
-    });
-    
-    return Response.json(data, {
-      headers: { 'X-Cache': 'MISS' }
-    });
-  }
-  
-  private async processRequest(request: Request) {
-    // Use Bun's optimized JSON parsing
-    if (request.headers.get('content-type')?.includes('application/json')) {
-      return await request.json();
-    }
-    return { processed: true };
-  }
+  processEvent(event: EmotionalEvent): Promise<EmotionState>;
+  getCurrentState(): EmotionState;
+  getEmotionHistory(): EmotionHistory[];
+  influenceResponse(response: string): string;
+}
+
+// Composite emotion system
+class CompositeEmotion implements EmotionModule {
+  private readonly emotions = [
+    'happy', 'sad', 'angry', 'curious', 'confident', 
+    'anxious', 'empathetic', 'nostalgic', 'proud', 
+    'confused', 'neutral'
+  ];
 }
 ```
 
-### Memory Management 2025
+**11 Distinct Emotions** (RuneScape-inspired):
 
-- **Implement proper cleanup** with `AbortController` and cleanup callbacks
-- **Use `WeakRef` and `FinalizationRegistry`** for automatic resource management
-- **Profile with Bun's built-in memory profiler**
-- **Leverage Workers** for CPU-intensive tasks without blocking main thread
+- Individual emotion modules in `emotion/{type}/`
+- Composite emotion system combining multiple states
+- Context-aware emotional transitions
+- Emotion influence on response generation
 
+### Cognition Module Pattern
 ```typescript
-// GOOD: 2025 memory management patterns
-export class ResourceManager {
-  private resources = new Map<string, WeakRef<Resource>>();
-  private cleanup = new FinalizationRegistry((id: string) => {
-    this.resources.delete(id);
-    console.log(`Resource ${id} garbage collected`);
-  });
+interface CognitionModule {
+  readonly id: string;
+  readonly type: 'htn_planner' | 'reactive' | 'hybrid';
   
-  addResource(id: string, resource: Resource): void {
-    const ref = new WeakRef(resource);
-    this.resources.set(id, ref);
-    this.cleanup.register(resource, id);
-  }
+  plan(goal: Goal, context: Context): Promise<Plan>;
+  execute(plan: Plan): Promise<ActionResult>;
+  adapt(feedback: Feedback): Promise<void>;
+  reflect(outcome: Outcome): Promise<void>;
+}
+```
+
+**Available Cognition Types:**
+
+- `htn_planner` - Hierarchical Task Network planning
+- `reactive` - Immediate response to stimuli
+- `hybrid` - Combined planning and reactive behaviors
+
+## Portal Architecture Pattern
+
+### AI Provider Abstraction
+```typescript
+interface AIPortal {
+  readonly provider: string;
+  readonly models: string[];
   
-  getResource(id: string): Resource | undefined {
-    const ref = this.resources.get(id);
-    return ref?.deref();
+  generate(prompt: string, options: GenerationOptions): Promise<AIResponse>;
+  stream(prompt: string, options: StreamOptions): AsyncIterable<AIChunk>;
+  embed(text: string): Promise<number[]>;
+  moderate(content: string): Promise<ModerationResult>;
+}
+
+// Vercel AI SDK v5 integration
+abstract class BasePortal implements AIPortal {
+  protected abstract createProvider(): Provider;
+  protected abstract handleRateLimit(): Promise<void>;
+  protected abstract handleFallback(error: Error): Promise<AIResponse>;
+}
+```
+
+**Supported Providers:**
+
+- `openai/` - OpenAI GPT models
+- `anthropic/` - Anthropic Claude models
+- `groq/` - Groq fast inference
+- `xai/` - xAI Grok models
+- `google-vertex/` - Google Vertex AI
+- `google-generative/` - Google Generative AI
+- `mistral/` - Mistral AI models
+- `cohere/` - Cohere models
+- `azure-openai/` - Azure OpenAI
+- `openrouter/` - OpenRouter API
+- `ollama/` - Local Ollama models
+- `lmstudio/` - LM Studio local models
+- `kluster.ai/` - Kluster.ai models
+- `vercel/` - Vercel AI SDK providers
+- `multimodal/` - Multi-modal AI capabilities
+
+## Extension Architecture Pattern
+
+### Platform Extension Pattern
+```typescript
+interface Extension {
+  readonly id: string;
+  readonly platform: string;
+  readonly capabilities: string[];
+  
+  initialize(config: ExtensionConfig): Promise<void>;
+  handleMessage(message: IncomingMessage): Promise<void>;
+  sendMessage(message: OutgoingMessage): Promise<void>;
+  shutdown(): Promise<void>;
+}
+
+// Communication abstraction
+abstract class CommunicationExtension implements Extension {
+  protected abstract parseIncomingMessage(raw: unknown): IncomingMessage;
+  protected abstract formatOutgoingMessage(msg: OutgoingMessage): unknown;
+  protected abstract establishConnection(): Promise<void>;
+}
+```
+
+**Extension Types:**
+
+- `communication/` - Base communication abstractions
+- `api/` - REST/WebSocket API server
+- `telegram/` - Telegram bot integration
+- `mcp-server/` - Model Context Protocol server
+- `mcp-client/` - Model Context Protocol client
+
+## Character System Pattern
+
+### Agent Configuration Pattern
+```typescript
+interface AgentCharacter {
+  readonly id: string;
+  readonly core: {
+    name: string;
+    tone: string;
+    personality: string[];
+  };
+  readonly lore: {
+    origin: string;
+    motive: string;
+    background: string;
+  };
+  readonly psyche: {
+    traits: string[];
+    defaults: {
+      memory: string;
+      emotion: string;
+      cognition: string;
+      portal: string;
+    };
+  };
+  readonly modules: ModuleConfigurations;
+}
+```
+
+**Character Definition:**
+
+- JSON-based character configurations in `characters/`
+- Personality-driven behavior patterns
+- Module preference specifications
+- Lore and backstory integration
+
+## Runtime Coordination Pattern
+
+### Event Bus Architecture
+```typescript
+interface EventBus {
+  subscribe<T>(event: string, handler: EventHandler<T>): void;
+  unsubscribe(event: string, handler: EventHandler): void;
+  emit<T>(event: string, data: T): Promise<void>;
+  emitSync<T>(event: string, data: T): void;
+}
+
+// Core runtime coordination
+class SYMindXRuntime {
+  private readonly eventBus: EventBus;
+  private readonly registry: ModuleRegistry;
+  private readonly multiAgentManager: MultiAgentManager;
+  
+  async tick(): Promise<void> {
+    // Main runtime loop
+    await this.processEvents();
+    await this.updateAgentStates();
+    await this.executeScheduledTasks();
   }
 }
 ```
 
-## Code Quality Standards 2025
+### Registry Pattern
+```typescript
+interface ModuleRegistry {
+  register<T>(module: T, metadata: ModuleMetadata): void;
+  unregister(id: string): void;
+  get<T>(id: string): T | null;
+  list(type?: string): ModuleInfo[];
+  hot_reload(id: string, newModule: unknown): Promise<void>;
+}
+```
 
-### Enhanced ESLint Configuration
+## Workspace Organization
+
+### Multi-Package Workspace
 ```json
 {
-  "extends": [
-    "@typescript-eslint/recommended-strict",
-    "@typescript-eslint/stylistic"
-  ],
-  "rules": {
-    "@typescript-eslint/consistent-type-imports": ["error", { 
-      "prefer": "type-imports",
-      "fixStyle": "separate-type-imports"
-    }],
-    "@typescript-eslint/no-import-type-side-effects": "error",
-    "@typescript-eslint/explicit-function-return-type": "error",
-    "@typescript-eslint/prefer-readonly": "error",
-    "@typescript-eslint/switch-exhaustiveness-check": "error",
-    "prefer-const": "error",
-    "no-var": "error"
-  }
+  "workspaces": [
+    "mind-agents",                    // Core runtime
+    "website",                        // React interface
+    "docs-site",                      // Documentation
+    "mind-agents/src/portals/*"       // AI provider packages
+  ]
 }
 ```
 
-### AI-Assisted Code Generation
+### Package Management
 
-- **Use AI for boilerplate generation** with consistent patterns
-- **Implement type-safe AI prompts** for code generation
-- **Validate generated code** with automated testing
-- **Document AI-generated patterns** for team consistency
+- **Bun** as primary runtime and package manager
+- **TypeScript** for type safety across all packages
+- **Hot module replacement** for development workflow
+- **Monorepo** structure with workspace dependencies
 
-This rule ensures TypeScript code in SYMindX leverages the latest 2025 innovations while maintaining the highest quality and performance standards using Bun's cutting-edge capabilities.
+## Performance Patterns
 
-## Related Rules and Documentation
+### Resource Management
 
-### Foundation Requirements
-- @001-symindx-workspace.mdc - SYMindX project structure and development environment
-- @002-cursor-rules-framework.mdc - Rule organization and cross-reference system
-- @.cursor/docs/quick-start.md - Developer onboarding with latest toolchain setup
+- **Connection pooling** for database providers
+- **Rate limiting** for AI provider APIs
+- **Caching layers** for frequently accessed data
+- **Memory optimization** for long-running agents
 
-### Architecture and Performance
-- @004-architecture-patterns.mdc - Modular design principles compatible with modern TypeScript
-- @012-performance-optimization.mdc - Performance monitoring and optimization strategies
-- @.cursor/tools/project-analyzer.md - Code quality analysis tools
+### Scalability Patterns
 
-### Development Quality
-- @008-testing-and-quality-standards.mdc - TypeScript testing strategies and quality metrics  
-- @013-error-handling-logging.mdc - Advanced error handling patterns and observability
-- @015-configuration-management.mdc - TypeScript configuration and environment management
+- **Horizontal scaling** through multiple runtime instances
+- **Vertical scaling** through resource allocation
+- **Load balancing** across AI providers
+- **State persistence** for agent continuity
 
-### Advanced Integration
-- @005-ai-integration-patterns.mdc - AI portal development with TypeScript
-- @020-mcp-integration.mdc - Model Context Protocol integration patterns
-- @022-workflow-automation.mdc - Automated TypeScript workflow optimization
+## Security Architecture
 
-- **README.md** for each major module
-- **Architecture decision records** for significant changes
+### Access Control
 
-This rule ensures TypeScript code in SYMindX maintains high quality, performance, and maintainability standards while leveraging Bun's capabilities effectively.
+- **API key management** through configuration
+- **Rate limiting** on external APIs
+- **Input validation** on all user interactions
+- **Error boundary isolation** between modules
+
+### Data Protection
+
+- **Encryption at rest** for sensitive memory data
+- **Secure communication** channels for extensions
+- **Audit logging** for security monitoring
+- **Privacy controls** for user data
+
+This architecture ensures SYMindX maintains modularity, scalability, and extensibility while providing a robust foundation for intelligent agent development.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
