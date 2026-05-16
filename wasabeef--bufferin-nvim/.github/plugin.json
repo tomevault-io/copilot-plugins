@@ -1,0 +1,9 @@
+{
+  "name": "wasabeef--bufferin-nvim",
+  "displayName": "bufferin.nvim",
+  "description": "A powerful and intuitive buffer manager for Neovim with advanced window layout visualization and seamless plugin integration.",
+  "version": "1.0.0",
+  "author": "wasabeef",
+  "homepage": "https://github.com/wasabeef/bufferin.nvim",
+  "skills": []
+}
