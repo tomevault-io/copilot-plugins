@@ -1,0 +1,9 @@
+{
+  "name": "sruckh--claudewebui-docker",
+  "displayName": "ClaudeWebUI-Docker",
+  "description": "Dockerized Claude Code UI - Web interface for Claude Code CLI with Docker deployment support",
+  "version": "1.0.0",
+  "author": "sruckh",
+  "homepage": "https://github.com/sruckh/ClaudeWebUI-Docker",
+  "skills": []
+}
