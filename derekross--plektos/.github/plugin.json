@@ -1,7 +1,7 @@
 {
   "name": "derekross--plektos",
   "displayName": "plektos",
-  "description": "plektos",
+  "description": "Plektos is a decentralized meetup, events, and calendar platform built on Nostr.",
   "version": "1.0.0",
   "author": "derekross",
   "homepage": "https://github.com/derekross/plektos",
