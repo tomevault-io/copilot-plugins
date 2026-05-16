@@ -1,0 +1,9 @@
+{
+  "name": "insung8150--agentwebsearch-mcp",
+  "displayName": "AgentWebSearch-MCP",
+  "description": "Local WebSearch without API keys - MCP Server for Claude Code, OpenClaw, LM Studio. Parallel search across Naver/Google/Brave using Chrome CDP.",
+  "version": "1.0.0",
+  "author": "insung8150",
+  "homepage": "https://github.com/insung8150/AgentWebSearch-MCP",
+  "skills": []
+}
