@@ -1,0 +1,9 @@
+{
+  "name": "pablitofernandez--familynido",
+  "displayName": "FamilyNido",
+  "description": "Self-hosted PWA for a single household \u2014 shared calendar, chores, meals, school agenda, health records and a family   wall. .NET 10 + Angular 21. Pair-programmed with Claude Code Opus 4.7.",
+  "version": "1.0.0",
+  "author": "pablitofernandez",
+  "homepage": "https://github.com/pablitofernandez/FamilyNido",
+  "skills": []
+}
