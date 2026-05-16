@@ -7,11 +7,11 @@ Low-level abstraction for storing and retrieving documents in a vector store.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [symfony/ai-store](https://github.com/symfony/ai-store).
+Original source: `CLAUDE.md` in [symfony/ai-store](https://github.com/symfony/ai-store).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
