@@ -1,0 +1,9 @@
+{
+  "name": "ffroliva--gflow-cli",
+  "displayName": "gflow-cli",
+  "description": "Unofficial CLI for Google Flow \u2014 drive Veo I2V from the terminal. For Ultra/Pro subscribers who want to use their Flow credits efficiently via batch automation instead of the web UI.",
+  "version": "1.0.0",
+  "author": "ffroliva",
+  "homepage": "https://github.com/ffroliva/gflow-cli",
+  "skills": []
+}
