@@ -1,0 +1,9 @@
+{
+  "name": "kennethreitz--kjvstudy-org",
+  "displayName": "kjvstudy.org",
+  "description": "A modern KJV Bible study platform with interlinear Hebrew/Greek, Strong's Concordance,   AI commentary, family trees, topical studies, and full-text search. Built with FastAPI and Tufte CSS.",
+  "version": "1.0.0",
+  "author": "kennethreitz",
+  "homepage": "https://github.com/kennethreitz/kjvstudy.org",
+  "skills": []
+}
