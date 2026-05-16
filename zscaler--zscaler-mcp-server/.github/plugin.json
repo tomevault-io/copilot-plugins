@@ -1,0 +1,9 @@
+{
+  "name": "zscaler--zscaler-mcp-server",
+  "displayName": "zscaler-mcp-server",
+  "description": "Zscaler Integration MCP Server is a Model Context Protocol (MCP) server designed for managing Several Zscaler Products using Large Language Models (LLMs).",
+  "version": "1.0.0",
+  "author": "zscaler",
+  "homepage": "https://github.com/zscaler/zscaler-mcp-server",
+  "skills": []
+}
