@@ -1,0 +1,9 @@
+{
+  "name": "umputun--newscope",
+  "displayName": "newscope",
+  "description": "AI-powered RSS feed curator that automatically classifies and scores articles based on your interests",
+  "version": "1.0.0",
+  "author": "umputun",
+  "homepage": "https://github.com/umputun/newscope",
+  "skills": []
+}
