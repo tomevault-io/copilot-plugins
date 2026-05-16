@@ -1,0 +1,9 @@
+{
+  "name": "pipedreamhq--pipedream-sdk-python",
+  "displayName": "pipedream-sdk-python",
+  "description": "Python SDK for Pipedream",
+  "version": "1.0.0",
+  "author": "PipedreamHQ",
+  "homepage": "https://github.com/PipedreamHQ/pipedream-sdk-python",
+  "skills": []
+}
