@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--bumpx",
+  "displayName": "bumpx",
+  "description": "Bump your package.json versions & dependencies automatically.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/bumpx",
+  "skills": []
+}
