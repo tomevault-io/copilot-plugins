@@ -1,0 +1,44 @@
+{
+  "name": "TheDreamer",
+  "owner": "Suyutao",
+  "repo": "TheDreamer",
+  "description": "(Early Preview) | \u4e00\u6b3e\u7531\u5b66\u751f\u6253\u9020\u3001\u4e3a\u5b66\u751f\u670d\u52a1\u7684\u6570\u636e\u9a71\u52a8\u5b66\u4e60\u5206\u6790\u5de5\u5177 | A data-driven learning analytics tool built by students, for students. Open source, free, and privacy-focused.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Suyutao/TheDreamer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T04:49:15Z"
+}
