@@ -1,0 +1,9 @@
+{
+  "name": "lambenthan--empericalwiki",
+  "displayName": "empericalwiki",
+  "description": "\u7ecf\u7ba1\u5b9e\u8bc1\u7814\u7a76\u7684 AI \u77e5\u8bc6\u5e93 \u2014 \u4ece\u6587\u732e\u9605\u8bfb\u5230 Stata \u6267\u884c\uff0c\u4e00\u6761\u6d41\u6c34\u7ebf\u4e32\u5230\u5e95\u3002\u57fa\u4e8e Karpathy \u7684 LLM-Wiki \u7406\u5ff5\uff0c\u6309\u5b9e\u8bc1\u7814\u7a76 10 \u7c7b\u5b9e\u4f53\uff08\u53d8\u91cf / \u6570\u636e\u96c6 / \u6a21\u578b / \u673a\u5236 / \u5047\u8bbe / \u8bc6\u522b\u7b56\u7565 / \u7a33\u5065\u6027 / \u5f02\u8d28\u6027 / \u8868\u683c / \u8bba\u6587\uff09\u5b9a\u5236",
+  "version": "1.0.0",
+  "author": "Lambenthan",
+  "homepage": "https://github.com/Lambenthan/empericalwiki",
+  "skills": []
+}
