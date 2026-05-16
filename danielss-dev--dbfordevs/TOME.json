@@ -2,9 +2,9 @@
   "name": "dbfordevs",
   "owner": "danielss-dev",
   "repo": "dbfordevs",
-  "description": "",
+  "description": "dbfordevs is a modern, lightweight, cross-platform database management application designed specifically for developers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/danielss-dev/dbfordevs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:58:49Z"
+  "distributed_at": "2026-05-16T10:42:06Z"
 }
