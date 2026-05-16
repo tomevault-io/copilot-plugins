@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--wayback-archive",
+  "displayName": "Wayback-Archive",
+  "description": "Download complete websites from the Wayback Machine with full asset preservation for offline viewing",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/Wayback-Archive",
+  "skills": []
+}
