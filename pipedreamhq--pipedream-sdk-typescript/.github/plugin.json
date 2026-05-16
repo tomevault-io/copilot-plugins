@@ -1,0 +1,9 @@
+{
+  "name": "pipedreamhq--pipedream-sdk-typescript",
+  "displayName": "pipedream-sdk-typescript",
+  "description": "TypeScript SDK for Pipedream",
+  "version": "1.0.0",
+  "author": "PipedreamHQ",
+  "homepage": "https://github.com/PipedreamHQ/pipedream-sdk-typescript",
+  "skills": []
+}
