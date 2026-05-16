@@ -2,16 +2,18 @@
 
 > Source: [derekross/plektos](https://github.com/derekross/plektos) — distributed by [TomeVault](https://tomevault.io)
 
+Plektos is a decentralized meetup, events, and calendar platform built on Nostr.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [derekross/plektos](https://github.com/derekross/plektos).
+Original source: `CLAUDE.md` in [derekross/plektos](https://github.com/derekross/plektos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
