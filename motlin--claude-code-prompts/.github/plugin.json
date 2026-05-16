@@ -1,0 +1,66 @@
+{
+  "name": "motlin--claude-code-prompts",
+  "displayName": "claude-code-p",
+  "description": "AI instruction skills by motlin",
+  "version": "1.0.0",
+  "author": "motlin",
+  "homepage": "https://github.com/motlin/claude-code-prompts",
+  "skills": [
+    {
+      "name": "team-lead",
+      "description": ""
+    },
+    {
+      "name": "team-member",
+      "description": ""
+    },
+    {
+      "name": "cli",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "comment-cleanup",
+      "description": ""
+    },
+    {
+      "name": "conversation-style",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "justfile-style",
+      "description": ""
+    },
+    {
+      "name": "llm-context",
+      "description": ""
+    },
+    {
+      "name": "offline-claude-code-guide",
+      "description": ""
+    },
+    {
+      "name": "openrewrite",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "description": ""
+    },
+    {
+      "name": "pom-ordering",
+      "description": ""
+    },
+    {
+      "name": "precommit",
+      "description": ""
+    }
+  ]
+}
