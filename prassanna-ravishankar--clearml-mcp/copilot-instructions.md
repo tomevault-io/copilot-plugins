@@ -1,46 +1,132 @@
-## testing-philosophy
+## clearml-mcp
 
-> testing philosophy and behavioral testing approach
+> This project implements a Model Context Protocol (MCP) server for ClearML, enabling AI agents to interact with ClearML experiments, models, and projects.
 
+# ClearML MCP Server
 
-# Testing Philosophy: Behavioral/Black-Box Testing
+This project implements a Model Context Protocol (MCP) server for ClearML, enabling AI agents to interact with ClearML experiments, models, and projects.
 
-## Core Principle
-This project uses **behavioral (black-box) testing** instead of white-box testing. Tests focus on **public API behavior** and **expected outcomes**, not internal implementation details.
+## Project Overview
 
-## Testing Approach
+The ClearML MCP server provides comprehensive tools for AI agents to:
+- Discover and analyze ML experiments
+- Compare model performance across tasks
+- Retrieve training metrics and artifacts
+- Search and filter projects and tasks
+- Get comprehensive model context and lineage
 
-### ✅ DO: Test Public API Behavior
-- Test all public functions and their expected behaviors
-- Focus on input/output relationships
-- Test error conditions and edge cases
-- Verify the complete user-facing contract
-- Test with realistic data scenarios
+## Available Tools
 
-### ❌ DON'T: Test Internal Implementation
-- Avoid testing private methods directly
-- Don't test internal data structures
-- Don't mock internal implementation details
-- Don't test "how" the code works, test "what" it does
+### Task Operations
+- `get_task_info(task_id)` - Get ClearML task details, parameters, and status
+- `list_tasks(project_name, status, tags)` - List ClearML tasks with filters
+- `get_task_parameters(task_id)` - Get task hyperparameters and configuration
+- `get_task_metrics(task_id)` - Get task training metrics and scalars
+- `get_task_artifacts(task_id)` - Get task artifacts and outputs
 
-## Coverage Standards
-- **Target**: 65%+ coverage ([pyproject.toml](mdc:pyproject.toml) `fail_under = 65`)
-- **Current**: 69% coverage achieved through comprehensive behavioral tests
-- Coverage should come from testing **all public API paths**, not from testing internals
+### Model Operations
+- `get_model_info(task_id)` - Get model metadata and configuration
+- `list_models(project_name)` - List available models with filtering
+- `get_model_artifacts(task_id)` - Get model files and download URLs
 
-## Test Structure
-Tests are organized in [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py) with:
-- Comprehensive mocking of external dependencies (ClearML API)
-- Behavioral verification of all public functions
-- Edge case and error condition testing
-- Real-world usage scenario simulation
+### Project Operations
+- `list_projects()` - List available ClearML projects
+- `get_project_stats(project_name)` - Get project statistics and task counts
 
-## Key Testing Files
-- Main test suite: [tests/test_clearml_mcp.py](mdc:tests/test_clearml_mcp.py)
-- Coverage configuration: [pyproject.toml](mdc:pyproject.toml) `[tool.coverage.*]`
-- CI testing: [.github/workflows/ci.yml](mdc:.github/workflows/ci.yml)
+### Analysis Tools
+- `compare_tasks(task_ids, metrics)` - Compare multiple tasks by metrics
+- `search_tasks(query, project_name)` - Search tasks by name, tags, or description
 
-This approach ensures tests remain stable when refactoring internal implementations while maintaining comprehensive verification of the public API contract.
+## Technical Details
+
+### Dependencies
+- fastmcp>=0.1.0
+- clearml>=1.16.0
+- pydantic>=2.0.0
+
+### Architecture
+- Built with FastMCP framework
+- Uses stdio transport for Claude Desktop integration
+- Leverages existing ~/clearml.conf for authentication
+- Implements JSON-RPC 2.0 protocol
+
+### Entry Point
+- Main executable: `clearml-mcp` (via uvx)
+- Main module: `src/clearml_mcp/clearml_mcp.py`
+
+## Usage
+
+### Prerequisites
+Users must have a configured `~/clearml.conf` file with:
+```
+[api]
+api_server = https://your-clearml-server.com
+access_key = your-access-key
+secret_key = your-secret-key
+```
+
+### Running the Server
+```bash
+# Using uvx (no installation needed)
+uvx clearml-mcp
+
+# Verify clearml.conf works first
+clearml-task --help
+```
+
+### Claude Desktop Integration
+Add to Claude Desktop configuration:
+```json
+{
+  "mcpServers": {
+    "clearml": {
+      "command": "uvx",
+      "args": ["clearml-mcp"]
+    }
+  }
+}
+```
+
+## Development Commands
+
+### Testing
+```bash
+# Run tests (to be implemented)
+pytest tests/
+
+# Type checking (to be implemented)
+mypy src/clearml_mcp/
+```
+
+### Building
+```bash
+# Build package
+hatch build
+
+# Publish to PyPI
+hatch publish
+```
+
+## Implementation Status
+
+- [ ] Core MCP server with 12 tools
+- [ ] PyPI packaging
+- [ ] Claude Desktop integration
+- [ ] Documentation
+- [ ] Tests
+
+## Security Considerations
+
+- Validates task_id format before API calls
+- Uses existing clearml.conf for authentication
+- No credentials stored in code
+- Local-only usage (no remote server endpoints)
+
+## References
+
+- [MCP Quickstart](https://modelcontextprotocol.io/quickstart/server)
+- [ClearML SDK Documentation](https://clear.ml/docs/latest/docs/references/sdk/task)
+- [FastMCP Framework](https://github.com/jlowin/fastmcp)
 
 ---
 > Source: [prassanna-ravishankar/clearml-mcp](https://github.com/prassanna-ravishankar/clearml-mcp) — distributed by [TomeVault](https://tomevault.io).
