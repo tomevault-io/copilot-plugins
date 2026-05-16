@@ -4,7 +4,7 @@
   "repo": "jellyrock",
   "description": "Jellyfin client for Roku devices with a focus on stability and UX",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jellyrock/jellyrock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T23:00:46Z"
+  "distributed_at": "2026-05-16T02:40:29Z"
 }
