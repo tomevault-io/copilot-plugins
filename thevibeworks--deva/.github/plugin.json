@@ -1,0 +1,9 @@
+{
+  "name": "thevibeworks--deva",
+  "displayName": "deva",
+  "description": "Docker-first launcher for Codex, Claude Code, and Gemini with explicit mounts, auth isolation, and container-based sandboxing",
+  "version": "1.0.0",
+  "author": "thevibeworks",
+  "homepage": "https://github.com/thevibeworks/deva",
+  "skills": []
+}
