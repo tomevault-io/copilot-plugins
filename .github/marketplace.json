@@ -127959,6 +127959,16 @@
       "description": "The Verum Programming Language"
     },
     {
+      "name": "duongdev--karakeep-social-ai",
+      "source": "./duongdev--karakeep-social-ai",
+      "description": "A personal bookmark manager that auto-syncs saved posts from multiple social platforms (X, Reddit, YouTube, TikTok, Dribbble, Instagram, Facebook), with AI-powered summarization, categorization, and i"
+    },
+    {
+      "name": "zencefilefendi--the-ultimate-ai-agent-ecosystem",
+      "source": "./zencefilefendi--the-ultimate-ai-agent-ecosystem",
+      "description": "Features Darwin (code evolution), Atlas (database automation), Phantom (browser control), Mission Control (orchestration), and 24 more. Meta-evolution capable. The Singularity achieved!"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -236742,6 +236752,26 @@
       "name": "damiant--movies-angular-demo",
       "source": "./damiant--movies-angular-demo",
       "description": "movies-angular-demo"
+    },
+    {
+      "name": "rodrigogpx--cr-workflow",
+      "source": "./rodrigogpx--cr-workflow",
+      "description": "cr-workflow"
+    },
+    {
+      "name": "gillesdeblock--react-secure-notes",
+      "source": "./gillesdeblock--react-secure-notes",
+      "description": "react-secure-notes"
+    },
+    {
+      "name": "rodrigogpx--cr-workflow",
+      "source": "./rodrigogpx--cr-workflow",
+      "description": "cr-workflow"
+    },
+    {
+      "name": "rodrigogpx--cr-workflow",
+      "source": "./rodrigogpx--cr-workflow",
+      "description": "cr-workflow"
     }
   ]
 }
