@@ -1,0 +1,9 @@
+{
+  "name": "kot149--zmk-mouse-gesture",
+  "displayName": "zmk-mouse-gesture",
+  "description": "A ZMK module that converts combinations of 4-direction mouse strokes into key presses or any other behaviors.",
+  "version": "1.0.0",
+  "author": "kot149",
+  "homepage": "https://github.com/kot149/zmk-mouse-gesture",
+  "skills": []
+}
