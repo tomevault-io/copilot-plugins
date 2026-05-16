@@ -1,0 +1,9 @@
+{
+  "name": "acoyfellow--cloudbox",
+  "displayName": "cloudbox",
+  "description": "Synthetic cloud computers for training and evaluating long-horizon agents on Cloudflare. Persona \u2192 filesystem \u2192 artifacts \u2192 collaborators \u2192 simulation \u2192 retrospective.",
+  "version": "1.0.0",
+  "author": "acoyfellow",
+  "homepage": "https://github.com/acoyfellow/cloudbox",
+  "skills": []
+}
