@@ -4,7 +4,7 @@
   "repo": "reasoningtool",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/benjam3n/reasoningtool",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T04:32:33Z"
+  "distributed_at": "2026-05-16T08:53:24Z"
 }
