@@ -1,0 +1,9 @@
+{
+  "name": "erewhon--agent-monitor",
+  "displayName": "agent-monitor",
+  "description": "agent-monitor",
+  "version": "1.0.0",
+  "author": "erewhon",
+  "homepage": "https://github.com/erewhon/agent-monitor",
+  "skills": []
+}
