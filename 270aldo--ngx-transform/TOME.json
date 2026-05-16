@@ -1,0 +1,44 @@
+{
+  "name": "ngx-transform",
+  "owner": "270aldo",
+  "repo": "ngx-transform",
+  "description": "NGX Transform \u2014 Visual fitness premium (Next.js + Tailwind v4 + shadcn/ui v4 + Firebase + Gemini)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/270aldo/ngx-transform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T07:41:53Z"
+}
