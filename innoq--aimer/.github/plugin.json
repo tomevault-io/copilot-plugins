@@ -1,0 +1,9 @@
+{
+  "name": "innoq--aimer",
+  "displayName": "aimer",
+  "description": "An experiment for prompts for architecture analysis and improvement",
+  "version": "1.0.0",
+  "author": "innoq",
+  "homepage": "https://github.com/innoq/aimer",
+  "skills": []
+}
