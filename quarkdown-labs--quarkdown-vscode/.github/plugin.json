@@ -1,0 +1,9 @@
+{
+  "name": "quarkdown-labs--quarkdown-vscode",
+  "displayName": "quarkdown-vscode",
+  "description": "\ud83e\ude90 Quarkdown Language Support for VS Code.",
+  "version": "1.0.0",
+  "author": "quarkdown-labs",
+  "homepage": "https://github.com/quarkdown-labs/quarkdown-vscode",
+  "skills": []
+}
