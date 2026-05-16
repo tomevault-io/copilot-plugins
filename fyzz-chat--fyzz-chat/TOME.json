@@ -4,7 +4,7 @@
   "repo": "fyzz-chat",
   "description": "Chat with the best AI models, all in one place.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Fyzz-Chat/fyzz-chat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T22:58:06Z"
+  "distributed_at": "2026-05-16T08:04:09Z"
 }
