@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickbom",
+  "displayName": "ClickBOM",
+  "description": "Downloads SBOMs from GitHub, Mend, and Wiz. Uploads to S3 and ClickHouse.",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/ClickBOM",
+  "skills": []
+}
