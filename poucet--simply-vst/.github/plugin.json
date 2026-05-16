@@ -1,0 +1,9 @@
+{
+  "name": "poucet--simply-vst",
+  "displayName": "simply-vst",
+  "description": "Simple Rust / HTML VST audio plugin",
+  "version": "1.0.0",
+  "author": "poucet",
+  "homepage": "https://github.com/poucet/simply-vst",
+  "skills": []
+}
