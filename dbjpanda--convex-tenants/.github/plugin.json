@@ -1,0 +1,9 @@
+{
+  "name": "dbjpanda--convex-tenants",
+  "displayName": "convex-tenants",
+  "description": "A multi-tenant organization and team management component for Convex with built-in authorization via @djpanda/convex-authz",
+  "version": "1.0.0",
+  "author": "dbjpanda",
+  "homepage": "https://github.com/dbjpanda/convex-tenants",
+  "skills": []
+}
