@@ -1,0 +1,9 @@
+{
+  "name": "asmorris--multi-db",
+  "displayName": "multi_db",
+  "description": "A repo that uses data star and has a multi db setup, one for each user",
+  "version": "1.0.0",
+  "author": "asmorris",
+  "homepage": "https://github.com/asmorris/multi_db",
+  "skills": []
+}
