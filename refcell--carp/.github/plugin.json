@@ -1,0 +1,9 @@
+{
+  "name": "refcell--carp",
+  "displayName": "carp",
+  "description": "C.A.R.P. - Claude Agent Registry Portal",
+  "version": "1.0.0",
+  "author": "refcell",
+  "homepage": "https://github.com/refcell/carp",
+  "skills": []
+}
