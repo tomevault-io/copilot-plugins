@@ -1,0 +1,26 @@
+# EchoPlayer
+
+> Source: [mkdir700/EchoPlayer](https://github.com/mkdir700/EchoPlayer) — distributed by [TomeVault](https://tomevault.io)
+
+EchoPlayer allows you to systematically train your listening, pronunciation, and speaking skills using authentic movies and TV shows.  EchoPlayer 让你在真实影视中，系统地训练听力、发音与表达。
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [mkdir700/EchoPlayer](https://github.com/mkdir700/EchoPlayer).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mkdir700/EchoPlayer](https://github.com/mkdir700/EchoPlayer)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-p -->
