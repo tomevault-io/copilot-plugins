@@ -1,0 +1,9 @@
+{
+  "name": "vogler75--winccua-pgwire-interface",
+  "displayName": "winccua-pgwire-interface",
+  "description": "A PostgreSQL wire protocol gateway that translates SQL queries to GraphQL calls for WinCC Unified systems. This enables standard SQL clients like psql and other PostgreSQL-compatible tools to query Wi",
+  "version": "1.0.0",
+  "author": "vogler75",
+  "homepage": "https://github.com/vogler75/winccua-pgwire-interface",
+  "skills": []
+}
