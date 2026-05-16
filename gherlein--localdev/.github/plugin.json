@@ -1,0 +1,9 @@
+{
+  "name": "gherlein--localdev",
+  "displayName": "localdev",
+  "description": "claude --dangerously-skip-permissions container to enable easy TS and GO development ",
+  "version": "1.0.0",
+  "author": "gherlein",
+  "homepage": "https://github.com/gherlein/localdev",
+  "skills": []
+}
