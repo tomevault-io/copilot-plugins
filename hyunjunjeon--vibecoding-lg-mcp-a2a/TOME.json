@@ -1,0 +1,44 @@
+{
+  "name": "vibecoding-lg-mcp-a2a",
+  "owner": "HyunjunJeon",
+  "repo": "vibecoding-lg-mcp-a2a",
+  "description": "ttimes \ubc14\uc774\ube0c\ucf54\ub529 \ucee8\ud37c\ub7f0\uc2a4 \ub77c\uc774\ube0c \ucf54\ub529 - \ub9ac\uc11c\uce58 / \ubcf4\uace0\uc11c \uc791\uc131 Multi Agent \ud504\ub85c\uc81d\ud2b8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HyunjunJeon/vibecoding-lg-mcp-a2a",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T02:57:36Z"
+}
