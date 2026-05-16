@@ -1,0 +1,44 @@
+{
+  "name": "FamilyNido",
+  "owner": "pablitofernandez",
+  "repo": "FamilyNido",
+  "description": "Self-hosted PWA for a single household \u2014 shared calendar, chores, meals, school agenda, health records and a family   wall. .NET 10 + Angular 21. Pair-programmed with Claude Code Opus 4.7.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/pablitofernandez/FamilyNido",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T07:43:15Z"
+}
