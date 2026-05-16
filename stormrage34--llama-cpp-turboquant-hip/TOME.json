@@ -4,7 +4,7 @@
   "repo": "llama.cpp-turboquant-hip",
   "description": "Fork of turbo quant tom-tom and TurboQuant KV cache from domwox",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Stormrage34/llama.cpp-turboquant-hip",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T07:18:12Z"
+  "distributed_at": "2026-05-16T07:07:21Z"
 }
