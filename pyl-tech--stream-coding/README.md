@@ -7,14 +7,14 @@ Stream Coding v2.1.0 — Documentation-first development methodology. 59 skills,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Pyl-Tech/stream-coding](https://github.com/Pyl-Tech/stream-coding).
+Original source: `CLAUDE.md` in [Pyl-Tech/stream-coding](https://github.com/Pyl-Tech/stream-coding).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Pyl-Tech/stream-coding](https://github.com/Pyl-Tech/stream-coding) — a repo with 8+ stars on GitHub.
