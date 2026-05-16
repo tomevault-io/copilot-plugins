@@ -1,0 +1,9 @@
+{
+  "name": "jhb-software--payload-astro-website-template",
+  "displayName": "payload-astro-website-template",
+  "description": "A fully featured template for building performant and scalable content-driven websites with Payload CMS and Astro.",
+  "version": "1.0.0",
+  "author": "jhb-software",
+  "homepage": "https://github.com/jhb-software/payload-astro-website-template",
+  "skills": []
+}
