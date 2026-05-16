@@ -4,7 +4,7 @@
   "repo": "clearml-mcp",
   "description": "lightweight MCP server for ClearML ",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/prassanna-ravishankar/clearml-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:36:48Z"
+  "distributed_at": "2026-05-16T01:55:44Z"
 }
