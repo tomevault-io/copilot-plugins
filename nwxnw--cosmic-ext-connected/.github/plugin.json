@@ -1,0 +1,9 @@
+{
+  "name": "nwxnw--cosmic-ext-connected",
+  "displayName": "cosmic-ext-connected",
+  "description": "COSMIC desktop applet for phone connectivity via KDE Connect",
+  "version": "1.0.0",
+  "author": "nwxnw",
+  "homepage": "https://github.com/nwxnw/cosmic-ext-connected",
+  "skills": []
+}
