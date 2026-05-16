@@ -1,0 +1,9 @@
+{
+  "name": "pittcat--claude-fzf-history-nvim",
+  "displayName": "claude-fzf-history.nvim",
+  "description": "claude-fzf-history.nvim",
+  "version": "1.0.0",
+  "author": "pittcat",
+  "homepage": "https://github.com/pittcat/claude-fzf-history.nvim",
+  "skills": []
+}
