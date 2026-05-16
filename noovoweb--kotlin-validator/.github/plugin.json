@@ -1,0 +1,9 @@
+{
+  "name": "noovoweb--kotlin-validator",
+  "displayName": "kotlin-validator",
+  "description": "A high-performance, type-safe, coroutine-native validation library for Kotlin. Validators are generated at compile time with KSP, eliminating runtime reflection, annotation scanning, and hidden behavi",
+  "version": "1.0.0",
+  "author": "noovoweb",
+  "homepage": "https://github.com/noovoweb/kotlin-validator",
+  "skills": []
+}
