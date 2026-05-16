@@ -1,0 +1,44 @@
+{
+  "name": "miipher-2",
+  "owner": "Atotti",
+  "repo": "miipher-2",
+  "description": "Google\u306e\u97f3\u58f0\u5fa9\u5143\u30e2\u30c7\u30ebMiipher-2\u306e\u518d\u73fe\u5b9f\u88c5\u306e\u5b66\u7fd2\u304a\u3088\u3073\u63a8\u8ad6\u30b3\u30fc\u30c9\u3002\u5b66\u7fd2\u6e08\u307f\u30e2\u30c7\u30eb\u3082\u516c\u958b\u3057\u3066\u3044\u307e\u3059\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Atotti/miipher-2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T08:20:49Z"
+}
