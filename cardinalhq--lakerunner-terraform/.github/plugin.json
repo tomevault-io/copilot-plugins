@@ -1,0 +1,9 @@
+{
+  "name": "cardinalhq--lakerunner-terraform",
+  "displayName": "lakerunner-terraform",
+  "description": "lakerunner-terraform",
+  "version": "1.0.0",
+  "author": "cardinalhq",
+  "homepage": "https://github.com/cardinalhq/lakerunner-terraform",
+  "skills": []
+}
