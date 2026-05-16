@@ -1,0 +1,9 @@
+{
+  "name": "citum--citum-core",
+  "displayName": "citum-core",
+  "description": "Next generation citation styling system in Rust",
+  "version": "1.0.0",
+  "author": "citum",
+  "homepage": "https://github.com/citum/citum-core",
+  "skills": []
+}
