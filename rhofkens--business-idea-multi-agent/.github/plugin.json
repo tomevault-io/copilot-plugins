@@ -1,0 +1,9 @@
+{
+  "name": "rhofkens--business-idea-multi-agent",
+  "displayName": "business-idea-multi-agent",
+  "description": "A multi-agent system that generates and evaluates business ideas",
+  "version": "1.0.0",
+  "author": "rhofkens",
+  "homepage": "https://github.com/rhofkens/business-idea-multi-agent",
+  "skills": []
+}
