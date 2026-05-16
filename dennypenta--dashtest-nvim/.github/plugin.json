@@ -1,0 +1,9 @@
+{
+  "name": "dennypenta--dashtest-nvim",
+  "displayName": "dashtest.nvim",
+  "description": "Run your tests inside nvim in split window or popup with live feedback",
+  "version": "1.0.0",
+  "author": "dennypenta",
+  "homepage": "https://github.com/dennypenta/dashtest.nvim",
+  "skills": []
+}
