@@ -1,0 +1,9 @@
+{
+  "name": "nwiizo--marp-nvim",
+  "displayName": "marp.nvim",
+  "description": "A Neovim plugin for [Marp](https://marp.app/) (Markdown Presentation Ecosystem).",
+  "version": "1.0.0",
+  "author": "nwiizo",
+  "homepage": "https://github.com/nwiizo/marp.nvim",
+  "skills": []
+}
