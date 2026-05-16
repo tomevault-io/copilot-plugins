@@ -1,0 +1,9 @@
+{
+  "name": "mypyc--ast-serialize",
+  "displayName": "ast_serialize",
+  "description": "Fast Python parser that generates a serialized AST",
+  "version": "1.0.0",
+  "author": "mypyc",
+  "homepage": "https://github.com/mypyc/ast_serialize",
+  "skills": []
+}
