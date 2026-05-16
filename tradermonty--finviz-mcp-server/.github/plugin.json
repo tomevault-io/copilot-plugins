@@ -1,0 +1,9 @@
+{
+  "name": "tradermonty--finviz-mcp-server",
+  "displayName": "finviz-mcp-server",
+  "description": "MCP server providing stock screening, fundamental analysis, news, and SEC filing tools powered by Finviz.",
+  "version": "1.0.0",
+  "author": "tradermonty",
+  "homepage": "https://github.com/tradermonty/finviz-mcp-server",
+  "skills": []
+}
