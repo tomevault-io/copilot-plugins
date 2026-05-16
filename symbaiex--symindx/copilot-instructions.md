@@ -1,361 +1,538 @@
-## 018-git-hooks
+## 019-background-agents
 
-> **Rule Priority:** Advanced Integration
+> **Rule Priority:** Advanced Automation
 
-# Git Hooks Integration with Cursor AI Agents
+# Background Agents for Cloud-Powered Development
 
-**Rule Priority:** Advanced Integration  
-**Activation:** Git operations and commit workflows  
-**Scope:** All repository files and Git operations
+**Rule Priority:** Advanced Automation  
+**Activation:** Complex multi-step tasks and parallel workflows  
+**Scope:** All development tasks suitable for agent delegation
 
 ## Overview
 
-Cursor v1.2+ enables powerful Git commit hook integration where AI agents can automatically respond to Git events, performing validation, testing, and quality checks without manual intervention. This creates a seamless development workflow where code quality is enforced automatically.
+Cursor's Background Agents feature enables cloud-powered AI agents to work on tasks in parallel while you focus on core development. These agents can handle UI fixes, content updates, pull request creation, and complex refactoring tasks without blocking your main workflow.
 
-## Pre-Commit Hook Patterns
+## Background Agent Activation
 
-### Automatic Code Quality Validation
+### Settings Configuration
 
-```bash
-# .git/hooks/pre-commit (or use husky/lint-staged)
-#!/bin/bash
-
-# Let Cursor AI agent handle all validation
-echo "🤖 Cursor AI Agent: Running pre-commit validation..."
-
-# TypeScript type checking
-npm run type-check || {
-    echo "❌ TypeScript errors detected. Let Cursor AI fix them..."
-    # Cursor agent will see this output and automatically fix type errors
-    exit 1
+```json
+// .cursor/background-agents.json
+{
+  "enabled": true,
+  "maxConcurrentAgents": 5,
+  "autoCreatePRs": true,
+  "branchPrefix": "agent/",
+  "githubIntegration": true,
+  "costLimit": {
+    "dailyMax": 50.00,
+    "warningThreshold": 40.00
+  },
+  "agentTypes": {
+    "uiFixes": true,
+    "contentUpdates": true,
+    "refactoring": true,
+    "testing": true,
+    "documentation": true
+  }
 }
-
-# ESLint validation
-npm run lint || {
-    echo "❌ ESLint errors detected. Let Cursor AI fix them..."
-    # Cursor agent will automatically apply lint fixes
-    exit 1
-}
-
-# Test suite
-npm run test || {
-    echo "❌ Tests failing. Let Cursor AI investigate and fix..."
-    exit 1
-}
-
-echo "✅ All pre-commit checks passed!"
 ```
 
-### SYMindX-Specific Pre-Commit Validation
+### Authentication Setup
+
+```bash
+# Enable Background Agents in Cursor Settings
+# 1. Settings → Beta → Enable Background Agents
+# 2. Authenticate GitHub for PR handling
+# 3. Snapshot environment for cloud agents
+# 4. Configure cost limits and permissions
+```
+
+## Agent Task Templates
+
+### UI Fix Agent Template
 
 ```typescript
-// scripts/pre-commit-validation.ts
-import { validateAgentConfig } from '../mind-agents/src/utils/validation';
-import { checkMemoryProviders } from '../mind-agents/src/memory/validation';
-import { validatePortalConfigs } from '../mind-agents/src/portals/validation';
+// Template for delegating UI fixes to background agents
+interface UIFixTask {
+  type: 'ui-fix';
+  description: string;
+  targetFiles: string[];
+  screenshot?: string;
+  requirements: {
+    responsive: boolean;
+    accessibility: boolean;
+    designSystem: string;
+  };
+  priority: 'low' | 'medium' | 'high';
+}
 
-async function preCommitValidation(): Promise<void> {
-  console.log('🧠 SYMindX Pre-Commit Validation');
+// Example UI fix delegation
+const uiFixTask: UIFixTask = {
+  type: 'ui-fix',
+  description: 'Fix mobile responsive layout for navbar component',
+  targetFiles: ['website/src/components/Navigation.tsx'],
+  requirements: {
+    responsive: true,
+    accessibility: true,
+    designSystem: 'tailwind'
+  },
+  priority: 'medium'
+};
+
+// Cursor will automatically:
+// 1. Create new branch: agent/fix-navbar-mobile
+// 2. Apply responsive fixes
+// 3. Test across breakpoints
+// 4. Create pull request with screenshots
+// 5. Notify when ready for review
+```
+
+### Content Update Agent Template
+
+```typescript
+// Template for content updates and data synchronization
+interface ContentUpdateTask {
+  type: 'content-update';
+  description: string;
+  contentType: 'documentation' | 'config' | 'assets' | 'data';
+  sourceFiles: string[];
+  updatePattern: 'replace' | 'merge' | 'append';
+  validation: string[];
+}
+
+// Example content update
+const contentTask: ContentUpdateTask = {
+  type: 'content-update',
+  description: 'Update AI portal configurations with new models',
+  contentType: 'config',
+  sourceFiles: ['mind-agents/src/portals/*/config.json'],
+  updatePattern: 'merge',
+  validation: ['schema-validation', 'connectivity-test']
+};
+```
+
+### Refactoring Agent Template
+
+```typescript
+// Template for complex refactoring tasks
+interface RefactoringTask {
+  type: 'refactoring';
+  description: string;
+  scope: 'file' | 'module' | 'system';
+  targetPattern: string;
+  transformations: RefactoringTransformation[];
+  preserveTests: boolean;
+}
+
+interface RefactoringTransformation {
+  name: string;
+  description: string;
+  pattern: string;
+  replacement: string;
+  validation: string;
+}
+
+// Example refactoring task
+const refactorTask: RefactoringTask = {
+  type: 'refactoring',
+  description: 'Extract common portal interface from all AI providers',
+  scope: 'module',
+  targetPattern: 'mind-agents/src/portals/*/index.ts',
+  transformations: [
+    {
+      name: 'extract-interface',
+      description: 'Create common BasePortal interface',
+      pattern: 'export class (.+)Portal',
+      replacement: 'export class $1Portal extends BasePortal',
+      validation: 'typescript-compile'
+    }
+  ],
+  preserveTests: true
+};
+```
+
+## Parallel Task Execution
+
+### Multi-Agent Workflows
+
+```typescript
+// Coordinate multiple agents for complex tasks
+interface MultiAgentWorkflow {
+  name: string;
+  agents: AgentTask[];
+  dependencies: AgentDependency[];
+  mergeStrategy: 'sequential' | 'parallel' | 'hybrid';
+}
+
+interface AgentTask {
+  id: string;
+  type: string;
+  description: string;
+  estimatedTime: number;
+  priority: number;
+}
+
+interface AgentDependency {
+  agentId: string;
+  dependsOn: string[];
+  condition: 'completion' | 'approval' | 'merge';
+}
+
+// Example: Complete feature implementation
+const featureWorkflow: MultiAgentWorkflow = {
+  name: 'Add New Emotion Support',
+  agents: [
+    {
+      id: 'emotion-types',
+      type: 'code-generation',
+      description: 'Add new emotion types to type definitions',
+      estimatedTime: 300, // 5 minutes
+      priority: 1
+    },
+    {
+      id: 'emotion-logic',
+      type: 'implementation',
+      description: 'Implement emotion calculation logic',
+      estimatedTime: 900, // 15 minutes
+      priority: 2
+    },
+    {
+      id: 'emotion-tests',
+      type: 'testing',
+      description: 'Generate comprehensive test suite',
+      estimatedTime: 600, // 10 minutes
+      priority: 3
+    },
+    {
+      id: 'emotion-docs',
+      type: 'documentation',
+      description: 'Update documentation and examples',
+      estimatedTime: 480, // 8 minutes
+      priority: 4
+    }
+  ],
+  dependencies: [
+    {
+      agentId: 'emotion-logic',
+      dependsOn: ['emotion-types'],
+      condition: 'completion'
+    },
+    {
+      agentId: 'emotion-tests',
+      dependsOn: ['emotion-logic'],
+      condition: 'completion'
+    },
+    {
+      agentId: 'emotion-docs',
+      dependsOn: ['emotion-logic'],
+      condition: 'completion'
+    }
+  ],
+  mergeStrategy: 'sequential'
+};
+```
+
+### Task Delegation Patterns
+
+```typescript
+// Smart task delegation based on complexity and type
+class BackgroundAgentManager {
+  async delegateTask(task: AgentTask): Promise<AgentExecution> {
+    // Analyze task complexity
+    const complexity = this.analyzeComplexity(task);
+    
+    // Select appropriate agent type
+    const agentType = this.selectAgentType(task.type, complexity);
+    
+    // Estimate cost and time
+    const estimates = this.estimateExecution(task, agentType);
+    
+    // Create execution plan
+    return this.createExecution(task, agentType, estimates);
+  }
   
-  // Validate agent configurations
-  await validateAgentConfig();
+  private analyzeComplexity(task: AgentTask): 'simple' | 'moderate' | 'complex' {
+    // Analyze file count, dependencies, test requirements
+    if (task.targetFiles.length > 10) return 'complex';
+    if (task.targetFiles.length > 3) return 'moderate';
+    return 'simple';
+  }
   
-  // Check memory provider configurations
-  await checkMemoryProviders();
-  
-  // Validate AI portal configurations
-  await validatePortalConfigs();
-  
-  // Ensure all emotion modules are properly typed
-  await validateEmotionSystem();
-  
-  console.log('✅ SYMindX validation complete');
+  private selectAgentType(taskType: string, complexity: string): string {
+    const agentMap = {
+      'ui-fix': complexity === 'simple' ? 'ui-specialist' : 'full-stack',
+      'refactoring': complexity === 'complex' ? 'architecture' : 'code-specialist',
+      'testing': 'test-specialist',
+      'documentation': 'content-specialist'
+    };
+    
+    return agentMap[taskType] || 'generalist';
+  }
 }
 ```
 
-## Post-Commit Hook Automation
+## Agent Communication and Monitoring
 
-### Automatic Documentation Updates
+### Real-Time Status Tracking
 
-```bash
-# .git/hooks/post-commit
-#!/bin/bash
+```typescript
+// Monitor agent progress and status
+interface AgentStatus {
+  id: string;
+  status: 'queued' | 'running' | 'completed' | 'failed' | 'blocked';
+  progress: number; // 0-100
+  currentStep: string;
+  estimatedCompletion: Date;
+  cost: number;
+  logs: AgentLog[];
+  artifacts: AgentArtifact[];
+}
 
-# Let Cursor AI agent handle post-commit tasks
-echo "🤖 Cursor AI Agent: Running post-commit automation..."
+interface AgentLog {
+  timestamp: Date;
+  level: 'info' | 'warning' | 'error';
+  message: string;
+  context?: Record<string, any>;
+}
 
-# Update documentation if code changes
-if git diff --name-only HEAD~1 HEAD | grep -E '\.(ts|tsx)$'; then
-    echo "📚 Code changes detected. Updating documentation..."
-    # Cursor agent will automatically update docs
-fi
+interface AgentArtifact {
+  type: 'file' | 'pr' | 'branch' | 'deployment';
+  path: string;
+  url?: string;
+  description: string;
+}
 
-# Update type definitions
-if git diff --name-only HEAD~1 HEAD | grep -E 'src/types/'; then
-    echo "🔧 Type changes detected. Regenerating exports..."
-    npm run build:types
-fi
+// Real-time monitoring
+class AgentMonitor {
+  subscribe(agentId: string, callback: (status: AgentStatus) => void): void {
+    // Subscribe to agent status updates
+  }
+  
+  getActiveAgents(): AgentStatus[] {
+    // Get all currently running agents
+  }
+  
+  getCostSummary(): AgentCostSummary {
+    // Get cost breakdown and projections
+  }
+}
+```
 
-# Trigger deployment if on main branch
-if [ "$(git branch --show-current)" = "main" ]; then
-    echo "🚀 Main branch updated. Preparing deployment..."
-fi
+### Agent Results Integration
+
+```typescript
+// Handle agent completion and integration
+interface AgentResult {
+  agentId: string;
+  success: boolean;
+  artifacts: AgentArtifact[];
+  pullRequest?: {
+    url: string;
+    number: number;
+    branch: string;
+  };
+  reviewRequired: boolean;
+  autoMergeEligible: boolean;
+}
+
+class AgentResultHandler {
+  async handleCompletion(result: AgentResult): Promise<void> {
+    if (result.success) {
+      // Notify user of completion
+      await this.notifyCompletion(result);
+      
+      // Auto-merge if eligible
+      if (result.autoMergeEligible) {
+        await this.autoMergePR(result.pullRequest);
+      }
+      
+      // Update project status
+      await this.updateProjectStatus(result);
+    } else {
+      // Handle failures and retry logic
+      await this.handleFailure(result);
+    }
+  }
+  
+  private async autoMergePR(pr: PullRequest): Promise<void> {
+    // Run final checks
+    const checks = await this.runPreMergeChecks(pr);
+    
+    if (checks.passed) {
+      await this.mergePR(pr);
+      await this.cleanupBranch(pr.branch);
+    }
+  }
+}
+```
+
+## SYMindX-Specific Agent Workflows
+
+### AI Portal Management
+
+```typescript
+// Delegate AI portal updates to background agents
+const portalUpdateWorkflow = {
+  name: 'Update All AI Portals',
+  tasks: [
+    {
+      type: 'config-update',
+      description: 'Update OpenAI portal with GPT-4.1 support',
+      files: ['mind-agents/src/portals/openai/']
+    },
+    {
+      type: 'config-update', 
+      description: 'Update Anthropic portal with Claude 3.5 Sonnet',
+      files: ['mind-agents/src/portals/anthropic/']
+    },
+    {
+      type: 'testing',
+      description: 'Run integration tests for all portals',
+      files: ['mind-agents/src/portals/__tests__/']
+    }
+  ],
+  execution: 'parallel'
+};
+```
+
+### Memory System Optimization
+
+```typescript
+// Background optimization of memory providers
+const memoryOptimization = {
+  name: 'Optimize Memory Performance',
+  agents: [
+    {
+      type: 'performance-analysis',
+      description: 'Analyze vector search performance',
+      target: 'mind-agents/src/memory/providers/'
+    },
+    {
+      type: 'database-optimization',
+      description: 'Optimize SQLite and PostgreSQL queries',
+      target: 'mind-agents/src/memory/sql/'
+    },
+    {
+      type: 'caching-strategy',
+      description: 'Implement intelligent caching layer',
+      target: 'mind-agents/src/memory/cache/'
+    }
+  ]
+};
 ```
 
 ### Character System Updates
 
 ```typescript
-// scripts/post-commit-character-sync.ts
-import { syncCharacterDefinitions } from '../mind-agents/src/characters/sync';
-
-async function postCommitCharacterSync(): Promise<void> {
-  const changedFiles = process.env.CHANGED_FILES?.split(',') || [];
-  
-  // Check if character definitions were modified
-  const characterFiles = changedFiles.filter(file => 
-    file.includes('characters/') && file.endsWith('.json')
-  );
-  
-  if (characterFiles.length > 0) {
-    console.log('🎭 Character definitions updated. Syncing...');
-    await syncCharacterDefinitions(characterFiles);
-    console.log('✅ Character sync complete');
-  }
-}
+// Automate character definition management
+const characterManagement = {
+  name: 'Character System Enhancement',
+  workflow: [
+    {
+      agent: 'content-specialist',
+      task: 'Update character personality traits',
+      files: ['mind-agents/src/characters/*.json']
+    },
+    {
+      agent: 'validation-specialist', 
+      task: 'Validate character schema compliance',
+      dependencies: ['content-update']
+    },
+    {
+      agent: 'test-specialist',
+      task: 'Generate character interaction tests',
+      dependencies: ['validation']
+    }
+  ]
+};
 ```
 
-## Branch-Specific Hook Workflows
+## Cost Management and Optimization
 
-### Development Branch Hooks
-
-```bash
-# Branch-specific pre-commit (development branches)
-if [[ $(git branch --show-current) =~ ^(feature|bugfix|hotfix)/ ]]; then
-    echo "🔧 Development branch detected. Running extended validation..."
-    
-    # Extended type checking for experimental features
-    npm run type-check:strict
-    
-    # Performance regression testing
-    npm run test:performance
-    
-    # Memory leak detection for agent modules
-    npm run test:memory-leaks
-fi
-```
-
-### Production Branch Hooks
-
-```bash
-# Production branch pre-commit (main/production)
-if [[ $(git branch --show-current) =~ ^(main|production)$ ]]; then
-    echo "🏭 Production branch detected. Running full validation suite..."
-    
-    # Full test suite including integration tests
-    npm run test:full
-    
-    # Security vulnerability scanning
-    npm audit --audit-level=moderate
-    
-    # Build validation
-    npm run build
-    
-    # Bundle size analysis
-    npm run analyze:bundle
-fi
-```
-
-## AI Agent Hook Integration
-
-### Cursor Agent Response Patterns
+### Smart Cost Controls
 
 ```typescript
-// Integration with Cursor AI agents for hook responses
-interface HookResponse {
-  hookType: 'pre-commit' | 'post-commit' | 'pre-push';
-  success: boolean;
-  errors: Array<{
-    file: string;
-    line: number;
-    message: string;
-    fixable: boolean;
-  }>;
-  autoFixes: string[];
-}
-
-// Cursor agent will automatically:
-// 1. Parse hook output
-// 2. Identify fixable issues
-// 3. Apply fixes automatically
-// 4. Re-run hooks until success
-// 5. Commit fixes with descriptive messages
-```
-
-### Hook Configuration
-
-```json
-// .cursor/git-hooks.json
-{
-  "preCommit": {
-    "enabled": true,
-    "autoFix": true,
-    "checks": [
-      "typescript",
-      "eslint", 
-      "tests",
-      "formatting",
-      "symindx-validation"
-    ]
-  },
-  "postCommit": {
-    "enabled": true,
-    "tasks": [
-      "update-docs",
-      "sync-types",
-      "character-sync"
-    ]
-  },
-  "agentIntegration": {
-    "autoFixErrors": true,
-    "commitAutoFixes": true,
-    "maxRetries": 3
-  }
-}
-```
-
-## Advanced Hook Patterns
-
-### Context-Aware Validation
-
-```typescript
-// Smart validation based on changed files
-interface ValidationContext {
-  changedFiles: string[];
-  branch: string;
-  commitMessage: string;
-  stagingChanges: boolean;
-}
-
-function getValidationStrategy(context: ValidationContext): string[] {
-  const strategies: string[] = [];
+// Implement cost-aware task delegation
+interface CostManager {
+  dailyBudget: number;
+  currentSpend: number;
+  taskCostEstimates: Map<string, number>;
   
-  // AI portal changes
-  if (context.changedFiles.some(f => f.includes('portals/'))) {
-    strategies.push('validate-ai-portals');
-  }
-  
-  // Memory system changes
-  if (context.changedFiles.some(f => f.includes('memory/'))) {
-    strategies.push('validate-memory-providers');
-  }
-  
-  // Extension changes
-  if (context.changedFiles.some(f => f.includes('extensions/'))) {
-    strategies.push('validate-extensions');
-  }
-  
-  return strategies;
-}
-```
-
-### Parallel Hook Execution
-
-```bash
-# Parallel execution for faster validation
-run_hooks_parallel() {
-    local pids=()
-    
-    # Run type checking in background
-    npm run type-check &
-    pids+=($!)
-    
-    # Run linting in background
-    npm run lint &
-    pids+=($!)
-    
-    # Run tests in background
-    npm run test:unit &
-    pids+=($!)
-    
-    # Wait for all to complete
-    for pid in "${pids[@]}"; do
-        wait $pid || exit 1
-    done
-    
-    echo "✅ All parallel validation complete"
-}
-```
-
-## Hook Installation and Management
-
-### Automatic Hook Setup
-
-```bash
-# scripts/setup-git-hooks.sh
-#!/bin/bash
-
-echo "🔧 Setting up Cursor AI-enhanced Git hooks..."
-
-# Copy hook scripts
-cp scripts/hooks/* .git/hooks/
-chmod +x .git/hooks/*
-
-# Install hook dependencies
-npm install --save-dev husky lint-staged
-
-# Configure package.json
-npm pkg set scripts.prepare="husky install"
-npm pkg set lint-staged='{"*.{ts,tsx}": ["eslint --fix", "git add"], "*.{json,md}": ["prettier --write", "git add"]}'
-
-echo "✅ Git hooks setup complete with Cursor AI integration"
-```
-
-### Hook Monitoring
-
-```typescript
-// scripts/hook-monitoring.ts
-interface HookMetrics {
-  hookType: string;
-  duration: number;
-  success: boolean;
-  autoFixesApplied: number;
-  errorsFound: number;
+  canAffordTask(task: AgentTask): boolean;
+  optimizeTaskExecution(tasks: AgentTask[]): AgentTask[];
+  scheduleTasksWithinBudget(tasks: AgentTask[]): ScheduledTask[];
 }
 
-function logHookMetrics(metrics: HookMetrics): void {
-  // Send metrics to monitoring system
-  console.log(`📊 Hook Metrics: ${JSON.stringify(metrics, null, 2)}`);
-}
-```
-
-## Integration with SYMindX Workflow
-
-### Agent Module Validation
-
-```typescript
-// Specific validation for SYMindX components
-const symindxHooks = {
-  validateAgentModules: async () => {
-    // Validate hot-swappable module interfaces
-    // Check emotion system configuration
-    // Verify memory provider connections
+// Cost optimization strategies
+const costStrategies = {
+  // Batch similar tasks to reduce overhead
+  batchSimilarTasks: (tasks: AgentTask[]) => {
+    return tasks.reduce((batches, task) => {
+      const key = `${task.type}-${task.complexity}`;
+      batches[key] = batches[key] || [];
+      batches[key].push(task);
+      return batches;
+    }, {});
   },
   
-  validateCharacterDefinitions: async () => {
-    // Validate character JSON schema
-    // Check emotion mappings
-    // Verify trait inheritance
-  },
-  
-  validatePortalConfigurations: async () => {
-    // Check AI provider configurations
-    // Validate API key patterns (without exposing keys)
-    // Test provider availability
+  // Prioritize high-value, low-cost tasks
+  prioritizeValue: (tasks: AgentTask[]) => {
+    return tasks.sort((a, b) => {
+      const valueA = a.businessValue / a.estimatedCost;
+      const valueB = b.businessValue / b.estimatedCost;
+      return valueB - valueA;
+    });
   }
 };
 ```
 
-This rule enables powerful Git hook integration with Cursor's AI agents, creating an automated development workflow that maintains code quality while leveraging AI assistance for fixing issues automatically.
+## Best Practices and Guidelines
+
+### When to Use Background Agents
+
+**Good Candidates:**
+- UI fixes and responsive design adjustments
+- Content updates and synchronization
+- Repetitive refactoring tasks
+- Test generation and validation
+- Documentation updates
+- Configuration file management
+
+**Avoid for:**
+- Core architecture decisions
+- Security-sensitive changes
+- Complex business logic
+- Performance-critical code
+- Experimental features
+
+### Task Preparation
+
+```typescript
+// Prepare tasks for optimal agent execution
+interface TaskPreparation {
+  // Provide clear, specific descriptions
+  description: string; // "Fix navbar mobile responsive layout for screens < 768px"
+  
+  // Include relevant context files
+  contextFiles: string[];
+  
+  // Specify acceptance criteria
+  acceptanceCriteria: string[];
+  
+  // Provide visual references when applicable
+  screenshots?: string[];
+  
+  // Define validation requirements
+  validation: {
+    tests: string[];
+    performance: boolean;
+    accessibility: boolean;
+  };
+}
+```
+
+This rule enables powerful background agent utilization for parallel development workflows, automating complex tasks while maintaining quality and cost efficiency.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
