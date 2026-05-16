@@ -1,0 +1,9 @@
+{
+  "name": "majiayu000--sage",
+  "displayName": "sage",
+  "description": "Fast Rust CLI for batch-extracting structured observations from Claude Code and Codex sessions using LLM analysis",
+  "version": "1.0.0",
+  "author": "majiayu000",
+  "homepage": "https://github.com/majiayu000/sage",
+  "skills": []
+}
