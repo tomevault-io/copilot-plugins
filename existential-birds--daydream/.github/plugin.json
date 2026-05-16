@@ -1,0 +1,9 @@
+{
+  "name": "existential-birds--daydream",
+  "displayName": "daydream",
+  "description": "Automated code review and fix agent loop using Claude Agent SDK or Codex with Beagle skills",
+  "version": "1.0.0",
+  "author": "existential-birds",
+  "homepage": "https://github.com/existential-birds/daydream",
+  "skills": []
+}
