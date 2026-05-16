@@ -1,0 +1,9 @@
+{
+  "name": "channprj--claude-code-voice",
+  "displayName": "claude-code-voice",
+  "description": "Let's get voice feedback with claude code hooks",
+  "version": "1.0.0",
+  "author": "channprj",
+  "homepage": "https://github.com/channprj/claude-code-voice",
+  "skills": []
+}
