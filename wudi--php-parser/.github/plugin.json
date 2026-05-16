@@ -1,0 +1,9 @@
+{
+  "name": "wudi--php-parser",
+  "displayName": "php-parser",
+  "description": "A fast PHP parser written in Rust",
+  "version": "1.0.0",
+  "author": "wudi",
+  "homepage": "https://github.com/wudi/php-parser",
+  "skills": []
+}
