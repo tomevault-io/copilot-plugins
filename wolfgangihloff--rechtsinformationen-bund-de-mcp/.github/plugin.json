@@ -1,0 +1,9 @@
+{
+  "name": "wolfgangihloff--rechtsinformationen-bund-de-mcp",
+  "displayName": "rechtsinformationen-bund-de-mcp",
+  "description": "An MCP (Model Context Protocol) server that provides access to the official German Federal Legal Information Portal (rechtsinformationen.bund.de). **Claude Desktop will automatically use this server f",
+  "version": "1.0.0",
+  "author": "wolfgangihloff",
+  "homepage": "https://github.com/wolfgangihloff/rechtsinformationen-bund-de-mcp",
+  "skills": []
+}
