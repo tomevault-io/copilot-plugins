@@ -7,11 +7,11 @@ The research knowledge graph runtime — build domain-specific KGs that grow wit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ohdearquant/khive](https://github.com/ohdearquant/khive).
+Original source: `CLAUDE.md` in [ohdearquant/khive](https://github.com/ohdearquant/khive).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
