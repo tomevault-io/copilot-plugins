@@ -1,0 +1,9 @@
+{
+  "name": "stefanmunz--project-manager",
+  "displayName": "project-manager",
+  "description": "Hire this scripted project manager and it will manage your code agents for you. No more frantic context switching, just clear delegation.",
+  "version": "1.0.0",
+  "author": "stefanmunz",
+  "homepage": "https://github.com/stefanmunz/project-manager",
+  "skills": []
+}
