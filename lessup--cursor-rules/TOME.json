@@ -4,7 +4,7 @@
   "repo": "cursor-rules",
   "description": "Archive-grade Cursor .mdc \u89c4\u5219\u5e93 | 26 \u4e2a\u9ad8\u8d28\u91cf\u89c4\u5219\uff0c\u9759\u6001\u76ee\u5f55\uff0c\u4f4e\u6f02\u79fb\u8bbe\u8ba1",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LessUp/cursor-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T23:39:31Z"
+  "distributed_at": "2026-05-16T03:00:46Z"
 }
