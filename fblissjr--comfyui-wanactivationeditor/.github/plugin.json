@@ -1,0 +1,9 @@
+{
+  "name": "fblissjr--comfyui-wanactivationeditor",
+  "displayName": "ComfyUI-WanActivationEditor",
+  "description": "ComfyUI nodes for granular control over WanVideo generation through transformer block injection and vector arithmetic operations.",
+  "version": "1.0.0",
+  "author": "fblissjr",
+  "homepage": "https://github.com/fblissjr/ComfyUI-WanActivationEditor",
+  "skills": []
+}
