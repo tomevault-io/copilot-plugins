@@ -1,113 +1,38 @@
-## rust-rules
+## when-feature-complete-document-and-commit
 
-> rust rules for the project
+> When Feature Complete (implementation, test and doc): Commit if needed
 
-rules:
-  - id: rust-use-semicolons
-    description: "Ensure statements are terminated with semicolons except for tail expressions in blocks."
-    pattern: |
-      $EXPR
-    condition: |
-      not is_tail_expression($EXPR)
-    message: "Statements in Rust must be terminated with a semicolon."
-    severity: warning
+# When Feature Complete (implementation, test and doc): Commit if needed
 
-  - id: rust-unwrap-usage
-    description: "Discourage use of unwrap() and expect() on Result/Option types."
-    pattern: |
-      $VAL.unwrap()
-    message: "Avoid using unwrap(); handle errors explicitly."
-    severity: warning
+## 🚀 **Documentation and Commit Rule**
 
-  - id: rust-missing-doc-comments
-    description: "Public items should have documentation comments."
-    pattern: |
-      pub $ITEM $NAME $REST
-    condition: |
-      not has_doc_comment($ITEM)
-    message: "Public item is missing a documentation comment."
-    severity: info
+A complete feature is not a tiny update or a small fix. It is a significant addition or change to the codebase that enhances functionality, performance, or usability.
 
-  - id: rust-unused-mut
-    description: "Detect variables declared as mutable but never mutated."
-    pattern: |
-      let mut $VAR = $VAL;
-    condition: |
-      not is_mutated($VAR)
-    message: "Variable is declared as mutable but never mutated."
-    severity: warning
+When you have successfully implemented and tested a complete feature, not a tiny update, you MUST:
 
-  - id: rust-inefficient-string-concat
-    description: "Suggest using format! macro for string concatenation."
-    pattern: |
-      $A.to_string() + $B
-    message: "Consider using format! macro for string concatenation."
-    severity: info
+### 1. **Document when needed** 📝
+- **Update relevant documentation** when feature (not a tiny update) is complete
+- **Add comprehensive comments** to the code explaining the implementation
+- **Update SPEC files** spec files for CCOS are in docs/ccos/specs and for RTFS-2.0 in docs/rtfs-2.0/specs
+- **Update README files** if the feature affects user-facing functionality
+- **Update progress reports** (like WORKTREE_PROGRESS.md) with completion status
+- **Add usage examples** if the feature is user-facing in docs/ccos/guides or docs/rtfs-2.0/guides, never in root direct
 
-  - id: rust-avoid-clone
-    description: "Warn when .clone() is used unnecessarily."
-    pattern: |
-      $VAL.clone()
-    condition: |
-      not is_required_clone($VAL)
-    message: "Avoid unnecessary .clone(); prefer borrowing or references."
-    severity: info
+### 2. **Test or execute the feature before committing** 💾
+- **Test or execute the feature before committing**
+- **If the feature is not working, do not commit**
+- **If the feature is working, commit**
+- **If the feature is working, but you are not sure if it is working, do not commit**
+- **If the feature is working, but you are not sure if it is working, do not commit**
 
-  - id: rust-struct-field-privacy
-    description: "Warn if struct fields are public without need."
-    pattern: |
-      pub struct $NAME { pub $FIELD: $TYPE, $REST }
-    message: "Struct field is public; consider making it private and using getter/setter methods."
-    severity: info
+### 3. **Commit when you think it is meaningful to commit** 💾
+- **DO NOT wait** until the end of a PR or issue to commit
+- **Commit as soon as** the feature is implemented and tested
+- **Use descriptive commit messages** that explain what was implemented
+- **Include test results** in commit messages if relevant
+- **Reference issue numbers** in commit messages when applicable
 
-  - id: rust-async-await
-    description: "Encourage use of async/await for asynchronous code."
-    pattern: |
-      $FUTURE.wait()
-    message: "Consider using async/await syntax instead of .wait()."
-    severity: info
-
-  - id: rust-vec-init
-    description: "Suggest using Vec::with_capacity when capacity is known."
-    pattern: |
-      let mut $VEC = Vec::new();
-    condition: |
-      is_capacity_known($VEC)
-    message: "Use Vec::with_capacity when the capacity is known in advance."
-    severity: info
-
-  - id: rust-match-exhaustiveness
-    description: "Warn if match statements are not exhaustive."
-    pattern: |
-      match $EXPR { $ARMS }
-    condition: |
-      not is_exhaustive($EXPR, $ARMS)
-    message: "Match statement is not exhaustive; consider handling all cases."
-    severity: warning
-
-  - id: rust-specific-test
-    description: "Run specific tests for the project."
-    pattern: |
-      cargo test --test custom_tests -- --option1 --option2 
-    message: "Run custom tests for the project."
-    severity: info
-
-# Code Factorization Guidelines
-# 
-# IMPORTANT: Before implementing utility functions, especially for value conversions,
-# ALWAYS check ccos::utils modules for existing shared utilities.
-#
-# Key shared utilities available:
-# - ccos::utils::value_conversion::rtfs_value_to_json - Convert RTFS Value to JSON
-# - ccos::utils::value_conversion::json_to_rtfs_value - Convert JSON to RTFS Value  
-# - ccos::utils::value_conversion::map_key_to_string - Convert MapKey to String
-# - ccos::utils::value_conversion::strip_leading_colon - Strip leading colon from strings
-#
-# When writing code:
-# 1. Check ccos::utils::value_conversion before implementing any RTFS↔JSON conversion
-# 2. Factorize common patterns into shared utility modules
-# 3. Avoid duplicating conversion logic - use existing utilities
-# 4. If you find duplicate code, extract it to ccos::utils
+### 4. **Do not add documentation in root directory except if very generic**
 
 ---
 > Source: [mandubian/ccos](https://github.com/mandubian/ccos) — distributed by [TomeVault](https://tomevault.io).
