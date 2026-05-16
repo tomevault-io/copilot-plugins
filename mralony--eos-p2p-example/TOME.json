@@ -4,7 +4,7 @@
   "repo": "EOS-P2P-Example",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MrAlony/EOS-P2P-Example",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-16T08:38:08Z"
+  "distributed_at": "2026-05-16T09:09:36Z"
 }
