@@ -1,0 +1,9 @@
+{
+  "name": "bdfinst--medium-download",
+  "displayName": "medium-download",
+  "description": "Download all blog posts from medium",
+  "version": "1.0.0",
+  "author": "bdfinst",
+  "homepage": "https://github.com/bdfinst/medium-download",
+  "skills": []
+}
