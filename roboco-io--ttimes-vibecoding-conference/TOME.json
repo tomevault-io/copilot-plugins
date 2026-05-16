@@ -1,0 +1,44 @@
+{
+  "name": "ttimes-vibecoding-conference",
+  "owner": "roboco-io",
+  "repo": "ttimes-vibecoding-conference",
+  "description": "\ubc14\uc774\ube0c \ucf54\ub529 \ud559\uc2b5\uc744 \uc704\ud55c \ub77c\uc774\ube0c \ub370\ubaa8 Todo \uc571 \ud504\ub85c\uc81d\ud2b8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/roboco-io/ttimes-vibecoding-conference",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-16T03:03:31Z"
+}
