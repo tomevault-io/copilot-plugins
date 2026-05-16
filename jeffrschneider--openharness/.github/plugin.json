@@ -1,0 +1,9 @@
+{
+  "name": "jeffrschneider--openharness",
+  "displayName": "OpenHarness",
+  "description": "Focused on a consistent API across multiple Agent Harnesses like Claude Code, Langchain Deep Agents, Letta, Goose and more. ",
+  "version": "1.0.0",
+  "author": "jeffrschneider",
+  "homepage": "https://github.com/jeffrschneider/OpenHarness",
+  "skills": []
+}
