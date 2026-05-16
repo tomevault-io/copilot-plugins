@@ -7,14 +7,14 @@ A powerful, lightweight command-line task management tool built for developers w
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [carlrannaberg/simple-task-master](https://github.com/carlrannaberg/simple-task-master).
+Original source: `CLAUDE.md` in [carlrannaberg/simple-task-master](https://github.com/carlrannaberg/simple-task-master).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [carlrannaberg/simple-task-master](https://github.com/carlrannaberg/simple-task-master) — a repo with 20+ stars on GitHub.
