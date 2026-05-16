@@ -1,0 +1,9 @@
+{
+  "name": "etr--wonk",
+  "displayName": "wonk",
+  "description": "Structure-aware code search that cuts LLM token burn. Tree-sitter indexing, ranked results, grep-compatible output.",
+  "version": "1.0.0",
+  "author": "etr",
+  "homepage": "https://github.com/etr/wonk",
+  "skills": []
+}
