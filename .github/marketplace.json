@@ -127934,6 +127934,31 @@
       "description": "A fast PHP parser written in Rust"
     },
     {
+      "name": "henkisdabro--cloudflare-workers-react-boilerplate",
+      "source": "./henkisdabro--cloudflare-workers-react-boilerplate",
+      "description": "Full-stack React 19 + Cloudflare Workers template optimised for Claude Code. AI integration, edge databases, and automated deployment - from idea to production in minutes."
+    },
+    {
+      "name": "trustdan--trend-following-backtesting-strategies",
+      "source": "./trustdan--trend-following-backtesting-strategies",
+      "description": "Pine scripts"
+    },
+    {
+      "name": "cldotdev--claude-bash-completion",
+      "source": "./cldotdev--claude-bash-completion",
+      "description": "Bash completion script for Claude Code CLI, providing tab completion for both built-in slash commands and custom commands."
+    },
+    {
+      "name": "henkisdabro--cloudflare-workers-react-boilerplate",
+      "source": "./henkisdabro--cloudflare-workers-react-boilerplate",
+      "description": "Full-stack React 19 + Cloudflare Workers template optimised for Claude Code. AI integration, edge databases, and automated deployment - from idea to production in minutes."
+    },
+    {
+      "name": "verum-lang--verum",
+      "source": "./verum-lang--verum",
+      "description": "The Verum Programming Language"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136289,6 +136314,11 @@
       "description": "Browse, install, and update addons from within Meteor Client"
     },
     {
+      "name": "rozx--tsukuyomi",
+      "source": "./rozx--tsukuyomi",
+      "description": "Tsukuyomi\uff08\u6708\u8a60\uff09\u662f\u4e00\u6b3e\u4e13\u6ce8\u65e5\u6587\u8f7b\u5c0f\u8bf4 \u2192 \u4e2d\u6587\u7684 AI \u7ffb\u8bd1\u5de5\u5177\u3002 \u57fa\u4e8e\u73b0\u4ee3 Web \u6280\u672f\u6784\u5efa\uff0c\u63d0\u4f9b\u6d41\u7545\u3001\u53ef\u672c\u5730\u8fd0\u884c\u7684\u9605\u8bfb\u4e0e\u7ffb\u8bd1\u4f53\u9a8c\u3002 A moonlit, lightweight translator designed for clarity and elegance."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -138117,6 +138147,16 @@
       "name": "skbays03--absentia",
       "source": "./skbays03--absentia",
       "description": "Find the holes your code already drew."
+    },
+    {
+      "name": "lizilaywer--lawyercasetool-local-offline",
+      "source": "./lizilaywer--lawyercasetool-local-offline",
+      "description": "\u6848\u4ef6\u6587\u4ef6\u5939\u7ba1\u7406\u7cfb\u7edf \u2014 \u9762\u5411\u6cd5\u5f8b\u4ece\u4e1a\u8005\u7684\u672c\u5730\u79bb\u7ebf\u7684\u6848\u4ef6\u76ee\u5f55\u7ba1\u7406\u5de5\u5177"
+    },
+    {
+      "name": "lizilaywer--lawyercasetool-local-offline",
+      "source": "./lizilaywer--lawyercasetool-local-offline",
+      "description": "\u6848\u4ef6\u6587\u4ef6\u5939\u7ba1\u7406\u7cfb\u7edf \u2014 \u9762\u5411\u6cd5\u5f8b\u4ece\u4e1a\u8005\u7684\u672c\u5730\u79bb\u7ebf\u7684\u6848\u4ef6\u76ee\u5f55\u7ba1\u7406\u5de5\u5177"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -236697,6 +236737,11 @@
       "name": "manti-by--odin",
       "source": "./manti-by--odin",
       "description": "Home server with IoT dashboard"
+    },
+    {
+      "name": "damiant--movies-angular-demo",
+      "source": "./damiant--movies-angular-demo",
+      "description": "movies-angular-demo"
     }
   ]
 }
