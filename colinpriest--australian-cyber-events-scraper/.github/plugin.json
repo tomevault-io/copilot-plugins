@@ -1,0 +1,9 @@
+{
+  "name": "colinpriest--australian-cyber-events-scraper",
+  "displayName": "australian-cyber-events-scraper",
+  "description": "Finds Australian cyber events from 01-Jan-2020 onwards",
+  "version": "1.0.0",
+  "author": "colinpriest",
+  "homepage": "https://github.com/colinpriest/australian-cyber-events-scraper",
+  "skills": []
+}
