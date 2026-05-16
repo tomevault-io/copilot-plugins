@@ -1,0 +1,9 @@
+{
+  "name": "cw-codewalnut--monorepo-template",
+  "displayName": "monorepo-template",
+  "description": "A modern Full Stack TypeScript first Monorepo template. Uses Bun, Hono, tRPC, Better Auth, Drizzle, Sqlite, React, React Router, Shadcn UI, Vite, Turborepo, Biome.",
+  "version": "1.0.0",
+  "author": "CW-Codewalnut",
+  "homepage": "https://github.com/CW-Codewalnut/monorepo-template",
+  "skills": []
+}
