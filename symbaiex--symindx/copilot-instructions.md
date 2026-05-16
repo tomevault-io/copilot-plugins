@@ -1,538 +1,819 @@
-## 019-background-agents
+## 020-mcp-integration
 
-> **Rule Priority:** Advanced Automation
+> **Rule Priority:** Advanced Integration
 
-# Background Agents for Cloud-Powered Development
+# Model Context Protocol (MCP) Integration
 
-**Rule Priority:** Advanced Automation  
-**Activation:** Complex multi-step tasks and parallel workflows  
-**Scope:** All development tasks suitable for agent delegation
+**Rule Priority:** Advanced Integration  
+**Activation:** External tool integration and service connections  
+**Scope:** All MCP-compatible tools and service integrations
 
 ## Overview
 
-Cursor's Background Agents feature enables cloud-powered AI agents to work on tasks in parallel while you focus on core development. These agents can handle UI fixes, content updates, pull request creation, and complex refactoring tasks without blocking your main workflow.
+Model Context Protocol (MCP) in Cursor v1.2+ enables seamless integration with external tools and services through standardized interfaces. This allows one-click installation of tools, OAuth authentication flows, and powerful service integrations without complex setup.
 
-## Background Agent Activation
+## MCP Architecture
 
-### Settings Configuration
+### Core MCP Components
+
+```typescript
+// MCP Server Implementation
+interface MCPServer {
+  name: string;
+  version: string;
+  capabilities: MCPCapabilities;
+  tools: MCPTool[];
+  resources: MCPResource[];
+  prompts: MCPPrompt[];
+}
+
+interface MCPCapabilities {
+  logging?: boolean;
+  notifications?: boolean;
+  resources?: {
+    subscribe?: boolean;
+    listChanged?: boolean;
+  };
+  tools?: {
+    listChanged?: boolean;
+  };
+  prompts?: {
+    listChanged?: boolean;
+  };
+}
+
+interface MCPTool {
+  name: string;
+  description: string;
+  inputSchema: JSONSchema;
+  handler: (params: any) => Promise<MCPResult>;
+}
+
+interface MCPResource {
+  uri: string;
+  name: string;
+  description?: string;
+  mimeType?: string;
+}
+
+interface MCPPrompt {
+  name: string;
+  description: string;
+  arguments?: MCPPromptArgument[];
+}
+```
+
+### MCP Client Configuration
 
 ```json
-// .cursor/background-agents.json
+// .cursor/mcp-config.json
 {
-  "enabled": true,
-  "maxConcurrentAgents": 5,
-  "autoCreatePRs": true,
-  "branchPrefix": "agent/",
-  "githubIntegration": true,
-  "costLimit": {
-    "dailyMax": 50.00,
-    "warningThreshold": 40.00
-  },
-  "agentTypes": {
-    "uiFixes": true,
-    "contentUpdates": true,
-    "refactoring": true,
-    "testing": true,
-    "documentation": true
-  }
-}
-```
-
-### Authentication Setup
-
-```bash
-# Enable Background Agents in Cursor Settings
-# 1. Settings → Beta → Enable Background Agents
-# 2. Authenticate GitHub for PR handling
-# 3. Snapshot environment for cloud agents
-# 4. Configure cost limits and permissions
-```
-
-## Agent Task Templates
-
-### UI Fix Agent Template
-
-```typescript
-// Template for delegating UI fixes to background agents
-interface UIFixTask {
-  type: 'ui-fix';
-  description: string;
-  targetFiles: string[];
-  screenshot?: string;
-  requirements: {
-    responsive: boolean;
-    accessibility: boolean;
-    designSystem: string;
-  };
-  priority: 'low' | 'medium' | 'high';
-}
-
-// Example UI fix delegation
-const uiFixTask: UIFixTask = {
-  type: 'ui-fix',
-  description: 'Fix mobile responsive layout for navbar component',
-  targetFiles: ['website/src/components/Navigation.tsx'],
-  requirements: {
-    responsive: true,
-    accessibility: true,
-    designSystem: 'tailwind'
-  },
-  priority: 'medium'
-};
-
-// Cursor will automatically:
-// 1. Create new branch: agent/fix-navbar-mobile
-// 2. Apply responsive fixes
-// 3. Test across breakpoints
-// 4. Create pull request with screenshots
-// 5. Notify when ready for review
-```
-
-### Content Update Agent Template
-
-```typescript
-// Template for content updates and data synchronization
-interface ContentUpdateTask {
-  type: 'content-update';
-  description: string;
-  contentType: 'documentation' | 'config' | 'assets' | 'data';
-  sourceFiles: string[];
-  updatePattern: 'replace' | 'merge' | 'append';
-  validation: string[];
-}
-
-// Example content update
-const contentTask: ContentUpdateTask = {
-  type: 'content-update',
-  description: 'Update AI portal configurations with new models',
-  contentType: 'config',
-  sourceFiles: ['mind-agents/src/portals/*/config.json'],
-  updatePattern: 'merge',
-  validation: ['schema-validation', 'connectivity-test']
-};
-```
-
-### Refactoring Agent Template
-
-```typescript
-// Template for complex refactoring tasks
-interface RefactoringTask {
-  type: 'refactoring';
-  description: string;
-  scope: 'file' | 'module' | 'system';
-  targetPattern: string;
-  transformations: RefactoringTransformation[];
-  preserveTests: boolean;
-}
-
-interface RefactoringTransformation {
-  name: string;
-  description: string;
-  pattern: string;
-  replacement: string;
-  validation: string;
-}
-
-// Example refactoring task
-const refactorTask: RefactoringTask = {
-  type: 'refactoring',
-  description: 'Extract common portal interface from all AI providers',
-  scope: 'module',
-  targetPattern: 'mind-agents/src/portals/*/index.ts',
-  transformations: [
-    {
-      name: 'extract-interface',
-      description: 'Create common BasePortal interface',
-      pattern: 'export class (.+)Portal',
-      replacement: 'export class $1Portal extends BasePortal',
-      validation: 'typescript-compile'
-    }
-  ],
-  preserveTests: true
-};
-```
-
-## Parallel Task Execution
-
-### Multi-Agent Workflows
-
-```typescript
-// Coordinate multiple agents for complex tasks
-interface MultiAgentWorkflow {
-  name: string;
-  agents: AgentTask[];
-  dependencies: AgentDependency[];
-  mergeStrategy: 'sequential' | 'parallel' | 'hybrid';
-}
-
-interface AgentTask {
-  id: string;
-  type: string;
-  description: string;
-  estimatedTime: number;
-  priority: number;
-}
-
-interface AgentDependency {
-  agentId: string;
-  dependsOn: string[];
-  condition: 'completion' | 'approval' | 'merge';
-}
-
-// Example: Complete feature implementation
-const featureWorkflow: MultiAgentWorkflow = {
-  name: 'Add New Emotion Support',
-  agents: [
-    {
-      id: 'emotion-types',
-      type: 'code-generation',
-      description: 'Add new emotion types to type definitions',
-      estimatedTime: 300, // 5 minutes
-      priority: 1
-    },
-    {
-      id: 'emotion-logic',
-      type: 'implementation',
-      description: 'Implement emotion calculation logic',
-      estimatedTime: 900, // 15 minutes
-      priority: 2
-    },
-    {
-      id: 'emotion-tests',
-      type: 'testing',
-      description: 'Generate comprehensive test suite',
-      estimatedTime: 600, // 10 minutes
-      priority: 3
-    },
-    {
-      id: 'emotion-docs',
-      type: 'documentation',
-      description: 'Update documentation and examples',
-      estimatedTime: 480, // 8 minutes
-      priority: 4
-    }
-  ],
-  dependencies: [
-    {
-      agentId: 'emotion-logic',
-      dependsOn: ['emotion-types'],
-      condition: 'completion'
-    },
-    {
-      agentId: 'emotion-tests',
-      dependsOn: ['emotion-logic'],
-      condition: 'completion'
-    },
-    {
-      agentId: 'emotion-docs',
-      dependsOn: ['emotion-logic'],
-      condition: 'completion'
-    }
-  ],
-  mergeStrategy: 'sequential'
-};
-```
-
-### Task Delegation Patterns
-
-```typescript
-// Smart task delegation based on complexity and type
-class BackgroundAgentManager {
-  async delegateTask(task: AgentTask): Promise<AgentExecution> {
-    // Analyze task complexity
-    const complexity = this.analyzeComplexity(task);
-    
-    // Select appropriate agent type
-    const agentType = this.selectAgentType(task.type, complexity);
-    
-    // Estimate cost and time
-    const estimates = this.estimateExecution(task, agentType);
-    
-    // Create execution plan
-    return this.createExecution(task, agentType, estimates);
-  }
-  
-  private analyzeComplexity(task: AgentTask): 'simple' | 'moderate' | 'complex' {
-    // Analyze file count, dependencies, test requirements
-    if (task.targetFiles.length > 10) return 'complex';
-    if (task.targetFiles.length > 3) return 'moderate';
-    return 'simple';
-  }
-  
-  private selectAgentType(taskType: string, complexity: string): string {
-    const agentMap = {
-      'ui-fix': complexity === 'simple' ? 'ui-specialist' : 'full-stack',
-      'refactoring': complexity === 'complex' ? 'architecture' : 'code-specialist',
-      'testing': 'test-specialist',
-      'documentation': 'content-specialist'
-    };
-    
-    return agentMap[taskType] || 'generalist';
-  }
-}
-```
-
-## Agent Communication and Monitoring
-
-### Real-Time Status Tracking
-
-```typescript
-// Monitor agent progress and status
-interface AgentStatus {
-  id: string;
-  status: 'queued' | 'running' | 'completed' | 'failed' | 'blocked';
-  progress: number; // 0-100
-  currentStep: string;
-  estimatedCompletion: Date;
-  cost: number;
-  logs: AgentLog[];
-  artifacts: AgentArtifact[];
-}
-
-interface AgentLog {
-  timestamp: Date;
-  level: 'info' | 'warning' | 'error';
-  message: string;
-  context?: Record<string, any>;
-}
-
-interface AgentArtifact {
-  type: 'file' | 'pr' | 'branch' | 'deployment';
-  path: string;
-  url?: string;
-  description: string;
-}
-
-// Real-time monitoring
-class AgentMonitor {
-  subscribe(agentId: string, callback: (status: AgentStatus) => void): void {
-    // Subscribe to agent status updates
-  }
-  
-  getActiveAgents(): AgentStatus[] {
-    // Get all currently running agents
-  }
-  
-  getCostSummary(): AgentCostSummary {
-    // Get cost breakdown and projections
-  }
-}
-```
-
-### Agent Results Integration
-
-```typescript
-// Handle agent completion and integration
-interface AgentResult {
-  agentId: string;
-  success: boolean;
-  artifacts: AgentArtifact[];
-  pullRequest?: {
-    url: string;
-    number: number;
-    branch: string;
-  };
-  reviewRequired: boolean;
-  autoMergeEligible: boolean;
-}
-
-class AgentResultHandler {
-  async handleCompletion(result: AgentResult): Promise<void> {
-    if (result.success) {
-      // Notify user of completion
-      await this.notifyCompletion(result);
-      
-      // Auto-merge if eligible
-      if (result.autoMergeEligible) {
-        await this.autoMergePR(result.pullRequest);
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-supabase"],
+      "env": {
+        "SUPABASE_URL": "process.env.SUPABASE_URL",
+        "SUPABASE_ANON_KEY": "process.env.SUPABASE_ANON_KEY"
       }
-      
-      // Update project status
-      await this.updateProjectStatus(result);
-    } else {
-      // Handle failures and retry logic
-      await this.handleFailure(result);
-    }
-  }
-  
-  private async autoMergePR(pr: PullRequest): Promise<void> {
-    // Run final checks
-    const checks = await this.runPreMergeChecks(pr);
-    
-    if (checks.passed) {
-      await this.mergePR(pr);
-      await this.cleanupBranch(pr.branch);
-    }
-  }
-}
-```
-
-## SYMindX-Specific Agent Workflows
-
-### AI Portal Management
-
-```typescript
-// Delegate AI portal updates to background agents
-const portalUpdateWorkflow = {
-  name: 'Update All AI Portals',
-  tasks: [
-    {
-      type: 'config-update',
-      description: 'Update OpenAI portal with GPT-4.1 support',
-      files: ['mind-agents/src/portals/openai/']
     },
-    {
-      type: 'config-update', 
-      description: 'Update Anthropic portal with Claude 3.5 Sonnet',
-      files: ['mind-agents/src/portals/anthropic/']
+    "github": {
+      "command": "npx", 
+      "args": ["@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "process.env.GITHUB_TOKEN"
+      }
     },
-    {
-      type: 'testing',
-      description: 'Run integration tests for all portals',
-      files: ['mind-agents/src/portals/__tests__/']
+    "memory": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-memory"],
+      "env": {
+        "MEMORY_STORE_PATH": "./data/mcp-memory"
+      }
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-playwright"]
+    },
+    "context7": {
+      "command": "npx", 
+      "args": ["@context7/mcp-server"]
     }
+  },
+  "allowedOrigins": [
+    "cursor://",
+    "vscode://",
+    "localhost"
   ],
-  execution: 'parallel'
-};
-```
-
-### Memory System Optimization
-
-```typescript
-// Background optimization of memory providers
-const memoryOptimization = {
-  name: 'Optimize Memory Performance',
-  agents: [
-    {
-      type: 'performance-analysis',
-      description: 'Analyze vector search performance',
-      target: 'mind-agents/src/memory/providers/'
-    },
-    {
-      type: 'database-optimization',
-      description: 'Optimize SQLite and PostgreSQL queries',
-      target: 'mind-agents/src/memory/sql/'
-    },
-    {
-      type: 'caching-strategy',
-      description: 'Implement intelligent caching layer',
-      target: 'mind-agents/src/memory/cache/'
-    }
-  ]
-};
-```
-
-### Character System Updates
-
-```typescript
-// Automate character definition management
-const characterManagement = {
-  name: 'Character System Enhancement',
-  workflow: [
-    {
-      agent: 'content-specialist',
-      task: 'Update character personality traits',
-      files: ['mind-agents/src/characters/*.json']
-    },
-    {
-      agent: 'validation-specialist', 
-      task: 'Validate character schema compliance',
-      dependencies: ['content-update']
-    },
-    {
-      agent: 'test-specialist',
-      task: 'Generate character interaction tests',
-      dependencies: ['validation']
-    }
-  ]
-};
-```
-
-## Cost Management and Optimization
-
-### Smart Cost Controls
-
-```typescript
-// Implement cost-aware task delegation
-interface CostManager {
-  dailyBudget: number;
-  currentSpend: number;
-  taskCostEstimates: Map<string, number>;
-  
-  canAffordTask(task: AgentTask): boolean;
-  optimizeTaskExecution(tasks: AgentTask[]): AgentTask[];
-  scheduleTasksWithinBudget(tasks: AgentTask[]): ScheduledTask[];
+  "enableOAuth": true,
+  "oauthConfig": {
+    "providers": ["github", "google", "microsoft"],
+    "redirectUrl": "cursor://oauth/callback"
+  }
 }
+```
 
-// Cost optimization strategies
-const costStrategies = {
-  // Batch similar tasks to reduce overhead
-  batchSimilarTasks: (tasks: AgentTask[]) => {
-    return tasks.reduce((batches, task) => {
-      const key = `${task.type}-${task.complexity}`;
-      batches[key] = batches[key] || [];
-      batches[key].push(task);
-      return batches;
-    }, {});
+## One-Click Tool Installation
+
+### Built-in MCP Tools
+
+```typescript
+// Available MCP tools for one-click installation
+const availableMCPTools = {
+  // Database and Storage
+  supabase: {
+    name: '@modelcontextprotocol/server-supabase',
+    description: 'Supabase database operations',
+    category: 'database',
+    requiresAuth: true,
+    capabilities: ['read', 'write', 'schema', 'realtime']
   },
   
-  // Prioritize high-value, low-cost tasks
-  prioritizeValue: (tasks: AgentTask[]) => {
-    return tasks.sort((a, b) => {
-      const valueA = a.businessValue / a.estimatedCost;
-      const valueB = b.businessValue / b.estimatedCost;
-      return valueB - valueA;
-    });
+  // Code and Documentation
+  github: {
+    name: '@modelcontextprotocol/server-github',
+    description: 'GitHub repository operations',
+    category: 'development',
+    requiresAuth: true,
+    capabilities: ['repos', 'issues', 'prs', 'files']
+  },
+  
+  // AI and ML
+  context7: {
+    name: '@context7/mcp-server',
+    description: 'Context7 library documentation',
+    category: 'ai',
+    requiresAuth: false,
+    capabilities: ['search', 'documentation', 'examples']
+  },
+  
+  // Web and Testing
+  playwright: {
+    name: '@modelcontextprotocol/server-playwright',
+    description: 'Web browser automation',
+    category: 'testing',
+    requiresAuth: false,
+    capabilities: ['navigate', 'interact', 'screenshot', 'test']
+  },
+  
+  // Productivity
+  memory: {
+    name: '@modelcontextprotocol/server-memory',
+    description: 'Persistent knowledge graphs',
+    category: 'productivity',
+    requiresAuth: false,
+    capabilities: ['store', 'retrieve', 'search', 'graph']
+  },
+  
+  // AI Reasoning
+  'sequential-thinking': {
+    name: '@modelcontextprotocol/server-sequential-thinking',
+    description: 'Step-by-step problem solving',
+    category: 'ai',
+    requiresAuth: false,
+    capabilities: ['reasoning', 'analysis', 'planning']
   }
 };
-```
 
-## Best Practices and Guidelines
-
-### When to Use Background Agents
-
-**Good Candidates:**
-- UI fixes and responsive design adjustments
-- Content updates and synchronization
-- Repetitive refactoring tasks
-- Test generation and validation
-- Documentation updates
-- Configuration file management
-
-**Avoid for:**
-- Core architecture decisions
-- Security-sensitive changes
-- Complex business logic
-- Performance-critical code
-- Experimental features
-
-### Task Preparation
-
-```typescript
-// Prepare tasks for optimal agent execution
-interface TaskPreparation {
-  // Provide clear, specific descriptions
-  description: string; // "Fix navbar mobile responsive layout for screens < 768px"
+// Installation workflow
+class MCPInstaller {
+  async installTool(toolName: string): Promise<InstallResult> {
+    const tool = availableMCPTools[toolName];
+    if (!tool) throw new Error(`Tool ${toolName} not found`);
+    
+    // 1. Install package
+    await this.installPackage(tool.name);
+    
+    // 2. Configure MCP server
+    await this.configureMCPServer(toolName, tool);
+    
+    // 3. Setup authentication if required
+    if (tool.requiresAuth) {
+      await this.setupAuthentication(toolName);
+    }
+    
+    // 4. Verify installation
+    return this.verifyInstallation(toolName);
+  }
   
-  // Include relevant context files
-  contextFiles: string[];
-  
-  // Specify acceptance criteria
-  acceptanceCriteria: string[];
-  
-  // Provide visual references when applicable
-  screenshots?: string[];
-  
-  // Define validation requirements
-  validation: {
-    tests: string[];
-    performance: boolean;
-    accessibility: boolean;
-  };
+  private async setupAuthentication(toolName: string): Promise<void> {
+    // Launch OAuth flow or prompt for API keys
+    const authMethod = await this.detectAuthMethod(toolName);
+    
+    if (authMethod === 'oauth') {
+      await this.launchOAuthFlow(toolName);
+    } else {
+      await this.promptForAPIKey(toolName);
+    }
+  }
 }
 ```
 
-This rule enables powerful background agent utilization for parallel development workflows, automating complex tasks while maintaining quality and cost efficiency.
+### SYMindX-Specific MCP Integrations
+
+```typescript
+// Custom MCP server for SYMindX
+export class SYMindXMCPServer implements MCPServer {
+  name = 'symindx-server';
+  version = '1.0.0';
+  
+  capabilities: MCPCapabilities = {
+    logging: true,
+    notifications: true,
+    tools: { listChanged: true },
+    resources: { subscribe: true }
+  };
+  
+  tools: MCPTool[] = [
+    // Agent Management
+    {
+      name: 'create-agent',
+      description: 'Create new SYMindX agent instance',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          character: { type: 'string' },
+          modules: { type: 'array', items: { type: 'string' } }
+        },
+        required: ['name', 'character']
+      },
+      handler: this.createAgent.bind(this)
+    },
+    
+    // Memory Operations
+    {
+      name: 'store-memory',
+      description: 'Store data in agent memory',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          agentId: { type: 'string' },
+          data: { type: 'object' },
+          tags: { type: 'array', items: { type: 'string' } }
+        },
+        required: ['agentId', 'data']
+      },
+      handler: this.storeMemory.bind(this)
+    },
+    
+    // Portal Management
+    {
+      name: 'switch-portal',
+      description: 'Switch AI portal for agent',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          agentId: { type: 'string' },
+          portal: { type: 'string', enum: ['openai', 'anthropic', 'groq', 'xai'] },
+          model: { type: 'string' }
+        },
+        required: ['agentId', 'portal']
+      },
+      handler: this.switchPortal.bind(this)
+    },
+    
+    // Emotion System
+    {
+      name: 'set-emotion',
+      description: 'Set agent emotional state',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          agentId: { type: 'string' },
+          emotion: { type: 'string' },
+          intensity: { type: 'number', minimum: 0, maximum: 1 }
+        },
+        required: ['agentId', 'emotion', 'intensity']
+      },
+      handler: this.setEmotion.bind(this)
+    }
+  ];
+  
+  resources: MCPResource[] = [
+    {
+      uri: 'symindx://agents',
+      name: 'Active Agents',
+      description: 'List of currently active agents'
+    },
+    {
+      uri: 'symindx://memory',
+      name: 'Memory Store',
+      description: 'Agent memory contents'
+    },
+    {
+      uri: 'symindx://emotions',
+      name: 'Emotion States',
+      description: 'Current emotion states of all agents'
+    }
+  ];
+  
+  prompts: MCPPrompt[] = [
+    {
+      name: 'agent-status',
+      description: 'Get comprehensive agent status report',
+      arguments: [
+        { name: 'agentId', description: 'Agent ID', required: false }
+      ]
+    },
+    {
+      name: 'memory-search',
+      description: 'Search agent memory with semantic queries',
+      arguments: [
+        { name: 'query', description: 'Search query', required: true },
+        { name: 'agentId', description: 'Agent ID', required: false }
+      ]
+    }
+  ];
+  
+  async createAgent(params: any): Promise<MCPResult> {
+    // Implementation for creating new agent
+    const agent = await AgentManager.create({
+      name: params.name,
+      character: params.character,
+      modules: params.modules || ['memory', 'emotion', 'cognition']
+    });
+    
+    return {
+      content: [{
+        type: 'text',
+        text: `Created agent ${agent.id} with character ${params.character}`
+      }]
+    };
+  }
+  
+  async storeMemory(params: any): Promise<MCPResult> {
+    const agent = await AgentManager.get(params.agentId);
+    await agent.memory.store(params.data, params.tags);
+    
+    return {
+      content: [{
+        type: 'text',
+        text: `Stored memory for agent ${params.agentId}`
+      }]
+    };
+  }
+  
+  async switchPortal(params: any): Promise<MCPResult> {
+    const agent = await AgentManager.get(params.agentId);
+    await agent.switchPortal(params.portal, params.model);
+    
+    return {
+      content: [{
+        type: 'text',
+        text: `Switched agent ${params.agentId} to ${params.portal}${params.model ? ` (${params.model})` : ''}`
+      }]
+    };
+  }
+  
+  async setEmotion(params: any): Promise<MCPResult> {
+    const agent = await AgentManager.get(params.agentId);
+    await agent.emotion.setState(params.emotion, params.intensity);
+    
+    return {
+      content: [{
+        type: 'text',
+        text: `Set ${params.emotion} emotion to ${params.intensity} for agent ${params.agentId}`
+      }]
+    };
+  }
+}
+```
+
+## OAuth Integration Patterns
+
+### OAuth Flow Implementation
+
+```typescript
+// OAuth provider configurations
+interface OAuthProvider {
+  name: string;
+  authUrl: string;
+  tokenUrl: string;
+  scope: string[];
+  clientId: string;
+  redirectUri: string;
+}
+
+const oauthProviders: Record<string, OAuthProvider> = {
+  github: {
+    name: 'GitHub',
+    authUrl: 'https://github.com/login/oauth/authorize',
+    tokenUrl: 'https://github.com/login/oauth/access_token',
+    scope: ['repo', 'user:email', 'admin:org'],
+    clientId: process.env.GITHUB_CLIENT_ID!,
+    redirectUri: 'cursor://oauth/callback'
+  },
+  
+  google: {
+    name: 'Google',
+    authUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+    tokenUrl: 'https://oauth2.googleapis.com/token',
+    scope: ['openid', 'email', 'profile'],
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    redirectUri: 'cursor://oauth/callback'
+  },
+  
+  supabase: {
+    name: 'Supabase',
+    authUrl: 'https://supabase.com/dashboard/oauth/authorize',
+    tokenUrl: 'https://supabase.com/dashboard/oauth/token',
+    scope: ['projects:read', 'projects:write'],
+    clientId: process.env.SUPABASE_CLIENT_ID!,
+    redirectUri: 'cursor://oauth/callback'
+  }
+};
+
+// OAuth flow handler
+class OAuthManager {
+  async startFlow(provider: string): Promise<OAuthResult> {
+    const config = oauthProviders[provider];
+    if (!config) throw new Error(`Provider ${provider} not supported`);
+    
+    // Generate state for CSRF protection
+    const state = this.generateState();
+    
+    // Build authorization URL
+    const authUrl = this.buildAuthUrl(config, state);
+    
+    // Launch browser for user authorization
+    await this.launchBrowser(authUrl);
+    
+    // Wait for callback
+    return this.waitForCallback(state);
+  }
+  
+  private buildAuthUrl(config: OAuthProvider, state: string): string {
+    const params = new URLSearchParams({
+      client_id: config.clientId,
+      redirect_uri: config.redirectUri,
+      scope: config.scope.join(' '),
+      state: state,
+      response_type: 'code'
+    });
+    
+    return `${config.authUrl}?${params}`;
+  }
+  
+  async exchangeCodeForToken(provider: string, code: string): Promise<AccessToken> {
+    const config = oauthProviders[provider];
+    
+    const response = await fetch(config.tokenUrl, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        client_id: config.clientId,
+        client_secret: process.env[`${provider.toUpperCase()}_CLIENT_SECRET`]!,
+        code: code,
+        redirect_uri: config.redirectUri
+      })
+    });
+    
+    return response.json();
+  }
+}
+```
+
+### Secure Token Storage
+
+```typescript
+// Secure token management
+class TokenManager {
+  private readonly keychain = new Keychain();
+  
+  async storeToken(service: string, token: AccessToken): Promise<void> {
+    // Encrypt token before storage
+    const encrypted = await this.encrypt(token);
+    
+    // Store in OS keychain
+    await this.keychain.setPassword('cursor-mcp', service, encrypted);
+    
+    // Update MCP configuration
+    await this.updateMCPConfig(service, token);
+  }
+  
+  async getToken(service: string): Promise<AccessToken | null> {
+    try {
+      const encrypted = await this.keychain.getPassword('cursor-mcp', service);
+      if (!encrypted) return null;
+      
+      return this.decrypt(encrypted);
+    } catch (error) {
+      console.warn(`Failed to retrieve token for ${service}:`, error);
+      return null;
+    }
+  }
+  
+  async refreshToken(service: string): Promise<AccessToken> {
+    const token = await this.getToken(service);
+    if (!token?.refresh_token) {
+      throw new Error(`No refresh token available for ${service}`);
+    }
+    
+    // Refresh using provider's refresh endpoint
+    const refreshed = await this.performRefresh(service, token.refresh_token);
+    
+    // Store new token
+    await this.storeToken(service, refreshed);
+    
+    return refreshed;
+  }
+  
+  private async updateMCPConfig(service: string, token: AccessToken): Promise<void> {
+    // Update .cursor/mcp-config.json with new token
+    const config = await this.loadMCPConfig();
+    
+    if (config.mcpServers[service]) {
+      config.mcpServers[service].env = {
+        ...config.mcpServers[service].env,
+        [`${service.toUpperCase()}_ACCESS_TOKEN`]: token.access_token
+      };
+      
+      await this.saveMCPConfig(config);
+    }
+  }
+}
+```
+
+## External Service Integration
+
+### Service Provider Templates
+
+```typescript
+// Template for integrating external services via MCP
+abstract class MCPServiceProvider {
+  abstract name: string;
+  abstract version: string;
+  protected token?: AccessToken;
+  
+  async authenticate(): Promise<void> {
+    const tokenManager = new TokenManager();
+    this.token = await tokenManager.getToken(this.name);
+    
+    if (!this.token) {
+      // Trigger OAuth flow
+      const oauthManager = new OAuthManager();
+      const result = await oauthManager.startFlow(this.name);
+      this.token = result.token;
+    }
+  }
+  
+  abstract getTools(): MCPTool[];
+  abstract getResources(): MCPResource[];
+  abstract getPrompts(): MCPPrompt[];
+}
+
+// Supabase service provider
+class SupabaseMCPProvider extends MCPServiceProvider {
+  name = 'supabase';
+  version = '1.0.0';
+  
+  getTools(): MCPTool[] {
+    return [
+      {
+        name: 'list-projects',
+        description: 'List Supabase projects',
+        inputSchema: { type: 'object', properties: {} },
+        handler: this.listProjects.bind(this)
+      },
+      {
+        name: 'execute-sql',
+        description: 'Execute SQL query',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            projectId: { type: 'string' },
+            query: { type: 'string' }
+          },
+          required: ['projectId', 'query']
+        },
+        handler: this.executeSql.bind(this)
+      },
+      {
+        name: 'create-table',
+        description: 'Create database table',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            projectId: { type: 'string' },
+            tableName: { type: 'string' },
+            columns: { type: 'array' }
+          },
+          required: ['projectId', 'tableName', 'columns']
+        },
+        handler: this.createTable.bind(this)
+      }
+    ];
+  }
+  
+  getResources(): MCPResource[] {
+    return [
+      {
+        uri: 'supabase://projects',
+        name: 'Projects',
+        description: 'Available Supabase projects'
+      },
+      {
+        uri: 'supabase://tables',
+        name: 'Tables',
+        description: 'Database tables and schemas'
+      }
+    ];
+  }
+  
+  getPrompts(): MCPPrompt[] {
+    return [
+      {
+        name: 'database-schema',
+        description: 'Get complete database schema',
+        arguments: [
+          { name: 'projectId', description: 'Project ID', required: true }
+        ]
+      }
+    ];
+  }
+  
+  private async listProjects(): Promise<MCPResult> {
+    // Implementation using Supabase Management API
+    const response = await fetch('https://api.supabase.com/v1/projects', {
+      headers: {
+        'Authorization': `Bearer ${this.token?.access_token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    const projects = await response.json();
+    
+    return {
+      content: [{
+        type: 'text',
+        text: JSON.stringify(projects, null, 2)
+      }]
+    };
+  }
+}
+```
+
+## Advanced MCP Patterns
+
+### Dynamic Tool Registration
+
+```typescript
+// Dynamic tool loading based on project context
+class DynamicMCPRegistry {
+  private tools = new Map<string, MCPTool>();
+  private providers = new Map<string, MCPServiceProvider>();
+  
+  async scanProject(): Promise<void> {
+    // Scan package.json for dependencies
+    const packageJson = await this.loadPackageJson();
+    
+    // Auto-register relevant MCP tools
+    if (packageJson.dependencies?.['@supabase/supabase-js']) {
+      await this.registerProvider(new SupabaseMCPProvider());
+    }
+    
+    if (packageJson.dependencies?.['@octokit/rest']) {
+      await this.registerProvider(new GitHubMCPProvider());
+    }
+    
+    // Scan for custom MCP servers
+    await this.scanCustomProviders();
+  }
+  
+  async registerProvider(provider: MCPServiceProvider): Promise<void> {
+    await provider.authenticate();
+    
+    // Register all tools from provider
+    for (const tool of provider.getTools()) {
+      this.tools.set(tool.name, tool);
+    }
+    
+    this.providers.set(provider.name, provider);
+  }
+  
+  private async scanCustomProviders(): Promise<void> {
+    // Look for .mcp files in project
+    const mcpFiles = await glob('./**/*.mcp.{js,ts}');
+    
+    for (const file of mcpFiles) {
+      try {
+        const provider = await import(file);
+        if (provider.default && typeof provider.default === 'function') {
+          await this.registerProvider(new provider.default());
+        }
+      } catch (error) {
+        console.warn(`Failed to load MCP provider from ${file}:`, error);
+      }
+    }
+  }
+}
+```
+
+### MCP Server Monitoring
+
+```typescript
+// Monitor MCP server health and performance
+class MCPMonitor {
+  private servers = new Map<string, MCPServerHealth>();
+  
+  async startMonitoring(): Promise<void> {
+    setInterval(async () => {
+      await this.checkAllServers();
+    }, 30000); // Check every 30 seconds
+  }
+  
+  private async checkAllServers(): Promise<void> {
+    for (const [name, server] of this.servers) {
+      try {
+        const health = await this.pingServer(server);
+        this.updateHealth(name, health);
+      } catch (error) {
+        this.markUnhealthy(name, error);
+      }
+    }
+  }
+  
+  private async pingServer(server: MCPServerHealth): Promise<HealthStatus> {
+    const start = Date.now();
+    
+    // Send ping request
+    const response = await fetch(`${server.url}/ping`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ method: 'ping' })
+    });
+    
+    const latency = Date.now() - start;
+    
+    return {
+      healthy: response.ok,
+      latency,
+      lastCheck: new Date(),
+      version: server.version
+    };
+  }
+}
+```
+
+## Integration with SYMindX Workflow
+
+### Agent-MCP Bridge
+
+```typescript
+// Bridge MCP tools with SYMindX agents
+class AgentMCPBridge {
+  async enableMCPForAgent(agentId: string, tools: string[]): Promise<void> {
+    const agent = await AgentManager.get(agentId);
+    
+    // Register MCP tools as agent capabilities
+    for (const toolName of tools) {
+      const tool = await MCPRegistry.getTool(toolName);
+      if (tool) {
+        agent.addCapability(tool);
+      }
+    }
+    
+    // Enable agent to use MCP resources
+    agent.enableMCPAccess();
+  }
+  
+  async executeMCPTool(agentId: string, toolName: string, params: any): Promise<any> {
+    const agent = await AgentManager.get(agentId);
+    const tool = await MCPRegistry.getTool(toolName);
+    
+    if (!tool) {
+      throw new Error(`MCP tool ${toolName} not found`);
+    }
+    
+    // Execute with agent context
+    return tool.handler(params, { agentId, agent });
+  }
+}
+
+// Usage in agent workflow
+const agent = await AgentManager.create({ name: 'DataAgent' });
+const bridge = new AgentMCPBridge();
+
+// Enable Supabase tools for the agent
+await bridge.enableMCPForAgent(agent.id, [
+  'list-projects',
+  'execute-sql', 
+  'create-table'
+]);
+
+// Agent can now use MCP tools
+const projects = await bridge.executeMCPTool(agent.id, 'list-projects', {});
+```
+
+This rule enables powerful MCP integration for extending Cursor capabilities with external services, tools, and custom implementations while maintaining secure authentication and efficient workflows.
 
 ---
 > Source: [SYMBaiEX/SYMindX](https://github.com/SYMBaiEX/SYMindX) — distributed by [TomeVault](https://tomevault.io).
