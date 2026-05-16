@@ -1,0 +1,333 @@
+## tdi2
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is TDI2 (TypeScript Dependency Injection Attempt #2) - a React Service Injection (RSI) framework that enables enterprise-grade architecture for React applications. The project moves state and logic out of components into reactive services, eliminating prop drilling and providing automatic state synchronization.
+
+## Repository Structure
+
+This is a monorepo with the following structure:
+
+- **`/monorepo/`** - Main monorepo containing packages and apps
+- **`/examples/`** - Example applications demonstrating TDI2 usage
+- **`/monorepo/apps/docs-starlight/`** - Comprehensive Starlight-based documentation site
+- **`/monorepo/apps/di-debug/`** - React-based debug tools with DI analytics CLI and web dashboard
+- **`/github-issue-sync/`** - Issue synchronization tooling
+
+## Common Commands
+
+### Development Commands (from monorepo root)
+```bash
+cd monorepo
+bun install           # Install dependencies
+bun run dev           # Start development mode for all apps
+bun run build         # Build all packages and apps
+bun run test          # Run all tests
+bun run lint          # Run linting
+bun run check-types   # Run TypeScript type checking
+```
+
+### Package-specific Commands
+```bash
+# Core DI package
+cd monorepo/packages/di-core
+bun test              # Run core DI tests
+bun run build         # Build the core package
+
+# Vite plugin
+cd monorepo/packages/vite-plugin-di
+bun test              # Run plugin tests
+bun run build         # Build the plugin
+
+# Examples
+cd examples/tdi2-basic-example
+npm run dev           # Start example app
+npm run build         # Build example
+
+# DI Debug Tools
+cd monorepo/apps/di-debug
+bun run dev           # Start React dashboard development
+bun run build         # Build React dashboard
+bun run tdi2          # Run CLI commands (analyze, serve, etc.)
+```
+
+### Testing Commands
+```bash
+# Run specific tests
+bun test functional-di-enhanced-transformer.test.ts
+bun test integrated-interface-resolver.test.ts
+
+# Interactive test selection (from di-core)
+bun run test:io
+```
+
+## Debugging & Logging
+
+TDI2 uses the `debug` package for structured, namespace-based logging controlled via the `DEBUG` environment variable.
+
+### Enable Logs
+
+Set the DEBUG environment variable to control which logs appear:
+
+```bash
+# All TDI2 logs (most verbose)
+DEBUG=* bun run dev
+
+# All di-core transformation logs
+DEBUG=di-core:* bun run dev
+
+# All vite-plugin logs
+DEBUG=vite-plugin-di:* bun run dev
+
+# Specific module only
+DEBUG=di-core:config-manager bun run dev
+
+# Multiple specific modules
+DEBUG=di-core:config-manager,vite-plugin-di:plugin bun run dev
+```
+
+### Available Namespaces
+
+**Vite Plugin:**
+- `vite-plugin-di:plugin` - Vite plugin operations
+
+**Plugin Core:**
+- `plugin-core:transform-orchestrator` - Transformation orchestration
+
+**DI Core Tools:**
+- `di-core:config-manager` - Configuration generation
+- `di-core:functional-transformer` - Functional component transformation
+- `di-core:transformation-pipeline` - Transformation pipeline
+- `di-core:enhanced-transformer` - Enhanced DI transformation
+- `di-core:interface-resolver` - Interface resolution
+- `di-core:enhanced-service-validator` - Service validation
+- `di-core:enhanced-interface-extractor` - Interface extraction
+- `di-core:enhanced-dependency-extractor` - Dependency extraction
+- `di-core:recursive-inject-extractor` - Recursive inject extraction
+- `di-core:shared-service-registry` - Service registry
+- `di-core:shared-dependency-extractor` - Dependency extraction
+- `di-core:property-access-updater` - Property access updates
+- `di-core:import-manager` - Import management
+- `di-core:config-processor` - Configuration processing
+- `di-core:debug-file-generator` - Debug file generation
+
+### For Contributors
+
+When adding logging to new modules:
+
+```typescript
+import { consoleFor } from '../logger';  // or '@tdi2/di-core/tools'
+const console = consoleFor('di-core:your-module-name');
+
+// Always shown with namespace prefix (errors/warnings)
+console.error('❌ Error message');      // Outputs: [di-core:your-module-name] ❌ Error message
+console.warn('⚠️  Warning message');    // Outputs: [di-core:your-module-name] ⚠️  Warning message
+
+// Only shown with DEBUG=di-core:your-module-name (or DEBUG=di-core:*)
+console.log('Info message');
+console.debug('Detailed debug information');
+```
+
+**Benefits:**
+- All log output includes namespace prefix for transparency
+- Errors and warnings are always shown (even without DEBUG)
+- Debug logs controlled via DEBUG environment variable
+- Easy to trace which module produced each message
+
+**DO NOT** use `if (verbose)` checks - the DEBUG environment variable provides granular control.
+
+## Core Architecture
+
+### TDI2 System Components
+
+1. **DI Core (`@tdi2/di-core`)** - The dependency injection container and decorators
+2. **Vite Plugin (`@tdi2/vite-plugin-di`)** - Compile-time code transformation
+3. **Functional DI Transformer** - Converts components to use service injection
+4. **Interface Resolution System** - Automatically resolves TypeScript interfaces to implementations
+
+### Key Technologies
+
+- **Valtio** - Reactive state management via proxies
+- **ts-morph** - TypeScript AST manipulation for code transformation
+- **Turbo** - Monorepo build system
+- **React** - UI framework being enhanced with service injection
+
+### Service Pattern
+
+Services are the core abstraction - they contain:
+- Reactive state (via Valtio proxies)
+- Business logic methods
+- Automatic dependency injection
+- Interface-based resolution
+
+Example service:
+```typescript
+@Service()
+export class CounterService implements CounterServiceInterface {
+  state = { count: 0, message: "Hello" };
+  
+  increment() {
+    this.state.count++;
+    this.state.message = `Count is now ${this.state.count}`;
+  }
+}
+```
+
+### Component Transformation
+
+Components are transformed from traditional React patterns to service-injected templates:
+
+**Before (traditional React):**
+```typescript
+function Counter({ userId, onUpdate, theme, ...15Props }) {
+  const [count, setCount] = useState(0);
+  // Complex useEffect chains, manual state sync
+}
+```
+
+**After (RSI pattern):**
+```typescript
+function Counter({ counterService }: { counterService: Inject<CounterServiceInterface> }) {
+  return <div>{counterService.state.count}</div>;
+}
+```
+
+## Development Workflow
+
+### Adding New Features
+
+1. Create/modify services in `monorepo/packages/di-core/src/`
+2. Update transformers in `monorepo/packages/di-core/tools/functional-di-enhanced-transformer/`
+3. Write tests in `__tests__/` directories
+4. Update examples in `examples/`
+5. Run tests: `bun test`
+6. Build: `bun run build`
+
+### Working with Transformers
+
+The transformation pipeline is located in:
+- `monorepo/packages/di-core/tools/functional-di-enhanced-transformer/`
+- Key files: `functional-di-enhanced-transformer.ts`, `transformation-pipeline.ts`
+- Test fixtures: `__tests__/__fixtures__/`
+
+To add new transformation patterns:
+1. Add input/output fixtures in `__fixtures__/`
+2. Update transformer logic
+3. Run tests to verify snapshots
+
+### Interface Resolution
+
+The system automatically resolves TypeScript interfaces to service implementations:
+- Interface definitions → Service tokens
+- Automatic dependency injection
+- Build-time validation
+
+Located in: `monorepo/packages/di-core/tools/interface-resolver/`
+
+## Testing
+
+### Test Structure
+
+- **Unit tests** - Individual component/service testing
+- **Integration tests** - Full transformation pipeline testing
+- **Snapshot tests** - Code transformation verification
+- **Fixture-based tests** - Input/output verification
+
+### Important Test Files
+- `code-transformation.test.ts`
+- `functional-di-enhanced-transformer.test.ts` - Main transformation tests
+- `integrated-interface-resolver.test.ts` - Interface resolution tests
+- `__fixtures__/` - Test input/output examples
+
+### Running Tests
+
+```bash
+# All tests
+bun test
+
+# Specific test file
+bun test enhanced-di-transformer.test.ts
+
+# Update snapshots
+bun test --update-snapshots
+```
+
+## Configuration
+
+### Vite Plugin Configuration
+
+```typescript
+import { diEnhancedPlugin } from "@tdi2/vite-plugin-di";
+
+export default defineConfig({
+  plugins: [
+    diEnhancedPlugin({
+      enableFunctionalDI: true,
+      enableInterfaceResolution: true,
+      generateDebugFiles: true,
+    }),
+    react(),
+  ],
+});
+```
+
+### TypeScript Configuration
+
+Experimental decorators must be enabled:
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true
+  }
+}
+```
+
+## Package Management
+
+- **Package Manager**: Bun (monorepo root), npm (examples)
+- **Workspaces**: Defined in `monorepo/package.json`
+- **Build System**: Turbo for coordinated builds
+- **Publishing**: Changesets for version management
+
+## Key Files to Understand
+
+- `monorepo/packages/di-core/src/container.ts` - DI container implementation
+- `monorepo/packages/di-core/src/decorators.ts` - Service/Inject decorators
+- `monorepo/packages/di-core/tools/functional-di-enhanced-transformer/functional-di-enhanced-transformer.ts` - Core transformation logic
+- `monorepo/packages/vite-plugin-di/src/plugin.ts` - Vite integration
+- `examples/tdi2-basic-example/` - Working example implementation
+
+## Documentation
+
+**📖 [Live Documentation Site](https://7frank.github.io/tdi2/)** - Comprehensive Starlight-based documentation site
+
+**🧪 [Interactive Examples](https://7frank.github.io/tdi2/test-harness/)** - Live Storybook demonstrations
+
+**💻 [Local Development](./monorepo/apps/docs-starlight/)** - Documentation source and development
+
+Key documentation resources:
+- **[Quick Start Guide](./monorepo/apps/docs-starlight/src/content/docs/getting-started/quick-start.md)** - Get up and running in 5 minutes
+- **[Enterprise Implementation](./monorepo/apps/docs-starlight/src/content/docs/guides/enterprise/implementation.md)** - 4-phase enterprise adoption strategy
+- **[Architecture Patterns](./monorepo/apps/docs-starlight/src/content/docs/guides/architecture/controller-service-pattern.md)** - Controller vs Service pattern distinction
+- **[E-Commerce Case Study](./monorepo/apps/docs-starlight/src/content/docs/examples/ecommerce-case-study.md)** - Complete working example
+- **[Migration Strategy](./monorepo/apps/docs-starlight/src/content/docs/guides/migration/strategy.md)** - Systematic migration from Redux/Context
+- **[Research & Analysis](./monorepo/apps/docs-starlight/src/content/docs/research/)** - Market analysis, SOLID principles compliance, evaluation plans
+
+### Development Documentation
+```bash
+cd monorepo/apps/docs-starlight
+bun run dev  # Start documentation development server
+bun run build  # Build static documentation site
+```
+
+The project is experimental and actively seeking feedback from the React community, particularly enterprise teams dealing with prop drilling and state management complexity.
+
+---
+> Source: [7frank/tdi2](https://github.com/7frank/tdi2) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-14 -->
