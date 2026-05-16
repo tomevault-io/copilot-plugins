@@ -1,0 +1,9 @@
+{
+  "name": "elitan--kysely-helpers",
+  "displayName": "kysely-helpers",
+  "description": "Database helpers and utilities for Kysely.",
+  "version": "1.0.0",
+  "author": "elitan",
+  "homepage": "https://github.com/elitan/kysely-helpers",
+  "skills": []
+}
