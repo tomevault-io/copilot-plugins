@@ -7,11 +7,11 @@ A toolkit for building full-stack systems. Battle-tested with Copilot in VS Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [frostaura/ai.toolkit.gaia](https://github.com/frostaura/ai.toolkit.gaia).
+Original source: `CLAUDE.md` in [frostaura/ai.toolkit.gaia](https://github.com/frostaura/ai.toolkit.gaia).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
