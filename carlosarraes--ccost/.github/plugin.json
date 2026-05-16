@@ -1,0 +1,9 @@
+{
+  "name": "carlosarraes--ccost",
+  "displayName": "ccost",
+  "description": "Accurate Claude API usage tracking and cost analysis tool. Features intelligent deduplication, multi-currency support, real-time monitoring, and comprehensive project analysis.",
+  "version": "1.0.0",
+  "author": "carlosarraes",
+  "homepage": "https://github.com/carlosarraes/ccost",
+  "skills": []
+}
