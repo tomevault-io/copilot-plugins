@@ -7,11 +7,11 @@ ARC-AGI Prize Explainer (Includes ARC-AGI-3!)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [82deutschmark/arc-explainer](https://github.com/82deutschmark/arc-explainer).
+Original source: `CLAUDE.md` in [82deutschmark/arc-explainer](https://github.com/82deutschmark/arc-explainer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
