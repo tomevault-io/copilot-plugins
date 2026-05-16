@@ -7,13 +7,13 @@ Cocode is the friend of your code, it is a powerful command-line tool for analyz
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Pipelex/cocode](https://github.com/Pipelex/cocode).
+Original source: `CLAUDE.md` in [Pipelex/cocode](https://github.com/Pipelex/cocode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
