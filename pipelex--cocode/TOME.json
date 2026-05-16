@@ -4,7 +4,7 @@
   "repo": "cocode",
   "description": "Cocode is the friend of your code, it is a powerful command-line tool for analyzing and processing code repositories. It converts repository structures and contents into text formats, extracts code interfaces, and performs software engineering analysis using AI-powered pipelines using Pipelex.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Pipelex/cocode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-13T22:58:21Z"
+  "distributed_at": "2026-05-16T02:11:56Z"
 }
