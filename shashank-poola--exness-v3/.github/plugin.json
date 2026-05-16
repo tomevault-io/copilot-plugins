@@ -1,0 +1,9 @@
+{
+  "name": "shashank-poola--exness-v3",
+  "displayName": "exness-v3",
+  "description": "Built a low-latency crypto trading system with real-time crypto, order execution engine, and live PnL, enabling users to trade BTC, ETH, and SOL with a simulated balance.",
+  "version": "1.0.0",
+  "author": "shashank-poola",
+  "homepage": "https://github.com/shashank-poola/exness-v3",
+  "skills": []
+}
