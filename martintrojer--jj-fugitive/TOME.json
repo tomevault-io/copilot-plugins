@@ -4,7 +4,7 @@
   "repo": "jj-fugitive",
   "description": "A Neovim plugin that brings vim-fugitive-style version control integration for Jujutsu (jj).",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/martintrojer/jj-fugitive",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-15T04:46:16Z"
+  "distributed_at": "2026-05-16T05:06:23Z"
 }
