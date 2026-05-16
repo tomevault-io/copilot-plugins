@@ -1,0 +1,9 @@
+{
+  "name": "jnuyens--modulejail",
+  "displayName": "modulejail",
+  "description": "Proactively shrink a Linux host's kernel-module attack surface by blacklisting every module not currently in use.",
+  "version": "1.0.0",
+  "author": "jnuyens",
+  "homepage": "https://github.com/jnuyens/modulejail",
+  "skills": []
+}
