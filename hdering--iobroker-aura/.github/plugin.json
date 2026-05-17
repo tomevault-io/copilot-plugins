@@ -1,0 +1,9 @@
+{
+  "name": "hdering--iobroker-aura",
+  "displayName": "ioBroker.aura",
+  "description": "Aura is a modern visualization dashboard for ioBroker.",
+  "version": "1.0.0",
+  "author": "hdering",
+  "homepage": "https://github.com/hdering/ioBroker.aura",
+  "skills": []
+}
