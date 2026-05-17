@@ -1,0 +1,9 @@
+{
+  "name": "jameopotato--jimsproxy",
+  "displayName": "jimsproxy",
+  "description": "Fork of HermesProxy with rich diagnostic logging for identifying translation bugs against Twinstar/Kronos servers",
+  "version": "1.0.0",
+  "author": "jameopotato",
+  "homepage": "https://github.com/jameopotato/jimsproxy",
+  "skills": []
+}
