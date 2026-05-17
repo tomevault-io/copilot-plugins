@@ -1,0 +1,9 @@
+{
+  "name": "videosdk-live--agents",
+  "displayName": "agents",
+  "description": "Open-source framework for developing real-time multimodal conversational AI agents.",
+  "version": "1.0.0",
+  "author": "videosdk-live",
+  "homepage": "https://github.com/videosdk-live/agents",
+  "skills": []
+}
