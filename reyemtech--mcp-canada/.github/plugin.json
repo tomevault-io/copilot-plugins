@@ -1,0 +1,9 @@
+{
+  "name": "reyemtech--mcp-canada",
+  "displayName": "mcp-canada",
+  "description": "MCP server for Canadian government data \u2014 193 tools across 15 APIs (federal, provincial, municipal)",
+  "version": "1.0.0",
+  "author": "ReyemTech",
+  "homepage": "https://github.com/ReyemTech/mcp-canada",
+  "skills": []
+}
