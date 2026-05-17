@@ -1,0 +1,9 @@
+{
+  "name": "kevin-liu-01--loop",
+  "displayName": "Loop",
+  "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues.",
+  "version": "1.0.0",
+  "author": "Kevin-Liu-01",
+  "homepage": "https://github.com/Kevin-Liu-01/Loop",
+  "skills": []
+}
