@@ -1,33 +1,33 @@
-## git-conventions
+## langgraph-pipelines
 
-> Git commit conventions and workflow rules
+> LangGraph pipeline development patterns for Omelette
 
 
-# Git Conventions
+# LangGraph Pipeline Patterns
 
-## Commit Format (Conventional Commits, enforced by pre-commit)
-```
-<type>(<scope>): <description>
+## State
+- Pipeline state is `PipelineState(TypedDict)` in `state.py`
+- All nodes receive and return the full state dict
+- Use `total=False` so all fields are optional
 
-[optional body]
-```
+## Nodes
+- Each node is an `async def` accepting `PipelineState` and returning a partial state update
+- Wrap sync calls (OCR, LlamaIndex) with `asyncio.to_thread()`
+- Use lazy imports to avoid circular dependencies
+- Check `state.get("cancelled")` before heavy operations
 
-- Types: feat, fix, docs, style, refactor, test, chore, ci, perf, build, revert
-- Scopes: backend, frontend, docs, ci, config, keywords, search, dedup, crawler, ocr, rag, writing, chat, pipelines, mcp, i18n, gpu, mineru, prompts, security
-- Description in English, imperative mood, lowercase, no period
-- Body explains *why* not *what*
+## HITL (Human-in-the-Loop)
+- Use `interrupt(value)` to pause — does NOT raise an exception
+- After `ainvoke()`, check `pipeline.get_state(config).next` to detect interrupts
+- Resume with `Command(resume=resolved_data)`
+- See `docs/solutions/integration-issues/langgraph-hitl-interrupt-api-snapshot-next.md`
 
-## Rules
-- Never commit `.env`, `*.db`, `node_modules/`, `__pycache__/`
-- Run `make lint` before committing (pre-commit hook handles this)
-- No force push to main
-- Use feature branches: `feat/*`, `fix/*`, `chore/*`, `docs/*`
-- Merge to main via `--no-ff` after CI passes
-
-## Pre-commit
-- Install: `make pre-commit-install`
-- Hooks: trailing whitespace, ruff lint+format, conventional commit msg
-- Branch protection: `no-commit-to-branch` prevents direct main commits
+## Graphs
+- Define graphs in `graphs.py` using `StateGraph(PipelineState)`
+- Use `add_conditional_edges` for branching (e.g. has_conflicts → hitl_dedup)
+- Production: `AsyncSqliteSaver` checkpointer (set via `set_checkpointer()` in lifespan, path from `settings.pipeline_checkpoint_db`)
+- Tests: `MemorySaver()` for in-memory test isolation
+- Cancellation state managed via `app/pipelines/cancellation.py` (shared module, avoids reverse dependency on API layer)
 
 ---
 > Source: [sylvanding/omelette](https://github.com/sylvanding/omelette) — distributed by [TomeVault](https://tomevault.io).
