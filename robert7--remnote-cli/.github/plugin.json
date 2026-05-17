@@ -1,0 +1,9 @@
+{
+  "name": "robert7--remnote-cli",
+  "displayName": "remnote-cli",
+  "description": "[legacy/moved] CLI (command-line interface) tool which allows to access your RemNote knowledge base via RemNote Bridge for MCP & OpenClaw - e.g. for usage in agentic workflows or any automation",
+  "version": "1.0.0",
+  "author": "robert7",
+  "homepage": "https://github.com/robert7/remnote-cli",
+  "skills": []
+}
