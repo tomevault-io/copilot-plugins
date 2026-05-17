@@ -1,0 +1,9 @@
+{
+  "name": "djienne--passivbot-lighter",
+  "displayName": "passivbot_lighter",
+  "description": "Fork of Passivbot that works with the Lighter DEX. Big advantage of Lighter  is 0 fees, and Passivbot tends to do a lot of trades so it is a big deal.",
+  "version": "1.0.0",
+  "author": "djienne",
+  "homepage": "https://github.com/djienne/passivbot_lighter",
+  "skills": []
+}
