@@ -1,15 +1,15 @@
-## engineering-frontend
+## engineering-security
 
-> Convencoes para UI web (React/Next e similares).
+> Lembretes de seguranca ao alterar codigo ou configuracao.
 
 
-# Engineering — Frontend
+# Engineering — Security
 
-- Priorize acessibilidade semantica e contraste legivel.
-- Evite layouts genericos de template; alinhe ao design do projeto.
-- Prefira composicao e estado local; eleve estado apenas quando necessario.
-- Evite `any`; tipos e props devem refletir o contrato real.
-- Antes de mudar componentes compartilhados, mapeie consumidores.
+- Autenticacao e autorizacao devem ser explicitas em cada recurso sensivel.
+- Nunca commitar segredos; usar variaveis de ambiente e gestao segura de credenciais.
+- Tratar toda entrada externa como nao confiavel (SQL, comando, path, SSRF).
+- Dependencias: preferir verificacao (`npm audit`, ferramentas do projeto) antes de releases.
+- Em duvida entre falhar aberto ou fechado, preferir falha segura (deny).
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
