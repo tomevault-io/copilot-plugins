@@ -1,0 +1,9 @@
+{
+  "name": "langfuse--experiment-action",
+  "displayName": "experiment-action",
+  "description": "Run your Langfuse experiment with your GitHub action workflow.",
+  "version": "1.0.0",
+  "author": "langfuse",
+  "homepage": "https://github.com/langfuse/experiment-action",
+  "skills": []
+}
