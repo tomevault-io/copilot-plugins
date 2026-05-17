@@ -1,0 +1,9 @@
+{
+  "name": "voltagent--voltagent",
+  "displayName": "voltagent",
+  "description": "AI Agent Engineering Platform built on an Open Source TypeScript AI Agent Framework",
+  "version": "1.0.0",
+  "author": "VoltAgent",
+  "homepage": "https://github.com/VoltAgent/voltagent",
+  "skills": []
+}
