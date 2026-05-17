@@ -1,0 +1,9 @@
+{
+  "name": "huseynovvusal--proborge",
+  "displayName": "proborge",
+  "description": "AI-powered CLI that turns a competitive programming problem spec into a CMS-ready task with translated statements, verified C++ solution, and stress-tested test cases.",
+  "version": "1.0.0",
+  "author": "huseynovvusal",
+  "homepage": "https://github.com/huseynovvusal/proborge",
+  "skills": []
+}
