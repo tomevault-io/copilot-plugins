@@ -1,0 +1,9 @@
+{
+  "name": "nipuxx--agent-cli",
+  "displayName": "agent-cli",
+  "description": "Small restartable local-model worker for long-running browser and web research jobs.",
+  "version": "1.0.0",
+  "author": "nipuxx",
+  "homepage": "https://github.com/nipuxx/agent-cli",
+  "skills": []
+}
