@@ -1,28 +1,43 @@
-## playwright-e2e-policy
+## project-overview
 
-> Playwright E2E expectations — coverage and when tests may change
+> Flyva monorepo structure, package relationships, and core architecture
 
 
-# Playwright E2E policy
+# Flyva — Project Overview
 
-## Coverage
+Flyva is a library for seamless page transitions, with framework-specific adapters for Next.js and Nuxt.
 
-When adding user-facing behavior in `@flyva/next` or `@flyva/nuxt` (navigation, transitions, lifecycle, link props), add or extend E2E specs under `packages/<adapter>/e2e/` so regressions are caught against the playgrounds (`playground-next`, `playground-nuxt`).
+## Monorepo structure (pnpm workspaces)
 
-## Failing tests are signal
+```
+packages/shared    → @flyva/shared   (framework-agnostic core)
+packages/next      → @flyva/next     (React/Next.js adapter)
+packages/nuxt      → @flyva/nuxt     (Vue/Nuxt adapter)
+playground/next    → playground-next (Next.js test app)
+playground/nuxt    → playground-nuxt (Nuxt test app)
+```
 
-If a code change causes an **existing** E2E test to fail, **do not** rewrite, weaken, or delete that test just to make CI green without **explicit agreement** from the developer on the intent of the change (bugfix vs intentional behavior change).
+## Package dependency graph
 
-- **Bugfix:** fix the product code; keep assertions unless the old behavior was wrong.
-- **Intentional behavior change:** update tests only after the developer confirms the new contract; prefer adjusting expectations or adding a migration note in the PR description.
+- `@flyva/next` depends on `@flyva/shared` (workspace:*)
+- `@flyva/nuxt` depends on `@flyva/shared` (workspace:*)
+- Playgrounds depend on their respective package
 
-## Where tests live
+## Core architecture
 
-- Next: [`packages/next/e2e`](packages/next/e2e) — `pnpm --filter @flyva/next test:e2e`
-- Nuxt: [`packages/nuxt/e2e`](packages/nuxt/e2e) — `pnpm --filter @flyva/nuxt test:e2e`
-- Root: `pnpm test:e2e` runs both.
+`PageTransitionManager` (shared) orchestrates the lifecycle:
+`prepare → beforeLeave → leave → afterLeave → [navigate] → beforeEnter → enter → afterEnter`
 
-`@flyva/shared` stays browser-free at runtime; unit tests live under `packages/shared/test/` (Vitest + jsdom). Shared logic changes should update or add tests there, and `pnpm --filter @flyva/shared test` must pass — do not weaken or delete existing assertions without the same explicit intent agreement as for E2E.
+Each framework adapter provides:
+1. A reactive primitive that bridges the framework's reactivity (React refs / Vue refs) to the shared `Reactive<T>` interface
+2. Components that wire into the framework's router (FlyvaLink, FlyvaRoot for Next; flyva-link, flyva-page for Nuxt)
+3. Composables/hooks that expose the manager and transition control
+
+## Key conventions
+
+- Workspace deps use `"workspace:*"` protocol
+- Shared manager sources: `packages/shared/page-transition-manager/`
+- Root scripts: `pnpm dev:nuxt`, `pnpm dev:next` to run playgrounds
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
