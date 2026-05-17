@@ -128029,6 +128029,281 @@
       "description": "\u8b66\u5bdf\u5e81\u304c\u516c\u958b\u3057\u3066\u3044\u308b\u3001\u4ea4\u901a\u4e8b\u6545\u7d71\u8a08\u60c5\u5831\u306e\u30aa\u30fc\u30d7\u30f3\u30c7\u30fc\u30bf\u306e2024\u5e74\u306e\u672c\u7968\u3092\u30b3\u30fc\u30c9\u8868\u3092\u3082\u3068\u306b\u8aad\u307f\u3084\u3059\u3044\u5f62\u5f0f\uff08GIS\u30c7\u30fc\u30bf\uff09\u306b\u5909\u63db\u3059\u308b\u30d7\u30ed\u30b0\u30e9\u30e0"
     },
     {
+      "name": "dkm0315--frappe-agent",
+      "source": "./dkm0315--frappe-agent",
+      "description": "frappe-agent"
+    },
+    {
+      "name": "ragtailor--com-ragtailor-api",
+      "source": "./ragtailor--com-ragtailor-api",
+      "description": "com.ragwatson.agora \uc758 \ubc31\uc5d4\ub4dc"
+    },
+    {
+      "name": "beastorange--wq-forum",
+      "source": "./beastorange--wq-forum",
+      "description": "A RAG system for Agent"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "lutiancheng1--lingma-proxy",
+      "source": "./lutiancheng1--lingma-proxy",
+      "description": "Remote-first OpenAI/Anthropic-compatible Lingma Proxy with desktop app, tool emulation, image input, request logs, and IPC plugin fallback."
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "kannansuresh--chirping-astro",
+      "source": "./kannansuresh--chirping-astro",
+      "description": "Chirping Astro. An astro theme inspired from the famous Jekyll Theme Chirpy"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "samuelcolvin--deckx",
+      "source": "./samuelcolvin--deckx",
+      "description": "deckx"
+    },
+    {
+      "name": "visualxintelligence--mattpocok-skills",
+      "source": "./visualxintelligence--mattpocok-skills",
+      "description": "mattpocok-skills"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "beihaizzz--labmate-skill",
+      "source": "./beihaizzz--labmate-skill",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u5e2e\u52a9\u5927\u5b66\u751f\u5199\u5b9e\u9a8c\u62a5\u544a\u7684skill"
+    },
+    {
+      "name": "samuelcolvin--deckx",
+      "source": "./samuelcolvin--deckx",
+      "description": "deckx"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "sergiocarracedo--skill-organizer",
+      "source": "./sergiocarracedo--skill-organizer",
+      "description": "CLI tool to organize your skills in folders"
+    },
+    {
+      "name": "sangun-kang--pre-design-md",
+      "source": "./sangun-kang--pre-design-md",
+      "description": "Decide your design tokens visually. Export as DESIGN.md, AI prompt, or CSS."
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "langfuse--experiment-action",
+      "source": "./langfuse--experiment-action",
+      "description": "Run your Langfuse experiment with your GitHub action workflow."
+    },
+    {
+      "name": "glechevalier--nff",
+      "source": "./glechevalier--nff",
+      "description": "This repo implements software defined machines. Nff does Firmware. Things up next : electronic circuits, mech and more."
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "luxus--pi-hindsight",
+      "source": "./luxus--pi-hindsight",
+      "description": "memory for the people of pi (with help of hindsight)"
+    },
+    {
+      "name": "pyiner--garyx",
+      "source": "./pyiner--garyx",
+      "description": "Garyx gateway, channel runtime, and desktop app"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "nipuxx--agent-cli",
+      "source": "./nipuxx--agent-cli",
+      "description": "Small restartable local-model worker for long-running browser and web research jobs."
+    },
+    {
+      "name": "liminalshruti--liminal-agents",
+      "source": "./liminalshruti--liminal-agents",
+      "description": "Three bounded agents (Analyst, SDR, Auditor) that do agency-priced B2B work locally. Each refuses out of lane and names the right agent. SQLCipher-encrypted vault keeps the record. Built for the AI Ag"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "sangun-kang--pre-design-md",
+      "source": "./sangun-kang--pre-design-md",
+      "description": "Decide your design tokens visually. Export as DESIGN.md, AI prompt, or CSS."
+    },
+    {
+      "name": "ragtailor--com-ragtailor-api",
+      "source": "./ragtailor--com-ragtailor-api",
+      "description": "com.ragwatson.agora \uc758 \ubc31\uc5d4\ub4dc"
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "pyiner--garyx",
+      "source": "./pyiner--garyx",
+      "description": "Garyx gateway, channel runtime, and desktop app"
+    },
+    {
+      "name": "dkm0315--frappe-agent",
+      "source": "./dkm0315--frappe-agent",
+      "description": "frappe-agent"
+    },
+    {
+      "name": "honjow--next2v",
+      "source": "./honjow--next2v",
+      "description": "Next2V"
+    },
+    {
+      "name": "ragtailor--com-ragtailor-api",
+      "source": "./ragtailor--com-ragtailor-api",
+      "description": "com.ragwatson.agora \uc758 \ubc31\uc5d4\ub4dc"
+    },
+    {
+      "name": "jordanmaulana--cariinkerja-id",
+      "source": "./jordanmaulana--cariinkerja-id",
+      "description": "cariinkerja.id"
+    },
+    {
+      "name": "honjow--next2v",
+      "source": "./honjow--next2v",
+      "description": "Next2V"
+    },
+    {
+      "name": "dkm0315--frappe-agent",
+      "source": "./dkm0315--frappe-agent",
+      "description": "frappe-agent"
+    },
+    {
+      "name": "st-valve--mcp-unity",
+      "source": "./st-valve--mcp-unity",
+      "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor \u2014 designed for Cursor, Claude Code, Codex, Windsurf and other IDEs"
+    },
+    {
+      "name": "honjow--next2v",
+      "source": "./honjow--next2v",
+      "description": "Next2V"
+    },
+    {
+      "name": "st-valve--mcp-unity",
+      "source": "./st-valve--mcp-unity",
+      "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor \u2014 designed for Cursor, Claude Code, Codex, Windsurf and other IDEs"
+    },
+    {
+      "name": "aliyun--hologres-ai-plugins",
+      "source": "./aliyun--hologres-ai-plugins",
+      "description": "hologres-ai-plugins"
+    },
+    {
+      "name": "simon-he95--vue-tui",
+      "source": "./simon-he95--vue-tui",
+      "description": "  Vue 3 components for terminal UI, in browser and CLI"
+    },
+    {
+      "name": "andyshaman--soroka",
+      "source": "./andyshaman--soroka",
+      "description": "Personal Telegram knowledge base \u2014 forward anything, search via DM. Hybrid SQLite + FTS5 + vector + voice, MCP server for Claude."
+    },
+    {
+      "name": "owlsdepartment--flyva",
+      "source": "./owlsdepartment--flyva",
+      "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters."
+    },
+    {
+      "name": "kyriezhang329--mathmodeling-skills",
+      "source": "./kyriezhang329--mathmodeling-skills",
+      "description": "\u9762\u5411\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u7684 Claude Code / Codex Skills \uff0c\u652f\u6301\u5206\u9636\u6bb5\u5efa\u6a21\u6d41\u7a0b\u4e0e Python\u3001MATLAB/\u5317\u592a\u5929\u5143\u4ee3\u7801\u5206\u652f\u3002"
+    },
+    {
+      "name": "lllin000--paperforge",
+      "source": "./lllin000--paperforge",
+      "description": "PaperForge \u662f\u4e00\u4e2a\u9762\u5411\u7814\u7a76\u8005\u7684 Obsidian \u6587\u732e\u5de5\u4f5c\u53f0\u3002 \u5b83\u9488\u5bf9 Zotero\uff0c\u628a\u96f6\u6563\u6750\u6599\u6574\u7406\u4e3a\u53ef\u68c0\u7d22\u3001\u53ef\u8ffd\u95ee\u3001\u53ef\u7cbe\u8bfb\u7684\u7ed3\u6784\u5316\u77e5\u8bc6\u8d44\u4ea7"
+    },
+    {
+      "name": "moyeranqianzhi--gpt2image",
+      "source": "./moyeranqianzhi--gpt2image",
+      "description": "Chat-to-image generation web app with elegant UI."
+    },
+    {
+      "name": "google--sam",
+      "source": "./google--sam",
+      "description": "SAM Sovereign Agent Mesh"
+    },
+    {
+      "name": "dennisdevulder--ltm",
+      "source": "./dennisdevulder--ltm",
+      "description": "Git captures what a project is. ltm captures what it ran into."
+    },
+    {
+      "name": "kyriezhang329--mathmodeling-skills",
+      "source": "./kyriezhang329--mathmodeling-skills",
+      "description": "\u9762\u5411\u6570\u5b66\u5efa\u6a21\u7ade\u8d5b\u7684 Claude Code / Codex Skills \uff0c\u652f\u6301\u5206\u9636\u6bb5\u5efa\u6a21\u6d41\u7a0b\u4e0e Python\u3001MATLAB/\u5317\u592a\u5929\u5143\u4ee3\u7801\u5206\u652f\u3002"
+    },
+    {
+      "name": "bosar-youtube--content-studio",
+      "source": "./bosar-youtube--content-studio",
+      "description": "YouTube Content Studio - Full-stack dashboard for managing your entire content pipeline with AI"
+    },
+    {
+      "name": "ca1773130n--verbalcoding",
+      "source": "./ca1773130n--verbalcoding",
+      "description": "Talk to CLI coding agents over Discord voice"
+    },
+    {
+      "name": "moyeranqianzhi--gpt2image",
+      "source": "./moyeranqianzhi--gpt2image",
+      "description": "Chat-to-image generation web app with elegant UI."
+    },
+    {
+      "name": "tempont--small-opencode-orchestrator",
+      "source": "./tempont--small-opencode-orchestrator",
+      "description": "A lightweight implementation of an orchestrated multi-agent workflow, in which a central coordinator delegates tasks to specialized subagents to optimize token efficiency without compromising code gen"
+    },
+    {
+      "name": "honjow--next2v",
+      "source": "./honjow--next2v",
+      "description": "Next2V"
+    },
+    {
+      "name": "bosar-youtube--content-studio",
+      "source": "./bosar-youtube--content-studio",
+      "description": "YouTube Content Studio - Full-stack dashboard for managing your entire content pipeline with AI"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136414,6 +136689,196 @@
       "description": "A modern sharding solution for Laravel apps"
     },
     {
+      "name": "fboschman--claude-wiki-research-skills",
+      "source": "./fboschman--claude-wiki-research-skills",
+      "description": "claude-wiki-research-skills"
+    },
+    {
+      "name": "raishin--vanguard-frontier-agentic",
+      "source": "./raishin--vanguard-frontier-agentic",
+      "description": "Curated marketplace of AI skills, agents, and rules for cloud, zero-trust, and compliance-aware engineering - works with Claude Code, Codex, Cursor, Copilot, and more."
+    },
+    {
+      "name": "patrick-healy--tikz-diagrams-skill",
+      "source": "./patrick-healy--tikz-diagrams-skill",
+      "description": "tikz-diagrams-skill"
+    },
+    {
+      "name": "aeroxy--gsearch-cli",
+      "source": "./aeroxy--gsearch-cli",
+      "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI."
+    },
+    {
+      "name": "patrick-healy--tikz-diagrams-skill",
+      "source": "./patrick-healy--tikz-diagrams-skill",
+      "description": "tikz-diagrams-skill"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "evgenirusev--obsidian-second-brain",
+      "source": "./evgenirusev--obsidian-second-brain",
+      "description": "How I Built My Second Brain with Obsidian + Claude Code"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "soranerai--vpnhide-next",
+      "source": "./soranerai--vpnhide-next",
+      "description": "VPNHide Next (VPNHide with many improvements)"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "raishin--vanguard-frontier-agentic",
+      "source": "./raishin--vanguard-frontier-agentic",
+      "description": "Curated marketplace of AI skills, agents, and rules for cloud, zero-trust, and compliance-aware engineering - works with Claude Code, Codex, Cursor, Copilot, and more."
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "patrick-healy--tikz-diagrams-skill",
+      "source": "./patrick-healy--tikz-diagrams-skill",
+      "description": "tikz-diagrams-skill"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "psmon--agentzerolite",
+      "source": "./psmon--agentzerolite",
+      "description": "AgentZero Lite"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "niivue--mono",
+      "source": "./niivue--mono",
+      "description": "The niivue mono repo"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "openclaw--crabpot",
+      "source": "./openclaw--crabpot",
+      "description": "Compatibility testbed for OpenClaw community plugins and plugin seams \ud83e\udd80"
+    },
+    {
+      "name": "y0lan--laws-of-software-engineering",
+      "source": "./y0lan--laws-of-software-engineering",
+      "description": "56 laws of software engineering as an installable Claude Code skill, paraphrased from lawsofsoftwareengineering.com. Inspired by andrej-karpathy-skills."
+    },
+    {
+      "name": "y0lan--laws-of-software-engineering",
+      "source": "./y0lan--laws-of-software-engineering",
+      "description": "56 laws of software engineering as an installable Claude Code skill, paraphrased from lawsofsoftwareengineering.com. Inspired by andrej-karpathy-skills."
+    },
+    {
+      "name": "soranerai--vpnhide-next",
+      "source": "./soranerai--vpnhide-next",
+      "description": "VPNHide Next (VPNHide with many improvements)"
+    },
+    {
+      "name": "airtaxi--lidguard",
+      "source": "./airtaxi--lidguard",
+      "description": "Keep the agent awake, even when the lid closes."
+    },
+    {
+      "name": "raishin--vanguard-frontier-agentic",
+      "source": "./raishin--vanguard-frontier-agentic",
+      "description": "Curated marketplace of AI skills, agents, and rules for cloud, zero-trust, and compliance-aware engineering - works with Claude Code, Codex, Cursor, Copilot, and more."
+    },
+    {
+      "name": "leonana69--wz-python",
+      "source": "./leonana69--wz-python",
+      "description": "A Python cross-platform WZ file editor."
+    },
+    {
+      "name": "patrick-healy--tikz-diagrams-skill",
+      "source": "./patrick-healy--tikz-diagrams-skill",
+      "description": "tikz-diagrams-skill"
+    },
+    {
+      "name": "aeroxy--gsearch-cli",
+      "source": "./aeroxy--gsearch-cli",
+      "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI."
+    },
+    {
+      "name": "waynesutton--agent-ready-component",
+      "source": "./waynesutton--agent-ready-component",
+      "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve"
+    },
+    {
+      "name": "deevsdeevs--deevs-pi-kit",
+      "source": "./deevsdeevs--deevs-pi-kit",
+      "description": "Perfect pi kit to be 10x Deevs' engineer"
+    },
+    {
+      "name": "airtaxi--lidguard",
+      "source": "./airtaxi--lidguard",
+      "description": "Keep the agent awake, even when the lid closes."
+    },
+    {
+      "name": "zhlhleo--codex-agent-automation",
+      "source": "./zhlhleo--codex-agent-automation",
+      "description": "Portable Codex custom agent profiles and multi-agent automation rules."
+    },
+    {
+      "name": "microsoft--learn-ai-native-dev",
+      "source": "./microsoft--learn-ai-native-dev",
+      "description": "learn-ai-native-dev"
+    },
+    {
+      "name": "aeroxy--gsearch-cli",
+      "source": "./aeroxy--gsearch-cli",
+      "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -138262,6 +138727,31 @@
       "name": "mikehostetler--intent-ledger",
       "source": "./mikehostetler--intent-ledger",
       "description": "intent_ledger"
+    },
+    {
+      "name": "lininn--openflow",
+      "source": "./lininn--openflow",
+      "description": "openflow"
+    },
+    {
+      "name": "jeremymcs--patchdeck",
+      "source": "./jeremymcs--patchdeck",
+      "description": "Autonomous GitHub PR/Issue babysitter \u2014 watches repos, triages Issues & PR review feedback, and dispatches local AI agents to fix code."
+    },
+    {
+      "name": "lininn--openflow",
+      "source": "./lininn--openflow",
+      "description": "openflow"
+    },
+    {
+      "name": "xfreed0m--ghosttype",
+      "source": "./xfreed0m--ghosttype",
+      "description": "Local forensic scanner that extracts credentials from AI tool conversation history. For authorized red team and DLP use only."
+    },
+    {
+      "name": "seandavi--lifeos-template",
+      "source": "./seandavi--lifeos-template",
+      "description": "An opinionated, agentic life-OS for Claude Code \u2014 a markdown vault with daily/weekly/quarterly review skills baked in. Includes the feedback layer most templates skip."
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -236882,6 +237372,31 @@
       "name": "holgern--apiout",
       "source": "./holgern--apiout",
       "description": "A flexible Python tool for fetching data from APIs and serializing responses using TOML configuration files"
+    },
+    {
+      "name": "losevons--stock-news-sentiment-analysis",
+      "source": "./losevons--stock-news-sentiment-analysis",
+      "description": "stock-news-sentiment-analysis"
+    },
+    {
+      "name": "carlosespejel23--stelar-frontend",
+      "source": "./carlosespejel23--stelar-frontend",
+      "description": "stelar_frontend"
+    },
+    {
+      "name": "lexiaoau--usa-weather-cloth-suggestion",
+      "source": "./lexiaoau--usa-weather-cloth-suggestion",
+      "description": "usa-weather-cloth-suggestion"
+    },
+    {
+      "name": "miner-balance--openusd",
+      "source": "./miner-balance--openusd",
+      "description": "openusd"
+    },
+    {
+      "name": "willbr--sql-research",
+      "source": "./willbr--sql-research",
+      "description": "learning sql"
     }
   ]
 }
