@@ -1,0 +1,9 @@
+{
+  "name": "antonlovesdnb--fishbowl",
+  "displayName": "fishbowl",
+  "description": "Containerized credential auditing perimeter for AI coding agents. Wraps Codex/Claude Code in Docker, audits every credential access via eBPF.",
+  "version": "1.0.0",
+  "author": "Antonlovesdnb",
+  "homepage": "https://github.com/Antonlovesdnb/fishbowl",
+  "skills": []
+}
