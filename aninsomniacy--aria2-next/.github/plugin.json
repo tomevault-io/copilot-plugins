@@ -1,0 +1,9 @@
+{
+  "name": "aninsomniacy--aria2-next",
+  "displayName": "aria2-next",
+  "description": "Maintained aria2 fork with extensive bug fixes, modernized architecture, full compatibility, and reproducible releases",
+  "version": "1.0.0",
+  "author": "AnInsomniacy",
+  "homepage": "https://github.com/AnInsomniacy/aria2-next",
+  "skills": []
+}
