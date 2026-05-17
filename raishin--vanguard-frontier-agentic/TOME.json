@@ -4,7 +4,7 @@
   "repo": "vanguard-frontier-agentic",
   "description": "Curated marketplace of AI skills, agents, and rules for cloud, zero-trust, and compliance-aware engineering - works with Claude Code, Codex, Cursor, Copilot, and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Raishin/vanguard-frontier-agentic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T03:06:33Z"
+  "distributed_at": "2026-05-17T03:13:58Z"
 }
