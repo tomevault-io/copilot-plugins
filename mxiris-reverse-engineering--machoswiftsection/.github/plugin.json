@@ -1,0 +1,9 @@
+{
+  "name": "mxiris-reverse-engineering--machoswiftsection",
+  "displayName": "MachOSwiftSection",
+  "description": "\ud83d\udd2c A Swift library for parsing mach-o files to obtain Swift information.",
+  "version": "1.0.0",
+  "author": "MxIris-Reverse-Engineering",
+  "homepage": "https://github.com/MxIris-Reverse-Engineering/MachOSwiftSection",
+  "skills": []
+}
