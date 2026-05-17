@@ -1,0 +1,9 @@
+{
+  "name": "aeroxy--gsearch-cli",
+  "displayName": "gsearch-cli",
+  "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI.",
+  "version": "1.0.0",
+  "author": "aeroxy",
+  "homepage": "https://github.com/aeroxy/gsearch-cli",
+  "skills": []
+}
