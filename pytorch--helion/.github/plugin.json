@@ -1,0 +1,9 @@
+{
+  "name": "pytorch--helion",
+  "displayName": "helion",
+  "description": "A Python-embedded DSL that makes it easy to write fast, scalable ML kernels with minimal boilerplate.",
+  "version": "1.0.0",
+  "author": "pytorch",
+  "homepage": "https://github.com/pytorch/helion",
+  "skills": []
+}
