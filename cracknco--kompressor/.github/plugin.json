@@ -1,0 +1,9 @@
+{
+  "name": "cracknco--kompressor",
+  "displayName": "kompressor",
+  "description": "Compress images, videos and audio on Android & iOS \u2014 one Kotlin Multiplatform API, native hardware, zero binaries",
+  "version": "1.0.0",
+  "author": "cracknco",
+  "homepage": "https://github.com/cracknco/kompressor",
+  "skills": []
+}
