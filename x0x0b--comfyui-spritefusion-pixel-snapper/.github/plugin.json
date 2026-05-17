@@ -1,0 +1,9 @@
+{
+  "name": "x0x0b--comfyui-spritefusion-pixel-snapper",
+  "displayName": "ComfyUI-spritefusion-pixel-snapper",
+  "description": "ComfyUI integration of spritefusion-pixel-snapper for pixel-art processing.",
+  "version": "1.0.0",
+  "author": "x0x0b",
+  "homepage": "https://github.com/x0x0b/ComfyUI-spritefusion-pixel-snapper",
+  "skills": []
+}
