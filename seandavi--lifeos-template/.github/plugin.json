@@ -1,0 +1,9 @@
+{
+  "name": "seandavi--lifeos-template",
+  "displayName": "lifeos-template",
+  "description": "An opinionated, agentic life-OS for Claude Code \u2014 a markdown vault with daily/weekly/quarterly review skills baked in. Includes the feedback layer most templates skip.",
+  "version": "1.0.0",
+  "author": "seandavi",
+  "homepage": "https://github.com/seandavi/lifeos-template",
+  "skills": []
+}
