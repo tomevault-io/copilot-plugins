@@ -1,0 +1,44 @@
+{
+  "name": "taoketong",
+  "owner": "haoaaa-111",
+  "repo": "taoketong",
+  "description": "\ud83c\udf93 \u8bfe\u8868\u89e3\u6790 \u00b7 \u70b9\u540d\u9884\u6d4b \u00b7 \u9003\u8bfe\u65b9\u6848 \u00b7 \u53cd\u9988\u5b66\u4e60",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/haoaaa-111/taoketong",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T06:30:09Z"
+}
