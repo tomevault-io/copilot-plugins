@@ -1,0 +1,9 @@
+{
+  "name": "0xevn--xray-reality-setup",
+  "displayName": "xray-reality-setup",
+  "description": "Automated Xray VLESS + REALITY + XTLS-Vision installer for Alpine and Debian/Ubuntu Linux. Interactive setup with SSH hardening, firewall configuration, BBR optimization, and privacy-first defaults",
+  "version": "1.0.0",
+  "author": "0xevn",
+  "homepage": "https://github.com/0xevn/xray-reality-setup",
+  "skills": []
+}
