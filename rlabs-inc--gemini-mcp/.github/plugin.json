@@ -1,0 +1,9 @@
+{
+  "name": "rlabs-inc--gemini-mcp",
+  "displayName": "gemini-mcp",
+  "description": "MCP Server that enables Claude code to interact with Gemini",
+  "version": "1.0.0",
+  "author": "RLabs-Inc",
+  "homepage": "https://github.com/RLabs-Inc/gemini-mcp",
+  "skills": []
+}
