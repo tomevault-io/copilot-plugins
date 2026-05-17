@@ -1,0 +1,14 @@
+{
+  "name": "docker--mcp-gateway",
+  "displayName": "mcp-gateway",
+  "description": "docker mcp CLI plugin / MCP Gateway",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/mcp-gateway",
+  "skills": [
+    {
+      "name": "otel-instrument",
+      "description": ""
+    }
+  ]
+}
