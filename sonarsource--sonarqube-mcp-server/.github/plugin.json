@@ -1,0 +1,9 @@
+{
+  "name": "sonarsource--sonarqube-mcp-server",
+  "displayName": "sonarqube-mcp-server",
+  "description": "SonarQube MCP Server",
+  "version": "1.0.0",
+  "author": "SonarSource",
+  "homepage": "https://github.com/SonarSource/sonarqube-mcp-server",
+  "skills": []
+}
