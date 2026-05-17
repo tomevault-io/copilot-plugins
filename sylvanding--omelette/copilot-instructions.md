@@ -1,33 +1,28 @@
-## langgraph-pipelines
+## mcp-server
 
-> LangGraph pipeline development patterns for Omelette
+> MCP protocol server development standards
 
 
-# LangGraph Pipeline Patterns
+# MCP Server Standards
 
-## State
-- Pipeline state is `PipelineState(TypedDict)` in `state.py`
-- All nodes receive and return the full state dict
-- Use `total=False` so all fields are optional
+## Overview
+- MCP server at `app/mcp_server.py`, mounted at `/mcp` on FastAPI app
+- Uses `FastMCP` from the `mcp` package
+- Provides tools, resources, and prompts for AI IDE clients
 
-## Nodes
-- Each node is an `async def` accepting `PipelineState` and returning a partial state update
-- Wrap sync calls (OCR, LlamaIndex) with `asyncio.to_thread()`
-- Use lazy imports to avoid circular dependencies
-- Check `state.get("cancelled")` before heavy operations
+## Tools
+- Annotate with `@mcp.tool()`, return structured dicts
+- Validate inputs (int conversion, path safety)
+- For external URLs (DOIs, feed URLs), use `app.services.url_validator.validate_url_safe()` for SSRF protection
+- Use `async_session_factory()` for DB access (not `Depends`)
 
-## HITL (Human-in-the-Loop)
-- Use `interrupt(value)` to pause — does NOT raise an exception
-- After `ainvoke()`, check `pipeline.get_state(config).next` to detect interrupts
-- Resume with `Command(resume=resolved_data)`
-- See `docs/solutions/integration-issues/langgraph-hitl-interrupt-api-snapshot-next.md`
+## Resources
+- Annotate with `@mcp.resource("omelette://...")`
+- Read-only data access, return JSON-serializable dicts
 
-## Graphs
-- Define graphs in `graphs.py` using `StateGraph(PipelineState)`
-- Use `add_conditional_edges` for branching (e.g. has_conflicts → hitl_dedup)
-- Production: `AsyncSqliteSaver` checkpointer (set via `set_checkpointer()` in lifespan, path from `settings.pipeline_checkpoint_db`)
-- Tests: `MemorySaver()` for in-memory test isolation
-- Cancellation state managed via `app/pipelines/cancellation.py` (shared module, avoids reverse dependency on API layer)
+## Session Management
+- MCP server has its own `get_session()` context manager
+- Does not share request context with FastAPI endpoints
 
 ---
 > Source: [sylvanding/omelette](https://github.com/sylvanding/omelette) — distributed by [TomeVault](https://tomevault.io).
