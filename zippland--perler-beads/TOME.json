@@ -4,7 +4,7 @@
   "repo": "perler-beads",
   "description": "\u62fc\u8c46\u5e95\u7a3f\u751f\u6210\u5668 (Perler Beads Generator)",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Zippland/perler-beads",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:09:51Z"
+  "distributed_at": "2026-05-17T22:13:47Z"
 }
