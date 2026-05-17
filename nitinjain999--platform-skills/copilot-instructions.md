@@ -1,67 +1,116 @@
-## platform-skills
+## keda
 
-> Platform engineering rules — applies to all files in this workspace
+> KEDA ScaledObject and ScaledJob generation rules — auth patterns, scaling safety, best practices
 
 
-# Platform Skills — v1.12.0
+# KEDA Rules
 
-You are a senior platform engineer. Apply these rules for all code generation, review, and troubleshooting in this workspace.
+Always generate ScaledObject and ScaledJob resources with all of the following. Missing any item is a Critical finding.
 
-## Response format
-
-- Lead with root cause, not symptom
-- Every risky change gets: blast radius + validation steps + rollback path
-- Code reviews: group findings as Critical / Improvement / Note
-- Troubleshooting: Symptom → Evidence → Root cause → Fix → Validation → Rollback
-
-## Layer ownership
-
-| Layer | Owns | Does not own |
-|-------|------|--------------|
-| Terraform | Cloud resources, IAM, networking, cluster bootstrap | In-cluster workloads |
-| Flux / Argo CD | In-cluster state, HelmReleases, promotion | Cloud resources, IAM |
-| GitHub Actions | CI validation, artifact publish, promotion triggers | Long-lived environment state |
-| Kubernetes | Workload specs, RBAC, limits, network policy | Cloud account structure |
-
-## GitHub Actions — SHA pins only
+## Required fields on every ScaledObject
 
 ```yaml
-# ❌  - uses: actions/checkout@v4
-# ✅
-- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
-permissions:
-  contents: read
-  id-token: write   # only if OIDC required
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1           # Always explicit — don't rely on the default
+    kind: Deployment              # Or StatefulSet — be explicit
+    name: <exact-deployment-name>
+
+  minReplicaCount: 1              # Use 0 only when cold-start latency is acceptable and documented
+  maxReplicaCount: <N>            # Always set — never omit the ceiling
+
+  pollingInterval: 30             # 30s is a safe default; lower only for latency-sensitive queues
+  cooldownPeriod: 300             # 5-minute cooldown prevents thrashing
+
+  advanced:
+    restoreToOriginalReplicaCount: true   # Always set — restores replicas on ScaledObject deletion
 ```
 
-## Helm
+## Required on every trigger
 
-Pipeline: `helm lint --strict` → `helm template --debug` → `kubeconform -strict -summary` → `checkov` → `helm test`.
-`selectorLabels` must never include `app.kubernetes.io/version` — immutable after creation.
+```yaml
+triggers:
+  - type: <scaler>
+    metadata:
+      activationThreshold: "<N>"  # or activationQueueLength / activationLagThreshold
+      # Prevents activation on noise/sparse events
+    authenticationRef:
+      name: <trigger-auth-name>   # Always use TriggerAuthentication — never inline credentials
+```
 
-## Kyverno — CEL-based types only (policies.kyverno.io/v1)
+## TriggerAuthentication: prefer Pod Identity
 
-New policies always use `ValidatingPolicy`, `MutatingPolicy`, `GeneratingPolicy`, or `ImageValidatingPolicy`.
-Always start with `validationActions: [Audit]`. Promote to `[Deny]` only after confirmed zero PolicyReport violations.
-Never use `kyverno.io/v1 ClusterPolicy` for new work.
+```yaml
+# ✅ Best practice — no static credentials
+spec:
+  podIdentity:
+    provider: aws                 # aws | azure | gcp | aws-eks
 
-## OPA / Conftest
+# ⚠️ Only when Pod Identity is unavailable — rotate keys; scope the Secret tightly
+spec:
+  secretTargetRef:
+    - parameter: <param>
+      name: <secret-name>
+      key: <key>
+```
 
-Always `import rego.v1`. Rules named `deny`, `warn`, or `violation` only.
-Pipeline: `conftest fmt --check` → `regal lint` → `conftest verify` → `conftest test`.
+## Scaler-specific minimum IAM permissions (least privilege)
 
-## PR review — six required dimensions
+| Scaler | Minimum permission |
+|---|---|
+| `aws-sqs-queue` | `sqs:GetQueueAttributes`, `sqs:GetQueueUrl` — NOT `sqs:ReceiveMessage` |
+| `kafka` | consumer group describe + offset fetch — NOT produce |
+| `azure-servicebus` | `Listen` on the specific queue or subscription only |
+| `prometheus` | No auth for cluster-internal Prometheus |
 
-Cost · Drift · Ownership · Compliance (SOC 2 CC6–CC8) · Upgrade · Rollback feasibility
+## Cron scaler rules
 
-## Commits
+```yaml
+# Cron windows must not overlap.
+# Always pair with a Prometheus/queue trigger as a safety net for unexpected spikes.
+# Use idleReplicaCount or minReplicaCount >= 1 to keep a warm pod during off-hours.
+# Always set timezone explicitly — never rely on UTC as an unstated assumption.
+- type: cron
+  metadata:
+    timezone: Europe/Berlin       # IANA timezone — always explicit
+    start: "0 8 * * 1-5"
+    end: "0 20 * * 1-5"
+    desiredReplicas: "10"
+```
 
-`<type>(<scope>): <imperative WHY ≤72 chars>`. No AI attribution.
+## ScaledJob required fields
 
-## Scoped rules (also active in this workspace)
+```yaml
+spec:
+  jobTargetRef:
+    template:
+      spec:
+        restartPolicy: Never      # Required — Jobs must not use OnFailure with KEDA
+        activeDeadlineSeconds: 3600  # Required — prevents zombie jobs
+        containers:
+          - resources:
+              requests: { cpu: "500m", memory: "512Mi" }
+              limits: { memory: "2Gi" }   # memory limit required; omit cpu limit
+```
 
-- `.cursor/rules/kubernetes.mdc` — fires on `*.yaml` / `*.yml`
-- `.cursor/rules/terraform.mdc` — fires on `*.tf` / `*.tfvars`
+## Never generate
+
+- Static credentials inlined directly in `ScaledObject` metadata — always use `TriggerAuthentication`
+- `SQS` scaler with `sqs:ReceiveMessage` — KEDA only reads depth, it does not consume
+- A separate `HorizontalPodAutoscaler` targeting the same Deployment — KEDA manages its own HPA
+- `minReplicaCount: 0` without a comment explaining cold-start acceptance
+- Overlapping cron windows — they produce undefined behavior
+- `pollingInterval < 10` on SQS — each poll is a billable AWS API call
+- Kafka scaler without `lagThreshold` set — defaults are rarely appropriate
+
+## HPA conflict check
+
+Before generating a ScaledObject, note if an HPA already targets the same Deployment. If it does, include:
+
+```bash
+# Delete existing HPA before applying ScaledObject
+kubectl delete hpa <existing-hpa> -n <namespace>
+```
 
 ---
 > Source: [nitinjain999/platform-skills](https://github.com/nitinjain999/platform-skills) — distributed by [TomeVault](https://tomevault.io).
