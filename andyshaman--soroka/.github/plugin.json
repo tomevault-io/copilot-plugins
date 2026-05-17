@@ -1,0 +1,9 @@
+{
+  "name": "andyshaman--soroka",
+  "displayName": "Soroka",
+  "description": "Personal Telegram knowledge base \u2014 forward anything, search via DM. Hybrid SQLite + FTS5 + vector + voice, MCP server for Claude.",
+  "version": "1.0.0",
+  "author": "AndyShaman",
+  "homepage": "https://github.com/AndyShaman/Soroka",
+  "skills": []
+}
