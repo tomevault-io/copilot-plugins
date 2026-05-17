@@ -1,0 +1,9 @@
+{
+  "name": "ikrasnodymov--repowiki",
+  "displayName": "repowiki",
+  "description": "Auto-generate Qoder repo wiki on every git commit",
+  "version": "1.0.0",
+  "author": "IKrasnodymov",
+  "homepage": "https://github.com/IKrasnodymov/repowiki",
+  "skills": []
+}
