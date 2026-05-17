@@ -1,0 +1,9 @@
+{
+  "name": "y0lan--laws-of-software-engineering",
+  "displayName": "laws-of-software-engineering",
+  "description": "56 laws of software engineering as an installable Claude Code skill, paraphrased from lawsofsoftwareengineering.com. Inspired by andrej-karpathy-skills.",
+  "version": "1.0.0",
+  "author": "Y0lan",
+  "homepage": "https://github.com/Y0lan/laws-of-software-engineering",
+  "skills": []
+}
