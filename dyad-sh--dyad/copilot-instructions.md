@@ -1,90 +1,157 @@
-## ipc
+## dyad
 
-> You're building an Electron app following good security practices
+> Please read `CONTRIBUTING.md` which includes information for human code contributors. Much of the information is applicable to you as well.
 
-You're building an Electron app following good security practices
+# Repository Agent Guide
 
-# IPC
-Structure:
-- [ipc_client.ts](mdc:src/ipc/ipc_client.ts) - lives in the renderer process and is used to send IPCs to the main process.
-    - to use it just do `IpcClient.getInstance()`
-- [preload.ts](mdc:src/preload.ts) - allowlist
-- [ipc_host.ts](mdc:src/ipc/ipc_host.ts) - contains the various IPC handlers attached which are: [app_handlers.ts](mdc:src/ipc/handlers/app_handlers.ts), [chat_stream_handlers.ts](mdc:src/ipc/handlers/chat_stream_handlers.ts), [settings_handlers.ts](mdc:src/ipc/handlers/settings_handlers.ts) etc.
+Please read `CONTRIBUTING.md` which includes information for human code contributors. Much of the information is applicable to you as well.
 
-# React
-- This is a React app
-- Using TanStack router, NOT next.js, NOT react Router.
+## Rules index
 
+> **IMPORTANT: BEFORE writing any code or making changes, you MUST read the relevant rule files from the table below.** Identify which areas your task touches and read those rule files first. Skipping this step leads to avoidable mistakes and rework.
 
-# IPC & React query patterns
+Detailed rules and learnings are in the `rules/` directory. Read the relevant file when working in that area.
 
+| File                                                                 | Read when...                                                                                                                                                                   |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [rules/electron-ipc.md](rules/electron-ipc.md)                       | Adding/modifying IPC endpoints, handlers, React Query hooks, or renderer-to-main communication                                                                                 |
+| [rules/dyad-errors.md](rules/dyad-errors.md)                         | Classifying IPC/main errors with `DyadError` / `DyadErrorKind` and PostHog exception filtering                                                                                 |
+| [rules/local-agent-tools.md](rules/local-agent-tools.md)             | Adding/modifying local agent tools, tool flags (`modifiesState`), or read-only/plan-only guards                                                                                |
+| [rules/e2e-testing.md](rules/e2e-testing.md)                         | Writing or debugging E2E tests (Playwright, Base UI radio clicks, Lexical editor, test fixtures)                                                                               |
+| [rules/git-workflow.md](rules/git-workflow.md)                       | Pushing branches, creating PRs, or dealing with fork/upstream remotes                                                                                                          |
+| [rules/base-ui-components.md](rules/base-ui-components.md)           | Using TooltipTrigger, ToggleGroupItem, or other Base UI wrapper components                                                                                                     |
+| [rules/database-drizzle.md](rules/database-drizzle.md)               | Modifying the database schema, generating migrations, or resolving migration conflicts                                                                                         |
+| [rules/native-modules.md](rules/native-modules.md)                   | Adding Electron native modules or binaries that must survive Forge packaging/rebuild                                                                                           |
+| [rules/typescript-strict-mode.md](rules/typescript-strict-mode.md)   | Debugging type errors from `npm run ts` (tsgo) that pass normal tsc                                                                                                            |
+| [rules/openai-reasoning-models.md](rules/openai-reasoning-models.md) | Working with OpenAI reasoning model (o1/o3/o4-mini) conversation history                                                                                                       |
+| [rules/adding-settings.md](rules/adding-settings.md)                 | Adding a new user-facing setting or toggle to the Settings page                                                                                                                |
+| [rules/chat-message-indicators.md](rules/chat-message-indicators.md) | Using `<dyad-status>` tags in chat messages for system indicators                                                                                                              |
+| [rules/supabase-functions.md](rules/supabase-functions.md)           | Deploying, bundling, or queueing Supabase Edge Functions                                                                                                                       |
+| [rules/product-principles.md](rules/product-principles.md)           | Planning new features, especially via `dyad:swarm-to-plan`, to guide design trade-offs                                                                                         |
+| [rules/jotai-testing.md](rules/jotai-testing.md)                     | Unit-testing Jotai atoms/hooks with `renderHook`, especially across unmount/remount                                                                                            |
+| [rules/claude-github-workflows.md](rules/claude-github-workflows.md) | Editing `.github/workflows/*.yml` that invoke `anthropics/claude-code-action` — workflow shape, untrusted-input handling, and **permission/`.claude/settings.json` hardening** |
+| [rules/ui-styling.md](rules/ui-styling.md)                           | Adding provider/brand icons, styling scrollable popovers, or using Tailwind v4 arbitrary values                                                                                |
 
-Okay, I can help you summarize this pattern for creating a new Cursor rule, focusing on the TanStack Query integration and the preferred error handling strategy.
+## Project setup and lints
 
-Here's a summary of the pattern:
+Make sure you run this once after doing `npm install` because it will make sure whenever you commit something, it will run pre-commit hooks like linting and formatting.
 
-The pattern involves a client-side React hook interacting with main process IPC handlers via an `IpcClient` layer, leveraging TanStack Query for managing asynchronous operations, state, and caching.
+```sh
+npm run init-precommit
+```
 
-**1. React Hook (e.g., `useSomething.ts`):**
+**Note:** Running `npm install` may update `package-lock.json` with version changes or peer dependency flag removals. If rebasing or performing git operations, commit these changes first to avoid "unstaged changes" errors.
 
-*   **Data Fetching (`useQuery`):**
-    *   Define a `queryKey` (e.g., `["entity", entityId]`) for caching and invalidation.
-    *   The `queryFn` is an asynchronous function that:
-        *   Retrieves an `IpcClient` instance.
-        *   Calls the appropriate method on `IpcClient` (e.g., `ipcClient.listEntities({ parentId })`). This method corresponds to an IPC channel.
-    *   Use the `enabled` option if the query depends on certain conditions (e.g., `entityId !== null`).
-    *   Optionally provide `initialData` and `meta` (e.g., for global error display like `showErrorToast: true`).
-    *   The hook returns `data`, `isLoading`, `error`, and a `refetch` function from `useQuery`.
+## Git worktrees
 
-*   **Data Mutations (`useMutation`):**
-    *   The `mutationFn` is an asynchronous function that:
-        *   Performs any necessary input validation, potentially throwing an error directly if client-side checks fail (e.g., `if (!entityId) throw new Error("Entity ID is required");`).
-        *   Retrieves an `IpcClient` instance.
-        *   Calls the appropriate method on `IpcClient` (e.g., `ipcClient.createEntity({ data })`).
-    *   `onSuccess`:
-        *   Invalidate relevant queries using `queryClient.invalidateQueries({ queryKey: ["entity"] })` to ensure data consistency and trigger refetches.
-        *   Optionally, update local state directly or refetch specific related data.
-    *   `onError`:
-        *   Handle errors, often by displaying a notification to the user (e.g., using a `showError(error)` utility).
-    *   The hook exposes an asynchronous function (e.g., `createEntity`) that internally calls `mutation.mutateAsync(params)`.
+When you create a new git worktree for this repository, run `npm install` inside the new worktree before starting development. Each worktree has its own working directory and needs its dependencies installed there.
 
-*   **Local State Management (Optional, e.g., Jotai):**
-    *   `useEffect` can synchronize data fetched by TanStack Query with global state atoms if needed.
-    *   Atoms can also store UI-related state or parameters for hooks.
+## Pre-commit checks
 
-**2. IPC Client (`ipc_client.ts`):**
+RUN THE FOLLOWING CHECKS before you do a commit.
 
-*   Acts as an intermediary between the renderer process (React hooks) and the main process (IPC handlers).
-*   For each IPC channel, it has a corresponding asynchronous method (e.g., `async listEntities(params) { return this.ipcRenderer.invoke("list-entities", params); }`).
-*   It uses `ipcRenderer.invoke` to send messages and receive `Promise`s. If the main process handler throws an error, the `Promise` will be rejected, and this rejection will be handled by TanStack Query in the hook.
+If you have access to the `/dyad:lint` skill, use it to run all pre-commit checks automatically:
 
-**3. IPC Handlers (e.g., `entity_handlers.ts` in the main process):**
+```
+/dyad:lint
+```
 
-*   **Registration:**
-    *   Handlers are registered using `ipcMain.handle("channel-name", async (event, args) => { /* ... */ })`. The `channel-name` must match what `IpcClient` calls.
-*   **Logic:**
-    *   Contains the core business logic, interacting with databases (e.g., `db`), file system (`fs`), or other main-process services (e.g., `git`).
-*   **Error Handling (Crucial):**
-    *   **Handlers MUST `throw new Error("Descriptive error message")` when an operation fails or an invalid state is encountered.** This is the preferred pattern over returning objects like `{ success: false, errorMessage: "..." }`.
-    *   For **non-bug** failures (validation, not found, auth, user refusal), use **`DyadError`** with **`DyadErrorKind`** (`src/errors/dyad_error.ts`) so PostHog does not treat them as `$exception` floods — see `rules/dyad-errors.md`.
-    
-*   **Concurrency (If Applicable):**
-    *   For operations that modify shared resources related to a specific entity (like an `appId`), use a locking mechanism (e.g., `withLock(appId, async () => { ... })`) to prevent race conditions.
+Otherwise, run the following commands directly:
 
-**Flow Summary:**
+**Formatting**
 
-1.  React component calls a function from the custom hook.
-2.  The hook's `queryFn` (for reads) or `mutationFn` (for writes) calls a method on `IpcClient`.
-3.  `IpcClient` uses `ipcRenderer.invoke` to send a message to the main process.
-4.  The corresponding `ipcMain.handle` in the main process executes.
-    *   If successful, it returns data.
-    *   **If an error occurs, it `throw`s an `Error`.**
-5.  The `Promise` from `ipcRenderer.invoke` resolves or rejects.
-6.  TanStack Query handles the resolved data or the rejection:
-    *   `useQuery`: Populates `data` or `error`.
-    *   `useMutation`: Calls `onSuccess` or `onError`.
+```sh
+npm run fmt
+```
 
-This pattern ensures that errors are propagated correctly from the main process back to the React application, where TanStack Query can manage the error state and allow for robust error handling and UI feedback.
+**Linting**
+
+```sh
+npm run lint
+```
+
+If you get any lint errors, you can usually fix it by doing:
+
+```sh
+npm run lint:fix
+```
+
+> **WARNING: Do NOT run `npx eslint` directly.** The project uses **oxlint** (not eslint) via `npm run lint`. Running `npx eslint <file>` produces spurious `import/no-unresolved` errors for `@/...` path aliases and other false positives — ignore those and rely on `npm run lint` / `npm run lint:fix`.
+
+**Type-checks**
+
+```sh
+npm run ts
+```
+
+Note: if you do this, then you will need to re-add the changes and commit again.
+
+## Running TypeScript
+
+> **WARNING: Do NOT run `npx tsc` or `tsc` directly.** The project is not set up for direct `tsc` invocation and will produce incorrect or misleading results.
+
+**Always use:**
+
+```sh
+npm run ts
+```
+
+This is the only supported way to type-check the project. It uses the correct configuration and compiler (`tsgo`). Any other method of running TypeScript checks is unsupported and will likely give wrong results.
+
+## Project context
+
+- This is an Electron application with a secure IPC boundary.
+- Frontend is a React app that uses TanStack Router (not Next.js or React Router).
+- Data fetching/mutations should be handled with TanStack Query when touching IPC-backed endpoints.
+- Main-process IPC errors that are **not bugs** (validation, missing entities, auth, user refusal, etc.) should be thrown as **`DyadError`** with a **`DyadErrorKind`** so they can be excluded from PostHog exception telemetry. See [rules/dyad-errors.md](rules/dyad-errors.md).
+
+## Verifying your changes
+
+You should test your changes before committing or pushing. Run relevant unit tests and E2E tests to verify expected behavior. If it's truly impossible to test a change locally (e.g. CI-only behavior, third-party service integration), note this in the PR description explaining why and what manual verification is needed.
+
+## General guidance
+
+- Favor descriptive module/function names that mirror IPC channel semantics.
+- Keep Electron security practices in mind (no `remote`, validate/lock by `appId` when mutating shared resources).
+- Add tests in the same folder tree when touching renderer components.
+- **Always use Base UI (`@base-ui/react`) for UI primitives, never Radix UI.** This includes menus, tooltips, accordions, context menus, and other headless UI components. See [rules/base-ui-components.md](rules/base-ui-components.md) for component-specific guidance.
+
+Use these guidelines whenever you work within this repository.
+
+## Testing
+
+Our project relies on a combination of unit testing and E2E testing. Unless your change is trivial, you MUST add a test, preferably an e2e test case.
+
+### Unit testing
+
+Use unit testing for pure business logic and util functions.
+
+Target a Vitest file with `npm test -- path/to/file.test.ts`. Do not pass Jest-only flags such as `--runInBand`; Vitest will fail with `Unknown option '--runInBand'`.
+
+### E2E testing
+
+> **IMPORTANT: You MUST run `npm run build` before running E2E tests.** E2E tests run against the built application, not the dev server. If you have changed any application code (i.e. anything outside of test files), you MUST re-run `npm run build` before running the tests, otherwise the tests will run against stale code and results will be misleading. Only changes to test code itself (e.g. files in `e2e-tests/`) do not require a rebuild.
+
+See [rules/e2e-testing.md](rules/e2e-testing.md) for full E2E testing guidance, including Playwright tips and fixture setup.
+
+**Debugging E2E test failures with screenshots:** When an E2E test fails and you can't determine the cause from the error message alone, use the `/dyad:debug-with-playwright` skill to add screenshots at key points in the test. Playwright's built-in `screenshot: "on"` does NOT work with Electron — you must use manual `page.screenshot()` calls. The skill walks you through adding debug screenshots, running the test, viewing the captured PNGs, and cleaning up afterward.
+
+## Git workflow
+
+When pushing changes and creating PRs:
+
+1. If the branch already has an associated PR, push to whichever remote the branch is tracking.
+2. If the branch hasn't been pushed before, default to pushing to `origin` (the fork `wwwillchen/dyad`), then create a PR from the fork to the upstream repo (`dyad-sh/dyad`).
+3. If you cannot push to the fork due to permissions, push directly to `upstream` (`dyad-sh/dyad`) as a last resort.
+
+### Skipping automated review
+
+Add `#skip-bugbot` to the PR description for trivial PRs that won't affect end-users, such as:
+
+- Claude settings, commands, or agent configuration
+- Linting or test setup changes
+- Documentation-only changes
+- CI/build configuration updates
 
 ---
 > Source: [dyad-sh/dyad](https://github.com/dyad-sh/dyad) — distributed by [TomeVault](https://tomevault.io).
