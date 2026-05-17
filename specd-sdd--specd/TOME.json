@@ -1,0 +1,44 @@
+{
+  "name": "SpecD",
+  "owner": "specd-sdd",
+  "repo": "SpecD",
+  "description": "  Spec-driven development for teams and solo devs. Define, verify, and share behavioral specs across single repos, monorepos, and multi-repo setups.                     ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/specd-sdd/SpecD",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T10:44:04Z"
+}
