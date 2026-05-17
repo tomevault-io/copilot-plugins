@@ -1,0 +1,9 @@
+{
+  "name": "jmfederico--pi-web",
+  "displayName": "pi-web",
+  "description": "Web control plane for remote, agentic software development with Pi Coding Agent",
+  "version": "1.0.0",
+  "author": "jmfederico",
+  "homepage": "https://github.com/jmfederico/pi-web",
+  "skills": []
+}
