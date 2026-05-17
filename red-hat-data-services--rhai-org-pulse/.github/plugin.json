@@ -1,0 +1,9 @@
+{
+  "name": "red-hat-data-services--rhai-org-pulse",
+  "displayName": "rhai-org-pulse",
+  "description": "AI Platform Team Tracker \u2014 Vue 3 dashboard for Jira sprint metrics",
+  "version": "1.0.0",
+  "author": "red-hat-data-services",
+  "homepage": "https://github.com/red-hat-data-services/rhai-org-pulse",
+  "skills": []
+}
