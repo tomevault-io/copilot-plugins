@@ -1,0 +1,9 @@
+{
+  "name": "cktan--tomlc17",
+  "displayName": "tomlc17",
+  "description": "TOML parser in C17",
+  "version": "1.0.0",
+  "author": "cktan",
+  "homepage": "https://github.com/cktan/tomlc17",
+  "skills": []
+}
