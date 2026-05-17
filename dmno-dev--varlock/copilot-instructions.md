@@ -1,57 +1,36 @@
-## env-graph-tests
+## no-js-extension-imports
 
-> name: env_graph_tests_general
+> Do not use .js (or .ts) extensions in TypeScript import/export paths
+
+# No .js Extension in TypeScript Imports
 
 <rule>
-name: env_graph_tests_general
-version: 1.0
-priority: medium
+name: no_js_extension_imports
+description: |
+  This project uses TypeScript with "moduleResolution": "bundler" (or "node16"/"nodenext" in a way that relies on the bundler to resolve modules). Do not add .js or .ts extensions to import or export paths in TypeScript files.
 
-# Rule: General Test Structure for env-graph
+filters:
+  - type: file_extension
+    pattern: "\\.ts$"
 
-## Description
-All tests in the env-graph package must follow best practices for maintainability, clarity, and extensibility. This includes using DRY setup, table-driven tests where appropriate, and clear assertion of expected behavior.
+actions:
+  - type: suggest
+    message: |
+      Do not use .js or .ts in TypeScript import/export paths. We use bundler module resolution, so write:
 
-## Rationale
-- Ensures tests are easy to read, extend, and maintain.
-- Reduces code duplication and encourages consistent patterns across the codebase.
-- Makes it easier to add new test cases and spot regressions.
+        import { foo } from './bar';
+        export { foo } from './bar';
 
-## Requirements
-- Use a single setup function or helper for repeated test logic (e.g., graph setup, data source creation).
-- Prefer table-driven tests (array of test case objects) for scenarios with multiple similar cases.
-- Each test case object should include a label/description and all relevant input/expected output fields.
-- Use `describe()` and `it()` blocks to organize tests by feature or function.
-- Assertions must clearly check the expected behavior (e.g., resolved values, errors, config keys, etc.).
-- Avoid copy-pasting similar `it()` blocks; use iteration over test cases where possible.
-- Use meaningful variable names and keep test logic concise.
+      Not:
 
-## Example
-```ts
-function featureTests(
-  tests: Array<{
-    label: string;
-    input: string;
-    expected: any;
-  }>,
-) {
-  return () => {
-    tests.forEach(({ label, input, expected }) => {
-      it(label, async () => {
-        // ...setup and assertions...
-      });
-    });
-  };
-}
+        import { foo } from './bar.js';
+        export { foo } from './bar.js';
 
-describe('some feature', featureTests([
-  // ...test cases...
-]));
-```
+      This keeps code consistent and avoids confusion between source and output paths.
 
-## Enforcement
-- All new and modified tests in env-graph must follow these guidelines.
-- Reviewers should request changes if tests are not DRY, table-driven (where appropriate), or lack clear assertions.
+metadata:
+  priority: high
+  version: 1.0
 </rule>
 
 ---
