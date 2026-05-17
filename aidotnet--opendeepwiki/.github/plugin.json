@@ -1,0 +1,9 @@
+{
+  "name": "aidotnet--opendeepwiki",
+  "displayName": "OpenDeepWiki",
+  "description": "OpenDeepWiki is the open-source version of the DeepWiki project, aiming to provide a powerful knowledge management and collaboration platform. The project is mainly developed using C# and TypeScript, ",
+  "version": "1.0.0",
+  "author": "AIDotNet",
+  "homepage": "https://github.com/AIDotNet/OpenDeepWiki",
+  "skills": []
+}
