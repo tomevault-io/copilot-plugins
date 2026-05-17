@@ -39,6 +39,11 @@
       "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond."
     },
     {
+      "name": "anomalyco--opencode",
+      "source": "./anomalyco--opencode",
+      "description": "The open source coding agent."
+    },
+    {
       "name": "nousresearch--hermes-agent",
       "source": "./nousresearch--hermes-agent",
       "description": "The agent that grows with you"
