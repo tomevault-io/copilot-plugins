@@ -1,51 +1,42 @@
-## python-backend
+## react-frontend
 
-> Python backend standards for Omelette — enforced on every backend file
+> React frontend standards for Omelette
 
 
-# Omelette Backend Standards
+# Omelette Frontend Standards
 
-## Environment
-- Python 3.12+, conda env `omelette`
-- Run from `backend/` directory: `cd backend && uvicorn app.main:app --reload`
-- Data on `/data0/djx/omelette/`, code on `/home/djx/repos/omelette/`
+## Stack
+- React 18 + TypeScript strict + Vite + TailwindCSS v4
+- shadcn/ui + Radix primitives for components
+- Framer Motion for chat animations (PlaygroundPage only)
+- react-i18next for i18n (zh/en)
+- TanStack Query for data fetching
+- lucide-react for icons, axios for HTTP
+- D3.js (submodule imports) for citation graph
 
-## Code Style (enforced by ruff + pre-commit)
-- Line length: 120
-- Import sorting: ruff isort, first-party = `app`
-- Format: `ruff format`, double quotes, 4-space indent
-- Lint: `ruff check` with E, F, I, N, W, UP, B, SIM
+## Conventions
+- Import alias `@/` maps to `frontend/src/`
+- API client at `@/lib/api.ts`, typed services at `@/services/api.ts`
+- API URLs: use `apiUrl()` / `wsUrl()` from `@/lib/api-config.ts` — never hardcode `/api/v1/`
+- Query keys: use typed factory at `@/lib/query-keys.ts` for all TanStack Query keys
+- Types at `@/types/index.ts` must mirror backend Pydantic schemas
+- Use `cn()` from `@/lib/utils` for conditional class merging
+- Functional components only, no class components
+- Colocate hooks in `@/hooks/`, stores in `@/stores/`
+- i18n keys in `@/i18n/locales/{en,zh}.json`
+- UI components from shadcn/ui at `@/components/ui/`
 
-## Architecture
-- All endpoints return `ApiResponse[T]` from `app/schemas/common.py`
-- LLM calls through `app/services/llm_client.py` (LangChain `BaseChatModel`), never import provider SDKs directly
-- LLM prompts centralized in `app/prompts/` (chat, dedup, keyword, rag, rewrite, writing, completion)
-- Pipeline orchestration via `app/pipelines/` (LangGraph `StateGraph`) with persistent `AsyncSqliteSaver` checkpointer
-- RAG via `app/services/rag_service.py` (LlamaIndex `VectorStoreIndex`) with reranker
-- GPU resource management via `app/services/gpu_model_manager.py` (TTL auto-unload, `GPU_MODE` presets)
-- MinerU subprocess management via `app/services/mineru_process_manager.py` (auto start/stop with TTL)
-- GPU monitoring API: `app/api/v1/gpu.py` — `GET /gpu/status`, `POST /gpu/unload`
-- SSRF protection via `app/services/url_validator.py` — validate all user-provided URLs
-- MCP server at `app/mcp_server.py`, mounted at `/mcp`
-- DB migrations via Alembic (`alembic/`), run `alembic upgrade head` before startup
-- Async SQLAlchemy + `AsyncSession` for all DB operations
-- Business logic in `app/services/`, thin controllers in `app/api/v1/`
-- Pydantic v2 schemas in `app/schemas/` mirror every API request/response
-- Project-scoped endpoints must use `Depends(get_project)` for authorization
-- Exit cleanup: `atexit` + `SIGHUP` handlers + optional `scripts/gpu_watchdog.py` daemon
+## Layout & Components
+- Use `PageLayout` (not PageHeader) for page structure
+- Use `DataTable` for tabular data with sorting/pagination/selection
+- Use `DualSidebar` for navigation — context-aware (chat history on chat routes)
+- Use shadcn `Select`, `Tabs`, `Badge` instead of native HTML elements
+- Prefer CSS transitions over Framer Motion for non-chat pages
 
-## Async Rules
-- Never call sync I/O or CPU-heavy functions directly in async code
-- Wrap blocking calls with `asyncio.to_thread()` (LlamaIndex, PaddleOCR, socket, subprocess, fitz, etc.)
-- Services must not call `db.commit()` — `get_session()` manages transactions
-- See `docs/solutions/performance-issues/blocking-sync-calls-asyncio-to-thread.md`
-
-## Testing
-- pytest-asyncio with `ASGITransport` + `AsyncClient`
-- Mock LLM via `LLM_PROVIDER=mock` env var
-- Test DB uses `tempfile.mkdtemp()` — never relative paths
-- Every service has a corresponding `tests/test_<module>.py`
-- 526 tests and growing
+## CI Build
+- Type check: `npx tsc -b` (stricter than `--noEmit`, matches CI)
+- Build: `cd frontend && npm run build`
+- Dev server: port 3001 on `0.0.0.0`, proxies `/api` → backend `:8000`
 
 ---
 > Source: [sylvanding/omelette](https://github.com/sylvanding/omelette) — distributed by [TomeVault](https://tomevault.io).
