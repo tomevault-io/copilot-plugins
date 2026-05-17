@@ -1,0 +1,9 @@
+{
+  "name": "peterhdd--agent-skills",
+  "displayName": "agent-skills",
+  "description": "9 super-powered AI agent skills for Claude Code and Codex",
+  "version": "1.0.0",
+  "author": "PeterHdd",
+  "homepage": "https://github.com/PeterHdd/agent-skills",
+  "skills": []
+}
