@@ -1,0 +1,9 @@
+{
+  "name": "antoniorodr--lexy",
+  "displayName": "lexy",
+  "description": "Lexy is a lightweight CLI tool that fetches programming tutorials from \"Learn X in Y Minutes\" directly into your terminal. Quickly search, learn, and reference code examples without leaving your workf",
+  "version": "1.0.0",
+  "author": "antoniorodr",
+  "homepage": "https://github.com/antoniorodr/lexy",
+  "skills": []
+}
