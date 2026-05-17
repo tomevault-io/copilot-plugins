@@ -1,15 +1,15 @@
-## engineering-security
+## engineering-testing
 
-> Lembretes de seguranca ao alterar codigo ou configuracao.
+> Convencoes para testes automatizados.
 
 
-# Engineering — Security
+# Engineering — Testing
 
-- Autenticacao e autorizacao devem ser explicitas em cada recurso sensivel.
-- Nunca commitar segredos; usar variaveis de ambiente e gestao segura de credenciais.
-- Tratar toda entrada externa como nao confiavel (SQL, comando, path, SSRF).
-- Dependencias: preferir verificacao (`npm audit`, ferramentas do projeto) antes de releases.
-- Em duvida entre falhar aberto ou fechado, preferir falha segura (deny).
+- Teste comportamento observavel; evite acoplar a detalhe de implementacao.
+- Use Arrange — Act — Assert; um foco claro por teste quando possivel.
+- Priorize piramide: muitos testes rapidos, poucos E2E criticos.
+- Mocks apenas para fronteiras externas; nao mockar o codigo sob teste sem motivo.
+- Nomeie testes de forma que a falha seja autoexplicativa.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
