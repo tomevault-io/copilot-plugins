@@ -94664,6 +94664,11 @@
       "description": "Run Claude Code (and codex) to generate a project plan, then run them in a loop for days until they're done"
     },
     {
+      "name": "forgeailab--forge",
+      "source": "./forgeailab--forge",
+      "description": "AI coding agent workflow engine for structured task lifecycles."
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -101792,6 +101797,11 @@
       "name": "testdouble--han",
       "source": "./testdouble--han",
       "description": "Han: AI skills and agents for \"Solo\" product engineers and small teams"
+    },
+    {
+      "name": "jhaizhou-ops--pinrule",
+      "source": "./jhaizhou-ops--pinrule",
+      "description": "Near-eliminate AI Agent rule violations in long tasks \u2014 auto-correct drift before it frustrates you. Pure-engineering zero-LLM hook system for Claude Code / Codex CLI / Cursor. ~50-70ms hook latency, "
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
