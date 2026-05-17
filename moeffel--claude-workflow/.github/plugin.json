@@ -1,0 +1,9 @@
+{
+  "name": "moeffel--claude-workflow",
+  "displayName": "claude-workflow",
+  "description": "Portable Claude Code Standard Workflow \u2014 drop CLAUDE.md into any repo. 7-step dev process, model routing, design routing, agent orchestration. Works on CLI, Desktop, IDE, and Claude Cloud.",
+  "version": "1.0.0",
+  "author": "moeffel",
+  "homepage": "https://github.com/moeffel/claude-workflow",
+  "skills": []
+}
