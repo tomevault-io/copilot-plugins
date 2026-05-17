@@ -1,117 +1,168 @@
-## project-main-rules
+## fastapi-langgraph-agent-production-ready-template
 
-> You are an expert in building production-ready AI agent applications using Python, FastAPI, LangGraph, and LangChain.
+> This document provides essential guidelines for AI agents working on this LangGraph FastAPI Agent project.
 
+# AI Agent Development Guide
 
-# LangGraph FastAPI AI Agent Development
+This document provides essential guidelines for AI agents working on this LangGraph FastAPI Agent project.
 
-You are an expert in building production-ready AI agent applications using Python, FastAPI, LangGraph, and LangChain.
+## Quick Commands
 
-This is a **LangGraph FastAPI Agent Project** for building scalable, secure AI agent services with LLM orchestration, observability, and persistence.
+```bash
+make install          # Install deps (uv sync)
+make dev              # Dev server with hot reload (port 8000)
+make lint             # ruff check .
+make format           # ruff format .
+make typecheck        # uv run pyright (static type check)
+make check            # lint + typecheck
+make eval             # Run LLM evals (interactive)
+make eval-quick       # Run LLM evals (default settings)
+make docker-run       # Docker: API + DB (development)
+make docker-compose-up ENV=development  # Full stack: API + Prometheus + Grafana
+```
 
-## Project Architecture Overview
+## Project Structure
 
-This is an AI agent application that:
+```
+app/
+  api/v1/          # Route handlers (auth.py, chatbot.py, api.py)
+  core/
+    config.py      # Pydantic Settings config
+    database.py    # Async DB setup
+    langgraph/     # LangGraph agent graph + tools
+    logging.py     # structlog setup
+    llm.py         # LLM service with retry logic
+    limiter.py     # Rate limiting (slowapi)
+    metrics.py     # Prometheus metrics
+    middleware.py  # ASGI middleware
+    prompts/       # System prompts
+  models/          # SQLModel ORM models
+  schemas/         # Pydantic request/response schemas + graph state
+  services/        # Business logic services
+  utils/           # Shared utilities
+evals/             # LLM evaluation framework (Langfuse-based)
+scripts/           # Environment setup, Docker build scripts
+```
 
-- Uses **LangGraph** for building stateful, multi-step AI agent workflows
-- Uses **FastAPI** for high-performance async REST API endpoints
-- Integrates **Langfuse** for LLM observability and tracing
-- Uses **PostgreSQL** with **pgvector** for long-term memory storage (mem0ai)
-- Implements **JWT authentication** with session management
-- Provides **rate limiting** with slowapi
-- Includes **Prometheus metrics** and **Grafana dashboards** for monitoring
-- Uses **structlog** for structured logging with environment-specific formatting
-- Implements **retry logic** using tenacity library
-- Uses **rich** library for colored, formatted console outputs
+## Project Overview
 
-## Key Principles
+This is a production-ready AI agent application built with:
+- **LangGraph** for stateful, multi-step AI agent workflows
+- **FastAPI** for high-performance async REST API endpoints
+- **Langfuse** for LLM observability and tracing
+- **PostgreSQL + pgvector** for long-term memory storage (mem0ai)
+- **JWT authentication** with session management
+- **Prometheus + Grafana** for monitoring
 
-- Write concise, technical responses with accurate Python examples
-- Use functional, declarative programming; avoid classes where possible except for services and agents
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`)
-- Use lowercase with underscores for directories and files (e.g., `routers/user_routes.py`)
-- Favor named exports for routes and utility functions
-- Use the Receive an Object, Return an Object (RORO) pattern
-- **All imports must be at the top of the file** - never add imports inside functions or classes
+## Quick Reference: Critical Rules
 
-## Python/FastAPI Conventions
+### Import Rules
+- **All imports MUST be at the top of the file** - never add imports inside functions or classes
 
-- Use `def` for pure functions and `async def` for asynchronous operations
-- Use type hints for all function signatures; prefer Pydantic models over raw dictionaries
-- File structure: exported router, sub-routes, utilities, static content, types (models, schemas)
-- Use concise, one-line syntax for simple conditional statements (e.g., `if condition: do_something()`)
-- Avoid unnecessary else statements; use the if-return pattern instead
+### Logging Rules
+- Use **structlog** for all logging
+- Log messages must be **lowercase_with_underscores** (e.g., `"user_login_successful"`)
+- **NO f-strings in structlog events** - pass variables as kwargs
+- Use `logger.exception()` instead of `logger.error()` to preserve tracebacks
+- Example: `logger.info("chat_request_received", session_id=session.id, message_count=len(messages))`
 
-## LangGraph & LangChain Integration
+### Retry Rules
+- **Always use tenacity library** for retry logic
+- Configure with exponential backoff
+- Example: `@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))`
 
-- Use LangGraph `StateGraph` for building AI agent workflows with multiple steps/nodes
+### Output Rules
+- **Always enable rich library** for formatted console outputs
+- Use rich for progress bars, tables, panels, and formatted text
+
+### Caching Rules
+- **Only cache successful responses**, never cache errors
+- Use appropriate cache TTL based on data volatility
+
+### FastAPI Rules
+- All routes must have rate limiting decorators
+- Use dependency injection for services, database connections, and auth
+- All database operations must be async
+
+## Code Style Conventions
+
+### Python/FastAPI
+- Use `async def` for asynchronous operations
+- Use type hints for all function signatures
+- Prefer Pydantic models over raw dictionaries
+- Use functional, declarative programming; avoid classes except for services and agents
+- File naming: lowercase with underscores (e.g., `user_routes.py`)
+- Use the RORO pattern (Receive an Object, Return an Object)
+
+### Error Handling
+- Handle errors at the beginning of functions
+- Use early returns for error conditions
+- Place the happy path last in the function
+- Use guard clauses for preconditions
+- Use `HTTPException` for expected errors with appropriate status codes
+
+## LangGraph & LangChain Patterns
+
+### Graph Structure
+- Use `StateGraph` for building AI agent workflows
 - Define clear state schemas using Pydantic models (see `app/schemas/graph.py`)
 - Use `CompiledStateGraph` for production workflows
 - Implement `AsyncPostgresSaver` for checkpointing and persistence
-- Use LangChain's `CallbackHandler` from Langfuse for tracing LLM calls
-- Structure agents as classes that manage graph creation and execution (see `app/core/langgraph/graph.py`)
 - Use `Command` for controlling graph flow between nodes
-- Implement proper streaming responses for long-running agent operations
 
-## Long-Term Memory (mem0ai)
+### Tracing
+- Use LangChain's `CallbackHandler` from Langfuse for tracing all LLM calls
+- All LLM operations must have Langfuse tracing enabled
 
-- Use mem0ai's `AsyncMemory` for semantic memory storage
-- Configure with pgvector as the vector store backend
+### Memory (mem0ai)
+- Use `AsyncMemory` for semantic memory storage
 - Store memories per user_id for personalized experiences
 - Use async methods: `add()`, `get()`, `search()`, `delete()`
-- Configure memory collection name via environment variables
 
-## Error Handling and Validation
+## Authentication & Security
 
-Prioritize error handling and edge cases:
+- Use JWT tokens for authentication
+- Implement session-based user management (see `app/api/v1/auth.py`)
+- Use `get_current_session` dependency for protected endpoints
+- Store sensitive data in environment variables
+- Validate all user inputs with Pydantic models
 
-- Handle errors and edge cases at the beginning of functions
-- Use early returns for error conditions to avoid deeply nested if statements
-- Place the happy path last in the function for improved readability
-- Use guard clauses to handle preconditions and invalid states early
-- Implement proper error logging with structured logging
-- Use `HTTPException` for expected errors with appropriate status codes
-- Use middleware for handling unexpected errors globally
+## Database Operations
 
-## Logging Standards
+- Use SQLModel for ORM models (combines SQLAlchemy + Pydantic)
+- Define models in `app/models/` directory
+- Use async database operations with asyncpg
+- Use LangGraph's AsyncPostgresSaver for agent checkpointing
 
-Use structlog for all logging with these conventions:
+## Performance Guidelines
 
-- Log messages must be **lowercase and separated by underscores** (e.g., `"user_login_successful"`)
-- **No f-strings in structlog events** - pass all variables as kwargs for proper filtering
-- Use `logger.exception()` instead of `logger.error()` to preserve tracebacks
-- For warnings with exceptions, use `exc_info=True`: `logger.warning("event_name", exc_info=True)`
-- Always bind context to logs: session_id, user_id, request_id, etc.
-- Use appropriate log levels: `debug`, `info`, `warning`, `error`, `exception`
-- Example: `logger.info("chat_request_received", session_id=session.id, message_count=len(messages))`
+- Minimize blocking I/O operations
+- Use async for all database and external API calls
+- Implement caching for frequently accessed data
+- Use connection pooling for database connections
+- Optimize LLM calls with streaming responses
 
-## Rich Library for Outputs
+## Observability
 
-- **Always enable rich library** for formatted console outputs
-- Use rich for progress bars, tables, panels, and formatted text
-- Use rich.console for debugging complex data structures
-- Apply rich formatting for evaluation reports and CLI outputs
+- Integrate Langfuse for LLM tracing on all agent operations
+- Export Prometheus metrics for API performance
+- Use structured logging with context binding (request_id, session_id, user_id)
+- Track LLM inference duration, token usage, and costs
 
-## Retry Logic
+## Testing & Evaluation
 
-- **Always use tenacity library** for retry logic
-- Configure retries with exponential backoff
-- Set appropriate stop conditions (max attempts, max time)
-- Log retry attempts for observability
-- Example: `@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))`
+- Implement metric-based evaluations for LLM outputs (see `evals/` directory)
+- Create custom evaluation metrics as markdown files in `evals/metrics/prompts/`
+- Use Langfuse traces for evaluation data sources
+- Generate JSON reports with success rates
 
-## Caching Strategy
+## Configuration Management
 
-- **Only cache successful responses**, never cache errors
-- Use appropriate cache TTL based on data volatility
-- Implement cache invalidation strategies
-- Consider using Redis or in-memory caches for frequently accessed data
-- Document cache keys and expiration policies
+- Use environment-specific configuration files (`.env.development`, `.env.staging`, `.env.production`)
+- Use Pydantic Settings for type-safe configuration (see `app/core/config.py`)
+- Never hardcode secrets or API keys
 
-## Dependencies
-
-Core dependencies in this project:
+## Key Dependencies
 
 - **FastAPI** - Web framework
 - **LangGraph** - Agent workflow orchestration
@@ -120,77 +171,14 @@ Core dependencies in this project:
 - **Pydantic v2** - Data validation and settings
 - **structlog** - Structured logging
 - **mem0ai** - Long-term memory management
-- **PostgreSQL** with **pgvector** - Database and vector storage
+- **PostgreSQL + pgvector** - Database and vector storage
 - **SQLModel** - ORM for database models
 - **tenacity** - Retry logic
 - **rich** - Terminal formatting
 - **slowapi** - Rate limiting
 - **prometheus-client** - Metrics collection
 
-## FastAPI-Specific Guidelines
-
-- Use functional components (plain functions) and Pydantic models for validation
-- Use declarative route definitions with clear return type annotations
-- **Use lifespan context managers** for startup/shutdown (avoid `@app.on_event`)
-- Use dependency injection for services, database connections, and auth
-- Apply rate limiting decorators to all endpoints: `@limiter.limit(settings.RATE_LIMIT_ENDPOINTS["endpoint_name"][0])`
-- Use middleware for logging context, metrics, and error handling
-- Implement proper CORS configuration via settings
-- Structure routes in versioned API modules (e.g., `app/api/v1/`)
-
-## Authentication & Security
-
-- Use JWT tokens for authentication
-- Implement session-based user management (see `app/api/v1/auth.py`)
-- Use `get_current_session` dependency for protected endpoints
-- Store sensitive data in environment variables, never in code
-- Implement proper CORS and rate limiting
-- Validate all user inputs with Pydantic models
-
-## Database & Persistence
-
-- Use SQLModel for ORM models (combines SQLAlchemy + Pydantic)
-- Define models in `app/models/` directory
-- Use async database operations with asyncpg
-- Implement proper connection pooling
-- Use LangGraph's AsyncPostgresSaver for agent checkpointing
-- Implement health checks for database connectivity
-
-## Performance Optimization
-
-- Minimize blocking I/O operations; use async for all database and external API calls
-- Implement caching for static and frequently accessed data
-- Use connection pooling for database connections
-- Optimize LLM calls with streaming responses for better UX
-- Monitor performance with Prometheus metrics
-- Use lazy loading for large datasets
-
-## Observability & Monitoring
-
-- Integrate Langfuse for LLM tracing on all agent operations
-- Export Prometheus metrics for API performance, rate limits, and system resources
-- Use structured logging with context binding (request_id, session_id, user_id)
-- Implement health check endpoints (`/health`)
-- Configure Grafana dashboards for visualization
-- Track LLM inference duration, token usage, and costs
-
-## Testing & Evaluation
-
-- Implement metric-based evaluations for LLM outputs (see `evals/` directory)
-- Create custom evaluation metrics as markdown files in `evals/metrics/prompts/`
-- Use Langfuse traces for evaluation data sources
-- Generate JSON reports with success rates and detailed metrics
-- Use interactive CLI with rich formatting for running evaluations
-
-## Configuration Management
-
-- Use environment-specific configuration files (`.env.development`, `.env.staging`, `.env.production`)
-- Use Pydantic Settings for type-safe configuration (see `app/core/config.py`)
-- Define environment enum for environment-specific behavior
-- Never hardcode secrets or API keys
-- Use appropriate defaults for development environments
-
-## Key Conventions
+## 10 Commandments for This Project
 
 1. All routes must have rate limiting decorators
 2. All LLM operations must have Langfuse tracing
@@ -202,22 +190,37 @@ Core dependencies in this project:
 8. All imports must be at the top of files
 9. All database operations must be async
 10. All endpoints must have proper type hints and Pydantic models
+11. All code must pass `make typecheck` (pyright standard mode)
 
-## Project Structure
+## Common Pitfalls to Avoid
 
-```markdown
-app/
-├── api/v1/          # API routes (auth, chatbot, etc.)
-├── core/            # Core functionality (config, logging, metrics, middleware)
-│   ├── langgraph/   # LangGraph agent and tools
-│   └── prompts/     # System prompts for agents
-├── models/          # SQLModel database models
-├── schemas/         # Pydantic schemas for API and graph state
-├── services/        # Business logic services (llm, database)
-└── utils/           # Utility functions
-```markdown
+- ❌ Using f-strings in structlog events
+- ❌ Adding imports inside functions
+- ❌ Forgetting rate limiting decorators on routes
+- ❌ Missing Langfuse tracing on LLM calls
+- ❌ Caching error responses
+- ❌ Using `logger.error()` instead of `logger.exception()` for exceptions
+- ❌ Blocking I/O operations without async
+- ❌ Hardcoding secrets or API keys
+- ❌ Missing type hints on function signatures
 
-Refer to LangGraph, LangChain, FastAPI, and Langfuse documentation for best practices.
+## When Making Changes
+
+Before modifying code:
+1. Read the existing implementation first
+2. Check for related patterns in the codebase
+3. Ensure consistency with existing code style
+4. Add appropriate logging with structured format
+5. Include error handling with early returns
+6. Add type hints and Pydantic models
+7. Verify Langfuse tracing is enabled for LLM calls
+
+## References
+
+- LangGraph Documentation: https://langchain-ai.github.io/langgraph/
+- LangChain Documentation: https://python.langchain.com/docs/
+- FastAPI Documentation: https://fastapi.tiangolo.com/
+- Langfuse Documentation: https://langfuse.com/docs
 
 ---
 > Source: [wassim249/fastapi-langgraph-agent-production-ready-template](https://github.com/wassim249/fastapi-langgraph-agent-production-ready-template) — distributed by [TomeVault](https://tomevault.io).
