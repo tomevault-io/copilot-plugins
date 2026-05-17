@@ -1,0 +1,9 @@
+{
+  "name": "btcjt--titan",
+  "displayName": "titan",
+  "description": "A native nsite:// browser for the Nostr web. Named after Titan, moon of Saturn.",
+  "version": "1.0.0",
+  "author": "btcjt",
+  "homepage": "https://github.com/btcjt/titan",
+  "skills": []
+}
