@@ -7,11 +7,11 @@ Quick Prompt ✨ 提示词管理与快捷输入浏览器插件 | Browser extensi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [wenyuanw/quick-prompt](https://github.com/wenyuanw/quick-prompt).
+Original source: `AGENTS.md` in [wenyuanw/quick-prompt](https://github.com/wenyuanw/quick-prompt).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
