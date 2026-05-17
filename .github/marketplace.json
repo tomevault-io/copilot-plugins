@@ -129419,6 +129419,26 @@
       "description": "\u667a\u80fd\u722c\u866b\u5de5\u7a0b\u5e73\u53f0 - \u57fa\u4e8e DeepAgents + Patchright \u7684 AI \u722c\u866b Agent | Intelligent Web Scraping Platform - AI-powered Crawler Agent built on DeepAgents + Patchright"
     },
     {
+      "name": "boom-vitt--claude-thai-skills",
+      "source": "./boom-vitt--claude-thai-skills",
+      "description": "\u0e17\u0e31\u0e01\u0e29\u0e30 Claude Code \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e04\u0e19\u0e44\u0e17\u0e22 \u2014 \u0e41\u0e1b\u0e25, \u0e41\u0e04\u0e1b\u0e0a\u0e31\u0e48\u0e19, \u0e40\u0e23\u0e0b\u0e39\u0e40\u0e21\u0e48, \u0e08\u0e14\u0e2b\u0e21\u0e32\u0e22\u0e23\u0e32\u0e0a\u0e01\u0e32\u0e23, PDPA, \u0e43\u0e1a\u0e01\u0e33\u0e01\u0e31\u0e1a\u0e20\u0e32\u0e29\u0e35, PromptPay, \u0e40\u0e25\u0e02\u0e1a\u0e31\u0e15\u0e23 \u0e1b\u0e0a\u0e0a., \u0e27\u0e31\u0e19\u0e17\u0e35\u0e48 \u0e1e.\u0e28. \u2014 12 skills"
+    },
+    {
+      "name": "coset-io--baby-lattice-folding",
+      "source": "./coset-io--baby-lattice-folding",
+      "description": "baby-lattice-folding"
+    },
+    {
+      "name": "mvp-ai-lab--mvp-engine",
+      "source": "./mvp-ai-lab--mvp-engine",
+      "description": "MVP Engine - The Next-Generation Framework for Multimodal Model Training with Agents"
+    },
+    {
+      "name": "mvp-ai-lab--mvp-engine",
+      "source": "./mvp-ai-lab--mvp-engine",
+      "description": "MVP Engine - The Next-Generation Framework for Multimodal Model Training with Agents"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -138309,6 +138329,16 @@
       "description": "\u7528\u4e8e Yudao \u4ee3\u7801\u751f\u6210\uff08\u540e\u7aef + \u7ba1\u7406\u540e\u53f0\u524d\u7aef\uff09\u7684\u6d41\u7a0b\u5316\u6307\u5f15\u4e0e\u7d22\u5f15\u3002"
     },
     {
+      "name": "ceelog--openweread",
+      "source": "./ceelog--openweread",
+      "description": "\u5fae\u4fe1\u8bfb\u4e66\u5f00\u653e Skills & API SDK & Cli"
+    },
+    {
+      "name": "dmberry--ccs-wb",
+      "source": "./dmberry--ccs-wb",
+      "description": "Critical Code Studies Workbench"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -140222,6 +140252,16 @@
       "name": "tafsircenter--tafsir-mcp",
       "source": "./tafsircenter--tafsir-mcp",
       "description": "Scholarly MCP server for the Holy Quran with 5 classical tafsirs and word-level linguistic analysis \u2014 sponsored by Tafsir Center for Quranic Studies"
+    },
+    {
+      "name": "thecraighewitt--one-person-ai-agency",
+      "source": "./thecraighewitt--one-person-ai-agency",
+      "description": "one-person-ai-agency"
+    },
+    {
+      "name": "zekzekus--stube",
+      "source": "./zekzekus--stube",
+      "description": "Web framework inspired by Seaside and UnCommonWeb"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -239002,6 +239042,16 @@
       "name": "hongqi0314--kaggle-knight-2026",
       "source": "./hongqi0314--kaggle-knight-2026",
       "description": "Kaggle Playground Series S4E12 \u2014 Predict insurance premium amounts using gradient-boosted trees (XGBoost/LightGBM). Regression evaluated on RMSLE."
+    },
+    {
+      "name": "lisadonlon--regulatorykb",
+      "source": "./lisadonlon--regulatorykb",
+      "description": "Regulatory Knowledge Base - Manage and search regulatory documents with intelligent search"
+    },
+    {
+      "name": "ffoerster--breakster",
+      "source": "./ffoerster--breakster",
+      "description": "Breakster is a real-time multiplayer music party game. Players listen to short preview clips and try to place each track in the correct chronological position on their personal timeline. "
     }
   ]
 }
