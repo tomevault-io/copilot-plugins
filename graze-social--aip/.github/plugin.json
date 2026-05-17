@@ -1,0 +1,9 @@
+{
+  "name": "graze-social--aip",
+  "displayName": "aip",
+  "description": "ATmosphere Authentication, Identity, and Permission Proxy",
+  "version": "1.0.0",
+  "author": "graze-social",
+  "homepage": "https://github.com/graze-social/aip",
+  "skills": []
+}
