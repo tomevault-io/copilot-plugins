@@ -1,0 +1,30 @@
+{
+  "name": "thoreinstein--beads-workflow",
+  "displayName": "beads-workflow",
+  "description": "A high-stakes engineering workflow extension for the Gemini CLI, powered by Beads (issue tracking) and Obsidian (architectural planning).",
+  "version": "1.0.0",
+  "author": "thoreinstein",
+  "homepage": "https://github.com/thoreinstein/beads-workflow",
+  "skills": [
+    {
+      "name": "accessibility",
+      "description": ""
+    },
+    {
+      "name": "adr-writer",
+      "description": ""
+    },
+    {
+      "name": "rams",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
