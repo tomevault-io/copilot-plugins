@@ -1,0 +1,9 @@
+{
+  "name": "tempont--small-opencode-orchestrator",
+  "displayName": "small-opencode-orchestrator",
+  "description": "A lightweight implementation of an orchestrated multi-agent workflow, in which a central coordinator delegates tasks to specialized subagents to optimize token efficiency without compromising code gen",
+  "version": "1.0.0",
+  "author": "tempont",
+  "homepage": "https://github.com/tempont/small-opencode-orchestrator",
+  "skills": []
+}
