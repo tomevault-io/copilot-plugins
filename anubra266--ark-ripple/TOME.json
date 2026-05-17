@@ -1,0 +1,44 @@
+{
+  "name": "ark-ripple",
+  "owner": "anubra266",
+  "repo": "ark-ripple",
+  "description": "A collection of unstyled, accessible UI components for Ripple TS, powered by Zag.js state machines. An Ark UI port for Ripple TS.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/anubra266/ark-ripple",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T10:40:46Z"
+}
