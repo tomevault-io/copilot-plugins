@@ -4,7 +4,7 @@
   "repo": "agent-notch",
   "description": "Agent Notch \u2014 macOS computer-use agent that lives in the notch. Voice in, screen context in, Claude Sonnet drives the mouse.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sam-siavoshian/agent-notch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T01:30:08Z"
+  "distributed_at": "2026-05-17T01:30:36Z"
 }
