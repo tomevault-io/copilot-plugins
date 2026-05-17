@@ -1,0 +1,44 @@
+{
+  "name": "PixelBead",
+  "owner": "DanZai233",
+  "repo": "PixelBead",
+  "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u62fc\u8c46\uff08Perler Beads/Hama Beads\uff09\u50cf\u7d20\u753b\u8bbe\u8ba1\u5de5\u5177\uff0c\u652f\u6301 AI \u751f\u6210\u3001\u56fe\u7247\u8f6c\u6362\u7b49\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DanZai233/PixelBead",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T20:30:07Z"
+}
