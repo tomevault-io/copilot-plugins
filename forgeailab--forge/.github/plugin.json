@@ -1,0 +1,9 @@
+{
+  "name": "forgeailab--forge",
+  "displayName": "forge",
+  "description": "AI coding agent workflow engine for structured task lifecycles.",
+  "version": "1.0.0",
+  "author": "ForgeAILab",
+  "homepage": "https://github.com/ForgeAILab/forge",
+  "skills": []
+}
