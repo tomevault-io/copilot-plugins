@@ -1,0 +1,9 @@
+{
+  "name": "martin-ger--esp32-eth-wifi-bridge",
+  "displayName": "esp32_eth_wifi_bridge",
+  "description": "ESP32 as WiFi Access Point (L2 Ethernet Bridge)",
+  "version": "1.0.0",
+  "author": "martin-ger",
+  "homepage": "https://github.com/martin-ger/esp32_eth_wifi_bridge",
+  "skills": []
+}
