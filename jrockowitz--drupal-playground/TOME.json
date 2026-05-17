@@ -4,7 +4,7 @@
   "repo": "drupal_playground",
   "description": "Drupal (AI) Playground for experimenting with Drupal AI capabilities and AI driven development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jrockowitz/drupal_playground",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T10:34:48Z"
+  "distributed_at": "2026-05-17T10:38:01Z"
 }
