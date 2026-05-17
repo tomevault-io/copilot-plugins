@@ -7,11 +7,11 @@ Headless agent orchestrator with deterministic state machine — processes a bea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jedarden/NEEDLE](https://github.com/jedarden/NEEDLE).
+Original source: `CLAUDE.md` in [jedarden/NEEDLE](https://github.com/jedarden/NEEDLE).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
