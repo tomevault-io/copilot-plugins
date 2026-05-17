@@ -4,7 +4,7 @@
   "repo": "Istara",
   "description": "Agentic Research Orchestration for UX Research and Product Development. Vibe and handcoded by a social and data scientist with background in many research domains and open-source",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/henrique-simoes/Istara",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T08:34:18Z"
+  "distributed_at": "2026-05-17T08:37:27Z"
 }
