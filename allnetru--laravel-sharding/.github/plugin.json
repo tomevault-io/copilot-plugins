@@ -1,0 +1,9 @@
+{
+  "name": "allnetru--laravel-sharding",
+  "displayName": "laravel-sharding",
+  "description": "A modern sharding solution for Laravel apps",
+  "version": "1.0.0",
+  "author": "allnetru",
+  "homepage": "https://github.com/allnetru/laravel-sharding",
+  "skills": []
+}
