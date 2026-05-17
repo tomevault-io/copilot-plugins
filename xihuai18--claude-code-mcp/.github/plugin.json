@@ -1,0 +1,9 @@
+{
+  "name": "xihuai18--claude-code-mcp",
+  "displayName": "claude-code-mcp",
+  "description": "Make Claude Code serve as a MCP server with minimal tools.",
+  "version": "1.0.0",
+  "author": "xihuai18",
+  "homepage": "https://github.com/xihuai18/claude-code-mcp",
+  "skills": []
+}
