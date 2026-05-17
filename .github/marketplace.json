@@ -128304,6 +128304,156 @@
       "description": "YouTube Content Studio - Full-stack dashboard for managing your entire content pipeline with AI"
     },
     {
+      "name": "czarnak--totally-integrated-claude",
+      "source": "./czarnak--totally-integrated-claude",
+      "description": "A Claude Code plugin for Siemens TIA Portal engineering automation."
+    },
+    {
+      "name": "przeprogramowani--10x-cli",
+      "source": "./przeprogramowani--10x-cli",
+      "description": "10x-cli"
+    },
+    {
+      "name": "velobase--velobase-harness",
+      "source": "./velobase--velobase-harness",
+      "description": "An open-source framework that takes your AI app from code to cash."
+    },
+    {
+      "name": "reyemtech--mcp-canada",
+      "source": "./reyemtech--mcp-canada",
+      "description": "MCP server for Canadian government data \u2014 193 tools across 15 APIs (federal, provincial, municipal)"
+    },
+    {
+      "name": "noranotdora--vibe-acdemic-ppt",
+      "source": "./noranotdora--vibe-acdemic-ppt",
+      "description": "Skills and templates for automatic acdemic letax ppt design."
+    },
+    {
+      "name": "jameopotato--jimsproxy",
+      "source": "./jameopotato--jimsproxy",
+      "description": "Fork of HermesProxy with rich diagnostic logging for identifying translation bugs against Twinstar/Kronos servers"
+    },
+    {
+      "name": "itallstartedwithaidea--agent-skills",
+      "source": "./itallstartedwithaidea--agent-skills",
+      "description": "The definitive open-source agent skills library for AI-powered Google Ads management. 73+ skills across 10 categories. Built for googleadsagent.ai\u2122. Works with Claude Code, Cursor, Codex, Gemini, and "
+    },
+    {
+      "name": "velobase--velobase-harness",
+      "source": "./velobase--velobase-harness",
+      "description": "An open-source framework that takes your AI app from code to cash."
+    },
+    {
+      "name": "ffattiger--lore",
+      "source": "./ffattiger--lore",
+      "description": "Self-hosted long-term memory for most AI agents. "
+    },
+    {
+      "name": "easysoft--zentao-cli",
+      "source": "./easysoft--zentao-cli",
+      "description": "zentao-cli"
+    },
+    {
+      "name": "geiserx--awesome-catalunya",
+      "source": "./geiserx--awesome-catalunya",
+      "description": "Una selecci\u00f3n de software open source que da soporte espec\u00edfico a Catalunya"
+    },
+    {
+      "name": "leanpub--ghostai",
+      "source": "./leanpub--ghostai",
+      "description": "GhostAI"
+    },
+    {
+      "name": "daiimus--geistty",
+      "source": "./daiimus--geistty",
+      "description": "Native iOS/iPadOS SSH terminal powered by Ghostty's terminal engine"
+    },
+    {
+      "name": "bb-boy680--open-zread",
+      "source": "./bb-boy680--open-zread",
+      "description": "\u4eff\u7167 zread \u7684\u4e8c\u6b21\u5b9e\u73b0"
+    },
+    {
+      "name": "marcoskichel--empire",
+      "source": "./marcoskichel--empire",
+      "description": "Claude Code skills for the solo founder commanding a one-person empire"
+    },
+    {
+      "name": "itallstartedwithaidea--agent-skills",
+      "source": "./itallstartedwithaidea--agent-skills",
+      "description": "The definitive open-source agent skills library for AI-powered Google Ads management. 73+ skills across 10 categories. Built for googleadsagent.ai\u2122. Works with Claude Code, Cursor, Codex, Gemini, and "
+    },
+    {
+      "name": "evilfreelancer--rpa-skills",
+      "source": "./evilfreelancer--rpa-skills",
+      "description": "Agent skills collection, includes RPA workflow and Logika (Chelpanov formal logic)"
+    },
+    {
+      "name": "marcoskichel--empire",
+      "source": "./marcoskichel--empire",
+      "description": "Claude Code skills for the solo founder commanding a one-person empire"
+    },
+    {
+      "name": "datvietvac-techhub--manifestor",
+      "source": "./datvietvac-techhub--manifestor",
+      "description": "Parse, filter, build, and transform HLS & DASH manifests in Go. Zero dependencies. Ships as a library, HTTP proxy server, and CLI tool."
+    },
+    {
+      "name": "freshman515--fastagent",
+      "source": "./freshman515--fastagent",
+      "description": "\u9762\u5411 AI Coding \u7684\u591a Agent \u4f1a\u8bdd\u7ba1\u7406\u5de5\u5177\uff0c\u652f\u6301\u5206\u5c4f\u3001\u65e0\u9650\u753b\u5e03\u3001Git         worktree \u4e0e\u672c\u5730 Agent \u534f\u4f5c\u3002"
+    },
+    {
+      "name": "enderzcx--synapse",
+      "source": "./enderzcx--synapse",
+      "description": "synapse"
+    },
+    {
+      "name": "umikok7--roxy-skill",
+      "source": "./umikok7--roxy-skill",
+      "description": "roxy.skill \u201cI\u2019m Roxy. Nice to meet you.\u201d \u2014 Turn your agent into an aqua-braided Water Saint mage. \u300e\u6211\u53eb\u6d1b\u742a\u5e0c\uff0c\u8bf7\u591a\u6307\u6559\u3002\u300f\u2014\u2014 \u628a\u4f60\u7684Agent\u53d8\u6210\u6c34\u84dd\u8272\u9ebb\u82b1\u8fab\u7684\u6c34\u5723\u7ea7\u9b54\u672f\u5e08\u3002 "
+    },
+    {
+      "name": "91zgaoge--storyforge",
+      "source": "./91zgaoge--storyforge",
+      "description": "\ud83c\udf3f StoryForge (\u8349\u82d4) \u2014 AI\u5bfc\u6f14\u5f0f\u5c0f\u8bf4\u521b\u4f5c\u7cfb\u7edf\u3002Tauri+Rust\u9a71\u52a8\u7684\u684c\u9762\u5199\u4f5c\u8f6f\u4ef6\uff0c\u96c6\u6210\u77e5\u8bc6\u56fe\u8c31\u3001\u4f0f\u7b14\u8ffd\u8e2a\u3001StyleDNA\u98ce\u683c\u5f15\u64ce\u3001\u534f\u540c\u7f16\u8f91\u30017\u9636\u6bb5\u5168\u81ea\u52a8\u521b\u4f5c\u5de5\u4f5c\u6d41\u3002\u8ba9AI\u6210\u4e3a\u4f60\u7684\u521b\u4f5c\u642d\u6863\uff0c\u8d8a\u5199\u8d8a\u61c2\u4f60\u3002"
+    },
+    {
+      "name": "z1fex--seo-agency-in-a-box",
+      "source": "./z1fex--seo-agency-in-a-box",
+      "description": "\ud83d\udd0d AI-powered SEO agency with 12 teams & 75 agents \u2014 self-orchestrating audits, keyword research, content, AEO, link building & reporting. Powered by Firecrawl + Tavily. Say \"go\" and the entire agency "
+    },
+    {
+      "name": "thomassimmer--cyberkey",
+      "source": "./thomassimmer--cyberkey",
+      "description": "BLE hardware TOTP key. Touch an enrolled finger, the 6-digit code is typed automatically on your computer. Built on M5StickC Plus 2 (ESP32) in Rust."
+    },
+    {
+      "name": "hdering--iobroker-aura",
+      "source": "./hdering--iobroker-aura",
+      "description": "Aura is a modern visualization dashboard for ioBroker."
+    },
+    {
+      "name": "celsowm--ai-zero-to-hero",
+      "source": "./celsowm--ai-zero-to-hero",
+      "description": "ai-zero-to-hero"
+    },
+    {
+      "name": "thedotmack--redplanet-cleaning-station",
+      "source": "./thedotmack--redplanet-cleaning-station",
+      "description": "redplanet-cleaning-station"
+    },
+    {
+      "name": "dexclub--dexclub-cli",
+      "source": "./dexclub--dexclub-cli",
+      "description": "dexclub-cli"
+    },
+    {
+      "name": "fblissjr--comfyui-audioloophelper",
+      "source": "./fblissjr--comfyui-audioloophelper",
+      "description": "ComfyUI-AudioLoopHelper"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -136877,6 +137027,221 @@
       "name": "aeroxy--gsearch-cli",
       "source": "./aeroxy--gsearch-cli",
       "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI."
+    },
+    {
+      "name": "sisyphusse1-ops--claude-code-pro-pack",
+      "source": "./sisyphusse1-ops--claude-code-pro-pack",
+      "description": "CLAUDE.md + AGENTS.md 12-rule behavior file for Claude Code, Codex, Cursor, Hermes \u2014 drop-in, ~700 tokens, cuts AI coding mistakes ~40%\u2192~3%"
+    },
+    {
+      "name": "sisyphusse1-ops--claude-code-pro-pack",
+      "source": "./sisyphusse1-ops--claude-code-pro-pack",
+      "description": "CLAUDE.md + AGENTS.md 12-rule behavior file for Claude Code, Codex, Cursor, Hermes \u2014 drop-in, ~700 tokens, cuts AI coding mistakes ~40%\u2192~3%"
+    },
+    {
+      "name": "cyannshi--ai-interview-kit",
+      "source": "./cyannshi--ai-interview-kit",
+      "description": "Engineer user-research methodologies into AI prompts \u2014 professional-grade phone interviews at scale. 6 pluggable methodologies, 3 AI skills, 5+ tool compatibility."
+    },
+    {
+      "name": "6enta0--cpaplus",
+      "source": "./6enta0--cpaplus",
+      "description": "Modified from CLIProxyAPI and Management Center \u2014 with usage statistics, auth_index-based source resolution, and SQLite persistence"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "cyannshi--ai-interview-kit",
+      "source": "./cyannshi--ai-interview-kit",
+      "description": "Engineer user-research methodologies into AI prompts \u2014 professional-grade phone interviews at scale. 6 pluggable methodologies, 3 AI skills, 5+ tool compatibility."
+    },
+    {
+      "name": "cyannshi--ai-interview-kit",
+      "source": "./cyannshi--ai-interview-kit",
+      "description": "Engineer user-research methodologies into AI prompts \u2014 professional-grade phone interviews at scale. 6 pluggable methodologies, 3 AI skills, 5+ tool compatibility."
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "iofficeai--aioncli",
+      "source": "./iofficeai--aioncli",
+      "description": "AionCLI"
+    },
+    {
+      "name": "cracknco--kompressor",
+      "source": "./cracknco--kompressor",
+      "description": "Compress images, videos and audio on Android & iOS \u2014 one Kotlin Multiplatform API, native hardware, zero binaries"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "xopcai--xopc",
+      "source": "./xopcai--xopc",
+      "description": "The OPC workstation that grows with you"
+    },
+    {
+      "name": "renforce-dynamics--roborenforce",
+      "source": "./renforce-dynamics--roborenforce",
+      "description": "Robot Learning with All Algorithm Support"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "laojianzi--ghostty-monterey",
+      "source": "./laojianzi--ghostty-monterey",
+      "description": "build release for macOS monterey (version 12)"
+    },
+    {
+      "name": "drewpayment--mink",
+      "source": "./drewpayment--mink",
+      "description": "mink"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "antonlovesdnb--fishbowl",
+      "source": "./antonlovesdnb--fishbowl",
+      "description": "Containerized credential auditing perimeter for AI coding agents. Wraps Codex/Claude Code in Docker, audits every credential access via eBPF."
+    },
+    {
+      "name": "tjdrhs90--rn-launch-harness",
+      "source": "./tjdrhs90--rn-launch-harness",
+      "description": "Claude Code plugin that automates the entire React Native app lifecycle \u2014 from market research to App Store & Google Play submission. Harness engineering with Generator-Evaluator separation, file-base"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "beyondtheprotocol--miriam-gonzalez-case",
+      "source": "./beyondtheprotocol--miriam-gonzalez-case",
+      "description": "A website to follow Miriam Gonzalez's case, a metastatic breast cancer patient with neuroendocrine differentiation and FGFR1 amplification. One patient, an international team, and artificial intellige"
+    },
+    {
+      "name": "sytelus--xarchive",
+      "source": "./sytelus--xarchive",
+      "description": "Export your entire X.com (Twitter) bookmark collection \u2014 unlimited bookmarks, with folder assignments. Chrome extension, zero dependencies."
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "lauragp28--generador-trading-claude-code",
+      "source": "./lauragp28--generador-trading-claude-code",
+      "description": "Sistema autonomo de generacion de estrategias de trading algoritmico con Claude Code"
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
+    },
+    {
+      "name": "gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "source": "./gabriellpequeno--reserva-aqui---projeto-de-fim-de-ciclo",
+      "description": "Projeto de fim de clico ta turma T7 "
     },
     {
       "name": "cheerhuan--save-your-token",
