@@ -1,111 +1,129 @@
-## style-guide
+## varlock
 
-> name: style_guide_general
+> Rules for working with varlock env-spec files, providing syntax highlighting, autocompletion, and validation for environment variable specifications.
 
-# Varlock Documentation and Codebase Style Guide
+# Varlock Environment Specification Rules
+
+Rules for working with varlock env-spec files, providing syntax highlighting, autocompletion, and validation for environment variable specifications.
 
 <rule>
-name: style_guide_general
-
-description: |
-  This rule establishes standards for writing and editing documentation, comments, and prose in the Varlock codebase. It aims to ensure clarity, professionalism, and consistency across all written materials, including READMEs, guides, and inline documentation.
-
+name: env_spec_rules
+description: Standards for working with env-spec files in varlock projects
 filters:
-  # Applies to all Markdown, MDX, and documentation files
+  # Match env-spec files
   - type: file_extension
-    pattern: "\.(md|mdx|mdc)$"
-  # Applies to docstring and comment blocks in code
+    pattern: "\\.env\\.(schema|.*)$"
+  # Match files that look like env-spec files
   - type: content
-    pattern: "(?s)(/\*.*?\*/|//.*?$|#.*?$)"
+    pattern: "^\\s*#.*$|^\\s*[A-Z_][A-Z0-9_]*\\s*="
+  # Match file creation and modification events
+  - type: event
+    pattern: "file_(create|modify)"
 
 actions:
   - type: suggest
     message: |
-      When writing or editing documentation, comments, or prose:
+      When working with env-spec files:
 
-      1. **Clarity and Conciseness**
-         - Use clear, direct language. Avoid unnecessary words or repetition.
-         - Prefer active voice and short sentences.
-         - Avoid redundancy (e.g., do not restate the same point in different ways).
+      1. File Structure:
+         ```
+         .env.schema          # Schema definition with decorators and default values
+         .env.local           # Local (git-ignored) development overrides
+         .env.production      # Production values
+         .env.staging         # Staging values
+         ```
 
-      2. **Professional and Consistent Tone**
-         - Maintain a professional, helpful, and neutral tone.
-         - Use consistent terminology for technical concepts (e.g., "environment flag," "environment-specific file").
-         - Use standard terms for configuration, environment variables, and deployment concepts.
+      2. Syntax Rules:
+         - Comments must start with #
+         - Decorators must start with @
+         - Variable names must be uppercase with underscores
+         - Values can be strings, numbers, booleans, or function calls
 
-      3. **Grammar and Punctuation**
-         - Use correct grammar and spelling throughout.
-         - End all bullet points with a period or none, but be consistent within each list.
-         - Use en dashes (–) for ranges or parenthetical statements, not hyphens (-).
-         - Use American English spelling unless otherwise specified.
+      3. Root Level Decorators:
+         - @currentEnv - Sets current environment env var (e.g., `@currentEnv=$APP_ENV`)
+         - @defaultRequired - Sets default required state for all items
+         - @defaultSensitive - Sets default sensitive state for all items
+         
+         Note: When using default decorators, you only need to specify item-level decorators
+         when you want to override the default value. For example, if @defaultRequired=true,
+         you don't need to add @required to individual items.
 
-      4. **Formatting and Structure**
-         - Separate code blocks and prose clearly. Do not embed explanations within code blocks.
-         - Use Markdown formatting for emphasis, lists, and headings.
-         - For lists, use consistent bullet or numbering style. Indent nested lists properly.
-         - Use italics or bold for emphasis, but avoid overuse.
+      4. Item Level Decorators:
+         - @required - Makes item required (omit if @defaultRequired=true)
+         - @sensitive - Marks item as sensitive (omit if @defaultSensitive=true)
+         - @type - Sets value type (omit if basic string with no additional settings)
+         - @example - Provides example value
+         - @trim - Trims whitespace
+         - @deindent - Trims leading whitespace
 
-      5. **Technical Accuracy**
-         - Use correct and up-to-date technical terms (e.g., "IntelliSense" not "intellisense").
-         - Reference official documentation for third-party tools or platforms when possible.
-         - When describing configuration, use the exact variable or file names as they appear in code.
+      5. Value Types:
+         - string
+         - number (integer/float)
+         - boolean
+         - url
+         - email
+         - port
+         - path
+         - ip
+         - hostname
+         - uuid
+         - date
 
-      6. **Examples and Code**
-         - Place code examples in fenced code blocks with the appropriate language tag.
-         - Do not alter code examples for style unless correcting an error or inconsistency.
-         - Keep code and prose separate; do not mix explanations into code blocks.
-
-      7. **Environment and Configuration Concepts**
-         - Use "environment flag" for the concept controlling which environment-specific files are loaded.
-         - Use "environment-specific file" for files like `.env.development`, `.env.production`, etc.
-         - Use "non-sensitive" and "sensitive" for configuration values, and explain the criteria for each.
-
-      8. **Warnings and Notes**
-         - Use blockquotes (>) for warnings, notes, and tips. Start with "NOTE –", "TIP –", or "WARNING –" as appropriate.
-         - Be concise and direct in warnings and notes.
+      6. Function Calls:
+         - varlock() - For encrypted values
+         - fallback() - For fallback values
+         - concat() - For concatenated values
+         - exec() - For command output
+         - ref() - For referencing other variables
 
 examples:
   - input: |
-      You need to make sure to tell your package manager to override all the resolution of @next/env with @varlock/nextjs-integration, otherwise it won't work right.
-    output: |
-      You must tell your package manager to override all resolutions of `@next/env` with `@varlock/nextjs-integration`.
+      # Bad: Redundant decorators with defaults
+      # @defaultSensitive=true
+      # @defaultRequired=true
+      # ---
+      # @sensitive @required
+      SECRET_KEY=value
+
+      # Good: Using defaults
+      # @defaultSensitive=true
+      # @defaultRequired=true
+      # ---
+      SECRET_KEY=value
+    output: "Properly using default decorators"
 
   - input: |
-      While .env.schema, .env, and .env.local will always be loaded, loading env-specific files is controlled by a thing called an environment flag, which you can set however you want.
-    output: |
-      While `.env.schema`, `.env`, and `.env.local` will always be loaded, loading environment-specific files is controlled by the concept of an 'environment flag.'
+      # Bad: Redundant required decorator
+      # @defaultSensitive=true
+      # @defaultRequired=true
+      # ---
+      # @sensitive=false @required
+      PUBLIC_KEY=value
+
+      # Good: Only overriding sensitive
+      # @defaultSensitive=true
+      # @defaultRequired=true
+      # ---
+      # @sensitive=false
+      PUBLIC_KEY=value
+    output: "Properly overriding only necessary defaults"
 
   - input: |
-      NOTE - All non sensitive items will be bundled at build time via varlock's ENV object, but process.env replacements will only include NEXT_PUBLIC_ prefixed items. (be careful!)
-    output: |
-      NOTE – All non-sensitive items will be bundled at build time via varlock's `ENV` object, while `process.env` replacements will only include `NEXT_PUBLIC_`-prefixed items.
+      # Bad: Missing type decorator
+      PORT=3000
+      # Bad: Unnecessary type decorator for basic string
+      # @type=string
+      BASIC_STRING
 
-  - input: |
-      To enable type safety and intellisense for your env vars, you have to enable the @generateTypes root decorator in your .env.schema file.
-    output: |
-      To enable type-safety and IntelliSense for your env vars, you must enable the [`@generateTypes` root decorator] in your `.env.schema`.
+      # Good: With type decorators when necessary
+      # @type=port
+      PORT=3000
+      # @type=string(startsWith=abc_)
+      STRING_WITH_VALIDATION=
+      # no @type necessary for basic strings
+      BASIC_STRING=
 
-  - input: |
-      - Makes further DX improvements possible in the future, like more control over what gets bundled at build time
-    output: |
-      - Enables further DX improvements in the future, such as tighter control over which items are bundled at build time.
-
-  - input: |
-      In Cloudflare Workers Builds, you can't change the build command for prod or non-prod, and there's no such thing as branch specific env vars.
-    output: |
-      In Cloudflare Workers Builds, it is not possible to alter our build command for prod versus non-prod builds, and there is no concept of branch-specific env vars.
-
-  - input: |
-      ```js
-      // This code loads env vars and explains why
-      loadEnv(); // loads the env vars for the app, which is important for security
-      ```
-    output: |
-      ```js
-      loadEnv();
-      ```
-      
-      This code loads environment variables for the app.
+    output: "Environment variable with proper type"
 
 metadata:
   priority: high
