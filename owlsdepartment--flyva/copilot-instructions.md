@@ -1,42 +1,35 @@
-## nuxt-package
+## playground
 
-> Rules for the Vue/Nuxt adapter package
+> Rules for playground apps used to test the library
 
 
-# @flyva/nuxt
+# Playgrounds
 
-This is a Nuxt module. It auto-registers components, composables, and a plugin.
+Playgrounds are minimal apps that exercise the library features. They are private workspace packages — never published.
 
-## Module entry
+## Next.js playground (`playground/next`)
 
-`module.ts` uses `defineNuxtModule` from `@nuxt/kit`. It:
-1. Merges user config from `nuxt.config.ts` → `flyva` key into runtime config
-2. Registers the runtime plugin (`runtime/plugin.ts`) which creates the `PageTransitionManager` singleton
-3. Scans a user-defined `transitionsDir` folder, generates a virtual `flyva-transitions.ts` template
-4. Auto-imports composables (`useFlyvaTransition`, `useFlyvaLifecycle`, `useFlyvaStickyRef`, `useFlyvaState`, `useRefStack`, `globalGetRefStackItem`, `globalGetRefStack`)
-5. Auto-registers components from `runtime/components/` (`FlyvaPage`, `FlyvaLink`)
+- Uses `@flyva/next` and `@flyva/shared` as workspace deps
+- Layout wraps content in `<FlyvaRoot>` with a transitions map; route segment uses `FlyvaTransitionWrapper` so the manager supplies `context.container`
+- Page transitions live in `src/page-transitions/` — `defineTransition` or class implementing `PageTransition`
+- Navigation uses `<FlyvaLink>` from the library — test default and named transitions
+- Uses anime.js (`animejs`) for animations inside transitions
 
-## Key components
+## Nuxt playground (`playground/nuxt`)
 
-- **FlyvaPage** — wraps `<NuxtPage>` and coordinates the manager lifecycle with `page:start` / `page:finish` hooks and Vue `<Transition>`. This is the Nuxt-native equivalent of React's `FlyvaTransitionWrapper` — do NOT try to replicate the React approach
-- **FlyvaLink** — wraps `<NuxtLink>`, calls `prepare` then `navigateTo`. Passes `fromHref`/`toHref` in options. Emits `transitionStart` event
+- References the Nuxt module directly: `modules: ['../../packages/nuxt/module']`
+- Config key: `flyva` in `nuxt.config.ts`
+- Transitions live in a folder specified by `transitionsDir` config
+- Uses auto-imported composables (`useFlyvaTransition`, `useFlyvaState`)
+- Demo UI lives under `components/demo/`. **`:deep(h3)` / `:deep(p)`-style selectors (bare tags) are unreliable** in those components (slot content, FLIP clone, CSS modules). Prefer explicit classes on slotted markup or other patterns; do not revert manual fixes there without checking in the browser.
 
-## Nuxt-specific patterns (do NOT use React patterns here)
+## When modifying library code
 
-- Reactivity: Vue's `ref()` IS the reactive primitive — no need for Proxy wrappers like `useRefState`
-- Manager access: via plugin `$flyvaManager` (`useNuxtApp().$flyvaManager`) — NOT React context
-- Config: via `useRuntimeConfig().public.flyva` — NOT a custom config context
-- Lifecycle: `nuxtApp.hook('page:start')` / `nuxtApp.hook('page:finish')` — NOT useEffect on pathname
-- Cleanup: `onScopeDispose` / `onUnmounted` — NOT useEffect return
-- Template refs: `useTemplateRef()` returns a `Ref` — access via `.value`, NOT `.current`
+Always verify changes work in the relevant playground. Transitions implement `PageTransition` from `@flyva/shared`.
 
-## Conventions
+## Playwright MCP
 
-- Runtime code lives in `runtime/` — composables, components, plugin
-- Utilities in `utils/` — `defuReplaceArray`, `refReactiveFactory`
-- The module augments `@nuxt/schema` for typed `RuntimeConfig`
-- Components are `.vue` files, auto-registered globally
-- Peer-depends on `nuxt >=3.14`
+[`.cursor/mcp.json`](.cursor/mcp.json) registers the official [Playwright MCP](https://playwright.dev/docs/getting-started-mcp) server for Cursor. Enable it under **Settings → MCP**, restart Cursor if needed, then run a playground (`pnpm dev:next` on port 3200, `pnpm dev:nuxt` on 3100) and ask the agent to exercise transitions in the browser. Package E2E tests live under `packages/next/e2e` and `packages/nuxt/e2e`.
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
