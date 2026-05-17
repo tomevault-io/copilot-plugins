@@ -1,0 +1,9 @@
+{
+  "name": "sisig-ai--doctor",
+  "displayName": "doctor",
+  "description": "Doctor is a tool for discovering, crawl, and indexing web sites to be exposed as an MCP server for LLM agents.",
+  "version": "1.0.0",
+  "author": "sisig-ai",
+  "homepage": "https://github.com/sisig-ai/doctor",
+  "skills": []
+}
