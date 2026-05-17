@@ -1,0 +1,9 @@
+{
+  "name": "a2aproject--a2a-java",
+  "displayName": "a2a-java",
+  "description": "Official Java SDK for the Agent2Agent (A2A) Protocol",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-java",
+  "skills": []
+}
