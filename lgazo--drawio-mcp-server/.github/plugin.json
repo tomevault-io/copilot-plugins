@@ -1,0 +1,9 @@
+{
+  "name": "lgazo--drawio-mcp-server",
+  "displayName": "drawio-mcp-server",
+  "description": "Draw.io Model Context Protocol (MCP) Server",
+  "version": "1.0.0",
+  "author": "lgazo",
+  "homepage": "https://github.com/lgazo/drawio-mcp-server",
+  "skills": []
+}
