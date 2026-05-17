@@ -1,0 +1,9 @@
+{
+  "name": "squalr--squalr",
+  "displayName": "Squalr",
+  "description": "The successor to Squalr, rewritten from scratch in Rust.",
+  "version": "1.0.0",
+  "author": "Squalr",
+  "homepage": "https://github.com/Squalr/Squalr",
+  "skills": []
+}
