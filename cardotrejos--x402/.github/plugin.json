@@ -1,0 +1,9 @@
+{
+  "name": "cardotrejos--x402",
+  "displayName": "x402",
+  "description": "Elixir SDK for the x402 HTTP payment protocol",
+  "version": "1.0.0",
+  "author": "cardotrejos",
+  "homepage": "https://github.com/cardotrejos/x402",
+  "skills": []
+}
