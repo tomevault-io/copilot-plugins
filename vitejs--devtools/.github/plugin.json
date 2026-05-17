@@ -1,0 +1,14 @@
+{
+  "name": "vitejs--devtools",
+  "displayName": "devtools",
+  "description": "DevTools for Vite (Rolldown). ",
+  "version": "1.0.0",
+  "author": "vitejs",
+  "homepage": "https://github.com/vitejs/devtools",
+  "skills": [
+    {
+      "name": "vite-devtools-kit",
+      "description": ""
+    }
+  ]
+}
