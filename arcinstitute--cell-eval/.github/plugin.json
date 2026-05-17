@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--cell-eval",
+  "displayName": "cell-eval",
+  "description": "Comprehensive suite for evaluating perturbation prediction models",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/cell-eval",
+  "skills": []
+}
