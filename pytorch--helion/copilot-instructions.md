@@ -1,0 +1,66 @@
+## helion
+
+> This document explains how to work effectively in this repository.
+
+# Repository Guidelines
+
+This document explains how to work effectively in this repository.
+
+## Project Structure & Module Organization
+
+- `helion/`: Core Python package (DSL, compiler, runtime, autotuner).
+- `test/`: PyTest test suite (`test_*.py`) with golden files `*.expected`.
+- `examples/`: Runnable examples; each script must define a `main()` (pre-commit check).
+- `docs/`: Sphinx docs; outputs to `site/`.
+- `benchmarks/`, `dist/`, `scripts/`: Ancillary utilities and build artifacts.
+
+## Build, Test, and Development Commands
+
+- Lint/format/type-check:
+  - `./lint.sh` (auto-formats and fixes some issues)
+  - Optional hooks: `pre-commit run -a`
+- Run tests: `pytest <filename>`
+  - Run subset: `pytest <filename> -k name_substring`
+- Build docs: `make -C docs html` (writes HTML under `site/`)
+
+## Coding Style & Naming Conventions
+
+- Language: Python 3.10+ with type hints; enable `from __future__ import annotations`.
+- Formatting: Ruff formatter, line length 88, double quotes.
+- Imports: Sorted by Ruff/isort; single import per line; avoid local scope imports when possible.
+- Helion import pattern: `import helion; import helion.language as hl` (do not `import helion as hl`).
+- Modules/files: snake_case; tests `test_*.py`; examples `*.py` with `main()`.
+- Run `./lint.sh fix` before pushing; CI uses Ruff and Pyrefly.
+- Don't call `del ...` / `_ = ...` on unused function args.  There is not unused arg linter.
+
+## Testing Guidelines
+
+- Framework: PyTest. Place tests in `test/` and name `test_<feature>.py`.
+- Use helpers in `helion._testing` (e.g., `check_example`).
+- Runtime: Many tests require CUDA, PyTorch nightly, and Triton dev builds; keep each test fast (<~30s).
+- Local tips: For iteration, use `-k`, or set `HELION_AUTOTUNE_EFFORT=none` to skip autotuning.
+  - Warning: Do not run the full test suite with `HELION_AUTOTUNE_EFFORT=none` — it can change execution paths and break tests. Only use this env var for targeted local iteration on specific tests.
+- Helpful env vars: `HELION_LOGS=all|+all`, `HELION_PRINT_OUTPUT_CODE=1`, `HELION_AUTOTUNE_EFFORT=none`.
+
+### PyTest Debugging Tips
+
+- Prefer `pytest -x -vv -s` while iterating: stops on first failure, prints full logs and stderr (needed to see generated code from failures that write to stderr).
+- Target a single test via node id: `pytest test/test_examples.py::TestExamples::test_attention_block_pointer -x -vv -s`.
+- For long outputs, pipe to a file: `... -s 2>&1 | tee /tmp/pytest.out`.
+- Enable dtype/codegen checks when chasing codegen bugs: set `HELION_DEBUG_DTYPE_ASSERTS=1` and/or `HELION_PRINT_OUTPUT_CODE=1`.
+- Show skip reasons with `pytest -ra`; narrow with `-k <pattern>` for fast cycles.
+- When running many tests, prefer `pytest-xdist` with `-n4`
+
+## Agent-Specific Instructions
+
+- Do NOT run `pip install`, networked installs, or system package managers.
+- Do NOT run `git commit` unless asked to directly.
+- Do NOT run `git push`; users handle updating PRs.
+- Do NOT `print()` inside kernels; use logging or host-side code.
+- Tile indexing preserves dimensions; `i = hl.tile(...); x[i]` keeps ranks.
+- Do NOT add unnecessary error checks via `hasattr`, `getattr`, `except`, etc.
+- When asked to read a Github issue or pull request, use `gh api`.
+
+---
+> Source: [pytorch/helion](https://github.com/pytorch/helion) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
