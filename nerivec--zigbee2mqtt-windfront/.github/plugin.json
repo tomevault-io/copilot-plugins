@@ -1,0 +1,9 @@
+{
+  "name": "nerivec--zigbee2mqtt-windfront",
+  "displayName": "zigbee2mqtt-windfront",
+  "description": "Open Source frontend for Zigbee2MQTT",
+  "version": "1.0.0",
+  "author": "Nerivec",
+  "homepage": "https://github.com/Nerivec/zigbee2mqtt-windfront",
+  "skills": []
+}
