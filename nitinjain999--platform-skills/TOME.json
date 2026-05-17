@@ -4,7 +4,7 @@
   "repo": "platform-skills",
   "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nitinjain999/platform-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T06:44:35Z"
+  "distributed_at": "2026-05-17T06:48:08Z"
 }
