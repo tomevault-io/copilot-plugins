@@ -1,0 +1,9 @@
+{
+  "name": "techarohq--anubis",
+  "displayName": "anubis",
+  "description": "Weighs the soul of incoming HTTP requests to stop AI crawlers",
+  "version": "1.0.0",
+  "author": "TecharoHQ",
+  "homepage": "https://github.com/TecharoHQ/anubis",
+  "skills": []
+}
