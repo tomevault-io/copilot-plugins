@@ -1,0 +1,9 @@
+{
+  "name": "intro-skipper--segment-editor",
+  "displayName": "segment-editor",
+  "description": "Segment Editor for Jellyfin Segment API ",
+  "version": "1.0.0",
+  "author": "intro-skipper",
+  "homepage": "https://github.com/intro-skipper/segment-editor",
+  "skills": []
+}
