@@ -1,0 +1,9 @@
+{
+  "name": "fosterdill--ansel",
+  "displayName": "ansel",
+  "description": "Disk Inventory X-style file system visualizer built with Tauri + React. Treemap, age heatmap, largest-files view, trash-or-delete cleanup workflow.",
+  "version": "1.0.0",
+  "author": "fosterdill",
+  "homepage": "https://github.com/fosterdill/ansel",
+  "skills": []
+}
