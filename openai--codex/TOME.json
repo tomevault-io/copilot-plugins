@@ -1,0 +1,51 @@
+{
+  "name": "codex",
+  "owner": "openai",
+  "repo": "codex",
+  "description": "Lightweight coding agent that runs in your terminal",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "test-tui",
+      "path": ".codex/skills/test-tui",
+      "github_url": "https://github.com/openai/codex/tree/main/.codex/skills/test-tui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openai/codex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T17:30:54Z"
+}
