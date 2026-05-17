@@ -1,0 +1,9 @@
+{
+  "name": "liminalshruti--liminal-agents",
+  "displayName": "liminal-agents",
+  "description": "Three bounded agents (Analyst, SDR, Auditor) that do agency-priced B2B work locally. Each refuses out of lane and names the right agent. SQLCipher-encrypted vault keeps the record. Built for the AI Ag",
+  "version": "1.0.0",
+  "author": "liminalshruti",
+  "homepage": "https://github.com/liminalshruti/liminal-agents",
+  "skills": []
+}
