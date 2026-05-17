@@ -1,0 +1,9 @@
+{
+  "name": "pyiner--garyx",
+  "displayName": "garyx",
+  "description": "Garyx gateway, channel runtime, and desktop app",
+  "version": "1.0.0",
+  "author": "Pyiner",
+  "homepage": "https://github.com/Pyiner/garyx",
+  "skills": []
+}
