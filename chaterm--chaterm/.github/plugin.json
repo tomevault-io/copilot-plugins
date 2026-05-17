@@ -1,0 +1,9 @@
+{
+  "name": "chaterm--chaterm",
+  "displayName": "Chaterm",
+  "description": "Open source AI terminal for cloud and infrastructure management, enabling you to deploy, troubleshoot, and automate services using natural language and intelligent agents.",
+  "version": "1.0.0",
+  "author": "chaterm",
+  "homepage": "https://github.com/chaterm/Chaterm",
+  "skills": []
+}
