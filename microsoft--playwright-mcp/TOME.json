@@ -1,0 +1,63 @@
+{
+  "name": "playwright",
+  "owner": "microsoft",
+  "repo": "playwright-mcp",
+  "description": "Playwright MCP server",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "playwright-dev",
+      "path": ".claude/skills/playwright-dev",
+      "github_url": "https://github.com/microsoft/playwright-mcp/tree/main/.claude/skills/playwright-dev",
+      "description": ""
+    },
+    {
+      "name": "playwright-roll",
+      "path": ".claude/skills/playwright-roll",
+      "github_url": "https://github.com/microsoft/playwright-mcp/tree/main/.claude/skills/playwright-roll",
+      "description": ""
+    },
+    {
+      "name": "playwright-roll",
+      "path": ".claude/skills/playwright-roll",
+      "github_url": "https://github.com/microsoft/playwright-mcp/tree/main/.claude/skills/playwright-roll",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/playwright-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T21:32:00Z"
+}
