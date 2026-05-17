@@ -4,7 +4,7 @@
   "repo": "vcp",
   "description": "Vibe Coding Protocal - Security-first protocol for AI-generated code, multiple standards with real-time enforcement and multi-AI pipeline orchestration",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Z-M-Huang/vcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T12:36:14Z"
+  "distributed_at": "2026-05-17T12:38:35Z"
 }
