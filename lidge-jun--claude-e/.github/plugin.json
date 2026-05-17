@@ -1,0 +1,9 @@
+{
+  "name": "lidge-jun--claude-e",
+  "displayName": "claude-e",
+  "description": "PTY-backed claude -p-style executor for Claude Code, packaged as the claude-e npm CLI",
+  "version": "1.0.0",
+  "author": "lidge-jun",
+  "homepage": "https://github.com/lidge-jun/claude-e",
+  "skills": []
+}
