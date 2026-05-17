@@ -1,47 +1,61 @@
-## frontend-10x-external-skills
+## frontend-10x-motion
 
-> Routing rules for imported animation, 3D, and design-engineering skills.
+> Motion, parallax, 3D, shader, and performance rules for distinctive frontend work.
 
 
-# External Frontend Skill Routing
+# Motion and 3D Rules
 
-When frontend work becomes specialized, route to the imported skill that matches the problem instead of giving generic advice.
+Motion is a system with three layers:
 
-Preferred routing:
+- ambient: slow loops, shader drift, environmental life
+- interaction: hover, press, open, focus
+- narrative: scroll and route choreography
 
-- use `modern-web-design` for broad contemporary design direction
-- use `motion-framer` for React component motion, layout transitions, menus, overlays, and most UI animation
-- use `gsap-scrolltrigger` for scrollytelling, pinning, scrubbed sections, and cross-surface choreography
-- use `react-three-fiber` for React-based 3D scenes
-- use `threejs-webgl` for lower-level or non-React Three.js work
-- use `web3d-integration-patterns` when multiple motion/3D libraries need to work together coherently
-- use `rive-interactive` for stateful designer-authored runtime animations
-- use `lottie-animations` for After Effects exported motion assets
-- use `pixijs-2d` for GPU-accelerated 2D graphics and particle layers
-- use `spline-interactive` when a visual-editor 3D workflow is the right fit
-- use `aframe-webxr` for browser VR/AR or WebXR work
-- use `lightweight-3d-effects` when decorative depth is enough and a full engine is overkill
-- use `animejs` for framework-agnostic timeline/SVG animation
-- use `barba-js` for multi-page transition systems
-- use `scroll-reveal-libraries` only for simple reveal-on-scroll work
-- use `blender-web-pipeline` and `substance-3d-texturing` for 3D asset and material pipelines
-- use `babylonjs-engine` or `playcanvas-engine` when the work is closer to game-engine style interactive 3D
+Apply these rules:
 
-Routing priorities:
+- One strong hero move beats many small distractions.
+- If a page has a heavy 3D or shader hero, quiet the rest of the UI.
+- Do not propose plain CSS as the primary animation system by default.
+- Use CSS only for tiny hover/focus states, tokenized fallbacks, native progressive enhancement, and view-transition class styling.
+- Use Motion for component and layout animation.
+- Use GSAP for orchestration, mixed-surface sequences, and ScrollTrigger narratives.
+- Pair GSAP with Lenis when synchronized scroll is part of the concept.
+- Use React Three Fiber plus drei for React 3D scenes.
+- Use OGL or shader-first pipelines when the surface itself is the product.
+- Use shaders when the surface itself is the brand move, not as filler.
+- Prefer interruptible transitions for interaction states and keyframes for staged one-shot sequences.
+- Animate contextual icon swaps with small opacity, scale, and blur changes instead of hard replacing them.
+- Split enter animations into semantic chunks and stagger them lightly.
+- Make exit animations subtler than enter animations.
+- Treat sound, haptics, and toasts as optional feedback layers for the interaction system, not random garnish.
+- Use React `startTransition`, `useTransition`, `useDeferredValue`, and `useEffectEvent` to keep animated UIs responsive.
+- Use React or browser view transitions as progressive enhancement when the support matrix and framework version allow it.
 
-- prefer `motion-framer` over ad hoc React animation code
-- prefer `gsap-scrolltrigger` over generic scroll-effect improvisation
-- prefer `react-three-fiber` over low-level Three.js in React unless low-level control is required
-- prefer `rive-interactive` over Lottie when runtime state and interactivity matter
-- prefer `lightweight-3d-effects` over full 3D engines when only mild decorative depth is needed
+Performance rules:
 
-Exceptions:
+- Prefer animating `transform` and `opacity`.
+- Be careful with `filter`, `backdrop-filter`, large blur, and animated shadow.
+- Narrow `will-change` usage.
+- Ship a readable poster frame before heavy canvas or video fully hydrates.
+- Degrade aggressively on mobile and under `prefers-reduced-motion`.
+- Above-the-fold copy and CTA must remain readable while motion runs.
+- Do not animate large blur or shadow changes across big surfaces unless profiling says it is fine.
+- Do not hide expensive animation behavior behind giant CSS keyframe stacks.
 
-- do not force imported skills when the existing codebase already standardizes on another well-chosen stack
-- do not use `locomotive-scroll` as a new default; prefer Lenis unless maintaining existing Locomotive work or explicitly requested
-- do not use `scroll-reveal-libraries` for brand-defining motion systems
+Parallax rules:
 
-Repo-local mirrored references live in `/Users/kevinliu/Downloads/Dedalus/frontend-frontier-pack/third-party-skills/freshtechbro/` and the routing overview lives in `/Users/kevinliu/Downloads/Dedalus/frontend-frontier-pack/codex-skill/frontend-frontier/references/external-frontend-skill-map.md`.
+- Keep pointer movement small and clamped.
+- Foreground moves more than background.
+- Do not put independent drift on every layer.
+- Never let text feel detached from its container.
+- Keep text and CTA zones on calmer layers than decorative motion.
+
+Scroll rules:
+
+- Every pinned or scrubbed section must explain something.
+- Avoid long scroll-jacking sequences.
+- Test touch devices before committing to choreography-heavy storytelling.
+- Do not drop Lenis into dense docs or dashboards just because it sounds premium.
 
 ---
 > Source: [Kevin-Liu-01/Loop](https://github.com/Kevin-Liu-01/Loop) — distributed by [TomeVault](https://tomevault.io).
