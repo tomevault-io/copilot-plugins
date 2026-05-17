@@ -1,0 +1,9 @@
+{
+  "name": "loka-network--loka-p2p-lnd",
+  "displayName": "loka-p2p-lnd",
+  "description": "Loka AI Agentic Payment P2P Lightning Node \u26a1\ufe0f is built natively on top of the established Bitcoin Lightning Network infrastructure. By pushing the boundaries of traditional payment channels, we are bu",
+  "version": "1.0.0",
+  "author": "loka-network",
+  "homepage": "https://github.com/loka-network/loka-p2p-lnd",
+  "skills": []
+}
