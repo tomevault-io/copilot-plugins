@@ -1,0 +1,9 @@
+{
+  "name": "steipete--releasebar",
+  "displayName": "ReleaseBar",
+  "description": "Release freshness dashboard for open source maintainers",
+  "version": "1.0.0",
+  "author": "steipete",
+  "homepage": "https://github.com/steipete/ReleaseBar",
+  "skills": []
+}
