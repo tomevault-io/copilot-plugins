@@ -1,0 +1,22 @@
+{
+  "name": "microsoft--playwright-mcp",
+  "displayName": "playwright",
+  "description": "Playwright MCP server",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/playwright-mcp",
+  "skills": [
+    {
+      "name": "playwright-dev",
+      "description": ""
+    },
+    {
+      "name": "playwright-roll",
+      "description": ""
+    },
+    {
+      "name": "playwright-roll",
+      "description": ""
+    }
+  ]
+}
