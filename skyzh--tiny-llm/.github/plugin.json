@@ -1,0 +1,9 @@
+{
+  "name": "skyzh--tiny-llm",
+  "displayName": "tiny-llm",
+  "description": "A course of learning LLM inference serving on Apple Silicon for systems engineers: build a tiny vLLM + Qwen.",
+  "version": "1.0.0",
+  "author": "skyzh",
+  "homepage": "https://github.com/skyzh/tiny-llm",
+  "skills": []
+}
