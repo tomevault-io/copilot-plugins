@@ -128454,6 +128454,366 @@
       "description": "ComfyUI-AudioLoopHelper"
     },
     {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "milerius--mantis",
+      "source": "./milerius--mantis",
+      "description": "A modular, no_std-first Rust foundation for low-latency trading systems \u2014 fixed-point arithmetic, typed event transport, lock-free queues, verified with Miri & Kani"
+    },
+    {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "miwr--swbyedpi",
+      "source": "./miwr--swbyedpi",
+      "description": "Swift Bypass DPI (based on byedpi) wrapper + iOS app"
+    },
+    {
+      "name": "daronyondem--agent-cockpit",
+      "source": "./daronyondem--agent-cockpit",
+      "description": "Run AI assistants from your browser. Keep your data. Switch vendors anytime."
+    },
+    {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "daronyondem--agent-cockpit",
+      "source": "./daronyondem--agent-cockpit",
+      "description": "Run AI assistants from your browser. Keep your data. Switch vendors anytime."
+    },
+    {
+      "name": "celltoolz--notepad-ide",
+      "source": "./celltoolz--notepad-ide",
+      "description": "A full Python IDE & GUI Designer with professional-grade tools"
+    },
+    {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "walshydev--oc-orchestrator",
+      "source": "./walshydev--oc-orchestrator",
+      "description": "oc-orchestrator"
+    },
+    {
+      "name": "walshydev--oc-orchestrator",
+      "source": "./walshydev--oc-orchestrator",
+      "description": "oc-orchestrator"
+    },
+    {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "julientant--blogwatcher-cli",
+      "source": "./julientant--blogwatcher-cli",
+      "description": "stay on top of your favorite blogs"
+    },
+    {
+      "name": "ghostcomplex--isotopes",
+      "source": "./ghostcomplex--isotopes",
+      "description": "isotopes"
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "kevin-liu-01--loop",
+      "source": "./kevin-liu-01--loop",
+      "description": "An operator desk for self-updating agent skills. track sources, refresh with agents, version every change. Built with Vercel AI Gateway + Sandboxes + Queues."
+    },
+    {
+      "name": "leeovery--agentic-skills",
+      "source": "./leeovery--agentic-skills",
+      "description": "Opinionated development skills for AI coding agents"
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "tabloy--keygate",
+      "source": "./tabloy--keygate",
+      "description": "Open source license management platform. Subscriptions, perpetual, trials, floating licenses, usage metering, Stripe payments, team seats, and admin dashboard. Self-hosted       alternative to Keygen "
+    },
+    {
+      "name": "martin-ger--esp32-eth-wifi-bridge",
+      "source": "./martin-ger--esp32-eth-wifi-bridge",
+      "description": "ESP32 as WiFi Access Point (L2 Ethernet Bridge)"
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "gorroai--flash-moe",
+      "source": "./gorroai--flash-moe",
+      "description": "flash-moe"
+    },
+    {
+      "name": "endel--prediction-multiplayer-research",
+      "source": "./endel--prediction-multiplayer-research",
+      "description": "Research on prediction techniques for networked games"
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "noemon--noemon-arc-agi",
+      "source": "./noemon--noemon-arc-agi",
+      "description": "noemon-arc-agi"
+    },
+    {
+      "name": "been012--df-storyteller",
+      "source": "./been012--df-storyteller",
+      "description": "A companion journal and legends browser for Dwarf Fortress. Track your fortress, explore world history, map your world, and document the stories that emerge from your gameplay."
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "repka3--cohere-transcribe-vad-word-timestamps",
+      "source": "./repka3--cohere-transcribe-vad-word-timestamps",
+      "description": "cohere-transcribe-vad-word-timestamps"
+    },
+    {
+      "name": "11cafe--zopia-skills",
+      "source": "./11cafe--zopia-skills",
+      "description": "zopia-skills"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "didisouzacosta--videoeditorkit",
+      "source": "./didisouzacosta--videoeditorkit",
+      "description": "VideoEditorKit is a SwiftUI video editing framework for iOS 18.6+ with a ready-to-embed editor, export, serializable editing state, and host-controlled configuration."
+    },
+    {
+      "name": "nitinjain999--platform-skills",
+      "source": "./nitinjain999--platform-skills",
+      "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance."
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "tpavanipradeep--everything-claude-code",
+      "source": "./tpavanipradeep--everything-claude-code",
+      "description": "Copy of affaan-m/everything-claude-code"
+    },
+    {
+      "name": "vincentgourbin--gemma-4-swift-mlx",
+      "source": "./vincentgourbin--gemma-4-swift-mlx",
+      "description": "Native Gemma 4 multimodal (text+vision+audio+video) inference for Apple Silicon via MLX Swift"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "darwinhace--codex-linux-app",
+      "source": "./darwinhace--codex-linux-app",
+      "description": "codex-linux-app"
+    },
+    {
+      "name": "coretonecaptures--nam-editor",
+      "source": "./coretonecaptures--nam-editor",
+      "description": "NAM Metadata editor"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "chrismdp--airskills",
+      "source": "./chrismdp--airskills",
+      "description": "Manage AI coding skills across Claude Code, Cursor, Copilot, and 15 more agents"
+    },
+    {
+      "name": "noemon--noemon-arc-agi",
+      "source": "./noemon--noemon-arc-agi",
+      "description": "noemon-arc-agi"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "btcjt--titan",
+      "source": "./btcjt--titan",
+      "description": "A native nsite:// browser for the Nostr web. Named after Titan, moon of Saturn."
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "bozbuilds--aingram",
+      "source": "./bozbuilds--aingram",
+      "description": "Local-first agent memory in one SQLite file: sqlite-vec/QJL two-pass vector + FTS5 search, knowledge graph (optional auto capture,) Ed25519-signed entries, and MCP server. No cloud dependencies."
+    },
+    {
+      "name": "ericwhitedev--openxmlsdkts",
+      "source": "./ericwhitedev--openxmlsdkts",
+      "description": "Open XML SDK for TypeScript"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "nordcoderd--spring-boot-code-guard",
+      "source": "./nordcoderd--spring-boot-code-guard",
+      "description": "Architectural tests for Spring Boot Best Practices for Kotlin"
+    },
+    {
+      "name": "didisouzacosta--videoeditorkit",
+      "source": "./didisouzacosta--videoeditorkit",
+      "description": "VideoEditorKit is a SwiftUI video editing framework for iOS 18.6+ with a ready-to-embed editor, export, serializable editing state, and host-controlled configuration."
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "loicalleyne--bufarrowlib",
+      "source": "./loicalleyne--bufarrowlib",
+      "description": "Transcode between Protobuf and Arrow"
+    },
+    {
+      "name": "tpavanipradeep--everything-claude-code",
+      "source": "./tpavanipradeep--everything-claude-code",
+      "description": "Copy of affaan-m/everything-claude-code"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "wasm-bindgen--ts-gen",
+      "source": "./wasm-bindgen--ts-gen",
+      "description": "Automated TypeScript Bindgen"
+    },
+    {
+      "name": "hhopke--intervals-icu-mcp",
+      "source": "./hhopke--intervals-icu-mcp",
+      "description": "MCP server for Intervals.icu \u2014 training data, wellness metrics, and performance analysis for Claude and other LLMs"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "chang-xinhai--wxecho",
+      "source": "./chang-xinhai--wxecho",
+      "description": "WxEcho: Extract and export your WeChat history on macOS (macOS \u539f\u751f\u5fae\u4fe1\u804a\u5929\u8bb0\u5f55\u5bfc\u51fa\u5de5\u5177)"
+    },
+    {
+      "name": "jookos--obgo-sync",
+      "source": "./jookos--obgo-sync",
+      "description": "A golang headless client for the obsidian self-hosted sync"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "chrismdp--airskills",
+      "source": "./chrismdp--airskills",
+      "description": "Manage AI coding skills across Claude Code, Cursor, Copilot, and 15 more agents"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "nmvr2600--minimax-token-plan-skills",
+      "source": "./nmvr2600--minimax-token-plan-skills",
+      "description": "Minimax Token Plan Skills"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
+      "name": "harnessworld--one-context",
+      "source": "./harnessworld--one-context",
+      "description": "one-context"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -137244,6 +137604,56 @@
       "description": "Projeto de fim de clico ta turma T7 "
     },
     {
+      "name": "haoaaa-111--taoketong",
+      "source": "./haoaaa-111--taoketong",
+      "description": "\ud83c\udf93 \u8bfe\u8868\u89e3\u6790 \u00b7 \u70b9\u540d\u9884\u6d4b \u00b7 \u9003\u8bfe\u65b9\u6848 \u00b7 \u53cd\u9988\u5b66\u4e60"
+    },
+    {
+      "name": "mobai-app--chatgpt-auth-kit",
+      "source": "./mobai-app--chatgpt-auth-kit",
+      "description": "Sign in with a ChatGPT subscription and call the Codex Responses API from your iOS app."
+    },
+    {
+      "name": "hyiger--filament-db",
+      "source": "./hyiger--filament-db",
+      "description": "filament-db"
+    },
+    {
+      "name": "hxbreak--opencode-android",
+      "source": "./hxbreak--opencode-android",
+      "description": "opencode android client unofficial"
+    },
+    {
+      "name": "dsegovia90--cocompute",
+      "source": "./dsegovia90--cocompute",
+      "description": "cocompute"
+    },
+    {
+      "name": "amaralkaff--mcp-unknowncheat",
+      "source": "./amaralkaff--mcp-unknowncheat",
+      "description": "MCP server for UnknownCheats forum \u2014 Cloudflare bypass via puppeteer-real-browser, thread scraping, code extraction"
+    },
+    {
+      "name": "hyiger--filament-db",
+      "source": "./hyiger--filament-db",
+      "description": "filament-db"
+    },
+    {
+      "name": "zevtos--agentpipe",
+      "source": "./zevtos--agentpipe",
+      "description": "Gated pipeline orchestration for Claude Code and Codex CLI: 9 specialist agents, 15 multi-agent workflows, skills, and a release-zip system. Multi-vendor \u2014 same skills work in both clients."
+    },
+    {
+      "name": "moshe-ship--tarminal",
+      "source": "./moshe-ship--tarminal",
+      "description": "The first native macOS terminal with proper Arabic/RTL text support. \u062a\u0631\u0645\u0646\u0627\u0644"
+    },
+    {
+      "name": "qmqsun--bloomberg-mcp",
+      "source": "./qmqsun--bloomberg-mcp",
+      "description": "Enhanced MCP server for Bloomberg Terminal \u2014 BDP/BDH/BDS/BQL/TA with 18 tools, caching, and dynamic screening. Based on tallinn102/bloomberg-mcp."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -139117,6 +139527,11 @@
       "name": "seandavi--lifeos-template",
       "source": "./seandavi--lifeos-template",
       "description": "An opinionated, agentic life-OS for Claude Code \u2014 a markdown vault with daily/weekly/quarterly review skills baked in. Includes the feedback layer most templates skip."
+    },
+    {
+      "name": "agentmystia--th6-web",
+      "source": "./agentmystia--th6-web",
+      "description": "th6_web"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -237897,6 +238312,16 @@
       "name": "siddik-official--nextford",
       "source": "./siddik-official--nextford",
       "description": "nextford"
+    },
+    {
+      "name": "hash727--hashpicedits",
+      "source": "./hash727--hashpicedits",
+      "description": "hashpicedits"
+    },
+    {
+      "name": "moeffel--claude-workflow",
+      "source": "./moeffel--claude-workflow",
+      "description": "Portable Claude Code Standard Workflow \u2014 drop CLAUDE.md into any repo. 7-step dev process, model routing, design routing, agent orchestration. Works on CLI, Desktop, IDE, and Claude Cloud."
     }
   ]
 }
