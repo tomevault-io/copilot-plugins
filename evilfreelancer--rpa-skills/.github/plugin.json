@@ -1,0 +1,9 @@
+{
+  "name": "evilfreelancer--rpa-skills",
+  "displayName": "rpa-skills",
+  "description": "Agent skills collection, includes RPA workflow and Logika (Chelpanov formal logic)",
+  "version": "1.0.0",
+  "author": "EvilFreelancer",
+  "homepage": "https://github.com/EvilFreelancer/rpa-skills",
+  "skills": []
+}
