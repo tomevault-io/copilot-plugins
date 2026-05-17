@@ -1,0 +1,9 @@
+{
+  "name": "project-numina--kimina-lean-server",
+  "displayName": "kimina-lean-server",
+  "description": "Kimina Lean server (+ client SDK)",
+  "version": "1.0.0",
+  "author": "project-numina",
+  "homepage": "https://github.com/project-numina/kimina-lean-server",
+  "skills": []
+}
