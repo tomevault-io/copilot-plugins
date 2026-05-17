@@ -4,7 +4,7 @@
   "repo": "koog",
   "description": "Koog is a JVM (Java and Kotlin) framework for building predictable, fault-tolerant and enterprise-ready AI agents across all platforms \u2013 from backend services to Android and iOS, JVM, and even in-browser environments. Koog is based on our AI products expertise and provides proven solutions for complex LLM and AI problems",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JetBrains/koog",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T19:33:11Z"
+  "distributed_at": "2026-05-17T19:37:46Z"
 }
