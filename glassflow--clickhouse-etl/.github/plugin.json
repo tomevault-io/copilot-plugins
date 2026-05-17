@@ -1,0 +1,22 @@
+{
+  "name": "glassflow--clickhouse-etl",
+  "displayName": "clickhouse-etl",
+  "description": "GlassFlow: Open source data transformations at terabyte-scale for ClickHouse pipelines",
+  "version": "1.0.0",
+  "author": "glassflow",
+  "homepage": "https://github.com/glassflow/clickhouse-etl",
+  "skills": [
+    {
+      "name": "apply-design-principles",
+      "description": ""
+    },
+    {
+      "name": "maintain-documentation",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    }
+  ]
+}
