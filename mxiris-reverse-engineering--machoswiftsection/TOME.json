@@ -4,7 +4,7 @@
   "repo": "MachOSwiftSection",
   "description": "\ud83d\udd2c A Swift library for parsing mach-o files to obtain Swift information.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MxIris-Reverse-Engineering/MachOSwiftSection",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:21:29Z"
+  "distributed_at": "2026-05-17T22:40:11Z"
 }
