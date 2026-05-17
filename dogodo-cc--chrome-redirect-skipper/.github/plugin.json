@@ -1,0 +1,9 @@
+{
+  "name": "dogodo-cc--chrome-redirect-skipper",
+  "displayName": "chrome-redirect-skipper",
+  "description": "A Chrome extension that bypasses redirect warning pages.",
+  "version": "1.0.0",
+  "author": "dogodo-cc",
+  "homepage": "https://github.com/dogodo-cc/chrome-redirect-skipper",
+  "skills": []
+}
