@@ -1,14 +1,22 @@
-## propose-commit
+## typescript-strict-typing
 
-> After writing code
+> Enforce strict TypeScript typing without any types
 
-After you finish writing code, PROPOSE a command to have a professional convensional commit + description for your work.
 
-DO NOT EXECUTE THE COMMAND, ONLY PROPOSE IT.
+# TypeScript Strict Typing
 
-Example:
-```bash
-git commit -m "feat: add new feature" -m "This commit adds a new feature to the project."
+**Never use `any` type.** Use `unknown` for dynamic data, proper interfaces for complex objects, and specific union types for known value sets.
+
+### Examples:
+```typescript
+// ❌ Bad
+function processData(data: any) { ... }
+const context: Record<string, any>;
+
+// ✅ Good
+type LogContext = Record<string, unknown>;
+interface Config { language: string; framework: string; }
+type Status = 'success' | 'error' | 'pending';
 ```
 
 ---
