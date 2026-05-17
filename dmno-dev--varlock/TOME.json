@@ -2,7 +2,7 @@
   "name": "varlock",
   "owner": "dmno-dev",
   "repo": "varlock",
-  "description": "",
+  "description": "AI-safe .env files: Schemas for agents, Secrets for humans.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/dmno-dev",
+  "source_url": "https://github.com/dmno-dev/varlock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T05:38:09Z"
+  "distributed_at": "2026-05-17T21:38:07Z"
 }
