@@ -1,9 +1,9 @@
 {
   "name": "mirix-ai--mirix",
   "displayName": "MIRIX",
-  "description": "MIRIX",
+  "description": "Mirix is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memori",
   "version": "1.0.0",
   "author": "Mirix-AI",
-  "homepage": "https://tomevault.io/claim/Mirix-AI",
+  "homepage": "https://github.com/Mirix-AI/MIRIX",
   "skills": []
 }
