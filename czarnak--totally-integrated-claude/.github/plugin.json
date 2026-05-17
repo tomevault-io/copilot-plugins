@@ -1,0 +1,9 @@
+{
+  "name": "czarnak--totally-integrated-claude",
+  "displayName": "totally-integrated-claude",
+  "description": "A Claude Code plugin for Siemens TIA Portal engineering automation.",
+  "version": "1.0.0",
+  "author": "Czarnak",
+  "homepage": "https://github.com/Czarnak/totally-integrated-claude",
+  "skills": []
+}
