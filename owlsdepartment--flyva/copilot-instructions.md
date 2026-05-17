@@ -1,43 +1,32 @@
-## project-overview
+## shared-package
 
-> Flyva monorepo structure, package relationships, and core architecture
+> Rules for the framework-agnostic shared package
 
 
-# Flyva — Project Overview
+# @flyva/shared
 
-Flyva is a library for seamless page transitions, with framework-specific adapters for Next.js and Nuxt.
+This package must have **zero** framework dependencies — no React, no Vue, no Node-specific APIs.
 
-## Monorepo structure (pnpm workspaces)
+## Reactive abstraction
 
-```
-packages/shared    → @flyva/shared   (framework-agnostic core)
-packages/next      → @flyva/next     (React/Next.js adapter)
-packages/nuxt      → @flyva/nuxt     (Vue/Nuxt adapter)
-playground/next    → playground-next (Next.js test app)
-playground/nuxt    → playground-nuxt (Nuxt test app)
+```ts
+type Reactive<T> = { value: T };
+type ReactiveFactory = <V>(initialValue?: V) => Reactive<V>;
 ```
 
-## Package dependency graph
+`PageTransitionManager` accepts a `ReactiveFactory` at construction. Each framework adapter supplies its own factory:
+- React: `useRefState` (Proxy-based ref that triggers re-renders)
+- Vue: Nuxt's `ref()` via `refReactiveFactory`
 
-- `@flyva/next` depends on `@flyva/shared` (workspace:*)
-- `@flyva/nuxt` depends on `@flyva/shared` (workspace:*)
-- Playgrounds depend on their respective package
+## PageTransition interface
 
-## Core architecture
+Lifecycle methods are all optional. `condition` gates whether a transition runs. The rest follow the lifecycle order. `cleanup` is called after `afterEnter` and on re-run.
 
-`PageTransitionManager` (shared) orchestrates the lifecycle:
-`prepare → beforeLeave → leave → afterLeave → [navigate] → beforeEnter → enter → afterEnter`
+## Editing rules
 
-Each framework adapter provides:
-1. A reactive primitive that bridges the framework's reactivity (React refs / Vue refs) to the shared `Reactive<T>` interface
-2. Components that wire into the framework's router (FlyvaLink, FlyvaRoot for Next; flyva-link, flyva-page for Nuxt)
-3. Composables/hooks that expose the manager and transition control
-
-## Key conventions
-
-- Workspace deps use `"workspace:*"` protocol
-- Shared manager sources: `packages/shared/page-transition-manager/`
-- Root scripts: `pnpm dev:nuxt`, `pnpm dev:next` to run playgrounds
+- Keep types generic — avoid `any` where possible, use generics
+- Every public type/class must be re-exported from the barrel `index.ts`
+- Stable **`package.json` `exports`** subpaths (`./page-transition-manager`, `./view-transition`, `./lifecycle-classes`, `./types`) must resolve to the same public API as the root barrel for those areas — update `exports` when adding new user-facing modules
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
