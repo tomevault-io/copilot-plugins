@@ -1,0 +1,9 @@
+{
+  "name": "milerius--mantis",
+  "displayName": "Mantis",
+  "description": "A modular, no_std-first Rust foundation for low-latency trading systems \u2014 fixed-point arithmetic, typed event transport, lock-free queues, verified with Miri & Kani",
+  "version": "1.0.0",
+  "author": "Milerius",
+  "homepage": "https://github.com/Milerius/Mantis",
+  "skills": []
+}
