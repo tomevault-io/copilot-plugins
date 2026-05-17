@@ -1,127 +1,134 @@
-## upstream-pulse-module
+## rhai-org-pulse
 
-> Conventions for the upstream-pulse module — a Vue 3 port of the standalone React app
+> Vendor-neutral conventions for AI agents working on this codebase. Tool-specific
 
+# Agent Conventions
 
-# Upstream Pulse Module
+Vendor-neutral conventions for AI agents working on this codebase. Tool-specific
+configuration (e.g., `.claude/CLAUDE.md`) should import this file rather than
+duplicating these conventions.
 
-This module is a **Vue 3 re-implementation** of the [standalone Upstream Pulse app](https://github.com/dpanshug/upstream-pulse). It has no database or workers — it proxies read-only requests to the standalone's Fastify API via `server/index.js`.
+## Project Overview
 
-## Source of Truth
-
-The standalone app defines what this module should do. Before building a feature:
-
-1. Find the React page/component in [`frontend/src/pages/`](https://github.com/dpanshug/upstream-pulse/tree/main/frontend/src/pages) and [`frontend/src/components/`](https://github.com/dpanshug/upstream-pulse/tree/main/frontend/src/components)
-2. Find the API endpoint it calls in [`backend/src/app.ts`](https://github.com/dpanshug/upstream-pulse/blob/main/backend/src/app.ts) or [`backend/src/modules/api/routes/metrics.ts`](https://github.com/dpanshug/upstream-pulse/blob/main/backend/src/modules/api/routes/metrics.ts)
-3. Check if `server/index.js` already proxies that endpoint — if not, add a proxy route
-4. Translate the React component to Vue 3 following the patterns below
-
-To see what's already ported vs missing, compare:
-- **Standalone routes:** [`App.tsx`](https://github.com/dpanshug/upstream-pulse/blob/main/frontend/src/App.tsx) (route table)
-- **Module routes:** `client/index.js` (route map)
+**Org Pulse** — a modular engineering dashboard connecting Jira, GitHub, and
+GitLab data with a team roster to surface delivery insights. Vue 3 + Express,
+deployed on OpenShift via ArgoCD.
 
 ## Architecture
 
+- **Frontend**: Vue 3 SPA (`<script setup>`), Vite 6, Tailwind CSS 3, Chart.js 4
+- **Backend**: Express (port 3001), single `server/dev-server.js` for dev + prod
+- **Modules**: Built-in modules in `modules/<slug>/` with `module.json` manifests, auto-discovered
+- **Auth**: OpenShift OAuth proxy in prod; no auth locally (uses `ADMIN_EMAILS`)
+- **Storage**: Local filesystem (`./data/`), mounted as PVC in OpenShift
+- **Shared code**: `shared/client/` and `shared/server/`, importable via `@shared` alias
+
+See `docs/MODULES.md` for the module development guide.
+
+## Hard Constraints
+
+These are non-negotiable. Every PR should be checked against them.
+
+### 1. No cross-module imports
+
+Modules import only from `@shared`. Cross-module data access goes through
+`readFromStorage()` for files listed in another module's `module.json > export.files`,
+or through API calls at `/api/modules/<slug>/`. Never import directly from
+another module's directory. See `shared/API.md` for the stability contract.
+
+### 2. Use storage abstractions for all data
+
+Always use `readFromStorage` / `writeToStorage` for data files. Never construct
+raw filesystem paths. These abstractions handle demo mode, path-traversal safety,
+and the PVC mount.
+
+### 3. The app is a display layer, not a compute engine
+
+If something requires significant computation — complex aggregations across
+hundreds of Jira issues, ML scoring, data enrichment, bulk cross-referencing —
+it belongs in an external process (CI pipeline, GitLab job, scheduled task)
+that pushes pre-computed results into the app. The app backend should do
+lightweight fetching, caching, and serving. Feature Traffic and AI Impact
+assessments are good examples of this pattern: external pipelines push data
+via the bulk API endpoints.
+
+### 4. New pages go in existing modules when the domain overlaps
+
+Only create a new module when it has a genuinely distinct domain with no
+conceptual home in an existing module. If a feature is a new way to look at
+data that relates to an existing module's purpose, add it as a view there.
+Current modules: ai-impact, feature-traffic, release-analysis, release-planning,
+system-health, team-tracker, upstream-pulse.
+
+### 5. No TypeScript
+
+Plain JavaScript throughout. CommonJS (`require`) for server-side code, ES
+modules (`import`) for frontend code.
+
+### 6. API routes require OpenAPI annotations
+
+Every new or modified Express route handler must have an `@openapi` JSDoc
+annotation. CI enforces a minimum operation count via `validate:openapi`.
+
+### 7. Keep documentation in sync
+
+Documentation changes must land in the same PR as the code they describe:
+
+- **Data format changes** → update `docs/DATA-FORMATS.md` and `fixtures/`
+- **New shared exports** → update `shared/API.md`
+- **Module system changes** → update `docs/MODULES.md`
+- **API route changes** → update the API Routes section in `.claude/CLAUDE.md`
+
+## Code Style
+
+- `<script setup>` for Vue components
+- Tailwind CSS utility classes; custom `primary` palette in `tailwind.config.mjs`
+- Composables for shared state logic (`shared/client/composables/`)
+- Always run `npm run lint` before committing — CI rejects lint failures
+- A pre-commit hook (`lint-staged` + `husky`) auto-runs ESLint on staged files
+
+## Testing
+
+- **Unit tests**: Vitest + @vue/test-utils for frontend, Vitest for backend
+- **Smoke tests**: Playwright against production containers (verify app loads)
+- **Integration tests**: Playwright module-specific tests (`make test-module MODULE=<name>`)
+- **Validation**: `npm run validate:modules` for module manifests
+- Run `npm test` before committing
+
+## Code Review
+
+Review criteria are defined in
+[`.github/instructions/review.instructions.md`](.github/instructions/review.instructions.md).
+All automated reviews (CI) and manual reviews (`/pr-review`) use this shared
+checklist, which explicitly enforces the hard constraints above.
+
+## Commands
+
+```bash
+npm run dev:full              # Start Vite (5173) + Express (3001)
+npm run dev                   # Vite only
+npm run dev:server            # Express only (needs .env)
+npm test                      # Run all tests
+npm run test:watch            # Watch mode
+npm run lint                  # Lint check
+npm run validate:modules      # Validate module manifests
+
+# Container-based tests (requires Docker/Podman)
+make smoke-test               # Run smoke tests against containers
+make test-module MODULE=<name>  # Run integration tests for a module
 ```
-Browser → Team Tracker API (/api/modules/upstream-pulse/*)
-         → server/index.js (Express proxy + 3-min cache)
-         → Standalone Upstream Pulse Fastify API
-```
 
-- `UPSTREAM_PULSE_API_URL` env var sets the upstream base URL
-- Proxy is read-only GET requests; admin/mutation endpoints are not proxied
-- Module is `defaultEnabled: false` — must be enabled in Settings > Modules
+## Agent Instruction Files
 
-## Key Differences from Standalone
-
-- **Dark mode:** The standalone is light-only. This module supports dark mode — every element needs `dark:` Tailwind variants (e.g. `bg-white dark:bg-gray-800`, `text-gray-900 dark:text-gray-100`).
-- **Charts:** Standalone uses Recharts (React). This module uses **Chart.js** via `vue-chartjs` (`Line`, `Doughnut` from `vue-chartjs`).
-- **Data fetching:** Standalone uses TanStack Query. This module uses `apiRequest()` from `@shared/client/services/api` with manual state management (see pattern below).
-- **Routing:** Standalone uses React Router (`useParams`, `useNavigate`). This module uses `inject('moduleNav')` — `.params.value`, `.navigateTo()`, `.goBack()`.
-- **Icons:** Standalone uses `lucide-react`. This module uses `lucide-vue-next` with `Icon` suffix aliases: `import { Activity as ActivityIcon } from 'lucide-vue-next'`.
-
-## Data Fetching Pattern
-
-Every view follows this pattern:
-
-```javascript
-import { apiRequest } from '@shared/client/services/api'
-
-const MODULE_API = '/modules/upstream-pulse'
-
-const loading = ref(true)
-const error = ref(null)
-const connectionError = ref(null)  // separate state for 502/unreachable
-
-async function loadData() {
-  loading.value = true
-  error.value = null
-  connectionError.value = null
-  try {
-    const [data1, data2] = await Promise.all([
-      apiRequest(`${MODULE_API}/dashboard?days=${selectedDays.value}`),
-      apiRequest(`${MODULE_API}/contributors?days=${selectedDays.value}&limit=10`),
-    ])
-    // assign to refs...
-  } catch (err) {
-    if (err.status === 502 || err.message?.includes('unreachable') || err.message?.includes('ECONNREFUSED')) {
-      connectionError.value = err.message
-    } else {
-      error.value = err.message
-    }
-  } finally {
-    loading.value = false
-  }
-}
-
-watch(selectedDays, () => loadData())
-onMounted(() => loadData())
-```
-
-`apiRequest` prepends `/api` to paths, so `MODULE_API + '/dashboard'` resolves to `/api/modules/upstream-pulse/dashboard`.
-
-## View States
-
-Every view renders four states in this order:
-1. `v-if="loading && !data"` — skeleton loaders from `../components/SkeletonLoaders.vue`
-2. `v-else-if="connectionError"` — amber "unreachable" banner
-3. `v-else-if="error"` — red error banner
-4. `v-else` — actual content
-
-## Adding a New Proxy Route
-
-In `server/index.js`, follow the existing pattern:
-
-```javascript
-router.get('/new-endpoint', async function(req, res) {
-  try {
-    const data = await proxyRequest('/api/upstream-path', {
-      days: req.query.days
-    });
-    res.json(data);
-  } catch (err) {
-    handleProxyError(res, err);
-  }
-});
-```
-
-## Adding a New View
-
-1. Create `client/views/NewView.vue` (`<script setup>` + Composition API)
-2. Register in `client/index.js`: `'view-id': defineAsyncComponent(() => import('./views/NewView.vue'))`
-3. If it needs a sidebar entry, add to `module.json` `navItems`
-4. If it's a detail view (no sidebar), navigate via `nav.navigateTo('view-id', { id })`
-
-## Imports
-
-```javascript
-import { apiRequest } from '@shared/client/services/api'       // API calls
-import { StatCardSkeleton } from '../components/SkeletonLoaders.vue' // named exports
-import StatCard from '../components/StatCard.vue'                // default exports
-import { Activity as ActivityIcon } from 'lucide-vue-next'      // icons
-```
-
-Do **not** import from other modules or from the standalone app's code.
+| File | Purpose | Audience |
+|------|---------|----------|
+| `AGENTS.md` (this file) | Project conventions + hard constraints | All AI agents |
+| `.claude/CLAUDE.md` | Architecture details, API routes, deployment | Claude Code |
+| `.github/instructions/review.instructions.md` | Code review checklist | CI bots, Copilot, `/pr-review` |
+| `CONTRIBUTING.md` | Getting started, workflow | Human contributors |
+| `shared/API.md` | Shared export stability contract | All |
+| `docs/MODULES.md` | Module development guide | All |
+| `docs/DATA-FORMATS.md` | JSON schemas for data files | All |
 
 ---
 > Source: [red-hat-data-services/rhai-org-pulse](https://github.com/red-hat-data-services/rhai-org-pulse) — distributed by [TomeVault](https://tomevault.io).
