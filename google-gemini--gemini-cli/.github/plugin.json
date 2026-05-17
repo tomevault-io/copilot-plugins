@@ -1,0 +1,38 @@
+{
+  "name": "google-gemini--gemini-cli",
+  "displayName": "gemini",
+  "description": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
+  "version": "1.0.0",
+  "author": "google-gemini",
+  "homepage": "https://github.com/google-gemini/gemini-cli",
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "docs-changelog",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "description": ""
+    },
+    {
+      "name": "greeter",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "gemini-api-dev",
+      "description": ""
+    }
+  ]
+}
