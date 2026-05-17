@@ -4,7 +4,7 @@
   "repo": "empire",
   "description": "Claude Code skills for the solo founder commanding a one-person empire",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marcoskichel/empire",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T04:42:40Z"
+  "distributed_at": "2026-05-17T04:44:26Z"
 }
