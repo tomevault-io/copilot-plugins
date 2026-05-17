@@ -1,127 +1,58 @@
-## docs-location
+## env-graph-tests
 
-> description: Documentation Pages Location
-
----
-description: Documentation Pages Location
-globs: *.mdx
----
-# Documentation Pages Location
-
-Rules for placing and organizing documentation pages in the repository.
+> name: env_graph_tests_general
 
 <rule>
-name: docs_location
-description: Standards for placing documentation pages in the correct directory structure
-filters:
-  # Match any .mdx files
-  - type: file_extension
-    pattern: "\\.mdx$"
-  # Match files that look like documentation pages
-  - type: content
-    pattern: "^---\\s*\\ntitle:.*\\ndescription:.*\\n---"
-  # Match file creation events
-  - type: event
-    pattern: "file_create"
+name: env_graph_tests_general
+version: 1.0
+priority: medium
 
-actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!packages/varlock-website/src/content/docs/.*\\.mdx$)"
-        message: "Documentation pages (.mdx) must be placed in the packages/varlock-website/src/content/docs directory"
+# Rule: General Test Structure for env-graph
 
-  - type: suggest
-    message: |
-      When creating documentation pages:
+## Description
+All tests in the env-graph package must follow best practices for maintainability, clarity, and extensibility. This includes using DRY setup, table-driven tests where appropriate, and clear assertion of expected behavior.
 
-      1. Always place documentation files in PACKAGES_ROOT/varlock-website/src/content/docs/:
-         ```
-         packages/varlock-website/src/content/docs/
-         ├── getting-started/
-         │   ├── installation.mdx
-         │   └── about-env-spec.mdx
-         ├── guides/
-         │   ├── secrets.mdx
-         │   ├── security.mdx
-         │   └── ...
-         └── reference/
-             └── ...
-         ```
+## Rationale
+- Ensures tests are easy to read, extend, and maintain.
+- Reduces code duplication and encourages consistent patterns across the codebase.
+- Makes it easier to add new test cases and spot regressions.
 
-      2. Follow the directory structure:
-         - `getting-started/` - For introductory and setup content
-         - `guides/` - For how-to guides and tutorials
-         - `reference/` - For API reference and technical documentation
+## Requirements
+- Use a single setup function or helper for repeated test logic (e.g., graph setup, data source creation).
+- Prefer table-driven tests (array of test case objects) for scenarios with multiple similar cases.
+- Each test case object should include a label/description and all relevant input/expected output fields.
+- Use `describe()` and `it()` blocks to organize tests by feature or function.
+- Assertions must clearly check the expected behavior (e.g., resolved values, errors, config keys, etc.).
+- Avoid copy-pasting similar `it()` blocks; use iteration over test cases where possible.
+- Use meaningful variable names and keep test logic concise.
 
-      3. File naming:
-         - Use kebab-case for filenames
-         - Always use .mdx extension
-         - Make names descriptive of the content
+## Example
+```ts
+function featureTests(
+  tests: Array<{
+    label: string;
+    input: string;
+    expected: any;
+  }>,
+) {
+  return () => {
+    tests.forEach(({ label, input, expected }) => {
+      it(label, async () => {
+        // ...setup and assertions...
+      });
+    });
+  };
+}
 
-      4. Never place documentation files:
-         - In the project root
-         - Outside the docs directory
-         - In any other location
-      
-      5. Update astro.config.mjs:
-         - Every documentation page must have a corresponding entry in the sidebar navigation
-         - Add new pages to the appropriate section in the sidebar configuration
-         - For reference pages, use the autogenerate option if appropriate
-         - Example:
-           ```javascript
-           sidebar: [
-             {
-               label: 'Getting Started',
-               items: [
-                 { label: 'Installation', slug: 'getting-started/installation' },
-                 { label: 'About env-spec', slug: 'getting-started/about-env-spec' },
-               ],
-             },
-             {
-               label: 'Guides',
-               items: [
-                 { label: 'Secrets', slug: 'guides/secrets' },
-                 { label: 'Security', slug: 'guides/security' },
-               ],
-             },
-             {
-               label: 'Reference',
-               autogenerate: { directory: 'reference' },
-             },
-           ]
-           ```
+describe('some feature', featureTests([
+  // ...test cases...
+]));
+```
 
-examples:
-  - input: |
-      # Bad: Documentation file in wrong location
-      docs/my-guide.mdx
-      my-guide.mdx
-      src/content/my-guide.mdx
-
-      # Good: Documentation file in correct location
-      packages/varlock-website/src/content/docs/guides/my-guide.mdx
-    output: "Correctly placed documentation file"
-  - input: |
-      # Bad: Missing sidebar entry
-      # Created file: packages/varlock-website/src/content/docs/guides/new-feature.mdx
-      # But no corresponding entry in astro.config.mjs sidebar
-
-      # Good: With sidebar entry
-      # Created file: packages/varlock-website/src/content/docs/guides/new-feature.mdx
-      # Added to astro.config.mjs:
-      # {
-      #   label: 'Guides',
-      #   items: [
-      #     { label: 'New Feature', slug: 'guides/new-feature' },
-      #   ],
-      # }
-    output: "Documentation file with proper sidebar entry"
-
-
-metadata:
-  priority: high
-  version: 1.0
-  </rule>
+## Enforcement
+- All new and modified tests in env-graph must follow these guidelines.
+- Reviewers should request changes if tests are not DRY, table-driven (where appropriate), or lack clear assertions.
+</rule>
 
 ---
 > Source: [dmno-dev/varlock](https://github.com/dmno-dev/varlock) — distributed by [TomeVault](https://tomevault.io).
