@@ -4,7 +4,7 @@
   "repo": "airskills",
   "description": "Manage AI coding skills across Claude Code, Cursor, Copilot, and 15 more agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chrismdp/airskills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T06:51:51Z"
+  "distributed_at": "2026-05-17T07:01:55Z"
 }
