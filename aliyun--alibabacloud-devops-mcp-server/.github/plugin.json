@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--alibabacloud-devops-mcp-server",
+  "displayName": "alibabacloud-devops-mcp-server",
+  "description": "Yunxiao MCP Server provides AI assistants with the ability to interact with the Yunxiao platform. It provides a set of tools that interact with Yunxiao's API, allowing AI assistants to manage Codeup r",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/alibabacloud-devops-mcp-server",
+  "skills": []
+}
