@@ -1,0 +1,44 @@
+{
+  "name": "PatentSkills",
+  "owner": "ProgrammerAnthony",
+  "repo": "PatentSkills",
+  "description": "\u4e13\u5229\u81ea\u52a8\u5316\u521b\u4f5c\u5de5\u4f5c\u6d41\uff0c\u5305\u542b\u521b\u610f\uff0c\u5199\u4f5c\u548c\u8bc4\u5ba1",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ProgrammerAnthony/PatentSkills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T08:42:07Z"
+}
