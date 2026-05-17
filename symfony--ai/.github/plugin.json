@@ -1,0 +1,9 @@
+{
+  "name": "symfony--ai",
+  "displayName": "ai",
+  "description": "Symfony AI is a set of components that integrate AI capabilities into PHP applications",
+  "version": "1.0.0",
+  "author": "symfony",
+  "homepage": "https://github.com/symfony/ai",
+  "skills": []
+}
