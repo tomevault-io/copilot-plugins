@@ -1,0 +1,9 @@
+{
+  "name": "anzy-renlab-ai--pronounce",
+  "displayName": "pronounce",
+  "description": "\ud83d\udd0a Pronounce developer jargon out loud. 540+ entries (kubectl, GIF, JSON, JWT, \u2026), sourced with confidence levels. Bash CLI + interactive quiz + voice search + MCP server + Claude Code skill.",
+  "version": "1.0.0",
+  "author": "anzy-renlab-ai",
+  "homepage": "https://github.com/anzy-renlab-ai/pronounce",
+  "skills": []
+}
