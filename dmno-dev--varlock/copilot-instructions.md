@@ -1,77 +1,42 @@
-## varlock
+## add-docs-page
 
-> description: Cursor Rules Location
-
----
-description: Cursor Rules Location
-globs: *.mdc
----
-# Cursor Rules Location
-
-Rules for placing and organizing Cursor rule files in the repository.
+> - type: file_extension
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: add_docs_page
+
 filters:
-  # Match any .mdc files
+  # Applies to all new .mdx files in the docs directory
   - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
+    pattern: "\.mdx$"
   - type: event
     pattern: "file_create"
+  - type: path
+    pattern: "packages/varlock-website/src/content/docs/*/"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      When adding a new documentation page:
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
-
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
-
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
-
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      - Follow all requirements in the [docs-location] rule for file placement, naming, and sidebar navigation.
+      - Additionally, follow these style and content conventions:
+        - Use the same heading structure, intro, and code block formatting as other guides.
+        - Use Starlight's Markdown asides (triple colon syntax) for notes, tips, cautions, and warnings ([see docs](mdc:https:/starlight.astro.build/guides/authoring-content/#asides)).
+        - Use Astro Starlight tab components for alternative instructions (e.g., package manager differences).
+        - Reference and link to other docs where relevant.
+        - Test the docs site locally to ensure the new page appears in the sidebar and is accessible.
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
+      Used `>` for notes and tips in the new guide.
+    output: |
+      Use Starlight's Markdown asides (triple colon syntax, e.g., `:::tip ... :::`) for notes and tips.
 
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+  - input: |
+      Added a new guide but did not follow the directory or sidebar requirements.
+    output: |
+      See the [docs-location] rule for correct file placement and sidebar navigation requirements.
 
 metadata:
   priority: high
@@ -79,6 +44,5 @@ metadata:
 </rule>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dmno-dev)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/dmno-dev)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [dmno-dev/varlock](https://github.com/dmno-dev/varlock) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
