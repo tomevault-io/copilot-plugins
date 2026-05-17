@@ -1,0 +1,9 @@
+{
+  "name": "tuanductran--hr-skills",
+  "displayName": "hr-skills",
+  "description": "A collection of 15+ HR AI skills for Claude \u2014 covering recruiting, performance management, compliance, analytics, and all major HR domains.",
+  "version": "1.0.0",
+  "author": "tuanductran",
+  "homepage": "https://github.com/tuanductran/hr-skills",
+  "skills": []
+}
