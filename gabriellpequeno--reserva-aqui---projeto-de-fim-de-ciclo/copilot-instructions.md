@@ -1,15 +1,15 @@
-## engineering-backend
+## engineering-frontend
 
-> Convencoes para APIs e codigo de servidor.
+> Convencoes para UI web (React/Next e similares).
 
 
-# Engineering — Backend
+# Engineering — Frontend
 
-- Valide entrada na borda (schema/types); nao confie no cliente.
-- Separe rota/handler, regra de negocio e acesso a dados quando fizer sentido.
-- Erros: status HTTP corretos; nao vazar detalhes internos em producao.
-- Pense em idempotencia, timeouts e limites de taxa para endpoints expostos.
-- Evite I/O sincrono bloqueante no caminho quente do request.
+- Priorize acessibilidade semantica e contraste legivel.
+- Evite layouts genericos de template; alinhe ao design do projeto.
+- Prefira composicao e estado local; eleve estado apenas quando necessario.
+- Evite `any`; tipos e props devem refletir o contrato real.
+- Antes de mudar componentes compartilhados, mapeie consumidores.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
