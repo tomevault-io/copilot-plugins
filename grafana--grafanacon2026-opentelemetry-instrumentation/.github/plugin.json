@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafanacon2026-opentelemetry-instrumentation",
+  "displayName": "grafanacon2026-opentelemetry-instrumentation",
+  "description": "Demo app for \"Getting started with OpenTelemetry instrumentation\" hands-on lab (GrafanaCon 2026)",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafanacon2026-opentelemetry-instrumentation",
+  "skills": []
+}
