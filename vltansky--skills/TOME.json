@@ -4,7 +4,7 @@
   "repo": "skills",
   "description": "A collection of Agent Skills for Claude Code, Cursor, Codex and other coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vltansky/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T08:30:09Z"
+  "distributed_at": "2026-05-17T08:34:45Z"
 }
