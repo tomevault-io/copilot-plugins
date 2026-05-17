@@ -1,0 +1,9 @@
+{
+  "name": "holgern--apiout",
+  "displayName": "apiout",
+  "description": "A flexible Python tool for fetching data from APIs and serializing responses using TOML configuration files",
+  "version": "1.0.0",
+  "author": "holgern",
+  "homepage": "https://github.com/holgern/apiout",
+  "skills": []
+}
