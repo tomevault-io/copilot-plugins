@@ -1,0 +1,9 @@
+{
+  "name": "jstradej--strideterm",
+  "displayName": "strideterm",
+  "description": "strIDEterm organizes your shells, AI coding agents, code reviews, Docker, and Git into workspaces you can access from   anywhere \u2014 no more chaos across terminals, just focused work.",
+  "version": "1.0.0",
+  "author": "jstradej",
+  "homepage": "https://github.com/jstradej/strideterm",
+  "skills": []
+}
