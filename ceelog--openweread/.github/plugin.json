@@ -1,0 +1,9 @@
+{
+  "name": "ceelog--openweread",
+  "displayName": "OpenWeRead",
+  "description": "\u5fae\u4fe1\u8bfb\u4e66\u5f00\u653e Skills & API SDK & Cli",
+  "version": "1.0.0",
+  "author": "Ceelog",
+  "homepage": "https://github.com/Ceelog/OpenWeRead",
+  "skills": []
+}
