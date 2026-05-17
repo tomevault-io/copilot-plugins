@@ -7,11 +7,11 @@ Workspace tự động tạo short-form video bằng AI: ElevenLabs TTS + HyperF
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tauhb/video-reels-agent](https://github.com/tauhb/video-reels-agent).
+Original source: `CLAUDE.md` in [tauhb/video-reels-agent](https://github.com/tauhb/video-reels-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
