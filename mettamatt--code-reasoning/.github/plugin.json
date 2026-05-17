@@ -1,0 +1,9 @@
+{
+  "name": "mettamatt--code-reasoning",
+  "displayName": "code-reasoning",
+  "description": "A code reasoning MCP server, a fork of sequential-thinking",
+  "version": "1.0.0",
+  "author": "mettamatt",
+  "homepage": "https://github.com/mettamatt/code-reasoning",
+  "skills": []
+}
