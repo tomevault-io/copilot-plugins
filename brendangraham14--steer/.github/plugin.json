@@ -1,0 +1,9 @@
+{
+  "name": "brendangraham14--steer",
+  "displayName": "steer",
+  "description": "TUI-oriented coding agent written in Rust.",
+  "version": "1.0.0",
+  "author": "BrendanGraham14",
+  "homepage": "https://github.com/BrendanGraham14/steer",
+  "skills": []
+}
