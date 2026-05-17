@@ -4,7 +4,7 @@
   "repo": "mcp-unity",
   "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor \u2014 designed for Cursor, Claude Code, Codex, Windsurf and other IDEs",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/st-VALVe/mcp-unity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T02:54:18Z"
+  "distributed_at": "2026-05-17T02:55:11Z"
 }
