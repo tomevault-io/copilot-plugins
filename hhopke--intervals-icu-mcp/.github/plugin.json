@@ -1,0 +1,9 @@
+{
+  "name": "hhopke--intervals-icu-mcp",
+  "displayName": "intervals-icu-mcp",
+  "description": "MCP server for Intervals.icu \u2014 training data, wellness metrics, and performance analysis for Claude and other LLMs",
+  "version": "1.0.0",
+  "author": "hhopke",
+  "homepage": "https://github.com/hhopke/intervals-icu-mcp",
+  "skills": []
+}
