@@ -1,0 +1,9 @@
+{
+  "name": "xfreed0m--ghosttype",
+  "displayName": "ghosttype",
+  "description": "Local forensic scanner that extracts credentials from AI tool conversation history. For authorized red team and DLP use only.",
+  "version": "1.0.0",
+  "author": "xFreed0m",
+  "homepage": "https://github.com/xFreed0m/ghosttype",
+  "skills": []
+}
