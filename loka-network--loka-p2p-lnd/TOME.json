@@ -4,7 +4,7 @@
   "repo": "loka-p2p-lnd",
   "description": "Loka AI Agentic Payment P2P Lightning Node \u26a1\ufe0f is built natively on top of the established Bitcoin Lightning Network infrastructure. By pushing the boundaries of traditional payment channels, we are building a superior, high-throughput P2P Payment Value Network to power autonomous agentic and agent-to-agent economies. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/loka-network/loka-p2p-lnd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T08:47:15Z"
+  "distributed_at": "2026-05-17T08:54:08Z"
 }
