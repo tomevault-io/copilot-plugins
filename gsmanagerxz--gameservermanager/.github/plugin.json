@@ -1,0 +1,9 @@
+{
+  "name": "gsmanagerxz--gameservermanager",
+  "displayName": "GameServerManager",
+  "description": "GameServerManager\uff08\u7b80\u79f0GSManager\uff09\u73b0\u4ee3\u5316\u6e38\u620f\u4e00\u952e\u90e8\u7f72\u9762\u677f\uff0c\u4e13\u4e3a\u7b80\u5316\u6e38\u620f\u670d\u52a1\u5668\u7684\u90e8\u7f72\u3001\u7ba1\u7406\u548c\u7ef4\u62a4\u800c\u8bbe\u8ba1\uff1b\u6ce8\u91cdsteam\u3001MC\u6e38\u620f\u4e00\u952e\u5f00\u670d",
+  "version": "1.0.0",
+  "author": "GSManagerXZ",
+  "homepage": "https://github.com/GSManagerXZ/GameServerManager",
+  "skills": []
+}
