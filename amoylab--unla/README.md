@@ -2,20 +2,22 @@
 
 > Sourced from [AmoyLab/Unla](https://github.com/AmoyLab/Unla) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+🧩 MCP Gateway - A lightweight gateway service that instantly transforms existing MCP Servers and APIs into MCP servers with zero code changes. Features Docker deployment and management UI, requiring no infrastructure modifications.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [AmoyLab/Unla](https://github.com/AmoyLab/Unla).
+Original source: `CLAUDE.md` in [AmoyLab/Unla](https://github.com/AmoyLab/Unla).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/AmoyLab)
+From [AmoyLab/Unla](https://github.com/AmoyLab/Unla) — a repo with 2113+ stars on GitHub.
 
 ---
 
