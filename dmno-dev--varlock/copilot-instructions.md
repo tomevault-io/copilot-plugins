@@ -1,36 +1,57 @@
-## no-js-extension-imports
+## root-decorator-tests
 
-> Do not use .js (or .ts) extensions in TypeScript import/export paths
-
-# No .js Extension in TypeScript Imports
+> name: root_decorator_tests_structure
 
 <rule>
-name: no_js_extension_imports
-description: |
-  This project uses TypeScript with "moduleResolution": "bundler" (or "node16"/"nodenext" in a way that relies on the bundler to resolve modules). Do not add .js or .ts extensions to import or export paths in TypeScript files.
+name: root_decorator_tests_structure
+version: 1.0
+priority: medium
 
-filters:
-  - type: file_extension
-    pattern: "\\.ts$"
+# Rule: Root Decorator Test Structure
 
-actions:
-  - type: suggest
-    message: |
-      Do not use .js or .ts in TypeScript import/export paths. We use bundler module resolution, so write:
+## Description
+Root decorator tests (such as for @disable, @defaultRequired, etc.) must follow a table-driven, DRY structure. Each test case should be represented as an object with fields for label, headers, values, and expected results. A single setup function should run all cases using describe().
 
-        import { foo } from './bar';
-        export { foo } from './bar';
+## Rationale
+- Ensures consistency and maintainability across all root decorator tests.
+- Makes it easy to add new cases and reduces code duplication.
+- Matches the style used in PR #47 and root-decorators.test.ts.
 
-      Not:
+## Requirements
+- Each root decorator test file must export a function that takes an array of test case objects and runs them using describe/it.
+- Each test case object must include at least: label, headers, values, and expected results (e.g., expectedKeys, expectedDisabled, etc.).
+- The test runner function must be used in describe() to run all cases.
+- Avoid copy-pasting individual it() blocks for each case; use the table-driven approach.
 
-        import { foo } from './bar.js';
-        export { foo } from './bar.js';
+## Example
+```ts
+function rootDecoratorTests(
+  tests: Array<{
+    label: string;
+    headers: string;
+    values: string;
+    expectedKeys: string[];
+    expectedDisabled: boolean;
+  }>,
+) {
+  return () => {
+    tests.forEach(({ label, headers, values, expectedKeys, expectedDisabled }) => {
+      it(label, async () => {
+        // ...setup and assertions...
+      });
+    });
+  };
+}
 
-      This keeps code consistent and avoids confusion between source and output paths.
+describe('@disable root decorator', rootDecoratorTests([
+  // ...test cases...
+]));
+```
 
-metadata:
-  priority: high
-  version: 1.0
+## Enforcement
+- PRs adding or modifying root decorator tests must follow this structure.
+- Reviewers should request changes if tests are not table-driven or DRY.
+
 </rule>
 
 ---
