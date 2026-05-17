@@ -459,9 +459,19 @@
       "description": "A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress"
     },
     {
+      "name": "humanlayer--12-factor-agents",
+      "source": "./humanlayer--12-factor-agents",
+      "description": "What are the principles we can use to build LLM-powered software that is actually good enough to put in the hands of production customers?"
+    },
+    {
       "name": "czlonkowski--n8n-mcp",
       "source": "./czlonkowski--n8n-mcp",
       "description": "A MCP for Claude Desktop / Claude Code / Windsurf / Cursor to build n8n workflows for you "
+    },
+    {
+      "name": "google--adk-python",
+      "source": "./google--adk-python",
+      "description": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control."
     },
     {
       "name": "2025emma--vibe-coding-cn",
@@ -552,6 +562,11 @@
       "name": "anthropics--financial-services",
       "source": "./anthropics--financial-services",
       "description": "financial-services"
+    },
+    {
+      "name": "microsoft--mcp-for-beginners",
+      "source": "./microsoft--mcp-for-beginners",
+      "description": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, TypeScript, JavaScript, Rust and Python. Designed for"
     },
     {
       "name": "everyinc--compound-engineering-plugin",
@@ -717,6 +732,11 @@
       "name": "yusufkaraaslan--skill-seekers",
       "source": "./yusufkaraaslan--skill-seekers",
       "description": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection"
+    },
+    {
+      "name": "the-pocket--pocketflow-tutorial-codebase-knowledge",
+      "source": "./the-pocket--pocketflow-tutorial-codebase-knowledge",
+      "description": "Pocket Flow: Codebase to Tutorial"
     },
     {
       "name": "jcodesmore--ai-website-cloner-template",
@@ -1159,6 +1179,16 @@
       "description": "Join Discord: https://discord.gg/5TUQKqFWd /  claw-code Rust port parity work - it is temporary work while claw-code repo is doing migration"
     },
     {
+      "name": "stagewise-io--stagewise",
+      "source": "./stagewise-io--stagewise",
+      "description": "The Open Source Agentic IDE. Create and orchestrate coding agents, show app previews and run git workflows. Use your favorite models across all providers."
+    },
+    {
+      "name": "stagewise-io--stagewise",
+      "source": "./stagewise-io--stagewise",
+      "description": "The Open Source Agentic IDE. Create and orchestrate coding agents, show app previews and run git workflows. Use your favorite models across all providers."
+    },
+    {
       "name": "anthropics--claude-agent-sdk-python",
       "source": "./anthropics--claude-agent-sdk-python",
       "description": "claude-agent-sdk-python"
@@ -1217,6 +1247,11 @@
       "name": "millionco--react-doctor",
       "source": "./millionco--react-doctor",
       "description": "Let coding agents diagnose and fix your React code"
+    },
+    {
+      "name": "nlweb-ai--nlweb",
+      "source": "./nlweb-ai--nlweb",
+      "description": "Main reference implementation for NLWeb, implemented in Python."
     },
     {
       "name": "blockrunai--clawrouter",
@@ -1449,6 +1484,11 @@
       "description": "A simple GUI client to manage a Quip Network node"
     },
     {
+      "name": "newton-physics--newton",
+      "source": "./newton-physics--newton",
+      "description": "An open-source, GPU-accelerated physics simulation engine built upon NVIDIA Warp, specifically targeting roboticists and simulation researchers."
+    },
+    {
       "name": "max-sixty--worktrunk",
       "source": "./max-sixty--worktrunk",
       "description": "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent workflows"
@@ -1494,6 +1534,11 @@
       "description": "Anthony Fu's curated collection of agent skills."
     },
     {
+      "name": "modelcontextprotocol--go-sdk",
+      "source": "./modelcontextprotocol--go-sdk",
+      "description": "The official Go SDK for Model Context Protocol servers and clients. Maintained in collaboration with Google."
+    },
+    {
       "name": "tencentcloudadp--youtu-agent",
       "source": "./tencentcloudadp--youtu-agent",
       "description": "A simple yet powerful agent framework that delivers with open-source models"
@@ -1507,6 +1552,21 @@
       "name": "peonping--peon-ping",
       "source": "./peonping--peon-ping",
       "description": "Warcraft III Peon voice notifications (+ more!) for Claude Code, Codex, IDEs, and any AI agent. Stop babysitting your terminal. Employ a Peon today."
+    },
+    {
+      "name": "modelengine-group--nexent",
+      "source": "./modelengine-group--nexent",
+      "description": "Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles \u2014 unified tools, skills, memory, and orchestration with built-in constraints, feedbac"
+    },
+    {
+      "name": "modelengine-group--nexent",
+      "source": "./modelengine-group--nexent",
+      "description": "Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles \u2014 unified tools, skills, memory, and orchestration with built-in constraints, feedbac"
+    },
+    {
+      "name": "modelengine-group--nexent",
+      "source": "./modelengine-group--nexent",
+      "description": "Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles \u2014 unified tools, skills, memory, and orchestration with built-in constraints, feedbac"
     },
     {
       "name": "theprimeagen--99",
@@ -1652,6 +1712,21 @@
       "name": "gepa-ai--gepa",
       "source": "./gepa-ai--gepa",
       "description": "Optimize prompts, code, and more with AI-powered Reflective Text Evolution"
+    },
+    {
+      "name": "jetbrains--koog",
+      "source": "./jetbrains--koog",
+      "description": "Koog is a JVM (Java and Kotlin) framework for building predictable, fault-tolerant and enterprise-ready AI agents across all platforms \u2013 from backend services to Android and iOS, JVM, and even in-brow"
+    },
+    {
+      "name": "jetbrains--koog",
+      "source": "./jetbrains--koog",
+      "description": "Koog is a JVM (Java and Kotlin) framework for building predictable, fault-tolerant and enterprise-ready AI agents across all platforms \u2013 from backend services to Android and iOS, JVM, and even in-brow"
+    },
+    {
+      "name": "jetbrains--koog",
+      "source": "./jetbrains--koog",
+      "description": "Koog is a JVM (Java and Kotlin) framework for building predictable, fault-tolerant and enterprise-ready AI agents across all platforms \u2013 from backend services to Android and iOS, JVM, and even in-brow"
     },
     {
       "name": "agentscope-ai--hiclaw",
@@ -2044,6 +2119,16 @@
       "description": "Peekaboo is a macOS CLI & optional MCP server that enables AI agents to capture screenshots of applications, or the entire system, with optional visual question answering through local or remote AI mo"
     },
     {
+      "name": "aidotnet--opendeepwiki",
+      "source": "./aidotnet--opendeepwiki",
+      "description": "OpenDeepWiki is the open-source version of the DeepWiki project, aiming to provide a powerful knowledge management and collaboration platform. The project is mainly developed using C# and TypeScript, "
+    },
+    {
+      "name": "aidotnet--opendeepwiki",
+      "source": "./aidotnet--opendeepwiki",
+      "description": "OpenDeepWiki is the open-source version of the DeepWiki project, aiming to provide a powerful knowledge management and collaboration platform. The project is mainly developed using C# and TypeScript, "
+    },
+    {
       "name": "can1357--oh-my-pi",
       "source": "./can1357--oh-my-pi",
       "description": "\u2325  AI Coding agent for the terminal \u2014 hash-anchored edits, optimized tool harness, LSP, Python, browser, subagents, and more"
@@ -2097,6 +2182,11 @@
       "name": "matt1398--claude-devtools",
       "source": "./matt1398--claude-devtools",
       "description": "The missing DevTools for Claude Code \u2014 inspect session logs, tool calls, token usage, subagents, and context window in a visual UI. Free, open source."
+    },
+    {
+      "name": "runjuu--inputsourcepro",
+      "source": "./runjuu--inputsourcepro",
+      "description": "Switch and track your input sources with ease \u2728"
     },
     {
       "name": "automaker-org--automaker",
@@ -3674,6 +3764,11 @@
       "description": "Claude code for everything except coding"
     },
     {
+      "name": "simpleyyt--ai-manus",
+      "source": "./simpleyyt--ai-manus",
+      "description": "AI Manus is a general-purpose AI Agent system that supports running various tools and operations in a sandbox environment."
+    },
+    {
       "name": "nikilster--clawflows",
       "source": "./nikilster--clawflows",
       "description": "\u26a1\ufe0f Superpowers for your Openclaw. Powerful prebuilt agent workflows."
@@ -3909,6 +4004,11 @@
       "description": "\u628a\u7075\u611f\u3001\u5199\u4f5c\u3001\u51fa\u56fe\u3001\u6539\u7a3f\u3001\u6c89\u6dc0\u653e\u8fdb\u540c\u4e00\u4e2a\u5de5\u4f5c\u53f0\uff0c\u8ba9\u521b\u4f5c\u4ece\u201c\u60f3\u5230\u201d\u76f4\u63a5\u8d70\u5230\u201c\u53ef\u53d1\u5e03\u201d"
     },
     {
+      "name": "docker--mcp-gateway",
+      "source": "./docker--mcp-gateway",
+      "description": "docker mcp CLI plugin / MCP Gateway"
+    },
+    {
       "name": "dicklesworthstone--agentic-coding-flywheel-setup",
       "source": "./dicklesworthstone--agentic-coding-flywheel-setup",
       "description": "Bootstraps a fresh Ubuntu VPS into a complete multi-agent AI development environment in 30 minutes: coding agents, session management, safety tools, and coordination infrastructure"
@@ -4019,6 +4119,11 @@
       "description": "PgQue \u2013 Zero-bloat Postgres queue built on top of on battle-proven Skype's PgQ. One SQL file to install, pg_cron to tick."
     },
     {
+      "name": "wrtnlabs--autobe",
+      "source": "./wrtnlabs--autobe",
+      "description": "AI Vibe Coding Agent of TS backend server, enhanced by compiler skills, generating 100% working code"
+    },
+    {
       "name": "dmmulroy--better-result",
       "source": "./dmmulroy--better-result",
       "description": "Lightweight Result type for TypeScript with generator-based composition."
@@ -4112,6 +4217,11 @@
       "name": "poco-ai--poco-claw",
       "source": "./poco-ai--poco-claw",
       "description": "A more beautiful and easier-to-use alternative to OpenClaw. It features a nicer Web UI, built-in IM support, and a sandboxed runtime for improved safety. Under the hood, it is powered by a Claude Code"
+    },
+    {
+      "name": "svnscha--mcp-windbg",
+      "source": "./svnscha--mcp-windbg",
+      "description": "Model Context Protocol for WinDBG"
     },
     {
       "name": "ghostwright--phantom",
@@ -4252,6 +4362,11 @@
       "name": "wu529778790--panhub-shenzjd-com",
       "source": "./wu529778790--panhub-shenzjd-com",
       "description": "\u4e00\u4e2a \u805a\u5408\u7684\u7f51\u76d8\u641c\u7d22\u5de5\u5177\u3002\u5b83\u53ef\u4ee5\u805a\u5408\u591a\u4e2a\u4f18\u8d28\u8d44\u6e90\u7ad9\u548c\u516c\u5f00\u9891\u9053,\u4e00\u6b21\u641c\u7d22\u5373\u53ef\u8986\u76d6\u963f\u91cc\u4e91\u76d8\u3001\u5938\u514b\u3001\u767e\u5ea6\u7f51\u76d8\u3001115\u3001\u8fc5\u96f7\u7b49\u70ed\u95e8\u7f51\u76d8\u8d44\u6e90\u3002\u5b83\u63d0\u4f9b\u667a\u80fd\u6392\u5e8f\u3001\u5206\u7c7b\u578b\u5c55\u793a\u3001\u6781\u901f\u90e8\u7f72\u7b49\u529f\u80fd,\u5e76\u4e14\u662f\u514d\u8d39\u5f00\u6e90\u3001\u96f6\u5e7f\u544a\u3001\u8f7b\u91cf\u90e8\u7f72\u7684\u3002"
+    },
+    {
+      "name": "lgazo--drawio-mcp-server",
+      "source": "./lgazo--drawio-mcp-server",
+      "description": "Draw.io Model Context Protocol (MCP) Server"
     },
     {
       "name": "openworkflowdev--openworkflow",
@@ -4612,6 +4727,11 @@
       "name": "conorbronsdon--avoid-ai-writing",
       "source": "./conorbronsdon--avoid-ai-writing",
       "description": "Skill that audits and rewrites content to remove AI writing patterns. Use it with your favorite agents including Claude Code, OpenClaw, and Hermes."
+    },
+    {
+      "name": "dumbwareio--dumbassets",
+      "source": "./dumbwareio--dumbassets",
+      "description": "A Stupid Simple Asset Tracker"
     },
     {
       "name": "colinhacks--zshy",
@@ -14669,6 +14789,11 @@
       "description": "A Model Context Protocol (MCP) server that enables AI assistants to interact with Anki, the spaced repetition flashcard application."
     },
     {
+      "name": "jgarzik--sqawk",
+      "source": "./jgarzik--sqawk",
+      "description": "A fusion of SQL and awk: Applying SQL to text-based data files"
+    },
+    {
       "name": "educlopez--thegridcn-ui",
       "source": "./educlopez--thegridcn-ui",
       "description": "An authentic Tron: Ares inspired theme system for shadcn/ui"
@@ -23094,6 +23219,11 @@
       "description": "Knocker, a knock based access control service for your homelab"
     },
     {
+      "name": "dipflip--telegrip",
+      "source": "./dipflip--telegrip",
+      "description": "VR teleoperation of robot arms"
+    },
+    {
       "name": "aitorllj93--obsidian-lovely-bases",
       "source": "./aitorllj93--obsidian-lovely-bases",
       "description": "Beautiful, visual bases views for Obsidian"
@@ -28127,6 +28257,11 @@
       "name": "debugmcp--mcp-debugger",
       "source": "./debugmcp--mcp-debugger",
       "description": "LLM-driven debugger server \u2013 give your AI agents step-through debugging superpowers"
+    },
+    {
+      "name": "hewigovens--app-detective",
+      "source": "./hewigovens--app-detective",
+      "description": "Detect macOS apps' GUI tech stack"
     },
     {
       "name": "0xsanei--darwinia",
