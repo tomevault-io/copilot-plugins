@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--go-sdk",
+  "displayName": "go-sdk",
+  "description": "The official Go SDK for Model Context Protocol servers and clients. Maintained in collaboration with Google.",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/go-sdk",
+  "skills": []
+}
