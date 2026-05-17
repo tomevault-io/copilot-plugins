@@ -1,80 +1,99 @@
-## testing
+## tools
 
-> Testing standards — Vitest framework, test organization, mocking patterns
+> MCP tool development patterns — factory pattern, base class, callbacks, and descriptions
 
 
-# Testing Standards
+# Tool Development Patterns
 
-## Framework: Vitest
-This project uses Vitest. NOT jest, NOT mocha.
+## Factory Pattern
+Every tool exports a factory function registered in `src/tools/tools.ts`:
 
-## Test Configs
-| Config | Command | Directory | Purpose |
-|--------|---------|-----------|---------|
-| `vitest.config.ts` | `npm test` | `src/` | Unit tests |
-| `vitest.config.e2e.ts` | `npm run test:e2e` | `tests/e2e/` | End-to-end (stdio client) |
-| `vitest.config.eval.ts` | `npm run test:eval` | `tests/eval/` | AI agent evaluation |
-| `vitest.config.oauth.embedded.ts` | `npm run test:oauth:embedded` | `tests/oauth/embedded-authz/` | OAuth flows |
-
-Coverage: `npm run coverage` (v8 provider, cobertura reporter)
-
-## Unit Test Setup
-`src/testSetup.ts` automatically:
-- Mocks `Server` class
-- Mocks `RestApi` class
-- Stubs environment variables
-
-Unit tests live alongside source: `src/tools/myTool/myTool.test.ts`
-
-## E2E Test Pattern
-Tests use `StdioClientTransport` spawning `node build/index.js`:
 ```typescript
-import { callTool, getClient, listTools } from './client';
-
-describe('my-tool', () => {
-  it('returns expected data', async () => {
-    const result = await callTool('my-tool', { param: 'value' });
-    expect(result).toBeDefined();
+export const getMyTool = (server: Server): Tool<typeof paramsSchema> => {
+  const myTool = new Tool({
+    server,
+    name: 'my-tool',           // Must be in ToolName union (src/tools/toolName.ts)
+    description: '...',
+    paramsSchema,               // Zod schema object (not z.object, just raw shape)
+    annotations: { title: 'My Tool', readOnlyHint: true, openWorldHint: false },
+    callback: async (args, extra) => { ... },
   });
-});
+  return myTool;
+};
 ```
 
-Helpers in `tests/e2e/client.ts`: `callTool()`, `listTools()`, `getClient()`
+## Adding a New Tool — Checklist
+1. Add tool name to `toolNames` array in `src/tools/toolName.ts`
+2. Add to appropriate `toolGroups` entry (or create new group)
+3. Add scope mapping in `src/server/oauth/scopes.ts` (`toolScopeMap`)
+4. Create tool directory under `src/tools/`
+5. Implement factory function following the pattern above
+6. Register factory in `src/tools/tools.ts` (`toolFactories` array)
 
-## Test Naming
-- Test files: `*.test.ts` (co-located with source for unit tests)
-- Test names: describe the behavior being verified
-- One behavior per test — if "and" appears in the name, split it
+## Tool Callback Pattern
+Callbacks use `logAndExecute` from the base `Tool` class:
 
-## Mocking Rules
-- Use real code whenever possible — mocks only when unavoidable
-- `src/testSetup.ts` provides standard mocks for Server and RestApi
-- When mocking Tableau API responses, use realistic data shapes
-- Never mock the code under test — mock its dependencies
-
-## Running Tests
-```bash
-# Unit tests (fast, run these constantly)
-npm test
-
-# Single file
-npx vitest run src/tools/myTool/myTool.test.ts
-
-# Watch mode
-npx vitest src/tools/myTool/myTool.test.ts
-
-# E2E (requires build first)
-npm run build && npm run test:e2e
-
-# Coverage report
-npm run coverage
+```typescript
+callback: async (args, extra): Promise<CallToolResult> => {
+  return await myTool.logAndExecute({
+    extra,
+    args,
+    callback: async () => {
+      const result = await useRestApi({
+        ...extra,
+        jwtScopes: myTool.requiredApiScopes,
+        callback: async (restApi) => {
+          // Use restApi methods here
+          return data;
+        },
+      });
+      return new Ok(result);     // ts-results-es Ok()
+    },
+    constrainSuccessResult: (result) => constrainMyResult(result),
+  });
+},
 ```
 
-## Before Marking Work Complete
-- All unit tests pass: `npm test`
-- No TypeScript errors: `npx tsc --noEmit`
-- No lint errors: `npx eslint src/`
-- New code has test coverage
+## Result Types
+- `Result<T, E>` from `ts-results-es` — tool callbacks return this
+- `Ok(value)` for success, `Err(error)` for typed errors
+- `ConstrainedResult<T>` — post-processing step with three outcomes:
+  - `{ type: 'success', result: T }` — data returned to client
+  - `{ type: 'empty', message: string }` — no data found (not an error)
+  - `{ type: 'error', message: string, error?: Error }` — logical error
+
+## Tool Context (TableauRequestHandlerExtra)
+Available in `extra` parameter:
+- `config` — server configuration
+- `server` — MCP Server instance
+- `tableauAuthInfo` — auth info (may be undefined for unauthenticated)
+- `getConfigWithOverrides()` — config with site and request overrides applied
+- `getSiteLuid()` / `getUserLuid()` — resolved identifiers
+- `setSiteLuid()` / `setUserLuid()` — set during auth lifecycle
+- `requestId` — unique request identifier
+- `signal` — AbortSignal for cancellation
+
+## useRestApi() (src/restApiInstance.ts)
+Single entry point for authenticated Tableau API calls:
+- Creates fresh RestApi instance per call
+- Handles auth lifecycle (sign-in, token setup, sign-out)
+- Pass `jwtScopes: tool.requiredApiScopes` for scope-aware auth
+- Pass `...extra` to forward auth info, config, signal, etc.
+
+## Tool Description Standards
+Every MCP tool description must include:
+- What the tool does (primary purpose)
+- Which Tableau API it uses
+- What parameters it accepts and their formats
+- What it returns on success
+- Explicit boundary: when to use THIS tool vs similar tools
+
+## Error Handling in Tools
+- Let `logAndExecute` handle error wrapping via `getErrorResult()`
+- Zod/Zodios validation errors → non-error result with warning + raw data
+- Use `constrainSuccessResult` for business logic validation (empty results, etc.)
+- HTTP status extracted automatically from AxiosError via `getHttpStatus()`
+- Telemetry recorded automatically (success/failure, error_code, tool_name)
 
 ---
 > Source: [tableau/tableau-mcp](https://github.com/tableau/tableau-mcp) — distributed by [TomeVault](https://tomevault.io).
