@@ -1,0 +1,9 @@
+{
+  "name": "jhaizhou-ops--pinrule",
+  "displayName": "pinrule",
+  "description": "Near-eliminate AI Agent rule violations in long tasks \u2014 auto-correct drift before it frustrates you. Pure-engineering zero-LLM hook system for Claude Code / Codex CLI / Cursor. ~50-70ms hook latency, ",
+  "version": "1.0.0",
+  "author": "jhaizhou-ops",
+  "homepage": "https://github.com/jhaizhou-ops/pinrule",
+  "skills": []
+}
