@@ -1,0 +1,9 @@
+{
+  "name": "embabel--embabel-agent",
+  "displayName": "embabel-agent",
+  "description": "Agent framework for the JVM. Pronounced Em-BAY-bel /\u025bm\u02c8be\u026ab\u0259l/",
+  "version": "1.0.0",
+  "author": "embabel",
+  "homepage": "https://github.com/embabel/embabel-agent",
+  "skills": []
+}
