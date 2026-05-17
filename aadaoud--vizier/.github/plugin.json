@@ -1,0 +1,9 @@
+{
+  "name": "aadaoud--vizier",
+  "displayName": "vizier",
+  "description": "Vizier is a local, privacy-first AI agent for Obsidian powered by Ollama.",
+  "version": "1.0.0",
+  "author": "AADaoud",
+  "homepage": "https://github.com/AADaoud/vizier",
+  "skills": []
+}
