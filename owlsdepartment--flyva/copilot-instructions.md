@@ -1,39 +1,36 @@
-## import-conventions
+## next-package
 
-> Import conventions for @flyva packages across the monorepo
+> Rules for the React/Next.js adapter package
 
 
-# Import Conventions
+# @flyva/next
 
-## Always use `@flyva/` aliases — never relative cross-package imports
+## File structure
 
-Playground and package code must import from flyva packages using the `@flyva/` scope alias, not relative paths.
-
-```ts
-// CORRECT
-import { useFlyvaStickyRef, globalGetRefStackItem, useDetachedRoot } from '@flyva/nuxt/composables';
-import { FlyvaLink } from '@flyva/nuxt/components';
-import { FlyvaRoot } from '@flyva/next/components';
-import { useFlyvaTransition, useRefStack } from '@flyva/next/hooks';
-import { defineTransition } from '@flyva/shared';
-import { supportsViewTransitions } from '@flyva/shared/view-transition';
-import type { PageTransition } from '@flyva/shared';
-
-// WRONG — never use relative paths to cross package boundaries
-import { globalGetRefStackItem } from '../../../packages/nuxt/runtime/composables/useRefStack';
+```
+packages/next/
+├── index.ts                     # barrel: re-exports common + runtime
+├── common/index.ts              # re-exports from @flyva/shared
+├── runtime/
+│   ├── hooks/                   # React hooks (useFlyva*, useDetachedRoot, useRefStack, useRefState)
+│   ├── components/              # FlyvaRoot, FlyvaLink, FlyvaTransitionWrapper
+│   └── page-transition-manager/ # 'use client' re-export of shared manager
+└── utils/
+    └── refReactiveFactory.ts    # bridges useRefState → ReactiveFactory
 ```
 
-## Subpath exports
+## Conventions
 
-- **Nuxt:** **`@flyva/nuxt/composables`**, **`@flyva/nuxt/components`**, or **`@flyva/nuxt`**
-- **Next:** **`@flyva/next/hooks`**, **`@flyva/next/components`**, or **`@flyva/next`**
-- **Shared:** **`@flyva/shared`** (full), or **`@flyva/shared/page-transition-manager`**, **`@flyva/shared/view-transition`**, **`@flyva/shared/lifecycle-classes`**, **`@flyva/shared/types`** for narrower imports
+- Every file that uses React hooks or browser APIs must have `'use client';` as the first line
+- Import shared code from **`@flyva/shared`** (barrel) or documented subpaths (**`@flyva/shared/page-transition-manager`**, **`@flyva/shared/view-transition`**, …), not relative `../../shared`
+- Components use `forwardRef` when they wrap native elements (e.g. FlyvaLink wraps `<Link>`)
+- Avoid external runtime deps — no lodash, no classnames. Destructure/inline instead
+- `FlyvaRoot` uses a module-level singleton for the manager to survive React re-renders
+- `useRefStack` maintains a global `Map` — it is NOT React state. Transitions access it imperatively via `globalGetRefStackItem`
 
-Avoid deep paths under `packages/*/runtime/` in consuming apps.
+## Peer dependencies
 
-## Nuxt playground: use `nuxi typecheck` (not raw `tsc`)
-
-The `@flyva/nuxt` module registers path aliases via `nuxt.options.alias` so `@flyva/nuxt/*` resolves in the generated tsconfig. These paths are only available after `nuxi prepare`, so always typecheck the Nuxt playground with `nuxi typecheck`.
+The package peer-depends on `next >=14`, `react >=18`, `react-dom >=18`. Don't import APIs exclusive to a single Next.js version.
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
