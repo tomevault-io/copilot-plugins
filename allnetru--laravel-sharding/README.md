@@ -7,11 +7,11 @@ A modern sharding solution for Laravel apps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [allnetru/laravel-sharding](https://github.com/allnetru/laravel-sharding).
+Original source: `CLAUDE.md` in [allnetru/laravel-sharding](https://github.com/allnetru/laravel-sharding).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
