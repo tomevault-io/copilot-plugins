@@ -1,0 +1,245 @@
+## miriam-gonzalez-case
+
+> This is an informational website about **Miriam González Pérez**: a patient with metastatic HR+/HER2- breast cancer with neuroendocrine differentiation (~80%) and FGFR1 ×13 / CCND1 ×20 / 11q13 cluster amplification. The goal is to explain the case to the scientific community, raise funds for an advanced molecular rebiopsy (GoFundMe), and publicly document the process of a patient using AI and an international expert network to navigate precision oncology.
+
+# CLAUDE.md
+
+## About this Project
+
+This is an informational website about **Miriam González Pérez**: a patient with metastatic HR+/HER2- breast cancer with neuroendocrine differentiation (~80%) and FGFR1 ×13 / CCND1 ×20 / 11q13 cluster amplification. The goal is to explain the case to the scientific community, raise funds for an advanced molecular rebiopsy (GoFundMe), and publicly document the process of a patient using AI and an international expert network to navigate precision oncology.
+
+The website has two audiences: scientists/physicians (science page, molecular profile, clinical trials) and general public/donors (story, GoFundMe, timeline).
+
+## Stack & Technical Decisions
+
+### Framework: Nuxt 4 + SSG
+- **Nuxt 4** with static generation (`pnpm run generate`). No backend. No database. No custom API.
+- Deploy on Vercel/Netlify/Cloudflare Pages connected to GitHub. Every push to `main` triggers automatic redeployment.
+- We chose SSG over SSR because content changes infrequently (weekly updates) and we want free serverless hosting.
+- Nuxt 4 uses an `app/` directory for all source files (pages, components, assets, layouts).
+
+### SEO: @nuxtjs/seo + @nuxtjs/sitemap + nuxt-ai-ready
+- `@nuxtjs/seo` is a meta-module bundling: nuxt-og-image, nuxt-robots, nuxt-schema-org, nuxt-link-checker, nuxt-seo-utils.
+- `@nuxtjs/sitemap` generates `/sitemap.xml` with i18n hreflang support — integrates automatically with `@nuxtjs/i18n`.
+- `nuxt-ai-ready` generates `/llms.txt` for AI/LLM agent discoverability.
+- **Module order matters**: `@nuxtjs/seo` and `@nuxtjs/sitemap` must be listed BEFORE `@nuxt/content` in `nuxt.config.ts`.
+- `robots.txt` is managed by `nuxt-robots` — do not put a `robots.txt` in `public/`. The source file is `public/_robots.txt`.
+- All pages use `useSeoMeta()` for meta tags. Do not use `useHead()` for SEO-related tags.
+- OG images use `nuxt-og-image` via `defineOgImage()`. The template is `app/components/OgImage/Default.takumi.vue`.
+- `site.url` and `site.name` in `nuxt.config.ts` feed all SEO modules — Nuxt SEO appends `site.name` to page titles automatically, so page titles should not include " | Miriam González" or " — Miriam González" suffixes.
+
+### i18n: Spanish + English from Day 1
+- `@nuxtjs/i18n` with `prefix_except_default` strategy (Spanish without prefix, English at `/en/`).
+- UI strings live in `i18n/locales/es.json` and `i18n/locales/en.json`.
+
+### Tailwind CSS
+- Custom warm palette: `ink` (warm grays), `ocean` (deep blue for scientific content).
+- Typography: **Fraunces** (serif, display/headings), **Source Sans 3** (sans, body), **JetBrains Mono** (mono, scientific data).
+- `@tailwindcss/typography` plugin for prose on the story page.
+- Custom utility classes in `app/assets/css/main.css`: `.section-container`, `.card-base`, `.tag-gold`, `.tag-ocean`, `.heading-display`, `.link-underline`, `.animate-fade-up`, `.stagger-children`.
+
+### Icons
+- `@nuxt/icon` with Phosphor Icons (prefix `ph:`). Examples: `ph:heart-fill`, `ph:flask-fill`, `ph:stethoscope-fill`.
+
+### Contact Form
+- Netlify Forms integrated (no backend, no Formspree). The form lives in `app/pages/contacto.vue`.
+
+### Nuxt Content v3
+- `@nuxt/content` v3 active. Collections defined in `content.config.ts`.
+- 12 collections: `timeline_es`, `timeline_en`, `historia_es`, `historia_en`, `ciencia_articles`, `science_articles`, `team_es`, `team_en`, `press_es`, `press_en`, `science_es`, `science_en`.
+- Timeline: `.yml` files in `content/es/timeline.yml` and `content/en/timeline.yml`.
+- Story and science: `.md` files in `content/es/historia/`, `content/en/story/`, `content/es/ciencia/`, `content/en/science/`.
+- Team data: `content/es/team.yml` and `content/en/team.yml` (3 groups: `coreTeam`, `medicalNetwork`, `integrativeSupport`).
+- Press mentions: `content/es/press.yml` and `content/en/press.yml`.
+- Science page data (treatments, papers, panel): `content/es/science.yml` and `content/en/science.yml`.
+- Articles/chapters are linked between languages with `translationKey` in frontmatter.
+- Language-specific slugs: ES `/ciencia/analisis-fgfr1`, EN `/en/science/fgfr1-analysis` — custom routes configured in `nuxt.config.ts` under `i18n.pages`.
+- **Page collections** (`historia_es`, `historia_en`, `ciencia_articles`, `science_articles`) have their schemas extended with `defineRobotsSchema()` and `defineSitemapSchema()`. This enables per-file SEO control via frontmatter (e.g. `robots: noindex`, `sitemap: { priority: 0.8 }`).
+- **Data collections** (timeline, team, press, science YML) do NOT have SEO schemas — they are not routed pages.
+- If you modify `content.config.ts`, run `pnpm nuxt prepare` to regenerate types.
+
+## Project Structure
+
+```
+app/
+  app.vue                → Root app shell
+  layouts/
+    default.vue          → Default layout (nav + footer wrapper)
+  pages/
+    index.vue            → Landing: hero + GoFundMe section + molecular profile + thesis
+    ciencia/
+      index.vue          → Complete science page + article list
+      [slug].vue         → Individual science article (ES: /ciencia/slug, EN: /en/science/slug)
+    equipo.vue           → Anonymous team by profession, 3 blocks
+    timeline.vue         → Timeline — consumes content/es|en/timeline.yml
+    historia/
+      index.vue          → Chapter list + placeholder until text arrives
+      [slug].vue         → Individual chapter with prev/next pagination
+    contacto.vue         → Netlify Forms contact + links + box for oncologists
+  components/
+    SiteNav.vue          → Sticky nav, scroll-aware, mobile hamburger, i18n toggle
+    SiteFooter.vue       → 3-column footer
+    SectionHero.vue      → Hero with stats, CTAs, gradient background
+    SectionCampaign.vue  → GoFundMe section (what we're funding, why, transparency)
+    MolecularProfile.vue → Biomarker table with highlighting
+    TimelineEntry.vue    → Timeline entry with dot, vertical line, highlight
+    TeamCard.vue         → Card with icon, role, description
+    PageHeader.vue       → Reusable header (tag + title + subtitle)
+  assets/
+    css/
+      main.css           → Global styles and custom utilities
+
+content/
+  es/
+    timeline.yml         → Timeline entries in Spanish
+    team.yml             → Team data in Spanish (3 groups)
+    press.yml            → Press mentions in Spanish
+    science.yml          → Science page data: treatments, papers, panelRows
+    historia/            → Chapters in Spanish (.md)
+    ciencia/             → Scientific articles in Spanish (.md)
+  en/
+    timeline.yml         → Timeline entries in English
+    team.yml             → Team data in English (3 groups)
+    press.yml            → Press mentions in English
+    science.yml          → Science page data: treatments, papers, panelRows
+    story/               → Chapters in English (.md)
+    science/             → Scientific articles in English (.md)
+
+i18n/
+  locales/
+    es.json              → UI strings in Spanish
+    en.json              → UI strings in English
+
+content.config.ts        → Nuxt Content collection definitions + schemas
+nuxt.config.ts           → Nuxt config (i18n routes, modules, head, etc.)
+```
+
+## Design Decisions
+
+- **Editorial-warm tone**, not clinical or charity-template. The case is scientifically serious but the communication is human and accessible.
+- Molecular data (biomarker table, rebiopsy panel) uses `font-mono` and colored tags to visually distinguish important findings.
+- Timeline entries with `highlight: true` have a golden dot; normal entries have gray.
+- The team is presented **without names** (only profession + country/city). This is intentional: collaborator privacy.
+- The story section has a **placeholder with teaser text**. Alba Silvente will write the final content. Don't remove the teaser until the real text arrives.
+
+## Important Clinical Data (don't break these when editing)
+
+These data are medically accurate and should not be modified without verification:
+
+- FGFR1 amplified ×13 (not ×12, not ×14)
+- CCND1 amplified ×20
+- FGF3/FGF4/FGF19 amplified ×18
+- Neuroendocrine differentiation ~80% (not 70%, not 90%)
+- Initial Ki67: 60%
+- HER2 negative (0), with mention of ultralow
+- Discordant RP: 5% local vs 100% external
+- Low TMB, low MSI
+- No pathogenic SNVs or INDELs, no fusions
+- PIK3CA and ESR1 not detected in primary tissue
+- ECOG 0 (April 2026)
+- Exclusively bone metastases
+- Drago 2019 = PMC6825550 (don't confuse with other Drago)
+- Spanish trial = NCT04483505 (9.1 vs 1.9 months, FGFR1 protein by IHC)
+- PRRT in breast = NCT04529044
+
+## How to Add Content
+
+### New Timeline Entry
+Add an object to the `entries` array in `content/es/timeline.yml` and `content/en/timeline.yml` (same object in both files):
+```yaml
+  - date: 'April 2026 — Week X'
+    title: Milestone Title
+    description: >
+      What happened.
+    highlight: true  # or false if minor
+    link: 'https://...'  # optional
+    linkLabel: 'View on X'  # optional
+```
+
+### New Team Member
+Add an object to the corresponding array (`coreTeam`, `medicalNetwork`, or `integrativeSupport`) in `content/es/team.yml` and `content/en/team.yml`:
+```yaml
+- role: Professional Title (City/Country)
+  description: What they contribute to the case.
+  icon: ph:icon-name-fill
+  color: gold  # or ocean or ink
+```
+
+### New Press Mention
+Add to the `articles` array in `content/es/press.yml` and `content/en/press.yml`:
+```yaml
+- outlet: Outlet Name
+  url: https://...
+  title: Article headline
+```
+
+### New Clinical Trial / Science Data
+Edit `content/es/science.yml` and `content/en/science.yml`. The file has three sections:
+- `treatments`: treatment lines (`line`, `regimen`, `outcome`, `active`)
+- `papers`: key references (`ref`, `finding`, `relevance`, `link`)
+- `panelRows`: rebiopsy panel rows (`component`, `method`, `targets`, `implication`)
+
+### Alba's Text (Story)
+Replace the placeholder content in `app/pages/historia/index.vue` with the real text. Keep the `prose prose-ink` structure. If the text is long, consider migrating it to `content/es/historia.md` and `content/en/historia.md`.
+
+## Commands
+
+```bash
+pnpm run dev        # local dev at http://localhost:3000
+pnpm run generate   # generate static site to .output/public/
+pnpm run preview    # preview static build
+```
+
+## Important External URLs
+
+- GoFundMe: https://gofund.me/3e25cae99
+- Miriam's Twitter: https://x.com/miriamgonp
+- Drago 2019: https://pmc.ncbi.nlm.nih.gov/articles/PMC6825550/
+- Spanish trial NCT04483505: https://www.nature.com/articles/s41698-025-01106-1
+- PRRT in breast: https://clinicaltrials.gov/study/NCT04529044
+
+## How to Collaborate
+
+We welcome contributions from the community! Here's how you can help:
+
+### Open an Issue
+Have a good idea or noticed something that could be improved?
+1. Go to the [Issues](https://github.com/ceciCoding/miriam-gonzalez-case/issues) tab
+2. Click **New Issue**
+3. Describe your idea, suggestion, or bug report
+4. Submit — we'll review it and get back to you
+
+### Pull Requests
+- Fork the repository
+- Create a feature branch: `git checkout -b feature/your-feature-name`
+- Make your changes
+- Open a pull request for review
+
+### Code Standards
+- Mobile-first CSS (use Tailwind utilities)
+- BEM naming for custom CSS
+- No `any` in TypeScript
+- Accessibility: semantic HTML, proper labels, keyboard navigation
+
+## Pending Tasks
+
+- [x] ~~Replace `YOUR_FORM_ID` in contact~~ → Migrated to Netlify Forms
+- [ ] Alba's complete text in story
+- [x] ~~Migrate timeline to `.md`~~ → Migrated to YAML in `content/es|en/timeline.yml`
+- [ ] ~~Configure custom domain~~ → **helpmiriam.com**
+- [ ] Consider adding an RSS feed for timeline updates
+- [x] ~~Analytics~~ → `@nuxtjs/plausible` 3.0.2 (privacy-first, ignores localhost, consistent with privacy message)
+
+### SEO
+
+- [x] ~~OG image~~ → `nuxt-og-image` with `app/components/OgImage/Default.takumi.vue`; `defineOgImage()` called on index page
+- [x] ~~robots.txt~~ → `nuxt-robots` manages it from `public/_robots.txt`
+- [x] ~~Sitemap~~ → `@nuxtjs/sitemap` auto-generates with i18n hreflang at `/sitemap.xml`
+- [x] ~~AEO~~ → `nuxt-ai-ready` serves `/llms.txt`
+- [ ] Add favicon (`public/favicon.ico` or `public/favicon.svg`)
+- [ ] Schema JSON-LD: `Person` (Miriam) + `Article` on science slugs — can use `nuxt-schema-org` (already bundled in `@nuxtjs/seo`)
+- [ ] Verify `helpmiriam.com` in Google Search Console and request indexing of key pages
+
+---
+> Source: [BeyondTheProtocol/miriam-gonzalez-case](https://github.com/BeyondTheProtocol/miriam-gonzalez-case) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
