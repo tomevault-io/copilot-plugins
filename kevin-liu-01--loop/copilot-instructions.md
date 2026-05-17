@@ -1,33 +1,47 @@
-## frontend-10x-browser-debugging
+## frontend-10x-external-skills
 
-> Prefer live-browser Chrome DevTools MCP for localhost and manual debugging; keep Playwright as deterministic fallback.
+> Routing rules for imported animation, 3D, and design-engineering skills.
 
 
-# Browser Debugging Preference
+# External Frontend Skill Routing
 
-When browser automation or debugging is needed:
+When frontend work becomes specialized, route to the imported skill that matches the problem instead of giving generic advice.
 
-- Prefer `chrome-devtools-live` when the user already has Chrome open, is logged in, or wants the agent to inspect the current browser state.
-- Prefer `chrome-devtools-port` when testing localhost repeatedly or when a reusable dedicated debug browser is better than the user’s normal browsing session.
-- Use Playwright when isolation, deterministic repro, or fresh auth state is the actual goal.
-- Do not default to Playwright if the user clearly wants the current browser session or selected DevTools state.
-- For localhost work, favor going straight into the browser via Chrome DevTools MCP before spinning up a fresh browser automation lane.
+Preferred routing:
 
-Operational rules:
+- use `modern-web-design` for broad contemporary design direction
+- use `motion-framer` for React component motion, layout transitions, menus, overlays, and most UI animation
+- use `gsap-scrolltrigger` for scrollytelling, pinning, scrubbed sections, and cross-surface choreography
+- use `react-three-fiber` for React-based 3D scenes
+- use `threejs-webgl` for lower-level or non-React Three.js work
+- use `web3d-integration-patterns` when multiple motion/3D libraries need to work together coherently
+- use `rive-interactive` for stateful designer-authored runtime animations
+- use `lottie-animations` for After Effects exported motion assets
+- use `pixijs-2d` for GPU-accelerated 2D graphics and particle layers
+- use `spline-interactive` when a visual-editor 3D workflow is the right fit
+- use `aframe-webxr` for browser VR/AR or WebXR work
+- use `lightweight-3d-effects` when decorative depth is enough and a full engine is overkill
+- use `animejs` for framework-agnostic timeline/SVG animation
+- use `barba-js` for multi-page transition systems
+- use `scroll-reveal-libraries` only for simple reveal-on-scroll work
+- use `blender-web-pipeline` and `substance-3d-texturing` for 3D asset and material pipelines
+- use `babylonjs-engine` or `playcanvas-engine` when the work is closer to game-engine style interactive 3D
 
-- `chrome-devtools-live` requires remote debugging enabled at `chrome://inspect/#remote-debugging` and a user approval prompt.
-- `chrome-devtools-port` assumes Chrome was launched with a remote debug port, for example via `/Users/kevinliu/.codex/bin/open-chrome-debug.sh http://localhost:3000`.
-- Playwright is fallback, not the first move, for manual browser debugging.
+Routing priorities:
 
-Cleanup rules:
+- prefer `motion-framer` over ad hoc React animation code
+- prefer `gsap-scrolltrigger` over generic scroll-effect improvisation
+- prefer `react-three-fiber` over low-level Three.js in React unless low-level control is required
+- prefer `rive-interactive` over Lottie when runtime state and interactivity matter
+- prefer `lightweight-3d-effects` over full 3D engines when only mild decorative depth is needed
 
-MCP processes (chrome-devtools-mcp, playwright-mcp) and Playwright-managed Chrome instances accumulate across sessions and waste memory. When the user asks to clean up, shut down, or wrap up:
+Exceptions:
 
-- Kill stale MCP processes: `pkill -f "chrome-devtools-mcp"` and `pkill -f "playwright-mcp"`
-- Kill Playwright-managed Chrome: `pkill -f "ms-playwright/mcp-chrome"`
-- Verify nothing remains: `ps aux | grep -iE "chrome-devtools-mcp|playwright-mcp|ms-playwright" | grep -v grep | wc -l`
-- Never kill the user's normal Chrome browser or Cursor processes.
-- Report what was cleaned up and confirm zero remaining.
+- do not force imported skills when the existing codebase already standardizes on another well-chosen stack
+- do not use `locomotive-scroll` as a new default; prefer Lenis unless maintaining existing Locomotive work or explicitly requested
+- do not use `scroll-reveal-libraries` for brand-defining motion systems
+
+Repo-local mirrored references live in `/Users/kevinliu/Downloads/Dedalus/frontend-frontier-pack/third-party-skills/freshtechbro/` and the routing overview lives in `/Users/kevinliu/Downloads/Dedalus/frontend-frontier-pack/codex-skill/frontend-frontier/references/external-frontend-skill-map.md`.
 
 ---
 > Source: [Kevin-Liu-01/Loop](https://github.com/Kevin-Liu-01/Loop) — distributed by [TomeVault](https://tomevault.io).
