@@ -1,0 +1,9 @@
+{
+  "name": "tjdrhs90--rn-launch-harness",
+  "displayName": "rn-launch-harness",
+  "description": "Claude Code plugin that automates the entire React Native app lifecycle \u2014 from market research to App Store & Google Play submission. Harness engineering with Generator-Evaluator separation, file-base",
+  "version": "1.0.0",
+  "author": "tjdrhs90",
+  "homepage": "https://github.com/tjdrhs90/rn-launch-harness",
+  "skills": []
+}
