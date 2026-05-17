@@ -7,11 +7,11 @@ VideoEditorKit is a SwiftUI video editing framework for iOS 18.6+ with a ready-t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [didisouzacosta/VideoEditorKit](https://github.com/didisouzacosta/VideoEditorKit).
+Original source: `CLAUDE.md` in [didisouzacosta/VideoEditorKit](https://github.com/didisouzacosta/VideoEditorKit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
