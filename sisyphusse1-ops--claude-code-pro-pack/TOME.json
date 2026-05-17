@@ -4,7 +4,7 @@
   "repo": "claude-code-pro-pack",
   "description": "CLAUDE.md + AGENTS.md 12-rule behavior file for Claude Code, Codex, Cursor, Hermes \u2014 drop-in, ~700 tokens, cuts AI coding mistakes ~40%\u2192~3%",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sisyphusse1-ops/claude-code-pro-pack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T04:30:08Z"
+  "distributed_at": "2026-05-17T04:30:36Z"
 }
