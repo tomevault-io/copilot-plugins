@@ -1,0 +1,9 @@
+{
+  "name": "railly--agent-brain",
+  "displayName": "agent-brain",
+  "description": "An agent-powered knowledge system built on Obsidian + Claude Code + Codex",
+  "version": "1.0.0",
+  "author": "Railly",
+  "homepage": "https://github.com/Railly/agent-brain",
+  "skills": []
+}
