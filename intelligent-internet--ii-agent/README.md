@@ -7,11 +7,11 @@ II-Agent: a new open-source framework to build and deploy intelligent agents
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Intelligent-Internet/ii-agent](https://github.com/Intelligent-Internet/ii-agent).
+Original source: `AGENTS.md` in [Intelligent-Internet/ii-agent](https://github.com/Intelligent-Internet/ii-agent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
