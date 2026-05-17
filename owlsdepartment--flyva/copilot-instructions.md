@@ -1,25 +1,39 @@
-## docs-writing
+## import-conventions
 
-> Typography and dash conventions for VitePress docs under docs/
+> Import conventions for @flyva packages across the monorepo
 
 
-# Documentation writing (VitePress)
+# Import Conventions
 
-## Hyphen vs em dash
+## Always use `@flyva/` aliases — never relative cross-package imports
 
-- In **prose, headings, tables, and link text**, use a spaced hyphen **` - `** (space, hyphen, space), not a Unicode em dash (`—`), for asides and breaks (e.g. `Next.js - default`, `see the guide - details below`).
-- **Exception - labelled list lines only:** you may use an em dash **with spaces** between a short label and the rest of the bullet, when the line starts with a markdown list marker and the label is clearly delimited:
+Playground and package code must import from flyva packages using the `@flyva/` scope alias, not relative paths.
 
-```markdown
-- *foobar* — baz qux
-- *lorem ipsum* — dolor sit amet
-- **Default** — `leave()` is awaited, then …
-- `context.current` — element that is leaving …
-1. **Intercept** — the click is prevented …
+```ts
+// CORRECT
+import { useFlyvaStickyRef, globalGetRefStackItem, useDetachedRoot } from '@flyva/nuxt/composables';
+import { FlyvaLink } from '@flyva/nuxt/components';
+import { FlyvaRoot } from '@flyva/next/components';
+import { useFlyvaTransition, useRefStack } from '@flyva/next/hooks';
+import { defineTransition } from '@flyva/shared';
+import { supportsViewTransitions } from '@flyva/shared/view-transition';
+import type { PageTransition } from '@flyva/shared';
+
+// WRONG — never use relative paths to cross package boundaries
+import { globalGetRefStackItem } from '../../../packages/nuxt/runtime/composables/useRefStack';
 ```
 
-- Do **not** use a **tight** em dash (no spaces: `foo—bar`); always either the spaced hyphen form above or the labelled-list `label — rest` pattern with spaces around `—`.
-- In **tables**, prefer a hyphen or words for “empty” cells (e.g. `-`) instead of a lone `—` column, unless that column is explicitly using the labelled-list style (unusual in tables).
+## Subpath exports
+
+- **Nuxt:** **`@flyva/nuxt/composables`**, **`@flyva/nuxt/components`**, or **`@flyva/nuxt`**
+- **Next:** **`@flyva/next/hooks`**, **`@flyva/next/components`**, or **`@flyva/next`**
+- **Shared:** **`@flyva/shared`** (full), or **`@flyva/shared/page-transition-manager`**, **`@flyva/shared/view-transition`**, **`@flyva/shared/lifecycle-classes`**, **`@flyva/shared/types`** for narrower imports
+
+Avoid deep paths under `packages/*/runtime/` in consuming apps.
+
+## Nuxt playground: use `nuxi typecheck` (not raw `tsc`)
+
+The `@flyva/nuxt` module registers path aliases via `nuxt.options.alias` so `@flyva/nuxt/*` resolves in the generated tsconfig. These paths are only available after `nuxi prepare`, so always typecheck the Nuxt playground with `nuxi typecheck`.
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
