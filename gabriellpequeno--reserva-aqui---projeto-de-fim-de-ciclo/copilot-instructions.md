@@ -1,11 +1,11 @@
-## agent-game-developer
+## agent-mobile-developer
 
-> Persona game-developer — engines 2D/3D; leia .agent/agents/game-developer.md.
+> Persona mobile-developer — RN/Flutter; leia .agent/agents/mobile-developer.md.
 
 
-# Agente: Game Developer
+# Agente: Mobile Developer
 
-Antes de atuar neste papel, leia `.agent/agents/game-developer.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/mobile-developer.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
