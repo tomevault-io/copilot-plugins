@@ -1,0 +1,9 @@
+{
+  "name": "razorpay--razorpay-mcp-server",
+  "displayName": "razorpay-mcp-server",
+  "description": "Razorpay's Official MCP Server",
+  "version": "1.0.0",
+  "author": "razorpay",
+  "homepage": "https://github.com/razorpay/razorpay-mcp-server",
+  "skills": []
+}
