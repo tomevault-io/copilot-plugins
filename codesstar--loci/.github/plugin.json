@@ -1,0 +1,9 @@
+{
+  "name": "codesstar--loci",
+  "displayName": "loci",
+  "description": "Memory Palace for AI \u2014 persistent memory, identity, and multi-project orchestration for Claude Code",
+  "version": "1.0.0",
+  "author": "codesstar",
+  "homepage": "https://github.com/codesstar/loci",
+  "skills": []
+}
