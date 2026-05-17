@@ -1,0 +1,14 @@
+{
+  "name": "erkamyaman--ionic-capacitor-skills",
+  "displayName": "ionic-capacitor-skills",
+  "description": "Skills for AI coding agents working with Capacitor/Ionic",
+  "version": "1.0.0",
+  "author": "erkamyaman",
+  "homepage": "https://github.com/erkamyaman/ionic-capacitor-skills",
+  "skills": [
+    {
+      "name": "ionic-capacitor",
+      "description": ""
+    }
+  ]
+}
