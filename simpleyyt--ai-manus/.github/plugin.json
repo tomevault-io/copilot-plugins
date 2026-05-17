@@ -1,0 +1,9 @@
+{
+  "name": "simpleyyt--ai-manus",
+  "displayName": "ai-manus",
+  "description": "AI Manus is a general-purpose AI Agent system that supports running various tools and operations in a sandbox environment.",
+  "version": "1.0.0",
+  "author": "Simpleyyt",
+  "homepage": "https://github.com/Simpleyyt/ai-manus",
+  "skills": []
+}
