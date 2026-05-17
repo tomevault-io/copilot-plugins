@@ -1,22 +1,26 @@
-## typescript-strict-typing
+## unit-tests-todos
 
-> Enforce strict TypeScript typing without any types
+> When proposing/writing unit test specs
 
+Stack:
+- Vitest
 
-# TypeScript Strict Typing
+Testing rules:
+- Test are colocated as closely as possible to the code they are testing in a `__tests__` directory.
+- We only test if/then logic
+- A ‘when’ should indicate a describe block, and then we will out the todos.
+- Don’t test implementation details, only the public API.
 
-**Never use `any` type.** Use `unknown` for dynamic data, proper interfaces for complex objects, and specific union types for known value sets.
+- DO NOT WRITE THE ACTUAL TESTING, ONLY THE TODOS.
+- Propose only a spec test of todos:
 
-### Examples:
-```typescript
-// ❌ Bad
-function processData(data: any) { ... }
-const context: Record<string, any>;
-
-// ✅ Good
-type LogContext = Record<string, unknown>;
-interface Config { language: string; framework: string; }
-type Status = 'success' | 'error' | 'pending';
+Example:
+```ts
+describe(“Todo List”, () => {
+    describe(“when a todo is added”, () => {
+        it.todo(“adds a todo”);
+    });
+});
 ```
 
 ---
