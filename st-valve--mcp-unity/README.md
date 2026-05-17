@@ -7,11 +7,11 @@ Model Context Protocol (MCP) plugin to connect with Unity Editor — designed fo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [st-VALVe/mcp-unity](https://github.com/st-VALVe/mcp-unity).
+Original source: `AGENTS.md` in [st-VALVe/mcp-unity](https://github.com/st-VALVe/mcp-unity).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
