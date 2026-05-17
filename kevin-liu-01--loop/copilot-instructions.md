@@ -1,55 +1,63 @@
-## frontend-10x-prompting
+## frontend-10x-system
 
-> Prompting rules for frontend agents, UI generation, and asset generation workflows.
+> High-signal frontend art direction, system design, and anti-generic guardrails.
 
 
-# Frontend Prompting Rules
+# High-Signal Frontend System
 
-When asked to design or generate frontend work, prompts should specify:
+When generating or editing frontend code:
 
-- product and audience
-- methodology lens
-- art-direction thesis
-- palette
-- type pairing
-- material language
-- component inventory
-- tactic families
-- motion budget
-- runtime stack
-- performance constraints
-- banned defaults
+- Start by choosing an explicit art direction. Do not default to generic SaaS.
+- Choose a methodology lens before choosing tactics: discovery, system, and evaluation.
+- Pick one primary visual thesis: editorial technical, premium AI SaaS, cinematic 3D, architectural blueprint, neo-brutalist, or experimental.
+- Build or extend a real design system before adding one-off styling.
+- Default to Tailwind CSS v4 `@theme` plus runtime CSS variables for token transport.
+- Use tokens for color, spacing, radii, shadows, blur, z-index, and motion.
+- Prefer OKLCH when authoring custom color scales.
+- Reject raw hex colors, arbitrary spacing, and accidental radius/shadow drift.
+- Prefer a type triad: display, sans, mono.
+- Avoid Inter, Roboto, default shadcn aesthetics, and generic purple gradients unless the existing product already uses them or the user explicitly asks for them.
+- Keep the primary UI to 3 active colors or fewer plus neutrals.
+- Use authored line breaks in headlines.
+- Use `text-wrap: balance` for headings and important short copy when helpful.
+- Use `antialiased` at the app layout level when it improves the chosen fonts.
+- Use `tabular-nums` for metrics, dates, prices, and changing numeric UI.
+- Make the product shot, dashboard mock, or diagram obey the same token system as the rest of the page.
+- Keep navigation, CTA hierarchy, and proof blocks simple and obvious.
+- Favor optical alignment over perfect geometry when they conflict.
+- Default to bold but coherent decisions, not safe average ones.
+- When the problem is craft quality, learn from manual-grade references like `userinterface.wiki`, Rauno, Devouring Details, Interface Craft, and UI Playbook, not only from spectacle-heavy marketing sites.
+- Preserve concentric radii on nested surfaces: outer radius = inner radius + padding.
+- Prefer subtle layered shadows over hard borders when the goal is depth.
+- Give images and screenshots a low-opacity outline when they need a cleaner edge.
+- CSS is the substrate for layout, tokens, and fallbacks. Do not default to raw CSS as the primary motion architecture.
+- For React frontends, prefer Motion, GSAP, Lenis, R3F/drei, OGL, and React transitions where appropriate.
+- If the product touches auth, user data, or public forms, include trust checks in the implementation: Supabase RLS where relevant, tested auth flows, rate limits, server-side validation, locked-down env vars, CAPTCHA on public forms when needed, CORS restrictions, and error handling that does not leak internals.
 
-Good prompts ask for proposals first.
+Composition rules:
 
-Default exploration pattern:
+- One hero focal point.
+- One dominant CTA.
+- One proof pattern near the claim.
+- One repeated motif across the page.
 
-1. propose 3 distinct directions
-2. explain type, palette, layout, and motion thesis for each
-3. choose one direction
-4. implement with tokens and constraints
+Tactic rules:
 
-When using screenshots:
+- choose tactics intentionally: shell, density, motion, 3D/shaders, forms, data display, wait UX, resilience, search, AI, or docs
+- do not cargo-cult patterns because they were trendy on one reference site
 
-- decompose into background, UI, and texture layers
-- recreate assets separately
-- recompose in code
+Ban these by default:
 
-Useful bans:
+- centered-everything landing pages
+- blur blobs with no material logic
+- glassmorphism on white for no reason
+- several competing accents
+- five unrelated section styles on one page
+- mismatched nested border radii
+- important headlines left to accidental wrapping
+- JS-only token systems when Tailwind v4 runtime vars would do the job better
 
-- no generic SaaS gradients
-- no Inter/Roboto unless requested
-- no default shadcn look
-- no plain CSS animation architecture as the default
-- no motion without hierarchy
-- no centered-by-habit layouts
-
-When generating video or image backgrounds:
-
-- first frame must work as a poster
-- motion must loop cleanly
-- preserve negative space for copy
-- avoid noisy movement behind text
+If the task is docs-heavy, preserve docs usability first and add taste second.
 
 ---
 > Source: [Kevin-Liu-01/Loop](https://github.com/Kevin-Liu-01/Loop) — distributed by [TomeVault](https://tomevault.io).
