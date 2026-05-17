@@ -1,0 +1,9 @@
+{
+  "name": "glechevalier--nff",
+  "displayName": "nff",
+  "description": "This repo implements software defined machines. Nff does Firmware. Things up next : electronic circuits, mech and more.",
+  "version": "1.0.0",
+  "author": "GLechevalier",
+  "homepage": "https://github.com/GLechevalier/nff",
+  "skills": []
+}
