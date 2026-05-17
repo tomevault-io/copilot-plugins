@@ -1,4 +1,4 @@
-## fullstack-start-template
+## ultracite
 
 > Ultracite Rules
 
