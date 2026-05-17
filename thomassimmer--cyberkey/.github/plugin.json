@@ -1,0 +1,9 @@
+{
+  "name": "thomassimmer--cyberkey",
+  "displayName": "CyberKey",
+  "description": "BLE hardware TOTP key. Touch an enrolled finger, the 6-digit code is typed automatically on your computer. Built on M5StickC Plus 2 (ESP32) in Rust.",
+  "version": "1.0.0",
+  "author": "thomassimmer",
+  "homepage": "https://github.com/thomassimmer/CyberKey",
+  "skills": []
+}
