@@ -1,0 +1,9 @@
+{
+  "name": "tabloy--keygate",
+  "displayName": "keygate",
+  "description": "Open source license management platform. Subscriptions, perpetual, trials, floating licenses, usage metering, Stripe payments, team seats, and admin dashboard. Self-hosted       alternative to Keygen ",
+  "version": "1.0.0",
+  "author": "tabloy",
+  "homepage": "https://github.com/tabloy/keygate",
+  "skills": []
+}
