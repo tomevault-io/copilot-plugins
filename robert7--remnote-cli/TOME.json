@@ -4,7 +4,7 @@
   "repo": "remnote-cli",
   "description": "[legacy/moved] CLI (command-line interface) tool which allows to access your RemNote knowledge base via RemNote Bridge for MCP & OpenClaw - e.g. for usage in agentic workflows or any automation",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/robert7/remnote-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T12:31:35Z"
+  "distributed_at": "2026-05-17T12:39:02Z"
 }
