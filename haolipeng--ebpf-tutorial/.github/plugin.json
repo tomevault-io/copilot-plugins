@@ -1,0 +1,9 @@
+{
+  "name": "haolipeng--ebpf-tutorial",
+  "displayName": "ebpf-tutorial",
+  "description": "Beginner-friendly eBPF hands-on tutorial",
+  "version": "1.0.0",
+  "author": "haolipeng",
+  "homepage": "https://github.com/haolipeng/ebpf-tutorial",
+  "skills": []
+}
