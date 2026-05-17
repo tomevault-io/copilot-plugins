@@ -1,0 +1,9 @@
+{
+  "name": "intelligent-internet--ii-agent",
+  "displayName": "ii-agent",
+  "description": "II-Agent: a new open-source framework to build and deploy intelligent agents",
+  "version": "1.0.0",
+  "author": "Intelligent-Internet",
+  "homepage": "https://github.com/Intelligent-Internet/ii-agent",
+  "skills": []
+}
