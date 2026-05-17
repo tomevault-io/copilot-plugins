@@ -1,0 +1,75 @@
+{
+  "name": "beads-workflow",
+  "owner": "thoreinstein",
+  "repo": "beads-workflow",
+  "description": "A high-stakes engineering workflow extension for the Gemini CLI, powered by Beads (issue tracking) and Obsidian (architectural planning).",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility",
+      "path": "skills/accessibility",
+      "github_url": "https://github.com/thoreinstein/beads-workflow/tree/main/skills/accessibility",
+      "description": ""
+    },
+    {
+      "name": "adr-writer",
+      "path": "skills/adr-writer",
+      "github_url": "https://github.com/thoreinstein/beads-workflow/tree/main/skills/adr-writer",
+      "description": ""
+    },
+    {
+      "name": "rams",
+      "path": "skills/rams",
+      "github_url": "https://github.com/thoreinstein/beads-workflow/tree/main/skills/rams",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "skills/refactor",
+      "github_url": "https://github.com/thoreinstein/beads-workflow/tree/main/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": "skills/release",
+      "github_url": "https://github.com/thoreinstein/beads-workflow/tree/main/skills/release",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thoreinstein/beads-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T14:30:12Z"
+}
