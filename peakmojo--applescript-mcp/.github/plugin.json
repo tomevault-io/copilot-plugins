@@ -1,0 +1,9 @@
+{
+  "name": "peakmojo--applescript-mcp",
+  "displayName": "applescript-mcp",
+  "description": "MCP server that execute applescript giving you full control of your Mac",
+  "version": "1.0.0",
+  "author": "peakmojo",
+  "homepage": "https://github.com/peakmojo/applescript-mcp",
+  "skills": []
+}
