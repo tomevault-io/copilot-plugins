@@ -1,0 +1,9 @@
+{
+  "name": "daiimus--geistty",
+  "displayName": "geistty",
+  "description": "Native iOS/iPadOS SSH terminal powered by Ghostty's terminal engine",
+  "version": "1.0.0",
+  "author": "daiimus",
+  "homepage": "https://github.com/daiimus/geistty",
+  "skills": []
+}
