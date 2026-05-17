@@ -1,0 +1,14 @@
+{
+  "name": "copilotkit--copilotkit-mcp-demo",
+  "displayName": "CopilotKit",
+  "description": "copilotkit-mcp-demo",
+  "version": "1.0.0",
+  "author": "CopilotKit",
+  "homepage": "https://github.com/CopilotKit/copilotkit-mcp-demo",
+  "skills": [
+    {
+      "name": "chatgpt-app-builder",
+      "description": ""
+    }
+  ]
+}
