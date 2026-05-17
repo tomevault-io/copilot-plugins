@@ -1,11 +1,11 @@
-## agent-debugger
+## agent-devops-engineer
 
-> Persona debugger — RCA e evidencias; leia .agent/agents/debugger.md.
+> Persona devops-engineer — CI/CD e infra; leia .agent/agents/devops-engineer.md.
 
 
-# Agente: Debugger
+# Agente: DevOps Engineer
 
-Antes de atuar neste papel, leia `.agent/agents/debugger.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/devops-engineer.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
