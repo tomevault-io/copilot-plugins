@@ -1,0 +1,9 @@
+{
+  "name": "marmelab--shadcn-admin-kit",
+  "displayName": "shadcn-admin-kit",
+  "description": "Component kit to build your Admin app with shadcn/ui",
+  "version": "1.0.0",
+  "author": "marmelab",
+  "homepage": "https://github.com/marmelab/shadcn-admin-kit",
+  "skills": []
+}
