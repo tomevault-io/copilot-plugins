@@ -1,53 +1,23 @@
-## gitruels
+## help
 
-> description: Critical Git Safety Protocol
+> Reflect before acting
 
 
----
+# Reflect before acting
 
-description: Critical Git Safety Protocol
-globs:
-alwaysApply: true
+Before implementing any solution:
 
----
+1. Identify what's missing, incomplete, or incorrect based on the original request
+2. Theorize 2-3 possible root causes or approaches
+3. Distill to the 1-2 most probable. Only proceed after clear understanding.
 
-## Critical Git Safety Protocol
+If anything is unclear: ask first. Never assume.
 
-**🚨 NEVER USE `git checkout` TO REVERT CHANGES 🚨**
+Code confidence: don't write code until 98%+ confident in what needs to be done.
 
-**MANDATORY GIT SAFETY RULES:**
+Change scope: only update files directly necessary for the request. Do not change UI, layout, or design unless instructed. Never remove features unless directly requested.
 
-- **NEVER run `git checkout -- <file>`** without first examining what you're about to destroy
-- **ALWAYS use `git diff <file>`** to see exactly what changes will be lost
-- **MANUALLY undo changes** by editing files to revert specific problematic sections
-- **Preserve valuable work** — if user says changes are bad, ask which specific parts to revert
-- **`git checkout` destroys ALL changes** — this can eliminate hours of valuable progress
-- **When user asks to "undo" changes**: Read the current file, identify problematic sections, and manually edit to fix them
-
-**Why this matters**: Using `git checkout` blindly can destroy sophisticated implementations, complex prompts, provider-specific logic, and other valuable work that took significant time to develop.
-
-## Git Safety Rules - CRITICAL
-
-**NEVER run these commands without explicit user approval:**
-
-- `git reset --hard` - Destroys uncommitted changes permanently
-- `git checkout -- .` - Discards all working directory changes
-- `git clean -fd` - Deletes untracked files permanently
-- `git stash drop` - Deletes stashed changes
-
-**ALWAYS before any git operation:**
-
-1. Run `git status` first to check for uncommitted changes
-2. If there are uncommitted changes, STOP and ASK the user before proceeding
-3. Suggest `git stash` to preserve changes if needed
-
-**If user asks to "revert" something:**
-
-1. First clarify: revert committed changes or uncommitted changes?
-2. Show what will be affected before doing anything
-3. Get explicit confirmation for destructive operations
-
-This rule exists because careless git operations destroyed 2 days of work.
+UI alerts: always use the site's existing design system for modals, alerts, and confirmations. Never use browser defaults.
 
 ---
 > Source: [waynesutton/agent-ready-component](https://github.com/waynesutton/agent-ready-component) — distributed by [TomeVault](https://tomevault.io).
