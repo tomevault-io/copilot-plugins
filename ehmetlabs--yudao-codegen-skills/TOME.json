@@ -1,0 +1,44 @@
+{
+  "name": "yudao-codegen-skills",
+  "owner": "ehmetlabs",
+  "repo": "yudao-codegen-skills",
+  "description": "\u7528\u4e8e Yudao \u4ee3\u7801\u751f\u6210\uff08\u540e\u7aef + \u7ba1\u7406\u540e\u53f0\u524d\u7aef\uff09\u7684\u6d41\u7a0b\u5316\u6307\u5f15\u4e0e\u7d22\u5f15\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ehmetlabs/yudao-codegen-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T14:34:50Z"
+}
