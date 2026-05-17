@@ -1,0 +1,9 @@
+{
+  "name": "wysaid--cameracapture",
+  "displayName": "CameraCapture",
+  "description": "ccap `(C)amera(CAP)ture` is a simple and easy-to-use C/C++ camera capture library designed to provide you with simple and efficient camera data access. It currently supports Windows macOS and Linux.",
+  "version": "1.0.0",
+  "author": "wysaid",
+  "homepage": "https://github.com/wysaid/CameraCapture",
+  "skills": []
+}
