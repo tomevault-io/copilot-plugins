@@ -1,0 +1,9 @@
+{
+  "name": "theopenco--llmgateway",
+  "displayName": "llmgateway",
+  "description": "Route, manage, and analyze your LLM requests across multiple providers with a unified API interface.",
+  "version": "1.0.0",
+  "author": "theopenco",
+  "homepage": "https://github.com/theopenco/llmgateway",
+  "skills": []
+}
