@@ -7,11 +7,11 @@ OpenDeepWiki is the open-source version of the DeepWiki project, aiming to provi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [AIDotNet/OpenDeepWiki](https://github.com/AIDotNet/OpenDeepWiki).
+Original source: `AGENTS.md` in [AIDotNet/OpenDeepWiki](https://github.com/AIDotNet/OpenDeepWiki).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
