@@ -1,55 +1,49 @@
-## pytest-unit-test-rules
+## nexent
 
-> Pytest Unit Test Rules for this repository
+> <!-- Skills section removed -->
 
+# AGENTS
 
-## Pytest Unit Test Rules (Concise)
+<!-- Skills section removed -->
 
-### Framework
-- Use pytest exclusively; prefer fixtures; use pytest `assert` statements.
+<skills_system priority="1">
 
-### Naming
-- Files `test_*`; classes `Test*`; functions `test_*`.
+## Available Skills
 
-### Imports
-- Order: standard library, third‑party, project.
-- Import only the unit under test; mock collaborators using `pytest-mock`.
+<!-- SKILLS_TABLE_START -->
+<usage>
+When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.
 
-### Import and Mock Rules
-- Do not directly import external interfaces/clients/services into tests to exercise collaborators.
-- Patch where the dependency is imported (lookup site) using a fully‑qualified path.
-- Use `side_effect` to cover error paths when appropriate.
+How to use skills:
+- Invoke: `npx openskills read <skill-name>` (run in your shell)
+  - For multiple: `npx openskills read skill-one,skill-two`
+- The skill content will load with detailed instructions on how to complete the task
+- Base directory provided in output for resolving bundled resources (references/, scripts/, assets/)
 
-```python
-from pytest_mock import MockFixture
-from backend.apps.some_app import create_resource
+Usage notes:
+- Only use skills listed in <available_skills> below
+- Do not invoke a skill that is already loaded in your context
+- Each skill invocation is stateless
+</usage>
 
-def test_create_resource_success(mocker: MockFixture):
-    mocker.patch(
-        "backend.services.model_provider_service.ModelProviderService.create",
-        return_value={"id": "res-1"},
-    )
-    assert create_resource({...})["id"] == "res-1"
-```
+<available_skills>
 
-### Structure and Size
-- Keep files under 500 lines or split by feature; include `__init__.py` in split directories; use `test_<module>_<feature>.py` names.
+<skill>
+<name>prompts-writing</name>
+<description>Create, refine, and optimize high-quality YAML prompts for AI assistants. Use when working with prompt templates, system prompts, agent prompts, or any prompt engineering tasks. Provides structure guidelines, template patterns, and quality standards for YAML-based prompts.</description>
+<location>project</location>
+</skill>
 
-### Coverage and Async
-- Cover success/error flows and boundaries; use `@pytest.mark.parametrize` for variants.
-- Use `@pytest.mark.asyncio` for async tests.
+<skill>
+<name>skill-creator</name>
+<description>Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.</description>
+<location>project</location>
+</skill>
 
-### Isolation
-- Use `autouse=True` fixtures to reset state; fully mock external I/O and APIs.
+</available_skills>
+<!-- SKILLS_TABLE_END -->
 
-### Checklist
-- [ ] pytest only (no unittest)
-- [ ] naming conventions followed
-- [ ] collaborators mocked with pytest-mock
-- [ ] import/mocking rules followed
-- [ ] async tests decorated when needed
-- [ ] clear, specific assertions
-- [ ] adequate coverage (normal and exception paths)
+</skills_system>
 
 ---
 > Source: [ModelEngine-Group/nexent](https://github.com/ModelEngine-Group/nexent) — distributed by [TomeVault](https://tomevault.io).
