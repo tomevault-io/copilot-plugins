@@ -4,7 +4,7 @@
   "repo": "kx-pipeline",
   "description": "Give AI your judgment, not just your notes. 4-command Knowledge Transformation pipeline for Claude Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/livenode-ai/kx-pipeline",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T14:31:32Z"
+  "distributed_at": "2026-05-17T14:33:25Z"
 }
