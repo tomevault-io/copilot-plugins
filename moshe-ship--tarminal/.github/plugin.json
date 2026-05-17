@@ -1,0 +1,9 @@
+{
+  "name": "moshe-ship--tarminal",
+  "displayName": "Tarminal",
+  "description": "The first native macOS terminal with proper Arabic/RTL text support. \u062a\u0631\u0645\u0646\u0627\u0644",
+  "version": "1.0.0",
+  "author": "Moshe-ship",
+  "homepage": "https://github.com/Moshe-ship/Tarminal",
+  "skills": []
+}
