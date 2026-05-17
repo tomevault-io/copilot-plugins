@@ -4,7 +4,7 @@
   "repo": "Next2V",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/honjow/Next2V",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T02:54:50Z"
+  "distributed_at": "2026-05-17T03:07:28Z"
 }
