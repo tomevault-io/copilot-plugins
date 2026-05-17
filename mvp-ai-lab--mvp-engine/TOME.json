@@ -4,7 +4,7 @@
   "repo": "mvp-engine",
   "description": "MVP Engine - The Next-Generation Framework for Multimodal Model Training with Agents",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mvp-ai-lab/mvp-engine",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T16:32:58Z"
+  "distributed_at": "2026-05-17T16:33:27Z"
 }
