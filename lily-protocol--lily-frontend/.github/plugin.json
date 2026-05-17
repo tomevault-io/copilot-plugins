@@ -1,0 +1,9 @@
+{
+  "name": "lily-protocol--lily-frontend",
+  "displayName": "lily-frontend",
+  "description": "Frontend dashboard and web application for LILY Protocol.",
+  "version": "1.0.0",
+  "author": "lily-protocol",
+  "homepage": "https://github.com/lily-protocol/lily-frontend",
+  "skills": []
+}
