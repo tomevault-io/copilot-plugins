@@ -1,0 +1,9 @@
+{
+  "name": "obscureaintsecure--talktrack",
+  "displayName": "TalkTrack",
+  "description": "Record and transcribe Teams, Zoom, and Google Meet calls locally with AI-powered speaker identification. Open-source alternative to Evaer, Otter.ai, and Fireflies. Offline speech-to-text using Whisper",
+  "version": "1.0.0",
+  "author": "ObscureAintSecure",
+  "homepage": "https://github.com/ObscureAintSecure/TalkTrack",
+  "skills": []
+}
