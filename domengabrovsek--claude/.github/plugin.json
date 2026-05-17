@@ -1,0 +1,9 @@
+{
+  "name": "domengabrovsek--claude",
+  "displayName": "claude",
+  "description": "Personal Claude Code configuration - global rules, 15+ expert agents, reusable skills, hooks, and coding standards for consistent AI-assisted development.",
+  "version": "1.0.0",
+  "author": "domengabrovsek",
+  "homepage": "https://github.com/domengabrovsek/claude",
+  "skills": []
+}
