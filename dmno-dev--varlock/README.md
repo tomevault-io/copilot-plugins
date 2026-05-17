@@ -1,6 +1,8 @@
-# varlock — distributed by TomeVault
+# varlock
 
-> Originally from [dmno-dev/varlock](https://github.com/dmno-dev/varlock). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [dmno-dev/varlock](https://github.com/dmno-dev/varlock) — distributed by [TomeVault](https://tomevault.io)
+
+AI-safe .env files: Schemas for agents, Secrets for humans.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [dmno-dev/varlock](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/dmno-dev)
+From [dmno-dev/varlock](https://github.com/dmno-dev/varlock) — a repo with 3430+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install dmno-dev/varlock
 ```
-Or browse all formats at [https://tomevault.io/claim/dmno-dev](https://tomevault.io/claim/dmno-dev).
+Source: [github.com/dmno-dev/varlock](https://github.com/dmno-dev/varlock).
 
 <!-- genome:d-i-s -->
