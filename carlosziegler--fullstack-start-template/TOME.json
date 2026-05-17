@@ -4,7 +4,7 @@
   "repo": "fullstack-start-template",
   "description": "This project provides a solid foundation for building modern web applications using a curated stack of technologies focused on developer experience, performance, and type safety.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CarlosZiegler/fullstack-start-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:38:49Z"
+  "distributed_at": "2026-05-17T22:39:49Z"
 }
