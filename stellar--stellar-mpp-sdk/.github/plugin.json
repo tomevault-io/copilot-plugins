@@ -1,0 +1,9 @@
+{
+  "name": "stellar--stellar-mpp-sdk",
+  "displayName": "stellar-mpp-sdk",
+  "description": "Stellar blockchain payment method for the Machine Payments Protocol (MPP).",
+  "version": "1.0.0",
+  "author": "stellar",
+  "homepage": "https://github.com/stellar/stellar-mpp-sdk",
+  "skills": []
+}
