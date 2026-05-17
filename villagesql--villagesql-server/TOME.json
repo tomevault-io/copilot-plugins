@@ -4,7 +4,7 @@
   "repo": "villagesql-server",
   "description": "VillageSQL - a drop-in replacement for MySQL with extensions",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/villagesql/villagesql-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:47:27Z"
+  "distributed_at": "2026-05-17T22:56:46Z"
 }
