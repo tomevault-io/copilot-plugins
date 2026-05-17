@@ -7,11 +7,11 @@ Community-maintained LangChain integrations
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [langchain-ai/langchain-community](https://github.com/langchain-ai/langchain-community).
+Original source: `AGENTS.md` in [langchain-ai/langchain-community](https://github.com/langchain-ai/langchain-community).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
