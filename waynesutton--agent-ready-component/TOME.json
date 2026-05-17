@@ -4,7 +4,7 @@
   "repo": "agent-ready-component",
   "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Svelte frontend, and your app is discoverable by AI agents. No external hosting required.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/waynesutton/agent-ready-component",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T03:10:42Z"
+  "distributed_at": "2026-05-17T03:11:16Z"
 }
