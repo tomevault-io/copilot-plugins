@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--open-agent-platform",
+  "displayName": "open-agent-platform",
+  "description": "An open-source, no-code agent building platform.",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/open-agent-platform",
+  "skills": []
+}
