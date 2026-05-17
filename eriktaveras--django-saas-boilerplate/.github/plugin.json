@@ -1,0 +1,9 @@
+{
+  "name": "eriktaveras--django-saas-boilerplate",
+  "displayName": "django-saas-boilerplate",
+  "description": "A modern, production-ready Django boilerplate for building SaaS applications with HTMX, Tailwind CSS, and Alpine.js. This template provides everything you need to kickstart your next SaaS project with",
+  "version": "1.0.0",
+  "author": "eriktaveras",
+  "homepage": "https://github.com/eriktaveras/django-saas-boilerplate",
+  "skills": []
+}
