@@ -1,0 +1,9 @@
+{
+  "name": "nitinjain999--platform-skills",
+  "displayName": "platform-skills",
+  "description": "A platform engineering handbook covering Kubernetes, OpenShift, Argo CD, Flux CD, AWS, Azure, Terraform, and GitHub Actions \u2014 with an optional Claude plugin layer for interactive guidance.",
+  "version": "1.0.0",
+  "author": "nitinjain999",
+  "homepage": "https://github.com/nitinjain999/platform-skills",
+  "skills": []
+}
