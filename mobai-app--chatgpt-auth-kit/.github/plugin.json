@@ -1,0 +1,9 @@
+{
+  "name": "mobai-app--chatgpt-auth-kit",
+  "displayName": "chatgpt-auth-kit",
+  "description": "Sign in with a ChatGPT subscription and call the Codex Responses API from your iOS app.",
+  "version": "1.0.0",
+  "author": "MobAI-App",
+  "homepage": "https://github.com/MobAI-App/chatgpt-auth-kit",
+  "skills": []
+}
