@@ -129289,6 +129289,96 @@
       "description": "datapurge"
     },
     {
+      "name": "robert7--remnote-cli",
+      "source": "./robert7--remnote-cli",
+      "description": "[legacy/moved] CLI (command-line interface) tool which allows to access your RemNote knowledge base via RemNote Bridge for MCP & OpenClaw - e.g. for usage in agentic workflows or any automation"
+    },
+    {
+      "name": "intertwine--observational-memory",
+      "source": "./intertwine--observational-memory",
+      "description": "Give Claude Code and Codex, Grok, and Hermes a shared memory that survives every session, with local markdown, automatic capture, and built-in search."
+    },
+    {
+      "name": "tonghaoch--copilot-proxy-go",
+      "source": "./tonghaoch--copilot-proxy-go",
+      "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server"
+    },
+    {
+      "name": "cardotrejos--x402",
+      "source": "./cardotrejos--x402",
+      "description": "Elixir SDK for the x402 HTTP payment protocol"
+    },
+    {
+      "name": "z-m-huang--vcp",
+      "source": "./z-m-huang--vcp",
+      "description": "Vibe Coding Protocal - Security-first protocol for AI-generated code, multiple standards with real-time enforcement and multi-AI pipeline orchestration"
+    },
+    {
+      "name": "intertwine--observational-memory",
+      "source": "./intertwine--observational-memory",
+      "description": "Give Claude Code and Codex, Grok, and Hermes a shared memory that survives every session, with local markdown, automatic capture, and built-in search."
+    },
+    {
+      "name": "vospr--context-engineering-template",
+      "source": "./vospr--context-engineering-template",
+      "description": "context-engineering-template"
+    },
+    {
+      "name": "cardotrejos--x402",
+      "source": "./cardotrejos--x402",
+      "description": "Elixir SDK for the x402 HTTP payment protocol"
+    },
+    {
+      "name": "ikrasnodymov--repowiki",
+      "source": "./ikrasnodymov--repowiki",
+      "description": "Auto-generate Qoder repo wiki on every git commit"
+    },
+    {
+      "name": "z-m-huang--vcp",
+      "source": "./z-m-huang--vcp",
+      "description": "Vibe Coding Protocal - Security-first protocol for AI-generated code, multiple standards with real-time enforcement and multi-AI pipeline orchestration"
+    },
+    {
+      "name": "robert7--remnote-cli",
+      "source": "./robert7--remnote-cli",
+      "description": "[legacy/moved] CLI (command-line interface) tool which allows to access your RemNote knowledge base via RemNote Bridge for MCP & OpenClaw - e.g. for usage in agentic workflows or any automation"
+    },
+    {
+      "name": "xihuai18--claude-code-mcp",
+      "source": "./xihuai18--claude-code-mcp",
+      "description": "Make Claude Code serve as a MCP server with minimal tools."
+    },
+    {
+      "name": "ibpa--skill-flow",
+      "source": "./ibpa--skill-flow",
+      "description": "Scalable and Efficient Agent Skill Retrieval System"
+    },
+    {
+      "name": "robert7--remnote-cli",
+      "source": "./robert7--remnote-cli",
+      "description": "[legacy/moved] CLI (command-line interface) tool which allows to access your RemNote knowledge base via RemNote Bridge for MCP & OpenClaw - e.g. for usage in agentic workflows or any automation"
+    },
+    {
+      "name": "shopprentice--shopprentice",
+      "source": "./shopprentice--shopprentice",
+      "description": "AI skill for building furniture models"
+    },
+    {
+      "name": "sebslight--dupcanon",
+      "source": "./sebslight--dupcanon",
+      "description": "Because \u201cduplicate of duplicate of duplicate\u201d is clown ops."
+    },
+    {
+      "name": "zebbern--kimmmmy-discount",
+      "source": "./zebbern--kimmmmy-discount",
+      "description": "How I convinced the AI kimmmmy to give me Membership for Just $0.99!"
+    },
+    {
+      "name": "hcloud-talos--terraform-provider-imager",
+      "source": "./hcloud-talos--terraform-provider-imager",
+      "description": "Uploads Talos disk images into Hetzner Cloud"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -138139,6 +138229,36 @@
       "description": "Workspace t\u1ef1 \u0111\u1ed9ng t\u1ea1o short-form video b\u1eb1ng AI: ElevenLabs TTS + HyperFrames (HTML\u2192MP4)"
     },
     {
+      "name": "artkeyai--bhived-mcp",
+      "source": "./artkeyai--bhived-mcp",
+      "description": "bhived is an MCP server that gives AI agents shared memory, skills, and tool discovery.   install once, works in Claude Code, Cursor, and 15+ other agents."
+    },
+    {
+      "name": "artkeyai--bhived-mcp",
+      "source": "./artkeyai--bhived-mcp",
+      "description": "bhived is an MCP server that gives AI agents shared memory, skills, and tool discovery.   install once, works in Claude Code, Cursor, and 15+ other agents."
+    },
+    {
+      "name": "haiyangdiiing--aris-cli",
+      "source": "./haiyangdiiing--aris-cli",
+      "description": "ARIS CLI \u2014 Autonomous Research Iteration System. Track experiments, view results, and drive autonomous improvement loops across any AI coding agent."
+    },
+    {
+      "name": "haiyangdiiing--aris-cli",
+      "source": "./haiyangdiiing--aris-cli",
+      "description": "ARIS CLI \u2014 Autonomous Research Iteration System. Track experiments, view results, and drive autonomous improvement loops across any AI coding agent."
+    },
+    {
+      "name": "aninsomniacy--aria2-next",
+      "source": "./aninsomniacy--aria2-next",
+      "description": "Maintained aria2 fork with extensive bug fixes, modernized architecture, full compatibility, and reproducible releases"
+    },
+    {
+      "name": "li-na--zed-i18n",
+      "source": "./li-na--zed-i18n",
+      "description": "Localization toolkit for Zed editor \u2014 extract, translate, and build multilingual releases"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -140022,6 +140142,16 @@
       "name": "anzy-renlab-ai--pronounce",
       "source": "./anzy-renlab-ai--pronounce",
       "description": "\ud83d\udd0a Pronounce developer jargon out loud. 540+ entries (kubectl, GIF, JSON, JWT, \u2026), sourced with confidence levels. Bash CLI + interactive quiz + voice search + MCP server + Claude Code skill."
+    },
+    {
+      "name": "lidge-jun--claude-e",
+      "source": "./lidge-jun--claude-e",
+      "description": "PTY-backed claude -p-style executor for Claude Code, packaged as the claude-e npm CLI"
+    },
+    {
+      "name": "jmfederico--pi-web",
+      "source": "./jmfederico--pi-web",
+      "description": "Web control plane for remote, agentic software development with Pi Coding Agent"
     },
     {
       "name": "keshavxa--keshav-portfolio",
@@ -238792,6 +238922,11 @@
       "name": "stefanjoita--meetrec-desktop-client",
       "source": "./stefanjoita--meetrec-desktop-client",
       "description": "MeetRec_desktop-client"
+    },
+    {
+      "name": "alexmacapple--swing-digital",
+      "source": "./alexmacapple--swing-digital",
+      "description": "St\u00e9phanie - swing-digital"
     }
   ]
 }
