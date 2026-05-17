@@ -1,0 +1,9 @@
+{
+  "name": "amaralkaff--mcp-unknowncheat",
+  "displayName": "mcp-unknowncheat",
+  "description": "MCP server for UnknownCheats forum \u2014 Cloudflare bypass via puppeteer-real-browser, thread scraping, code extraction",
+  "version": "1.0.0",
+  "author": "amaralkaff",
+  "homepage": "https://github.com/amaralkaff/mcp-unknowncheat",
+  "skills": []
+}
