@@ -1,0 +1,9 @@
+{
+  "name": "kubefence--kubefence",
+  "displayName": "kubefence",
+  "description": "Securely run untrusted workloads in Kubernetes",
+  "version": "1.0.0",
+  "author": "kubefence",
+  "homepage": "https://github.com/kubefence/kubefence",
+  "skills": []
+}
