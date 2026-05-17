@@ -1,0 +1,9 @@
+{
+  "name": "stagewise-io--stagewise",
+  "displayName": "stagewise",
+  "description": "The Open Source Agentic IDE. Create and orchestrate coding agents, show app previews and run git workflows. Use your favorite models across all providers.",
+  "version": "1.0.0",
+  "author": "stagewise-io",
+  "homepage": "https://github.com/stagewise-io/stagewise",
+  "skills": []
+}
