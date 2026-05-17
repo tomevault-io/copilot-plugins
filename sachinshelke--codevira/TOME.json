@@ -4,7 +4,7 @@
   "repo": "codevira",
   "description": "Stop re-explaining your project to AI agents every session. One memory layer for Claude Code, Cursor, Windsurf, Antigravity \u2014 local, MIT, no signup.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sachinshelke/codevira",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T10:33:28Z"
+  "distributed_at": "2026-05-17T10:36:38Z"
 }
