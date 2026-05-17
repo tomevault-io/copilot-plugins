@@ -2,7 +2,7 @@
   "name": "nexent",
   "owner": "ModelEngine-Group",
   "repo": "nexent",
-  "description": "",
+  "description": "Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles \u2014 unified tools, skills, memory, and orchestration with built-in constraints, feedback loops, and control planes.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ModelEngine-Group",
+  "source_url": "https://github.com/ModelEngine-Group/nexent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T12:39:39Z"
+  "distributed_at": "2026-05-17T19:32:17Z"
 }
