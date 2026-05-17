@@ -1,0 +1,9 @@
+{
+  "name": "hcloud-talos--terraform-provider-imager",
+  "displayName": "terraform-provider-imager",
+  "description": "Uploads Talos disk images into Hetzner Cloud",
+  "version": "1.0.0",
+  "author": "hcloud-talos",
+  "homepage": "https://github.com/hcloud-talos/terraform-provider-imager",
+  "skills": []
+}
