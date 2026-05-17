@@ -1,32 +1,53 @@
-## shared-package
+## transitions
 
-> Rules for the framework-agnostic shared package
+> How to write page transitions for flyva
 
 
-# @flyva/shared
+# Writing Page Transitions
 
-This package must have **zero** framework dependencies — no React, no Vue, no Node-specific APIs.
+A transition is a `PageTransition` from `@flyva/shared` — typically a plain object from `defineTransition`, or a class instance.
 
-## Reactive abstraction
+## Lifecycle order
 
-```ts
-type Reactive<T> = { value: T };
-type ReactiveFactory = <V>(initialValue?: V) => Reactive<V>;
+```
+prepare()      → async, runs immediately on link click (before navigation)
+beforeLeave()  → sync setup before leave animation
+leave()        → async, the actual leave animation
+afterLeave()   → sync cleanup after leave, before navigation
+--- navigation happens ---
+beforeEnter()  → sync setup before enter animation
+enter()        → async, the actual enter animation
+afterEnter()   → sync final cleanup, manager resets state
+cleanup()      → called after afterEnter and when a new transition starts
 ```
 
-`PageTransitionManager` accepts a `ReactiveFactory` at construction. Each framework adapter supplies its own factory:
-- React: `useRefState` (Proxy-based ref that triggers re-renders)
-- Vue: Nuxt's `ref()` via `refReactiveFactory`
+## Targeting content
 
-## PageTransition interface
+Prefer **`context.container`** (or `context.current` / `context.next`) — adapters register the swapping roots with the manager. Use `document.querySelector` only when you need a node outside that subtree.
 
-Lifecycle methods are all optional. `condition` gates whether a transition runs. The rest follow the lifecycle order. `cleanup` is called after `afterEnter` and on re-run.
+## Using refStack
 
-## Editing rules
+Access registered refs from any component via `globalGetRefStackItem`:
+```ts
+import { globalGetRefStackItem } from '@flyva/next';
 
-- Keep types generic — avoid `any` where possible, use generics
-- Every public type/class must be re-exported from the barrel `index.ts`
-- Stable **`package.json` `exports`** subpaths (`./page-transition-manager`, `./view-transition`, `./lifecycle-classes`, `./types`) must resolve to the same public API as the root barrel for those areas — update `exports` when adding new user-facing modules
+const hero = globalGetRefStackItem<HTMLElement>('hero');
+if (hero?.current) { /* animate it */ }
+```
+
+## Blocking interaction during transition
+
+Style **`html.<prefix>-running`** (default prefix `flyva`) on `document.documentElement` for a full-page overlay or wait cursor — Flyva applies those lifecycle classes automatically.
+
+## Context object
+
+Every lifecycle method receives `PageTransitionContext`:
+- `container` — convenience root for the active phase (outgoing during leave, incoming during enter)
+- `current` / `next` — outgoing and incoming content roots when the adapter set them
+- `name` — transition key
+- `trigger` — the element or string that initiated the transition
+- `options` — arbitrary options passed from `FlyvaLink` (commonly `fromHref`, `toHref`)
+- `el` — trigger element if it was a DOM element
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
