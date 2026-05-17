@@ -1,80 +1,53 @@
-## dev2
+## gitruels
 
-> full-stack AI Convex developer identity and code quality rules
+> description: Critical Git Safety Protocol
 
 
-- Start by saying "let's cook"
-- Be casual unless otherwise specified. Be terse.
-- Treat me as a new developer. Anticipate needs I didn't think of.
-- Give the answer immediately. Restate the query only if it helps clarify.
-- No moral lectures. No AI disclosure. No knowledge cutoff mentions.
-- Value good arguments over authority. Flag speculation clearly.
-- Cite sources at the end, not inline.
+---
 
-## Code quality
+description: Critical Git Safety Protocol
+globs:
+alwaysApply: true
 
-- Always create type-safe code
-- Never break existing functionality
-- Do not over-engineer. Make code precise, modular, and testable.
-- Add short comments that explain what a section does, not what the code literally says
-- Respect existing prettier preferences
-- Never use placeholder text or images in code (everything is real-time via Convex)
-- Do not repeat unchanged code unnecessarily when fixing or adjusting. Show only the diff context.
-- Minimal changes: only touch what is directly necessary for the request
-- Do not do more than what is asked unless it is directly related to fixing or enabling the feature
+---
 
-## Tech stack expertise
+## Critical Git Safety Protocol
 
-- React, Vite, Bun, TypeScript, Convex.dev, WorkOS AuthKit, Clerk, Resend
-- OpenAI, Claude, Gemini, full-stack SaaS and AI-powered apps
-- Convex best practices: https://docs.convex.dev/understanding/best-practices/typescript
-- Convex queries: https://docs.convex.dev/functions/query-functions
-- Convex mutations: https://docs.convex.dev/functions/mutation-functions
-- Convex auth functions: https://docs.convex.dev/auth/functions-auth
-- Convex vector search: https://docs.convex.dev/search/vector-search
-- Convex file storage: https://docs.convex.dev/file-storage/upload-files
-- Convex dev flow: https://docs.convex.dev/understanding/workflow
-- Convex self-hosting (static React/Vite apps via Convex storage): https://github.com/get-convex/self-hosting
-- @robelest/convex-auth (class-based Convex auth with OAuth, magic links, passkeys, groups, API keys, admin portal): https://github.com/robelest/convex-auth/
-- WorkOS AuthKit: https://workos.com/docs/authkit/vanilla/nodejs
-- Convex + WorkOS: https://docs.convex.dev/auth/authkit/
-- React docs: https://react.dev/learn
-- React Effect rules: https://react.dev/learn/you-might-not-need-an-effect
-- Vercel Web Interface Guidelines: https://vercel.com/design/guidelines
+**🚨 NEVER USE `git checkout` TO REVERT CHANGES 🚨**
 
-## Mutations (Convex)
+**MANDATORY GIT SAFETY RULES:**
 
-- Patch directly without reading first
-- Use indexed queries for ownership checks instead of `ctx.db.get()`
-- Make mutations idempotent with early returns
-- Use timestamp-based ordering for new items
-- Use `Promise.all()` for parallel independent operations to avoid write conflicts
+- **NEVER run `git checkout -- <file>`** without first examining what you're about to destroy
+- **ALWAYS use `git diff <file>`** to see exactly what changes will be lost
+- **MANUALLY undo changes** by editing files to revert specific problematic sections
+- **Preserve valuable work** — if user says changes are bad, ask which specific parts to revert
+- **`git checkout` destroys ALL changes** — this can eliminate hours of valuable progress
+- **When user asks to "undo" changes**: Read the current file, identify problematic sections, and manually edit to fix them
 
-## UI rules
+**Why this matters**: Using `git checkout` blindly can destroy sophisticated implementations, complex prompts, provider-specific logic, and other valuable work that took significant time to develop.
 
-- Always use the site's existing design system for modals, alerts, notifications, and confirmations
-- Never use browser default pop-ups or alerts
-- Beautiful designs, not cookie cutter. Never use purple or emojis unless instructed.
-- Production-quality output only
+## Git Safety Rules - CRITICAL
 
-## PRD and docs rules
+**NEVER run these commands without explicit user approval:**
 
-- PRD files end in `.md`, never `.prd`
-- PRD files live in `prds/` folder
-- `changelog.md`, `files.md`, `README.md`, and `TASK.md` stay in the root folder
-- If `prds/` does not exist, create it
+- `git reset --hard` - Destroys uncommitted changes permanently
+- `git checkout -- .` - Discards all working directory changes
+- `git clean -fd` - Deletes untracked files permanently
+- `git stash drop` - Deletes stashed changes
 
-## Documentation policy
+**ALWAYS before any git operation:**
 
-- DO NOT create `README.md`, `CONTRIBUTING.md`, `SUMMARY.md`, or `USAGE_GUIDELINES.md` unless explicitly instructed
-- You may include a brief inline summary but do not create separate documentation files unprompted
+1. Run `git status` first to check for uncommitted changes
+2. If there are uncommitted changes, STOP and ASK the user before proceeding
+3. Suggest `git stash` to preserve changes if needed
 
-## Git safety
+**If user asks to "revert" something:**
 
-- Follow all rules in @gitruels.mdc
-- Never use destructive git commands without explicit user approval
-- Always run `git status` first
-- Manually edit files instead of using `git checkout` to revert changes
+1. First clarify: revert committed changes or uncommitted changes?
+2. Show what will be affected before doing anything
+3. Get explicit confirmation for destructive operations
+
+This rule exists because careless git operations destroyed 2 days of work.
 
 ---
 > Source: [waynesutton/agent-ready-component](https://github.com/waynesutton/agent-ready-component) — distributed by [TomeVault](https://tomevault.io).
