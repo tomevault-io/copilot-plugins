@@ -4,7 +4,7 @@
   "repo": "llmgateway",
   "description": "Route, manage, and analyze your LLM requests across multiple providers with a unified API interface.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theopenco/llmgateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:56:45Z"
+  "distributed_at": "2026-05-17T22:09:23Z"
 }
