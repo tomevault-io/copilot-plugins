@@ -1,0 +1,9 @@
+{
+  "name": "jordanurbs--venice-video-harness",
+  "displayName": "venice-video-harness",
+  "description": "Agent-first Venice-optimized harness for consistent video creation",
+  "version": "1.0.0",
+  "author": "jordanurbs",
+  "homepage": "https://github.com/jordanurbs/venice-video-harness",
+  "skills": []
+}
