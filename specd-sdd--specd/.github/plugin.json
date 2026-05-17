@@ -1,0 +1,9 @@
+{
+  "name": "specd-sdd--specd",
+  "displayName": "SpecD",
+  "description": "  Spec-driven development for teams and solo devs. Define, verify, and share behavioral specs across single repos, monorepos, and multi-repo setups.                     ",
+  "version": "1.0.0",
+  "author": "specd-sdd",
+  "homepage": "https://github.com/specd-sdd/SpecD",
+  "skills": []
+}
