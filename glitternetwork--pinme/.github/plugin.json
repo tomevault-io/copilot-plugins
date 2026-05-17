@@ -1,0 +1,9 @@
+{
+  "name": "glitternetwork--pinme",
+  "displayName": "pinme",
+  "description": "Deploy Your Frontend in a Single Command. Claude Code Skills supported.",
+  "version": "1.0.0",
+  "author": "glitternetwork",
+  "homepage": "https://github.com/glitternetwork/pinme",
+  "skills": []
+}
