@@ -1,0 +1,104 @@
+## aingram
+
+> AIngram is a local-first, privacy-first agent memory system built on SQLite and sqlite-vec. All state lives in a single `.db` file — no cloud services, no external APIs at runtime. Core primitives are: typed `MemoryEntry` records, a knowledge graph (entities + relationships), reasoning chains, ONNX vector embeddings (Nomic MiniLM, 768-dim), and QJL 1-bit auxiliary vectors for coarse search (`vec_entries_qjl`). AIngram is **not** a general-purpose vector database, not a cloud memory service, and not an ORM.
+
+# AIngram — Developer Reference for AI Coding Agents
+
+## Project Identity
+
+AIngram is a local-first, privacy-first agent memory system built on SQLite and sqlite-vec. All state lives in a single `.db` file — no cloud services, no external APIs at runtime. Core primitives are: typed `MemoryEntry` records, a knowledge graph (entities + relationships), reasoning chains, ONNX vector embeddings (Nomic MiniLM, 768-dim), and QJL 1-bit auxiliary vectors for coarse search (`vec_entries_qjl`). AIngram is **not** a general-purpose vector database, not a cloud memory service, and not an ORM.
+
+## Dev Environment
+
+- Python ≥ 3.11 required
+- Install all dependencies: `pip install -e ".[dev]"`
+- The ONNX embedding model (Nomic MiniLM) is downloaded to `~/.aingram/models/` on first instantiation of `MemoryStore` if not already cached. Tests that require embeddings inject a mock embedder to avoid this download — don't break that pattern.
+
+## Commands
+
+```
+pytest                    # run all tests
+pytest tests/test_X.py    # run a single file
+pytest -x                 # stop on first failure
+ruff check .              # lint
+ruff check --fix .        # lint + auto-fix
+ruff format .             # format
+```
+
+## Module Map
+
+| Path | Responsibility |
+|------|----------------|
+| `aingram/store.py` | `MemoryStore` — the only public API for reads and writes. All business logic lives here. |
+| `aingram/storage/engine.py` | `StorageEngine` — low-level SQLite CRUD and threading lock. No business logic. |
+| `aingram/storage/schema.py` | DDL strings, `SCHEMA_VERSION`, `apply_schema()`, migration functions (`_migrate_vN_to_vM`). |
+| `aingram/storage/queries.py` | Shared query utilities (reciprocal rank fusion, etc.). |
+| `aingram/trust/` | Ed25519 signing, verification, content hashing, RFC-8785 canonicalization. |
+| `aingram/trust/session.py` | `SessionManager` — per-session Ed25519 keypair and sequence counter. |
+| `aingram/processing/` | `NomicEmbedder` (ONNX embeddings), `GlinerExtractor` (GLiNER2 multitask-large NER), `protocols.py` (`ContradictionClassifier`, `EntityExtractor`, `LLMProcessor` protocols). |
+| `aingram/models/` | `ModelManager` — ONNX model file download and caching. |
+| `aingram/extraction/` | Entity/relationship extraction (local LLM via Ollama, or Anthropic Sonnet). |
+| `aingram/consolidation/` | Memory consolidation: decay, merge, contradiction detection, knowledge synthesis. |
+| `aingram/consolidation/deberta.py` | `DeBERTaContradictionClassifier` — lazy-loaded DeBERTa-v3 NLI ONNX model for local contradiction detection. Implements `ContradictionClassifier` protocol. |
+| `aingram/consolidation/contradiction.py` | `ContradictionDetector` orchestrator (entity grouping, pair iteration, recency fallback). `LLMContradictionClassifier` wraps `LLMProcessor` as a classifier. |
+| `aingram/graph/` | Knowledge graph traversal for graph-augmented recall. |
+| `aingram/integrations/` | Thin adapters: LangChain, CrewAI, LangGraph, AutoGen, smolagents. |
+| `aingram/viz/` | Local HTTP visualization server (`aingram viz`). |
+| `aingram/watch.py` | `watch_loop()` — live tail of new memory entries. |
+| `aingram/cli.py` | Typer CLI entry point — all `aingram` subcommands. |
+| `aingram/worker.py` | Background task queue processor (entity extraction jobs). |
+| `aingram/config.py` | `AIngramConfig` — layered config (kwargs > env > TOML > defaults). |
+| `aingram/mcp_server.py` | MCP server for Claude/Cursor tool integration. |
+| `aingram/capture/` | Opt-in capture daemon for AI coding tools. Separate SQLite queue, per-tool adapters, filter pipeline, drain thread. |
+| `aingram/capture/daemon.py` | Starlette HTTP app, `create_app()` factory, `run_daemon()` entry point with uvicorn. |
+| `aingram/capture/queue.py` | `CaptureQueue` — thread-safe SQLite WAL wrapper for `capture_queue.db`. |
+| `aingram/capture/drain.py` | `CaptureDrain` — background thread that dequeues records and calls `MemoryStore.remember()`. Triggers `store.consolidate()` automatically every `consolidation_interval_records` successfully drained records. |
+| `aingram/capture/adapters/` | Per-tool adapters: Claude Code, Cursor, Gemini, Aider, Copilot, Cline, ChatGPT. |
+| `aingram/capture/filters.py` | `apply_filters()` — `@nocapture` opt-out, secret redaction, container tag resolution. |
+| `aingram/capture/config.py` | `CaptureConfig`, `ToolConfig`, `AiderToolConfig`, `ChatGPTToolConfig`. |
+| `aingram/types.py` | All public dataclasses and enums. |
+| `aingram/exceptions.py` | Exception hierarchy. |
+
+## Architecture Invariants
+
+1. **`MemoryStore` is the only public write path.** Never call `engine.store_entry()` or `_conn.execute()` directly from outside the `storage/` package. All business logic — signing, embedding, FTS indexing, dual-write — lives in `MemoryStore.remember()`.
+
+2. **All direct `_conn` access must hold `engine._lock`.** The engine uses `threading.Lock`. Any raw `_conn.execute()` call outside `StorageEngine` methods must be wrapped with `with engine._lock:`.
+
+3. **vec0 virtual tables: DELETE + INSERT only, never UPDATE.** sqlite-vec's `vec0` does not support `UPDATE` on the embedding column. Always delete the row and re-insert.
+
+4. **Schema changes require a migration function.** Bump `SCHEMA_VERSION` in `schema.py` and add a corresponding `_migrate_vN_to_vM(conn)` function. The `apply_schema()` function calls all applicable migrations in order.
+
+5. **CLI commands use the Typer `@app.command()` pattern.** Never use raw `argparse` or `sys.argv`. The database path is passed through `ctx.obj['db']`, which is a resolved `str` (not a `Path`). Do not wrap it in `Path()` — pass it directly to `MemoryStore(ctx.obj['db'])`.
+
+6. **Chunk SQL `IN` clauses to ≤ 900 items.** SQLite's default `SQLITE_LIMIT_VARIABLE_NUMBER` is 999. Use `_SQLITE_VAR_LIMIT = 900` (defined in `engine.py`) when building parameterized `IN (?)` queries.
+
+7. **Dual-write QJL bits in `remember()`.** After computing the float32 embedding, encode QJL packed bits with the projection from metadata (`qjl_seed`) and pass `qjl_bits` into `store_entry()`. Both `vec_entries` and `vec_entries_qjl` should stay aligned for entries created through `MemoryStore`.
+
+8. **FTS pre-filter adaptive fallback.** If FTS returns ≥ `fts_prefilter_threshold` candidates, use `search_vectors_filtered()` (Python cosine similarity over the candidate set). If fewer, fall back to full KNN via `search_vectors()`. This is required because sqlite-vec's `MATCH` operator cannot be combined with `IN` filtering.
+
+## Design Rationale
+
+**Trust system.** Every `MemoryEntry` is Ed25519-signed. The `entry_id` is derived from content + parent IDs + public key, forming a DAG. Any post-write mutation of content or chain linkage is detectable during `verify()`. The append-only design follows from this: entries are never mutated; consolidation creates new entries flagged `consolidated=1`.
+
+**FTS pre-filter architecture.** sqlite-vec's `vec0` virtual table cannot combine KNN `MATCH` with `IN` for candidate filtering. The workaround: fetch float32 blobs via a regular `IN` query on `vec_entries`, then compute cosine similarity in Python. This is the `search_vectors_filtered()` path.
+
+**QJL two-pass search.** `vec_entries` holds float32 embeddings. `vec_entries_qjl` stores 1-bit QJL codes for Hamming KNN as a coarse filter when entry count ≥ 25k; `recall()` then re-ranks with `search_vectors_filtered()` on the candidate set. `compact()` truncates float rows and rebuilds the QJL table for the new dimension.
+
+**Contradiction detection strategy pattern.** `ContradictionDetector` is decoupled from classification via the `ContradictionClassifier` protocol (`classify(text_a, text_b) -> ContradictionVerdict`). Two implementations: `DeBERTaContradictionClassifier` (local ONNX, no LLM) and `LLMContradictionClassifier` (Ollama). `_build_contradiction_classifier(config)` in `store.py` instantiates the right one based on `config.contradiction_backend`. When `superseded_index is None` in the verdict (DeBERTa path), the orchestrator applies a recency fallback: the older entry by `created_at` is marked superseded.
+
+**`config.toml` format.** Top-level config keys are flat — no section header for core `AIngramConfig` fields. The `[capture]` section is the only named section parsed by `_merge_toml_into`. Writing `[aingram]` as a header silently ignores everything under it.
+
+**Layered configuration.** `AIngramConfig` merges in priority order: constructor kwargs (highest) → env vars → `~/.aingram/config.toml` → dataclass defaults (lowest). Library users override with kwargs; CLI users use env vars; power users configure via TOML.
+
+## Testing Notes
+
+- All tests live in `tests/`; `pytest` is configured in `pyproject.toml`
+- Tests create temporary SQLite DBs — no shared persistent state between tests
+- Tests that require embeddings inject a mock embedder to avoid model downloads; don't change this pattern
+- To test a specific integration adapter, install the relevant extra first: e.g., `pip install -e ".[langchain]"`
+- Schema migration tests should assert `get_schema_version()` equals `SCHEMA_VERSION` after `apply_schema()`
+
+---
+> Source: [bozbuilds/AIngram](https://github.com/bozbuilds/AIngram) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
