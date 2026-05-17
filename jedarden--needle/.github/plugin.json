@@ -1,0 +1,9 @@
+{
+  "name": "jedarden--needle",
+  "displayName": "NEEDLE",
+  "description": "Headless agent orchestrator with deterministic state machine \u2014 processes a bead queue, dispatches to any LLM CLI, handles every outcome. Rust.",
+  "version": "1.0.0",
+  "author": "jedarden",
+  "homepage": "https://github.com/jedarden/NEEDLE",
+  "skills": []
+}
