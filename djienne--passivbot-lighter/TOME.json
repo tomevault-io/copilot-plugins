@@ -1,0 +1,44 @@
+{
+  "name": "passivbot_lighter",
+  "owner": "djienne",
+  "repo": "passivbot_lighter",
+  "description": "Fork of Passivbot that works with the Lighter DEX. Big advantage of Lighter  is 0 fees, and Passivbot tends to do a lot of trades so it is a big deal.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/djienne/passivbot_lighter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T10:42:38Z"
+}
