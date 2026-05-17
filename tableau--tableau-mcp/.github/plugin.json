@@ -1,0 +1,9 @@
+{
+  "name": "tableau--tableau-mcp",
+  "displayName": "tableau-mcp",
+  "description": "Tableau's official MCP Server. Helping Agents see and understand data.",
+  "version": "1.0.0",
+  "author": "tableau",
+  "homepage": "https://github.com/tableau/tableau-mcp",
+  "skills": []
+}
