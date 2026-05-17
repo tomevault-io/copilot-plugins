@@ -1,0 +1,9 @@
+{
+  "name": "airtaxi--lidguard",
+  "displayName": "LidGuard",
+  "description": "Keep the agent awake, even when the lid closes.",
+  "version": "1.0.0",
+  "author": "airtaxi",
+  "homepage": "https://github.com/airtaxi/LidGuard",
+  "skills": []
+}
