@@ -1,11 +1,11 @@
-## agent-orchestrator
+## agent-penetration-tester
 
-> Persona orchestrator — coordenacao multi-agente; leia o guia em .agent/agents/orchestrator.md.
+> Persona penetration-tester — testes ofensivos apenas com escopo autorizado; leia .agent/agents/penetration-tester.md.
 
 
-# Agente: Orchestrator
+# Agente: Penetration Tester
 
-Antes de atuar neste papel, leia `.agent/agents/orchestrator.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/penetration-tester.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
