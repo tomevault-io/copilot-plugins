@@ -1,0 +1,9 @@
+{
+  "name": "ibpa--skill-flow",
+  "displayName": "skill-flow",
+  "description": "Scalable and Efficient Agent Skill Retrieval System",
+  "version": "1.0.0",
+  "author": "IBPA",
+  "homepage": "https://github.com/IBPA/skill-flow",
+  "skills": []
+}
