@@ -1,0 +1,9 @@
+{
+  "name": "cbcoutinho--nextcloud-mcp-server",
+  "displayName": "nextcloud-mcp-server",
+  "description": "Nextcloud MCP Server",
+  "version": "1.0.0",
+  "author": "cbcoutinho",
+  "homepage": "https://github.com/cbcoutinho/nextcloud-mcp-server",
+  "skills": []
+}
