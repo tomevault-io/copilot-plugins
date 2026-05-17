@@ -1,0 +1,9 @@
+{
+  "name": "zhlhleo--codex-agent-automation",
+  "displayName": "codex-agent-automation",
+  "description": "Portable Codex custom agent profiles and multi-agent automation rules.",
+  "version": "1.0.0",
+  "author": "zhlhleo",
+  "homepage": "https://github.com/zhlhleo/codex-agent-automation",
+  "skills": []
+}
