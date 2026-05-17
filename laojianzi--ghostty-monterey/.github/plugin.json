@@ -1,0 +1,9 @@
+{
+  "name": "laojianzi--ghostty-monterey",
+  "displayName": "ghostty-monterey",
+  "description": "build release for macOS monterey (version 12)",
+  "version": "1.0.0",
+  "author": "laojianzi",
+  "homepage": "https://github.com/laojianzi/ghostty-monterey",
+  "skills": []
+}
