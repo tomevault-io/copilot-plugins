@@ -1,0 +1,9 @@
+{
+  "name": "miwr--swbyedpi",
+  "displayName": "SwByeDPI",
+  "description": "Swift Bypass DPI (based on byedpi) wrapper + iOS app",
+  "version": "1.0.0",
+  "author": "mIwr",
+  "homepage": "https://github.com/mIwr/SwByeDPI",
+  "skills": []
+}
