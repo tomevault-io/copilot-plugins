@@ -101809,6 +101809,11 @@
       "description": "Near-eliminate AI Agent rule violations in long tasks \u2014 auto-correct drift before it frustrates you. Pure-engineering zero-LLM hook system for Claude Code / Codex CLI / Cursor. ~50-70ms hook latency, "
     },
     {
+      "name": "lily-protocol--lily-frontend",
+      "source": "./lily-protocol--lily-frontend",
+      "description": "Frontend dashboard and web application for LILY Protocol."
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -111132,6 +111137,11 @@
       "name": "huseynovvusal--proborge",
       "source": "./huseynovvusal--proborge",
       "description": "AI-powered CLI that turns a competitive programming problem spec into a CMS-ready task with translated statements, verified C++ solution, and stress-tested test cases."
+    },
+    {
+      "name": "ugolbck--seofordev",
+      "source": "./ugolbck--seofordev",
+      "description": "A CLI-first SEO tool to audit your localhost and rank from day 1."
     },
     {
       "name": "yschimke--compose-ai-tools",
