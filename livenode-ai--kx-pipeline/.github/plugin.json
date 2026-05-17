@@ -1,0 +1,9 @@
+{
+  "name": "livenode-ai--kx-pipeline",
+  "displayName": "kx-pipeline",
+  "description": "Give AI your judgment, not just your notes. 4-command Knowledge Transformation pipeline for Claude Code.",
+  "version": "1.0.0",
+  "author": "livenode-ai",
+  "homepage": "https://github.com/livenode-ai/kx-pipeline",
+  "skills": []
+}
