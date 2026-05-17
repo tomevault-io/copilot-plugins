@@ -1,0 +1,9 @@
+{
+  "name": "jgarzik--sqawk",
+  "displayName": "sqawk",
+  "description": "A fusion of SQL and awk: Applying SQL to text-based data files",
+  "version": "1.0.0",
+  "author": "jgarzik",
+  "homepage": "https://github.com/jgarzik/sqawk",
+  "skills": []
+}
