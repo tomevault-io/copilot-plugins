@@ -1,0 +1,9 @@
+{
+  "name": "swe-bench--swe-smith",
+  "displayName": "SWE-smith",
+  "description": "[NeurIPS 2025 D&B Spotlight] Scaling Data for SWE-agents",
+  "version": "1.0.0",
+  "author": "SWE-bench",
+  "homepage": "https://github.com/SWE-bench/SWE-smith",
+  "skills": []
+}
