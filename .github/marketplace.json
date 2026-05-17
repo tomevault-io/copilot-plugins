@@ -49,9 +49,19 @@
       "description": "The agent that grows with you"
     },
     {
+      "name": "google-gemini--gemini-cli",
+      "source": "./google-gemini--gemini-cli",
+      "description": "An open-source AI agent that brings the power of Gemini directly into your terminal."
+    },
+    {
       "name": "github--spec-kit",
       "source": "./github--spec-kit",
       "description": "\ud83d\udcab Toolkit to help you get started with Spec-Driven Development"
+    },
+    {
+      "name": "openai--codex",
+      "source": "./openai--codex",
+      "description": "Lightweight coding agent that runs in your terminal"
     },
     {
       "name": "garrytan--gstack",
@@ -122,6 +132,11 @@
       "name": "mempalace--mempalace",
       "source": "./mempalace--mempalace",
       "description": "The best-benchmarked open-source AI memory system. And it's free."
+    },
+    {
+      "name": "bmad-code-org--bmad-method",
+      "source": "./bmad-code-org--bmad-method",
+      "description": "Breakthrough Method for Agile Ai Driven Development"
     },
     {
       "name": "shanraisshan--claude-code-best-practice",
@@ -422,6 +437,16 @@
       "name": "hkuds--deeptutor",
       "source": "./hkuds--deeptutor",
       "description": "\"DeepTutor: Agent-Native Personalized Learning Assistant\""
+    },
+    {
+      "name": "dyad-sh--dyad",
+      "source": "./dyad-sh--dyad",
+      "description": "Local, open-source AI app builder for power users \u2728 v0 / Lovable / Replit / Bolt alternative \ud83c\udf1f Star if you like it!"
+    },
+    {
+      "name": "dyad-sh--dyad",
+      "source": "./dyad-sh--dyad",
+      "description": "Local, open-source AI app builder for power users \u2728 v0 / Lovable / Replit / Bolt alternative \ud83c\udf1f Star if you like it!"
     },
     {
       "name": "opendataloader-project--opendataloader-pdf",
@@ -3542,6 +3567,16 @@
       "name": "k-dense-ai--claude-scientific-writer",
       "source": "./k-dense-ai--claude-scientific-writer",
       "description": "A general purpose scientific writer"
+    },
+    {
+      "name": "google--adk-java",
+      "source": "./google--adk-java",
+      "description": "An open-source, code-first Java toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control."
+    },
+    {
+      "name": "google--adk-java",
+      "source": "./google--adk-java",
+      "description": "An open-source, code-first Java toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control."
     },
     {
       "name": "lst97--claude-code-sub-agents",
@@ -58902,6 +58937,11 @@
       "name": "boybook--tx-5dr",
       "source": "./boybook--tx-5dr",
       "description": "A modern digital radio station for amateur radio operators. Operate FT8, FT4, and voice modes from any web browser \u2014 anywhere, anytime."
+    },
+    {
+      "name": "mlennie--hermes-mcp",
+      "source": "./mlennie--hermes-mcp",
+      "description": " MCP server that lets any llm (i.e. Claude Desktop) delegate tasks to a local Hermes Agent \u2014 cron jobs, web search, email, documents, and more."
     },
     {
       "name": "skywind3000--gamesample",
