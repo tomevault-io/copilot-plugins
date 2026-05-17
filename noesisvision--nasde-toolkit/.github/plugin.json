@@ -1,0 +1,9 @@
+{
+  "name": "noesisvision--nasde-toolkit",
+  "displayName": "nasde-toolkit",
+  "description": "CLI for benchmarks & evals of AI coding agents \u2014 on tasks you already understand, using your Claude / Codex / Gemini individual subscriptions or API keys.",
+  "version": "1.0.0",
+  "author": "NoesisVision",
+  "homepage": "https://github.com/NoesisVision/nasde-toolkit",
+  "skills": []
+}
