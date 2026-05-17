@@ -128829,6 +128829,266 @@
       "description": "one-context"
     },
     {
+      "name": "vltansky--skills",
+      "source": "./vltansky--skills",
+      "description": "A collection of Agent Skills for Claude Code, Cursor, Codex and other coding agents"
+    },
+    {
+      "name": "avijit07x--git-switch",
+      "source": "./avijit07x--git-switch",
+      "description": "A fast, native macOS Git client that runs your dev servers too."
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "henrique-simoes--istara",
+      "source": "./henrique-simoes--istara",
+      "description": "Agentic Research Orchestration for UX Research and Product Development. Vibe and handcoded by a social and data scientist with background in many research domains and open-source"
+    },
+    {
+      "name": "tophtab--douyu-keep-just-works",
+      "source": "./tophtab--douyu-keep-just-works",
+      "description": "\u6597\u9c7c\u81ea\u52a8\u8d60\u9001\u8367\u5149\u68d2\u7eed\u7c89\u4e1d\u724c|\u68c0\u6d4b\u53cc\u500d|\u9c7c\u5427\u7b7e\u5230\uff0cdocker\u7248\uff0c\u57fa\u4e8eCurtion/douyu-keep vibe coding"
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "henrique-simoes--istara",
+      "source": "./henrique-simoes--istara",
+      "description": "Agentic Research Orchestration for UX Research and Product Development. Vibe and handcoded by a social and data scientist with background in many research domains and open-source"
+    },
+    {
+      "name": "vltansky--skills",
+      "source": "./vltansky--skills",
+      "description": "A collection of Agent Skills for Claude Code, Cursor, Codex and other coding agents"
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "kristor--ut-andmeinseneeria-2026",
+      "source": "./kristor--ut-andmeinseneeria-2026",
+      "description": "ut-andmeinseneeria-2026"
+    },
+    {
+      "name": "webstudio-community--webstudio-self-host",
+      "source": "./webstudio-community--webstudio-self-host",
+      "description": "How to self-host webstudio with docker-compose"
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "railly--agent-brain",
+      "source": "./railly--agent-brain",
+      "description": "An agent-powered knowledge system built on Obsidian + Claude Code + Codex"
+    },
+    {
+      "name": "henrique-simoes--istara",
+      "source": "./henrique-simoes--istara",
+      "description": "Agentic Research Orchestration for UX Research and Product Development. Vibe and handcoded by a social and data scientist with background in many research domains and open-source"
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "aadaoud--vizier",
+      "source": "./aadaoud--vizier",
+      "description": "Vizier is a local, privacy-first AI agent for Obsidian powered by Ollama."
+    },
+    {
+      "name": "noesisvision--nasde-toolkit",
+      "source": "./noesisvision--nasde-toolkit",
+      "description": "CLI for benchmarks & evals of AI coding agents \u2014 on tasks you already understand, using your Claude / Codex / Gemini individual subscriptions or API keys."
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "iwangbowen--zenith-admin",
+      "source": "./iwangbowen--zenith-admin",
+      "description": "\u57fa\u4e8eHono v4 + React 19 + Semi Design v2 + Drizzle ORM\u7684\u5168\u6808\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\uff0c\u8986\u76d6\u8ba4\u8bc1\u6388\u6743\u3001\u7ec4\u7ec7\u67b6\u6784\u3001\u7cfb\u7edf\u914d\u7f6e\u3001\u901a\u77e5\u516c\u544a\u3001\u65e5\u5fd7\u5ba1\u8ba1\u3001\u5728\u7ebf\u4f1a\u8bdd\u3001\u5b9a\u65f6\u4efb\u52a1\u3001\u6587\u4ef6\u7ba1\u7406\u4e0e\u8fd0\u884c\u76d1\u63a7\u7b49\u540e\u53f0\u573a\u666f\u3002"
+    },
+    {
+      "name": "stellar--stellar-mpp-sdk",
+      "source": "./stellar--stellar-mpp-sdk",
+      "description": "Stellar blockchain payment method for the Machine Payments Protocol (MPP)."
+    },
+    {
+      "name": "jordanurbs--venice-video-harness",
+      "source": "./jordanurbs--venice-video-harness",
+      "description": "Agent-first Venice-optimized harness for consistent video creation"
+    },
+    {
+      "name": "chromeragnarok--workboard",
+      "source": "./chromeragnarok--workboard",
+      "description": "A file-based ticket management system for software work, optimized for coding agents first and humans second."
+    },
+    {
+      "name": "lstpsche--obsidian-mcp",
+      "source": "./lstpsche--obsidian-mcp",
+      "description": "Fast MCP server for local Obsidian vault usage by AI Agents"
+    },
+    {
+      "name": "programmeranthony--patentskills",
+      "source": "./programmeranthony--patentskills",
+      "description": "\u4e13\u5229\u81ea\u52a8\u5316\u521b\u4f5c\u5de5\u4f5c\u6d41\uff0c\u5305\u542b\u521b\u610f\uff0c\u5199\u4f5c\u548c\u8bc4\u5ba1"
+    },
+    {
+      "name": "jedarden--needle",
+      "source": "./jedarden--needle",
+      "description": "Headless agent orchestrator with deterministic state machine \u2014 processes a bead queue, dispatches to any LLM CLI, handles every outcome. Rust."
+    },
+    {
+      "name": "rust-ui--dioxus-ui",
+      "source": "./rust-ui--dioxus-ui",
+      "description": "Component registry for Dioxus, inspired by shadcn."
+    },
+    {
+      "name": "kubefence--kubefence",
+      "source": "./kubefence--kubefence",
+      "description": "Securely run untrusted workloads in Kubernetes"
+    },
+    {
+      "name": "albiol2004--athen",
+      "source": "./albiol2004--athen",
+      "description": "Universal AI agent native desktop app (Rust/Tauri) for everyday users"
+    },
+    {
+      "name": "13rac1--teep",
+      "source": "./13rac1--teep",
+      "description": "Verify that AI providers can't read your prompts \u2014 even if they wanted to."
+    },
+    {
+      "name": "jwhiteside--bmad-studio",
+      "source": "./jwhiteside--bmad-studio",
+      "description": "BMAD visual editor"
+    },
+    {
+      "name": "cyj0920--jlink-mcp",
+      "source": "./cyj0920--jlink-mcp",
+      "description": "A powerful Model Context Protocol (MCP) server for J-Link debuggers that provides comprehensive debugging capabilities including memory operations, flash programming, and real-time data transfer throu"
+    },
+    {
+      "name": "sylvanding--omelette",
+      "source": "./sylvanding--omelette",
+      "description": "\ud83c\udf73 Omelette: AI-Powered Scientific Literature Lifecycle Management"
+    },
+    {
+      "name": "thundax-lyp--bacon",
+      "source": "./thundax-lyp--bacon",
+      "description": "AI Native Java \u540e\u7aef\u5de5\u7a0b\u8303\u5f0f\uff1aDDD \u5206\u5c42\u3001\u591a\u57df\u534f\u540c\u3001\u5355\u4f53/\u5fae\u670d\u52a1\u53cc\u5f62\u6001\u3001\u67b6\u6784\u6d4b\u8bd5\u4e0e\u8d28\u91cf\u95e8\u7981\u5168\u5957\u843d\u5730\u3002"
+    },
+    {
+      "name": "railly--agent-brain",
+      "source": "./railly--agent-brain",
+      "description": "An agent-powered knowledge system built on Obsidian + Claude Code + Codex"
+    },
+    {
+      "name": "loka-network--loka-p2p-lnd",
+      "source": "./loka-network--loka-p2p-lnd",
+      "description": "Loka AI Agentic Payment P2P Lightning Node \u26a1\ufe0f is built natively on top of the established Bitcoin Lightning Network infrastructure. By pushing the boundaries of traditional payment channels, we are bu"
+    },
+    {
+      "name": "x1aox1a--zofiles",
+      "source": "./x1aox1a--zofiles",
+      "description": "Connect Claude to your Zotero library \u2014 Zotero plugin that mirrors collections as agent-readable folders with Markdown, BibTeX, and AI reviews."
+    },
+    {
+      "name": "flowglad--onton",
+      "source": "./flowglad--onton",
+      "description": "onton"
+    },
+    {
+      "name": "jordanurbs--venice-video-harness",
+      "source": "./jordanurbs--venice-video-harness",
+      "description": "Agent-first Venice-optimized harness for consistent video creation"
+    },
+    {
+      "name": "chambear2809--splunk-cisco-skills",
+      "source": "./chambear2809--splunk-cisco-skills",
+      "description": "splunk-cisco-skills"
+    },
+    {
+      "name": "peaky8linders--claude-cortex",
+      "source": "./peaky8linders--claude-cortex",
+      "description": "claude-cortex"
+    },
+    {
+      "name": "daiki-beppu--youtube-automation",
+      "source": "./daiki-beppu--youtube-automation",
+      "description": "YouTube \u30c1\u30e3\u30f3\u30cd\u30eb\u81ea\u52d5\u5316 \u5171\u6709\u30b3\u30a2"
+    },
+    {
+      "name": "grafana--grafanacon2026-opentelemetry-instrumentation",
+      "source": "./grafana--grafanacon2026-opentelemetry-instrumentation",
+      "description": "Demo app for \"Getting started with OpenTelemetry instrumentation\" hands-on lab (GrafanaCon 2026)"
+    },
+    {
+      "name": "h128--phantomchat",
+      "source": "./h128--phantomchat",
+      "description": "PhantomChat is a lightweight, end-to-end encrypted chat server written in Pure C++ and designed for secure, decentralized communication. It can be hosted on any platform with zero configuration and no"
+    },
+    {
+      "name": "jstradej--strideterm",
+      "source": "./jstradej--strideterm",
+      "description": "strIDEterm organizes your shells, AI coding agents, code reviews, Docker, and Git into workspaces you can access from   anywhere \u2014 no more chaos across terminals, just focused work."
+    },
+    {
+      "name": "eamanc-lab--fortune-telling-skills",
+      "source": "./eamanc-lab--fortune-telling-skills",
+      "description": "\ud83d\udd2e \u5341\u4e8c\u661f\u5ea7\u8fd0\u52bf\u751f\u6210\u5668 \u2014 Claude Code Skill for daily/weekly/monthly horoscope predictions with personalized zodiac insights"
+    },
+    {
+      "name": "jedarden--needle",
+      "source": "./jedarden--needle",
+      "description": "Headless agent orchestrator with deterministic state machine \u2014 processes a bead queue, dispatches to any LLM CLI, handles every outcome. Rust."
+    },
+    {
+      "name": "kubefence--kubefence",
+      "source": "./kubefence--kubefence",
+      "description": "Securely run untrusted workloads in Kubernetes"
+    },
+    {
+      "name": "audiohacking--ltx-cpp",
+      "source": "./audiohacking--ltx-cpp",
+      "description": "Unstable, Experimental LTX 2.3 GGUF inference in C++ (DO NOT USE IT YET)"
+    },
+    {
+      "name": "lbrezende--muda-facil",
+      "source": "./lbrezende--muda-facil",
+      "description": "muda-facil"
+    },
+    {
+      "name": "loka-network--loka-p2p-lnd",
+      "source": "./loka-network--loka-p2p-lnd",
+      "description": "Loka AI Agentic Payment P2P Lightning Node \u26a1\ufe0f is built natively on top of the established Bitcoin Lightning Network infrastructure. By pushing the boundaries of traditional payment channels, we are bu"
+    },
+    {
+      "name": "wandanan--cc-start",
+      "source": "./wandanan--cc-start",
+      "description": "cc_start"
+    },
+    {
+      "name": "chambear2809--splunk-cisco-skills",
+      "source": "./chambear2809--splunk-cisco-skills",
+      "description": "splunk-cisco-skills"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -139549,6 +139809,11 @@
       "description": "th6_web"
     },
     {
+      "name": "anzy-renlab-ai--pronounce",
+      "source": "./anzy-renlab-ai--pronounce",
+      "description": "\ud83d\udd0a Pronounce developer jargon out loud. 540+ entries (kubectl, GIF, JSON, JWT, \u2026), sourced with confidence levels. Bash CLI + interactive quiz + voice search + MCP server + Claude Code skill."
+    },
+    {
       "name": "keshavxa--keshav-portfolio",
       "source": "./keshavxa--keshav-portfolio",
       "description": "Keshav-portfolio"
@@ -147912,11 +148177,6 @@
       "name": "sujeethjinesh--apex-research",
       "source": "./sujeethjinesh--apex-research",
       "description": "APEX_Research"
-    },
-    {
-      "name": "mihaelamj--codeweaver",
-      "source": "./mihaelamj--codeweaver",
-      "description": "CodeWeaver"
     },
     {
       "name": "colbych--reconn-wave-power",
@@ -165374,11 +165634,6 @@
       "description": "aligeko"
     },
     {
-      "name": "gvps-cloud--skypanelv2",
-      "source": "./gvps-cloud--skypanelv2",
-      "description": "skypanelv2"
-    },
-    {
       "name": "rayners--fvtt-seasons-and-stars",
       "source": "./rayners--fvtt-seasons-and-stars",
       "description": "fvtt-seasons-and-stars"
@@ -166072,11 +166327,6 @@
       "name": "iwanmota--shopping-website",
       "source": "./iwanmota--shopping-website",
       "description": "shopping-website"
-    },
-    {
-      "name": "zetlen--console-cowboy",
-      "source": "./zetlen--console-cowboy",
-      "description": "console-cowboy"
     },
     {
       "name": "ujjalcal--nl2v2",
@@ -166862,11 +167112,6 @@
       "name": "tesfayekb--core-base",
       "source": "./tesfayekb--core-base",
       "description": "core-base"
-    },
-    {
-      "name": "mihaelamj--old-base-project",
-      "source": "./mihaelamj--old-base-project",
-      "description": "old-base-project"
     },
     {
       "name": "thomasmeb--crewdeck",
@@ -223209,11 +223454,6 @@
       "description": "lama.ios.alt"
     },
     {
-      "name": "gvps-cloud--skypanelv2",
-      "source": "./gvps-cloud--skypanelv2",
-      "description": "skypanelv2"
-    },
-    {
       "name": "73nko--fitness-ai-app",
       "source": "./73nko--fitness-ai-app",
       "description": "fitness-ai-app"
@@ -238337,6 +238577,11 @@
       "name": "moeffel--claude-workflow",
       "source": "./moeffel--claude-workflow",
       "description": "Portable Claude Code Standard Workflow \u2014 drop CLAUDE.md into any repo. 7-step dev process, model routing, design routing, agent orchestration. Works on CLI, Desktop, IDE, and Claude Cloud."
+    },
+    {
+      "name": "stefanjoita--meetrec-desktop-client",
+      "source": "./stefanjoita--meetrec-desktop-client",
+      "description": "MeetRec_desktop-client"
     }
   ]
 }
