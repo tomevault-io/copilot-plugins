@@ -1,0 +1,9 @@
+{
+  "name": "eamanc-lab--fortune-telling-skills",
+  "displayName": "fortune-telling-skills",
+  "description": "\ud83d\udd2e \u5341\u4e8c\u661f\u5ea7\u8fd0\u52bf\u751f\u6210\u5668 \u2014 Claude Code Skill for daily/weekly/monthly horoscope predictions with personalized zodiac insights",
+  "version": "1.0.0",
+  "author": "eamanc-lab",
+  "homepage": "https://github.com/eamanc-lab/fortune-telling-skills",
+  "skills": []
+}
