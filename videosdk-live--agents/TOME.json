@@ -4,7 +4,7 @@
   "repo": "agents",
   "description": "Open-source framework for developing real-time multimodal conversational AI agents.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/videosdk-live/agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:07:58Z"
+  "distributed_at": "2026-05-17T22:31:59Z"
 }
