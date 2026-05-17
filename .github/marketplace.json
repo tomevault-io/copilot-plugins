@@ -138579,6 +138579,16 @@
       "description": "Segment Editor for Jellyfin Segment API "
     },
     {
+      "name": "danzai233--pixelbead",
+      "source": "./danzai233--pixelbead",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u62fc\u8c46\uff08Perler Beads/Hama Beads\uff09\u50cf\u7d20\u753b\u8bbe\u8ba1\u5de5\u5177\uff0c\u652f\u6301 AI \u751f\u6210\u3001\u56fe\u7247\u8f6c\u6362\u7b49\u529f\u80fd\u3002"
+    },
+    {
+      "name": "bahrawyx--bahrawys-calender",
+      "source": "./bahrawyx--bahrawys-calender",
+      "description": "Standalone calendar app with Google Calendar & Outlook integration"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -140507,6 +140517,11 @@
       "name": "fosterdill--ansel",
       "source": "./fosterdill--ansel",
       "description": "Disk Inventory X-style file system visualizer built with Tauri + React. Treemap, age heatmap, largest-files view, trash-or-delete cleanup workflow."
+    },
+    {
+      "name": "large-cat--mnimiy-skill",
+      "source": "./large-cat--mnimiy-skill",
+      "description": "Karpathy's 4 rule and mnimiy(@mnilax) 8 rule:"
     },
     {
       "name": "keshavxa--keshav-portfolio",
