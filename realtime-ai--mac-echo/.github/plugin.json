@@ -1,0 +1,9 @@
+{
+  "name": "realtime-ai--mac-echo",
+  "displayName": "mac-echo",
+  "description": "A voice assistant that runs completely on your local device. ",
+  "version": "1.0.0",
+  "author": "realtime-ai",
+  "homepage": "https://github.com/realtime-ai/mac-echo",
+  "skills": []
+}
