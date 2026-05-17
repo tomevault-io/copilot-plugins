@@ -1,0 +1,9 @@
+{
+  "name": "micropythonos--micropythonos",
+  "displayName": "MicroPythonOS",
+  "description": "A complete operating system for microcontrollers like the ESP32, inspired by Android and iOS.",
+  "version": "1.0.0",
+  "author": "MicroPythonOS",
+  "homepage": "https://github.com/MicroPythonOS/MicroPythonOS",
+  "skills": []
+}
