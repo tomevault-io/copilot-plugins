@@ -1,0 +1,9 @@
+{
+  "name": "lutiancheng1--lingma-proxy",
+  "displayName": "lingma-proxy",
+  "description": "Remote-first OpenAI/Anthropic-compatible Lingma Proxy with desktop app, tool emulation, image input, request logs, and IPC plugin fallback.",
+  "version": "1.0.0",
+  "author": "Lutiancheng1",
+  "homepage": "https://github.com/Lutiancheng1/lingma-proxy",
+  "skills": []
+}
