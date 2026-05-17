@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--mcp",
+  "displayName": "mcp",
+  "description": "Catalog of official Microsoft MCP (Model Context Protocol) server implementations for AI-powered data access and tool integration",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/mcp",
+  "skills": [
+    {
+      "name": "mcp-builder",
+      "description": ""
+    }
+  ]
+}
