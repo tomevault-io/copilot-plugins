@@ -4,7 +4,7 @@
   "repo": "bhived-mcp",
   "description": "bhived is an MCP server that gives AI agents shared memory, skills, and tool discovery.   install once, works in Claude Code, Cursor, and 15+ other agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ArtKeyAi/bhived-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T12:30:08Z"
+  "distributed_at": "2026-05-17T12:30:36Z"
 }
