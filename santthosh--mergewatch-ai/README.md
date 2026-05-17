@@ -7,11 +7,11 @@ AI-powered PR reviews running in your Cloud. Your models, your cloud, your rules
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [santthosh/mergewatch.ai](https://github.com/santthosh/mergewatch.ai).
+Original source: `CLAUDE.md` in [santthosh/mergewatch.ai](https://github.com/santthosh/mergewatch.ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
