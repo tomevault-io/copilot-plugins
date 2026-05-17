@@ -4,7 +4,7 @@
   "repo": "gsearch-cli",
   "description": "Standalone Google Search CLI powered by Gemini API, sharing auth with Gemini CLI.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aeroxy/gsearch-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T03:15:20Z"
+  "distributed_at": "2026-05-17T03:20:25Z"
 }
