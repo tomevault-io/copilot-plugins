@@ -1,0 +1,9 @@
+{
+  "name": "jeremymcs--patchdeck",
+  "displayName": "patchdeck",
+  "description": "Autonomous GitHub PR/Issue babysitter \u2014 watches repos, triages Issues & PR review feedback, and dispatches local AI agents to fix code.",
+  "version": "1.0.0",
+  "author": "jeremymcs",
+  "homepage": "https://github.com/jeremymcs/patchdeck",
+  "skills": []
+}
