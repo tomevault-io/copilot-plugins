@@ -1,0 +1,9 @@
+{
+  "name": "vincentgourbin--gemma-4-swift-mlx",
+  "displayName": "gemma-4-swift-mlx",
+  "description": "Native Gemma 4 multimodal (text+vision+audio+video) inference for Apple Silicon via MLX Swift",
+  "version": "1.0.0",
+  "author": "VincentGourbin",
+  "homepage": "https://github.com/VincentGourbin/gemma-4-swift-mlx",
+  "skills": []
+}
