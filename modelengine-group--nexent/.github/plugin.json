@@ -1,9 +1,9 @@
 {
   "name": "modelengine-group--nexent",
   "displayName": "nexent",
-  "description": "nexent",
+  "description": "Nexent is a zero-code platform for auto-generating production-grade AI agents using Harness Engineering principles \u2014 unified tools, skills, memory, and orchestration with built-in constraints, feedbac",
   "version": "1.0.0",
   "author": "ModelEngine-Group",
-  "homepage": "https://tomevault.io/claim/ModelEngine-Group",
+  "homepage": "https://github.com/ModelEngine-Group/nexent",
   "skills": []
 }
