@@ -1,0 +1,44 @@
+{
+  "name": "Roxy-SKILL",
+  "owner": "umikok7",
+  "repo": "Roxy-SKILL",
+  "description": "roxy.skill \u201cI\u2019m Roxy. Nice to meet you.\u201d \u2014 Turn your agent into an aqua-braided Water Saint mage. \u300e\u6211\u53eb\u6d1b\u742a\u5e0c\uff0c\u8bf7\u591a\u6307\u6559\u3002\u300f\u2014\u2014 \u628a\u4f60\u7684Agent\u53d8\u6210\u6c34\u84dd\u8272\u9ebb\u82b1\u8fab\u7684\u6c34\u5723\u7ea7\u9b54\u672f\u5e08\u3002 ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/umikok7/Roxy-SKILL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T04:47:11Z"
+}
