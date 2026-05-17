@@ -4,7 +4,7 @@
   "repo": "rhai-org-pulse",
   "description": "AI Platform Team Tracker \u2014 Vue 3 dashboard for Jira sprint metrics",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/red-hat-data-services/rhai-org-pulse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T10:31:36Z"
+  "distributed_at": "2026-05-17T10:32:27Z"
 }
