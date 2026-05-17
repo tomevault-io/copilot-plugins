@@ -1,0 +1,9 @@
+{
+  "name": "coder--agentapi",
+  "displayName": "agentapi",
+  "description": "HTTP API for Claude Code, Goose, Aider, Gemini, Amp, and Codex",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/agentapi",
+  "skills": []
+}
