@@ -1,0 +1,9 @@
+{
+  "name": "jays0606--mangstoon-ai",
+  "displayName": "mangstoon_ai",
+  "description": "AI webtoon generator \u2014 turn your wildest fantasy into a 22-panel webtoon starring yourself. 3rd Place, Gemini 3 Seoul Hackathon ($20K credits). Built with Google ADK + Gemini 3.1.",
+  "version": "1.0.0",
+  "author": "jays0606",
+  "homepage": "https://github.com/jays0606/mangstoon_ai",
+  "skills": []
+}
