@@ -1,0 +1,9 @@
+{
+  "name": "jookos--obgo-sync",
+  "displayName": "obgo-sync",
+  "description": "A golang headless client for the obsidian self-hosted sync",
+  "version": "1.0.0",
+  "author": "jookos",
+  "homepage": "https://github.com/jookos/obgo-sync",
+  "skills": []
+}
