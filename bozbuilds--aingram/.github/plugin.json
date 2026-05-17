@@ -1,0 +1,9 @@
+{
+  "name": "bozbuilds--aingram",
+  "displayName": "AIngram",
+  "description": "Local-first agent memory in one SQLite file: sqlite-vec/QJL two-pass vector + FTS5 search, knowledge graph (optional auto capture,) Ed25519-signed entries, and MCP server. No cloud dependencies.",
+  "version": "1.0.0",
+  "author": "bozbuilds",
+  "homepage": "https://github.com/bozbuilds/AIngram",
+  "skills": []
+}
