@@ -1,0 +1,9 @@
+{
+  "name": "yamlresume--yamlresume",
+  "displayName": "yamlresume",
+  "description": "Resumes as code in YAML, brought to you with \u2764\ufe0f by PPResume.",
+  "version": "1.0.0",
+  "author": "yamlresume",
+  "homepage": "https://github.com/yamlresume/yamlresume",
+  "skills": []
+}
