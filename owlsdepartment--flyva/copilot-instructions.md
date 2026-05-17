@@ -1,53 +1,13 @@
-## transitions
+## vue-sfc
 
-> How to write page transitions for flyva
+> Vue single-file component layout
 
 
-# Writing Page Transitions
+# Vue SFC layout
 
-A transition is a `PageTransition` from `@flyva/shared` — typically a plain object from `defineTransition`, or a class instance.
-
-## Lifecycle order
-
-```
-prepare()      → async, runs immediately on link click (before navigation)
-beforeLeave()  → sync setup before leave animation
-leave()        → async, the actual leave animation
-afterLeave()   → sync cleanup after leave, before navigation
---- navigation happens ---
-beforeEnter()  → sync setup before enter animation
-enter()        → async, the actual enter animation
-afterEnter()   → sync final cleanup, manager resets state
-cleanup()      → called after afterEnter and when a new transition starts
-```
-
-## Targeting content
-
-Prefer **`context.container`** (or `context.current` / `context.next`) — adapters register the swapping roots with the manager. Use `document.querySelector` only when you need a node outside that subtree.
-
-## Using refStack
-
-Access registered refs from any component via `globalGetRefStackItem`:
-```ts
-import { globalGetRefStackItem } from '@flyva/next';
-
-const hero = globalGetRefStackItem<HTMLElement>('hero');
-if (hero?.current) { /* animate it */ }
-```
-
-## Blocking interaction during transition
-
-Style **`html.<prefix>-running`** (default prefix `flyva`) on `document.documentElement` for a full-page overlay or wait cursor — Flyva applies those lifecycle classes automatically.
-
-## Context object
-
-Every lifecycle method receives `PageTransitionContext`:
-- `container` — convenience root for the active phase (outgoing during leave, incoming during enter)
-- `current` / `next` — outgoing and incoming content roots when the adapter set them
-- `name` — transition key
-- `trigger` — the element or string that initiated the transition
-- `options` — arbitrary options passed from `FlyvaLink` (commonly `fromHref`, `toHref`)
-- `el` — trigger element if it was a DOM element
+- The opening tag must be exactly `<script setup lang="ts">` (not `<script lang="ts" setup>`).
+- That `<script setup lang="ts">` block is always the **first** top-level block in the file — it appears above `<template>` and any `<style>` blocks.
+- For pages or layouts with no script logic yet, keep an empty `<script setup lang="ts"></script>` so order stays consistent.
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
