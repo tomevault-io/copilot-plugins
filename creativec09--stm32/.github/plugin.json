@@ -1,0 +1,9 @@
+{
+  "name": "creativec09--stm32",
+  "displayName": "stm32",
+  "description": "STM32 MCP Documentation Server with semantic search, Claude Code agents, and comprehensive STM32 HAL documentation",
+  "version": "1.0.0",
+  "author": "creativec09",
+  "homepage": "https://github.com/creativec09/stm32",
+  "skills": []
+}
