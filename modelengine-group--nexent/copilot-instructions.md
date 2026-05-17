@@ -1,118 +1,41 @@
-## nexent
+## english-comments
 
-> Service layer implements core business logic orchestration; raise custom exceptions; no HTTP handling
+> Enforce English-only comments and docstrings across the codebase
 
+# English-only Comments
 
-### Service Layer Rules
+- All comments and docstrings must be written in clear, concise English.
+- Do not use non-English characters in comments (string literals may contain any language).
+- Use proper grammar and spelling; avoid ambiguous abbreviations.
 
-- **Scope**: Applies to `backend/services/*.py`.
-- **Goal**: Implement core business logic and orchestrate complex workflows. Coordinate repositories/SDKs. Keep HTTP concerns out of this layer.
-- **Exceptions**: Raise domain/service exceptions declared in `backend/consts/exceptions.py`. If a new case is needed, add a new class there, then raise it here. Do not translate to HTTP here.
-- **Environment variables**: Do not access `os.getenv()` directly. Read configuration from `consts.const` (see `environment_variable` rule) or accept parameters.
-
-Reference: [backend/consts/exceptions.py](mdc:backend/consts/exceptions.py)
-
-### Correct example (service orchestrates business logic and raises domain exceptions)
+## Do
 ```python
-# backend/services/agent_service.py
-from typing import Any, Dict
-
-from consts.exceptions import LimitExceededError, AgentRunException, MemoryPreparationException
-# from consts.const import APPID, TOKEN  # Example: read config via consts, not os.getenv
-
-
-def run_agent(task_payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Run agent core workflow and return domain result dict.
-    Raises domain exceptions on failure; no HTTP concerns here.
-    """
-    if _is_rate_limited(task_payload):
-        raise LimitExceededError("Too many requests for this tenant.")
-
-    try:
-        memory = _prepare_memory(task_payload)
-    except Exception as exc:
-        # Wrap low-level error in a domain exception for the app layer to translate
-        raise MemoryPreparationException("Failed to prepare memory.") from exc
-
-    try:
-        result = _execute_core_logic(task_payload, memory)
-    except Exception as exc:
-        raise AgentRunException("Agent execution failed.") from exc
-
-    # Return a plain Python object, not a Response
-    return {"status": "ok", "data": result}
-
-
-def _is_rate_limited(_: Dict[str, Any]) -> bool:
-    return False
-
-
-def _prepare_memory(_: Dict[str, Any]) -> Dict[str, Any]:
-    return {"memo": "prepared"}
-
-
-def _execute_core_logic(_: Dict[str, Any], __: Dict[str, Any]) -> Dict[str, Any]:
-    return {"answer": "42"}
+# Initialize cache for 60 seconds
+self.cache_ttl = 60
 ```
 
-### Incorrect example (service leaks HTTP/web concerns or reads env directly)
+## Don't
 ```python
-# backend/services/agent_service.py
-from fastapi import HTTPException  # WRONG: HTTP in service
-from starlette.responses import JSONResponse  # WRONG: Response in service
-import os  # WRONG: direct env access in service
-
-
-def run_agent(_: dict):
-    # WRONG: translating to HTTP inside service
-    if os.getenv("RATE_LIMIT", "0") == "1":  # WRONG: direct getenv here
-        raise HTTPException(status_code=429, detail="Too many requests")
-
-    # WRONG: returning framework response from service
-    return JSONResponse({"status": "ok"})
+# 初始化缓存 60 秒 - FORBIDDEN
+# データキャッシュ60秒 - FORBIDDEN
+# 데이터 캐시 60초 - FORBIDDEN
 ```
 
-### Declaring a new custom exception (do this in exceptions module)
-```python
-# backend/consts/exceptions.py
-class OrderProcessingError(Exception):
-    """Raised when order processing fails in service layer."""
-    pass
-```
+## Scope
+- Docstrings, inline comments, TODO/FIXME/NOTE, header comments
+- Configuration comments in YAML/JSON and other config files
 
-### Existing exceptions (excerpt from current code)
-```python
-"""
-Custom exception classes for the application.
-"""
+## Validation Checklist
+- All comments are in English
+- Docstrings use proper English grammar
+- No non-Latin characters in comments (except inside strings)
+- Comments are clear and provide value
 
-
-class AgentRunException(Exception):
-    """Exception raised when agent run fails."""
-    pass
-
-
-class LimitExceededError(Exception):
-    """Raised when an outer platform calling too frequently"""
-    pass
-
-
-class UnauthorizedError(Exception):
-    """Raised when a user from outer platform is unauthorized."""
-    pass
-
-
-class SignatureValidationError(Exception):
-    """Raised when X-Signature header is missing or does not match the expected HMAC value."""
-    pass
-
-
-class MemoryPreparationException(Exception):
-    """Raised when memory preprocessing or retrieval fails prior to agent run."""
-    pass
-```
+## Optional Automation
+- Pre-commit hook to detect non-English comments
+- IDE extensions for real-time detection
+- CI checks for compliance
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ModelEngine-Group)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ModelEngine-Group)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [ModelEngine-Group/nexent](https://github.com/ModelEngine-Group/nexent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
