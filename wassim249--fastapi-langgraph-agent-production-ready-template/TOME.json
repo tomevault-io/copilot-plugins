@@ -4,7 +4,7 @@
   "repo": "fastapi-langgraph-agent-production-ready-template",
   "description": "A production-ready FastAPI template for building AI agent applications with LangGraph integration. This template provides a robust foundation for building scalable, secure, and maintainable AI agent services.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wassim249/fastapi-langgraph-agent-production-ready-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:52:19Z"
+  "distributed_at": "2026-05-17T21:56:18Z"
 }
