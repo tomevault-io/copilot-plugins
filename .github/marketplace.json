@@ -129479,6 +129479,66 @@
       "description": "MVP Engine - The Next-Generation Framework for Multimodal Model Training with Agents"
     },
     {
+      "name": "ducnguyen67201--trustloopguard",
+      "source": "./ducnguyen67201--trustloopguard",
+      "description": "TrustLoopGuard"
+    },
+    {
+      "name": "ducnguyen67201--trustloopguard",
+      "source": "./ducnguyen67201--trustloopguard",
+      "description": "TrustLoopGuard"
+    },
+    {
+      "name": "zanebonoalter--zanebonorssreader",
+      "source": "./zanebonoalter--zanebonorssreader",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 RSS \u8ba2\u9605\u7ba1\u7406\u7cfb\u7edf\uff0c\u652f\u6301 AI \u667a\u80fd\u5206\u6790\u3001\u5206\u7c7b\u7ba1\u7406\u3001\u81ea\u52a8\u5237\u65b0\u548c\u6587\u7ae0\u9605\u8bfb\u3002"
+    },
+    {
+      "name": "zanebonoalter--zanebonorssreader",
+      "source": "./zanebonoalter--zanebonorssreader",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 RSS \u8ba2\u9605\u7ba1\u7406\u7cfb\u7edf\uff0c\u652f\u6301 AI \u667a\u80fd\u5206\u6790\u3001\u5206\u7c7b\u7ba1\u7406\u3001\u81ea\u52a8\u5237\u65b0\u548c\u6587\u7ae0\u9605\u8bfb\u3002"
+    },
+    {
+      "name": "cschanhniem--clawping",
+      "source": "./cschanhniem--clawping",
+      "description": "clawping"
+    },
+    {
+      "name": "refact0r--re-collect",
+      "source": "./refact0r--re-collect",
+      "description": "personal visual inspiration library"
+    },
+    {
+      "name": "creativec09--stm32",
+      "source": "./creativec09--stm32",
+      "description": "STM32 MCP Documentation Server with semantic search, Claude Code agents, and comprehensive STM32 HAL documentation"
+    },
+    {
+      "name": "zanebonoalter--zanebonorssreader",
+      "source": "./zanebonoalter--zanebonorssreader",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 RSS \u8ba2\u9605\u7ba1\u7406\u7cfb\u7edf\uff0c\u652f\u6301 AI \u667a\u80fd\u5206\u6790\u3001\u5206\u7c7b\u7ba1\u7406\u3001\u81ea\u52a8\u5237\u65b0\u548c\u6587\u7ae0\u9605\u8bfb\u3002"
+    },
+    {
+      "name": "refact0r--re-collect",
+      "source": "./refact0r--re-collect",
+      "description": "personal visual inspiration library"
+    },
+    {
+      "name": "zircote--rust-lsp",
+      "source": "./zircote--rust-lsp",
+      "description": "Claude Code plugin for Rust development with rust-analyzer, clippy, rustfmt, and cargo-audit"
+    },
+    {
+      "name": "zanebonoalter--zanebonorssreader",
+      "source": "./zanebonoalter--zanebonorssreader",
+      "description": "\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 RSS \u8ba2\u9605\u7ba1\u7406\u7cfb\u7edf\uff0c\u652f\u6301 AI \u667a\u80fd\u5206\u6790\u3001\u5206\u7c7b\u7ba1\u7406\u3001\u81ea\u52a8\u5237\u65b0\u548c\u6587\u7ae0\u9605\u8bfb\u3002"
+    },
+    {
+      "name": "grandcamel--splunk-assistant-skills",
+      "source": "./grandcamel--splunk-assistant-skills",
+      "description": "A modular, production-ready Claude Code skills framework for Splunk REST API automation"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -138379,6 +138439,11 @@
       "description": "Critical Code Studies Workbench"
     },
     {
+      "name": "intro-skipper--segment-editor",
+      "source": "./intro-skipper--segment-editor",
+      "description": "Segment Editor for Jellyfin Segment API "
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -140302,6 +140367,11 @@
       "name": "zekzekus--stube",
       "source": "./zekzekus--stube",
       "description": "Web framework inspired by Seaside and UnCommonWeb"
+    },
+    {
+      "name": "fosterdill--ansel",
+      "source": "./fosterdill--ansel",
+      "description": "Disk Inventory X-style file system visualizer built with Tauri + React. Treemap, age heatmap, largest-files view, trash-or-delete cleanup workflow."
     },
     {
       "name": "keshavxa--keshav-portfolio",
