@@ -1,46 +1,30 @@
-## arkts-style
+## git-workflow
 
-> ArkTS/ArkUI coding style and patterns
+> Git commit and workflow conventions
 
 
-# ArkTS Style Guide
+# Git Workflow
 
-## Formatting
+## Commit Messages
 
-- Use `npx @ohos-rs/oxk format` for code formatting
-- Double quotes for strings, semicolons required (enforced by oxk)
+- **English only** — never use Chinese in commit messages
+- Format: `type: concise description`
+- Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, `perf`
+- Keep it brief; if multiple changes, use bullet list in body
+- Don't turn commit messages into technical documentation
 
-## Theme & Styling
+## Before Committing
 
-- **Never** hardcode pixel values, colors, or font sizes in components
-- All design tokens live in `shared/src/main/ets/theme/ThemeConstants.ets`
-- System colors are aliased in ThemeConstants (e.g. `TEXT_PRIMARY`, `TEXT_LINK`)
+- Don't commit unless explicitly asked
+- Run `npx @ohos-rs/oxk format --quote-style single --semicolons as-needed` on changed `.ets` files
+- Don't commit `oh-package-lock.json5` files unless dependency changes are intentional
+- Don't commit `build-profile.json5` signing config changes
 
-```typescript
-// Bad
-.fontSize(14)
-.fontColor($r('sys.color.font_primary'))
-.padding({ top: 12 })
+## Files to Ignore
 
-// Good
-.fontSize(ThemeConstants.FONT_SIZE_BODY)
-.fontColor(ThemeConstants.TEXT_PRIMARY)
-.padding({ top: ThemeConstants.SPACE_MD })
-```
-
-## Comments
-
-- Write English comments that explain non-obvious intent or design decisions
-- Don't narrate what the code does — explain *why* it does it
-- Add section headers (`// ---------- Section ----------`) to group related code in large files
-- Document library workarounds and ported logic with source references
-
-## @lidary/markdown Customization Pattern
-
-When the library's built-in rendering is insufficient:
-1. Use `lexer()` to parse tokens
-2. Re-type target tokens (e.g. `'code'` → `'customCode'`) so the library doesn't recognize them
-3. Handle re-typed tokens in `customBlockBuilder`
+- `**/oh-package-lock.json5` — lock files
+- `**/build/` — build outputs
+- `scripts/*.p12`, `scripts/*.cer`, `scripts/*.p7b` — signing credentials
 
 ---
 > Source: [honjow/Next2V](https://github.com/honjow/Next2V) — distributed by [TomeVault](https://tomevault.io).
