@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--tachikoma",
+  "displayName": "tachikoma",
+  "description": "tachikoma",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/tachikoma",
+  "skills": []
+}
