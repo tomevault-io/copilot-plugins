@@ -1,30 +1,38 @@
-## git-workflow
+## project-overview
 
-> Git commit and workflow conventions
+> V2Next project overview and general conventions
 
 
-# Git Workflow
+# V2Next Project
 
-## Commit Messages
+HarmonyOS (ArkTS/ArkUI) V2EX client app.
 
-- **English only** — never use Chinese in commit messages
-- Format: `type: concise description`
-- Types: `feat`, `fix`, `refactor`, `style`, `docs`, `chore`, `perf`
-- Keep it brief; if multiple changes, use bullet list in body
-- Don't turn commit messages into technical documentation
+## Tech Stack
 
-## Before Committing
+- **Language**: ArkTS (TypeScript superset for HarmonyOS)
+- **UI Framework**: ArkUI declarative components
+- **SDK**: HarmonyOS NEXT, API 12+
+- **Package Manager**: ohpm
 
-- Don't commit unless explicitly asked
-- Run `npx @ohos-rs/oxk format --quote-style single --semicolons as-needed` on changed `.ets` files
-- Don't commit `oh-package-lock.json5` files unless dependency changes are intentional
-- Don't commit `build-profile.json5` signing config changes
+## Project Structure
 
-## Files to Ignore
+- `entry/` — App entry module (EntryAbility, main pages)
+- `feature/` — Feature modules (feed, detail, node, user, settings)
+- `shared/` — Shared library (components, theme, utils)
 
-- `**/oh-package-lock.json5` — lock files
-- `**/build/` — build outputs
-- `scripts/*.p12`, `scripts/*.cer`, `scripts/*.p7b` — signing credentials
+## Build & Deploy
+
+- Build: `hvigorw assembleHap --mode module -p product=default -p module=entry@default`
+- Sign + Install: `python3 scripts/sign.py`
+- Format: `npx @ohos-rs/oxk format --quote-style single --semicolons as-needed <file.ets>`
+
+## Conventions
+
+- Use `ThemeConstants` for all styling values (spacing, font sizes, colors, radii)
+- Prefer system color tokens via `ThemeConstants` aliases (e.g. `TEXT_PRIMARY`) over raw `$r('sys.color.xxx')`
+- Use English for code comments — explain *why*, not *what*
+- Use English for git commit messages in `type: description` format
+- Use Chinese for user-facing strings and UI text
 
 ---
 > Source: [honjow/Next2V](https://github.com/honjow/Next2V) — distributed by [TomeVault](https://tomevault.io).
