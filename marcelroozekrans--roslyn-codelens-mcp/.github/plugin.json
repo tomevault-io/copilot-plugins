@@ -1,0 +1,9 @@
+{
+  "name": "marcelroozekrans--roslyn-codelens-mcp",
+  "displayName": "roslyn-codelens-mcp",
+  "description": "Roslyn-based MCP server providing semantic code intelligence for .NET codebases \u2014 type hierarchies, call sites, DI registrations, and reflection usage for Claude Code",
+  "version": "1.0.0",
+  "author": "MarcelRoozekrans",
+  "homepage": "https://github.com/MarcelRoozekrans/roslyn-codelens-mcp",
+  "skills": []
+}
