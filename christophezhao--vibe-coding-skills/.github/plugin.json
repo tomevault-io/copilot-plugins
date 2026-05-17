@@ -1,0 +1,9 @@
+{
+  "name": "christophezhao--vibe-coding-skills",
+  "displayName": "vibe-coding-skills",
+  "description": "A reusable skills library for vibe coding agents and workflows",
+  "version": "1.0.0",
+  "author": "ChristopheZhao",
+  "homepage": "https://github.com/ChristopheZhao/vibe-coding-skills",
+  "skills": []
+}
