@@ -1,40 +1,51 @@
-## project-overview
+## python-backend
 
-> Omelette project overview and architecture context
+> Python backend standards for Omelette — enforced on every backend file
 
 
-# Omelette Project Overview
+# Omelette Backend Standards
 
-Omelette is a **chat-centric scientific literature assistant** with a ChatGPT-style playground interface.
+## Environment
+- Python 3.12+, conda env `omelette`
+- Run from `backend/` directory: `cd backend && uvicorn app.main:app --reload`
+- Data on `/data0/djx/omelette/`, code on `/home/djx/repos/omelette/`
 
-## Core Modules
-1. Chat Playground — SSE streaming, knowledge base selection, tool modes (QA, citation, outline, gap)
-2. Multi-LLM — LangChain abstraction: OpenAI, Anthropic, Aliyun, Volcengine, Ollama, mock
-3. RAG Knowledge Base — LlamaIndex + ChromaDB + GPU-aware HuggingFace embeddings
-4. LangGraph Pipeline — search/upload workflows with HITL interrupt/resume + persistent checkpointing
-5. Keyword Management — three-level hierarchy + LLM expansion + search formula
-6. Multi-Source Search — Semantic Scholar, OpenAlex, arXiv, Crossref
-7. Deduplication — DOI + title similarity + LLM verification + HITL conflict resolution
-8. Subscription Management — CRUD API + RSS/API incremental updates
-9. PDF Crawler — Unpaywall + multi-channel fallback + SSRF protection
-10. OCR Processing — MinerU (auto-managed subprocess) + pdfplumber (native) + PaddleOCR (scanned, GPU)
-11. Writing Assistant — summarize, cite, outline, gap analysis
-12. MCP Server — tools, resources, prompts for AI IDE integration
-13. GPU Resource Management — TTL auto-unload, GPU_MODE presets, monitoring API, exit cleanup watchdog
-14. Centralized Prompts — all LLM prompts in `app/prompts/` module
+## Code Style (enforced by ruff + pre-commit)
+- Line length: 120
+- Import sorting: ruff isort, first-party = `app`
+- Format: `ruff format`, double quotes, 4-space indent
+- Lint: `ruff check` with E, F, I, N, W, UP, B, SIM
 
-## Stack
-- Backend: FastAPI + SQLAlchemy async + SQLite + Alembic + Pydantic v2
-- LLM: LangChain (multi-provider) + LlamaIndex (RAG) + LangGraph (pipeline)
-- Frontend: React 18 + TypeScript + Vite + TailwindCSS v4 + shadcn/ui + Radix + i18next
-- Docs: VitePress (bilingual EN/ZH)
-- CI: GitHub Actions, pre-commit hooks (ruff, conventional commits)
+## Architecture
+- All endpoints return `ApiResponse[T]` from `app/schemas/common.py`
+- LLM calls through `app/services/llm_client.py` (LangChain `BaseChatModel`), never import provider SDKs directly
+- LLM prompts centralized in `app/prompts/` (chat, dedup, keyword, rag, rewrite, writing, completion)
+- Pipeline orchestration via `app/pipelines/` (LangGraph `StateGraph`) with persistent `AsyncSqliteSaver` checkpointer
+- RAG via `app/services/rag_service.py` (LlamaIndex `VectorStoreIndex`) with reranker
+- GPU resource management via `app/services/gpu_model_manager.py` (TTL auto-unload, `GPU_MODE` presets)
+- MinerU subprocess management via `app/services/mineru_process_manager.py` (auto start/stop with TTL)
+- GPU monitoring API: `app/api/v1/gpu.py` — `GET /gpu/status`, `POST /gpu/unload`
+- SSRF protection via `app/services/url_validator.py` — validate all user-provided URLs
+- MCP server at `app/mcp_server.py`, mounted at `/mcp`
+- DB migrations via Alembic (`alembic/`), run `alembic upgrade head` before startup
+- Async SQLAlchemy + `AsyncSession` for all DB operations
+- Business logic in `app/services/`, thin controllers in `app/api/v1/`
+- Pydantic v2 schemas in `app/schemas/` mirror every API request/response
+- Project-scoped endpoints must use `Depends(get_project)` for authorization
+- Exit cleanup: `atexit` + `SIGHUP` handlers + optional `scripts/gpu_watchdog.py` daemon
 
-## Key Paths
-- Code: `/home/djx/repos/omelette/`
-- Data: `/data0/djx/omelette/`
-- Conda: `omelette` (Python 3.12)
-- Solutions: `docs/solutions/` (compound knowledge)
+## Async Rules
+- Never call sync I/O or CPU-heavy functions directly in async code
+- Wrap blocking calls with `asyncio.to_thread()` (LlamaIndex, PaddleOCR, socket, subprocess, fitz, etc.)
+- Services must not call `db.commit()` — `get_session()` manages transactions
+- See `docs/solutions/performance-issues/blocking-sync-calls-asyncio-to-thread.md`
+
+## Testing
+- pytest-asyncio with `ASGITransport` + `AsyncClient`
+- Mock LLM via `LLM_PROVIDER=mock` env var
+- Test DB uses `tempfile.mkdtemp()` — never relative paths
+- Every service has a corresponding `tests/test_<module>.py`
+- 526 tests and growing
 
 ---
 > Source: [sylvanding/omelette](https://github.com/sylvanding/omelette) — distributed by [TomeVault](https://tomevault.io).
