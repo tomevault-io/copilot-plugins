@@ -4,7 +4,7 @@
   "repo": "unifi-mcp",
   "description": "MCP servers for the UniFi suite of applications, Network, Protect, Access, and Drive",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sirkirby/unifi-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:38:34Z"
+  "distributed_at": "2026-05-17T22:18:46Z"
 }
