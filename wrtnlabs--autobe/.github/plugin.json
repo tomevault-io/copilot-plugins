@@ -1,0 +1,9 @@
+{
+  "name": "wrtnlabs--autobe",
+  "displayName": "autobe",
+  "description": "AI Vibe Coding Agent of TS backend server, enhanced by compiler skills, generating 100% working code",
+  "version": "1.0.0",
+  "author": "wrtnlabs",
+  "homepage": "https://github.com/wrtnlabs/autobe",
+  "skills": []
+}
