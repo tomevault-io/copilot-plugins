@@ -1,0 +1,9 @@
+{
+  "name": "nordcoderd--spring-boot-code-guard",
+  "displayName": "spring-boot-code-guard",
+  "description": "Architectural tests for Spring Boot Best Practices for Kotlin",
+  "version": "1.0.0",
+  "author": "NordCoderd",
+  "homepage": "https://github.com/NordCoderd/spring-boot-code-guard",
+  "skills": []
+}
