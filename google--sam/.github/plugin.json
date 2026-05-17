@@ -1,0 +1,9 @@
+{
+  "name": "google--sam",
+  "displayName": "sam",
+  "description": "SAM Sovereign Agent Mesh",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/sam",
+  "skills": []
+}
