@@ -1,35 +1,28 @@
-## playground
+## playwright-e2e-policy
 
-> Rules for playground apps used to test the library
+> Playwright E2E expectations — coverage and when tests may change
 
 
-# Playgrounds
+# Playwright E2E policy
 
-Playgrounds are minimal apps that exercise the library features. They are private workspace packages — never published.
+## Coverage
 
-## Next.js playground (`playground/next`)
+When adding user-facing behavior in `@flyva/next` or `@flyva/nuxt` (navigation, transitions, lifecycle, link props), add or extend E2E specs under `packages/<adapter>/e2e/` so regressions are caught against the playgrounds (`playground-next`, `playground-nuxt`).
 
-- Uses `@flyva/next` and `@flyva/shared` as workspace deps
-- Layout wraps content in `<FlyvaRoot>` with a transitions map; route segment uses `FlyvaTransitionWrapper` so the manager supplies `context.container`
-- Page transitions live in `src/page-transitions/` — `defineTransition` or class implementing `PageTransition`
-- Navigation uses `<FlyvaLink>` from the library — test default and named transitions
-- Uses anime.js (`animejs`) for animations inside transitions
+## Failing tests are signal
 
-## Nuxt playground (`playground/nuxt`)
+If a code change causes an **existing** E2E test to fail, **do not** rewrite, weaken, or delete that test just to make CI green without **explicit agreement** from the developer on the intent of the change (bugfix vs intentional behavior change).
 
-- References the Nuxt module directly: `modules: ['../../packages/nuxt/module']`
-- Config key: `flyva` in `nuxt.config.ts`
-- Transitions live in a folder specified by `transitionsDir` config
-- Uses auto-imported composables (`useFlyvaTransition`, `useFlyvaState`)
-- Demo UI lives under `components/demo/`. **`:deep(h3)` / `:deep(p)`-style selectors (bare tags) are unreliable** in those components (slot content, FLIP clone, CSS modules). Prefer explicit classes on slotted markup or other patterns; do not revert manual fixes there without checking in the browser.
+- **Bugfix:** fix the product code; keep assertions unless the old behavior was wrong.
+- **Intentional behavior change:** update tests only after the developer confirms the new contract; prefer adjusting expectations or adding a migration note in the PR description.
 
-## When modifying library code
+## Where tests live
 
-Always verify changes work in the relevant playground. Transitions implement `PageTransition` from `@flyva/shared`.
+- Next: [`packages/next/e2e`](packages/next/e2e) — `pnpm --filter @flyva/next test:e2e`
+- Nuxt: [`packages/nuxt/e2e`](packages/nuxt/e2e) — `pnpm --filter @flyva/nuxt test:e2e`
+- Root: `pnpm test:e2e` runs both.
 
-## Playwright MCP
-
-[`.cursor/mcp.json`](.cursor/mcp.json) registers the official [Playwright MCP](https://playwright.dev/docs/getting-started-mcp) server for Cursor. Enable it under **Settings → MCP**, restart Cursor if needed, then run a playground (`pnpm dev:next` on port 3200, `pnpm dev:nuxt` on 3100) and ask the agent to exercise transitions in the browser. Package E2E tests live under `packages/next/e2e` and `packages/nuxt/e2e`.
+`@flyva/shared` stays browser-free at runtime; unit tests live under `packages/shared/test/` (Vitest + jsdom). Shared logic changes should update or add tests there, and `pnpm --filter @flyva/shared test` must pass — do not weaken or delete existing assertions without the same explicit intent agreement as for E2E.
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
