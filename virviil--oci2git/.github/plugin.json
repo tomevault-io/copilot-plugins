@@ -1,0 +1,9 @@
+{
+  "name": "virviil--oci2git",
+  "displayName": "oci2git",
+  "description": "Introspecting Docker images as easy as using Git",
+  "version": "1.0.0",
+  "author": "Virviil",
+  "homepage": "https://github.com/Virviil/oci2git",
+  "skills": []
+}
