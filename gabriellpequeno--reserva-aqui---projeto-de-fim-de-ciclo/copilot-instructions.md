@@ -1,11 +1,11 @@
-## agent-frontend-specialist
+## agent-game-developer
 
-> Persona frontend-specialist — UI web moderna; leia .agent/agents/frontend-specialist.md.
+> Persona game-developer — engines 2D/3D; leia .agent/agents/game-developer.md.
 
 
-# Agente: Frontend Specialist
+# Agente: Game Developer
 
-Antes de atuar neste papel, leia `.agent/agents/frontend-specialist.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/game-developer.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
