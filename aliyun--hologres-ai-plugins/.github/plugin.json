@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--hologres-ai-plugins",
+  "displayName": "hologres-ai-plugins",
+  "description": "hologres-ai-plugins",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/hologres-ai-plugins",
+  "skills": []
+}
