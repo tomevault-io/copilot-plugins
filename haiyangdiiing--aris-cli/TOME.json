@@ -4,7 +4,7 @@
   "repo": "aris-cli",
   "description": "ARIS CLI \u2014 Autonomous Research Iteration System. Track experiments, view results, and drive autonomous improvement loops across any AI coding agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HaiyangDiiing/aris-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T12:32:00Z"
+  "distributed_at": "2026-05-17T12:32:28Z"
 }
