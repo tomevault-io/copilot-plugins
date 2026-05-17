@@ -1,0 +1,14 @@
+{
+  "name": "mediar-ai--terminator",
+  "displayName": "terminator",
+  "description": "playwright for windows computer use ",
+  "version": "1.0.0",
+  "author": "mediar-ai",
+  "homepage": "https://github.com/mediar-ai/terminator",
+  "skills": [
+    {
+      "name": "remote-mcp",
+      "description": ""
+    }
+  ]
+}
