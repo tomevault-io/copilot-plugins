@@ -7,11 +7,11 @@ Agent Notch — macOS computer-use agent that lives in the notch. Voice in, scre
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sam-siavoshian/agent-notch](https://github.com/sam-siavoshian/agent-notch).
+Original source: `CLAUDE.md` in [sam-siavoshian/agent-notch](https://github.com/sam-siavoshian/agent-notch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
