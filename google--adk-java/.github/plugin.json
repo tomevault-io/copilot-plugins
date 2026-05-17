@@ -1,0 +1,9 @@
+{
+  "name": "google--adk-java",
+  "displayName": "adk-java",
+  "description": "An open-source, code-first Java toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control.",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/adk-java",
+  "skills": []
+}
