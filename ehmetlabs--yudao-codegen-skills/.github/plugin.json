@@ -1,0 +1,9 @@
+{
+  "name": "ehmetlabs--yudao-codegen-skills",
+  "displayName": "yudao-codegen-skills",
+  "description": "\u7528\u4e8e Yudao \u4ee3\u7801\u751f\u6210\uff08\u540e\u7aef + \u7ba1\u7406\u540e\u53f0\u524d\u7aef\uff09\u7684\u6d41\u7a0b\u5316\u6307\u5f15\u4e0e\u7d22\u5f15\u3002",
+  "version": "1.0.0",
+  "author": "ehmetlabs",
+  "homepage": "https://github.com/ehmetlabs/yudao-codegen-skills",
+  "skills": []
+}
