@@ -1,36 +1,42 @@
-## next-package
+## nuxt-package
 
-> Rules for the React/Next.js adapter package
+> Rules for the Vue/Nuxt adapter package
 
 
-# @flyva/next
+# @flyva/nuxt
 
-## File structure
+This is a Nuxt module. It auto-registers components, composables, and a plugin.
 
-```
-packages/next/
-├── index.ts                     # barrel: re-exports common + runtime
-├── common/index.ts              # re-exports from @flyva/shared
-├── runtime/
-│   ├── hooks/                   # React hooks (useFlyva*, useDetachedRoot, useRefStack, useRefState)
-│   ├── components/              # FlyvaRoot, FlyvaLink, FlyvaTransitionWrapper
-│   └── page-transition-manager/ # 'use client' re-export of shared manager
-└── utils/
-    └── refReactiveFactory.ts    # bridges useRefState → ReactiveFactory
-```
+## Module entry
+
+`module.ts` uses `defineNuxtModule` from `@nuxt/kit`. It:
+1. Merges user config from `nuxt.config.ts` → `flyva` key into runtime config
+2. Registers the runtime plugin (`runtime/plugin.ts`) which creates the `PageTransitionManager` singleton
+3. Scans a user-defined `transitionsDir` folder, generates a virtual `flyva-transitions.ts` template
+4. Auto-imports composables (`useFlyvaTransition`, `useFlyvaLifecycle`, `useFlyvaStickyRef`, `useFlyvaState`, `useRefStack`, `globalGetRefStackItem`, `globalGetRefStack`)
+5. Auto-registers components from `runtime/components/` (`FlyvaPage`, `FlyvaLink`)
+
+## Key components
+
+- **FlyvaPage** — wraps `<NuxtPage>` and coordinates the manager lifecycle with `page:start` / `page:finish` hooks and Vue `<Transition>`. This is the Nuxt-native equivalent of React's `FlyvaTransitionWrapper` — do NOT try to replicate the React approach
+- **FlyvaLink** — wraps `<NuxtLink>`, calls `prepare` then `navigateTo`. Passes `fromHref`/`toHref` in options. Emits `transitionStart` event
+
+## Nuxt-specific patterns (do NOT use React patterns here)
+
+- Reactivity: Vue's `ref()` IS the reactive primitive — no need for Proxy wrappers like `useRefState`
+- Manager access: via plugin `$flyvaManager` (`useNuxtApp().$flyvaManager`) — NOT React context
+- Config: via `useRuntimeConfig().public.flyva` — NOT a custom config context
+- Lifecycle: `nuxtApp.hook('page:start')` / `nuxtApp.hook('page:finish')` — NOT useEffect on pathname
+- Cleanup: `onScopeDispose` / `onUnmounted` — NOT useEffect return
+- Template refs: `useTemplateRef()` returns a `Ref` — access via `.value`, NOT `.current`
 
 ## Conventions
 
-- Every file that uses React hooks or browser APIs must have `'use client';` as the first line
-- Import shared code from **`@flyva/shared`** (barrel) or documented subpaths (**`@flyva/shared/page-transition-manager`**, **`@flyva/shared/view-transition`**, …), not relative `../../shared`
-- Components use `forwardRef` when they wrap native elements (e.g. FlyvaLink wraps `<Link>`)
-- Avoid external runtime deps — no lodash, no classnames. Destructure/inline instead
-- `FlyvaRoot` uses a module-level singleton for the manager to survive React re-renders
-- `useRefStack` maintains a global `Map` — it is NOT React state. Transitions access it imperatively via `globalGetRefStackItem`
-
-## Peer dependencies
-
-The package peer-depends on `next >=14`, `react >=18`, `react-dom >=18`. Don't import APIs exclusive to a single Next.js version.
+- Runtime code lives in `runtime/` — composables, components, plugin
+- Utilities in `utils/` — `defuReplaceArray`, `refReactiveFactory`
+- The module augments `@nuxt/schema` for typed `RuntimeConfig`
+- Components are `.vue` files, auto-registered globally
+- Peer-depends on `nuxt >=3.14`
 
 ---
 > Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
