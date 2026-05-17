@@ -1,0 +1,9 @@
+{
+  "name": "lstpsche--obsidian-mcp",
+  "displayName": "obsidian-mcp",
+  "description": "Fast MCP server for local Obsidian vault usage by AI Agents",
+  "version": "1.0.0",
+  "author": "lstpsche",
+  "homepage": "https://github.com/lstpsche/obsidian-mcp",
+  "skills": []
+}
