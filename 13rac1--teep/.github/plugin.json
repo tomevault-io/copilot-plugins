@@ -1,0 +1,9 @@
+{
+  "name": "13rac1--teep",
+  "displayName": "teep",
+  "description": "Verify that AI providers can't read your prompts \u2014 even if they wanted to.",
+  "version": "1.0.0",
+  "author": "13rac1",
+  "homepage": "https://github.com/13rac1/teep",
+  "skills": []
+}
