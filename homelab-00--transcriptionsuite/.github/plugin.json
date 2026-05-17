@@ -1,0 +1,9 @@
+{
+  "name": "homelab-00--transcriptionsuite",
+  "displayName": "TranscriptionSuite",
+  "description": "A fully local and private Speech-To-Text app with cross-platform support, speaker diarization, Audio Notebook mode, LM Studio integration, and both longform and live transcription.",
+  "version": "1.0.0",
+  "author": "homelab-00",
+  "homepage": "https://github.com/homelab-00/TranscriptionSuite",
+  "skills": []
+}
