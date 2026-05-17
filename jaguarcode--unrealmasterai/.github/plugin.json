@@ -1,0 +1,9 @@
+{
+  "name": "jaguarcode--unrealmasterai",
+  "displayName": "UnrealMasterAI",
+  "description": "Unreal Master AI agent that gives Claude Code bidirectional control over Unreal Engine internals \u2014 manipulating Blueprints at the graph level, generating Slate UI code, triggering Live Coding compilat",
+  "version": "1.0.0",
+  "author": "jaguarcode",
+  "homepage": "https://github.com/jaguarcode/UnrealMasterAI",
+  "skills": []
+}
