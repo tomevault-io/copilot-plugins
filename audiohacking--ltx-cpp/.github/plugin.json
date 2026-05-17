@@ -1,0 +1,9 @@
+{
+  "name": "audiohacking--ltx-cpp",
+  "displayName": "ltx.cpp",
+  "description": "Unstable, Experimental LTX 2.3 GGUF inference in C++ (DO NOT USE IT YET)",
+  "version": "1.0.0",
+  "author": "audiohacking",
+  "homepage": "https://github.com/audiohacking/ltx.cpp",
+  "skills": []
+}
