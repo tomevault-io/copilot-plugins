@@ -1,0 +1,9 @@
+{
+  "name": "sergiocarracedo--skill-organizer",
+  "displayName": "skill-organizer",
+  "description": "CLI tool to organize your skills in folders",
+  "version": "1.0.0",
+  "author": "sergiocarracedo",
+  "homepage": "https://github.com/sergiocarracedo/skill-organizer",
+  "skills": []
+}
