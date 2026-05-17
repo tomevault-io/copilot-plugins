@@ -7,11 +7,11 @@ MVP Engine - The Next-Generation Framework for Multimodal Model Training with Ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [mvp-ai-lab/mvp-engine](https://github.com/mvp-ai-lab/mvp-engine).
+Original source: `AGENTS.md` in [mvp-ai-lab/mvp-engine](https://github.com/mvp-ai-lab/mvp-engine).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
