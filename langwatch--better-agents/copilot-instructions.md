@@ -1,11 +1,11 @@
-## commit-and-push
+## commit
 
-> Commit (conventional commit) files and push to the remote repository.
+> git add commit ONLY the files you changed just now, write a commit message for it using conventional commits format
 
 
-Commit (conventional commit) files and push to the remote repository.
+git add commit ONLY the files you changed just now, write a commit message for it using conventional commits format
 
-Important: if not on main, propose to create a new branch and switch to it.
+DO NOT commit again automatically until I tell you so to do it again
 
 ---
 > Source: [langwatch/better-agents](https://github.com/langwatch/better-agents) — distributed by [TomeVault](https://tomevault.io).
