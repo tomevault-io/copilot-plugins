@@ -4,7 +4,7 @@
   "repo": "stagewise",
   "description": "The Open Source Agentic IDE. Create and orchestrate coding agents, show app previews and run git workflows. Use your favorite models across all providers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stagewise-io/stagewise",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T19:34:04Z"
+  "distributed_at": "2026-05-17T19:35:54Z"
 }
