@@ -7,14 +7,14 @@ Stop re-explaining your project to AI agents every session. One memory layer for
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [sachinshelke/codevira](https://github.com/sachinshelke/codevira).
+Original source: `AGENTS.md` in [sachinshelke/codevira](https://github.com/sachinshelke/codevira).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/sachinshelke/codevira](https://github.com/sachinshelke/codevira)
