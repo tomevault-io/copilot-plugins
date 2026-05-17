@@ -1,0 +1,9 @@
+{
+  "name": "wybert--earth-agent-chrome-ext",
+  "displayName": "earth-agent-chrome-ext",
+  "description": "Earth Agent is a Cursor-like AI agent for Google Earth Engine. It can be used right in your browser as a Chrome extension or through MCP server support. It helps you do anything related to Google Eart",
+  "version": "1.0.0",
+  "author": "wybert",
+  "homepage": "https://github.com/wybert/earth-agent-chrome-ext",
+  "skills": []
+}
