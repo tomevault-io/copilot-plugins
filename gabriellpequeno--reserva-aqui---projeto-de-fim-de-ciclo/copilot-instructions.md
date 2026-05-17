@@ -1,11 +1,11 @@
-## agent-product-owner
+## agent-project-planner
 
-> Persona product-owner — backlog e priorizacao; leia .agent/agents/product-owner.md.
+> Persona project-planner — planejamento sem codigo; leia .agent/agents/project-planner.md.
 
 
-# Agente: Product Owner
+# Agente: Project Planner
 
-Antes de atuar neste papel, leia `.agent/agents/product-owner.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/project-planner.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
