@@ -1,0 +1,9 @@
+{
+  "name": "vltansky--skills",
+  "displayName": "skills",
+  "description": "A collection of Agent Skills for Claude Code, Cursor, Codex and other coding agents",
+  "version": "1.0.0",
+  "author": "vltansky",
+  "homepage": "https://github.com/vltansky/skills",
+  "skills": []
+}
