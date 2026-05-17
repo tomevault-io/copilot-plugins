@@ -7,11 +7,11 @@ AI Agent Engineering Platform built on an Open Source TypeScript AI Agent Framew
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [VoltAgent/voltagent](https://github.com/VoltAgent/voltagent).
+Original source: `AGENTS.md` in [VoltAgent/voltagent](https://github.com/VoltAgent/voltagent).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
