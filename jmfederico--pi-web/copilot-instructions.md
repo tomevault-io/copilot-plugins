@@ -1,0 +1,24 @@
+## pi-web
+
+> This project is expected to run locally using split systemd user services:
+
+# Agent Notes
+
+This project is expected to run locally using split systemd user services:
+
+- `pi-web-sessiond.service` runs `npm run start:sessiond` in non-autoreload, non-auto-restart mode.
+- `pi-web-ui-dev.service` runs the web/API and Vite UI in dev autoreload mode with `npm run dev:web` and `npm run dev:client`.
+
+When working on this project, assume the session runtime owner is long-lived and separate from the autoreloading UI/API process. Browser disconnects and UI/API restarts should not stop active Pi sessions.
+
+If you make changes that affect `src/server/sessiond.ts`, session runtime ownership, the session daemon protocol, or any code path only loaded by the session daemon, inform the user that `pi-web-sessiond.service` must be manually restarted and give them this command:
+
+```bash
+systemctl --user restart pi-web-sessiond.service
+```
+
+Changes to the web/API/UI side generally only require the `pi-web-ui-dev.service` autoreload/restart path.
+
+---
+> Source: [jmfederico/pi-web](https://github.com/jmfederico/pi-web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
