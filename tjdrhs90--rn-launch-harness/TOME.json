@@ -1,0 +1,44 @@
+{
+  "name": "rn-launch-harness",
+  "owner": "tjdrhs90",
+  "repo": "rn-launch-harness",
+  "description": "Claude Code plugin that automates the entire React Native app lifecycle \u2014 from market research to App Store & Google Play submission. Harness engineering with Generator-Evaluator separation, file-based handoff, and contract negotiation.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tjdrhs90/rn-launch-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T04:59:19Z"
+}
