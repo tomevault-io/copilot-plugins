@@ -7,11 +7,11 @@ Copy of affaan-m/everything-claude-code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tpavanipradeep/everything-claude-code](https://github.com/tpavanipradeep/everything-claude-code).
+Original source: `CLAUDE.md` in [tpavanipradeep/everything-claude-code](https://github.com/tpavanipradeep/everything-claude-code).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
