@@ -1,0 +1,44 @@
+{
+  "name": "fortune-telling-skills",
+  "owner": "eamanc-lab",
+  "repo": "fortune-telling-skills",
+  "description": "\ud83d\udd2e \u5341\u4e8c\u661f\u5ea7\u8fd0\u52bf\u751f\u6210\u5668 \u2014 Claude Code Skill for daily/weekly/monthly horoscope predictions with personalized zodiac insights",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eamanc-lab/fortune-telling-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T08:51:53Z"
+}
