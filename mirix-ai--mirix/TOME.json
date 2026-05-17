@@ -2,9 +2,9 @@
   "name": "MIRIX",
   "owner": "Mirix-AI",
   "repo": "MIRIX",
-  "description": "",
+  "description": "Mirix is a multi-agent personal assistant designed to track on-screen activities and answer user questions intelligently. By capturing real-time visual data and consolidating it into structured memories, Mirix transforms raw inputs into a rich knowledge base that adapts to your digital experiences.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Mirix-AI",
+  "source_url": "https://github.com/Mirix-AI/MIRIX",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T23:49:39Z"
+  "distributed_at": "2026-05-17T21:39:27Z"
 }
