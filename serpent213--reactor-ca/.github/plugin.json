@@ -1,0 +1,9 @@
+{
+  "name": "serpent213--reactor-ca",
+  "displayName": "reactor-ca",
+  "description": "Homelab/SOHO Certificate Authority with age encryption and deployment",
+  "version": "1.0.0",
+  "author": "serpent213",
+  "homepage": "https://github.com/serpent213/reactor-ca",
+  "skills": []
+}
