@@ -4,7 +4,7 @@
   "repo": "content-studio",
   "description": "YouTube Content Studio - Full-stack dashboard for managing your entire content pipeline with AI",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bosar-youtube/content-studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T03:02:26Z"
+  "distributed_at": "2026-05-17T03:08:51Z"
 }
