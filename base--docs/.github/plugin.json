@@ -1,0 +1,9 @@
+{
+  "name": "base--docs",
+  "displayName": "docs",
+  "description": "Documentation for building on Base",
+  "version": "1.0.0",
+  "author": "base",
+  "homepage": "https://github.com/base/docs",
+  "skills": []
+}
