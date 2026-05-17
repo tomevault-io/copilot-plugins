@@ -1,0 +1,44 @@
+{
+  "name": "django-saas-boilerplate",
+  "owner": "eriktaveras",
+  "repo": "django-saas-boilerplate",
+  "description": "A modern, production-ready Django boilerplate for building SaaS applications with HTMX, Tailwind CSS, and Alpine.js. This template provides everything you need to kickstart your next SaaS project with best practices and modern tooling.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/eriktaveras/django-saas-boilerplate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T22:39:16Z"
+}
