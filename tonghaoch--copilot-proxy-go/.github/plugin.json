@@ -1,0 +1,9 @@
+{
+  "name": "tonghaoch--copilot-proxy-go",
+  "displayName": "copilot-proxy-go",
+  "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server",
+  "version": "1.0.0",
+  "author": "tonghaoch",
+  "homepage": "https://github.com/tonghaoch/copilot-proxy-go",
+  "skills": []
+}
