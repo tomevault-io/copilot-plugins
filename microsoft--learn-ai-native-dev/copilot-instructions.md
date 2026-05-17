@@ -1,0 +1,49 @@
+## learn-ai-native-dev
+
+> This is an **AI-Native Development Tutorial** website.
+
+# GitHub Copilot Instructions
+
+This is an **AI-Native Development Tutorial** website.
+
+- Project context, tech stack, structure, and dev commands → [`AGENTS.md`](../AGENTS.md).
+- Website-as-product design spec (principles, IA, components, per-part design) → [`docs/`](../docs).
+- Build harness (instructions, prompts, skills, agents, hooks) → this folder ([`.github/`](.)). See [`docs/harness.md`](../docs/harness.md) for the map.
+
+After structural changes (paths, modules, diagrams, custom markdown syntax, or
+any file under `.github/{instructions,prompts,skills,agents,hooks}/`), run
+`@docs-auditor` to catch drift in `docs/`.
+
+## Code Generation Rules
+
+- TypeScript with proper type annotations; no `any`
+- Functional components with hooks; named exports
+- Import via `@/` alias (e.g., `@/components/ui/button`)
+- Tailwind CSS only — no inline styles or CSS modules
+- Prefer shadcn/ui components from `src/components/ui/`
+- Use `cn()` from `@/lib/utils` for conditional classes
+
+## Security
+
+### Never Generate
+
+- Hardcoded API keys, tokens, or secrets
+- `eval()` or `Function()` with dynamic input
+- `dangerouslySetInnerHTML` with unsanitized content
+
+### Always Include
+
+- Input validation for user-provided data
+- Proper error handling with try/catch
+- HTTPS for external resources
+
+## Before Completing Code
+
+1. `npm run build` succeeds (no TypeScript errors)
+2. Imports are correct
+3. Responsive design considered
+4. Accessibility basics present (labels, alt text, ARIA)
+
+---
+> Source: [microsoft/learn-ai-native-dev](https://github.com/microsoft/learn-ai-native-dev) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
