@@ -1,0 +1,9 @@
+{
+  "name": "loicalleyne--bufarrowlib",
+  "displayName": "bufarrowlib",
+  "description": "Transcode between Protobuf and Arrow",
+  "version": "1.0.0",
+  "author": "loicalleyne",
+  "homepage": "https://github.com/loicalleyne/bufarrowlib",
+  "skills": []
+}
