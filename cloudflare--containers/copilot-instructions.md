@@ -1,0 +1,182 @@
+## containers
+
+> Guidelines for AI agents working on the `@cloudflare/containers` package.
+
+# AGENTS.md
+
+Guidelines for AI agents working on the `@cloudflare/containers` package.
+
+## Project Overview
+
+This is the `@cloudflare/containers` npm package — a TypeScript library that wraps Cloudflare's container-enabled Durable Objects. It provides lifecycle management, HTTP/WebSocket proxying, outbound interception, scheduling, and load balancing utilities on top of the Cloudflare Workers runtime.
+
+**Key exports** (`src/index.ts`):
+
+- `Container` — base class, extends `DurableObject`
+- `ContainerProxy` — `WorkerEntrypoint` used for outbound HTTP interception
+- `outboundParams` — helper for typed outbound handler params
+- `getRandom`, `loadBalance` (deprecated), `getContainer`, `switchPort` — utility functions
+
+## Releasing
+Add a new file to the `.changeset` directory representing a new version when wrapping up changes so they get released.
+Do NOT change CHANGELOG.md, that is codegenerated on a release MR that is automated.
+
+## Repository Layout
+
+```
+src/
+  index.ts            # Public exports
+  lib/
+    container.ts      # Container + ContainerProxy class implementations
+    helpers.ts        # generateId, parseTimeExpression
+    utils.ts          # getRandom, getContainer, loadBalance, switchPort
+  types/              # Shared TypeScript types
+examples/             # Runnable example Workers using the package
+```
+
+Build output goes to `dist/`. Do not edit files in `dist/`.
+
+## Core Concepts
+
+### Container Class (`src/lib/container.ts`)
+
+`Container` extends `DurableObject`. Each instance wraps exactly one container process via `ctx.container`.
+
+**Key instance properties:**
+
+- `defaultPort?: number` — port used by `fetch()` and `containerFetch()` when none is specified
+- `requiredPorts?: number[]` — ports checked during `startAndWaitForPorts`
+- `sleepAfter: string | number` — inactivity timeout before `onActivityExpired()` fires (default `"10m"`)
+- `envVars`, `entrypoint`, `enableInternet` — container start config defaults
+- `pingEndpoint: string` — endpoint polled to confirm container readiness (default `"ping"`)
+
+**Important timeouts (constants in `container.ts`):**
+
+- `TIMEOUT_TO_GET_CONTAINER_MS = 8_000` — time to get a container instance
+- `TIMEOUT_TO_GET_PORTS_MS = 20_000` — time to wait for ports to be ready
+- `INSTANCE_POLL_INTERVAL_MS = 300` — polling interval
+- `MAX_ALARM_RETRIES = 3` — max alarm retries before scheduling next
+
+**Lifecycle hooks (override in subclasses):**
+
+- `onStart()` — fired on `stopped → running → healthy` transitions
+- `onStop(params)` — fired when container shuts down
+- `onError(error)` — fired on errors; default logs and rethrows
+- `onActivityExpired()` — fired when `sleepAfter` timeout expires; default calls `this.stop()`
+
+**Starting a container:**
+
+- `start(startOptions?, waitOptions?)` — starts without waiting for ports
+- `startAndWaitForPorts(args)` — starts and polls until ports are ready
+- `waitForPort(waitOptions)` — polls a single port; returns tries used
+
+**HTTP methods:**
+
+- `fetch(request)` — forwards HTTP + WebSocket; uses `defaultPort` or `cf-container-target-port` header
+- `containerFetch(requestOrUrl, portOrInit?, port?)` — HTTP only (no WebSocket); flexible signatures
+
+**Utility methods:**
+
+- `stop(signal?)` — sends signal (default `SIGTERM`)
+- `destroy()` — sends `SIGKILL`
+- `getState()` — returns current `State`
+- `renewActivityTimeout()` — resets the inactivity timer
+- `schedule(when, callback, payload?)` — schedules a future callback via DO alarms
+
+### Outbound Interception
+
+`ContainerProxy` (`WorkerEntrypoint`) handles outbound HTTP from the container. It must be exported from the Worker entrypoint alongside `Container` subclasses.
+
+Handler priority (highest to lowest):
+
+1. Runtime `setOutboundByHost` override
+2. Static `outboundByHost`
+3. Runtime `setOutboundHandler` catch-all
+4. Static `outbound`
+5. Direct internet (if `enableInternet = true`)
+
+Static configuration (set on the class):
+
+```ts
+static outboundByHost = { 'example.com': handler }
+static outbound = catchAllHandler
+static outboundHandlers = { myHandler: handler }
+```
+
+Runtime configuration (call on instance):
+
+```ts
+await this.setOutboundByHost('example.com', 'myHandler');
+await this.setOutboundHandler('myHandler');
+await this.removeOutboundByHost('example.com');
+await this.setOutboundByHosts({ 'example.com': 'myHandler' });
+```
+
+### Scheduling
+
+Use `this.schedule()` instead of overriding `alarm()`. The alarm handler manages container lifecycle internally. Scheduled callbacks must be method names on the class.
+
+```ts
+await this.schedule(30, 'myCallback', { data: 'payload' }); // 30s delay
+await this.schedule(new Date('2026-01-01'), 'myCallback'); // specific time
+```
+
+### Utility Functions (`src/lib/utils.ts`)
+
+- `getRandom(binding, n?)` — picks one of `n` instances (default 3) by random name
+- `getContainer(binding, name?)` — gets a named instance (default `"cf-singleton-container"`)
+- `switchPort(request, port)` — sets `cf-container-target-port` header; use with `fetch()` for WebSocket support
+- `loadBalance` — deprecated alias for `getRandom`
+
+## Development
+
+```bash
+npm run build       # tsc compile to dist/
+npm run typecheck   # type check without emitting
+npm run lint        # eslint
+npm run format      # prettier
+npm run test        # runs integration tests in each examples/*/test directory
+npm run test:unit   # runs unit tests in src/tests/
+```
+
+Unit tests live in `src/tests/` (mocked container ctx, no Docker required). Integration tests live in `examples/*/test/` and spawn `wrangler dev` + Docker containers. When adding new functionality, decide which is more appropriate — prefer the unit test if the behavior can be exercised with the mocks in `src/tests/fixtures.ts`; otherwise add or extend an example test.
+
+## Common Patterns
+
+**Always set `defaultPort`** in subclasses unless you're doing manual port routing.
+
+**WebSocket forwarding** requires `fetch()` + `switchPort()`, not `containerFetch()`.
+
+**Outbound interception** requires exporting `ContainerProxy` from the Worker entrypoint:
+
+```ts
+export { ContainerProxy } from '@cloudflare/containers';
+```
+
+**Do not override `alarm()`**. Use `schedule()` instead; the internal alarm handler manages container activity timers.
+
+**Error states:** Container state transitions are `stopped → running → healthy → stopping → stopped`. The `stopped_with_code` status carries an exit code.
+
+**Integration tests use the `runner` fixture** from `examples/test-helpers`, which provisions a `WranglerDevRunner` and tears it down automatically when the test resolves:
+
+```ts
+import { test } from '../../test-helpers';
+test('my test', async ({ runner }) => {
+  const url = await runner.getUrl();
+  // ...
+});
+```
+
+Call `runner.destroy([id])` when the test needs to fire the worker's `/destroy?id=<id>` route — for example, to exercise a container's `onStop` hook before the fixture tears wrangler down.
+
+## Changeset
+
+This repo uses [changesets](https://github.com/changesets/changesets). When making a user-facing change, add a changeset:
+
+```bash
+npx changeset
+```
+
+---
+> Source: [cloudflare/containers](https://github.com/cloudflare/containers) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
