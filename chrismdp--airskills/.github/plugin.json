@@ -1,0 +1,9 @@
+{
+  "name": "chrismdp--airskills",
+  "displayName": "airskills",
+  "description": "Manage AI coding skills across Claude Code, Cursor, Copilot, and 15 more agents",
+  "version": "1.0.0",
+  "author": "chrismdp",
+  "homepage": "https://github.com/chrismdp/airskills",
+  "skills": []
+}
