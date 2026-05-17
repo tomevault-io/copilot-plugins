@@ -7,11 +7,11 @@ YouTube Content Studio - Full-stack dashboard for managing your entire content p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [bosar-youtube/content-studio](https://github.com/bosar-youtube/content-studio).
+Original source: `AGENTS.md` in [bosar-youtube/content-studio](https://github.com/bosar-youtube/content-studio).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
