@@ -4,7 +4,7 @@
   "repo": "earth-agent-chrome-ext",
   "description": "Earth Agent is a Cursor-like AI agent for Google Earth Engine. It can be used right in your browser as a Chrome extension or through MCP server support. It helps you do anything related to Google Earth Engine automatically through chatting (write code, run analysis, debug errors, explain maps, and manage your environment). Hatched from sundai.club.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wybert/earth-agent-chrome-ext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T21:43:10Z"
+  "distributed_at": "2026-05-17T23:05:02Z"
 }
