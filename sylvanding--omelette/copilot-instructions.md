@@ -1,28 +1,40 @@
-## mcp-server
+## project-overview
 
-> MCP protocol server development standards
+> Omelette project overview and architecture context
 
 
-# MCP Server Standards
+# Omelette Project Overview
 
-## Overview
-- MCP server at `app/mcp_server.py`, mounted at `/mcp` on FastAPI app
-- Uses `FastMCP` from the `mcp` package
-- Provides tools, resources, and prompts for AI IDE clients
+Omelette is a **chat-centric scientific literature assistant** with a ChatGPT-style playground interface.
 
-## Tools
-- Annotate with `@mcp.tool()`, return structured dicts
-- Validate inputs (int conversion, path safety)
-- For external URLs (DOIs, feed URLs), use `app.services.url_validator.validate_url_safe()` for SSRF protection
-- Use `async_session_factory()` for DB access (not `Depends`)
+## Core Modules
+1. Chat Playground — SSE streaming, knowledge base selection, tool modes (QA, citation, outline, gap)
+2. Multi-LLM — LangChain abstraction: OpenAI, Anthropic, Aliyun, Volcengine, Ollama, mock
+3. RAG Knowledge Base — LlamaIndex + ChromaDB + GPU-aware HuggingFace embeddings
+4. LangGraph Pipeline — search/upload workflows with HITL interrupt/resume + persistent checkpointing
+5. Keyword Management — three-level hierarchy + LLM expansion + search formula
+6. Multi-Source Search — Semantic Scholar, OpenAlex, arXiv, Crossref
+7. Deduplication — DOI + title similarity + LLM verification + HITL conflict resolution
+8. Subscription Management — CRUD API + RSS/API incremental updates
+9. PDF Crawler — Unpaywall + multi-channel fallback + SSRF protection
+10. OCR Processing — MinerU (auto-managed subprocess) + pdfplumber (native) + PaddleOCR (scanned, GPU)
+11. Writing Assistant — summarize, cite, outline, gap analysis
+12. MCP Server — tools, resources, prompts for AI IDE integration
+13. GPU Resource Management — TTL auto-unload, GPU_MODE presets, monitoring API, exit cleanup watchdog
+14. Centralized Prompts — all LLM prompts in `app/prompts/` module
 
-## Resources
-- Annotate with `@mcp.resource("omelette://...")`
-- Read-only data access, return JSON-serializable dicts
+## Stack
+- Backend: FastAPI + SQLAlchemy async + SQLite + Alembic + Pydantic v2
+- LLM: LangChain (multi-provider) + LlamaIndex (RAG) + LangGraph (pipeline)
+- Frontend: React 18 + TypeScript + Vite + TailwindCSS v4 + shadcn/ui + Radix + i18next
+- Docs: VitePress (bilingual EN/ZH)
+- CI: GitHub Actions, pre-commit hooks (ruff, conventional commits)
 
-## Session Management
-- MCP server has its own `get_session()` context manager
-- Does not share request context with FastAPI endpoints
+## Key Paths
+- Code: `/home/djx/repos/omelette/`
+- Data: `/data0/djx/omelette/`
+- Conda: `omelette` (Python 3.12)
+- Solutions: `docs/solutions/` (compound knowledge)
 
 ---
 > Source: [sylvanding/omelette](https://github.com/sylvanding/omelette) — distributed by [TomeVault](https://tomevault.io).
