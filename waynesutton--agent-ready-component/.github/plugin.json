@@ -1,0 +1,9 @@
+{
+  "name": "waynesutton--agent-ready-component",
+  "displayName": "agent-ready-component",
+  "description": "A Convex component that auto-generates, caches, and serves llms.txt, agents.md, and llms-full.txt from your Convex backend. Register it with app.use(agentReady), drop the widget into your React or Sve",
+  "version": "1.0.0",
+  "author": "waynesutton",
+  "homepage": "https://github.com/waynesutton/agent-ready-component",
+  "skills": []
+}
