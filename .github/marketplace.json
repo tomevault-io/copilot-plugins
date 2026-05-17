@@ -94669,6 +94669,11 @@
       "description": "AI coding agent workflow engine for structured task lifecycles."
     },
     {
+      "name": "steipete--releasebar",
+      "source": "./steipete--releasebar",
+      "description": "Release freshness dashboard for open source maintainers"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -111122,6 +111127,11 @@
       "name": "sam-siavoshian--agent-notch",
       "source": "./sam-siavoshian--agent-notch",
       "description": "Agent Notch \u2014 macOS computer-use agent that lives in the notch. Voice in, screen context in, Claude Sonnet drives the mouse."
+    },
+    {
+      "name": "huseynovvusal--proborge",
+      "source": "./huseynovvusal--proborge",
+      "description": "AI-powered CLI that turns a competitive programming problem spec into a CMS-ready task with translated statements, verified C++ solution, and stress-tested test cases."
     },
     {
       "name": "yschimke--compose-ai-tools",
