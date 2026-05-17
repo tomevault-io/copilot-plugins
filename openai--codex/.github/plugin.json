@@ -1,0 +1,14 @@
+{
+  "name": "openai--codex",
+  "displayName": "codex",
+  "description": "Lightweight coding agent that runs in your terminal",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/codex",
+  "skills": [
+    {
+      "name": "test-tui",
+      "description": ""
+    }
+  ]
+}
