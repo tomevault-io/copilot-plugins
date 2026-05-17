@@ -1,0 +1,26 @@
+## docs-writing
+
+> Typography and dash conventions for VitePress docs under docs/
+
+
+# Documentation writing (VitePress)
+
+## Hyphen vs em dash
+
+- In **prose, headings, tables, and link text**, use a spaced hyphen **` - `** (space, hyphen, space), not a Unicode em dash (`—`), for asides and breaks (e.g. `Next.js - default`, `see the guide - details below`).
+- **Exception - labelled list lines only:** you may use an em dash **with spaces** between a short label and the rest of the bullet, when the line starts with a markdown list marker and the label is clearly delimited:
+
+```markdown
+- *foobar* — baz qux
+- *lorem ipsum* — dolor sit amet
+- **Default** — `leave()` is awaited, then …
+- `context.current` — element that is leaving …
+1. **Intercept** — the click is prevented …
+```
+
+- Do **not** use a **tight** em dash (no spaces: `foo—bar`); always either the spaced hyphen form above or the labelled-list `label — rest` pattern with spaces around `—`.
+- In **tables**, prefer a hyphen or words for “empty” cells (e.g. `-`) instead of a lone `—` column, unless that column is explicitly using the labelled-list style (unusual in tables).
+
+---
+> Source: [owlsdepartment/flyva](https://github.com/owlsdepartment/flyva) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
