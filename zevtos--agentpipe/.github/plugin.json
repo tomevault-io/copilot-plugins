@@ -1,0 +1,9 @@
+{
+  "name": "zevtos--agentpipe",
+  "displayName": "agentpipe",
+  "description": "Gated pipeline orchestration for Claude Code and Codex CLI: 9 specialist agents, 15 multi-agent workflows, skills, and a release-zip system. Multi-vendor \u2014 same skills work in both clients.",
+  "version": "1.0.0",
+  "author": "zevtos",
+  "homepage": "https://github.com/zevtos/agentpipe",
+  "skills": []
+}
