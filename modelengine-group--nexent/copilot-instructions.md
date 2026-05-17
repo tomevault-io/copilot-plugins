@@ -1,40 +1,55 @@
-## english-comments
+## pytest-unit-test-rules
 
-> Enforce English-only comments and docstrings across the codebase
+> Pytest Unit Test Rules for this repository
 
-# English-only Comments
 
-- All comments and docstrings must be written in clear, concise English.
-- Do not use non-English characters in comments (string literals may contain any language).
-- Use proper grammar and spelling; avoid ambiguous abbreviations.
+## Pytest Unit Test Rules (Concise)
 
-## Do
+### Framework
+- Use pytest exclusively; prefer fixtures; use pytest `assert` statements.
+
+### Naming
+- Files `test_*`; classes `Test*`; functions `test_*`.
+
+### Imports
+- Order: standard library, third‑party, project.
+- Import only the unit under test; mock collaborators using `pytest-mock`.
+
+### Import and Mock Rules
+- Do not directly import external interfaces/clients/services into tests to exercise collaborators.
+- Patch where the dependency is imported (lookup site) using a fully‑qualified path.
+- Use `side_effect` to cover error paths when appropriate.
+
 ```python
-# Initialize cache for 60 seconds
-self.cache_ttl = 60
+from pytest_mock import MockFixture
+from backend.apps.some_app import create_resource
+
+def test_create_resource_success(mocker: MockFixture):
+    mocker.patch(
+        "backend.services.model_provider_service.ModelProviderService.create",
+        return_value={"id": "res-1"},
+    )
+    assert create_resource({...})["id"] == "res-1"
 ```
 
-## Don't
-```python
-# 初始化缓存 60 秒 - FORBIDDEN
-# データキャッシュ60秒 - FORBIDDEN
-# 데이터 캐시 60초 - FORBIDDEN
-```
+### Structure and Size
+- Keep files under 500 lines or split by feature; include `__init__.py` in split directories; use `test_<module>_<feature>.py` names.
 
-## Scope
-- Docstrings, inline comments, TODO/FIXME/NOTE, header comments
-- Configuration comments in YAML/JSON and other config files
+### Coverage and Async
+- Cover success/error flows and boundaries; use `@pytest.mark.parametrize` for variants.
+- Use `@pytest.mark.asyncio` for async tests.
 
-## Validation Checklist
-- All comments are in English
-- Docstrings use proper English grammar
-- No non-Latin characters in comments (except inside strings)
-- Comments are clear and provide value
+### Isolation
+- Use `autouse=True` fixtures to reset state; fully mock external I/O and APIs.
 
-## Optional Automation
-- Pre-commit hook to detect non-English comments
-- IDE extensions for real-time detection
-- CI checks for compliance
+### Checklist
+- [ ] pytest only (no unittest)
+- [ ] naming conventions followed
+- [ ] collaborators mocked with pytest-mock
+- [ ] import/mocking rules followed
+- [ ] async tests decorated when needed
+- [ ] clear, specific assertions
+- [ ] adequate coverage (normal and exception paths)
 
 ---
 > Source: [ModelEngine-Group/nexent](https://github.com/ModelEngine-Group/nexent) — distributed by [TomeVault](https://tomevault.io).
