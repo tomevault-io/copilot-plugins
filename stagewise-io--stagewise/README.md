@@ -7,11 +7,11 @@ The Open Source Agentic IDE. Create and orchestrate coding agents, show app prev
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stagewise-io/stagewise](https://github.com/stagewise-io/stagewise).
+Original source: `AGENTS.md` in [stagewise-io/stagewise](https://github.com/stagewise-io/stagewise).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
