@@ -1,0 +1,9 @@
+{
+  "name": "zircote--rust-lsp",
+  "displayName": "rust-lsp",
+  "description": "Claude Code plugin for Rust development with rust-analyzer, clippy, rustfmt, and cargo-audit",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/rust-lsp",
+  "skills": []
+}
