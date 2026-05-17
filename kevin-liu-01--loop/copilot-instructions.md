@@ -1,61 +1,55 @@
-## frontend-10x-motion
+## frontend-10x-prompting
 
-> Motion, parallax, 3D, shader, and performance rules for distinctive frontend work.
+> Prompting rules for frontend agents, UI generation, and asset generation workflows.
 
 
-# Motion and 3D Rules
+# Frontend Prompting Rules
 
-Motion is a system with three layers:
+When asked to design or generate frontend work, prompts should specify:
 
-- ambient: slow loops, shader drift, environmental life
-- interaction: hover, press, open, focus
-- narrative: scroll and route choreography
+- product and audience
+- methodology lens
+- art-direction thesis
+- palette
+- type pairing
+- material language
+- component inventory
+- tactic families
+- motion budget
+- runtime stack
+- performance constraints
+- banned defaults
 
-Apply these rules:
+Good prompts ask for proposals first.
 
-- One strong hero move beats many small distractions.
-- If a page has a heavy 3D or shader hero, quiet the rest of the UI.
-- Do not propose plain CSS as the primary animation system by default.
-- Use CSS only for tiny hover/focus states, tokenized fallbacks, native progressive enhancement, and view-transition class styling.
-- Use Motion for component and layout animation.
-- Use GSAP for orchestration, mixed-surface sequences, and ScrollTrigger narratives.
-- Pair GSAP with Lenis when synchronized scroll is part of the concept.
-- Use React Three Fiber plus drei for React 3D scenes.
-- Use OGL or shader-first pipelines when the surface itself is the product.
-- Use shaders when the surface itself is the brand move, not as filler.
-- Prefer interruptible transitions for interaction states and keyframes for staged one-shot sequences.
-- Animate contextual icon swaps with small opacity, scale, and blur changes instead of hard replacing them.
-- Split enter animations into semantic chunks and stagger them lightly.
-- Make exit animations subtler than enter animations.
-- Treat sound, haptics, and toasts as optional feedback layers for the interaction system, not random garnish.
-- Use React `startTransition`, `useTransition`, `useDeferredValue`, and `useEffectEvent` to keep animated UIs responsive.
-- Use React or browser view transitions as progressive enhancement when the support matrix and framework version allow it.
+Default exploration pattern:
 
-Performance rules:
+1. propose 3 distinct directions
+2. explain type, palette, layout, and motion thesis for each
+3. choose one direction
+4. implement with tokens and constraints
 
-- Prefer animating `transform` and `opacity`.
-- Be careful with `filter`, `backdrop-filter`, large blur, and animated shadow.
-- Narrow `will-change` usage.
-- Ship a readable poster frame before heavy canvas or video fully hydrates.
-- Degrade aggressively on mobile and under `prefers-reduced-motion`.
-- Above-the-fold copy and CTA must remain readable while motion runs.
-- Do not animate large blur or shadow changes across big surfaces unless profiling says it is fine.
-- Do not hide expensive animation behavior behind giant CSS keyframe stacks.
+When using screenshots:
 
-Parallax rules:
+- decompose into background, UI, and texture layers
+- recreate assets separately
+- recompose in code
 
-- Keep pointer movement small and clamped.
-- Foreground moves more than background.
-- Do not put independent drift on every layer.
-- Never let text feel detached from its container.
-- Keep text and CTA zones on calmer layers than decorative motion.
+Useful bans:
 
-Scroll rules:
+- no generic SaaS gradients
+- no Inter/Roboto unless requested
+- no default shadcn look
+- no plain CSS animation architecture as the default
+- no motion without hierarchy
+- no centered-by-habit layouts
 
-- Every pinned or scrubbed section must explain something.
-- Avoid long scroll-jacking sequences.
-- Test touch devices before committing to choreography-heavy storytelling.
-- Do not drop Lenis into dense docs or dashboards just because it sounds premium.
+When generating video or image backgrounds:
+
+- first frame must work as a poster
+- motion must loop cleanly
+- preserve negative space for copy
+- avoid noisy movement behind text
 
 ---
 > Source: [Kevin-Liu-01/Loop](https://github.com/Kevin-Liu-01/Loop) — distributed by [TomeVault](https://tomevault.io).
