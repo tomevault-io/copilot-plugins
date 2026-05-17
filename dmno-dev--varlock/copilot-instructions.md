@@ -1,47 +1,127 @@
-## add-docs-page
+## docs-location
 
-> - type: file_extension
+> description: Documentation Pages Location
+
+---
+description: Documentation Pages Location
+globs: *.mdx
+---
+# Documentation Pages Location
+
+Rules for placing and organizing documentation pages in the repository.
 
 <rule>
-name: add_docs_page
-
+name: docs_location
+description: Standards for placing documentation pages in the correct directory structure
 filters:
-  # Applies to all new .mdx files in the docs directory
+  # Match any .mdx files
   - type: file_extension
-    pattern: "\.mdx$"
+    pattern: "\\.mdx$"
+  # Match files that look like documentation pages
+  - type: content
+    pattern: "^---\\s*\\ntitle:.*\\ndescription:.*\\n---"
+  # Match file creation events
   - type: event
     pattern: "file_create"
-  - type: path
-    pattern: "packages/varlock-website/src/content/docs/*/"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!packages/varlock-website/src/content/docs/.*\\.mdx$)"
+        message: "Documentation pages (.mdx) must be placed in the packages/varlock-website/src/content/docs directory"
+
   - type: suggest
     message: |
-      When adding a new documentation page:
+      When creating documentation pages:
 
-      - Follow all requirements in the [docs-location] rule for file placement, naming, and sidebar navigation.
-      - Additionally, follow these style and content conventions:
-        - Use the same heading structure, intro, and code block formatting as other guides.
-        - Use Starlight's Markdown asides (triple colon syntax) for notes, tips, cautions, and warnings ([see docs](mdc:https:/starlight.astro.build/guides/authoring-content/#asides)).
-        - Use Astro Starlight tab components for alternative instructions (e.g., package manager differences).
-        - Reference and link to other docs where relevant.
-        - Test the docs site locally to ensure the new page appears in the sidebar and is accessible.
+      1. Always place documentation files in PACKAGES_ROOT/varlock-website/src/content/docs/:
+         ```
+         packages/varlock-website/src/content/docs/
+         ├── getting-started/
+         │   ├── installation.mdx
+         │   └── about-env-spec.mdx
+         ├── guides/
+         │   ├── secrets.mdx
+         │   ├── security.mdx
+         │   └── ...
+         └── reference/
+             └── ...
+         ```
+
+      2. Follow the directory structure:
+         - `getting-started/` - For introductory and setup content
+         - `guides/` - For how-to guides and tutorials
+         - `reference/` - For API reference and technical documentation
+
+      3. File naming:
+         - Use kebab-case for filenames
+         - Always use .mdx extension
+         - Make names descriptive of the content
+
+      4. Never place documentation files:
+         - In the project root
+         - Outside the docs directory
+         - In any other location
+      
+      5. Update astro.config.mjs:
+         - Every documentation page must have a corresponding entry in the sidebar navigation
+         - Add new pages to the appropriate section in the sidebar configuration
+         - For reference pages, use the autogenerate option if appropriate
+         - Example:
+           ```javascript
+           sidebar: [
+             {
+               label: 'Getting Started',
+               items: [
+                 { label: 'Installation', slug: 'getting-started/installation' },
+                 { label: 'About env-spec', slug: 'getting-started/about-env-spec' },
+               ],
+             },
+             {
+               label: 'Guides',
+               items: [
+                 { label: 'Secrets', slug: 'guides/secrets' },
+                 { label: 'Security', slug: 'guides/security' },
+               ],
+             },
+             {
+               label: 'Reference',
+               autogenerate: { directory: 'reference' },
+             },
+           ]
+           ```
 
 examples:
   - input: |
-      Used `>` for notes and tips in the new guide.
-    output: |
-      Use Starlight's Markdown asides (triple colon syntax, e.g., `:::tip ... :::`) for notes and tips.
+      # Bad: Documentation file in wrong location
+      docs/my-guide.mdx
+      my-guide.mdx
+      src/content/my-guide.mdx
 
+      # Good: Documentation file in correct location
+      packages/varlock-website/src/content/docs/guides/my-guide.mdx
+    output: "Correctly placed documentation file"
   - input: |
-      Added a new guide but did not follow the directory or sidebar requirements.
-    output: |
-      See the [docs-location] rule for correct file placement and sidebar navigation requirements.
+      # Bad: Missing sidebar entry
+      # Created file: packages/varlock-website/src/content/docs/guides/new-feature.mdx
+      # But no corresponding entry in astro.config.mjs sidebar
+
+      # Good: With sidebar entry
+      # Created file: packages/varlock-website/src/content/docs/guides/new-feature.mdx
+      # Added to astro.config.mjs:
+      # {
+      #   label: 'Guides',
+      #   items: [
+      #     { label: 'New Feature', slug: 'guides/new-feature' },
+      #   ],
+      # }
+    output: "Documentation file with proper sidebar entry"
+
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+  </rule>
 
 ---
 > Source: [dmno-dev/varlock](https://github.com/dmno-dev/varlock) — distributed by [TomeVault](https://tomevault.io).
