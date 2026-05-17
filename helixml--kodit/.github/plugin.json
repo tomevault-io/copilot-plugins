@@ -1,0 +1,9 @@
+{
+  "name": "helixml--kodit",
+  "displayName": "kodit",
+  "description": "\ud83d\udc69\u200d\ud83d\udcbb MCP server to index external repositories",
+  "version": "1.0.0",
+  "author": "helixml",
+  "homepage": "https://github.com/helixml/kodit",
+  "skills": []
+}
