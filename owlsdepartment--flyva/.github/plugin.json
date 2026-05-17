@@ -1,0 +1,9 @@
+{
+  "name": "owlsdepartment--flyva",
+  "displayName": "flyva",
+  "description": "Page transition orchestration for Next.js and Nuxt, with a shared lifecycle manager and router-aware adapters.",
+  "version": "1.0.0",
+  "author": "owlsdepartment",
+  "homepage": "https://github.com/owlsdepartment/flyva",
+  "skills": []
+}
