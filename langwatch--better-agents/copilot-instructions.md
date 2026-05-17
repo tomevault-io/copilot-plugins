@@ -1,12 +1,15 @@
-## docs-directory
+## propose-commit
 
-> When writing documentation for the repository
+> After writing code
 
-DIRECTIVES:
-- Documentation directories should be named "docs" (lowercase)
-- Documentation files should use CAPITAL LETTERS with hyphens (e.g., GETTING-STARTED.md, CONTRIBUTING.md)
-- This follows the convention of treating documentation as a special top-level concern
-- Apply this to any new documentation directories created in the project
+After you finish writing code, PROPOSE a command to have a professional convensional commit + description for your work.
+
+DO NOT EXECUTE THE COMMAND, ONLY PROPOSE IT.
+
+Example:
+```bash
+git commit -m "feat: add new feature" -m "This commit adds a new feature to the project."
+```
 
 ---
 > Source: [langwatch/better-agents](https://github.com/langwatch/better-agents) — distributed by [TomeVault](https://tomevault.io).
