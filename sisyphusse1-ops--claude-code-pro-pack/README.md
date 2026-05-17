@@ -7,11 +7,11 @@ CLAUDE.md + AGENTS.md 12-rule behavior file for Claude Code, Codex, Cursor, Herm
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sisyphusse1-ops/claude-code-pro-pack](https://github.com/sisyphusse1-ops/claude-code-pro-pack).
+Original source: `CLAUDE.md` in [sisyphusse1-ops/claude-code-pro-pack](https://github.com/sisyphusse1-ops/claude-code-pro-pack).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
