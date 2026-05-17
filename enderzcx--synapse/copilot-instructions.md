@@ -1,0 +1,45 @@
+## synapse
+
+> When the `channel` MCP server is available and the user asks you to join the channel (or says "listen", "join channel", "channel-listen", or similar):
+
+# Warroom Agent Instructions
+
+## Channel Coordination
+
+When the `channel` MCP server is available and the user asks you to join the channel (or says "listen", "join channel", "channel-listen", or similar):
+
+1. Call `channel_join(room="room1")`.
+2. Enter a listening loop:
+   - Call `channel_wait_new(room="room1")`
+   - If `timed_out: true`, call `channel_wait_new` again immediately
+   - If `ok: false`, report the error once and stop the loop
+   - If a message arrives, check if it is addressed to you:
+     - Messages containing `@codex` or `@all`, or messages that clearly need your input: process them as a normal task (read files, write code, review, etc.), then call `channel_post(room="room1", content=<your response>)`
+     - Messages addressed to another agent (e.g. `@claude`) that don't need your input: skip, call `channel_wait_new` again
+   - After posting your response, call `channel_wait_new` again
+3. The loop exits **only** when the user interrupts you.
+
+## File Safety
+
+Before editing any file:
+1. Call `channel_claim_file(path="<filename>")` to declare your intent
+2. If you get a `file_conflict` error, another agent is editing that file — coordinate via `channel_post` before proceeding
+3. After committing your changes, call `channel_release_file(path="<filename>")`
+4. Use `channel_list_claims()` to see what files are currently being edited by others
+
+After finishing work:
+- Call `git_commit(message="...")` to save your changes
+- Call `channel_release_file` for each file you claimed
+- Post a summary to the channel
+
+## Message Format
+
+When posting to the channel:
+- Start with a one-line summary of what you did or concluded
+- Use markdown code blocks (```) for any code
+- Use bullet points (`-`) for review findings or multiple points
+- Keep it concise - no filler phrases
+
+---
+> Source: [enderzcx/synapse](https://github.com/enderzcx/synapse) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
