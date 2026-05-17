@@ -66594,6 +66594,11 @@
       "description": "analytics-template"
     },
     {
+      "name": "fam-emu--ocean",
+      "source": "./fam-emu--ocean",
+      "description": "OCEAN \u2013 Open-source CXL Emulation at Hyperscale Architecture and Networking. "
+    },
+    {
       "name": "10xchengtu--mux0",
       "source": "./10xchengtu--mux0",
       "description": "MUX0"
@@ -111082,6 +111087,16 @@
       "name": "dataforgex--dgx-spark",
       "source": "./dataforgex--dgx-spark",
       "description": "Multi-model LLM serving for NVIDIA DGX Spark with vLLM, web UI, and tool calling"
+    },
+    {
+      "name": "sam-siavoshian--agent-notch",
+      "source": "./sam-siavoshian--agent-notch",
+      "description": "Agent Notch \u2014 macOS computer-use agent that lives in the notch. Voice in, screen context in, Claude Sonnet drives the mouse."
+    },
+    {
+      "name": "sam-siavoshian--agent-notch",
+      "source": "./sam-siavoshian--agent-notch",
+      "description": "Agent Notch \u2014 macOS computer-use agent that lives in the notch. Voice in, screen context in, Claude Sonnet drives the mouse."
     },
     {
       "name": "yschimke--compose-ai-tools",
