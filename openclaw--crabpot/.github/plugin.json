@@ -1,0 +1,9 @@
+{
+  "name": "openclaw--crabpot",
+  "displayName": "crabpot",
+  "description": "Compatibility testbed for OpenClaw community plugins and plugin seams \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/crabpot",
+  "skills": []
+}
