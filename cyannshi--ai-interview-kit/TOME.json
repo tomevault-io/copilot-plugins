@@ -4,7 +4,7 @@
   "repo": "ai-interview-kit",
   "description": "Engineer user-research methodologies into AI prompts \u2014 professional-grade phone interviews at scale. 6 pluggable methodologies, 3 AI skills, 5+ tool compatibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CyannSHI/ai-interview-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T04:53:28Z"
+  "distributed_at": "2026-05-17T04:53:54Z"
 }
