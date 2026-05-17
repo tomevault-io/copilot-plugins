@@ -4,7 +4,7 @@
   "repo": "observational-memory",
   "description": "Give Claude Code and Codex, Grok, and Hermes a shared memory that survives every session, with local markdown, automatic capture, and built-in search.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/intertwine/observational-memory",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T12:33:24Z"
+  "distributed_at": "2026-05-17T12:36:43Z"
 }
