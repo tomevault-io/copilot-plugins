@@ -1,438 +1,264 @@
-## razorpay-mcp-server
+## new-tool-from-docs
 
-> This file provides instructions for AI coding agents working on this repository.
+> This rule generates tool implementations for the Razorpay MCP server based on API documentation.
 
-# Agent Instructions
 
-This file provides instructions for AI coding agents working on this repository.
+# Razorpay Tool Generator
 
-## Project Overview
+This rule generates tool implementations for the Razorpay MCP server based on API documentation.
 
-This is a Go MCP (Model Context Protocol) server that wraps Razorpay APIs. Tools live in `pkg/razorpay/`, are registered in `pkg/razorpay/tools.go`, and tested alongside in `*_test.go` files.
+## Required Format
 
-## Key Commands
+This rule requires:
 
-```bash
-make test    # Run all tests
-make fmt     # Format code
-make lint    # Run golangci-lint
-make build   # Build the binary
+1. A Razorpay API documentation URL starting with `https://razorpay.com/docs/api/`
+2. The SDK function signature that the tool will call
+
+Example of valid invocation:
 ```
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming (`username/feature`), commit format (`[type]: description`), and PR process.
-
-## Code Style
-
-- 80-char line length max (lll linter)
-- `goimports` with local prefix `github.com/razorpay/razorpay-mcp-server`
-- Full linter config in `.golangci.yaml`
-
----
-
-# Razorpay MCP Tool Generator
-
-Generate complete MCP tool implementations from Razorpay API docs, curl commands, or request/response examples.
-
-## Input Formats
-
-The user may provide any of:
-
-1. **Razorpay docs URL** — `https://razorpay.com/docs/api/...`
-2. **curl command** — extract method, path, headers, body, and response
-3. **Request/response JSON** — raw payload and expected response
-4. **SDK function signature** — Go SDK function to call
-
-If the **tool name** is not provided or cannot be inferred, **ask the user** before proceeding.
-
-## Workflow
-
-```
-Task Progress:
-- [ ] Step 1: Parse input and extract API contract
-- [ ] Step 2: Determine tool name and resource file
-- [ ] Step 3: Implement tool function
-- [ ] Step 4: Register tool in tools.go
-- [ ] Step 5: Write unit tests
-- [ ] Step 6: Update README.md Available Tools table
-- [ ] Step 7: Run linter — fix errors
-- [ ] Step 8: Run tests — fix errors
-- [ ] Step 9: Create branch, commit, and open PR (if gh available)
-```
-
-### Step 1: Parse Input
-
-**From docs URL**: Fetch the page and extract endpoint path, HTTP method, required/optional params with types and descriptions, and example response.
-
-**From curl**: Parse the method (`-X`), URL path, headers (`-H`), request body (`-d`), and note the response if provided.
-
-**From request/response JSON**: Infer required vs optional fields, types, and construct parameter definitions.
-
-Map each parameter to a validator type:
-
-| JSON type | Parameter helper | Validator method |
-|-----------|-----------------|------------------|
-| string | `mcpgo.WithString` | `ValidateAndAddRequiredString` / `ValidateAndAddOptionalString` |
-| number (int) | `mcpgo.WithNumber` | `ValidateAndAddRequiredInt` / `ValidateAndAddOptionalInt` |
-| number (float) | `mcpgo.WithNumber` | `ValidateAndAddRequiredFloat` / `ValidateAndAddOptionalFloat` |
-| boolean | `mcpgo.WithBoolean` | `ValidateAndAddRequiredBool` / `ValidateAndAddOptionalBool` |
-| object | `mcpgo.WithObject` | `ValidateAndAddRequiredMap` / `ValidateAndAddOptionalMap` |
-| array | `mcpgo.WithArray` | `ValidateAndAddRequiredArray` / `ValidateAndAddOptionalArray` |
-
-For nested objects (e.g., `customer.name` flattened to `customer_name`), use `ValidateAndAddOptionalStringToPath`.
-
-### Step 2: Determine Tool Name and File
-
-Naming conventions:
-- Fetch single: `fetch_{resource}` → `Fetch{Resource}`
-- Fetch list: `fetch_all_{resources}` → `FetchAll{Resources}`
-- Create: `create_{resource}` → `Create{Resource}`
-- Update: `update_{resource}` → `Update{Resource}`
-
-Place the tool in `pkg/razorpay/{resource_type}.go`. Create a new file only if the resource type doesn't already exist.
-
-### Step 3: Implement Tool
-
-Follow this exact structure:
-
-```go
-func ToolName(
-	obs *observability.Observability,
-	client *rzpsdk.Client,
-) mcpgo.Tool {
-	parameters := []mcpgo.ToolParameter{
-		// Required params first, then optional
-	}
-
-	handler := func(
-		ctx context.Context,
-		r mcpgo.CallToolRequest,
-	) (*mcpgo.ToolResult, error) {
-		client, err := getClientFromContextOrDefault(ctx, client)
-		if err != nil {
-			return mcpgo.NewToolResultError(err.Error()), nil
-		}
-
-		payload := make(map[string]interface{})
-		validator := NewValidator(&r).
-			ValidateAndAddRequiredString(payload, "id")
-			// chain more validators...
-
-		if result, err := validator.HandleErrorsIfAny(); result != nil {
-			return result, err
-		}
-
-		response, err := client.Resource.Method(/* args */)
-		if err != nil {
-			return mcpgo.NewToolResultError(
-				fmt.Sprintf("operation failed: %s", err.Error())), nil
-		}
-
-		return mcpgo.NewToolResultJSON(response)
-	}
-
-	return mcpgo.NewTool("tool_name", "description", parameters, handler)
+@new-tool-from-docs.mdc DOC_LINK: @https://razorpay.com/docs/api/payment-links/create-standard/
+SDK_FUNCTION:
+func (pl *PaymentLink) Create(data map[string]interface{}, extraHeaders map[string]string) (map[string]interface{}, error) {
+    url := fmt.Sprintf("/%s%s", constants.VERSION_V1, constants.PaymentLink_URL)
+    return pl.Request.Post(url, data, extraHeaders)
 }
 ```
 
-#### Writing LLM-Friendly Tool Descriptions
+IMPORTANT: If the DOC_LINK or SDK_FUNCTION are missing or in an incorrect format, REFUSE to proceed further.
 
-The description string in `mcpgo.NewTool` is what LLMs read to decide which tool to call. A bad description means the tool gets ignored or misused. Every description **must** answer three questions:
+## Implementation Checklist
 
-1. **What** does this tool do?
-2. **When** should an LLM pick this tool? (trigger conditions, prerequisites)
-3. **What** constraints or gotchas should the LLM know? (units, required states, return format)
+This checklist **MUST** be included in the final response to verify all implementation steps are complete.
+IMPORTANT: Include this unchecked checklist at the END of the implementation, NOT at the beginning.
 
-**Structure** (2-4 sentences):
+- [ ] Implement tool function based on API docs
+- [ ] Register tool in tools.go
+- [ ] Create unit tests with full coverage (positive case, all negative cases, edge cases)
+- [ ] Update the "Available Tools" section in the main README.md. Make sure the new additions are correctly formatted.
+- [ ] Double check that we are not repeating any of the Common Issues mentioned below.
+- [ ] Run linter and fix errors if any (REQUIRED)
+- [ ] Run tests and fix errors if any (REQUIRED)
 
-```
-[Action verb] + [what it does] + [key context].
-[When to use / prerequisites]. [Constraints, units, or return format].
-```
+COMPLETION CRITERIA:
+1. The task is considered accomplished only if the checklist and summary are posted.
+2. Once the task is completed you should stop and give control to the user. You SHOULD NOT infer additional tools to implement.
 
-**Bad examples** (too vague, no context):
+## ⚠️ IMMEDIATE ACTION REQUIRED ⚠️
 
-```go
-// Vague — LLM doesn't know when to pick this
-"Fetch an order's details using its ID"
+Upon receiving this rule invocation:
 
-// No constraints — LLM won't know about paise
-"Create a new standard payment link in Razorpay with a specified amount"
+1. **DO NOT** ask for user input or confirmation before implementing code
+2. **DO** use the `edit_file` tool to create/modify the following files:
+   - Primary implementation: `pkg/razorpay/{resource_type}.go`
+   - Test implementation: `pkg/razorpay/{resource_type}_test.go`
+   - Update toolset registration: `pkg/razorpay/tools.go`
+   - Update the README.md
 
-// Missing trigger context
-"Fetch all QR codes with optional filtering and pagination"
-```
+## Implementation
 
-**Good examples** (actionable, LLM knows when/why):
+Before the implementation use the documentation URL provided to figure out the request contract, required parameters, descriptions of the parameters, and the response contract.
 
-```go
-// Clear what, when, and constraints
-"Retrieve details of a specific payment by its ID. " +
-	"Use when you need payment status, method, or amount. " +
-	"Amount returned is in paise (100 paise = ₹1)."
+Now follow the detailed implementation guide in [pkg/razorpay/README.md](mdc:../pkg/razorpay/README.md) for creating tools and start making code changes.
 
-// Prerequisites + constraints
-"Capture a previously authorized payment to settle funds. " +
-	"Only works on payments with status 'authorized'. " +
-	"Amount in paise; partial capture supported."
+Other guidelines:
+1. [Razorpay Go SDK Constants](mdc:https:/github.com/razorpay/razorpay-go/blob/master/constants/url.go) - Use these constants for specifying the api endpoints while writing the tests.
+2. Use the payload and response from the docs provided to write the positive test case for the tool.
 
-// Trigger context + return format
-"Get all saved payment methods (cards, UPI) " +
-	"for a contact number. " +
-	"Use when the user wants to pay with a saved method. " +
-	"Returns token IDs that can be used with initiate_payment."
+STYLE:
+Look at the linters and linter settings in the .golangci.yaml file and make sure to follow the same style while coding.
 
-// When to use + what makes it different
-"Create a UPI-specific payment link (generates a UPI QR). " +
-	"Use instead of create_payment_link when the customer " +
-	"will pay via UPI. Only supports INR currency."
-```
+IMPORTANT: You **MUST** ALWAYS go through the Post Implementation steps once the code changes are done.
 
-**Rules:**
-- Start with an action verb (Fetch, Create, Update, Capture, Revoke)
-- Mention units if amounts are involved (`paise`, `smallest currency unit`)
-- Mention prerequisite states (`status must be 'authorized'`)
-- If similar tools exist, explain when to pick THIS one over others
-- If the tool returns data used by other tools, say which ones
-- Keep it under 3-4 sentences; break long lines with `+` concatenation
+## Implementation References
 
-Required imports:
+For detailed code patterns and examples, refer to the following sections in the [pkg/razorpay/README.md](mdc:../pkg/razorpay/README.md):
+
+- **Tool Structure**: See the "Tool Structure" section for the function template
+- **Parameter Definition**: See the "Parameter Definition" section for defining parameters
+- **Parameter Validation**: See the "Parameter Validation" section for validation examples
+- **Example GET/POST Endpoints**: See the example sections for complete implementation patterns
+- **Unit Testing**: See the "Writing Unit Tests" section for test patterns and best practices
+
+## ⚠️ Common Issues & Troubleshooting ⚠️
+
+### 1. Query Parameters in Mock Tests
+
+The `mock.Endpoint` struct does NOT have a queryParams field:
 
 ```go
-import (
-	"context"
-	"fmt"
-
-	rzpsdk "github.com/razorpay/razorpay-go"
-
-	"github.com/razorpay/razorpay-mcp-server/pkg/mcpgo"
-	"github.com/razorpay/razorpay-mcp-server/pkg/observability"
-)
-```
-
-Parameter options: `mcpgo.Required()`, `mcpgo.Description(...)`, `mcpgo.Min(n)`, `mcpgo.Max(n)`, `mcpgo.Pattern(re)`, `mcpgo.Enum(values...)`, `mcpgo.DefaultValue(v)`.
-
-### Step 4: Register Tool
-
-In `pkg/razorpay/tools.go`, add to the appropriate toolset:
-- Read-only tools → `AddReadTools(...)`
-- Mutating tools → `AddWriteTools(...)`
-
-If the resource type is new, create a new toolset:
-
-```go
-newResource := toolsets.NewToolset("resource_name", "Description").
-	AddReadTools(FetchResource(obs, client)).
-	AddWriteTools(CreateResource(obs, client))
-toolsetGroup.AddToolset(newResource)
-```
-
-### Step 5: Write Unit Tests
-
-Create or append to `pkg/razorpay/{resource_type}_test.go`.
-
-Required imports:
-
-```go
-import (
-	"fmt"
-	"net/http"
-	"net/http/httptest"
-	"testing"
-
-	"github.com/razorpay/razorpay-go/constants"
-
-	"github.com/razorpay/razorpay-mcp-server/pkg/razorpay/mock"
-)
-```
-
-Mock path construction using SDK constants:
-
-```go
-// Base path (POST/list endpoints)
-basePath := fmt.Sprintf("/%s%s",
-	constants.VERSION_V1, constants.RESOURCE_URL)
-
-// Path with ID (GET/PATCH single resource)
-pathFmt := fmt.Sprintf("/%s%s/%%s",
-	constants.VERSION_V1, constants.RESOURCE_URL)
-```
-
-**CRITICAL**: Never add query parameters to mock paths. The mock server uses Gorilla Mux and does not validate query params.
-
-Required test cases:
-
-| Case | MockHttpClient | ExpectError | Notes |
-|------|---------------|-------------|-------|
-| Success with all params | Returns success response | `false` | Use docs example payload/response |
-| Missing required param (one per required param) | `nil` | `true` | `ExpectedErrMsg: "missing required parameter: X"` |
-| Multiple validation errors | `nil` | `true` | Missing + wrong types |
-| API error | Returns error response | `true` | Test SDK error handling |
-
-Test structure:
-
-```go
-func Test_ToolName(t *testing.T) {
-	apiPath := fmt.Sprintf("/%s%s",
-		constants.VERSION_V1, constants.RESOURCE_URL)
-
-	successResponse := map[string]interface{}{
-		// from docs
-	}
-
-	errorResponse := map[string]interface{}{
-		"error": map[string]interface{}{
-			"code":        "BAD_REQUEST_ERROR",
-			"description": "error message",
-		},
-	}
-
-	tests := []RazorpayToolTestCase{
-		{
-			Name:    "successful operation",
-			Request: map[string]interface{}{/* all params */},
-			MockHttpClient: func() (*http.Client, *httptest.Server) {
-				return mock.NewHTTPClient(mock.Endpoint{
-					Path: apiPath, Method: "POST",
-					Response: successResponse,
-				})
-			},
-			ExpectError:    false,
-			ExpectedResult: successResponse,
-		},
-		// ... negative cases
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.Name, func(t *testing.T) {
-			runToolTest(t, tc, ToolName, "Resource")
-		})
-	}
+type Endpoint struct {
+    Path     string
+    Method   string
+    Response interface{}
 }
 ```
 
-### Step 6: Update README
+### 1. Query Parameter Limitations in Mock Tests
 
-Add a row to the Available Tools table in the root `README.md`:
+The mock server doesn't validate query parameters. When testing endpoints with query parameters:
 
-```
-| `tool_name` | Brief description | [Resource](docs_url) | ✅ or ❌ |
-```
+```go
+// DOESN'T WORK - Gorilla Mux treats this as a literal path ❌
+mock.Endpoint{
+    Path:     apiPath + "?count=2&from=123&skip=1",
+    Method:   "GET",
+    Response: successResponse,
+}
 
-### Step 7: Run Linter
-
-```bash
-golangci-lint run ./pkg/razorpay/...
-```
-
-Key rules to watch:
-- **lll**: 80 char max line length. Use `// nolint:lll` or string concatenation for long lines.
-- **goimports**: Local prefix `github.com/razorpay/razorpay-mcp-server`. Group: stdlib → external → local.
-- **errcheck**, **bodyclose**, **gosec**: Handle all errors, close response bodies.
-
-Fix all errors. Retry up to 2 times.
-
-### Step 8: Run Tests
-
-```bash
-go test ./pkg/razorpay/... -v -count=1
+// WORKS - Use only the base path ✅
+mock.Endpoint{
+    Path:     apiPath,  // Only the base path without query parameters
+    Method:   "GET",
+    Response: successResponse,
+}
 ```
 
-All tests must pass. Fix failures and retry up to 2 times.
+### 2. Line Length Linter Errors
 
-### Step 9: Create Branch, Commit, and Open PR
+When encountering line length errors ("The line is X characters long, which exceeds the maximum of Y characters"):
 
-This step runs **only if `gh` CLI is available**. Check with `gh --version`. If unavailable, skip and inform the user.
-
-**Branch naming** (per CONTRIBUTING.md): `{username}/feat-{tool_name}`
-
-Detect the GitHub username:
-
-```bash
-gh api user --jq '.login'
+1. Option 1: Add `//nolint:lll` comment at the end of the line:
+```go
+return mcpgo.NewTool(
+    "tool_name",
+    "This is a very long description that exceeds the line length limit", //nolint:lll
+    parameters,
+    handler,
+)
 ```
 
-**Full flow:**
-
-```bash
-# 1. Ensure we're on a clean main
-git checkout main
-git pull origin main
-
-# 2. Create feature branch
-git checkout -b USERNAME/feat-TOOL_NAME
-
-# 3. Stage all changes
-git add pkg/razorpay/{resource}.go \
-       pkg/razorpay/{resource}_test.go \
-       pkg/razorpay/tools.go \
-       README.md
-
-# 4. Commit with conventional format
-git commit -m "feat: add TOOL_NAME tool"
-
-# 5. Push and create PR
-git push -u origin HEAD
-gh pr create \
-  --title "feat: add TOOL_NAME tool" \
-  --body "$(cat <<'EOF'
-## Summary
-- Add `tool_name` tool for [brief description]
-- Implements [HTTP method] [endpoint path]
-- Includes unit tests with full coverage
-
-## Test plan
-- [ ] `go test ./pkg/razorpay/... -v -run Test_ToolName`
-- [ ] `golangci-lint run ./pkg/razorpay/...`
-- [ ] Manual verification with MCP client (optional)
-
-## References
-- API docs: [link]
-EOF
-)"
+2. Option 2: Break the string into multiple concatenated lines:
+```go
+return mcpgo.NewTool(
+    "tool_name",
+    "This is a very long description " +
+        "that exceeds the line length limit",
+    parameters,
+    handler,
+)
 ```
 
-**Commit message format** (from CONTRIBUTING.md):
-- `feat:` — new tool
-- `fix:` — bug fix
-- `ref:` — refactoring
-- `test:` — test-only changes
-- `chore:` — config, CI, review comments
-
-After creating the PR, **return the PR URL** to the user.
-
-If the repo is a fork, `gh` will automatically offer to create the PR against the upstream `razorpay/razorpay-mcp-server` repository.
-
-## SDK Constants Reference
-
-From `github.com/razorpay/razorpay-go/constants`:
-
-```
-VERSION_V1       = "v1"
-ORDER_URL        = "/orders"
-PAYMENT_URL      = "/payments"
-PaymentLink_URL  = "/payment_links"
-REFUND_URL       = "/refunds"
-CUSTOMER_URL     = "/customers"
-QRCODE_URL       = "/payments/qr_codes"
-SETTLEMENT_URL   = "/settlements"
-PAYOUT_URL       = "/payouts"
+3. Option 3: For comments, split into multiple comment lines:
+```go
+// This is a very long comment that would exceed the line length limit
+// so it's split into multiple lines.
+func ToolName() {}
 ```
 
-If the constant doesn't exist for your resource, check the SDK source or use a string literal.
+### 3. Missing Steps in the Implementation Checklist
 
-## Completion Checklist
+IMPORTANT: The Implementation Checklist MUST be complete before submitting. Pay particular attention to these required steps:
 
-Include this at the end of every implementation:
+- [ ] Run linter and fix errors if any (REQUIRED)
+- [ ] Run tests and fix errors if any (REQUIRED)
 
-- [ ] Tool function implemented in `pkg/razorpay/{resource}.go`
-- [ ] Tool registered in `pkg/razorpay/tools.go`
-- [ ] Unit tests in `pkg/razorpay/{resource}_test.go` (success + all negative cases)
-- [ ] README.md Available Tools table updated
-- [ ] Linter passes (`golangci-lint run`)
-- [ ] Tests pass (`go test ./...`)
-- [ ] Branch created, committed, PR opened (if `gh` available) — link returned to user
+If any checklist items remain unchecked, complete them before proceeding. The implementation is considered incomplete until all required steps are addressed.
+
+## Test Coverage Requirements
+
+Your tests MUST include:
+- Positive test case with all parameters
+- Negative test case for EACH required parameter
+- Negative test case for multiple validation failures (e.g., wrong types)
+- Any edge cases specific to this tool
+
+## ⚠️ Required Verification Steps ⚠️
+
+After implementing code changes, ALWAYS perform these verification steps:
+
+1. You **MUST** run the linter to ensure code quality:
+  ```
+  run_terminal_cmd golangci-lint run
+  ```
+  Fix any issues reported by the linter. Try at least two iterations of fixes for the errors before giving up.
+
+2. You **MUST** run tests to verify functionality:
+  ```
+  run_terminal_cmd go test ./...
+  ```
+  Ensure all tests pass. If any tests fail, investigate the failures and fix the issues. Try at least two iterations of fixes for the errors before giving up.
+
+## Key Packages and Functionality
+
+Use this section as a reference for the key packages incase you get lost.
+
+### `pkg/razorpay` - Main Implementation Package
+
+**Path:** `pkg/razorpay/`
+
+Contains all Razorpay API tool implementations, including:
+- Tool function definitions (by resource type)
+- Parameter validation functions
+- Request/response handling
+
+### `pkg/razorpay/tools_params.go` - Fluent Validator
+
+**Path:** `pkg/razorpay/tools_params.go`
+
+Contains the fluent validator implementation for parameter validation:
+- `Validator` - Type that provides a fluent interface for validation
+- `NewValidator` - Creates a new validator for a request
+- `HasErrors` - Checks if validation errors exist
+- `HandleErrorsIfAny` - Formats all errors into a tool result
+- `ValidateAndAddRequiredString` - Validates required string parameters
+- `ValidateAndAddOptionalString` - Validates optional string parameters
+- `ValidateAndAddRequiredInt` - Validates required integer parameters
+- `ValidateAndAddOptionalInt` - Validates optional integer parameters
+- `ValidateAndAddRequiredFloat` - Validates required float parameters
+- `ValidateAndAddOptionalFloat` - Validates optional float parameters
+- `ValidateAndAddRequiredBool` - Validates required boolean parameters
+- `ValidateAndAddOptionalBool` - Validates optional boolean parameters
+- `ValidateAndAddRequiredMap` - Validates required map parameters
+- `ValidateAndAddOptionalMap` - Validates optional map parameters
+- `ValidateAndAddRequiredArray` - Validates required array parameters
+- `ValidateAndAddOptionalArray` - Validates optional array parameters
+- `ValidateAndAddPagination` - Validates and adds pagination parameters
+- `ValidateAndAddExpand` - Validates and adds expand parameters
+
+### `pkg/razorpay/test_helpers.go` - Testing Utilities
+
+**Path:** `pkg/razorpay/test_helpers.go`
+
+Contains testing utilities used for unit tests:
+- `RazorpayToolTestCase` - Test case structure
+- `runToolTest` - Test execution function
+- Mock client setup functions
+
+### `pkg/razorpay/tools.go` - Tool Registration
+
+**Path:** `pkg/razorpay/tools.go`
+
+Contains the toolset registration system:
+- `NewToolSets` function
+- Toolset definitions and organization
+- Tool grouping by resource type
+
+### `pkg/razorpay/mock` - HTTP Mocking
+
+**Path:** `pkg/razorpay/mock/`
+
+Contains HTTP mocking utilities for testing:
+- `NewHTTPClient` - Creates mock HTTP clients
+- `Endpoint` - Mock endpoint definition
+
+### `pkg/mcpgo` - MCP Protocol Package
+
+**Path:** `pkg/mcpgo/`
+
+Contains the Model Context Protocol implementation:
+- `Tool` interface definition
+- `ToolParameter` types
+- Response handling utilities (`NewToolResultJSON`, etc.)
+
+### `github.com/razorpay/razorpay-go` - Razorpay Go SDK
+
+**Imported as:** `rzpsdk "github.com/razorpay/razorpay-go"`
+
+Official Razorpay client library providing:
+- `Client` struct with resource-specific clients (Payment, Order, PaymentLink, etc.)
+- API methods that map to Razorpay REST endpoints
+- Constants for API URLs (`constants` package)
+- Request/response handling
 
 ---
 > Source: [razorpay/razorpay-mcp-server](https://github.com/razorpay/razorpay-mcp-server) — distributed by [TomeVault](https://tomevault.io).
