@@ -1,0 +1,44 @@
+{
+  "name": "lifeos-template",
+  "owner": "seandavi",
+  "repo": "lifeos-template",
+  "description": "An opinionated, agentic life-OS for Claude Code \u2014 a markdown vault with daily/weekly/quarterly review skills baked in. Includes the feedback layer most templates skip.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/seandavi/lifeos-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-17T02:37:47Z"
+}
