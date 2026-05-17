@@ -1,0 +1,9 @@
+{
+  "name": "wassim249--fastapi-langgraph-agent-production-ready-template",
+  "displayName": "fastapi-langgraph-agent-production-ready-template",
+  "description": "A production-ready FastAPI template for building AI agent applications with LangGraph integration. This template provides a robust foundation for building scalable, secure, and maintainable AI agent s",
+  "version": "1.0.0",
+  "author": "wassim249",
+  "homepage": "https://github.com/wassim249/fastapi-langgraph-agent-production-ready-template",
+  "skills": []
+}
