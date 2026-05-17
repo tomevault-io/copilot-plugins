@@ -1,0 +1,9 @@
+{
+  "name": "webstudio-community--webstudio-self-host",
+  "displayName": "webstudio-self-host",
+  "description": "How to self-host webstudio with docker-compose",
+  "version": "1.0.0",
+  "author": "webstudio-community",
+  "homepage": "https://github.com/webstudio-community/webstudio-self-host",
+  "skills": []
+}
