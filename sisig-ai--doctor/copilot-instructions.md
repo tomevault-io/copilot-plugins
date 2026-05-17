@@ -1,10 +1,11 @@
-## refactors
+## testing
 
-> Refactoring and implementing new logic
+> Writing tests or implementing new logic
 
-- Run tests after refactor/implementation is completed, ensuring they pass, and add news tests as necessary
-- To run the tests, do `pytest` (making sure that you are using `.venv/bin/python`)
-- When tests fail, adjust them according to the changes in code OR fix the code if it's a logic issue
+- Always write tests using functional pytest
+- Tests should always maintain or increase code coverage
+- Use parametrized testing whenever possible, instead of multiple test functions
+- Use snapshot tests to check for known/constant values
 
 ---
 > Source: [sisig-ai/doctor](https://github.com/sisig-ai/doctor) — distributed by [TomeVault](https://tomevault.io).
