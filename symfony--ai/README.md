@@ -7,11 +7,11 @@ Symfony AI is a set of components that integrate AI capabilities into PHP applic
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [symfony/ai](https://github.com/symfony/ai).
+Original source: `AGENTS.md` in [symfony/ai](https://github.com/symfony/ai).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
