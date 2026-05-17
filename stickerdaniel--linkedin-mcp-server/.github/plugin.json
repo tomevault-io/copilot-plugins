@@ -1,0 +1,9 @@
+{
+  "name": "stickerdaniel--linkedin-mcp-server",
+  "displayName": "linkedin-mcp-server",
+  "description": "Open-source MCP server for LinkedIn. Give Claude and any MCP-compatible AI assistant access to profiles, companies, jobs, and messages.",
+  "version": "1.0.0",
+  "author": "stickerdaniel",
+  "homepage": "https://github.com/stickerdaniel/linkedin-mcp-server",
+  "skills": []
+}
