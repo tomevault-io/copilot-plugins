@@ -1,0 +1,9 @@
+{
+  "name": "h128--phantomchat",
+  "displayName": "PhantomChat",
+  "description": "PhantomChat is a lightweight, end-to-end encrypted chat server written in Pure C++ and designed for secure, decentralized communication. It can be hosted on any platform with zero configuration and no",
+  "version": "1.0.0",
+  "author": "h128",
+  "homepage": "https://github.com/h128/PhantomChat",
+  "skills": []
+}
