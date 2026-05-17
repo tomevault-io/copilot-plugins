@@ -52319,6 +52319,11 @@
       "description": "expo-superwall"
     },
     {
+      "name": "tradeblocks-org--tradeblocks",
+      "source": "./tradeblocks-org--tradeblocks",
+      "description": "Portfolio analytics analysis for OptionsOmega portfolio back tests"
+    },
+    {
       "name": "yoloshii--mcp-code-execution-enhanced",
       "source": "./yoloshii--mcp-code-execution-enhanced",
       "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing"
@@ -105857,6 +105862,16 @@
       "name": "tinyfish-io--bigset",
       "source": "./tinyfish-io--bigset",
       "description": "What if you had all the data in the world?"
+    },
+    {
+      "name": "fristork--hyperliquid-trading-bot",
+      "source": "./fristork--hyperliquid-trading-bot",
+      "description": "hyperliquid trading bot hyperliquid bot hyperliquid copytrading bot hyperliquid trading bot hyperliquid bot hyperliquid copytrading bot hyperliquid trading bot hyperliquid bot hyperliquid copytrading "
+    },
+    {
+      "name": "fristork--hyperliquid-trading-bot",
+      "source": "./fristork--hyperliquid-trading-bot",
+      "description": "hyperliquid trading bot hyperliquid bot hyperliquid copytrading bot hyperliquid trading bot hyperliquid bot hyperliquid copytrading bot hyperliquid trading bot hyperliquid bot hyperliquid copytrading "
     },
     {
       "name": "lightninglabs--lnget",
