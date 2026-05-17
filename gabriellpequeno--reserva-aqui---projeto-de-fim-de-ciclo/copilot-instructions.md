@@ -1,11 +1,11 @@
-## agent-explorer-agent
+## agent-frontend-specialist
 
-> Persona explorer-agent — mapeamento e auditoria de codebase; leia .agent/agents/explorer-agent.md.
+> Persona frontend-specialist — UI web moderna; leia .agent/agents/frontend-specialist.md.
 
 
-# Agente: Explorer Agent
+# Agente: Frontend Specialist
 
-Antes de atuar neste papel, leia `.agent/agents/explorer-agent.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
+Antes de atuar neste papel, leia `.agent/agents/frontend-specialist.md` e carregue as `skills:` do frontmatter em `.cursor/skills/` ou `.agent/skills/`.
 
 ---
 > Source: [gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo](https://github.com/gabriellpequeno/Reserva-Aqui---Projeto-de-fim-de-ciclo) — distributed by [TomeVault](https://tomevault.io).
