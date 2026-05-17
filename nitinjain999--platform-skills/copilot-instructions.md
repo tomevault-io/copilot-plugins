@@ -1,109 +1,67 @@
-## terraform
+## platform-skills
 
-> Terraform module and resource generation rules — blast radius, IAM least privilege, SOC 2 defaults
+> Platform engineering rules — applies to all files in this workspace
 
 
-# Terraform Rules
+# Platform Skills — v1.12.0
 
-## Module structure
+You are a senior platform engineer. Apply these rules for all code generation, review, and troubleshooting in this workspace.
 
-Every Terraform module must have: `main.tf`, `variables.tf`, `outputs.tf`, `versions.tf`, `README.md`.
+## Response format
 
-## Variable validation — always include
+- Lead with root cause, not symptom
+- Every risky change gets: blast radius + validation steps + rollback path
+- Code reviews: group findings as Critical / Improvement / Note
+- Troubleshooting: Symptom → Evidence → Root cause → Fix → Validation → Rollback
 
-```hcl
-variable "environment" {
-  type = string
-  validation {
-    condition     = contains(["dev", "staging", "production"], var.environment)
-    error_message = "environment must be dev, staging, or production"
-  }
-}
+## Layer ownership
+
+| Layer | Owns | Does not own |
+|-------|------|--------------|
+| Terraform | Cloud resources, IAM, networking, cluster bootstrap | In-cluster workloads |
+| Flux / Argo CD | In-cluster state, HelmReleases, promotion | Cloud resources, IAM |
+| GitHub Actions | CI validation, artifact publish, promotion triggers | Long-lived environment state |
+| Kubernetes | Workload specs, RBAC, limits, network policy | Cloud account structure |
+
+## GitHub Actions — SHA pins only
+
+```yaml
+# ❌  - uses: actions/checkout@v4
+# ✅
+- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+permissions:
+  contents: read
+  id-token: write   # only if OIDC required
 ```
 
-## Pipeline order — enforce all gates before plan
+## Helm
 
-`terraform fmt -check` → `terraform validate` → `tflint` → `checkov`/`tfsec` → `plan`
+Pipeline: `helm lint --strict` → `helm template --debug` → `kubeconform -strict -summary` → `checkov` → `helm test`.
+`selectorLabels` must never include `app.kubernetes.io/version` — immutable after creation.
 
-## IAM — never generate wildcards
+## Kyverno — CEL-based types only (policies.kyverno.io/v1)
 
-```hcl
-# ❌ Never
-statement {
-  actions   = ["*"]
-  resources = ["*"]
-}
+New policies always use `ValidatingPolicy`, `MutatingPolicy`, `GeneratingPolicy`, or `ImageValidatingPolicy`.
+Always start with `validationActions: [Audit]`. Promote to `[Deny]` only after confirmed zero PolicyReport violations.
+Never use `kyverno.io/v1 ClusterPolicy` for new work.
 
-# ✅ Always
-statement {
-  actions   = ["s3:GetObject", "s3:ListBucket"]
-  resources = ["arn:aws:s3:::my-bucket", "arn:aws:s3:::my-bucket/*"]
-}
-```
+## OPA / Conftest
 
-## Tagging — always enforce at provider level
+Always `import rego.v1`. Rules named `deny`, `warn`, or `violation` only.
+Pipeline: `conftest fmt --check` → `regal lint` → `conftest verify` → `conftest test`.
 
-```hcl
-provider "aws" {
-  default_tags {
-    tags = { env = var.environment, team = var.team, managed-by = "terraform" }
-  }
-}
-```
+## PR review — six required dimensions
 
-## SOC 2 — never generate
+Cost · Drift · Ownership · Compliance (SOC 2 CC6–CC8) · Upgrade · Rollback feasibility
 
-- `publicly_accessible = true` on RDS, Redshift, OpenSearch
-- `encrypted = false` on any storage (S3, EBS, RDS, DynamoDB, ElastiCache, EFS)
-- `is_multi_region_trail = false` on CloudTrail
-- `enable_log_file_validation = false` on CloudTrail
-- `skip_final_snapshot = true` on production databases
-- `deletion_protection = false` on production databases
-- `enable = false` on GuardDuty
-- `:latest` image tags in any resource
+## Commits
 
-## SOC 2 — always generate on data resources
+`<type>(<scope>): <imperative WHY ≤72 chars>`. No AI attribution.
 
-```hcl
-resource "aws_kms_key" "..." {
-  enable_key_rotation     = true   # CC6.7
-  deletion_window_in_days = 30
-}
+## Scoped rules (also active in this workspace)
 
-resource "aws_cloudtrail" "..." {
-  is_multi_region_trail      = true   # CC7.2
-  enable_log_file_validation = true
-  kms_key_id                 = aws_kms_key.cloudtrail.arn
-}
-
-resource "aws_db_instance" "..." {
-  storage_encrypted       = true
-  backup_retention_period = 35    # A1.2
-  deletion_protection     = true
-  skip_final_snapshot     = false
-  multi_az                = true
-}
-```
-
-## State backend — always encrypt
-
-```hcl
-terraform {
-  backend "s3" {
-    encrypt        = true
-    kms_key_id     = var.kms_key_arn
-    dynamodb_table = "terraform-state-lock"
-  }
-}
-```
-
-## Blast radius note
-
-Before every destructive operation, state:
-- What gets replaced (forces new resource)
-- What downstream resources depend on it
-- Mid-apply failure impact
-- Rollback path
+- `.cursor/rules/kubernetes.mdc` — fires on `*.yaml` / `*.yml`
+- `.cursor/rules/terraform.mdc` — fires on `*.tf` / `*.tfvars`
 
 ---
 > Source: [nitinjain999/platform-skills](https://github.com/nitinjain999/platform-skills) — distributed by [TomeVault](https://tomevault.io).
