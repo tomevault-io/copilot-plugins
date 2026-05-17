@@ -1,0 +1,9 @@
+{
+  "name": "grandcamel--splunk-assistant-skills",
+  "displayName": "Splunk-Assistant-Skills",
+  "description": "A modular, production-ready Claude Code skills framework for Splunk REST API automation",
+  "version": "1.0.0",
+  "author": "grandcamel",
+  "homepage": "https://github.com/grandcamel/Splunk-Assistant-Skills",
+  "skills": []
+}
