@@ -1,0 +1,9 @@
+{
+  "name": "automattic--mcp-wordpress-remote",
+  "displayName": "mcp-wordpress-remote",
+  "description": "mcp-wordpress-remote",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/mcp-wordpress-remote",
+  "skills": []
+}
