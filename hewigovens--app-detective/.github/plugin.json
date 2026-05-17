@@ -1,0 +1,9 @@
+{
+  "name": "hewigovens--app-detective",
+  "displayName": "app-detective",
+  "description": "Detect macOS apps' GUI tech stack",
+  "version": "1.0.0",
+  "author": "hewigovens",
+  "homepage": "https://github.com/hewigovens/app-detective",
+  "skills": []
+}
