@@ -1,0 +1,9 @@
+{
+  "name": "intertwine--observational-memory",
+  "displayName": "observational-memory",
+  "description": "Give Claude Code and Codex, Grok, and Hermes a shared memory that survives every session, with local markdown, automatic capture, and built-in search.",
+  "version": "1.0.0",
+  "author": "intertwine",
+  "homepage": "https://github.com/intertwine/observational-memory",
+  "skills": []
+}
