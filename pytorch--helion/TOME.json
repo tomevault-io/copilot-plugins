@@ -4,7 +4,7 @@
   "repo": "helion",
   "description": "A Python-embedded DSL that makes it easy to write fast, scalable ML kernels with minimal boilerplate.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pytorch/helion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-17T22:00:24Z"
+  "distributed_at": "2026-05-17T22:18:20Z"
 }
