@@ -1,0 +1,9 @@
+{
+  "name": "matanyemini--bitbucket-mcp",
+  "displayName": "bitbucket-mcp",
+  "description": "Bitbucket MCP - A Model Context Protocol (MCP) server for integrating with Bitbucket Cloud and Server APIs",
+  "version": "1.0.0",
+  "author": "MatanYemini",
+  "homepage": "https://github.com/MatanYemini/bitbucket-mcp",
+  "skills": []
+}
