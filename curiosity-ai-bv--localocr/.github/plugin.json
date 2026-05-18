@@ -1,0 +1,9 @@
+{
+  "name": "curiosity-ai-bv--localocr",
+  "displayName": "localOCR",
+  "description": "Using Gemma-4 Vision, Gemma-3 Vision, Llama 3.2 and more",
+  "version": "1.0.0",
+  "author": "Curiosity-Ai-BV",
+  "homepage": "https://github.com/Curiosity-Ai-BV/localOCR",
+  "skills": []
+}
