@@ -7,13 +7,13 @@ An AI chat bot for small and medium-sized teams, supporting models such as Deeps
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat).
+Original source: `CLAUDE.md` in [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
