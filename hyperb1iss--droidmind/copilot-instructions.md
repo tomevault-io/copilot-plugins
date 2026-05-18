@@ -1,82 +1,33 @@
-## 001-workspace
+## 002-cursor-rules
 
-> DroidMind :: Control your Android devices with AI via Model Context Protocol
+> .mdc files describe specific rules for how certain files, file types, and directories are to be understood and used
 
-# DroidMind Core Architecture
 
-## Project Essence
-DroidMind bridges AI assistants and Android devices through the Model Context Protocol (MCP).
-It enables control, debugging, and system analysis of Android devices using natural language
-through AI interfaces like Claude and ChatGPT. The server exposes ADB capabilities as MCP
-resources and tools for seamless integration.
+.mdc File Structure & Best Practices:
 
-## Technology Stack
-- Python 3.13+ core implementation
-- UV for project and package management
-- Ruff, MyPy, and Pylint for code style and analysis
-- MCP Protocol (v1.3.0+) for AI communication
-- ADB Shell for Android device interaction
-- Async I/O for non-blocking operations
-- Starlette/Uvicorn for SSE transport
-- Rich for beautiful terminal interfaces
+File Naming: NNN_name.mdc (NNN = 001-299)
+- 001-099: Core/workspace rules
+- 100-199: Integration rules
+- 200-299: Pattern rules
+Higher numbers take precedence if rules conflict
 
-## Primary Components
-- MCP Protocol Layer: Implements Model Context Protocol server
-  - Resource handlers for device information and file access
-  - Tool implementations for device control
-  - Prompt templates for common operations
-- ADB Wrapper: Secure interface to Android Debug Bridge
-  - Command sanitization and execution
-  - Async operation support
-  - TCP/IP device connection management
-- Security Layer: Permission and authentication
-  - Command validation and injection prevention
-  - Risk level categorization for operations
-  - Explicit confirmation for dangerous operations
-- Transport Protocols:
-  - stdio for terminal/CLI usage
-  - SSE (Server-Sent Events) for network/web usage
+UI Components:
+1. Description (top)
+   - Brief purpose summary
+   - Appears in AI context
 
-## Key Directories
-- /droidmind/: Core server implementation
-  - /server/: MCP server implementation
-  - /adb/: ADB wrapper and command handlers
-  - /resources/: MCP resource implementations
-  - /tools/: MCP tool implementations
-  - /security/: Input validation and permissions
-  - /transport/: Communication protocols (stdio, SSE)
-- /docs/: Project documentation and examples
-- /tests/: Testing framework and test cases
-- /examples/: Example integrations with MCP clients
-- /.cursor/: Cursor AI assistance configuration
+2. Globs (top)
+   - Comma-separated list
+   - Example: /dir1/**/*,/dir2/**/*,/dir3/**/*
+   - Use standard glob syntax
 
-## Core Constraints
-- All user input must be sanitized to prevent command injection
-- High-risk operations (system changes, flashing) require explicit confirmation
-- Respect device permission model for sensitive operations
-- Maintain clear separation between UI layer and ADB command interface
-- Follow Python type hints throughout the codebase (mypy validated)
-- Maintain test coverage for all core functionality
+3. Body Text (this section)
+   - Keep under 50 lines
+   - Use concise/shorthand
+   - Tag files with @
+   - Focus on key directives
 
-## Development Standards
-- Code formatting: Black (line length 100)
-- Import sorting: isort with Black profile
-- Linting: Ruff with strict settings
-- Type checking: MyPy with disallow_untyped_defs
-- Testing: pytest with asyncio support
-
-## Command Line Interface
-The project exposes a CLI via the 'droidmind' command with transport options:
-- stdio: Terminal-based interactive mode
-- SSE: Network server mode with web interface
-
-## Feature Categories
-- Device Management: Connect, disconnect, reboot
-- System Analysis: Properties, logs, diagnostics
-- File System: Browse, transfer, modify device files
-- App Management: Install, uninstall, start, stop
-- Debugging: Screenshots, logcat, performance data
-- UI Automation: Input simulation, UI testing
+Best Practice: The assistant may propose changes to .mdc files for the user to copy into the UI. The assistant should not attempt direct file edits to .mdc files.
 
 ---
 > Source: [hyperb1iss/droidmind](https://github.com/hyperb1iss/droidmind) — distributed by [TomeVault](https://tomevault.io).
