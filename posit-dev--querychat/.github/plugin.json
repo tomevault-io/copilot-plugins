@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--querychat",
+  "displayName": "querychat",
+  "description": "Chat with your data in R and Python",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/querychat",
+  "skills": []
+}
