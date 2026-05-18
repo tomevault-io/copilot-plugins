@@ -1,60 +1,40 @@
-## core
+## db
 
-> - **Role**: Event-driven "kernel" containing domain logic, database access, and message processing. It must stay UI-agnostic and transport-agnostic.
+> - **Role**: Provide a consistent schema and migration history that works in both:
 
 
-## Core (packages/core)
+## Database & Migrations
 
-- **Role**: Event-driven "kernel" containing domain logic, database access, and message processing. It must stay UI-agnostic and transport-agnostic.
-- **Design rules**:
-  - New domain behavior belongs here first, then is exposed to clients via events.
-  - Separate **event handlers** from **services**:
-    - Event handlers translate `ToCoreEvent` / `FromCoreEvent` into service calls.
-    - Services encapsulate business logic, DB queries, and Telegram API access.
+- **Role**: Provide a consistent schema and migration history that works in both:
+  - PostgreSQL with pgvector (server mode).
+  - PGlite (browser-only mode).
 
-### Events & CoreContext
+### Schema Definition
 
-- Keep `CoreContext` the single point of coordination:
-  - One instance per session in server mode or browser mode.
-  - All cross-module collaboration flows through its event emitter and helpers.
-- When introducing new events:
-  - Add them to the typed `ToCoreEvent` / `FromCoreEvent` maps.
-  - Wire them through:
-    - `packages/core/src/event-handlers`
-    - `packages/client` adapters and event handler maps
-    - `@tg-search/server/types` for WS mode
-  - Provide **clear names** in `<domain>:<action>` form.
+- Treat the TypeScript schema in `packages/core/src/schemas` / `models` as the **source of truth**.
+- Ensure any schema change is reflected consistently in:
+  - TS schema/models.
+  - Generated Drizzle migrations under `drizzle/`.
+  - Any raw SQL helpers under `sql/` if present.
+- Prefer Drizzle's typed query APIs over raw SQL to keep Postgres and PGlite behavior aligned.
 
-### Database & Drizzle
+### Migrations
 
-- Use `initDrizzle` as the only entry point for DB initialization:
-  - It must support both PostgreSQL and PGlite via the `DatabaseType` enum and `Config.database`.
-  - Avoid leaking raw `pg` or PGlite APIs outside dedicated DB modules (`pg.ts`, `pglite*.ts`).
-- For queries:
-  - Prefer Drizzle ORM APIs for type safety and portability.
-  - Reserve raw SQL for performance-critical paths and keep them well-documented.
-- When adding migrations:
-  - Update TypeScript schemas/models first.
-  - Use `drizzle-kit` to generate SQL migrations and avoid manual edits except for surgical fixes.
+- Use `drizzle-kit` (`pnpm run db:generate`) to generate new migrations; avoid hand-writing large SQL files.
+- For production-safe changes:
+  - Make migrations forward-only and additive when possible.
+  - Avoid destructive operations without a clear, tested migration path.
+- If a generated migration needs manual tweaks:
+  - Keep custom SQL focused and well-commented.
+  - Verify both Postgres and PGlite behavior where applicable.
 
-### Message Resolvers & Pipelines
+### Performance & Indexing
 
-- Resolvers under `src/message-resolvers` must:
-  - Treat messages as **streams**, not immutable global state.
-  - Be **idempotent**: re-running on the same input should not corrupt data.
-  - Rely on message IDs for ordering and deduplication.
-- Expensive operations (embeddings, link resolution) should:
-  - Cache results whenever reasonable.
-  - Defer to background-like processing while exposing progress events to clients.
-
-### Error Handling & Logging
-
-- Use `ctx.withError(error, description)` for all unexpected failures inside core services and handlers.
-- Emit errors as events suitable for user-facing handling:
-  - Avoid leaking raw Telegram or DB internals into error payloads.
-  - Prefer structured error codes + contextual fields.
-- Use `@guiiai/logg` consistently:
-  - Attach domain-specific fields (chat/message IDs, operation names) instead of dumping entire payloads.
+- For vector search:
+  - Ensure vector dimensions match the configured embedding model.
+  - Use pgvector indexes where needed, and make them explicit in migrations.
+- For analytical queries (stats, charts):
+  - Prefer precalculated or indexed aggregates over complex ad‑hoc joins on hot paths.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
