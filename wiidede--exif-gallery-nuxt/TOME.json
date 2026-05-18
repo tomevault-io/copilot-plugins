@@ -1,0 +1,44 @@
+{
+  "name": "exif-gallery-nuxt",
+  "owner": "wiidede",
+  "repo": "exif-gallery-nuxt",
+  "description": "A free personal photo gallery (nuxt + nuxthub) deployable on Cloudflare, with AI image analysis and browser-side image compression  \u53ef\u514d\u8d39\u90e8\u7f72\u5728 Cloudflare \u7684\u4e2a\u4eba\u76f8\u518c\u7f51\u7ad9\uff0c\u652f\u6301AI\u56fe\u50cf\u5206\u6790\uff0c\u6d4f\u89c8\u5668\u538b\u7f29\u56fe\u7247",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wiidede/exif-gallery-nuxt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T20:43:11Z"
+}
