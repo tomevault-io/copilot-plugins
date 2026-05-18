@@ -1,0 +1,9 @@
+{
+  "name": "samuelgursky--davinci-resolve-mcp",
+  "displayName": "davinci-resolve-mcp",
+  "description": "MCP server integration for DaVinci Resolve Studio",
+  "version": "1.0.0",
+  "author": "samuelgursky",
+  "homepage": "https://github.com/samuelgursky/davinci-resolve-mcp",
+  "skills": []
+}
