@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--registry",
+  "displayName": "registry",
+  "description": "A community driven registry service for Model Context Protocol (MCP) servers.",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/registry",
+  "skills": []
+}
