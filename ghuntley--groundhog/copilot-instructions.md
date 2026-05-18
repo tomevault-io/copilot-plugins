@@ -1,100 +1,81 @@
-## nix-testing
+## rust-async
 
-> Nix Testing and Quality Assurance
+> Rust Async/Await Best Practices
 
-## Description
-This rule enforces best practices for testing and quality assurance in Nix derivations.
+This rule enforces best practices for asynchronous programming in Rust.
 
 ## Rule Details
-- Enable tests by default with `doCheck = true`
-- Use `checkPhase` for running unit and integration tests
-- Use `installCheckPhase` for post-installation tests
-- Use `passthru.tests` for running additional test suites
-- Use `meta.tests` for documenting test coverage
-- Use `meta.broken` to mark broken packages
-- Use `meta.platforms` to specify supported platforms
-- Use `meta.maintainers` to list package maintainers
-- Use `meta.license` to specify package licenses
-- Use `meta.homepage` to link to package documentation
+
+- **Pattern**: `*.rs`
+- **Severity**: Error
+- **Category**: Async Programming
+
+## Checks
+
+1. **Async Function Design**
+   - Use `async fn` for asynchronous functions
+   - Return `impl Future` for complex async types
+   - Avoid blocking operations in async contexts
+
+2. **Future Handling**
+   - Use `.await` for awaiting futures
+   - Avoid unnecessary `.await` chaining
+   - Use `tokio::spawn` for concurrent tasks
+
+3. **Resource Management**
+   - Use `tokio::timeout` for timeouts
+   - Implement proper cancellation
+   - Handle backpressure appropriately
+
+4. **Async Traits**
+   - Use `async-trait` for async trait methods
+   - Consider using `dyn Future` for trait objects
+   - Implement proper error handling in async traits
 
 ## Examples
 
 ### Good
-```nix
-{ lib
-, stdenv
-, python3
-}:
+```rust
+use tokio::time::{timeout, Duration};
 
-stdenv.mkDerivation rec {
-  pname = "tested-package";
-  version = "1.0.0";
+async fn fetch_data() -> Result<Data, Error> {
+    // Proper async function with timeout
+    let data = timeout(Duration::from_secs(5), fetch_from_api()).await??;
+    Ok(data)
+}
 
-  src = ./src;
-
-  nativeBuildInputs = [ python3 ];
-
-  # Enable and configure tests
-  doCheck = true;
-  checkPhase = ''
-    runHook preCheck
-    python -m pytest tests/
-    runHook postCheck
-  '';
-
-  # Post-installation tests
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    $out/bin/my-program --test
-    runHook postInstallCheck
-  '';
-
-  # Additional test suites
-  passthru.tests = {
-    integration = import ./tests/integration.nix { inherit stdenv; };
-  };
-
-  meta = with lib; {
-    description = "A well-tested package";
-    homepage = "https://github.com/owner/repo";
-    license = licenses.mit;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ /* list of maintainers */ ];
-    broken = false;
-    tests = {
-      unit = true;
-      integration = true;
-    };
-  };
+#[async_trait]
+pub trait AsyncService {
+    async fn process(&self, input: Input) -> Result<Output, Error>;
 }
 ```
 
 ### Bad
-```nix
-{ stdenv }:
+```rust
+fn blocking_operation() {
+    // Blocking operation in async context
+    std::thread::sleep(Duration::from_secs(1));
+}
 
-stdenv.mkDerivation {
-  name = "untested-package";
-  src = ./src;
-
-  # Missing test configuration
-  # Missing meta information
-  # Missing platform specifications
+async fn unnecessary_await() {
+    // Unnecessary await chaining
+    let result = some_future().await.await.await;
 }
 ```
 
-## Why
-- Comprehensive testing ensures package reliability
-- Post-installation tests verify correct installation
-- Additional test suites catch integration issues
-- Proper meta information helps users and maintainers
-- Platform specifications prevent installation on unsupported systems
-- License and maintainer information ensures proper package maintenance
+## Rationale
+
+Proper async/await usage ensures:
+- Efficient resource utilization
+- Non-blocking I/O operations
+- Scalable concurrent applications
+- Clear async boundaries
 
 ## References
-- [Nixpkgs Manual - Testing](mdc:https:/nixos.org/nixpkgs/manual/#chap-testing)
-- [Nixpkgs Manual - Meta Attributes](mdc:https:/nixos.org/nixpkgs/manual/#chap-meta) 
+
+- [Rust Async Book](mdc:https:/rust-lang.github.io/async-book)
+- [Tokio Documentation](mdc:https:/docs.rs/tokio/latest/tokio)
+- [async-trait Documentation](mdc:https:/docs.rs/async-trait/latest/async_trait) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
