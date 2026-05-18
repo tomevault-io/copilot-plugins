@@ -1,0 +1,9 @@
+{
+  "name": "0xjgv--semtrack",
+  "displayName": "semtrack",
+  "description": "Track, triage, and remediate Semgrep findings with AI-assisted workflows.",
+  "version": "1.0.0",
+  "author": "0xjgv",
+  "homepage": "https://github.com/0xjgv/semtrack",
+  "skills": []
+}
