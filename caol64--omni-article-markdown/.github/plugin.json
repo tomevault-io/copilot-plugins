@@ -1,0 +1,9 @@
+{
+  "name": "caol64--omni-article-markdown",
+  "displayName": "omni-article-markdown",
+  "description": "\u58a8\u63a2 - \u8f7b\u677e\u5c06\u7f51\u9875\u6587\u7ae0\u8f6c\u6362\u4e3a Markdown \u683c\u5f0f\u7684 CLI \u5de5\u5177\u3002 Turn any web article into clean Markdown via CLI",
+  "version": "1.0.0",
+  "author": "caol64",
+  "homepage": "https://github.com/caol64/omni-article-markdown",
+  "skills": []
+}
