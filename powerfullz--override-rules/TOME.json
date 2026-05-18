@@ -1,0 +1,44 @@
+{
+  "name": "override-rules",
+  "owner": "powerfullz",
+  "repo": "override-rules",
+  "description": "powerfullz \u7684 Mihomo/SubStore \u811a\u672c\u548c\u8986\u5199\u89c4\u5219\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/powerfullz/override-rules",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T17:41:27Z"
+}
