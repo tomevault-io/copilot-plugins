@@ -1,0 +1,9 @@
+{
+  "name": "rvdstudio--nextjs-drizzle-better-auth",
+  "displayName": "nextjs_drizzle_better-auth",
+  "description": "A Next.js starter kit integrating Drizzle ORM for type-safe database operations, Better Auth for secure authentication, and NeonDB for serverless PostgreSQL. This template offers a robust, scalable fo",
+  "version": "1.0.0",
+  "author": "RvDstudio",
+  "homepage": "https://github.com/RvDstudio/nextjs_drizzle_better-auth",
+  "skills": []
+}
