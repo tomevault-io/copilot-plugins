@@ -1,38 +1,42 @@
-## owner-mode-end-to-end
+## agentic-reliability
 
-> Use this rule for any multi-layer task.
+> Agentic Systems Reliability — 8-point checklist for agent-facing infrastructure
 
 
-# Owner Mode End-to-End
+# Agentic Systems Reliability
 
-Use this rule for any multi-layer task.
+Every tool response must be honest, every resource bounded, every failure surfaced. Agents trust tool output literally.
 
-Direct yourself as if you are the accountable owner of the result.
+## 8-Point Mandatory Checklist (run on ALL backend/infra code)
 
-## Required loop
-1. Contract and data model
-2. Backend behavior
-3. Frontend or operator surface
-4. Exact verdict or status surfacing
-5. Tests and verification
-6. Docs, rules, and skills when the workflow changed
+1. **BOUND** — Every in-memory collection (Map, Array, Set) has MAX + eviction on insert
+2. **HONEST_STATUS** — No 2xx on failure paths. 502 for backend down, 504 for timeout, 500 for unhandled
+3. **HONEST_SCORES** — No hardcoded `passed: true` or score floors. Default `false`/`0`/`"UNKNOWN"` when not evaluated
+4. **TIMEOUT** — AbortController + checkBudget() gates between async stages. Return 504 on expiry
+5. **SSRF** — URL validation (protocol + hostname blocklist) before every fetch with agent/user input
+6. **BOUND_READ** — ReadableStream with MAX_BYTES + cancel on overflow for all external response bodies
+7. **ERROR_BOUNDARY** — asyncHandler wrapper or try/catch on every async route handler
+8. **DETERMINISTIC** — stableStringify (sorted keys) for all content-addressed hashing
 
-## Protocol
-- Do not stop after one layer.
-- Prefer canonical substrates over parallel systems.
-- Prefer derived views over duplicate persistence.
-- Keep states bounded and exact.
-- Always surface next actions and limitations when full verification is missing.
+## Why Agents Amplify Bugs
+- Agents call tools in tight loops → unbounded Maps OOM in minutes not hours
+- Agents parse status codes literally → fake 201 becomes false belief in reasoning chain
+- Agents generate URLs from reasoning → SSRF via hallucinated internal addresses
+- Inflated evidence scores → agents skip verification on bad data
 
-## Verification floor
-1. codegen when needed
-2. `npx tsc --noEmit`
-3. targeted deterministic tests
-4. `npm run build`
-5. `npm run dogfood:verify:smoke` when the UI changed
+## Severity
+- **P0**: Crash, SSRF, false decisions from fake data → fix immediately
+- **P1**: Degraded data, no crash → fix same session
+- **P2**: Suboptimal but safe → fix when touched
 
-## Canonical reference
-`docs/agents/OWNER_MODE_END_TO_END.md`
+## What to Grep For
+- `new Map()` without MAX constant in same file
+- `res.status(2` in catch/fallback branches
+- `passed: true` with "caller should validate" comments
+- `await response.text()` on external fetches
+- `fetch(variable)` without URL validation
+- `async (req, res) =>` without error handling
+- `JSON.stringify(obj)` → `createHash` without sorted keys
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
