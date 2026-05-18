@@ -1,0 +1,9 @@
+{
+  "name": "utensils--comfyui-nix",
+  "displayName": "comfyui-nix",
+  "description": "A slightly opinionated Nix flake for ComfyUI with curated custom nodes. Supports macOS (Apple Silicon) and Linux with CUDA.",
+  "version": "1.0.0",
+  "author": "utensils",
+  "homepage": "https://github.com/utensils/comfyui-nix",
+  "skills": []
+}
