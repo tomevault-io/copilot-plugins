@@ -1,51 +1,43 @@
-## add-agent-tool
+## add-credential-provider
 
-> This rule is helpful when the user wants to add an AI Agent Tool to the frontend codebase.
+> This rule is helpful when the user requests to create a new credential provider in the frontend.
 
 
-# Add agent tool instructions
+# Add credential provider
 
-When you are asked to create an agent tool in the frontend, you will follow the following instructions.
+When you are asked to create a new credential provider in the frontend use these rules.
 
-You will have to do 5 tasks:
+You will have to do 4 tasks:
 
-1. Make sure the user provided the tool name and the tool type and the tool form fields. If not, ask the user for the tool name, tool type and tool form fields.
+1. Add the credential object to the [provider-card-list.tsx](mdc:frontend/src/components/credentials/provider-card-list.tsx).
 
-2. Add a tool into the directory frontend/src/components/builder/nodes/agent-tools/<tool-name>/<tool-name.tsx>
+Example for a provider named OpenAI, you will update the current ProviderInfoMap without renaming it, simply add one provider:
 
-- To generate the tool code you will use the template available at [tool-template-for-ai.tsx](mdc:.cursor/templates/tool-template-for-ai.tsx). This template contains some "TODO FOR AI" that will indicate you what lines you have to update based on the user's request.
-
-3. Register the tool into the [available-nodes.tsx](mdc:frontend/src/components/builder/add-node-dialog/available-nodes.tsx) file inside the availableNodes constant. Here you will use the tool name and tool type requested by the user. And you will use a Lucide React Icon that you will also import at the top of the file.
-
-Example node added:
 ```typescript
-  {
-    category: "agent-tools",
-    type: "sdk-notifier-tool",
-    name: "SDK Notifier",
-    description: "Allow the AI agent to output information to the SDK",
-    logo: <MessageCircle width={20} height={20} />,
-    commingSoon: false,
-  },
+   openai: {
+      name: "OpenAI",
+      description: "OpenAI is a powerful AI provider",
+      logo: <ProviderLogo name="openai" width={30} height={30} />,
+      commingSoon: false,
+    },
 
 ```
 
-4. Add the tool type asked by the user into the ToolNodeTypes constant in the [node-types.ts](mdc:frontend/src/components/builder/node-types.ts) file.
+Make sure the user provided the provider name.
 
-5. Add the tool into the nodeTypes map in the [page.tsx](mdc:frontend/src/app/builder/chat-flow/[id]/page.tsx).
+2. Update the [provider-logo.tsx](mdc:frontend/src/components/logos/provider-logo.tsx) component.
 
-- Import the tool as others at the top of the page
-- Then update hte nodeTypes map with the node type as key and the imported tool as value, see example below:
+To do so, consider we have a component with the name of the provider. For example if the provider is named OpenAI, use the following import statement:
 
 ```typescript
-  const nodeTypes: Record<NodeType, any> = useMemo(
-    () => ({
-      // other existing tools
-      "e2b-code-interpreter-tool": e2bCodeInterpreterTool,
-    }),
-    [],
-  );
-  ```
+import { OpenAI } from "./openai";
+```
+
+Then update the switch case in the [provider-logo.tsx](mdc:frontend/src/components/logos/provider-logo.tsx) accordingly.
+
+3. Make sure to update the ProviderTypes constant in the [credential.ts](mdc:frontend/src/core/entities/credential.ts) file.
+
+4. Make sure to update the ProviderTypeLabelMap in the [credential.ts](mdc:frontend/src/core/entities/credential.ts) file.
 
 ---
 > Source: [supallm/supallm](https://github.com/supallm/supallm) — distributed by [TomeVault](https://tomevault.io).
