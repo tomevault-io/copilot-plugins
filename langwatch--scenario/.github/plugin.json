@@ -1,9 +1,9 @@
 {
   "name": "langwatch--scenario",
   "displayName": "scenario",
-  "description": "scenario",
+  "description": "Agentic testing for agentic codebases",
   "version": "1.0.0",
   "author": "langwatch",
-  "homepage": "https://tomevault.io/claim/langwatch",
+  "homepage": "https://github.com/langwatch/scenario",
   "skills": []
 }
