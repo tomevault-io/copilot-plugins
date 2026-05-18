@@ -1,53 +1,29 @@
-## tfmcp
+## 000-general
 
-> tfmcp is a Rust-based MCP server for Terraform operations using the RMCP SDK.
+> General project guidelines for tfmcp. Always consider these guidelines when working on the project.
 
-# CLAUDE.md
 
-tfmcp is a Rust-based MCP server for Terraform operations using the RMCP SDK.
+# General Project Guidelines
 
-## Quick Reference
+## Project Overview
+- This is tfmcp (Terraform Model Context Protocol Tool), a CLI tool that helps you interact with Terraform via MCP.
+- The project is written in Rust and integrates with Terraform to enable AI-assisted infrastructure management.
+- Always maintain high code quality and adherence to best practices.
 
-```bash
-# Quality checks (run before commits)
-cargo fmt --all && RUSTFLAGS="-Dwarnings" cargo clippy --all-targets --all-features && cargo test --locked --all-features
-```
-
-## Project Structure
-
-| Module | Purpose |
-|--------|---------|
-| `src/core/` | Main application logic |
-| `src/mcp/` | RMCP-based MCP server (21 tools, 3 resources) |
-| `src/terraform/` | Terraform CLI integration |
-| `src/registry/` | Terraform Registry API client |
-
-## Key Rules
-
-- **No mocks**: Use real implementations only
-- **No dead code**: Remove unused code immediately
-- **No warnings**: `RUSTFLAGS="-Dwarnings"` in CI
-- **No `.unwrap()`**: Use proper error handling
+## Development Workflow
+- Follow semantic versioning for releases.
+- Use the Release.sh script for versioning and releases.
+- Write meaningful commit messages following conventional commits format.
 
 ## Documentation
+- Keep documentation up-to-date as features evolve.
+- Document public APIs, functions, and modules.
+- Include examples where appropriate.
 
-| File | Contents |
-|------|----------|
-| [rules/quality-commands.md](.claude/rules/quality-commands.md) | Build, test, CI commands |
-| [rules/development-guidelines.md](.claude/rules/development-guidelines.md) | Code style, security rules |
-| [docs/architecture.md](.claude/docs/architecture.md) | Module structure, features |
-| [docs/configuration.md](.claude/docs/configuration.md) | Environment variables, Docker |
-| [docs/mcp-tools.md](.claude/docs/mcp-tools.md) | Tool and resource reference |
-| [docs/troubleshooting.md](.claude/docs/troubleshooting.md) | Known issues, debugging |
-| [skills/release/SKILL.md](.claude/skills/release/SKILL.md) | Release process |
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `TERRAFORM_DIR` | Project directory |
-| `TFMCP_ALLOW_DANGEROUS_OPS` | Enable apply/destroy |
-| `TFMCP_LOG_LEVEL` | Logging verbosity |
+## Testing
+- Write unit tests for core functionality.
+- Ensure test coverage for critical paths.
+- Test against different Terraform versions when applicable. 
 
 ---
 > Source: [nwiizo/tfmcp](https://github.com/nwiizo/tfmcp) — distributed by [TomeVault](https://tomevault.io).
