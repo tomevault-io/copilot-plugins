@@ -1,0 +1,9 @@
+{
+  "name": "ai-dynamo--aiperf",
+  "displayName": "aiperf",
+  "description": "AIPerf is a comprehensive benchmarking tool that measures the performance of generative AI models served by your preferred inference solution.",
+  "version": "1.0.0",
+  "author": "ai-dynamo",
+  "homepage": "https://github.com/ai-dynamo/aiperf",
+  "skills": []
+}
