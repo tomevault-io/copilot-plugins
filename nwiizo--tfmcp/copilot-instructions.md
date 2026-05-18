@@ -1,37 +1,33 @@
-## 002-terraform
+## 003-mcp
 
-> Terraform standards and best practices for tfmcp.
+> MCP protocol implementation guidelines and standards.
 
 
-# Terraform Standards
+# MCP Protocol Implementation
 
-## Version Support
-- Target Terraform 1.11.1 as the primary supported version.
-- Ensure backward compatibility with Terraform 1.0+ when possible.
-- Test with multiple Terraform versions for compatibility.
+## Protocol Compliance
+- Follow the Model Context Protocol specification.
+- Implement required methods like `resources/list` and `prompts/list`.
+- Ensure proper JSON-RPC 2.0 formatting for all messages.
+- Handle protocol errors gracefully.
 
-## Terraform Parsing
-- Use the Terraform provided HCL parser when available.
-- Implement proper escaping and handling of HCL syntax.
-- Handle comments and formatting appropriately.
+## Server Implementation
+- Use stdin/stdout for communication in MCP server mode.
+- Implement proper error handling and response formatting.
+- Provide meaningful error messages for debugging.
+- Log MCP interactions appropriately.
 
-## Configuration Analysis
-- Analyze Terraform configurations thoroughly:
-  - Check for resource dependencies
-  - Validate provider configurations
-  - Identify potential issues or optimizations
-- Support various Terraform resources and providers.
+## Claude Desktop Integration
+- Ensure seamless integration with Claude Desktop.
+- Set up proper environment variables for Claude Desktop.
+- Support changing terraform directories at runtime.
+- Document integration steps clearly.
 
-## Best Practices
-- Follow HCL formatting conventions.
-- Respect Terraform state management principles.
-- Handle terraform.tfstate files with care.
-- Implement proper error handling for Terraform CLI operations.
-
-## Demo Environment
-- Maintain example/ directory with good Terraform examples.
-- Ensure the demo environment is self-contained and works out of the box.
-- Keep example/ code up to date with best practices. 
+## Security Considerations
+- Implement appropriate safeguards for sensitive operations.
+- Consider permission boundaries for terraform operations.
+- Validate inputs to prevent command injection.
+- Add safety mechanisms like confirmation prompts for destructive operations. 
 
 ---
 > Source: [nwiizo/tfmcp](https://github.com/nwiizo/tfmcp) — distributed by [TomeVault](https://tomevault.io).
