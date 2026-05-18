@@ -4,7 +4,7 @@
   "repo": "opensouls",
   "description": "The framework for AI souls",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/opensouls/opensouls",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:47:36Z"
+  "distributed_at": "2026-05-18T20:17:13Z"
 }
