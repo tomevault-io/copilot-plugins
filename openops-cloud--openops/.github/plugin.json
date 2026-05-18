@@ -1,0 +1,9 @@
+{
+  "name": "openops-cloud--openops",
+  "displayName": "openops",
+  "description": "The batteries-included, No-Code FinOps automation platform, with the AI you trust.",
+  "version": "1.0.0",
+  "author": "openops-cloud",
+  "homepage": "https://github.com/openops-cloud/openops",
+  "skills": []
+}
