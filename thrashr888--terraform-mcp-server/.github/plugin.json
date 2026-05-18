@@ -1,0 +1,9 @@
+{
+  "name": "thrashr888--terraform-mcp-server",
+  "displayName": "terraform-mcp-server",
+  "description": "Terraform Registry MCP Server",
+  "version": "1.0.0",
+  "author": "thrashr888",
+  "homepage": "https://github.com/thrashr888/terraform-mcp-server",
+  "skills": []
+}
