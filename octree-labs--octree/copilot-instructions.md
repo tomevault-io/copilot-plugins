@@ -1,76 +1,151 @@
-## component-patterns
+## database-patterns
 
-> Component development patterns and conventions
+> Database call patterns - client vs server side
 
 
-# Component Development Patterns
+# Database Call Patterns
 
-## Component Architecture
+This project follows a clear separation between client-side and server-side database operations.
 
-This project follows React component best practices with TypeScript and shadcn/ui.
+## Client-Side Database Calls: `lib/requests`
 
-### UI Component Structure
+**Location**: `/lib/requests/`
 
-- **Base Components**: Located in `/components/ui/` using shadcn/ui patterns
-- **Feature Components**: Organized by domain (auth, editor, projects, subscription)
-- **Page Components**: Located in `/app` following Next.js App Router conventions
+**Use when**: 
+- Calling from client components (`'use client'`)
+- Direct database operations from browser
+- Interactive user actions that need immediate feedback
 
-### Example Component Pattern
+**Pattern**:
+- Use `createClient()` from `@/lib/supabase/client`
+- Functions are async and return data directly
+- Handle authentication checks within the function
+- Throw errors that can be caught by the calling component
 
-```tsx
+**Example**:
+```typescript
+// lib/requests/project.ts
+import { createClient } from '@/lib/supabase/client';
+
+export const renameFile = async (
+  projectId: string,
+  fileId: string,
+  currentName: string,
+  newName: string
+): Promise<void> => {
+  const supabase = createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) {
+    throw new Error('User not authenticated');
+  }
+
+  const { error } = await (supabase.from('files') as any)
+    .update({ name: newName })
+    .eq('id', fileId)
+    .eq('project_id', projectId);
+
+  if (error) {
+    throw new Error('Failed to rename file');
+  }
+};
+```
+
+**Usage in components**:
+```typescript
 'use client';
 
-import { ComponentProps } from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { renameFile } from '@/lib/requests/project';
 
-interface MyComponentProps {
-  onAction: () => void;
-  isLoading?: boolean;
-  className?: string;
-}
+const handleRename = async () => {
+  try {
+    await renameFile(projectId, fileId, currentName, newName);
+    toast.success('File renamed successfully');
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+```
 
-export function MyComponent({
-  onAction,
-  isLoading = false,
-  className,
-}: MyComponentProps) {
-  return (
-    <div className={cn('base-styles', className)}>
-      <Button onClick={onAction} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Action'}
-      </Button>
-    </div>
-  );
+## Server-Side Database Calls: `actions`
+
+**Location**: `/actions/`
+
+**Use when**:
+- Server Components or Server Actions
+- Form submissions that need server-side processing
+- Operations that require server-side validation or revalidation
+- When you need to use `revalidatePath` or `redirect`
+
+**Pattern**:
+- Use `'use server'` directive at the top of the file
+- Use `createClient()` from `@/lib/supabase/server` (note: `await` required)
+- Can use Next.js server utilities like `revalidatePath`, `redirect`
+- Functions can accept `FormData` for form actions
+
+**Example**:
+```typescript
+// actions/get-projects.ts
+'use server';
+
+import { createClient } from '@/lib/supabase/server';
+
+export async function getAllProjects() {
+  const supabase = await createClient();
+
+  const { data } = await supabase
+    .from('projects')
+    .select('*')
+    .order('updated_at', { ascending: false });
+
+  return data;
 }
 ```
 
-### Key Patterns
+**Example with Server Action**:
+```typescript
+// actions/create-project.ts
+'use server';
 
-1. **Always use TypeScript interfaces** for component props
-2. **Use shadcn/ui components** as building blocks ([button.tsx](mdc:components/ui/button.tsx) example)
-3. **Extract reusable components** - Example: [EditorToolbar](mdc:components/editor/toolbar.tsx)
-4. **Use `cn()` utility** for conditional className handling
-5. **Client components** should use `'use client'` directive when needed
+import { revalidatePath } from 'next/cache';
+import { createClient } from '@/lib/supabase/server';
 
-### State Management
+export async function createProject(prevState: State, formData: FormData) {
+  const supabase = await createClient();
+  
+  // ... validation and database operations ...
+  
+  revalidatePath('/projects');
+  return { success: true, projectId: newProject.id };
+}
+```
 
-- **Local State**: `useState` for component-specific state
-- **Context**: React Context for shared state (see [project.tsx](mdc:app/context/project.tsx))
-- **Server State**: Supabase client for database operations
+## Key Differences
 
-### Event Handling Patterns
+| Aspect | `lib/requests` (Client) | `actions` (Server) |
+|--------|------------------------|-------------------|
+| **Import** | `@/lib/supabase/client` | `@/lib/supabase/server` |
+| **Client creation** | `createClient()` | `await createClient()` |
+| **Directive** | None (called from `'use client'` components) | `'use server'` |
+| **Session check** | `getSession()` | `getUser()` |
+| **Next.js utilities** | ❌ Not available | ✅ `revalidatePath`, `redirect` |
+| **Form handling** | Manual form handling | Can accept `FormData` directly |
 
-- **Callbacks**: Pass functions as props for component communication
-- **Async Operations**: Use proper loading states and error handling
-- **Form Handling**: Use controlled components with validation
+## File Organization
 
-### Styling Conventions
+- **`lib/requests/`**: Organized by domain (e.g., `project.ts`, `user.ts`, `document.ts`)
+- **`actions/`**: Organized by feature/action (e.g., `create-project.ts`, `get-projects.ts`)
 
-- **Tailwind CSS**: Primary styling approach
-- **Component Variants**: Use `class-variance-authority` for complex component variants
-- **Consistent Spacing**: Use Tailwind spacing scale consistently
-- **Responsive Design**: Mobile-first approach with responsive breakpoints
+## Best Practices
+
+1. **Never mix patterns**: Don't call `lib/requests` functions from server components or `actions` from client components directly
+2. **Error handling**: Both patterns should throw errors that can be caught by the caller
+3. **Authentication**: Always check authentication before database operations
+4. **Type safety**: Use TypeScript types from `@/database.types` for database operations
+5. **Separation of concerns**: Keep database logic in `lib/requests` or `actions`, not in components
 
 ---
 > Source: [octree-labs/octree](https://github.com/octree-labs/octree) — distributed by [TomeVault](https://tomevault.io).
