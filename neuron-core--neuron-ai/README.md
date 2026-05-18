@@ -7,11 +7,11 @@ The PHP Agentic Framework to build production-ready AI driven applications. Conn
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai).
+Original source: `CLAUDE.md` in [neuron-core/neuron-ai](https://github.com/neuron-core/neuron-ai).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
