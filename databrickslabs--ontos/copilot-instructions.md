@@ -1,26 +1,69 @@
-## 03-system-components-and-requirements
+## 04-project-structure
 
-> - **Frontend:** Each feature has a dedicated React View (`src/views`).
+> - **Frontend**: (`./src/frontend/`)
 
 
-### System Components & Requirements
+### Project Structure
 
-- **Frontend:** Each feature has a dedicated React View (`src/views`).
-- **Backend:** Each feature has a dedicated FastAPI endpoint (`api/routes`), prefixed with `/api/` (e.g., `/api/data-products`).
-- **Controller Pattern:** FastAPI routes delegate business logic to service controller classes (`api/controller/*_manager.py`, e.g., `DataProductsManager`).
-- **Repository Pattern:** Controllers delegate database operations to repository classes (`api/repositories/*_repository.py`, e.g., `DataProductRepository`).
-- **Database Models:** SQLAlchemy models define the database schema (`api/db_models/*.py`).
-- **API Models:** Pydantic models define the API request/response structure and perform validation (`api/models/*.py`). Data is often mapped between DB and API models.
-- **Data Storage:** Metadata (settings, roles, reviews, etc.) is stored in a database (e.g., Postgres or potentially Databricks SQL using JDBC/ODBC). Configuration can optionally be synced to a Git repository as YAML files.
-- **Background Jobs:** Heavy workloads (syncing, validation) are delegated to Databricks Workflows, installed and managed via the Settings UI and `SettingsManager`. A job runner class handles job operations.
-- **Notifications:** A shared system (`NotificationsManager`) notifies users about asynchronous operations (job progress, review requests).
-- **Search:** A shared search service (`SearchManager`) indexes data from various managers (those implementing `SearchableAsset` via the `@searchable_asset` decorator and `SEARCHABLE_ASSET_MANAGERS` registry). Users can search across features (Data Products, Contracts, Glossary Terms, Reviews, etc.).
-- **Tagging System:** The app uses a **unified tagging system** via `EntityTagAssociationDb` for ALL app objects (Data Products, Datasets, Contracts, Teams, Projects, etc.). Tags are managed through `TagsManager` with namespaces and permissions.
-  - **`EntityTagAssociationDb`**: The primary unified tag assignment table linking tags to any entity type.
-  - **`DataContractTagDb`**: Legacy storage for tags imported from ODCS contracts (the ODCS schema has its own `tags` array of strings). On contract export, both the original ODCS tags AND any unified system tags are written out.
-  - **IMPORTANT**: All entities should use `EntityTagAssociationDb` via `TagsManager` for tag assignments. Do NOT use per-entity tag tables like `DatasetTagDb` (deprecated).
-- **Git Sync:** Changes to configurations (potentially other data) can be saved as YAML files to a configured Git repository. A background process detects changes and prompts the user (via notifications) to commit/push with a pre-filled message.
-- **Startup:** The `api/app.py` defines the FastAPI app. `api/utils/startup_tasks.py` handles initialization: database setup (`initialize_database`), manager instantiation (`initialize_managers`), and demo data loading (`load_initial_data`). Managers are stored as singletons in `app.state` and accessed via FastAPI dependencies (e.g., `get_data_products_manager`).
+- **Frontend**: (`./src/frontend/`)
+  - **Language**: TypeScript
+  - **Framework**: React
+  - **UI Library**: Shadcn UI & Tailwind CSS
+  - **Build Tool**: Vite
+  - **Directory Structure**:
+    - `src/frontend/src`: Main source code
+    - `src/frontend/index.html`: Main HTML file
+    - `src/frontend/app.tsx`: Application entry point
+    - `src/frontend/src/components/`: Reusable UI components (Tailwind CSS + Shadcn UI)
+      - `src/frontend/src/components/ui/`: Base Shadcn UI components
+      - `src/frontend/src/components/common/`: App-specific common components (e.g., `RelativeDate`)
+      - `src/frontend/src/components/<feature>/`: Feature-specific components (e.g., `data-products/data-product-form-dialog.tsx`)
+    - `src/frontend/src/views/`: Page-level components corresponding to features (e.g., `data-products.tsx`, `settings.tsx`)
+    - `src/frontend/src/hooks/`: Custom React hooks (e.g., `useApi`, `useToast`)
+    - `src/frontend/src/stores/`: State management (e.g., Zustand for `permissions-store`, `breadcrumb-store`)
+    - `src/frontend/src/types/`: TypeScript type definitions (e.g., `data-product.ts`, `settings.ts`)
+    - `src/frontend/src/config/`: Application configuration (e.g., `features.ts`)
+    - `src/frontend/src/lib/`: Utility functions (e.g., `utils.ts`)
+  - **Configuration Files**:
+    - `tsconfig.json`, `tsconfig.node.json`
+    - `vite.config.ts`
+    - `tailwind.config.js`
+    - `postcss.config.js`
+    - `index.html` (entry point)
+    - `package.json`
+
+- **Backend**: (`./src/backend/`)
+  - **Language**: Python
+  - **Framework**: FastAPI
+  - **Build Tool**: hatch (`pyproject.toml`)
+  - **Database ORM**: SQLAlchemy
+  - **Directory Structure**:
+    - `src/backend/src/`: Main source code
+    - `src/backend/src/controller/`: Manager classes implementing business logic (e.g., `data_products_manager.py`).
+    - `src/backend/src/models/`: Pydantic models for API data structures (e.g., `data_products.py`, `settings.py`).
+    - `src/backend/src/db_models/`: SQLAlchemy ORM models defining database tables (e.g., `data_products.py`).
+    - `src/backend/src/repositories/`: Database access layer using the Repository pattern (e.g., `data_products_repository.py`).
+    - `src/backend/src/routes/`: FastAPI routers defining API endpoints (e.g., `data_product_routes.py`).
+    - `src/backend/src/utils/`: Helper classes and functions (e.g., `startup_tasks.py`, `demo_data_loader.py`).
+    - `src/backend/src/common/`: Shared utilities and base classes.
+      - `src/backend/src/common/database.py`: Database setup and session management.
+      - `src/backend/src/common/config.py`: Settings loading (`Settings` model) and management.
+      - `src/backend/src/common/logging.py`: Logging setup.
+      - `src/backend/src/common/workspace_client.py`: Databricks SDK client setup.
+      - `src/backend/src/common/dependencies.py`: FastAPI dependency injectors (e.g., `get_settings_manager`, `get_auth_manager`).
+      - `src/backend/src/common/authorization.py`: Permissions checking logic (`PermissionChecker`, user detail fetching).
+      - `src/backend/src/common/features.py`: Feature definitions and access levels (`FeatureAccessLevel` enum).
+      - `src/backend/src/common/search_interfaces.py`: `SearchableAsset` interface definition.
+      - `src/backend/src/common/search_registry.py`: `@searchable_asset` decorator and registry (`SEARCHABLE_ASSET_MANAGERS`).
+      - `src/backend/src/common/middleware.py`: Custom FastAPI middleware (Logging, Error Handling).
+      - `src/backend/src/common/repository.py`: Base repository class (`CRUDBase`).
+    - **Configuration & Data**:
+      - `.env` / `.env.example`: Environment variables (loaded by `src/backend/src/common/config.py`).
+      - `src/backend/src/data/`: Example/Demo data for services (YAML files, e.g., `data_products.yaml`). Loaded by managers or `demo_data_loader.py`.
+      - `src/backend/src/schemas/`: JSON schema files (e.g., for Data Contract validation).
+      - `src/backend/src/workflows/`: YAML definitions for Databricks jobs/workflows.
+      - `src/backend/src/app.yaml`: Databricks App configuration (Asset Bundle format).
+    - `src/backend/src/app.py`: FastAPI application entry point.
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
