@@ -1,0 +1,44 @@
+{
+  "name": "game-grid",
+  "owner": "SomiaWhiteRing",
+  "repo": "game-grid",
+  "description": "\u6e38\u620f\u751f\u6daf\u4e2a\u4eba\u559c\u597d\u8868\u7684\u5f00\u6e90\u590d\u523b\u7248",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SomiaWhiteRing/game-grid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T13:45:15Z"
+}
