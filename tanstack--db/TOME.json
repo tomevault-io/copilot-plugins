@@ -1,0 +1,57 @@
+{
+  "name": "db",
+  "owner": "TanStack",
+  "repo": "db",
+  "description": "The reactive client store for your API.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue-db",
+      "path": "packages/vue-db/skills/vue-db",
+      "github_url": "https://github.com/TanStack/db/tree/main/packages/vue-db/skills/vue-db",
+      "description": ""
+    },
+    {
+      "name": "react-db",
+      "path": "packages/react-db/skills/react-db",
+      "github_url": "https://github.com/TanStack/db/tree/main/packages/react-db/skills/react-db",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/TanStack/db",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:32:55Z"
+}
