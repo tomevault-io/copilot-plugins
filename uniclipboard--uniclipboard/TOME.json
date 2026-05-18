@@ -4,7 +4,7 @@
   "repo": "UniClipboard",
   "description": "Real-time clipboard sync across all your devices \u2014 local-first, peer-to-peer, and end-to-end encrypted. No account. No cloud dependency. No central server.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UniClipboard/UniClipboard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:34:17Z"
+  "distributed_at": "2026-05-18T09:56:04Z"
 }
