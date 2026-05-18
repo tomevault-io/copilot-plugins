@@ -1,0 +1,44 @@
+{
+  "name": "Gemi2Api-Server",
+  "owner": "zhiyu1998",
+  "repo": "Gemi2Api-Server",
+  "description": "HanaokaYuzu / Gemini-API \u7684\u670d\u52a1\u7aef\u7b80\u5355\u5b9e\u73b0\uff08\u81ea\u52a8\u66f4\u65b0\u4e0a\u6e38\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zhiyu1998/Gemi2Api-Server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T01:19:00Z"
+}
