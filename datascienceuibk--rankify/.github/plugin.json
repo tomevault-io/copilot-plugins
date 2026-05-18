@@ -1,0 +1,9 @@
+{
+  "name": "datascienceuibk--rankify",
+  "displayName": "Rankify",
+  "description": "\ud83d\udd25 Rankify: A Comprehensive Python Toolkit for Retrieval, Re-Ranking, and Retrieval-Augmented Generation \ud83d\udd25. Our toolkit integrates 40 pre-retrieved benchmark datasets and supports 7+ retrieval techniqu",
+  "version": "1.0.0",
+  "author": "DataScienceUIBK",
+  "homepage": "https://github.com/DataScienceUIBK/Rankify",
+  "skills": []
+}
