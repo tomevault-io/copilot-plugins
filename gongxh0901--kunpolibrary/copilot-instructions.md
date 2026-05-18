@@ -1,172 +1,348 @@
-## cocos-creator
+## data-binding
 
-> Cocos Creator 3.x 开发规范和最佳实践
+> 强类型数据绑定系统开发规范
 
 
-# Cocos Creator 3.x 开发规范
+# 强类型数据绑定系统规范
 
-## 组件基类设计
+## 数据基类设计
 
-### 继承 Component 的标准模式
+### DataBase 基类模式
 ```typescript
-import { _decorator, Component } from "cc";
-const { property } = _decorator;
-
-export abstract class CocosEntry extends Component {
-    @property({ displayName: "uiConfig", type: JsonAsset, tooltip: "编辑器导出的UI配置" }) 
-    uiConfig: JsonAsset = null;
+export class DataBase {
+    /** 数据变化监听器 */
+    private _watchers: Map<string, Function[]> = new Map();
     
-    @property({ displayName: "游戏帧率" }) 
-    fps: number = 60;
-
     /**
-     * 虚函数，子类需要实现
-     * kunpo库初始化完成后调用
+     * 注册属性监听器
+     * @param path 属性路径
+     * @param callback 回调函数
      */
-    public abstract onInit(): void;
-}
-```
-
-### 模块基类模式
-```typescript
-export abstract class ModuleBase extends Component implements IModule {
-    /** 模块名称 */
-    public moduleName: string;
-
-    /** 模块初始化 (内部使用) */
-    public init(): void { }
-
-    /** 模块初始化完成后调用的函数 */
-    protected abstract onInit(): void;
-}
-```
-
-## 生命周期管理
-
-### 组件生命周期规范
-- `start()`: 用于框架初始化，标记为 `@internal`
-- `onInit()`: 用户自定义初始化，需要子类实现
-- `onDestroy()`: 清理资源和取消事件监听
-
-### 时间和更新管理
-```typescript
-// 使用统一的时间系统
-import { GlobalTimer, InnerTimer } from "../global";
-
-private initTime(): void {
-    Time._configBoot();
-    InnerTimer.initTimer();  
-    GlobalTimer.initTimer();
-    this.schedule(this.tick.bind(this), 0, macro.REPEAT_FOREVER);
-}
-
-private tick(dt: number): void {
-    InnerTimer.update(dt);
-    GlobalTimer.update(dt);
-}
-```
-
-## 平台适配模式
-
-### 平台检测和初始化
-```typescript
-private initPlatform(): void {
-    Platform.isNative = sys.isNative;
-    Platform.isMobile = sys.isMobile;
-    Platform.isNativeMobile = sys.isNative && sys.isMobile;
-
-    switch (sys.platform) {
-        case sys.Platform.WECHAT_GAME:
-            Platform.isWX = true;
-            Platform.platform = PlatformType.WX;
-            break;
-        case sys.Platform.ALIPAY_MINI_GAME:
-            Platform.isAlipay = true; 
-            Platform.platform = PlatformType.Alipay;
-            break;
-        // ... 其他平台
+    public watch(path: string, callback: Function): void {
+        if (!this._watchers.has(path)) {
+            this._watchers.set(path, []);
+        }
+        this._watchers.get(path)!.push(callback);
+    }
+    
+    /**
+     * 触发属性变化通知
+     * @param path 属性路径
+     * @param value 新值
+     */
+    protected notify(path: string, value: any): void {
+        if (this._watchers.has(path)) {
+            this._watchers.get(path)!.forEach(callback => {
+                callback(value);
+            });
+        }
     }
 }
 ```
 
-### 平台特定功能
-- 使用 `Platform` 类进行统一的平台判断
-- 小游戏平台适配通过专门的适配类实现
-- 避免在业务代码中直接使用 `sys` 对象
-
-## 节点管理
-
-### 持久化节点模式
+### 数据类定义规范
 ```typescript
-protected start(): void {
-    // 设置为持久化节点
-    director.addPersistRootNode(this.node);
-    this.node.setSiblingIndex(this.node.children.length - 1);
-}
-```
-
-### 组件查找模式
-```typescript
-private initModule(): void {
-    // 递归查找所有子节点中的模块组件
-    for (const module of this.getComponentsInChildren(ModuleBase)) {
-        debug(`module:${module.moduleName}`);
-        module.init();
+class GameData extends DataBase {
+    private _level: number = 1;
+    private _coins: number = 0;
+    private _items: Item[] = [];
+    
+    // 使用 getter/setter 实现响应式
+    get level(): number {
+        return this._level;
+    }
+    
+    set level(value: number) {
+        if (this._level !== value) {
+            this._level = value;
+            this.notify('level', value);
+        }
+    }
+    
+    get coins(): number {
+        return this._coins;
+    }
+    
+    set coins(value: number) {
+        if (this._coins !== value) {
+            this._coins = value;
+            this.notify('coins', value);
+        }
+    }
+    
+    // 复杂属性的变化通知
+    addItem(item: Item): void {
+        this._items.push(item);
+        this.notify('items', this._items);
+        this.notify('items.length', this._items.length);
     }
 }
 ```
 
-## 适配器模式
+## 装饰器绑定系统
 
-### 引擎适配器设计
-- 通过 `CocosAdapter` 统一处理引擎特定功能
-- UI系统通过 `CocosUIModule` 进行适配
-- 窗口容器使用 `CocosWindowContainer`
-
+### 强类型属性绑定
 ```typescript
-class CocosAdapter {
-    init(): void {
-        // 初始化引擎特定功能
-        this.initUI();
-        this.initScreen();
+export namespace data {
+    /**
+     * 强类型属性绑定装饰器
+     * @param dataClass 数据类构造函数 
+     * @param selector 类型安全的路径选择器
+     * @param callback 变化回调函数
+     * @param immediate 是否立即触发
+     */
+    export function bindProp<T extends DataBase>(
+        dataClass: new () => T, 
+        selector: (data: T) => any, 
+        callback: (item: any, value?: any, data?: T) => void, 
+        immediate: boolean = false
+    ) {
+        return function (target: any, prop: string | symbol) {
+            const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
+            
+            let ctor = target.constructor;
+            ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
+            ctor[BIND_METADATA_KEY].push({
+                prop, callback, path, immediate, isMethod: false
+            });
+        };
     }
 }
 ```
 
-## 资源管理
-
-### 配置文件处理
+### 方法绑定装饰器
 ```typescript
-// 使用 JsonAsset 处理配置
-@property({ type: JsonAsset }) 
-uiConfig: JsonAsset = null;
-
-protected start(): void {
-    PropsHelper.setConfig(this.uiConfig?.json);
+/**
+ * 强类型方法绑定装饰器
+ * @param dataClass 数据类构造函数
+ * @param selector 类型安全的路径选择器  
+ * @param immediate 是否立即触发
+ */
+export function bindMethod<T extends DataBase>(
+    dataClass: new () => T, 
+    selector: (data: T) => any, 
+    immediate: boolean = false
+) {
+    return function (target: any, method: string | symbol, descriptor?: PropertyDescriptor) {
+        const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
+        
+        let ctor = target.constructor;
+        ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
+        ctor[BIND_METADATA_KEY].push({
+            prop: method, 
+            callback: descriptor!.value, 
+            path, 
+            immediate, 
+            isMethod: true
+        });
+        return descriptor;
+    };
 }
 ```
 
-### Bundle 资源管理
-- UI 资源通过 bundle 参数指定包名
-- 支持动态资源加载和释放
-- 使用资源池管理资源生命周期
+## 使用示例
 
-## 调试和开发工具
-
-### 全局调试接口
+### UI 数据绑定示例
 ```typescript
-// 暴露调试接口到全局对象
-let _global = globalThis || window || global;
-(_global as any)["getKunpoRegisterWindowMaps"] = function () {
-    return _uidecorator.getWindowMaps() as any;
-};
+class PlayerData extends DataBase {
+    name: string = "";
+    level: number = 1;
+    exp: number = 0;
+    maxExp: number = 100;
+    
+    // 计算属性
+    get expProgress(): number {
+        return this.exp / this.maxExp;
+    }
+}
+
+@uiclass("main", "player", "PlayerPanel")  
+export class PlayerPanel extends Window {
+    @uiprop nameLabel: GLabel;
+    @uiprop levelLabel: GLabel;
+    @uiprop expBar: GProgressBar;
+    
+    // 绑定玩家名称到标签
+    @data.bindProp(PlayerData, data => data.name, function(item, value) {
+        this.nameLabel.text = value;
+    })
+    private _nameBinding: any;
+    
+    // 绑定等级显示
+    @data.bindMethod(PlayerData, data => data.level)
+    private onLevelChanged(value: number): void {
+        this.levelLabel.text = `Lv.${value}`;
+    }
+    
+    // 绑定经验条
+    @data.bindMethod(PlayerData, data => data.expProgress)  
+    private onExpChanged(progress: number): void {
+        this.expBar.value = progress * 100;
+    }
+    
+    protected onInit(): void {
+        // 初始化绑定
+        data.initializeBindings(this);
+    }
+    
+    protected onClose(): void {
+        // 清理绑定
+        data.cleanupBindings(this);
+    }
+}
 ```
 
-### 帧率控制
+## 绑定管理器
+
+### BindManager 设计
 ```typescript
-// 统一的帧率设置
-game.frameRate = this.fps;
+export class BindManager {
+    private static _bindings: Map<string, BindInfo[]> = new Map();
+    
+    /**
+     * 添加绑定信息
+     */
+    public static addBinding(bindInfo: BindInfo): void {
+        const key = bindInfo.path;
+        if (!this._bindings.has(key)) {
+            this._bindings.set(key, []);
+        }
+        this._bindings.get(key)!.push(bindInfo);
+        
+        // 如果需要立即触发
+        if (bindInfo.immediate) {
+            this.triggerBinding(bindInfo);
+        }
+    }
+    
+    /**
+     * 清理目标对象的绑定
+     */
+    public static cleanup(target: any): void {
+        this._bindings.forEach((bindings, path) => {
+            const newBindings = bindings.filter(binding => binding.target !== target);
+            if (newBindings.length === 0) {
+                this._bindings.delete(path);
+            } else {
+                this._bindings.set(path, newBindings);
+            }
+        });
+    }
+    
+    /**
+     * 触发路径对应的所有绑定
+     */
+    public static notifyChange(path: string, value: any, data: any): void {
+        const bindings = this._bindings.get(path);
+        if (bindings) {
+            bindings.forEach(binding => {
+                try {
+                    if (binding.isMethod) {
+                        binding.callback.call(binding.target, value, data);
+                    } else {
+                        binding.callback.call(binding.target, binding.target[binding.prop], value, data);
+                    }
+                } catch (error) {
+                    console.error(`绑定回调执行错误: ${path}`, error);
+                }
+            });
+        }
+    }
+}
 ```
+
+## 路径解析器
+
+### 路径提取函数
+```typescript
+/**
+ * 从选择器函数中提取路径字符串
+ * 支持编译期类型检查的运行时路径解析
+ */
+function extractPathFromSelector(selector: Function): string {
+    const fnString = selector.toString();
+    
+    // 匹配箭头函数: data => data.property.path
+    let match = fnString.match(/\w+\s*=>\s*\w+\.(.+)/);
+    
+    if (!match) {
+        // 匹配普通函数: function(data) { return data.property.path; }
+        match = fnString.match(/return\s+\w+\.(.+);?\s*}/);
+    }
+    
+    if (!match) {
+        throw new Error('无效的路径选择器函数，请使用 data => data.property.path 格式');
+    }
+    
+    return match[1].trim();
+}
+```
+
+## 批量更新优化
+
+### BatchUpdater 设计
+```typescript
+export class BatchUpdater {
+    private static _pendingUpdates: Set<string> = new Set();
+    private static _updateTimer: number = 0;
+    
+    /**
+     * 批量更新通知
+     * @param path 变化路径
+     * @param value 新值  
+     * @param data 数据对象
+     */
+    public static scheduleUpdate(path: string, value: any, data: any): void {
+        this._pendingUpdates.add(path);
+        
+        if (this._updateTimer === 0) {
+            this._updateTimer = requestAnimationFrame(() => {
+                this.flushUpdates();
+            });
+        }
+    }
+    
+    /**
+     * 执行批量更新
+     */
+    private static flushUpdates(): void {
+        this._pendingUpdates.forEach(path => {
+            // 获取最新值并触发更新
+            const [dataClassName, propertyPath] = path.split(':');
+            const dataInstance = DataRegistry.getInstance(dataClassName);
+            if (dataInstance) {
+                const value = this.getValueByPath(dataInstance, propertyPath);
+                BindManager.notifyChange(path, value, dataInstance);
+            }
+        });
+        
+        this._pendingUpdates.clear();
+        this._updateTimer = 0;
+    }
+}
+```
+
+## 数据绑定最佳实践
+
+### 1. 类型安全
+- 使用泛型约束确保绑定的类型安全
+- 路径选择器函数提供编译期检查
+- 避免字符串路径，优先使用选择器函数
+
+### 2. 性能优化  
+- 使用批量更新减少频繁触发
+- 及时清理不需要的绑定
+- 避免在绑定回调中进行重度计算
+
+### 3. 内存管理
+- 在组件销毁时调用 `data.cleanupBindings()`
+- 避免循环引用导致的内存泄漏
+- 使用弱引用管理临时绑定
+
+### 4. 调试支持
+- 提供绑定信息的调试接口
+- 记录绑定的创建和销毁日志
+- 支持绑定状态的实时监控
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
