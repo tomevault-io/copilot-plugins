@@ -1,0 +1,9 @@
+{
+  "name": "kai-scheduler--kai-scheduler",
+  "displayName": "KAI-Scheduler",
+  "description": "KAI Scheduler is an open source Kubernetes Native scheduler for AI workloads at large scale",
+  "version": "1.0.0",
+  "author": "kai-scheduler",
+  "homepage": "https://github.com/kai-scheduler/KAI-Scheduler",
+  "skills": []
+}
