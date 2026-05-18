@@ -1,0 +1,9 @@
+{
+  "name": "morpho-org--morpho-blue-liquidation-bot",
+  "displayName": "morpho-blue-liquidation-bot",
+  "description": "Easily configurable liquidation bot for Morpho Blue",
+  "version": "1.0.0",
+  "author": "morpho-org",
+  "homepage": "https://github.com/morpho-org/morpho-blue-liquidation-bot",
+  "skills": []
+}
