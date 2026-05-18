@@ -1,0 +1,69 @@
+{
+  "name": "ai-agents-for-beginners",
+  "owner": "microsoft",
+  "repo": "ai-agents-for-beginners",
+  "description": "12 Lessons to Get Started Building AI Agents",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "microsoft-docs",
+      "path": ".agents/skills/microsoft-docs",
+      "github_url": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/.agents/skills/microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "path": "translations/pcm/.agents/skills/microsoft-docs",
+      "github_url": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/pcm/.agents/skills/microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "path": "translations/fr/.agents/skills/microsoft-docs",
+      "github_url": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/fr/.agents/skills/microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "path": "translations/en/.agents/skills/microsoft-docs",
+      "github_url": "https://github.com/microsoft/ai-agents-for-beginners/tree/main/translations/en/.agents/skills/microsoft-docs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/ai-agents-for-beginners",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:32:31Z"
+}
