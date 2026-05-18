@@ -1,0 +1,44 @@
+{
+  "name": "Harness-for-claude",
+  "owner": "ganimjeong",
+  "repo": "Harness-for-claude",
+  "description": " A minimal, language-agnostic harness for Claude Code and   AGENTS.md-compatible coding agents. | Claude Code\uc640 AGENTS.md \ud638\ud658 \uc5d0\uc774\uc804\ud2b8\ub97c \uc704\ud55c \ubbf8\ub2c8\uba40\u00b7\uc5b8\uc5b4 \ubb34\uad00   \ud558\ub124\uc2a4.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ganimjeong/Harness-for-claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T14:12:16Z"
+}
