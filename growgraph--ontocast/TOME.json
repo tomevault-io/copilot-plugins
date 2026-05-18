@@ -2,7 +2,7 @@
   "name": "ontocast",
   "owner": "growgraph",
   "repo": "ontocast",
-  "description": "",
+  "description": "Agentic Ontology Assisted Framework for Semantic Triple Extraction",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/growgraph",
+  "source_url": "https://github.com/growgraph/ontocast",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T14:59:35Z"
+  "distributed_at": "2026-05-18T06:25:01Z"
 }
