@@ -1,228 +1,437 @@
-## documentation-standards
+## git-workflow
 
-> This document defines standards for creating consistent and high-quality documentation for hooks in guarahooks.
+> This document defines the Git workflow for the guarahooks project, including commit conventions, branches, and contribution process.
 
 
-# Documentation Standards
 
-This document defines standards for creating consistent and high-quality documentation for hooks in guarahooks.
+# Git Workflow
 
-## 📋 Required Structure
+This document defines the Git workflow for the guarahooks project, including commit conventions, branches, and contribution process.
 
-### Frontmatter
+## 🌳 Branch Strategy
 
-```yaml
----
-title: useHookName            # Hook name in camelCase
-date: YYYY-MM-DD             # Creation date
-description: "Concise hook description"  # One-line descriptive text
-author: h3rmel               # Hook author
-published: true              # Publication status
----
+### Simplified Flow
+
+```tree
+main (production)
+├── feature/add-use-toggle
+├── feature/improve-docs
+├── fix/use-fetch-bug
+├── hotfix/critical-fix
+└── docs/update-readme
 ```
 
-### Required Sections
+### Branch Types
 
-#### 1. Hook Preview
+#### `main`
 
-```jsx
-<HookPreview name="use-hook-name-demo" />
-```
+- Main production branch
+- Always stable and deployable
+- All merges via Pull Request
+- Release tags created here
+- **Base for all other branches**
 
-#### 2. Installation
+#### `feature/*`
 
-```jsx
-<Tabs defaultValue="cli">
-<TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
-  <TabsTrigger value="manual">Manual</TabsTrigger>
-</TabsList>
+- New functionalities
+- New hooks
+- Existing improvements
+- **Base: `main`**
 
-<TabsContent value="cli">
+#### `fix/*`
+
+- Bug fixes
+- **Base: `main`**
+- Merge to `main`
+
+#### `hotfix/*`
+
+- Critical urgent fixes
+- **Base: `main`**
+- Direct merge to `main`
+
+#### `docs/*`
+
+- Documentation updates
+- **Base: `main`**
+- Merge to `main`
+
+## 📝 Conventional Commits
+
+### Basic Structure
+
 ```bash
-npx shadcn@latest add "https://guarahooks.com/r/use-hook-name"
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
 
-</TabsContent>
+### Commit Types
 
-<TabsContent value="manual">
-<Steps>
-<Step>Copy and paste the following code into your project.</Step>
+#### `feat` - New Feature
 
-<HookSource name="use-hook-name" />
-
-<Step>Update the import paths to match your project setup.</Step>
-</Steps>
-</TabsContent>
-</Tabs>
-
+```bash
+feat: add useToggle hook
+feat(hooks): add useLocalStorage with cross-tab sync
+feat(cli): add hook installation command
 ```
 
-#### 3. API Reference
+#### `fix` - Bug Fix
 
-**Props/Parameters:**
-```jsx
-| Prop           | Type                | Default | Description                    |
-| -------------- | ------------------- | ------- | ------------------------------ |
-| `paramName`    | `ParamType`         | `value` | Clear parameter description    |
+```bash
+fix: resolve memory leak in useInterval
+fix(hooks): handle SSR properly in useWindowSize
+fix(docs): correct useToggle example
 ```
 
-**Options (if applicable):**
+#### `docs` - Documentation
 
-```jsx
-| Prop           | Type                | Default | Description                    |
-| -------------- | ------------------- | ------- | ------------------------------ |
-| `optionName`   | `OptionType`        | `value` | Option description             |
+```bash
+docs: add API reference for useToggle
+docs(hooks): improve useLocalStorage examples
+docs: update contributing guidelines
 ```
 
-**Return:**
+#### `style` - Formatting
 
-```jsx
-| Property       | Type                | Description                    |
-| -------------- | ------------------- | ------------------------------ |
-| `propertyName` | `PropertyType`      | Property description           |
+```bash
+style: format code with prettier
+style(hooks): fix eslint warnings
 ```
 
-#### 4. Key Features
+#### `refactor` - Refactoring
 
-- List of main features
-- Compatibility (SSR, Cross-tab, etc.)
-- Important limitations
-
-#### 5. Examples
-
-- **Basic Usage**: Minimal functional example
-- **Advanced Usage**: Examples with complex options
-- **Specific Cases**: Particular use case scenarios
-
-## 🎯 Writing Guidelines
-
-### Tone and Style
-
-- **Concise and direct**: Explain functionalities without verbosity
-- **Technical but accessible**: Use precise terms but explain when necessary
-- **Consistent**: Maintain uniform terminology throughout documentation
-
-### Code Examples
-
-- **Functional**: All examples should compile and execute
-- **Progressive**: From simple to complex
-- **Contextualized**: Show real usage, not just syntax
-
-### Descriptions
-
-- **Props**: Describe the purpose, not just the type
-- **Features**: Explain benefits and use cases
-- **Limitations**: Be transparent about restrictions
-
-## 📚 Optional Sections
-
-### For Complex Hooks
-
-#### Usage Section
-
-```jsx
-<Steps>
-<Step>Configure provider (if needed)</Step>
-
-```tsx
-// Configuration code
+```bash
+refactor: simplify useToggle implementation
+refactor(types): improve TypeScript definitions
 ```
 
-<Step>Use the hook in components</Step>
+#### `perf` - Performance
 
-```tsx
-// Usage code
+```bash
+perf: optimize useDebounce memory usage
+perf(hooks): reduce bundle size of useFetch
 ```
 
-</Steps>
+#### `test` - Tests
+
+```bash
+test: add unit tests for useToggle
+test(hooks): improve coverage for useLocalStorage
 ```
 
-#### Key Features & Details
+#### `build` - Build System
 
-- Cross-browser compatibility
-- Performance considerations  
-- Error handling
-- Best practices & caveats
-
-#### Advanced Examples
-
-- Specific scenarios
-- Integrations with other libraries
-- Advanced usage patterns
-
-### For Hooks with Provider
-
-#### Provider Configuration
-
-```jsx
-### ProviderName Props
-
-| Prop           | Type                | Default | Description                    |
-| -------------- | ------------------- | ------- | ------------------------------ |
-| `config`       | `ConfigType`        | `{}`    | Provider configuration         |
+```bash
+build: update pnpm to v9.15.3
+build(ci): add automated testing workflow
 ```
 
-## 🔍 Quality Checklist
+#### `ci` - Continuous Integration
 
-### Content
+```bash
+ci: add automated hook registry validation
+ci: setup semantic release workflow
+```
 
-- [ ] Complete and correct frontmatter
+#### `chore` - Maintenance
+
+```bash
+chore: update dependencies
+chore: bump version to 1.2.0
+```
+
+### Main Scopes
+
+#### `hooks`
+
+```bash
+feat(hooks): add useGeolocation hook
+fix(hooks): resolve useLocalStorage race condition
+```
+
+#### `docs`
+
+```bash
+docs(hooks): improve useToggle documentation
+feat(docs): add interactive examples
+```
+
+#### `cli`
+
+```bash
+feat(cli): add hook template generator
+fix(cli): resolve installation path issues
+```
+
+#### `registry`
+
+```bash
+feat(registry): add hook categories
+fix(registry): resolve dependency resolution
+```
+
+## 🔀 Development Workflow
+
+### 1. Creating Feature Branch
+
+```bash
+# Sync with main
+git checkout main
+git pull origin main
+
+# Create feature branch
+git checkout -b feature/add-use-geolocation
+
+# First implementation
+git add .
+git commit -m "feat(hooks): add basic useGeolocation implementation"
+
+# Push branch
+git push -u origin feature/add-use-geolocation
+```
+
+### 2. Iterative Development
+
+```bash
+# Implement hook
+git add registry/hooks/use-geolocation.tsx
+git commit -m "feat(hooks): implement useGeolocation with options"
+
+# Add example
+git add registry/example/use-geolocation-demo.tsx
+git commit -m "feat(hooks): add useGeolocation demo component"
+
+# Add documentation
+git add content/docs/hooks/use-geolocation.mdx
+git commit -m "docs(hooks): add useGeolocation documentation"
+
+# Register in system
+git add registry/registry-hooks.ts registry/registry-examples.ts
+git commit -m "feat(registry): register useGeolocation hook and example"
+
+# Update navigation
+git add config/docs.ts
+git commit -m "feat(docs): add useGeolocation to navigation"
+```
+
+### 3. Finalizing Feature
+
+```bash
+# Build and tests
+pnpm build:registry
+pnpm build:docs
+pnpm lint
+
+# Final adjustments commit
+git add .
+git commit -m "fix(hooks): resolve linting issues in useGeolocation"
+
+# Final push
+git push origin feature/add-use-geolocation
+```
+
+### 4. Pull Request to Main
+
+```markdown
+## 🎯 Type of Change
+- [x] New feature (feature)
+- [ ] Bug fix (fix)
+- [ ] Documentation (docs)
+- [ ] Refactoring (refactor)
+
+## 📋 Description
+Adds `useGeolocation` hook to access user location with:
+- Precision options support
+- Robust error handling
+- Loading states
+- Complete documentation
+
+## 🧪 Tests
+- [x] Hook tested manually
+- [x] Functional example
+- [x] Build without errors
+- [x] Complete documentation
+
+## 📚 Documentation
+- [x] Hook documentation created
+- [x] Example added
+- [x] API documented
+- [x] Navigation updated
+```
+
+## 🏷️ Versioning and Releases
+
+### Semantic Versioning
+
+```tree
+MAJOR.MINOR.PATCH
+
+1.2.3
+│ │ │
+│ │ └── Patch: Bug fixes
+│ └──── Minor: New features
+└────── Major: Breaking changes
+```
+
+### Release Types
+
+#### Patch (1.0.1)
+
+```bash
+fix: resolve useToggle callback issue
+fix(hooks): handle edge case in useLocalStorage
+docs: fix typo in useGeolocation example
+```
+
+#### Minor (1.1.0)
+
+```bash
+feat: add useGeolocation hook
+feat: add useNotifications hook
+feat(cli): add hook scaffolding command
+```
+
+#### Major (2.0.0)
+
+```bash
+feat!: redesign useLocalStorage API
+BREAKING CHANGE: useLocalStorage now returns object instead of array
+
+feat!: remove deprecated useOldHook
+BREAKING CHANGE: useOldHook has been removed, use useNewHook instead
+```
+
+### Release Process
+
+```bash
+# 1. Sync main
+git checkout main
+git pull origin main
+
+# 2. Create release tag
+git tag v1.2.0
+git push origin v1.2.0
+
+# 3. Create GitHub release
+# (via interface or GitHub CLI)
+gh release create v1.2.0 --generate-notes
+```
+
+## 🚨 Hotfixes
+
+### Hotfix Process (Urgent Fix)
+
+```bash
+# 1. Create hotfix branch from main
+git checkout main
+git pull origin main
+git checkout -b hotfix/fix-critical-bug
+
+# 2. Implement fix
+git add .
+git commit -m "fix: resolve critical bug in useLocalStorage"
+
+# 3. Push and create PR
+git push -u origin hotfix/fix-critical-bug
+# Create Pull Request to main
+
+# 4. After merge, create patch tag
+git checkout main
+git pull origin main
+git tag v1.1.1
+git push origin v1.1.1
+```
+
+## 🔧 Workflows by Type
+
+### Feature Workflow
+
+```bash
+main → feature/name → PR → main → tag (if needed)
+```
+
+### Bugfix Workflow  
+
+```bash
+main → fix/name → PR → main → tag (patch)
+```
+
+### Hotfix Workflow
+
+```bash
+main → hotfix/name → urgent PR → main → tag (patch)
+```
+
+### Docs Workflow
+
+```bash
+main → docs/name → PR → main
+```
+
+## 📋 Contribution Checklist
+
+### Before Commit
+
+- [ ] Code formatted with Prettier
+- [ ] Linting without errors
+- [ ] Tests passing (when applicable)
+- [ ] Documentation updated
+- [ ] Build working (`pnpm build:registry`)
+
+### Conventional Commit
+
+- [ ] Correct type (`feat`, `fix`, `docs`, etc.)
+- [ ] Appropriate scope when necessary
 - [ ] Clear and concise description
-- [ ] Functional HookPreview
-- [ ] Installation with CLI and manual
-- [ ] Complete API tables
-- [ ] Functional and progressive examples
-- [ ] Key features listed
+- [ ] Breaking changes marked with `!`
+- [ ] Footer with additional information when necessary
 
-### Formatting
+### Pull Request
 
-- [ ] Valid Markdown
-- [ ] Correct MDX components
-- [ ] Well-formatted tables
-- [ ] Code with syntax highlighting
-- [ ] Functional links
+- [ ] Branch updated with main
+- [ ] Descriptive title
+- [ ] Detailed description
+- [ ] Appropriate labels
+- [ ] Assigned reviewers
+- [ ] CI passing
 
-### Quality
+### Branch Examples
 
-- [ ] Accurate technical information
-- [ ] Tested examples
-- [ ] Complete feature coverage
-- [ ] Clearly explained use cases
+#### Features
 
-## 🎨 Available MDX Components
+```bash
+feature/add-use-clipboard
+feature/improve-use-fetch
+feature/add-search-functionality
+```
 
-### Essential
+#### Fixes
 
-- `<HookPreview>`: Interactive hook demonstration
-- `<HookSource>`: Hook source code
-- `<Tabs>`, `<TabsList>`, `<TabsTrigger>`, `<TabsContent>`: Tab navigation
-- `<Steps>`, `<Step>`: Step-by-step instructions
+```bash
+fix/use-toggle-memory-leak
+fix/docs-typos
+fix/registry-build-issue
+```
 
-### Informational
+#### Hotfixes
 
-- `<Callout>`: Highlight important information
-- `<Alert>`: Warnings and alerts
-- `<Badge>`: Tags and labels
+```bash
+hotfix/critical-security-fix
+hotfix/use-localstorage-crash
+```
 
-## 📖 Reference Examples
+#### Docs
 
-### Simple Hooks
+```bash
+docs/update-readme
+docs/improve-hook-examples
+docs/add-migration-guide
+```
 
-- [use-toggle.mdx](mdc:content/docs/hooks/use-toggle.mdx)
-- [use-previous.mdx](mdc:content/docs/hooks/use-previous.mdx)
-
-### Complex Hooks  
-
-- [use-local-storage.mdx](mdc:content/docs/hooks/use-local-storage.mdx)
-- [use-fetch.mdx](mdc:content/docs/hooks/use-fetch.mdx)
-
-### Hooks with Provider
-
-- [use-fetch.mdx](mdc:content/docs/hooks/use-fetch.mdx)
-- [use-notifications.mdx](mdc:content/docs/hooks/use-notifications.mdx)
-
-Following these standards ensures consistent, professional, and useful documentation for all guarahooks users.
+This simplified workflow ensures a direct and efficient development flow, keeping the main branch always stable and deployable.
 
 ---
 > Source: [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks) — distributed by [TomeVault](https://tomevault.io).
