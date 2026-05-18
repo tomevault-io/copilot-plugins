@@ -1,24 +1,53 @@
-## typescript
+## utils-namespacing
 
-> - Add TSDoc style documentation when writing functions, methods and components.
+> When creating utility functions or modules
 
 
-## Typescript Development Guidelines:
+# Utils Namespacing Convention
 
-### Documentation
-   - Add TSDoc style documentation when writing functions, methods and components.
+## One Export Per File
+Each utility file should have exactly one named export (typically a namespace object).
 
-### Single Responsibility
-    - SRP is a core principle of our codebase and should be followed in all functions, methods and components.
-     => if the function, method or component is more than one responsibility, suggest how to break it down into smaller functions, methods or components. Encourage the user to use the "Single Responsibility" principle
-     and explain the benefits of doing so in this case.
+## Domain-Scoped Namespacing
+Utils must be tied to a specific domain and namespaced accordingly:
 
-### Imports
-   - Always use named imports for React components and hooks.
-   - Never use non-destructured imports, such as `React.useMemo` or `React.useCallback`.
+```typescript
+// ✅ Good: Namespaced under domain
+export const TracingUtils = {
+  toHex: (base64: string): string => { ... },
+  vercelMessagesToLangwatchSpanChatMessagesFormat: (messages) => { ... },
+};
 
-### Type Safety
-   - Never use the `any` type.
+// ❌ Bad: Loose exports
+export function toHex(base64: string) { ... }
+export function toSpanMessages(messages) { ... }
+```
+
+## File Naming
+- Place in domain folder: `src/{domain}/{domain}.utils.ts`
+- Example: `src/tracing/tracing.utils.ts`
+
+## Function Naming
+Use descriptive, specific names that indicate:
+1. Input format/source
+2. Output format/destination
+3. Purpose
+
+```typescript
+// ✅ Good: Clear transformation name
+TracingUtils.vercelMessagesToLangwatchSpanChatMessagesFormat
+
+// ❌ Bad: Vague names
+TracingUtils.toSpanMessages
+TracingUtils.convert
+```
+
+## Usage Pattern
+```typescript
+import { TracingUtils } from "../tracing/tracing.utils";
+
+TracingUtils.vercelMessagesToLangwatchSpanChatMessagesFormat(messages);
+```
 
 ---
 > Source: [langwatch/scenario](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io).
