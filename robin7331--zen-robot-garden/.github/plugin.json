@@ -1,0 +1,9 @@
+{
+  "name": "robin7331--zen-robot-garden",
+  "displayName": "zen-robot-garden",
+  "description": "Zen Robot Garden \u2014 a calm 3D browser diorama where a lawn mower robot autonomously mows an endless garden (three.js + Rapier physics)",
+  "version": "1.0.0",
+  "author": "robin7331",
+  "homepage": "https://github.com/robin7331/zen-robot-garden",
+  "skills": []
+}
