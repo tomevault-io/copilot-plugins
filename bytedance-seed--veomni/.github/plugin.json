@@ -1,0 +1,9 @@
+{
+  "name": "bytedance-seed--veomni",
+  "displayName": "VeOmni",
+  "description": "VeOmni: Scaling Any Modality Model Training with Model-Centric Distributed Recipe Zoo",
+  "version": "1.0.0",
+  "author": "ByteDance-Seed",
+  "homepage": "https://github.com/ByteDance-Seed/VeOmni",
+  "skills": []
+}
