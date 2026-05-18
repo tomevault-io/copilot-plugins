@@ -1,20 +1,21 @@
-## nix-security
+## nix-testing
 
-> Nix Security and Sandboxing
+> Nix Testing and Quality Assurance
 
 ## Description
-This rule enforces best practices for security and sandboxing in Nix derivations.
+This rule enforces best practices for testing and quality assurance in Nix derivations.
 
 ## Rule Details
-- Use `allowedRequisites` to restrict package dependencies
-- Use `allowedReferences` to control what can be referenced
-- Use `disallowedReferences` to prevent specific dependencies
-- Use `disallowedRequisites` to prevent specific requisites
-- Use `allowedInsecurePackages` only when absolutely necessary
-- Use `restrictEval` to prevent access to certain paths
-- Use `__noChroot` only when absolutely necessary
-- Use `__noChroot` with proper justification in comments
-- Use `__noChroot` with minimal scope
+- Enable tests by default with `doCheck = true`
+- Use `checkPhase` for running unit and integration tests
+- Use `installCheckPhase` for post-installation tests
+- Use `passthru.tests` for running additional test suites
+- Use `meta.tests` for documenting test coverage
+- Use `meta.broken` to mark broken packages
+- Use `meta.platforms` to specify supported platforms
+- Use `meta.maintainers` to list package maintainers
+- Use `meta.license` to specify package licenses
+- Use `meta.homepage` to link to package documentation
 
 ## Examples
 
@@ -22,30 +23,50 @@ This rule enforces best practices for security and sandboxing in Nix derivations
 ```nix
 { lib
 , stdenv
+, python3
 }:
 
 stdenv.mkDerivation rec {
-  pname = "secure-package";
+  pname = "tested-package";
   version = "1.0.0";
 
   src = ./src;
 
-  # Restrict package dependencies
-  allowedRequisites = with stdenv; [
-    stdenv.cc
-    stdenv.cc.libc
-  ];
+  nativeBuildInputs = [ python3 ];
 
-  # Prevent specific dependencies
-  disallowedReferences = [
-    stdenv.cc
-  ];
+  # Enable and configure tests
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+    python -m pytest tests/
+    runHook postCheck
+  '';
 
-  # Restrict evaluation
-  __restrictEval = true;
+  # Post-installation tests
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/my-program --test
+    runHook postInstallCheck
+  '';
 
-  # Minimal use of __noChroot with justification
-  __noChroot = true;  # Required for hardware access
+  # Additional test suites
+  passthru.tests = {
+    integration = import ./tests/integration.nix { inherit stdenv; };
+  };
+
+  meta = with lib; {
+    description = "A well-tested package";
+    homepage = "https://github.com/owner/repo";
+    license = licenses.mit;
+    platforms = platforms.all;
+    maintainers = with maintainers; [ /* list of maintainers */ ];
+    broken = false;
+    tests = {
+      unit = true;
+      integration = true;
+    };
+  };
 }
 ```
 
@@ -54,28 +75,26 @@ stdenv.mkDerivation rec {
 { stdenv }:
 
 stdenv.mkDerivation {
-  name = "insecure-package";
+  name = "untested-package";
   src = ./src;
 
-  # Missing security restrictions
-  # Using __noChroot without justification
-  __noChroot = true;
-
-  # Allowing all insecure packages
-  allowedInsecurePackages = [ "*" ];
+  # Missing test configuration
+  # Missing meta information
+  # Missing platform specifications
 }
 ```
 
 ## Why
-- Security restrictions prevent unauthorized access to system resources
-- Sandboxing ensures reproducible and secure builds
-- Proper use of `__noChroot` prevents security vulnerabilities
-- Dependency restrictions prevent supply chain attacks
-- Evaluation restrictions prevent access to sensitive paths
+- Comprehensive testing ensures package reliability
+- Post-installation tests verify correct installation
+- Additional test suites catch integration issues
+- Proper meta information helps users and maintainers
+- Platform specifications prevent installation on unsupported systems
+- License and maintainer information ensures proper package maintenance
 
 ## References
-- [Nixpkgs Manual - Security](mdc:https:/nixos.org/nixpkgs/manual/#sec-security)
-- [Nix Security](mdc:https:/nixos.org/security.html) 
+- [Nixpkgs Manual - Testing](mdc:https:/nixos.org/nixpkgs/manual/#chap-testing)
+- [Nixpkgs Manual - Meta Attributes](mdc:https:/nixos.org/nixpkgs/manual/#chap-meta) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
