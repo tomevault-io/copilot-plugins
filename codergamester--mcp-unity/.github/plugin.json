@@ -1,0 +1,9 @@
+{
+  "name": "codergamester--mcp-unity",
+  "displayName": "mcp-unity",
+  "description": "Model Context Protocol (MCP) plugin to connect with Unity Editor \u2014 designed for Cursor, Claude Code, Codex, Windsurf and other IDEs",
+  "version": "1.0.0",
+  "author": "CoderGamester",
+  "homepage": "https://github.com/CoderGamester/mcp-unity",
+  "skills": []
+}
