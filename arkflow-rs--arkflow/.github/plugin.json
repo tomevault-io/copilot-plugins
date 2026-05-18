@@ -1,0 +1,9 @@
+{
+  "name": "arkflow-rs--arkflow",
+  "displayName": "arkflow",
+  "description": "High performance Rust stream processing engine seamlessly integrates AI capabilities, providing powerful real-time data processing and intelligent analysis. ",
+  "version": "1.0.0",
+  "author": "arkflow-rs",
+  "homepage": "https://github.com/arkflow-rs/arkflow",
+  "skills": []
+}
