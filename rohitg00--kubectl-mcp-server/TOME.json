@@ -1,0 +1,129 @@
+{
+  "name": "kubectl-mcp-server",
+  "owner": "rohitg00",
+  "repo": "kubectl-mcp-server",
+  "description": "Published in CNCF Landscape: A MCP server for Kubernetes.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "k8s-backup",
+      "path": "kubernetes-skills/claude/k8s-backup",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-backup",
+      "description": ""
+    },
+    {
+      "name": "k8s-browser",
+      "path": "kubernetes-skills/claude/k8s-browser",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-browser",
+      "description": ""
+    },
+    {
+      "name": "k8s-capi",
+      "path": "kubernetes-skills/claude/k8s-capi",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-capi",
+      "description": ""
+    },
+    {
+      "name": "k8s-cli",
+      "path": "kubernetes-skills/claude/k8s-cli",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-cli",
+      "description": ""
+    },
+    {
+      "name": "k8s-core",
+      "path": "kubernetes-skills/claude/k8s-core",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-core",
+      "description": ""
+    },
+    {
+      "name": "k8s-deploy",
+      "path": "kubernetes-skills/claude/k8s-deploy",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-deploy",
+      "description": ""
+    },
+    {
+      "name": "k8s-gitops",
+      "path": "kubernetes-skills/claude/k8s-gitops",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-gitops",
+      "description": ""
+    },
+    {
+      "name": "k8s-helm",
+      "path": "kubernetes-skills/claude/k8s-helm",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-helm",
+      "description": ""
+    },
+    {
+      "name": "k8s-incident",
+      "path": "kubernetes-skills/claude/k8s-incident",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-incident",
+      "description": ""
+    },
+    {
+      "name": "k8s-kind",
+      "path": "kubernetes-skills/claude/k8s-kind",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-kind",
+      "description": ""
+    },
+    {
+      "name": "k8s-operations",
+      "path": "kubernetes-skills/claude/k8s-operations",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-operations",
+      "description": ""
+    },
+    {
+      "name": "k8s-rollouts",
+      "path": "kubernetes-skills/claude/k8s-rollouts",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-rollouts",
+      "description": ""
+    },
+    {
+      "name": "k8s-troubleshoot",
+      "path": "kubernetes-skills/claude/k8s-troubleshoot",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "k8s-vind",
+      "path": "kubernetes-skills/claude/k8s-vind",
+      "github_url": "https://github.com/rohitg00/kubectl-mcp-server/tree/main/kubernetes-skills/claude/k8s-vind",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rohitg00/kubectl-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:30:22Z"
+}
