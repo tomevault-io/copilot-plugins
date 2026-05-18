@@ -1,57 +1,73 @@
-## keep-engineering-principles-current
+## no-channel-specific-identifiers
 
-> Ask the user before updating engineering-principles.md when structural / engineering / guideline changes happen
+> Don't bake any specific Roku channel's names, params, or identifiers into this repo
 
 
-# Keep `engineering-principles.md` current
+# No channel-specific identifiers in this repo
 
-`.discussion-docs/engineering-principles.md` is the workspace's living engineering style guide. It must stay current as the codebase's architecture and the user's stated preferences evolve.
+This repository ships **Roku Dev Studio** — a generic developer tool that talks to *any* sideloaded Roku channel via ECP and the App Connector / RALE protocol. It must not contain identifiers that belong to one specific Roku app.
 
-## When to prompt the user
+## What is forbidden
 
-Ask the user whether the takeaway should be added to `engineering-principles.md` whenever any of the following happens in the conversation:
+- **App Connector function names** — e.g. anything you saw on a particular sideloaded channel via `list_app_connector_functions`. Those names (`HandlePlayBack`, `LoadTrackingConfig`, `GetMediaCapabilities`, etc.) are exposed by **one** channel and will not exist on another.
+- **App-specific parameter names** — `resourceConfig`, `trackingConfigInput`, etc. — for the same reason. They're declared by one channel's `ExecuteFunction` implementation.
+- **Branded reverse-DNS / package identifiers** — `com.<brand>.<thing>`, `com.<company>.<thing>`. Use `com.roku-dev-studio.<thing>` or another neutral name.
+- **Live data captured during testing** — registry values (e.g. `aviaAdobeECID`, `crossPublisherIdHash`), Adobe ECIDs, dev passwords, content URLs, channel-specific JSON payloads. Even if seen in chat or a screenshot, do **not** copy them into source / docs / fixtures.
 
-1. **Structural change**: a refactor, file move, package layout change, or shift in module boundaries.
-2. **Engineering change**: a new pattern, new abstraction, change to how code is organized or how data flows (e.g. centralizing state, swapping a poll-driven path for subscribe-driven, adding a new validator surface).
-3. **New guideline stated by the user**: any "always do X", "never use Y", "always prefer Z over W", or process expectation expressed during the conversation — even if no code change accompanies it.
+This applies to:
 
-## When not to prompt
+- Source files (`*.ts`, `*.js`, `*.brs`, `*.xml`, `*.json`)
+- Prose under `packages/roku-dev-studio-mcp/src/prose/**`
+- READMEs, design docs under `.discussion-docs/`
+- Op descriptions in `packages/roku-dev-studio-api/lib/operations.ts`
+- Validation messages, comments, examples — anywhere user-visible or agent-visible text lives
 
-- Pure bug fixes that don't change architecture or expose a new pattern.
-- Typo / wording / formatting fixes.
-- Verifying / running tests.
-- Re-stating an existing principle (already in the doc).
+## What to write instead
 
-## How to prompt
+Use placeholders + an instruction to discover at runtime:
 
-After the relevant change has landed (or as soon as the user states a guideline), ask one focused question. Keep it short, concrete, and propose the entry text so the user can say "yes / no / yes-but-rephrase":
+✅ Good (generic):
 
-> "Worth adding to `engineering-principles.md`? I'd put it under §<section> as: <one-sentence principle> + <code reference>."
+```ts
+// Builder stores `functionParams` as a positional array; agents sometimes
+// send a single object keyed by the channel's RALE param names instead
+// (`{ <paramName>: value }`). Normalize either shape to a positional array.
+```
 
-Wait for an explicit yes before editing the file. Do not silently update.
+```md
+Generic shape (substitute `<FunctionName>` and parameter value(s) for
+whatever `list_app_connector_functions` returned):
 
-## How to update (after a "yes")
+```
+app_function({
+  functionName: "<FunctionName>",
+  functionParams: [ /* one entry per declared param, in RALE order */ ]
+})
+```
+```
 
-- Match the existing tone: opinionated, repo-specific, grounded in code.
-- Each principle has: a name, a one-paragraph explanation, the code reference(s) that prove it lives in the repo, and the anti-pattern it replaces.
-- Add to the appropriate existing section (Engineering principles / Anti-patterns / Concrete patterns / Process). Don't open a new top-level section unless the user asked for one.
-- If the change ships in a separate design doc (`.discussion-docs/<topic>.md`), cross-reference it rather than duplicating content.
-- Keep entries terse. The doc is for orientation, not exhaustive specification.
+❌ Bad (channel-specific):
 
-## Concrete examples
+```ts
+// e.g. agents send `{ resourceConfig: {...} }` for HandlePlayBack
+```
 
-✅ *Trigger.* User asks: "Move `validateAndNormalizeRaleCommandArgs` into the api package and make every consumer go through it." → after the diff lands, ask: *"Worth adding to engineering-principles.md as a new entry under §Engineering principles confirming we centralize validation rules at the producer layer (api package), not at consumer surfaces?"*
+```md
+Example: `app_function({ functionName: "HandlePlayBack", functionParams: [ { resourceConfig: {...} } ] })`
+```
 
-✅ *Trigger.* User says: "Don't ever poll for state; always subscribe." → ask: *"Want me to add this to engineering-principles.md under §Engineering principles? Proposed entry: 'Subscribe-driven UI > poll-driven UI > timer-driven UI' with a reference to `AppConnector.onStateChange`."*
+## Why
 
-✅ *Trigger.* User asks for a brand-new test runner / build pipeline / IPC channel. → after it lands, ask whether the new pattern should be documented.
+- The MCP server, the prose, and the op descriptions are read by agents that work against **any** customer channel. If we ship them with one channel's names, agents will hallucinate those names against channels that don't have them — exactly what happened with `HandlePlayBack` in the field.
+- Public repo / artifacts: leaking proprietary function names, registry keys, dev passwords, or content URLs is a real privacy/security issue.
+- Hypothetical signatures (`(contentId, autoPlay)`, `params[0]`/`params[1]`) are fine when they illustrate the *shape* — just label them as illustrative.
 
-❌ *Not a trigger.* "Fix the typo in this comment." → no.
-❌ *Not a trigger.* "Bump REQUEST_TIMEOUT_MS to 35s." → it's a value change, not a new principle.
+## When you encounter a violation
 
-## If the user keeps declining
-
-If the user repeatedly says "no" to similar prompts in a session, stop asking for the rest of that session — they've signaled the threshold for what's worth recording is higher than this rule's default. Resume on the next session.
+1. Replace the specific name with a `<placeholder>` plus a sentence telling the agent to call `list_app_connector_functions` (or the equivalent discovery tool).
+2. If the live data was a registry value / token / URL, scrub it entirely.
+3. Re-run the relevant build (`roku-dev-studio-api`, `roku-dev-studio-mcp`) so the regenerated `dist/` bundles also drop the leaked identifier.
+4. Confirm with: `rg -i 'forbidden-name' --glob '!.claude/**' --glob '!**/dist/**' --glob '!**/node_modules/**'`.
 
 ---
 > Source: [paramount-engineering/roku-dev-studio](https://github.com/paramount-engineering/roku-dev-studio) — distributed by [TomeVault](https://tomevault.io).
