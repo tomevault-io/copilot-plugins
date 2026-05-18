@@ -1,0 +1,9 @@
+{
+  "name": "aaronontheweb--dotnet-cursor-rules",
+  "displayName": "dotnet-cursor-rules",
+  "description": ".mdc files for defining Cursor rules specific to .NET projects",
+  "version": "1.0.0",
+  "author": "Aaronontheweb",
+  "homepage": "https://github.com/Aaronontheweb/dotnet-cursor-rules",
+  "skills": []
+}
