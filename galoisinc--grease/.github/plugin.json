@@ -1,0 +1,9 @@
+{
+  "name": "galoisinc--grease",
+  "displayName": "grease",
+  "description": "CLI tool, Ghidra plug-in, and Haskell library for analyzing binaries using under-constrained symbolic execution",
+  "version": "1.0.0",
+  "author": "GaloisInc",
+  "homepage": "https://github.com/GaloisInc/grease",
+  "skills": []
+}
