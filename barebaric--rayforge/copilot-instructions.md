@@ -1,0 +1,37 @@
+## rayforge
+
+> - No setup needed. Do not run "cd", assume you are in the correct path by default.
+
+# AGENTS.md
+
+## General commands
+
+- No setup needed. Do not run "cd", assume you are in the correct path by default.
+- Use these commands:
+   o `pixi run format`: Apply automatic code formatting
+   o `pixi run test`: Run backend tests
+   o `pixi run uitest`: Run UI tests
+   o `pixi run lint`. Performs linting and static code analysis
+   o `pixi run print-untranslated list`: List languages with untranslated strings
+   o `pixi run print-untranslated <lang>`: Print untranslated strings from po file
+
+## Code style
+
+- When writing Python, conform to PEP8 with maximum line length of 79 chars
+- Keep cyclomatic complexity low. Write small, testable functions
+- Never mark your changes with inline comments. Code is for clean, final implementation only
+- Retain exiting formatting, docstrings, and comments
+
+## Other rules
+
+- Do not run the full test suite prematurely. Fix all linter errors first. Run targeted tests.
+- Never use "head" to filter CLI commands! This would hide useful error messages.
+- Use proper markdown to put each file into a separate code block.
+- File start markers do not belong INTO code blocks. Putting them OUTSIDE is ok.
+- Do not make changes unrelated to the current task
+- Never remove logging or debugging unless asked by the user
+- Do not repeat files unless they have changes
+
+---
+> Source: [barebaric/rayforge](https://github.com/barebaric/rayforge) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
