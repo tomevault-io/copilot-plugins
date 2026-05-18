@@ -1,0 +1,69 @@
+{
+  "name": "aider-desk",
+  "owner": "hotovo",
+  "repo": "aider-desk",
+  "description": "Platform for AI-powered software engineers",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-creator",
+      "path": ".aider-desk/skills/agent-creator",
+      "github_url": "https://github.com/hotovo/aider-desk/tree/main/.aider-desk/skills/agent-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".aider-desk/skills/skill-creator",
+      "github_url": "https://github.com/hotovo/aider-desk/tree/main/.aider-desk/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "path": ".aider-desk/skills/theme-factory",
+      "github_url": "https://github.com/hotovo/aider-desk/tree/main/.aider-desk/skills/theme-factory",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "path": ".aider-desk/skills/writing-tests",
+      "github_url": "https://github.com/hotovo/aider-desk/tree/main/.aider-desk/skills/writing-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hotovo/aider-desk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T17:31:14Z"
+}
