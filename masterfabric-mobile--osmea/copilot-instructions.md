@@ -1,75 +1,99 @@
-## osmea-core-foundation
+## osmea-packages-general
 
-> OSMEA Core - base classes, DI, i18n, config, routing, logging
+> OSMEA packages - structure, dependencies, docs, testing, publishing
 
 
-# OSMEA Core - Cursor Rules
+# OSMEA Packages - Cursor Rules
 
-## 📦 Package Overview
-OSMEA Core is the foundation package providing essential utilities, base classes, and shared logic for OSMEA applications.
+## 📦 Overview
+OSMEA Packages is a modular Flutter ecosystem designed to provide developers with a complete toolkit for building modern, scalable applications.
 
 ## 🎯 Development Guidelines
 
-### 📁 File Structure
+### 📁 Package Structure
 ```
-lib/
-├── src/
-│   ├── base/               # Base classes and interfaces
-│   ├── config/             # Configuration management
-│   ├── di/                 # Dependency injection
-│   ├── helper/             # Helper utilities
-│   ├── layout/             # Layout utilities
-│   └── resources/          # Resources and assets
-├── gen/                    # Generated files (strings, etc.)
-└── assets/
-    └── i18n/               # Internationalization
+packages/
+├── components/          # UI Component Library
+├── core/               # Foundation & Utilities
+├── apis/               # Network Layer & API Integration
+└── README.md           # Package Documentation
 ```
 
-### 🏗️ Core Development Rules
+### 🏗️ Package Development Rules
 
-#### 1. Base Classes Structure
-- Use abstract BaseBloc, BaseCubit, BaseRepository, BaseService
-- Log events and errors in base classes
+#### 1. Package Naming
+- **Package Name**: Use descriptive, lowercase names with underscores
+- **Example**: `osmea_components`, `osmea_core`, `osmea_apis`
+- **Version**: Follow semantic versioning (MAJOR.MINOR.PATCH)
 
-#### 2. Configuration Management
-- Use environment-based configuration
-- Support multiple flavors (dev, staging, prod)
-- Use dependency injection for configuration
+#### 2. Dependencies Management
+```yaml
+# ✅ Good Example - pubspec.yaml
+name: osmea_components
+description: A comprehensive UI component library for Flutter applications
+version: 0.1.0
 
-#### 3. Dependency Injection
-- Use `injectable` package
-- Follow service locator pattern
-- Implement proper lifecycle management
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.19.0"
 
-### 🌐 Internationalization Rules
-- Use i18n JSON structure; use `context.strings.*` instead of hard-coded strings
-- Use pluralization helpers where applicable
+dependencies:
+  flutter:
+    sdk: flutter
+  core:
+    git:
+      url: https://github.com/masterfabric-mobile/osmea.git
+      path: packages/core
 
-### 💾 Data Management Rules
-- Use SharedPreferences for simple data; encryption for sensitive data
-- Use SQLite for complex data with proper migrations
-- Implement memory and disk caching with invalidation
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+```
 
-### 📊 Analytics Rules
-- Track events and screen views with parameters
+#### 3. Export Structure
+- Core exports: components, core, enums, styles, theme, utils
+- Component-specific exports in main library file
 
-### 🛣️ Routing Rules
-- Use named routes; implement route guards; handle deep linking
-- Use GoRouter with injectable
+### 🔄 Package Integration Rules
+- **Core Package**: Foundation for all other packages
+- **Components Package**: Depends on Core
+- **APIs Package**: Depends on Core
+- **Applications**: Can depend on any combination of packages
 
-### 📝 Logging Rules
-- Use appropriate levels (debug, info, warning, error)
-- Include context; avoid logging sensitive data
+### 📚 Documentation Rules
+- README: Overview, Features, Installation, Usage, API Reference
+- Code: Document all public classes with examples and parameters
+
+### 🧪 Testing Rules
+- Test structure: unit/, widget/, integration/, mocks/
+- Coverage target: Minimum 80%
+- Write unit tests, widget tests, integration tests
+
+### 📦 Publishing Rules
+- Use semantic versioning; update CHANGELOG.md; tag releases
+- Run all tests and check coverage before publishing
+
+### 🔍 Code Quality Standards
+- Use `flutter_lints`; prefer_const_constructors; prefer_final_fields
+- Optimize widget rebuilds; use const constructors
+
+### 🚀 Best Practices
+1. **Modularity**: Keep packages focused and single-purpose
+2. **Reusability**: Design for reuse across different applications
+3. **Performance**: Optimize for speed and efficiency
+4. **Documentation**: Provide comprehensive documentation
+5. **Testing**: Ensure high test coverage
+6. **Maintainability**: Write clean, readable code
 
 ### 🔍 Code Review Checklist
-- [ ] Base classes follow established patterns
-- [ ] Configuration is environment-aware
-- [ ] Dependency injection is properly implemented
-- [ ] Internationalization is complete
-- [ ] Data management is secure
-- [ ] Routing is properly configured
-- [ ] Logging is appropriate
-- [ ] Tests and documentation are complete
+- [ ] Package follows naming conventions
+- [ ] Dependencies are properly managed
+- [ ] Documentation is complete
+- [ ] Tests are comprehensive
+- [ ] Code quality standards are met
+- [ ] Version is properly updated
+- [ ] CHANGELOG is updated
 
 ---
 > Source: [masterfabric-mobile/osmea](https://github.com/masterfabric-mobile/osmea) — distributed by [TomeVault](https://tomevault.io).
