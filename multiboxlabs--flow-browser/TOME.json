@@ -4,7 +4,7 @@
   "repo": "flow-browser",
   "description": "A modern, privacy-focused browser with a minimalistic design.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MultiboxLabs/flow-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T08:15:46Z"
+  "distributed_at": "2026-05-18T08:25:05Z"
 }
