@@ -4,7 +4,7 @@
   "repo": "neuron-ai",
   "description": "The PHP Agentic Framework to build production-ready AI driven applications. Connect components (LLMs, vector DBs, memory) to agents that can interact with your data.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neuron-core/neuron-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T12:17:20Z"
+  "distributed_at": "2026-05-18T13:43:34Z"
 }
