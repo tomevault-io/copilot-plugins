@@ -1,0 +1,9 @@
+{
+  "name": "vanzaho--audient-evo-py",
+  "displayName": "audient-evo-py",
+  "description": "Audient EVO 4 Linux controller for full device control, working working side-by-side native linux audio driver ",
+  "version": "1.0.0",
+  "author": "vanzaho",
+  "homepage": "https://github.com/vanzaho/audient-evo-py",
+  "skills": []
+}
