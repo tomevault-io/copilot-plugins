@@ -4,7 +4,7 @@
   "repo": "KAI-Scheduler",
   "description": "KAI Scheduler is an open source Kubernetes Native scheduler for AI workloads at large scale",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kai-scheduler/KAI-Scheduler",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T12:19:01Z"
+  "distributed_at": "2026-05-18T13:52:36Z"
 }
