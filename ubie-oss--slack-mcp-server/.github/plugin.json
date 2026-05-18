@@ -1,0 +1,9 @@
+{
+  "name": "ubie-oss--slack-mcp-server",
+  "displayName": "slack-mcp-server",
+  "description": "A Slack MCP server",
+  "version": "1.0.0",
+  "author": "ubie-oss",
+  "homepage": "https://github.com/ubie-oss/slack-mcp-server",
+  "skills": []
+}
