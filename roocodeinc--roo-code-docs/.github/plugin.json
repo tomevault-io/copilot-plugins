@@ -1,0 +1,9 @@
+{
+  "name": "roocodeinc--roo-code-docs",
+  "displayName": "Roo-Code-Docs",
+  "description": "This is the documentation for Roo Code, an AI-powered autonomous coding agent that lives in your editor.",
+  "version": "1.0.0",
+  "author": "RooCodeInc",
+  "homepage": "https://github.com/RooCodeInc/Roo-Code-Docs",
+  "skills": []
+}
