@@ -1,0 +1,9 @@
+{
+  "name": "ingenimax--agent-sdk-go",
+  "displayName": "agent-sdk-go",
+  "description": "A powerful Go framework for building production-ready AI agents!",
+  "version": "1.0.0",
+  "author": "Ingenimax",
+  "homepage": "https://github.com/Ingenimax/agent-sdk-go",
+  "skills": []
+}
