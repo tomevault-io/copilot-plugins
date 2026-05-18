@@ -1,0 +1,9 @@
+{
+  "name": "shadowoff09--pathfinder",
+  "displayName": "pathfinder",
+  "description": "A modern, interactive mapping application built with Next.js 15, MapboxGL, and TypeScript.",
+  "version": "1.0.0",
+  "author": "shadowoff09",
+  "homepage": "https://github.com/shadowoff09/pathfinder",
+  "skills": []
+}
