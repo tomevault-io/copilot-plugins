@@ -4,7 +4,7 @@
   "repo": "agent",
   "description": "Build AI agents on Convex with persistent chat history",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/get-convex/agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:20:52Z"
+  "distributed_at": "2026-05-18T02:10:10Z"
 }
