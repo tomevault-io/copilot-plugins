@@ -1,0 +1,123 @@
+## dumbdrop
+
+> * Cursor rules for maintaining code quality and consistency
+
+/**
+ * Cursor rules for maintaining code quality and consistency
+ */
+
+{
+  "rules": {
+    "file-header-docs": {
+      "description": "All source files must have a header comment explaining their purpose",
+      "pattern": "src/**/*.js",
+      "check": {
+        "type": "regex",
+        "value": "^/\\*\\*\\n \\* [^\\n]+\\n \\* [^\\n]+\\n \\* [^\\n]+\\n \\*/\\n",
+        "message": "File must start with a header comment block (3 lines) explaining its purpose"
+      }
+    }
+  }
+}
+
+# Project Principles
+
+# Code Philosophy
+- Keep code simple, smart, and follow best practices
+- Don't over-engineer for the sake of engineering
+- Use standard conventions and patterns
+- Write human-readable code
+- Keep it simple so the app just works
+- Follow the principle: "Make it work, make it right, make it fast"
+- Comments should explain "why" behind the code in more complex functions
+- Overcommented code is better than undercommented code
+
+# Commit Conventions
+- Use Conventional Commits format:
+  - feat: new features
+  - fix: bug fixes
+  - docs: documentation changes
+  - style: formatting, missing semi colons, etc.
+  - refactor: code changes that neither fix bugs nor add features
+  - test: adding or modifying tests
+  - chore: updating build tasks, package manager configs, etc.
+- Each commit should be atomic and focused
+- Write clear, descriptive commit messages
+
+# Project Structure
+
+# Root Directory
+- Keep root directory clean with only essential files
+- Production configuration files in root:
+  - docker-compose.yml
+  - Dockerfile
+  - .env.example
+  - package.json
+  - README.md
+
+# Source Code (/src)
+- All application source code in /src directory
+  - app.js: Application setup and configuration
+  - server.js: Server entry point
+  - routes/: Route handlers
+  - middleware/: Custom middleware
+  - utils/: Helper functions and utilities
+  - models/: Data models (if applicable)
+  - services/: Business logic
+
+# Development
+- All development configurations in /dev directory
+- Development specific files:
+  - /dev/docker-compose.dev.yml
+  - /dev/.env.dev.example
+  - /dev/README.md (development setup instructions)
+
+# Static Assets and Uploads
+- Static assets in /public directory
+- Upload directories:
+  - /uploads (production)
+  - /local_uploads (local development)
+
+# Documentation
+- Main README.md in root focuses on production deployment
+- Development documentation in /dev/README.md
+- Code must be self-documenting with clear naming
+- Complex logic must include comments explaining "why" not "what"
+- JSDoc comments for public functions and APIs
+
+# Docker Configuration
+- Use environment-specific .dockerignore files:
+  - .dockerignore: Production defaults (most restrictive)
+  - dev/.dockerignore: Development-specific (allows test/dev files)
+- Production .dockerignore should exclude:
+  - All test files and configurations
+  - Development-only dependencies
+  - Documentation and non-essential files
+  - Local development configurations
+- Development .dockerignore should:
+  - Allow test files and configurations
+  - Allow development dependencies
+  - Still exclude node_modules and sensitive files
+  - Keep Docker-specific files excluded
+- Docker Compose configurations:
+  - Production: docker-compose.yml in root
+  - Development: docker-compose.dev.yml in /dev
+  - Use BuildKit features when needed
+  - Document any special build arguments
+- Multi-stage builds:
+  - Use appropriate base images
+  - Minimize final image size
+  - Separate development and production stages
+  - Use specific version tags for base images
+
+# Code Style
+- Follow ESLint and Prettier configurations
+- Use meaningful variable and function names
+- Keep functions small and focused
+- Maximum line length: 100 characters
+- Use modern JavaScript features appropriately
+- Prefer clarity over cleverness 
+
+---
+> Source: [DumbWareio/DumbDrop](https://github.com/DumbWareio/DumbDrop) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
