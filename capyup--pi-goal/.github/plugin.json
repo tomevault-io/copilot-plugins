@@ -1,0 +1,9 @@
+{
+  "name": "capyup--pi-goal",
+  "displayName": "pi-goal",
+  "description": "Goal mode extension for pi: persistent long-running objectives, /goal-set drafting, sisyphus step gating, autoContinue, and an above-editor status overlay.",
+  "version": "1.0.0",
+  "author": "capyup",
+  "homepage": "https://github.com/capyup/pi-goal",
+  "skills": []
+}
