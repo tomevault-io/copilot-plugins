@@ -1,0 +1,9 @@
+{
+  "name": "vllm-project--vllm-ascend",
+  "displayName": "vllm-ascend",
+  "description": "Community maintained hardware plugin for vLLM on Ascend",
+  "version": "1.0.0",
+  "author": "vllm-project",
+  "homepage": "https://github.com/vllm-project/vllm-ascend",
+  "skills": []
+}
