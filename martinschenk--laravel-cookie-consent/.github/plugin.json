@@ -1,0 +1,9 @@
+{
+  "name": "martinschenk--laravel-cookie-consent",
+  "displayName": "laravel-cookie-consent",
+  "description": "A lightweight, GDPR-compliant cookie consent system with minimal dependencies for Laravel 11 and 12",
+  "version": "1.0.0",
+  "author": "martinschenk",
+  "homepage": "https://github.com/martinschenk/laravel-cookie-consent",
+  "skills": []
+}
