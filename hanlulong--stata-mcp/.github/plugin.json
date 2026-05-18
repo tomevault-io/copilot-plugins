@@ -1,0 +1,9 @@
+{
+  "name": "hanlulong--stata-mcp",
+  "displayName": "stata-mcp",
+  "description": "Stata MCP Extension for VS Code, Cursor, and Antigravity IDE",
+  "version": "1.0.0",
+  "author": "hanlulong",
+  "homepage": "https://github.com/hanlulong/stata-mcp",
+  "skills": []
+}
