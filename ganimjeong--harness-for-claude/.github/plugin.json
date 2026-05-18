@@ -1,0 +1,9 @@
+{
+  "name": "ganimjeong--harness-for-claude",
+  "displayName": "Harness-for-claude",
+  "description": " A minimal, language-agnostic harness for Claude Code and   AGENTS.md-compatible coding agents. | Claude Code\uc640 AGENTS.md \ud638\ud658 \uc5d0\uc774\uc804\ud2b8\ub97c \uc704\ud55c \ubbf8\ub2c8\uba40\u00b7\uc5b8\uc5b4 \ubb34\uad00   \ud558\ub124\uc2a4.",
+  "version": "1.0.0",
+  "author": "ganimjeong",
+  "homepage": "https://github.com/ganimjeong/Harness-for-claude",
+  "skills": []
+}
