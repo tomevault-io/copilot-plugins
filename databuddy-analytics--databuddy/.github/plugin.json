@@ -1,0 +1,9 @@
+{
+  "name": "databuddy-analytics--databuddy",
+  "displayName": "Databuddy",
+  "description": "Databuddy is a privacy-first analytics platform with a focus on user experience, with it's foundation built on privacy, it ensures complete compliance with most major data privacy laws out of the box",
+  "version": "1.0.0",
+  "author": "databuddy-analytics",
+  "homepage": "https://github.com/databuddy-analytics/Databuddy",
+  "skills": []
+}
