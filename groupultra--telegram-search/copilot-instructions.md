@@ -1,73 +1,54 @@
-## events
+## frontend-web
 
-> - **Scope**: Any change that adds/renames/removes events flowing between:
+> - **Role**: Deliver the Telegram search UI. All business logic and side effects should live in `packages/client` / `packages/core`, not in Vue components.
 
-## Cross-Layer Events & Protocol Design
 
-- **Scope**: Any change that adds/renames/removes events flowing between:
-  - Vue/Pinia (apps/web)
-  - `packages/client`
-  - `apps/server` WebSocket layer
-  - `packages/core` event handlers & services
+## Frontend (apps/web)
 
-### 1. Before You Add or Change an Event
+- **Role**: Deliver the Telegram search UI. All business logic and side effects should live in `packages/client` / `packages/core`, not in Vue components.
+- **Architecture**:
+  - Use **Composition API** with `<script setup lang="ts">` by default. Avoid Options API for new code.
+  - Keep components small and focused; extract logic into composables in `apps/web/src/composables` or into `packages/client`.
+  - Do not access Telegram or the database directly from `apps/web`; always go through `@tg-search/client`.
 
-- Answer, in your head or in an RFC:
-  - **Where is the bottleneck?** (UX latency? DB load? Telegram API limits?)
-  - **What is the minimal new behavior?** (One sentence, domain language.)
-  - **What is the data flow?** (Component → store → client adapter → WS/core → DB → back.)
-  - **How does this handle failure?**
-    - Core error?
-    - Network loss?
-    - Partial success (e.g. some messages processed)?
+### Routing, Layouts & Navigation
 
-### 2. Event Naming & Payloads
+- Use the auto-generated routes from `vue-router/auto-routes` and `virtual:generated-layouts`.
+- Prefer **file-based routing** conventions over manual route declarations.
+- Guard routes via Pinia stores or client events (auth status), not ad‑hoc `localStorage` checks in components.
+- When adding navigation transitions or loading states:
+  - Integrate with the existing `NProgress` guards in `main.ts` instead of ad‑hoc spinners in every page.
 
-- Naming:
-  - Use `<domain>:<action>` or `<domain>:<action>:<subaction>`.
-  - Avoid generic verbs like `update`, `done`; always include the domain (`message`, `storage`, `auth`, etc.).
-- Payloads:
-  - Prefer **IDs + small shapes** over dumping full DB rows or Telegram objects.
-  - Do not leak raw internal schemas as event payloads unless they are explicitly part of the public model.
-  - Include enough context to render the UI without requiring a second roundtrip when reasonable.
+### State & Data Fetching
 
-### 3. End-to-End Wiring Checklist
+- Global/shared state belongs in **Pinia** stores (either in `apps/web/src/stores` or `packages/client`).
+- For async data and server/core interactions:
+  - Prefer **TanStack Query** (`@tanstack/vue-query`) for request lifecycle, caching, and background refetch.
+  - Model long‑running operations (imports, indexing, sync) as events and progress updates flowing through `@tg-search/client`, not as raw HTTP calls from components.
+- Never call `initDrizzle` or mutate `CoreContext` directly from `apps/web`; that belongs in `packages/client`.
 
-When adding a new event, ensure all of the following are updated **in one change**:
+### UI, Styling & UX
 
-- **Types & contracts**:
-  - `@tg-search/core` `ToCoreEvent` / `FromCoreEvent`.
-  - `@tg-search/server/types` WS mappings (`WsEventToServer`, `WsEventToClient`).
-  - Client event handler maps in `packages/client`.
-- **Handlers**:
-  - Core event handler under `packages/core/src/event-handlers`.
-  - Service function(s) in `packages/core/src/services`.
-  - Client-side handler that maps `FromCoreEvent` into Pinia state.
-- **UI**:
-  - Minimal component/store changes to actually use the new event.
+- Use **UnoCSS** utilities and the existing presets (`unocss`, `unocss-preset-shadcn`, `@proj-airi/unocss-preset-chromatic`) as the primary styling tools.
+- Keep layout and visual primitives reusable:
+  - Extract repeated patterns into small components under `apps/web/src/components`.
+  - Avoid deep CSS overrides; prefer class-based composition.
+- Respect accessibility basics:
+  - Use semantic HTML elements and proper labels for inputs and buttons.
+  - Ensure keyboard navigation works for any new interactive components.
 
-### 4. Backwards Compatibility & Refactors
+### Error Handling & Notifications
 
-- Prefer **adding** new events over changing semantics of existing ones.
-- If an event must change:
-  - Keep the old event name working for at least one release where possible.
-  - Introduce a new event name for the new behavior and migrate callers gradually.
-- For refactors across layers (e.g. renaming a domain or action):
-  - Do a **mechanical rename** across types, handlers, and callers in one PR.
-  - Avoid long-lived “mixed” states where some code uses old names and some uses new ones.
+- Surface user-facing errors via consistent UI (e.g. toast/notification component or error blocks), not `alert` or silent failures.
+- For unexpected errors:
+  - Log via `@guiiai/logg` only inside `packages/client` / `packages/common`; the web app should avoid its own logging layer beyond dev tooling.
+  - Show a generic message to the user; do not display raw stack traces.
 
-### 5. Errors, Timeouts & Idempotency
+### Devtools & PGlite
 
-- Treat every event as potentially:
-  - Lost (network issues).
-  - Duplicated (retries).
-  - Delayed (backpressure).
-- Design handlers to be **idempotent** where possible:
-  - Re-applying the same event should not corrupt state.
-  - Use message IDs and versioning to detect duplicates.
-- Error semantics:
-  - Core should emit structured error events with codes and key context, not just strings.
-  - Client should surface user-friendly messages and, where safe, allow retry.
+- PGlite devtools (`@unbird/pglite-inspector`) must remain **development-only**:
+  - Guard setup with `import.meta.env.DEV` as in `main.ts`.
+  - If you add more devtools hooks, wire them behind the same guard and avoid impacting production bundle size significantly.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
