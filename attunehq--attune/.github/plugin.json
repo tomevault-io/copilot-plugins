@@ -1,0 +1,9 @@
+{
+  "name": "attunehq--attune",
+  "displayName": "attune",
+  "description": "Fast and secure Linux package publishing.",
+  "version": "1.0.0",
+  "author": "attunehq",
+  "homepage": "https://github.com/attunehq/attune",
+  "skills": []
+}
