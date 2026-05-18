@@ -1,0 +1,14 @@
+{
+  "name": "cocoindex-io--cocoindex",
+  "displayName": "cocoindex",
+  "description": "Incremental engine for long horizon agents \ud83c\udf1f Star if you like it!",
+  "version": "1.0.0",
+  "author": "cocoindex-io",
+  "homepage": "https://github.com/cocoindex-io/cocoindex",
+  "skills": [
+    {
+      "name": "cocoindex-v1",
+      "description": ""
+    }
+  ]
+}
