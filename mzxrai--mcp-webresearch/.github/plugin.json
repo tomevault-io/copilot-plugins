@@ -1,0 +1,9 @@
+{
+  "name": "mzxrai--mcp-webresearch",
+  "displayName": "mcp-webresearch",
+  "description": "MCP web research server (give Claude real-time info from the web)",
+  "version": "1.0.0",
+  "author": "mzxrai",
+  "homepage": "https://github.com/mzxrai/mcp-webresearch",
+  "skills": []
+}
