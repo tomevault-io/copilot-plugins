@@ -1,0 +1,9 @@
+{
+  "name": "yibie--org-supertag",
+  "displayName": "org-supertag",
+  "description": "Implement a modern note-taking app style in Org-mode.",
+  "version": "1.0.0",
+  "author": "yibie",
+  "homepage": "https://github.com/yibie/org-supertag",
+  "skills": []
+}
