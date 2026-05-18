@@ -1,0 +1,9 @@
+{
+  "name": "vlang--gui",
+  "displayName": "gui",
+  "description": "An immediate mode UI framework for the V language",
+  "version": "1.0.0",
+  "author": "vlang",
+  "homepage": "https://github.com/vlang/gui",
+  "skills": []
+}
