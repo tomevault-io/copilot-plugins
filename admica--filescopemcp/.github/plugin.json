@@ -1,0 +1,9 @@
+{
+  "name": "admica--filescopemcp",
+  "displayName": "FileScopeMCP",
+  "description": "Analyzes your codebase identifying important files based on dependency relationships. Generates diagrams and importance scores per file, helping AI assistants understand the codebase. Automatically pa",
+  "version": "1.0.0",
+  "author": "admica",
+  "homepage": "https://github.com/admica/FileScopeMCP",
+  "skills": []
+}
