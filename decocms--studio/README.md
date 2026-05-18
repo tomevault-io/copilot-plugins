@@ -7,11 +7,11 @@ Open-source control plane for your AI agents. Connect tools, hire agents, track 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [decocms/studio](https://github.com/decocms/studio).
+Original source: `CLAUDE.md` in [decocms/studio](https://github.com/decocms/studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
