@@ -2,9 +2,9 @@
   "name": "RL",
   "owner": "NVIDIA-NeMo",
   "repo": "RL",
-  "description": "",
+  "description": "Scalable toolkit for efficient model reinforcement",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/NVIDIA-NeMo",
+  "source_url": "https://github.com/NVIDIA-NeMo/RL",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T14:51:15Z"
+  "distributed_at": "2026-05-18T08:03:56Z"
 }
