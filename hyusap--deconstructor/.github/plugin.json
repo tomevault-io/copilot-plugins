@@ -1,0 +1,9 @@
+{
+  "name": "hyusap--deconstructor",
+  "displayName": "deconstructor",
+  "description": "A beautiful and interactive web application that deconstructs words into their meaningful parts and explains their etymology. ",
+  "version": "1.0.0",
+  "author": "hyusap",
+  "homepage": "https://github.com/hyusap/deconstructor",
+  "skills": []
+}
