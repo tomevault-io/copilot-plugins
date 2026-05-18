@@ -1,157 +1,73 @@
-## rust-observability
+## rust-ownership
 
-> Rust Observability and Logging Best Practices
+> Rust Ownership and Borrowing Best Practices
 
-This rule enforces best practices for logging, tracing, and metrics in Rust applications.
+This rule enforces best practices related to Rust's ownership and borrowing system.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
-- **Severity**: Warning
-- **Category**: Observability
+- **Severity**: Error
+- **Category**: Ownership
 
 ## Checks
 
-1. **Structured Logging**
-   - Use `tracing` instead of `log`
-   - Include contextual information
-   - Use appropriate log levels
-   - Add structured fields to events
+1. **Unnecessary Clone Usage**
+   - Avoid using `.clone()` when ownership can be transferred
+   - Prefer references when possible
+   - Use `&str` instead of `String` for string literals
 
-2. **Span Usage**
-   - Create spans for significant operations
-   - Use `#[instrument]` for function tracing
-   - Record important events within spans
-   - Use span relationships appropriately
+2. **Mutable References**
+   - Ensure only one mutable reference exists at a time
+   - Avoid unnecessary mutability
+   - Use `&mut` only when data needs to be modified
 
-3. **Metrics Collection**
-   - Use `metrics` crate for metrics
-   - Record meaningful metrics
-   - Use appropriate metric types
-   - Include relevant labels
+3. **Lifetime Annotations**
+   - Add explicit lifetime annotations when compiler cannot infer them
+   - Use descriptive lifetime names (e.g., `'a`, `'static`)
+   - Ensure lifetime parameters are properly constrained
 
-4. **Error Tracking**
-   - Record errors with context
-   - Use error spans for debugging
-   - Include error details in events
-   - Track error frequencies
+4. **Reference Counting**
+   - Use `Arc` for shared ownership across threads
+   - Use `Rc` for shared ownership within a single thread
+   - Consider using `Weak` references to break reference cycles
 
 ## Examples
 
 ### Good
 ```rust
-use tracing::{info, error, instrument, Level};
-use metrics::{counter, gauge};
-
-#[instrument(level = Level::INFO, skip(input))]
-pub async fn process_data(input: &[u8]) -> Result<(), Error> {
-    // Record metric for input size
-    gauge!("data.input.size", input.len() as f64);
-    
-    // Create a span for the processing operation
-    let span = tracing::info_span!("processing_data");
-    let _guard = span.enter();
-    
-    // Record structured event
-    info!(
-        input_size = input.len(),
-        "Starting data processing"
-    );
-    
-    match process(input).await {
-        Ok(result) => {
-            // Record success metric
-            counter!("data.process.success", 1);
-            info!(
-                result_size = result.len(),
-                "Data processing completed"
-            );
-            Ok(())
-        }
-        Err(e) => {
-            // Record error metric
-            counter!("data.process.error", 1);
-            error!(
-                error = %e,
-                error_type = std::any::type_name_of_val(&e),
-                "Data processing failed"
-            );
-            Err(e)
-        }
-    }
+fn process_string(s: &str) {
+    // Using string slice instead of owned String
 }
 
-/// A service that uses tracing for observability
-#[derive(Debug)]
-pub struct Service {
-    name: String,
-}
-
-impl Service {
-    #[instrument(level = Level::DEBUG)]
-    pub fn new(name: String) -> Self {
-        info!(name = %name, "Creating new service");
-        Self { name }
-    }
-
-    #[instrument(level = Level::INFO, skip(self))]
-    pub async fn handle_request(&self, request: Request) -> Result<Response, Error> {
-        // Record request metric
-        counter!("service.requests", 1, "service" => self.name.clone());
-        
-        let span = tracing::info_span!(
-            "handle_request",
-            service = %self.name,
-            request_id = %request.id
-        );
-        
-        let _guard = span.enter();
-        
-        info!(
-            method = %request.method,
-            path = %request.path,
-            "Processing request"
-        );
-        
-        // Implementation
-    }
+fn modify_data(data: &mut Vec<i32>) {
+    // Clear mutable reference usage
 }
 ```
 
 ### Bad
 ```rust
-// Bad: Using println! instead of structured logging
-fn process_data(data: &[u8]) {
-    println!("Processing data of size {}", data.len());
+fn process_string(s: String) {
+    // Unnecessary ownership transfer
 }
 
-// Bad: Missing context in error logging
-fn handle_error(e: Error) {
-    error!("Error occurred: {}", e);
-}
-
-// Bad: Not using spans for operation tracking
-async fn process_request(req: Request) -> Result<Response, Error> {
-    // No span tracking
-    let result = process(req).await;
-    // No metrics
-    result
+fn modify_data(data: &mut Vec<i32>, other: &mut Vec<i32>) {
+    // Multiple mutable references to same data
 }
 ```
 
 ## Rationale
 
-Proper observability practices ensure:
-- Effective debugging and troubleshooting
-- Performance monitoring
-- Error tracking and analysis
-- System health monitoring
+Rust's ownership system is fundamental to its memory safety guarantees. Following these practices ensures:
+- Memory safety without garbage collection
+- Thread safety without runtime overhead
+- Clear ownership semantics
+- Efficient resource management
 
 ## References
 
-- [tracing Documentation](mdc:https:/docs.rs/tracing/latest/tracing)
-- [metrics Documentation](mdc:https:/docs.rs/metrics/latest/metrics)
-- [OpenTelemetry Rust](mdc:https:/opentelemetry.io/docs/instrumentation/rust) 
+- [Rust Book - Ownership](mdc:https:/doc.rust-lang.org/book/ch04-00-understanding-ownership.html)
+- [Rust Reference - Lifetimes](mdc:https:/doc.rust-lang.org/reference/lifetimes.html) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
