@@ -1,0 +1,14 @@
+{
+  "name": "apollographql--apollo-mcp-server",
+  "displayName": "apollo-mcp-server",
+  "description": "Apollo MCP Server",
+  "version": "1.0.0",
+  "author": "apollographql",
+  "homepage": "https://github.com/apollographql/apollo-mcp-server",
+  "skills": [
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
