@@ -4,7 +4,7 @@
   "repo": "kompanion",
   "description": "a self hosted backend for bookworms, tightly coupled with KOReader",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vanadium23/kompanion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T18:11:49Z"
+  "distributed_at": "2026-05-18T20:56:26Z"
 }
