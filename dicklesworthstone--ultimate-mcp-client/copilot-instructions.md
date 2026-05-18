@@ -1,45 +1,35 @@
-## ultimate-mcp-client
+## 00-package-management-with-uv
 
-> > Standard agent guidelines for AI coding assistants.
+> This project uses `uv` instead of `pip` for Python package management. UV is a much faster alternative to pip with improved dependency resolution.
 
-# AGENTS.md - Ultimate MCP Client
+# Package Management with uv
 
-> Standard agent guidelines for AI coding assistants.
-> For comprehensive architecture and theory, see [AGENT.md](AGENT.md).
+This project uses `uv` instead of `pip` for Python package management. UV is a much faster alternative to pip with improved dependency resolution.
 
-## RULE 1 - NO FILE DELETION
-Do not delete any file or directory unless the user explicitly gives the exact command in this session.
+## Key Commands
 
-## IRREVERSIBLE GIT & FILESYSTEM ACTIONS
-Never run destructive commands (e.g., `git reset --hard`, `git clean -fd`, `rm -rf`) without explicit user approval and the exact command in the same message.
+To update the lockfile with the latest compatible dependencies:
+```bash
+uv lock --upgrade
+```
 
----
+To install all dependencies including optional extras:
+```bash
+uv sync --all-extras
+```
 
-## Quick Reference
-- Package manager: `uv` (do not use pip).
-- Run CLI: `mcpclient run --interactive`
-- Run Web UI: `mcpclient run --webui`
-- Config: `.mcpclient_config/config.yaml` (edit via `mcpclient config --edit`).
+## Configuration
 
-## Safety First
-- Keep stdout clean when stdio servers are active; log to stderr.
-- Avoid leaking API keys; use `.env` and environment variables.
-- Respect rate limits and timeouts when calling servers/tools.
+Dependencies are specified in [pyproject.toml](mdc:pyproject.toml) rather than requirements.txt.
 
-## Workflow Overview
-- Read [README.md](README.md) for usage and commands.
-- Use `mcpclient` commands for server discovery and management.
-- See `.cursor/rules/` for architecture notes and class-level guidance.
+Benefits of this approach:
+- Faster installation times
+- Better dependency resolution
+- Reproducible builds with lockfile
+- Clear separation between development and production dependencies
+- Support for optional feature groups via extras
 
-## Quality Gates
-- Install deps: `uv sync` (or `uv sync --all-extras`).
-- Lint/format: `uv run lint` or `ruff check . && ruff format .`
-- Type check: `uv run typecheck` or `mypy mcpclient.py`
-
-## Project-Specific Notes
-- Core logic lives in `mcp_client.py` (CLI + Web UI + server management).
-- AML logic in `agent_master_loop.py`.
-- STDIO safety wrappers are critical; avoid direct writes to stdout.
+When adding new dependencies, add them to the appropriate section in pyproject.toml and then run the lock command.
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
