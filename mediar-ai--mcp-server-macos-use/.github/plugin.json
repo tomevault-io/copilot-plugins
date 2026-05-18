@@ -1,0 +1,9 @@
+{
+  "name": "mediar-ai--mcp-server-macos-use",
+  "displayName": "mcp-server-macos-use",
+  "description": "AI agent that controls computer with OS-level tools, MCP compatible, works with any model",
+  "version": "1.0.0",
+  "author": "mediar-ai",
+  "homepage": "https://github.com/mediar-ai/mcp-server-macos-use",
+  "skills": []
+}
