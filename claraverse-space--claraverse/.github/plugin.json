@@ -1,0 +1,9 @@
+{
+  "name": "claraverse-space--claraverse",
+  "displayName": "ClaraVerse",
+  "description": "Claraverse is a opesource privacy focused ecosystem to replace ChatGPT, Claude, N8N, ImageGen with your own hosted llm, keys and compute. With desktop, IOS, Android Apps.",
+  "version": "1.0.0",
+  "author": "claraverse-space",
+  "homepage": "https://github.com/claraverse-space/ClaraVerse",
+  "skills": []
+}
