@@ -1,0 +1,44 @@
+{
+  "name": "1k-github-stars",
+  "owner": "xiaoxiunique",
+  "repo": "1k-github-stars",
+  "description": " Interactive treemap of 60k+ GitHub repositories with daily momentum,   curated discovery, and language-level exploration",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiaoxiunique/1k-github-stars",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T10:18:20Z"
+}
