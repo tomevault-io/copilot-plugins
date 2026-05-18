@@ -1,0 +1,22 @@
+{
+  "name": "agentjido--jido",
+  "displayName": "jido",
+  "description": "\ud83e\udd16 Autonomous agent framework for Elixir. Built for distributed, autonomous behavior and dynamic workflows.",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/jido",
+  "skills": [
+    {
+      "name": "hex-release",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    }
+  ]
+}
