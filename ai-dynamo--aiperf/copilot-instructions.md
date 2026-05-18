@@ -1,6 +1,7 @@
-## aiperf
+## python
 
-> SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+> AIPerf project rules and coding standards
+
 
 <!--
 SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
