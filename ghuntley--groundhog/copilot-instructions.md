@@ -1,120 +1,87 @@
-## rust-documentation
+## rust-error-handling
 
-> Rust Documentation Best Practices
+> Rust Error Handling Best Practices
 
-This rule enforces best practices for documentation in Rust code.
+This rule enforces best practices for error handling in Rust code.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
-- **Severity**: Warning
-- **Category**: Documentation
+- **Severity**: Error
+- **Category**: Error Handling
 
 ## Checks
 
-1. **Public API Documentation**
-   - Document all public items (types, functions, methods)
-   - Include examples in documentation
-   - Use `rustdoc` features appropriately
-   - Document panics and safety requirements
+1. **Result Type Usage**
+   - Use `Result<T, E>` for recoverable errors
+   - Avoid using `Option` for error cases
+   - Prefer custom error types over `String` or `Box<dyn Error>`
 
-2. **Documentation Style**
-   - Use complete sentences
-   - Start with a verb
-   - Include parameter and return value descriptions
-   - Document error conditions
+2. **Error Propagation**
+   - Use `?` operator for error propagation
+   - Avoid excessive error mapping
+   - Implement `From` trait for error type conversions
 
-3. **Code Examples**
-   - Include runnable examples
-   - Use `no_run` or `compile_fail` when appropriate
-   - Show common usage patterns
-   - Include error handling examples
+3. **Error Types**
+   - Create custom error types using `thiserror` or `anyhow`
+   - Implement `std::error::Error` trait
+   - Use meaningful error variants
 
-4. **Module Documentation**
-   - Document module purpose and contents
-   - Include usage examples
-   - Document re-exports
-   - Include module-level examples
+4. **Panic Handling**
+   - Avoid using `unwrap()` and `expect()` in production code
+   - Use `panic!` only for unrecoverable errors
+   - Document panic conditions
 
 ## Examples
 
 ### Good
 ```rust
-/// Creates a new `Database` instance with the specified configuration.
-///
-/// # Arguments
-///
-/// * `config` - The database configuration to use
-///
-/// # Returns
-///
-/// A `Result` containing either the new `Database` instance or a `DatabaseError`
-///
-/// # Examples
-///
-/// ```
-/// use my_crate::Database;
-///
-/// let config = DatabaseConfig::default();
-/// let db = Database::new(config)?;
-/// ```
-///
-/// # Errors
-///
-/// Returns `DatabaseError::ConnectionFailed` if the database connection cannot be established
-pub fn new(config: DatabaseConfig) -> Result<Database, DatabaseError> {
-    // Implementation
+#[derive(Debug, thiserror::Error)]
+enum DatabaseError {
+    #[error("Connection failed: {0}")]
+    ConnectionError(String),
+    #[error("Query failed: {0}")]
+    QueryError(String),
 }
 
-/// A thread-safe reference-counted pointer to shared data.
-///
-/// This type provides interior mutability with runtime borrow checking.
-/// It is useful when you need to share mutable state between multiple owners.
-///
-/// # Examples
-///
-/// ```
-/// use std::cell::RefCell;
-///
-/// let data = RefCell::new(vec![1, 2, 3]);
-/// {
-///     let mut vec = data.borrow_mut();
-///     vec.push(4);
-/// }
-/// ```
-pub struct SharedData<T> {
-    // Implementation
+fn query_database() -> Result<Data, DatabaseError> {
+    // Proper error handling with custom type
+    if connection_failed() {
+        return Err(DatabaseError::ConnectionError("Failed to connect".into()));
+    }
+    Ok(data)
 }
 ```
 
 ### Bad
 ```rust
-// Missing documentation
-pub fn process(data: Vec<u8>) -> Result<(), Error> {
-    // Implementation
+fn query_database() -> Option<Data> {
+    // Using Option for error cases
+    if connection_failed() {
+        return None;
+    }
+    Some(data)
 }
 
-/// Process the data
-/// 
-/// Bad: Too vague, missing parameters, return value, and examples
-pub fn bad_doc(data: Vec<u8>) -> Result<(), Error> {
-    // Implementation
+fn process_data() -> Result<(), Box<dyn Error>> {
+    // Using generic error type
+    data.unwrap() // Using unwrap in production code
 }
 ```
 
 ## Rationale
 
-Proper documentation ensures:
-- Clear API understanding
-- Better code maintainability
-- Improved developer experience
-- Easier onboarding for new contributors
+Proper error handling is crucial for:
+- Reliable and maintainable code
+- Clear error propagation paths
+- Better debugging experience
+- Type-safe error handling
 
 ## References
 
-- [Rust Documentation Guide](mdc:https:/doc.rust-lang.org/rustdoc/index.html)
-- [Rust Book - Documentation](mdc:https:/doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html)
-- [Rust API Guidelines](mdc:https:/rust-lang.github.io/api-guidelines/documentation.html) 
+- [Rust Book - Error Handling](mdc:https:/doc.rust-lang.org/book/ch09-00-error-handling.html)
+- [thiserror Documentation](mdc:https:/docs.rs/thiserror/latest/thiserror)
+- [anyhow Documentation](mdc:https:/docs.rs/anyhow/latest/anyhow) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
