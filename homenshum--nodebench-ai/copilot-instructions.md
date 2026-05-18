@@ -1,38 +1,117 @@
-## owner-mode-end-to-end
+## swarm-orchestration
 
-> Use this rule for any multi-layer task.
+> <!-- skill_id: orchestrating-swarms | source_hash: 1bde5a4892260024 | synced: 2026-02-18 -->
 
+<!-- skill_id: orchestrating-swarms | source_hash: 1bde5a4892260024 | synced: 2026-02-18 -->
+<!-- update_triggers: Claude Code version bump, TeammateTool API changes, new agent types -->
+<!-- update_instructions: Fetch https://gist.github.com/kieranklaassen/4f2aba89594a4aea4ad64d753984b2ea, update source file, recompute hash -->
 
-# Owner Mode End-to-End
+# Claude Code Swarm Orchestration
 
-Use this rule for any multi-layer task.
+Master multi-agent orchestration using Claude Code's TeammateTool and Task system. Use when coordinating multiple agents, parallel code reviews, pipeline workflows, or self-organizing task queues.
 
-Direct yourself as if you are the accountable owner of the result.
+---
 
-## Required loop
-1. Contract and data model
-2. Backend behavior
-3. Frontend or operator surface
-4. Exact verdict or status surfacing
-5. Tests and verification
-6. Docs, rules, and skills when the workflow changed
+## Primitives
 
-## Protocol
-- Do not stop after one layer.
-- Prefer canonical substrates over parallel systems.
-- Prefer derived views over duplicate persistence.
-- Keep states bounded and exact.
-- Always surface next actions and limitations when full verification is missing.
+| Primitive | What It Is | File Location |
+|-----------|-----------|---------------|
+| **Agent** | A Claude instance that can use tools. You are an agent. Subagents are agents you spawn. | N/A (process) |
+| **Team** | A named group of agents working together. One leader, multiple teammates. | `~/.claude/teams/{name}/config.json` |
+| **Teammate** | An agent that joined a team. Has a name, color, inbox. Spawned via Task with `team_name` + `name`. | Listed in team config |
+| **Leader** | The agent that created the team. Receives teammate messages, approves plans/shutdowns. | First member in config |
+| **Task** | A work item with subject, description, status, owner, and dependencies. | `~/.claude/tasks/{team}/N.json` |
+| **Inbox** | JSON file where an agent receives messages from teammates. | `~/.claude/teams/{name}/inboxes/{agent}.json` |
+| **Backend** | How teammates run. Auto-detected: `in-process` (invisible), `tmux` (visible panes), `iterm2` (split panes). | Auto-detected |
 
-## Verification floor
-1. codegen when needed
-2. `npx tsc --noEmit`
-3. targeted deterministic tests
-4. `npm run build`
-5. `npm run dogfood:verify:smoke` when the UI changed
+---
 
-## Canonical reference
-`docs/agents/OWNER_MODE_END_TO_END.md`
+## Two Ways to Spawn Agents
+
+### Method 1: Task Tool (Subagents) — short-lived, returns result
+```javascript
+Task({ subagent_type: "Explore", description: "Find auth files", prompt: "...", model: "haiku" })
+```
+
+### Method 2: Task + team_name + name (Teammates) — persistent, communicates via inbox
+```javascript
+Teammate({ operation: "spawnTeam", team_name: "my-project" })
+Task({ team_name: "my-project", name: "security-reviewer", subagent_type: "general-purpose", prompt: "...", run_in_background: true })
+```
+
+| Aspect | Task (subagent) | Task + team_name + name (teammate) |
+|--------|-----------------|-----------------------------------|
+| Lifespan | Until task complete | Until shutdown requested |
+| Communication | Return value | Inbox messages |
+| Task access | None | Shared task list |
+
+---
+
+## Built-in Agent Types
+
+- **Bash** — command execution, git ops
+- **Explore** — read-only codebase search (use `model: "haiku"` for speed)
+- **Plan** — architecture + implementation plans (read-only)
+- **general-purpose** — all tools, multi-step research + action
+
+---
+
+## TeammateTool Operations
+
+| Operation | Who | What |
+|-----------|-----|------|
+| `spawnTeam` | Leader | Create team + task directory |
+| `write` | Anyone | Message ONE teammate |
+| `broadcast` | Anyone | Message ALL teammates (N messages — expensive, avoid) |
+| `requestShutdown` | Leader | Ask teammate to exit |
+| `approveShutdown` | Teammate | **MUST call** — sends confirmation, exits process |
+| `cleanup` | Leader | Remove team + task files (all teammates must be shut down first) |
+
+---
+
+## Task System
+
+```javascript
+TaskCreate({ subject: "Step 1", description: "...", activeForm: "Working..." })
+TaskList()
+TaskUpdate({ taskId: "2", addBlockedBy: ["1"] })   // auto-unblocks when #1 completes
+TaskUpdate({ taskId: "2", owner: "worker-1", status: "in_progress" })
+TaskUpdate({ taskId: "2", status: "completed" })
+```
+
+---
+
+## Orchestration Patterns
+
+### Parallel Specialists
+```javascript
+Teammate({ operation: "spawnTeam", team_name: "pr-review" })
+Task({ team_name: "pr-review", name: "security", subagent_type: "general-purpose", prompt: "...", run_in_background: true })
+Task({ team_name: "pr-review", name: "perf", subagent_type: "general-purpose", prompt: "...", run_in_background: true })
+```
+
+### Pipeline (Sequential Dependencies)
+```javascript
+TaskCreate({ subject: "Research" })  // #1
+TaskCreate({ subject: "Implement" }) // #2
+TaskUpdate({ taskId: "2", addBlockedBy: ["1"] })
+```
+
+### Self-Organizing Swarm
+Workers poll TaskList, claim unclaimed tasks, complete, repeat until no tasks remain.
+
+---
+
+## Shutdown Sequence (always follow)
+```javascript
+Teammate({ operation: "requestShutdown", target_agent_id: "worker-1" })
+// wait for {"type": "shutdown_approved"} in inbox
+Teammate({ operation: "cleanup" })
+```
+
+---
+
+*Source: kieranklaassen/orchestrating-swarms gist — Claude Code v2.1.19*
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
