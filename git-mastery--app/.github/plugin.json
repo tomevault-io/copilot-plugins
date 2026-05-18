@@ -1,0 +1,9 @@
+{
+  "name": "git-mastery--app",
+  "displayName": "app",
+  "description": "CLI for Git-Mastery to centralize and perform key operations of adapters",
+  "version": "1.0.0",
+  "author": "git-mastery",
+  "homepage": "https://github.com/git-mastery/app",
+  "skills": []
+}
