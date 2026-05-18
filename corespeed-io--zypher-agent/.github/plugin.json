@@ -1,0 +1,9 @@
+{
+  "name": "corespeed-io--zypher-agent",
+  "displayName": "zypher-agent",
+  "description": "A minimal yet powerful framework for creating AI agents with full control over tools, providers, and execution flow.",
+  "version": "1.0.0",
+  "author": "corespeed-io",
+  "homepage": "https://github.com/corespeed-io/zypher-agent",
+  "skills": []
+}
