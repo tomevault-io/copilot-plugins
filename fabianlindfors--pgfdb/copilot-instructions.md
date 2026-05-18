@@ -1,0 +1,15 @@
+## pgfdb
+
+> This project is called pgfdb and is a Postgres extension written in Rust using the pgrx library. pgfdb extends Postgres to run on top of FoundationDB and is designed to store table and index data in FoundationDB.
+
+# Claude Code Configuration
+
+This project is called pgfdb and is a Postgres extension written in Rust using the pgrx library. pgfdb extends Postgres to run on top of FoundationDB and is designed to store table and index data in FoundationDB.
+
+## Commands to run after making changes
+
+- Run linter and type check and fix any warnings/errors: `cargo check && cargo clippy`
+
+---
+> Source: [fabianlindfors/pgfdb](https://github.com/fabianlindfors/pgfdb) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
