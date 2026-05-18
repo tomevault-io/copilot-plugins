@@ -1,0 +1,9 @@
+{
+  "name": "truffle-ai--dexto",
+  "displayName": "dexto",
+  "description": "A coding agent and general agent harness for building and orchestrating agentic applications.",
+  "version": "1.0.0",
+  "author": "truffle-ai",
+  "homepage": "https://github.com/truffle-ai/dexto",
+  "skills": []
+}
