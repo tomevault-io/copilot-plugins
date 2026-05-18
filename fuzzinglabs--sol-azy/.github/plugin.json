@@ -1,0 +1,9 @@
+{
+  "name": "fuzzinglabs--sol-azy",
+  "displayName": "sol-azy",
+  "description": "Sol-azy is a modular CLI toolchain for static analysis and reverse engineering of Solana sBPF programs",
+  "version": "1.0.0",
+  "author": "FuzzingLabs",
+  "homepage": "https://github.com/FuzzingLabs/sol-azy",
+  "skills": []
+}
