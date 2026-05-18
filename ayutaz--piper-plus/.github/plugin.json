@@ -1,0 +1,9 @@
+{
+  "name": "ayutaz--piper-plus",
+  "displayName": "piper-plus",
+  "description": "Multilingual neural TTS (6 languages: JA/EN/ZH/ES/FR/PT, code supports SV) \u2014 C++, C#, Rust, Go, Python, npm (WASM). VITS + Prosody, streaming, CUDA/CoreML/DirectML. pip install piper-plus | npm instal",
+  "version": "1.0.0",
+  "author": "ayutaz",
+  "homepage": "https://github.com/ayutaz/piper-plus",
+  "skills": []
+}
