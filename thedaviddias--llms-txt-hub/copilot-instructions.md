@@ -1,76 +1,49 @@
-## jsdoc-comments
+## llms-txt-hub
 
-> add jsdoc comments to components and methods
+> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-# JSDoc Documentation Standards
 
-<rule>
-name: component_documentation
-description: Standards for documenting React components and methods
-filters:
-  - type: file_extension
-    pattern: "\\.(ts|tsx)$"
-  - type: content
-    pattern: "(function|const).*=.*\\(.*\\).*=>"
+  You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-actions:
-  - type: suggest
-    message: |
-      When documenting components and methods:
+  Code Style and Structure
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
 
-      1. **Component Documentation**
-         ```typescript
-         /**
-          * A brief description of the component's purpose
-          * 
-          * @param props - Component props
-          * @param props.prop1 - Description of prop1
-          * @param props.prop2 - Description of prop2
+  Naming Conventions
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor named exports for components.
 
-          * @returns - React component
-          *
-          * @example
-          * ```tsx
-          * <MyComponent prop1="value" prop2={42} />
-          * ```
-          */
-         ```
+  TypeScript Usage
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
 
-      2. **Utility Function Documentation**
-         ```typescript
-         /**
-          * Brief description of the function's purpose
-          * 
-          * @param param1 - Description of param1
-          * @param param2 - Description of param2
-          *
-          * @returns Description of return value
-          * 
-          * @throws Description of potential errors
-          */
-         ```
+  Syntax and Formatting
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
 
-      3. **Hook Documentation**
-         ```typescript
-         /**
-          * Brief description of the hook's purpose
-          * 
-          * @param param1 - Description of param1
-          * @param param2 - Description of param2
-          * 
-          * @returns Description of return value
-          *
-          * @example
-          * ```tsx
-          * const result = useMyHook(param1, param2);
-          * ```
-          */
-         ```
+  UI and Styling
+  - Use Shadcn UI, Radix, and Tailwind for components and styling.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+  Performance Optimization
+  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+
+  Key Conventions
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+
+  Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
 ---
 > Source: [thedaviddias/llms-txt-hub](https://github.com/thedaviddias/llms-txt-hub) — distributed by [TomeVault](https://tomevault.io).
