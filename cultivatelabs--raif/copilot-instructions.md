@@ -1,114 +1,138 @@
-## raif
+## project-overview
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> This is **Raif** - a Ruby AI Framework built as a Rails engine that helps developers add AI-powered features to Rails applications.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Raif (Ruby AI Framework) - Cursor Rules
 
 ## Project Overview
+This is **Raif** - a Ruby AI Framework built as a Rails engine that helps developers add AI-powered features to Rails applications.
 
-Raif (Ruby AI Framework) is a Rails engine that provides AI-powered features for Rails applications. It supports multiple LLM providers (OpenAI, Anthropic Claude, AWS Bedrock, OpenRouter) and implements tasks, conversations, and ReAct-style agents with tool capabilities.
+## Technology Stack
+- **Framework**: Rails engine (Ruby gem)
+- **Database**: PostgreSQL/MySQL compatible
+- **Frontend**: Turbo Streams, Stimulus controllers, Bootstrap (optional)
+- **Testing**: RSpec with FactoryBot
+- **AI Providers**: OpenAI, Anthropic Claude, AWS Bedrock, OpenRouter
 
-## Development Commands
+## Key Architecture Concepts
 
-### Initial Setup
-```bash
-bundle install
-yarn install
-bin/rails app:db:create
-bin/rails app:db:migrate
-```
+### Core Components
+1. **Tasks** (`Raif::Task`) - Single-shot AI operations with defined prompts and response formats
+2. **Conversations** (`Raif::Conversation`) - Multi-turn chat interfaces with LLMs
+3. **Agents** (`Raif::Agent`) - ReAct-style agents that can use tools in loops
+4. **Model Tools** (`Raif::ModelTool`) - Custom tools that agents/conversations can invoke
+5. **Model Completions** (`Raif::ModelCompletion`) - Records of all LLM interactions
 
-### Running Tests
-```bash
-bundle exec rspec              # Run all tests
-bundle exec guard              # Auto-reload test runner
-```
+### LLM Integration
+- Multiple provider support via adapter pattern
+- Unified API through `Raif.llm(model_key)` and `Raif::Llm#chat`
+- Support for different response formats: `:text`, `:html`, `:json`
+- Provider-managed tools (web search, code execution, image generation)
 
-### Building Assets
-```bash
-yarn build:css                 # Build CSS
-yarn watch:css                 # Watch and rebuild CSS
-```
+## File Structure & Conventions
 
-### Linting
-```bash
-bin/lint                       # Run all linters
-bin/lint -a                    # Run with auto-fix
-```
+### Generated Files
+- **Tasks**: `app/models/raif/tasks/` - Inherit from `Raif::ApplicationTask`
+- **Conversations**: `app/models/raif/conversations/` - Inherit from `Raif::Conversation`  
+- **Agents**: `app/models/raif/agents/` - Inherit from `Raif::Agent`
+- **Model Tools**: `app/models/raif/model_tools/` - Inherit from `Raif::ModelTool`
 
-### Development Server
-```bash
-bin/rails server               # Run dummy app server
-```
+### Generators Available
+- `rails generate raif:install` - Setup engine
+- `rails generate raif:task TaskName --response-format [html|json|text]`
+- `rails generate raif:conversation ConversationType`
+- `rails generate raif:agent AgentName`
+- `rails generate raif:model_tool ToolName`
+- `rails generate raif:views` - Copy views for customization
 
-### Documentation
-```bash
-bundle exec rake yard          # Generate YARD docs
-```
+### Configuration
+- Main config: `config/initializers/raif.rb`
+- Key settings: API keys, model enablement, authorization callbacks
+- Model registration: `Raif.register_llm()` for custom models
 
-## Architecture & Key Patterns
+## Code Patterns & Conventions
 
-### Core Domain Model
-- **Raif::Llm**: Base class for LLM providers with unified interface
-- **Raif::Conversation**: Main aggregate for chat interactions, supports polymorphic types
-- **Raif::Agent**: Autonomous agents with NativeToolCalling and ReAct implementations
-- **Raif::ModelTool**: AI-callable tools with JSON Schema validation
-
-### Registry Pattern
+### Task Implementation
 ```ruby
-# Providers are registered dynamically
-Raif.register_llm(Raif::Llms::Anthropic, key: :anthropic_claude_3_5_sonnet, ...)
-Raif.llm(:anthropic_claude_3_5_sonnet)  # Returns configured instance
+class Raif::Tasks::TaskName < Raif::ApplicationTask
+  llm_response_format :html/:json/:text
+  llm_temperature 0.7
+  attr_accessor :input_param
+  
+  def build_system_prompt; end
+  def build_prompt; end
+end
 ```
 
-### Key Design Patterns
-- **Isolated namespace**: All models/controllers under `Raif::`
-- **Concern-based composition**: HasLlm, InvokesModelTools, LlmResponseParsing
-- **STI (Single Table Inheritance)**: For conversations, agents, tools
-- **Polymorphic associations**: For creator relationships
-- **Streaming by default**: Uses SSE and Turbo Streams for real-time updates
-
-### Testing Patterns
-- Uses RSpec with FactoryBot
-- VCR for recording LLM API interactions
-- Test helpers: `stubbed_llm`, `stub_raif_task`, `stub_raif_conversation`, `stub_raif_agent`
-- Shortcut: `FB = FactoryBot`
-
-## Important Development Practices
-
-1. **API Keys**: Set via environment variables (OPENAI_API_KEY, ANTHROPIC_API_KEY, etc.)
-2. **Migrations**: Run `rails raif:install:migrations` to copy engine migrations
-3. **View Customization**: Use `rails g raif:views` to override engine views
-4. **Factory Access**: Host apps automatically get Raif's factories via FactoryBot
-
-## Generators
-
-```bash
-rails g raif:install           # Create initializer
-rails g raif:agent AgentName   # Create agent class
-rails g raif:conversation ConversationTypeName  # Create conversation class
-rails g raif:task TaskName --response-format html|text|json  # Create task
-rails g raif:model_tool ToolName  # Create model tool
-rails g raif:views             # Copy views for customization
+### Model Tool Implementation
+```ruby
+class Raif::ModelTools::ToolName < Raif::ModelTool
+  tool_arguments_schema do
+    string :param, description: "Description"
+  end
+  
+  def self.process_invocation(tool_invocation); end
+  def self.observation_for_invocation(tool_invocation); end
+end
 ```
 
-## Common Pitfalls
+### Agent Implementation
+```ruby
+class Raif::Agents::AgentName < Raif::Agent
+  def build_system_prompt; end
+  def process_iteration_model_completion(model_completion); end
+end
+```
 
-- AWS Bedrock requires `aws-sdk-bedrockruntime` gem and AWS credentials
-- Migration checker warns in development if Raif migrations are missing
-- Provider configuration validates that default model keys match registered models
-- Test environment automatically registers test LLMs and embedding models
+## Testing Conventions
+- Factories available: `:raif_conversation`, `:raif_task`, etc.
+- Stub helpers: `stub_raif_task()`, `stub_raif_conversation()`, `stub_raif_agent()`
+- Test files in `spec/` following Rails engine conventions
+- Never add tests/checks for logger calls
 
-## File Structure
+## Database Models
+All models inherit from `ApplicationRecord` (configurable via `config.model_superclass`)
 
-- `app/` - Rails engine application code (controllers, models, views, jobs)
-- `lib/raif/` - Core framework code, registries, configuration
-- `lib/generators/` - Rails generators
-- `spec/` - RSpec tests with dummy Rails app
-- `docs/` - Jekyll documentation site
-- `vcr_cassettes/` - Recorded API interactions for tests
+### Key Models
+- `Raif::ModelCompletion` - Stores all LLM interactions
+- `Raif::Task` - Base class for AI tasks
+- `Raif::Conversation` + `Raif::ConversationEntry` - Chat functionality
+- `Raif::Agent` - Agent implementations
+- `Raif::ModelToolInvocation` - Tool usage tracking
+
+## Important Implementation Details
+
+### Authorization
+- Controllers require `config.authorize_controller_action` and `config.authorize_admin_controller_action`
+- Web admin at `/raif/admin` (when engine mounted at `/raif`)
+
+### Multi-format Support
+- Images: `Raif::ModelImageInput`
+- Files/PDFs: `Raif::ModelFileInput`
+- Embeddings: `Raif.generate_embedding!()`
+
+### Provider-Managed Tools
+Support for tools that run on the LLM-provider's infrastructure:
+- `Raif::ModelTools::ProviderManaged::WebSearch`
+- `Raif::ModelTools::ProviderManaged::CodeExecution`
+- `Raif::ModelTools::ProviderManaged::ImageGeneration`
+
+## Development Guidelines
+- Follow Rails engine patterns
+- Maintain provider abstraction layer
+- Include comprehensive error handling
+- Support multiple response formats
+- Maintain backward compatibility
+- Include proper authorization checks
+- Write thorough tests
+
+## Language & Localization
+- Support for `requested_language_key` parameter
+- Language keys defined in `lib/raif/languages.rb`
+- I18n integration for UI elements
+
+## Important Rules
+- When creating database migrations, **always** use the rails command line migration generator
 
 ---
 > Source: [CultivateLabs/raif](https://github.com/CultivateLabs/raif) — distributed by [TomeVault](https://tomevault.io).
