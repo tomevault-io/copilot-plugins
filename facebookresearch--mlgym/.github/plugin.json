@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--mlgym",
+  "displayName": "MLGym",
+  "description": "MLGym A New Framework and Benchmark for Advancing AI Research Agents",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/MLGym",
+  "skills": []
+}
