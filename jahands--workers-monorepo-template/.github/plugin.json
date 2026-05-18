@@ -1,10 +1,10 @@
 {
   "name": "jahands--workers-monorepo-template",
   "displayName": "workers-monorepo-template",
-  "description": "AI instruction files for workers-monorepo-template by jahands",
+  "description": "A monorepo template for Cloudflare Workers",
   "version": "1.0.0",
   "author": "jahands",
-  "homepage": "https://tomevault.io/claim/jahands",
+  "homepage": "https://github.com/jahands/workers-monorepo-template",
   "skills": [
     {
       "name": "typescript-inline-scripts",
