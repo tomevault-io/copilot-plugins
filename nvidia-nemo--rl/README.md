@@ -1,23 +1,30 @@
-# RL
+# AI instruction files for RL
 
-> Config by [NVIDIA-NeMo](https://github.com/NVIDIA-NeMo/RL) — distributed by [TomeVault](https://tomevault.io/claim/NVIDIA-NeMo)
+> Sourced from [NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Scalable toolkit for efficient model reinforcement
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL).
+Original source: `AGENTS.md` in [NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/NVIDIA-NeMo](https://tomevault.io/claim/NVIDIA-NeMo)
+From [NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL) — a repo with 1635+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/NVIDIA-NeMo) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install NVIDIA-NeMo/RL
+```
+Source: [github.com/NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL).
+
+<!-- genome:a-i-s -->
