@@ -1,0 +1,9 @@
+{
+  "name": "scrapybara--codecapy",
+  "displayName": "codecapy",
+  "description": "The only PR bot that actually tests your code.",
+  "version": "1.0.0",
+  "author": "Scrapybara",
+  "homepage": "https://github.com/Scrapybara/codecapy",
+  "skills": []
+}
