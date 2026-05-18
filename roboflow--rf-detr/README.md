@@ -7,11 +7,11 @@ RF-DETR is a real-time object detection and segmentation model architecture deve
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [roboflow/rf-detr](https://github.com/roboflow/rf-detr).
+Original source: `CLAUDE.md` in [roboflow/rf-detr](https://github.com/roboflow/rf-detr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
