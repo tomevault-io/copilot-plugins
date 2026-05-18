@@ -4,7 +4,7 @@
   "repo": "cursor-talk-to-figma-mcp",
   "description": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code) and Figma, allowing Agentic AI to communicate with Figma for reading designs and modifying them programmatically.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grab/cursor-talk-to-figma-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:41:55Z"
+  "distributed_at": "2026-05-18T07:45:36Z"
 }
