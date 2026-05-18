@@ -1,0 +1,44 @@
+{
+  "name": "R2Uploader",
+  "owner": "jlvihv",
+  "repo": "R2Uploader",
+  "description": "\u6613\u7528\u7684\u6587\u4ef6\u4e0a\u4f20\u5de5\u5177\uff0c\u4e13\u4e3a\u591a\u6587\u4ef6\u548c\u5927\u6587\u4ef6\u5904\u7406\u800c\u4f18\u5316\uff0c\u53ef\u4ee5\u5c06\u6587\u4ef6\u8f7b\u677e\u4e0a\u4f20\u5230 Cloudflare R2 \u5b58\u50a8\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jlvihv/R2Uploader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T17:55:22Z"
+}
