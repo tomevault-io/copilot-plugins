@@ -1,0 +1,9 @@
+{
+  "name": "lstm-kirigaya--openmcp-client",
+  "displayName": "openmcp-client",
+  "description": "All in one vscode plugin for mcp developer",
+  "version": "1.0.0",
+  "author": "LSTM-Kirigaya",
+  "homepage": "https://github.com/LSTM-Kirigaya/openmcp-client",
+  "skills": []
+}
