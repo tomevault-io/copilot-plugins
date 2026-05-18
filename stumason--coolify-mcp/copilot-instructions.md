@@ -1,156 +1,117 @@
-## coolify-mcp
+## 000-cursor-rules
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> ALWAYS when asked to CREATE A RULE or UPDATE A RULE or taught a lesson from the user that should be retained as a new rule for Cursor
 
-# CLAUDE.md
+# Cursor Rules Format
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Core Structure
 
-## Project Overview
+```mdc
+---
+description: ACTION when TRIGGER to OUTCOME
+globs: *.mdc
+---
 
-MCP (Model Context Protocol) server for Coolify that provides 42 token-optimized tools for AI assistants to manage infrastructure through natural language. Tools cover servers, projects, environments, applications, databases, services, deployments, private keys, teams, cloud tokens, documentation search, smart diagnostics, and batch operations. v2.0.0 reduced token usage by 85% (from ~43,000 to ~6,600 tokens) by consolidating related operations into single tools with action parameters.
+# Rule Title
 
-## Commands
+## Context
+- When to apply this rule
+- Prerequisites or conditions
 
-```bash
-npm install          # Install dependencies
-npm run build        # Build TypeScript to dist/
-npm test             # Run all tests
-npm run lint         # Run ESLint
-npm run format       # Run Prettier
+## Requirements
+- Concise, actionable items
+- Each requirement must be testable
 
-# Run locally
-COOLIFY_BASE_URL="https://your-coolify.com" COOLIFY_ACCESS_TOKEN="token" node dist/index.js
+## Examples
+<example>
+Good concise example with explanation
+</example>
+
+<example type="invalid">
+Invalid concise example with explanation
+</example>
 ```
 
-## Architecture
+## File Organization
 
-### File Structure Pattern
+### Location
+- Path: `.cursor/rules/`
+- Extension: `.mdc`
 
-When adding new Coolify API endpoints, follow this order:
+### Naming Convention
+PREFIX-name.mdc where PREFIX is:
+- 0XX: Core standards
+- 1XX: Tool configs
+- 3XX: Testing standards
+- 1XXX: Language rules
+- 2XXX: Framework rules
+- 8XX: Workflows
+- 9XX: Templates
+- _name.mdc: Private rules
 
-1. **src/types/coolify.ts** - Add TypeScript interfaces
-2. **src/lib/coolify-client.ts** - Add API client method with explicit return type
-3. **src/lib/mcp-server.ts** - Add MCP tool definition
-4. **src/**tests**/mcp-server.test.ts** - Add mocked test
+### Glob Pattern Examples
+Common glob patterns for different rule types:
+- Core standards: .cursor/rules/*.mdc
+- Language rules: src/**/*.{js,ts}
+- Testing standards: **/*.test.{js,ts}
+- React components: src/components/**/*.tsx
+- Documentation: docs/**/*.md
+- Configuration files: *.config.{js,json}
+- Build artifacts: dist/**/*
+- Multiple extensions: src/**/*.{js,jsx,ts,tsx}
+- Multiple files: dist/**/*, docs/**/*.md
 
-### Key Files
+## Required Fields
 
-- **src/index.ts** - Entry point, starts MCP server
-- **src/lib/coolify-client.ts** - HTTP client wrapping Coolify REST API
-- **src/lib/mcp-server.ts** - MCP tool definitions and handlers
-- **src/types/coolify.ts** - All Coolify API type definitions
-- **docs/openapi-chunks/** - OpenAPI spec chunks for reference
+### Frontmatter
+- description: ACTION TRIGGER OUTCOME format
+- globs: `glob pattern for files and folders`
 
-### Context-Optimized Responses
+### Body
+- <version>X.Y.Z</version>
+- context: Usage conditions
+- requirements: Actionable items
+- examples: Both valid and invalid
 
-List endpoints return summaries (uuid, name, status) not full objects. This reduces response sizes by 90-99%. Use `get_*` tools for full details of a single resource.
+## Formatting Guidelines
 
-## Adding New Endpoints
+- Use Concise Markdown primarily
+- XML tags limited to:
+  - <example>
+  - <danger>
+  - <required>
+  - <rules>
+  - <rule>
+  - <critical>
+  - <version>
+- Always indent content within XML or nested XML tags by 2 spaces
+- Keep rules as short as possbile
+- Use Mermaid syntax if it will be shorter or clearer than describing a complex rule
+- Use Emojis where appropriate to convey meaning that will improve rule understanding by the AI Agent
+- Keep examples as short as possible to clearly convey the positive or negative example
 
-1. Verify endpoint exists in `docs/openapi-chunks/`
-2. Add types to `src/types/coolify.ts`
-3. Add client method with explicit return type
-4. Add MCP tool to `src/lib/mcp-server.ts`
-5. Add mocked tests (required for codecov coverage)
+## AI Optimization Tips
 
-### Testing Requirements
+1. Use precise, deterministic ACTION TRIGGER OUTCOME format in descriptions
+2. Provide concise positive and negative example of rule application in practice
+3. Optimize for AI context window efficiency
+4. Remove any non-essential or redundant information
+5. Use standard glob patterns without quotes (e.g., *.js, src/**/*.ts)
 
-**IMPORTANT**: All new client methods MUST have test coverage to pass codecov checks.
+## AI Context Efficiency
 
-When adding new client methods, you must add:
+1. Keep frontmatter description under 120 characters (or less) while maintaining clear intent for rule selection by AI AGent
+2. Limit examples to essential patterns only
+3. Use hierarchical structure for quick parsing
+4. Remove redundant information across sections
+5. Maintain high information density with minimal tokens
+6. Focus on machine-actionable instructions over human explanations
 
-1. **Client method tests** in `src/__tests__/coolify-client.test.ts`:
-   - Test the HTTP method (GET, POST, PATCH, DELETE)
-   - Test the endpoint path
-   - Test the request body if applicable
-   - Follow the existing test patterns in the file
-
-2. **Method existence tests** in `src/__tests__/mcp-server.test.ts`:
-   - Add `expect(typeof client.methodName).toBe('function');` in the appropriate section
-   - Ensures the method is properly exported and accessible
-
-**codecov will fail PRs with uncovered lines.** Always run `npm test` before committing.
-
-### Client Method Example
-
-```typescript
-async getResource(uuid: string): Promise<Resource> {
-  return this.request<Resource>(`/resources/${uuid}`);
-}
-```
-
-### Test Example
-
-```typescript
-it('should call client method', async () => {
-  const spy = jest.spyOn(server['client'], 'getResource').mockResolvedValue({ uuid: 'test' });
-  await server.get_resource('test-uuid');
-  expect(spy).toHaveBeenCalledWith('test-uuid');
-});
-```
-
-### Smoke Testing Against Live Server
-
-After fixing bugs, always verify fixes work against the real Coolify instance — not just unit tests.
-
-- **`/smoke-test`** — Slash command that builds the project and runs integration smoke tests against the live server. Use this after any bug fix to confirm the fix works end-to-end.
-- **`npm run test:integration`** — Runs all integration tests (requires `.env` with `COOLIFY_URL` and `COOLIFY_TOKEN`).
-- Integration test files live in `src/__tests__/integration/` and are excluded from `npm test` (CI). Add new smoke tests there when fixing bugs that involve API interaction.
-
-### Coolify API Gotchas
-
-The Coolify OpenAPI docs are unreliable — always test against the real API. Known issues:
-
-- **`docker_compose_raw` requires base64** — The API expects base64-encoded YAML, but the field name suggests raw content. The client auto-encodes this field so models and callers can pass plain YAML.
-- **Validation errors vary in format** — The `errors` field in API error responses can contain `string[]` or plain `string` values. The client handles both.
-- **Env var field names are `is_buildtime` and `is_runtime`** (one word each), not `is_build_time` (two words). On `POST /applications/{uuid}/envs` and `PATCH /applications/{uuid}/envs` the wrong name returns HTTP 422 `"This field is not allowed."`; on `PATCH /applications/{uuid}/envs/bulk` the wrong name is silently ignored (request returns 201 but the flag stays at the default). Verified against Coolify v4.0.0-beta.473 in #174 / #135. When adding env-var related code or tests, mirror the API field names exactly — do not paraphrase to `is_build_time`.
-- **Application CREATE and UPDATE accept different field sets.** Coolify's `app/Http/Controllers/Api/ApplicationsController.php` has two separate `$allowedFields` arrays — one used by every `create_*` endpoint (`create_application` helper around line 1014) and a different one used by `update_by_uuid` (around line 2497). `removeUnnecessaryFieldsFromRequest()` runs that allowlist BEFORE the shared `sharedDataApplications()` validation rules apply, so fields outside the allowlist are silently dropped, never validated, never reach the DB. Practical effects:
-  - `dockerfile_target_build` is **UPDATE-only**: present in the update allowlist, absent from the create allowlist. Sending it on any `create_*` is silently dropped. The `application` tool exposes it in the zod schema but only wires it through `update`.
-  - `create_dockerimage` accepts `health_check_*` + `ports_mappings` but NOT `base_directory`/`publish_directory`/`install_command`/`build_command`/`start_command`/`watch_paths`/`dockerfile_location` — the endpoint is for pre-built registry images and has no build step. The `application` tool's `create_dockerimage` handler intentionally forwards only health-check fields, even though the shared zod schema accepts build-config inputs.
-  - Coolify's `openapi.yaml` request bodies are an incomplete projection of the real allowlists. Check both controller `$allowedFields` arrays before assuming a field is accepted on a given action. Verified against `coollabsio/coolify` `main` while fixing #178.
-
-## TypeScript Standards
-
-- Always include explicit return types on functions
-- No implicit any types
-- Follow existing patterns in the codebase
-
-## Git Workflow
-
-- Commit frequently to trigger pre-commit hooks (linting, formatting, tests)
-- Always stage all modified files after making changes
-- Push changes to remote after committing
-- Work on feature branches, not main
-
-## Publishing
-
-CI auto-publishes to npm via trusted publishing on version bump. Use:
-
-```bash
-npm version patch|minor|major
-git push origin main --tags
-```
-
-## Documentation Standards
-
-When making changes to the codebase, ensure documentation is updated:
-
-1. **CHANGELOG.md** - Add entry under appropriate version with:
-   - `### Added` - New features
-   - `### Changed` - Breaking changes or significant modifications
-   - `### Fixed` - Bug fixes
-   - Follow [Keep a Changelog](https://keepachangelog.com/) format
-
-2. **README.md** - Update if:
-   - Tool count changes (update tool count in Features section)
-   - New tools added (add to appropriate category in Available Tools)
-   - New example prompts needed
-   - Response size improvements made (update comparison table)
-
-3. **This file (CLAUDE.md)** - Update tool count if changed (currently 42 tools)
-
-Always work on a feature branch and include documentation updates in the same PR as code changes.
+<critical>
+  - NEVER include verbose explanations or redundant context that increases AI token overhead
+  - Keep file as short and to the point as possible BUT NEVER at the expense of sacrificing rule impact and usefulness for the AI Agent.
+  - the front matter can ONLY have the fields description and globs.
+</critical>
 
 ---
 > Source: [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp) — distributed by [TomeVault](https://tomevault.io).
