@@ -1,0 +1,9 @@
+{
+  "name": "eikowagenknecht--obsidian-immich-picker",
+  "displayName": "obsidian-immich-picker",
+  "description": "Obsidian plugin to insert images from a self-hosted Immich photo server",
+  "version": "1.0.0",
+  "author": "eikowagenknecht",
+  "homepage": "https://github.com/eikowagenknecht/obsidian-immich-picker",
+  "skills": []
+}
