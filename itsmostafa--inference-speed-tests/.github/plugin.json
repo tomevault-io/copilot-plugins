@@ -1,0 +1,9 @@
+{
+  "name": "itsmostafa--inference-speed-tests",
+  "displayName": "inference-speed-tests",
+  "description": "Local LLM inference speed tests on various devices",
+  "version": "1.0.0",
+  "author": "itsmostafa",
+  "homepage": "https://github.com/itsmostafa/inference-speed-tests",
+  "skills": []
+}
