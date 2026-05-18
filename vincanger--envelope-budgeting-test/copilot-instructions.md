@@ -1,56 +1,153 @@
-## 5-frontend-styling
+## 6-advanced-troubleshooting
 
-> This document outlines conventions for building the user interface with React and styling it with Tailwind CSS.
+> This document covers advanced Wasp capabilities like Jobs, API Routes, and Middleware, along with performance optimization tips and common troubleshooting steps.
 
-# 5. Frontend (React) and Styling (TailwindCSS)
+# 6. Advanced Features & Troubleshooting
 
-This document outlines conventions for building the user interface with React and styling it with Tailwind CSS.
+This document covers advanced Wasp capabilities like Jobs, API Routes, and Middleware, along with performance optimization tips and common troubleshooting steps.
 
-## React Conventions
+## Advanced Features ( [main.wasp](mdc:main.wasp) )
 
-- **Imports:**
-  - Use relative paths to import other React components within the `src/` directory.
-    - ✅ `import { MyButton } from '../components/MyButton';`
-    - ❌ `import { MyButton } from '@src/components/MyButton';`
-  
-- **State Management:**
-  - Use standard React hooks (`useState`, `useEffect`, `useReducer`) for component-level state.
-  - Use Wasp Queries (`useQuery`) for fetching and managing server state on the client.
-  - Consider React Context (`createContext`, `useContext`) for global UI state that doesn't need server persistence (e.g., theme, modal visibility) but avoid overusing it for state that belongs in specific components or on the server.
-- **Error Handling (Client-side):**
-  - Use `try/catch` blocks with `async/await` when calling Wasp Actions.
-  - The `useQuery` hook provides `error` objects for handling query errors.
-  - Consider implementing a global React Error Boundary component at a high level in your component tree (e.g., within the root component) to catch rendering errors gracefully.
-    - See [React Docs on Error Boundaries](mdc:https:/react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary).
+These features are configured in [main.wasp](mdc:main.wasp).
 
-## Shadcn/ui Components (`src/components`)
+### Jobs and Workers
 
-- This project utilizes components based on the [Shadcn/ui](mdc:https:/ui.shadcn.com) library, primarily located within the `src/components` directory and its subdirectories (e.g., `src/components/ui`).
-- Many of these components follow patterns and styles inspired by common admin dashboard layouts built with Shadcn/ui.
-- **Usage:** When building UI features, prefer using or adapting existing components from `src/components` to maintain visual consistency.
-- **Customization:** Components are typically self-contained or rely on utilities (e.g., `cn` for merging Tailwind classes). Refer to the Shadcn/ui documentation for underlying principles if deeper customization is needed.
-- **Adding New Components:** If adding new components inspired by Shadcn/ui, follow the existing structure and conventions within `src/components`.
+- Wasp supports background jobs, useful for tasks like sending emails, processing data, or scheduled operations.
+- Jobs require a job executor like PgBoss (which requires PostgreSQL, see [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc) ).
+- Example Job definition in [main.wasp](mdc:main.wasp):
+  ```wasp
+  job emailSender {
+    executor: PgBoss, // Requires PostgreSQL
+    // Define the function that performs the job
+    perform: {
+      fn: import { sendEmail } from "@src/server/jobs/emailSender.js"
+    },
+    // Grant access to necessary entities
+    entities: [User, EmailQueue]
+  }
+  ```
+- Jobs can be scheduled or triggered programmatically from Wasp actions or other jobs.
+- See [Wasp Jobs Documentation](mdc:https:/wasp-lang.com/docs/advanced/jobs).
 
-## TailwindCSS Conventions
+### API Routes
 
-- **Primary Styling Method:** Use Tailwind CSS utility classes directly in your JSX for styling.
-- **Avoid Inline Styles:** Generally avoid using the `style` prop unless absolutely necessary for dynamic styles that cannot be achieved with Tailwind classes.
-- **Reusability:** For complex or frequently reused style combinations, consider:
-  - Creating reusable React components that encapsulate the structure and styling.
-  - If necessary, using `@apply` within a global CSS file (`src/client/index.css` or similar) to create custom reusable classes, but prefer component composition first.
-    ```css
-    /* Example in index.css */
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
+- Define custom server API endpoints, often used for external integrations (webhooks, third-party services) where Wasp Operations are not suitable.
+- Example API route definition in [main.wasp](mdc:main.wasp):
+  ```wasp
+  api stripeWebhook {
+    // Implementation function in server code
+    fn: import { handleStripeWebhook } from "@src/server/apis/stripe.js",
+    // Define the HTTP method and path
+    httpRoute: (POST, "/webhooks/stripe"),
+    // Optional: Grant entity access
+    entities: [User, Payment],
+    // Optional: Apply middleware
+    // middlewares: [checkStripeSignature]
+    // Optional: Disable default auth check if webhook handles its own
+    // auth: false
+  }
+  ```
+- See [Wasp API Routes Documentation](mdc:https:/wasp-lang.com/docs/advanced/apis).
 
-    .btn-primary {
-      @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300;
+### Middleware
+
+- Wasp supports custom middleware functions that can run before API route handlers or Page components.
+- Useful for logging, custom authentication/authorization checks, request transformation, etc.
+- Example Middleware definition in [main.wasp](mdc:main.wasp):
+  ```wasp
+  // Define the middleware itself
+  middleware checkAdmin {
+    fn: import { checkAdminMiddleware } from "@src/server/middleware/auth.js"
+  }
+
+  // Apply it to a page or API route
+  page AdminDashboardPage {
+    component: import { AdminDashboard } from "@src/features/admin/AdminDashboardPage.tsx",
+    auth: true, // Ensure user is logged in first
+    middlewares: [checkAdmin] // Apply custom admin check
+  }
+
+  api adminAction {
+      fn: import { handleAdminAction } from "@src/server/apis/admin.js",
+      httpRoute: (POST, "/api/admin/action"),
+      auth: true,
+      middlewares: [checkAdmin]
+  }
+  ```
+- See [Wasp Middleware Documentation](mdc:https:/wasp-lang.com/docs/advanced/middleware).
+
+## Performance Optimization
+
+- **Operation Dependencies:** Use specific entity dependencies (`entities: [Task]`) in your Wasp operations ([main.wasp](mdc:main.wasp)) to ensure queries are automatically refetched only when relevant data changes.
+- **Pagination:** For queries returning large lists of data, implement pagination logic in your server operation and corresponding UI controls on the client.
+- **React Optimization:**
+  - Use `React.memo` for components that re-render often with the same props.
+  - Use `useMemo` to memoize expensive calculations within components.
+  - Use `useCallback` to memoize functions passed down as props to child components (especially event handlers).
+- **Optimistic UI Updates (Actions):**
+  - For actions where perceived speed is critical (e.g., deleting an item, marking as complete), consider using Wasp's `useAction` hook (from `wasp/client/operations`) with `optimisticUpdates`.
+  - This updates the client-side cache (affecting relevant `useQuery` results) *before* the action completes on the server, providing instant feedback.
+  - **Use Sparingly:** Only implement optimistic updates where the action is highly likely to succeed and the instant feedback significantly improves UX. Remember to handle potential server-side failures gracefully (Wasp helps revert optimistic updates on error).
+  - Example:
+    ```typescript
+    import { useAction, useQuery } from 'wasp/client/operations';
+    import { deleteTask, getTasks } from 'wasp/client/operations'; // Assuming these exist
+    import type { Task } from 'wasp/entities';
+
+    function TaskList() {
+      const { data: tasks } = useQuery(getTasks);
+
+      // Use useAction when optimistic updates are needed
+      const { execute: deleteAction, isExecuting } = useAction(deleteTask, {
+        optimisticUpdates: [
+          {
+            // Specify the query to update optimistically
+            getQuerySpecifier: getTasks,
+            // Function to update the query cache
+            updateQuery: (oldTasks, args) => {
+              // args contains { taskId: number } passed to deleteAction
+              return oldTasks.filter(task => task.id !== args.taskId);
+            }
+          }
+        ]
+      });
+
+      const handleDelete = async (taskId: number) => {
+        try {
+          await deleteAction({ taskId });
+        } catch (error) {
+          console.error("Failed to delete task:", error);
+          // Optionally show an error message to the user
+        }
+      };
+
+      // ... render task list with delete buttons calling handleDelete ...
     }
     ```
-- **Responsive Design:** Use Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`) to apply styles conditionally based on screen size.
-  - ✅ `<div class="w-full md:w-1/2 lg:w-1/3">...</div>`
-- **Configuration:** If you need to customize Tailwind (e.g., add custom colors, fonts, spacing), modify the `@tailwind.config.js` file in the project root. 
+  - See [Wasp Optimistic Updates Documentation](mdc:https:/wasp-lang.com/docs/advanced/optimistic-updates).
+
+## Troubleshooting
+
+- **Wasp Type/Import Errors:** If you encounter TypeScript errors related to missing Wasp imports (e.g., from `wasp/client/operations`, `wasp/entities`, `wasp/server`) or unexpected type mismatches after modifying [main.wasp](mdc:main.wasp) or [schema.prisma](mdc:schema.prisma) , **try restarting the Wasp development server** (stop `Ctrl+C` and run `wasp start` again) before further debugging. Wasp needs to regenerate code based on these changes.
+- **Operations Not Working:**
+  - Check that all required `entities` are listed in the operation's definition in [main.wasp](mdc:main.wasp).
+  - Verify the import path (`fn: import { ... } from "@src/..."`) in [main.wasp](mdc:main.wasp) is correct.
+  - Check for runtime errors in the Wasp server console where `wasp start` is running.
+  - Ensure client-side calls match the expected arguments and types.
+- **Auth Not Working:**
+  - Verify the `auth` configuration in [main.wasp](mdc:main.wasp) (correct `userEntity`, `methods`, `onAuthFailedRedirectTo`).
+  - Ensure `userEntity` in [main.wasp](mdc:main.wasp) matches the actual `User` model name in [schema.prisma](mdc:schema.prisma).
+  - Check Wasp server logs for auth-related errors.
+  - If using social auth, confirm environment variables (e.g., `GOOGLE_CLIENT_ID`) are correctly set (e.g., in a `.env.server` file) and loaded by Wasp.
+- **Database Issues:**
+  - Ensure your [schema.prisma](mdc:schema.prisma) syntax is correct.
+  - Run `wasp db migrate-dev "Migration description"` after schema changes to apply them.
+  - If using PostgreSQL, ensure the database server is running.
+  - Check the `.env.server` file for the correct `DATABASE_URL`.
+- **Build/Runtime Errors:**
+  - Check import paths carefully (Wasp vs. relative vs. `@src/` rules, see [2-project-conventions.mdc](mdc:.cursor/rules/2-project-conventions.mdc) ).
+  - Ensure all dependencies are installed (`npm install`).
+  - Check the Wasp server console and the browser's developer console for specific error messages. 
 
 ---
 > Source: [vincanger/envelope-budgeting-test](https://github.com/vincanger/envelope-budgeting-test) — distributed by [TomeVault](https://tomevault.io).
