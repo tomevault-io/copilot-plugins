@@ -1,0 +1,9 @@
+{
+  "name": "mkaz--libro",
+  "displayName": "libro",
+  "description": "A terminal based book tracking tool",
+  "version": "1.0.0",
+  "author": "mkaz",
+  "homepage": "https://github.com/mkaz/libro",
+  "skills": []
+}
