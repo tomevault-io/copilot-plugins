@@ -1,0 +1,44 @@
+{
+  "name": "GridBNB-USDT",
+  "owner": "EBOLABOY",
+  "repo": "GridBNB-USDT",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8eAI\u7684\u81ea\u52a8\u5316\u4ea4\u6613\u7a0b\u5e8f\uff0c\u4e13\u4e3a\u6570\u5b57\u8d27\u5e01\u5e02\u573a\uff08BNB/USDT\uff09\u8bbe\u8ba1\u3002\u8be5\u7a0b\u5e8f\u65e8\u5728\u5b9e\u73b0\u5168\u81ea\u52a8\u5316\u4ea4\u6613\uff0c\u901a\u8fc7AI\u7b97\u6cd5\u5e2e\u52a9\u7528\u6237\u5728\u6570\u5b57\u8d27\u5e01\u5e02\u573a\u4e2d\u505a\u51fa\u66f4\u667a\u80fd\u7684\u4ea4\u6613\u51b3\u7b56\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EBOLABOY/GridBNB-USDT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T20:08:53Z"
+}
