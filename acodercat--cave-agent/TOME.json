@@ -1,0 +1,57 @@
+{
+  "name": "cave-agent",
+  "owner": "acodercat",
+  "repo": "cave-agent",
+  "description": "Stateful runtime management for LLM agents\u2014inject, manipulate, and retrieve Python objects across turns. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "examples/skills/code-review",
+      "github_url": "https://github.com/acodercat/cave-agent/tree/main/examples/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "smart-home",
+      "path": "examples/skills/smart-home",
+      "github_url": "https://github.com/acodercat/cave-agent/tree/main/examples/skills/smart-home",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/acodercat/cave-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T15:30:26Z"
+}
