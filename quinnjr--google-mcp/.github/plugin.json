@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--google-mcp",
+  "displayName": "google-mcp",
+  "description": "Model Context Protocol (MCP) server for Google Workspace - Calendar, Gmail, Drive, Docs, Sheets, Slides, Meet, Chat, Forms, YouTube, Tasks, and Contacts with OAuth 2.0 authentication",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/google-mcp",
+  "skills": []
+}
