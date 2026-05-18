@@ -7,11 +7,11 @@ AIPerf is a comprehensive benchmarking tool that measures the performance of gen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [ai-dynamo/aiperf](https://github.com/ai-dynamo/aiperf).
+Original source: `AGENTS.md` in [ai-dynamo/aiperf](https://github.com/ai-dynamo/aiperf).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
