@@ -1,0 +1,9 @@
+{
+  "name": "anivar--zod-skill",
+  "displayName": "zod-skill",
+  "description": "AI agent skill for Zod v4 \u2014 27 rules: schema design, parsing, error handling, type inference. Works with Claude Code, Cursor, Codex, Windsurf.",
+  "version": "1.0.0",
+  "author": "anivar",
+  "homepage": "https://github.com/anivar/zod-skill",
+  "skills": []
+}
