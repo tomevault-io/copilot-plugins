@@ -1,0 +1,9 @@
+{
+  "name": "juststeveking--laravel-flows",
+  "displayName": "laravel-flows",
+  "description": "A fluent, modular workflow builder for Laravel that leverages the Pipeline pattern to simplify and organise business logic.",
+  "version": "1.0.0",
+  "author": "JustSteveKing",
+  "homepage": "https://github.com/JustSteveKing/laravel-flows",
+  "skills": []
+}
