@@ -1,0 +1,14 @@
+{
+  "name": "m-mizutani--gollem",
+  "displayName": "gollem",
+  "description": "Go framework for agentic AI app with MCP and built-in tools",
+  "version": "1.0.0",
+  "author": "m-mizutani",
+  "homepage": "https://github.com/m-mizutani/gollem",
+  "skills": [
+    {
+      "name": "test-with-gt",
+      "description": ""
+    }
+  ]
+}
