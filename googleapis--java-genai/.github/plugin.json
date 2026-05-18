@@ -1,0 +1,9 @@
+{
+  "name": "googleapis--java-genai",
+  "displayName": "java-genai",
+  "description": "Google Gen AI Java SDK provides an interface for developers to integrate Google's generative models into their Java applications.",
+  "version": "1.0.0",
+  "author": "googleapis",
+  "homepage": "https://github.com/googleapis/java-genai",
+  "skills": []
+}
