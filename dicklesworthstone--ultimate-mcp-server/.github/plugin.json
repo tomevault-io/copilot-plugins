@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--ultimate-mcp-server",
+  "displayName": "ultimate_mcp_server",
+  "description": "Comprehensive MCP server exposing dozens of capabilities to AI agents: multi-provider LLM delegation, browser automation, document processing, vector ops, and cognitive memory systems",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/ultimate_mcp_server",
+  "skills": []
+}
