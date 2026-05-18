@@ -1,719 +1,1042 @@
-## data-table-api-standards
+## frontend-data-table-standards
 
-> title: Data Table API Development Standards
+> enableSorting: false,
 
 ---
-title: Data Table API Development Standards
-description: Guidelines for implementing RESTful APIs to support data tables, including CRUD operations, filtering, sorting, pagination, and response formats
-glob: "src/{api,server}/**/*.{ts,js,tsx,jsx}"
+title: Frontend Data Table Implementation Standards
+description: Guidelines for implementing data tables in React applications, including configuration, API integration, state management, and UI customization
+glob: "src/{components,features,pages}/**/{table,data-table}*.{ts,tsx,js,jsx}"
 alwaysApply: false
 ---
 
-# Data Table API Development Standards
+# Frontend Data Table Implementation Standards
 
 ## Introduction
 
-This rule defines standards for building server-side APIs that support data table components. The frontend data table requires consistent API patterns for CRUD operations, filtering, sorting, pagination, and error handling. Following these standards ensures seamless integration between the frontend table component and backend services.
+This rule defines standards for implementing data tables in our frontend React applications. These standards ensure consistent user experience, proper API integration, and maintainable code across our applications. All data table implementations should follow these guidelines to maintain consistency and provide a robust user experience.
 
-## API Overview
+## Data Table Component Overview
 
-A complete data table implementation requires the following API endpoints:
+Our advanced data table component provides the following features:
 
-1. **List/Query Endpoint**: Fetch multiple records with filtering, sorting, and pagination
-2. **Single Item Endpoint**: Get details for a specific record
-3. **Create Endpoint**: Add new records
-4. **Update Endpoint**: Modify existing records
-5. **Delete Endpoint**: Remove records (single or batch)
-6. **Batch Fetch Endpoint**: Retrieve multiple specific records by IDs
+1. **Server-side data fetching**: Integration with backend APIs
+2. **Pagination**: Navigate through large datasets
+3. **Sorting**: Order data by specific columns
+4. **Filtering**: Custom filtering including search and date ranges
+5. **Row selection**: Select single or multiple rows
+6. **Column visibility**: Toggle column visibility
+7. **Export functionality**: Export data to CSV or Excel
+8. **Row actions**: Perform operations on individual rows
+9. **Bulk actions**: Perform operations on multiple selected rows
+10. **URL state persistence**: Maintain table state in URL parameters
 
-For all endpoints, we follow a consistent request/response structure using RESTful principles.
+## Basic Usage Pattern
 
-## Common Response Structure
+### 1. Define Your Schema
 
-All API responses must follow these standard structures:
-
-### Success Response
+Start by defining the schema for your data using Zod:
 
 ```typescript
-interface SuccessResponse<T> {
-  success: true;
-  data: T; // Single item or array of items
-  message?: string; // Optional success message
-  pagination?: {
-    page: number;
-    limit: number;
-    total_pages: number;
-    total_items: number;
+import { z } from "zod";
+
+export const entitySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email().optional(),
+  created_at: z.string(),
+  status: z.enum(["active", "inactive", "pending"]),
+  // Add other fields as needed
+});
+
+export type Entity = z.infer<typeof entitySchema>;
+
+export const entitiesResponseSchema = z.object({
+  success: z.boolean(),
+  data: z.array(entitySchema),
+  pagination: z.object({
+    page: z.number(),
+    limit: z.number(),
+    total_pages: z.number(),
+    total_items: z.number(),
+  }),
+});
+```
+
+### 2. Create API Functions
+
+Implement API functions to communicate with your backend:
+
+```typescript
+// src/api/entity/fetch-entities.ts
+import { entitiesResponseSchema } from "@/schemas/entity-schema";
+
+const API_BASE_URL = "/api";
+
+export async function fetchEntities({
+  search = "",
+  from_date = "",
+  to_date = "",
+  sort_by = "created_at",
+  sort_order = "desc",
+  page = 1,
+  limit = 10,
+}) {
+  // Build query parameters
+  const params = new URLSearchParams();
+  if (search) params.append("search", search);
+  if (from_date) params.append("from_date", from_date);
+  if (to_date) params.append("to_date", to_date);
+  params.append("sort_by", sort_by);
+  params.append("sort_order", sort_order);
+  params.append("page", page.toString());
+  params.append("limit", limit.toString());
+
+  // Fetch data
+  const response = await fetch(`${API_BASE_URL}/entities?${params.toString()}`);
+  
+  if (!response.ok) {
+    throw new Error(`Failed to fetch entities: ${response.statusText}`);
+  }
+  
+  const data = await response.json();
+  return entitiesResponseSchema.parse(data);
+}
+
+export async function fetchEntitiesByIds(ids: number[]) {
+  if (ids.length === 0) {
+    return [];
+  }
+  
+  // Use batching for efficiency
+  const BATCH_SIZE = 50;
+  const results = [];
+  
+  // Process in batches
+  for (let i = 0; i < ids.length; i += BATCH_SIZE) {
+    const batchIds = ids.slice(i, i + BATCH_SIZE);
+    const params = new URLSearchParams();
+    
+    // Add each ID as a parameter
+    batchIds.forEach(id => {
+      params.append("ids", id.toString());
+    });
+    
+    const response = await fetch(`${API_BASE_URL}/entities/batch?${params.toString()}`);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch entities batch: ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    if (data.success && Array.isArray(data.data)) {
+      results.push(...data.data);
+    }
+  }
+  
+  return results;
+}
+```
+
+### 3. Create a Data Fetching Hook
+
+Create a custom hook to handle data fetching with React Query:
+
+```typescript
+// src/features/entity-table/utils/data-fetching.ts
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { fetchEntities } from "@/api/entity/fetch-entities";
+import { preprocessSearch } from "@/components/data-table/utils";
+
+export function useEntitiesData(
+  page: number,
+  pageSize: number,
+  search: string,
+  dateRange: { from_date: string; to_date: string },
+  sortBy: string,
+  sortOrder: string
+) {
+  return useQuery({
+    queryKey: [
+      "entities",
+      page,
+      pageSize,
+      preprocessSearch(search),
+      dateRange,
+      sortBy,
+      sortOrder,
+    ],
+    queryFn: () =>
+      fetchEntities({
+        page,
+        limit: pageSize,
+        search: preprocessSearch(search),
+        from_date: dateRange.from_date,
+        to_date: dateRange.to_date,
+        sort_by: sortBy,
+        sort_order: sortOrder,
+      }),
+    placeholderData: keepPreviousData,
+  });
+}
+
+// Add this property for the DataTable component
+useEntitiesData.isQueryHook = true;
+```
+
+### 4. Define Table Columns
+
+Define the columns for your data table:
+
+```typescript
+// src/features/entity-table/components/columns.tsx
+import { format } from "date-fns";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTableColumnHeader } from "@/components/data-table/column-header";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { Entity } from "@/schemas/entity-schema";
+import { DataTableRowActions } from "./row-actions";
+
+export const getColumns = (
+  handleRowDeselection: ((rowId: string) => void) | null | undefined
+): ColumnDef<Entity>[] => {
+  const baseColumns: ColumnDef<Entity>[] = [
+    {
+      accessorKey: "name",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Name" />
+      ),
+      cell: ({ row }) => (
+        <div className="font-medium">{row.getValue("name")}</div>
+      ),
+      size: 200,
+    },
+    {
+      accessorKey: "email",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Email" />
+      ),
+      cell: ({ row }) => <div>{row.getValue("email")}</div>,
+      size: 250,
+    },
+    {
+      accessorKey: "status",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Status" />
+      ),
+      cell: ({ row }) => {
+        const status = row.getValue("status") as string;
+        return (
+          <Badge variant={
+            status === "active" ? "success" :
+            status === "inactive" ? "secondary" : "warning"
+          }>
+            {status}
+          </Badge>
+        );
+      },
+      size: 120,
+    },
+    {
+      accessorKey: "created_at",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Created" />
+      ),
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("created_at"));
+        return <div>{format(date, "MMM d, yyyy")}</div>;
+      },
+      size: 120,
+    },
+    {
+      id: "actions",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Actions" />
+      ),
+      cell: ({ row, table }) => <DataTableRowActions row={row} table={table} />,
+      size: 100,
+    },
+  ];
+
+  // Only include selection column if row selection is enabled
+  if (handleRowDeselection !== null) {
+    return [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+            className="translate-y-0.5 cursor-pointer"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => {
+              row.toggleSelected(!!value);
+              if (!value && handleRowDeselection) {
+                handleRowDeselection(row.id);
+              }
+            }}
+            aria-label="Select row"
+            className="translate-y-0.5 cursor-pointer"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+        size: 50,
+      },
+      ...baseColumns,
+    ];
+  }
+
+  return baseColumns;
+};
+```
+
+### 5. Implement Row Actions
+
+Create components for row actions:
+
+```typescript
+// src/features/entity-table/components/row-actions.tsx
+import * as React from "react";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { Row } from "@tanstack/react-table";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { entitySchema } from "@/schemas/entity-schema";
+import { DeleteEntityPopup } from "./actions/delete-entity-popup";
+
+interface DataTableRowActionsProps<TData> {
+  row: Row<TData>;
+  table: any; // Table instance
+}
+
+export function DataTableRowActions<TData>({
+  row,
+  table,
+}: DataTableRowActionsProps<TData>) {
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const entity = entitySchema.parse(row.original);
+
+  // Function to reset all selections
+  const resetSelection = () => {
+    table.resetRowSelection();
+  };
+
+  // Handle edit function
+  const handleEdit = () => {
+    console.log("Edit entity:", entity);
+    // Implement edit logic or navigation
+  };
+
+  // Handle view details function
+  const handleViewDetails = () => {
+    console.log("View entity details:", entity);
+    // Implement view details logic or navigation
+  };
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem onClick={handleEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleViewDetails}>View Details</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => setDeleteDialogOpen(true)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DeleteEntityPopup
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        entityId={entity.id}
+        entityName={entity.name}
+        resetSelection={resetSelection}
+      />
+    </>
+  );
+}
+```
+
+### 6. Configure Export Options
+
+Define export configuration:
+
+```typescript
+// src/features/entity-table/utils/config.ts
+import { useMemo } from "react";
+
+export function useExportConfig() {
+  // Column mapping for export
+  const columnMapping = useMemo(() => {
+    return {
+      id: "ID",
+      name: "Name",
+      email: "Email",
+      status: "Status",
+      created_at: "Created Date",
+    };
+  }, []);
+  
+  // Column widths for Excel export
+  const columnWidths = useMemo(() => {
+    return [
+      { wch: 10 }, // ID
+      { wch: 25 }, // Name
+      { wch: 30 }, // Email
+      { wch: 15 }, // Status
+      { wch: 20 }, // Created At
+    ];
+  }, []);
+
+  // Headers for CSV export
+  const headers = useMemo(() => {
+    return [
+      "id",
+      "name",
+      "email",
+      "status",
+      "created_at",
+    ];
+  }, []);
+
+  return {
+    columnMapping,
+    columnWidths,
+    headers,
+    entityName: "entities" // Used for filename
   };
 }
 ```
 
-### Error Response
+### 7. Implement Toolbar Options
+
+Create custom toolbar content:
 
 ```typescript
-interface ErrorResponse {
-  success: false;
-  error: string; // Human-readable error message
-  details?: any; // Optional detailed error information
-  code?: string; // Optional error code
+// src/features/entity-table/components/toolbar-options.tsx
+import * as React from "react";
+import { PlusCircle, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AddEntityPopup } from "./actions/add-entity-popup";
+import { BulkDeletePopup } from "./actions/bulk-delete-popup";
+
+interface ToolbarOptionsProps {
+  selectedEntities: { id: number; name: string }[];
+  allSelectedIds?: number[];
+  totalSelectedCount: number;
+  resetSelection: () => void;
+}
+
+export const ToolbarOptions = ({
+  selectedEntities,
+  allSelectedIds = [],
+  totalSelectedCount,
+  resetSelection,
+}: ToolbarOptionsProps) => {
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  
+  return (
+    <div className="flex items-center gap-2">
+      <AddEntityPopup />
+      
+      {totalSelectedCount > 0 && (
+        <>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => setDeleteDialogOpen(true)}
+          >
+            <Trash2 className="mr-2 h-4 w-4" />
+            Delete ({totalSelectedCount})
+          </Button>
+
+          <BulkDeletePopup
+            open={deleteDialogOpen}
+            onOpenChange={setDeleteDialogOpen}
+            selectedEntities={selectedEntities}
+            allSelectedIds={allSelectedIds}
+            totalSelectedCount={totalSelectedCount}
+            resetSelection={resetSelection}
+          />
+        </>
+      )}
+    </div>
+  );
+};
+```
+
+### 8. Implement The Main Data Table Component
+
+Put everything together in the main table component:
+
+```typescript
+// src/features/entity-table/index.tsx
+"use client";
+
+import { DataTable } from "@/components/data-table/data-table";
+import { getColumns } from "./components/columns";
+import { useExportConfig } from "./utils/config";
+import { fetchEntitiesByIds } from "@/api/entity/fetch-entities-by-ids";
+import { useEntitiesData } from "./utils/data-fetching";
+import { ToolbarOptions } from "./components/toolbar-options";
+import { Entity } from "@/schemas/entity-schema";
+
+export default function EntityTable() {
+  return (
+    <DataTable<Entity, any>
+      getColumns={getColumns}
+      exportConfig={useExportConfig()}
+      fetchDataFn={useEntitiesData}
+      fetchByIdsFn={fetchEntitiesByIds}
+      idField="id"
+      pageSizeOptions={[10, 20, 50, 100]}
+      renderToolbarContent={({ selectedRows, allSelectedIds, totalSelectedCount, resetSelection }) => (
+        <ToolbarOptions
+          selectedEntities={selectedRows.map(row => ({
+            id: row.id,
+            name: row.name,
+          }))}
+          allSelectedIds={allSelectedIds}
+          totalSelectedCount={totalSelectedCount}
+          resetSelection={resetSelection}
+        />
+      )}
+      config={{
+        enableRowSelection: true,
+        enableSearch: true,
+        enableDateFilter: true,
+        enableColumnVisibility: true,
+        enableUrlState: true,
+        columnResizingTableId: "entity-table",
+      }}
+    />
+  );
 }
 ```
 
-## Endpoint Implementations
+### 9. Add to Page
 
-### List/Query Endpoint
-
-**URL Pattern**: `/api/{resource}`  
-**Method**: `GET`  
-**Purpose**: Fetch a collection of resources with filtering, sorting, and pagination
-
-#### Query Parameters
-
-- `search`: Text search term
-- `from_date`: Start date filter (ISO format)
-- `to_date`: End date filter (ISO format)
-- `sort_by`: Field to sort by
-- `sort_order`: Sort direction (`asc` or `desc`)
-- `page`: Page number (1-based)
-- `limit`: Items per page
-- Additional custom filters as needed
-
-#### Implementation Example
+Add the data table to your page:
 
 ```typescript
-// Using Hono and Drizzle ORM with PostgreSQL
-import { Hono } from "hono";
-import { z } from "zod";
-import { and, asc, between, count, desc, eq, ilike, or, sql } from "drizzle-orm";
-import { db } from "@/db";
-import { myEntityTable } from "@/db/schema/my-entity";
+// src/app/entities/page.tsx
+import { Metadata } from "next";
+import { Suspense } from "react";
+import EntityTable from "@/features/entity-table";
 
-const router = new Hono();
+export const metadata: Metadata = {
+  title: "Entities Management",
+  description: "Manage entities in the system",
+};
 
-// Define query parameter schema with Zod
-const querySchema = z.object({
-  search: z.string().optional(),
-  from_date: z.string().optional(),
-  to_date: z.string().optional(),
-  sort_by: z.enum(["created_at", "name", "id", /* add other sortable fields */]).default("created_at"),
-  sort_order: z.enum(["asc", "desc"]).default("desc"),
-  page: z.coerce.number().default(1),
-  limit: z.coerce.number().default(10),
-});
+export default function EntitiesPage() {
+  return (
+    <div className="container mx-auto py-10">
+      <h1 className="text-2xl font-bold mb-4">Entities</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <EntityTable />
+      </Suspense>
+    </div>
+  );
+}
+```
 
-// GET /api/my-entities
-router.get("/", async (c) => {
-  try {
-    // Parse and validate query parameters
-    const result = querySchema.safeParse(c.req.query());
-    
-    if (!result.success) {
-      return c.json({
-        success: false,
-        error: "Invalid query parameters",
-        details: result.error.format(),
-      }, 400);
-    }
-    
-    const { search, from_date, to_date, sort_by, sort_order, page, limit } = result.data;
-    
-    // Build filters
-    const filters = [];
-    
-    // Search filter (search across multiple fields)
-    if (search) {
-      filters.push(
-        or(
-          ilike(myEntityTable.name, `%${search}%`),
-          ilike(myEntityTable.description, `%${search}%`),
-          // Add other searchable fields
-        )
-      );
-    }
-    
-    // Date filtering
-    if (from_date && to_date) {
-      filters.push(
-        between(
-          myEntityTable.created_at,
-          new Date(from_date),
-          new Date(to_date)
-        )
-      );
-    } else if (from_date) {
-      const fromDateTime = new Date(from_date);
-      filters.push(sql`${myEntityTable.created_at} >= ${fromDateTime}`);
-    } else if (to_date) {
-      const toDateTime = new Date(to_date);
-      filters.push(sql`${myEntityTable.created_at} <= ${toDateTime}`);
-    }
-    
-    // Add any custom filters here
-    
-    // Get data with pagination
-    const data = await db
-      .select()
-      .from(myEntityTable)
-      .where(filters.length > 0 ? and(...filters) : undefined)
-      .orderBy(
-        sort_by === "name"
-          ? sort_order === "asc" ? asc(myEntityTable.name) : desc(myEntityTable.name)
-          : sort_order === "asc" ? asc(myEntityTable.created_at) : desc(myEntityTable.created_at)
-        // Add other sort fields as needed
-      )
-      .limit(limit)
-      .offset((page - 1) * limit);
-    
-    // Count total items (for pagination)
-    const [{ value: totalItems }] = await db
-      .select({ value: count() })
-      .from(myEntityTable)
-      .where(filters.length > 0 ? and(...filters) : undefined);
-    
-    return c.json({
-      success: true,
-      data: data,
-      pagination: {
+## Data Table Props Reference
+
+The `DataTable` component accepts the following props:
+
+```typescript
+interface DataTableProps<TData, TValue> {
+  // Function to get column definitions
+  getColumns: (handleRowDeselection?: (rowId: string) => void) => ColumnDef<TData, TValue>[];
+  
+  // Function to fetch data
+  fetchDataFn: (
+    page: number,
+    pageSize: number,
+    search: string,
+    dateRange: { from_date: string; to_date: string },
+    sortBy: string,
+    sortOrder: string
+  ) => QueryObserverResult;
+  
+  // Function to fetch entities by IDs (for selection across pages)
+  fetchByIdsFn?: (ids: number[]) => Promise<TData[]>;
+  
+  // Field to use as ID
+  idField: keyof TData;
+  
+  // Available page size options
+  pageSizeOptions?: number[];
+  
+  // Function to render custom toolbar content
+  renderToolbarContent?: (options: {
+    selectedRows: TData[];
+    allSelectedIds: number[];
+    totalSelectedCount: number;
+    resetSelection: () => void;
+  }) => React.ReactNode;
+  
+  // Export configuration
+  exportConfig?: {
+    columnMapping: Record<string, string>;
+    columnWidths: { wch: number }[];
+    headers: string[];
+    entityName: string;
+  };
+  
+  // Configuration options
+  config?: {
+    enableRowSelection?: boolean;
+    enableClickRowSelect?: boolean;
+    enableKeyboardNavigation?: boolean;
+    enableSearch?: boolean;
+    enableDateFilter?: boolean;
+    enableColumnVisibility?: boolean;
+    enableUrlState?: boolean;
+    columnResizingTableId?: string;
+  };
+}
+```
+
+## Common Configuration Options
+
+### Row Selection
+
+Enable row selection to allow users to select rows for bulk actions:
+
+```typescript
+config={{
+  enableRowSelection: true,
+  enableClickRowSelect: false, // Enable/disable row selection by clicking anywhere in the row
+}}
+```
+
+### Search and Filtering
+
+Enable search and date filtering:
+
+```typescript
+config={{
+  enableSearch: true,
+  enableDateFilter: true,
+}}
+```
+
+### Column Visibility
+
+Allow users to toggle column visibility:
+
+```typescript
+config={{
+  enableColumnVisibility: true,
+}}
+```
+
+### URL State Persistence
+
+Maintain table state (pagination, sorting, filters) in URL parameters:
+
+```typescript
+config={{
+  enableUrlState: true,
+}}
+```
+
+### Column Resizing
+
+Enable column resizing with persistence:
+
+```typescript
+config={{
+  columnResizingTableId: "entity-table", // Unique ID for storing column widths
+}}
+```
+
+## Advanced Usage
+
+### Custom Filtering
+
+To add custom filters beyond the built-in search and date filters:
+
+```typescript
+// src/features/entity-table/index.tsx
+import * as React from "react";
+import { DataTable } from "@/components/data-table/data-table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { X } from "lucide-react";
+
+export default function EntityTableWithCustomFilters() {
+  const [statusFilter, setStatusFilter] = React.useState("all");
+  
+  // Extend the base query with custom filter
+  const fetchEntitiesWithStatus = React.useCallback(
+    (page, pageSize, search, dateRange, sortBy, sortOrder) => {
+      return useEntitiesData(
         page,
-        limit,
-        total_pages: Math.ceil(totalItems / limit),
-        total_items: totalItems,
-      },
-    });
-  } catch (error) {
-    console.error("Error fetching items:", error);
-    return c.json({
-      success: false,
-      error: "Failed to fetch items",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-
-export default router;
-```
-
-### Single Item Endpoint
-
-**URL Pattern**: `/api/{resource}/{id}`  
-**Method**: `GET`  
-**Purpose**: Retrieve a specific resource by ID
-
-#### Implementation Example
-
-```typescript
-// GET /api/my-entities/:id
-router.get("/:id", async (c) => {
-  try {
-    const id = parseInt(c.req.param("id"), 10);
-    
-    if (isNaN(id)) {
-      return c.json({
-        success: false,
-        error: "Invalid ID format",
-      }, 400);
-    }
-    
-    const [item] = await db
-      .select()
-      .from(myEntityTable)
-      .where(eq(myEntityTable.id, id));
-    
-    if (!item) {
-      return c.json({
-        success: false,
-        error: "Item not found",
-      }, 404);
-    }
-    
-    return c.json({
-      success: true,
-      data: item,
-    });
-  } catch (error) {
-    console.error("Error fetching item:", error);
-    return c.json({
-      success: false,
-      error: "Failed to fetch item",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-```
-
-### Create Endpoint
-
-**URL Pattern**: `/api/{resource}` or `/api/{resource}/add`  
-**Method**: `POST`  
-**Purpose**: Add a new resource
-
-#### Implementation Example
-
-```typescript
-// Input validation schema
-const createSchema = z.object({
-  name: z.string().min(1, "Name is required").max(255),
-  description: z.string().optional(),
-  // Add other fields as needed
-});
-
-// POST /api/my-entities/add
-router.post("/add", async (c) => {
-  try {
-    // Parse and validate request body
-    const body = await c.req.json();
-    const validatedData = createSchema.parse(body);
-    
-    // Check for unique constraints if needed
-    const existingItem = await db.query.myEntityTable.findFirst({
-      where: eq(myEntityTable.name, validatedData.name),
-    });
-    
-    if (existingItem) {
-      return c.json({
-        success: false,
-        error: "An item with this name already exists",
-      }, 409);
-    }
-    
-    // Insert new item
-    const [newItem] = await db
-      .insert(myEntityTable)
-      .values({
-        name: validatedData.name,
-        description: validatedData.description,
-        // Add other fields
-      })
-      .returning();
-    
-    return c.json({
-      success: true,
-      data: newItem,
-      message: "Item created successfully"
-    }, 201);
-  } catch (error) {
-    console.error("Error creating item:", error);
-    
-    if (error instanceof z.ZodError) {
-      return c.json({
-        success: false,
-        error: "Validation error",
-        details: error.errors,
-      }, 400);
-    }
-    
-    return c.json({
-      success: false,
-      error: "Failed to create item",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-```
-
-### Update Endpoint
-
-**URL Pattern**: `/api/{resource}/{id}`  
-**Method**: `PUT` or `PATCH`  
-**Purpose**: Update an existing resource
-
-#### Implementation Example
-
-```typescript
-// Update validation schema
-const updateSchema = z.object({
-  name: z.string().min(1, "Name is required").max(255).optional(),
-  description: z.string().optional(),
-  // Add other fields as needed
-});
-
-// PUT /api/my-entities/:id
-router.put("/:id", async (c) => {
-  try {
-    const id = parseInt(c.req.param("id"), 10);
-    
-    if (isNaN(id)) {
-      return c.json({
-        success: false,
-        error: "Invalid ID format",
-      }, 400);
-    }
-    
-    // Check if item exists
-    const [existingItem] = await db
-      .select()
-      .from(myEntityTable)
-      .where(eq(myEntityTable.id, id));
-    
-    if (!existingItem) {
-      return c.json({
-        success: false,
-        error: "Item not found",
-      }, 404);
-    }
-    
-    // Parse and validate request body
-    const body = await c.req.json();
-    const validatedData = updateSchema.parse(body);
-    
-    // Check name uniqueness if name is being updated
-    if (validatedData.name && validatedData.name !== existingItem.name) {
-      const duplicateName = await db.query.myEntityTable.findFirst({
-        where: eq(myEntityTable.name, validatedData.name),
-      });
+        pageSize,
+        search,
+        dateRange,
+        sortBy,
+        sortOrder,
+        statusFilter === "all" ? undefined : statusFilter
+      );
+    },
+    [statusFilter]
+  );
+  
+  // Set isQueryHook property
+  fetchEntitiesWithStatus.isQueryHook = true;
+  
+  // Custom filter UI
+  const renderCustomFilters = () => (
+    <div className="flex items-center gap-2">
+      <Select
+        value={statusFilter}
+        onValueChange={setStatusFilter}
+      >
+        <SelectTrigger className="h-8 w-[150px]">
+          <SelectValue placeholder="Status" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Statuses</SelectItem>
+          <SelectItem value="active">Active</SelectItem>
+          <SelectItem value="inactive">Inactive</SelectItem>
+          <SelectItem value="pending">Pending</SelectItem>
+        </SelectContent>
+      </Select>
       
-      if (duplicateName) {
-        return c.json({
-          success: false,
-          error: "An item with this name already exists",
-        }, 409);
+      {statusFilter !== 'all' && (
+        <Badge 
+          variant="outline" 
+          className="h-8 px-3 flex items-center gap-1"
+        >
+          Status: {statusFilter}
+          <X 
+            className="h-3 w-3 cursor-pointer" 
+            onClick={() => setStatusFilter('all')} 
+          />
+        </Badge>
+      )}
+    </div>
+  );
+  
+  return (
+    <DataTable<Entity, any>
+      getColumns={getColumns}
+      exportConfig={useExportConfig()}
+      fetchDataFn={fetchEntitiesWithStatus}
+      fetchByIdsFn={fetchEntitiesByIds}
+      idField="id"
+      pageSizeOptions={[10, 20, 50, 100]}
+      renderToolbarContent={({ selectedRows, allSelectedIds, totalSelectedCount, resetSelection }) => (
+        <div className="flex items-center justify-between w-full">
+          <div>{renderCustomFilters()}</div>
+          <ToolbarOptions
+            selectedEntities={selectedRows.map(row => ({
+              id: row.id,
+              name: row.name,
+            }))}
+            allSelectedIds={allSelectedIds}
+            totalSelectedCount={totalSelectedCount}
+            resetSelection={resetSelection}
+          />
+        </div>
+      )}
+      config={{
+        enableRowSelection: true,
+        enableSearch: true,
+        enableDateFilter: true,
+        enableColumnVisibility: true,
+        enableUrlState: true,
+      }}
+    />
+  );
+}
+```
+
+### Custom Cell Rendering
+
+For more complex cell rendering:
+
+```typescript
+{
+  accessorKey: "status",
+  header: ({ column }) => (
+    <DataTableColumnHeader column={column} title="Status" />
+  ),
+  cell: ({ row }) => {
+    const status = row.getValue("status") as string;
+    
+    // Map status to variant
+    const variant = {
+      active: "success",
+      inactive: "secondary",
+      pending: "warning",
+      error: "destructive",
+    }[status] || "outline";
+    
+    return (
+      <div className="flex w-full justify-center">
+        <Badge variant={variant}>{status}</Badge>
+      </div>
+    );
+  },
+  size: 100,
+}
+```
+
+### Row Actions with Confirmation
+
+Create action components with confirmation dialogs:
+
+```typescript
+// src/features/entity-table/components/actions/delete-entity-popup.tsx
+"use client";
+
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import { deleteEntity } from "@/api/entity/delete-entity";
+
+interface DeleteEntityPopupProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  entityId: number;
+  entityName: string;
+  resetSelection?: () => void;
+}
+
+export function DeleteEntityPopup({
+  open,
+  onOpenChange,
+  entityId,
+  entityName,
+  resetSelection,
+}: DeleteEntityPopupProps) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleDelete = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Call API to delete entity
+      const response = await deleteEntity(entityId);
+
+      if (response.success) {
+        toast.success("Entity deleted successfully");
+        onOpenChange(false);
+        
+        // Reset selection if provided
+        if (resetSelection) {
+          resetSelection();
+        }
+        
+        // Refresh data
+        router.refresh();
+        await queryClient.invalidateQueries({ queryKey: ["entities"] });
+      } else {
+        toast.error(response.error || "Failed to delete entity");
       }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete entity"
+      );
+    } finally {
+      setIsLoading(false);
     }
-    
-    // Update item
-    const [updatedItem] = await db
-      .update(myEntityTable)
-      .set({
-        ...validatedData,
-        updated_at: new Date(),
-      })
-      .where(eq(myEntityTable.id, id))
-      .returning();
-    
-    return c.json({
-      success: true,
-      data: updatedItem,
-      message: "Item updated successfully"
-    });
-  } catch (error) {
-    console.error("Error updating item:", error);
-    
-    if (error instanceof z.ZodError) {
-      return c.json({
-        success: false,
-        error: "Validation error",
-        details: error.errors,
-      }, 400);
-    }
-    
-    return c.json({
-      success: false,
-      error: "Failed to update item",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-```
+  };
 
-### Delete Endpoint
-
-**URL Pattern**: `/api/{resource}/{id}`  
-**Method**: `DELETE`  
-**Purpose**: Remove a resource
-
-#### Implementation Example
-
-```typescript
-// DELETE /api/my-entities/:id
-router.delete("/:id", async (c) => {
-  try {
-    const id = parseInt(c.req.param("id"), 10);
-    
-    if (isNaN(id)) {
-      return c.json({
-        success: false,
-        error: "Invalid ID format",
-      }, 400);
-    }
-    
-    // Check if item exists
-    const [existingItem] = await db
-      .select()
-      .from(myEntityTable)
-      .where(eq(myEntityTable.id, id));
-    
-    if (!existingItem) {
-      return c.json({
-        success: false,
-        error: "Item not found",
-      }, 404);
-    }
-    
-    // Delete related records if needed (handle cascading)
-    // await db.delete(relatedTable).where(eq(relatedTable.entity_id, id));
-    
-    // Delete the item
-    await db.delete(myEntityTable).where(eq(myEntityTable.id, id));
-    
-    return c.json({
-      success: true,
-      message: "Item deleted successfully",
-    });
-  } catch (error) {
-    console.error("Error deleting item:", error);
-    return c.json({
-      success: false,
-      error: "Failed to delete item",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-```
-
-### Batch Fetch Endpoint
-
-**URL Pattern**: `/api/{resource}/batch` or using query parameters  
-**Method**: `GET` or `POST`  
-**Purpose**: Retrieve multiple specific resources by their IDs
-
-#### Implementation Example
-
-```typescript
-// GET /api/my-entities/batch?ids=1,2,3
-// or
-// POST /api/my-entities/batch with body { ids: [1, 2, 3] }
-router.get("/batch", async (c) => {
-  try {
-    let ids: number[] = [];
-    
-    // Get IDs from query parameters (comma-separated)
-    const idsParam = c.req.query("ids");
-    
-    if (idsParam) {
-      ids = idsParam.split(",")
-        .map(id => parseInt(id.trim(), 10))
-        .filter(id => !isNaN(id));
-    }
-    
-    if (ids.length === 0) {
-      return c.json({
-        success: true,
-        data: [] // Return empty array for no IDs
-      });
-    }
-    
-    // Fetch the items by IDs
-    const items = await db
-      .select()
-      .from(myEntityTable)
-      .where(inArray(myEntityTable.id, ids));
-    
-    // Return the result
-    return c.json({
-      success: true,
-      data: items
-    });
-  } catch (error) {
-    console.error("Error batch fetching items:", error);
-    return c.json({
-      success: false,
-      error: "Failed to fetch items",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-
-// Alternative POST implementation for larger ID sets
-router.post("/batch", async (c) => {
-  try {
-    const body = await c.req.json();
-    
-    if (!Array.isArray(body.ids) || body.ids.length === 0) {
-      return c.json({
-        success: true,
-        data: [] // Return empty array for no IDs
-      });
-    }
-    
-    const ids = body.ids
-      .map(id => parseInt(id, 10))
-      .filter(id => !isNaN(id));
-    
-    // Process IDs in batches to avoid URL length limitations
-    const BATCH_SIZE = 50;
-    const items = [];
-    
-    // Process in batches
-    for (let i = 0; i < ids.length; i += BATCH_SIZE) {
-      const batchIds = ids.slice(i, i + BATCH_SIZE);
-      
-      const batchItems = await db
-        .select()
-        .from(myEntityTable)
-        .where(inArray(myEntityTable.id, batchIds));
-      
-      items.push(...batchItems);
-    }
-    
-    return c.json({
-      success: true,
-      data: items
-    });
-  } catch (error) {
-    console.error("Error batch fetching items:", error);
-    return c.json({
-      success: false,
-      error: "Failed to fetch items",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
-```
-
-### Bulk Delete Endpoint
-
-**URL Pattern**: `/api/{resource}/bulk-delete`  
-**Method**: `POST`  
-**Purpose**: Delete multiple resources at once
-
-#### Implementation Example
-
-```typescript
-// POST /api/my-entities/bulk-delete
-router.post("/bulk-delete", async (c) => {
-  try {
-    const body = await c.req.json();
-    
-    if (!Array.isArray(body.ids) || body.ids.length === 0) {
-      return c.json({
-        success: false,
-        error: "No valid IDs provided"
-      }, 400);
-    }
-    
-    const ids = body.ids
-      .map(id => parseInt(id, 10))
-      .filter(id => !isNaN(id));
-    
-    if (ids.length === 0) {
-      return c.json({
-        success: false,
-        error: "No valid IDs provided"
-      }, 400);
-    }
-    
-    // Delete related records if needed (handle cascading)
-    // await db.delete(relatedTable).where(inArray(relatedTable.entity_id, ids));
-    
-    // Delete the items
-    const result = await db
-      .delete(myEntityTable)
-      .where(inArray(myEntityTable.id, ids));
-    
-    // Count of deleted items may not be directly available in some ORMs
-    // If available, use it; otherwise just confirm operation completed
-    
-    return c.json({
-      success: true,
-      message: `Items deleted successfully`,
-      details: {
-        deleted_count: ids.length
-      }
-    });
-  } catch (error) {
-    console.error("Error bulk deleting items:", error);
-    return c.json({
-      success: false,
-      error: "Failed to delete items",
-      details: error instanceof Error ? error.message : String(error),
-    }, 500);
-  }
-});
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Delete Entity</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to delete {entityName}? This action cannot be undone.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={isLoading}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={isLoading}
+          >
+            {isLoading ? "Deleting..." : "Delete"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 ```
 
 ## Implementation Steps
 
-When implementing a data table API for any entity, follow these steps:
+Follow these steps when implementing a data table:
 
 1. **Define the Schema**:
-   - Identify the entity fields
-   - Set up appropriate data types and constraints
-   - Define relationships with other entities
+   - Create Zod schema for your entity
+   - Define TypeScript types using schema inference
 
-2. **Implement Core Endpoints**:
-   - Create the list endpoint with filtering, sorting, and pagination
-   - Add single item fetch endpoint
-   - Implement create/update/delete endpoints
-   - Add batch operations as needed
+2. **Create API Functions**:
+   - Implement fetch functions with filtering, sorting, and pagination
+   - Add batch fetch functionality for selected rows
 
-3. **Add Validation**:
-   - Define Zod schemas for input validation
-   - Validate query parameters and request bodies
-   - Handle validation errors consistently
+3. **Set Up Data Fetching**:
+   - Create a React Query hook for data fetching
+   - Include all necessary parameters for filtering and sorting
 
-4. **Implement Error Handling**:
-   - Catch all potential errors
-   - Return appropriate HTTP status codes
-   - Provide helpful error messages
-   - Log errors for debugging
+4. **Define Table Columns**:
+   - Create column definitions with proper accessors
+   - Implement custom cell rendering for special columns
+   - Add row action component
 
-5. **Optimize for Performance**:
-   - Use appropriate indexes for frequently queried fields
-   - Implement efficient pagination
-   - Use batch operations for related data
-   - Consider caching for frequently accessed data
+5. **Implement UI Components**:
+   - Create toolbar with add/bulk actions
+   - Implement confirmation dialogs for destructive actions
+   - Add export configuration
+
+6. **Configure the DataTable**:
+   - Set up feature flags appropriate for your use case
+   - Configure pagination options
+   - Enable URL state persistence if needed
+
+7. **Add to Page**:
+   - Import table component in page file
+   - Wrap in Suspense for better loading experience
 
 ## Best Practices
 
-1. **Consistent Response Format**:
-   - Always use the standardized success/error response format
-   - Include pagination information for list endpoints
-   - Provide meaningful error messages
+1. **Consistent Schema Definition**:
+   - Use Zod for validation on both client and server
+   - Keep schema definitions in sync with API responses
+   - Use type inference for TypeScript types
 
-2. **Parameter Validation**:
-   - Validate all inputs with appropriate schemas
-   - Convert string parameters to their proper types (numbers, dates, etc.)
-   - Provide default values for optional parameters
+2. **Optimistic UI Updates**:
+   - Implement optimistic updates for better UX
+   - Properly handle error cases and rollbacks
+   - Use React Query's mutation functionality
 
-3. **Database Operations**:
-   - Use transactions for operations that modify multiple tables
-   - Handle database constraints and uniqueness checks
-   - Implement proper error handling for database operations
+3. **Error Handling**:
+   - Display toast notifications for errors
+   - Show appropriate error states in the UI
+   - Log errors to console for debugging
 
-4. **API Design**:
-   - Follow RESTful principles
-   - Use consistent naming conventions
-   - Implement proper HTTP methods for different operations
-   - Return appropriate HTTP status codes
+4. **Accessibility**:
+   - Ensure keyboard navigation works properly
+   - Add proper ARIA attributes to interactive elements
+   - Test with screen readers
 
-5. **Security**:
-   - Validate and sanitize all inputs
-   - Implement proper authentication and authorization
-   - Use parameterized queries to prevent SQL injection
-   - Don't expose sensitive data in responses
+5. **Performance**:
+   - Use memoization for expensive computations
+   - Keep pagination size reasonable
+   - Implement virtualization for very large tables
+   - Use stable key props for list items
 
-6. **Documentation**:
-   - Add comments explaining complex logic
-   - Document API endpoints, parameters, and responses
-   - Include examples of request/response formats
+6. **State Management**:
+   - Maintain table state in URL for shareable links
+   - Use React Query for server state
+   - Keep UI state local to components when possible
+
+7. **Reusability**:
+   - Extract common patterns into reusable components
+   - Create generic utilities for filtering, sorting, etc.
+   - Keep business logic separate from UI components
 
 ## Common Pitfalls
 
-1. **Forgetting to handle invalid input types** (e.g., non-numeric IDs)
-2. **Missing validation** for query parameters or request bodies
-3. **Inconsistent error responses** across different endpoints
-4. **Not handling database errors** properly
-5. **Inefficient queries** that don't scale with data growth
-6. **Missing pagination** on list endpoints
-7. **Not limiting query results**, potentially returning too many records
-8. **Incomplete validation** of uniqueness constraints before insert/update
-9. **Missing authorization checks** for sensitive operations
-10. **Not handling related data** correctly when deleting records
+1. **Forgetting to validate API responses** with Zod
+2. **Not handling loading states** properly
+3. **Refetching data unnecessarily** after mutations
+4. **Missing error states** in the UI
+5. **Inconsistent naming conventions** across components
+6. **Over-fetching data** by not using proper pagination
+7. **Poor mobile support** for tables
+8. **Not using optimal column definitions** for performance
+9. **Forgetting to reset selection** after operations
+10. **Missing keyboard accessibility** for table interactions
 
-## Task Splitting Strategy
+## Component Overview
 
-When implementing a new entity API, divide the work into these manageable tasks:
+Here's a summary of the components needed for a complete data table implementation:
 
-1. **Schema Definition**: Define the database schema and relationships
-2. **Base CRUD**: Implement basic CRUD operations without advanced filtering
-3. **Filtering & Sorting**: Add filtering and sorting capabilities
-4. **Pagination**: Implement proper pagination
-5. **Validation**: Add input validation for all endpoints
-6. **Error Handling**: Ensure comprehensive error handling
-7. **Batch Operations**: Implement batch operations (if needed)
-8. **Testing**: Write tests for all endpoints
-9. **Documentation**: Document the API endpoints
-10. **Performance Optimization**: Optimize for performance if needed
+1. **Main Components**:
+   - `DataTable`: Core table component
+   - Column definitions
+   - Data fetching hook
+   - Row actions component
+   - Toolbar component
+
+2. **Action Components**:
+   - Add/create dialog
+   - Edit dialog
+   - Delete confirmation
+   - Bulk delete confirmation
+   - View details component
+
+3. **Utility Components**:
+   - Export configuration
+   - Custom filters
+   - Date range picker
+   - Search input
+
+By following these patterns consistently, you'll create data tables that are easy to use, maintain, and extend across your application.
 
 ---
 > Source: [jacksonkasi1/tnks-data-table](https://github.com/jacksonkasi1/tnks-data-table) — distributed by [TomeVault](https://tomevault.io).
