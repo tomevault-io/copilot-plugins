@@ -7,13 +7,13 @@ MCP Server and Toolkit for Flutter AI Agent Driven Development - via closed feed
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter).
+Original source: `.cursor/rules/*.mdc` in [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
