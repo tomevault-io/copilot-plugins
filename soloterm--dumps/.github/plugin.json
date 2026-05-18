@@ -1,0 +1,9 @@
+{
+  "name": "soloterm--dumps",
+  "displayName": "dumps",
+  "description": "A Laravel command to intercept dumps from your Laravel application.",
+  "version": "1.0.0",
+  "author": "soloterm",
+  "homepage": "https://github.com/soloterm/dumps",
+  "skills": []
+}
