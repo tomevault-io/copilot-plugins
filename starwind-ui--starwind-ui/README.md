@@ -1,6 +1,8 @@
-# starwind-ui — distributed by TomeVault
+# starwind-ui
 
-> Originally from [starwind-ui/starwind-ui](https://github.com/starwind-ui/starwind-ui). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [starwind-ui/starwind-ui](https://github.com/starwind-ui/starwind-ui) — distributed by [TomeVault](https://tomevault.io)
+
+shadcn/ui for Astro. 45+ animated and accessible components. Install via CLI. Own the code.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.windsurf/rules/*.md` in [starwind-ui/starwind-ui](https://git
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/starwind-ui)
+From [starwind-ui/starwind-ui](https://github.com/starwind-ui/starwind-ui) — a repo with 638+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/starwind-ui) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-s -->
