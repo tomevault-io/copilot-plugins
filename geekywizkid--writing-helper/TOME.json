@@ -2,9 +2,9 @@
   "name": "writing-helper",
   "owner": "GeekyWizKid",
   "repo": "writing-helper",
-  "description": "",
+  "description": "A Next.js-based AI writing assistant supporting multiple LLM APIs (OpenAI, Claude, Gemini, etc.) with rich style customization features to help content creators improve quality and efficiency.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GeekyWizKid/writing-helper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T01:04:59Z"
+  "distributed_at": "2026-05-18T13:57:02Z"
 }
