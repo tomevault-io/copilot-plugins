@@ -1,0 +1,9 @@
+{
+  "name": "metacraft-labs--codetracer",
+  "displayName": "codetracer",
+  "description": "CodeTracer is a user-friendly time-traveling debugger designed to support a wide range of programming languages.",
+  "version": "1.0.0",
+  "author": "metacraft-labs",
+  "homepage": "https://github.com/metacraft-labs/codetracer",
+  "skills": []
+}
