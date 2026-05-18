@@ -1,0 +1,18 @@
+{
+  "name": "gpu-mode--popcorn-cli",
+  "displayName": "popcorn-cli",
+  "description": "AI instruction skills by gpu-mode",
+  "version": "1.0.0",
+  "author": "gpu-mode",
+  "homepage": "https://github.com/gpu-mode/popcorn-cli",
+  "skills": [
+    {
+      "name": "load-inline-native-code",
+      "description": ""
+    },
+    {
+      "name": "popcorn-submission-workflow",
+      "description": ""
+    }
+  ]
+}
