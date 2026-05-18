@@ -1,0 +1,9 @@
+{
+  "name": "dvcrn--mcp-server-siri-shortcuts",
+  "displayName": "mcp-server-siri-shortcuts",
+  "description": "MCP for calling Siri Shorcuts from LLMs",
+  "version": "1.0.0",
+  "author": "dvcrn",
+  "homepage": "https://github.com/dvcrn/mcp-server-siri-shortcuts",
+  "skills": []
+}
