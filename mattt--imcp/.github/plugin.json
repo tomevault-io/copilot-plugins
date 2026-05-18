@@ -1,0 +1,9 @@
+{
+  "name": "mattt--imcp",
+  "displayName": "iMCP",
+  "description": "A macOS app that provides an MCP server to your Messages, Contacts, Reminders and more",
+  "version": "1.0.0",
+  "author": "mattt",
+  "homepage": "https://github.com/mattt/iMCP",
+  "skills": []
+}
