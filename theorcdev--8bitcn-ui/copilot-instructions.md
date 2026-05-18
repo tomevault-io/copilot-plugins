@@ -1,213 +1,131 @@
-## 8bitcn-ui
+## ultracite
 
-> This file provides essential information for agentic coding assistants working in this repository.
+> Ultracite Rules - AI-Ready Formatter and Linter
 
-# Agent Guidelines - 8bitcn/ui
 
-This file provides essential information for agentic coding assistants working in this repository.
+# Ultracite Code Standards
 
-## Project Overview
+This project uses **Ultracite**, a zero-config Biome preset that enforces strict code quality standards through automated formatting and linting.
 
-8bitcn/ui is a retro 8-bit styled component library built with Next.js 16 (App Router), React 19, TypeScript (strict mode), Tailwind CSS v4, and shadcn/ui + Radix UI components. It's a shadcn/ui registry that provides pixelated, gaming-themed components.
+## Quick Reference
 
-**Package Manager**: pnpm
-**Registry**: https://ui.shadcn.com/registry
-**Installation**: `pnpm dlx shadcn@latest add @8bitcn/[component-name]`
+- **Format code**: `npx ultracite fix`
+- **Check for issues**: `npx ultracite check`
+- **Diagnose setup**: `npx ultracite doctor`
 
-## Commands
+Biome (the underlying engine) provides extremely fast Rust-based linting and formatting. Most issues are automatically fixable.
 
-### Development
-- `pnpm dev` - Start development server (http://localhost:3000)
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
+---
 
-### Code Quality
-- `pnpm check` - Run Ultracite linting checks (Biome-based)
-- `pnpm fix` - Auto-fix linting issues (Ultracite)
-- `npx ultracite fix` - Format and fix all issues
-- `npx ultracite check` - Check for issues only
-- `npx ultracite doctor` - Diagnose Ultracite setup
+## Core Principles
 
-### Testing
-No test framework is currently configured. When adding tests, use Vitest as the preferred testing framework.
+Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
 
-## Code Style Guidelines
+### Type Safety & Explicitness
 
-### Formatting & Linting
-This project uses **Ultracite** (Biome-based preset) for automatic formatting and linting. Always run `pnpm fix` before committing. Biome handles most formatting automatically - focus on code quality and logic.
-
-### 8-bit Component Specific Patterns
-
-**Wrapper Pattern**: 8-bit components wrap regular shadcn/ui components rather than replacing them:
-```tsx
-import { Button as ShadcnButton } from "@/components/ui/button"
-import "./styles/retro.css"
-
-export const Button = ({ className, ...props }: ButtonProps) => {
-  return (
-    <div className="relative">
-      <ShadcnButton className={cn("rounded-none", className)} {...props} />
-      {/* Pixelated border elements */}
-    </div>
-  )
-}
-```
-
-**Pixelated Border Construction**: Use absolute-positioned divs for 8-bit borders:
-```tsx
-<div className="absolute -top-1.5 w-1/2 left-1.5 h-1.5 bg-foreground dark:bg-ring" />
-<div className="absolute -top-1.5 w-1/2 right-1.5 h-1.5 bg-foreground dark:bg-ring" />
-```
-
-**Required Retro CSS**: All 8-bit components must import the retro stylesheet:
-```tsx
-import "./styles/retro.css"
-```
-
-### Imports
-- Use `@/*` path alias for internal imports (configured in tsconfig.json)
-  ```tsx
-  import { Button } from "@/components/ui/button"
-  import { cn } from "@/lib/utils"
-  ```
-- Import order: External libraries (alphabetical) → Internal `@/*` imports
-- Prefer named exports over default exports
-- 8-bit components must import retro.css: `import "./styles/retro.css"`
-
-### TypeScript
-- **Strict mode enabled** - All types must be properly defined
 - Use explicit types for function parameters and return values when they enhance clarity
 - Prefer `unknown` over `any` when the type is genuinely unknown
-- Use `const` assertions (`as const`) for immutable literal values
+- Use const assertions (`as const`) for immutable values and literal types
 - Leverage TypeScript's type narrowing instead of type assertions
-- Use meaningful variable names instead of magic numbers
+- Use meaningful variable names instead of magic numbers - extract constants with descriptive names
+
+### Modern JavaScript/TypeScript
+
+- Use arrow functions for callbacks and short functions
+- Prefer `for...of` loops over `.forEach()` and indexed `for` loops
+- Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
+- Prefer template literals over string concatenation
+- Use destructuring for object and array assignments
+- Use `const` by default, `let` only when reassignment is needed, never `var`
+
+### Async & Promises
+
+- Always `await` promises in async functions - don't forget to use the return value
+- Use `async/await` syntax instead of promise chains for better readability
+- Handle errors appropriately in async code with try-catch blocks
+- Don't use async functions as Promise executors
 
 ### React & JSX
-- Use function components only - no class components
-- Call hooks at top level only, never conditionally
-- Specify all dependencies in hook dependency arrays correctly
-- Use `key` prop for iterables (prefer unique IDs over array indices)
-- Nest children between opening/closing tags, not as props
-- **Don't define components inside other components**
-- For React 19+: Use `ref` as prop instead of `React.forwardRef`
 
-### Next.js Specific
-- Use Next.js `<Image>` component for all images (never `<img>` tags)
-- Use App Router metadata API for head elements
-- Use Server Components for async data fetching
-- `"use cache"` directive for cached async data (see StarsCount component)
+- Use function components over class components
+- Call hooks at the top level only, never conditionally
+- Specify all dependencies in hook dependency arrays correctly
+- Use the `key` prop for elements in iterables (prefer unique IDs over array indices)
+- Nest children between opening and closing tags instead of passing as props
+- Don't define components inside other components
+- Use semantic HTML and ARIA attributes for accessibility:
+  - Provide meaningful alt text for images
+  - Use proper heading hierarchy
+  - Add labels for form inputs
+  - Include keyboard event handlers alongside mouse events
+  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+
+### Error Handling & Debugging
+
+- Remove `console.log`, `debugger`, and `alert` statements from production code
+- Throw `Error` objects with descriptive messages, not strings or other values
+- Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them
+- Prefer early returns over nested conditionals for error cases
 
 ### Code Organization
-- Keep functions focused with reasonable cognitive complexity
+
+- Keep functions focused and under reasonable cognitive complexity limits
 - Extract complex conditions into well-named boolean variables
 - Use early returns to reduce nesting
-- Avoid barrel files (index files that re-export everything)
-- Group related code and separate concerns
+- Prefer simple conditionals over nested ternary operators
+- Group related code together and separate concerns
 
-### Error Handling
-- Throw `Error` objects with descriptive messages, not strings
-- Use `try-catch` blocks meaningfully in async code
-- Prefer early returns over nested conditionals for error cases
-- Remove `console.log`, `debugger`, and `alert` from production code
+### Security
+
+- Add `rel="noopener"` when using `target="_blank"` on links
+- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
+- Don't use `eval()` or assign directly to `document.cookie`
+- Validate and sanitize user input
 
 ### Performance
+
 - Avoid spread syntax in accumulators within loops
 - Use top-level regex literals instead of creating them in loops
 - Prefer specific imports over namespace imports
-- Avoid creating objects/arrays inside loops when possible
+- Avoid barrel files (index files that re-export everything)
+- Use proper image components (e.g., Next.js `<Image>`) over `<img>` tags
 
-### Naming Conventions
-- Components: PascalCase (e.g., `UserProfile`, `Button`)
-- Functions/hooks: camelCase (e.g., `useIsMobile`, `calculateTotal`)
-- Constants/Types: PascalCase (e.g., `MOBILE_BREAKPOINT`, `ButtonProps`)
-- CSS classes: kebab-case (handled by Tailwind)
-- Files: kebab-case for utilities, PascalCase for components
+### Framework-Specific Guidance
 
-### CSS & Styling
-- Use Tailwind CSS v4 for all styling
-- Use `cn()` utility from `@/lib/utils` for conditional classes
-- Avoid inline styles - use Tailwind classes
-- Use semantic HTML elements with proper ARIA attributes
+**Next.js:**
+- Use Next.js `<Image>` component for images
+- Use `next/head` or App Router metadata API for head elements
+- Use Server Components for async data fetching instead of async Client Components
 
-### Accessibility
-- Provide meaningful alt text for images
-- Use proper heading hierarchy (h1 → h2 → h3)
-- Add labels for form inputs
-- Include keyboard handlers alongside mouse events
-- Use semantic elements (`<button>`, `<nav>`, `<main>`) instead of divs with roles
+**React 19+:**
+- Use ref as a prop instead of `React.forwardRef`
 
-### Security
-- Add `rel="noopener"` when using `target="_blank"` on links
-- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
-- Never use `eval()` or direct `document.cookie` assignment
-- Validate and sanitize user input
+**Solid/Svelte/Vue/Qwik:**
+- Use `class` and `for` attributes (not `className` or `htmlFor`)
 
-### Commit Convention
-Follow conventional commits: `category(scope): message`
+---
 
-Categories:
-- `feat` - New features
-- `fix` - Bug fixes (reference issue if applicable)
-- `refactor` - Code changes that aren't fixes or features
-- `docs` - Documentation changes
-- `build` - Build/dependency changes
-- `test` - Test changes
-- `ci` - CI/CD configuration
-- `chore` - Other changes
+## Testing
 
-Example: `feat(components): add new prop to avatar component`
+- Write assertions inside `it()` or `test()` blocks
+- Avoid done callbacks in async tests - use async/await instead
+- Don't use `.only` or `.skip` in committed code
+- Keep test suites reasonably flat - avoid excessive `describe` nesting
 
-## Registry Structure
+## When Biome Can't Help
 
-Components are registered in `registry.json` with specific patterns:
-- **Component entries**: Include retro.css dependency and proper file mappings
-- **Block entries**: Pre-built layouts like login forms, player profiles
-- **Gaming categories**: Components marked with "gaming" category for game UI elements
-- **Dependencies**: Explicitly declare shadcn/ui dependencies via `registryDependencies`
+Biome's linter will catch most issues automatically. Focus your attention on:
 
-## File Structure
+1. **Business logic correctness** - Biome can't validate your algorithms
+2. **Meaningful naming** - Use descriptive names for functions, variables, and types
+3. **Architecture decisions** - Component structure, data flow, and API design
+4. **Edge cases** - Handle boundary conditions and error states
+5. **User experience** - Accessibility, performance, and usability considerations
+6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
 
-```
-/app              - Next.js App Router pages
-/components       - React components
-  /ui            - shadcn/ui components
-  /ui/8bit       - Retro 8-bit styled components
-/lib             - Utility functions
-/config          - Configuration files
-/hooks           - Custom React hooks
-/types           - TypeScript type definitions
-/public          - Static assets
-```
+---
 
-## Documentation
-
-This project uses **Fumadocs** for documentation generation and management:
-- **Docs location**: `content/docs/` directory
-- **Configuration**: `source.config.ts` defines docs collection
-- **Search**: Built-in search functionality via `/app/api/search/route.ts`
-- **MDX support**: Components documented in MDX format with custom components
-- **URL structure**: Documentation served at `/docs/*` routes
-
-## 8bitcn v2 Non-Negotiable Build Rules
-
-These rules are strict for all v2 block work.
-
-- **Use ONLY 8bitcn components** for all new blocks (`components/ui/8bit/*` and approved 8bitcn wrappers).
-- **Never import Lucide, Phosphor, Heroicons, or emoji-based icons** in 8bitcn blocks.
-- **Use only 8bit icon sources/components** (approved local 8bit icons / raster-style icon set).
-- **No emojis in UI copy, block copy, docs copy, or placeholder text** for 8bitcn blocks.
-- **All blocks should feel gamified/playful retro** (copy + structure), while staying production-usable.
-- **Descriptions and helper text must default to `text-xs`** because the project font renders larger.
-- Build blocks **one-by-one in iterations** for review, not huge all-at-once drops.
-- Hardcoded demo content is allowed for showcase blocks.
-
-## Important Notes
-
-- Husky is configured for pre-commit hooks with lint-staged
-- Lint-staged runs `pnpm check` on all staged files before commit
-- Components are registered in `registry.json` - update when adding/modifying components
-- For 8-bit components, make changes for every style variant
-- Ultracite excludes: `public/`, `components/ui/`, `hooks/use-mobile.ts`, `lib/utils.ts`, `.source/`
+Most formatting and common issues are automatically fixed by Biome. Run `npx ultracite fix` before committing to ensure compliance.
 
 ---
 > Source: [TheOrcDev/8bitcn-ui](https://github.com/TheOrcDev/8bitcn-ui) — distributed by [TomeVault](https://tomevault.io).
