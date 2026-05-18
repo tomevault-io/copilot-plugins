@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--khi",
+  "displayName": "khi",
+  "description": "A log viewer for Kubernetes troubleshooting",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/khi",
+  "skills": []
+}
