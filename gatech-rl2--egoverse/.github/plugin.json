@@ -1,0 +1,9 @@
+{
+  "name": "gatech-rl2--egoverse",
+  "displayName": "EgoVerse",
+  "description": "EgoVerse: Egocentric Data for Robot Learning from Around the World",
+  "version": "1.0.0",
+  "author": "GaTech-RL2",
+  "homepage": "https://github.com/GaTech-RL2/EgoVerse",
+  "skills": []
+}
