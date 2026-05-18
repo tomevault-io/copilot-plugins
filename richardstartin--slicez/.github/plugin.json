@@ -1,0 +1,9 @@
+{
+  "name": "richardstartin--slicez",
+  "displayName": "slicez",
+  "description": "Z-layout bit-sliced index for evaluating point and range queries over unsorted numerical data",
+  "version": "1.0.0",
+  "author": "richardstartin",
+  "homepage": "https://github.com/richardstartin/slicez",
+  "skills": []
+}
