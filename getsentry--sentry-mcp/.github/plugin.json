@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--sentry-mcp",
+  "displayName": "sentry-mcp",
+  "description": "An MCP server for interacting with Sentry via LLMs.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/sentry-mcp",
+  "skills": []
+}
