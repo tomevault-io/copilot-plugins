@@ -1,0 +1,9 @@
+{
+  "name": "kizuna-ai-lab--sokuji",
+  "displayName": "sokuji",
+  "description": "Live speech translation powered by on-device AI and cloud providers \u2014 OpenAI, Google Gemini, Palabra.ai, Kizuna AI, Volcengine, and more",
+  "version": "1.0.0",
+  "author": "kizuna-ai-lab",
+  "homepage": "https://github.com/kizuna-ai-lab/sokuji",
+  "skills": []
+}
