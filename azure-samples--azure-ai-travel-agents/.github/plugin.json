@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--azure-ai-travel-agents",
+  "displayName": "azure-ai-travel-agents",
+  "description": "A robust enterprise application sample (deployed on ACA) that leverages MCP and multiple AI agents orchestrated by Langchain.js, Llamaindex.TS and Microsoft Agent Framework.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/azure-ai-travel-agents",
+  "skills": []
+}
