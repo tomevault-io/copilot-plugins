@@ -1,699 +1,1103 @@
 ## alchemy
 
-> Always use bun to install dependencies.
+> Alchemy is a Typescript-native Infrastructure-as-Code repository.
 
-Always use bun to install dependencies.
+# Alchemy
 
-All dependencies must be peer dependencies.
+Alchemy is a Typescript-native Infrastructure-as-Code repository.
+Your job is to implement "Resource" providers for various cloud services by following a set of strict conventions and patterns.
 
-Always use alchemy.secret() instead of new Secret() to create secrets.
+Your job is to build and maintain resource providers following the following convention and structure:
 
-# Running Tests with Vitest
-
-We use Vitest for testing. Here's how to run tests:
-
-```bash
-# Run all tests
-bunx vitest
-
-# Run tests in a specific file
-bunx vitest alchemy/test/stripe/price.test.ts
-
-# Run a specific test in a specific file
-bunx vitest --test-name-pattern="create and update price" alchemy/test/stripe/price.test.ts
-```
-
-For resource tests, create a dedicated test file for each resource type following the pattern `alchemy/test/service-name/resource-name.test.ts`.
-
-# Creating a New Service Resource
-
-This guide provides step-by-step instructions for creating a new resource for a service (like Stripe's Price, Product, or Webhook resources).
-
-## Step 1: Create the Resource File
-
-Create a new file in the service directory with kebab-case naming:
+## Provider Layout
 
 ```
-alchemy/src/{{service-name}}/{{resource-name}}.ts
+alchemy/
+  src/
+    {provider}/
+      README.md
+      {resource}.ts
+  test/
+    {provider}/
+      {resource}.test.ts
+alchemy-web/
+  guides/
+    {provider}.md # guide on how to get started with the {provider}
+  docs/
+    providers/
+      {provider}/
+        index.md # overview of usage and link to all the resources for the provider
+        {resource}.md # example-oriented reference docs for the resource
+examples/
+  {provider}-{qualifier?}/ # only add a qualifier if there are more than one example for this {provider}, e.g. {cloudflare}-{vitejs}
+    package.json
+    tsconfig.json
+    alchemy.run.ts
+    README.md #
+    src/
+      # source code
 ```
 
-Example: `alchemy/src/stripe/price.ts`
+## Convention
 
-## Step 2: Define Resource Interfaces
+> Each Resource has one .ts file, one test suite and one documentation page
 
-Start by importing dependencies and defining the resource interfaces:
+## README
 
-```typescript
-import type { Context } from "../context";
-import { Resource } from "../resource";
+Please provide a comprehensive document of all the Resources for this provider with relevant links to documentation. This is effectively the design and internal documentation.
 
-/**
- * Properties for creating or updating a {{ResourceName}}
- */
-export interface {{ResourceName}}Props {
-  /**
-   * {{Property description}}
-   */
-  propertyName: string;
+## Resource File
 
-  /**
-   * {{Property description}}
-   */
-  anotherProperty?: number;
+> [!NOTE]
+> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
 
-  // Add all required and optional properties
-  // Include JSDoc comments for each property
+```ts
+// ./alchemy/src/{provider}/{resource}.ts
+import { Context } from "../context.ts";
+
+export interface {Resource}Props {
+    // input props
+}
+
+export interface {Resource} extends Resource<"{provider}::{resource}"> {
+    // output props
 }
 
 /**
- * Output returned after {{ResourceName}} creation/update
- * IMPORTANT: The interface name MUST match the exported resource name
- * For example, if your resource is exported as "Product", this interface
- * should be named "Product" (not "ProductOutput")
+ * {overview}
  *
+ * @example
+ * ## {Example Title}
+ *
+ * {concise description}
+ *
+ * {example snippet}
+ *
+ * @example
+ * // .. repeated for all examples
  */
-export interface {{ResourceName}} extends Resource<"{{service-name}}::{{ResourceName}}"> {{ResourceName}}Props {
+export const {Resource} = Resource(
+  "{provider}::{resource}",
+  async function (this: Context<>, id: string, props: {Resource}Props): Promise<{Resource}> {
+    // Create, Update, Delete lifecycle
+  }
+);
+```
+
+> [!CAUTION]
+> When designing input props, there is the common case of having a property that references another entity in the {provider} domain by Id, e.g. tableId, bucketArn, etc.
+>
+> In these cases, you should instead opt to represent this as `{resource}: string | {Resource}`, e.g. `table: string | Table`. This "lifts" the Resource into the Alchemy abstraction without sacrificing support for referencing external entities by name.
+
+## Test Suite
+
+> [!NOTE]
+> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
+
+```ts
+// ./alchemy/test/{provider}/{resource}.test.ts
+import { destroy } from "../src/destroy.ts"
+import { BRANCH_PREFIX } from "../util.ts";
+
+import "../../src/test/vitest.ts";
+
+const test = alchemy.test(import.meta, {
+  prefix: BRANCH_PREFIX,
+});
+
+describe("{Provider}", () => {
+  test("{test case}", async (scope) => {
+    const resourceId = `${BRANCH_PREFIX}-{id}` // an ID that is: 1) deterministic (non-random), 2) unique across all tests and all test suites
+    let resource: {Resource}
+    try {
+      // create
+      resource = await {Resource}("{id}", {
+        // {props}
+      })
+
+      expect(resource).toMatchObject({
+        // {assertions}
+      })
+
+      // update
+      resource = await {Resource}("{id}", {
+        // {update props}
+      })
+
+      expect(resource).toMatchObject({
+        // {updated assertions}
+      })
+    } finally {
+      await destroy(scope);
+      await assert{ResourceDoesNotExist}(resource)
+    }
+  })
+});
+
+async function assert{Resource}DoesNotExist(api: {Provider}Client, resource: {Resource}) {
+    // {call api to check it does not exist, throw test error if it does}
+}
+```
+
+## Provider Overview Docs (index.md)
+
+Each provider folder should have an `index.md` that indexes and summarizes the provider and links to each resource.
+
+```md
+# {Provider}
+
+{overview of the provider}
+
+{official links out to the provider website}
+
+## Resources
+
+- [{Resource}1](./{resource}1.md) - {brief description}
+- [{Resource}2](./{resource}2.md) - {brief description}
+- ..
+- [{Resource}N](./{resource}n.md) - {brief description}
+
+## Example Usage
+
+\`\`\`ts
+// {comprehensive end-to-end usage}
+\`\`\`
+```
+
+## Example Project
+
+An example project is effectively a whole NPM package that demonstrates
+
+```
+examples/
+  {provider}-{qualifier?}/
+    package.json
+    tsconfig.json # extends ../../tsconfig.base.json
+    alchemy.run.ts
+    README.md
+    src/
+      # code
+tsconfig.json # is updated to reference examples/{provider}-{qualifier?}
+```
+
+## Guide
+
+Each Provider has a getting started guide in ./alchemy-web/docs/guides/{provider}.md.
+
+```md
+---
+order: { number to decide the position in the tree view }
+title: { Provider }
+description: { concise description of the tutorial }
+---
+
+# Getting Started {Provider}
+
+{1 sentence overview of what this tutorial will set the user up with}
+
+## Install
+
+{any installation pre-requisites}
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ..
+\`\`\`
+
+\`\`\`sh [npm]
+npm ...
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm ..
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn ..
+\`\`\`
+
+:::
+
+## Credentials
+
+{how to get credentials and store in .env}
+
+## Create a {Provider} application
+
+{code group with commands to run to init a new project}
+
+## Create `alchemy.run.ts`
+
+{one or more subsequent code snippets with explanations for using alchemy to provision this provider}
+
+## Deploy
+
+Run `alchemy.run.ts` script to deploy:
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ./alchemy.run
+\`\`\`
+
+\`\`\`sh [npm]
+npx tsx ./alchemy.run
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm tsx ./alchemy.run
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn tsx ./alchemy.run
+\`\`\`
+
+:::
+
+It should log out the ... {whatever information is relevant for interacting with the app deployed to this provider}
+\`\`\`sh
+{expected output}
+\`\`\`
+
+## Tear Down
+
+That's it! You can now tear down the app (if you want to):
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [npm]
+npx tsx ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm tsx ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn tsx ./alchemy.run --destroy
+\`\`\`
+
+:::
+```
+
+> [!NOTE]
+> You should review all of the existing Cloudflare guides like [cloudflare-vitejs.md](./alchemy-web/docs/guides/cloudflare-vitejs.md) and follow the writing style and flow.
+
+> [!TIP]
+> If the Resource is mostly headless infrastructure like a database or some other service, you should use Cloudflare Workers as the runtime to "round off" the example package e.g. for a Neon Provider, we would connect it into a Cloudflare Worker via Hyperdrive and provide a URL (via Worker) to hit that page. Ideally you'd also put ViteJS in front and hit that endpoint.
+
+# Coding Best Practices
+
+> [!IMPORTANT]
+> These guidelines have been refined based on code review feedback and production experience. Following them will prevent common issues and improve code quality.
+
+## Resource Implementation
+
+### Resource Implementation Pattern
+
+Resources are implemented using the pseudo-class pattern with proper lifecycle management:
+
+```ts
+export const MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>,
+    id: string,
+    props: MyResourceProps,
+  ): Promise<MyResource> {
+    const resourceId = props.resourceId || this.output?.resourceId;
+    const adopt = props.adopt || this.scope.adopt;
+    const name = props.name ?? this.output?.name ?? this.scope.createPhysicalName(id);
+
+    if (this.scope.local) {
+      // Local development mode - return mock data
+      return {
+        id,
+        name,
+        resourceId: resourceId || "",
+        property: props.property,
+        secret: Secret.wrap(props.secret || ""),
+        type: "my-resource",
+      };
+    }
+
+    const api = await createProviderApi(props);
+
+    if (this.phase === "delete") {
+      if (!resourceId) {
+        logger.warn(`No resourceId found for ${id}, skipping delete`);
+        return this.destroy();
+      }
+
+      try {
+        const deleteResponse = await api.delete(`/resources/${resourceId}`);
+        if (!deleteResponse.ok && deleteResponse.status !== 404) {
+          await handleApiError(deleteResponse, "delete", "resource", id);
+        }
+      } catch (error) {
+        logger.error(`Error deleting resource ${id}:`, error);
+        throw error;
+      }
+      return this.destroy();
+    }
+
+    // Prepare request body with unwrapped secrets
+    const requestBody = {
+      name,
+      property: props.property,
+      secret: Secret.unwrap(props.secret),
+    };
+
+    let result: ApiResponse;
+    if (resourceId) {
+      // Update existing resource
+      result = await extractApiResult<ApiResponse>(
+        `update resource "${resourceId}"`,
+        api.put(`/resources/${resourceId}`, requestBody),
+      );
+    } else {
+      try {
+        // Create new resource
+        result = await extractApiResult<ApiResponse>(
+          `create resource "${name}"`,
+          api.post("/resources", requestBody),
+        );
+      } catch (error) {
+        if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
+          if (!adopt) {
+            throw new Error(
+              `Resource "${name}" already exists. Use adopt: true to adopt it.`,
+              { cause: error },
+            );
+          }
+          const existing = await findResourceByName(api, name);
+          if (!existing) {
+            throw new Error(
+              `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
+              { cause: error },
+            );
+          }
+          result = await extractApiResult<ApiResponse>(
+            `adopt resource "${name}"`,
+            api.put(`/resources/${existing.id}`, requestBody),
+          );
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    // Construct the output object from API response and props
+    return {
+      id,
+      name: result.name,
+      resourceId: result.id,
+      property: result.property,
+      secret: Secret.wrap(props.secret),
+      type: "my-resource",
+    };
+  },
+);
+```
+
+### Advanced Resource Patterns
+
+#### Input Normalization with Wrapper Functions
+
+When resources accept **multiple flexible input types** (e.g., `string | Secret`, `string | Resource`), use a public wrapper function to normalize inputs before passing to the internal Resource.
+
+**Note**: This pattern is only needed when your Props interface has properties with union types that require normalization. If all props accept single types, skip this pattern and use the Resource directly.
+
+```ts
+//! Public interface - accepts flexible types
+export function MyResource(id: string, props: MyResourceProps): Promise<MyResource> {
+  return _MyResource(id, {
+    ...props,
+    secret: typeof props.secret === "string" 
+      ? secret(props.secret) 
+      : props.secret,
+    database: typeof props.database === "string"
+      ? props.database
+      : props.database
+  });
+}
+
+//! Internal implementation - guaranteed normalized types
+const _MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>,
+    id: string,
+    props: Omit<MyResourceProps, "secret"> & { secret: Secret }
+  ): Promise<MyResource> {
+    // Implementation with guaranteed types
+  }
+);
+```
+
+This pattern enables:
+- Flexible API for users (accepts string or Resource/Secret)
+- Type-safe implementation (guaranteed normalized types)
+- Clear separation of concerns
+
+#### Type Guard Functions (Required)
+
+Every resource MUST export a type guard function using `ResourceKind`:
+
+```ts
+import { ResourceKind } from "../resource.ts";
+
+export function isMyResource(resource: any): resource is MyResource {
+  return resource?.[ResourceKind] === "provider::MyResource";
+}
+```
+
+Use in conditional logic:
+```ts
+function processBinding(binding: any) {
+  if (isMyResource(binding)) {
+    // TypeScript now knows this is MyResource
+    console.log(binding.id);
+  }
+}
+```
+
+#### Output Type Pattern with Omit
+
+Prefer `Omit` over `extends` for output types to cleanly separate input and computed properties:
+
+```ts
+// ✅ PREFERRED: Clear separation of input vs output
+export type MyResource = Omit<MyResourceProps, "delete" | "secret"> & {
+  /**
+   * The ID assigned by the provider
+   */
+  id: string;
+
+  /**
+   * Secret value (guaranteed wrapped)
+   */
+  secret: Secret;
+
+  /**
+   * Resource type identifier
+   */
+  type: "my-resource";
+
+  /**
+   * Creation timestamp
+   */
+  createdAt: number;
+};
+
+// ❌ AVOID: Mixing input and output concerns
+export interface MyResource extends MyResourceProps {
+  id: string;
+  // Input props are now part of the output type
+}
+```
+
+#### Physical Name Generation with Scope
+
+Use the scope to generate deterministic physical names with defaults:
+
+```ts
+const name = props.name 
+  ?? this.output?.name  // Preserve on update
+  ?? this.scope.createPhysicalName(id);  // Default: {app}-{stage}-{id}
+```
+
+#### Resource Replacement for Immutable Properties
+
+When an immutable property changes, signal replacement via `this.replace()`:
+
+```ts
+if (this.phase === "update" && this.output.name !== name) {
+  return this.replace(); // Deletes old, creates new
+}
+```
+
+#### Conditional Deletion Pattern
+
+Support opt-out deletion with a `delete?: boolean` property.
+
+**Note**: This pattern is typically used for **data resources only** (databases, storage buckets, key-value stores, etc.). Compute resources (workers, functions, containers) should always be deleted when removed from Alchemy without an opt-out option.
+
+```ts
+export interface MyResourceProps {
+  /**
+   * Whether to delete the resource when removed from Alchemy
+   * @default true
+   */
+  delete?: boolean;
+}
+
+if (this.phase === "delete") {
+  if (props.delete !== false && this.output?.id) {
+    try {
+      await api.delete(`/resources/${this.output.id}`);
+    } catch (error) {
+      if (error.status !== 404) throw error; // OK if already deleted
+    }
+  }
+  return this.destroy();
+}
+```
+
+#### Internal API Types Convention
+
+Mark **exported** types and functions that are not part of the user-facing API
+with JSDoc `@internal` — for example, helpers exported only so siblings inside
+the same provider can `import` them. Do not add `@internal` to file-private
+declarations: TypeScript's `export` keyword already conveys their visibility,
+so the tag is redundant noise.
+
+```ts
+/**
+ * Serialise the resource's wire shape. Exported only so sibling resources
+ * in this provider can call it.
+ * @internal
+ */
+export function serializeResource(resource: Resource): Record<string, unknown> {
+  // ...
+}
+
+// File-private — no `@internal` needed.
+interface ResourceApiResponse {
+  id: string;
+  name: string;
+  created_at: number;
+}
+```
+
+#### Retry Patterns with Exponential Backoff
+
+Use exponential backoff for transient errors:
+
+```ts
+import { withExponentialBackoff } from "../util/retry.ts";
+
+const result = await withExponentialBackoff(
+  async () => {
+    return await extractProviderResult<ApiResponse>(
+      `create resource "${name}"`,
+      api.post("/resources", requestBody)
+    );
+  },
+  (error) => {
+    // Retry condition: specific transient errors
+    return error.code === 1002 || error instanceof TimeoutError;
+  },
+  30,    // maximum attempts
+  100,   // initial delay in ms
+);
+```
+
+### Type Definition Patterns
+
+Alchemy resources follow a specific type definition pattern that ensures type safety and consistency. The key principle is that **the output interface name MUST match the exported resource name** to create a pseudo-class construct:
+
+#### Flat Properties vs Nested Objects
+
+Prefer flat properties over nested configuration objects for better developer experience and type safety:
+
+```ts
+// ✅ PREFERRED: Flat properties
+export interface MyResourceProps {
+  name?: string;
+  region: string;
+  secret?: string | Secret;
+  timeout?: number;
+}
+
+// ❌ AVOID: Nested configuration objects
+export interface MyResourceProps {
+  name?: string;
+  config: {
+    region: string;
+    secret?: string | Secret;
+    timeout?: number;
+  };
+}
+```
+
+Flat properties provide:
+- Better IDE autocomplete and type checking
+- Cleaner resource creation syntax
+- Easier validation and error handling
+- More intuitive API design
+
+```ts
+// ✅ CORRECT: Interface name matches exported resource name
+export type MyResource = {
+  // ... properties
+}
+export const MyResource = Resource(/* ... */);
+
+// ❌ INCORRECT: Interface name doesn't match
+export interface MyResourceOutput extends Resource<"provider::MyResource"> {
+  // ... properties
+}
+export const MyResource = Resource(/* ... */);
+```
+
+#### Props Interface Definition
+
+Define Props interface for input parameters:
+
+```ts
+export interface MyResourceProps {
+  /**
+   * Name of the resource
+   * @default ${app}-${stage}-${id}
+   */
+  name?: string;
+
+  /**
+   * Property description
+   */
+  property: string;
+
+  /**
+   * Secret value for authentication
+   * Use alchemy.secret() to securely store this value
+   */
+  secret?: string | Secret;
+
+  /**
+   * Whether to adopt an existing resource
+   * @default false
+   */
+  adopt?: boolean;
+
+  /**
+   * Internal resource ID for lifecycle management
+   */
+  resourceId?: string;
+}
+
+// Define output type using Omit pattern
+// The Omit pattern removes input-only properties and adds computed/transformed properties
+export type MyResource = Omit<MyResourceProps, "adopt"> & {
   /**
    * The ID of the resource
    */
   id: string;
 
   /**
-   * Time at which the object was created
+   * Name of the resource (required in output)
    */
-  createdAt: number;
+  name: string;
 
-  // Add all additional properties returned by the service
-  // Include JSDoc comments for each property
+  /**
+   * The provider-generated ID
+   */
+  resourceId: string;
+
+  /**
+   * Secret value (always wrapped in Secret for output)
+   */
+  secret: Secret;
+
+  /**
+   * Resource type identifier for binding
+   * @internal
+   */
+  type: "my-resource";
+};
+```
+
+### Runtime Bindings
+
+When adding a new resource type that can be used as a binding:
+
+1. **Always update `bound.ts`**: Add the mapping from your resource type to its runtime binding interface
+2. **Follow official API specs**: Use the exact interface specified in the provider's documentation
+3. **Don't spread proxy objects**: Proxies can't be spread - explicitly implement each method/property
+
+```ts
+// ❌ DON'T: Spread proxy objects
+return {
+  ...this.runtime,
+  someProperty: value,
+};
+
+// ✅ DO: Use bind function and explicitly implement methods
+const binding = await bind(resource);
+return {
+  ...resource,
+  get: binding.get,
+  someProperty: value,
+};
+```
+
+### Secret Handling
+
+Always use `alchemy.secret()` for sensitive values and properly handle them in the resource lifecycle:
+
+#### Secret Creation Patterns
+
+```ts
+// ✅ PREFERRED: alchemy.secret.env.X (better error messages)
+const secret = alchemy.secret.env.API_KEY;
+
+// ✅ ACCEPTABLE: alchemy.secret(process.env.X) (more familiar to LLMs)
+const secret = alchemy.secret(process.env.API_KEY);
+
+// ❌ AVOID: Plain environment variables without encryption
+const secret = process.env.API_KEY;
+```
+
+#### Resource Implementation
+
+```ts
+// Input props can accept string | Secret
+export interface MyResourceProps {
+  password: string | Secret;
+}
+
+// Output always wraps secrets
+export type MyResource = {
+  password: Secret;
+};
+
+// In implementation, unwrap for API calls, wrap for output
+const requestBody = {
+  password: Secret.unwrap(props.password),
+};
+
+return {
+  password: Secret.wrap(props.password),
+};
+```
+
+### Adoption Pattern
+
+Resources should support adoption of existing resources when conflicts occur:
+
+```ts
+// Check for adoption scenarios
+if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
+  if (!adopt) {
+    throw new Error(
+      `Resource "${name}" already exists. Use adopt: true to adopt it.`,
+      { cause: error },
+    );
+  }
+
+  // Find and adopt existing resource
+  const existing = await findResourceByName(api, name);
+  if (!existing) {
+    throw new Error(
+      `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
+      { cause: error },
+    );
+  }
+
+  // Update existing resource with new configuration
+  result = await extractApiResult<ApiResponse>(
+    `adopt resource "${name}"`,
+    api.put(`/resources/${existing.id}`, requestBody),
+  );
 }
 ```
 
-## Step 3: API Client Implementation
+### Update Validation
 
-Create a minimal API client that wraps fetch calls without excessive abstraction:
+Validate immutable properties during resource updates:
 
-```typescript
-/**
- * Options for {{ServiceName}} API requests
- */
-export interface {{ServiceName}}ApiOptions {
-  /**
-   * API key or token to use (overrides environment variable)
-   */
-  apiKey?: string;
-
-  /**
-   * Account or project ID (overrides environment variable)
-   */
-  accountId?: string;
-}
-
-/**
- * Minimal API client using raw fetch
- */
-export class {{ServiceName}}Api {
-  /** Base URL for API */
-  readonly baseUrl: string;
-
-  /** API key or token */
-  readonly apiKey: string;
-
-  /** Account ID */
-  readonly accountId: string;
-
-  /**
-   * Create a new API client
-   *
-   * @param options API options
-   */
-  constructor(options: {{ServiceName}}ApiOptions = {}) {
-    // Initialize with environment variables or provided values
-    this.baseUrl = "https://api.{{service-name}}.com/v1";
-    this.apiKey = options.apiKey || process.env.{{SERVICE_API_KEY}} || '';
-    this.accountId = options.accountId || process.env.{{SERVICE_ACCOUNT_ID}} || '';
-
-    // Validate required configuration
-    if (!this.apiKey) {
-      throw new Error("{{SERVICE_API_KEY}} environment variable is required");
-    }
-  }
-
-  /**
-   * Make a request to the API
-   *
-   * @param path API path (without base URL)
-   * @param init Fetch init options
-   * @returns Raw Response object from fetch
-   */
-  async fetch(path: string, init: RequestInit = {}): Promise<Response> {
-    // Set up authentication headers
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${this.apiKey}`
-    };
-
-    // Add headers from init if provided
-    if (init.headers) {
-      const initHeaders = init.headers as Record<string, string>;
-      Object.keys(initHeaders).forEach(key => {
-        headers[key] = initHeaders[key];
-      });
-    }
-
-    // For FormData, remove Content-Type
-    if (init.body instanceof FormData) {
-      delete headers["Content-Type"];
-    }
-
-    // Make the request
-    return fetch(`${this.baseUrl}${path}`, {
-      ...init,
-      headers
-    });
-  }
-
-  /**
-   * Helper for GET requests
-   */
-  async get(path: string, init: RequestInit = {}): Promise<Response> {
-    return this.fetch(path, { ...init, method: "GET" });
-  }
-
-  /**
-   * Helper for POST requests
-   */
-  async post(path: string, body: any, init: RequestInit = {}): Promise<Response> {
-    const requestBody = body instanceof FormData ? body : JSON.stringify(body);
-    return this.fetch(path, { ...init, method: "POST", body: requestBody });
-  }
-
-  /**
-   * Helper for PUT requests
-   */
-  async put(path: string, body: any, init: RequestInit = {}): Promise<Response> {
-    const requestBody = body instanceof FormData ? body : JSON.stringify(body);
-    return this.fetch(path, { ...init, method: "PUT", body: requestBody });
-  }
-
-  /**
-   * Helper for DELETE requests
-   */
-  async delete(path: string, init: RequestInit = {}): Promise<Response> {
-    return this.fetch(path, { ...init, method: "DELETE" });
-  }
+```ts
+// Check for changes to immutable properties
+if (currentResource.name !== props.name) {
+  throw new Error(
+    `Cannot change resource name from '${currentResource.name}' to '${props.name}'. Name is immutable after creation.`
+  );
 }
 ```
 
-## Step 4: Implement the Resource
+### Context and Phase Handling
 
-Create the resource with the pseudo-class pattern using `this` with Context type. The exported const MUST match the output interface name:
+Alchemy resources use a Context object that provides access to the current lifecycle phase and resource state:
 
-```typescript
-/**
- * (Resource description)
- *
- * (followed by examples for distinct use-cases of the Resource)
- *
- * @example
- * // Create a basic table with just a hash key for simple
- * // key-value lookups:
- * const basicTable = await DynamoTable("users", {
- *   hashKey: {
- *     name: "userId",
- *     type: "string"
- *   }
- * });
- *
- * @example
- * // Create a time-series table with hash and sort key
- * // for efficient range queries:
- * const timeSeriesTable = await DynamoTable("events", {
- *   hashKey: {
- *     name: "deviceId",
- *     type: "string"
- *   },
- *   sortKey: {
- *     name: "timestamp",
- *     type: "number"
- *   }
- * });
- *
- * @example
- * // Create a table with a global secondary index
- * // for alternate access patterns:
- * const ordersTable = await DynamoTable("orders", {
- *   hashKey: {
- *     name: "orderId",
- *     type: "string"
- *   },
- *   globalSecondaryIndexes: [{
- *     indexName: "by-customer",
- *     hashKey: {
- *       name: "customerId",
- *       type: "string"
- *     },
- *     sortKey: {
- *       name: "orderDate",
- *       type: "string"
- *     }
- *   }]
- * });
- *
- * @example
- * // Create a one-time fixed price for a product:
- * const oneTimePrice = await Price("basic-license", {
- *   currency: "usd",
- *   unitAmount: 2999,
- *   product: "prod_xyz"
- * });
- *
- * @example
- * // Create a recurring subscription price with fixed
- * // monthly billing:
- * const subscriptionPrice = await Price("pro-monthly", {
- *   currency: "usd",
- *   unitAmount: 1499,
- *   product: "prod_xyz",
- *   recurring: {
- *     interval: "month",
- *     usageType: "licensed"
- *   }
- * });
- *
- * @example
- * // Create a metered price for usage-based billing:
- * const meteredPrice = await Price("storage", {
- *   currency: "usd",
- *   unitAmount: 25,
- *   product: "prod_xyz",
- *   recurring: {
- *     interval: "month",
- *     usageType: "metered",
- *     aggregateUsage: "sum"
- *   }
- * });
- */
-export const {{ResourceName}} = Resource(
-  "{{service-name}}::{{ResourceName}}",
-  async function(this: Context<{{ResourceName}}>, id: string, props: {{ResourceName}}Props): Promise<{{ResourceName}}> {
-    // Get API key from environment
-    const apiKey = process.env.{{SERVICE_API_KEY}};
-    if (!apiKey) {
-      throw new Error("{{SERVICE_API_KEY}} environment variable is required");
-    }
-
-    // Initialize API client
-    const api = new {{ServiceName}}Api();
-
+```ts
+export const MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>, // Context provides type-safe access to current state
+    id: string,
+    props: MyResourceProps,
+  ): Promise<MyResource> {
+    // Access current phase: "create", "update", or "delete"
     if (this.phase === "delete") {
-      try {
-        if (this.output?.id) {
-          // Delete resource
-          const deleteResponse = await api.delete(`/accounts/${api.accountId}/resources/${this.output.id}`);
-
-          // Check response status directly instead of relying on exceptions
-          if (!deleteResponse.ok && deleteResponse.status !== 404) {
-            console.error("Error deleting resource:", deleteResponse.statusText);
-          }
-        }
-      } catch (error) {
-        console.error("Error deleting resource:", error);
-      }
-
-      // Return destroyed state
+      // Handle deletion logic
       return this.destroy();
-    } else {
-      try {
-        let response;
+    }
 
-        if (this.phase === "update" && this.output?.id) {
-          // Update existing resource
-          response = await api.put(
-            `/accounts/${api.accountId}/resources/${this.output.id}`,
-            {
-              // Map props to API-expected format
-              name: props.name,
-              description: props.description
-            }
-          );
-        } else {
-          // Create new resource
-          response = await api.post(
-            `/accounts/${api.accountId}/resources`,
-            {
-              // Map props to API-expected format
-              name: props.name,
-              description: props.description
-            }
-          );
-        }
+    // Access current resource state
+    const currentState = this.output;
 
-        // Check response status directly
-        if (!response.ok) {
-          throw new Error(`API error: ${response.statusText}`);
-        }
+    // Access scope information
+    const isLocal = this.scope.local;
+    const adopt = props.adopt ?? this.scope.adopt;
 
-        // Parse response JSON
-        const data = await response.json();
-        const resource = data.result || data;
+    // Create physical names using scope
+    const name = props.name ?? this.scope.createPhysicalName(id);
 
-        return {
-          id: resource.id,
-          name: resource.name,
-          description: resource.description,
-          createdAt: resource.created_at || Date.now(),
-          // Include all other required properties from the interface
-          ...props // Include any additional properties from props
-        };
-      } catch (error) {
-        console.error("Error creating/updating resource:", error);
-        throw error;
+    // Handle different phases
+    if (this.phase === "update" && currentState) {
+      // Update existing resource
+      // Validate immutable properties
+      if (currentState.name !== props.name) {
+        throw new Error("Cannot change immutable property 'name'");
       }
     }
-  }
+
+    // Phase-specific logic
+    switch (this.phase) {
+      case "create":
+        // Handle creation
+        break;
+      case "update":
+        // Handle updates
+        break;
+      case "delete":
+        // Handle deletion
+        return this.destroy();
+    }
+  },
 );
 ```
 
-### Important Notes on Resource Implementation
+### Local Development Support
 
-1. **Pseudo-Class Pattern**: The resource is implemented as a constant that matches the interface name, creating a pseudo-class construct:
+Resources should support local development mode by checking `this.scope.local`:
 
-   ```typescript
-   export interface Product extends ProductProps {...}
-   export const Product = Resource(...);
-   ```
-
-2. **Context Type**: The implementation function uses `this: Context<T>` to provide type-safe access to the resource context.
-
-3. **Phase Handling**:
-
-   - Use `this.phase` to check the current operation phase ("create", "update", or "delete")
-   - For deletion, return `this.destroy()`
-   - For creation/update, return `{...}` with the resource properties
-
-4. **Output Construction**:
-
-   - Use `{...}` to construct the resource output
-   - Include all required properties from the interface
-   - Spread the props object to include any additional properties
-
-5. **Error Handling**:
-   - Check response status codes directly
-   - Preserve original error details when possible
-   - Log errors before rethrowing
-
-## Step 5: Export from Service Index
-
-Create or update the service index file to export the new resource:
-
-```typescript
-// alchemy/src/{{service-name}}/index.ts
-export * from "./{{resource-name}}";
-```
-
-## Step 6: Update Package.json
-
-Add the service to package.json exports if not already present:
-
-```json
-"exports": {
-  // ... existing exports
-  "./{{service-name}}": "./lib/{{service-name}}/index.js"
+```ts
+if (this.scope.local) {
+  // Return mock data for local development
+  return {
+    id,
+    name: props.name || id,
+    // ... other mock properties
+    type: "my-resource",
+  };
 }
 ```
 
-Add the service SDK as a peer dependency if not already present:
+## Testing Guidelines
 
-```json
-"peerDependencies": {
-  // ... existing dependencies
-  "{{service-sdk}}": "^x.y.z"
-}
+### Import Strategy
+
+- **Use static imports**: Avoid dynamic imports in test files for better IDE support and error detection
+
+```ts
+// ❌ DON'T: Dynamic imports
+const { DispatchNamespace } = await import(
+  "../../src/cloudflare/dispatch-namespace.ts"
+);
+
+// ✅ DO: Static imports
+import { DispatchNamespace } from "../../src/cloudflare/dispatch-namespace.ts";
 ```
 
-## Step 7: Create Tests
+### Test Structure
 
-Create a test file that uses direct API interaction for verification:
+- **Comprehensive end-to-end tests**: Test the full workflow, not just individual components
+- **Use testing utilities**: Prefer `fetchAndExpectOK` for durability testing
 
-```typescript
-// alchemy/test/{{service-name}}/{{resource-name}}.test.ts
-import { describe, expect } from "vitest";
-import { alchemy } from "../../src/alchemy";
-import { destroy } from "../../src/destroy";
-import { {{ResourceName}} } from "../../src/{{service-name}}/{{resource-name}}";
-import { {{ServiceName}}Api } from "../../src/{{service-name}}/api";
-import { BRANCH_PREFIX } from "../util";
-// must import this or else alchemy.test won't exist
-import "../../src/test/vitest";
+```ts
+test("end-to-end workflow", async (scope) => {
+  // 1. Create the infrastructure resource
+  const namespace = await DispatchNamespace("test-namespace", { name: "test" });
 
-const api = new {{ServiceName}}Api();
-
-const test = alchemy.test(import.meta, {
-  prefix: BRANCH_PREFIX
-});
-
-describe("{{ResourceName}} Resource", () => {
-  // Use BRANCH_PREFIX for deterministic, non-colliding resource names
-  const testId = `${BRANCH_PREFIX}-test-resource`;
-
-  test("create, update, and delete resource", async (scope) => {
-    let resource: {{ResourceName}} | undefined;
-    try {
-      // Create a test resource
-      resource = await {{ResourceName}}(testId, {
-        name: `Test Resource ${testId}`,
-        description: "This is a test resource"
-      });
-
-      expect(resource.id).toBeTruthy();
-      expect(resource.name).toEqual(`Test Resource ${testId}`);
-
-      // Verify resource was created by querying the API directly
-      const getResponse = await api.get(`/accounts/${api.accountId}/resources/${resource.id}`);
-      expect(getResponse.status).toEqual(200);
-
-      const responseData = await getResponse.json();
-      expect(responseData.result.name).toEqual(`Test Resource ${testId}`);
-
-      // Update the resource
-      resource = await {{ResourceName}}(testId, {
-        name: `Updated Resource ${testId}`,
-        description: "This is an updated test resource"
-      });
-
-      expect(resource.id).toEqual(resource.id);
-      expect(resource.name).toEqual(`Updated Resource ${testId}`);
-
-      // Verify resource was updated
-      const getUpdatedResponse = await api.get(`/accounts/${api.accountId}/resources/${resource.id}`);
-      const updatedData = await getUpdatedResponse.json();
-      expect(updatedData.result.name).toEqual(`Updated Resource ${testId}`);
-    } catch(err) {
-      // log the error or else it's silently swallowed by destroy errors
-      console.log(err);
-      throw err;
-    } finally {
-      // Always clean up, even if test assertions fail
-      await destroy(scope);
-
-      // Verify resource was deleted
-      const getDeletedResponse = await api.get(`/accounts/${api.accountId}/resources/${resource?.id}`);
-      expect(getDeletedResponse.status).toEqual(404);
-    }
+  // 2. Create a worker that uses the resource
+  const worker = await Worker("test-worker", {
+    dispatchNamespace: namespace,
+    script: "export default { fetch() { return new Response('Hello'); } }",
   });
+
+  // 3. Create a dispatcher that binds to the resource
+  const dispatcher = await Worker("dispatcher", {
+    bindings: { NAMESPACE: namespace },
+    script:
+      "export default { async fetch(req, env) { return env.NAMESPACE.get('test-worker').fetch(req); } }",
+  });
+
+  // 4. Test end-to-end functionality
+  await fetchAndExpectOK(`https://dispatcher.${accountId}.workers.dev`);
 });
 ```
 
-### Important Notes on Testing
+### Type Management
 
-1. **Test Scope**: Use `alchemy.test(import.meta, {
-  prefix: BRANCH_PREFIX
-})` to create a test with proper scope management.
+- **Don't export internal types**: Only export types that are part of the public API
+- **Follow provider specifications**: Use exact types from official documentation
 
-2. **Resource Cleanup**:
+## Code Organization
 
-   - Use `try/finally` to ensure resources are cleaned up
-   - Call `destroy(scope)` to clean up all resources created in the test
-   - Verify resources are properly deleted after cleanup
+### File Structure
 
-3. **Direct API Verification**:
+- **One concern per file**: Each resource should handle its complete lifecycle in one file
+- **Consistent naming**: Use the exact resource name from the provider's API
 
-   - Use the service's API client to verify changes directly
-   - Check both successful operations and cleanup
-   - Verify resource state after each operation
+### Dependencies
 
-4. **Naming Convention**:
+- **Minimize cross-resource dependencies**: Resources should be as independent as possible
+- **Clear separation of concerns**: Keep API calls, validation, and business logic separate
 
-   - Use `BRANCH_PREFIX` for unique test resource names
-   - Follow the pattern: `${BRANCH_PREFIX}-test-resource-type`
-   - Keep names consistent and descriptive
+## Performance Best Practices
 
-5. **Error Handling**:
-   - Let test failures propagate for visibility
-   - Catch errors only in cleanup to ensure proper resource deletion
-   - Log cleanup errors but don't throw
+### Asynchronous I/O
 
-## Resource Naming Convention
+- **Never use synchronous I/O**: Always use async/await for file operations, network requests, and any I/O operations
+- **Blocking the event loop is cancer**: Synchronous operations block the entire event loop and harm application performance
 
-When implementing resources, follow this important naming convention:
+```ts
+// ❌ DON'T: Synchronous I/O
+const data = fs.readFileSync('file.txt');
 
-1. The output interface must have the same name as the exported resource. For example:
+// ✅ DO: Asynchronous I/O
+const data = await fs.promises.readFile('file.txt');
+```
 
-   - If your resource constant is `export const Product = Resource(...)`,
-   - Then your output interface must be named "Product" (not "ProductOutput")
+for mapping over arrays, use `Promise.all` instead of a `for` loop:
 
-2. The name of the interface and the exported constant create a pseudo-class construct:
+```ts
+// ❌ DON'T: for loop
+for (const item of items) {
+  await fs.existsSync(item);
+}
 
-   ```typescript
-   // This naming pattern allows the resource to work correctly with type system
-   export interface Product extends ProductProps {...}
-   export const Product = Resource(...);
-   ```
+import { exists } from "../utils/exists.ts";
+// ✅ DO: Promise.all
+await Promise.all(items.map(
+  async (item) => await exists(item)
+));
+```
 
-3. Always use this pattern for consistency across resources.
+## Alchemy.run Patterns
 
-## API Design Principles
+### Application Scoping
 
-When implementing resources that interact with external APIs, follow these design principles:
+Alchemy.run provides application-level scoping with automatic CLI argument parsing:
 
-1. **Minimal abstraction**: Use a thin wrapper around fetch rather than complex SDK clients.
+```ts
+// Basic usage with automatic CLI argument parsing
+const app = await alchemy("my-app");
+// Now supports: --destroy, --read, --quiet, --stage my-stage
 
-2. **Explicit path construction**: Construct API paths explicitly at the call site instead of using helper methods:
+// With explicit options (overrides CLI args)
+const app = await alchemy("my-app", {
+  stage: "prod",
+  password: process.env.SECRET_PASSPHRASE // Required for secrets
+});
 
-   ```typescript
-   // DO THIS:
-   await api.get(`/accounts/${api.accountId}/resources/${resourceId}`);
+// Create resources within the scope
+const resource = await MyResource("my-resource", {
+  name: "my-resource",
+  apiKey: alchemy.secret.env.API_KEY
+});
 
-   // NOT THIS:
-   await api.get(api.accountPath(`/resources/${resourceId}`));
-   ```
+await app.finalize(); // Always call finalize()
+```
 
-3. **Direct HTTP status handling**: Check response status codes directly rather than relying on exceptions:
+### Secret Management
 
-   ```typescript
-   // DO THIS:
-   const response = await api.get(`/path/to/resource`);
-   if (!response.ok) {
-     // Handle error case
-   }
+Alchemy provides secure secret handling with encryption:
 
-   // NOT THIS:
-   try {
-     const data = await api.get(`/path/to/resource`);
-   } catch (error) {
-     // Handle error
-   }
-   ```
+```ts
+// Create encrypted secrets
+const secret = alchemy.secret.env.API_KEY;
 
-4. **Explicit JSON parsing**: Parse JSON responses explicitly where needed:
+// Use in resource props
+const resource = await MyResource("api", {
+  apiKey: secret,
+  database: alchemy.secret.env.DB_PASSWORD
+});
 
-   ```typescript
-   const response = await api.get(`/path/to/resource`);
-   if (response.ok) {
-     const data = await response.json();
-     // Process data
-   }
-   ```
+// Secrets are automatically encrypted in state files
+```
 
-5. **Public properties over helper methods**: Expose properties like `api.accountId` publicly to construct URLs instead of creating helper methods.
+### Resource Lifecycle
 
-6. **Minimal error transformation**: Report errors with minimal transformation to preserve original error details.
+Resources follow a consistent lifecycle pattern:
 
-## Using Raw Fetch Calls Instead of SDKs
+```ts
+// 1. Resource creation/update
+const resource = await MyResource("id", props);
 
-Always prefer using raw fetch calls instead of service SDKs unless explicitly instructed not to by the user. This approach:
+// 2. Access resource properties
+console.log(resource.name);
+console.log(resource.url);
 
-- Reduces dependency bloat
-- Minimizes version compatibility issues
-- Gives you more control over the request/response cycle
-- Often results in smaller bundle sizes
+// 3. Resources are automatically tracked in scope
+// 4. Cleanup happens automatically when scope is destroyed
+```
 
-For both implementation and tests, directly interact with APIs using fetch.
+### Concurrency and Batching
 
-## Resource Implementation Pattern
+Alchemy.run handles resource concurrency efficiently:
 
-Alchemy resources follow an async/await pattern with a pseudo-class implementation. Key concepts:
+```ts
+// Resources can be created concurrently
+const [worker, bucket, database] = await Promise.all([
+  Worker("api", { entrypoint: "./src/worker.ts" }),
+  R2Bucket("storage", { name: "my-bucket" }),
+  D1Database("db", { name: "my-db" })
+]);
 
-1. **Async/Await Pattern**:
+// Batch operations are optimized automatically
+// Keep batches under 50 resources for optimal performance
+```
 
-   - Resources are implemented as async functions
-   - Direct use of async/await for all operations
-   - No Input<T>/Output<T> wrappers needed
+### Error Handling and Retries
 
-2. **Pseudo-Class Structure**:
+Alchemy implements robust error handling:
 
-   ```typescript
-   // Define the props interface
-   export interface ResourceProps {
-     name: string;
-     // ... other properties
-   }
+```ts
+// Automatic retry with exponential backoff on failures
+// Not on client-side timeouts (reduces compute costs)
+const resource = await MyResource("id", props);
 
-   // Define the resource interface extending props
-   export interface Resource extends ResourceProps {
-     id: string;
-     createdAt: number;
-     // ... other properties
-   }
+// Error handling is built into the resource lifecycle
+// Resources handle their own cleanup on failure
+```
 
-   // Implement the resource
-   export const Resource = Resource(
-     "service::Resource",
-     async function (
-       this: Context<Resource>,
-       id: string,
-       props: ResourceProps
-     ): Promise<Resource> {
-       // Implementation
-     }
-   );
-   ```
+# Test Workflow
 
-3. **Context Usage**:
+Before committing changes to Git and pushing Pull Requests, make sure to run the following commands to ensure the code is working:
 
-   - Access context through `this: Context<T>`
-   - Use `this.phase` for operation type ("create", "update", "delete")
-   - Use `this.output` for current resource state
-   - Use `{...}` to construct resource output
-   - Use `this.destroy()` for deletion
+```sh
+bun format
+```
+If that fails, consider running (but be careful):
 
-4. **Phase Handling**:
 
-   ```typescript
-   if (this.phase === "delete") {
-     // Handle deletion
-     return this.destroy();
-   } else if (this.phase === "update") {
-     // Handle update
-     return { ...updatedProps };
-   } else {
-     // Handle create
-     return { ...newProps };
-   }
-   ```
+Then run tests:
 
-5. **Resource Construction**:
+```sh
+bun run test
+```
 
-   ```typescript
-   // Construct resource output
-   return {
-     id: resourceId,
-     ...props,
-     // Add computed properties
-     createdAt: Date.now(),
-   };
-   ```
+> [!TIP] > `bun run test` will diff with `main` and only run the tests that have changed since main. You must be on a branch for this to work.
 
-6. **Error Handling**:
-   ```typescript
-   try {
-     // Resource operations
-   } catch (error) {
-     console.error("Operation failed:", error);
-     throw error; // Propagate errors
-   }
-   ```
+It is usually better to be targeted with the tests you run instead. That way you can iterate quickly:
+
+```sh
+bun vitest ./alchemy/test/.. -t "..."
+```
+
+# Pull Request
+
+When submitting a Pull Request with a change, always include a code snippet that shows how the new feature/fix is used. It is not enough to just describe it with text and bullet points.
+
+```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/alchemy-run) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
