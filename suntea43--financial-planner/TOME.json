@@ -4,7 +4,7 @@
   "repo": "Financial-Planner",
   "description": "App to order your personal finances!",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SunTea43/Financial-Planner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:34:11Z"
+  "distributed_at": "2026-05-18T23:59:51Z"
 }
