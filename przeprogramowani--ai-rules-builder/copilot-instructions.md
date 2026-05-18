@@ -1,240 +1,53 @@
-## supabase
+## test-plan
 
-> Use this guide to introduce authentication (sign-up & sign-in) in Astro applications with server-side rendering (SSR) support
+> Jesteś doświadczonym inżynierem QA, którego zadaniem jest stworzenie kompleksowego planu testów dla projektu programistycznego. Przeanalizuj poniższe informacje o projekcie:
 
-# Supabase Auth Integration with Astro
+Jesteś doświadczonym inżynierem QA, którego zadaniem jest stworzenie kompleksowego planu testów dla projektu programistycznego. Przeanalizuj poniższe informacje o projekcie:
 
-Use this guide to introduce authentication (sign-up & sign-in) in Astro applications with server-side rendering (SSR) support
+<kod_projektu>
 
-## Before we start
+</kod_projektu>
 
-VERY IMPORTANT: Ask me which pages or components should behave differently after introducing authentication. Adjust further steps accordingly.
+<stos_technologiczny>
+[tech-stack.md](mdc:.ai/tech-stack.md)
+</stos_technologiczny>
 
-## Core Requirements
+Twoim zadaniem jest wygenerowanie szczegółowego planu testów, który będzie dostosowany do specyfiki projektu, uwzględniając wykorzystywane technologie, strukturę kodu oraz kluczowe elementy repozytorium. Plan testów powinien być napisany w języku polskim.
 
-1. Use `@supabase/ssr` package (NOT auth-helpers)
-2. Use ONLY `getAll` and `setAll` for cookie management
-3. NEVER use individual `get`, `set`, or `remove` cookie methods
-4. Implement proper session management with middleware based on JWT (Supabase Auth)
+Przed stworzeniem planu testów, przeprowadź dogłębną analizę projektu wewnątrz bloku <analiza_projektu> w swoim bloku myślowym. W analizie uwzględnij:
 
-## Installation
+1. Kluczowe komponenty projektu wynikające z analizy kodu:
+   - Wymień i opisz główne komponenty projektu
+2. Specyfikę stosu technologicznego i jego wpływ na strategię testowania:
+   - Przeanalizuj każdy element stosu technologicznego i jego implikacje dla testowania
+3. Priorytety testowe bazujące na strukturze repozytorium:
+   - Zidentyfikuj i uszereguj obszary testowe według ważności
+4. Potencjalne obszary ryzyka wymagające szczególnej uwagi w testach:
+   - Wymień potencjalne ryzyka i uzasadnij, dlaczego wymagają specjalnej uwagi
 
-```bash
-npm install @supabase/ssr @supabase/supabase-js
-```
+Po zakończeniu analizy, stwórz plan testów wewnątrz bloku <plan_testów>. Plan powinien zawierać:
 
-## Environment Variables
+1. Wprowadzenie i cele testowania
+2. Zakres testów
+3. Typy testów do przeprowadzenia (np. testy jednostkowe, integracyjne, wydajnościowe)
+4. Scenariusze testowe dla kluczowych funkcjonalności
+5. Środowisko testowe
+6. Narzędzia do testowania
+7. Harmonogram testów
+8. Kryteria akceptacji testów
+9. Role i odpowiedzialności w procesie testowania
+10. Procedury raportowania błędów
 
-Create `.env` file with required Supabase credentials:
+Pamiętaj, aby plan testów był:
+- Dokładnie dostosowany do kontekstu projektu
+- Uwzględniał specyfikę wykorzystywanych technologii
+- Priorytetyzował kluczowe elementy repozytorium
+- Był napisany w języku polskim
+- Prezentował wysoką jakość i profesjonalizm
 
-```env
-SUPABASE_URL=your_project_url
-SUPABASE_PUBLIC_KEY=your_anon_key
-```
+Rozpocznij od analizy, a następnie przejdź do tworzenia planu testów. Twój końcowy wynik powinien składać się tylko z planu testów i nie powinien powielać ani streszczać żadnej pracy wykonanej w bloku analizy projektu.
 
-For better TypeScript support, create or update `src/env.d.ts`:
-
-```typescript
-/// <reference types="astro/client" />
-interface ImportMetaEnv {
-  readonly SUPABASE_URL: string;
-  readonly SUPABASE_PUBLIC_KEY: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-```
-
-Make sure `.env.example` is updated with the correct environment variables.
-
-## Implementation Steps
-
-### 1. Create OR Extend Supabase Server Instance
-
-Update existing Supabase client or create one in `src/db/supabase.client.ts`:
-
-```typescript
-import type { AstroCookies } from 'astro';
-import { createServerClient, type CookieOptionsWithName } from '@supabase/ssr';
-import type { Database } from '../db/database.types.ts';
-
-export const cookieOptions: CookieOptionsWithName = {
-  path: '/',
-  secure: true,
-  httpOnly: true,
-  sameSite: 'lax',
-};
-
-export const createSupabaseServerInstance = (context: {
-  headers: Headers;
-  cookies: AstroCookies;
-}) => {
-  const supabase = createServerClient<Database>(
-    import.meta.env.SUPABASE_URL!,
-    import.meta.env.SUPABASE_PUBLIC_KEY!,
-    {
-      cookieOptions,
-      cookies: {
-        getAll() {
-          return parseCookieHeader(context.headers.get('Cookie') ?? '');
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            context.cookies.set(name, value, options),
-          );
-        },
-      },
-    },
-  );
-
-  return supabase;
-};
-```
-
-### 2. Implement OR Extend Authentication Middleware
-
-Update existing auth middleware or create one in `src/middleware/index.ts`:
-
-```typescript
-import { createSupabaseServerInstance } from '../db/supabase.client.ts';
-import { defineMiddleware } from 'astro:middleware';
-
-// If there are public paths (per user's description)
-const PUBLIC_PATHS = ['/auth/login', '/auth/register', '/auth/reset-password'];
-
-export const onRequest = defineMiddleware(
-  async ({ locals, cookies, url, request, redirect }, next) => {
-    // Skip auth check for public paths
-    if (PUBLIC_PATHS.includes(url.pathname)) {
-      return next();
-    }
-
-    const supabase = createSupabaseServerInstance({
-      cookies,
-      headers: request.headers,
-    });
-
-    // IMPORTANT: Always get user session first before any other operations
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (user) {
-      locals.user = {
-        email: user.email,
-        id: user.id,
-      };
-    } else if (!PUBLIC_PATHS.includes(url.pathname)) {
-      // Redirect to login for protected routes
-      return redirect('/auth/login');
-    }
-
-    return next();
-  },
-);
-```
-
-### 3. Create Auth API Endpoints
-
-Create the following endpoints in `src/pages/api/auth/`:
-
-```typescript
-// src/pages/api/auth/login.ts
-import type { APIRoute } from 'astro';
-import { createSupabaseServerInstance } from '../../db/supabase.client.ts';
-
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const { email, password } = await request.json();
-
-  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
-    });
-  }
-
-  return new Response(JSON.stringify({ user: data.user }), {
-    status: 200,
-  });
-};
-
-// src/pages/api/auth/register.ts
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const { email, password } = await request.json();
-
-  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
-
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
-    });
-  }
-
-  return new Response(JSON.stringify({ user: data.user }), {
-    status: 200,
-  });
-};
-
-// src/pages/api/auth/logout.ts
-export const POST: APIRoute = async ({ cookies, request }) => {
-  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
-
-  const { error } = await supabase.auth.signOut();
-
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
-    });
-  }
-
-  return new Response(null, { status: 200 });
-};
-```
-
-### 4. Protect Routes
-
-In protected Astro pages:
-
-```astro
----
-// pages/protected.astro
-const { user } = Astro.locals;
-
-if (!user) {
-  return Astro.redirect('/auth/login');
-}
----
-
-<h1>Protected Page</h1>
-<p>Welcome {user.email}!</p>
-```
-
-## Security Best Practices
-
-- Set proper cookie options (httpOnly, secure, sameSite)
-- Never expose Supabase integration & keys in client-side components
-- Validate all user input server-side
-- Use proper error handling and logging
-
-## Common Pitfalls
-
-1. DO NOT use individual cookie methods (get/set/remove)
-2. DO NOT import from @supabase/auth-helpers-nextjs
-3. DO NOT skip the auth.getUser() call in middleware
-4. DO NOT modify cookie handling logic
-5. Always handle auth state changes properly
+Przedstaw ten plan w formacie Markdown.
 
 ---
 > Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
