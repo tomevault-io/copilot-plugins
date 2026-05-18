@@ -1,44 +1,30 @@
-## development-guide
+## infrastructure-guide
 
-> This document provides guidance for developing and testing the LLM Proxy.
+> This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
 
-# Development Guide
+# Infrastructure and Deployment
 
-This document provides guidance for developing and testing the LLM Proxy.
+This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
 
-## Setup
+## Docker Compose
 
-1. Install Rust: https://www.rust-lang.org/tools/install
-2. Install direnv: https://direnv.net
-3. Configure environment variables:
-   - Copy [.envrc.template](mdc:.envrc.template) to `.envrc`
-   - Fill out the required API keys and configuration
+- [infrastructure/compose.yaml](mdc:infrastructure/compose.yaml): Defines services like the proxy, database, Redis, and observability tooling.
 
-## Running Locally
+## Deployment Script
 
-- Start the router: `cargo run`
-- Test with a sample request: `cargo run -p test`
+- [infrastructure/deploy.sh](mdc:infrastructure/deploy.sh): Bash script to deploy infrastructure and update services.
 
-## File Structure Conventions
+## Monitoring and Observability
 
-### Main Application
-- [ai-gateway/src/main.rs](mdc:ai-gateway/src/main.rs) - Application entry point
-- [ai-gateway/src/lib.rs](mdc:ai-gateway/src/lib.rs) - Library exports
+- [infrastructure/prometheus/](mdc:infrastructure/prometheus): Prometheus configuration files.
+- [infrastructure/grafana/](mdc:infrastructure/grafana): Grafana dashboards and data source definitions.
+- [infrastructure/loki/](mdc:infrastructure/loki): Loki log aggregation setup.
+- [infrastructure/tempo/](mdc:infrastructure/tempo): Tempo tracing configuration.
+- [infrastructure/opentelemetry-collector/](mdc:infrastructure/opentelemetry-collector): OpenTelemetry Collector pipelines.
 
-### Tests
-- [ai-gateway/tests/](mdc:ai-gateway/tests) - Integration tests
-- [ai-gateway/src/tests/](mdc:ai-gateway/src/tests) - Test utilities
-- Unit tests are typically located alongside the code they test
+## Certificates
 
-## Testing
-
-- Run tests: `cargo test --all-features`
-
-## Crate Organization
-
-- Core application logic is in the [ai-gateway/](mdc:ai-gateway) directory
-- Supporting libraries are in the [crates/](mdc:crates) directory
-- External dependencies are defined in the root [Cargo.toml](mdc:Cargo.toml)
+- [infrastructure/self-signed-certs/](mdc:infrastructure/self-signed-certs): Self-signed TLS certificates for local development.
 
 ---
 > Source: [Helicone/ai-gateway](https://github.com/Helicone/ai-gateway) — distributed by [TomeVault](https://tomevault.io).
