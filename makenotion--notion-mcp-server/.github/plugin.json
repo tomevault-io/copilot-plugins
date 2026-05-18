@@ -1,0 +1,9 @@
+{
+  "name": "makenotion--notion-mcp-server",
+  "displayName": "notion-mcp-server",
+  "description": "Official Notion MCP Server",
+  "version": "1.0.0",
+  "author": "makenotion",
+  "homepage": "https://github.com/makenotion/notion-mcp-server",
+  "skills": []
+}
