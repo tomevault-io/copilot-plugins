@@ -1,0 +1,9 @@
+{
+  "name": "llmquant--quant-mind",
+  "displayName": "quant-mind",
+  "description": "QuantMind is an intelligent knowledge extraction and retrieval framework for quantitative finance.",
+  "version": "1.0.0",
+  "author": "LLMQuant",
+  "homepage": "https://github.com/LLMQuant/quant-mind",
+  "skills": []
+}
