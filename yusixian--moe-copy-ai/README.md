@@ -1,0 +1,30 @@
+# moe-copy-ai
+
+> Tome by [yusixian](https://github.com/yusixian/moe-copy-ai) — distributed by [TomeVault](https://tomevault.io)
+
+✨ 萌萌哒的 AI 网页数据提取助手 ✨
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [yusixian/moe-copy-ai](https://github.com/yusixian/moe-copy-ai).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/yusixian/moe-copy-ai](https://github.com/yusixian/moe-copy-ai)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install yusixian/moe-copy-ai
+```
+Source: [github.com/yusixian/moe-copy-ai](https://github.com/yusixian/moe-copy-ai).
+
+<!-- genome:t-i-p -->
