@@ -1,0 +1,9 @@
+{
+  "name": "dannymac180--meta-agent",
+  "displayName": "meta-agent",
+  "description": "An agent that uses OpenAI's Agents SDK to generate new agents",
+  "version": "1.0.0",
+  "author": "DannyMac180",
+  "homepage": "https://github.com/DannyMac180/meta-agent",
+  "skills": []
+}
