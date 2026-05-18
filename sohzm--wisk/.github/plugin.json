@@ -1,0 +1,9 @@
+{
+  "name": "sohzm--wisk",
+  "displayName": "wisk",
+  "description": "a plugin-based document editor written in vanilla javascript",
+  "version": "1.0.0",
+  "author": "sohzm",
+  "homepage": "https://github.com/sohzm/wisk",
+  "skills": []
+}
