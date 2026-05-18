@@ -1,4 +1,4 @@
-## perp-v1-boilerplate
+## use-bun-instead-of-node-vite-npm-pnpm
 
 > Use Bun instead of Node.js, npm, pnpm, or vite.
 
