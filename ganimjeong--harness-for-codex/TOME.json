@@ -4,7 +4,7 @@
   "repo": "Harness-for-codex",
   "description": "Codex harness for consistent AI-assisted development workflows, including agent   instructions, standard setup/check/test/eval scripts, CI, hooks, and   documentation. |  AI \uae30\ubc18 \uac1c\ubc1c \uc791\uc5c5\uc744 \uc77c\uad00\ub418\uac8c \uc9c4\ud589\ud558\uae30 \uc704\ud55c Codex \ud558\ub124\uc2a4\uc785\ub2c8\ub2e4. \uc5d0\uc774\uc804\ud2b8 \uc9c0\uce68, \ud45c   \uc900 setup/check/test/eval \uc2a4\ud06c\ub9bd\ud2b8, CI, \ud6c5, \ubb38\uc11c\ub97c \ud3ec\ud568\ud569\ub2c8\ub2e4.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ganimjeong/Harness-for-codex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T18:16:38Z"
+  "distributed_at": "2026-05-18T21:05:36Z"
 }
