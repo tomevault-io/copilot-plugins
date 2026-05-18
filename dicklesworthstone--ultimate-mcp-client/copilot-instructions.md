@@ -1,52 +1,54 @@
-## 02-mcp-client-architecture
+## 03-agent-master-loop
 
-> Handles server configuration, lifecycle management (connecting, disconnecting, restarting), discovery mechanisms, capability aggregation, and server process management.
+> The Agent Master Loop module in [agent_master_loop.py](mdc:agent_master_loop.py) orchestrates AI agents with complex cognitive functions. It manages the think-act cycle, integrates with the Unified Memory System (UMS), and leverages LLMs for decision-making.
 
-# MCP Client Architecture
+# Agent Master Loop (AML) Architecture
 
-The MCP Client is built around several key architectural components as found in [mcp_client.py](mdc:mcp_client.py).
+The Agent Master Loop module in [agent_master_loop.py](mdc:agent_master_loop.py) orchestrates AI agents with complex cognitive functions. It manages the think-act cycle, integrates with the Unified Memory System (UMS), and leverages LLMs for decision-making.
 
-## Key Classes
+## Key Components
 
-### MCPClient
-The main application class that orchestrates UI loops, command handling, and core logic.
+### AgentState
+Holds the complete runtime state of the agent including:
+- Workflow context and workflow stack
+- Goal stack for hierarchical task management
+- Current plan with structured steps
+- Error tracking and meta-cognition metrics
+- Adaptive thresholds for reflection and consolidation
 
-### ServerManager
-Handles server configuration, lifecycle management (connecting, disconnecting, restarting), discovery mechanisms, capability aggregation, and server process management.
+### AgentMasterLoop
+Main orchestrator class implementing:
+- Think-act-learn cycles with LLM interaction
+- Context gathering and management
+- Tool execution and error handling
+- Meta-cognitive processes (reflection, consolidation)
+- Background task management
 
-### RobustStdioSession
-A custom implementation of the MCP ClientSession specifically for stdio servers, with noise filtering, direct future resolution, and process lifecycle management.
+## Core Functionality
 
-### ConversationGraph
-Manages the non-linear, branching conversation structure using ConversationNode objects, with persistence to/from JSON.
+### Planning & Execution
+- Maintains explicit, modifiable plans with sequential steps
+- Validates plan steps and detects dependency cycles
+- Executes tools via MCPClient with argument sanitization
+- Records detailed action history with dependencies
 
-### ToolCache
-Implements caching logic using diskcache for persistence and an in-memory layer for speed, with TTL management.
+### Memory & Goal Management
+- Goal Stack: Hierarchical goal decomposition and tracking
+- Working Memory: Smart optimization based on relevance
+- Memory Promotion: Background elevation of memories to higher cognitive levels
+- Memory Linking: Automatic creation of semantic relationships
 
-## Interfaces
+### Meta-Cognition
+- Reflection: Self-analysis for progress monitoring
+- Consolidation: Synthesizing information into insights
+- Adaptive Thresholds: Dynamic adjustment based on performance
+- Mental Momentum: Bias for maintaining productive workflows
 
-### CLI/TUI
-- Uses Typer for command-line interface
-- Rich for formatted console output and TUI dashboard
-- Interactive shell with commands (/servers, /tools, etc.)
-
-### Web UI
-- FastAPI backend with REST API
-- WebSockets for bidirectional real-time chat
-- Alpine.js, Tailwind CSS, and DaisyUI for frontend
-- Multiple themes with light/dark mode support
-
-## Resilience Features
-
-### STDIO Safety Mechanisms
-- StdioProtectionWrapper: Wraps sys.stdout to intercept writes
-- safe_stdout(): Context manager for critical operations
-- get_safe_console(): Utility for correct stream usage
-
-### Error Handling
-- @retry_with_circuit_breaker decorator for retries with exponential backoff
-- @with_tool_error_handling for standardized error reporting
-- Structured try/except/finally blocks throughout
+## Error Handling
+- Retry logic with exponential backoff
+- Structured error categorization for recovery
+- Consecutive error tracking with safety limits
+- Graceful degradation and shutdown mechanisms
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
