@@ -1,0 +1,9 @@
+{
+  "name": "jacksonkasi1--tnks-data-table",
+  "displayName": "tnks-data-table",
+  "description": "Advanced data table component with server-side operations using Hono.js, Drizzle ORM, and PostgreSQL",
+  "version": "1.0.0",
+  "author": "jacksonkasi1",
+  "homepage": "https://github.com/jacksonkasi1/tnks-data-table",
+  "skills": []
+}
