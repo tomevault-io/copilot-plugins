@@ -1,0 +1,9 @@
+{
+  "name": "rudra-ravi--wikipedia-mcp",
+  "displayName": "wikipedia-mcp",
+  "description": "A Model Context Protocol (MCP) server that retrieves information from Wikipedia to provide context to LLMs.",
+  "version": "1.0.0",
+  "author": "Rudra-ravi",
+  "homepage": "https://github.com/Rudra-ravi/wikipedia-mcp",
+  "skills": []
+}
