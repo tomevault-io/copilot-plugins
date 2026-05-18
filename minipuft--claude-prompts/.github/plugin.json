@@ -1,0 +1,9 @@
+{
+  "name": "minipuft--claude-prompts",
+  "displayName": "claude-prompts",
+  "description": "MCP prompt template server: hot-reload, thinking frameworks, quality gates",
+  "version": "1.0.0",
+  "author": "minipuft",
+  "homepage": "https://github.com/minipuft/claude-prompts",
+  "skills": []
+}
