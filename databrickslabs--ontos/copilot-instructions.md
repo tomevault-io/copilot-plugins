@@ -1,42 +1,125 @@
-## 01-expertise-and-principles
+## 02-project-overview
 
-> You are an expert in **Python, FastAPI, scalable API development, TypeScript, React, Tailwind CSS, Shadcn UI, Databricks SDK, Databricks Apps**, and **Databricks REST APIs**.
+> The project implements a web application designed to run as a **Databricks App**. Databricks Apps are Python web applications configured via an `app.yaml` file (Databricks Asset Bundle format). This app provides Unity Catalog and general Databricks-related services, focusing on metadata management, governance, and operational tools.
 
 
-You are an expert in **Python, FastAPI, scalable API development, TypeScript, React, Tailwind CSS, Shadcn UI, Databricks SDK, Databricks Apps**, and **Databricks REST APIs**.
+### Project Overview
 
-### Key Principles
+The project implements a web application designed to run as a **Databricks App**. Databricks Apps are Python web applications configured via an `app.yaml` file (Databricks Asset Bundle format). This app provides Unity Catalog and general Databricks-related services, focusing on metadata management, governance, and operational tools.
 
-- Write concise, technical responses with accurate examples in both Python and TypeScript.
-- Use **functional and declarative programming patterns**; use classes when necessary.
-- Prefer **iteration and modularization** over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`, `isLoading`, `hasError`).
-- Follow proper **naming conventions**:
-  - For Python: use lowercase with underscores (e.g., `routers/user_routes.py`, `db_models/data_products.py`, `repositories/settings_repository.py`).
-  - For TypeScript: use lowercase with dashes for directories and files (e.g., `components/auth-wizard`, `views/data-products.tsx`).
-- The project is ASF 2.0 licensed and open-source, hosted at https://github.com/larsgeorge/ontos-app
+**Core Features:**
 
-## Personal Style
+- **Data Contracts:** Instrument Data Products with technical metadata based on the Open Data Contract Standard. Managed by `DataContractsManager`. Includes schema validation, quality checks, access control verification, sample data display, etc.
+    - Data Contracts can be written in any text format, like plain text, YAML, JSON. For structured formats, like JSON, we support also existing standards, such as the BITOL ODCS (source: https://github.com/bitol-io/open-data-contract-standard/blob/main/schema/odcs-json-schema-latest.json)
+- **Data Products:** Group Databricks assets (tables, views, functions, models, dashboards, jobs, notebooks) using tags (e.g., `data-product-name`, `data-product-domain`). Managed by `DataProductsManager`.
+    - Data Products follow the BITOL ODPS specification (source: https://github.com/bitol-io/open-data-product-standard/blob/main/schema/odps-json-schema-latest.json)
+- **Business Glossaries:** Hierarchical glossaries per organizational unit (company, LOB, department, team, project). Merged bottom-up for users, allowing overrides. Terms have tags, markdown descriptions, lifecycle status, assigned assets. Managed by `BusinessGlossariesManager`.
+- **Master Data Management (MDM):** Integrates with Zingg.ai for MDM capabilities. Managed by `MasterDataManagementManager`.
+- **Entitlements:** Combines access privileges into personas (roles) and assigns them to directory groups. Managed by `EntitlementsManager`.
+- **Security:** Enables advanced security features (e.g., differential privacy) on assets. Managed by `SecurityFeaturesManager`.
+- **Compliance:** Define and verify compliance rules, calculating an overall score. Managed by `ComplianceManager`.
+- **Catalog Commander:** Norton Commander-inspired dual-pane explorer for managing catalog assets (copy/move tables/schemas). Managed by `CatalogCommanderManager`.
+- **Data Asset Reviews:** Workflow for reviewing and approving assets (tables, views, functions). Managed by `DataAssetReviewManager`. Includes notifications for reviewers/requesters.
+- **Settings:** Configure app settings, Databricks connection, Git integration, background jobs, and RBAC (Roles). Managed by `SettingsManager`.
+- **About:** Application summary and links.
 
-- Be casual unless otherwise specified
-- Be terse
-- Suggest solutions that I didn't think about-anticipate my needs
-- Treat me as an expert
-- Be accurate and thorough
-- Give the answer immediately. Provide detailed explanations and restate my query in your own words if necessary after giving the answer
-- Value good arguments over authorities, the source is irrelevant
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- You may use high levels of speculation or prediction, just flag it for me
-- No moral lectures
-- Discuss safety only when it's crucial and non-obvious
-- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue afterward
-- Cite sources whenever possible at the end, not inline
-- No need to mention your knowledge cutoff
-- No need to disclose you're an AI
-- Please respect my formatting preferences when you provide code.
-- Please respect all code comments, they're usually there for a reason. Remove them ONLY if they're completely irrelevant after a code change. if unsure, do not remove the comment.
-- Split into multiple responses if one response isn't enough to answer the question.
-- If I ask for adjustments to code I have provided you, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make. Multiple code blocks are ok.
+**General Usage:**
+
+- Users see **different features** in the UI based on their group memberships. For example, an Admin sees and has read/write access to everything. A Data Producer has read/write access to Data Contracts and Products (among other related things). A Data Consumer has read-only access to the Data Products and Contracts.
+- **Creating Data Products** entails these steps:
+    - Data Producer and Consumers use the app to design an initial version of a Data Contract in draft status.
+    - This contract is refined until both parties agree on the overlapping details, such as the schema(s), data quality checks, etc.
+    - The Data Producer enhance the contract with further information, such as owner (likely themselves), access control requirements, business semantics, and so on
+    - Eventually they contract is released with a specific version and status
+    - Data Producer either subsequently, or asynchronously, build a Data Product that uses the contract for a specific output port of the product
+    - Once the Data Product is released with a specific version and status consumers can "purchase" (or "check out"/"subscribe") the product, creating a linkage between contract via the product and the consumer
+    - This creates an implicit Compliance check that verifies the contract regularly via a background job
+    - If a violation is detected, the owner and subscribers are alerted via the built-in ITSM notification feature
+    - App users with the Data Governance role maintain Data Domains and Business Glossaries, which are used to assign specific values to Data Products and Data Contracts
+- The **Home Page** differs for each app user role, for instance, for Data Consumers, they find an easy discovery option (like a marketplace) for Data Products to subscribe to. For Data Producers, they find the options to create Data Products or continue working on draft products and contracts.
+
+### General Data Product Details
+
+#### 1. Inception
+- **Start with desired business outcomes**
+  - Clearly define what the business aims to achieve with the data product.
+- **Assign owner**
+  - Appoint a responsible product owner for governance and delivery.
+- **Assign resources**
+  - Allocate the necessary team members and budget.
+- **Define business metrics**
+  - Set measurable objectives for success.
+
+#### 2. Design
+- **Create a data contract**
+  - Draft an agreement outlining expected data inputs, outputs, quality, and responsibilities.
+- **Create a data product design specification**
+  - Document technical requirements, features, and integration needs.
+- **Ensure semantic consistency**
+  - Align definitions, formats, and business logic with existing data products.
+
+#### 3. Creation
+- **Build modular pipelines**
+  - Develop features, models, dashboards, and alerts aligned to design specs.
+- **Test against data contract**
+  - Validate outputs for compliance with the contract; ensure quality and reliability.
+
+#### 4. Publishing
+- **Deploy using DataOps or MLOps**
+  - Use automated pipelines for reliable deployment and scaling (for models and data apps).
+- **Publish to catalog**
+  - Register product and metadata in the organization’s catalog.
+- **Manage access permissions**
+  - Set roles and permissions per the established data contract.
+
+#### 5. Operation & Governance
+- **Monitor metrics, quality, usage, permissions**
+  - Continuously track product performance and access.
+- **Handle compliance requests**
+  - Respond to audits, legal, and regulatory needs as they arise.
+- **Audit data product access**
+  - Regularly review and update access control records.
+
+#### 6. Consumption & Value Creation
+- **Enable feedback**
+  - Gather and process feedback from data consumers for improvements.
+- **Share information**
+  - Communicate curations and changes with stakeholders.
+
+#### 7. Iteration
+- **Iterate new version**
+  - Refine product design and contract based on feedback and operational results.
+
+#### 8. Retirement
+- **Deprecate product**
+  - Mark the data product as deprecated and communicate status.
+- **Inform consumers**
+  - Notify users and stakeholders of planned retirement.
+- **Shutdown production**
+  - Disable active processing and remove integrations.
+- **Archive assets**
+  - Store relevant artifacts securely as needed for compliance.
+- **Clean up resources**
+  - Release or repurpose infrastructure and team resources.
+
+***
+
+#### Roles & Responsibilities (mapped from diagram)
+- **Business/consumer:** Define needs, use product, provide feedback.
+- **Product owner:** Manages lifecycle, ensures delivery.
+- **Data engineer / Data scientist / Business analyst:** Design, create, test, publish, iterate data products.
+- **Data steward:** Oversees governance and compliance at all stages.
+- **DataOps/MLOps:** Supports deployment, publishing, monitoring.
+
+***
+
+#### Contract Maintenance Principles
+- Data contracts should be updated iteratively whenever requirements or data formats change.
+- All stakeholders must be notified of contract updates.
+- Testing and validation are required for any contract change before production rollout.
+- Contracts must be archived alongside retired data products for compliance purposes.
+
+***
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
