@@ -1,154 +1,140 @@
-## ida-integration
+## testing-conventions
 
-> IDA Pro uses a specific PyQt5 framework that requires environment configuration:
+> - All test files must start with `test_` prefix (e.g., `test_event_emitter.py`)
 
-# IDA Pro Integration Guidelines
+# Testing Conventions for IDA TaskR
 
-## Environment and Dependencies
+## Test Structure and Organization
 
-### PyQt5 Framework Setup
-IDA Pro uses a specific PyQt5 framework that requires environment configuration:
-```bash
-export DYLD_FALLBACK_FRAMEWORK_PATH="/Applications/IDA Professional 9.1.app/Contents/Frameworks"
+### Test File Naming
+- All test files must start with `test_` prefix (e.g., `test_event_emitter.py`)
+- Test classes should use `TestCamelCase` naming
+- Test methods should use `test_descriptive_name` format
+
+### Test Class Structure
+```python
+class TestMessageEmitter(unittest.TestCase):
+    """Test suite for MessageEmitter event handling."""
+
+    def setUp(self):
+        """Set up test fixtures before each test method."""
+        self.emitter = MessageEmitter()
+        self.test_events = []
+
+    def tearDown(self):
+        """Clean up after each test method."""
+        self.test_events.clear()
+
+    def test_specific_functionality(self):
+        """Test docstring describing what is being tested."""
+        # Test implementation
 ```
 
-This is automatically handled in [tests/__init__.py](mdc:tests/__init__.py) and [run_tests.sh](mdc:run_tests.sh).
+## Mocking Patterns
 
-### Import Patterns
+### PyQt5 Components
+Always mock PyQt5 imports since they're not available in test environment:
 ```python
-# Safe IDA imports with fallbacks for testing
-try:
-    import ida_bytes
-    import ida_segment
-    import idaapi
-except ImportError:
-    logger.error("IDA Pro modules not available")
-    # Provide fallbacks or skip functionality
-```
-
-## Worker Architecture for IDA
-
-### IDA-Side Components
-- **[src/ida_taskr/launcher.py](mdc:src/ida_taskr/launcher.py)** - Manages worker processes from within IDA
-- **[src/ida_taskr/protocols.py](mdc:src/ida_taskr/protocols.py)** - Event handling for worker communication
-- **[src/ida_taskr/utils.py](mdc:src/ida_taskr/utils.py)** - Data processing and section management
-
-### Worker-Side Components  
-- **[src/ida_taskr/worker.py](mdc:src/ida_taskr/worker.py)** - Base classes for external worker processes
-- **ConnectionContext** - Handles bidirectional communication with IDA
-
-## Data Processing Patterns
-
-### Section Data Extraction
-```python
-def get_section_data(section_name: str, max_size: int = 120 * 1024 * 1024):
-    """Extract binary data from IDA sections safely."""
-    try:
-        import ida_bytes, ida_segment, idaapi
-        seg = ida_segment.get_segm_by_name(section_name)
-        if not seg:
-            return idaapi.BADADDR, b""
-        
-        data_bytes = ida_bytes.get_bytes(seg.start_ea, seg.end_ea - seg.start_ea)
-        return seg.start_ea, data_bytes
-    except ImportError:
-        return 0, b""  # Fallback for testing
-```
-
-### Address Handling
-- Use hex format for addresses in logs: `hex(address)`
-- Support both hex and decimal input: `int(addr_str, 16)` vs `int(addr_str, 10)`
-- Validate address ranges before processing
-
-## Reverse Engineering Workflows
-
-### Anti-Deobfuscation Pipeline
-The project includes patterns for:
-1. **Pattern Recognition** - Identify obfuscated code patterns
-2. **Analysis Stages** - Multi-stage deobfuscation processing  
-3. **Patch Management** - Apply or simulate binary patches
-4. **Result Validation** - Compare against expected outputs
-
-### Shared Memory Usage
-```python
-# Create shared memory for large binary data
-shm = multiprocessing.shared_memory.SharedMemory(create=True, size=data_size)
-shm.buf[:data_size] = binary_data
-
-# Pass to worker via arguments
-worker_args = {
-    "shm_name": shm.name,
-    "data_size": data_size,
-    "start_ea": hex(start_address)
-}
-```
-
-## Testing IDA Integration
-
-### Mocking IDA Components
-```python
-# Mock IDA modules that aren't available in test environment
-@patch('ida_taskr.utils.ida_bytes')
-@patch('ida_taskr.utils.ida_segment') 
-def test_section_processing(self, mock_segment, mock_bytes):
-    mock_segment.get_segm_by_name.return_value = Mock(start_ea=0x1000, end_ea=0x2000)
-    mock_bytes.get_bytes.return_value = b"\x90" * 100
+@patch('ida_taskr.launcher.WorkerLauncher.launch_worker')
+def test_worker_launcher_integration(self, mock_launch_worker):
+    mock_launch_worker.return_value = True
     # Test implementation
 ```
 
-### Environment Variables for Testing
-Use `TEST_ROUTINE_ADDR` to test specific memory addresses:
-```bash
-export TEST_ROUTINE_ADDR=0x141887cbd
-./run_tests.sh test_anti_deob
-```
-
-## Plugin Development
-
-### Plugin Base Structure
+### Event Emitter Testing
+Use list collectors to verify event emissions:
 ```python
-class DataProcessorPlugin(idaapi.plugin_t):
-    flags = idaapi.PLUGIN_PROC
-    comment = "Description of plugin functionality"
-    help = "Usage instructions"
-    wanted_name = "PluginName"
-    wanted_hotkey = "Alt-Shift-P"
-
-    def init(self):
-        logger.info("Plugin initialized")
-        return idaapi.PLUGIN_KEEP
-
-    def term(self):
-        # Cleanup resources
-        if self._core:
-            self._core.terminate()
-
-    def run(self, arg):
-        # Main plugin logic
-        pass
+def test_event_handling(self):
+    results = []
+    
+    @self.emitter.on("worker_results")
+    def on_results(results_data):
+        results.append(results_data)
+    
+    self.emitter.emit_worker_results({"test": "data"})
+    self.assertEqual(len(results), 1)
 ```
 
-### Resource Management
-- Always register cleanup handlers: `atexit.register(self.terminate)`
-- Properly close multiprocessing connections
-- Handle Qt thread lifecycle correctly
+## Test Environment Setup
 
-## Common Pitfalls
+### Package Initialization
+The [tests/__init__.py](mdc:tests/__init__.py) handles:
+- IDA Pro framework path configuration
+- Python path setup for src directory
+- Base test class definitions
 
-### Threading Issues
-- IDA's main thread vs worker threads
-- Qt signal/slot mechanisms
-- Multiprocessing context setup
+### Test Discovery
+Tests are discovered automatically by unittest when using proper naming:
+- Files: `test_*.py`
+- Classes: `Test*`
+- Methods: `test_*`
 
-### Memory Management
-- Large binary data handling
-- Shared memory cleanup
-- Process lifecycle management
+## Error Handling in Tests
 
-### Platform Specifics
-- macOS framework paths
-- Windows vs Unix process spawning
-- Path separator handling
+### Exception Testing
+```python
+def test_exception_propagation(self):
+    """Test that exceptions are properly propagated."""
+    @self.emitter.on("worker_message")
+    def failing_handler(message):
+        raise Exception("Handler failed")
+    
+    with self.assertRaises(Exception) as context:
+        self.emitter.emit_worker_message({"test": "message"})
+    
+    self.assertEqual(str(context.exception), "Handler failed")
+```
+
+### Avoiding Order Dependencies
+- Don't rely on handler execution order (Python sets are unordered)
+- Use deterministic test data
+- Clean up state in tearDown methods
+
+## Common Test Utilities
+
+### Mock Connection Context
+```python
+def create_mock_connection(self):
+    mock_conn = Mock()
+    mock_conn.send_message.return_value = True
+    mock_conn.closed = False
+    return mock_conn
+```
+
+### Async Testing Patterns
+For async components, use proper async test methods:
+```python
+async def test_async_functionality(self):
+    result = await some_async_operation()
+    self.assertIsNotNone(result)
+```
+
+## Running Specific Tests
+
+### Test Runner Integration
+The [run_tests.sh](mdc:run_tests.sh) script supports:
+```bash
+# Single test file
+./run_tests.sh test_event_emitter
+
+# All tests
+./run_tests.sh
+
+# With environment variables
+TEST_ROUTINE_ADDR=0x123 ./run_tests.sh test_anti_deob
+```
+
+### Direct Python Execution
+```bash
+# Single test file
+python -m unittest tests.test_event_emitter -v
+
+# Single test class
+python -m unittest tests.test_event_emitter.TestMessageEmitter -v
+
+# Single test method
+python -m unittest tests.test_event_emitter.TestMessageEmitter.test_decorator_event_registration -v
+```
 
 ---
 > Source: [mahmoudimus/ida-taskr](https://github.com/mahmoudimus/ida-taskr) — distributed by [TomeVault](https://tomevault.io).
