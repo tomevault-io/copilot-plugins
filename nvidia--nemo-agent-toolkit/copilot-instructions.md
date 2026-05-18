@@ -1,88 +1,120 @@
-## nemo-agent-toolkit
+## cursor-rules
 
-> SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+> Follow these rules when the user's request involves creating, modifying, organizing, or structuring Cursor rules within the project
 
-<!--
-SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-SPDX-License-Identifier: Apache-2.0
+# Cursor Rules Location
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+How to add new cursor rules to the project
 
-http://www.apache.org/licenses/LICENSE-2.0
+1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+    ```
+    .cursor/rules/
+    ├── your-rule-name.mdc
+    ├── another-rule.mdc
+    └── ...
+    ```
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
+2. Follow the naming convention:
+    - Use kebab-case for filenames
+    - Always use .mdc extension
+    - Make names descriptive of the rule's purpose
 
-# AGENTS.md - NVIDIA NeMo Agent Toolkit AI Agent Entry Point
+3. Directory structure:
+    ```
+    PROJECT_ROOT/
+    ├── .cursor/
+    │   └── rules/
+    │       ├── your-rule-name.mdc
+    │       └── ...
+    └── ...
+    ```
 
-AI agent skills for the NVIDIA NeMo Agent Toolkit live in **`skills/`** at the repository root and use a **flat layout**. Read this file first, then choose skills from the task routing index below.
+4. For related rules sharing the same topic, create a subdirectory:
+    ```
+    .cursor/rules/
+    ├── topic-name/
+    │   ├── general.mdc          # General rules for this topic
+    │   ├── specific-rule.mdc    # Specific rules within the topic
+    │   └── another-rule.mdc
+    ├── another-topic/
+    │   ├── general.mdc
+    │   └── specific-rule.mdc
+    └── standalone-rule.mdc
+    ```
 
-## Mandatory Repository Rules
+5. When creating topic subdirectories:
+    - Use kebab-case for directory names
+    - Always include a `general.mdc` file with overarching guidelines for the topic
+    - Place specific rules as separate .mdc files within the subdirectory
+    - Example: `nat-cli/` folder contains general NAT CLI rules in `general.mdc` and specific command rules in separate files
 
-- Preserve user changes. Check `git status` before editing and do not revert unrelated work.
-- Prefer existing project patterns, examples, and documentation over new abstractions.
-- Do not add dependencies, update lock files, or run package installation commands unless the task requires it.
-- Use the full product name "NVIDIA NeMo Agent Toolkit" on first use in public documentation, then "NeMo Agent Toolkit" or "the toolkit". Use `nat` only for the CLI, Python namespace, package metadata, and other technical identifiers.
-- Keep examples runnable from the repository root unless the surrounding file uses a different convention.
-- For ambiguous tasks, clarify the intended outcome or cover each plausible interpretation and report what you did.
+6. For `general.mdc` files in subdirectories:
+    - Always include a "Referenced Documentation" section that lists all documentation referenced in the rules
+    - Format documentation references with descriptive names and brief descriptions
+    - Reference the documentation section in the main rules instead of directly linking to documentation
+    - Example structure:
+    ```markdown
+    # General Rules for [Topic]
 
-## Skills Directory (Flat)
+    ## Referenced Documentation
 
-- `skills/nat-user-rules/` - General behavior, naming conventions, discovery rules, and task routing.
-- `skills/nat-installation/` - Installation, optional extras, CLI verification, and first workflow setup.
-- `skills/nat-workflow-creation/` - Workflow YAML authoring, component discovery, LLM configuration, and common CLI commands.
-- `skills/nat-agent-configuration/` - Agent selection, built-in agent configuration, control flow, and sub-agent composition.
-- `skills/nat-tools-and-functions/` - Custom functions, tools, function groups, and Python extension patterns.
-- `skills/nat-evaluation/` - Evaluation methodology, datasets, evaluator selection, ATIF surfaces, and `nat eval`.
-- `skills/nat-optimization/` - `nat optimize`, optimizer configuration, parameter selection, and output interpretation.
-- `skills/nat-telemetry/` - Logging, tracing, profiling, OpenTelemetry, and telemetry exporters.
-- `skills/nat-mcp-and-serving/` - MCP clients and servers, FastAPI, and workflow serving.
-- `skills/nat-path-checks/` - Documentation path-check failures, Markdown escaping, and slash-delimited token fixes.
-- `skills/skill-evolution/` - Creating, refining, and maintaining AI coding agent skills.
+    - **Documentation Name**: [filename.md](mdc:path/to/filename.md) - Brief description of the documentation
+    - **Another Doc**: [another.md](mdc:path/to/another.md) - Description of this documentation
 
-## Task Routing
+    ## Rules
 
-Use the routing table before opening detailed references inside the skill.
+    - Rule content referencing "the documentation listed in the Referenced Documentation section above"
+    ```
 
-| Task | Skill and Reference |
-| --- | --- |
-| Installing or configuring NeMo Agent Toolkit | `skills/nat-installation/SKILL.md` |
-| Discovering registered component `_type` values | `skills/nat-workflow-creation/SKILL.md` |
-| Writing or editing workflow YAML | `skills/nat-workflow-creation/SKILL.md` |
-| Configuring LLMs | `skills/nat-workflow-creation/SKILL.md` |
-| Choosing or configuring agents | `skills/nat-agent-configuration/SKILL.md` |
-| Writing custom tools or functions | `skills/nat-tools-and-functions/SKILL.md` |
-| Wiring MCP client or server workflows | `skills/nat-mcp-and-serving/SKILL.md` |
-| Serving with FastAPI | `skills/nat-mcp-and-serving/SKILL.md` |
-| Composing sub-agents | `skills/nat-agent-configuration/SKILL.md` |
-| Adding tracing or telemetry | `skills/nat-telemetry/SKILL.md` |
-| Designing an evaluation suite | `skills/nat-evaluation/SKILL.md` |
-| Choosing an evaluator | `skills/nat-evaluation/SKILL.md` |
-| Running `nat optimize` | `skills/nat-optimization/SKILL.md` |
-| Fixing documentation path-check failures | `skills/nat-path-checks/SKILL.md` |
-| Creating or improving skills | `skills/skill-evolution/SKILL.md` |
+7. Writing effective descriptions for Cursor rules:
+    - **Start with "Follow these rules when"**: All descriptions should begin with this consistent phrase
+    - **Use specific trigger conditions**: Clearly define when the rule should be requested by the agent
+    - **Include relevant action verbs**: Use precise verbs like "creating", "modifying", "implementing", "configuring", "adding", "installing", "evaluating", etc.
+    - **Be comprehensive but concise**: Cover all relevant scenarios without being overly verbose
+    - **Use consistent terminology**: Match the language used in the project (e.g., "NAT workflows", "NAT CLI commands")
+    - **Check for typos**: Ensure proper spelling and grammar (avoid errors like "ollow" instead of "Follow")
+    - **Examples of good descriptions:**
+      - "Follow these rules when the user's request involves creating, modifying, organizing, or structuring Cursor rules within the project"
+      - "Follow these rules when the user's request involves NAT CLI commands, operations, or functionality"
+      - "Follow these rules when the user's request involves implementing, adding, creating, or modifying functions within NAT workflows"
+    - **Avoid overly narrow descriptions**: Don't limit to just one action when the rule covers multiple related scenarios
+    - **Use "user's request involves" pattern**: This clearly indicates the trigger condition for the agent
 
-## Skill Evolution
+8. Never place rule files:
+    - In the project root
+    - In subdirectories outside .cursor/rules
+    - In any other location
 
-When a user corrects your approach, a command fails and you recover, or you discover a generalizable gotcha, finish the task first and then read `skills/skill-evolution/SKILL.md` to decide whether the skills should be updated.
+9. Cursor rules have the following structure:
 
-## Quick Commands
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+# Rule Title
 
-Run commands from the repository root unless a skill or package README says otherwise.
+Main content explaining the rule with markdown formatting.
 
-```bash
-uv run nat --help
-uv run pytest packages/nvidia_nat_core
-NAT_DISABLE_API_BUILD=1 make -C docs html
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
+Example:
+```python
+# Good example
+async def good_example_function():
+    """Implementation following NeMo Agent Toolkit guidelines."""
+    # Use async/await for I/O operations
+    # Follow snake_case naming convention
+    # Include proper type hints and docstrings
+    pass
+
+# Bad example
+def badExample():
+    # Missing async, type hints, and docstring
+    # Uses camelCase instead of snake_case
+    pass
 ```
-
-For local documentation details, read `docs/README.md`. For contribution details, read `docs/source/resources/contributing/index.md`.
 
 ---
 > Source: [NVIDIA/NeMo-Agent-Toolkit](https://github.com/NVIDIA/NeMo-Agent-Toolkit) — distributed by [TomeVault](https://tomevault.io).
