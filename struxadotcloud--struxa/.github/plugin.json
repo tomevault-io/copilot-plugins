@@ -1,0 +1,9 @@
+{
+  "name": "struxadotcloud--struxa",
+  "displayName": "struxa",
+  "description": "An open-source game server management panel. Built to replace Pterodactyl.",
+  "version": "1.0.0",
+  "author": "struxadotcloud",
+  "homepage": "https://github.com/struxadotcloud/struxa",
+  "skills": []
+}
