@@ -1,58 +1,70 @@
-## 06-tool-integration
+## 07-web-interface
 
-> The MCP Client implements comprehensive tool integration in [mcp_client.py](mdc:mcp_client.py) with intelligent routing, execution, and caching.
+> The MCP Client provides a modern, responsive web interface as defined in [mcp_client.py](mdc:mcp_client.py) and [mcp_client_ui.html](mdc:mcp_client_ui.html).
 
-# Tool Integration
+# Web Interface
 
-The MCP Client implements comprehensive tool integration in [mcp_client.py](mdc:mcp_client.py) with intelligent routing, execution, and caching.
+The MCP Client provides a modern, responsive web interface as defined in [mcp_client.py](mdc:mcp_client.py) and [mcp_client_ui.html](mdc:mcp_client_ui.html).
 
-## Tool Management
+## Technology Stack
 
-### Discovery & Registration
-- Tools discovered from connected MCP servers
-- Aggregated tool registry with metadata and schemas
-- Automatic tool capability introspection
-- Tool categorization and organization
+### Backend
+- FastAPI for API server
+- WebSockets for bidirectional real-time communication
+- Uvicorn as the ASGI server
+- API endpoints for programmatic access
 
-### Intelligent Routing
-- Tools routed to their originating server
-- Name sanitization for API compatibility
-- Original name tracking for proper display
+### Frontend
+- Alpine.js for lightweight reactivity
+- Tailwind CSS and DaisyUI for styling
+- Marked.js for Markdown rendering
+- Highlight.js for code syntax highlighting
+- Tippy.js for tooltips
 
-## Execution
+## Key Features
 
-### Direct Tool Execution
-- Run specific tools with custom JSON parameters
-- Web UI modal interface for testing tools
-- CLI `/tool` command for direct execution
-- Structured parameter validation
+### Real-time Chat
+- Streamed responses via WebSockets
+- Rich Markdown rendering with syntax highlighting
+- Visual separation of tool calls and results
+- Status indicators for connection and processing
 
-### Real-time Streaming
-- Streams AI responses and tool status updates
-- WebSockets for Web UI streaming
-- Rich CLI rendering for interactive mode
-- Partial JSON accumulation for structured inputs
+### Server Management
+- Add, remove, connect, and disconnect servers
+- Status indicators for server health
+- Enable/disable servers with one click
+- Tool and capability counts per server
 
-## Smart Caching
+### Discovery Integration
+- Trigger discovery scans (filesystem, registry, mDNS)
+- One-click adding of discovered servers
+- Real-time server health monitoring
 
-### Multi-Level Caching
-- Disk (diskcache) and in-memory caching layers
-- Configurable Time-To-Live (TTL) per tool category
-- Intelligent cache invalidation strategies
+### Conversation View
+- Interactive tree visualization of conversation branches
+- Click-to-checkout branch navigation
+- Branch creation, clearing, and optimization
+- Import/export functionality
 
-### Dependency Tracking
-- Define relationships between tools
-- Invalidating one tool's cache cascades to dependent caches
-- Graph visualization of cache dependencies
+### Tool Interaction
+- Direct tool execution with JSON parameter editing
+- In-context display of tool calls and results
+- Copy buttons for code blocks
 
-## Management Commands
+### Settings Panel
+- API key management
+- Model selection and parameter tuning
+- Feature toggles (streaming, caching, discovery)
+- Theme customization
 
-Key tool-related commands include:
-- `/tools [server_name]` - List available tools with optional filtering
-- `/tool <tool_name> '{"param": "value"}'` - Execute a specific tool
-- `/cache list` - Show cached tools
-- `/cache clear [--all|tool_name]` - Clear the cache
-- `/cache dependencies [tool_name]` - View cache dependency relationships
+## API Server
+
+When running with `--webui`, a RESTful API is exposed with endpoints for:
+- Status information and configuration
+- Server management and connection control
+- Tool and resource listing
+- Conversation management
+- WebSocket streaming endpoints
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
