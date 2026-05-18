@@ -7,11 +7,11 @@ MaiSaka, an LLM-based intelligent agent, is a digital lifeform devoted to unders
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Mai-with-u/MaiBot](https://github.com/Mai-with-u/MaiBot).
+Original source: `CLAUDE.md` in [Mai-with-u/MaiBot](https://github.com/Mai-with-u/MaiBot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
