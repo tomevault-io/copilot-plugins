@@ -1,36 +1,9 @@
-## conventional-commits
+## pytest
 
-> This rule defines the format for creating commit messages
+> always run pytest at the end of a major change
 
-## Conventional Commits
-
-The `conventional-commits` rule enforces the use of conventional commit message format, which is required for semantic versioning and automatic changelog generation.
-
-### Format
-
-Commit messages must follow this format:
-```
-<type>[(scope)]: <description>
-```
-
-### Types
-- `feat`: A new feature
-- `fix`: A bug fix
-- `docs`: Documentation changes
-- `style`: Changes that do not affect the meaning of the code
-- `refactor`: Code changes that neither fix a bug nor add a feature
-- `perf`: Performance improvements
-- `test`: Adding or fixing tests
-- `chore`: Changes to the build process or auxiliary tools
-- `ci`: Changes to CI configuration
-- `revert`: Reverting a previous commit
-- `build`: Changes that affect the build system
-
-### Example Valid Commit Messages
-- `feat: add user authentication`
-- `fix(auth): resolve token expiration issue`
-- `docs: update API documentation`
-- `chore(deps): update dependencies` 
+always run pytest at the end of a major change
+always run ruff lint at then end of any code changes
 
 ---
 > Source: [pathintegral-institute/mcpm.sh](https://github.com/pathintegral-institute/mcpm.sh) — distributed by [TomeVault](https://tomevault.io).
