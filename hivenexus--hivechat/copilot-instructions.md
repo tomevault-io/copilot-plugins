@@ -1,23 +1,34 @@
-## 04-database
+## 05-authentication
 
-> The application uses Drizzle ORM for database operations.
+> The application uses NextAuth.js for authentication, supporting multiple providers.
 
-# Database Structure
+# Authentication System
 
-The application uses Drizzle ORM for database operations.
+The application uses NextAuth.js for authentication, supporting multiple providers.
 
-## Database Schema and Configuration
-- [app/db/schema.ts](mdc:app/db/schema.ts): Database schema definitions
-- [app/db/index.ts](mdc:app/db/index.ts): Database connection setup
-- [app/db/relations.ts](mdc:app/db/relations.ts): Relationship definitions between models
-- [drizzle.config.ts](mdc:drizzle.config.ts): Drizzle ORM configuration
+## Main Authentication Configuration
+- [auth.ts](mdc:auth.ts): Core authentication configuration including providers and callbacks
 
-## Seed Data
-The application includes seed data for initial database setup:
-- [app/db/modelSeed.ts](mdc:app/db/modelSeed.ts): Seed data for AI models
-- [app/db/providerSeed.ts](mdc:app/db/providerSeed.ts): Seed data for providers
-- [app/db/groupSeed.ts](mdc:app/db/groupSeed.ts): Seed data for groups
-- [app/db/botSeed.ts](mdc:app/db/botSeed.ts): Seed data for bots
+## Authentication Providers
+The application supports the following authentication methods:
+- Email/Password (Credentials provider)
+- Feishu authentication
+- Wecom authentication
+- Dingding authentication
+
+## Authentication Components
+The UI components related to authentication:
+- [app/components/SignIn.tsx](mdc:app/components/SignIn.tsx): Sign-in component
+- [app/components/loginModal.tsx](mdc:app/components/loginModal.tsx): Login modal dialog
+- [app/components/WecomLoginButton.tsx](mdc:app/components/WecomLoginButton.tsx): Wecom login integration
+- [app/components/DingdingLoginButton.tsx](mdc:app/components/DingdingLoginButton.tsx): Dingding login integration
+- [app/components/FeishuLoginButton.tsx](mdc:app/components/FeishuLoginButton.tsx): Feishu login integration
+
+## Authentication Flow
+The authentication flow includes:
+1. User sign-in through one of the supported providers
+2. JWT token generation with user information
+3. Session creation with user details including admin status
 
 ---
 > Source: [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat) — distributed by [TomeVault](https://tomevault.io).
