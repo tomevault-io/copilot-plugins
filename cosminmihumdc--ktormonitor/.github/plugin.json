@@ -1,0 +1,9 @@
+{
+  "name": "cosminmihumdc--ktormonitor",
+  "displayName": "KtorMonitor",
+  "description": "Powerful tool to monitor Ktor Client, OkHttp and http4k requests and responses, making it easier to debug and analyze network communication.",
+  "version": "1.0.0",
+  "author": "CosminMihuMDC",
+  "homepage": "https://github.com/CosminMihuMDC/KtorMonitor",
+  "skills": []
+}
