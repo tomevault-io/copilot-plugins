@@ -1,0 +1,9 @@
+{
+  "name": "daohainam--microservice-patterns",
+  "displayName": "microservice-patterns",
+  "description": "Microservice pattern demos (Saga, EventSourcing, CQRS...) running on .NET Aspire",
+  "version": "1.0.0",
+  "author": "daohainam",
+  "homepage": "https://github.com/daohainam/microservice-patterns",
+  "skills": []
+}
