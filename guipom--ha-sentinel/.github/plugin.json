@@ -1,0 +1,9 @@
+{
+  "name": "guipom--ha-sentinel",
+  "displayName": "ha-sentinel",
+  "description": "HA Sentinel \u2014 proactive health monitoring for Home Assistant integrations and apps",
+  "version": "1.0.0",
+  "author": "GuiPoM",
+  "homepage": "https://github.com/GuiPoM/ha-sentinel",
+  "skills": []
+}
