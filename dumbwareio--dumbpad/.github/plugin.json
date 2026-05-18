@@ -1,0 +1,9 @@
+{
+  "name": "dumbwareio--dumbpad",
+  "displayName": "DumbPad",
+  "description": "A Dumb Pad with collaborative editing, fuzzy search, & markdown preview functionality",
+  "version": "1.0.0",
+  "author": "DumbWareio",
+  "homepage": "https://github.com/DumbWareio/DumbPad",
+  "skills": []
+}
