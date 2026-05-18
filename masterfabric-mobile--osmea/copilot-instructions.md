@@ -1,197 +1,146 @@
-## osmea-components-ui
+## osmea-components-usage
 
-> OSMEA UI components - 50+ components, structure, naming, responsive and accessibility
+> Use OsmeaComponents instead of standard Flutter widgets in apps
 
 
-# OSMEA Components - Cursor Rules
+# OsmeaComponents Usage Rules for Flutter App
 
-## 📦 Package Overview
-OSMEA Components is a comprehensive UI component library for building beautiful Flutter applications with 50+ components.
+## Overview
+This project uses OsmeaComponents instead of standard Flutter widgets. OsmeaComponents provides a comprehensive set of pre-styled, consistent UI components that should be used throughout the application.
 
-## 🎯 Development Guidelines
-
-### 📁 File Structure
-```
-lib/
-├── src/
-│   ├── components/          # UI Components
-│   │   ├── align/          # Alignment components
-│   │   ├── appbar/         # App bar components
-│   │   ├── avatar/         # Avatar components
-│   │   ├── badge/          # Badge components
-│   │   ├── button/         # Button components
-│   │   ├── card/           # Card components
-│   │   ├── chip/           # Chip components
-│   │   ├── container/      # Container components
-│   │   ├── divider/        # Divider components
-│   │   ├── dropdown/       # Dropdown components
-│   │   ├── form/           # Form components
-│   │   ├── grid/           # Grid components
-│   │   ├── icon/           # Icon components
-│   │   ├── image/          # Image components
-│   │   ├── input/          # Input components
-│   │   ├── list/           # List components
-│   │   ├── loading/        # Loading components
-│   │   ├── modal/          # Modal components
-│   │   ├── navigation/     # Navigation components
-│   │   ├── progress/       # Progress components
-│   │   ├── search/         # Search components
-│   │   ├── select/         # Select components
-│   │   ├── slider/         # Slider components
-│   │   ├── switch/         # Switch components
-│   │   ├── table/          # Table components
-│   │   ├── text/           # Text components
-│   │   ├── toast/          # Toast components
-│   │   └── tooltip/        # Tooltip components
-│   ├── core/               # Core utilities
-│   ├── enums/              # Enumerations
-│   ├── styles/             # Styling utilities
-│   ├── theme/              # Theme configuration
-│   └── utils/              # Utility functions
-```
-
-### 🎨 Component Development Rules
-
-#### 1. Component Structure
-- Every component must have a dedicated folder in `lib/src/components/`
-- Component folder should contain:
-  - `component_name.dart` - Main component file
-  - `component_name_theme.dart` - Theme configuration (if needed)
-  - `component_name_types.dart` - Type definitions (if needed)
-
-#### 2. Naming Conventions
-- **Files**: Use snake_case (e.g., `beautiful_button.dart`)
-- **Classes**: Use PascalCase (e.g., `BeautifulButton`)
-- **Variables**: Use camelCase (e.g., `buttonText`)
-- **Constants**: Use SCREAMING_SNAKE_CASE (e.g., `DEFAULT_BUTTON_HEIGHT`)
-
-#### 3. Component Implementation
+## Import Statement
+Always import OsmeaComponents at the top of your files:
 ```dart
-// ✅ Good Example
-class BeautifulButton extends StatelessWidget {
-  const BeautifulButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.variant = ButtonVariant.primary,
-    this.size = ButtonSize.medium,
-    this.isLoading = false,
-  });
-
-  final String text;
-  final VoidCallback? onPressed;
-  final ButtonVariant variant;
-  final ButtonSize size;
-  final bool isLoading;
-
-  @override
-  Widget build(BuildContext context) {
-    // Implementation
-  }
-}
+import 'package:osmea_components/osmea_components.dart';
 ```
 
-#### 4. Responsive Design
-- All components must be responsive
-- Use `Sizer` extensions for responsive sizing
-- Support iPhone SE (375px) and smaller screens
-- Implement mobile-first approach
+## Available OsmeaComponents
 
-#### 5. Accessibility
-- Include semantic labels
-- Support screen readers
-- Provide keyboard navigation
-- Use proper contrast ratios
+### 🏗️ Layout Components
+- `OsmeaComponents.scaffold()` - Main scaffold wrapper
+- `OsmeaComponents.center()` - Center alignment wrapper
+- `OsmeaComponents.container()` - Container wrapper
+- `OsmeaComponents.column()` - Column layout
+- `OsmeaComponents.row()` - Row layout
+- `OsmeaComponents.stack()` - Stack layout
+- `OsmeaComponents.wrap()` - Wrap layout
+- `OsmeaComponents.expanded()` - Expanded widget
+- `OsmeaComponents.flexible()` - Flexible widget
+- `OsmeaComponents.sizedBox()` - SizedBox wrapper
+- `OsmeaComponents.padding()` - Padding wrapper
+- `OsmeaComponents.positioned()` - Positioned widget
+- `OsmeaComponents.singleChildScrollView()` - Scrollable content
+- `OsmeaComponents.responsiveLayout()` - Responsive layout wrapper
 
-#### 6. Theming
-- Support light and dark themes
-- Use OSMEA design tokens
-- Implement consistent spacing and typography
-- Follow brand color guidelines
+### 🎨 UI Components
+- `OsmeaComponents.text()` - Text widget with consistent styling
+- `OsmeaComponents.image()` - Image widget with consistent styling
+- `OsmeaComponents.richText()` - Rich text widget
+- `OsmeaComponents.divider()` - Divider component
+- `OsmeaComponents.spacer()` - Spacer component
+- `OsmeaComponents.clipRRect()` - ClipRRect wrapper
 
-### 🔧 Code Quality Standards
+### 🔘 Interactive Components
+- `OsmeaComponents.button()` - Button component
+- `OsmeaComponents.loginButton()` - Specialized login button
+- `OsmeaComponents.checkbox()` - Checkbox component
+- `OsmeaComponents.radioButton()` - Radio button component
+- `OsmeaComponents.switchButton()` - Switch component
+- `OsmeaComponents.dropdown()` - Dropdown component
+- `OsmeaComponents.textField()` - Text field component
+- `OsmeaComponents.searchbar()` - Search bar component
 
-#### 1. Documentation
-- Every public class must have documentation
-- Include usage examples
-- Document all parameters
-- Add code examples
+### 🎯 Navigation Components
+- `OsmeaComponents.appbar()` - App bar component
+- `OsmeaComponents.navbar()` - Navigation bar
+- `OsmeaComponents.tabbar()` - Tab bar component
+- `OsmeaComponents.stepper()` - Stepper component
 
-#### 2. Testing
-- Write unit tests for all components
-- Include widget tests
-- Test different variants and states
-- Test accessibility features
+### 📋 List Components
+- `OsmeaComponents.listItem()` - List item component
+- `OsmeaComponents.cards()` - Card components
+- `OsmeaComponents.carousel()` - Carousel component
 
-#### 3. Performance
-- Use const constructors where possible
-- Implement proper widget keys
-- Optimize rebuilds
-- Use efficient animations
+### 🎪 Feedback Components
+- `OsmeaComponents.loading()` - Loading indicator
+- `OsmeaComponents.progress()` - Progress indicator
+- `OsmeaComponents.toast()` - Toast notification
+- `OsmeaComponents.snackbar()` - Snackbar component
+- `OsmeaComponents.popup()` - Popup component
 
-### 📱 Mobile-First Approach
+## Usage Rules
 
-#### 1. Responsive Breakpoints
+### ✅ ALWAYS Use OsmeaComponents For:
+1. **All UI Components** - Text, buttons, inputs, containers, layout, navigation, feedback
+2. **Consistent Styling** - Colors, fonts, spacing, border radius, shadows, animations
+3. **Theme Integration** - Dark/light mode, brand colors, typography, spacing
+
+### ❌ NEVER Use Standard Flutter Widgets For:
+1. **UI Components** - Use OsmeaComponents instead
+2. **Layout Components** - Use OsmeaComponents wrappers
+3. **Styling** - Use OsmeaComponents styling system
+4. **Colors** - Use OsmeaColors instead of Colors
+5. **Text Styling** - Use OsmeaComponents.text() instead of Text()
+
+## Code Examples
+
+### Basic Layout
 ```dart
-// Use these breakpoints consistently
-static const double mobileBreakpoint = 375.0;  // iPhone SE
-static const double tabletBreakpoint = 768.0;
-static const double desktopBreakpoint = 1024.0;
+// ✅ Correct - using OsmeaComponents
+OsmeaComponents.scaffold(
+  body: OsmeaComponents.container(
+    padding: context.paddingNormal,
+    child: OsmeaComponents.column(
+      children: [
+        OsmeaComponents.text('Title'),
+        OsmeaComponents.sizedBox(height: context.height16),
+        OsmeaComponents.button(
+          onPressed: () {},
+          child: OsmeaComponents.text('Button'),
+        ),
+      ],
+    ),
+  ),
+)
 ```
 
-#### 2. Touch Targets
-- Minimum 44x44 points for touch targets
-- Adequate spacing between interactive elements
-- Support for different screen densities
+### Text and Buttons
+```dart
+// ✅ Use OsmeaComponents.text with OsmeaColors
+OsmeaComponents.text(
+  'Hello World',
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  color: OsmeaColors.nordicBlue,
+)
 
-### 🎯 Component Categories
+OsmeaComponents.button(
+  onPressed: () {},
+  backgroundColor: OsmeaColors.nordicBlue,
+  padding: context.horizontalPaddingHigh + context.verticalPaddingMedium,
+  child: OsmeaComponents.text('Click Me'),
+)
+```
 
-#### Basic Components
-- Buttons, Text, Badges, Avatars, Cards, Chips
-- Focus on simplicity and reusability
+### AppBar
+```dart
+// ✅ DO use OsmeaComponents.appbar
+OsmeaComponents.appbar(
+  title: 'My App',
+  backgroundColor: OsmeaColors.nordicBlue,
+  titleColor: OsmeaColors.paperWhite,
+)
+```
 
-#### Form Components
-- Input fields, Checkboxes, Radio buttons, Switches, Dropdowns
-- Include validation states and error handling
-
-#### Layout Components
-- Containers, Grid system, Spacing, Alignment
-- Support flexible layouts and responsive design
-
-#### Navigation Components
-- App bars, Navigation bars, Tab bars, Bottom sheets
-- Follow platform-specific guidelines
-
-#### Dynamic Components
-- Loading indicators, Toast notifications, Progress bars
-- Include smooth animations and transitions
-
-### 🚀 Best Practices
-
-1. **Consistency**: Follow established patterns and conventions
-2. **Reusability**: Design components to be flexible and reusable
-3. **Performance**: Optimize for smooth animations and fast rendering
-4. **Documentation**: Provide clear documentation and examples
-5. **Testing**: Write comprehensive tests for all components
-
-### 🔍 Code Review Checklist
-
-- [ ] Component follows naming conventions
-- [ ] Responsive design implemented
-- [ ] Accessibility features included
-- [ ] Documentation is complete
-- [ ] Tests are written
-- [ ] Performance is optimized
-- [ ] Theme support is implemented
-- [ ] Error handling is proper
-- [ ] Code is clean and readable
-
-### 📚 Resources
-
-- [Flutter Widget Catalog](https://docs.flutter.dev/development/ui/widgets)
-- [Material Design Guidelines](https://material.io/design)
-- [iOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
-- [OSMEA Design System](https://github.com/masterfabric-mobile/osmea/tree/dev/docs)
+## Migration Guidelines
+1. **Replace Scaffold** → `OsmeaComponents.scaffold`
+2. **Replace Container** → `OsmeaComponents.container`
+3. **Replace Text** → `OsmeaComponents.text`
+4. **Replace ElevatedButton** → `OsmeaComponents.button`
+5. **Replace TextField** → `OsmeaComponents.textField`
+6. **Replace Card** → `OsmeaComponents.cards`
+7. **Replace ListView** → `OsmeaComponents.listView`
+8. **Replace Colors** → `OsmeaColors`
 
 ---
 > Source: [masterfabric-mobile/osmea](https://github.com/masterfabric-mobile/osmea) — distributed by [TomeVault](https://tomevault.io).
