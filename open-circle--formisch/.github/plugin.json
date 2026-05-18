@@ -1,0 +1,9 @@
+{
+  "name": "open-circle--formisch",
+  "displayName": "formisch",
+  "description": "The lightweight, schema-first, and fully type-safe form library for React, Solid, Vue, Svelte and more.",
+  "version": "1.0.0",
+  "author": "open-circle",
+  "homepage": "https://github.com/open-circle/formisch",
+  "skills": []
+}
