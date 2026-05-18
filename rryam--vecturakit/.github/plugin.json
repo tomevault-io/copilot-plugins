@@ -1,0 +1,9 @@
+{
+  "name": "rryam--vecturakit",
+  "displayName": "VecturaKit",
+  "description": "Swift-based vector database for on-device RAG using MLTensor and MLX Embedders",
+  "version": "1.0.0",
+  "author": "rryam",
+  "homepage": "https://github.com/rryam/VecturaKit",
+  "skills": []
+}
