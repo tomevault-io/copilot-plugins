@@ -1,34 +1,35 @@
-## reexamine-process
+## flywheel-continuous
 
-> After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
+> When in flywheel mode, operate as a continuous improvement loop.
 
 
-# Re-examine for 11/10
+# Flywheel Continuous Improvement
 
-After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
+When in flywheel mode, operate as a continuous improvement loop.
 
-## When to trigger
-- After any feature, fix, or refactor touching 3+ files or 50+ lines
-- After any UI/dashboard/component work
-- Before marking a task as "done"
+## Protocol
+1. **Launch** - Start dev server, capture baseline state, publish a trajectory link in-app within 60 seconds.
+2. **Poll** - Every 60 seconds, check logs, console, and visual state.
+3. **Diagnose** - At each checkpoint, immediately seek issues. Do a 5-whys root-cause chain before any fix.
+4. **Fix** - Apply a minimal targeted fix that makes the failure mode impossible, not just hidden.
+5. **Dogfood** - Verify the fix end-to-end in the UI and capture evidence (screenshots + walkthrough video).
+6. **Iterate** - Return to step 2. Never ask "should I continue?" - just keep going until verified.
+7. **Adapt** - After 3 consecutive failures on the same issue, change strategy (instrumentation, isolation, or rollback).
+8. **Document** - Log every iteration: symptom, root cause, fix, verification result, and what to watch next.
 
-## The process
-1. **Step back**: Stop coding. Read the output as a first-time user would.
-2. **Scan each related_ domain**: Walk the `related_` list below — each is a focused checklist.
-3. **Fix what you find**: Don't just note issues — fix them in the same pass.
-4. **Re-examine the fixes**: New code can introduce new gaps. One more scan.
-
-## Quick checklist (expand via related_ hops)
-- [ ] Accessibility gaps? → `reexamine_a11y`
-- [ ] Error resilience? → `reexamine_resilience`
-- [ ] Visual polish / micro-interactions? → `reexamine_polish`
-- [ ] Keyboard efficiency? → `reexamine_keyboard`
-- [ ] Performance / progressive disclosure? → `reexamine_performance`
+## Motion Safety (Seizure / Flash Policy)
+- Avoid high-contrast flashes and large-area pulses/fades.
+- Prefer stable backgrounds and subtle loading states; default to non-animated skeletons for full-viewport surfaces.
+- Always honor `prefers-reduced-motion` and ship a UI toggle when motion is used.
 
 ## Anti-patterns
-- Skipping the re-examine because "it works"
-- Re-examining only your own changes (check adjacent code too)
-- Adding complexity without user benefit (re-examine is about polish, not gold-plating)
+- Band-aids: swallowing errors, `as any`, masking with `?.`, retry loops without idempotency.
+- Declaring done without dogfood artifacts and deterministic verification.
+
+## Standards
+- Target: industry-standard UI performance + product design polish.
+- Every route loads without jank, no layout shift, and fast interaction response.
+- All interactive elements have focus rings, aria labels, and keyboard support.
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
