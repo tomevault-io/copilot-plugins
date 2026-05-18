@@ -7,13 +7,13 @@ App to order your personal finances!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [SunTea43/Financial-Planner](https://github.com/SunTea43/Financial-Planner).
+Original source: `AGENTS.md` in [SunTea43/Financial-Planner](https://github.com/SunTea43/Financial-Planner).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
