@@ -1,68 +1,128 @@
-## performance
+## rust
 
-> Performance patterns and lessons learned — update this rule when new performance wins are discovered
+> When coding in Rust
 
+# Rust Safety Rules for LLM
 
-# Performance Playbook
+## Rule Set Format
+Each rule follows the structure
+Issue
+Example
+Reason
 
-When you discover a new performance improvement, optimization pattern, or fix a performance regression, add a concise bullet to the relevant section below in the same session.
+## Rules
 
-## Rendering strategy
+Issue
+Using unwrap
+Example
+`let x = value.unwrap()`
+Reason
+Unwrap causes an instant panic if the value is missing. This can crash services in production.
 
-- Avoid `headers()` / `cookies()` in server components that can be static — they force dynamic rendering on every request
-- Use ISR (`export const revalidate = N`) with `unstable_cache` for pages that don't need per-request freshness
-- Create a separate headerless RPC client for public endpoints so server components aren't forced dynamic
+Issue
+Using expect everywhere
+Example
+`config.expect("it should exist")`
+Reason
+Expect still panics. It must only be used when failure is impossible such as during startup.
 
-## Client/server split
+Issue
+Using panic in normal logic
+Example
+`panic("unexpected state")`
+Reason
+Panic kills the whole process. This removes all stability guarantees.
 
-- Default to server components — only add `"use client"` for interactivity that truly needs it
-- Split large client components into a server shell + small client islands (timestamp, chart, toggle)
-- Use `@phosphor-icons/react/ssr` for icons in server components instead of pulling in the client bundle
-- Lazy-load heavy client components with `dynamic(() => import(...), { ssr: false })`
+Issue
+Ignoring return values
+Example
+`some_func()` without handling the result
+Reason
+Ignoring errors counters Rusts guarantees. Failures become silent and hard to debug.
 
-## Caching layers
+Issue
+Using clone to avoid ownership problems
+Example
+`let data2 = data.clone()`
+Reason
+Cloning large values causes heavy performance drops and unexpected memory use.
 
-- **In-process**: `lru-cache` (Map + TTL) in front of Redis — eliminates network round-trip on hot paths, sub-millisecond reads
-- Use `NULL_SENTINEL` pattern (`Object.freeze({ __null: true })`) to cache negative lookups in LRU — avoids repeated Redis/DB calls for non-existent keys
-- Cache pure CPU work (UA parsing, bot detection, ETag hashing, geo lookups) in LRU — these repeat with the same inputs across requests
-- Cache dedup/idempotency results in LRU — once a write is known to be a no-op (e.g. click already recorded), skip the Redis check entirely on repeat calls
-- **Next.js layer**: `unstable_cache` with `revalidate` and `tags` for page-level data
-- **API layer**: Redis `cacheable` wrapper with `staleWhileRevalidate` to absorb concurrent requests
-- **CDN layer**: `Cache-Control: public, s-maxage=N, stale-while-revalidate=M` headers for edge caching
-- Stack all four — in-process > Redis > DB on the API side, CDN in front of everything
-- `@elysiajs/cors` with `origin: true` sets `Vary: *` which prevents CDN caching — override with `set.headers.vary = "Origin"` on cacheable endpoints
+Issue
+Using to_string everywhere
+Example
+`value.to_string()` repeatedly
+Reason
+Unnecessary allocations. Strings are expensive and should be avoided when possible.
 
-## API middleware
+Issue
+Blocking inside async code
+Example
+`sleep` inside a Tokio async handler
+Reason
+This freezes the executor and stalls the entire service.
 
-- Skip expensive middleware for routes that don't need it — `applyAuthWideEvent` does a session DB lookup on every request; skip it for anonymous `/public/` routes via URL check in `onBeforeHandle`
-- Use `@elysiajs/server-timing` to profile per-phase durations (CORS, beforeHandle, handle, afterHandle) without manual instrumentation
-- Elysia's JIT compiler is on by default (`precompile: true`) — no extra config needed
+Issue
+Using blocking IO in async
+Example
+`std::fs::read` inside async
+Reason
+Blocking the executor stops all other tasks. Use async alternatives.
 
-## Database queries
+Issue
+Spawning untracked tasks
+Example
+`tokio::spawn(task())` without storing the handle
+Reason
+Tasks leak. Memory grows until the service crashes.
 
-- Add time-bound filters to ClickHouse queries (e.g. `AND timestamp >= now() - INTERVAL 7 DAY`) to avoid full table scans
-- Combine sequential Postgres queries into a single JOIN when fetching related data
-- Use `Promise.all` for independent queries that can run in parallel
+Issue
+Global mutable state
+Example
+`static mut COUNTER: i32`
+Reason
+Race conditions and undefined behavior. Global state must use safe abstractions.
 
-## Frontend rendering
+Issue
+Random unsafe blocks
+Example
+Raw pointer writes without justification
+Reason
+Unsafe disables compiler guarantees. Each block must be proven correct.
 
-- Use `Map` for O(1) lookups instead of `Array.find()` inside loops
-- Skip rendering expensive wrappers (e.g. `Tooltip`, `TooltipProvider`) when not needed — check a boolean prop first
-- Use `useMemo` for derived data that's expensive to compute from props
+Issue
+Silent numeric conversions
+Example
+`let x: u8 = num.try_into()?`
+Reason
+Overflow errors appear only with certain inputs. Must be handled explicitly.
 
-## Layout shift prevention
+Issue
+Catch all match arms
+Example
+`_ => {}`
+Reason
+Hides new enum variants and removes compile time checks.
 
-- Derive loading booleans from query state instead of managing with `useState`/`useEffect` — e.g. `allItems.length === 0 && (isPending || isFetching)` instead of a manually toggled `isInitialLoad` flag
-- Show `Skeleton` placeholders at the exact dimensions of real content for data-dependent cells — never render text that changes (e.g. "Unknown" → "Operational")
-- Use `min-h-*` on containers whose content loads asynchronously to reserve stable space
-- Avoid conditional banners/bars that insert/remove height — fold the info into existing UI (header buttons, stat rows) instead
-- Loading skeletons should structurally match the real page: same sections, same heights, same padding — include placeholders for dynamically loaded chunks (e.g. `LatencyChartChunkPlaceholder`)
+Issue
+Unbounded channels
+Example
+Unbounded MPSC channels in high load systems
+Reason
+Messages queue forever and cause memory explosions.
 
-## Perceived performance
+Issue
+Building strings in loops
+Example
+Repeated string concatenation
+Reason
+Excessive allocations slow down the system.
 
-- Add `loading.tsx` skeletons for routes that may take time to generate
-- Use `router.refresh()` with a countdown for auto-refresh instead of full page reloads
-- Gate skeleton → page transition on the fastest critical query, then show inline skeletons for remaining data — avoids blocking on the slowest query while preventing staggered pop-in
+Issue
+Moving large data instead of borrowing
+Example
+Returning huge structures by value
+Reason
+Unneeded copies waste memory and CPU.
 
 ---
 > Source: [databuddy-analytics/Databuddy](https://github.com/databuddy-analytics/Databuddy) — distributed by [TomeVault](https://tomevault.io).
