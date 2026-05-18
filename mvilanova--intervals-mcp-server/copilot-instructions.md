@@ -1,56 +1,50 @@
-## development-workflow
+## project-overview
 
-> 1. **Use uv for package management**: This project uses [uv](mdc:https:/github.com/astral-sh/uv) instead of pip
+> This is a Model Context Protocol (MCP) server for connecting Claude with the Intervals.icu API. The project enables Claude to retrieve and analyze athlete data including activities, events, workouts, and wellness metrics.
 
-# Development Workflow Guide
+# Intervals.icu MCP Server Project Overview
 
-## Environment Setup
+This is a Model Context Protocol (MCP) server for connecting Claude with the Intervals.icu API. The project enables Claude to retrieve and analyze athlete data including activities, events, workouts, and wellness metrics.
 
-1. **Use uv for package management**: This project uses [uv](mdc:https:/github.com/astral-sh/uv) instead of pip
-   ```bash
-   uv venv --python 3.12
-   source .venv/bin/activate
-   uv sync --all-extras
-   ```
+## Project Structure
 
-2. **Environment Configuration**: Copy [.env.example](mdc:.env.example) to `.env` and configure:
-   - `API_KEY` - Your Intervals.icu API key
-   - `ATHLETE_ID` - Your athlete ID (digits or i-prefixed)
+- **Main Entry Point**: [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py) - Contains the FastMCP server implementation with all MCP tools
+- **Configuration**: [pyproject.toml](mdc:pyproject.toml) - Project configuration, dependencies, and build settings
+- **Environment Setup**: [.env.example](mdc:.env.example) - Template for environment variables (API_KEY, ATHLETE_ID)
+- **Documentation**: [README.md](mdc:README.md) - Comprehensive setup and usage guide
+- **Developer Guide**: [AGENTS.md](mdc:AGENTS.md) - Contributor and development instructions
 
-## Running the Server
+## Core Components
 
-- **Manual Testing**: `mcp run src/intervals_mcp_server/server.py`
-- **Claude Desktop Integration**: Use `mcp install` command as documented in [README.md](mdc:README.md)
+### MCP Tools (in server.py)
+- `get_activities` - Retrieve athlete activities with filtering options
+- `get_activity_details` - Get detailed information for specific activities
+- `get_activity_intervals` - Get detailed interval data for activities
+- `get_events` - Retrieve upcoming events (workouts, races, etc.)
+- `get_event_by_id` - Get detailed information for specific events
+- `get_wellness_data` - Fetch wellness metrics and data
 
-## Code Quality Checks
+### Utilities
+- **Formatting**: [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py) - Data formatting utilities for MCP responses
 
-Before committing, ensure all three checks pass:
+### Testing
+- **Tests Directory**: [tests/](mdc:tests) - Unit tests for server functionality and utilities
+- **Sample Data**: [tests/sample_data.py](mdc:tests/sample_data.py) - Test data for development
 
-1. **Linting**: `ruff .` - Uses default ruff rules, config in [pyproject.toml](mdc:pyproject.toml)
-2. **Type Checking**: `mypy src tests` - Static type analysis
-3. **Testing**: `pytest` - Unit tests in [tests/](mdc:tests) directory
+## Key Technologies
+- **Python 3.12+** - Required runtime version
+- **FastMCP** - MCP server framework
+- **httpx** - Async HTTP client for API calls
+- **uv** - Package manager and virtual environment tool
+- **pytest** - Testing framework
+- **ruff** - Linting and code formatting
+- **mypy** - Static type checking
 
-## Code Organization
-
-- **Main Logic**: All MCP tools are implemented in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py)
-- **Utilities**: Helper functions in [src/intervals_mcp_server/utils/](mdc:src/intervals_mcp_server/utils)
-- **API Communication**: `make_intervals_request()` function handles all Intervals.icu API calls
-- **Error Handling**: Comprehensive HTTP error handling with user-friendly messages
-
-## Adding New MCP Tools
-
-1. Create async function decorated with `@mcp.tool()`
-2. Add proper type hints and docstrings
-3. Use `make_intervals_request()` for API calls
-4. Add formatting utilities to [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py) if needed
-5. Write unit tests in [tests/](mdc:tests)
-
-## Commit Guidelines
-
-- Use concise commit messages
-- Title PRs as `[intervals-mcp-server] <brief description>`
-- Ensure `ruff`, `mypy`, and `pytest` all pass
-- Document manual testing steps in PR description
+## Environment Variables
+- `API_KEY` - Intervals.icu API key (required)
+- `ATHLETE_ID` - Target athlete ID (required)
+- `INTERVALS_API_BASE_URL` - API base URL (optional, defaults to intervals.icu)
+- `LOG_LEVEL` - Logging level (optional, defaults to INFO)
 
 ---
 > Source: [mvilanova/intervals-mcp-server](https://github.com/mvilanova/intervals-mcp-server) — distributed by [TomeVault](https://tomevault.io).
