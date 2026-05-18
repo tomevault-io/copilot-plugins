@@ -7,11 +7,11 @@ A opponiated Laravel 12 Livewire Components Starter Kit, with user, role and per
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mortenebak/tallstarter](https://github.com/mortenebak/tallstarter).
+Original source: `CLAUDE.md` in [mortenebak/tallstarter](https://github.com/mortenebak/tallstarter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
