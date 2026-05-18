@@ -1,0 +1,9 @@
+{
+  "name": "intelligencedev--manifold",
+  "displayName": "manifold",
+  "description": "Manifold is an experimental platform for enabling long horizon workflow automation using teams of AI assistants.",
+  "version": "1.0.0",
+  "author": "intelligencedev",
+  "homepage": "https://github.com/intelligencedev/manifold",
+  "skills": []
+}
