@@ -1,16 +1,37 @@
-## torii
+## torii-rs
 
-> When writing Rust code for Torii
+> Torii is a Rust project that enables users to easily add authentication to their application.
 
+# Torii-rs Project Guidelines
 
-# Your rule content
+Torii is a Rust project that enables users to easily add authentication to their application. 
 
-- Adhere to existing style
-- Prefer writing out builders instead of deriving them
-- Keep in mind there can be many auth plugins registered
-- Focus on writing secure code
-- Use Tokio as the async runtime
-- Ensure .await works correctly by ensuring Send + Sync on types that cross the await boundary
+## Build and Test Commands
+- **Build:** `make build` or `cargo build --all-features`
+- **Format:** `make fmt` or `cargo fmt --all`
+- **Lint:** `make lint` or `cargo clippy --all-features -- -D warnings`
+- **Run all tests:** `make test` or `cargo nextest run --no-fail-fast --all-features`
+- **Run single test:** `cargo nextest run test_name` or `cargo test -- test_name`
+- **Run with coverage:** `make coverage` or `cargo llvm-cov nextest --all-features`
+- **Full check:** `make check` (runs fmt, lint, test)
+- **Documentation:** `make docs` or `cargo doc --all-features --no-deps --open`
+- **Always use `make test` to run project tests**
+
+## Code Style Guidelines
+- **Error Handling:** Use `thiserror` with structured error types and `#[from]` for conversions
+- **Naming:** PascalCase for types, snake_case for functions/variables, SCREAMING_SNAKE_CASE for constants
+- **Types:** Use newtype pattern for type safety (e.g., `UserId`, `SessionToken`)
+- **Imports:** Group by category (std lib first, external crates, then internal modules)
+- **Traits:** Use `async_trait` for async interfaces; design with composition in mind
+- **Documentation:** Add doc comments to public interfaces and modules
+- **Testing:** Write unit tests in modules with `#[cfg(test)]`; use `#[tokio::test]` for async tests
+- **Builder Pattern:** Use for complex struct creation with validation at build time
+- **Always use `make fmt` to format rust code**
+- **Always use `make lint` to lint rust code**
+
+## Project Structure
+- Core functionality in `torii-core` crate
+- Storage backends in separate crates (`torii-storage-*`)
 
 ---
 > Source: [cmackenzie1/torii-rs](https://github.com/cmackenzie1/torii-rs) — distributed by [TomeVault](https://tomevault.io).
