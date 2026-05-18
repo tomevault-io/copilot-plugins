@@ -1,384 +1,172 @@
-## architecture-patterns
+## cocos-creator
 
-> 架构模式和设计原则规范
+> Cocos Creator 3.x 开发规范和最佳实践
 
 
-# 架构模式和设计原则
+# Cocos Creator 3.x 开发规范
 
-## 单例管理器模式
+## 组件基类设计
 
-### 管理器类设计规范
+### 继承 Component 的标准模式
 ```typescript
-export class WindowManager {
-    /** 使用私有静态属性存储状态 */
-    private static _groups: Map<string, WindowGroup> = new Map();
-    private static _windows: Map<string, IWindow> = new Map();
-    private static _resPool: WindowResPool;
+import { _decorator, Component } from "cc";
+const { property } = _decorator;
+
+export abstract class CocosEntry extends Component {
+    @property({ displayName: "uiConfig", type: JsonAsset, tooltip: "编辑器导出的UI配置" }) 
+    uiConfig: JsonAsset = null;
     
-    /** 禁用构造函数 */
-    private constructor() {}
-    
-    /** 提供静态方法访问功能 */
-    public static showWindow(windowName: string): Promise<void> {
-        // 实现逻辑
-    }
-    
-    /** 内部方法使用下划线前缀和 @internal 注释 */
+    @property({ displayName: "游戏帧率" }) 
+    fps: number = 60;
+
     /**
-     * 添加窗口 (框架内部使用)
-     * @internal
+     * 虚函数，子类需要实现
+     * kunpo库初始化完成后调用
      */
-    public static _addWindow(name: string, window: IWindow): void {
-        this._windows.set(name, window);
-    }
+    public abstract onInit(): void;
 }
 ```
 
-### 管理器初始化模式
-```typescript
-export class SomeManager {
-    private static _initialized: boolean = false;
-    
-    /**
-     * 初始化管理器 (框架内部调用)
-     * @internal
-     */
-    public static _init(dependencies: Dependencies): void {
-        if (this._initialized) {
-            warn("管理器已经初始化");
-            return;
-        }
-        
-        this._initialized = true;
-        // 初始化逻辑
-    }
-    
-    private static ensureInitialized(): void {
-        if (!this._initialized) {
-            throw new Error("管理器未初始化，请先调用 _init 方法");
-        }
-    }
-}
-```
-
-## 抽象基类模式
-
-### 基类设计原则
-```typescript
-/**
- * 抽象基类 - 定义共同接口和默认实现
- */
-export abstract class WindowBase extends Component {
-    /** 共同属性 */
-    protected _gcom: GComponent;
-    protected _isShow: boolean = false;
-    
-    /** 抽象方法 - 子类必须实现 */
-    protected abstract onInit(): void;
-    
-    /** 虚方法 - 子类可选择重写 */
-    protected onShow(userdata?: any): void {
-        // 默认实现
-    }
-    
-    protected onClose(): void {
-        // 默认实现
-    }
-    
-    /** 最终方法 - 不允许重写 */
-    public final show(userdata?: any): void {
-        if (this._isShow) return;
-        
-        this.onShow(userdata);
-        this._isShow = true;
-    }
-}
-
-/**
- * 具体实现类
- */
-export abstract class Window extends WindowBase {
-    /** 进一步的抽象和默认实现 */
-    protected onAdapted(): void {
-        // 适配逻辑
-    }
-    
-    /** 新增的生命周期方法 */
-    protected onHide(): void { }
-    protected onShowFromHide(): void { }
-    protected onCover(): void { }
-    protected onRecover(): void { }
-}
-```
-
-### 模块基类设计
+### 模块基类模式
 ```typescript
 export abstract class ModuleBase extends Component implements IModule {
-    /** 模块标识 */
+    /** 模块名称 */
     public moduleName: string;
-    
-    /** 框架调用的初始化方法 */
-    public init(): void {
-        debug(`模块初始化: ${this.moduleName}`);
-        this.onInit();
-    }
-    
-    /** 子类实现的初始化逻辑 */
+
+    /** 模块初始化 (内部使用) */
+    public init(): void { }
+
+    /** 模块初始化完成后调用的函数 */
     protected abstract onInit(): void;
 }
 ```
 
-## 接口和契约设计
+## 生命周期管理
 
-### 接口定义规范
+### 组件生命周期规范
+- `start()`: 用于框架初始化，标记为 `@internal`
+- `onInit()`: 用户自定义初始化，需要子类实现
+- `onDestroy()`: 清理资源和取消事件监听
+
+### 时间和更新管理
 ```typescript
-/**
- * 窗口接口 - 定义窗口必须实现的方法
- */
-export interface IWindow {
-    /** 窗口显示 */
-    _show(userdata?: any): void;
-    
-    /** 窗口隐藏 */
-    _hide(): void;
-    
-    /** 窗口关闭 */
-    _close(): void;
-    
-    /** 窗口恢复 */
-    _recover(): void;
-    
-    /** 屏幕尺寸变化适配 */
-    screenResize(): void;
+// 使用统一的时间系统
+import { GlobalTimer, InnerTimer } from "../global";
+
+private initTime(): void {
+    Time._configBoot();
+    InnerTimer.initTimer();  
+    GlobalTimer.initTimer();
+    this.schedule(this.tick.bind(this), 0, macro.REPEAT_FOREVER);
 }
 
-/**
- * 模块接口
- */
-export interface IModule {
-    /** 模块名称 */
-    moduleName: string;
-    
-    /** 模块初始化 */
-    init(): void;
+private tick(dt: number): void {
+    InnerTimer.update(dt);
+    GlobalTimer.update(dt);
 }
 ```
 
-### 配置接口设计
+## 平台适配模式
+
+### 平台检测和初始化
 ```typescript
-export interface IPackageConfigRes {
-    [windowName: string]: {
-        group: string;
-        pkg: string;
-        bundle?: string;
-    };
-}
+private initPlatform(): void {
+    Platform.isNative = sys.isNative;
+    Platform.isMobile = sys.isMobile;
+    Platform.isNativeMobile = sys.isNative && sys.isMobile;
 
-export interface FrameConfig {
-    /** 开启debug 默认: false */
-    debug?: boolean;
-}
-```
-
-## 工厂模式应用
-
-### 动态注册工厂
-```typescript
-export class ComponentExtendHelper {
-    private static _componentMaps: Map<string, any> = new Map();
-    
-    /**
-     * 注册组件类型
-     */
-    public static register(): void {
-        for (const { ctor, res } of _uidecorator.getComponentMaps().values()) {
-            // 使用 FairyGUI 的工厂方法注册
-            UIObjectFactory.setPackageItemExtension(
-                `ui://${res.pkg}/${res.name}`, 
-                ctor
-            );
-        }
-    }
-    
-    /**
-     * 动态注册单个组件
-     */
-    public static dynamicRegister(ctor: any, pkg: string, name: string): void {
-        UIObjectFactory.setPackageItemExtension(`ui://${pkg}/${name}`, ctor);
+    switch (sys.platform) {
+        case sys.Platform.WECHAT_GAME:
+            Platform.isWX = true;
+            Platform.platform = PlatformType.WX;
+            break;
+        case sys.Platform.ALIPAY_MINI_GAME:
+            Platform.isAlipay = true; 
+            Platform.platform = PlatformType.Alipay;
+            break;
+        // ... 其他平台
     }
 }
 ```
 
-## 资源池模式
+### 平台特定功能
+- 使用 `Platform` 类进行统一的平台判断
+- 小游戏平台适配通过专门的适配类实现
+- 避免在业务代码中直接使用 `sys` 对象
 
-### 资源管理设计
+## 节点管理
+
+### 持久化节点模式
 ```typescript
-export class WindowResPool {
-    /** 资源信息映射 */
-    private _windowInfos: Map<string, WindowHeaderInfo> = new Map();
-    private _headerInfos: Map<string, WindowHeaderInfo> = new Map();
-    
-    /** 引用计数管理 */
-    private _refCounts: Map<string, number> = new Map();
-    
-    /**
-     * 添加资源引用
-     */
-    public addResRef(windowName: string): void {
-        const count = this._refCounts.get(windowName) || 0;
-        this._refCounts.set(windowName, count + 1);
-    }
-    
-    /**
-     * 释放资源引用
-     */
-    public releaseWindowRes(windowName: string): void {
-        const count = this._refCounts.get(windowName) || 0;
-        if (count > 0) {
-            const newCount = count - 1;
-            this._refCounts.set(windowName, newCount);
-            
-            // 引用为0时释放资源
-            if (newCount === 0) {
-                this.unloadResource(windowName);
-            }
-        }
-    }
+protected start(): void {
+    // 设置为持久化节点
+    director.addPersistRootNode(this.node);
+    this.node.setSiblingIndex(this.node.children.length - 1);
 }
 ```
 
-## 事件驱动架构
-
-### 事件系统集成
+### 组件查找模式
 ```typescript
-// 使用外部事件系统
-import { EventEmitter } from "kunpocc-event";
-
-export class DataBase extends EventEmitter {
-    protected notify(path: string, value: any): void {
-        // 触发事件通知
-        this.emit(`change:${path}`, value);
-        
-        // 同时支持绑定系统
-        BindManager.notifyChange(`${this.constructor.name}:${path}`, value, this);
-    }
-}
-```
-
-### 生命周期事件
-```typescript
-export class WindowManager {
-    /** 窗口生命周期事件 */
-    public static readonly events = {
-        WINDOW_SHOW: 'window:show',
-        WINDOW_HIDE: 'window:hide',
-        WINDOW_CLOSE: 'window:close'
-    } as const;
-    
-    public static showWindow(windowName: string): void {
-        // 业务逻辑...
-        
-        // 触发事件
-        GlobalEvent.emit(this.events.WINDOW_SHOW, { windowName });
+private initModule(): void {
+    // 递归查找所有子节点中的模块组件
+    for (const module of this.getComponentsInChildren(ModuleBase)) {
+        debug(`module:${module.moduleName}`);
+        module.init();
     }
 }
 ```
 
 ## 适配器模式
 
-### 平台适配设计
+### 引擎适配器设计
+- 通过 `CocosAdapter` 统一处理引擎特定功能
+- UI系统通过 `CocosUIModule` 进行适配
+- 窗口容器使用 `CocosWindowContainer`
+
 ```typescript
-export abstract class PlatformAdapter {
-    /** 平台特定的实现 */
-    public abstract showBanner(): void;
-    public abstract vibrate(): void;
-    public abstract getSystemInfo(): SystemInfo;
-}
-
-export class WechatAdapter extends PlatformAdapter {
-    public showBanner(): void {
-        wx.createBannerAd(/* ... */);
-    }
-    
-    public vibrate(): void {
-        wx.vibrateShort();
-    }
-}
-
-export class AlipayAdapter extends PlatformAdapter {
-    public showBanner(): void {
-        my.createBannerAd(/* ... */);
-    }
-    
-    public vibrate(): void {
-        my.vibrate();
-    }
-}
-```
-
-### 引擎适配
-```typescript
-export class CocosAdapter {
-    public init(): void {
+class CocosAdapter {
+    init(): void {
+        // 初始化引擎特定功能
         this.initUI();
-        this.initInput();
-        this.initAudio();
-    }
-    
-    private initUI(): void {
-        // 初始化UI系统适配
-        const uiModule = new CocosUIModule();
-        uiModule.init();
+        this.initScreen();
     }
 }
 ```
 
-## 依赖注入模式
+## 资源管理
 
-### 服务定位器模式
+### 配置文件处理
 ```typescript
-export class ServiceLocator {
-    private static _services: Map<string, any> = new Map();
-    
-    public static register<T>(name: string, service: T): void {
-        this._services.set(name, service);
-    }
-    
-    public static get<T>(name: string): T {
-        const service = this._services.get(name);
-        if (!service) {
-            throw new Error(`Service not found: ${name}`);
-        }
-        return service as T;
-    }
-}
+// 使用 JsonAsset 处理配置
+@property({ type: JsonAsset }) 
+uiConfig: JsonAsset = null;
 
-// 使用示例
-ServiceLocator.register('WindowManager', WindowManager);
-const windowManager = ServiceLocator.get<typeof WindowManager>('WindowManager');
+protected start(): void {
+    PropsHelper.setConfig(this.uiConfig?.json);
+}
 ```
 
-## 架构最佳实践
+### Bundle 资源管理
+- UI 资源通过 bundle 参数指定包名
+- 支持动态资源加载和释放
+- 使用资源池管理资源生命周期
 
-### 1. 职责分离
-- 管理器负责全局状态和协调
-- 基类提供共同功能和接口
-- 具体实现类专注业务逻辑
+## 调试和开发工具
 
-### 2. 依赖管理
-- 使用接口定义依赖契约
-- 通过工厂和注入管理依赖关系
-- 避免循环依赖
+### 全局调试接口
+```typescript
+// 暴露调试接口到全局对象
+let _global = globalThis || window || global;
+(_global as any)["getKunpoRegisterWindowMaps"] = function () {
+    return _uidecorator.getWindowMaps() as any;
+};
+```
 
-### 3. 扩展性设计
-- 使用装饰器支持动态注册
-- 提供插件化的扩展点
-- 保持向后兼容性
-
-### 4. 错误处理
-- 在架构边界处理错误
-- 提供降级和容错机制
-- 记录详细的错误信息
+### 帧率控制
+```typescript
+// 统一的帧率设置
+game.frameRate = this.fps;
+```
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
