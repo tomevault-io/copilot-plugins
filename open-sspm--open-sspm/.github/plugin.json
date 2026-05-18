@@ -1,0 +1,9 @@
+{
+  "name": "open-sspm--open-sspm",
+  "displayName": "open-sspm",
+  "description": "Open-SSPM is a small \u201cwho has access to what\u201d service. It syncs identities from Okta (IdP) and permissions from connected apps (GitHub, Datadog, AWS Identity Center). Demo: admin@admin.com / admin",
+  "version": "1.0.0",
+  "author": "open-sspm",
+  "homepage": "https://github.com/open-sspm/open-sspm",
+  "skills": []
+}
