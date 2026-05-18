@@ -1,0 +1,22 @@
+{
+  "name": "mcp-use--mcp-use",
+  "displayName": "mcp-use",
+  "description": "The fullstack MCP framework to develop MCP Apps for ChatGPT / Claude & MCP Servers for AI Agents.",
+  "version": "1.0.0",
+  "author": "mcp-use",
+  "homepage": "https://github.com/mcp-use/mcp-use",
+  "skills": [
+    {
+      "name": "chatgpt-app-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-apps-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    }
+  ]
+}
