@@ -1,0 +1,51 @@
+{
+  "name": "model-runner",
+  "owner": "docker",
+  "repo": "model-runner",
+  "description": "Docker Model Runner",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "docker-model-runner",
+      "path": "cmd/cli/commands/skills/docker-model-runner",
+      "github_url": "https://github.com/docker/model-runner/tree/main/cmd/cli/commands/skills/docker-model-runner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/docker/model-runner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T05:34:38Z"
+}
