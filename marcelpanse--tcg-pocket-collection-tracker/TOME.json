@@ -1,0 +1,44 @@
+{
+  "name": "tcg-pocket-collection-tracker",
+  "owner": "marcelpanse",
+  "repo": "tcg-pocket-collection-tracker",
+  "description": "Application to track your Pokemon Pocket collection and find others to trade with",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marcelpanse/tcg-pocket-collection-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:50:44Z"
+}
