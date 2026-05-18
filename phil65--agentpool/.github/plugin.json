@@ -1,0 +1,14 @@
+{
+  "name": "phil65--agentpool",
+  "displayName": "agentpool",
+  "description": "A unified agent orchestration hub that lets you configure and manage multiple AI agents (native, ACP, AGUI, Claude Code) via YAML, and exposes them through standardized protocols (ACP/OpenCode Server)",
+  "version": "1.0.0",
+  "author": "phil65",
+  "homepage": "https://github.com/phil65/agentpool",
+  "skills": [
+    {
+      "name": "example-skill",
+      "description": ""
+    }
+  ]
+}
