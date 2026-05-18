@@ -1,0 +1,9 @@
+{
+  "name": "derekg--ts-ssh",
+  "displayName": "ts-ssh",
+  "description": "Go-based SSH and SCP client with userspace Tailscale connectivity. Secure shell access and file transfers over Tailnet without requiring a full Tailscale daemon.",
+  "version": "1.0.0",
+  "author": "derekg",
+  "homepage": "https://github.com/derekg/ts-ssh",
+  "skills": []
+}
