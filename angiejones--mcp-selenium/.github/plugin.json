@@ -1,0 +1,9 @@
+{
+  "name": "angiejones--mcp-selenium",
+  "displayName": "mcp-selenium",
+  "description": "An MCP implementation for Selenium WebDriver",
+  "version": "1.0.0",
+  "author": "angiejones",
+  "homepage": "https://github.com/angiejones/mcp-selenium",
+  "skills": []
+}
