@@ -1,0 +1,195 @@
+{
+  "name": "orca-q",
+  "owner": "cin12211",
+  "repo": "orca-q",
+  "description": "The open source | Next Generation database editor",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mongodb-expert",
+      "path": ".agent/skills/mongodb-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/mongodb-expert",
+      "description": ""
+    },
+    {
+      "name": "accessibility-expert",
+      "path": ".agent/skills/accessibility-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/accessibility-expert",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-expert",
+      "path": ".agent/skills/ai-sdk-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/ai-sdk-expert",
+      "description": ""
+    },
+    {
+      "name": "auth-expert",
+      "path": ".agent/skills/auth-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/auth-expert",
+      "description": ""
+    },
+    {
+      "name": "cli-expert",
+      "path": ".agent/skills/cli-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/cli-expert",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".agent/skills/code-review",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "css-expert",
+      "path": ".agent/skills/css-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/css-expert",
+      "description": ""
+    },
+    {
+      "name": "database-expert",
+      "path": ".agent/skills/database-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/database-expert",
+      "description": ""
+    },
+    {
+      "name": "devops-expert",
+      "path": ".agent/skills/devops-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/devops-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation-expert",
+      "path": ".agent/skills/documentation-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/documentation-expert",
+      "description": ""
+    },
+    {
+      "name": "git-expert",
+      "path": ".agent/skills/git-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/git-expert",
+      "description": ""
+    },
+    {
+      "name": "github-actions-expert",
+      "path": ".agent/skills/github-actions-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/github-actions-expert",
+      "description": ""
+    },
+    {
+      "name": "jest-expert",
+      "path": ".agent/skills/jest-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/jest-expert",
+      "description": ""
+    },
+    {
+      "name": "nextjs-expert",
+      "path": ".agent/skills/nextjs-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/nextjs-expert",
+      "description": ""
+    },
+    {
+      "name": "nodejs-expert",
+      "path": ".agent/skills/nodejs-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/nodejs-expert",
+      "description": ""
+    },
+    {
+      "name": "playwright-expert",
+      "path": ".agent/skills/playwright-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/playwright-expert",
+      "description": ""
+    },
+    {
+      "name": "postgres-expert",
+      "path": ".agent/skills/postgres-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/postgres-expert",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": ".github/skills/refactor",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.github/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "refactoring-expert",
+      "path": ".agent/skills/refactoring-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/refactoring-expert",
+      "description": ""
+    },
+    {
+      "name": "rest-api-expert",
+      "path": ".agent/skills/rest-api-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/rest-api-expert",
+      "description": ""
+    },
+    {
+      "name": "testing-expert",
+      "path": ".agent/skills/testing-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/testing-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": ".agent/skills/typescript-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-type",
+      "path": ".agent/skills/typescript-type",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/typescript-type",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".agent/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vite-expert",
+      "path": ".agent/skills/vite-expert",
+      "github_url": "https://github.com/cin12211/orca-q/tree/main/.agent/skills/vite-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cin12211/orca-q",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T05:31:04Z"
+}
