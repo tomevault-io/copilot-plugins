@@ -1,393 +1,149 @@
-## performance-guidelines
+## pnpm-only
 
-> This document establishes standards for creating performant React hooks, avoiding unnecessary re-renders and memory leaks.
+> Enforcing PNPM as the package manager
 
-# Performance Guidelines
 
-This document establishes standards for creating performant React hooks, avoiding unnecessary re-renders and memory leaks.
+# Mandatory PNPM Usage
 
-## 🚀 Performance Principles
+This project **MANDATORILY** uses PNPM as package manager. Using `npm` or `yarn` is **FORBIDDEN**.
 
-### 1. Reference Stability
+## Security Configuration
 
-- Functions should maintain stable reference
-- Objects should be memoized when necessary
-- Avoid unnecessary creation of objects/arrays
+The project has configurations that prevent the use of other managers:
 
-### 2. Re-render Optimization
+### [.npmrc](mdc:.npmrc)
 
-- Minimize `useEffect` dependencies
-- Use `useCallback` and `useMemo` strategically
-- Avoid unnecessary state updates
-
-### 3. Resource Cleanup
-
-- Clean up timers and intervals
-- Cancel ongoing requests
-- Remove event listeners
-
-## 🎯 Mandatory Optimizations
-
-### useCallback for Functions
-
-```typescript
-// ✅ Correct: Stable function
-const toggle = useCallback(() => {
-  setValue(prev => !prev);
-}, []);
-
-// ✅ Correct: Callback with minimal dependencies
-const handleChange = useCallback((newValue: T) => {
-  setValue(newValue);
-  onToggle?.(newValue);
-}, [onToggle]);
-
-// ❌ Incorrect: New function on every render
-const handleClick = () => {
-  setValue(!value);
-};
+```txt
+engine-strict=true
 ```
 
-### useMemo for Computations
+### [package.json](mdc:package.json) - Engines
 
-```typescript
-// ✅ Correct: Memoization of serialize/deserialize
-const serialize = useMemo(
-  () => options?.serialize ?? JSON.stringify,
-  [options?.serialize]
-);
-
-// ✅ Correct: Memoized expensive computation
-const expensiveValue = useMemo(() => {
-  return heavyComputation(data);
-}, [data]);
-
-// ❌ Incorrect: Expensive computation on every render
-const result = heavyComputation(data);
-```
-
-### useRef for Stable Values
-
-```typescript
-// ✅ Correct: Ref for initial value
-const initialRef = useRef(initialValue);
-
-// ✅ Correct: Ref for timer
-const timeoutRef = useRef<NodeJS.Timeout>();
-
-// ✅ Correct: Ref for latest callback
-const latestCallback = useRef(callback);
-latestCallback.current = callback;
-```
-
-## 🧹 Cleanup Patterns
-
-### Timers and Intervals
-
-```typescript
-// ✅ Correct: Timeout cleanup
-useEffect(() => {
-  const timeoutId = setTimeout(() => {
-    setValue(newValue);
-  }, delay);
-
-  return () => clearTimeout(timeoutId);
-}, [delay, newValue]);
-
-// ✅ Correct: Interval cleanup
-useEffect(() => {
-  const intervalId = setInterval(() => {
-    updateData();
-  }, 1000);
-
-  return () => clearInterval(intervalId);
-}, []);
-```
-
-### AbortController for Requests
-
-```typescript
-// ✅ Correct: Request cancellation
-useEffect(() => {
-  const abortController = new AbortController();
-
-  fetch(url, { signal: abortController.signal })
-    .then(response => response.json())
-    .then(setData)
-    .catch(error => {
-      if (!abortController.signal.aborted) {
-        setError(error);
-      }
-    });
-
-  return () => abortController.abort();
-}, [url]);
-```
-
-### Event Listeners
-
-```typescript
-// ✅ Correct: Event listener cleanup
-useEffect(() => {
-  const handleResize = () => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  };
-
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
-```
-
-## 🔄 State and Updates
-
-### Avoid Unnecessary Updates
-
-```typescript
-// ✅ Correct: Update only if value changed
-const setValue = useCallback((newValue: T) => {
-  if (newValue !== currentValue) {
-    setCurrentValue(newValue);
-    localStorage.setItem(key, JSON.stringify(newValue));
+```json
+{
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=9.15.3"
   }
-}, [currentValue, key]);
-
-// ✅ Correct: Deep comparison when necessary
-const setValue = useCallback((newValue: T) => {
-  if (!isEqual(newValue, currentValue)) {
-    setCurrentValue(newValue);
-  }
-}, [currentValue]);
-```
-
-### Update Batching
-
-```typescript
-// ✅ Correct: Use functional updates for batching
-const updateMultipleValues = useCallback(() => {
-  setValues(prev => ({
-    ...prev,
-    count: prev.count + 1,
-    timestamp: Date.now(),
-  }));
-}, []);
-
-// ❌ Incorrect: Multiple separate setState calls
-const updateValues = () => {
-  setCount(count + 1);
-  setTimestamp(Date.now());
-};
-```
-
-## 📊 Debounce and Throttle
-
-### Debounced State
-
-```typescript
-// ✅ Performant debounce implementation
-export function useDebouncedState<T>(
-  defaultValue: T,
-  delay: number = 500
-) {
-  const [value, setValue] = useState<T>(defaultValue);
-  const timeoutRef = useRef<NodeJS.Timeout>();
-
-  const debouncedSetValue = useCallback((newValue: T) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    
-    timeoutRef.current = setTimeout(() => {
-      setValue(newValue);
-    }, delay);
-  }, [delay]);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  return [value, debouncedSetValue] as const;
 }
 ```
 
-### Throttled Callbacks
+### Verification Script
 
-```typescript
-// ✅ Throttle for frequent events
-const useThrottledCallback = <T extends (...args: any[]) => any>(
-  callback: T,
-  delay: number
-): T => {
-  const throttledRef = useRef<boolean>(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
-
-  return useCallback((...args: Parameters<T>) => {
-    if (!throttledRef.current) {
-      callback(...args);
-      throttledRef.current = true;
-      
-      timeoutRef.current = setTimeout(() => {
-        throttledRef.current = false;
-      }, delay);
-    }
-  }, [callback, delay]) as T;
-};
+```json
+{
+  "scripts": {
+    "preinstall": "node ./scripts/check-node.mjs && node ./scripts/check-pnpm.mjs && pnpm dlx only-allow pnpm"
+  }
+}
 ```
 
-## 🎭 SSR and Hydration
+## Correct Commands
 
-### Safe Initial Values
+### ✅ Dependency Installation
 
-```typescript
-// ✅ Correct: Safe value for SSR
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: typeof window !== 'undefined' ? window.innerWidth : 0,
-    height: typeof window !== 'undefined' ? window.innerHeight : 0,
-  });
+```bash
+# Install all dependencies
+pnpm install
 
-  // ... rest of implementation
-};
+# Install specific dependency
+pnpm add package-name
 
-// ✅ Correct: Lazy initial state
-const [value, setValue] = useState(() => {
-  if (typeof window === 'undefined') return defaultValue;
-  return readFromLocalStorage() ?? defaultValue;
-});
+# Install development dependency
+pnpm add -D package-name
+
+# Install global dependency
+pnpm add -g package-name
 ```
 
-### Effect with Environment Check
+### ✅ Run Scripts
 
-```typescript
-// ✅ Correct: Effect that checks environment
-useEffect(() => {
-  if (typeof window === 'undefined') return;
+```bash
+# Development mode
+pnpm dev
 
-  const handleScroll = () => {
-    setScrollPosition(window.pageYOffset);
-  };
+# Build project
+pnpm build
 
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
+# Linting
+pnpm lint
+pnpm lint:fix
+
+# Formatting
+pnpm format:write
+pnpm format:check
 ```
 
-## 🔍 Monitoring and Debug
+### ✅ Workspace (Monorepo)
 
-### Performance Measurements
+```bash
+# Install dependency in specific workspace
+pnpm add package-name --filter @guarahooks/cli
 
-```typescript
-// ✅ Useful for performance debugging
-const useHookWithPerfLogging = (input: any) => {
-  const startTime = performance.now();
-  
-  const result = useMemo(() => {
-    const computed = heavyComputation(input);
-    
-    if (process.env.NODE_ENV === 'development') {
-      console.log(
-        `Hook computation took ${performance.now() - startTime}ms`
-      );
-    }
-    
-    return computed;
-  }, [input, startTime]);
+# Run script in specific workspace
+pnpm --filter @guarahooks/cli build
 
-  return result;
-};
+# Run command in all workspaces
+pnpm -r build
 ```
 
-### Memory Leak Detection
+## ❌ FORBIDDEN Commands
 
-```typescript
-// ✅ Pattern to detect leaks
-useEffect(() => {
-  let mounted = true;
+### DO NOT use npm
 
-  asyncOperation().then(result => {
-    if (mounted) {
-      setData(result);
-    }
-  });
-
-  return () => {
-    mounted = false;
-  };
-}, []);
+```bash
+# ❌ NEVER DO THIS
+npm install
+npm run dev
+npm add package-name
 ```
 
-## 📋 Performance Checklist
+### DO NOT use yarn
 
-### Implementation
-
-- [ ] Functions wrapped in `useCallback`
-- [ ] Expensive computations in `useMemo`
-- [ ] Stable values in `useRef`
-- [ ] Proper cleanup in `useEffect`
-- [ ] Avoids unnecessary re-renders
-
-### State
-
-- [ ] Initial state optimized for SSR
-- [ ] Updates batched when possible
-- [ ] Efficient comparisons before updates
-- [ ] Minimal necessary state
-
-### Resources
-
-- [ ] Timers cleaned up
-- [ ] Event listeners removed
-- [ ] Requests cancelled
-- [ ] References cleared on unmount
-
-### Compatibility
-
-- [ ] Works with React.StrictMode
-- [ ] Doesn't leak memory
-- [ ] Adequate performance with frequent re-renders
-- [ ] Optimized bundle size
-
-## 🚨 Common Antipatterns
-
-### ❌ Avoid
-
-```typescript
-// Object created on every render
-const config = { timeout: 5000 };
-
-// Array created on every render
-const dependencies = [value1, value2];
-
-// Function created on every render
-const handleClick = () => setValue(!value);
-
-// Unnecessary state
-const [derivedValue, setDerivedValue] = useState(computeValue(props));
+```bash
+# ❌ NEVER DO THIS  
+yarn install
+yarn dev
+yarn add package-name
 ```
 
-### ✅ Fix to
+## Automatic Verifications
 
-```typescript
-// Memoized object
-const config = useMemo(() => ({ timeout: 5000 }), []);
+The project has automatic scripts that verify:
 
-// Memoized array
-const dependencies = useMemo(() => [value1, value2], [value1, value2]);
+1. **[scripts/check-node.mjs](mdc:scripts/check-node.mjs)**: Minimum Node.js version
+2. **[scripts/check-pnpm.mjs](mdc:scripts/check-pnpm.mjs)**: Minimum PNPM version
+3. **only-allow pnpm**: Prevents npm/yarn usage
 
-// Stable function
-const handleClick = useCallback(() => setValue(prev => !prev), []);
+## PNPM Benefits
 
-// Computed value
-const derivedValue = useMemo(() => computeValue(props), [props]);
+- 🚀 **Performance**: Faster installation
+- 💾 **Space**: Package sharing between projects
+- 🔒 **Security**: Symbolic links avoid conflicts
+- 📦 **Monorepo**: Native workspace support
+
+## Troubleshooting
+
+### If you get npm/yarn errors
+
+```bash
+# Clean node_modules and old lockfiles
+rm -rf node_modules package-lock.json yarn.lock
+
+# Reinstall with pnpm
+pnpm install
 ```
 
-Following these guidelines ensures performant hooks that scale well in real-world applications.
+### If you don't have pnpm installed
+
+```bash
+# Install pnpm globally
+npm install -g pnpm@latest
+
+# Or via corepack (recommended)
+corepack enable
+corepack prepare pnpm@latest --activate
+```
 
 ---
 > Source: [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks) — distributed by [TomeVault](https://tomevault.io).
