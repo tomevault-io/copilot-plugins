@@ -4,7 +4,7 @@
   "repo": "rikkahub",
   "description": "RikkaHub is an Android APP that supports for multiple LLM providers.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rikkahub/rikkahub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:51:19Z"
+  "distributed_at": "2026-05-18T07:53:21Z"
 }
