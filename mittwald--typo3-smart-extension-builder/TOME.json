@@ -4,7 +4,7 @@
   "repo": "typo3-smart-extension-builder",
   "description": "Build TYPO3 extensions with Agentic AI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mittwald/typo3-smart-extension-builder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T18:18:17Z"
+  "distributed_at": "2026-05-18T21:11:48Z"
 }
