@@ -7,11 +7,11 @@ docket is a distributed background task system for Python
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [chrisguidry/docket](https://github.com/chrisguidry/docket).
+Original source: `CLAUDE.md` in [chrisguidry/docket](https://github.com/chrisguidry/docket).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
