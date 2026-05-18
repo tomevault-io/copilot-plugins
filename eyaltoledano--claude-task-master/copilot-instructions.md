@@ -1,531 +1,922 @@
-## mcp
+## new-features
 
-> Guidelines for implementing and interacting with the Task Master MCP Server
+> Guidelines for integrating new features into the Task Master CLI
 
-# Task Master MCP Server Guidelines
+# Task Master Feature Integration Guidelines
 
-This document outlines the architecture and implementation patterns for the Task Master Model Context Protocol (MCP) server, designed for integration with tools like Cursor.
+## Feature Placement Decision Process
 
-## Architecture Overview (See also: [`architecture.mdc`](mdc:.cursor/rules/architecture.mdc))
+- **Identify Feature Type** (See [`architecture.mdc`](mdc:.cursor/rules/architecture.mdc) for module details):
+  - **Data Manipulation**: Features that create, read, update, or delete tasks belong in [`task-manager.js`](mdc:scripts/modules/task-manager.js). Follow guidelines in [`tasks.mdc`](mdc:.cursor/rules/tasks.mdc).
+  - **Dependency Management**: Features that handle task relationships belong in [`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js). Follow guidelines in [`dependencies.mdc`](mdc:.cursor/rules/dependencies.mdc).
+  - **User Interface**: Features that display information to users belong in [`ui.js`](mdc:scripts/modules/ui.js). Follow guidelines in [`ui.mdc`](mdc:.cursor/rules/ui.mdc).
+  - **AI Integration**: Features that use AI models belong in [`ai-services.js`](mdc:scripts/modules/ai-services.js).
+  - **Cross-Cutting**: Features that don't fit one category may need components in multiple modules
 
-The MCP server acts as a bridge between external tools (like Cursor) and the core Task Master CLI logic. It leverages FastMCP for the server framework.
+- **Command-Line Interface** (See [`commands.mdc`](mdc:.cursor/rules/commands.mdc)):
+  - All new user-facing commands should be added to [`commands.js`](mdc:scripts/modules/commands.js)
+  - Use consistent patterns for option naming and help text
+  - Follow the Commander.js model for subcommand structure
 
-- **Flow**: `External Tool (Cursor)` <-> `FastMCP Server` <-> `MCP Tools` (`mcp-server/src/tools/*.js`) <-> `Core Logic Wrappers` (`mcp-server/src/core/direct-functions/*.js`, exported via `task-master-core.js`) <-> `Core Modules` (`scripts/modules/*.js`)
-- **Goal**: Provide a performant and reliable way for external tools to interact with Task Master functionality without directly invoking the CLI for every operation.
+## Implementation Pattern
 
-## Direct Function Implementation Best Practices
+The standard pattern for adding a feature follows this workflow:
 
-When implementing a new direct function in `mcp-server/src/core/direct-functions/`, follow these critical guidelines:
+1. **Core Logic**: Implement the business logic in the appropriate module (e.g., [`task-manager.js`](mdc:scripts/modules/task-manager.js)).
+2. **Context Gathering (If Applicable)**: 
+   - For AI-powered commands that benefit from project context, use the standardized context gathering patterns from [`context_gathering.mdc`](mdc:.cursor/rules/context_gathering.mdc).
+   - Import `ContextGatherer` and `FuzzyTaskSearch` utilities for reusable context extraction.
+   - Support multiple context types: tasks, files, custom text, project tree.
+   - Implement detailed token breakdown display for transparency.
+3. **AI Integration (If Applicable)**: 
+   - Import necessary service functions (e.g., `generateTextService`, `streamTextService`) from [`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js).
+   - Prepare parameters (`role`, `session`, `systemPrompt`, `prompt`).
+   - Call the service function.
+   - Handle the response (direct text or stream object).
+   - **Important**: Prefer `generateTextService` for calls sending large context (like stringified JSON) where incremental display is not needed. See [`ai_services.mdc`](mdc:.cursor/rules/ai_services.mdc) for detailed usage patterns and cautions.
+4. **UI Components**: Add any display functions to [`ui.js`](mdc:scripts/modules/ui.js) following [`ui.mdc`](mdc:.cursor/rules/ui.mdc). Consider enhanced formatting with syntax highlighting for code blocks.
+5. **Command Integration**: Add the CLI command to [`commands.js`](mdc:scripts/modules/commands.js) following [`commands.mdc`](mdc:.cursor/rules/commands.mdc).
+6. **Testing**: Write tests for all components of the feature (following [`tests.mdc`](mdc:.cursor/rules/tests.mdc))
+7. **Configuration**: Update configuration settings or add new ones in [`config-manager.js`](mdc:scripts/modules/config-manager.js) and ensure getters/setters are appropriate. Update documentation in [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc) and [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc). Update the `.taskmasterconfig` structure if needed.
+8. **Documentation**: Update help text and documentation in [`dev_workflow.mdc`](mdc:.cursor/rules/dev_workflow.mdc) and [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc).
 
-1. **Verify Function Dependencies**:
-   - ✅ **DO**: Check that all helper functions your direct function needs are properly exported from their source modules
-   - ✅ **DO**: Import these dependencies explicitly at the top of your file
-   - ❌ **DON'T**: Assume helper functions like `findTaskById` or `taskExists` are automatically available
-   - **Example**:
-     ```javascript
-     // At top of direct-function file
-     import { removeTask, findTaskById, taskExists } from '../../../../scripts/modules/task-manager.js';
-     ```
+## Critical Checklist for New Features
 
-2. **Parameter Verification and Completeness**:
-   - ✅ **DO**: Verify the signature of core functions you're calling and ensure all required parameters are provided
-   - ✅ **DO**: Pass explicit values for required parameters rather than relying on defaults
-   - ✅ **DO**: Double-check parameter order against function definition
-   - ❌ **DON'T**: Omit parameters assuming they have default values
-   - **Example**:
-     ```javascript
-     // Correct parameter handling in direct function
-     async function generateTaskFilesDirect(args, log) {
-       const tasksPath = findTasksJsonPath(args, log);
-       const outputDir = args.output || path.dirname(tasksPath);
-       
-       try {
-         // Pass all required parameters
-         const result = await generateTaskFiles(tasksPath, outputDir);
-         return { success: true, data: result, fromCache: false };
-       } catch (error) {
-         // Error handling...
-       }
-     }
-     ```
+- **Comprehensive Function Exports**:
+  - ✅ **DO**: Export **all core functions, helper functions (like `generateSubtaskPrompt`), and utility methods** needed by your new function or command from their respective modules.
+  - ✅ **DO**: **Explicitly review the module's `export { ... }` block** at the bottom of the file to ensure every required dependency (even seemingly minor helpers like `findTaskById`, `taskExists`, specific prompt generators, AI call handlers, etc.) is included.
+  - ❌ **DON'T**: Assume internal functions are already exported - **always verify**. A missing export will cause runtime errors (e.g., `ReferenceError: generateSubtaskPrompt is not defined`).
+  - **Example**: If implementing a feature that checks task existence, ensure the helper function is in exports:
+  ```javascript
+  // At the bottom of your module file:
+  export {
+    // ... existing exports ...
+    yourNewFunction,
+    taskExists,  // Helper function used by yourNewFunction
+    findTaskById, // Helper function used by yourNewFunction
+    generateSubtaskPrompt, // Helper needed by expand/add features
+    getSubtasksFromAI,     // Helper needed by expand/add features
+  };
+  ```
 
-3. **Consistent File Path Handling**:
-   - ✅ **DO**: Use `path.join()` instead of string concatenation for file paths
-   - ✅ **DO**: Follow established file naming conventions (`task_001.txt` not `1.md`)
-   - ✅ **DO**: Use `path.dirname()` and other path utilities for manipulating paths
-   - ✅ **DO**: When paths relate to task files, follow the standard format: `task_${id.toString().padStart(3, '0')}.txt`
-   - ❌ **DON'T**: Create custom file path handling logic that diverges from established patterns
-   - **Example**:
-     ```javascript
-     // Correct file path handling
-     const taskFilePath = path.join(
-       path.dirname(tasksPath),
-       `task_${taskId.toString().padStart(3, '0')}.txt`
-     );
-     ```
-
-4. **Comprehensive Error Handling**:
-   - ✅ **DO**: Wrap core function calls *and AI calls* in try/catch blocks
-   - ✅ **DO**: Log errors with appropriate severity and context
-   - ✅ **DO**: Return standardized error objects with code and message (`{ success: false, error: { code: '...', message: '...' } }`)
-   - ✅ **DO**: Handle file system errors, AI client errors, AI processing errors, and core function errors distinctly with appropriate codes.
-   - **Example**:
-     ```javascript
-     try {
-       // Core function call or AI logic
-     } catch (error) {
-       log.error(`Failed to execute direct function logic: ${error.message}`);
-       return {
-         success: false,
-         error: {
-           code: error.code || 'DIRECT_FUNCTION_ERROR', // Use specific codes like AI_CLIENT_ERROR, etc.
-           message: error.message,
-           details: error.stack // Optional: Include stack in debug mode
-         },
-         fromCache: false // Ensure this is included if applicable
-       };
-     }
-     ```
-
-5. **Handling Logging Context (`mcpLog`)**:
-   - **Requirement**: Core functions (like those in `task-manager.js`) may accept an `options` object containing an optional `mcpLog` property. If provided, the core function expects this object to have methods like `mcpLog.info(...)`, `mcpLog.error(...)`.
-   - **Solution: The Logger Wrapper Pattern**: When calling a core function from a direct function, pass the `log` object provided by FastMCP *wrapped* in the standard `logWrapper` object. This ensures the core function receives a logger with the expected method structure.
-     ```javascript
-     // Standard logWrapper pattern within a Direct Function
-     const logWrapper = {
-       info: (message, ...args) => log.info(message, ...args),
-       warn: (message, ...args) => log.warn(message, ...args),
-       error: (message, ...args) => log.error(message, ...args),
-       debug: (message, ...args) => log.debug && log.debug(message, ...args),
-       success: (message, ...args) => log.info(message, ...args)
-     };
-
-     // ... later when calling the core function ...
-     await coreFunction(
-       // ... other arguments ...
-       { 
-         mcpLog: logWrapper, // Pass the wrapper object
-         session // Also pass session if needed by core logic or AI service
-       },
-       'json' // Pass 'json' output format if supported by core function
-     );
-     ```
-   - **JSON Output**: Passing `mcpLog` (via the wrapper) often triggers the core function to use a JSON-friendly output format, suppressing spinners/boxes.
-   - ✅ **DO**: Implement this pattern in direct functions calling core functions that might use `mcpLog`.
-
-6. **Silent Mode Implementation**:
-    - ✅ **DO**: Import silent mode utilities: `import { enableSilentMode, disableSilentMode, isSilentMode } from '../../../../scripts/modules/utils.js';`
-    - ✅ **DO**: Wrap core function calls *within direct functions* using `enableSilentMode()` / `disableSilentMode()` in a `try/finally` block if the core function might produce console output (spinners, boxes, direct `console.log`) that isn't reliably controlled by passing `{ mcpLog }` or an `outputFormat` parameter.
-    - ✅ **DO**: Always disable silent mode in the `finally` block.
-    - ❌ **DON'T**: Wrap calls to the unified AI service (`generateTextService`, `generateObjectService`) in silent mode; their logging is handled internally.
-    - **Example (Direct Function Guaranteeing Silence & using Log Wrapper)**:
-      ```javascript
-      export async function coreWrapperDirect(args, log, context = {}) {
-        const { session } = context;
-        const tasksPath = findTasksJsonPath(args, log);
-        const logWrapper = { /* ... */ };
-
-        enableSilentMode(); // Ensure silence for direct console output
-        try {
-          const result = await coreFunction(
-             tasksPath,
-             args.param1,
-             { mcpLog: logWrapper, session }, // Pass context
-             'json' // Request JSON format if supported
-          );
-          return { success: true, data: result };
-        } catch (error) {
-           log.error(`Error: ${error.message}`);
-           return { success: false, error: { /* ... */ } };
-        } finally {
-           disableSilentMode(); // Critical: Always disable in finally
-        }
-      }
-      ```
-
-7. **Debugging MCP/Core Logic Interaction**:
-    - ✅ **DO**: If an MCP tool fails with unclear errors (like JSON parsing failures), run the equivalent `task-master` CLI command in the terminal. The CLI often provides more detailed error messages originating from the core logic (e.g., `ReferenceError`, stack traces) that are obscured by the MCP layer.
-
-## Tool Definition and Execution
-
-### Tool Structure
-
-MCP tools must follow a specific structure to properly interact with the FastMCP framework:
-
-```javascript
-server.addTool({
-  name: "tool_name",  // Use snake_case for tool names
-  description: "Description of what the tool does",
-  parameters: z.object({
-    // Define parameters using Zod
-    param1: z.string().describe("Parameter description"),
-    param2: z.number().optional().describe("Optional parameter description"),
-    // IMPORTANT: For file operations, always include these optional parameters
-    file: z.string().optional().describe("Path to the tasks file"),
-    projectRoot: z.string().optional().describe("Root directory of the project (typically derived from session)")
-  }),
-
-  // The execute function is the core of the tool implementation
-  execute: async (args, context) => {
-    // Implementation goes here
-    // Return response in the appropriate format
+- **Parameter Completeness and Matching**:
+  - ✅ **DO**: Pass all required parameters to functions you call within your implementation
+  - ✅ **DO**: Check function signatures before implementing calls to them
+  - ✅ **DO**: Verify that direct function parameters match their core function counterparts
+  - ✅ **DO**: When implementing a direct function for MCP, ensure it only accepts parameters that exist in the core function
+  - ✅ **DO**: Verify the expected *internal structure* of complex object parameters (like the `mcpLog` object, see mcp.mdc for the required logger wrapper pattern)
+  - ❌ **DON'T**: Add parameters to direct functions that don't exist in core functions
+  - ❌ **DON'T**: Assume default parameter values will handle missing arguments
+  - ❌ **DON'T**: Assume object parameters will work without verifying their required internal structure or methods.
+  - **Example**: When calling file generation, pass all required parameters:
+  ```javascript
+  // ✅ DO: Pass all required parameters
+  await generateTaskFiles(tasksPath, path.dirname(tasksPath));
+  
+  // ❌ DON'T: Omit required parameters
+  await generateTaskFiles(tasksPath); // Error - missing outputDir parameter
+  ```
+  
+  **Example**: Properly match direct function parameters to core function:
+  ```javascript
+  // Core function signature
+  async function expandTask(tasksPath, taskId, numSubtasks, useResearch = false, additionalContext = '', options = {}) {
+    // Implementation...
   }
-});
-```
+  
+  // ✅ DO: Match direct function parameters to core function
+  export async function expandTaskDirect(args, log, context = {}) {
+    // Extract only parameters that exist in the core function
+    const taskId = parseInt(args.id, 10);
+    const numSubtasks = args.num ? parseInt(args.num, 10) : undefined;
+    const useResearch = args.research === true;
+    const additionalContext = args.prompt || '';
+    
+    // Call core function with matched parameters
+    const result = await expandTask(
+      tasksPath,
+      taskId,
+      numSubtasks,
+      useResearch,
+      additionalContext,
+      { mcpLog: log, session: context.session }
+    );
+    
+    // Return result
+    return { success: true, data: result, fromCache: false };
+  }
+  
+  // ❌ DON'T: Use parameters that don't exist in the core function
+  export async function expandTaskDirect(args, log, context = {}) {
+    // DON'T extract parameters that don't exist in the core function!
+    const force = args.force === true; // ❌ WRONG - 'force' doesn't exist in core function
+    
+    // DON'T pass non-existent parameters to core functions
+    const result = await expandTask(
+      tasksPath,
+      args.id,
+      args.num,
+      args.research,
+      args.prompt,
+      force, // ❌ WRONG - this parameter doesn't exist in the core function
+      { mcpLog: log }
+    );
+  }
+  ```
 
-### Execute Function Signature
+- **Consistent File Path Handling**:
+  - ✅ DO: Use consistent file naming conventions: `task_${id.toString().padStart(3, '0')}.txt`
+  - ✅ DO: Use `path.join()` for composing file paths
+  - ✅ DO: Use appropriate file extensions (.txt for tasks, .json for data)
+  - ❌ DON'T: Hardcode path separators or inconsistent file extensions
+  - **Example**: Creating file paths for tasks:
+  ```javascript
+  // ✅ DO: Use consistent file naming and path.join
+  const taskFileName = path.join(
+    path.dirname(tasksPath), 
+    `task_${taskId.toString().padStart(3, '0')}.txt`
+  );
+  
+  // ❌ DON'T: Use inconsistent naming or string concatenation 
+  const taskFileName = path.dirname(tasksPath) + '/' + taskId + '.md';
+  ```
 
-The `execute` function receives validated arguments and the FastMCP context:
+- **Error Handling and Reporting**:
+  - ✅ DO: Use structured error objects with code and message properties
+  - ✅ DO: Include clear error messages identifying the specific problem
+  - ✅ DO: Handle both function-specific errors and potential file system errors
+  - ✅ DO: Log errors at appropriate severity levels
+  - **Example**: Structured error handling in core functions:
+  ```javascript
+  try {
+    // Implementation...
+  } catch (error) {
+    log('error', `Error removing task: ${error.message}`);
+    throw {
+      code: 'REMOVE_TASK_ERROR',
+      message: error.message,
+      details: error.stack
+    };
+  }
+  ```
 
-```javascript
-// Destructured signature (recommended)
-execute: async (args, { log, session }) => {
-  // Tool implementation
-}
-```
+- **Silent Mode Implementation**:
+  - ✅ **DO**: Import all silent mode utilities together:
+    ```javascript
+    import { enableSilentMode, disableSilentMode, isSilentMode } from '../../../../scripts/modules/utils.js';
+    ```
+  - ✅ **DO**: Always use `isSilentMode()` function to check global silent mode status, never reference global variables.
+  - ✅ **DO**: Wrap core function calls **within direct functions** using `enableSilentMode()` and `disableSilentMode()` in a `try/finally` block if the core function might produce console output (like banners, spinners, direct `console.log`s) that isn't reliably controlled by an `outputFormat` parameter.
+    ```javascript
+    // Direct Function Example:
+    try {
+      // Prefer passing 'json' if the core function reliably handles it
+      const result = await coreFunction(...args, 'json'); 
+      // OR, if outputFormat is not enough/unreliable:
+      // enableSilentMode(); // Enable *before* the call
+      // const result = await coreFunction(...args);
+      // disableSilentMode(); // Disable *after* the call (typically in finally)
 
-- **args**: Validated parameters.
-- **context**: Contains `{ log, session }` from FastMCP. (Removed `reportProgress`).
-
-### Standard Tool Execution Pattern with Path Normalization (Updated)
-
-To ensure consistent handling of project paths across different client environments (Windows, macOS, Linux, WSL) and input formats (e.g., `file:///...`, URI encoded paths), all MCP tool `execute` methods that require access to the project root **MUST** be wrapped with the `withNormalizedProjectRoot` Higher-Order Function (HOF).
-
-This HOF, defined in [`mcp-server/src/tools/utils.js`](mdc:mcp-server/src/tools/utils.js), performs the following before calling the tool's core logic:
-
-1.  **Determines the Raw Root:** It prioritizes `args.projectRoot` if provided by the client, otherwise it calls `getRawProjectRootFromSession` to extract the path from the session.
-2.  **Normalizes the Path:** It uses the `normalizeProjectRoot` helper to decode URIs, strip `file://` prefixes, fix potential Windows drive letter prefixes (e.g., `/C:/`), convert backslashes (`\`) to forward slashes (`/`), and resolve the path to an absolute path suitable for the server's OS.
-3.  **Injects Normalized Path:** It updates the `args` object by replacing the original `projectRoot` (or adding it) with the normalized, absolute path.
-4.  **Executes Original Logic:** It calls the original `execute` function body, passing the updated `args` object.
-
-**Implementation Example:**
-
-```javascript
-// In mcp-server/src/tools/your-tool.js
-import {
-    handleApiResult,
-    createErrorResponse,
-    withNormalizedProjectRoot // <<< Import HOF
-} from './utils.js';
-import { yourDirectFunction } from '../core/task-master-core.js';
-import { findTasksJsonPath } from '../core/utils/path-utils.js'; // If needed
-
-export function registerYourTool(server) {
-    server.addTool({
-        name: "your_tool",
-        description: "...".
-        parameters: z.object({
-            // ... other parameters ...
-            projectRoot: z.string().optional().describe('...') // projectRoot is optional here, HOF handles fallback
-        }),
-        // Wrap the entire execute function
-        execute: withNormalizedProjectRoot(async (args, { log, session }) => {
-            // args.projectRoot is now guaranteed to be normalized and absolute
-            const { /* other args */, projectRoot } = args;
-
-            try {
-                log.info(`Executing your_tool with normalized root: ${projectRoot}`);
-
-                // Resolve paths using the normalized projectRoot
-                let tasksPath = findTasksJsonPath({ projectRoot, file: args.file }, log);
-
-                // Call direct function, passing normalized projectRoot if needed by direct func
-                const result = await yourDirectFunction(
-                    {
-                        /* other args */,
-                        projectRoot // Pass it if direct function needs it
-                    },
-                    log,
-                    { session }
-                );
-
-                return handleApiResult(result, log);
-            } catch (error) {
-                log.error(`Error in your_tool: ${error.message}`);
-                return createErrorResponse(error.message);
-            }
-        }) // End HOF wrap
-    });
-}
-```
-
-By using this HOF, the core logic within the `execute` method and any downstream functions (like `findTasksJsonPath` or direct functions) can reliably expect `args.projectRoot` to be a clean, absolute path suitable for the server environment.
-
-### Project Initialization Tool
-
-The `initialize_project` tool allows integrated clients like Cursor to set up a new Task Master project:
-
-```javascript
-// In initialize-project.js
-import { z } from "zod";
-import { initializeProjectDirect } from "../core/task-master-core.js";
-import { handleApiResult, createErrorResponse } from "./utils.js";
-
-export function registerInitializeProjectTool(server) {
-  server.addTool({
-    name: "initialize_project",
-    description: "Initialize a new Task Master project",
-    parameters: z.object({
-      projectName: z.string().optional().describe("The name for the new project"),
-      projectDescription: z.string().optional().describe("A brief description"),
-      projectVersion: z.string().optional().describe("Initial version (e.g., '0.1.0')"),
-      authorName: z.string().optional().describe("The author's name"),
-      skipInstall: z.boolean().optional().describe("Skip installing dependencies"),
-      addAliases: z.boolean().optional().describe("Add shell aliases"),
-      yes: z.boolean().optional().describe("Skip prompts and use defaults")
-    }),
-    execute: async (args, { log, reportProgress }) => {
-      try {
-        // Since we're initializing, we don't need project root
-        const result = await initializeProjectDirect(args, log);
-        return handleApiResult(result, log, 'Error initializing project');
-      } catch (error) {
-        log.error(`Error in initialize_project: ${error.message}`);
-        return createErrorResponse(`Failed to initialize project: ${error.message}`);
-      }
+      return { success: true, data: result };
+    } catch (error) {
+       log.error(`Error: ${error.message}`);
+       return { success: false, error: { message: error.message } };
+    } finally {
+       // If you used enable/disable, ensure disable is called here
+       // disableSilentMode(); 
     }
+    ```
+  - ✅ **DO**: Core functions themselves *should* ideally check `outputFormat === 'text'` before displaying UI elements (banners, spinners, boxes) and use internal logging (`log`/`report`) that respects silent mode. The `enable/disableSilentMode` wrapper in the direct function is a safety net.
+  - ✅ **DO**: Handle mixed parameter/global silent mode correctly for functions accepting both (less common now, prefer `outputFormat`):
+    ```javascript
+    // Check both the passed parameter and global silent mode
+    const isSilent = silentMode || (typeof silentMode === 'undefined' && isSilentMode());
+    ```
+  - ❌ **DON'T**: Forget to disable silent mode in a `finally` block if you enabled it.
+  - ❌ **DON'T**: Access the global `silentMode` flag directly.
+
+- **Debugging Strategy**:
+  - ✅ **DO**: If an MCP tool fails with vague errors (e.g., JSON parsing issues like `Unexpected token ... is not valid JSON`), **try running the equivalent CLI command directly in the terminal** (e.g., `task-master expand --all`). CLI output often provides much more specific error messages (like missing function definitions or stack traces from the core logic) that pinpoint the root cause.
+  - ❌ **DON'T**: Rely solely on MCP logs if the error is unclear; use the CLI as a complementary debugging tool for core logic issues.
+
+- **Telemetry Integration**: Ensure AI calls correctly handle and propagate `telemetryData` as described in [`telemetry.mdc`](mdc:.cursor/rules/telemetry.mdc).
+
+```javascript
+// 1. CORE LOGIC: Add function to appropriate module (example in task-manager.js)
+/**
+ * Archives completed tasks to archive.json
+ * @param {string} tasksPath - Path to the tasks.json file
+ * @param {string} archivePath - Path to the archive.json file
+ * @returns {number} Number of tasks archived
+ */
+async function archiveTasks(tasksPath, archivePath = 'tasks/archive.json') {
+  // Implementation...
+  return archivedCount;
+}
+
+// Export from the module
+export {
+  // ... existing exports ...
+  archiveTasks,
+};
+```
+
+```javascript
+// 2. AI Integration: Add import and use necessary service functions
+import { generateTextService } from './ai-services-unified.js';
+
+// Example usage:
+async function handleAIInteraction() {
+  const role = 'user';
+  const session = 'exampleSession';
+  const systemPrompt = 'You are a helpful assistant.';
+  const prompt = 'What is the capital of France?';
+
+  const result = await generateTextService(role, session, systemPrompt, prompt);
+  console.log(result);
+}
+
+// Export from the module
+export {
+  // ... existing exports ...
+  handleAIInteraction,
+};
+```
+
+```javascript
+// 3. UI COMPONENTS: Add display function to ui.js
+/**
+ * Display archive operation results
+ * @param {string} archivePath - Path to the archive file
+ * @param {number} count - Number of tasks archived
+ */
+function displayArchiveResults(archivePath, count) {
+  console.log(boxen(
+    chalk.green(`Successfully archived ${count} tasks to ${archivePath}`),
+    { padding: 1, borderColor: 'green', borderStyle: 'round' }
+  ));
+}
+
+// Export from the module
+export {
+  // ... existing exports ...
+  displayArchiveResults,
+};
+```
+
+```javascript
+// 4. COMMAND INTEGRATION: Add to commands.js
+import { archiveTasks } from './task-manager.js';
+import { displayArchiveResults } from './ui.js';
+
+// In registerCommands function
+programInstance
+  .command('archive')
+  .description('Archive completed tasks to separate file')
+  .option('-f, --file <file>', 'Path to the tasks file', 'tasks/tasks.json')
+  .option('-o, --output <file>', 'Archive output file', 'tasks/archive.json')
+  .action(async (options) => {
+    const tasksPath = options.file;
+    const archivePath = options.output;
+    
+    console.log(chalk.blue(`Archiving completed tasks from ${tasksPath} to ${archivePath}...`));
+    
+    const archivedCount = await archiveTasks(tasksPath, archivePath);
+    displayArchiveResults(archivePath, archivedCount);
   });
+```
+
+## Cross-Module Features
+
+For features requiring components in multiple modules:
+
+- ✅ **DO**: Create a clear unidirectional flow of dependencies
+  ```javascript
+  // In task-manager.js
+  function analyzeTasksDifficulty(tasks) {
+    // Implementation...
+    return difficultyScores;
+  }
+  
+  // In ui.js - depends on task-manager.js
+  import { analyzeTasksDifficulty } from './task-manager.js';
+  
+  function displayDifficultyReport(tasks) {
+    const scores = analyzeTasksDifficulty(tasks);
+    // Render the scores...
+  }
+  ```
+
+- ❌ **DON'T**: Create circular dependencies between modules
+  ```javascript
+  // In task-manager.js - depends on ui.js
+  import { displayDifficultyReport } from './ui.js';
+  
+  function analyzeTasks() {
+    // Implementation...
+    displayDifficultyReport(tasks); // WRONG! Don't call UI functions from task-manager
+  }
+  
+  // In ui.js - depends on task-manager.js
+  import { analyzeTasks } from './task-manager.js';
+  ```
+
+## Command-Line Interface Standards
+
+- **Naming Conventions**:
+  - Use kebab-case for command names (`analyze-complexity`, not `analyzeComplexity`)
+  - Use kebab-case for option names (`--output-format`, not `--outputFormat`) 
+  - Use the same option names across commands when they represent the same concept
+
+- **Command Structure**:
+  ```javascript
+  programInstance
+    .command('command-name')
+    .description('Clear, concise description of what the command does')
+    .option('-s, --short-option <value>', 'Option description', 'default value')
+    .option('--long-option <value>', 'Option description')
+    .action(async (options) => {
+      // Command implementation
+    });
+  ```
+
+## Utility Function Guidelines
+
+When adding utilities to [`utils.js`](mdc:scripts/modules/utils.js):
+
+- Only add functions that could be used by multiple modules
+- Keep utilities single-purpose and purely functional
+- Document parameters and return values
+
+```javascript
+/**
+ * Formats a duration in milliseconds to a human-readable string
+ * @param {number} ms - Duration in milliseconds
+ * @returns {string} Formatted duration string (e.g., "2h 30m 15s")
+ */
+function formatDuration(ms) {
+  // Implementation...
+  return formatted;
 }
 ```
 
-### Logging Convention
+## Writing Testable Code
 
-The `log` object (destructured from `context`) provides standardized logging methods. Use it within both the `execute` method and the `*Direct` functions. **If progress indication is needed within a direct function, use `log.info()` instead of `reportProgress`**.
+When implementing new features, follow these guidelines to ensure your code is testable:
 
-```javascript
-// Proper logging usage
-log.info(`Starting ${toolName} with parameters: ${JSON.stringify(sanitizedArgs)}`);
-log.debug("Detailed operation info", { data });
-log.warn("Potential issue detected");
-log.error(`Error occurred: ${error.message}`, { stack: error.stack });
-log.info('Progress: 50% - AI call initiated...'); // Example progress logging
+- **Dependency Injection**
+  - Design functions to accept dependencies as parameters
+  - Avoid hard-coded dependencies that are difficult to mock
+  ```javascript
+  // ✅ DO: Accept dependencies as parameters
+  function processTask(task, fileSystem, logger) {
+    fileSystem.writeFile('task.json', JSON.stringify(task));
+    logger.info('Task processed');
+  }
+  
+  // ❌ DON'T: Use hard-coded dependencies
+  function processTask(task) {
+    fs.writeFile('task.json', JSON.stringify(task));
+    console.log('Task processed');
+  }
+  ```
+
+- **Separate Logic from Side Effects**
+  - Keep pure logic separate from I/O operations or UI rendering
+  - This allows testing the logic without mocking complex dependencies
+  ```javascript
+  // ✅ DO: Separate logic from side effects
+  function calculateTaskPriority(task, dependencies) {
+    // Pure logic that returns a value
+    return computedPriority;
+  }
+  
+  function displayTaskPriority(task, dependencies) {
+    const priority = calculateTaskPriority(task, dependencies);
+    console.log(`Task priority: ${priority}`);
+  }
+  ```
+
+- **Callback Functions and Testing**
+  - When using callbacks (like in Commander.js commands), define them separately
+  - This allows testing the callback logic independently
+  ```javascript
+  // ✅ DO: Define callbacks separately for testing
+  function getVersionString() {
+    // Logic to determine version
+    return version;
+  }
+  
+  // In setupCLI
+  programInstance.version(getVersionString);
+  
+  // In tests
+  test('getVersionString returns correct version', () => {
+    expect(getVersionString()).toBe('1.5.0');
+  });
+  ```
+
+- **UI Output Testing**
+  - For UI components, focus on testing conditional logic rather than exact output
+  - Use string pattern matching (like `expect(result).toContain('text')`)
+  - Pay attention to emojis and formatting which can make exact string matching difficult
+  ```javascript
+  // ✅ DO: Test the essence of the output, not exact formatting
+  test('statusFormatter shows done status correctly', () => {
+    const result = formatStatus('done');
+    expect(result).toContain('done');
+    expect(result).toContain('✅');
+  });
+  ```
+
+## Testing Requirements
+
+Every new feature **must** include comprehensive tests following the guidelines in [`tests.mdc`](mdc:.cursor/rules/tests.mdc). Testing should include:
+
+1. **Unit Tests**: Test individual functions and components in isolation
+   ```javascript
+   // Example unit test for a new utility function
+   describe('newFeatureUtil', () => {
+     test('should perform expected operation with valid input', () => {
+       expect(newFeatureUtil('valid input')).toBe('expected result');
+     });
+     
+     test('should handle edge cases appropriately', () => {
+       expect(newFeatureUtil('')).toBeNull();
+     });
+   });
+   ```
+
+2. **Integration Tests**: Verify the feature works correctly with other components
+   ```javascript
+   // Example integration test for a new command
+   describe('newCommand integration', () => {
+     test('should call the correct service functions with parsed arguments', () => {
+       const mockService = jest.fn().mockResolvedValue('success');
+       // Set up test with mocked dependencies
+       // Call the command handler
+       // Verify service was called with expected arguments
+     });
+   });
+   ```
+
+3. **Edge Cases**: Test boundary conditions and error handling
+   - Invalid inputs
+   - Missing dependencies
+   - File system errors
+   - API failures
+
+4. **Test Coverage**: Aim for at least 80% coverage for all new code
+
+5. **Jest Mocking Best Practices**
+   - Follow the mock-first-then-import pattern as described in [`tests.mdc`](mdc:.cursor/rules/tests.mdc)
+   - Use jest.spyOn() to create spy functions for testing
+   - Clear mocks between tests to prevent interference
+   - See the Jest Module Mocking Best Practices section in [`tests.mdc`](mdc:.cursor/rules/tests.mdc) for details
+
+When submitting a new feature, always run the full test suite to ensure nothing was broken:
+
+```bash
+npm test
 ```
 
-## Session Usage Convention
+## Documentation Requirements
 
-The `session` object (destructured from `context`) contains authenticated session data and client information.
+For each new feature:
 
-- **Authentication**: Access user-specific data (`session.userId`, etc.) if authentication is implemented.
-- **Project Root**: The primary use in Task Master is accessing `session.roots` to determine the client's project root directory via the `getProjectRootFromSession` utility (from [`tools/utils.js`](mdc:mcp-server/src/tools/utils.js)). See the Standard Tool Execution Pattern above.
-- **Environment Variables**: The `session.env` object provides access to environment variables set in the MCP client configuration (e.g., `.cursor/mcp.json`). This is the **primary mechanism** for the unified AI service layer (`ai-services-unified.js`) to securely access **API keys** when called from MCP context.
-- **Capabilities**: Can be used to check client capabilities (`session.clientCapabilities`).
+1. Add help text to the command definition
+2. Update [`dev_workflow.mdc`](mdc:.cursor/rules/dev_workflow.mdc) with command reference
+3. Consider updating [`architecture.mdc`](mdc:.cursor/rules/architecture.mdc) if the feature significantly changes module responsibilities.
 
-## Direct Function Wrappers (`*Direct`)
+Follow the existing command reference format:
+```markdown
+- **Command Reference: your-command**
+  - CLI Syntax: `task-master your-command [options]`
+  - Description: Brief explanation of what the command does
+  - Parameters:
+    - `--option1=<value>`: Description of option1 (default: 'default')
+    - `--option2=<value>`: Description of option2 (required)
+  - Example: `task-master your-command --option1=value --option2=value2`
+  - Notes: Additional details, limitations, or special considerations
+```
 
-These functions, located in `mcp-server/src/core/direct-functions/`, form the core logic execution layer for MCP tools.
+For more information on module structure, see [`MODULE_PLAN.md`](mdc:scripts/modules/MODULE_PLAN.md) and follow [`self_improve.mdc`](mdc:scripts/modules/self_improve.mdc) for best practices on updating documentation.
 
-- **Purpose**: Bridge MCP tools and core Task Master modules (`scripts/modules/*`). Handle AI interactions if applicable.
-- **Responsibilities**:
-  - Receive `args` (including `projectRoot`), `log`, and optionally `{ session }` context.
-  - Find `tasks.json` using `findTasksJsonPath`.
-  - Validate arguments.
-  - **Implement Caching (if applicable)**: Use `getCachedOrExecute`.
-  - **Call Core Logic**: Invoke function from `scripts/modules/*`.
-    - Pass `outputFormat: 'json'` if applicable.
-    - Wrap with `enableSilentMode/disableSilentMode` if needed.
-    - Pass `{ mcpLog: logWrapper, session }` context if core logic needs it.
-  - Handle errors.
-  - Return standardized result object.
-  - ❌ **DON'T**: Call `reportProgress`.
-  - ❌ **DON'T**: Initialize AI clients or call AI services directly.
+## Adding MCP Server Support for Commands
 
-## Key Principles
+Integrating Task Master commands with the MCP server (for use by tools like Cursor) follows a specific pattern distinct from the CLI command implementation, prioritizing performance and reliability.
 
-- **Prefer Direct Function Calls**: MCP tools should always call `*Direct` wrappers instead of `executeTaskMasterCommand`.
-- **Standardized Execution Flow**: Follow the pattern: MCP Tool -> `getProjectRootFromSession` -> `*Direct` Function -> Core Logic / AI Logic.
-- **Path Resolution via Direct Functions**: The `*Direct` function is responsible for finding the exact `tasks.json` path using `findTasksJsonPath`, relying on the `projectRoot` passed in `args`.
-- **AI Logic in Core Modules**: AI interactions (prompt building, calling unified service) reside within the core logic functions (`scripts/modules/*`), not direct functions.
-- **Silent Mode in Direct Functions**: Wrap *core function* calls (from `scripts/modules`) with `enableSilentMode()` and `disableSilentMode()` if they produce console output not handled by `outputFormat`. Do not wrap AI calls.
-- **Selective Async Processing**: Use `AsyncOperationManager` in the *MCP Tool layer* for operations involving multiple steps or long waits beyond a single AI call (e.g., file processing + AI call + file writing). Simple AI calls handled entirely within the `*Direct` function (like `addTaskDirect`) may not need it at the tool layer.
-- **No `reportProgress` in Direct Functions**: Do not pass or use `reportProgress` within `*Direct` functions. Use `log.info()` for internal progress or report progress from the `AsyncOperationManager` callback in the MCP tool layer.
-- **Output Formatting**: Ensure core functions called by `*Direct` functions can suppress CLI output, ideally via an `outputFormat` parameter.
-- **Project Initialization**: Use the initialize_project tool for setting up new projects in integrated environments.
-- **Centralized Utilities**: Use helpers from `mcp-server/src/tools/utils.js`, `mcp-server/src/core/utils/path-utils.js`, and `mcp-server/src/core/utils/ai-client-utils.js`. See [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc).
-- **Caching in Direct Functions**: Caching logic resides *within* the `*Direct` functions using `getCachedOrExecute`.
+- **Goal**: Leverage direct function calls to core logic, avoiding CLI overhead.
+- **Reference**: See [`mcp.mdc`](mdc:.cursor/rules/mcp.mdc) for full details.
 
-## Resources and Resource Templates
+**MCP Integration Workflow**:
 
-Resources provide LLMs with static or dynamic data without executing tools.
-
-- **Implementation**: Use `@mcp.resource()` decorator pattern or `server.addResource`/`server.addResourceTemplate` in `mcp-server/src/core/resources/`.
-- **Registration**: Register resources during server initialization in [`mcp-server/src/index.js`](mdc:mcp-server/src/index.js).
-- **Best Practices**: Organize resources, validate parameters, use consistent URIs, handle errors. See [`fastmcp-core.txt`](docs/fastmcp-core.txt) for underlying SDK details.
-
-*(Self-correction: Removed detailed Resource implementation examples as they were less relevant to the current user focus on tool execution flow and project roots. Kept the overview.)*
-
-## Implementing MCP Support for a Command
-
-Follow these steps to add MCP support for an existing Task Master command (see [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for more detail):
-
-1.  **Ensure Core Logic Exists**: Verify the core functionality is implemented and exported from the relevant module in `scripts/modules/`. Ensure the core function can suppress console output (e.g., via an `outputFormat` parameter).
-
-2. **Create Direct Function File in `mcp-server/src/core/direct-functions/`**:
-    - Create a new file (e.g., `your-command.js`) using **kebab-case** naming.
-    - Import necessary core functions, `findTasksJsonPath`, silent mode utilities, and potentially AI client/prompt utilities.
-    - Implement `async function yourCommandDirect(args, log, context = {})` using **camelCase** with `Direct` suffix. **Remember `context` should only contain `{ session }` if needed (for AI keys/config).**
-        - **Path Resolution**: Obtain `tasksPath` using `findTasksJsonPath(args, log)`.
-        - Parse other `args` and perform necessary validation.
-        - **Handle AI (if applicable)**: Initialize clients using `get*ClientForMCP(session, log)`, build prompts, call AI, parse response. Handle AI-specific errors.
-        - **Implement Caching (if applicable)**: Use `getCachedOrExecute`.
-        - **Call Core Logic**:
-            - Wrap with `enableSilentMode/disableSilentMode` if necessary.
-            - Pass `outputFormat: 'json'` (or similar) if applicable.
-            - Handle errors from the core function.
-        - Format the return as `{ success: true/false, data/error, fromCache?: boolean }`.
-        - ❌ **DON'T**: Call `reportProgress`.
+1.  **Core Logic**: Ensure the command's core logic exists and is exported from the appropriate module (e.g., [`task-manager.js`](mdc:scripts/modules/task-manager.js)).
+2.  **Direct Function Wrapper (`mcp-server/src/core/direct-functions/`)**:
+    - Create a new file (e.g., `your-command.js`) in `mcp-server/src/core/direct-functions/` using **kebab-case** naming.
+    - Import the core logic function, necessary MCP utilities like **`findTasksJsonPath` from `../utils/path-utils.js`**, and **silent mode utilities**: `import { enableSilentMode, disableSilentMode } from '../../../../scripts/modules/utils.js';`
+    - Implement an `async function yourCommandDirect(args, log)` using **camelCase** with `Direct` suffix.
+    - **Path Finding**: Inside this function, obtain the `tasksPath` by calling `const tasksPath = findTasksJsonPath(args, log);`. This relies on `args.projectRoot` (derived from the session) being passed correctly.
+    - Perform validation on other arguments received in `args`.
+    - **Implement Silent Mode**: Wrap core function calls with `enableSilentMode()` and `disableSilentMode()` to prevent logs from interfering with JSON responses.
+    - **If Caching**: Implement caching using `getCachedOrExecute` from `../../tools/utils.js`.
+    - **If Not Caching**: Directly call the core logic function within a try/catch block.
+    - Format the return as `{ success: true/false, data/error, fromCache: boolean }`.
     - Export the wrapper function.
 
 3.  **Update `task-master-core.js` with Import/Export**: Import and re-export your `*Direct` function and add it to the `directFunctions` map.
 
 4.  **Create MCP Tool (`mcp-server/src/tools/`)**:
     - Create a new file (e.g., `your-command.js`) using **kebab-case**.
-    - Import `zod`, `handleApiResult`, `createErrorResponse`, `getProjectRootFromSession`, and your `yourCommandDirect` function. Import `AsyncOperationManager` if needed.
+    - Import `zod`, `handleApiResult`, **`withNormalizedProjectRoot` HOF**, and your `yourCommandDirect` function.
     - Implement `registerYourCommandTool(server)`.
-    - Define the tool `name` using **snake_case** (e.g., `your_command`).
-    - Define the `parameters` using `zod`. Include `projectRoot: z.string().optional()`.
-    - Implement the `async execute(args, { log, session })` method (omitting `reportProgress` from destructuring).
-        - Get `rootFolder` using `getProjectRootFromSession(session, log)`.
-        - **Determine Execution Strategy**:
-            - **If using `AsyncOperationManager`**: Create the operation, call the `*Direct` function from within the async task callback (passing `log` and `{ session }`), report progress *from the callback*, and return the initial `ACCEPTED` response.
-            - **If calling `*Direct` function synchronously** (like `add-task`): Call `await yourCommandDirect({ ...args, projectRoot }, log, { session });`. Handle the result with `handleApiResult`.
-        - ❌ **DON'T**: Pass `reportProgress` down to the direct function in either case.
+    - **Define parameters**: Make `projectRoot` optional (`z.string().optional().describe(...)`) as the HOF handles fallback.
+    - Consider if this operation should run in the background using `AsyncOperationManager`.
+    - Implement the standard `execute` method **wrapped with `withNormalizedProjectRoot`**:
+      ```javascript
+      execute: withNormalizedProjectRoot(async (args, { log, session }) => {
+          // args.projectRoot is now normalized
+          const { projectRoot /*, other args */ } = args;
+          // ... resolve tasks path if needed using normalized projectRoot ...
+          const result = await yourCommandDirect(
+              { /* other args */, projectRoot /* if needed by direct func */ }, 
+              log, 
+              { session }
+          );
+          return handleApiResult(result, log);
+      })
+      ```
 
 5.  **Register Tool**: Import and call `registerYourCommandTool` in `mcp-server/src/tools/index.js`.
 
 6.  **Update `mcp.json`**: Add the new tool definition to the `tools` array in `.cursor/mcp.json`.
 
-## Handling Responses
+## Implementing Background Operations
 
-- MCP tools should return the object generated by `handleApiResult`.
-- `handleApiResult` uses `createContentResponse` or `createErrorResponse` internally.
-- `handleApiResult` also uses `processMCPResponseData` by default to filter potentially large fields (`details`, `testStrategy`) from task data. Provide a custom processor function to `handleApiResult` if different filtering is needed.
-- The final JSON response sent to the MCP client will include the `fromCache` boolean flag (obtained from the `*Direct` function's result) alongside the actual data (e.g., `{ "fromCache": true, "data": { ... } }` or `{ "fromCache": false, "data": { ... } }`).
+For long-running operations that should not block the client, use the AsyncOperationManager:
 
-## Parameter Type Handling
+1. **Identify Background-Appropriate Operations**:
+   - ✅ **DO**: Use async operations for CPU-intensive tasks like task expansion or PRD parsing
+   - ✅ **DO**: Consider async operations for tasks that may take more than 1-2 seconds
+   - ❌ **DON'T**: Use async operations for quick read/status operations
+   - ❌ **DON'T**: Use async operations when immediate feedback is critical
 
-- **Prefer Direct Function Calls**: For optimal performance and error handling, MCP tools should utilize direct function wrappers defined in [`task-master-core.js`](mdc:mcp-server/src/core/task-master-core.js). These wrappers call the underlying logic from the core modules (e.g., [`task-manager.js`](mdc:scripts/modules/task-manager.js)).
-- **Standard Tool Execution Pattern**:
-    - The `execute` method within each MCP tool (in `mcp-server/src/tools/*.js`) should:
-        1.  Call the corresponding `*Direct` function wrapper (e.g., `listTasksDirect`) from [`task-master-core.js`](mdc:mcp-server/src/core/task-master-core.js), passing necessary arguments and the logger.
-        2.  Receive the result object (typically `{ success, data/error, fromCache }`).
-        3.  Pass this result object to the `handleApiResult` utility (from [`tools/utils.js`](mdc:mcp-server/src/tools/utils.js)) for standardized response formatting and error handling.
-        4.  Return the formatted response object provided by `handleApiResult`.
-- **CLI Execution as Fallback**: The `executeTaskMasterCommand` utility in [`tools/utils.js`](mdc:mcp-server/src/tools/utils.js) allows executing commands via the CLI (`task-master ...`). This should **only** be used as a fallback if a direct function wrapper is not yet implemented or if a specific command intrinsically requires CLI execution.
-- **Centralized Utilities** (See also: [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc)):
-    - Use `findTasksJsonPath` (in [`task-master-core.js`](mdc:mcp-server/src/core/task-master-core.js)) *within direct function wrappers* to locate the `tasks.json` file consistently.
-    - **Leverage MCP Utilities**: The file [`tools/utils.js`](mdc:mcp-server/src/tools/utils.js) contains essential helpers for MCP tool implementation:
-        - `getProjectRoot`: Normalizes project paths.
-        - `handleApiResult`: Takes the raw result from a `*Direct` function and formats it into a standard MCP success or error response, automatically handling data processing via `processMCPResponseData`. This is called by the tool's `execute` method.
-        - `createContentResponse`/`createErrorResponse`: Used by `handleApiResult` to format successful/error MCP responses.
-        - `processMCPResponseData`: Filters/cleans data (e.g., removing `details`, `testStrategy`) before it's sent in the MCP response. Called by `handleApiResult`.
-        - `getCachedOrExecute`: **Used inside `*Direct` functions** in `task-master-core.js` to implement caching logic.
-        - `executeTaskMasterCommand`: Fallback for executing CLI commands.
-- **Caching**: To improve performance for frequently called read operations (like `listTasks`, `showTask`, `nextTask`), a caching layer using `lru-cache` is implemented.
-    - **Caching logic resides *within* the direct function wrappers** in [`task-master-core.js`](mdc:mcp-server/src/core/task-master-core.js) using the `getCachedOrExecute` utility from [`tools/utils.js`](mdc:mcp-server/src/tools/utils.js).
-    - Generate unique cache keys based on function arguments that define a distinct call (e.g., file path, filters).
-    - The `getCachedOrExecute` utility handles checking the cache, executing the core logic function on a cache miss, storing the result, and returning the data along with a `fromCache` flag.
-    - Cache statistics can be monitored using the `cacheStats` MCP tool (implemented via `getCacheStatsDirect`).
-    - **Caching should generally be applied to read-only operations** that don't modify the `tasks.json` state. Commands like `set-status`, `add-task`, `update-task`, `parse-prd`, `add-dependency` should *not* be cached as they change the underlying data.
+2. **Use AsyncOperationManager in MCP Tools**:
+   ```javascript
+   import { asyncOperationManager } from '../core/utils/async-manager.js';
+   
+   // In execute method:
+   const operationId = asyncOperationManager.addOperation(
+     expandTaskDirect, // The direct function to run in background
+     { ...args, projectRoot: rootFolder }, // Args to pass to the function
+     { log, reportProgress, session } // Context to preserve for the operation
+   );
+   
+   // Return immediate response with operation ID
+   return createContentResponse({
+     message: "Operation started successfully",
+     operationId,
+     status: "pending"
+   });
+   ```
 
-**MCP Tool Implementation Checklist**:
+3. **Implement Progress Reporting**:
+   - ✅ **DO**: Use the reportProgress function in direct functions:
+   ```javascript
+   // In your direct function:
+   if (reportProgress) {
+     await reportProgress({ progress: 50 }); // 50% complete
+   }
+   ```
+   - AsyncOperationManager will forward progress updates to the client
 
-1. **Core Logic Verification**:
-   - [ ] Confirm the core function is properly exported from its module (e.g., `task-manager.js`)
-   - [ ] Identify all required parameters and their types
+4. **Check Operation Status**:
+   - Implement a way for clients to check status using the `get_operation_status` MCP tool
+   - Return appropriate status codes and messages
 
-2. **Direct Function Wrapper**:
-   - [ ] Create the `*Direct` function in the appropriate file in `mcp-server/src/core/direct-functions/`
-   - [ ] Import silent mode utilities and implement them around core function calls
-   - [ ] Handle all parameter validations and type conversions
-   - [ ] Implement path resolving for relative paths
-   - [ ] Add appropriate error handling with standardized error codes
-   - [ ] Add to imports/exports in `task-master-core.js`
+## Project Initialization
 
-3. **MCP Tool Implementation**:
-   - [ ] Create new file in `mcp-server/src/tools/` with kebab-case naming
-   - [ ] Define zod schema for all parameters
-   - [ ] Implement the `execute` method following the standard pattern
-   - [ ] Consider using AsyncOperationManager for long-running operations
-   - [ ] Register tool in `mcp-server/src/tools/index.js`
+When implementing project initialization commands:
 
-4. **Testing**:
-   - [ ] Write unit tests for the direct function wrapper
-   - [ ] Write integration tests for the MCP tool
+1. **Support Programmatic Initialization**:
+   - ✅ **DO**: Design initialization to work with both CLI and MCP
+   - ✅ **DO**: Support non-interactive modes with sensible defaults
+   - ✅ **DO**: Handle project metadata like name, description, version
+   - ✅ **DO**: Create necessary files and directories
 
-## Standard Error Codes
+2. **In MCP Tool Implementation**:
+   ```javascript
+   // In initialize-project.js MCP tool:
+   import { z } from "zod";
+   import { initializeProjectDirect } from "../core/task-master-core.js";
+   
+   export function registerInitializeProjectTool(server) {
+     server.addTool({
+       name: "initialize_project",
+       description: "Initialize a new Task Master project",
+       parameters: z.object({
+         projectName: z.string().optional().describe("The name for the new project"),
+         projectDescription: z.string().optional().describe("A brief description"),
+         projectVersion: z.string().optional().describe("Initial version (e.g., '0.1.0')"),
+         // Add other parameters as needed
+       }),
+       execute: async (args, { log, reportProgress, session }) => {
+         try {
+           // No need for project root since we're creating a new project
+           const result = await initializeProjectDirect(args, log);
+           return handleApiResult(result, log, 'Error initializing project');
+         } catch (error) {
+           log.error(`Error in initialize_project: ${error.message}`);
+           return createErrorResponse(`Failed to initialize project: ${error.message}`);
+         }
+       }
+     });
+   }
+   ```
 
-- **Standard Error Codes**: Use consistent error codes across direct function wrappers
-  - `INPUT_VALIDATION_ERROR`: For missing or invalid required parameters
-  - `FILE_NOT_FOUND_ERROR`: For file system path issues
-  - `CORE_FUNCTION_ERROR`: For errors thrown by the core function
-  - `UNEXPECTED_ERROR`: For all other unexpected errors
+## Feature Planning
 
-- **Error Object Structure**:
+- **Core Logic First**:
+  - ✅ DO: Implement core logic in `scripts/modules/` before CLI or MCP interfaces
+  - ✅ DO: Consider tagged task lists system compatibility from the start
+  - ✅ DO: Design functions to work with both legacy and tagged data formats
+  - ✅ DO: Use tag resolution functions (`getTasksForTag`, `setTasksForTag`) for task data access
+  - ❌ DON'T: Directly manipulate tagged data structure in new features
+
   ```javascript
-  {
-    success: false,
-    error: {
-      code: 'ERROR_CODE',
-      message: 'Human-readable error message'
-    },
-    fromCache: false
+  // ✅ DO: Design tagged-aware core functions
+  async function newFeatureCore(tasksPath, featureParams, options = {}) {
+    const tasksData = readJSON(tasksPath);
+    const currentTag = getCurrentTag() || 'master';
+    const tasks = getTasksForTag(tasksData, currentTag);
+    
+    // Perform feature logic on tasks array
+    const result = performFeatureLogic(tasks, featureParams);
+    
+    // Save back using tag resolution
+    setTasksForTag(tasksData, currentTag, tasks);
+    writeJSON(tasksPath, tasksData);
+    
+    return result;
   }
   ```
 
-- **MCP Tool Logging Pattern**:
-  - ✅ DO: Log the start of execution with arguments (sanitized if sensitive)
-  - ✅ DO: Log successful completion with result summary
-  - ✅ DO: Log all error conditions with appropriate log levels
-  - ✅ DO: Include the cache status in result logs
-  - ❌ DON'T: Log entire large data structures or sensitive information
+- **Backward Compatibility**:
+  - ✅ DO: Ensure new features work with existing projects seamlessly
+  - ✅ DO: Test with both legacy and tagged task data formats
+  - ✅ DO: Support silent migration during feature usage
+  - ❌ DON'T: Break existing workflows when adding tagged system features
 
-- The MCP server integrates with Task Master core functions through three layers:
-  1. Tool Definitions (`mcp-server/src/tools/*.js`) - Define parameters and validation
-  2. Direct Functions (`mcp-server/src/core/direct-functions/*.js`) - Handle core logic integration
-  3. Core Functions (`scripts/modules/*.js`) - Implement the actual functionality
+## CLI Command Implementation
 
-- This layered approach provides:
-  - Clear separation of concerns
-  - Consistent parameter validation
-  - Centralized error handling
-  - Performance optimization through caching (for read operations)
-  - Standardized response formatting
+- **Command Structure**:
+  - ✅ DO: Follow the established pattern in [`commands.js`](mdc:scripts/modules/commands.js)
+  - ✅ DO: Use Commander.js for argument parsing
+  - ✅ DO: Include comprehensive help text and examples
+  - ✅ DO: Support tagged task context awareness
 
-## MCP Naming Conventions
+  ```javascript
+  // ✅ DO: Implement CLI commands with tagged system awareness
+  program
+    .command('new-feature')
+    .description('Description of the new feature with tagged task lists support')
+    .option('-t, --tag <tag>', 'Specify tag context (defaults to current tag)')
+    .option('-p, --param <value>', 'Feature-specific parameter')
+    .option('--force', 'Force operation without confirmation')
+    .action(async (options) => {
+      try {
+        const projectRoot = findProjectRoot();
+        if (!projectRoot) {
+          console.error('Not in a Task Master project directory');
+          process.exit(1);
+        }
+        
+        // Use specified tag or current tag
+        const targetTag = options.tag || getCurrentTag() || 'master';
+        
+        const result = await newFeatureCore(
+          path.join(projectRoot, '.taskmaster', 'tasks', 'tasks.json'),
+          { param: options.param },
+          { 
+            force: options.force,
+            targetTag: targetTag,
+            outputFormat: 'text'
+          }
+        );
+        
+        console.log('Feature executed successfully');
+      } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+      }
+    });
+  ```
 
-- **Files and Directories**:
-  - ✅ DO: Use **kebab-case** for all file names: `list-tasks.js`, `set-task-status.js`
-  - ✅ DO: Use consistent directory structure: `mcp-server/src/tools/` for tool definitions, `mcp-server/src/core/direct-functions/` for direct function implementations
+- **Error Handling**:
+  - ✅ DO: Provide clear error messages for common failures
+  - ✅ DO: Handle tagged system migration errors gracefully
+  - ✅ DO: Include suggestion for resolution when possible
+  - ✅ DO: Exit with appropriate codes for scripting
 
-- **JavaScript Functions**:
-  - ✅ DO: Use **camelCase** with `Direct` suffix for direct function implementations: `listTasksDirect`, `setTaskStatusDirect`
-  - ✅ DO: Use **camelCase** with `Tool` suffix for tool registration functions: `registerListTasksTool`, `registerSetTaskStatusTool`
-  - ✅ DO: Use consistent action function naming inside direct functions: `coreActionFn` or similar descriptive name
+## MCP Tool Implementation
 
-- **MCP Tool Names**:
-  - ✅ DO: Use **snake_case** for tool names exposed to MCP clients: `list_tasks`, `set_task_status`, `parse_prd_document`
-  - ✅ DO: Include the core action in the tool name without redundant words: Use `list_tasks` instead of `list_all_tasks`
+- **Direct Function Pattern**:
+  - ✅ DO: Create direct function wrappers in `mcp-server/src/core/direct-functions/`
+  - ✅ DO: Follow silent mode patterns to prevent console output interference
+  - ✅ DO: Use `findTasksJsonPath` for consistent path resolution
+  - ✅ DO: Ensure tagged system compatibility
 
-- **Examples**:
-  - File: `list-tasks.js` 
-  - Direct Function: `listTasksDirect`
-  - Tool Registration: `registerListTasksTool`
-  - MCP Tool Name: `list_tasks`
+  ```javascript
+  // ✅ DO: Implement MCP direct functions with tagged awareness
+  export async function newFeatureDirect(args, log, context = {}) {
+    try {
+      const tasksPath = findTasksJsonPath(args, log);
+      
+      // Enable silent mode for clean MCP responses
+      enableSilentMode();
+      
+      try {
+        const result = await newFeatureCore(
+          tasksPath,
+          { param: args.param },
+          { 
+            force: args.force,
+            targetTag: args.tag || 'master', // Support tag specification
+            mcpLog: log,
+            session: context.session,
+            outputFormat: 'json'
+          }
+        );
+        
+        return {
+          success: true,
+          data: result,
+          fromCache: false
+        };
+      } finally {
+        disableSilentMode();
+      }
+    } catch (error) {
+      log.error(`Error in newFeatureDirect: ${error.message}`);
+      return {
+        success: false,
+        error: { code: 'FEATURE_ERROR', message: error.message },
+        fromCache: false
+      };
+    }
+  }
+  ```
 
-- **Mapping**:
-  - The `directFunctions` map in `task-master-core.js` maps the core function name (in camelCase) to its direct implementation:
-    ```javascript
-    export const directFunctions = {
-      list: listTasksDirect,
-      setStatus: setTaskStatusDirect,
-      // Add more functions as implemented
-    };
-    ```
+- **Tool Registration**:
+  - ✅ DO: Create tool definitions in `mcp-server/src/tools/`
+  - ✅ DO: Use Zod for parameter validation
+  - ✅ DO: Include optional tag parameter for multi-context support
+  - ✅ DO: Follow established naming conventions
 
-## Telemetry Integration
+  ```javascript
+  // ✅ DO: Register MCP tools with tagged system support
+  export function registerNewFeatureTool(server) {
+    server.addTool({
+      name: "new_feature",
+      description: "Description of the new feature with tagged task lists support",
+      inputSchema: z.object({
+        param: z.string().describe("Feature-specific parameter"),
+        tag: z.string().optional().describe("Target tag context (defaults to current tag)"),
+        force: z.boolean().optional().describe("Force operation without confirmation"),
+        projectRoot: z.string().optional().describe("Project root directory")
+      }),
+      execute: withNormalizedProjectRoot(async (args, { log, session }) => {
+        try {
+          const result = await newFeatureDirect(
+            { ...args, projectRoot: args.projectRoot },
+            log,
+            { session }
+          );
+          return handleApiResult(result, log);
+        } catch (error) {
+          return handleApiResult({
+            success: false,
+            error: { code: 'EXECUTION_ERROR', message: error.message }
+          }, log);
+        }
+      })
+    });
+  }
+  ```
 
-- Direct functions calling core logic that involves AI should receive and pass through `telemetryData` within their successful `data` payload. See [`telemetry.mdc`](mdc:.cursor/rules/telemetry.mdc) for the standard pattern.
-- MCP tools use `handleApiResult`, which ensures the `data` object (potentially including `telemetryData`) from the direct function is correctly included in the final response.
+## Testing Strategy
+
+- **Unit Tests**:
+  - ✅ DO: Test core logic independently with both data formats
+  - ✅ DO: Mock file system operations appropriately
+  - ✅ DO: Test tag resolution behavior
+  - ✅ DO: Verify migration compatibility
+
+  ```javascript
+  // ✅ DO: Test new features with tagged system awareness
+  describe('newFeature', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+    
+    it('should work with legacy task format', async () => {
+      const legacyData = { tasks: [/* test data */] };
+      fs.readFileSync.mockReturnValue(JSON.stringify(legacyData));
+      
+      const result = await newFeatureCore('/test/tasks.json', { param: 'test' });
+      
+      expect(result).toBeDefined();
+      // Test legacy format handling
+    });
+    
+    it('should work with tagged task format', async () => {
+      const taggedData = { 
+        master: { tasks: [/* test data */] },
+        feature: { tasks: [/* test data */] }
+      };
+      fs.readFileSync.mockReturnValue(JSON.stringify(taggedData));
+      
+      const result = await newFeatureCore('/test/tasks.json', { param: 'test' });
+      
+      expect(result).toBeDefined();
+      // Test tagged format handling
+    });
+    
+    it('should handle tag migration during feature usage', async () => {
+      const legacyData = { tasks: [/* test data */] };
+      fs.readFileSync.mockReturnValue(JSON.stringify(legacyData));
+      
+      await newFeatureCore('/test/tasks.json', { param: 'test' });
+      
+      // Verify migration occurred
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        '/test/tasks.json',
+        expect.stringContaining('"master"')
+      );
+    });
+  });
+  ```
+
+- **Integration Tests**:
+  - ✅ DO: Test CLI and MCP interfaces with real task data
+  - ✅ DO: Verify end-to-end workflows across tag contexts
+  - ✅ DO: Test error scenarios and recovery
+
+## Documentation Updates
+
+- **Rule Updates**:
+  - ✅ DO: Update relevant `.cursor/rules/*.mdc` files
+  - ✅ DO: Include tagged system considerations in architecture docs
+  - ✅ DO: Add examples showing multi-context usage
+  - ✅ DO: Update workflow documentation as needed
+
+- **User Documentation**:
+  - ✅ DO: Add feature documentation to `/docs` folder
+  - ✅ DO: Include tagged system usage examples
+  - ✅ DO: Update command reference documentation
+  - ✅ DO: Provide migration notes if relevant
+
+## Migration Considerations
+
+- **Silent Migration Support**:
+  - ✅ DO: Ensure new features trigger migration when needed
+  - ✅ DO: Handle migration errors gracefully in feature code
+  - ✅ DO: Test feature behavior with pre-migration projects
+  - ❌ DON'T: Assume projects are already migrated
+
+- **Tag Context Handling**:
+  - ✅ DO: Default to current tag when not specified
+  - ✅ DO: Support explicit tag selection in advanced features
+  - ✅ DO: Validate tag existence before operations
+  - ✅ DO: Provide clear messaging about tag context
+
+## Performance Considerations
+
+- **Efficient Tag Operations**:
+  - ✅ DO: Minimize file I/O operations per feature execution
+  - ✅ DO: Cache tag resolution results when appropriate
+  - ✅ DO: Use streaming for large task datasets
+  - ❌ DON'T: Load all tags when only one is needed
+
+- **Memory Management**:
+  - ✅ DO: Process large task lists efficiently
+  - ✅ DO: Clean up temporary data structures
+  - ✅ DO: Avoid keeping all tag data in memory simultaneously
+
+## Deployment and Versioning
+
+- **Changesets**:
+  - ✅ DO: Create appropriate changesets for new features
+  - ✅ DO: Use semantic versioning (minor for new features)
+  - ✅ DO: Include tagged system information in release notes
+  - ✅ DO: Document breaking changes if any
+
+- **Feature Flags**:
+  - ✅ DO: Consider feature flags for experimental functionality
+  - ✅ DO: Ensure tagged system features work with flags
+  - ✅ DO: Provide clear documentation about flag usage
+
+By following these guidelines, new features will integrate smoothly with the Task Master ecosystem while supporting the enhanced tagged task lists system for multi-context development workflows.
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
