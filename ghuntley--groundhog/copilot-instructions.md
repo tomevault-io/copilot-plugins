@@ -1,18 +1,16 @@
-## nix-dependency-management
+## nix-package-declaration
 
-> Nix Dependency Management and Versioning
+> Nix Package Declaration and Naming Conventions
 
 ## Description
-This rule enforces best practices for managing dependencies and versioning in Nix files.
+This rule enforces best practices for package declarations and naming conventions in Nix files.
 
 ## Rule Details
-- Use specific version constraints for dependencies
-- Prefer using `fetchFromGitHub` with specific tags/commits over floating versions
-- Use `buildInputs` for runtime dependencies
-- Use `nativeBuildInputs` for build-time dependencies
-- Use `propagatedBuildInputs` only when necessary
-- Avoid using `buildEnv` for simple dependency management
-- Use `override` and `overrideAttrs` instead of direct attribute modification
+- Package names should be lowercase and use hyphens for word separation
+- Version numbers should be declared as strings
+- Dependencies should be explicitly declared in the buildInputs or nativeBuildInputs
+- Package attributes should be properly documented with comments
+- Use semantic versioning for package versions
 
 ## Examples
 
@@ -21,13 +19,12 @@ This rule enforces best practices for managing dependencies and versioning in Ni
 { lib
 , stdenv
 , fetchFromGitHub
-, pkg-config
-, openssl
+, rustPlatform
 }:
 
-stdenv.mkDerivation rec {
+rustPlatform.buildRustPackage rec {
   pname = "my-package";
-  version = "1.2.3";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "owner";
@@ -35,12 +32,13 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [ pkg-config ];  # Build-time dependency
-  buildInputs = [ openssl ];          # Runtime dependency
+  cargoSha256 = "sha256-...";
 
-  # Use override for version-specific changes
-  passthru = {
-    updateScript = ./update.sh;
+  meta = with lib; {
+    description = "A well-documented package";
+    homepage = "https://github.com/owner/repo";
+    license = licenses.mit;
+    maintainers = with maintainers; [ /* list of maintainers */ ];
   };
 }
 ```
@@ -50,23 +48,22 @@ stdenv.mkDerivation rec {
 { stdenv }:
 
 stdenv.mkDerivation {
-  name = "my-package";
-  src = ./.;  # Missing version control
-  buildInputs = [ ];  # Missing essential dependencies
-  propagatedBuildInputs = [ ];  # Unnecessary propagation
+  name = "MyPackage-1.0";  # Incorrect naming convention
+  src = ./.;  # Missing version declaration
+  # Missing dependency declarations
+  # Missing meta information
 }
 ```
 
 ## Why
-- Specific version constraints ensure reproducible builds
-- Proper dependency categorization prevents unnecessary rebuilds
-- Using `fetchFromGitHub` with specific versions prevents unexpected changes
-- Clear dependency management makes packages more maintainable
-- Proper use of `override` mechanisms allows for better customization
+- Consistent naming makes packages easier to find and maintain
+- Explicit dependency declarations prevent build failures
+- Proper documentation helps other developers understand the package
+- Semantic versioning makes dependency management more reliable
 
 ## References
-- [Nixpkgs Manual - Dependencies](mdc:https:/nixos.org/nixpkgs/manual/#chap-dependencies)
-- [Nixpkgs Manual - Version Management](mdc:https:/nixos.org/nixpkgs/manual/#chap-version-management) 
+- [Nixpkgs Manual](mdc:https:/nixos.org/nixpkgs/manual)
+- [Nixpkgs Contributing Guidelines](mdc:https:/github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
