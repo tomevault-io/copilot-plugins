@@ -1,18 +1,23 @@
-## 01-overview
+## 02-base-actions-v2
 
-> Agentkit is a financial layer for AI agents, enabling them to interact with financial systems and execute transactions.
+> The `agentkit-core/src/BaseActions/` directory is central to V2 of the Agentkit SDK. It provides foundational building blocks for more dynamic and flexible agent interactions with financial systems.
 
-# Agentkit Overview
+# Agentkit V2 - BaseActions
 
-Agentkit is a financial layer for AI agents, enabling them to interact with financial systems and execute transactions.
+The `agentkit-core/src/BaseActions/` directory is central to V2 of the Agentkit SDK. It provides foundational building blocks for more dynamic and flexible agent interactions with financial systems.
 
-Key directories:
-*   `agentkit-core/src/actions/`: Contains various predefined actions that agents can use. Examples include `[smartTransferAction.ts](mdc:agentkit-core/src/actions/smartTransferAction.ts)`, `[getBalanceAction.ts](mdc:agentkit-core/src/actions/getBalanceAction.ts)`, and `[getTokenDetailsAction.ts](mdc:agentkit-core/src/actions/getTokenDetailsAction.ts)`.
-*   `agentkit-core/src/BaseActions/`: Represents V2 of the SDK, focusing on more dynamic agent interactions. This includes base functionalities like `[EncodeFunctionData.ts](mdc:agentkit-core/src/BaseActions/EncodeFunctionData.ts)`, `[SendTransaction.ts](mdc:agentkit-core/src/BaseActions/SendTransaction.ts)`, and `[ReadContract.ts](mdc:agentkit-core/src/BaseActions/ReadContract.ts)`.
-*   The main entry point for the core library seems to be `[agentkit-core/src/index.ts](mdc:agentkit-core/src/index.ts)` which likely exports the key functionalities.
-*   `[agentkit-core/src/agentkit.ts](mdc:agentkit-core/src/agentkit.ts)` also appears to be a central file for the agentkit logic.
+Key components in this directory include:
 
-The project aims to provide a robust set of tools for AI agents to perform financial operations.
+*   `[EncodeFunctionData.ts](mdc:agentkit-core/src/BaseActions/EncodeFunctionData.ts)`: Likely used for encoding function calls to interact with smart contracts.
+*   `[SendTransaction.ts](mdc:agentkit-core/src/BaseActions/SendTransaction.ts)`: Handles the process of sending transactions to the blockchain.
+*   `[ReadContract.ts](mdc:agentkit-core/src/BaseActions/ReadContract.ts)`: Facilitates reading data from smart contracts.
+*   `[GetBalance.ts](mdc:agentkit-core/src/BaseActions/GetBalance.ts)`: Provides functionality to fetch account balances.
+*   `[SignMessage.ts](mdc:agentkit-core/src/BaseActions/SignMessage.ts)`: Allows agents to sign messages, a common requirement for authentication and proving ownership.
+*   `[FomatHelpers.ts](mdc:agentkit-core/src/BaseActions/FomatHelpers.ts)`: Seems to contain utility functions for formatting data related to transactions or blockchain interactions.
+*   `[GetStatusFromUserop.ts](mdc:agentkit-core/src/BaseActions/GetStatusFromUserop.ts)`: This suggests integration with ERC-4337 UserOperations for account abstraction, which is a key part of gasless transactions.
+
+Understanding these base actions is crucial for developing advanced agent capabilities within Agentkit V2.
+The `[index.ts](mdc:agentkit-core/src/BaseActions/index.ts)` file in this directory likely exports these base actions for use in other parts of the SDK.
 
 ---
 > Source: [0xgasless/agentkit](https://github.com/0xgasless/agentkit) — distributed by [TomeVault](https://tomevault.io).
