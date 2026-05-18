@@ -1,0 +1,9 @@
+{
+  "name": "echelon-ai-labs--servicenow-mcp",
+  "displayName": "servicenow-mcp",
+  "description": "MCP Server for ServiceNow",
+  "version": "1.0.0",
+  "author": "echelon-ai-labs",
+  "homepage": "https://github.com/echelon-ai-labs/servicenow-mcp",
+  "skills": []
+}
