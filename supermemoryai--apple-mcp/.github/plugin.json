@@ -1,0 +1,9 @@
+{
+  "name": "supermemoryai--apple-mcp",
+  "displayName": "apple-mcp",
+  "description": "Collection of apple-native tools for the model context protocol.",
+  "version": "1.0.0",
+  "author": "supermemoryai",
+  "homepage": "https://github.com/supermemoryai/apple-mcp",
+  "skills": []
+}
