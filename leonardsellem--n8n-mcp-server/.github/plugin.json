@@ -1,0 +1,9 @@
+{
+  "name": "leonardsellem--n8n-mcp-server",
+  "displayName": "n8n-mcp-server",
+  "description": "MCP server that provides tools and resources for interacting with n8n API",
+  "version": "1.0.0",
+  "author": "leonardsellem",
+  "homepage": "https://github.com/leonardsellem/n8n-mcp-server",
+  "skills": []
+}
