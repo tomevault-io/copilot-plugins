@@ -1,0 +1,9 @@
+{
+  "name": "freepeak--db-mcp-server",
+  "displayName": "db-mcp-server",
+  "description": "A powerful multi-database server implementing the Model Context Protocol (MCP) to provide AI assistants with structured access to databases.",
+  "version": "1.0.0",
+  "author": "FreePeak",
+  "homepage": "https://github.com/FreePeak/db-mcp-server",
+  "skills": []
+}
