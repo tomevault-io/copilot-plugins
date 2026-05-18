@@ -1,151 +1,38 @@
-## database-patterns
+## react
 
-> Database call patterns - client vs server side
+> React and TypeScript coding standards
 
 
-# Database Call Patterns
+# React & TypeScript Standards
 
-This project follows a clear separation between client-side and server-side database operations.
+## Code Quality Standards
+- **TypeScript**: Always use TypeScript with strict mode enabled
+- **Components**: Functional components with hooks (no class components)
+- **Prop Types**: Use TypeScript interfaces, not PropTypes
+- **Naming**: PascalCase for components, camelCase for functions/variables
+- **File Organization**: One component per file, named exports preferred
 
-## Client-Side Database Calls: `lib/requests`
+## Import Organization
+```tsx
+// 1. React and Next.js imports
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-**Location**: `/lib/requests/`
+// 2. Third-party libraries
+import { Button } from '@/components/ui/button';
 
-**Use when**: 
-- Calling from client components (`'use client'`)
-- Direct database operations from browser
-- Interactive user actions that need immediate feedback
-
-**Pattern**:
-- Use `createClient()` from `@/lib/supabase/client`
-- Functions are async and return data directly
-- Handle authentication checks within the function
-- Throw errors that can be caught by the calling component
-
-**Example**:
-```typescript
-// lib/requests/project.ts
+// 3. Internal imports
 import { createClient } from '@/lib/supabase/client';
-
-export const renameFile = async (
-  projectId: string,
-  fileId: string,
-  currentName: string,
-  newName: string
-): Promise<void> => {
-  const supabase = createClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session?.user) {
-    throw new Error('User not authenticated');
-  }
-
-  const { error } = await (supabase.from('files') as any)
-    .update({ name: newName })
-    .eq('id', fileId)
-    .eq('project_id', projectId);
-
-  if (error) {
-    throw new Error('Failed to rename file');
-  }
-};
+import type { Database } from '@/database.types';
 ```
-
-**Usage in components**:
-```typescript
-'use client';
-
-import { renameFile } from '@/lib/requests/project';
-
-const handleRename = async () => {
-  try {
-    await renameFile(projectId, fileId, currentName, newName);
-    toast.success('File renamed successfully');
-  } catch (error) {
-    toast.error(error.message);
-  }
-};
-```
-
-## Server-Side Database Calls: `actions`
-
-**Location**: `/actions/`
-
-**Use when**:
-- Server Components or Server Actions
-- Form submissions that need server-side processing
-- Operations that require server-side validation or revalidation
-- When you need to use `revalidatePath` or `redirect`
-
-**Pattern**:
-- Use `'use server'` directive at the top of the file
-- Use `createClient()` from `@/lib/supabase/server` (note: `await` required)
-- Can use Next.js server utilities like `revalidatePath`, `redirect`
-- Functions can accept `FormData` for form actions
-
-**Example**:
-```typescript
-// actions/get-projects.ts
-'use server';
-
-import { createClient } from '@/lib/supabase/server';
-
-export async function getAllProjects() {
-  const supabase = await createClient();
-
-  const { data } = await supabase
-    .from('projects')
-    .select('*')
-    .order('updated_at', { ascending: false });
-
-  return data;
-}
-```
-
-**Example with Server Action**:
-```typescript
-// actions/create-project.ts
-'use server';
-
-import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
-
-export async function createProject(prevState: State, formData: FormData) {
-  const supabase = await createClient();
-  
-  // ... validation and database operations ...
-  
-  revalidatePath('/projects');
-  return { success: true, projectId: newProject.id };
-}
-```
-
-## Key Differences
-
-| Aspect | `lib/requests` (Client) | `actions` (Server) |
-|--------|------------------------|-------------------|
-| **Import** | `@/lib/supabase/client` | `@/lib/supabase/server` |
-| **Client creation** | `createClient()` | `await createClient()` |
-| **Directive** | None (called from `'use client'` components) | `'use server'` |
-| **Session check** | `getSession()` | `getUser()` |
-| **Next.js utilities** | ❌ Not available | ✅ `revalidatePath`, `redirect` |
-| **Form handling** | Manual form handling | Can accept `FormData` directly |
-
-## File Organization
-
-- **`lib/requests/`**: Organized by domain (e.g., `project.ts`, `user.ts`, `document.ts`)
-- **`actions/`**: Organized by feature/action (e.g., `create-project.ts`, `get-projects.ts`)
 
 ## Best Practices
-
-1. **Never mix patterns**: Don't call `lib/requests` functions from server components or `actions` from client components directly
-2. **Error handling**: Both patterns should throw errors that can be caught by the caller
-3. **Authentication**: Always check authentication before database operations
-4. **Type safety**: Use TypeScript types from `@/database.types` for database operations
-5. **Separation of concerns**: Keep database logic in `lib/requests` or `actions`, not in components
+- **Use TypeScript interfaces** for all props and complex data structures
+- **Prefer composition over inheritance** - build complex UI from simple components
+- **Extract custom hooks** for reusable stateful logic
+- **Use proper dependency arrays** in useEffect hooks
+- **Handle loading and error states** explicitly in components
+- **Use semantic HTML** and proper accessibility attributes
 
 ---
 > Source: [octree-labs/octree](https://github.com/octree-labs/octree) — distributed by [TomeVault](https://tomevault.io).
