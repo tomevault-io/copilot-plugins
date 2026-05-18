@@ -1,0 +1,9 @@
+{
+  "name": "tsinghua-fib-lab--agentsociety",
+  "displayName": "AgentSociety",
+  "description": "AgentSociety 2 is a modern, LLM-native agent simulation platform designed for social science research and experimental design. It provides a flexible framework for creating and managing intelligent ag",
+  "version": "1.0.0",
+  "author": "tsinghua-fib-lab",
+  "homepage": "https://github.com/tsinghua-fib-lab/AgentSociety",
+  "skills": []
+}
