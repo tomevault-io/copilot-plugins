@@ -1,6 +1,7 @@
-## ripple
+## project
 
-> Ripple is a TypeScript-first UI framework and monorepo maintained by Dominic
+> Ripple project overview and development guidelines
+
 
 # Ripple Project Guide for AI Agents
 
