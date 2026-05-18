@@ -1,0 +1,63 @@
+{
+  "name": "agentstack",
+  "owner": "i-am-bee",
+  "repo": "agentstack",
+  "description": "Deploy, and share agents with open infrastructure, free from vendor lock-in.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentstack-server-debugging",
+      "path": ".claude/skills/agentstack-server-debugging",
+      "github_url": "https://github.com/i-am-bee/agentstack/tree/main/.claude/skills/agentstack-server-debugging",
+      "description": ""
+    },
+    {
+      "name": "file-issue",
+      "path": ".claude/skills/file-issue",
+      "github_url": "https://github.com/i-am-bee/agentstack/tree/main/.claude/skills/file-issue",
+      "description": ""
+    },
+    {
+      "name": "release-notes",
+      "path": ".claude/skills/release-notes",
+      "github_url": "https://github.com/i-am-bee/agentstack/tree/main/.claude/skills/release-notes",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/i-am-bee/agentstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T15:32:04Z"
+}
