@@ -1,26 +1,18 @@
-## repository-structure
+## security-requirements
 
-> Repository Structure Requirements
+> Security Policy Requirements
 
-# Repository Structure Requirements
+# Security Requirements
 
-## Required Files
-- MUST have an app file, i.e. `index.ts`
-- MUST have a `README.md` file
-- MUST have a `deepgram.toml` file
-- MUST have a `LICENSE` file
-- MUST have a `CONTRIBUTING.md` file
-- MUST have a `SECURITY.md` file
-- MUST have a `CODE_OF_CONDUCT.md` file
-- MUST have a `.gitignore` file
-- MUST have a `sample.env` file
-- SHOULD have a dependency management file
-- COULD have a dependency lock file
+Write the contents based on the YAML instructions.
 
-## Sources
-- [Deepgram JS SDK Readme](mdc:node-voice-agent/https:/raw.githubusercontent.com/deepgram/deepgram-js-sdk/refs/heads/main/README.md)
-- [Deepgram OpenAPI Spec](mdc:node-voice-agent/https:/raw.githubusercontent.com/deepgram/deepgram-api-specs/refs/heads/main/openapi.yml)
-- @Deepgram AsyncAPI Spec
+## YAML Instructions
+
+```yaml
+security_policy:
+    description: "Deepgram's security policy can be found on our main website."
+    reference: "https://developers.deepgram.com/documentation/security/security-policy/"
+```
 
 ---
 > Source: [admildo/kollect](https://github.com/admildo/kollect) — distributed by [TomeVault](https://tomevault.io).
