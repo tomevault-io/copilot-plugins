@@ -1,0 +1,106 @@
+## convex-evals
+
+> + See package.json to work out how to run the models
+
++ See package.json to work out how to run the models
++ Model definitions are stored in /runner/models/index.ts
++ Models run periodically via github actions
++ When adding a new model, please run it at least once against one or two evals to make sure it works
++ This project uses bun extensively, including for its package manager and running tests and scripts
++ You should look at the package.json for the scripts you can use
++ You should `bun run typecheck` regularly to ensure that any changes have not broken the types
++ Run `bun run test` to run all test suites (runner unit tests + evalScores backend tests). Do this after making changes to the runner or evalScores backend.
+
+## API Keys & Environment
+
+All API keys (OpenAI, Anthropic, Google, etc.) are stored in the root `.env` file and loaded automatically via `dotenv`. You do not need to set them manually — they are already configured for local development.
+
+## Running Evals Locally
+
+Use environment variables `MODELS` and `TEST_FILTER` with `bun run local:run`:
+
+```bash
+# Run a single eval for a specific model:
+MODELS=gpt-5.2-codex TEST_FILTER=000-fundamentals/003 bun run local:run
+
+# Run all fundamentals for a model:
+MODELS=gpt-5.2-codex TEST_FILTER=000-fundamentals bun run local:run
+
+# Run multiple specific evals (TEST_FILTER is a regex):
+MODELS=gpt-5.2-codex TEST_FILTER="003-crons|012-index_and_filter|000-use_query" bun run local:run
+
+# Run with a different experiment:
+EVALS_EXPERIMENT=no_guidelines MODELS=gpt-5 TEST_FILTER=000-fundamentals/000 bun run local:run
+```
+
+The `local:run` script is just `bun run runner/index.ts`. The convenience aliases `local:run:fundamentals` and `local:run:one` in package.json show the pattern.
+
+The interactive `bun run evals` script provides a menu-driven way to select models and evals.
+
+## Convex Deployments
+[text](https://www.convex.dev/llm-leaderboard/with-guidelines)
+The evalScores backend has two Convex deployments:
+
++ **Production**: `https://fabulous-panther-525.convex.cloud` — used by CI/GitHub Actions. The GitHub secret `CONVEX_EVAL_URL` must point to this URL.
++ **Development**: `https://brazen-pelican-414.convex.cloud` — used for local development (`bun run dev` in evalScores/).
+
+The Convex LLM leaderboard (https://www.convex.dev/llm-leaderboard/) uses the dat from the production version of this convex deployment.
+
+The runner communicates with the Convex backend via `ConvexClient` using the public mutations/queries in `evalScores/convex/admin.ts`. Authentication is done via a bearer token passed as an argument to each function (validated against the `authTokens` table). The GitHub secret `CONVEX_AUTH_TOKEN` holds this token for CI.
+
+When deploying changes to the evalScores backend, use `npx convex deploy` from the `evalScores/` directory (handled automatically by the release workflow). Do NOT deploy local dev changes to production accidentally.
+
+## Deployment & Migration Workflow
+
+When making schema or data changes to the Convex backend that require migrations:
+
+1. **Never deploy directly to production** from your local dev environment.
+2. **Commit and push to `main`** to trigger the `release.yml` workflow, which auto-deploys the Convex backend to production.
+3. **Monitor the deploy** via: `gh run list --workflow=release.yml --limit=1 --watch`
+4. **After the deploy completes**, run any pending migrations via the CLI:
+   ```bash
+   cd evalScores && npx convex run migrations:runAll --prod
+   ```
+5. **Monitor migration progress**:
+   ```bash
+   npx convex run --component migrations lib:getStatus --watch --prod
+   ```
+6. **If the migration enables further schema tightening** (e.g. making optional fields required, removing deprecated tables), make those changes in a **second commit** and push again to deploy the tightened schema.
+
+There are currently no historical backfills left in `migrations:runAll`, but we keep the scaffold in place for future schema/data migrations.
+
+The general pattern is: deploy code first (with loose/compatible schema), run data migrations if needed, then deploy tightened schema.
+
+## Deleting a Run
+
+To delete a run from the production Convex deployment (e.g. if it was corrupted by rate-limit errors), use the `deleteRun` internal mutation. This cascade-deletes all evals, steps, and output storage files associated with the run, and decrements the experiment stats.
+
+```bash
+cd evalScores && npx convex run runs:deleteRun --prod '{"runId": "<convex_document_id>"}'
+```
+
+The `runId` is the Convex document `_id` for the run, which appears in the runner output as `Completed run <id>`. You can also find run IDs via the Convex dashboard or the visualiser.
+
+**Note:** Eval source files are intentionally preserved since they are deduped/shared across runs.
+
+## Run Analysis Reports
+
+The `reports/` directory contains post-run analysis reports organised by provider and model:
+
+```
+reports/{provider}/{model}/{run-id-prefix}_{date}.md
+```
+
+For example: `reports/anthropic/claude-opus-4-6/jn72t14a_2026-02-06.md`
+
+Each report contains:
++ Per-failure classification (model fault, overly strict testing, ambiguous task, known gap)
++ Cross-cutting patterns across failures
++ Actions taken (lint config changes, grader fixes, task updates)
++ Net impact assessment
+
+When investigating a model's performance or deciding whether to adjust eval requirements, check the reports directory for prior analyses of the same model or similar failure patterns.
+
+---
+> Source: [get-convex/convex-evals](https://github.com/get-convex/convex-evals) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
