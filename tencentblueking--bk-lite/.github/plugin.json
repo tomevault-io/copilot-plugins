@@ -1,0 +1,9 @@
+{
+  "name": "tencentblueking--bk-lite",
+  "displayName": "bk-lite",
+  "description": "BlueKing Lite is an AI first platform for ops",
+  "version": "1.0.0",
+  "author": "TencentBlueKing",
+  "homepage": "https://github.com/TencentBlueKing/bk-lite",
+  "skills": []
+}
