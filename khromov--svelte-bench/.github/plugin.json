@@ -1,0 +1,9 @@
+{
+  "name": "khromov--svelte-bench",
+  "displayName": "svelte-bench",
+  "description": "An LLM benchmark for Svelte 5 based on the OpenAI methodology from OpenAIs paper \"Evaluating Large Language Models Trained on Code\".",
+  "version": "1.0.0",
+  "author": "khromov",
+  "homepage": "https://github.com/khromov/svelte-bench",
+  "skills": []
+}
