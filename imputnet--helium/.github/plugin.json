@@ -1,0 +1,9 @@
+{
+  "name": "imputnet--helium",
+  "displayName": "helium",
+  "description": "Private, fast, and honest web browser",
+  "version": "1.0.0",
+  "author": "imputnet",
+  "homepage": "https://github.com/imputnet/helium",
+  "skills": []
+}
