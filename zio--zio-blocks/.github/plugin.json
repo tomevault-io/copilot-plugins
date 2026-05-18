@@ -1,0 +1,9 @@
+{
+  "name": "zio--zio-blocks",
+  "displayName": "zio-blocks",
+  "description": "Powerful, joyful building blocks for modern cloud-native applications.",
+  "version": "1.0.0",
+  "author": "zio",
+  "homepage": "https://github.com/zio/zio-blocks",
+  "skills": []
+}
