@@ -1,0 +1,9 @@
+{
+  "name": "willccbb--claude-code-mcp",
+  "displayName": "claude-code-mcp",
+  "description": "Letting Claude Code develop his own MCP tools :)",
+  "version": "1.0.0",
+  "author": "willccbb",
+  "homepage": "https://github.com/willccbb/claude-code-mcp",
+  "skills": []
+}
