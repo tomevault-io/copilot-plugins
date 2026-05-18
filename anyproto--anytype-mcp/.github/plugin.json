@@ -1,0 +1,9 @@
+{
+  "name": "anyproto--anytype-mcp",
+  "displayName": "anytype-mcp",
+  "description": "An MCP server enabling AI assistants to interact with Anytype - your encrypted, local and collaborative wiki - to organize objects, lists, and more through natural language.",
+  "version": "1.0.0",
+  "author": "anyproto",
+  "homepage": "https://github.com/anyproto/anytype-mcp",
+  "skills": []
+}
