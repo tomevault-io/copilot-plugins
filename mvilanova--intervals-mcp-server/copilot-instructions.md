@@ -1,30 +1,77 @@
-## intervals-mcp-server
+## api-patterns
 
-> This project is a Python 3.12 backend service built with FastMCP and httpx. All source code lives under `src/intervals_mcp_server` and tests live under `tests`.
+> This project communicates with the Intervals.icu API using consistent patterns defined in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py).
 
-# Contributor Guide
+# API Communication Patterns
 
-This project is a Python 3.12 backend service built with FastMCP and httpx. All source code lives under `src/intervals_mcp_server` and tests live under `tests`.
+## Intervals.icu API Integration
 
-## Development Environment
-- Use [uv](https://github.com/astral-sh/uv) to create and manage the virtual environment.
-  - `uv venv --python 3.12`
-  - `source .venv/bin/activate`
-- Sync dependencies including dev extras with `uv sync --all-extras`.
-- When editing or running the server manually use `mcp run src/intervals_mcp_server/server.py`.
+This project communicates with the Intervals.icu API using consistent patterns defined in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py).
 
-## Testing Instructions
-- Run unit tests with `pytest` from the repository root.
-- Ensure linting passes with `ruff .` (no configuration file means default rules).
-- Run static type checks using `mypy src tests`.
-- All three steps (`ruff`, `mypy`, and `pytest`) should succeed before committing.
+## Core API Function
 
-## PR Instructions
-- Use concise commit messages.
-- Title pull requests using the format `[intervals-mcp-server] <brief description>`.
-- Describe any manual testing steps performed and mention whether `pytest`, `ruff`, and `mypy` passed.
+All API communication goes through `make_intervals_request()`:
 
-There is currently no frontend code in this repository. If a frontend is added in the future (for example with React or another framework), document how to run and test it within this file.
+```python
+async def make_intervals_request(
+    url: str,
+    api_key: str | None = None,
+    params: dict[str, Any] | None = None
+) -> dict[str, Any] | list[dict[str, Any]]
+```
+
+### Usage Pattern
+- **URL Format**: Relative paths like `/athlete/{id}/activities`
+- **Authentication**: HTTP Basic Auth with username "API_KEY" and password as the API key
+- **Headers**: Includes User-Agent and Accept: application/json
+- **Timeout**: 30 seconds for all requests
+
+## Error Handling Strategy
+
+### HTTP Status Code Mapping
+The system provides user-friendly messages for common HTTP errors:
+- `401 Unauthorized` - Invalid API key
+- `403 Forbidden` - Permission denied
+- `404 Not Found` - Resource doesn't exist
+- `422 Unprocessable Entity` - Invalid parameters
+- `429 Too Many Requests` - Rate limiting
+- `500 Internal Server Error` - Server issues
+- `503 Service Unavailable` - Maintenance/downtime
+
+### Error Response Format
+All errors return a consistent structure:
+```python
+{
+    "error": True,
+    "status_code": int,  # HTTP status code
+    "message": str       # User-friendly error message
+}
+```
+
+## MCP Tool Implementation Pattern
+
+1. **Parameter Validation**: Check required parameters and provide defaults
+2. **API Key Resolution**: Use provided key or fall back to global `API_KEY`
+3. **Athlete ID Handling**: Support both numeric and i-prefixed formats
+4. **Date Validation**: Parse and validate date strings
+5. **API Request**: Call `make_intervals_request()` with appropriate parameters
+6. **Error Checking**: Return formatted error messages for API failures
+7. **Data Formatting**: Use utilities from [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
+
+## Environment Variables
+
+Required configuration (validated on startup):
+- `API_KEY` - Cannot be empty
+- `ATHLETE_ID` - Must match pattern `r"i?\d+"` (digits or i-prefixed digits)
+
+Optional configuration:
+- `INTERVALS_API_BASE_URL` - Defaults to `https://intervals.icu/api/v1`
+
+## Shared HTTP Client
+
+Uses a single `httpx.AsyncClient` instance (`httpx_client`) managed by the FastMCP lifespan context manager to:
+- Reuse connections for better performance
+- Ensure proper cleanup when server stops
 
 ---
 > Source: [mvilanova/intervals-mcp-server](https://github.com/mvilanova/intervals-mcp-server) — distributed by [TomeVault](https://tomevault.io).
