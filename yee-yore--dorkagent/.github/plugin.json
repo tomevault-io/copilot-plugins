@@ -1,0 +1,9 @@
+{
+  "name": "yee-yore--dorkagent",
+  "displayName": "DorkAgent",
+  "description": "\ud83e\udd16 LLM-powered agent for automated Google Dorking in bug hunting & pentesting.",
+  "version": "1.0.0",
+  "author": "yee-yore",
+  "homepage": "https://github.com/yee-yore/DorkAgent",
+  "skills": []
+}
