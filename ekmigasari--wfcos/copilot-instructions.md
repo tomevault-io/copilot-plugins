@@ -1,41 +1,31 @@
-## development-workflow
+## feature-guidelines
 
-> - Framework: Next.js v.15 with App Router
+> When building a new feature or app module in the Cursor IDE project, follow these rules to ensure consistency, performance, and maintainability:
 
+# Feature Development Guidelines
 
-# Development Workflow
+When building a new feature or app module in the Cursor IDE project, follow these rules to ensure consistency, performance, and maintainability:
 
-## Environment
+## 1. File Structure & Component Location
+- Create each feature as a component under:  
+  `/src/app/(featureName)/[featureName].tsx`
 
-- Framework: Next.js v.15 with App Router
-- UI: Tailwind CSS v4
-- Component Library: Shadcn
-- Language: TypeScript
-- State Management: Jotai
-- Package Manager: Bun
-- Linter: ESLint v.8
-- React: v.19
+## 2. App Registration
+- Register each new app or feature in the global app list at:  
+  `/src/infrastructure/config/appRegistry.ts`
 
-## Package Management
+## 3. Global State Management
+- Use **Jotai** atoms for managing global state.
+- Place all atoms under:  
+  `/src/application/atoms`
 
-- Install packages: `pnpm add [package-name]`
-- Install dev dependencies: `pnpm add -D [package-name]`
-- Update packages: `pnpm update [package-name]`
-- Remove packages: `pnpm remove [package-name]`
-- Add Shadcn components: `pnpm dlx shadcn@latest add [component-name]`
+## 4. Local Storage Persistence
+- For persistent data, use helper functions in:  
+  `/src/infrastructure/utils/local-storage.ts`
 
-## Scripts
-
-- `pnpm dev`: Start development server
-- `pnpm build`: Build for production
-- `pnpm start`: Start production server
-- `pnpm lint`: Run linter with auto-fix
-
-## Code Quality
-
-- ESLint enforces code style and best practices
-- Husky runs pre-commit hooks
-- Commitlint ensures commit message consistency
+## 5. Window-Based Layout
+- All apps should render inside the reusable window layout:  
+  `/src/components/shared/window.tsx`
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
