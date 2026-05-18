@@ -1,140 +1,65 @@
-## devenv-tools
+## git-auto-commit
 
-> Devenv Development Tools and Utilities
+> Git Auto Commit Rule
 
 ## Description
-This rule enforces best practices for configuring development tools and utilities in devenv environments.
+This rule ensures that after Cursor IDE automatically performs changes from Git commits, the modified files are automatically committed back to Git using the conventional commit format. This maintains a clear and consistent commit history that explains what changes were made and why.
 
-## Rule Details
-- Use `tools` for development tool configurations
-- Use `tools.*.enable` to enable specific tools
-- Use `tools.*.package` for custom tool versions
-- Use `tools.*.settings` for tool-specific settings
-- Use `tools.*.dependencies` for tool dependencies
-- Use `tools.*.commands` for custom tool commands
-- Use `tools.*.aliases` for command aliases
-- Use `tools.*.hooks` for tool-specific hooks
+## Rule
+After Cursor IDE performs automatic changes:
+1. All modified files MUST be automatically committed
+2. Commit messages MUST follow the conventional commit format
+3. Commit messages MUST include:
+   - Type: The type of change (feat, fix, docs, style, refactor, test, chore)
+   - Scope: The affected component or area (optional)
+   - Description: A clear explanation of what changed
+   - Body: Detailed explanation of why the changes were made
+4. The commit message MUST reference the original prompts used to generate the changes
+
+## Implementation
+- The Cursor IDE will:
+  - Track all files modified by automatic changes
+  - Generate a conventional commit message based on the changes
+  - Include the original prompts in the commit body
+  - Automatically execute the git commit command
+  - Handle any potential merge conflicts or errors
+
+## Benefits
+- Maintains clear and consistent commit history
+- Provides traceability between prompts and code changes
+- Follows industry-standard commit conventions
+- Automates the commit process for better workflow efficiency
 
 ## Examples
+✅ Correct Commit Message:
+```
+feat(ide): implement automatic code formatting
 
-### Good
-```nix
-{ pkgs, ... }: {
-  # Development tool configurations
-  tools = {
-    # Git configuration
-    git = {
-      enable = true;
-      package = pkgs.git;
-      settings = {
-        core.editor = "vim";
-        init.defaultBranch = "main";
-        pull.rebase = true;
-      };
-      aliases = {
-        st = "status";
-        co = "checkout";
-        br = "branch";
-        ci = "commit";
-      };
-    };
+- Added automatic formatting for Python files
+- Implemented consistent indentation rules
+- Added support for line length limits
 
-    # Docker configuration
-    docker = {
-      enable = true;
-      package = pkgs.docker;
-      settings = {
-        "dns" = ["8.8.8.8"];
-        "log-driver" = "json-file";
-        "log-opts" = {
-          "max-size" = "10m";
-          "max-file" = "3";
-        };
-      };
-      aliases = {
-        dps = "ps";
-        dex = "exec";
-        dimg = "images";
-      };
-    };
-
-    # Database tools
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_14;
-      settings = {
-        "log_timezone" = "UTC";
-        "datestyle" = "iso, mdy";
-        "timezone" = "UTC";
-      };
-      commands = {
-        db-create = "createdb";
-        db-drop = "dropdb";
-        db-dump = "pg_dump";
-        db-restore = "pg_restore";
-      };
-    };
-
-    # Development utilities
-    direnv = {
-      enable = true;
-      package = pkgs.direnv;
-      settings = {
-        "layout" = "nix";
-        "use_flake" = true;
-      };
-      hooks = {
-        "pre-commit" = "git hooks install";
-      };
-    };
-
-    # Shell tools
-    shell = {
-      enable = true;
-      packages = [
-        pkgs.fzf
-        pkgs.ripgrep
-        pkgs.fd
-        pkgs.bat
-        pkgs.exa
-      ];
-      aliases = {
-        ll = "exa -l";
-        la = "exa -la";
-        cat = "bat";
-        find = "fd";
-        grep = "rg";
-      };
-    };
-  };
-}
+Changes were generated based on the following prompts:
+1. "Format the code according to PEP 8 standards"
+2. "Ensure consistent indentation across all files"
 ```
 
-### Bad
-```nix
-{ pkgs }: {
-  # Missing tool configurations
-  # Missing settings
-  # Missing aliases
-  # Missing commands
-  # Missing hooks
-  # Missing dependencies
-}
+❌ Incorrect Commit Message:
+```
+Updated some files
+
+- Made changes to formatting
+- Fixed some issues
 ```
 
-## Why
-- Tool configurations ensure consistent development experience
-- Settings customize tool behavior
-- Aliases improve command efficiency
-- Commands provide convenient shortcuts
-- Hooks automate common tasks
-- Dependencies ensure required tools are available
-- Custom versions enable version control
-- Shell tools enhance development workflow
-
-## References
-- [Devenv Tools](mdc:https:/devenv.sh/reference/options/#tools)
-- [Devenv Shell Tools](mdc:https:/devenv.sh/guides/shell-tools) 
+## Conventional Commit Types
+- feat: New feature
+- fix: Bug fix
+- docs: Documentation changes
+- style: Code style changes (formatting, etc.)
+- refactor: Code refactoring
+- test: Adding or modifying tests
+- chore: Maintenance tasks 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
