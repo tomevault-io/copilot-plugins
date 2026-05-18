@@ -1,0 +1,44 @@
+{
+  "name": "piper-plus",
+  "owner": "ayutaz",
+  "repo": "piper-plus",
+  "description": "Multilingual neural TTS (6 languages: JA/EN/ZH/ES/FR/PT, code supports SV) \u2014 C++, C#, Rust, Go, Python, npm (WASM). VITS + Prosody, streaming, CUDA/CoreML/DirectML. pip install piper-plus | npm install piper-plus | cargo install piper-plus-cli",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ayutaz/piper-plus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T11:43:11Z"
+}
