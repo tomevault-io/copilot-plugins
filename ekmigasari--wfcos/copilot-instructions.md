@@ -1,22 +1,50 @@
-## code-organization
+## component-guidelines
 
-> - Group functions that work on the same data or functionality
+> - Prefer React Server Components (RSC) by default
 
-# Code Organization
+# Component Guidelines
 
-## High cohesion: Keep related functionality together
-- Group functions that work on the same data or functionality
-- Place related components in the same directory
+## Server vs Client Components
+- Prefer React Server Components (RSC) by default
+- Add "use client" directive at the top of Client Components
+- Keep Client Components small and focused
+- Minimize usage of `useEffect`, `useState`, and other client-only hooks
+- Avoid mixing server and client code in the same component
 
-## Low coupling: Minimize dependencies between modules
-- Use interfaces and abstractions when appropriate
-- Avoid direct dependencies between unrelated modules
+## Component Organization
+- Wrap client components in Suspense with fallback
+- Use dynamic loading for non-critical components
+- Optimize images: use WebP format, include size data, implement lazy loading
 
-## Pragmatic approach to coupling and cohesion:
-- Balance perfect architecture with practical needs
-- Use shared contexts sparingly and with clear boundaries
-- Prioritize readability and maintainability over theoretical purity
-- Create boundaries between feature modules to prevent unwanted dependencies
+## State Management
+- Use Jotai for global state management
+- Keep state as local as possible
+- Follow atom-based architecture for complex state
+
+## UI Components
+- Use Shadcn components as the default UI building blocks for consistent design
+- If Shadcn components aren't available in `components/ui`, install and add them as needed
+- Maintain consistent theming and styling across all components, Use `/src/styles/globals.css`
+- For page-specific components:
+  - Structure page files as server components when possible `/app/[page]/page.tsx`
+  - Place client components in `/app/[page]/components` directory
+- Reserve `/src/components` for general, reusable components across the application
+
+## Component Function Conventions
+
+- Pages: Use default function exports
+  ```tsx
+  export default function Home() {
+    // Page implementation
+  }
+  ```
+
+- Components: Use arrow function exports
+  ```tsx
+  export const Component = () => {
+    // Component implementation
+  }
+  ```
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
