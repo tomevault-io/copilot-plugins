@@ -1,0 +1,9 @@
+{
+  "name": "pathintegral-institute--mcpm-sh",
+  "displayName": "mcpm.sh",
+  "description": "CLI MCP package manager & registry for all platforms and all clients. Search & configure MCP servers. Advanced Router & Profile features.",
+  "version": "1.0.0",
+  "author": "pathintegral-institute",
+  "homepage": "https://github.com/pathintegral-institute/mcpm.sh",
+  "skills": []
+}
