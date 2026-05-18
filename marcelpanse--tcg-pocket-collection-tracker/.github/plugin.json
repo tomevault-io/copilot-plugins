@@ -1,0 +1,9 @@
+{
+  "name": "marcelpanse--tcg-pocket-collection-tracker",
+  "displayName": "tcg-pocket-collection-tracker",
+  "description": "Application to track your Pokemon Pocket collection and find others to trade with",
+  "version": "1.0.0",
+  "author": "marcelpanse",
+  "homepage": "https://github.com/marcelpanse/tcg-pocket-collection-tracker",
+  "skills": []
+}
