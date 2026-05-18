@@ -1,0 +1,9 @@
+{
+  "name": "fswatcher--fswatcher",
+  "displayName": "fswatcher",
+  "description": "Cross-platform file system notifications for Go.",
+  "version": "1.0.0",
+  "author": "fswatcher",
+  "homepage": "https://github.com/fswatcher/fswatcher",
+  "skills": []
+}
