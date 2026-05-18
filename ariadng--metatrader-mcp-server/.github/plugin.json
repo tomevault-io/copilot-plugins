@@ -1,0 +1,9 @@
+{
+  "name": "ariadng--metatrader-mcp-server",
+  "displayName": "metatrader-mcp-server",
+  "description": "Model Context Protocol (MCP) to enable AI LLMs to trade using MetaTrader platform",
+  "version": "1.0.0",
+  "author": "ariadng",
+  "homepage": "https://github.com/ariadng/metatrader-mcp-server",
+  "skills": []
+}
