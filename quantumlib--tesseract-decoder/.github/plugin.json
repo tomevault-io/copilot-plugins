@@ -1,0 +1,9 @@
+{
+  "name": "quantumlib--tesseract-decoder",
+  "displayName": "tesseract-decoder",
+  "description": "Search-based decoder for quantum error correction (QEC) written in C++ and Python.",
+  "version": "1.0.0",
+  "author": "quantumlib",
+  "homepage": "https://github.com/quantumlib/tesseract-decoder",
+  "skills": []
+}
