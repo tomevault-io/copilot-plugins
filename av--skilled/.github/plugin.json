@@ -1,0 +1,9 @@
+{
+  "name": "av--skilled",
+  "displayName": "skilled",
+  "description": "TUI dashboard for skill usage stats across AI coding tools",
+  "version": "1.0.0",
+  "author": "av",
+  "homepage": "https://github.com/av/skilled",
+  "skills": []
+}
