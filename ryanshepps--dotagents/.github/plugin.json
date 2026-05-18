@@ -1,0 +1,9 @@
+{
+  "name": "ryanshepps--dotagents",
+  "displayName": "dotagents",
+  "description": ".agents files for shared use across machines. Compatible with Claude and Codex",
+  "version": "1.0.0",
+  "author": "ryanshepps",
+  "homepage": "https://github.com/ryanshepps/dotagents",
+  "skills": []
+}
