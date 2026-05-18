@@ -1,0 +1,9 @@
+{
+  "name": "redpanda-data--protoc-gen-go-mcp",
+  "displayName": "protoc-gen-go-mcp",
+  "description": "Go protobuf compiler extension to turn any gRPC service into an MCP server",
+  "version": "1.0.0",
+  "author": "redpanda-data",
+  "homepage": "https://github.com/redpanda-data/protoc-gen-go-mcp",
+  "skills": []
+}
