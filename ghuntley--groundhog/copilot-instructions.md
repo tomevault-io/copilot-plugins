@@ -1,138 +1,101 @@
-## rust-safety
+## rust-testing
 
-> Rust Safety and Unsafe Code Best Practices
+> Rust Testing Best Practices
 
-This rule enforces best practices for safe and unsafe code in Rust.
+This rule enforces best practices for testing in Rust code.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
 - **Severity**: Error
-- **Category**: Safety
+- **Category**: Testing
 
 ## Checks
 
-1. **Unsafe Code Organization**
-   - Minimize unsafe code blocks
-   - Document unsafe invariants
-   - Use safe abstractions over unsafe code
-   - Implement safe public APIs
+1. **Test Organization**
+   - Place unit tests in the same file as the code being tested
+   - Use integration tests for testing public APIs
+   - Follow the AAA (Arrange-Act-Assert) pattern
 
-2. **FFI Safety**
-   - Use `#[repr(C)]` for C-compatible types
-   - Document FFI safety requirements
-   - Handle null pointers safely
-   - Use `extern "C"` for C ABI functions
+2. **Test Coverage**
+   - Test both success and error cases
+   - Include edge cases and boundary conditions
+   - Use property-based testing where appropriate
 
-3. **Memory Safety**
-   - Document memory ownership
-   - Use `ManuallyDrop` when needed
-   - Implement `Drop` for cleanup
-   - Handle uninitialized memory safely
+3. **Test Isolation**
+   - Use test-specific types and mocks
+   - Avoid shared mutable state between tests
+   - Clean up resources after tests
 
-4. **Thread Safety**
-   - Document thread safety guarantees
-   - Use `Send` and `Sync` appropriately
-   - Handle concurrent access safely
-   - Use atomic operations when needed
+4. **Async Testing**
+   - Use `tokio::test` for async tests
+   - Test cancellation scenarios
+   - Use proper timeouts in async tests
 
 ## Examples
 
 ### Good
 ```rust
-/// A safe wrapper around an unsafe FFI type.
-///
-/// # Safety
-///
-/// This type maintains the following invariants:
-/// - The inner pointer is always valid
-/// - The inner pointer is never null
-/// - The inner pointer is properly aligned
-pub struct SafeWrapper {
-    inner: *mut ffi::UnsafeType,
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-impl SafeWrapper {
-    /// Creates a new safe wrapper.
-    ///
-    /// # Safety
-    ///
-    /// The caller must ensure that:
-    /// - The pointer is valid and properly aligned
-    /// - The pointer is not null
-    /// - The pointer will remain valid for the lifetime of the wrapper
-    pub unsafe fn new(ptr: *mut ffi::UnsafeType) -> Self {
-        assert!(!ptr.is_null(), "Pointer must not be null");
-        Self { inner: ptr }
+    #[test]
+    fn test_success_case() {
+        // Arrange
+        let input = "test";
+        
+        // Act
+        let result = process(input);
+        
+        // Assert
+        assert_eq!(result, expected);
     }
 
-    /// Safely accesses the inner value.
-    pub fn get_value(&self) -> u32 {
-        unsafe {
-            // Safety: We maintain the invariant that inner is valid
-            ffi::get_value(self.inner)
-        }
-    }
-}
-
-impl Drop for SafeWrapper {
-    fn drop(&mut self) {
-        unsafe {
-            // Safety: We maintain the invariant that inner is valid
-            ffi::destroy(self.inner);
-        }
-    }
-}
-
-/// A thread-safe counter using atomic operations.
-pub struct AtomicCounter {
-    count: AtomicU64,
-}
-
-impl AtomicCounter {
-    pub fn new() -> Self {
-        Self {
-            count: AtomicU64::new(0),
-        }
-    }
-
-    pub fn increment(&self) -> u64 {
-        self.count.fetch_add(1, Ordering::SeqCst)
+    #[tokio::test]
+    async fn test_async_operation() {
+        // Arrange
+        let service = TestService::new();
+        
+        // Act
+        let result = service.process().await;
+        
+        // Assert
+        assert!(result.is_ok());
     }
 }
 ```
 
 ### Bad
 ```rust
-// Bad: Unsafe code without documentation
-pub unsafe fn process(ptr: *mut u8) {
-    *ptr = 42;
+#[test]
+fn test_with_shared_state() {
+    // Bad: Using shared mutable state
+    static mut COUNTER: i32 = 0;
+    unsafe { COUNTER += 1; }
 }
 
-// Bad: Missing safety invariants
-pub struct UnsafeWrapper {
-    inner: *mut ffi::UnsafeType,
-}
-
-// Bad: Unsafe FFI without proper null checks
-pub extern "C" fn bad_ffi(ptr: *const u8) -> u32 {
-    unsafe { *ptr }
+#[test]
+fn test_without_cleanup() {
+    // Bad: Not cleaning up resources
+    let file = File::create("test.txt").unwrap();
+    // No cleanup after test
 }
 ```
 
 ## Rationale
 
-Proper safety practices ensure:
-- Memory safety guarantees
-- Thread safety
-- FFI safety
-- Clear safety boundaries
+Proper testing practices ensure:
+- Code reliability and correctness
+- Easy maintenance and refactoring
+- Clear documentation through examples
+- Confidence in code changes
 
 ## References
 
-- [Rust Book - Unsafe Rust](mdc:https:/doc.rust-lang.org/book/ch19-01-unsafe-rust.html)
-- [Rust Reference - FFI](mdc:https:/doc.rust-lang.org/reference/items/external-blocks.html)
-- [Rustonomicon](mdc:https:/doc.rust-lang.org/nomicon) 
+- [Rust Book - Testing](mdc:https:/doc.rust-lang.org/book/ch11-00-testing.html)
+- [Rust Testing Guide](mdc:https:/rust-lang.github.io/book/ch11-00-testing.html)
+- [tokio-test Documentation](mdc:https:/docs.rs/tokio-test/latest/tokio_test) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
