@@ -1,0 +1,9 @@
+{
+  "name": "pgr0ss--pgledger",
+  "displayName": "pgledger",
+  "description": "A double entry ledger implementation in PostgreSQL",
+  "version": "1.0.0",
+  "author": "pgr0ss",
+  "homepage": "https://github.com/pgr0ss/pgledger",
+  "skills": []
+}
