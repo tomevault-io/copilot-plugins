@@ -1,38 +1,42 @@
-## reexamine-keyboard
+## reexamine-performance
 
-> - First focusable element on page: `<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>`
+> - Don't render 500 items at once — show 8-12 per group with "Show more"
 
 
-# Re-examine: Keyboard Efficiency
+# Re-examine: Performance
 
-## Skip links
-- First focusable element on page: `<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>`
-- Multiple skip links for complex layouts: "Skip to search", "Skip to results"
-- Target element needs `tabindex="-1"` if it's not natively focusable
+## Progressive disclosure
+- Don't render 500 items at once — show 8-12 per group with "Show more"
+- Collapsed sections: don't render hidden children, use deferred rendering on expand
+- Store raw data in `window._data` or `data-items` attribute, render on demand via `insertAdjacentHTML`
 
-## Keyboard shortcuts
-- Search: `Ctrl+K` or `/` to focus search input
-- Escape: close modals, dropdowns, lightboxes, cancel operations
-- Arrow keys: navigate within lists, carousels, tab bars
-- Enter/Space: activate buttons and interactive cards
-- Document shortcuts in a help overlay (accessible via `?` key)
+## Smart refresh
+- Polling/interval refreshes: hash the data before re-rendering
+- `simpleHash(JSON.stringify(data))` compared to `_lastDataHash` — skip if unchanged
+- Avoids DOM thrashing on 5s intervals when nothing changed
+- Use `requestAnimationFrame` for batched DOM updates
 
-## Tab order
-- Logical reading order: left-to-right, top-to-bottom (matches visual layout)
-- Never use `tabindex` > 0 — it breaks natural flow
-- `tabindex="0"` only on custom interactive elements that need to be in tab order
-- `tabindex="-1"` for programmatically focusable elements (skip link targets, error summaries)
+## Lazy loading
+- Images below the fold: `loading="lazy"` attribute
+- Heavy components: dynamic import / code splitting
+- IntersectionObserver for triggering loads when elements enter viewport
+- Placeholder (skeleton or blur) until loaded
 
-## Focus traps
-- Modals/dialogs: Tab wraps within the dialog (last → first → last)
-- Escape key always closes the trap
-- On close, return focus to the element that opened the modal
-- `aria-modal="true"` + `role="dialog"` on the container
+## String concatenation
+- Build HTML with array push + join: `const h = []; h.push('<div>'); return h.join('')`
+- Avoids O(n^2) string concatenation in loops
+- Template literals are fine for small chunks; arrays for large dynamic HTML
 
-## Cards and list items
-- If a card is clickable, the entire card should be a `<button>` or contain a primary `<a>`
-- `Enter` and `Space` should both trigger the card action
-- Keyboard hint on hover: consider showing "(Enter to open)" for non-obvious interactive elements
+## CSS performance
+- Use CSS custom properties (`:root { --gap: 1rem }`) instead of repeated values
+- Avoid `*` selectors in complex rules
+- `will-change: transform` only on elements that actually animate
+- `contain: content` on independent card/section containers
+
+## Measurement
+- Profile before optimizing — don't guess where the bottleneck is
+- Check for layout thrashing: read → write → read → write cycles
+- `getComputedStyle()` calls force synchronous layout — cache results
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
