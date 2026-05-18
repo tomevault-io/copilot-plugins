@@ -1,48 +1,60 @@
-## contributing
+## core
 
-> - **Prime rule**: Code is a liability, functionality is the asset. Any change must pay for its own complexity.
+> - **Role**: Event-driven "kernel" containing domain logic, database access, and message processing. It must stay UI-agnostic and transport-agnostic.
 
 
-## Contribution & Refactor Guidelines
+## Core (packages/core)
 
-- **Prime rule**: Code is a liability, functionality is the asset. Any change must pay for its own complexity.
+- **Role**: Event-driven "kernel" containing domain logic, database access, and message processing. It must stay UI-agnostic and transport-agnostic.
+- **Design rules**:
+  - New domain behavior belongs here first, then is exposed to clients via events.
+  - Separate **event handlers** from **services**:
+    - Event handlers translate `ToCoreEvent` / `FromCoreEvent` into service calls.
+    - Services encapsulate business logic, DB queries, and Telegram API access.
 
-### 1. Before Large Changes (Refactors, New Infra, New Domains)
+### Events & CoreContext
 
-- Ask yourself, and write down in the PR description if possible:
-  - **Where is the bottleneck?** Latency, throughput, DX, or maintainability? Be concrete.
-  - **What is the simplest change that fixes it?** Prefer removal/cleanup over new systems.
-  - **What is the data flow?** Sketch: entrypoint → adapters → core → DB/Telegram → back.
-  - **What happens on failure?**
-    - If step B fails, does step A need a rollback or can we tolerate partial state?
-    - Is this best modeled as a saga / compensating action, or is “at-least-once” good enough?
+- Keep `CoreContext` the single point of coordination:
+  - One instance per session in server mode or browser mode.
+  - All cross-module collaboration flows through its event emitter and helpers.
+- When introducing new events:
+  - Add them to the typed `ToCoreEvent` / `FromCoreEvent` maps.
+  - Wire them through:
+    - `packages/core/src/event-handlers`
+    - `packages/client` adapters and event handler maps
+    - `@tg-search/server/types` for WS mode
+  - Provide **clear names** in `<domain>:<action>` form.
 
-### 2. Backend Mindset
+### Database & Drizzle
 
-- Avoid hidden in-memory state that couples requests:
-  - Session-local state lives in `CoreContext` or explicit stores, never in random globals.
-  - Cross-request state must go into the database or a well-defined cache layer.
-- For multi-step workflows:
-  - Make each step observable (events + logs) and ideally resumable.
-  - Design states explicitly (`pending`, `running`, `failed`, `completed`) rather than boolean flags.
+- Use `initDrizzle` as the only entry point for DB initialization:
+  - It must support both PostgreSQL and PGlite via the `DatabaseType` enum and `Config.database`.
+  - Avoid leaking raw `pg` or PGlite APIs outside dedicated DB modules (`pg.ts`, `pglite*.ts`).
+- For queries:
+  - Prefer Drizzle ORM APIs for type safety and portability.
+  - Reserve raw SQL for performance-critical paths and keep them well-documented.
+- When adding migrations:
+  - Update TypeScript schemas/models first.
+  - Use `drizzle-kit` to generate SQL migrations and avoid manual edits except for surgical fixes.
 
-### 3. TypeScript Style
+### Message Resolvers & Pipelines
 
-- Strict TS is non-negotiable:
-  - Avoid `any` unless wrapping truly dynamic data, and confine it at the edge.
-  - Prefer small, composable types over giant “god” interfaces.
-- Functional style:
-  - Prefer pure functions and small modules over classes unless there is a clear lifecycle to model.
-  - Keep side effects at the boundary (adapters, services) and core logic pure where possible.
+- Resolvers under `src/message-resolvers` must:
+  - Treat messages as **streams**, not immutable global state.
+  - Be **idempotent**: re-running on the same input should not corrupt data.
+  - Rely on message IDs for ordering and deduplication.
+- Expensive operations (embeddings, link resolution) should:
+  - Cache results whenever reasonable.
+  - Defer to background-like processing while exposing progress events to clients.
 
-### 4. PR Hygiene
+### Error Handling & Logging
 
-- Keep PRs focused:
-  - One domain behavior or refactor per PR.
-  - Mechanical renames and large formatting should be isolated from behavioral changes.
-- Tests:
-  - Add or update tests alongside behavior changes, especially for core and DB logic.
-  - Do not rely solely on manual E2E verification for critical paths.
+- Use `ctx.withError(error, description)` for all unexpected failures inside core services and handlers.
+- Emit errors as events suitable for user-facing handling:
+  - Avoid leaking raw Telegram or DB internals into error payloads.
+  - Prefer structured error codes + contextual fields.
+- Use `@guiiai/logg` consistently:
+  - Attach domain-specific fields (chat/message IDs, operation names) instead of dumping entire payloads.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
