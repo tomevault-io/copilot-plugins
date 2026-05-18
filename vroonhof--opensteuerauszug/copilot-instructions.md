@@ -1,85 +1,61 @@
-## code-organization
+## git-commands
 
-> Rule for deciding where to put new code files
+> name: git_user_credentials
 
- # Code Organization Rules
-
-Rule for deciding where to put new code files
+# Git Command Rules
 
 <rule>
-name: code_organization
-description: Rules for organizing code in specific subpackages
+name: git_user_credentials
+description: Never override git user credentials in commands
 filters:
-  - type: file_extension
-    pattern: "\\.py$"
-  - type: file_create
-    pattern: "src/opensteuerauszug/.*\\.py$"
+  - type: command
+    pattern: "git.*"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "git -c user\\.name=.*|git -c user\\.email=.*"
+        message: "Do not override git user credentials in commands. Use global git config instead."
+
   - type: suggest
     message: |
-      All code must be placed in one of the following subpackages unless explicitly requested otherwise:
+      When using git commands:
 
-      1. `importers/`: Code for importing data from various sources
-         - File parsers
-         - Data extractors
-         - Import utilities
-
-      2. `model/`: Data models and schemas
-         - Pydantic models
-         - Data structures
-         - Type definitions
-
-      3. `core/`: Core functionality and business logic
-         - Main business logic
-         - Core data processing
-         - Primary interfaces
-
-      4. `calculate/`: Tax calculation and processing
-         - Tax computations
-         - Financial calculations
-         - Processing algorithms
-
-      5. `render/`: Output generation
-         - Report generation
-         - Export functionality
-         - Formatting and presentation
-
-      6. `util/`: Utility functions and helpers
-         - Common utilities
-         - Helper functions
-         - Shared tools
-
-      Directory structure:
-      ```
-      src/opensteuerauszug/
-      ├── importers/
-      ├── model/
-      ├── core/
-      ├── calculate/
-      ├── render/
-      └── util/
-      ```
-
-      Guidelines:
-      - Place new code in the most appropriate subpackage
-      - Keep subpackages focused on their specific responsibility
-      - Use relative imports for cross-package references
-      - Document any exceptions to this organization
+      1. Never override user credentials in commands:
+         - Do not use -c user.name
+         - Do not use -c user.email
+         
+      2. Instead, ensure proper git configuration:
+         ```bash
+         # Set up git config globally
+         git config --global user.name "Your Name"
+         git config --global user.email "your.email@example.com"
+         ```
+         
+      3. Use simple git commands:
+         ```bash
+         # Good
+         git commit -m "message"
+         
+         # Bad
+         git -c user.name="name" -c user.email="email" commit -m "message"
+         ```
 
 examples:
   - input: |
-      # Bad: File in root package
-      src/opensteuerauszug/parser.py
+      # Bad: Overriding credentials
+      git -c user.name="name" commit
+      git -c user.email="email" commit
       
-      # Good: File in appropriate subpackage
-      src/opensteuerauszug/importers/parser.py
-    output: "Code properly organized in subpackage"
+      # Good: Simple commands
+      git commit
+      git push
+    output: "Git commands without credential overrides"
 
 metadata:
   priority: high
   version: 1.0
-</rule>
+</rule> 
 
 ---
 > Source: [vroonhof/opensteuerauszug](https://github.com/vroonhof/opensteuerauszug) — distributed by [TomeVault](https://tomevault.io).
