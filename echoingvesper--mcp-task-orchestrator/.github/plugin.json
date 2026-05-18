@@ -1,0 +1,9 @@
+{
+  "name": "echoingvesper--mcp-task-orchestrator",
+  "displayName": "mcp-task-orchestrator",
+  "description": "A Model Context Protocol server that provides task orchestration capabilities for AI assistants",
+  "version": "1.0.0",
+  "author": "EchoingVesper",
+  "homepage": "https://github.com/EchoingVesper/mcp-task-orchestrator",
+  "skills": []
+}
