@@ -1,0 +1,9 @@
+{
+  "name": "silvonli--summa",
+  "displayName": "Summa",
+  "description": "A browser extension that uses AI to generate concise summaries of web articles",
+  "version": "1.0.0",
+  "author": "silvonli",
+  "homepage": "https://github.com/silvonli/Summa",
+  "skills": []
+}
