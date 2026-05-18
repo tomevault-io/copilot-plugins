@@ -1,0 +1,9 @@
+{
+  "name": "zendure--zendure-ha",
+  "displayName": "Zendure-HA",
+  "description": "Zendure Home Assistant Integration",
+  "version": "1.0.0",
+  "author": "Zendure",
+  "homepage": "https://github.com/Zendure/Zendure-HA",
+  "skills": []
+}
