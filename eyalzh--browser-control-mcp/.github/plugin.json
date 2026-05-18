@@ -1,0 +1,9 @@
+{
+  "name": "eyalzh--browser-control-mcp",
+  "displayName": "browser-control-mcp",
+  "description": "MCP server paired with a browser extension that enables AI agents to control the user's browser.",
+  "version": "1.0.0",
+  "author": "eyalzh",
+  "homepage": "https://github.com/eyalzh/browser-control-mcp",
+  "skills": []
+}
