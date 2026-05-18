@@ -1,0 +1,9 @@
+{
+  "name": "nailuogg--anki-mcp-server",
+  "displayName": "anki-mcp-server",
+  "description": "MCP server for Anki via AnkiConnect",
+  "version": "1.0.0",
+  "author": "nailuoGG",
+  "homepage": "https://github.com/nailuoGG/anki-mcp-server",
+  "skills": []
+}
