@@ -1,0 +1,9 @@
+{
+  "name": "emarco177--mcp-crash-course",
+  "displayName": "mcp-crash-course",
+  "description": "Hands-on crash course for the Model Context Protocol (MCP) with project-based branches on Streamable-HTTP, LangChain adapters, and Docker.",
+  "version": "1.0.0",
+  "author": "emarco177",
+  "homepage": "https://github.com/emarco177/mcp-crash-course",
+  "skills": []
+}
