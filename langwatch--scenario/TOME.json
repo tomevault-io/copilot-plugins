@@ -2,9 +2,9 @@
   "name": "scenario",
   "owner": "langwatch",
   "repo": "scenario",
-  "description": "",
+  "description": "Agentic testing for agentic codebases",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/langwatch",
+  "source_url": "https://github.com/langwatch/scenario",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:37:33Z"
+  "distributed_at": "2026-05-18T05:35:56Z"
 }
