@@ -1,0 +1,9 @@
+{
+  "name": "getfounded--mcp-tool-kit",
+  "displayName": "mcp-tool-kit",
+  "description": "Agentic abstraction layer for building high precision vertical AI agents written in python for Model Context Protocol.",
+  "version": "1.0.0",
+  "author": "getfounded",
+  "homepage": "https://github.com/getfounded/mcp-tool-kit",
+  "skills": []
+}
