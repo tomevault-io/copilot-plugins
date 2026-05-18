@@ -1,308 +1,207 @@
-## mcp
+## typescript
 
-> Model Context Protocol (MCP) server best practices
+> TypeScript best practices and coding standards
 
 
-# MCP Server Best Practices
+# TypeScript Best Practices
 
-Follow these conventions when developing MCP servers.
+Follow these conventions when writing TypeScript code in this project.
 
-## Tool Design
+## Type Safety
 
-### Naming Conventions
+1. **Avoid `any`** - Use `unknown` for truly unknown types, then narrow with type guards
+   ```typescript
+   // Bad
+   function process(data: any) { ... }
 
-Use descriptive, action-oriented names with service prefixes:
+   // Good
+   function process(data: unknown) {
+     if (typeof data === 'string') { ... }
+   }
+   ```
+
+2. **Prefer explicit return types** - Always declare return types on functions and methods
+   ```typescript
+   // Bad
+   function getData() { return { id: 1 }; }
+
+   // Good
+   function getData(): { id: number } { return { id: 1 }; }
+   ```
+
+3. **Use strict null checks** - Handle `null` and `undefined` explicitly
+   ```typescript
+   // Bad
+   const name = user.name.toUpperCase();
+
+   // Good
+   const name = user.name?.toUpperCase() ?? 'Unknown';
+   ```
+
+## Access Modifiers
+
+All class members must have explicit access modifiers:
 
 ```typescript
-// Good - clear service prefix and action
-"drive_list_files"
-"docs_create"
-"calendar_get_event"
-"gmail_send_message"
+class MyService {
+  private readonly client: Client;
 
-// Bad - unclear or inconsistent
-"listFiles"
-"getDoc"
-"sendEmail"
-```
-
-### Input Schemas
-
-Always provide comprehensive JSON schemas for tool inputs:
-
-```typescript
-{
-  name: "calendar_create_event",
-  description: "Create a new calendar event with title, time, and optional attendees",
-  inputSchema: {
-    type: "object",
-    properties: {
-      title: {
-        type: "string",
-        description: "Event title/summary"
-      },
-      startTime: {
-        type: "string",
-        description: "Start time in ISO 8601 format (e.g., 2024-01-15T10:00:00Z)"
-      },
-      endTime: {
-        type: "string",
-        description: "End time in ISO 8601 format"
-      },
-      attendees: {
-        type: "array",
-        items: { type: "string" },
-        description: "Email addresses of attendees (optional)"
-      }
-    },
-    required: ["title", "startTime", "endTime"]
+  constructor(client: Client) {
+    this.client = client;
   }
+
+  public async getData(): Promise<Data> { ... }
+
+  private validateInput(input: string): boolean { ... }
 }
 ```
 
-### Descriptions
+- Use `private` for internal implementation details
+- Use `public` for API surface
+- Use `protected` for inheritance hierarchies
+- Use `readonly` for immutable properties
 
-Write clear, actionable descriptions that help the LLM understand:
-- What the tool does
-- When to use it
-- What parameters mean
-- What the output contains
+## Naming Conventions
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Classes | PascalCase | `UserService` |
+| Interfaces | PascalCase | `UserConfig` |
+| Type aliases | PascalCase | `UserId` |
+| Enums | PascalCase | `UserRole` |
+| Enum members | UPPER_CASE or PascalCase | `ADMIN` or `Admin` |
+| Functions | camelCase | `getUserById` |
+| Variables | camelCase | `userCount` |
+| Constants | UPPER_SNAKE_CASE | `MAX_RETRIES` |
+| Private members | camelCase (no underscore prefix) | `private data` |
+
+## Type Imports
+
+Use type-only imports when importing types:
 
 ```typescript
-// Good
-description: "Search for files in Google Drive by name, type, or content. Returns file IDs, names, and metadata. Use this to find files before performing operations on them."
-
 // Bad
-description: "Search files"
+import { User, UserService } from './user';
+
+// Good
+import { type User, UserService } from './user';
+// or
+import type { User } from './user';
+import { UserService } from './user';
 ```
+
+## Async/Await
+
+1. **Always handle promises** - Never leave promises floating
+   ```typescript
+   // Bad
+   someAsyncFunction();
+
+   // Good
+   await someAsyncFunction();
+   // or
+   void someAsyncFunction(); // explicitly ignore
+   ```
+
+2. **Use async/await over .then()** - More readable and easier to debug
+   ```typescript
+   // Bad
+   getData().then(data => process(data)).catch(err => handle(err));
+
+   // Good
+   try {
+     const data = await getData();
+     await process(data);
+   } catch (err) {
+     handle(err);
+   }
+   ```
 
 ## Error Handling
 
-### Return Structured Errors
+1. **Type catch clause variables as `unknown`**
+   ```typescript
+   try {
+     await riskyOperation();
+   } catch (error: unknown) {
+     if (error instanceof Error) {
+       console.error(error.message);
+     }
+   }
+   ```
 
-Always return errors in a consistent format:
+2. **Create custom error classes for domain errors**
+   ```typescript
+   class AuthenticationError extends Error {
+     constructor(message: string) {
+       super(message);
+       this.name = 'AuthenticationError';
+     }
+   }
+   ```
 
-```typescript
-if (!this.isAuthenticated()) {
-  return {
-    content: [{
-      type: "text",
-      text: JSON.stringify({
-        error: "NotAuthenticated",
-        message: "Please authenticate first using the google_auth tool",
-        suggestion: "Run the google_auth tool to start the OAuth flow"
-      }, null, 2)
-    }],
-    isError: true
-  };
-}
-```
+## Nullish Coalescing and Optional Chaining
 
-### Validate Inputs Early
-
-Check required parameters before calling external APIs:
-
-```typescript
-public async handleTool(name: string, args: Record<string, unknown>): Promise<ToolResponse> {
-  if (name === "docs_create") {
-    const { title } = args as { title?: string };
-
-    if (!title?.trim()) {
-      return {
-        content: [{ type: "text", text: "Error: title is required and cannot be empty" }],
-        isError: true
-      };
-    }
-
-    // Proceed with API call
-  }
-}
-```
-
-## Resource Design
-
-### URI Patterns
-
-Use consistent, hierarchical URI patterns:
+Prefer `??` over `||` for default values (handles `0` and `''` correctly):
 
 ```typescript
-// Good patterns
-"drive://files"
-"drive://files/{fileId}"
-"docs://documents/{docId}"
-"calendar://events?date=2024-01-15"
+// Bad - treats 0 and '' as falsy
+const count = input || 10;
 
-// Bad patterns
-"getFiles"
-"document-123"
+// Good - only treats null/undefined as nullish
+const count = input ?? 10;
 ```
 
-### Resource Metadata
-
-Provide helpful metadata for resources:
+Use optional chaining for nested access:
 
 ```typescript
-{
-  uri: "drive://files/abc123",
-  name: "Project Proposal.docx",
-  description: "Google Docs document last modified 2024-01-15",
-  mimeType: "application/vnd.google-apps.document"
-}
+// Bad
+const city = user && user.address && user.address.city;
+
+// Good
+const city = user?.address?.city;
 ```
 
-## Authentication
+## Immutability
 
-### Handle Auth State Gracefully
+1. **Use `readonly` for array/object properties that shouldn't change**
+   ```typescript
+   interface Config {
+     readonly endpoints: readonly string[];
+   }
+   ```
 
-Always check authentication before operations:
+2. **Use `as const` for literal types**
+   ```typescript
+   const ROLES = ['admin', 'user', 'guest'] as const;
+   type Role = typeof ROLES[number]; // 'admin' | 'user' | 'guest'
+   ```
+
+## Generics
+
+Use meaningful generic names:
 
 ```typescript
-private ensureAuthenticated(): void {
-  if (!oauth.isReady()) {
-    throw new Error(
-      "Not authenticated. Please run the google_auth tool first to authenticate with Google."
-    );
-  }
-}
+// Bad
+function transform<T, U>(input: T): U { ... }
 
-public async handleTool(name: string, args: unknown): Promise<ToolResponse> {
-  try {
-    this.ensureAuthenticated();
-    // ... tool logic
-  } catch (error) {
-    return {
-      content: [{ type: "text", text: `Error: ${error.message}` }],
-      isError: true
-    };
-  }
-}
+// Good
+function transform<TInput, TOutput>(input: TInput): TOutput { ... }
 ```
 
-### Provide Auth Tools
+## Documentation
 
-Include authentication management tools:
+Use JSDoc for public APIs:
 
 ```typescript
-// Essential auth tools
-"google_auth"        // Start OAuth flow
-"google_auth_status" // Check current auth state
-"google_auth_code"   // Manual code entry fallback
-"google_logout"      // Revoke access
+/**
+ * Fetches user data from the API.
+ * @param userId - The unique identifier of the user
+ * @returns The user object if found
+ * @throws {NotFoundError} When user doesn't exist
+ */
+public async getUser(userId: string): Promise<User> { ... }
 ```
-
-## Response Formatting
-
-### Return Structured Data
-
-Return JSON for complex data, formatted for readability:
-
-```typescript
-return {
-  content: [{
-    type: "text",
-    text: JSON.stringify(result, null, 2)
-  }]
-};
-```
-
-### Include Helpful Context
-
-Add context that helps the LLM understand results:
-
-```typescript
-const result = {
-  success: true,
-  fileId: "abc123",
-  fileName: "Document.docx",
-  webViewLink: "https://docs.google.com/...",
-  message: "Document created successfully. Use the webViewLink to open it in a browser."
-};
-```
-
-## Service Architecture
-
-### Separate Concerns
-
-Organize code into focused service classes:
-
-```
-src/
-├── server.ts           # MCP server, tool routing
-├── auth/
-│   └── oauth.ts        # Authentication logic
-├── services/
-│   ├── drive.ts        # Google Drive operations
-│   ├── docs.ts         # Google Docs operations
-│   └── ...
-└── types/
-    └── index.ts        # Shared types and schemas
-```
-
-### Initialize Services Lazily
-
-Only initialize services when authenticated:
-
-```typescript
-private initializeServices(): void {
-  const client = oauth.getClient();
-  if (client) {
-    this.drive = new DriveService(client);
-    this.docs = new DocsService(client);
-    // ...
-  }
-}
-```
-
-## Performance
-
-### Use Pagination
-
-Support pagination for list operations:
-
-```typescript
-{
-  name: "drive_list_files",
-  inputSchema: {
-    properties: {
-      pageSize: {
-        type: "number",
-        description: "Maximum files to return (default: 10, max: 100)"
-      },
-      pageToken: {
-        type: "string",
-        description: "Token for next page of results"
-      }
-    }
-  }
-}
-```
-
-### Return Relevant Fields Only
-
-Don't return entire API responses; extract useful fields:
-
-```typescript
-// Good - curated response
-return {
-  id: file.id,
-  name: file.name,
-  mimeType: file.mimeType,
-  webViewLink: file.webViewLink
-};
-
-// Bad - raw API dump
-return response.data;
-```
-
-## Testing Tools
-
-When developing, test tools with various inputs:
-
-1. Valid inputs with all parameters
-2. Valid inputs with only required parameters
-3. Invalid/missing required parameters
-4. Edge cases (empty strings, special characters)
-5. Unauthenticated state
 
 ---
 > Source: [quinnjr/google-mcp](https://github.com/quinnjr/google-mcp) — distributed by [TomeVault](https://tomevault.io).
