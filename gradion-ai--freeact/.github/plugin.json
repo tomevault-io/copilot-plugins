@@ -1,0 +1,26 @@
+{
+  "name": "gradion-ai--freeact",
+  "displayName": "freeact",
+  "description": "General-purpose AI agent that acts via code actions through a unified execution interface.",
+  "version": "1.0.0",
+  "author": "gradion-ai",
+  "homepage": "https://github.com/gradion-ai/freeact",
+  "skills": [
+    {
+      "name": "freeact-interaction",
+      "description": ""
+    },
+    {
+      "name": "output-parsers",
+      "description": ""
+    },
+    {
+      "name": "saving-codeacts",
+      "description": ""
+    },
+    {
+      "name": "task-planning",
+      "description": ""
+    }
+  ]
+}
