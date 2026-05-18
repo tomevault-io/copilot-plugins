@@ -7,11 +7,11 @@ An MCP server for interacting with Sentry via LLMs.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp).
+Original source: `AGENTS.md` in [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
