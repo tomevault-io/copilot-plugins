@@ -1,0 +1,9 @@
+{
+  "name": "barebaric--rayforge",
+  "displayName": "rayforge",
+  "description": "A software for laser cutters and engravers",
+  "version": "1.0.0",
+  "author": "barebaric",
+  "homepage": "https://github.com/barebaric/rayforge",
+  "skills": []
+}
