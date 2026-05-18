@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafanactl",
+  "displayName": "grafanactl",
+  "description": "The Grafana CLI. Command-line tool designed to simplify interaction with Grafana resources.",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafanactl",
+  "skills": []
+}
