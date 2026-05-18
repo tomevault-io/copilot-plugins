@@ -1,0 +1,9 @@
+{
+  "name": "tanstack--cli",
+  "displayName": "cli",
+  "description": "The official TanStack CLI - Project Scaffolding, MCP Server, Agent Skills Installation, etc",
+  "version": "1.0.0",
+  "author": "TanStack",
+  "homepage": "https://github.com/TanStack/cli",
+  "skills": []
+}
