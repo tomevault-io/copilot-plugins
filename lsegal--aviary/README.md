@@ -7,14 +7,14 @@ Aviary is a full AI assistant platform. Connect your AI models to Slack, Signal,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [lsegal/aviary](https://github.com/lsegal/aviary).
+Original source: `AGENTS.md` in [lsegal/aviary](https://github.com/lsegal/aviary).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/lsegal/aviary](https://github.com/lsegal/aviary)
