@@ -7,11 +7,11 @@ A collection of utilities for Playwright tests at SEON Technologies, designed to
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [seontechnologies/playwright-utils](https://github.com/seontechnologies/playwright-utils).
+Original source: `CLAUDE.md` in [seontechnologies/playwright-utils](https://github.com/seontechnologies/playwright-utils).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
