@@ -1,26 +1,30 @@
-## approval-before-scope-expansion
+## discussion-design-docs
 
-> Confirm with user before new features or major design changes
+> Where to put internal discussion and design documentation
 
 
-# Scope and design approval
+# Discussion & design documentation
 
-## Before you implement
+## Location
 
-**Stop and ask the user first** (briefly: intent, options, tradeoffs) before:
+Create and maintain **discussion**, **design**, and **RFC / ADR-style** notes under:
 
-- **New functionality** — new commands, APIs, UI behaviors, integrations, or features that go beyond the current task.
-- **Major design changes** — protocol or data-shape changes, new architecture, broad refactors, or anything that would surprise a reviewer in a large diff.
+**`.discussion-docs/`** (repository root)
 
-## When you may proceed without asking
+Use **descriptive kebab-case** filenames (e.g. `rale-node-lookup.md`, `feature-foo-design.md`).
 
-- **Small fixes** in files already in scope: typos, obvious bugs, linter issues, matching existing patterns.
-- **Edits the user explicitly requested** in the current message.
-- **Clarifying questions** in chat are fine; this rule is about **not landing unrequested scope** in code.
+## What belongs here
 
-## If unsure
+- Exploratory write-ups, options, and tradeoffs before implementation  
+- Design docs that describe *how* something should work in this repo (not end-user product help)  
+- Short internal specs that are not the primary shipped `docs/` site
 
-Treat it as **ask first**. A one-sentence check (“I’m about to add X; OK?”) is enough.
+## What does not belong here
+
+- End-user or public documentation that should live under **`docs/`** or package READMEs (keep those in their existing homes)  
+- Generated or build output
+
+When a design graduates to “shipped” user-facing documentation, mirror or move the relevant parts into **`docs/`** as appropriate.
 
 ---
 > Source: [paramount-engineering/roku-dev-studio](https://github.com/paramount-engineering/roku-dev-studio) — distributed by [TomeVault](https://tomevault.io).
