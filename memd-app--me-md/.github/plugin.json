@@ -1,0 +1,9 @@
+{
+  "name": "memd-app--me-md",
+  "displayName": "me.md",
+  "description": "AI-guided personal knowledge system. Build a verified knowledge graph of yourself through interview-style sessions with Claude. All data stays local.",
+  "version": "1.0.0",
+  "author": "memd-app",
+  "homepage": "https://github.com/memd-app/me.md",
+  "skills": []
+}
