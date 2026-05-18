@@ -1,0 +1,9 @@
+{
+  "name": "refreshdotdev--web-eval-agent",
+  "displayName": "web-eval-agent",
+  "description": "An MCP server that autonomously evaluates web applications. ",
+  "version": "1.0.0",
+  "author": "refreshdotdev",
+  "homepage": "https://github.com/refreshdotdev/web-eval-agent",
+  "skills": []
+}
