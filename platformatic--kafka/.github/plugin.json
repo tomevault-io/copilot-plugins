@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--kafka",
+  "displayName": "kafka",
+  "description": "kafka",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/kafka",
+  "skills": []
+}
