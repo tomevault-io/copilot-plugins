@@ -1,0 +1,9 @@
+{
+  "name": "kubefleet-dev--kubefleet",
+  "displayName": "kubefleet",
+  "description": "KubeFleet is an open-source Kubernetes multi-cluster application management solution.",
+  "version": "1.0.0",
+  "author": "kubefleet-dev",
+  "homepage": "https://github.com/kubefleet-dev/kubefleet",
+  "skills": []
+}
