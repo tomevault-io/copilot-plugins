@@ -1,0 +1,57 @@
+{
+  "name": "kora",
+  "owner": "solana-foundation",
+  "repo": "kora",
+  "description": "Implementation of a Solana relayer. Provides a lib and cli crate in order to enable signing experiences on Solana",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "kora-client",
+      "path": ".claude/skills/kora-client",
+      "github_url": "https://github.com/solana-foundation/kora/tree/main/.claude/skills/kora-client",
+      "description": ""
+    },
+    {
+      "name": "kora-operator",
+      "path": ".claude/skills/kora-operator",
+      "github_url": "https://github.com/solana-foundation/kora/tree/main/.claude/skills/kora-operator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/solana-foundation/kora",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:31:47Z"
+}
