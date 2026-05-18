@@ -1,0 +1,26 @@
+{
+  "name": "rohitg00--manim-video-generator",
+  "displayName": "manim-video-generator",
+  "description": "This application allows you to generate mathematical animations using natural language descriptions. It uses OpenAI's GPT model to convert your descriptions into Manim code, which is then used to crea",
+  "version": "1.0.0",
+  "author": "rohitg00",
+  "homepage": "https://github.com/rohitg00/manim-video-generator",
+  "skills": [
+    {
+      "name": "animation-composer",
+      "description": ""
+    },
+    {
+      "name": "math-visualizer",
+      "description": ""
+    },
+    {
+      "name": "motion-graphics",
+      "description": ""
+    },
+    {
+      "name": "visual-storyteller",
+      "description": ""
+    }
+  ]
+}
