@@ -1,0 +1,9 @@
+{
+  "name": "leonardhope--draftspect-add-ins-for-word-and-excel-powered-by-claude-code",
+  "displayName": "Draftspect-Add-Ins-for-Word-and-Excel-Powered-by-Claude-Code",
+  "description": "Draftspect \u2014 open Word or Excel and chat with your own local Claude Code: it reads and edits the document and can pull in any local folders/files you point it at (notes, drafts, data, a repo) as conte",
+  "version": "1.0.0",
+  "author": "LeonardHope",
+  "homepage": "https://github.com/LeonardHope/Draftspect-Add-Ins-for-Word-and-Excel-Powered-by-Claude-Code",
+  "skills": []
+}
