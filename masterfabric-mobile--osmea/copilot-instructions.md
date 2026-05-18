@@ -1,1317 +1,555 @@
-## osmea-sizer-extensions
+## osmea-text-extensions
 
-> OSMEA sizer extensions - responsive, spacing, duration, padding, alignment
+> OSMEA text extensions - font, alignment, spacing, decoration with context
 
 
-# OSMEA Sizer Extensions - Cursor Rules
+# OSMEA Text Extensions - Cursor Rules
 
 ## 📦 Package Overview
-OSMEA Sizer Extensions provides comprehensive utilities for responsive design, spacing, animations, and UI layout in Flutter applications. This file contains 25+ extension categories with 800+ utility methods for consistent, responsive UI development.
+OSMEA Text Extensions provide comprehensive utility extensions for text styling in Flutter applications. These extensions work seamlessly with `OsmeaComponents.text` to provide consistent typography, spacing, and styling across the entire application.
 
 ## Import Statement
-Always import the sizer extensions at the top of your files:
+Always import OsmeaComponents at the top of your files:
 ```dart
 import 'package:osmea_components/osmea_components.dart';
+```
+
+## Color Usage
+
+### ✅ Use OsmeaColors
+```dart
+// ✅ Correct - using OsmeaColors
+OsmeaComponents.text(
+  'Hello',
+  color: OsmeaColors.nordicBlue,
+  fontSize: context.fontSizeMedium,
+)
+
+OsmeaComponents.text(
+  'Primary text',
+  color: OsmeaColors.textPrimary,
+  fontSize: context.fontSizeLarge,
+)
+
+OsmeaComponents.text(
+  'Secondary text',
+  color: OsmeaColors.textSecondary,
+  fontSize: context.fontSizeMedium,
+)
+```
+
+### ❌ Don't Use Standard Colors
+```dart
+// ❌ Wrong - using standard Colors
+OsmeaComponents.text(
+  'Hello',
+  color: Colors.blue,
+  fontSize: context.fontSizeMedium,
+)
+
+OsmeaComponents.text(
+  'Primary text',
+  color: Colors.black,
+  fontSize: context.fontSizeLarge,
+)
 ```
 
 ## 🎯 Development Guidelines
 
 ### 📁 File Structure
 ```
-packages/components/lib/src/utils/
-└── sizer_extensions.dart    # Main sizer extensions file (858 lines)
+packages/components/lib/src/
+└── utils/
+    └── text_extensions.dart         # Text utility extensions
 ```
 
-### 🎨 Extension Categories Overview
+### 🎨 Extension Categories
 
-#### 1. 📱 Core Sizer Extensions (`SizerExtension`)
-- **Screen Dimensions**: `allHeight`, `allWidth`, `mediaQuery`
-- **Text Scaling**: `textScaler`, `textScaleFactor`
-- **Dynamic Sizing**: `dynamicWidth()`, `dynamicHeight()`
-- **Value Scaling**: `lowValue`, `normalValue`, `mediumValue`, `highValue`
-- **Radius Values**: `radiusNone`, `radiusLow`, `radiusNormal`, `radiusMedium`, `radiusHigh`
-- **Scale Values**: `scaleLowValue`, `scaleMediumValue`, `scaleHighValue`
-- **Utility Values**: `nullValue`, `infinity`
-- **Dividers**: `divider1`, `divider2`, `divider3`
+#### 1. **Core Typography Extensions**
+- `FontWeightExtension` - Font weight utilities (thin to black)
+- `TextSizeX` - Font size utilities (tiny to extra large)
+- `FontStyleExtension` - Font style options (normal, italic)
+- `FontFamilyExtension` - Font family selection (20+ fonts)
 
-#### 2. ⭕ Border Radius Extensions (`BorderRadiusExtension`)
-- **Basic Radius**: `borderRadiusZero`, `borderRadiusNone`, `borderRadiusLow`
-- **Standard Radius**: `borderRadiusNormal`, `borderRadiusMedium`, `borderRadiusHigh`
-- **Special Radius**: `borderRadiusMinStandard` (7), `borderRadiusMaxStandard` (13)
+#### 2. **Text Layout Extensions**
+- `TextAlignExtension` - Text alignment (left, right, center, justify, start, end)
+- `TextOverflowExtension` - Text overflow handling (clip, fade, ellipsis, visible)
+- `TextMaxLineExtension` - Line limit controls (1 to unlimited)
+- `TextBaselineExtension` - Baseline alignment (alphabetic, ideographic)
 
-#### 3. 🔲 Border Width Extensions (`BorderWidthExtension`)
-- **Standard Width**: `borderWidth` (0.5)
+#### 3. **Text Styling Extensions**
+- `TextDecorationExtension` - Text decorations (none, underline, overline, lineThrough)
+- `TextDecorationStyleExtension` - Decoration styles (solid, double, dotted, dashed, wavy)
+- `TextCapitalizationExtension` - Text capitalization (words, sentences, characters, none)
 
-#### 4. ⏱️ Duration Extensions (`DurationExtension`)
-- **Time Units**: `7.seconds`, `7.minutes`, `7.hours`, `7.days`, `7.weeks`
-- **Micro Units**: `7.microseconds`, `7.milliseconds`
-- **Zero Duration**: `7.zero`
-
-#### 5. ⏰ Duration Values Extensions (`DurationValuesExtension`)
-- **Basic Durations**: `durationZero`, `durationInstant`, `durationFast`, `durationQuick`
-- **Standard Durations**: `durationNormal`, `durationMedium`, `durationSlow`, `durationVerySlow`
-- **Long Durations**: `durationLong`, `durationVeryLong`
-- **Animation Durations**: `animationShort`, `animationMedium`, `animationLong`, `animationSlow`
-- **Delay Durations**: `delayShort`, `delayMedium`, `delayLong`
-- **Timeout Durations**: `timeoutQuick`, `timeoutNormal`, `timeoutLong`, `timeoutVeryLong`
-
-#### 6. 📐 Alignment Extensions (`AlignmentExtension`)
-- **Position Alignments**: `topLeft`, `topCenter`, `topRight`, `centerLeft`, `center`, `centerRight`, `bottomLeft`, `bottomCenter`, `bottomRight`
-- **Main Axis**: `start`, `end`, `centerMain`, `spaceBetween`, `spaceAround`, `spaceEvenly`
-- **Cross Axis**: `crossStart`, `crossEnd`, `crossCenter`, `crossStretch`, `crossBaseline`
-- **Wrap Alignment**: `wrapStart`, `wrapEnd`, `wrapCenter`, `wrapSpaceBetween`, `wrapSpaceAround`, `wrapSpaceEvenly`
-- **Axis Size**: `min`, `max`
-- **Text Direction**: `ltr`, `rtl`
-- **Axis Direction**: `horizontal`, `vertical`
-
-#### 7. 📦 Box Fit Extensions (`BoxFitExtension`)
-- **Fit Types**: `fill`, `contain`, `cover`, `fitWidth`, `fitHeight`, `scaleDown`
-
-#### 8. 📐 Stack Fit Extensions (`StackFitExtension`)
-- **Stack Fits**: `loose`, `expand`, `passthrough`
-
-#### 9. 📏 Spacing Extensions (`SpacingExtension`)
-- **Dynamic Spacing**: `spacingZero`, `spacingLow`, `spacingNormal`, `spacingMedium`, `spacingHigh`
-- **Fixed Spacing**: `spacing2`, `spacing4`, `spacing6`, `spacing8`, `spacing10`, `spacing12`, `spacing16`, `spacing20`, `spacing24`, `spacing32`, `spacing40`, `spacing48`, `spacing56`, `spacing64`
-
-#### 10. 📐 Width Extensions (`WidthExtension`)
-- **Dynamic Width**: `widthZero`, `widthLow`, `widthNormal`, `widthMedium`, `widthHigh`
-- **Fixed Width**: `width1` to `width384` (1, 2, 4, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 384)
-
-#### 11. 📏 Height Extensions (`HeightExtension`)
-- **Dynamic Height**: `heightZero`, `heightLow`, `heightNormal`, `heightMedium`, `heightHigh`
-- **Fixed Height**: `height1` to `height640` (1, 2, 4, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 384, 448, 512, 576, 640)
-
-#### 12. 🔄 Wrap Cross Alignment Extensions (`WrapCrossAlignmentExtension`)
-- **Wrap Cross**: `wrapCrossStart`, `wrapCrossEnd`, `wrapCrossCenter`
-
-#### 13. 🎪 Animation Status Extensions (`AnimationStatusExtension`)
-- **Animation States**: `dismissed`, `forward`, `reverse`, `completed`
-
-#### 14. 🔧 Clip Behavior Extensions (`ClipBehaviorExtension`)
-- **Clip Types**: `clipNone`, `clipHardEdge`, `clipAntiAlias`, `clipAntiAliasWithSaveLayer`
-
-#### 15. ➖ Empty Widget Extensions (`EmptyWidget`)
-- **Empty Boxes**: `emptySizedBox`, `emptySizedWidthBoxLow`, `emptySizedWidthBoxNormal`, `emptySizedWidthBoxHigh`
-- **Height Boxes**: `emptySizedHeightBoxLow`, `emptySizedHeightBoxNormal`, `emptySizedHeightBoxMedium`, `emptySizedHeightBoxHigh`
-- **Zero Boxes**: `emptySized`, `emptySizedWidthBoxZero`, `emptySizedHeightBoxZero`
-
-#### 16. 🟫 Divider Extensions (`DividerX`)
-- **Custom Divider**: `divider({Color? color})` - Creates divider with 13% indent/endIndent
-
-#### 17. 🖼️ Image Asset Extensions (`ImageAssetX`)
-- **Image Fit**: `getImageFitWidth({String path = ''})` - Image with 10% height and fitWidth
-
-#### 18. 🔳 Icon Size Extensions (`IconSizeExtension`)
-- **Icon Sizes**: `iconSizeZero`, `iconSizeExtraSmall` (14), `iconSizeSmall` (20), `iconSizeNormal` (24), `iconSizeMedium` (28), `iconSizeLarge` (32), `iconSizeHigh` (36), `iconSizeExtraHigh` (40)
-
-#### 19. 🧩 Padding Extensions (`PaddingExtension`)
-- **All Padding**: `paddingZero`, `paddingLow`, `paddingNormal`, `paddingMedium`, `paddingHigh`
-- **Horizontal Padding**: `horizontalPaddingZero`, `horizontalPaddingLow`, `horizontalPaddingNormal`, `horizontalPaddingMedium`, `horizontalPaddingHigh`
-- **Vertical Padding**: `verticalPaddingZero`, `verticalPaddingLow`, `verticalPaddingNormal`, `verticalPaddingMedium`, `verticalPaddingHigh`
-- **Single Side Padding**: `onlyLeftPadding*`, `onlyRightPadding*`, `onlyTopPadding*`, `onlyBottomPadding*`
-- **Custom Values**: `smallMobileHeight` (850)
-
-#### 20. 📈 Curves Extensions (`CurvesExtension`)
-- **Basic Curves**: `linear`, `decelerate`, `ease`, `easeIn`, `easeOut`, `easeInOut`
-- **Ease Variants**: `easeInSine`, `easeInQuad`, `easeInCubic`, `easeInQuart`, `easeInQuint`, `easeInExpo`, `easeInCirc`, `easeInBack`
-- **Ease Out Variants**: `easeOutSine`, `easeOutQuad`, `easeOutCubic`, `easeOutQuart`, `easeOutQuint`, `easeOutExpo`, `easeOutCirc`, `easeOutBack`
-- **Ease InOut Variants**: `easeInOutSine`, `easeInOutQuad`, `easeInOutCubic`, `easeInOutQuart`, `easeInOutQuint`, `easeInOutExpo`, `easeInOutCirc`, `easeInOutBack`
-- **Special Curves**: `fastLinearToSlowEaseIn`, `easeInToLinear`, `linearToEaseOut`, `fastOutSlowIn`, `slowMiddle`
-- **Bounce Curves**: `bounceIn`, `bounceOut`, `bounceInOut`
-- **Elastic Curves**: `elasticIn`, `elasticOut`, `elasticInOut`
-
-#### 21. 🎨 Blend Mode Extensions (`BlendModeExtension`)
-- **Basic Modes**: `clear`, `src`, `dst`, `srcOver`, `dstOver`, `srcIn`, `dstIn`, `srcOut`, `dstOut`, `srcATop`, `dstATop`, `xor`, `plus`
-- **Color Modes**: `modulate`, `screen`, `overlay`, `darken`, `lighten`, `colorDodge`, `colorBurn`, `hardLight`, `softLight`, `difference`, `exclusion`, `multiply`
-- **HSL Modes**: `hue`, `saturation`, `color`, `luminosity`
-
-#### 22. 🎪 Flex Extensions (`FlexExtension`)
-- **Flex Values**: `flex0` to `flex10` (0-10)
-
-#### 23. 📊 Opacity Extensions (`OpacityExtension`)
-- **Opacity Values**: `opacity0` to `opacity100` (0.0-1.0 in 0.1 increments)
-
-#### 24. 🎨 Alpha Extensions (`AlphaExtension`)
-- **Alpha Values**: `alpha0` to `alpha100` (0.0-1.0 in 0.05 increments)
-- **Named Alphas**: `alphaTransparent`, `alphaSubtle`, `alphaLight`, `alphaMedium`, `alphaStrong`, `alphaOpaque`
-- **Overlay Alphas**: `alphaOverlayLight`, `alphaOverlayMedium`, `alphaOverlayDark`
-- **State Alphas**: `alphaDisabled`, `alphaHint`
-
-#### 25. 📍 Offset Extensions (`OffsetExtension`)
-- **Zero Offset**: `offsetZero`
-- **Common Offsets**: `offset1` to `offset32` (1, 2, 4, 8, 12, 16, 20, 24, 32)
-- **Horizontal Offsets**: `offsetHorizontal1` to `offsetHorizontal24`
-- **Vertical Offsets**: `offsetVertical1` to `offsetVertical24`
-- **Shadow Offsets**: `shadowOffsetLow`, `shadowOffsetNormal`, `shadowOffsetMedium`, `shadowOffsetHigh`, `shadowOffsetExtraHigh`
-- **Negative Offsets**: `offsetNegative1` to `offsetNegative8`
-- **Custom Builders**: `offsetCustom()`, `offsetHorizontalCustom()`, `offsetVerticalCustom()`
-
-#### 26. ⚙️ Widget State Extensions (`WidgetStateExtension`)
-- **Widget States**: `pressed`, `hovered`, `focused`, `selected`, `disabled`, `dragged`, `error`
-
-#### 27. 🎭 Floating Action Button Location Extensions (`FloatingActionButtonLocationExtension`)
-- **Standard Locations**: `centerDocked`, `centerFloat`, `centerTop`, `endDocked`, `endFloat`, `endTop`, `startDocked`, `startFloat`, `startTop`
-- **Mini Locations**: `miniCenterDocked`, `miniCenterFloat`, `miniCenterTop`, `miniEndDocked`, `miniEndFloat`, `miniEndTop`, `miniStartDocked`, `miniStartFloat`, `miniStartTop`
-
-#### 28. 🎚️ Slider Theme Extensions (`SliderThemeExtension`)
-- **Value Indicators**: `onlyForDiscrete`, `onlyForContinuous`, `always`, `neverShow`
-
-#### 29. 🎯 Hit Test Behavior Extensions (`HitTestBehaviorExtension`)
-- **Hit Test**: `deferToChild`, `opaque`, `translucent`
-
-#### 30. 📏 Margin Extensions (`MarginExtension`)
-- **All Margins**: `marginZero`, `marginLow`, `marginNormal`, `marginMedium`, `marginHigh`
-- **Horizontal Margins**: `horizontalMarginLow`, `horizontalMarginNormal`, `horizontalMarginMedium`, `horizontalMarginHigh`
-- **Vertical Margins**: `verticalMarginLow`, `verticalMarginNormal`, `verticalMarginMedium`, `verticalMarginHigh`
-
-#### 31. 📱 Media Query Extensions (`MediaQueryExtension`)
-- **Screen Info**: `statusBarHeight`, `bottomBarHeight`, `viewPadding`, `viewInsets`, `orientation`, `isPortrait`, `isLandscape`
-- **Device Info**: `devicePixelRatio`, `invertColors`, `disableAnimations`, `boldText`
-- **Text Scaling**: `textScaleFactorClamped` (0.8-1.2 range)
-
-#### 32. 📏 Line Height Extensions (`LineHeightExtension`)
-- **Line Heights**: `lineHeightTight` (1.0), `lineHeightSnug` (1.2), `lineHeightNormal` (1.4), `lineHeightRelaxed` (1.6), `lineHeightLoose` (1.8), `lineHeightExtraLoose` (2.0)
-
-#### 33. 🌫️ Blur Radius Extensions (`BlurRadiusExtension`)
-- **No Blur**: `blurRadiusZero`
-- **Light Blur**: `blurRadiusLight`, `blurRadiusSubtle`, `blurRadiusNormal`, `blurRadiusMedium`, `blurRadiusStrong`
-- **Heavy Blur**: `blurRadiusHeavy`, `blurRadiusExtraHeavy`, `blurRadiusExtreme`, `blurRadiusMax`
-- **Specific Values**: `blurRadius1` to `blurRadius64`
-- **Shadow Blur**: `shadowBlurLow`, `shadowBlurNormal`, `shadowBlurMedium`, `shadowBlurHigh`, `shadowBlurExtraHigh`
-
-#### 34. 📊 Spread Radius Extensions (`SpreadRadiusExtension`)
-- **No Spread**: `spreadRadiusZero`
-- **Positive Spread**: `spreadRadiusSmall`, `spreadRadiusNormal`, `spreadRadiusMedium`, `spreadRadiusLarge`, `spreadRadiusExtraLarge`
-- **Negative Spread**: `spreadRadiusNegativeSmall`, `spreadRadiusNegativeNormal`, `spreadRadiusNegativeMedium`, `spreadRadiusNegativeLarge`
-- **Specific Values**: `spreadRadius1` to `spreadRadius16`
-- **Shadow Spread**: `shadowSpreadLow`, `shadowSpreadNormal`, `shadowSpreadMedium`, `shadowSpreadHigh`, `shadowSpreadExtraHigh`
-- **Inset Spread**: `insetSpreadSmall`, `insetSpreadMedium`, `insetSpreadLarge`
-
-#### 35. 📦 Box Shape Extensions (`BoxShapeExtension`)
-- **Basic Shapes**: `rectangleShape`, `circleShape`
-- **Named Shapes**: `shapeRectangle`, `shapeCircle`, `shapeRound`, `shapeSquare`
-- **Context Shapes**: `containerShapeRectangle`, `containerShapeCircle`, `avatarShape`, `buttonShapeRectangle`, `buttonShapeCircle`, `iconShape`, `cardShape`, `badgeShape`, `chipShape`
+#### 4. **Advanced Typography Extensions**
+- `FontFeatureExtension` - Font features (smallCaps, oldstyleNums, liningNums, etc.)
+- `FontVariationExtension` - Font variations (normal, wide, condensed, slant)
+- `LetterSpacingExtension` - Letter spacing (tight to extra loose)
+- `WordSpacingExtension` - Word spacing (tight to loose)
+- `TextLeadingDistributionExtension` - Line height distribution (proportional, even)
 
 ### 🔧 Usage Rules
 
-#### 1. 📱 Responsive Design Patterns
+#### 1. Primary Usage Pattern with OsmeaComponents.text
 ```dart
-// ✅ Good - Use dynamic sizing for responsive layouts
-Container(
-  width: context.dynamicWidth(0.8),  // 80% of screen width
-  height: context.dynamicHeight(0.3), // 30% of screen height
-  padding: context.paddingNormal,
+// ✅ Good - Use extensions with OsmeaComponents.text
+OsmeaComponents.text(
+  'Page Title',
+  fontSize: context.fontSizeExtraLarge,
+  fontFamily: context.fontRoboto,
+  fontWeight: context.semiBold,
+  letterSpacing: context.letterSpacingWide,
+  textAlign: context.textCenter,
+  maxLines: context.maxLineTwo,
+  overflow: context.ellipsis,
+  color: OsmeaColors.nordicBlue,
 )
 
-// ✅ Good - Use screen dimensions for calculations
-Widget buildResponsiveCard(BuildContext context) {
-  final screenWidth = context.allWidth;
-  final cardWidth = screenWidth > 600 
-    ? context.dynamicWidth(0.3) 
-    : context.dynamicWidth(0.9);
-    
-  return Container(
-    width: cardWidth,
-    height: context.dynamicHeight(0.4),
-    padding: context.paddingMedium,
-  );
-}
+// ✅ Good - Use extensions for additional styling
+OsmeaComponents.text(
+  'Styled text with extensions',
+  fontSize: context.fontSizeMedium,
+  fontFamily: context.fontMontserrat,
+  fontWeight: context.medium,
+  letterSpacing: context.letterSpacingNormal,
+  wordSpacing: context.wordSpacingWide,
+  textAlign: context.textJustify,
+  decoration: context.underline,
+  decorationStyle: context.solid,
+  color: OsmeaColors.textPrimary,
+)
 
-// ❌ Bad - Hard-coded values
-Container(
-  width: 300,
-  height: 200,
-  padding: EdgeInsets.all(16),
+// ❌ Bad - Hard-coded values instead of extensions
+OsmeaComponents.text(
+  'Styled text',
+  fontSize: 16,
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.5,
+  wordSpacing: 1.0,
+  textAlign: TextAlign.center,
+  maxLines: 2,
+  overflow: TextOverflow.ellipsis,
 )
 ```
 
-#### 2. 📏 Spacing Consistency Patterns
+#### 2. Font Family Selection
 ```dart
-// ✅ Good - Use consistent spacing values
-Column(
-  children: [
-    Text('Title'),
-    SizedBox(height: context.spacing16),
-    Text('Subtitle'),
-    SizedBox(height: context.spacing8),
-    Text('Content'),
-    SizedBox(height: context.spacing24),
-  ],
+// ✅ Good - Use font family extensions
+OsmeaComponents.text(
+  'Primary text',
+  fontSize: context.fontSizeLarge,
+  fontFamily: context.fontRoboto,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Use dynamic spacing for different screen sizes
-Column(
-  children: [
-    Text('Title'),
-    SizedBox(height: context.spacingNormal),
-    Text('Subtitle'),
-    SizedBox(height: context.spacingLow),
-    Text('Content'),
-    SizedBox(height: context.spacingHigh),
-  ],
+OsmeaComponents.text(
+  'Code text',
+  fontSize: context.fontSizeMedium,
+  fontFamily: context.fontFiraCode,
+  color: OsmeaColors.textSecondary,
 )
 
-// ✅ Good - Use fixed spacing for precise control
-Row(
-  children: [
-    Icon(Icons.star),
-    SizedBox(width: context.spacing4),
-    Text('Rating'),
-    SizedBox(width: context.spacing8),
-    Text('4.5'),
-  ],
+OsmeaComponents.text(
+  'Display text',
+  fontSize: context.fontSizeExtraLarge,
+  fontFamily: context.fontPlayfairDisplay,
+  color: OsmeaColors.nordicBlue,
 )
 
-// ❌ Bad - Inconsistent spacing
-Column(
-  children: [
-    Text('Title'),
-    SizedBox(height: 20),
-    Text('Subtitle'),
-    SizedBox(height: 5),
-    Text('Content'),
-  ],
+// ❌ Bad - Hard-coded font names
+OsmeaComponents.text(
+  'Primary text',
+  fontSize: context.fontSizeLarge,
+  fontFamily: 'Roboto',
 )
 ```
 
-#### 3. ⭕ Border Radius Standards
+#### 3. Font Weight and Size
 ```dart
-// ✅ Good - Use standard radius values
-Container(
-  decoration: BoxDecoration(
-    borderRadius: context.borderRadiusNormal, // 13px
-    color: Colors.blue,
-  ),
+// ✅ Good - Use weight and size extensions
+OsmeaComponents.text(
+  'Bold heading',
+  fontSize: context.fontSizeExtraLarge,
+  fontWeight: context.bold,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Use different radius for different components
-Card(
-  shape: RoundedRectangleBorder(
-    borderRadius: context.borderRadiusMedium, // 30px
-  ),
-  child: Container(
-    decoration: BoxDecoration(
-      borderRadius: context.borderRadiusLow, // 2px
-      color: Colors.grey[100],
-    ),
-  ),
+OsmeaComponents.text(
+  'Light text',
+  fontSize: context.fontSizeMedium,
+  fontWeight: context.light,
+  color: OsmeaColors.textSecondary,
 )
 
-// ✅ Good - Use special radius values
-Container(
-  decoration: BoxDecoration(
-    borderRadius: context.borderRadiusMinStandard, // 7px
-    color: Colors.green,
-  ),
-)
-
-// ❌ Bad - Random radius values
-Container(
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(17),
-    color: Colors.blue,
-  ),
+// ❌ Bad - Hard-coded weights and sizes
+OsmeaComponents.text(
+  'Bold heading',
+  fontSize: 32,
+  fontWeight: FontWeight.w700,
 )
 ```
 
-#### 4. ⏱️ Animation Duration Patterns
-```dart
-// ✅ Good - Use predefined animation durations
-AnimatedContainer(
-  duration: context.animationMedium, // 300ms
-  curve: context.easeInOut,
-  // ...
-)
-
-// ✅ Good - Use different durations for different animations
-AnimatedOpacity(
-  opacity: isVisible ? 1.0 : 0.0,
-  duration: context.animationShort, // 150ms
-  child: Text('Fade in/out'),
-)
-
-AnimatedPositioned(
-  duration: context.animationLong, // 500ms
-  curve: context.easeOutBack,
-  // ...
-)
-
-// ✅ Good - Use duration extensions for custom durations
-Timer(context.delayMedium, () {
-  // Execute after 300ms delay
-});
-
-// ❌ Bad - Hard-coded durations
-AnimatedContainer(
-  duration: Duration(milliseconds: 400),
-  curve: Curves.easeInOut,
-  // ...
-)
-```
-
-#### 5. 🧩 Padding Patterns
-```dart
-// ✅ Good - Use semantic padding names
-Padding(
-  padding: context.paddingNormal, // All around padding
-  child: Text('Content'),
-)
-
-// ✅ Good - Use directional padding
-Padding(
-  padding: context.horizontalPaddingMedium, // Horizontal only
-  child: Text('Content'),
-)
-
-Padding(
-  padding: context.verticalPaddingLow, // Vertical only
-  child: Text('Content'),
-)
-
-// ✅ Good - Use single-side padding
-Padding(
-  padding: context.onlyLeftPaddingHigh, // Left side only
-  child: Text('Content'),
-)
-
-// ✅ Good - Combine different padding types
-Container(
-  padding: context.horizontalPaddingNormal + context.verticalPaddingLow,
-  child: Text('Content'),
-)
-
-// ❌ Bad - Inconsistent padding
-Padding(
-  padding: EdgeInsets.all(15),
-  child: Text('Content'),
-)
-```
-
-#### 6. 📐 Alignment Patterns
+#### 4. Text Alignment and Layout
 ```dart
 // ✅ Good - Use alignment extensions
-Column(
-  mainAxisAlignment: context.spaceBetween,
-  crossAxisAlignment: context.crossStart,
-  children: [
-    Text('Top'),
-    Text('Bottom'),
-  ],
+OsmeaComponents.text(
+  'Centered title',
+  fontSize: context.fontSizeExtraLarge,
+  textAlign: context.textCenter,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Use position alignments
-Align(
-  alignment: context.topRight,
-  child: Icon(Icons.close),
+OsmeaComponents.text(
+  'Left-aligned content',
+  fontSize: context.fontSizeMedium,
+  textAlign: context.textLeft,
+  color: OsmeaColors.textSecondary,
 )
 
-// ✅ Good - Use wrap alignments
-Wrap(
-  alignment: context.wrapCenter,
-  crossAxisAlignment: context.wrapCrossStart,
-  children: [
-    Chip(label: Text('Tag 1')),
-    Chip(label: Text('Tag 2')),
-  ],
+OsmeaComponents.text(
+  'Justified text',
+  fontSize: context.fontSizeLarge,
+  textAlign: context.textJustify,
+  color: OsmeaColors.textPrimary,
 )
 
-// ❌ Bad - Hard-coded alignments
-Column(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    Text('Top'),
-    Text('Bottom'),
-  ],
+// ❌ Bad - Hard-coded alignment
+OsmeaComponents.text(
+  'Centered title',
+  fontSize: context.fontSizeExtraLarge,
+  textAlign: TextAlign.center,
 )
 ```
 
-#### 7. 🎨 Visual Effect Patterns
+#### 5. Spacing and Typography
 ```dart
-// ✅ Good - Use blur radius extensions
-Container(
-  decoration: BoxDecoration(
-    boxShadow: [
-      BoxShadow(
-        blurRadius: context.shadowBlurNormal, // 4.0
-        spreadRadius: context.shadowSpreadNormal, // 1.0
-        offset: context.shadowOffsetNormal, // (0, 2)
-        color: Colors.black.withOpacity(context.alpha20),
-      ),
-    ],
-  ),
+// ✅ Good - Use spacing extensions
+OsmeaComponents.text(
+  'Tight letter spacing',
+  fontSize: context.fontSizeLarge,
+  letterSpacing: context.letterSpacingTight,
+  wordSpacing: context.wordSpacingNormal,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Use opacity extensions
-Container(
-  color: Colors.blue.withOpacity(context.alpha50),
-  child: Text('Semi-transparent'),
+OsmeaComponents.text(
+  'Wide letter spacing',
+  fontSize: context.fontSizeExtraLarge,
+  letterSpacing: context.letterSpacingWide,
+  wordSpacing: context.wordSpacingWide,
+  color: OsmeaColors.nordicBlue,
 )
 
-// ✅ Good - Use blend mode extensions
-BlendMode(
-  blendMode: context.screen,
-  child: Image.asset('overlay.png'),
-)
-
-// ❌ Bad - Hard-coded visual values
-Container(
-  decoration: BoxDecoration(
-    boxShadow: [
-      BoxShadow(
-        blurRadius: 4.0,
-        spreadRadius: 1.0,
-        offset: Offset(0, 2),
-        color: Colors.black.withOpacity(0.2),
-      ),
-    ],
-  ),
+// ❌ Bad - Hard-coded spacing values
+OsmeaComponents.text(
+  'Tight letter spacing',
+  fontSize: context.fontSizeLarge,
+  letterSpacing: -0.5,
+  wordSpacing: 0.0,
 )
 ```
 
-#### 8. 📱 Media Query Patterns
+#### 6. Text Decoration
 ```dart
-// ✅ Good - Use media query extensions
-Widget buildAdaptiveLayout(BuildContext context) {
-  if (context.isPortrait) {
-    return Column(
-      children: [
-        Container(height: context.height200),
-        Container(height: context.height300),
-      ],
-    );
-  } else {
-    return Row(
-      children: [
-        Container(width: context.width300),
-        Container(width: context.width400),
-      ],
-    );
-  }
-}
-
-// ✅ Good - Use device-specific values
-Container(
-  padding: EdgeInsets.only(
-    top: context.statusBarHeight + context.spacing16,
-    bottom: context.bottomBarHeight + context.spacing8,
-  ),
-  child: Text('Content'),
+// ✅ Good - Use decoration extensions
+OsmeaComponents.text(
+  'Underlined text',
+  fontSize: context.fontSizeMedium,
+  decoration: context.underline,
+  decorationStyle: context.solid,
+  color: OsmeaColors.nordicBlue,
 )
 
-// ✅ Good - Use text scaling
-Text(
-  'Responsive Text',
-  style: TextStyle(
-    fontSize: 16 * context.textScaleFactorClamped,
-  ),
+OsmeaComponents.text(
+  'Strikethrough text',
+  fontSize: context.fontSizeMedium,
+  decoration: context.lineThrough,
+  decorationStyle: context.dashed,
+  color: OsmeaColors.textSecondary,
 )
 
-// ❌ Bad - Hard-coded media query values
-Widget buildLayout(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  if (screenWidth < 600) {
-    // Mobile layout
-  } else {
-    // Desktop layout
-  }
-}
-```
-
-#### 9. 🎪 Animation Pattern Examples
-```dart
-// ✅ Good - Use curve extensions for smooth animations
-AnimatedContainer(
-  duration: context.animationMedium,
-  curve: context.easeOutBack,
-  child: Text('Bouncy animation'),
-)
-
-// ✅ Good - Use different curves for different effects
-AnimatedOpacity(
-  duration: context.animationShort,
-  curve: context.easeInOut,
-  opacity: isVisible ? 1.0 : 0.0,
-  child: Text('Fade'),
-)
-
-AnimatedPositioned(
-  duration: context.animationLong,
-  curve: context.bounceOut,
-  // ...
-)
-
-// ✅ Good - Use elastic curves for playful animations
-AnimatedScale(
-  duration: context.animationMedium,
-  curve: context.elasticInOut,
-  scale: isPressed ? 0.95 : 1.0,
-  child: ElevatedButton(
-    onPressed: () {},
-    child: Text('Elastic Button'),
-  ),
-)
-
-// ❌ Bad - Hard-coded curves
-AnimatedContainer(
-  duration: Duration(milliseconds: 300),
-  curve: Curves.easeInOut,
-  // ...
+// ❌ Bad - Hard-coded decoration values
+OsmeaComponents.text(
+  'Underlined text',
+  fontSize: context.fontSizeMedium,
+  decoration: TextDecoration.underline,
+  decorationStyle: TextDecorationStyle.solid,
 )
 ```
 
-#### 10. 🎯 Widget State Patterns
+#### 7. Text Overflow and Lines
 ```dart
-// ✅ Good - Use widget state extensions
-ElevatedButton(
-  onPressed: isEnabled ? () {} : null,
-  style: ElevatedButton.styleFrom(
-    backgroundColor: isEnabled ? Colors.blue : Colors.grey,
-  ).copyWith(
-    overlayColor: WidgetStateProperty.resolveWith((states) {
-      if (states.contains(context.pressed)) {
-        return Colors.blue.withOpacity(context.alpha20);
-      }
-      if (states.contains(context.hovered)) {
-        return Colors.blue.withOpacity(context.alpha10);
-      }
-      return null;
-    }),
-  ),
-  child: Text('Button'),
+// ✅ Good - Use overflow and line extensions
+OsmeaComponents.text(
+  'Single line text',
+  fontSize: context.fontSizeMedium,
+  maxLines: context.maxLineOne,
+  overflow: context.ellipsis,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Use state-based styling
-Container(
-  decoration: BoxDecoration(
-    color: isSelected ? Colors.blue : Colors.grey,
-    border: Border.all(
-      color: isFocused ? Colors.blue : Colors.grey,
-      width: context.borderWidth,
-    ),
-  ),
-  child: Text('Stateful Container'),
+OsmeaComponents.text(
+  'Multi-line text',
+  fontSize: context.fontSizeLarge,
+  maxLines: context.maxLineThree,
+  overflow: context.fade,
+  color: OsmeaColors.textPrimary,
 )
 
-// ❌ Bad - Hard-coded states
-ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    backgroundColor: isEnabled ? Colors.blue : Colors.grey,
-  ),
-  // ...
+OsmeaComponents.text(
+  'Unlimited lines',
+  fontSize: context.fontSizeMedium,
+  maxLines: context.maxLineUnlimited,
+  overflow: context.visible,
+  color: OsmeaColors.textSecondary,
+)
+
+// ❌ Bad - Hard-coded line and overflow values
+OsmeaComponents.text(
+  'Single line text',
+  fontSize: context.fontSizeMedium,
+  maxLines: 1,
+  overflow: TextOverflow.ellipsis,
 )
 ```
 
-### 📱 Mobile-First Approach
-
-#### 1. Responsive Breakpoints
+#### 8. Font Features and Variations
 ```dart
-// ✅ Good - Use dynamic sizing for different screen sizes
-Widget buildResponsiveLayout(BuildContext context) {
-  if (context.allWidth < 600) {
-    // Mobile layout
-    return Column(
-      children: [
-        Container(
-          width: context.dynamicWidth(0.9),
-          padding: context.paddingNormal,
-        ),
-      ],
-    );
-  } else if (context.allWidth < 900) {
-    // Tablet layout
-    return Row(
-      children: [
-        Container(
-          width: context.dynamicWidth(0.4),
-          padding: context.paddingMedium,
-        ),
-        Container(
-          width: context.dynamicWidth(0.6),
-          padding: context.paddingMedium,
-        ),
-      ],
-    );
-  } else {
-    // Desktop layout
-    return Row(
-      children: [
-        Container(
-          width: context.dynamicWidth(0.3),
-          padding: context.paddingHigh,
-        ),
-        Container(
-          width: context.dynamicWidth(0.7),
-          padding: context.paddingHigh,
-        ),
-      ],
-    );
-  }
-}
-
-// ✅ Good - Use orientation-based layouts
-Widget buildOrientationLayout(BuildContext context) {
-  if (context.isPortrait) {
-    return Column(
-      children: [
-        Container(height: context.height200),
-        Container(height: context.height300),
-      ],
-    );
-  } else {
-    return Row(
-      children: [
-        Container(width: context.width300),
-        Container(width: context.width400),
-      ],
-    );
-  }
-}
-```
-
-#### 2. Touch Target Sizing
-```dart
-// ✅ Good - Adequate touch targets (minimum 48dp)
-GestureDetector(
-  onTap: () {},
-  child: Container(
-    width: context.width48,  // 48dp minimum
-    height: context.height48,
-    padding: context.paddingLow,
-  ),
+// ✅ Good - Use font feature extensions
+OsmeaComponents.text(
+  'Small caps text',
+  fontSize: context.fontSizeLarge,
+  fontFeatures: context.smallCaps,
+  color: OsmeaColors.textPrimary,
 )
 
-// ✅ Good - Larger touch targets for important actions
-ElevatedButton(
-  onPressed: () {},
-  style: ElevatedButton.styleFrom(
-    minimumSize: Size(context.width64, context.height48),
-    padding: context.horizontalPaddingMedium + context.verticalPaddingLow,
-  ),
-  child: Text('Primary Action'),
+OsmeaComponents.text(
+  'Old style numbers',
+  fontSize: context.fontSizeMedium,
+  fontFeatures: context.oldstyleNums,
+  color: OsmeaColors.textSecondary,
 )
 
-// ✅ Good - Use icon size extensions for touch targets
-IconButton(
-  onPressed: () {},
-  iconSize: context.iconSizeLarge, // 32dp
-  icon: Icon(Icons.menu),
-)
-```
-
-#### 3. Responsive Typography
-```dart
-// ✅ Good - Use text scaling for accessibility
-Text(
-  'Responsive Text',
-  style: TextStyle(
-    fontSize: 16 * context.textScaleFactorClamped,
-    height: context.lineHeightNormal,
-  ),
+OsmeaComponents.text(
+  'Wide font variation',
+  fontSize: context.fontSizeExtraLarge,
+  fontVariations: context.fontVariationWide,
+  color: OsmeaColors.nordicBlue,
 )
 
-// ✅ Good - Use clamped text scaling
-Text(
-  'Text',
-  style: TextStyle(
-    fontSize: 18 * context.textScaleFactorClamped, // 0.8-1.2 range
-  ),
+// ❌ Bad - Hard-coded font features
+OsmeaComponents.text(
+  'Small caps text',
+  fontSize: context.fontSizeLarge,
+  fontFeatures: [const FontFeature.enable('smcp')],
 )
-```
-
-#### 4. Adaptive Spacing
-```dart
-// ✅ Good - Use adaptive spacing based on screen size
-Widget buildAdaptiveCard(BuildContext context) {
-  final isTablet = context.allWidth > 768;
-  
-  return Card(
-    margin: isTablet ? context.marginHigh : context.marginNormal,
-    child: Padding(
-      padding: isTablet ? context.paddingHigh : context.paddingMedium,
-      child: Column(
-        children: [
-          Text('Title'),
-          SizedBox(height: isTablet ? context.spacing24 : context.spacing16),
-          Text('Content'),
-        ],
-      ),
-    ),
-  );
-}
 ```
 
 ### 🎨 Advanced Usage Patterns
 
-#### 1. Custom Extension Creation
+#### 1. Responsive Typography with Extensions
 ```dart
-// ✅ Good - Create custom extensions for specific use cases
-extension CustomSizerExtension on BuildContext {
-  // Custom spacing for specific components
-  double get cardSpacing => spacing16;
-  double get listItemSpacing => spacing8;
-  double get sectionSpacing => spacing24;
+class ResponsiveText extends StatelessWidget {
+  final String text;
   
-  // Custom dimensions for specific layouts
-  double get sidebarWidth => dynamicWidth(0.25);
-  double get contentWidth => dynamicWidth(0.75);
-  double get headerHeight => height80;
+  const ResponsiveText({required this.text});
   
-  // Custom breakpoints
-  bool get isMobile => allWidth < 600;
-  bool get isTablet => allWidth >= 600 && allWidth < 900;
-  bool get isDesktop => allWidth >= 900;
-  
-  // Custom padding combinations
-  EdgeInsets get cardPadding => horizontalPaddingMedium + verticalPaddingNormal;
-  EdgeInsets get listPadding => horizontalPaddingLow + verticalPaddingLow;
-  EdgeInsets get sectionPadding => horizontalPaddingHigh + verticalPaddingHigh;
-}
-```
-
-#### 2. Conditional Sizing Patterns
-```dart
-// ✅ Good - Use conditional sizing based on screen size
-Widget buildAdaptiveGrid(BuildContext context) {
-  final isTablet = context.allWidth > 768;
-  final crossAxisCount = isTablet ? 3 : 2;
-  final childAspectRatio = isTablet ? 1.2 : 1.0;
-  
-  return GridView.count(
-    crossAxisCount: crossAxisCount,
-    childAspectRatio: childAspectRatio,
-    padding: isTablet ? context.paddingHigh : context.paddingMedium,
-    crossAxisSpacing: context.spacing16,
-    mainAxisSpacing: context.spacing16,
-    children: _buildGridItems(context),
-  );
-}
-
-// ✅ Good - Use device-specific values
-Widget buildDeviceSpecificLayout(BuildContext context) {
-  final isSmallScreen = context.allHeight < context.smallMobileHeight;
-  
-  return Container(
-    padding: isSmallScreen ? context.paddingLow : context.paddingNormal,
-    child: Column(
-      children: [
-        Container(
-          height: isSmallScreen ? context.height100 : context.height150,
-          child: Text('Adaptive Content'),
-        ),
-      ],
-    ),
-  );
-}
-```
-
-#### 3. Animation Sequence Patterns
-```dart
-// ✅ Good - Use duration extensions for complex animations
-class StaggeredAnimation extends StatefulWidget {
   @override
-  _StaggeredAnimationState createState() => _StaggeredAnimationState();
-}
-
-class _StaggeredAnimationState extends State<StaggeredAnimation>
-    with TickerProviderStateMixin {
-  late List<AnimationController> _controllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _controllers = List.generate(
-      3,
-      (index) => AnimationController(
-        duration: context.durationNormal, // 300ms
-        vsync: this,
-      ),
-    );
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     
-    // Stagger the animations
-    for (int i = 0; i < _controllers.length; i++) {
-      Future.delayed(
-        Duration(milliseconds: i * 100),
-        () => _controllers[i].forward(),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(3, (index) {
-        return AnimatedBuilder(
-          animation: _controllers[index],
-          builder: (context, child) {
-            return Transform.translate(
-              offset: Offset(0, 50 * (1 - _controllers[index].value)),
-              child: Opacity(
-                opacity: _controllers[index].value,
-                child: child,
-              ),
-            );
-          },
-          child: Container(
-            height: context.height100,
-            margin: context.marginLow,
-            child: Text('Item ${index + 1}'),
-          ),
-        );
-      }),
+    return OsmeaComponents.text(
+      text,
+      fontSize: screenWidth < 600 
+        ? context.fontSizeMedium
+        : context.fontSizeLarge,
+      fontFamily: context.fontRoboto,
+      fontWeight: context.medium,
+      letterSpacing: context.letterSpacingNormal,
+      wordSpacing: context.wordSpacingNormal,
+      textAlign: context.textLeft,
+      maxLines: context.maxLineUnlimited,
+      color: OsmeaColors.textPrimary,
     );
   }
 }
 ```
 
-#### 4. Shadow and Visual Effects
+#### 2. Themed Text with Extensions
 ```dart
-// ✅ Good - Use shadow extensions for consistent elevation
-Container(
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: context.borderRadiusNormal,
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(context.alpha10),
-        blurRadius: context.shadowBlurNormal,
-        spreadRadius: context.shadowSpreadNormal,
-        offset: context.shadowOffsetNormal,
-      ),
-    ],
-  ),
-  child: Text('Elevated Card'),
+class ThemedText extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  
+  const ThemedText(this.text, {required this.fontSize});
+  
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
+    return OsmeaComponents.text(
+      text,
+      fontSize: fontSize,
+      fontFamily: context.fontRoboto,
+      fontWeight: context.normal,
+      letterSpacing: context.letterSpacingNormal,
+      wordSpacing: context.wordSpacingNormal,
+      textAlign: context.textLeft,
+      color: theme.textTheme.bodyLarge?.color ?? OsmeaColors.textPrimary,
+    );
+  }
+}
+```
+
+#### 3. Interactive Text with Extensions
+```dart
+OsmeaComponents.text(
+  'Click here to learn more',
+  fontSize: context.fontSizeMedium,
+  fontFamily: context.fontRoboto,
+  fontWeight: context.medium,
+  letterSpacing: context.letterSpacingNormal,
+  decoration: context.underline,
+  decorationStyle: context.solid,
+  color: OsmeaColors.nordicBlue,
+  onTap: () {
+    // Handle navigation
+  },
 )
+```
 
-// ✅ Good - Use different shadow levels
-Widget buildCardWithElevation(BuildContext context, int elevation) {
-  final shadowBlur = elevation == 1 ? context.shadowBlurLow :
-                    elevation == 2 ? context.shadowBlurNormal :
-                    context.shadowBlurHigh;
-  
-  final shadowSpread = elevation == 1 ? context.shadowSpreadLow :
-                      elevation == 2 ? context.shadowSpreadNormal :
-                      context.shadowSpreadHigh;
-  
-  return Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: context.borderRadiusNormal,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(context.alpha20),
-          blurRadius: shadowBlur,
-          spreadRadius: shadowSpread,
-          offset: context.shadowOffsetNormal,
-        ),
-      ],
+#### 4. Form Text with Extensions
+```dart
+OsmeaComponents.column(
+  crossAxisAlignment: context.crossStart,
+  children: [
+    OsmeaComponents.text(
+      'Email Address',
+      fontSize: context.fontSizeMedium,
+      fontFamily: context.fontRoboto,
+      fontWeight: context.medium,
+      letterSpacing: context.letterSpacingNormal,
+      color: OsmeaColors.textPrimary,
     ),
-    child: Text('Card with elevation $elevation'),
-  );
-}
-```
-
-#### 5. Form Layout Patterns
-```dart
-// ✅ Good - Use consistent form spacing
-Widget buildForm(BuildContext context) {
-  return Column(
-    crossAxisAlignment: context.crossStart,
-    children: [
-      Text('Form Title', style: Theme.of(context).textTheme.headlineSmall),
-      SizedBox(height: context.spacing16),
-      
-      // Form fields with consistent spacing
-      TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Field 1',
-          border: OutlineInputBorder(
-            borderRadius: context.borderRadiusNormal,
-          ),
+    OsmeaComponents.sizedBox(height: context.spacing4),
+    OsmeaComponents.textField(
+      decoration: OsmeaComponents.inputDecoration(
+        hintText: 'Enter your email',
+        hintStyle: TextStyle(
+          color: OsmeaColors.textSecondary,
+          fontFamily: context.fontRoboto,
+          letterSpacing: context.letterSpacingNormal,
         ),
       ),
-      SizedBox(height: context.spacing12),
-      
-      TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Field 2',
-          border: OutlineInputBorder(
-            borderRadius: context.borderRadiusNormal,
-          ),
-        ),
+      style: TextStyle(
+        fontFamily: context.fontRoboto,
+        letterSpacing: context.letterSpacingNormal,
+        fontSize: context.fontSizeMedium,
       ),
-      SizedBox(height: context.spacing24),
-      
-      // Action buttons
-      Row(
-        mainAxisAlignment: context.spaceBetween,
-        children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Submit'),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-```
-
-#### 6. List and Grid Patterns
-```dart
-// ✅ Good - Use consistent list spacing
-Widget buildList(BuildContext context) {
-  return ListView.builder(
-    padding: context.paddingMedium,
-    itemCount: 10,
-    itemBuilder: (context, index) {
-      return Container(
-        margin: context.marginLow,
-        padding: context.paddingNormal,
-        decoration: BoxDecoration(
-          color: Colors.grey[100],
-          borderRadius: context.borderRadiusLow,
-        ),
-        child: Text('List Item $index'),
-      );
-    },
-  );
-}
-
-// ✅ Good - Use responsive grid
-Widget buildResponsiveGrid(BuildContext context) {
-  final crossAxisCount = context.isTablet ? 3 : 2;
-  
-  return GridView.builder(
-    padding: context.paddingMedium,
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: crossAxisCount,
-      crossAxisSpacing: context.spacing16,
-      mainAxisSpacing: context.spacing16,
-      childAspectRatio: 1.0,
     ),
-    itemCount: 6,
-    itemBuilder: (context, index) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.blue[100],
-          borderRadius: context.borderRadiusNormal,
-        ),
-        child: Center(
-          child: Text('Grid Item $index'),
-        ),
-      );
-    },
-  );
-}
-```
-
-### 🎨 Theme Integration
-
-#### 1. Consistent Spacing
-```dart
-// ✅ Good - Use spacing extensions throughout the app
-class ProductCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: context.marginNormal,
-      child: Padding(
-        padding: context.paddingMedium,
-        child: Column(
-          crossAxisAlignment: context.crossStart,
-          children: [
-            Text('Product Name'),
-            SizedBox(height: context.spacing8),
-            Text('Product Description'),
-            SizedBox(height: context.spacing16),
-            // ...
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ✅ Good - Use consistent spacing in lists
-class ProductList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: context.paddingMedium,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: context.marginLow,
-          padding: context.paddingNormal,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: context.borderRadiusNormal,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: context.shadowBlurLow,
-                spreadRadius: context.shadowSpreadLow,
-                offset: context.shadowOffsetLow,
-                color: Colors.black.withOpacity(context.alpha10),
-              ),
-            ],
-          ),
-          child: Text('Product $index'),
-        );
-      },
-    );
-  }
-}
-```
-
-#### 2. Animation Consistency
-```dart
-// ✅ Good - Use consistent animation patterns
-class AnimatedButton extends StatefulWidget {
-  @override
-  _AnimatedButtonState createState() => _AnimatedButtonState();
-}
-
-class _AnimatedButtonState extends State<AnimatedButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: context.animationMedium, // 300ms
-      vsync: this,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: 1.0 + (_controller.value * 0.1),
-          child: child,
-        );
-      },
-      child: ElevatedButton(
-        onPressed: () {
-          _controller.forward().then((_) {
-            _controller.reverse();
-          });
-        },
-        child: Text('Animated Button'),
-      ),
-    );
-  }
-}
-
-// ✅ Good - Use consistent animation curves
-class FadeInWidget extends StatefulWidget {
-  final Widget child;
-  
-  const FadeInWidget({required this.child});
-  
-  @override
-  _FadeInWidgetState createState() => _FadeInWidgetState();
-}
-
-class _FadeInWidgetState extends State<FadeInWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: context.animationMedium,
-      vsync: this,
-    );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: context.easeInOut,
-    );
-    _controller.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animation,
-      child: widget.child,
-    );
-  }
-}
-```
-
-#### 3. Responsive Design Integration
-```dart
-// ✅ Good - Use responsive design throughout
-class ResponsiveLayout extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: context.paddingMedium,
-          child: Column(
-            children: [
-              // Header with responsive height
-              Container(
-                height: context.dynamicHeight(0.1),
-                child: Text('Header'),
-              ),
-              SizedBox(height: context.spacing16),
-              
-              // Content with responsive width
-              Expanded(
-                child: Container(
-                  width: context.dynamicWidth(0.9),
-                  padding: context.paddingNormal,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: context.borderRadiusNormal,
-                  ),
-                  child: Text('Content'),
-                ),
-              ),
-              
-              SizedBox(height: context.spacing16),
-              
-              // Footer with responsive padding
-              Container(
-                padding: context.horizontalPaddingMedium + context.verticalPaddingLow,
-                child: Text('Footer'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+    OsmeaComponents.sizedBox(height: context.spacing4),
+    OsmeaComponents.text(
+      'We will never share your email',
+      fontSize: context.fontSizeSmall,
+      fontFamily: context.fontRoboto,
+      letterSpacing: context.letterSpacingNormal,
+      color: OsmeaColors.textSecondary,
+    ),
+  ],
+)
 ```
 
 ### 🚀 Best Practices
 
-#### 1. Performance Optimization
+#### 1. Consistent Extension Usage
 ```dart
-// ✅ Good - Use const constructors with extensions
-const SizedBox(
-  width: 16,  // Use direct values for const
-  height: 16,
-)
-
-// For dynamic values, use extensions
-SizedBox(
-  width: context.width16,
-  height: context.height16,
-)
-
-// ✅ Good - Use extensions for non-const values
-Container(
-  width: context.dynamicWidth(0.8),
-  height: context.dynamicHeight(0.3),
-  padding: context.paddingNormal,
-  child: Text('Content'),
-)
-```
-
-#### 2. Code Readability
-```dart
-// ✅ Good - Clear and readable
-Container(
-  margin: context.marginNormal,
-  padding: context.paddingMedium,
-  decoration: BoxDecoration(
-    borderRadius: context.borderRadiusNormal,
-    color: Colors.blue,
-    boxShadow: [
-      BoxShadow(
-        blurRadius: context.shadowBlurNormal,
-        spreadRadius: context.shadowSpreadNormal,
-        offset: context.shadowOffsetNormal,
-        color: Colors.black.withOpacity(context.alpha20),
-      ),
-    ],
-  ),
-  child: Text('Content'),
-)
-
-// ❌ Bad - Hard to read
-Container(
-  margin: EdgeInsets.all(16),
-  padding: EdgeInsets.all(24),
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(13),
-    color: Colors.blue,
-    boxShadow: [
-      BoxShadow(
-        blurRadius: 4.0,
-        spreadRadius: 1.0,
-        offset: Offset(0, 2),
-        color: Colors.black.withOpacity(0.2),
-      ),
-    ],
-  ),
-  child: Text('Content'),
-)
-```
-
-#### 3. Consistency Across Components
-```dart
-// ✅ Good - Use the same spacing pattern across all components
-class ConsistentCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: context.marginNormal,
-      child: Padding(
-        padding: context.paddingMedium,
-        child: Column(
-          crossAxisAlignment: context.crossStart,
-          children: [
-            Text('Title', style: Theme.of(context).textTheme.headlineSmall),
-            SizedBox(height: context.spacing8),
-            Text('Subtitle', style: Theme.of(context).textTheme.bodyMedium),
-            SizedBox(height: context.spacing16),
-            // Content
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ✅ Good - Use consistent button styling
-class ConsistentButton extends StatelessWidget {
-  final String text;
-  final VoidCallback? onPressed;
+// ✅ Good - Consistent use of extensions
+class ArticleText extends StatelessWidget {
+  final String title;
+  final String content;
   
-  const ConsistentButton({
-    required this.text,
-    this.onPressed,
+  const ArticleText({
+    required this.title,
+    required this.content,
   });
   
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(context.width64, context.height48),
-        padding: context.horizontalPaddingMedium + context.verticalPaddingLow,
-        shape: RoundedRectangleBorder(
-          borderRadius: context.borderRadiusNormal,
+    return OsmeaComponents.column(
+      crossAxisAlignment: context.crossStart,
+      children: [
+        OsmeaComponents.text(
+          title,
+          fontSize: context.fontSizeExtraLarge,
+          fontFamily: context.fontRoboto,
+          fontWeight: context.bold,
+          letterSpacing: context.letterSpacingNormal,
+          textAlign: context.textLeft,
+          color: OsmeaColors.textPrimary,
         ),
-      ),
-      child: Text(text),
+        OsmeaComponents.sizedBox(height: context.spacing8),
+        OsmeaComponents.text(
+          content,
+          fontSize: context.fontSizeMedium,
+          fontFamily: context.fontRoboto,
+          fontWeight: context.normal,
+          letterSpacing: context.letterSpacingNormal,
+          wordSpacing: context.wordSpacingNormal,
+          textAlign: context.textJustify,
+          maxLines: context.maxLineUnlimited,
+          color: OsmeaColors.textSecondary,
+        ),
+      ],
+    );
+  }
+}
+```
+
+#### 2. Extension Grouping
+```dart
+// ✅ Good - Group related extensions
+OsmeaComponents.text(
+  'Styled text',
+  // Typography
+  fontFamily: context.fontMontserrat,
+  fontWeight: context.semiBold,
+  fontSize: context.fontSizeLarge,
+  // Spacing
+  letterSpacing: context.letterSpacingWide,
+  wordSpacing: context.wordSpacingWide,
+  // Layout
+  textAlign: context.textCenter,
+  maxLines: context.maxLineTwo,
+  overflow: context.ellipsis,
+  // Decoration
+  decoration: context.underline,
+  decorationStyle: context.solid,
+  // Color
+  color: OsmeaColors.textPrimary,
+)
+```
+
+#### 3. Performance Optimization
+```dart
+// ✅ Good - Use extensions efficiently
+class OptimizedText extends StatelessWidget {
+  final String text;
+  
+  const OptimizedText({required this.text});
+  
+  @override
+  Widget build(BuildContext context) {
+    return OsmeaComponents.text(
+      text,
+      fontSize: context.fontSizeMedium,
+      fontFamily: context.fontRoboto,
+      fontWeight: context.normal,
+      letterSpacing: context.letterSpacingNormal,
+      textAlign: context.textLeft,
+      maxLines: context.maxLineUnlimited,
+      color: OsmeaColors.textPrimary,
     );
   }
 }
@@ -1319,182 +557,186 @@ class ConsistentButton extends StatelessWidget {
 
 ### 🔍 Code Review Checklist
 
-#### Sizer Extensions Usage
-- [ ] Using dynamic sizing for responsive layouts
-- [ ] Consistent spacing throughout the component
-- [ ] Appropriate border radius values
-- [ ] Proper animation durations and curves
-- [ ] Mobile-first approach implemented
-- [ ] Touch targets meet minimum size requirements (48dp)
-- [ ] Extensions used instead of hard-coded values
-- [ ] Performance optimized (const where possible)
-- [ ] Code is readable and maintainable
-- [ ] Consistent patterns across similar components
+#### Extension Usage
+- [ ] Using appropriate extensions instead of hard-coded values
+- [ ] Consistent font family selection
+- [ ] Proper weight and size usage
+- [ ] Appropriate spacing values
+- [ ] Correct alignment and layout
+- [ ] Proper overflow and line handling
+- [ ] Consistent decoration usage
 
-#### Responsive Design
-- [ ] Layout adapts to different screen sizes
-- [ ] Text scales appropriately with `textScaleFactorClamped`
-- [ ] Touch targets are adequate for mobile
-- [ ] Proper use of dynamic width/height
-- [ ] Breakpoints are handled correctly
-- [ ] Orientation changes are handled
+#### Typography Quality
+- [ ] Clear visual hierarchy with extensions
+- [ ] Consistent font families and weights
+- [ ] Appropriate letter and word spacing
+- [ ] Proper text alignment
+- [ ] Consistent color usage
+- [ ] Responsive scaling
 
-#### Animation & Interaction
-- [ ] Consistent animation durations
-- [ ] Appropriate curves used for different effects
-- [ ] Animations are smooth and performant
-- [ ] Loading states are handled properly
-- [ ] User feedback is clear and consistent
-- [ ] Animation sequences are well-timed
+#### Code Quality
+- [ ] No hard-coded font values
+- [ ] Proper use of all extension categories
+- [ ] Consistent naming conventions
+- [ ] Clean and readable code
+- [ ] Proper error handling
+- [ ] Documentation completeness
 
-#### Visual Effects
-- [ ] Consistent shadow usage
-- [ ] Appropriate opacity values
-- [ ] Proper blend modes when needed
-- [ ] Consistent border radius
-- [ ] Proper use of blur and spread radius
+### 📚 Extension Reference
 
-### 📚 Common Patterns
-
-#### 1. Card Layout
+#### Font Weight Extensions
 ```dart
-Card(
-  margin: context.marginNormal,
-  child: Padding(
-    padding: context.paddingMedium,
-    child: Column(
-      crossAxisAlignment: context.crossStart,
-      children: [
-        // Header
-        Row(
-          mainAxisAlignment: context.spaceBetween,
-          children: [
-            Text('Title'),
-            Icon(Icons.more_vert),
-          ],
-        ),
-        SizedBox(height: context.spacing8),
-        // Content
-        Text('Description'),
-        SizedBox(height: context.spacing16),
-        // Actions
-        Row(
-          mainAxisAlignment: context.end,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Action'),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ),
-)
+context.thin          // FontWeight.w100
+context.extraLight    // FontWeight.w200
+context.light         // FontWeight.w300
+context.normal        // FontWeight.w400
+context.medium        // FontWeight.w500
+context.semiBold      // FontWeight.w600
+context.bold          // FontWeight.w700
+context.extraBold     // FontWeight.w800
+context.black         // FontWeight.w900
 ```
 
-#### 2. List Item
+#### Text Size Extensions
 ```dart
-ListTile(
-  contentPadding: context.horizontalPaddingMedium,
-  leading: CircleAvatar(
-    radius: context.radiusNormal,
-    child: Icon(Icons.person),
-  ),
-  title: Text('Title'),
-  subtitle: Text('Subtitle'),
-  trailing: Icon(Icons.arrow_forward_ios),
-  onTap: () {},
-)
+context.fontSizeTiny              // 8
+context.fontSizeExtraSmall        // 10
+context.fontSizeSmall             // 12
+context.fontSizeExtraSmallMedium  // 14
+context.fontSizeMedium            // 16
+context.fontSizeNormal            // 20
+context.fontSizeLarge             // 24
+context.fontSizeExtraLarge        // 32
 ```
 
-#### 3. Form Layout
+#### Font Family Extensions
 ```dart
-Column(
-  crossAxisAlignment: context.crossStart,
-  children: [
-    Text('Form Title', style: Theme.of(context).textTheme.headlineSmall),
-    SizedBox(height: context.spacing16),
-    TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Field Label',
-        border: OutlineInputBorder(
-          borderRadius: context.borderRadiusNormal,
-        ),
-      ),
-    ),
-    SizedBox(height: context.spacing8),
-    ElevatedButton(
-      onPressed: () {},
-      child: Text('Submit'),
-    ),
-  ],
-)
+context.fontDefault           // ''
+context.fontRoboto           // 'Roboto'
+context.fontOpenSans          // 'Open Sans'
+context.fontLato              // 'Lato'
+context.fontMontserrat        // 'Montserrat'
+context.fontPoppins           // 'Poppins'
+context.fontNunito            // 'Nunito'
+context.fontRaleway           // 'Raleway'
+context.fontSourceSansPro     // 'Source Sans Pro'
+context.fontOswald            // 'Oswald'
+context.fontPlayfairDisplay   // 'Playfair Display'
+context.fontMerriweather      // 'Merriweather'
+context.fontPTSans            // 'PT Sans'
+context.fontWorkSans          // 'Work Sans'
+context.fontInter             // 'Inter'
+context.fontDMSans            // 'DM Sans'
+context.fontRubik             // 'Rubik'
+context.fontManrope           // 'Manrope'
+context.fontFiraCode          // 'Fira Code'
+context.fontJetBrainsMono     // 'JetBrains Mono'
+context.fontCourierNew        // 'Courier New'
+context.fontTimesNewRoman     // 'Times New Roman'
+context.fontArial             // 'Arial'
+context.fontHelvetica         // 'Helvetica'
+context.fontSFProDisplay      // 'SF Pro Display'
+context.fontSFProText         // 'SF Pro Text'
 ```
 
-#### 4. Responsive Grid
+#### Text Alignment Extensions
 ```dart
-GridView.builder(
-  padding: context.paddingMedium,
-  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: context.isTablet ? 3 : 2,
-    crossAxisSpacing: context.spacing16,
-    mainAxisSpacing: context.spacing16,
-    childAspectRatio: 1.0,
-  ),
-  itemCount: items.length,
-  itemBuilder: (context, index) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue[100],
-        borderRadius: context.borderRadiusNormal,
-      ),
-      child: Center(
-        child: Text('Item $index'),
-      ),
-    );
-  },
-)
+context.textLeft      // TextAlign.left
+context.textRight     // TextAlign.right
+context.textCenter    // TextAlign.center
+context.textJustify   // TextAlign.justify
+context.textStart     // TextAlign.start
+context.textEnd       // TextAlign.end
 ```
 
-### 🎯 Extension Categories Reference
+#### Letter Spacing Extensions
+```dart
+context.letterSpacingExtraTight  // -1.0
+context.letterSpacingTight       // -0.5
+context.letterSpacingNormal      // 0.0
+context.letterSpacingWide        // 0.5
+context.letterSpacingExtraWide   // 1.0
+context.letterSpacingLoose       // 1.5
+context.letterSpacingExtraLoose  // 2.0
+```
 
-#### Core Extensions
-- `SizerExtension` - Basic screen dimensions and scaling
-- `BorderRadiusExtension` - Border radius utilities
-- `DurationExtension` - Duration helpers
-- `AlignmentExtension` - Alignment utilities
+#### Word Spacing Extensions
+```dart
+context.wordSpacingTight       // -1.0
+context.wordSpacingNormal      // 0.0
+context.wordSpacingWide        // 1.0
+context.wordSpacingExtraWide   // 2.0
+context.wordSpacingLoose       // 3.0
+```
 
-#### Layout Extensions
-- `SpacingExtension` - Spacing values
-- `WidthExtension` - Width utilities
-- `HeightExtension` - Height utilities
-- `PaddingExtension` - Padding utilities
-- `MarginExtension` - Margin utilities
+#### Text Overflow Extensions
+```dart
+context.clip       // TextOverflow.clip
+context.fade       // TextOverflow.fade
+context.ellipsis   // TextOverflow.ellipsis
+context.visible    // TextOverflow.visible
+```
 
-#### Animation Extensions
-- `DurationValuesExtension` - Predefined durations
-- `CurvesExtension` - Animation curves
-- `AnimationStatusExtension` - Animation states
+#### Text Decoration Extensions
+```dart
+context.none         // TextDecoration.none
+context.underline    // TextDecoration.underline
+context.overline     // TextDecoration.overline
+context.lineThrough  // TextDecoration.lineThrough
+```
 
-#### UI Extensions
-- `IconSizeExtension` - Icon sizing
-- `OpacityExtension` - Opacity values
-- `AlphaExtension` - Alpha transparency
-- `BlurRadiusExtension` - Blur effects
-- `SpreadRadiusExtension` - Shadow spread
+#### Text Decoration Style Extensions
+```dart
+context.solid   // TextDecorationStyle.solid
+context.double  // TextDecorationStyle.double
+context.dotted  // TextDecorationStyle.dotted
+context.dashed  // TextDecorationStyle.dashed
+context.wavy    // TextDecorationStyle.wavy
+```
 
-#### Utility Extensions
-- `MediaQueryExtension` - Media query utilities
-- `BoxFitExtension` - Image fitting
-- `StackFitExtension` - Stack fitting
-- `FlexExtension` - Flex values
+#### Max Line Extensions
+```dart
+context.maxLineOne        // 1
+context.maxLineTwo        // 2
+context.maxLineThree      // 3
+context.maxLineFour       // 4
+context.maxLineFive       // 5
+context.maxLineSix        // 6
+context.maxLineEight      // 8
+context.maxLineTen        // 10
+context.maxLineTwelve     // 12
+context.maxLineFifteen    // 15
+context.maxLineTwenty     // 20
+context.maxLineUnlimited  // 999
+```
+
+#### Font Feature Extensions
+```dart
+context.smallCaps        // [FontFeature.enable('smcp')]
+context.oldstyleNums     // [FontFeature.enable('onum')]
+context.liningNums       // [FontFeature.enable('lnum')]
+context.tabularNums      // [FontFeature.enable('tnum')]
+context.proportionalNums // [FontFeature.enable('pnum')]
+context.stylisticSet1    // [FontFeature.enable('ss01')]
+context.stylisticSet2    // [FontFeature.enable('ss02')]
+context.stylisticSet3    // [FontFeature.enable('ss03')]
+```
+
+#### Font Variation Extensions
+```dart
+context.fontVariationNormal     // []
+context.fontVariationWide       // [FontVariation('wdth', 125.0)]
+context.fontVariationCondensed  // [FontVariation('wdth', 75.0)]
+context.fontVariationSlant      // [FontVariation('slnt', -15.0)]
+```
 
 ### 📚 Resources
 
-- [Flutter Layout Guide](https://docs.flutter.dev/development/ui/layout)
-- [Material Design Spacing](https://material.io/design/layout/spacing-methods.html)
-- [iOS Human Interface Guidelines - Layout](https://developer.apple.com/design/human-interface-guidelines/layout)
+- [Flutter Text Widget](https://api.flutter.dev/flutter/widgets/Text-class.html)
+- [Flutter TextStyle](https://api.flutter.dev/flutter/painting/TextStyle-class.html)
+- [Material Design Typography](https://material.io/design/typography/the-type-system.html)
+- [iOS Typography Guidelines](https://developer.apple.com/design/human-interface-guidelines/typography)
+- [Web Typography Best Practices](https://web.dev/font-best-practices/)
 - [OSMEA Design System](https://github.com/masterfabric-mobile/osmea/tree/dev/docs)
 
 ---
