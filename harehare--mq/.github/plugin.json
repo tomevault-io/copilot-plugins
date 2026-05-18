@@ -1,0 +1,9 @@
+{
+  "name": "harehare--mq",
+  "displayName": "mq",
+  "description": "A jq-like Markdown query language for command-line processing",
+  "version": "1.0.0",
+  "author": "harehare",
+  "homepage": "https://github.com/harehare/mq",
+  "skills": []
+}
