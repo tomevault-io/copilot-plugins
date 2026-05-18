@@ -1,0 +1,9 @@
+{
+  "name": "lloydrichards--shadcn-storybook-registry",
+  "displayName": "shadcn-storybook-registry",
+  "description": "Repository of stories for the shadcn components.  Quickly get the atomic level components documented in Storybook.",
+  "version": "1.0.0",
+  "author": "lloydrichards",
+  "homepage": "https://github.com/lloydrichards/shadcn-storybook-registry",
+  "skills": []
+}
