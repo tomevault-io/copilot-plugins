@@ -1,0 +1,14 @@
+{
+  "name": "runpod--flash",
+  "displayName": "flash",
+  "description": "Application framework for Multimodal Distributed inference & Orchestration. ",
+  "version": "1.0.0",
+  "author": "runpod",
+  "homepage": "https://github.com/runpod/flash",
+  "skills": [
+    {
+      "name": "flash",
+      "description": ""
+    }
+  ]
+}
