@@ -1,74 +1,85 @@
-## scenario-testing
+## gemini-qa-loop
 
-> Tests that don't model real human behavior are false confidence — not test coverage.
+> Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
 
 
-# Scenario-Based Testing
+# Gemini QA Loop — Automated UI/UX Quality Gate
 
-Tests that don't model real human behavior are false confidence — not test coverage.
+Continuous dogfood loop using Gemini 3 Flash vision to score and fix UI/UX issues automatically.
 
-## Core mandate
+## Pipeline Steps (in order)
 
-Never write simple tests. Every test must be scenario-based: start from a real user context, simulate realistic behavior, and verify system behavior under that context at scale.
+```bash
+# 1. Build production bundle
+npx vite build
 
-> "Do not go for simple tests — they are not able to truly address how real people's behavior is going to show up during production. Tests must always be scenario-based, catered and aligned with real human behaviors in all angles. Do not go shallow — they must go thoroughly, deeply, and must consider scale. They must consider long-running and short-running."
+# 2. Ensure preview server is running (port 4173)
+npx vite preview --host 127.0.0.1 --port 4173 &
 
-## What "scenario-based" means
+# 3. Capture screenshots via e2e test
+BASE_URL=http://127.0.0.1:4173 npx playwright test tests/e2e/full-ui-dogfood.spec.ts --project=chromium --workers=1
 
-Every test must answer all six of these:
+# 4. Publish screenshots to public/dogfood/
+npm run dogfood:publish
 
-1. **Who** — Which user persona? (first-timer, power user, distracted, adversarial, mobile/slow network, concurrent session)
-2. **What** — What is the user trying to achieve? (start from goal, not function signature)
-3. **How** — What is the action sequence, timing, and concurrency pattern?
-4. **Scale** — What happens at 1 user, 10 concurrent, 100 sustained? Single-user happy paths are necessary but not sufficient.
-5. **Duration** — Short-running (burst, spike) AND long-running (sustained load, state accumulation, memory leak over time). A test that passes in 1 second but fails after 30 minutes is a production gap.
-6. **Failure modes** — Edge cases, race conditions, degraded inputs, partial failures, auth expiry mid-flow, retry storms.
+# 5. Record walkthrough video
+node scripts/ui/recordDogfoodWalkthrough.mjs --baseURL http://127.0.0.1:4173 --publish static
 
-## Required test categories per feature
+# 6. Run Gemini QA (sends screenshots + video to Gemini 3 Flash for scoring)
+BASE_URL=http://127.0.0.1:4173 node scripts/ui/runDogfoodGeminiQa.mjs
 
-| Category | What it covers |
-|---|---|
-| Single user — happy path | Baseline correctness |
-| Single user — all sad paths | Every error condition, invalid input, boundary value |
-| Concurrent users | Race conditions, dirty reads, double-submit |
-| Degraded conditions | Slow network, auth expiry, partial API failures, quota exhaustion |
-| Long-running accumulation | State after 100+ sessions, memory/DB growth, stale cache eviction |
-| Adversarial | Injection, unexpected payloads, replay attacks on idempotent operations |
-
-## Scenario anatomy
-
-Every scenario test must explicitly document:
-
-```
-Scenario: <name>
-User:      <persona — first-timer / power user / adversarial / slow network / etc.>
-Goal:      <what the user is trying to achieve>
-Prior state: <what's already in the system before this scenario runs>
-Actions:   <sequence of user actions with timing>
-Scale:     <1 user / 10 concurrent / 100 sustained>
-Duration:  <single request / session-length / multi-day accumulation>
-Expected:  <full observable outcome — state, side effects, UI response>
-Edge cases: <what happens when inputs are wrong, partial, or adversarial>
+# 7. Read results
+# Score + summary printed to stdout
+# Full JSON: .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
+# History: public/dogfood/qa-results.json
 ```
 
-## Anti-patterns — banned
+## Scoring Formula
 
-- Simple unit tests with no scenario context
-- Tests that only cover the happy path
-- Tests that mock everything and test nothing real
-- Tests that pass at 1 user and are never run at 10+
-- Hard-coded user state assumptions that won't hold in production
-- "It passes in CI" declared without production-realistic data volume or concurrency
-- Declaring a feature "tested" after a single integration test with synthetic clean data
+```
+Score = 100 - (P1_count × 6) - (P2_count × 2) - (P3_count × 1)
+```
 
-## Red flags you're writing shallow tests
+- **P1**: Major polish (low contrast, missing focus state, misleading UI) — 6 pts each
+- **P2**: Minor polish (spacing, inconsistent styling, empty state copy) — 2 pts each
+- **P3**: Nit (alignment, minor label wording) — 1 pt each
 
-- Your test has no defined user persona
-- Your test has no prior state setup — it starts with a clean DB every time
-- Your test doesn't specify concurrency
-- Your test duration is under 5 seconds with no long-running counterpart
-- Your test passes with `mockImplementation(() => ({}))`
-- Your assertions only check return values, not state changes and side effects
+## Fix Strategy Per Severity
+
+### P1 Fixes (highest ROI — each fix recovers 6 points)
+- **Low contrast text**: Check dark mode. Use `dark:text-gray-300` minimum.
+- **Missing focus styling**: Add `focus-visible:ring-2 focus-visible:ring-blue-500`.
+- **Missing visual hierarchy**: Add left border accent, font weight differentiation, size stepping.
+- **Poor empty states**: Add icon + descriptive copy + CTA button.
+- **Misleading labels**: Show exact price/data, add tooltips.
+
+### P2 Fixes (each recovers 2 points)
+- **Spacing**: Standardize gaps. **Date formats**: Use `month: 'short'`. **Icon contrast**: `dark:bg-indigo-500/25` min.
+
+## Loop Protocol
+
+```
+while score < target:
+    1. Read .tmp/dogfood-gemini-qa/screens-qa.json and video-qa.json
+    2. Fix all P1s first (highest ROI), then easy P2s
+    3. npx vite build && run e2e + publish + record + Gemini QA
+    4. Read new score
+    5. If 3 consecutive rounds without improvement → change strategy
+```
+
+## Gemini Noise
+
+Expect ±8 point variance between identical builds. Track P1 count (more stable than total score). Cross-check before fixing — Gemini sometimes hallucinates issues.
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `convex/domains/dogfood/screenshotQa.ts` | Screenshot QA (Gemini 3 Flash + fallback chain) |
+| `convex/domains/dogfood/videoQa.ts` | Video QA (Gemini 3 Flash + fallback chain) |
+| `scripts/ui/runDogfoodGeminiQa.mjs` | QA pipeline orchestrator |
+| `.tmp/dogfood-gemini-qa/*.json` | Latest QA results |
+| `shared/llm/modelCatalog.ts` | Model catalog with Gemini 3 defaults |
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
