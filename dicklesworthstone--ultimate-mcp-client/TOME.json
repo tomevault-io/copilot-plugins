@@ -4,7 +4,7 @@
   "repo": "ultimate_mcp_client",
   "description": "Async Python client for the Model Context Protocol with interactive CLI and reactive Web UI, connecting AI models to MCP servers via stdio and SSE",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Dicklesworthstone/ultimate_mcp_client",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T02:09:04Z"
+  "distributed_at": "2026-05-18T04:10:11Z"
 }
