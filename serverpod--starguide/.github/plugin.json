@@ -1,0 +1,9 @@
+{
+  "name": "serverpod--starguide",
+  "displayName": "starguide",
+  "description": "An AI chatbot for talking with your documentation. Using RAG.",
+  "version": "1.0.0",
+  "author": "serverpod",
+  "homepage": "https://github.com/serverpod/starguide",
+  "skills": []
+}
