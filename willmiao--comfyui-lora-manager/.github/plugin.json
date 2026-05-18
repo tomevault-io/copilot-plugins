@@ -1,0 +1,9 @@
+{
+  "name": "willmiao--comfyui-lora-manager",
+  "displayName": "ComfyUI-Lora-Manager",
+  "description": "LoRA Manager for ComfyUI - A powerful extension for organizing, previewing, and integrating LoRA models with metadata and workflow support.",
+  "version": "1.0.0",
+  "author": "willmiao",
+  "homepage": "https://github.com/willmiao/ComfyUI-Lora-Manager",
+  "skills": []
+}
