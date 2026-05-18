@@ -1,0 +1,9 @@
+{
+  "name": "cosmos--evm",
+  "displayName": "evm",
+  "description": "An EVM compatible framework for blockchain development with the Cosmos SDK",
+  "version": "1.0.0",
+  "author": "cosmos",
+  "homepage": "https://github.com/cosmos/evm",
+  "skills": []
+}
