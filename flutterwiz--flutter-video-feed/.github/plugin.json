@@ -1,0 +1,9 @@
+{
+  "name": "flutterwiz--flutter-video-feed",
+  "displayName": "flutter_video_feed",
+  "description": "\u200bA Flutter app showcasing a smooth, TikTok-style vertical video feed with MVVM architecture and LRU-based video caching for optimal performance.\u200b",
+  "version": "1.0.0",
+  "author": "FlutterWiz",
+  "homepage": "https://github.com/FlutterWiz/flutter_video_feed",
+  "skills": []
+}
