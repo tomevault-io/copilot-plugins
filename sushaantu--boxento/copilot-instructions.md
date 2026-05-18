@@ -1,19 +1,19 @@
-## styling-conventions
+## typescript-standards
 
-> Styling Standards
+> TypeScript Standards and Conventions
 
-- Use Tailwind CSS classes exclusively for styling
-- Follow utility-first CSS methodology
-- Avoid creating custom CSS files unless absolutely necessary
-- Use Tailwind's @apply directive for reusable styles in components
-- Maintain consistent spacing and layout using Tailwind's spacing scale
-- Use Tailwind's color palette for consistency
-- Support dark mode with Tailwind's dark: variant
-- Extract common class combinations into reusable React components
-- Use CSS variables (via Tailwind) for theming when appropriate
-- For complex animations, use framer-motion library with Tailwind classes
-- Place responsive design variants in a consistent order (sm:, md:, lg:, xl:)
-- Group related utility classes together (spacing, colors, typography)
+- Always use TypeScript for all new code and migrations
+- Enforce strict type checking with `strict: true` in tsconfig
+- Use explicit return types on functions and methods
+- Prefer interfaces over type aliases for object definitions
+- Use enums for fixed sets of values
+- Leverage TypeScript's utility types when appropriate
+- Use named exports rather than default exports for better tree-shaking
+- Define reusable types in dedicated type files within the types/ directory
+- Use React.FC<Props> for component typing with explicit props interface
+- Avoid using 'any' type; use 'unknown' when type is truly uncertain
+- Define parameter and return types for all async functions
+- Use type guards for narrowing types when appropriate
 
 ---
 > Source: [sushaantu/boxento](https://github.com/sushaantu/boxento) — distributed by [TomeVault](https://tomevault.io).
