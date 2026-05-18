@@ -1,108 +1,664 @@
-## changeset
+## commands
 
-> Guidelines for using Changesets (npm run changeset) to manage versioning and changelogs.
+> Guidelines for implementing CLI commands using Commander.js
 
 
-# Changesets Workflow Guidelines
+# Command-Line Interface Implementation Guidelines
 
-Changesets is used to manage package versioning and generate accurate `CHANGELOG.md` files automatically. It's crucial to use it correctly after making meaningful changes that affect the package from an external perspective or significantly impact internal development workflow documented elsewhere.
+**Note on Interaction Method:**
 
-## When to Run Changeset
+While this document details the implementation of Task Master's **CLI commands**, the **preferred method for interacting with Task Master in integrated environments (like Cursor) is through the MCP server tools**. 
 
-- Run `npm run changeset` (or `npx changeset add`) **after** you have staged (`git add .`) a logical set of changes that should be communicated in the next release's `CHANGELOG.md`.
-- This typically includes:
-    - **New Features** (Backward-compatible additions)
-    - **Bug Fixes** (Fixes to existing functionality)
-    - **Breaking Changes** (Changes that are not backward-compatible)
-    - **Performance Improvements** (Enhancements to speed or resource usage)
-    - **Significant Refactoring** (Major code restructuring, even if external behavior is unchanged, as it might affect stability or maintainability) - *Such as reorganizing the MCP server's direct function implementations into separate files*
-    - **User-Facing Documentation Updates** (Changes to README, usage guides, public API docs)
-    - **Dependency Updates** (Especially if they fix known issues or introduce significant changes)
-    - **Build/Tooling Changes** (If they affect how consumers might build or interact with the package)
-- **Every Pull Request** containing one or more of the above change types **should include a changeset file**.
+- **Use MCP Tools First**: Always prefer using the MCP tools (e.g., `get_tasks`, `add_task`) when interacting programmatically or via an integrated tool. They offer better performance, structured data, and richer error handling. See [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc) for a comprehensive list of MCP tools and their corresponding CLI commands.
+- **CLI as Fallback/User Interface**: The `task-master` CLI commands described here are primarily intended for:
+    - Direct user interaction in the terminal.
+    - A fallback mechanism if the MCP server is unavailable or a specific functionality is not exposed via an MCP tool.
+- **Implementation Context**: This document (`commands.mdc`) focuses on the standards for *implementing* the CLI commands using Commander.js within the [`commands.js`](mdc:scripts/modules/commands.js) module.
 
-## What NOT to Add a Changeset For
+## Command Structure Standards
 
-Avoid creating changesets for changes that have **no impact or relevance to external consumers** of the `task-master` package or contributors following **public-facing documentation**. Examples include:
+- **Basic Command Template**:
+  ```javascript
+  // ✅ DO: Follow this structure for all commands
+  programInstance
+    .command('command-name')
+    .description('Clear, concise description of what the command does')
+    .option('-o, --option <value>', 'Option description', 'default value')
+    .option('--long-option <value>', 'Option description')
+    .action(async (options) => {
+      // Command implementation
+    });
+  ```
 
-- **Internal Documentation Updates:** Changes *only* to files within `.cursor/rules/` that solely guide internal development practices for this specific repository.
-- **Trivial Chores:** Very minor code cleanup, adding comments that don't clarify behavior, typo fixes in non-user-facing code or internal docs.
-- **Non-Impactful Test Updates:** Minor refactoring of tests, adding tests for existing functionality without fixing bugs.
-- **Local Configuration Changes:** Updates to personal editor settings, local `.env` files, etc.
+- **Command Handler Organization**:
+  - ✅ DO: Keep action handlers concise and focused
+  - ✅ DO: Extract core functionality to appropriate modules
+  - ✅ DO: Have the action handler import and call the relevant functions from core modules, like `task-manager.js` or `init.js`, passing the parsed `options`.
+  - ✅ DO: Perform basic parameter validation, such as checking for required options, within the action handler or at the start of the called core function.
+  - ❌ DON'T: Implement business logic in command handlers
 
-**Rule of Thumb:** If a user installing or using the `task-master` package wouldn't care about the change, or if a contributor following the main README wouldn't need to know about it for their workflow, you likely don't need a changeset.
+## Best Practices for Removal/Delete Commands
 
-## How to Run and What It Asks
+When implementing commands that delete or remove data (like `remove-task` or `remove-subtask`), follow these specific guidelines:
 
-1.  **Run the command**:
-    ```bash
-    npm run changeset
-    # or
-    npx changeset add
-    ```
-2.  **Select Packages**: It will prompt you to select the package(s) affected by your changes using arrow keys and spacebar. If this is not a monorepo, select the main package.
-3.  **Select Bump Type**: Choose the appropriate semantic version bump for **each** selected package:
-    *   **`Major`**: For **breaking changes**. Use sparingly.
-    *   **`Minor`**: For **new features**.
-    *   **`Patch`**: For **bug fixes**, performance improvements, **user-facing documentation changes**, significant refactoring, relevant dependency updates, or impactful build/tooling changes.
-4.  **Enter Summary**: Provide a concise summary of the changes **for the `CHANGELOG.md`**.
-    *   **Purpose**: This message is user-facing and explains *what* changed in the release.
-    *   **Format**: Use the imperative mood (e.g., "Add feature X", "Fix bug Y", "Update README setup instructions"). Keep it brief, typically a single line.
-    *   **Audience**: Think about users installing/updating the package or developers consuming its public API/CLI.
-    *   **Not a Git Commit Message**: This summary is *different* from your detailed Git commit message.
+- **Confirmation Prompts**:
+  - ✅ **DO**: Include a confirmation prompt by default for destructive operations
+  - ✅ **DO**: Provide a `--yes` or `-y` flag to skip confirmation, useful for scripting or automation
+  - ✅ **DO**: Show what will be deleted in the confirmation message
+  - ❌ **DON'T**: Perform destructive operations without user confirmation unless explicitly overridden
 
-## Changeset Summary vs. Git Commit Message
+  ```javascript
+  // ✅ DO: Include confirmation for destructive operations
+  programInstance
+    .command('remove-task')
+    .description('Remove a task or subtask permanently')
+    .option('-i, --id <id>', 'ID of the task to remove')
+    .option('-y, --yes', 'Skip confirmation prompt', false)
+    .action(async (options) => {
+      // Validation code...
+      
+      if (!options.yes) {
+        const confirm = await inquirer.prompt([{
+          type: 'confirm',
+          name: 'proceed',
+          message: `Are you sure you want to permanently delete task ${taskId}? This cannot be undone.`,
+          default: false
+        }]);
+        
+        if (!confirm.proceed) {
+          console.log(chalk.yellow('Operation cancelled.'));
+          return;
+        }
+      }
+      
+      // Proceed with removal...
+    });
+  ```
 
-- **Changeset Summary**:
-    - **Audience**: Users/Consumers of the package (reads `CHANGELOG.md`).
-    - **Purpose**: Briefly describe *what* changed in the released version that is relevant to them.
-    - **Format**: Concise, imperative mood, single line usually sufficient.
-    - **Example**: `Fix dependency resolution bug in 'next' command.`
-- **Git Commit Message**:
-    - **Audience**: Developers browsing the Git history of *this* repository.
-    - **Purpose**: Explain *why* the change was made, the context, and the implementation details (can include internal context).
-    - **Format**: Follows commit conventions (e.g., Conventional Commits), can be multi-line with a subject and body.
-    - **Example**:
-      ```
-      fix(deps): Correct dependency lookup in 'next' command
+- **File Path Handling**:
+  - ✅ **DO**: Use `path.join()` to construct file paths
+  - ✅ **DO**: Follow established naming conventions for tasks, like `task_001.txt`
+  - ✅ **DO**: Check if files exist before attempting to delete them
+  - ✅ **DO**: Handle file deletion errors gracefully
+  - ❌ **DON'T**: Construct paths with string concatenation
 
-      The logic previously failed to account for subtask dependencies when
-      determining the next available task. This commit refactors the
-      dependency check in `findNextTask` within `task-manager.js` to
-      correctly traverse both direct and subtask dependencies. Added
-      unit tests to cover this specific scenario.
-      ```
-- ✅ **DO**: Provide *both* a concise changeset summary (when appropriate) *and* a detailed Git commit message.
-- ❌ **DON'T**: Use your detailed Git commit message body as the changeset summary.
-- ❌ **DON'T**: Skip running `changeset` for user-relevant changes just because you wrote a good commit message.
+  ```javascript
+  // ✅ DO: Properly construct file paths
+  const taskFilePath = path.join(
+    path.dirname(tasksPath),
+    `task_${taskId.toString().padStart(3, '0')}.txt`
+  );
+  
+  // ✅ DO: Check existence before deletion
+  if (fs.existsSync(taskFilePath)) {
+    try {
+      fs.unlinkSync(taskFilePath);
+      console.log(chalk.green(`Task file deleted: ${taskFilePath}`));
+    } catch (error) {
+      console.warn(chalk.yellow(`Could not delete task file: ${error.message}`));
+    }
+  }
+  ```
 
-## The `.changeset` File
+- **Clean Up References**:
+  - ✅ **DO**: Clean up references to the deleted item in other parts of the data
+  - ✅ **DO**: Handle both direct and indirect references
+  - ✅ **DO**: Explain what related data is being updated
+  - ❌ **DON'T**: Leave dangling references
 
-- Running the command creates a unique markdown file in the `.changeset/` directory (e.g., `.changeset/random-name.md`).
-- This file contains the bump type information and the summary you provided.
-- **This file MUST be staged and committed** along with your relevant code changes.
+  ```javascript
+  // ✅ DO: Clean up references when deleting items
+  console.log(chalk.blue('Cleaning up task dependencies...'));
+  let referencesRemoved = 0;
+  
+  // Update dependencies in other tasks
+  data.tasks.forEach(task => {
+    if (task.dependencies && task.dependencies.includes(taskId)) {
+      task.dependencies = task.dependencies.filter(depId => depId !== taskId);
+      referencesRemoved++;
+    }
+  });
+  
+  if (referencesRemoved > 0) {
+    console.log(chalk.green(`Removed ${referencesRemoved} references to task ${taskId} from other tasks`));
+  }
+  ```
 
-## Standard Workflow Sequence (When a Changeset is Needed)
+- **Task File Regeneration**:
+  - ✅ **DO**: Regenerate task files after destructive operations
+  - ✅ **DO**: Pass all required parameters to generation functions
+  - ✅ **DO**: Provide an option to skip regeneration if needed
+  - ❌ **DON'T**: Assume default parameters will work
 
-1.  Make your code or relevant documentation changes.
-2.  Stage your changes: `git add .`
-3.  Run changeset: `npm run changeset`
-    *   Select package(s).
-    *   Select bump type (`Patch`, `Minor`, `Major`).
-    *   Enter the **concise summary** for the changelog.
-4.  Stage the generated changeset file: `git add .changeset/*.md`
-5.  Commit all staged changes (code + changeset file) using your **detailed Git commit message**:
-    ```bash
-    git commit -m "feat(module): Add new feature X..."
-    ```
+  ```javascript
+  // ✅ DO: Properly regenerate files after deletion
+  if (!options.skipGenerate) {
+    console.log(chalk.blue('Regenerating task files...'));
+    try {
+      // Note both parameters are explicitly provided
+      await generateTaskFiles(tasksPath, path.dirname(tasksPath));
+      console.log(chalk.green('Task files regenerated successfully'));
+    } catch (error) {
+      console.warn(chalk.yellow(`Warning: Could not regenerate task files: ${error.message}`));
+    }
+  }
+  ```
 
-## Release Process (Context)
+- **Alternative Suggestions**:
+  - ✅ **DO**: Suggest non-destructive alternatives when appropriate
+  - ✅ **DO**: Explain the difference between deletion and status changes
+  - ✅ **DO**: Include examples of alternative commands
 
-- The generated `.changeset/*.md` files are consumed later during the release process.
-- Commands like `changeset version` read these files, update `package.json` versions, update the `CHANGELOG.md`, and delete the individual changeset files.
-- Commands like `changeset publish` then publish the new versions to npm.
+  ```javascript
+  // ✅ DO: Suggest alternatives for destructive operations
+  console.log(chalk.yellow('Note: If you just want to exclude this task from active work, consider:'));
+  console.log(chalk.cyan(`  task-master set-status --id='${taskId}' --status='cancelled'`));
+  console.log(chalk.cyan(`  task-master set-status --id='${taskId}' --status='deferred'`));
+  console.log('This preserves the task and its history for reference.');
+  ```
 
-Following this workflow ensures that versioning is consistent and changelogs are automatically and accurately generated based on the contributions made.
+## Option Naming Conventions
+
+- **Command Names**:
+  - ✅ DO: Use kebab-case for command names (`analyze-complexity`)
+  - ❌ DON'T: Use camelCase for command names (`analyzeComplexity`)
+  - ✅ DO: Use descriptive, action-oriented names
+
+- **Option Names**:
+  - ✅ DO: Use kebab-case for long-form option names, like `--output-format`
+  - ✅ DO: Provide single-letter shortcuts when appropriate, like `-f, --file`
+  - ✅ DO: Use consistent option names across similar commands
+  - ❌ DON'T: Use different names for the same concept, such as `--file` in one command and `--path` in another
+
+  ```javascript
+  // ✅ DO: Use consistent option naming
+  .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+  .option('-o, --output <dir>', 'Output directory', 'tasks')
+  
+  // ❌ DON'T: Use inconsistent naming
+  .option('-f, --file <path>', 'Path to the tasks file')
+  .option('-p, --path <dir>', 'Output directory') // Should be --output
+  ```
+
+  > **Note**: Although options are defined with kebab-case, like `--num-tasks`, Commander.js stores them internally as camelCase properties. Access them in code as `options.numTasks`, not `options['num-tasks']`.
+
+- **Boolean Flag Conventions**:
+  - ✅ DO: Use positive flags with `--skip-` prefix for disabling behavior
+  - ❌ DON'T: Use negated boolean flags with `--no-` prefix
+  - ✅ DO: Use consistent flag handling across all commands
+
+  ```javascript
+  // ✅ DO: Use positive flag with skip- prefix 
+  .option('--skip-generate', 'Skip generating task files')
+  
+  // ❌ DON'T: Use --no- prefix 
+  .option('--no-generate', 'Skip generating task files')
+  ```
+
+  > **Important**: When handling boolean flags in the code, make your intent clear:
+  ```javascript
+  // ✅ DO: Use clear variable naming that matches the flag's intent
+  const generateFiles = !options.skipGenerate;
+  
+  // ❌ DON'T: Use confusing double negatives
+  const dontSkipGenerate = !options.skipGenerate;
+  ```
+
+## Input Validation
+
+- **Required Parameters**:
+  - ✅ DO: Check that required parameters are provided
+  - ✅ DO: Provide clear error messages when parameters are missing
+  - ✅ DO: Use early returns with `process.exit(1)` for validation failures
+
+  ```javascript
+  // ✅ DO: Validate required parameters early
+  if (!prompt) {
+    console.error(chalk.red('Error: --prompt parameter is required. Please provide a task description.'));
+    process.exit(1);
+  }
+  ```
+
+- **Parameter Type Conversion**:
+  - ✅ DO: Convert string inputs to appropriate types, such as numbers or booleans
+  - ✅ DO: Handle conversion errors gracefully
+
+  ```javascript
+  // ✅ DO: Parse numeric parameters properly
+  const fromId = parseInt(options.from, 10);
+  if (isNaN(fromId)) {
+    console.error(chalk.red('Error: --from must be a valid number'));
+    process.exit(1);
+  }
+  ```
+
+- **Enhanced Input Validation**:
+  - ✅ DO: Validate file existence for critical file operations
+  - ✅ DO: Provide context-specific validation for identifiers
+  - ✅ DO: Check required API keys for features that depend on them
+
+  ```javascript
+  // ✅ DO: Validate file existence
+  if (!fs.existsSync(tasksPath)) {
+    console.error(chalk.red(`Error: Tasks file not found at path: ${tasksPath}`));
+    if (tasksPath === 'tasks/tasks.json') {
+      console.log(chalk.yellow('Hint: Run task-master init or task-master parse-prd to create tasks.json first'));
+    } else {
+      console.log(chalk.yellow(`Hint: Check if the file path is correct: ${tasksPath}`));
+    }
+    process.exit(1);
+  }
+  
+  // ✅ DO: Validate task ID
+  const taskId = parseInt(options.id, 10);
+  if (isNaN(taskId) || taskId <= 0) {
+    console.error(chalk.red(`Error: Invalid task ID: ${options.id}. Task ID must be a positive integer.`));
+    console.log(chalk.yellow("Usage example: task-master update-task --id='23' --prompt='Update with new information.\\nEnsure proper error handling.'"));
+    process.exit(1);
+  }
+  
+  // ✅ DO: Check for required API keys
+  if (useResearch && !process.env.PERPLEXITY_API_KEY) {
+    console.log(chalk.yellow('Warning: PERPLEXITY_API_KEY environment variable is missing. Research-backed updates will not be available.'));
+    console.log(chalk.yellow('Falling back to Claude AI for task update.'));
+  }
+  ```
+
+## User Feedback
+
+- **Operation Status**:
+  - ✅ DO: Provide clear feedback about the operation being performed
+  - ✅ DO: Display success or error messages after completion
+  - ✅ DO: Use colored output to distinguish between different message types
+
+  ```javascript
+  // ✅ DO: Show operation status
+  console.log(chalk.blue(`Parsing PRD file: ${file}`));
+  console.log(chalk.blue(`Generating ${numTasks} tasks...`));
+  
+  try {
+    await parsePRD(file, outputPath, numTasks);
+    console.log(chalk.green('Successfully generated tasks from PRD'));
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    process.exit(1);
+  }
+  ```
+
+- **Success Messages with Next Steps**:
+  - ✅ DO: Use boxen for important success messages with clear formatting
+  - ✅ DO: Provide suggested next steps after command completion
+  - ✅ DO: Include ready-to-use commands for follow-up actions
+
+  ```javascript
+  // ✅ DO: Display success with next steps
+  console.log(boxen(
+    chalk.white.bold(`Subtask ${parentId}.${subtask.id} Added Successfully`) + '\n\n' +
+    chalk.white(`Title: ${subtask.title}`) + '\n' +
+    chalk.white(`Status: ${getStatusWithColor(subtask.status)}`) + '\n' +
+    (dependencies.length > 0 ? chalk.white(`Dependencies: ${dependencies.join(', ')}`) + '\n' : '') +
+    '\n' +
+    chalk.white.bold('Next Steps:') + '\n' +
+    chalk.cyan(`1. Run ${chalk.yellow(`task-master show '${parentId}'`)} to see the parent task with all subtasks`) + '\n' +
+    chalk.cyan(`2. Run ${chalk.yellow(`task-master set-status --id='${parentId}.${subtask.id}' --status='in-progress'`)} to start working on it`),
+    { padding: 1, borderColor: 'green', borderStyle: 'round', margin: { top: 1 } }
+  ));
+  ```
+
+## Command Registration
+
+- **Command Grouping**:
+  - ✅ DO: Group related commands together in the code
+  - ✅ DO: Add related commands in a logical order
+  - ✅ DO: Use comments to delineate command groups
+
+- **Command Export**:
+  - ✅ DO: Export the registerCommands function
+  - ✅ DO: Keep the CLI setup code clean and maintainable
+
+  ```javascript
+  // ✅ DO: Follow this export pattern
+  export {
+    registerCommands,
+    setupCLI,
+    runCLI,
+    checkForUpdate, // Include version checking functions
+    compareVersions,
+    displayUpgradeNotification
+  };
+  ```
+
+## Context-Aware Command Pattern
+
+For AI-powered commands that benefit from project context, follow the research command pattern:
+
+- **Context Integration**:
+  - ✅ DO: Use `ContextGatherer` utility for multi-source context extraction
+  - ✅ DO: Support task IDs, file paths, custom context, and project tree
+  - ✅ DO: Implement fuzzy search for automatic task discovery
+  - ✅ DO: Display detailed token breakdown for transparency
+
+  ```javascript
+  // ✅ DO: Follow this pattern for context-aware commands
+  programInstance
+    .command('research')
+    .description('Perform AI-powered research queries with project context')
+    .argument('<prompt>', 'Research prompt to investigate')
+    .option('-i, --id <ids>', 'Comma-separated task/subtask IDs to include as context')
+    .option('-f, --files <paths>', 'Comma-separated file paths to include as context')
+    .option('-c, --context <text>', 'Additional custom context')
+    .option('--tree', 'Include project file tree structure')
+    .option('-d, --detail <level>', 'Output detail level: low, medium, high', 'medium')
+    .action(async (prompt, options) => {
+      // 1. Parameter validation and parsing
+      const taskIds = options.id ? parseTaskIds(options.id) : [];
+      const filePaths = options.files ? parseFilePaths(options.files) : [];
+      
+      // 2. Initialize context gatherer
+      const projectRoot = findProjectRoot() || '.';
+      const gatherer = new ContextGatherer(projectRoot, tasksPath);
+      
+      // 3. Auto-discover relevant tasks if none specified
+      if (taskIds.length === 0) {
+        const fuzzySearch = new FuzzyTaskSearch(tasksData.tasks, 'research');
+        const discoveredIds = fuzzySearch.getTaskIds(
+          fuzzySearch.findRelevantTasks(prompt)
+        );
+        taskIds.push(...discoveredIds);
+      }
+      
+      // 4. Gather context with token breakdown
+      const contextResult = await gatherer.gather({
+        tasks: taskIds,
+        files: filePaths,
+        customContext: options.context,
+        includeProjectTree: options.projectTree,
+        format: 'research',
+        includeTokenCounts: true
+      });
+      
+      // 5. Display token breakdown and execute AI call
+      // Implementation continues...
+    });
+  ```
+
+## Error Handling
+
+- **Exception Management**:
+  - ✅ DO: Wrap async operations in try/catch blocks
+  - ✅ DO: Display user-friendly error messages
+  - ✅ DO: Include detailed error information in debug mode
+
+  ```javascript
+  // ✅ DO: Handle errors properly
+  try {
+    // Command implementation
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    
+    if (CONFIG.debug) {
+      console.error(error);
+    }
+    
+    process.exit(1);
+  }
+  ```
+
+- **Unknown Options Handling**:
+  - ✅ DO: Provide clear error messages for unknown options
+  - ✅ DO: Show available options when an unknown option is used
+  - ✅ DO: Include command-specific help displays for common errors
+  - ❌ DON'T: Allow unknown options with `.allowUnknownOption()`
+
+  ```javascript
+  // ✅ DO: Register global error handlers for unknown options
+  programInstance.on('option:unknown', function(unknownOption) {
+    const commandName = this._name || 'unknown';
+    console.error(chalk.red(`Error: Unknown option '${unknownOption}'`));
+    console.error(chalk.yellow(`Run 'task-master ${commandName} --help' to see available options`));
+    process.exit(1);
+  });
+  
+  // ✅ DO: Add command-specific help displays
+  function showCommandHelp() {
+    console.log(boxen(
+      chalk.white.bold('Command Help') + '\n\n' +
+      chalk.cyan('Usage:') + '\n' +
+      `  task-master command --option1=<value> [options]\n\n` +
+      chalk.cyan('Options:') + '\n' +
+      '  --option1 <value>    Description of option1 (required)\n' +
+      '  --option2 <value>    Description of option2\n\n' +
+      chalk.cyan('Examples:') + '\n' +
+      '  task-master command --option1=\'value1\' --option2=\'value2\'',
+      { padding: 1, borderColor: 'blue', borderStyle: 'round' }
+    ));
+  }
+  ```
+
+- **Global Error Handling**:
+  - ✅ DO: Set up global error handlers for uncaught exceptions
+  - ✅ DO: Detect and format Commander-specific errors
+  - ✅ DO: Provide suitable guidance for fixing common errors
+
+  ```javascript
+  // ✅ DO: Set up global error handlers with helpful messages
+  process.on('uncaughtException', (err) => {
+    // Handle Commander-specific errors
+    if (err.code === 'commander.unknownOption') {
+      const option = err.message.match(/'([^']+)'/)?.[1]; // Safely extract option name
+      console.error(chalk.red(`Error: Unknown option '${option}'`));
+      console.error(chalk.yellow("Run 'task-master <command> --help' to see available options"));
+      process.exit(1);
+    }
+    
+    // Handle other error types...
+    console.error(chalk.red(`Error: ${err.message}`));
+    process.exit(1);
+  });
+  ```
+
+- **Contextual Error Handling**:
+  - ✅ DO: Provide specific error handling for common issues
+  - ✅ DO: Include troubleshooting hints for each error type
+  - ✅ DO: Use consistent error formatting across all commands
+
+  ```javascript
+  // ✅ DO: Provide specific error handling with guidance
+  try {
+    // Implementation
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    
+    // Provide more helpful error messages for common issues
+    if (error.message.includes('task') && error.message.includes('not found')) {
+      console.log(chalk.yellow('\nTo fix this issue:'));
+      console.log('  1. Run \'task-master list\' to see all available task IDs');
+      console.log('  2. Use a valid task ID with the --id parameter');
+    } else if (error.message.includes('API key')) {
+      console.log(chalk.yellow('\nThis error is related to API keys. Check your environment variables.'));
+    }
+    
+    if (CONFIG.debug) {
+      console.error(error);
+    }
+    
+    process.exit(1);
+  }
+  ```
+
+## Integration with Other Modules
+
+- **Import Organization**:
+  - ✅ DO: Group imports by module/functionality
+  - ✅ DO: Import only what's needed, not entire modules
+  - ❌ DON'T: Create circular dependencies
+
+  ```javascript
+  // ✅ DO: Organize imports by module
+  import { program } from 'commander';
+  import path from 'path';
+  import chalk from 'chalk';
+  import https from 'https';
+  
+  import { CONFIG, log, readJSON } from './utils.js';
+  import { displayBanner, displayHelp } from './ui.js';
+  import { parsePRD, listTasks } from './task-manager.js';
+  import { addDependency } from './dependency-manager.js';
+  ```
+
+## Subtask Management Commands
+
+- **Add Subtask Command Structure**:
+  ```javascript
+  // ✅ DO: Follow this structure for adding subtasks
+  programInstance
+    .command('add-subtask')
+    .description('Add a new subtask to a parent task or convert an existing task to a subtask')
+    .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+    .option('-p, --parent <id>', 'ID of the parent task (required)')
+    .option('-i, --task-id <id>', 'Existing task ID to convert to subtask')
+    .option('-t, --title <title>', 'Title for the new subtask, required if not converting')
+    .option('-d, --description <description>', 'Description for the new subtask, optional')
+    .option('--details <details>', 'Implementation details for the new subtask, optional')
+    .option('--dependencies <ids>', 'Comma-separated list of subtask IDs this subtask depends on')
+    .option('--status <status>', 'Initial status for the subtask', 'pending')
+    .option('--generate', 'Regenerate task files after adding subtask')
+    .action(async (options) => {
+      // Validate required parameters
+      if (!options.parent) {
+        console.error(chalk.red('Error: --parent parameter is required'));
+        showAddSubtaskHelp(); // Show contextual help
+        process.exit(1);
+      }
+      
+      // Implementation with detailed error handling
+    });
+  ```
+
+- **Remove Subtask Command Structure**:
+  ```javascript
+  // ✅ DO: Follow this structure for removing subtasks
+  programInstance
+    .command('remove-subtask')
+    .description('Remove a subtask from its parent task, optionally converting it to a standalone task')
+    .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+    .option('-i, --id <id>', 'ID of the subtask to remove in format parentId.subtaskId, required')
+    .option('-c, --convert', 'Convert the subtask to a standalone task instead of deleting')
+    .option('--generate', 'Regenerate task files after removing subtask')
+    .action(async (options) => {
+      // Implementation with detailed error handling
+    })
+    .on('error', function(err) {
+      console.error(chalk.red(`Error: ${err.message}`));
+      showRemoveSubtaskHelp(); // Show contextual help
+      process.exit(1);
+    });
+  ```
+
+## Version Checking and Updates
+
+- **Automatic Version Checking**:
+  - ✅ DO: Implement version checking to notify users of available updates
+  - ✅ DO: Use non-blocking version checks that don't delay command execution
+  - ✅ DO: Display update notifications after command completion
+
+  ```javascript
+  // ✅ DO: Implement version checking function
+  async function checkForUpdate() {
+    // Implementation details...
+    // Example return structure:
+    return { currentVersion, latestVersion, updateAvailable };
+  }
+  
+  // ✅ DO: Implement semantic version comparison
+  function compareVersions(v1, v2) {
+    const v1Parts = v1.split('.').map(p => parseInt(p, 10));
+    const v2Parts = v2.split('.').map(p => parseInt(p, 10));
+    
+    // Implementation details...
+    return result; // -1, 0, or 1
+  }
+  
+  // ✅ DO: Display attractive update notifications
+  function displayUpgradeNotification(currentVersion, latestVersion) {
+    const message = boxen(
+      `${chalk.blue.bold('Update Available!')} ${chalk.dim(currentVersion)} → ${chalk.green(latestVersion)}\n\n` +
+      `Run ${chalk.cyan('npm i task-master-ai@latest -g')} to update to the latest version with new features and bug fixes.`,
+      {
+        padding: 1,
+        margin: { top: 1, bottom: 1 },
+        borderColor: 'yellow',
+        borderStyle: 'round'
+      }
+    );
+    
+    console.log(message);
+  }
+  
+  // ✅ DO: Integrate version checking in CLI run function
+  async function runCLI(argv = process.argv) {
+    try {
+      // Start the update check in the background - don't await yet
+      const updateCheckPromise = checkForUpdate();
+      
+      // Setup and parse
+      const programInstance = setupCLI();
+      await programInstance.parseAsync(argv);
+      
+      // After command execution, check if an update is available
+      const updateInfo = await updateCheckPromise;
+      if (updateInfo.updateAvailable) {
+        displayUpgradeNotification(updateInfo.currentVersion, updateInfo.latestVersion);
+      }
+    } catch (error) {
+      // Error handling...
+    }
+  }
+  ```
+
+Refer to [`commands.js`](mdc:scripts/modules/commands.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
+// Helper function to show add-subtask command help
+function showAddSubtaskHelp() {
+  console.log(boxen(
+    chalk.white.bold('Add Subtask Command Help') + '\n\n' +
+    chalk.cyan('Usage:') + '\n' +
+    `  task-master add-subtask --parent=<id> [options]\n\n` +
+    chalk.cyan('Options:') + '\n' +
+    '  -p, --parent <id>         Parent task ID (required)\n' +
+    '  -i, --task-id <id>        Existing task ID to convert to subtask\n' +
+    '  -t, --title <title>       Title for the new subtask\n' +
+    '  -d, --description <text>  Description for the new subtask\n' +
+    '  --details <text>          Implementation details for the new subtask\n' +
+    '  --dependencies <ids>      Comma-separated list of dependency IDs\n' +
+    '  -s, --status <status>     Status for the new subtask (default: "pending")\n' +
+    '  -f, --file <file>         Path to the tasks file (default: "tasks/tasks.json")\n' +
+    '  --generate                Regenerate task files after adding subtask\n\n' +
+    chalk.cyan('Examples:') + '\n' +
+    '  task-master add-subtask --parent=\'5\' --task-id=\'8\'\n' +
+    '  task-master add-subtask -p \'5\' -t \'Implement login UI\' -d \'Create the login form\'\n' +
+    '  task-master add-subtask -p \'5\' -t \'Handle API Errors\' --details "Handle 401 Unauthorized.\\nHandle 500 Server Error." --generate',
+    { padding: 1, borderColor: 'blue', borderStyle: 'round' }
+  ));
+}
+
+// Helper function to show remove-subtask command help
+function showRemoveSubtaskHelp() {
+  console.log(boxen(
+    chalk.white.bold('Remove Subtask Command Help') + '\n\n' +
+    chalk.cyan('Usage:') + '\n' +
+    `  task-master remove-subtask --id=<parentId.subtaskId> [options]\n\n` +
+    chalk.cyan('Options:') + '\n' +
+    '  -i, --id <id>       Subtask ID(s) to remove in format "parentId.subtaskId" (can be comma-separated, required)\n' +
+    '  -c, --convert       Convert the subtask to a standalone task instead of deleting it\n' +
+    '  -f, --file <file>   Path to the tasks file (default: "tasks/tasks.json")\n' +
+    '  --generate          Regenerate task files after removing subtask\n\n' +
+    chalk.cyan('Examples:') + '\n' +
+    '  task-master remove-subtask --id=\'5.2\'\n' +
+    '  task-master remove-subtask --id=\'5.2,6.3,7.1\'\n' +
+    '  task-master remove-subtask --id=\'5.2\' --convert',
+    { padding: 1, borderColor: 'blue', borderStyle: 'round' }
+  ));
+} 
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
