@@ -1,7 +1,7 @@
 {
   "name": "burugo--one-mcp",
   "displayName": "one-mcp",
-  "description": "one-mcp",
+  "description": "A centralized reverse-proxy platform for MCP servers \u2014 manage, group, and export as Skills from a single endpoint.",
   "version": "1.0.0",
   "author": "burugo",
   "homepage": "https://github.com/burugo/one-mcp",
