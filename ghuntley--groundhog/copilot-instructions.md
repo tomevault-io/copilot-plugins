@@ -1,87 +1,157 @@
-## rust-error-handling
+## rust-observability
 
-> Rust Error Handling Best Practices
+> Rust Observability and Logging Best Practices
 
-This rule enforces best practices for error handling in Rust code.
+This rule enforces best practices for logging, tracing, and metrics in Rust applications.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
-- **Severity**: Error
-- **Category**: Error Handling
+- **Severity**: Warning
+- **Category**: Observability
 
 ## Checks
 
-1. **Result Type Usage**
-   - Use `Result<T, E>` for recoverable errors
-   - Avoid using `Option` for error cases
-   - Prefer custom error types over `String` or `Box<dyn Error>`
+1. **Structured Logging**
+   - Use `tracing` instead of `log`
+   - Include contextual information
+   - Use appropriate log levels
+   - Add structured fields to events
 
-2. **Error Propagation**
-   - Use `?` operator for error propagation
-   - Avoid excessive error mapping
-   - Implement `From` trait for error type conversions
+2. **Span Usage**
+   - Create spans for significant operations
+   - Use `#[instrument]` for function tracing
+   - Record important events within spans
+   - Use span relationships appropriately
 
-3. **Error Types**
-   - Create custom error types using `thiserror` or `anyhow`
-   - Implement `std::error::Error` trait
-   - Use meaningful error variants
+3. **Metrics Collection**
+   - Use `metrics` crate for metrics
+   - Record meaningful metrics
+   - Use appropriate metric types
+   - Include relevant labels
 
-4. **Panic Handling**
-   - Avoid using `unwrap()` and `expect()` in production code
-   - Use `panic!` only for unrecoverable errors
-   - Document panic conditions
+4. **Error Tracking**
+   - Record errors with context
+   - Use error spans for debugging
+   - Include error details in events
+   - Track error frequencies
 
 ## Examples
 
 ### Good
 ```rust
-#[derive(Debug, thiserror::Error)]
-enum DatabaseError {
-    #[error("Connection failed: {0}")]
-    ConnectionError(String),
-    #[error("Query failed: {0}")]
-    QueryError(String),
+use tracing::{info, error, instrument, Level};
+use metrics::{counter, gauge};
+
+#[instrument(level = Level::INFO, skip(input))]
+pub async fn process_data(input: &[u8]) -> Result<(), Error> {
+    // Record metric for input size
+    gauge!("data.input.size", input.len() as f64);
+    
+    // Create a span for the processing operation
+    let span = tracing::info_span!("processing_data");
+    let _guard = span.enter();
+    
+    // Record structured event
+    info!(
+        input_size = input.len(),
+        "Starting data processing"
+    );
+    
+    match process(input).await {
+        Ok(result) => {
+            // Record success metric
+            counter!("data.process.success", 1);
+            info!(
+                result_size = result.len(),
+                "Data processing completed"
+            );
+            Ok(())
+        }
+        Err(e) => {
+            // Record error metric
+            counter!("data.process.error", 1);
+            error!(
+                error = %e,
+                error_type = std::any::type_name_of_val(&e),
+                "Data processing failed"
+            );
+            Err(e)
+        }
+    }
 }
 
-fn query_database() -> Result<Data, DatabaseError> {
-    // Proper error handling with custom type
-    if connection_failed() {
-        return Err(DatabaseError::ConnectionError("Failed to connect".into()));
+/// A service that uses tracing for observability
+#[derive(Debug)]
+pub struct Service {
+    name: String,
+}
+
+impl Service {
+    #[instrument(level = Level::DEBUG)]
+    pub fn new(name: String) -> Self {
+        info!(name = %name, "Creating new service");
+        Self { name }
     }
-    Ok(data)
+
+    #[instrument(level = Level::INFO, skip(self))]
+    pub async fn handle_request(&self, request: Request) -> Result<Response, Error> {
+        // Record request metric
+        counter!("service.requests", 1, "service" => self.name.clone());
+        
+        let span = tracing::info_span!(
+            "handle_request",
+            service = %self.name,
+            request_id = %request.id
+        );
+        
+        let _guard = span.enter();
+        
+        info!(
+            method = %request.method,
+            path = %request.path,
+            "Processing request"
+        );
+        
+        // Implementation
+    }
 }
 ```
 
 ### Bad
 ```rust
-fn query_database() -> Option<Data> {
-    // Using Option for error cases
-    if connection_failed() {
-        return None;
-    }
-    Some(data)
+// Bad: Using println! instead of structured logging
+fn process_data(data: &[u8]) {
+    println!("Processing data of size {}", data.len());
 }
 
-fn process_data() -> Result<(), Box<dyn Error>> {
-    // Using generic error type
-    data.unwrap() // Using unwrap in production code
+// Bad: Missing context in error logging
+fn handle_error(e: Error) {
+    error!("Error occurred: {}", e);
+}
+
+// Bad: Not using spans for operation tracking
+async fn process_request(req: Request) -> Result<Response, Error> {
+    // No span tracking
+    let result = process(req).await;
+    // No metrics
+    result
 }
 ```
 
 ## Rationale
 
-Proper error handling is crucial for:
-- Reliable and maintainable code
-- Clear error propagation paths
-- Better debugging experience
-- Type-safe error handling
+Proper observability practices ensure:
+- Effective debugging and troubleshooting
+- Performance monitoring
+- Error tracking and analysis
+- System health monitoring
 
 ## References
 
-- [Rust Book - Error Handling](mdc:https:/doc.rust-lang.org/book/ch09-00-error-handling.html)
-- [thiserror Documentation](mdc:https:/docs.rs/thiserror/latest/thiserror)
-- [anyhow Documentation](mdc:https:/docs.rs/anyhow/latest/anyhow) 
+- [tracing Documentation](mdc:https:/docs.rs/tracing/latest/tracing)
+- [metrics Documentation](mdc:https:/docs.rs/metrics/latest/metrics)
+- [OpenTelemetry Rust](mdc:https:/opentelemetry.io/docs/instrumentation/rust) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
