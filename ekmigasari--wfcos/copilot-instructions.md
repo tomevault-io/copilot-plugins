@@ -1,61 +1,48 @@
-## product-roadmap
+## project-structure
 
-> This document outlines the planned development roadmap for the wfcOS platform, serving as a checkpoint and to-do list for implementation. Features are organized by priority and development phase.
+> This Next.js application follows a structured organization:
 
-# Product Roadmap
+# Project Structure
 
-This document outlines the planned development roadmap for the wfcOS platform, serving as a checkpoint and to-do list for implementation. Features are organized by priority and development phase.
+This Next.js application follows a structured organization:
 
-## Current Sprint (FIXING ERROR V2.1)
-These features should be prioritized for immediate implementation:
+## Directory Organization
 
-- [x] Fix Window rerender
-- [x] Fix Timer
-- [x] Fix Ambience
-- [x] to-do list check
-- [x] Notepad check
-- [x] Fix Music Player
-- [ ] Add global mute
-- [x] Add Change log v 2.1
+- `src/app/`: Contains Next.js App Router pages and layouts
+  - Each page route has its own directory with `page.tsx`, `layout.tsx`, etc.
+  - Page-specific components go in `app/[page]/components/`
 
+- `src/presentation/components/`: Reusable UI components
+  - `components/ui/`: Shadcn components
+  - `components/layout/`: Layout components like `window.tsx`
+  - `components/apps/`: Application feature components
 
-## Near-Term Roadmap
-These features are planned for the next development cycle:
+- `src/application/atoms/`: State management with Jotai atoms
+  - Each atom or related group of atoms should be in separate files
 
-- [ ] Add About section/page
-- [ ] Add Login and Cloud Storage
+- `src/application/hooks/`: Custom React hooks
+  - Named according to their functionality (e.g., `useWindowSize.ts`)
 
-## Future Roadmap
-These features are planned for future implementation:
+- `src/infrastructure/utils/`: Utility functions
+  - Including `storage.ts` for local storage operations
 
+- `src/infrastructure/config/`: Configuration files
+  - Contains `appRegistry.ts` for app/feature registration
 
-- [ ] Add mute only to click
-- [ ] Add sound typing functionality to Notepad
-- [ ] Information board
-- [ ] Bookmark functionality
-- [ ] Add logging functionality to Pomodoro timer
-- [ ] Chat application/system
+- `src/application/types/`: TypeScript type definitions
+  - Shared types and interfaces used across the application
 
+- `src/presentation/styles/`: Global styles and Tailwind configuration
+  - Includes `globals.css` for application-wide styles
 
-## Guidelines for Feature Implementation
+- `src/infrastructure/lib/`: Shared libraries and integrations
+  - External service integrations and wrappers
 
-### Feature Prioritization
-- Focus on completing Current Sprint items before starting Near-Term Roadmap
-- Document any blockers or dependencies that affect implementation
-- Update this roadmap as features are completed or priorities change
-
-### Implementation Standards
-- Follow all existing coding standards and architectural guidelines
-- Create appropriate tests for each new feature
-- Update documentation when adding new functionality
-- Ensure all new features maintain compatibility with existing system
-
-### Feature Completion Checklist
-- Implementation meets all functional requirements
-- Code passes all lint and test requirements
-- Documentation is updated
-- Feature is reviewed and approved
-- User feedback is collected when applicable
+  ### Key Files
+- `/src/infrastructure/config/appRegistry.ts`: Registry for all apps and features
+- `/src/infrastructure/utils/storage.ts`: Helpers for local storage persistence
+- `/src/presentation/components/layout/window.tsx`: Reusable window layout for apps
+- `/src/presentation/styles/globals.css`: Global styling
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
