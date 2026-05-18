@@ -7,11 +7,11 @@ The batteries-included, No-Code FinOps automation platform, with the AI you trus
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openops-cloud/openops](https://github.com/openops-cloud/openops).
+Original source: `CLAUDE.md` in [openops-cloud/openops](https://github.com/openops-cloud/openops).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
