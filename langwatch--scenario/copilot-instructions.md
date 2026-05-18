@@ -1,11 +1,17 @@
 ## scenario
 
-> Commit and push the changes to the remote repository use conventional commits.
+> - SRP (most important)
 
+# Guidelines
 
-Commit and push the changes to the remote repository use conventional commits.
+## Follow best practices
+
+- SRP (most important)
+- SOLID
+- YAGNI
+- KISS
+- CLEAN CODE
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/langwatch)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/langwatch)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [langwatch/scenario](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
