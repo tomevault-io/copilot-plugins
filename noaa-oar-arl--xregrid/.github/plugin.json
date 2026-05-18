@@ -1,0 +1,9 @@
+{
+  "name": "noaa-oar-arl--xregrid",
+  "displayName": "xregrid",
+  "description": "Interpolation library using esmpy",
+  "version": "1.0.0",
+  "author": "noaa-oar-arl",
+  "homepage": "https://github.com/noaa-oar-arl/xregrid",
+  "skills": []
+}
