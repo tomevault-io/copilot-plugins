@@ -1,0 +1,9 @@
+{
+  "name": "sullyo--webapp-starter",
+  "displayName": "webapp-starter",
+  "description": "A monorepo template for building webapps - perfect for LLMs",
+  "version": "1.0.0",
+  "author": "sullyo",
+  "homepage": "https://github.com/sullyo/webapp-starter",
+  "skills": []
+}
