@@ -1,4 +1,4 @@
-## tallstarter
+## laravel-boost
 
 > <laravel-boost-guidelines>
 
