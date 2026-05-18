@@ -1,0 +1,9 @@
+{
+  "name": "soss-lesig--adzuna-mcp",
+  "displayName": "adzuna-mcp",
+  "description": "MCP server for the Adzuna job search API",
+  "version": "1.0.0",
+  "author": "soss-lesig",
+  "homepage": "https://github.com/soss-lesig/adzuna-mcp",
+  "skills": []
+}
