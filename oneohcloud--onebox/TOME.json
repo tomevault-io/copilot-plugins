@@ -1,0 +1,44 @@
+{
+  "name": "OneBox",
+  "owner": "OneOhCloud",
+  "repo": "OneBox",
+  "description": "OneBox is a cross-platform GUI client based on the sing-box kernel. \\n Onebox \u662f\u4e00\u4e2a\u57fa\u4e8esing-box \u5185\u6838\u7684\u8de8\u5e73\u53f0\u56fe\u5f62\u5ba2\u6237\u7aef",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/OneOhCloud/OneBox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T08:30:46Z"
+}
