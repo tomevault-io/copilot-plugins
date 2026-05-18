@@ -1,206 +1,137 @@
 ## vibe-coding-template
 
-> Template for creating new FastAPI endpoints
+> This is a modern full-stack application template with Next.js frontend and Python FastAPI backend, integrated with Supabase for authentication, database, and storage.
 
+# Vibe Coding Template - Agent Instructions
 
-# FastAPI Endpoint Template
+This is a modern full-stack application template with Next.js frontend and Python FastAPI backend, integrated with Supabase for authentication, database, and storage.
 
-Use this template when creating new API endpoints:
+## Architecture Overview
 
+- **Backend**: Python FastAPI with Supabase integration
+- **Frontend**: Next.js with Tailwind CSS and TypeScript
+- **Database**: Supabase PostgreSQL with migrations
+- **Vector DB**: Qdrant for semantic search
+- **LLM Integration**: OpenAI and Anthropic support
+
+## Development Standards
+
+### Code Style
+- Use TypeScript for all frontend files
+- Use Python type hints for all backend functions
+- Follow async/await patterns consistently
+- Use snake_case for Python, camelCase for TypeScript
+- Include proper error handling in all functions
+
+### Architecture Patterns
+- Follow the service layer pattern for external integrations
+- Use Pydantic models for API request/response validation
+- Implement proper authentication on all protected endpoints
+- Use the generic SupabaseDatabaseService for database operations
+- Abstract LLM providers through service classes
+
+### File Organization
+- Backend: `backend/app/` with api/, models/, services/ subdirectories
+- Frontend: `frontend/` with app/, components/, services/ subdirectories
+- Database: `supabase/migrations/` for all schema changes
+- Rules: `.cursor/rules/` for detailed development guidelines
+
+## Common Patterns
+
+### FastAPI Endpoints
 ```python
-from fastapi import APIRouter, Depends, HTTPException, status
-from typing import List, Optional
-from pydantic import BaseModel
-
-from app.models.auth import User
-from app.services.supabase.auth import get_current_user
-from app.services.supabase.database import SupabaseDatabaseService
-
-router = APIRouter()
-
-# Request/Response Models
-class CreateItemRequest(BaseModel):
-    name: str
-    description: Optional[str] = None
-    category: str
-
-class UpdateItemRequest(BaseModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
-    category: Optional[str] = None
-
-class ItemResponse(BaseModel):
-    id: str
-    name: str
-    description: Optional[str]
-    category: str
-    user_id: str
-    created_at: str
-    updated_at: str
-
-# Service initialization
-item_service = SupabaseDatabaseService("items", ItemResponse)
-
-@router.get("/items", response_model=List[ItemResponse])
-async def list_items(
-    category: Optional[str] = None,
-    current_user: User = Depends(get_current_user)
-) -> List[ItemResponse]:
-    """List items with optional filtering."""
-    try:
-        filters = {"user_id": current_user.id}
-        if category:
-            filters["category"] = category
-
-        items = await item_service.list(filters=filters)
-        return items
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to retrieve items: {str(e)}"
-        )
-
-@router.get("/items/{item_id}", response_model=ItemResponse)
-async def get_item(
-    item_id: str,
-    current_user: User = Depends(get_current_user)
-) -> ItemResponse:
-    """Get a specific item by ID."""
-    try:
-        item = await item_service.get(item_id)
-        if not item:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Item not found"
-            )
-
-        # Ensure user owns the item
-        if item.user_id != current_user.id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied"
-            )
-
-        return item
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to retrieve item: {str(e)}"
-        )
-
-@router.post("/items", response_model=ItemResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/items", response_model=ItemResponse)
 async def create_item(
     request: CreateItemRequest,
     current_user: User = Depends(get_current_user)
 ) -> ItemResponse:
-    """Create a new item."""
     try:
-        item_data = {
-            **request.dict(),
-            "user_id": current_user.id
-        }
-
-        item = await item_service.create(item_data)
-        return item
+        # Use service layer
+        service = SupabaseDatabaseService("items", ItemResponse)
+        result = await service.create({**request.dict(), "user_id": current_user.id})
+        return result
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to create item: {str(e)}"
-        )
-
-@router.put("/items/{item_id}", response_model=ItemResponse)
-async def update_item(
-    item_id: str,
-    request: UpdateItemRequest,
-    current_user: User = Depends(get_current_user)
-) -> ItemResponse:
-    """Update an existing item."""
-    try:
-        # Check if item exists and user owns it
-        existing_item = await item_service.get(item_id)
-        if not existing_item:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Item not found"
-            )
-
-        if existing_item.user_id != current_user.id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied"
-            )
-
-        # Update only provided fields
-        update_data = {k: v for k, v in request.dict().items() if v is not None}
-
-        if not update_data:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="No fields to update"
-            )
-
-        updated_item = await item_service.update(item_id, update_data)
-        return updated_item
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to update item: {str(e)}"
-        )
-
-@router.delete("/items/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_item(
-    item_id: str,
-    current_user: User = Depends(get_current_user)
-):
-    """Delete an item."""
-    try:
-        # Check if item exists and user owns it
-        existing_item = await item_service.get(item_id)
-        if not existing_item:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Item not found"
-            )
-
-        if existing_item.user_id != current_user.id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied"
-            )
-
-        success = await item_service.delete(item_id)
-        if not success:
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Failed to delete item"
-            )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to delete item: {str(e)}"
-        )
+        raise HTTPException(status_code=400, detail=str(e))
 ```
 
-## Key Template Elements
+### React Components
+```tsx
+'use client'
+export default function ComponentName({ title, onAction }: Props) {
+  const [loading, setLoading] = useState(false)
 
-1. **Proper imports** with all necessary dependencies
-2. **Request/Response models** with Pydantic validation
-3. **Authentication** using the `get_current_user` dependency
-4. **Service layer** usage with `SupabaseDatabaseService`
-5. **Error handling** with appropriate HTTP status codes
-6. **Authorization checks** to ensure users can only access their own data
-7. **Comprehensive CRUD operations** (Create, Read, Update, Delete)
-8. **Input validation** and sanitization
-9. **Consistent response formats**
-10. **Proper HTTP status codes** for different scenarios
+  const handleAction = async () => {
+    try {
+      setLoading(true)
+      await onAction?.()
+    } catch (error) {
+      console.error('Action failed:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="p-4 rounded-lg border">
+      {/* Component content */}
+    </div>
+  )
+}
+```
+
+### Database Migrations
+```sql
+-- Create table with RLS
+CREATE TABLE public.items (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+ALTER TABLE public.items ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can manage own items"
+  ON public.items
+  USING (auth.uid() = user_id);
+```
+
+## Development Workflow
+
+1. **Setup**: Run `./first-time.sh` for initial configuration
+2. **Development**: Use `make dev` to start all services
+3. **Database**: Use `make db-migration-new name=description` for schema changes
+4. **Testing**: Visit http://localhost:8000/docs for API testing
+5. **Frontend**: Visit http://localhost:3000 for the application
+
+## Key Services
+
+- **SupabaseDatabaseService**: Generic CRUD operations
+- **SupabaseAuthService**: User authentication and token management
+- **SupabaseStorageService**: File upload and management
+- **LLMService**: Text generation with OpenAI/Anthropic
+- **EmbeddingService**: Vector embeddings for semantic search
+- **QdrantService**: Vector database operations
+
+## Environment Configuration
+
+Required environment variables:
+- `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` (required)
+- `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` (for LLM features)
+- `QDRANT_URL` and `QDRANT_API_KEY` (for vector database)
+
+## Best Practices
+
+- Always use the service layer for external API calls
+- Implement proper error handling with descriptive messages
+- Use authentication dependencies on protected endpoints
+- Follow the established patterns for consistency
+- Test API endpoints using the FastAPI docs interface
+- Use database migrations for all schema changes
+- Implement proper RLS policies for data security
+
+When adding new features, follow the established patterns and maintain consistency with the existing codebase structure.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/humanstack) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [humanstack/vibe-coding-template](https://github.com/humanstack/vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
