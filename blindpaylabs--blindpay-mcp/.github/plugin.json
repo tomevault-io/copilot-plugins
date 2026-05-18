@@ -1,0 +1,9 @@
+{
+  "name": "blindpaylabs--blindpay-mcp",
+  "displayName": "blindpay-mcp",
+  "description": "BlindPay's MCP Server.",
+  "version": "1.0.0",
+  "author": "blindpaylabs",
+  "homepage": "https://github.com/blindpaylabs/blindpay-mcp",
+  "skills": []
+}
