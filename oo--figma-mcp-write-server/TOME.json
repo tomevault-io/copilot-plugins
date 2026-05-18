@@ -4,7 +4,7 @@
   "repo": "figma-mcp-write-server",
   "description": "A Model Context Protocol (MCP) server for writing to Figma files",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oO/figma-mcp-write-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T00:52:57Z"
+  "distributed_at": "2026-05-18T02:30:58Z"
 }
