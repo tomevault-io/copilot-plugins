@@ -1,34 +1,35 @@
-## reexamine-process
+## reexamine-resilience
 
-> After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
+> Re-examine error resilience — retry with backoff, partial failures, error boundaries, graceful degradation
 
 
-# Re-examine for 11/10
+# Re-examine: Error Resilience
 
-After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
+## Retry with backoff
+- Network/fetch calls: retry 2-3 times with exponential backoff (`Math.min(30000, base * 1.5^attempt)`)
+- Show retry status to user (e.g., "Retrying in 5s..." or a refresh indicator)
+- Add a manual "Retry" button after max retries exhausted
 
-## When to trigger
-- After any feature, fix, or refactor touching 3+ files or 50+ lines
-- After any UI/dashboard/component work
-- Before marking a task as "done"
+## Partial failures
+- If one API call in a batch fails, don't discard the successful results
+- Render what you have + show targeted error for the failed portion
+- Example: 9/10 screenshots load → show 9 + "1 image unavailable" placeholder
 
-## The process
-1. **Step back**: Stop coding. Read the output as a first-time user would.
-2. **Scan each related_ domain**: Walk the `related_` list below — each is a focused checklist.
-3. **Fix what you find**: Don't just note issues — fix them in the same pass.
-4. **Re-examine the fixes**: New code can introduce new gaps. One more scan.
+## Error boundaries (React / UI)
+- Wrap major sections in error boundaries so one crash doesn't take down the page
+- Error boundary fallback: informative message + retry action, not blank screen
+- Log errors to console or telemetry with enough context to debug
 
-## Quick checklist (expand via related_ hops)
-- [ ] Accessibility gaps? → `reexamine_a11y`
-- [ ] Error resilience? → `reexamine_resilience`
-- [ ] Visual polish / micro-interactions? → `reexamine_polish`
-- [ ] Keyboard efficiency? → `reexamine_keyboard`
-- [ ] Performance / progressive disclosure? → `reexamine_performance`
+## Graceful degradation
+- If optional dependency missing (embedding model, Python server, env var): degrade, don't crash
+- Feature detection before use: `if (window.IntersectionObserver)` etc.
+- Image 404 → fallback placeholder with "Image unavailable" text
+- Missing data fields → show "N/A" or hide the section, not `undefined`
 
-## Anti-patterns
-- Skipping the re-examine because "it works"
-- Re-examining only your own changes (check adjacent code too)
-- Adding complexity without user benefit (re-examine is about polish, not gold-plating)
+## Loading states
+- Every async operation needs a loading indicator (skeleton, spinner, or progress bar)
+- Never leave the user staring at a blank screen during fetch
+- See `reexamine_polish` for skeleton loading patterns
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
