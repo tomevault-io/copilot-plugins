@@ -1,0 +1,9 @@
+{
+  "name": "utensils--mcp-nixos",
+  "displayName": "mcp-nixos",
+  "description": "MCP-NixOS - Model Context Protocol Server for NixOS resources",
+  "version": "1.0.0",
+  "author": "utensils",
+  "homepage": "https://github.com/utensils/mcp-nixos",
+  "skills": []
+}
