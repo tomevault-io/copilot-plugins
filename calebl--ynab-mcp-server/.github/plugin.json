@@ -1,0 +1,9 @@
+{
+  "name": "calebl--ynab-mcp-server",
+  "displayName": "ynab-mcp-server",
+  "description": "Model Context Protocol for YNAB (you need a budget)",
+  "version": "1.0.0",
+  "author": "calebl",
+  "homepage": "https://github.com/calebl/ynab-mcp-server",
+  "skills": []
+}
