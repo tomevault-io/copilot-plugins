@@ -1,20 +1,36 @@
-## mcpm-sh
+## conventional-commits
 
-> This file contains conventions that Claude should follow when working on this project.
+> This rule defines the format for creating commit messages
 
-# Claude Project Conventions
+## Conventional Commits
 
-This file contains conventions that Claude should follow when working on this project.
+The `conventional-commits` rule enforces the use of conventional commit message format, which is required for semantic versioning and automatic changelog generation.
 
-- **Dependency Management:** Use `uv` for all Python dependency management.
-- **Python Environment:** You are in the uv `.venv` Python environment. All dependency code can be found in `.venv/`.
-- **Formatting:** Always format Python code with `ruff`.
-- **Committing:** 
-  - NEVER commit anything to git unless explicitly asked to do so.
-  - Always double-check with the user before committing changes to git.
-  - This project follows semantic release - commit messages MUST follow Conventional Commits format.
-  - Examples: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, `chore:`
-  - BREAKING CHANGES: Adding `BREAKING CHANGE:` in the commit footer triggers a major release. This is very uncommon - NEVER do this unless explicitly told to do so.
+### Format
+
+Commit messages must follow this format:
+```
+<type>[(scope)]: <description>
+```
+
+### Types
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation changes
+- `style`: Changes that do not affect the meaning of the code
+- `refactor`: Code changes that neither fix a bug nor add a feature
+- `perf`: Performance improvements
+- `test`: Adding or fixing tests
+- `chore`: Changes to the build process or auxiliary tools
+- `ci`: Changes to CI configuration
+- `revert`: Reverting a previous commit
+- `build`: Changes that affect the build system
+
+### Example Valid Commit Messages
+- `feat: add user authentication`
+- `fix(auth): resolve token expiration issue`
+- `docs: update API documentation`
+- `chore(deps): update dependencies` 
 
 ---
 > Source: [pathintegral-institute/mcpm.sh](https://github.com/pathintegral-institute/mcpm.sh) — distributed by [TomeVault](https://tomevault.io).
