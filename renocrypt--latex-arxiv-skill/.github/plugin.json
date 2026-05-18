@@ -1,0 +1,9 @@
+{
+  "name": "renocrypt--latex-arxiv-skill",
+  "displayName": "latex-arxiv-SKILL",
+  "description": "A .codex SKILL for issue-driven ML/AI arXiv review papers: scaffold LaTeX + verify BibTeX citations end-to-end.",
+  "version": "1.0.0",
+  "author": "renocrypt",
+  "homepage": "https://github.com/renocrypt/latex-arxiv-SKILL",
+  "skills": []
+}
