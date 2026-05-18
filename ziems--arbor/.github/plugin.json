@@ -1,0 +1,9 @@
+{
+  "name": "ziems--arbor",
+  "displayName": "arbor",
+  "description": "A framework for optimizing DSPy programs with RL",
+  "version": "1.0.0",
+  "author": "Ziems",
+  "homepage": "https://github.com/Ziems/arbor",
+  "skills": []
+}
