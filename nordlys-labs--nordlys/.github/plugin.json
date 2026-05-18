@@ -1,0 +1,9 @@
+{
+  "name": "nordlys-labs--nordlys",
+  "displayName": "nordlys",
+  "description": "Nordlys is an AI lab building a Mixture of Models. This repository contains the internal engine and tooling that power Nordlys models.",
+  "version": "1.0.0",
+  "author": "Nordlys-Labs",
+  "homepage": "https://github.com/Nordlys-Labs/nordlys",
+  "skills": []
+}
