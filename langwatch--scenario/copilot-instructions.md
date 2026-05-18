@@ -1,16 +1,9 @@
-## scenario
+## agents
 
-> - SRP (most important)
+> Read `AGENTS.md` - non-negotiable.
 
-# Guidelines
 
-## Follow best practices
-
-- SRP (most important)
-- SOLID
-- YAGNI
-- KISS
-- CLEAN CODE
+Read `AGENTS.md` - non-negotiable.
 
 ---
 > Source: [langwatch/scenario](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io).
