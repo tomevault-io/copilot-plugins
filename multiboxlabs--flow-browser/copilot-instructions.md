@@ -1,51 +1,101 @@
-## flow-browser
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> Flow Browser is an Electron-based web browser built with React 19, TypeScript, Vite, and TailwindCSS 4. It uses an embedded SQLite database (via `better-sqlite3` / Drizzle ORM) and has no external backend services.
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# AGENTS.md
 
-### Overview
+Default to using Bun instead of Node.js.
 
-Flow Browser is an Electron-based web browser built with React 19, TypeScript, Vite, and TailwindCSS 4. It uses an embedded SQLite database (via `better-sqlite3` / Drizzle ORM) and has no external backend services.
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-### Prerequisites
+## APIs
 
-- **Node.js v22+** (see `.nvmrc`)
-- **Bun v1.2.0+** (package manager; lockfile is `bun.lock`)
-- **build-essential** and **python3** (for native module compilation via node-gyp)
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-### Key commands
+## Frontend
 
-Standard dev commands are in `package.json`. Quick reference:
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-| Task           | Command         |
-| -------------- | --------------- |
-| Install deps   | `bun install`   |
-| Lint           | `bun lint`      |
-| Typecheck      | `bun typecheck` |
-| Dev mode       | `bun dev`       |
-| Dev with watch | `bun dev:watch` |
-| Format         | `bun format`    |
+Server:
 
-### Running the Electron app in headless / cloud environments
+```ts#index.ts
+import index from "./index.html"
 
-- The `postinstall` script (`electron-builder install-app-deps`) rebuilds native modules automatically during `bun install`.
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
 
-### Before pushing changes
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-- Make sure to run `bun run lint`, `bun run typecheck`, `bun run format` and address any issues, or the CI might fail.
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-### Gotchas
+With the following `frontend.tsx`:
 
-- The `electron` dependency is installed from a Castlabs fork (`@castlabs/electron-releases`) for Widevine DRM support. This is normal and expected.
-- There are no automated test suites (no `test` script in `package.json`). Validation is done via `bun lint` and `bun typecheck`.
-- Animation imports use `motion/react` (not `framer-motion`).
+```tsx#frontend.tsx
+import React from "react";
 
-## Cursor Cloud specific instructions (Ignore if not running on Cursor Cloud)
+// import .css files directly and it works
+import './index.css';
 
-- The VM already has a display at `DISPLAY=:1`. Run `bun dev` directly; no `xvfb-run` wrapper is needed.
-- GLib-GObject and D-Bus warnings in the Electron stderr output are harmless on headless Linux and can be ignored.
-- On first launch, Flow Browser shows an onboarding wizard that must be completed before the main browser window appears.
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [MultiboxLabs/flow-browser](https://github.com/MultiboxLabs/flow-browser) — distributed by [TomeVault](https://tomevault.io).
