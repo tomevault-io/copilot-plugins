@@ -1,0 +1,9 @@
+{
+  "name": "decision-labs--geoai-js",
+  "displayName": "geoai.js",
+  "description": "\ud83d\udef0\ufe0f GeoAI.js is a javascript library for use with transformers.js to perform GeoAI on the frontend",
+  "version": "1.0.0",
+  "author": "decision-labs",
+  "homepage": "https://github.com/decision-labs/geoai.js",
+  "skills": []
+}
