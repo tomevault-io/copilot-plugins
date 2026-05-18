@@ -1,0 +1,9 @@
+{
+  "name": "hackclub--hackatime",
+  "displayName": "hackatime",
+  "description": "Free, open source, WakaTime-compatible coding time tracker",
+  "version": "1.0.0",
+  "author": "hackclub",
+  "homepage": "https://github.com/hackclub/hackatime",
+  "skills": []
+}
