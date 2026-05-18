@@ -1,9 +1,9 @@
 {
   "name": "agentdock--agentdock",
   "displayName": "AgentDock",
-  "description": "AgentDock",
+  "description": "Build Anything with AI Agents",
   "version": "1.0.0",
   "author": "AgentDock",
-  "homepage": "https://tomevault.io/claim/AgentDock",
+  "homepage": "https://github.com/AgentDock/AgentDock",
   "skills": []
 }
