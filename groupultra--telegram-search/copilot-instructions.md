@@ -1,54 +1,57 @@
-## backend-server
+## client
 
-> - **Role**: Thin WebSocket + HTTP edge that:
+> - **Role**: Bridge between UI (Vue/Pinia) and core (`packages/core`) in both:
 
 
-## Backend Server (apps/server)
+## Client Adapters (packages/client)
 
-- **Role**: Thin WebSocket + HTTP edge that:
-  - Hosts a **`CoreContext` per WebSocket connection**.
-  - Exposes health/metrics endpoints.
-  - Delegates all business logic to `packages/core`.
-- Do **not** add business rules, Telegram API calls, or heavy data processing into `apps/server`; push those into `packages/core`.
+- **Role**: Bridge between UI (Vue/Pinia) and core (`packages/core`) in both:
+  - **Browser-only mode** (embedded core via `core-runtime` / `core-bridge`).
+  - **Server mode** (WebSocket adapter to `apps/server`).
+- Keep this package thin and focused on:
+  - Event wiring.
+  - Session/account management.
+  - Store updates and derivations for UI consumption.
 
-### Bootstrap & Lifecycle
+### Core Runtime & Bridge
 
-- Preserve the bootstrap sequence from `src/app.ts`:
-  1. Parse env flags (`parseEnvFlags`).
-  2. Initialize logging (`initLogger` + `useLogger().useGlobalConfig()`).
-  3. Build runtime config from environment (`parseEnvToConfig(process.env)`).
-  4. Initialize database via `initDrizzle` using that config.
-  5. Configure the HTTP/WebSocket server.
-  6. Start listening via `listhen` and register graceful shutdown handlers.
-- Any changes must keep this order clear and failure modes explicit.
+- `core-runtime`:
+  - Owns the lifecycle of `CoreContext` and DB initialization in browser mode.
+  - Exposes helper methods (`getCtx`, `destroy`, etc.) instead of leaking internal implementation.
+- `core-bridge`:
+  - Manages sessions, the active account slot, and event handler registration.
+  - On account switch:
+    - Destroy the existing `CoreContext`.
+    - Re-register client-side event handlers for the new active account.
+  - Never share a single runtime instance across different account IDs.
 
-### HTTP & WebSocket Design
+### Events & Type Safety
 
-- HTTP:
-  - Keep endpoints minimal: health checks, metrics, and potentially a small set of diagnostics.
-  - Reuse `h3` helpers (`createApp`, `createRouter`, `defineEventHandler`) and centralize error handling in `onError`.
-  - Never leak internal error details in HTTP responses; log full details, return generic messages.
-- WebSocket:
-  - Route all WS traffic through a dedicated module (e.g. `ws/routes`) that knows how to instantiate and manage `CoreContext`.
-  - Enforce **one `CoreContext` per connection**; no cross-connection sharing.
-  - When adding new events, ensure types are synchronized with `@tg-search/server/types` and `@tg-search/core`.
+- Always go through the typed WebSocket/core event maps:
+  - Use `WsEventToServer`, `WsEventToClient`, and `FromCoreEvent` / `ToCoreEvent` types.
+  - Avoid untyped `any` payloads or generic `Record<string, unknown>` where stronger types are available.
+- When adding new events:
+  - Update the shared `@tg-search/server/types`.
+  - Extend client event handler maps and registration helpers.
+  - Keep the mapping between WS event names and core events explicit.
 
-### Configuration & Environment
+### Pinia Stores & Composables
 
-- Source configuration from `config.yaml` + environment variables only; avoid hard-coding URLs, ports, or credentials.
-- Keep the config schema compatible between server and browser modes where applicable (database, embedding, Telegram API).
-- When adding new configuration options:
-  - Document them in `.env.example`.
-  - Provide safe defaults that will not break existing deployments.
+- Stores in `packages/client` are the **source of truth** for app state:
+  - Use actions to emit events to core and react to `FromCoreEvent` updates.
+  - Avoid duplicating the same state in both `apps/web` and `packages/client`.
+- For reusable logic, prefer composables and pure utilities inside this package rather than re-implementing logic in components.
 
-### Error Handling & Observability
+### Logging & Error Handling
 
-- Use central error handlers:
-  - `setupErrorHandlers` for process-level errors (uncaughtException, unhandledRejection).
-  - `h3`'s `onError` hook for HTTP path errors.
-- Metrics:
-  - Use `prom-client` and expose metrics from `/metrics` using the shared registry.
-  - Only add new metrics when they support explicit SLOs (latency, error rate, throughput).
+- Use `useLogger` with a **component/module name** (e.g. `'CoreBridge'`) for all logs in this package.
+- Log:
+  - High-level intent (event name, account/session IDs).
+  - Errors when event delivery or handler invocation fails.
+- Do not log sensitive payload data (raw messages, tokens, secrets).
+- When something fails:
+  - Prefer emitting a client-facing event that the UI can react to (e.g. a `core:error` or domain-specific failure event).
+  - Avoid throwing unhandled exceptions that would crash the whole bridge.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
