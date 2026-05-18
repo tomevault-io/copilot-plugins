@@ -2,9 +2,9 @@
   "name": "elegoo-homeassistant",
   "owner": "danielcherubini",
   "repo": "elegoo-homeassistant",
-  "description": "",
+  "description": "A Integration for Home Assistant and Elegoo Printers using SDCP ",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/danielcherubini",
+  "source_url": "https://github.com/danielcherubini/elegoo-homeassistant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T02:02:34Z"
+  "distributed_at": "2026-05-18T23:46:27Z"
 }
