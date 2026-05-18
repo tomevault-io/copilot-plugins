@@ -1,81 +1,123 @@
-## rust-async
+## rust-cargo
 
-> Rust Async/Await Best Practices
+> Rust Cargo and Dependency Management Best Practices
 
-This rule enforces best practices for asynchronous programming in Rust.
+This rule enforces best practices for Cargo and dependency management in Rust projects.
 
 ## Rule Details
 
-- **Pattern**: `*.rs`
-- **Severity**: Error
-- **Category**: Async Programming
+- **Pattern**: `Cargo.toml`
+- **Severity**: Warning
+- **Category**: Dependencies
 
 ## Checks
 
-1. **Async Function Design**
-   - Use `async fn` for asynchronous functions
-   - Return `impl Future` for complex async types
-   - Avoid blocking operations in async contexts
+1. **Dependency Management**
+   - Use specific version constraints
+   - Avoid using `*` or `>=` for versions
+   - Use workspace dependencies when appropriate
+   - Document dependency purposes
 
-2. **Future Handling**
-   - Use `.await` for awaiting futures
-   - Avoid unnecessary `.await` chaining
-   - Use `tokio::spawn` for concurrent tasks
+2. **Feature Flags**
+   - Use feature flags for optional functionality
+   - Document feature requirements
+   - Use `default-features = false` when appropriate
+   - Group related features
 
-3. **Resource Management**
-   - Use `tokio::timeout` for timeouts
-   - Implement proper cancellation
-   - Handle backpressure appropriately
+3. **Workspace Organization**
+   - Use workspaces for related crates
+   - Share common dependencies
+   - Use path dependencies for local crates
+   - Organize crates logically
 
-4. **Async Traits**
-   - Use `async-trait` for async trait methods
-   - Consider using `dyn Future` for trait objects
-   - Implement proper error handling in async traits
+4. **Build Configuration**
+   - Use appropriate profiles
+   - Configure build scripts properly
+   - Use conditional compilation
+   - Document build requirements
 
 ## Examples
 
 ### Good
-```rust
-use tokio::time::{timeout, Duration};
+```toml
+[package]
+name = "my-project"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A well-documented project"
+license = "MIT"
 
-async fn fetch_data() -> Result<Data, Error> {
-    // Proper async function with timeout
-    let data = timeout(Duration::from_secs(5), fetch_from_api()).await??;
-    Ok(data)
-}
+[dependencies]
+# Use specific versions with caret
+tokio = { version = "1.28", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+env_logger = "0.10"
 
-#[async_trait]
-pub trait AsyncService {
-    async fn process(&self, input: Input) -> Result<Output, Error>;
-}
+# Optional features
+my-crate = { version = "0.5", optional = true }
+
+[features]
+default = ["my-crate"]
+# Group related features
+async = ["tokio/async"]
+json = ["serde/json"]
+
+[workspace]
+members = [
+    "core",
+    "cli",
+    "web"
+]
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[build-dependencies]
+cc = "1.0"
 ```
 
 ### Bad
-```rust
-fn blocking_operation() {
-    // Blocking operation in async context
-    std::thread::sleep(Duration::from_secs(1));
-}
+```toml
+[package]
+name = "bad-project"
+version = "0.1.0"
 
-async fn unnecessary_await() {
-    // Unnecessary await chaining
-    let result = some_future().await.await.await;
-}
+[dependencies]
+# Bad: Using wildcard version
+tokio = "*"
+# Bad: Using >= for version
+serde = ">=1.0"
+# Bad: Missing feature specification
+log = "0.4"
+
+# Bad: Unorganized features
+[features]
+feature1 = []
+feature2 = []
+feature3 = []
+
+# Bad: Missing workspace organization
+[workspace]
+members = ["*"]
 ```
 
 ## Rationale
 
-Proper async/await usage ensures:
-- Efficient resource utilization
-- Non-blocking I/O operations
-- Scalable concurrent applications
-- Clear async boundaries
+Proper dependency management ensures:
+- Reproducible builds
+- Security through version control
+- Efficient dependency resolution
+- Clear project organization
 
 ## References
 
-- [Rust Async Book](mdc:https:/rust-lang.github.io/async-book)
-- [Tokio Documentation](mdc:https:/docs.rs/tokio/latest/tokio)
-- [async-trait Documentation](mdc:https:/docs.rs/async-trait/latest/async_trait) 
+- [Cargo Book](mdc:https:/doc.rust-lang.org/cargo)
+- [Cargo.toml Reference](mdc:https:/doc.rust-lang.org/cargo/reference/manifest.html)
+- [Rust Edition Guide](mdc:https:/rust-lang.github.io/edition-guide) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
