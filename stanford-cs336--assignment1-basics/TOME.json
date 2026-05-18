@@ -4,7 +4,7 @@
   "repo": "assignment1-basics",
   "description": "Student version of Assignment 1 for Stanford CS336 - Language Modeling From Scratch",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stanford-cs336/assignment1-basics",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T00:56:06Z"
+  "distributed_at": "2026-05-18T00:57:55Z"
 }
