@@ -1,141 +1,56 @@
-## 4-authentication
+## 5-frontend-styling
 
-> This document details how authentication is configured and used within the Wasp application.
+> This document outlines conventions for building the user interface with React and styling it with Tailwind CSS.
 
-# 4. Authentication
+# 5. Frontend (React) and Styling (TailwindCSS)
 
-This document details how authentication is configured and used within the Wasp application.
+This document outlines conventions for building the user interface with React and styling it with Tailwind CSS.
 
-## Wasp Auth Setup (`@main.wasp`)
+## React Conventions
 
-- Wasp provides built-in authentication with minimal configuration in [main.wasp](mdc:main.wasp).
-- Auth can be configured with username/password, social providers (Google, GitHub, etc.), or verified email and password.
-- Wasp generates all necessary auth routes, middleware, and UI components based on the configuration.
-- Example auth configuration in [main.wasp](mdc:main.wasp):
-  ```wasp
-  app myApp {
-    // ... other config
-    auth: {
-      // Links Wasp auth to your User model in @schema.prisma
-      userEntity: User,
-      methods: {
-        // Enable username/password login
-        usernameAndPassword: {},
-        // Enable Google OAuth login
-        // Requires setting GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET env vars
-        google: {},
-        // Enable email/password login with verification
-        email: {
-          // Set up an email sender (Dummy prints to console)
-          // See https://wasp-lang.com/docs/auth/email-auth#email-sending
-          fromField: {
-            name: "Budgeting Vibe",
-            email: "noreply@budgetingvibe.com"
-          },
-          emailVerification: {
-            clientRoute: EmailVerificationRoute
-          },
-          passwordReset: {
-            clientRoute: PasswordResetRoute
-          }
-        }
-      },
-      // Route to redirect to if auth fails
-      onAuthFailedRedirectTo: "/login",
-      // Optional: Route after successful signup/login
-      // onAuthSucceededRedirectTo: "/dashboard"
-    }
-    emailSender: {
-      provider: Dummy // Use Dummy for local dev (prints emails to console)
-      // provider: SMTP // For production, configure SMTP
-    }
-  }
+- **Imports:**
+  - Use relative paths to import other React components within the `src/` directory.
+    - ✅ `import { MyButton } from '../components/MyButton';`
+    - ❌ `import { MyButton } from '@src/components/MyButton';`
+  
+- **State Management:**
+  - Use standard React hooks (`useState`, `useEffect`, `useReducer`) for component-level state.
+  - Use Wasp Queries (`useQuery`) for fetching and managing server state on the client.
+  - Consider React Context (`createContext`, `useContext`) for global UI state that doesn't need server persistence (e.g., theme, modal visibility) but avoid overusing it for state that belongs in specific components or on the server.
+- **Error Handling (Client-side):**
+  - Use `try/catch` blocks with `async/await` when calling Wasp Actions.
+  - The `useQuery` hook provides `error` objects for handling query errors.
+  - Consider implementing a global React Error Boundary component at a high level in your component tree (e.g., within the root component) to catch rendering errors gracefully.
+    - See [React Docs on Error Boundaries](mdc:https:/react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary).
 
-  // Define the routes needed by email auth methods
-  route EmailVerificationRoute { path: "/auth/verify-email/:token", to: EmailVerificationPage }
-  page EmailVerificationPage { component: import { EmailVerification } from "@src/features/auth/EmailVerificationPage.tsx" }
+## Shadcn/ui Components (`src/components`)
 
-  route PasswordResetRoute { path: "/auth/reset-password/:token", to: PasswordResetPage }
-  page PasswordResetPage { component: import { PasswordReset } from "@src/features/auth/PasswordResetPage.tsx" }
-  ```
+- This project utilizes components based on the [Shadcn/ui](mdc:https:/ui.shadcn.com) library, primarily located within the `src/components` directory and its subdirectories (e.g., `src/components/ui`).
+- Many of these components follow patterns and styles inspired by common admin dashboard layouts built with Shadcn/ui.
+- **Usage:** When building UI features, prefer using or adapting existing components from `src/components` to maintain visual consistency.
+- **Customization:** Components are typically self-contained or rely on utilities (e.g., `cn` for merging Tailwind classes). Refer to the Shadcn/ui documentation for underlying principles if deeper customization is needed.
+- **Adding New Components:** If adding new components inspired by Shadcn/ui, follow the existing structure and conventions within `src/components`.
 
-- **Dummy Email Provider Note:** When `emailSender: { provider: Dummy }` is configured in [main.wasp](mdc:main.wasp), Wasp does not send actual emails. Instead, the content of verification/password reset emails, including the clickable link, will be printed directly to the server console where `wasp start` is running.
+## TailwindCSS Conventions
 
-## Wasp Auth Rules
+- **Primary Styling Method:** Use Tailwind CSS utility classes directly in your JSX for styling.
+- **Avoid Inline Styles:** Generally avoid using the `style` prop unless absolutely necessary for dynamic styles that cannot be achieved with Tailwind classes.
+- **Reusability:** For complex or frequently reused style combinations, consider:
+  - Creating reusable React components that encapsulate the structure and styling.
+  - If necessary, using `@apply` within a global CSS file (`src/client/index.css` or similar) to create custom reusable classes, but prefer component composition first.
+    ```css
+    /* Example in index.css */
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
-- **User Model ( [schema.prisma](mdc:schema.prisma) ):**
-  - Wasp Auth methods handle essential identity fields (like `email`, `password hash`, `provider IDs`, `isVerified`) internally. These are stored in separate Prisma models managed by Wasp (`AuthProvider`, `AuthProviderData`).
-  - Your Prisma `User` model (specified in [main.wasp](mdc:main.wasp) as `auth.userEntity`) typically **only needs the `id` field** for Wasp to link the auth identity.
-    ```prisma
-    // Minimal User model in @schema.prisma
-    model User {
-      id Int @id @default(autoincrement())
-      // Add other *non-auth* related fields as needed
-      // e.g., profile info, preferences, relations to other models
-      // profileImageUrl String?
-      // timeZone        String? @default("UTC")
+    .btn-primary {
+      @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300;
     }
     ```
-  - **Avoid adding** `email`, `emailVerified`, `password`, `username`, or provider-specific ID fields directly to *your* `User` model in [schema.prisma](mdc:schema.prisma) unless you have very specific customization needs that require overriding Wasp's default behavior and managing these fields manually.
-  - If you need frequent access to an identity field like `email` or `username` for *any* user (not just the logged-in one), see the **Recommendation** in the "Wasp Auth User Fields" section below.
-
-- **Auth Pages:**
-  - When initially creating Auth pages (Login, Signup), use the pre-built components provided by Wasp for simplicity:
-    - `import { LoginForm, SignupForm } from 'wasp/client/auth';`
-    - These components work with the configured auth methods in [main.wasp](mdc:main.wasp).
-    - You can customize their appearance or build completely custom forms if needed.
-
-- **Protected Routes/Pages:**
-  - Use the `useAuth` hook from `wasp/client/auth` to access the current user's data and check authentication status.
-  - Redirect or show alternative content if the user is not authenticated.
-  ```typescript
-  import { useAuth } from 'wasp/client/auth';
-  import { Redirect } from 'wasp/client/router'; // Or use Link
-
-  const MyProtectedPage = () => {
-    const { data: user, isLoading, error } = useAuth(); // Returns AuthUser | null
-
-    if (isLoading) return <div>Loading...</div>;
-    // If error, it likely means the auth session is invalid/expired
-    if (error || !user) {
-      // Redirect to login page defined in main.wasp (auth.onAuthFailedRedirectTo)
-      // Or return <Redirect to="/login" />;
-      return <div>Please log in to access this page.</div>;
-    }
-
-    // User is authenticated, render the page content
-    // Use helpers like getEmail(user) or getUsername(user) if needed
-    return <div>Welcome back!</div>; // Access user.id if needed
-  };
-  ```
-
-## Wasp Auth User Fields (`AuthUser`)
-
-- The `user` object returned by `useAuth()` hook on the client, or accessed via `context.user` in server operations/APIs, is an `AuthUser` object (type imported from `wasp/auth`).
-- **Auth-specific fields** (email, username, verification status, provider IDs) live under the nested `identities` property based on the auth method used.
-  - e.g., `user.identities.email?.email`
-  - e.g., `user.identities.username?.username`
-  - e.g., `user.identities.google?.providerUserId`
-  - **Always check for `null` or `undefined`** before accessing these nested properties, as a user might not have used all configured auth methods.
-- **Helpers:** Wasp provides helper functions from `wasp/auth` for easier access to common identity fields on the `AuthUser` object:
-  - `import { getEmail, getUsername } from 'wasp/auth';`
-  - `const email = getEmail(user); // Returns string | null`
-  - `const username = getUsername(user); // Returns string | null`
-- **Standard User Entities:** Remember that standard `User` entities fetched via `context.entities.User.findMany()` or similar in server code **DO NOT** automatically include these auth identity fields (`email`, `username`, etc.) by default. They only contain the fields defined directly in your [schema.prisma](mdc:schema.prisma) `User` model.
-- **Recommendation:**
-  - If you need *frequent* access to an identity field like `email` or `username` for *any* user (not just the currently logged-in one accessed via `context.user` or `useAuth`) and want to query it easily via `context.entities.User`, consider this approach:
-    1.  **Add the field directly** to your `User` model in [schema.prisma](mdc:schema.prisma).
-        ```prisma
-        model User {
-          id    Int     @id @default(autoincrement())
-          email String? @unique // Add if needed frequently
-          // other fields...
-        }
-        ```
-    2.  **Ensure this field is populated correctly** when the user signs up or updates their profile. You might need a Wasp action to update the `User` model after signup or when an email is verified.
-    3.  This makes the field (`email` in this example) a standard, queryable field on your `User` entity, accessible via `context.entities.User`, separate from the `AuthUser`'s identity structure.
-
-- **Common Issue:** If auth isn't working, first verify the `auth` configuration in [main.wasp](mdc:main.wasp) is correct and matches your intent (correct `userEntity`, enabled `methods`, `onAuthFailedRedirectTo`). Ensure environment variables for social providers are set if applicable. Check the Wasp server logs for errors. 
+- **Responsive Design:** Use Tailwind's responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`) to apply styles conditionally based on screen size.
+  - ✅ `<div class="w-full md:w-1/2 lg:w-1/3">...</div>`
+- **Configuration:** If you need to customize Tailwind (e.g., add custom colors, fonts, spacing), modify the `@tailwind.config.js` file in the project root. 
 
 ---
 > Source: [vincanger/envelope-budgeting-test](https://github.com/vincanger/envelope-budgeting-test) — distributed by [TomeVault](https://tomevault.io).
