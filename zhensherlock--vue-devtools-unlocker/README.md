@@ -7,11 +7,11 @@ Debug Vue apps in production, without touching the source code.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [zhensherlock/vue-devtools-unlocker](https://github.com/zhensherlock/vue-devtools-unlocker).
+Original source: `CLAUDE.md` in [zhensherlock/vue-devtools-unlocker](https://github.com/zhensherlock/vue-devtools-unlocker).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
