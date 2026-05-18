@@ -7,11 +7,11 @@ Private, fast, and honest web browser
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [imputnet/helium](https://github.com/imputnet/helium).
+Original source: `CLAUDE.md` in [imputnet/helium](https://github.com/imputnet/helium).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
