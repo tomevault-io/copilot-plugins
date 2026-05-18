@@ -1,0 +1,9 @@
+{
+  "name": "openpipe--art",
+  "displayName": "ART",
+  "description": "Agent Reinforcement Trainer: train multi-step agents for real-world tasks using GRPO. Give your agents on-the-job training. Reinforcement learning for Qwen3.6, GPT-OSS, Llama, and more!",
+  "version": "1.0.0",
+  "author": "OpenPipe",
+  "homepage": "https://github.com/OpenPipe/ART",
+  "skills": []
+}
