@@ -1,85 +1,157 @@
 ## coolify-mcp
 
-> FOLLOW Coolify MCP workflow WHEN implementing new Coolify API endpoints TO ensure consistent and tested MCP
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+# CLAUDE.md
 
-# Coolify MCP Development Workflow
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Context
-- When implementing new Coolify API endpoints as MCP tools
-- When adding new features from the feature documentation
-- When extending the MCP server capabilities
+## Project Overview
 
-## Requirements
-1. Start by reviewing feature documentation in docs/features
-2. Verify endpoint exists in docs/openapi-chunks/* 
-3. Follow existing implementation patterns:
-   - Add types to src/types/coolify.ts
-   - Add client method to src/lib/coolify-client.ts
-   - Add MCP tool to src/lib/mcp-server.ts
-   - Add simple test in src/__tests__/mcp-server.test.ts
-4. Maintain strict TypeScript standards:
-   - Always include explicit return types on functions
-   - Import and use proper types from coolify.ts
-   - No implicit any types
-   - Follow existing type patterns
-5. Keep tests focused and properly mocked:
-   ```typescript
-   it('should call client methodName', async () => {
-     // Mock the method before calling it
-     const mockResponse = { /* expected shape */ };
-     const spy = jest.spyOn(server['client'], 'methodName')
-       .mockResolvedValue(mockResponse);
+MCP (Model Context Protocol) server for Coolify that provides 42 token-optimized tools for AI assistants to manage infrastructure through natural language. Tools cover servers, projects, environments, applications, databases, services, deployments, private keys, teams, cloud tokens, documentation search, smart diagnostics, and batch operations. v2.0.0 reduced token usage by 85% (from ~43,000 to ~6,600 tokens) by consolidating related operations into single tools with action parameters.
 
-     await server.method_name('test-uuid');
-     expect(spy).toHaveBeenCalledWith('test-uuid');
-   });
-   ```
-6. Follow gitflow as per 801-feature-workflow
+## Commands
 
-## Examples
-<example>
-# Good implementation
-1. Review docs/features/003-server-domains.md
-2. Verify /servers/{uuid}/domains in openapi.yaml
-3. Add ServerDomain interface to types
-4. Add getServerDomains() to client with proper types:
-   ```typescript
-   async getServerDomains(uuid: string): Promise<ServerDomain[]> {
-     return this.request<ServerDomain[]>(`/servers/${uuid}/domains`);
-   }
-   ```
-5. Add get_server_domains tool to MCP server
-6. Add properly mocked test:
-   ```typescript
-   const mockDomains = [{ ip: '1.2.3.4', domains: ['test.com'] }];
-   const spy = jest.spyOn(client, 'getServerDomains')
-     .mockResolvedValue(mockDomains);
-   ```
-7. Follow gitflow for commits and PR
-</example>
+```bash
+npm install          # Install dependencies
+npm run build        # Build TypeScript to dist/
+npm test             # Run all tests
+npm run lint         # Run ESLint
+npm run format       # Run Prettier
 
-<example type="invalid">
-# Poor implementation
-1. Start coding without checking docs
-2. Add endpoint not in OpenAPI spec
-3. Create new patterns different from existing code
-4. Skip type definitions or use implicit any
-5. Write tests that make real HTTP calls
-6. Skip gitflow process
-</example>
+# Run locally
+COOLIFY_BASE_URL="https://your-coolify.com" COOLIFY_ACCESS_TOKEN="token" node dist/index.js
+```
 
-<critical>
-- ALWAYS verify endpoint exists in OpenAPI spec
-- ALWAYS include explicit return types on functions
-- ALWAYS mock HTTP calls in tests
-- NEVER introduce new patterns - follow existing code
-- Keep tests simple and fully mocked
-- Follow established file organization
-- Fix ALL linting errors before committing
-</critical> 
+## Architecture
+
+### File Structure Pattern
+
+When adding new Coolify API endpoints, follow this order:
+
+1. **src/types/coolify.ts** - Add TypeScript interfaces
+2. **src/lib/coolify-client.ts** - Add API client method with explicit return type
+3. **src/lib/mcp-server.ts** - Add MCP tool definition
+4. **src/**tests**/mcp-server.test.ts** - Add mocked test
+
+### Key Files
+
+- **src/index.ts** - Entry point, starts MCP server
+- **src/lib/coolify-client.ts** - HTTP client wrapping Coolify REST API
+- **src/lib/mcp-server.ts** - MCP tool definitions and handlers
+- **src/types/coolify.ts** - All Coolify API type definitions
+- **docs/openapi-chunks/** - OpenAPI spec chunks for reference
+
+### Context-Optimized Responses
+
+List endpoints return summaries (uuid, name, status) not full objects. This reduces response sizes by 90-99%. Use `get_*` tools for full details of a single resource.
+
+## Adding New Endpoints
+
+1. Verify endpoint exists in `docs/openapi-chunks/`
+2. Add types to `src/types/coolify.ts`
+3. Add client method with explicit return type
+4. Add MCP tool to `src/lib/mcp-server.ts`
+5. Add mocked tests (required for codecov coverage)
+
+### Testing Requirements
+
+**IMPORTANT**: All new client methods MUST have test coverage to pass codecov checks.
+
+When adding new client methods, you must add:
+
+1. **Client method tests** in `src/__tests__/coolify-client.test.ts`:
+   - Test the HTTP method (GET, POST, PATCH, DELETE)
+   - Test the endpoint path
+   - Test the request body if applicable
+   - Follow the existing test patterns in the file
+
+2. **Method existence tests** in `src/__tests__/mcp-server.test.ts`:
+   - Add `expect(typeof client.methodName).toBe('function');` in the appropriate section
+   - Ensures the method is properly exported and accessible
+
+**codecov will fail PRs with uncovered lines.** Always run `npm test` before committing.
+
+### Client Method Example
+
+```typescript
+async getResource(uuid: string): Promise<Resource> {
+  return this.request<Resource>(`/resources/${uuid}`);
+}
+```
+
+### Test Example
+
+```typescript
+it('should call client method', async () => {
+  const spy = jest.spyOn(server['client'], 'getResource').mockResolvedValue({ uuid: 'test' });
+  await server.get_resource('test-uuid');
+  expect(spy).toHaveBeenCalledWith('test-uuid');
+});
+```
+
+### Smoke Testing Against Live Server
+
+After fixing bugs, always verify fixes work against the real Coolify instance — not just unit tests.
+
+- **`/smoke-test`** — Slash command that builds the project and runs integration smoke tests against the live server. Use this after any bug fix to confirm the fix works end-to-end.
+- **`npm run test:integration`** — Runs all integration tests (requires `.env` with `COOLIFY_URL` and `COOLIFY_TOKEN`).
+- Integration test files live in `src/__tests__/integration/` and are excluded from `npm test` (CI). Add new smoke tests there when fixing bugs that involve API interaction.
+
+### Coolify API Gotchas
+
+The Coolify OpenAPI docs are unreliable — always test against the real API. Known issues:
+
+- **`docker_compose_raw` requires base64** — The API expects base64-encoded YAML, but the field name suggests raw content. The client auto-encodes this field so models and callers can pass plain YAML.
+- **Validation errors vary in format** — The `errors` field in API error responses can contain `string[]` or plain `string` values. The client handles both.
+- **Env var field names are `is_buildtime` and `is_runtime`** (one word each), not `is_build_time` (two words). On `POST /applications/{uuid}/envs` and `PATCH /applications/{uuid}/envs` the wrong name returns HTTP 422 `"This field is not allowed."`; on `PATCH /applications/{uuid}/envs/bulk` the wrong name is silently ignored (request returns 201 but the flag stays at the default). Verified against Coolify v4.0.0-beta.473 in #174 / #135. When adding env-var related code or tests, mirror the API field names exactly — do not paraphrase to `is_build_time`.
+- **Application CREATE and UPDATE accept different field sets.** Coolify's `app/Http/Controllers/Api/ApplicationsController.php` has two separate `$allowedFields` arrays — one used by every `create_*` endpoint (`create_application` helper around line 1014) and a different one used by `update_by_uuid` (around line 2497). `removeUnnecessaryFieldsFromRequest()` runs that allowlist BEFORE the shared `sharedDataApplications()` validation rules apply, so fields outside the allowlist are silently dropped, never validated, never reach the DB. Practical effects:
+  - `dockerfile_target_build` is **UPDATE-only**: present in the update allowlist, absent from the create allowlist. Sending it on any `create_*` is silently dropped. The `application` tool exposes it in the zod schema but only wires it through `update`.
+  - `create_dockerimage` accepts `health_check_*` + `ports_mappings` but NOT `base_directory`/`publish_directory`/`install_command`/`build_command`/`start_command`/`watch_paths`/`dockerfile_location` — the endpoint is for pre-built registry images and has no build step. The `application` tool's `create_dockerimage` handler intentionally forwards only health-check fields, even though the shared zod schema accepts build-config inputs.
+  - Coolify's `openapi.yaml` request bodies are an incomplete projection of the real allowlists. Check both controller `$allowedFields` arrays before assuming a field is accepted on a given action. Verified against `coollabsio/coolify` `main` while fixing #178.
+
+## TypeScript Standards
+
+- Always include explicit return types on functions
+- No implicit any types
+- Follow existing patterns in the codebase
+
+## Git Workflow
+
+- Commit frequently to trigger pre-commit hooks (linting, formatting, tests)
+- Always stage all modified files after making changes
+- Push changes to remote after committing
+- Work on feature branches, not main
+
+## Publishing
+
+CI auto-publishes to npm via trusted publishing on version bump. Use:
+
+```bash
+npm version patch|minor|major
+git push origin main --tags
+```
+
+## Documentation Standards
+
+When making changes to the codebase, ensure documentation is updated:
+
+1. **CHANGELOG.md** - Add entry under appropriate version with:
+   - `### Added` - New features
+   - `### Changed` - Breaking changes or significant modifications
+   - `### Fixed` - Bug fixes
+   - Follow [Keep a Changelog](https://keepachangelog.com/) format
+
+2. **README.md** - Update if:
+   - Tool count changes (update tool count in Features section)
+   - New tools added (add to appropriate category in Available Tools)
+   - New example prompts needed
+   - Response size improvements made (update comparison table)
+
+3. **This file (CLAUDE.md)** - Update tool count if changed (currently 42 tools)
+
+Always work on a feature branch and include documentation updates in the same PR as code changes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/StuMason)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/StuMason)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
