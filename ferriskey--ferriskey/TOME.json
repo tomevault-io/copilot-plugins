@@ -2,9 +2,9 @@
   "name": "ferriskey",
   "owner": "ferriskey",
   "repo": "ferriskey",
-  "description": "",
+  "description": "FerrisKey is an open-source IAM solution designed for modern cloud-native environments, high-performance and written in Rust.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ferriskey",
+  "source_url": "https://github.com/ferriskey/ferriskey",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T13:53:56Z"
+  "distributed_at": "2026-05-18T08:32:21Z"
 }
