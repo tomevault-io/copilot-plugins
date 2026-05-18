@@ -1,0 +1,9 @@
+{
+  "name": "florinel-chis--gophercrm",
+  "displayName": "GopherCRM",
+  "description": "  A modern Customer Relationship Management (CRM) system built with Go backend and React TypeScript frontend, featuring lead management, customer tracking, support tickets, and real-time analytics.",
+  "version": "1.0.0",
+  "author": "florinel-chis",
+  "homepage": "https://github.com/florinel-chis/GopherCRM",
+  "skills": []
+}
