@@ -1,27 +1,34 @@
-## 01-project-overview
+## 02-components
 
-> HiveChat is a chat application built with Next.js. The project follows a modern web application architecture with a clear separation of concerns.
+> The application uses a component-based architecture. Key components include:
 
-# HiveChat Project Overview
+# UI Components
 
-HiveChat is a chat application built with Next.js. The project follows a modern web application architecture with a clear separation of concerns.
+The application uses a component-based architecture. Key components include:
 
-## Key Files and Directories
+## Chat Interface Components
+- [app/components/App.tsx](mdc:app/components/App.tsx): Main application component
+- [app/components/ChatList.tsx](mdc:app/components/ChatList.tsx): List of chat conversations
+- [app/components/MessageList.tsx](mdc:app/components/MessageList.tsx): List of messages in a conversation
+- [app/components/MessageItem.tsx](mdc:app/components/MessageItem.tsx): Individual message component
+- [app/components/ResponsingMessage.tsx](mdc:app/components/ResponsingMessage.tsx): Component for messages being generated/responded to
+- [app/components/AdaptiveTextarea.tsx](mdc:app/components/AdaptiveTextarea.tsx): Textarea that adapts to content
 
-- [app/layout.tsx](mdc:app/layout.tsx): The main layout component that wraps all pages in the application
-- [app/page.tsx](mdc:app/page.tsx): The home page of the application
-- [app/components](mdc:app/components): UI components used throughout the application
-- [app/api](mdc:app/api): API routes for backend functionality
-- [app/utils.ts](mdc:app/utils.ts): Utility functions used across the application
-- [auth.ts](mdc:auth.ts): Authentication configuration
+## UI Enhancement Components
+- [app/components/Markdown.tsx](mdc:app/components/Markdown.tsx): Markdown rendering component
+- [app/components/CodeBlock.tsx](mdc:app/components/CodeBlock.tsx): Code highlighting component
+- [app/components/EmojiPicker.tsx](mdc:app/components/EmojiPicker.tsx): Emoji selection interface
 
-## Main Features
+## Navigation Components
+- [app/components/Sidebar.tsx](mdc:app/components/Sidebar.tsx): Main sidebar navigation
+- [app/components/SidebarMenuSection.tsx](mdc:app/components/SidebarMenuSection.tsx): Section within the sidebar
 
-The application appears to be a chat interface with AI model integration, supporting:
-- Multiple chat providers and models
-- Authentication with various services (Wecom, Dingding, Feishu)
-- Markdown rendering for messages
-- Code block highlighting
+## Authentication Components
+- [app/components/SignIn.tsx](mdc:app/components/SignIn.tsx): Sign-in component
+- [app/components/loginModal.tsx](mdc:app/components/loginModal.tsx): Login modal dialog
+- [app/components/WecomLoginButton.tsx](mdc:app/components/WecomLoginButton.tsx): Wecom login integration
+- [app/components/DingdingLoginButton.tsx](mdc:app/components/DingdingLoginButton.tsx): Dingding login integration
+- [app/components/FeishuLoginButton.tsx](mdc:app/components/FeishuLoginButton.tsx): Feishu login integration
 
 ---
 > Source: [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat) — distributed by [TomeVault](https://tomevault.io).
