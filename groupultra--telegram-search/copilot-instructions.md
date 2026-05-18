@@ -1,40 +1,73 @@
-## db
+## events
 
-> - **Role**: Provide a consistent schema and migration history that works in both:
+> - **Scope**: Any change that adds/renames/removes events flowing between:
 
+## Cross-Layer Events & Protocol Design
 
-## Database & Migrations
+- **Scope**: Any change that adds/renames/removes events flowing between:
+  - Vue/Pinia (apps/web)
+  - `packages/client`
+  - `apps/server` WebSocket layer
+  - `packages/core` event handlers & services
 
-- **Role**: Provide a consistent schema and migration history that works in both:
-  - PostgreSQL with pgvector (server mode).
-  - PGlite (browser-only mode).
+### 1. Before You Add or Change an Event
 
-### Schema Definition
+- Answer, in your head or in an RFC:
+  - **Where is the bottleneck?** (UX latency? DB load? Telegram API limits?)
+  - **What is the minimal new behavior?** (One sentence, domain language.)
+  - **What is the data flow?** (Component → store → client adapter → WS/core → DB → back.)
+  - **How does this handle failure?**
+    - Core error?
+    - Network loss?
+    - Partial success (e.g. some messages processed)?
 
-- Treat the TypeScript schema in `packages/core/src/schemas` / `models` as the **source of truth**.
-- Ensure any schema change is reflected consistently in:
-  - TS schema/models.
-  - Generated Drizzle migrations under `drizzle/`.
-  - Any raw SQL helpers under `sql/` if present.
-- Prefer Drizzle's typed query APIs over raw SQL to keep Postgres and PGlite behavior aligned.
+### 2. Event Naming & Payloads
 
-### Migrations
+- Naming:
+  - Use `<domain>:<action>` or `<domain>:<action>:<subaction>`.
+  - Avoid generic verbs like `update`, `done`; always include the domain (`message`, `storage`, `auth`, etc.).
+- Payloads:
+  - Prefer **IDs + small shapes** over dumping full DB rows or Telegram objects.
+  - Do not leak raw internal schemas as event payloads unless they are explicitly part of the public model.
+  - Include enough context to render the UI without requiring a second roundtrip when reasonable.
 
-- Use `drizzle-kit` (`pnpm run db:generate`) to generate new migrations; avoid hand-writing large SQL files.
-- For production-safe changes:
-  - Make migrations forward-only and additive when possible.
-  - Avoid destructive operations without a clear, tested migration path.
-- If a generated migration needs manual tweaks:
-  - Keep custom SQL focused and well-commented.
-  - Verify both Postgres and PGlite behavior where applicable.
+### 3. End-to-End Wiring Checklist
 
-### Performance & Indexing
+When adding a new event, ensure all of the following are updated **in one change**:
 
-- For vector search:
-  - Ensure vector dimensions match the configured embedding model.
-  - Use pgvector indexes where needed, and make them explicit in migrations.
-- For analytical queries (stats, charts):
-  - Prefer precalculated or indexed aggregates over complex ad‑hoc joins on hot paths.
+- **Types & contracts**:
+  - `@tg-search/core` `ToCoreEvent` / `FromCoreEvent`.
+  - `@tg-search/server/types` WS mappings (`WsEventToServer`, `WsEventToClient`).
+  - Client event handler maps in `packages/client`.
+- **Handlers**:
+  - Core event handler under `packages/core/src/event-handlers`.
+  - Service function(s) in `packages/core/src/services`.
+  - Client-side handler that maps `FromCoreEvent` into Pinia state.
+- **UI**:
+  - Minimal component/store changes to actually use the new event.
+
+### 4. Backwards Compatibility & Refactors
+
+- Prefer **adding** new events over changing semantics of existing ones.
+- If an event must change:
+  - Keep the old event name working for at least one release where possible.
+  - Introduce a new event name for the new behavior and migrate callers gradually.
+- For refactors across layers (e.g. renaming a domain or action):
+  - Do a **mechanical rename** across types, handlers, and callers in one PR.
+  - Avoid long-lived “mixed” states where some code uses old names and some uses new ones.
+
+### 5. Errors, Timeouts & Idempotency
+
+- Treat every event as potentially:
+  - Lost (network issues).
+  - Duplicated (retries).
+  - Delayed (backpressure).
+- Design handlers to be **idempotent** where possible:
+  - Re-applying the same event should not corrupt state.
+  - Use message IDs and versioning to detect duplicates.
+- Error semantics:
+  - Core should emit structured error events with codes and key context, not just strings.
+  - Client should surface user-friendly messages and, where safe, allow retry.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
