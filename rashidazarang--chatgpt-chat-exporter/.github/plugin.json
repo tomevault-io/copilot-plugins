@@ -1,0 +1,9 @@
+{
+  "name": "rashidazarang--chatgpt-chat-exporter",
+  "displayName": "chatgpt-chat-exporter",
+  "description": "A lightweight browser-based tool to export your ChatGPT conversations in beautiful Markdown or PDF format.",
+  "version": "1.0.0",
+  "author": "rashidazarang",
+  "homepage": "https://github.com/rashidazarang/chatgpt-chat-exporter",
+  "skills": []
+}
