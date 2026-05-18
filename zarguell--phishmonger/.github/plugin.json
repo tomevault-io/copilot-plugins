@@ -1,0 +1,9 @@
+{
+  "name": "zarguell--phishmonger",
+  "displayName": "phishmonger",
+  "description": "A client-side Single Page Application that enables security trainers to annotate phishing emails with technique explanations, generate visual slides with numbered badges, and calculate phishing diffic",
+  "version": "1.0.0",
+  "author": "zarguell",
+  "homepage": "https://github.com/zarguell/phishmonger",
+  "skills": []
+}
