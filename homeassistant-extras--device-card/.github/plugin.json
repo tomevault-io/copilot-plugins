@@ -1,0 +1,14 @@
+{
+  "name": "homeassistant-extras--device-card",
+  "displayName": "device-card",
+  "description": "Device Card to summarize device information in Home Assistant",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/device-card",
+  "skills": [
+    {
+      "name": "hass-sync",
+      "description": ""
+    }
+  ]
+}
