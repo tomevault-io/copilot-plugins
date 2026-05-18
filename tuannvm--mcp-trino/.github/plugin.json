@@ -1,0 +1,9 @@
+{
+  "name": "tuannvm--mcp-trino",
+  "displayName": "mcp-trino",
+  "description": "A high-performance Model Context Protocol (MCP) server for Trino implemented in Go.",
+  "version": "1.0.0",
+  "author": "tuannvm",
+  "homepage": "https://github.com/tuannvm/mcp-trino",
+  "skills": []
+}
