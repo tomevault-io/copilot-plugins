@@ -24574,6 +24574,21 @@
       "description": "DeepSearch Code-Actions Agent (DSCA). Build \ud83d\ude4c with \ud83e\udd17 smolagents"
     },
     {
+      "name": "lwybzss8924d--deepsearchagents",
+      "source": "./lwybzss8924d--deepsearchagents",
+      "description": "DeepSearch Code-Actions Agent (DSCA). Build \ud83d\ude4c with \ud83e\udd17 smolagents"
+    },
+    {
+      "name": "lwybzss8924d--deepsearchagents",
+      "source": "./lwybzss8924d--deepsearchagents",
+      "description": "DeepSearch Code-Actions Agent (DSCA). Build \ud83d\ude4c with \ud83e\udd17 smolagents"
+    },
+    {
+      "name": "lwybzss8924d--deepsearchagents",
+      "source": "./lwybzss8924d--deepsearchagents",
+      "description": "DeepSearch Code-Actions Agent (DSCA). Build \ud83d\ude4c with \ud83e\udd17 smolagents"
+    },
+    {
       "name": "modem-dev--baudbot",
       "source": "./modem-dev--baudbot",
       "description": "Multiplayer, always-on AI dev assistant - like OpenClaw but for your whole team on Slack \ud83e\udd16 "
@@ -25857,6 +25872,16 @@
       "name": "ggprompts--claudeglobalcommands",
       "source": "./ggprompts--claudeglobalcommands",
       "description": "ClaudeGlobalCommands"
+    },
+    {
+      "name": "sohzm--wisk",
+      "source": "./sohzm--wisk",
+      "description": "a plugin-based document editor written in vanilla javascript"
+    },
+    {
+      "name": "sohzm--wisk",
+      "source": "./sohzm--wisk",
+      "description": "a plugin-based document editor written in vanilla javascript"
     },
     {
       "name": "alfredolopez80--multi-agent-ralph-loop",
@@ -27614,6 +27639,56 @@
       "description": "Modern Django REST Framework authentication toolkit with JWT cookies, social login, and 2FA support"
     },
     {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
+      "name": "ekmigasari--wfcos",
+      "source": "./ekmigasari--wfcos",
+      "description": "wfcOS"
+    },
+    {
       "name": "jetxu-llm--docmason",
       "source": "./jetxu-llm--docmason",
       "description": "DocMason is a repo-native agent that turns your complex office files into a local LLM knowledge base and your second brain. The repo is the app. Codex is the runtime."
@@ -27882,6 +27957,61 @@
       "name": "konbakuyomu--md2visio-gui",
       "source": "./konbakuyomu--md2visio-gui",
       "description": "md2visio-gui"
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
+    },
+    {
+      "name": "masterfabric-mobile--osmea",
+      "source": "./masterfabric-mobile--osmea",
+      "description": "MasterFabric represents the architecture of e-commerce mobile apps.Enterprise-level Flutter development."
     },
     {
       "name": "sk-wang--slio-git",
@@ -30222,6 +30352,41 @@
       "name": "gabrielmartinmoran--mind",
       "source": "./gabrielmartinmoran--mind",
       "description": "Mind is an automated memory layer for AI workflows. Say goodbye to your agents amnesia!"
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
+    },
+    {
+      "name": "h3rmel--guarahooks",
+      "source": "./h3rmel--guarahooks",
+      "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code."
     },
     {
       "name": "0xsanei--darwinia",
@@ -65639,6 +65804,36 @@
       "description": "Files for 'Build Your Own AI Research Agent' Lightning Lesson"
     },
     {
+      "name": "tecnomanu--pampa",
+      "source": "./tecnomanu--pampa",
+      "description": "Protocol for Augmented Memory of Project Artifacts  (MCP compatible)"
+    },
+    {
+      "name": "tecnomanu--pampa",
+      "source": "./tecnomanu--pampa",
+      "description": "Protocol for Augmented Memory of Project Artifacts  (MCP compatible)"
+    },
+    {
+      "name": "tecnomanu--pampa",
+      "source": "./tecnomanu--pampa",
+      "description": "Protocol for Augmented Memory of Project Artifacts  (MCP compatible)"
+    },
+    {
+      "name": "tecnomanu--pampa",
+      "source": "./tecnomanu--pampa",
+      "description": "Protocol for Augmented Memory of Project Artifacts  (MCP compatible)"
+    },
+    {
+      "name": "mahmoudimus--ida-taskr",
+      "source": "./mahmoudimus--ida-taskr",
+      "description": "IDA Taskr is a pure Python library for IDA Pro related parallel computing. It lets you use the power of Qt (built-in to IDA!) and Python's powerful multiprocessing and asyncio systems to quickly proce"
+    },
+    {
+      "name": "mahmoudimus--ida-taskr",
+      "source": "./mahmoudimus--ida-taskr",
+      "description": "IDA Taskr is a pure Python library for IDA Pro related parallel computing. It lets you use the power of Qt (built-in to IDA!) and Python's powerful multiprocessing and asyncio systems to quickly proce"
+    },
+    {
       "name": "mulhamna--jira-commands",
       "source": "./mulhamna--jira-commands",
       "description": "Jira toolkit for terminals, coding assistants, and bots."
@@ -81709,6 +81904,11 @@
       "description": "Secure MCP server for libSQL databases with comprehensive tools, connection pooling, and transaction support. Built with TypeScript for Claude Desktop, Claude Code, Cursor, and other MCP clients."
     },
     {
+      "name": "abmaellf--doutor-agenda",
+      "source": "./abmaellf--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
       "name": "googlecloudplatform--cxas-scrapi",
       "source": "./googlecloudplatform--cxas-scrapi",
       "description": "cxas-scrapi"
@@ -96979,6 +97179,16 @@
       "description": "An AI chatbot for talking with your documentation. Using RAG."
     },
     {
+      "name": "thedecipherist--markdownai",
+      "source": "./thedecipherist--markdownai",
+      "description": "MarkdownAI - live documents powered by directives"
+    },
+    {
+      "name": "tanphuc16797--workspace-wiki",
+      "source": "./tanphuc16797--workspace-wiki",
+      "description": "Workspace-isolated knowledge engine and workflow toolkit for Claude Code"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -104139,6 +104349,31 @@
       "description": "  A modern Customer Relationship Management (CRM) system built with Go backend and React TypeScript frontend, featuring lead management, customer tracking, support tickets, and real-time analytics."
     },
     {
+      "name": "deviljie--social-auto-upload-web-ui",
+      "source": "./deviljie--social-auto-upload-web-ui",
+      "description": "\u57fa\u4e8esocial-auto-upload\u9879\u76ee\u5f00\u53d1\u7684web-ui\uff0c\u5bf9\u90e8\u5206\u529f\u80fd\u8fdb\u884c\u4e86\u4f18\u5316\u91cd\u6784"
+    },
+    {
+      "name": "zudsniper--tmvisuals",
+      "source": "./zudsniper--tmvisuals",
+      "description": "a task visualizer for 'taskmaster ai'"
+    },
+    {
+      "name": "zudsniper--tmvisuals",
+      "source": "./zudsniper--tmvisuals",
+      "description": "a task visualizer for 'taskmaster ai'"
+    },
+    {
+      "name": "zudsniper--tmvisuals",
+      "source": "./zudsniper--tmvisuals",
+      "description": "a task visualizer for 'taskmaster ai'"
+    },
+    {
+      "name": "zudsniper--tmvisuals",
+      "source": "./zudsniper--tmvisuals",
+      "description": "a task visualizer for 'taskmaster ai'"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -108232,6 +108467,16 @@
       "name": "hoobnn--fanfan",
       "source": "./hoobnn--fanfan",
       "description": "macOS menu bar app for fan speed control"
+    },
+    {
+      "name": "jvidaln--doutor-agenda",
+      "source": "./jvidaln--doutor-agenda",
+      "description": "doutor-agenda"
+    },
+    {
+      "name": "igor3rodrigues--doutor-agenda",
+      "source": "./igor3rodrigues--doutor-agenda",
+      "description": "doutor-agenda"
     },
     {
       "name": "lightninglabs--lnget",
@@ -113517,6 +113762,11 @@
       "name": "kaptinlin--defuddle-go",
       "source": "./kaptinlin--defuddle-go",
       "description": "Go port of Defuddle for high-performance web content extraction"
+    },
+    {
+      "name": "robin7331--zen-robot-garden",
+      "source": "./robin7331--zen-robot-garden",
+      "description": "Zen Robot Garden \u2014 a calm 3D browser diorama where a lawn mower robot autonomously mows an endless garden (three.js + Rapier physics)"
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -131954,6 +132204,76 @@
       "description": "The free, open-source alternative to Jira. Self-hosted project management with Scrum, Kanban, sprints, AI, and more."
     },
     {
+      "name": "avecloud--ave-cloud-skill",
+      "source": "./avecloud--ave-cloud-skill",
+      "description": "Ave Cloud Skill For Agent"
+    },
+    {
+      "name": "ashokvarmamatta--zeroclawandroid",
+      "source": "./ashokvarmamatta--zeroclawandroid",
+      "description": "24/7 AI agent daemon for Android \u2014 11 messaging channels, 30 opt-in AI tools, 25+ autonomous agent templates, OpenAI-compatible API server, offline on-device inference. Everything modular."
+    },
+    {
+      "name": "ashokvarmamatta--zeroclawandroid",
+      "source": "./ashokvarmamatta--zeroclawandroid",
+      "description": "24/7 AI agent daemon for Android \u2014 11 messaging channels, 30 opt-in AI tools, 25+ autonomous agent templates, OpenAI-compatible API server, offline on-device inference. Everything modular."
+    },
+    {
+      "name": "ashokvarmamatta--zeroclawandroid",
+      "source": "./ashokvarmamatta--zeroclawandroid",
+      "description": "24/7 AI agent daemon for Android \u2014 11 messaging channels, 30 opt-in AI tools, 25+ autonomous agent templates, OpenAI-compatible API server, offline on-device inference. Everything modular."
+    },
+    {
+      "name": "lsegal--aviary",
+      "source": "./lsegal--aviary",
+      "description": "Aviary is a full AI assistant platform. Connect your AI models to Slack, Signal, Discord, etc., have conversations, set up scheduled tasks, and let your agents work for you."
+    },
+    {
+      "name": "prefix-dev--rattler-book",
+      "source": "./prefix-dev--rattler-book",
+      "description": "A book and a simple lua package manager"
+    },
+    {
+      "name": "lsegal--aviary",
+      "source": "./lsegal--aviary",
+      "description": "Aviary is a full AI assistant platform. Connect your AI models to Slack, Signal, Discord, etc., have conversations, set up scheduled tasks, and let your agents work for you."
+    },
+    {
+      "name": "1amageek--swift-flow",
+      "source": "./1amageek--swift-flow",
+      "description": "A Canvas-based flow diagram library for SwiftUI (iOS / macOS)"
+    },
+    {
+      "name": "avecloud--ave-cloud-skill",
+      "source": "./avecloud--ave-cloud-skill",
+      "description": "Ave Cloud Skill For Agent"
+    },
+    {
+      "name": "kipeum86--general-legal-research",
+      "source": "./kipeum86--general-legal-research",
+      "description": "general-legal-research"
+    },
+    {
+      "name": "ashokvarmamatta--zeroclawandroid",
+      "source": "./ashokvarmamatta--zeroclawandroid",
+      "description": "24/7 AI agent daemon for Android \u2014 11 messaging channels, 30 opt-in AI tools, 25+ autonomous agent templates, OpenAI-compatible API server, offline on-device inference. Everything modular."
+    },
+    {
+      "name": "debe--libpetri",
+      "source": "./debe--libpetri",
+      "description": "Coloured Time Petri Net (CTPN) engine \u2014 Java 25, TypeScript & Rust"
+    },
+    {
+      "name": "ju571nk--chartnagari",
+      "source": "./ju571nk--chartnagari",
+      "description": "Open-source ICT/Wyckoff signal detector \u2014 30+ rules, multi-timeframe, self-hosted. Go + React."
+    },
+    {
+      "name": "lsegal--aviary",
+      "source": "./lsegal--aviary",
+      "description": "Aviary is a full AI assistant platform. Connect your AI models to Slack, Signal, Discord, etc., have conversations, set up scheduled tasks, and let your agents work for you."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -140912,6 +141232,36 @@
       "name": "refined--taskplanner",
       "source": "./refined--taskplanner",
       "description": "taskplanner"
+    },
+    {
+      "name": "s30-3-0--perp-v1-boilerplate",
+      "source": "./s30-3-0--perp-v1-boilerplate",
+      "description": "perp-v1-boilerplate"
+    },
+    {
+      "name": "mav-rik--kb-cli",
+      "source": "./mav-rik--kb-cli",
+      "description": "Knowledge base CLI for AI agents"
+    },
+    {
+      "name": "refined--taskplanner",
+      "source": "./refined--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "refined--taskplanner",
+      "source": "./refined--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "refined--taskplanner",
+      "source": "./refined--taskplanner",
+      "description": "taskplanner"
+    },
+    {
+      "name": "s30-3-0--perp-v1-boilerplate",
+      "source": "./s30-3-0--perp-v1-boilerplate",
+      "description": "perp-v1-boilerplate"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -241797,6 +242147,46 @@
       "name": "tawounfouet--frontend-developer-workspace",
       "source": "./tawounfouet--frontend-developer-workspace",
       "description": "frontend-developer-workspace"
+    },
+    {
+      "name": "solutionflux--react-component",
+      "source": "./solutionflux--react-component",
+      "description": "react-component"
+    },
+    {
+      "name": "chepenik--localhostfinancebuddy",
+      "source": "./chepenik--localhostfinancebuddy",
+      "description": "localhostfinancebuddy"
+    },
+    {
+      "name": "cksynapse-oss--dealkart",
+      "source": "./cksynapse-oss--dealkart",
+      "description": "marketplace"
+    },
+    {
+      "name": "rudolphhugo--bilradgivaren",
+      "source": "./rudolphhugo--bilradgivaren",
+      "description": "AI-driven car advisor \u2014 7-question wizard that matches users with their perfect car"
+    },
+    {
+      "name": "cksynapse-oss--dealkart",
+      "source": "./cksynapse-oss--dealkart",
+      "description": "marketplace"
+    },
+    {
+      "name": "devsingkit--linuri",
+      "source": "./devsingkit--linuri",
+      "description": "web system for elementary"
+    },
+    {
+      "name": "0xjgv--semtrack",
+      "source": "./0xjgv--semtrack",
+      "description": "Track, triage, and remediate Semgrep findings with AI-assisted workflows."
+    },
+    {
+      "name": "piggecutlet--battlecats-web",
+      "source": "./piggecutlet--battlecats-web",
+      "description": "battlecats-web"
     }
   ]
 }
