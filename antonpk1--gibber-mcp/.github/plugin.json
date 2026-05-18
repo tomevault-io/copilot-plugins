@@ -1,0 +1,9 @@
+{
+  "name": "antonpk1--gibber-mcp",
+  "displayName": "gibber-mcp",
+  "description": "Tiny MCP server with cryptography tools, sufficient to establish end-to-end encryption between LLM agents",
+  "version": "1.0.0",
+  "author": "antonpk1",
+  "homepage": "https://github.com/antonpk1/gibber-mcp",
+  "skills": []
+}
