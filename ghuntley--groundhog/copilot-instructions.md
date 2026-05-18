@@ -1,101 +1,132 @@
-## rust-testing
+## rust-type-system
 
-> Rust Testing Best Practices
+> Rust Type System and Generics Best Practices
 
-This rule enforces best practices for testing in Rust code.
+This rule enforces best practices for using Rust's type system and generics.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
 - **Severity**: Error
-- **Category**: Testing
+- **Category**: Type System
 
 ## Checks
 
-1. **Test Organization**
-   - Place unit tests in the same file as the code being tested
-   - Use integration tests for testing public APIs
-   - Follow the AAA (Arrange-Act-Assert) pattern
+1. **Trait Bounds**
+   - Use appropriate trait bounds
+   - Prefer `where` clauses for complex bounds
+   - Use `+` for multiple trait bounds
+   - Consider using `trait_alias` for common bound combinations
 
-2. **Test Coverage**
-   - Test both success and error cases
-   - Include edge cases and boundary conditions
-   - Use property-based testing where appropriate
+2. **Associated Types**
+   - Use associated types for type relationships
+   - Implement `Default` for associated types
+   - Document associated type constraints
+   - Use `type` aliases for complex associated types
 
-3. **Test Isolation**
-   - Use test-specific types and mocks
-   - Avoid shared mutable state between tests
-   - Clean up resources after tests
+3. **Generic Constraints**
+   - Use `Sized` bound when needed
+   - Consider `?Sized` for dynamic dispatch
+   - Use `Copy` and `Clone` bounds appropriately
+   - Implement `Send` and `Sync` for thread safety
 
-4. **Async Testing**
-   - Use `tokio::test` for async tests
-   - Test cancellation scenarios
-   - Use proper timeouts in async tests
+4. **Type Parameters**
+   - Use meaningful type parameter names
+   - Document type parameter constraints
+   - Consider using `const` generics where appropriate
+   - Use `PhantomData` for type-level programming
 
 ## Examples
 
 ### Good
 ```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
+/// A generic container that can hold any type implementing `Display`
+/// and can be cloned.
+///
+/// # Type Parameters
+///
+/// * `T` - The type of value stored in the container
+///   - Must implement `Display` for string representation
+///   - Must implement `Clone` for value duplication
+pub struct Container<T>
+where
+    T: Display + Clone,
+{
+    value: T,
+}
 
-    #[test]
-    fn test_success_case() {
-        // Arrange
-        let input = "test";
-        
-        // Act
-        let result = process(input);
-        
-        // Assert
-        assert_eq!(result, expected);
-    }
+/// A trait for types that can be converted to a specific format
+pub trait Format {
+    /// The type that this format can be converted to
+    type Output;
+    
+    /// Convert the value to the output format
+    fn format(&self) -> Self::Output;
+}
 
-    #[tokio::test]
-    async fn test_async_operation() {
-        // Arrange
-        let service = TestService::new();
-        
-        // Act
-        let result = service.process().await;
-        
-        // Assert
-        assert!(result.is_ok());
+/// A generic function with complex bounds
+pub fn process<T, U>(input: T) -> Result<U, Error>
+where
+    T: AsRef<str> + Send + Sync,
+    U: FromStr<Err = Error> + Send + Sync,
+{
+    // Implementation
+}
+
+/// A type-level programming example using PhantomData
+pub struct Length<const N: usize> {
+    _phantom: PhantomData<[(); N]>,
+}
+
+impl<const N: usize> Length<N> {
+    pub fn new() -> Self {
+        Self {
+            _phantom: PhantomData,
+        }
     }
 }
+
+/// A trait alias for common bound combinations
+pub trait Sendable = Send + Sync + 'static;
 ```
 
 ### Bad
 ```rust
-#[test]
-fn test_with_shared_state() {
-    // Bad: Using shared mutable state
-    static mut COUNTER: i32 = 0;
-    unsafe { COUNTER += 1; }
+// Bad: Unclear type parameter name and missing bounds
+pub struct Data<T> {
+    value: T,
 }
 
-#[test]
-fn test_without_cleanup() {
-    // Bad: Not cleaning up resources
-    let file = File::create("test.txt").unwrap();
-    // No cleanup after test
+// Bad: Complex bounds without where clause
+pub fn bad_generic<T: Display + Clone + Send + Sync + 'static>(input: T) {
+    // Implementation
+}
+
+// Bad: Missing associated type documentation
+pub trait BadFormat {
+    type Output;
+    fn format(&self) -> Self::Output;
+}
+
+// Bad: Unnecessary trait bounds
+pub struct UnnecessaryBounds<T: Clone + Copy + Send + Sync + 'static> {
+    value: T,
 }
 ```
 
 ## Rationale
 
-Proper testing practices ensure:
-- Code reliability and correctness
-- Easy maintenance and refactoring
-- Clear documentation through examples
-- Confidence in code changes
+Proper use of Rust's type system ensures:
+- Type safety and compile-time guarantees
+- Flexible and reusable code
+- Clear type relationships
+- Efficient monomorphization
 
 ## References
 
-- [Rust Book - Testing](mdc:https:/doc.rust-lang.org/book/ch11-00-testing.html)
-- [Rust Testing Guide](mdc:https:/rust-lang.github.io/book/ch11-00-testing.html)
-- [tokio-test Documentation](mdc:https:/docs.rs/tokio-test/latest/tokio_test) 
+- [Rust Book - Generics](mdc:https:/doc.rust-lang.org/book/ch10-00-generics.html)
+- [Rust Reference - Traits](mdc:https:/doc.rust-lang.org/reference/traits.html)
+- [Rust Reference - Associated Types](mdc:https:/doc.rust-lang.org/reference/items/associated-items.html) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
