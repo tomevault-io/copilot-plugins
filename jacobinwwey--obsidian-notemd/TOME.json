@@ -4,7 +4,7 @@
   "repo": "obsidian-NotEMD",
   "description": "A Easy way to create your own Knowledge-base! Notemd enhances your Obsidian workflow by integrating with various Large Language Models (LLMs) to process your notes, automatically generate wiki-links for key concepts, create corresponding concept notes, perform web research, and more.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Jacobinwwey/obsidian-NotEMD",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T00:43:36Z"
+  "distributed_at": "2026-05-18T01:54:44Z"
 }
