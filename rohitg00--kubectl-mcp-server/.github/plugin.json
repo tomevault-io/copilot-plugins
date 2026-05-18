@@ -1,0 +1,66 @@
+{
+  "name": "rohitg00--kubectl-mcp-server",
+  "displayName": "kubectl-mcp-server",
+  "description": "Published in CNCF Landscape: A MCP server for Kubernetes.",
+  "version": "1.0.0",
+  "author": "rohitg00",
+  "homepage": "https://github.com/rohitg00/kubectl-mcp-server",
+  "skills": [
+    {
+      "name": "k8s-backup",
+      "description": ""
+    },
+    {
+      "name": "k8s-browser",
+      "description": ""
+    },
+    {
+      "name": "k8s-capi",
+      "description": ""
+    },
+    {
+      "name": "k8s-cli",
+      "description": ""
+    },
+    {
+      "name": "k8s-core",
+      "description": ""
+    },
+    {
+      "name": "k8s-deploy",
+      "description": ""
+    },
+    {
+      "name": "k8s-gitops",
+      "description": ""
+    },
+    {
+      "name": "k8s-helm",
+      "description": ""
+    },
+    {
+      "name": "k8s-incident",
+      "description": ""
+    },
+    {
+      "name": "k8s-kind",
+      "description": ""
+    },
+    {
+      "name": "k8s-operations",
+      "description": ""
+    },
+    {
+      "name": "k8s-rollouts",
+      "description": ""
+    },
+    {
+      "name": "k8s-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "k8s-vind",
+      "description": ""
+    }
+  ]
+}
