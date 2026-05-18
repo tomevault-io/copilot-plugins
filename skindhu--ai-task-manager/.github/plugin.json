@@ -1,7 +1,7 @@
 {
   "name": "skindhu--ai-task-manager",
   "displayName": "AI-TASK-MANAGER",
-  "description": "AI-TASK-MANAGER",
+  "description": "\u4e00\u4e2a\u7528\u4e8eAI\u9a71\u52a8\u5f00\u53d1\u7684\u901a\u7528\u4efb\u52a1\u7ba1\u7406\u7cfb\u7edf\uff0c\u4f7f\u7528Google Gemini\u6a21\u578b\uff0c\u4e13\u4e3a\u4e0eCursor AI\u65e0\u7f1d\u534f\u4f5c\u800c\u8bbe\u8ba1\u3002",
   "version": "1.0.0",
   "author": "skindhu",
   "homepage": "https://github.com/skindhu/AI-TASK-MANAGER",
