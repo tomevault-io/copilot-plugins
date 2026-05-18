@@ -1,38 +1,40 @@
-## pglite-inspector
+## testing
 
-> - **Role**: Developer-only tooling to inspect and debug the in-browser PGlite database.
+> - **Goal**: Fast, reliable tests that validate behavior at the event and DB boundary, not implementation details.
 
 
-## PGlite Inspector (Devtool)
+## Testing (Vitest)
 
-- **Role**: Developer-only tooling to inspect and debug the in-browser PGlite database.
-- Must **not** become a production dependency for core features.
+- **Goal**: Fast, reliable tests that validate behavior at the event and DB boundary, not implementation details.
 
-### API & Integration
+### General Guidelines
 
-- Keep the public surface minimal:
-  - Primary entry point is `setupPGliteDevtools({ app, db })`.
-  - Avoid exposing low-level PGlite internals; the caller should only need a `PGlite` instance and a Vue `App`.
-- Callers (e.g. `apps/web/src/main.ts`) must guard usage with `import.meta.env.DEV` and handle the case where `db` is unavailable.
+- Use **Vitest** consistently; avoid mixing in Jest-only APIs.
+- Prefer:
+  - Clear Arrange–Act–Assert structure.
+  - One behavior/assertion cluster per test.
+  - Descriptive test names tied to domain language (e.g. "message query returns latest by ID").
+- Avoid:
+  - Sleeping or relying on real timeouts unless absolutely necessary.
+  - Network calls to real Telegram or external APIs; use mocks or fixtures instead.
 
-### Behavior & UX
+### Core & DB Tests
 
-- Present a clear, read-only view of:
-  - Table list and basic metadata.
-  - Columns and types.
-  - Sample data (capped to a safe limit).
-- Timeline events (queries) should:
-  - Be lightweight to emit.
-  - Not significantly slow down query execution even in debug mode.
+- For `packages/core`:
+  - Test at the level of events and side effects (DB writes, emitted events), not private helpers.
+  - Use `setDbInstanceForTests` and/or in-memory PGlite where appropriate to isolate tests from production DBs.
+- For DB-related behavior:
+  - Prefer migrations + schema fixtures over ad‑hoc `CREATE TABLE` statements inside tests.
+  - Clean up state between tests; do not rely on test ordering.
 
-### Reliability & Safety
+### Client & Web Tests
 
-- On any error (failed query, inspector read failure):
-  - Fail gracefully with a visible error state in devtools.
-  - Avoid crashing the host app.
-- Logging:
-  - Use `console.error` sparingly for truly unexpected failures in dev builds only.
-  - Do not spam the console on every normal query.
+- For `packages/client`:
+  - Focus on verifying that specific inputs/events produce the correct store updates and outgoing events.
+  - Mock `CoreContext` or WebSocket layers rather than hitting real servers.
+- For `apps/web`:
+  - Keep component tests focused and shallow where possible.
+  - Only write more integrated UI tests when they provide clear regression protection.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
