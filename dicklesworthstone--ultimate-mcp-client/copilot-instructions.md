@@ -1,54 +1,55 @@
-## 03-agent-master-loop
+## 04-server-discovery-integration
 
-> The Agent Master Loop module in [agent_master_loop.py](mdc:agent_master_loop.py) orchestrates AI agents with complex cognitive functions. It manages the think-act cycle, integrates with the Unified Memory System (UMS), and leverages LLMs for decision-making.
+> The MCP Client provides multiple mechanisms to discover and integrate with MCP servers as implemented in [mcp_client.py](mdc:mcp_client.py).
 
-# Agent Master Loop (AML) Architecture
+# Server Discovery & Integration
 
-The Agent Master Loop module in [agent_master_loop.py](mdc:agent_master_loop.py) orchestrates AI agents with complex cognitive functions. It manages the think-act cycle, integrates with the Unified Memory System (UMS), and leverages LLMs for decision-making.
+The MCP Client provides multiple mechanisms to discover and integrate with MCP servers as implemented in [mcp_client.py](mdc:mcp_client.py).
 
-## Key Components
+## Discovery Methods
 
-### AgentState
-Holds the complete runtime state of the agent including:
-- Workflow context and workflow stack
-- Goal stack for hierarchical task management
-- Current plan with structured steps
-- Error tracking and meta-cognition metrics
-- Adaptive thresholds for reflection and consolidation
+### File System Discovery
+- Searches configured directories for potential STDIO server scripts
+- Default paths include `.mcpclient_config/servers`, `~/mcp-servers`, etc.
+- Auto-detected on startup when enabled in config
 
-### AgentMasterLoop
-Main orchestrator class implementing:
-- Think-act-learn cycles with LLM interaction
-- Context gathering and management
-- Tool execution and error handling
-- Meta-cognitive processes (reflection, consolidation)
-- Background task management
+### mDNS/Zeroconf Discovery
+- Real-time discovery of MCP servers on the local network
+- Listens for services advertised under `_mcp._tcp.local.`
+- Managed via the `/discover` command suite
+- Can be automated with background scanning
 
-## Core Functionality
+### Local Port Scanning
+- Actively scans configured port ranges for potential MCP servers
+- Attempts MCP `initialize` handshake to detect compatible servers
+- Configured via `/config port-scan` commands
+- Useful for discovering servers not using mDNS advertisement
 
-### Planning & Execution
-- Maintains explicit, modifiable plans with sequential steps
-- Validates plan steps and detects dependency cycles
-- Executes tools via MCPClient with argument sanitization
-- Records detailed action history with dependencies
+### Remote Registries
+- Connects to defined MCP registry URLs to find shared servers
+- Typically used for discovering SSE-based MCP servers
 
-### Memory & Goal Management
-- Goal Stack: Hierarchical goal decomposition and tracking
-- Working Memory: Smart optimization based on relevance
-- Memory Promotion: Background elevation of memories to higher cognitive levels
-- Memory Linking: Automatic creation of semantic relationships
+### Claude Desktop Integration
+- Auto-detects and imports configs from `claude_desktop_config.json`
+- Intelligently adapts Windows/WSL paths and command structures
+- Remaps Windows-style paths to their Linux/WSL equivalents
 
-### Meta-Cognition
-- Reflection: Self-analysis for progress monitoring
-- Consolidation: Synthesizing information into insights
-- Adaptive Thresholds: Dynamic adjustment based on performance
-- Mental Momentum: Bias for maintaining productive workflows
+## Server Management
 
-## Error Handling
-- Retry logic with exponential backoff
-- Structured error categorization for recovery
-- Consecutive error tracking with safety limits
-- Graceful degradation and shutdown mechanisms
+### Connection Types
+- STDIO: Process-based servers using standard input/output
+- SSE: HTTP Server-Sent Events based servers (REST endpoints)
+
+### Server Lifecycle
+- Health monitoring with automatic recovery attempts
+- Connection retries with exponential backoff
+- Circuit breakers for consistently failing servers
+
+### STDIO Safety
+The client implements multiple layers to prevent accidental STDIO corruption:
+- Output redirection to stderr when STDIO servers are active
+- Context managers for critical operations
+- Safe console utilities for UI display
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
