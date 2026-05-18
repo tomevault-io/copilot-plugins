@@ -1,0 +1,9 @@
+{
+  "name": "mortenebak--tallstarter",
+  "displayName": "tallstarter",
+  "description": "A opponiated Laravel 12 Livewire Components Starter Kit, with user, role and permission management. Supports localization.",
+  "version": "1.0.0",
+  "author": "mortenebak",
+  "homepage": "https://github.com/mortenebak/tallstarter",
+  "skills": []
+}
