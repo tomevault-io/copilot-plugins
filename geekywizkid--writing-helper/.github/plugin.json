@@ -1,7 +1,7 @@
 {
   "name": "geekywizkid--writing-helper",
   "displayName": "writing-helper",
-  "description": "writing-helper",
+  "description": "A Next.js-based AI writing assistant supporting multiple LLM APIs (OpenAI, Claude, Gemini, etc.) with rich style customization features to help content creators improve quality and efficiency.",
   "version": "1.0.0",
   "author": "GeekyWizKid",
   "homepage": "https://github.com/GeekyWizKid/writing-helper",
