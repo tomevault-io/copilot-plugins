@@ -1,0 +1,9 @@
+{
+  "name": "paramount-engineering--roku-dev-studio",
+  "displayName": "roku-dev-studio",
+  "description": "Cross-platform Electron desktop studio for Roku developers: remote control, device queries, sideload, telnet console, RALE/App Connector, BrightScript Fiddle, JSON Action Scripts, an `rds` CLI, an MCP",
+  "version": "1.0.0",
+  "author": "paramount-engineering",
+  "homepage": "https://github.com/paramount-engineering/roku-dev-studio",
+  "skills": []
+}
