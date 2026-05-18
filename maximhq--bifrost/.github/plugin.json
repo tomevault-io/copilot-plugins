@@ -1,0 +1,9 @@
+{
+  "name": "maximhq--bifrost",
+  "displayName": "bifrost",
+  "description": "Fastest enterprise AI gateway (50x faster than LiteLLM) with adaptive load balancer, cluster mode, guardrails, 1000+ models support & <100 \u00b5s overhead at 5k RPS.",
+  "version": "1.0.0",
+  "author": "maximhq",
+  "homepage": "https://github.com/maximhq/bifrost",
+  "skills": []
+}
