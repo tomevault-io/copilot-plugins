@@ -1,54 +1,59 @@
-## pampa-mcp-usage
+## pampa-project-structure
 
-> You have access to PAMPA, a code memory system that indexes and allows semantic search in projects. This rule is based on [RULE_FOR_PAMPA_MCP.md](mdc:RULE_FOR_PAMPA_MCP.md).
+> This is the PAMPA (Protocol for Augmented Memory of Project Artifacts) project - an MCP-compatible semantic code search system.
 
-# PAMPA MCP Usage Rule
+# PAMPA Project Structure Guide
 
-You have access to PAMPA, a code memory system that indexes and allows semantic search in projects. This rule is based on [RULE_FOR_PAMPA_MCP.md](mdc:RULE_FOR_PAMPA_MCP.md).
+This is the PAMPA (Protocol for Augmented Memory of Project Artifacts) project - an MCP-compatible semantic code search system.
 
-## Important: Language Usage
+## Core Architecture Files
 
-**ALWAYS use English for all PAMPA queries and searches.** The semantic search engine is optimized for English technical terms and provides significantly better results than other languages.
+### Main Entry Points
+- [cli.js](mdc:cli.js) - Command line interface, handles `npx pampa` commands
+- [mcp-server.js](mdc:mcp-server.js) - MCP server that exposes tools to AI agents
+- [package.json](mdc:package.json) - Project configuration and dependencies
 
-Examples:
-- ✅ Good: "user authentication", "payment processing", "database connection"
-- ❌ Avoid: "autenticación de usuario", "procesamiento de pagos"
+### Core Engine
+- [service.js](mdc:service.js) - Core business logic: indexing, searching, chunking
+- [indexer.js](mdc:indexer.js) - Tree-sitter based code parsing and chunking
+- [providers.js](mdc:providers.js) - Embedding providers (OpenAI, Transformers, Ollama, Cohere)
 
-## Basic Instructions
+### Generated Files
+- [pampa.codemap.json](mdc:pampa.codemap.json) - Lightweight index committed to git
+- `.pampa/pampa.db` - SQLite database with vectors and metadata (not committed)
+- `.pampa/chunks/*.gz` - Compressed code chunks (not committed)
 
-1. **ALWAYS at the start of a session:**
-   - Run `get_project_stats` to check if the project is indexed
-   - If no database exists, run `index_project`
-   - Run `update_project` to sync with recent changes
+## Technology Stack
 
-2. **BEFORE creating any function:**
-   - Use `search_code` with semantic queries like "user authentication", "validate email", "error handling"
-   - Review existing code with `get_code_chunk` before writing new code
+- **Node.js** - Runtime environment
+- **SQLite3** - Local vector database
+- **Tree-sitter** - Code parsing and AST analysis
+- **OpenAI/Transformers.js** - Embedding generation
+- **MCP Protocol** - AI agent communication
+- **gzip** - Code chunk compression
 
-3. **AFTER modifying code:**
-   - Run `update_project` to update the knowledge base
-   - This keeps the project memory synchronized
+## Key Concepts
 
-## Available MCP Tools
+1. **Chunking**: Code is split into semantic units (functions, classes, methods)
+2. **Embedding**: Each chunk gets vectorized for semantic search
+3. **Indexing**: Vectors + metadata stored in local SQLite
+4. **Codemap**: Git-friendly JSON index for context portability
+5. **MCP Serving**: Tools exposed to AI agents via MCP protocol
 
-- `search_code(query, limit, path)` - Search code semantically in the project
-- `get_code_chunk(sha, path)` - Get complete source code of a specific chunk
-- `index_project(path, provider)` - Index project for the first time
-- `update_project(path, provider)` - Update index after code changes
-- `get_project_stats(path)` - Get project statistics and overview
+## Development Workflow
 
-## Strategy
+1. **CLI Development**: Modify [cli.js](mdc:cli.js) for new commands
+2. **MCP Tools**: Add tools in [mcp-server.js](mdc:mcp-server.js)
+3. **Core Logic**: Business logic goes in [service.js](mdc:service.js)
+4. **New Providers**: Add embedding providers in [providers.js](mdc:providers.js)
 
-Use PAMPA as your project memory. Search before creating, keep updated after changes, and leverage existing knowledge to avoid code duplication.
+## File Patterns
 
-## Example Workflow
-
-```
-1. get_project_stats() → Check if project is indexed
-2. search_code("authentication function") → Find existing auth code
-3. get_code_chunk(sha_from_search) → Review implementation
-4. [Make code changes]
-5. update_project() → Sync new changes to memory
+- `*.js` - Main application code
+- `*.md` - Documentation and rules
+- `.pampa/` - Generated database and chunks (gitignored)
+- `examples/` - Test projects for validation
+- `test/` - Test suite
 
 ---
 > Source: [tecnomanu/pampa](https://github.com/tecnomanu/pampa) — distributed by [TomeVault](https://tomevault.io).
