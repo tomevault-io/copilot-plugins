@@ -1,0 +1,9 @@
+{
+  "name": "dmontgomery40--mcp-3d-printer-server",
+  "displayName": "mcp-3D-printer-server",
+  "description": "Connects MCP to major 3D printer APIs (Orca, FULU's Orca/Bambu, OctoPrint, Klipper, Duet, Repetier, Prusa, Creality). Control prints, monitor status, and perform advanced STL operations like scaling, ",
+  "version": "1.0.0",
+  "author": "DMontgomery40",
+  "homepage": "https://github.com/DMontgomery40/mcp-3D-printer-server",
+  "skills": []
+}
