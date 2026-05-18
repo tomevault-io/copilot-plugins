@@ -1,0 +1,9 @@
+{
+  "name": "mikechao--brave-search-mcp",
+  "displayName": "brave-search-mcp",
+  "description": "An MCP Server implementation that integrates the Brave Search API, providing, Web Search, Local Points of Interest Search, Image Search, Video Search, News Search and LLM Context Search capabilities",
+  "version": "1.0.0",
+  "author": "mikechao",
+  "homepage": "https://github.com/mikechao/brave-search-mcp",
+  "skills": []
+}
