@@ -1,0 +1,9 @@
+{
+  "name": "chrisguidry--docket",
+  "displayName": "docket",
+  "description": "docket is a distributed background task system for Python",
+  "version": "1.0.0",
+  "author": "chrisguidry",
+  "homepage": "https://github.com/chrisguidry/docket",
+  "skills": []
+}
