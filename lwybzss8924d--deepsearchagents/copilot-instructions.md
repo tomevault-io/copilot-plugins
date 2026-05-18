@@ -1,78 +1,117 @@
-## periodic-planning
+## project-overview
 
-> DeepSearchAgent v0.2.4 introduces periodic planning capability for both agent types, allowing strategic reassessment during complex search tasks.
+> DeepSearchAgent is an intelligent agent system that combines the ReAct (Reasoning + Acting) framework and the CodeAct concept (executable code agents) to enable deep web search and reasoning capabilities.
 
-# DeepSearchAgent Periodic Planning
+# DeepSearchAgent Project
 
-DeepSearchAgent v0.2.4 introduces periodic planning capability for both agent types, allowing strategic reassessment during complex search tasks.
+DeepSearchAgent is an intelligent agent system that combines the ReAct (Reasoning + Acting) framework and the CodeAct concept (executable code agents) to enable deep web search and reasoning capabilities.
 
-## Concept
+## Project Structure
 
-Periodic planning helps agents maintain focus and adapt their search strategy as they gather new information. Instead of blindly following an initial plan, agents reassess at regular intervals to:
-
-1. Evaluate progress on the current goal
-2. Identify gaps in the information collected
-3. Adjust search strategy based on discoveries
-4. Prioritize remaining sub-tasks
-
-## Implementation
-
-### ReAct Agent
-
-In [agent.py](mdc:src/agents/agent.py), the ReAct agent implements planning with:
-
-```python
-# Set planning interval (default: 7)
-planning_interval = planning_interval
+```
+src/agents/
+├── agent.py                # ReAct agent implementation
+├── cli.py                  # Command-line interface
+├── codact_agent.py         # CodeAct agent implementation
+├── config_loader.py        # Configuration loading utilities
+├── main.py                 # FastAPI web service
+├── prompt_templates/       # Modular prompt template system
+│   ├── codact_prompts.py   # CodeAct agent prompts
+│   └── react_prompts.py    # ReAct agent prompts
+├── streaming_agents.py     # Streaming agent implementations
+├── streaming_models.py     # Streaming model wrappers
+├── core/                   # Core implementation classes
+│   └── chunk/              # Text chunking components
+│       └── segmenter.py    # Jina AI Segmenter implementation
+└── tools/                  # Tool implementations
+    ├── chunk.py            # Text chunking tool
+    ├── embed.py            # Text embedding tool
+    ├── final_answer.py     # Final answer generation tool
+    ├── readurl.py          # URL content reading tool
+    ├── rerank.py           # Content reranking tool
+    ├── search.py           # Web search tool
+    └── wolfram.py          # Wolfram Alpha computational tool
 ```
 
-The planning process involves:
-- Initial planning at the start of a task
-- Periodic planning every `planning_interval` steps
-- Sending special planning prompts to the LLM to reconsider its approach
+## Version
+Current version: 0.2.4.dev (as specified in [pyproject.toml](mdc:pyproject.toml))
 
-### CodeAct Agent
+## Core Components
 
-In [codact_agent.py](mdc:src/agents/codact_agent.py), the CodeAct agent uses:
+### Agent Implementations
+- **[src/agents/main.py](mdc:src/agents/main.py)**: Main FastAPI service entry point
+- **[src/agents/cli.py](mdc:src/agents/cli.py)**: Command-line interface with improved logging
+- **[config.toml](mdc:config.toml)**: Configuration file with enhanced logging options
+- **[requirements.txt](mdc:requirements.txt)**: Project dependencies
+- **[src/agents/agent.py](mdc:src/agents/agent.py)**: Base agent implementation (ReAct paradigm)
+- **[src/agents/codact_agent.py](mdc:src/agents/codact_agent.py)**: CodeAct agent implementation
+- **[streaming_agents.py](mdc:src/agents/streaming_agents.py)**: Streaming-enabled versions of both agents (not recommended)
+- **[streaming_models.py](mdc:src/agents/streaming_models.py)**: Model wrappers supporting streaming output
 
-```python
-# Set planning interval (default: 5)
-search_planning_interval = planning_interval
-```
+### Text Processing Components
+- **[src/agents/core/chunk/segmenter.py](mdc:src/agents/core/chunk/segmenter.py)**: Intelligent text segmentation using Jina AI Segment API
+- **[src/agents/tools/chunk.py](mdc:src/agents/tools/chunk.py)**: Tool interface for the new segmenter
+- **[src/agents/tools/final_answer.py](mdc:src/agents/tools/final_answer.py)**: Enhanced final answer generation with multiple output formats
 
-The CodeAct planning involves:
-- Detailed strategy assessment in Python code
-- State tracking for visited URLs, search queries, etc.
-- Python-based plan adjustments
+## Key Components
 
-## Configuration
+1. **Core Agents**: Two agent paradigms implemented:
+   - ReAct (Reasoning + Acting): Tool-calling agent using structured JSON instructions
+   - CodeAct: Code execution agent generating Python code to perform actions
 
-Planning intervals can be configured in:
+2. **Tools Collection**: Various tools for deep web search and content processing:
+   - **Search tools**: Web search, content retrieval, chunking
+   - **Processing tools**: Embedding, reranking, computational tools
+   - **Final Answer tools**: Answer synthesis and formatting
 
-1. [config.toml](mdc:config.toml):
-   ```yaml
-   agents:
-     react:
-       planning_interval: 7
-     codact:
-       planning_interval: 5
-   ```
+3. **Multiple Interfaces**:
+   - CLI mode (`src/agents/cli.py`)
+   - FastAPI service (`src/agents/main.py`)
 
-2. Command line:
-   ```bash
-   # For ReAct agent
-   python -m src.agents.cli --agent-type react --react-planning-interval 10
-   
-   # For CodeAct agent
-   python -m src.agents.cli --agent-type codact --planning-interval 8
-   ```
+4. **Configuration**:
+   - [config.toml](mdc:config.toml): Main configuration file
+   - [config_loader.py](mdc:src/agents/config_loader.py): Configuration loading utilities
+   - [prompt_templates/](mdc:src/agents/prompt_templates): Modular prompt template system
+   - API keys and sensitive data in `.env` (not committed to the repository)
 
-## Benefits
+## Key Features in v0.2.4.dev
 
-- More coherent search strategy over long tasks
-- Better adaptation to discovered information
-- Reduced "tunnel vision" where agent follows initial assumptions
-- Improved handling of complex, multi-part research questions
+1. **Text Chunking Enhancements**:
+   - Intelligent text segmentation via Jina AI Segment API
+   - Improved error handling and asynchronous processing
+   - Backward compatibility with previous chunking system
+
+2. **Prompt Template System Refactoring**:
+   - Modular structure for better organization
+   - Enhanced template merging logic
+   - Updated tool descriptions
+
+3. **Final Answer Generation Improvements**:
+   - Multiple output format support
+   - Intelligent JSON processing
+   - Unified result formatting
+   - Better source link extraction
+
+4. **CLI and Logging Optimizations**:
+   - Simplified LiteLLM logs output
+   - Strict filtering for redundant logs
+   - Fixed tool naming consistency
+   - More granular log filtering options
+
+5. **Streaming Capability** (⚠️ Not Recommended):
+   - Current implementation has stability issues
+   - Set `enable_streaming: false` in config.toml
+   - Will be improved in future releases
+
+6. **Periodic Planning**:
+   - Strategic reassessment at configurable intervals
+   - Helps maintain focus and adjust search strategy
+
+7. **Stability Improvements**:
+   - Enhanced error handling and retry mechanisms
+   - Improved asynchronous processing support
+   - Unified agent state management
+   - Centralized logging configuration
 
 ---
 > Source: [lwyBZss8924d/DeepSearchAgents](https://github.com/lwyBZss8924d/DeepSearchAgents) — distributed by [TomeVault](https://tomevault.io).
