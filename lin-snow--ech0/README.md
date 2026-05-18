@@ -7,11 +7,11 @@ Ech0 – An open-source, self-hosted lightweight publishing platform for persona
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lin-snow/Ech0](https://github.com/lin-snow/Ech0).
+Original source: `CLAUDE.md` in [lin-snow/Ech0](https://github.com/lin-snow/Ech0).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
