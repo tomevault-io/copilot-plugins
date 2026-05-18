@@ -1,0 +1,9 @@
+{
+  "name": "alexei-led--k8s-mcp-server",
+  "displayName": "k8s-mcp-server",
+  "description": "K8s-mcp-server is a Model Context Protocol (MCP) server that enables AI assistants like Claude to securely execute Kubernetes commands. It provides a bridge between language models and essential Kuber",
+  "version": "1.0.0",
+  "author": "alexei-led",
+  "homepage": "https://github.com/alexei-led/k8s-mcp-server",
+  "skills": []
+}
