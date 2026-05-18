@@ -1,14 +1,47 @@
-## task-markdown
+## taskplanner-dev
 
-> TaskPlanner task markdown format reminder
+> TaskPlanner repo overview and contributor workflow
 
 
-# TaskPlanner task markdown
+# TaskPlanner (refined)
 
-- Each task is a `## TASK-###: Title` heading section.
-- Keep tasks separated by `---`.
-- Priority is required in task headers (`**Priority:** P0` … `P4`).
-- Optional metadata commonly used: `**Tags:**`, `**Assignee:**`, `**Updated:**`.
+This repo provides markdown-based task tracking stored as `.md` files under `.tasks/` (git-tracked and AI-friendly).
+
+## Tech stack
+
+- TypeScript (strict mode) + esbuild bundling
+- Unit tests: Vitest (`npm test`)
+- Lint: ESLint (`npm run lint`)
+- Format: Prettier (`npm run format`)
+
+## Code layout
+
+- `src/core/`: pure logic, no `vscode` dependency
+- `src/extension/`: VS Code extension shell (commands, views, providers, watchers)
+- `src/test/core/`: Vitest unit tests for core logic
+- `src/test/extension/`: integration tests (via `@vscode/test-cli`)
+
+## Task workflow for agents (task-agent instructions)
+
+When implementing tasks, follow the task conventions used by TaskPlanner:
+
+- Tasks live in `.tasks/*.md` as `## TASK-###: ...` sections
+- Tasks are separated by `---`
+- Agents should:
+  1. Pick the task from `NEXT.md` or `BACKLOG.md` (highest priority first)
+  2. Move it to `IN_PROGRESS.md` by removing it from the source file and pasting it into `IN_PROGRESS.md`
+  3. Add a `### Plan` subsection under the task heading when `aiPlanRequired` is enabled
+  4. Implement the task
+  5. Move it to `DONE.md` when complete
+
+When asked to **create a new task**:
+  1. Read `.tasks/config.json` to get `nextId` and `idPrefix`
+  2. Generate the ID: `{idPrefix}-{nextId padded to 3 digits}` (e.g. `TASK-015`)
+  3. Increment `nextId` in `config.json` and save
+  4. Write the task into `BACKLOG.md` (or the file the user specifies), respecting `insertPosition` (top/bottom, after the `# Heading` line)
+  5. Use the standard format: `## TASK-###: Title`, `**Priority:**`, optional `**Tags:**`, `**Updated:**`, description, and `---` separator
+
+Note: the extension command `TaskPlanner: Initialize AI Instructions` updates root `.cursorrules` and `CLAUDE.md` (idempotent via markers). This `.cursor/rules` directory is separate and intended for persistent developer guidance.
 
 ---
 > Source: [refined/taskplanner](https://github.com/refined/taskplanner) — distributed by [TomeVault](https://tomevault.io).
