@@ -1,0 +1,9 @@
+{
+  "name": "crawlchat--crawlchat",
+  "displayName": "crawlchat",
+  "description": "Turn your documentation into an AI assistant that answers questions instantly",
+  "version": "1.0.0",
+  "author": "crawlchat",
+  "homepage": "https://github.com/crawlchat/crawlchat",
+  "skills": []
+}
