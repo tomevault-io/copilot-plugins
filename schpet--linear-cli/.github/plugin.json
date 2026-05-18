@@ -1,0 +1,18 @@
+{
+  "name": "schpet--linear-cli",
+  "displayName": "linear-cli",
+  "description": "linear without leaving the command line: list, start, and create PRs for linear issues. agent friendly. ",
+  "version": "1.0.0",
+  "author": "schpet",
+  "homepage": "https://github.com/schpet/linear-cli",
+  "skills": [
+    {
+      "name": "linear-cli",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
