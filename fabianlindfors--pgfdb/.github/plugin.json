@@ -1,0 +1,9 @@
+{
+  "name": "fabianlindfors--pgfdb",
+  "displayName": "pgfdb",
+  "description": "Postgres made distributed using FoundationDB",
+  "version": "1.0.0",
+  "author": "fabianlindfors",
+  "homepage": "https://github.com/fabianlindfors/pgfdb",
+  "skills": []
+}
