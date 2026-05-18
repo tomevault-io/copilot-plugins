@@ -2,6 +2,8 @@
 
 > Sourced from [tecnomanu/pampa](https://github.com/tecnomanu/pampa) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Protocol for Augmented Memory of Project Artifacts  (MCP compatible)
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
