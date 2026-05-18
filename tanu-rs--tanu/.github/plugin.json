@@ -1,0 +1,9 @@
+{
+  "name": "tanu-rs--tanu",
+  "displayName": "tanu",
+  "description": "High-performance, async-friendly and ergonomic WebAPI testing framework for Rust",
+  "version": "1.0.0",
+  "author": "tanu-rs",
+  "homepage": "https://github.com/tanu-rs/tanu",
+  "skills": []
+}
