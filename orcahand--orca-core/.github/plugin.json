@@ -1,0 +1,9 @@
+{
+  "name": "orcahand--orca-core",
+  "displayName": "orca_core",
+  "description": "Core Python Controller of the ORCA Hand",
+  "version": "1.0.0",
+  "author": "orcahand",
+  "homepage": "https://github.com/orcahand/orca_core",
+  "skills": []
+}
