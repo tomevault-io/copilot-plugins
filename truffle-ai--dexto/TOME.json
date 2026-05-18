@@ -4,7 +4,7 @@
   "repo": "dexto",
   "description": "A coding agent and general agent harness for building and orchestrating agentic applications.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/truffle-ai/dexto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T08:29:12Z"
+  "distributed_at": "2026-05-18T08:29:49Z"
 }
