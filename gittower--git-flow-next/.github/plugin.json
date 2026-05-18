@@ -1,0 +1,9 @@
+{
+  "name": "gittower--git-flow-next",
+  "displayName": "git-flow-next",
+  "description": "A modern reimplementation of git-flow in Go that offers greater flexibility while maintaining backward compatibility with the original git-flow and git-flow-avh.",
+  "version": "1.0.0",
+  "author": "gittower",
+  "homepage": "https://github.com/gittower/git-flow-next",
+  "skills": []
+}
