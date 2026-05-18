@@ -1,0 +1,9 @@
+{
+  "name": "facebook--pyrefly",
+  "displayName": "pyrefly",
+  "description": "A fast type checker and language server for Python",
+  "version": "1.0.0",
+  "author": "facebook",
+  "homepage": "https://github.com/facebook/pyrefly",
+  "skills": []
+}
