@@ -1,0 +1,9 @@
+{
+  "name": "yoanbernabeu--frankenhostinger",
+  "displayName": "FrankenHostinger",
+  "description": "Symfony 8 application with FrankenPHP for Hostinger deployment",
+  "version": "1.0.0",
+  "author": "yoanbernabeu",
+  "homepage": "https://github.com/yoanbernabeu/FrankenHostinger",
+  "skills": []
+}
