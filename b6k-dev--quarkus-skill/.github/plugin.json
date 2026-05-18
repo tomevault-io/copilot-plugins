@@ -1,0 +1,9 @@
+{
+  "name": "b6k-dev--quarkus-skill",
+  "displayName": "quarkus-skill",
+  "description": "Quarkus platform reference docs and installable skill for AI coding assistants, focused on implementation guidance, troubleshooting, and architecture decisions.",
+  "version": "1.0.0",
+  "author": "b6k-dev",
+  "homepage": "https://github.com/b6k-dev/quarkus-skill",
+  "skills": []
+}
