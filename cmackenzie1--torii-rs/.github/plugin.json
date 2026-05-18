@@ -1,0 +1,9 @@
+{
+  "name": "cmackenzie1--torii-rs",
+  "displayName": "torii-rs",
+  "description": "Torii is a powerful authentication framework for Rust applications that gives you complete control over your users' data.",
+  "version": "1.0.0",
+  "author": "cmackenzie1",
+  "homepage": "https://github.com/cmackenzie1/torii-rs",
+  "skills": []
+}
