@@ -1,0 +1,9 @@
+{
+  "name": "justrach--turboapi",
+  "displayName": "turboAPI",
+  "description": "FastAPI-compatible Python framework with Zig HTTP core; 7x faster, free-threading native",
+  "version": "1.0.0",
+  "author": "justrach",
+  "homepage": "https://github.com/justrach/turboAPI",
+  "skills": []
+}
