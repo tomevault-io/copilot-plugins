@@ -4,7 +4,7 @@
   "repo": "EchoIsle",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PY0226H/EchoIsle",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T15:50:17Z"
+  "distributed_at": "2026-05-18T18:15:33Z"
 }
