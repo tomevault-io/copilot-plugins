@@ -1,0 +1,9 @@
+{
+  "name": "iolanta-tech--nanopublishing",
+  "displayName": "nanopublishing",
+  "description": "Agent skills to craft, validate, and publish nanopublications",
+  "version": "1.0.0",
+  "author": "iolanta-tech",
+  "homepage": "https://github.com/iolanta-tech/nanopublishing",
+  "skills": []
+}
