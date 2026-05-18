@@ -1,0 +1,30 @@
+{
+  "name": "spring-ai-alibaba--examples",
+  "displayName": "examples",
+  "description": "Examples demonstrating usage of Spring AI & Spring AI Alibaba \ud83d\udcdc",
+  "version": "1.0.0",
+  "author": "spring-ai-alibaba",
+  "homepage": "https://github.com/spring-ai-alibaba/examples",
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "http-generate",
+      "description": ""
+    },
+    {
+      "name": "readme-generate",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    }
+  ]
+}
