@@ -1,0 +1,9 @@
+{
+  "name": "awcodes--mason",
+  "displayName": "mason",
+  "description": "A simple block based drag and drop page / document builder field for Filament.",
+  "version": "1.0.0",
+  "author": "awcodes",
+  "homepage": "https://github.com/awcodes/mason",
+  "skills": []
+}
