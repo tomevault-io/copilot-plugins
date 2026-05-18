@@ -1,0 +1,9 @@
+{
+  "name": "portainer--portainer-mcp",
+  "displayName": "portainer-mcp",
+  "description": "Portainer MCP server",
+  "version": "1.0.0",
+  "author": "portainer",
+  "homepage": "https://github.com/portainer/portainer-mcp",
+  "skills": []
+}
