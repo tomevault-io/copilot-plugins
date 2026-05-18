@@ -1,28 +1,121 @@
-## generate-world-class-artistic-ui
+## naming-conventions
 
-> 本规则对应 [docs/prompts/generate-world-class-artistic-ui.md](mdc:docs/prompts/generate-world-class-artistic-ui.md)。
+> - 所有文件和文件夹必须使用 **kebab-case** 命名
 
-# 世界级艺术化界面生成规则
+# 命名规范
 
-本规则对应 [docs/prompts/generate-world-class-artistic-ui.md](mdc:docs/prompts/generate-world-class-artistic-ui.md)。
+## 文件与文件夹命名
 
-## 规则说明
-该文档为界面设计和开发提供了最高标准的美学与体验要求。其核心思想如下：
-- 追求令人惊叹、精美绝伦的界面效果
-- 强调世界级的用户体验，兼顾美观与实用
-- 鼓励现代化、充满创意、有趣而非平庸的设计
-- 要求界面如艺术品般超越常规，实现引领而非跟随
+### 1. 文件命名规范
+- 所有文件和文件夹必须使用 **kebab-case** 命名
+- 示例：
+  - ✅ `user-profile.tsx`
+  - ✅ `agent-detail-page.tsx`
+  - ✅ `discussion-member.service.ts`
+  - ❌ `userProfile.tsx`
+  - ❌ `agentDetailPage.tsx`
+  - ❌ `discussionMemberService.ts`
 
-## 使用场景
-- 设计 UI/UX 时，参考本规则确保界面达到世界级水准
-- 生成界面相关 prompt、需求或评审标准时，引用本规则内容
+### 2. Service文件特殊规范
+- Service文件必须以 `.service.ts` 结尾
+- 示例：
+  - ✅ `discussion-member.service.ts`
+  - ✅ `agent.service.ts`
+  - ✅ `message.service.ts`
+  - ❌ `discussion-member.ts`
+  - ❌ `agentService.ts`
 
-## 关键要求
-- 视觉与交互体验需达到艺术品级别
-- 拒绝平庸、无聊、缺乏创意的设计
-- 鼓励创新、趣味性和引领潮流
+### 3. Tool文件特殊规范
+- Agent工具文件必须以 `.tool.ts` 结尾
+- 示例：
+  - ✅ `agent-analysis.tool.ts`
+  - ✅ `file-system.tool.ts`
+  - ✅ `code-analysis.tool.ts`
+  - ❌ `agent-analysis-tool.ts`
+  - ❌ `fileSystemTool.ts`
 
-> 本规则为所有界面相关开发和设计的最高指导原则。
+### 4. 文件夹命名规范
+- 文件夹也必须使用 kebab-case
+- 示例：
+  - ✅ `agent-detail/`
+  - ✅ `discussion-control/`
+  - ✅ `member-management/`
+  - ❌ `agentDetail/`
+  - ❌ `discussionControl/`
+
+## Hook命名规范
+
+### 1. 语义化命名原则
+- Hook名称应当语义化，清晰表达功能用途
+- 避免可能与其他功能混淆的命名
+- 确保命名具有清晰的识别性
+
+### 2. 命名模式
+- 使用 `use` 前缀 + 功能描述
+- 功能描述应当具体且唯一
+- 示例：
+  - ✅ `useAgentChat` - 进入AI对话空间
+  - ✅ `useDiscussionMembers` - 讨论成员管理
+  - ✅ `useAgentDetail` - 智能体详情
+  - ✅ `useMessageHistory` - 消息历史
+  - ❌ `useData` - 过于通用
+  - ❌ `useManager` - 不够具体
+  - ❌ `useHandler` - 功能不明确
+
+### 3. 避免的命名模式
+- 避免过于通用的词汇：`useData`, `useManager`, `useHandler`
+- 避免可能冲突的命名：`useAgent` (可能与其他agent相关hook混淆)
+- 避免缩写：`useMsg` (应使用 `useMessage`)
+- 避免数字后缀：`useAgent2`, `useChatV2`
+
+### 4. 推荐命名模式
+- 功能 + 对象：`useAgentChat`, `useMessageHistory`
+- 动作 + 对象：`useCreateDiscussion`, `useUpdateAgent`
+- 状态 + 对象：`useAgentState`, `useDiscussionStatus`
+
+## 当前项目需要修复的命名
+
+### Hook文件命名不一致问题
+以下文件需要重命名为kebab-case：
+
+**需要修复的文件：**
+- `useAgentChat.ts` → `use-agent-chat.ts`
+- `useAgentForm.ts` → `use-agent-form.ts`
+- `useAgents.ts` → `use-agents.ts`
+- `useMemberSelection.ts` → `use-member-selection.ts`
+- `useMessageList.ts` → `use-message-list.ts`
+- `useDiscussionMembers.ts` → `use-discussion-members.ts`
+- `useDiscussions.ts` → `use-discussions.ts`
+- `useMessages.ts` → `use-messages.ts`
+- `useSettings.ts` → `use-settings.ts`
+- `useSettingCategories.ts` → `use-setting-categories.ts`
+- `useDiscussion.ts` → `use-discussion.ts`
+- `useOptimisticUpdate.ts` → `use-optimistic-update.ts`
+- `useKeyboardExpandableList.ts` → `use-keyboard-expandable-list.ts`
+- `useMediaQuery.ts` → `use-media-query.ts`
+- `useMessageInput.ts` → `use-message-input.ts`
+- `useObservableState.ts` → `use-observable-state.ts`
+- `usePersistedState.ts` → `use-persisted-state.ts`
+- `useViewportHeight.ts` → `use-viewport-height.ts`
+- `useWindowSize.ts` → `use-window-size.ts`
+- `useAutoScroll.ts` → `use-auto-scroll.ts`
+- `useBreakpoint.ts` → `use-breakpoint.ts`
+
+**已符合规范的文件：**
+- `use-connect-navigation-store.ts` ✅
+- `use-extensions.ts` ✅
+- `use-setup-app.ts` ✅
+- `use-toast.ts` ✅
+- `use-copy.ts` ✅
+
+### 修复步骤
+1. 重命名文件为kebab-case
+2. 更新所有import语句
+3. 确保功能不受影响
+---
+alwaysApply: true
+description: 文件命名和Hook命名规范，确保代码风格一致性
+---
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
