@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--log-analyzer-with-mcp",
+  "displayName": "Log-Analyzer-with-MCP",
+  "description": "A Model Context Protocol (MCP) server that provides AI assistants access to AWS CloudWatch Logs for analysis, searching, and correlation",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/Log-Analyzer-with-MCP",
+  "skills": []
+}
