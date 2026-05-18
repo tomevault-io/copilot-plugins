@@ -1,0 +1,9 @@
+{
+  "name": "searchsavior--openarc",
+  "displayName": "OpenArc",
+  "description": "Inference engine for Intel devices. Serve LLMs, VLMs, Whisper, Kokoro-TTS, Embedding and Rerank models over OpenAI endpoints.",
+  "version": "1.0.0",
+  "author": "SearchSavior",
+  "homepage": "https://github.com/SearchSavior/OpenArc",
+  "skills": []
+}
