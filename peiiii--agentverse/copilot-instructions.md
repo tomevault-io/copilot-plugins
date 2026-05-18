@@ -1,121 +1,145 @@
-## naming-conventions
+## portal-service-bus-architecture
 
-> - 所有文件和文件夹必须使用 **kebab-case** 命名
+> The Portal Service Bus is a modular, composable cross-context communication system that supports Web Workers, iframes, Shared Workers, and Service Workers. It follows a layered architecture with clear separation of concerns.
 
-# 命名规范
+# Portal Service Bus Architecture
 
-## 文件与文件夹命名
+## Overview
 
-### 1. 文件命名规范
-- 所有文件和文件夹必须使用 **kebab-case** 命名
-- 示例：
-  - ✅ `user-profile.tsx`
-  - ✅ `agent-detail-page.tsx`
-  - ✅ `discussion-member.service.ts`
-  - ❌ `userProfile.tsx`
-  - ❌ `agentDetailPage.tsx`
-  - ❌ `discussionMemberService.ts`
+The Portal Service Bus is a modular, composable cross-context communication system that supports Web Workers, iframes, Shared Workers, and Service Workers. It follows a layered architecture with clear separation of concerns.
 
-### 2. Service文件特殊规范
-- Service文件必须以 `.service.ts` 结尾
-- 示例：
-  - ✅ `discussion-member.service.ts`
-  - ✅ `agent.service.ts`
-  - ✅ `message.service.ts`
-  - ❌ `discussion-member.ts`
-  - ❌ `agentService.ts`
+## Directory Structure
 
-### 3. Tool文件特殊规范
-- Agent工具文件必须以 `.tool.ts` 结尾
-- 示例：
-  - ✅ `agent-analysis.tool.ts`
-  - ✅ `file-system.tool.ts`
-  - ✅ `code-analysis.tool.ts`
-  - ❌ `agent-analysis-tool.ts`
-  - ❌ `fileSystemTool.ts`
+```
+src/common/lib/service-bus/portal/
+├── types.ts                     # Type definitions (86 lines)
+├── core.ts                      # Core implementations (200 lines)
+├── service-bus.ts               # Service bus adapters (180 lines)
+├── factory.ts                   # Factory and composer (140 lines)
+├── usage-examples.ts            # Usage examples (341 lines)
+└── index.ts                     # Unified exports (8 lines)
+```
 
-### 4. 文件夹命名规范
-- 文件夹也必须使用 kebab-case
-- 示例：
-  - ✅ `agent-detail/`
-  - ✅ `discussion-control/`
-  - ✅ `member-management/`
-  - ❌ `agentDetail/`
-  - ❌ `discussionControl/`
+## Core Principles
 
-## Hook命名规范
+### 1. Clear Type Separation
+- **Types**: All interfaces and type definitions in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
+- **Implementations**: Core classes and logic in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
+- **Service Integration**: Service bus adapters in [service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts)
+- **Creation Utilities**: Factories and composers in [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
 
-### 1. 语义化命名原则
-- Hook名称应当语义化，清晰表达功能用途
-- 避免可能与其他功能混淆的命名
-- 确保命名具有清晰的识别性
+### 2. Balanced File Sizes
+- **Target**: 100-300 lines per file
+- **Maximum**: 400 lines per file
+- **Rationale**: Large enough to group related functionality, small enough to maintain
 
-### 2. 命名模式
-- 使用 `use` 前缀 + 功能描述
-- 功能描述应当具体且唯一
-- 示例：
-  - ✅ `useAgentChat` - 进入AI对话空间
-  - ✅ `useDiscussionMembers` - 讨论成员管理
-  - ✅ `useAgentDetail` - 智能体详情
-  - ✅ `useMessageHistory` - 消息历史
-  - ❌ `useData` - 过于通用
-  - ❌ `useManager` - 不够具体
-  - ❌ `useHandler` - 功能不明确
+### 3. Clean Architecture
+- Types are imported from [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
+- No legacy compatibility layer (removed for simplicity)
+- Clear separation between types and implementations
 
-### 3. 避免的命名模式
-- 避免过于通用的词汇：`useData`, `useManager`, `useHandler`
-- 避免可能冲突的命名：`useAgent` (可能与其他agent相关hook混淆)
-- 避免缩写：`useMsg` (应使用 `useMessage`)
-- 避免数字后缀：`useAgent2`, `useChatV2`
+## Key Components
 
-### 4. 推荐命名模式
-- 功能 + 对象：`useAgentChat`, `useMessageHistory`
-- 动作 + 对象：`useCreateDiscussion`, `useUpdateAgent`
-- 状态 + 对象：`useAgentState`, `useDiscussionStatus`
+### Type Definitions ([types.ts](mdc:src/common/lib/service-bus/portal/types.ts))
+```typescript
+interface CommunicationPortal {
+  readonly id: string;
+  readonly type: PortalType;
+  send(message: PortalMessage): Promise<void>;
+  onMessage(handler: (message: PortalMessage) => void): void;
+  connect(): Promise<void>;
+  disconnect(): Promise<void>;
+  isConnected(): boolean;
+  getTargetInfo(): PortalTargetInfo;
+  generateMessageId(): string;
+}
+```
 
-## 当前项目需要修复的命名
+### Core Implementations ([core.ts](mdc:src/common/lib/service-bus/portal/core.ts))
+- `BasePortal`: Abstract base class for all portals
+- `PostMessagePortal`: PostMessage-based communication
+- `EventTargetPortal`: EventTarget-based communication
 
-### Hook文件命名不一致问题
-以下文件需要重命名为kebab-case：
+### Service Bus Integration ([service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts))
+- `PortalServiceBusConnector`: Exposes services through portals
+- `PortalServiceBusProxy`: Creates proxies for remote service calls
 
-**需要修复的文件：**
-- `useAgentChat.ts` → `use-agent-chat.ts`
-- `useAgentForm.ts` → `use-agent-form.ts`
-- `useAgents.ts` → `use-agents.ts`
-- `useMemberSelection.ts` → `use-member-selection.ts`
-- `useMessageList.ts` → `use-message-list.ts`
-- `useDiscussionMembers.ts` → `use-discussion-members.ts`
-- `useDiscussions.ts` → `use-discussions.ts`
-- `useMessages.ts` → `use-messages.ts`
-- `useSettings.ts` → `use-settings.ts`
-- `useSettingCategories.ts` → `use-setting-categories.ts`
-- `useDiscussion.ts` → `use-discussion.ts`
-- `useOptimisticUpdate.ts` → `use-optimistic-update.ts`
-- `useKeyboardExpandableList.ts` → `use-keyboard-expandable-list.ts`
-- `useMediaQuery.ts` → `use-media-query.ts`
-- `useMessageInput.ts` → `use-message-input.ts`
-- `useObservableState.ts` → `use-observable-state.ts`
-- `usePersistedState.ts` → `use-persisted-state.ts`
-- `useViewportHeight.ts` → `use-viewport-height.ts`
-- `useWindowSize.ts` → `use-window-size.ts`
-- `useAutoScroll.ts` → `use-auto-scroll.ts`
-- `useBreakpoint.ts` → `use-breakpoint.ts`
+### Factory and Composition ([factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts))
+- `PortalFactory`: Creates different types of portals
+- `PortalComposer`: Manages multiple portals together
 
-**已符合规范的文件：**
-- `use-connect-navigation-store.ts` ✅
-- `use-extensions.ts` ✅
-- `use-setup-app.ts` ✅
-- `use-toast.ts` ✅
-- `use-copy.ts` ✅
+## Portal Types
+- `window-to-worker`: Main thread ↔ Web Worker
+- `window-to-iframe`: Main page ↔ iframe
+- `worker-to-window`: Web Worker → Main thread
+- `iframe-to-window`: iframe → Main page
+- `shared-worker`: Shared Worker communication
+- `service-worker`: Service Worker communication
 
-### 修复步骤
-1. 重命名文件为kebab-case
-2. 更新所有import语句
-3. 确保功能不受影响
----
-alwaysApply: true
-description: 文件命名和Hook命名规范，确保代码风格一致性
----
+## Usage Patterns
+
+### Single Portal
+```typescript
+import { PortalFactory, PortalServiceBusProxy } from './portal';
+
+const portal = PortalFactory.createWorkerPortal(worker);
+const proxy = new PortalServiceBusProxy(portal);
+await proxy.connect();
+const serviceProxy = proxy.createProxy();
+```
+
+### Multi-Portal Composition
+```typescript
+import { PortalComposer } from './portal';
+
+const composer = new PortalComposer();
+composer.addPortal(workerPortal);
+composer.addPortal(iframePortal);
+composer.createConnector(portalId, serviceBus);
+await composer.connectAll();
+```
+
+## File Organization Rules
+
+1. **Types First**: All type definitions in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
+2. **Core Implementation**: Base classes and portal implementations in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
+3. **Service Integration**: Service bus adapters in [service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts)
+4. **Creation Utilities**: Factories and composers in [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
+5. **Examples**: Usage examples in [usage-examples.ts](mdc:src/common/lib/service-bus/portal/usage-examples.ts)
+6. **Exports**: Unified exports in [index.ts](mdc:src/common/lib/service-bus/portal/index.ts)
+
+## Migration Guide
+
+### From Monolithic to Modular
+- Old: Single 650-line file
+- New: 6 focused files, each under 400 lines
+- Import from `./portal` instead of individual files
+- Clean architecture without legacy compatibility
+
+### Adding New Portal Types
+1. Define new type in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
+2. Create implementation extending `BasePortal` in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
+3. Add factory method to [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
+4. Export from [index.ts](mdc:src/common/lib/service-bus/portal/index.ts)
+
+## Best Practices
+
+1. **Type separation**: Keep types separate from implementations
+2. **Balanced sizes**: Keep files between 100-400 lines
+3. **Type safety**: Use TypeScript interfaces for all public APIs
+4. **Error handling**: Consistent error patterns across all portals
+5. **Resource cleanup**: Always implement proper disconnect logic
+6. **Testing**: Each module can be tested independently
+7. **Documentation**: JSDoc comments for all public APIs
+
+## File Size Guidelines
+
+- **types.ts**: 86 lines - Type definitions only
+- **core.ts**: 200 lines - Core implementations
+- **service-bus.ts**: 180 lines - Service bus integration
+- **factory.ts**: 140 lines - Creation utilities and composition
+- **usage-examples.ts**: 341 lines - Comprehensive examples
+- **index.ts**: 8 lines - Exports only
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
