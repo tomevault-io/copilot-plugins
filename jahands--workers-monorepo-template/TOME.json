@@ -2,9 +2,9 @@
   "name": "workers-monorepo-template",
   "owner": "jahands",
   "repo": "workers-monorepo-template",
-  "description": "AI instruction files for workers-monorepo-template by jahands",
+  "description": "A monorepo template for Cloudflare Workers",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -45,7 +45,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/jahands",
+  "source_url": "https://github.com/jahands/workers-monorepo-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T10:31:14Z"
+  "distributed_at": "2026-05-18T00:32:49Z"
 }
