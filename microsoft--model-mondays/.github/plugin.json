@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--model-mondays",
+  "displayName": "model-mondays",
+  "description": "Model Mondays is a weekly livestream with Discord office hours - to help you navigate the fast-moving ecosystem of generative AI models with 5-minute roundups and 15-minute spotlight sessions. Build y",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/model-mondays",
+  "skills": []
+}
