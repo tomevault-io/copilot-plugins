@@ -1,0 +1,44 @@
+{
+  "name": "dart_iztro",
+  "owner": "EdwinXiang",
+  "repo": "dart_iztro",
+  "description": "\u2b50A lightweight open-source dart library for obtaining The Purple Star Astrology (Zi Wei Dou Shu) astrolabe information.. \u652f\u6301\u591a\u8bed\u8a00\u8f7b\u91cf\u7ea7\u83b7\u53d6\u7d2b\u5fae\u6597\u6570\u6392\u76d8\u4fe1\u606f\u7684flutter\u5f00\u6e90\u5e93\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/EdwinXiang/dart_iztro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:50:22Z"
+}
