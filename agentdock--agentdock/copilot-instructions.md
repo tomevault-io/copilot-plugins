@@ -1,44 +1,58 @@
-## agents
+## contributions
 
-> This file provides guidelines for defining and managing Agent Templates, which configure individual AI agents.
+> This file outlines the general workflow, Git practices, and coding standards for contributing to the AgentDock project.
 
-# Agent Template Rules (`/agents`)
+# Contribution Workflow & General Standards
 
-This file provides guidelines for defining and managing Agent Templates, which configure individual AI agents.
+This file outlines the general workflow, Git practices, and coding standards for contributing to the AgentDock project.
 
-## Location & Structure
-- Agent templates are defined in the root `/agents` directory for public visibility and contribution.
-- Each agent resides in its own subdirectory within `[agents/](mdc:/agents)` (e.g., `[agents/cognitive-reasoner/](mdc:agents/cognitive-reasoner)`).
-- Each agent subdirectory **must** contain a `template.json` file.
-- Optionally, include a `README.md` explaining the agent's purpose and usage, and an `assets/` folder for icons/avatars.
+## 1. Core Principles
+- Review the overall project philosophy in `[docs/README.md](mdc:docs/README.md)`.
+- Familiarize yourself with the main components: `[agentdock-core](mdc:agentdock-core)` (framework) and the OSS Client (`/src`).
+- Adhere to the specific rules outlined in other `.mdc` files for the area you are working in (e.g., `[agentdock-core.mdc](mdc:.cursor/rules/agentdock-core.mdc)`, `[src.mdc](mdc:.cursor/rules/src.mdc)`, `[nodes.mdc](mdc:.cursor/rules/nodes.mdc)`, `[docs.mdc](mdc:.cursor/rules/docs.mdc)`).
 
-```
-agents/
-└── [agent-name]/
-    ├── template.json     # Core configuration (required)
-    ├── README.md         # Documentation (recommended)
-    └── assets/           # Optional assets (e.g., avatar.png)
-```
+## 2. Getting Started
+- Ensure your development environment meets the requirements outlined in `[docs/getting-started.md](mdc:docs/getting-started.md)`.
+- For significant changes or new features, it's recommended to open a GitHub Issue first to discuss the approach.
 
-## Template Configuration (`template.json`)
-- The `template.json` file defines the agent's identity, capabilities, LLM settings, and behavior.
-- Refer to the detailed documentation for the structure and available fields: `[docs/agent-templates.md](mdc:docs/agent-templates.md)`.
-- Key fields include:
-  - `agentId` (unique identifier)
-  - `name`, `description` (for UI)
-  - `personality` (defines system prompt)
-  - `nodes` (list of required LLM and tool nodes)
-  - `nodeConfigurations` (LLM parameters, tool settings)
-  - `chatSettings` (UI behavior)
+## 3. Development Workflow
 
-## Creating New Agents
-1. Create a new subdirectory in `[agents/](mdc:agents)` with a descriptive name (kebab-case).
-2. Create the `template.json` file within the new directory, following the structure outlined in `[docs/agent-templates.md](mdc:docs/agent-templates.md)`.
-3. Optionally add a `README.md` and assets.
-4. The build process should automatically pick up the new template.
+1.  **Assign/Pick Issue**: Work on an existing GitHub issue or create a new one for your intended change.
+2.  **Create Branch**: Create a branch from the main development branch (e.g., `main` or `develop`) following the naming convention:
+    *   Features: `feat/issue-{number}-{short-description}`
+    *   Bugfixes: `fix/issue-{number}-{short-description}`
+    *   Example: `feat/issue-123-add-rate-limiting`
+3.  **Implement Changes**: Write code following the project's coding standards and specific rules relevant to the modified directories.
+4.  **Testing Practices:**
+    *   Before adding new tests, check existing Jest tests in the relevant module (e.g., within `agentdock-core` or the main Next.js app) to avoid duplication.
+    *   Remember that tests for the `agentdock-core` module are executed from the root project level (Next.js client), so configuration might be in the root `package.json` or `jest.config.ts`.
+    *   Avoid duplicating test infrastructure (setup files, mocks) that might already exist in the project root or within `agentdock-core/src/test/`.
+5.  **Update Documentation**: Ensure relevant documentation in `/docs` is updated (see `[docs.mdc](mdc:.cursor/rules/docs.mdc)` for guidelines).
+6.  **Commit Changes**: Use clear and concise commit messages, referencing the issue number:
+    *   Format: `[Issue #{number}] Brief description of changes`
+    *   Example: `[Issue #123] Add rate limiting middleware to chat API`
+7.  **Create Pull Request (PR)**:
+    *   Push your branch to the repository.
+    *   Create a PR targeting the main development branch.
+    *   **Link the Issue**: Ensure the PR description clearly links the relevant GitHub Issue(s).
+    *   **Describe Changes**: Write a clear description outlining the changes made and the problem solved.
+    *   **Testing Info**: Briefly mention the testing performed or added.
+    *   **Breaking Changes**: Clearly document any breaking changes.
+    *   Request reviews from relevant team members/maintainers.
+8.  **Address Feedback**: Respond to review comments and push updates to your branch.
+9.  **Merge**: Once approved and checks pass, the PR will be merged by a maintainer.
 
-## Community Contributions
-- Refer to `[docs/rfa/add-agent.md](mdc:docs/rfa/add-agent.md)` for guidelines on contributing new agents.
+## 4. General Code Standards
+
+- **TypeScript**: Use TypeScript for type safety throughout the codebase.
+- **Code Style**: Adhere to ESLint and Prettier rules configured in the project (run `pnpm lint` and `pnpm format`).
+- **Naming Conventions** (Refer to specific rules like `src.mdc` for details, but generally):
+  - Files: `kebab-case.ts` / `kebab-case.tsx`
+  - Components: `PascalCase`
+  - Functions/Variables: `camelCase`
+  - Types/Interfaces: `PascalCase`
+  - Constants: `UPPER_SNAKE_CASE`
+- **Code Documentation**: Use JSDoc for exported functions, classes, types, and complex logic blocks.
 
 ---
 > Source: [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io).
