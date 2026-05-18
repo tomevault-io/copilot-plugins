@@ -7,11 +7,11 @@ PMG protects developers, AI agents from malicious open source packages using pro
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [safedep/pmg](https://github.com/safedep/pmg).
+Original source: `CLAUDE.md` in [safedep/pmg](https://github.com/safedep/pmg).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
