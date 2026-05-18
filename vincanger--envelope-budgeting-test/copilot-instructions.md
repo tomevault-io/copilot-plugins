@@ -1,91 +1,161 @@
-## 2-project-conventions
+## 3-database-operations
 
-> This document outlines the specific conventions, file structures, and general rules for this Wasp project.
+> This document covers how Wasp interacts with the database using Prisma, defines Wasp Entities, and explains the rules for creating and using Wasp Operations (Queries and Actions).
 
-# 2. Project Conventions and Rules
+# 3. Database, Entities, and Operations
 
-This document outlines the specific conventions, file structures, and general rules for this Wasp project.
+This document covers how Wasp interacts with the database using Prisma, defines Wasp Entities, and explains the rules for creating and using Wasp Operations (Queries and Actions).
 
-## Quick Reference
+## Wasp Database and Entities
 
-### Common Patterns
-
-- Define app structure in [main.wasp](mdc:main.wasp) or `main.wasp.ts`.
-- Define data models in [schema.prisma](mdc:schema.prisma).
-- Group feature code in `src/features/{featureName}` directories.
-- Group feature config definitions (e.g. routes, pages, operations, etc.) into sections within the Wasp config file ([main.wasp](mdc:main.wasp)) using the `//#region` directive:
-  ```wasp
-  // Example in @main.wasp
-  //#region {FeatureName}
-  // ... feature-specific declarations ...
-  //#endregion
+- Wasp uses Prisma for database access, with models defined in [schema.prisma](mdc:schema.prisma).
+- Prisma models defined in [schema.prisma](mdc:schema.prisma) automatically become Wasp Entities that can be used in operations.
+- Wasp reads the [schema.prisma](mdc:schema.prisma) file to understand your data model and generate appropriate code (e.g., types in `wasp/entities`).
+- Example Prisma model in [schema.prisma](mdc:schema.prisma) :
+  ```prisma
+  model Task {
+    id          Int      @id @default(autoincrement())
+    description String
+    isDone      Boolean  @default(false)
+    user        User     @relation(fields: [userId], references: [id])
+    userId      Int
+  }
   ```
-- Use Wasp operations (queries/actions) for client-server communication (See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc)).
-- **Wasp Imports:** Import from `wasp/...` not `@wasp/...` in `.ts`/`.tsx` files.
-- Document features in `ai/docs/` with:
-  - One markdown file per feature (e.g. `ai/docs/{featureName}.md`).
-  - Operations specifications and data models.
-  - User workflows and business logic.
-  - Update documentation when implementing feature changes.
-- Reference the relevant `ai/docs/` files when writing or modifying feature code.
 
-### Common Issues & Import Rules
+## Wasp DB Schema Rules (@schema.prisma)
 
-- **Wasp Imports in `.ts`/`.tsx`:** Always use the `wasp/...` prefix.
-  - ✅ `import { Task } from 'wasp/entities'`
-  - ✅ `import type { GetTasks } from 'wasp/server/operations'`
-  - ✅ `import { getTasks, useQuery } from 'wasp/client/operations'`
-  - ❌ `import { ... } from '@wasp/...'`
-  - ❌ `import { ... } from '@src/features/...'` (Use relative paths for non-Wasp imports within `src`)
-  - If you see "Cannot find module 'wasp/...'": Double-check the import path prefix.
-- **Wasp Config Imports in [main.wasp](mdc:main.wasp) :** Imports of your code *must* start with `@src/`.
-  - ✅ `component: import { LoginPage } from "@src/features/auth/LoginPage.tsx"`
-  - ❌ `component: import { LoginPage } from "../src/features/auth/LoginPage.tsx"`
-  - ❌ `component: import { LoginPage } from "client/pages/auth/LoginPage.tsx"`
-- **General Imports in `.ts`/`.tsx`:** Use relative paths for imports within the `src/` directory. Avoid using the `@src/` alias directly in `.ts`/`.tsx` files.
-  - If you see "Cannot find module '@src/...'": Use a relative path instead.
-- **Prisma Enum *Value* Imports:** Import directly from `@prisma/client`. See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc).
-- **Wasp Actions Client-Side:** Call actions directly using `async/await`. Avoid `useAction` unless optimistic updates are needed. See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc)`.
-  - ✅ `import { deleteTask } from 'wasp/client/operations'; await deleteTask({ taskId });`
-- Root Component (`src/App.tsx` or similar):
-  - Ensure the root component defined in @main.wasp (usually via `app.client.rootComponent`) renders the `<Outlet />` component from `react-router-dom` to display nested page content.
-    ```tsx
-    // Example Root Component
-    import React from 'react';
-    import { Outlet } from 'react-router-dom';
-    import Header from './Header'; // Example shared component
+- Add database models directly to the [schema.prisma](mdc:schema.prisma) file, NOT to [main.wasp](mdc:main.wasp) as entities.
+- Generally avoid adding `db.system` or `db.prisma` properties to the [main.wasp](mdc:main.wasp) config file; configure the database provider within [schema.prisma](mdc:schema.prisma) instead.
+  ```prisma
+  // Example in schema.prisma
+  datasource db {
+    provider = "postgresql" // or "sqlite"
+    url      = env("DATABASE_URL")
+  }
+  ```
+- Keep the [schema.prisma](mdc:schema.prisma) file in the root of the project.
+- **Applying Changes:** After updating [schema.prisma](mdc:schema.prisma), run `wasp db migrate-dev` in the terminal to generate and apply SQL migrations.
+- **Database Choice:** While 'sqlite' is the default, it lacks support for features like Prisma enums or PgBoss scheduled jobs. Use 'postgresql' for such cases. If using PostgreSQL locally, ensure it's running (e.g., via `wasp db start` if using Wasp's built-in Docker setup, or ensure your own instance is running).
+- Define all model relationships (`@relation`) within [schema.prisma](mdc:schema.prisma).
 
-    function App() {
-      return (
-        <div className="min-h-screen bg-gray-100">
-          <Header />
-          <main className="container mx-auto p-4">
-            {/* Outlet renders the content of the matched route/page */}
-            <Outlet />
-          </main>
-        </div>
-      );
+## Wasp Operations (Queries & Actions)
+
+- Operations are how Wasp handles client-server communication, defined in [main.wasp](mdc:main.wasp).
+- **Queries:** Read operations (fetch data).
+- **Actions:** Write operations (create, update, delete data).
+- Operations automatically handle data fetching, caching (for queries), and updates.
+- Operations reference Entities (defined in [schema.prisma](mdc:schema.prisma) ) to establish proper data access patterns and dependencies.
+- Example definitions in [main.wasp](mdc:main.wasp):
+  ```wasp
+  query getTasks {
+    // Points to the implementation function
+    fn: import { getTasks } from "@src/features/tasks/operations.ts", // Convention: operations.ts
+    // Grants access to the Task entity within the operation's context
+    entities: [Task]
+  }
+
+  action createTask {
+    fn: import { createTask } from "@src/features/tasks/operations.ts",
+    entities: [Task] // Needs access to Task to create one
+  }
+  ```
+
+## Wasp Operations Rules & Implementation
+
+- **Operation File:** Implement query and action functions together in a single `operations.ts` file within the relevant feature directory (e.g., `src/features/tasks/operations.ts`).
+- **Generated Types:** Wasp auto-generates TypeScript types for your operations based on their definitions in [main.wasp](mdc:main.wasp) and the functions' signatures.
+  - Import operation types using `import type { MyQuery, MyAction } from 'wasp/server/operations';`
+  - If types aren't updated after changing [main.wasp](mdc:main.wasp) or the function signature, restart the Wasp dev server (`wasp start`).
+- **Entity Types:** Wasp generates types for your Prisma models from [schema.prisma](mdc:schema.prisma).
+  - Import entity types using `import type { MyModel } from 'wasp/entities';`
+- **Entity Access:** Ensure all Entities needed within an operation's logic are listed in its `entities: [...]` definition in [main.wasp](mdc:main.wasp). This makes `context.entities.YourModel` available.
+- **Internal Communication:** Prioritize Wasp operations for client-server communication within the app. Use API Routes (see [6-advanced-troubleshooting.mdc](mdc:.cursor/rules/6-advanced-troubleshooting.mdc))  primarily for external integrations (webhooks, etc.).
+- **Client-Side Query Usage:** Use Wasp's `useQuery` hook from `wasp/client/operations` to fetch data.
+  - `import { useQuery } from 'wasp/client/operations';`
+  - `const { data, isLoading, error } = useQuery(getQueryName, { queryArgs });`
+- **Client-Side Action Usage:** Call actions *directly* using `async`/`await`. **Avoid** the `useAction` hook unless you specifically need optimistic UI updates (see [6-advanced-troubleshooting.mdc](mdc:.cursor/rules/6-advanced-troubleshooting.mdc)).
+  - `import { myAction } from 'wasp/client/operations';`
+  - `const result = await myAction({ actionArgs });`
+- **Example Operation Implementation (`src/features/tasks/operations.ts`):
+  ```typescript
+  import { HttpError } from 'wasp/server'
+  import type { GetTasks, CreateTask } from 'wasp/server/operations'
+  import type { Task } from 'wasp/entities'
+
+  // Type annotations come from Wasp based on main.wasp definitions
+  export const getTasks: GetTasks<void, Task[]> = async (_args, context) => {
+    if (!context.user) {
+      throw new HttpError(401, 'Not authorized');
     }
-    export default App;
-    ```
+    // Access entities via context
+    return context.entities.Task.findMany({
+      where: { userId: context.user.id }
+    });
+  }
 
-## Rules
+  type CreateTaskInput = Pick<Task, 'description'>
+  export const createTask: CreateTask<CreateTaskInput, Task> = async (args, context) => {
+    if (!context.user) {
+      throw new HttpError(401, 'Not authorized');
+    }
 
-### General Rules
+    return context.entities.Task.create({
+      data: {
+        description: args.description,
+        userId: context.user.id,
+      }
+    });
+  }
+  ```
 
-- Always reference the Wasp config file [main.wasp](mdc:main.wasp) as your source of truth for the app's configuration and structure.
-- Always reference the `ai/docs/` directory for information on the app's features and functionality when writing code.
-- Group feature config definitions in [main.wasp](mdc:main.wasp) using `//#region` (as noted above).
-- Group feature code into feature directories (e.g. `src/features/transactions`).
-- Use the latest Wasp version, as defined in the [main.wasp](mdc:main.wasp) file.
-- Combine Wasp operations (queries and actions) into an `operations.ts` file within the feature directory (e.g., `src/features/transactions/operations.ts`).
-- Always use TypeScript for Wasp code (`.ts`/`.tsx`).
-- Keep these rules files in `.cursor/rules/` updated with any new project conventions or changes in Wasp best practices. The original `.cursorrules` file may be kept for reference but these `.mdc` files are the primary source.
+## Prisma Enum Value Imports
 
-### Wasp Dependencies
+- **Rule:** When you need to use Prisma enum members as *values* (e.g., `MyEnum.VALUE` in logic or comparisons) in your server or client code, import the enum directly from `@prisma/client`, not from `wasp/entities`.
+  - ✅ `import { TransactionType } from '@prisma/client';` (Use as `TransactionType.EXPENSE`)
+  - ❌ `import { TransactionType } from 'wasp/entities';` (This only imports the *type* for annotations, not the runtime *value*)
 
-- Avoid adding dependencies directly to the [main.wasp](mdc:main.wasp) config file.
-- Install dependencies via `npm install` instead. This updates [package.json](mdc:package.json) and [package-lock.json](mdc:package-lock.json)
+## Server-Side Error Handling
+
+- Use `try/catch` blocks within operation functions.
+- Throw `HttpError` from `wasp/server` for expected errors (e.g., unauthorized, not found, bad input) to send structured responses to the client.
+- Log unexpected errors for debugging.
+- Example:
+  ```typescript
+  import { HttpError } from 'wasp/server'
+  import type { UpdateTask } from 'wasp/server/operations'
+  import type { Task } from 'wasp/entities'
+
+  export const updateTask: UpdateTask<{ id: number; data: Partial<Task> }, Task> = async (args, context) => {
+    if (!context.user) {
+      throw new HttpError(401, 'Not authorized');
+    }
+
+    try {
+      const task = await context.entities.Task.findFirst({
+        where: { id: args.id, userId: context.user.id },
+      });
+
+      if (!task) {
+        throw new HttpError(404, 'Task not found');
+      }
+
+      return context.entities.Task.update({
+        where: { id: args.id },
+        data: args.data,
+      });
+    } catch (error) {
+      if (error instanceof HttpError) {
+        throw error; // Re-throw known HttpErrors
+      }
+      // Log unexpected errors
+      console.error('Failed to update task:', error);
+      // Throw a generic server error for unexpected issues
+      throw new HttpError(500, 'Failed to update task due to an internal error.');
+    }
+  }
+  ```
+
+</rewritten_file> 
 
 ---
 > Source: [vincanger/envelope-budgeting-test](https://github.com/vincanger/envelope-budgeting-test) — distributed by [TomeVault](https://tomevault.io).
