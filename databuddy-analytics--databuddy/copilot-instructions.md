@@ -1,0 +1,50 @@
+## 01-must-do
+
+> Basic guidelines for the project so vibe coders don't fuck it up
+
+
+when using 'text-right', always add 'text-balance' so its not ugly
+
+When working on anything, try to split off components, utils, anything reusable to ensure better loading speed and less complexity
+
+LESS COMPLEXITY IS BETTER, the fewer lines, the less complex logic the better
+
+Naming convention is lower-case-like-this
+
+Think about mobile responsiveness when doing any UI tasks or changes
+
+NEVER add placeholders, mock data, or anything similar
+
+Always use rounded, not rounded-xl or rounded-md, always rounded
+
+ALWAYS use bun, never npm, never pnpm, just bun
+
+Don't use lucide for icons, ONLY use phosphor icons, use width="duotone" for most, but for arrows use fill, for plus icons don't add width
+
+Handle complex data transformations independently of React.
+Keep these modules decoupled from React for improved modularity and testability.
+View Components:
+
+Decouple state management, data transformations, and API interactions from the React lifecycle.
+Simplify data flow to eliminate prop drilling and callback hell.
+Prioritize modularity and testability in all components.
+
+ALWAYS use error boundaries properly
+
+Use Dayjs NEVER date-fns, and Tanstack query for hooks, NEVER SWR
+
+use Icon at the end of phosphor react icons, like CaretIcon not Caret AND THATS THE DEFAULT IMPORT, NOT AS
+
+use json.stringify() when adding debugging
+
+Almost NEVER use useEffect unless it's critical
+
+do NOT use types any, unknown or never, use proper explicit types
+
+Suffix functions with Action in types, like type Test = { testAction }
+
+Never use barrel exports or create index files
+
+---
+> Source: [databuddy-analytics/Databuddy](https://github.com/databuddy-analytics/Databuddy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
