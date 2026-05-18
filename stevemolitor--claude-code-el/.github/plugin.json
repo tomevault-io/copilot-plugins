@@ -1,0 +1,9 @@
+{
+  "name": "stevemolitor--claude-code-el",
+  "displayName": "claude-code.el",
+  "description": "Claude Code Emacs integration",
+  "version": "1.0.0",
+  "author": "stevemolitor",
+  "homepage": "https://github.com/stevemolitor/claude-code.el",
+  "skills": []
+}
