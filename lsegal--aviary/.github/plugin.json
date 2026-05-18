@@ -1,0 +1,9 @@
+{
+  "name": "lsegal--aviary",
+  "displayName": "aviary",
+  "description": "Aviary is a full AI assistant platform. Connect your AI models to Slack, Signal, Discord, etc., have conversations, set up scheduled tasks, and let your agents work for you.",
+  "version": "1.0.0",
+  "author": "lsegal",
+  "homepage": "https://github.com/lsegal/aviary",
+  "skills": []
+}
