@@ -1,0 +1,9 @@
+{
+  "name": "vikashloomba--copilot-mcp",
+  "displayName": "copilot-mcp",
+  "description": "A VSCode extension that lets you find and install Agent Skills and MCP Apps to use with GitHub Copilot, Claude Code, and Codex CLI.",
+  "version": "1.0.0",
+  "author": "VikashLoomba",
+  "homepage": "https://github.com/VikashLoomba/copilot-mcp",
+  "skills": []
+}
