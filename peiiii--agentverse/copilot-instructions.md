@@ -1,145 +1,264 @@
-## portal-service-bus-architecture
+## quick-commands
 
-> The Portal Service Bus is a modular, composable cross-context communication system that supports Web Workers, iframes, Shared Workers, and Service Workers. It follows a layered architecture with clear separation of concerns.
+> - **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
 
-# Portal Service Bus Architecture
 
-## Overview
 
-The Portal Service Bus is a modular, composable cross-context communication system that supports Web Workers, iframes, Shared Workers, and Service Workers. It follows a layered architecture with clear separation of concerns.
+# Quick Commands & Communication Conventions
 
-## Directory Structure
+## Git Operations
 
-```
-src/common/lib/service-bus/portal/
-├── types.ts                     # Type definitions (86 lines)
-├── core.ts                      # Core implementations (200 lines)
-├── service-bus.ts               # Service bus adapters (180 lines)
-├── factory.ts                   # Factory and composer (140 lines)
-├── usage-examples.ts            # Usage examples (341 lines)
-└── index.ts                     # Unified exports (8 lines)
-```
+### ⚠️ 重要：禁止擅自提交
+- **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
+- **必须等待**：只有用户明确使用 `/commit` 命令或明确要求提交时，才能执行提交
+- **安全第一**：宁可等待用户确认，也不要冒险擅自提交
 
-## Core Principles
+### `/commit` - Auto Commit with English Message
+When user types `/commit`, automatically:
+1. Run `git status` to review changes before committing
+2. Run `git add .` to stage all changes
+3. Generate a descriptive English commit message based on changes
+4. Execute `git commit -m "message"`
+5. Follow conventional commit format: `type(scope): description`
 
-### 1. Clear Type Separation
-- **Types**: All interfaces and type definitions in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
-- **Implementations**: Core classes and logic in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
-- **Service Integration**: Service bus adapters in [service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts)
-- **Creation Utilities**: Factories and composers in [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
+**Example commit messages:**
+- `refactor: optimize component structure and naming`
+- `feat: add new agent configuration assistant`
+- `fix: resolve lint errors in agent preview component`
+- `docs: update README with new features`
 
-### 2. Balanced File Sizes
-- **Target**: 100-300 lines per file
-- **Maximum**: 400 lines per file
-- **Rationale**: Large enough to group related functionality, small enough to maintain
+## Discussion & Planning
 
-### 3. Clean Architecture
-- Types are imported from [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
-- No legacy compatibility layer (removed for simplicity)
-- Clear separation between types and implementations
+### `/readonly` - Read-Only Discussion Mode
+When user types `/readonly`, enter discussion-only mode:
+1. **No Code Changes**: Do not modify any files or run commands
+2. **Analysis Only**: Provide insights, suggestions, and recommendations
+3. **Creative Discussion**: Focus on ideas, concepts, and planning
+4. **Architecture Review**: Discuss design patterns and approaches
+5. **Problem Solving**: Brainstorm solutions without implementation
 
-## Key Components
+**Use cases:**
+- Creative brainstorming sessions
+- Architecture and design discussions
+- Feature planning and requirements analysis
+- Code review and feedback sessions
+- Problem analysis and solution exploration
+- Technology selection and comparison
 
-### Type Definitions ([types.ts](mdc:src/common/lib/service-bus/portal/types.ts))
-```typescript
-interface CommunicationPortal {
-  readonly id: string;
-  readonly type: PortalType;
-  send(message: PortalMessage): Promise<void>;
-  onMessage(handler: (message: PortalMessage) => void): void;
-  connect(): Promise<void>;
-  disconnect(): Promise<void>;
-  isConnected(): boolean;
-  getTargetInfo(): PortalTargetInfo;
-  generateMessageId(): string;
-}
-```
+**Response format:**
+- Start with `[MODE: DISCUSSION]`
+- Provide detailed analysis and insights
+- Suggest multiple approaches when applicable
+- Focus on concepts and ideas rather than implementation
+- Ask clarifying questions to better understand requirements
 
-### Core Implementations ([core.ts](mdc:src/common/lib/service-bus/portal/core.ts))
-- `BasePortal`: Abstract base class for all portals
-- `PostMessagePortal`: PostMessage-based communication
-- `EventTargetPortal`: EventTarget-based communication
+## Code Quality & Architecture
 
-### Service Bus Integration ([service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts))
-- `PortalServiceBusConnector`: Exposes services through portals
-- `PortalServiceBusProxy`: Creates proxies for remote service calls
+### `/architect` - Architect's Perspective Review
+When user requests "架构师视角" or "/architect", provide:
+1. **Code Structure Analysis**: Evaluate file organization and component hierarchy
+2. **Naming Conventions**: Check for semantic clarity and consistency
+3. **Separation of Concerns**: Identify mixed responsibilities and suggest splits
+4. **Maintainability**: Assess code complexity and suggest improvements
+5. **Scalability**: Consider future extensibility and potential bottlenecks
+6. **Best Practices**: Recommend architectural patterns and conventions
 
-### Factory and Composition ([factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts))
-- `PortalFactory`: Creates different types of portals
-- `PortalComposer`: Manages multiple portals together
+**Key evaluation criteria:**
+- File size (keep under 250 lines)
+- Single responsibility principle
+- Clear naming conventions (kebab-case for files, PascalCase for components)
+- Proper separation of UI, logic, and data layers
+- Reusability and modularity
 
-## Portal Types
-- `window-to-worker`: Main thread ↔ Web Worker
-- `window-to-iframe`: Main page ↔ iframe
-- `worker-to-window`: Web Worker → Main thread
-- `iframe-to-window`: iframe → Main page
-- `shared-worker`: Shared Worker communication
-- `service-worker`: Service Worker communication
+## Development Workflow
 
-## Usage Patterns
+### `/build` - Build and Validate
+When user types `/build`, automatically:
+1. Run `pnpm build` to compile and build
+2. Run `pnpm lint` to check code quality
+3. Report any errors or warnings
+4. Suggest fixes if issues found
 
-### Single Portal
-```typescript
-import { PortalFactory, PortalServiceBusProxy } from './portal';
-
-const portal = PortalFactory.createWorkerPortal(worker);
-const proxy = new PortalServiceBusProxy(portal);
-await proxy.connect();
-const serviceProxy = proxy.createProxy();
-```
-
-### Multi-Portal Composition
-```typescript
-import { PortalComposer } from './portal';
-
-const composer = new PortalComposer();
-composer.addPortal(workerPortal);
-composer.addPortal(iframePortal);
-composer.createConnector(portalId, serviceBus);
-await composer.connectAll();
-```
+### `/refactor` - Code Refactoring
+When user requests refactoring:
+1. Analyze current code structure
+2. Identify areas for improvement
+3. Suggest specific refactoring steps
+4. Maintain functionality while improving code quality
+5. Follow established naming conventions and patterns
 
 ## File Organization Rules
 
-1. **Types First**: All type definitions in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
-2. **Core Implementation**: Base classes and portal implementations in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
-3. **Service Integration**: Service bus adapters in [service-bus.ts](mdc:src/common/lib/service-bus/portal/service-bus.ts)
-4. **Creation Utilities**: Factories and composers in [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
-5. **Examples**: Usage examples in [usage-examples.ts](mdc:src/common/lib/service-bus/portal/usage-examples.ts)
-6. **Exports**: Unified exports in [index.ts](mdc:src/common/lib/service-bus/portal/index.ts)
+### Directory Structure
+- Use kebab-case for directory and file names
+- Group related functionality in feature directories
+- Separate UI components, hooks, and utilities
+- Keep index.ts files for clean exports
 
-## Migration Guide
+### Component Organization
+- Split large components (>250 lines) into smaller, focused files
+- Separate UI components from business logic
+- Use descriptive, semantic names for components and functions
+- Maintain clear import/export relationships
 
-### From Monolithic to Modular
-- Old: Single 650-line file
-- New: 6 focused files, each under 400 lines
-- Import from `./portal` instead of individual files
-- Clean architecture without legacy compatibility
+## Communication Patterns
 
-### Adding New Portal Types
-1. Define new type in [types.ts](mdc:src/common/lib/service-bus/portal/types.ts)
-2. Create implementation extending `BasePortal` in [core.ts](mdc:src/common/lib/service-bus/portal/core.ts)
-3. Add factory method to [factory.ts](mdc:src/common/lib/service-bus/portal/factory.ts)
-4. Export from [index.ts](mdc:src/common/lib/service-bus/portal/index.ts)
+### Code Review Responses
+- Always start with current mode declaration: `[MODE: RESEARCH/PLAN/EXECUTE/REVIEW/DISCUSSION]`
+- Provide clear, actionable feedback
+- Suggest specific improvements with examples
+- Consider both immediate fixes and long-term architectural benefits
 
-## Best Practices
+### Error Handling
+- When encountering errors, provide clear explanations
+- Suggest multiple solutions when possible
+- Prioritize fixes based on impact and effort
+- Always verify fixes work before proceeding
 
-1. **Type separation**: Keep types separate from implementations
-2. **Balanced sizes**: Keep files between 100-400 lines
-3. **Type safety**: Use TypeScript interfaces for all public APIs
-4. **Error handling**: Consistent error patterns across all portals
-5. **Resource cleanup**: Always implement proper disconnect logic
-6. **Testing**: Each module can be tested independently
-7. **Documentation**: JSDoc comments for all public APIs
+## Naming Conventions
 
-## File Size Guidelines
+### Files and Directories
+- Use kebab-case: `agent-configuration-assistant.tsx`
+- Be descriptive and semantic: `use-agent-configuration-tools.tsx`
+- Group related files in feature directories
 
-- **types.ts**: 86 lines - Type definitions only
-- **core.ts**: 200 lines - Core implementations
-- **service-bus.ts**: 180 lines - Service bus integration
-- **factory.ts**: 140 lines - Creation utilities and composition
-- **usage-examples.ts**: 341 lines - Comprehensive examples
-- **index.ts**: 8 lines - Exports only
+### Components and Functions
+- Use PascalCase for components: `AgentConfigurationAssistant`
+- Use camelCase for functions and hooks: `useAgentConfigurationTools`
+- Use descriptive names that clearly indicate purpose
+
+### Types and Interfaces
+- Use PascalCase with descriptive names: `AgentConfigurationAssistantProps`
+- Include type information in names when helpful
+- Be consistent across related types
+
+# Quick Commands & Communication Conventions
+
+## Git Operations
+
+### ⚠️ 重要：禁止擅自提交
+- **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
+- **必须等待**：只有用户明确使用 `/commit` 命令或明确要求提交时，才能执行提交
+- **安全第一**：宁可等待用户确认，也不要冒险擅自提交
+
+### `/commit` - Auto Commit with English Message
+When user types `/commit`, automatically:
+1. Run `git status` to review changes before committing
+2. Run `git add .` to stage all changes
+3. Generate a descriptive English commit message based on changes
+4. Execute `git commit -m "message"`
+5. Follow conventional commit format: `type(scope): description`
+
+**Example commit messages:**
+- `refactor: optimize component structure and naming`
+- `feat: add new agent configuration assistant`
+- `fix: resolve lint errors in agent preview component`
+- `docs: update README with new features`
+
+## Discussion & Planning
+
+### `/readonly` - Read-Only Discussion Mode
+When user types `/readonly`, enter discussion-only mode:
+1. **No Code Changes**: Do not modify any files or run commands
+2. **Analysis Only**: Provide insights, suggestions, and recommendations
+3. **Creative Discussion**: Focus on ideas, concepts, and planning
+4. **Architecture Review**: Discuss design patterns and approaches
+5. **Problem Solving**: Brainstorm solutions without implementation
+
+**Use cases:**
+- Creative brainstorming sessions
+- Architecture and design discussions
+- Feature planning and requirements analysis
+- Code review and feedback sessions
+- Problem analysis and solution exploration
+- Technology selection and comparison
+
+**Response format:**
+- Start with `[MODE: DISCUSSION]`
+- Provide detailed analysis and insights
+- Suggest multiple approaches when applicable
+- Focus on concepts and ideas rather than implementation
+- Ask clarifying questions to better understand requirements
+
+## Code Quality & Architecture
+
+### `/architect` - Architect's Perspective Review
+When user requests "架构师视角" or "/architect", provide:
+1. **Code Structure Analysis**: Evaluate file organization and component hierarchy
+2. **Naming Conventions**: Check for semantic clarity and consistency
+3. **Separation of Concerns**: Identify mixed responsibilities and suggest splits
+4. **Maintainability**: Assess code complexity and suggest improvements
+5. **Scalability**: Consider future extensibility and potential bottlenecks
+6. **Best Practices**: Recommend architectural patterns and conventions
+
+**Key evaluation criteria:**
+- File size (keep under 250 lines)
+- Single responsibility principle
+- Clear naming conventions (kebab-case for files, PascalCase for components)
+- Proper separation of UI, logic, and data layers
+- Reusability and modularity
+
+## Development Workflow
+
+### `/build` - Build and Validate
+When user types `/build`, automatically:
+1. Run `pnpm build` to compile and build
+2. Run `pnpm lint` to check code quality
+3. Report any errors or warnings
+4. Suggest fixes if issues found
+
+### `/refactor` - Code Refactoring
+When user requests refactoring:
+1. Analyze current code structure
+2. Identify areas for improvement
+3. Suggest specific refactoring steps
+4. Maintain functionality while improving code quality
+5. Follow established naming conventions and patterns
+
+## File Organization Rules
+
+### Directory Structure
+- Use kebab-case for directory and file names
+- Group related functionality in feature directories
+- Separate UI components, hooks, and utilities
+- Keep index.ts files for clean exports
+
+### Component Organization
+- Split large components (>250 lines) into smaller, focused files
+- Separate UI components from business logic
+- Use descriptive, semantic names for components and functions
+- Maintain clear import/export relationships
+
+## Communication Patterns
+
+### Code Review Responses
+- Always start with current mode declaration: `[MODE: RESEARCH/PLAN/EXECUTE/REVIEW/DISCUSSION]`
+- Provide clear, actionable feedback
+- Suggest specific improvements with examples
+- Consider both immediate fixes and long-term architectural benefits
+
+### Error Handling
+- When encountering errors, provide clear explanations
+- Suggest multiple solutions when possible
+- Prioritize fixes based on impact and effort
+- Always verify fixes work before proceeding
+
+## Naming Conventions
+
+### Files and Directories
+- Use kebab-case: `agent-configuration-assistant.tsx`
+- Be descriptive and semantic: `use-agent-configuration-tools.tsx`
+- Group related files in feature directories
+
+### Components and Functions
+- Use PascalCase for components: `AgentConfigurationAssistant`
+- Use camelCase for functions and hooks: `useAgentConfigurationTools`
+- Use descriptive names that clearly indicate purpose
+
+### Types and Interfaces
+- Use PascalCase with descriptive names: `AgentConfigurationAssistantProps`
+- Include type information in names when helpful
+- Be consistent across related types
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
