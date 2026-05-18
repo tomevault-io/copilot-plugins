@@ -4,7 +4,7 @@
   "repo": "pmg",
   "description": "PMG protects developers, AI agents from malicious open source packages using proxy, sandbox and SafeDep's threat intelligence feed.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/safedep/pmg",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:59:58Z"
+  "distributed_at": "2026-05-18T10:15:38Z"
 }
