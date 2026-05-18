@@ -1,0 +1,9 @@
+{
+  "name": "pig-mesh--deepseek4j",
+  "displayName": "deepseek4j",
+  "description": "deepseek java sdk ",
+  "version": "1.0.0",
+  "author": "pig-mesh",
+  "homepage": "https://github.com/pig-mesh/deepseek4j",
+  "skills": []
+}
