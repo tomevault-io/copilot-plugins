@@ -1,48 +1,76 @@
-## cursor-rules-location
+## devenv-basic-config
 
-> Cursor Rules Location Rule
+> Devenv Basic Configuration and Structure
 
 ## Description
-This rule ensures that all new MDC (Model-Driven Code) rules are created in the `.cursor/rules` directory, maintaining a consistent and organized structure for rule management.
+This rule enforces best practices for basic devenv configuration and project structure.
 
-## Rule
-When creating new MDC rules:
-1. All new MDC rules MUST be created in the `.cursor/rules` directory
-2. Each rule MUST be in a separate file
-3. Rule files MUST use the `.mdc` extension
-4. Rule files MUST follow the naming convention: `[rule-name].mdc`
-5. Rule files MUST contain proper markdown formatting
-
-## Implementation
-- The Cursor IDE will enforce this rule by:
-  - Automatically creating new MDC rules in the `.cursor/rules` directory
-  - Preventing creation of MDC rules outside this directory
-  - Maintaining separation of rules into individual files
-  - Ensuring proper file extensions and naming conventions
-
-## Benefits
-- Improved organization and maintainability
-- Easier rule discovery and management
-- Consistent rule structure across the project
-- Better version control and tracking of rule changes
+## Rule Details
+- Use `devenv.nix` as the main configuration file
+- Use `devenv.yaml` for project composition and imports
+- Structure environment variables using the `env` attribute set
+- Use `packages` for declaring development dependencies
+- Use `enterShell` for environment initialization
+- Use `dotenv.enable` for loading environment variables from `.env`
+- Use `devenv.debug` for troubleshooting
+- Use `devenv.warnOnNewVersion` to stay updated
 
 ## Examples
-✅ Correct:
-```
-.cursor/rules/
-  ├── mdc-rules-location.mdc
-  ├── another-rule.mdc
-  └── third-rule.mdc
+
+### Good
+```nix
+{ pkgs, config, ... }: {
+  # Enable debug mode for troubleshooting
+  devenv.debug = true;
+
+  # Load environment variables from .env
+  dotenv.enable = true;
+
+  # Define environment variables
+  env = {
+    PROJECT_NAME = "my-project";
+    DEBUG = "true";
+  };
+
+  # Declare development dependencies
+  packages = [
+    pkgs.git
+    pkgs.curl
+    pkgs.jq
+  ];
+
+  # Initialize environment
+  enterShell = ''
+    echo "Welcome to ${config.env.PROJECT_NAME}"
+    git --version
+  '';
+}
 ```
 
-❌ Incorrect:
+### Bad
+```nix
+{ pkgs }: {
+  # Missing environment variable structure
+  PROJECT_NAME = "my-project";  # Should be in env set
+
+  # Missing package declarations
+  # Missing enterShell
+  # Missing dotenv configuration
+}
 ```
-.cursor/
-  ├── rules/
-  │   └── mdc-rules-location.mdc
-  └── other-rules/
-      └── another-rule.mdc
-``` 
+
+## Why
+- Proper configuration structure ensures maintainability
+- Environment variables in `env` set provide better organization
+- Package declarations make dependencies explicit
+- `enterShell` ensures consistent environment setup
+- `.env` support enables secure secret management
+- Debug mode helps with troubleshooting
+- Version warnings keep environments up to date
+
+## References
+- [Devenv Documentation](mdc:https:/devenv.sh)
+- [Devenv Guide](mdc:https:/devenv.sh/guides) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
