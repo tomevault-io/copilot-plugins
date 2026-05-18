@@ -1,0 +1,44 @@
+{
+  "name": "mcp-prompts",
+  "owner": "sparesparrow",
+  "repo": "mcp-prompts",
+  "description": "Model Context Protocol server for managing, storing, and providing prompts and prompt templates for LLM interactions. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sparesparrow/mcp-prompts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T16:25:47Z"
+}
