@@ -1,127 +1,286 @@
-## dart-doc
+## dart-extension-type-const-models
 
-> <!-- description: when generating dartdoc or documentation for dart -->
+> always use for creating or modifing models, dto or data in .dart files
 
 
-<!-- description: when generating dartdoc or documentation for dart -->
+# Dart Extension Type Const Models Guide
 
-Please add comprehensive Dart documentation comments to the specified classes, following these guidelines:
+## Principle Overview
 
-0. Always focus on WHY (key Design Decisions) it does what it does in concise manner.
-1. Use /// for documentation comments.
-2. Start with a brief, single-sentence summary of the class's purpose.
-3. Follow with a more detailed description if necessary, keeping it concise.
-4. Include an @ai annotation with specific instructions for AI tools on how to interpret and use this class.
-5. Document all public members (methods, properties, etc.) with clear, concise explanations of their purpose and usage.
-6. Use [bracketed] references for any mentioned identifiers within the class.
-7. Include code examples where appropriate, using ```dart code fences.
-8. Mention any important relationships with other classes or libraries.
-9. Use PREFER, AVOID, or CONSIDER for recommendations about usage patterns.
-10. Add @deprecated tags with explanations for any deprecated members.
-11. Place doc comments before metadata annotations.
-12. Use prose to explain parameters, return values, and exceptions.
-13. For boolean properties, start comments with "Whether" followed by a description.
-14. Document only the getter for properties with both a getter and setter.
-15. Consider including a code sample in the class-level comment.
-16. Keep 80-length characters per line.
+Extension type const models provide type-safe wrappers around primitive types (String, int, Map) while maintaining zero runtime overhead. They're ideal for creating strongly-typed identifiers, value objects, and data containers that need compile-time safety without performance penalties.
 
-Example format:
+## Required Dependency
 
-````dart
-/// {@template progress_indicator}
-/// A widget that displays a customizable progress indicator.
+Always use the `from_json_to_json` package for type-safe JSON handling:
+
+```yaml
+dependencies:
+  from_json_to_json: ^0.3.0
+```
+
+Import in your Dart files:
+
+```dart
+import 'package:from_json_to_json/from_json_to_json.dart';
+```
+
+## Core Pattern Structure
+
+### Basic String-based ID Pattern
+
+```dart
+/// Extension type that represents a [specific domain concept].
 ///
-/// This class provides a flexible way to show loading progress in your app.
-/// It supports both determinate and indeterminate progress modes.
+/// [Brief description of purpose and usage context]
 ///
-/// Use [ProgressIndicator.circular] for a circular indicator, or
-/// [ProgressIndicator.linear] for a linear one.
+/// Provides functionality to handle JSON serialization/deserialization
+/// and [specific domain operations].
+extension type const EntityId(String value) {
+  factory EntityId.fromJson(final value) => EntityId(jsonDecodeString(value));
+
+  String toJson() => value;
+
+  bool get isEmpty => value.isEmpty;
+  bool get isNotEmpty => value.isNotEmpty;
+
+  EntityId whenEmptyUse(final EntityId other) => isEmpty ? other : this;
+
+  static const empty = EntityId('');
+}
+```
+
+### Numeric ID Pattern
+
+```dart
+extension type const NumericId(int value) {
+  factory NumericId.fromJson(final value) => NumericId(jsonDecodeInt(value));
+
+  int toJson() => value;
+
+  bool get isZero => value == 0;
+  bool get isPositive => value > 0;
+
+  NumericId whenZeroUse(final NumericId other) => isZero ? other : this;
+
+  static const zero = NumericId(0);
+}
+```
+
+### Complex Data Structure Pattern
+
+```dart
+/// Extension type that wraps [Map/List/other complex type].
 ///
-/// ```dart
-/// ProgressIndicator(
-///   value: 0.7,
-///   backgroundColor: Colors.grey[300],
-///   valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-/// )
-/// ```
-///
-/// See also:
-///
-///  * [CircularProgressIndicator], which shows progress along a circular arc.
-///  * [LinearProgressIndicator], which displays progress along a line.
-///
-/// @ai When generating code involving this class, ensure proper initialization
-/// of [value] and consider the appropriate use of [backgroundColor] and [valueColor].
-/// {@endtemplate}
-class ProgressIndicator extends StatefulWidget {
-  /// {@macro progress_indicator}
-  ///
-  /// Creates a progress indicator.
-  ///
-  /// The [value] argument should be null for an indeterminate progress indicator.
-  /// For determinate progress indicators, [value] should be a non-null value
-  /// between 0.0 and 1.0, inclusive.
-  ///
-  /// @ai Ensure [value] is within the valid range when provided.
-  const ProgressIndicator({
-    Key? key,
-    this.value,
-    this.backgroundColor,
-    this.valueColor,
-    this.semanticsLabel,
-    this.semanticsValue,
-  }) : super(key: key);
+/// [Description of the data structure purpose]
+extension type const DataModel._(Map<String, dynamic> value) {
 
-  /// The progress value between 0.0 and 1.0.
-  ///
-  /// If null, the progress indicator is indeterminate.
-  ///
-  /// @ai Use this property to control the progress. Ensure it's between 0.0 and 1.0.
-  final double? value;
+  factory DataModel({
+    required final String specificField,
+    required final int numericField,
+    required final List<String> listField,
+    required final Map<String, int> mapField,
+    required final DateTime dateField,
+  }) => DataModel._({
+    'field_name': specificField,
+    'numeric_field': numericField,
+    'list_field': listField,
+    'map_field': mapField,
+    'date_field': dateField,
+  });
+  factory DataModel.fromJson(final dynamic json) =>
+      DataModel._(jsonDecodeMapAs(json));
 
-  /// The progress indicator's background color.
-  ///
-  /// @ai Consider using a contrasting color to [valueColor] for better visibility.
-  final Color? backgroundColor;
+  // Provide domain-specific getters using from_json_to_json functions
+  String get specificField => jsonDecodeString(value['field_name']);
+  int get numericField => jsonDecodeInt(value['numeric_field']);
+  List<String> get listField => jsonDecodeListAs<String>(value['list_field']);
+  Map<String, int> get mapField => jsonDecodeMapAs<String, int>(value['map_field']);
+  DateTime? get dateField => dateTimeFromIso8601String(jsonDecodeString(value['date_field']));
+  Duration get durationField => jsonDecodeDurationInSeconds(value['duration_seconds']);
 
-  /// The progress indicator's color as an animated value.
-  ///
-  /// @ai Use [AlwaysStoppedAnimation] for a solid color, or custom animations for dynamic effects.
-  final Animation<Color?>? valueColor;
+  Map<String, dynamic> toJson() => value;
 
-  /// Creates a circular progress indicator.
-  ///
-  /// @ai Use this constructor for a circular representation of progress.
-  const ProgressIndicator.circular({Key? key}) : this(key: key);
+  static const empty = DataModel({});
+}
+```
 
-  /// Creates a linear progress indicator.
-  ///
-  /// @ai Use this constructor for a linear representation of progress.
-  const ProgressIndicator.linear({Key? key}) : this(key: key);
+### List-based Model Pattern
 
-  /// This method is deprecated and will be removed in the next major version.
-  ///
-  /// Use [newMethod] instead.
-  @Deprecated('Use newMethod() instead')
-  void oldMethod() {
-    // ...
+```dart
+extension type const ItemsList(List<dynamic> value) {
+  factory ItemsList.fromJson(final dynamic jsonData) {
+    final list = jsonDecodeList(jsonData);
+    return ItemsList(list);
   }
 
-  @override
-  State<ProgressIndicator> createState() => _ProgressIndicatorState();
+  // Type-safe getters
+  List<String> get asStrings => jsonDecodeListAs<String>(value);
+  List<int> get asInts => jsonDecodeListAs<int>(value);
+
+  bool get isEmpty => value.isEmpty;
+  bool get isNotEmpty => value.isNotEmpty;
+  int get length => value.length;
+
+  List<dynamic> toJson() => value;
+
+  static const empty = ItemsList([]);
 }
-````
+```
 
-Please apply this documentation style to the following classes:
+## Implementation Guidelines
 
-1. ClassA
-2. ClassB
-3. ClassC
+### 1. **Naming Convention**
 
-Ensure that the documentation is clear, concise, and provides valuable information for both human developers and AI tools. Use `dart format` to format the code correctly.
+- Use descriptive names ending with `Id` for identifiers: `BookId`, `ActorId`, `VideoSeriesId`
+- Use descriptive names ending with `Model` for complex data: `PricesOverridesModel`
+- Use domain-specific names for specialized types: `SessionNumber`, `QuizResults`
 
-References:
-@Dart
+### 2. **Required Methods**
+
+- **`fromJson` factory**: Handle JSON deserialization using `from_json_to_json` functions
+- **`toJson` method**: Return the underlying value for serialization
+- **`empty`/`zero` static const**: Provide a default empty instance
+
+### 3. **JSON Handling with from_json_to_json**
+
+Use the appropriate decode functions from the package:
+
+| Type     | Function                                    | Usage                                       |
+| -------- | ------------------------------------------- | ------------------------------------------- |
+| String   | `jsonDecodeString(value)`                   | Safe string conversion, empty if null       |
+| int      | `jsonDecodeInt(value)`                      | Safe int conversion, 0 if invalid           |
+| double   | `jsonDecodeDouble(value)`                   | Safe double conversion, 0.0 if invalid      |
+| bool     | `jsonDecodeBool(value)`                     | Safe bool conversion, false if invalid      |
+| List     | `jsonDecodeList(value)`                     | Safe list conversion, empty list if invalid |
+| List<T>  | `jsonDecodeListAs<T>(value)`                | Type-safe list conversion                   |
+| Map      | `jsonDecodeMap(value)`                      | Safe map conversion, empty map if invalid   |
+| Map<K,V> | `jsonDecodeMapAs<K,V>(value)`               | Type-safe map conversion                    |
+| DateTime | `dateTimeFromIso8601String(value)`          | ISO8601 string to DateTime                  |
+| DateTime | `dateTimeFromMillisecondsSinceEpoch(value)` | Milliseconds to DateTime                    |
+| Duration | `jsonDecodeDurationInSeconds(value)`        | Seconds to Duration                         |
+| Duration | `jsonDecodeDurationInMinutes(value)`        | Minutes to Duration                         |
+
+### 4. **Nullable Variants**
+
+Avoid using nullable decode functions as much as possible.
+
+For optional fields, use nullable these specific decode functions:
+
+```dart
+int? get optionalNumber => jsonDecodeNullableInt(value['optional_field']);
+double? get optionalDecimal => jsonDecodeNullableDouble(value['optional_decimal']);
+Map<String, dynamic>? get optionalMap => jsonDecodeNullableMap(value['optional_map']);
+```
+
+### 5. **Documentation Standards**
+
+```dart
+/// Extension type that represents a [specific concept].
+///
+/// [Detailed description of purpose]
+///
+/// Uses from_json_to_json for type-safe JSON handling.
+///
+/// Can be used to [list use cases].
+///
+/// Provides functionality to handle [list key features].
+extension type const TypeName(UnderlyingType value) {
+  // Implementation
+}
+```
+
+### 6. **Error Handling**
+
+The `from_json_to_json` package handles errors gracefully:
+
+- Returns sensible defaults (empty string, 0, false, empty collections)
+- Use `jsonDecodeThrowableMap` if you need exceptions on invalid input
+- Use verification functions like `verifyListDecodability` and `verifyMapDecodability` for validation
+
+### 7. **Private Constructor Pattern**
+
+For internal-only construction, use private constructor:
+
+```dart
+extension type const InternalType._(UnderlyingType value) {
+  factory InternalType.fromJson(final dynamic json) =>
+    InternalType._(jsonDecodeString(json)); // or appropriate decode function
+}
+```
+
+## Usage Examples
+
+### Simple ID Type
+
+```dart
+extension type const ProductId(String value) {
+  factory ProductId.fromJson(final dynamic value) => ProductId(jsonDecodeString(value));
+  String toJson() => value;
+  bool get isEmpty => value.isEmpty;
+  static const empty = ProductId('');
+}
+```
+
+### Complex Data Type
+
+```dart
+extension type const UserProfile(Map<String, dynamic> value) {
+  factory UserProfile.fromJson(final dynamic json) {
+    final map = jsonDecodeMap(json);
+    return UserProfile(map);
+  }
+
+  String get name => jsonDecodeString(value['name']);
+  int get age => jsonDecodeInt(value['age']);
+  List<String> get hobbies => jsonDecodeListAs<String>(value['hobbies']);
+  DateTime? get birthDate => dateTimeFromIso8601String(jsonDecodeString(value['birth_date']));
+
+  Map<String, dynamic> toJson() => value;
+
+  static const empty = UserProfile({});
+}
+```
+
+### Numeric Model
+
+```dart
+extension type const Score(int value) {
+  factory Score.fromJson(final dynamic json) => Score(jsonDecodeInt(json));
+
+  int toJson() => value;
+
+  bool get isZero => value == 0;
+  bool get isPositive => value > 0;
+
+  Score whenZeroUse(final Score other) => isZero ? other : this;
+
+  static const zero = Score(0);
+}
+```
+
+## Benefits
+
+1. **Type Safety**: Prevents mixing different ID types at compile time
+2. **Zero Runtime Cost**: No wrapper object created, direct access to underlying value
+3. **Robust JSON Handling**: Never crashes on invalid input, graceful fallbacks
+4. **API Clarity**: Makes function signatures more descriptive and self-documenting
+5. **Consistent Behavior**: Predictable conversion behavior across all models
+6. **Domain Modeling**: Expresses business concepts clearly in code
+
+## When to Use
+
+- **Identifiers**: Any string/int that represents a unique identifier
+- **Value Objects**: Simple data containers that need type safety
+- **API Boundaries**: When interfacing with external APIs that use primitive types
+- **Domain Modeling**: When you need to distinguish between different concepts that share the same underlying type
+- **JSON Models**: Any data structure that needs JSON serialization/deserialization
+
+## When NOT to Use
+
+- **Complex Business Logic**: Use regular classes for objects with significant behavior
+- **Mutable State**: Extension types are immutable by design
+- **Inheritance Hierarchies**: Use regular classes when you need inheritance
+- **Runtime Type Checking**: Extension types don't create new runtime types
 
 ---
 > Source: [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter) — distributed by [TomeVault](https://tomevault.io).
