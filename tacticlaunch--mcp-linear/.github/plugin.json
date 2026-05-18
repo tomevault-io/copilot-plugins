@@ -1,0 +1,9 @@
+{
+  "name": "tacticlaunch--mcp-linear",
+  "displayName": "mcp-linear",
+  "description": "MCP server that enables AI assistants to interact with Linear project management system through natural language, allowing users to retrieve, create, and update issues, projects, and teams.",
+  "version": "1.0.0",
+  "author": "tacticlaunch",
+  "homepage": "https://github.com/tacticlaunch/mcp-linear",
+  "skills": []
+}
