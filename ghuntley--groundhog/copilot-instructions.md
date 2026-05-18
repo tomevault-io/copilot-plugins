@@ -1,123 +1,202 @@
-## rust-cargo
+## rust-clap
 
-> Rust Cargo and Dependency Management Best Practices
+> Rust CLI Best Practices with clap
 
-This rule enforces best practices for Cargo and dependency management in Rust projects.
+This rule enforces best practices for building command-line interfaces using the clap crate.
 
 ## Rule Details
 
-- **Pattern**: `Cargo.toml`
+- **Pattern**: `*.rs`
 - **Severity**: Warning
-- **Category**: Dependencies
+- **Category**: CLI
 
 ## Checks
 
-1. **Dependency Management**
-   - Use specific version constraints
-   - Avoid using `*` or `>=` for versions
-   - Use workspace dependencies when appropriate
-   - Document dependency purposes
+1. **Command Structure**
+   - Use derive macros for command definitions
+   - Organize commands hierarchically
+   - Use meaningful command names
+   - Document all commands and options
 
-2. **Feature Flags**
-   - Use feature flags for optional functionality
-   - Document feature requirements
-   - Use `default-features = false` when appropriate
-   - Group related features
+2. **Argument Handling**
+   - Use appropriate argument types
+   - Implement proper validation
+   - Use default values when appropriate
+   - Handle required vs optional arguments
 
-3. **Workspace Organization**
-   - Use workspaces for related crates
-   - Share common dependencies
-   - Use path dependencies for local crates
-   - Organize crates logically
+3. **User Experience**
+   - Provide helpful error messages
+   - Include usage examples
+   - Use consistent naming conventions
+   - Implement proper help text
 
-4. **Build Configuration**
-   - Use appropriate profiles
-   - Configure build scripts properly
-   - Use conditional compilation
-   - Document build requirements
+4. **Subcommands**
+   - Organize related commands
+   - Use consistent subcommand structure
+   - Share common options
+   - Document subcommand relationships
 
 ## Examples
 
 ### Good
-```toml
-[package]
-name = "my-project"
-version = "0.1.0"
-edition = "2021"
-authors = ["Your Name <your.email@example.com>"]
-description = "A well-documented project"
-license = "MIT"
+```rust
+use clap::{Parser, Subcommand};
+use std::path::PathBuf;
 
-[dependencies]
-# Use specific versions with caret
-tokio = { version = "1.28", features = ["full"] }
-serde = { version = "1.0", features = ["derive"] }
-log = "0.4"
-env_logger = "0.10"
+/// A CLI tool for managing a database
+#[derive(Parser)]
+#[command(author, version, about, long_about = None)]
+pub struct Cli {
+    /// Sets the config file path
+    #[arg(short, long, value_name = "FILE")]
+    pub config: Option<PathBuf>,
 
-# Optional features
-my-crate = { version = "0.5", optional = true }
+    /// Sets the log level
+    #[arg(short, long, value_enum, default_value_t = LogLevel::Info)]
+    pub log_level: LogLevel,
 
-[features]
-default = ["my-crate"]
-# Group related features
-async = ["tokio/async"]
-json = ["serde/json"]
+    #[command(subcommand)]
+    pub command: Commands,
+}
 
-[workspace]
-members = [
-    "core",
-    "cli",
-    "web"
-]
+/// Available log levels
+#[derive(clap::ValueEnum, Clone, Debug)]
+pub enum LogLevel {
+    Debug,
+    Info,
+    Warn,
+    Error,
+}
 
-[profile.release]
-lto = true
-codegen-units = 1
-panic = "abort"
+/// Available commands
+#[derive(Subcommand)]
+pub enum Commands {
+    /// Initialize a new database
+    Init {
+        /// The database name
+        #[arg(short, long)]
+        name: String,
 
-[build-dependencies]
-cc = "1.0"
+        /// The database version
+        #[arg(short, long, default_value = "1.0.0")]
+        version: String,
+    },
+
+    /// Manage database migrations
+    Migrate {
+        #[command(subcommand)]
+        command: MigrateCommands,
+    },
+}
+
+/// Migration subcommands
+#[derive(Subcommand)]
+pub enum MigrateCommands {
+    /// Create a new migration
+    Create {
+        /// The migration name
+        name: String,
+
+        /// The migration description
+        #[arg(short, long)]
+        description: Option<String>,
+    },
+
+    /// Apply pending migrations
+    Up {
+        /// The number of migrations to apply
+        #[arg(short, long, default_value = "1")]
+        count: usize,
+    },
+}
+
+impl Cli {
+    /// Parse command line arguments
+    pub fn parse() -> Self {
+        Self::parse()
+    }
+
+    /// Execute the command
+    pub async fn execute(&self) -> Result<(), Error> {
+        match &self.command {
+            Commands::Init { name, version } => {
+                println!("Initializing database {} version {}", name, version);
+                // Implementation
+            }
+            Commands::Migrate { command } => {
+                match command {
+                    MigrateCommands::Create { name, description } => {
+                        println!(
+                            "Creating migration {}: {}",
+                            name,
+                            description.as_deref().unwrap_or("No description")
+                        );
+                        // Implementation
+                    }
+                    MigrateCommands::Up { count } => {
+                        println!("Applying {} migrations", count);
+                        // Implementation
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+}
+
+/// Example usage:
+/// ```bash
+/// # Initialize a new database
+/// my-cli init --name mydb --version 1.0.0
+///
+/// # Create a new migration
+/// my-cli migrate create add-users-table --description "Add users table"
+///
+/// # Apply migrations
+/// my-cli migrate up --count 2
+/// ```
 ```
 
 ### Bad
-```toml
-[package]
-name = "bad-project"
-version = "0.1.0"
+```rust
+// Bad: Manual argument parsing without clap
+fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() < 2 {
+        println!("Usage: {} <command>", args[0]);
+        return;
+    }
+    // Manual argument handling
+}
 
-[dependencies]
-# Bad: Using wildcard version
-tokio = "*"
-# Bad: Using >= for version
-serde = ">=1.0"
-# Bad: Missing feature specification
-log = "0.4"
+// Bad: Poor command structure
+#[derive(Parser)]
+struct Cli {
+    #[command(subcommand)]
+    command: String, // Using String instead of enum
+}
 
-# Bad: Unorganized features
-[features]
-feature1 = []
-feature2 = []
-feature3 = []
-
-# Bad: Missing workspace organization
-[workspace]
-members = ["*"]
+// Bad: Missing documentation
+#[derive(Parser)]
+struct BadCli {
+    #[arg(short, long)]
+    config: String,
+}
 ```
 
 ## Rationale
 
-Proper dependency management ensures:
-- Reproducible builds
-- Security through version control
-- Efficient dependency resolution
-- Clear project organization
+Proper CLI design ensures:
+- Intuitive user experience
+- Consistent command structure
+- Clear documentation
+- Robust error handling
 
 ## References
 
-- [Cargo Book](mdc:https:/doc.rust-lang.org/cargo)
-- [Cargo.toml Reference](mdc:https:/doc.rust-lang.org/cargo/reference/manifest.html)
-- [Rust Edition Guide](mdc:https:/rust-lang.github.io/edition-guide) 
+- [clap Documentation](mdc:https:/docs.rs/clap/latest/clap)
+- [clap Book](mdc:https:/docs.rs/clap/latest/clap/_derive/index.html)
+- [Command Line Interface Guidelines](mdc:https:/clig.dev) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
