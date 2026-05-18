@@ -1,32 +1,52 @@
-## 01-project-overview
+## 02-mcp-client-architecture
 
-> The Ultimate MCP Client is a comprehensive client for the Model Context Protocol (MCP) that connects AI models with external tools, servers, and data sources. It provides a powerful interface for managing MCP servers and leveraging their capabilities.
+> Handles server configuration, lifecycle management (connecting, disconnecting, restarting), discovery mechanisms, capability aggregation, and server process management.
 
-# Project Overview
+# MCP Client Architecture
 
-The Ultimate MCP Client is a comprehensive client for the Model Context Protocol (MCP) that connects AI models with external tools, servers, and data sources. It provides a powerful interface for managing MCP servers and leveraging their capabilities.
+The MCP Client is built around several key architectural components as found in [mcp_client.py](mdc:mcp_client.py).
 
-## Core Files
-- [mcp_client.py](mdc:mcp_client.py) - Main MCP client implementation with CLI, Web UI, and core functionality.
-- [mcp_client_multi.py](mdc:mcp_client_multi.py) - Multi-turn version of the MCP client.
-- [agent_master_loop.py](mdc:agent_master_loop.py) - Agent Master Loop (AML) implementation for orchestrating AI agents.
+## Key Classes
 
-## Documentation
-- [README.md](mdc:README.md) - Main documentation with features, setup, and usage.
-- [AGENT.md](mdc:AGENT.md) - Documentation for the agent implementation.
-- [TODO.md](mdc:TODO.md) - Planned improvements and future work.
+### MCPClient
+The main application class that orchestrates UI loops, command handling, and core logic.
 
-## Configuration
-- [.env-example](mdc:.env-example) - Example environment variables configuration.
-- [pyproject.toml](mdc:pyproject.toml) - Project dependencies and configuration.
+### ServerManager
+Handles server configuration, lifecycle management (connecting, disconnecting, restarting), discovery mechanisms, capability aggregation, and server process management.
 
-## Important Features
-The Ultimate MCP Client provides:
-- Dual interfaces (Web UI and CLI)
-- Robust server connectivity (stdio & sse)
-- Advanced conversation management with branching
-- Powerful tool integration
-- Observability via dashboards and telemetry
+### RobustStdioSession
+A custom implementation of the MCP ClientSession specifically for stdio servers, with noise filtering, direct future resolution, and process lifecycle management.
+
+### ConversationGraph
+Manages the non-linear, branching conversation structure using ConversationNode objects, with persistence to/from JSON.
+
+### ToolCache
+Implements caching logic using diskcache for persistence and an in-memory layer for speed, with TTL management.
+
+## Interfaces
+
+### CLI/TUI
+- Uses Typer for command-line interface
+- Rich for formatted console output and TUI dashboard
+- Interactive shell with commands (/servers, /tools, etc.)
+
+### Web UI
+- FastAPI backend with REST API
+- WebSockets for bidirectional real-time chat
+- Alpine.js, Tailwind CSS, and DaisyUI for frontend
+- Multiple themes with light/dark mode support
+
+## Resilience Features
+
+### STDIO Safety Mechanisms
+- StdioProtectionWrapper: Wraps sys.stdout to intercept writes
+- safe_stdout(): Context manager for critical operations
+- get_safe_console(): Utility for correct stream usage
+
+### Error Handling
+- @retry_with_circuit_breaker decorator for retries with exponential backoff
+- @with_tool_error_handling for standardized error reporting
+- Structured try/except/finally blocks throughout
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
