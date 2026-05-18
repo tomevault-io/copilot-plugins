@@ -1,0 +1,9 @@
+{
+  "name": "mittwald--typo3-smart-extension-builder",
+  "displayName": "typo3-smart-extension-builder",
+  "description": "Build TYPO3 extensions with Agentic AI",
+  "version": "1.0.0",
+  "author": "mittwald",
+  "homepage": "https://github.com/mittwald/typo3-smart-extension-builder",
+  "skills": []
+}
