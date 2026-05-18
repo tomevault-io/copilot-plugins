@@ -1,33 +1,37 @@
-## 002-cursor-rules
+## 003-cursor-docs
 
-> .mdc files describe specific rules for how certain files, file types, and directories are to be understood and used
+> Description: These files contain reference documentation and guides to aid in development efforts for the DroidMind project
 
+# Documentation Organization
 
-.mdc File Structure & Best Practices:
+## Project Overview
+- @project.md: Main architectural documentation
+- @README.md: Quick-start guide and feature summary
+- @plan.md: Development roadmap and planning
 
-File Naming: NNN_name.mdc (NNN = 001-299)
-- 001-099: Core/workspace rules
-- 100-199: Integration rules
-- 200-299: Pattern rules
-Higher numbers take precedence if rules conflict
+## Technical References
+- @python-mcp.md: Guide for Model Context Protocol Python implementation
+- @mcp-src.txt: Source reference for MCP implementation
+- @llms-full.txt: LLM integration documentation
 
-UI Components:
-1. Description (top)
-   - Brief purpose summary
-   - Appears in AI context
+## Examples and Testing
+- @examples.txt: Example usage scenarios and code snippets
+- @test_examples.py: Python test examples for MCP integrations
+- @doc-summary.txt: Condensed documentation for quick reference
 
-2. Globs (top)
-   - Comma-separated list
-   - Example: /dir1/**/*,/dir2/**/*,/dir3/**/*
-   - Use standard glob syntax
+## Documentation Guidelines
+1. Follow consistent formatting across all docs
+2. Include code examples for all key features
+3. Cross-reference between docs using @ notation
+4. Update documentation when implementations change
+5. Include version compatibility information
 
-3. Body Text (this section)
-   - Keep under 50 lines
-   - Use concise/shorthand
-   - Tag files with @
-   - Focus on key directives
-
-Best Practice: The assistant may propose changes to .mdc files for the user to copy into the UI. The assistant should not attempt direct file edits to .mdc files.
+## Key Concepts to Document
+- Device connection and management
+- ADB command execution and security
+- MCP resource and tool implementations
+- Client integration patterns
+- Security best practices
 
 ---
 > Source: [hyperb1iss/droidmind](https://github.com/hyperb1iss/droidmind) — distributed by [TomeVault](https://tomevault.io).
