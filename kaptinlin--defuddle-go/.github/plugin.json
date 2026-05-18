@@ -1,0 +1,9 @@
+{
+  "name": "kaptinlin--defuddle-go",
+  "displayName": "defuddle-go",
+  "description": "Go port of Defuddle for high-performance web content extraction",
+  "version": "1.0.0",
+  "author": "kaptinlin",
+  "homepage": "https://github.com/kaptinlin/defuddle-go",
+  "skills": []
+}
