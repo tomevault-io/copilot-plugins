@@ -4,7 +4,7 @@
   "repo": "mcp-server-apple-events",
   "description": "MCP server providing native macOS integration with Apple Reminders and Calendar via EventKit",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/FradSer/mcp-server-apple-events",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T18:13:26Z"
+  "distributed_at": "2026-05-18T20:59:27Z"
 }
