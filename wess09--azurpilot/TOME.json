@@ -4,7 +4,7 @@
   "repo": "AzurPilot",
   "description": "AzurLaneAutoScript \u7684\u4fee\u6539\u7248 AzurPilot",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wess09/AzurPilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T12:23:00Z"
+  "distributed_at": "2026-05-18T13:41:14Z"
 }
