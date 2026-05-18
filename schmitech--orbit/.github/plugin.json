@@ -1,0 +1,9 @@
+{
+  "name": "schmitech--orbit",
+  "displayName": "orbit",
+  "description": "A self-hosted AI infrastructure for private RAG and multi-model applications.",
+  "version": "1.0.0",
+  "author": "schmitech",
+  "homepage": "https://github.com/schmitech/orbit",
+  "skills": []
+}
