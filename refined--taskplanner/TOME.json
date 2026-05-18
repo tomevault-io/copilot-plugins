@@ -4,7 +4,7 @@
   "repo": "taskplanner",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/refined/taskplanner",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T04:13:56Z"
+  "distributed_at": "2026-05-18T05:03:51Z"
 }
