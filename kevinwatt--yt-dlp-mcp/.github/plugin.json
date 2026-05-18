@@ -1,0 +1,9 @@
+{
+  "name": "kevinwatt--yt-dlp-mcp",
+  "displayName": "yt-dlp-mcp",
+  "description": "A Model Context Protocol (MCP) server that bridges Video & Audio content with Large Language Models using yt-dlp.",
+  "version": "1.0.0",
+  "author": "kevinwatt",
+  "homepage": "https://github.com/kevinwatt/yt-dlp-mcp",
+  "skills": []
+}
