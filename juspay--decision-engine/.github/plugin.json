@@ -1,0 +1,9 @@
+{
+  "name": "juspay--decision-engine",
+  "displayName": "decision-engine",
+  "description": "open-source routing system designed for payment processing",
+  "version": "1.0.0",
+  "author": "juspay",
+  "homepage": "https://github.com/juspay/decision-engine",
+  "skills": []
+}
