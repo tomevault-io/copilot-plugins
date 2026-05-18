@@ -1,94 +1,148 @@
-## data-binding
+## decorator-patterns
 
-> 强类型数据绑定系统开发规范
+> 装饰器模式和元数据管理规范
 
 
-# 强类型数据绑定系统规范
+# 装饰器模式开发规范
 
-## 数据基类设计
+## 装饰器设计原则
 
-### DataBase 基类模式
+### namespace 封装模式
 ```typescript
-export class DataBase {
-    /** 数据变化监听器 */
-    private _watchers: Map<string, Function[]> = new Map();
+export namespace _uidecorator {
+    /** 元数据存储键 */
+    const UIPropMeta = "__uipropmeta__";
+    const UICBMeta = "__uicbmeta__";
     
-    /**
-     * 注册属性监听器
-     * @param path 属性路径
-     * @param callback 回调函数
-     */
-    public watch(path: string, callback: Function): void {
-        if (!this._watchers.has(path)) {
-            this._watchers.set(path, []);
-        }
-        this._watchers.get(path)!.push(callback);
-    }
+    /** 注册映射 */
+    const uiclassMap: Map<any, UIWindowInfo> = new Map();
     
-    /**
-     * 触发属性变化通知
-     * @param path 属性路径
-     * @param value 新值
-     */
-    protected notify(path: string, value: any): void {
-        if (this._watchers.has(path)) {
-            this._watchers.get(path)!.forEach(callback => {
-                callback(value);
-            });
-        }
+    /** 对外接口 */
+    export function getWindowMaps(): Map<any, UIWindowInfo> {
+        return uiclassMap;
     }
 }
 ```
 
-### 数据类定义规范
+### 装饰器工厂模式
 ```typescript
-class GameData extends DataBase {
-    private _level: number = 1;
-    private _coins: number = 0;
-    private _items: Item[] = [];
+/**
+ * 类装饰器工厂
+ * @param groupName 窗口组名称  
+ * @param pkgName fgui包名
+ * @param name 窗口名
+ * @param bundle 可选bundle名
+ */
+export function uiclass(groupName: string, pkgName: string, name: string, bundle?: string): Function {
+    return function (ctor: any): any {
+        // 元数据收集
+        uiclassMap.set(ctor, {
+            ctor: ctor,
+            props: ctor[UIPropMeta] || null,
+            callbacks: ctor[UICBMeta] || null,
+            res: {
+                group: groupName,
+                pkg: pkgName,  
+                name: name,
+                bundle: bundle || ""
+            }
+        });
+        
+        // 动态注册支持
+        _registerFinish && WindowManager.dynamicRegisterWindow(ctor, groupName, pkgName, name, bundle || "");
+        return ctor;
+    };
+}
+```
+
+## 属性装饰器模式
+
+### 属性标记装饰器
+```typescript
+/**
+ * UI属性装饰器
+ * @param target 实例成员的类的原型
+ * @param name 属性名
+ */
+export function uiprop(target: Object, name: string): any {
+    ObjectHelper.getObjectProp(target.constructor, UIPropMeta)[name] = 1;
+}
+
+/**
+ * UI控制器装饰器  
+ */
+export function uicontrol(target: Object, name: string): any {
+    ObjectHelper.getObjectProp(target.constructor, UIControlMeta)[name] = 1;
+}
+
+/**
+ * UI动画装饰器
+ */
+export function uitransition(target: Object, name: string): any {
+    ObjectHelper.getObjectProp(target.constructor, UITransitionMeta)[name] = 1;
+}
+```
+
+### 使用示例
+```typescript
+@uiclass("popup", "common", "SettingsWindow")
+export class SettingsWindow extends Window {
+    @uiprop
+    btnClose: GButton;
     
-    // 使用 getter/setter 实现响应式
-    get level(): number {
-        return this._level;
+    @uiprop  
+    list: GList;
+    
+    @uicontrol
+    tabController: GController;
+    
+    @uitransition
+    showAnim: GTransition;
+}
+```
+
+## 方法装饰器模式
+
+### 方法绑定装饰器
+```typescript
+/**
+ * 点击事件装饰器
+ * @param target 实例成员的类的原型
+ * @param name 方法名  
+ * @param descriptor 属性描述符
+ */
+export function uiclick(target: Object, name: string, descriptor: PropertyDescriptor): void {
+    ObjectHelper.getObjectProp(target.constructor, UICBMeta)[name] = descriptor.value;
+}
+```
+
+### 使用示例
+```typescript
+export class SettingsWindow extends Window {
+    @uiclick
+    private onBtnCloseClick(): void {
+        WindowManager.closeWindow("SettingsWindow");
     }
     
-    set level(value: number) {
-        if (this._level !== value) {
-            this._level = value;
-            this.notify('level', value);
-        }
-    }
-    
-    get coins(): number {
-        return this._coins;
-    }
-    
-    set coins(value: number) {
-        if (this._coins !== value) {
-            this._coins = value;
-            this.notify('coins', value);
-        }
-    }
-    
-    // 复杂属性的变化通知
-    addItem(item: Item): void {
-        this._items.push(item);
-        this.notify('items', this._items);
-        this.notify('items.length', this._items.length);
+    @uiclick
+    private onBtnSaveClick(): void {
+        this.saveSettings();
     }
 }
 ```
 
-## 装饰器绑定系统
+## 数据绑定装饰器
 
-### 强类型属性绑定
+### 强类型绑定装饰器
 ```typescript
 export namespace data {
+    const BIND_METADATA_KEY = Symbol('__bind_metadata__');
+    
     /**
-     * 强类型属性绑定装饰器
-     * @param dataClass 数据类构造函数 
-     * @param selector 类型安全的路径选择器
-     * @param callback 变化回调函数
+     * 属性绑定装饰器
+     * @param dataClass 数据类构造函数
+     * @param selector 路径选择器函数
+     * @param callback 回调函数
      * @param immediate 是否立即触发
      */
     export function bindProp<T extends DataBase>(
@@ -107,242 +161,117 @@ export namespace data {
             });
         };
     }
+    
+    /**
+     * 方法绑定装饰器  
+     */
+    export function bindMethod<T extends DataBase>(
+        dataClass: new () => T, 
+        selector: (data: T) => any, 
+        immediate: boolean = false
+    ) {
+        return function (target: any, method: string | symbol, descriptor?: PropertyDescriptor) {
+            const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
+            
+            let ctor = target.constructor;
+            ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
+            ctor[BIND_METADATA_KEY].push({
+                prop: method, 
+                callback: descriptor!.value, 
+                path, immediate, 
+                isMethod: true
+            });
+            return descriptor;
+        };
+    }
 }
 ```
 
-### 方法绑定装饰器
+### 数据绑定使用示例
 ```typescript
-/**
- * 强类型方法绑定装饰器
- * @param dataClass 数据类构造函数
- * @param selector 类型安全的路径选择器  
- * @param immediate 是否立即触发
- */
-export function bindMethod<T extends DataBase>(
-    dataClass: new () => T, 
-    selector: (data: T) => any, 
-    immediate: boolean = false
-) {
-    return function (target: any, method: string | symbol, descriptor?: PropertyDescriptor) {
-        const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
-        
-        let ctor = target.constructor;
-        ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
-        ctor[BIND_METADATA_KEY].push({
-            prop: method, 
-            callback: descriptor!.value, 
-            path, 
-            immediate, 
-            isMethod: true
-        });
-        return descriptor;
-    };
-}
-```
-
-## 使用示例
-
-### UI 数据绑定示例
-```typescript
-class PlayerData extends DataBase {
-    name: string = "";
+class GameData extends DataBase {
     level: number = 1;
-    exp: number = 0;
-    maxExp: number = 100;
-    
-    // 计算属性
-    get expProgress(): number {
-        return this.exp / this.maxExp;
-    }
+    coins: number = 0;
 }
 
-@uiclass("main", "player", "PlayerPanel")  
-export class PlayerPanel extends Window {
-    @uiprop nameLabel: GLabel;
-    @uiprop levelLabel: GLabel;
-    @uiprop expBar: GProgressBar;
+export class GameUI extends Window {
+    @uiprop
+    levelLabel: GLabel;
     
-    // 绑定玩家名称到标签
-    @data.bindProp(PlayerData, data => data.name, function(item, value) {
-        this.nameLabel.text = value;
+    @uiprop
+    coinsLabel: GLabel;
+    
+    // 绑定属性到UI
+    @data.bindProp(GameData, data => data.level, function(item, value) {
+        this.levelLabel.text = `Level: ${value}`;
     })
-    private _nameBinding: any;
+    private _levelBinding: any;
     
-    // 绑定等级显示
-    @data.bindMethod(PlayerData, data => data.level)
-    private onLevelChanged(value: number): void {
-        this.levelLabel.text = `Lv.${value}`;
-    }
-    
-    // 绑定经验条
-    @data.bindMethod(PlayerData, data => data.expProgress)  
-    private onExpChanged(progress: number): void {
-        this.expBar.value = progress * 100;
-    }
-    
-    protected onInit(): void {
-        // 初始化绑定
-        data.initializeBindings(this);
-    }
-    
-    protected onClose(): void {
-        // 清理绑定
-        data.cleanupBindings(this);
+    // 绑定方法到数据变化
+    @data.bindMethod(GameData, data => data.coins)
+    private onCoinsChanged(value: number): void {
+        this.coinsLabel.text = `Coins: ${value}`;
     }
 }
 ```
 
-## 绑定管理器
+## 条件装饰器
 
-### BindManager 设计
+### 条件注册装饰器
 ```typescript
-export class BindManager {
-    private static _bindings: Map<string, BindInfo[]> = new Map();
+export namespace _conditionDecorator {
+    const cdClassMap: Map<number, any> = new Map();
     
-    /**
-     * 添加绑定信息
-     */
-    public static addBinding(bindInfo: BindInfo): void {
-        const key = bindInfo.path;
-        if (!this._bindings.has(key)) {
-            this._bindings.set(key, []);
-        }
-        this._bindings.get(key)!.push(bindInfo);
-        
-        // 如果需要立即触发
-        if (bindInfo.immediate) {
-            this.triggerBinding(bindInfo);
-        }
+    export function getConditionMaps(): Map<number, any> {
+        return cdClassMap;
     }
     
     /**
-     * 清理目标对象的绑定
+     * 条件装饰器
+     * @param conditionType 条件类型ID
      */
-    public static cleanup(target: any): void {
-        this._bindings.forEach((bindings, path) => {
-            const newBindings = bindings.filter(binding => binding.target !== target);
-            if (newBindings.length === 0) {
-                this._bindings.delete(path);
-            } else {
-                this._bindings.set(path, newBindings);
-            }
-        });
-    }
-    
-    /**
-     * 触发路径对应的所有绑定
-     */
-    public static notifyChange(path: string, value: any, data: any): void {
-        const bindings = this._bindings.get(path);
-        if (bindings) {
-            bindings.forEach(binding => {
-                try {
-                    if (binding.isMethod) {
-                        binding.callback.call(binding.target, value, data);
-                    } else {
-                        binding.callback.call(binding.target, binding.target[binding.prop], value, data);
-                    }
-                } catch (error) {
-                    console.error(`绑定回调执行错误: ${path}`, error);
-                }
-            });
-        }
+    export function conditionClass(conditionType: number): Function {
+        return function (ctor: any): void {
+            cdClassMap.set(conditionType, ctor);
+            return ctor;
+        };
     }
 }
 ```
 
-## 路径解析器
-
-### 路径提取函数
+### 条件使用示例
 ```typescript
-/**
- * 从选择器函数中提取路径字符串
- * 支持编译期类型检查的运行时路径解析
- */
-function extractPathFromSelector(selector: Function): string {
-    const fnString = selector.toString();
-    
-    // 匹配箭头函数: data => data.property.path
-    let match = fnString.match(/\w+\s*=>\s*\w+\.(.+)/);
-    
-    if (!match) {
-        // 匹配普通函数: function(data) { return data.property.path; }
-        match = fnString.match(/return\s+\w+\.(.+);?\s*}/);
+@conditionClass(1001)
+export class LevelCondition extends ConditionBase {
+    protected check(): boolean {
+        return GameData.getInstance().level >= this.targetLevel;
     }
-    
-    if (!match) {
-        throw new Error('无效的路径选择器函数，请使用 data => data.property.path 格式');
-    }
-    
-    return match[1].trim();
 }
 ```
 
-## 批量更新优化
+## 装饰器最佳实践
 
-### BatchUpdater 设计
+### 元数据收集模式
+1. 使用 Symbol 作为元数据键避免冲突
+2. 在类原型上存储元数据信息
+3. 提供统一的元数据访问接口
+
+### 动态注册支持
 ```typescript
-export class BatchUpdater {
-    private static _pendingUpdates: Set<string> = new Set();
-    private static _updateTimer: number = 0;
-    
-    /**
-     * 批量更新通知
-     * @param path 变化路径
-     * @param value 新值  
-     * @param data 数据对象
-     */
-    public static scheduleUpdate(path: string, value: any, data: any): void {
-        this._pendingUpdates.add(path);
-        
-        if (this._updateTimer === 0) {
-            this._updateTimer = requestAnimationFrame(() => {
-                this.flushUpdates();
-            });
-        }
-    }
-    
-    /**
-     * 执行批量更新
-     */
-    private static flushUpdates(): void {
-        this._pendingUpdates.forEach(path => {
-            // 获取最新值并触发更新
-            const [dataClassName, propertyPath] = path.split(':');
-            const dataInstance = DataRegistry.getInstance(dataClassName);
-            if (dataInstance) {
-                const value = this.getValueByPath(dataInstance, propertyPath);
-                BindManager.notifyChange(path, value, dataInstance);
-            }
-        });
-        
-        this._pendingUpdates.clear();
-        this._updateTimer = 0;
-    }
+let _registerFinish: boolean = false;
+
+export function setRegisterFinish(): void {
+    _registerFinish = true;
 }
+
+// 在装饰器中支持动态注册
+_registerFinish && WindowManager.dynamicRegisterWindow(ctor, groupName, pkgName, name, bundle);
 ```
 
-## 数据绑定最佳实践
-
-### 1. 类型安全
-- 使用泛型约束确保绑定的类型安全
-- 路径选择器函数提供编译期检查
-- 避免字符串路径，优先使用选择器函数
-
-### 2. 性能优化  
-- 使用批量更新减少频繁触发
-- 及时清理不需要的绑定
-- 避免在绑定回调中进行重度计算
-
-### 3. 内存管理
-- 在组件销毁时调用 `data.cleanupBindings()`
-- 避免循环引用导致的内存泄漏
-- 使用弱引用管理临时绑定
-
-### 4. 调试支持
-- 提供绑定信息的调试接口
-- 记录绑定的创建和销毁日志
-- 支持绑定状态的实时监控
+### 类型安全
+- 使用泛型约束确保装饰器类型安全
+- 提供明确的参数类型定义
+- 避免使用 any 类型，优先使用具体类型
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
