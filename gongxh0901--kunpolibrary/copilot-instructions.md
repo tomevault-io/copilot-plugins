@@ -1,59 +1,26 @@
-## project-overview
+## typescript-general
 
-> KunpoCC 项目总体开发规范
+> KunpoCC TypeScript 通用开发规范
 
 
-# KunpoCC 项目总体开发规范
+# KunpoCC TypeScript 通用开发规范
 
-## 项目介绍
+## 代码风格和命名规范
 
-KunpoCC 是一个基于 Cocos Creator 3.x 的游戏开发框架库，提供了一套完整的游戏开发工具和模块：
+### 命名约定
+- **类名**: 使用 PascalCase (如 `WindowManager`, `DataBase`)
+- **接口**: 以 `I` 开头，使用 PascalCase (如 `IWindow`, `IModule`) 
+- **方法和属性**: 使用 camelCase (如 `showWindow`, `onInit`)
+- **常量**: 全大写，下划线分隔 (如 `KUNPO_DEBUG`, `TAG`)
+- **私有方法**: 以下划线开头 (如 `_init`, `_removeWindow`)
+- **内部方法**: 添加 `@internal` JSDoc 注释
 
-- **UI 管理系统**: 基于 FairyGUI 的窗口管理和组件系统
-- **数据绑定系统**: 强类型的响应式数据绑定框架
-- **平台适配**: 微信、支付宝、字节跳动等小游戏平台支持
-- **热更新系统**: 完整的资源热更新解决方案
-- **工具模块**: 时间管理、日志系统、数学工具等实用工具
-
-## 项目结构规范
-
-### 目录组织
-```
-src/
-├── cocos/          # Cocos Creator 适配层
-├── condition/      # 条件管理系统 (红点系统)
-├── data/           # 数据绑定系统
-├── fgui/           # FairyGUI 窗口基类
-├── global/         # 全局工具和配置
-├── hotupdate/      # 热更新系统
-├── interface/      # 通用接口定义
-├── minigame/       # 小游戏平台适配
-├── module/         # 模块基类
-├── tool/           # 工具函数集合
-└── ui/             # UI 管理系统
-```
-
-### 文件命名规范
-- **类文件**: PascalCase (如 `WindowManager.ts`)
-- **接口文件**: 以 `I` 开头 (如 `IWindow.ts`)
-- **工具文件**: 功能描述命名 (如 `log.ts`, `Math.ts`)
-- **装饰器文件**: 以 `Decorator` 结尾 (如 `UIDecorator.ts`)
-
-## 编码规范总览
-
-### 类型系统
+### 类型定义
 ```typescript
-// 严格的 TypeScript 配置
-{
-    "strict": true,
-    "strictNullChecks": false,  // 项目特殊需求
-    "experimentalDecorators": true
-}
-
-// 优先使用接口和泛型
-interface IWindow {
-    _show(userdata?: any): void;
-    _close(): void;
+// 优先使用接口定义对象结构
+interface size {
+    width: number;
+    height: number;
 }
 
 // 使用泛型约束确保类型安全
@@ -62,200 +29,84 @@ public static getWindow<T extends IWindow>(name: string): T | null {
 }
 ```
 
-### 装饰器系统
-```typescript
-// UI 装饰器
-@uiclass("popup", "common", "SettingsWindow")
-export class SettingsWindow extends Window {
-    @uiprop btnClose: GButton;
-    @uiclick private onBtnCloseClick(): void { }
-}
+## 注释规范
 
-// 数据绑定装饰器
-@data.bindProp(GameData, data => data.level, function(item, value) {
-    this.levelLabel.text = `Level: ${value}`;
-})
-private _levelBinding: any;
+### JSDoc 注释要求
+- 所有公共方法必须有完整的 JSDoc 注释
+- 包含参数说明、返回值说明和描述
+- 内部方法使用 `@internal` 标记
 
-// 条件装饰器
-@conditionClass(1001)
-export class LevelCondition extends ConditionBase { }
-```
-
-### 架构模式
-```typescript
-// 单例管理器模式
-export class WindowManager {
-    private static _instance: WindowManager;
-    public static getInstance(): WindowManager { }
-}
-
-// 抽象基类模式
-export abstract class Window extends WindowBase {
-    protected abstract onInit(): void;
-    protected onShow(userdata?: any): void { }
-}
-
-// 适配器模式
-export class CocosAdapter implements IAdapter {
-    public init(): void { }
-}
-```
-
-## 开发流程
-
-### 1. 新增功能模块
-1. 在相应目录创建模块文件
-2. 实现必要的接口和基类
-3. 添加相应的装饰器支持
-4. 编写单元测试
-5. 更新文档和示例
-
-### 2. 窗口开发
-```typescript
-@uiclass("main", "game", "GameWindow")
-export class GameWindow extends Window {
-    @uiprop playerPanel: GComponent;
-    @uiprop settingsBtn: GButton;
-    
-    @uiclick
-    private onSettingsBtnClick(): void {
-        WindowManager.showWindow("SettingsWindow");
-    }
-    
-    protected onInit(): void {
-        // 窗口初始化逻辑
-    }
-}
-```
-
-### 3. 数据系统集成
-```typescript
-class GameData extends DataBase {
-    private _score: number = 0;
-    
-    get score(): number { return this._score; }
-    set score(value: number) {
-        if (this._score !== value) {
-            this._score = value;
-            this.notify('score', value);
-        }
-    }
-}
-```
-
-## 质量保证
-
-### 日志和调试
-```typescript
-import { debug, warn, error, log } from "../tool/log";
-
-// 统一的日志格式
-debug(`窗口注册 - 窗口名:${name} 包名:${pkg}`);
-warn(`资源加载失败: ${resourcePath}`);
-error(`网络请求异常: ${url}`, errorDetails);
-```
-
-### 错误处理
-```typescript
-// Promise 错误处理
-public static showWindow(name: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        try {
-            // 业务逻辑
-            resolve();
-        } catch (error) {
-            error('窗口显示失败', error);
-            reject(error);
-        }
-    });
-}
-```
-
-### 性能优化
-- 使用资源池管理UI资源生命周期
-- 实现批量更新减少频繁触发
-- 及时清理事件监听和数据绑定
-- 使用对象池复用临时对象
-
-## 文档和注释
-
-### JSDoc 规范
 ```typescript
 /**
  * @Author: Gongxh
- * @Date: 2024-12-07
+ * @Date: 2024-12-07  
  * @Description: 窗口管理类
  */
 
 /**
- * 显示指定名称的窗口
+ * 显示指定名称的窗口，并传递可选的用户数据
  * @param windowName - 窗口的名称
- * @param userdata - 可选的用户数据
- * @returns Promise<void>
- * @internal - 标记内部方法
+ * @param userdata - 可选参数，用于传递给窗口的用户数据
+ * @internal
  */
-public static showWindow(windowName: string, userdata?: any): Promise<void> {
+public static showWindowIm(windowName: string, userdata?: any): void {
 ```
 
-### 代码注释原则
-- 公共API必须有完整的JSDoc注释
-- 复杂逻辑添加行内注释说明
-- 内部方法使用 `@internal` 标记
-- 废弃功能使用 `@deprecated` 标记
+## 错误处理和日志
 
-## 版本管理
-
-### 语义化版本
-- **主版本号**: 不兼容的API修改
-- **次版本号**: 向后兼容的功能性新增
-- **修订号**: 向后兼容的问题修正
-
-### 变更记录
-- 维护 CHANGELOG.md 记录版本变更
-- 每个版本包含新增功能、修复问题、破坏性变更
-- 提供迁移指南帮助用户升级
-
-## 测试规范
-
-### 单元测试
+### 使用统一的日志系统
 ```typescript
-describe('WindowManager', () => {
-    test('should show window correctly', () => {
-        // 测试逻辑
-    });
-    
-    test('should handle window not found', () => {
-        // 错误处理测试
-    });
-});
+import { debug, warn, error, log } from "../tool/log";
+
+// 调试信息（仅在 debug 模式下显示）
+debug("窗口注册完成", windowName);
+
+// 警告信息
+warn(`窗口不存在 ${windowName} 不需要关闭`);
+
+// 错误信息
+error("初始化失败", errorMessage);
 ```
 
-### 集成测试
-- 测试模块间的交互
-- 验证装饰器系统的完整性
-- 测试平台适配功能
-
-## 部署和发布
-
-### 构建配置
-```json
-{
-    "scripts": {
-        "build": "rollup -c rollup.config.mjs",
-        "build:all": "npm run build && npm run copy"
-    }
+### 错误处理模式
+```typescript
+// 使用 Promise 进行异步错误处理
+public static showWindow(windowName: string, userdata?: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+        this._resPool.loadWindowRes(windowName, {
+            complete: () => {
+                this.showWindowIm(windowName, userdata);
+                resolve();
+            },
+            fail: (pkgs: string[]) => {
+                reject(pkgs);
+            }
+        });
+    });
 }
 ```
 
-### 发布检查清单
-1. 代码通过所有测试
-2. 文档更新完整
-3. 版本号正确更新
-4. CHANGELOG.md 记录变更
-5. 类型定义文件正确生成
+## TypeScript 最佳实践
 
-这个规范文档作为项目开发的总体指导，具体的技术细节请参考各个专门的规则文件。
+### 严格类型检查
+- 启用 `strict: true`
+- 禁用 `strictNullChecks: false` (项目特殊要求)
+- 使用明确的类型注解，避免 `any`
+
+### 装饰器使用
+- 启用 `experimentalDecorators: true`
+- 遵循项目的装饰器模式 (详见装饰器规范)
+
+### 模块导入
+```typescript
+// 使用相对路径导入
+import { WindowBase } from "./WindowBase";
+import { debug, warn } from "../tool/log";
+
+// 导出时保持清晰的结构
+export { WindowManager } from "./ui/WindowManager";
+export { _uidecorator } from "./ui/UIDecorator";
+```
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
