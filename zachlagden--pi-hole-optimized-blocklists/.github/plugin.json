@@ -1,0 +1,9 @@
+{
+  "name": "zachlagden--pi-hole-optimized-blocklists",
+  "displayName": "Pi-hole-Optimized-Blocklists",
+  "description": "Pre-optimized, deduplicated Pi-hole blocklists \u2014 1.6M+ domains across advertising, tracking, malware, and more. Updated weekly.",
+  "version": "1.0.0",
+  "author": "zachlagden",
+  "homepage": "https://github.com/zachlagden/Pi-hole-Optimized-Blocklists",
+  "skills": []
+}
