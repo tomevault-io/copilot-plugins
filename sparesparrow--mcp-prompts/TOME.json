@@ -4,7 +4,7 @@
   "repo": "mcp-prompts",
   "description": "Model Context Protocol server for managing, storing, and providing prompts and prompt templates for LLM interactions. ",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sparesparrow/mcp-prompts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T16:25:47Z"
+  "distributed_at": "2026-05-18T18:02:46Z"
 }
