@@ -1,0 +1,9 @@
+{
+  "name": "ferronweb--ferron",
+  "displayName": "ferron",
+  "description": "A fast, memory-safe web server written in Rust.",
+  "version": "1.0.0",
+  "author": "ferronweb",
+  "homepage": "https://github.com/ferronweb/ferron",
+  "skills": []
+}
