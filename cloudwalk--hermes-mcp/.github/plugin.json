@@ -1,0 +1,9 @@
+{
+  "name": "cloudwalk--hermes-mcp",
+  "displayName": "hermes-mcp",
+  "description": "Elixir Model Context Protocol (MCP) SDK",
+  "version": "1.0.0",
+  "author": "cloudwalk",
+  "homepage": "https://github.com/cloudwalk/hermes-mcp",
+  "skills": []
+}
