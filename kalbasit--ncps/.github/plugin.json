@@ -1,0 +1,14 @@
+{
+  "name": "kalbasit--ncps",
+  "displayName": "ncps",
+  "description": "Nix binary cache proxy service -- with local caching and signing.",
+  "version": "1.0.0",
+  "author": "kalbasit",
+  "homepage": "https://github.com/kalbasit/ncps",
+  "skills": [
+    {
+      "name": "ncps",
+      "description": ""
+    }
+  ]
+}
