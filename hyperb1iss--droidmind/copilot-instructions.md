@@ -1,37 +1,60 @@
-## 003-cursor-docs
+## 004-aesthetic
 
-> Description: These files contain reference documentation and guides to aid in development efforts for the DroidMind project
+> Aesthetic guidelines for console output
 
-# Documentation Organization
+# NeonGlam Console Aesthetic 💅✨
+# Aesthetic Guidelines for DroidMind
 
-## Project Overview
-- @project.md: Main architectural documentation
-- @README.md: Quick-start guide and feature summary
-- @plan.md: Development roadmap and planning
+## 1. Core Visual Identity 🌈
+   - Use vibrant neon colors with a femme-forward palette
+   - Employ cyberpunk-inspired spinners and animations
+   - Create depth with bold/dim contrast and gradient effects
+   - Balance readability with expressive visual flair
+   - Incorporate subtle holographic/iridescent effects where appropriate
 
-## Technical References
-- @python-mcp.md: Guide for Model Context Protocol Python implementation
-- @mcp-src.txt: Source reference for MCP implementation
-- @llms-full.txt: LLM integration documentation
+## 2. Color Palette
+   - Primary: Cyber Magenta (#FF00FF) & Electric Cyan (#00FFFF)
+   - Success: Neon Violet (#9D00FF) & Mint Green (#39FF14)
+   - Warning: Electric Yellow (#FFE744) & Amber (#FFBF00)
+   - Error: Hot Pink (#FF69B4) & Crimson (#DC143C)
+   - Info: Cool Blue (#00BFFF) & Lavender (#E6E6FA)
+   - Accents: Holographic Silver (#F0F0F0) & Neon Peach (#FF9E80)
 
-## Examples and Testing
-- @examples.txt: Example usage scenarios and code snippets
-- @test_examples.py: Python test examples for MCP integrations
-- @doc-summary.txt: Condensed documentation for quick reference
+## 3. Typography & Layout
+   - Use Unicode box-drawing chars with rounded corners where possible
+   - Apply consistent spacing with feminine proportions (1.618 golden ratio)
+   - Right-align status messages with subtle glow effects
+   - Support wide terminal chars and emoji
+   - Use thin dividers with gradient effects
+   - Employ cursive-inspired fonts where terminal supports it
 
-## Documentation Guidelines
-1. Follow consistent formatting across all docs
-2. Include code examples for all key features
-3. Cross-reference between docs using @ notation
-4. Update documentation when implementations change
-5. Include version compatibility information
+## 4. Device Representation
+   - Represent devices with unique identity markers
+   - Use color coding based on device type/status
+   - Create visual hierarchy with indentation and color intensity
+   - Display connection strength with gradient bars
+   - Use feminine-coded naming conventions for unnamed devices
 
-## Key Concepts to Document
-- Device connection and management
-- ADB command execution and security
-- MCP resource and tool implementations
-- Client integration patterns
-- Security best practices
+## 5. Command Interface
+   - Style command prompts with glowing cursor effect
+   - Use subtle animations for command execution
+   - Display command history with fading opacity
+   - Highlight dangerous commands with pulsing warning indicators
+   - Add subtle typing sounds if audio available
+
+## 6. Responsive Design
+   - Gracefully adapt to different terminal sizes
+   - Provide compact view for limited space
+   - Maintain visual hierarchy in all display modes
+   - Use responsive spacing that scales with terminal width
+   - Ensure accessibility with high contrast mode option
+
+## 7. Branding Elements
+   - Incorporate DroidMind logo with holographic effect
+   - Use consistent brand voice in all messages
+   - Apply signature color transitions in loading screens
+   - Create memorable visual moments for key operations
+   - Balance technical precision with playful elegance
 
 ---
 > Source: [hyperb1iss/droidmind](https://github.com/hyperb1iss/droidmind) — distributed by [TomeVault](https://tomevault.io).
