@@ -2,9 +2,9 @@
   "name": "one-mcp",
   "owner": "burugo",
   "repo": "one-mcp",
-  "description": "",
+  "description": "A centralized reverse-proxy platform for MCP servers \u2014 manage, group, and export as Skills from a single endpoint.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/burugo/one-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T20:56:48Z"
+  "distributed_at": "2026-05-18T01:18:32Z"
 }
