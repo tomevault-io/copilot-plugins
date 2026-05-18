@@ -1,0 +1,9 @@
+{
+  "name": "vishalsachdev--canvas-mcp",
+  "displayName": "canvas-mcp",
+  "description": "Canvas LMS MCP server \u2014 80+ tools and 5 agent skills for students & educators. Works with Claude, Cursor, Codex, and 40+ agents. v1.1.0",
+  "version": "1.0.0",
+  "author": "vishalsachdev",
+  "homepage": "https://github.com/vishalsachdev/canvas-mcp",
+  "skills": []
+}
