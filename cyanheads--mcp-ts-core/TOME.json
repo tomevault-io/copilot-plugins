@@ -4,7 +4,7 @@
   "repo": "mcp-ts-core",
   "description": "Agent-native TypeScript framework for building MCP servers. Declarative definitions with auth, multi-backend storage, OpenTelemetry, and first-class support for Bun/Node/Cloudflare Workers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyanheads/mcp-ts-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T11:36:27Z"
+  "distributed_at": "2026-05-18T11:56:39Z"
 }
