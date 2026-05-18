@@ -1,30 +1,25 @@
-## infrastructure-guide
+## project-overview
 
-> This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
+> This project is a Rust-based LLM (Large Language Model) proxy/router service that handles API requests to various LLM providers like OpenAI and Anthropic.
 
-# Infrastructure and Deployment
+# LLM Proxy Project Overview
 
-This directory contains all infrastructure-as-code and deployment scripts for the LLM Proxy project.
+This project is a Rust-based LLM (Large Language Model) proxy/router service that handles API requests to various LLM providers like OpenAI and Anthropic.
 
-## Docker Compose
+## Key Files and Directories
 
-- [infrastructure/compose.yaml](mdc:infrastructure/compose.yaml): Defines services like the proxy, database, Redis, and observability tooling.
+- [ai-gateway/src/main.rs](mdc:ai-gateway/src/main.rs) - Main entry point for the application
+- [ai-gateway/src/lib.rs](mdc:ai-gateway/src/lib.rs) - Exposes the main modules of the application
+- [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs) - Core application setup and HTTP server
+- [ai-gateway/src/router/](mdc:ai-gateway/src/router) - Contains routing logic for API requests
+- [ai-gateway/src/config/](mdc:ai-gateway/src/config) - Configuration handling
+- [crates/](mdc:crates) - Contains smaller crates for specific functionality
 
-## Deployment Script
+## Specialized Crates
 
-- [infrastructure/deploy.sh](mdc:infrastructure/deploy.sh): Bash script to deploy infrastructure and update services.
-
-## Monitoring and Observability
-
-- [infrastructure/prometheus/](mdc:infrastructure/prometheus): Prometheus configuration files.
-- [infrastructure/grafana/](mdc:infrastructure/grafana): Grafana dashboards and data source definitions.
-- [infrastructure/loki/](mdc:infrastructure/loki): Loki log aggregation setup.
-- [infrastructure/tempo/](mdc:infrastructure/tempo): Tempo tracing configuration.
-- [infrastructure/opentelemetry-collector/](mdc:infrastructure/opentelemetry-collector): OpenTelemetry Collector pipelines.
-
-## Certificates
-
-- [infrastructure/self-signed-certs/](mdc:infrastructure/self-signed-certs): Self-signed TLS certificates for local development.
+- [crates/telemetry/](mdc:crates/telemetry) - Telemetry and logging infrastructure
+- [crates/metrics/](mdc:crates/metrics) - Metrics collection and reporting
+- [crates/weighted-balance/](mdc:crates/weighted-balance) - Load balancing logic for LLM providers
 
 ---
 > Source: [Helicone/ai-gateway](https://github.com/Helicone/ai-gateway) — distributed by [TomeVault](https://tomevault.io).
