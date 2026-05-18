@@ -1,27 +1,18 @@
-## 07-project-conventions
+## 08-testing-and-deployment
 
-> 1. Follow **RESTful API design**. Endpoints grouped by resource in `api/routes`.
+> - Implement **unit tests** (e.g., using `pytest` for backend, Jest/React Testing Library for frontend).
 
 
-### Project Conventions
+### Testing and Deployment
 
-**Backend**
-
-1. Follow **RESTful API design**. Endpoints grouped by resource in `api/routes`.
-2. Use **FastAPI's dependency injection** (via `Depends`) extensively. Access singletons via `request.app.state` within dependency functions.
-3. Use **SQLAlchemy** for ORM. Employ the **Repository pattern** for database abstraction.
-4. Ensure **CORS** is configured in `api/app.py` for local development.
-5. **Authorization**: Implemented via `api/common/authorization.py` (`PermissionChecker` dependency) based on user groups and role definitions stored in the database (managed by `SettingsManager` and `AuthorizationManager`). User details (including groups) are fetched via Databricks SDK (`api/controller/users_manager.py`, `api/common/authorization.py`). Permissions defined in `api/common/features.py`.
-6. **Configuration**: Managed by `api/common/config.py` using Pydantic's `BaseSettings` loading from `.env` and environment variables.
-7. **Search**: Managers implement `SearchableAsset` interface and use `@searchable_asset` decorator. `SearchManager` collects items and provides search endpoint.
-
-**Frontend**
-
-1. Optimize **Web Vitals**.
-2. Use `useToast` hook (based on Shadcn UI Toaster) for user feedback.
-3. Use Zustand stores (`stores/`) for cross-component state.
-4. Fetch user permissions via `/api/user/permissions` endpoint and store using `permissions-store`. Use `usePermissions` hook to check access levels (e.g., `hasPermission(featureId, FeatureAccessLevel.READ_WRITE)`). Conditionally render UI elements or disable actions based on permissions.
-5. Use `breadcrumb-store` to dynamically update breadcrumbs, especially for detail pages.
+- Implement **unit tests** (e.g., using `pytest` for backend, Jest/React Testing Library for frontend).
+- Ensure proper input validation (Pydantic on backend, Zod/react-hook-form on frontend) and error handling.
+- **Deployment**: Deployed as a Databricks App via `databricks bundle deploy` using `api/app.yaml`.
+- **Development Server**: When developing locally (localhost is used), the FastAPI/Uvicorn and Vite server run in dev mode with auto-reload enabled. File changes automatically restart/reload the server - no manual restart needed. **IMPORTANT**: NEVER RESTART SERVER PROCESSES!
+- Backend server logs are in `/tmp/backend.log`, frontend server logs in `/tmp/frontend.log`
+- **Development Ports**: Backend API runs on port 8000, Frontend UI runs on port 3000.
+- Always use `hatch -e dev run ...` to run Python snippets
+- IMPORTANT: The backend server (Python) logs are in `/tmp/backend.log` and the frontend (Vite) in `/tmp/frontend.log. Read them as needed.
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
