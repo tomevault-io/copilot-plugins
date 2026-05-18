@@ -4,7 +4,7 @@
   "repo": "ShipFree",
   "description": "Open Source Next.js Saas Boilerplate x  Digital subscription sharing and recharge platform for streaming, AI, music, productivity, cloud storage, and learning products on https://doloffer.com",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/revokslab/ShipFree",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:00:04Z"
+  "distributed_at": "2026-05-18T22:13:03Z"
 }
