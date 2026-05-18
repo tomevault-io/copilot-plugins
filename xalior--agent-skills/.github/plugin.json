@@ -1,0 +1,9 @@
+{
+  "name": "xalior--agent-skills",
+  "displayName": "agent-skills",
+  "description": "\ud83e\udd16 AI Agent Skills Collection - Like vercel-labs/agent-skills, but cooler. Because emojis. \ud83d\ude0e",
+  "version": "1.0.0",
+  "author": "Xalior",
+  "homepage": "https://github.com/Xalior/agent-skills",
+  "skills": []
+}
