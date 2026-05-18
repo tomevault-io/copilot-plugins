@@ -1,0 +1,44 @@
+{
+  "name": "raphael-starterkit-v1",
+  "owner": "Idea-To-Business",
+  "repo": "raphael-starterkit-v1",
+  "description": "\u5218\u5c0f\u6392 Idea To Business \u8bfe\u7a0b\u914d\u5957\u7684\u6781\u7b80starter\u3002 \u7279\u8272\u529f\u80fd\u5305\u62ec\uff1a1. \u6781\u7b80\uff01\u53ea\u6709\u65b0\u624b\u5fc5\u987b\u7684\u529f\u80fd\uff01 2. \u81ea\u5e26Cursor Rule\uff01 Cursor\u53ef\u4ee5\u5b8c\u5168\u7406\u89e3\u9879\u76ee\u67b6\u6784 3. \u548c\u8bfe\u7a0b\u6df1\u5ea6\u7ed3\u5408 4.\u5305\u542bSaaS\u7684\u57fa\u5efa\u529f\u80fd\uff1aLanding Page\u3001\u66f4\u6362\u4e3b\u9898\u989c\u8272\u3001\u6ce8\u518c\u3001\u767b\u5f55\u3001\u8ba2\u9605\u652f\u4ed8\u3001\u79ef\u5206\u8d2d\u4e70",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Idea-To-Business/raphael-starterkit-v1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T05:57:53Z"
+}
