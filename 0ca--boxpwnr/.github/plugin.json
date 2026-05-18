@@ -1,0 +1,9 @@
+{
+  "name": "0ca--boxpwnr",
+  "displayName": "BoxPwnr",
+  "description": "A modular framework for benchmarking LLMs and agentic strategies on security challenges across HackTheBox, TryHackMe, PortSwigger Labs, Cybench, picoCTF and more.",
+  "version": "1.0.0",
+  "author": "0ca",
+  "homepage": "https://github.com/0ca/BoxPwnr",
+  "skills": []
+}
