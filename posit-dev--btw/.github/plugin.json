@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--btw",
+  "displayName": "btw",
+  "description": "A complete toolkit for connecting R and LLMs",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/btw",
+  "skills": []
+}
