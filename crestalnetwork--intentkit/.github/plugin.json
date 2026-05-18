@@ -1,0 +1,9 @@
+{
+  "name": "crestalnetwork--intentkit",
+  "displayName": "intentkit",
+  "description": "IntentKit is an open-source, self-hosted cloud agent cluster that manages a collaborative team of AI agents for you.",
+  "version": "1.0.0",
+  "author": "crestalnetwork",
+  "homepage": "https://github.com/crestalnetwork/intentkit",
+  "skills": []
+}
