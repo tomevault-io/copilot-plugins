@@ -1,0 +1,9 @@
+{
+  "name": "lackary--omnihub",
+  "displayName": "omnihub",
+  "description": "OmniHub: A cross-platform application built with Kotlin Multiplatform for aggregating and visualizing content from diverse API collections.",
+  "version": "1.0.0",
+  "author": "lackary",
+  "homepage": "https://github.com/lackary/omnihub",
+  "skills": []
+}
