@@ -1,0 +1,9 @@
+{
+  "name": "svenshi--oxidns",
+  "displayName": "oxidns",
+  "description": "A high-performance, programmable DNS engine in Rust with flexible pipeline-based routing.",
+  "version": "1.0.0",
+  "author": "svenshi",
+  "homepage": "https://github.com/svenshi/oxidns",
+  "skills": []
+}
