@@ -1,0 +1,18 @@
+{
+  "name": "evalstate--fast-agent",
+  "displayName": "fast-agent",
+  "description": "Code, Build and Evaluate agents - excellent Model and Skills/MCP/ACP Support",
+  "version": "1.0.0",
+  "author": "evalstate",
+  "homepage": "https://github.com/evalstate/fast-agent",
+  "skills": [
+    {
+      "name": "pr-writing-review",
+      "description": ""
+    },
+    {
+      "name": "session-investigator",
+      "description": ""
+    }
+  ]
+}
