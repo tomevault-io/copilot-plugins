@@ -7,11 +7,11 @@ LyraNote 是一款以 AI 为核心的研究笔记应用，面向知识工作者�
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LinMoQC/LyraNote](https://github.com/LinMoQC/LyraNote).
+Original source: `CLAUDE.md` in [LinMoQC/LyraNote](https://github.com/LinMoQC/LyraNote).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
