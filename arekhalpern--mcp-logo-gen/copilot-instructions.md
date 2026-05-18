@@ -1,0 +1,30 @@
+## logo-creation
+
+> Creating Logos
+
+Logo Generation and Background Removal Process
+
+1. Generate Logo Image
+   - Use generate_image
+   - The response will contain a URL to the generated image
+   - pass the url to the remove_background tool
+
+2. Remove Background
+   - use remove_background
+   - Input: URL from the generated image
+   - The response will contain a new URL with the background-removed version
+
+3. Download Final Image
+   - Take the URL from the background removal step
+   - Download to a local directory (e.g., 'downloads')
+   - The final image will have a transparent background
+
+   4. Create Scaled Versions
+   - Take the downloaded image
+   - Create 32x32 and 128x128 versions
+   - Save alongside the original in the downloads directory
+   - All versions maintain transparency
+
+---
+> Source: [arekhalpern/MCP-LOGO-GEN](https://github.com/arekhalpern/MCP-LOGO-GEN) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
