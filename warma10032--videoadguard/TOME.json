@@ -1,0 +1,44 @@
+{
+  "name": "VideoAdGuard",
+  "owner": "Warma10032",
+  "repo": "VideoAdGuard",
+  "description": "\u54d4\u54e9\u54d4\u54e9\u6d4f\u89c8\u5668\u63d2\u4ef6\uff1a\u57fa\u4e8e\u5927\u8bed\u8a00\u6a21\u578b\uff0c\u5bf9B\u7ad9\u89c6\u9891\u4e2d\u7684\u690d\u5165\u5e7f\u544a\u8fdb\u884c\u68c0\u6d4b\u3002\u4e00\u952e\u8df3\u8fc7\u89c6\u9891\u4e2d\u7684\u690d\u5165/\u53e3\u64ad\u5e7f\u544a\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Warma10032/VideoAdGuard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T08:21:13Z"
+}
