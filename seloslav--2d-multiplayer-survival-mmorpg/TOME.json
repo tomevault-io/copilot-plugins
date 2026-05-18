@@ -1,0 +1,44 @@
+{
+  "name": "2d-multiplayer-survival-mmorpg",
+  "owner": "SeloSlav",
+  "repo": "2d-multiplayer-survival-mmorpg",
+  "description": "A comprehensive 2D open-world survival game built with React, Vite, and SpacetimeDB. Designed for developers who want to build real-time multiplayer survival games with persistent world state, customizable characters, and rich crafting mechanics.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SeloSlav/2d-multiplayer-survival-mmorpg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T03:59:59Z"
+}
