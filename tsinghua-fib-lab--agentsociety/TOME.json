@@ -4,7 +4,7 @@
   "repo": "AgentSociety",
   "description": "AgentSociety 2 is a modern, LLM-native agent simulation platform designed for social science research and experimental design. It provides a flexible framework for creating and managing intelligent agents in simulated environments.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsinghua-fib-lab/AgentSociety",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:04:15Z"
+  "distributed_at": "2026-05-18T22:18:03Z"
 }
