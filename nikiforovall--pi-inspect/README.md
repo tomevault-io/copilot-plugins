@@ -7,11 +7,11 @@ Introspection dashboard for the pi coding agent — tools, prompts, skills, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NikiforovAll/pi-inspect](https://github.com/NikiforovAll/pi-inspect).
+Original source: `CLAUDE.md` in [NikiforovAll/pi-inspect](https://github.com/NikiforovAll/pi-inspect).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
