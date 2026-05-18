@@ -1,35 +1,26 @@
-## git
+## python
 
-> 辅助生成 git 提交信息
+> 编写 python 文件
 
-# Git 规范
+# python 规则
 
-## 提交规范
-git 提交记录样例：[type]: [description]。一个具体的例子, docs: 更新 README 文件。
-以下是 type 的枚举值：
-- feat: 新增功能
-- fix: 修复 bug
-- docs: 文档注释
-- style: 代码格式(不影响代码运行的变动)
-- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
-- perf: 性能优化
-- test: 增加测试
-- chore: 构建过程或辅助工具的变动
-- revert: 回退
-- build: 打包
+### 编写代码时：
+- 遵循PEP 8 Python代码风格指南。
+- 使用Python 3.10 及以上的语法特性和最佳实践。
+- 合理使用面向对象编程(OOP)和函数式编程范式。
+- 利用Python的标准库和生态系统中的优质第三方库。
+- 实现模块化设计，确保代码的可重用性和可维护性。
+- 使用类型提示(Type Hints)进行类型检查，提高代码质量。
+- 编写详细的文档字符串(docstring)和注释。
+- 实现适当的错误处理和日志记录。
+- 按需编写单元测试确保代码质量。
 
-## 分支管理
-- main/master: 主分支，保持稳定可发布状态
-- develop: 开发分支，包含最新开发特性
-- feature/*: 功能分支，用于开发新功能
-- bugfix/*: 修复分支，用于修复bug
-- release/*: 发布分支，用于准备发布
+### 解决问题时：
+- 全面阅读相关代码文件，理解所有代码的功能和逻辑。
+- 分析导致错误的原因，提出解决问题的思路。
+- 与用户进行多次交互，根据反馈调整解决方案。
 
-## 重要原则
-- **重要**：不要自动提交 git 代码，除非有明确的提示
-- 提交前确保代码通过所有测试
-- 保持提交信息简洁明了，描述清楚变更内容
-- 避免大型提交，尽量将变更分解为小的、相关的提交
+在整个过程中，始终参考@Python官方文档，确保使用最新的Python开发最佳实践。
 
 ---
 > Source: [flyeric0212/cursor-history-links](https://github.com/flyeric0212/cursor-history-links) — distributed by [TomeVault](https://tomevault.io).
