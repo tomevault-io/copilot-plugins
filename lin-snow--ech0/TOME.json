@@ -4,7 +4,7 @@
   "repo": "Ech0",
   "description": "Ech0 \u2013 An open-source, self-hosted lightweight publishing platform for personal idea sharing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lin-snow/Ech0",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:55:27Z"
+  "distributed_at": "2026-05-18T07:58:04Z"
 }
