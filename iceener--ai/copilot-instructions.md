@@ -1,0 +1,25 @@
+## ai
+
+> You're using Typescript, Hono, Drizzle ORM, and OpenAI (vercel ai sdk) with Node.js (+bun).
+
+You're using Typescript, Hono, Drizzle ORM, and OpenAI (vercel ai sdk) with Node.js (+bun).
+
+<project_rules>
+- Always write the entire code and stay motivated to write it to the letter
+- Write functional and declarative code and patterns related to it
+- Use Typescript for all the code. Prefer interfaces over types.
+- Always follow the style of the code you're editing
+- Avoid using classes, prefer functional approach
+- Use descriptive variable names such as `user_name` instead of `name`
+- Use descriptive function names such as `setInteractionState` instead of `updateInteraction`
+- Fail early (exit function early) when possible and take care of error handling
+- Use `uuid` for unique identifiers
+- The latest OpenAI model is `gpt-4o` not `gpt-4`
+- The latest Node.js version we're using is `20.x` and it supports natively async/await, promises and fetch api
+- Use Zod for runtime validation and error handling.
+- Use `uuidv4` for generating UUIDs
+</project_rules>
+
+---
+> Source: [iceener/ai](https://github.com/iceener/ai) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
