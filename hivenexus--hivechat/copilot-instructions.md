@@ -1,34 +1,27 @@
-## 05-authentication
+## 06-deployment
 
-> The application uses NextAuth.js for authentication, supporting multiple providers.
+> The application includes configurations for containerization and deployment.
 
-# Authentication System
+# Deployment Configuration
 
-The application uses NextAuth.js for authentication, supporting multiple providers.
+The application includes configurations for containerization and deployment.
 
-## Main Authentication Configuration
-- [auth.ts](mdc:auth.ts): Core authentication configuration including providers and callbacks
+## Docker Configuration
+- [Dockerfile](mdc:Dockerfile): Main Docker configuration for building the application container
+- [docker-compose.yml](mdc:docker-compose.yml): Docker Compose configuration for local development and testing
+- [docker](mdc:docker): Directory containing additional Docker-related configurations
 
-## Authentication Providers
-The application supports the following authentication methods:
-- Email/Password (Credentials provider)
-- Feishu authentication
-- Wecom authentication
-- Dingding authentication
+## Deployment Configuration
+- [vercel.json](mdc:vercel.json): Vercel deployment configuration
+- [next.config.mjs](mdc:next.config.mjs): Next.js configuration, which affects build and deployment
 
-## Authentication Components
-The UI components related to authentication:
-- [app/components/SignIn.tsx](mdc:app/components/SignIn.tsx): Sign-in component
-- [app/components/loginModal.tsx](mdc:app/components/loginModal.tsx): Login modal dialog
-- [app/components/WecomLoginButton.tsx](mdc:app/components/WecomLoginButton.tsx): Wecom login integration
-- [app/components/DingdingLoginButton.tsx](mdc:app/components/DingdingLoginButton.tsx): Dingding login integration
-- [app/components/FeishuLoginButton.tsx](mdc:app/components/FeishuLoginButton.tsx): Feishu login integration
+## Environment Configuration
+The application requires various environment variables for:
+- Database connections
+- Authentication providers (Feishu, Wecom, Dingding)
+- AI model providers (OpenAI, Anthropic, Google)
 
-## Authentication Flow
-The authentication flow includes:
-1. User sign-in through one of the supported providers
-2. JWT token generation with user information
-3. Session creation with user details including admin status
+Always ensure these environment variables are properly configured when deploying the application.
 
 ---
 > Source: [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat) — distributed by [TomeVault](https://tomevault.io).
