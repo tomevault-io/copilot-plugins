@@ -1,0 +1,9 @@
+{
+  "name": "nvlabs--compass",
+  "displayName": "COMPASS",
+  "description": "Cross-embOdiment Mobility Policy via ResiduAl RL and Skill Synthesis",
+  "version": "1.0.0",
+  "author": "NVlabs",
+  "homepage": "https://github.com/NVlabs/COMPASS",
+  "skills": []
+}
