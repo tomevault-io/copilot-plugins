@@ -4,7 +4,7 @@
   "repo": "OpenChat",
   "description": "Every AI model, one blazing fast workspace - see how they think, schedule what you need",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ajanraj/OpenChat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T06:09:02Z"
+  "distributed_at": "2026-05-18T06:15:38Z"
 }
