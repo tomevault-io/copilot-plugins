@@ -1,24 +1,26 @@
-# coolify-mcp — distributed by TomeVault
+# coolify-mcp
 
-> Originally from [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp) — distributed by [TomeVault](https://tomevault.io)
+
+MCP server for Coolify — 38 optimized tools for managing self-hosted PaaS through AI assistants
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp).
+Original source: `CLAUDE.md` in [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/StuMason)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/StuMason) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
