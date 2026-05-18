@@ -1,0 +1,9 @@
+{
+  "name": "ryaker--outlook-mcp",
+  "displayName": "outlook-mcp",
+  "description": "MCP server for Claude to access Outlook data via Microsoft Graph API",
+  "version": "1.0.0",
+  "author": "ryaker",
+  "homepage": "https://github.com/ryaker/outlook-mcp",
+  "skills": []
+}
