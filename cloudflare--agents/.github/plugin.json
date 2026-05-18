@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--agents",
+  "displayName": "agents",
+  "description": "Build and deploy AI Agents on Cloudflare ",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/agents",
+  "skills": []
+}
