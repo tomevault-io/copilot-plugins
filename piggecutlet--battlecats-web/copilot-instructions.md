@@ -1,14 +1,14 @@
-## battlecats-web
+## main
 
-> <!-- BEGIN:nextjs-agent-rules -->
+> - Props 型は type で定義する
 
-<!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-
-<!-- END:nextjs-agent-rules -->
+- ESM で記述する
+- アロー関数を使用する
+- Props 型は type で定義する
+- Props の型名は export しない限り Props とする
+- Next React MUI を使用する
+- コンテナー プレゼンテーションパターンに従う
 
 ---
 > Source: [piggecutlet/battlecats-web](https://github.com/piggecutlet/battlecats-web) — distributed by [TomeVault](https://tomevault.io).
