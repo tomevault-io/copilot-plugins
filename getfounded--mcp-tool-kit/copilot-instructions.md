@@ -1,0 +1,9 @@
+## mcp-tool-kit
+
+> Your job is to first clean up this repository and make a more dynamic ragistration system for the existing tools, clean up the tool files, clean up the repo in general, implement local sse, so the server can be ran via sse transport. Try to make an easier way for people to launch the docker container, like maybe when pulling the repo it triggers docker download and git download or we add a button in our README.md, but to make it easier for non technical users to get started ASAP. THEN create a developer document site using something like docusaurus. Also please figure out how to count the number of dockerimage downloads or pulls too if we are offering an easy way for non-technical endusers to install and run an sse server locally.
+
+Your job is to first clean up this repository and make a more dynamic ragistration system for the existing tools, clean up the tool files, clean up the repo in general, implement local sse, so the server can be ran via sse transport. Try to make an easier way for people to launch the docker container, like maybe when pulling the repo it triggers docker download and git download or we add a button in our README.md, but to make it easier for non technical users to get started ASAP. THEN create a developer document site using something like docusaurus. Also please figure out how to count the number of dockerimage downloads or pulls too if we are offering an easy way for non-technical endusers to install and run an sse server locally.
+
+---
+> Source: [getfounded/mcp-tool-kit](https://github.com/getfounded/mcp-tool-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
