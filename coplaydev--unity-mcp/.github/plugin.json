@@ -1,0 +1,9 @@
+{
+  "name": "coplaydev--unity-mcp",
+  "displayName": "unity-mcp",
+  "description": "Unity MCP acts as a bridge, allowing AI assistants (like Claude, Cursor) to interact directly with your Unity Editor via a local MCP (Model Context Protocol) Client. Give your LLM tools to manage asse",
+  "version": "1.0.0",
+  "author": "CoplayDev",
+  "homepage": "https://github.com/CoplayDev/unity-mcp",
+  "skills": []
+}
