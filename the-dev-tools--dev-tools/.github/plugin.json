@@ -1,0 +1,9 @@
+{
+  "name": "the-dev-tools--dev-tools",
+  "displayName": "dev-tools",
+  "description": "Local-first API workflows that go from HAR file to GitHub Actions in 60 seconds.",
+  "version": "1.0.0",
+  "author": "the-dev-tools",
+  "homepage": "https://github.com/the-dev-tools/dev-tools",
+  "skills": []
+}
