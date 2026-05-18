@@ -1,0 +1,9 @@
+{
+  "name": "dtvmstack--dtvm",
+  "displayName": "DTVM",
+  "description": "DeTerministic Virtual Machine",
+  "version": "1.0.0",
+  "author": "DTVMStack",
+  "homepage": "https://github.com/DTVMStack/DTVM",
+  "skills": []
+}
