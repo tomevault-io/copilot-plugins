@@ -2,9 +2,9 @@
   "name": "next-ai-starter",
   "owner": "kleneway",
   "repo": "next-ai-starter",
-  "description": "",
+  "description": "Opinionated batteries-included starter kit optimized for building applications using AI coding tools",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/kleneway",
+  "source_url": "https://github.com/kleneway/next-ai-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T12:42:29Z"
+  "distributed_at": "2026-05-18T20:12:28Z"
 }
