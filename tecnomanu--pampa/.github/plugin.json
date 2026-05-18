@@ -1,7 +1,7 @@
 {
   "name": "tecnomanu--pampa",
   "displayName": "pampa",
-  "description": "pampa",
+  "description": "Protocol for Augmented Memory of Project Artifacts  (MCP compatible)",
   "version": "1.0.0",
   "author": "tecnomanu",
   "homepage": "https://github.com/tecnomanu/pampa",
