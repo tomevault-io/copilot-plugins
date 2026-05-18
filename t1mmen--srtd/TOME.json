@@ -1,0 +1,63 @@
+{
+  "name": "srtd",
+  "owner": "t1mmen",
+  "repo": "srtd",
+  "description": "\ud83e\ude84 Supabase migrations made magical: Live-reloading SQL + Sane, reviewable diffs + Maintainable templates = Delightful DX",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "requesting-code-review",
+      "path": ".claude/skills/requesting-code-review",
+      "github_url": "https://github.com/t1mmen/srtd/tree/main/.claude/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "srtd-cli",
+      "path": ".claude/skills/srtd-cli",
+      "github_url": "https://github.com/t1mmen/srtd/tree/main/.claude/skills/srtd-cli",
+      "description": ""
+    },
+    {
+      "name": "srtd-dev",
+      "path": ".claude/skills/srtd-dev",
+      "github_url": "https://github.com/t1mmen/srtd/tree/main/.claude/skills/srtd-dev",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/t1mmen/srtd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T21:33:20Z"
+}
