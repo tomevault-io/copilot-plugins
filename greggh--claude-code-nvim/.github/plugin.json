@@ -1,0 +1,9 @@
+{
+  "name": "greggh--claude-code-nvim",
+  "displayName": "claude-code.nvim",
+  "description": "Seamless integration between Claude Code AI assistant and Neovim",
+  "version": "1.0.0",
+  "author": "greggh",
+  "homepage": "https://github.com/greggh/claude-code.nvim",
+  "skills": []
+}
