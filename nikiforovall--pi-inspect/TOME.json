@@ -4,7 +4,7 @@
   "repo": "pi-inspect",
   "description": "Introspection dashboard for the pi coding agent \u2014 tools, prompts, skills, and the system prompt injected on init.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NikiforovAll/pi-inspect",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T03:42:18Z"
+  "distributed_at": "2026-05-18T03:56:38Z"
 }
