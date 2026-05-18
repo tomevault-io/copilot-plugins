@@ -1,127 +1,104 @@
-## plugin-development
+## wisk-architecture
 
-> Wisk uses a comprehensive plugin system where **most functionality is implemented as plugins**. The central registry is [js/plugins/plugin-data.json](mdc:js/plugins/plugin-data.json).
+> Wisk is a plugin-based document editor built with **vanilla JavaScript and Web Components**. It's designed as a Progressive Web App (PWA) that works offline and syncs across devices.
 
-# Wisk Plugin Development Guide
+# Wisk Project Architecture Guide
 
-## Plugin System Overview
-Wisk uses a comprehensive plugin system where **most functionality is implemented as plugins**. The central registry is [js/plugins/plugin-data.json](mdc:js/plugins/plugin-data.json).
+## Overview
+Wisk is a plugin-based document editor built with **vanilla JavaScript and Web Components**. It's designed as a Progressive Web App (PWA) that works offline and syncs across devices.
 
-## Plugin Categories & Examples
+## Core Architecture
 
-### Component Plugins (Document Blocks)
-Most common plugin type - adds new block types to documents:
-- `text-element` - Basic text blocks
-- `code-element` - Code blocks with syntax highlighting  
-- `latex-element` - Mathematical equations
-- `image-element` - Image blocks
-- `table-element` - Table blocks
-- `chart-element` - Data visualization
-- `canvas-element` - Drawing canvas
-- `database-element` - Spreadsheet-like data tables
+### Entry Points
+- [index.html](mdc:index.html) - Main entry point with app shell, loading screen, and comprehensive meta tags
+- [manifest.json](mdc:manifest.json) - PWA manifest for mobile/desktop app installation
+- [service-worker.js](mdc:service-worker.js) - Handles offline functionality and caching (robust PWA support)
 
-### UI Plugins
-- `mini-dialog` - Popup dialogs (options, symbols, pomodoro timer)
-- `right-sidebar` - Right panel plugins (citations, chat, PDF preview)
-- `left-sidebar` - Left panel plugins (navigation menu)
-- `nav-mini` - Navigation bar elements (word count, music player)
+### Global Setup
+- [global.js](mdc:global.js) - Global initialization, server URL determination, and utility functions
+- [js/wisk.js](mdc:js/wisk.js) - Core namespace and API definition with placeholder functions
+- [style.css](mdc:style.css) & [global.css](mdc:global.css) - Main styling files
 
-### Background Plugins  
-- `auto` - Automatically loaded plugins (AI, powerlevel, vim keybindings)
+## Theme System
+- **Managed by**: `js/theme/theme.js` (handles theme logic automatically)
+- **CSS Variables**: [js/theme/variables.css](mdc:js/theme/variables.css)
+- **Usage**: Just use CSS variables from variables.css - don't modify theme logic
 
-## Plugin Registration Format
+## Plugin Architecture (Most Important)
 
-```json
-"plugin-name": {
-    "name": "plugin-name",
-    "title": "Human Readable Title",
-    "author": "Wisk Team",
-    "contact": "https://wisk.cc",
-    "icon": "icon-name.svg",
-    "tags": ["tag1", "tag2"],
-    "description": "Plugin description",
-    "hide": true, // Optional: hide from plugin lists
-    "contents": [
-        {
-            "title": "Block Title",
-            "icon": "block-icon.svg",
-            "category": "component|mini-dialog|right-sidebar|left-sidebar|nav-mini|auto",
-            "component": "html-element-name",
-            "nav": true|false, // Show in navigation
-            "textual": true|false, // Handles text content
-            "loadAsModule": true|false, // Loading mechanism
-            "width": "mini|max", // Block width for components
-            "experimental": true, // Optional: experimental flag
-            "identifier": "unique_id" // Optional: unique identifier
-        }
-    ]
-}
-```
+### Plugin Registry
+- **Central config**: [js/plugins/plugin-data.json](mdc:js/plugins/plugin-data.json) - 46KB registry of all plugins
+- **Plugin loader**: [js/plugins/plugins.js](mdc:js/plugins/plugins.js) - Plugin manager and loader
+- **Plugin code**: All plugins live in `/js/plugins/code/` directory
+- **Auto-loading**: Plugins are automatically loaded by editor on page basis
 
-## Plugin Properties
+### Plugin Categories
+- `component` - Document blocks (text, images, code, LaTeX, charts, etc.)
+- `mini-dialog` - Popup interfaces and dialogs
+- `right-sidebar`/`left-sidebar` - Sidebar panels
+- `nav-mini` - Navigation bar elements
+- `auto` - Background plugins that run automatically
 
-### Width Control
-This is only for component plugins
-- `"width": "mini"` - Standard width blocks
-- `"width": "max"` - Full-width blocks (like main-element)
+### Plugin Properties
+- `width: "mini"` or `width: "max"` - Controls block width
+- `textual: true/false` - Whether plugin handles text content
+- `loadAsModule: true/false` - Loading mechanism
+- `experimental: true` - Experimental features flag
 
-### Loading Mechanism
-- `"loadAsModule": true` - Load as ES6 module
-- `"loadAsModule": false` - Load as regular script
+## Core vs Plugin Distinction
 
-### Content Types
-This is only for component plugins
-- `"textual": true` - Plugin handles text content (can be edited)
-- `"textual": false` - Plugin is interactive/media element
+### Core Elements (Non-Plugin)
+Located in [js/elements/](mdc:js/elements) - Core UI components:
+- [js/elements/home-element.js](mdc:js/elements/home-element.js) - Homepage UI (when `id=home`)
+- [js/elements/toolbar-element.js](mdc:js/elements/toolbar-element.js) - Main formatting toolbar (56KB)
+- [js/elements/command-palette.js](mdc:js/elements/command-palette.js) - Command palette interface
+- [js/elements/search-element.js](mdc:js/elements/search-element.js) - Search functionality
 
-### Navigation Integration
-Isnt for component plugins
-- `"nav": true` - Show in navigation/toolbar
-- `"nav": false` - Background functionality only
+### Main Editor Logic
+- [js/editor.js](mdc:js/editor.js) - The heart of the editor (34KB, 993 lines)
+  - Handles block creation, updates, and editor logic
+  - Block-based architecture where everything is a "block"
+  - Dynamic element management and rendering
 
-## Plugin File Organization
-- **Plugin code**: All plugins stored in `/js/plugins/code/` directory
-- **Icons**: Plugin icons in `/js/plugins/icons/` directory
-- **Auto-loading**: Plugins automatically loaded by editor based on document configuration
+## Page Routing System
+- **URL Pattern**: `id=<page id>` for root pages
+- **Hierarchical**: `id=<parent>.<child>.<page>` for nested pages
+- **Benefits**: Makes parent-child relationships obvious and easy to parse
+- **Example**: `id=project.docs.api` means API docs under project docs
 
-## Development Workflow
+## Storage & Sync
+- [js/storage/db.js](mdc:js/storage/db.js) - Local storage using IndexedDB
+- [js/sync/sync.js](mdc:js/sync/sync.js) - Real-time collaboration and cloud sync
+- **Pattern**: Offline-first approach with backend sync
 
-### Creating New Component Plugin
-1. Create plugin file in `/js/plugins/code/your-plugin.js`
-2. Implement as Web Component
-3. Register in [js/plugins/plugin-data.json](mdc:js/plugins/plugin-data.json)
-4. Add icon to `/js/plugins/icons/`
-5. Plugin automatically available in editor
+## Component Structure
+- [js/left-sidebar.js](mdc:js/left-sidebar.js) & [js/right-sidebar.js](mdc:js/right-sidebar.js) - Sidebar components
+- [css/](mdc:css) - Modular CSS following component-based architecture
+- [js/mini-dialog.js](mdc:js/mini-dialog.js) - Dialog system
 
-### Plugin Code Structure
-Plugins are Web Components that follow these patterns:
-- Use `customElements.define()` to register
-- Implement standard Web Component lifecycle
-- Access editor APIs through `wisk.editor.*`
+## Development Patterns
+
+### Adding New Block Types
+1. Create plugin in `/js/plugins/code/`
+2. Register in [js/plugins/plugin-data.json](mdc:js/plugins/plugin-data.json)
+3. Set appropriate category, width, and properties
+4. Plugin auto-loads based on document configuration
+
+### Styling
 - Use CSS variables from [js/theme/variables.css](mdc:js/theme/variables.css)
+- Follow component-based CSS architecture
+- Don't modify theme logic directly
 
-## Special Plugin Categories
+### No Build System
+- Direct browser-compatible JavaScript
+- Web Components and modern Web APIs
+- No transpilation or build tools required
 
-### Experimental Plugins
-- Mark with `"experimental": true`
-- May have unstable APIs
-- Examples: `database-element`, `tweaks-element`, `vim`
-
-### Hidden Plugins  
-- Mark with `"hide": true`
-- Not shown in plugin lists
-- Examples: `share-manager`, `main-element`
-
-### Multi-Component Plugins
-Some plugins register multiple components:
-- `database-element` - includes `database-element` and `database-page`
-- `sticky-notes` - includes dialog and `pin-element`
-
-## Editor Integration
-- Plugins auto-load based on document's plugin configuration
-- Access editor APIs: `wisk.editor.createNewBlock()`, `wisk.editor.updateBlock()`, etc.
-- Use theme system: CSS variables from [js/theme/variables.css](mdc:js/theme/variables.css)
-- Storage APIs: `wisk.db.*` for local storage, `wisk.sync.*` for collaboration
+## Asset Organization
+- [a7/](mdc:a7) - Logos, icons, templates, and static assets
+- [exp/](mdc:exp) - Experimental features and development playground
+- Organized subdirectories for different asset types
+- @a7/forget is a directory for icons that *should not be touched* you can always create a new one with a new name, but youre not supposed to touch the already existing ones
 
 ---
 > Source: [sohzm/wisk](https://github.com/sohzm/wisk) — distributed by [TomeVault](https://tomevault.io).
