@@ -1,57 +1,48 @@
-## client
+## contributing
 
-> - **Role**: Bridge between UI (Vue/Pinia) and core (`packages/core`) in both:
+> - **Prime rule**: Code is a liability, functionality is the asset. Any change must pay for its own complexity.
 
 
-## Client Adapters (packages/client)
+## Contribution & Refactor Guidelines
 
-- **Role**: Bridge between UI (Vue/Pinia) and core (`packages/core`) in both:
-  - **Browser-only mode** (embedded core via `core-runtime` / `core-bridge`).
-  - **Server mode** (WebSocket adapter to `apps/server`).
-- Keep this package thin and focused on:
-  - Event wiring.
-  - Session/account management.
-  - Store updates and derivations for UI consumption.
+- **Prime rule**: Code is a liability, functionality is the asset. Any change must pay for its own complexity.
 
-### Core Runtime & Bridge
+### 1. Before Large Changes (Refactors, New Infra, New Domains)
 
-- `core-runtime`:
-  - Owns the lifecycle of `CoreContext` and DB initialization in browser mode.
-  - Exposes helper methods (`getCtx`, `destroy`, etc.) instead of leaking internal implementation.
-- `core-bridge`:
-  - Manages sessions, the active account slot, and event handler registration.
-  - On account switch:
-    - Destroy the existing `CoreContext`.
-    - Re-register client-side event handlers for the new active account.
-  - Never share a single runtime instance across different account IDs.
+- Ask yourself, and write down in the PR description if possible:
+  - **Where is the bottleneck?** Latency, throughput, DX, or maintainability? Be concrete.
+  - **What is the simplest change that fixes it?** Prefer removal/cleanup over new systems.
+  - **What is the data flow?** Sketch: entrypoint → adapters → core → DB/Telegram → back.
+  - **What happens on failure?**
+    - If step B fails, does step A need a rollback or can we tolerate partial state?
+    - Is this best modeled as a saga / compensating action, or is “at-least-once” good enough?
 
-### Events & Type Safety
+### 2. Backend Mindset
 
-- Always go through the typed WebSocket/core event maps:
-  - Use `WsEventToServer`, `WsEventToClient`, and `FromCoreEvent` / `ToCoreEvent` types.
-  - Avoid untyped `any` payloads or generic `Record<string, unknown>` where stronger types are available.
-- When adding new events:
-  - Update the shared `@tg-search/server/types`.
-  - Extend client event handler maps and registration helpers.
-  - Keep the mapping between WS event names and core events explicit.
+- Avoid hidden in-memory state that couples requests:
+  - Session-local state lives in `CoreContext` or explicit stores, never in random globals.
+  - Cross-request state must go into the database or a well-defined cache layer.
+- For multi-step workflows:
+  - Make each step observable (events + logs) and ideally resumable.
+  - Design states explicitly (`pending`, `running`, `failed`, `completed`) rather than boolean flags.
 
-### Pinia Stores & Composables
+### 3. TypeScript Style
 
-- Stores in `packages/client` are the **source of truth** for app state:
-  - Use actions to emit events to core and react to `FromCoreEvent` updates.
-  - Avoid duplicating the same state in both `apps/web` and `packages/client`.
-- For reusable logic, prefer composables and pure utilities inside this package rather than re-implementing logic in components.
+- Strict TS is non-negotiable:
+  - Avoid `any` unless wrapping truly dynamic data, and confine it at the edge.
+  - Prefer small, composable types over giant “god” interfaces.
+- Functional style:
+  - Prefer pure functions and small modules over classes unless there is a clear lifecycle to model.
+  - Keep side effects at the boundary (adapters, services) and core logic pure where possible.
 
-### Logging & Error Handling
+### 4. PR Hygiene
 
-- Use `useLogger` with a **component/module name** (e.g. `'CoreBridge'`) for all logs in this package.
-- Log:
-  - High-level intent (event name, account/session IDs).
-  - Errors when event delivery or handler invocation fails.
-- Do not log sensitive payload data (raw messages, tokens, secrets).
-- When something fails:
-  - Prefer emitting a client-facing event that the UI can react to (e.g. a `core:error` or domain-specific failure event).
-  - Avoid throwing unhandled exceptions that would crash the whole bridge.
+- Keep PRs focused:
+  - One domain behavior or refactor per PR.
+  - Mechanical renames and large formatting should be isolated from behavioral changes.
+- Tests:
+  - Add or update tests alongside behavior changes, especially for core and DB logic.
+  - Do not rely solely on manual E2E verification for critical paths.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
