@@ -1,136 +1,242 @@
-## vibe-coding-template
+## database-migrations
 
-> This is a modern full-stack application template with Next.js frontend and Python FastAPI backend, integrated with Supabase for authentication, database, and storage.
+> Database Migration Patterns and Supabase Workflows
 
-# Vibe Coding Template - Agent Instructions
 
-This is a modern full-stack application template with Next.js frontend and Python FastAPI backend, integrated with Supabase for authentication, database, and storage.
+# Database Migration Standards
 
-## Architecture Overview
+## Migration Workflow
 
-- **Backend**: Python FastAPI with Supabase integration
-- **Frontend**: Next.js with Tailwind CSS and TypeScript
-- **Database**: Supabase PostgreSQL with migrations
-- **Vector DB**: Qdrant for semantic search
-- **LLM Integration**: OpenAI and Anthropic support
+Follow this workflow for all database changes:
 
-## Development Standards
+1. **Create Migration**: `make db-migration-new name=descriptive_name`
+2. **Write SQL**: Add your schema changes to the generated file
+3. **Test Locally**: Review the migration carefully
+4. **Apply to Remote**: `make db-apply` or `make db-push`
+5. **Verify**: `make db-status` to confirm application
 
-### Code Style
-- Use TypeScript for all frontend files
-- Use Python type hints for all backend functions
-- Follow async/await patterns consistently
-- Use snake_case for Python, camelCase for TypeScript
-- Include proper error handling in all functions
+## Migration File Structure
 
-### Architecture Patterns
-- Follow the service layer pattern for external integrations
-- Use Pydantic models for API request/response validation
-- Implement proper authentication on all protected endpoints
-- Use the generic SupabaseDatabaseService for database operations
-- Abstract LLM providers through service classes
+Structure your migration files consistently:
 
-### File Organization
-- Backend: `backend/app/` with api/, models/, services/ subdirectories
-- Frontend: `frontend/` with app/, components/, services/ subdirectories
-- Database: `supabase/migrations/` for all schema changes
-- Rules: `.cursor/rules/` for detailed development guidelines
-
-## Common Patterns
-
-### FastAPI Endpoints
-```python
-@router.post("/items", response_model=ItemResponse)
-async def create_item(
-    request: CreateItemRequest,
-    current_user: User = Depends(get_current_user)
-) -> ItemResponse:
-    try:
-        # Use service layer
-        service = SupabaseDatabaseService("items", ItemResponse)
-        result = await service.create({**request.dict(), "user_id": current_user.id})
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-```
-
-### React Components
-```tsx
-'use client'
-export default function ComponentName({ title, onAction }: Props) {
-  const [loading, setLoading] = useState(false)
-
-  const handleAction = async () => {
-    try {
-      setLoading(true)
-      await onAction?.()
-    } catch (error) {
-      console.error('Action failed:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <div className="p-4 rounded-lg border">
-      {/* Component content */}
-    </div>
-  )
-}
-```
-
-### Database Migrations
 ```sql
--- Create table with RLS
-CREATE TABLE public.items (
+-- Migration: 20240327120000_add_user_preferences_table.sql
+-- Description: Add user preferences table with RLS policies
+
+-- Create the table
+CREATE TABLE public.user_preferences (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  name TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+  theme VARCHAR(20) DEFAULT 'light' CHECK (theme IN ('light', 'dark')),
+  language VARCHAR(10) DEFAULT 'en',
+  notifications JSONB DEFAULT '{}',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-ALTER TABLE public.items ENABLE ROW LEVEL SECURITY;
+-- Create indexes for performance
+CREATE INDEX idx_user_preferences_user_id ON public.user_preferences(user_id);
+CREATE INDEX idx_user_preferences_updated_at ON public.user_preferences(updated_at);
 
-CREATE POLICY "Users can manage own items"
-  ON public.items
+-- Enable Row Level Security
+ALTER TABLE public.user_preferences ENABLE ROW LEVEL SECURITY;
+
+-- Create RLS policies
+CREATE POLICY "Users can view own preferences"
+  ON public.user_preferences
+  FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert own preferences"
+  ON public.user_preferences
+  FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own preferences"
+  ON public.user_preferences
+  FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete own preferences"
+  ON public.user_preferences
+  FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- Create updated_at trigger
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+CREATE TRIGGER update_user_preferences_updated_at
+  BEFORE UPDATE ON public.user_preferences
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+```
+
+## Common Migration Patterns
+
+### Adding a New Table
+
+```sql
+-- Create table with standard fields
+CREATE TABLE public.new_table (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  description TEXT,
+  status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'archived')),
+  metadata JSONB DEFAULT '{}',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Add indexes
+CREATE INDEX idx_new_table_user_id ON public.new_table(user_id);
+CREATE INDEX idx_new_table_status ON public.new_table(status);
+CREATE INDEX idx_new_table_created_at ON public.new_table(created_at);
+
+-- Enable RLS
+ALTER TABLE public.new_table ENABLE ROW LEVEL SECURITY;
+
+-- Add policies (adjust as needed)
+CREATE POLICY "Users can manage own records"
+  ON public.new_table
   USING (auth.uid() = user_id);
 ```
 
-## Development Workflow
+### Adding a Column
 
-1. **Setup**: Run `./first-time.sh` for initial configuration
-2. **Development**: Use `make dev` to start all services
-3. **Database**: Use `make db-migration-new name=description` for schema changes
-4. **Testing**: Visit http://localhost:8000/docs for API testing
-5. **Frontend**: Visit http://localhost:3000 for the application
+```sql
+-- Add column with default value
+ALTER TABLE public.existing_table
+ADD COLUMN new_column TEXT DEFAULT 'default_value';
 
-## Key Services
+-- Add constraint if needed
+ALTER TABLE public.existing_table
+ADD CONSTRAINT check_new_column
+CHECK (new_column IN ('value1', 'value2', 'value3'));
 
-- **SupabaseDatabaseService**: Generic CRUD operations
-- **SupabaseAuthService**: User authentication and token management
-- **SupabaseStorageService**: File upload and management
-- **LLMService**: Text generation with OpenAI/Anthropic
-- **EmbeddingService**: Vector embeddings for semantic search
-- **QdrantService**: Vector database operations
+-- Add index if needed
+CREATE INDEX idx_existing_table_new_column
+ON public.existing_table(new_column);
+```
 
-## Environment Configuration
+### Creating Indexes
 
-Required environment variables:
-- `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` (required)
-- `OPENAI_API_KEY` and/or `ANTHROPIC_API_KEY` (for LLM features)
-- `QDRANT_URL` and `QDRANT_API_KEY` (for vector database)
+```sql
+-- Single column index
+CREATE INDEX idx_table_column ON public.table_name(column_name);
+
+-- Composite index
+CREATE INDEX idx_table_multi ON public.table_name(column1, column2);
+
+-- Partial index
+CREATE INDEX idx_table_active ON public.table_name(status)
+WHERE status = 'active';
+
+-- Unique index
+CREATE UNIQUE INDEX idx_table_unique ON public.table_name(unique_column);
+```
+
+### RLS Policy Patterns
+
+```sql
+-- User-owned data
+CREATE POLICY "Users own their data"
+  ON public.user_data
+  USING (auth.uid() = user_id);
+
+-- Public read, user write
+CREATE POLICY "Public read access"
+  ON public.public_data
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Users can insert"
+  ON public.public_data
+  FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+-- Role-based access
+CREATE POLICY "Admins full access"
+  ON public.admin_table
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.user_roles
+      WHERE user_id = auth.uid()
+      AND role = 'admin'
+    )
+  );
+```
 
 ## Best Practices
 
-- Always use the service layer for external API calls
-- Implement proper error handling with descriptive messages
-- Use authentication dependencies on protected endpoints
-- Follow the established patterns for consistency
-- Test API endpoints using the FastAPI docs interface
-- Use database migrations for all schema changes
-- Implement proper RLS policies for data security
+### Migration Safety
 
-When adding new features, follow the established patterns and maintain consistency with the existing codebase structure.
+- **Test First**: Always test migrations on a staging environment
+- **Backup**: Consider taking backups before major changes
+- **Atomic Operations**: Use transactions for complex migrations
+- **Rollback Plan**: Document how to revert changes if needed
+
+### Performance Considerations
+
+- **Add Indexes**: Create indexes for frequently queried columns
+- **Avoid Locks**: Be careful with operations that lock tables
+- **Batch Operations**: For large data changes, process in batches
+
+### Security
+
+- **Enable RLS**: Always enable Row Level Security on new tables
+- **Proper Policies**: Create appropriate RLS policies for your use case
+- **Validate Constraints**: Add CHECK constraints for data validation
+
+## Common Commands
+
+```bash
+# Create new migration
+make db-migration-new name=add_feature_table
+
+# Apply migrations to remote
+make db-apply
+
+# Check migration status
+make db-status
+
+# List applied migrations
+make db-list
+
+# Push all pending migrations
+make db-push
+```
+
+## Troubleshooting
+
+### Migration Fails
+
+1. Check the error message in the terminal
+2. Verify SQL syntax is correct
+3. Ensure referenced tables/columns exist
+4. Check for naming conflicts
+5. Verify RLS policies don't conflict
+
+### Performance Issues
+
+1. Add appropriate indexes
+2. Check query execution plans
+3. Consider partitioning for large tables
+4. Optimize RLS policies
+
+### RLS Policy Issues
+
+1. Test policies with different user contexts
+2. Use `USING` clause for row visibility
+3. Use `WITH CHECK` clause for insert/update validation
+4. Remember that policies are restrictive by default
 
 ---
 > Source: [humanstack/vibe-coding-template](https://github.com/humanstack/vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
