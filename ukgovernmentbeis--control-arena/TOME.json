@@ -4,7 +4,7 @@
   "repo": "control-arena",
   "description": "ControlArena is a collection of settings, model organisms and protocols - for running control experiments.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/UKGovernmentBEIS/control-arena",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:26:55Z"
+  "distributed_at": "2026-05-18T23:42:12Z"
 }
