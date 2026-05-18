@@ -1,0 +1,9 @@
+{
+  "name": "aperocky--tascli",
+  "displayName": "tascli",
+  "description": "A small, simple, fast, local task and record manager in CLI.",
+  "version": "1.0.0",
+  "author": "Aperocky",
+  "homepage": "https://github.com/Aperocky/tascli",
+  "skills": []
+}
