@@ -1,0 +1,9 @@
+{
+  "name": "debe--libpetri",
+  "displayName": "libpetri",
+  "description": "Coloured Time Petri Net (CTPN) engine \u2014 Java 25, TypeScript & Rust",
+  "version": "1.0.0",
+  "author": "debe",
+  "homepage": "https://github.com/debe/libpetri",
+  "skills": []
+}
