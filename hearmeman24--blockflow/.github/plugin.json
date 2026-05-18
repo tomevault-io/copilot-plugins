@@ -1,0 +1,9 @@
+{
+  "name": "hearmeman24--blockflow",
+  "displayName": "BlockFlow",
+  "description": "Build visual workflows by chaining blocks together \u2014 prompt generation, ComfyUI workflows, video upscaling, and more \u2014 all running on RunPod serverless GPUs",
+  "version": "1.0.0",
+  "author": "Hearmeman24",
+  "homepage": "https://github.com/Hearmeman24/BlockFlow",
+  "skills": []
+}
