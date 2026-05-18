@@ -1,0 +1,9 @@
+{
+  "name": "langchain-ai--agents-from-scratch",
+  "displayName": "agents-from-scratch",
+  "description": "Build an email assistant with human-in-the-loop and memory",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/agents-from-scratch",
+  "skills": []
+}
