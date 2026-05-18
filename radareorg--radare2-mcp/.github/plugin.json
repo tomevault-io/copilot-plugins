@@ -1,0 +1,9 @@
+{
+  "name": "radareorg--radare2-mcp",
+  "displayName": "radare2-mcp",
+  "description": "MCP stdio server for radare2",
+  "version": "1.0.0",
+  "author": "radareorg",
+  "homepage": "https://github.com/radareorg/radare2-mcp",
+  "skills": []
+}
