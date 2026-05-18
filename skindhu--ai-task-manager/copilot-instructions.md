@@ -1,154 +1,234 @@
-## architecture
+## commands
 
-> Describes the high-level architecture of the Task Master CLI application.
+> Guidelines for implementing CLI commands using Commander.js
 
 
-# Application Architecture Overview
+# Command-Line Interface Implementation Guidelines
 
-- **Modular Structure**: The Task Master CLI is built using a modular architecture, with distinct modules responsible for different aspects of the application. This promotes separation of concerns, maintainability, and testability.
+## Command Structure Standards
 
-- **Main Modules and Responsibilities**:
+- **Basic Command Template**:
+  ```javascript
+  // ✅ DO: Follow this structure for all commands
+  programInstance
+    .command('command-name')
+    .description('Clear, concise description of what the command does')
+    .option('-s, --short-option <value>', 'Option description', 'default value')
+    .option('--long-option <value>', 'Option description')
+    .action(async (options) => {
+      // Command implementation
+    });
+  ```
 
-  - **[`commands.js`](mdc:scripts/modules/commands.js): Command Handling**
-    - **Purpose**: Defines and registers all CLI commands using Commander.js.
-    - **Responsibilities**:
-      - Parses command-line arguments and options.
-      - Invokes appropriate functions from other modules to execute commands.
-      - Handles user input and output related to command execution.
-      - Implements input validation and error handling for CLI commands.
-    - **Key Components**:
-      - `programInstance` (Commander.js `Command` instance): Manages command definitions.
-      - `registerCommands(programInstance)`: Function to register all application commands.
-      - Command action handlers: Functions executed when a specific command is invoked.
+- **Command Handler Organization**:
+  - ✅ DO: Keep action handlers concise and focused
+  - ✅ DO: Extract core functionality to appropriate modules
+  - ✅ DO: Include validation for required parameters
+  - ❌ DON'T: Implement business logic in command handlers
 
-  - **[`task-manager.js`](mdc:scripts/modules/task-manager.js): Task Data Management**
-    - **Purpose**: Manages task data, including loading, saving, creating, updating, deleting, and querying tasks.
-    - **Responsibilities**:
-      - Reads and writes task data to `tasks.json` file.
-      - Implements functions for task CRUD operations (Create, Read, Update, Delete).
-      - Handles task parsing from PRD documents using AI.
-      - Manages task expansion and subtask generation.
-      - Updates task statuses and properties.
-      - Implements task listing and display logic.
-      - Performs task complexity analysis using AI.
-    - **Key Functions**:
-      - `readTasks(tasksPath)` / `writeTasks(tasksPath, tasksData)`: Load and save task data.
-      - `parsePRD(prdFilePath, outputPath, numTasks)`: Parses PRD document to create tasks.
-      - `expandTask(taskId, numSubtasks, useResearch, prompt, force)`: Expands a task into subtasks.
-      - `setTaskStatus(tasksPath, taskIdInput, newStatus)`: Updates task status.
-      - `listTasks(tasksPath, statusFilter, withSubtasks)`: Lists tasks with filtering and subtask display options.
-      - `analyzeComplexity(tasksPath, reportPath, useResearch, thresholdScore)`: Analyzes task complexity.
+## Option Naming Conventions
 
-  - **[`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js): Dependency Management**
-    - **Purpose**: Manages task dependencies, including adding, removing, validating, and fixing dependency relationships.
-    - **Responsibilities**:
-      - Adds and removes task dependencies.
-      - Validates dependency relationships to prevent circular dependencies and invalid references.
-      - Fixes invalid dependencies by removing non-existent or self-referential dependencies.
-      - Provides functions to check for circular dependencies.
-    - **Key Functions**:
-      - `addDependency(tasksPath, taskId, dependencyId)`: Adds a dependency between tasks.
-      - `removeDependency(tasksPath, taskId, dependencyId)`: Removes a dependency.
-      - `validateDependencies(tasksPath)`: Validates task dependencies.
-      - `fixDependencies(tasksPath)`: Fixes invalid task dependencies.
-      - `isCircularDependency(tasks, taskId, dependencyChain)`: Detects circular dependencies.
+- **Command Names**:
+  - ✅ DO: Use kebab-case for command names (`analyze-complexity`)
+  - ❌ DON'T: Use camelCase for command names (`analyzeComplexity`)
+  - ✅ DO: Use descriptive, action-oriented names
 
-  - **[`ui.js`](mdc:scripts/modules/ui.js): User Interface Components**
-    - **Purpose**: Handles all user interface elements, including displaying information, formatting output, and providing user feedback.
-    - **Responsibilities**:
-      - Displays task lists, task details, and command outputs in a formatted way.
-      - Uses `chalk` for colored output and `boxen` for boxed messages.
-      - Implements table display using `cli-table3`.
-      - Shows loading indicators using `ora`.
-      - Provides helper functions for status formatting, dependency display, and progress reporting.
-      - Suggests next actions to the user after command execution.
-    - **Key Functions**:
-      - `displayTaskList(tasks, statusFilter, withSubtasks)`: Displays a list of tasks in a table.
-      - `displayTaskDetails(task)`: Displays detailed information for a single task.
-      - `displayComplexityReport(reportPath)`: Displays the task complexity report.
-      - `startLoadingIndicator(message)` / `stopLoadingIndicator(indicator)`: Manages loading indicators.
-      - `getStatusWithColor(status)`: Returns status string with color formatting.
-      - `formatDependenciesWithStatus(dependencies, allTasks, inTable)`: Formats dependency list with status indicators.
+- **Option Names**:
+  - ✅ DO: Use kebab-case for long-form option names (`--output-format`)
+  - ✅ DO: Provide single-letter shortcuts when appropriate (`-f, --file`)
+  - ✅ DO: Use consistent option names across similar commands
+  - ❌ DON'T: Use different names for the same concept (`--file` in one command, `--path` in another)
 
-  - **[`ai-services.js`](mdc:scripts/modules/ai-services.js) (Conceptual): AI Integration**
-    - **Purpose**:  Abstracts interactions with AI models (like Anthropic Claude and Perplexity AI) for various features. *Note: This module might be implicitly implemented within `task-manager.js` and `utils.js` or could be explicitly created for better organization as the project evolves.*
-    - **Responsibilities**:
-      - Handles API calls to AI services.
-      - Manages prompts and parameters for AI requests.
-      - Parses AI responses and extracts relevant information.
-      - Implements logic for task complexity analysis, task expansion, and PRD parsing using AI.
-    - **Potential Functions**:
-      - `getAIResponse(prompt, model, maxTokens, temperature)`: Generic function to interact with AI model.
-      - `analyzeTaskComplexityWithAI(taskDescription)`: Sends task description to AI for complexity analysis.
-      - `expandTaskWithAI(taskDescription, numSubtasks, researchContext)`: Generates subtasks using AI.
-      - `parsePRDWithAI(prdContent)`: Extracts tasks from PRD content using AI.
+  ```javascript
+  // ✅ DO: Use consistent option naming
+  .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+  .option('-o, --output <dir>', 'Output directory', 'tasks')
+  
+  // ❌ DON'T: Use inconsistent naming
+  .option('-f, --file <path>', 'Path to the tasks file')
+  .option('-p, --path <dir>', 'Output directory') // Should be --output
+  ```
 
-  - **[`utils.js`](mdc:scripts/modules/utils.js): Utility Functions and Configuration**
-    - **Purpose**: Provides reusable utility functions and global configuration settings used across the application.
-    - **Responsibilities**:
-      - Manages global configuration settings loaded from environment variables and defaults.
-      - Implements logging utility with different log levels and output formatting.
-      - Provides file system operation utilities (read/write JSON files).
-      - Includes string manipulation utilities (e.g., `truncate`, `sanitizePrompt`).
-      - Offers task-specific utility functions (e.g., `formatTaskId`, `findTaskById`, `taskExists`).
-      - Implements graph algorithms like cycle detection for dependency management.
-    - **Key Components**:
-      - `CONFIG`: Global configuration object.
-      - `log(level, ...args)`: Logging function.
-      - `readJSON(filepath)` / `writeJSON(filepath, data)`: File I/O utilities for JSON files.
-      - `truncate(text, maxLength)`: String truncation utility.
-      - `formatTaskId(id)` / `findTaskById(tasks, taskId)`: Task ID and search utilities.
-      - `findCycles(subtaskId, dependencyMap)`: Cycle detection algorithm.
+  > **Note**: Although options are defined with kebab-case (`--num-tasks`), Commander.js stores them internally as camelCase properties. Access them in code as `options.numTasks`, not `options['num-tasks']`.
 
-- **Data Flow and Module Dependencies**:
+## Input Validation
 
-  - **Commands Initiate Actions**: User commands entered via the CLI (handled by [`commands.js`](mdc:scripts/modules/commands.js)) are the entry points for most operations.
-  - **Command Handlers Delegate to Managers**: Command handlers in [`commands.js`](mdc:scripts/modules/commands.js) call functions in [`task-manager.js`](mdc:scripts/modules/task-manager.js) and [`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js) to perform core task and dependency management logic.
-  - **UI for Presentation**:  [`ui.js`](mdc:scripts/modules/ui.js) is used by command handlers and task/dependency managers to display information to the user. UI functions primarily consume data and format it for output, without modifying core application state.
-  - **Utilities for Common Tasks**: [`utils.js`](mdc:scripts/modules/utils.js) provides helper functions used by all other modules for configuration, logging, file operations, and common data manipulations.
-  - **AI Services Integration**: AI functionalities (complexity analysis, task expansion, PRD parsing) are invoked from [`task-manager.js`](mdc:scripts/modules/task-manager.js) and potentially [`commands.js`](mdc:scripts/modules/commands.js), likely using functions that would reside in a dedicated `ai-services.js` module or be integrated within `utils.js` or `task-manager.js`.
+- **Required Parameters**:
+  - ✅ DO: Check that required parameters are provided
+  - ✅ DO: Provide clear error messages when parameters are missing
+  - ✅ DO: Use early returns with process.exit(1) for validation failures
 
-- **Testing Architecture**:
+  ```javascript
+  // ✅ DO: Validate required parameters early
+  if (!prompt) {
+    console.error(chalk.red('Error: --prompt parameter is required. Please provide a task description.'));
+    process.exit(1);
+  }
+  ```
 
-  - **Test Organization Structure**:
-    - **Unit Tests**: Located in `tests/unit/`, reflect the module structure with one test file per module
-    - **Integration Tests**: Located in `tests/integration/`, test interactions between modules
-    - **End-to-End Tests**: Located in `tests/e2e/`, test complete workflows from a user perspective
-    - **Test Fixtures**: Located in `tests/fixtures/`, provide reusable test data
+- **Parameter Type Conversion**:
+  - ✅ DO: Convert string inputs to appropriate types (numbers, booleans)
+  - ✅ DO: Handle conversion errors gracefully
 
-  - **Module Design for Testability**:
-    - **Explicit Dependencies**: Functions accept their dependencies as parameters rather than using globals
-    - **Functional Style**: Pure functions with minimal side effects make testing deterministic
-    - **Separate Logic from I/O**: Core business logic is separated from file system operations
-    - **Clear Module Interfaces**: Each module has well-defined exports that can be mocked in tests
-    - **Callback Isolation**: Callbacks are defined as separate functions for easier testing
-    - **Stateless Design**: Modules avoid maintaining internal state where possible
+  ```javascript
+  // ✅ DO: Parse numeric parameters properly
+  const fromId = parseInt(options.from, 10);
+  if (isNaN(fromId)) {
+    console.error(chalk.red('Error: --from must be a valid number'));
+    process.exit(1);
+  }
+  ```
 
-  - **Mock Integration Patterns**:
-    - **External Libraries**: Libraries like `fs`, `commander`, and `@anthropic-ai/sdk` are mocked at module level
-    - **Internal Modules**: Application modules are mocked with appropriate spy functions
-    - **Testing Function Callbacks**: Callbacks are extracted from mock call arguments and tested in isolation
-    - **UI Elements**: Output functions from `ui.js` are mocked to verify display calls
+## User Feedback
 
-  - **Testing Flow**:
-    - Module dependencies are mocked (following Jest's hoisting behavior)
-    - Test modules are imported after mocks are established
-    - Spy functions are set up on module methods
-    - Tests call the functions under test and verify behavior
-    - Mocks are reset between test cases to maintain isolation
+- **Operation Status**:
+  - ✅ DO: Provide clear feedback about the operation being performed
+  - ✅ DO: Display success or error messages after completion
+  - ✅ DO: Use colored output to distinguish between different message types
 
-- **Benefits of this Architecture**:
+  ```javascript
+  // ✅ DO: Show operation status
+  console.log(chalk.blue(`Parsing PRD file: ${file}`));
+  console.log(chalk.blue(`Generating ${numTasks} tasks...`));
+  
+  try {
+    await parsePRD(file, outputPath, numTasks);
+    console.log(chalk.green('Successfully generated tasks from PRD'));
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    process.exit(1);
+  }
+  ```
 
-  - **Maintainability**: Modules are self-contained and focused, making it easier to understand, modify, and debug specific features.
-  - **Testability**:  Each module can be tested in isolation (unit testing), and interactions between modules can be tested (integration testing).
-    - **Mocking Support**: The clear dependency boundaries make mocking straightforward
-    - **Test Isolation**: Each component can be tested without affecting others
-    - **Callback Testing**: Function callbacks can be extracted and tested independently
-  - **Reusability**: Utility functions and UI components can be reused across different parts of the application.
-  - **Scalability**:  New features can be added as new modules or by extending existing ones without significantly impacting other parts of the application.
-  - **Clarity**: The modular structure provides a clear separation of concerns, making the codebase easier to navigate and understand for developers.
+## Command Registration
 
-This architectural overview should help AI models understand the structure and organization of the Task Master CLI codebase, enabling them to more effectively assist with code generation, modification, and understanding.
+- **Command Grouping**:
+  - ✅ DO: Group related commands together in the code
+  - ✅ DO: Add related commands in a logical order
+  - ✅ DO: Use comments to delineate command groups
+
+- **Command Export**:
+  - ✅ DO: Export the registerCommands function
+  - ✅ DO: Keep the CLI setup code clean and maintainable
+
+  ```javascript
+  // ✅ DO: Follow this export pattern
+  export {
+    registerCommands,
+    setupCLI,
+    runCLI
+  };
+  ```
+
+## Error Handling
+
+- **Exception Management**:
+  - ✅ DO: Wrap async operations in try/catch blocks
+  - ✅ DO: Display user-friendly error messages
+  - ✅ DO: Include detailed error information in debug mode
+
+  ```javascript
+  // ✅ DO: Handle errors properly
+  try {
+    // Command implementation
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    
+    if (CONFIG.debug) {
+      console.error(error);
+    }
+    
+    process.exit(1);
+  }
+  ```
+
+## Integration with Other Modules
+
+- **Import Organization**:
+  - ✅ DO: Group imports by module/functionality
+  - ✅ DO: Import only what's needed, not entire modules
+  - ❌ DON'T: Create circular dependencies
+
+  ```javascript
+  // ✅ DO: Organize imports by module
+  import { program } from 'commander';
+  import path from 'path';
+  import chalk from 'chalk';
+  
+  import { CONFIG, log, readJSON } from './utils.js';
+  import { displayBanner, displayHelp } from './ui.js';
+  import { parsePRD, listTasks } from './task-manager.js';
+  import { addDependency } from './dependency-manager.js';
+  ```
+
+## Subtask Management Commands
+
+- **Add Subtask Command Structure**:
+  ```javascript
+  // ✅ DO: Follow this structure for adding subtasks
+  programInstance
+    .command('add-subtask')
+    .description('Add a new subtask to a parent task or convert an existing task to a subtask')
+    .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+    .option('-p, --parent <id>', 'ID of the parent task (required)')
+    .option('-e, --existing <id>', 'ID of an existing task to convert to a subtask')
+    .option('-t, --title <title>', 'Title for the new subtask (when not converting)')
+    .option('-d, --description <description>', 'Description for the new subtask (when not converting)')
+    .option('--details <details>', 'Implementation details for the new subtask (when not converting)')
+    .option('--dependencies <ids>', 'Comma-separated list of subtask IDs this subtask depends on')
+    .option('--status <status>', 'Initial status for the subtask', 'pending')
+    .action(async (options) => {
+      // Validate required parameters
+      if (!options.parent) {
+        console.error(chalk.red('Error: --parent parameter is required'));
+        process.exit(1);
+      }
+      
+      // Validate that either existing task ID or title is provided
+      if (!options.existing && !options.title) {
+        console.error(chalk.red('Error: Either --existing or --title must be provided'));
+        process.exit(1);
+      }
+      
+      try {
+        // Implementation
+      } catch (error) {
+        // Error handling
+      }
+    });
+  ```
+
+- **Remove Subtask Command Structure**:
+  ```javascript
+  // ✅ DO: Follow this structure for removing subtasks
+  programInstance
+    .command('remove-subtask')
+    .description('Remove a subtask from its parent task, optionally converting it to a standalone task')
+    .option('-f, --file <path>', 'Path to the tasks file', 'tasks/tasks.json')
+    .option('-i, --id <id>', 'ID of the subtask to remove in format "parentId.subtaskId" (required)')
+    .option('-c, --convert', 'Convert the subtask to a standalone task')
+    .action(async (options) => {
+      // Validate required parameters
+      if (!options.id) {
+        console.error(chalk.red('Error: --id parameter is required'));
+        process.exit(1);
+      }
+      
+      // Validate subtask ID format
+      if (!options.id.includes('.')) {
+        console.error(chalk.red('Error: Subtask ID must be in format "parentId.subtaskId"'));
+        process.exit(1);
+      }
+      
+      try {
+        // Implementation
+      } catch (error) {
+        // Error handling
+      }
+    });
+  ```
+
+Refer to [`commands.js`](mdc:scripts/modules/commands.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
 
 ---
 > Source: [skindhu/AI-TASK-MANAGER](https://github.com/skindhu/AI-TASK-MANAGER) — distributed by [TomeVault](https://tomevault.io).
