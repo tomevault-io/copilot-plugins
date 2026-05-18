@@ -1,0 +1,9 @@
+{
+  "name": "appdev--clipdock",
+  "displayName": "ClipDock",
+  "description": "A local-first clipboard shelf for macOS.\u5728 macOS \u4e0a\u627e\u56de\u3001\u9884\u89c8\u3001\u56fa\u5b9a\u5e76\u590d\u7528\u526a\u8d34\u677f\u5185\u5bb9",
+  "version": "1.0.0",
+  "author": "appdev",
+  "homepage": "https://github.com/appdev/ClipDock",
+  "skills": []
+}
