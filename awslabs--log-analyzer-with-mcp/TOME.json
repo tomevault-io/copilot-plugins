@@ -4,7 +4,7 @@
   "repo": "Log-Analyzer-with-MCP",
   "description": "A Model Context Protocol (MCP) server that provides AI assistants access to AWS CloudWatch Logs for analysis, searching, and correlation",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awslabs/Log-Analyzer-with-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T02:02:15Z"
+  "distributed_at": "2026-05-18T02:04:39Z"
 }
