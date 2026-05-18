@@ -1,0 +1,9 @@
+{
+  "name": "isegaro--translate-it",
+  "displayName": "Translate-It",
+  "description": "Chrome/Firefox extension for translating(Read/Write/Listen) from Any Languages to Any Languages using API of  Google Gemini , OpenAi , OpenRouter and  WebAi.",
+  "version": "1.0.0",
+  "author": "iSegaro",
+  "homepage": "https://github.com/iSegaro/Translate-It",
+  "skills": []
+}
