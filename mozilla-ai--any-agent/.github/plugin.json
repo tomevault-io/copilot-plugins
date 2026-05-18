@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--any-agent",
+  "displayName": "any-agent",
+  "description": "A single interface to use and evaluate different agent frameworks ",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/any-agent",
+  "skills": []
+}
