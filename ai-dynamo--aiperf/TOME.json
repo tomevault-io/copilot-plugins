@@ -4,7 +4,7 @@
   "repo": "aiperf",
   "description": "AIPerf is a comprehensive benchmarking tool that measures the performance of generative AI models served by your preferred inference solution.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ai-dynamo/aiperf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:25:58Z"
+  "distributed_at": "2026-05-18T01:30:09Z"
 }
