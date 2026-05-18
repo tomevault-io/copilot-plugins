@@ -1,0 +1,9 @@
+{
+  "name": "dumbwareio--dumbterm",
+  "displayName": "DumbTerm",
+  "description": "A stupidly simple web-based terminal emulator, with common tools and Starship enabled (via Docker)! \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "DumbWareio",
+  "homepage": "https://github.com/DumbWareio/DumbTerm",
+  "skills": []
+}
