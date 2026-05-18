@@ -1,55 +1,57 @@
-## 04-server-discovery-integration
+## 05-conversation-management
 
-> The MCP Client provides multiple mechanisms to discover and integrate with MCP servers as implemented in [mcp_client.py](mdc:mcp_client.py).
+> The MCP Client implements a sophisticated conversation management system in [mcp_client.py](mdc:mcp_client.py) that goes beyond simple chat history.
 
-# Server Discovery & Integration
+# Conversation Management
 
-The MCP Client provides multiple mechanisms to discover and integrate with MCP servers as implemented in [mcp_client.py](mdc:mcp_client.py).
+The MCP Client implements a sophisticated conversation management system in [mcp_client.py](mdc:mcp_client.py) that goes beyond simple chat history.
 
-## Discovery Methods
+## Conversation Graph
 
-### File System Discovery
-- Searches configured directories for potential STDIO server scripts
-- Default paths include `.mcpclient_config/servers`, `~/mcp-servers`, etc.
-- Auto-detected on startup when enabled in config
+### Core Structure
+- Non-linear conversation history with branching support
+- Each branch point is a `ConversationNode` with its own message history
+- Forkable conversations allow exploring different interaction paths
+- Supported in both CLI and Web UI interfaces
 
-### mDNS/Zeroconf Discovery
-- Real-time discovery of MCP servers on the local network
-- Listens for services advertised under `_mcp._tcp.local.`
-- Managed via the `/discover` command suite
-- Can be automated with background scanning
+### Persistence
+- Complete conversation graphs saved to JSON files
+- Preserves all branches and messages across sessions
+- Supports import/export for sharing or backup
 
-### Local Port Scanning
-- Actively scans configured port ranges for potential MCP servers
-- Attempts MCP `initialize` handshake to detect compatible servers
-- Configured via `/config port-scan` commands
-- Useful for discovering servers not using mDNS advertisement
+## Context Management
 
-### Remote Registries
-- Connects to defined MCP registry URLs to find shared servers
-- Typically used for discovering SSE-based MCP servers
+### Working Memory
+- Automatic or manual optimization of conversation context
+- Summarization of long histories to stay within context limits
+- Focus mechanisms for highlighting important info
 
-### Claude Desktop Integration
-- Auto-detects and imports configs from `claude_desktop_config.json`
-- Intelligently adapts Windows/WSL paths and command structures
-- Remaps Windows-style paths to their Linux/WSL equivalents
+### Dynamic Prompts
+- Inject pre-defined prompt templates from servers
+- Apply templates to current conversation context
 
-## Server Management
+## Web UI Visualization
 
-### Connection Types
-- STDIO: Process-based servers using standard input/output
-- SSE: HTTP Server-Sent Events based servers (REST endpoints)
+### Branch Visualization
+- Interactive tree view showing the conversation structure
+- Visual indicators for current branch and branch points
+- Click-to-checkout functionality for navigating between branches
 
-### Server Lifecycle
-- Health monitoring with automatic recovery attempts
-- Connection retries with exponential backoff
-- Circuit breakers for consistently failing servers
+### Branch Management
+- Create new branches from any point
+- Clear the current branch without losing history
+- Import/export specific branches as needed
 
-### STDIO Safety
-The client implements multiple layers to prevent accidental STDIO corruption:
-- Output redirection to stderr when STDIO servers are active
-- Context managers for critical operations
-- Safe console utilities for UI display
+## CLI Commands
+
+Key conversation management commands include:
+- `/fork [name]` - Create a new branch
+- `/branch list` - Show available branches
+- `/branch checkout <id>` - Switch to a different branch
+- `/export [--id <id>] [--output <file>]` - Export conversations
+- `/import <file>` - Import conversation from file
+- `/optimize` - Summarize conversation context
+- `/clear` - Clear current branch messages
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
