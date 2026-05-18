@@ -1,30 +1,30 @@
-## adapters
+## core
 
-> - Implement core port interfaces
+> - No dependencies on specific adapters
 
-# MCP Prompts Adapters Rules
+# MCP Prompts Core Package Rules
 
-## Implementation Guidelines
-- Implement core port interfaces
-- Handle all error cases gracefully
-- Use proper async/await patterns
-- Include integration tests
+## Domain Logic Purity
+- No dependencies on specific adapters
+- Pure TypeScript types and functions
+- Business logic only in core/
 
-## Dependencies
-- Can depend on @mcp-prompts/core
-- External libraries as needed
-- Follow adapter pattern strictly
+## Module Structure
+- entities/ - Domain entities
+- ports/ - Interface definitions
+- services/ - Domain services
+- No infrastructure dependencies
 
-## Testing Strategy
-- Integration tests with real dependencies
-- Mock external services when needed
-- Test error handling extensively
-- Performance tests for critical paths
+## Testing Approach
+- Unit tests with Jest
+- Mock all external dependencies
+- Test business logic in isolation
+- Coverage > 90%
 
-## Build Configuration
-- Own tsconfig.json extending root options
-- Build outputs to dist/
-- Include type declarations 
+## Import Rules
+- No imports from adapter packages
+- Only standard library and domain contracts
+- Use dependency injection patterns
 
 ---
 > Source: [sparesparrow/mcp-prompts](https://github.com/sparesparrow/mcp-prompts) — distributed by [TomeVault](https://tomevault.io).
