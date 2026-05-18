@@ -7,11 +7,11 @@ TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code) and Figma, a
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [grab/cursor-talk-to-figma-mcp](https://github.com/grab/cursor-talk-to-figma-mcp).
+Original source: `CLAUDE.md` in [grab/cursor-talk-to-figma-mcp](https://github.com/grab/cursor-talk-to-figma-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
