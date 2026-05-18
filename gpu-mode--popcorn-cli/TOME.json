@@ -1,0 +1,57 @@
+{
+  "name": "popcorn-cli",
+  "owner": "gpu-mode",
+  "repo": "popcorn-cli",
+  "description": "AI instruction skills by gpu-mode",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "load-inline-native-code",
+      "path": "templates/setup/skills/load-inline-native-code",
+      "github_url": "https://github.com/gpu-mode/popcorn-cli/tree/main/templates/setup/skills/load-inline-native-code",
+      "description": ""
+    },
+    {
+      "name": "popcorn-submission-workflow",
+      "path": "templates/setup/skills/popcorn-submission-workflow",
+      "github_url": "https://github.com/gpu-mode/popcorn-cli/tree/main/templates/setup/skills/popcorn-submission-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gpu-mode/popcorn-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T11:30:23Z"
+}
