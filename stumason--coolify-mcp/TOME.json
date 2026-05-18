@@ -2,9 +2,9 @@
   "name": "coolify-mcp",
   "owner": "StuMason",
   "repo": "coolify-mcp",
-  "description": "",
+  "description": "MCP server for Coolify \u2014 38 optimized tools for managing self-hosted PaaS through AI assistants",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/StuMason",
+  "source_url": "https://github.com/StuMason/coolify-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T04:02:35Z"
+  "distributed_at": "2026-05-18T14:12:53Z"
 }
