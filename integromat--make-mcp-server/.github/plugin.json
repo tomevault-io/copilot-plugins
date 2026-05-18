@@ -1,0 +1,9 @@
+{
+  "name": "integromat--make-mcp-server",
+  "displayName": "make-mcp-server",
+  "description": "Make MCP Server",
+  "version": "1.0.0",
+  "author": "integromat",
+  "homepage": "https://github.com/integromat/make-mcp-server",
+  "skills": []
+}
