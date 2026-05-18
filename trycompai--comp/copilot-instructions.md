@@ -1,0 +1,26 @@
+## comp
+
+> Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
+
+# Project Rules
+
+Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
+
+## Quick Reference
+
+- **Package manager**: `bun` (never npm/yarn/pnpm)
+- **No `as any`** casts. No `@ts-ignore`. Fix the types instead.
+- **Max 300 lines** per file.
+- **Session auth only** — no JWT. Use `credentials: 'include'` for API calls.
+- **RBAC**: `@RequirePermission('resource', 'action')` on every API endpoint. Gate UI with `hasPermission()`.
+- **Design system**: Always `@trycompai/design-system` first, `@trycompai/ui` only as fallback. Icons from `@trycompai/design-system/icons`.
+- **Data fetching**: Server components use `serverApi`. Client components use SWR hooks with `apiClient`.
+- **No server actions** for new features. Call NestJS API directly.
+- **Tests required** for every new feature. TDD preferred.
+- **Conventional commits**: `<type>(<scope>): <description>`
+- **Controller format**: `@Controller({ path: 'name', version: '1' })`, NOT `@Controller('v1/name')`
+- **Permission resources**: organization, member, control, evidence, policy, risk, vendor, task, framework, audit, finding, questionnaire, integration, apiKey, trust, pentest, app, compliance
+
+---
+> Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
