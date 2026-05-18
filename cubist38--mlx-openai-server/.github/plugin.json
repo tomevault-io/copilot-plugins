@@ -1,0 +1,9 @@
+{
+  "name": "cubist38--mlx-openai-server",
+  "displayName": "mlx-openai-server",
+  "description": "A high-performance API server that provides OpenAI-compatible endpoints for MLX models. Developed using Python and powered by the FastAPI framework, it provides an efficient, scalable, and user-friend",
+  "version": "1.0.0",
+  "author": "cubist38",
+  "homepage": "https://github.com/cubist38/mlx-openai-server",
+  "skills": []
+}
