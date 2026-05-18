@@ -1,31 +1,38 @@
-## completion-traceability
+## reexamine-keyboard
 
-> When completing any task (step, feature, fix, plan), always cite back to the user's original request:
+> - First focusable element on page: `<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>`
 
 
-# Completion Traceability
+# Re-examine: Keyboard Efficiency
 
-When completing any task (step, feature, fix, plan), always cite back to the user's original request:
+## Skip links
+- First focusable element on page: `<a href="#main-content" class="sr-only focus:not-sr-only">Skip to main content</a>`
+- Multiple skip links for complex layouts: "Skip to search", "Skip to results"
+- Target element needs `tabindex="-1"` if it's not natively focusable
 
-1. **Quote or paraphrase** the specific part of the user's prompt this work fulfills
-2. **Summarize** what was done to address it
-3. **Link files** changed or created
+## Keyboard shortcuts
+- Search: `Ctrl+K` or `/` to focus search input
+- Escape: close modals, dropdowns, lightboxes, cancel operations
+- Arrow keys: navigate within lists, carousels, tab bars
+- Enter/Space: activate buttons and interactive cards
+- Document shortcuts in a help overlay (accessible via `?` key)
 
-## Why
-User writes long prompts and burst prompts across multiple sessions. Without traceability, it's hard to recall what was asked and why something was built.
+## Tab order
+- Logical reading order: left-to-right, top-to-bottom (matches visual layout)
+- Never use `tabindex` > 0 — it breaks natural flow
+- `tabindex="0"` only on custom interactive elements that need to be in tab order
+- `tabindex="-1"` for programmatically focusable elements (skip link targets, error summaries)
 
-## Format
-```
-**Re your request:** "[quote or paraphrase of the specific ask]"
-- What was done: [concise summary]
-- Files: [list of key files created/modified]
-```
+## Focus traps
+- Modals/dialogs: Tab wraps within the dialog (last → first → last)
+- Escape key always closes the trap
+- On close, return focus to the element that opened the modal
+- `aria-modal="true"` + `role="dialog"` on the container
 
-## Applies to
-- Step completions in multi-step plans
-- Final summaries after a task is done
-- Session continuations (reference the original session's ask)
-- Todo item completions
+## Cards and list items
+- If a card is clickable, the entire card should be a `<button>` or contain a primary `<a>`
+- `Enter` and `Space` should both trigger the card action
+- Keyboard hint on hover: consider showing "(Enter to open)" for non-obvious interactive elements
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
