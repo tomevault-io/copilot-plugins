@@ -1,159 +1,122 @@
-## commitlint
+## git-flow
 
-> Commitlint rules for conventional commit messages
+> Git-flow branching model and commit conventions for this repository
 
 
-# Commitlint Rules
+# Git-Flow Workflow
 
-All commit messages must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
+This repository follows the git-flow branching model.
+
+## Branch Types
+
+| Branch | Purpose | Naming Convention |
+|--------|---------|-------------------|
+| `main` | Production-ready code | Protected, only merges from release/hotfix |
+| `develop` | Integration branch for features | Protected |
+| `feature/*` | New features | `feature/short-description` |
+| `bugfix/*` | Bug fixes for develop | `bugfix/short-description` |
+| `release/*` | Release preparation | `release/vX.Y.Z` |
+| `hotfix/*` | Production emergency fixes | `hotfix/short-description` |
 
 ## Commit Message Format
+
+Use conventional commits format:
 
 ```
 <type>(<scope>): <subject>
 
 [optional body]
 
-[optional footer(s)]
+[optional footer]
 ```
 
-### Structure Rules
+### Types
 
-| Part | Rule | Example |
-|------|------|---------|
-| **type** | Required, lowercase | `feat`, `fix`, `docs` |
-| **scope** | Optional, lowercase, in parentheses | `(auth)`, `(calendar)` |
-| **subject** | Required, lowercase start, no period at end | `add user authentication` |
-| **body** | Optional, blank line after subject | Detailed explanation |
-| **footer** | Optional, for breaking changes/issues | `BREAKING CHANGE:`, `Fixes #123` |
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation only
+- `style`: Code style (formatting, semicolons, etc.)
+- `refactor`: Code refactoring (no feature/fix)
+- `perf`: Performance improvement
+- `test`: Adding/updating tests
+- `chore`: Build process, dependencies, tooling
+- `ci`: CI/CD changes
 
-## Allowed Types
+### Scopes (for this project)
 
-| Type | Description | Bumps |
-|------|-------------|-------|
-| `feat` | New feature | Minor |
-| `fix` | Bug fix | Patch |
-| `docs` | Documentation only | - |
-| `style` | Code style (formatting, semicolons) | - |
-| `refactor` | Code change that neither fixes nor adds | - |
-| `perf` | Performance improvement | Patch |
-| `test` | Adding/updating tests | - |
-| `build` | Build system or dependencies | - |
-| `ci` | CI/CD configuration | - |
-| `chore` | Other changes (tooling, config) | - |
-| `revert` | Reverts a previous commit | - |
+- `auth`: OAuth authentication
+- `drive`: Google Drive service
+- `docs`: Google Docs service
+- `sheets`: Google Sheets service
+- `calendar`: Google Calendar service
+- `gmail`: Gmail service
+- `contacts`: People/Contacts service
+- `youtube`: YouTube service
+- `slides`: Google Slides service
+- `tasks`: Google Tasks service
+- `server`: MCP server core
+- `types`: Type definitions
 
-## Allowed Scopes (Project-Specific)
+### Examples
 
 ```
-auth, drive, docs, sheets, calendar, gmail,
-contacts, youtube, slides, tasks, server, types, deps
+feat(calendar): add recurring event support
+
+fix(auth): handle token refresh failure gracefully
+
+chore(deps): update googleapis to v145
+
+docs: update README with new setup instructions
 ```
+
+## Workflow
+
+1. **Starting a feature:**
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/my-feature
+   ```
+
+2. **Completing a feature:**
+   ```bash
+   git checkout develop
+   git merge --no-ff feature/my-feature
+   git push origin develop
+   git branch -d feature/my-feature
+   ```
+
+3. **Creating a release:**
+   ```bash
+   git checkout develop
+   git checkout -b release/v1.2.0
+   # bump version, final fixes
+   git checkout main
+   git merge --no-ff release/v1.2.0
+   git tag -a v1.2.0
+   git checkout develop
+   git merge --no-ff release/v1.2.0
+   ```
+
+4. **Hotfix:**
+   ```bash
+   git checkout main
+   git checkout -b hotfix/critical-fix
+   # fix the issue
+   git checkout main
+   git merge --no-ff hotfix/critical-fix
+   git tag -a v1.2.1
+   git checkout develop
+   git merge --no-ff hotfix/critical-fix
+   ```
 
 ## Rules
 
-### Header Rules
-
-- **type-enum**: Type must be one of the allowed types
-- **type-case**: Type must be lowercase
-- **type-empty**: Type cannot be empty
-- **scope-case**: Scope must be lowercase
-- **subject-case**: Subject must start with lowercase
-- **subject-empty**: Subject cannot be empty
-- **subject-full-stop**: Subject cannot end with period
-- **header-max-length**: Header max 100 characters
-
-### Body Rules
-
-- **body-leading-blank**: Body must have blank line before it
-- **body-max-line-length**: Body lines max 100 characters
-
-### Footer Rules
-
-- **footer-leading-blank**: Footer must have blank line before it
-- **footer-max-line-length**: Footer lines max 100 characters
-
-## Examples
-
-### Simple commits
-
-```bash
-# Feature
-git commit -m "feat(calendar): add recurring event support"
-
-# Bug fix
-git commit -m "fix(auth): handle token refresh failure"
-
-# Documentation
-git commit -m "docs: update README with setup instructions"
-
-# Chore
-git commit -m "chore(deps): update googleapis to v145"
-```
-
-### With body
-
-```bash
-git commit -m "feat(gmail): add email threading support
-
-Implements conversation view for email threads.
-Groups related messages by thread ID and displays
-them in chronological order."
-```
-
-### Breaking change
-
-```bash
-git commit -m "feat(auth)!: change token storage location
-
-BREAKING CHANGE: Tokens now stored in XDG directories.
-Users must re-authenticate after updating."
-```
-
-### Multiple scopes
-
-```bash
-# Use comma-separated scopes sparingly
-git commit -m "refactor(drive,docs): extract shared file utilities"
-```
-
-### Referencing issues
-
-```bash
-git commit -m "fix(sheets): handle empty cell values
-
-Fixes #42"
-```
-
-## Invalid Examples
-
-```bash
-# ❌ Type not lowercase
-git commit -m "Feat(auth): add login"
-
-# ❌ Missing type
-git commit -m "add new feature"
-
-# ❌ Subject starts with capital
-git commit -m "feat: Add new feature"
-
-# ❌ Subject ends with period
-git commit -m "feat: add new feature."
-
-# ❌ Header too long (over 100 chars)
-git commit -m "feat(calendar): add support for creating recurring events with complex recurrence rules and multiple attendees"
-
-# ❌ Invalid type
-git commit -m "feature(auth): add login"
-```
-
-## Tips
-
-1. **Keep subjects concise** - Use imperative mood ("add" not "added")
-2. **Use body for context** - Explain *why*, not just *what*
-3. **Reference issues** - Link to related issues/PRs in footer
-4. **One logical change per commit** - Atomic commits are easier to review
-5. **Breaking changes** - Use `!` after type/scope and add `BREAKING CHANGE:` footer
+- Never commit directly to `main` or `develop`
+- Always use `--no-ff` for merges to preserve branch history
+- Delete feature branches after merging
+- Tag all releases on `main`
+- Write meaningful commit messages following conventional commits
 
 ---
 > Source: [quinnjr/google-mcp](https://github.com/quinnjr/google-mcp) — distributed by [TomeVault](https://tomevault.io).
