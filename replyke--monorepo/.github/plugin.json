@@ -1,0 +1,9 @@
+{
+  "name": "replyke--monorepo",
+  "displayName": "monorepo",
+  "description": "Replyke: An Open-Source Framework for Social Features. Build social apps faster with powerful API and SDKs for JavaScript, React, and React Native.",
+  "version": "1.0.0",
+  "author": "replyke",
+  "homepage": "https://github.com/replyke/monorepo",
+  "skills": []
+}
