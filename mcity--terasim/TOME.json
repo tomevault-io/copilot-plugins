@@ -4,7 +4,7 @@
   "repo": "TeraSim",
   "description": "Discover Unknown Unsafe Events via Generative Simulation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mcity/TeraSim",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:58:22Z"
+  "distributed_at": "2026-05-18T20:45:43Z"
 }
