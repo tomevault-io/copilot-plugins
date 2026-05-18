@@ -1,160 +1,109 @@
-## pampa-testing-examples
+## readme-sync
 
-> This guide explains how to test PAMPA functionality using the provided examples and testing tools.
+> Regla para mantener los archivos README en inglés y español sincronizados
 
 
-# PAMPA Testing & Examples Guide
+# README Synchronization Rule
 
-This guide explains how to test PAMPA functionality using the provided examples and testing tools.
+## Purpose
 
-## Available Examples
+This rule ensures that both [README.md](mdc:README.md) and [README_es.md](mdc:README_es.md) files are kept synchronized with the same content, only in their respective languages.
 
-### Chat App Example
+## Requirements
 
--   **Location**: [examples/chat-app/](mdc:examples/chat-app)
--   **Purpose**: Real-world JavaScript project for testing indexing and search
--   **Features**: Multiple modules, utility functions, complex codebase structure
--   **Use Case**: Test semantic search on actual code patterns
+### Content Parity
 
-### Test Implementations (Private)
+-   Both README files must have identical structure and sections
+-   All features, version numbers, and technical information must be the same
+-   Only the language should differ between the files
 
--   **Location**: `test/test-implementations/`
--   **Purpose**: Private testing area for implementation experiments
--   **Features**: Gitignored content, safe for sensitive tests
--   **Use Case**: Test PAMPA with real codebases without exposing them publicly
+### Version Consistency
 
-## Testing Workflow
+-   Version numbers in headers must match exactly
+-   Feature lists and "What's New" sections must have equivalent content
+-   All technical specifications must be identical
 
-### 1. Basic Functionality Test
+### Structure Matching
 
-```bash
-# Index the chat-app example
-npx pampa index examples/chat-app/
+-   Section headers must correspond (e.g., "🌟 What's New" ↔ "🌟 Novedades")
+-   Table of contents must have equivalent entries
+-   Code examples and commands should be identical
+-   Links and references must point to the same resources
 
-# Test search functionality
-npx pampa search "validation function" -p examples/chat-app/
+### Language Guidelines
 
-# Check project stats
-npx pampa info examples/chat-app/
+-   README.md: English content
+-   README_es.md: Spanish content
+-   Technical terms may remain in English when appropriate (e.g., "MCP", "Node.js")
+-   Commands and code blocks should remain identical
+
+## When Making Changes
+
+### To English README (README.md):
+
+1. Make your changes to the English version first
+2. Immediately update the Spanish version (README_es.md) with equivalent content
+3. Ensure version numbers and technical details match exactly
+
+### To Spanish README (README_es.md):
+
+1. If changes are made to Spanish version, ensure English version is updated
+2. Maintain consistency in technical information
+3. Keep the same structure and organization
+
+### Version Updates:
+
+-   Always update version numbers in both files simultaneously
+-   Feature announcements must be translated and included in both versions
+-   Performance metrics and technical specifications must match
+
+## Quality Checklist
+
+Before committing changes to either README:
+
+-   [ ] Version numbers match in both files
+-   [ ] "What's New" sections have equivalent content
+-   [ ] Table of contents corresponds between languages
+-   [ ] All technical specifications are identical
+-   [ ] Code examples and commands are the same
+-   [ ] Links and references work in both versions
+-   [ ] Structure and organization match
+-   [ ] Both files are complete and well-formatted
+
+## Examples of Synchronized Content
+
+### Version Headers
+
+```markdown
+# English
+
+**Version 1.11.x** · **Semantic Search** · **MCP Compatible** · **Node.js**
+
+# Spanish
+
+**Versión 1.11.x** · **Búsqueda Semántica** · **Compatible con MCP** · **Node.js**
 ```
 
-### 2. Private Implementation Testing
+### Feature Announcements
 
-```bash
-# Copy your real codebase to test-implementations for testing
-cp -r /path/to/your/project test/test-implementations/my-project/
+```markdown
+# English
 
-# Index and test with real code
-npx pampa index test/test-implementations/my-project/
-npx pampa search "your specific query" -p test/test-implementations/my-project/
+🐍 **Python Integration** - Full support for Python code indexing and semantic search
 
-# Content is gitignored, safe for testing
+# Spanish
+
+🐍 **Integración de Python** - Soporte completo para indexado de código Python y búsqueda semántica
 ```
 
-### 3. MCP Integration Test
+### Technical Commands
 
 ```bash
-# Start MCP server
-npx pampa mcp
-
-# Test MCP tools via CLI or agent:
-# - get_project_stats(path="examples/chat-app")
-# - search_code("user validation", path="examples/chat-app")
-# - get_code_chunk(sha_from_search_results)
+# Both versions should have identical commands
+npx pampa index --provider transformers
 ```
 
-### 4. Update Workflow Test
-
-```bash
-# Make changes to example files
-# Then test update functionality
-npx pampa update examples/chat-app/
-
-# Verify changes are reflected in search
-npx pampa search "new function name" -p examples/chat-app/
-```
-
-## Test Validation Points
-
-### Indexing Tests
-
--   ✅ Database created at `examples/chat-app/.pampa/pampa.db`
--   ✅ Chunks directory populated with `.gz` files
--   ✅ Codemap generated at `examples/chat-app/pampa.codemap.json`
--   ✅ Functions properly extracted and chunked
-
-### Search Tests
-
--   ✅ Semantic search returns relevant results
--   ✅ Similarity scores are reasonable (>0.3 for good matches)
--   ✅ Results include proper metadata (file, line, symbol name)
--   ✅ SHA references are valid and retrievable
-
-### MCP Tests
-
--   ✅ All MCP tools respond without errors
--   ✅ Path parameters work correctly
--   ✅ Results are properly formatted JSON
--   ✅ get_code_chunk returns complete source code
-
-## Test Scenarios
-
-### New Function Detection
-
-1. Add a new function to [examples/chat-app/modules/utils.js](mdc:examples/chat-app/modules/utils.js)
-2. Run `update_project`
-3. Search for the new function
-4. Verify it's found and retrievable
-
-### Code Modification Detection
-
-1. Modify existing function in chat-app
-2. Run `update_project`
-3. Verify updated content is indexed
-4. Check that old version is replaced
-
-### Multi-language Support
-
-1. Add files in different supported languages to examples
-2. Test indexing and search across languages
-3. Verify language-specific parsing works
-
-### Real Project Testing (Private)
-
-1. Copy real project to `test/test-implementations/`
-2. Test PAMPA performance with actual codebase
-3. Validate semantic search on domain-specific code
-4. Content remains private (gitignored)
-
-## Example Test Commands
-
-```bash
-# Full test cycle
-npx pampa index examples/chat-app/
-npx pampa search "sanitize text" -p examples/chat-app/
-npx pampa info examples/chat-app/
-
-# Update test
-echo "export function testFunction() { return 'test'; }" >> examples/chat-app/modules/utils.js
-npx pampa update examples/chat-app/
-npx pampa search "testFunction" -p examples/chat-app/
-
-# Private implementation test
-npx pampa index test/test-implementations/your-project/
-npx pampa search "domain specific query" -p test/test-implementations/your-project/
-
-# MCP test
-npx pampa mcp &
-# Then test via MCP client
-```
-
-## Debugging Tips
-
--   Use `--debug` flag for detailed logging
--   Check `.pampa/pampa_debug.log` for troubleshooting
--   Verify file permissions on .pampa directory
--   Ensure embedding provider is properly configured
--   Use `test/test-implementations/` for testing with real codebases safely
+This rule helps maintain professional documentation standards and ensures users get consistent information regardless of their language preference.
 
 ---
 > Source: [tecnomanu/pampa](https://github.com/tecnomanu/pampa) — distributed by [TomeVault](https://tomevault.io).
