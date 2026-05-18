@@ -1,58 +1,64 @@
-## contributions
+## docs
 
-> This file outlines the general workflow, Git practices, and coding standards for contributing to the AgentDock project.
+> This file provides guidelines for working with the documentation in the `/docs` directory.
 
-# Contribution Workflow & General Standards
+# Documentation Rules (`/docs`)
 
-This file outlines the general workflow, Git practices, and coding standards for contributing to the AgentDock project.
+This file provides guidelines for working with the documentation in the `/docs` directory.
 
-## 1. Core Principles
-- Review the overall project philosophy in `[docs/README.md](mdc:docs/README.md)`.
-- Familiarize yourself with the main components: `[agentdock-core](mdc:agentdock-core)` (framework) and the OSS Client (`/src`).
-- Adhere to the specific rules outlined in other `.mdc` files for the area you are working in (e.g., `[agentdock-core.mdc](mdc:.cursor/rules/agentdock-core.mdc)`, `[src.mdc](mdc:.cursor/rules/src.mdc)`, `[nodes.mdc](mdc:.cursor/rules/nodes.mdc)`, `[docs.mdc](mdc:.cursor/rules/docs.mdc)`).
+## Documentation Structure
 
-## 2. Getting Started
-- Ensure your development environment meets the requirements outlined in `[docs/getting-started.md](mdc:docs/getting-started.md)`.
-- For significant changes or new features, it's recommended to open a GitHub Issue first to discuss the approach.
+The `/docs` directory is organized as follows:
 
-## 3. Development Workflow
+- `[docs/README.md](mdc:docs/README.md)`: Main project overview
+- `[docs/getting-started.md](mdc:docs/getting-started.md)`: Setup instructions
+- `[docs/architecture/](mdc:docs/architecture)`: System design documentation
+- `[docs/nodes/](mdc:docs/nodes)`: Node system documentation
+- `[docs/oss-client/](mdc:docs/oss-client)`: Client application docs
+- `[docs/rfa/](mdc:docs/rfa)`: \"Requests for Architecture\" (RFA) process
+- `[docs/roadmap/](mdc:docs/roadmap)`: Future development plans
+- `[docs/roadmap.md](mdc:docs/roadmap.md)`: High-level roadmap
+- `[docs/agent-templates.md](mdc:docs/agent-templates.md)`: Agent template structure
+- `[docs/i18n/](mdc:docs/i18n)`: Internationalization documentation
+- `[docs/error-handling/](mdc:docs/error-handling)`: Error handling guidelines
+- `[docs/storage/](mdc:docs/storage)`: Storage systems documentation
+- Additional files for specific topics
 
-1.  **Assign/Pick Issue**: Work on an existing GitHub issue or create a new one for your intended change.
-2.  **Create Branch**: Create a branch from the main development branch (e.g., `main` or `develop`) following the naming convention:
-    *   Features: `feat/issue-{number}-{short-description}`
-    *   Bugfixes: `fix/issue-{number}-{short-description}`
-    *   Example: `feat/issue-123-add-rate-limiting`
-3.  **Implement Changes**: Write code following the project's coding standards and specific rules relevant to the modified directories.
-4.  **Testing Practices:**
-    *   Before adding new tests, check existing Jest tests in the relevant module (e.g., within `agentdock-core` or the main Next.js app) to avoid duplication.
-    *   Remember that tests for the `agentdock-core` module are executed from the root project level (Next.js client), so configuration might be in the root `package.json` or `jest.config.ts`.
-    *   Avoid duplicating test infrastructure (setup files, mocks) that might already exist in the project root or within `agentdock-core/src/test/`.
-5.  **Update Documentation**: Ensure relevant documentation in `/docs` is updated (see `[docs.mdc](mdc:.cursor/rules/docs.mdc)` for guidelines).
-6.  **Commit Changes**: Use clear and concise commit messages, referencing the issue number:
-    *   Format: `[Issue #{number}] Brief description of changes`
-    *   Example: `[Issue #123] Add rate limiting middleware to chat API`
-7.  **Create Pull Request (PR)**:
-    *   Push your branch to the repository.
-    *   Create a PR targeting the main development branch.
-    *   **Link the Issue**: Ensure the PR description clearly links the relevant GitHub Issue(s).
-    *   **Describe Changes**: Write a clear description outlining the changes made and the problem solved.
-    *   **Testing Info**: Briefly mention the testing performed or added.
-    *   **Breaking Changes**: Clearly document any breaking changes.
-    *   Request reviews from relevant team members/maintainers.
-8.  **Address Feedback**: Respond to review comments and push updates to your branch.
-9.  **Merge**: Once approved and checks pass, the PR will be merged by a maintainer.
+## Documentation Standards
 
-## 4. General Code Standards
+- **Markdown Format**: Use GitHub Flavored Markdown
+- **Headers**: Use ATX-style headers (# H1, ## H2) with proper hierarchy
+- **Code Examples**: Use fenced code blocks with language specifiers
+  ```typescript
+  // TypeScript example
+  function example(): string {
+    return \"Hello World\";
+  }
+  ```
+- **Links**: Use relative links to other docs in the repository
+- **Images**: Store in an `assets` or `images` directory next to the relevant docs
+- **Diagrams**: Prefer Mermaid diagrams for technical illustrations
+- **Tables**: Use standard Markdown tables for tabular data
+- **Centralized Location:** All user-facing documentation (guides, architecture overviews, API docs, etc.) must be placed in the main `/docs` directory at the root of the repository. Do *not* place documentation within the `/agentdock-core` directory, as the core is not published as a standalone package yet and all documentation is hosted centrally.
 
-- **TypeScript**: Use TypeScript for type safety throughout the codebase.
-- **Code Style**: Adhere to ESLint and Prettier rules configured in the project (run `pnpm lint` and `pnpm format`).
-- **Naming Conventions** (Refer to specific rules like `src.mdc` for details, but generally):
-  - Files: `kebab-case.ts` / `kebab-case.tsx`
-  - Components: `PascalCase`
-  - Functions/Variables: `camelCase`
-  - Types/Interfaces: `PascalCase`
-  - Constants: `UPPER_SNAKE_CASE`
-- **Code Documentation**: Use JSDoc for exported functions, classes, types, and complex logic blocks.
+## Writing Style
+
+- **Audience**: Write for developers who are new to the codebase
+- **Clarity**: Be concise but thorough. Explain why, not just how
+- **Updates**: Keep documentation in sync with code changes
+- **Examples**: Include practical examples for complex topics
+- **Terminology**: Define specialized terms when first used
+
+## Contributing to Documentation
+
+To contribute documentation:
+
+1. For minor fixes, submit a PR with the changes
+2. For major additions, create an issue first to discuss the approach
+3. Follow the existing document structure and style
+4. Include documentation updates in the same PR as related code changes
+
+For questions about documentation, contact the project maintainers or open an issue.
 
 ---
 > Source: [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io).
