@@ -1,0 +1,9 @@
+{
+  "name": "phildougherty--sesame-csm-openai",
+  "displayName": "sesame_csm_openai",
+  "description": "OpenAI compatible TTS for Sesame CSM:1b & dia:1.6b - Voice Cloning from File/YT",
+  "version": "1.0.0",
+  "author": "phildougherty",
+  "homepage": "https://github.com/phildougherty/sesame_csm_openai",
+  "skills": []
+}
