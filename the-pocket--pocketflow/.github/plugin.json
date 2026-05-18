@@ -1,0 +1,9 @@
+{
+  "name": "the-pocket--pocketflow",
+  "displayName": "PocketFlow",
+  "description": "Pocket Flow: 100-line LLM framework. Let Agents build Agents!",
+  "version": "1.0.0",
+  "author": "The-Pocket",
+  "homepage": "https://github.com/The-Pocket/PocketFlow",
+  "skills": []
+}
