@@ -7,11 +7,11 @@ The Grafana CLI. Command-line tool designed to simplify interaction with Grafana
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [grafana/grafanactl](https://github.com/grafana/grafanactl).
+Original source: `CLAUDE.md` in [grafana/grafanactl](https://github.com/grafana/grafanactl).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
