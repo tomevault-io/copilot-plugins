@@ -1,30 +1,31 @@
-## core
+## root
 
-> - No dependencies on specific adapters
+> - Use pnpm for all package operations
 
-# MCP Prompts Core Package Rules
+# MCP Prompts Monorepo Root Rules
 
-## Domain Logic Purity
-- No dependencies on specific adapters
-- Pure TypeScript types and functions
-- Business logic only in core/
+## Build & Package Management
+- Use pnpm for all package operations
+- Build order: core → adapters → apps/server
+- Use `pnpm -r build` for full monorepo builds
+- Test with `pnpm -r test`
 
-## Module Structure
-- entities/ - Domain entities
-- ports/ - Interface definitions
-- services/ - Domain services
-- No infrastructure dependencies
+## Import Strategy
+- Use workspace:* for internal dependencies
+- Import from built outputs: @mcp-prompts/core/dist/
+- Avoid circular dependencies
 
-## Testing Approach
-- Unit tests with Jest
-- Mock all external dependencies
-- Test business logic in isolation
-- Coverage > 90%
+## Code Style
+- ESLint 9.0+ flat config
+- Prettier for formatting
+- TypeScript strict mode
+- Use NodeNext module resolution
 
-## Import Rules
-- No imports from adapter packages
-- Only standard library and domain contracts
-- Use dependency injection patterns
+## Architecture
+- Hexagonal architecture patterns
+- Ports (interfaces) in core/ports/
+- Adapters in separate packages
+- Pure domain logic in core/ # MCP Prompts Monorepo Root Rules
 
 ---
 > Source: [sparesparrow/mcp-prompts](https://github.com/sparesparrow/mcp-prompts) — distributed by [TomeVault](https://tomevault.io).
