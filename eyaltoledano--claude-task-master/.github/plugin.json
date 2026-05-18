@@ -1,0 +1,9 @@
+{
+  "name": "eyaltoledano--claude-task-master",
+  "displayName": "claude-task-master",
+  "description": "An AI-powered task-management system you can drop into Cursor, Lovable, Windsurf, Roo, and others.",
+  "version": "1.0.0",
+  "author": "eyaltoledano",
+  "homepage": "https://github.com/eyaltoledano/claude-task-master",
+  "skills": []
+}
