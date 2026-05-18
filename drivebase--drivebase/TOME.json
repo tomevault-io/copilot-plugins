@@ -4,7 +4,7 @@
   "repo": "drivebase",
   "description": "Drivebase is a cloud-agnostic file management platform for people and teams using multiple storage providers. \ud83d\ude80 ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drivebase/drivebase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T13:47:32Z"
+  "distributed_at": "2026-05-18T15:47:34Z"
 }
