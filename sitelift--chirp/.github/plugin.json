@@ -1,0 +1,9 @@
+{
+  "name": "sitelift--chirp",
+  "displayName": "Chirp",
+  "description": "Free, local voice-to-text for Windows & macOS. No cloud, no account, no subscription.",
+  "version": "1.0.0",
+  "author": "sitelift",
+  "homepage": "https://github.com/sitelift/Chirp",
+  "skills": []
+}
