@@ -1,0 +1,9 @@
+{
+  "name": "ferdousbhai--investor-agent",
+  "displayName": "investor-agent",
+  "description": "A Model Context Protocol server for building an investor agent",
+  "version": "1.0.0",
+  "author": "ferdousbhai",
+  "homepage": "https://github.com/ferdousbhai/investor-agent",
+  "skills": []
+}
