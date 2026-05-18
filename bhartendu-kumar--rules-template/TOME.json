@@ -1,0 +1,44 @@
+{
+  "name": "rules_template",
+  "owner": "Bhartendu-Kumar",
+  "repo": "rules_template",
+  "description": "If using CLINE/RooCode/Cursor/Windsurf Setup these rules. Usable for newbies riding AI wave and experienced folks both . Combines: (1) Memory,(2) Reasoning into subtasks (3) Prompts for best practices.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Bhartendu-Kumar/rules_template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:52:26Z"
+}
