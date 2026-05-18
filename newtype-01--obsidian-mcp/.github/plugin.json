@@ -1,0 +1,9 @@
+{
+  "name": "newtype-01--obsidian-mcp",
+  "displayName": "obsidian-mcp",
+  "description": "Obsidian MCP (Model Context Protocol) Server",
+  "version": "1.0.0",
+  "author": "newtype-01",
+  "homepage": "https://github.com/newtype-01/obsidian-mcp",
+  "skills": []
+}
