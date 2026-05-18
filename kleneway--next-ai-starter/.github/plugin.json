@@ -1,9 +1,9 @@
 {
   "name": "kleneway--next-ai-starter",
   "displayName": "next-ai-starter",
-  "description": "next-ai-starter",
+  "description": "Opinionated batteries-included starter kit optimized for building applications using AI coding tools",
   "version": "1.0.0",
   "author": "kleneway",
-  "homepage": "https://tomevault.io/claim/kleneway",
+  "homepage": "https://github.com/kleneway/next-ai-starter",
   "skills": []
 }
