@@ -2,9 +2,9 @@
   "name": "vibe-coding-template",
   "owner": "humanstack",
   "repo": "vibe-coding-template",
-  "description": "",
+  "description": "Ultimate vibe coding full stack template with code context - Build better apps faster with less tokens with AI coding agents",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/humanstack/vibe-coding-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T04:19:07Z"
+  "distributed_at": "2026-05-18T06:01:20Z"
 }
