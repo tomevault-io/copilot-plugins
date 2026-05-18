@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--ai-deadlines",
+  "displayName": "ai-deadlines",
+  "description": "\u23f0 AI conference deadline countdowns",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/ai-deadlines",
+  "skills": []
+}
