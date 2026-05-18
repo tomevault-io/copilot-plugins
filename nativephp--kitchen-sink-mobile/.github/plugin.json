@@ -1,0 +1,9 @@
+{
+  "name": "nativephp--kitchen-sink-mobile",
+  "displayName": "kitchen-sink-mobile",
+  "description": "NativePHP for mobile demo app",
+  "version": "1.0.0",
+  "author": "NativePHP",
+  "homepage": "https://github.com/NativePHP/kitchen-sink-mobile",
+  "skills": []
+}
