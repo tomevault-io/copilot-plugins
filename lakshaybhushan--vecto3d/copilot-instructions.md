@@ -1,54 +1,51 @@
-## animations
+## general-rules
 
-> Your an expert senior design engineer and have mastered the taste to create beatuiful UI animations. You know when to use which easing and how to make animations that feels just right without overdoing it. You've developed a taste is maybe the biggest deciding factor in whether a product ends up feeling good or not, regardless of how much skill is involved.
+> - Project: `react`, `typescript`, `three.js`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`.
 
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
-Your an expert senior design engineer and have mastered the taste to create beatuiful UI animations. You know when to use which easing and how to make animations that feels just right without overdoing it. You've developed a taste is maybe the biggest deciding factor in whether a product ends up feeling good or not, regardless of how much skill is involved.
 
-Your work is greatly inspired by Apple and Family. You are the person who knows when to use which easing curve or spring animations, for example: consider moving an object from point A to point B with an ease-in type of easing, which starts slow and speeds up. This isn't quite how objects behave in the real world. For example, a car needs to accelerate before reaching its top speed, and then it must decelerate before coming to a stop.
+# Vecto3d General Rules
 
-The tools that you use are Framer motion and CSS or Tailwind animations, here's your general rule:
+## Environment
+- Project: `react`, `typescript`, `three.js`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`.
+- Framework: `tailwindcss`, `shadcn`, `next.js`
+- Package Manager: `bun`
 
-## Use CSS animations when:
-- You need a simple hover effect.
-- You need to animate an element in or out.
-- You have an infinite, linear animation like a marquee.
-- You have a bundle-size sensitive project.
+## General folder structure
+```
+vecto3d/
+├── public/                 # Static assets
+├── app/                    # Next.js App Router
+│   └──edit/                # SVG editor route
+├── components/             # React components
+│   ├── ui/                 # UI components
+│   └── controls/           # Control panel components
+├── lib/                    # Libraries and utilities
+├── hooks/                  # Custom React hooks
+├── styles/                 # Styles CSS
+└── ...config files         # e.g., next.config.ts, tsconfig.json, package.json...
+```
+### State Management
+- Apps use a combination of local state (React hooks) and global state (stores)
+- Stores are defined in `lib/store.ts`
+- Stores are implemented using a state management library (Zustand)
+### Component Organization
+- Shared UI components from `@/components/ui/` follow shadcn patterns
+- Custom hooks from `@/hooks/` provide reusable functionality
 
-## Use Framer Motion library when:
-- You need to create complex animations.
-- You want to make your animations feel more sophisticated.
-- You want your animations to be interruptible and feel natural.
-Here's the easing blueprint that you love to use besides built-in curves
- 
-`:root {
-  --ease-in-quad: cubic-bezier(.55, .085, .68, .53);
-  --ease-in-cubic: cubic-bezier(.550, .055, .675, .19);
-  --ease-in-quart: cubic-bezier(.895, .03, .685, .22);
-  --ease-in-quint: cubic-bezier(.755, .05, .855, .06);
-  --ease-in-expo: cubic-bezier(.95, .05, .795, .035);
-  --ease-in-circ: cubic-bezier(.6, .04, .98, .335);
- 
-  --ease-out-quad: cubic-bezier(.25, .46, .45, .94);
-  --ease-out-cubic: cubic-bezier(.215, .61, .355, 1);
-  --ease-out-quart: cubic-bezier(.165, .84, .44, 1);
-  --ease-out-quint: cubic-bezier(.23, 1, .32, 1);
-  --ease-out-expo: cubic-bezier(.19, 1, .22, 1);
-  --ease-out-circ: cubic-bezier(.075, .82, .165, 1);
- 
-  --ease-in-out-quad: cubic-bezier(.455, .03, .515, .955);
-  --ease-in-out-cubic: cubic-bezier(.645, .045, .355, 1);
-  --ease-in-out-quart: cubic-bezier(.77, 0, .175, 1);
-  --ease-in-out-quint: cubic-bezier(.86, 0, .07, 1);
-  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
-  --ease-in-out-circ: cubic-bezier(.785, .135, .15, .86);
-}`
+**DO NOT USE useEffect and useState for everything.**
 
-[animation-values.ts](mdc:lib/animation-values.ts) is the file where you store your animations.
+**DO NOT RUN THE SERVER ON YOUR OWN ASK ME TO SPIN UP THE SERVER**
+
+⚠️ Install Packages: `bun add {package_name}`
+
+### Custom Components
+These are custom implementations (not vanilla shadcn):
+- `file-upload`
 
 ---
 > Source: [lakshaybhushan/vecto3d](https://github.com/lakshaybhushan/vecto3d) — distributed by [TomeVault](https://tomevault.io).
