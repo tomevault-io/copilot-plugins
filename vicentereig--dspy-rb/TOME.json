@@ -4,7 +4,7 @@
   "repo": "dspy.rb",
   "description": "The Ruby framework for programming\u2014rather than prompting\u2014language models.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vicentereig/dspy.rb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T10:08:23Z"
+  "distributed_at": "2026-05-18T10:26:56Z"
 }
