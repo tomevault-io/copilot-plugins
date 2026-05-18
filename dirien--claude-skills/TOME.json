@@ -1,0 +1,75 @@
+{
+  "name": "claude-skills",
+  "owner": "dirien",
+  "repo": "claude-skills",
+  "description": "Custom Claude Code skills for Pulumi infrastructure as code",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pulumi-typescript",
+      "path": "pulumi-typescript",
+      "github_url": "https://github.com/dirien/claude-skills/tree/main/pulumi-typescript",
+      "description": ""
+    },
+    {
+      "name": "pulumi-cli",
+      "path": "pulumi-cli",
+      "github_url": "https://github.com/dirien/claude-skills/tree/main/pulumi-cli",
+      "description": ""
+    },
+    {
+      "name": "pulumi-go",
+      "path": "pulumi-go",
+      "github_url": "https://github.com/dirien/claude-skills/tree/main/pulumi-go",
+      "description": ""
+    },
+    {
+      "name": "pulumi-neo",
+      "path": "pulumi-neo",
+      "github_url": "https://github.com/dirien/claude-skills/tree/main/pulumi-neo",
+      "description": ""
+    },
+    {
+      "name": "pulumi-python",
+      "path": "pulumi-python",
+      "github_url": "https://github.com/dirien/claude-skills/tree/main/pulumi-python",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dirien/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T19:30:24Z"
+}
