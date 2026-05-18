@@ -1,0 +1,9 @@
+{
+  "name": "deepnoodle-ai--dive",
+  "displayName": "dive",
+  "description": "Use Dive to quickly build AI agents in Go. Build agentic CLIs or add AI to your backend Go services. Easily customized and embedded in larger applications.",
+  "version": "1.0.0",
+  "author": "deepnoodle-ai",
+  "homepage": "https://github.com/deepnoodle-ai/dive",
+  "skills": []
+}
