@@ -4,7 +4,7 @@
   "repo": "hevy-mcp",
   "description": "Manage your Hevy workouts, routines, folders, and exercise templates. Create and update sessions faster, organize plans, and search exercises to build workouts quickly. Stay synced with changes so your training log is always up to date.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chrisdoc/hevy-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:59:44Z"
+  "distributed_at": "2026-05-18T06:00:15Z"
 }
