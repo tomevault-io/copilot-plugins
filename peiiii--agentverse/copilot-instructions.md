@@ -1,85 +1,131 @@
-## file-organization
+## file-size-limits
 
-> ├── assets/                # 静态资源
+> - **Target**: Under 100 lines per file
 
-# 文件组织规则
+# File Size Limits and Code Organization
 
-## 核心目录结构（示意）
+## Core Principle: Keep Files Small and Focused
 
-src/
-├── assets/                # 静态资源
-├── common/
-│   ├── components/        # 通用组件
-│   ├── features/          # 通用功能域
-│   │   ├── [feature]/
-│   │   │   ├── components/    # 功能组件
-│   │   │   ├── extensions/    # 功能扩展
-│   │   │   └── pages/         # 页面组件
-│   │   └── ...
-│   ├── hooks/             # 通用hooks
-│   ├── lib/               # 通用核心库与工具
-│   └── types/             # 通用类型定义
-├── core/
-│   ├── config/            # 配置
-│   ├── hooks/             # 应用级hooks
-│   ├── resources/         # 资源定义
-│   ├── services/          # 服务与状态管理
-│   ├── stores/            # 状态存储
-│   ├── styles/            # 样式
-│   └── utils/             # 工具函数
-├── desktop/
-│   └── features/          # 桌面端功能
-│       ├── [feature]/
-│       │   ├── components/    # 平台特定组件
-│       │   ├── extensions/    # 平台特定扩展
-│       │   ├── hooks/         # 平台特定hooks
-│       │   └── pages/         # 平台特定页面
-│       └── ...
-├── mobile/
-│   └── features/          # 移动端功能
-│       ├── [feature]/
-│       │   ├── extensions/    # 平台特定扩展
-│       │   └── pages/         # 平台特定页面
-│       └── ...
+### File Size Guidelines
+- **Target**: Under 100 lines per file
+- **Maximum**: 250 lines per file
+- **When to split**: If a file exceeds 200 lines, consider refactoring
 
+### Why Small Files Matter
+1. **Maintainability**: Easier to understand and modify
+2. **Testability**: Smaller units are easier to test
+3. **Reusability**: Focused modules can be reused independently
+4. **Collaboration**: Multiple developers can work on different files simultaneously
+5. **Code Review**: Smaller changes are easier to review
 
-## 核心原则
-- **平台分离**：desktop/mobile 平台特定代码分离
-- **功能优先**：按业务功能分组，而非技术类型
-- **复用性**：通用组件放 common，特定功能放 features
+## Refactoring Patterns
 
-## 分类规则
+### When a File Gets Too Large
 
-### `src/common/components/`
-- **UI 组件**：纯展示组件 (`ui/`)
-- **业务组件**：功能相关组件
-- **布局组件**：结构组件 (`layout/`)
+#### 1. Extract Types and Interfaces
+```typescript
+// Before: 300+ lines with mixed types and implementation
+// After: Separate types.ts file
+export interface MyInterface { ... }
+export type MyType = ...;
+```
 
-### `src/common/features/[feature]/`
-- **components/**：功能组件
-- **extensions/**：功能扩展
-- **pages/**：页面组件
+#### 2. Split by Responsibility
+```typescript
+// Before: One large class with multiple responsibilities
+// After: Multiple focused classes
+- base-class.ts
+- implementation-a.ts
+- implementation-b.ts
+```
 
-### `src/common/lib/`
-- **核心库**：核心功能库
-- **第三方集成**：外部库封装
-- **工具库**：工具函数
+#### 3. Extract Utilities
+```typescript
+// Before: Utility functions mixed with business logic
+// After: Dedicated utils file
+export function utilityFunction() { ... }
+```
 
-### `src/core/`
-- **应用核心**：配置、服务、状态管理、hooks
-- **业务逻辑**：应用级业务逻辑
+#### 4. Separate Concerns
+```typescript
+// Before: UI, logic, and data access in one file
+// After: Separate files for each concern
+- component.tsx (UI only)
+- logic.ts (Business logic)
+- data.ts (Data access)
+```
 
-### `src/desktop/features/[feature]/` 和 `src/mobile/features/[feature]/`
-- **components/**：平台特定组件（仅desktop）
-- **extensions/**：平台特定扩展
-- **hooks/**：平台特定hooks（仅desktop）
-- **pages/**：平台特定页面
+## Directory Organization
 
-## 命名规范
-- 目录：kebab-case
-- 文件：kebab-case
-- 服务文件：以 `.service.ts` 结尾
-- Hook 文件：以 `use-` 开头
+### Service Bus Portal Example
+The portal system demonstrates proper file organization:
+
+```
+portal/
+├── types.ts                    # 80 lines - Type definitions only
+├── base-portal.ts              # 50 lines - Abstract base class
+├── postmessage-portal.ts       # 90 lines - PostMessage implementation
+├── event-target-portal.ts      # 70 lines - EventTarget implementation
+├── portal-factory.ts           # 60 lines - Factory methods
+├── service-bus-portal-connector.ts  # 80 lines - Service integration
+├── service-bus-portal-proxy.ts      # 90 lines - Proxy implementation
+├── portal-composer.ts          # 80 lines - Multi-portal management
+├── compatibility.ts            # 70 lines - Legacy support
+└── index.ts                    # 30 lines - Exports only
+```
+
+## Refactoring Checklist
+
+When a file approaches 200 lines:
+
+- [ ] Can types be extracted to a separate file?
+- [ ] Can the class be split into multiple classes?
+- [ ] Can utility functions be moved to a utils file?
+- [ ] Can the file be split by feature or responsibility?
+- [ ] Are there clear boundaries between different concerns?
+- [ ] Can some logic be moved to a separate service or hook?
+
+## Benefits of Small Files
+
+1. **Single Responsibility**: Each file has one clear purpose
+2. **Easier Navigation**: Developers can quickly find relevant code
+3. **Better Testing**: Smaller units are easier to test in isolation
+4. **Reduced Conflicts**: Less chance of merge conflicts
+5. **Improved Performance**: Smaller files load and parse faster
+6. **Better IDE Support**: Faster autocomplete and navigation
+
+## Examples of Good File Organization
+
+### Before (Monolithic - 650 lines)
+```typescript
+// connect-service-bus-with-portal.ts - 650 lines
+// Contains: types, implementations, factories, adapters, compatibility
+```
+
+### After (Modular - 10 files, each under 100 lines)
+```typescript
+// types.ts - 80 lines
+// base-portal.ts - 50 lines  
+// postmessage-portal.ts - 90 lines
+// event-target-portal.ts - 70 lines
+// portal-factory.ts - 60 lines
+// service-bus-portal-connector.ts - 80 lines
+// service-bus-portal-proxy.ts - 90 lines
+// portal-composer.ts - 80 lines
+// compatibility.ts - 70 lines
+// index.ts - 30 lines
+```
+
+## Enforcement
+
+- **Code Review**: Always flag files over 250 lines
+- **Linting**: Consider adding file size limits to linting rules
+- **Documentation**: Document the reasoning for any files over 200 lines
+- **Refactoring**: Prioritize splitting large files in technical debt reviews
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
