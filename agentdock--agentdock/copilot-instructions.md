@@ -1,97 +1,92 @@
-## nodes
+## src
 
-> This file provides guidelines for creating and contributing custom tools in the `/src/nodes` directory.
+> This file outlines development conventions and architectural principles for the AgentDock OSS Client codebase in the `/src` directory. These rules ensure consistent implementation and maintainable code.
 
-# Node Development Rules (`/src/nodes`)
+# AgentDock Open Source Client (Next.js) Application Structure Rules (`/src`)
 
-This file provides guidelines for creating and contributing custom tools in the `/src/nodes` directory.
+This file outlines development conventions and architectural principles for the AgentDock OSS Client codebase in the `/src` directory. These rules ensure consistent implementation and maintainable code.
 
-## Core Concepts
+## Core Architecture
 
-The nodes in AgentDock are **specialized tool nodes** that extend the system's capabilities:
+The OSS Client is built on Next.js App Router and integrates with the `agentdock-core` framework via:
 
-- Each node is self-contained in its own directory
-- Nodes follow the Vercel AI SDK pattern
-- They provide component-based output formatting
+- **Adapter Pattern**: `agent-adapter.ts` and `orchestration-adapter.ts` bridge the core framework
+- **Provider Integration**: LLM providers are implemented with configurable environment keys or user-provided keys
+- **Stateless Design**: Components are designed to be stateless where possible, with state managed in stores
 
-## Directory Structure
+## Directory Structure & Implementation Guidelines
 
-The actual `/src/nodes` directory contains:
+### App Router Structure
 
-- `[README.md](mdc:src/nodes/README.md)`: Overview and architecture documentation
-- `[custom-tool-contributions.md](mdc:src/nodes/custom-tool-contributions.md)`: Detailed guide for contributors
-- `[registry.ts](mdc:src/nodes/registry.ts)`: Node registration system
-- `[init.ts](mdc:src/nodes/init.ts)`: Node initialization logic
-- `[types.ts](mdc:src/nodes/types.ts)`: Shared types for nodes
-- Individual tool directories (e.g., `search/`, `weather/`, `cognitive-tools/`)
+- `[app/](mdc:src/app)`: Use standard Next.js App Router conventions
+  - Route handlers in `[app/api/](mdc:src/app/api)` must implement proper error handling
+  - Always document API parameters with JSDoc and implement Zod validation
+  - Implement specific error types (400, 401, 404, 500) with clear messages
 
-## Implementation Guidelines
+### Component Development
 
-### Tool Implementation Pattern
+- Implement pure UI components in `[components/ui/](mdc:src/components/ui)` following shadcn/ui patterns
+- Feature components should be placed in domain-specific directories:
+  - `[components/chat/](mdc:src/components/chat)`: Chat interface components
+  - `[components/agents/](mdc:src/components/agents)`: Agent management components
+- Use the provider pattern in `[components/providers/](mdc:src/components/providers)` for cross-cutting concerns
 
-Each tool follows this pattern:
+### Core Implementation 
 
-```typescript
-// index.ts
-import { z } from 'zod';
-import { Tool } from '../types';
-import { MyComponent } from './components';
+- `[lib/](mdc:src/lib)` contains the core business logic and utilities
+  - Implement adapters for `agentdock-core` integration in the root directory
+  - Place type definitions in `[lib/types/](mdc:src/lib/types)` for shared schema
+  - Use `[lib/store/](mdc:src/lib/store)` for Zustand stores following the store pattern
 
-// 1. Define parameters schema
-const myToolSchema = z.object({
-  input: z.string().describe('What this input does')
-});
+### Tool Implementation
 
-// 2. Create and export your tool
-export const myTool: Tool = {
-  name: 'my_tool',
-  description: 'What this tool does',
-  parameters: myToolSchema,
-  async execute({ input }) {
-    // 3. Get your data
-    const data = await fetchData(input);
-    
-    // 4. Use your component to format output
-    return MyComponent(data);
-  }
-};
+- Custom tools must follow the implementation pattern in `[nodes/](mdc:src/nodes)`
+- Each tool must:
+  - Export a tool implementation that matches the `Tool` interface
+  - Include appropriate Zod schema for parameters
+  - Define error handling for all failure cases
+  - Register via the tool registry export pattern
+  - Follow the existing file structure
 
-// 5. Export for auto-registration
-export const tools = {
-  my_tool: myTool
-};
-```
+## Development Standards
 
-### Best Practices
+### State Management
 
-- Use proper error handling with try/catch blocks
-- Create components to format tool output
-- Store API keys in environment variables, never hardcode them
-- Implement server-side API calls for security
-- Follow TypeScript best practices with proper typing
-- Include comprehensive JSDoc comments
-- Create fallbacks for when external services are unavailable
+- **Component State**: Minimize state in components, lift to stores for shared state
 
-## Security Considerations
+### API Implementation
 
-- Validate all inputs
-- Sanitize outputs when appropriate
-- Use environment variables for API keys
-- Make API calls server-side only
-- Consider rate limiting for APIs with usage restrictions
+- Implement route handlers with explicit type checking
+- Use the AgentDock-specific error handling pattern from `error-utils.ts`
+- Support both environment-based and user-provided API keys
+- Centralize API endpoint implementations
 
-## Available Tools
+### Provider Integration
 
-The project currently includes tools for:
-- Search
-- Deep Research
-- Stock Price
-- Weather
-- Cognitive tools
-- Image generation
-- And more
+- Support multiple LLM providers through adapter interfaces
+- Implement both environment key and user-provided key patterns
+- Always handle rate limiting, quota exceeded, and network errors gracefully
+- Document provider-specific behavior
 
-Refer to `[custom-tool-contributions.md](mdc:src/nodes/custom-tool-contributions.md)` for detailed contribution guidelines.
+### Testing Approach
+
+- Implement component tests with React Testing Library
+- Use MSW for API mocking in integration tests
+- Centralize test fixtures in `__tests__/__fixtures__`
+
+### Performance Considerations
+
+- Implement proper suspense boundaries for async operations
+- Use streaming patterns for LLM responses
+- Apply proper caching strategies at both router and component levels
+
+## Deprecation & Migration Path
+
+- Flag deprecated patterns with `@deprecated` comments
+- Document migration paths for code using deprecated APIs
+- Remove deprecated code only after migration is complete
+
+The AgentDock OSS Client implementation emphasizes developer experience, maintainability, and performance while maintaining compatibility with the agentdock-core framework.
 
 ---
 > Source: [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io).
