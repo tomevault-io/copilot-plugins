@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickhouse-operator",
+  "displayName": "clickhouse-operator",
+  "description": "Official Kubernetes Operator for ClickHouse\u00ae",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhouse-operator",
+  "skills": []
+}
