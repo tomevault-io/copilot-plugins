@@ -1,157 +1,187 @@
-## ai-providers
+## claude-task-master
 
-> Guidelines for managing Task Master AI providers and models.
+> **Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
 
-# Task Master AI Provider Management
+# Claude Code Instructions
 
-This rule guides AI assistants on how to view, configure, and interact with the different AI providers and models supported by Task Master. For internal implementation details of the service layer, see [`ai_services.mdc`](mdc:.cursor/rules/ai_services.mdc).
+## Task Master AI Instructions
 
--   **Primary Interaction:**
-    -   Use the `models` MCP tool or the `task-master models` CLI command to manage AI configurations. See [`taskmaster.mdc`](mdc:.cursor/rules/taskmaster.mdc) for detailed command/tool usage.
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md
 
--   **Configuration Roles:**
-    -   Task Master uses three roles for AI models:
-        -   `main`: Primary model for general tasks (generation, updates).
-        -   `research`: Model used when the `--research` flag or `research: true` parameter is used (typically models with web access or specialized knowledge).
-        -   `fallback`: Model used if the primary (`main`) model fails.
-    -   Each role is configured with a specific `provider:modelId` pair (e.g., `openai:gpt-4o`).
+## Test Guidelines
 
--   **Viewing Configuration & Available Models:**
-    -   To see the current model assignments for each role and list all models available for assignment:
-        -   **MCP Tool:** `models` (call with no arguments or `listAvailableModels: true`)
-        -   **CLI Command:** `task-master models`
-    -   The output will show currently assigned models and a list of others, prefixed with their provider (e.g., `google:gemini-2.5-pro-exp-03-25`).
+### Test File Placement
 
--   **Setting Models for Roles:**
-    -   To assign a model to a role:
-        -   **MCP Tool:** `models` with `setMain`, `setResearch`, or `setFallback` parameters.
-        -   **CLI Command:** `task-master models` with `--set-main`, `--set-research`, or `--set-fallback` flags.
-    -   **Crucially:** When providing the model ID to *set*, **DO NOT include the `provider:` prefix**. Use only the model ID itself.
-        -   ✅ **DO:** `models(setMain='gpt-4o')` or `task-master models --set-main=gpt-4o`
-        -   ❌ **DON'T:** `models(setMain='openai:gpt-4o')` or `task-master models --set-main=openai:gpt-4o`
-    -   The tool/command will automatically determine the provider based on the model ID.
+- **Package & tests**: Place in `packages/<package-name>/src/<module>/<file>.spec.ts` or `apps/<app-name>/src/<module>/<file.spec.ts>` alongside source
+- **Package integration tests**: Place in `packages/<package-name>/tests/integration/<module>/<file>.test.ts` or `apps/<app-name>/tests/integration/<module>/<file>.test.ts` alongside source
+- **Isolated unit tests**: Use `tests/unit/packages/<package-name>/` only when parallel placement isn't possible
+- **Test extension**: Always use `.ts` for TypeScript tests, never `.js`
 
--   **Setting Custom Models (Ollama/OpenRouter):**
-    -   To set a model ID not in the internal list for Ollama or OpenRouter:
-        -   **MCP Tool:** Use `models` with `set<Role>` and **also** `ollama: true` or `openrouter: true`.
-            -   Example: `models(setMain='my-custom-ollama-model', ollama=true)`
-            -   Example: `models(setMain='some-openrouter-model', openrouter=true)`
-        -   **CLI Command:** Use `task-master models` with `--set-<role>` and **also** `--ollama` or `--openrouter`.
-            -   Example: `task-master models --set-main=my-custom-ollama-model --ollama`
-            -   Example: `task-master models --set-main=some-openrouter-model --openrouter`
-        -   **Interactive Setup:** Use `task-master models --setup` and select the `Ollama (Enter Custom ID)` or `OpenRouter (Enter Custom ID)` options.
-    -   **OpenRouter Validation:** When setting a custom OpenRouter model, Taskmaster attempts to validate the ID against the live OpenRouter API.
-    -   **Ollama:** No live validation occurs for custom Ollama models; ensure the model is available on your Ollama server.
+### Synchronous Tests
 
--   **Supported Providers & Required API Keys:**
-    -   Task Master integrates with various providers via the Vercel AI SDK.
-    -   **API keys are essential** for most providers and must be configured correctly.
-    -   **Key Locations** (See [`dev_workflow.mdc`](mdc:.cursor/rules/dev_workflow.mdc) - Configuration Management):
-        -   **MCP/Cursor:** Set keys in the `env` section of `.cursor/mcp.json`.
-        -   **CLI:** Set keys in a `.env` file in the project root.
-    -   **Provider List & Keys:**
-        -   **`anthropic`**: Requires `ANTHROPIC_API_KEY`.
-        -   **`google`**: Requires `GOOGLE_API_KEY`.
-        -   **`openai`**: Requires `OPENAI_API_KEY`.
-        -   **`perplexity`**: Requires `PERPLEXITY_API_KEY`.
-        -   **`xai`**: Requires `XAI_API_KEY`.
-        -   **`mistral`**: Requires `MISTRAL_API_KEY`.
-        -   **`azure`**: Requires `AZURE_OPENAI_API_KEY` and `AZURE_OPENAI_ENDPOINT`.
-        -   **`openrouter`**: Requires `OPENROUTER_API_KEY`.
-        -   **`ollama`**: Might require `OLLAMA_API_KEY` (not currently supported) *and* `OLLAMA_BASE_URL` (default: `http://localhost:11434/api`). *Check specific setup.*
+- **NEVER use async/await in test functions** unless testing actual asynchronous operations
+- Use synchronous top-level imports instead of dynamic `await import()`
+- Test bodies should be synchronous whenever possible
+- Example:
 
--   **Troubleshooting:**
-    -   If AI commands fail (especially in MCP context):
-        1.  **Verify API Key:** Ensure the correct API key for the *selected provider* (check `models` output) exists in the appropriate location (`.cursor/mcp.json` env or `.env`).
-        2.  **Check Model ID:** Ensure the model ID set for the role is valid (use `models` listAvailableModels/`task-master models`).
-        3.  **Provider Status:** Check the status of the external AI provider's service.
-        4.  **Restart MCP:** If changes were made to configuration or provider code, restart the MCP server.
+  ```typescript
+  // ✅ CORRECT - Synchronous imports with .ts extension
+  import { MyClass } from '../src/my-class.js';
 
-## Adding a New AI Provider (Vercel AI SDK Method)
+  it('should verify behavior', () => {
+    expect(new MyClass().property).toBe(value);
+  });
 
-Follow these steps to integrate a new AI provider that has an official Vercel AI SDK adapter (`@ai-sdk/<provider>`):
+  // ❌ INCORRECT - Async imports
+  it('should verify behavior', async () => {
+    const { MyClass } = await import('../src/my-class.js');
+    expect(new MyClass().property).toBe(value);
+  });
+  ```
 
-1.  **Install Dependency:**
-    -   Install the provider-specific package:
-        ```bash
-        npm install @ai-sdk/<provider-name>
-        ```
+### When to Write Tests
 
-2.  **Create Provider Module:**
-    -   Create a new file in `src/ai-providers/` named `<provider-name>.js`.
-    -   Use existing modules (`openai.js`, `anthropic.js`, etc.) as a template.
-    -   **Import:**
-        -   Import the provider's `create<ProviderName>` function from `@ai-sdk/<provider-name>`.
-        -   Import `generateText`, `streamText`, `generateObject` from the core `ai` package.
-        -   Import the `log` utility from `../../scripts/modules/utils.js`.
-    -   **Implement Core Functions:**
-        -   `generate<ProviderName>Text(params)`:
-            -   Accepts `params` (apiKey, modelId, messages, etc.).
-            -   Instantiate the client: `const client = create<ProviderName>({ apiKey });`
-            -   Call `generateText({ model: client(modelId), ... })`.
-            -   Return `result.text`.
-            -   Include basic validation and try/catch error handling.
-        -   `stream<ProviderName>Text(params)`:
-            -   Similar structure to `generateText`.
-            -   Call `streamText({ model: client(modelId), ... })`.
-            -   Return the full stream result object.
-            -   Include basic validation and try/catch.
-        -   `generate<ProviderName>Object(params)`:
-            -   Similar structure.
-            -   Call `generateObject({ model: client(modelId), schema, messages, ... })`.
-            -   Return `result.object`.
-            -   Include basic validation and try/catch.
-    -   **Export Functions:** Export the three implemented functions (`generate<ProviderName>Text`, `stream<ProviderName>Text`, `generate<ProviderName>Object`).
+**ALWAYS write tests for:**
 
-3.  **Integrate with Unified Service:**
-    -   Open `scripts/modules/ai-services-unified.js`.
-    -   **Import:** Add `import * as <providerName> from '../../src/ai-providers/<provider-name>.js';`
-    -   **Map:** Add an entry to the `PROVIDER_FUNCTIONS` map:
-        ```javascript
-        '<provider-name>': {
-            generateText: <providerName>.generate<ProviderName>Text,
-            streamText: <providerName>.stream<ProviderName>Text,
-            generateObject: <providerName>.generate<ProviderName>Object
-        },
-        ```
+- **Bug fixes**: Add a regression test that would have caught the bug
+- **Business logic**: Complex calculations, validations, transformations
+- **Edge cases**: Boundary conditions, error handling, null/undefined cases
+- **Public APIs**: Methods other code depends on
+- **Integration points**: Database, file system, external APIs
 
-4.  **Update Configuration Management:**
-    -   Open `scripts/modules/config-manager.js`.
-    -   **`MODEL_MAP`:** Add the new `<provider-name>` key to the `MODEL_MAP` loaded from `supported-models.json` (or ensure the loading handles new providers dynamically if `supported-models.json` is updated first).
-    -   **`VALID_PROVIDERS`:** Ensure the new `<provider-name>` is included in the `VALID_PROVIDERS` array (this should happen automatically if derived from `MODEL_MAP` keys).
-    -   **API Key Handling:**
-        -   Update the `keyMap` in `_resolveApiKey` and `isApiKeySet` with the correct environment variable name (e.g., `PROVIDER_API_KEY`).
-        -   Update the `switch` statement in `getMcpApiKeyStatus` to check the corresponding key in `mcp.json` and its placeholder value.
-        -   Add a case to the `switch` statement in `getMcpApiKeyStatus` for the new provider, including its placeholder string if applicable.
-    -   **Ollama Exception:** If adding Ollama or another provider *not* requiring an API key, add a specific check at the beginning of `isApiKeySet` and `getMcpApiKeyStatus` to return `true` immediately for that provider.
+**SKIP tests for:**
 
-5.  **Update Supported Models List:**
-    -   Edit `scripts/modules/supported-models.json`.
-    -   Add a new key for the `<provider-name>`.
-    -   Add an array of model objects under the provider key, each including:
-        -   `id`: The specific model identifier (e.g., `claude-3-opus-20240229`).
-        -   `name`: A user-friendly name (optional).
-        -   `swe_score`, `cost_per_1m_tokens`: (Optional) Add performance/cost data if available.
-        -   `allowed_roles`: An array of roles (`"main"`, `"research"`, `"fallback"`) the model is suitable for.
-        -   `max_tokens`: (Optional but recommended) The maximum token limit for the model.
+- Simple getters/setters: `getX() { return this.x; }`
+- Trivial pass-through functions with no logic
+- Pure configuration objects
+- Code that just delegates to another tested function
 
-6.  **Update Environment Examples:**
-    -   Add the new `PROVIDER_API_KEY` to `.env.example`.
-    -   Add the new `PROVIDER_API_KEY` with its placeholder (`YOUR_PROVIDER_API_KEY_HERE`) to the `env` section for `taskmaster-ai` in `.cursor/mcp.json.example` (if it exists) or update instructions.
+**Examples:**
 
-7.  **Add Unit Tests:**
-    -   Create `tests/unit/ai-providers/<provider-name>.test.js`.
-    -   Mock the `@ai-sdk/<provider-name>` module and the core `ai` module functions (`generateText`, `streamText`, `generateObject`).
-    -   Write tests for each exported function (`generate<ProviderName>Text`, etc.) to verify:
-        -   Correct client instantiation.
-        -   Correct parameters passed to the mocked Vercel AI SDK functions.
-        -   Correct handling of results.
-        -   Error handling (missing API key, SDK errors).
+```javascript
+// ✅ WRITE A TEST - Bug fix with regression prevention
+it('should use correct baseURL from defaultBaseURL config', () => {
+  const provider = new ZAIProvider();
+  expect(provider.defaultBaseURL).toBe('https://api.z.ai/api/paas/v4/');
+});
 
-8.  **Documentation:**
-    -   Update any relevant documentation (like `README.md` or other rules) mentioning supported providers or configuration.
+// ✅ WRITE A TEST - Business logic with edge cases
+it('should parse subtask IDs correctly', () => {
+  expect(parseTaskId('1.2.3')).toEqual({ taskId: 1, subtaskId: 2, subSubtaskId: 3 });
+  expect(parseTaskId('invalid')).toBeNull();
+});
 
-*(Note: For providers **without** an official Vercel AI SDK adapter, the process would involve directly using the provider's own SDK or API within the `src/ai-providers/<provider-name>.js` module and manually constructing responses compatible with the unified service layer, which is significantly more complex.)*
+// ❌ SKIP TEST - Trivial getter
+class Task {
+  get id() { return this._id; } // No test needed
+}
+
+// ❌ SKIP TEST - Pure delegation
+function getTasks() {
+  return taskManager.getTasks(); // Already tested in taskManager
+}
+```
+
+**Bug Fix Workflow:**
+
+1. Encounter a bug
+2. Write a failing test that reproduces it
+3. Fix the bug
+4. Verify test now passes
+5. Commit both fix and test together
+
+### Testing Guidelines
+
+**Principles**: FIRST (Fast, Independent, Repeatable, Self-validating, Timely)
+**Structure**: AAA (Arrange, Act, Assert)
+**Coverage**: Right-BICEP (Right results, Boundary, Inverse, Cross-check, Error conditions, Performance)
+
+#### What to Mock
+
+**Unit tests** (`.spec.ts` - test single unit in isolation):
+- **@tm/core**: Mock only external I/O (Supabase, APIs, filesystem). Use real internal services.
+- **apps/cli**: Mock tm-core responses. Use real Commander/chalk/inquirer/other npm packages (test display logic).
+- **apps/mcp**: Mock tm-core responses. Use real MCP framework (test response formatting).
+
+**Integration tests** (`tests/integration/` - test multiple units together):
+- **All packages**: Use real tm-core, mock only external boundaries (APIs, DB, filesystem).
+
+**Never mock**:
+- Internal utilities/helpers in the same package
+- Standard frameworks (Commander, Express) - let them run
+- Standard library
+
+**Rule of thumb**: Mock what you're NOT testing. CLI unit tests test display → mock tm-core. Core unit tests test logic → mock I/O. Integration tests test full flow → mock only external APIs.
+
+**Red flag**: Mocking 3+ dependencies in a unit test means code is doing too much or is in the wrong layer.
+
+**Anti-pattern**: Heavily mocked tests don't verify real behavior—they verify that you wired up mocks correctly. You end up writing orchestration code to satisfy tests, rather than tests that validate your actual implementation. If testing is hard, move the logic to where it's naturally testable.
+
+## Architecture Guidelines
+
+### Business Logic Separation
+
+**CRITICAL RULE**: ALL business logic must live in `@tm/core`, NOT in presentation layers.
+
+- **`@tm/core`** (packages/tm-core/):
+  - Contains ALL business logic, domain models, services, and utilities
+  - Provides clean facade APIs through domain objects (tasks, auth, workflow, git, config)
+  - Houses all complexity - parsing, validation, transformations, calculations, etc.
+  - Example: Task ID parsing, subtask extraction, status validation, dependency resolution
+
+- **`@tm/cli`** (apps/cli/):
+  - Thin presentation layer ONLY
+  - Calls tm-core methods and displays results
+  - Handles CLI-specific concerns: argument parsing, output formatting, user prompts
+  - NO business logic, NO data transformations, NO calculations
+
+- **`@tm/mcp`** (apps/mcp/):
+  - Thin presentation layer ONLY
+  - Calls tm-core methods and returns MCP-formatted responses
+  - Handles MCP-specific concerns: tool schemas, parameter validation, response formatting
+  - NO business logic, NO data transformations, NO calculations
+
+- **`apps/extension`** (future):
+  - Thin presentation layer ONLY
+  - Calls tm-core methods and displays in VS Code UI
+  - NO business logic
+
+**Examples of violations to avoid:**
+
+- ❌ Creating helper functions in CLI/MCP to parse task IDs → Move to tm-core
+- ❌ Data transformation logic in CLI/MCP → Move to tm-core
+- ❌ Validation logic in CLI/MCP → Move to tm-core
+- ❌ Duplicating logic across CLI and MCP → Implement once in tm-core
+
+**Correct approach:**
+
+- ✅ Add method to TasksDomain: `tasks.get(taskId)` (automatically handles task and subtask IDs)
+- ✅ CLI calls: `await tmCore.tasks.get(taskId)` (supports "1", "1.2", "HAM-123", "HAM-123.2")
+- ✅ MCP calls: `await tmCore.tasks.get(taskId)` (same intelligent ID parsing)
+- ✅ Single source of truth in tm-core
+
+## Code Quality & Reusability Guidelines
+
+Apply standard software engineering principles:
+
+- **DRY (Don't Repeat Yourself)**: Extract patterns that appear 2+ times into reusable components or utilities
+- **YAGNI (You Aren't Gonna Need It)**: Don't over-engineer. Create abstractions when duplication appears, not before
+- **Maintainable**: Single source of truth. Change once, update everywhere
+- **Readable**: Clear naming, proper structure, export from index files
+- **Flexible**: Accept configuration options with sensible defaults
+
+## Documentation Guidelines
+
+- **Documentation location**: Write docs in `apps/docs/` (Mintlify site source), not `docs/`
+- **Documentation URL**: Reference docs at <https://tryhamster.com/docs/taskmaster>, not local file paths
+
+## Changeset Guidelines
+
+- **Add a changeset for code changes** - Run `npx changeset` after making code changes (not needed for docs-only PRs)
+- When creating changesets, remember that it's user-facing, meaning we don't have to get into the specifics of the code, but rather mention what the end-user is getting or fixing from this changeset
+- Run `npm run turbo:typecheck` before pushing to ensure TypeScript type checks pass
+- Run `npm run test -w <package-name>` to test a package
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
