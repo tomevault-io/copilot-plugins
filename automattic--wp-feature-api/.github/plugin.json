@@ -1,0 +1,9 @@
+{
+  "name": "automattic--wp-feature-api",
+  "displayName": "wp-feature-api",
+  "description": "Feature API - This repository will be deprecated as stable releases of the Abilities API become available. Please use https://github.com/WordPress/abilities-api for ongoing development and support.",
+  "version": "1.0.0",
+  "author": "Automattic",
+  "homepage": "https://github.com/Automattic/wp-feature-api",
+  "skills": []
+}
