@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--vitest-evals",
+  "displayName": "vitest-evals",
+  "description": "A vitest extension for running evals.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/vitest-evals",
+  "skills": []
+}
