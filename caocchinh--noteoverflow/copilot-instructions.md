@@ -1,0 +1,139 @@
+## noteoverflow
+
+> When asked to review code or before finalizing changes, verify compliance with the following rules:
+
+When asked to review code or before finalizing changes, verify compliance with the following rules:
+
+# React Strict Guidelines (v19+)
+
+## Core Principles
+
+> **"You Might Not Need An Effect"** - prioritize render logic and event handlers.
+
+### Effects (`useEffect`)
+
+- **NO Data Transformation**: Do NOT use Effects to update state based on props/state changes. Calculate derived values during render.
+- **NO User Events**: Do NOT use Effects for logic triggered by interactions (e.g., POST on click). Use event handlers.
+- **NO Chains**: Avoid chains of Effects triggering state updates. Calculate next state in the handler or render.
+- **NO Parent Notify**: Do NOT use Effects to call `onChange` prop after state update. Call it in the event handler.
+- **NO Initialization**: Avoid Effects for one-time app init. Use module-scope checks or root component logic.
+- **Race Conditions**: ALWAYS implement cleanup (e.g., `ignore` flag) when fetching in `useEffect`.
+
+### State Management
+
+- **Derived State**: If `b` can be calculated from `a`, do NOT store `b` in state.
+- **Resetting State**: Use a unique `key` prop to reset component state on prop change, NOT an Effect.
+- **Subscriptions**: Use `useSyncExternalStore` for external stores (browser APIs, window events), NOT `useEffect`.
+- **Lifting State**: If synchronizing two states, lift state up to the parent.
+- **Refs vs. Effects**: Encourage using `useImperativeHandle` to expose specific methods/state to simple parents, rather than lifting deep state.
+
+### Performance
+
+- **Memoization**: Use `useMemo` for expensive calculations (e.g., filtering large lists), NOT `useEffect` + state.
+- **Keys**: Ensure proper `key` usage in iterators (must be stable IDs, avoid array index).
+
+## React 19 Specifics
+
+- **Refs**: Pass `ref` as a prop. Do NOT use `forwardRef`.
+- **Context**: Use `<Context>` provider directly. Do NOT use `<Context.Provider>`.
+- **use API**: Use `use(Promise)` or `use(Context)` in render.
+- **Form Actions**: Prefer `useActionState` (or `useFormState` if older) regarding form submissions.
+
+## Component & Hook Purity (React 19.2)
+
+> Pure functions only perform a calculation and nothing more. This makes code easier to understand, debug, and allows React to automatically optimize components and Hooks correctly.
+
+### Idempotency
+
+- **Consistent Output**: Components MUST always return the same output given the same inputs (props, state, context).
+- **No Non-Idempotent Calls in Render**: Do NOT call `new Date()`, `Math.random()`, or other non-idempotent functions during render.
+  - [Bad] `const time = new Date();` in render
+  - [Good] Use `useState(() => new Date())` + `useEffect` with `setInterval` to sync external time.
+
+### Side Effects in Render
+
+- **No Side Effects**: Rendering MUST be pure. Side effects belong in event handlers or Effects.
+- **No DOM Mutation**: Do NOT modify `document.title` or other DOM properties directly in render.
+  - [Good] Synchronize with `useEffect` or use Next.js `<Head>` / metadata API.
+
+### Mutation Rules
+
+- **Local Mutation OK**: Mutating locally-created values during render is fine (e.g., `items.push()` on a local array).
+- **No External Mutation**: Do NOT mutate values created outside the component.
+  - [Bad] `const items = [];` outside component, then `items.push()` inside render.
+- **Lazy Init OK**: `SuperCalculator.initializeIfNotReady()` is acceptable if it doesn't affect other components.
+
+### Props & State Immutability
+
+- **Never Mutate Props**: Do NOT modify `item.url = ...`. Make a copy: `const url = new Url(item.url, base);`
+- **Never Mutate State Directly**: Use the setter function from `useState`, not direct assignment.
+  - [Bad] `count = count + 1;`
+  - [Good] `setCount(count + 1);`
+
+### Hook Arguments & Return Values
+
+- **Immutable Hook Args**: Do NOT mutate values passed to hooks. Make copies if modification needed.
+  - [Bad] `icon.className = computeStyle(icon, theme);`
+  - [Good] `const newIcon = { ...icon }; newIcon.className = ...;`
+- **Immutable Hook Returns**: Do NOT mutate values returned from hooks (they may be memoized).
+
+### JSX Value Immutability
+
+- **No Mutation After JSX Use**: Once a value is used in JSX, do NOT mutate it.
+  - [Bad] `const header = <Header styles={styles} />; styles.size = "small";`
+  - [Good] Create separate objects for each use: `headerStyles` and `footerStyles`.
+
+# Next.js Guidelines (App Router)
+
+## Server Components (RSC)
+
+- **Default**: Treat all components as Server Components unless interactivity is required.
+- **Data Fetching**: Fetch data directly in RSCs (DB queries, `fetch`). Avoid `useEffect` for data fetching.
+- **Async**: Make RSCs `async` to await data fetching.
+- **No Listeners**: Do NOT add event listeners (`onClick`, `onChange`) in RSCs.
+
+## Client Components
+
+- **'use client'**: Add directive at the very top of the file.
+- **Leaf Nodes**: Push Client Components down the tree to the leaves. Keep parents as RSCs.
+- **Props**: Pass Only serializable data (JSON) from RSC to Client Components.
+- **Hooks**: This is the only place to use `useState`, `useEffect`, `useRef`, custom hooks.
+
+## Data Fetching & Mutations
+
+- **Server Actions**: Use Server Actions (`'use server'`) for mutations/form submissions.
+- **Route Handlers**: Use Route Handlers (API routes) only when necessary (e.g., webhooks, external access).
+- **Caching**: Be aware of default caching. Use `revalidatePath` or `revalidateTag` for updates.
+
+## Routing
+
+- **Navigation**: Use `<Link>` component.
+- **Programmatic**: Use `useRouter` from `next/navigation` inside Client Components.
+- **Params**:
+  - **Server**: Await `props.params` (Next.js 15+).
+  - **Client**: Use `useParams` from `next/navigation`.
+
+# TanStack Query (v5)
+
+## Query Keys
+
+- **Factory Pattern**: ALWAYS use a query key factory to maintain consistency.
+  - Example: `export const userKeys = { all: ['users'], lists: () => [...userKeys.all, 'list'], detail: (id) => [...userKeys.all, 'detail', id] }`
+- **Granularity**: Include all dependencies in the query key (like `useEffect` dependencies).
+
+## Queries
+
+- **Server Components**: Prefer prefetching options:
+  - **Hydration**: Prefetch in RSC using `QueryClient`, dehydrate, and hydrate in Client Component.
+  - **Initial Data**: Pass initial data from RSC to `useQuery` (less preferred for deep trees).
+- **Custom Hooks**: Wrap `useQuery` in custom hooks (e.g., `useUser(id)`) to encapsulate keys and options.
+
+## Mutations
+
+- **Invalidation**: ALWAYS invalidate relevant queries in `onSuccess` or `onSettled`.
+  - `await queryClient.invalidateQueries({ queryKey: userKeys.lists() })`
+- **Optimistic Updates**: Implement optimistic updates for better UX where appropriate, but ensure rollback on error.
+
+---
+> Source: [caocchinh/noteoverflow](https://github.com/caocchinh/noteoverflow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
