@@ -1,0 +1,9 @@
+{
+  "name": "delorenj--mcp-server-trello",
+  "displayName": "mcp-server-trello",
+  "description": "A Model Context Protocol (MCP) server that provides tools for interacting with Trello boards.",
+  "version": "1.0.0",
+  "author": "delorenj",
+  "homepage": "https://github.com/delorenj/mcp-server-trello",
+  "skills": []
+}
