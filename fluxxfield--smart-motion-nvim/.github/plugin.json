@@ -1,0 +1,9 @@
+{
+  "name": "fluxxfield--smart-motion-nvim",
+  "displayName": "smart-motion.nvim",
+  "description": "Label-based motion framework for Neovim \u2014 jump to words, lines, search matches, treesitter nodes, and more with composable operators (d/y/c/p) and multi-window support.",
+  "version": "1.0.0",
+  "author": "FluxxField",
+  "homepage": "https://github.com/FluxxField/smart-motion.nvim",
+  "skills": []
+}
