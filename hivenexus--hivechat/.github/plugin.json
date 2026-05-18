@@ -1,0 +1,9 @@
+{
+  "name": "hivenexus--hivechat",
+  "displayName": "HiveChat",
+  "description": "An AI chat bot for small and medium-sized teams, supporting models such as Deepseek, Open AI, Claude, and Gemini. \u4e13\u4e3a\u4e2d\u5c0f\u56e2\u961f\u8bbe\u8ba1\u7684 AI \u804a\u5929\u5e94\u7528\uff0c\u652f\u6301 Deepseek\u3001Open AI\u3001Claude\u3001Gemini \u7b49\u6a21\u578b\u3002",
+  "version": "1.0.0",
+  "author": "HiveNexus",
+  "homepage": "https://github.com/HiveNexus/HiveChat",
+  "skills": []
+}
