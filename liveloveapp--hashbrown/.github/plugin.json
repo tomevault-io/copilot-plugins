@@ -1,0 +1,9 @@
+{
+  "name": "liveloveapp--hashbrown",
+  "displayName": "hashbrown",
+  "description": "Hashbrown is a framework for building agents that run the browser. Built for Angular and React.",
+  "version": "1.0.0",
+  "author": "liveloveapp",
+  "homepage": "https://github.com/liveloveapp/hashbrown",
+  "skills": []
+}
