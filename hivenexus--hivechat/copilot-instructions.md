@@ -1,34 +1,26 @@
-## 02-components
+## 03-api-structure
 
-> The application uses a component-based architecture. Key components include:
+> The application uses Next.js API routes to handle backend functionality.
 
-# UI Components
+# API Structure
 
-The application uses a component-based architecture. Key components include:
+The application uses Next.js API routes to handle backend functionality.
 
-## Chat Interface Components
-- [app/components/App.tsx](mdc:app/components/App.tsx): Main application component
-- [app/components/ChatList.tsx](mdc:app/components/ChatList.tsx): List of chat conversations
-- [app/components/MessageList.tsx](mdc:app/components/MessageList.tsx): List of messages in a conversation
-- [app/components/MessageItem.tsx](mdc:app/components/MessageItem.tsx): Individual message component
-- [app/components/ResponsingMessage.tsx](mdc:app/components/ResponsingMessage.tsx): Component for messages being generated/responded to
-- [app/components/AdaptiveTextarea.tsx](mdc:app/components/AdaptiveTextarea.tsx): Textarea that adapts to content
+## Completions API
+The completions API handles interactions with various AI models:
 
-## UI Enhancement Components
-- [app/components/Markdown.tsx](mdc:app/components/Markdown.tsx): Markdown rendering component
-- [app/components/CodeBlock.tsx](mdc:app/components/CodeBlock.tsx): Code highlighting component
-- [app/components/EmojiPicker.tsx](mdc:app/components/EmojiPicker.tsx): Emoji selection interface
+- [app/api/completions/route.ts](mdc:app/api/completions/route.ts): Main API route handler for completions
+- [app/api/completions/actions.ts](mdc:app/api/completions/actions.ts): Actions for handling completions
+- [app/api/completions/proxyOpenAiStream.ts](mdc:app/api/completions/proxyOpenAiStream.ts): Proxy for OpenAI streaming API
+- [app/api/completions/proxyClaudeStream.ts](mdc:app/api/completions/proxyClaudeStream.ts): Proxy for Claude streaming API
+- [app/api/completions/proxyGeminiStream.ts](mdc:app/api/completions/proxyGeminiStream.ts): Proxy for Gemini streaming API
 
-## Navigation Components
-- [app/components/Sidebar.tsx](mdc:app/components/Sidebar.tsx): Main sidebar navigation
-- [app/components/SidebarMenuSection.tsx](mdc:app/components/SidebarMenuSection.tsx): Section within the sidebar
+## Authentication APIs
+The application supports multiple authentication methods:
 
-## Authentication Components
-- [app/components/SignIn.tsx](mdc:app/components/SignIn.tsx): Sign-in component
-- [app/components/loginModal.tsx](mdc:app/components/loginModal.tsx): Login modal dialog
-- [app/components/WecomLoginButton.tsx](mdc:app/components/WecomLoginButton.tsx): Wecom login integration
-- [app/components/DingdingLoginButton.tsx](mdc:app/components/DingdingLoginButton.tsx): Dingding login integration
-- [app/components/FeishuLoginButton.tsx](mdc:app/components/FeishuLoginButton.tsx): Feishu login integration
+- [app/api/auth](mdc:app/api/auth): Authentication API routes
+- [app/api/wecomProxy](mdc:app/api/wecomProxy): Wecom authentication proxy
+- [app/api/dingdingProxy](mdc:app/api/dingdingProxy): Dingding authentication proxy
 
 ---
 > Source: [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat) — distributed by [TomeVault](https://tomevault.io).
