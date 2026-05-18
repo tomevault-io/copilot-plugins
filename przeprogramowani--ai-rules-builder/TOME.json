@@ -2,9 +2,9 @@
   "name": "ai-rules-builder",
   "owner": "przeprogramowani",
   "repo": "ai-rules-builder",
-  "description": "",
+  "description": "Generate \"Rules for AI\". Quickly \u2728",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/przeprogramowani",
+  "source_url": "https://github.com/przeprogramowani/ai-rules-builder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T20:15:47Z"
+  "distributed_at": "2026-05-18T10:04:29Z"
 }
