@@ -1,0 +1,147 @@
+{
+  "name": "zoonk",
+  "owner": "zoonk",
+  "repo": "zoonk",
+  "description": "Open-source platform for interactive learning",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-sdk",
+      "path": ".agents/skills/ai-sdk",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/ai-sdk",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": ".agents/skills/next-best-practices",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "path": ".agents/skills/next-cache-components",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "path": ".agents/skills/vercel-composition-patterns",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "path": ".agents/skills/workflow",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/workflow",
+      "description": ""
+    },
+    {
+      "name": "zoonk-business",
+      "path": ".agents/skills/zoonk-business",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-business",
+      "description": ""
+    },
+    {
+      "name": "zoonk-code-simplification",
+      "path": ".agents/skills/zoonk-code-simplification",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-code-simplification",
+      "description": ""
+    },
+    {
+      "name": "zoonk-commit",
+      "path": ".agents/skills/zoonk-commit",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-commit",
+      "description": ""
+    },
+    {
+      "name": "zoonk-compound-components",
+      "path": ".agents/skills/zoonk-compound-components",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-compound-components",
+      "description": ""
+    },
+    {
+      "name": "zoonk-design",
+      "path": ".agents/skills/zoonk-design",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-design",
+      "description": ""
+    },
+    {
+      "name": "zoonk-github-issues",
+      "path": ".agents/skills/zoonk-github-issues",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-github-issues",
+      "description": ""
+    },
+    {
+      "name": "zoonk-issue-planning",
+      "path": ".agents/skills/zoonk-issue-planning",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-issue-planning",
+      "description": ""
+    },
+    {
+      "name": "zoonk-issue-writer",
+      "path": ".agents/skills/zoonk-issue-writer",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-issue-writer",
+      "description": ""
+    },
+    {
+      "name": "zoonk-technical",
+      "path": ".agents/skills/zoonk-technical",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-technical",
+      "description": ""
+    },
+    {
+      "name": "zoonk-testing",
+      "path": ".agents/skills/zoonk-testing",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-testing",
+      "description": ""
+    },
+    {
+      "name": "zoonk-translations",
+      "path": ".agents/skills/zoonk-translations",
+      "github_url": "https://github.com/zoonk/zoonk/tree/main/.agents/skills/zoonk-translations",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zoonk/zoonk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T13:30:26Z"
+}
