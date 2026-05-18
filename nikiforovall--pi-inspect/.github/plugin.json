@@ -1,0 +1,9 @@
+{
+  "name": "nikiforovall--pi-inspect",
+  "displayName": "pi-inspect",
+  "description": "Introspection dashboard for the pi coding agent \u2014 tools, prompts, skills, and the system prompt injected on init.",
+  "version": "1.0.0",
+  "author": "NikiforovAll",
+  "homepage": "https://github.com/NikiforovAll/pi-inspect",
+  "skills": []
+}
