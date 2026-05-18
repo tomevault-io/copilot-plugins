@@ -1,0 +1,57 @@
+{
+  "name": "neovate",
+  "owner": "neovateai",
+  "repo": "neovate-code",
+  "description": "Neovate Code is a code agent to enhance your development. You can use it to generate code, fix bugs, review code, add tests, and more. You can run it in interactive mode or headless mode.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-nodebridge-handler",
+      "path": ".claude/skills/add-nodebridge-handler",
+      "github_url": "https://github.com/neovateai/neovate-code/tree/main/.claude/skills/add-nodebridge-handler",
+      "description": ""
+    },
+    {
+      "name": "test-nodebridge-handler",
+      "path": ".claude/skills/test-nodebridge-handler",
+      "github_url": "https://github.com/neovateai/neovate-code/tree/main/.claude/skills/test-nodebridge-handler",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/neovateai/neovate-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:35:04Z"
+}
