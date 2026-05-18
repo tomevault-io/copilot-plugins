@@ -1,61 +1,228 @@
-## development-guidelines
+## documentation-standards
 
-> Development guidelines and standards for the guarahooks project
+> This document defines standards for creating consistent and high-quality documentation for hooks in guarahooks.
 
 
-# Development Guidelines
+# Documentation Standards
 
-## New Components
+This document defines standards for creating consistent and high-quality documentation for hooks in guarahooks.
 
-1. Determine the correct category (`ui/`, `layout/`, `sections/`, etc.)
-2. Use kebab-case for file naming
-3. Implement with TypeScript
-4. Client components need the `"use client"` directive
+## 📋 Required Structure
 
-## New Hooks
+### Frontmatter
 
-1. **Project hooks**: `hooks/use-name.tsx`
-2. **Library hooks**: `registry/hooks/use-name.ts`
-3. **Library hooks** must be registered in `registry/registry-hooks.ts`
-4. Create examples for **Library hooks** in `registry/example/`
+```yaml
+---
+title: useHookName            # Hook name in camelCase
+date: YYYY-MM-DD             # Creation date
+description: "Concise hook description"  # One-line descriptive text
+author: h3rmel               # Hook author
+published: true              # Publication status
+---
+```
 
-## New Documentation
+### Required Sections
 
-1. Create MDX file in `content/docs/`
-2. Update navigation in `config/docs.ts`
-3. Use available MDX components
+#### 1. Hook Preview
 
-## New Utilities
+```jsx
+<HookPreview name="use-hook-name-demo" />
+```
 
-1. **General**: `lib/utils.ts`
-2. **Specific**: dedicated file in `lib/`
-3. **Types**: `types/` for TypeScript definitions
+#### 2. Installation
 
-## Code Standards
+```jsx
+<Tabs defaultValue="cli">
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
 
-### File Structure
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add "https://guarahooks.com/r/use-hook-name"
+```
 
-- Use kebab-case for file names (e.g: `use-mounted.tsx`)
-- Use PascalCase for React components
-- Hooks must have `use-` prefix
+</TabsContent>
 
-### TypeScript
+<TabsContent value="manual">
+<Steps>
+<Step>Copy and paste the following code into your project.</Step>
 
-- Always use TypeScript
-- Define types in `types/` when appropriate
-- Use interfaces for component props
+<HookSource name="use-hook-name" />
 
-### React
+<Step>Update the import paths to match your project setup.</Step>
+</Steps>
+</TabsContent>
+</Tabs>
 
-- Components that need interactivity must use `"use client"`
-- Prefer Server Components when possible
-- Use custom hooks for reusable logic
+```
 
-### Organization
+#### 3. API Reference
 
-- Components in appropriate categories
-- Project hooks vs library hooks
-- Utilities organized by functionality
+**Props/Parameters:**
+```jsx
+| Prop           | Type                | Default | Description                    |
+| -------------- | ------------------- | ------- | ------------------------------ |
+| `paramName`    | `ParamType`         | `value` | Clear parameter description    |
+```
+
+**Options (if applicable):**
+
+```jsx
+| Prop           | Type                | Default | Description                    |
+| -------------- | ------------------- | ------- | ------------------------------ |
+| `optionName`   | `OptionType`        | `value` | Option description             |
+```
+
+**Return:**
+
+```jsx
+| Property       | Type                | Description                    |
+| -------------- | ------------------- | ------------------------------ |
+| `propertyName` | `PropertyType`      | Property description           |
+```
+
+#### 4. Key Features
+
+- List of main features
+- Compatibility (SSR, Cross-tab, etc.)
+- Important limitations
+
+#### 5. Examples
+
+- **Basic Usage**: Minimal functional example
+- **Advanced Usage**: Examples with complex options
+- **Specific Cases**: Particular use case scenarios
+
+## 🎯 Writing Guidelines
+
+### Tone and Style
+
+- **Concise and direct**: Explain functionalities without verbosity
+- **Technical but accessible**: Use precise terms but explain when necessary
+- **Consistent**: Maintain uniform terminology throughout documentation
+
+### Code Examples
+
+- **Functional**: All examples should compile and execute
+- **Progressive**: From simple to complex
+- **Contextualized**: Show real usage, not just syntax
+
+### Descriptions
+
+- **Props**: Describe the purpose, not just the type
+- **Features**: Explain benefits and use cases
+- **Limitations**: Be transparent about restrictions
+
+## 📚 Optional Sections
+
+### For Complex Hooks
+
+#### Usage Section
+
+```jsx
+<Steps>
+<Step>Configure provider (if needed)</Step>
+
+```tsx
+// Configuration code
+```
+
+<Step>Use the hook in components</Step>
+
+```tsx
+// Usage code
+```
+
+</Steps>
+```
+
+#### Key Features & Details
+
+- Cross-browser compatibility
+- Performance considerations  
+- Error handling
+- Best practices & caveats
+
+#### Advanced Examples
+
+- Specific scenarios
+- Integrations with other libraries
+- Advanced usage patterns
+
+### For Hooks with Provider
+
+#### Provider Configuration
+
+```jsx
+### ProviderName Props
+
+| Prop           | Type                | Default | Description                    |
+| -------------- | ------------------- | ------- | ------------------------------ |
+| `config`       | `ConfigType`        | `{}`    | Provider configuration         |
+```
+
+## 🔍 Quality Checklist
+
+### Content
+
+- [ ] Complete and correct frontmatter
+- [ ] Clear and concise description
+- [ ] Functional HookPreview
+- [ ] Installation with CLI and manual
+- [ ] Complete API tables
+- [ ] Functional and progressive examples
+- [ ] Key features listed
+
+### Formatting
+
+- [ ] Valid Markdown
+- [ ] Correct MDX components
+- [ ] Well-formatted tables
+- [ ] Code with syntax highlighting
+- [ ] Functional links
+
+### Quality
+
+- [ ] Accurate technical information
+- [ ] Tested examples
+- [ ] Complete feature coverage
+- [ ] Clearly explained use cases
+
+## 🎨 Available MDX Components
+
+### Essential
+
+- `<HookPreview>`: Interactive hook demonstration
+- `<HookSource>`: Hook source code
+- `<Tabs>`, `<TabsList>`, `<TabsTrigger>`, `<TabsContent>`: Tab navigation
+- `<Steps>`, `<Step>`: Step-by-step instructions
+
+### Informational
+
+- `<Callout>`: Highlight important information
+- `<Alert>`: Warnings and alerts
+- `<Badge>`: Tags and labels
+
+## 📖 Reference Examples
+
+### Simple Hooks
+
+- [use-toggle.mdx](mdc:content/docs/hooks/use-toggle.mdx)
+- [use-previous.mdx](mdc:content/docs/hooks/use-previous.mdx)
+
+### Complex Hooks  
+
+- [use-local-storage.mdx](mdc:content/docs/hooks/use-local-storage.mdx)
+- [use-fetch.mdx](mdc:content/docs/hooks/use-fetch.mdx)
+
+### Hooks with Provider
+
+- [use-fetch.mdx](mdc:content/docs/hooks/use-fetch.mdx)
+- [use-notifications.mdx](mdc:content/docs/hooks/use-notifications.mdx)
+
+Following these standards ensures consistent, professional, and useful documentation for all guarahooks users.
 
 ---
 > Source: [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks) — distributed by [TomeVault](https://tomevault.io).
