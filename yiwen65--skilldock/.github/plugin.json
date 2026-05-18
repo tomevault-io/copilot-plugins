@@ -1,0 +1,9 @@
+{
+  "name": "yiwen65--skilldock",
+  "displayName": "SkillDock",
+  "description": "Local-first Git workspace and symlink installer for AI agent skills across   Claude Code, Codex, and custom agents.",
+  "version": "1.0.0",
+  "author": "yiwen65",
+  "homepage": "https://github.com/yiwen65/SkillDock",
+  "skills": []
+}
