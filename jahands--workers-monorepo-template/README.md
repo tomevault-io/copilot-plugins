@@ -2,18 +2,18 @@
 
 > Sourced from [jahands/workers-monorepo-template](https://github.com/jahands/workers-monorepo-template) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction files for workers-monorepo-template by jahands
+A monorepo template for Cloudflare Workers
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [jahands/workers-monorepo-template](https://github.com/jahands/workers-monorepo-template).
+Original source: `CLAUDE.md` in [jahands/workers-monorepo-template](https://github.com/jahands/workers-monorepo-template).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
@@ -21,10 +21,10 @@ Original source: `.cursor/rules/*.mdc` in [jahands/workers-monorepo-template](ht
 
 - [typescript-inline-scripts](https://github.com/jahands/workers-monorepo-template/tree/main/.agents/skills/typescript-inline-scripts)
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/jahands#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jahands/workers-monorepo-template](https://github.com/jahands/workers-monorepo-template)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/jahands) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:a-c-q -->
