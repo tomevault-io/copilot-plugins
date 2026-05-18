@@ -1,0 +1,9 @@
+{
+  "name": "t-kalinowski--quickr",
+  "displayName": "quickr",
+  "description": "R to Fortran Transpiler",
+  "version": "1.0.0",
+  "author": "t-kalinowski",
+  "homepage": "https://github.com/t-kalinowski/quickr",
+  "skills": []
+}
