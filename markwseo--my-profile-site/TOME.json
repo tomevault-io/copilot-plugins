@@ -1,0 +1,44 @@
+{
+  "name": "my-profile-site",
+  "owner": "markwseo",
+  "repo": "my-profile-site",
+  "description": "\ub098\ub9cc\uc758 \ud504\ub85c\ud544 \uc6f9\uc0ac\uc774\ud2b8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/markwseo/my-profile-site",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T18:05:56Z"
+}
