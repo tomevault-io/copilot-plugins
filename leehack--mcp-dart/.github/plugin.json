@@ -1,0 +1,9 @@
+{
+  "name": "leehack--mcp-dart",
+  "displayName": "mcp_dart",
+  "description": "Dart implementation of MCP SDK",
+  "version": "1.0.0",
+  "author": "leehack",
+  "homepage": "https://github.com/leehack/mcp_dart",
+  "skills": []
+}
