@@ -1,0 +1,9 @@
+{
+  "name": "importcsv--importcsv",
+  "displayName": "importcsv",
+  "description": "Open-source CSV Importer for React",
+  "version": "1.0.0",
+  "author": "importcsv",
+  "homepage": "https://github.com/importcsv/importcsv",
+  "skills": []
+}
