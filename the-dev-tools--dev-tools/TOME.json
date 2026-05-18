@@ -4,7 +4,7 @@
   "repo": "dev-tools",
   "description": "Local-first API workflows that go from HAR file to GitHub Actions in 60 seconds.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-dev-tools/dev-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T12:29:04Z"
+  "distributed_at": "2026-05-18T14:09:11Z"
 }
