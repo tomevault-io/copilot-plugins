@@ -1,0 +1,9 @@
+{
+  "name": "bowenliang123--markdown-exporter",
+  "displayName": "markdown-exporter",
+  "description": "An Agent Skill and Dify plugin to transform Markdown to files of DOCX, PPTX, XLSX, PNG, PDF, Mermaid, HTML, MD, CSV, JSON, XML.",
+  "version": "1.0.0",
+  "author": "bowenliang123",
+  "homepage": "https://github.com/bowenliang123/markdown-exporter",
+  "skills": []
+}
