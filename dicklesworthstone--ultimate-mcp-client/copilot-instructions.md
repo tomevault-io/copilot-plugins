@@ -1,70 +1,63 @@
-## 07-web-interface
+## 08-observability-monitoring
 
-> The MCP Client provides a modern, responsive web interface as defined in [mcp_client.py](mdc:mcp_client.py) and [mcp_client_ui.html](mdc:mcp_client_ui.html).
+> The MCP Client implements comprehensive observability and monitoring features in [mcp_client.py](mdc:mcp_client.py) to provide insights into operations and performance.
 
-# Web Interface
+# Observability & Monitoring
 
-The MCP Client provides a modern, responsive web interface as defined in [mcp_client.py](mdc:mcp_client.py) and [mcp_client_ui.html](mdc:mcp_client_ui.html).
+The MCP Client implements comprehensive observability and monitoring features in [mcp_client.py](mdc:mcp_client.py) to provide insights into operations and performance.
 
-## Technology Stack
+## Telemetry
 
-### Backend
-- FastAPI for API server
-- WebSockets for bidirectional real-time communication
-- Uvicorn as the ASGI server
-- API endpoints for programmatic access
+### OpenTelemetry Integration
+- Metrics (counters, histograms) for monitoring client operations
+- Tracing with spans for server requests and tool execution
+- Console exporters (can be enabled for debugging)
+- Configurable export targets
 
-### Frontend
-- Alpine.js for lightweight reactivity
-- Tailwind CSS and DaisyUI for styling
-- Marked.js for Markdown rendering
-- Highlight.js for code syntax highlighting
-- Tippy.js for tooltips
+### Metrics Collected
+- Tool execution counts and latency
+- Server connection success/failure rates
+- Query processing times
+- Cache hit/miss ratios
 
-## Key Features
+## Live Dashboards
 
-### Real-time Chat
-- Streamed responses via WebSockets
-- Rich Markdown rendering with syntax highlighting
-- Visual separation of tool calls and results
-- Status indicators for connection and processing
+### CLI Dashboard
+- Real-time TUI dashboard via `/dashboard` command
+- Built with Rich library
+- Shows server health, tool usage stats, and client info
+- Refreshes periodically with the latest data
 
-### Server Management
-- Add, remove, connect, and disconnect servers
-- Status indicators for server health
-- Enable/disable servers with one click
-- Tool and capability counts per server
+### Web UI Status
+- Dynamic server status indicators
+- Health indicators for connected services
+- Capability counts (tools, resources, prompts)
+- Connection state visualization
 
-### Discovery Integration
-- Trigger discovery scans (filesystem, registry, mDNS)
-- One-click adding of discovered servers
-- Real-time server health monitoring
+## Logging
 
-### Conversation View
-- Interactive tree visualization of conversation branches
-- Click-to-checkout branch navigation
-- Branch creation, clearing, and optimization
-- Import/export functionality
+### Rich Console Output
+- Uses Python's logging with RichHandler
+- Pretty console output with color coding
+- Tracebacks with syntax highlighting
+- Configurable verbosity levels
 
-### Tool Interaction
-- Direct tool execution with JSON parameter editing
-- In-context display of tool calls and results
-- Copy buttons for code blocks
+### STDIO Server Logs
+- Captured stderr output from stdio servers
+- Written to log files in config directory
+- Critical for diagnosing server-side problems
 
-### Settings Panel
-- API key management
-- Model selection and parameter tuning
-- Feature toggles (streaming, caching, discovery)
-- Theme customization
+## Debug Features
 
-## API Server
+### Verbose Mode
+- `--verbose` flag for detailed logging
+- Enables detailed JSON-RPC message logging
+- Shows internal state transitions
 
-When running with `--webui`, a RESTful API is exposed with endpoints for:
-- Status information and configuration
-- Server management and connection control
-- Tool and resource listing
-- Conversation management
-- WebSocket streaming endpoints
+### Error Handling
+- MCP_CLIENT_DEBUG environment variable for full tracebacks
+- Structured error reporting
+- Retry metrics and circuit breaker status
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
