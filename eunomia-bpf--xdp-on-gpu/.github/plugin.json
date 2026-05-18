@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--xdp-on-gpu",
+  "displayName": "XDP-on-GPU",
+  "description": "eBPF  XDP on GPU",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/XDP-on-GPU",
+  "skills": []
+}
