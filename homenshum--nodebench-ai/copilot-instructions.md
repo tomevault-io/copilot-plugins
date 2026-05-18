@@ -1,34 +1,37 @@
-## product-design-dogfood
+## reexamine-a11y
 
-> Ship quality is proven in the running UI, not in a diff.
+> - Every interactive element has `role` or is a native interactive element (`<button>`, `<a>`, `<input>`)
 
 
-# Product Design Dogfood (Jony Ive Review)
+# Re-examine: Accessibility
 
-Ship quality is proven in the running UI, not in a diff.
+## ARIA & Semantics
+- Every interactive element has `role` or is a native interactive element (`<button>`, `<a>`, `<input>`)
+- `aria-label` on icon-only buttons (no visible text = must have aria-label)
+- `aria-pressed` on toggles, `aria-selected` on tabs, `aria-expanded` on collapsibles
+- `role="region"` with `aria-label` on landmark sections
+- No `<div onclick>` — use `<button>` or `<a>` with proper keyboard handling
 
-## Definition of done (UI-visible)
+## Reduced motion
+- `@media (prefers-reduced-motion: reduce)` disables: transitions, animations, auto-scroll, carousel auto-play
+- Skeleton shimmer → static placeholder under reduced-motion
+- Staggered fade-ins → instant appearance
 
-When you claim a UI change is “done”, it must be verifiable **inside the app UI**:
-1. **Dogfood route exists**: `/dogfood` loads.
-2. **Evidence is viewable**: `/dogfood` shows a gallery or clear “missing artifacts” instructions.
-3. **Screenshots are current**: after dogfooding, publish the screenshot manifest so the UI can render it (`npm run dogfood:publish` or `npm run dogfood:full:local`).
+## Color-blind safety
+- Never rely on color alone — pair with icons, patterns, or text labels
+- Severity badges: use border + text, not just background color
+- Test with simulated protanopia/deuteranopia if possible
 
-## Dogfood protocol (route-by-route)
+## Screen readers
+- `<label>` elements for every `<input>`, `<select>`, `<textarea>` (visible or `.sr-only`)
+- `.sr-only` class: `position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0)`
+- Skip links at page top: `<a href="#main-content" class="sr-only focus:not-sr-only">`
+- Meaningful alt text on images; decorative images get `alt=""`
 
-For every route/screen touched (and adjacent screens with shared layout):
-- **First-impression clarity**: can a new user explain what to do in 5 seconds?
-- **Hierarchy**: one primary action; secondary actions are visually quiet.
-- **Typography**: headings are not shouting; body text is readable; no gray-on-black mush.
-- **Spacing**: consistent rhythm; avoid random padding/margins; align baselines.
-- **States**: empty/loading/error states look intentional (not a blank white card).
-- **Interactions**: focus rings, keyboard navigation, hover/press states, scroll containment.
-
-## Mandatory mindset
-
-Follow `analyst_diagnostic`:
-- Diagnose the **root cause** (render path, data ownership, stored vs computed).
-- Fix the cause so the bug becomes **impossible**, not merely hidden.
+## Focus management
+- `:focus-visible` outlines on all interactive elements (not `:focus` — avoids mouse-click outlines)
+- Focus trap in modals/dialogs: Tab cycles within, Escape closes
+- After dynamic content load, move focus to the new content or announce via `aria-live`
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
