@@ -1,47 +1,39 @@
-## deep-read-audit
+## reexamine-polish
 
-> Deep-read audit protocol — full end-to-end reads only, parallel subagents, numbered findings
+> - Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
 
 
-# Deep-Read Audit Protocol
+# Re-examine: Visual Polish
 
-When collocating across tools, prompts, skills, or rules — NEVER edit from a section-level read. Full end-to-end reads only.
+## Skeleton loading
+- Replace blank areas during fetch with skeleton placeholders (gray shapes matching final layout)
+- Shimmer animation: `background: linear-gradient(90deg, #2a2a3a 25%, #3a3a4a 50%, #2a2a3a 75%)`
+- `background-size: 200% 100%; animation: shimmer 1.5s infinite`
+- Respect `prefers-reduced-motion` → static gray background, no shimmer
 
-## Protocol
+## Staggered fade-ins
+- Cards/list items appear with slight delay cascade: 50ms, 100ms, 150ms per item
+- Use `animation-delay` or `transition-delay` — not JS setTimeout
+- Keep total cascade under 500ms (10 items max before grouping)
+- Disable under `prefers-reduced-motion`
 
-1. **Categorize** — Group all target files into 4-6 non-overlapping categories by domain
-2. **Parallel subagents** — Launch one Explore subagent per category, all simultaneously
-3. **Full reads required** — Each subagent reads EVERY file in its category end-to-end. No partial reads, no grep-only
-4. **Numbered findings** — Each finding must include:
-   - `[N] FILE:LINE` — exact location
-   - `"exact quote of relevant code/text"` — verbatim from the file
-   - `ISSUE:` — description of duplication, obscurity, or centralization need
-5. **Wait for all** — Do not synthesize until ALL subagents complete
-6. **Synthesize** — Produce a single consolidated report with:
-   - P0 (extract immediately), P1 (fix this sprint), P2 (next sprint)
-   - Estimated impact per tier
-   - Proposed module paths for centralized code
+## Transitions
+- State changes (expand/collapse, show/hide) get 200-300ms ease transitions
+- Use `transition: all 0.2s ease` on the specific properties, not `all` in production
+- Hover effects: subtle scale (1.02), shadow lift, or background shift
+- Don't animate `width`/`height` — use `transform: scale()` or `max-height` for performance
 
-## What to look for
-- Duplicated helper functions across files
-- Overlapping tool/rule descriptions that confuse discovery
-- Shared patterns that should be centralized (DB setup, ID generation, timestamps, fetch wrappers)
-- Inconsistent naming conventions (params, response shapes, error formats)
-- Tools/rules that do similar things in different files
-- Hardcoded values that should be shared constants
-- Stale/deprecated code still callable
-- Instructions duplicated across CLAUDE.md, .claude/rules/, .cursor/rules/
+## Micro-interactions
+- Button press: brief scale-down (0.97) on `:active`
+- Tooltip on hover for truncated text (CSS `text-overflow: ellipsis` + `title` attribute)
+- Copy-to-clipboard: brief "Copied!" feedback toast
+- Empty states: helpful message + action button, not just blank space
 
-## Anti-patterns
-- Reading only the first 50 lines and inferring the rest
-- Grepping for keywords instead of reading full context
-- Editing before the audit completes
-- Skipping large files (72KB+ agent files are WHERE the duplication hides)
-
-## Related rules
-- `analyst_diagnostic` — root cause before fix
-- `reexamine_process` — orchestrator for when/how to re-examine
-- `completion_traceability` — cite back to original request
+## Print stylesheet
+- `@media print`: light background, dark text, visible borders
+- Hide interactive controls (buttons, search, navigation)
+- Severity badges: add borders (colors may not print)
+- Page-break-inside: avoid on cards
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
