@@ -1,0 +1,9 @@
+{
+  "name": "tacticlaunch--cursor-bank",
+  "displayName": "cursor-bank",
+  "description": "Cursor memory bank feature like in Cline - Plan, Act, Update",
+  "version": "1.0.0",
+  "author": "tacticlaunch",
+  "homepage": "https://github.com/tacticlaunch/cursor-bank",
+  "skills": []
+}
