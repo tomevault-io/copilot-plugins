@@ -1,0 +1,9 @@
+{
+  "name": "botirk38--pico-os",
+  "displayName": "pico-os",
+  "description": "A minimal RISC-V 32-bit OS written in Zig.",
+  "version": "1.0.0",
+  "author": "botirk38",
+  "homepage": "https://github.com/botirk38/pico-os",
+  "skills": []
+}
