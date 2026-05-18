@@ -7,14 +7,14 @@ MCP server providing native macOS integration with Apple Reminders and Calendar 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [FradSer/mcp-server-apple-events](https://github.com/FradSer/mcp-server-apple-events).
+Original source: `AGENTS.md` in [FradSer/mcp-server-apple-events](https://github.com/FradSer/mcp-server-apple-events).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [FradSer/mcp-server-apple-events](https://github.com/FradSer/mcp-server-apple-events) — a repo with 114+ stars on GitHub.
