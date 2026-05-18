@@ -4,7 +4,7 @@
   "repo": "mq",
   "description": "A jq-like Markdown query language for command-line processing",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harehare/mq",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:35:10Z"
+  "distributed_at": "2026-05-18T20:16:37Z"
 }
