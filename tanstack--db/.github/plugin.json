@@ -1,0 +1,18 @@
+{
+  "name": "tanstack--db",
+  "displayName": "db",
+  "description": "The reactive client store for your API.",
+  "version": "1.0.0",
+  "author": "TanStack",
+  "homepage": "https://github.com/TanStack/db",
+  "skills": [
+    {
+      "name": "vue-db",
+      "description": ""
+    },
+    {
+      "name": "react-db",
+      "description": ""
+    }
+  ]
+}
