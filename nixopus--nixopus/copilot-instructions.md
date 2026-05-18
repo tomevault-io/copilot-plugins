@@ -1,407 +1,584 @@
-## frontend
+## installer-cli
 
-> TypeScript Next.js View Component Development Rules
+> Python CLI Development Rules for Nixopus CLI
 
 
-# Nixopus View Development Guidelines
+# Nixopus CLI Development Guidelines
 
-You are a senior frontend engineer building the Nixopus dashboard — a modern, visually rich Next.js application with TypeScript. Your focus is on crafting maintainable, performant, and beautiful user interfaces while maintaining strict code quality standards.
+You are a senior Python engineer building the Nixopus CLI — a production-grade command-line tool using Typer, Rich, and Pydantic. Your focus is on writing clean, maintainable, and user-friendly CLI commands following established patterns.
 
 ## Core Principles
 
 ### DRY (Don't Repeat Yourself) — Highest Priority
-- **Before writing any new logic**, search the codebase for existing implementations
-- Check `view/hooks/` for reusable hooks (e.g., `use-searchable`, `use-translation`, `use-mobile`)
-- Check `view/lib/utils.ts` for utility functions (e.g., `cn()`, `formatBytes()`, `formatDate()`)
-- Check `view/components/ui/` for shadcn components before creating custom elements
-- Reuse RTK Query hooks from `view/redux/services/` for data fetching
-- Extract repeated patterns into custom hooks or shared components
+- **Before writing new code**, search the codebase for existing implementations
+- Check `app/utils/` for shared utilities (`logger`, `config`, `output_formatter`, `timeout`)
+- Check `app/utils/protocols.py` for protocol definitions
+- Reuse existing message patterns from `messages.py` files
+- Extract common validation logic to shared validators
 
 ### Single Responsibility Principle (SRP)
-- **Hooks**: Handle state management, side effects, and business logic
-- **Components**: Handle UI rendering and user interactions only
-- **Utils**: Pure functions for data transformation
-- **Services (RTK Query)**: API communication only
-- One hook/component should do one thing well
+- **Commands**: CLI interface and argument parsing only
+- **Run/Logic files**: Business logic and orchestration
+- **Messages**: User-facing strings (separated from logic)
+- **Types**: Data classes and type definitions
+- **Utils**: Reusable utility functions
+- Each file should have one primary purpose
 
 ### Code Readability
-```typescript
-// ✅ Good: Early returns, flat structure
-function useDeployment(id: string) {
-  const { data, isLoading, error } = useGetDeploymentQuery(id);
-  
-  if (!id) return { deployment: null, isReady: false };
-  if (isLoading) return { deployment: null, isReady: false };
-  if (error) return { deployment: null, isReady: false, error };
-  
-  return { deployment: data, isReady: true };
-}
+```python
+# ✅ Good: Early returns, flat structure
+def clone_repository(repo: str, path: str, logger: LoggerProtocol) -> tuple[bool, Optional[str]]:
+    if not repo:
+        return False, "Repository URL is required"
+    
+    if not validate_repo_url(repo):
+        return False, "Invalid repository URL"
+    
+    try:
+        result = git_clone(repo, path)
+        return True, None
+    except Exception as e:
+        return False, str(e)
 
-// ❌ Bad: Nested conditions
-function useDeployment(id: string) {
-  const { data, isLoading, error } = useGetDeploymentQuery(id);
-  
-  if (id) {
-    if (!isLoading) {
-      if (!error) {
-        return { deployment: data, isReady: true };
-      }
-    }
-  }
-  return { deployment: null, isReady: false };
-}
+# ❌ Bad: Nested conditions
+def clone_repository(repo: str, path: str, logger: LoggerProtocol) -> tuple[bool, Optional[str]]:
+    if repo:
+        if validate_repo_url(repo):
+            try:
+                result = git_clone(repo, path)
+                return True, None
+            except Exception as e:
+                return False, str(e)
+        else:
+            return False, "Invalid repository URL"
+    else:
+        return False, "Repository URL is required"
 ```
 
 ## Architecture
 
 ### Directory Structure
 ```
-view/
-├── app/                    # Next.js pages organized by domain
-│   └── [domain]/
-│       ├── components/     # Domain-specific components
-│       ├── hooks/          # Domain-specific hooks
-│       ├── utils/          # Domain-specific utilities
-│       └── page.tsx
-├── components/
-│   ├── ui/                 # shadcn base components (DO NOT MODIFY)
-│   └── [feature]/          # Shared feature components
-├── hooks/                  # Global reusable hooks
-├── lib/
-│   ├── i18n/              # Internationalization
-│   └── utils.ts           # Global utilities
-└── redux/
-    ├── services/          # RTK Query API definitions
-    ├── features/          # Redux slices
-    └── types/             # TypeScript interfaces
+cli/
+├── app/
+│   ├── __init__.py
+│   ├── main.py                 # Entry point, Typer app registration
+│   ├── commands/               # Command modules
+│   │   └── [command]/
+│   │       ├── __init__.py
+│   │       ├── command.py      # Typer command definitions
+│   │       ├── messages.py     # User-facing strings
+│   │       ├── types.py        # Dataclasses & types
+│   │       └── [logic].py      # Business logic
+│   └── utils/                  # Shared utilities
+│       ├── __init__.py
+│       ├── config.py           # Configuration loading
+│       ├── logger.py           # Logging utilities
+│       ├── message.py          # Global messages
+│       ├── output_formatter.py # Output formatting
+│       ├── protocols.py        # Protocol definitions
+│       └── timeout.py          # Timeout utilities
+├── pyproject.toml              # Poetry configuration
+└── tests/                      # Test files
 ```
 
-### Component Organization by Domain
-- Keep domain-related components in `app/[domain]/components/`
-- Shared components go in `components/[feature]/`
-- Break large components into smaller, focused chunks
-- Each component file should export one main component
+### Creating a New Command
 
-## State Management — RTK Query Always
-
-### Creating API Services
-```typescript
-// view/redux/services/[domain]/[domain]Api.ts
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithReauth } from '@/redux/base-query';
-import { ENDPOINTS } from '@/redux/api-conf';
-
-export const domainApi = createApi({
-  reducerPath: 'domainApi',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['Domain'],
-  endpoints: (builder) => ({
-    getDomainItems: builder.query<DomainItem[], void>({
-      query: () => ({
-        url: ENDPOINTS.GET_DOMAIN_ITEMS,
-        method: 'GET'
-      }),
-      providesTags: [{ type: 'Domain', id: 'LIST' }],
-      transformResponse: (response: { data: DomainItem[] }) => response.data
-    }),
-    createDomainItem: builder.mutation<DomainItem, CreateDomainItemRequest>({
-      query: (data) => ({
-        url: ENDPOINTS.CREATE_DOMAIN_ITEM,
-        method: 'POST',
-        body: data
-      }),
-      invalidatesTags: [{ type: 'Domain', id: 'LIST' }]
-    })
-  })
-});
-
-export const { useGetDomainItemsQuery, useCreateDomainItemMutation } = domainApi;
+1. Create the directory structure:
+```
+app/commands/[command]/
+├── __init__.py
+├── command.py      # or [command].py
+├── messages.py
+└── types.py        # if needed
 ```
 
-### Using Redux Hooks
-```typescript
-// Always use typed hooks from @/redux/hooks
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+2. Register in `app/main.py`:
+```python
+from app.commands.[command].command import [command]_app
 
-// ✅ Correct
-const dispatch = useAppDispatch();
-const user = useAppSelector((state) => state.user);
-
-// ❌ Never use untyped versions
-import { useDispatch, useSelector } from 'react-redux';
+app.add_typer([command]_app, name="[command]")
 ```
 
-## UI Components — shadcn Only
+## Typer Command Patterns
 
-### Always Use shadcn Components
-```typescript
-// ✅ Correct: Use shadcn components
-import { Button } from '@nixopus/ui';
-import { Card, CardHeader, CardContent } from '@nixopus/ui';
-import { Badge } from '@nixopus/ui';
-import { Skeleton } from '@nixopus/ui';
+### Command File Structure
+```python
+from typing import Optional
+import typer
+from app.utils.logger import create_logger, log_error, log_success
+from app.utils.timeout import timeout_wrapper
+from .messages import operation_failed, operation_success
+from .types import CommandParams
 
-// ❌ Never write plain HTML for interactive elements
-<button className="...">Click</button>
-<div className="card">...</div>
+command_app = typer.Typer(help="Command description", invoke_without_command=True)
+
+
+@command_app.callback()
+def command_callback(
+    ctx: typer.Context,
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show more details"),
+    timeout: int = typer.Option(300, "--timeout", "-t", help="Timeout in seconds"),
+    dry_run: bool = typer.Option(False, "--dry-run", "-d", help="Preview changes without executing"),
+    force: bool = typer.Option(False, "--force", "-f", help="Force operation"),
+):
+    """Main command description"""
+    if ctx.invoked_subcommand is None:
+        logger = create_logger(verbose=verbose)
+        params = CommandParams(
+            logger=logger,
+            verbose=verbose,
+            timeout=timeout,
+            dry_run=dry_run,
+            force=force,
+        )
+        run_command(params)
+
+
+@command_app.command(name="subcommand")
+def subcommand(
+    arg: str = typer.Argument(..., help="Required argument"),
+    option: str = typer.Option(None, "--option", "-o", help="Optional argument"),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose output"),
+):
+    """Subcommand description"""
+    logger = create_logger(verbose=verbose)
+    try:
+        with timeout_wrapper(timeout):
+            result = execute_subcommand(arg, option)
+        log_success(operation_success, verbose=verbose)
+    except TimeoutError as e:
+        log_error(str(e), verbose=verbose)
+        raise typer.Exit(1)
+    except Exception as e:
+        log_error(str(e), verbose=verbose)
+        raise typer.Exit(1)
 ```
 
-### Available shadcn Components
-Reference `view/components/ui/` for all available components:
-- Layout: `Card`, `Dialog`, `Sheet`, `Tabs`, `Collapsible`
-- Forms: `Button`, `Input`, `Select`, `Checkbox`, `Switch`, `Form`
-- Data: `Table`, `DataTable`, `Pagination`, `Badge`
-- Feedback: `Alert`, `Skeleton`, `Loading`, `Progress`
-- Navigation: `Breadcrumb`, `DropdownMenu`, `ContextMenu`
-
-### Styling with Tailwind
-```typescript
-// Use cn() utility for conditional classes
-import { cn } from '@/lib/utils';
-
-<Card className={cn(
-  "transition-all duration-300",
-  isActive && "border-primary",
-  isDisabled && "opacity-50 pointer-events-none"
-)} />
+### Standard CLI Options
+```python
+# Always include these common options where applicable
+verbose: bool = typer.Option(False, "--verbose", "-v", help="Show more details")
+timeout: int = typer.Option(300, "--timeout", "-t", help="Timeout in seconds")
+dry_run: bool = typer.Option(False, "--dry-run", "-d", help="Preview without executing")
+force: bool = typer.Option(False, "--force", "-f", help="Force operation")
+output: str = typer.Option("text", "--output", "-o", help="Output format (text, json)")
 ```
 
-## TypeScript — Strict Typing
+## Messages Pattern
 
-### Never Use `any`
-```typescript
-// ✅ Correct: Explicit types
-interface DeploymentConfig {
-  name: string;
-  replicas: number;
-  environment: Record<string, string>;
-}
+### Messages File Structure
+```python
+# app/commands/[command]/messages.py
 
-function useDeployment(config: DeploymentConfig): DeploymentResult {
-  // ...
-}
+# Operation messages
+operation_starting = "Starting operation..."
+operation_success = "Operation completed successfully"
+operation_failed = "Operation failed"
+operation_timed_out = "Operation timed out after {timeout} seconds"
 
-// ❌ Never use any
-function useDeployment(config: any): any {
-  // ...
-}
+# Validation messages
+missing_required_field = "{field} is required"
+invalid_format = "Invalid {field} format: {value}"
+
+# Step messages
+step_starting = "Starting {step_name}..."
+step_completed = "{step_name} completed"
+step_failed = "{step_name} failed: {error}"
+
+# Dry run messages
+dry_run_mode = "=== DRY RUN MODE ==="
+dry_run_would_execute = "[DRY RUN] Would execute: {action}"
+end_dry_run = "=== END DRY RUN ==="
+
+# Debug messages (prefix with debug_)
+debug_config_loaded = "DEBUG: Configuration loaded from {path}"
+debug_step_execution = "DEBUG: Executing step: {step}"
 ```
 
-### Type Definitions Location
-- API response types: `view/redux/types/[domain].ts`
-- Component props: Inline or co-located with component
-- Shared types: Create in appropriate `types/` directory
+### Using Messages
+```python
+from .messages import operation_success, operation_failed, step_failed
 
-### Generic Patterns
-```typescript
-// Typed hook with generics
-function useSearchable<T>(
-  data: T[],
-  searchKeys: (keyof T)[],
-  defaultSort: SortConfig<T>
-): UseSearchableResult<T> {
-  // ...
-}
+# ✅ Good: Use message templates with format()
+logger.error(step_failed.format(step_name="Clone", error=str(e)))
+
+# ❌ Bad: Hardcode strings in logic
+logger.error(f"Clone failed: {str(e)}")
 ```
 
-## Internationalization — No Hardcoded Strings
+## Types Pattern
 
-### Always Use i18n
-```typescript
-import { useTranslation } from '@/hooks/use-translation';
+### Dataclass for Parameters
+```python
+# app/commands/[command]/types.py
+from dataclasses import dataclass
+from typing import Optional
+from app.utils.protocols import LoggerProtocol
 
-function MyComponent() {
-  const { t } = useTranslation();
-  
-  // ✅ Correct: Use translation keys
-  return (
-    <Button>{t('common.actions.save')}</Button>
-    <p>{t('dashboard.welcome.message', { name: userName })}</p>
-  );
-  
-  // ❌ Never hardcode user-facing text
-  return (
-    <Button>Save</Button>
-    <p>Welcome, {userName}!</p>
-  );
-}
+
+@dataclass
+class CommandParams:
+    logger: Optional[LoggerProtocol] = None
+    verbose: bool = False
+    timeout: int = 300
+    force: bool = False
+    dry_run: bool = False
+    # Add command-specific fields
+    target: Optional[str] = None
+    config_file: Optional[str] = None
 ```
 
-### Translation File Structure
-```
-view/lib/i18n/locales/
-├── en/
-│   ├── common.json      # Shared strings (buttons, labels, errors)
-│   ├── dashboard.json   # Dashboard-specific strings
-│   ├── selfHost.json    # Self-host feature strings
-│   └── ...
-├── es/
-├── fr/
-└── ...
+### Pydantic Models for Output
+```python
+from typing import Any, Dict, Optional
+from pydantic import BaseModel
+
+
+class OperationResult(BaseModel):
+    success: bool
+    message: str
+    data: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
 ```
 
-### Adding New Translations
-1. Add key to English locale first: `view/lib/i18n/locales/en/[domain].json`
-2. Use descriptive, hierarchical keys: `domain.section.element`
-3. Support parameters: `"greeting": "Hello, {name}!"`
+## Return Patterns
+
+### Tuple Returns for Operations
+```python
+# ✅ Standard pattern: Return (success: bool, error: Optional[str])
+def execute_step(params: CommandParams) -> tuple[bool, Optional[str]]:
+    if params.dry_run:
+        if params.logger:
+            params.logger.info(dry_run_would_execute.format(action="step"))
+        return True, None
+    
+    try:
+        # Execute operation
+        return True, None
+    except Exception as e:
+        return False, str(e)
+
+
+# Usage
+success, error = execute_step(params)
+if not success:
+    logger.error(step_failed.format(step_name="Step", error=error))
+    raise typer.Exit(1)
+```
+
+### Step-Based Execution
+```python
+from typing import Callable, List, Tuple
+from rich.progress import Progress, SpinnerColumn, TextColumn
+
+
+def build_steps(params: CommandParams) -> List[Tuple[str, Callable[[], tuple[bool, Optional[str]]]]]:
+    """Build list of steps to execute"""
+    return [
+        ("Validating input", lambda: validate_input(params)),
+        ("Executing operation", lambda: execute_operation(params)),
+        ("Cleaning up", lambda: cleanup(params)),
+    ]
+
+
+def run_with_progress(steps: List[Tuple[str, Callable]], params: CommandParams) -> None:
+    """Execute steps with progress indicator"""
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        task = progress.add_task("Processing...", total=len(steps))
+        
+        for step_name, step_func in steps:
+            progress.update(task, description=step_name)
+            success, error = step_func()
+            if not success:
+                raise Exception(step_failed.format(step_name=step_name, error=error))
+            progress.advance(task)
+```
+
+## Logging Patterns
+
+### Using the Logger
+```python
+from app.utils.logger import create_logger, log_error, log_success, log_info
+
+
+# Create logger with verbosity
+logger = create_logger(verbose=verbose)
+
+# Use logger methods
+logger.info("Information message")
+logger.debug("Debug message (only shown with --verbose)")
+logger.warning("Warning message")
+logger.error("Error message")
+logger.success("Success message")
+logger.highlight("Highlighted message")
+
+# Or use standalone functions
+log_info("Info", verbose=verbose)
+log_error("Error", verbose=verbose)
+log_success("Success", verbose=verbose)
+```
+
+### Logger Protocol
+```python
+# Always type hint with LoggerProtocol for flexibility
+from app.utils.protocols import LoggerProtocol
+
+
+def execute_operation(
+    params: OperationParams,
+    logger: Optional[LoggerProtocol] = None,
+) -> tuple[bool, Optional[str]]:
+    if logger:
+        logger.info(operation_starting)
+    # ...
+```
+
+## Configuration Patterns
+
+### Loading Configuration
+```python
+from app.utils.config import (
+    get_active_config,
+    get_config_value,
+    get_config_file_path,
+)
+
+# Load config (user config or default)
+config = get_active_config(user_config_file=params.config_file)
+
+# Get value using dot notation
+repo_url = get_config_value(config, "clone.repo")
+api_port = get_config_value(config, "services.api.env.PORT")
+```
+
+### Config Path Constants
+```python
+# Define constants for commonly used config paths
+# In app/utils/config.py
+DEFAULT_REPO = "clone.repo"
+DEFAULT_BRANCH = "clone.branch"
+API_PORT = "services.api.env.PORT"
+VIEW_PORT = "services.view.env.NEXT_PUBLIC_PORT"
+```
+
+## Output Formatting
+
+### Text and JSON Output
+```python
+from app.utils.output_formatter import (
+    format_output,
+    create_success_message,
+    create_error_message,
+    create_table,
+)
+
+
+def format_result(result: Any, output_format: str) -> str:
+    if output_format == "json":
+        return format_output(result, "json")
+    return format_output(result, "text")
+
+
+# Create structured output
+result = create_success_message(
+    message="Operation completed",
+    data={"items": 5, "status": "healthy"}
+)
+
+# Create table output
+table = create_table(
+    data={"Key1": "Value1", "Key2": "Value2"},
+    title="Results",
+    headers=("Property", "Value"),
+)
+```
+
+## Error Handling
+
+### Graceful Exit Pattern
+```python
+import typer
+
+
+def run_command(params: CommandParams) -> None:
+    try:
+        success, error = execute_operation(params)
+        if not success:
+            if params.logger:
+                params.logger.error(operation_failed.format(error=error))
+            raise typer.Exit(1)
+        
+        if params.logger:
+            params.logger.success(operation_success)
+            
+    except TimeoutError:
+        if params.logger:
+            params.logger.error(operation_timed_out.format(timeout=params.timeout))
+        raise typer.Exit(1)
+    except Exception as e:
+        if params.logger:
+            params.logger.error(f"{operation_failed}: {str(e)}")
+        raise typer.Exit(1)
+```
+
+### Timeout Wrapper
+```python
+from app.utils.timeout import timeout_wrapper
+
+
+try:
+    with timeout_wrapper(params.timeout):
+        result = long_running_operation()
+except TimeoutError:
+    logger.error(operation_timed_out.format(timeout=params.timeout))
+    raise typer.Exit(1)
+```
+
+## Dry Run Pattern
+
+### Implementing Dry Run
+```python
+def execute_operation(params: CommandParams) -> tuple[bool, Optional[str]]:
+    if params.dry_run:
+        if params.logger:
+            params.logger.info(dry_run_mode)
+            params.logger.info(dry_run_would_execute.format(action="operation"))
+            params.logger.info(end_dry_run)
+        return True, None
+    
+    # Actual implementation
+    try:
+        # Execute real operation
+        return True, None
+    except Exception as e:
+        return False, str(e)
+```
 
 ## Code Quality
 
-### Clean Up Unused Code
-- Remove unused imports immediately
-- Delete commented-out code
-- Remove unused variables and functions
-- Keep files focused and minimal
+### Type Hints — Always Use
+```python
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+
+# ✅ Good: Full type hints
+def process_items(
+    items: List[Dict[str, Any]],
+    filter_fn: Optional[Callable[[Dict[str, Any]], bool]] = None,
+) -> Tuple[List[Dict[str, Any]], int]:
+    ...
+
+
+# ❌ Bad: No type hints
+def process_items(items, filter_fn=None):
+    ...
+```
 
 ### Comments — Minimal and Structured
-```typescript
-// ✅ Good: JSDoc for complex hooks/functions
-/**
- * Manages pagination state for GitHub repositories with server-side filtering.
- * Resets page on search/filter changes.
- */
-function useGithubRepoPagination() {
-  // ...
-}
+```python
+# ✅ Good: Docstring for public functions
+def clone_repository(
+    repo: str,
+    path: str,
+    branch: str,
+    logger: Optional[LoggerProtocol] = None,
+) -> tuple[bool, Optional[str]]:
+    """Clone a git repository to the specified path.
+    
+    Args:
+        repo: Repository URL to clone
+        path: Local path to clone to
+        branch: Branch to checkout
+        logger: Optional logger for output
+        
+    Returns:
+        Tuple of (success, error_message)
+    """
+    ...
 
-// ✅ Good: Explain WHY, not WHAT
-// Reset page when filters change to avoid showing empty results
-useEffect(() => {
-  setCurrentPage(1);
-}, [searchTerm, sortConfig]);
 
-// ❌ Bad: Obvious comments
-// Set the current page to 1
-setCurrentPage(1);
+# ✅ Good: Explain complex logic
+# Use innermost placeholder first to support nested expansions
+match = find_innermost_placeholder(value)
 
-// ❌ Bad: Commented code
-// const oldImplementation = () => { ... }
+# ❌ Bad: Obvious comments
+# Clone the repository
+clone_repository(repo, path)
 ```
 
-### Linting & Formatting
-- Respect ESLint rules configured in `view/eslint.config.mjs`
-- Use Prettier for consistent formatting
-- Fix all lint errors before committing
-- Never disable lint rules without strong justification
+### Clean Up Unused Code
+- Remove unused imports
+- Delete commented-out code
+- Remove unused variables and functions
+- Run `black` and `isort` before committing
 
-## Component Patterns
+## Testing Patterns
 
-### Hook-Component Separation
-```typescript
-// hooks/use-deployment-form.ts
-export function useDeploymentForm(initialValues: DeploymentFormValues) {
-  const [createDeployment, { isLoading }] = useCreateDeploymentMutation();
-  const { t } = useTranslation();
-  
-  const handleSubmit = async (values: DeploymentFormValues) => {
-    try {
-      await createDeployment(values).unwrap();
-      toast.success(t('toasts.deployment.created'));
-    } catch (error) {
-      toast.error(t('toasts.deployment.error'));
-    }
-  };
-  
-  return { handleSubmit, isLoading };
-}
+### Test Structure
+```python
+# tests/test_[command].py
+import pytest
+from app.commands.[command].command import execute_operation
+from app.commands.[command].types import CommandParams
 
-// components/deployment-form.tsx
-export function DeploymentForm({ initialValues }: DeploymentFormProps) {
-  const { handleSubmit, isLoading } = useDeploymentForm(initialValues);
-  const { t } = useTranslation();
-  
-  return (
-    <Form onSubmit={handleSubmit}>
-      <FormInputField name="name" label={t('selfHost.form.name')} />
-      <Button type="submit" disabled={isLoading}>
-        {t('common.actions.deploy')}
-      </Button>
-    </Form>
-  );
-}
+
+class TestCommand:
+    def test_successful_operation(self):
+        params = CommandParams(dry_run=True)
+        success, error = execute_operation(params)
+        assert success is True
+        assert error is None
+
+    def test_failed_operation(self):
+        params = CommandParams(timeout=0)
+        success, error = execute_operation(params)
+        assert success is False
+        assert error is not None
 ```
-
-### Loading & Error States
-```typescript
-function RepositoryList() {
-  const { data, isLoading, error } = useGetRepositoriesQuery();
-  const { t } = useTranslation();
-  
-  if (isLoading) return <RepositoryListSkeleton />;
-  if (error) return <ErrorHandler message={t('errors.loadFailed')} />;
-  if (!data?.length) return <EmptyState message={t('selfHost.empty')} />;
-  
-  return (
-    <div className="grid gap-4">
-      {data.map((repo) => (
-        <RepositoryCard key={repo.id} {...repo} />
-      ))}
-    </div>
-  );
-}
-```
-
-### Skeleton Loaders
-Always provide skeleton loaders for async content:
-```typescript
-export const RepositoryCardSkeleton: React.FC = () => (
-  <Card>
-    <CardHeader>
-      <Skeleton className="h-6 w-40" />
-      <Skeleton className="h-4 w-full mt-2" />
-    </CardHeader>
-    <CardContent>
-      <Skeleton className="h-4 w-24" />
-    </CardContent>
-  </Card>
-);
-```
-
-## UX Best Practices
-
-### User Experience First
-- Provide immediate feedback for all actions (loading states, toasts)
-- Use optimistic updates where appropriate
-- Handle error states gracefully with recovery options
-- Maintain consistent navigation patterns
-- Ensure responsive design works on all screen sizes
-
-### Accessibility
-- Use semantic HTML elements
-- Provide proper ARIA labels where needed
-- Ensure keyboard navigation works
-- Maintain sufficient color contrast
-
-### Performance
-- Memoize expensive computations with `useMemo`
-- Prevent unnecessary re-renders with `useCallback`
-- Use React Query's caching effectively
-- Lazy load heavy components when appropriate
 
 ## Quick Reference
 
-### Import Aliases
-```typescript
-import { ... } from '@nixopus/ui'    // shadcn components
-import { ... } from '@/hooks/...'            // Global hooks
-import { ... } from '@/redux/hooks'          // useAppDispatch, useAppSelector
-import { ... } from '@/redux/services/...'   // RTK Query hooks
-import { ... } from '@/redux/types/...'      // Type definitions
-import { ... } from '@/lib/utils'            // Utility functions
-import { ... } from '@/lib/i18n/...'         // i18n config
+### Import Patterns
+```python
+# Standard library
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+# Third party
+import typer
+from pydantic import BaseModel
+from rich.console import Console
+from rich.progress import Progress
+
+# Local - utils
+from app.utils.config import get_active_config, get_config_value
+from app.utils.logger import create_logger, log_error, log_success
+from app.utils.output_formatter import format_output, create_table
+from app.utils.protocols import LoggerProtocol
+from app.utils.timeout import timeout_wrapper
+
+# Local - relative imports within command
+from .messages import operation_success, operation_failed
+from .types import CommandParams
 ```
 
 ### Checklist Before Committing
-- [ ] No `any` types
-- [ ] No hardcoded strings (using i18n)
-- [ ] Using shadcn components (no plain HTML buttons, inputs, etc.)
-- [ ] Logic in hooks, UI in components
-- [ ] No nested if statements (use early returns)
-- [ ] Removed unused imports and variables
-- [ ] Loading and error states handled
-- [ ] Types properly defined
-- [ ] Linter passes with no errors
-f
+- [ ] Type hints on all functions
+- [ ] User-facing strings in messages.py
+- [ ] Dry run support implemented
+- [ ] Timeout wrapper for long operations
+- [ ] Proper error handling with typer.Exit
+- [ ] Logger used consistently
+- [ ] Return pattern: `tuple[bool, Optional[str]]`
+- [ ] No hardcoded strings in logic
+- [ ] Black and isort formatting applied
+- [ ] Tests written for new functionality
 
 ---
 > Source: [nixopus/nixopus](https://github.com/nixopus/nixopus) — distributed by [TomeVault](https://tomevault.io).
