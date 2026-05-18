@@ -1,0 +1,9 @@
+{
+  "name": "bubblydoo--uxp-toolkit",
+  "displayName": "uxp-toolkit",
+  "description": "Toolkit for building Photoshop UXP extensions",
+  "version": "1.0.0",
+  "author": "bubblydoo",
+  "homepage": "https://github.com/bubblydoo/uxp-toolkit",
+  "skills": []
+}
