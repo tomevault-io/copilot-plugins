@@ -1,0 +1,9 @@
+{
+  "name": "supermagnum--gr-openssl",
+  "displayName": "gr-openssl",
+  "description": "gr-openssl is a gnuradio oot-package providing encryption routines using the OpenSSL crypto library",
+  "version": "1.0.0",
+  "author": "Supermagnum",
+  "homepage": "https://github.com/Supermagnum/gr-openssl",
+  "skills": []
+}
