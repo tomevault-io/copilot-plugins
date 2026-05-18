@@ -1,93 +1,91 @@
-## python-best-practices
+## testing-patterns
 
-> - Follow **PEP 8** for formatting, indentation, and naming conventions
+> Tests are organized in the [tests/](mdc:tests) directory with the following structure:
 
-# Python Best Practices for Intervals MCP Server
+# Testing Patterns and Practices
 
-## Code Style and Readability
+## Test Organization
 
-- Follow **PEP 8** for formatting, indentation, and naming conventions
-- Write readable, maintainable code:
-  - Use descriptive names for variables, functions, and classes
-  - Keep functions short and single-purpose (see MCP tools in [server.py](mdc:src/intervals_mcp_server/server.py))
-  - Keep indentation and spacing consistent
-- Embrace Pythonic idioms:
-  - Use list/dict comprehensions and generators where appropriate
-  - Prefer built-in functions and stdlib modules
-  - Use context managers (like the `lifespan` manager for httpx client)
-- Avoid global variables except for validated constants (API_KEY, ATHLETE_ID)
-- Use lazy **`%`** formatting in logging calls: `logger.debug("val=%s", val)`
-- Represent datetimes as timezone-aware UTC objects when possible
+Tests are organized in the [tests/](mdc:tests) directory with the following structure:
 
-## Type Annotations and Documentation
+- **[tests/test_server.py](mdc:tests/test_server.py)** - Main MCP tool testing
+- **[tests/test_formatting.py](mdc:tests/test_formatting.py)** - Utility function tests
+- **[tests/test_make_intervals_request.py](mdc:tests/test_make_intervals_request.py)** - API communication tests
+- **[tests/sample_data.py](mdc:tests/sample_data.py)** - Mock data for testing
 
-- Add **type hints** to all function signatures (see examples in [server.py](mdc:src/intervals_mcp_server/server.py))
-- Use built-in collection types (`list`, `dict`, `set`, `tuple`) instead of `typing.List`, etc.
-- Provide clear **docstrings** for:
-  - All MCP tool functions (required by FastMCP)
-  - Public utility functions in [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
-  - The main module docstring explaining the server's purpose
-- Use inline comments only for non-obvious logic
+## Testing Framework Setup
 
-## Error Handling and Validation
+- **Framework**: pytest with async support (`pytest-asyncio`)
+- **Mocking**: pytest-mock for HTTP request mocking
+- **Configuration**: Test settings in [pyproject.toml](mdc:pyproject.toml) under `[tool.pytest.ini_options]`
 
-- Handle errors gracefully with explicit `try/except` blocks (see `make_intervals_request()`)
-- Catch specific exceptions: `httpx.HTTPStatusError`, `httpx.RequestError`, etc.
-- Return consistent error structures with user-friendly messages
-- Validate inputs:
-  - Check API key and athlete ID on startup
-  - Validate date formats in MCP tools
-  - Use regex pattern `r"i?\d+"` for athlete ID validation
+## Testing Patterns
 
-## Async Programming Patterns
+### Async Testing
+All MCP tools are async functions, so tests use:
+```python
+@pytest.mark.asyncio
+async def test_function_name():
+    # Test async MCP tools
+```
 
-- Use `async/await` consistently for all MCP tools and API calls
-- Share a single `httpx.AsyncClient` instance across requests
-- Properly close async resources using lifespan context manager
-- Follow FastMCP's async patterns for tool implementations
+### Mock API Responses
+HTTP requests are mocked using `pytest-mock`:
+```python
+def test_api_call(mocker):
+    mock_response = mocker.Mock()
+    mock_response.json.return_value = {"test": "data"}
+    mock_response.raise_for_status.return_value = None
 
-## Testing Standards
+    mocker.patch("httpx.AsyncClient.get", return_value=mock_response)
+```
 
-- Write unit tests for all MCP tools and utilities
-- Use **pytest** with `pytest-asyncio` for async function testing
-- Use **pytest-mock** (`MockerFixture`) for mocking HTTP requests
-- Test both success and error paths
-- Mock external API calls to avoid dependencies in tests
+### Test Data Management
+- **Sample Data**: [tests/sample_data.py](mdc:tests/sample_data.py) contains realistic mock data
+- **Isolation**: Each test uses fresh mock data to avoid side effects
+- **Coverage**: Tests cover both success and error scenarios
 
-## Development Environment
+## Running Tests
 
-- Target **Python 3.12+** as specified in [pyproject.toml](mdc:pyproject.toml)
-- Use **uv** for package management: `uv sync --all-extras`
-- Manage dependencies in `pyproject.toml` with lock file (`uv.lock`)
-- Always use virtual environments (`.venv/`)
-- Run quality checks before commits:
-  - `ruff .` for linting
-  - `mypy src tests` for type checking
-  - `pytest` for tests
+```bash
+# Run all tests
+pytest
 
-## Security Practices
+# Run with verbose output
+pytest -v
 
-- Never hard-code secrets - use environment variables via `.env` file
-- Load sensitive data (API_KEY, ATHLETE_ID) from environment
-- Use HTTP Basic Auth for API authentication
-- Validate all external inputs before processing
-- Follow least-privilege principles for API access
+# Run specific test file
+pytest tests/test_server.py
 
-## Project-Specific Patterns
+# Run with coverage (if installed)
+pytest --cov=src/intervals_mcp_server
+```
 
-- All API communication through `make_intervals_request()` function
-- Consistent error response format: `{"error": True, "status_code": int, "message": str}`
-- Use formatting utilities from [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
-- Follow MCP tool naming conventions: `get_*` for retrieval operations
-- Support both numeric and i-prefixed athlete IDs
+## Test Requirements
 
-## Code Organization
+Before committing code, ensure:
+1. **All tests pass**: `pytest` returns exit code 0
+2. **No new linting errors**: `ruff .` passes
+3. **Type checking passes**: `mypy src tests` succeeds
 
-- Keep all MCP tools in [server.py](mdc:src/intervals_mcp_server/server.py)
-- Place formatting utilities in [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
-- Organize tests by functionality in [tests/](mdc:tests) directory
-- Use `__init__.py` files to mark Python packages
-- Include `py.typed` for type checking support
+## Writing New Tests
+
+When adding new MCP tools or utilities:
+
+1. **Create test cases** in appropriate test file
+2. **Mock external dependencies** (HTTP requests, file I/O)
+3. **Test both success and error paths**
+4. **Use realistic test data** from [tests/sample_data.py](mdc:tests/sample_data.py)
+5. **Follow async testing patterns** for MCP tools
+6. **Verify error message formatting** for user-facing errors
+
+## Mock Strategy
+
+The project uses comprehensive mocking to:
+- **Avoid real API calls** during testing
+- **Test error handling** by simulating various HTTP error responses
+- **Ensure deterministic results** with controlled test data
+- **Speed up test execution** by eliminating network requests
 
 ---
 > Source: [mvilanova/intervals-mcp-server](https://github.com/mvilanova/intervals-mcp-server) — distributed by [TomeVault](https://tomevault.io).
