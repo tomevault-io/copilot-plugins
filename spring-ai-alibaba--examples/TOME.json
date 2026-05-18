@@ -1,0 +1,75 @@
+{
+  "name": "examples",
+  "owner": "spring-ai-alibaba",
+  "repo": "examples",
+  "description": "Examples demonstrating usage of Spring AI & Spring AI Alibaba \ud83d\udcdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arxiv-search",
+      "path": "spring-ai-alibaba-agent-example/skills-agent-example/skills/arxiv-search",
+      "github_url": "https://github.com/spring-ai-alibaba/examples/tree/main/spring-ai-alibaba-agent-example/skills-agent-example/skills/arxiv-search",
+      "description": ""
+    },
+    {
+      "name": "http-generate",
+      "path": ".claude/skills/http-generate",
+      "github_url": "https://github.com/spring-ai-alibaba/examples/tree/main/.claude/skills/http-generate",
+      "description": ""
+    },
+    {
+      "name": "readme-generate",
+      "path": ".claude/skills/readme-generate",
+      "github_url": "https://github.com/spring-ai-alibaba/examples/tree/main/.claude/skills/readme-generate",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "spring-ai-alibaba-agent-example/skills-agent-example/skills/skill-creator",
+      "github_url": "https://github.com/spring-ai-alibaba/examples/tree/main/spring-ai-alibaba-agent-example/skills-agent-example/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "path": "spring-ai-alibaba-agent-example/skills-agent-example/skills/web-search",
+      "github_url": "https://github.com/spring-ai-alibaba/examples/tree/main/spring-ai-alibaba-agent-example/skills-agent-example/skills/web-search",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spring-ai-alibaba/examples",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T21:32:34Z"
+}
