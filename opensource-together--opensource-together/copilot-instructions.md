@@ -1,97 +1,106 @@
-## clean-react-patterns-rule
+## codebase-structure
 
-> Clean React patterns and best practices for OpenSource Together
+> Frontend Architecture & Development Guidelines for OpenSource Together
 
 
-You are an expert senior software engineer specializing in modern web development, with deep expertise in TypeScript, React 19, Next.js 15 (App Router), TanStack Query, Zustand, Shadcn UI, Radix UI, and Tailwind CSS. You are thoughtful, precise, and focus on delivering high-quality, maintainable solutions.
+This rule formalizes best practices and principles for working effectively with the OpenSource Together frontend, built with Next.js and a feature-based architecture with hybrid state management (TanStack Query + Zustand).
 
-## Analysis Process
+The goal is to ensure modularity, maintainability, scalability, and an optimal developer experience through clear separation of concerns and consistency in conventions.
 
-Before responding to any request, follow these steps:
+🚨 CRITICAL INSTRUCTIONS FOR DEVELOPERS 🚨
 
-1. Request Analysis
-   - Determine task type (code creation, debugging, architecture, etc.)
-   - Identify languages and frameworks involved
-   - Note explicit and implicit requirements
-   - Define core problem and desired outcome
-   - Consider project context and constraints
+You MUST strictly follow these principles and rules. Violations will cause maintenance issues, bugs, and performance degradation.
 
-2. Solution Planning
-   - Break down the solution into logical steps
-   - Consider modularity and reusability
-   - Identify necessary files and dependencies
-   - Evaluate alternative approaches
-   - Plan for testing and validation
+## Feature-Based Architecture
 
-3. Implementation Strategy
-   - Choose appropriate design patterns
-   - Consider performance implications
-   - Plan for error handling and edge cases
-   - Ensure accessibility compliance
-   - Verify best practices alignment
+- Each feature is an autonomous module under src/features/ containing views, components, hooks, services, store, validations, and types.
+- Never mix multiple features inside one module.
+- Features must not depend directly on each other; favor clear, decoupled APIs.
+- The src/app/ folder contains only Next.js routing, with no business logic or UI.
 
-## Code Style and Structure
+## Code Organization & Structure
 
-### General Principles
+src/
+├── app/ # Next.js routing only (no business logic or UI)
+├── features/ # Autonomous business feature modules
+│ └── feature-name/ 
+│ ├── components/ # Stateless UI components
+│ ├── views/ # Feature-specific views/pages
+│ ├── forms/ # Feature-specific forms (React Hook Form components)
+│ ├── hooks/ # Business logic hooks
+│ ├── services/ # API communication and side-effects
+│ ├── stores/ # Zustand stores (UI/client state)
+│ ├── validations/ # Zod schemas for runtime validation
+│ └── types/ # Feature-specific TypeScript types (.type.ts files)
+├── shared/ # Reusable components, hooks, lib, and stores (cross-feature)
+│ ├── components/
+│ ├── hooks/
+│ ├── lib/
+│ ├── stores/
+│ └── types/ # Generic technical types (.type.ts files, e.g., Nullable<T>)
+├── config/ # Global app configuration (e.g., TanStack Query)
+├── styles/ # Global styles and Tailwind setup
+├── types/ # Global app-level types (e.g., User, ApiResponse, MiddlewareMeta)
+└── middleware.ts # Next.js middleware (e.g., auth routing logic)
 
-- Write concise, readable TypeScript code
-- Use functional and declarative programming patterns
-- Follow DRY (Don't Repeat Yourself) principle
-- Implement early returns for better readability
-- Keep responsibilities small and composable
+## Hybrid State Management
 
-### Naming Conventions
+- TanStack Query manages server state only (data fetching, caching, API sync).
+- Zustand manages client state only (UI state, user preferences).
+- Never duplicate data between server and client state.
+- Business logic hooks in each feature must use TanStack Query or Zustand based on the state nature.
 
-- Descriptive names with auxiliaries (`isLoading`, `hasError`)
-- Prefix event handlers with `handle` (`handleClick`, `handleSubmit`)
-- Use lowercase-with-dashes for directories (`components/auth-wizard`)
-- Favor named exports for components and utilities
+## Naming Conventions and File Structure
 
-### TypeScript Usage
+- Files use kebab-case.
+- Precise suffixes per file role:
+- .component.tsx — UI components
+- .view.tsx — main pages/views exported by the feature
+- .form.tsx — React Hook Form components with logic
+- .hook.ts — business logic hooks (logic + state)
+- .service.ts — API calls / communication services
+- .store.ts — Zustand stores (UI state)
+- .schema.ts — Zod schemas for runtime validation
+- .type.ts — TypeScript types and interfaces
+- .config.ts — configuration files
+- TypeScript exports use PascalCase (interfaces/types) and camelCase for Zod schemas.
 
-- Use TypeScript for all code
-- Prefer interfaces over types
-- Avoid enums; use const maps instead
-- Implement proper type safety and inference
-- Use `satisfies` operator for type validation
+## Design & Development Principles
 
-## React 19 & Next.js 15 Best Practices
+- Modularity: decoupled features, reusable components, custom hooks.
+- Predictability: strict typing with TypeScript + Zod, unidirectional state flow.
+- Performance: intelligent TanStack Query cache, optimistic updates, minimized re-renders.
+- Maintainability: clear responsibility separation, isolated layers, easy testing, integrated debugging tools (TanStack DevTools, Sentry).
+- Clear responsibilities:
+- Views: UI composition and orchestration.
+- Hooks: business logic and state management.
+- Services: API calls and communication.
+- Components: stateless, reusable UI pieces.
 
-### Component Architecture
+## Best Practices
 
-- Favor React Server Components (RSC) where possible
-- Minimize 'use client' directives
-- Implement proper error boundaries
-- Use Suspense for async operations
-- Optimize for performance and Web Vitals
+- Never put business logic or API calls inside UI components.
+- Always use business logic hooks to access state and services.
+- Validate all incoming data with Zod before usage.
+- Centralize TanStack Query configuration in config/query.config.ts.
+- Favor full type safety by always defining and importing types from \*.type.ts.
+- Never duplicate data between TanStack Query and Zustand — synchronize via events or optimistic updates only.
+- Use DevTools (TanStack Query DevTools, Zustand middleware) to debug and monitor state.
 
-### State Management
+## Validation & Testing
 
-- Prefer server state via TanStack Query
-- Use Zustand for local/client app state
-- Keep client state minimal; push data fetching/derivations to server when possible
-- For forms, use React Hook Form with Zod for validation, and integrate with Shadcn UI components
+- Validate API data with Zod in hooks/services.
+- Unit test business logic hooks with mocks.
+- Unit test UI components in isolation.
+- Each feature must be independently testable and deployable.
 
-## Data Fetching (TanStack Query)
+## Consequences of Rule Violations
 
-- Client components: use `useQuery`, `useSuspenseQuery`, `useMutation`
-- RSC + Hydration: prefetch on the server, `dehydrate` + `HydrationBoundary` on the client
-- Stable query keys: arrays with primitives only (e.g. `["projects", { page, q }]`)
-- Cache policy: set `staleTime` and `gcTime` explicitly; avoid overly aggressive refetch
-- Selection: use `select` to project/trim large payloads
-- Errors: surface via `isError/error`, use boundaries/toasts; set `retry: 0` for expected 4xx
-- Mutations: optimistic updates with `onMutate/onError/onSettled`;
-- Dependent queries: gate with `enabled`
-
-## API Requests
-
-- Use native `fetch` with `async/await`.
-- Always set `"Content-Type": "application/json"` (or other headers as required).
-- Wrap calls in `try/catch`, log context, and rethrow errors.
-- Parse JSON manually and handle `response.ok` before returning.
-- Never return raw API responses — always return a typed, clean DTO.
-- Use `AbortController` for cancellable requests (especially with TanStack Query).
-- Handle authentication via `credentials: "include"` when required.
+- Increased complexity, hard-to-maintain code.
+- Bugs from inconsistent or duplicated state.
+- Difficulty scaling and integrating new features.
+- Performance issues and poor user experience.
+- Ineffective tests and harder debugging.
 
 ---
 > Source: [opensource-together/opensource-together](https://github.com/opensource-together/opensource-together) — distributed by [TomeVault](https://tomevault.io).
