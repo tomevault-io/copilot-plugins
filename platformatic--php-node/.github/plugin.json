@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--php-node",
+  "displayName": "php-node",
+  "description": "PHP HTTP Request handler for Node.js",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/php-node",
+  "skills": []
+}
