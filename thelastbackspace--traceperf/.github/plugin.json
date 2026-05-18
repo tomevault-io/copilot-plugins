@@ -1,0 +1,9 @@
+{
+  "name": "thelastbackspace--traceperf",
+  "displayName": "traceperf",
+  "description": "TracePerf: Advanced console logging & performance tracking for Node.js. Visualize execution flows with ASCII art, detect bottlenecks, and get optimization suggestions. Features structured logs, condit",
+  "version": "1.0.0",
+  "author": "thelastbackspace",
+  "homepage": "https://github.com/thelastbackspace/traceperf",
+  "skills": []
+}
