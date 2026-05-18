@@ -4,7 +4,7 @@
   "repo": "nextjs_drizzle_better-auth",
   "description": "A Next.js starter kit integrating Drizzle ORM for type-safe database operations, Better Auth for secure authentication, and NeonDB for serverless PostgreSQL. This template offers a robust, scalable foundation for building modern full-stack applications with TypeScript and a cloud-native database.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RvDstudio/nextjs_drizzle_better-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T00:55:16Z"
+  "distributed_at": "2026-05-18T02:14:01Z"
 }
