@@ -1,178 +1,123 @@
-## agentverse
+## agentverse-project
 
-> CursorRIPER Framework - State Management
+> ├── common/                    # Shared components and utilities
 
-<!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
-# CursorRIPER Framework - State Management
-# Version 1.0.2
+# AgentVerse Project Rules
 
-## AI PROCESSING INSTRUCTIONS
-This file defines the current state of the project within the CursorRIPER Framework. As an AI assistant, you MUST:
-- Always load this file after core.mdc but before other components
-- Never modify state values without proper authorization via commands
-- Validate state transitions against allowed paths
-- Update this file when state changes occur
-- Keep all state values consistent with each other
+## Project Architecture
 
-## CURRENT PROJECT STATE
-
-PROJECT_PHASE: "UNINITIATED"
-# Possible values: "UNINITIATED", "INITIALIZING", "DEVELOPMENT", "MAINTENANCE"
-
-RIPER_CURRENT_MODE: "NONE"
-# Possible values: "NONE", "RESEARCH", "INNOVATE", "PLAN", "EXECUTE", "REVIEW"
-
-START_PHASE_STATUS: "NOT_STARTED"
-# Possible values: "NOT_STARTED", "IN_PROGRESS", "COMPLETED", "ARCHIVED"
-
-START_PHASE_STEP: 0
-# Possible values: 0-6 (0=Not started, 1=Requirements, 2=Technology, 3=Architecture, 4=Scaffolding, 5=Environment, 6=Memory Bank)
-
-LAST_UPDATE: "2025-04-05T00:00:00Z"
-# ISO 8601 formatted timestamp of last state update
-
-INITIALIZATION_DATE: ""
-# When START phase was completed, empty if not completed
-
-FRAMEWORK_VERSION: "1.0.0"
-# Current version of the framework
-
-## STATE TRANSITION RULES
-
-```mermaid
-stateDiagram-v2
-    [*] --> UNINITIATED
-    
-    UNINITIATED --> INITIALIZING: /start
-    INITIALIZING --> DEVELOPMENT: START phase complete
-    DEVELOPMENT --> MAINTENANCE: User request
-    MAINTENANCE --> DEVELOPMENT: User request
-    
-    state INITIALIZING {
-        [*] --> NOT_STARTED
-        NOT_STARTED --> IN_PROGRESS: Begin START
-        IN_PROGRESS --> COMPLETED: All steps finished
-        COMPLETED --> ARCHIVED: Enter DEVELOPMENT
-    }
-    
-    state "DEVELOPMENT/MAINTENANCE" as DM {
-        [*] --> RESEARCH
-        RESEARCH --> INNOVATE: /innovate
-        INNOVATE --> PLAN: /plan
-        PLAN --> EXECUTE: /execute
-        EXECUTE --> REVIEW: /review
-        REVIEW --> RESEARCH: /research
-    }
+### Directory Structure
+```
+src/
+├── common/                    # Shared components and utilities
+│   ├── components/           # UI components
+│   ├── features/             # Feature-based organization
+│   │   └── agents/          # Agent-related features
+│   │       ├── components/  # Agent components
+│   │       └── extensions/  # Feature extensions
+│   ├── hooks/               # Custom hooks
+│   ├── lib/                 # Core libraries
+│   └── types/               # Type definitions
+├── core/                     # Application core
+│   ├── config/              # Configuration
+│   ├── hooks/               # App-level hooks
+│   ├── services/            # Business services
+│   └── stores/              # State management
+├── desktop/                  # Desktop-specific features
+└── mobile/                   # Mobile-specific features
 ```
 
-### Phase Transitions
-- UNINITIATED → INITIALIZING
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: None
-  
-- INITIALIZING → DEVELOPMENT
-  - Trigger: Automatic upon START phase completion
-  - Requirements: START_PHASE_STATUS = "COMPLETED"
-  
-- DEVELOPMENT → MAINTENANCE
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
-  
-- MAINTENANCE → DEVELOPMENT
-  - Trigger: Manual transition by user
-  - Requirements: Explicit user request
+### Feature Organization
+- **Platform Separation**: Keep desktop/mobile specific code separate
+- **Feature-First**: Organize by business features, not technical layers
+- **Reusability**: Common components in `common/`, platform-specific in respective directories
 
-### Mode Transitions
-- Any mode → RESEARCH
-  - Trigger: "/research" or "ENTER RESEARCH MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → INNOVATE
-  - Trigger: "/innovate" or "ENTER INNOVATE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → PLAN
-  - Trigger: "/plan" or "ENTER PLAN MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → EXECUTE
-  - Trigger: "/execute" or "ENTER EXECUTE MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
-  
-- Any mode → REVIEW
-  - Trigger: "/review" or "ENTER REVIEW MODE"
-  - Requirements: PROJECT_PHASE in ["DEVELOPMENT", "MAINTENANCE"]
+## Agent Configuration System
 
-### START Phase Status Transitions
-- NOT_STARTED → IN_PROGRESS
-  - Trigger: "/start" or "BEGIN START PHASE"
-  - Requirements: PROJECT_PHASE = "UNINITIATED"
-  
-- IN_PROGRESS → COMPLETED
-  - Trigger: Completion of all START phase steps
-  - Requirements: START_PHASE_STEP = 6
-  
-- COMPLETED → ARCHIVED
-  - Trigger: Automatic after transition to DEVELOPMENT
-  - Requirements: PROJECT_PHASE = "DEVELOPMENT"
+### Component Structure
+- **Configuration**: AI-driven agent configuration assistant
+- **Preview**: Agent testing and preview environment
+- **Tools**: Reusable agent tools and utilities
 
-## STATE UPDATE PROCEDURES
+### Naming Conventions
+- **Components**: `AgentConfigurationAssistant`, `AgentPreviewChat`
+- **Files**: `agent-configuration-assistant.tsx`, `agent-preview-chat.tsx`
+- **Hooks**: `useAgentConfigurationTools`, `useAgentPreviewTools`
+- **Directories**: `configuration/`, `preview/`, `tools/`
 
-### Update Project Phase
-1. Validate transition is allowed
-2. Create backup of current state
-3. Update PROJECT_PHASE value
-4. Update LAST_UPDATE timestamp
-5. Perform any phase-specific initialization
+## Code Quality Standards
 
-### Update RIPER Mode
-1. Validate transition is allowed
-2. Update RIPER_CURRENT_MODE value
-3. Update LAST_UPDATE timestamp
-4. Update activeContext.md to reflect mode change
+### File Size Limits
+- **Components**: Keep under 250 lines
+- **Functions**: Keep under 50 lines
+- **Split when needed**: Break large files into focused modules
 
-### Update START Phase Status
-1. Validate transition is allowed
-2. Update START_PHASE_STATUS value
-3. Update LAST_UPDATE timestamp
-4. If transitioning to COMPLETED, set INITIALIZATION_DATE
+### Component Splitting Guidelines
+- **UI Components**: Pure presentation components
+- **Logic Components**: Business logic and state management
+- **Hook Files**: Custom hooks and utilities
+- **Tool Files**: Tool definitions and executors
 
-### Update START Phase Step
-1. Validate step increment is logical
-2. Update START_PHASE_STEP value
-3. Update LAST_UPDATE timestamp
-4. If reaching step 6, trigger completion process
+### Separation of Concerns
+- **UI Layer**: React components, styling, layout
+- **Logic Layer**: Hooks, business logic, state management
+- **Data Layer**: API calls, data transformation, storage
+- **Tool Layer**: Agent tools, executors, renderers
 
-## AUTOMATIC STATE DETECTION
+## Development Workflow
 
-When determining current project state:
-1. Check for existence of memory bank files
-2. If complete memory bank exists but STATE_PHASE is "UNINITIATED":
-   - Set PROJECT_PHASE to "DEVELOPMENT"
-   - Set START_PHASE_STATUS to "COMPLETED"
-   - Set START_PHASE_STEP to 6
-   - Set INITIALIZATION_DATE based on file timestamps
-3. If partial memory bank exists:
-   - Set PROJECT_PHASE to "INITIALIZING"
-   - Set START_PHASE_STATUS to "IN_PROGRESS"
-   - Determine START_PHASE_STEP based on existing files
+### Component Development
+1. **Analyze Requirements**: Understand feature needs
+2. **Design Structure**: Plan component hierarchy and responsibilities
+3. **Implement**: Follow naming conventions and file organization
+4. **Test**: Build and lint validation
+5. **Refactor**: Optimize structure and naming if needed
 
-## RE-INITIALIZATION PROTECTION
+### Refactoring Process
+1. **Identify Issues**: Large files, mixed responsibilities, unclear naming
+2. **Plan Changes**: Design new structure and naming
+3. **Execute Carefully**: Make minimal, focused changes
+4. **Validate**: Build and test to ensure functionality
+5. **Commit**: Use descriptive English commit messages
 
-If "/start" or "BEGIN START PHASE" is detected when PROJECT_PHASE is not "UNINITIATED":
-1. Warn user about re-initialization risks
-2. Require explicit confirmation: "CONFIRM RE-INITIALIZATION"
-3. If confirmed:
-   - Create backup of current memory bank
-   - Reset state to PROJECT_PHASE = "INITIALIZING"
-   - Reset START_PHASE_STATUS to "IN_PROGRESS"
-   - Reset START_PHASE_STEP to 1
+## Common Patterns
 
+### Agent Tools
+- Define tools in separate files
+- Use TypeScript for type safety
+- Provide clear descriptions and parameters
+- Include renderers for UI feedback
+
+### Component Composition
+- Use composition over inheritance
+- Keep components focused and reusable
+- Maintain clear prop interfaces
+- Use proper TypeScript types
+
+### State Management
+- Use React hooks for local state
+- Keep state close to where it's used
+- Avoid prop drilling with context when needed
+- Use proper dependency arrays in useEffect
+
+## Error Handling
+
+### Development Errors
+- Provide clear error messages
+- Suggest specific solutions
+- Prioritize fixes by impact
+- Always verify solutions work
+
+### Code Quality Issues
+- Address lint warnings promptly
+- Follow established patterns
+- Maintain consistency across codebase
+- Document complex logic when needed
+---
+alwaysApply: true
+description: AgentVerse project specific rules and architecture guidelines
 ---
 
-*This file automatically tracks the current state of the project. It should never be edited manually.*
-
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Peiiii)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/Peiiii)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
