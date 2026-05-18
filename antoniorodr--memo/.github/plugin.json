@@ -1,0 +1,9 @@
+{
+  "name": "antoniorodr--memo",
+  "displayName": "memo",
+  "description": "Memo is a simple command-line interface (CLI) tool for managing your Apple Notes and Apple Reminders. It\u2019s written in Python and aims to offer a fast, keyboard-driven way to create, search, and organi",
+  "version": "1.0.0",
+  "author": "antoniorodr",
+  "homepage": "https://github.com/antoniorodr/memo",
+  "skills": []
+}
