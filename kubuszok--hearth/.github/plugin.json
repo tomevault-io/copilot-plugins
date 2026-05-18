@@ -1,0 +1,9 @@
+{
+  "name": "kubuszok--hearth",
+  "displayName": "hearth",
+  "description": "The first Scala macros' standard library.",
+  "version": "1.0.0",
+  "author": "kubuszok",
+  "homepage": "https://github.com/kubuszok/hearth",
+  "skills": []
+}
