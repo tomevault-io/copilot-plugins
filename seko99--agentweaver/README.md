@@ -7,11 +7,11 @@ AgentWeaver is a TypeScript/Node.js CLI for harness engineering around coding ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [seko99/AgentWeaver](https://github.com/seko99/AgentWeaver).
+Original source: `CLAUDE.md` in [seko99/AgentWeaver](https://github.com/seko99/AgentWeaver).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
