@@ -1,55 +1,35 @@
-## analyst-diagnostic
+## flywheel-continuous
 
-> Guide yourself like an analyst diagnosing the root cause, not a junior dev slapping on a bandaid.
+> When in flywheel mode, operate as a continuous improvement loop.
 
 
-# Analyst Diagnostic
+# Flywheel Continuous Improvement
 
-Guide yourself like an analyst diagnosing the root cause, not a junior dev slapping on a bandaid.
+When in flywheel mode, operate as a continuous improvement loop.
 
-## When to trigger
-- Before writing ANY fix — investigate why the bug exists, not just what it looks like
-- When an error appears — trace it upstream to the source, don't just suppress it
-- When a test fails — understand the system state that caused it, not just make the assertion pass
-- When something "works but feels wrong" — name the smell, don't ignore it
+## Protocol
+1. **Launch** - Start dev server, capture baseline state, publish a trajectory link in-app within 60 seconds.
+2. **Poll** - Every 60 seconds, check logs, console, and visual state.
+3. **Diagnose** - At each checkpoint, immediately seek issues. Do a 5-whys root-cause chain before any fix.
+4. **Fix** - Apply a minimal targeted fix that makes the failure mode impossible, not just hidden.
+5. **Dogfood** - Verify the fix end-to-end in the UI and capture evidence (screenshots + walkthrough video).
+6. **Iterate** - Return to step 2. Never ask "should I continue?" - just keep going until verified.
+7. **Adapt** - After 3 consecutive failures on the same issue, change strategy (instrumentation, isolation, or rollback).
+8. **Document** - Log every iteration: symptom, root cause, fix, verification result, and what to watch next.
 
-## The diagnostic process
-1. **Reproduce**: Confirm the exact failure mode. What triggers it? What's the expected vs actual?
-2. **Trace upstream**: Walk from symptom → intermediate state → root cause. Follow the data, not assumptions.
-3. **Ask "why" 5 times**: Each answer should go one level deeper. Stop when you reach a design decision, missing constraint, or wrong assumption.
-4. **Fix the cause, not the symptom**: The right fix makes the symptom impossible, not just invisible.
-5. **Verify the fix didn't shift the problem**: Bandaids often move bugs sideways. Check adjacent behavior.
-
-## Red flags you're bandaiding
-- Adding `try/catch` that swallows errors without understanding them
-- Adding `?.` optional chaining to mask `undefined` instead of finding why it's undefined
-- Adding `as any` to silence type errors instead of fixing the type mismatch
-- Adding timeouts/retries to paper over race conditions
-- Deleting a failing test instead of fixing the code it tests
-- "It works now" without understanding why it didn't before
-
-## What analysts do differently
-- They form a hypothesis BEFORE trying a fix
-- They check if the "fix" actually addresses their hypothesis
-- They look for other places the same root cause could cause problems
-- They document what they found so the next person doesn't re-discover it
-- They ask: "What system condition allowed this bug to exist?"
-
-## UI-specific diagnostic
-
-When fixing a UI issue, the analyst approach demands:
-1. **Which component actually renders?** Trace sidebar label → view key → MainLayout switch → component import. Grep alone can find the wrong file.
-2. **What layer owns the data?** Convex backend, React frontend, or stored DB records? Each requires a different deployment path.
-3. **Is this a cold-start problem?** Empty states for new users often point to missing bootstrap/onboarding data, not just bad copy. Fixing text is a bandaid; showing fallback content (trending, sample, public data) is structural.
-4. **Would hiding the problem make it invisible or actually solve it?** Changing "0/7 healthy" to "7 scheduled" hides a monitoring signal. The structural question is: should this panel even render when the system isn't configured?
+## Motion Safety (Seizure / Flash Policy)
+- Avoid high-contrast flashes and large-area pulses/fades.
+- Prefer stable backgrounds and subtle loading states; default to non-animated skeletons for full-viewport surfaces.
+- Always honor `prefers-reduced-motion` and ship a UI toggle when motion is used.
 
 ## Anti-patterns
-- Grepping for the error message and copying a StackOverflow fix without understanding it
-- Changing multiple things at once, making it impossible to know which change actually fixed it
-- Declaring "fixed" after a single green run without understanding the failure mode
-- Editing a component that isn't reachable from the user's navigation path
-- Changing text in an empty state instead of addressing why it's empty
-- Modifying a generation constant but not migrating existing stored data
+- Band-aids: swallowing errors, `as any`, masking with `?.`, retry loops without idempotency.
+- Declaring done without dogfood artifacts and deterministic verification.
+
+## Standards
+- Target: industry-standard UI performance + product design polish.
+- Every route loads without jank, no layout shift, and fast interaction response.
+- All interactive elements have focus rings, aria labels, and keyboard support.
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
