@@ -1,65 +1,78 @@
-## integration-tests
+## make-rules
 
-> Rule for handling integration tests in the codebase
+> Cursor Rules Location
 
-# Integration Tests Rule
+# Cursor Rules Location
 
-Rule for handling integration tests in the codebase
+Rules for placing and organizing Cursor rule files in the repository.
 
 <rule>
-name: integration_tests
-description: Rules for handling integration tests
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
 filters:
+  # Match any .mdc files
   - type: file_extension
-    pattern: "\\.py$"
-  - type: file_content
-    pattern: "@pytest\\.mark\\.(integration|parametrize)"
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
 
 actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
   - type: suggest
     message: |
-      # DO NOT MODIFY INTEGRATION TESTS
+      When creating Cursor rules:
 
-      Tests marked with `@pytest.mark.integration` or `@pytest.mark.parametrize` are integration tests that verify 
-      the behavior of the system with real external data. These tests should not be modified unless the 
-      underlying integration requirements have changed.
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
 
-      Reasons for this rule:
-      
-      1. Integration tests validate behavior against real-world data, which may contain edge cases that aren't 
-         obvious from reading the test.
-      
-      2. Changes to integration tests may inadvertently mask actual problems with the system under test.
-      
-      3. Integration tests often serve as documentation for how the system interacts with external resources.
+      2. Follow the naming convention:
+         - Use kebab-case for filenames
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
 
-      If the test is failing:
-      
-      - The problem is likely in the code under test, not the test itself
-      - Focus on fixing the implementation to match the expected behavior
-      - Only modify the test if there is a clear reason why the expected behavior is incorrect
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
+
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
 
 examples:
   - input: |
-      @pytest.mark.parametrize("xml_file", sample_tax_xml_files)
-      def test_xml_round_trip_files(xml_file: str, tmp_path: Path):
-          """Test round-trip XML processing (read and write) of real XML files."""
-          if not xml_file:
-              pytest.skip("No XML files provided for testing")
-    output: "This is an integration test that should not be modified"
+      # Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
 
-  - input: |
-      @pytest.mark.integration
-      def test_real_world_api_call():
-          """Tests integration with a real API endpoint."""
-          response = api.get_data()
-          assert response.status_code == 200
-    output: "This is a marked integration test that should not be modified"
+      # Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+    output: "Correctly placed Cursor rule file"
 
 metadata:
   priority: high
   version: 1.0
-</rule> 
+</rule>
 
 ---
 > Source: [vroonhof/opensteuerauszug](https://github.com/vroonhof/opensteuerauszug) — distributed by [TomeVault](https://tomevault.io).
