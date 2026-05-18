@@ -7,11 +7,11 @@ A system tray app to monitor the battery level of ZMK-based keyboards
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [kot149/zmk-battery-center](https://github.com/kot149/zmk-battery-center).
+Original source: `AGENTS.md` in [kot149/zmk-battery-center](https://github.com/kot149/zmk-battery-center).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
