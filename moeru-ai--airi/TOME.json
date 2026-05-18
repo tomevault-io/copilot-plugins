@@ -1,0 +1,63 @@
+{
+  "name": "airi",
+  "owner": "moeru-ai",
+  "repo": "airi",
+  "description": "\ud83d\udc96\ud83e\uddf8 Self hosted, you-owned Grok Companion, a container of souls of waifu, cyber livings to bring them into our worlds, wishing to achieve Neuro-sama's altitude. Capable of realtime voice chat, Minecraft, Factorio playing. Web / macOS / Windows supported.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vue",
+      "path": ".agents/skills/vue",
+      "github_url": "https://github.com/moeru-ai/airi/tree/main/.agents/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": ".agents/skills/vue-best-practices",
+      "github_url": "https://github.com/moeru-ai/airi/tree/main/.agents/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vueuse-functions",
+      "path": ".agents/skills/vueuse-functions",
+      "github_url": "https://github.com/moeru-ai/airi/tree/main/.agents/skills/vueuse-functions",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/moeru-ai/airi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:33:16Z"
+}
