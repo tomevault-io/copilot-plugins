@@ -1,0 +1,9 @@
+{
+  "name": "lab-cosmo--upet",
+  "displayName": "upet",
+  "description": "Universal interatomic potentials for advanced materials modeling",
+  "version": "1.0.0",
+  "author": "lab-cosmo",
+  "homepage": "https://github.com/lab-cosmo/upet",
+  "skills": []
+}
