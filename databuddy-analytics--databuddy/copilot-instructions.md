@@ -1,13 +1,91 @@
-## databuddy-skill-learning
+## design-system
 
-> After mistakes or missing-context issues, update the internal databuddy agent skill so they are not repeated
+> Design system basics and living patterns; agents extend this file when UI conventions stabilize. Use with ui-guidelines for all UI work.
 
 
-When you discover that a problem could have been avoided with more context (wrong surface, package, or assumption), or when big papa iza corrects something you did wrong or tells you to fix your own mistake, update the internal monorepo skill at `.agents/skills/databuddy/SKILL.md` and/or `.agents/skills/databuddy/references/codebase-map.md` in the same session when practical.
+# Design system (starter)
 
-Add the smallest useful addition: a bullet under the right section, a new search hint, a routing clarification, or a one-line pitfall—not a long essay. Goal: the next agent turn does not repeat the same error.
+This file is **intentionally small**. It grows as we lock patterns. **Interaction, motion, a11y, and hard constraints** stay in `.cursor/rules/ui-guidelines.mdc` and `.cursor/rules/01-MUST-DO.mdc`—follow those first.
 
-If the lesson applies to external SDK/API users instead, add it to `.agents/skills/databuddy-integration/` instead.
+## Foundations
+
+- **Contrast:** In `apps/dashboard/app/globals.css`, **`muted-foreground`** and **`secondary-foreground`** (dark) are tuned so secondary copy on fills meets **WCAG 2.1 AA** for normal text. **`--border`** stays **subtle** on purpose (light dividers, not high-chroma edges); do not darken it for “contrast” without review—prefer spacing, surface, or focus rings. New semantic colors: verify with a checker (e.g. WebAIM) before shipping.
+- **Surfaces:** Prefer theme / Tailwind tokens; one accent per view; no new gradients unless explicitly requested (see ui-guidelines).
+- **Radius:** `rounded` only (per project MUST-DO).
+- **Spacing:** Default Tailwind scale; avoid arbitrary spacing unless there is a clear, reusable reason.
+- **Typography:** Headings `text-balance`, body `text-pretty`, numeric data `tabular-nums` (see ui-guidelines).
+- **Primitives:** Use existing app primitives (Base UI / Radix / project components) before inventing new ones (see ui-guidelines).
+
+## Detail page metadata bars
+
+- Use a compact inline `flex` bar at `min-h-10` / `py-2.5` (40px, matching sidebar item height and the 10px spacing grid) for metadata like status, frequency, timestamps.
+- Stat items are inline `flex items-center gap-1.5` with `text-xs` labels in `text-muted-foreground` and `font-medium` values in `text-foreground`.
+- Status uses a dot (`size-1.5 rounded`) + colored text — not a `Badge` — for compactness.
+- Use `flex-wrap` with `gap-x-5 gap-y-1` so the bar wraps cleanly on mobile without breaking the 10px grid.
+- Canonical reference: `apps/dashboard/app/(main)/monitors/[id]/page.tsx` → `StatusIndicator` + stats bar.
+
+## Composables v2 — `List` (list pages)
+
+**Prefer** `components/ui/composables/` for new list and chart shells — this is the v2 pattern meant to replace ad-hoc list/chart layouts elsewhere.
+
+All list views use the `List` compound component (`components/ui/composables/list.tsx`). Wrap in `<List className="rounded bg-card">` — no border on root.
+
+- **Row defaults:** `List.Row` defaults to `align="center"` (vertical center). Use `align="start"` when multi-line text should stay top-aligned (monitors, goals, anomalies). `w-full` is built-in — don't repeat it.
+- **Cell defaults:** `shrink-0` and `min-w-0` are built-in — don't repeat them. `text-start` is the browser default — don't add it.
+- **Inactive/paused state:** `opacity-50` on the Row, not a badge.
+- **Cell vertical alignment:** `ListCell` is `flex items-center` by default — content is always vertically centered. **Do not** add `pt-0.5` or other manual padding hacks to align cells. If you need top-alignment, set `align="start"` on the Row and override individual cells with `items-start`.
+- **Icon containers:** `size-8 rounded` with semantic `bg-{color}-500/10 text-{color}-600 dark:text-{color}-400`. Use a `TYPE_CONFIG` const map when multiple types exist.
+- **Skeletons:** plain `div`s, not `List.Row`. Merge name + secondary into one `flex-1` block.
+- **Status badges:** Use `Badge` with `variant="green"` / `"amber"` / `"secondary"` for row-level status (`Active`, `Paused`, `Empty`). Keep it to one badge per row.
+- **Description as secondary text:** Show descriptions as a secondary `text-xs text-muted-foreground` line *below* the name in the same cell — not in a separate cell. This avoids wasting a column on optional text.
+- **Slug / URL display:** For short identifiers (slugs), show just `/{slug}` in the grow cell — not the full URL. Reserve full URLs for the dropdown menu / external link action.
+- **Derived counts from RPC:** When a list page needs child counts (e.g. "3 monitors"), include them in the list RPC response (join + count server-side) rather than making N+1 queries or fetching full relations. Keep the response shape flat (`monitorCount: number`).
+- Canonical refs: `monitor-row.tsx`, `status-page-row.tsx`, `funnel-item.tsx`, `goal-item.tsx`, `flags-list.tsx`.
+
+## Composables v2 — `Chart` (chart shells)
+
+Use the `Chart` compound component (`components/ui/composables/chart.tsx`) with `chart-query-outcome.ts` the same way lists use `List` + `list-query-outcome`: wrap the shell in `<Chart>`, put Recharts (or any plot) inside `<Chart.Plot>`, optional `<Chart.Header>` / `<Chart.Footer>`, and drive loading / empty / error with `<Chart.Content query={…}>` or `outcome={…}`. Default loading is `<Chart.DefaultLoading />`. **Also on `Chart`:** `Chart.SingleSeries` / `Chart.MultiSeries` / **`Chart.CartesianArea`** (single area + grid + visible axes—use before hand-rolling `AreaChart`), `Chart.Viewport` (fixed height + `ResponsiveContainer`), `Chart.Tooltip` (styled tooltip body), `Chart.createTooltipEntries` / `Chart.formatTooltipDate`, `Chart.tooltipCursorLine` / `Chart.tooltipCursorBar` for Recharts `<Tooltip cursor={…} />`, **`Chart.presentation`** (same tokens as `lib/chart-presentation.ts`: axis ticks, grid, series palette, tooltip shell classes), and type `ChartSeriesKind` (`"area" | "line" | "bar"`). Use **`Chart.Recharts`** only when the chart is truly bespoke (annotations, reference areas, pie, etc.). Canonical ref: `components/charts/simple-metrics-chart.tsx`; cartesian area example: `app/(main)/links/[id]/_components/clicks-chart.tsx`.
+
+- **Chart presentation (do not one-off):** Import from `@/lib/chart-presentation` (or use `Chart.presentation`): **`chartSurfaceClassName`** / **`chartSurfaceBorderlessClassName`** for card shells (same as `<Chart>` root / `SkeletonChart`); **`chartPlotRegionClassName`** for the dotted plot background (`Chart.Plot`). **`chartAxisTickDefault`**, **`chartAxisYWidthDefault`** vs **`chartAxisYWidthCompact`** (narrow trends). **`chartCartesianGridDefault`** on `CartesianGrid`. **`chartSeriesColorAtIndex(i)`** when a metric has no semantic color. **`Chart.Tooltip`** for standard tooltips; bespoke tooltips: **`chartTooltipCustomSurfaceClassName()`** + **`chartTooltipHeaderRowClassName`**. Cursor: **`Chart.tooltipCursorLine`** / **`Chart.tooltipCursorBar`**. **Legends:** **`Chart.Legend`** (metric pills in `Chart.Footer`); Recharts `<Legend>` — **`chartRechartsLegendIconSize`**, **`chartRechartsLegendInteractiveWrapperStyle`** + **`chartRechartsInteractiveLegendLabelClassName(isHidden)`** for toggles, **`chartRechartsLegendStaticWrapperStyle`** / **`chartRechartsLegendStaticWrapperStyleMerge({…})`** + **`chartRechartsLegendStaticLabelClassName`** for read-only; inline rows above charts: **`chartLegendInlineRowClassName`** / **`chartLegendPillDotClassName`** / **`chartLegendPillLabelClassName`**.
+
+- **Partial / in-progress period:** `SimpleMetricsChart` supports `partialLastSegment` (dashed stroke on the last segment via `use-dynamic-dasharray.ts`, same split rule as the overview `TrafficTrendsRechartsPlot`). Enable when the final bucket may still be filling (e.g. vitals trend). Main overview traffic chart is inlined in `traffic-trends-chart.tsx`, not `SimpleMetricsChart`.
+- **Stat card mini charts:** `StatCard` (`analytics/stat-card.tsx`) uses the `Chart` shell (`Chart` → `Chart.Plot` → `Chart.Footer` with `border-t-0` so the stat row matches the old card). `MiniChart` uses the same dash helper for **area** and **line** (not bar). `partialLastSegment` defaults to **true**; set `false` for fully historical series.
+
+## Detail pages (drill-down from list)
+
+- **Layout shell:** `flex h-full min-h-0 flex-col` on the outermost container so sub-sections (header, breadcrumb, tabs, content) stack and the content area scrolls independently.
+- **Breadcrumb navigation:** Use `PageNavigation` with `variant="breadcrumb"` to link back to the parent list page. This replaces manual back-arrow buttons.
+- **Tabs:** Use the project `Tabs` component with `variant="navigation"` for sub-views within a detail page. Upcoming/disabled tabs get a `<Badge variant="secondary">Soon</Badge>` inline with the label.
+- **Optimistic updates for toggles/switches:** When a switch only mutates a single boolean, update the query cache immediately via `queryClient.setQueryData` and roll back on error — never `refetch()` on each toggle. Pattern: snapshot previous → set optimistic → mutate → catch → rollback + toast.
+- **Destructive actions:** Never use `window.confirm`. Always use `DeleteDialog` managed by the parent page with `useState<string | null>(null)` for the item-to-delete ID.
+- **Row components are presentational:** Rows should not contain mutations. Mutations (delete, toggle) belong in the parent page or a dedicated hook. Rows signal intent via `onDeleteAction`, `onRemoveRequestAction`, etc.
+- Canonical refs: `monitors/status-pages/[id]/page.tsx` (tabs + optimistic switches), `flags/layout.tsx` (tab navigation with `PageNavigation`), `monitors/[id]/page.tsx` (metadata bar).
+
+## Component reuse principle
+
+Before building any new UI — a section, a pattern, a data display — **search the codebase for an existing component that does the same thing**. If one exists, use it. If it almost fits, extend it with props instead of forking. Duplicate implementations drift in styling and behavior over time.
+
+- When the same structural pattern appears in **2+ places**, extract it into a shared location (`components/` or the relevant shared folder) and use it everywhere.
+- Feature pages should reuse the **same components, sizing, spacing, and visual language** as the main landing page — they are subpages of the same product, not standalone sites.
+- **Never use `Math.random()`** in SSR-rendered components — it causes hydration mismatches. Use deterministic functions for generated visual data.
+
+## Where patterns live
+
+- Dashboard UI: `apps/dashboard/` (components co-located with features unless shared).
+- Docs / marketing: `apps/docs/components/landing/` for shared section-level components; page-specific components stay co-located in their route folder.
+- Shared primitives: existing `@/components/ui` and layout folders—reuse before adding parallel systems.
+- **Composables v2:** list and chart shells live in `@/components/ui/composables/` (`list.tsx`, `chart.tsx`); prefer these for new work.
+
+## Maintaining this rule (required)
+
+When a **reusable** visual or structural pattern is agreed on (new layout, token usage, component family, or naming), **update this file in the same change** when practical:
+
+- Add **one short bullet** under the right section (or a new `##` if needed).
+- Optionally point to a **canonical file path** so future work copies the same source.
+- If **iza** or review sets or corrects a design direction, **reflect it here** so the next session stays aligned.
+- **Do not** duplicate long lists from `ui-guidelines.mdc`—reference it and record only **Databuddy-specific** decisions that are not already stated there.
+
+Goal: this file stays the **lightweight index** of “how we build” so agents and humans stay consistent as the product grows.
 
 ---
 > Source: [databuddy-analytics/Databuddy](https://github.com/databuddy-analytics/Databuddy) — distributed by [TomeVault](https://tomevault.io).
