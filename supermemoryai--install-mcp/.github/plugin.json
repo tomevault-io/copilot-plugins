@@ -1,0 +1,9 @@
+{
+  "name": "supermemoryai--install-mcp",
+  "displayName": "install-mcp",
+  "description": "A simple CLI to install MCP servers into any client - auth included!",
+  "version": "1.0.0",
+  "author": "supermemoryai",
+  "homepage": "https://github.com/supermemoryai/install-mcp",
+  "skills": []
+}
