@@ -1,23 +1,26 @@
 # ferriskey
 
-> Config by [ferriskey](https://github.com/ferriskey/ferriskey) — distributed by [TomeVault](https://tomevault.io/claim/ferriskey)
+> Source: [ferriskey/ferriskey](https://github.com/ferriskey/ferriskey) — distributed by [TomeVault](https://tomevault.io)
+
+FerrisKey is an open-source IAM solution designed for modern cloud-native environments, high-performance and written in Rust.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [ferriskey/ferriskey](https://github.com/ferriskey/ferriskey).
+Original source: `CLAUDE.md` in [ferriskey/ferriskey](https://github.com/ferriskey/ferriskey).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/ferriskey](https://tomevault.io/claim/ferriskey)
+From [ferriskey/ferriskey](https://github.com/ferriskey/ferriskey) — a repo with 596+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/ferriskey) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:d-e-s -->
