@@ -1,0 +1,51 @@
+{
+  "name": "ktchn8s",
+  "owner": "serpro69",
+  "repo": "ktchn8s",
+  "description": "Home-cooked kubernetes homelab \u2638 that just works \u269b ...served hot \u2668 Don\u2019t burn the nodes! \ud83d\udc7e",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "development-process",
+      "path": ".claude/skills/development-process",
+      "github_url": "https://github.com/serpro69/ktchn8s/tree/main/.claude/skills/development-process",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/serpro69/ktchn8s",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T00:37:13Z"
+}
