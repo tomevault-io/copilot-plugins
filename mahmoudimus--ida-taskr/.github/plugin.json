@@ -1,0 +1,9 @@
+{
+  "name": "mahmoudimus--ida-taskr",
+  "displayName": "ida-taskr",
+  "description": "IDA Taskr is a pure Python library for IDA Pro related parallel computing. It lets you use the power of Qt (built-in to IDA!) and Python's powerful multiprocessing and asyncio systems to quickly proce",
+  "version": "1.0.0",
+  "author": "mahmoudimus",
+  "homepage": "https://github.com/mahmoudimus/ida-taskr",
+  "skills": []
+}
