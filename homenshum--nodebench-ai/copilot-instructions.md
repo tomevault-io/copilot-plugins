@@ -1,42 +1,47 @@
-## reexamine-performance
+## deep-read-audit
 
-> - Don't render 500 items at once — show 8-12 per group with "Show more"
+> Deep-read audit protocol — full end-to-end reads only, parallel subagents, numbered findings
 
 
-# Re-examine: Performance
+# Deep-Read Audit Protocol
 
-## Progressive disclosure
-- Don't render 500 items at once — show 8-12 per group with "Show more"
-- Collapsed sections: don't render hidden children, use deferred rendering on expand
-- Store raw data in `window._data` or `data-items` attribute, render on demand via `insertAdjacentHTML`
+When collocating across tools, prompts, skills, or rules — NEVER edit from a section-level read. Full end-to-end reads only.
 
-## Smart refresh
-- Polling/interval refreshes: hash the data before re-rendering
-- `simpleHash(JSON.stringify(data))` compared to `_lastDataHash` — skip if unchanged
-- Avoids DOM thrashing on 5s intervals when nothing changed
-- Use `requestAnimationFrame` for batched DOM updates
+## Protocol
 
-## Lazy loading
-- Images below the fold: `loading="lazy"` attribute
-- Heavy components: dynamic import / code splitting
-- IntersectionObserver for triggering loads when elements enter viewport
-- Placeholder (skeleton or blur) until loaded
+1. **Categorize** — Group all target files into 4-6 non-overlapping categories by domain
+2. **Parallel subagents** — Launch one Explore subagent per category, all simultaneously
+3. **Full reads required** — Each subagent reads EVERY file in its category end-to-end. No partial reads, no grep-only
+4. **Numbered findings** — Each finding must include:
+   - `[N] FILE:LINE` — exact location
+   - `"exact quote of relevant code/text"` — verbatim from the file
+   - `ISSUE:` — description of duplication, obscurity, or centralization need
+5. **Wait for all** — Do not synthesize until ALL subagents complete
+6. **Synthesize** — Produce a single consolidated report with:
+   - P0 (extract immediately), P1 (fix this sprint), P2 (next sprint)
+   - Estimated impact per tier
+   - Proposed module paths for centralized code
 
-## String concatenation
-- Build HTML with array push + join: `const h = []; h.push('<div>'); return h.join('')`
-- Avoids O(n^2) string concatenation in loops
-- Template literals are fine for small chunks; arrays for large dynamic HTML
+## What to look for
+- Duplicated helper functions across files
+- Overlapping tool/rule descriptions that confuse discovery
+- Shared patterns that should be centralized (DB setup, ID generation, timestamps, fetch wrappers)
+- Inconsistent naming conventions (params, response shapes, error formats)
+- Tools/rules that do similar things in different files
+- Hardcoded values that should be shared constants
+- Stale/deprecated code still callable
+- Instructions duplicated across CLAUDE.md, .claude/rules/, .cursor/rules/
 
-## CSS performance
-- Use CSS custom properties (`:root { --gap: 1rem }`) instead of repeated values
-- Avoid `*` selectors in complex rules
-- `will-change: transform` only on elements that actually animate
-- `contain: content` on independent card/section containers
+## Anti-patterns
+- Reading only the first 50 lines and inferring the rest
+- Grepping for keywords instead of reading full context
+- Editing before the audit completes
+- Skipping large files (72KB+ agent files are WHERE the duplication hides)
 
-## Measurement
-- Profile before optimizing — don't guess where the bottleneck is
-- Check for layout thrashing: read → write → read → write cycles
-- `getComputedStyle()` calls force synchronous layout — cache results
+## Related rules
+- `analyst_diagnostic` — root cause before fix
+- `reexamine_process` — orchestrator for when/how to re-examine
+- `completion_traceability` — cite back to original request
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
