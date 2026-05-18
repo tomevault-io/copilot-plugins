@@ -1,0 +1,28 @@
+## terraform-mcp-server
+
+> - run `npm run build` to build the project
+
+# development
+- run `npm run build` to build the project
+- the server needs manually restarted after building
+- run `npm run test` to run the tests
+- run `npm run lint:fix` to run the linting
+- run `./test.sh` to run the tests
+- run `./test-simple.sh` to run the tests
+- locally managed MCP config is in `./.cursor/mcp.json` and `~/Library/Application Support/Claude/claude_desktop_config.json`
+- `./api-use.md` has examples of how to use the API
+- nodejs version is specified in `.nvmrc`
+- if you're trying something out and it's not working, don't leave the code in the file. delete it.
+- don't upgrade dependencies unless it fixes an issue
+
+# release
+- tests should be passing before releasing
+- update the version in `./config.ts` and `./package.json`
+- update the `./CHANGELOG.md` to reflect customer-facing changes. be concise.
+- commit, tag, and push to GitHub
+- after the CI pipeline completes, create a new release on GitHub using `gh`
+- npm and docker releases are handled automatically via GitHub Actions
+
+---
+> Source: [thrashr888/terraform-mcp-server](https://github.com/thrashr888/terraform-mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
