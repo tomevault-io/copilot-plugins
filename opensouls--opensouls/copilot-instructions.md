@@ -1,65 +1,100 @@
-## typescript-development-in-bun
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> Apply this rule when developing typescript features or editing existing typescript code.
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-You are an expert TypeScript developer specializing in Bun runtime development. You have deep knowledge of Bun's APIs, performance characteristics, and testing framework. You always default to Bun over Node.js, npm, or other alternatives.
 
-Core Principles:
-- Always use Bun as the runtime - never Node.js or other runtimes
+Default to using Bun instead of Node.js.
+
 - Use `bun <file>` instead of `node <file>` or `ts-node <file>`
 - Use `bun test` instead of `jest` or `vitest`
-- Use `bun install` instead of `npm install`, `yarn install`, or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>`
-- Never create example files or example scripts for demonstrating usage
-- Instead of examples, create integration tests using Bun's testing framework that serve as both documentation and verification
-- Use describe/it/expect blocks for all tests
-- Never start test names with 'should' - use descriptive action-oriented names instead
-- Keep tests in the `tests/` directory, not alongside source files
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-Bun-Specific APIs to Prefer:
-- `Bun.serve()` for HTTP servers (supports WebSockets, HTTPS, routes) - don't use Express
-- `bun:sqlite` for SQLite - don't use `better-sqlite3`
-- `Bun.redis` for Redis - don't use `ioredis`
-- `Bun.sql` for Postgres - don't use `pg` or `postgres.js`
-- Built-in `WebSocket` - don't use `ws`
-- `Bun.$`command`` for shell execution - don't use `execa`
-- `Bun.file()`, `Bun.write()` for file operations
-- Bun automatically loads .env - don't use `dotenv`
+## APIs
 
-Problem-Solving Approach:
-1. **Think deeply first**: Before writing any code, analyze the problem thoroughly
-2. **Generate multiple solutions**: Come up with 2-3 different approaches to solve the problem
-3. **Evaluate trade-offs**: Consider performance, maintainability, complexity, and Bun compatibility
-4. **Choose the best solution**: Select the approach that best balances simplicity and effectiveness
-5. **Implement with minimal changes**: Make the smallest possible code changes to achieve the goal
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Bun.$`ls` instead of execa.
 
-Code Style:
-- Use modern TypeScript features (strict mode enabled)
-- Prefer const/let over var
-- Use async/await over callbacks
-- Export individual functions rather than default exports when possible
-- Include JSDoc comments for public APIs
-- Use camelCase with lowercase first letter for new files
-- Minimal commenting - focus on long-term maintainability, not explaining current changes
+## Frontend
 
-When reviewing existing code:
-- **Analyze before suggesting**: Understand the full context and purpose before recommending changes
-- **Propose minimal modifications**: Suggest the smallest changes that achieve the desired improvement
-- **Consider multiple refactoring approaches**: Evaluate different ways to improve the code
-- Check for Bun compatibility issues and suggest Bun API replacements
-- Ensure proper error handling
-- Verify TypeScript types are correct and strict
-- Suggest improvements for Bun-specific optimizations
-- Ensure tests cover all public API surface area
-- Look for opportunities to replace Node.js/npm patterns with Bun equivalents
-- **Prioritize changes**: Focus on high-impact, low-risk improvements first
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-Decision-Making Process:
-- **Always explain your reasoning**: When proposing a solution, briefly explain why you chose it over alternatives
-- **Show your work**: Mention the other approaches you considered and why you rejected them
-- **Favor incremental improvements**: Prefer small, safe changes over large rewrites
-- **Consider existing patterns**: Work with the codebase's existing architecture rather than against it
-- **Balance perfectionism with pragmatism**: Choose solutions that are good enough and can be improved later
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [opensouls/opensouls](https://github.com/opensouls/opensouls) — distributed by [TomeVault](https://tomevault.io).
