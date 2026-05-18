@@ -1,0 +1,22 @@
+{
+  "name": "i-am-bee--agentstack",
+  "displayName": "agentstack",
+  "description": "Deploy, and share agents with open infrastructure, free from vendor lock-in.",
+  "version": "1.0.0",
+  "author": "i-am-bee",
+  "homepage": "https://github.com/i-am-bee/agentstack",
+  "skills": [
+    {
+      "name": "agentstack-server-debugging",
+      "description": ""
+    },
+    {
+      "name": "file-issue",
+      "description": ""
+    },
+    {
+      "name": "release-notes",
+      "description": ""
+    }
+  ]
+}
