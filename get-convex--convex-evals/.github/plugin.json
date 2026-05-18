@@ -1,0 +1,26 @@
+{
+  "name": "get-convex--convex-evals",
+  "displayName": "convex-evals",
+  "description": "convex-evals",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/convex-evals",
+  "skills": [
+    {
+      "name": "add-model",
+      "description": ""
+    },
+    {
+      "name": "analyze-ablation",
+      "description": ""
+    },
+    {
+      "name": "analyze-run",
+      "description": ""
+    },
+    {
+      "name": "validate-guidelines",
+      "description": ""
+    }
+  ]
+}
