@@ -1,146 +1,75 @@
-## osmea-components-usage
+## osmea-core-foundation
 
-> Use OsmeaComponents instead of standard Flutter widgets in apps
+> OSMEA Core - base classes, DI, i18n, config, routing, logging
 
 
-# OsmeaComponents Usage Rules for Flutter App
+# OSMEA Core - Cursor Rules
 
-## Overview
-This project uses OsmeaComponents instead of standard Flutter widgets. OsmeaComponents provides a comprehensive set of pre-styled, consistent UI components that should be used throughout the application.
+## 📦 Package Overview
+OSMEA Core is the foundation package providing essential utilities, base classes, and shared logic for OSMEA applications.
 
-## Import Statement
-Always import OsmeaComponents at the top of your files:
-```dart
-import 'package:osmea_components/osmea_components.dart';
+## 🎯 Development Guidelines
+
+### 📁 File Structure
+```
+lib/
+├── src/
+│   ├── base/               # Base classes and interfaces
+│   ├── config/             # Configuration management
+│   ├── di/                 # Dependency injection
+│   ├── helper/             # Helper utilities
+│   ├── layout/             # Layout utilities
+│   └── resources/          # Resources and assets
+├── gen/                    # Generated files (strings, etc.)
+└── assets/
+    └── i18n/               # Internationalization
 ```
 
-## Available OsmeaComponents
+### 🏗️ Core Development Rules
 
-### 🏗️ Layout Components
-- `OsmeaComponents.scaffold()` - Main scaffold wrapper
-- `OsmeaComponents.center()` - Center alignment wrapper
-- `OsmeaComponents.container()` - Container wrapper
-- `OsmeaComponents.column()` - Column layout
-- `OsmeaComponents.row()` - Row layout
-- `OsmeaComponents.stack()` - Stack layout
-- `OsmeaComponents.wrap()` - Wrap layout
-- `OsmeaComponents.expanded()` - Expanded widget
-- `OsmeaComponents.flexible()` - Flexible widget
-- `OsmeaComponents.sizedBox()` - SizedBox wrapper
-- `OsmeaComponents.padding()` - Padding wrapper
-- `OsmeaComponents.positioned()` - Positioned widget
-- `OsmeaComponents.singleChildScrollView()` - Scrollable content
-- `OsmeaComponents.responsiveLayout()` - Responsive layout wrapper
+#### 1. Base Classes Structure
+- Use abstract BaseBloc, BaseCubit, BaseRepository, BaseService
+- Log events and errors in base classes
 
-### 🎨 UI Components
-- `OsmeaComponents.text()` - Text widget with consistent styling
-- `OsmeaComponents.image()` - Image widget with consistent styling
-- `OsmeaComponents.richText()` - Rich text widget
-- `OsmeaComponents.divider()` - Divider component
-- `OsmeaComponents.spacer()` - Spacer component
-- `OsmeaComponents.clipRRect()` - ClipRRect wrapper
+#### 2. Configuration Management
+- Use environment-based configuration
+- Support multiple flavors (dev, staging, prod)
+- Use dependency injection for configuration
 
-### 🔘 Interactive Components
-- `OsmeaComponents.button()` - Button component
-- `OsmeaComponents.loginButton()` - Specialized login button
-- `OsmeaComponents.checkbox()` - Checkbox component
-- `OsmeaComponents.radioButton()` - Radio button component
-- `OsmeaComponents.switchButton()` - Switch component
-- `OsmeaComponents.dropdown()` - Dropdown component
-- `OsmeaComponents.textField()` - Text field component
-- `OsmeaComponents.searchbar()` - Search bar component
+#### 3. Dependency Injection
+- Use `injectable` package
+- Follow service locator pattern
+- Implement proper lifecycle management
 
-### 🎯 Navigation Components
-- `OsmeaComponents.appbar()` - App bar component
-- `OsmeaComponents.navbar()` - Navigation bar
-- `OsmeaComponents.tabbar()` - Tab bar component
-- `OsmeaComponents.stepper()` - Stepper component
+### 🌐 Internationalization Rules
+- Use i18n JSON structure; use `context.strings.*` instead of hard-coded strings
+- Use pluralization helpers where applicable
 
-### 📋 List Components
-- `OsmeaComponents.listItem()` - List item component
-- `OsmeaComponents.cards()` - Card components
-- `OsmeaComponents.carousel()` - Carousel component
+### 💾 Data Management Rules
+- Use SharedPreferences for simple data; encryption for sensitive data
+- Use SQLite for complex data with proper migrations
+- Implement memory and disk caching with invalidation
 
-### 🎪 Feedback Components
-- `OsmeaComponents.loading()` - Loading indicator
-- `OsmeaComponents.progress()` - Progress indicator
-- `OsmeaComponents.toast()` - Toast notification
-- `OsmeaComponents.snackbar()` - Snackbar component
-- `OsmeaComponents.popup()` - Popup component
+### 📊 Analytics Rules
+- Track events and screen views with parameters
 
-## Usage Rules
+### 🛣️ Routing Rules
+- Use named routes; implement route guards; handle deep linking
+- Use GoRouter with injectable
 
-### ✅ ALWAYS Use OsmeaComponents For:
-1. **All UI Components** - Text, buttons, inputs, containers, layout, navigation, feedback
-2. **Consistent Styling** - Colors, fonts, spacing, border radius, shadows, animations
-3. **Theme Integration** - Dark/light mode, brand colors, typography, spacing
+### 📝 Logging Rules
+- Use appropriate levels (debug, info, warning, error)
+- Include context; avoid logging sensitive data
 
-### ❌ NEVER Use Standard Flutter Widgets For:
-1. **UI Components** - Use OsmeaComponents instead
-2. **Layout Components** - Use OsmeaComponents wrappers
-3. **Styling** - Use OsmeaComponents styling system
-4. **Colors** - Use OsmeaColors instead of Colors
-5. **Text Styling** - Use OsmeaComponents.text() instead of Text()
-
-## Code Examples
-
-### Basic Layout
-```dart
-// ✅ Correct - using OsmeaComponents
-OsmeaComponents.scaffold(
-  body: OsmeaComponents.container(
-    padding: context.paddingNormal,
-    child: OsmeaComponents.column(
-      children: [
-        OsmeaComponents.text('Title'),
-        OsmeaComponents.sizedBox(height: context.height16),
-        OsmeaComponents.button(
-          onPressed: () {},
-          child: OsmeaComponents.text('Button'),
-        ),
-      ],
-    ),
-  ),
-)
-```
-
-### Text and Buttons
-```dart
-// ✅ Use OsmeaComponents.text with OsmeaColors
-OsmeaComponents.text(
-  'Hello World',
-  fontSize: 18,
-  fontWeight: FontWeight.bold,
-  color: OsmeaColors.nordicBlue,
-)
-
-OsmeaComponents.button(
-  onPressed: () {},
-  backgroundColor: OsmeaColors.nordicBlue,
-  padding: context.horizontalPaddingHigh + context.verticalPaddingMedium,
-  child: OsmeaComponents.text('Click Me'),
-)
-```
-
-### AppBar
-```dart
-// ✅ DO use OsmeaComponents.appbar
-OsmeaComponents.appbar(
-  title: 'My App',
-  backgroundColor: OsmeaColors.nordicBlue,
-  titleColor: OsmeaColors.paperWhite,
-)
-```
-
-## Migration Guidelines
-1. **Replace Scaffold** → `OsmeaComponents.scaffold`
-2. **Replace Container** → `OsmeaComponents.container`
-3. **Replace Text** → `OsmeaComponents.text`
-4. **Replace ElevatedButton** → `OsmeaComponents.button`
-5. **Replace TextField** → `OsmeaComponents.textField`
-6. **Replace Card** → `OsmeaComponents.cards`
-7. **Replace ListView** → `OsmeaComponents.listView`
-8. **Replace Colors** → `OsmeaColors`
+### 🔍 Code Review Checklist
+- [ ] Base classes follow established patterns
+- [ ] Configuration is environment-aware
+- [ ] Dependency injection is properly implemented
+- [ ] Internationalization is complete
+- [ ] Data management is secure
+- [ ] Routing is properly configured
+- [ ] Logging is appropriate
+- [ ] Tests and documentation are complete
 
 ---
 > Source: [masterfabric-mobile/osmea](https://github.com/masterfabric-mobile/osmea) — distributed by [TomeVault](https://tomevault.io).
