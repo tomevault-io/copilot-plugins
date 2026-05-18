@@ -1,0 +1,9 @@
+{
+  "name": "atalayalabs--oxicloud",
+  "displayName": "OxiCloud",
+  "description": "\u2601\ufe0f Ultra-fast, secure & lightweight self-hosted cloud storage \u2014 your files, photos, calendars & contacts, all in one place. Built in Rust.",
+  "version": "1.0.0",
+  "author": "AtalayaLabs",
+  "homepage": "https://github.com/AtalayaLabs/OxiCloud",
+  "skills": []
+}
