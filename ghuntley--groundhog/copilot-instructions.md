@@ -1,21 +1,18 @@
-## nix-build-phases
+## nix-dependency-management
 
-> This rule enforces best practices for using build phases and hooks in Nix derivations.
-
-# Nix Build Phases and Hooks
+> Nix Dependency Management and Versioning
 
 ## Description
-This rule enforces best practices for using build phases and hooks in Nix derivations.
+This rule enforces best practices for managing dependencies and versioning in Nix files.
 
 ## Rule Details
-- Use standard build phases when possible
-- Prefer using `preBuild`, `postBuild`, etc. over overriding entire phases
-- Use `makeWrapper` for environment variable management
-- Use `patchPhase` for source modifications
-- Use `installPhase` for proper installation
-- Use `fixupPhase` for post-installation fixes
-- Use `checkPhase` for running tests
-- Use `distPhase` for creating distribution files
+- Use specific version constraints for dependencies
+- Prefer using `fetchFromGitHub` with specific tags/commits over floating versions
+- Use `buildInputs` for runtime dependencies
+- Use `nativeBuildInputs` for build-time dependencies
+- Use `propagatedBuildInputs` only when necessary
+- Avoid using `buildEnv` for simple dependency management
+- Use `override` and `overrideAttrs` instead of direct attribute modification
 
 ## Examples
 
@@ -23,42 +20,28 @@ This rule enforces best practices for using build phases and hooks in Nix deriva
 ```nix
 { lib
 , stdenv
-, makeWrapper
+, fetchFromGitHub
+, pkg-config
+, openssl
 }:
 
 stdenv.mkDerivation rec {
   pname = "my-package";
-  version = "1.0.0";
+  version = "1.2.3";
 
-  src = ./src;
+  src = fetchFromGitHub {
+    owner = "owner";
+    repo = "repo";
+    rev = "v${version}";
+  };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ pkg-config ];  # Build-time dependency
+  buildInputs = [ openssl ];          # Runtime dependency
 
-  # Use standard phases with hooks
-  preBuild = ''
-    echo "Configuring build..."
-  '';
-
-  postInstall = ''
-    wrapProgram $out/bin/my-program \
-      --set PATH ${lib.makeBinPath [ stdenv.cc ]}
-  '';
-
-  # Run tests during build
-  doCheck = true;
-  checkPhase = ''
-    runHook preCheck
-    make test
-    runHook postCheck
-  '';
-
-  # Create distribution files
-  distPhase = ''
-    runHook preDist
-    mkdir -p $out/dist
-    cp -r dist/* $out/dist/
-    runHook postDist
-  '';
+  # Use override for version-specific changes
+  passthru = {
+    updateScript = ./update.sh;
+  };
 }
 ```
 
@@ -68,27 +51,22 @@ stdenv.mkDerivation rec {
 
 stdenv.mkDerivation {
   name = "my-package";
-  src = ./src;
-
-  # Overriding entire phases instead of using hooks
-  buildPhase = ''
-    make
-    make install
-    make test
-  '';  # Missing proper phase separation
+  src = ./.;  # Missing version control
+  buildInputs = [ ];  # Missing essential dependencies
+  propagatedBuildInputs = [ ];  # Unnecessary propagation
 }
 ```
 
 ## Why
-- Standard build phases ensure consistent behavior across packages
-- Hooks allow for customization without breaking standard behavior
-- Proper phase separation makes builds more maintainable
-- Using standard phases makes packages more compatible with Nix tools
-- Proper installation phases ensure correct file placement and permissions
+- Specific version constraints ensure reproducible builds
+- Proper dependency categorization prevents unnecessary rebuilds
+- Using `fetchFromGitHub` with specific versions prevents unexpected changes
+- Clear dependency management makes packages more maintainable
+- Proper use of `override` mechanisms allows for better customization
 
 ## References
-- [Nixpkgs Manual - Build Phases](mdc:https:/nixos.org/nixpkgs/manual/#sec-stdenv-phases)
-- [Nixpkgs Manual - Hooks](mdc:https:/nixos.org/nixpkgs/manual/#sec-stdenv-hooks) 
+- [Nixpkgs Manual - Dependencies](mdc:https:/nixos.org/nixpkgs/manual/#chap-dependencies)
+- [Nixpkgs Manual - Version Management](mdc:https:/nixos.org/nixpkgs/manual/#chap-version-management) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
