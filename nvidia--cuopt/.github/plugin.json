@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--cuopt",
+  "displayName": "cuopt",
+  "description": "GPU accelerated decision optimization ",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/cuopt",
+  "skills": []
+}
