@@ -1,347 +1,338 @@
-## api-design-guidelines
+## creating-hooks
 
-> This document establishes standards for creating consistent, intuitive, and robust APIs for hooks in guarahooks.
+> Complete guide for creating hooks in the guarahooks project
 
-# API Design Guidelines
+# Creating Hooks in guarahooks
 
-This document establishes standards for creating consistent, intuitive, and robust APIs for hooks in guarahooks.
+This guide provides the complete process for creating new hooks following the project patterns.
 
-## 🎯 Fundamental Principles
+## 🚀 Creation Flow
 
-### 1. Consistency
+### 1. Planning
 
-- Similar APIs should work similarly
-- Uniform naming conventions
-- Predictable return patterns
+- [ ] Define the hook's purpose and functionality
+- [ ] Choose an appropriate category
+- [ ] Check if similar hook already exists
+- [ ] Define the API (parameters and return)
 
-### 2. Simplicity
+### 2. Implementation
 
-- Minimal but complete APIs
-- Common cases should be simple
-- Optional complexity through configurations
+- [ ] Create hook in `registry/hooks/`
+- [ ] Create example in `registry/example/`
+- [ ] Create documentation in `content/docs/hooks/`
 
-### 3. Predictability
+### 3. Registration
 
-- Expected behavior without surprises
-- Consistent error handling
-- Predictable performance
+- [ ] Register in `registry/registry-hooks.ts`
+- [ ] Register example in `registry/registry-examples.ts`
+- [ ] Add to navigation in `config/docs.ts`
 
-## 📝 Naming Conventions
+### 4. Verification
 
-### Hook Names
+- [ ] Run `pnpm build:registry`
+- [ ] Run `pnpm build:docs`
+- [ ] Test locally
 
-```typescript
-// ✅ Correct
-useToggle()
-useLocalStorage()
-useFetch()
-useDebounceState()
+## 📁 File Structure
 
-// ❌ Incorrect
-useToggleState()      // Redundant
-useToggleBoolean()    // Too specific
-toggleHook()          // Doesn't follow use* convention
-```
+### Main Hook
 
-### Parameter Names
+**Location**: `registry/hooks/use-{name}.ts`
 
 ```typescript
-// ✅ Established standards
-initialValue          // Initial value
-defaultValue          // Default value
-onToggle, onChange    // Callbacks
-options               // Optional configurations
-key                   // Keys for storage
-delay                 // Delay times
-```
+"use client";
 
-### Return Names
+import { useCallback, useEffect, useState } from "react";
 
-```typescript
-// ✅ Established standards
-value, setValue       // Simple state
-data, error, loading  // Async operations
-toggle, clear, reset  // Actions
-isLoading, isError    // Boolean states
-```
-
-## 🔧 API Patterns
-
-### 1. Simple State Hooks
-
-```typescript
-// Pattern: [value, setter]
-function useToggle(
-  initialValue: boolean = false,
-  onToggle?: (value: boolean) => void
-): [boolean, () => void]
-
-function useCounter(
-  initialValue: number = 0
-): [number, { increment: () => void; decrement: () => void; reset: () => void }]
-```
-
-### 2. Complex State Hooks
-
-```typescript
-// Pattern: Object with named properties
-function useLocalStorage<T>(
-  key: string,
-  initialValue: T,
-  options?: UseLocalStorageOptions<T>
-): {
-  value: T;
-  setValue: (value: T) => void;
-  removeValue: () => void;
-}
-```
-
-### 3. Async Hooks
-
-```typescript
-// Pattern: data, error, loading + actions
-function useFetch<T>(
-  url: string,
-  options?: FetchOptions
-): {
-  data: T | null;
-  error: Error | null;
-  loading: boolean;
-  refetch: () => Promise<T | null>;
-  abort: () => void;
-}
-```
-
-### 4. Effect/Sensor Hooks
-
-```typescript
-// Pattern: Current value + optional metadata
-function useWindowSize(): {
-  width: number;
-  height: number;
-}
-
-function useGeolocation(options?: PositionOptions): {
-  position: GeolocationPosition | null;
-  error: GeolocationPositionError | null;
-  loading: boolean;
-}
-```
-
-## ⚙️ Configurations and Options
-
-### Options Structure
-
-```typescript
+// Types
 interface UseHookOptions {
-  // Behavior configurations
-  enabled?: boolean;        // Hook active/inactive
-  immediate?: boolean;      // Immediate execution
-  
-  // Performance configurations
-  debounce?: number;        // Debounce timing
-  throttle?: number;        // Throttle timing
-  
-  // Callbacks
-  onSuccess?: (data: T) => void;
-  onError?: (error: Error) => void;
-  onChange?: (value: T) => void;
-  
-  // Specific configurations
-  // ... other relevant options
-}
-```
-
-### Sensible Default Values
-
-```typescript
-// ✅ Good standards
-const defaultOptions = {
-  enabled: true,           // Hook active by default
-  immediate: true,         // Immediate execution
-  retries: 0,             // No retry by default
-  timeout: 5000,          // 5s reasonable timeout
-  debounce: 300,          // 300ms default debounce
-};
-```
-
-## 🎭 Return Patterns
-
-### 1. Tuple Pattern (Simple State)
-
-```typescript
-// For simple useState-like hooks
-const [value, setValue] = useToggle();
-const [count, { increment, decrement }] = useCounter();
-```
-
-### 2. Object Pattern (Complex State)  
-
-```typescript
-// For hooks with multiple related values
-const { data, error, loading, refetch } = useFetch('/api/users');
-const { position, error, loading } = useGeolocation();
-```
-
-### 3. Value Pattern (Sensors/Computed)
-
-```typescript
-// For hooks that return only a computed value
-const windowSize = useWindowSize();
-const isOnline = useOnlineStatus();
-const deviceOrientation = useOrientation();
-```
-
-## 🔄 State Management
-
-### Initialization
-
-```typescript
-// ✅ Correct: useState with stable initial value
-const [value, setValue] = useState(() => {
-  // Expensive computation only on initialization
-  return computeInitialValue();
-});
-
-// ✅ Correct: useRef for stable values
-const initialRef = useRef(initialValue);
-```
-
-### Updates and Callbacks
-
-```typescript
-// ✅ Correct: useCallback for stability
-const handleChange = useCallback((newValue: T) => {
-  setValue(newValue);
-  onToggle?.(newValue);
-}, [onToggle]);
-
-// ✅ Correct: Stable update function
-const toggle = useCallback(() => {
-  setValue(prev => !prev);
-}, []);
-```
-
-## 🚨 Error Handling
-
-### Error Patterns
-
-```typescript
-// ✅ Consistent pattern for async hooks
-interface AsyncHookReturn<T> {
-  data: T | null;
-  error: Error | null;
-  loading: boolean;
+  // Hook options
 }
 
-// ✅ Try-catch with graceful fallback
-const readValue = useCallback((): T => {
-  try {
-    return JSON.parse(localStorage.getItem(key)) ?? initialValue;
-  } catch (error) {
-    console.warn(`Error reading localStorage key "${key}":`, error);
-    return initialValue;
-  }
-}, [key, initialValue]);
-```
-
-## 📊 Performance Guidelines
-
-### Mandatory Optimizations
-
-```typescript
-// ✅ useCallback for stable functions
-const stableFunction = useCallback(() => {
-  // implementation
-}, [dependencies]);
-
-// ✅ useMemo for expensive computations
-const expensiveValue = useMemo(() => {
-  return computeExpensiveValue(input);
-}, [input]);
-
-// ✅ Refs for values that don't cause re-render
-const intervalRef = useRef<NodeJS.Timeout>();
-```
-
-### Cleanup
-
-```typescript
-// ✅ Always clean up resources
-useEffect(() => {
-  const timer = setInterval(() => {
-    // action
-  }, 1000);
-  
-  return () => clearInterval(timer);
-}, []);
-```
-
-## 🧪 TypeScript Guidelines
-
-### Type Safety
-
-```typescript
-// ✅ Generics for type-safe flexibility
-function useLocalStorage<T>(
-  key: string, 
-  initialValue: T
-): [T, (value: T) => void]
-
-// ✅ Interfaces for complex options
-interface UseFetchOptions extends RequestInit {
-  timeout?: number;
-  retries?: number;
+interface UseHookReturn {
+  // Hook return
 }
-```
 
-### JSDoc Documentation
-
-```typescript
 /**
- * Hook to control boolean state with toggle function
- * 
- * @param initialValue - Initial state value (default: false)
- * @param onToggle - Callback called when state changes
- * @returns Tuple with [value, toggle function]
- * 
- * @example
- * ```tsx
- * const [isOpen, toggle] = useToggle(false);
- * ```
+ * Hook description
+ * @param options - Hook configuration
+ * @returns Object with properties and methods
  */
-export function useToggle(
-  initialValue: boolean = false,
-  onToggle?: (value: boolean) => void
-): [boolean, () => void]
+export function useHook(options: UseHookOptions = {}): UseHookReturn {
+  // Implementation here
+  
+  return {
+    // Return object
+  };
+}
 ```
 
-## ✅ API Checklist
+### Usage Example
 
-### Design
+**Location**: `registry/example/use-{name}-demo.tsx`
 
-- [ ] Hook name is descriptive and follows `use*` pattern
-- [ ] Parameters follow established conventions
-- [ ] Return is consistent with category pattern
-- [ ] Optional configurations in `options` object
-- [ ] Default values are sensible
+```typescript
+"use client";
 
-### Implementation
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useHook } from "@/hooks/guarahooks/use-hook";
 
-- [ ] Uses TypeScript with strict types
-- [ ] Has complete JSDoc
-- [ ] Implements appropriate error handling
-- [ ] Uses `useCallback`/`useMemo` where needed
-- [ ] Performs resource cleanup
+export default function UseHookDemo() {
+  const { /* destructure return */ } = useHook();
 
-### Compatibility
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle>Hook Demo</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {/* Demo content */}
+      </CardContent>
+    </Card>
+  );
+}
+```
 
-- [ ] Works with SSR (returns safe values)
-- [ ] Works with React Strict Mode
-- [ ] Doesn't break on frequent re-renders
-- [ ] Adequate performance for real-world use
+### Documentation
 
-Following these guidelines ensures consistent, robust, and easy-to-use APIs throughout the guarahooks ecosystem.
+**Location**: `content/docs/hooks/use-{name}.mdx`
+
+````markdown
+---
+title: useHook
+date: YYYY-MM-DD
+description: Concise hook description
+author: h3rmel
+published: true
+---
+
+<HookPreview name="use-{name}-demo" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx guarahooks@latest add use-{name}
+```
+</TabsContent>
+
+<TabsContent value="manual">
+<Steps>
+<Step>Copy and paste the code below into your project.</Step>
+
+<HookSource name="use-{name}" />
+
+<Step>Update import paths according to your structure.</Step>
+</Steps>
+</TabsContent>
+</Tabs>
+
+## Basic Usage
+
+```tsx
+import { useHook } from "@/hooks/guarahooks/use-hook";
+
+function Component() {
+  const { /* return properties */ } = useHook();
+  
+  return (
+    // Component JSX
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `param` | `Type` | `default` | Parameter description |
+
+### Return
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `property` | `Type` | Property description |
+
+## Examples
+
+### Advanced Usage
+
+```tsx
+// More complex example
+```
+
+## Features
+
+- ✅ SSR Support
+- ✅ TypeScript
+- ✅ Performance optimized
+- ✅ React 18+ compatible
+
+## Related
+
+- [Related Hook](/docs/hooks/use-related)
+````
+
+## 🏷️ Available Categories
+
+| Category | Description | Examples |
+|----------|-------------|----------|
+| `state-management` | State management | `use-local-storage`, `use-toggle` |
+| `ui-and-dom` | UI and DOM manipulation | `use-window-size`, `use-keypress` |
+| `utilities` | General utilities | `use-copy-to-clipboard`, `use-geolocation` |
+| `lifecycle` | Lifecycle | `use-on-mount`, `use-did-update` |
+| `data-fetching` | Requests and network | `use-fetch`, `use-axios` |
+
+## 📝 Code Standards
+
+### Naming Conventions
+
+- **Hook**: `use-{name}` in kebab-case
+- **File**: `use-{name}.ts`
+- **Function**: `useName` in camelCase
+- **Demo**: `use-{name}-demo.tsx`
+
+### Hook Structure
+
+```typescript
+// 1. Imports
+"use client";
+import { useCallback, useEffect, useState } from "react";
+
+// 2. Types
+interface Options {}
+interface Return {}
+
+// 3. Hook function with JSDoc
+/**
+ * Description
+ */
+export function useHook(): Return {
+  // 4. State
+  const [state, setState] = useState();
+  
+  // 5. Effects
+  useEffect(() => {}, []);
+  
+  // 6. Callbacks
+  const callback = useCallback(() => {}, []);
+  
+  // 7. Return
+  return { state, callback };
+}
+```
+
+### Best Practices
+
+- ✅ Use `"use client"` when necessary
+- ✅ Document with JSDoc
+- ✅ Use TypeScript rigorously
+- ✅ Optimize with `useCallback` and `useMemo`
+- ✅ Implement cleanup in `useEffect`
+- ✅ Handle edge cases
+- ✅ Maintain consistent API
+
+## 📋 Hook Registration
+
+### Hook Registry
+
+**File**: `registry/registry-hooks.ts`
+
+```typescript
+{
+  name: 'use-hook',
+  type: 'registry:hook',
+  title: 'UseHook',
+  description: 'Hook description',
+  files: [{
+    path: 'registry/hooks/use-hook.ts',
+    type: 'registry:hook',
+    target: 'hooks/guarahooks/use-hook.ts',
+  }],
+  categories: ['utilities'],
+}
+```
+
+### Example Registry  
+
+**File**: `registry/registry-examples.ts`
+
+```typescript
+{
+  name: 'use-hook-demo',
+  type: 'registry:example',
+  title: 'UseHookDemo',
+  description: 'use-hook demonstration.',
+  registryDependencies: [
+    'https://guarahooks.com/r/use-hook.json',
+  ],
+  files: [{
+    path: 'registry/example/use-hook-demo.tsx',
+    type: 'registry:example',
+    target: 'components/example/use-hook-demo.tsx',
+  }],
+}
+```
+
+### Documentation Navigation
+
+**File**: `config/docs.ts`
+
+```typescript
+// Add to appropriate category
+{
+  title: 'use-hook',
+  href: '/docs/hooks/use-hook',
+}
+```
+
+## 🔄 Build and Tests
+
+### Build Commands
+
+```bash
+# Registry build
+pnpm build:registry
+
+# Documentation build  
+pnpm build:docs
+
+# Development
+pnpm dev
+```
+
+### Verifications
+
+- [ ] Hook works correctly
+- [ ] Example renders without errors
+- [ ] Documentation is accessible
+- [ ] TypeScript types are correct
+- [ ] Build runs without errors
+
+## 📖 References
+
+### Example Hooks
+
+- **Simple**: [use-mounted.ts](mdc:registry/hooks/use-mounted.ts)
+- **With State**: [use-toggle.ts](mdc:registry/hooks/use-toggle.ts)  
+- **With Effects**: [use-local-storage.ts](mdc:registry/hooks/use-local-storage.ts)
+
+### Example Demos
+
+- [use-mounted-demo.tsx](mdc:registry/example/use-mounted-demo.tsx)
+- [use-toggle-demo.tsx](mdc:registry/example/use-toggle-demo.tsx)
+
+This guide ensures consistency and quality in hook creation for the guarahooks project.
 
 ---
 > Source: [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks) — distributed by [TomeVault](https://tomevault.io).
