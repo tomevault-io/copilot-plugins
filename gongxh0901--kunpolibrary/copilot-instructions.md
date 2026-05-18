@@ -1,277 +1,257 @@
-## decorator-patterns
+## fairygui
 
-> 装饰器模式和元数据管理规范
+> FairyGUI UI 系统开发规范
 
 
-# 装饰器模式开发规范
+# FairyGUI UI 系统开发规范
 
-## 装饰器设计原则
+## 窗口基类设计模式
 
-### namespace 封装模式
+### 窗口继承层次
 ```typescript
-export namespace _uidecorator {
-    /** 元数据存储键 */
-    const UIPropMeta = "__uipropmeta__";
-    const UICBMeta = "__uicbmeta__";
-    
-    /** 注册映射 */
-    const uiclassMap: Map<any, UIWindowInfo> = new Map();
-    
-    /** 对外接口 */
-    export function getWindowMaps(): Map<any, UIWindowInfo> {
-        return uiclassMap;
+// 基础窗口类 - 提供核心功能
+export abstract class WindowBase extends Component {
+    // 核心窗口管理逻辑
+}
+
+// 抽象窗口类 - 定义生命周期
+export abstract class Window extends WindowBase {
+    protected abstract onInit(): void;
+    protected onClose(): void { }
+    protected onShow(userdata?: any): void { }
+    protected onHide(): void { }
+    protected onShowFromHide(): void { }
+    protected onCover(): void { }
+    protected onRecover(): void { }
+}
+```
+
+### 窗口生命周期管理
+- `onInit()`: 窗口初始化，必须实现
+- `onShow()`: 窗口显示时调用
+- `onHide()`: 窗口隐藏时调用
+- `onClose()`: 窗口关闭时调用
+- `onCover()`: 被其他窗口覆盖时调用
+- `onRecover()`: 从覆盖状态恢复时调用
+- `onShowFromHide()`: 从隐藏状态重新显示时调用
+
+## 窗口管理器模式
+
+### 静态管理器设计
+```typescript
+export class WindowManager {
+    /** 窗口组映射 */
+    private static _groups: Map<string, WindowGroup> = new Map();
+    /** 所有窗口映射 */
+    private static _windows: Map<string, IWindow> = new Map();
+    /** 资源池 */
+    private static _resPool: WindowResPool;
+
+    /**
+     * 异步显示窗口（自动加载资源）
+     */
+    public static showWindow(windowName: string, userdata?: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this._resPool.loadWindowRes(windowName, {
+                complete: () => {
+                    this.showWindowIm(windowName, userdata);
+                    resolve();
+                },
+                fail: (pkgs: string[]) => reject(pkgs)
+            });
+        });
+    }
+
+    /**
+     * 立即显示窗口（资源已加载）
+     */
+    public static showWindowIm(windowName: string, userdata?: any): void {
+        const info = this._resPool.get(windowName);
+        const windowGroup = this.getWindowGroup(info.group);
+        this._resPool.addResRef(windowName);
+        windowGroup.showWindow(info, userdata);
     }
 }
 ```
 
-### 装饰器工厂模式
+### 窗口组管理
+- 使用 `WindowGroup` 管理同类型窗口
+- 支持窗口层级和遮挡关系
+- 自动处理窗口恢复和覆盖
+
+## 装饰器系统
+
+### UI 装饰器使用规范
 ```typescript
-/**
- * 类装饰器工厂
- * @param groupName 窗口组名称  
- * @param pkgName fgui包名
- * @param name 窗口名
- * @param bundle 可选bundle名
- */
-export function uiclass(groupName: string, pkgName: string, name: string, bundle?: string): Function {
-    return function (ctor: any): any {
-        // 元数据收集
-        uiclassMap.set(ctor, {
-            ctor: ctor,
-            props: ctor[UIPropMeta] || null,
-            callbacks: ctor[UICBMeta] || null,
-            res: {
-                group: groupName,
-                pkg: pkgName,  
-                name: name,
-                bundle: bundle || ""
-            }
-        });
-        
-        // 动态注册支持
-        _registerFinish && WindowManager.dynamicRegisterWindow(ctor, groupName, pkgName, name, bundle || "");
-        return ctor;
-    };
-}
-```
-
-## 属性装饰器模式
-
-### 属性标记装饰器
-```typescript
-/**
- * UI属性装饰器
- * @param target 实例成员的类的原型
- * @param name 属性名
- */
-export function uiprop(target: Object, name: string): any {
-    ObjectHelper.getObjectProp(target.constructor, UIPropMeta)[name] = 1;
-}
-
-/**
- * UI控制器装饰器  
- */
-export function uicontrol(target: Object, name: string): any {
-    ObjectHelper.getObjectProp(target.constructor, UIControlMeta)[name] = 1;
-}
-
-/**
- * UI动画装饰器
- */
-export function uitransition(target: Object, name: string): any {
-    ObjectHelper.getObjectProp(target.constructor, UITransitionMeta)[name] = 1;
-}
-```
-
-### 使用示例
-```typescript
-@uiclass("popup", "common", "SettingsWindow")
+// 窗口类装饰器
+@uiclass("popup", "common", "SettingsWindow", "ui")
 export class SettingsWindow extends Window {
+    
+    // UI 属性装饰器
     @uiprop
     btnClose: GButton;
     
-    @uiprop  
+    @uiprop
     list: GList;
     
+    // UI 控制器装饰器
     @uicontrol
-    tabController: GController;
+    controller: GController;
     
+    // UI 动画装饰器
     @uitransition
-    showAnim: GTransition;
-}
-```
-
-## 方法装饰器模式
-
-### 方法绑定装饰器
-```typescript
-/**
- * 点击事件装饰器
- * @param target 实例成员的类的原型
- * @param name 方法名  
- * @param descriptor 属性描述符
- */
-export function uiclick(target: Object, name: string, descriptor: PropertyDescriptor): void {
-    ObjectHelper.getObjectProp(target.constructor, UICBMeta)[name] = descriptor.value;
-}
-```
-
-### 使用示例
-```typescript
-export class SettingsWindow extends Window {
+    showTransition: GTransition;
+    
+    // 点击事件装饰器
     @uiclick
     private onBtnCloseClick(): void {
         WindowManager.closeWindow("SettingsWindow");
     }
-    
-    @uiclick
-    private onBtnSaveClick(): void {
-        this.saveSettings();
-    }
+}
+
+// 组件装饰器
+@uicom("common", "CustomButton")
+export class CustomButton extends GButton {
+    // 自定义组件逻辑
+}
+
+// Header 装饰器
+@uiheader("common", "CommonHeader", "ui")
+export class CommonHeader extends WindowHeader {
+    // 通用头部逻辑
 }
 ```
 
-## 数据绑定装饰器
+### 装饰器参数规范
+- `@uiclass(group, pkg, name, bundle?)`: 窗口类注册
+  - `group`: 窗口组名
+  - `pkg`: FairyGUI 包名
+  - `name`: 组件名（与 FairyGUI 中一致）
+  - `bundle`: 可选的 bundle 名称
+- `@uicom(pkg, name)`: 自定义组件注册
+- `@uiheader(pkg, name, bundle?)`: 窗口头部注册
 
-### 强类型绑定装饰器
+## 资源管理模式
+
+### 资源池设计
 ```typescript
-export namespace data {
-    const BIND_METADATA_KEY = Symbol('__bind_metadata__');
+export class WindowResPool {
+    private _windowInfos: Map<string, WindowHeaderInfo> = new Map();
+    private _headerInfos: Map<string, WindowHeaderInfo> = new Map();
     
     /**
-     * 属性绑定装饰器
-     * @param dataClass 数据类构造函数
-     * @param selector 路径选择器函数
-     * @param callback 回调函数
-     * @param immediate 是否立即触发
+     * 加载窗口资源
      */
-    export function bindProp<T extends DataBase>(
-        dataClass: new () => T, 
-        selector: (data: T) => any, 
-        callback: (item: any, value?: any, data?: T) => void, 
-        immediate: boolean = false
-    ) {
-        return function (target: any, prop: string | symbol) {
-            const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
-            
-            let ctor = target.constructor;
-            ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
-            ctor[BIND_METADATA_KEY].push({
-                prop, callback, path, immediate, isMethod: false
-            });
-        };
-    }
-    
-    /**
-     * 方法绑定装饰器  
-     */
-    export function bindMethod<T extends DataBase>(
-        dataClass: new () => T, 
-        selector: (data: T) => any, 
-        immediate: boolean = false
-    ) {
-        return function (target: any, method: string | symbol, descriptor?: PropertyDescriptor) {
-            const path = `${dataClass.name}:${extractPathFromSelector(selector)}`;
-            
-            let ctor = target.constructor;
-            ctor[BIND_METADATA_KEY] = ctor[BIND_METADATA_KEY] || [];
-            ctor[BIND_METADATA_KEY].push({
-                prop: method, 
-                callback: descriptor!.value, 
-                path, immediate, 
-                isMethod: true
-            });
-            return descriptor;
-        };
-    }
-}
-```
-
-### 数据绑定使用示例
-```typescript
-class GameData extends DataBase {
-    level: number = 1;
-    coins: number = 0;
-}
-
-export class GameUI extends Window {
-    @uiprop
-    levelLabel: GLabel;
-    
-    @uiprop
-    coinsLabel: GLabel;
-    
-    // 绑定属性到UI
-    @data.bindProp(GameData, data => data.level, function(item, value) {
-        this.levelLabel.text = `Level: ${value}`;
-    })
-    private _levelBinding: any;
-    
-    // 绑定方法到数据变化
-    @data.bindMethod(GameData, data => data.coins)
-    private onCoinsChanged(value: number): void {
-        this.coinsLabel.text = `Coins: ${value}`;
-    }
-}
-```
-
-## 条件装饰器
-
-### 条件注册装饰器
-```typescript
-export namespace _conditionDecorator {
-    const cdClassMap: Map<number, any> = new Map();
-    
-    export function getConditionMaps(): Map<number, any> {
-        return cdClassMap;
+    loadWindowRes(windowName: string, callbacks: {
+        complete: () => void;
+        fail: (pkgs: string[]) => void;
+    }): void {
+        // 检查包资源是否已加载
+        // 自动加载依赖的UI包
+        // 调用相应的回调
     }
     
     /**
-     * 条件装饰器
-     * @param conditionType 条件类型ID
+     * 释放窗口资源
      */
-    export function conditionClass(conditionType: number): Function {
-        return function (ctor: any): void {
-            cdClassMap.set(conditionType, ctor);
-            return ctor;
-        };
+    releaseWindowRes(windowName: string): void {
+        // 减少引用计数
+        // 必要时卸载资源
     }
 }
 ```
 
-### 条件使用示例
+### 包配置管理
 ```typescript
-@conditionClass(1001)
-export class LevelCondition extends ConditionBase {
-    protected check(): boolean {
-        return GameData.getInstance().level >= this.targetLevel;
+interface IPackageConfigRes {
+    [windowName: string]: {
+        group: string;
+        pkg: string;
+        bundle?: string;
+    };
+}
+
+// 初始化包配置
+WindowManager.initPackageConfig(packageConfig);
+```
+
+## UI 组件扩展
+
+### 组件扩展模式
+```typescript
+export class ComponentExtendHelper {
+    private static _componentMaps: Map<string, any> = new Map();
+    
+    /**
+     * 注册自定义组件
+     */
+    public static register(): void {
+        for (const { ctor, res } of _uidecorator.getComponentMaps().values()) {
+            UIObjectFactory.setPackageItemExtension(
+                `ui://${res.pkg}/${res.name}`, 
+                ctor
+            );
+        }
+    }
+    
+    /**
+     * 动态注册组件
+     */
+    public static dynamicRegister(ctor: any, pkg: string, name: string): void {
+        UIObjectFactory.setPackageItemExtension(
+            `ui://${pkg}/${name}`, 
+            ctor
+        );
     }
 }
 ```
 
-## 装饰器最佳实践
+## 窗口头部系统
 
-### 元数据收集模式
-1. 使用 Symbol 作为元数据键避免冲突
-2. 在类原型上存储元数据信息
-3. 提供统一的元数据访问接口
-
-### 动态注册支持
+### WindowHeader 模式
 ```typescript
-let _registerFinish: boolean = false;
-
-export function setRegisterFinish(): void {
-    _registerFinish = true;
+export class WindowHeader {
+    /** 头部组件实例 */
+    protected _header: GComponent;
+    
+    /**
+     * 创建头部
+     */
+    public createHeader(pkg: string, name: string): GComponent {
+        this._header = UIPackage.createObject(pkg, name).asCom;
+        return this._header;
+    }
+    
+    /**
+     * 头部适配
+     */
+    public adapter(window: GComponent): void {
+        // 头部适配逻辑
+        // 处理安全区域
+        // 设置头部位置和尺寸
+    }
 }
-
-// 在装饰器中支持动态注册
-_registerFinish && WindowManager.dynamicRegisterWindow(ctor, groupName, pkgName, name, bundle);
 ```
 
-### 类型安全
-- 使用泛型约束确保装饰器类型安全
-- 提供明确的参数类型定义
-- 避免使用 any 类型，优先使用具体类型
+## 屏幕适配
+
+### 屏幕尺寸变化处理
+```typescript
+// 在 WindowManager 中处理屏幕变化
+public static _screenResize(): void {
+    this._windows.forEach((window: IWindow) => {
+        window.screenResize();
+    });
+    this._groups.forEach((group: WindowGroup) => {
+        group._screenResize();
+    });
+}
+
+// 在窗口中实现屏幕适配
+protected screenResize(): void {
+    // 处理窗口在屏幕尺寸变化时的适配逻辑
+}
+```
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
