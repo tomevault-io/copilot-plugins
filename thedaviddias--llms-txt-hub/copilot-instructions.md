@@ -1,18 +1,85 @@
-## design-system
+## functions
 
-> UI Best Practices
+> Rules for writing TypeScript functions
 
-- Use Tailwind CSS 4
-- Use Shaden UI components with proper composition and customization
-- Leverage Radix UI primitives for accessible interactive components
-- Follow Tailwind CSS class naming conventions and utility patterns
-- Implement mobile-first responsive design with Tailwind breakpoints
-- Maintain consistent spacing and layout using Tailwind's spacing scale
-- Use Tailwind's color system for consistent theming
-- Implement dark mode support using Tailwind's dark variant
-- Ensure components are accessible following WCAG 2.2 guidelines
-- Keep component styles modular and reusable
-- Optimize component bundle size through proper code splitting
+# TypeScript Function Rules
+
+<rule>
+name: function_parameters
+description: Standards for writing TypeScript function parameters
+filters:
+  # Match TypeScript and React files
+  - type: file_extension
+    pattern: "\\.(ts|tsx)$"
+  # Match function declarations and expressions
+  - type: content
+    pattern: "(function|const)\\s+\\w+\\s*=?\\s*(async)?\\s*\\([^)]*\\)"
+
+actions:
+  - type: reject
+    conditions:
+      - pattern: "function\\s+\\w+\\s*\\([^,]*,[^)]+\\)|const\\s+\\w+\\s*=\\s*(async)?\\s*\\([^,]*,[^)]+\\)"
+        message: "Functions with more than 1 parameter should use an object parameter"
+
+  - type: suggest
+    message: |
+      When writing TypeScript functions:
+
+      1. For functions with more than 1 parameter, use an object parameter:
+         ```typescript
+         // Instead of:
+         const myFunction = (id: string, name: string) => {
+           // ...
+         }
+
+         // Do this:
+         type MyFunctionInput = {
+           id: string
+           name: string
+         }
+
+         const myFunction = ({ id, name }: MyFunctionInput) => {
+           // ...
+         }
+         ```
+
+      2. Name the input type with the pattern: `{FunctionName}Input`
+
+      3. For single parameters, direct arguments are acceptable:
+         ```typescript
+         const getUser = (id: string) => { /* ... */ }
+         ```
+
+examples:
+  - input: |
+      // Bad: Multiple direct parameters
+      const updateName = (id: string, newName: string) => {
+        // ...
+      }
+
+      // Good: Using object parameter
+      type UpdateNameInput = {
+        id: string
+        newName: string
+      }
+
+      const updateName = ({
+        id,
+        newName
+      }: UpdateNameInput) => {
+        // ...
+      }
+
+      // Good: Single parameter
+      const getUser = (id: string) => {
+        // ...
+      }
+    output: "Function parameters structured correctly"
+
+metadata:
+  priority: high
+  version: 1.0
+</rule>
 
 ---
 > Source: [thedaviddias/llms-txt-hub](https://github.com/thedaviddias/llms-txt-hub) — distributed by [TomeVault](https://tomevault.io).
