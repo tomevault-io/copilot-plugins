@@ -1,42 +1,35 @@
-## general
+## git
 
-> - GitHub Actions 自动构建和发布
+> 辅助生成 git 提交信息
 
-# 项目通用规范
+# Git 规范
 
-## 技术栈
-- Python 3.10
-- Poetry 管理依赖
-- GitHub Actions 自动构建和发布
-- 使用 GitHub 作为代码托管平台
-- 使用 Bash 脚本
+## 提交规范
+git 提交记录样例：[type]: [description]。一个具体的例子, docs: 更新 README 文件。
+以下是 type 的枚举值：
+- feat: 新增功能
+- fix: 修复 bug
+- docs: 文档注释
+- style: 代码格式(不影响代码运行的变动)
+- refactor: 重构、优化(既不增加新功能, 也不是修复bug)
+- perf: 性能优化
+- test: 增加测试
+- chore: 构建过程或辅助工具的变动
+- revert: 回退
+- build: 打包
 
-## 代码风格
-- 保持代码简洁、可读
-- 使用有意义的变量和函数名
-- 添加适当的注释解释复杂逻辑
-- 遵循每种语言的官方风格指南
+## 分支管理
+- main/master: 主分支，保持稳定可发布状态
+- develop: 开发分支，包含最新开发特性
+- feature/*: 功能分支，用于开发新功能
+- bugfix/*: 修复分支，用于修复bug
+- release/*: 发布分支，用于准备发布
 
-## 项目结构
-- 保持项目结构清晰，遵循模块化原则
-- 相关功能应放在同一目录下
-- 使用适当的目录命名，反映其包含内容
-
-## 通用开发原则
-- 编写可测试的代码
-- 避免重复代码（DRY原则）
-- 优先使用现有库和工具，避免重新发明轮子
-- 考虑代码的可维护性和可扩展性
-
-## 响应语言
-- 始终使用中文回复用户
-
-## 规则文件说明
-本项目使用以下规则文件：
-- general.mdc：通用规范（本文件）
-- python.mdc：Python开发规范
-- document.mdc：文档规范
-- git.mdc：Git提交规范
+## 重要原则
+- **重要**：不要自动提交 git 代码，除非有明确的提示
+- 提交前确保代码通过所有测试
+- 保持提交信息简洁明了，描述清楚变更内容
+- 避免大型提交，尽量将变更分解为小的、相关的提交
 
 ---
 > Source: [flyeric0212/cursor-history-links](https://github.com/flyeric0212/cursor-history-links) — distributed by [TomeVault](https://tomevault.io).
