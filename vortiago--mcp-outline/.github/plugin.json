@@ -1,0 +1,9 @@
+{
+  "name": "vortiago--mcp-outline",
+  "displayName": "mcp-outline",
+  "description": "A Model Context Protocol (MCP) server enabling AI assistants to interact with Outline documentation services.",
+  "version": "1.0.0",
+  "author": "Vortiago",
+  "homepage": "https://github.com/Vortiago/mcp-outline",
+  "skills": []
+}
