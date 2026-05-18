@@ -1,8 +1,8 @@
-## ask-follow-up
+## ask-step-by-step-plan
 
-> Provide a list of follow-up questions, and structure the plan with clear sections for research, implementation, and testing. Format the plan as a markdown list with headings.
+> Your task is to create a detailed, step-by-step plan. Use sequancial_thinking tool to iterate your thoughts before getting started answering.
 
-Provide a list of follow-up questions, and structure the plan with clear sections for research, implementation, and testing. Format the plan as a markdown list with headings.
+Your task is to create a detailed, step-by-step plan. Use sequancial_thinking tool to iterate your thoughts before getting started answering.
 
 ---
 > Source: [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter) — distributed by [TomeVault](https://tomevault.io).
