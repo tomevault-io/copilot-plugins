@@ -1,257 +1,414 @@
-## fairygui
+## hot-update
 
-> FairyGUI UI 系统开发规范
+> 热更新系统开发规范
 
 
-# FairyGUI UI 系统开发规范
+# 热更新系统开发规范
 
-## 窗口基类设计模式
+## 热更新架构设计
 
-### 窗口继承层次
+### 管理器单例模式
 ```typescript
-// 基础窗口类 - 提供核心功能
-export abstract class WindowBase extends Component {
-    // 核心窗口管理逻辑
-}
-
-// 抽象窗口类 - 定义生命周期
-export abstract class Window extends WindowBase {
-    protected abstract onInit(): void;
-    protected onClose(): void { }
-    protected onShow(userdata?: any): void { }
-    protected onHide(): void { }
-    protected onShowFromHide(): void { }
-    protected onCover(): void { }
-    protected onRecover(): void { }
+export class HotUpdateManager {
+    private static _instance: HotUpdateManager;
+    
+    /** 获取单例实例 */
+    public static getInstance(): HotUpdateManager {
+        if (!this._instance) {
+            this._instance = new HotUpdateManager();
+        }
+        return this._instance;
+    }
+    
+    /** 禁用直接构造 */
+    private constructor() {}
+    
+    /** 配置属性 */
+    public manifestUrl: string = "";
+    public versionUrl: string = "";
+    
+    /** 初始化热更新 */
+    public init(manifestUrl: string, versionUrl: string): void {
+        this.manifestUrl = manifestUrl;
+        this.versionUrl = versionUrl;
+    }
 }
 ```
 
-### 窗口生命周期管理
-- `onInit()`: 窗口初始化，必须实现
-- `onShow()`: 窗口显示时调用
-- `onHide()`: 窗口隐藏时调用
-- `onClose()`: 窗口关闭时调用
-- `onCover()`: 被其他窗口覆盖时调用
-- `onRecover()`: 从覆盖状态恢复时调用
-- `onShowFromHide()`: 从隐藏状态重新显示时调用
-
-## 窗口管理器模式
-
-### 静态管理器设计
+### 热更新状态码定义
 ```typescript
-export class WindowManager {
-    /** 窗口组映射 */
-    private static _groups: Map<string, WindowGroup> = new Map();
-    /** 所有窗口映射 */
-    private static _windows: Map<string, IWindow> = new Map();
-    /** 资源池 */
-    private static _resPool: WindowResPool;
+export enum HotUpdateCode {
+    /** 成功 */
+    Succeed = 0,
+    /** 已是最新版本 */
+    LatestVersion = 1,
+    /** 检查更新失败 */
+    CheckFailed = 2,
+    /** 下载失败 */
+    DownloadFailed = 3,
+    /** 解压失败 */
+    UnzipFailed = 4,
+    /** 网络错误 */
+    NetworkError = 5,
+    /** 空间不足 */
+    NoSpace = 6,
+    /** 未知错误 */
+    UnknownError = 7
+}
+```
 
+## Promise 结果模式
+
+### 统一结果接口
+```typescript
+export interface IPromiseResult {
+    /** 状态码 */
+    code: HotUpdateCode;
+    
+    /** 消息描述 */
+    message: string;
+    
+    /** 扩展数据 */
+    data?: any;
+}
+```
+
+### 热更新配置接口
+```typescript
+export interface IHotUpdateConfig {
+    /** 版本号 */
+    version: string;
+    
+    /** 远程manifest文件URL */
+    remoteManifestUrl: string;
+    
+    /** 远程version文件URL */
+    remoteVersionUrl: string;
+    
+    /** 资源包URL */
+    packageUrl: string;
+    
+    /** 资源文件列表 */
+    assets?: { [key: string]: any };
+    
+    /** 搜索路径 */
+    searchPaths?: string[];
+}
+```
+
+## 热更新核心实现
+
+### HotUpdate 核心类
+```typescript
+export class HotUpdate {
+    private _am: jsb.AssetsManager;
+    private _updating: boolean = false;
+    
+    constructor(manifestUrl: string) {
+        // 初始化 AssetsManager
+        this._am = new jsb.AssetsManager(manifestUrl, jsb.fileUtils.getWritablePath() + 'remote-assets');
+        this._am.setEventCallback(this.onUpdateEvent.bind(this));
+        this._am.setVerifyCallback(this.onVerifyCallback.bind(this));
+    }
+    
     /**
-     * 异步显示窗口（自动加载资源）
+     * 检查更新
+     * @returns Promise<IPromiseResult>
      */
-    public static showWindow(windowName: string, userdata?: any): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this._resPool.loadWindowRes(windowName, {
-                complete: () => {
-                    this.showWindowIm(windowName, userdata);
-                    resolve();
-                },
-                fail: (pkgs: string[]) => reject(pkgs)
+    public checkUpdate(): Promise<IPromiseResult> {
+        return new Promise((resolve) => {
+            if (this._updating) {
+                resolve({ code: HotUpdateCode.UnknownError, message: "正在更新中" });
+                return;
+            }
+            
+            if (!this._am.getLocalManifest() || !this._am.getLocalManifest().isLoaded()) {
+                resolve({ code: HotUpdateCode.CheckFailed, message: "本地manifest加载失败" });
+                return;
+            }
+            
+            this._am.setEventCallback((event) => {
+                switch (event.getEventCode()) {
+                    case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                        resolve({ code: HotUpdateCode.CheckFailed, message: "本地manifest不存在" });
+                        break;
+                    case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                        resolve({ code: HotUpdateCode.NetworkError, message: "下载manifest失败" });
+                        break;
+                    case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                        resolve({ code: HotUpdateCode.LatestVersion, message: "已是最新版本" });
+                        break;
+                    case jsb.EventAssetsManager.NEW_VERSION_FOUND:
+                        resolve({ code: HotUpdateCode.Succeed, message: "发现新版本" });
+                        break;
+                }
             });
+            
+            this._am.checkUpdate();
         });
     }
-
-    /**
-     * 立即显示窗口（资源已加载）
-     */
-    public static showWindowIm(windowName: string, userdata?: any): void {
-        const info = this._resPool.get(windowName);
-        const windowGroup = this.getWindowGroup(info.group);
-        this._resPool.addResRef(windowName);
-        windowGroup.showWindow(info, userdata);
-    }
-}
-```
-
-### 窗口组管理
-- 使用 `WindowGroup` 管理同类型窗口
-- 支持窗口层级和遮挡关系
-- 自动处理窗口恢复和覆盖
-
-## 装饰器系统
-
-### UI 装饰器使用规范
-```typescript
-// 窗口类装饰器
-@uiclass("popup", "common", "SettingsWindow", "ui")
-export class SettingsWindow extends Window {
-    
-    // UI 属性装饰器
-    @uiprop
-    btnClose: GButton;
-    
-    @uiprop
-    list: GList;
-    
-    // UI 控制器装饰器
-    @uicontrol
-    controller: GController;
-    
-    // UI 动画装饰器
-    @uitransition
-    showTransition: GTransition;
-    
-    // 点击事件装饰器
-    @uiclick
-    private onBtnCloseClick(): void {
-        WindowManager.closeWindow("SettingsWindow");
-    }
-}
-
-// 组件装饰器
-@uicom("common", "CustomButton")
-export class CustomButton extends GButton {
-    // 自定义组件逻辑
-}
-
-// Header 装饰器
-@uiheader("common", "CommonHeader", "ui")
-export class CommonHeader extends WindowHeader {
-    // 通用头部逻辑
-}
-```
-
-### 装饰器参数规范
-- `@uiclass(group, pkg, name, bundle?)`: 窗口类注册
-  - `group`: 窗口组名
-  - `pkg`: FairyGUI 包名
-  - `name`: 组件名（与 FairyGUI 中一致）
-  - `bundle`: 可选的 bundle 名称
-- `@uicom(pkg, name)`: 自定义组件注册
-- `@uiheader(pkg, name, bundle?)`: 窗口头部注册
-
-## 资源管理模式
-
-### 资源池设计
-```typescript
-export class WindowResPool {
-    private _windowInfos: Map<string, WindowHeaderInfo> = new Map();
-    private _headerInfos: Map<string, WindowHeaderInfo> = new Map();
     
     /**
-     * 加载窗口资源
+     * 执行热更新
+     * @returns Promise<IPromiseResult>
      */
-    loadWindowRes(windowName: string, callbacks: {
-        complete: () => void;
-        fail: (pkgs: string[]) => void;
-    }): void {
-        // 检查包资源是否已加载
-        // 自动加载依赖的UI包
-        // 调用相应的回调
+    public hotUpdate(): Promise<IPromiseResult> {
+        return new Promise((resolve) => {
+            if (this._updating) {
+                resolve({ code: HotUpdateCode.UnknownError, message: "正在更新中" });
+                return;
+            }
+            
+            this._updating = true;
+            
+            this._am.setEventCallback((event) => {
+                switch (event.getEventCode()) {
+                    case jsb.EventAssetsManager.UPDATE_FINISHED:
+                        this._updating = false;
+                        resolve({ code: HotUpdateCode.Succeed, message: "更新完成" });
+                        break;
+                    case jsb.EventAssetsManager.UPDATE_FAILED:
+                        this._updating = false;
+                        resolve({ code: HotUpdateCode.DownloadFailed, message: "更新失败" });
+                        break;
+                    case jsb.EventAssetsManager.ERROR_DECOMPRESS:
+                        this._updating = false;
+                        resolve({ code: HotUpdateCode.UnzipFailed, message: "解压失败" });
+                        break;
+                }
+            });
+            
+            this._am.update();
+        });
     }
     
     /**
-     * 释放窗口资源
+     * 事件回调处理
      */
-    releaseWindowRes(windowName: string): void {
-        // 减少引用计数
-        // 必要时卸载资源
-    }
-}
-```
-
-### 包配置管理
-```typescript
-interface IPackageConfigRes {
-    [windowName: string]: {
-        group: string;
-        pkg: string;
-        bundle?: string;
-    };
-}
-
-// 初始化包配置
-WindowManager.initPackageConfig(packageConfig);
-```
-
-## UI 组件扩展
-
-### 组件扩展模式
-```typescript
-export class ComponentExtendHelper {
-    private static _componentMaps: Map<string, any> = new Map();
-    
-    /**
-     * 注册自定义组件
-     */
-    public static register(): void {
-        for (const { ctor, res } of _uidecorator.getComponentMaps().values()) {
-            UIObjectFactory.setPackageItemExtension(
-                `ui://${res.pkg}/${res.name}`, 
-                ctor
-            );
+    private onUpdateEvent(event: jsb.EventAssetsManager): void {
+        const code = event.getEventCode();
+        debug(`热更新事件: ${code}`);
+        
+        switch (code) {
+            case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+                const progress = event.getPercent();
+                debug(`更新进度: ${progress}%`);
+                break;
+            case jsb.EventAssetsManager.ASSET_UPDATED:
+                const assetId = event.getAssetId();
+                debug(`资源更新: ${assetId}`);
+                break;
         }
     }
     
     /**
-     * 动态注册组件
+     * 验证回调
      */
-    public static dynamicRegister(ctor: any, pkg: string, name: string): void {
-        UIObjectFactory.setPackageItemExtension(
-            `ui://${pkg}/${name}`, 
-            ctor
-        );
+    private onVerifyCallback(path: string, asset: any): boolean {
+        // 资源验证逻辑
+        return true;
     }
 }
 ```
 
-## 窗口头部系统
+## manifest 管理
 
-### WindowHeader 模式
+### 本地 manifest 刷新
 ```typescript
-export class WindowHeader {
-    /** 头部组件实例 */
-    protected _header: GComponent;
-    
-    /**
-     * 创建头部
-     */
-    public createHeader(pkg: string, name: string): GComponent {
-        this._header = UIPackage.createObject(pkg, name).asCom;
-        return this._header;
-    }
-    
-    /**
-     * 头部适配
-     */
-    public adapter(window: GComponent): void {
-        // 头部适配逻辑
-        // 处理安全区域
-        // 设置头部位置和尺寸
-    }
-}
-```
-
-## 屏幕适配
-
-### 屏幕尺寸变化处理
-```typescript
-// 在 WindowManager 中处理屏幕变化
-public static _screenResize(): void {
-    this._windows.forEach((window: IWindow) => {
-        window.screenResize();
-    });
-    this._groups.forEach((group: WindowGroup) => {
-        group._screenResize();
+/**
+ * 替换 project.manifest 中的内容并刷新本地manifest
+ */
+private refreshLocalManifest(manifest: IHotUpdateConfig, versionManifest: IHotUpdateConfig): Promise<IPromiseResult> {
+    return new Promise((resolve) => {
+        // 版本比较
+        if (Utils.compareVersion(manifest.version, versionManifest.version) >= 0) {
+            resolve({ code: HotUpdateCode.LatestVersion, message: "已是最新版本" });
+            return;
+        }
+        
+        // 更新 manifest 配置
+        manifest.remoteManifestUrl = Utils.addUrlParam(versionManifest.remoteManifestUrl, "timeStamp", `${Time.now()}`);
+        manifest.remoteVersionUrl = Utils.addUrlParam(versionManifest.remoteVersionUrl, "timeStamp", `${Time.now()}`);
+        manifest.packageUrl = versionManifest.packageUrl;
+        
+        // 计算 manifest 根目录
+        let manifestRoot = "";
+        let manifestUrl = HotUpdateManager.getInstance().manifestUrl;
+        let found = manifestUrl.lastIndexOf("/");
+        if (found === -1) {
+            found = manifestUrl.lastIndexOf("\\");
+        }
+        if (found !== -1) {
+            manifestRoot = manifestUrl.substring(0, found + 1);
+        }
+        
+        // 解析并设置本地 manifest
+        this._am.getLocalManifest().parseJSONString(JSON.stringify(manifest), manifestRoot);
+        
+        resolve({ code: HotUpdateCode.Succeed, message: "更新热更新配置成功" });
     });
 }
+```
 
-// 在窗口中实现屏幕适配
-protected screenResize(): void {
-    // 处理窗口在屏幕尺寸变化时的适配逻辑
+## 版本比较工具
+
+### 版本号比较函数
+```typescript
+export class Utils {
+    /**
+     * 版本号比较
+     * @param versionA 版本A
+     * @param versionB 版本B
+     * @returns 0: 相等, 1: A > B, -1: A < B
+     */
+    public static compareVersion(versionA: string, versionB: string): number {
+        const a = versionA.split('.');
+        const b = versionB.split('.');
+        
+        for (let i = 0; i < Math.max(a.length, b.length); i++) {
+            const numA = parseInt(a[i] || '0', 10);
+            const numB = parseInt(b[i] || '0', 10);
+            
+            if (numA > numB) return 1;
+            if (numA < numB) return -1;
+        }
+        
+        return 0;
+    }
+    
+    /**
+     * 给URL添加参数
+     */
+    public static addUrlParam(url: string, key: string, value: string): string {
+        const separator = url.indexOf('?') !== -1 ? '&' : '?';
+        return `${url}${separator}${key}=${encodeURIComponent(value)}`;
+    }
 }
 ```
+
+## 进度监控
+
+### 更新进度回调
+```typescript
+export interface HotUpdateProgress {
+    /** 当前进度百分比 (0-100) */
+    percent: number;
+    
+    /** 已下载字节数 */
+    downloadedBytes: number;
+    
+    /** 总字节数 */
+    totalBytes: number;
+    
+    /** 当前下载的文件 */
+    currentFile?: string;
+}
+
+export interface HotUpdateCallbacks {
+    /** 进度回调 */
+    onProgress?: (progress: HotUpdateProgress) => void;
+    
+    /** 完成回调 */
+    onComplete?: (result: IPromiseResult) => void;
+    
+    /** 错误回调 */
+    onError?: (error: IPromiseResult) => void;
+}
+
+export class HotUpdate {
+    public updateWithCallbacks(callbacks: HotUpdateCallbacks): void {
+        this._am.setEventCallback((event) => {
+            switch (event.getEventCode()) {
+                case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+                    callbacks.onProgress?.({
+                        percent: event.getPercent(),
+                        downloadedBytes: event.getDownloadedBytes(),
+                        totalBytes: event.getTotalBytes()
+                    });
+                    break;
+                case jsb.EventAssetsManager.UPDATE_FINISHED:
+                    callbacks.onComplete?.({ code: HotUpdateCode.Succeed, message: "更新完成" });
+                    break;
+                case jsb.EventAssetsManager.UPDATE_FAILED:
+                    callbacks.onError?.({ code: HotUpdateCode.DownloadFailed, message: "更新失败" });
+                    break;
+            }
+        });
+        
+        this._am.update();
+    }
+}
+```
+
+## 错误处理和重试
+
+### 重试机制
+```typescript
+export class HotUpdate {
+    private _retryCount: number = 0;
+    private readonly _maxRetryCount: number = 3;
+    
+    /**
+     * 带重试的热更新
+     */
+    public async hotUpdateWithRetry(): Promise<IPromiseResult> {
+        for (let i = 0; i < this._maxRetryCount; i++) {
+            try {
+                const result = await this.hotUpdate();
+                
+                if (result.code === HotUpdateCode.Succeed) {
+                    return result;
+                }
+                
+                // 网络错误可以重试
+                if (result.code === HotUpdateCode.NetworkError && i < this._maxRetryCount - 1) {
+                    warn(`热更新失败，准备重试 (${i + 1}/${this._maxRetryCount})`);
+                    await this.delay(1000 * (i + 1)); // 递增延迟
+                    continue;
+                }
+                
+                return result;
+            } catch (error) {
+                error('热更新异常', error);
+                if (i === this._maxRetryCount - 1) {
+                    return { code: HotUpdateCode.UnknownError, message: `重试${this._maxRetryCount}次后仍然失败` };
+                }
+            }
+        }
+    }
+    
+    private delay(ms: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+}
+```
+
+## 热更新最佳实践
+
+### 1. 版本管理
+- 使用语义化版本号 (major.minor.patch)
+- 提供版本比较和检查功能
+- 记录版本更新历史
+
+### 2. 网络处理
+- 实现重试机制处理网络不稳定
+- 添加超时控制
+- 支持断点续传
+
+### 3. 用户体验
+- 提供详细的进度反馈
+- 支持后台下载
+- 提供更新取消选项
+
+### 4. 错误恢复
+- 验证下载文件完整性
+- 支持回滚到上一版本
+- 提供修复工具清理损坏文件
+
+### 5. 安全性
+- 验证manifest签名
+- 检查文件哈希值
+- 使用HTTPS传输
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
