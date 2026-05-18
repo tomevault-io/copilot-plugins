@@ -1,0 +1,9 @@
+{
+  "name": "flowglad--flowglad",
+  "displayName": "flowglad",
+  "description": "Open source, zero webhooks payment provider",
+  "version": "1.0.0",
+  "author": "flowglad",
+  "homepage": "https://github.com/flowglad/flowglad",
+  "skills": []
+}
