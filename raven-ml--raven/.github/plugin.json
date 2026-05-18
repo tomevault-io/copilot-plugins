@@ -1,0 +1,9 @@
+{
+  "name": "raven-ml--raven",
+  "displayName": "raven",
+  "description": "Modern scientific computing for OCaml",
+  "version": "1.0.0",
+  "author": "raven-ml",
+  "homepage": "https://github.com/raven-ml/raven",
+  "skills": []
+}
