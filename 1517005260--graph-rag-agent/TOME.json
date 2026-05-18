@@ -1,0 +1,44 @@
+{
+  "name": "graph-rag-agent",
+  "owner": "1517005260",
+  "repo": "graph-rag-agent",
+  "description": "\u62fc\u597dRAG\uff1a\u624b\u6413\u5e76\u878d\u5408\u4e86GraphRAG\u3001LightRAG\u3001Neo4j-llm-graph-builder\u8fdb\u884c\u77e5\u8bc6\u56fe\u8c31\u6784\u5efa\u4ee5\u53ca\u641c\u7d22\uff1b\u6574\u5408DeepSearch\u6280\u672f\u5b9e\u73b0\u79c1\u57dfRAG\u7684\u63a8\u7406\uff1b\u81ea\u5236\u9488\u5bf9GraphRAG\u7684\u8bc4\u4f30\u6846\u67b6| Integrate GraphRAG, LightRAG, and Neo4j-llm-graph-builder for knowledge graph construction and search. Combine DeepSearch for private RAG reasoning. Create a custom evaluation framework for GraphRAG.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/1517005260/graph-rag-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T16:18:31Z"
+}
