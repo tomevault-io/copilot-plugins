@@ -1,69 +1,55 @@
-## 04-project-structure
+## 05-code-style-and-structure
 
-> - **Frontend**: (`./src/frontend/`)
+> **Backend (Python/FastAPI)**
 
 
-### Project Structure
+### Code Style and Structure
 
-- **Frontend**: (`./src/frontend/`)
-  - **Language**: TypeScript
-  - **Framework**: React
-  - **UI Library**: Shadcn UI & Tailwind CSS
-  - **Build Tool**: Vite
-  - **Directory Structure**:
-    - `src/frontend/src`: Main source code
-    - `src/frontend/index.html`: Main HTML file
-    - `src/frontend/app.tsx`: Application entry point
-    - `src/frontend/src/components/`: Reusable UI components (Tailwind CSS + Shadcn UI)
-      - `src/frontend/src/components/ui/`: Base Shadcn UI components
-      - `src/frontend/src/components/common/`: App-specific common components (e.g., `RelativeDate`)
-      - `src/frontend/src/components/<feature>/`: Feature-specific components (e.g., `data-products/data-product-form-dialog.tsx`)
-    - `src/frontend/src/views/`: Page-level components corresponding to features (e.g., `data-products.tsx`, `settings.tsx`)
-    - `src/frontend/src/hooks/`: Custom React hooks (e.g., `useApi`, `useToast`)
-    - `src/frontend/src/stores/`: State management (e.g., Zustand for `permissions-store`, `breadcrumb-store`)
-    - `src/frontend/src/types/`: TypeScript type definitions (e.g., `data-product.ts`, `settings.ts`)
-    - `src/frontend/src/config/`: Application configuration (e.g., `features.ts`)
-    - `src/frontend/src/lib/`: Utility functions (e.g., `utils.ts`)
-  - **Configuration Files**:
-    - `tsconfig.json`, `tsconfig.node.json`
-    - `vite.config.ts`
-    - `tailwind.config.js`
-    - `postcss.config.js`
-    - `index.html` (entry point)
-    - `package.json`
+**Backend (Python/FastAPI)**
 
-- **Backend**: (`./src/backend/`)
-  - **Language**: Python
-  - **Framework**: FastAPI
-  - **Build Tool**: hatch (`pyproject.toml`)
-  - **Database ORM**: SQLAlchemy
-  - **Directory Structure**:
-    - `src/backend/src/`: Main source code
-    - `src/backend/src/controller/`: Manager classes implementing business logic (e.g., `data_products_manager.py`).
-    - `src/backend/src/models/`: Pydantic models for API data structures (e.g., `data_products.py`, `settings.py`).
-    - `src/backend/src/db_models/`: SQLAlchemy ORM models defining database tables (e.g., `data_products.py`).
-    - `src/backend/src/repositories/`: Database access layer using the Repository pattern (e.g., `data_products_repository.py`).
-    - `src/backend/src/routes/`: FastAPI routers defining API endpoints (e.g., `data_product_routes.py`).
-    - `src/backend/src/utils/`: Helper classes and functions (e.g., `startup_tasks.py`, `demo_data_loader.py`).
-    - `src/backend/src/common/`: Shared utilities and base classes.
-      - `src/backend/src/common/database.py`: Database setup and session management.
-      - `src/backend/src/common/config.py`: Settings loading (`Settings` model) and management.
-      - `src/backend/src/common/logging.py`: Logging setup.
-      - `src/backend/src/common/workspace_client.py`: Databricks SDK client setup.
-      - `src/backend/src/common/dependencies.py`: FastAPI dependency injectors (e.g., `get_settings_manager`, `get_auth_manager`).
-      - `src/backend/src/common/authorization.py`: Permissions checking logic (`PermissionChecker`, user detail fetching).
-      - `src/backend/src/common/features.py`: Feature definitions and access levels (`FeatureAccessLevel` enum).
-      - `src/backend/src/common/search_interfaces.py`: `SearchableAsset` interface definition.
-      - `src/backend/src/common/search_registry.py`: `@searchable_asset` decorator and registry (`SEARCHABLE_ASSET_MANAGERS`).
-      - `src/backend/src/common/middleware.py`: Custom FastAPI middleware (Logging, Error Handling).
-      - `src/backend/src/common/repository.py`: Base repository class (`CRUDBase`).
-    - **Configuration & Data**:
-      - `.env` / `.env.example`: Environment variables (loaded by `src/backend/src/common/config.py`).
-      - `src/backend/src/data/`: Example/Demo data for services (YAML files, e.g., `data_products.yaml`). Loaded by managers or `demo_data_loader.py`.
-      - `src/backend/src/schemas/`: JSON schema files (e.g., for Data Contract validation).
-      - `src/backend/src/workflows/`: YAML definitions for Databricks jobs/workflows.
-      - `src/backend/src/app.yaml`: Databricks App configuration (Asset Bundle format).
-    - `src/backend/src/app.py`: FastAPI application entry point.
+- Use `def` for pure functions and `async def` for asynchronous operations (FastAPI route handlers, SDK calls).
+- **Type Hints**: Use Python type hints extensively. Use Pydantic models for API input/output validation and SQLAlchemy models for DB interaction.
+- **File Structure**: Maintain clear separation of concerns (routes, controllers, repositories, models, db_models, common utilities).
+- **RORO Pattern**: API models follow "Receive an Object, Return an Object". Controllers often receive/return API models, mapping to/from DB models via the repository.
+- **Error Handling**:
+  - Use FastAPI's `HTTPException` for API errors.
+  - Handle specific exceptions (e.g., `SQLAlchemyError`, `ValidationError`, `DatabricksError`, `NotFound`) in controllers/repositories.
+  - Use guard clauses and early returns.
+  - Implement structured logging via `api/common/logging.py`.
+- **Error Response Security**:
+  - NEVER expose raw exception messages in HTTPException detail parameter.
+  - NEVER use `detail=str(e)` or `detail=f"...{e}"` with exceptions.
+  - Always log full error details internally but return generic messages to clients.
+  - Good: Log `logger.error("Failed for %s: %s", entity_id, e, exc_info=True)`, Return `HTTPException(status_code=500, detail="Operation failed")`
+  - Bad: `HTTPException(status_code=500, detail=str(e))`
+  - Exception: Only expose error details for known validation errors (ValueError with sanitized messages).
+- **Logging Security**:
+  - NEVER use f-strings or `.format()` in logging statements with user-controlled or dynamic variables.
+  - Always use %-style formatting for security and performance.
+  - Good: `logger.error("Error processing request for user %s", user_email, exc_info=True)`
+  - Bad: `logger.error(f"Error processing request for user {user_email}")`
+- **Dependency Injection**: Rely heavily on FastAPI's DI for providing database sessions, managers, settings, and workspace clients to routes (see `api/common/dependencies.py` and manager getters in route files). Managers are initialized as singletons in `app.state` during startup.
+
+**Frontend (TypeScript/React)**
+
+- **TypeScript Usage**: Use TypeScript strictly. Prefer interfaces (`interface`) over types (`type`) for defining object shapes where applicable. Use mapped types or utility types instead of enums.
+- **Functional Components**: Write all components as functional components using hooks.
+- **UI and Styling**: Use **Shadcn UI** components built on **Tailwind CSS**. Follow responsive design principles.
+- **State Management**: Use `useState`, `useEffect`, `useContext` for local/shared state. Use Zustand (`stores/`) for global state (e.g., permissions, breadcrumbs).
+- **Data Fetching**: Use a custom hook (`hooks/useApi`) wrapping `fetch` or `axios` for API interactions. Handle loading and error states explicitly. Use `async/await`.
+- **Forms**: Use `react-hook-form` for form management and validation, often integrated with Shadcn UI components and Zod for schema validation.
+- **Console Logging Security**:
+  - NEVER use template literals or string concatenation in console statements (console.log, console.error, console.warn, etc.) with user-controlled or dynamic variables.
+  - Always pass variables as separate arguments to prevent format string injection attacks.
+  - Good: `console.error("Error fetching data for", entityType, entityId, ":", error);`
+  - Bad: `console.error(\`Error fetching data for ${entityType}/${entityId}:\`, error);`
+- **Library Security**:
+  - Never use `allErrors: true` in Ajv configuration in production as it can lead to DoS attacks. Default behavior (first error only) is preferred.
+- **Performance**:
+  - Minimize `useEffect`, `useState`.
+  - Use `React.memo`, `useMemo`, `useCallback` where appropriate.
+  - Consider server-side patterns if applicable, although primary interaction is client-side with API.
+  - Use `Suspense` for lazy loading components if needed.
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
