@@ -1,48 +1,242 @@
-## project-structure
+## storage-persistence-guide
 
-> This Next.js application follows a structured organization:
+> This guide explains how to implement persistent state management in wfcOS applications using Jotai atoms and localStorage.
 
-# Project Structure
+# Storage and State Persistence Guide
 
-This Next.js application follows a structured organization:
+This guide explains how to implement persistent state management in wfcOS applications using Jotai atoms and localStorage.
 
-## Directory Organization
+## Storage Architecture
 
-- `src/app/`: Contains Next.js App Router pages and layouts
-  - Each page route has its own directory with `page.tsx`, `layout.tsx`, etc.
-  - Page-specific components go in `app/[page]/components/`
+The wfcOS application uses a utility module for localStorage persistence:
 
-- `src/presentation/components/`: Reusable UI components
-  - `components/ui/`: Shadcn components
-  - `components/layout/`: Layout components like `window.tsx`
-  - `components/apps/`: Application feature components
+- [storage.ts](mdc:src/infrastructure/utils/storage.ts) - Core storage utilities
 
-- `src/application/atoms/`: State management with Jotai atoms
-  - Each atom or related group of atoms should be in separate files
+### Key Storage Functions
 
-- `src/application/hooks/`: Custom React hooks
-  - Named according to their functionality (e.g., `useWindowSize.ts`)
+```typescript
+// Save state for a specific feature
+saveFeatureState<T>(feature: string, state: T): boolean
 
-- `src/infrastructure/utils/`: Utility functions
-  - Including `storage.ts` for local storage operations
+// Load state for a specific feature
+loadFeatureState<T>(feature: string): T | undefined
 
-- `src/infrastructure/config/`: Configuration files
-  - Contains `appRegistry.ts` for app/feature registration
+// Clear state for a specific feature
+clearFeatureState(feature: string): boolean
 
-- `src/application/types/`: TypeScript type definitions
-  - Shared types and interfaces used across the application
+// Clear all app state
+clearAllAppState(): boolean
+```
 
-- `src/presentation/styles/`: Global styles and Tailwind configuration
-  - Includes `globals.css` for application-wide styles
+## State Management with Jotai
 
-- `src/infrastructure/lib/`: Shared libraries and integrations
-  - External service integrations and wrappers
+The application uses [Jotai](https://jotai.org/) for state management with a provider in:
 
-  ### Key Files
-- `/src/infrastructure/config/appRegistry.ts`: Registry for all apps and features
-- `/src/infrastructure/utils/storage.ts`: Helpers for local storage persistence
-- `/src/presentation/components/layout/window.tsx`: Reusable window layout for apps
-- `/src/presentation/styles/globals.css`: Global styling
+- [JotaiProvider.tsx](mdc:src/providers/JotaiProvider.tsx) - Provides Jotai context
+
+### Creating Persistent Atoms
+
+Follow this pattern to create atoms with localStorage persistence:
+
+1. Define a unique feature key
+2. Create state interface
+3. Initialize with saved state or defaults
+4. Create base atom
+5. Create derived atom with save functionality
+6. Create action atoms for specific state changes
+
+Example from [timerAtom.ts](mdc:src/application/atoms/timerAtom.ts):
+
+```typescript
+import { atom } from "jotai";
+import {
+  loadFeatureState,
+  saveFeatureState,
+} from "@/infrastructure/utils/storage";
+
+// 1. Define unique feature key
+const FEATURE_KEY = "timer";
+
+// 2. Create state interface
+export interface TimerState {
+  timeRemaining: number;
+  isRunning: boolean;
+  // other state properties...
+}
+
+// 3. Initialize with saved state or defaults
+const initialTimerState: TimerState = (() => {
+  const savedState = loadFeatureState<TimerState>(FEATURE_KEY);
+  
+  const defaults: TimerState = {
+    timeRemaining: 25 * 60,
+    isRunning: false,
+    // default values for other properties...
+  };
+  
+  return {
+    ...defaults,
+    ...savedState,
+    // Override specific saved values if needed
+  };
+})();
+
+// 4. Create base atom
+const baseTimerAtom = atom<TimerState>(initialTimerState);
+
+// 5. Create derived atom with save functionality
+export const timerAtom = atom(
+  (get) => get(baseTimerAtom),
+  (get, set, newState: TimerState | ((prevState: TimerState) => TimerState)) => {
+    const currentState = get(baseTimerAtom);
+    const updatedState = typeof newState === "function"
+      ? newState(currentState)
+      : newState;
+    
+    // Only update and save if changed
+    if (JSON.stringify(currentState) !== JSON.stringify(updatedState)) {
+      set(baseTimerAtom, updatedState);
+      saveFeatureState(FEATURE_KEY, updatedState);
+    }
+  }
+);
+
+// 6. Create action atoms
+export const startPauseTimerAtom = atom(
+  null,
+  (get, set) => {
+    set(timerAtom, (prev) => ({
+      ...prev,
+      isRunning: !prev.isRunning,
+    }));
+  }
+);
+
+// More action atoms...
+```
+
+## Best Practices for Storage
+
+### 1. State Initialization
+
+Always follow this pattern:
+- Load saved state using `loadFeatureState`
+- Define clear defaults for all properties
+- Merge defaults with saved state
+- Override specific saved values that shouldn't persist (like running state)
+
+```typescript
+const initialState = (() => {
+  const savedState = loadFeatureState<YourState>(FEATURE_KEY);
+  
+  const defaults = {
+    property1: "default",
+    property2: false,
+    // ...
+  };
+  
+  return {
+    ...defaults,
+    ...savedState,
+    isActive: false, // Always reset transient states
+  };
+})();
+```
+
+### 2. Optimizing Storage Operations
+
+- Only save when state actually changes (use deep comparison)
+- Keep serialized state reasonably small
+- Use action atoms for targeted updates
+- Don't store derived data that can be calculated
+
+### 3. Handling Persistence Edge Cases
+
+- Handle hydration carefully
+- Check for localStorage availability (SSR, private browsing)
+- Validate loaded state before using
+- Implement version migration if state shape changes
+
+## Using Persistent Atoms in Components
+
+```typescript
+"use client";
+
+import { useAtom } from "jotai";
+import { yourFeatureAtom, updateFeatureActionAtom } from "@/application/atoms/yourFeatureAtom";
+
+export const YourComponent = () => {
+  // Read state from atom
+  const [state] = useAtom(yourFeatureAtom);
+  
+  // Get action atom setter
+  const [, updateFeature] = useAtom(updateFeatureActionAtom);
+  
+  return (
+    <div>
+      <p>Current value: {state.someValue}</p>
+      <button onClick={() => updateFeature("new value")}>
+        Update Value
+      </button>
+    </div>
+  );
+};
+```
+
+## Global State Persistence
+
+For state that persists even when components aren't mounted:
+
+1. Create global manager components that run at the app level:
+   - See example in [JotaiProvider.tsx](mdc:src/providers/JotaiProvider.tsx) with `GlobalTimerManager`
+
+2. Use effects to sync window/UI state with persistent state:
+   - See [timerAtom.ts](mdc:src/application/atoms/timerAtom.ts) for window-state integration
+
+## Migration and Versioning
+
+For evolving state shapes:
+
+1. Add a version field to your state interface
+2. Check version on load and transform if needed
+3. Update version when saving
+
+```typescript
+interface YourStateV2 {
+  version: 2;
+  newField: string;
+  // ...existing fields
+}
+
+const initialState = (() => {
+  const savedState = loadFeatureState<any>(FEATURE_KEY);
+  
+  // Default state with current version
+  const defaults: YourStateV2 = {
+    version: 2,
+    newField: "default",
+    // ...
+  };
+  
+  // Handle migration if saved state exists
+  if (savedState) {
+    if (savedState.version === 1) {
+      // Transform v1 to v2
+      return {
+        ...defaults,
+        ...savedState,
+        version: 2,
+        newField: "migrated", // Set appropriate value
+      };
+    }
+    // Current version, just merge
+    return { ...defaults, ...savedState };
+  }
+  
+  // No saved state
+  return defaults;
+})();
+```
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
