@@ -1,0 +1,9 @@
+{
+  "name": "commitshow--template-saas-starter",
+  "displayName": "template-saas-starter",
+  "description": "Minimal repo template for vibe-coded projects \u00b7 audit-action pre-wired so PR #1 already gets a score.",
+  "version": "1.0.0",
+  "author": "commitshow",
+  "homepage": "https://github.com/commitshow/template-saas-starter",
+  "skills": []
+}
