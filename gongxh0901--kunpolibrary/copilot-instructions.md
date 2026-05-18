@@ -1,450 +1,261 @@
-## minigame-platform
+## project-overview
 
-> 小游戏平台开发规范
+> KunpoCC 项目总体开发规范
 
 
-# 小游戏平台开发规范
+# KunpoCC 项目总体开发规范
 
-## 平台检测和分类
+## 项目介绍
 
-### 平台类型定义
+KunpoCC 是一个基于 Cocos Creator 3.x 的游戏开发框架库，提供了一套完整的游戏开发工具和模块：
+
+- **UI 管理系统**: 基于 FairyGUI 的窗口管理和组件系统
+- **数据绑定系统**: 强类型的响应式数据绑定框架
+- **平台适配**: 微信、支付宝、字节跳动等小游戏平台支持
+- **热更新系统**: 完整的资源热更新解决方案
+- **工具模块**: 时间管理、日志系统、数学工具等实用工具
+
+## 项目结构规范
+
+### 目录组织
+```
+src/
+├── cocos/          # Cocos Creator 适配层
+├── condition/      # 条件管理系统 (红点系统)
+├── data/           # 数据绑定系统
+├── fgui/           # FairyGUI 窗口基类
+├── global/         # 全局工具和配置
+├── hotupdate/      # 热更新系统
+├── interface/      # 通用接口定义
+├── minigame/       # 小游戏平台适配
+├── module/         # 模块基类
+├── tool/           # 工具函数集合
+└── ui/             # UI 管理系统
+```
+
+### 文件命名规范
+- **类文件**: PascalCase (如 `WindowManager.ts`)
+- **接口文件**: 以 `I` 开头 (如 `IWindow.ts`)
+- **工具文件**: 功能描述命名 (如 `log.ts`, `Math.ts`)
+- **装饰器文件**: 以 `Decorator` 结尾 (如 `UIDecorator.ts`)
+
+## 编码规范总览
+
+### 类型系统
 ```typescript
-export enum PlatformType {
-    Unknown = 0,
-    Browser = 1,
-    WX = 2,          // 微信小游戏
-    Alipay = 3,      // 支付宝小游戏  
-    Bytedance = 4,   // 字节跳动小游戏
-    HuaweiQuick = 5  // 华为快游戏
+// 严格的 TypeScript 配置
+{
+    "strict": true,
+    "strictNullChecks": false,  // 项目特殊需求
+    "experimentalDecorators": true
 }
 
-export class Platform {
-    /** 平台类型 */
-    public static platform: PlatformType = PlatformType.Unknown;
-    
-    /** 平台标识 */
-    public static isWX: boolean = false;
-    public static isAlipay: boolean = false;
-    public static isBytedance: boolean = false;
-    public static isHuaweiQuick: boolean = false;
-    public static isBrowser: boolean = false;
-    
-    /** 设备类型 */
-    public static isNative: boolean = false;
-    public static isMobile: boolean = false;
-    public static isNativeMobile: boolean = false;
-    
-    /** 系统类型 */
-    public static isAndroid: boolean = false;
-    public static isIOS: boolean = false;
-    public static isHarmonyOS: boolean = false;
+// 优先使用接口和泛型
+interface IWindow {
+    _show(userdata?: any): void;
+    _close(): void;
+}
+
+// 使用泛型约束确保类型安全
+public static getWindow<T extends IWindow>(name: string): T | null {
+    return this._windows.get(name) as T;
 }
 ```
 
-### 平台初始化模式
+### 装饰器系统
 ```typescript
-export class CocosEntry extends Component {
-    private initPlatform(): void {
-        // 设备类型检测
-        Platform.isNative = sys.isNative;
-        Platform.isMobile = sys.isMobile;
-        Platform.isNativeMobile = sys.isNative && sys.isMobile;
+// UI 装饰器
+@uiclass("popup", "common", "SettingsWindow")
+export class SettingsWindow extends Window {
+    @uiprop btnClose: GButton;
+    @uiclick private onBtnCloseClick(): void { }
+}
 
-        // 系统类型检测
-        switch (sys.os) {
-            case sys.OS.ANDROID:
-                Platform.isAndroid = true;
-                debug("系统类型 Android");
-                break;
-            case sys.OS.IOS:
-                Platform.isIOS = true;
-                debug("系统类型 IOS");
-                break;
-            case sys.OS.OPENHARMONY:
-                Platform.isHarmonyOS = true;
-                debug("系统类型 HarmonyOS");
-                break;
-        }
+// 数据绑定装饰器
+@data.bindProp(GameData, data => data.level, function(item, value) {
+    this.levelLabel.text = `Level: ${value}`;
+})
+private _levelBinding: any;
 
-        // 平台类型检测
-        switch (sys.platform) {
-            case sys.Platform.WECHAT_GAME:
-                Platform.isWX = true;
-                Platform.platform = PlatformType.WX;
-                break;
-            case sys.Platform.ALIPAY_MINI_GAME:
-                Platform.isAlipay = true;
-                Platform.platform = PlatformType.Alipay;
-                break;
-            case sys.Platform.BYTEDANCE_MINI_GAME:
-                Platform.isBytedance = true;
-                Platform.platform = PlatformType.Bytedance;
-                break;
-            case sys.Platform.HUAWEI_QUICK_GAME:
-                Platform.isHuaweiQuick = true;
-                Platform.platform = PlatformType.HuaweiQuick;
-                break;
-            default:
-                Platform.isBrowser = true;
-                Platform.platform = PlatformType.Browser;
-                break;
-        }
-        
-        debug(`platform: ${PlatformType[Platform.platform]}`);
-    }
+// 条件装饰器
+@conditionClass(1001)
+export class LevelCondition extends ConditionBase { }
+```
+
+### 架构模式
+```typescript
+// 单例管理器模式
+export class WindowManager {
+    private static _instance: WindowManager;
+    public static getInstance(): WindowManager { }
+}
+
+// 抽象基类模式
+export abstract class Window extends WindowBase {
+    protected abstract onInit(): void;
+    protected onShow(userdata?: any): void { }
+}
+
+// 适配器模式
+export class CocosAdapter implements IAdapter {
+    public init(): void { }
 }
 ```
 
-## 平台适配器设计
+## 开发流程
 
-### 通用适配器接口
-```typescript
-export interface IMiniGameAdapter {
-    /** 显示分享菜单 */
-    showShareMenu(): void;
-    
-    /** 分享应用 */
-    shareAppMessage(options: ShareOptions): void;
-    
-    /** 显示 loading */
-    showLoading(options: LoadingOptions): void;
-    
-    /** 隐藏 loading */
-    hideLoading(): void;
-    
-    /** 显示 toast */
-    showToast(options: ToastOptions): void;
-    
-    /** 获取系统信息 */
-    getSystemInfo(): Promise<SystemInfo>;
-    
-    /** 震动反馈 */
-    vibrateShort(): void;
-    vibrateLong(): void;
-}
-```
+### 1. 新增功能模块
+1. 在相应目录创建模块文件
+2. 实现必要的接口和基类
+3. 添加相应的装饰器支持
+4. 编写单元测试
+5. 更新文档和示例
 
-### 微信小游戏适配
+### 2. 窗口开发
 ```typescript
-export class WechatCommon implements IMiniGameAdapter {
-    public showShareMenu(): void {
-        if (Platform.isWX && wx.showShareMenu) {
-            wx.showShareMenu({
-                withShareTicket: true,
-                menus: ['shareAppMessage', 'shareTimeline']
-            });
-        }
+@uiclass("main", "game", "GameWindow")
+export class GameWindow extends Window {
+    @uiprop playerPanel: GComponent;
+    @uiprop settingsBtn: GButton;
+    
+    @uiclick
+    private onSettingsBtnClick(): void {
+        WindowManager.showWindow("SettingsWindow");
     }
     
-    public shareAppMessage(options: ShareOptions): void {
-        if (Platform.isWX && wx.shareAppMessage) {
-            wx.shareAppMessage({
-                title: options.title,
-                imageUrl: options.imageUrl,
-                query: options.query,
-                success: options.success,
-                fail: options.fail
-            });
-        }
-    }
-    
-    public showLoading(options: LoadingOptions): void {
-        if (Platform.isWX && wx.showLoading) {
-            wx.showLoading({
-                title: options.title || '加载中...',
-                mask: options.mask !== false
-            });
-        }
-    }
-    
-    public getSystemInfo(): Promise<SystemInfo> {
-        return new Promise((resolve, reject) => {
-            if (Platform.isWX && wx.getSystemInfo) {
-                wx.getSystemInfo({
-                    success: resolve,
-                    fail: reject
-                });
-            } else {
-                reject(new Error('不支持的平台'));
-            }
-        });
+    protected onInit(): void {
+        // 窗口初始化逻辑
     }
 }
 ```
 
-### 支付宝小游戏适配
+### 3. 数据系统集成
 ```typescript
-export class AlipayCommon implements IMiniGameAdapter {
-    public showShareMenu(): void {
-        // 支付宝特定实现
-    }
+class GameData extends DataBase {
+    private _score: number = 0;
     
-    public shareAppMessage(options: ShareOptions): void {
-        if (Platform.isAlipay && my.shareAppMessage) {
-            my.shareAppMessage({
-                title: options.title,
-                desc: options.desc,
-                path: options.path,
-                success: options.success,
-                fail: options.fail
-            });
-        }
-    }
-    
-    public showLoading(options: LoadingOptions): void {
-        if (Platform.isAlipay && my.showLoading) {
-            my.showLoading({
-                content: options.title || '加载中...'
-            });
+    get score(): number { return this._score; }
+    set score(value: number) {
+        if (this._score !== value) {
+            this._score = value;
+            this.notify('score', value);
         }
     }
 }
 ```
 
-### 字节跳动小游戏适配
+## 质量保证
+
+### 日志和调试
 ```typescript
-export class BytedanceCommon implements IMiniGameAdapter {
-    public shareAppMessage(options: ShareOptions): void {
-        if (Platform.isBytedance && tt.shareAppMessage) {
-            tt.shareAppMessage({
-                title: options.title,
-                imageUrl: options.imageUrl,
-                query: options.query,
-                success: options.success,
-                fail: options.fail
-            });
-        }
-    }
-    
-    public vibrateShort(): void {
-        if (Platform.isBytedance && tt.vibrateShort) {
-            tt.vibrateShort({
-                success: () => debug('震动成功'),
-                fail: (err) => warn('震动失败', err)
-            });
-        }
-    }
-}
+import { debug, warn, error, log } from "../tool/log";
+
+// 统一的日志格式
+debug(`窗口注册 - 窗口名:${name} 包名:${pkg}`);
+warn(`资源加载失败: ${resourcePath}`);
+error(`网络请求异常: ${url}`, errorDetails);
 ```
 
-## 统一接口封装
-
-### MiniHelper 统一接口
+### 错误处理
 ```typescript
-export class MiniHelper {
-    private static _adapter: IMiniGameAdapter | null = null;
-    
-    /** 初始化适配器 */
-    public static init(): void {
-        switch (Platform.platform) {
-            case PlatformType.WX:
-                this._adapter = new WechatCommon();
-                break;
-            case PlatformType.Alipay:
-                this._adapter = new AlipayCommon();
-                break;
-            case PlatformType.Bytedance:
-                this._adapter = new BytedanceCommon();
-                break;
-            default:
-                warn('当前平台不支持小游戏功能');
-                break;
-        }
-    }
-    
-    /** 统一的分享接口 */
-    public static share(options: ShareOptions): void {
-        if (this._adapter) {
-            this._adapter.shareAppMessage(options);
-        } else {
-            warn('未初始化小游戏适配器');
-        }
-    }
-    
-    /** 统一的震动接口 */
-    public static vibrate(type: 'short' | 'long' = 'short'): void {
-        if (this._adapter) {
-            if (type === 'short') {
-                this._adapter.vibrateShort();
-            } else {
-                this._adapter.vibrateLong();
-            }
-        }
-    }
-    
-    /** 统一的系统信息获取 */
-    public static async getSystemInfo(): Promise<SystemInfo | null> {
-        if (this._adapter) {
-            try {
-                return await this._adapter.getSystemInfo();
-            } catch (error) {
-                error('获取系统信息失败', error);
-                return null;
-            }
-        }
-        return null;
-    }
-}
-```
-
-## 平台特定功能
-
-### 广告系统封装
-```typescript
-interface AdOptions {
-    adUnitId: string;
-    success?: () => void;
-    fail?: (error: any) => void;
-}
-
-export class AdManager {
-    /** 显示激励视频广告 */
-    public static showRewardedVideoAd(options: AdOptions): void {
-        switch (Platform.platform) {
-            case PlatformType.WX:
-                this.showWXRewardedAd(options);
-                break;
-            case PlatformType.Alipay:
-                this.showAlipayRewardedAd(options);
-                break;
-            default:
-                options.fail?.('当前平台不支持广告');
-                break;
-        }
-    }
-    
-    private static showWXRewardedAd(options: AdOptions): void {
-        if (wx.createRewardedVideoAd) {
-            const rewardedVideoAd = wx.createRewardedVideoAd({
-                adUnitId: options.adUnitId
-            });
-            
-            rewardedVideoAd.onLoad(() => {
-                rewardedVideoAd.show();
-            });
-            
-            rewardedVideoAd.onClose((res) => {
-                if (res && res.isEnded) {
-                    options.success?.();
-                } else {
-                    options.fail?.('用户取消观看');
-                }
-            });
-        }
-    }
-}
-```
-
-### 支付系统封装  
-```typescript
-interface PaymentOptions {
-    amount: number;
-    orderInfo: string;
-    success?: (result: any) => void;
-    fail?: (error: any) => void;
-}
-
-export class PaymentManager {
-    public static pay(options: PaymentOptions): void {
-        switch (Platform.platform) {
-            case PlatformType.WX:
-                this.wxPay(options);
-                break;
-            case PlatformType.Alipay:
-                this.alipayPay(options);
-                break;
-            default:
-                options.fail?.('当前平台不支持支付');
-                break;
-        }
-    }
-    
-    private static wxPay(options: PaymentOptions): void {
-        // 微信支付实现
-    }
-    
-    private static alipayPay(options: PaymentOptions): void {
-        // 支付宝支付实现
-    }
-}
-```
-
-## 数据存储适配
-
-### 本地存储封装
-```typescript
-export class StorageManager {
-    /** 设置数据 */
-    public static setItem(key: string, value: any): void {
+// Promise 错误处理
+public static showWindow(name: string): Promise<void> {
+    return new Promise((resolve, reject) => {
         try {
-            const jsonValue = JSON.stringify(value);
-            
-            switch (Platform.platform) {
-                case PlatformType.WX:
-                    wx.setStorageSync(key, jsonValue);
-                    break;
-                case PlatformType.Alipay:
-                    my.setStorageSync({ key, data: jsonValue });
-                    break;
-                default:
-                    localStorage.setItem(key, jsonValue);
-                    break;
-            }
+            // 业务逻辑
+            resolve();
         } catch (error) {
-            error('存储数据失败', key, error);
+            error('窗口显示失败', error);
+            reject(error);
         }
-    }
+    });
+}
+```
+
+### 性能优化
+- 使用资源池管理UI资源生命周期
+- 实现批量更新减少频繁触发
+- 及时清理事件监听和数据绑定
+- 使用对象池复用临时对象
+
+## 文档和注释
+
+### JSDoc 规范
+```typescript
+/**
+ * @Author: Gongxh
+ * @Date: 2024-12-07
+ * @Description: 窗口管理类
+ */
+
+/**
+ * 显示指定名称的窗口
+ * @param windowName - 窗口的名称
+ * @param userdata - 可选的用户数据
+ * @returns Promise<void>
+ * @internal - 标记内部方法
+ */
+public static showWindow(windowName: string, userdata?: any): Promise<void> {
+```
+
+### 代码注释原则
+- 公共API必须有完整的JSDoc注释
+- 复杂逻辑添加行内注释说明
+- 内部方法使用 `@internal` 标记
+- 废弃功能使用 `@deprecated` 标记
+
+## 版本管理
+
+### 语义化版本
+- **主版本号**: 不兼容的API修改
+- **次版本号**: 向后兼容的功能性新增
+- **修订号**: 向后兼容的问题修正
+
+### 变更记录
+- 维护 CHANGELOG.md 记录版本变更
+- 每个版本包含新增功能、修复问题、破坏性变更
+- 提供迁移指南帮助用户升级
+
+## 测试规范
+
+### 单元测试
+```typescript
+describe('WindowManager', () => {
+    test('should show window correctly', () => {
+        // 测试逻辑
+    });
     
-    /** 获取数据 */
-    public static getItem<T>(key: string, defaultValue?: T): T | null {
-        try {
-            let jsonValue: string | null = null;
-            
-            switch (Platform.platform) {
-                case PlatformType.WX:
-                    jsonValue = wx.getStorageSync(key);
-                    break;
-                case PlatformType.Alipay:
-                    jsonValue = my.getStorageSync({ key }).data;
-                    break;
-                default:
-                    jsonValue = localStorage.getItem(key);
-                    break;
-            }
-            
-            if (jsonValue) {
-                return JSON.parse(jsonValue) as T;
-            }
-            return defaultValue || null;
-        } catch (error) {
-            error('读取数据失败', key, error);
-            return defaultValue || null;
-        }
+    test('should handle window not found', () => {
+        // 错误处理测试
+    });
+});
+```
+
+### 集成测试
+- 测试模块间的交互
+- 验证装饰器系统的完整性
+- 测试平台适配功能
+
+## 部署和发布
+
+### 构建配置
+```json
+{
+    "scripts": {
+        "build": "rollup -c rollup.config.mjs",
+        "build:all": "npm run build && npm run copy"
     }
 }
 ```
 
-## 平台开发最佳实践
+### 发布检查清单
+1. 代码通过所有测试
+2. 文档更新完整
+3. 版本号正确更新
+4. CHANGELOG.md 记录变更
+5. 类型定义文件正确生成
 
-### 1. 统一接口设计
-- 为所有平台提供一致的API接口
-- 使用适配器模式处理平台差异
-- 提供降级方案处理不支持的功能
-
-### 2. 平台检测
-- 在应用启动时进行平台检测
-- 使用枚举定义平台类型
-- 提供便捷的平台判断属性
-
-### 3. 错误处理
-- 对不支持的平台提供友好的错误信息
-- 使用 try-catch 处理平台API调用
-- 提供回调函数处理异步操作结果
-
-### 4. 性能优化
-- 延迟加载平台特定功能
-- 避免在不支持的平台上创建无用对象
-- 使用条件编译减少包体积
+这个规范文档作为项目开发的总体指导，具体的技术细节请参考各个专门的规则文件。
 
 ---
 > Source: [gongxh0901/kunpolibrary](https://github.com/gongxh0901/kunpolibrary) — distributed by [TomeVault](https://tomevault.io).
