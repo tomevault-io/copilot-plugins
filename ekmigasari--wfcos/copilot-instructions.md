@@ -1,50 +1,41 @@
-## component-guidelines
+## development-workflow
 
-> - Prefer React Server Components (RSC) by default
+> - Framework: Next.js v.15 with App Router
 
-# Component Guidelines
 
-## Server vs Client Components
-- Prefer React Server Components (RSC) by default
-- Add "use client" directive at the top of Client Components
-- Keep Client Components small and focused
-- Minimize usage of `useEffect`, `useState`, and other client-only hooks
-- Avoid mixing server and client code in the same component
+# Development Workflow
 
-## Component Organization
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Optimize images: use WebP format, include size data, implement lazy loading
+## Environment
 
-## State Management
-- Use Jotai for global state management
-- Keep state as local as possible
-- Follow atom-based architecture for complex state
+- Framework: Next.js v.15 with App Router
+- UI: Tailwind CSS v4
+- Component Library: Shadcn
+- Language: TypeScript
+- State Management: Jotai
+- Package Manager: Bun
+- Linter: ESLint v.8
+- React: v.19
 
-## UI Components
-- Use Shadcn components as the default UI building blocks for consistent design
-- If Shadcn components aren't available in `components/ui`, install and add them as needed
-- Maintain consistent theming and styling across all components, Use `/src/styles/globals.css`
-- For page-specific components:
-  - Structure page files as server components when possible `/app/[page]/page.tsx`
-  - Place client components in `/app/[page]/components` directory
-- Reserve `/src/components` for general, reusable components across the application
+## Package Management
 
-## Component Function Conventions
+- Install packages: `pnpm add [package-name]`
+- Install dev dependencies: `pnpm add -D [package-name]`
+- Update packages: `pnpm update [package-name]`
+- Remove packages: `pnpm remove [package-name]`
+- Add Shadcn components: `pnpm dlx shadcn@latest add [component-name]`
 
-- Pages: Use default function exports
-  ```tsx
-  export default function Home() {
-    // Page implementation
-  }
-  ```
+## Scripts
 
-- Components: Use arrow function exports
-  ```tsx
-  export const Component = () => {
-    // Component implementation
-  }
-  ```
+- `pnpm dev`: Start development server
+- `pnpm build`: Build for production
+- `pnpm start`: Start production server
+- `pnpm lint`: Run linter with auto-fix
+
+## Code Quality
+
+- ESLint enforces code style and best practices
+- Husky runs pre-commit hooks
+- Commitlint ensures commit message consistency
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
