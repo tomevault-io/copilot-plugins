@@ -1,79 +1,53 @@
-## frontend-rules
+## structure
 
-> - 框架：Vue 3 + TypeScript
+> - **frontend/**：前端，基于 Vue3 + TypeScript + Vite，主要负责用户界面与交互。
 
-# 前端开发规范与项目结构说明
+# 项目结构、核心功能与用户使用流程
 
+## 一、项目整体架构
 
-## 技术栈
-- 框架：Vue 3 + TypeScript
-- 构建工具：Vite
-- 状态管理：Pinia
-- 路由：vue-router
-- UI 组件库：（如 lucide-vue-next,shadcn-vue ）
-- 样式：Tailwind CSS
-- 网络请求：Axios，统一封装于 `src/utils/request.ts`
+本项目采用前后端分离架构：
+- **frontend/**：前端，基于 Vue3 + TypeScript + Vite，主要负责用户界面与交互。
+- **backend/**：后端，基于 FastAPI，负责核心建模逻辑、任务调度与 WebSocket 通信。
+- **docker-compose.yml**：支持前后端及依赖服务的容器化部署。
 
-## 前端用户使用流程
-1. **登录**：用户访问系统后，首先进入登录页（/login），输入账号信息完成登录。
-2. **上传数据**：登录后进入主页面（如 /chat），点击"开始新任务"或相关入口，进入任务流程。
-3. **上传数据集**：在任务流程第一步，用户可拖拽或选择本地数据文件（支持 .txt、.csv、.xlsx 等格式）上传。
-4. **输入题目**：上传数据后，进入第二步，用户需粘贴完整的竞赛题目描述。
-5. **选择参数**：用户可选择建模模板（如"国赛"/"美赛"）、输出格式（Markdown/LaTeX）、语言（中文/英文）等参数。
-6. **提交任务**：填写完毕后点击"提交"，系统将自动分配任务编号并跳转到任务详情页。
-7. **查看结果**：用户可在任务详情页查看建模进度、AI 生成的代码、分析报告、论文等内容。
-8. **历史任务**：侧边栏可访问历史任务，随时回溯和查看过往建模结果。
+### 主要目录说明
+- `frontend/src/pages/`：核心页面，包括 chat（主入口）、task（任务详情）、test（测试页）。
+- `frontend/src/components/`：通用组件，如 UserStepper（用户操作流程）、AppSidebar（侧边栏）等。
+- `backend/app/routers/`：API 路由，`modeling.py` 负责建模任务，`ws.py` 负责 WebSocket 实时通信。
+- `backend/app/core/`：核心业务逻辑，如 MathModelWorkFlow（建模主流程）。
+- `backend/app/models/`、`schemas/`、`utils/`：数据模型、请求响应结构、工具函数等。
 
+## 二、核心功能
+1. **数学建模任务自动化**：用户上传数据集、输入题目，系统自动完成问题拆解、代码生成、论文撰写等。
+2. **多 Agent 协作**：后端通过 CoderAgent、WriterAgent 等智能体协作完成建模与写作。
+3. **WebSocket 实时推送**：任务进度、结果通过 WebSocket 实时推送到前端。
+4. **多格式输出**：支持 Markdown、LaTeX 等多种论文输出格式。
+5. **文件上传与管理**：支持多种数据文件上传，自动归档到任务工作目录。
 
-## 目录结构
-- `frontend/`
-  - `src/`
-    - `main.ts`：应用入口，挂载 App 并注册路由、Pinia。
-    - `App.vue`：根组件，渲染 `<router-view />`。
-    - `assets/`：静态资源，如图片、全局样式。
-    - `components/`：通用组件，含业务组件和 UI 组件（`ui/` 子目录）。
-    - `pages/`：页面级组件，按路由分目录组织（如 `chat/`、`login/`、`task/` 等）。
-    - `router/`：路由配置，`index.ts` 定义所有页面路由。
-    - `apis/`：API 封装，按业务拆分（如 `commonApi.ts`、`submitModelingApi.ts`）。
-    - `utils/`：工具函数（如 `request.ts` 封装 axios，`lib/utils.ts` 提供 cn 等工具）。
-    - `lib/`：通用逻辑/工具库。
-  - `public/`：静态资源目录。
-  - `index.html`：主 HTML 文件。
-  - `package.json`：依赖与脚本。
-  - `vite.config.ts`：Vite 配置。
-  - `tailwind.config.js`：Tailwind 配置。
+## 三、用户使用流程
+1. **进入主页面（chat）**：
+   - 展示"数模竞赛助手"介绍。
+   - 通过 UserStepper 组件引导用户分步操作。
+2. **上传数据文件**：
+   - 支持拖拽或点击上传（.txt/.csv/.xlsx 等）。
+   - 上传成功后进入下一步。
+3. **输入题目与参数选择**：
+   - 粘贴完整题目。
+   - 选择建模模板（如国赛/美赛）、语言、输出格式。
+4. **提交建模任务**：
+   - 前端调用 `/modeling/` API，携带表单与文件。
+   - 后端生成 task_id，异步处理建模任务。
+5. **任务进度与结果查看**：
+   - 自动跳转到 `/task/{task_id}` 页面。
+   - 前端通过 WebSocket 订阅任务进度与结果。
+   - 可在 CoderAgent/WriterAgent Tab 查看代码与论文内容。
+6. **下载与后续操作**：
+   - 支持结果文件下载、格式转换等后续操作（如有实现）。
 
-## 组件开发
-- vue3 使用组合式 api
-- 通用 UI 组件位于 `src/components/ui/`，如 Button、Sidebar、Alert、Select 等，支持按需导入。
-- 组件推荐使用 `<script setup lang="ts">` 语法糖，支持类型推断。
-- 组件 props、emit、slot 需写明类型。
-- 复杂交互建议拆分为多个小组件。
+---
 
-## 页面开发
-- 页面组件位于 `src/pages/`，每个路由一个目录，入口为 `index.vue`。
-- 路由统一在 `src/router/index.ts` 配置。
-- 页面可组合业务组件和 UI 组件。
-- 推荐页面只做数据流转和布局，具体业务逻辑下沉到组件。
-
-## API 调用
-- 所有接口请求统一通过 `src/utils/request.ts` 封装的 axios 实例发起。
-- 每个业务模块可在 `src/apis/` 下新建对应的 API 文件，导出函数供页面/组件调用。
-- 支持请求/响应拦截，可在拦截器中统一处理 token、错误提示等。
-
-## 样式体系
-- 主题色、圆角等通过 CSS 变量和 Tailwind 配置扩展。
-
-## 工具函数
-- `src/lib/utils.ts` 提供常用工具，如 `cn`（合并 class）、`valueUpdater` 等。
-- 业务相关工具可按需添加到 `utils/` 或 `lib/`。
-
-## 其他
-- TypeScript 路径别名 `@` 指向 `src/`，详见 `tsconfig.json`。
-- 推荐使用 pnpm 作为包管理器。
-- 代码风格建议遵循官方 Vue 3 + TypeScript 最佳实践。
-
-如需详细组件/页面开发示例，可参考 `src/pages/chat/index.vue`、`src/components/NotebookArea.vue`、`src/components/ui/button/Button.vue` 等文件。
+如需详细 API 或组件说明，请参考 [frontend-rules.mdc](mdc:frontend-rules.mdc) 与 [backend-rules.mdc](mdc:backend-rules.mdc)。
 
 ---
 > Source: [jihe520/MathModelAgent](https://github.com/jihe520/MathModelAgent) — distributed by [TomeVault](https://tomevault.io).
