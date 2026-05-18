@@ -1,226 +1,313 @@
-## dependencies
+## new-features
 
-> Guidelines for managing task dependencies and relationships
+> Guidelines for integrating new features into the Task Master CLI
 
 
-# Dependency Management Guidelines
+# Task Master Feature Integration Guidelines
 
-## Dependency Structure Principles
+## Feature Placement Decision Process
 
-- **Dependency References**:
-  - ✅ DO: Represent task dependencies as arrays of task IDs
-  - ✅ DO: Use numeric IDs for direct task references
-  - ✅ DO: Use string IDs with dot notation (e.g., "1.2") for subtask references
-  - ❌ DON'T: Mix reference types without proper conversion
+- **Identify Feature Type**:
+  - **Data Manipulation**: Features that create, read, update, or delete tasks belong in [`task-manager.js`](mdc:scripts/modules/task-manager.js)
+  - **Dependency Management**: Features that handle task relationships belong in [`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js)
+  - **User Interface**: Features that display information to users belong in [`ui.js`](mdc:scripts/modules/ui.js)
+  - **AI Integration**: Features that use AI models belong in [`ai-services.js`](mdc:scripts/modules/ai-services.js)
+  - **Cross-Cutting**: Features that don't fit one category may need components in multiple modules
 
-  ```javascript
-  // ✅ DO: Use consistent dependency formats
-  // For main tasks
-  task.dependencies = [1, 2, 3]; // Dependencies on other main tasks
-  
-  // For subtasks
-  subtask.dependencies = [1, "3.2"]; // Dependency on main task 1 and subtask 2 of task 3
-  ```
+- **Command-Line Interface**:
+  - All new user-facing commands should be added to [`commands.js`](mdc:scripts/modules/commands.js)
+  - Use consistent patterns for option naming and help text
+  - Follow the Commander.js model for subcommand structure
 
-- **Subtask Dependencies**:
-  - ✅ DO: Allow numeric subtask IDs to reference other subtasks within the same parent
-  - ✅ DO: Convert between formats appropriately when needed
-  - ❌ DON'T: Create circular dependencies between subtasks
+## Implementation Pattern
 
-  ```javascript
-  // ✅ DO: Properly normalize subtask dependencies
-  // When a subtask refers to another subtask in the same parent
-  if (typeof depId === 'number' && depId < 100) {
-    // It's likely a reference to another subtask in the same parent task
-    const fullSubtaskId = `${parentId}.${depId}`;
-    // Now use fullSubtaskId for validation
-  }
-  ```
+The standard pattern for adding a feature follows this workflow:
 
-## Dependency Validation
+1. **Core Logic**: Implement the business logic in the appropriate module
+2. **UI Components**: Add any display functions to [`ui.js`](mdc:scripts/modules/ui.js)
+3. **Command Integration**: Add the CLI command to [`commands.js`](mdc:scripts/modules/commands.js)
+4. **Testing**: Write tests for all components of the feature (following [`tests.mdc`](mdc:.cursor/rules/tests.mdc))
+5. **Configuration**: Update any configuration in [`utils.js`](mdc:scripts/modules/utils.js) if needed
+6. **Documentation**: Update help text and documentation in [dev_workflow.mdc](mdc:scripts/modules/dev_workflow.mdc)
 
-- **Existence Checking**:
-  - ✅ DO: Validate that referenced tasks exist before adding dependencies
-  - ✅ DO: Provide clear error messages for non-existent dependencies
-  - ✅ DO: Remove references to non-existent tasks during validation
+```javascript
+// 1. CORE LOGIC: Add function to appropriate module (example in task-manager.js)
+/**
+ * Archives completed tasks to archive.json
+ * @param {string} tasksPath - Path to the tasks.json file
+ * @param {string} archivePath - Path to the archive.json file
+ * @returns {number} Number of tasks archived
+ */
+async function archiveTasks(tasksPath, archivePath = 'tasks/archive.json') {
+  // Implementation...
+  return archivedCount;
+}
 
-  ```javascript
-  // ✅ DO: Check if the dependency exists before adding
-  if (!taskExists(data.tasks, formattedDependencyId)) {
-    log('error', `Dependency target ${formattedDependencyId} does not exist in tasks.json`);
-    process.exit(1);
-  }
-  ```
+// Export from the module
+export {
+  // ... existing exports ...
+  archiveTasks,
+};
+```
 
-- **Circular Dependency Prevention**:
-  - ✅ DO: Check for circular dependencies before adding new relationships
-  - ✅ DO: Use graph traversal algorithms (DFS) to detect cycles
-  - ✅ DO: Provide clear error messages explaining the circular chain
+```javascript
+// 2. UI COMPONENTS: Add display function to ui.js
+/**
+ * Display archive operation results
+ * @param {string} archivePath - Path to the archive file
+ * @param {number} count - Number of tasks archived
+ */
+function displayArchiveResults(archivePath, count) {
+  console.log(boxen(
+    chalk.green(`Successfully archived ${count} tasks to ${archivePath}`),
+    { padding: 1, borderColor: 'green', borderStyle: 'round' }
+  ));
+}
 
-  ```javascript
-  // ✅ DO: Check for circular dependencies before adding
-  const dependencyChain = [formattedTaskId];
-  if (isCircularDependency(data.tasks, formattedDependencyId, dependencyChain)) {
-    log('error', `Cannot add dependency ${formattedDependencyId} to task ${formattedTaskId} as it would create a circular dependency.`);
-    process.exit(1);
-  }
-  ```
+// Export from the module
+export {
+  // ... existing exports ...
+  displayArchiveResults,
+};
+```
 
-- **Self-Dependency Prevention**:
-  - ✅ DO: Prevent tasks from depending on themselves
-  - ✅ DO: Handle both direct and indirect self-dependencies
+```javascript
+// 3. COMMAND INTEGRATION: Add to commands.js
+import { archiveTasks } from './task-manager.js';
+import { displayArchiveResults } from './ui.js';
 
-  ```javascript
-  // ✅ DO: Prevent self-dependencies
-  if (String(formattedTaskId) === String(formattedDependencyId)) {
-    log('error', `Task ${formattedTaskId} cannot depend on itself.`);
-    process.exit(1);
-  }
-  ```
+// In registerCommands function
+programInstance
+  .command('archive')
+  .description('Archive completed tasks to separate file')
+  .option('-f, --file <file>', 'Path to the tasks file', 'tasks/tasks.json')
+  .option('-o, --output <file>', 'Archive output file', 'tasks/archive.json')
+  .action(async (options) => {
+    const tasksPath = options.file;
+    const archivePath = options.output;
 
-## Dependency Modification
+    console.log(chalk.blue(`Archiving completed tasks from ${tasksPath} to ${archivePath}...`));
 
-- **Adding Dependencies**:
-  - ✅ DO: Format task and dependency IDs consistently
-  - ✅ DO: Check for existing dependencies to prevent duplicates
-  - ✅ DO: Sort dependencies for better readability
-
-  ```javascript
-  // ✅ DO: Format IDs consistently when adding dependencies
-  const formattedTaskId = typeof taskId === 'string' && taskId.includes('.') 
-    ? taskId : parseInt(taskId, 10);
-  
-  const formattedDependencyId = formatTaskId(dependencyId);
-  ```
-
-- **Removing Dependencies**:
-  - ✅ DO: Check if the dependency exists before removing
-  - ✅ DO: Handle different ID formats consistently
-  - ✅ DO: Provide feedback about the removal result
-
-  ```javascript
-  // ✅ DO: Properly handle dependency removal
-  const dependencyIndex = targetTask.dependencies.findIndex(dep => {
-    // Convert both to strings for comparison
-    let depStr = String(dep);
-    
-    // Handle relative subtask references
-    if (typeof dep === 'number' && dep < 100 && isSubtask) {
-      const [parentId] = formattedTaskId.split('.');
-      depStr = `${parentId}.${dep}`;
-    }
-    
-    return depStr === normalizedDependencyId;
+    const archivedCount = await archiveTasks(tasksPath, archivePath);
+    displayArchiveResults(archivePath, archivedCount);
   });
-  
-  if (dependencyIndex === -1) {
-    log('info', `Task ${formattedTaskId} does not depend on ${formattedDependencyId}, no changes made.`);
-    return;
+```
+
+## Cross-Module Features
+
+For features requiring components in multiple modules:
+
+- ✅ **DO**: Create a clear unidirectional flow of dependencies
+  ```javascript
+  // In task-manager.js
+  function analyzeTasksDifficulty(tasks) {
+    // Implementation...
+    return difficultyScores;
   }
-  
-  // Remove the dependency
-  targetTask.dependencies.splice(dependencyIndex, 1);
+
+  // In ui.js - depends on task-manager.js
+  import { analyzeTasksDifficulty } from './task-manager.js';
+
+  function displayDifficultyReport(tasks) {
+    const scores = analyzeTasksDifficulty(tasks);
+    // Render the scores...
+  }
   ```
 
-## Dependency Cleanup
-
-- **Duplicate Removal**:
-  - ✅ DO: Use Set objects to identify and remove duplicates
-  - ✅ DO: Handle both numeric and string ID formats
-
+- ❌ **DON'T**: Create circular dependencies between modules
   ```javascript
-  // ✅ DO: Remove duplicate dependencies
-  const uniqueDeps = new Set();
-  const uniqueDependencies = task.dependencies.filter(depId => {
-    // Convert to string for comparison to handle both numeric and string IDs
-    const depIdStr = String(depId);
-    if (uniqueDeps.has(depIdStr)) {
-      log('warn', `Removing duplicate dependency from task ${task.id}: ${depId}`);
-      return false;
-    }
-    uniqueDeps.add(depIdStr);
-    return true;
+  // In task-manager.js - depends on ui.js
+  import { displayDifficultyReport } from './ui.js';
+
+  function analyzeTasks() {
+    // Implementation...
+    displayDifficultyReport(tasks); // WRONG! Don't call UI functions from task-manager
+  }
+
+  // In ui.js - depends on task-manager.js
+  import { analyzeTasks } from './task-manager.js';
+  ```
+
+## Command-Line Interface Standards
+
+- **Naming Conventions**:
+  - Use kebab-case for command names (`analyze-complexity`, not `analyzeComplexity`)
+  - Use kebab-case for option names (`--output-format`, not `--outputFormat`)
+  - Use the same option names across commands when they represent the same concept
+
+- **Command Structure**:
+  ```javascript
+  programInstance
+    .command('command-name')
+    .description('Clear, concise description of what the command does')
+    .option('-s, --short-option <value>', 'Option description', 'default value')
+    .option('--long-option <value>', 'Option description')
+    .action(async (options) => {
+      // Command implementation
+    });
+  ```
+
+## Utility Function Guidelines
+
+When adding utilities to [`utils.js`](mdc:scripts/modules/utils.js):
+
+- Only add functions that could be used by multiple modules
+- Keep utilities single-purpose and purely functional
+- Document parameters and return values
+
+```javascript
+/**
+ * Formats a duration in milliseconds to a human-readable string
+ * @param {number} ms - Duration in milliseconds
+ * @returns {string} Formatted duration string (e.g., "2h 30m 15s")
+ */
+function formatDuration(ms) {
+  // Implementation...
+  return formatted;
+}
+```
+
+## Writing Testable Code
+
+When implementing new features, follow these guidelines to ensure your code is testable:
+
+- **Dependency Injection**
+  - Design functions to accept dependencies as parameters
+  - Avoid hard-coded dependencies that are difficult to mock
+  ```javascript
+  // ✅ DO: Accept dependencies as parameters
+  function processTask(task, fileSystem, logger) {
+    fileSystem.writeFile('task.json', JSON.stringify(task));
+    logger.info('Task processed');
+  }
+
+  // ❌ DON'T: Use hard-coded dependencies
+  function processTask(task) {
+    fs.writeFile('task.json', JSON.stringify(task));
+    console.log('Task processed');
+  }
+  ```
+
+- **Separate Logic from Side Effects**
+  - Keep pure logic separate from I/O operations or UI rendering
+  - This allows testing the logic without mocking complex dependencies
+  ```javascript
+  // ✅ DO: Separate logic from side effects
+  function calculateTaskPriority(task, dependencies) {
+    // Pure logic that returns a value
+    return computedPriority;
+  }
+
+  function displayTaskPriority(task, dependencies) {
+    const priority = calculateTaskPriority(task, dependencies);
+    console.log(`Task priority: ${priority}`);
+  }
+  ```
+
+- **Callback Functions and Testing**
+  - When using callbacks (like in Commander.js commands), define them separately
+  - This allows testing the callback logic independently
+  ```javascript
+  // ✅ DO: Define callbacks separately for testing
+  function getVersionString() {
+    // Logic to determine version
+    return version;
+  }
+
+  // In setupCLI
+  programInstance.version(getVersionString);
+
+  // In tests
+  test('getVersionString returns correct version', () => {
+    expect(getVersionString()).toBe('1.5.0');
   });
   ```
 
-- **Invalid Reference Cleanup**:
-  - ✅ DO: Check for and remove references to non-existent tasks
-  - ✅ DO: Check for and remove self-references
-  - ✅ DO: Track and report changes made during cleanup
-
+- **UI Output Testing**
+  - For UI components, focus on testing conditional logic rather than exact output
+  - Use string pattern matching (like `expect(result).toContain('text')`)
+  - Pay attention to emojis and formatting which can make exact string matching difficult
   ```javascript
-  // ✅ DO: Filter invalid task dependencies
-  task.dependencies = task.dependencies.filter(depId => {
-    const numericId = typeof depId === 'string' ? parseInt(depId, 10) : depId;
-    if (!validTaskIds.has(numericId)) {
-      log('warn', `Removing invalid task dependency from task ${task.id}: ${depId} (task does not exist)`);
-      return false;
-    }
-    return true;
+  // ✅ DO: Test the essence of the output, not exact formatting
+  test('statusFormatter shows done status correctly', () => {
+    const result = formatStatus('done');
+    expect(result).toContain('done');
+    expect(result).toContain('✅');
   });
   ```
 
-## Dependency Visualization
+## Testing Requirements
 
-- **Status Indicators**:
-  - ✅ DO: Use visual indicators to show dependency status (✅/⏱️)
-  - ✅ DO: Format dependency lists consistently
+Every new feature **must** include comprehensive tests following the guidelines in [`tests.mdc`](mdc:.cursor/rules/tests.mdc). Testing should include:
 
-  ```javascript
-  // ✅ DO: Format dependencies with status indicators
-  function formatDependenciesWithStatus(dependencies, allTasks) {
-    if (!dependencies || dependencies.length === 0) {
-      return 'None';
-    }
-    
-    return dependencies.map(depId => {
-      const depTask = findTaskById(allTasks, depId);
-      if (!depTask) return `${depId} (Not found)`;
-      
-      const isDone = depTask.status === 'done' || depTask.status === 'completed';
-      const statusIcon = isDone ? '✅' : '⏱️';
-      
-      return `${statusIcon} ${depId} (${depTask.status})`;
-    }).join(', ');
-  }
-  ```
+1. **Unit Tests**: Test individual functions and components in isolation
+   ```javascript
+   // Example unit test for a new utility function
+   describe('newFeatureUtil', () => {
+     test('should perform expected operation with valid input', () => {
+       expect(newFeatureUtil('valid input')).toBe('expected result');
+     });
 
-## Cycle Detection
+     test('should handle edge cases appropriately', () => {
+       expect(newFeatureUtil('')).toBeNull();
+     });
+   });
+   ```
 
-- **Graph Traversal**:
-  - ✅ DO: Use depth-first search (DFS) for cycle detection
-  - ✅ DO: Track visited nodes and recursion stack
-  - ✅ DO: Support both task and subtask dependencies
+2. **Integration Tests**: Verify the feature works correctly with other components
+   ```javascript
+   // Example integration test for a new command
+   describe('newCommand integration', () => {
+     test('should call the correct service functions with parsed arguments', () => {
+       const mockService = jest.fn().mockResolvedValue('success');
+       // Set up test with mocked dependencies
+       // Call the command handler
+       // Verify service was called with expected arguments
+     });
+   });
+   ```
 
-  ```javascript
-  // ✅ DO: Use proper cycle detection algorithms
-  function findCycles(subtaskId, dependencyMap, visited = new Set(), recursionStack = new Set()) {
-    // Mark the current node as visited and part of recursion stack
-    visited.add(subtaskId);
-    recursionStack.add(subtaskId);
-    
-    const cyclesToBreak = [];
-    const dependencies = dependencyMap.get(subtaskId) || [];
-    
-    for (const depId of dependencies) {
-      if (!visited.has(depId)) {
-        const cycles = findCycles(depId, dependencyMap, visited, recursionStack);
-        cyclesToBreak.push(...cycles);
-      } 
-      else if (recursionStack.has(depId)) {
-        // Found a cycle, add the edge to break
-        cyclesToBreak.push(depId);
-      }
-    }
-    
-    // Remove the node from recursion stack before returning
-    recursionStack.delete(subtaskId);
-    
-    return cyclesToBreak;
-  }
-  ```
+3. **Edge Cases**: Test boundary conditions and error handling
+   - Invalid inputs
+   - Missing dependencies
+   - File system errors
+   - API failures
 
-Refer to [`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
+4. **Test Coverage**: Aim for at least 80% coverage for all new code
+
+5. **Jest Mocking Best Practices**
+   - Follow the mock-first-then-import pattern as described in [`tests.mdc`](mdc:.cursor/rules/tests.mdc)
+   - Use jest.spyOn() to create spy functions for testing
+   - Clear mocks between tests to prevent interference
+   - See the Jest Module Mocking Best Practices section in [`tests.mdc`](mdc:.cursor/rules/tests.mdc) for details
+
+When submitting a new feature, always run the full test suite to ensure nothing was broken:
+
+```bash
+npm test
+```
+
+## Documentation Requirements
+
+For each new feature:
+
+1. Add help text to the command definition
+2. Update [`dev_workflow.mdc`](mdc:scripts/modules/dev_workflow.mdc) with command reference
+3. Add examples to the appropriate sections in [`MODULE_PLAN.md`](mdc:scripts/modules/MODULE_PLAN.md)
+
+Follow the existing command reference format:
+```markdown
+- **Command Reference: your-command**
+  - CLI Syntax: `task-manager your-command [options]`
+  - Description: Brief explanation of what the command does
+  - Parameters:
+    - `--option1=<value>`: Description of option1 (default: 'default')
+    - `--option2=<value>`: Description of option2 (required)
+  - Example: `task-manager your-command --option1=value --option2=value2`
+  - Notes: Additional details, limitations, or special considerations
+```
+
+For more information on module structure, see [`MODULE_PLAN.md`](mdc:scripts/modules/MODULE_PLAN.md) and follow [`self_improve.mdc`](mdc:scripts/modules/self_improve.mdc) for best practices on updating documentation.
 
 ---
 > Source: [skindhu/AI-TASK-MANAGER](https://github.com/skindhu/AI-TASK-MANAGER) — distributed by [TomeVault](https://tomevault.io).
