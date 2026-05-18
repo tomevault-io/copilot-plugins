@@ -1,0 +1,9 @@
+{
+  "name": "mistakeknot--interpath",
+  "displayName": "interpath",
+  "description": "Product artifact generator \u2014 roadmaps, PRDs, vision docs, changelogs, and status reports. Companion plugin for Clavain.",
+  "version": "1.0.0",
+  "author": "mistakeknot",
+  "homepage": "https://github.com/mistakeknot/interpath",
+  "skills": []
+}
