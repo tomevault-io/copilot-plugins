@@ -1,9 +1,9 @@
 {
   "name": "growgraph--ontocast",
   "displayName": "ontocast",
-  "description": "ontocast",
+  "description": "Agentic Ontology Assisted Framework for Semantic Triple Extraction",
   "version": "1.0.0",
   "author": "growgraph",
-  "homepage": "https://tomevault.io/claim/growgraph",
+  "homepage": "https://github.com/growgraph/ontocast",
   "skills": []
 }
