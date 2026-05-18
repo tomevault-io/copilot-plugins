@@ -1,0 +1,63 @@
+{
+  "name": "agent-toolkit",
+  "owner": "sanity-io",
+  "repo": "agent-toolkit",
+  "description": "Collection of resources to help AI agents build better with Sanity.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sanity-best-practices",
+      "path": "skills/sanity-best-practices",
+      "github_url": "https://github.com/sanity-io/agent-toolkit/tree/main/skills/sanity-best-practices",
+      "description": ""
+    },
+    {
+      "name": "content-modeling-best-practices",
+      "path": "skills/content-modeling-best-practices",
+      "github_url": "https://github.com/sanity-io/agent-toolkit/tree/main/skills/content-modeling-best-practices",
+      "description": ""
+    },
+    {
+      "name": "content-experimentation-best-practices",
+      "path": "skills/content-experimentation-best-practices",
+      "github_url": "https://github.com/sanity-io/agent-toolkit/tree/main/skills/content-experimentation-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sanity-io/agent-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T07:31:24Z"
+}
