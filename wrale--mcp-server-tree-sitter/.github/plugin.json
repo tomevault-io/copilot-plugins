@@ -1,0 +1,9 @@
+{
+  "name": "wrale--mcp-server-tree-sitter",
+  "displayName": "mcp-server-tree-sitter",
+  "description": "MCP Server for Tree-sitter",
+  "version": "1.0.0",
+  "author": "wrale",
+  "homepage": "https://github.com/wrale/mcp-server-tree-sitter",
+  "skills": []
+}
