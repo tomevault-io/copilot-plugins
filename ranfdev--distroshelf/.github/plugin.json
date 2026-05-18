@@ -1,0 +1,9 @@
+{
+  "name": "ranfdev--distroshelf",
+  "displayName": "DistroShelf",
+  "description": "gtk4 client for https://distrobox.it",
+  "version": "1.0.0",
+  "author": "ranfdev",
+  "homepage": "https://github.com/ranfdev/DistroShelf",
+  "skills": []
+}
