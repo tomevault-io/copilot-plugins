@@ -7,11 +7,11 @@ Build an email assistant with human-in-the-loop and memory
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [langchain-ai/agents-from-scratch](https://github.com/langchain-ai/agents-from-scratch).
+Original source: `AGENTS.md` in [langchain-ai/agents-from-scratch](https://github.com/langchain-ai/agents-from-scratch).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
