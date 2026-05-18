@@ -1,9 +1,9 @@
 {
   "name": "seontechnologies--playwright-utils",
   "displayName": "playwright-utils",
-  "description": "playwright-utils",
+  "description": "A collection of utilities for Playwright tests at SEON Technologies, designed to make testing more efficient and maintainable.",
   "version": "1.0.0",
   "author": "seontechnologies",
-  "homepage": "https://tomevault.io/claim/seontechnologies",
+  "homepage": "https://github.com/seontechnologies/playwright-utils",
   "skills": []
 }
