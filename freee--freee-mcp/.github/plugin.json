@@ -1,0 +1,9 @@
+{
+  "name": "freee--freee-mcp",
+  "displayName": "freee-mcp",
+  "description": "Model Context Protocol (MCP) server for freee API integration",
+  "version": "1.0.0",
+  "author": "freee",
+  "homepage": "https://github.com/freee/freee-mcp",
+  "skills": []
+}
