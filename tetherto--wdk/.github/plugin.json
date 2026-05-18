@@ -1,0 +1,14 @@
+{
+  "name": "tetherto--wdk",
+  "displayName": "wdk",
+  "description": "WDK is a modular plug-in framework designed to simplify multi-chain wallet development. This package orchestrates all WDK modules.",
+  "version": "1.0.0",
+  "author": "tetherto",
+  "homepage": "https://github.com/tetherto/wdk",
+  "skills": [
+    {
+      "name": "wdk",
+      "description": ""
+    }
+  ]
+}
