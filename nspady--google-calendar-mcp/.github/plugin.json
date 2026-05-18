@@ -1,0 +1,18 @@
+{
+  "name": "nspady--google-calendar-mcp",
+  "displayName": "google-calendar-mcp",
+  "description": "MCP integration for Google Calendar to manage events.",
+  "version": "1.0.0",
+  "author": "nspady",
+  "homepage": "https://github.com/nspady/google-calendar-mcp",
+  "skills": [
+    {
+      "name": "gcal-api-research",
+      "description": ""
+    },
+    {
+      "name": "mcp-research",
+      "description": ""
+    }
+  ]
+}
