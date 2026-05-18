@@ -1,0 +1,9 @@
+{
+  "name": "metoro-io--mcp-golang",
+  "displayName": "mcp-golang",
+  "description": "Write Model Context Protocol servers in few lines of go code. Docs at https://mcpgolang.com . Created by https://metoro.io",
+  "version": "1.0.0",
+  "author": "metoro-io",
+  "homepage": "https://github.com/metoro-io/mcp-golang",
+  "skills": []
+}
