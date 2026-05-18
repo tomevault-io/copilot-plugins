@@ -1,0 +1,9 @@
+{
+  "name": "0xgasless--agentkit",
+  "displayName": "agentkit",
+  "description": "AgentKit is a toolkit that gives AI agents access to crypto wallets and onchain functionality. Powered by the 0xGasless AgentKit SDK.",
+  "version": "1.0.0",
+  "author": "0xgasless",
+  "homepage": "https://github.com/0xgasless/agentkit",
+  "skills": []
+}
