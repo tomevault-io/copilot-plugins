@@ -1,26 +1,61 @@
-## naming-conventions
+## product-roadmap
 
-> This project follows strict naming conventions:
+> This document outlines the planned development roadmap for the wfcOS platform, serving as a checkpoint and to-do list for implementation. Features are organized by priority and development phase.
 
-# Naming Conventions
+# Product Roadmap
 
-This project follows strict naming conventions:
+This document outlines the planned development roadmap for the wfcOS platform, serving as a checkpoint and to-do list for implementation. Features are organized by priority and development phase.
 
-## Files & Directories
-- Directories: Use kebab-case for directories: `user-profile/`
-- React components: Use PascalCase for component files: `UserProfile.tsx`
-- Utility files: Use camelCase for utility files: `formatDate.ts`
-- Page files: Should be named `page.tsx`
-- Layout files: Should be named `layout.tsx`
-- Loading states: Should be named `loading.tsx`
-- Error handling: Should be named `error.tsx`
+## Current Sprint (FIXING ERROR V2.1)
+These features should be prioritized for immediate implementation:
 
-## Code Style
-- Components: Use PascalCase for component names, interfaces, and type aliases: `UserProfile`, `UserProfileProps`
-- Variables/Functions: Use camelCase for variables, functions, and methods: `getUserData()`, `formatDate()`
-- Constants: Use UPPER_SNAKE_CASE for constants: `MAX_RETRY_COUNT`
-- Interfaces: Use `I` prefix for interfaces only when necessary for clarity: `IUserProps`
-- Booleans: Boolean variables should use prefixes like `is`, `has`, `should`: `isLoading`, `hasAccess`
+- [x] Fix Window rerender
+- [x] Fix Timer
+- [x] Fix Ambience
+- [x] to-do list check
+- [x] Notepad check
+- [x] Fix Music Player
+- [ ] Add global mute
+- [x] Add Change log v 2.1
+
+
+## Near-Term Roadmap
+These features are planned for the next development cycle:
+
+- [ ] Add About section/page
+- [ ] Add Login and Cloud Storage
+
+## Future Roadmap
+These features are planned for future implementation:
+
+
+- [ ] Add mute only to click
+- [ ] Add sound typing functionality to Notepad
+- [ ] Information board
+- [ ] Bookmark functionality
+- [ ] Add logging functionality to Pomodoro timer
+- [ ] Chat application/system
+
+
+## Guidelines for Feature Implementation
+
+### Feature Prioritization
+- Focus on completing Current Sprint items before starting Near-Term Roadmap
+- Document any blockers or dependencies that affect implementation
+- Update this roadmap as features are completed or priorities change
+
+### Implementation Standards
+- Follow all existing coding standards and architectural guidelines
+- Create appropriate tests for each new feature
+- Update documentation when adding new functionality
+- Ensure all new features maintain compatibility with existing system
+
+### Feature Completion Checklist
+- Implementation meets all functional requirements
+- Code passes all lint and test requirements
+- Documentation is updated
+- Feature is reviewed and approved
+- User feedback is collected when applicable
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
