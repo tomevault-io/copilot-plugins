@@ -1,0 +1,9 @@
+{
+  "name": "soloterm--screen",
+  "displayName": "screen",
+  "description": "A terminal renderer written in pure PHP.",
+  "version": "1.0.0",
+  "author": "soloterm",
+  "homepage": "https://github.com/soloterm/screen",
+  "skills": []
+}
