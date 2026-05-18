@@ -1,96 +1,37 @@
-## ai-gateway
+## api-workflow
 
-> Handles load balancing between multiple providers with different weights for traffic distribution.
+> This document outlines common patterns and the request workflow in the LLM Proxy.
 
-# CLAUDE.md
+# API Workflow and Patterns
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This document outlines common patterns and the request workflow in the LLM Proxy.
 
-## Key Commands
+## Request Flow
 
-### Development
+1. API request received by [ai-gateway/src/app.rs](mdc:ai-gateway/src/app.rs)
+2. Middleware processing in [ai-gateway/src/middleware/](mdc:ai-gateway/src/middleware)
+3. Routing via [ai-gateway/src/router/](mdc:ai-gateway/src/router)
+4. Request dispatching in [ai-gateway/src/dispatcher.rs](mdc:ai-gateway/src/dispatcher.rs)
+5. Provider selection via [ai-gateway/src/balancer/](mdc:ai-gateway/src/balancer)
+6. Response processing and return
 
-```bash
-# Build the project
-cargo build
+## Common Patterns
 
-# Run the proxy server
-cargo run
+### Error Handling
 
-# Test HTTP request to your running proxy
-cargo run -p test
+- Errors are defined in [ai-gateway/src/error/](mdc:ai-gateway/src/error)
+- Return structured errors to API clients
 
-# Run all tests with all features
-cargo test --tests --all-features
+### Configuration
 
-# Run a specific test with all features (example)
-cargo test single_provider --test single_provider --all-features
+- Configuration is loaded from files and environment variables
+- See [ai-gateway/src/config/](mdc:ai-gateway/src/config) for details
 
-# Lint the code
-cargo clippy
-```
+### Testing
 
-## Architecture Overview
-
-This is an LLM proxy/router service that forwards API requests to providers like OpenAI and Anthropic. It handles load balancing, rate limiting, and request transformation between API formats.
-
-### Core Components
-
-1. **App Structure**:
-   - `app.rs` - Core application with middleware stack setup
-   - `main.rs` - Entry point that initializes telemetry, config, and runs the app
-
-2. **Request Flow**:
-   - **Middleware Stack**:
-     - Global middleware (CatchPanic, HandleError, Auth, etc.)
-     - Router-specific middleware (rate limits, request context, etc.)
-     - Provider-specific middleware (mappers, balancers)
-     - Dispatcher (final handler that makes the actual API request)
-
-3. **Endpoints**:
-   - `endpoints/openai` - Handlers for OpenAI API routes
-   - `endpoints/anthropic` - Handlers for Anthropic API routes
-   - `endpoints/mappings.rs` - Transforms requests between provider formats
-
-4. **Providers and Balancing**:
-   - `balancer/provider.rs` - Load balancing between different API providers
-   - `discover` - Provider discovery and monitoring
-   - Weighted balancing for distributing traffic across providers
-
-5. **Configuration**:
-   - Config is loaded from file and/or environment variables
-   - Database, MinIO, server, provider, router config sections
-   - Supports different deployment targets (Cloud, Sidecar)
-
-6. **Telemetry**:
-   - Tracing with OpenTelemetry support
-   - Metrics collection
-   - Logging and error handling
-
-7. **Error Handling**:
-   - Rich error types for different categories (API, Auth, Init, etc.)
-   - Middleware for panic catching and error response formatting
-
-## Schema Filter
-
-This crate provides filtering and validation of API requests according to OpenAPI specs, ensuring requests conform to provider requirements.
-
-## Weighted Balance
-
-Handles load balancing between multiple providers with different weights for traffic distribution.
-
-## Infrastructure
-
-The infrastructure directory contains configurations for:
-- Docker Compose setup
-- Grafana/Prometheus monitoring
-- OpenTelemetry collector
-- Self-signed certificates
-
-## TypeScript & Node.js Integration
-
-- The test directory contains Node.js tests for integration testing
-- These interact with the proxy server to verify functionality
+- Unit tests alongside code
+- Integration tests in [ai-gateway/tests/](mdc:ai-gateway/tests)
+- Mock services for external APIs in [ai-gateway/stubs/](mdc:ai-gateway/stubs)
 
 ---
 > Source: [Helicone/ai-gateway](https://github.com/Helicone/ai-gateway) — distributed by [TomeVault](https://tomevault.io).
