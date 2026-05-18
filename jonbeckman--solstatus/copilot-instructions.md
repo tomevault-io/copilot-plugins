@@ -1,89 +1,225 @@
-## 1-helper-prd
+## api-routes
 
-> description: Guide for ideating new features and generating a PRD based on succinct feature statements and codebase context
+> Guidelines for creating consistent API routes in the application
 
----
-description: Guide for ideating new features and generating a PRD based on succinct feature statements and codebase context
-globs: 
-alwaysApply: false
----
-# Feature Ideation and PRD Generation Rule
+# API Routes Guidelines
 
-This rule helps transform basic feature statements into a fully-fledged Product Requirements Document (PRD) by analyzing the existing codebase via `@codebase` and applying principal engineer best practices. If additional context or clarification is needed, it will prompt the user accordingly.
+This document outlines the standards and patterns for creating API routes in our application.
 
-## How to Use
-1. Provide a succinct feature statement (e.g., "Add user profile customization").
-2. The rule will:
-   - Analyze `@codebase` for relevant existing implementations, patterns, and dependencies.
-   - Apply best practices (e.g., scalability, security, maintainability).
-   - Generate a detailed PRD with sections for overview, goals, requirements, technical considerations, and more.
-   - Ask clarifying questions if the statement is ambiguous or lacks sufficient detail.
 
-## PRD Structure
-- **Feature Overview**: High-level description of the feature.
-- **Goals and Objectives**: What the feature aims to achieve.
-- **User Stories**: Example scenarios from the user’s perspective.
-- **Functional Requirements**: Specific capabilities the feature must have.
-- **Non-Functional Requirements**: Performance, security, and scalability needs.
-- **Technical Considerations**: Implementation approach, dependencies, and risks.
-- **Open Questions**: Areas needing clarification or additional input.
+## How to use in Cursor AI
 
-## Example
-### Input
-"Add user profile customization"
-
-### Generated PRD
+To get help on API route development in Cursor, reference this rule by with `@api-route.mdc`. For example:
 ```
-# User Profile Customization PRD
-
-## Feature Overview
-The user profile customization feature allows users to personalize their profiles with details such as display names, avatars, bios, and theme preferences, enhancing user engagement and identity within the application.
-
-## Goals and Objectives
-- Increase user retention by enabling personal expression.
-- Provide a seamless and secure way to update profile data.
-- Ensure compatibility with existing authentication and UI systems in `@codebase`.
-
-## User Stories
-- As a user, I want to upload an avatar so my profile feels unique.
-- As a user, I want to set a custom theme so the app matches my preferences.
-
-## Functional Requirements
-1. Users can edit their display name, bio, and avatar via a profile settings page.
-2. Support avatar uploads (e.g., JPEG/PNG, max 5MB).
-3. Allow selection of predefined themes (e.g., light, dark, custom colors).
-4. Save changes to the database and reflect them in real-time across the app.
-
-## Non-Functional Requirements
-- **Performance**: Profile updates should complete within 2 seconds.
-- **Security**: Validate and sanitize all user inputs; store avatars in a secure CDN (e.g., Cloudflare).
-- **Scalability**: Support up to 100,000 profile updates daily without degradation.
-
-## Technical Considerations
-- **Existing Codebase (@codebase)**:
-  - Leverage `src/db/schemas/users.ts` to extend the user schema with new fields (e.g., bio, avatar_url, theme).
-  - Reuse `src/routes/auth.ts` patterns for secure API endpoints (e.g., PATCH /profile).
-  - Integrate with `src/components/LoginForm.tsx` styling for a consistent UI in a new `ProfileSettings.tsx`.
-- **Dependencies**: Use a file upload library (e.g., multer) and Cloudflare CDN for avatar storage.
-- **Risks**: Ensure backward compatibility with existing user data; handle large avatar uploads gracefully.
-
-## Open Questions
-- Should users be allowed to preview themes before applying them?
-- Are there specific limits on bio length or content (e.g., no profanity)?
-- Does `@codebase` already include a CDN integration, or do we need to add one?
+@api-routes Create an api endpoint to create and update NEW_DB_OBJECTS, an endpoint to get the total count, and add a route to handle search, pagination, and filtering.
 ```
 
-## Guidelines for Best Practices
-1. **Modularity**: Design components and APIs to be reusable across features.
-2. **Security**: Implement input validation, rate limiting, and secure storage.
-3. **Scalability**: Use asynchronous processing for uploads and caching for frequent reads.
-4. **Maintainability**: Follow existing `@codebase` naming conventions and document edge cases.
+## Route Structure and Organization
 
-## When Clarification Is Needed
-If the feature statement is vague (e.g., "Improve performance"), I’ll ask:
-- What specific area of the app needs improvement?
-- Are there performance metrics or user complaints in `@codebase` to reference?
-- What’s the desired outcome (e.g., faster load times, lower server costs)?
+- Organize routes under `src/app/api/` using Next.js App Router pattern
+- Use `route.ts` for base endpoints (e.g., `/api/endpoint-monitors`)
+- Use dynamic segments with `[param]` for parameterized routes (e.g., `/api/endpoint-monitors/[id]/route.ts`)
+- Group related functionality in subdirectories (e.g., `/api/endpoint-monitors/stats/`)
+
+## Route Creation
+
+Always use the `createRoute` utility to define handlers:
+
+```typescript
+// Import required dependencies
+import { createRoute } from "@/lib/api-utils"
+import { getCloudflareContext } from "@opennextjs/cloudflare"
+import { NextResponse } from "next/server"
+
+export const GET = createRoute
+  .params(paramsSchema)  // Optional
+  .query(querySchema)    // Optional
+  .body(bodySchema)      // Optional
+  .handler(async (request, context) => {
+    // Implementation
+    return NextResponse.json(data)
+  })
+```
+
+## Schema Validation
+
+- Always validate incoming data using Zod schemas
+- Create reusable schemas in `src/lib/route-schemas.ts` when applicable
+- Use data model schemas from `src/db/zod-schema.ts` for database operations
+- Examples:
+
+```typescript
+// For URL parameters
+.params(idStringParamsSchema)
+
+// For query parameters
+.query(paginationQuerySchema().extend({
+  customParam: z.string().optional()
+}))
+
+// For request body
+.body(websitesInsertDTOSchema)
+```
+
+## Cloudflare Context
+
+- Access Cloudflare bindings using `getCloudflareContext()`:
+
+```typescript
+const { env } = getCloudflareContext()
+```
+
+- Use for accessing:
+  - Database: `env.DB`
+  - Durable Objects: `env.MONITOR_TRIGGER_RPC`
+  - Other Cloudflare resources
+
+## Database Operations
+
+- Use Drizzle ORM for all database operations
+- Get database connection using `useDrizzle`:
+
+```typescript
+const db = useDrizzle(env.DB)
+```
+
+- Use helper functions for common operations:
+  - `takeFirstOrNull`: Extract first result or null
+  - `takeUniqueOrThrow`: Extract unique result or throw
+
+## JSDoc for OpenAPI
+
+Always include JSDoc comments for each route handler with:
+
+```typescript
+/**
+ * [METHOD] [PATH]
+ * 
+ * [Description of what the endpoint does]
+ * 
+ * @params {type} name - Description (for route parameters)
+ * @query {type} name - Description (for query string parameters)
+ * @body {schema} - Description (for request body)
+ * @returns {Promise<NextResponse>} Description of response
+ * @throws {NextResponse} status Description of error scenarios
+ */
+```
+
+## Error Handling
+
+- Use status codes from `stoker/http-status-codes` 
+- Use status phrases from `stoker/http-status-phrases`
+- Always return proper error responses:
+
+```typescript
+import { NOT_FOUND, INTERNAL_SERVER_ERROR } from "stoker/http-status-codes"
+import { NOT_FOUND as NOT_FOUND_PHRASE } from "stoker/http-status-phrases"
+
+// For specific error cases
+return NextResponse.json(
+  { message: NOT_FOUND_PHRASE },
+  { status: NOT_FOUND }
+)
+
+// For general server errors
+return NextResponse.json(
+  { error: "Failed to fetch data" },
+  { status: INTERNAL_SERVER_ERROR }
+)
+```
+
+- The `createRoute` utility includes global error handling for uncaught exceptions
+
+## Response Formatting
+
+- Use `NextResponse.json()` for returning JSON responses
+- Always include appropriate status codes:
+  - `200` for successful GET, PATCH, PUT
+  - `201` for successful POST with newly created resources
+  - `204` for successful DELETE with no content
+  - `4xx` for client errors
+  - `5xx` for server errors
+
+```typescript
+// Success with content
+return NextResponse.json(data)
+
+// Created
+return NextResponse.json(newResource, { status: 201 })
+
+// No content
+return new NextResponse(null, { status: 204 })
+```
+
+## Data Processing Patterns
+
+### Pagination
+
+Use the pagination query schema for list endpoints:
+
+```typescript
+const { pageSize, page, orderBy, order } = context.query
+
+// Apply pagination in database query
+.limit(pageSize)
+.offset(page * pageSize)
+```
+
+### Filtering & Searching
+
+Use SQL conditions with proper sanitization:
+
+```typescript
+.where(
+  and(
+    search ? like(Table.field, `%${search}%`) : sql`1=1`,
+    someFilter ? eq(Table.field, value) : sql`1=1`
+  )
+)
+```
+
+### Sorting
+
+- Create helper functions for handling dynamic sorting:
+```typescript
+function getOrderDirection(direction: "asc" | "desc") {
+  return direction === "desc" ? desc : asc
+}
+
+function getColumn(columnName: string): SQLiteColumn {
+  return SomeTable[columnName as keyof typeof SomeTable] as SQLiteColumn
+}
+```
+
+- Apply in queries:
+```typescript
+.orderBy(getOrderDirection(order)(getColumn(orderBy)))
+```
+
+## Durable Object Integration
+
+When working with Durable Objects:
+
+```typescript
+// Create/init DO
+await env.DO_NAME_RPC.init(id, params)
+
+// Delete DO
+await env.DO_NAME_RPC.deleteDo(id)
+```
+
+## Security Considerations
+
+- Always validate and sanitize user input
+- Use parameterized queries to prevent SQL injection
+- Apply proper authorization checks where needed
+- Avoid exposing sensitive information in error messages
+
+## Testing
+
+- Write unit tests for API routes
+- Test happy paths and error scenarios
+- Mock external dependencies like databases and Durable Objects
 
 ---
 > Source: [jonbeckman/solstatus](https://github.com/jonbeckman/solstatus) — distributed by [TomeVault](https://tomevault.io).
