@@ -1,0 +1,9 @@
+{
+  "name": "ganimjeong--harness-for-codex",
+  "displayName": "Harness-for-codex",
+  "description": "Codex harness for consistent AI-assisted development workflows, including agent   instructions, standard setup/check/test/eval scripts, CI, hooks, and   documentation. |  AI \uae30\ubc18 \uac1c\ubc1c \uc791\uc5c5\uc744 \uc77c\uad00\ub418\uac8c \uc9c4\ud589\ud558\uae30 \uc704\ud55c Cod",
+  "version": "1.0.0",
+  "author": "ganimjeong",
+  "homepage": "https://github.com/ganimjeong/Harness-for-codex",
+  "skills": []
+}
