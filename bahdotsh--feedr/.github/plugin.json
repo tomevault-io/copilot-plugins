@@ -1,0 +1,9 @@
+{
+  "name": "bahdotsh--feedr",
+  "displayName": "feedr",
+  "description": "A feature-rich terminal-based RSS/Atom feed reader written in Rust.",
+  "version": "1.0.0",
+  "author": "bahdotsh",
+  "homepage": "https://github.com/bahdotsh/feedr",
+  "skills": []
+}
