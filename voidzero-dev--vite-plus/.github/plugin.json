@@ -1,0 +1,9 @@
+{
+  "name": "voidzero-dev--vite-plus",
+  "displayName": "vite-plus",
+  "description": "Vite+ is the unified toolchain and entry point for web development. It manages your runtime, package manager, and frontend toolchain in one place.",
+  "version": "1.0.0",
+  "author": "voidzero-dev",
+  "homepage": "https://github.com/voidzero-dev/vite-plus",
+  "skills": []
+}
