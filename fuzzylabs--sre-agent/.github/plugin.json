@@ -1,0 +1,9 @@
+{
+  "name": "fuzzylabs--sre-agent",
+  "displayName": "sre-agent",
+  "description": "A Site Reliability Engineer AI agent that can monitor application and infrastructure logs, diagnose issues, and report on diagnostics.",
+  "version": "1.0.0",
+  "author": "fuzzylabs",
+  "homepage": "https://github.com/fuzzylabs/sre-agent",
+  "skills": []
+}
