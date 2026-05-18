@@ -1,0 +1,14 @@
+{
+  "name": "docker--model-runner",
+  "displayName": "model-runner",
+  "description": "Docker Model Runner",
+  "version": "1.0.0",
+  "author": "docker",
+  "homepage": "https://github.com/docker/model-runner",
+  "skills": [
+    {
+      "name": "docker-model-runner",
+      "description": ""
+    }
+  ]
+}
