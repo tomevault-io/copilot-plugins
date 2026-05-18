@@ -1,122 +1,118 @@
-## agentverse-project
+## code-simplicity
 
-> ├── common/                    # Shared components and utilities
+> 代码简洁性、可维护性和可扩展性指导原则
 
-# AgentVerse Project Rules
 
-## Project Architecture
+# 代码简洁性与可维护性指导原则
 
-### Directory Structure
+## 核心原则
+
+### 1. 简洁性优先
+- **避免冗余**：不要重复造轮子，优先复用现有类型和组件
+- **减少代码量**：用最少的代码实现功能，避免过度设计
+- **消除重复**：DRY (Don't Repeat Yourself) 原则
+
+### 2. 文件大小控制
+- **单文件限制**：一个文件的代码尽量不要超过 250 行
+- **组件拆分**：当文件过大时，及时拆分为更小的组件
+- **职责单一**：每个文件/组件只负责一个明确的功能
+
+### 3. 可维护性
+- **清晰命名**：变量名严格区分不同概念（如 `agentTools` vs `toolDefinitions`）
+- **类型安全**：充分利用 TypeScript 类型系统，避免 `any`
+- **注释简洁**：只在必要时添加注释，代码本身应该自解释
+
+### 4. 可扩展性
+- **低耦合**：修改已有逻辑时，能不耦合尽量不耦合
+- **可插拔**：尽量以可插拔的方式引入新功能
+- **接口稳定**：保持公共 API 的稳定性
+
+## 具体实践
+
+### 类型定义
+```typescript
+// ✅ 好的做法：复用现有类型
+export interface AgentTool extends ToolDefinition {
+  execute?: ToolExecutor
+  render?: ToolRenderer['render']
+}
+
+// ❌ 避免：重复定义已有类型
+export interface AgentTool {
+  name: string
+  description: string
+  parameters: { /* 重复定义 */ }
+}
 ```
-src/
-├── common/                    # Shared components and utilities
-│   ├── components/           # UI components
-│   ├── features/             # Feature-based organization
-│   │   └── agents/          # Agent-related features
-│   │       ├── components/  # Agent components
-│   │       └── extensions/  # Feature extensions
-│   ├── hooks/               # Custom hooks
-│   ├── lib/                 # Core libraries
-│   └── types/               # Type definitions
-├── core/                     # Application core
-│   ├── config/              # Configuration
-│   ├── hooks/               # App-level hooks
-│   ├── services/            # Business services
-│   └── stores/              # State management
-├── desktop/                  # Desktop-specific features
-└── mobile/                   # Mobile-specific features
+
+### 函数实现
+```typescript
+// ✅ 好的做法：使用现代 API，链式调用
+const toolExecutors = Object.fromEntries(
+  agentTools
+    .filter(agentTool => agentTool.execute)
+    .map(agentTool => [agentTool.name, agentTool.execute!])
+)
+
+// ❌ 避免：手动循环和条件判断
+const toolExecutors = {}
+agentTools.forEach(agentTool => {
+  if (agentTool.execute) {
+    toolExecutors[agentTool.name] = agentTool.execute
+  }
+})
 ```
 
-### Feature Organization
-- **Platform Separation**: Keep desktop/mobile specific code separate
-- **Feature-First**: Organize by business features, not technical layers
-- **Reusability**: Common components in `common/`, platform-specific in respective directories
+### 组件拆分
+```typescript
+// ✅ 好的做法：职责单一的小组件
+function AgentToolCard({ tool, onEdit, onDelete }) {
+  return <div>...</div>
+}
 
-## Agent Configuration System
+function AgentToolList({ tools }) {
+  return tools.map(tool => <AgentToolCard key={tool.id} tool={tool} />)
+}
 
-### Component Structure
-- **Configuration**: AI-driven agent configuration assistant
-- **Preview**: Agent testing and preview environment
-- **Tools**: Reusable agent tools and utilities
+// ❌ 避免：一个组件做太多事情
+function AgentToolManager({ tools, onEdit, onDelete, onAdd, onSearch, ... }) {
+  // 200+ 行的复杂逻辑
+}
+```
 
-### Naming Conventions
-- **Components**: `AgentConfigurationAssistant`, `AgentPreviewChat`
-- **Files**: `agent-configuration-assistant.tsx`, `agent-preview-chat.tsx`
-- **Hooks**: `useAgentConfigurationTools`, `useAgentPreviewTools`
-- **Directories**: `configuration/`, `preview/`, `tools/`
+### Hook 封装
+```typescript
+// ✅ 好的做法：封装复杂逻辑为可复用 hook
+export function useProvideAgentTools(agentTools: AgentTool[]) {
+  // 简洁的实现，内部处理复杂性
+}
 
-## Code Quality Standards
+// ❌ 避免：在组件中直接调用多个相关 hook
+function MyComponent() {
+  useProvideAgentToolDefs(toolDefs)
+  useProvideAgentToolExecutors(toolExecutors)
+  useProvideAgentToolRenderers(toolRenderers)
+  // 容易遗漏或出错
+}
+```
 
-### File Size Limits
-- **Components**: Keep under 250 lines
-- **Functions**: Keep under 50 lines
-- **Split when needed**: Break large files into focused modules
+## 代码审查检查点
 
-### Component Splitting Guidelines
-- **UI Components**: Pure presentation components
-- **Logic Components**: Business logic and state management
-- **Hook Files**: Custom hooks and utilities
-- **Tool Files**: Tool definitions and executors
+1. **文件大小**：是否超过 250 行？需要拆分吗？
+2. **类型复用**：是否重复定义了已有类型？
+3. **现代 API**：是否使用了 `Object.fromEntries`、链式调用等现代语法？
+4. **命名清晰**：变量名是否严格区分了不同概念？
+5. **职责单一**：每个函数/组件是否只做一件事？
+6. **可插拔**：新功能是否以可插拔的方式引入？
 
-### Separation of Concerns
-- **UI Layer**: React components, styling, layout
-- **Logic Layer**: Hooks, business logic, state management
-- **Data Layer**: API calls, data transformation, storage
-- **Tool Layer**: Agent tools, executors, renderers
+## 重构指导
 
-## Development Workflow
-
-### Component Development
-1. **Analyze Requirements**: Understand feature needs
-2. **Design Structure**: Plan component hierarchy and responsibilities
-3. **Implement**: Follow naming conventions and file organization
-4. **Test**: Build and lint validation
-5. **Refactor**: Optimize structure and naming if needed
-
-### Refactoring Process
-1. **Identify Issues**: Large files, mixed responsibilities, unclear naming
-2. **Plan Changes**: Design new structure and naming
-3. **Execute Carefully**: Make minimal, focused changes
-4. **Validate**: Build and test to ensure functionality
-5. **Commit**: Use descriptive English commit messages
-
-## Common Patterns
-
-### Agent Tools
-- Define tools in separate files
-- Use TypeScript for type safety
-- Provide clear descriptions and parameters
-- Include renderers for UI feedback
-
-### Component Composition
-- Use composition over inheritance
-- Keep components focused and reusable
-- Maintain clear prop interfaces
-- Use proper TypeScript types
-
-### State Management
-- Use React hooks for local state
-- Keep state close to where it's used
-- Avoid prop drilling with context when needed
-- Use proper dependency arrays in useEffect
-
-## Error Handling
-
-### Development Errors
-- Provide clear error messages
-- Suggest specific solutions
-- Prioritize fixes by impact
-- Always verify solutions work
-
-### Code Quality Issues
-- Address lint warnings promptly
-- Follow established patterns
-- Maintain consistency across codebase
-- Document complex logic when needed
----
-alwaysApply: true
-description: AgentVerse project specific rules and architecture guidelines
----
+当发现以下情况时，考虑重构：
+- 文件超过 250 行
+- 函数超过 50 行
+- 重复的类型定义
+- 手动循环可以用现代 API 替代
+- 组件承担
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
