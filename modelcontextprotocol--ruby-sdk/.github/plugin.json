@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--ruby-sdk",
+  "displayName": "ruby-sdk",
+  "description": "The official Ruby SDK for the Model Context Protocol.",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/ruby-sdk",
+  "skills": []
+}
