@@ -1,128 +1,75 @@
-## rust
+## ui-guidelines
 
-> When coding in Rust
+> - MUST use Tailwind CSS defaults unless custom values already exist or are explicitly requested
 
-# Rust Safety Rules for LLM
 
-## Rule Set Format
-Each rule follows the structure
-Issue
-Example
-Reason
+# UI Guidelines
 
-## Rules
+## Stack
 
-Issue
-Using unwrap
-Example
-`let x = value.unwrap()`
-Reason
-Unwrap causes an instant panic if the value is missing. This can crash services in production.
+- MUST use Tailwind CSS defaults unless custom values already exist or are explicitly requested
+- MUST use motion/react (formerly framer-motion) when JavaScript animation is required
+- SHOULD use tw-animate-css for entrance and micro-animations in Tailwind CSS
+- MUST use cn utility (clsx + tailwind-merge) for class logic
 
-Issue
-Using expect everywhere
-Example
-`config.expect("it should exist")`
-Reason
-Expect still panics. It must only be used when failure is impossible such as during startup.
+## Components
 
-Issue
-Using panic in normal logic
-Example
-`panic("unexpected state")`
-Reason
-Panic kills the whole process. This removes all stability guarantees.
+- MUST use accessible component primitives for anything with keyboard or focus behavior (Base UI, React Aria, Radix)
+- MUST use the project's existing component primitives first
+- NEVER mix primitive systems within the same interaction surface
+- SHOULD prefer Base UI for new primitives if compatible with the stack
+- MUST add an aria-label to icon-only buttons
+- NEVER rebuild keyboard or focus behavior by hand unless explicitly requested
 
-Issue
-Ignoring return values
-Example
-`some_func()` without handling the result
-Reason
-Ignoring errors counters Rusts guarantees. Failures become silent and hard to debug.
+## Interaction
 
-Issue
-Using clone to avoid ownership problems
-Example
-`let data2 = data.clone()`
-Reason
-Cloning large values causes heavy performance drops and unexpected memory use.
+- MUST use an AlertDialog for destructive or irreversible actions
+- MUST use structural skeletons for loading states — NEVER conditionally render `null` for UI that occupies space (`if (isPending) return null`), always render a skeleton/placeholder with matching dimensions to prevent layout shift
+- NEVER use h-screen, use h-dvh
+- MUST respect safe-area-inset for fixed elements
+- MUST show errors next to where the action happens
+- NEVER block paste in input or textarea elements
 
-Issue
-Using to_string everywhere
-Example
-`value.to_string()` repeatedly
-Reason
-Unnecessary allocations. Strings are expensive and should be avoided when possible.
+## Animation
 
-Issue
-Blocking inside async code
-Example
-`sleep` inside a Tokio async handler
-Reason
-This freezes the executor and stalls the entire service.
+- NEVER add animation unless it is explicitly requested
+- MUST animate only compositor props (transform, opacity)
+- NEVER animate layout properties (width, height, top, left, margin, padding)
+- SHOULD avoid animating paint properties (background, color) except for small, local UI (text, icons)
+- SHOULD use ease-out on entrance
+- NEVER exceed 200ms for interaction feedback
+- MUST pause looping animations when off-screen
+- SHOULD respect prefers-reduced-motion
+- NEVER introduce custom easing curves unless explicitly requested
+- SHOULD avoid animating large images or full-screen surfaces
 
-Issue
-Using blocking IO in async
-Example
-`std::fs::read` inside async
-Reason
-Blocking the executor stops all other tasks. Use async alternatives.
+## Typography
 
-Issue
-Spawning untracked tasks
-Example
-`tokio::spawn(task())` without storing the handle
-Reason
-Tasks leak. Memory grows until the service crashes.
+- MUST use text-balance for headings and text-pretty for body/paragraphs
+- MUST use tabular-nums for data
+- SHOULD use truncate or line-clamp for dense UI
+- NEVER modify letter-spacing (tracking-*) unless explicitly requested
 
-Issue
-Global mutable state
-Example
-`static mut COUNTER: i32`
-Reason
-Race conditions and undefined behavior. Global state must use safe abstractions.
+## Layout
 
-Issue
-Random unsafe blocks
-Example
-Raw pointer writes without justification
-Reason
-Unsafe disables compiler guarantees. Each block must be proven correct.
+- MUST use a fixed z-index scale (no arbitrary z-*)
+- SHOULD use size-* for square elements instead of w-* + h-*
 
-Issue
-Silent numeric conversions
-Example
-`let x: u8 = num.try_into()?`
-Reason
-Overflow errors appear only with certain inputs. Must be handled explicitly.
+## Performance
 
-Issue
-Catch all match arms
-Example
-`_ => {}`
-Reason
-Hides new enum variants and removes compile time checks.
+- NEVER animate large blur() or backdrop-filter surfaces
+- NEVER apply will-change outside an active animation
+- NEVER use useEffect for anything that can be expressed as render logic
 
-Issue
-Unbounded channels
-Example
-Unbounded MPSC channels in high load systems
-Reason
-Messages queue forever and cause memory explosions.
+## Design
 
-Issue
-Building strings in loops
-Example
-Repeated string concatenation
-Reason
-Excessive allocations slow down the system.
-
-Issue
-Moving large data instead of borrowing
-Example
-Returning huge structures by value
-Reason
-Unneeded copies waste memory and CPU.
+- NEVER use gradients unless explicitly requested
+- NEVER use purple or multicolor gradients
+- NEVER use glow effects as primary affordances
+- SHOULD use Tailwind CSS default shadow scale unless explicitly requested
+- MUST give empty states one clear next action
+- SHOULD limit accent color usage to one per view
+- SHOULD use existing theme or Tailwind CSS color tokens before introducing new ones
 
 ---
 > Source: [databuddy-analytics/Databuddy](https://github.com/databuddy-analytics/Databuddy) — distributed by [TomeVault](https://tomevault.io).
