@@ -7,11 +7,11 @@ BlueKing Lite is an AI first platform for ops
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TencentBlueKing/bk-lite](https://github.com/TencentBlueKing/bk-lite).
+Original source: `CLAUDE.md` in [TencentBlueKing/bk-lite](https://github.com/TencentBlueKing/bk-lite).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
