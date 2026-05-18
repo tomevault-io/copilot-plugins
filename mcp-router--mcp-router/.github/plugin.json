@@ -1,0 +1,9 @@
+{
+  "name": "mcp-router--mcp-router",
+  "displayName": "mcp-router",
+  "description": "A Unified MCP Server Management App (MCP Manager).",
+  "version": "1.0.0",
+  "author": "mcp-router",
+  "homepage": "https://github.com/mcp-router/mcp-router",
+  "skills": []
+}
