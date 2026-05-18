@@ -1,31 +1,32 @@
-## root
+## server
 
-> - Use pnpm for all package operations
+> - Use @modelcontextprotocol/sdk latest
 
-# MCP Prompts Monorepo Root Rules
+# MCP Server Application Rules
 
-## Build & Package Management
-- Use pnpm for all package operations
-- Build order: core → adapters → apps/server
-- Use `pnpm -r build` for full monorepo builds
-- Test with `pnpm -r test`
+## MCP SDK Integration
+- Use @modelcontextprotocol/sdk latest
+- Register tools with server.tool()
+- Register resources with server.resource()
+- Use Zod for schema validation
 
-## Import Strategy
-- Use workspace:* for internal dependencies
-- Import from built outputs: @mcp-prompts/core/dist/
-- Avoid circular dependencies
+## Composition Root
+- Wire all dependencies in index.ts
+- Use dependency injection
+- Configure all adapters
+- Handle startup/shutdown gracefully
 
-## Code Style
-- ESLint 9.0+ flat config
-- Prettier for formatting
-- TypeScript strict mode
-- Use NodeNext module resolution
+## Transport Configuration
+- Support stdio and HTTP transports
+- Configure SSE for remote access
+- Handle connection lifecycle
+- Implement health checks
 
-## Architecture
-- Hexagonal architecture patterns
-- Ports (interfaces) in core/ports/
-- Adapters in separate packages
-- Pure domain logic in core/ # MCP Prompts Monorepo Root Rules
+## Error Handling
+- Structured error responses
+- Proper logging with Pino
+- Graceful degradation
+- Circuit breaker patterns # MCP Server Application Rules
 
 ---
 > Source: [sparesparrow/mcp-prompts](https://github.com/sparesparrow/mcp-prompts) — distributed by [TomeVault](https://tomevault.io).
