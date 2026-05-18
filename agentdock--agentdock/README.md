@@ -1,6 +1,8 @@
 # AgentDock
 
-> Config by [AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io/claim/AgentDock)
+> Tome by [AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io)
+
+Build Anything with AI Agents
 
 ## GitHub Copilot Config
 
@@ -15,9 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [AgentDock/AgentDock](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AgentDock](https://tomevault.io/claim/AgentDock)
+From [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — a repo with 1633+ stars on GitHub.
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AgentDock) to manage distribution.
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:t-e-s -->
