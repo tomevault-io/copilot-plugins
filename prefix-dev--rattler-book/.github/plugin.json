@@ -1,0 +1,9 @@
+{
+  "name": "prefix-dev--rattler-book",
+  "displayName": "rattler-book",
+  "description": "A book and a simple lua package manager",
+  "version": "1.0.0",
+  "author": "prefix-dev",
+  "homepage": "https://github.com/prefix-dev/rattler-book",
+  "skills": []
+}
