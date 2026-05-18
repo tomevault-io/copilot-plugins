@@ -1,0 +1,9 @@
+{
+  "name": "hybridtalentcomputing--cline-chinese",
+  "displayName": "cline-chinese",
+  "description": "Cline\u4e2d\u6587\u6c49\u5316\u7248\uff0cCline\u662f\u4e00\u6b3e\u5728\u60a8\u7684 IDE \u4e2d\u8fd0\u884c\u7684\u81ea\u4e3b\u7f16\u7a0b\u52a9\u624b\uff0c\u7ecf\u60a8\u8bb8\u53ef\u540e\u53ef\u4ee5\u521b\u5efa/\u7f16\u8f91\u6587\u4ef6\u3001\u8fd0\u884c\u547d\u4ee4\u3001\u4f7f\u7528\u6d4f\u89c8\u5668\u7b49\u529f\u80fd\u3002",
+  "version": "1.0.0",
+  "author": "HybridTalentComputing",
+  "homepage": "https://github.com/HybridTalentComputing/cline-chinese",
+  "skills": []
+}
