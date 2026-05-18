@@ -1,0 +1,9 @@
+{
+  "name": "thepartly--gatehouse",
+  "displayName": "gatehouse",
+  "description": "A flexible authorization library that combines role-based (RBAC), attribute-based (ABAC), and relationship-based (ReBAC) access control policies.",
+  "version": "1.0.0",
+  "author": "thepartly",
+  "homepage": "https://github.com/thepartly/gatehouse",
+  "skills": []
+}
