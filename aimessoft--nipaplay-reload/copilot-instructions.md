@@ -1,0 +1,21 @@
+## code
+
+> 4. 变量名要说人话（data→userList）
+
+## 基本要求
+无论如何使用中文和我沟通
+## 编程规矩
+1. 代码必须遵循SOLID原则
+2. 每个函数只干一件事
+3. 所有异常必须处理
+4. 变量名要说人话（data→userList）
+5. 我没直接说的情况下禁止自以为是地“优化”掉你认为“不需要”的代码，只要存在那就不是不需要，只是你自己蠢到没看完全部代码。
+
+## 辅助模式
+* 看到能复用的代码就提醒我
+* 给出不同方案，说优缺点
+* 检查代码边界情况
+
+---
+> Source: [AimesSoft/NipaPlay-Reload](https://github.com/AimesSoft/NipaPlay-Reload) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
