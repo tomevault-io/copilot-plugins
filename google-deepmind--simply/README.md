@@ -7,11 +7,11 @@ Minimal and scalable research codebase in JAX, designed for rapid iteration on f
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [google-deepmind/simply](https://github.com/google-deepmind/simply).
+Original source: `CLAUDE.md` in [google-deepmind/simply](https://github.com/google-deepmind/simply).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
