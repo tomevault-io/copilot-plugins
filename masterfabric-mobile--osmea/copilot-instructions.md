@@ -1,44 +1,70 @@
-## colors-orange-instead-of-red
+## osmea-apis-network
 
-> Use orange tones instead of red for errors, warnings, and accents across all apps
+> OSMEA APIs - Dio, Shopify, WooCommerce, error handling, retry, auth
 
 
-# Colors: Orange tones instead of red (all apps)
+# OSMEA APIs - Cursor Rules
 
-Across **all apps** in this workspace, use **orange tones** instead of red for error, warning, and accent colors.
+## 📦 Package Overview
+OSMEA APIs is a robust network layer for handling RESTful API requests and responses with Shopify integration.
 
-## Why orange?
+## 🎯 Development Guidelines
 
-- Brand consistency: UI uses an orange-heavy palette.
-- This is a workspace-wide convention; apply it in every app.
-
-## Colors to use (OsmeaColors)
-
-For errors, warnings, and accents use the **OsmeaColors** orange palette:
-
-- **OsmeaColors.amberFlame** – error text, warning emphasis (strongest orange)
-- **OsmeaColors.sunsetGlow** – primary orange, buttons and accents
-- **OsmeaColors.goldenHour** – softer accent
-- **OsmeaColors.desertSand** – background or light accent
-
-## Do
-
-- Use **OsmeaColors.amberFlame** or **OsmeaColors.sunsetGlow** for error messages, warning labels, and destructive action emphasis.
-- Prefer the same orange palette in new components.
-
-## Don't
-
-- Do **not** use **OsmeaColors.red** for error messages, warning labels, or destructive accents.
-
-## Example
-
-```dart
-// Don't
-color: OsmeaColors.red,
-
-// Do
-color: OsmeaColors.amberFlame,
+### 📁 File Structure
 ```
+lib/
+├── src/
+│   ├── di/config/
+│   ├── dio_config/         # ApiDioClient, interceptors, logger
+│   ├── helpers/
+│   └── network/remote/
+│       ├── shopify/storefront/ & admin/
+│       └── woocommerce/
+```
+
+### 🌐 API Development Rules
+
+#### 1. Service Structure
+- Use `@injectable` for services
+- Inject ApiDioClient and logger
+- Return `ApiResponse<T>` with success/error
+
+#### 2. Response Handling
+- Use ApiResponse.success(data) and ApiResponse.error(ApiException)
+- Factory fromJson with proper error handling
+
+#### 3. Error Handling
+- ApiException with message, statusCode, errorCode, details
+- Factory ApiException.fromError for DioException
+
+### 🔧 Dio Configuration Rules
+- BaseOptions: baseUrl, timeouts, headers
+- Add interceptors: ApiInterceptorDefault, LogInterceptor
+- Implement auth header and request ID in interceptor
+
+### 🛒 Shopify Integration Rules
+- Storefront API: GraphQL queries for products, cart, checkout, etc.
+- Admin API: REST for orders, products, inventory
+
+### 🌐 WooCommerce Integration Rules
+- REST API with consumer key/secret
+- Use query parameters for pagination and filters
+
+### 🔄 Retry Logic Rules
+- Retry on connection/receive timeout, 5xx status
+- Configurable maxRetries and retryDelay
+
+### 🔐 Authentication Rules
+- TokenManager for access/refresh tokens; save in SharedPreferences
+- Clear tokens on logout; implement refresh flow
+
+### 🔍 Code Review Checklist
+- [ ] API services follow established patterns
+- [ ] Error handling is comprehensive
+- [ ] Retry logic is implemented
+- [ ] Authentication is secure
+- [ ] Logging is appropriate
+- [ ] Tests and documentation are complete
 
 ---
 > Source: [masterfabric-mobile/osmea](https://github.com/masterfabric-mobile/osmea) — distributed by [TomeVault](https://tomevault.io).
