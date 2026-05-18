@@ -1,0 +1,18 @@
+{
+  "name": "getsentry--xcodebuildmcp",
+  "displayName": "XcodeBuildMCP",
+  "description": "A Model Context Protocol (MCP) server and CLI that provides tools for agent use when working on iOS and macOS projects.",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/XcodeBuildMCP",
+  "skills": [
+    {
+      "name": "xcodebuildmcp",
+      "description": ""
+    },
+    {
+      "name": "xcodebuildmcp-cli",
+      "description": ""
+    }
+  ]
+}
