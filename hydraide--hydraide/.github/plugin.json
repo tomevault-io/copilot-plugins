@@ -1,0 +1,9 @@
+{
+  "name": "hydraide--hydraide",
+  "displayName": "hydraide",
+  "description": "HydrAIDE - The Adaptive, Intelligent Data Engine, built in Go. Production-ready and optimized for real-time, large-scale data operations.",
+  "version": "1.0.0",
+  "author": "hydraide",
+  "homepage": "https://github.com/hydraide/hydraide",
+  "skills": []
+}
