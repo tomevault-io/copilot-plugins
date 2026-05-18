@@ -7,11 +7,11 @@ MCP-NixOS - Model Context Protocol Server for NixOS resources
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [utensils/mcp-nixos](https://github.com/utensils/mcp-nixos).
+Original source: `CLAUDE.md` in [utensils/mcp-nixos](https://github.com/utensils/mcp-nixos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
