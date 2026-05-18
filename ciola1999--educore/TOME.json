@@ -4,7 +4,7 @@
   "repo": "educore",
   "description": "Website untuk sekolah",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ciola1999/educore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T18:27:36Z"
+  "distributed_at": "2026-05-18T21:19:32Z"
 }
