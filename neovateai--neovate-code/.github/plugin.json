@@ -1,0 +1,18 @@
+{
+  "name": "neovateai--neovate-code",
+  "displayName": "neovate",
+  "description": "Neovate Code is a code agent to enhance your development. You can use it to generate code, fix bugs, review code, add tests, and more. You can run it in interactive mode or headless mode.",
+  "version": "1.0.0",
+  "author": "neovateai",
+  "homepage": "https://github.com/neovateai/neovate-code",
+  "skills": [
+    {
+      "name": "add-nodebridge-handler",
+      "description": ""
+    },
+    {
+      "name": "test-nodebridge-handler",
+      "description": ""
+    }
+  ]
+}
