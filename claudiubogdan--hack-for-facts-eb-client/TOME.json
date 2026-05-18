@@ -1,0 +1,44 @@
+{
+  "name": "hack-for-facts-eb-client",
+  "owner": "ClaudiuBogdan",
+  "repo": "hack-for-facts-eb-client",
+  "description": "Platform\u0103 de explorare a datelor financiare publice pentru cet\u0103\u021beni, jurnali\u0219ti, persoane publice \u0219i alte persoane interesate.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ClaudiuBogdan/hack-for-facts-eb-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:44:09Z"
+}
