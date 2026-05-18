@@ -4,7 +4,7 @@
   "repo": "bk-lite",
   "description": "BlueKing Lite is an AI first platform for ops",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TencentBlueKing/bk-lite",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T10:32:48Z"
+  "distributed_at": "2026-05-18T11:54:03Z"
 }
