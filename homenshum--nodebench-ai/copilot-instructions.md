@@ -1,42 +1,37 @@
-## agentic-reliability
+## reexamine-a11y
 
-> Agentic Systems Reliability — 8-point checklist for agent-facing infrastructure
+> - Every interactive element has `role` or is a native interactive element (`<button>`, `<a>`, `<input>`)
 
 
-# Agentic Systems Reliability
+# Re-examine: Accessibility
 
-Every tool response must be honest, every resource bounded, every failure surfaced. Agents trust tool output literally.
+## ARIA & Semantics
+- Every interactive element has `role` or is a native interactive element (`<button>`, `<a>`, `<input>`)
+- `aria-label` on icon-only buttons (no visible text = must have aria-label)
+- `aria-pressed` on toggles, `aria-selected` on tabs, `aria-expanded` on collapsibles
+- `role="region"` with `aria-label` on landmark sections
+- No `<div onclick>` — use `<button>` or `<a>` with proper keyboard handling
 
-## 8-Point Mandatory Checklist (run on ALL backend/infra code)
+## Reduced motion
+- `@media (prefers-reduced-motion: reduce)` disables: transitions, animations, auto-scroll, carousel auto-play
+- Skeleton shimmer → static placeholder under reduced-motion
+- Staggered fade-ins → instant appearance
 
-1. **BOUND** — Every in-memory collection (Map, Array, Set) has MAX + eviction on insert
-2. **HONEST_STATUS** — No 2xx on failure paths. 502 for backend down, 504 for timeout, 500 for unhandled
-3. **HONEST_SCORES** — No hardcoded `passed: true` or score floors. Default `false`/`0`/`"UNKNOWN"` when not evaluated
-4. **TIMEOUT** — AbortController + checkBudget() gates between async stages. Return 504 on expiry
-5. **SSRF** — URL validation (protocol + hostname blocklist) before every fetch with agent/user input
-6. **BOUND_READ** — ReadableStream with MAX_BYTES + cancel on overflow for all external response bodies
-7. **ERROR_BOUNDARY** — asyncHandler wrapper or try/catch on every async route handler
-8. **DETERMINISTIC** — stableStringify (sorted keys) for all content-addressed hashing
+## Color-blind safety
+- Never rely on color alone — pair with icons, patterns, or text labels
+- Severity badges: use border + text, not just background color
+- Test with simulated protanopia/deuteranopia if possible
 
-## Why Agents Amplify Bugs
-- Agents call tools in tight loops → unbounded Maps OOM in minutes not hours
-- Agents parse status codes literally → fake 201 becomes false belief in reasoning chain
-- Agents generate URLs from reasoning → SSRF via hallucinated internal addresses
-- Inflated evidence scores → agents skip verification on bad data
+## Screen readers
+- `<label>` elements for every `<input>`, `<select>`, `<textarea>` (visible or `.sr-only`)
+- `.sr-only` class: `position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0)`
+- Skip links at page top: `<a href="#main-content" class="sr-only focus:not-sr-only">`
+- Meaningful alt text on images; decorative images get `alt=""`
 
-## Severity
-- **P0**: Crash, SSRF, false decisions from fake data → fix immediately
-- **P1**: Degraded data, no crash → fix same session
-- **P2**: Suboptimal but safe → fix when touched
-
-## What to Grep For
-- `new Map()` without MAX constant in same file
-- `res.status(2` in catch/fallback branches
-- `passed: true` with "caller should validate" comments
-- `await response.text()` on external fetches
-- `fetch(variable)` without URL validation
-- `async (req, res) =>` without error handling
-- `JSON.stringify(obj)` → `createHash` without sorted keys
+## Focus management
+- `:focus-visible` outlines on all interactive elements (not `:focus` — avoids mouse-click outlines)
+- Focus trap in modals/dialogs: Tab cycles within, Escape closes
+- After dynamic content load, move focus to the new content or announce via `aria-live`
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
