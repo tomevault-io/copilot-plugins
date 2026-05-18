@@ -1,0 +1,879 @@
+## clr
+
+> - `zig/` - Zig compiler submodule (DO NOT MODIFY - all changes must be non-AI)
+
+# CLR Project
+
+## Project Structure
+
+- `zig/` - Zig compiler submodule (DO NOT MODIFY - all changes must be non-AI)
+
+## Build Commands
+
+- `zig/b` - Builds the custom Zig compiler (uses `zig build --zig-lib-dir lib`)
+- `zig/z` - Runs the custom Zig compiler from `zig-out/bin/zig`
+- `zig build -Doptimize=ReleaseFast` - Builds libclr.so (the AIR plugin) **IMPORTANT: Always use ReleaseFast unless you need to do advanced debugging and you have recompiled Zig to be in a different mode**
+- `zig build test` - Runs unit tests for libclr
+- `./run_integration.sh` - Runs BATS integration tests
+- `./run_one.sh <test_file>` - Run a single test case (generates `.air.zig` file in project root)
+- `./dump_air.sh <source_file> <function_name> [num_lines]` - Dump AIR for a specific function
+- `./clear.sh` - Clean up generated `.air.zig` files and other build artifacts
+
+### Debugging AIR
+
+To view the raw AIR for a function:
+```sh
+./dump_air.sh test/cases/undefined/basic/assigned_before_use.zig assigned_before_use.main 40
+```
+
+This shows the instruction indices, tags, and nesting structure. Block bodies may have indices that are **higher** than post-block instructions (e.g., block at %10 may contain %16-%23, while %11-%15 come after the block).
+
+**IMPORTANT**: Do NOT use `-femit-air` or `--verbose-air` flags directly. The main Zig compiler is built in ReleaseFast mode which strips AIR emission support. Always use `./dump_air.sh` which uses a debug-mode Zig build.
+
+## Testing
+
+### Unit Tests
+
+There are TWO sets of unit tests in different locations:
+
+**1. Codegen/DLL tests (`src/`)** - Run with:
+```sh
+zig build test
+```
+These test the code generation and DLL infrastructure.
+
+**2. Runtime library tests (`lib/`)** - Run with:
+```sh
+zig test lib/lib.zig
+```
+These test the runtime analysis logic (tag handlers, memory_safety, undefined tracking).
+
+**IMPORTANT**: `zig build test` only runs `src/` tests. Always run BOTH when modifying analysis logic.
+
+### Integration Tests (BATS)
+
+Integration tests use [BATS](https://github.com/bats-core/bats-core) (Bash Automated Testing System).
+
+```sh
+# Install BATS (if needed)
+sudo apt install bats  # Ubuntu/Debian
+brew install bats-core # macOS
+
+# Run all integration tests
+./run_integration.sh
+
+# Run a single test file
+bats test/integration/allocator.bats
+
+# Run tests matching a pattern
+bats test/integration/allocator.bats -f "double-free"
+```
+
+**Performance Note**: Full integration tests take ~7 minutes to run. Only run `./run_integration.sh` before commits. During development, use targeted testing:
+- `./run_one.sh <test_file>` - Test a single case quickly
+- `bats test/integration/<file>.bats -f "pattern"` - Run specific tests by pattern
+- `bats test/integration/<file>.bats` - Run one test file
+
+**Avoid Redundant Test Runs**: When verifying a feature works:
+1. Use `./run_one.sh <test_file>` ONCE to check the output
+2. If it works, you're done - don't re-run with BATS or other methods
+3. Don't run the same test multiple ways (run_one.sh, then bats, then run_one.sh again)
+4. Trust the first result unless you changed code between runs
+
+**Integration Test Efficiency**: The full test suite is expensive (~7 min). Follow these rules:
+1. Run `./run_integration.sh` only ONCE per feature, right before committing
+2. If the output shows all tests as "ok", they passed - don't re-run to "verify"
+3. **NEVER pipe `./run_integration.sh` to `| tail`, `| head`, `| grep`, etc.** - this wastes the full test run. Instead, use tee to capture and display: `./run_integration.sh 2>&1 | tee /tmp/integration_results.txt; echo "Exit code: $?"`
+4. If you need to check a specific test, use `./run_one.sh` or `bats -f "pattern"` instead of the full suite
+5. NEVER run the full integration suite multiple times in a row for the same set of changes
+
+**Note**: Integration tests are expected to fail during development (the CLR runtime is incomplete). However, if the tests fail due to **compilation errors in the emitted .air.zig analyzer**, that indicates a real problem in codegen that needs to be fixed.
+
+**Important**: Always run BATS from the project root directory. The test helper uses relative paths from its location to find the compiler, libclr.so, and test cases.
+
+**CRITICAL**: NEVER materially modify, comment out, or skip integration tests to make the test suite pass without permission. Failing tests are intentional - they serve as reminders of work to be done. If a test fails, fix the codegen or runtime - not the test. Minor updates like fixing line numbers after test file changes are fine. Integration tests should simply call `compile_and_run` and check the result.
+
+**CRITICAL**: NEVER delete, disable, skip, or remove integration tests without explicit permission. If a test is failing:
+1. Fix the underlying bug in codegen or runtime
+2. If the test cannot be fixed yet, ask before skipping it
+3. Skipped tests MUST have a comment explaining why and reference to tracking issue/doc
+
+**CRITICAL**: Do NOT dismiss or report integration test failures as "pre-existing" without verification. When tests fail:
+1. Investigate whether your changes caused the failure
+2. If uncertain, check git history or ask the user
+3. Never assume a failure existed before your changes - investigate properly
+4. Report failures accurately without assumptions about their origin
+
+**Important**: Integration tests MUST have comprehensive output checking. For error-detecting tests, verify:
+1. The exit status (`[ "$status" -ne 0 ]` for errors, `[ "$status" -eq 0 ]` for success)
+2. The error message type (e.g., "use of undefined value found in")
+3. The function name where the error occurred (e.g., "in function_name.main")
+4. The file name and line/column of the error (e.g., "filename.zig:12:4)")
+5. Any contextual messages (e.g., "undefined value assigned to 'x'")
+6. The source location of the context (e.g., "filename.zig:2:4)")
+
+Example of comprehensive test:
+```bash
+@test "detects undefined variable used before assignment" {
+    run compile_and_run "$TEST_CASES/undefined/basic/use_before_assign.zig"
+    [ "$status" -ne 0 ]
+    [[ "$output" =~ "use of undefined value found in use_before_assign.main" ]]
+    [[ "$output" =~ "use_before_assign.zig:3:4)" ]]
+    [[ "$output" =~ "undefined value assigned to 'x' in use_before_assign.main" ]]
+    [[ "$output" =~ "use_before_assign.zig:2:4)" ]]
+}
+```
+
+Test structure:
+- `test/integration/*.bats` - BATS test files
+- `test/integration/test_helper.bash` - Common setup and helper functions
+- `test/cases/*.zig` - Test input files
+
+### Manual Testing
+
+```sh
+# Build libclr first
+zig build
+
+# Run a single test case (NOT ./test.sh - that doesn't exist)
+./run_one.sh test/cases/undefined/use_before_assign.zig
+
+# Or manually:
+zig/zig-out/bin/zig build-exe -fair-out=zig-out/lib/libclr.so -ofmt=air foo.zig
+```
+
+Output goes to stderr.
+
+### Debugging Generated Analyzers
+
+When `./run_one.sh` or integration tests run, they drop `.air.zig` files in the project root (e.g., `array_uniform_defined.air.zig`). These are standalone Zig programs that can be:
+
+1. **Directly executed** to reproduce failures without re-running compilation:
+   ```sh
+   zig run --dep clr -Mroot=array_uniform_defined.air.zig -Mclr=lib/lib.zig
+   ```
+
+2. **Read and inspected** to understand what AIR instructions were generated and how the analyzer processes them.
+
+This is much faster than re-running `./run_integration.sh` or even `./run_one.sh` repeatedly. When debugging a test failure:
+1. Run `./run_one.sh` once to generate the `.air.zig` file
+2. Read the generated file to understand the instruction sequence
+3. Fix the bug in `lib/` code
+4. Run `zig build -Doptimize=ReleaseFast` to rebuild libclr
+5. Directly execute the `.air.zig` file to test the fix
+
+**Instrumenting .air.zig files**: When debugging runtime crashes or unexpected behavior, you can add debug prints directly to the generated `.air.zig` file:
+
+```zig
+// Add debug output before a problematic instruction
+std.debug.print("DEBUG: refinement = {any}\n", .{state.refinements.at(some_gid).*});
+try Inst.apply(state, 16, .{ .ret_safe = ... });
+```
+
+This lets you inspect state at specific points in the instruction sequence without modifying `lib/` code. After instrumenting, run directly:
+```sh
+zig run --dep clr -Mroot=my_test.air.zig -Mclr=lib/lib.zig
+```
+
+Use `./clear.sh` to clean up generated `.air.zig` files when done.
+
+## Development Guidelines
+
+- **Test-Driven Development (STRICT)** - Tests MUST exist and fail BEFORE writing implementation code:
+  1. **New features**: Write integration tests FIRST, then unit tests for components
+  2. **Bug fixes**: Write a failing test that reproduces the bug, then fix it
+  3. **Never** propose or implement "testing" as a final phase - tests come first
+  4. Follow the TDD Procedure below for adding new AIR tag handlers
+- **Do not modify the zig/ submodule** - Any changes to the Zig compiler must be made by humans, not AI
+- **Use debug.zig for debugging** - Use `src/debug.zig` for debug output. It uses `std.fmt.bufPrint` with raw Linux syscalls. Do not modify this file - it works correctly in the DLL context where `std.debug.print` does not.
+
+## False Positive Investigation Cycle (CRITICAL)
+
+When a false positive is identified, follow this cycle **exactly**. Do NOT skip steps or take shortcuts.
+
+### The 8-Step Cycle
+
+1. **False positive identified** - Document the error message, location, and why it's a false positive (the code is actually correct).
+
+2. **Instrument .air.zig to verify understanding** - Add debug output to the generated `.air.zig` file to confirm your understanding of the issue. Run the instrumented file directly with `zig run` to verify. This step is CRITICAL - do not assume you understand the problem without verifying.
+
+3. **Write a unit test that reproduces the error** - Create a minimal unit test in `lib/` that triggers the exact same failure. This test should fail before the fix.
+
+4. **Write an integration test that reproduces the error** - Create a minimal Zig test case in `test/cases/` and a corresponding BATS test in `test/integration/*.bats`. This is NOT the vendor wrapper or other complex code - it's a focused, minimal reproduction. This test should also fail before the fix.
+
+5. **Use the unit test to fix the error** - Iterate on the fix using the fast unit test cycle (`zig test lib/lib.zig`). Unit tests run in seconds; use them.
+
+6. **Verify the integration test now passes** - Run the specific integration test with `./run_one.sh` or `bats -f "pattern"` to confirm the fix works end-to-end.
+
+7. **Run full integration cycle** - Run `./run_integration.sh` to verify nothing else is broken. Only do this ONCE before committing.
+
+8. **Commit, move on** - Commit the fix and proceed to the next error (if any).
+
+### Why This Cycle Matters
+
+- **Step 2 prevents wasted effort** - Instrumenting first ensures you understand the actual problem, not what you assume the problem is.
+- **Steps 3-4 ensure reproducibility** - Without tests, you can't prove the fix works or detect regressions.
+- **Step 5 enables fast iteration** - Unit tests run in seconds. Integration tests take minutes. Fix bugs with unit tests.
+- **Step 7 catches regressions** - The full suite must pass before committing.
+
+**NEVER skip the instrumentation step (Step 2).** Complex analysis bugs often have subtle root causes. Verify your understanding before writing fixes.
+
+## Iron Rules (DO NOT VIOLATE)
+
+1. **testValid functions are IMMUTABLE** - The `testValid` functions in `lib/analysis/*.zig` define what analysis states are valid on which refinement types. These represent fundamental invariants of the analysis system. NEVER modify these functions to "fix" a test failure. If testValid is failing, the bug is in how refinements are being created or manipulated, not in testValid itself.
+
+2. **Optional pointers are special** - In Zig, `?*T` (optional pointer) is the ONLY optional type with the same bit width as its non-optional form (null = address 0). This is why `bitcast` can convert `*T` to `?*T`. Other optionals have a separate null flag.
+
+3. **Never default to scalar creation** - When encountering an unexpected or unhandled case, NEVER create a scalar refinement as a fallback. This hides bugs and corrupts type tracking. Instead:
+   - If the operation should produce a specific type, properly copy/create that type
+   - If the situation is truly unexpected, crash with a descriptive panic
+   - If a feature is unimplemented, use `.unimplemented` (which will crash if accessed)
+
+   Example of what NOT to do:
+   ```zig
+   // BAD: Silently creates wrong type, hides bugs
+   if (u.fields[i] == null) {
+       u.fields[i] = refinements.appendEntity(.{ .scalar = ... });
+   }
+   ```
+
+   Example of correct handling:
+   ```zig
+   // GOOD: Properly copy the field from the source
+   if (u.fields[i] == null) {
+       if (branch_u.fields[i]) |branch_field_gid| {
+           u.fields[i] = Refinement.copyTo(branch_field_ref, ...);
+       }
+   }
+   ```
+
+4. **NEVER silently ignore missing data** - When accessing data that MUST exist (refinements, results, fields), NEVER use `orelse continue`, `orelse return`, or `orelse` with a fallback value. These patterns hide bugs by silently skipping over invariant violations. If something should exist and doesn't, CRASH to expose the bug.
+
+   **BANNED PATTERNS** (never write these):
+   ```zig
+   // BAD: Silently skips if refinement missing - hides bugs
+   const gid = results[inst].refinement orelse continue;
+   const gid = results[inst].refinement orelse return;
+   const ref = refinements.getGlobal(idx) orelse return;
+
+   // BAD: Falls back to default - corrupts analysis
+   const gid = results[inst].refinement orelse 0;
+   const ref = map.get(key) orelse .{ .scalar = {} };
+   ```
+
+   **REQUIRED PATTERNS** (use these instead):
+   ```zig
+   // GOOD: Crash immediately if invariant violated
+   const gid = results[inst].refinement.?;
+   const ref = refinements.getGlobal(idx).?;
+
+   // GOOD: If truly optional, use explicit check with comment
+   // Args from interned values don't have refinements - skip them
+   if (src == .interned) continue;
+   const gid = results[inst].refinement.?;
+   ```
+
+   The ONLY valid uses of `orelse continue/return` are:
+   - Iterating over genuinely optional data (e.g., sparse union fields)
+   - Early exit when a feature is intentionally not applicable
+   - ALWAYS add a comment explaining WHY it's optional
+
+## Architecture: Tag Handlers vs Analysis Modules
+
+**IMPORTANT**: The following files must NEVER contain `.analyte.xxx_safety` patterns:
+- `lib/tag.zig` - Tag handlers set up refinement STRUCTURE only
+- `lib/Refinements.zig` - Refinement table management only
+- `lib/Inst.zig` - Inst struct and results list management only
+- `lib/dump.zig` - Debug formatting (uses accessor functions from analysis modules)
+
+Analyte manipulation (`.analyte.undefined_safety`, `.analyte.memory_safety`, `.analyte.null_safety`, `.analyte.variant_safety`, `.analyte.fieldparentptr_safety`) is the EXCLUSIVE responsibility of analysis modules in `lib/analysis/`.
+
+Tag handlers should only:
+1. Set up refinement STRUCTURE (pointer, scalar, struct, etc.) via `appendEntity`
+2. Call `splat()` to dispatch to analysis modules
+3. Use generic helpers like `copyAnalyteState()` that work on any analyte
+
+If you find yourself writing `.analyte.undefined = ...` or `.analyte.memory_safety = ...` in tag.zig or Refinements.zig, STOP - that logic belongs in an analysis module in `lib/analysis/` instead.
+
+## Zig Language Reminders
+
+- **Flatten control flow** - Use Zig's tools to flatten imperative code instead of nesting logic. Early returns/continues with `orelse` and union checks keep the main logic at the top level:
+  ```zig
+  // BAD: Deeply nested logic
+  for (results) |inst| {
+      if (inst.memory_safety) |ms| {
+          switch (ms) {
+              .allocation => |a| {
+                  if (a.freed == null) {
+                      // ... actual logic buried 4 levels deep
+                  }
+              },
+              .stack_ptr => {},
+          }
+      }
+  }
+
+  // GOOD: Flat logic with early continues
+  for (results) |inst| {
+      const ms = inst.memory_safety orelse continue;
+      if (ms != .allocation) continue;
+      const a = ms.allocation;
+      if (a.freed != null) continue;
+      // ... actual logic at top level
+  }
+  ```
+
+- **Pointer capture for modification** - When you need to modify a value inside an optional, use `if (optional) |*ptr|` to capture a pointer. This is one case where nesting is appropriate:
+  ```zig
+  // Need to modify, so use pointer capture
+  if (inst.memory_safety) |*ms| {
+      if (ms.* != .allocation) continue;
+      ms.allocation.freed = free_meta;  // modification requires pointer
+  }
+  ```
+
+- **Avoid `&(x orelse y)`** - This pattern is hard to read and may not work as expected (takes address of temporary). Prefer `if` with pointer capture when modification is needed.
+
+- **Panic on unexpected types, don't silently return** - In analysis handlers, if an operation expects a specific type (e.g., `store_safe` expects a pointer), panic on unexpected types rather than silently returning. This catches bugs early:
+  ```zig
+  // BAD: Silently ignores unexpected types
+  const pointee_idx = switch (refinements.at(ptr_idx).*) {
+      .pointer => |ind| ind.to,
+      else => return,  // Bug hidden - we expected a pointer!
+  };
+
+  // GOOD: Panic on unexpected types - let Zig's union access panic naturally
+  const pointee_idx = refinements.at(ptr_idx).pointer.to;
+  ```
+
+- **Always crash on `.unimplemented`** - Never silently handle or propagate `.unimplemented` refinements. If code encounters `.unimplemented`, it should crash immediately. This surfaces issues that need to be fixed (missing tag handlers, incomplete type tracking) rather than hiding them. The crash tells us exactly what needs to be implemented. **NEVER remove `.unimplemented` panics** - these crashes are signals that something important is missing from our code and needs to be implemented.
+
+- **Rely on Zig's bounds checking** - Don't write explicit bounds checks before array access. Zig's runtime safety already panics on out-of-bounds access with a clear error message. Add a comment explaining why the access is guaranteed valid:
+  ```zig
+  // BAD: Redundant bounds check
+  if (field_index >= s.fields.len) {
+      std.debug.panic("out of bounds");
+  }
+  const field = s.fields[field_index];
+
+  // GOOD: Let Zig handle it, add comment explaining guarantee
+  // field_index comes from codegen which validates against struct type
+  const field = s.fields[field_index];
+  ```
+
+- **Rely on Zig's union tag assertions** - Don't write explicit tag checks before accessing a union field. Accessing `union.field` panics on wrong tag in debug mode. Add a comment explaining why the tag is guaranteed:
+  ```zig
+  // BAD: Redundant tag check with switch
+  switch (refinement.*) {
+      .pointer => |p| doSomething(p),
+      else => @panic("expected pointer"),
+  }
+
+  // BAD: Redundant tag check with if
+  if (refinement.* != .pointer) @panic("expected pointer");
+  const p = refinement.pointer;
+
+  // GOOD: Let Zig handle it, add comment explaining guarantee
+  // alloc always creates pointer refinement
+  const p = refinement.pointer;
+  ```
+
+- **Fix ALL usages when making a field non-optional** - When changing a struct field from optional (`?T`) to non-optional (`T`), you must find and fix ALL places that treat it as optional. Don't fix one occurrence and assume you're done. Use grep to find ALL of: `if (x.field) |`, `x.field != null`, `x.field.?`, and fix them all in one pass. Missing any will cause compile errors or subtle bugs.
+
+- **When type info says it's X, the refinement is X** - If `interned.ty == .allocator`, the refinement WILL be `.allocator`. Don't add redundant checks like `if (alloc_ref.* == .allocator)`. Trust the type system - if it's wrong, we want a crash to find the bug, not silent failure.
+
+## TDD Procedure: Adding a New AIR Tag Handler
+
+Follow these steps to add support for a new AIR instruction tag:
+
+### 1. Write integration test FIRST (`test/integration/*.bats`)
+
+Create the end-to-end test that will fail until implementation is complete:
+
+```zig
+// test/cases/my_feature/my_test.zig
+pub fn main() u8 {
+    // Zig code that exercises the new tag
+}
+```
+
+```bash
+# test/integration/my_feature.bats
+@test "description of expected behavior" {
+    run compile_and_run "$TEST_CASES/my_feature/my_test.zig"
+    [ "$status" -eq 0 ]  # or check $output for expected errors
+}
+```
+
+Run `./run_integration.sh` - the new test should FAIL. This confirms the test is valid.
+
+### 2. Add codegen unit test (`src/codegen_test.zig`)
+
+Write a test for the instruction line that should be generated:
+
+```zig
+test "instLine for my_new_tag" {
+    initTestAllocator();
+    defer clr_allocator.deinit();
+
+    var arena = clr_allocator.newArena();
+    defer arena.deinit();
+
+    const datum: Data = .{ /* appropriate data for this tag */ };
+    const result = codegen._instLine(arena.allocator(), dummy_ip, .my_new_tag, datum, 0, &.{}, &.{}, &.{}, &.{}, null);
+
+    try std.testing.expectEqualStrings("    try Inst.apply(0, .{ .my_new_tag = .{ /* expected payload */ } }, results, ctx, &refinements);\n", result);
+}
+```
+
+**Extra array format for `generateFunction` tests**: When testing `generateFunction`, the extra array must use `block_index` indirection:
+- `extra[0]` = block_index (where the main body Block structure starts)
+- `extra[block_index]` = body_len
+- `extra[block_index + 1 ..]` = body instruction indices
+
+Example for a 4-instruction function with main body [0, 1, 2, 3]:
+```zig
+const extra: []const u32 = &.{ 1, 4, 0, 1, 2, 3 };
+//                              ^  ^  ^--------^ body indices
+//                              |  body_len
+//                              block_index
+```
+
+### 3. Add payload generator (`src/codegen.zig`)
+
+Add the tag to the `payload()` switch and create a `payloadMyNewTag()` function:
+
+```zig
+fn payload(...) []const u8 {
+    return switch (tag) {
+        // ...existing tags...
+        .my_new_tag => payloadMyNewTag(arena, datum),
+        else => ".{}",
+    };
+}
+
+fn payloadMyNewTag(arena: std.mem.Allocator, datum: Data) []const u8 {
+    // Extract fields from datum and format the payload
+    return clr_allocator.allocPrint(arena, ".{{ .field = {d} }}", .{datum.field}, null);
+}
+```
+
+### 4. Add tag to AnyTag union (`lib/tag.zig`)
+
+Tags are defined inline in `lib/tag.zig`. Add a new struct type and include it in the `AnyTag` union:
+
+```zig
+// Define the tag struct (in lib/tag.zig)
+pub const MyNewTag = struct {
+    field: u32,  // fields matching the payload
+
+    pub fn apply(self: @This(), results: []Inst, index: usize, ctx: *Context, refinements: *Refinements) !void {
+        // Tag-specific logic (if any) before analysis dispatch
+        try splat(.my_new_tag, results, index, ctx, refinements, self);
+    }
+};
+
+pub const AnyTag = union(enum) {
+    // ...existing tags...
+    my_new_tag: MyNewTag,
+};
+```
+
+### 5. Add analysis handler (if needed) (`lib/analysis/*.zig`)
+
+If the tag affects an analysis (e.g., undefined tracking), add a handler:
+
+```zig
+// In lib/analysis/undefined_safety.zig (or other analysis module)
+pub fn my_new_tag(results: []Inst, index: usize, ctx: *Context, refinements: *Refinements, payload: anytype) !void {
+    // Analysis logic - update results, report errors, etc.
+}
+```
+
+The `splat()` function in `lib/tag.zig` uses `@hasDecl` to automatically dispatch to any analysis that implements the tag.
+
+### 6. Run unit tests
+
+```sh
+zig build test
+```
+
+### 7. Verify integration tests pass
+
+```sh
+./run_integration.sh
+```
+
+The tests from step 1 should now pass.
+
+### Key Files Reference
+
+| File | Purpose |
+|------|---------|
+| `src/codegen.zig` | Generates .air.zig source from AIR instructions |
+| `src/codegen_test.zig` | Unit tests for codegen |
+| `lib/tag.zig` | AnyTag union, tag structs, and splat dispatch |
+| `lib/analysis/*.zig` | Analysis modules (undefined_safety, memory_safety, null_safety, variant_safety, fieldparentptr_safety) |
+| `lib/Inst.zig` | Inst struct, results list management, and entity helpers |
+| `lib/Refinements.zig` | Refinements table and Refinement union |
+| `test/cases/` | Integration test input files |
+| `test/integration/*.bats` | BATS integration tests |
+
+## DLL Relocation Issues (IMPORTANT)
+
+libclr.so is dynamically loaded via `dlopen()`. This causes a specific class of failures:
+
+**Problem**: Compile-time initialized vtables with function pointers don't get properly relocated when loaded as a shared library. The pointers end up pointing to invalid addresses (e.g., `0x8`, `0x118b2`).
+
+**Affected std library features** (known failures):
+- `std.heap.page_allocator` - crashes
+- `std.heap.ArenaAllocator` - crashes (static vtable)
+- `std.fmt.allocPrint` - crashes (uses ArrayList with Writer vtable)
+- `std.fmt.count` - crashes (uses Writer.Discarding vtable)
+- `std.debug.print` - crashes (uses stderr writer vtable)
+
+**Debugging approach**:
+1. **Try std library functions first** - they may work
+2. **If a segfault occurs**, inspect the std library source code to check if the function uses compile-time initialized vtables or function pointer tables
+3. **If it's a const vtable relocation issue**, implement a workaround:
+   - Use `std.fmt.bufPrint` instead of allocPrint (no vtable)
+   - Initialize vtables at runtime in `init()` instead of compile-time
+   - Use raw Linux syscalls for I/O (see `debug.zig`)
+   - Accept allocators from the host process via C-ABI vtables
+
+**Solution pattern**: See `src/allocator.zig` for the canonical workaround - accept an AllocatorVTable from the host (with C-ABI shims), and initialize all local vtables at runtime.
+
+**Critical implementation details**:
+1. **Vtables must be module-level `var`** - If you put a vtable inside a struct, even if you initialize it at runtime in `init()`, the struct gets copied by value and the function pointers become invalid. Use a single shared module-level `var vtable` that's initialized once in the global `init()`.
+
+2. **Use `clr_allocator.allocPrint` instead of `std.fmt.allocPrint`** - The stdlib version uses internal Writer vtables that crash. Our version uses `bufPrint` which has no vtables.
+
+3. **`allocPrint` needs size hints for large strings** - When formatting a large string (e.g., 18KB+ of inst lines) into a small buffer, `bufPrint` can crash instead of returning `NoSpaceLeft`. Pass a `size_hint` parameter when you know the approximate output size: `clr_allocator.allocPrint(alloc, fmt, args, size_hint)`. Note: Complex generics (like `GeneralPurposeAllocator`) have very long FQNs (hundreds of characters), so use generous margins (4096+ bytes) for function templates.
+
+4. **Per-function arenas must share the global vtable** - When creating temporary arenas (e.g., for building inst lines), use `clr_allocator.newArena()` which returns an Arena that uses the shared `arena_vtable`.
+
+5. **Extern union field access can crash** - Accessing fields of `extern union` types (like `Air.Inst.Data`) can crash in DLL context, even when the data is valid and bounds checks pass. The workaround is to read raw bytes and reinterpret manually:
+   ```zig
+   // CRASHES in DLL context:
+   const ty_op = datum.ty_op;
+
+   // WORKS - read raw bytes instead:
+   const raw_ptr: [*]const u32 = @ptrCast(&datum);
+   const ty_raw: u32 = raw_ptr[0];
+   const ty_ref: Ref = @enumFromInt(ty_raw);
+   ```
+   This pattern is used in `src/codegen.zig` in `getInstResultType()` when reading type information from AIR instruction data.
+
+## Interprocedural Analysis Architecture
+
+### AIR Arg Semantics (IMPORTANT)
+
+AIR arg instructions contain VALUES directly, NOT pointers to stack locations:
+
+- If the parameter type is `*u8`, the instruction contains the pointer value itself
+- If the parameter type is `u8`, the instruction contains the scalar value itself
+- Taking `&param` in source code generates explicit `alloc` + `store_safe` in AIR
+
+This means the Arg handler does NOT wrap entities in a pointer. It copies the caller's entity directly into local refinements.
+
+**Example**: For `fn set_value(ptr: *u8) { ptr.* = 5; }`:
+1. Caller passes pointer entity P1 → scalar S1 (undefined)
+2. Arg copies P1 → P1' and S1 → S1' in local refinements
+3. Inst 0 contains P1' directly (the pointer entity, NOT a pointer to it)
+4. `store_safe(ptr=0)` follows P1' to S1', marks S1' as defined
+5. `backPropagate` propagates S1'.undefined back to S1.undefined
+
+### Local-Only Updates, Propagate on Close
+
+When a callee modifies state through a pointer argument, we do NOT update the caller's state directly during the operation. Instead:
+
+1. **Arg handler**: Copies the caller's entity into local refinements (deep copy via copyEntityRecursive). Sets `caller_ref` for backward propagation.
+2. **During execution**: All operations (store_safe, load, etc.) only update the LOCAL copy
+3. **On function close**: `backPropagate` propagates final state back to the caller via `caller_ref`
+
+**Why this architecture?**
+
+The callee's results table must remain "clean" during execution. As we implement conditionals and loops, we'll need to merge multiple copies of results tables (e.g., merging the "then" and "else" branches of an if statement). If operations directly modified the caller's state, we'd be making partial updates that couldn't be cleanly merged.
+
+By deferring propagation until function close, we ensure:
+- Each branch maintains its own complete view of the state
+- Merging happens on fully-resolved states, not partial updates
+- The caller only sees the final result after all paths are considered
+
+### Inst.caller_ref
+
+For arguments, `Inst.caller_ref` stores the caller's entity index (EIdx).
+
+This allows `backPropagate` to find the caller's entity, follow it (if it's a pointer), and update the final state.
+
+## Not going to do
+
+### Inst Type Tracking
+
+**Issue**: Currently, instructions don't and should not track what type of value they contain.
+- Type safety is the responsibility of the compiler so all generated AIR should already
+  conform to type correctness
+- Const correctness is enforced at the compiler level, so any AIR operation that might
+  clobber a const variable or a pointer-to-const simply shouldn't happen.
+- Type flexibility is important.  If you are for example converting a pointer to an integer
+  it is useful to continue to track that integer *as if it were a pointer*.  Though this
+  is not supported at the moment.
+
+### Invalid union tag detection
+
+We won't prevent failures due to union tag field being set to an invalid value. In release safe modes this will cause a runtime crash, or will exhibit undefined behavior in optimized builds.
+
+## Known Limitations
+
+### Setting a pointer to undefined
+
+Need to investigate what happens when a pointer itself is set to undefined (e.g., `var ptr: *u8 = undefined;`). Currently we set `pointer.analyte.undefined = undef_state`, but this needs testing and verification.
+
+We may need to make `pointer.to` an optional value - an undefined pointer doesn't point to anything valid.
+
+### Simple tags need BinOp/UnOp refinement
+
+The `Simple` type currently just produces a scalar without tracking operands. For proper data flow analysis, we'll need to:
+- Split into `BinOp` (binary operations like `bit_and`, `cmp_*`, `sub`) and `UnOp` (unary operations like `ctz`)
+- Pass operand parameters to track where values flow from
+- Currently affects: `bit_and`, `cmp_eq`, `cmp_gt`, `cmp_lte`, `ctz`, `sub`
+
+### Runtime union tag comparisons not tracked
+
+Variant safety only recognizes the pattern `if (some_union == .variant_name)` where `.variant_name` is a comptime-known enum literal. Comparisons against runtime union tags are not tracked:
+
+```zig
+const some_tag: SomeUnion = get_tag_at_runtime();
+if (my_union == some_tag) {  // NOT recognized - some_tag is runtime value
+    _ = my_union.field;  // May incorrectly report inactive variant access
+}
+```
+
+This is an intentional limitation - tracking runtime tag values would require complex value flow analysis.
+
+### `dbg_inline_block` not implemented
+
+The `dbg_inline_block` instruction is used for inlined function calls. This needs investigation to understand how it affects data flow tracking - inlined code may need special handling to maintain correct interprocedural analysis.
+
+### Other return instructions not implemented
+
+Only `ret_safe` is implemented. The following return variants are marked as `Unimplemented` and need proper handling:
+
+- **`ret_addr`**: Returns the return address (used for stack traces). Probably safe to leave as unimplemented since it's metadata, not data flow.
+- **`ret_load`**: Returns by loading from a pointer (used for large return values that don't fit in registers). **TODO**: This affects data flow and needs implementation.
+- **`ret_ptr`**: Returns the pointer where the return value should be stored (caller provides storage). **TODO**: This affects data flow and needs implementation.
+
+### `std.crypto.random` causes false positives
+
+The `std.crypto.random` module (including `std.crypto.random.boolean()`, `std.crypto.random.bytes()`, etc.) triggers false positive "use of undefined value" errors. This is because the stdlib implementation uses complex patterns that our analysis doesn't fully track.
+
+**Workaround for tests**: Instead of `std.crypto.random.boolean()`, use:
+```zig
+fn someCondition() bool {
+    var x: bool = true;
+    _ = &x;  // Prevent comptime evaluation
+    return x;
+}
+```
+
+## Known Issues / Future Work
+
+**InternPool type inspection**: See `zig/src/InternPool.zig` for `indexToKey()` which returns type information that can be pattern-matched to determine the category.
+
+## AIR Backend Overview
+
+The project adds a custom AIR (Abstract Intermediate Representation) output backend to Zig:
+
+- `-fair-out=<path>` flag routes AIR to a dynamically loaded .so plugin
+- Object format: `-ofmt=air`
+- Key files in the zig submodule:
+  - `src/codegen/air.zig` - Codegen module with `generate` function
+  - `src/link/Air.zig` - Linker integration
+  - `src/Compilation/Config.zig` - `air_out` configuration field
+
+## Accessing Function Info in Codegen
+
+In `src/codegen/air.zig`, to get function details from `func_index`:
+
+```zig
+const zcu = pt.zcu;
+const ip = &zcu.intern_pool;
+const func = zcu.funcInfo(func_index);
+const nav = ip.getNav(func.owner_nav);
+const name = nav.name.toSlice(ip);  // function name as []const u8
+const fqn = nav.fqn.toSlice(ip);    // fully qualified name
+```
+
+## Allocator Type Identification
+
+When tracking allocator create/destroy for mismatched allocator detection, we need to identify which allocator TYPE is being used.
+
+### Comptime Allocators (e.g., `std.heap.page_allocator`)
+
+For comptime-known allocators, the allocator argument to `create`/`destroy` is an **interned aggregate**:
+
+```zig
+// In call args, arg[0] may be interned
+if (arg_ref.toInterned()) |ip_idx| {
+    const arg_key = ip.indexToKey(ip_idx);
+    switch (arg_key) {
+        .aggregate => |agg| {
+            // Allocator struct has 2 fields: ptr (undef) and vtable
+            const elems = agg.storage.elems;
+            const vtable_elem = elems[1];  // vtable pointer
+            const vtable_key = ip.indexToKey(vtable_elem);
+            switch (vtable_key) {
+                .ptr => |ptr| {
+                    switch (ptr.base_addr) {
+                        .nav => |nav_idx| {
+                            const nav = ip.getNav(nav_idx);
+                            // nav.fqn gives "heap.PageAllocator.vtable"
+                            // Extract "PageAllocator" to identify allocator type
+                        },
+                        else => {},
+                    }
+                },
+                else => {},
+            }
+        },
+        else => {},
+    }
+}
+```
+
+**Key insight**: The vtable pointer's nav FQN (e.g., `heap.PageAllocator.vtable`) uniquely identifies the allocator type.
+
+### Runtime Allocators (e.g., `gpa.allocator()`)
+
+For runtime allocators, the argument is an **inst_ref** pointing to an AIR instruction:
+
+```zig
+if (arg_ref.toIndex()) |inst_idx| {
+    // inst_idx points to an AIR instruction that produces the Allocator value
+    // Need to trace back through AIR to find the source
+}
+```
+
+To identify runtime allocator types, trace the inst_ref back through the AIR:
+1. The inst_ref points to a `load` or `call` instruction
+2. For `gpa.allocator()`, trace to the call to `.allocator()` method
+3. The receiver type of that call (e.g., `GeneralPurposeAllocator`) identifies the allocator type
+
+**Implementation**:
+- **Comptime allocators** (e.g., `std.heap.page_allocator`): Extract allocator type from vtable FQN in InternPool
+- **Runtime allocators** (e.g., `gpa.allocator()`): Track via `.allocator` refinement type with `type_id` from the callee function
+
+The `.allocator` refinement is created by `MkAllocator` tag when codegen detects a call returning `std.mem.Allocator`. The `type_id` is the InternPool index of the callee function (e.g., the `.allocator()` method). At `alloc_create`/`alloc_destroy` time, the handler reads `type_id` from the allocator argument's refinement and compares them to detect mismatches.
+
+## Derived Pointer Tracking (root_gid)
+
+Pointers derived from allocations (field pointers, subslices) cannot be freed directly - only the root allocation can be freed. This is tracked via `root_gid` in the pointer's `memory_safety` analyte.
+
+### How root_gid Works
+
+- **Root pointers** (from `create`/`alloc`): `root_gid = null` - these can be freed
+- **Derived pointers**: `root_gid = <gid of parent>` - cannot be freed
+
+### Operations that Set root_gid
+
+| Operation | Creates | root_gid set to |
+|-----------|---------|-----------------|
+| `alloc_create` | Pointer to scalar | `null` (root) |
+| `alloc_alloc` | Pointer to region | `null` (root) |
+| `struct_field_ptr` | Pointer to field | Container's GID |
+| `slice_ptr` | Pointer to region | Region's GID |
+
+### Key Architecture Points
+
+1. **root_gid is set on the POINTER**, not the pointee. The pointer's `memory_safety.allocated.root_gid` or `memory_safety.stack.root_gid` tracks derivation.
+
+2. **Operations that SHARE refinement** (like `ptr_add`, `bitcast`) preserve `root_gid` automatically because they use the same refinement entity.
+
+3. **Operations that CREATE new pointer entities** (like `slice_ptr`, `struct_field_ptr`) must explicitly set `root_gid` via a `memory_safety` handler.
+
+4. **struct_field_ptr uses container_gid** (not pointee_gid) so that `@fieldParentPtr` can recover the original container.
+
+### Example: Subslice Cannot Be Freed
+
+```zig
+const slice = allocator.alloc(u8, 10);  // root_gid = null
+const subslice = slice[2..5];           // slice_ptr creates new ptr with root_gid = region_gid
+allocator.free(subslice);               // ERROR: cannot free derived pointer
+```
+
+## memory_safety Semantics (IMPORTANT)
+
+`memory_safety` on ANY data type indicates where **that data type ITSELF** lives (stack/heap/interned). It does NOT indicate what the data references or points to.
+
+- `.stack` = data lives on the stack
+- `.allocated` = data lives on the heap (via allocator)
+- `.interned` = comptime/interned data (globals, string literals, etc.)
+
+### Correct Semantics
+
+| Data Type | memory_safety indicates |
+|-----------|------------------------|
+| Pointer | Where the **pointer VALUE** lives |
+| Scalar | Where the **scalar** lives |
+| Region | Where the **array data** lives |
+| Struct | Where the **struct** lives |
+
+### Pointers: Value vs Pointee
+
+For pointers, there are two distinct locations:
+1. **Pointer value location**: Where the pointer itself is stored (its `memory_safety`)
+2. **Pointee location**: Where the data it points to is stored (follow `pointer.to`, check pointee's `memory_safety`)
+
+```zig
+// Example: allocator.create(u8)
+// Returns: error union → pointer → scalar
+//
+// After allocation:
+// - Pointer's memory_safety = (not set - it's a return value in registers)
+// - Scalar's memory_safety = .allocated (the data is on the heap)
+```
+
+To check if a pointer points to allocated/stack/interned memory, you MUST:
+1. Follow `pointer.to` to get the pointee
+2. Check the POINTEE's `memory_safety`
+
+### Common Mistakes to Avoid
+
+**WRONG**: Setting `.allocated` on the pointer returned by `create`/`alloc`
+```zig
+// BAD: The pointer is a return value, not heap data
+ptr.analyte.memory_safety = .{ .allocated = ... };
+```
+
+**WRONG**: Propagating source pointer's memory_safety when storing
+```zig
+// BAD: When storing ptr into struct.field, don't copy ptr's memory_safety
+// The field's location is determined by the struct, not the source
+dest_field.memory_safety = src_ptr.memory_safety;  // WRONG
+```
+
+**CORRECT**: Only set memory_safety on the actual DATA being allocated
+```zig
+// GOOD: Set memory_safety on the pointee (the actual heap data)
+setAllocatedRecursive(refinements, pointee_ref, alloc_base, ...);
+```
+
+### Leak Detection Implications
+
+When checking for memory leaks:
+- Iterate over pointers in scope
+- For each pointer, follow `pointer.to` to get the pointee
+- Check if the POINTEE has `.allocated` memory_safety with `freed=null` and `returned=false`
+- The pointer's own memory_safety is irrelevant for leak detection
+
+### Stack Escape Detection
+
+When checking if a stack pointer escapes:
+- Get the returned value
+- If it's a pointer, follow `pointer.to` to get the pointee
+- Check if the POINTEE has `.stack` memory_safety
+- If so, report stack escape (returning pointer to stack data)
+
+---
+> Source: [ityonemo/clr](https://github.com/ityonemo/clr) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
