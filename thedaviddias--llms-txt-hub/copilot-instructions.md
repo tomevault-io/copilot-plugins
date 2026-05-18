@@ -1,36 +1,29 @@
-## shared
+## website
 
-> Shared rules accross all packages
+> Rules for the main website
 
-TypeScript Conventions:
-- Use interfaces over types when possible
-- Avoid enums, use const objects instead
-- Use strict type checking
-- Proper error handling with custom error types
-  
-Code Style:
-- Use functional programming patterns
-- Avoid classes
-- Use pure functions where possible
-- Implement proper error handling
-- Use meaningful variable names
-- Keep functions small and focused
-
-Git Conventions:
-
-- Use conventional commits
-- Keep PRs focused and small
-- Include proper documentation
-- Add meaningful tests
-
-Performance:
-- Implement proper caching strategies
-- Optimize bundle sizes
-- Use code splitting
-- Implement proper lazy loading
+Instructions:
+- Follow Next.js 15 App Router best practices
+- Use React Server Components by default
+- Implement type-safe server actions using next-safe-action
+- Follow mobile-first responsive design with Tailwind CSS 4
+- Use Shadcn UI components with Radix UI primitives from the packages/design-system
+- Implement proper error boundaries and loading states
+- Optimize for Core Web Vitals
 
 
-- Don't use barel files
+Component Structure
+1. Exports
+2. Types/Interfaces
+3. Server actions (if any)
+4. Component logic
+
+
+Naming:
+- Use kebab-case for directories
+- PascalCase for components
+- cameCase for function and variables
+- Use descriptive names with auxiliary verbs (isLoading, hasError)
 
 ---
 > Source: [thedaviddias/llms-txt-hub](https://github.com/thedaviddias/llms-txt-hub) — distributed by [TomeVault](https://tomevault.io).
