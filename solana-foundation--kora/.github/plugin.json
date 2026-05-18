@@ -1,0 +1,18 @@
+{
+  "name": "solana-foundation--kora",
+  "displayName": "kora",
+  "description": "Implementation of a Solana relayer. Provides a lib and cli crate in order to enable signing experiences on Solana",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/kora",
+  "skills": [
+    {
+      "name": "kora-client",
+      "description": ""
+    },
+    {
+      "name": "kora-operator",
+      "description": ""
+    }
+  ]
+}
