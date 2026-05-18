@@ -1,0 +1,9 @@
+{
+  "name": "makefinks--manim-generator",
+  "displayName": "manim-generator",
+  "description": "Automatic LLM-based video generation using the manim library. Usage of a code-writer and code-reviewer feedback loop with execution logs.",
+  "version": "1.0.0",
+  "author": "makefinks",
+  "homepage": "https://github.com/makefinks/manim-generator",
+  "skills": []
+}
