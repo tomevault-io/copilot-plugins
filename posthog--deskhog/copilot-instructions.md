@@ -1,10 +1,11 @@
-## about-project
+## application-structure
 
-> This is an ESP32-S3-based project to display PostHog insights on a 240x135 TFT screen.
+> Creating new functionality
 
-This is an ESP32-S3-based project to display PostHog insights on a 240x135 TFT screen.
 
-Details about the device are available at [platformio.ini](mdc:platformio.ini)
+Do not reinvent pin names or redefine them. Refer to the board definition's pins file whenever a pin is needed:
+
+~/.platformio/packages/framework-arduinoespressif32/variants/adafruit_feather_esp32s3_reversetft/pins_arduino.h
 
 ---
 > Source: [PostHog/DeskHog](https://github.com/PostHog/DeskHog) — distributed by [TomeVault](https://tomevault.io).
