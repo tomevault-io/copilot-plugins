@@ -1,202 +1,120 @@
-## rust-clap
+## rust-documentation
 
-> Rust CLI Best Practices with clap
+> Rust Documentation Best Practices
 
-This rule enforces best practices for building command-line interfaces using the clap crate.
+This rule enforces best practices for documentation in Rust code.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
 - **Severity**: Warning
-- **Category**: CLI
+- **Category**: Documentation
 
 ## Checks
 
-1. **Command Structure**
-   - Use derive macros for command definitions
-   - Organize commands hierarchically
-   - Use meaningful command names
-   - Document all commands and options
+1. **Public API Documentation**
+   - Document all public items (types, functions, methods)
+   - Include examples in documentation
+   - Use `rustdoc` features appropriately
+   - Document panics and safety requirements
 
-2. **Argument Handling**
-   - Use appropriate argument types
-   - Implement proper validation
-   - Use default values when appropriate
-   - Handle required vs optional arguments
+2. **Documentation Style**
+   - Use complete sentences
+   - Start with a verb
+   - Include parameter and return value descriptions
+   - Document error conditions
 
-3. **User Experience**
-   - Provide helpful error messages
+3. **Code Examples**
+   - Include runnable examples
+   - Use `no_run` or `compile_fail` when appropriate
+   - Show common usage patterns
+   - Include error handling examples
+
+4. **Module Documentation**
+   - Document module purpose and contents
    - Include usage examples
-   - Use consistent naming conventions
-   - Implement proper help text
-
-4. **Subcommands**
-   - Organize related commands
-   - Use consistent subcommand structure
-   - Share common options
-   - Document subcommand relationships
+   - Document re-exports
+   - Include module-level examples
 
 ## Examples
 
 ### Good
 ```rust
-use clap::{Parser, Subcommand};
-use std::path::PathBuf;
-
-/// A CLI tool for managing a database
-#[derive(Parser)]
-#[command(author, version, about, long_about = None)]
-pub struct Cli {
-    /// Sets the config file path
-    #[arg(short, long, value_name = "FILE")]
-    pub config: Option<PathBuf>,
-
-    /// Sets the log level
-    #[arg(short, long, value_enum, default_value_t = LogLevel::Info)]
-    pub log_level: LogLevel,
-
-    #[command(subcommand)]
-    pub command: Commands,
-}
-
-/// Available log levels
-#[derive(clap::ValueEnum, Clone, Debug)]
-pub enum LogLevel {
-    Debug,
-    Info,
-    Warn,
-    Error,
-}
-
-/// Available commands
-#[derive(Subcommand)]
-pub enum Commands {
-    /// Initialize a new database
-    Init {
-        /// The database name
-        #[arg(short, long)]
-        name: String,
-
-        /// The database version
-        #[arg(short, long, default_value = "1.0.0")]
-        version: String,
-    },
-
-    /// Manage database migrations
-    Migrate {
-        #[command(subcommand)]
-        command: MigrateCommands,
-    },
-}
-
-/// Migration subcommands
-#[derive(Subcommand)]
-pub enum MigrateCommands {
-    /// Create a new migration
-    Create {
-        /// The migration name
-        name: String,
-
-        /// The migration description
-        #[arg(short, long)]
-        description: Option<String>,
-    },
-
-    /// Apply pending migrations
-    Up {
-        /// The number of migrations to apply
-        #[arg(short, long, default_value = "1")]
-        count: usize,
-    },
-}
-
-impl Cli {
-    /// Parse command line arguments
-    pub fn parse() -> Self {
-        Self::parse()
-    }
-
-    /// Execute the command
-    pub async fn execute(&self) -> Result<(), Error> {
-        match &self.command {
-            Commands::Init { name, version } => {
-                println!("Initializing database {} version {}", name, version);
-                // Implementation
-            }
-            Commands::Migrate { command } => {
-                match command {
-                    MigrateCommands::Create { name, description } => {
-                        println!(
-                            "Creating migration {}: {}",
-                            name,
-                            description.as_deref().unwrap_or("No description")
-                        );
-                        // Implementation
-                    }
-                    MigrateCommands::Up { count } => {
-                        println!("Applying {} migrations", count);
-                        // Implementation
-                    }
-                }
-            }
-        }
-        Ok(())
-    }
-}
-
-/// Example usage:
-/// ```bash
-/// # Initialize a new database
-/// my-cli init --name mydb --version 1.0.0
+/// Creates a new `Database` instance with the specified configuration.
 ///
-/// # Create a new migration
-/// my-cli migrate create add-users-table --description "Add users table"
+/// # Arguments
 ///
-/// # Apply migrations
-/// my-cli migrate up --count 2
+/// * `config` - The database configuration to use
+///
+/// # Returns
+///
+/// A `Result` containing either the new `Database` instance or a `DatabaseError`
+///
+/// # Examples
+///
 /// ```
+/// use my_crate::Database;
+///
+/// let config = DatabaseConfig::default();
+/// let db = Database::new(config)?;
+/// ```
+///
+/// # Errors
+///
+/// Returns `DatabaseError::ConnectionFailed` if the database connection cannot be established
+pub fn new(config: DatabaseConfig) -> Result<Database, DatabaseError> {
+    // Implementation
+}
+
+/// A thread-safe reference-counted pointer to shared data.
+///
+/// This type provides interior mutability with runtime borrow checking.
+/// It is useful when you need to share mutable state between multiple owners.
+///
+/// # Examples
+///
+/// ```
+/// use std::cell::RefCell;
+///
+/// let data = RefCell::new(vec![1, 2, 3]);
+/// {
+///     let mut vec = data.borrow_mut();
+///     vec.push(4);
+/// }
+/// ```
+pub struct SharedData<T> {
+    // Implementation
+}
 ```
 
 ### Bad
 ```rust
-// Bad: Manual argument parsing without clap
-fn main() {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() < 2 {
-        println!("Usage: {} <command>", args[0]);
-        return;
-    }
-    // Manual argument handling
+// Missing documentation
+pub fn process(data: Vec<u8>) -> Result<(), Error> {
+    // Implementation
 }
 
-// Bad: Poor command structure
-#[derive(Parser)]
-struct Cli {
-    #[command(subcommand)]
-    command: String, // Using String instead of enum
-}
-
-// Bad: Missing documentation
-#[derive(Parser)]
-struct BadCli {
-    #[arg(short, long)]
-    config: String,
+/// Process the data
+/// 
+/// Bad: Too vague, missing parameters, return value, and examples
+pub fn bad_doc(data: Vec<u8>) -> Result<(), Error> {
+    // Implementation
 }
 ```
 
 ## Rationale
 
-Proper CLI design ensures:
-- Intuitive user experience
-- Consistent command structure
-- Clear documentation
-- Robust error handling
+Proper documentation ensures:
+- Clear API understanding
+- Better code maintainability
+- Improved developer experience
+- Easier onboarding for new contributors
 
 ## References
 
-- [clap Documentation](mdc:https:/docs.rs/clap/latest/clap)
-- [clap Book](mdc:https:/docs.rs/clap/latest/clap/_derive/index.html)
-- [Command Line Interface Guidelines](mdc:https:/clig.dev) 
+- [Rust Documentation Guide](mdc:https:/doc.rust-lang.org/rustdoc/index.html)
+- [Rust Book - Documentation](mdc:https:/doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html)
+- [Rust API Guidelines](mdc:https:/rust-lang.github.io/api-guidelines/documentation.html) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
