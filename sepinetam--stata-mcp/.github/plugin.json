@@ -1,0 +1,9 @@
+{
+  "name": "sepinetam--stata-mcp",
+  "displayName": "stata-mcp",
+  "description": "Let LLM help you achieve your regression with Stata. Evolve from reg monkey to causal thinker.",
+  "version": "1.0.0",
+  "author": "SepineTam",
+  "homepage": "https://github.com/SepineTam/stata-mcp",
+  "skills": []
+}
