@@ -1,0 +1,9 @@
+{
+  "name": "yangkyeongmo--mcp-server-apache-airflow",
+  "displayName": "mcp-server-apache-airflow",
+  "description": "mcp-server-apache-airflow",
+  "version": "1.0.0",
+  "author": "yangkyeongmo",
+  "homepage": "https://github.com/yangkyeongmo/mcp-server-apache-airflow",
+  "skills": []
+}
