@@ -1,0 +1,26 @@
+{
+  "name": "sorryhyun--dipeo",
+  "displayName": "DiPeO",
+  "description": "Agent building tools via block diagram UI",
+  "version": "1.0.0",
+  "author": "sorryhyun",
+  "homepage": "https://github.com/sorryhyun/DiPeO",
+  "skills": [
+    {
+      "name": "dipeo-backend",
+      "description": ""
+    },
+    {
+      "name": "dipeo-codegen-pipeline",
+      "description": ""
+    },
+    {
+      "name": "dipeo-frontend-dev",
+      "description": ""
+    },
+    {
+      "name": "dipeo-package-maintainer",
+      "description": ""
+    }
+  ]
+}
