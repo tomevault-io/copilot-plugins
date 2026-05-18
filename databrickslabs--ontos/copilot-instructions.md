@@ -1,21 +1,27 @@
-## 06-performance-optimization
+## 07-project-conventions
 
-> - **Asynchronous Operations**: Use `async/await` for SDK calls and potentially database operations if using an async driver.
+> 1. Follow **RESTful API design**. Endpoints grouped by resource in `api/routes`.
 
 
-### Performance Optimization
+### Project Conventions
 
 **Backend**
 
-- **Asynchronous Operations**: Use `async/await` for SDK calls and potentially database operations if using an async driver.
-- **Database Query Optimization**: Use efficient SQLAlchemy queries (e.g., `selectinload` for eager loading relationships in repositories). Add database indexes where needed (`db_models`).
-- **Caching**: Consider caching for frequently accessed, rarely changing data (e.g., settings, roles) if performance becomes an issue.
+1. Follow **RESTful API design**. Endpoints grouped by resource in `api/routes`.
+2. Use **FastAPI's dependency injection** (via `Depends`) extensively. Access singletons via `request.app.state` within dependency functions.
+3. Use **SQLAlchemy** for ORM. Employ the **Repository pattern** for database abstraction.
+4. Ensure **CORS** is configured in `api/app.py` for local development.
+5. **Authorization**: Implemented via `api/common/authorization.py` (`PermissionChecker` dependency) based on user groups and role definitions stored in the database (managed by `SettingsManager` and `AuthorizationManager`). User details (including groups) are fetched via Databricks SDK (`api/controller/users_manager.py`, `api/common/authorization.py`). Permissions defined in `api/common/features.py`.
+6. **Configuration**: Managed by `api/common/config.py` using Pydantic's `BaseSettings` loading from `.env` and environment variables.
+7. **Search**: Managers implement `SearchableAsset` interface and use `@searchable_asset` decorator. `SearchManager` collects items and provides search endpoint.
 
 **Frontend**
 
-- **Component Memoization**: Use `React.memo`, `useMemo`, `useCallback`.
-- **Bundle Size**: Monitor bundle size and use code splitting/lazy loading if necessary.
-- **Efficient Data Fetching**: Fetch only necessary data. Use libraries like TanStack Query for caching/staleness management if needed.
+1. Optimize **Web Vitals**.
+2. Use `useToast` hook (based on Shadcn UI Toaster) for user feedback.
+3. Use Zustand stores (`stores/`) for cross-component state.
+4. Fetch user permissions via `/api/user/permissions` endpoint and store using `permissions-store`. Use `usePermissions` hook to check access levels (e.g., `hasPermission(featureId, FeatureAccessLevel.READ_WRITE)`). Conditionally render UI elements or disable actions based on permissions.
+5. Use `breadcrumb-store` to dynamically update breadcrumbs, especially for detail pages.
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
