@@ -1,0 +1,110 @@
+{
+  "name": "cin12211--orca-q",
+  "displayName": "orca-q",
+  "description": "The open source | Next Generation database editor",
+  "version": "1.0.0",
+  "author": "cin12211",
+  "homepage": "https://github.com/cin12211/orca-q",
+  "skills": [
+    {
+      "name": "mongodb-expert",
+      "description": ""
+    },
+    {
+      "name": "accessibility-expert",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-expert",
+      "description": ""
+    },
+    {
+      "name": "auth-expert",
+      "description": ""
+    },
+    {
+      "name": "cli-expert",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "css-expert",
+      "description": ""
+    },
+    {
+      "name": "database-expert",
+      "description": ""
+    },
+    {
+      "name": "devops-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation-expert",
+      "description": ""
+    },
+    {
+      "name": "git-expert",
+      "description": ""
+    },
+    {
+      "name": "github-actions-expert",
+      "description": ""
+    },
+    {
+      "name": "jest-expert",
+      "description": ""
+    },
+    {
+      "name": "nextjs-expert",
+      "description": ""
+    },
+    {
+      "name": "nodejs-expert",
+      "description": ""
+    },
+    {
+      "name": "playwright-expert",
+      "description": ""
+    },
+    {
+      "name": "postgres-expert",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "refactoring-expert",
+      "description": ""
+    },
+    {
+      "name": "rest-api-expert",
+      "description": ""
+    },
+    {
+      "name": "testing-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-type",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "vite-expert",
+      "description": ""
+    }
+  ]
+}
