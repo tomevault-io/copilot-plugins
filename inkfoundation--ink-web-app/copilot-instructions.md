@@ -1,87 +1,55 @@
-## copy
+## routing
 
-> All text that appears in the UI must be stored in the `en-US.json` translation file and accessed via translation keys. Never hardcode text directly in React components.
+> Ensure all links in the application use the Link component from @/routing
 
-# Copy Text Guidelines
+# Routing Guidelines
 
-## All user-facing text must be stored in translation files
+## All links must use the Link component from @/routing
 
 ### Rule
-All text that appears in the UI must be stored in the `en-US.json` translation file and accessed via translation keys. Never hardcode text directly in React components.
+All navigation links in the application must use the `Link` component imported from `@/routing`. Never use Next.js's built-in `next/link` or regular HTML `<a>` tags for internal navigation.
 
 ### Examples
 
 ❌ **Incorrect:**
 ```tsx
-// Hardcoded text
-<h2>Frequently Asked Questions</h2>
-<p>Learn more about our service</p>
+// Using Next.js built-in Link
+import Link from "next/link";
+
+<Link href="/about">About</Link>
+
+// Using HTML anchor tag
+<a href="/about">About</a>
 ```
 
 ✅ **Correct:**
 ```tsx
-// Using translation keys
-<h2>{t("faq.title")}</h2>
-<p>{t("faq.learnMore")}</p>
+// Using the custom Link from @/routing
+import { Link } from "@/routing";
+
+<Link href="/about">About</Link>
 ```
 
-### Rich Text with next-intl
-
-next-intl provides a native way to handle rich text without custom parsers. Use the `rich` method:
+### External Links
+For external links (links to other websites), you should still use the `Link` component from `@/routing`, but add the `target="_blank"` and `rel="noopener noreferrer"` attributes:
 
 ```tsx
-// In your component
-import { useTranslations } from 'next-intl';
+import { Link } from "@/routing";
 
-export default function Component() {
-  const t = useTranslations('Namespace');
-  
-  return (
-    <p>
-      {t.rich('richText', {
-        link: (chunks) => <a href="https://example.com">{chunks}</a>,
-        bold: (chunks) => <strong>{chunks}</strong>
-      })}
-    </p>
-  );
-}
-```
-
-With corresponding JSON:
-
-```json
-{
-  "Namespace": {
-    "richText": "Check our <link>documentation</link> and <bold>read carefully</bold>"
-  }
-}
+<Link 
+  href="https://example.com" 
+  target="_blank" 
+  rel="noopener noreferrer"
+>
+  External Link
+</Link>
 ```
 
 ### Benefits
-- Makes internationalization easier
-- Keeps text consistent across the application
-- Allows for centralized editing of copy
-- Enforces separation of concerns
-- Uses native next-intl capabilities for rich text
-
-### Best Practices
-
-1. **Use descriptive keys** - Organize keys logically (e.g., `pages.home.title`) rather than just (`title`)
-2. **Prefer a single translation object** - Use a single `t` object with full paths instead of multiple objects
-3. **Avoid string concatenation** - Don't build strings by concatenating translated parts
-4. **Dynamic content** - Use placeholders in your translations for dynamic content
-5. **Keep keys in sync** - Always update all language files when adding/changing keys
-
-```tsx
-// Avoid this (separate translations)
-const homeT = useTranslations('Home');
-const sharedT = useTranslations('Shared');
-
-// Prefer this (single translation with full paths)
-const t = useTranslations();
-t('home.title');
-t('shared.button');
-```
+- Ensures consistent routing behavior across the application
+- Allows for centralized routing logic and modifications
+- Provides proper i18n support for localized routes
+- Maintains consistent styling and behavior for links
 
 ---
 > Source: [inkfoundation/ink-web-app](https://github.com/inkfoundation/ink-web-app) — distributed by [TomeVault](https://tomevault.io).
