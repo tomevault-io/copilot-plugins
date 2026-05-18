@@ -1,0 +1,14 @@
+{
+  "name": "bytedance--flowgram-ai",
+  "displayName": "flowgram.ai",
+  "description": "FlowGram is an extensible workflow development framework with built-in canvas, form, variable, and materials that helps developers build AI workflow platforms faster and simpler.",
+  "version": "1.0.0",
+  "author": "bytedance",
+  "homepage": "https://github.com/bytedance/flowgram.ai",
+  "skills": [
+    {
+      "name": "material-component-doc",
+      "description": ""
+    }
+  ]
+}
