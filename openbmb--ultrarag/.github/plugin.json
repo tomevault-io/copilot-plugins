@@ -1,0 +1,9 @@
+{
+  "name": "openbmb--ultrarag",
+  "displayName": "UltraRAG",
+  "description": "A Low-Code MCP Framework for Building Complex and Innovative RAG Pipelines",
+  "version": "1.0.0",
+  "author": "OpenBMB",
+  "homepage": "https://github.com/OpenBMB/UltraRAG",
+  "skills": []
+}
