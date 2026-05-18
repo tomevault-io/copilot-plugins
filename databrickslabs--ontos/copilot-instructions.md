@@ -1,55 +1,21 @@
-## 05-code-style-and-structure
+## 06-performance-optimization
 
-> **Backend (Python/FastAPI)**
+> - **Asynchronous Operations**: Use `async/await` for SDK calls and potentially database operations if using an async driver.
 
 
-### Code Style and Structure
+### Performance Optimization
 
-**Backend (Python/FastAPI)**
+**Backend**
 
-- Use `def` for pure functions and `async def` for asynchronous operations (FastAPI route handlers, SDK calls).
-- **Type Hints**: Use Python type hints extensively. Use Pydantic models for API input/output validation and SQLAlchemy models for DB interaction.
-- **File Structure**: Maintain clear separation of concerns (routes, controllers, repositories, models, db_models, common utilities).
-- **RORO Pattern**: API models follow "Receive an Object, Return an Object". Controllers often receive/return API models, mapping to/from DB models via the repository.
-- **Error Handling**:
-  - Use FastAPI's `HTTPException` for API errors.
-  - Handle specific exceptions (e.g., `SQLAlchemyError`, `ValidationError`, `DatabricksError`, `NotFound`) in controllers/repositories.
-  - Use guard clauses and early returns.
-  - Implement structured logging via `api/common/logging.py`.
-- **Error Response Security**:
-  - NEVER expose raw exception messages in HTTPException detail parameter.
-  - NEVER use `detail=str(e)` or `detail=f"...{e}"` with exceptions.
-  - Always log full error details internally but return generic messages to clients.
-  - Good: Log `logger.error("Failed for %s: %s", entity_id, e, exc_info=True)`, Return `HTTPException(status_code=500, detail="Operation failed")`
-  - Bad: `HTTPException(status_code=500, detail=str(e))`
-  - Exception: Only expose error details for known validation errors (ValueError with sanitized messages).
-- **Logging Security**:
-  - NEVER use f-strings or `.format()` in logging statements with user-controlled or dynamic variables.
-  - Always use %-style formatting for security and performance.
-  - Good: `logger.error("Error processing request for user %s", user_email, exc_info=True)`
-  - Bad: `logger.error(f"Error processing request for user {user_email}")`
-- **Dependency Injection**: Rely heavily on FastAPI's DI for providing database sessions, managers, settings, and workspace clients to routes (see `api/common/dependencies.py` and manager getters in route files). Managers are initialized as singletons in `app.state` during startup.
+- **Asynchronous Operations**: Use `async/await` for SDK calls and potentially database operations if using an async driver.
+- **Database Query Optimization**: Use efficient SQLAlchemy queries (e.g., `selectinload` for eager loading relationships in repositories). Add database indexes where needed (`db_models`).
+- **Caching**: Consider caching for frequently accessed, rarely changing data (e.g., settings, roles) if performance becomes an issue.
 
-**Frontend (TypeScript/React)**
+**Frontend**
 
-- **TypeScript Usage**: Use TypeScript strictly. Prefer interfaces (`interface`) over types (`type`) for defining object shapes where applicable. Use mapped types or utility types instead of enums.
-- **Functional Components**: Write all components as functional components using hooks.
-- **UI and Styling**: Use **Shadcn UI** components built on **Tailwind CSS**. Follow responsive design principles.
-- **State Management**: Use `useState`, `useEffect`, `useContext` for local/shared state. Use Zustand (`stores/`) for global state (e.g., permissions, breadcrumbs).
-- **Data Fetching**: Use a custom hook (`hooks/useApi`) wrapping `fetch` or `axios` for API interactions. Handle loading and error states explicitly. Use `async/await`.
-- **Forms**: Use `react-hook-form` for form management and validation, often integrated with Shadcn UI components and Zod for schema validation.
-- **Console Logging Security**:
-  - NEVER use template literals or string concatenation in console statements (console.log, console.error, console.warn, etc.) with user-controlled or dynamic variables.
-  - Always pass variables as separate arguments to prevent format string injection attacks.
-  - Good: `console.error("Error fetching data for", entityType, entityId, ":", error);`
-  - Bad: `console.error(\`Error fetching data for ${entityType}/${entityId}:\`, error);`
-- **Library Security**:
-  - Never use `allErrors: true` in Ajv configuration in production as it can lead to DoS attacks. Default behavior (first error only) is preferred.
-- **Performance**:
-  - Minimize `useEffect`, `useState`.
-  - Use `React.memo`, `useMemo`, `useCallback` where appropriate.
-  - Consider server-side patterns if applicable, although primary interaction is client-side with API.
-  - Use `Suspense` for lazy loading components if needed.
+- **Component Memoization**: Use `React.memo`, `useMemo`, `useCallback`.
+- **Bundle Size**: Monitor bundle size and use code splitting/lazy loading if necessary.
+- **Efficient Data Fetching**: Fetch only necessary data. Use libraries like TanStack Query for caching/staleness management if needed.
 
 ---
 > Source: [databrickslabs/ontos](https://github.com/databrickslabs/ontos) — distributed by [TomeVault](https://tomevault.io).
