@@ -4,7 +4,7 @@
   "repo": "boardupscale",
   "description": "The free, open-source alternative to Jira. Self-hosted project management with Scrum, Kanban, sprints, AI, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/codeupscale/boardupscale",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T03:50:39Z"
+  "distributed_at": "2026-05-18T04:12:29Z"
 }
