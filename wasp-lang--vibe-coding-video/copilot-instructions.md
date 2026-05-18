@@ -1,57 +1,91 @@
-## 1-wasp-overview
+## 2-project-conventions
 
-> This document covers the fundamental concepts of the Wasp framework, the basic project structure, and deployment information.
+> This document outlines the specific conventions, file structures, and general rules for this Wasp project.
 
-# 1. Wasp Overview and Core Concepts
+# 2. Project Conventions and Rules
 
-This document covers the fundamental concepts of the Wasp framework, the basic project structure, and deployment information.
+This document outlines the specific conventions, file structures, and general rules for this Wasp project.
 
-## Background Information
+## Quick Reference
 
-### What is Wasp
+### Common Patterns
 
-- Wasp (Web Application SPecification language) is a declarative, statically typed, domain-specific language (DSL) for building modern, full-stack web applications.
-- Unlike traditional frameworks that are sets of libraries, Wasp is a simple programming language that understands web app concepts and generates code for you.
-- Wasp integrates with React (frontend), Node.js (backend), and Prisma (database ORM) to create full-stack web applications with minimal boilerplate.
-- The Wasp compiler reads your declarative configuration in [main.wasp](mdc:main.wasp) and generates all the necessary code for a working web application.
-- For the most up-to-date and comprehensive information, always refer to the [Wasp Docs](mdc:https:/wasp.sh/docs) -- https://wasp.sh/docs 
-
-### Wasp Project Structure
-
-- A Wasp project consists of a [main.wasp](mdc:main.wasp) (or `main.wasp.ts`) file in the root directory that defines the app's configuration.
-- The [schema.prisma](mdc:schema.prisma) file in the root directory defines your database models.
-- Your custom code lives in the `src/` directory (e.g. `src/features/`), which contains client-side and server-side code.
-- Wasp generates additional code that connects everything together when you run your app.
-
-### The main.wasp File
-
-- The [main.wasp](mdc:main.wasp) file is the central configuration file that defines your application structure.
-- It contains declarations for app settings, pages, routes, authentication, database entities, and operations (queries and actions).
-- Example structure:
+- Define app structure in [main.wasp](mdc:main.wasp) or `main.wasp.ts`.
+- Define data models in [schema.prisma](mdc:schema.prisma).
+- Group feature code in `src/features/{featureName}` directories.
+- Group feature config definitions (e.g. routes, pages, operations, etc.) into sections within the Wasp config file ([main.wasp](mdc:main.wasp)) using the `//#region` directive:
   ```wasp
-  app myApp {
-    wasp: {
-      version: "^0.16.0" // Check @main.wasp for the actual version
-    },
-    title: "My App",
-  }
-
-  route HomeRoute { path: "/", to: HomePage }
-  page HomePage {
-    component: import { HomePage } from "@src/client/pages/HomePage.tsx" // Example import path
-  }
-
-  // Operations are defined here, see 3-database-operations.mdc
-  query getTasks {
-    fn: import { getTasks } from "@src/server/queries.js",
-    entities: [Task]
-  }
+  // Example in @main.wasp
+  //#region {FeatureName}
+  // ... feature-specific declarations ...
+  //#endregion
   ```
+- Use Wasp operations (queries/actions) for client-server communication (See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc)).
+- **Wasp Imports:** Import from `wasp/...` not `@wasp/...` in `.ts`/`.tsx` files.
+- Document features in `ai/docs/` with:
+  - One markdown file per feature (e.g. `ai/docs/{featureName}.md`).
+  - Operations specifications and data models.
+  - User workflows and business logic.
+  - Update documentation when implementing feature changes.
+- Reference the relevant `ai/docs/` files when writing or modifying feature code.
 
-### Deployment
+### Common Issues & Import Rules
 
-- Wasp applications can be deployed to various hosting providers.
-- Wasp has a built-in one-command deployment to fly.io, e.g. `wasp deploy fly`. See the @Wasp CLI Deployment docs for more information. 
+- **Wasp Imports in `.ts`/`.tsx`:** Always use the `wasp/...` prefix.
+  - ✅ `import { Task } from 'wasp/entities'`
+  - ✅ `import type { GetTasks } from 'wasp/server/operations'`
+  - ✅ `import { getTasks, useQuery } from 'wasp/client/operations'`
+  - ❌ `import { ... } from '@wasp/...'`
+  - ❌ `import { ... } from '@src/features/...'` (Use relative paths for non-Wasp imports within `src`)
+  - If you see "Cannot find module 'wasp/...'": Double-check the import path prefix.
+- **Wasp Config Imports in [main.wasp](mdc:main.wasp) :** Imports of your code *must* start with `@src/`.
+  - ✅ `component: import { LoginPage } from "@src/features/auth/LoginPage.tsx"`
+  - ❌ `component: import { LoginPage } from "../src/features/auth/LoginPage.tsx"`
+  - ❌ `component: import { LoginPage } from "client/pages/auth/LoginPage.tsx"`
+- **General Imports in `.ts`/`.tsx`:** Use relative paths for imports within the `src/` directory. Avoid using the `@src/` alias directly in `.ts`/`.tsx` files.
+  - If you see "Cannot find module '@src/...'": Use a relative path instead.
+- **Prisma Enum *Value* Imports:** Import directly from `@prisma/client`. See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc).
+- **Wasp Actions Client-Side:** Call actions directly using `async/await`. Avoid `useAction` unless optimistic updates are needed. See [3-database-operations.mdc](mdc:.cursor/rules/3-database-operations.mdc)`.
+  - ✅ `import { deleteTask } from 'wasp/client/operations'; await deleteTask({ taskId });`
+- Root Component (`src/App.tsx` or similar):
+  - Ensure the root component defined in @main.wasp (usually via `app.client.rootComponent`) renders the `<Outlet />` component from `react-router-dom` to display nested page content.
+    ```tsx
+    // Example Root Component
+    import React from 'react';
+    import { Outlet } from 'react-router-dom';
+    import Header from './Header'; // Example shared component
+
+    function App() {
+      return (
+        <div className="min-h-screen bg-gray-100">
+          <Header />
+          <main className="container mx-auto p-4">
+            {/* Outlet renders the content of the matched route/page */}
+            <Outlet />
+          </main>
+        </div>
+      );
+    }
+    export default App;
+    ```
+
+## Rules
+
+### General Rules
+
+- Always reference the Wasp config file [main.wasp](mdc:main.wasp) as your source of truth for the app's configuration and structure.
+- Always reference the `ai/docs/` directory for information on the app's features and functionality when writing code.
+- Group feature config definitions in [main.wasp](mdc:main.wasp) using `//#region` (as noted above).
+- Group feature code into feature directories (e.g. `src/features/transactions`).
+- Use the latest Wasp version, as defined in the [main.wasp](mdc:main.wasp) file.
+- Combine Wasp operations (queries and actions) into an `operations.ts` file within the feature directory (e.g., `src/features/transactions/operations.ts`).
+- Always use TypeScript for Wasp code (`.ts`/`.tsx`).
+- Keep these rules files in `.cursor/rules/` updated with any new project conventions or changes in Wasp best practices. The original `.cursorrules` file may be kept for reference but these `.mdc` files are the primary source.
+
+### Wasp Dependencies
+
+- Avoid adding dependencies directly to the [main.wasp](mdc:main.wasp) config file.
+- Install dependencies via `npm install` instead. This updates [package.json](mdc:package.json) and [package-lock.json](mdc:package-lock.json)
 
 ---
 > Source: [wasp-lang/vibe-coding-video](https://github.com/wasp-lang/vibe-coding-video) — distributed by [TomeVault](https://tomevault.io).
