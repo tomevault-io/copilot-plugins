@@ -1,36 +1,12 @@
-## test-guide
+## test-use-tdd
 
-> This guide outlines concise rules for writing and modifying tests in this project.
+> when writiing tests or mentioning TDD
 
-# Test Guidelines
 
-This guide outlines concise rules for writing and modifying tests in this project.
-
-## 1. Data-Driven Structure
-
-- Use maps (e.g., `Map<String, ({...})>`) to define test cases.
-- Iterate over cases with `forEach` to minimize boilerplate.
-
-## 2. Test Organization
-
-- Group related tests using `group()` and individual cases using `test()`.
-- Name tests and groups descriptively (e.g., "parses various currency formats", "formats EUR in different locales").
-
-## 3. Input & Expected Outputs
-
-- Define inputs and expected outputs clearly in your maps.
-- Separate cases for different locales or edge conditions.
-
-## 4. Assertions
-
-- Use `expect()` with a clear `reason` to explain failures.
-- Assert each property (price, symbols, code) individually.
-
-## 5. General Best Practices
-
-- Keep tests self-contained and independent.
-- Write concise, readable tests that are easy to update.
-- Use data-driven approaches to facilitate modifications and extensions.
+Always use TDD writing code. One exception - examples folder.
+MEANING: describe behaviour in test, then fix implementation.
+The test can fail (if real implementaion is broken) and this way we could develop healthy software.
+While writing test always use Ruby philosophy - red -> green. Meaning: we express meaning through the tests and then implement them.
 
 ---
 > Source: [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter) — distributed by [TomeVault](https://tomevault.io).
