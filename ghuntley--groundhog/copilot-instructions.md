@@ -1,65 +1,94 @@
-## git-auto-commit
+## nix-build-phases
 
-> Git Auto Commit Rule
+> This rule enforces best practices for using build phases and hooks in Nix derivations.
+
+# Nix Build Phases and Hooks
 
 ## Description
-This rule ensures that after Cursor IDE automatically performs changes from Git commits, the modified files are automatically committed back to Git using the conventional commit format. This maintains a clear and consistent commit history that explains what changes were made and why.
+This rule enforces best practices for using build phases and hooks in Nix derivations.
 
-## Rule
-After Cursor IDE performs automatic changes:
-1. All modified files MUST be automatically committed
-2. Commit messages MUST follow the conventional commit format
-3. Commit messages MUST include:
-   - Type: The type of change (feat, fix, docs, style, refactor, test, chore)
-   - Scope: The affected component or area (optional)
-   - Description: A clear explanation of what changed
-   - Body: Detailed explanation of why the changes were made
-4. The commit message MUST reference the original prompts used to generate the changes
-
-## Implementation
-- The Cursor IDE will:
-  - Track all files modified by automatic changes
-  - Generate a conventional commit message based on the changes
-  - Include the original prompts in the commit body
-  - Automatically execute the git commit command
-  - Handle any potential merge conflicts or errors
-
-## Benefits
-- Maintains clear and consistent commit history
-- Provides traceability between prompts and code changes
-- Follows industry-standard commit conventions
-- Automates the commit process for better workflow efficiency
+## Rule Details
+- Use standard build phases when possible
+- Prefer using `preBuild`, `postBuild`, etc. over overriding entire phases
+- Use `makeWrapper` for environment variable management
+- Use `patchPhase` for source modifications
+- Use `installPhase` for proper installation
+- Use `fixupPhase` for post-installation fixes
+- Use `checkPhase` for running tests
+- Use `distPhase` for creating distribution files
 
 ## Examples
-✅ Correct Commit Message:
+
+### Good
+```nix
+{ lib
+, stdenv
+, makeWrapper
+}:
+
+stdenv.mkDerivation rec {
+  pname = "my-package";
+  version = "1.0.0";
+
+  src = ./src;
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  # Use standard phases with hooks
+  preBuild = ''
+    echo "Configuring build..."
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/my-program \
+      --set PATH ${lib.makeBinPath [ stdenv.cc ]}
+  '';
+
+  # Run tests during build
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+    make test
+    runHook postCheck
+  '';
+
+  # Create distribution files
+  distPhase = ''
+    runHook preDist
+    mkdir -p $out/dist
+    cp -r dist/* $out/dist/
+    runHook postDist
+  '';
+}
 ```
-feat(ide): implement automatic code formatting
 
-- Added automatic formatting for Python files
-- Implemented consistent indentation rules
-- Added support for line length limits
+### Bad
+```nix
+{ stdenv }:
 
-Changes were generated based on the following prompts:
-1. "Format the code according to PEP 8 standards"
-2. "Ensure consistent indentation across all files"
+stdenv.mkDerivation {
+  name = "my-package";
+  src = ./src;
+
+  # Overriding entire phases instead of using hooks
+  buildPhase = ''
+    make
+    make install
+    make test
+  '';  # Missing proper phase separation
+}
 ```
 
-❌ Incorrect Commit Message:
-```
-Updated some files
+## Why
+- Standard build phases ensure consistent behavior across packages
+- Hooks allow for customization without breaking standard behavior
+- Proper phase separation makes builds more maintainable
+- Using standard phases makes packages more compatible with Nix tools
+- Proper installation phases ensure correct file placement and permissions
 
-- Made changes to formatting
-- Fixed some issues
-```
-
-## Conventional Commit Types
-- feat: New feature
-- fix: Bug fix
-- docs: Documentation changes
-- style: Code style changes (formatting, etc.)
-- refactor: Code refactoring
-- test: Adding or modifying tests
-- chore: Maintenance tasks 
+## References
+- [Nixpkgs Manual - Build Phases](mdc:https:/nixos.org/nixpkgs/manual/#sec-stdenv-phases)
+- [Nixpkgs Manual - Hooks](mdc:https:/nixos.org/nixpkgs/manual/#sec-stdenv-hooks) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
