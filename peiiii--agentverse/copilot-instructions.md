@@ -1,264 +1,192 @@
-## quick-commands
+## riper-workflow
 
-> - **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
+> CursorRIPER Framework - RIPER Workflow
 
+<!-- Note: Cursor will strip out all the other header information and only keep the first three. -->
+# CursorRIPER Framework - RIPER Workflow
+# Version 1.0.1
 
+## AI PROCESSING INSTRUCTIONS
+This file defines the RIPER workflow component of the CursorRIPER Framework. As an AI assistant, you MUST:
+- Load this file when PROJECT_PHASE is "DEVELOPMENT" or "MAINTENANCE"
+- Follow mode-specific instructions for each RIPER mode
+- Always declare your current mode at the beginning of each response
+- Only transition between modes when explicitly commanded
+- Reference memory bank files to maintain context
 
-# Quick Commands & Communication Conventions
+## THE RIPER-5 MODES
 
-## Git Operations
+```mermaid
+flowchart LR
+    R[RESEARCH] --> I[INNOVATE]
+    I --> P[PLAN]
+    P --> E[EXECUTE]
+    E --> Rev[REVIEW]
+    Rev -.-> R
+    
+    style R fill:#e6f3ff,stroke:#0066cc
+    style I fill:#e6ffe6,stroke:#006600
+    style P fill:#fff0e6,stroke:#cc6600
+    style E fill:#ffe6e6,stroke:#cc0000
+    style Rev fill:#f0e6ff,stroke:#6600cc
+```
 
-### ⚠️ 重要：禁止擅自提交
-- **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
-- **必须等待**：只有用户明确使用 `/commit` 命令或明确要求提交时，才能执行提交
-- **安全第一**：宁可等待用户确认，也不要冒险擅自提交
+### MODE 1: RESEARCH
+[MODE: RESEARCH]
+- **Purpose**: Information gathering ONLY
+- **Permitted**: Reading files, asking clarifying questions, understanding code structure
+- **Forbidden**: Suggestions, implementations, planning, or any hint of action
+- **Requirement**: You may ONLY seek to understand what exists, not what could be
+- **Duration**: Until user explicitly signals to move to next mode
+- **Output Format**: Begin with [MODE: RESEARCH], then ONLY observations and questions
+- **Pre-Research Checkpoint**: Confirm which files/components need to be analyzed before starting
 
-### `/commit` - Auto Commit with English Message
-When user types `/commit`, automatically:
-1. Run `git status` to review changes before committing
-2. Run `git add .` to stage all changes
-3. Generate a descriptive English commit message based on changes
-4. Execute `git commit -m "message"`
-5. Follow conventional commit format: `type(scope): description`
+### MODE 2: INNOVATE
+[MODE: INNOVATE]
+- **Purpose**: Brainstorming potential approaches
+- **Permitted**: Discussing ideas, advantages/disadvantages, seeking feedback
+- **Forbidden**: Concrete planning, implementation details, or any code writing
+- **Requirement**: All ideas must be presented as possibilities, not decisions
+- **Duration**: Until user explicitly signals to move to next mode
+- **Output Format**: Begin with [MODE: INNOVATE], then ONLY possibilities and considerations
+- **Decision Documentation**: Capture design decisions with explicit rationales using high relevance scores
 
-**Example commit messages:**
-- `refactor: optimize component structure and naming`
-- `feat: add new agent configuration assistant`
-- `fix: resolve lint errors in agent preview component`
-- `docs: update README with new features`
+### MODE 3: PLAN
+[MODE: PLAN]
+- **Purpose**: Creating exhaustive technical specification
+- **Permitted**: Detailed plans with exact file paths, function names, and changes
+- **Forbidden**: Any implementation or code writing, even "example code"
+- **Requirement**: Plan must be comprehensive enough that no creative decisions are needed during implementation
+- **Planning Process**:
+  1. Deeply reflect upon the changes being asked
+  2. Analyze existing code to map the full scope of changes needed
+  3. Ask 4-6 clarifying questions based on your findings
+  4. Once answered, draft a comprehensive plan of action
+  5. Ask for approval on that plan
+- **Mandatory Final Step**: Convert the entire plan into a numbered, sequential CHECKLIST with each atomic action as a separate item
+- **Checklist Format**:
+```
+IMPLEMENTATION CHECKLIST:
+1. [Specific action 1]
+2. [Specific action 2]
+...
+n. [Final action]
+```
+- **Duration**: Until user explicitly approves plan and signals to move to next mode
+- **Output Format**: Begin with [MODE: PLAN], then ONLY specifications and implementation details
+- **Implementation Dry Run**: Optional step to outline potential side effects of planned changes
 
-## Discussion & Planning
+### MODE 4: EXECUTE
+[MODE: EXECUTE]
+- **Purpose**: Implementing EXACTLY what was planned in Mode 3
+- **Permitted**: ONLY implementing what was explicitly detailed in the approved plan
+- **Forbidden**: Any deviation, improvement, or creative addition not in the plan
+- **Entry Requirement**: ONLY enter after explicit "ENTER EXECUTE MODE" command from user
+- **Deviation Handling**: If ANY issue is found requiring deviation, IMMEDIATELY return to PLAN mode
+- **Output Format**: Begin with [MODE: EXECUTE], then ONLY implementation matching the plan
+- **Progress Tracking**: 
+  - Mark items as complete as they are implemented
+  - After completing each phase/step, mention what was just completed
+  - State what the next steps are and phases remaining
+  - Update progress.md and activeContext.md after significant progress
+- **Emergency Rollback Protocol**: Be prepared to restore previous code versions if problems arise
 
-### `/readonly` - Read-Only Discussion Mode
-When user types `/readonly`, enter discussion-only mode:
-1. **No Code Changes**: Do not modify any files or run commands
-2. **Analysis Only**: Provide insights, suggestions, and recommendations
-3. **Creative Discussion**: Focus on ideas, concepts, and planning
-4. **Architecture Review**: Discuss design patterns and approaches
-5. **Problem Solving**: Brainstorm solutions without implementation
+### MODE 5: REVIEW
+[MODE: REVIEW]
+- **Purpose**: Ruthlessly validate implementation against the plan
+- **Permitted**: Line-by-line comparison between plan and implementation
+- **Required**: EXPLICITLY FLAG ANY DEVIATION, no matter how minor
+- **Deviation Format**: ":warning: DEVIATION DETECTED: [description of exact deviation]"
+- **Reporting**: Must report whether implementation is IDENTICAL to plan or NOT
+- **Conclusion Format**: ":white_check_mark: IMPLEMENTATION MATCHES PLAN EXACTLY" or ":cross_mark: IMPLEMENTATION DEVIATES FROM PLAN"
+- **Output Format**: Begin with [MODE: REVIEW], then systematic comparison and explicit verdict
+- **Code Review Templates**: Apply standardized templates aligned with user's code quality standards
 
-**Use cases:**
-- Creative brainstorming sessions
-- Architecture and design discussions
-- Feature planning and requirements analysis
-- Code review and feedback sessions
-- Problem analysis and solution exploration
-- Technology selection and comparison
+## WORKFLOW DIAGRAMS
 
-**Response format:**
-- Start with `[MODE: DISCUSSION]`
-- Provide detailed analysis and insights
-- Suggest multiple approaches when applicable
-- Focus on concepts and ideas rather than implementation
-- Ask clarifying questions to better understand requirements
+### PLAN Mode Workflow
+```mermaid
+flowchart TD
+    Start[Start] --> ReadFiles[Read Memory Bank]
+    ReadFiles --> CheckFiles{Files Complete?}
+    
+    CheckFiles -->|No| Plan[Create Plan]
+    Plan --> Document[Document in Chat]
+    
+    CheckFiles -->|Yes| Verify[Verify Context]
+    Verify --> Strategy[Develop Strategy]
+    Strategy --> Present[Present Approach]
+```
 
-## Code Quality & Architecture
+### EXECUTE Mode Workflow
+```mermaid
+flowchart TD
+    Start[Start] --> Context[Check Memory Bank]
+    Context --> Update[Update Documentation]
+    Update --> Rules[Update Project Intelligence]
+    Rules --> Execute[Execute Task]
+    Execute --> Document[Document Changes]
+```
 
-### `/architect` - Architect's Perspective Review
-When user requests "架构师视角" or "/architect", provide:
-1. **Code Structure Analysis**: Evaluate file organization and component hierarchy
-2. **Naming Conventions**: Check for semantic clarity and consistency
-3. **Separation of Concerns**: Identify mixed responsibilities and suggest splits
-4. **Maintainability**: Assess code complexity and suggest improvements
-5. **Scalability**: Consider future extensibility and potential bottlenecks
-6. **Best Practices**: Recommend architectural patterns and conventions
+## MODE TRANSITION SIGNALS
 
-**Key evaluation criteria:**
-- File size (keep under 250 lines)
-- Single responsibility principle
-- Clear naming conventions (kebab-case for files, PascalCase for components)
-- Proper separation of UI, logic, and data layers
-- Reusability and modularity
+Mode transitions occur only when user explicitly signals with:
+- "ENTER RESEARCH MODE" or "/research" to enter RESEARCH mode
+- "ENTER INNOVATE MODE" or "/innovate" to enter INNOVATE mode
+- "ENTER PLAN MODE" or "/plan" to enter PLAN mode
+- "ENTER EXECUTE MODE" or "/execute" to enter EXECUTE mode
+- "ENTER REVIEW MODE" or "/review" to enter REVIEW mode
 
-## Development Workflow
+## MEMORY UPDATES
 
-### `/build` - Build and Validate
-When user types `/build`, automatically:
-1. Run `pnpm build` to compile and build
-2. Run `pnpm lint` to check code quality
-3. Report any errors or warnings
-4. Suggest fixes if issues found
+After significant progress in any mode:
+1. Update activeContext.md with current focus and recent changes
+2. Update progress.md with completed tasks and current status
+3. Document any important decisions in systemPatterns.md
+4. Record any observed patterns in systemPatterns.md
 
-### `/refactor` - Code Refactoring
-When user requests refactoring:
-1. Analyze current code structure
-2. Identify areas for improvement
-3. Suggest specific refactoring steps
-4. Maintain functionality while improving code quality
-5. Follow established naming conventions and patterns
+## MODE-SPECIFIC MEMORY BANK UPDATES
 
-## File Organization Rules
+### RESEARCH Mode Updates
+- Update techContext.md with newly discovered technical details
+- Add observed patterns to systemPatterns.md
+- Document current status in activeContext.md
 
-### Directory Structure
-- Use kebab-case for directory and file names
-- Group related functionality in feature directories
-- Separate UI components, hooks, and utilities
-- Keep index.ts files for clean exports
+### INNOVATE Mode Updates
+- Document design alternatives considered
+- Record decision rationales with relevance scores
+- Update activeContext.md with potential approaches
 
-### Component Organization
-- Split large components (>250 lines) into smaller, focused files
-- Separate UI components from business logic
-- Use descriptive, semantic names for components and functions
-- Maintain clear import/export relationships
+### PLAN Mode Updates
+- Create implementation plans in chat
+- Update activeContext.md with planned changes
+- Document expected outcomes in progress.md
 
-## Communication Patterns
+### EXECUTE Mode Updates
+- Track implementation progress in progress.md
+- Update activeContext.md after each significant step
+- Document any implementation challenges encountered
 
-### Code Review Responses
-- Always start with current mode declaration: `[MODE: RESEARCH/PLAN/EXECUTE/REVIEW/DISCUSSION]`
-- Provide clear, actionable feedback
-- Suggest specific improvements with examples
-- Consider both immediate fixes and long-term architectural benefits
+### REVIEW Mode Updates
+- Document review findings in progress.md
+- Update activeContext.md with review status
+- Record any patterns or issues for future reference
 
-### Error Handling
-- When encountering errors, provide clear explanations
-- Suggest multiple solutions when possible
-- Prioritize fixes based on impact and effort
-- Always verify fixes work before proceeding
+## CONTEXT AWARENESS
 
-## Naming Conventions
+The AI should maintain awareness of:
+1. Current project state from state.mdc
+2. Project requirements from projectbrief.md
+3. Technical context from techContext.md
+4. System architecture from systemPatterns.md
+5. Active work from activeContext.md
+6. Progress status from progress.md
 
-### Files and Directories
-- Use kebab-case: `agent-configuration-assistant.tsx`
-- Be descriptive and semantic: `use-agent-configuration-tools.tsx`
-- Group related files in feature directories
+This context should inform all responses, ensuring continuity and relevance.
 
-### Components and Functions
-- Use PascalCase for components: `AgentConfigurationAssistant`
-- Use camelCase for functions and hooks: `useAgentConfigurationTools`
-- Use descriptive names that clearly indicate purpose
+---
 
-### Types and Interfaces
-- Use PascalCase with descriptive names: `AgentConfigurationAssistantProps`
-- Include type information in names when helpful
-- Be consistent across related types
-
-# Quick Commands & Communication Conventions
-
-## Git Operations
-
-### ⚠️ 重要：禁止擅自提交
-- **严格禁止**：在用户没有明确要求的情况下，禁止擅自进行任何 git commit 操作
-- **必须等待**：只有用户明确使用 `/commit` 命令或明确要求提交时，才能执行提交
-- **安全第一**：宁可等待用户确认，也不要冒险擅自提交
-
-### `/commit` - Auto Commit with English Message
-When user types `/commit`, automatically:
-1. Run `git status` to review changes before committing
-2. Run `git add .` to stage all changes
-3. Generate a descriptive English commit message based on changes
-4. Execute `git commit -m "message"`
-5. Follow conventional commit format: `type(scope): description`
-
-**Example commit messages:**
-- `refactor: optimize component structure and naming`
-- `feat: add new agent configuration assistant`
-- `fix: resolve lint errors in agent preview component`
-- `docs: update README with new features`
-
-## Discussion & Planning
-
-### `/readonly` - Read-Only Discussion Mode
-When user types `/readonly`, enter discussion-only mode:
-1. **No Code Changes**: Do not modify any files or run commands
-2. **Analysis Only**: Provide insights, suggestions, and recommendations
-3. **Creative Discussion**: Focus on ideas, concepts, and planning
-4. **Architecture Review**: Discuss design patterns and approaches
-5. **Problem Solving**: Brainstorm solutions without implementation
-
-**Use cases:**
-- Creative brainstorming sessions
-- Architecture and design discussions
-- Feature planning and requirements analysis
-- Code review and feedback sessions
-- Problem analysis and solution exploration
-- Technology selection and comparison
-
-**Response format:**
-- Start with `[MODE: DISCUSSION]`
-- Provide detailed analysis and insights
-- Suggest multiple approaches when applicable
-- Focus on concepts and ideas rather than implementation
-- Ask clarifying questions to better understand requirements
-
-## Code Quality & Architecture
-
-### `/architect` - Architect's Perspective Review
-When user requests "架构师视角" or "/architect", provide:
-1. **Code Structure Analysis**: Evaluate file organization and component hierarchy
-2. **Naming Conventions**: Check for semantic clarity and consistency
-3. **Separation of Concerns**: Identify mixed responsibilities and suggest splits
-4. **Maintainability**: Assess code complexity and suggest improvements
-5. **Scalability**: Consider future extensibility and potential bottlenecks
-6. **Best Practices**: Recommend architectural patterns and conventions
-
-**Key evaluation criteria:**
-- File size (keep under 250 lines)
-- Single responsibility principle
-- Clear naming conventions (kebab-case for files, PascalCase for components)
-- Proper separation of UI, logic, and data layers
-- Reusability and modularity
-
-## Development Workflow
-
-### `/build` - Build and Validate
-When user types `/build`, automatically:
-1. Run `pnpm build` to compile and build
-2. Run `pnpm lint` to check code quality
-3. Report any errors or warnings
-4. Suggest fixes if issues found
-
-### `/refactor` - Code Refactoring
-When user requests refactoring:
-1. Analyze current code structure
-2. Identify areas for improvement
-3. Suggest specific refactoring steps
-4. Maintain functionality while improving code quality
-5. Follow established naming conventions and patterns
-
-## File Organization Rules
-
-### Directory Structure
-- Use kebab-case for directory and file names
-- Group related functionality in feature directories
-- Separate UI components, hooks, and utilities
-- Keep index.ts files for clean exports
-
-### Component Organization
-- Split large components (>250 lines) into smaller, focused files
-- Separate UI components from business logic
-- Use descriptive, semantic names for components and functions
-- Maintain clear import/export relationships
-
-## Communication Patterns
-
-### Code Review Responses
-- Always start with current mode declaration: `[MODE: RESEARCH/PLAN/EXECUTE/REVIEW/DISCUSSION]`
-- Provide clear, actionable feedback
-- Suggest specific improvements with examples
-- Consider both immediate fixes and long-term architectural benefits
-
-### Error Handling
-- When encountering errors, provide clear explanations
-- Suggest multiple solutions when possible
-- Prioritize fixes based on impact and effort
-- Always verify fixes work before proceeding
-
-## Naming Conventions
-
-### Files and Directories
-- Use kebab-case: `agent-configuration-assistant.tsx`
-- Be descriptive and semantic: `use-agent-configuration-tools.tsx`
-- Group related files in feature directories
-
-### Components and Functions
-- Use PascalCase for components: `AgentConfigurationAssistant`
-- Use camelCase for functions and hooks: `useAgentConfigurationTools`
-- Use descriptive names that clearly indicate purpose
-
-### Types and Interfaces
-- Use PascalCase with descriptive names: `AgentConfigurationAssistantProps`
-- Include type information in names when helpful
-- Be consistent across related types
+*This file defines the RIPER workflow component of the CursorRIPER Framework.*
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
