@@ -1,36 +1,154 @@
-## ida-taskr
+## ida-integration
 
-> You are an expert in Python, C, and C++, with deep knowledge of Windows reverse engineering, x64 assembly, the Intel Pin framework, IDA Pro, and IDAPython. You have a strong understanding of Windows APIs—both documented and undocumented—and can decompile x64 assembly into readable, idiomatic C++17 when necessary. However, you prefer using Python and its FFI capabilities (e.g. ctypes, cffi, or ctypes.wintypes) over Cython, and strongly prefer both over C++ for interfacing with native code. You specialize in identifying and reversing obfuscation patterns using IDAPython and other tools, and can symbolically or concolically execute code to analyze control and data flow. When given assembly, you produce clean, annotated Python or C++ code along with a succinct summary of its behavior and intent.
+> IDA Pro uses a specific PyQt5 framework that requires environment configuration:
 
-# Project Rules
+# IDA Pro Integration Guidelines
 
-You are an expert in Python, C, and C++, with deep knowledge of Windows reverse engineering, x64 assembly, the Intel Pin framework, IDA Pro, and IDAPython. You have a strong understanding of Windows APIs—both documented and undocumented—and can decompile x64 assembly into readable, idiomatic C++17 when necessary. However, you prefer using Python and its FFI capabilities (e.g. ctypes, cffi, or ctypes.wintypes) over Cython, and strongly prefer both over C++ for interfacing with native code. You specialize in identifying and reversing obfuscation patterns using IDAPython and other tools, and can symbolically or concolically execute code to analyze control and data flow. When given assembly, you produce clean, annotated Python or C++ code along with a succinct summary of its behavior and intent.
+## Environment and Dependencies
 
-## Python coding guidelines
+### PyQt5 Framework Setup
+IDA Pro uses a specific PyQt5 framework that requires environment configuration:
+```bash
+export DYLD_FALLBACK_FRAMEWORK_PATH="/Applications/IDA Professional 9.1.app/Contents/Frameworks"
+```
 
-- Avoid nesting more than 4 levels deep.
-- Favor small, composable functions or classes over long, monolithic ones.
-- Use snake_case rather than camelCase.
-- Follow PEP8 formatting conventions.
-- Prefer readability.
-- Prefer `dataclass`, `Enum`, and `NamedTuple` over raw data structures for clarity.
-- Use encapsulation and namespaces to group configuration with related logic. Prefer `dataclass`, `Enum`, `NamedTuple`, or nested class objects to avoid excessive top-level constants.
-- Limit functions to 5 parameters. If more are needed, group them into a configuration object.
+This is automatically handled in [tests/__init__.py](mdc:tests/__init__.py) and [run_tests.sh](mdc:run_tests.sh).
 
-### Logging
+### Import Patterns
+```python
+# Safe IDA imports with fallbacks for testing
+try:
+    import ida_bytes
+    import ida_segment
+    import idaapi
+except ImportError:
+    logger.error("IDA Pro modules not available")
+    # Provide fallbacks or skip functionality
+```
 
-- Use logging module over print(), replace all print() with logging.
-- When using the logging module, use format specifiers NOT f-strings. f-string are evaluated even if the log message is not emitted, but format specifiers are lazily rendered *ONLY* when the log level filter passes
+## Worker Architecture for IDA
 
-### Python Comments
+### IDA-Side Components
+- **[src/ida_taskr/launcher.py](mdc:src/ida_taskr/launcher.py)** - Manages worker processes from within IDA
+- **[src/ida_taskr/protocols.py](mdc:src/ida_taskr/protocols.py)** - Event handling for worker communication
+- **[src/ida_taskr/utils.py](mdc:src/ida_taskr/utils.py)** - Data processing and section management
 
-- When modifying commented code, update the comments, if any, to reflect any changes.
-- Preserve comments, do not remove them unless they are no longer relevant.
-- Use doctests to comment and document functions or methods to help the reader understand the function or method's intention.
+### Worker-Side Components  
+- **[src/ida_taskr/worker.py](mdc:src/ida_taskr/worker.py)** - Base classes for external worker processes
+- **ConnectionContext** - Handles bidirectional communication with IDA
 
-## Running tests
+## Data Processing Patterns
 
-- Add any tests to the `@tests` folder and run it `./run_tests.sh`
+### Section Data Extraction
+```python
+def get_section_data(section_name: str, max_size: int = 120 * 1024 * 1024):
+    """Extract binary data from IDA sections safely."""
+    try:
+        import ida_bytes, ida_segment, idaapi
+        seg = ida_segment.get_segm_by_name(section_name)
+        if not seg:
+            return idaapi.BADADDR, b""
+        
+        data_bytes = ida_bytes.get_bytes(seg.start_ea, seg.end_ea - seg.start_ea)
+        return seg.start_ea, data_bytes
+    except ImportError:
+        return 0, b""  # Fallback for testing
+```
+
+### Address Handling
+- Use hex format for addresses in logs: `hex(address)`
+- Support both hex and decimal input: `int(addr_str, 16)` vs `int(addr_str, 10)`
+- Validate address ranges before processing
+
+## Reverse Engineering Workflows
+
+### Anti-Deobfuscation Pipeline
+The project includes patterns for:
+1. **Pattern Recognition** - Identify obfuscated code patterns
+2. **Analysis Stages** - Multi-stage deobfuscation processing  
+3. **Patch Management** - Apply or simulate binary patches
+4. **Result Validation** - Compare against expected outputs
+
+### Shared Memory Usage
+```python
+# Create shared memory for large binary data
+shm = multiprocessing.shared_memory.SharedMemory(create=True, size=data_size)
+shm.buf[:data_size] = binary_data
+
+# Pass to worker via arguments
+worker_args = {
+    "shm_name": shm.name,
+    "data_size": data_size,
+    "start_ea": hex(start_address)
+}
+```
+
+## Testing IDA Integration
+
+### Mocking IDA Components
+```python
+# Mock IDA modules that aren't available in test environment
+@patch('ida_taskr.utils.ida_bytes')
+@patch('ida_taskr.utils.ida_segment') 
+def test_section_processing(self, mock_segment, mock_bytes):
+    mock_segment.get_segm_by_name.return_value = Mock(start_ea=0x1000, end_ea=0x2000)
+    mock_bytes.get_bytes.return_value = b"\x90" * 100
+    # Test implementation
+```
+
+### Environment Variables for Testing
+Use `TEST_ROUTINE_ADDR` to test specific memory addresses:
+```bash
+export TEST_ROUTINE_ADDR=0x141887cbd
+./run_tests.sh test_anti_deob
+```
+
+## Plugin Development
+
+### Plugin Base Structure
+```python
+class DataProcessorPlugin(idaapi.plugin_t):
+    flags = idaapi.PLUGIN_PROC
+    comment = "Description of plugin functionality"
+    help = "Usage instructions"
+    wanted_name = "PluginName"
+    wanted_hotkey = "Alt-Shift-P"
+
+    def init(self):
+        logger.info("Plugin initialized")
+        return idaapi.PLUGIN_KEEP
+
+    def term(self):
+        # Cleanup resources
+        if self._core:
+            self._core.terminate()
+
+    def run(self, arg):
+        # Main plugin logic
+        pass
+```
+
+### Resource Management
+- Always register cleanup handlers: `atexit.register(self.terminate)`
+- Properly close multiprocessing connections
+- Handle Qt thread lifecycle correctly
+
+## Common Pitfalls
+
+### Threading Issues
+- IDA's main thread vs worker threads
+- Qt signal/slot mechanisms
+- Multiprocessing context setup
+
+### Memory Management
+- Large binary data handling
+- Shared memory cleanup
+- Process lifecycle management
+
+### Platform Specifics
+- macOS framework paths
+- Windows vs Unix process spawning
+- Path separator handling
 
 ---
 > Source: [mahmoudimus/ida-taskr](https://github.com/mahmoudimus/ida-taskr) — distributed by [TomeVault](https://tomevault.io).
