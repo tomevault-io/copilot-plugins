@@ -1,92 +1,45 @@
-## src
+## ui-components
 
-> This file outlines development conventions and architectural principles for the AgentDock OSS Client codebase in the `/src` directory. These rules ensure consistent implementation and maintainable code.
+> This file outlines rules for using shadcn/ui components within the AgentDock OSS Client application.
 
-# AgentDock Open Source Client (Next.js) Application Structure Rules (`/src`)
+# UI Component Rules (shadcn/ui)
 
-This file outlines development conventions and architectural principles for the AgentDock OSS Client codebase in the `/src` directory. These rules ensure consistent implementation and maintainable code.
+This file outlines rules for using shadcn/ui components within the AgentDock OSS Client application.
 
-## Core Architecture
+## Installation
 
-The OSS Client is built on Next.js App Router and integrates with the `agentdock-core` framework via:
+- Add new components using the shadcn-ui CLI:
+  ```bash
+  npx shadcn@latest add [component-name]
+  ```
 
-- **Adapter Pattern**: `agent-adapter.ts` and `orchestration-adapter.ts` bridge the core framework
-- **Provider Integration**: LLM providers are implemented with configurable environment keys or user-provided keys
-- **Stateless Design**: Components are designed to be stateless where possible, with state managed in stores
+- Components are added to `[src/components/ui/](mdc:src/components/ui)` directory
 
-## Directory Structure & Implementation Guidelines
+- Always use the latest versions of components
 
-### App Router Structure
+## Usage Guidelines
 
-- `[app/](mdc:src/app)`: Use standard Next.js App Router conventions
-  - Route handlers in `[app/api/](mdc:src/app/api)` must implement proper error handling
-  - Always document API parameters with JSDoc and implement Zod validation
-  - Implement specific error types (400, 401, 404, 500) with clear messages
+- Do not modify component files in `[src/components/ui/](mdc:src/components/ui)` directly
 
-### Component Development
+- Create wrapper components for customization when needed
 
-- Implement pure UI components in `[components/ui/](mdc:src/components/ui)` following shadcn/ui patterns
-- Feature components should be placed in domain-specific directories:
-  - `[components/chat/](mdc:src/components/chat)`: Chat interface components
-  - `[components/agents/](mdc:src/components/agents)`: Agent management components
-- Use the provider pattern in `[components/providers/](mdc:src/components/providers)` for cross-cutting concerns
+- Use composition to build complex UI elements from simple components
 
-### Core Implementation 
+- Import components using:
+  ```tsx
+  import { Button } from "@/components/ui/button";
+  ```
 
-- `[lib/](mdc:src/lib)` contains the core business logic and utilities
-  - Implement adapters for `agentdock-core` integration in the root directory
-  - Place type definitions in `[lib/types/](mdc:src/lib/types)` for shared schema
-  - Use `[lib/store/](mdc:src/lib/store)` for Zustand stores following the store pattern
+## Updates
 
-### Tool Implementation
+- Keep `[components.json](mdc:components.json)` file up to date
 
-- Custom tools must follow the implementation pattern in `[nodes/](mdc:src/nodes)`
-- Each tool must:
-  - Export a tool implementation that matches the `Tool` interface
-  - Include appropriate Zod schema for parameters
-  - Define error handling for all failure cases
-  - Register via the tool registry export pattern
-  - Follow the existing file structure
+- When updating a component, be careful not to break existing customizations
 
-## Development Standards
-
-### State Management
-
-- **Component State**: Minimize state in components, lift to stores for shared state
-
-### API Implementation
-
-- Implement route handlers with explicit type checking
-- Use the AgentDock-specific error handling pattern from `error-utils.ts`
-- Support both environment-based and user-provided API keys
-- Centralize API endpoint implementations
-
-### Provider Integration
-
-- Support multiple LLM providers through adapter interfaces
-- Implement both environment key and user-provided key patterns
-- Always handle rate limiting, quota exceeded, and network errors gracefully
-- Document provider-specific behavior
-
-### Testing Approach
-
-- Implement component tests with React Testing Library
-- Use MSW for API mocking in integration tests
-- Centralize test fixtures in `__tests__/__fixtures__`
-
-### Performance Considerations
-
-- Implement proper suspense boundaries for async operations
-- Use streaming patterns for LLM responses
-- Apply proper caching strategies at both router and component levels
-
-## Deprecation & Migration Path
-
-- Flag deprecated patterns with `@deprecated` comments
-- Document migration paths for code using deprecated APIs
-- Remove deprecated code only after migration is complete
-
-The AgentDock OSS Client implementation emphasizes developer experience, maintainability, and performance while maintaining compatibility with the agentdock-core framework.
+- To update a component, rerun the shadcn-ui add command:
+  ```bash
+  npx shadcn@latest add [component-name] --overwrite
+  ```
 
 ---
 > Source: [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io).
