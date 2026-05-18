@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--agent-starter-pack",
+  "displayName": "agent-starter-pack",
+  "description": "Ship AI Agents to Google Cloud in minutes, not months. Production-ready templates with built-in CI/CD, evaluation, and observability.",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/agent-starter-pack",
+  "skills": []
+}
