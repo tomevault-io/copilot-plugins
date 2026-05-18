@@ -1,0 +1,9 @@
+{
+  "name": "oxy-hq--oxygen",
+  "displayName": "oxygen",
+  "description": "oxygen is the next-generation data platform for agents built with rust and duckdb. ",
+  "version": "1.0.0",
+  "author": "oxy-hq",
+  "homepage": "https://github.com/oxy-hq/oxygen",
+  "skills": []
+}
