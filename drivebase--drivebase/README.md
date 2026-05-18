@@ -7,11 +7,11 @@ Drivebase is a cloud-agnostic file management platform for people and teams usin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [drivebase/drivebase](https://github.com/drivebase/drivebase).
+Original source: `CLAUDE.md` in [drivebase/drivebase](https://github.com/drivebase/drivebase).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
