@@ -1,9 +1,9 @@
 {
   "name": "h3rmel--guarahooks",
   "displayName": "guarahooks",
-  "description": "guarahooks",
+  "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code.",
   "version": "1.0.0",
   "author": "h3rmel",
-  "homepage": "https://tomevault.io/claim/h3rmel",
+  "homepage": "https://github.com/h3rmel/guarahooks",
   "skills": []
 }
