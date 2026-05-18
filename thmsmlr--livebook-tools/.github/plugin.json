@@ -1,0 +1,9 @@
+{
+  "name": "thmsmlr--livebook-tools",
+  "displayName": "livebook_tools",
+  "description": "Powertools for livebook.dev \u2014 AI Code Editing, MCP Servers, and Running Livebooks from the CLI",
+  "version": "1.0.0",
+  "author": "thmsmlr",
+  "homepage": "https://github.com/thmsmlr/livebook_tools",
+  "skills": []
+}
