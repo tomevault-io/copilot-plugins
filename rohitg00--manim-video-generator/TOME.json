@@ -1,0 +1,69 @@
+{
+  "name": "manim-video-generator",
+  "owner": "rohitg00",
+  "repo": "manim-video-generator",
+  "description": "This application allows you to generate mathematical animations using natural language descriptions. It uses OpenAI's GPT model to convert your descriptions into Manim code, which is then used to create beautiful mathematical animations.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "animation-composer",
+      "path": "skills/animation-composer",
+      "github_url": "https://github.com/rohitg00/manim-video-generator/tree/main/skills/animation-composer",
+      "description": ""
+    },
+    {
+      "name": "math-visualizer",
+      "path": "skills/math-visualizer",
+      "github_url": "https://github.com/rohitg00/manim-video-generator/tree/main/skills/math-visualizer",
+      "description": ""
+    },
+    {
+      "name": "motion-graphics",
+      "path": "skills/motion-graphics",
+      "github_url": "https://github.com/rohitg00/manim-video-generator/tree/main/skills/motion-graphics",
+      "description": ""
+    },
+    {
+      "name": "visual-storyteller",
+      "path": "skills/visual-storyteller",
+      "github_url": "https://github.com/rohitg00/manim-video-generator/tree/main/skills/visual-storyteller",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rohitg00/manim-video-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T23:31:03Z"
+}
