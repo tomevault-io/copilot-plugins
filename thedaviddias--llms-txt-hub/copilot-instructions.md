@@ -1,80 +1,71 @@
-## functions
+## jsdoc-comments
 
-> Rules for writing TypeScript functions
+> add jsdoc comments to components and methods
 
-# TypeScript Function Rules
+# JSDoc Documentation Standards
 
 <rule>
-name: function_parameters
-description: Standards for writing TypeScript function parameters
+name: component_documentation
+description: Standards for documenting React components and methods
 filters:
-  # Match TypeScript and React files
   - type: file_extension
     pattern: "\\.(ts|tsx)$"
-  # Match function declarations and expressions
   - type: content
-    pattern: "(function|const)\\s+\\w+\\s*=?\\s*(async)?\\s*\\([^)]*\\)"
+    pattern: "(function|const).*=.*\\(.*\\).*=>"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "function\\s+\\w+\\s*\\([^,]*,[^)]+\\)|const\\s+\\w+\\s*=\\s*(async)?\\s*\\([^,]*,[^)]+\\)"
-        message: "Functions with more than 1 parameter should use an object parameter"
-
   - type: suggest
     message: |
-      When writing TypeScript functions:
+      When documenting components and methods:
 
-      1. For functions with more than 1 parameter, use an object parameter:
+      1. **Component Documentation**
          ```typescript
-         // Instead of:
-         const myFunction = (id: string, name: string) => {
-           // ...
-         }
+         /**
+          * A brief description of the component's purpose
+          * 
+          * @param props - Component props
+          * @param props.prop1 - Description of prop1
+          * @param props.prop2 - Description of prop2
 
-         // Do this:
-         type MyFunctionInput = {
-           id: string
-           name: string
-         }
-
-         const myFunction = ({ id, name }: MyFunctionInput) => {
-           // ...
-         }
+          * @returns - React component
+          *
+          * @example
+          * ```tsx
+          * <MyComponent prop1="value" prop2={42} />
+          * ```
+          */
          ```
 
-      2. Name the input type with the pattern: `{FunctionName}Input`
-
-      3. For single parameters, direct arguments are acceptable:
+      2. **Utility Function Documentation**
          ```typescript
-         const getUser = (id: string) => { /* ... */ }
+         /**
+          * Brief description of the function's purpose
+          * 
+          * @param param1 - Description of param1
+          * @param param2 - Description of param2
+          *
+          * @returns Description of return value
+          * 
+          * @throws Description of potential errors
+          */
          ```
 
-examples:
-  - input: |
-      // Bad: Multiple direct parameters
-      const updateName = (id: string, newName: string) => {
-        // ...
-      }
-
-      // Good: Using object parameter
-      type UpdateNameInput = {
-        id: string
-        newName: string
-      }
-
-      const updateName = ({
-        id,
-        newName
-      }: UpdateNameInput) => {
-        // ...
-      }
-
-      // Good: Single parameter
-      const getUser = (id: string) => {
-        // ...
-      }
-    output: "Function parameters structured correctly"
+      3. **Hook Documentation**
+         ```typescript
+         /**
+          * Brief description of the hook's purpose
+          * 
+          * @param param1 - Description of param1
+          * @param param2 - Description of param2
+          * 
+          * @returns Description of return value
+          *
+          * @example
+          * ```tsx
+          * const result = useMyHook(param1, param2);
+          * ```
+          */
+         ```
 
 metadata:
   priority: high
