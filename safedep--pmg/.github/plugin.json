@@ -1,0 +1,9 @@
+{
+  "name": "safedep--pmg",
+  "displayName": "pmg",
+  "description": "PMG protects developers, AI agents from malicious open source packages using proxy, sandbox and SafeDep's threat intelligence feed.",
+  "version": "1.0.0",
+  "author": "safedep",
+  "homepage": "https://github.com/safedep/pmg",
+  "skills": []
+}
