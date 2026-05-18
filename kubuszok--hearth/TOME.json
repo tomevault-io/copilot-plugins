@@ -4,7 +4,7 @@
   "repo": "hearth",
   "description": "The first Scala macros' standard library.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kubuszok/hearth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T06:12:05Z"
+  "distributed_at": "2026-05-18T06:17:10Z"
 }
