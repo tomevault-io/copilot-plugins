@@ -1,0 +1,9 @@
+{
+  "name": "seko99--agentweaver",
+  "displayName": "AgentWeaver",
+  "description": "AgentWeaver is a TypeScript/Node.js CLI for harness engineering around coding agents. It uses declarative workflow specs to define flows as structured phases and steps in JSON, with runtime nodes impl",
+  "version": "1.0.0",
+  "author": "seko99",
+  "homepage": "https://github.com/seko99/AgentWeaver",
+  "skills": []
+}
