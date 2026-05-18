@@ -4,7 +4,7 @@
   "repo": "rf-detr",
   "description": "RF-DETR is a real-time object detection and segmentation model architecture developed by Roboflow, SOTA on COCO, designed for fine-tuning. [ICLR 2026] ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roboflow/rf-detr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:35:49Z"
+  "distributed_at": "2026-05-18T07:39:23Z"
 }
