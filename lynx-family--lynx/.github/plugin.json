@@ -1,0 +1,14 @@
+{
+  "name": "lynx-family--lynx",
+  "displayName": "lynx",
+  "description": "Empower the Web community and invite more to build across platforms.",
+  "version": "1.0.0",
+  "author": "lynx-family",
+  "homepage": "https://github.com/lynx-family/lynx",
+  "skills": [
+    {
+      "name": "lynx-ui-lazy-component",
+      "description": ""
+    }
+  ]
+}
