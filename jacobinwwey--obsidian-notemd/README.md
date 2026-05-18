@@ -1,0 +1,26 @@
+# AI instruction files for obsidian-NotEMD
+
+> Sourced from [Jacobinwwey/obsidian-NotEMD](https://github.com/Jacobinwwey/obsidian-NotEMD) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A Easy way to create your own Knowledge-base! Notemd enhances your Obsidian workflow by integrating with various Large Language Models (LLMs) to process your notes, automatically generate wiki-links for key concepts, create corresponding concept notes, perform web research, and more.
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Jacobinwwey/obsidian-NotEMD](https://github.com/Jacobinwwey/obsidian-NotEMD).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Jacobinwwey/obsidian-NotEMD](https://github.com/Jacobinwwey/obsidian-NotEMD)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
