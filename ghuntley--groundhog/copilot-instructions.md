@@ -1,85 +1,109 @@
-## devenv-languages
+## devenv-tools
 
-> Devenv Language-Specific Configurations
+> Devenv Development Tools and Utilities
 
 ## Description
-This rule enforces best practices for configuring language-specific development environments in devenv.
+This rule enforces best practices for configuring development tools and utilities in devenv environments.
 
 ## Rule Details
-- Use `languages` for language-specific configurations
-- Use `languages.*.enable` to enable language support
-- Use `languages.*.package` for custom language versions
-- Use `languages.*.extensions` for IDE extensions
-- Use `languages.*.filters` for file filtering
-- Use `languages.*.formatters` for code formatting
-- Use `languages.*.linters` for code linting
-- Use `languages.*.tools` for development tools
+- Use `tools` for development tool configurations
+- Use `tools.*.enable` to enable specific tools
+- Use `tools.*.package` for custom tool versions
+- Use `tools.*.settings` for tool-specific settings
+- Use `tools.*.dependencies` for tool dependencies
+- Use `tools.*.commands` for custom tool commands
+- Use `tools.*.aliases` for command aliases
+- Use `tools.*.hooks` for tool-specific hooks
 
 ## Examples
 
 ### Good
 ```nix
 { pkgs, ... }: {
-  # Language-specific configurations
-  languages = {
-    # Python configuration
-    python = {
+  # Development tool configurations
+  tools = {
+    # Git configuration
+    git = {
       enable = true;
-      package = pkgs.python39;
-      extensions = [
-        "ms-python.python"
-        "ms-python.vscode-pylance"
-      ];
-      formatters = {
-        black.enable = true;
-        isort.enable = true;
+      package = pkgs.git;
+      settings = {
+        core.editor = "vim";
+        init.defaultBranch = "main";
+        pull.rebase = true;
       };
-      linters = {
-        pylint.enable = true;
-        mypy.enable = true;
-      };
-      tools = {
-        poetry.enable = true;
-        pip.enable = true;
+      aliases = {
+        st = "status";
+        co = "checkout";
+        br = "branch";
+        ci = "commit";
       };
     };
 
-    # JavaScript/TypeScript configuration
-    javascript = {
+    # Docker configuration
+    docker = {
       enable = true;
-      package = pkgs.nodejs_18;
-      extensions = [
-        "dbaeumer.vscode-eslint"
-        "esbenp.prettier-vscode"
-      ];
-      formatters = {
-        prettier.enable = true;
+      package = pkgs.docker;
+      settings = {
+        "dns" = ["8.8.8.8"];
+        "log-driver" = "json-file";
+        "log-opts" = {
+          "max-size" = "10m";
+          "max-file" = "3";
+        };
       };
-      linters = {
-        eslint.enable = true;
-      };
-      tools = {
-        npm.enable = true;
-        yarn.enable = true;
+      aliases = {
+        dps = "ps";
+        dex = "exec";
+        dimg = "images";
       };
     };
 
-    # Rust configuration
-    rust = {
+    # Database tools
+    postgresql = {
       enable = true;
-      package = pkgs.rustc;
-      extensions = [
-        "rust-lang.rust-analyzer"
-        "tamasfe.even-better-toml"
+      package = pkgs.postgresql_14;
+      settings = {
+        "log_timezone" = "UTC";
+        "datestyle" = "iso, mdy";
+        "timezone" = "UTC";
+      };
+      commands = {
+        db-create = "createdb";
+        db-drop = "dropdb";
+        db-dump = "pg_dump";
+        db-restore = "pg_restore";
+      };
+    };
+
+    # Development utilities
+    direnv = {
+      enable = true;
+      package = pkgs.direnv;
+      settings = {
+        "layout" = "nix";
+        "use_flake" = true;
+      };
+      hooks = {
+        "pre-commit" = "git hooks install";
+      };
+    };
+
+    # Shell tools
+    shell = {
+      enable = true;
+      packages = [
+        pkgs.fzf
+        pkgs.ripgrep
+        pkgs.fd
+        pkgs.bat
+        pkgs.exa
       ];
-      formatters = {
-        rustfmt.enable = true;
-      };
-      linters = {
-        clippy.enable = true;
-      };
-      tools = {
-        cargo.enable = true;
+      aliases = {
+        ll = "exa -l";
+        la = "exa -la";
+        cat = "bat";
+        find = "fd";
+        grep = "rg";
       };
     };
   };
@@ -89,26 +113,28 @@ This rule enforces best practices for configuring language-specific development 
 ### Bad
 ```nix
 { pkgs }: {
-  # Missing language configurations
-  # Missing formatters
-  # Missing linters
-  # Missing tools
-  # Missing extensions
+  # Missing tool configurations
+  # Missing settings
+  # Missing aliases
+  # Missing commands
+  # Missing hooks
+  # Missing dependencies
 }
 ```
 
 ## Why
-- Language-specific configurations ensure proper development support
-- Formatters maintain consistent code style
-- Linters catch potential issues early
-- Tools provide necessary development utilities
-- Extensions enhance IDE capabilities
-- Custom package versions enable version control
-- File filters optimize performance
+- Tool configurations ensure consistent development experience
+- Settings customize tool behavior
+- Aliases improve command efficiency
+- Commands provide convenient shortcuts
+- Hooks automate common tasks
+- Dependencies ensure required tools are available
+- Custom versions enable version control
+- Shell tools enhance development workflow
 
 ## References
-- [Devenv Languages](mdc:https:/devenv.sh/reference/options/#languages)
-- [Devenv Language Support](mdc:https:/devenv.sh/guides/languages) 
+- [Devenv Tools](mdc:https:/devenv.sh/reference/options/#tools)
+- [Devenv Shell Tools](mdc:https:/devenv.sh/guides/shell-tools) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
