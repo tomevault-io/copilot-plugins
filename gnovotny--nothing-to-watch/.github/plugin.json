@@ -1,0 +1,9 @@
+{
+  "name": "gnovotny--nothing-to-watch",
+  "displayName": "nothing-to-watch",
+  "description": "An experimental webgl gallery that can visualize tens of thousands of film posters as a voronoi diagram",
+  "version": "1.0.0",
+  "author": "gnovotny",
+  "homepage": "https://github.com/gnovotny/nothing-to-watch",
+  "skills": []
+}
