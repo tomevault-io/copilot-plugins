@@ -1,242 +1,219 @@
-## storage-persistence-guide
+## window-system-integration
 
-> This guide explains how to implement persistent state management in wfcOS applications using Jotai atoms and localStorage.
+> This guide explains how to work with the wfcOS windowing system which provides a desktop-like experience with draggable, resizable windows.
 
-# Storage and State Persistence Guide
 
-This guide explains how to implement persistent state management in wfcOS applications using Jotai atoms and localStorage.
+# Window System Integration Guide
 
-## Storage Architecture
+This guide explains how to work with the wfcOS windowing system which provides a desktop-like experience with draggable, resizable windows.
 
-The wfcOS application uses a utility module for localStorage persistence:
+## Window Component Architecture
 
-- [storage.ts](mdc:src/infrastructure/utils/storage.ts) - Core storage utilities
+The window system follows a streamlined component hierarchy:
 
-### Key Storage Functions
+- [Window.tsx](mdc:src/presentation/components/shared/window/Window.tsx) - Main container component
+  - Creates the portal container dynamically
+  - Renders all open windows from `windowAtoms` state
+  - Handles window closing and focusing
 
-```typescript
-// Save state for a specific feature
-saveFeatureState<T>(feature: string, state: T): boolean
+- [WindowBase.tsx](mdc:src/presentation/components/shared/window/WindowBase.tsx) - Core window logic
+  - Implements unified interaction logic for all devices
+  - Handles dragging, resizing, focusing, and minimize operations
+  - Manages window state transitions (using Jotai atoms)
+  - Coordinates sound effects using the sound management system
 
-// Load state for a specific feature
-loadFeatureState<T>(feature: string): T | undefined
+- [WindowUI.tsx](mdc:src/presentation/components/shared/window/WindowUI.tsx) - Pure UI component
+  - Renders window visuals (title bar, controls, content area, resize handles)
+  - Heavily memoized to prevent unnecessary re-renders
+  - Adapts layout for mobile vs desktop (hides resize handles on mobile)
+  - Handles clicks on controls (minimize, close) by calling props (which first focus, then perform the action)
 
-// Clear state for a specific feature
-clearFeatureState(feature: string): boolean
+- [WindowProvider.tsx](mdc:src/presentation/components/shared/window/WindowProvider.tsx) - Context provider
+  - Passes window state (`isOpen`, `isMinimized`, `onClose`) to child components
+  - Allows app components to react to the window's statate Management
 
-// Clear all app state
-clearAllAppState(): boolean
-```
+Windows are managed through Jotai atoms defined in [windowAtoms.ts](mdc:src/application/atoms/windowAtoms.ts).
 
-## State Management with Jotai
-
-The application uses [Jotai](https://jotai.org/) for state management with a provider in:
-
-- [JotaiProvider.tsx](mdc:src/providers/JotaiProvider.tsx) - Provides Jotai context
-
-### Creating Persistent Atoms
-
-Follow this pattern to create atoms with localStorage persistence:
-
-1. Define a unique feature key
-2. Create state interface
-3. Initialize with saved state or defaults
-4. Create base atom
-5. Create derived atom with save functionality
-6. Create action atoms for specific state changes
-
-Example from [timerAtom.ts](mdc:src/application/atoms/timerAtom.ts):
+### Key Types
 
 ```typescript
-import { atom } from "jotai";
-import {
-  loadFeatureState,
-  saveFeatureState,
-} from "@/infrastructure/utils/storage";
-
-// 1. Define unique feature key
-const FEATURE_KEY = "timer";
-
-// 2. Create state interface
-export interface TimerState {
-  timeRemaining: number;
-  isRunning: boolean;
-  // other state properties...
+// Defined in windowAtoms.ts
+export interface WindowState {
+  id: string;             // Unique window instance ID
+  appId: string;          // App type identifier
+  title: string;          // Window title
+  position: Position;     // {x, y} coordinates
+  size: Size;             // {width, height}
+  minSize?: Size;         // Minimum allowed size
+  isOpen: boolean;        // Whether window is rendered
+  isMinimized: boolean;   // Whether minimized to taskbar
+  zIndex: number;         // Stacking order
 }
 
-// 3. Initialize with saved state or defaults
-const initialTimerState: TimerState = (() => {
-  const savedState = loadFeatureState<TimerState>(FEATURE_KEY);
-  
-  const defaults: TimerState = {
-    timeRemaining: 25 * 60,
-    isRunning: false,
-    // default values for other properties...
-  };
-  
-  return {
-    ...defaults,
-    ...savedState,
-    // Override specific saved values if needed
-  };
-})();
-
-// 4. Create base atom
-const baseTimerAtom = atom<TimerState>(initialTimerState);
-
-// 5. Create derived atom with save functionality
-export const timerAtom = atom(
-  (get) => get(baseTimerAtom),
-  (get, set, newState: TimerState | ((prevState: TimerState) => TimerState)) => {
-    const currentState = get(baseTimerAtom);
-    const updatedState = typeof newState === "function"
-      ? newState(currentState)
-      : newState;
-    
-    // Only update and save if changed
-    if (JSON.stringify(currentState) !== JSON.stringify(updatedState)) {
-      set(baseTimerAtom, updatedState);
-      saveFeatureState(FEATURE_KEY, updatedState);
-    }
-  }
-);
-
-// 6. Create action atoms
-export const startPauseTimerAtom = atom(
-  null,
-  (get, set) => {
-    set(timerAtom, (prev) => ({
-      ...prev,
-      isRunning: !prev.isRunning,
-    }));
-  }
-);
-
-// More action atoms...
+// Defined in WindowBase.tsx
+export interface WindowBaseProps {
+  windowId: string;
+  appId: string;
+  title: string;
+  children: React.ReactNode;
+  isOpen: boolean;
+  isMinimized?: boolean;
+  onClose: () => void;
+  onFocus: () => void; // Callback triggered on focus attempts
+  position: Position;
+  size: Size;
+  minSize?: Size;
+  zI playSounds?: boolean;
+}
 ```
 
-## Best Practices for Storage
+### Core Window Actions (Jotai Atoms)
 
-### 1. State Initialization
+- `openWindowAtom` - Creaor brings existing one to front
+- `closeWindowAtom` - Closes a window (sets `isOpen` to `false`)
+- `setWindowMinimizedStateAtom` - Sets the `isMinimized` state of a window
+- `focusWindowAtom` - Brings window to front by updating its `zIndex`
+- `updateWindowPositionSizeAtom` - Updates position/size after drag/resize
 
-Always follow this pattern:
-- Load saved state using `loadFeatureState`
-- Define clear defaults for all properties
-- Merge defaults with saved state
-- Override specific saved values that shouldn't persist (like running state)
+## Minimized Window Behavior
 
-```typescript
-const initialState = (() => {
-  const savedState = loadFeatureState<YourState>(FEATURE_KEY);
-  
-  const defaults = {
-    property1: "default",
-    property2: false,
-    // ...
-  };
-  
-  return {
-    ...defaults,
-    ...savedState,
-    isActive: false, // Always reset transient states
-  };
-})();
-```
+When a window is minimized:
 
-### 2. Optimizing Storage Operations
+1. The `isMinimized` flag in `windowAtoms` is set to `true`.
+2. `WindowBase` renders a minimal hidden `div` instead of `WindowUI`.
+   - Uses CSS: `position: fixed`, `left: -9999px`, `opacity: 0`, `pointerEvents: none`, `zIndex: -1`, `visibility: hidden`
+   - This keeps the `memoizedChildren` mounted and running (e.g., audio, timers).
+3. The window appears in the taskbar via [MinimizedIcons.tsx](mdc:src/presentation/components/shared/taskbar/MinimizedIcons.tsx).
+   - Clicking a taskbar icon restores the window using `setWindowMinimizedStateAtom({ windowId, isMinimized: false })`.
+   - Restored windows are brought to the front automatically by the `useEffect` in `WindowBase` calling `focusWindowAtom`.
 
-- Only save when state actually changes (use deep comparison)
-- Keep serialized state reasonably small
-- Use action atoms for targeted updates
-- Don't store derived data that can be calculated
+## Using the Window System
 
-### 3. Handling Persistence Edge Cases
-
-- Handle hydration carefully
-- Check for localStorage availability (SSR, private browsing)
-- Validate loaded state before using
-- Implement version migration if state shape changes
-
-## Using Persistent Atoms in Components
+### Opening a Window
 
 ```typescript
-"use client";
-
+// From any component, e.g., an icon click handler
 import { useAtom } from "jotai";
-import { yourFeatureAtom, updateFeatureActionAtom } from "@/application/atoms/yourFeatureAtom";
+import { openWindowAtom } from "@/applindowAtoms";
+import { MyApp } from "@/components/apps/MyApp"; // Your app component
 
-export const YourComponent = () => {
-  // Read state from atom
-  const [state] = useAtom(yourFeatureAtom);
-  
-  // Get action atom setter
-  const [, updateFeature] = useAtom(updateFeatureActionAtom);
-  
+export const OpenMyAppButton = () => {
+  const [, openWindow] = useAtom(openWindowAtom);
+
+  const handleClick = () => {
+    openWindow({
+      // Required properties for a new window instance
+      id: `myApp-${Date.now()}`, // Must be unique per instance
+      appId: "myApp",             // Matchgistry
+      title: "My Application",
+      initialSize: { width: 500,0 },
+      // Optional properties
+      minSize: { width: 250, height: 150 },
+      // in{ x: 100, y: 100 } // Defaults to random-ish position
+    });
+  };
+
+  return <button onClick={Open My App</button>;
+};
+```
+*Note: The actual app />` in this example) is retrieved from the `appRegistry` within the `Window` component ahildren` to `WindowBase`.*
+
+### Implementing Custom Window Behavior
+
+If your appecial window behaviors:
+
+1. **Use the `WindowProvider` context** in your app component:
+
+```typescript
+// In your app component, e.g., src/presentation/components/apps/MyApp.tsx
+import { useWindowState } from "@/presentation/components/shared/window/WindowProvider";
+
+export const MyApp = () => {
+  // Access state provided by WindowBase through context
+  const { isOpen, isMinimized, onClose } = useWindowState();
+
+  // Example: Custom close handler with confirmation
+  const handleCustomClose = () => {
+    if (confirm("Save changes before closing?")) {
+      // Perform save logic...
+      onClose(); // Call the provided onClose function to trigger window closing
+    }
+  };
+
   return (
     <div>
-      <p>Current value: {state.someValue}</p>
-      <button onClick={() => updateFeature("new value")}>
-        Update Value
-      </button>
+      {/* Use the custom handler */}
+      <button onClick={handleCustomClose}>Close App</button>
+      <p>Window State: {isOpen ? 'Open' : 'Closed'}, {isMinimized ? 'Minimized' : 'Visible'}</p>
+      {/* ... rest of your app content ... */}
     </div>
   );
 };
 ```
 
-## Global State Persistence
-
-For state that persists even when components aren't mounted:
-
-1. Create global manager components that run at the app level:
-   - See example in [JotaiProvider.tsx](mdc:src/providers/JotaiProvider.tsx) with `GlobalTimerManager`
-
-2. Use effects to sync window/UI state with persistent state:
-   - See [timerAtom.ts](mdc:src/application/atoms/timerAtom.ts) for window-state integration
-
-## Migration and Versioning
-
-For evolving state shapes:
-
-1. Add a version field to your state interface
-2. Check version on load and transform if needed
-3. Update version when saving
+2. **Register app lifecycle hooks** in `appRegistry`:
 
 ```typescript
-interface YourStateV2 {
-  version: 2;
-  newField: string;
-  // ...existing fields
-}
+// In src/infrastructure/config/appRegistry.ts
+import { MyApp } from "@/presentation/components/apps/MyApp";
+import { AppConfig } from "@/application/types/app"; // Assuming this type definition exists
 
-const initialState = (() => {
-  const savedState = loadFeatureState<any>(FEATURE_KEY);
-  
-  // Default state with current version
-  const defaults: YourStateV2 = {
-    version: 2,
-    newField: "default",
-    // ...
-  };
-  
-  // Handle migration if saved state exists
-  if (savedState) {
-    if (savedState.version === 1) {
-      // Transform v1 to v2
-      return {
-        ...defaults,
-        ...savedState,
-        version: 2,
-        newField: "migrated", // Set appropriate value
-      };
+export const appRegistry: Record<string, AppConfig> = {
+  "myApp": {
+    name: "My App",
+    icon: "/icons/myapp.svg", // Example icon path
+    component: MyApp, // Reference to your app component
+    // Optional lifecycle hooks (receive Jotai's 'set' function and windowId)
+    onOpen: (set, windowId) => {
+      console.log("MyApp window opened:", windowId);
+      // Example: set(someGlobalAtom, true);
+    },
+    onClose: (set, windowId) => {
+      console.log("MyApp window closed:", windowId);
+      // Example: Clean up app-specific state in Jotai
+      // set(myAppSpecificAtom, defaultState);
+    },
+    onMinimize: (set, windowId, isMinimized) => {
+      console.log("MyApp window minimize state changed:", windowId, isMinimized);
+      // Example: Pause/resume background tasks based on minimize state
+      // set(myAppTimerAtom, (prev) => ({ ...prev, isPaused: isMinimized }));
     }
-    // Current version, just merge
-    return { ...defaults, ...savedState };
-  }
-  
-  // No saved state
-  return defaults;
-})();
+  },
+  // ... other registered apps
+};
 ```
+
+## Sound Effects
+
+The window system includes sound effects for various interactions:
+
+- **Drag Start/End**: Managed in `handleDragStart` / `handleDragEnd` in `WindowBase.tsx`.
+- **Resize Start/End**: Managed in `handleResizeStart` / `handleResizeEnd` in `WindowBase.tsx`.
+- **Minimizing**: Managed in `handleMinimize` in `WindowBase.tsx`.
+- **Closing**: Managed in `handleCloseWindow` in `Window.tsx`.
+
+Sound playback uses the sound management system in [utils.ts](mdc:src/infrastructure/lib/utils.ts) (`playSound`, `stopSound`), ensuring sounds stop immediately when actions end and handling potential playback errors. Sounds are identified by type (e.g., `DRAG_SOUND`, `RESIZE_SOUND`).
+
+## Responsive Design
+
+The window system is responsive by default:
+
+- **Desktop**: Full dragging and resizing capabilities via mouse interactions handled in `WindowBase.tsx`. Resize handles are visible.
+- **Mobile**:
+  - Dragging is constrained within screen bounds (`handleDragMove` in `WindowBase.tsx`).
+  - Resizing is disabled (resize handles are hidden in `WindowUI.tsx` when `isMobile` is true).
+- Automatic device detection uses the `useDeviceDetect` hook within `WindowBase.tsx`.
+
+## Portal-Based Rendering
+
+Window rendering uses React's `createPortal` for isolation:
+
+1. The `Window` component dynamically creates a `div` with `id="window-portal-container"` and appends it to `document.body` if it doesn't exist.
+2. All `WindowBase` components (representing individual windows) are rendered into this shared portal container using `createPortal`.
+3. This isolates windows from the main React component tree's layout and styling.
+4. Windows naturally stack based on their `zIndex` property managed by `focusWindowAtom`.
+
+See [Window.tsx](mdc:src/presentation/components/shared/window/Window.tsx) for the implementation details.
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
