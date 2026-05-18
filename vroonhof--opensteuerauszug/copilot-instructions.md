@@ -1,39 +1,13 @@
 ## opensteuerauszug
 
-> name: python_dependency_management
+> Never change the ech0196 and kursliste models as they define the standards.
 
- # Cursor Rule: Python Dependency Management
+Never change the ech0196 and kursliste models as they define the standards.
 
-<rule>
-name: python_dependency_management
-description: Instructions for managing Python dependencies
-
-# Rule Content
-Always add new Python dependencies to the appropriate section (`[project.dependencies]` or `[project.optional-dependencies]`) in the `pyproject.toml` file.
-
-Avoid using `requirements.txt` for dependency management in this project.
-
-Ensure dependencies are added under the `[project]` table.
-
-Example (`pyproject.toml`):
-```toml
-[project]
-# ... other project metadata ...
-dependencies = [
-    "pydantic",
-    "typer",
-    "rich",
-    "new_dependency_here", # Add new dependencies here
-]
-
-[project.optional-dependencies]
-development = [
-    "pytest", # Add dev dependencies here
-]
-```
-
-</rule>
+Some fields in the ech0196 model are optional despite not being so in
+the spec, this is to allow incremental construction without pydantic
+errors. Do not change this. when necessary refer specs/eCH-0196-2-2.xsd to authoritative info.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/vroonhof) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [vroonhof/opensteuerauszug](https://github.com/vroonhof/opensteuerauszug) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
