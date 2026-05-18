@@ -1,6 +1,8 @@
 # ontocast
 
-> Tome by [growgraph](https://github.com/growgraph/ontocast) — distributed by [TomeVault](https://tomevault.io/claim/growgraph)
+> Tome by [growgraph](https://github.com/growgraph/ontocast) — distributed by [TomeVault](https://tomevault.io)
+
+Agentic Ontology Assisted Framework for Semantic Triple Extraction
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [growgraph/ontocast](https://github.co
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/growgraph)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/growgraph/ontocast](https://github.com/growgraph/ontocast)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/growgraph) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
