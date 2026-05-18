@@ -1,805 +1,242 @@
-## test-workflow
+## ui
 
-> Before implementing the TDD workflow, ensure your project has a proper testing framework configured. This section covers setup for different technology stacks.
+> Guidelines for implementing and maintaining user interface components
 
-# Test Workflow & Development Process
 
-## **Initial Testing Framework Setup**
+# User Interface Implementation Guidelines
 
-Before implementing the TDD workflow, ensure your project has a proper testing framework configured. This section covers setup for different technology stacks.
+## Core UI Component Principles
 
-### **Detecting Project Type & Framework Needs**
+- **Function Scope Separation**:
+  - ✅ DO: Keep display logic separate from business logic
+  - ✅ DO: Import data processing functions from other modules
+  - ❌ DON'T: Include task manipulations within UI functions
+  - ❌ DON'T: Create circular dependencies with other modules
 
-**AI Agent Assessment Checklist:**
-1. **Language Detection**: Check for `package.json` (Node.js/JavaScript), `requirements.txt` (Python), `Cargo.toml` (Rust), etc.
-2. **Existing Tests**: Look for test files (`.test.`, `.spec.`, `_test.`) or test directories
-3. **Framework Detection**: Check for existing test runners in dependencies
-4. **Project Structure**: Analyze directory structure for testing patterns
-
-### **JavaScript/Node.js Projects (Jest Setup)**
-
-#### **Prerequisites Check**
-```bash
-# Verify Node.js project
-ls package.json  # Should exist
-
-# Check for existing testing setup
-ls jest.config.js jest.config.ts  # Check for Jest config
-grep -E "(jest|vitest|mocha)" package.json  # Check for test runners
-```
-
-#### **Jest Installation & Configuration**
-
-**Step 1: Install Dependencies**
-```bash
-# Core Jest dependencies
-npm install --save-dev jest
-
-# TypeScript support (if using TypeScript)
-npm install --save-dev ts-jest @types/jest
-
-# Additional useful packages
-npm install --save-dev supertest @types/supertest  # For API testing
-npm install --save-dev jest-watch-typeahead  # Enhanced watch mode
-```
-
-**Step 2: Create Jest Configuration**
-
-Create `jest.config.js` with the following production-ready configuration:
-
-```javascript
-/** @type {import('jest').Config} */
-module.exports = {
-  // Use ts-jest preset for TypeScript support
-  preset: 'ts-jest',
-
-  // Test environment
-  testEnvironment: 'node',
-
-  // Roots for test discovery
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
-
-  // Test file patterns
-  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
-
-  // Transform files
-  transform: {
-    '^.+\\.ts$': [
-      'ts-jest',
-      {
-        tsconfig: {
-          target: 'es2020',
-          module: 'commonjs',
-          esModuleInterop: true,
-          allowSyntheticDefaultImports: true,
-          skipLibCheck: true,
-          strict: false,
-          noImplicitAny: false,
-        },
-      },
-    ],
-    '^.+\\.js$': [
-      'ts-jest',
-      {
-        useESM: false,
-        tsconfig: {
-          target: 'es2020',
-          module: 'commonjs',
-          esModuleInterop: true,
-          allowSyntheticDefaultImports: true,
-          allowJs: true,
-        },
-      },
-    ],
-  },
-
-  // Module file extensions
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-
-  // Transform ignore patterns - adjust for ES modules
-  transformIgnorePatterns: ['node_modules/(?!(your-es-module-deps|.*\\.mjs$))'],
-
-  // Coverage configuration
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageReporters: [
-    'text', // Console output
-    'text-summary', // Brief summary
-    'lcov', // For IDE integration
-    'html', // Detailed HTML report
-  ],
-
-  // Files to collect coverage from
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/**/*.test.ts',
-    '!src/**/index.ts', // Often just exports
-    '!src/generated/**', // Generated code
-    '!src/config/database.ts', // Database config (tested via integration)
-  ],
-
-  // Coverage thresholds - TaskMaster standards
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-    // Higher standards for critical business logic
-    './src/utils/': {
-      branches: 85,
-      functions: 90,
-      lines: 90,
-      statements: 90,
-    },
-    './src/middleware/': {
-      branches: 80,
-      functions: 85,
-      lines: 85,
-      statements: 85,
-    },
-  },
-
-  // Setup files
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
-
-  // Global teardown to prevent worker process leaks
-  globalTeardown: '<rootDir>/tests/teardown.ts',
-
-  // Module path mapping (if needed)
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
-
-  // Clear mocks between tests
-  clearMocks: true,
-
-  // Restore mocks after each test
-  restoreMocks: true,
-
-  // Global test timeout
-  testTimeout: 10000,
-
-  // Projects for different test types
-  projects: [
-    // Unit tests - for pure functions only
-    {
-      displayName: 'unit',
-      testMatch: ['<rootDir>/src/**/*.test.ts'],
-      testPathIgnorePatterns: ['.*\\.integration\\.test\\.ts$', '/tests/'],
-      preset: 'ts-jest',
-      testEnvironment: 'node',
-      collectCoverageFrom: [
-        'src/**/*.ts',
-        '!src/**/*.d.ts',
-        '!src/**/*.test.ts',
-        '!src/**/*.integration.test.ts',
-      ],
-      coverageThreshold: {
-        global: {
-          branches: 70,
-          functions: 80,
-          lines: 80,
-          statements: 80,
-        },
-      },
-    },
-    // Integration tests - real database/services
-    {
-      displayName: 'integration',
-      testMatch: [
-        '<rootDir>/src/**/*.integration.test.ts',
-        '<rootDir>/tests/integration/**/*.test.ts',
-      ],
-      preset: 'ts-jest',
-      testEnvironment: 'node',
-      setupFilesAfterEnv: ['<rootDir>/tests/setup/integration.ts'],
-      testTimeout: 10000,
-    },
-    // E2E tests - full workflows
-    {
-      displayName: 'e2e',
-      testMatch: ['<rootDir>/tests/e2e/**/*.test.ts'],
-      preset: 'ts-jest',
-      testEnvironment: 'node',
-      setupFilesAfterEnv: ['<rootDir>/tests/setup/e2e.ts'],
-      testTimeout: 30000,
-    },
-  ],
-
-  // Verbose output for better debugging
-  verbose: true,
-
-  // Run projects sequentially to avoid conflicts
-  maxWorkers: 1,
-
-  // Enable watch mode plugins
-  watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
-};
-```
-
-**Step 3: Update package.json Scripts**
-
-Add these scripts to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:unit": "jest --selectProjects unit",
-    "test:integration": "jest --selectProjects integration", 
-    "test:e2e": "jest --selectProjects e2e",
-    "test:ci": "jest --ci --coverage --watchAll=false"
+- **Standard Display Pattern**:
+  ```javascript
+  // ✅ DO: Follow this pattern for display functions
+  /**
+   * Display information about a task
+   * @param {Object} task - The task to display
+   */
+  function displayTaskInfo(task) {
+    console.log(boxen(
+      chalk.white.bold(`Task: #${task.id} - ${task.title}`),
+      { padding: 1, borderColor: 'blue', borderStyle: 'round' }
+    ));
   }
-}
-```
+  ```
 
-**Step 4: Create Test Setup Files**
+## Visual Styling Standards
 
-Create essential test setup files:
+- **Color Scheme**:
+  - Use `chalk.blue` for informational messages
+  - Use `chalk.green` for success messages
+  - Use `chalk.yellow` for warnings
+  - Use `chalk.red` for errors
+  - Use `chalk.cyan` for prompts and highlights
+  - Use `chalk.magenta` for subtask-related information
 
-```typescript
-// tests/setup.ts - Global setup
-import { jest } from '@jest/globals';
+- **Box Styling**:
+  ```javascript
+  // ✅ DO: Use consistent box styles by content type
+  // For success messages:
+  boxen(content, { 
+    padding: 1, 
+    borderColor: 'green', 
+    borderStyle: 'round', 
+    margin: { top: 1 } 
+  })
 
-// Global test configuration
-beforeAll(() => {
-  // Set test timeout
-  jest.setTimeout(10000);
-});
+  // For errors:
+  boxen(content, { 
+    padding: 1, 
+    borderColor: 'red', 
+    borderStyle: 'round'
+  })
 
-afterEach(() => {
-  // Clean up mocks after each test
-  jest.clearAllMocks();
-});
-```
+  // For information:
+  boxen(content, { 
+    padding: 1, 
+    borderColor: 'blue', 
+    borderStyle: 'round', 
+    margin: { top: 1, bottom: 1 } 
+  })
+  ```
 
-```typescript
-// tests/setup/integration.ts - Integration test setup
-import { PrismaClient } from '@prisma/client';
+## Table Display Guidelines
 
-const prisma = new PrismaClient();
+- **Table Structure**:
+  - Use [`cli-table3`](mdc:node_modules/cli-table3/README.md) for consistent table rendering
+  - Include colored headers with bold formatting
+  - Use appropriate column widths for readability
 
-beforeAll(async () => {
-  // Connect to test database
-  await prisma.$connect();
-});
-
-afterAll(async () => {
-  // Cleanup and disconnect
-  await prisma.$disconnect();
-});
-
-beforeEach(async () => {
-  // Clean test data before each test
-  // Add your cleanup logic here
-});
-```
-
-```typescript
-// tests/teardown.ts - Global teardown
-export default async () => {
-  // Global cleanup after all tests
-  console.log('Global test teardown complete');
-};
-```
-
-**Step 5: Create Initial Test Structure**
-
-```bash
-# Create test directories
-mkdir -p tests/{setup,fixtures,unit,integration,e2e}
-mkdir -p tests/unit/src/{utils,services,middleware}
-
-# Create sample test fixtures
-mkdir tests/fixtures
-```
-
-### **Generic Testing Framework Setup (Any Language)**
-
-#### **Framework Selection Guide**
-
-**Python Projects:**
-- **pytest**: Recommended for most Python projects
-- **unittest**: Built-in, suitable for simple projects
-- **Coverage**: Use `coverage.py` for code coverage
-
-```bash
-# Python setup example
-pip install pytest pytest-cov
-echo "[tool:pytest]" > pytest.ini
-echo "testpaths = tests" >> pytest.ini
-echo "addopts = --cov=src --cov-report=html --cov-report=term" >> pytest.ini
-```
-
-**Go Projects:**
-- **Built-in testing**: Use Go's built-in `testing` package
-- **Coverage**: Built-in with `go test -cover`
-
-```bash
-# Go setup example
-go mod init your-project
-mkdir -p tests
-# Tests are typically *_test.go files alongside source
-```
-
-**Rust Projects:**
-- **Built-in testing**: Use Rust's built-in test framework
-- **cargo-tarpaulin**: For coverage analysis
-
-```bash
-# Rust setup example
-cargo new your-project
-cd your-project
-cargo install cargo-tarpaulin  # For coverage
-```
-
-**Java Projects:**
-- **JUnit 5**: Modern testing framework
-- **Maven/Gradle**: Build tools with testing integration
-
-```xml
-<!-- Maven pom.xml example -->
-<dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter</artifactId>
-    <version>5.9.2</version>
-    <scope>test</scope>
-</dependency>
-```
-
-#### **Universal Testing Principles**
-
-**Coverage Standards (Adapt to Your Language):**
-- **Global Minimum**: 70-80% line coverage
-- **Critical Code**: 85-90% coverage
-- **New Features**: Must meet or exceed standards
-- **Legacy Code**: Gradual improvement strategy
-
-**Test Organization:**
-- **Unit Tests**: Fast, isolated, no external dependencies
-- **Integration Tests**: Test component interactions
-- **E2E Tests**: Test complete user workflows
-- **Performance Tests**: Load and stress testing (if applicable)
-
-**Naming Conventions:**
-- **Test Files**: `*.test.*`, `*_test.*`, or language-specific patterns
-- **Test Functions**: Descriptive names (e.g., `should_return_error_for_invalid_input`)
-- **Test Directories**: Organized by test type and mirroring source structure
-
-#### **TaskMaster Integration for Any Framework**
-
-**Document Testing Setup in Subtasks:**
-```bash
-# Update subtask with testing framework setup
-task-master update-subtask --id=X.Y --prompt="Testing framework setup:
-- Installed [Framework Name] with coverage support
-- Configured [Coverage Tool] with thresholds: 80% lines, 70% branches
-- Created test directory structure: unit/, integration/, e2e/
-- Added test scripts to build configuration
-- All setup tests passing"
-```
-
-**Testing Framework Verification:**
-```bash
-# Verify setup works
-[test-command]  # e.g., npm test, pytest, go test, cargo test
-
-# Check coverage reporting
-[coverage-command]  # e.g., npm run test:coverage
-
-# Update task with verification
-task-master update-subtask --id=X.Y --prompt="Testing framework verified:
-- Sample tests running successfully
-- Coverage reporting functional
-- CI/CD integration ready
-- Ready to begin TDD workflow"
-```
-
-## **Test-Driven Development (TDD) Integration**
-
-### **Core TDD Cycle with Jest**
-```bash
-# 1. Start development with watch mode
-npm run test:watch
-
-# 2. Write failing test first
-# Create test file: src/utils/newFeature.test.ts
-# Write test that describes expected behavior
-
-# 3. Implement minimum code to make test pass
-# 4. Refactor while keeping tests green
-# 5. Add edge cases and error scenarios
-```
-
-### **TDD Workflow Per Subtask**
-```bash
-# When starting a new subtask:
-task-master set-status --id=4.1 --status=in-progress
-
-# Begin TDD cycle:
-npm run test:watch  # Keep running during development
-
-# Document TDD progress in subtask:
-task-master update-subtask --id=4.1 --prompt="TDD Progress:
-- Written 3 failing tests for core functionality
-- Implemented basic feature, tests now passing
-- Adding edge case tests for error handling"
-
-# Complete subtask with test summary:
-task-master update-subtask --id=4.1 --prompt="Implementation complete:
-- Feature implemented with 8 unit tests
-- Coverage: 95% statements, 88% branches  
-- All tests passing, TDD cycle complete"
-```
-
-## **Testing Commands & Usage**
-
-### **Development Commands**
-```bash
-# Primary development command - use during coding
-npm run test:watch              # Watch mode with Jest
-npm run test:watch -- --testNamePattern="auth"  # Watch specific tests
-
-# Targeted testing during development
-npm run test:unit               # Run only unit tests
-npm run test:unit -- --coverage # Unit tests with coverage
-
-# Integration testing when APIs are ready
-npm run test:integration        # Run integration tests
-npm run test:integration -- --detectOpenHandles  # Debug hanging tests
-
-# End-to-end testing for workflows
-npm run test:e2e               # Run E2E tests
-npm run test:e2e -- --timeout=30000  # Extended timeout for E2E
-```
-
-### **Quality Assurance Commands**
-```bash
-# Full test suite with coverage (before commits)
-npm run test:coverage          # Complete coverage analysis
-
-# All tests (CI/CD pipeline)
-npm test                       # Run all test projects
-
-# Specific test file execution
-npm test -- auth.test.ts       # Run specific test file
-npm test -- --testNamePattern="should handle errors"  # Run specific tests
-```
-
-## **Test Implementation Patterns**
-
-### **Unit Test Development**
-```typescript
-// ✅ DO: Follow established patterns from auth.test.ts
-describe('FeatureName', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    // Setup mocks with proper typing
+  ```javascript
+  // ✅ DO: Create well-structured tables
+  const table = new Table({
+    head: [
+      chalk.cyan.bold('ID'),
+      chalk.cyan.bold('Title'),
+      chalk.cyan.bold('Status'),
+      chalk.cyan.bold('Priority'),
+      chalk.cyan.bold('Dependencies')
+    ],
+    colWidths: [5, 40, 15, 10, 20]
   });
+  
+  // Add content rows
+  table.push([
+    task.id,
+    truncate(task.title, 37),
+    getStatusWithColor(task.status),
+    chalk.white(task.priority || 'medium'),
+    formatDependenciesWithStatus(task.dependencies, allTasks, true)
+  ]);
+  
+  console.log(table.toString());
+  ```
 
-  describe('functionName', () => {
-    it('should handle normal case', () => {
-      // Test implementation with specific assertions
+## Loading Indicators
+
+- **Animation Standards**:
+  - Use [`ora`](mdc:node_modules/ora/readme.md) for spinner animations
+  - Create and stop loading indicators correctly
+
+  ```javascript
+  // ✅ DO: Properly manage loading state
+  const loadingIndicator = startLoadingIndicator('Processing task data...');
+  try {
+    // Do async work...
+    stopLoadingIndicator(loadingIndicator);
+    // Show success message
+  } catch (error) {
+    stopLoadingIndicator(loadingIndicator);
+    // Show error message
+  }
+  ```
+
+## Helper Functions
+
+- **Status Formatting**:
+  - Use `getStatusWithColor` for consistent status display
+  - Use `formatDependenciesWithStatus` for dependency lists
+  - Use `truncate` to handle text that may overflow display
+
+- **Progress Reporting**:
+  - Use visual indicators for progress (bars, percentages)
+  - Include both numeric and visual representations
+  
+  ```javascript
+  // ✅ DO: Show clear progress indicators
+  console.log(`${chalk.cyan('Tasks:')} ${completedTasks}/${totalTasks} (${completionPercentage.toFixed(1)}%)`);
+  console.log(`${chalk.cyan('Progress:')} ${createProgressBar(completionPercentage)}`);
+  ```
+
+## Command Suggestions
+
+- **Action Recommendations**:
+  - Provide next step suggestions after command completion
+  - Use a consistent format for suggested commands
+
+  ```javascript
+  // ✅ DO: Show suggested next actions
+  console.log(boxen(
+    chalk.white.bold('Next Steps:') + '\n\n' +
+    `${chalk.cyan('1.')} Run ${chalk.yellow('task-master list')} to view all tasks\n` +
+    `${chalk.cyan('2.')} Run ${chalk.yellow('task-master show --id=' + newTaskId)} to view details`,
+    { padding: 1, borderColor: 'cyan', borderStyle: 'round', margin: { top: 1 } }
+  ));
+  ```
+
+## Enhanced Display Patterns
+
+### **Token Breakdown Display**
+- Use detailed, granular token breakdowns for AI-powered commands
+- Display context sources with individual token counts
+- Show both token count and character count for transparency
+
+  ```javascript
+  // ✅ DO: Display detailed token breakdown
+  function displayDetailedTokenBreakdown(tokenBreakdown, systemTokens, userTokens) {
+    const sections = [];
+    
+    if (tokenBreakdown.tasks?.length > 0) {
+      const taskDetails = tokenBreakdown.tasks.map(task => 
+        `${task.type === 'subtask' ? '  ' : ''}${task.id}: ${task.tokens.toLocaleString()}`
+      ).join('\n');
+      sections.push(`Tasks (${tokenBreakdown.tasks.reduce((sum, t) => sum + t.tokens, 0).toLocaleString()}):\n${taskDetails}`);
+    }
+    
+    const content = sections.join('\n\n');
+    console.log(boxen(content, {
+      title: chalk.cyan('Token Usage'),
+      padding: { top: 1, bottom: 1, left: 2, right: 2 },
+      borderStyle: 'round',
+      borderColor: 'cyan'
+    }));
+  }
+  ```
+
+### **Code Block Syntax Highlighting**
+- Use `cli-highlight` library for syntax highlighting in terminal output
+- Process code blocks in AI responses for better readability
+
+  ```javascript
+  // ✅ DO: Enhance code blocks with syntax highlighting
+  import { highlight } from 'cli-highlight';
+  
+  function processCodeBlocks(text) {
+    return text.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, language, code) => {
+      try {
+        const highlighted = highlight(code.trim(), { 
+          language: language || 'javascript',
+          theme: 'default'
+        });
+        return `\n${highlighted}\n`;
+      } catch (error) {
+        return `\n${code.trim()}\n`;
+      }
     });
+  }
+  ```
+
+### **Multi-Section Result Display**
+- Use separate boxes for headers, content, and metadata
+- Maintain consistent styling across different result types
+
+  ```javascript
+  // ✅ DO: Use structured result display
+  function displayResults(result, query, detailLevel) {
+    // Header with query info
+    const header = boxen(
+      chalk.green.bold('Research Results') + '\n\n' +
+      chalk.gray('Query: ') + chalk.white(query) + '\n' +
+      chalk.gray('Detail Level: ') + chalk.cyan(detailLevel),
+      {
+        padding: { top: 1, bottom: 1, left: 2, right: 2 },
+        margin: { top: 1, bottom: 0 },
+        borderStyle: 'round',
+        borderColor: 'green'
+      }
+    );
+    console.log(header);
     
-    it('should throw error for invalid input', async () => {
-      // Error scenario testing
-      await expect(functionName(invalidInput))
-        .rejects.toThrow('Specific error message');
+    // Process and display main content
+    const processedResult = processCodeBlocks(result);
+    const contentBox = boxen(processedResult, {
+      padding: { top: 1, bottom: 1, left: 2, right: 2 },
+      margin: { top: 0, bottom: 1 },
+      borderStyle: 'single',
+      borderColor: 'gray'
     });
-  });
-});
-```
-
-### **Integration Test Development**  
-```typescript
-// ✅ DO: Use supertest for API endpoint testing
-import request from 'supertest';
-import { app } from '../../src/app';
-
-describe('POST /api/auth/register', () => {
-  beforeEach(async () => {
-    await integrationTestUtils.cleanupTestData();
-  });
-  
-  it('should register user successfully', async () => {
-    const userData = createTestUser();
+    console.log(contentBox);
     
-    const response = await request(app)
-      .post('/api/auth/register')
-      .send(userData)
-      .expect(201);
-      
-    expect(response.body).toMatchObject({
-      id: expect.any(String),
-      email: userData.email
-    });
-    
-    // Verify database state
-    const user = await prisma.user.findUnique({
-      where: { email: userData.email }
-    });
-    expect(user).toBeTruthy();
-  });
-});
-```
+    console.log(chalk.green('✓ Operation complete'));
+  }
+  ```
 
-### **E2E Test Development**
-```typescript
-// ✅ DO: Test complete user workflows
-describe('User Authentication Flow', () => {
-  it('should complete registration → login → protected access', async () => {
-    // Step 1: Register
-    const userData = createTestUser();
-    await request(app)
-      .post('/api/auth/register')
-      .send(userData)
-      .expect(201);
-    
-    // Step 2: Login
-    const loginResponse = await request(app)
-      .post('/api/auth/login')
-      .send({ email: userData.email, password: userData.password })
-      .expect(200);
-    
-    const { token } = loginResponse.body;
-    
-    // Step 3: Access protected resource
-    await request(app)
-      .get('/api/profile')
-      .set('Authorization', `Bearer ${token}`)
-      .expect(200);
-  }, 30000); // Extended timeout for E2E
-});
-```
-
-## **Mocking & Test Utilities**
-
-### **Established Mocking Patterns**
-```typescript
-// ✅ DO: Use established bcrypt mocking pattern
-jest.mock('bcrypt');
-import bcrypt from 'bcrypt';
-const mockHash = bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>;
-const mockCompare = bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>;
-
-// ✅ DO: Use Prisma mocking for unit tests
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    user: {
-      create: jest.fn(),
-      findUnique: jest.fn(),
-    },
-    $connect: jest.fn(),
-    $disconnect: jest.fn(),
-  })),
-}));
-```
-
-### **Test Fixtures Usage**
-```typescript
-// ✅ DO: Use centralized test fixtures
-import { createTestUser, adminUser, invalidUser } from '../fixtures/users';
-
-describe('User Service', () => {
-  it('should handle admin user creation', async () => {
-    const userData = createTestUser(adminUser);
-    // Test implementation
-  });
-  
-  it('should reject invalid user data', async () => {
-    const userData = createTestUser(invalidUser);
-    // Error testing
-  });
-});
-```
-
-## **Coverage Standards & Monitoring**
-
-### **Coverage Thresholds**
-- **Global Standards**: 80% lines/functions, 70% branches
-- **Critical Code**: 90% utils, 85% middleware
-- **New Features**: Must meet or exceed global thresholds
-- **Legacy Code**: Gradual improvement with each change
-
-### **Coverage Reporting & Analysis**
-```bash
-# Generate coverage reports
-npm run test:coverage
-
-# View detailed HTML report
-open coverage/lcov-report/index.html
-
-# Coverage files generated:
-# - coverage/lcov-report/index.html  # Detailed HTML report
-# - coverage/lcov.info               # LCOV format for IDE integration  
-# - coverage/coverage-final.json     # JSON format for tooling
-```
-
-### **Coverage Quality Checks**
-```typescript
-// ✅ DO: Test all code paths
-describe('validateInput', () => {
-  it('should return true for valid input', () => {
-    expect(validateInput('valid')).toBe(true);
-  });
-  
-  it('should return false for various invalid inputs', () => {
-    expect(validateInput('')).toBe(false);      // Empty string
-    expect(validateInput(null)).toBe(false);    // Null value
-    expect(validateInput(undefined)).toBe(false); // Undefined
-  });
-  
-  it('should throw for unexpected input types', () => {
-    expect(() => validateInput(123)).toThrow('Invalid input type');
-  });
-});
-```
-
-## **Testing During Development Phases**
-
-### **Feature Development Phase**
-```bash
-# 1. Start feature development
-task-master set-status --id=X.Y --status=in-progress
-
-# 2. Begin TDD cycle  
-npm run test:watch
-
-# 3. Document test progress in subtask
-task-master update-subtask --id=X.Y --prompt="Test development:
-- Created test file with 5 failing tests
-- Implemented core functionality
-- Tests passing, adding error scenarios"
-
-# 4. Verify coverage before completion
-npm run test:coverage
-
-# 5. Update subtask with final test status
-task-master update-subtask --id=X.Y --prompt="Testing complete:
-- 12 unit tests with full coverage
-- All edge cases and error scenarios covered
-- Ready for integration testing"
-```
-
-### **Integration Testing Phase**
-```bash
-# After API endpoints are implemented
-npm run test:integration
-
-# Update integration test templates
-# Replace placeholder tests with real endpoint calls
-
-# Document integration test results
-task-master update-subtask --id=X.Y --prompt="Integration tests:
-- Updated auth endpoint tests  
-- Database integration verified
-- All HTTP status codes and responses tested"
-```
-
-### **Pre-Commit Testing Phase**
-```bash
-# Before committing code
-npm run test:coverage         # Verify all tests pass with coverage
-npm run test:unit            # Quick unit test verification
-npm run test:integration     # Integration test verification (if applicable)
-
-# Commit pattern for test updates
-git add tests/ src/**/*.test.ts
-git commit -m "test(task-X): Add comprehensive tests for Feature Y
-
-- Unit tests with 95% coverage (exceeds 90% threshold)
-- Integration tests for API endpoints
-- Test fixtures for data generation
-- Proper mocking patterns established
-
-Task X: Feature Y - Testing complete"
-```
-
-## **Error Handling & Debugging**
-
-### **Test Debugging Techniques**
-```typescript
-// ✅ DO: Use test utilities for debugging
-import { testUtils } from '../setup';
-
-it('should debug complex operation', () => {
-  testUtils.withConsole(() => {
-    // Console output visible only for this test
-    console.log('Debug info:', complexData);
-    service.complexOperation();
-  });
-});
-
-// ✅ DO: Use proper async debugging
-it('should handle async operations', async () => {
-  const promise = service.asyncOperation();
-  
-  // Test intermediate state
-  expect(service.isProcessing()).toBe(true);
-  
-  const result = await promise;
-  expect(result).toBe('expected');
-  expect(service.isProcessing()).toBe(false);
-});
-```
-
-### **Common Test Issues & Solutions**
-```bash
-# Hanging tests (common with database connections)
-npm run test:integration -- --detectOpenHandles
-
-# Memory leaks in tests
-npm run test:unit -- --logHeapUsage
-
-# Slow tests identification
-npm run test:coverage -- --verbose
-
-# Mock not working properly
-# Check: mock is declared before imports
-# Check: jest.clearAllMocks() in beforeEach
-# Check: TypeScript typing is correct
-```
-
-## **Continuous Integration Integration**
-
-### **CI/CD Pipeline Testing**
-```yaml
-# Example GitHub Actions integration
-- name: Run tests
-  run: |
-    npm ci
-    npm run test:coverage
-    
-- name: Upload coverage reports
-  uses: codecov/codecov-action@v3
-  with:
-    file: ./coverage/lcov.info
-```
-
-### **Pre-commit Hooks**
-```bash
-# Setup pre-commit testing (recommended)
-# In package.json scripts:
-"pre-commit": "npm run test:unit && npm run test:integration"
-
-# Husky integration example:
-npx husky add .husky/pre-commit "npm run test:unit"
-```
-
-## **Test Maintenance & Evolution**
-
-### **Adding Tests for New Features**
-1. **Create test file** alongside source code or in `tests/unit/`
-2. **Follow established patterns** from `src/utils/auth.test.ts`
-3. **Use existing fixtures** from `tests/fixtures/`
-4. **Apply proper mocking** patterns for dependencies
-5. **Meet coverage thresholds** for the module
-
-### **Updating Integration/E2E Tests**
-1. **Update templates** in `tests/integration/` when APIs change
-2. **Modify E2E workflows** in `tests/e2e/` for new user journeys  
-3. **Update test fixtures** for new data requirements
-4. **Maintain database cleanup** utilities
-
-### **Test Performance Optimization**
-- **Parallel execution**: Jest runs tests in parallel by default
-- **Test isolation**: Use proper setup/teardown for independence
-- **Mock optimization**: Mock heavy dependencies appropriately  
-- **Database efficiency**: Use transaction rollbacks where possible
-
----
-
-**Key References:**
-- [Testing Standards](mdc:.cursor/rules/tests.mdc)
-- [Git Workflow](mdc:.cursor/rules/git_workflow.mdc)
-- [Development Workflow](mdc:.cursor/rules/dev_workflow.mdc)
-- [Jest Configuration](mdc:jest.config.js)
+Refer to [`ui.js`](mdc:scripts/modules/ui.js) for implementation examples, [`context_gathering.mdc`](mdc:.cursor/rules/context_gathering.mdc) for context display patterns, and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
