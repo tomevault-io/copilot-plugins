@@ -1,64 +1,97 @@
-## docs
+## nodes
 
-> This file provides guidelines for working with the documentation in the `/docs` directory.
+> This file provides guidelines for creating and contributing custom tools in the `/src/nodes` directory.
 
-# Documentation Rules (`/docs`)
+# Node Development Rules (`/src/nodes`)
 
-This file provides guidelines for working with the documentation in the `/docs` directory.
+This file provides guidelines for creating and contributing custom tools in the `/src/nodes` directory.
 
-## Documentation Structure
+## Core Concepts
 
-The `/docs` directory is organized as follows:
+The nodes in AgentDock are **specialized tool nodes** that extend the system's capabilities:
 
-- `[docs/README.md](mdc:docs/README.md)`: Main project overview
-- `[docs/getting-started.md](mdc:docs/getting-started.md)`: Setup instructions
-- `[docs/architecture/](mdc:docs/architecture)`: System design documentation
-- `[docs/nodes/](mdc:docs/nodes)`: Node system documentation
-- `[docs/oss-client/](mdc:docs/oss-client)`: Client application docs
-- `[docs/rfa/](mdc:docs/rfa)`: \"Requests for Architecture\" (RFA) process
-- `[docs/roadmap/](mdc:docs/roadmap)`: Future development plans
-- `[docs/roadmap.md](mdc:docs/roadmap.md)`: High-level roadmap
-- `[docs/agent-templates.md](mdc:docs/agent-templates.md)`: Agent template structure
-- `[docs/i18n/](mdc:docs/i18n)`: Internationalization documentation
-- `[docs/error-handling/](mdc:docs/error-handling)`: Error handling guidelines
-- `[docs/storage/](mdc:docs/storage)`: Storage systems documentation
-- Additional files for specific topics
+- Each node is self-contained in its own directory
+- Nodes follow the Vercel AI SDK pattern
+- They provide component-based output formatting
 
-## Documentation Standards
+## Directory Structure
 
-- **Markdown Format**: Use GitHub Flavored Markdown
-- **Headers**: Use ATX-style headers (# H1, ## H2) with proper hierarchy
-- **Code Examples**: Use fenced code blocks with language specifiers
-  ```typescript
-  // TypeScript example
-  function example(): string {
-    return \"Hello World\";
+The actual `/src/nodes` directory contains:
+
+- `[README.md](mdc:src/nodes/README.md)`: Overview and architecture documentation
+- `[custom-tool-contributions.md](mdc:src/nodes/custom-tool-contributions.md)`: Detailed guide for contributors
+- `[registry.ts](mdc:src/nodes/registry.ts)`: Node registration system
+- `[init.ts](mdc:src/nodes/init.ts)`: Node initialization logic
+- `[types.ts](mdc:src/nodes/types.ts)`: Shared types for nodes
+- Individual tool directories (e.g., `search/`, `weather/`, `cognitive-tools/`)
+
+## Implementation Guidelines
+
+### Tool Implementation Pattern
+
+Each tool follows this pattern:
+
+```typescript
+// index.ts
+import { z } from 'zod';
+import { Tool } from '../types';
+import { MyComponent } from './components';
+
+// 1. Define parameters schema
+const myToolSchema = z.object({
+  input: z.string().describe('What this input does')
+});
+
+// 2. Create and export your tool
+export const myTool: Tool = {
+  name: 'my_tool',
+  description: 'What this tool does',
+  parameters: myToolSchema,
+  async execute({ input }) {
+    // 3. Get your data
+    const data = await fetchData(input);
+    
+    // 4. Use your component to format output
+    return MyComponent(data);
   }
-  ```
-- **Links**: Use relative links to other docs in the repository
-- **Images**: Store in an `assets` or `images` directory next to the relevant docs
-- **Diagrams**: Prefer Mermaid diagrams for technical illustrations
-- **Tables**: Use standard Markdown tables for tabular data
-- **Centralized Location:** All user-facing documentation (guides, architecture overviews, API docs, etc.) must be placed in the main `/docs` directory at the root of the repository. Do *not* place documentation within the `/agentdock-core` directory, as the core is not published as a standalone package yet and all documentation is hosted centrally.
+};
 
-## Writing Style
+// 5. Export for auto-registration
+export const tools = {
+  my_tool: myTool
+};
+```
 
-- **Audience**: Write for developers who are new to the codebase
-- **Clarity**: Be concise but thorough. Explain why, not just how
-- **Updates**: Keep documentation in sync with code changes
-- **Examples**: Include practical examples for complex topics
-- **Terminology**: Define specialized terms when first used
+### Best Practices
 
-## Contributing to Documentation
+- Use proper error handling with try/catch blocks
+- Create components to format tool output
+- Store API keys in environment variables, never hardcode them
+- Implement server-side API calls for security
+- Follow TypeScript best practices with proper typing
+- Include comprehensive JSDoc comments
+- Create fallbacks for when external services are unavailable
 
-To contribute documentation:
+## Security Considerations
 
-1. For minor fixes, submit a PR with the changes
-2. For major additions, create an issue first to discuss the approach
-3. Follow the existing document structure and style
-4. Include documentation updates in the same PR as related code changes
+- Validate all inputs
+- Sanitize outputs when appropriate
+- Use environment variables for API keys
+- Make API calls server-side only
+- Consider rate limiting for APIs with usage restrictions
 
-For questions about documentation, contact the project maintainers or open an issue.
+## Available Tools
+
+The project currently includes tools for:
+- Search
+- Deep Research
+- Stock Price
+- Weather
+- Cognitive tools
+- Image generation
+- And more
+
+Refer to `[custom-tool-contributions.md](mdc:src/nodes/custom-tool-contributions.md)` for detailed contribution guidelines.
 
 ---
 > Source: [AgentDock/AgentDock](https://github.com/AgentDock/AgentDock) — distributed by [TomeVault](https://tomevault.io).
