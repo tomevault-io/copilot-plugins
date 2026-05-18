@@ -1,43 +1,40 @@
-## add-credential-provider
+## add-logo-component
 
-> This rule is helpful when the user requests to create a new credential provider in the frontend.
+> This rule is helpful when the user requests to create a new logo component in the frontend
 
 
-# Add credential provider
+# Add logo component
 
-When you are asked to create a new credential provider in the frontend use these rules.
+When you are asked to create a new logo in the frontend use these rules.
 
-You will have to do 4 tasks:
+IMPORTANT: 
 
-1. Add the credential object to the [provider-card-list.tsx](mdc:frontend/src/components/credentials/provider-card-list.tsx).
+1. ask the user to provide the logo raw svg content and the logo name if not provided
 
-Example for a provider named OpenAI, you will update the current ProviderInfoMap without renaming it, simply add one provider:
+2. create a logo file with the lowercased name in the logos directory at frontend/src/components/logos/<name>.tsx
 
-```typescript
-   openai: {
-      name: "OpenAI",
-      description: "OpenAI is a powerful AI provider",
-      logo: <ProviderLogo name="openai" width={30} height={30} />,
-      commingSoon: false,
-    },
+3. Use the following template and make sure to :
+- Update the component name with the actual Logo name 
+- Adapt the raw svg so it's compatible with a React Component
+- Keep the viewbox of the raw svg but expose the width and height as props
 
+```tsx
+import { FC } from "react";
+
+export const LogoName: FC<{ width: number; height: number }> = ({
+  width,
+  height,
+}) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      
+     ... the reste of the SVG
+    </svg>
+  );
+};
 ```
-
-Make sure the user provided the provider name.
-
-2. Update the [provider-logo.tsx](mdc:frontend/src/components/logos/provider-logo.tsx) component.
-
-To do so, consider we have a component with the name of the provider. For example if the provider is named OpenAI, use the following import statement:
-
-```typescript
-import { OpenAI } from "./openai";
-```
-
-Then update the switch case in the [provider-logo.tsx](mdc:frontend/src/components/logos/provider-logo.tsx) accordingly.
-
-3. Make sure to update the ProviderTypes constant in the [credential.ts](mdc:frontend/src/core/entities/credential.ts) file.
-
-4. Make sure to update the ProviderTypeLabelMap in the [credential.ts](mdc:frontend/src/core/entities/credential.ts) file.
 
 ---
 > Source: [supallm/supallm](https://github.com/supallm/supallm) — distributed by [TomeVault](https://tomevault.io).
