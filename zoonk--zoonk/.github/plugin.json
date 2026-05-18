@@ -1,0 +1,78 @@
+{
+  "name": "zoonk--zoonk",
+  "displayName": "zoonk",
+  "description": "Open-source platform for interactive learning",
+  "version": "1.0.0",
+  "author": "zoonk",
+  "homepage": "https://github.com/zoonk/zoonk",
+  "skills": [
+    {
+      "name": "ai-sdk",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "description": ""
+    },
+    {
+      "name": "zoonk-business",
+      "description": ""
+    },
+    {
+      "name": "zoonk-code-simplification",
+      "description": ""
+    },
+    {
+      "name": "zoonk-commit",
+      "description": ""
+    },
+    {
+      "name": "zoonk-compound-components",
+      "description": ""
+    },
+    {
+      "name": "zoonk-design",
+      "description": ""
+    },
+    {
+      "name": "zoonk-github-issues",
+      "description": ""
+    },
+    {
+      "name": "zoonk-issue-planning",
+      "description": ""
+    },
+    {
+      "name": "zoonk-issue-writer",
+      "description": ""
+    },
+    {
+      "name": "zoonk-technical",
+      "description": ""
+    },
+    {
+      "name": "zoonk-testing",
+      "description": ""
+    },
+    {
+      "name": "zoonk-translations",
+      "description": ""
+    }
+  ]
+}
