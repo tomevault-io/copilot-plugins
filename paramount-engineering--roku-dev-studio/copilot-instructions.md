@@ -1,30 +1,57 @@
-## discussion-design-docs
+## keep-engineering-principles-current
 
-> Where to put internal discussion and design documentation
+> Ask the user before updating engineering-principles.md when structural / engineering / guideline changes happen
 
 
-# Discussion & design documentation
+# Keep `engineering-principles.md` current
 
-## Location
+`.discussion-docs/engineering-principles.md` is the workspace's living engineering style guide. It must stay current as the codebase's architecture and the user's stated preferences evolve.
 
-Create and maintain **discussion**, **design**, and **RFC / ADR-style** notes under:
+## When to prompt the user
 
-**`.discussion-docs/`** (repository root)
+Ask the user whether the takeaway should be added to `engineering-principles.md` whenever any of the following happens in the conversation:
 
-Use **descriptive kebab-case** filenames (e.g. `rale-node-lookup.md`, `feature-foo-design.md`).
+1. **Structural change**: a refactor, file move, package layout change, or shift in module boundaries.
+2. **Engineering change**: a new pattern, new abstraction, change to how code is organized or how data flows (e.g. centralizing state, swapping a poll-driven path for subscribe-driven, adding a new validator surface).
+3. **New guideline stated by the user**: any "always do X", "never use Y", "always prefer Z over W", or process expectation expressed during the conversation — even if no code change accompanies it.
 
-## What belongs here
+## When not to prompt
 
-- Exploratory write-ups, options, and tradeoffs before implementation  
-- Design docs that describe *how* something should work in this repo (not end-user product help)  
-- Short internal specs that are not the primary shipped `docs/` site
+- Pure bug fixes that don't change architecture or expose a new pattern.
+- Typo / wording / formatting fixes.
+- Verifying / running tests.
+- Re-stating an existing principle (already in the doc).
 
-## What does not belong here
+## How to prompt
 
-- End-user or public documentation that should live under **`docs/`** or package READMEs (keep those in their existing homes)  
-- Generated or build output
+After the relevant change has landed (or as soon as the user states a guideline), ask one focused question. Keep it short, concrete, and propose the entry text so the user can say "yes / no / yes-but-rephrase":
 
-When a design graduates to “shipped” user-facing documentation, mirror or move the relevant parts into **`docs/`** as appropriate.
+> "Worth adding to `engineering-principles.md`? I'd put it under §<section> as: <one-sentence principle> + <code reference>."
+
+Wait for an explicit yes before editing the file. Do not silently update.
+
+## How to update (after a "yes")
+
+- Match the existing tone: opinionated, repo-specific, grounded in code.
+- Each principle has: a name, a one-paragraph explanation, the code reference(s) that prove it lives in the repo, and the anti-pattern it replaces.
+- Add to the appropriate existing section (Engineering principles / Anti-patterns / Concrete patterns / Process). Don't open a new top-level section unless the user asked for one.
+- If the change ships in a separate design doc (`.discussion-docs/<topic>.md`), cross-reference it rather than duplicating content.
+- Keep entries terse. The doc is for orientation, not exhaustive specification.
+
+## Concrete examples
+
+✅ *Trigger.* User asks: "Move `validateAndNormalizeRaleCommandArgs` into the api package and make every consumer go through it." → after the diff lands, ask: *"Worth adding to engineering-principles.md as a new entry under §Engineering principles confirming we centralize validation rules at the producer layer (api package), not at consumer surfaces?"*
+
+✅ *Trigger.* User says: "Don't ever poll for state; always subscribe." → ask: *"Want me to add this to engineering-principles.md under §Engineering principles? Proposed entry: 'Subscribe-driven UI > poll-driven UI > timer-driven UI' with a reference to `AppConnector.onStateChange`."*
+
+✅ *Trigger.* User asks for a brand-new test runner / build pipeline / IPC channel. → after it lands, ask whether the new pattern should be documented.
+
+❌ *Not a trigger.* "Fix the typo in this comment." → no.
+❌ *Not a trigger.* "Bump REQUEST_TIMEOUT_MS to 35s." → it's a value change, not a new principle.
+
+## If the user keeps declining
+
+If the user repeatedly says "no" to similar prompts in a session, stop asking for the rest of that session — they've signaled the threshold for what's worth recording is higher than this rule's default. Resume on the next session.
 
 ---
 > Source: [paramount-engineering/roku-dev-studio](https://github.com/paramount-engineering/roku-dev-studio) — distributed by [TomeVault](https://tomevault.io).
