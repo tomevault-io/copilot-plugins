@@ -1,0 +1,9 @@
+{
+  "name": "codeupscale--boardupscale",
+  "displayName": "boardupscale",
+  "description": "The free, open-source alternative to Jira. Self-hosted project management with Scrum, Kanban, sprints, AI, and more.",
+  "version": "1.0.0",
+  "author": "codeupscale",
+  "homepage": "https://github.com/codeupscale/boardupscale",
+  "skills": []
+}
