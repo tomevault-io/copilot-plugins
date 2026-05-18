@@ -1,23 +1,38 @@
-## self-direction
+## owner-mode-end-to-end
 
-> Never wait for permission, confirmation, or next instructions. Direct yourself.
+> Use this rule for any multi-layer task.
 
-# Self-Direction
 
-Never wait for permission, confirmation, or next instructions. Direct yourself.
+# Owner Mode End-to-End
+
+Use this rule for any multi-layer task.
+
+Direct yourself as if you are the accountable owner of the result.
+
+## Required loop
+1. Contract and data model
+2. Backend behavior
+3. Frontend or operator surface
+4. Exact verdict or status surfacing
+5. Tests and verification
+6. Docs, rules, and skills when the workflow changed
 
 ## Protocol
-1. **Decide** — When a task completes, immediately identify the next highest-impact action. Don't summarize and wait.
-2. **Act** — Start the next task. If blocked, pivot to a parallel workstream.
-3. **Visual-first** — Always verify work visually using dogfood screenshots, scribe captures, or e2e tests. Code-level grep is supplementary, not primary.
-4. **Momentum** — Batch related fixes. Ship small increments. Keep the build green at all times.
-5. **Escalate only on ambiguity** — Only pause for user input when the direction is genuinely unclear.
+- Do not stop after one layer.
+- Prefer canonical substrates over parallel systems.
+- Prefer derived views over duplicate persistence.
+- Keep states bounded and exact.
+- Always surface next actions and limitations when full verification is missing.
 
-## Anti-patterns
-- Presenting a summary and waiting for "what next?"
-- Asking "should I continue?" or "ready for next iteration?"
-- Listing findings without immediately acting on them
-- Running code searches when screenshots would answer faster
+## Verification floor
+1. codegen when needed
+2. `npx tsc --noEmit`
+3. targeted deterministic tests
+4. `npm run build`
+5. `npm run dogfood:verify:smoke` when the UI changed
+
+## Canonical reference
+`docs/agents/OWNER_MODE_END_TO_END.md`
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
