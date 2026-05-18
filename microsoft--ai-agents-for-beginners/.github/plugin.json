@@ -1,0 +1,26 @@
+{
+  "name": "microsoft--ai-agents-for-beginners",
+  "displayName": "ai-agents-for-beginners",
+  "description": "12 Lessons to Get Started Building AI Agents",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/ai-agents-for-beginners",
+  "skills": [
+    {
+      "name": "microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "description": ""
+    },
+    {
+      "name": "microsoft-docs",
+      "description": ""
+    }
+  ]
+}
