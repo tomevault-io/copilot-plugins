@@ -1,0 +1,9 @@
+{
+  "name": "nixopus--nixopus",
+  "displayName": "nixopus",
+  "description": "Run production apps without thinking about infrastructure. On your server or ours. Fully agentic.",
+  "version": "1.0.0",
+  "author": "nixopus",
+  "homepage": "https://github.com/nixopus/nixopus",
+  "skills": []
+}
