@@ -1,0 +1,14 @@
+{
+  "name": "neondatabase--mcp-server-neon",
+  "displayName": "mcp-server-neon",
+  "description": "MCP server for interacting with Neon Management API and databases",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/mcp-server-neon",
+  "skills": [
+    {
+      "name": "logging-best-practices",
+      "description": ""
+    }
+  ]
+}
