@@ -1,0 +1,9 @@
+{
+  "name": "fradser--mcp-server-apple-events",
+  "displayName": "mcp-server-apple-events",
+  "description": "MCP server providing native macOS integration with Apple Reminders and Calendar via EventKit",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/mcp-server-apple-events",
+  "skills": []
+}
