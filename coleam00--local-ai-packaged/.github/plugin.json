@@ -1,0 +1,9 @@
+{
+  "name": "coleam00--local-ai-packaged",
+  "displayName": "local-ai-packaged",
+  "description": "Run all your local AI together in one package - Ollama, Supabase, n8n, Open WebUI, and more!",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://github.com/coleam00/local-ai-packaged",
+  "skills": []
+}
