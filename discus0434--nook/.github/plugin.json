@@ -1,0 +1,9 @@
+{
+  "name": "discus0434--nook",
+  "displayName": "nook",
+  "description": "A daily digest web app that scrapes and summarizes blogs, Reddit threads, GitHub trending, and Hacker-News-trending articles all in one place.",
+  "version": "1.0.0",
+  "author": "discus0434",
+  "homepage": "https://github.com/discus0434/nook",
+  "skills": []
+}
