@@ -1,0 +1,44 @@
+{
+  "name": "Custom-Modes-Roo-Code",
+  "owner": "jtgsystems",
+  "repo": "Custom-Modes-Roo-Code",
+  "description": "\ud83d\ude80 Custom modes for Roo Code VS Code extension - Enhanced AI coding assistance configurations",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jtgsystems/Custom-Modes-Roo-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T20:30:25Z"
+}
