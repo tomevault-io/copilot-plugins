@@ -1,0 +1,9 @@
+{
+  "name": "laravel-clickhouse--laravel-clickhouse",
+  "displayName": "laravel-clickhouse",
+  "description": "A ClickHouse database driver for Laravel. Provides a familiar Eloquent Model, Query Builder, and Schema Builder with full support for ClickHouse-specific features.",
+  "version": "1.0.0",
+  "author": "laravel-clickhouse",
+  "homepage": "https://github.com/laravel-clickhouse/laravel-clickhouse",
+  "skills": []
+}
