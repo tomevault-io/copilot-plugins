@@ -1,42 +1,34 @@
-## reexamine-performance
+## reexamine-process
 
-> - Don't render 500 items at once — show 8-12 per group with "Show more"
+> After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
 
 
-# Re-examine: Performance
+# Re-examine for 11/10
 
-## Progressive disclosure
-- Don't render 500 items at once — show 8-12 per group with "Show more"
-- Collapsed sections: don't render hidden children, use deferred rendering on expand
-- Store raw data in `window._data` or `data-items` attribute, render on demand via `insertAdjacentHTML`
+After completing any non-trivial change, do a **fresh-eyes pass** to elevate from "correct" to "exceptional."
 
-## Smart refresh
-- Polling/interval refreshes: hash the data before re-rendering
-- `simpleHash(JSON.stringify(data))` compared to `_lastDataHash` — skip if unchanged
-- Avoids DOM thrashing on 5s intervals when nothing changed
-- Use `requestAnimationFrame` for batched DOM updates
+## When to trigger
+- After any feature, fix, or refactor touching 3+ files or 50+ lines
+- After any UI/dashboard/component work
+- Before marking a task as "done"
 
-## Lazy loading
-- Images below the fold: `loading="lazy"` attribute
-- Heavy components: dynamic import / code splitting
-- IntersectionObserver for triggering loads when elements enter viewport
-- Placeholder (skeleton or blur) until loaded
+## The process
+1. **Step back**: Stop coding. Read the output as a first-time user would.
+2. **Scan each related_ domain**: Walk the `related_` list below — each is a focused checklist.
+3. **Fix what you find**: Don't just note issues — fix them in the same pass.
+4. **Re-examine the fixes**: New code can introduce new gaps. One more scan.
 
-## String concatenation
-- Build HTML with array push + join: `const h = []; h.push('<div>'); return h.join('')`
-- Avoids O(n^2) string concatenation in loops
-- Template literals are fine for small chunks; arrays for large dynamic HTML
+## Quick checklist (expand via related_ hops)
+- [ ] Accessibility gaps? → `reexamine_a11y`
+- [ ] Error resilience? → `reexamine_resilience`
+- [ ] Visual polish / micro-interactions? → `reexamine_polish`
+- [ ] Keyboard efficiency? → `reexamine_keyboard`
+- [ ] Performance / progressive disclosure? → `reexamine_performance`
 
-## CSS performance
-- Use CSS custom properties (`:root { --gap: 1rem }`) instead of repeated values
-- Avoid `*` selectors in complex rules
-- `will-change: transform` only on elements that actually animate
-- `contain: content` on independent card/section containers
-
-## Measurement
-- Profile before optimizing — don't guess where the bottleneck is
-- Check for layout thrashing: read → write → read → write cycles
-- `getComputedStyle()` calls force synchronous layout — cache results
+## Anti-patterns
+- Skipping the re-examine because "it works"
+- Re-examining only your own changes (check adjacent code too)
+- Adding complexity without user benefit (re-examine is about polish, not gold-plating)
 
 ---
 > Source: [HomenShum/nodebench-ai](https://github.com/HomenShum/nodebench-ai) — distributed by [TomeVault](https://tomevault.io).
