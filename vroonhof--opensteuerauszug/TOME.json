@@ -4,7 +4,7 @@
   "repo": "opensteuerauszug",
   "description": "Tool to generate swiss e-steuerauszug from banking exports",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vroonhof/opensteuerauszug",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:41:11Z"
+  "distributed_at": "2026-05-18T05:55:22Z"
 }
