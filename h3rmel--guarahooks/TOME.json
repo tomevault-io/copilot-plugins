@@ -2,7 +2,7 @@
   "name": "guarahooks",
   "owner": "h3rmel",
   "repo": "guarahooks",
-  "description": "",
+  "description": "Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/h3rmel",
+  "source_url": "https://github.com/h3rmel/guarahooks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T23:51:14Z"
+  "distributed_at": "2026-05-18T04:54:35Z"
 }
