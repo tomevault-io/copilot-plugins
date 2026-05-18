@@ -1,0 +1,9 @@
+{
+  "name": "masihmoloodian--sema",
+  "displayName": "sema",
+  "description": "Semantic codebase indexer and MCP server for Claude Code.",
+  "version": "1.0.0",
+  "author": "masihmoloodian",
+  "homepage": "https://github.com/masihmoloodian/sema",
+  "skills": []
+}
