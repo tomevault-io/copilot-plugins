@@ -1,0 +1,9 @@
+{
+  "name": "base--base",
+  "displayName": "base",
+  "description": "All components used to run Base",
+  "version": "1.0.0",
+  "author": "base",
+  "homepage": "https://github.com/base/base",
+  "skills": []
+}
