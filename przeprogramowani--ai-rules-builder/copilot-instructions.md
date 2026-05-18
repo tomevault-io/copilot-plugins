@@ -1,109 +1,108 @@
 ## ai-rules-builder
 
-> Jesteś specjalistą ds. bezpieczeństwa, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji przepływu autentykacji dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
+> This file provides guidance to AI Agents when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to AI Agents when working with code in this repository.
+
+## Common Development Commands
+
+### Development Server
+- `npm run dev` - Start development server on port 3000 (local mode)
+- `npm run dev:e2e` - Start development server in integration mode for E2E testing
+
+### Building and Deployment
+- `npm run build` - Build the Astro application for production
+- `npm run preview` - Preview the built application locally
+
+### Code Quality
+- `npm run lint` - Lint and fix TypeScript/Astro files
+- `npm run lint:check` - Check linting without fixing
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check formatting without fixing
+
+### Testing
+- `npm run test` - Run unit tests with Vitest
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:ui` - Run tests with UI interface
+- `npm run test:coverage` - Generate test coverage report
+- `npm run test:e2e` - Run end-to-end tests with Playwright
+- `npm run test:e2e:ui` - Run E2E tests with UI
+- `npm run test:e2e:codegen` - Generate test code with Playwright
+
+### Special Scripts
+- `npm run generate-rules` - Generate rules JSON from TypeScript definitions
+
+## Architecture Overview
+
+### Technology Stack
+- **Framework**: Astro 5 with React 18.3 integration
+- **Styling**: Tailwind CSS 4
+- **State Management**: Zustand for client-side state
+- **Database**: Supabase (PostgreSQL with real-time features)
+- **Testing**: Vitest for unit tests, Playwright for E2E tests
+- **Authentication**: Supabase Auth with email/password and password reset
+
+### Project Structure
+
+#### Core Application (`src/`)
+- `pages/` - Astro pages with API routes under `api/`
+- `components/` - React components organized by feature
+- `data/` - Static data including AI rules definitions in `rules/` subdirectory
+- `services/` - Business logic services, notably `RulesBuilderService`
+- `store/` - Zustand stores for state management
+- `hooks/` - Custom React hooks
+
+#### Key Components Architecture
+- **Rules System**: Rules are organized by technology stacks (frontend, backend, database, etc.) and stored in `src/data/rules/`
+- **Rules Builder Service**: Core service in `src/services/rules-builder/` that generates markdown content using strategy pattern (single-file vs multi-file output)
+- **Collections System**: User can save and manage rule collections via `collectionsStore`
+- **Feature Flags**: Environment-based feature toggling system in `src/features/featureFlags.ts`
+
+#### MCP Server (`mcp-server/`)
+Standalone Cloudflare Worker implementing Model Context Protocol for programmatic access to AI rules. Provides tools:
+- `listAvailableRules` - Get available rule categories
+- `getRuleContent` - Fetch specific rule content
+
+### State Management Pattern
+The application uses Zustand with multiple specialized stores:
+- `techStackStore` - Manages selected libraries and tech stack
+- `collectionsStore` - Handles saved rule collections with dirty state tracking
+- `authStore` - Authentication state management
+- `projectStore` - Project metadata (name, description)
+
+### Environment Configuration
+- Uses Astro's environment schema for type-safe environment variables
+- Supports three environments: `local`, `integration`, `prod`
+- Feature flags control functionality per environment
+- Requires `.env.local` with Supabase credentials and Cloudflare Turnstile keys
+
+### Database Integration
+- Supabase integration with TypeScript types in `src/db/database.types.ts`
+- Collections are stored in Supabase with user association
+- Real-time capabilities available but not currently utilized
+- Prefer "supabase migration up" over "supabase db reset" when testing migrations
+
+### Testing Strategy
+- Unit tests use Vitest with React Testing Library and JSDOM
+- E2E tests use Playwright with Page Object Model pattern
+- Test files located in `tests/` for unit tests and `e2e/` for E2E tests
+- All tests run in CI/CD pipeline
+
+### Rules Content System
+Rules are defined as TypeScript objects and exported from category-specific files in `src/data/rules/`. The system supports:
+- Categorization by technology layers (frontend, backend, database, etc.)
+- Library-specific rules with placeholder replacement
+- Multi-file vs single-file output strategies
+- Markdown generation with project context
+
+### Development Workflow
+1. Rules contributions go in `src/data/rules/` with corresponding translations in `src/i18n/translations.ts`
+2. Use feature flags to control new functionality rollout
+3. Collections allow users to save and share rule combinations
+4. The MCP server enables programmatic access for AI assistants
 
 ---
-description:
-globs:
-alwaysApply: false
----
-# Mermaid Diagram - Auth Architecture
-
-Jesteś specjalistą ds. bezpieczeństwa, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji przepływu autentykacji dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
-
-Będziesz musiał odnieść się do następujących plików w celu poznania istniejących wymagań:
-
-<file_references>
-[project-prd.md](mdc:.ai/project-prd.md)
-</file_references>
-
-<destination>
-.ai/diagrams/auth.md
-</destination>
-
-Twoim zadaniem jest analiza specyfikacji modułu logowania i rejestracji oraz utworzenie kompleksowego diagramu Mermaid, który dokładnie przedstawia sekwencję autentykacji. Diagram powinien być w języku polskim.
-
-Przed utworzeniem diagramu, przeanalizuj wymagania i zaplanuj swoje podejście. Umieść swoją analizę wewnątrz tagów <authentication_analysis>. W tej analizie:
-
-1. Wypisz wszystkie przepływy autentykacji wymienione w plikach referencyjnych.
-2. Zidentyfikuj głównych aktorów i ich interakcje.
-3. Określ procesy weryfikacji i odświeżania tokenów.
-4. Dostarcz krótki opis każdego kroku autentykacji.
-
-Kiedy będziesz gotowy do utworzenia diagramu, postępuj zgodnie z poniższymi wytycznymi:
-
-1. Rozpocznij diagram od następującej składni:
-
-   ```mermaid
-   sequenceDiagram
-   ```
-
-2. Uwzględnij następujące elementy w swoim diagramie:
-
-   - Pełny cykl życia procesu autentykacji w nowoczesnej aplikacji używającej React, Astro i Supabase Auth
-   - Komunikacja między aktorami: 1) Przeglądarka 2) Middleware 3) Astro API 4) Supabase Auth
-   - Wyraźne punkty, w których następuje przekierowanie użytkownika lub weryfikacja tokenu
-   - Przepływ danych po wdrożeniu nowych wymagań autentykacji
-   - Jak działa sesja użytkownika po zalogowaniu i jak system reaguje na wygaśnięcie tokenu
-   - Proces odświeżania tokenu i ochrona przed nieautoryzowanym dostępem
-
-3. Przestrzegaj tych zasad składni Mermaid:
-
-   - Używaj atrybutu `autonumber` dla przejrzystości sekwencji kroków
-   - Utrzymuj spójne odstępy między elementami dla czytelności diagramu
-   - Zawsze używaj `participant` do deklarowania aktorów przed rozpoczęciem sekwencji
-   - Pamiętaj o poprawnej kolejności elementów w sekwencji (nadawca, strzałka, odbiorca)
-   - Używaj właściwego cyklu aktywacji i dezaktywacji elementów diagramu
-   - Używaj odpowiednich typów strzałek:
-     - `->` dla zwykłych strzałek (np. `Browser->API`)
-     - `-->` dla przerywanych strzałek (np. `API-->Browser: Token expired`)
-     - `->>` dla strzałek z pustymi grotami (np. `Browser->>Auth: Login request`)
-     - `-->>` dla przerywanych strzałek z pustymi grotami
-   - Dla bloków aktywacji, poprawnie używaj `activate` i `deactivate`:
-     ```
-     activate Browser
-     Browser->>API: Request data
-     deactivate Browser
-     ```
-   - Używaj `alt`/`else`/`end` dla ścieżek warunkowych:
-     ```
-     alt Authentication successful
-       Browser->>Dashboard: Redirect to dashboard
-     else Authentication failed
-       Browser->>LoginPage: Show error message
-     end
-     ```
-   - Dla działań równoległych, używaj `par`/`and`/`end`:
-     ```
-     par Send confirmation email
-       API->>EmailService: Send verification
-     and Update user status
-       API->>Database: Update status
-     end
-     ```
-   - Dla wieloliniowych notatek, używaj poprawnej składni:
-     ```
-     Note over Browser,API: Ten tekst pojawi się
-     w notatce obejmującej oba elementy
-     ```
-   - NIE przekraczaj 80 znaków w pojedynczej linii kodu Mermaid
-   - NIE umieszczaj adresów URL, adresów endpointów, nawiasów, długich nazw funkcji ani złożonych wyrażeń w nazwach diagramu:
-     ŹLE: [Strona Główna<br/>(Kreator Reguł)]
-     DOBRZE: [Kreator Reguł]
-   - Używaj spójnego nazewnictwa w całym dokumencie
-
-4. Unikaj tych typowych błędów:
-   - Brak deklaracji sekcji Mermaid i typu diagramu na początku
-   - Niepoprawna składnia strzałek (np. -> zamiast ->>)
-   - Używanie niedozwolonych znaków w identyfikatorach bez umieszczania ich w cudzysłowach
-   - Niezbalansowane bloki kodu (brakujące end dla rozpoczętych bloków)
-   - Przekraczanie limitów długości linii
-   - Niepoprawne zagnieżdżanie bloków warunkowych
-
-Po utworzeniu diagramu, przejrzyj go dokładnie, aby upewnić się, że nie ma błędów składniowych ani problemów z renderowaniem. Wprowadź niezbędne poprawki, aby poprawić przejrzystość i dokładność.
-
-Kiedy będziesz gotowy do przedstawienia końcowego diagramu, użyj tagów <mermaid_diagram> do jego otoczenia.
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/przeprogramowani) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
