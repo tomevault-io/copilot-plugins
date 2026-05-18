@@ -1,0 +1,22 @@
+{
+  "name": "sanity-io--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "Collection of resources to help AI agents build better with Sanity.",
+  "version": "1.0.0",
+  "author": "sanity-io",
+  "homepage": "https://github.com/sanity-io/agent-toolkit",
+  "skills": [
+    {
+      "name": "sanity-best-practices",
+      "description": ""
+    },
+    {
+      "name": "content-modeling-best-practices",
+      "description": ""
+    },
+    {
+      "name": "content-experimentation-best-practices",
+      "description": ""
+    }
+  ]
+}
