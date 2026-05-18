@@ -1,0 +1,9 @@
+{
+  "name": "1amageek--swift-flow",
+  "displayName": "swift-flow",
+  "description": "A Canvas-based flow diagram library for SwiftUI (iOS / macOS)",
+  "version": "1.0.0",
+  "author": "1amageek",
+  "homepage": "https://github.com/1amageek/swift-flow",
+  "skills": []
+}
