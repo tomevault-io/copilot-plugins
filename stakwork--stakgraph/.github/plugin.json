@@ -1,0 +1,9 @@
+{
+  "name": "stakwork--stakgraph",
+  "displayName": "stakgraph",
+  "description": "A source code parser using treesitter, LSP, and neo4j, powering software knowledge graphs for AI agents.",
+  "version": "1.0.0",
+  "author": "stakwork",
+  "homepage": "https://github.com/stakwork/stakgraph",
+  "skills": []
+}
