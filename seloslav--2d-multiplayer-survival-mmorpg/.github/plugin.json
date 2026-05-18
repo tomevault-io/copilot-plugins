@@ -1,0 +1,9 @@
+{
+  "name": "seloslav--2d-multiplayer-survival-mmorpg",
+  "displayName": "2d-multiplayer-survival-mmorpg",
+  "description": "A comprehensive 2D open-world survival game built with React, Vite, and SpacetimeDB. Designed for developers who want to build real-time multiplayer survival games with persistent world state, customi",
+  "version": "1.0.0",
+  "author": "SeloSlav",
+  "homepage": "https://github.com/SeloSlav/2d-multiplayer-survival-mmorpg",
+  "skills": []
+}
