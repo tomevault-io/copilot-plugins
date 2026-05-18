@@ -1,0 +1,9 @@
+{
+  "name": "pasteurlabs--tesseract-core",
+  "displayName": "tesseract-core",
+  "description": "Universal components for differentiable scientific computing. :package:",
+  "version": "1.0.0",
+  "author": "pasteurlabs",
+  "homepage": "https://github.com/pasteurlabs/tesseract-core",
+  "skills": []
+}
