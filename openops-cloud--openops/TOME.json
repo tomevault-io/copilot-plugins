@@ -4,7 +4,7 @@
   "repo": "openops",
   "description": "The batteries-included, No-Code FinOps automation platform, with the AI you trust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openops-cloud/openops",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T12:20:44Z"
+  "distributed_at": "2026-05-18T13:54:48Z"
 }
