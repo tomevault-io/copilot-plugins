@@ -1,0 +1,44 @@
+{
+  "name": "Jianer_QQ_bot",
+  "owner": "SRInternet-Studio",
+  "repo": "Jianer_QQ_bot",
+  "description": "OneBot v11\uff0c\u7fa4\u7ba1\uff0cAI\uff0c\u5a31\u4e50\uff0c\u65b0\u4e00\u4ee3QQ\u7fa4\u673a\u5668\u4eba\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SRInternet-Studio/Jianer_QQ_bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T20:39:10Z"
+}
