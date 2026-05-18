@@ -1,9 +1,9 @@
 {
   "name": "danielcherubini--elegoo-homeassistant",
   "displayName": "elegoo-homeassistant",
-  "description": "elegoo-homeassistant",
+  "description": "A Integration for Home Assistant and Elegoo Printers using SDCP ",
   "version": "1.0.0",
   "author": "danielcherubini",
-  "homepage": "https://tomevault.io/claim/danielcherubini",
+  "homepage": "https://github.com/danielcherubini/elegoo-homeassistant",
   "skills": []
 }
