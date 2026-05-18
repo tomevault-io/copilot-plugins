@@ -1,0 +1,9 @@
+{
+  "name": "facebookresearch--matrix",
+  "displayName": "matrix",
+  "description": "Matrix (Multi-Agent daTa geneRation Infra and eXperimentation framework) is a versatile engine for multi-agent conversational data generation.",
+  "version": "1.0.0",
+  "author": "facebookresearch",
+  "homepage": "https://github.com/facebookresearch/matrix",
+  "skills": []
+}
