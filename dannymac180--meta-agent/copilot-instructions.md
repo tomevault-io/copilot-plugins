@@ -1,0 +1,68 @@
+## meta-agent
+
+> - Operating on a task basis. Store all intermediate context in markdown files in tasks/<task-id>/ folders.
+
+# Agentic Coding Workflow
+
+0. Tasks
+
+- Operating on a task basis. Store all intermediate context in markdown files in tasks/<task-id>/ folders.
+- Use semantic task id slugs
+
+1. Research
+
+- Find existing patterns in this codebase
+- Search internet if relevant
+- Start by asking follow up questions to set the direction of research
+- Report findings in research.md file
+
+2. Planning
+
+- Read the research.md in tasks for <task-id>.
+- Based on the research come up with a plan for implementing the user request. We should reuse existing patterns, components and code where possible.
+- If needed, ask clarifying questions to user to understand the scope of the task
+- Write the comprehensive plan to plan.md. The plan should include all context required for an engineer to implement the feature.
+
+3. Implementation
+
+- Read. plan.md and create a todo-list with all items, then execute on the plan.
+- Go for as long as possible. If ambiguous, leave all questions to the end and group them.
+
+4. Verification
+
+- Once implementation is complete, you must verify that the implementation meets the requirements and is free of bugs.
+- Do this by running tests, making tool calls and checking the output.
+- If there are any issues, go back to the implementation step and make the necessary changes.
+- Once verified, update the task status to "verified".
+
+AGENTS quickstart (v2-rewrite current, v1-lts maintained)
+- Branches: v2-rewrite (current rewrite, docs-only scaffold), v1-lts (stable v1 Python), main (pre-rewrite history).
+- v1-lts build/dev: pip install -e ".[dev]"; run: python -m meta_agent.cli.main (if present).
+- v1-lts lint/typecheck: ruff check .; pyright .
+- v1-lts tests: pytest -q
+- v1-lts single test: pytest tests/<path>.py::TestClass::test_case -q
+- v2-rewrite (planned monorepo: pnpm/turborepo, Remix web, Mastra builder/runner) – code pending.
+- v2 planned install/build: pnpm i; pnpm -w build (after packages exist)
+- v2 planned lint/test: pnpm -w lint; pnpm -w test
+- v2 single test (example): pnpm --filter <package> test -- -t "name" (Jest/Vitest)
+- Architecture: see docs/architecture.md (web app, builder, runner, packages, infra) and docs/workflow_and_gates.md
+- Datastores: Postgres+pgvector, Redis/BullMQ, Object storage, OpenTelemetry (traces/logs).
+- Local infra: Docker or Podman. Use `pnpm db:up`/`pnpm db:down` (Docker) or `pnpm db:up:podman`/`pnpm db:down:podman` (Podman).
+- Repo structure plan: docs/repo_layout.txt; current docs live in docs/ (specs, decisions, plans).
+- DB schema: docs/data_model.sql (app_users, agents, agent_versions, run_history, templates, user_settings + indices/RLS notes).
+- Internal APIs (planned): Remix routes call Builder/Runner; Runner executes jobs (BullMQ) and persists runs/artifacts; Builder pipelines scaffold/package/register.
+- Code style (TS planned): strict TypeScript, ESLint+Prettier, avoid default exports, prefer functional modules, async/await.
+- Code style (Python v1): ruff rules, type hints where possible, absolute imports under src/, keep side-effects in entrypoints.
+- Imports: TS path aliases (e.g., @spec, @ui, @tools) once configured; Python uses absolute imports, no wildcard imports.
+- Errors/logging: never swallow errors; handle at boundaries; structured logs and traces via OTEL; no secrets in logs.
+- Tool rules present: none (.cursor, .cursorrules, .windsurfrules, .clinerules, CLAUDE.md, Copilot-specific not present).
+- Keep this file updated as v2 scaffolding lands; PRs are required on v1-lts (branch protection enabled).
+- Docs lookup (Mastra): When you need technical details about the Mastra framework, use the Mastra MCP Docs Server to retrieve them via the MCP (functions.mcp__mastra__mastraDocs). Prefer this over web search for Mastra-specific APIs and guides.
+- When making changes, follow the [feature PR checklist](docs/checklists.md#feature-pr-checklist) and make sure to check off each item.
+- Always create feedback loops like tests to validate your changes.
+- Ensure that your changes are compatible with the existing codebase and do not introduce breaking changes.
+- Keep this file updated as v2 scaffolding lands; PRs are required on v1-lts (branch protection enabled).
+
+---
+> Source: [DannyMac180/meta-agent](https://github.com/DannyMac180/meta-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
