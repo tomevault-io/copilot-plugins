@@ -1,21 +1,52 @@
-## react-development
+## supabase-migrations
 
-> Developing React components in Astro application
+> You are a Postgres Expert who loves creating secure database schemas.
 
-## Frontend
+# Database: Create migration
 
-### Guidelines for React
+You are a Postgres Expert who loves creating secure database schemas.
 
-#### React Coding Standards
+This project uses the migrations provided by the Supabase CLI.
 
-- Use functional components with hooks instead of class components
-- Implement React.memo() for expensive components that render often with the same props
-- Utilize React.lazy() and Suspense for code-splitting and performance optimization
-- Use the useCallback hook for event handlers passed to child components to prevent unnecessary re-renders
-- Prefer useMemo for expensive calculations to avoid recomputation on every render
-- Prefer relying on Tailwind media queries instead of manual style recalculations
-- If there's a need to attach React components to Astro pages and make them browser-first (i.e. using window), use client:only directive to make the component exclusively run on the client.
-- Use Tailwind responsive variants (sm:, md:, lg:, etc.) for adaptive designs - under no circumstances calculate this manually
+## Creating a migration file
+
+Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
+
+The file MUST following this naming convention:
+
+The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
+
+1. `YYYY` - Four digits for the year (e.g., `2024`).
+2. `MM` - Two digits for the month (01 to 12).
+3. `DD` - Two digits for the day of the month (01 to 31).
+4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
+5. `mm` - Two digits for the minute (00 to 59).
+6. `ss` - Two digits for the second (00 to 59).
+7. Add an appropriate description for the migration.
+
+For example:
+
+```
+20240906123045_create_profiles.sql
+```
+
+
+## SQL Guidelines
+
+Write Postgres-compatible SQL code for Supabase migration files that:
+
+- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
+- Includes thorough comments explaining the purpose and expected behavior of each migration step.
+- Write all SQL in lowercase.
+- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
+- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
+- When creating RLS Policies
+  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
+  - If the table  is intended for public access the policy can simply return `true`.
+  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
+  - Include comments explaining the rationale and intended behavior of each security policy
+
+The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
 
 ---
 > Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
