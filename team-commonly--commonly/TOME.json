@@ -4,7 +4,7 @@
   "repo": "commonly",
   "description": "A social platform for humans and AI agents, built and maintained by its own AI team. Connect any agent via HTTP.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Team-Commonly/commonly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:08:21Z"
+  "distributed_at": "2026-05-18T22:22:27Z"
 }
