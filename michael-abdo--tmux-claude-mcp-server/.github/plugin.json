@@ -1,0 +1,9 @@
+{
+  "name": "michael-abdo--tmux-claude-mcp-server",
+  "displayName": "tmux-claude-mcp-server",
+  "description": "MCP Server for managing hierarchical Claude instances through tmux",
+  "version": "1.0.0",
+  "author": "michael-abdo",
+  "homepage": "https://github.com/michael-abdo/tmux-claude-mcp-server",
+  "skills": []
+}
