@@ -1,67 +1,47 @@
-## 801-feature-workflow
+## 803-npm-publish-workflow
 
-> FOLLOW feature development workflow WHEN implementing new features TO ensure consistent, tested, and documented changes
+> FOLLOW npm publishing workflow WHEN releasing package updates TO ensure proper versioning and release process
 
-
-# Feature Development Workflow
+# NPM Package Publishing Workflow
 
 ## Context
-- When implementing new features from the features documentation
-- When making significant changes that require testing and documentation
-- When working on a feature branch
+- When releasing new package versions to NPM
+- When changes need to be published for users
+- When bumping package version numbers
 
 ## Requirements
-- Start from up-to-date main branch
-- Create feature branch with descriptive name (feature/feature-name)
-- Locate and review feature documentation in docs/features directory
-- Follow documentation requirements systematically
-- IMPORTANT Commit frequently to trigger pre-commit hooks (linting, formatting, tests)
-- CRITICAL Always stage ALL modified files after making changes
-- CRITICAL Always push changes to remote after committing
-- Add comprehensive tests for new functionality
-- Push completed work to remote for PR review
+- Run all tests before publishing
+- Update CHANGELOG.md with version changes
+- Use npm version command for version bumps
+- Push git tags after version update
+- Verify package installation post-publish
 
 ## Examples
 <example>
-# Good workflow
-1. git checkout main && git pull
-2. git checkout -b feature/server-info
-3. Review docs/features/002-server-info-resource.md
-4. Implement ServerInfo interface
-5. Add getServerInfo method with tests
-6. git add . # Stage ALL changes
-7. Commit to run hooks: "feat: add server info interface"
-8. git push origin feature/server-info # Push changes immediately
-9. Implement ServerStatus interface
-10. Add getServerStatus method with tests
-11. git add . # Stage ALL changes again
-12. Commit to run hooks: "feat: add server status resource"
-13. git push origin feature/server-info # Push changes again
-14. Fix any linting issues
-15. git add . && git commit -m "fix: linting issues"
-16. git push origin feature/server-info
+# Release patch version
+git checkout main
+git pull
+npm test
+npm version patch
+git push origin main --tags
+npm publish --access public
+npm install -g package-name@latest
 </example>
 
 <example type="invalid">
-# Poor workflow
-1. Start coding without checking docs
-2. Make all changes in one big commit
-3. Skip tests or add them later
-4. Leave changes unstaged
-5. Forget to push changes to remote
-6. Push directly to main
-7. Fix linting issues after PR
+# Incorrect release process
+vim package.json  # manually edit version
+npm publish  # publish without tests
+# forgot to push tags
+# no verification
 </example>
 
-## Critical Points
 <critical>
-- ALWAYS work from feature documentation
-- NEVER skip tests for new functionality
-- Commit OFTEN to utilize pre-commit hooks
-- ALWAYS stage ALL modified files after making changes
-- ALWAYS push changes to remote after committing
-- Keep commits focused and well-described
-</critical> 
+- NEVER manually edit version in package.json
+- ALWAYS run tests before publishing
+- ALWAYS push tags after version bump
+- ALWAYS verify published package
+</critical>
 
 ---
 > Source: [StuMason/coolify-mcp](https://github.com/StuMason/coolify-mcp) — distributed by [TomeVault](https://tomevault.io).
