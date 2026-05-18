@@ -4,7 +4,7 @@
   "repo": "simply",
   "description": "Minimal and scalable research codebase in JAX, designed for rapid iteration on frontier research in LLM and other autoregressive models.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/google-deepmind/simply",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T07:41:29Z"
+  "distributed_at": "2026-05-18T08:25:30Z"
 }
