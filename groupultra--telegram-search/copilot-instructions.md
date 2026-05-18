@@ -1,40 +1,45 @@
-## testing
+## tooling
 
-> - **Goal**: Fast, reliable tests that validate behavior at the event and DB boundary, not implementation details.
+> - **Package management**:
 
 
-## Testing (Vitest)
+## Tooling & Monorepo Configuration
 
-- **Goal**: Fast, reliable tests that validate behavior at the event and DB boundary, not implementation details.
+- **Package management**:
+  - Use **pnpm** and respect the existing workspace layout and `catalog` versions.
+  - When adding dependencies:
+    - Prefer catalog entries where available.
+    - Avoid version drift between apps/packages unless there is a strong reason.
+- **Node & TS versions**:
+  - Keep compatibility with the Node and TypeScript versions declared in the root `package.json`.
+  - Avoid using language features that require bumping these versions without updating the configuration and CI.
 
-### General Guidelines
+### Scripts & Build Pipeline
 
-- Use **Vitest** consistently; avoid mixing in Jest-only APIs.
-- Prefer:
-  - Clear Arrange–Act–Assert structure.
-  - One behavior/assertion cluster per test.
-  - Descriptive test names tied to domain language (e.g. "message query returns latest by ID").
-- Avoid:
-  - Sleeping or relying on real timeouts unless absolutely necessary.
-  - Network calls to real Telegram or external APIs; use mocks or fixtures instead.
+- Maintain the existing build and typecheck pipeline:
+  - `packages:build` builds all packages.
+  - `typecheck` builds packages and runs `tsc --noEmit` plus per-package typechecks.
+  - `lint` and `lint:fix` must work across the entire repo.
+- When adding new scripts:
+  - Integrate them into the existing flows where appropriate (e.g. run before `build` or as part of CI).
+  - Keep script names concise and descriptive; avoid overlapping names.
 
-### Core & DB Tests
+### ESLint & TSConfig
 
-- For `packages/core`:
-  - Test at the level of events and side effects (DB writes, emitted events), not private helpers.
-  - Use `setDbInstanceForTests` and/or in-memory PGlite where appropriate to isolate tests from production DBs.
-- For DB-related behavior:
-  - Prefer migrations + schema fixtures over ad‑hoc `CREATE TABLE` statements inside tests.
-  - Clean up state between tests; do not rely on test ordering.
+- ESLint:
+  - Do **not** globally disable strict rules for convenience; scope exceptions narrowly (`eslint-disable-next-line`) and justify them.
+  - Keep TypeScript, Vue, and UnoCSS plugins enabled unless there is a clear performance or correctness reason.
+- TypeScript:
+  - Preserve strictness; avoid relaxing compiler options without strong justification.
+  - For path aliases or module resolution changes, ensure both Vite and `tsconfig` stay in sync.
 
-### Client & Web Tests
+### Vite & UnoCSS
 
-- For `packages/client`:
-  - Focus on verifying that specific inputs/events produce the correct store updates and outgoing events.
-  - Mock `CoreContext` or WebSocket layers rather than hitting real servers.
-- For `apps/web`:
-  - Keep component tests focused and shallow where possible.
-  - Only write more integrated UI tests when they provide clear regression protection.
+- Vite:
+  - Keep configs minimal and shared where possible.
+  - Be mindful of bundle size impact when adding new plugins or heavy dependencies.
+- UnoCSS:
+  - Centralize design tokens and theme-level decisions in Uno configs rather than scattering magic values across components.
 
 ---
 > Source: [groupultra/telegram-search](https://github.com/groupultra/telegram-search) — distributed by [TomeVault](https://tomevault.io).
