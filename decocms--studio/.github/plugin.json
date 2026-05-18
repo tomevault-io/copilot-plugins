@@ -1,0 +1,9 @@
+{
+  "name": "decocms--studio",
+  "displayName": "studio",
+  "description": "Open-source control plane for your AI agents. Connect tools, hire agents, track every token and dollar",
+  "version": "1.0.0",
+  "author": "decocms",
+  "homepage": "https://github.com/decocms/studio",
+  "skills": []
+}
