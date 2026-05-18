@@ -1,0 +1,9 @@
+{
+  "name": "jxnl--kura",
+  "displayName": "kura",
+  "description": "Kura is a simple reproduction of the CLIO paper which uses language models to label user behaviour before clustering them based on embeddings recursively. This helps us understand user behaviour on a ",
+  "version": "1.0.0",
+  "author": "jxnl",
+  "homepage": "https://github.com/jxnl/kura",
+  "skills": []
+}
