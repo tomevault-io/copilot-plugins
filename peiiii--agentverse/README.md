@@ -1,6 +1,8 @@
 # AgentVerse
 
-> Tome by [Peiiii](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io/claim/Peiiii)
+> Tome by [Peiiii](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io)
+
+Multi-Agent Collaboration  Platform✨
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [Peiiii/AgentVerse](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/Peiiii)
+From [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — a repo with 305+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/Peiiii) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
