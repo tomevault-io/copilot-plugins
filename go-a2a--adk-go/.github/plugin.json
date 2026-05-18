@@ -1,0 +1,9 @@
+{
+  "name": "go-a2a--adk-go",
+  "displayName": "adk-go",
+  "description": "An open-source, code-first Go toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control.",
+  "version": "1.0.0",
+  "author": "go-a2a",
+  "homepage": "https://github.com/go-a2a/adk-go",
+  "skills": []
+}
