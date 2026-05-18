@@ -7,11 +7,11 @@ NVIDIA Isaac GR00T N1.7 -  A Foundation Model for Generalist Robots.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T).
+Original source: `CLAUDE.md` in [NVIDIA/Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
