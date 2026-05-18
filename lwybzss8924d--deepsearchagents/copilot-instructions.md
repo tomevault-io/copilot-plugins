@@ -1,38 +1,78 @@
-## interfaces
+## periodic-planning
 
-> DeepSearchAgent provides multiple interfaces for different usage scenarios:
+> DeepSearchAgent v0.2.4 introduces periodic planning capability for both agent types, allowing strategic reassessment during complex search tasks.
 
-# DeepSearchAgent Interfaces
+# DeepSearchAgent Periodic Planning
 
-DeepSearchAgent provides multiple interfaces for different usage scenarios:
+DeepSearchAgent v0.2.4 introduces periodic planning capability for both agent types, allowing strategic reassessment during complex search tasks.
 
-## Command-Line Interface (CLI)
+## Concept
 
-- **[cli.py](mdc:src/agents/cli.py)**: Command-line interface for interactive use
-  - Supports both interactive mode and single-query execution
-  - Allows overriding configuration parameters via command-line arguments
-  - Usage examples:
-    - Interactive mode: `python -m src.agents.cli`
-    - Single query: `python -m src.agents.cli --query "Search for something"`
-    - Override agent type: `python -m src.agents.cli --agent-type react`
+Periodic planning helps agents maintain focus and adapt their search strategy as they gather new information. Instead of blindly following an initial plan, agents reassess at regular intervals to:
 
-## FastAPI Service
+1. Evaluate progress on the current goal
+2. Identify gaps in the information collected
+3. Adjust search strategy based on discoveries
+4. Prioritize remaining sub-tasks
 
-- **[main.py](mdc:src/agents/main.py)**: Web service based on FastAPI framework
-  - Exposes RESTful API endpoints for agent functionality
-  - Provides health checks and API documentation
-  - Main endpoints:
-    - `/run_react_agent`: Runs the ReAct agent
-    - `/run_deepsearch_agent`: Runs the configured agent (ReAct or CodeAct)
-    - `/`: API information and health check
+## Implementation
 
-## Deployment Methods
+### ReAct Agent
 
-All interfaces can be run using:
-- Direct Python execution (`python -m src.agents.cli`)
-- Through the make commands in the Makefile (`make cli`, `make run`, `make mcp`)
-- As a Docker container (build using provided Dockerfile)
-- With environment variables for configuration (`DEEPSEARCH_AGENT_MODE=react python -m src.agents.main`)
+In [agent.py](mdc:src/agents/agent.py), the ReAct agent implements planning with:
+
+```python
+# Set planning interval (default: 7)
+planning_interval = planning_interval
+```
+
+The planning process involves:
+- Initial planning at the start of a task
+- Periodic planning every `planning_interval` steps
+- Sending special planning prompts to the LLM to reconsider its approach
+
+### CodeAct Agent
+
+In [codact_agent.py](mdc:src/agents/codact_agent.py), the CodeAct agent uses:
+
+```python
+# Set planning interval (default: 5)
+search_planning_interval = planning_interval
+```
+
+The CodeAct planning involves:
+- Detailed strategy assessment in Python code
+- State tracking for visited URLs, search queries, etc.
+- Python-based plan adjustments
+
+## Configuration
+
+Planning intervals can be configured in:
+
+1. [config.toml](mdc:config.toml):
+   ```yaml
+   agents:
+     react:
+       planning_interval: 7
+     codact:
+       planning_interval: 5
+   ```
+
+2. Command line:
+   ```bash
+   # For ReAct agent
+   python -m src.agents.cli --agent-type react --react-planning-interval 10
+   
+   # For CodeAct agent
+   python -m src.agents.cli --agent-type codact --planning-interval 8
+   ```
+
+## Benefits
+
+- More coherent search strategy over long tasks
+- Better adaptation to discovered information
+- Reduced "tunnel vision" where agent follows initial assumptions
+- Improved handling of complex, multi-part research questions
 
 ---
 > Source: [lwyBZss8924d/DeepSearchAgents](https://github.com/lwyBZss8924d/DeepSearchAgents) — distributed by [TomeVault](https://tomevault.io).
