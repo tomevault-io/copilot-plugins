@@ -1,0 +1,9 @@
+{
+  "name": "srbarrios--agentic-test-explorer",
+  "displayName": "agentic-test-explorer",
+  "description": "An agnostic AI-driven exploratory test framework that intelligently explores, tests, and validates any application",
+  "version": "1.0.0",
+  "author": "srbarrios",
+  "homepage": "https://github.com/srbarrios/agentic-test-explorer",
+  "skills": []
+}
