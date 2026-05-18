@@ -2,7 +2,7 @@
   "name": "AgentDock",
   "owner": "AgentDock",
   "repo": "AgentDock",
-  "description": "",
+  "description": "Build Anything with AI Agents",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/AgentDock",
+  "source_url": "https://github.com/AgentDock/AgentDock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T08:36:23Z"
+  "distributed_at": "2026-05-18T18:17:50Z"
 }
