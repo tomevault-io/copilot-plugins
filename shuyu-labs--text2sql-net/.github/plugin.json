@@ -1,0 +1,9 @@
+{
+  "name": "shuyu-labs--text2sql-net",
+  "displayName": "Text2Sql.Net",
+  "description": "Text2Sql.Net \u662f\u4e00\u4e2a\u4f7f\u7528DotNet\u548cSemantic Kernel\u5f00\u53d1\u7684Text2Sql\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "shuyu-labs",
+  "homepage": "https://github.com/shuyu-labs/Text2Sql.Net",
+  "skills": []
+}
