@@ -1,0 +1,9 @@
+{
+  "name": "databrickslabs--ontos",
+  "displayName": "ontos",
+  "description": "A Business Catalog for Unity Catalog",
+  "version": "1.0.0",
+  "author": "databrickslabs",
+  "homepage": "https://github.com/databrickslabs/ontos",
+  "skills": []
+}
