@@ -1,6 +1,8 @@
-# guarahooks — distributed by TomeVault
+# guarahooks
 
-> Originally from [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [h3rmel/guarahooks](https://github.com/h3rmel/guarahooks) — distributed by [TomeVault](https://tomevault.io)
+
+Reusable and customizable hooks that you can copy-and-paste into your apps. Free. Open Source and Open Code.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [h3rmel/guarahooks](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/h3rmel)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/h3rmel/guarahooks](https://github.com/h3rmel/guarahooks)
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install h3rmel/guarahooks
 ```
-Or browse all formats at [https://tomevault.io/claim/h3rmel](https://tomevault.io/claim/h3rmel).
+Source: [github.com/h3rmel/guarahooks](https://github.com/h3rmel/guarahooks).
 
 <!-- genome:d-i-p -->
