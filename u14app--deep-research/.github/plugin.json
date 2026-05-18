@@ -1,0 +1,9 @@
+{
+  "name": "u14app--deep-research",
+  "displayName": "deep-research",
+  "description": "Use any LLMs (Large Language Models) for Deep Research. Support SSE API and MCP server.",
+  "version": "1.0.0",
+  "author": "u14app",
+  "homepage": "https://github.com/u14app/deep-research",
+  "skills": []
+}
