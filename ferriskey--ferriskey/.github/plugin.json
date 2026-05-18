@@ -1,9 +1,9 @@
 {
   "name": "ferriskey--ferriskey",
   "displayName": "ferriskey",
-  "description": "ferriskey",
+  "description": "FerrisKey is an open-source IAM solution designed for modern cloud-native environments, high-performance and written in Rust.",
   "version": "1.0.0",
   "author": "ferriskey",
-  "homepage": "https://tomevault.io/claim/ferriskey",
+  "homepage": "https://github.com/ferriskey/ferriskey",
   "skills": []
 }
