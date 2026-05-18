@@ -1,0 +1,9 @@
+{
+  "name": "nickclyde--duckduckgo-mcp-server",
+  "displayName": "duckduckgo-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that provides web search capabilities through DuckDuckGo, with additional features for content fetching and parsing.",
+  "version": "1.0.0",
+  "author": "nickclyde",
+  "homepage": "https://github.com/nickclyde/duckduckgo-mcp-server",
+  "skills": []
+}
