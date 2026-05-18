@@ -4,7 +4,7 @@
   "repo": "LyraNote",
   "description": "LyraNote \u662f\u4e00\u6b3e\u4ee5 AI \u4e3a\u6838\u5fc3\u7684\u7814\u7a76\u7b14\u8bb0\u5e94\u7528\uff0c\u9762\u5411\u77e5\u8bc6\u5de5\u4f5c\u8005\u505a\u201c\u53ef\u68c0\u7d22\u7684\u4e2a\u4eba\u77e5\u8bc6\u5e93 + AI \u5199\u4f5c/\u7814\u7a76\u52a9\u624b\u201d\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LinMoQC/LyraNote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T03:49:16Z"
+  "distributed_at": "2026-05-18T04:11:03Z"
 }
