@@ -1,0 +1,9 @@
+{
+  "name": "negokaz--excel-mcp-server",
+  "displayName": "excel-mcp-server",
+  "description": "A Model Context Protocol (MCP) server that reads and writes MS Excel data",
+  "version": "1.0.0",
+  "author": "negokaz",
+  "homepage": "https://github.com/negokaz/excel-mcp-server",
+  "skills": []
+}
