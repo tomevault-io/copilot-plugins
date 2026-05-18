@@ -1,0 +1,9 @@
+{
+  "name": "tuannvm--slack-mcp-client",
+  "displayName": "slack-mcp-client",
+  "description": "A Slack bot and MCP client acts as a bridge between Slack and Model Context Protocol (MCP) servers. Using Slack as the interface, it enables large language models (LLMs) to connect and interact with v",
+  "version": "1.0.0",
+  "author": "tuannvm",
+  "homepage": "https://github.com/tuannvm/slack-mcp-client",
+  "skills": []
+}
