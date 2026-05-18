@@ -1,0 +1,9 @@
+{
+  "name": "azure-samples--python-ai-agent-frameworks-demos",
+  "displayName": "python-ai-agent-frameworks-demos",
+  "description": "A repository of examples using Python AI Agent frameworks that work with GitHub Models and Azure OpenAI.",
+  "version": "1.0.0",
+  "author": "Azure-Samples",
+  "homepage": "https://github.com/Azure-Samples/python-ai-agent-frameworks-demos",
+  "skills": []
+}
