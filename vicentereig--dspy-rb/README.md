@@ -7,11 +7,11 @@ The Ruby framework for programming—rather than prompting—language models.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vicentereig/dspy.rb](https://github.com/vicentereig/dspy.rb).
+Original source: `CLAUDE.md` in [vicentereig/dspy.rb](https://github.com/vicentereig/dspy.rb).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
