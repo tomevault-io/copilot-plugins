@@ -1,0 +1,304 @@
+## piptan-properties
+
+> <type>(<scope>): <description>
+
+# Cursor Rules for Sphere IT Project
+
+## Commit Message Conventions
+
+### Format
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+- `feat:` - New features
+- `fix:` - Bug fixes
+- `docs:` - Documentation changes
+- `style:` - Code style changes (formatting, missing semicolons, etc.)
+- `refactor:` - Code refactoring (no functional changes)
+- `perf:` - Performance improvements
+- `test:` - Adding or updating tests
+- `chore:` - Build process, tooling, or dependency updates
+- `ci:` - CI/CD pipeline changes
+- `revert:` - Reverting previous commits
+
+### Examples
+```
+feat(auth): add OAuth login with Google
+fix(ui): resolve button alignment in mobile view
+docs(readme): update installation instructions
+refactor(api): simplify user data fetching logic
+perf(images): implement lazy loading for product images
+test(components): add unit tests for DealCard component
+chore(deps): update Next.js to 15.4.7
+```
+
+## Naming Conventions
+
+### Files and Directories
+- Use kebab-case for directories: `user-profile/`, `deal-management/`
+- Use kebab-case for files: `user-profile.tsx`, `deal-card.tsx`
+- Use kebab-case for React components: `user-profile.tsx`, `deal-card.tsx`
+- Use camelCase for utilities: `formatPrice.ts`, `validateEmail.ts`
+
+### Variables and Functions
+- Use camelCase for variables and functions: `userProfile`, `getDealById`
+- Use PascalCase for React components: `UserProfile`, `DealCard`
+- Use UPPER_SNAKE_CASE for constants: `API_BASE_URL`, `MAX_DEALS_PER_PAGE`
+- Use descriptive names with auxiliary verbs: `isLoading`, `hasError`, `canEdit`
+
+### Database and API
+- Use snake_case for database tables and columns: `user_profiles`, `deal_categories`
+- Use kebab-case for API endpoints: `/api/deals`, `/api/user-profile`
+- Use kebab-case for URL slugs: `/deals/summer-sale`, `/categories/electronics`
+
+## Code Style Guidelines
+
+### TypeScript
+- Prefer interfaces over types for object shapes
+- Use functional components with TypeScript interfaces
+- Avoid enums; use const objects instead
+- Use descriptive type names: `UserProfileData`, `DealFormProps`
+
+### React Components
+- Use functional components with hooks
+- Prefer server components over client components
+- Use 'use client' only when necessary (Web APIs, interactivity)
+- Structure files: exported component, subcomponents, helpers, types
+
+### Styling
+- Use Tailwind CSS with mobile-first approach
+- Use Shadcn UI components when available
+- Use CSS custom properties for theme values
+- Prefer utility classes over custom CSS
+
+## File Organization
+
+### Directory Structure
+```
+src/
+├── app/                    # Next.js App Router pages
+├── components/             # Reusable UI components
+│   ├── ui/                # Shadcn UI components
+│   ├── forms/             # Form components
+│   └── layout/            # Layout components
+├── lib/                   # Utilities and configurations
+├── hooks/                 # Custom React hooks
+├── types/                 # TypeScript type definitions
+├── styles/                # Global styles
+└── utils/                 # Helper functions
+```
+
+### Component Structure
+```typescript
+// 1. Imports
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+
+// 2. Types/Interfaces
+interface ComponentProps {
+  title: string
+  onAction: () => void
+}
+
+// 3. Main Component
+export function Component({ title, onAction }: ComponentProps) {
+  // Component logic
+  return (
+    <div>
+      <h1>{title}</h1>
+      <Button onClick={onAction}>Action</Button>
+    </div>
+  )
+}
+
+// 4. Subcomponents (if any)
+function SubComponent() {
+  return <div>Sub component</div>
+}
+```
+
+## Performance Guidelines
+
+### Optimization
+- Use React Server Components (RSC) by default
+- Implement dynamic imports for large components
+- Use Next.js Image component for images
+- Implement proper loading states and error boundaries
+- Use React.memo for expensive components
+
+### Data Fetching
+- Use server actions instead of API routes
+- Implement proper caching strategies
+- Use SWR or React Query for client-side data
+- Handle loading and error states gracefully
+
+## Security Guidelines
+
+### Authentication
+- Use better-auth for authentication
+- Implement proper session management
+- Validate all user inputs
+- Use environment variables for sensitive data
+
+### API Security
+- Implement rate limiting
+- Validate request bodies
+- Use HTTPS in production
+- Sanitize user inputs
+
+
+## Documentation
+
+### Code Comments
+- Comment complex business logic
+- Document API endpoints
+- Explain non-obvious solutions
+- Use JSDoc for function documentation
+
+### README
+- Keep README up to date
+- Include setup instructions
+- Document environment variables
+- Include API documentation
+
+## Git Workflow
+
+### Branch Naming
+- `feature/feature-name`
+- `fix/bug-description`
+- `docs/documentation-update`
+- `refactor/component-name`
+
+### Pull Requests
+- Use descriptive titles
+- Include screenshots for UI changes
+- Link related issues
+- Request reviews from team members
+
+## Environment and Dependencies
+
+### Package Management
+- Use pnpm for package management
+- Keep dependencies up to date
+- Use exact versions for critical packages
+- Document breaking changes
+
+### Development Tools
+- Use Biome for linting and formatting
+- Use TypeScript strict mode
+- Use Next.js with Turbopack for development
+- Use Docker for consistent environments
+
+## Accessibility
+
+### Standards
+- Follow WCAG 2.1 AA guidelines
+- Use semantic HTML elements
+- Provide alt text for images
+- Ensure keyboard navigation
+- Test with screen readers
+
+### ARIA
+- Use ARIA labels when needed
+- Implement proper focus management
+- Use ARIA live regions for dynamic content
+
+## Error Handling
+
+### Client-Side
+- Use error boundaries for React components
+- Implement proper error states
+- Provide user-friendly error messages
+- Log errors for debugging
+
+### Server-Side
+- Use try-catch blocks
+- Return appropriate HTTP status codes
+- Log errors with context
+- Implement proper validation
+
+## Monitoring and Analytics
+
+### Performance
+- Monitor Core Web Vitals
+- Track page load times
+- Monitor API response times
+- Use Next.js Analytics
+
+### User Experience
+- Track user interactions
+- Monitor error rates
+- A/B test new features
+- Collect user feedback
+
+Remember: Always prioritize code readability, maintainability, and user experience over clever solutions. 
+
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+
+Code Style and Structure
+
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+- Use server actions instead of route handler.
+
+Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
+
+TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+
+Syntax and Formatting
+
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+UI and Styling
+
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+Performance Optimization
+
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+
+Key Conventions
+
+- Use 'nuqs' for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+  - Favor server components and Next.js SSR.
+  - Use only for Web API access in small components.
+  - Avoid for data fetching or state management.
+  
+Always search the codebase for relevant files and do research before you begin a task.
+
+
+Icons in Buttons don't need size or Margin it's handled automatically by our shadcn Button component.
+
+
+Don't run type checks in terminal or create temporary test files.
+
+
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
+
+---
+> Source: [itzTedx/Piptan-Properties](https://github.com/itzTedx/Piptan-Properties) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
