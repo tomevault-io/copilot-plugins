@@ -1,120 +1,163 @@
-## cursor-rules
+## general
 
-> Follow these rules when the user's request involves creating, modifying, organizing, or structuring Cursor rules within the project
+> Follow these rules when creating, modifying, or generating any code, tests, documentation, or configuration files
 
-# Cursor Rules Location
 
-How to add new cursor rules to the project
+# NeMo Agent Toolkit General Coding Guidelines
 
-1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-    ```
-    .cursor/rules/
-    ├── your-rule-name.mdc
-    ├── another-rule.mdc
-    └── ...
-    ```
-
-2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Always use .mdc extension
-    - Make names descriptive of the rule's purpose
-
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── your-rule-name.mdc
-    │       └── ...
-    └── ...
-    ```
-
-4. For related rules sharing the same topic, create a subdirectory:
-    ```
-    .cursor/rules/
-    ├── topic-name/
-    │   ├── general.mdc          # General rules for this topic
-    │   ├── specific-rule.mdc    # Specific rules within the topic
-    │   └── another-rule.mdc
-    ├── another-topic/
-    │   ├── general.mdc
-    │   └── specific-rule.mdc
-    └── standalone-rule.mdc
-    ```
-
-5. When creating topic subdirectories:
-    - Use kebab-case for directory names
-    - Always include a `general.mdc` file with overarching guidelines for the topic
-    - Place specific rules as separate .mdc files within the subdirectory
-    - Example: `nat-cli/` folder contains general NAT CLI rules in `general.mdc` and specific command rules in separate files
-
-6. For `general.mdc` files in subdirectories:
-    - Always include a "Referenced Documentation" section that lists all documentation referenced in the rules
-    - Format documentation references with descriptive names and brief descriptions
-    - Reference the documentation section in the main rules instead of directly linking to documentation
-    - Example structure:
-    ```markdown
-    # General Rules for [Topic]
-
-    ## Referenced Documentation
-
-    - **Documentation Name**: [filename.md](mdc:path/to/filename.md) - Brief description of the documentation
-    - **Another Doc**: [another.md](mdc:path/to/another.md) - Description of this documentation
-
-    ## Rules
-
-    - Rule content referencing "the documentation listed in the Referenced Documentation section above"
-    ```
-
-7. Writing effective descriptions for Cursor rules:
-    - **Start with "Follow these rules when"**: All descriptions should begin with this consistent phrase
-    - **Use specific trigger conditions**: Clearly define when the rule should be requested by the agent
-    - **Include relevant action verbs**: Use precise verbs like "creating", "modifying", "implementing", "configuring", "adding", "installing", "evaluating", etc.
-    - **Be comprehensive but concise**: Cover all relevant scenarios without being overly verbose
-    - **Use consistent terminology**: Match the language used in the project (e.g., "NAT workflows", "NAT CLI commands")
-    - **Check for typos**: Ensure proper spelling and grammar (avoid errors like "ollow" instead of "Follow")
-    - **Examples of good descriptions:**
-      - "Follow these rules when the user's request involves creating, modifying, organizing, or structuring Cursor rules within the project"
-      - "Follow these rules when the user's request involves NAT CLI commands, operations, or functionality"
-      - "Follow these rules when the user's request involves implementing, adding, creating, or modifying functions within NAT workflows"
-    - **Avoid overly narrow descriptions**: Don't limit to just one action when the rule covers multiple related scenarios
-    - **Use "user's request involves" pattern**: This clearly indicates the trigger condition for the agent
-
-8. Never place rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
-
-9. Cursor rules have the following structure:
+These are the overarching standards that every **source, test, documentation and CI file** in this repository must follow. Adhering to these rules locally ensures the project's automated checks and pipelines succeed on your first push.
 
 ---
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/*
-alwaysApply: false
----
-# Rule Title
 
-Main content explaining the rule with markdown formatting.
+## Terminology and Naming
 
-1. Step-by-step instructions
-2. Code examples
-3. Guidelines
-Example:
-```python
-# Good example
-async def good_example_function():
-    """Implementation following NeMo Agent Toolkit guidelines."""
-    # Use async/await for I/O operations
-    # Follow snake_case naming convention
-    # Include proper type hints and docstrings
-    pass
+- Make sure to follow this naming convention for all the documentation. If there is any documentation not following this rule, you MUST update it.
+- **Full name (first use)**: "NVIDIA NeMo Agent Toolkit" — use for document titles, webpage headers, and any public descriptions
+- **Short name (subsequent references)**: "NeMo Agent Toolkit" or "the toolkit"
+- **Capitalization rules**:
+  - In document titles, headings, or any context where all words are capitalized, use "Toolkit" (capital T): e.g., "NVIDIA NeMo Agent Toolkit" or "NeMo Agent Toolkit"
+  - In all other contexts (body text, descriptions), use "toolkit" (lowercase t): e.g., "NVIDIA NeMo Agent Toolkit" or "NeMo Agent Toolkit"
+- **Technical identifiers** (code, CLI, packages, URLs):
+  - `nat` for the API namespace and CLI tool
+  - `nvidia-nat` for the package name
+  - `NAT_` prefix for environment variables
+  - `NeMo-Agent-Toolkit` for URLs, directory names, and contexts where capitalization is preserved (no underscores or spaces)
+- **"NAT" abbreviation**:
+  - OK in code comments
+  - NEVER use "NAT" or "nat" to refer to the toolkit in documentation
+- Examples:
+  - "In the NeMo Agent Toolkit, you can…"
+  - "Change directory to the NeMo Agent Toolkit repo root…"
+  - Heading: "# Getting Started with NeMo Agent Toolkit"
+- Consistently use this terminology throughout all documentation
+- NeMo Agent Toolkit was previously known as the Agent Intelligence toolkit, and AgentIQ. You should NEVER use the deprecated names, including Agent Intelligence toolkit, aiqtoolkit, AgentIQ, or AIQ/aiq. If you see any of these names in the documentation, you should update it based on the latest naming convention above, unless those names are intentionally used to refer to the deprecated names, or implementing a compatibility layer for the deprecated names.
+- DO NOT change the content of `CHANGELOG.md`
+- AIQ Blueprint is the intended name for the blueprint. DO NOT change it.
 
-# Bad example
-def badExample():
-    # Missing async, type hints, and docstring
-    # Uses camelCase instead of snake_case
-    pass
-```
+## Project Structure
+
+- All importable Python code lives under `src/` or `packages/<pkg>/src/` so namespace-packages resolve correctly.
+- Each example is an installable package in `examples/<example_name>` and exposes an `__main__.py` for `python -m <example_name>` execution.
+- **Examples directory guidelines**:
+  - At minimum, examples should contain a `README.md` or `README.ipynb` file.
+  - Python code should be placed in a `src/` subdirectory with a `pyproject.toml` file.
+  - Scripts should be placed in a `scripts/` subdirectory (optional).
+  - YAML files should be placed in a `configs/` subdirectory.
+  - Sample data files should be placed in a `data/` subdirectory and checked into git-lfs.
+- **Packages directory guidelines**:
+  - Each package should contain a `pyproject.toml` file.
+  - The `pyproject.toml` should declare a dependency on `nvidia-nat` or another package with a name starting with `nvidia-nat-`.
+  - Dependencies should use `~=<version>` format with two-digit versions (e.g., `~=1.0`).
+  - If packages contain Python code, they should have tests in a `tests/` directory at the same level as `pyproject.toml`.
+- Unit tests live in `tests/` (or `examples/*/tests`) and use the markers defined in `pyproject.toml` (e.g. `integration`).
+- Documentation sources are Markdown files under `docs/source`. Image files should be placed in `docs/source/_static` directory.
+- Configuration files consumed by code are stored next to that code in a `configs/` folder.
+- Large / binary assets **must** be committed with Git-LFS and placed in a neighbouring `data/` folder.
+- Shell or utility scripts belong in `scripts/` or `ci/scripts/` – never mix them with library code.
+- **Source code organization**:
+  - `packages/nvidia_nat_core/src/nat/**/*`: Contains core functionality. Changes should prioritize backward compatibility.
+
+## Code Formatting & Imports
+
+- Follow [PEP 20](https://peps.python.org/pep-0020/) and [PEP 8](https://peps.python.org/pep-0008/) for Python style guidelines.
+- Run **yapf** second (PEP 8 base, `column_limit = 120`).
+- Indent with 4 spaces, never tabs, and ensure every file ends with a single newline.
+- CI fails if formatting is wrong; run `pre-commit run --all-files` locally before pushing.
+
+## Linting
+
+- **ruff** (via `ruff check --fix`) also runs via pre-commit; is executed using the configuration embedded in `pyproject.toml`,
+  fix warnings unless they're explicitly ignored in `pyproject.toml`. ruff is only used as a linter not for formatting.
+- Respect the naming schemes: `snake_case` for functions & variables, `PascalCase` for classes, `UPPER_CASE` for constants.
+
+## Type Hints
+
+- All public APIs require Python 3.11+ type hints on parameters and return values.
+- Prefer `collections.abc` / `typing` abstractions (`Sequence` over `list`).
+- Use `typing.Annotated` for units or extra metadata when useful.
+- Treat `pyright` warnings (configured in `pyproject.toml`) as errors during development.
+
+## Exception Handling
+
+- Preserve stack traces and prevent duplicate logging when handling exceptions.
+- When re-raising exceptions: use bare `raise` statements to maintain the original stack trace, and use `logger.error()` for logging (not `logger.exception()`) to avoid duplicate stack trace output.
+- When catching and logging exceptions without re-raising: always use `logger.exception()` (equivalent to `logger.error(exc_info=True)`) to capture the full stack trace information.
+
+
+## Common Bugs to Avoid
+
+- **Pydantic SecretStr defaults**: Pydantic models using `SecretStr`, `SerializableSecretStr`, or `OptionalSecretStr` with `default=""` creates a bug where the field is initialized as `str` instead of a `SecretStr` instance. Instead:
+  - For optional secret fields (e.g., `OptionalSecretStr`): use `default=None`
+  - For non-optional secret fields (e.g., `SerializableSecretStr`): use `default_factory=lambda: SerializableSecretStr("")` to ensure each instance gets a unique `SecretStr` object
+
+## Documentation
+
+- Provide Google-style docstrings for every public module, class, function and CLI command.
+- The first line must be a concise description ending with a period (Vale checks this).
+- Surround code entities with backticks to avoid Vale false-positives.
+- Keep docs in sync with code; the **documentation** pipeline will fail on Sphinx errors or broken links.
+- **Documentation quality requirements**:
+  - Documentation must be clear and comprehensive.
+  - Do not include TODOs, FIXMEs, or placeholder text like "lorem ipsum".
+  - Avoid offensive or outdated terms.
+  - Ensure documentation is free of spelling mistakes.
+  - Do not use words listed in `ci/vale/styles/config/vocabularies/nat/reject.txt`.
+  - Words that might appear to be spelling mistakes but are listed in `ci/vale/styles/config/vocabularies/nat/accept.txt` are acceptable.
+
+## Testing
+
+- Use **pytest** with `pytest-asyncio` for asynchronous code.
+- Name test files `test_*.py` and store them alongside the code in a `tests/` folder.
+- **Test naming and structure**:
+  - Test functions should be named using the `test_` prefix, using snake_case.
+  - Any frequently repeated code should be extracted into pytest fixtures.
+  - Pytest fixtures should define the name argument when applying the pytest.fixture decorator.
+  - The fixture function being decorated should be named using the `fixture_` prefix or `_fixture` suffix, using snake_case.
+  - Example:
+    ```python
+    @pytest.fixture(name="my_custom_config")
+    def my_custom_config_fixture():
+        pass
+    ```
+- Maintain **≥ 80 %** coverage; add or update tests when introducing changes.
+- Mock external services with `pytest_httpserver` or `unittest.mock` instead of hitting live endpoints.
+- Mark slow tests with `@pytest.mark.slow` so they can be skipped in the default test suite.
+- Mark integration tests which require external services with `@pytest.mark.integration` so they can be skipped in the default test suite, follow the integration testing guidelines in the nat-tests/integration-tests.mdc rules.
+- Refer to the nat-tests/general.mdc rules for more information on testing.
+
+## Security
+
+- Never commit API keys, credentials or personal data; use environment variables or `.env` files excluded from Git.
+- Validate and sanitise all user input, especially in web or CLI interfaces.
+- Prefer `httpx` with SSL verification enabled by default and follow OWASP Top-10 recommendations.
+- Periodically run `uv pip list --outdated` and upgrade dependencies.
+
+## Continuous Integration
+
+- Never commit code that fails `pre-commit run --all-files` or `ci/scripts/run_ci_local.sh check`.
+- Every file must start with the standard SPDX Apache-2.0 header.
+- **Copyright requirements**: Confirm that copyright years are up-to-date whenever a file is changed.
+- New dependencies must be added to **both** `pyproject.toml` (alphabetically) and `uv.lock` via `uv pip install <pkg> --sync`.
+- Sign commits with `--signoff` to comply with the Developer Certificate of Origin (DCO).
+
+## Versioning
+
+- The project follows **semantic versioning** (MAJOR.MINOR.PATCH). Patch releases must remain backward-compatible.
+- Version numbers are derived automatically by `setuptools-scm`; never hard-code them in code or docs.
+- Add user-visible changes to `CHANGELOG.md` under the appropriate section.
+
+## Performance
+
+- Use `async`/`await` for I/O-bound work (HTTP, DB, file reads).
+- Profile CPU-heavy paths with `cProfile` or `mprof` before optimising.
+- Cache expensive computations with `functools.lru_cache` or an external cache when appropriate.
+- Leverage NumPy vectorised operations whenever beneficial and feasible.
+
+## Licensing
+
+- All source files must include the SPDX Apache-2.0 header template (copy from an existing file).
+- Binary assets committed via Git-LFS must have licensing info recorded in `LICENSE-3rd-party.txt` when required.
+- CI verifies headers via `ci/scripts/github/checks.sh`; do **not** bypass this check.
 
 ---
 > Source: [NVIDIA/NeMo-Agent-Toolkit](https://github.com/NVIDIA/NeMo-Agent-Toolkit) — distributed by [TomeVault](https://tomevault.io).
