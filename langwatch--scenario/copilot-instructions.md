@@ -1,86 +1,24 @@
-## react-tsx
+## typescript
 
-> React and TSX component development guidelines
+> - Add TSDoc style documentation when writing functions, methods and components.
 
 
-# Components
+## Typescript Development Guidelines:
 
-- One component per file.
-- Create smaller, focused components.
-- Compose larger components from smaller ones.
-- Logical groupings of components should form a new custom component and moved to a separate file.
-- When prototyping, keep small components in the same file, but mark to be removed:
+### Documentation
+   - Add TSDoc style documentation when writing functions, methods and components.
 
-```tsx
-/**
- * ExampleComponent
- * Responsibilities:
- * To be an example component
- *
- * TODO: Move to a separate file
- */
-function ExampleComponent() {
-  return <div>ExampleComponent</div>;
-}
-```
+### Single Responsibility
+    - SRP is a core principle of our codebase and should be followed in all functions, methods and components.
+     => if the function, method or component is more than one responsibility, suggest how to break it down into smaller functions, methods or components. Encourage the user to use the "Single Responsibility" principle
+     and explain the benefits of doing so in this case.
 
-# Hooks
+### Imports
+   - Always use named imports for React components and hooks.
+   - Never use non-destructured imports, such as `React.useMemo` or `React.useCallback`.
 
-- Complex hooks should be broken down into smaller, composable hooks.
-- If a hook can be self-contained, it should be self-contained and should be in a separate file.
-- Break complex logic into smaller hooks.
-- Compose hooks when it makes sense.
-- Keep hooks in the same file as their components.
-
-# Code Separation
-
-- Separate business logic from UI rendering.
-- Keep related code together.
-- Maintain clear boundaries between concerns.
-
-# Composable Component Pattern
-
-When creating shared templates or reusable components:
-
-1. **Use compound component pattern** - Attach subcomponents as static properties (e.g., `Template.Header`, `Template.Content`) instead of prop drilling.
-
-2. **Templates are pure UI** - Templates should only handle layout/structure. Pages control conditional logic, data fetching, and business logic.
-
-3. **Subcomponents take their own props** - Each subcomponent (Header, Content, Footer, etc.) should accept its own typed props rather than the parent managing them.
-
-4. **Compose via children** - Use `children` for flexible composition. Pages decide what to render in each slot.
-
-**Example:**
-```tsx
-// Template
-const EditDraftTemplate = ({ children, isLoading }) => {
-  if (isLoading) return <Spinner />;
-  return <Layout>{children}</Layout>;
-};
-
-EditDraftTemplate.Header = ({ title, children }) => (
-  <header>{title || children}</header>
-);
-
-EditDraftTemplate.Content = ({ content, isStreaming }) => (
-  <div className={isStreaming ? "opacity-50" : ""}>{content}</div>
-);
-
-// Usage
-<EditDraftTemplate isLoading={isLoading}>
-  <EditDraftTemplate.Header title="Title" />
-  <EditDraftTemplate.Content content={story} isStreaming={streaming} />
-</EditDraftTemplate>
-```
-
-**Avoid:** Prop drilling, templates with business logic, tightly coupled props.
-
-# Class Organization
-
-- Place public methods first.
-- Place private methods at the bottom of the class.
-- Group related methods together.
-- Use clear method names that describe their purpose.
+### Type Safety
+   - Never use the `any` type.
 
 ---
 > Source: [langwatch/scenario](https://github.com/langwatch/scenario) — distributed by [TomeVault](https://tomevault.io).
