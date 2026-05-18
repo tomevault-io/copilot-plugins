@@ -1,138 +1,109 @@
-## mermaid-diagram-journey
+## mermaid-diagram-ui
 
-> Jesteś specjalistą UX, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji podróży użytkownika dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
+> Jesteś doświadczonym architektem oprogramowania, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji architektury stron Astro i komponentów React dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
 
 ---
 description:
 globs:
 alwaysApply: false
 ---
-# Mermaid Diagram - User Journey
+# Mermaid Diagram - UI Components
 
-Jesteś specjalistą UX, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji podróży użytkownika dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
+Jesteś doświadczonym architektem oprogramowania, którego zadaniem jest utworzenie diagramu Mermaid w celu wizualizacji architektury stron Astro i komponentów React dla modułu logowania i rejestracji. Diagram powinien zostać utworzony w następującym pliku: DESTINATION
 
-Będziesz musiał odnieść się do następujących plików w celu poznania istniejących wymagań:
+Będziesz musiał odnieść się do następujących plików w celu poznania istniejących komponentów:
 
 <file_references>
 [project-prd.md](mdc:.ai/project-prd.md)
 </file_references>
 
 <destination>
-.ai/diagrams/journey.md
+.ai/diagrams/ui.md
 </destination>
 
-Twoim zadaniem jest analiza specyfikacji modułu logowania i rejestracji oraz utworzenie kompleksowego diagramu Mermaid, który dokładnie przedstawia podróż użytkownika. Diagram powinien być w języku polskim.
+Twoim zadaniem jest analiza specyfikacji modułu logowania i rejestracji oraz utworzenie kompleksowego diagramu Mermaid, który dokładnie przedstawia architekturę systemu. Diagram powinien być w języku polskim.
 
-Przed utworzeniem diagramu, przeanalizuj wymagania i zaplanuj swoje podejście. Umieść swoją analizę wewnątrz tagów <user_journey_analysis>. W tej analizie:
+Przed utworzeniem diagramu, przeanalizuj wymagania i zaplanuj swoje podejście. Umieść swoją analizę wewnątrz tagów <architecture_analysis>. W tej analizie:
 
-1. Wypisz wszystkie ścieżki użytkownika wymienione w plikach referencyjnych.
-2. Zidentyfikuj główne podróże i ich odpowiadające stany.
-3. Określ punkty decyzyjne i alternatywne ścieżki.
-4. Dostarcz krótki opis celu każdego stanu.
+1. Wypisz wszystkie komponenty wymienione w plikach referencyjnych.
+2. Zidentyfikuj główne strony i ich odpowiadające komponenty.
+3. Określ przepływ danych między komponentami.
+4. Dostarcz krótki opis funkcjonalności każdego komponentu.
 
 Kiedy będziesz gotowy do utworzenia diagramu, postępuj zgodnie z poniższymi wytycznymi:
 
 1. Rozpocznij diagram od następującej składni:
 
    ```mermaid
-   stateDiagram-v2
+   flowchart TD
    ```
 
 2. Uwzględnij następujące elementy w swoim diagramie:
 
-   - Ścieżki użytkownika oparte na istniejących wymaganiach
-   - Korzystanie z aplikacji jako niezalogowany użytkownik
-   - Dostęp do głównej funkcjonalności aplikacji
-   - Logowanie się
-   - Tworzenie konta
-   - Odzyskiwanie hasła
-   - Podróż użytkownika na wysokim poziomie zgodna z wymaganiami projektu i HISTORIAMI UŻYTKOWNIKA
-   - Punkty decyzyjne i alternatywne ścieżki
-   - Przepływ po weryfikacji e-mail
-   - Skupienie się na ścieżkach biznesowych, a nie aspektach technicznych
+   - Zaktualizowaną strukturę UI po wdrożeniu nowych wymagań
+   - Layouts, server pages i aktualizacje istniejących komponentów
+   - Grupowanie elementów według funkcjonalności
+   - Kierunek przepływu danych między komponentami
+   - Moduły odpowiedzialne za stan aplikacji
+   - Podział na komponenty współdzielone i komponenty specyficzne dla stron
+   - Zależności między komponentami związanymi z autentykacją a resztą aplikacji
+   - Wyróżnij komponenty, które wymagały aktualizacji ze względu na nowe wymagania
 
 3. Przestrzegaj tych zasad składni Mermaid:
 
-   - Stany początkowe i końcowe muszą być poprawnie zdefiniowane:
+   - Używaj spójnego formatowania ID węzłów:
      ```
-     [*] --> StronaGlowna
-     StronaGlowna --> [*]
+     A[Panel Główny] --> B[Formularz Logowania]
+     B --> C[Walidacja Danych]
      ```
-   - Używaj stanów złożonych do grupowania powiązanych stanów:
+   - Pamiętaj, że ID węzłów rozróżniają wielkość liter i muszą być unikalne
+   - Używaj poprawnych kształtów węzłów:
+     - `[Tekst]` dla prostokątów
+     - `(Tekst)` dla zaokrąglonych prostokątów
+     - `((Tekst))` dla okręgów
+     - `{Tekst}` dla rombów
+     - `>Tekst]` dla flag
+     - `[[Tekst]]` dla podprogramów
+   - Grupuj powiązane elementy za pomocą subgrafów:
      ```
-     state "Proces Rejestracji" as Rejestracja {
-       [*] --> FormularzRejestracji
-       FormularzRejestracji --> WalidacjaDanych
-       WalidacjaDanych --> WyslanieMaila
-     }
+     subgraph "Moduł Autentykacji"
+       A[Formularz Logowania]
+       B[Walidacja Danych]
+       C[Zarządzanie Sesją]
+     end
      ```
-   - Dla rozgałęzień decyzyjnych, używaj poprawnej składni:
-     ```
-     state if_weryfikacja <<choice>>
-     WeryfikacjaTokena --> if_weryfikacja
-     if_weryfikacja --> TokenPoprawny: Token OK
-     if_weryfikacja --> TokenNiepoprawny: Token błędny
-     ```
-   - Używaj notatek dla dodatkowych informacji:
-     ```
-     FormularzLogowania: Użytkownik może się zalogować
-     note right of FormularzLogowania
-       Formularz zawiera pola email i hasło
-       oraz link do odzyskiwania hasła
-     end note
-     ```
-   - Dla stanów równoległych, używaj poprawnej składni:
-
-     ```
-     state fork_state <<fork>>
-     state join_state <<join>>
-
-     Rejestracja --> fork_state
-     fork_state --> WyslanieMaila
-     fork_state --> AktualizacjaBazy
-     WyslanieMaila --> join_state
-     AktualizacjaBazy --> join_state
-     join_state --> StanKoncowy
-     ```
-
-   - Używaj przestrzeni nazw do organizowania złożonych diagramów:
-     ```
-     state "Autentykacja" as Autentykacja {
-       state "Logowanie" as Logowanie {
-         // stany dla procesu logowania
-       }
-       state "Rejestracja" as Rejestracja {
-         // stany dla procesu rejestracji
-       }
-     }
-     ```
-   - Dla historii stanu, używaj poprawnej składni:
-     ```
-     state "Panel użytkownika" as Panel {
-       [*] --> historia
-       state historia <<history>>
-     }
-     ```
-   - Dla przejść z wydarzeniami i warunkami, używaj poprawnej składni:
-     ```
-     StanA --> StanB: Przycisk Dalej [dane poprawne]
-     ```
-   - Unikaj używania adresów URL, adresów endpointów, nawiasów, długich nazw funkcji lub złożonych wyrażeń w nazwach stanów:
-     ŹLE: [Strona Główna<br/>(Kreator Reguł)]
-     DOBRZE: [Kreator Reguł]
+   - Używaj węzłów pośrednich dla złożonych relacji zamiast skomplikowanych połączeń
+   - Preferuj układ pionowy dla hierarchii i poziomy dla przepływu procesu
+   - Używaj poprawnych typów połączeń:
+     - `-->` dla standardowych strzałek
+     - `---` dla linii bez strzałek
+     - `-.->` dla linii kropkowanych ze strzałkami
+     - `==>` dla grubych linii ze strzałkami
+     - `--Tekst-->` dla strzałek z etykietami
+   - Unikaj używania adresów URL, adresów endpointów, nawiasów, długich nazw funkcji lub złożonych wyrażeń w nazwach węzłów
    - Używaj spójnego nazewnictwa w całym dokumencie
    - Unikaj długich etykiet, które mogą powodować problemy z renderowaniem
+   - Używaj cudzysłowów dla tekstu zawierającego spacje:
+     ```
+     A["Komponent Autentykacji"] --> B["Zarządzanie Stanem"]
+     ```
+   - Dla stylizacji węzłów, używaj poprawnej składni:
+     ```
+     A:::styleClass --> B
+     ```
+     z definicją klasy:
+     ```
+     classDef styleClass fill:#f96,stroke:#333,stroke-width:2px;
+     ```
 
 4. Unikaj tych typowych błędów:
    - Brak deklaracji sekcji Mermaid i typu diagramu na początku
-   - Niepoprawne stany decyzyjne (brakujący choice, fork, join)
-   - Brakujące stany początkowe i końcowe ([*])
-   - Niespójne nazewnictwo stanów
-   - Niezamknięte zagnieżdżone stany (brakujący zamykający nawias klamrowy)
-   - Zbyt złożone diagramy bez odpowiedniego grupowania stanów
-   - Niepoprawne etykiety przejść
-   - Przekraczanie limitów długości linii
-   - Brak pustych linii przed i po bloku kodu Mermaid
+   - Nieprawidłowe ID węzłów (zawierające niedozwolone znaki)
+   - Niezamknięte subgrafy (brakujący "end" dla rozpoczętego "subgraph")
+   - Niezamknięte nawiasy kwadratowe w opisach węzłów
+   - Niespójne kierunki przepływu (mieszanie TD i LR bez uzasadnienia)
+   - Zbyt złożone diagramy bez odpowiedniego grupowania
+   - Nakładające się etykiety i połączenia
 
 Po utworzeniu diagramu, przejrzyj go dokładnie, aby upewnić się, że nie ma błędów składniowych ani problemów z renderowaniem. Wprowadź niezbędne poprawki, aby poprawić przejrzystość i dokładność.
 
