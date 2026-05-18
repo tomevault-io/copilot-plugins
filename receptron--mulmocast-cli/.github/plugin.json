@@ -1,0 +1,9 @@
+{
+  "name": "receptron--mulmocast-cli",
+  "displayName": "mulmocast-cli",
+  "description": "AI-powered podcast & video generator.",
+  "version": "1.0.0",
+  "author": "receptron",
+  "homepage": "https://github.com/receptron/mulmocast-cli",
+  "skills": []
+}
