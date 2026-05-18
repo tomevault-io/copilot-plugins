@@ -1,9 +1,9 @@
 {
   "name": "alchemy-run--alchemy",
   "displayName": "alchemy",
-  "description": "alchemy",
+  "description": "Infrastructure as TypeScript",
   "version": "1.0.0",
   "author": "alchemy-run",
-  "homepage": "https://tomevault.io/claim/alchemy-run",
+  "homepage": "https://github.com/alchemy-run/alchemy",
   "skills": []
 }
