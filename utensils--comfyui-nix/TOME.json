@@ -4,7 +4,7 @@
   "repo": "comfyui-nix",
   "description": "A slightly opinionated Nix flake for ComfyUI with curated custom nodes. Supports macOS (Apple Silicon) and Linux with CUDA.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/utensils/comfyui-nix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T02:13:32Z"
+  "distributed_at": "2026-05-18T02:16:55Z"
 }
