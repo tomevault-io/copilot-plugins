@@ -1,131 +1,239 @@
-## tdd
+## thing
 
-> **Final Verification:**
+> - High-performance Go ORM focusing on CRUD and list operations.
 
-## Test-Driven Development (TDD)
-**Final Verification:**
-Always use: `go test -v ./backend/api/handler/... | grep FAIL`
+---
+description: 
+globs: *.go
+alwaysApply: false
+---
+# Rule Name: Thing ORM Usage Guide
 
-**Debugging & Handling Verbose Output:**
-**Avoid** `go test -v ./...` directly in the terminal due to excessive output.
-**Recommended Alternatives:**
-*   **Specific Tests:** `go test -v ./... -run ^TestSpecificFunction$` (Fastest for pinpointing).
+# Description:
+# Quick reference for using the Thing ORM (github.com/burugo/thing).
 
-## Project Startup and Logging Rules
+## Core Concept
+- High-performance Go ORM focusing on CRUD and list operations.
+- Built-in caching (Redis or in-memory) automatically handles single-entity and list query caching & invalidation.
+- Uses Go generics for type safety and a cleaner API.
+- Supports MySQL, PostgreSQL, SQLite.
 
-**Service Startup:**
-- Use `bash ./run.sh` to start the one-mcp service
-- This script automatically loads .env, ensures PATH, kills port 3000 processes, and starts the Go backend in background
-- Logs are output to `backend.log`
+## Configuration
+1.  **Create DB Adapter:**
+    ```go
+    import "github.com/burugo/thing/drivers/db/sqlite" // Or mysql, postgres
+    dbAdapter, err := sqlite.NewSQLiteAdapter(":memory:")
+    ```
+2.  **Create Cache Client (Optional, defaults to in-memory):**
+    ```go
+    import (
+        "github.com/redis/go-redis/v9"
+        redisCache "github.com/burugo/thing/drivers/cache/redis"
+        "github.com/burugo/thing"
+    )
+    // Use nil for default in-memory:
+    // var cacheClient thing.CacheClient = nil
+    // Or Redis:
+    // rdb := redis.NewClient(...)
+    // cacheClient = redisCache.NewClient(rdb)
+    ```
+3.  **Get ORM Instance per Model:**
+    ```go
+    import "github.com/burugo/thing"
+    // import your models package
 
-**Log Monitoring:**
-- Use `tail -f backend.log` to monitor real-time logs
-- Use `tail -n 50 backend.log` to view recent log entries
-- Use `grep "ERROR\|WARN\|Failed" backend.log` to filter error messages
-**Service Management:**
-- Use `pkill -f one-mcp` to stop the service
-- Check service status with `ps aux | grep one-mcp | grep -v grep`
-- API status endpoint: `curl "http://localhost:3003/api/status"`
+    // For a specific model typels.User)
+    userThing, err := thing.New[*models.User](mdc:db)
+    ```
+    *Alternative Global Config (less flexible):* `thing.Configure(dbAdapter, cacheClient)` then `thing.Use[*Model]()`.
 
-## 数据库重置和缓存管理
+## Basic Usage
+1.  **Model Definition:** Embed `thing.BaseModel` and use `db` tags for columns.
+    ```go
+    type User struct {
+        thing.BaseModel // Includes ID, CreatedAt, UpdatedAt, DeletedAt
+        Name string `db:"name"` // Explicitly maps Name field to 'name' column
+        UserAge int // db tag omitted, defaults to 'user_age' column
+    }
+    // Optional: Define TableName() method if different from snake_case plural struct name.
+    // func (u *User) TableName() string { return "custom_users_table" }
+    ```
+    **Note:** While using the `db` tag is recommended for clarity, it's technically optional. If omitted, Thing ORM defaults to converting the Go field name (CamelCase, e.g., `UserAge`) to its snake_case equivalent (`user_age`) as the database column name. Use `db:"-"` to explicitly ignore a field.
 
-**数据库重置规则:**
-- **重要：** 删除数据库前必须先备份：`cp data/one-mcp.db data/one-mcp.db.backup.$(date +%Y%m%d_%H%M%S)`
-- 仅删除数据库文件 `rm -f data/one-mcp.db` 是不够的
-- **必须同时清理Redis缓存：** `redis-cli flushdb` 或 `redis-cli flushall`
-- 原因：用户列表查询有缓存机制，如果缓存中存在用户数据，系统不会创建新的root用户
+    **Example:**
+    ```go
+    // Example: All index types and relationships
+    type User struct {
+        thing.BaseModel
+        Name  string `db:"name,index"`                // Single-field index
+        Email string `db:"email,unique"`              // Single-field unique index
+        ColA  string `db:"col_a,index:idx_ab"`        // Composite index (idx_ab)
+        ColB  int    `db:"col_b,index:idx_ab"`        // Composite index (idx_ab)
+        KeyA  string `db:"key_a,unique:uq_ab"`        // Composite unique index (uq_ab)
+        KeyB  string `db:"key_b,unique:uq_ab"`        // Composite unique index (uq_ab)
+        // Relationship example:
+        Books []*Book `thing:"hasMany;fk:user_id;model:Book" db:"-"`
+    }
+    ```
 
-**完整的数据库重置流程:**
-```bash
-# 1. 停止服务
-pkill -f one-mcp
+    **Indexes are always declared in the db tag (index, unique, index:..., unique:...).**
+    **The thing tag is only used for relationship declarations (hasMany, belongsTo, model, fk, etc.).**
+    **Do not use thing tag for index declaration.**
+2.  **CRUD Operations and Querying (using `userThing` from config step):**
+    - **Create/Update:** `err := userThing.Save(&userInstance)` (creates if ID is zero, updates otherwise).
+    - **Read by ID:** `foundUser, err := userThing.ByID(id)` (uses cache).
+    - **Read Multiple by IDs:** `userMap, err := userThing.ByIDs([]int64{1, 2, 3}, "OptionalPreloadField")` (uses cache, returns `map[int64]YourModelType`. Preloading is optional).
+    - **Delete (Hard):** `err := userThing.Delete(&userInstance)`.
+    - **Soft Delete:** `err := userThing.SoftDelete(&userInstance)` (sets `deleted=true` and `updated_at`).
 
-# 2. 备份现有数据库
-cp data/one-mcp.db data/one-mcp.db.backup.$(date +%Y%m%d_%H%M%S)
+    - **Querying Records:**
+        The `thing` ORM provides a flexible way to build and execute queries.
 
-# 3. 删除数据库文件
-rm -f data/one-mcp.db
+        - **Initiating a Query:**
+            You can start a query using `Query()` with `thing.QueryParams` or by chaining methods like `Where()`, `Order()`, and `Preload()`. All query methods return a `*CachedResult[T]` instance, allowing for lazy execution.
+            ```go
+            // Option 1: Using QueryParams
+            params := thing.QueryParams{
+                Where: "age > ? AND status = ?", Args: []interface{}{25, "active"},
+                Order: "name ASC",
+                Preloads: []string{"Books"}, // For preloading relationships
+            }
+            result := userThing.Query(params)
 
-# 4. 清理Redis缓存
-redis-cli flushdb
+            // Option 2: Chainable methods (can be started from userThing or chained on a CachedResult)
+            // Starting from userThing:
+            result = userThing.Where("age > ?", 25).Order("name ASC").Preload("Books")
+            // Chaining on an existing result:
+            // result = existingResult.Where("status = ?", "active")
+            ```
 
-# 5. 重新启动服务
-bash ./run.sh
-```
+        - **Fetching Results from `CachedResult[T]`:**
+            Once you have a `CachedResult[T]`, you can fetch data in various ways:
+            ```go
+            // Fetch a paginated list (e.g., offset 0, limit 10)
+            users, err := result.Fetch(0, 10) // Uses cache
 
-**验证root用户创建:**
-- 查看日志：`grep "no user exists\|create a root user" backend.log`
-- 检查数据库：`sqlite3 data/one-mcp.db "SELECT id, username, LENGTH(token) as token_length FROM users;"`
+            // Fetch the first record matching the query
+            // Returns common.ErrNotFound if no record matches
+            firstUser, err := result.First()
+            if err != nil {
+                if errors.Is(err, common.ErrNotFound) {
+                    // Handle case where no user was found
+                } else {
+                    // Handle other errors
+                }
+            }
 
-## 前端API调用规范
+            // Fetch all records matching the query
+            allMatchingUsers, err := result.All()
+            ```
 
-**API路径构建:**
-- 当使用 `frontend/src/utils/api.ts` 中导出的 `api` 实例进行API调用时 (例如 `api.get`, `api.post` 等)，**请勿在请求路径中再次添加 `/api` 前缀**。
-- 这是因为 `api` 实例的 `baseURL` 已经被配置为 `/api`，重复添加会导致 `/api/api/` 这样的错误路径。
-- **正确示例:** `api.get('/user/self')` 或 `api.post('/user', data)`。
-- **错误示例:** `api.get('/api/user/self')`。
+        - **Counting Records:**
+            To get the total number of records matching the query conditions:
+            ```go
+            count, err := result.Count() // Uses cache
+            ```
 
-# 项目目录结构
+        - **Including Soft-Deleted Records:**
+            By default, queries exclude soft-deleted records. To include them, use `WithDeleted()` on a `CachedResult[T]`:
+            ```go
+            resultIncludingDeleted := result.WithDeleted()
+            // Now, Fetch(), First(), All(), Count() on resultIncludingDeleted will include soft-deleted items.
+            // Example:
+            // usersIncludingDeleted, err := resultIncludingDeleted.Fetch(0, 10)
+            ```
+        
+        - **Fetching All Records of a Model (Simplified):**
+            To get all records for a model type without any specific query conditions:
+            ```go
+            allUsersOfType, err := userThing.All()
+            // This is a convenient alias for userThing.Query(thing.QueryParams{}).All()
+            ```
 
-## 根目录 (`/`)
-- `backend.log` - 后端服务的运行日志文件。包含服务启动、运行过程中的各种信息，用于调试和监控。
-- `data/` - 数据存储目录。通常包含数据库文件、缓存数据或其它持久化数据。
-- `one-mcp` - 主应用程序可执行文件（Go语言编译产物）。
-- `.git/` - Git版本控制系统目录。包含所有版本历史和配置信息。
-- `.cursor/` - Cursor IDE的配置文件和工作区特定文件，包括Agent的规则和任务文件。
-  - `rules/` - 存放Agent的规则文件，如 `tdd.mdc` 和 `plan-mode.mdc`。
-    - `tdd.mdc` - TDD（测试驱动开发）相关规则和测试指南。
-    - `plan-mode.mdc` - Agent的计划模式（PLAN Mode）操作指南。
-    - `act-mode.mdc` - Agent的执行模式（ACT Mode）操作指南。
-  - (其他可能的Cursor配置或任务文件)
-- `main.go` - Go语言后端服务的主入口文件。
-- `go.sum` - Go模块依赖校验和文件，用于确保依赖的完整性和安全性。
-- `go.mod` - Go模块定义文件，声明项目依赖的外部模块。
-- `.gitignore` - Git忽略文件配置，指定不应被版本控制的文件和目录。
-- `.cursorignore` - Cursor IDE忽略文件配置，指定在IDE中不应被索引或处理的文件和目录。
-- `frontend/` - 前端应用程序的根目录。
-  - `src/` - 前端源代码目录。 (内部文件和子目录待进一步探索和注释，但为了简洁，此处暂不列出)
-  - `package-lock.json` - npm或yarn的锁定文件，记录了项目依赖的精确版本信息。
-  - `package.json` - 前端项目的元数据文件，包含项目信息、脚本命令和依赖列表。
-  - `node_modules/` - Node.js模块安装目录，存放前端项目的所有依赖包。
-  - `dist/` - 前端项目构建后的输出目录，包含用于部署的静态文件（HTML, CSS, JS等）。
-  - `tsconfig.tsbuildinfo` - TypeScript构建信息文件，用于增量编译优化。
-  - `vite.config.ts` - Vite前端构建工具的配置文件（TypeScript版本）。
-  - `vite.config.d.ts` - Vite配置文件的类型声明文件。
-  - `tsconfig.json` - TypeScript编译器的配置文件，定义了如何编译TypeScript代码。
-  - `tailwind.config.js` - Tailwind CSS框架的配置文件，用于自定义CSS样式。
-  - `components.json` - 可能用于UI组件库的配置文件，定义组件路径或配置。
-  - `tsconfig.node.json` - 针对Node.js环境的TypeScript配置文件。
-  - `tsconfig.app.json` - 针对前端应用本身的TypeScript配置文件。
-  - `postcss.config.js` - PostCSS工具的配置文件，用于处理CSS。
-  - `index.html` - 前端应用的HTML入口文件。
-  - `public/` - 静态资源目录，其中文件不会被Webpack等打包工具处理，直接复制到`dist`。
-  - `.gitignore` - 前端项目的Git忽略文件配置。
-  - `README.md` - 前端项目的说明文档。
-  - `eslint.config.js` - ESLint代码风格检查工具的配置文件。
-- `run.sh` - 服务启动脚本。
-- `dev.sh` - 开发环境启动脚本。
-- `.vscode/` - VS Code编辑器的工作区配置目录。
-- `DEVELOPMENT.md` - 开发指南或说明文档。
-- `build.sh` - 项目构建脚本。
-- `config/` - 项目的配置目录，可能包含通用配置文件。
-- `locales/` - 国际化（i18n）文件目录，存放多语言资源。
-- `backend/` - 后端服务的根目录。
-  - `data/` - 后端数据模型或持久化层相关代码。
-  - `model/` - 后端数据模型定义。
-  - `common/` - 后端通用工具函数、常量或共享代码。
-  - `library/` - 后端第三方库的封装或自定义库。
-  - `service/` - 后端业务逻辑服务层代码。
-  - `api/` - 后端API接口定义和处理逻辑。
-  - `config/` - 后端配置相关代码或文件。
-- `.tool-versions` - asdf版本管理工具的配置文件，指定项目所需的工具版本。
-- `doc/` - 项目文档目录。
-- `upload/` - 文件上传存储目录。
-- `Dockerfile` - Docker容器的构建文件，定义了如何构建应用程序的Docker镜像。
-- `LICENSE` - 项目的开源许可证文件。
-- `README.en.md` - 英文版的项目说明文档。
-- `README.md` - 项目的中文说明文档。
-- `VERSION` - 版本号文件。
+## Key Features
+- **Caching:** Mostly automatic for `ByID` and `Query`. Monitor via `cacheClient.GetCacheStats(ctx)`.
+- **Relationships:** Define using `thing` struct tags (`hasMany`, `belongsTo`, `manyToMany`) and preload using `QueryParams.Preloads`. Always use `db:"-"` on relation fields in your struct, as these fields are populated by the ORM and do not correspond directly to a column in the model's own table.
+
+    - **`hasMany`**: One-to-many relationship.
+        ```go
+        // User has many Books.
+        // Assumes 'books' table has a 'user_id' foreign key.
+        type User struct {
+            thing.BaseModel
+            // ... other fields
+            Books []*Book `thing:"hasMany;fk:user_id;model:Book" db:"-"`
+        }
+
+        type Book struct {
+            thing.BaseModel
+            UserID uint   `db:"user_id"` // Foreign key
+            Title  string `db:"title"`
+            // ... other fields
+        }
+        ```
+
+    - **`belongsTo`**: Inverse of one-to-many.
+        ```go
+        // Book belongs to a User.
+        // Assumes 'books' table has a 'user_id' foreign key.
+        type Book struct {
+            thing.BaseModel
+            UserID uint   `db:"user_id"` // Foreign key
+            Title  string `db:"title"`
+            User   *User  `thing:"belongsTo;fk:user_id;model:User" db:"-"` // 'model' is optional here if type matches
+            // ... other fields
+        }
+
+        type User struct {
+            thing.BaseModel
+            Name string `db:"name"`
+            // ... other fields
+        }
+        ```
+
+    - **`manyToMany`**: Many-to-many relationship.
+        Requires a join table.
+        ```go
+        // User has and belongs to many Roles.
+        // Roles has and belongs to many Users.
+        // Join table: 'user_roles' with 'user_id' (links to users.id) and 'role_id' (links to roles.id).
+        type User struct {
+            thing.BaseModel
+            Name  string  `db:"name"`
+            Roles []*Role `thing:"manyToMany;model:Role;joinTable:user_roles;joinLocalKey:user_id;joinRelatedKey:role_id" db:"-"`
+            // ... other fields
+        }
+
+        type Role struct {
+            thing.BaseModel
+            Name  string  `db:"name"`
+            Users []*User `thing:"manyToMany;model:User;joinTable:user_roles;joinLocalKey:role_id;joinRelatedKey:user_id" db:"-"`
+            // ... other fields
+        }
+
+        // Join table model (optional to define as a struct, but table must exist)
+        // type UserRole struct {
+        //     UserID uint `db:"user_id"`
+        //     RoleID uint `db:"role_id"`
+        // }
+        // func (ur *UserRole) TableName() string { return "user_roles" }
+        ```
+    Preloading relationships:
+    ```go
+    // Preload Books for a User
+    // users, err := userThing.Query(thing.QueryParams{Preloads: []string{"Books"}}).Fetch(0,10)
+
+    // Preload Roles for a User (manyToMany)
+    // users, err := userThing.Query(thing.QueryParams{Preloads: []string{"Roles"}}).Fetch(0,10)
+    ```
+- **Hooks:** Register listeners for events (e.g., `BeforeSave`, `AfterCreate`) using `thing.RegisterListener`.
+- **Auto Migration:** `thing.AutoMigrate(&User{}, &Book{})` creates/updates tables based on model struct tags (`db`).
+- **JSON Serialization:** `thing.ToJSON(model, options...)`. Use `thing.WithFields("field1,nested{subfield},-excluded")` for flexible control, including method-based virtual properties (e.g., `FullName() string` -> `full_name` in DSL).
+- **Raw SQL:** Access via `dbAdapter := userThing.DBAdapter()`, then use `dbAdapter.Exec`, `dbAdapter.Get`, `dbAdapter.Select`.
+
+## Focus
+- Optimized for common CRUD and list retrieval patterns.
+- Complex JOINs or database-specific features might require Raw SQL.
 
 ---
 > Source: [burugo/one-mcp](https://github.com/burugo/one-mcp) — distributed by [TomeVault](https://tomevault.io).
