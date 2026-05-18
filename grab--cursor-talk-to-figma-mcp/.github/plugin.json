@@ -1,0 +1,9 @@
+{
+  "name": "grab--cursor-talk-to-figma-mcp",
+  "displayName": "cursor-talk-to-figma-mcp",
+  "description": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code) and Figma, allowing Agentic AI to communicate with Figma for reading designs and modifying them programmatically.",
+  "version": "1.0.0",
+  "author": "grab",
+  "homepage": "https://github.com/grab/cursor-talk-to-figma-mcp",
+  "skills": []
+}
