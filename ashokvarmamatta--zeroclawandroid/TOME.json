@@ -1,0 +1,44 @@
+{
+  "name": "ZeroClawAndroid",
+  "owner": "ashokvarmamatta",
+  "repo": "ZeroClawAndroid",
+  "description": "24/7 AI agent daemon for Android \u2014 11 messaging channels, 30 opt-in AI tools, 25+ autonomous agent templates, OpenAI-compatible API server, offline on-device inference. Everything modular.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ashokvarmamatta/ZeroClawAndroid",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T04:31:49Z"
+}
