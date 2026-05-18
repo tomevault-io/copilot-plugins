@@ -1,0 +1,9 @@
+{
+  "name": "music-assistant--mobile-app",
+  "displayName": "mobile-app",
+  "description": "The (official) Music Assistant Mobile app is a cross-platform client application designed for Android and iOS. Developed using Kotlin Multiplatform (KMP) and Compose Multiplatform frameworks, this pro",
+  "version": "1.0.0",
+  "author": "music-assistant",
+  "homepage": "https://github.com/music-assistant/mobile-app",
+  "skills": []
+}
