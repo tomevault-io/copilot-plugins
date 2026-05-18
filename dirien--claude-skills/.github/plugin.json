@@ -1,0 +1,30 @@
+{
+  "name": "dirien--claude-skills",
+  "displayName": "claude-skills",
+  "description": "Custom Claude Code skills for Pulumi infrastructure as code",
+  "version": "1.0.0",
+  "author": "dirien",
+  "homepage": "https://github.com/dirien/claude-skills",
+  "skills": [
+    {
+      "name": "pulumi-typescript",
+      "description": ""
+    },
+    {
+      "name": "pulumi-cli",
+      "description": ""
+    },
+    {
+      "name": "pulumi-go",
+      "description": ""
+    },
+    {
+      "name": "pulumi-neo",
+      "description": ""
+    },
+    {
+      "name": "pulumi-python",
+      "description": ""
+    }
+  ]
+}
