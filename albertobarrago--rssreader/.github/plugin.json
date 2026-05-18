@@ -1,0 +1,9 @@
+{
+  "name": "albertobarrago--rssreader",
+  "displayName": "RSSReader",
+  "description": "A lightweight, native macOS RSS Reader application built with Swift. Stay up-to-date with your favorite news sources, blogs, and websites through a clean, intuitive interface that lives in your menu b",
+  "version": "1.0.0",
+  "author": "AlbertoBarrago",
+  "homepage": "https://github.com/AlbertoBarrago/RSSReader",
+  "skills": []
+}
