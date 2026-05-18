@@ -1,0 +1,9 @@
+{
+  "name": "sparesparrow--mcp-prompts",
+  "displayName": "mcp-prompts",
+  "description": "Model Context Protocol server for managing, storing, and providing prompts and prompt templates for LLM interactions. ",
+  "version": "1.0.0",
+  "author": "sparesparrow",
+  "homepage": "https://github.com/sparesparrow/mcp-prompts",
+  "skills": []
+}
