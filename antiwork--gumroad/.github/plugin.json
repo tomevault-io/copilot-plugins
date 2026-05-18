@@ -1,0 +1,22 @@
+{
+  "name": "antiwork--gumroad",
+  "displayName": "gumroad",
+  "description": "Sell stuff and see what sticks",
+  "version": "1.0.0",
+  "author": "antiwork",
+  "homepage": "https://github.com/antiwork/gumroad",
+  "skills": [
+    {
+      "name": "create-issue",
+      "description": ""
+    },
+    {
+      "name": "pr-description",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "description": ""
+    }
+  ]
+}
