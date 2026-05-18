@@ -1,0 +1,9 @@
+{
+  "name": "vicentereig--dspy-rb",
+  "displayName": "dspy.rb",
+  "description": "The Ruby framework for programming\u2014rather than prompting\u2014language models.",
+  "version": "1.0.0",
+  "author": "vicentereig",
+  "homepage": "https://github.com/vicentereig/dspy.rb",
+  "skills": []
+}
