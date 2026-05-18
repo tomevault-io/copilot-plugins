@@ -1,50 +1,93 @@
-## project-overview
+## python-best-practices
 
-> This is a Model Context Protocol (MCP) server for connecting Claude with the Intervals.icu API. The project enables Claude to retrieve and analyze athlete data including activities, events, workouts, and wellness metrics.
+> - Follow **PEP 8** for formatting, indentation, and naming conventions
 
-# Intervals.icu MCP Server Project Overview
+# Python Best Practices for Intervals MCP Server
 
-This is a Model Context Protocol (MCP) server for connecting Claude with the Intervals.icu API. The project enables Claude to retrieve and analyze athlete data including activities, events, workouts, and wellness metrics.
+## Code Style and Readability
 
-## Project Structure
+- Follow **PEP 8** for formatting, indentation, and naming conventions
+- Write readable, maintainable code:
+  - Use descriptive names for variables, functions, and classes
+  - Keep functions short and single-purpose (see MCP tools in [server.py](mdc:src/intervals_mcp_server/server.py))
+  - Keep indentation and spacing consistent
+- Embrace Pythonic idioms:
+  - Use list/dict comprehensions and generators where appropriate
+  - Prefer built-in functions and stdlib modules
+  - Use context managers (like the `lifespan` manager for httpx client)
+- Avoid global variables except for validated constants (API_KEY, ATHLETE_ID)
+- Use lazy **`%`** formatting in logging calls: `logger.debug("val=%s", val)`
+- Represent datetimes as timezone-aware UTC objects when possible
 
-- **Main Entry Point**: [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py) - Contains the FastMCP server implementation with all MCP tools
-- **Configuration**: [pyproject.toml](mdc:pyproject.toml) - Project configuration, dependencies, and build settings
-- **Environment Setup**: [.env.example](mdc:.env.example) - Template for environment variables (API_KEY, ATHLETE_ID)
-- **Documentation**: [README.md](mdc:README.md) - Comprehensive setup and usage guide
-- **Developer Guide**: [AGENTS.md](mdc:AGENTS.md) - Contributor and development instructions
+## Type Annotations and Documentation
 
-## Core Components
+- Add **type hints** to all function signatures (see examples in [server.py](mdc:src/intervals_mcp_server/server.py))
+- Use built-in collection types (`list`, `dict`, `set`, `tuple`) instead of `typing.List`, etc.
+- Provide clear **docstrings** for:
+  - All MCP tool functions (required by FastMCP)
+  - Public utility functions in [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
+  - The main module docstring explaining the server's purpose
+- Use inline comments only for non-obvious logic
 
-### MCP Tools (in server.py)
-- `get_activities` - Retrieve athlete activities with filtering options
-- `get_activity_details` - Get detailed information for specific activities
-- `get_activity_intervals` - Get detailed interval data for activities
-- `get_events` - Retrieve upcoming events (workouts, races, etc.)
-- `get_event_by_id` - Get detailed information for specific events
-- `get_wellness_data` - Fetch wellness metrics and data
+## Error Handling and Validation
 
-### Utilities
-- **Formatting**: [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py) - Data formatting utilities for MCP responses
+- Handle errors gracefully with explicit `try/except` blocks (see `make_intervals_request()`)
+- Catch specific exceptions: `httpx.HTTPStatusError`, `httpx.RequestError`, etc.
+- Return consistent error structures with user-friendly messages
+- Validate inputs:
+  - Check API key and athlete ID on startup
+  - Validate date formats in MCP tools
+  - Use regex pattern `r"i?\d+"` for athlete ID validation
 
-### Testing
-- **Tests Directory**: [tests/](mdc:tests) - Unit tests for server functionality and utilities
-- **Sample Data**: [tests/sample_data.py](mdc:tests/sample_data.py) - Test data for development
+## Async Programming Patterns
 
-## Key Technologies
-- **Python 3.12+** - Required runtime version
-- **FastMCP** - MCP server framework
-- **httpx** - Async HTTP client for API calls
-- **uv** - Package manager and virtual environment tool
-- **pytest** - Testing framework
-- **ruff** - Linting and code formatting
-- **mypy** - Static type checking
+- Use `async/await` consistently for all MCP tools and API calls
+- Share a single `httpx.AsyncClient` instance across requests
+- Properly close async resources using lifespan context manager
+- Follow FastMCP's async patterns for tool implementations
 
-## Environment Variables
-- `API_KEY` - Intervals.icu API key (required)
-- `ATHLETE_ID` - Target athlete ID (required)
-- `INTERVALS_API_BASE_URL` - API base URL (optional, defaults to intervals.icu)
-- `LOG_LEVEL` - Logging level (optional, defaults to INFO)
+## Testing Standards
+
+- Write unit tests for all MCP tools and utilities
+- Use **pytest** with `pytest-asyncio` for async function testing
+- Use **pytest-mock** (`MockerFixture`) for mocking HTTP requests
+- Test both success and error paths
+- Mock external API calls to avoid dependencies in tests
+
+## Development Environment
+
+- Target **Python 3.12+** as specified in [pyproject.toml](mdc:pyproject.toml)
+- Use **uv** for package management: `uv sync --all-extras`
+- Manage dependencies in `pyproject.toml` with lock file (`uv.lock`)
+- Always use virtual environments (`.venv/`)
+- Run quality checks before commits:
+  - `ruff .` for linting
+  - `mypy src tests` for type checking
+  - `pytest` for tests
+
+## Security Practices
+
+- Never hard-code secrets - use environment variables via `.env` file
+- Load sensitive data (API_KEY, ATHLETE_ID) from environment
+- Use HTTP Basic Auth for API authentication
+- Validate all external inputs before processing
+- Follow least-privilege principles for API access
+
+## Project-Specific Patterns
+
+- All API communication through `make_intervals_request()` function
+- Consistent error response format: `{"error": True, "status_code": int, "message": str}`
+- Use formatting utilities from [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
+- Follow MCP tool naming conventions: `get_*` for retrieval operations
+- Support both numeric and i-prefixed athlete IDs
+
+## Code Organization
+
+- Keep all MCP tools in [server.py](mdc:src/intervals_mcp_server/server.py)
+- Place formatting utilities in [utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
+- Organize tests by functionality in [tests/](mdc:tests) directory
+- Use `__init__.py` files to mark Python packages
+- Include `py.typed` for type checking support
 
 ---
 > Source: [mvilanova/intervals-mcp-server](https://github.com/mvilanova/intervals-mcp-server) — distributed by [TomeVault](https://tomevault.io).
