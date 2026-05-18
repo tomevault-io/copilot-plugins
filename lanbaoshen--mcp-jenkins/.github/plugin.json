@@ -1,0 +1,9 @@
+{
+  "name": "lanbaoshen--mcp-jenkins",
+  "displayName": "mcp-jenkins",
+  "description": "The Model Context Protocol (MCP) is an open-source implementation that bridges Jenkins with AI language models following Anthropic's MCP specification. This project enables secure, contextual AI inter",
+  "version": "1.0.0",
+  "author": "lanbaoshen",
+  "homepage": "https://github.com/lanbaoshen/mcp-jenkins",
+  "skills": []
+}
