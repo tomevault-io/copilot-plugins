@@ -1,0 +1,9 @@
+{
+  "name": "comfy-org--workflow-templates",
+  "displayName": "workflow_templates",
+  "description": "ComfyUI template workflows",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/workflow_templates",
+  "skills": []
+}
