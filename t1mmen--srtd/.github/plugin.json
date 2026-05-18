@@ -1,0 +1,22 @@
+{
+  "name": "t1mmen--srtd",
+  "displayName": "srtd",
+  "description": "\ud83e\ude84 Supabase migrations made magical: Live-reloading SQL + Sane, reviewable diffs + Maintainable templates = Delightful DX",
+  "version": "1.0.0",
+  "author": "t1mmen",
+  "homepage": "https://github.com/t1mmen/srtd",
+  "skills": [
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "srtd-cli",
+      "description": ""
+    },
+    {
+      "name": "srtd-dev",
+      "description": ""
+    }
+  ]
+}
