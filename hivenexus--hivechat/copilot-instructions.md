@@ -1,26 +1,23 @@
-## 03-api-structure
+## 04-database
 
-> The application uses Next.js API routes to handle backend functionality.
+> The application uses Drizzle ORM for database operations.
 
-# API Structure
+# Database Structure
 
-The application uses Next.js API routes to handle backend functionality.
+The application uses Drizzle ORM for database operations.
 
-## Completions API
-The completions API handles interactions with various AI models:
+## Database Schema and Configuration
+- [app/db/schema.ts](mdc:app/db/schema.ts): Database schema definitions
+- [app/db/index.ts](mdc:app/db/index.ts): Database connection setup
+- [app/db/relations.ts](mdc:app/db/relations.ts): Relationship definitions between models
+- [drizzle.config.ts](mdc:drizzle.config.ts): Drizzle ORM configuration
 
-- [app/api/completions/route.ts](mdc:app/api/completions/route.ts): Main API route handler for completions
-- [app/api/completions/actions.ts](mdc:app/api/completions/actions.ts): Actions for handling completions
-- [app/api/completions/proxyOpenAiStream.ts](mdc:app/api/completions/proxyOpenAiStream.ts): Proxy for OpenAI streaming API
-- [app/api/completions/proxyClaudeStream.ts](mdc:app/api/completions/proxyClaudeStream.ts): Proxy for Claude streaming API
-- [app/api/completions/proxyGeminiStream.ts](mdc:app/api/completions/proxyGeminiStream.ts): Proxy for Gemini streaming API
-
-## Authentication APIs
-The application supports multiple authentication methods:
-
-- [app/api/auth](mdc:app/api/auth): Authentication API routes
-- [app/api/wecomProxy](mdc:app/api/wecomProxy): Wecom authentication proxy
-- [app/api/dingdingProxy](mdc:app/api/dingdingProxy): Dingding authentication proxy
+## Seed Data
+The application includes seed data for initial database setup:
+- [app/db/modelSeed.ts](mdc:app/db/modelSeed.ts): Seed data for AI models
+- [app/db/providerSeed.ts](mdc:app/db/providerSeed.ts): Seed data for providers
+- [app/db/groupSeed.ts](mdc:app/db/groupSeed.ts): Seed data for groups
+- [app/db/botSeed.ts](mdc:app/db/botSeed.ts): Seed data for bots
 
 ---
 > Source: [HiveNexus/HiveChat](https://github.com/HiveNexus/HiveChat) — distributed by [TomeVault](https://tomevault.io).
