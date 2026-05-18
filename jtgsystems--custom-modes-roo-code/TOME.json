@@ -4,7 +4,7 @@
   "repo": "Custom-Modes-Roo-Code",
   "description": "\ud83d\ude80 Custom modes for Roo Code VS Code extension - Enhanced AI coding assistance configurations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jtgsystems/Custom-Modes-Roo-Code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:30:25Z"
+  "distributed_at": "2026-05-18T23:48:50Z"
 }
