@@ -1,0 +1,9 @@
+{
+  "name": "conardli--easy-dataset",
+  "displayName": "easy-dataset",
+  "description": "A powerful tool for creating datasets for LLM fine-tuning \u3001RAG and Eval",
+  "version": "1.0.0",
+  "author": "ConardLi",
+  "homepage": "https://github.com/ConardLi/easy-dataset",
+  "skills": []
+}
