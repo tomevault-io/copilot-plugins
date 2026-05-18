@@ -1,0 +1,9 @@
+{
+  "name": "starrocks--mcp-server-starrocks",
+  "displayName": "mcp-server-starrocks",
+  "description": "StarRocks MCP (Model Context Protocol) Server",
+  "version": "1.0.0",
+  "author": "StarRocks",
+  "homepage": "https://github.com/StarRocks/mcp-server-starrocks",
+  "skills": []
+}
