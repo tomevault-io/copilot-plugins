@@ -1,58 +1,123 @@
 ## writing-helper
 
-> Next.js TypeScript Tailwind
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Key URLs
+# CLAUDE.md
 
-- Astral Block Explorer: https://explorer.autonomys.xyz/
-- GitHub Repository: https://github.com/autonomys/astral
-- Autonomys: https://autonomys.xyz/
-- Academy: https://academy.autonomys.xyz/
-- Documentation: https://docs.autonomys.xyz/
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Project Structure
+## Common Development Commands
 
-- **Components**: Contains reusable UI components.
-- **App**: Next.js app for routing.
-- **Hooks**: Custom React hooks for state management.
+### Development Server
+```bash
+yarn dev          # Start development server with Turbopack (uses Yarn 4.6.0)
+```
 
-# Development Guidelines
+### Build & Production
+```bash
+yarn build        # Build for production
+yarn start        # Start production server
+```
 
-- Use TypeScript for type safety.
-- Follow the coding standards defined in the ESLint configuration.
-- Ensure all components are responsive and accessible.
-- Use Tailwind CSS for styling, adhering to the defined color palette.
+### Code Quality
+```bash
+yarn lint         # Run ESLint
+```
 
-# Important Scripts
+## Core Architecture
 
-- `dev`: Starts the development server.
-- `build`: Builds the application for production.
+This is a Next.js 15 AI writing assistant with TypeScript and Tailwind CSS. The application helps users generate content using various LLM APIs with streaming support and enhanced security.
 
-# AI Interaction Guidelines
+### Key Components Structure
 
-- When generating code, prioritize TypeScript and React best practices.
-- Ensure that any new components are reusable and follow the existing design patterns.
-- Minimize the use of AI generated comments, instead use clearly named variables and functions.
-- Always validate user inputs and handle errors gracefully.
-- Use the existing components and pages as a reference for the new components and pages.
+- **API Proxy Layer**: 
+  - `src/app/api/proxy/route.ts`: Traditional proxy with CORS handling and 10-minute timeout
+  - `src/app/api/stream-proxy/route.ts`: Streaming proxy for real-time content generation with Server-Sent Events
+- **Core Types** (`src/app/lib/types.ts`): Defines `PromptStyle`, `WritingRequest`, `PolishRequest` interfaces with 8-dimensional style system
+- **API Client** (`src/app/lib/api.ts`): Dual-mode API client supporting both traditional and streaming content generation
+- **Security Layer** (`src/app/lib/secureApiKey.ts`): Client-side API key encryption and management system
+- **UI Components**:
+  - `StreamingContent.tsx`: Real-time content display with typewriter effect
+  - `ApiSettings.tsx`: Enhanced API configuration with security features
+  - `WritingAssistant.tsx`: Main interface supporting both streaming and traditional modes
 
-# Lexicon of Terms and Concepts
+### LLM Provider Support
 
-- **H+AI (Human + Artificial Intelligence)**: The collaboration between humans and AI to enhance capabilities and ensure a harmonious coexistence.
-- **Autonomys Network**: A decentralized network designed to provide infrastructure for AI-powered decentralized applications (dApps).
-- **deAI Ecosystem**: A stack of components that includes distributed storage, compute, and a dApp/agent layer for building and deploying AI applications.
-- **Distributed Storage**: A system ensuring data integrity and availability for AI-related data.
-- **Distributed Compute**: Scalable computational resources for AI training and inference.
-- **dApp (Decentralized Application)**: Applications that run on a decentralized network, providing enhanced security and transparency.
+The application handles multiple LLM APIs through unified proxies with streaming support:
+- **OpenAI**: GPT-4 series with streaming chat completions
+- **Grok (xAI)**: `grok-3-latest` model with streaming support
+- **Ollama**: Local models with `/api/generate` endpoint and streaming
+- **DeepSeek**: OpenAI-compatible with DeepSeek models and streaming
 
-# Additional Resources
+### Key Features
 
-- [Next.js Documentation](mdc:https:/nextjs.org/docs)
-- [TypeScript Handbook](mdc:https:/www.typescriptlang.org/docs)
-- [Tailwind CSS Documentation](mdc:https:/tailwindcss.com/docs)
-- [React Documentation](mdc:https:/reactjs.org/docs/getting-started.html)
-- [Autonomys Overview](mdc:https:/autonomys.xyz)
+1. **Streaming Content Generation**: Real-time content display with typewriter effect and visual progress indicators
+2. **Writing Assistant**: 8-dimensional style system (language, structure, narrative, emotion, thinking, uniqueness, cultural, rhythm)
+3. **AI Text Optimizer**: Removes AI characteristics with statistical feature optimization
+4. **WeChat Formatter**: Specialized formatting for WeChat publishing
+5. **Article Polisher**: Content refinement with different polish modes
+
+## Important Development Notes
+
+### Streaming Architecture
+- `/api/stream-proxy` handles Server-Sent Events for real-time content generation
+- `StreamingContent` component provides typewriter effect with 20ms/character timing
+- Both streaming and traditional modes available with user toggle
+
+### API Security Model
+- **User-managed API keys**: Users input their own API keys through secure UI
+- **Client-side encryption**: XOR encryption with browser fingerprint-based keys
+- **Automatic expiration**: 24-hour default, 7-day "remember me" option
+- **Secure CORS**: Origin-based validation via `ALLOWED_ORIGINS` environment variable
+
+### API Request Flow
+All LLM requests go through proxy endpoints that:
+- Auto-detect provider type from URL
+- Handle different request/response formats
+- Provide comprehensive error handling with user-friendly messages
+- Support both streaming and traditional response modes
+
+### Content Generation System
+The 8-dimensional style system includes:
+- **Language**: Sentence patterns, word choice (formality 1-5), rhetoric techniques
+- **Structure**: Paragraph length, transitions, hierarchy patterns  
+- **Narrative**: Perspective, time sequence, narrator attitude
+- **Emotion**: Intensity (1-5), expression style, tone
+- **Thinking**: Logic patterns, depth (1-5), rhythm
+- **Uniqueness**: Signature phrases, imagery systems
+- **Cultural**: Allusions, knowledge domains
+- **Rhythm**: Syllable patterns, pause patterns, tempo
+
+## Configuration Files
+
+- `next.config.mjs`: Next.js configuration with Turbopack
+- `tailwind.config.js`: Tailwind CSS configuration with custom styling
+- `eslint.config.mjs`: ESLint configuration with Next.js rules
+- `tsconfig.json`: TypeScript configuration with strict type checking
+- `.env.local`: Environment variables (ALLOWED_ORIGINS for CORS security)
+- `.cursor/rules/next.mdc`: Cursor editor rules for Next.js development
+
+## Security Implementation
+
+### API Key Management
+- Keys stored with XOR encryption + Base64 encoding
+- Browser fingerprint-based encryption keys
+- No server-side key storage - purely client-side
+- Automatic cleanup on expiration
+
+### CORS Protection
+- Environment-variable controlled origin validation
+- No wildcard CORS in production
+- Request origin verification on all API endpoints
+
+### Content Security
+- Input validation on all user inputs
+- Secure proxy handling with timeout controls
+- Error messages sanitized to prevent information leakage
+
+## Package Manager
+Uses Yarn 4.6.0 as specified in package.json packageManager field. All commands should use `yarn` instead of `npm`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/GeekyWizKid) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [GeekyWizKid/writing-helper](https://github.com/GeekyWizKid/writing-helper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
