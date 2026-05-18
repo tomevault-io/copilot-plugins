@@ -1,0 +1,9 @@
+{
+  "name": "kirschbaum-development--laravel-loop",
+  "displayName": "laravel-loop",
+  "description": "Laravel Loop is a powerful Model Context Protocol (MCP) server designed specifically for Laravel applications. It connects your Laravel application with AI assistants using the MCP protocol.",
+  "version": "1.0.0",
+  "author": "kirschbaum-development",
+  "homepage": "https://github.com/kirschbaum-development/laravel-loop",
+  "skills": []
+}
