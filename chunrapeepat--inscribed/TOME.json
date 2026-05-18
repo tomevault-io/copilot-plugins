@@ -4,7 +4,7 @@
   "repo": "inscribed",
   "description": "a slide-based tool for creating stop motion animations and slides with Excalidraw",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chunrapeepat/inscribed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:23:34Z"
+  "distributed_at": "2026-05-18T22:37:42Z"
 }
