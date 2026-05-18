@@ -1,57 +1,58 @@
-## 05-conversation-management
+## 06-tool-integration
 
-> The MCP Client implements a sophisticated conversation management system in [mcp_client.py](mdc:mcp_client.py) that goes beyond simple chat history.
+> The MCP Client implements comprehensive tool integration in [mcp_client.py](mdc:mcp_client.py) with intelligent routing, execution, and caching.
 
-# Conversation Management
+# Tool Integration
 
-The MCP Client implements a sophisticated conversation management system in [mcp_client.py](mdc:mcp_client.py) that goes beyond simple chat history.
+The MCP Client implements comprehensive tool integration in [mcp_client.py](mdc:mcp_client.py) with intelligent routing, execution, and caching.
 
-## Conversation Graph
+## Tool Management
 
-### Core Structure
-- Non-linear conversation history with branching support
-- Each branch point is a `ConversationNode` with its own message history
-- Forkable conversations allow exploring different interaction paths
-- Supported in both CLI and Web UI interfaces
+### Discovery & Registration
+- Tools discovered from connected MCP servers
+- Aggregated tool registry with metadata and schemas
+- Automatic tool capability introspection
+- Tool categorization and organization
 
-### Persistence
-- Complete conversation graphs saved to JSON files
-- Preserves all branches and messages across sessions
-- Supports import/export for sharing or backup
+### Intelligent Routing
+- Tools routed to their originating server
+- Name sanitization for API compatibility
+- Original name tracking for proper display
 
-## Context Management
+## Execution
 
-### Working Memory
-- Automatic or manual optimization of conversation context
-- Summarization of long histories to stay within context limits
-- Focus mechanisms for highlighting important info
+### Direct Tool Execution
+- Run specific tools with custom JSON parameters
+- Web UI modal interface for testing tools
+- CLI `/tool` command for direct execution
+- Structured parameter validation
 
-### Dynamic Prompts
-- Inject pre-defined prompt templates from servers
-- Apply templates to current conversation context
+### Real-time Streaming
+- Streams AI responses and tool status updates
+- WebSockets for Web UI streaming
+- Rich CLI rendering for interactive mode
+- Partial JSON accumulation for structured inputs
 
-## Web UI Visualization
+## Smart Caching
 
-### Branch Visualization
-- Interactive tree view showing the conversation structure
-- Visual indicators for current branch and branch points
-- Click-to-checkout functionality for navigating between branches
+### Multi-Level Caching
+- Disk (diskcache) and in-memory caching layers
+- Configurable Time-To-Live (TTL) per tool category
+- Intelligent cache invalidation strategies
 
-### Branch Management
-- Create new branches from any point
-- Clear the current branch without losing history
-- Import/export specific branches as needed
+### Dependency Tracking
+- Define relationships between tools
+- Invalidating one tool's cache cascades to dependent caches
+- Graph visualization of cache dependencies
 
-## CLI Commands
+## Management Commands
 
-Key conversation management commands include:
-- `/fork [name]` - Create a new branch
-- `/branch list` - Show available branches
-- `/branch checkout <id>` - Switch to a different branch
-- `/export [--id <id>] [--output <file>]` - Export conversations
-- `/import <file>` - Import conversation from file
-- `/optimize` - Summarize conversation context
-- `/clear` - Clear current branch messages
+Key tool-related commands include:
+- `/tools [server_name]` - List available tools with optional filtering
+- `/tool <tool_name> '{"param": "value"}'` - Execute a specific tool
+- `/cache list` - Show cached tools
+- `/cache clear [--all|tool_name]` - Clear the cache
+- `/cache dependencies [tool_name]` - View cache dependency relationships
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
