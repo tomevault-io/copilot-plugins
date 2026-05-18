@@ -1,61 +1,29 @@
-## contributing-requirements
+## deepgram-toml
 
-> Contributing Guidelines Requirements
+> deepgram.toml Requirements
 
-# Contributing Requirements
+# deepgram.toml Requirements
 
-Write the contents based on the YAML instructions.
+## File Format
+```toml
+[meta]
+title = "Node Transcription Starter" # title of the app
+description = "Get started using Deepgram's Transcription with this Node demo app" # description of the app
+author = "Deepgram DX Team <devrel@deepgram.com> (https://developers.deepgram.com)" # contact details of the DX team
+useCase = "STT" # or TTS, Agent, TextIntel, 
+language = "TypeScript" # the language used in the main file
+framework = "Node" # short key for the framework, or remove if null
+sdk = "3.8.12" # version of the SDK, or remove if no SDK used
 
-## YAML Instructions
-```yaml
-contributing_guidelines:
-    description: "We welcome contributions! Before adding new functionality, open an issue first. Bug reports, fixes, and feedback are always appreciated."
-    references:
-        github_flow: "https://guides.github.com/introduction/flow/index.html"
-        code_of_conduct: "CODE_OF_CONDUCT.md"
+[build]
+command = "npm install" # the command to set up the app to run it
 
-    reporting_bugs:
-        before_submitting:
-            - "Search existing issues and comment if one exists instead of creating a duplicate."
-        submitting:
-            - "Use a clear title."
-            - "List exact steps to reproduce the issue."
-            - "Provide examples, links, or code snippets."
-            - "Describe observed vs. expected behavior."
-            - "Include screenshots or GIFs."
-            - tools:
-                licecap: "https://www.cockos.com/licecap/"
-                silentcast: "https://github.com/colinkeenan/silentcast"
-            - "Mention if the issue is consistent or intermittent and share environment details."
+[config]
+sample = "sample.env" # the filename for the sample environment or config file
+output = ".env"
 
-    suggesting_enhancements:
-        before_submitting:
-            - "Search existing suggestions and comment on one instead of creating a duplicate."
-        submitting:
-            - "Use a clear title."
-            - "Describe the enhancement step-by-step."
-            - "Provide examples or code snippets."
-            - "Explain current vs. expected behavior and its benefits."
-
-    first_time_contributors:
-        description: "Check `beginner` and `help-wanted` issues to get started."
-
-    pull_requests:
-        steps:
-            - "Use the Pull Request template."
-            - template: "PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md"
-            - "Follow the Code of Conduct."
-            - "Ensure all status checks pass before review."
-            - github_status_checks: "https://help.github.com/articles/about-status-checks/"
-        review_policy: "Reviewers may request additional changes before merging."
-
-    questions:
-        contact:
-            team: devrel
-            formats:
-            - github: https://github.com/orgs/deepgram/discussions
-            - discord: https://discord.gg/deepgram
-            - bluesky: https://bsky.app/profile/deepgram.com
+[post-build]
+message = "Run `npm start -- --serve` to start the web server." # the command the user will run to start the app as a web server
 ```
 
 ---
