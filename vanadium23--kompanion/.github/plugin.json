@@ -1,0 +1,9 @@
+{
+  "name": "vanadium23--kompanion",
+  "displayName": "kompanion",
+  "description": "a self hosted backend for bookworms, tightly coupled with KOReader",
+  "version": "1.0.0",
+  "author": "vanadium23",
+  "homepage": "https://github.com/vanadium23/kompanion",
+  "skills": []
+}
