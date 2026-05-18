@@ -4,7 +4,7 @@
   "repo": "intervals-mcp-server",
   "description": "Model Context Protocol (MCP) server for connecting Claude and ChatGPT with the Intervals.icu API.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mvilanova/intervals-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:56:49Z"
+  "distributed_at": "2026-05-18T06:05:33Z"
 }
