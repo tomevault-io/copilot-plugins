@@ -1,0 +1,26 @@
+# ripple
+
+> Tome by [Ripple-TS](https://github.com/Ripple-TS/ripple) — distributed by [TomeVault](https://tomevault.io)
+
+the elegant TypeScript UI framework
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `GEMINI.md` in [Ripple-TS/ripple](https://github.com/Ripple-TS/ripple).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Windsurf** — `project-config.md`
+
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Ripple-TS/ripple](https://github.com/Ripple-TS/ripple)
+
+---
+
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:t-c-q -->
