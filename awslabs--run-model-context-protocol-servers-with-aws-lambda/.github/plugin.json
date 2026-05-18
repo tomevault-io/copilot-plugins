@@ -1,0 +1,9 @@
+{
+  "name": "awslabs--run-model-context-protocol-servers-with-aws-lambda",
+  "displayName": "run-model-context-protocol-servers-with-aws-lambda",
+  "description": "Run existing Model Context Protocol (MCP) stdio-based servers in AWS Lambda functions",
+  "version": "1.0.0",
+  "author": "awslabs",
+  "homepage": "https://github.com/awslabs/run-model-context-protocol-servers-with-aws-lambda",
+  "skills": []
+}
