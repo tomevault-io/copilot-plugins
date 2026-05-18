@@ -1,0 +1,9 @@
+{
+  "name": "posthog--deskhog",
+  "displayName": "DeskHog",
+  "description": "The developer toy that brings developers joy.",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/DeskHog",
+  "skills": []
+}
