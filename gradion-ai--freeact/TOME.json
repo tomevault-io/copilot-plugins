@@ -1,0 +1,69 @@
+{
+  "name": "freeact",
+  "owner": "gradion-ai",
+  "repo": "freeact",
+  "description": "General-purpose AI agent that acts via code actions through a unified execution interface.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "freeact-interaction",
+      "path": ".agents/skills/freeact-interaction",
+      "github_url": "https://github.com/gradion-ai/freeact/tree/main/.agents/skills/freeact-interaction",
+      "description": ""
+    },
+    {
+      "name": "output-parsers",
+      "path": "freeact/agent/config/templates/skills/output-parsers",
+      "github_url": "https://github.com/gradion-ai/freeact/tree/main/freeact/agent/config/templates/skills/output-parsers",
+      "description": ""
+    },
+    {
+      "name": "saving-codeacts",
+      "path": "freeact/agent/config/templates/skills/saving-codeacts",
+      "github_url": "https://github.com/gradion-ai/freeact/tree/main/freeact/agent/config/templates/skills/saving-codeacts",
+      "description": ""
+    },
+    {
+      "name": "task-planning",
+      "path": "freeact/agent/config/templates/skills/task-planning",
+      "github_url": "https://github.com/gradion-ai/freeact/tree/main/freeact/agent/config/templates/skills/task-planning",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gradion-ai/freeact",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T21:31:07Z"
+}
