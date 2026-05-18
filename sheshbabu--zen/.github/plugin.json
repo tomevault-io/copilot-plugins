@@ -1,0 +1,9 @@
+{
+  "name": "sheshbabu--zen",
+  "displayName": "zen",
+  "description": "Selfhosted notes app. Single golang binary, notes stored as markdown within SQLite, full-text search, very low resource usage",
+  "version": "1.0.0",
+  "author": "sheshbabu",
+  "homepage": "https://github.com/sheshbabu/zen",
+  "skills": []
+}
