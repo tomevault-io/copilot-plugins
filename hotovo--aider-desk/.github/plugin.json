@@ -1,0 +1,26 @@
+{
+  "name": "hotovo--aider-desk",
+  "displayName": "aider-desk",
+  "description": "Platform for AI-powered software engineers",
+  "version": "1.0.0",
+  "author": "hotovo",
+  "homepage": "https://github.com/hotovo/aider-desk",
+  "skills": [
+    {
+      "name": "agent-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "description": ""
+    }
+  ]
+}
