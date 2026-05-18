@@ -1,85 +1,99 @@
-## 0-meta-features
+## 0-meta-rules
 
-> description: How to create rules for project features, including feature summaries and related files by usage type
+> How to add or edit Cursor rules in our project
 
----
-description: How to create rules for project features, including feature summaries and related files by usage type
-globs: 
-alwaysApply: false
----
-# Project Feature Rule Creation
+# Cursor Rules Location and Conventions
 
-How to create new rules for project features in our project
+This document outlines how to add, edit, and categorize Cursor rules within this project.
 
-1. Always place feature rule files in PROJECT_ROOT/.cursor/rules/:
+## How to use in Cursor AI
+
+To get help on how to use this meta rule in Cursor, reference the rule by starting with `@` followed by the rule filename (without the `.mdc` extension). For example:
+```
+@0-meta-rules.mdc Tell me how to use this rule.
+```
+
+To use this meta rule in Cursor to create a new rule or update a new rule, reference it like above and add context for the rule. For example:
+```
+@0-meta-rules.mdc create a api-routes.mdc rule for how routes should be created based our current project usage. Be sure to include schema validation, stoker usage, cloudflare context, createRoute util, JSDoc for OpenAPI, error handling, caching behavior if needed, tools and frameworks to use, and any other common patterns you notice.
+```
+
+This command will:
+1. Reference this meta-rule to follow proper rule creation guidelines
+2. Create a new rule file named `api-routes.mdc` in the `.cursor/rules/` directory
+3. Structure it according to our conventions
+4. Include the requested API routing patterns and standards
+
+## Rule Location and Naming
+1. Always place rule files in `PROJECT_ROOT/.cursor/rules/`:
     ```
     .cursor/rules/
-    ├── feature-login-authentication.mdc
+    ├── 0-meta-rules.mdc
+    ├── 1-helper-prd.mdc
     ├── feature-user-profile.mdc
     └── ...
     ```
-
 2. Follow the naming convention:
-    - Use kebab-case for filenames
-    - Prefix with "feature-" followed by a descriptive name
-    - Always use .mdc extension (e.g., `feature-login-authentication.mdc`)
+    - Use kebab-case for filenames.
+    - Always use the `.mdc` extension.
+    - Use prefixes to indicate the rule type (see Rule Categories below).
+    - Make names descriptive of the rule's purpose.
 
 3. Directory structure:
     ```
     PROJECT_ROOT/
     ├── .cursor/
     │   └── rules/
+    │       ├── 0-meta-rules.mdc
+    │       ├── 1-helper-prd.mdc
     │       ├── feature-login-authentication.mdc
     │       └── ...
     └── ...
     ```
 
-4. Never place feature rule files:
-    - In the project root
-    - In subdirectories outside .cursor/rules
-    - In any other location
+4. Never place rule files:
+    - In the project root.
+    - In subdirectories outside `.cursor/rules`.
+    - In any other location.
 
-5. Feature rules have the following structure:
-    - Start with a summary of the feature
-    - Include sections for related files grouped by usage type (e.g., routes, UI components and pages, DB schemas)
-    - Provide examples of implementation or usage
+## Rule Categories
 
-Example:
-```
+We use prefixes to categorize rules based on their purpose:
+
+1.  **`0-meta-*` Rules:**
+    *   **Purpose:** These rules define *how to create and manage other rules*. They focus on the structure, naming conventions, and processes related to rule management itself.
+    *   **Example:** `0-meta-rules.mdc` (this file), `0-meta-features.mdc`.
+    *   **Nature:** Generally not codebase-specific; they describe project conventions for using Cursor rules.
+
+2.  **`1-helper-*` Rules:**
+    *   **Purpose:** These rules provide general-purpose assistance for tasks like ideation, documentation generation (e.g., PRDs), or applying specific development methodologies.
+    *   **Example:** `1-helper-prd.mdc`.
+    *   **Nature:** Usually not codebase-specific, though they might reference `@codebase` for context during execution. They aim to assist the developer in broader tasks.
+
+3.  **`feature-*` Rules:** (Described in `0-meta-features.mdc`)
+    *   **Purpose:** These rules encapsulate knowledge about specific features within the codebase, linking feature summaries to relevant files (routes, UI components, schemas, etc.).
+    *   **Example:** `feature-login-authentication.mdc`.
+    *   **Nature:** Highly codebase-specific.
+
+## Rule Structure
+
+Cursor rules generally have the following structure:
+
+```markdown
 ---
-description: Guidelines for implementing and improving the user auth feature
-globs:
-alwaysApply: false
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/* # Optional: Limit rule application to specific files/directories
+alwaysApply: false # Typically false unless the rule should always be active
 ---
-# User Auth Feature Rule
+# Rule Title
 
-## Feature Summary
-The auth feature enables users to securely access their accounts in the application.
-It supports multiple authentication methods including email/password, OAuth, and two-factor authentication.
-It works by validating credentials and generating secure tokens for authorized sessions.
-It uses a combination of standard security protocols and custom validation rules.
-It uses both Cloudflare D1 SQLite (Drizzle) for persistent user data and Cloudflare KV for session management.
-We store short-lived session tokens in Cloudflare KV that expire after a few hours. This includes minimal user identifiers needed for authentication while keeping sensitive data in the secure database, balancing security with performance.
-Once authenticated, users receive a secure JWT token that's validated with each subsequent request to protected resources.
+Main content explaining the rule with markdown formatting.
 
-## Related Files by Usage Type
-
-### Routes
-- `src/routes/auth.ts`: Defines login endpoints (e.g., POST /login)
-- `src/routes/index.ts`: Entry point registering auth routes
-
-### UI Components and Pages
-- `src/components/LoginForm.tsx`: Reusable login form component
-- `src/pages/LoginPage.tsx`: Main login page assembling the form and handling submission
-
-### DB Schemas
-- `src/db/schemas/users.ts`: User table schema with fields like email, password_hash, and role
-- `src/db/schemas/sessions.ts`: Session table for tracking active logins
-
-## Implementation Guidelines
-1. Use secure password hashing (e.g., bcrypt) in the backend
-2. Validate inputs on both client and server sides
-3. Handle errors with user-friendly messages
+1. How to use in Cursor AI
+2. Step-by-step instructions
+3. Code examples
+4. Guidelines
+5. Definitions or explanations of concepts
 ```
 
 ---
