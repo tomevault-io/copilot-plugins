@@ -1,100 +1,89 @@
-## 0-meta-rules
+## 1-helper-prd
 
-> How to add or edit Cursor rules in our project
+> description: Guide for ideating new features and generating a PRD based on succinct feature statements and codebase context
 
-# Cursor Rules Location and Conventions
-
-This document outlines how to add, edit, and categorize Cursor rules within this project.
-
-## How to use in Cursor AI
-
-To get help on how to use this meta rule in Cursor, reference the rule by starting with `@` followed by the rule filename (without the `.mdc` extension). For example:
-```
-@0-meta-rules.mdc Tell me how to use this rule.
-```
-
-To use this meta rule in Cursor to create a new rule or update a new rule, reference it like above and add context for the rule. For example:
-```
-@0-meta-rules.mdc create a api-routes.mdc rule for how routes should be created based our current project usage. Be sure to include schema validation, stoker usage, cloudflare context, createRoute util, JSDoc for OpenAPI, error handling, caching behavior if needed, tools and frameworks to use, and any other common patterns you notice.
-```
-
-This command will:
-1. Reference this meta-rule to follow proper rule creation guidelines
-2. Create a new rule file named `api-routes.mdc` in the `.cursor/rules/` directory
-3. Structure it according to our conventions
-4. Include the requested API routing patterns and standards
-
-## Rule Location and Naming
-1. Always place rule files in `PROJECT_ROOT/.cursor/rules/`:
-    ```
-    .cursor/rules/
-    ├── 0-meta-rules.mdc
-    ├── 1-helper-prd.mdc
-    ├── feature-user-profile.mdc
-    └── ...
-    ```
-2. Follow the naming convention:
-    - Use kebab-case for filenames.
-    - Always use the `.mdc` extension.
-    - Use prefixes to indicate the rule type (see Rule Categories below).
-    - Make names descriptive of the rule's purpose.
-
-3. Directory structure:
-    ```
-    PROJECT_ROOT/
-    ├── .cursor/
-    │   └── rules/
-    │       ├── 0-meta-rules.mdc
-    │       ├── 1-helper-prd.mdc
-    │       ├── feature-login-authentication.mdc
-    │       └── ...
-    └── ...
-    ```
-
-4. Never place rule files:
-    - In the project root.
-    - In subdirectories outside `.cursor/rules`.
-    - In any other location.
-
-## Rule Categories
-
-We use prefixes to categorize rules based on their purpose:
-
-1.  **`0-meta-*` Rules:**
-    *   **Purpose:** These rules define *how to create and manage other rules*. They focus on the structure, naming conventions, and processes related to rule management itself.
-    *   **Example:** `0-meta-rules.mdc` (this file), `0-meta-features.mdc`.
-    *   **Nature:** Generally not codebase-specific; they describe project conventions for using Cursor rules.
-
-2.  **`1-helper-*` Rules:**
-    *   **Purpose:** These rules provide general-purpose assistance for tasks like ideation, documentation generation (e.g., PRDs), or applying specific development methodologies.
-    *   **Example:** `1-helper-prd.mdc`.
-    *   **Nature:** Usually not codebase-specific, though they might reference `@codebase` for context during execution. They aim to assist the developer in broader tasks.
-
-3.  **`feature-*` Rules:** (Described in `0-meta-features.mdc`)
-    *   **Purpose:** These rules encapsulate knowledge about specific features within the codebase, linking feature summaries to relevant files (routes, UI components, schemas, etc.).
-    *   **Example:** `feature-login-authentication.mdc`.
-    *   **Nature:** Highly codebase-specific.
-
-## Rule Structure
-
-Cursor rules generally have the following structure:
-
-```markdown
 ---
-description: Short description of the rule's purpose
-globs: optional/path/pattern/**/* # Optional: Limit rule application to specific files/directories
-alwaysApply: false # Typically false unless the rule should always be active
+description: Guide for ideating new features and generating a PRD based on succinct feature statements and codebase context
+globs: 
+alwaysApply: false
 ---
-# Rule Title
+# Feature Ideation and PRD Generation Rule
 
-Main content explaining the rule with markdown formatting.
+This rule helps transform basic feature statements into a fully-fledged Product Requirements Document (PRD) by analyzing the existing codebase via `@codebase` and applying principal engineer best practices. If additional context or clarification is needed, it will prompt the user accordingly.
 
-1. How to use in Cursor AI
-2. Step-by-step instructions
-3. Code examples
-4. Guidelines
-5. Definitions or explanations of concepts
+## How to Use
+1. Provide a succinct feature statement (e.g., "Add user profile customization").
+2. The rule will:
+   - Analyze `@codebase` for relevant existing implementations, patterns, and dependencies.
+   - Apply best practices (e.g., scalability, security, maintainability).
+   - Generate a detailed PRD with sections for overview, goals, requirements, technical considerations, and more.
+   - Ask clarifying questions if the statement is ambiguous or lacks sufficient detail.
+
+## PRD Structure
+- **Feature Overview**: High-level description of the feature.
+- **Goals and Objectives**: What the feature aims to achieve.
+- **User Stories**: Example scenarios from the user’s perspective.
+- **Functional Requirements**: Specific capabilities the feature must have.
+- **Non-Functional Requirements**: Performance, security, and scalability needs.
+- **Technical Considerations**: Implementation approach, dependencies, and risks.
+- **Open Questions**: Areas needing clarification or additional input.
+
+## Example
+### Input
+"Add user profile customization"
+
+### Generated PRD
 ```
+# User Profile Customization PRD
+
+## Feature Overview
+The user profile customization feature allows users to personalize their profiles with details such as display names, avatars, bios, and theme preferences, enhancing user engagement and identity within the application.
+
+## Goals and Objectives
+- Increase user retention by enabling personal expression.
+- Provide a seamless and secure way to update profile data.
+- Ensure compatibility with existing authentication and UI systems in `@codebase`.
+
+## User Stories
+- As a user, I want to upload an avatar so my profile feels unique.
+- As a user, I want to set a custom theme so the app matches my preferences.
+
+## Functional Requirements
+1. Users can edit their display name, bio, and avatar via a profile settings page.
+2. Support avatar uploads (e.g., JPEG/PNG, max 5MB).
+3. Allow selection of predefined themes (e.g., light, dark, custom colors).
+4. Save changes to the database and reflect them in real-time across the app.
+
+## Non-Functional Requirements
+- **Performance**: Profile updates should complete within 2 seconds.
+- **Security**: Validate and sanitize all user inputs; store avatars in a secure CDN (e.g., Cloudflare).
+- **Scalability**: Support up to 100,000 profile updates daily without degradation.
+
+## Technical Considerations
+- **Existing Codebase (@codebase)**:
+  - Leverage `src/db/schemas/users.ts` to extend the user schema with new fields (e.g., bio, avatar_url, theme).
+  - Reuse `src/routes/auth.ts` patterns for secure API endpoints (e.g., PATCH /profile).
+  - Integrate with `src/components/LoginForm.tsx` styling for a consistent UI in a new `ProfileSettings.tsx`.
+- **Dependencies**: Use a file upload library (e.g., multer) and Cloudflare CDN for avatar storage.
+- **Risks**: Ensure backward compatibility with existing user data; handle large avatar uploads gracefully.
+
+## Open Questions
+- Should users be allowed to preview themes before applying them?
+- Are there specific limits on bio length or content (e.g., no profanity)?
+- Does `@codebase` already include a CDN integration, or do we need to add one?
+```
+
+## Guidelines for Best Practices
+1. **Modularity**: Design components and APIs to be reusable across features.
+2. **Security**: Implement input validation, rate limiting, and secure storage.
+3. **Scalability**: Use asynchronous processing for uploads and caching for frequent reads.
+4. **Maintainability**: Follow existing `@codebase` naming conventions and document edge cases.
+
+## When Clarification Is Needed
+If the feature statement is vague (e.g., "Improve performance"), I’ll ask:
+- What specific area of the app needs improvement?
+- Are there performance metrics or user complaints in `@codebase` to reference?
+- What’s the desired outcome (e.g., faster load times, lower server costs)?
 
 ---
 > Source: [jonbeckman/solstatus](https://github.com/jonbeckman/solstatus) — distributed by [TomeVault](https://tomevault.io).
