@@ -1,0 +1,9 @@
+{
+  "name": "cohnen--mcp-google-ads",
+  "displayName": "mcp-google-ads",
+  "description": "An MCP tool that connects Google Ads with Claude AI/Cursor and others, allowing you to analyze your advertising data through natural language conversations. This integration gives you access to campai",
+  "version": "1.0.0",
+  "author": "cohnen",
+  "homepage": "https://github.com/cohnen/mcp-google-ads",
+  "skills": []
+}
