@@ -1,0 +1,44 @@
+{
+  "name": "ai-automation-n8n",
+  "owner": "qwedsazxc78",
+  "repo": "ai-automation-n8n",
+  "description": "ai automation - \u4f7f\u7528 n8n \u8207 ai agent \u4f86\u81ea\u52d5\u5316",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qwedsazxc78/ai-automation-n8n",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T20:54:54Z"
+}
