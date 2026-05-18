@@ -1,0 +1,14 @@
+{
+  "name": "homeassistant-extras--room-summary-card",
+  "displayName": "room-summary-card",
+  "description": "Card that displays a small summary for a room with a few basic entities",
+  "version": "1.0.0",
+  "author": "homeassistant-extras",
+  "homepage": "https://github.com/homeassistant-extras/room-summary-card",
+  "skills": [
+    {
+      "name": "github-issue-fixy",
+      "description": ""
+    }
+  ]
+}
