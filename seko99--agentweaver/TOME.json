@@ -4,7 +4,7 @@
   "repo": "AgentWeaver",
   "description": "AgentWeaver is a TypeScript/Node.js CLI for harness engineering around coding agents. It uses declarative workflow specs to define flows as structured phases and steps in JSON, with runtime nodes implemented in TypeScript. Artifacts persisted on disk make executions resumable, inspectable, and operationally manageable via a TUI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/seko99/AgentWeaver",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T03:47:53Z"
+  "distributed_at": "2026-05-18T04:09:36Z"
 }
