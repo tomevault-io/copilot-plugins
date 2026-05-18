@@ -1,16 +1,20 @@
-## nix-package-declaration
+## nix-security
 
-> Nix Package Declaration and Naming Conventions
+> Nix Security and Sandboxing
 
 ## Description
-This rule enforces best practices for package declarations and naming conventions in Nix files.
+This rule enforces best practices for security and sandboxing in Nix derivations.
 
 ## Rule Details
-- Package names should be lowercase and use hyphens for word separation
-- Version numbers should be declared as strings
-- Dependencies should be explicitly declared in the buildInputs or nativeBuildInputs
-- Package attributes should be properly documented with comments
-- Use semantic versioning for package versions
+- Use `allowedRequisites` to restrict package dependencies
+- Use `allowedReferences` to control what can be referenced
+- Use `disallowedReferences` to prevent specific dependencies
+- Use `disallowedRequisites` to prevent specific requisites
+- Use `allowedInsecurePackages` only when absolutely necessary
+- Use `restrictEval` to prevent access to certain paths
+- Use `__noChroot` only when absolutely necessary
+- Use `__noChroot` with proper justification in comments
+- Use `__noChroot` with minimal scope
 
 ## Examples
 
@@ -18,28 +22,30 @@ This rule enforces best practices for package declarations and naming convention
 ```nix
 { lib
 , stdenv
-, fetchFromGitHub
-, rustPlatform
 }:
 
-rustPlatform.buildRustPackage rec {
-  pname = "my-package";
-  version = "0.1.0";
+stdenv.mkDerivation rec {
+  pname = "secure-package";
+  version = "1.0.0";
 
-  src = fetchFromGitHub {
-    owner = "owner";
-    repo = "repo";
-    rev = "v${version}";
-  };
+  src = ./src;
 
-  cargoSha256 = "sha256-...";
+  # Restrict package dependencies
+  allowedRequisites = with stdenv; [
+    stdenv.cc
+    stdenv.cc.libc
+  ];
 
-  meta = with lib; {
-    description = "A well-documented package";
-    homepage = "https://github.com/owner/repo";
-    license = licenses.mit;
-    maintainers = with maintainers; [ /* list of maintainers */ ];
-  };
+  # Prevent specific dependencies
+  disallowedReferences = [
+    stdenv.cc
+  ];
+
+  # Restrict evaluation
+  __restrictEval = true;
+
+  # Minimal use of __noChroot with justification
+  __noChroot = true;  # Required for hardware access
 }
 ```
 
@@ -48,22 +54,28 @@ rustPlatform.buildRustPackage rec {
 { stdenv }:
 
 stdenv.mkDerivation {
-  name = "MyPackage-1.0";  # Incorrect naming convention
-  src = ./.;  # Missing version declaration
-  # Missing dependency declarations
-  # Missing meta information
+  name = "insecure-package";
+  src = ./src;
+
+  # Missing security restrictions
+  # Using __noChroot without justification
+  __noChroot = true;
+
+  # Allowing all insecure packages
+  allowedInsecurePackages = [ "*" ];
 }
 ```
 
 ## Why
-- Consistent naming makes packages easier to find and maintain
-- Explicit dependency declarations prevent build failures
-- Proper documentation helps other developers understand the package
-- Semantic versioning makes dependency management more reliable
+- Security restrictions prevent unauthorized access to system resources
+- Sandboxing ensures reproducible and secure builds
+- Proper use of `__noChroot` prevents security vulnerabilities
+- Dependency restrictions prevent supply chain attacks
+- Evaluation restrictions prevent access to sensitive paths
 
 ## References
-- [Nixpkgs Manual](mdc:https:/nixos.org/nixpkgs/manual)
-- [Nixpkgs Contributing Guidelines](mdc:https:/github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md) 
+- [Nixpkgs Manual - Security](mdc:https:/nixos.org/nixpkgs/manual/#sec-security)
+- [Nix Security](mdc:https:/nixos.org/security.html) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
