@@ -1,0 +1,18 @@
+{
+  "name": "acodercat--cave-agent",
+  "displayName": "cave-agent",
+  "description": "Stateful runtime management for LLM agents\u2014inject, manipulate, and retrieve Python objects across turns. ",
+  "version": "1.0.0",
+  "author": "acodercat",
+  "homepage": "https://github.com/acodercat/cave-agent",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "smart-home",
+      "description": ""
+    }
+  ]
+}
