@@ -4,7 +4,7 @@
   "repo": "interpath",
   "description": "Product artifact generator \u2014 roadmaps, PRDs, vision docs, changelogs, and status reports. Companion plugin for Clavain.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mistakeknot/interpath",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T15:53:02Z"
+  "distributed_at": "2026-05-18T18:17:11Z"
 }
