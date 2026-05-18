@@ -1,0 +1,9 @@
+{
+  "name": "get-convex--agent",
+  "displayName": "agent",
+  "description": "Build AI agents on Convex with persistent chat history",
+  "version": "1.0.0",
+  "author": "get-convex",
+  "homepage": "https://github.com/get-convex/agent",
+  "skills": []
+}
