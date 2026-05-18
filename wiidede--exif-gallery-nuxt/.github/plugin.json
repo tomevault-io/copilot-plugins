@@ -1,0 +1,9 @@
+{
+  "name": "wiidede--exif-gallery-nuxt",
+  "displayName": "exif-gallery-nuxt",
+  "description": "A free personal photo gallery (nuxt + nuxthub) deployable on Cloudflare, with AI image analysis and browser-side image compression  \u53ef\u514d\u8d39\u90e8\u7f72\u5728 Cloudflare \u7684\u4e2a\u4eba\u76f8\u518c\u7f51\u7ad9\uff0c\u652f\u6301AI\u56fe\u50cf\u5206\u6790\uff0c\u6d4f\u89c8\u5668\u538b\u7f29\u56fe\u7247",
+  "version": "1.0.0",
+  "author": "wiidede",
+  "homepage": "https://github.com/wiidede/exif-gallery-nuxt",
+  "skills": []
+}
