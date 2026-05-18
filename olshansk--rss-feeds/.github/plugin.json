@@ -1,0 +1,9 @@
+{
+  "name": "olshansk--rss-feeds",
+  "displayName": "rss-feeds",
+  "description": "Generate RSS feeds for all the blogs that don't have one",
+  "version": "1.0.0",
+  "author": "Olshansk",
+  "homepage": "https://github.com/Olshansk/rss-feeds",
+  "skills": []
+}
