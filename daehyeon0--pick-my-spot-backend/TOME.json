@@ -4,7 +4,7 @@
   "repo": "pick-my-spot-backend",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/daehyeon0/pick-my-spot-backend",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T14:32:56Z"
+  "distributed_at": "2026-05-18T18:03:46Z"
 }
