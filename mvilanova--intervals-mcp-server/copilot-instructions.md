@@ -1,77 +1,56 @@
-## api-patterns
+## development-workflow
 
-> This project communicates with the Intervals.icu API using consistent patterns defined in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py).
+> 1. **Use uv for package management**: This project uses [uv](mdc:https:/github.com/astral-sh/uv) instead of pip
 
-# API Communication Patterns
+# Development Workflow Guide
 
-## Intervals.icu API Integration
+## Environment Setup
 
-This project communicates with the Intervals.icu API using consistent patterns defined in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py).
+1. **Use uv for package management**: This project uses [uv](mdc:https:/github.com/astral-sh/uv) instead of pip
+   ```bash
+   uv venv --python 3.12
+   source .venv/bin/activate
+   uv sync --all-extras
+   ```
 
-## Core API Function
+2. **Environment Configuration**: Copy [.env.example](mdc:.env.example) to `.env` and configure:
+   - `API_KEY` - Your Intervals.icu API key
+   - `ATHLETE_ID` - Your athlete ID (digits or i-prefixed)
 
-All API communication goes through `make_intervals_request()`:
+## Running the Server
 
-```python
-async def make_intervals_request(
-    url: str,
-    api_key: str | None = None,
-    params: dict[str, Any] | None = None
-) -> dict[str, Any] | list[dict[str, Any]]
-```
+- **Manual Testing**: `mcp run src/intervals_mcp_server/server.py`
+- **Claude Desktop Integration**: Use `mcp install` command as documented in [README.md](mdc:README.md)
 
-### Usage Pattern
-- **URL Format**: Relative paths like `/athlete/{id}/activities`
-- **Authentication**: HTTP Basic Auth with username "API_KEY" and password as the API key
-- **Headers**: Includes User-Agent and Accept: application/json
-- **Timeout**: 30 seconds for all requests
+## Code Quality Checks
 
-## Error Handling Strategy
+Before committing, ensure all three checks pass:
 
-### HTTP Status Code Mapping
-The system provides user-friendly messages for common HTTP errors:
-- `401 Unauthorized` - Invalid API key
-- `403 Forbidden` - Permission denied
-- `404 Not Found` - Resource doesn't exist
-- `422 Unprocessable Entity` - Invalid parameters
-- `429 Too Many Requests` - Rate limiting
-- `500 Internal Server Error` - Server issues
-- `503 Service Unavailable` - Maintenance/downtime
+1. **Linting**: `ruff .` - Uses default ruff rules, config in [pyproject.toml](mdc:pyproject.toml)
+2. **Type Checking**: `mypy src tests` - Static type analysis
+3. **Testing**: `pytest` - Unit tests in [tests/](mdc:tests) directory
 
-### Error Response Format
-All errors return a consistent structure:
-```python
-{
-    "error": True,
-    "status_code": int,  # HTTP status code
-    "message": str       # User-friendly error message
-}
-```
+## Code Organization
 
-## MCP Tool Implementation Pattern
+- **Main Logic**: All MCP tools are implemented in [src/intervals_mcp_server/server.py](mdc:src/intervals_mcp_server/server.py)
+- **Utilities**: Helper functions in [src/intervals_mcp_server/utils/](mdc:src/intervals_mcp_server/utils)
+- **API Communication**: `make_intervals_request()` function handles all Intervals.icu API calls
+- **Error Handling**: Comprehensive HTTP error handling with user-friendly messages
 
-1. **Parameter Validation**: Check required parameters and provide defaults
-2. **API Key Resolution**: Use provided key or fall back to global `API_KEY`
-3. **Athlete ID Handling**: Support both numeric and i-prefixed formats
-4. **Date Validation**: Parse and validate date strings
-5. **API Request**: Call `make_intervals_request()` with appropriate parameters
-6. **Error Checking**: Return formatted error messages for API failures
-7. **Data Formatting**: Use utilities from [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py)
+## Adding New MCP Tools
 
-## Environment Variables
+1. Create async function decorated with `@mcp.tool()`
+2. Add proper type hints and docstrings
+3. Use `make_intervals_request()` for API calls
+4. Add formatting utilities to [src/intervals_mcp_server/utils/formatting.py](mdc:src/intervals_mcp_server/utils/formatting.py) if needed
+5. Write unit tests in [tests/](mdc:tests)
 
-Required configuration (validated on startup):
-- `API_KEY` - Cannot be empty
-- `ATHLETE_ID` - Must match pattern `r"i?\d+"` (digits or i-prefixed digits)
+## Commit Guidelines
 
-Optional configuration:
-- `INTERVALS_API_BASE_URL` - Defaults to `https://intervals.icu/api/v1`
-
-## Shared HTTP Client
-
-Uses a single `httpx.AsyncClient` instance (`httpx_client`) managed by the FastMCP lifespan context manager to:
-- Reuse connections for better performance
-- Ensure proper cleanup when server stops
+- Use concise commit messages
+- Title PRs as `[intervals-mcp-server] <brief description>`
+- Ensure `ruff`, `mypy`, and `pytest` all pass
+- Document manual testing steps in PR description
 
 ---
 > Source: [mvilanova/intervals-mcp-server](https://github.com/mvilanova/intervals-mcp-server) — distributed by [TomeVault](https://tomevault.io).
