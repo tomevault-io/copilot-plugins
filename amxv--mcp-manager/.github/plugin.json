@@ -1,0 +1,9 @@
+{
+  "name": "amxv--mcp-manager",
+  "displayName": "mcp-manager",
+  "description": "simple web ui to manage mcp (model context protocol) servers in the claude app",
+  "version": "1.0.0",
+  "author": "amxv",
+  "homepage": "https://github.com/amxv/mcp-manager",
+  "skills": []
+}
