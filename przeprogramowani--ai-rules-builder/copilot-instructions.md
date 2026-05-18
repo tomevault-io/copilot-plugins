@@ -1,26 +1,21 @@
-## playwright-e2e-testing
+## react-development
 
-> E2E testing with Playwright
+> Developing React components in Astro application
 
+## Frontend
 
-## TESTING
+### Guidelines for React
 
-### Guidelines for E2E
+#### React Coding Standards
 
-#### PLAYWRIGHT
-
-- Initialize configuration only with Chromium/Desktop Chrome browser
-- Use browser contexts for isolating test environments
-- Implement the Page Object Model for maintainable tests in ./e2e/page-objects
-- Use locators for resilient element selection
-- Leverage API testing for backend validation
-- Implement visual comparison with expect(page).toHaveScreenshot()
-- Use the codegen tool for test recording
-- Leverage trace viewer for debugging test failures
-- Implement test hooks for setup and teardown
-- Use expect assertions with specific matchers
-- Leverage parallel execution for faster test runs
-- Follow 'Arrange', 'Act', 'Assert' approach to test structure for simplicity and readability.
+- Use functional components with hooks instead of class components
+- Implement React.memo() for expensive components that render often with the same props
+- Utilize React.lazy() and Suspense for code-splitting and performance optimization
+- Use the useCallback hook for event handlers passed to child components to prevent unnecessary re-renders
+- Prefer useMemo for expensive calculations to avoid recomputation on every render
+- Prefer relying on Tailwind media queries instead of manual style recalculations
+- If there's a need to attach React components to Astro pages and make them browser-first (i.e. using window), use client:only directive to make the component exclusively run on the client.
+- Use Tailwind responsive variants (sm:, md:, lg:, etc.) for adaptive designs - under no circumstances calculate this manually
 
 ---
 > Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
