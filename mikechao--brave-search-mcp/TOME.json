@@ -4,7 +4,7 @@
   "repo": "brave-search-mcp",
   "description": "An MCP Server implementation that integrates the Brave Search API, providing, Web Search, Local Points of Interest Search, Image Search, Video Search, News Search and LLM Context Search capabilities",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikechao/brave-search-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:44:03Z"
+  "distributed_at": "2026-05-18T06:19:38Z"
 }
