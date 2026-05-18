@@ -7,11 +7,11 @@ AgentX 致力于让小白也能无门槛通过自然语言打造属于自己的 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lucky-aeon/AgentX](https://github.com/lucky-aeon/AgentX).
+Original source: `CLAUDE.md` in [lucky-aeon/AgentX](https://github.com/lucky-aeon/AgentX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
