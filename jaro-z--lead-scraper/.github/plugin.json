@@ -1,0 +1,9 @@
+{
+  "name": "jaro-z--lead-scraper",
+  "displayName": "lead-scraper",
+  "description": "Local app for scraping business leads from Google Places API",
+  "version": "1.0.0",
+  "author": "jaro-z",
+  "homepage": "https://github.com/jaro-z/lead-scraper",
+  "skills": []
+}
