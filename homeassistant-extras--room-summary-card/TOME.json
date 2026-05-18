@@ -1,0 +1,51 @@
+{
+  "name": "room-summary-card",
+  "owner": "homeassistant-extras",
+  "repo": "room-summary-card",
+  "description": "Card that displays a small summary for a room with a few basic entities",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github-issue-fixy",
+      "path": ".claude/skills/github-issue-fixy",
+      "github_url": "https://github.com/homeassistant-extras/room-summary-card/tree/main/.claude/skills/github-issue-fixy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/homeassistant-extras/room-summary-card",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T15:32:53Z"
+}
