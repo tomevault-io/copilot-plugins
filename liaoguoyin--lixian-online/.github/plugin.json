@@ -1,0 +1,9 @@
+{
+  "name": "liaoguoyin--lixian-online",
+  "displayName": "lixian.online",
+  "description": "A one-stop tool to grab installer packages for VSCode extensions, Chrome/Edge add-ons, Docker images, and Microsoft Store apps \u2014 download once, install anywhere, even offline.",
+  "version": "1.0.0",
+  "author": "LiaoGuoYin",
+  "homepage": "https://github.com/LiaoGuoYin/lixian.online",
+  "skills": []
+}
