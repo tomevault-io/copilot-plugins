@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--isaac-gr00t",
+  "displayName": "Isaac-GR00T",
+  "description": "NVIDIA Isaac GR00T N1.7 -  A Foundation Model for Generalist Robots.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/Isaac-GR00T",
+  "skills": []
+}
