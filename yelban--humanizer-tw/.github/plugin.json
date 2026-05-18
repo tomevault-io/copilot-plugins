@@ -1,0 +1,9 @@
+{
+  "name": "yelban--humanizer-tw",
+  "displayName": "humanizer.TW",
+  "description": "Claude Code skill that removes signs of AI-generated writing from text",
+  "version": "1.0.0",
+  "author": "yelban",
+  "homepage": "https://github.com/yelban/humanizer.TW",
+  "skills": []
+}
