@@ -1,0 +1,9 @@
+{
+  "name": "bjornmelin--docmind-ai-llm",
+  "displayName": "docmind-ai-llm",
+  "description": "DocMind AI is a powerful, open-source Streamlit application leveraging LlamaIndex, LangGraph, and local Large Language Models (LLMs) via Ollama, LMStudio, llama.cpp, or vLLM for advanced document anal",
+  "version": "1.0.0",
+  "author": "BjornMelin",
+  "homepage": "https://github.com/BjornMelin/docmind-ai-llm",
+  "skills": []
+}
