@@ -1,230 +1,805 @@
-## telemetry
+## test-workflow
 
-> Guidelines for integrating AI usage telemetry across Task Master.
+> Before implementing the TDD workflow, ensure your project has a proper testing framework configured. This section covers setup for different technology stacks.
 
+# Test Workflow & Development Process
 
-# AI Usage Telemetry Integration
+## **Initial Testing Framework Setup**
 
-This document outlines the standard pattern for capturing, propagating, and handling AI usage telemetry data (cost, tokens, model, etc.) across the Task Master stack. This ensures consistent telemetry for both CLI and MCP interactions.
+Before implementing the TDD workflow, ensure your project has a proper testing framework configured. This section covers setup for different technology stacks.
 
-## Overview
+### **Detecting Project Type & Framework Needs**
 
-Telemetry data is generated within the unified AI service layer ([`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js)) and then passed upwards through the calling functions.
+**AI Agent Assessment Checklist:**
+1. **Language Detection**: Check for `package.json` (Node.js/JavaScript), `requirements.txt` (Python), `Cargo.toml` (Rust), etc.
+2. **Existing Tests**: Look for test files (`.test.`, `.spec.`, `_test.`) or test directories
+3. **Framework Detection**: Check for existing test runners in dependencies
+4. **Project Structure**: Analyze directory structure for testing patterns
 
-- **Data Source**: [`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js) (specifically its `generateTextService`, `generateObjectService`, etc.) returns an object like `{ mainResult: AI_CALL_OUTPUT, telemetryData: TELEMETRY_OBJECT }`.
-- **`telemetryData` Object Structure**:
-  ```json
-  {
-    "timestamp": "ISO_STRING_DATE",
-    "userId": "USER_ID_FROM_CONFIG",
-    "commandName": "invoking_command_or_tool_name",
-    "modelUsed": "ai_model_id",
-    "providerName": "ai_provider_name",
-    "inputTokens": NUMBER,
-    "outputTokens": NUMBER,
-    "totalTokens": NUMBER,
-    "totalCost": NUMBER, // e.g., 0.012414
-    "currency": "USD" // e.g., "USD"
-  }
-  ```
+### **JavaScript/Node.js Projects (Jest Setup)**
 
-## Integration Pattern by Layer
+#### **Prerequisites Check**
+```bash
+# Verify Node.js project
+ls package.json  # Should exist
 
-The key principle is that each layer receives telemetry data from the layer below it (if applicable) and passes it to the layer above it, or handles it for display in the case of the CLI.
+# Check for existing testing setup
+ls jest.config.js jest.config.ts  # Check for Jest config
+grep -E "(jest|vitest|mocha)" package.json  # Check for test runners
+```
 
-### 1. Core Logic Functions (e.g., in `scripts/modules/task-manager/`)
+#### **Jest Installation & Configuration**
 
-Functions in this layer that invoke AI services are responsible for handling the `telemetryData` they receive from [`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js).
+**Step 1: Install Dependencies**
+```bash
+# Core Jest dependencies
+npm install --save-dev jest
 
-- **Actions**:
-    1.  Call the appropriate AI service function (e.g., `generateObjectService`).
-        -   Pass `commandName` (e.g., `add-task`, `expand-task`) and `outputType` (e.g., `cli` or `mcp`) in the `params` object to the AI service. The `outputType` can be derived from context (e.g., presence of `mcpLog`).
-    2.  The AI service returns an object, e.g., `aiServiceResponse = { mainResult: {/*AI output*/}, telemetryData: {/*telemetry data*/} }`.
-    3.  Extract `aiServiceResponse.mainResult` for the core processing.
-    4.  **Must return an object that includes `aiServiceResponse.telemetryData`**.
-        Example: `return { operationSpecificData: /*...*/, telemetryData: aiServiceResponse.telemetryData };`
+# TypeScript support (if using TypeScript)
+npm install --save-dev ts-jest @types/jest
 
-- **CLI Output Handling (If Applicable)**:
-    -   If the core function also handles CLI output (e.g., it has an `outputFormat` parameter that can be `'text'` or `'cli'`):
-        1.  Check if `outputFormat === 'text'` (or `'cli'`).
-        2.  If so, and if `aiServiceResponse.telemetryData` is available, call `displayAiUsageSummary(aiServiceResponse.telemetryData, 'cli')` from [`scripts/modules/ui.js`](mdc:scripts/modules/ui.js).
-        - This ensures telemetry is displayed directly to CLI users after the main command output.
+# Additional useful packages
+npm install --save-dev supertest @types/supertest  # For API testing
+npm install --save-dev jest-watch-typeahead  # Enhanced watch mode
+```
 
-- **Example Snippet (Core Logic in `scripts/modules/task-manager/someAiAction.js`)**:
-  ```javascript
-  import { generateObjectService } from '../ai-services-unified.js';
-  import { displayAiUsageSummary } from '../ui.js';
+**Step 2: Create Jest Configuration**
 
-  async function performAiRelatedAction(params, context, outputFormat = 'text') {
-    const { commandNameFromContext, /* other context vars */ } = context;
-    let aiServiceResponse = null;
+Create `jest.config.js` with the following production-ready configuration:
 
-    try {
-      aiServiceResponse = await generateObjectService({
-        // ... other parameters for AI service ...
-        commandName: commandNameFromContext || 'default-action-name',
-        outputType: context.mcpLog ? 'mcp' : 'cli' // Derive outputType
-      });
+```javascript
+/** @type {import('jest').Config} */
+module.exports = {
+  // Use ts-jest preset for TypeScript support
+  preset: 'ts-jest',
 
-      const usefulAiOutput = aiServiceResponse.mainResult.object;
-      // ... do work with usefulAiOutput ...
+  // Test environment
+  testEnvironment: 'node',
 
-      if (outputFormat === 'text' && aiServiceResponse.telemetryData) {
-        displayAiUsageSummary(aiServiceResponse.telemetryData, 'cli');
-      }
+  // Roots for test discovery
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
 
-      return {
-        actionData: /* results of processing */,
-        telemetryData: aiServiceResponse.telemetryData
-      };
-    } catch (error) {
-      // ... handle error ...
-      throw error;
-    }
-  }
-  ```
+  // Test file patterns
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
 
-### 2. Direct Function Wrappers (in `mcp-server/src/core/direct-functions/`)
-
-These functions adapt core logic for the MCP server, ensuring structured responses.
-
-- **Actions**:
-    1.  Call the corresponding core logic function.
-        -   Pass necessary context (e.g., `session`, `mcpLog`, `projectRoot`).
-        -   Provide the `commandName` (typically derived from the MCP tool name) and `outputType: 'mcp'` in the context object passed to the core function.
-        -   If the core function supports an `outputFormat` parameter, pass `'json'` to suppress CLI-specific UI.
-    2.  The core logic function returns an object (e.g., `coreResult = { actionData: ..., telemetryData: ... }`).
-    3.  Include `coreResult.telemetryData` as a field within the `data` object of the successful response returned by the direct function.
-
-- **Example Snippet (Direct Function `someAiActionDirect.js`)**:
-  ```javascript
-  import { performAiRelatedAction } from '../../../../scripts/modules/task-manager/someAiAction.js'; // Core function
-  import { createLogWrapper } from '../../tools/utils.js'; // MCP Log wrapper
-
-  export async function someAiActionDirect(args, log, context = {}) {
-    const { session } = context;
-    // ... prepare arguments for core function from args, including args.projectRoot ...
-
-    try {
-      const coreResult = await performAiRelatedAction(
-        { /* parameters for core function */ },
-        { // Context for core function
-          session,
-          mcpLog: createLogWrapper(log),
-          projectRoot: args.projectRoot,
-          commandNameFromContext: 'mcp_tool_some_ai_action', // Example command name
-          outputType: 'mcp'
+  // Transform files
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          target: 'es2020',
+          module: 'commonjs',
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          skipLibCheck: true,
+          strict: false,
+          noImplicitAny: false,
         },
-        'json' // Request 'json' output format from core function
-      );
+      },
+    ],
+    '^.+\\.js$': [
+      'ts-jest',
+      {
+        useESM: false,
+        tsconfig: {
+          target: 'es2020',
+          module: 'commonjs',
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+          allowJs: true,
+        },
+      },
+    ],
+  },
 
-      return {
-        success: true,
-        data: {
-          operationSpecificData: coreResult.actionData,
-          telemetryData: coreResult.telemetryData // Pass telemetry through
-        }
-      };
-    } catch (error) {
-      // ... error handling, return { success: false, error: ... } ...
-    }
+  // Module file extensions
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+
+  // Transform ignore patterns - adjust for ES modules
+  transformIgnorePatterns: ['node_modules/(?!(your-es-module-deps|.*\\.mjs$))'],
+
+  // Coverage configuration
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: [
+    'text', // Console output
+    'text-summary', // Brief summary
+    'lcov', // For IDE integration
+    'html', // Detailed HTML report
+  ],
+
+  // Files to collect coverage from
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.d.ts',
+    '!src/**/*.test.ts',
+    '!src/**/index.ts', // Often just exports
+    '!src/generated/**', // Generated code
+    '!src/config/database.ts', // Database config (tested via integration)
+  ],
+
+  // Coverage thresholds - TaskMaster standards
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+    // Higher standards for critical business logic
+    './src/utils/': {
+      branches: 85,
+      functions: 90,
+      lines: 90,
+      statements: 90,
+    },
+    './src/middleware/': {
+      branches: 80,
+      functions: 85,
+      lines: 85,
+      statements: 85,
+    },
+  },
+
+  // Setup files
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+
+  // Global teardown to prevent worker process leaks
+  globalTeardown: '<rootDir>/tests/teardown.ts',
+
+  // Module path mapping (if needed)
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+
+  // Clear mocks between tests
+  clearMocks: true,
+
+  // Restore mocks after each test
+  restoreMocks: true,
+
+  // Global test timeout
+  testTimeout: 10000,
+
+  // Projects for different test types
+  projects: [
+    // Unit tests - for pure functions only
+    {
+      displayName: 'unit',
+      testMatch: ['<rootDir>/src/**/*.test.ts'],
+      testPathIgnorePatterns: ['.*\\.integration\\.test\\.ts$', '/tests/'],
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      collectCoverageFrom: [
+        'src/**/*.ts',
+        '!src/**/*.d.ts',
+        '!src/**/*.test.ts',
+        '!src/**/*.integration.test.ts',
+      ],
+      coverageThreshold: {
+        global: {
+          branches: 70,
+          functions: 80,
+          lines: 80,
+          statements: 80,
+        },
+      },
+    },
+    // Integration tests - real database/services
+    {
+      displayName: 'integration',
+      testMatch: [
+        '<rootDir>/src/**/*.integration.test.ts',
+        '<rootDir>/tests/integration/**/*.test.ts',
+      ],
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      setupFilesAfterEnv: ['<rootDir>/tests/setup/integration.ts'],
+      testTimeout: 10000,
+    },
+    // E2E tests - full workflows
+    {
+      displayName: 'e2e',
+      testMatch: ['<rootDir>/tests/e2e/**/*.test.ts'],
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      setupFilesAfterEnv: ['<rootDir>/tests/setup/e2e.ts'],
+      testTimeout: 30000,
+    },
+  ],
+
+  // Verbose output for better debugging
+  verbose: true,
+
+  // Run projects sequentially to avoid conflicts
+  maxWorkers: 1,
+
+  // Enable watch mode plugins
+  watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
+};
+```
+
+**Step 3: Update package.json Scripts**
+
+Add these scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest --selectProjects unit",
+    "test:integration": "jest --selectProjects integration", 
+    "test:e2e": "jest --selectProjects e2e",
+    "test:ci": "jest --ci --coverage --watchAll=false"
   }
-  ```
+}
+```
 
-### 3. MCP Tools (in `mcp-server/src/tools/`)
+**Step 4: Create Test Setup Files**
 
-These are the exposed endpoints for MCP clients.
+Create essential test setup files:
 
-- **Actions**:
-    1.  Call the corresponding direct function wrapper.
-    2.  The direct function returns an object structured like `{ success: true, data: { operationSpecificData: ..., telemetryData: ... } }` (or an error object).
-    3.  Pass this entire result object to `handleApiResult(result, log)` from [`mcp-server/src/tools/utils.js`](mdc:mcp-server/src/tools/utils.js).
-    4.  `handleApiResult` ensures that the `data` field from the direct function's response (which correctly includes `telemetryData`) is part of the final MCP response.
+```typescript
+// tests/setup.ts - Global setup
+import { jest } from '@jest/globals';
 
-- **Example Snippet (MCP Tool `some_ai_action.js`)**:
-  ```javascript
-  import { someAiActionDirect } from '../core/task-master-core.js';
-  import { handleApiResult, withNormalizedProjectRoot } from './utils.js';
-  // ... zod for parameters ...
+// Global test configuration
+beforeAll(() => {
+  // Set test timeout
+  jest.setTimeout(10000);
+});
 
-  export function registerSomeAiActionTool(server) {
-    server.addTool({
-      name: "some_ai_action",
-      // ... description, parameters ...
-      execute: withNormalizedProjectRoot(async (args, { log, session }) => {
-        try {
-          const resultFromDirectFunction = await someAiActionDirect(
-            { /* args including projectRoot */ },
-            log,
-            { session }
-          );
-          return handleApiResult(resultFromDirectFunction, log); // This passes the nested telemetryData through
-        } catch (error) {
-          // ... error handling ...
-        }
-      })
+afterEach(() => {
+  // Clean up mocks after each test
+  jest.clearAllMocks();
+});
+```
+
+```typescript
+// tests/setup/integration.ts - Integration test setup
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+beforeAll(async () => {
+  // Connect to test database
+  await prisma.$connect();
+});
+
+afterAll(async () => {
+  // Cleanup and disconnect
+  await prisma.$disconnect();
+});
+
+beforeEach(async () => {
+  // Clean test data before each test
+  // Add your cleanup logic here
+});
+```
+
+```typescript
+// tests/teardown.ts - Global teardown
+export default async () => {
+  // Global cleanup after all tests
+  console.log('Global test teardown complete');
+};
+```
+
+**Step 5: Create Initial Test Structure**
+
+```bash
+# Create test directories
+mkdir -p tests/{setup,fixtures,unit,integration,e2e}
+mkdir -p tests/unit/src/{utils,services,middleware}
+
+# Create sample test fixtures
+mkdir tests/fixtures
+```
+
+### **Generic Testing Framework Setup (Any Language)**
+
+#### **Framework Selection Guide**
+
+**Python Projects:**
+- **pytest**: Recommended for most Python projects
+- **unittest**: Built-in, suitable for simple projects
+- **Coverage**: Use `coverage.py` for code coverage
+
+```bash
+# Python setup example
+pip install pytest pytest-cov
+echo "[tool:pytest]" > pytest.ini
+echo "testpaths = tests" >> pytest.ini
+echo "addopts = --cov=src --cov-report=html --cov-report=term" >> pytest.ini
+```
+
+**Go Projects:**
+- **Built-in testing**: Use Go's built-in `testing` package
+- **Coverage**: Built-in with `go test -cover`
+
+```bash
+# Go setup example
+go mod init your-project
+mkdir -p tests
+# Tests are typically *_test.go files alongside source
+```
+
+**Rust Projects:**
+- **Built-in testing**: Use Rust's built-in test framework
+- **cargo-tarpaulin**: For coverage analysis
+
+```bash
+# Rust setup example
+cargo new your-project
+cd your-project
+cargo install cargo-tarpaulin  # For coverage
+```
+
+**Java Projects:**
+- **JUnit 5**: Modern testing framework
+- **Maven/Gradle**: Build tools with testing integration
+
+```xml
+<!-- Maven pom.xml example -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.9.2</version>
+    <scope>test</scope>
+</dependency>
+```
+
+#### **Universal Testing Principles**
+
+**Coverage Standards (Adapt to Your Language):**
+- **Global Minimum**: 70-80% line coverage
+- **Critical Code**: 85-90% coverage
+- **New Features**: Must meet or exceed standards
+- **Legacy Code**: Gradual improvement strategy
+
+**Test Organization:**
+- **Unit Tests**: Fast, isolated, no external dependencies
+- **Integration Tests**: Test component interactions
+- **E2E Tests**: Test complete user workflows
+- **Performance Tests**: Load and stress testing (if applicable)
+
+**Naming Conventions:**
+- **Test Files**: `*.test.*`, `*_test.*`, or language-specific patterns
+- **Test Functions**: Descriptive names (e.g., `should_return_error_for_invalid_input`)
+- **Test Directories**: Organized by test type and mirroring source structure
+
+#### **TaskMaster Integration for Any Framework**
+
+**Document Testing Setup in Subtasks:**
+```bash
+# Update subtask with testing framework setup
+task-master update-subtask --id=X.Y --prompt="Testing framework setup:
+- Installed [Framework Name] with coverage support
+- Configured [Coverage Tool] with thresholds: 80% lines, 70% branches
+- Created test directory structure: unit/, integration/, e2e/
+- Added test scripts to build configuration
+- All setup tests passing"
+```
+
+**Testing Framework Verification:**
+```bash
+# Verify setup works
+[test-command]  # e.g., npm test, pytest, go test, cargo test
+
+# Check coverage reporting
+[coverage-command]  # e.g., npm run test:coverage
+
+# Update task with verification
+task-master update-subtask --id=X.Y --prompt="Testing framework verified:
+- Sample tests running successfully
+- Coverage reporting functional
+- CI/CD integration ready
+- Ready to begin TDD workflow"
+```
+
+## **Test-Driven Development (TDD) Integration**
+
+### **Core TDD Cycle with Jest**
+```bash
+# 1. Start development with watch mode
+npm run test:watch
+
+# 2. Write failing test first
+# Create test file: src/utils/newFeature.test.ts
+# Write test that describes expected behavior
+
+# 3. Implement minimum code to make test pass
+# 4. Refactor while keeping tests green
+# 5. Add edge cases and error scenarios
+```
+
+### **TDD Workflow Per Subtask**
+```bash
+# When starting a new subtask:
+task-master set-status --id=4.1 --status=in-progress
+
+# Begin TDD cycle:
+npm run test:watch  # Keep running during development
+
+# Document TDD progress in subtask:
+task-master update-subtask --id=4.1 --prompt="TDD Progress:
+- Written 3 failing tests for core functionality
+- Implemented basic feature, tests now passing
+- Adding edge case tests for error handling"
+
+# Complete subtask with test summary:
+task-master update-subtask --id=4.1 --prompt="Implementation complete:
+- Feature implemented with 8 unit tests
+- Coverage: 95% statements, 88% branches  
+- All tests passing, TDD cycle complete"
+```
+
+## **Testing Commands & Usage**
+
+### **Development Commands**
+```bash
+# Primary development command - use during coding
+npm run test:watch              # Watch mode with Jest
+npm run test:watch -- --testNamePattern="auth"  # Watch specific tests
+
+# Targeted testing during development
+npm run test:unit               # Run only unit tests
+npm run test:unit -- --coverage # Unit tests with coverage
+
+# Integration testing when APIs are ready
+npm run test:integration        # Run integration tests
+npm run test:integration -- --detectOpenHandles  # Debug hanging tests
+
+# End-to-end testing for workflows
+npm run test:e2e               # Run E2E tests
+npm run test:e2e -- --timeout=30000  # Extended timeout for E2E
+```
+
+### **Quality Assurance Commands**
+```bash
+# Full test suite with coverage (before commits)
+npm run test:coverage          # Complete coverage analysis
+
+# All tests (CI/CD pipeline)
+npm test                       # Run all test projects
+
+# Specific test file execution
+npm test -- auth.test.ts       # Run specific test file
+npm test -- --testNamePattern="should handle errors"  # Run specific tests
+```
+
+## **Test Implementation Patterns**
+
+### **Unit Test Development**
+```typescript
+// ✅ DO: Follow established patterns from auth.test.ts
+describe('FeatureName', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // Setup mocks with proper typing
+  });
+
+  describe('functionName', () => {
+    it('should handle normal case', () => {
+      // Test implementation with specific assertions
     });
-  }
-  ```
-
-### 4. CLI Commands (`scripts/modules/commands.js`)
-
-These define the command-line interface.
-
-- **Actions**:
-    1.  Call the appropriate core logic function.
-    2.  Pass `outputFormat: 'text'` (or ensure the core function defaults to text-based output for CLI).
-    3.  The core logic function (as per Section 1) is responsible for calling `displayAiUsageSummary` if telemetry data is available and it's in CLI mode.
-    4.  The command action itself **should not** call `displayAiUsageSummary` if the core logic function already handles this. This avoids duplicate display.
-
-- **Example Snippet (CLI Command in `commands.js`)**:
-  ```javascript
-  // In scripts/modules/commands.js
-  import { performAiRelatedAction } from './task-manager/someAiAction.js'; // Core function
-
-  programInstance
-    .command('some-cli-ai-action')
-    // ... .option() ...
-    .action(async (options) => {
-      try {
-        const projectRoot = findProjectRoot() || '.'; // Example root finding
-        // ... prepare parameters for core function from command options ...
-        await performAiRelatedAction(
-          { /* parameters for core function */ },
-          { // Context for core function
-            projectRoot,
-            commandNameFromContext: 'some-cli-ai-action',
-            outputType: 'cli'
-          },
-          'text' // Explicitly request text output format for CLI
-        );
-        // Core function handles displayAiUsageSummary internally for 'text' outputFormat
-      } catch (error) {
-        // ... error handling ...
-      }
+    
+    it('should throw error for invalid input', async () => {
+      // Error scenario testing
+      await expect(functionName(invalidInput))
+        .rejects.toThrow('Specific error message');
     });
-  ```
+  });
+});
+```
 
-## Summary Flow
+### **Integration Test Development**  
+```typescript
+// ✅ DO: Use supertest for API endpoint testing
+import request from 'supertest';
+import { app } from '../../src/app';
 
-The telemetry data flows as follows:
+describe('POST /api/auth/register', () => {
+  beforeEach(async () => {
+    await integrationTestUtils.cleanupTestData();
+  });
+  
+  it('should register user successfully', async () => {
+    const userData = createTestUser();
+    
+    const response = await request(app)
+      .post('/api/auth/register')
+      .send(userData)
+      .expect(201);
+      
+    expect(response.body).toMatchObject({
+      id: expect.any(String),
+      email: userData.email
+    });
+    
+    // Verify database state
+    const user = await prisma.user.findUnique({
+      where: { email: userData.email }
+    });
+    expect(user).toBeTruthy();
+  });
+});
+```
 
-1.  **[`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js)**: Generates `telemetryData` and returns `{ mainResult, telemetryData }`.
-2.  **Core Logic Function**:
-    *   Receives `{ mainResult, telemetryData }`.
-    *   Uses `mainResult`.
-    *   If CLI (`outputFormat: 'text'`), calls `displayAiUsageSummary(telemetryData)`.
-    *   Returns `{ operationSpecificData, telemetryData }`.
-3.  **Direct Function Wrapper**:
-    *   Receives `{ operationSpecificData, telemetryData }` from core logic.
-    *   Returns `{ success: true, data: { operationSpecificData, telemetryData } }`.
-4.  **MCP Tool**:
-    *   Receives direct function response.
-    *   `handleApiResult` ensures the final MCP response to the client is `{ success: true, data: { operationSpecificData, telemetryData } }`.
-5.  **CLI Command**:
-    *   Calls core logic with `outputFormat: 'text'`. Display is handled by core logic.
+### **E2E Test Development**
+```typescript
+// ✅ DO: Test complete user workflows
+describe('User Authentication Flow', () => {
+  it('should complete registration → login → protected access', async () => {
+    // Step 1: Register
+    const userData = createTestUser();
+    await request(app)
+      .post('/api/auth/register')
+      .send(userData)
+      .expect(201);
+    
+    // Step 2: Login
+    const loginResponse = await request(app)
+      .post('/api/auth/login')
+      .send({ email: userData.email, password: userData.password })
+      .expect(200);
+    
+    const { token } = loginResponse.body;
+    
+    // Step 3: Access protected resource
+    await request(app)
+      .get('/api/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+  }, 30000); // Extended timeout for E2E
+});
+```
 
-This pattern ensures telemetry is captured and appropriately handled/exposed across all interaction modes.
+## **Mocking & Test Utilities**
+
+### **Established Mocking Patterns**
+```typescript
+// ✅ DO: Use established bcrypt mocking pattern
+jest.mock('bcrypt');
+import bcrypt from 'bcrypt';
+const mockHash = bcrypt.hash as jest.MockedFunction<typeof bcrypt.hash>;
+const mockCompare = bcrypt.compare as jest.MockedFunction<typeof bcrypt.compare>;
+
+// ✅ DO: Use Prisma mocking for unit tests
+jest.mock('@prisma/client', () => ({
+  PrismaClient: jest.fn().mockImplementation(() => ({
+    user: {
+      create: jest.fn(),
+      findUnique: jest.fn(),
+    },
+    $connect: jest.fn(),
+    $disconnect: jest.fn(),
+  })),
+}));
+```
+
+### **Test Fixtures Usage**
+```typescript
+// ✅ DO: Use centralized test fixtures
+import { createTestUser, adminUser, invalidUser } from '../fixtures/users';
+
+describe('User Service', () => {
+  it('should handle admin user creation', async () => {
+    const userData = createTestUser(adminUser);
+    // Test implementation
+  });
+  
+  it('should reject invalid user data', async () => {
+    const userData = createTestUser(invalidUser);
+    // Error testing
+  });
+});
+```
+
+## **Coverage Standards & Monitoring**
+
+### **Coverage Thresholds**
+- **Global Standards**: 80% lines/functions, 70% branches
+- **Critical Code**: 90% utils, 85% middleware
+- **New Features**: Must meet or exceed global thresholds
+- **Legacy Code**: Gradual improvement with each change
+
+### **Coverage Reporting & Analysis**
+```bash
+# Generate coverage reports
+npm run test:coverage
+
+# View detailed HTML report
+open coverage/lcov-report/index.html
+
+# Coverage files generated:
+# - coverage/lcov-report/index.html  # Detailed HTML report
+# - coverage/lcov.info               # LCOV format for IDE integration  
+# - coverage/coverage-final.json     # JSON format for tooling
+```
+
+### **Coverage Quality Checks**
+```typescript
+// ✅ DO: Test all code paths
+describe('validateInput', () => {
+  it('should return true for valid input', () => {
+    expect(validateInput('valid')).toBe(true);
+  });
+  
+  it('should return false for various invalid inputs', () => {
+    expect(validateInput('')).toBe(false);      // Empty string
+    expect(validateInput(null)).toBe(false);    // Null value
+    expect(validateInput(undefined)).toBe(false); // Undefined
+  });
+  
+  it('should throw for unexpected input types', () => {
+    expect(() => validateInput(123)).toThrow('Invalid input type');
+  });
+});
+```
+
+## **Testing During Development Phases**
+
+### **Feature Development Phase**
+```bash
+# 1. Start feature development
+task-master set-status --id=X.Y --status=in-progress
+
+# 2. Begin TDD cycle  
+npm run test:watch
+
+# 3. Document test progress in subtask
+task-master update-subtask --id=X.Y --prompt="Test development:
+- Created test file with 5 failing tests
+- Implemented core functionality
+- Tests passing, adding error scenarios"
+
+# 4. Verify coverage before completion
+npm run test:coverage
+
+# 5. Update subtask with final test status
+task-master update-subtask --id=X.Y --prompt="Testing complete:
+- 12 unit tests with full coverage
+- All edge cases and error scenarios covered
+- Ready for integration testing"
+```
+
+### **Integration Testing Phase**
+```bash
+# After API endpoints are implemented
+npm run test:integration
+
+# Update integration test templates
+# Replace placeholder tests with real endpoint calls
+
+# Document integration test results
+task-master update-subtask --id=X.Y --prompt="Integration tests:
+- Updated auth endpoint tests  
+- Database integration verified
+- All HTTP status codes and responses tested"
+```
+
+### **Pre-Commit Testing Phase**
+```bash
+# Before committing code
+npm run test:coverage         # Verify all tests pass with coverage
+npm run test:unit            # Quick unit test verification
+npm run test:integration     # Integration test verification (if applicable)
+
+# Commit pattern for test updates
+git add tests/ src/**/*.test.ts
+git commit -m "test(task-X): Add comprehensive tests for Feature Y
+
+- Unit tests with 95% coverage (exceeds 90% threshold)
+- Integration tests for API endpoints
+- Test fixtures for data generation
+- Proper mocking patterns established
+
+Task X: Feature Y - Testing complete"
+```
+
+## **Error Handling & Debugging**
+
+### **Test Debugging Techniques**
+```typescript
+// ✅ DO: Use test utilities for debugging
+import { testUtils } from '../setup';
+
+it('should debug complex operation', () => {
+  testUtils.withConsole(() => {
+    // Console output visible only for this test
+    console.log('Debug info:', complexData);
+    service.complexOperation();
+  });
+});
+
+// ✅ DO: Use proper async debugging
+it('should handle async operations', async () => {
+  const promise = service.asyncOperation();
+  
+  // Test intermediate state
+  expect(service.isProcessing()).toBe(true);
+  
+  const result = await promise;
+  expect(result).toBe('expected');
+  expect(service.isProcessing()).toBe(false);
+});
+```
+
+### **Common Test Issues & Solutions**
+```bash
+# Hanging tests (common with database connections)
+npm run test:integration -- --detectOpenHandles
+
+# Memory leaks in tests
+npm run test:unit -- --logHeapUsage
+
+# Slow tests identification
+npm run test:coverage -- --verbose
+
+# Mock not working properly
+# Check: mock is declared before imports
+# Check: jest.clearAllMocks() in beforeEach
+# Check: TypeScript typing is correct
+```
+
+## **Continuous Integration Integration**
+
+### **CI/CD Pipeline Testing**
+```yaml
+# Example GitHub Actions integration
+- name: Run tests
+  run: |
+    npm ci
+    npm run test:coverage
+    
+- name: Upload coverage reports
+  uses: codecov/codecov-action@v3
+  with:
+    file: ./coverage/lcov.info
+```
+
+### **Pre-commit Hooks**
+```bash
+# Setup pre-commit testing (recommended)
+# In package.json scripts:
+"pre-commit": "npm run test:unit && npm run test:integration"
+
+# Husky integration example:
+npx husky add .husky/pre-commit "npm run test:unit"
+```
+
+## **Test Maintenance & Evolution**
+
+### **Adding Tests for New Features**
+1. **Create test file** alongside source code or in `tests/unit/`
+2. **Follow established patterns** from `src/utils/auth.test.ts`
+3. **Use existing fixtures** from `tests/fixtures/`
+4. **Apply proper mocking** patterns for dependencies
+5. **Meet coverage thresholds** for the module
+
+### **Updating Integration/E2E Tests**
+1. **Update templates** in `tests/integration/` when APIs change
+2. **Modify E2E workflows** in `tests/e2e/` for new user journeys  
+3. **Update test fixtures** for new data requirements
+4. **Maintain database cleanup** utilities
+
+### **Test Performance Optimization**
+- **Parallel execution**: Jest runs tests in parallel by default
+- **Test isolation**: Use proper setup/teardown for independence
+- **Mock optimization**: Mock heavy dependencies appropriately  
+- **Database efficiency**: Use transaction rollbacks where possible
+
+---
+
+**Key References:**
+- [Testing Standards](mdc:.cursor/rules/tests.mdc)
+- [Git Workflow](mdc:.cursor/rules/git_workflow.mdc)
+- [Development Workflow](mdc:.cursor/rules/dev_workflow.mdc)
+- [Jest Configuration](mdc:jest.config.js)
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
