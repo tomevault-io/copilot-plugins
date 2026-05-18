@@ -1,0 +1,44 @@
+{
+  "name": "Draftspect-Add-Ins-for-Word-and-Excel-Powered-by-Claude-Code",
+  "owner": "LeonardHope",
+  "repo": "Draftspect-Add-Ins-for-Word-and-Excel-Powered-by-Claude-Code",
+  "description": "Draftspect \u2014 open Word or Excel and chat with your own local Claude Code: it reads and edits the document and can pull in any local folders/files you point it at (notes, drafts, data, a repo) as context. Your configured agent \u2014 MCP, skills, CLAUDE.md \u2014 on your machine. Powered by Claude Code.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeonardHope/Draftspect-Add-Ins-for-Word-and-Excel-Powered-by-Claude-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T21:07:08Z"
+}
