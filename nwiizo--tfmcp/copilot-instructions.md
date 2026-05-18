@@ -1,29 +1,64 @@
-## 000-general
+## 001-rust
 
-> General project guidelines for tfmcp. Always consider these guidelines when working on the project.
+> Rust coding standards and architecture guidelines for tfmcp.
 
 
-# General Project Guidelines
+# Rust Coding Style Guide
 
-## Project Overview
-- This is tfmcp (Terraform Model Context Protocol Tool), a CLI tool that helps you interact with Terraform via MCP.
-- The project is written in Rust and integrates with Terraform to enable AI-assisted infrastructure management.
-- Always maintain high code quality and adherence to best practices.
+## Code Style
+- Follow the Rust style guide as enforced by `rustfmt` and `cargo fmt`.
+- Use 4 spaces for indentation, not tabs.
+- Maximum line length is 100 characters.
+- Always run `cargo fmt` before committing code.
 
-## Development Workflow
-- Follow semantic versioning for releases.
-- Use the Release.sh script for versioning and releases.
-- Write meaningful commit messages following conventional commits format.
+## Error Handling
+- Use `Result` and `Option` types appropriately.
+- Propagate errors with the `?` operator where appropriate.
+- Create custom error types in modules with complex error handling.
+- Use `thiserror` for defining error types.
+- Use `anyhow` for error propagation in application code.
 
 ## Documentation
-- Keep documentation up-to-date as features evolve.
-- Document public APIs, functions, and modules.
-- Include examples where appropriate.
+- Document all public functions, methods, and types with rustdoc comments.
+- Include examples in documentation when useful.
+- Document complex or non-obvious code sections.
 
-## Testing
-- Write unit tests for core functionality.
-- Ensure test coverage for critical paths.
-- Test against different Terraform versions when applicable. 
+## Best Practices
+- Prefer immutable variables (`let` instead of `let mut`) when possible.
+- Use strong typing rather than type aliases for clarity.
+- Leverage Rust's ownership system properly.
+- Avoid `unsafe` code unless absolutely necessary.
+- Use `clippy` to catch common mistakes. 
+
+# Rust Architecture Guidelines
+
+## Project Structure
+- Follow the modular structure in `src/`:
+  - `core/`: Core tfmcp functionality and abstractions
+  - `mcp/`: Model Context Protocol implementation
+  - `terraform/`: Terraform integration services
+  - `config/`: Configuration handling
+  - `shared/`: Shared utilities
+
+## Module Organization
+- Each module should have a clear, single responsibility.
+- Public APIs should be exposed through the module's `mod.rs` or `lib.rs`.
+- Keep implementation details private whenever possible.
+- Use feature flags for optional functionality.
+
+## Dependencies
+- Be conservative with external dependencies.
+- Evaluate new dependencies carefully:
+  - Is it actively maintained?
+  - Is it widely used/trusted?
+  - Would it be better to implement the functionality ourselves?
+- Pin dependency versions in Cargo.toml for reproducible builds.
+
+## Asynchronous Programming
+- Use `async/await` for asynchronous code.
+- Use `tokio` for async runtime.
+- Be careful with blocking operations in async contexts.
+- Consider using channels for communication between components. 
 
 ---
 > Source: [nwiizo/tfmcp](https://github.com/nwiizo/tfmcp) — distributed by [TomeVault](https://tomevault.io).
