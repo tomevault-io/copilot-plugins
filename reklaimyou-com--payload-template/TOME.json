@@ -1,0 +1,44 @@
+{
+  "name": "payload-template",
+  "owner": "ReklaimYou-com",
+  "repo": "payload-template",
+  "description": "A modern Next.js 16 + PayloadCMS 3 starter template with TailwindCSS 4, shadcn/ui, and Vercel deployment",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ReklaimYou-com/payload-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T21:23:33Z"
+}
