@@ -1,77 +1,108 @@
-## app-architecture-guide
+## mcp-flutter
 
-> This document provides a condensed, unified overview of the application's architecture. It is designed to be a primary reference for understanding the core concepts, structure, and development patterns.
+> <!-- gitnexus:start -->
 
+<!-- gitnexus:start -->
+# GitNexus — Code Intelligence
 
-# Application Architecture Overview
+This project is indexed by GitNexus as **mcp_flutter** (3749 symbols, 8525 relationships, 299 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
-This document provides a condensed, unified overview of the application's architecture. It is designed to be a primary reference for understanding the core concepts, structure, and development patterns.
+> If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
-## 1. High-Level Architecture & Directory Structure
+## Always Do
 
-The application follows a standard layered architecture, separating concerns into distinct layers and directories.
+- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
 
+## When Debugging
+
+1. `gitnexus_query({query: "<error or symptom>"})` — find execution flows related to the issue
+2. `gitnexus_context({name: "<suspect function>"})` — see all callers, callees, and process participation
+3. `READ gitnexus://repo/mcp_flutter/process/{processName}` — trace the full execution flow step by step
+4. For regressions: `gitnexus_detect_changes({scope: "compare", base_ref: "main"})` — see what your branch changed
+
+## When Refactoring
+
+- **Renaming**: MUST use `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` first. Review the preview — graph edits are safe, text_search edits need manual review. Then run with `dry_run: false`.
+- **Extracting/Splitting**: MUST run `gitnexus_context({name: "target"})` to see all incoming/outgoing refs, then `gitnexus_impact({target: "target", direction: "upstream"})` to find all external callers before moving code.
+- After any refactor: run `gitnexus_detect_changes({scope: "all"})` to verify only expected files changed.
+
+## Never Do
+
+- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
+
+## Tools Quick Reference
+
+| Tool | When to use | Command |
+|------|-------------|---------|
+| `query` | Find code by concept | `gitnexus_query({query: "auth validation"})` |
+| `context` | 360-degree view of one symbol | `gitnexus_context({name: "validateUser"})` |
+| `impact` | Blast radius before editing | `gitnexus_impact({target: "X", direction: "upstream"})` |
+| `detect_changes` | Pre-commit scope check | `gitnexus_detect_changes({scope: "staged"})` |
+| `rename` | Safe multi-file rename | `gitnexus_rename({symbol_name: "old", new_name: "new", dry_run: true})` |
+| `cypher` | Custom graph queries | `gitnexus_cypher({query: "MATCH ..."})` |
+
+## Impact Risk Levels
+
+| Depth | Meaning | Action |
+|-------|---------|--------|
+| d=1 | WILL BREAK — direct callers/importers | MUST update these |
+| d=2 | LIKELY AFFECTED — indirect deps | Should test |
+| d=3 | MAY NEED TESTING — transitive | Test if critical path |
+
+## Resources
+
+| Resource | Use for |
+|----------|---------|
+| `gitnexus://repo/mcp_flutter/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/mcp_flutter/clusters` | All functional areas |
+| `gitnexus://repo/mcp_flutter/processes` | All execution flows |
+| `gitnexus://repo/mcp_flutter/process/{name}` | Step-by-step execution trace |
+
+## Self-Check Before Finishing
+
+Before completing any code modification task, verify:
+1. `gitnexus_impact` was run for all modified symbols
+2. No HIGH/CRITICAL risk warnings were ignored
+3. `gitnexus_detect_changes()` confirms changes match expected scope
+4. All d=1 (WILL BREAK) dependents were updated
+
+## Keeping the Index Fresh
+
+After committing code changes, the GitNexus index becomes stale. Re-run analyze to update it:
+
+```bash
+npx gitnexus analyze
 ```
-lib/
-  ├── core/                # Core abstractions & shared utilities
-  ├── components/          # Shared UI components in atom design style. See
-  ├── data_models/         # Immutable data models based on extension types. See `[dart_extension_type_const_models.mdc](mdc:.cursor/rules/dart_extension_type_const_models.mdc)` for more details.
-  ├── data_resources/      # UI state holders (Resources) See `[command_resource_pattern.guide.mdc](mdc:.cursor/rules/command_resource_pattern.guide.mdc)` for more details.
-  ├── data_commands/       # Logic to update Resources (Commands) See `[command_resource_pattern.guide.mdc](mdc:.cursor/rules/command_resource_pattern.guide.mdc)` for more details.
-  ├── data_api/            # Data access layer (file I/O, parsing)
-  ├── data_services/       # Data services (file I/O, parsing)
-  ├── mechanics/           # Mechanics (game mechanics)
-  ├── di/                  # Dependency injection setup See `[di_usage.guide.mdc](mdc:.cursor/rules/di_usage.guide.mdc)` for more details.
-  ├── services/            # Isolated Application-level business logic
-  ├── {ui_domain}/         # Domain or Feature-specific screens and widgets, like ui_vitamin_selection, ui_info etc..
-  ├── theme/               # Context based Theme
-  └── main.dart            # Application entry point
+
+If the index previously included embeddings, preserve them by adding `--embeddings`:
+
+```bash
+npx gitnexus analyze --embeddings
 ```
 
-- **Data Layer:** `data_models/` & `data_api/` handle the representation of and interaction with the data.
-- **State & Service Layer:** `data_resources/` & `data_commands/` & `data_services/` manage application state and orchestrate business logic.
-- **UI Layer:** `{ui_domain}/` contains all Flutter widgets, organized by domain and then by feature.
+To check whether embeddings exist, inspect `.gitnexus/meta.json` — the `stats.embeddings` field shows the count (0 means no embeddings). **Running analyze without `--embeddings` will delete any previously generated embeddings.**
 
-## 2. The Data Layer: Workspace File Structure
+> Claude Code users: A PostToolUse hook handles this automatically after `git commit` and `git merge`.
 
-A Workspace is composed of several key file types, each serving a distinct purpose. All file contents are parsed into immutable **`extension type`** models located in `lib/data_models/`.
-See `[dart_extension_type_const_models.guide.mdc](mdc:.cursor/rules/dart_extension_type_const_models.guide.mdc)` for more details.
+## CLI
 
-## 3. Data Service Layer
+| Task | Read this skill file |
+|------|---------------------|
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
+| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
+| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
+| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
+| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
-Services in `lib/services/` contain isolated, high-level data related business logic that orchestrates data flow and complex operations. They provide reusable **capabilities** (e.g., file writing, data parsing) and are consumed by Commands to perform actions.
-
-They can be used by commands, mechanics.
-
-## 4. Mechanics Layer: Game Mechanics
-
-Mechanics in `lib/mechanics/` contain the game mechanics, they can be consumed by commands, and may modify resources.
-
-Should contain isolated game logic.
-
-## 5. UI & State Management: The Command-Resource Pattern
-
-The application uses the **Command-Resource pattern** for a clear separation between UI state and business logic. Commands are triggered by the UI to execute atomic **transactions** (e.g., "save this character"), using Services to perform the work and updating Resources with the result.
-
-See `[command_resource_pattern.guide.mdc](mdc:.cursor/rules/command_resource_pattern.guide.mdc)` for more details.
-
-## 6. Dependency Injection (DI)
-
-The application uses the `get_it` package for service location. The setup is centralized in `lib/di/dependency_injector.dart`. See `[di_usage.guide.mdc](mdc:.cursor/rules/di_usage.guide.mdc)` for more details.
-
-See `[di_creation.guide.mdc](mdc:.cursor/rules/di_creation.guide.mdc)` for more details.
-
-For how to use DI, see more in `[di_usage.guide.mdc](mdc:.cursor/rules/di_usage.guide.mdc)`
-
-For how to create DI, see more in `[di_creation.guide.mdc](mdc:.cursor/rules/di_creation.guide.mdc)`
-
-## 7. Localization
-
-The application supports dynamic, user-switchable localization for multiple languages. This is achieved by centralizing all user-facing strings and using a reactive architecture to update the UI when the language changes.
-
-Use `useLocale()` and `AppStrings.{key}.getValue(locale)` to get the current locale and strings.
-
-For how to use localization, see more in `[locale_usage.guide.mdc](mdc:.cursor/rules/locale_usage.guide.mdc)`
+<!-- gitnexus:end -->
 
 ---
 > Source: [Arenukvern/mcp_flutter](https://github.com/Arenukvern/mcp_flutter) — distributed by [TomeVault](https://tomevault.io).
