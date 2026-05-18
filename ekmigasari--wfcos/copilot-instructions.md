@@ -1,31 +1,26 @@
-## feature-guidelines
+## naming-conventions
 
-> When building a new feature or app module in the Cursor IDE project, follow these rules to ensure consistency, performance, and maintainability:
+> This project follows strict naming conventions:
 
-# Feature Development Guidelines
+# Naming Conventions
 
-When building a new feature or app module in the Cursor IDE project, follow these rules to ensure consistency, performance, and maintainability:
+This project follows strict naming conventions:
 
-## 1. File Structure & Component Location
-- Create each feature as a component under:  
-  `/src/app/(featureName)/[featureName].tsx`
+## Files & Directories
+- Directories: Use kebab-case for directories: `user-profile/`
+- React components: Use PascalCase for component files: `UserProfile.tsx`
+- Utility files: Use camelCase for utility files: `formatDate.ts`
+- Page files: Should be named `page.tsx`
+- Layout files: Should be named `layout.tsx`
+- Loading states: Should be named `loading.tsx`
+- Error handling: Should be named `error.tsx`
 
-## 2. App Registration
-- Register each new app or feature in the global app list at:  
-  `/src/infrastructure/config/appRegistry.ts`
-
-## 3. Global State Management
-- Use **Jotai** atoms for managing global state.
-- Place all atoms under:  
-  `/src/application/atoms`
-
-## 4. Local Storage Persistence
-- For persistent data, use helper functions in:  
-  `/src/infrastructure/utils/local-storage.ts`
-
-## 5. Window-Based Layout
-- All apps should render inside the reusable window layout:  
-  `/src/components/shared/window.tsx`
+## Code Style
+- Components: Use PascalCase for component names, interfaces, and type aliases: `UserProfile`, `UserProfileProps`
+- Variables/Functions: Use camelCase for variables, functions, and methods: `getUserData()`, `formatDate()`
+- Constants: Use UPPER_SNAKE_CASE for constants: `MAX_RETRY_COUNT`
+- Interfaces: Use `I` prefix for interfaces only when necessary for clarity: `IUserProps`
+- Booleans: Boolean variables should use prefixes like `is`, `has`, `should`: `isLoading`, `hasAccess`
 
 ---
 > Source: [ekmigasari/wfcOS](https://github.com/ekmigasari/wfcOS) — distributed by [TomeVault](https://tomevault.io).
