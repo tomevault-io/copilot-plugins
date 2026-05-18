@@ -1,0 +1,14 @@
+{
+  "name": "kepano--defuddle",
+  "displayName": "defuddle",
+  "description": "Get the main content of any page as Markdown.",
+  "version": "1.0.0",
+  "author": "kepano",
+  "homepage": "https://github.com/kepano/defuddle",
+  "skills": [
+    {
+      "name": "defuddle",
+      "description": ""
+    }
+  ]
+}
