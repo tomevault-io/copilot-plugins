@@ -1,7 +1,7 @@
 {
   "name": "homenshum--nodebench-ai",
   "displayName": "nodebench-ai",
-  "description": "nodebench-ai",
+  "description": "Entity intelligence workspace for public research, sourced dossiers, Convex runtime state, MCP tools, and agent context packs.",
   "version": "1.0.0",
   "author": "HomenShum",
   "homepage": "https://github.com/HomenShum/nodebench-ai",
