@@ -1,0 +1,9 @@
+{
+  "name": "nvdiffusionrun--appcmdnv",
+  "displayName": "AppCmdNV",
+  "description": "Application pour passer les commandes NV Diffusion pourles commerciaux",
+  "version": "1.0.0",
+  "author": "nvdiffusionrun",
+  "homepage": "https://github.com/nvdiffusionrun/AppCmdNV",
+  "skills": []
+}
