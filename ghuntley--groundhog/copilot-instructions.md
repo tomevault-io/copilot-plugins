@@ -1,76 +1,114 @@
-## devenv-basic-config
+## devenv-languages
 
-> Devenv Basic Configuration and Structure
+> Devenv Language-Specific Configurations
 
 ## Description
-This rule enforces best practices for basic devenv configuration and project structure.
+This rule enforces best practices for configuring language-specific development environments in devenv.
 
 ## Rule Details
-- Use `devenv.nix` as the main configuration file
-- Use `devenv.yaml` for project composition and imports
-- Structure environment variables using the `env` attribute set
-- Use `packages` for declaring development dependencies
-- Use `enterShell` for environment initialization
-- Use `dotenv.enable` for loading environment variables from `.env`
-- Use `devenv.debug` for troubleshooting
-- Use `devenv.warnOnNewVersion` to stay updated
+- Use `languages` for language-specific configurations
+- Use `languages.*.enable` to enable language support
+- Use `languages.*.package` for custom language versions
+- Use `languages.*.extensions` for IDE extensions
+- Use `languages.*.filters` for file filtering
+- Use `languages.*.formatters` for code formatting
+- Use `languages.*.linters` for code linting
+- Use `languages.*.tools` for development tools
 
 ## Examples
 
 ### Good
 ```nix
-{ pkgs, config, ... }: {
-  # Enable debug mode for troubleshooting
-  devenv.debug = true;
+{ pkgs, ... }: {
+  # Language-specific configurations
+  languages = {
+    # Python configuration
+    python = {
+      enable = true;
+      package = pkgs.python39;
+      extensions = [
+        "ms-python.python"
+        "ms-python.vscode-pylance"
+      ];
+      formatters = {
+        black.enable = true;
+        isort.enable = true;
+      };
+      linters = {
+        pylint.enable = true;
+        mypy.enable = true;
+      };
+      tools = {
+        poetry.enable = true;
+        pip.enable = true;
+      };
+    };
 
-  # Load environment variables from .env
-  dotenv.enable = true;
+    # JavaScript/TypeScript configuration
+    javascript = {
+      enable = true;
+      package = pkgs.nodejs_18;
+      extensions = [
+        "dbaeumer.vscode-eslint"
+        "esbenp.prettier-vscode"
+      ];
+      formatters = {
+        prettier.enable = true;
+      };
+      linters = {
+        eslint.enable = true;
+      };
+      tools = {
+        npm.enable = true;
+        yarn.enable = true;
+      };
+    };
 
-  # Define environment variables
-  env = {
-    PROJECT_NAME = "my-project";
-    DEBUG = "true";
+    # Rust configuration
+    rust = {
+      enable = true;
+      package = pkgs.rustc;
+      extensions = [
+        "rust-lang.rust-analyzer"
+        "tamasfe.even-better-toml"
+      ];
+      formatters = {
+        rustfmt.enable = true;
+      };
+      linters = {
+        clippy.enable = true;
+      };
+      tools = {
+        cargo.enable = true;
+      };
+    };
   };
-
-  # Declare development dependencies
-  packages = [
-    pkgs.git
-    pkgs.curl
-    pkgs.jq
-  ];
-
-  # Initialize environment
-  enterShell = ''
-    echo "Welcome to ${config.env.PROJECT_NAME}"
-    git --version
-  '';
 }
 ```
 
 ### Bad
 ```nix
 { pkgs }: {
-  # Missing environment variable structure
-  PROJECT_NAME = "my-project";  # Should be in env set
-
-  # Missing package declarations
-  # Missing enterShell
-  # Missing dotenv configuration
+  # Missing language configurations
+  # Missing formatters
+  # Missing linters
+  # Missing tools
+  # Missing extensions
 }
 ```
 
 ## Why
-- Proper configuration structure ensures maintainability
-- Environment variables in `env` set provide better organization
-- Package declarations make dependencies explicit
-- `enterShell` ensures consistent environment setup
-- `.env` support enables secure secret management
-- Debug mode helps with troubleshooting
-- Version warnings keep environments up to date
+- Language-specific configurations ensure proper development support
+- Formatters maintain consistent code style
+- Linters catch potential issues early
+- Tools provide necessary development utilities
+- Extensions enhance IDE capabilities
+- Custom package versions enable version control
+- File filters optimize performance
 
 ## References
-- [Devenv Documentation](mdc:https:/devenv.sh)
-- [Devenv Guide](mdc:https:/devenv.sh/guides) 
+- [Devenv Languages](mdc:https:/devenv.sh/reference/options/#languages)
+- [Devenv Language Support](mdc:https:/devenv.sh/guides/languages) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
