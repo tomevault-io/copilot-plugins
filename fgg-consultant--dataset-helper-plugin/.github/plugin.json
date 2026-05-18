@@ -1,0 +1,9 @@
+{
+  "name": "fgg-consultant--dataset-helper-plugin",
+  "displayName": "dataset-helper-plugin",
+  "description": "Plugin to easily ingest datasets in WMO Climweb",
+  "version": "1.0.0",
+  "author": "fgg-consultant",
+  "homepage": "https://github.com/fgg-consultant/dataset-helper-plugin",
+  "skills": []
+}
