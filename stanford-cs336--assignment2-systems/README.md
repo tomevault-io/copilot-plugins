@@ -7,11 +7,11 @@ Student version of Assignment 2 for Stanford CS336 - Language Modeling From Scra
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [stanford-cs336/assignment2-systems](https://github.com/stanford-cs336/assignment2-systems).
+Original source: `AGENTS.md` in [stanford-cs336/assignment2-systems](https://github.com/stanford-cs336/assignment2-systems).
 
 ## Also available for
 
-- **Codex** — `AGENTS.md`
+- **Claude Code** — `CLAUDE.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
