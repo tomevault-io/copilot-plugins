@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--workers-oauth-provider",
+  "displayName": "workers-oauth-provider",
+  "description": "OAuth provider library for Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/workers-oauth-provider",
+  "skills": []
+}
