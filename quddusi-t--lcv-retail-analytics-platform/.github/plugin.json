@@ -1,0 +1,9 @@
+{
+  "name": "quddusi-t--lcv-retail-analytics-platform",
+  "displayName": "lcv-retail-analytics-platform",
+  "description": "End-to-end retail analytics platform with data modeling, ETL, BigQuery, dashboards, and ML integration.",
+  "version": "1.0.0",
+  "author": "quddusi-t",
+  "homepage": "https://github.com/quddusi-t/lcv-retail-analytics-platform",
+  "skills": []
+}
