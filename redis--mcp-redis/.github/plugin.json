@@ -1,0 +1,9 @@
+{
+  "name": "redis--mcp-redis",
+  "displayName": "mcp-redis",
+  "description": "The official Redis MCP Server is a natural language interface designed for agentic applications to manage and search data in Redis efficiently",
+  "version": "1.0.0",
+  "author": "redis",
+  "homepage": "https://github.com/redis/mcp-redis",
+  "skills": []
+}
