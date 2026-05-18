@@ -1,19 +1,85 @@
-## customization
+## file-organization
 
-> CursorRIPER Framework - Customization
+> ├── assets/                # 静态资源
+
+# 文件组织规则
+
+## 核心目录结构（示意）
+
+src/
+├── assets/                # 静态资源
+├── common/
+│   ├── components/        # 通用组件
+│   ├── features/          # 通用功能域
+│   │   ├── [feature]/
+│   │   │   ├── components/    # 功能组件
+│   │   │   ├── extensions/    # 功能扩展
+│   │   │   └── pages/         # 页面组件
+│   │   └── ...
+│   ├── hooks/             # 通用hooks
+│   ├── lib/               # 通用核心库与工具
+│   └── types/             # 通用类型定义
+├── core/
+│   ├── config/            # 配置
+│   ├── hooks/             # 应用级hooks
+│   ├── resources/         # 资源定义
+│   ├── services/          # 服务与状态管理
+│   ├── stores/            # 状态存储
+│   ├── styles/            # 样式
+│   └── utils/             # 工具函数
+├── desktop/
+│   └── features/          # 桌面端功能
+│       ├── [feature]/
+│       │   ├── components/    # 平台特定组件
+│       │   ├── extensions/    # 平台特定扩展
+│       │   ├── hooks/         # 平台特定hooks
+│       │   └── pages/         # 平台特定页面
+│       └── ...
+├── mobile/
+│   └── features/          # 移动端功能
+│       ├── [feature]/
+│       │   ├── extensions/    # 平台特定扩展
+│       │   └── pages/         # 平台特定页面
+│       └── ...
 
 
-*This file contains user-defined customizations for the CursorRIPER Framework. Edit these settings to adjust framework behavior to your preferences.*
+## 核心原则
+- **平台分离**：desktop/mobile 平台特定代码分离
+- **功能优先**：按业务功能分组，而非技术类型
+- **复用性**：通用组件放 common，特定功能放 features
 
-# Customization
+## 分类规则
 
-- 需要修改代码时默认直接修改，无需用户确认，除非用户特别要求。
+### `src/common/components/`
+- **UI 组件**：纯展示组件 (`ui/`)
+- **业务组件**：功能相关组件
+- **布局组件**：结构组件 (`layout/`)
 
-# Predefined technology stacks for quick selection
+### `src/common/features/[feature]/`
+- **components/**：功能组件
+- **extensions/**：功能扩展
+- **pages/**：页面组件
 
----
+### `src/common/lib/`
+- **核心库**：核心功能库
+- **第三方集成**：外部库封装
+- **工具库**：工具函数
 
-*This file contains user-defined customizations for the CursorRIPER Framework. Edit these settings to adjust framework behavior to your preferences.*
+### `src/core/`
+- **应用核心**：配置、服务、状态管理、hooks
+- **业务逻辑**：应用级业务逻辑
+
+### `src/desktop/features/[feature]/` 和 `src/mobile/features/[feature]/`
+- **components/**：平台特定组件（仅desktop）
+- **extensions/**：平台特定扩展
+- **hooks/**：平台特定hooks（仅desktop）
+- **pages/**：平台特定页面
+
+## 命名规范
+- 目录：kebab-case
+- 文件：kebab-case
+- 服务文件：以 `.service.ts` 结尾
+- Hook 文件：以 `use-` 开头
 
 ---
 > Source: [Peiiii/AgentVerse](https://github.com/Peiiii/AgentVerse) — distributed by [TomeVault](https://tomevault.io).
