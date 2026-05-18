@@ -1,0 +1,9 @@
+{
+  "name": "ukgovernmentbeis--control-arena",
+  "displayName": "control-arena",
+  "description": "ControlArena is a collection of settings, model organisms and protocols - for running control experiments.",
+  "version": "1.0.0",
+  "author": "UKGovernmentBEIS",
+  "homepage": "https://github.com/UKGovernmentBEIS/control-arena",
+  "skills": []
+}
