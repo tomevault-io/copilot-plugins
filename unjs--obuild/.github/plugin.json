@@ -1,0 +1,9 @@
+{
+  "name": "unjs--obuild",
+  "displayName": "obuild",
+  "description": "\ud83d\udce6 \ud83d\ude2f Zero-config ESM/TS package builder.",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/obuild",
+  "skills": []
+}
