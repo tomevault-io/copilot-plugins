@@ -1,9 +1,9 @@
 {
   "name": "stumason--coolify-mcp",
   "displayName": "coolify-mcp",
-  "description": "coolify-mcp",
+  "description": "MCP server for Coolify \u2014 38 optimized tools for managing self-hosted PaaS through AI assistants",
   "version": "1.0.0",
   "author": "StuMason",
-  "homepage": "https://tomevault.io/claim/StuMason",
+  "homepage": "https://github.com/StuMason/coolify-mcp",
   "skills": []
 }
