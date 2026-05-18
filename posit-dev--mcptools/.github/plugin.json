@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--mcptools",
+  "displayName": "mcptools",
+  "description": "Model Context Protocol For R",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/mcptools",
+  "skills": []
+}
