@@ -7,11 +7,11 @@ The RL Bridge for LLM-based Agent Applications. Made Simple & Flexible.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [areal-project/AReaL](https://github.com/areal-project/AReaL).
+Original source: `CLAUDE.md` in [areal-project/AReaL](https://github.com/areal-project/AReaL).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
