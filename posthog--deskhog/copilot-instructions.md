@@ -1,18 +1,21 @@
-## code-generation
+## troubleshooting
 
-> Code generation tasks
+> Fixing problems, recovering from failures
 
-Do not generate any code until you have:
 
-- carefully considered the existing context of the project
-- proposed a plan for the code being written
-- received clarification and approval to proceed
+When troubleshooting, writing new code is the final step, not the first. Do not randomly try new code.
 
-Writing code is never an immediate response, but rather a final course after due consideration and planning.
+Instead, think of up to five root causes of a failure, then narrow down to the most likely one or two.
 
-Let's stick to snakeCase for variable names.
+Only after providing a detailed plan for remediation will you write new code.
 
-Separation of concerns is essential. Do not, for example, put network code into UI components.
+Do not invent functions or properties on external libraries that don't actually exist, since this won't actually solve the problem.
+
+Switching away from Arduino framework is never a viable strategy.
+
+If USB operations falter, this command can reset the whole USB subsystem:
+
+sudo pkill -f "usb|serial|uart"; sudo pkill -f tty; sudo killall -STOP usbd; sleep 2; sudo killall -CONT usbd;
 
 ---
 > Source: [PostHog/DeskHog](https://github.com/PostHog/DeskHog) — distributed by [TomeVault](https://tomevault.io).
