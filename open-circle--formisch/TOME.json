@@ -4,7 +4,7 @@
   "repo": "formisch",
   "description": "The lightweight, schema-first, and fully type-safe form library for React, Solid, Vue, Svelte and more.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/open-circle/formisch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T05:36:23Z"
+  "distributed_at": "2026-05-18T05:38:46Z"
 }
