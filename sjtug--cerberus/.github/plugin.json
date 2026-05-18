@@ -1,0 +1,9 @@
+{
+  "name": "sjtug--cerberus",
+  "displayName": "cerberus",
+  "description": "A Caddy module that blocks unwanted requests using a sha256 PoW challenge",
+  "version": "1.0.0",
+  "author": "sjtug",
+  "homepage": "https://github.com/sjtug/cerberus",
+  "skills": []
+}
