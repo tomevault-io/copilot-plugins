@@ -1,0 +1,26 @@
+{
+  "name": "adeze--raindrop-mcp",
+  "displayName": "raindrop-mcp",
+  "description": "Raindrop MCP Server",
+  "version": "1.0.0",
+  "author": "adeze",
+  "homepage": "https://github.com/adeze/raindrop-mcp",
+  "skills": [
+    {
+      "name": "mcp-development",
+      "description": ""
+    },
+    {
+      "name": "mcp-inspector",
+      "description": ""
+    },
+    {
+      "name": "mcp-testing",
+      "description": ""
+    },
+    {
+      "name": "publishing",
+      "description": ""
+    }
+  ]
+}
