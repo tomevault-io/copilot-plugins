@@ -1,73 +1,114 @@
-## rust-ownership
+## rust-performance
 
-> Rust Ownership and Borrowing Best Practices
+> Rust Performance and Optimization Best Practices
 
-This rule enforces best practices related to Rust's ownership and borrowing system.
+This rule enforces best practices for performance optimization in Rust code.
 
 ## Rule Details
 
 - **Pattern**: `*.rs`
-- **Severity**: Error
-- **Category**: Ownership
+- **Severity**: Warning
+- **Category**: Performance
 
 ## Checks
 
-1. **Unnecessary Clone Usage**
-   - Avoid using `.clone()` when ownership can be transferred
-   - Prefer references when possible
-   - Use `&str` instead of `String` for string literals
+1. **Memory Management**
+   - Use stack allocation when possible
+   - Avoid unnecessary heap allocations
+   - Use appropriate collection types (e.g., `Vec` vs `LinkedList`)
+   - Implement proper memory reuse
 
-2. **Mutable References**
-   - Ensure only one mutable reference exists at a time
-   - Avoid unnecessary mutability
-   - Use `&mut` only when data needs to be modified
+2. **Zero-Cost Abstractions**
+   - Leverage compile-time optimizations
+   - Use generics for zero-cost abstractions
+   - Avoid runtime overhead in hot paths
+   - Use const generics where appropriate
 
-3. **Lifetime Annotations**
-   - Add explicit lifetime annotations when compiler cannot infer them
-   - Use descriptive lifetime names (e.g., `'a`, `'static`)
-   - Ensure lifetime parameters are properly constrained
+3. **Iterator Usage**
+   - Use iterator combinators instead of loops
+   - Chain iterator operations efficiently
+   - Avoid collecting into intermediate collections
+   - Use appropriate iterator adapters
 
-4. **Reference Counting**
-   - Use `Arc` for shared ownership across threads
-   - Use `Rc` for shared ownership within a single thread
-   - Consider using `Weak` references to break reference cycles
+4. **Benchmarking**
+   - Use `criterion` for benchmarking
+   - Profile code with `perf` or `flamegraph`
+   - Measure before optimizing
+   - Track performance regressions
 
 ## Examples
 
 ### Good
 ```rust
-fn process_string(s: &str) {
-    // Using string slice instead of owned String
+// Efficient iterator usage
+let sum: i32 = numbers
+    .iter()
+    .filter(|&x| x > &0)
+    .map(|x| x * x)
+    .sum();
+
+// Zero-cost abstraction
+fn process<T: AsRef<str>>(input: T) {
+    // Generic function with no runtime overhead
+    let s = input.as_ref();
 }
 
-fn modify_data(data: &mut Vec<i32>) {
-    // Clear mutable reference usage
+// Efficient memory usage
+struct EfficientBuffer {
+    data: Vec<u8>,
+    capacity: usize,
+}
+
+impl EfficientBuffer {
+    pub fn with_capacity(capacity: usize) -> Self {
+        Self {
+            data: Vec::with_capacity(capacity),
+            capacity,
+        }
+    }
+
+    pub fn reuse(&mut self) {
+        // Reuse the buffer instead of reallocating
+        self.data.clear();
+    }
 }
 ```
 
 ### Bad
 ```rust
-fn process_string(s: String) {
-    // Unnecessary ownership transfer
+// Inefficient memory usage
+let mut vec = Vec::new();
+for i in 0..1000 {
+    vec.push(i.to_string()); // Unnecessary heap allocations
 }
 
-fn modify_data(data: &mut Vec<i32>, other: &mut Vec<i32>) {
-    // Multiple mutable references to same data
+// Inefficient iterator usage
+let result: Vec<_> = numbers
+    .iter()
+    .filter(|&x| x > &0)
+    .collect(); // Unnecessary intermediate collection
+let sum: i32 = result.iter().sum();
+
+// Runtime overhead in hot path
+fn process_dynamic(input: &dyn AsRef<str>) {
+    // Dynamic dispatch in hot path
+    let s = input.as_ref();
 }
 ```
 
 ## Rationale
 
-Rust's ownership system is fundamental to its memory safety guarantees. Following these practices ensures:
-- Memory safety without garbage collection
-- Thread safety without runtime overhead
-- Clear ownership semantics
-- Efficient resource management
+Performance optimization practices ensure:
+- Efficient resource utilization
+- Minimal runtime overhead
+- Scalable applications
+- Better user experience
 
 ## References
 
-- [Rust Book - Ownership](mdc:https:/doc.rust-lang.org/book/ch04-00-understanding-ownership.html)
-- [Rust Reference - Lifetimes](mdc:https:/doc.rust-lang.org/reference/lifetimes.html) 
+- [Rust Performance Book](mdc:https:/nnethercote.github.io/perf-book)
+- [Criterion Documentation](mdc:https:/docs.rs/criterion/latest/criterion)
+- [Rust Iterator Documentation](mdc:https:/doc.rust-lang.org/std/iter/trait.Iterator.html) 
 
 ---
 > Source: [ghuntley/groundhog](https://github.com/ghuntley/groundhog) — distributed by [TomeVault](https://tomevault.io).
