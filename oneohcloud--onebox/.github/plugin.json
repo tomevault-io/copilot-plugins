@@ -1,0 +1,9 @@
+{
+  "name": "oneohcloud--onebox",
+  "displayName": "OneBox",
+  "description": "OneBox is a cross-platform GUI client based on the sing-box kernel. \\n Onebox \u662f\u4e00\u4e2a\u57fa\u4e8esing-box \u5185\u6838\u7684\u8de8\u5e73\u53f0\u56fe\u5f62\u5ba2\u6237\u7aef",
+  "version": "1.0.0",
+  "author": "OneOhCloud",
+  "homepage": "https://github.com/OneOhCloud/OneBox",
+  "skills": []
+}
