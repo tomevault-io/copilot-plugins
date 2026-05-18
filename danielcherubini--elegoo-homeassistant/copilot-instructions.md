@@ -1,132 +1,104 @@
 ## elegoo-homeassistant
 
-> This document provides instructions and context for the Gemini agent to effectively assist with development in this repository.
+> - **Name:** Elegoo Printer Home Assistant Integration
 
-# Gemini Project Helper
+# AGENTS.md
 
-This document provides instructions and context for the Gemini agent to effectively assist with development in this repository.
-
-## Project Overview
-
-- **Project Name:** Elegoo Printer Home Assistant Integration
+## Project
+- **Name:** Elegoo Printer Home Assistant Integration
 - **Type:** Home Assistant Custom Component
 - **Language:** Python
-- **Primary Code Location:** `custom_components/elegoo_printer/`
+- **Location:** `custom_components/elegoo_printer/`
 
-## Development Environment
+## Setup
+```bash
+make setup      # Install dependencies (uv)
+make lint       # Check code quality
+make format     # Format code
+make fix        # Auto-fix issues
+make test       # Run tests
+make start      # Start development server
+make debug      # Start debug server
+```
 
-This project uses `uv` for Python environment and dependency management. The virtual environment is expected to be located at `.venv/`.
+When checking code quality, validate with make format, make lint, and make test. `format` and `lint` are both considered linting commands, run both.
 
-- **Setup:** To set up the development environment and install all dependencies (including dev dependencies), run:
-  ```bash
-  make setup
-  ```
+## Versioning
+Update `manifest.json` and `pyproject.toml` versions together before releasing.
 
-## Key Commands
+## Repository
+- `.venv/`: Python virtual environment
+- `config/`: Local HA config for testing
+- `custom_components/elegoo_printer/`: Core component
+- `tests/`: Unit/integration tests
+- `blueprints/`: HA automation blueprints
 
-The `Makefile` contains all the necessary commands for common development tasks.
+## RTK (Rust Token Killer) - Token-Optimized Commands
 
-- **Linting:** To check the code for style and quality issues, run:
+## Golden Rule
 
-  ```bash
-  make lint
-  ```
+**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.
 
-- **Formatting:** To automatically format the code, run:
+**Important**: Even in command chains with `&&`, use `rtk`:
+```bash
+# ❌ Wrong
+git add . && git commit -m "msg" && git push
 
-  ```bash
-  make format
-  ```
+# ✅ Correct
+rtk git add . && rtk git commit -m "msg" && rtk git push
+```
 
-- **Fixing:** To automatically fix linting issues, run:
+## RTK Commands by Workflow
 
-  ```bash
-  make fix
-  ```
+### Git (59-80% savings)
+```bash
+rtk git status          # Compact status
+rtk git log             # Compact log (works with all git flags)
+rtk git diff            # Compact diff (80%)
+rtk git show            # Compact show (80%)
+rtk git add             # Ultra-compact confirmations (59%)
+rtk git commit          # Ultra-compact confirmations (59%)
+rtk git push            # Ultra-compact confirmations
+rtk git pull            # Ultra-compact confirmations
+rtk git branch          # Compact branch list
+rtk git fetch           # Compact fetch
+rtk git stash           # Compact stash
+rtk git worktree        # Compact worktree
+```
 
-- **Testing:** To run the automated test suite, run:
+Note: Git passthrough works for ALL subcommands, even those not explicitly listed.
 
-  ```bash
-  make test
-  ```
+### Files & Search (60-75% savings)
+```bash
+rtk ls <path>           # Tree format, compact (65%)
+rtk read <file>         # Code reading with filtering (60%)
+rtk grep <pattern>      # Search grouped by file (75%)
+rtk find <pattern>      # Find grouped by directory (70%)
+```
 
-- **Running the development server:** To start the Home Assistant instance with the custom component for development, run:
+### Analysis & Debug (70-90% savings)
+```bash
+rtk err <cmd>           # Filter errors only from any command
+rtk log <file>          # Deduplicated logs with counts
+rtk json <file>         # JSON structure without values
+rtk env                 # Environment variables compact
+rtk summary <cmd>       # Smart summary of command output
+rtk diff                # Ultra-compact diffs
+```
 
-  ```bash
-  make start
-  ```
-
-- **Running the debug server:** To start the Home Assistant instance in debug mode, run:
-  ```bash
-  make debug
-  ```
-
-## Committing and Contributions
-
-- Before committing any changes, please ensure that the code passes both the linter and the test suite.
-- Run `make fix` and `make test` to validate your changes.
-- Follow the existing code style and conventions.
-- **Always create a feature branch for new work. Do not commit directly to `main`**
+### Meta Commands
+```bash
+rtk gain                # View token savings statistics
+rtk gain --history      # View command history with savings
+rtk discover            # Analyze Claude Code sessions for missed RTK usage
+rtk proxy <cmd>         # Run command without filtering (for debugging)
+rtk init                # Add RTK instructions to CLAUDE.md
+rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
+```
 
 ## Logging
-
 The Home Assistant logs are located at `config/home-assistant.log`.
 
-## Repository Structure
-
-Here’s a breakdown of the key files and directories in this repository and their general purpose:
-
-- Project Root (/):
-
-  - .devcontainer.json: Configuration for development containers (e.g., VS Code Dev Containers).
-  - .gitattributes, .gitignore: Git configuration for file handling and ignored files.
-  - .python-version: Specifies the Python version for tools like pyenv.
-  - CONTRIBUTING.md: Guidelines for project contributions.
-  - debug.py: A script used for debugging the Home Assistant integration.
-  - GEMINI.md: This document, providing context and instructions for the Gemini agent.
-  - hacs.json: Configuration file for Home Assistant Community Store (HACS) integration.
-  - LICENSE: The project’s open-source license.
-  - Makefile: Commands for common development tasks (setup, linting, formatting, testing, running the dev server).
-  - pyproject.toml: Project metadata, dependencies, and tool configurations (e.g., uv, ruff, pytest).
-  - README.md: The main project documentation and overview.
-  - uv.lock: A lock file generated by uv to ensure reproducible Python environments.
-
-- .github/: GitHub-specific configurations.
-
-  - ISSUE_TEMPLATE/: Templates for creating new issues on GitHub.
-  - workflows/: GitHub Actions workflows for continuous integration (CI) tasks like linting, testing, and releases.
-
-- .venv/: The Python virtual environment where project dependencies are installed.
-
-- blueprints/: Home Assistant automation blueprints.
-
-  - automation/elegoo_printer/elegoo_printer_progress.yaml: A blueprint related to printer progress.
-
-- config/: A Home Assistant configuration directory used for local development and testing.
-
-  - configuration.yaml: The main Home Assistant configuration file for the development instance.
-
-- custom_components/elegoo_printer/: Core directory for the custom component.
-
-  - `__init__.py`: Initializes the Python package and the Home Assistant integration itself.
-  - api.py
-  - button.py, camera.py, fan.py, image.py, light.py, number.py, select.py, sensor.py
-  - config_flow.py
-  - const.py
-  - coordinator.py
-  - manifest.json
-  - sdcp/: SDCP protocol implementation and models.
-    - models/: Data models (e.g., printer status, print history).
-    - exceptions.py, const.py (as applicable)
-  - websocket/: WebSocket client/server implementation.
-    - client.py
-    - server.py
-  - translations/en.json: English translations for the integration UI.
-
-- scripts/: Utility scripts for development.
-
-- tests/: Unit and integration tests for the project.
-
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/danielcherubini) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [danielcherubini/elegoo-homeassistant](https://github.com/danielcherubini/elegoo-homeassistant) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
