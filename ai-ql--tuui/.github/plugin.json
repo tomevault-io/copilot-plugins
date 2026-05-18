@@ -1,0 +1,9 @@
+{
+  "name": "ai-ql--tuui",
+  "displayName": "tuui",
+  "description": "A desktop MCP client designed as a tool unitary utility integration, accelerating AI adoption through the Model Context Protocol (MCP) and enabling cross-vendor LLM API orchestration.",
+  "version": "1.0.0",
+  "author": "AI-QL",
+  "homepage": "https://github.com/AI-QL/tuui",
+  "skills": []
+}
