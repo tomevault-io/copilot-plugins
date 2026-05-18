@@ -1,155 +1,316 @@
-## ui
+## utilities
 
-> Guidelines for implementing and maintaining user interface components
+> Guidelines for implementing utility functions
 
 
-# User Interface Implementation Guidelines
+# Utility Function Guidelines
 
-## Core UI Component Principles
+## General Principles
 
-- **Function Scope Separation**:
-  - ✅ DO: Keep display logic separate from business logic
-  - ✅ DO: Import data processing functions from other modules
-  - ❌ DON'T: Include task manipulations within UI functions
-  - ❌ DON'T: Create circular dependencies with other modules
+- **Function Scope**:
+  - ✅ DO: Create utility functions that serve multiple modules
+  - ✅ DO: Keep functions single-purpose and focused
+  - ❌ DON'T: Include business logic in utility functions
+  - ❌ DON'T: Create utilities with side effects
 
-- **Standard Display Pattern**:
   ```javascript
-  // ✅ DO: Follow this pattern for display functions
+  // ✅ DO: Create focused, reusable utilities
   /**
-   * Display information about a task
-   * @param {Object} task - The task to display
+   * Truncates text to a specified length
+   * @param {string} text - The text to truncate
+   * @param {number} maxLength - The maximum length
+   * @returns {string} The truncated text
    */
-  function displayTaskInfo(task) {
-    console.log(boxen(
-      chalk.white.bold(`Task: #${task.id} - ${task.title}`),
-      { padding: 1, borderColor: 'blue', borderStyle: 'round' }
-    ));
+  function truncate(text, maxLength) {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength - 3) + '...';
   }
   ```
 
-## Visual Styling Standards
-
-- **Color Scheme**:
-  - Use `chalk.blue` for informational messages
-  - Use `chalk.green` for success messages
-  - Use `chalk.yellow` for warnings
-  - Use `chalk.red` for errors
-  - Use `chalk.cyan` for prompts and highlights
-  - Use `chalk.magenta` for subtask-related information
-
-- **Box Styling**:
   ```javascript
-  // ✅ DO: Use consistent box styles by content type
-  // For success messages:
-  boxen(content, {
-    padding: 1,
-    borderColor: 'green',
-    borderStyle: 'round',
-    margin: { top: 1 }
-  })
-
-  // For errors:
-  boxen(content, {
-    padding: 1,
-    borderColor: 'red',
-    borderStyle: 'round'
-  })
-
-  // For information:
-  boxen(content, {
-    padding: 1,
-    borderColor: 'blue',
-    borderStyle: 'round',
-    margin: { top: 1, bottom: 1 }
-  })
-  ```
-
-## Table Display Guidelines
-
-- **Table Structure**:
-  - Use [`cli-table3`](mdc:node_modules/cli-table3/README.md) for consistent table rendering
-  - Include colored headers with bold formatting
-  - Use appropriate column widths for readability
-
-  ```javascript
-  // ✅ DO: Create well-structured tables
-  const table = new Table({
-    head: [
-      chalk.cyan.bold('ID'),
-      chalk.cyan.bold('Title'),
-      chalk.cyan.bold('Status'),
-      chalk.cyan.bold('Priority'),
-      chalk.cyan.bold('Dependencies')
-    ],
-    colWidths: [5, 40, 15, 10, 20]
-  });
-
-  // Add content rows
-  table.push([
-    task.id,
-    truncate(task.title, 37),
-    getStatusWithColor(task.status),
-    chalk.white(task.priority || 'medium'),
-    formatDependenciesWithStatus(task.dependencies, allTasks, true)
-  ]);
-
-  console.log(table.toString());
-  ```
-
-## Loading Indicators
-
-- **Animation Standards**:
-  - Use [`ora`](mdc:node_modules/ora/readme.md) for spinner animations
-  - Create and stop loading indicators correctly
-
-  ```javascript
-  // ✅ DO: Properly manage loading state
-  const loadingIndicator = startLoadingIndicator('Processing task data...');
-  try {
-    // Do async work...
-    stopLoadingIndicator(loadingIndicator);
-    // Show success message
-  } catch (error) {
-    stopLoadingIndicator(loadingIndicator);
-    // Show error message
+  // ❌ DON'T: Add side effects to utilities
+  function truncate(text, maxLength) {
+    if (!text || text.length <= maxLength) {
+      return text;
+    }
+    
+    // Side effect - modifying global state or logging
+    console.log(`Truncating text from ${text.length} to ${maxLength} chars`);
+    
+    return text.slice(0, maxLength - 3) + '...';
   }
   ```
 
-## Helper Functions
+## Documentation Standards
 
-- **Status Formatting**:
-  - Use `getStatusWithColor` for consistent status display
-  - Use `formatDependenciesWithStatus` for dependency lists
-  - Use `truncate` to handle text that may overflow display
-
-- **Progress Reporting**:
-  - Use visual indicators for progress (bars, percentages)
-  - Include both numeric and visual representations
+- **JSDoc Format**:
+  - ✅ DO: Document all parameters and return values
+  - ✅ DO: Include descriptions for complex logic
+  - ✅ DO: Add examples for non-obvious usage
+  - ❌ DON'T: Skip documentation for "simple" functions
 
   ```javascript
-  // ✅ DO: Show clear progress indicators
-  console.log(`${chalk.cyan('Tasks:')} ${completedTasks}/${totalTasks} (${completionPercentage.toFixed(1)}%)`);
-  console.log(`${chalk.cyan('Progress:')} ${createProgressBar(completionPercentage)}`);
+  // ✅ DO: Provide complete JSDoc documentation
+  /**
+   * Reads and parses a JSON file
+   * @param {string} filepath - Path to the JSON file
+   * @returns {Object|null} Parsed JSON data or null if error occurs
+   */
+  function readJSON(filepath) {
+    try {
+      const rawData = fs.readFileSync(filepath, 'utf8');
+      return JSON.parse(rawData);
+    } catch (error) {
+      log('error', `Error reading JSON file ${filepath}:`, error.message);
+      if (CONFIG.debug) {
+        console.error(error);
+      }
+      return null;
+    }
+  }
   ```
 
-## Command Suggestions
+## Configuration Management
 
-- **Action Recommendations**:
-  - Provide next step suggestions after command completion
-  - Use a consistent format for suggested commands
+- **Environment Variables**:
+  - ✅ DO: Provide default values for all configuration
+  - ✅ DO: Use environment variables for customization
+  - ✅ DO: Document available configuration options
+  - ❌ DON'T: Hardcode values that should be configurable
 
   ```javascript
-  // ✅ DO: Show suggested next actions
-  console.log(boxen(
-    chalk.white.bold('Next Steps:') + '\n\n' +
-    `${chalk.cyan('1.')} Run ${chalk.yellow('task-manager list')} to view all tasks\n` +
-    `${chalk.cyan('2.')} Run ${chalk.yellow('task-manager show --id=' + newTaskId)} to view details`,
-    { padding: 1, borderColor: 'cyan', borderStyle: 'round', margin: { top: 1 } }
-  ));
+  // ✅ DO: Set up configuration with defaults and environment overrides
+  const CONFIG = {
+    model: process.env.MODEL || 'claude-3-7-sonnet-20250219',
+    maxTokens: parseInt(process.env.MAX_TOKENS || '4000'),
+    temperature: parseFloat(process.env.TEMPERATURE || '0.7'),
+    debug: process.env.DEBUG === "true",
+    logLevel: process.env.LOG_LEVEL || "info",
+    defaultSubtasks: parseInt(process.env.DEFAULT_SUBTASKS || "3"),
+    defaultPriority: process.env.DEFAULT_PRIORITY || "medium",
+    projectName: process.env.PROJECT_NAME || "Task Master",
+    projectVersion: "1.5.0" // Version should be hardcoded
+  };
   ```
 
-Refer to [`ui.js`](mdc:scripts/modules/ui.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines.
+## Logging Utilities
+
+- **Log Levels**:
+  - ✅ DO: Support multiple log levels (debug, info, warn, error)
+  - ✅ DO: Use appropriate icons for different log levels
+  - ✅ DO: Respect the configured log level
+  - ❌ DON'T: Add direct console.log calls outside the logging utility
+
+  ```javascript
+  // ✅ DO: Implement a proper logging utility
+  const LOG_LEVELS = {
+    debug: 0,
+    info: 1,
+    warn: 2,
+    error: 3
+  };
+  
+  function log(level, ...args) {
+    const icons = {
+      debug: chalk.gray('🔍'),
+      info: chalk.blue('ℹ️'),
+      warn: chalk.yellow('⚠️'),
+      error: chalk.red('❌'),
+      success: chalk.green('✅')
+    };
+    
+    if (LOG_LEVELS[level] >= LOG_LEVELS[CONFIG.logLevel]) {
+      const icon = icons[level] || '';
+      console.log(`${icon} ${args.join(' ')}`);
+    }
+  }
+  ```
+
+## File Operations
+
+- **Error Handling**:
+  - ✅ DO: Use try/catch blocks for all file operations
+  - ✅ DO: Return null or a default value on failure
+  - ✅ DO: Log detailed error information
+  - ❌ DON'T: Allow exceptions to propagate unhandled
+
+  ```javascript
+  // ✅ DO: Handle file operation errors properly
+  function writeJSON(filepath, data) {
+    try {
+      fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
+    } catch (error) {
+      log('error', `Error writing JSON file ${filepath}:`, error.message);
+      if (CONFIG.debug) {
+        console.error(error);
+      }
+    }
+  }
+  ```
+
+## Task-Specific Utilities
+
+- **Task ID Formatting**:
+  - ✅ DO: Create utilities for consistent ID handling
+  - ✅ DO: Support different ID formats (numeric, string, dot notation)
+  - ❌ DON'T: Duplicate formatting logic across modules
+
+  ```javascript
+  // ✅ DO: Create utilities for common operations
+  /**
+   * Formats a task ID as a string
+   * @param {string|number} id - The task ID to format
+   * @returns {string} The formatted task ID
+   */
+  function formatTaskId(id) {
+    if (typeof id === 'string' && id.includes('.')) {
+      return id; // Already formatted as a string with a dot (e.g., "1.2")
+    }
+    
+    if (typeof id === 'number') {
+      return id.toString();
+    }
+    
+    return id;
+  }
+  ```
+
+- **Task Search**:
+  - ✅ DO: Implement reusable task finding utilities
+  - ✅ DO: Support both task and subtask lookups
+  - ✅ DO: Add context to subtask results
+
+  ```javascript
+  // ✅ DO: Create comprehensive search utilities
+  /**
+   * Finds a task by ID in the tasks array
+   * @param {Array} tasks - The tasks array
+   * @param {string|number} taskId - The task ID to find
+   * @returns {Object|null} The task object or null if not found
+   */
+  function findTaskById(tasks, taskId) {
+    if (!taskId || !tasks || !Array.isArray(tasks)) {
+      return null;
+    }
+    
+    // Check if it's a subtask ID (e.g., "1.2")
+    if (typeof taskId === 'string' && taskId.includes('.')) {
+      const [parentId, subtaskId] = taskId.split('.').map(id => parseInt(id, 10));
+      const parentTask = tasks.find(t => t.id === parentId);
+      
+      if (!parentTask || !parentTask.subtasks) {
+        return null;
+      }
+      
+      const subtask = parentTask.subtasks.find(st => st.id === subtaskId);
+      if (subtask) {
+        // Add reference to parent task for context
+        subtask.parentTask = { 
+          id: parentTask.id, 
+          title: parentTask.title,
+          status: parentTask.status
+        };
+        subtask.isSubtask = true;
+      }
+      
+      return subtask || null;
+    }
+    
+    const id = parseInt(taskId, 10);
+    return tasks.find(t => t.id === id) || null;
+  }
+  ```
+
+## Cycle Detection
+
+- **Graph Algorithms**:
+  - ✅ DO: Implement cycle detection using graph traversal
+  - ✅ DO: Track visited nodes and recursion stack
+  - ✅ DO: Return specific information about cycles
+
+  ```javascript
+  // ✅ DO: Implement proper cycle detection
+  /**
+   * Find cycles in a dependency graph using DFS
+   * @param {string} subtaskId - Current subtask ID
+   * @param {Map} dependencyMap - Map of subtask IDs to their dependencies
+   * @param {Set} visited - Set of visited nodes
+   * @param {Set} recursionStack - Set of nodes in current recursion stack
+   * @returns {Array} - List of dependency edges that need to be removed to break cycles
+   */
+  function findCycles(subtaskId, dependencyMap, visited = new Set(), recursionStack = new Set(), path = []) {
+    // Mark the current node as visited and part of recursion stack
+    visited.add(subtaskId);
+    recursionStack.add(subtaskId);
+    path.push(subtaskId);
+    
+    const cyclesToBreak = [];
+    
+    // Get all dependencies of the current subtask
+    const dependencies = dependencyMap.get(subtaskId) || [];
+    
+    // For each dependency
+    for (const depId of dependencies) {
+      // If not visited, recursively check for cycles
+      if (!visited.has(depId)) {
+        const cycles = findCycles(depId, dependencyMap, visited, recursionStack, [...path]);
+        cyclesToBreak.push(...cycles);
+      } 
+      // If the dependency is in the recursion stack, we found a cycle
+      else if (recursionStack.has(depId)) {
+        // The last edge in the cycle is what we want to remove
+        cyclesToBreak.push(depId);
+      }
+    }
+    
+    // Remove the node from recursion stack before returning
+    recursionStack.delete(subtaskId);
+    
+    return cyclesToBreak;
+  }
+  ```
+
+## Export Organization
+
+- **Grouping Related Functions**:
+  - ✅ DO: Export all utility functions in a single statement
+  - ✅ DO: Group related exports together
+  - ✅ DO: Export configuration constants
+  - ❌ DON'T: Use default exports
+
+  ```javascript
+  // ✅ DO: Organize exports logically
+  export {
+    // Configuration
+    CONFIG,
+    LOG_LEVELS,
+    
+    // Logging
+    log,
+    
+    // File operations
+    readJSON,
+    writeJSON,
+    
+    // String manipulation
+    sanitizePrompt,
+    truncate,
+    
+    // Task utilities
+    readComplexityReport,
+    findTaskInComplexityReport,
+    taskExists,
+    formatTaskId,
+    findTaskById,
+    
+    // Graph algorithms
+    findCycles,
+  };
+  ```
+
+Refer to [`utils.js`](mdc:scripts/modules/utils.js) for implementation examples and [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for integration guidelines. 
 
 ---
 > Source: [skindhu/AI-TASK-MANAGER](https://github.com/skindhu/AI-TASK-MANAGER) — distributed by [TomeVault](https://tomevault.io).
