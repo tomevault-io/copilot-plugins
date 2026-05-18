@@ -1,0 +1,9 @@
+{
+  "name": "base--commerce-payments",
+  "displayName": "commerce-payments",
+  "description": "Onchain authorization and capture for trust-minimized commerce.",
+  "version": "1.0.0",
+  "author": "base",
+  "homepage": "https://github.com/base/commerce-payments",
+  "skills": []
+}
