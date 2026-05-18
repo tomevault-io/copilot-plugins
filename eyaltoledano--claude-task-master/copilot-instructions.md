@@ -1,105 +1,323 @@
-## ai-services
+## architecture
 
-> Guidelines for interacting with the unified AI service layer.
+> Describes the high-level architecture of the Task Master CLI application.
 
+# Application Architecture Overview
 
-# AI Services Layer Guidelines
+- **Modular Structure**: The Task Master CLI is built using a modular architecture, with distinct modules responsible for different aspects of the application. This promotes separation of concerns, maintainability, and testability.
 
-This document outlines the architecture and usage patterns for interacting with Large Language Models (LLMs) via Task Master's unified AI service layer (`ai-services-unified.js`). The goal is to centralize configuration, provider selection, API key management, fallback logic, and error handling.
+- **Main Modules and Responsibilities**:
 
-**Core Components:**
+  - **[`commands.js`](mdc:scripts/modules/commands.js): Command Handling**
+    - **Purpose**: Defines and registers all CLI commands using Commander.js.
+    - **Responsibilities** (See also: [`commands.mdc`](mdc:.cursor/rules/commands.mdc)):
+      - Parses command-line arguments and options.
+      - Invokes appropriate core logic functions from `scripts/modules/`.
+      - Handles user input/output for CLI.
+      - Implements CLI-specific validation.
 
-*   **Configuration (`.taskmasterconfig` & [`config-manager.js`](mdc:scripts/modules/config-manager.js)):**
-    *   Defines the AI provider and model ID for different **roles** (`main`, `research`, `fallback`).
-    *   Stores parameters like `maxTokens` and `temperature` per role.
-    *   Managed via the `task-master models --setup` CLI command.
-    *   [`config-manager.js`](mdc:scripts/modules/config-manager.js) provides **getters** (e.g., `getMainProvider()`, `getParametersForRole()`) to access these settings. Core logic should **only** use these getters for *non-AI related application logic* (e.g., `getDefaultSubtasks`). The unified service fetches necessary AI parameters internally based on the `role`.
-    *   **API keys** are **NOT** stored here; they are resolved via `resolveEnvVariable` (in [`utils.js`](mdc:scripts/modules/utils.js)) from `.env` (for CLI) or the MCP `session.env` object (for MCP calls). See [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc) and [`dev_workflow.mdc`](mdc:.cursor/rules/dev_workflow.mdc).
+  - **[`task-manager.js`](mdc:scripts/modules/task-manager.js) & `task-manager/` directory: Task Data & Core Logic**
+    - **Purpose**: Contains core functions for task data manipulation (CRUD), AI interactions, and related logic.
+    - **Responsibilities**:
+      - Reading/writing `tasks.json` with tagged task lists support.
+      - Implementing functions for task CRUD, parsing PRDs, expanding tasks, updating status, etc.
+      - **Tagged Task Lists**: Handles task organization across multiple contexts (tags) like "master", branch names, or project phases.
+      - **Tag Resolution**: Provides backward compatibility by resolving tagged format to legacy format transparently.
+      - **Delegating AI interactions** to the `ai-services-unified.js` layer.
+      - Accessing non-AI configuration via `config-manager.js` getters.
+    - **Key Files**: Individual files within `scripts/modules/task-manager/` handle specific actions (e.g., `add-task.js`, `expand-task.js`).
 
-*   **Unified Service (`ai-services-unified.js`):**
-    *   Exports primary interaction functions: `generateTextService`, `generateObjectService`. (Note: `streamTextService` exists but has known reliability issues with some providers/payloads).
-    *   Contains the core `_unifiedServiceRunner` logic.
-    *   Internally uses `config-manager.js` getters to determine the provider/model/parameters based on the requested `role`.
-    *   Implements the **fallback sequence** (e.g., main -> fallback -> research) if the primary provider/model fails.
-    *   Constructs the `messages` array required by the Vercel AI SDK.
-    *   Implements **retry logic** for specific API errors (`_attemptProviderCallWithRetries`).
-    *   Resolves API keys automatically via `_resolveApiKey` (using `resolveEnvVariable`).
-    *   Maps requests to the correct provider implementation (in `src/ai-providers/`) via `PROVIDER_FUNCTIONS`.
-    *   Returns a structured object containing the primary AI result (`mainResult`) and telemetry data (`telemetryData`). See [`telemetry.mdc`](mdc:.cursor/rules/telemetry.mdc) for details on how this telemetry data is propagated and handled.
+  - **[`dependency-manager.js`](mdc:scripts/modules/dependency-manager.js): Dependency Management**
+    - **Purpose**: Manages task dependencies.
+    - **Responsibilities**: Add/remove/validate/fix dependencies across tagged task contexts.
 
-*   **Provider Implementations (`src/ai-providers/*.js`):**
-    *   Contain provider-specific wrappers around Vercel AI SDK functions (`generateText`, `generateObject`).
+  - **[`ui.js`](mdc:scripts/modules/ui.js): User Interface Components**
+    - **Purpose**: Handles CLI output formatting (tables, colors, boxes, spinners).
+    - **Responsibilities**: Displaying tasks, reports, progress, suggestions, and migration notices for tagged systems.
 
-**Usage Pattern (from Core Logic like `task-manager/*.js`):**
+  - **[`ai-services-unified.js`](mdc:scripts/modules/ai-services-unified.js): Unified AI Service Layer**
+    - **Purpose**: Centralized interface for all LLM interactions using Vercel AI SDK.
+    - **Responsibilities** (See also: [`ai_services.mdc`](mdc:.cursor/rules/ai_services.mdc)):
+      - Exports `generateTextService`, `generateObjectService`.
+      - Handles provider/model selection based on `role` and `.taskmasterconfig`.
+      - Resolves API keys (from `.env` or `session.env`).
+      - Implements fallback and retry logic.
+      - Orchestrates calls to provider-specific implementations (`src/ai-providers/`).
+    - Telemetry data generated by the AI service layer is propagated upwards through core logic, direct functions, and MCP tools. See [`telemetry.mdc`](mdc:.cursor/rules/telemetry.mdc) for the detailed integration pattern.
 
-1.  **Import Service:** Import `generateTextService` or `generateObjectService` from `../ai-services-unified.js`.
-    ```javascript
-    // Preferred for most tasks (especially with complex JSON)
-    import { generateTextService } from '../ai-services-unified.js';
+  - **[`src/ai-providers/*.js`](mdc:src/ai-providers/): Provider-Specific Implementations**
+    - **Purpose**: Provider-specific wrappers for Vercel AI SDK functions.
+    - **Responsibilities**: Interact directly with Vercel AI SDK adapters.
 
-    // Use if structured output is reliable for the specific use case
-    // import { generateObjectService } from '../ai-services-unified.js';
-    ```
+  - **[`config-manager.js`](mdc:scripts/modules/config-manager.js): Configuration Management**
+    - **Purpose**: Loads, validates, and provides access to configuration.
+    - **Responsibilities** (See also: [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc)):
+      - Reads and merges `.taskmasterconfig` with defaults.
+      - Provides getters (e.g., `getMainProvider`, `getLogLevel`, `getDefaultSubtasks`) for accessing settings.
+      - **Tag Configuration**: Manages `global.defaultTag` and `tags` section for tag system settings.
+      - **Note**: Does **not** store or directly handle API keys (keys are in `.env` or MCP `session.env`).
 
-2.  **Prepare Parameters:** Construct the parameters object for the service call.
-    *   `role`: **Required.** `'main'`, `'research'`, or `'fallback'`. Determines the initial provider/model/parameters used by the unified service.
-    *   `session`: **Required if called from MCP context.** Pass the `session` object received by the direct function wrapper. The unified service uses `session.env` to find API keys.
-    *   `systemPrompt`: Your system instruction string.
-    *   `prompt`: The user message string (can be long, include stringified data, etc.).
-    *   (For `generateObjectService` only): `schema` (Zod schema), `objectName`.
+  - **[`utils.js`](mdc:scripts/modules/utils.js): Core Utility Functions**
+    - **Purpose**: Low-level, reusable CLI utilities.
+    - **Responsibilities** (See also: [`utilities.mdc`](mdc:.cursor/rules/utilities.mdc)):
+      - Logging (`log` function), File I/O (`readJSON`, `writeJSON`), String utils (`truncate`).
+      - Task utils (`findTaskById`), Dependency utils (`findCycles`).
+      - API Key Resolution (`resolveEnvVariable`).
+      - Silent Mode Control (`enableSilentMode`, `disableSilentMode`).
+      - **Tagged Task Lists**: Silent migration system, tag resolution, current tag management.
+      - **Migration System**: `performCompleteTagMigration`, `migrateConfigJson`, `createStateJson`.
 
-3.  **Call Service:** Use `await` to call the service function.
-    ```javascript
-    // Example using generateTextService (most common)
-    try {
-        const resultText = await generateTextService({
-            role: useResearch ? 'research' : 'main', // Determine role based on logic
-            session: context.session, // Pass session from context object
-            systemPrompt: "You are...",
-            prompt: userMessageContent
-        });
-        // Process the raw text response (e.g., parse JSON, use directly)
-        // ...
-    } catch (error) {
-        // Handle errors thrown by the unified service (if all fallbacks/retries fail)
-        report('error', `Unified AI service call failed: ${error.message}`);
-        throw error;
-    }
+  - **[`mcp-server/`](mdc:mcp-server/): MCP Server Integration**
+    - **Purpose**: Provides MCP interface using FastMCP.
+    - **Responsibilities** (See also: [`mcp.mdc`](mdc:.cursor/rules/mcp.mdc)):
+      - Registers tools (`mcp-server/src/tools/*.js`). Tool `execute` methods **should be wrapped** with the `withNormalizedProjectRoot` HOF (from `tools/utils.js`) to ensure consistent path handling.
+      - The HOF provides a normalized `args.projectRoot` to the `execute` method.
+      - Tool `execute` methods call **direct function wrappers** (`mcp-server/src/core/direct-functions/*.js`), passing the normalized `projectRoot` and other args.
+      - Direct functions use path utilities (`mcp-server/src/core/utils/`) to resolve paths based on `projectRoot` from session.
+      - Direct functions implement silent mode, logger wrappers, and call core logic functions from `scripts/modules/`.
+      - **Tagged Task Lists**: MCP tools fully support the tagged format with complete tag management capabilities.
+      - Manages MCP caching and response formatting.
 
-    // Example using generateObjectService (use cautiously)
-    try {
-        const resultObject = await generateObjectService({
-            role: 'main',
-            session: context.session,
-            schema: myZodSchema,
-            objectName: 'myDataObject',
-            systemPrompt: "You are...",
-            prompt: userMessageContent
-        });
-        // resultObject is already a validated JS object
-        // ...
-    } catch (error) {
-        report('error', `Unified AI service call failed: ${error.message}`);
-        throw error;
-    }
-    ```
+  - **[`init.js`](mdc:scripts/init.js): Project Initialization Logic**
+    - **Purpose**: Sets up new Task Master project structure.
+    - **Responsibilities**: Creates directories, copies templates, manages `package.json`, sets up `.cursor/mcp.json`, initializes state.json for tagged system.
 
-4.  **Handle Results/Errors:** Process the returned text/object or handle errors thrown by the unified service layer.
+## Tagged Task Lists System Architecture
 
-**Key Implementation Rules & Gotchas:**
+**Data Structure**: Task Master now uses a tagged task lists system where the `tasks.json` file contains multiple named task lists as top-level keys:
 
-*   ✅ **DO**: Centralize **all** LLM calls through `generateTextService` or `generateObjectService`.
-*   ✅ **DO**: Determine the appropriate `role` (`main`, `research`, `fallback`) in your core logic and pass it to the service.
-*   ✅ **DO**: Pass the `session` object (received in the `context` parameter, especially from direct function wrappers) to the service call when in MCP context.
-*   ✅ **DO**: Ensure API keys are correctly configured in `.env` (for CLI) or `.cursor/mcp.json` (for MCP).
-*   ✅ **DO**: Ensure `.taskmasterconfig` exists and has valid provider/model IDs for the roles you intend to use (manage via `task-master models --setup`).
-*   ✅ **DO**: Use `generateTextService` and implement robust manual JSON parsing (with Zod validation *after* parsing) when structured output is needed, as `generateObjectService` has shown unreliability with some providers/schemas.
-*   ❌ **DON'T**: Import or call anything from the old `ai-services.js`, `ai-client-factory.js`, or `ai-client-utils.js` files.
-*   ❌ **DON'T**: Initialize AI clients (Anthropic, Perplexity, etc.) directly within core logic (`task-manager/`) or MCP direct functions.
-*   ❌ **DON'T**: Fetch AI-specific parameters (model ID, max tokens, temp) using `config-manager.js` getters *for the AI call*. Pass the `role` instead.
-*   ❌ **DON'T**: Implement fallback or retry logic outside `ai-services-unified.js`.
-*   ❌ **DON'T**: Handle API key resolution outside the service layer (it uses `utils.js` internally).
-*   ⚠️ **generateObjectService Caution**: Be aware of potential reliability issues with `generateObjectService` across different providers and complex schemas. Prefer `generateTextService` + manual parsing as a more robust alternative for structured data needs.
+```json
+{
+  "master": {
+    "tasks": [/* standard task objects */]
+  },
+  "feature-branch": {
+    "tasks": [/* separate task context */]
+  }
+}
+```
+
+**Key Components:**
+
+- **Silent Migration**: Automatically transforms legacy `{"tasks": [...]}` format to tagged format `{"master": {"tasks": [...]}}` on first read
+- **Tag Resolution Layer**: Provides 100% backward compatibility by intercepting tagged format and returning legacy format to existing code
+- **Configuration Integration**: `global.defaultTag` and `tags` section in config.json manage tag system settings
+- **State Management**: `.taskmaster/state.json` tracks current tag, migration status, and tag-branch mappings
+- **Migration Notice**: User-friendly notification system for seamless migration experience
+
+**Backward Compatibility**: All existing CLI commands and MCP tools continue to work unchanged. The tag resolution layer ensures that existing code receives the expected legacy format while the underlying storage uses the new tagged structure.
+
+- **Data Flow and Module Dependencies (Updated)**:
+
+  - **CLI**: `bin/task-master.js` -> `scripts/dev.js` (loads `.env`) -> `scripts/modules/commands.js` -> Core Logic (`scripts/modules/*`) -> **Tag Resolution Layer** -> Unified AI Service (`ai-services-unified.js`) -> Provider Adapters -> LLM API.
+  - **MCP**: External Tool -> `mcp-server/server.js` -> Tool (`mcp-server/src/tools/*`) -> Direct Function (`mcp-server/src/core/direct-functions/*`) -> Core Logic (`scripts/modules/*`) -> **Tag Resolution Layer** -> Unified AI Service (`ai-services-unified.js`) -> Provider Adapters -> LLM API.
+  - **Configuration**: Core logic needing non-AI settings calls `config-manager.js` getters (passing `session.env` via `explicitRoot` if from MCP). Unified AI Service internally calls `config-manager.js` getters (using `role`) for AI params and `utils.js` (`resolveEnvVariable` with `session.env`) for API keys.
+
+## Silent Mode Implementation Pattern in MCP Direct Functions
+
+Direct functions (the `*Direct` functions in `mcp-server/src/core/direct-functions/`) need to carefully implement silent mode to prevent console logs from interfering with the structured JSON responses required by MCP. This involves both using `enableSilentMode`/`disableSilentMode` around core function calls AND passing the MCP logger via the standard wrapper pattern (see mcp.mdc). Here's the standard pattern for correct implementation:
+
+1. **Import Silent Mode Utilities**:
+   ```javascript
+   import { enableSilentMode, disableSilentMode, isSilentMode } from '../../../../scripts/modules/utils.js';
+   ```
+
+2. **Parameter Matching with Core Functions**:
+   - ✅ **DO**: Ensure direct function parameters match the core function parameters
+   - ✅ **DO**: Check the original core function signature before implementing
+   - ❌ **DON'T**: Add parameters to direct functions that don't exist in core functions
+   ```javascript
+   // Example: Core function signature
+   // async function expandTask(tasksPath, taskId, numSubtasks, useResearch, additionalContext, options)
+   
+   // Direct function implementation - extract only parameters that exist in core
+   export async function expandTaskDirect(args, log, context = {}) {
+     // Extract parameters that match the core function
+     const taskId = parseInt(args.id, 10);
+     const numSubtasks = args.num ? parseInt(args.num, 10) : undefined;
+     const useResearch = args.research === true;
+     const additionalContext = args.prompt || '';
+     
+     // Later pass these parameters in the correct order to the core function
+     const result = await expandTask(
+       tasksPath, 
+       taskId, 
+       numSubtasks, 
+       useResearch, 
+       additionalContext,
+       { mcpLog: log, session: context.session }
+     );
+   }
+   ```
+
+3. **Checking Silent Mode State**:
+   - ✅ **DO**: Always use `isSilentMode()` function to check current status
+   - ❌ **DON'T**: Directly access the global `silentMode` variable or `global.silentMode`
+   ```javascript
+   // CORRECT: Use the function to check current state
+   if (!isSilentMode()) {
+     // Only create a loading indicator if not in silent mode
+     loadingIndicator = startLoadingIndicator('Processing...');
+   }
+   
+   // INCORRECT: Don't access global variables directly
+   if (!silentMode) { // ❌ WRONG
+     loadingIndicator = startLoadingIndicator('Processing...');
+   }
+   ```
+
+4. **Wrapping Core Function Calls**:
+   - ✅ **DO**: Use a try/finally block pattern to ensure silent mode is always restored
+   - ✅ **DO**: Enable silent mode before calling core functions that produce console output
+   - ✅ **DO**: Disable silent mode in a finally block to ensure it runs even if errors occur
+   - ❌ **DON'T**: Enable silent mode without ensuring it gets disabled
+   ```javascript
+   export async function someDirectFunction(args, log) {
+     try {
+       // Argument preparation
+       const tasksPath = findTasksJsonPath(args, log);
+       const someArg = args.someArg;
+       
+       // Enable silent mode to prevent console logs
+       enableSilentMode();
+       
+       try {
+         // Call core function which might produce console output
+         const result = await someCoreFunction(tasksPath, someArg);
+         
+         // Return standardized result object
+         return { 
+           success: true, 
+           data: result, 
+           fromCache: false 
+         };
+       } finally {
+         // ALWAYS disable silent mode in finally block
+         disableSilentMode();
+       }
+     } catch (error) {
+       // Standard error handling
+       log.error(`Error in direct function: ${error.message}`);
+       return { 
+         success: false, 
+         error: { code: 'OPERATION_ERROR', message: error.message }, 
+         fromCache: false 
+       };
+     }
+   }
+   ```
+
+5. **Mixed Parameter and Global Silent Mode Handling**:
+   - For functions that need to handle both a passed `silentMode` parameter and check global state:
+   ```javascript
+   // Check both the function parameter and global state
+   const isSilent = options.silentMode || (typeof options.silentMode === 'undefined' && isSilentMode());
+   
+   if (!isSilent) {
+     console.log('Operation starting...');
+   }
+   ```
+
+By following these patterns consistently, direct functions will properly manage console output suppression while ensuring that silent mode is always properly reset, even when errors occur. This creates a more robust system that helps prevent unexpected silent mode states that could cause logging problems in subsequent operations.
+
+- **Testing Architecture**:
+
+  - **Test Organization Structure** (See also: [`tests.mdc`](mdc:.cursor/rules/tests.mdc)):
+    - **Unit Tests**: Located in `tests/unit/`, reflect the module structure with one test file per module
+    - **Integration Tests**: Located in `tests/integration/`, test interactions between modules
+    - **End-to-End Tests**: Located in `tests/e2e/`, test complete workflows from a user perspective
+    - **Test Fixtures**: Located in `tests/fixtures/`, provide reusable test data
+    - **Tagged System Tests**: Test migration, tag resolution, and multi-context functionality
+
+  - **Module Design for Testability**:
+    - **Explicit Dependencies**: Functions accept their dependencies as parameters rather than using globals
+    - **Functional Style**: Pure functions with minimal side effects make testing deterministic
+    - **Separate Logic from I/O**: Core business logic is separated from file system operations
+    - **Clear Module Interfaces**: Each module has well-defined exports that can be mocked in tests
+    - **Callback Isolation**: Callbacks are defined as separate functions for easier testing
+    - **Stateless Design**: Modules avoid maintaining internal state where possible
+    - **Tag Resolution Testing**: Test both tagged and legacy format handling
+
+  - **Mock Integration Patterns**:
+    - **External Libraries**: Libraries like `fs`, `commander`, and `@anthropic-ai/sdk` are mocked at module level
+    - **Internal Modules**: Application modules are mocked with appropriate spy functions
+    - **Testing Function Callbacks**: Callbacks are extracted from mock call arguments and tested in isolation
+    - **UI Elements**: Output functions from `ui.js` are mocked to verify display calls
+    - **Tagged Data Mocking**: Test both legacy and tagged task data structures
+
+  - **Testing Flow**:
+    - Module dependencies are mocked (following Jest's hoisting behavior)
+    - Test modules are imported after mocks are established
+    - Spy functions are set up on module methods
+    - Tests call the functions under test and verify behavior
+    - Mocks are reset between test cases to maintain isolation
+    - Tagged system behavior is tested for both migration and normal operation
+
+- **Benefits of this Architecture**:
+
+  - **Maintainability**: Modules are self-contained and focused, making it easier to understand, modify, and debug specific features.
+  - **Testability**:  Each module can be tested in isolation (unit testing), and interactions between modules can be tested (integration testing).
+    - **Mocking Support**: The clear dependency boundaries make mocking straightforward
+    - **Test Isolation**: Each component can be tested without affecting others
+    - **Callback Testing**: Function callbacks can be extracted and tested independently
+    - **Multi-Context Testing**: Tagged system enables testing different task contexts independently
+  - **Reusability**: Utility functions and UI components can be reused across different parts of the application.
+  - **Scalability**:  New features can be added as new modules or by extending existing ones without significantly impacting other parts of the application.
+  - **Multi-Context Support**: Tagged task lists enable working across different contexts (branches, environments, phases) without conflicts.
+  - **Backward Compatibility**: Seamless migration and tag resolution ensure existing workflows continue unchanged.
+  - **Clarity**: The modular structure provides a clear separation of concerns, making the codebase easier to navigate and understand for developers.
+
+This architectural overview should help AI models understand the structure and organization of the Task Master CLI codebase, enabling them to more effectively assist with code generation, modification, and understanding.
+
+## Implementing MCP Support for a Command
+
+Follow these steps to add MCP support for an existing Task Master command (see [`new_features.mdc`](mdc:.cursor/rules/new_features.mdc) for more detail):
+
+1.  **Ensure Core Logic Exists**: Verify the core functionality is implemented and exported from the relevant module in `scripts/modules/`.
+
+2.  **Create Direct Function File in `mcp-server/src/core/direct-functions/`:**
+    - Create a new file (e.g., `your-command.js`) using **kebab-case** naming.
+    - Import necessary core functions, **`findTasksJsonPath` from `../utils/path-utils.js`**, and **silent mode utilities**.
+    - Implement `async function yourCommandDirect(args, log)` using **camelCase** with `Direct` suffix:
+        - **Path Resolution**: Obtain the tasks file path using `const tasksPath = findTasksJsonPath(args, log);`. This relies on `args.projectRoot` being provided.
+        - Parse other `args` and perform necessary validation.
+        - **Implement Silent Mode**: Wrap core function calls with `enableSilentMode()` and `disableSilentMode()`.
+        - Implement caching with `getCachedOrExecute` if applicable.
+        - Call core logic.
+        - Return `{ success: true/false, data/error, fromCache: boolean }`.
+    - Export the wrapper function.
+    - **Note**: Tag-aware MCP tools are fully implemented with complete tag management support.
+
+3.  **Update `task-master-core.js` with Import/Export**: Add imports/exports for the new `*Direct` function.
+
+4.  **Create MCP Tool (`mcp-server/src/tools/`)**:
+    - Create a new file (e.g., `your-command.js`) using **kebab-case**.
+    - Import `zod`, `handleApiResult`, **`getProjectRootFromSession`**, and your `yourCommandDirect` function.
+    - Implement `registerYourCommandTool(server)`.
+    - **Define parameters, making `projectRoot` optional**: `projectRoot: z.string().optional().describe(...)`.
+    - Consider if this operation should run in the background using `AsyncOperationManager`.
+    - Implement the standard `execute` method:
+      - Get `rootFolder` using `getProjectRootFromSession` (with fallback to `args.projectRoot`).
+      - Call `yourCommandDirect({ ...args, projectRoot: rootFolder }, log)` or use `asyncOperationManager.addOperation`.
+      - Pass the result to `handleApiResult`.
+
+5.  **Register Tool**: Import and call `registerYourCommandTool` in `mcp-server/src/tools/index.js`.
+
+6.  **Update `mcp.json`**: Add the new tool definition.
+
+## Project Initialization
+
+The `initialize_project` command provides a way to set up a new Task Master project:
+
+- **CLI Command**: `task-master init`
+- **MCP Tool**: `initialize_project`
+- **Functionality**:
+  - Creates necessary directories and files for a new project
+  - Sets up `tasks.json` with tagged structure and initial task files
+  - Configures project metadata (name, description, version)
+  - Initializes state.json for tag system
+  - Handles shell alias creation if requested
+  - Works in both interactive and non-interactive modes
 
 ---
 > Source: [eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master) — distributed by [TomeVault](https://tomevault.io).
