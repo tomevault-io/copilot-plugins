@@ -1,166 +1,33 @@
-## storage
+## types
 
-> Follow these rules when working on file storage.
+> Follow these rules when working with types.
 
-# Storage Rules
+# Type Rules
 
-Follow these rules when working with Supabase Storage.
+- When importing types, use `@/types`
+- Name files like `example-types.ts`
+- All types should go in `types`
+- Make sure to export the types in `types/index.ts`
+- Prefer interfaces over type aliases
+- If referring to db types, use `@/db/schema` such as `SelectTodo` from `todos-schema.ts`
 
-It uses Supabase Storage for file uploads, downloads, and management.
+An example of a type:
 
-## General Rules
-
-- Always use environment variables for bucket names to maintain consistency across environments
-- Never hardcode bucket names in the application code
-- Always handle file size limits and allowed file types at the application level
-- Use the `upsert` method instead of `upload` when you want to replace existing files
-- Always implement proper error handling for storage operations
-- Use content-type headers when uploading files to ensure proper file handling
-
-## Organization
-
-### Buckets
-
-- Name buckets in kebab-case: `user-uploads`, `profile-images`
-- Create separate buckets for different types of files (e.g., `profile-images`, `documents`, `attachments`)
-- Document bucket purposes in a central location
-- Set appropriate bucket policies (public/private) based on access requirements
-- Implement RLS (Row Level Security) policies for buckets that need user-specific access
-- Make sure to let me know instructions for setting up RLS policies on Supabase since you can't do this yourself, including the SQL scripts I need to run in the editor
-
-### File Structure
-
-- Organize files in folders based on their purpose and ownership
-- Use predictable, collision-resistant naming patterns
-- Structure: `{bucket}/{userId}/{purpose}/{filename}`
-- Example: `profile-images/123e4567-e89b/avatar/profile.jpg`
-- Include timestamps in filenames when version history is important
-- Example: `documents/123e4567-e89b/contracts/2024-02-13-contract.pdf`
-
-## Actions
-
-- When importing storage actions, use `@/actions/storage`
-- Name files like `example-storage-actions.ts`
-- Include Storage at the end of function names `Ex: uploadFile -> uploadFileStorage`
-- Follow the same ActionState pattern as DB actions
-
-Example of a storage action:
+`types/actions-types.ts`
 
 ```ts
-"use server"
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { ActionState } from "@/types"
-
-export async function uploadFileStorage(
-  bucket: string,
-  path: string,
-  file: File
-): Promise<ActionState<{ path: string }>> {
-  try {
-    const supabase = createClientComponentClient()
-    
-    const { data, error } = await supabase
-      .storage
-      .from(bucket)
-      .upload(path, file, {
-        upsert: false,
-        contentType: file.type
-      })
-
-    if (error) throw error
-
-    return {
-      isSuccess: true,
-      message: "File uploaded successfully",
-      data: { path: data.path }
-    }
-  } catch (error) {
-    console.error("Error uploading file:", error)
-    return { isSuccess: false, message: "Failed to upload file" }
-  }
-}
+export type ActionState<T> =
+  | { isSuccess: true; message: string; data: T }
+  | { isSuccess: false; message: string; data?: never }
 ```
 
-## File Handling
+And exporting it:
 
-### Upload Rules
-
-- Always validate file size before upload
-- Implement file type validation using both extension and MIME type
-- Generate unique filenames to prevent collisions
-- Set appropriate content-type headers
-- Handle existing files appropriately (error or upsert)
-
-Example validation:
+`types/index.ts`
 
 ```ts
-const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"]
-
-function validateFile(file: File): boolean {
-  if (file.size > MAX_FILE_SIZE) {
-    throw new Error("File size exceeds limit")
-  }
-  
-  if (!ALLOWED_TYPES.includes(file.type)) {
-    throw new Error("File type not allowed")
-  }
-  
-  return true
-}
+export * from "./actions-types"
 ```
-
-### Download Rules
-
-- Always handle missing files gracefully
-- Implement proper error handling for failed downloads
-- Use signed URLs for private files
-
-### Delete Rules
-
-- Implement soft deletes when appropriate
-- Clean up related database records when deleting files
-- Handle bulk deletions carefully
-- Verify ownership before deletion
-- Always delete all versions/transforms of a file
-
-## Security
-
-### Bucket Policies
-
-- Make buckets private by default
-- Only make buckets public when absolutely necessary
-- Use RLS policies to restrict access to authorized users
-- Example RLS policy:
-
-```sql
-CREATE POLICY "Users can only access their own files"
-ON storage.objects
-FOR ALL
-USING (auth.uid()::text = (storage.foldername(name))[1]);
-```
-
-### Access Control
-
-- Generate short-lived signed URLs for private files
-- Implement proper CORS policies
-- Use separate buckets for public and private files
-- Never expose internal file paths
-- Validate user permissions before any operation
-
-## Error Handling
-
-- Implement specific error types for common storage issues
-- Always provide meaningful error messages
-- Implement retry logic for transient failures
-- Log storage errors separately for monitoring
-
-## Optimization
-
-- Implement progressive upload for large files
-- Clean up temporary files and failed uploads
-- Use batch operations when handling multiple files
 
 ---
 > Source: [mckaywrigley/o1-pro-template-system](https://github.com/mckaywrigley/o1-pro-template-system) — distributed by [TomeVault](https://tomevault.io).
