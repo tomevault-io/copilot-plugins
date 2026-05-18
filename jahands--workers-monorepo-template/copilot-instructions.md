@@ -1,57 +1,86 @@
 ## workers-monorepo-template
 
-> This is a Cloudflare Workers monorepo template built with Turborepo, pnpm workspaces, and modern tooling.
+> <cloudflare-workers-monorepo>
 
+<cloudflare-workers-monorepo>
 
-# Workers Monorepo Template - Project Structure
+<title>Cloudflare Workers Monorepo Guidelines for AmpCode</title>
 
-This is a Cloudflare Workers monorepo template built with Turborepo, pnpm workspaces, and modern tooling.
+<commands>
+- `just install` - Install dependencies
+- `just dev` - Run development servers (uses `bun runx dev` - context-aware)
+- `just test` - Run tests with vitest (uses `bun vitest`)
+- `just build` - Build all workers (uses `bun turbo build`)
+- `just check` - Check code quality - deps, lint, types, format (uses `bun runx check`)
+- `just fix` - Fix code issues - deps, lint, format, workers-types (uses `bun runx fix`)
+- `just deploy` - Deploy all workers (uses `bun turbo deploy`)
+- `just preview` - Run Workers in preview mode
+- `just new-worker` (alias: `just gen`) - Create a new Cloudflare Worker
+- `just new-package` - Create a new shared package
+- `just update deps` (alias: `just up deps`) - Update dependencies across the monorepo
+- `just update pnpm` - Update pnpm version
+- `just update turbo` - Update turbo version
+- `just cs` - Create a changeset for versioning
+- `bun turbo -F worker-name dev` - Start specific worker
+- `bun turbo -F worker-name test` - Test specific worker
+- `bun turbo -F worker-name deploy` - Deploy specific worker
+- `bun vitest path/to/test.test.ts` - Run a single test file
+- `pnpm -F @repo/package-name add dependency` - Add dependency to specific package
+</commands>
 
-## Repository Layout
+<architecture>
+- Cloudflare Workers monorepo using pnpm workspaces and Turborepo
+- `apps/` - Individual Cloudflare Worker applications
+- `packages/` - Shared libraries and configurations
+  - `@repo/oxlint-config` - Shared oxlint configuration
+  - `@repo/typescript-config` - Shared TypeScript configuration
+  - `@repo/hono-helpers` - Hono framework utilities
+  - `@repo/tools` - Development tools and scripts
+- Worker apps delegate scripts to `@repo/tools` for consistency
+- Hono web framework with helpers in `@repo/hono-helpers`
+- Vitest with `@cloudflare/vitest-pool-workers` for testing
+- Syncpack ensures dependency version consistency
+- Turborepo enables parallel task execution and caching
+- Workers configured via `wrangler.jsonc` with environment variables
+- Each worker has `context.ts` for typed environment bindings
+- Integration tests in `src/test/integration/`
+- Workers use `nodejs_compat` compatibility flag
+- GitHub Actions deploy automatically on merge to main
+- Changesets manage versions and changelogs
+</architecture>
 
-### Core Directories
+<code-style>
+- Use tabs for indentation, spaces for alignment
+- Type imports use `import type`
+- Workspace imports use `@repo/` prefix
+- Import order: Built-ins → Third-party → `@repo/` → Relative
+- Prefix unused variables with `_`
+- Prefer `const` over `let`
+- Use `array-simple` notation
+- Explicit function return types are optional
+</code-style>
 
-- **`apps/`** - Individual Cloudflare Worker applications (deployable units)
+<critical-notes>
+- TypeScript configs MUST use fully qualified paths: `@repo/typescript-config/base.json` not `./base.json`
+- Do NOT add 'WebWorker' to TypeScript config - types are in worker-configuration.d.ts or @cloudflare/workers-types
+- For lint checking: First `cd` to the package directory, then run `bun turbo check:types check:lint`
+- Use `workspace:*` protocol for internal dependencies
+- Use `bun turbo -F` for build/test/deploy tasks
+- Use `pnpm -F` for dependency management (pnpm is still used for package management)
+- Commands delegate to `bun runx` which provides context-aware behavior
+- Test commands use `bun vitest` directly, not through turbo
+- NEVER create files unless absolutely necessary
+- ALWAYS prefer editing existing files over creating new ones
+- NEVER proactively create documentation files unless explicitly requested
+</critical-notes>
 
-  - Each subdirectory is a separate worker project
-  - Example: [apps/example-worker-echoback/](mdc:apps/example-worker-echoback/) - demonstrates basic worker functionality
+<context-specific-rules>
+- When user asks to auto commit changes: Read @.cursor/rules/auto-commit.mdc
+- When working with Zod: Read @.cursor/rules/zod-v4.mdc
+</context-specific-rules>
 
-- **`packages/`** - Shared libraries, utilities, and configurations
-  - [packages/oxlint-config/](mdc:packages/oxlint-config/) - Shared oxlint configuration
-  - [packages/typescript-config/](mdc:packages/typescript-config/) - Shared TypeScript configuration
-  - [packages/hono-helpers/](mdc:packages/hono-helpers/) - Hono framework utilities and middleware
-  - [packages/tools/](mdc:packages/tools/) - CLI tools and development scripts
-  - [packages/workspace-dependencies/](mdc:packages/workspace-dependencies/) - Shared dependencies management
-
-### Configuration Files
-
-- [package.json](mdc:package.json) - Root package with workspace scripts and dev dependencies
-- [pnpm-workspace.yaml](mdc:pnpm-workspace.yaml) - Defines pnpm workspace structure
-- [turbo.json](mdc:turbo.json) - Turborepo configuration for builds, tasks, and caching
-- [Justfile](mdc:Justfile) - Convenient command aliases for development
-- [tsconfig.json](mdc:tsconfig.json) - Root TypeScript configuration
-- [.syncpackrc.cjs](mdc:.syncpackrc.cjs) - Dependency version synchronization
-
-### Code Generation
-
-- **`turbo/generators/`** - Turbo gen templates for scaffolding
-  - `templates/fetch-worker/` - Basic Cloudflare Worker template
-  - `templates/fetch-worker-vite/` - Worker template with Vite bundling
-  - `templates/package/` - Shared package template
-
-### Build & Development
-
-- **`.turbo/`** - Turborepo cache and daemon files
-- **`node_modules/`** - Workspace dependencies (managed by pnpm)
-- **`.github/workflows/`** - CI/CD pipelines for testing and deployment
-
-## Key Concepts
-
-- **Monorepo Benefits**: Shared dependencies, atomic commits, consistent tooling, easier refactoring
-- **pnpm Workspaces**: Efficient dependency management across packages
-- **Turborepo**: Build orchestration with intelligent caching and parallelization
-- **Code Generation**: Use `just new-worker` to scaffold new workers from templates
+</cloudflare-workers-monorepo>
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jahands) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [jahands/workers-monorepo-template](https://github.com/jahands/workers-monorepo-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-17 -->
