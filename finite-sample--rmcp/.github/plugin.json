@@ -1,0 +1,9 @@
+{
+  "name": "finite-sample--rmcp",
+  "displayName": "rmcp",
+  "description": "R MCP Server",
+  "version": "1.0.0",
+  "author": "finite-sample",
+  "homepage": "https://github.com/finite-sample/rmcp",
+  "skills": []
+}
