@@ -1,0 +1,63 @@
+{
+  "name": "mcp-use",
+  "owner": "mcp-use",
+  "repo": "mcp-use",
+  "description": "The fullstack MCP framework to develop MCP Apps for ChatGPT / Claude & MCP Servers for AI Agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chatgpt-app-builder",
+      "path": "skills/chatgpt-app-builder",
+      "github_url": "https://github.com/mcp-use/mcp-use/tree/main/skills/chatgpt-app-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-apps-builder",
+      "path": "skills/mcp-apps-builder",
+      "github_url": "https://github.com/mcp-use/mcp-use/tree/main/skills/mcp-apps-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "skills/mcp-builder",
+      "github_url": "https://github.com/mcp-use/mcp-use/tree/main/skills/mcp-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mcp-use/mcp-use",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T00:32:09Z"
+}
