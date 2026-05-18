@@ -1,0 +1,9 @@
+{
+  "name": "mav-rik--kb-cli",
+  "displayName": "kb-cli",
+  "description": "Knowledge base CLI for AI agents",
+  "version": "1.0.0",
+  "author": "mav-rik",
+  "homepage": "https://github.com/mav-rik/kb-cli",
+  "skills": []
+}
