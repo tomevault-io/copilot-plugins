@@ -1,52 +1,240 @@
-## supabase-migrations
+## supabase
 
-> You are a Postgres Expert who loves creating secure database schemas.
+> Use this guide to introduce authentication (sign-up & sign-in) in Astro applications with server-side rendering (SSR) support
 
-# Database: Create migration
+# Supabase Auth Integration with Astro
 
-You are a Postgres Expert who loves creating secure database schemas.
+Use this guide to introduce authentication (sign-up & sign-in) in Astro applications with server-side rendering (SSR) support
 
-This project uses the migrations provided by the Supabase CLI.
+## Before we start
 
-## Creating a migration file
+VERY IMPORTANT: Ask me which pages or components should behave differently after introducing authentication. Adjust further steps accordingly.
 
-Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
+## Core Requirements
 
-The file MUST following this naming convention:
+1. Use `@supabase/ssr` package (NOT auth-helpers)
+2. Use ONLY `getAll` and `setAll` for cookie management
+3. NEVER use individual `get`, `set`, or `remove` cookie methods
+4. Implement proper session management with middleware based on JWT (Supabase Auth)
 
-The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
+## Installation
 
-1. `YYYY` - Four digits for the year (e.g., `2024`).
-2. `MM` - Two digits for the month (01 to 12).
-3. `DD` - Two digits for the day of the month (01 to 31).
-4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
-5. `mm` - Two digits for the minute (00 to 59).
-6. `ss` - Two digits for the second (00 to 59).
-7. Add an appropriate description for the migration.
-
-For example:
-
-```
-20240906123045_create_profiles.sql
+```bash
+npm install @supabase/ssr @supabase/supabase-js
 ```
 
+## Environment Variables
 
-## SQL Guidelines
+Create `.env` file with required Supabase credentials:
 
-Write Postgres-compatible SQL code for Supabase migration files that:
+```env
+SUPABASE_URL=your_project_url
+SUPABASE_PUBLIC_KEY=your_anon_key
+```
 
-- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
-- Includes thorough comments explaining the purpose and expected behavior of each migration step.
-- Write all SQL in lowercase.
-- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
-- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
-- When creating RLS Policies
-  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
-  - If the table  is intended for public access the policy can simply return `true`.
-  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
-  - Include comments explaining the rationale and intended behavior of each security policy
+For better TypeScript support, create or update `src/env.d.ts`:
 
-The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
+```typescript
+/// <reference types="astro/client" />
+interface ImportMetaEnv {
+  readonly SUPABASE_URL: string;
+  readonly SUPABASE_PUBLIC_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+```
+
+Make sure `.env.example` is updated with the correct environment variables.
+
+## Implementation Steps
+
+### 1. Create OR Extend Supabase Server Instance
+
+Update existing Supabase client or create one in `src/db/supabase.client.ts`:
+
+```typescript
+import type { AstroCookies } from 'astro';
+import { createServerClient, type CookieOptionsWithName } from '@supabase/ssr';
+import type { Database } from '../db/database.types.ts';
+
+export const cookieOptions: CookieOptionsWithName = {
+  path: '/',
+  secure: true,
+  httpOnly: true,
+  sameSite: 'lax',
+};
+
+export const createSupabaseServerInstance = (context: {
+  headers: Headers;
+  cookies: AstroCookies;
+}) => {
+  const supabase = createServerClient<Database>(
+    import.meta.env.SUPABASE_URL!,
+    import.meta.env.SUPABASE_PUBLIC_KEY!,
+    {
+      cookieOptions,
+      cookies: {
+        getAll() {
+          return parseCookieHeader(context.headers.get('Cookie') ?? '');
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            context.cookies.set(name, value, options),
+          );
+        },
+      },
+    },
+  );
+
+  return supabase;
+};
+```
+
+### 2. Implement OR Extend Authentication Middleware
+
+Update existing auth middleware or create one in `src/middleware/index.ts`:
+
+```typescript
+import { createSupabaseServerInstance } from '../db/supabase.client.ts';
+import { defineMiddleware } from 'astro:middleware';
+
+// If there are public paths (per user's description)
+const PUBLIC_PATHS = ['/auth/login', '/auth/register', '/auth/reset-password'];
+
+export const onRequest = defineMiddleware(
+  async ({ locals, cookies, url, request, redirect }, next) => {
+    // Skip auth check for public paths
+    if (PUBLIC_PATHS.includes(url.pathname)) {
+      return next();
+    }
+
+    const supabase = createSupabaseServerInstance({
+      cookies,
+      headers: request.headers,
+    });
+
+    // IMPORTANT: Always get user session first before any other operations
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      locals.user = {
+        email: user.email,
+        id: user.id,
+      };
+    } else if (!PUBLIC_PATHS.includes(url.pathname)) {
+      // Redirect to login for protected routes
+      return redirect('/auth/login');
+    }
+
+    return next();
+  },
+);
+```
+
+### 3. Create Auth API Endpoints
+
+Create the following endpoints in `src/pages/api/auth/`:
+
+```typescript
+// src/pages/api/auth/login.ts
+import type { APIRoute } from 'astro';
+import { createSupabaseServerInstance } from '../../db/supabase.client.ts';
+
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const { email, password } = await request.json();
+
+  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 400,
+    });
+  }
+
+  return new Response(JSON.stringify({ user: data.user }), {
+    status: 200,
+  });
+};
+
+// src/pages/api/auth/register.ts
+export const POST: APIRoute = async ({ request, cookies }) => {
+  const { email, password } = await request.json();
+
+  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 400,
+    });
+  }
+
+  return new Response(JSON.stringify({ user: data.user }), {
+    status: 200,
+  });
+};
+
+// src/pages/api/auth/logout.ts
+export const POST: APIRoute = async ({ cookies, request }) => {
+  const supabase = createSupabaseServerInstance({ cookies, headers: request.headers });
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 400,
+    });
+  }
+
+  return new Response(null, { status: 200 });
+};
+```
+
+### 4. Protect Routes
+
+In protected Astro pages:
+
+```astro
+---
+// pages/protected.astro
+const { user } = Astro.locals;
+
+if (!user) {
+  return Astro.redirect('/auth/login');
+}
+---
+
+<h1>Protected Page</h1>
+<p>Welcome {user.email}!</p>
+```
+
+## Security Best Practices
+
+- Set proper cookie options (httpOnly, secure, sameSite)
+- Never expose Supabase integration & keys in client-side components
+- Validate all user input server-side
+- Use proper error handling and logging
+
+## Common Pitfalls
+
+1. DO NOT use individual cookie methods (get/set/remove)
+2. DO NOT import from @supabase/auth-helpers-nextjs
+3. DO NOT skip the auth.getUser() call in middleware
+4. DO NOT modify cookie handling logic
+5. Always handle auth state changes properly
 
 ---
 > Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
