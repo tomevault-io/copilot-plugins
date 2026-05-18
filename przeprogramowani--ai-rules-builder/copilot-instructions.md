@@ -1,53 +1,37 @@
-## test-plan
+## vitest-unit-testing
 
-> Jesteś doświadczonym inżynierem QA, którego zadaniem jest stworzenie kompleksowego planu testów dla projektu programistycznego. Przeanalizuj poniższe informacje o projekcie:
+> Unit testing with Vitest and React Testing Library
 
-Jesteś doświadczonym inżynierem QA, którego zadaniem jest stworzenie kompleksowego planu testów dla projektu programistycznego. Przeanalizuj poniższe informacje o projekcie:
 
-<kod_projektu>
+## TESTING
 
-</kod_projektu>
+### Guidelines for UNIT TESTING
 
-<stos_technologiczny>
-[tech-stack.md](mdc:.ai/tech-stack.md)
-</stos_technologiczny>
+#### VITEST
 
-Twoim zadaniem jest wygenerowanie szczegółowego planu testów, który będzie dostosowany do specyfiki projektu, uwzględniając wykorzystywane technologie, strukturę kodu oraz kluczowe elementy repozytorium. Plan testów powinien być napisany w języku polskim.
+- Leverage the `vi` object for test doubles - Use `vi.fn()` for function mocks, `vi.spyOn()` to monitor existing functions, and `vi.stubGlobal()` for global mocks. Prefer spies over mocks when you only need to verify interactions without changing behavior.
 
-Przed stworzeniem planu testów, przeprowadź dogłębną analizę projektu wewnątrz bloku <analiza_projektu> w swoim bloku myślowym. W analizie uwzględnij:
+- Master `vi.mock()` factory patterns - Place mock factory functions at the top level of your test file, return typed mock implementations, and use `mockImplementation()` or `mockReturnValue()` for dynamic control during tests. Remember the factory runs before imports are processed.
 
-1. Kluczowe komponenty projektu wynikające z analizy kodu:
-   - Wymień i opisz główne komponenty projektu
-2. Specyfikę stosu technologicznego i jego wpływ na strategię testowania:
-   - Przeanalizuj każdy element stosu technologicznego i jego implikacje dla testowania
-3. Priorytety testowe bazujące na strukturze repozytorium:
-   - Zidentyfikuj i uszereguj obszary testowe według ważności
-4. Potencjalne obszary ryzyka wymagające szczególnej uwagi w testach:
-   - Wymień potencjalne ryzyka i uzasadnij, dlaczego wymagają specjalnej uwagi
+- Create setup files for reusable configuration - Define global mocks, custom matchers, and environment setup in dedicated files referenced in your `vitest.config.ts`. This keeps your test files clean while ensuring consistent test environments.
 
-Po zakończeniu analizy, stwórz plan testów wewnątrz bloku <plan_testów>. Plan powinien zawierać:
+- Use inline snapshots for readable assertions - Replace complex equality checks with `expect(value).toMatchInlineSnapshot()` to capture expected output directly in your test file, making changes more visible in code reviews.
 
-1. Wprowadzenie i cele testowania
-2. Zakres testów
-3. Typy testów do przeprowadzenia (np. testy jednostkowe, integracyjne, wydajnościowe)
-4. Scenariusze testowe dla kluczowych funkcjonalności
-5. Środowisko testowe
-6. Narzędzia do testowania
-7. Harmonogram testów
-8. Kryteria akceptacji testów
-9. Role i odpowiedzialności w procesie testowania
-10. Procedury raportowania błędów
+- Monitor coverage with purpose - Configure coverage thresholds in `vitest.config.ts` to ensure critical code paths are tested, but focus on meaningful tests rather than arbitrary coverage percentages.
 
-Pamiętaj, aby plan testów był:
-- Dokładnie dostosowany do kontekstu projektu
-- Uwzględniał specyfikę wykorzystywanych technologii
-- Priorytetyzował kluczowe elementy repozytorium
-- Był napisany w języku polskim
-- Prezentował wysoką jakość i profesjonalizm
+- Make watch mode part of your workflow - Run `vitest --watch` during development for instant feedback as you modify code, filtering tests with `-t` to focus on specific areas under development.
 
-Rozpocznij od analizy, a następnie przejdź do tworzenia planu testów. Twój końcowy wynik powinien składać się tylko z planu testów i nie powinien powielać ani streszczać żadnej pracy wykonanej w bloku analizy projektu.
+- Explore UI mode for complex test suites - Use `vitest --ui` to visually navigate large test suites, inspect test results, and debug failures more efficiently during development.
 
-Przedstaw ten plan w formacie Markdown.
+- Handle optional dependencies with smart mocking - Use conditional mocking to test code with optional dependencies by implementing `vi.mock()` with the factory pattern for modules that might not be available in all environments.
+
+- Configure jsdom for DOM testing - Set `environment: 'jsdom'` in your configuration for frontend component tests and combine with testing-library utilities for realistic user interaction simulation.
+
+- Structure tests for maintainability - Group related tests with descriptive `describe` blocks, use explicit assertion messages, and follow the Arrange-Act-Assert pattern to make tests self-documenting.
+
+- Leverage TypeScript type checking in tests - Enable strict typing in your tests to catch type errors early, use `expectTypeOf()` for type-level assertions, and ensure mocks preserve the original type signatures.
+
+- Follow 'Arrange', 'Act', 'Assert' approach to test structure for simplicity and readability.
 
 ---
 > Source: [przeprogramowani/ai-rules-builder](https://github.com/przeprogramowani/ai-rules-builder) — distributed by [TomeVault](https://tomevault.io).
