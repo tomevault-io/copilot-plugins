@@ -1,0 +1,14 @@
+{
+  "name": "mrexodia--ida-pro-mcp",
+  "displayName": "ida-pro-mcp",
+  "description": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+  "version": "1.0.0",
+  "author": "mrexodia",
+  "homepage": "https://github.com/mrexodia/ida-pro-mcp",
+  "skills": [
+    {
+      "name": "idapython",
+      "description": ""
+    }
+  ]
+}
