@@ -1,0 +1,44 @@
+{
+  "name": "RAGEval-Chat",
+  "owner": "qiugongisme",
+  "repo": "RAGEval-Chat",
+  "description": "\u57fa\u4e8e RAG \u6280\u672f\u7684\u667a\u80fd\u95ee\u7b54\u7cfb\u7edf\uff0c\u652f\u6301\u591a\u77e5\u8bc6\u5e93\u7ba1\u7406\u3001\u6df7\u5408\u68c0\u7d22\uff08\u7a20\u5bc6 + \u7a00\u758f\u5411\u91cf\uff09\u3001\u6d41\u5f0f\u5bf9\u8bdd\u3001\u68c0\u7d22\u8d28\u91cf\u8bc4\u4f30\u3002\u9002\u7528\u4e8e\u91d1\u878d\u653f\u7b56\u6cd5\u89c4\u3001\u4f01\u4e1a\u5185\u90e8\u6587\u6863\u7b49\u573a\u666f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qiugongisme/RAGEval-Chat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T17:38:51Z"
+}
