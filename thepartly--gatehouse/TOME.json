@@ -4,7 +4,7 @@
   "repo": "gatehouse",
   "description": "A flexible authorization library that combines role-based (RBAC), attribute-based (ABAC), and relationship-based (ReBAC) access control policies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thepartly/gatehouse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T09:49:04Z"
+  "distributed_at": "2026-05-18T10:07:16Z"
 }
