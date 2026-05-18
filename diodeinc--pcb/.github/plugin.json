@@ -1,0 +1,9 @@
+{
+  "name": "diodeinc--pcb",
+  "displayName": "pcb",
+  "description": "PCB tooling by Diode Computers, Inc.",
+  "version": "1.0.0",
+  "author": "diodeinc",
+  "homepage": "https://github.com/diodeinc/pcb",
+  "skills": []
+}
