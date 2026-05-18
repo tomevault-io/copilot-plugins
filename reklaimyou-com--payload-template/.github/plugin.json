@@ -1,0 +1,9 @@
+{
+  "name": "reklaimyou-com--payload-template",
+  "displayName": "payload-template",
+  "description": "A modern Next.js 16 + PayloadCMS 3 starter template with TailwindCSS 4, shadcn/ui, and Vercel deployment",
+  "version": "1.0.0",
+  "author": "ReklaimYou-com",
+  "homepage": "https://github.com/ReklaimYou-com/payload-template",
+  "skills": []
+}
