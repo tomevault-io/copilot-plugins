@@ -1,0 +1,9 @@
+{
+  "name": "primeintellect-ai--verifiers",
+  "displayName": "verifiers",
+  "description": "Our library for RL environments + evals",
+  "version": "1.0.0",
+  "author": "PrimeIntellect-ai",
+  "homepage": "https://github.com/PrimeIntellect-ai/verifiers",
+  "skills": []
+}
