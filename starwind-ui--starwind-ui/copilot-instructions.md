@@ -1,191 +1,190 @@
-## starwind-ui
+## starwind-components
 
-> When working on Starwind UI component animations which leverage the tw-animate-css library
+> Based on analysis of the `tooltip` component, this document outlines the standard component structure used throughout the Starwind UI library. The component naming conventions and styling approach are inspired by and based on shadcn/ui.
 
 
-# tw-animate-css
+# Starwind UI Component Structure
 
-[![npm version](https://img.shields.io/npm/v/tw-animate-css?color=red&logo=npm)](https://www.npmjs.com/package/tw-animate-css)
-[![npm downloads](https://img.shields.io/npm/dt/tw-animate-css?color=red&logo=npm)](https://www.npmjs.com/package/tw-animate-css)
-[![MIT license](https://img.shields.io/github/license/Wombosvideo/tw-animate-css)]()
-[![GitHub stars](https://img.shields.io/github/stars/Wombosvideo/tw-animate-css?color=blue)](https://github.com/Wombosvideo/tw-animate-css)
+## Component Organization Pattern
 
-A collection of Tailwind CSS v4.0 utilities for creating beautiful animations. Includes ready-to-use animations `accordion-down`, `accordion-up` and `caret-blink`, as well as a set of utilities for creating your own animations.
+Based on analysis of the `tooltip` component, this document outlines the standard component structure used throughout the Starwind UI library. The component naming conventions and styling approach are inspired by and based on shadcn/ui.
 
----
+### Directory Structure
 
-This package is a replacement for [`tailwindcss-animate`][Original_Plugin_GitHub]. It embraces the new [CSS-first architecture][TailwindCSS_Custom_Utilities], providing a pure CSS solution for adding animation capabilities to your Tailwind CSS project without relying on the legacy JavaScript plugin system or having to define all keywords from scratch.
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [NPM](#npm)
-  - [Manual Download](#manual-download)
-- [Usage](#usage)
-  - [Enter/Exit Animations](#enterexit-animations)
-    - [Base Classes](#base-classes)
-    - [Parameter Classes](#parameter-classes)
-    - [Transform Classes](#transform-classes)
-  - [Ready-to-Use Animations](#ready-to-use-animations)
-- [Examples](#examples)
-- [Notes on Compatibility](#notes-on-compatibility)
-
-## Getting Started
-
-### NPM
-
-1. Install the package with `npm`:
-
-   ```sh
-   npm install -D tw-animate-css
-   ```
-
-2. Add the following line to your `app.css` or `globals.css` file:
-
-   ```css
-   @import "tw-animate-css";
-   ```
-
-3. Start using the animations!
-
-   ```html
-   <!-- Add an animated fade and zoom entrance -->
-   <div class="animate-in fade-in zoom-in">...</div>
-
-   <!-- Add an animated slide to top-left exit -->
-   <div class="animate-out slide-out-to-top slide-out-to-left">...</div>
-
-   <!-- Control animation duration -->
-   <div class="duration-300 ...">...</div>
-
-   <!-- Control animation delay -->
-   <div class="delay-150 ...">...</div>
-
-   <!-- And so much more! -->
-   ```
-
-> [!NOTE]
-> The above guide works for esbuild, Vite and probably other bundlers too. If you are using a different bundler, the syntax may differ. [Let me know][Create_Issue] how it works and I'll update the documentation.
-
-### Manual Download
-
-1. Download the [`tw-animate.css`][CSS_File]
-   file from GitHub and place it next to your `app.css` or `globals.css` file.
-2. Add the following line to your `app.css` or `globals.css` file:
-
-   ```css
-   @import "./tw-animate.css";
-   ```
-
-3. Start using the animations!
-
-   ```html
-   <!-- Add an animated fade and zoom entrance -->
-   <div class="animate-in fade-in zoom-in">...</div>
-
-   <!-- Add an animated slide to top-left exit -->
-   <div class="animate-out slide-out-to-top slide-out-to-left">...</div>
-
-   <!-- Control animation duration -->
-   <div class="duration-300 ...">...</div>
-
-   <!-- Control animation delay -->
-   <div class="delay-150 ...">...</div>
-
-   <!-- And so much more! -->
-   ```
-
-## Usage
-
-### Enter/Exit Animations
-
-To keep the README concise, I'll define a few variables:
-
-- `<io>`: Specify the type of animation. This can be `in` for enter or `out` for exit animations.
-- `<dir>`: Specify the direction of the slide. This can be `in-from-top`, `in-from-bottom`, `in-from-left`, `in-from-right`, `in-from-start`, `in-from-end`, `out-to-top`, `out-to-bottom`, `out-to-left`, `out-to-right`, `out-to-start`, or `out-to-end`.
-- `*`: Specify a value to apply. See list of possible values.
-
-#### Base Classes
-
-| Class                     | Description                                                                                                |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [`animate-<io>`][Docs_IO] | Base class for enter/exit animations. This needs to be applied in order for enter/exit animations to work. |
-
-#### Parameter Classes
-
-To customize the animation parameters, use the following classes:
-
-| Class                             | Description                                                                                                                                              |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`duration-*`][Docs_Duration]     | Sets [`animation-duration`][MDN_Duration]. Uses `--tw-duration`, see [Tailwind CSS docs][TailwindCSS_Duration]. Defaults to `duration-150`.              |
-| [`ease-*`][Docs_Ease]             | Sets [`animation-timing-function`][MDN_Ease]. Uses `--tw-ease`, see [Tailwind CSS docs][TailwindCSS_Easing]. Defaults to `ease-[ease]`.                  |
-| [`delay-*`][Docs_Delay]           | Sets [`animation-delay`][MDN_Delay]. Possible values: Any `<number>`, `initial`, or any other `[<value>]`.                                               |
-| [`repeat-*`][Docs_Repeat]         | Sets [`animation-iteration-count`][MDN_Repeat]. Possible values: Any `<number>`, `infinite`, `initial` or any other `[<value>]`.                         |
-| [`direction-*`][Docs_Direction]   | Sets [`animation-direction`][MDN_Direction]. Possible values: `normal`, `reverse`, `alternate`, `alternate-reverse`, `initial` or any other `[<value>]`. |
-| [`fill-mode-*`][Docs_Fill_Mode]   | Sets [`animation-fill-mode`][MDN_Fill_Mode]. Possible values: `none`, `forwards`, `backwards`, `both`, `initial` or any other `[<value>]`.               |
-| [`running`][Docs_Running]         | Sets [`animation-play-state`][MDN_Play_State] to `running`.                                                                                              |
-| [`paused`][Docs_Paused]           | Sets [`animation-play-state`][MDN_Play_State] to `paused`.                                                                                               |
-| [`play-state-*`][Docs_Play_State] | Sets [`animation-play-state`][MDN_Play_State]. Possible values: `initial` or any other `[<value>]`.                                                      |
-
-#### Transform Classes
-
-| Class                         | Description                                                                                                                      |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [`fade-<io>`][Docs_Fade]      | Fades the element in from or out to `opacity: 0`.                                                                                |
-| [`fade-<io>-*`][Docs_Fade]    | Fades the element in from or out to the specified value. Possible values: Any `<number>` (percentage) or any other `[<value>]`.  |
-| [`zoom-<io>`][Docs_Zoom]      | Zooms the element in from or out to `scale3D(0,0,0)`.                                                                            |
-| [`zoom-<io>-*`][Docs_Zoom]    | Zooms the element in from or out to the specified value. Possible values: Any `<number>` (percentage) or any other `[<value>]`.  |
-| [`spin-<io>`][Docs_Spin]      | Spins the element in from or out to `rotate(30deg)`.                                                                             |
-| [`spin-<io>-*`][Docs_Spin]    | Spins the element in from or out to the specified value. Possible values: Any `<number>` (degrees) or any other `[<value>]`.     |
-| [`slide-<dir>`][Docs_Slide]   | Slides the element in from or out to the specified direction (`100%`).                                                           |
-| [`slide-<dir>-*`][Docs_Slide] | Slides the element in from or out to the specified value. Possible values: Any `<number>` (percentage) or any other `[<value>]`. |
-
-### Ready-to-Use Animations
-
-| Class                                  | Description                                                                                                                                                                                                                 |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`accordion-down`][Docs_Accordion]     | Accordion down animation. Requires one of `--radix-accordion-content-height`, `--bits-accordion-content-height`, `--reka-accordion-content-height` or `--kb-accordion-content-height` to be set to the content's height.    |
-| [`accordion-up`][Docs_Accordion]       | Accordion up animation. Requires one of `--radix-accordion-content-height`, `--bits-accordion-content-height`, `--reka-accordion-content-height` or `--kb-accordion-content-height` to be set to the content's height.      |
-| [`collapsible-down`][Docs_Collapsible] | Collapsible down animation. Requires `--radix-collapsible-content-height`, `--bits-collapsible-content-height`, `--reka-collapsible-content-height` or `--kb-collapsible-content-height` to be set to the content's height. |
-| [`collapsible-up`][Docs_Collapsible]   | Collapsible up animation. Requires `--radix-collapsible-content-height`, `--bits-collapsible-content-height`, `--reka-collapsible-content-height` or `--kb-collapsible-content-height` to be set to the content's height.   |
-| [`caret-blink`][Docs_Caret]            | Blinking animation for caret/cursor.                                                                                                                                                                                        |
-
-By the way, if you don't use some of the above animations, they will not be included in the final CSS file. This is because Tailwind CSS kind of does tree-shaking for you. So, if you don't use `accordion-down`, it won't be included in the final CSS file.
-
-## Examples
-
-**Basic usage:**
-
-```html
-<div class="animate-in fade-in slide-in-from-top-8 duration-500">
-  Fade in from 0% opacity,<br />
-  slide from top by 8 spacing units (2rem),<br />
-  with a 500ms duration.
-</div>
+```
+packages/core/src/components/[component-name]/
+├── index.ts                 # Main export file
+├── [ComponentName].astro    # Root/main component
+└── [ComponentName][Part].astro  # Subcomponents
 ```
 
-**Advanced usage:**
+### Component Files
 
-```html
-<div
-  class="data-[state=show]:animate-in data-[state=hide]:animate-out fade-in slide-in-from-top-8 fade-out slide-out-to-top-8 duration-500"
-  data-state="show"
->
-  <p>
-    If the element has the <code>data-state="show"</code> attribute,<br />
-    fade in from 0% opacity,<br />
-    slide from top by 8 spacing units (2rem),<br />
-    with a 500ms duration.
-  </p>
-  <p>
-    If the element has the <code>data-state="hide"</code> attribute,<br />
-    fade out to 0% opacity,<br />
-    slide to top by 8 spacing units (2rem),<br />
-    with a 500ms duration.
-  </p>
-</div>
+#### 1. Root Component (`[ComponentName].astro`)
+
+- Contains the main wrapper element
+- Defines core component props and types using proper TypeScript patterns
+- Includes client-side JavaScript for functionality (in `<script>` tags)
+- Uses Tailwind Variants (`tv`) for styling
+- Sets up event handlers and accessibility attributes
+- Contains complex logic for component behavior
+
+#### 2. Child Components (`[ComponentName][Part].astro`)
+
+- Each serves a specific role within the component system
+- Handles their own props and styling
+- Uses slots for content insertion
+- Minimal and focused on a single responsibility
+- May contain their own Tailwind Variants configurations
+
+#### 3. Interactive Components (Trigger/Close buttons)
+
+- Should implement `asChild` pattern for flexibility
+- When `asChild={false}` (default): renders as proper semantic element (`<button>`)
+- When `asChild={true}`: renders as wrapper `<div>` allowing child element to be interactive
+- Must check for slot content before using asChild mode
+
+#### 4. Export File (`index.ts`)
+
+- Imports all component parts
+- Exports named exports for individual pieces
+- Provides a default export with a namespaced object structure:
+  ```typescript
+  export default {
+    Root: MainComponent,
+    Part1: ComponentPart1,
+    Part2: ComponentPart2,
+  };
+  ```
+- This enables both direct imports and namespaced usage
+
+### Styling Approach
+
+- Uses Tailwind Variants (`tv()`) for component styling
+- Follows a consistent class naming pattern with `starwind-[component-name]` prefix
+- Component state managed via `data-*` attributes
+- Uses CSS custom properties for dynamic values
+- Includes accessibility attributes and roles
+- Animations are implemented using the "tw-animate-css" library classes (e.g., `animate-in`, `fade-in`, `zoom-in-95`)
+- Icons are imported from Tabler Icons package and used directly as components:
+
+  ```astro
+  import ChevronDown from "@tabler/icons/outline/chevron-down.svg"; // Later in the markup:
+  <ChevronDown class="size-4 opacity-50" />
+  ```
+
+### Client-side Behavior
+
+- JavaScript is included within the root component in `<script>` tags
+- Uses classes for encapsulating component logic
+- Handles component initialization, event listeners, and state management
+- Properly cleans up event listeners and timers
+- Supports Astro's view transitions with `astro:after-swap` events
+
+### TypeScript Patterns & Best Practices
+
+### ❌ **AVOID** - React-style TypeScript patterns
+
+```typescript
+// DON'T use these patterns in Astro components:
+export interface Props {
+  class?: string;
+  [key: string]: any; // ❌ Never use this
+}
+
+const { class: className, ...props } = Astro.props;
+```
+
+### ✅ **CORRECT** - Astro TypeScript patterns
+
+```typescript
+// Use proper HTMLAttributes with specific element types:
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div"> & {
+  // Add component-specific props here
+  variant?: "default" | "secondary";
+};
+
+const { class: className, variant = "default", ...rest } = Astro.props;
+```
+
+### Component-Specific Type Examples
+
+```typescript
+// For different HTML elements:
+type Props = HTMLAttributes<"button"> & { asChild?: boolean }; // Buttons
+type Props = HTMLAttributes<"div"> & { side?: "left" | "right" }; // Containers
+type Props = HTMLAttributes<"h2">; // Headings
+type Props = HTMLAttributes<"p">; // Paragraphs
+```
+
+### AsChild Pattern Implementation
+
+```astro
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"button"> & {
+  asChild?: boolean;
+};
+
+const { class: className, asChild = false, ...rest } = Astro.props;
+
+let hasChildren = false;
+if (Astro.slots.has("default")) {
+  hasChildren = true;
+}
+---
+
+{
+  asChild && hasChildren ? (
+    <div class:list={["component-class", className]} data-slot="component-slot" data-as-child>
+      <slot />
+    </div>
+  ) : (
+    <button
+      type="button"
+      class:list={["component-class", className]}
+      data-slot="component-slot"
+      {...rest}
+    >
+      <slot />
+    </button>
+  )
+}
+```
+
+### Usage Examples
+
+Components can be imported and used in two ways:
+
+1. **Namespaced approach**:
+
+```astro
+---
+import Tooltip from "@starwind-ui/core/tooltip";
+---
+
+<Tooltip.Root>
+  <Tooltip.Trigger>Hover me</Tooltip.Trigger>
+  <Tooltip.Content>I'm a tooltip!</Tooltip.Content>
+</Tooltip.Root>
+```
+
+2. **Direct import approach**:
+
+```astro
+---
+import { Tooltip, TooltipTrigger, TooltipContent } from "@starwind-ui/core/tooltip";
+---
+
+<Tooltip>
+  <TooltipTrigger>Hover me</TooltipTrigger>
+  <TooltipContent>I'm a tooltip!</TooltipContent>
+</Tooltip>
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/starwind-ui) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [starwind-ui/starwind-ui](https://github.com/starwind-ui/starwind-ui) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
