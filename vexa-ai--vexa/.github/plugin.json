@@ -1,0 +1,9 @@
+{
+  "name": "vexa-ai--vexa",
+  "displayName": "vexa",
+  "description": "Open-source meeting transcription API for Google Meet, Microsoft Teams & Zoom. Auto-join bots, real-time WebSocket transcripts, MCP server for AI agents. Self-host or use hosted SaaS.",
+  "version": "1.0.0",
+  "author": "Vexa-ai",
+  "homepage": "https://github.com/Vexa-ai/vexa",
+  "skills": []
+}
