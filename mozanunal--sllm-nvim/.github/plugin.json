@@ -1,0 +1,9 @@
+{
+  "name": "mozanunal--sllm-nvim",
+  "displayName": "sllm.nvim",
+  "description": "Integrate ChatGPT-style LLMs into Neovim: ask questions, keep multi-file context, pull diagnostics / command output, and chat without leaving your editor. Highly configurable, async, lua-only plugin.",
+  "version": "1.0.0",
+  "author": "mozanunal",
+  "homepage": "https://github.com/mozanunal/sllm.nvim",
+  "skills": []
+}
