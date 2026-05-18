@@ -1,0 +1,9 @@
+{
+  "name": "aws-solutions-library-samples--accelerated-intelligent-document-processing-on-aws",
+  "displayName": "accelerated-intelligent-document-processing-on-aws",
+  "description": "The IDP Accelerator provides a scalable, serverless approach for automated document processing and information extraction using AWS services, such as Amazon Bedrock Data Automation and Amazon Bedrock ",
+  "version": "1.0.0",
+  "author": "aws-solutions-library-samples",
+  "homepage": "https://github.com/aws-solutions-library-samples/accelerated-intelligent-document-processing-on-aws",
+  "skills": []
+}
