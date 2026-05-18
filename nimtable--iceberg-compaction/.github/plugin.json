@@ -1,0 +1,9 @@
+{
+  "name": "nimtable--iceberg-compaction",
+  "displayName": "iceberg-compaction",
+  "description": "Compaction runtime for Apache Iceberg.",
+  "version": "1.0.0",
+  "author": "nimtable",
+  "homepage": "https://github.com/nimtable/iceberg-compaction",
+  "skills": []
+}
