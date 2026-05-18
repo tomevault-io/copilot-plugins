@@ -1,0 +1,9 @@
+{
+  "name": "musistudio--claude-code-router",
+  "displayName": "claude-code-router",
+  "description": "Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic.",
+  "version": "1.0.0",
+  "author": "musistudio",
+  "homepage": "https://github.com/musistudio/claude-code-router",
+  "skills": []
+}
