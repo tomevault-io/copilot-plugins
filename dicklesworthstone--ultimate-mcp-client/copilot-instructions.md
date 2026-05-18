@@ -1,35 +1,32 @@
-## 00-package-management-with-uv
+## 01-project-overview
 
-> This project uses `uv` instead of `pip` for Python package management. UV is a much faster alternative to pip with improved dependency resolution.
+> The Ultimate MCP Client is a comprehensive client for the Model Context Protocol (MCP) that connects AI models with external tools, servers, and data sources. It provides a powerful interface for managing MCP servers and leveraging their capabilities.
 
-# Package Management with uv
+# Project Overview
 
-This project uses `uv` instead of `pip` for Python package management. UV is a much faster alternative to pip with improved dependency resolution.
+The Ultimate MCP Client is a comprehensive client for the Model Context Protocol (MCP) that connects AI models with external tools, servers, and data sources. It provides a powerful interface for managing MCP servers and leveraging their capabilities.
 
-## Key Commands
+## Core Files
+- [mcp_client.py](mdc:mcp_client.py) - Main MCP client implementation with CLI, Web UI, and core functionality.
+- [mcp_client_multi.py](mdc:mcp_client_multi.py) - Multi-turn version of the MCP client.
+- [agent_master_loop.py](mdc:agent_master_loop.py) - Agent Master Loop (AML) implementation for orchestrating AI agents.
 
-To update the lockfile with the latest compatible dependencies:
-```bash
-uv lock --upgrade
-```
-
-To install all dependencies including optional extras:
-```bash
-uv sync --all-extras
-```
+## Documentation
+- [README.md](mdc:README.md) - Main documentation with features, setup, and usage.
+- [AGENT.md](mdc:AGENT.md) - Documentation for the agent implementation.
+- [TODO.md](mdc:TODO.md) - Planned improvements and future work.
 
 ## Configuration
+- [.env-example](mdc:.env-example) - Example environment variables configuration.
+- [pyproject.toml](mdc:pyproject.toml) - Project dependencies and configuration.
 
-Dependencies are specified in [pyproject.toml](mdc:pyproject.toml) rather than requirements.txt.
-
-Benefits of this approach:
-- Faster installation times
-- Better dependency resolution
-- Reproducible builds with lockfile
-- Clear separation between development and production dependencies
-- Support for optional feature groups via extras
-
-When adding new dependencies, add them to the appropriate section in pyproject.toml and then run the lock command.
+## Important Features
+The Ultimate MCP Client provides:
+- Dual interfaces (Web UI and CLI)
+- Robust server connectivity (stdio & sse)
+- Advanced conversation management with branching
+- Powerful tool integration
+- Observability via dashboards and telemetry
 
 ---
 > Source: [Dicklesworthstone/ultimate_mcp_client](https://github.com/Dicklesworthstone/ultimate_mcp_client) — distributed by [TomeVault](https://tomevault.io).
