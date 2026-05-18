@@ -1,18 +1,26 @@
-## readme-requirements
+## repository-structure
 
-> README Documentation Requirements
+> Repository Structure Requirements
 
-# README.md Requirements
+# Repository Structure Requirements
 
-## Content Structure
-- MUST have a H1 title
-- MUST have a description
-- MUST have a prerequisite section
-- MUST have a section to create a `.env` file based on the contents of `sample.env`
-- MUST provide simple instructions for both uses of the starter app
-- MUST provide a short section on license, contributing, security, and code of conduct as separate sections, linking to their respective files in their own section
-- MUST have a link to the [Discord](mdc:node-voice-agent/https:/discord.gg/deepgram) to get help
-- MUST have instructions to raise an issue for any bugs/feature requests
+## Required Files
+- MUST have an app file, i.e. `index.ts`
+- MUST have a `README.md` file
+- MUST have a `deepgram.toml` file
+- MUST have a `LICENSE` file
+- MUST have a `CONTRIBUTING.md` file
+- MUST have a `SECURITY.md` file
+- MUST have a `CODE_OF_CONDUCT.md` file
+- MUST have a `.gitignore` file
+- MUST have a `sample.env` file
+- SHOULD have a dependency management file
+- COULD have a dependency lock file
+
+## Sources
+- [Deepgram JS SDK Readme](mdc:node-voice-agent/https:/raw.githubusercontent.com/deepgram/deepgram-js-sdk/refs/heads/main/README.md)
+- [Deepgram OpenAPI Spec](mdc:node-voice-agent/https:/raw.githubusercontent.com/deepgram/deepgram-api-specs/refs/heads/main/openapi.yml)
+- @Deepgram AsyncAPI Spec
 
 ---
 > Source: [admildo/kollect](https://github.com/admildo/kollect) — distributed by [TomeVault](https://tomevault.io).
