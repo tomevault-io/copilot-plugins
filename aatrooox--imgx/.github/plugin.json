@@ -1,0 +1,14 @@
+{
+  "name": "aatrooox--imgx",
+  "displayName": "imgx",
+  "description": "\u57fa\u4e8e Nuxt \u548c Nitro \u7684\u56fe\u7247\u751f\u6210/\u5904\u7406\u5668",
+  "version": "1.0.0",
+  "author": "aatrooox",
+  "homepage": "https://github.com/aatrooox/imgx",
+  "skills": [
+    {
+      "name": "imgx-template-generator",
+      "description": ""
+    }
+  ]
+}
