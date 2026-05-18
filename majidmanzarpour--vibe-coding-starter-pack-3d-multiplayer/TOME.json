@@ -4,7 +4,7 @@
   "repo": "vibe-coding-starter-pack-3d-multiplayer",
   "description": "A lightweight 3D web-based multiplayer starter kit using Three.js, React, and SpacetimeDB. Build interactive multiplayer experiences with real-time synchronization, character movement, and customizable game mechanics.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/majidmanzarpour/vibe-coding-starter-pack-3d-multiplayer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T01:30:36Z"
+  "distributed_at": "2026-05-18T02:13:09Z"
 }
