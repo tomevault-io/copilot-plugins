@@ -1,0 +1,9 @@
+{
+  "name": "discoverse-dev--mujoco-lidar",
+  "displayName": "MuJoCo-LiDAR",
+  "description": "High-performance LiDAR simulation for MuJoCo with CPU/Taichi/Jax backends, supporting multiple sensor types and ROS integration. \u57fa\u4e8e MuJoCo \u7684\u9ad8\u6027\u80fd\u6fc0\u5149\u96f7\u8fbe\u4eff\u771f\uff0c\u652f\u6301 CPU/Taichi/Jax \u591a\u79cd\u540e\u7aef\u3001\u591a\u79cd\u6fc0\u5149\u96f7\u8fbe\u7c7b\u578b\u53ca ROS \u96c6\u6210",
+  "version": "1.0.0",
+  "author": "discoverse-dev",
+  "homepage": "https://github.com/discoverse-dev/MuJoCo-LiDAR",
+  "skills": []
+}
