@@ -1,0 +1,31 @@
+## crawlchat
+
+> - Do NOT add comments to the code
+
+# Cursor Rules
+
+## Code Style Guidelines
+
+### Comments
+- Do NOT add comments to the code
+- Code should be self-documenting through clear naming and structure
+- Remove any existing comments when modifying code
+
+### Error Handling
+- Do NOT use try-catch blocks
+- Let errors propagate naturally
+- Use proper error handling patterns specific to the framework/library being used
+
+### General Principles
+- Write clean, readable code that doesn't require comments
+- Use descriptive variable and function names
+- Keep functions focused and single-purpose
+- Prefer explicit error handling over try-catch when possible
+
+### Documentation Files
+- NEVER create documentation files in the git root, which e.g. explain what you changed, what you added, how to use a feature you added etc.
+- ONLY create documentation files under docs/docs if you were SPECIFICALLY asked by your operator to do it.
+
+---
+> Source: [crawlchat/crawlchat](https://github.com/crawlchat/crawlchat) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
