@@ -1,0 +1,9 @@
+{
+  "name": "bitsofchris--openaugi",
+  "displayName": "openaugi",
+  "description": " Human memory, for agents. Scalable, private, personal knowledge base for any LLM provider.",
+  "version": "1.0.0",
+  "author": "bitsofchris",
+  "homepage": "https://github.com/bitsofchris/openaugi",
+  "skills": []
+}
