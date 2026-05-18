@@ -1,0 +1,22 @@
+{
+  "name": "kousen--langchain4j-training-course",
+  "displayName": "claude-code-training",
+  "description": "Exercises and code for a training course on the LangChain4j framework",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/LangChain4j_Training_course",
+  "skills": [
+    {
+      "name": "api-documentation-skill",
+      "description": ""
+    },
+    {
+      "name": "security-review-skill",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skill",
+      "description": ""
+    }
+  ]
+}
