@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--dbt-mcp",
+  "displayName": "dbt-mcp",
+  "description": "A MCP (Model Context Protocol) server for interacting with dbt.",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/dbt-mcp",
+  "skills": []
+}
