@@ -1,0 +1,9 @@
+{
+  "name": "datahaven-xyz--datahaven",
+  "displayName": "datahaven",
+  "description": "An EVM compatible Substrate chain, powered by StorageHub and secured by EigenLayer",
+  "version": "1.0.0",
+  "author": "datahaven-xyz",
+  "homepage": "https://github.com/datahaven-xyz/datahaven",
+  "skills": []
+}
