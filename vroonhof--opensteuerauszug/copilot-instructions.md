@@ -1,56 +1,60 @@
-## git-commands
+## integration-tests
 
-> name: git_user_credentials
+> Rule for handling integration tests in the codebase
 
-# Git Command Rules
+# Integration Tests Rule
+
+Rule for handling integration tests in the codebase
 
 <rule>
-name: git_user_credentials
-description: Never override git user credentials in commands
+name: integration_tests
+description: Rules for handling integration tests
 filters:
-  - type: command
-    pattern: "git.*"
+  - type: file_extension
+    pattern: "\\.py$"
+  - type: file_content
+    pattern: "@pytest\\.mark\\.(integration|parametrize)"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "git -c user\\.name=.*|git -c user\\.email=.*"
-        message: "Do not override git user credentials in commands. Use global git config instead."
-
   - type: suggest
     message: |
-      When using git commands:
+      # DO NOT MODIFY INTEGRATION TESTS
 
-      1. Never override user credentials in commands:
-         - Do not use -c user.name
-         - Do not use -c user.email
-         
-      2. Instead, ensure proper git configuration:
-         ```bash
-         # Set up git config globally
-         git config --global user.name "Your Name"
-         git config --global user.email "your.email@example.com"
-         ```
-         
-      3. Use simple git commands:
-         ```bash
-         # Good
-         git commit -m "message"
-         
-         # Bad
-         git -c user.name="name" -c user.email="email" commit -m "message"
-         ```
+      Tests marked with `@pytest.mark.integration` or `@pytest.mark.parametrize` are integration tests that verify 
+      the behavior of the system with real external data. These tests should not be modified unless the 
+      underlying integration requirements have changed.
+
+      Reasons for this rule:
+      
+      1. Integration tests validate behavior against real-world data, which may contain edge cases that aren't 
+         obvious from reading the test.
+      
+      2. Changes to integration tests may inadvertently mask actual problems with the system under test.
+      
+      3. Integration tests often serve as documentation for how the system interacts with external resources.
+
+      If the test is failing:
+      
+      - The problem is likely in the code under test, not the test itself
+      - Focus on fixing the implementation to match the expected behavior
+      - Only modify the test if there is a clear reason why the expected behavior is incorrect
 
 examples:
   - input: |
-      # Bad: Overriding credentials
-      git -c user.name="name" commit
-      git -c user.email="email" commit
-      
-      # Good: Simple commands
-      git commit
-      git push
-    output: "Git commands without credential overrides"
+      @pytest.mark.parametrize("xml_file", sample_tax_xml_files)
+      def test_xml_round_trip_files(xml_file: str, tmp_path: Path):
+          """Test round-trip XML processing (read and write) of real XML files."""
+          if not xml_file:
+              pytest.skip("No XML files provided for testing")
+    output: "This is an integration test that should not be modified"
+
+  - input: |
+      @pytest.mark.integration
+      def test_real_world_api_call():
+          """Tests integration with a real API endpoint."""
+          response = api.get_data()
+          assert response.status_code == 200
+    output: "This is a marked integration test that should not be modified"
 
 metadata:
   priority: high
