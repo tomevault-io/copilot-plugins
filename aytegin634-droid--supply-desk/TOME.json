@@ -1,0 +1,44 @@
+{
+  "name": "supply-desk",
+  "owner": "aytegin634-droid",
+  "repo": "supply-desk",
+  "description": "\u0412\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u044f\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0437\u0430\u044f\u0432\u043e\u043a \u0438 \u0437\u0430\u043a\u0443\u043f\u043e\u043a \u0434\u043b\u044f \u0440\u0435\u0441\u0442\u043e\u0440\u0430\u043d\u0430",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aytegin634-droid/supply-desk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T04:16:20Z"
+}
