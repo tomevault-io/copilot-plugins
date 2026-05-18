@@ -1,0 +1,9 @@
+{
+  "name": "ksd-co--ironcode",
+  "displayName": "IronCode",
+  "description": "IronCode is a high-performance fork of OpenCode - an AI coding agent that runs entirely on your machine. This fork removes cloud dependencies, focuses on core functionality, and rewrites performance-c",
+  "version": "1.0.0",
+  "author": "KSD-CO",
+  "homepage": "https://github.com/KSD-CO/IronCode",
+  "skills": []
+}
