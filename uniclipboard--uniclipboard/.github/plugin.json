@@ -1,0 +1,9 @@
+{
+  "name": "uniclipboard--uniclipboard",
+  "displayName": "UniClipboard",
+  "description": "Real-time clipboard sync across all your devices \u2014 local-first, peer-to-peer, and end-to-end encrypted. No account. No cloud dependency. No central server.",
+  "version": "1.0.0",
+  "author": "UniClipboard",
+  "homepage": "https://github.com/UniClipboard/UniClipboard",
+  "skills": []
+}
