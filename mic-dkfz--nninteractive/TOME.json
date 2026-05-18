@@ -1,0 +1,44 @@
+{
+  "name": "nnInteractive",
+  "owner": "MIC-DKFZ",
+  "repo": "nnInteractive",
+  "description": "nnInteractive is a framework for 3D interactive segmentation, supporting intuitive prompts like points, scribbles, bounding boxes, and lasso. Trained on 120+ diverse 3D datasets, it sets a new standard in accuracy, usability, and adaptability for clinical and research applications.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MIC-DKFZ/nnInteractive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-18T12:30:44Z"
+}
