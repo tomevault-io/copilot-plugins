@@ -1,0 +1,9 @@
+{
+  "name": "ml-dsa--abr-sim",
+  "displayName": "abr-sim",
+  "description": "Adam's Bridge (ML-DSA hardware accelerator) verilator wrapper -- create \"toggle\" traces from VCD dumps",
+  "version": "1.0.0",
+  "author": "ml-dsa",
+  "homepage": "https://github.com/ml-dsa/abr-sim",
+  "skills": []
+}
