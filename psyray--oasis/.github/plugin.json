@@ -1,0 +1,9 @@
+{
+  "name": "psyray--oasis",
+  "displayName": "oasis",
+  "description": "Ollama Automated Security Intelligence Scanner",
+  "version": "1.0.0",
+  "author": "psyray",
+  "homepage": "https://github.com/psyray/oasis",
+  "skills": []
+}
