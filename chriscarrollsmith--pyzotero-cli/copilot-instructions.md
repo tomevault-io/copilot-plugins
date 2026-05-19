@@ -1,156 +1,29 @@
-## search-cmds
+## stderr-formatting
 
-> `pyzotero` documentation for searching and querying
+> Follow these conventions for signifying the success or failure of operations in our CLI wrapper:
 
+## Exit code semantics for our CLI tool
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the search and query functionality in our CLI wrapper.
+Follow these conventions for signifying the success or failure of operations in our CLI wrapper:
 
-# Search Commands
+*   **`0` (Success):** The command executed successfully, and all primary requested operations were successful. For batch operations, this means all specified targets were processed successfully (or reported as already in the desired state, e.g., "item already in collection").
+*   **`1` (Runtime Error / Partial Success / Actionable Failure):**
+    *   A general runtime error occurred (e.g., network issue, unexpected Python exception).
+    *   A specific, actionable error from the Zotero API (e.g., invalid API key, permissions issue, rate limit, server error).
+    *   **Crucially for "Not Found":** If the *primary target(s)* of a command are not found.
+        *   For single-target commands (e.g., `get item X`): If X is not found, exit `1`.
+        *   For batch commands (e.g., `delete item X Y Z`): If *any* of X, Y, or Z are not found, the command should ideally exit `1` (or a distinct code like `3`).
+*   **`2` (Usage Error):** Incorrect command-line flags, missing arguments, invalid option values. (Click handles this well with `UsageError`).
 
-## Search Parameters
+## Error message formatting conventions for our CLI tool
 
-You can add search parameters to many Read API methods using the following pattern:
-
-```python
-# Set parameters directly on the API call
-results = zot.top(limit=7, start=3, q="Shakespeare")
-
-# Or set parameters using the explicit method
-zot.add_parameters(limit=7, start=3, q="Shakespeare")
-results = zot.top()
-```
-
-The following search parameters are available:
-
-- `format`: "atom", "bib", "bibtex", "json", "keys", "versions". Pyzotero retrieves and decodes JSON responses by default.
-- `itemKey`: A comma-separated list of item keys. Valid only for item requests. Up to 50 items can be specified in a single request.
-
-**Search-specific parameters:**
-- `itemType`: Item type search. See the [Search Syntax](https://www.zotero.org/support/dev/web_api/v3/basics#search_syntax) for details.
-- `q`: Quick search. Searches titles and individual creator fields by default. Use the `qmode` parameter to change the mode.
-- `qmode`: Quick search mode. To include full-text content in the search, use `everything`. Defaults to `titleCreatorYear`.
-- `tag`: Tag search. More than one tag may be passed by passing a list of strings – These are treated as AND search terms. You can search for items matching any tag in a list by using OR: `"tag1 OR tag2"`, and all items which exclude a tag: `"-tag"`.
-
-**Result control parameters:**
-- `sort`: The field by which entries are sorted (e.g., `dateAdded`, `dateModified`, `title`, `creator`, etc.)
-- `direction`: `asc` or `desc` 
-- `limit`: 1 – 100 or None
-- `start`: 1 – total number of items in your library or None
-- `since`: Return only objects modified after the specified library version
-
-## Saved Searches
-
-```python
-# Retrieve all saved searches
-zot.searches()
-```
-
-Retrieve all saved searches. Note that this retrieves saved search metadata, as opposed to content; saved searches cannot currently be run using the API.
-
-```python
-# Create a new saved search
-zot.saved_search(name, conditions)
-```
-
-Parameters:
-- `name`: the name of the search
-- `conditions`: one or more dicts containing search conditions and operators
-
-Create a new saved search. `conditions` is a list of one or more dicts, each of which must contain the following three string keys: `condition`, `operator`, `value`.
-
-```python
-# Delete saved searches
-zot.delete_saved_search(search_keys)
-```
-
-Parameters:
-- `search_keys`: list of unique saved search keys
-
-Delete one or more saved searches.
-
-```python
-# Show available saved search operators
-zot.show_operators()
-```
-
-Returns a list of available saved search operators.
-
-```python
-# Show available saved search conditions
-zot.show_conditions()
-```
-
-Returns a list of available saved search conditions.
-
-```python
-# Show operators for a condition
-zot.show_condition_operators(condition)
-```
-
-Parameters:
-- `condition`: a valid saved search condition
-
-Returns a list of available operators for a given saved search condition.
-
-## Special Search Methods
-
-```python
-# Follow paginated results
-zot.follow()
-```
-
-After any Read API call which can retrieve multiple items, calling `follow()` will repeat that call, but for the next number of items, where the number is either a value set by the user for the original call, or 50 by default. Each subsequent call to `follow()` will extend the offset.
-
-Example:
-```python
-first_item = zot.top(limit=1)  # retrieve the most recently added/modified top-level item
-next_item = zot.follow()       # get the next item
-third_item = zot.follow()      # get the third item
-```
-
-```python
-# Get all results in one call
-zot.everything(api_call)
-```
-
-Example:
-```python
-# retrieve all top-level items
-toplevel = zot.everything(zot.top())
-```
-
-```python
-# Use generator for pagination
-zot.iterfollow()
-```
-
-Returns a generator over the `follow()` method.
-
-Example:
-```python
-z = zot.top(limit=5)
-lazy = zot.iterfollow()
-lazy.next()  # the next() call returns the next five items
-```
-
-```python
-# Create generator from API call
-zot.makeiter(API_call)
-```
-
-Parameters:
-- `API_call`: a Pyzotero Read API method capable of returning multiple items
-
-Returns a generator over a Read API method.
-
-Example:
-```python
-gen = zot.makeiter(zot.top(limit=5))
-gen.next()  # returns the first five items
-gen.next()  # returns the next five items
-```
-
-**Warning**: The `follow()`, `everything()` and `makeiter()` methods are only valid for methods which can return multiple library items. 
+*   Use `handle_zotero_exceptions_and_exit` from `pyzotero_cli/utils.py` as the primary handler for PyZotero API errors.
+*   For non-API errors, use the appropriate helper from `pyzotero_cli/utils.py`:
+    *   **Usage errors** (incorrect command-line flags, missing arguments, invalid option values): Use `create_usage_error()` → **Exit code 2**
+    *   **Runtime errors** (input validation, file not found, processing errors): Use `create_click_exception()` → **Exit code 1**
+*   Use a consistent format: `Error: <Brief, user-friendly problem description>. [Context: <Relevant key/value if applicable>]. [Details: <Optional snippet from underlying error if concise and useful>]. [Hint: <Optional user action>]`.
+*   All error messages to `stderr`.
+*   Both helper functions automatically format messages according to the standard format above.
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
