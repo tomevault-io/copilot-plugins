@@ -1,0 +1,9 @@
+{
+  "name": "redis-developer--langgraph-redis",
+  "displayName": "langgraph-redis",
+  "description": "Redis checkpointer and store for memory management in LangGraph",
+  "version": "1.0.0",
+  "author": "redis-developer",
+  "homepage": "https://github.com/redis-developer/langgraph-redis",
+  "skills": []
+}
