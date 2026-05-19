@@ -1,0 +1,9 @@
+{
+  "name": "rustfs--console",
+  "displayName": "console",
+  "description": "A modern, responsive web management console for RustFS distributed file system, built with Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + shadcn/ui.",
+  "version": "1.0.0",
+  "author": "rustfs",
+  "homepage": "https://github.com/rustfs/console",
+  "skills": []
+}
