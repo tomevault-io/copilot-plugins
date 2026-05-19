@@ -1,0 +1,9 @@
+{
+  "name": "thezaidsheikh--dsa-practice",
+  "displayName": "dsa-practice",
+  "description": "A curated DSA practice repo solving problems in three tiers: brute-force, optimized, and optimal. Each solution includes clear explanations, complexity analysis, and clean, testable code across arrays",
+  "version": "1.0.0",
+  "author": "thezaidsheikh",
+  "homepage": "https://github.com/thezaidsheikh/dsa-practice",
+  "skills": []
+}
