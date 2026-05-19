@@ -1,0 +1,9 @@
+{
+  "name": "biodatageeks--polars-bio",
+  "displayName": "polars-bio",
+  "description": "Blazing-Fast Bioinformatic Operations on Python DataFrames",
+  "version": "1.0.0",
+  "author": "biodatageeks",
+  "homepage": "https://github.com/biodatageeks/polars-bio",
+  "skills": []
+}
