@@ -1,0 +1,9 @@
+{
+  "name": "codesandbox--codesandbox-sdk",
+  "displayName": "codesandbox-sdk",
+  "description": "Programmatically start (AI) sandboxes on top of CodeSandbox",
+  "version": "1.0.0",
+  "author": "codesandbox",
+  "homepage": "https://github.com/codesandbox/codesandbox-sdk",
+  "skills": []
+}
