@@ -4,7 +4,7 @@
   "repo": "gsh",
   "description": "A battery-included, POSIX-compatible, generative shell",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kunchenguid/gsh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:03:54Z"
+  "distributed_at": "2026-05-19T09:11:13Z"
 }
