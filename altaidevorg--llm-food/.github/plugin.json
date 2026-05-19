@@ -1,0 +1,9 @@
+{
+  "name": "altaidevorg--llm-food",
+  "displayName": "llm-food",
+  "description": "Serving files for hungry LLMs",
+  "version": "1.0.0",
+  "author": "altaidevorg",
+  "homepage": "https://github.com/altaidevorg/llm-food",
+  "skills": []
+}
