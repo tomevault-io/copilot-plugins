@@ -1,0 +1,9 @@
+{
+  "name": "bruits--sampo",
+  "displayName": "sampo",
+  "description": "Automate changelogs, versioning, and publishing\u2014even for monorepos across multiple package registries \ud83e\udded",
+  "version": "1.0.0",
+  "author": "bruits",
+  "homepage": "https://github.com/bruits/sampo",
+  "skills": []
+}
