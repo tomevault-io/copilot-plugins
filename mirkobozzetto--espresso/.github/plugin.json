@@ -1,0 +1,9 @@
+{
+  "name": "mirkobozzetto--espresso",
+  "displayName": "espresso",
+  "description": "One plugin. Full token-saving stack for Claude Code, Codex, and more. 70-85% fewer tokens.",
+  "version": "1.0.0",
+  "author": "mirkobozzetto",
+  "homepage": "https://github.com/mirkobozzetto/espresso",
+  "skills": []
+}
