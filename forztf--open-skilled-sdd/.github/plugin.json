@@ -1,0 +1,9 @@
+{
+  "name": "forztf--open-skilled-sdd",
+  "displayName": "open-skilled-sdd",
+  "description": "Enhancing AI coding assistants through open Spec-driven development (Spec-driven development for AI coding assistants), adopting the Claude Code Skills approach, compatible with various CLI and IDE AI",
+  "version": "1.0.0",
+  "author": "forztf",
+  "homepage": "https://github.com/forztf/open-skilled-sdd",
+  "skills": []
+}
