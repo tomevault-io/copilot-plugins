@@ -1,0 +1,9 @@
+{
+  "name": "teachmewow--agent-core",
+  "displayName": "agent-core",
+  "description": "Repository to prototype an AI agent",
+  "version": "1.0.0",
+  "author": "teachmewow",
+  "homepage": "https://github.com/teachmewow/agent-core",
+  "skills": []
+}
