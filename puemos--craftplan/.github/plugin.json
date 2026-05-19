@@ -1,0 +1,9 @@
+{
+  "name": "puemos--craftplan",
+  "displayName": "craftplan",
+  "description": "Self-hosted software for managing artisanal D2C micro-businesses",
+  "version": "1.0.0",
+  "author": "puemos",
+  "homepage": "https://github.com/puemos/craftplan",
+  "skills": []
+}
