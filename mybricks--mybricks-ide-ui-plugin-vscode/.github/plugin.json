@@ -1,0 +1,9 @@
+{
+  "name": "mybricks--mybricks-ide-ui-plugin-vscode",
+  "displayName": "mybricks-ide-ui-plugin-vscode",
+  "description": "mybricks-ide-ui-plugin-vscode",
+  "version": "1.0.0",
+  "author": "mybricks",
+  "homepage": "https://github.com/mybricks/mybricks-ide-ui-plugin-vscode",
+  "skills": []
+}
