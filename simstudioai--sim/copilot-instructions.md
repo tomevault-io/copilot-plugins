@@ -1,57 +1,64 @@
-## sim-hooks
+## sim-imports
 
-> Custom hook patterns and best practices
+> Import patterns for the Sim application
 
 
-# Hook Patterns
+# Import Patterns
 
-## Structure
+## Absolute Imports
+
+**Always use absolute imports.** Never use relative imports.
 
 ```typescript
-interface UseFeatureProps {
-  id: string
-  onSuccess?: (result: Result) => void
-}
+// ✓ Good
+import { useWorkflowStore } from '@/stores/workflows/store'
+import { Button } from '@/components/ui/button'
 
-export function useFeature({ id, onSuccess }: UseFeatureProps) {
-  // 1. Refs for stable dependencies
-  const idRef = useRef(id)
-  const onSuccessRef = useRef(onSuccess)
-
-  // 2. State
-  const [data, setData] = useState<Data | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-
-  // 3. Sync refs
-  useEffect(() => {
-    idRef.current = id
-    onSuccessRef.current = onSuccess
-  }, [id, onSuccess])
-
-  // 4. Operations (useCallback with empty deps when using refs)
-  const fetchData = useCallback(async () => {
-    setIsLoading(true)
-    try {
-      const result = await fetch(`/api/${idRef.current}`).then(r => r.json())
-      setData(result)
-      onSuccessRef.current?.(result)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  return { data, isLoading, fetchData }
-}
+// ✗ Bad
+import { useWorkflowStore } from '../../../stores/workflows/store'
 ```
 
-## Rules
+## Barrel Exports
 
-1. Single responsibility per hook
-2. Props interface required
-3. Refs for stable callback dependencies
-4. Wrap returned functions in useCallback
-5. Always try/catch async operations
-6. Track loading/error states
+Use barrel exports (`index.ts`) when a folder has 3+ exports. Import from barrel, not individual files.
+
+```typescript
+// ✓ Good
+import { Dashboard, Sidebar } from '@/app/workspace/[workspaceId]/logs/components'
+
+// ✗ Bad
+import { Dashboard } from '@/app/workspace/[workspaceId]/logs/components/dashboard/dashboard'
+```
+
+## No Re-exports
+
+Do not re-export from non-barrel files. Import directly from the source.
+
+```typescript
+// ✓ Good - import from where it's declared
+import { CORE_TRIGGER_TYPES } from '@/stores/logs/filters/types'
+
+// ✗ Bad - re-exporting in utils.ts then importing from there
+import { CORE_TRIGGER_TYPES } from '@/app/workspace/.../utils'
+```
+
+## Import Order
+
+1. React/core libraries
+2. External libraries
+3. UI components (`@/components/emcn`, `@/components/ui`)
+4. Utilities (`@/lib/...`)
+5. Stores (`@/stores/...`)
+6. Feature imports
+7. CSS imports
+
+## Type Imports
+
+Use `type` keyword for type-only imports:
+
+```typescript
+import type { WorkflowLog } from '@/stores/logs/types'
+```
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
