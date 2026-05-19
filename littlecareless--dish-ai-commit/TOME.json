@@ -4,7 +4,7 @@
   "repo": "dish-ai-commit",
   "description": "Vibe Coding!!! \ud83e\udd16 AI-Powered VSCode extension for generating standardized Git/SVN commit messages. \u2728 Supports multiple AI services: OpenAI, ChatGPT, Ollama, Zhipu, DashScope, Doubao, Gemini and VS Code built-in AI. \ud83c\udf0d Multi-language support (EN/CN/JP/KR/Other). \ud83d\udcca Auto-generate weekly reports.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/littleCareless/dish-ai-commit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T09:23:40Z"
+  "distributed_at": "2026-05-19T10:36:41Z"
 }
