@@ -1,0 +1,9 @@
+{
+  "name": "contrast-security-oss--mcp-contrast",
+  "displayName": "mcp-contrast",
+  "description": "MCP Server for Contrast Security",
+  "version": "1.0.0",
+  "author": "Contrast-Security-OSS",
+  "homepage": "https://github.com/Contrast-Security-OSS/mcp-contrast",
+  "skills": []
+}
