@@ -1,0 +1,9 @@
+{
+  "name": "jsoizo--php-result",
+  "displayName": "php-result",
+  "description": "A type-safe Result type for PHP 8.2+ with PHPStan support.",
+  "version": "1.0.0",
+  "author": "jsoizo",
+  "homepage": "https://github.com/jsoizo/php-result",
+  "skills": []
+}
