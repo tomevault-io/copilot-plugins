@@ -1,140 +1,55 @@
-## python
+## ui-css
 
-> - Use Python 3.10 minimum
+> When implementing UI Components with HTML and Tailwind, follow AirBnb and AirTables design principals for a modern, minimal, and sleek UI and UX experience. Prioritize visual hierarchy to ensure that the data is readable and the layout of the page makes logical sense.
 
-# Python Development Rules
+# CSS
 
-## Language Requirements
-- Use Python 3.10 minimum
-- Leverage Python 3.10+ features when appropriate:
-  - `match-case` statements for complex conditionals
-  - Union types with `|` syntax: `str | None` instead of `Optional[str]`
-  - Structural pattern matching
-  - Parameter specification variables (`ParamSpec`)
+When implementing UI Components with HTML and Tailwind, follow AirBnb and AirTables design principals for a modern, minimal, and sleek UI and UX experience. Prioritize visual hierarchy to ensure that the data is readable and the layout of the page makes logical sense.
 
-## Code Style & Structure
+Below is an in-depth explanation of the design rules:
 
-### Control Flow
-- **Always prefer guard clauses and early returns** over nested conditionals
-- Use `return`, `continue`, or `break` early to handle edge cases and error conditions
-- Avoid deep nesting - flatten code structure with guard clauses
-- Maximum nesting depth: 2-3 levels
+- Unified and Consistent Design: Airbnb emphasizes a unified design language across platforms. Their DLS treats components as parts of a living ecosystem rather than isolated elements, ensuring consistency in visuals and functionality. For web design, this means using reusable, well-defined components (like buttons, icons, or navigation bars) that look and behave the same across different pages and devices.
 
-**Preferred pattern:**
-```python
-def process_data(data: dict | None) -> str | None:
-    if not data:
-        return None
-    
-    if 'required_field' not in data:
-        return None
-    
-    # Main logic here
-    return process_result(data)
-```
+- Platform-Agnostic Adaptability: The design system is built to work seamlessly across web, iOS, Android, and tablets. For the web, this translates to responsive layouts that adapt to various screen sizes without losing functionality or aesthetic appeal, prioritizing usability over rigid platform-specific constraints.
 
-**Avoid this anti-pattern:**
-```python
-def process_data(data: dict | None) -> str | None:
-    if data:
-        if 'required_field' in data:
-            # Main logic deeply nested
-            return process_result(data)
-    return None
-```
+- Focus on User Experience (UX): Airbnb prioritizes simplicity, usability, and aesthetics in its web design. This involves clear navigation, intuitive search filters, and a clean layout that helps users (travelers and hosts) quickly find what they need—whether it's booking a stay or listing a property.
 
-### Function Design
-- Keep functions focused with single responsibilities (max 20-30 lines)
-- Use guard clauses to validate inputs early
-- Prefer pure functions when possible (no side effects)
-- Use descriptive names that clearly indicate purpose
-- When dealing with Frontend data, prefer API-based models which return JSON instead of forms and request parsing.
+- Evolving Ecosystem: Rather than static rules, Airbnb’s approach allows components to evolve independently. For web design, this suggests a flexible framework where elements can be updated or refined without overhauling the entire site, maintaining scalability as the platform grows.
 
-### Type Annotations
-- Use type hints consistently throughout codebase
-- Prefer Python 3.10+ union syntax: `str | None` over `Optional[str]`
-- Use `TypeAlias` for complex type definitions
-- Consider using `Protocol` for structural typing
-- Use `Final` for constants that shouldn't be reassigned
+- Minimal Constraints with Purpose: Unlike physical design, digital web design has fewer inherent limits, so Airbnb imposes self-defined constraints to avoid disjointed experiences. This might mean standardizing typography, color schemes, or interaction patterns to keep the site cohesive.
 
-### Error Handling
-- Prefer specific exceptions over generic `Exception`
-- Use guard clauses for input validation
-- Fail fast - validate early, return/raise immediately on invalid input
-- Consider using `Result` pattern for functions that may fail
+- Collaboration Across Teams: Their design process accounts for multiple stakeholders—designers, engineers, and product managers—working together. For the web, this implies a design that’s practical to implement and maintain, avoiding overly complex elements that could complicate development.
+# Color Scheme
+# Macchiato
 
-## Package Management (uv)
-- **Prefer `uv` over pip** for all dependency management
-- Use `uv add package-name` instead of `pip install`
-- Use `uv add --dev package-name` for development dependencies
-- Use `uv run script.py` for executing scripts in project environment
-- Use `uv sync` for installing dependencies from lock files
-- Create virtual environments with `uv venv .venv`
-- Pin exact versions in production: `uv add "package==1.2.3"`
-
-## Project Structure
-```
-project/
-├── pyproject.toml          # Project configuration
-├── uv.lock                 # Dependency lock file (commit this)
-├── README.md               # Project documentation
-├── src/
-│   └── package_name/       # Source code
-└── tests/                  # Test files
-```
-
-### Configuration Files
-- **Always include `pyproject.toml`** for project configuration
-- Specify Python version requirement: `requires-python = ">=3.10"`
-- Use `uv.lock` for dependency locking (commit to version control)
-- Configure linting tools (ruff, mypy) in pyproject.toml
-
-### Example pyproject.toml:
-```toml
-[project]
-name = "your-project"
-version = "0.1.0"
-requires-python = ">=3.10"
-dependencies = []
-
-[project.optional-dependencies]
-dev = ["pytest", "ruff", "mypy"]
-
-[tool.ruff]
-line-length = 88
-target-version = "py310"
-
-[tool.mypy]
-python_version = "3.10"
-strict = true
-```
-
-## Code Organization Principles
-- **Prefer composition over inheritance** - use dependency injection
-- Keep classes small and focused (Single Responsibility Principle)
-- Use dataclasses or Pydantic models for data structures
-- Group related functionality into modules
-- Use `__init__.py` to control public API exposure
-
-## Performance & Best Practices
-- Use f-strings for string formatting
-- Prefer list/dict comprehensions over loops when readable
-- Use `pathlib` instead of `os.path` for file operations
-- Consider using `functools.lru_cache` for expensive pure functions
-- Use context managers (`with` statements) for resource management
-
-## Testing Guidelines
-- Write tests alongside code development
-- Use descriptive test names that explain the scenario
-- Follow AAA pattern: Arrange, Act, Assert
-- Use pytest fixtures for test setup
-- Aim for high test coverage but focus on critical paths
-
-## Documentation
-- Use docstrings for all public functions/classes
-- Follow Google or NumPy docstring style consistently
-- Include type information in docstrings when helpful
-- Keep README.md updated with setup and usage instructions
+| Color      | Hex      | RGB                  | HSL                   |
+|------------|----------|----------------------|-----------------------|
+| Rosewater  | #f4dbd6 | rgb(244, 219, 214)  | hsl(10deg, 58%, 90%)  |
+| Flamingo   | #f0c6c6 | rgb(240, 198, 198)  | hsl(0deg, 58%, 86%)   |
+| Pink       | #f5bde6 | rgb(245, 189, 230)  | hsl(316deg, 74%, 85%) |
+| Mauve      | #c6a0f6 | rgb(198, 160, 246)  | hsl(267deg, 83%, 80%) |
+| Red        | #ed8796 | rgb(237, 135, 150)  | hsl(351deg, 74%, 73%) |
+| Maroon     | #ee99a0 | rgb(238, 153, 160)  | hsl(355deg, 71%, 77%) |
+| Peach      | #f5a97f | rgb(245, 169, 127)  | hsl(21deg, 86%, 73%)  |
+| Yellow     | #eed49f | rgb(238, 212, 159)  | hsl(40deg, 70%, 78%)  |
+| Green      | #a6da95 | rgb(166, 218, 149)  | hsl(105deg, 48%, 72%) |
+| Teal       | #8bd5ca | rgb(139, 213, 202)  | hsl(171deg, 47%, 69%) |
+| Sky        | #91d7e3 | rgb(145, 215, 227)  | hsl(189deg, 59%, 73%) |
+| Sapphire   | #7dc4e4 | rgb(125, 196, 228)  | hsl(199deg, 66%, 69%) |
+| Blue       | #8aadf4 | rgb(138, 173, 244)  | hsl(220deg, 83%, 75%) |
+| Lavender   | #b7bdf8 | rgb(183, 189, 248)  | hsl(234deg, 82%, 85%) |
+| Text       | #cad3f5 | rgb(202, 211, 245)  | hsl(227deg, 68%, 88%) |
+| Subtext 1  | #b8c0e0 | rgb(184, 192, 224)  | hsl(228deg, 39%, 80%) |
+| Subtext 0  | #a5adcb | rgb(165, 173, 203)  | hsl(227deg, 27%, 72%) |
+| Overlay 2  | #939ab7 | rgb(147, 154, 183)  | hsl(228deg, 20%, 65%) |
+| Overlay 1  | #8087a2 | rgb(128, 135, 162)  | hsl(228deg, 15%, 57%) |
+| Overlay 0  | #6e738d | rgb(110, 115, 141)  | hsl(230deg, 12%, 49%) |
+| Surface 2  | #5b6078 | rgb(91, 96, 120)    | hsl(230deg, 14%, 41%) |
+| Surface 1  | #494d64 | rgb(73, 77, 100)    | hsl(231deg, 16%, 34%) |
+| Surface 0  | #363a4f | rgb(54, 58, 79)     | hsl(230deg, 19%, 26%) |
+| Base       | #24273a | rgb(36, 39, 58)     | hsl(232deg, 23%, 18%) |
+| Mantle     | #1e2030 | rgb(30, 32, 48)     | hsl(233deg, 23%, 15%) |
+| Crust      | #181926 | rgb(24, 25, 38)     | hsl(236deg, 23%, 12%) |
 
 ---
 > Source: [mez-0/citadel](https://github.com/mez-0/citadel) — distributed by [TomeVault](https://tomevault.io).
