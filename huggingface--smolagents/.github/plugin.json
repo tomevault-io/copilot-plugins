@@ -1,0 +1,9 @@
+{
+  "name": "huggingface--smolagents",
+  "displayName": "smolagents",
+  "description": "\ud83e\udd17 smolagents: a barebones library for agents that think in code.",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/smolagents",
+  "skills": []
+}
