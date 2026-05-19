@@ -1,0 +1,9 @@
+{
+  "name": "lorenzo287--toy-forth",
+  "displayName": "toy_forth",
+  "description": "Toy Forth interpreter written in C",
+  "version": "1.0.0",
+  "author": "Lorenzo287",
+  "homepage": "https://github.com/Lorenzo287/toy_forth",
+  "skills": []
+}
