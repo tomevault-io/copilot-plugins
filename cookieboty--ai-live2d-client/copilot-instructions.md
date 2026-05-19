@@ -1,30 +1,35 @@
-## 02-development-workflow
+## 03-electron-package
 
-> - `pnpm dev` - 启动开发环境（同时启动所有包）
+> - [src/main.ts](mdc:packages/electron/src/main.ts) - 主进程入口文件
 
-# 开发工作流
+# Electron包
+
+## 目录结构
+
+- [src/main.ts](mdc:packages/electron/src/main.ts) - 主进程入口文件
+- [src/preload.ts](mdc:packages/electron/src/preload.ts) - 预加载脚本
+
+## 配置文件
+
+- [package.json](mdc:packages/electron/package.json) - 包配置和依赖
+- [tsconfig.json](mdc:packages/electron/tsconfig.json) - TypeScript配置
+
+## 打包配置
+
+Electron Builder配置位于[package.json](mdc:packages/electron/package.json)的`build`字段。
 
 ## 开发命令
 
-- `pnpm dev` - 启动开发环境（同时启动所有包）
-- `pnpm build` - 构建所有包
+- `pnpm dev` - 开发模式启动（支持热重载）
+- `pnpm build` - 构建主进程代码
 - `pnpm package` - 打包应用为可分发格式
-- `pnpm clean` - 清理构建产物
 
-## 开发流程
+## 主要功能
 
-1. 修改 [types](mdc:packages/types/src) 包中的共享类型（如需要）
-2. 开发 [renderer](mdc:packages/renderer/src) 包中的前端UI
-3. 开发 [electron](mdc:packages/electron/src) 包中的主进程逻辑
-4. 使用 `pnpm dev` 启动开发环境进行测试
-5. 使用 `pnpm build` 构建项目
-6. 使用 `pnpm package` 打包应用
-
-## 注意事项
-
-- 开发模式下支持热重载，修改代码后应用会自动更新
-- Electron主进程和渲染进程通过IPC通信
-- 所有包之间的依赖关系通过workspace管理
+- 创建透明无边框窗口
+- 处理窗口拖拽
+- 实现窗口置顶切换
+- 提供预加载API供渲染进程调用
 
 ---
 > Source: [Cookieboty/ai-live2d-client](https://github.com/Cookieboty/ai-live2d-client) — distributed by [TomeVault](https://tomevault.io).
