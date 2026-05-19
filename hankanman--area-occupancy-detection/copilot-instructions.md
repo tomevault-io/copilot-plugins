@@ -1,17 +1,21 @@
-## documentation
+## environment
 
-> Documentation is written in the `docs/docs` directory.
+> We use UV to manage our Python environment.
 
 
-Documentation is written in the `docs/docs` directory.
+We use UV to manage our Python environment.
 
-The documentation is hosted on a mkdocs site at https://hankanman.github.io/Area-Occupancy-Detection/.
+The project uses the `.venv` directory to store the virtual environment.
 
-The `mkdocs.yml` file is in the `docs` directory.
+To activate the virtual environment:
 
-Ensure that documentation is not duplicated and is in the appropriate navigation path in mkdocs.yml.
+- **macOS/Linux**: `source .venv/bin/activate`
+- **Windows (cmd)**: `.venv\Scripts\activate.bat`
+- **Windows (PowerShell)**: `.venv\Scripts\Activate.ps1`
 
-When writing documentation ensure that the documentation is up to date with the codebase.
+To deactivate the virtual environment, run `deactivate` (all platforms).
+
+Requirements files are in the `requirements.txt` and `requirements_test.txt` files.
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
