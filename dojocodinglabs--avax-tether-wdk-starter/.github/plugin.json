@@ -1,0 +1,9 @@
+{
+  "name": "dojocodinglabs--avax-tether-wdk-starter",
+  "displayName": "avax-tether-wdk-starter",
+  "description": "A fully integrated Avalanche C-Chain development starter built on Scaffold-ETH 2, powered by the Tether Wallet Development Kit (WDK). ",
+  "version": "1.0.0",
+  "author": "DojoCodingLabs",
+  "homepage": "https://github.com/DojoCodingLabs/avax-tether-wdk-starter",
+  "skills": []
+}
