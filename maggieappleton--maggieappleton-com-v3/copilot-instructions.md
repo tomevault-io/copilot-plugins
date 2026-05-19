@@ -1,37 +1,22 @@
-## cursor-rules-location
+## date-handling
 
-> Standards for placing Cursor rule files in the correct directory. Apply when creating new cursor rules, discussing rule organisation, or working with .mdc files.
+> Date handling for documentation updates
 
 
-# Cursor Rules Location Standards
+# Date Handling for Documentation
+When updating implementation plans, progress tracking, or any documentation with dates:
 
-When creating Cursor rules, always follow these standards:
+- ALWAYS use the current date by running: `npm run date`
+- Use the format: "Month DD, YYYY" for consistency (e.g., "May 29, 2025")
+- Never assume or guess dates - always query the current date programmatically
+- When marking tasks as completed, use the actual current date from the date utility
 
-## Rule File Placement
-- Always place rule files in `PROJECT_ROOT/.cursor/rules/`
-- Use `.mdc` extension for all rule files
-- Use kebab-case for filenames
-- Make names descriptive of the rule's purpose
+## Available Date Utility
 
-## Directory Structure
-```
-PROJECT_ROOT/
-├── .cursor/
-│   └── rules/
-│       ├── your-rule-name.mdc
-│       ├── another-rule.mdc
-│       └── ...
-└── ...
-```
+- `npm run date` - Gets current date in documentation format (Month DD, YYYY)
+- `node scripts/current-date.js` - Direct script access
 
-## What NOT to do
-- Never place rule files in the project root
-- Never use subdirectories outside `.cursor/rules`
-- Never use extensions other than `.mdc`
-
-## Examples
-✅ **Correct:** `.cursor/rules/my-rule.mdc`
-❌ **Wrong:** `rules/my-rule.mdc`, `my-rule.mdc`, `.rules/my-rule.mdc`
+@current-date.js
 
 ---
 > Source: [MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) — distributed by [TomeVault](https://tomevault.io).
