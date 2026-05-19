@@ -4,7 +4,7 @@
   "repo": "totalmanagement",
   "description": "totalmanagement",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tkaykim/totalmanagement",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:04:21Z"
+  "distributed_at": "2026-05-19T02:54:52Z"
 }
