@@ -1,66 +1,31 @@
-## 30-auth
+## 40-sync
 
-> Authentication stack (Lucia, API keys, unified middleware)
+> Flows, chunked sync architecture, and Inngest usage
 
 
-# Auth Guidelines
+# Sync Guidelines
 
-- High-level overview: [AUTH_README.md](mdc:AUTH_README.md) and [AUTH_IMPLEMENTATION_SUMMARY.md](mdc:AUTH_IMPLEMENTATION_SUMMARY.md).
-- Middleware entry points: [api/src/auth/unified-auth.middleware.ts](mdc:api/src/auth/unified-auth.middleware.ts), [api/src/auth/api-key.middleware.ts](mdc:api/src/auth/api-key.middleware.ts).
-- Lucia config: [api/src/auth/lucia.ts](mdc:api/src/auth/lucia.ts) and adapter in [api/src/auth/mongodb-adapter.ts](mdc:api/src/auth/mongodb-adapter.ts).
+- Architecture: [docs/Chunked-Sync-Architecture.md](mdc:docs/Chunked-Sync-Architecture.md), [SYNC_WORKER_ARCHITECTURE.md](mdc:SYNC_WORKER_ARCHITECTURE.md).
+- Migration and refactors: [SYNC_INNGEST_MIGRATION.md](mdc:SYNC_INNGEST_MIGRATION.md), [SYNC_REFACTORING_SUMMARY.md](mdc:SYNC_REFACTORING_SUMMARY.md), [SYNC_SCHEDULING_IMPLEMENTATION.md](mdc:SYNC_SCHEDULING_IMPLEMENTATION.md).
+- CLI entry point: [api/src/sync/cli.ts](mdc:api/src/sync/cli.ts) (run with `pnpm run sync`).
+- Connector registry (CLI): [api/src/sync/connector-registry.ts](mdc:api/src/sync/connector-registry.ts) with lazy imports.
+- Inngest integration: [api/src/inngest](mdc:api/src/inngest).
 
-Environment (local defaults):
+## Connector vs Flow Responsibilities
 
-- `BASE_URL=http://localhost:8080` (used for OAuth callbacks)
-- `CLIENT_URL=http://localhost:5173` (used for redirects from OAuth)
+- **Connectors** store only credentials and connection settings (endpoint, API key, auth headers).
+- **Flows** define what data to sync:
+  - `entityFilter`: which entities to sync (for connectors with fixed entities like Stripe, Close)
+  - `queries`: GraphQL/PostHog query definitions (for query-based connectors)
+- For GraphQL/PostHog connectors, queries are injected into the connector at sync time via `dataSource.connection.queries`.
 
-## Workspace Verification Middleware Pattern
+Rules:
 
-When adding workspace-scoped routes, use this **defense-in-depth** pattern:
-
-```typescript
-// Apply unified auth middleware first
-routes.use("*", unifiedAuthMiddleware);
-
-// Then verify workspace access with COMPLETE if/else chain
-routes.use("*", async (c: AuthenticatedContext, next) => {
-  const workspaceId = c.req.param("workspaceId");
-  if (workspaceId) {
-    const user = c.get("user");
-    const workspace = c.get("workspace");
-
-    if (workspace) {
-      // API key auth - verify workspace matches URL
-      if (workspace._id.toString() !== workspaceId) {
-        return c.json({ error: "API key not authorized for this workspace" }, 403);
-      }
-    } else if (user) {
-      // Session auth - verify user has access
-      const hasAccess = await workspaceService.hasAccess(workspaceId, user.id);
-      if (!hasAccess) {
-        return c.json({ error: "Access denied to workspace" }, 403);
-      }
-    } else {
-      // CRITICAL: Always include else clause for defense in depth
-      return c.json({ error: "Unauthorized" }, 401);
-    }
-
-    // Only enrich logging AFTER authorization succeeds
-    enrichContextWithWorkspace(workspaceId);
-  }
-  await next();
-});
-```
-
-**CRITICAL**: The `else` clause is required for defense in depth. Without it, if `unifiedAuthMiddleware` has a bug or is bypassed, requests could proceed unauthenticated.
-
-## Rules
-
-- Prefer `unified-auth.middleware` at route boundaries; only fall back to API key middleware for machine-to-machine endpoints.
-- Store sessions via the MongoDB adapter; do not bypass the adapter or write sessions directly.
-- When adding new protected endpoints, cover with entries in [AUTH_TESTING_CHECKLIST.md](mdc:AUTH_TESTING_CHECKLIST.md).
-- **Always include an `else` clause** in workspace verification middleware to reject unauthenticated requests.
-- Call `enrichContextWithWorkspace()` or `enrichContextWithUser()` only AFTER authorization succeeds.
+- Use chunked sync pattern; avoid long blocking operations in a single flow.
+- Delegate connector-specific logic to `api/src/connectors/**`.
+- All flows should be idempotent and checkpoint progress (by cursor/offset) per workspace.
+- Prefer Inngest for scheduling/triggering; avoid ad-hoc timers.
+- Do not store queries in connector config; they belong in the Flow.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
