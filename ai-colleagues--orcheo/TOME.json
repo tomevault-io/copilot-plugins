@@ -4,7 +4,7 @@
   "repo": "orcheo",
   "description": "A full-stack, agentic workflow programming platform. Built for vibe-coding and with vibe-coding.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AI-Colleagues/orcheo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T16:33:32Z"
+  "distributed_at": "2026-05-19T16:51:47Z"
 }
