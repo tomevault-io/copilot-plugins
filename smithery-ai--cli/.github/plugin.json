@@ -1,0 +1,9 @@
+{
+  "name": "smithery-ai--cli",
+  "displayName": "cli",
+  "description": "Install, manage and develop MCP servers and skills for agents",
+  "version": "1.0.0",
+  "author": "smithery-ai",
+  "homepage": "https://github.com/smithery-ai/cli",
+  "skills": []
+}
