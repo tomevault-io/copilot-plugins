@@ -1,0 +1,9 @@
+{
+  "name": "atlassian--atlascode",
+  "displayName": "atlascode",
+  "description": "Atlassian for VS Code (Official) - Providing Jira and Bitbucket integrations for VS Code",
+  "version": "1.0.0",
+  "author": "atlassian",
+  "homepage": "https://github.com/atlassian/atlascode",
+  "skills": []
+}
