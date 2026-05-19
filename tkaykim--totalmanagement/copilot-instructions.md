@@ -1,197 +1,64 @@
-## totalmanagement
+## android-build
 
-> - always use client component for all components. (use `use client` directive)
+> 사용자 폴더가 한글(예: `그리고`)이면 터미널에서 경로가 깨질 수 있으므로 **반드시 `$env:USERPROFILE` 기반 경로**로 진행한다.
 
-# AGENTS.md
+# Android 빌드 및 테스트 기기 설치 (한글 경로 대응)
 
-## Must
+사용자 폴더가 한글(예: `그리고`)이면 터미널에서 경로가 깨질 수 있으므로 **반드시 `$env:USERPROFILE` 기반 경로**로 진행한다.
 
-- always use client component for all components. (use `use client` directive)
-- always use promise for page.tsx params props.
-- use valid picsum.photos stock image for placeholder image
+## 1. 사전 조건
 
-## Library
+- **JAVA_HOME**: Android Studio JBR 사용. 미설정 시 아래 명령에서 설정.
+- **Android Studio** 설치 및 SDK 설치 완료.
+- 테스트 기기: USB 연결 또는 무선 디버깅(adb 연결) 완료.
 
-use following libraries for specific functionalities:
+## 2. 빌드 (PowerShell)
 
-1. `date-fns`: For efficient date and time handling.
-2. `ts-pattern`: For clean and type-safe branching logic.
-3. `@tanstack/react-query`: For server state management.
-4. `zustand`: For lightweight global state management.
-5. `react-use`: For commonly needed React hooks.
-6. `es-toolkit`: For robust utility functions.
-7. `lucide-react`: For customizable icons.
-8. `zod`: For schema validation and data integrity.
-9. `shadcn-ui`: For pre-built accessible UI components.
-10. `tailwindcss`: For utility-first CSS styling.
-11. `supabase`: For a backend-as-a-service solution.
-12. `react-hook-form`: For form validation and state management.
+한 줄로 실행할 때:
 
-## Directory Structure
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"; $projectRoot = Join-Path $env:USERPROFILE "Desktop\MOVEIT"; $androidPath = Join-Path $projectRoot "android"; Set-Location $androidPath; .\gradlew.bat assembleDebug
+```
 
-- src
-- src/app: Next.js App Routers
-- src/components/ui: shadcn-ui components
-- src/constants: Common constants
-- src/hooks: Common hooks
-- src/lib: utility functions
-- src/remote: http client
-- src/features/[featureName]/components/\*: Components for specific feature
-- src/features/[featureName]/constants/\*
-- src/features/[featureName]/hooks/\*
-- src/features/[featureName]/lib/\*
-- src/features/[featureName]/api.ts: api fetch functions
+- `$env:USERPROFILE` → `C:\Users\그리고` 등 한글 경로가 있어도 올바르게 해석됨.
+- JAVA_HOME이 이미 시스템에 설정되어 있으면 앞의 `$env:JAVA_HOME = "..."` 생략 가능.
+- 성공 시 APK 위치: `%USERPROFILE%\Desktop\MOVEIT\android\app\build\outputs\apk\debug\app-debug.apk`
 
-## Solution Process:
+## 3. 테스트 기기 설치 (PowerShell)
 
-1. Rephrase Input: Transform to clear, professional prompt.
-2. Analyze & Strategize: Identify issues, outline solutions, define output format.
-3. Develop Solution:
-   - "As a senior-level developer, I need to [rephrased prompt]. To accomplish this, I need to:"
-   - List steps numerically.
-   - "To resolve these steps, I need the following solutions:"
-   - List solutions with bullet points.
-4. Validate Solution: Review, refine, test against edge cases.
-5. Evaluate Progress:
-   - If incomplete: Pause, inform user, await input.
-   - If satisfactory: Proceed to final output.
-6. Prepare Final Output:
-   - ASCII title
-   - Problem summary and approach
-   - Step-by-step solution with relevant code snippets
-   - Format code changes:
-     ```language:path/to/file
-     // ... existing code ...
-     function exampleFunction() {
-         // Modified or new code here
-     }
-     // ... existing code ...
-     ```
-   - Use appropriate formatting
-   - Describe modifications
-   - Conclude with potential improvements
+연결된 기기 한 대에 설치(덮어쓰기 `-r`):
 
-## Key Mindsets:
+```powershell
+$adb = Join-Path $env:LOCALAPPDATA "Android\Sdk\platform-tools\adb.exe"; $projectRoot = Join-Path $env:USERPROFILE "Desktop\MOVEIT"; $apk = Join-Path $projectRoot "android\app\build\outputs\apk\debug\app-debug.apk"; & $adb install -r $apk
+```
 
-1. Simplicity
-2. Readability
-3. Maintainability
-4. Testability
-5. Reusability
-6. Functional Paradigm
-7. Pragmatism
+- 기기가 여러 대면 `& $adb -s <device_id> install -r $apk` 로 기기 지정.
+- 기기 목록: `& $adb devices`
 
-## Code Guidelines:
+## 4. AAB 배포 (TotalManagements - Play 스토어 제출용)
 
-1. Early Returns
-2. Conditional Classes over ternary
-3. Descriptive Names
-4. Constants > Functions
-5. DRY
-6. Functional & Immutable
-7. Minimal Changes
-8. Pure Functions
-9. Composition over inheritance
+한 줄로 실행할 때:
 
-## Functional Programming:
+```powershell
+$env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"; $projectRoot = Join-Path $env:USERPROFILE "Desktop\TotalManagements"; $androidPath = Join-Path $projectRoot "android"; Set-Location $androidPath; .\gradlew.bat bundleRelease
+```
 
-- Avoid Mutation
-- Use Map, Filter, Reduce
-- Currying and Partial Application
-- Immutability
+- 성공 시 AAB 위치: `%USERPROFILE%\Desktop\TotalManagements\android\app\build\outputs\bundle\release\app-release.aab`
+- 스크립트 사용: `android\build-aab.ps1` 실행 (동일 경로 규칙 적용).
 
-## Code-Style Guidelines
+### 출시 모드 서명 (Play Console 업로드용)
 
-- Use TypeScript for type safety.
-- Follow the coding standards defined in the ESLint configuration.
-- Ensure all components are responsive and accessible.
-- Use Tailwind CSS for styling, adhering to the defined color palette.
-- When generating code, prioritize TypeScript and React best practices.
-- Ensure that any new components are reusable and follow the existing design patterns.
-- Minimize the use of AI generated comments, instead use clearly named variables and functions.
-- Always validate user inputs and handle errors gracefully.
-- Use the existing components and pages as a reference for the new components and pages.
+디버그 서명 AAB는 업로드 불가. **업로드 키**로 서명해야 함. [앱 서명 가이드](https://developer.android.com/studio/publish/app-signing?hl=ko#generate-key) 참고.
 
-## Performance:
+1. **업로드 키 생성** (최초 1회): `android` 폴더에서 `.\setup-release-keystore.ps1` 실행 → 프롬프트에 키스토어/키 비밀번호, 이름 등 입력.
+2. **keystore.properties 작성**: `keystore.properties.example` 을 복사해 `keystore.properties` 로 저장 후, `storePassword`, `keyPassword` 를 위에서 입력한 값으로 채움. `storeFile`, `keyAlias` 는 스크립트 기본값 그대로 사용 가능.
+3. **AAB 재빌드**: `.\build-aab.ps1` → 생성된 AAB가 출시 서명으로 서명됨.
 
-- Avoid Premature Optimization
-- Profile Before Optimizing
-- Optimize Judiciously
-- Document Optimizations
+## 5. 주의사항
 
-## Comments & Documentation:
-
-- Comment function purpose
-- Use JSDoc for JS
-- Document "why" not "what"
-
-## Function Ordering:
-
-- Higher-order functionality first
-- Group related functions
-
-## Handling Bugs:
-
-- Use TODO: and FIXME: comments
-
-## Error Handling:
-
-- Use appropriate techniques
-- Prefer returning errors over exceptions
-
-## Testing:
-
-- Unit tests for core functionality
-- Consider integration and end-to-end tests
-
-## Next.js
-
-- you must use promise for page.tsx params props.
-
-## Shadcn-ui
-
-- if you need to add new component, please show me the installation instructions. I'll paste it into terminal.
-- example
-  ```
-  $ npx shadcn@latest add card
-  $ npx shadcn@latest add textarea
-  $ npx shadcn@latest add dialog
-  ```
-
-## Supabase
-
-- if you need to add new table, please create migration. I'll paste it into supabase.
-- do not run supabase locally
-- store migration query for `.sql` file. in /supabase/migrations/
-
-## Package Manager
-
-- use npm as package manager.
-
-## Korean Text
-
-- 코드를 생성한 후에 utf-8 기준으로 깨지는 한글이 있는지 확인해주세요. 만약 있다면 수정해주세요.
-
-You are a senior full-stack developer, one of those rare 10x devs. Your focus: clean, maintainable, high-quality code.
-Apply these principles judiciously, considering project and team needs.
-
-For every request:
-
-1. Always refer to the documentation files stored under `/vooster-docs` (accessible via the relative paths below):
-<vooster-docs>
-- prd.md: ./vooster-docs/prd.md
-- architecture.md: ./vooster-docs/architecture.md
-- guideline.md: ./vooster-docs/guideline.md
-- step-by-step.md: ./vooster-docs/step-by-step.md
-- clean-code.md: ./vooster-docs/clean-code.md
-</vooster-docs>
-
-2. Use the relevant file(s) depending on the context of the request.
-3. Never ignore these files. Consider them for:
-    - Providing accurate information
-    - Ensuring consistency
-    - Following documented guidelines
-    - Making decisions or generating content
+- **한글 경로 직접 사용 금지**: `cd "c:\Users\그리고\Desktop\MOVEIT"` 처럼 한글을 쓴 경로는 스크립트/셸에서 깨질 수 있음. 항상 `Join-Path $env:USERPROFILE "Desktop\..."` 형태 사용.
+- **MoveitWebChromeClient** (MOVEIT): `Bridge` 참조는 부모 클래스가 private 이므로, 서브클래스에서 `private final Bridge bridge` 로 보관하고 `bridge.getWebView()` 등으로 사용한다. `getBridge()` 는 부모에 없음.
+- 빌드 실패 시: `BUILD FAILED` 로그에서 `:app:compileDebugJavaWithJavac` 오류 위치를 확인하고, 위 Java 규칙을 지키는지 점검.
 
 ---
 > Source: [tkaykim/totalmanagement](https://github.com/tkaykim/totalmanagement) — distributed by [TomeVault](https://tomevault.io).
