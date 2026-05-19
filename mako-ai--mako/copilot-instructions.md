@@ -1,128 +1,76 @@
-## 75-chat-performance
+## 80-engineering-ops
 
-> Applies to: `app/src/components/Chat.tsx`, `app/src/components/chat-message-comparator.ts`, `app/src/components/StreamingMarkdown.tsx`, `app/src/components/StreamingToolCard.tsx`
+> Logging, error handling, and operational guidelines — use structured loggers, never console.log
 
-# Chat Component Performance
 
-Applies to: `app/src/components/Chat.tsx`, `app/src/components/chat-message-comparator.ts`, `app/src/components/StreamingMarkdown.tsx`, `app/src/components/StreamingToolCard.tsx`
+# Engineering Ops
 
-## Why this matters
+## Logging
 
-During AI streaming, `useChat` returns a **new `messages` array reference on every chunk**.
-Without mitigation this triggers `Chat` re-renders dozens of times per second, making the
-page unresponsive, breaking scroll, and killing hover/expand interactions.
+**NEVER use `console.log`, `console.error`, `console.warn`, or `console.debug` directly in API code.** Use the structured logging system instead.
 
-## Streaming throttle
+```typescript
+import { loggers } from "../logging";
 
-`useChat` is configured with `experimental_throttle: 50` to batch state updates at the
-hook level. This reduces React reconciliation passes from ~30/s to ~20/s *before*
-memoization even kicks in. Do not remove this option.
-
-## Memoization boundary map
-
-| Component | Memoized? | Comparator | Why |
-|---|---|---|---|
-| `ChatMessageRow` | `React.memo` + **custom** `arePropsEqual` (in `chat-message-comparator.ts`) | Compares `isLastMessage`, `isStreaming`, part types/states, and exact text content | Prevents completed messages from re-rendering on every chunk |
-| `ChatInputArea` | `React.memo` (default shallow) | — | Isolates input state so keystrokes and streaming don't cross-contaminate |
-| `StreamingToolCard` | `React.memo` + **custom** shallow on 4 fields | `toolName`, `state`, `input`, `output` | Prevents settled tool cards from re-rendering |
-| `StreamingMarkdown` | `React.memo` (default shallow) | Compares `children: string` | Prevents expensive Streamdown/shiki re-renders when text hasn't changed |
-| `CodeBlock` | `React.memo` (default shallow) | — | Prevents re-rendering syntax-highlighted blocks |
-| `ReasoningDisplay` | `React.memo` (default shallow) | — | Prevents re-rendering collapsed reasoning sections |
-| `StreamingIndicator` | `React.memo` (default shallow) | — | Trivial component, memoized for consistency |
-
-## The ref pattern
-
-Values needed only inside **callbacks** (not in the render tree) must use refs to keep
-callback identities stable. This prevents memoized children from re-rendering.
-
-```
-// GOOD — ref keeps callback stable
-const sendMessageRef = useRef(sendMessage);
-sendMessageRef.current = sendMessage;
-const handleSubmit = useCallback((text) => {
-  sendMessageRef.current({ text });
-}, []);
-
-// BAD — object dep causes callback to change on every store update
-const handleSubmit = useCallback((text) => {
-  sendMessage({ text });
-}, [activeTab, sendMessage]);
+// Pre-configured loggers by category
+const log = loggers.sync();       // Sync operations
+const log = loggers.migration();  // Database migrations
+const log = loggers.db();         // Database operations
+const log = loggers.auth();       // Authentication
+const log = loggers.agent();      // AI agent operations
+const log = loggers.http();       // HTTP request/response
+const log = loggers.query();      // Query execution
+const log = loggers.workspace();  // Workspace operations
+const log = loggers.connector();  // Data connectors
+const log = loggers.inngest();    // Inngest/flow operations
+const log = loggers.app();        // Application lifecycle
+const log = loggers.api("chats"); // Route-specific (pass route name)
 ```
 
-Existing ref-pattern values in `Chat.tsx`:
-`workspaceIdRef`, `modelIdRef`, `chatIdRef`, `activeConsoleIdRef`,
-`activeViewRef`, `workspaceConnectionsRef`, `sendMessageRef`,
-`isExistingChatRef`, `onConsoleModificationRef`, `dbFlowFormRefCurrent`.
+### Context Enrichment
 
-When you need a fresh value inside `onToolCall` or `prepareSendMessagesRequest`,
-call `useConsoleStore.getState()` at invocation time rather than closing over
-render-time state.
+Use context enrichment functions to automatically include user/workspace IDs in all subsequent logs:
 
-## Auto-scroll contract (`use-stick-to-bottom`)
+```typescript
+import { enrichContextWithUser, enrichContextWithWorkspace } from "../logging";
 
-Auto-scroll uses the **`use-stick-to-bottom`** library (same library used in
-Vercel's official `ai-chatbot` template). It observes container/content resizes
-via `ResizeObserver` and uses spring-based animations — no `useEffect([messages])`
-or `MutationObserver` hacks.
+// In auth middleware - enriches all logs with userId
+enrichContextWithUser(user.id);
 
-Key pieces:
-- `scrollContainerRef` / `scrollContentRef` — refs from `useStickToBottom()` hook,
-  attached to the outer scroll `<Box>` and inner content `<div>` respectively.
-- `isAtBottom` — boolean state for showing the "scroll to bottom" button.
-- `scrollToBottom()` — imperative scroll for the button's `onClick`.
-
-**Never replace this with a DIY `useEffect([messages])` → `scrollIntoView`.
-That fires on every chunk and causes scroll jank + broken hover/click events.**
-The library correctly distinguishes user scrolling from programmatic scrolling
-and handles edge cases like content shrinking and mobile devices.
-
-## Zustand selector rules
-
-```
-// GOOD — only re-renders when the active tab's kind changes
-const activeTabKind = useConsoleStore(state => {
-  const tab = state.tabs[state.activeTabId || ""];
-  return tab?.kind;
-});
-
-// BAD — re-renders when ANY tab in the store changes
-const tabs = useConsoleStore(state => state.tabs);
+// In workspace middleware - enriches all logs with workspaceId
+enrichContextWithWorkspace(workspaceId);
 ```
 
-If you need the full `tabs` object, call `useConsoleStore.getState()` inside a
-callback, not via a selector subscription.
+**Important**: Only call enrichment functions AFTER authorization succeeds, never before.
 
-## Banned patterns in Chat.tsx
+### Usage Examples
 
-0. **Do not remove `experimental_throttle` from `useChat`.**
-   It batches hook state updates so React doesn't reconcile on every SSE chunk.
+```typescript
+log.info("Operation completed", { userId, duration_ms: 150 });
+log.error("Failed to process", { error, context });
+log.debug("Debug info", { details });
+log.warn("Warning condition", { threshold });
+```
 
-1. **No object-typed `useCallback` deps that change during streaming.**
-   `activeTab`, `tabs`, `messages`, `workspaceConnections` are all objects that get
-   new references during streaming. Never add them to `useCallback` dependency arrays
-   for handlers passed to memoized children.
+**Exceptions** (add `/* eslint-disable no-console */` at file top):
+- Logging sinks in `/api/src/logging/sinks/` (they ARE the console output)
+- Interactive CLI demos (`demo-interactive.ts`, `example-programmatic.ts`)
 
-2. **No `useEffect` depending on `messages` that touches the DOM synchronously.**
-   The `messages` reference changes on every chunk. DOM-touching effects must either
-   use `requestAnimationFrame` coalescing or only run on meaningful changes
-   (e.g., `messages.length`).
+For full details: [LOGTAPE_IMPLEMENTATION.md](mdc:LOGTAPE_IMPLEMENTATION.md)
 
-3. **No un-memoized components rendering inside `ChatMessageRow`.**
-   Any new child component rendered inside the message row (markdown, tool card,
-   reasoning, etc.) must be wrapped in `React.memo`.
+## Other Guidelines
 
-4. **No new Zustand selectors returning objects/arrays.**
-   Return primitives or use `useShallow` from `zustand/react/shallow`.
+- Testing auth: use [AUTH_TESTING_CHECKLIST.md](mdc:AUTH_TESTING_CHECKLIST.md) when adding/changing protected routes.
+- Database migrations: see [DATABASE_MIGRATION.md](mdc:DATABASE_MIGRATION.md) and update schemas accordingly.
+- Console API docs: [CONSOLE_API_DOCUMENTATION.md](mdc:CONSOLE_API_DOCUMENTATION.md) for integration boundaries.
 
-## Checklist for PRs touching Chat.tsx
+## Rules
 
-- [ ] No new `useCallback`/`useMemo` with object dependencies
-- [ ] No new `useEffect` depending on `messages` that touches the DOM
-- [ ] `experimental_throttle: 50` is present on `useChat`
-- [ ] Auto-scroll uses `use-stick-to-bottom`, not a DIY `useEffect`
-- [ ] Any new child component inside `ChatMessageRow` is `React.memo`-wrapped
-- [ ] Zustand selectors return primitives, not object references
-- [ ] Render-count test (`Chat.perf.test.ts`) still passes
+- Do not log secrets, API keys, or tokens.
+- Fail fast on configuration errors; validate required env at startup.
+- Prefer background processing (Inngest) for slow operations.
+- Always include relevant context (workspace ID, user ID, request ID) in log messages.
+- Call `enrichContextWithUser()` / `enrichContextWithWorkspace()` only AFTER authorization succeeds.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
