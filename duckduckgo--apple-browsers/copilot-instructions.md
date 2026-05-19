@@ -1,217 +1,387 @@
-## user-defaults-storage
+## webkit-browser
 
-> Use the KVO pattern with KeyValueStore for all new persistent settings:
+> class BrowserWebView {
 
 
-# User Defaults Settings Storage and Reading
+# WebKit & Browser Development Guidelines
 
-## ✅ RECOMMENDED - KVO Pattern with KeyValueStore
+## WebView Configuration
 
-Use the KVO pattern with KeyValueStore for all new persistent settings:
-
+### Basic WebView Setup
 ```swift
-// ✅ CORRECT - KVO pattern with KeyValueStore
-struct AppearancePreferencesUserDefaultsPersistor: AppearancePreferencesPersistor {
+import WebKit
 
-    enum Key: String {
-        case newTabPageIsOmnibarVisible = "new-tab-page.omnibar.is-visible"
-        case newTabPageIsProtectionsReportVisible = "new-tab-page.protections-report.is-visible"
-        case userPreferences = "user.preferences"
-        case lastUpdateCheck = "last.update.check"
+class BrowserWebView {
+    private lazy var webView: WKWebView = {
+        let configuration = WKWebViewConfiguration()
+        
+        // Enable JavaScript
+        configuration.preferences.javaScriptEnabled = true
+        
+        // Set user agent
+        configuration.applicationNameForUserAgent = UserAgentManager.shared.userAgent
+        
+        // Configure content blockers
+        configuration.userContentController = makeUserContentController()
+        
+        // Enable developer extras in debug
+        #if DEBUG
+        configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+        #endif
+        
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsLinkPreview = true
+        
+        return webView
+    }()
+}
+```
+
+### User Scripts Management
+```swift
+private func makeUserContentController() -> WKUserContentController {
+    let controller = WKUserContentController()
+    
+    // Add content blocking scripts
+    let contentBlockingScript = WKUserScript(
+        source: ContentBlockingUserScript.source,
+        injectionTime: .atDocumentStart,
+        forMainFrameOnly: false
+    )
+    controller.addUserScript(contentBlockingScript)
+    
+    // Add message handlers
+    controller.add(self, name: "duckduckgo")
+    
+    return controller
+}
+```
+
+## Tab Management
+
+### Tab Model
+```swift
+class Tab: NSObject {
+    let id = UUID()
+    private(set) var url: URL?
+    private(set) var title: String?
+    private(set) var favicon: UIImage?
+    
+    weak var webView: WKWebView?
+    weak var delegate: TabDelegate?
+    
+    private var observations: Set<NSKeyValueObservation> = []
+    
+    init(url: URL? = nil) {
+        self.url = url
+        super.init()
+        setupWebView()
     }
-
-    private let keyValueStore: KeyValueStoring
-
-    init(keyValueStore: KeyValueStoring) {
-        self.keyValueStore = keyValueStore
-    }
-
-    var isOmnibarVisible: Bool {
-        get { (try? keyValueStore.object(forKey: Key.newTabPageIsOmnibarVisible.rawValue) as? Bool) ?? true }
-        set { try? keyValueStore.set(newValue, forKey: Key.newTabPageIsOmnibarVisible.rawValue) }
-    }
-
-    var isProtectionsReportVisible: Bool {
-        get { (try? keyValueStore.object(forKey: Key.newTabPageIsProtectionsReportVisible.rawValue) as? Bool) ?? false }
-        set { try? keyValueStore.set(newValue, forKey: Key.newTabPageIsProtectionsReportVisible.rawValue) }
-    }
-
-    var userPreferences: [String: String] {
-        get { (try? keyValueStore.object(forKey: Key.userPreferences.rawValue) as? [String: String]) ?? [:] }
-        set { try? keyValueStore.set(newValue, forKey: Key.userPreferences.rawValue) }
-    }
-
-    var lastUpdateCheck: Date {
-        get { (try? keyValueStore.object(forKey: Key.lastUpdateCheck.rawValue) as? Date) ?? Date.distantPast }
-        set { try? keyValueStore.set(newValue, forKey: Key.lastUpdateCheck.rawValue) }
+    
+    private func setupWebView() {
+        let webView = WKWebView(frame: .zero, configuration: TabManager.shared.configuration)
+        self.webView = webView
+        
+        // Observe properties
+        observations.insert(
+            webView.observe(\.url) { [weak self] _, _ in
+                self?.urlDidChange()
+            }
+        )
+        
+        observations.insert(
+            webView.observe(\.title) { [weak self] webView, _ in
+                self?.title = webView.title
+                self?.delegate?.tab(self!, didUpdateTitle: webView.title)
+            }
+        )
+        
+        observations.insert(
+            webView.observe(\.estimatedProgress) { [weak self] webView, _ in
+                self?.delegate?.tab(self!, didUpdateProgress: webView.estimatedProgress)
+            }
+        )
     }
 }
 ```
 
-## Key Guidelines for KVO Pattern
-
-1. **Use struct conforming to protocol** - Follow the persistor pattern
-2. **Define keys as enum with String raw values** - Use kebab-case for key names
-3. **Use KeyValueStoring protocol** - Not direct UserDefaults access
-4. **Computed properties with get/set** - Handle storage operations in accessors
-5. **Use try? for error handling** - KeyValueStore operations can throw
-6. **Provide default values** - Use nil coalescing operator (??) for defaults
-7. **Inject KeyValueStore in init** - Enable dependency injection and testing
-
-## Advanced Pattern for Optional Values
-
+### Tab Lifecycle
 ```swift
-// ✅ CORRECT - Optional values pattern
-struct SettingsUserDefaultsPersistor: SettingsPersistor {
-
-    enum Key: String {
-        case optionalUserName = "user.name"
-        case optionalTheme = "app.theme"
+extension Tab {
+    func load(url: URL) {
+        let request = URLRequest(url: url)
+        webView?.load(request)
     }
-
-    private let keyValueStore: KeyValueStoring
-
-    init(keyValueStore: KeyValueStoring) {
-        self.keyValueStore = keyValueStore
+    
+    func reload() {
+        webView?.reload()
     }
+    
+    func stop() {
+        webView?.stopLoading()
+    }
+    
+    func goBack() {
+        webView?.goBack()
+    }
+    
+    func goForward() {
+        webView?.goForward()
+    }
+    
+    func close() {
+        observations.forEach { $0.invalidate() }
+        observations.removeAll()
+        webView?.stopLoading()
+        webView?.removeFromSuperview()
+        webView = nil
+    }
+}
+```
 
-    var optionalUserName: String? {
-        get { try? keyValueStore.object(forKey: Key.optionalUserName.rawValue) as? String }
-        set { 
-            if let value = newValue {
-                try? keyValueStore.set(value, forKey: Key.optionalUserName.rawValue)
-            } else {
-                try? keyValueStore.removeObject(forKey: Key.optionalUserName.rawValue)
+## Navigation Handling
+
+### Navigation Delegate
+```swift
+extension BrowserViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction) async -> WKNavigationActionPolicy {
+        let url = navigationAction.request.url
+        
+        // Handle special URLs
+        if let url = url, URLSchemeHandler.shared.canHandle(url) {
+            URLSchemeHandler.shared.handle(url)
+            return .cancel
+        }
+        
+        // Apply content blocking
+        if contentBlocker.shouldBlock(url) {
+            return .cancel
+        }
+        
+        // Check for downloads
+        if shouldDownload(navigationAction) {
+            startDownload(from: navigationAction.request)
+            return .cancel
+        }
+        
+        return .allow
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        updateProgressBar(animated: true)
+        updateNavigationButtons()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        hideProgressBar()
+        captureHistory()
+        updateFavicon()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        handleNavigationError(error)
+    }
+}
+```
+
+## JavaScript Bridge
+
+### Message Handling
+```swift
+extension BrowserViewController: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let dict = message.body as? [String: Any] else { return }
+        
+        switch message.name {
+        case "duckduckgo":
+            handleDuckDuckGoMessage(dict)
+        case "autofill":
+            handleAutofillMessage(dict)
+        case "tracker":
+            handleTrackerMessage(dict)
+        default:
+            break
+        }
+    }
+    
+    private func handleDuckDuckGoMessage(_ message: [String: Any]) {
+        guard let action = message["action"] as? String else { return }
+        
+        switch action {
+        case "openSettings":
+            presentSettings()
+        case "reportBrokenSite":
+            presentBrokenSiteReport()
+        default:
+            break
+        }
+    }
+}
+```
+
+### JavaScript Injection
+```swift
+extension WKWebView {
+    func evaluateJavaScriptSafely(_ script: String) async throws -> Any? {
+        return try await withCheckedThrowingContinuation { continuation in
+            evaluateJavaScript(script) { result, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: result)
+                }
             }
         }
     }
+    
+    func injectPrivacyProtection() async {
+        let script = """
+        (function() {
+            // Override fingerprinting methods
+            const originalCanvas = HTMLCanvasElement.prototype.toDataURL;
+            HTMLCanvasElement.prototype.toDataURL = function() {
+                return "";
+            };
+            
+            // Block tracking pixels
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.tagName === 'IMG' && isTrackingPixel(node.src)) {
+                            node.remove();
+                        }
+                    });
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+        })();
+        """
+        
+        try? await evaluateJavaScriptSafely(script)
+    }
+}
+```
 
-    var selectedTheme: Theme? {
-        get { 
-            guard let rawValue = try? keyValueStore.object(forKey: Key.optionalTheme.rawValue) as? String else { return nil }
-            return Theme(rawValue: rawValue)
-        }
-        set { 
-            if let value = newValue {
-                try? keyValueStore.set(value.rawValue, forKey: Key.optionalTheme.rawValue)
-            } else {
-                try? keyValueStore.removeObject(forKey: Key.optionalTheme.rawValue)
+## Cookie Management
+
+### Cookie Handling
+```swift
+extension BrowserViewController {
+    func clearCookies(completion: @escaping () -> Void) {
+        let dataStore = WKWebsiteDataStore.default()
+        let dataTypes = Set([WKWebsiteDataTypeCookies])
+        
+        dataStore.fetchDataRecords(ofTypes: dataTypes) { records in
+            let fireproofedDomains = FireproofingManager.shared.fireproofedDomains
+            
+            let recordsToDelete = records.filter { record in
+                !fireproofedDomains.contains(where: { record.displayName.contains($0) })
+            }
+            
+            dataStore.removeData(ofTypes: dataTypes, for: recordsToDelete) {
+                completion()
             }
         }
     }
 }
 ```
 
-## Platform-Specific Storage
+## Download Management
 
+### Download Delegate
 ```swift
-// ✅ CORRECT - Platform-specific KeyValueStore usage
-struct PlatformSettingsUserDefaultsPersistor: PlatformSettingsPersistor {
-
-    enum Key: String {
-        case platformSpecificSetting = "platform.specific.setting"
+extension BrowserViewController: WKDownloadDelegate {
+    func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String) async -> URL? {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let destinationURL = documentsURL.appendingPathComponent(suggestedFilename)
+        
+        // Check if file exists and generate unique name if needed
+        return FileManager.default.uniqueURL(for: destinationURL)
     }
-
-    private let keyValueStore: KeyValueStoring
-
-    init(keyValueStore: KeyValueStoring) {
-        self.keyValueStore = keyValueStore
-    }
-
-    var platformSpecificSetting: Bool {
-        get { 
-            #if os(iOS)
-            return (try? keyValueStore.object(forKey: Key.platformSpecificSetting.rawValue) as? Bool) ?? false
-            #elseif os(macOS)
-            return (try? keyValueStore.object(forKey: Key.platformSpecificSetting.rawValue) as? Bool) ?? true
-            #endif
-        }
-        set { 
-            try? keyValueStore.set(newValue, forKey: Key.platformSpecificSetting.rawValue)
+    
+    func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        // Handle download failure
+        if let resumeData = resumeData {
+            // Store resume data for later
+            DownloadManager.shared.storeResumeData(resumeData, for: download)
         }
     }
+    
+    func downloadDidFinish(_ download: WKDownload) {
+        // Handle successful download
+        DownloadManager.shared.completeDownload(download)
+    }
 }
 ```
 
-## 🚫 DEPRECATED - @UserDefaultsWrapper Pattern
+## Performance Optimization
 
-The following pattern is deprecated and should not be used for new code:
-
+### Memory Management
 ```swift
-// ❌ DEPRECATED - Do not use @UserDefaultsWrapper for new code
-extension AppUserDefaults {
-    @UserDefaultsWrapper(key: .newFeatureEnabled, defaultValue: false)
-    var newFeatureEnabled: Bool
+class TabManager {
+    private let maxInMemoryTabs = 5
+    private var tabs: [Tab] = []
     
-    @UserDefaultsWrapper(key: .lastUpdateCheck, defaultValue: Date.distantPast)
-    var lastUpdateCheck: Date
-}
-```
-
-## Migration from Property Wrappers
-
-When migrating from `@UserDefaultsWrapper` to the KVO pattern:
-
-1. **Create a new persistor struct** - Following the naming convention `*UserDefaultsPersistor`
-2. **Define keys enum** - Convert string keys to enum cases
-3. **Convert properties** - Transform @UserDefaultsWrapper properties to computed properties
-4. **Update injection** - Pass KeyValueStore through dependency injection
-5. **Preserve key names** - Ensure existing UserDefaults keys remain unchanged
-
-## Testing Pattern
-
-```swift
-// ✅ CORRECT - Testing with mock KeyValueStore
-class MockKeyValueStore: KeyValueStoring {
-    private var storage: [String: Any] = [:]
-    
-    func object(forKey key: String) throws -> Any? {
-        return storage[key]
-    }
-    
-    func set(_ value: Any, forKey key: String) throws {
-        storage[key] = value
-    }
-    
-    func removeObject(forKey key: String) throws {
-        storage.removeValue(forKey: key)
+    func optimizeMemory() {
+        let activeTabs = tabs.filter { $0.isActive }
+        let inactiveTabs = tabs.filter { !$0.isActive }
+            .sorted { $0.lastAccessDate < $1.lastAccessDate }
+        
+        // Suspend inactive tabs if we have too many in memory
+        if activeTabs.count + inactiveTabs.count > maxInMemoryTabs {
+            let tabsToSuspend = inactiveTabs.prefix(inactiveTabs.count - (maxInMemoryTabs - activeTabs.count))
+            tabsToSuspend.forEach { $0.suspend() }
+        }
     }
 }
 
-// In tests
-let mockStore = MockKeyValueStore()
-let persistor = AppearancePreferencesUserDefaultsPersistor(keyValueStore: mockStore)
-persistor.isOmnibarVisible = true
-XCTAssertTrue(persistor.isOmnibarVisible)
+extension Tab {
+    func suspend() {
+        // Take snapshot
+        webView?.takeSnapshot(with: nil) { [weak self] image, error in
+            self?.snapshot = image
+            self?.webView?.removeFromSuperview()
+            self?.webView = nil
+        }
+    }
+    
+    func resume() {
+        guard webView == nil else { return }
+        setupWebView()
+        if let url = url {
+            load(url: url)
+        }
+    }
+}
 ```
 
-## What NOT to Do
+## Security Considerations
 
+### Certificate Validation
 ```swift
-// ❌ INCORRECT - Direct UserDefaults access
-var newFeatureEnabled: Bool {
-    get { return UserDefaults.standard.bool(forKey: "newFeature") }
-    set { UserDefaults.standard.set(newValue, forKey: "newFeature") }
-}
-
-// ❌ INCORRECT - Using @UserDefaultsWrapper for new code
-@UserDefaultsWrapper(key: .newFeatureEnabled, defaultValue: false)
-var newFeatureEnabled: Bool
-
-// ❌ INCORRECT - Not handling errors
-var setting: Bool {
-    get { keyValueStore.object(forKey: "key") as? Bool ?? false } // Missing try?
-    set { keyValueStore.set(newValue, forKey: "key") } // Missing try?
-}
-
-// ❌ INCORRECT - Not using enum for keys
-var setting: Bool {
-    get { (try? keyValueStore.object(forKey: "hardcoded-key") as? Bool) ?? false }
-    set { try? keyValueStore.set(newValue, forKey: "hardcoded-key") }
+extension BrowserViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge) async -> (URLSession.AuthChallengeDisposition, URLCredential?) {
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
+              let serverTrust = challenge.protectionSpace.serverTrust else {
+            return (.performDefaultHandling, nil)
+        }
+        
+        // Perform certificate pinning for DuckDuckGo domains
+        if CertificatePinning.shared.shouldPin(host: challenge.protectionSpace.host) {
+            do {
+                try CertificatePinning.shared.validate(serverTrust, host: challenge.protectionSpace.host)
+                let credential = URLCredential(trust: serverTrust)
+                return (.useCredential, credential)
+            } catch {
+                return (.cancelAuthenticationChallenge, nil)
+            }
+        }
+        
+        return (.performDefaultHandling, nil)
+    }
 }
 ```
-
-The KVO pattern with KeyValueStore provides better testability, error handling, and dependency injection while maintaining type safety and consistency across the codebase.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
