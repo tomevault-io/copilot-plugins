@@ -1,0 +1,9 @@
+{
+  "name": "zcaceres--markdownify-mcp",
+  "displayName": "markdownify-mcp",
+  "description": "A Model Context Protocol server for converting almost anything to Markdown",
+  "version": "1.0.0",
+  "author": "zcaceres",
+  "homepage": "https://github.com/zcaceres/markdownify-mcp",
+  "skills": []
+}
