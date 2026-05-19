@@ -2,6 +2,8 @@
 
 > Sourced from [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+Use Zotero from the command line, e.g., for AI-assisted reference / citation management in academic writing — CLI wrapper for pyzotero
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
