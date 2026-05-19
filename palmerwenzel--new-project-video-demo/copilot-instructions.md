@@ -1,110 +1,129 @@
-## drizzle-rules-example
+## github-cli-example
 
-> Rules for Drizzle ORM in the context of this project's server.
+> Instructions for using the GitHub CLI to create/view issues, commits, and pull reqests.
 
-# Drizzle ORM Best Practices
+---
+# Specify the following for Cursor rules
+description: Instructions for using the GitHub CLI to create issues, commits, and pull requests.
+---
 
-This document outlines the best practices for managing database schemas and migrations using Drizzle ORM within the our project's server application.
+## GitHub CLI Workflow Guide
 
-## Workflow: TypeScript-First Schema Management
+This guide provides a walkthrough for a common development workflow using the GitHub CLI, from viewing issues to creating pull requests.
 
-We adopt a **TypeScript-first** approach for managing the database schema. This means:
+### 1. Managing Issues
 
-1.  **Source of Truth:** The TypeScript schema definition files located in `server/src/db/schema/` are the definitive source of truth for the database structure.
-2.  **Schema Changes:** All changes to the database structure (adding tables, columns, constraints, etc.) MUST be made by modifying these TypeScript files first.
-3.  **Generating Migrations:** After modifying the TypeScript schema, the `drizzle-kit generate` command is used to automatically create corresponding SQL migration files (`*.sql`).
-4.  **Applying Migrations:** The generated SQL migrations are then applied to the database (both local development and production environments) using the standard Supabase migration workflow (e.g., `supabase db push` locally, CI/CD deployment).
+#### Viewing Issues
 
-**Rationale:**
+List all open issues in the repository:
 
-- **Type Safety:** Leverages TypeScript's full potential for defining and interacting with the database schema.
-- **Consistency:** Ensures the database schema always matches the application's understanding (defined in TypeScript).
-- **Maintainability:** Changes are tracked and managed within the codebase alongside application logic.
-- **Avoids `pull` Limitations:** Sidesteps potential issues with `drizzle-kit pull` overwriting manual schema adjustments or struggling with split file structures.
-
-## Directory Structure (`server/src/db/schema/`)
-
-- **Individual Table Files:** Each database table should have its own schema definition file (e.g., `users.schema.ts`, `pets.schema.ts`). This prevents circular dependencies and improves organization.
-- **Shared Definitions:** Common elements like PostgreSQL enums should be defined in a dedicated shared file (e.g., `shared.schema.ts`) and imported where needed.
-- **Relations File:** Database relationships should be defined separately, typically in `relations.ts`, importing the necessary table schemas.
-
-## Process for Schema Changes
-
-1.  **Modify TypeScript Schema:** Make the desired changes directly in the relevant `*.schema.ts` file(s) within `server/src/db/schema/`.
-2.  **Generate SQL Migration:** Run the following command from the `server/` directory:
-
-    ```bash
-    npx drizzle-kit generate
-    ```
-
-    > **Note:** In the SAT Monsters project, the preferred way to run this command and handle the generated output is by using the root-level script: `pnpm run db:generate-migration`. This script automatically runs `drizzle-kit generate` and then moves/renames the output file to the correct `supabase/migrations/` directory with the proper naming convention.
-    > If you run `npx drizzle-kit generate` manually within the `server/` directory, you **must** remember to manually move the generated `.sql` file from `server/drizzle/migrations/` to `server/supabase/migrations/` and rename it according to the project's timestamp convention (e.g., `YYYYMMDDHHmmss_description.sql`) before it can be used by the Supabase CLI.
-
-    This command reads the changes in your `.ts` files, compares them to the previous schema state (using snapshots typically stored in the migration output directory), and generates a new `.sql` file in the directory specified by the `out` property in `drizzle.config.ts` (e.g., `./drizzle/migrations/`).
-
-3.  **Review SQL Migration:** Inspect the generated `.sql` file to ensure it accurately reflects the intended changes.
-4.  **Apply Migration:**
-    - **Local:** Use Supabase CLI: `supabase db push` (if applicable for local dev) or apply manually.
-    - **Production:** Integrate the new SQL migration file into your deployment process (e.g., Supabase migration CI/CD).
-5.  **Commit Changes:** Commit the modified `*.schema.ts` files AND the newly generated `.sql` migration file.
-
-## `drizzle.config.ts` Setup
-
-The `server/drizzle.config.ts` file should be configured to support this workflow:
-
-```typescript
-import type { Config } from "drizzle-kit";
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: ".env" });
-
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is not set");
-}
-
-export default {
-  // Point schema to the DIRECTORY containing all individual *.schema.ts files
-  schema: "./src/db/schema/",
-  // Point out to the directory where SQL migrations should be GENERATED
-  out: "./drizzle/migrations", // Or './prisma/migrations' if preferred, but './drizzle/' is conventional
-  dialect: "postgresql",
-  dbCredentials: {
-    url: process.env.DATABASE_URL,
-  },
-  verbose: true,
-  strict: true,
-} satisfies Config;
+```bash
+gh issue list | cat
 ```
 
-By following this TypeScript-first approach, we ensure a robust, type-safe, and maintainable system for evolving our database schema.
+To filter by a specific label:
 
-### Migration File Handling
+```bash
+gh issue list --label "bug" | cat
+```
 
-1.  **Generation**: When you run `(cd server && npx drizzle-kit generate)`, Drizzle Kit creates SQL migration files in `server/drizzle/migrations/` based on changes in your schema (`server/src/db/schema/*`).
-2.  **Timestamping & Renaming (Manual or Scripted)**: For Supabase to recognize and apply these migrations in the correct order alongside other custom migrations, they need to be:
-    - Moved from `server/drizzle/migrations/` to `server/supabase/migrations/`.
-    - Renamed to follow a `YYYYMMDDHHMMSS_description.sql` format (e.g., `20231027143000_add_user_profiles.sql`).
-    - The `_scripts/db_generate_migration.sh` script automates this process. It finds the latest Drizzle-generated file, prompts for a description, and renames/moves it appropriately.
-3.  **Application**: Migrations in `server/supabase/migrations/` are applied by Supabase CLI commands, typically `supabase db reset` for local development and test environments, or `supabase migration up` (though `db reset` is often preferred for its clean-slate approach locally).
+#### Creating an Issue
 
-### Test Database Initialization (`test_db_reinit.sh`)
+1.  **Create a temporary issue body file.**
+    Create a file named `_docs/temp-issue-body.md` and add the issue description there. This allows for proper Markdown formatting. Issue descriptions should be detailed, specific, and context-rich.
 
-This script (located in `_scripts/`) is crucial for consistently setting up your test database. It typically performs the following:
+2.  **Run the `gh issue create` command.**
+    Use the following command to create an issue, providing a title and labels. See the "Available Labels" section for guidance.
 
-- Wipes the existing test database.
-- Copies the latest Drizzle-generated schema (which should represent your full current schema after Drizzle generation) to `server/supabase/migrations/0000_initial_schema.sql`.
-- Uses `supabase db reset` to apply this initial schema along with any other custom SQL migrations (like triggers) you have in `server/supabase/migrations/`.
+    ```bash
+    gh issue create --title "Your Issue Title" --body-file "_docs/temp-issue-body.md" --label "bug,high-priority"
+    ```
 
-This ensures your test environment accurately reflects your Drizzle schema plus any manual SQL additions.
+3.  **Delete the temporary file.**
+    After creating the issue, delete `_docs/temp-issue-body.md`.
 
-### Important Considerations
+### 2. Making Commits & Resolving Issues
 
-- **Single Source of Truth**: While Drizzle manages schema changes, the `server/supabase/migrations/` directory becomes the ultimate source of truth for what gets applied to your Supabase databases (local and deployed).
-- **Custom SQL**: For things Drizzle doesn't handle (or handle easily), like complex triggers, RLS policies not expressible via Drizzle, or specific data seeding steps that must run with migrations, create separate SQL files in `server/supabase/migrations/` with appropriate timestamps after your Drizzle-generated schema file.
-- **`0000_initial_schema.sql`**: The `test_db_reinit.sh` script treats the Drizzle-generated output as a complete baseline schema, naming it `0000_initial_schema.sql`. Subsequent custom migrations should have later timestamps.
-- **Review Migrations**: Always review the SQL generated by Drizzle Kit before committing and applying it, especially for potentially destructive changes.
+1. **Check the working state and determine which files should be added (likely all)**
+    TODO: add this section; should including checking the current branch (and creating a new one if on `main` or `master`), staging the necessary files, etc
 
-By following this workflow, you can leverage Drizzle Kit for schema management while ensuring compatibility and proper ordering with Supabase's migration system.
+2.  **Create a temporary commit message file.**
+    Create a file named `_docs/temp-commit-message.md` and add your commit message there. To link the commit to an issue and automatically close it upon merge, include a keyword like `closes #42` in this file.
+
+3.  **Run the `git commit` command.**
+    Use the `-F` flag to use the file content as the commit message.
+
+    ```bash
+    git commit -F _docs/temp-commit-message.md
+    ```
+
+4.  **Delete the temporary file.**
+    After creating the commit, delete `_docs/temp-commit-message.md`.
+
+### 3. Creating Pull Requests
+
+1.  **Create a temporary pull request body file.**
+    Create a file named `_docs/temp-pr-body.md` and add the description there. **IMPORTANT: If your PR resolves issues, include closing keywords in this file or the PR title.**
+
+2.  **Run the `gh pr create` command.**
+    Use the `--body-file` flag to use the file content as the PR body.
+
+    ```bash
+    gh pr create --title "Pull Request Title" --body-file "_docs/temp-pr-body.md"
+    ```
+
+3.  **Delete the temporary file.**
+    After creating the pull request, delete `_docs/temp-pr-body.md`.
+
+#### Important: Closing Issues with Squash Merges
+
+If a repostory uses **squash and merge**, which affects how issues are auto-closed:
+
+- **Individual commit messages with `closes #XX` are LOST during squash merge**
+- **Only keywords in PR title or PR description will auto-close issues**
+
+**Best Practices for Issue Closing:**
+
+1. **Option A: Include closing keywords in PR title**
+   ```bash
+   gh pr create --title "feat: dashboard refactoring (closes #47, #48, #49)"
+   ```
+
+2. **Option B: Include closing keywords in PR description**
+   Add this to your `_docs/temp-pr-body.md`:
+   ```markdown
+   ## Issues Resolved
+   - closes #47
+   - closes #48  
+   - closes #49
+   ```
+
+3. **For single-issue PRs:** Either approach works fine
+4. **For multi-issue PRs:** Use Option B (PR description) for better organization
+
+**Valid Closing Keywords:**
+- `closes #XX`, `fixes #XX`, `resolves #XX`
+- `close #XX`, `fix #XX`, `resolve #XX`
+- Multiple issues: `closes #47, closes #48, closes #49`
+
+### Available Labels
+
+Here is a list of available labels for issues. **All issues must have exactly one priority label and at least one standard label.**
+
+#### Priority Labels
+
+- `high-priority`: High priority - needs to be addressed immediately.
+- `medium-priority`: Medium priority - should be addressed in the near future.
+- `low-priority`: Low priority - can be addressed when time permits.
+
+#### Standard Labels
+
+- `bug`: Something isn't working
+- `documentation`: Improvements or additions to documentation
+- `enhancement`: New feature or request
+- `help wanted`: Extra attention is needed
+- `question`: Further information is requested
+- `refactor`: Code refactoring
 
 ---
 > Source: [palmerwenzel/new-project-video-demo](https://github.com/palmerwenzel/new-project-video-demo) — distributed by [TomeVault](https://tomevault.io).
