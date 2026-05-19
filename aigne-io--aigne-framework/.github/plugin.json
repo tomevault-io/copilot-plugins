@@ -1,0 +1,9 @@
+{
+  "name": "aigne-io--aigne-framework",
+  "displayName": "aigne-framework",
+  "description": "The functional, composable, and typescript-first AI Agent framework for real-world LLM Apps.",
+  "version": "1.0.0",
+  "author": "AIGNE-io",
+  "homepage": "https://github.com/AIGNE-io/aigne-framework",
+  "skills": []
+}
