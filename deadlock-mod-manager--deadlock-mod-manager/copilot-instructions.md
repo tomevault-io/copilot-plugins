@@ -1,78 +1,68 @@
-## deadlock-mod-manager
+## 010-workflow
 
-> This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
+> Workflow guidelines and task management procedures
 
-# Instructions for AI Agents
 
-This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
+# Workflow Guidelines
 
-## Before You Begin
+## First Step for Any Task
 
-1. Check the `.cursor/rules` directory for relevant guidance before starting any task.
-2. Read [CONTRIBUTING.md](./CONTRIBUTING.md) and understand the project's conventions.
-3. Read the [AI Policy](./AI_POLICY.md) — contributions must comply with it.
-4. Familiarize yourself with the [project structure](https://docs.deadlockmods.app/developer-docs/project-structure) and [architecture](https://docs.deadlockmods.app/developer-docs/architecture).
+- Before starting work on any task, always check the `.cursor/rules` directory for relevant guidance
+- These documents contain established workflows, conventions, and requirements for different aspects of the project
+- Following these rule files will ensure consistency and reduce rework
+- If multiple rule files seem relevant, review all of them before proceeding
 
-## Project Context
+## Last Step for Any Task
 
-Deadlock Mod Manager is a Tauri + React + TypeScript desktop app for managing mods for Valve's Deadlock game. It's a monorepo managed with pnpm workspaces and Turborepo.
+- If you've learned new concepts, workflows, or best practices during task completion, suggest updates to the relevant rules
+- For new workflows that aren't covered by existing rules, suggest creating a new rule file
+- **Create a changeset if your changes are worth mentioning in the changelog:**
+  - Run `pnpm changeset` for new features, bug fixes, or breaking changes
+  - See `090-changesets.mdc` for detailed guidelines on when and how to create changesets
+  - Skip changesets for refactoring, formatting, or internal changes
+- Evaluate whether tests should be added for your changes:
+  - For functional code, new features, API changes, or bug fixes, tests are essential
+  - For content-only changes like frontend changes or documentation updates, tests are typically not required
+  - When in doubt, err on the side of adding tests - they provide long-term stability and prevent regressions
+- Always run appropriate linting and formatting before considering a task complete:
 
-Key directories:
+  - Commands must be run from the root of the monorepo
 
-- `apps/desktop` — Tauri desktop app (React frontend + Rust backend)
-- `apps/api` — Backend API service (Bun + Hono)
-- `apps/bot` — Discord bot application
-- `apps/lockdex` — Lockdex service application
-- `apps/www` — Web application (Vite + React)
-- `apps/docs` — Documentation site (Fumadocs)
-- `packages/` — Shared packages (common, database, distributed-lock, logging, queue, shared, vpk-parser, ui)
+  ```bash
+  pnpm lint:fix
+  pnpm format:fix
+  ```
 
-## Rules for AI Agents
+- Verify that no regressions are introduced by your changes
 
-### DO
+## Available Rules
 
-- Help the human contributor understand code and debug issues
-- Suggest improvements that follow existing patterns in the codebase
-- Write tests for new and existing functionality
-- Use oxfmt for formatting and oxlint for linting (not ESLint/Prettier/Biome)
-- Follow the existing commit convention: `type(scope): description` (see [.cursor/skills/git-conventions/SKILL.md](.cursor/skills/git-conventions/SKILL.md)); commit on the current branch unless the user asks to use a feature branch
-- Respect TypeScript strict mode — never use `any` or `unknown`, use proper types (see 031-never-use-any.mdc)
-- Use `react-i18next` for any user-facing strings (check `apps/desktop/src/locales/`)
-- Use React Query mutations for async operations, not manual useState loading (see 030-coding-style.mdc)
+The following rules are available in the `.cursor/rules` directory:
 
-### DON'T
+### Core Project Rules
 
-- Generate entire pull requests autonomously
-- Open issues based on static analysis without human verification
-- Refactor code without prior discussion with maintainers
-- Add new dependencies without justification
-- Introduce patterns that don't already exist in the codebase without discussion
-- Submit code that the human operator cannot explain or modify
+- **010-workflow.mdc** - Workflow guidelines and task management procedures
+- **020-codebase-structure.mdc** - Project structure, commands, and development setup
+- **030-coding-style.mdc** - Coding standards and style guidelines for all technologies
+- **035-error-handling.mdc** - Use BaseError subclasses instead of raw `throw new Error`
+- **040-logging.mdc** - Logging guidelines for implementing structured logging
+- **050-tauri-version.mdc** - Tauri v2 version enforcement and dependency management
+- **055-rust-edition.mdc** - Rust edition 2024 enforcement for all Rust code
+- **060-tailwind-v4.mdc** - Guidelines for using Tailwind CSS v4
+- **070-comments-defensive-programming.mdc** - Comments and defensive programming guidelines
+- **080-ai-interaction.mdc** - AI interaction guidelines and communication style rules
+- **090-changesets.mdc** - Changeset management for features and fixes
 
-### Code Quality Checklist
+### Special Rules
 
-Before the human submits your work, ensure:
+- **999-mdc-format.mdc** - Guide for creating and maintaining MDC rule files
 
-- [ ] `pnpm lint:fix` and `pnpm format:fix` have been run
-- [ ] `pnpm check-types` passes
-- [ ] Changes are tested (manually at minimum, automated tests preferred)
-- [ ] PR description explains _what_ and _why_, not just _how_
-- [ ] AI usage is disclosed per the [AI Policy](./AI_POLICY.md)
+### Agent skills (`.cursor/skills`)
 
-## Tech Stack Quick Reference
+- **git-conventions** ([SKILL.md](../skills/git-conventions/SKILL.md)) - Git commit message format, branch naming, and version control practices
+- **032-import-rules** ([SKILL.md](../skills/032-import-rules/SKILL.md)) - Import rules for cross-package and self-import prevention
 
-| Layer             | Technology                           |
-| ----------------- | ------------------------------------ |
-| Desktop Framework | Tauri v2                             |
-| Frontend          | React + TypeScript + Tailwind CSS v4 |
-| Backend (Desktop) | Rust                                 |
-| API Server        | Bun + Hono                           |
-| Database          | PostgreSQL + Drizzle ORM             |
-| Package Manager   | pnpm (monorepo)                      |
-| Build System      | Turborepo                            |
-| Linter/Formatter  | oxlint + oxfmt                       |
-| i18n              | react-i18next                        |
-| Docs              | Fumadocs                             |
+When working on specific aspects of the project, consult the relevant rules above to ensure compliance with established patterns and standards.
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
