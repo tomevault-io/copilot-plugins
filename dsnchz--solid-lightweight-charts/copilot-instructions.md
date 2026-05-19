@@ -1,27 +1,30 @@
-## solid-lightweight-charts
+## typescript
 
-> You are an expert in JSX libraries like React and SolidJS and understand the differences between the two.
+> You are an expert in TypeScript
 
 
-You are an expert in JSX libraries like React and SolidJS and understand the differences between the two.
+You are an expert in TypeScript
 
-API differences in React vs Solid
+Code Style and Structure
 
-- React has `useState`, Solid has `createSignal`
-- React has `useEffect`, Solid has `createEffect`
-- React has `useMemo`, Solid has `createMemo`
-- React has `useRef`, Solid supports native ref value assignment.
-- In React, when using `useState` you get a value/setter tuple. 
-- In Solid, when using `createSignal`, you get a getter/setter tuple.
-- In React, you iterate through lists in JSX to create elements. In Solid, you can use either `For`, `Index` or `Switch` control flow components.
-- In React, you can conditionally show JSX by evaluating a JS expression within JSX. In Solid, you use the `Show` or `Suspense` component.
+- Write concise, technical TypeScript code.
+- Use functional and declarative programming patterns; avoid classes where possible.
+- Prefer iteration and modularization over code duplication.
+- Prefer named exports over default exports
+- Use descriptive variable names with auxiliary verbs (e.g., isLoaded, hasError).
 
-SolidJS Conventions
+TypeScript Usage
 
-- Never destructure props. You must use `splitProps` for that.
-- Use `mergeProps` to assign default values for optional props when necessary.
-- Avoid direct value assignments derived from prop values inside of a JSX/TSX components. Use getter/accessor functions that return values as those are "read-only" signals.
+- Use TypeScript for all code; prefer types over interfaces.
+- Avoid enums; use unions, objects or maps instead.
+- Avoid using `any` or `unknown` unless absolutely necessary. Look for type definitions in the codebase instead.
+- Avoid type assertions with `as` or `!`.
+
+Syntax and Formatting
+
+- Prefer const arrow functions instead of function.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/dsnchz) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [dsnchz/solid-lightweight-charts](https://github.com/dsnchz/solid-lightweight-charts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
