@@ -1,0 +1,9 @@
+{
+  "name": "supavec--supavec",
+  "displayName": "supavec",
+  "description": "The open-source alternative to Carbon.ai. Build powerful RAG applications with any data source, at any scale.",
+  "version": "1.0.0",
+  "author": "supavec",
+  "homepage": "https://github.com/supavec/supavec",
+  "skills": []
+}
