@@ -1,0 +1,9 @@
+{
+  "name": "tidedra--zotero-arxiv-daily",
+  "displayName": "zotero-arxiv-daily",
+  "description": "Recommend new arxiv papers of your interest daily according to your Zotero libarary.",
+  "version": "1.0.0",
+  "author": "TideDra",
+  "homepage": "https://github.com/TideDra/zotero-arxiv-daily",
+  "skills": []
+}
