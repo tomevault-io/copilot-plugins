@@ -1,20 +1,16 @@
-## commands-and-workflow
+## gocardless
 
-> Commands and workflow for Spendly (Laravel, React, tests, lint). Apply to every task.
+> When working on GoCardless or bank data integration (requisitions, accounts, sync).
 
 
-# Commands
+# GoCardless
 
-- **Backend:** `php artisan test`, `./vendor/bin/phpstan analyse`, `./vendor/bin/pint`
-- **Frontend:** `npm run dev`, `npm run test`, `npm run types`, `npm run lint`, `npm run format:check`
-- **Full stack:** `./scripts/test.sh` (Docker)
-- Prefer targeted runs: `php artisan test --filter=ClassName`, `npm test -- path/to/file`
-
-# Workflow
-
-- After PHP changes: run phpstan and pint (or tests).
-- After TS/React changes: run types and lint (or tests).
-- Modifiable vs protected dirs: see AGENTS.md.
+- Prefer delegating to the `gocardless` subagent for Bank Data integration work.
+- Full docs: docs/ai/GoCardless_Architecture.md.
+- Controllers: GoCardlessController (routes under settings/bank). BankDataController for settings UI.
+- Use BankDataClientInterface; production vs mock via client factories (GoCardlessClientFactoryInterface, ProductionClientFactory, MockClientFactory).
+- Token/requisition flow: TokenManager, requisition creation and callback handling. Do not hardcode secrets.
+- **CLI**: All flows can be tested via terminal. Commands: `gocardless:institutions`, `gocardless:requisitions`, `gocardless:connect`, `gocardless:import-account`, `gocardless:sync`, `gocardless:sync-all`, `gocardless:delete-requisition`, `gocardless:refresh-balance`, `gocardless:retry-failures`. See AGENTS.md (GoCardless CLI) and docs/ai/GoCardless_Architecture.md.
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
