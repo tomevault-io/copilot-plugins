@@ -4,7 +4,7 @@
   "repo": "dotfiles",
   "description": "Highly-opinionated setup for AI safety research with coding agents (Claude Code, Codex, Gemini CLI)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yulonglin/dotfiles",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T14:30:28Z"
+  "distributed_at": "2026-05-19T14:32:25Z"
 }
