@@ -1,0 +1,9 @@
+{
+  "name": "autobrr--netronome",
+  "displayName": "netronome",
+  "description": "Netronome is a modern network speed testing and monitoring tool built with Go and React.",
+  "version": "1.0.0",
+  "author": "autobrr",
+  "homepage": "https://github.com/autobrr/netronome",
+  "skills": []
+}
