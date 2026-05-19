@@ -1,144 +1,121 @@
-## org-general-practices
+## org-typescript-standards
 
-> General coding practices and agent interaction rules applicable across the organization, regardless of language.
+> - Use TypeScript for all new code development.
 
-# Organization General Practices
+# Organization TypeScript Standards
 
-## Core Coding Philosophy
-– **Simplicity:** Always prefer simple, understandable solutions.
-– **DRY (Don't Repeat Yourself):** Avoid duplication. Check for existing similar code/functionality before writing new code.
-– **Cleanliness:** Keep the codebase clean, well-organized, and maintainable.
-– **Environment Awareness:** Write code that correctly handles different environments (e.g., dev, test, prod).
-– **Focused Changes:** Only make changes that are requested or clearly understood and directly related to the task. Avoid implementing unrelated improvements or refactors without explicit instruction (see Agent Task Scope below).
-– **Incremental Improvement:** When fixing bugs, avoid introducing new patterns/technologies unless necessary after exhausting existing options. If a new pattern replaces an old one, remove the old implementation.
-– **File Size:** Avoid overly long files. Consider refactoring files exceeding 200–300 lines
-- **Function Size:** Avoid overly long functions.  Break up large functions using helper functions that encapsulate related functionality into smaller and more focused pieces.
-– **Script Usage:** Avoid writing one-off scripts if a more integrated solution is feasible.
+## Core Requirement
+- Use TypeScript for all new code development.
 
-## Function Design & Complexity Management
-- **Extract Helper Methods:** When a function exceeds ~30-40 lines or has distinct logical sections (e.g., validation, processing, output), extract helper methods. If you have numbered steps in comments (Step 1, Step 2, etc.), consider if each step should be its own function.
-- **Single Responsibility:** Each function should do ONE thing well. A function should either answer one question OR perform one action, not both.
-- **Fail-Fast Pattern:** Check error conditions early and return/throw immediately. Don't carry invalid state through the entire function. This makes the happy path clearer and reduces nesting.
-- **Avoid Redundant Checking:** Don't check the same condition multiple times across different functions. Check once at the boundary, then pass validated data to inner functions.
-- **Clear Method Contracts:** Helper methods should clearly indicate via their name and signature what they assume (e.g., `calculateValueWithValidPrices` assumes prices are already validated).
+## Code Quality & Style
+- **TSDoc:** Maintain comprehensive TSDoc documentation:
+  - All public APIs (functions, classes, types, interfaces, variables) must have TSDoc comments.
+  - All functions must document parameters (`@param`) and return values (`@returns`).
+  - All types, interfaces, and classes must have descriptive comments.
+  - Complex algorithms or logic must include detailed explanations within comments.
+  - Provide `@example` blocks for non-obvious usage.
+  - Aim for near-complete documentation coverage (e.g., target 99% if tooling allows measurement).
+- **Type Safety:** Utilize TypeScript's type system effectively. Avoid `any` where possible and prefer specific types.
+  - **Explicit Return Types:** All functions must have explicit return types. Never rely on TypeScript's type inference for function returns.
+  - **Named Types over Ad-hoc Types:** Prefer creating named types/interfaces over inline type definitions, especially when:
+    - The type is used in more than one place
+    - The type represents a domain concept
+    - The type is complex (objects with multiple properties)
+  - Example: ❌ BAD: `function getUser(): { id: string; name: string; email: string }`
+  - Example: ✅ GOOD: `interface User { id: string; name: string; email: string }` then `function getUser(): User`
+- **Async/Await:** Use `async/await` consistently for asynchronous operations. Handle errors properly using `try...catch` blocks or promise rejection handling.
+- **Immutability:** Prefer immutable data structures and updates, especially when dealing with state management, to avoid side effects.
 
-## Efficient Code Patterns
-- **Don't Compute What You Don't Need:** Avoid building intermediate data structures (arrays, objects) just to check a property. For example, don't build an array just to check if it's empty - use a boolean check directly.
-- **Choose Appropriate Loops:** Use `for` loops when iteration count is known upfront, `while` for conditional iteration. Modern `for` loops are often cleaner than `while` with manual increment.
-- **Early Exit Strategies:** Prefer methods that can exit early (`.some()`, `.every()`, `.find()`) over methods that process everything (`.filter().length`, `.map()`) when you just need a boolean or single result.
-- **Separation of Concerns:** Separate "what failed" (detailed logging) from "should we continue" (control flow) logic. Log details where the failure is detected, make decisions based on simple booleans.
-- **Push Computation to Data Layer:** When working with databases or external services:
-  - Prefer aggregating/sorting/filtering at the source over fetching-then-processing
-  - Example: SQL `SUM()` instead of fetching all rows to sum in JavaScript
-  - Example: API filtering parameters instead of fetching all then filtering
-  - This reduces memory usage, network transfer, and processing time
+## Package Development (for Libraries/Shared Code)
+- **Modularity:** Keep packages small, focused, and with clear responsibilities.
+- **API Design:** Export types for all public APIs to support consumers.
+- **Versioning:** Use a standard process (like changesets - see repo-specific rules) for versioning packages.
+- **Change Management:** Clearly document breaking changes.
+- **Compatibility:** Strive for backward compatibility when making changes.
 
-## Data Handling
-– **Mocking:** Mock data *only* for automated tests. Never use mocked or stubbed data in development or production environments.
-– **Secrets:** Ensure secrets, API keys, or passwords are *never* committed to the repository. Use environment variables or secure secret management solutions.
+## Component Development (Primarily for UI/React)
+- **Accessibility:** Follow accessibility (a11y) best practices.
+- **Error Handling:** Implement proper error boundaries and user-friendly error states.
+- **Typing:** Use TypeScript strictly for props, state, and event handlers.
+- **Documentation:** Document component props, usage, and purpose clearly (using TSDoc for exported components).
+- **Purity:** Keep components pure (predictable output for given inputs) whenever feasible.
 
-## Tooling Interaction
-– **Non-Interactive Execution:** When using command-line tools or scripts, ensure they run in non-interactive mode to prevent hangs (e.g., append `| cat` to commands like `git log` if needed, use appropriate flags).
+## State Management (Primarily for UI/React)
+- **Local State:** Use standard mechanisms like React hooks (`useState`, `useReducer`) for local component state.
+- **Loading/Error States:** Implement clear loading indicators and handle errors gracefully in the UI.
+- **Network Requests:** Cache network requests appropriately to improve performance and reduce redundant calls.
 
-## Documentation
-– **Inline Documentation:** Maintain excellent, thorough inline documentation (e.g., comments for functions, methods, types, classes, and complex logic).
-– **READMEs:** When editing README files, conform to the [standard-readme](mdc:https:/github.com/RichardLitt/standard-readme) specification.
-– **CRITICAL - No Temporal or Comparative Comments:** 
-  - **NEVER** use words like "new", "optimized", "efficient", "replaces", "improved", "better", "faster", "atomic" in comments or TSDoc
-  - **NEVER** reference what the code replaces or how it compares to previous versions
-  - **NEVER** mention implementation optimizations (e.g., "avoids N+1", "uses atomic operations", "parallelized")
-  - **DO** describe WHAT the method does and its contract/behavior
-  - **DO** focus on the current functionality without historical context
-  - Example: ❌ BAD: "Optimized method that efficiently fetches users avoiding N+1 queries"
-  - Example: ✅ GOOD: "Fetches users with their associated posts in a single query"
+## Testing
+- **Unit Tests:** Write unit tests for utilities, helper functions, and isolated logic.
+- **Component Tests:** Test UI components in isolation to verify rendering and behavior.
+- **Integration Tests:** Implement integration tests to verify interactions between different parts of the system.
+- **Scenario Coverage:** Ensure tests cover common use cases, edge cases, and error scenarios.
+- **Accessibility Tests:** Include automated accessibility checks in the testing process where possible.
 
-## Security
-- Be mindful of security best practices, especially when handling user input, authentication, authorization, or interacting with external services.
-- Avoid common vulnerabilities (e.g., XSS, CSRF, insecure direct object references).
+## Performance
+- **Optimization:** Be mindful of performance implications. Optimize critical code paths.
+- **Bundling:** Utilize techniques like bundle analysis and code splitting to manage application size.
+- **Caching:** Implement appropriate caching strategies (client-side and server-side).
+- **Asset Optimization:** Optimize images, fonts, and other static assets.
 
-## Dead Code Prevention
-- **Dead Code Detection**:
-  - Remove unused functions immediately upon discovery
-  - Use `grep` or semantic search to verify function usage before creating new ones
-  - Prefer extending existing functions over creating similar ones
-  - Remove commented-out code blocks (use version control for history)
-  - **AI AGENT REQUIREMENT**: When implementing a new method that replaces an old one, you MUST remove the old implementation in the same changeset
-- **Function Reuse Audit**:
-  - Before implementing: Search for similar functionality using semantic search
-  - Document why existing solutions don't work if creating new functions
-  - Mark deprecated functions with `@deprecated` TSDoc tag
-  - Include migration path in deprecation notice
-- **Immediate Cleanup (Part of Regular Development)**:
-  - **When implementing a replacement**: Remove the old implementation in the same PR
-  - **After refactoring**: Delete the original code immediately, don't leave both versions
+## Code Efficiency Patterns
+- **Array Method Selection:**
+  - Use `.some()` to check if ANY element matches (stops on first match)
+  - Use `.every()` to check if ALL elements match (stops on first non-match)  
+  - Use `.find()` to get the first matching element (stops on first match)
+  - Avoid `.filter().length === 0` or `.filter().length > 0` when `.some()` or `.every()` would suffice
+  - Don't build arrays just to check emptiness or count - use boolean checks where possible
 
-## Pull Request Standards
-- **PR Documentation**: Create `.agent/pr-description-[feature].md` for all features
-- **Required Sections**:
-  - Summary of changes (what and why)
-  - API changes (with request/response examples)
-  - Database changes (with migration details)
-  - Frontend changes (with screenshots if UI)
-  - Testing approach
-  - Performance impact analysis
-  - Breaking changes (if any)
-  - Deployment notes (if special steps required)
-- **Review Checklist**:
-  - [ ] Linter passes (`pnpm lint`)
-  - [ ] Tests pass (`pnpm test`) - Note: Coverage thresholds vary by package
-  - [ ] Documentation updated
-  - [ ] No `any` types introduced
-  - [ ] Database queries optimized
-  - [ ] Migration tested (if applicable)
-  - [ ] Performance impact assessed
-  - [ ] New critical code has tests (even if package has 0% threshold)
-- **PR Size Guidelines**:
-  - Ideal: < 400 lines changed
-  - Maximum: < 1000 lines changed
-  - Split larger changes into multiple PRs
-  - Use feature flags for gradual rollout
+- **Type Narrowing with Early Returns:**
+  - Use early returns to narrow types and reduce nesting
+  - After null/undefined checks with early returns, TypeScript knows the value is defined
+  - Prefer guard clauses at the start of functions over deeply nested if-else blocks
+  - Example:
+    ```typescript
+    // Good: Fail fast with type narrowing
+    if (!data) {
+      logger.error('No data provided');
+      return;
+    }
+    // TypeScript now knows data is defined for rest of function
+    
+    // Avoid: Carrying uncertainty through the function
+    if (data) {
+      // entire function body nested here
+    }
+    ```
 
-# Agent Collaboration & Workflow (.agent/ Directory)
+- **Helper Function Extraction:**
+  - Extract complex type transformations into well-typed helper functions
+  - Use generics in helpers to maintain type safety across different use cases
+  - Return discriminated unions or Result types from helpers to make error handling explicit
+  - Keep helper functions pure when possible (no side effects, deterministic output)
 
-The `.agent/` directory is used for maintaining development context and task tracking:
+## Documentation Standards
+- **API Changes:** Document changes to public APIs clearly (e.g., in changelogs or PR descriptions).
+- **Usage Examples:** Update usage examples when APIs change or new features are added.
+- **Setup Instructions:** Ensure setup and installation instructions are clear and accurate.
+- **Environment Variables:** Document necessary environment variables for setup and configuration.
 
-## Agent Task Scope (Preventing Sidequests)
-- Focus solely on the requested task or bug fix.
-- If you identify a related but separate issue or potential refactoring, document it (e.g., in `.agent/backlog.md` or as a comment) but **do not** implement it without explicit instruction.
+## Deployment Guidelines
+- **Pre-Deployment Checks:** Verify all tests pass, check bundle sizes, and review dependency updates before deploying.
+- **Staging Environment:** Test thoroughly in a staging environment that mirrors production.
+- **Monitoring:** Monitor application performance and errors post-deployment.
 
-## Specifications (`.agent/spec.md`)
-- Create `spec.md` for new features or major changes.
-- Ensure specs align with relevant GitHub issues.
-- Get developer approval on specs before proceeding with implementation.
-- Include clear acceptance criteria and requirements.
+## Dependency Management
+- Minimize adding new external dependencies. Check if existing project dependencies or standard browser/Node.js APIs can achieve the goal first.
+- If adding a new dependency is necessary, justify its inclusion and prefer well-maintained and reputable libraries.
 
-## Development Plans (`.agent/developer_plan.md`)
-- Create `developer_plan.md` for tracking implementation steps.
-- Break down tasks into clear, measurable phases.
-- Outline not just *what* needs to be done, but *how* it interacts with existing code (key functions/components/packages involved) and *how* it will be tested.
-- Include links to relevant documentation and examples.
-- Track completion status for each task using checkboxes (`- [ ]` or `- [x]`).
-- Document dependencies, prerequisites, and potential blockers.
-- Split complex plans into multiple smaller plans/PRs if needed.
-- Use `.agent/backlog.md` to track work identified but deferred for later.
-
-## Task Management & Error Handling
-- Use checkboxes within `developer_plan.md` to track completed items.
-- Document blockers and dependencies clearly.
-- Keep notes on additional work discovered during development.
-- Track progress against acceptance criteria defined in `spec.md`.
-- If you encounter errors during development (e.g., build failures, test failures), analyze the root cause and attempt to fix it. Document the error and the fix applied.
-
-## Pull Requests (`.agent/pull_request.md`)
-- Use `.agent/pull_request.md` to draft the description for pull requests.
-
-## Development Tracking & Quality Gates
-- **Commits:** Execute a `git add . && git commit -m "<description of the change>"` after each logical change or task completion.
-- **Quality Checks:** All code changes **must** pass the mandatory quality checks defined in repository-specific rules (e.g., `repo-specific-config.mdc`). These checks typically include linting, formatting, documentation coverage, and building, and are often enforced by CI pipelines (e.g., `.github/workflows/code-quality.yml`). Ensure these pass before marking a task as complete.
-
-## Leveraging Context
-- Utilize the documentation sources configured in the user's Cursor settings (as mentioned in the root README) for context on core technologies and SDKs.
-- Refer to the repository structure and package descriptions outlined in repository-specific rules.
+## AI Interaction Guidelines (When using AI Assistance)
+- **Language:** Generate TypeScript code.
+- **Consistency:** Follow existing project patterns, conventions, and architectural choices.
+- **Error Handling:** Implement consistent and robust error handling.
+- **Documentation:** Ensure AI-generated code, especially complex algorithms, is well-documented.
+- **Testing:** Thoroughly test any code generated or modified by AI.
+- **Performance:** Consider the performance implications of generated code.
+- **Reuse:** Prefer using existing utilities, components, and libraries within the project.
+- **Structure:** Respect the established monorepo structure and package boundaries.
+- **Dependencies:** Be mindful of adding new dependencies; use existing ones where possible (see Dependency Management section).
 
 ---
 > Source: [recallnet/js-recall](https://github.com/recallnet/js-recall) — distributed by [TomeVault](https://tomevault.io).
