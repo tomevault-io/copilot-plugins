@@ -7,11 +7,11 @@ start
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [THANKGOD74/startistic](https://github.com/THANKGOD74/startistic).
+Original source: `CLAUDE.md` in [THANKGOD74/startistic](https://github.com/THANKGOD74/startistic).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
