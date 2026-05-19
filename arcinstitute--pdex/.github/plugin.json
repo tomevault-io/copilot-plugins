@@ -1,0 +1,9 @@
+{
+  "name": "arcinstitute--pdex",
+  "displayName": "pdex",
+  "description": "parallel differential expression for single-cell perturbation sequencing",
+  "version": "1.0.0",
+  "author": "ArcInstitute",
+  "homepage": "https://github.com/ArcInstitute/pdex",
+  "skills": []
+}
