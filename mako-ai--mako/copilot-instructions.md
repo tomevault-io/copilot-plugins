@@ -1,29 +1,66 @@
-## 90-build-deploy
+## 90-migrations
 
-> Build outputs, deployment paths, and do-not-edit policy for dist
+> MongoDB migration system — naming, idempotency, index safety, and tracking
 
 
-# Build & Deploy Rules
+# Migrations
 
-- Do not edit generated files in `dist/**`. Sources live in `api/src/**` and `app/src/**`.
-- API Docker dev image: [api/Dockerfile.dev](mdc:api/Dockerfile.dev). Production Dockerfile: [Dockerfile](mdc:Dockerfile).
-- Inngest local/dev configuration: [INNGEST_DEV_CONFIG.md](mdc:INNGEST_DEV_CONFIG.md).
-- If a change requires new environment variables, add them to the GitHub Actions workflow and update relevant READMEs.
-- Database migrations run automatically after deploy. See [90-migrations.mdc](mdc:.cursor/rules/90-migrations.mdc).
+MongoDB migration system for schema and data changes.
+
+## Location
+
+- Migration files: [api/src/migrations/](mdc:api/src/migrations/)
+- CLI entry: [api/src/migrations/cli.ts](mdc:api/src/migrations/cli.ts)
+- Runner logic: [api/src/migrations/runner.ts](mdc:api/src/migrations/runner.ts)
+- Deploy integration: [deploy.sh](mdc:deploy.sh) runs migrations after Cloud Run deploy
+- Full docs: [api/src/migrations/README.md](mdc:api/src/migrations/README.md)
+
+## Commands
+
+```bash
+pnpm run migrate              # Run pending migrations
+pnpm run migrate status       # Show migration status
+pnpm run migrate create "name" # Create new migration
+```
 
 ## Deployment
 
-- **The only deploy path is the GitHub Actions workflow**: [.github/workflows/deploy-app.yml](mdc:.github/workflows/deploy-app.yml).
-- `deploy.sh` is a local reference/example script only. **Do not modify `deploy.sh` for deployment changes.**
-- Production deploys on push to `master`. PR previews deploy automatically on PR open/sync.
-- Cloud Run config (memory, instances, timeouts, env vars) must be changed in the workflow file, not `deploy.sh`.
-- Cloud Run services run with `--memory=1Gi`, `--timeout=600`, `--min-instances=1` (prod) or `0` (preview).
+Migrations run automatically at the end of `./deploy.sh` after the Cloud Run service is updated. If migrations fail, the deploy script exits with an error but the service is already deployed.
 
-Environment variables (local defaults):
+## Migration File Format
 
-- `WEB_API_PORT=8080` (API server)
-- `BASE_URL=http://localhost:8080` (API base for OAuth callbacks)
-- `CLIENT_URL=http://localhost:5173` (frontend base URL)
+```typescript
+import { Db } from "mongodb";
+
+export const description = "What this migration does";
+
+export async function up(db: Db): Promise<void> {
+  await db.collection("users").createIndex({ email: 1 });
+}
+```
+
+## Rules
+
+- **Naming**: Files must match `yyyy-mm-dd-hhmmss_snake_case_name.ts`
+- **One change per migration**: Keep migrations focused and small
+- **Always idempotent**: Migrations MUST be safe to re-run. Use `$exists` checks, `{ upsert: true }` options
+- **Index idempotency**: When creating indexes, check by **key pattern** not by index name. An index may already exist with an auto-generated name (e.g. from Mongoose or a partial run). Checking by name will miss it and `createIndex` will throw `IndexOptionsConflict`. Use a helper like `hasIndexOnKeys(indexes, keyPattern)` that compares `JSON.stringify(idx.key)` against the target.
+- **Never edit old migrations**: Create a new migration to fix issues
+- **No down migrations**: This system is up-only by design
+- **Test locally**: Run against dev database before production
+
+## Tracking
+
+Migrations are tracked in the `migrations` collection:
+
+```typescript
+{
+  _id: string;         // Migration ID
+  ran_at: Date | null; // null = not yet run
+  duration_ms?: number;
+  error?: string;
+}
+```
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
