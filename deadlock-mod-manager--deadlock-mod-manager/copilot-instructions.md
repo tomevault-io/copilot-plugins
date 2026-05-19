@@ -1,149 +1,70 @@
-## 050-tauri-version
+## 055-rust-edition
 
-> Tauri Version Enforcement - Ensure Tauri v2 is used consistently across the project
+> Rust Edition: Enforce Rust edition 2024 for all Rust code in the project
 
-
-# Tauri Version Enforcement
+# Rust Edition 2024
 
 ## Overview
 
-This project MUST use Tauri v2 consistently across all Tauri-related dependencies and configurations. This rule ensures version consistency and prevents accidental downgrades or mixed versions.
+This project uses **Rust Edition 2024** across all Rust code. All Rust files and Cargo.toml configurations must be compatible with edition 2024 features and idioms.
 
-## Required Tauri v2 Dependencies
+## Requirements
 
-### Rust Dependencies (Cargo.toml)
+### Cargo.toml Configuration
 
-All Tauri-related dependencies in `apps/desktop/src-tauri/Cargo.toml` MUST use version `"2"`:
+All `Cargo.toml` files in the project MUST specify edition 2024:
 
 ```toml
-[build-dependencies]
-tauri-build = { version = "2", features = [] }
-
-[dependencies]
-tauri = { version = "2", features = [] }
-tauri-plugin-shell = "2"
-tauri-plugin-http = "2"
-tauri-plugin-os = "2"
-tauri-plugin-upload = "2"
-tauri-plugin-store = "2"
-tauri-plugin-fs = "2"
-tauri-plugin-log = "2"
-tauri-plugin-process = "2"
-tauri-plugin-deep-link = "2"
-tauri-plugin-single-instance = "2"
-tauri-plugin-updater = "2"
+[package]
+name = "your-package"
+version = "0.1.0"
+edition = "2024"
 ```
 
-### JavaScript/TypeScript Dependencies (package.json)
+### Writing Rust Code
 
-All `@tauri-apps/*` packages in `apps/desktop/package.json` MUST use v2 compatible versions:
+When writing or modifying Rust code:
 
-```json
-{
-  "dependencies": {
-    "@tauri-apps/api": "^2.1.1",
-    "@tauri-apps/plugin-deep-link": "~2.4.3",
-    "@tauri-apps/plugin-fs": "^2.2.0",
-    "@tauri-apps/plugin-http": "~2.5.2",
-    "@tauri-apps/plugin-log": ">=2",
-    "@tauri-apps/plugin-os": "^2.2.0",
-    "@tauri-apps/plugin-process": "^2.2.0",
-    "@tauri-apps/plugin-shell": "^2",
-    "@tauri-apps/plugin-store": "^2.2.0",
-    "@tauri-apps/plugin-updater": "^2.3.0",
-    "@tauri-apps/plugin-upload": "^2.2.1"
-  },
-  "devDependencies": {
-    "@tauri-apps/cli": "^2"
-  }
-}
-```
+1. **Use edition 2024 features** - Take advantage of the latest Rust language features available in edition 2024
+2. **Follow edition 2024 idioms** - Use modern Rust patterns and conventions
+3. **Avoid deprecated patterns** - Don't use patterns that were deprecated or superseded in edition 2024
 
-## Version Patterns
+## Project Structure
 
-### Acceptable Version Patterns for v2
+The project contains Rust code in the following locations:
 
-- `"2"` - Exact major version (preferred for Rust dependencies)
-- `"^2.x.x"` - Compatible with v2.x.x (preferred for npm dependencies)
-- `"~2.x.x"` - Patch-level changes within v2.x.x
-- `">=2"` - At least v2 (use with caution)
+- `apps/desktop/src-tauri/` - Tauri desktop application backend
+- `packages/vpk-parser/` - VPK file parsing library
 
-### Forbidden Version Patterns
+Both locations use edition 2024 and all new Rust code should maintain this standard.
 
-- `"1"` or `"^1.x.x"` - Tauri v1 (deprecated)
-- `"3"` or `"^3.x.x"` - Future versions (not released/tested)
-- `"*"` - Any version (too permissive)
+## Key Edition 2024 Features
 
-## Configuration Requirements
+When writing Rust code, leverage these edition 2024 capabilities:
 
-### Tauri Configuration (tauri.conf.json)
+- Modern pattern matching syntax
+- Latest async/await improvements
+- Updated module system conventions
+- Improved error handling patterns
+- Latest macro system features
 
-The Tauri configuration file MUST be compatible with v2 schema and capabilities system:
+## Verification
 
-```json
-{
-  "$schema": "https://schema.tauri.app/config/2.0.0"
-  // ... rest of configuration
-}
-```
+When creating or modifying Rust packages:
 
-### Capabilities System
+1. Ensure `Cargo.toml` includes `edition = "2024"`
+2. Verify code compiles with Rust edition 2024
+3. Use `cargo check` and `cargo clippy` to validate code quality
+4. Follow Rust 2024 edition style guidelines
 
-Tauri v2 uses a capabilities-based security model. All permissions MUST be defined in `capabilities/default.json` or other capability files, NOT in the main config.
+## Why Edition 2024?
 
-## Migration Guidelines
+Using a consistent edition across the project:
 
-### When Adding New Tauri Dependencies
-
-1. Always check the official Tauri v2 plugin list: https://v2.tauri.app/plugin/
-2. Use the latest stable v2 version available
-3. Update both Rust (Cargo.toml) and JavaScript (package.json) sides if the plugin has both
-
-### When Updating Existing Dependencies
-
-1. Only update to newer v2.x.x versions
-2. Never downgrade to v1.x.x
-3. Test thoroughly after version updates
-4. Check release notes for breaking changes within v2
-
-## Error Prevention
-
-### Common Mistakes to Avoid
-
-- Installing v1 plugins by accident
-- Mixing v1 and v2 dependencies
-- Using deprecated v1 API calls in JavaScript code
-- Forgetting to update both Rust and JS sides of plugins
-
-### Pre-commit Checklist
-
-- [ ] All Tauri dependencies use v2
-- [ ] No v1 dependencies present
-- [ ] Capabilities are properly configured
-- [ ] Both Rust and JS sides are updated together
-
-## Troubleshooting
-
-### If v1 Dependencies Are Found
-
-1. Remove the v1 dependency: `cargo remove <package-name>`
-2. Add the v2 equivalent: `cargo add <package-name>@2`
-3. Update the JavaScript side if applicable
-4. Update any deprecated API calls in the code
-
-### If Version Conflicts Occur
-
-1. Check `Cargo.lock` for conflicting versions
-2. Remove `Cargo.lock` and `target/` directory
-3. Run `cargo clean && cargo build`
-4. Verify all dependencies resolve to v2
-
-## Reference Links
-
-- [Tauri v2 Documentation](https://v2.tauri.app/)
-- [Tauri v2 Migration Guide](https://v2.tauri.app/migrate/)
-- [Tauri v2 Plugin Directory](https://v2.tauri.app/plugin/)
-- [Tauri v2 Breaking Changes](https://github.com/tauri-apps/tauri/blob/v2/MIGRATION.md)
+- Ensures compatibility across all Rust modules
+- Allows use of the latest language features
+- Maintains consistency with modern Rust best practices
+- Simplifies dependency management and integration
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
