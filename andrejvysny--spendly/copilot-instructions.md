@@ -1,16 +1,15 @@
-## import-wizard
+## php-laravel
 
-> When working on the Import wizard (upload, configure, map, clean, process steps).
+> PHP/Laravel conventions for app, database, routes, config.
 
 
-# Import wizard
+# PHP/Laravel
 
-- Prefer delegating to the `import-wizard` subagent for import wizard work.
-- Steps: upload → configure → map → clean → confirm/process. Backend: ImportWizardController (routes under imports/wizard).
-- Key services: TransactionImportService, CsvProcessor, TransactionRowProcessor; mapping and persistence in app/Services/TransactionImport/, app/Services/Csv/.
-- When changing steps or mappings: keep backend step APIs and frontend wizard state in sync. Frontend: resources/js/pages/import/ (ImportWizard, wizard-steps/).
-- Reference: app/Http/Controllers/Import/ImportWizardController.php, resources/js/pages/import/components/ImportWizard.tsx.
-- **CLI import**: CSV can be imported from the terminal via `php artisan import:csv <file> --account=...`. See AGENTS.md (section "CLI and AI agent usage") for options and examples.
+- Use `declare(strict_types=1);` in all PHP files.
+- Follow PSR-12. Use Form Requests for validation; keep controllers thin and delegate to services.
+- Inertia: `Inertia::render('page/name', [...])` — page name must match path under `resources/js/pages` (e.g. `accounts/index`, `dashboard`).
+- Use Laravel Policies for authorization (`$this->authorize()`).
+- Reference: app/Http/Controllers/Controller.php, app/Http/Controllers/Transactions/TransactionController.php (index + Inertia pattern).
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
