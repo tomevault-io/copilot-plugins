@@ -1,0 +1,9 @@
+{
+  "name": "airweave-ai--airweave",
+  "displayName": "airweave",
+  "description": "Open-source context retrieval layer for AI agents",
+  "version": "1.0.0",
+  "author": "airweave-ai",
+  "homepage": "https://github.com/airweave-ai/airweave",
+  "skills": []
+}
