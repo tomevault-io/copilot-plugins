@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--mcp-python-sdk-grpc-poc",
+  "displayName": "mcp-python-sdk-grpc-poc",
+  "description": "mcp-python-sdk-grpc-poc",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/mcp-python-sdk-grpc-poc",
+  "skills": []
+}
