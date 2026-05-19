@@ -1,0 +1,9 @@
+{
+  "name": "lint-free-technology--uix",
+  "displayName": "uix",
+  "description": "\ud83d\udca1 UI eXtension \ud83d\udca1 Add CSS styles to (almost) any part of the Home Assistant UI.",
+  "version": "1.0.0",
+  "author": "Lint-Free-Technology",
+  "homepage": "https://github.com/Lint-Free-Technology/uix",
+  "skills": []
+}
