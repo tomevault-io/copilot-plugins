@@ -4,7 +4,7 @@
   "repo": "ruby",
   "description": "A place to share your adventures",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bentsignal/ruby",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:02:38Z"
+  "distributed_at": "2026-05-19T06:00:55Z"
 }
