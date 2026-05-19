@@ -1,0 +1,9 @@
+{
+  "name": "tiger-ai-lab--rewardharness",
+  "displayName": "RewardHarness",
+  "description": "Self-evolving agentic reward framework for image-editing evaluation \u2014 47.4% on EditReward-Bench from only 100 preference demos, no reward-model training. arXiv 2605.08703.",
+  "version": "1.0.0",
+  "author": "TIGER-AI-Lab",
+  "homepage": "https://github.com/TIGER-AI-Lab/RewardHarness",
+  "skills": []
+}
