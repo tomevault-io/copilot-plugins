@@ -1,30 +1,90 @@
-## android-viewmodel
+## compose-accessibility
 
-> Android ViewModel conventions — StateFlow, repository abstraction, coroutines, no LiveData
+> Compose accessibility rules for TalkBack — icons, headings, Canvas, live regions, focus, modals, and attribute preservation
 
 
-# Android ViewModel Rules
+# Compose Accessibility Rules
 
-## StateFlow only
+A core user base relies on TalkBack. **Every UI change must preserve and improve accessibility.** Breaking accessibility is treated as seriously as breaking functionality.
 
-ViewModels expose state via `StateFlow` — do not use `LiveData`. Use `MutableStateFlow` internally and expose as `StateFlow`.
+## Rule 1: Icons need contentDescription
+
+Interactive/informative icons MUST have a descriptive `contentDescription`. Decorative-only icons (inside a labeled button where text suffices) may use `null`. Use conditional descriptions for toggle states.
 
 ```kotlin
-private val _uiState = MutableStateFlow(MyUiState())
-val uiState: StateFlow<MyUiState> = _uiState.asStateFlow()
+Icon(
+    imageVector = if (isPlaying) Icons.Filled.Stop else Icons.Filled.PlayArrow,
+    contentDescription = if (isPlaying) "Stop" else "Play"
+)
 ```
 
-## Repository abstraction
+## Rule 2: Headings and navigation semantics
 
-ViewModels must not access `SharedPreferences` directly. All persistence goes through repository classes in the `data/` package.
+Screen titles and section headers MUST have `Modifier.semantics { heading() }`. Navigation containers should use `Modifier.semantics { role = Role.Navigation }`.
 
-## Coroutines only
+```kotlin
+Text("Tuner", style = MaterialTheme.typography.titleLarge,
+    modifier = Modifier.semantics { heading() })
+```
 
-All async work uses Kotlin coroutines. No RxJava, no callback-based APIs. Use `viewModelScope` for ViewModel-scoped coroutine launches.
+## Rule 3: Canvas needs text alternatives
 
-## Existing ViewModels
+Any `Canvas` conveying information MUST use `clearAndSetSemantics` with a data-driven description.
 
-`FretboardViewModel`, `TunerViewModel`, `PitchMonitorViewModel`, `ChordLibraryViewModel`, `FavoritesViewModel`, `SongbookViewModel`, `SettingsViewModel`, `ScalePracticeViewModel`, `MetronomeViewModel`, `MelodyViewModel`, `BackupRestoreViewModel`, `CustomProgressionViewModel`, `LearningProgressViewModel`, `SetlistViewModel`, `TtsAnnouncementThrottler`
+```kotlin
+Canvas(modifier = Modifier.fillMaxWidth().height(200.dp)
+    .clearAndSetSemantics { contentDescription = "Tuning meter, 5 cents sharp" }
+) { /* drawing */ }
+```
+
+## Rule 4: Dynamic content needs live regions
+
+Use `LiveRegionMode.Polite` for frequent updates (pitch, cents). Use `LiveRegionMode.Assertive` for important state changes (in tune, correct answer, error).
+
+```kotlin
+Text(detectedNote, modifier = Modifier.semantics {
+    liveRegion = LiveRegionMode.Polite
+})
+```
+
+## Rule 5: Interactive elements must be focusable and described
+
+Clickable composables need a content description or visible label. Custom interactive components must include `role = Role.Button`. Reflect state changes in `stateDescription`.
+
+```kotlin
+Box(modifier = Modifier.clickable { onFretTap(string, fret) }.semantics {
+    contentDescription = "$stringName string, fret $fretNumber, $noteName"
+    role = Role.Button
+    if (isSelected) stateDescription = "selected"
+})
+```
+
+## Rule 6: Modals must manage focus
+
+Modal titles must have heading semantics. Focus moves to modal content on open and returns to the trigger on dismiss.
+
+## Rule 7: Never remove existing accessibility attributes
+
+Do not remove `contentDescription`, `Modifier.semantics {}` blocks, or `liveRegion` annotations during refactoring. If restructuring a composable, preserve all accessibility attributes in the new structure.
+
+## contentDescription style
+
+- Sentence case: `"Play all inversions"`, not `"Play All Inversions"`
+- Action-oriented: `"Open navigation menu"`, `"Delete note"`
+- Conditional for toggles: `if (isPlaying) "Stop" else "Play"`
+
+## Key files with accessibility patterns
+
+| File | Notes |
+|------|-------|
+| `ui/FretboardScreen.kt` | Heading semantics, drawer structure |
+| `ui/TunerTab.kt` | Live regions, canvas alternative |
+| `ui/VerticalChordDiagram.kt` | `clearAndSetSemantics` on Canvas |
+| `ui/FretboardView.kt` | Cell semantics, selection announcements |
+| `ui/PitchMonitorTab.kt` | Live regions, canvas alternative |
+| `ui/CircleOfFifthsView.kt` | Canvas alternative, key selection |
+| `ui/SettingsSheet.kt` | Section heading semantics |
+| `ui/theme/Theme.kt` | High contrast theme support |
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
