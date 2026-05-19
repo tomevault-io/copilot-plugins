@@ -4,7 +4,7 @@
   "repo": "sifaka",
   "description": "Sifaka is an open-source framework that adds reflection and reliability to large language model (LLM) applications.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sifaka-ai/sifaka",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T20:38:27Z"
+  "distributed_at": "2026-05-19T23:13:23Z"
 }
