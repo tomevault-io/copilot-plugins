@@ -1,0 +1,9 @@
+{
+  "name": "aliyun--alibabacloud-dms-mcp-server",
+  "displayName": "alibabacloud-dms-mcp-server",
+  "description": "A universal multi-cloud data MCP Server supporting over 40 types of data source connections, providing secure, unified data access in a single platform.\u2028Supports full range of Alibaba Cloud services a",
+  "version": "1.0.0",
+  "author": "aliyun",
+  "homepage": "https://github.com/aliyun/alibabacloud-dms-mcp-server",
+  "skills": []
+}
