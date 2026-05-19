@@ -4,7 +4,7 @@
   "repo": "codetracer",
   "description": "CodeTracer is a user-friendly time-traveling debugger designed to support a wide range of programming languages.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/metacraft-labs/codetracer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:17:34Z"
+  "distributed_at": "2026-05-19T01:11:12Z"
 }
