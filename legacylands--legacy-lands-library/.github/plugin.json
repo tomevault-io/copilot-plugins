@@ -1,0 +1,9 @@
+{
+  "name": "legacylands--legacy-lands-library",
+  "displayName": "legacy-lands-library",
+  "description": "Enterprise-grade modular framework for Minecraft server development with multi-tier caching, Redis Streams, resilient data processing, and modern Java concurrency. Built on Fairy Framework for product",
+  "version": "1.0.0",
+  "author": "LegacyLands",
+  "homepage": "https://github.com/LegacyLands/legacy-lands-library",
+  "skills": []
+}
