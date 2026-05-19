@@ -7,11 +7,11 @@ generator control from the luxpower, all on the pi4b with waveshare and relay ex
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [derekja/pigenny](https://github.com/derekja/pigenny).
+Original source: `CLAUDE.md` in [derekja/pigenny](https://github.com/derekja/pigenny).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
