@@ -1,0 +1,9 @@
+{
+  "name": "lgcshy--mediamtx-ui",
+  "displayName": "mediamtx-ui",
+  "description": "Modern admin dashboard for MediaMTX streaming server \u2014 Vue 3 + TypeScript + Element Plus + ECharts",
+  "version": "1.0.0",
+  "author": "lgcshy",
+  "homepage": "https://github.com/lgcshy/mediamtx-ui",
+  "skills": []
+}
