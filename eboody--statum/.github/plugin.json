@@ -1,0 +1,9 @@
+{
+  "name": "eboody--statum",
+  "displayName": "statum",
+  "description": "Statum helps make undesirable state impossible to represent in code, at compile time",
+  "version": "1.0.0",
+  "author": "eboody",
+  "homepage": "https://github.com/eboody/statum",
+  "skills": []
+}
