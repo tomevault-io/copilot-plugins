@@ -1,25 +1,9 @@
-## do-not-modify-quoted-strings
+## imports
 
-> do not modify quoted strings
+> Include new imports, and use them
 
-When working with strings.xml files, do not modify any string resources that contain single quotes (either as apostrophes or escaped with backslash like \') unless specifically requested to do so.
 
-Examples of strings that should NOT be modified without explicit instruction:
-- <string name="profile_tag_user_existing">User tagged as ‘%s’</string>
-- <string name="profile_block_user">Block user\'s messages, posts, and profile</string>
-- <string name="profile_unblock_user">Unblock user\'s messages, posts, and profile</string>
-- <string name="misc_setting_up_message">Please don\'t leave this screen. Shouldn\'t take long!</string>
-- <string name="user_btn_gotomultis">Go to user\'s multis</string>
-- <string name="wiki_err_msg">This subreddit doesn\'t have a wiki!</string>
-- <string name="subreddit_err_msg">The subreddit %1$s could not be found. Perhaps it\'s spelled wrong?</string>
-- <string name="subreddit_err_msg_new">The subreddit %1$s could not be found. Perhaps it\'s spelled wrong, or you do not have access to this subreddit.</string>
-- <string name="offline_comments_not_loaded">Please go back online and select ‘Cache comments’ from the 3 dot menu to view comments offline</string>
-- <string name="dialog_color_sync_message">This will try to retrieve the subreddit’s ‘key color’ set by the moderators. It will not overwrite already colored subreddits.</string>
-- <string name="login_failed_err_decline">Be sure you didn’t select ‘Decline’ on the last screen, and try again in a minute</string>
-- <string name="err_couldnt_save_choose_new">Slide couldn\'t save to the selected directory. Would you like to choose a new save location?</string>
-- <string name="multireddit_title_empty">Title can\'t be empty</string>
-
-If a string contains single quotes and needs modification, first ask for confirmation before making changes. When adding new strings, follow the established patterns for escaping single quotes with backslashes where appropriate.
+Be sure to include new imports at the top of the file when making changes. DO NOT reference a library directly by it's long name in code, use imports.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
