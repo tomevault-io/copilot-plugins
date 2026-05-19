@@ -1,48 +1,77 @@
-## general
+## lux
 
-> General rules for an awesome cursor experience
+> This helps with general development of the Lux framework
 
-You are a senior software engineer specialized in building highly-scalable and maintainable systems.
 
-# Guidelines
-When a file becomes too long, split it into smaller files. When a function becomes too long, split it into smaller functions.
-
-After writing code, deeply reflect on the scalability and maintainability of the code. Produce a 1-2 paragraph analysis of the code change and based on your reflections - suggest potential improvements or next steps as needed.
-
-# Planning
-When asked to enter "Planner Mode" deeply reflect upon the changes being asked and analyze existing code to map the full scope of changes needed. Before proposing a plan, ask 4-6 clarifying questions based on your findings. Once answered, draft a comprehensive plan of action and ask me for approval on that plan. Once approved, implement all steps in that plan. After completing each phase/step, mention what was just completed and what the next steps are + phases remaining after these steps
-
-# Debugging
-When asked to enter "Debugger Mode" please follow this exact sequence:
+  You are an expert in Elixir, Python, Javascript, Typescript, Phoenix, Distributed Systems, GenServer, PostgreSQL, LLMs, Agentic workflows and Open Source Development.
   
-  1. Reflect on 5-7 different possible sources of the problem
-  2. Distill those down to 1-2 most likely sources
-  3. Add additional logs (e.g. with dbg() or Logger) to validate your assumptions and track the transformation of data structures throughout the application control flow before we move onto implementing the actual code fix
-  4. Use the "mix test.unit <file path>", "mix test.integration <file path>" tools to run tests again
-  5. Obtain as much information as possible - If not enough, ask me to copy/paste them into the chat
-  6. Access documentation on the web via hex.pm and other sites.
-  7. Deeply reflect on what could be wrong + produce a comprehensive analysis of the issue
-  8. Suggest additional logs if the issue persists or if the source is not yet clear
-  9. Once a fix is implemented, ask for approval to remove the previously added logs
+  In this project, we are building an open source library for general LLM based agentic workflows and collaboration between agents.
+  
+  Code Style and Structure
+  - Write concise, idiomatic Elixir code with accurate examples.
+  - Follow Phoenix conventions and best practices.
+  - Use functional programming patterns and leverage immutability.
+  - Prefer higher-order functions and recursion over imperative loops.
+  - Use descriptive variable and function names (e.g., user_signed_in?, calculate_total).
+  - Structure files according to Phoenix conventions (controllers, contexts, views, etc.).
+  
+  Naming Conventions
+  - Use snake_case for file names, function names, and variables.
+  - Use PascalCase for module names.
+  - Follow Phoenix naming conventions for contexts, schemas, and controllers.
+  
+  Elixir and Phoenix Usage
+  - Use Elixir's pattern matching and guards effectively.
+  - Leverage Phoenix's built-in functions and macros.
+  - Use Ecto effectively for database operations.
+  
+  Syntax and Formatting
+  - Follow the Elixir Style Guide (https://github.com/christopheradams/elixir_style_guide)
+  - Use Elixir's pipe operator |> for function chaining.
+  - Prefer single quotes for charlists and double quotes for strings.
+  
+  Error Handling and Validation
+  - Use Elixir's "let it crash" philosophy and supervisor trees.
+  - Implement proper error logging and user-friendly messages.
+  - Use Ecto changesets for data validation.
+  - Handle errors gracefully in controllers and display appropriate flash messages.
+  
+  UI and Styling
+  - Use Phoenix LiveView for dynamic, real-time interactions.
+  - Implement responsive design with Tailwind CSS.
+  - Use Phoenix view helpers and templates to keep views DRY.
+  
+  Performance Optimization
+  - Use database indexing effectively.
+  - Implement caching strategies (ETS, Redis).
+  - Use Ecto's preload to avoid N+1 queries.
+  - Optimize database queries using preload, joins, or select.
+  
+  Key Conventions
+  - Follow RESTful routing conventions.
+  - Use contexts for organizing related functionality.
+  - Implement GenServers for stateful processes and background jobs.
+  - Use Tasks for concurrent, isolated jobs.
+  
+  Testing
+  - Write comprehensive tests using ExUnit.
+  - Follow TDD practices.
+  - Use ExMachina for test data generation.
+  
+  Security
+  - Implement proper authentication and authorization (e.g., Guardian, Pow).
+  - Use strong parameters in controllers (params validation).
+  - Protect against common web vulnerabilities (XSS, CSRF, SQL injection).
+  
+  Follow the official Phoenix guides for best practices in routing, controllers, contexts, views, and other Phoenix components.
 
-# Handling PRDs
-If provided markdown files, make sure to read them as reference for how to structure your code. Do not update the markdown files at all unless otherwise asked to do so. Only use them for reference and examples of how to structure your code.
-
-# Interfacing with Github
-When asked, to submit a PR - use the Github CLI and assume I am already authenticated correctly. When asked to create a PR follow this process:
-
-1. git status - to check if there are any changes to commit
-2. git add . - to add all the changes to the staging area (IF NEEDED)
-3. git commit -m "your commit message" - to commit the changes (IF NEEDED)
-4. git push - to push the changes to the remote repository (IF NEEDED)
-5. git branch - to check the current branch
-6. git log main..[insert current branch] - specifically log the changes made to the current branch
-7. git diff --name-status main - check to see what files have been changed
-8. gh pr create --title "Title goes here..." --body "Example body..."
-
-When asked to create a commit, first check for all files that have been changed using git status.Then, create a commit with a message that briefly describes the changes either for each file individually or in a single commit with all the files message if the changes are minor.
-
-When writing a message for the PR, do not include new lines in the message. Just write a single long message.
+  Documentation Access
+  The `mix deps.h` task is available to read documentation for any dependency in the project. Do not assume functionality from function names or previous usage. When in doubt or when debugging, consider accessing the documentation first.
+  - Use `mix deps.h Req` to read documentation for the `Req` module
+  - Use `mix deps.h Req.Request` to read documentation for specific modules
+  - Use `mix deps.h Req.Request.append_error_steps/2` to read documentation for specific functions. Remember to add the arity!
+  - This will help you understand how to use any dependency in the project
+  - If the documentation is not available or not satisfactory, you should directly read the source code of the dependency by browsing it inside the `\deps` folder.
 
 ---
 > Source: [Spectral-Finance/lux](https://github.com/Spectral-Finance/lux) — distributed by [TomeVault](https://tomevault.io).
