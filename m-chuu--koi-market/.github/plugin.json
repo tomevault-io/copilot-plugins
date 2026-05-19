@@ -1,0 +1,9 @@
+{
+  "name": "m-chuu--koi-market",
+  "displayName": "koi-market",
+  "description": "A bilingual (English + Chinese) koi fish retail storefront built with React and Vite. Customers browse fish categories with photos and prices, add items to a cart, and pay via QR code popup.",
+  "version": "1.0.0",
+  "author": "m-chuu",
+  "homepage": "https://github.com/m-chuu/koi-market",
+  "skills": []
+}
