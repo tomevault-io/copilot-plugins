@@ -1,0 +1,44 @@
+{
+  "name": "AE210FinalExamGrader",
+  "owner": "dellolmstead-eng",
+  "repo": "AE210FinalExamGrader",
+  "description": "Autograder for the JET portion of the AE 210 final exam",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dellolmstead-eng/AE210FinalExamGrader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T02:08:53Z"
+}
