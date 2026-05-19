@@ -1,0 +1,9 @@
+{
+  "name": "pedx--nano-scan",
+  "displayName": "nano-scan",
+  "description": "NanoScan is a lightweight, high-performance web barcode and QR code scanner powered by zxing-wasm\uff1b",
+  "version": "1.0.0",
+  "author": "PEDx",
+  "homepage": "https://github.com/PEDx/nano-scan",
+  "skills": []
+}
