@@ -1,121 +1,130 @@
-## org-typescript-standards
+## repo-specific-config
 
-> - Use TypeScript for all new code development.
+> - This is a Turborepo monorepo. Understand its structure and principles.
 
-# Organization TypeScript Standards
+# Repository Specific Configuration (js-recall)
 
-## Core Requirement
-- Use TypeScript for all new code development.
+## Monorepo Setup (Turborepo)
+- This is a Turborepo monorepo. Understand its structure and principles.
+- Packages/apps must be buildable and runnable independently.
+- Changes to shared packages must not break dependent apps.
+- Use pnpm workspace dependencies with `workspace:*` version specifiers.
+- Adhere to the build/task pipeline defined in `turbo.json`.
 
-## Code Quality & Style
-- **TSDoc:** Maintain comprehensive TSDoc documentation:
-  - All public APIs (functions, classes, types, interfaces, variables) must have TSDoc comments.
-  - All functions must document parameters (`@param`) and return values (`@returns`).
-  - All types, interfaces, and classes must have descriptive comments.
-  - Complex algorithms or logic must include detailed explanations within comments.
-  - Provide `@example` blocks for non-obvious usage.
-  - Aim for near-complete documentation coverage (e.g., target 99% if tooling allows measurement).
-- **Type Safety:** Utilize TypeScript's type system effectively. Avoid `any` where possible and prefer specific types.
-  - **Explicit Return Types:** All functions must have explicit return types. Never rely on TypeScript's type inference for function returns.
-  - **Named Types over Ad-hoc Types:** Prefer creating named types/interfaces over inline type definitions, especially when:
-    - The type is used in more than one place
-    - The type represents a domain concept
-    - The type is complex (objects with multiple properties)
-  - Example: ❌ BAD: `function getUser(): { id: string; name: string; email: string }`
-  - Example: ✅ GOOD: `interface User { id: string; name: string; email: string }` then `function getUser(): User`
-- **Async/Await:** Use `async/await` consistently for asynchronous operations. Handle errors properly using `try...catch` blocks or promise rejection handling.
-- **Immutability:** Prefer immutable data structures and updates, especially when dealing with state management, to avoid side effects.
+## Code Quality Tooling
+- **ESLint:** Follow rules defined in the `@recallnet/eslint-config` package.
+- **Prettier:** Maintain consistent formatting using Prettier (configuration likely shared or in `package.json` under the "format" action).
 
-## Package Development (for Libraries/Shared Code)
-- **Modularity:** Keep packages small, focused, and with clear responsibilities.
-- **API Design:** Export types for all public APIs to support consumers.
-- **Versioning:** Use a standard process (like changesets - see repo-specific rules) for versioning packages.
-- **Change Management:** Clearly document breaking changes.
-- **Compatibility:** Strive for backward compatibility when making changes.
+## Application Development (Next.js)
+- **Framework:** Use Next.js for web applications (`apps/comps`).
+- **Structure:** Follow the standard Next.js App Router directory structure (`app/`).
+- **UI:** Implement responsive designs suitable for various screen sizes. The primary UI component library is `@recallnet/ui`. Standard state management patterns are TBD (use component state or React Context unless otherwise specified).
 
-## Component Development (Primarily for UI/React)
-- **Accessibility:** Follow accessibility (a11y) best practices.
-- **Error Handling:** Implement proper error boundaries and user-friendly error states.
-- **Typing:** Use TypeScript strictly for props, state, and event handlers.
-- **Documentation:** Document component props, usage, and purpose clearly (using TSDoc for exported components).
-- **Purity:** Keep components pure (predictable output for given inputs) whenever feasible.
+## Specific Libraries & Packages
+- **UI Components:** Use the shared `@recallnet/ui` library for common UI elements when possible.
+- *(Add other critical, repo-specific library usage guidelines here if any)*
 
-## State Management (Primarily for UI/React)
-- **Local State:** Use standard mechanisms like React hooks (`useState`, `useReducer`) for local component state.
-- **Loading/Error States:** Implement clear loading indicators and handle errors gracefully in the UI.
-- **Network Requests:** Cache network requests appropriately to improve performance and reduce redundant calls.
+## Environment and Tools Versions
+- **Node.js:** `>= 20`
+- **pnpm:** `9.12.3` or higher
+- **Editor:** Use VSCode with recommended extensions (ensure ESLint and Prettier integrations are active).
 
-## Testing
-- **Unit Tests:** Write unit tests for utilities, helper functions, and isolated logic.
-- **Component Tests:** Test UI components in isolation to verify rendering and behavior.
-- **Integration Tests:** Implement integration tests to verify interactions between different parts of the system.
-- **Scenario Coverage:** Ensure tests cover common use cases, edge cases, and error scenarios.
-- **Accessibility Tests:** Include automated accessibility checks in the testing process where possible.
+## Repository Structure
+Details the specific layout of this monorepo:
 
-## Performance
-- **Optimization:** Be mindful of performance implications. Optimize critical code paths.
-- **Bundling:** Utilize techniques like bundle analysis and code splitting to manage application size.
-- **Caching:** Implement appropriate caching strategies (client-side and server-side).
-- **Asset Optimization:** Optimize images, fonts, and other static assets.
+### Apps (`apps/*`)
+- `comps/`: Trading competitions web application
 
-## Code Efficiency Patterns
-- **Array Method Selection:**
-  - Use `.some()` to check if ANY element matches (stops on first match)
-  - Use `.every()` to check if ALL elements match (stops on first non-match)  
-  - Use `.find()` to get the first matching element (stops on first match)
-  - Avoid `.filter().length === 0` or `.filter().length > 0` when `.some()` or `.every()` would suffice
-  - Don't build arrays just to check emptiness or count - use boolean checks where possible
+### Packages (`packages/*`)
+**Core Libraries:**
+- `sdk/` (@recallnet/sdk): Core SDK implementation ([README](mdc:packages/sdk/README.md))
 
-- **Type Narrowing with Early Returns:**
-  - Use early returns to narrow types and reduce nesting
-  - After null/undefined checks with early returns, TypeScript knows the value is defined
-  - Prefer guard clauses at the start of functions over deeply nested if-else blocks
-  - Example:
-    ```typescript
-    // Good: Fail fast with type narrowing
-    if (!data) {
-      logger.error('No data provided');
-      return;
+**Agent Dev Tools:**
+- `agent-toolkit/` (@recallnet/agent-toolkit): Tools for AI agent interaction with Recall ([README](mdc:packages/agent-toolkit/README.md))
+- `mcp/` (@recallnet/mcp): Model Context Protocol (MCP) server for Recall ([README](mdc:packages/mcp/README.md))
+
+**Development Tools:**
+- `eslint-config/` (@recallnet/eslint-config): Shared ESLint configuration ([README](mdc:packages/eslint-config/README.md))
+- `typescript-config/` (@recallnet/typescript-config): Shared TypeScript configuration ([README](mdc:packages/typescript-config/README.md))
+
+**Utilities:**
+- `ui/` (@recallnet/ui): Shared UI component library *(README missing)*
+- `contracts/` (@recallnet/contracts): Smart contract interfaces *(README missing)*
+- `chains/` (@recallnet/chains): Chain-specific configurations ([README](mdc:packages/chains/README.md))
+- `address-utils/` (@recallnet/address-utils): Address formatting utility ([README](mdc:packages/address-utils/README.md))
+- `conversions/` (@recallnet/conversions): BigInt conversion utilities ([README](mdc:packages/conversions/README.md))
+- `fvm/` (@recallnet/fvm): FVM-specific functionality ([README](mdc:packages/fvm/README.md))
+- `network-constants/` (@recallnet/network-constants v0.0.6): Network configuration constants ([README](mdc:packages/network-constants/README.md))
+- `fonts/` (@recallnet/fonts): Shared font resources ([README](mdc:packages/fonts/README.md))
+- `react/` (@recallnet/react): Extended SDK features *(README missing)*
+
+## Versioning & Release (Changesets)
+- This repository uses [Changesets](mdc:https:/github.com/changesets/changesets) for version management and publishing.
+- **Developer Workflow:** When making changes to packages (`packages/*`) that require a version bump (feature, fix, etc.), run `pnpm changeset` and follow the prompts to document the change. This creates a markdown file in the `.changeset/` directory.
+- **CI Process:** The `release.yml` workflow ([.github/workflows/release.yml](mdc:.github/workflows/release.yml)) uses these changeset files to automatically create versioning PRs or publish updated packages to npm upon merging to `main`.
+
+## Mandatory Quality Checks & Commands
+Before marking a task complete or merging code, the following commands **MUST** pass (enforced by CI in [.github/workflows/code-quality.yml](mdc:.github/workflows/code-quality.yml)):
+
+1.  **Lint:** `pnpm lint`
+2.  **Format Check:** `pnpm format:check`
+3.  **Documentation Check:** `pnpm docs:check` (Checks TSDoc coverage meets 99% threshold)
+4.  **Build:** `pnpm build`
+
+## Important Project Scripts
+Commonly used scripts defined in `package.json` or `turbo.json`:
+
+- `pnpm build`: Build all packages and apps.
+- `pnpm dev`: Run the development environment, starting the api and comps apps.
+- `pnpm lint`: Run ESLint checks across the monorepo.
+- `pnpm format`: Format code with Prettier.
+- `pnpm format:check`: Check formatting without making changes.
+- `pnpm clean`: Clean build artifacts (`dist`, `node_modules`, etc.).
+- `pnpm changeset`: Create a changeset file to document package changes for versioning.
+- `pnpm version-packages`: Update package versions based on changesets (usually handled by CI).
+- `pnpm publish-packages`: Publish updated packages to the registry (usually handled by CI).
+- `pnpm docs:check`: Verify TSDoc coverage.
+- `pnpm docs:build`: Generate TypeDoc documentation for all packages.
+
+## Frontend-Backend Contract Standards
+- **Response Consistency**:
+  - All numeric values as numbers, not strings
+  - Boolean flags instead of string enums when binary (e.g., `isLong` vs `side: "long" | "short"`)
+  - Consistent field naming across similar endpoints
+  - Embedded relations follow same structure everywhere
+  - Dates as ISO 8601 strings (e.g., `2024-01-01T00:00:00Z`)
+- **Pagination Contract**:
+  ```typescript
+  {
+    data: T[],
+    pagination: {
+      total: number,
+      limit: number,
+      offset: number,
+      hasMore: boolean
     }
-    // TypeScript now knows data is defined for rest of function
-    
-    // Avoid: Carrying uncertainty through the function
-    if (data) {
-      // entire function body nested here
-    }
-    ```
+  }
+  ```
+- **Type Sharing**:
+  - API types defined in `apps/api/src/types/`
+  - Frontend types in `apps/comps/types/`
+  - Shared types in packages when used by multiple apps
+  - Use code generation for API client types when possible
+- **Field Consistency Rules**:
+  - IDs: Always string (UUIDs)
+  - Amounts/Prices: Always number with explicit precision
+  - Timestamps: ISO 8601 strings
+  - Enums: Use TypeScript string literal unions
+  - Optional fields: Use `| null` for API, handle in frontend
 
-- **Helper Function Extraction:**
-  - Extract complex type transformations into well-typed helper functions
-  - Use generics in helpers to maintain type safety across different use cases
-  - Return discriminated unions or Result types from helpers to make error handling explicit
-  - Keep helper functions pure when possible (no side effects, deterministic output)
-
-## Documentation Standards
-- **API Changes:** Document changes to public APIs clearly (e.g., in changelogs or PR descriptions).
-- **Usage Examples:** Update usage examples when APIs change or new features are added.
-- **Setup Instructions:** Ensure setup and installation instructions are clear and accurate.
-- **Environment Variables:** Document necessary environment variables for setup and configuration.
-
-## Deployment Guidelines
-- **Pre-Deployment Checks:** Verify all tests pass, check bundle sizes, and review dependency updates before deploying.
-- **Staging Environment:** Test thoroughly in a staging environment that mirrors production.
-- **Monitoring:** Monitor application performance and errors post-deployment.
-
-## Dependency Management
-- Minimize adding new external dependencies. Check if existing project dependencies or standard browser/Node.js APIs can achieve the goal first.
-- If adding a new dependency is necessary, justify its inclusion and prefer well-maintained and reputable libraries.
-
-## AI Interaction Guidelines (When using AI Assistance)
-- **Language:** Generate TypeScript code.
-- **Consistency:** Follow existing project patterns, conventions, and architectural choices.
-- **Error Handling:** Implement consistent and robust error handling.
-- **Documentation:** Ensure AI-generated code, especially complex algorithms, is well-documented.
-- **Testing:** Thoroughly test any code generated or modified by AI.
-- **Performance:** Consider the performance implications of generated code.
-- **Reuse:** Prefer using existing utilities, components, and libraries within the project.
-- **Structure:** Respect the established monorepo structure and package boundaries.
-- **Dependencies:** Be mindful of adding new dependencies; use existing ones where possible (see Dependency Management section).
+## Additional Resources (Project Context)
+- [Root README](README.md)
+- [Turborepo Documentation](mdc:https:/turbo.build/repo/docs)
+- [pnpm Workspace Guide](mdc:https:/pnpm.io/workspaces)
+- [Next.js Documentation](mdc:https:/nextjs.org/docs)
+- [React Documentation](mdc:https:/react.dev)
+- [TypeScript Handbook](mdc:https:/www.typescriptlang.org/docs)
+- [Changesets Documentation](https://github.com/changesets/changesets)
 
 ---
 > Source: [recallnet/js-recall](https://github.com/recallnet/js-recall) — distributed by [TomeVault](https://tomevault.io).
