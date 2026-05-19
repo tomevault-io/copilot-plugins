@@ -1,339 +1,250 @@
-## kaneo
+## backend-api
 
-> Development conventions, code style, and best practices for the Kaneo project
+> Backend API development guidelines for Hono, Drizzle ORM, and Better Auth
 
-# Development Conventions
+# Backend API Guidelines
 
-This document outlines coding standards, conventions, and best practices for the Kaneo project.
+The Kaneo API is built with Hono, Drizzle ORM, PostgreSQL, and Better Auth. This document outlines conventions and patterns for backend development.
 
-## Code Style
+## Framework: Hono
 
-### Biome Configuration
+Hono is a lightweight web framework. Follow these patterns:
 
-Kaneo uses **Biome** for linting and formatting. Configuration is in `biome.json`.
+### Route Structure
 
-#### Formatting Rules
-
-- **Indentation**: Tabs (not spaces) for TypeScript/TSX
-- **JavaScript**: Spaces for indentation (legacy support)
-- **Quote Style**: Double quotes (`"`)
-- **Semicolons**: Required
+Routes are organized by feature in `apps/api/src/`:
 
 ```typescript
-// Good: Tabs, double quotes, semicolons
-function example() {
-	const value = "hello";
-	return value;
-}
+// apps/api/src/task/index.ts
+import { Hono } from "hono";
+import { describeRoute, resolver, validator } from "hono-openapi";
+import * as v from "valibot";
+import createTask from "./controllers/create-task";
+import getTask from "./controllers/get-task";
 
-// Bad: Spaces, single quotes, no semicolons
-function example() {
-  const value = 'hello'
-  return value
-}
+const task = new Hono<{
+  Variables: {
+    userId: string;
+  };
+}>()
+  .get(
+    "/:id",
+    describeRoute({
+      operationId: "getTask",
+      tags: ["Tasks"],
+      description: "Get a specific task by ID",
+      responses: {
+        200: {
+          description: "Task details",
+          content: {
+            "application/json": { schema: resolver(taskSchema) },
+          },
+        },
+      },
+    }),
+    validator("param", v.object({ id: v.string() })),
+    async (c) => {
+      const { id } = c.req.valid("param");
+      const task = await getTask(id);
+      return c.json(task);
+    },
+  );
+
+export default task;
 ```
 
-#### Linting Rules
+### Best Practices
 
-Key Biome rules enabled:
-
-- `noParameterAssign`: Don't reassign function parameters
-- `useAsConstAssertion`: Use `as const` for literal types
-- `useDefaultParameterLast`: Default parameters must be last
-- `useSelfClosingElements`: Use self-closing JSX elements
-- `useSingleVarDeclarator`: One variable per declaration
-- `noInferrableTypes`: Don't add explicit types that can be inferred
+1. **Always use OpenAPI decorators**: Use `describeRoute` for all endpoints
+2. **Validate inputs**: Use `validator` with Valibot schemas
+3. **Extract controllers**: Keep route handlers thin, move logic to controller files
+4. **Type safety**: Use Hono's type system for context variables
 
 ```typescript
-// Good: Follows Biome rules
-const items = ["a", "b"] as const;
-function greet(name: string, greeting = "Hello") {
-	return `${greeting}, ${name}`;
-}
-const x = 1;
-const y = 2;
+// Good: Thin route handler
+.get("/:id", validator("param", v.object({ id: v.string() })), async (c) => {
+  const { id } = c.req.valid("param");
+  const task = await getTask(id);
+  return c.json(task);
+})
 
-// Bad: Violates Biome rules
-const items: string[] = ["a", "b"];
-function greet(greeting = "Hello", name: string) {
-	return `${greeting}, ${name}`;
-}
-const x = 1, y = 2;
+// Bad: Business logic in route handler
+.get("/:id", async (c) => {
+  const id = c.req.param("id");
+  const task = await db.select().from(taskTable).where(eq(taskTable.id, id));
+  // ... more logic
+  return c.json(task);
+})
 ```
 
-### Running Linter
+## Database: Drizzle ORM
 
-```bash
-# Check and auto-fix
-pnpm lint
+### Schema Definition
 
-# Check only (no fixes)
-pnpm biome check .
-```
-
-## TypeScript Conventions
-
-### Type Definitions
-
-- **Types**: Prefer types for all type definitions (object shapes, unions, intersections, computed types)
-- **Interfaces**: Only use interfaces when extending/merging is needed (rare)
-- **Inference**: Prefer type inference when types are obvious
+Define schemas in `apps/api/src/database/schema.ts`:
 
 ```typescript
-// Good: Type for object shape
-type Task = {
-	id: string;
-	title: string;
-	status: string;
-};
+import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { createId } from "@paralleldrive/cuid2";
 
-// Good: Type for union
-type Status = "to-do" | "in-progress" | "done";
-
-// Good: Type inference
-const tasks: Task[] = []; // Explicit for arrays
-const count = tasks.length; // Inferred
+export const taskTable = pgTable("task", {
+  id: text("id")
+    .$defaultFn(() => createId())
+    .primaryKey(),
+  title: text("title").notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
 ```
 
-### File Naming
+### Best Practices
 
-- **Components**: PascalCase: `TaskCard.tsx`
-- **Utilities**: kebab-case: `format-date.ts`
-- **Hooks**: camelCase with `use` prefix: `use-task.ts`
-- **Types**: kebab-case: `task-types.ts`
-
-```
-components/
-├── TaskCard.tsx          # Component
-├── task-card.tsx         # Also acceptable
-└── utils/
-    └── format-date.ts   # Utility function
-```
-
-## Git Conventions
-
-### Commit Messages
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-```
-<type>: <description>
-
-[optional body]
-
-[optional footer]
-```
-
-#### Commit Types
-
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring (no feature/fix)
-- `test:` - Adding or updating tests
-- `chore:` - Maintenance tasks (deps, config, etc.)
-- `style:` - Code style changes (formatting, etc.)
-
-#### Examples
-
-```bash
-feat: add bulk task operations
-fix: resolve calendar date selection bug
-docs: update deployment guide
-refactor: simplify task controller logic
-chore: update dependencies
-```
-
-### Branch Naming
-
-Use descriptive branch names with prefixes:
-
-- `feat/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation
-- `refactor/` - Refactoring
-- `chore/` - Maintenance
-
-```bash
-feat/bulk-task-operations
-fix/calendar-date-bug
-docs/update-deployment-guide
-```
-
-## Import Organization
-
-Biome automatically organizes imports. Follow these patterns:
-
-### Import Order
-
-1. External packages
-2. Internal packages (`@/` aliases)
-3. Relative imports
+1. **Use CUID2 for IDs**: Always use `createId()` from `@paralleldrive/cuid2`
+2. **Timestamps**: Always include `createdAt` and `updatedAt` with proper defaults
+3. **Foreign Keys**: Use cascade deletes/updates where appropriate
+4. **Indexes**: Add indexes for frequently queried columns
 
 ```typescript
-// Good: Organized imports
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { TaskCard } from "./task-card";
+// Good: Proper schema with indexes
+export const taskTable = pgTable(
+  "task",
+  {
+    id: text("id").$defaultFn(() => createId()).primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projectTable.id, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      }),
+    // ...
+  },
+  (table) => [index("task_projectId_idx").on(table.projectId)],
+);
 ```
 
-### Import Style
+### Migrations
 
-- Use named imports when possible
-- Group related imports
-- Remove unused imports (Biome does this automatically)
+1. **Generate migrations**: `pnpm --filter @kaneo/api db:generate`
+2. **Run migrations**: Automatically on API startup (see `apps/api/src/index.ts`)
+3. **Migration files**: Stored in `apps/api/drizzle/`
+
+## Authentication: Better Auth
+
+Better Auth handles authentication. Access user context via Hono variables:
 
 ```typescript
-// Good: Named imports
-import { useState, useEffect } from "react";
-import { Button, Input } from "@/components/ui";
-
-// Avoid: Default imports when named available
-import React from "react"; // Prefer named imports
+// User is available in context after auth middleware
+const userId = c.get("userId");
+const user = c.get("user");
+const session = c.get("session");
 ```
 
-## File Structure
+### API Key Authentication
 
-### Component Files
+API keys are supported via Bearer token:
 
 ```typescript
-// 1. Imports (external, then internal)
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-
-// 2. Types
-type ComponentProps = {
-	title: string;
-};
-
-// 3. Component
-export function Component({ title }: ComponentProps) {
-	// Implementation
-}
-
-// 4. Exports (if needed)
-export default Component;
+// Middleware in apps/api/src/index.ts handles this
+// Authorization: Bearer <api-key>
 ```
 
-### API Controller Files
+## Validation: Valibot
+
+Use Valibot for request validation:
 
 ```typescript
-// 1. Imports
+import * as v from "valibot";
+
+validator(
+  "json",
+  v.object({
+    title: v.string(),
+    description: v.optional(v.string()),
+    dueDate: v.optional(v.string()),
+  }),
+)
+```
+
+## Controller Pattern
+
+Controllers contain business logic and are imported into route files:
+
+```typescript
+// apps/api/src/task/controllers/get-task.ts
 import db from "../../database";
 import { taskTable } from "../../database/schema";
+import { eq } from "drizzle-orm";
 
-// 2. Function
 export default async function getTask(id: string) {
-	// Implementation
+  const [task] = await db
+    .select()
+    .from(taskTable)
+    .where(eq(taskTable.id, id));
+
+  if (!task) {
+    throw new HTTPException(404, { message: "Task not found" });
+  }
+
+  return task;
 }
 ```
 
 ## Error Handling
 
-### Backend
-
-Use Hono's HTTPException:
+Use Hono's HTTPException for errors:
 
 ```typescript
 import { HTTPException } from "hono/http-exception";
 
 if (!task) {
-	throw new HTTPException(404, { message: "Task not found" });
+  throw new HTTPException(404, { message: "Task not found" });
 }
 ```
 
-### Frontend
+## Events
 
-Use try-catch with user-friendly messages:
-
-```typescript
-import { toast } from "sonner";
-
-try {
-	await updateTask(taskId, data);
-	toast.success("Task updated");
-} catch (error) {
-	toast.error(
-		error instanceof Error ? error.message : "Failed to update task",
-	);
-}
-```
-
-## Testing
-
-### Test Structure
+Publish events for activity tracking:
 
 ```typescript
-describe("Feature", () => {
-	it("should do something", () => {
-		// Arrange
-		const input = "test";
+import { publishEvent } from "../events";
 
-		// Act
-		const result = functionUnderTest(input);
-
-		// Assert
-		expect(result).toBe("expected");
-	});
+await publishEvent("task.status_changed", {
+  taskId: task.id,
+  userId: user,
+  oldStatus: task.status,
+  newStatus: status,
+  title: task.title,
+  type: "status_changed",
 });
 ```
 
-## Documentation
+## File Organization
 
-### Code Comments
-
-- **Why, not what**: Explain reasoning, not obvious code
-- **Complex logic**: Comment complex algorithms or business rules
-- **TODOs**: Use `// TODO: description` for future work
-
-```typescript
-// Good: Explains why
-// Use CUID2 instead of UUID for better database performance
-const id = createId();
-
-// Bad: States the obvious
-// Create an ID
-const id = createId();
+```
+apps/api/src/
+├── activity/          # Activity feature
+│   ├── controllers/
+│   └── index.ts
+├── auth.ts            # Better Auth configuration
+├── config/            # Configuration endpoints
+├── database/          # Database schema and connection
+│   ├── schema.ts
+│   ├── relations.ts
+│   └── index.ts
+├── events/            # Event publishing
+├── task/              # Task feature
+│   ├── controllers/
+│   └── index.ts
+└── index.ts           # Main entry point
 ```
 
-### README Files
+## CORS Configuration
 
-- Keep README files updated
-- Include setup instructions
-- Document environment variables
-- Provide examples
-
-## Environment Variables
-
-- **Single `.env` file**: All variables in project root
-- **Documentation**: Document all variables in `ENVIRONMENT_SETUP.md`
-- **Never commit**: `.env` files are gitignored
-- **Defaults**: Provide sensible defaults in code when possible
-
-## Performance
-
-### Backend
-
-- Use database indexes for frequently queried columns
-- Limit query results with pagination
-- Use transactions for multi-step operations
-
-### Frontend
-
-- Use React Query for caching and data fetching
-- Implement proper loading states
-- Lazy load routes when possible
-- Optimize images and assets
-
-## Security
-
-- **Never commit secrets**: Use environment variables
-- **Validate inputs**: Always validate user input (Valibot on backend)
-- **Sanitize outputs**: Sanitize data before rendering
-- **Authentication**: Always check authentication in protected routes
-- **Authorization**: Verify user permissions before operations
+CORS is configured in `apps/api/src/index.ts`. Set `CORS_ORIGINS` environment variable for production.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/usekaneo) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [usekaneo/kaneo](https://github.com/usekaneo/kaneo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
