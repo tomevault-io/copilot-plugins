@@ -1,0 +1,9 @@
+{
+  "name": "r-huijts--xcode-mcp-server",
+  "displayName": "xcode-mcp-server",
+  "description": "MCP Server implementation for Xcode integration",
+  "version": "1.0.0",
+  "author": "r-huijts",
+  "homepage": "https://github.com/r-huijts/xcode-mcp-server",
+  "skills": []
+}
