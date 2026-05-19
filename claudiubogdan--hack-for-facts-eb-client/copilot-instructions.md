@@ -1,15 +1,16 @@
-## security
+## understand-project
 
-> Input validation & sanitisation: Validate inputs with JSON Schema Zod.
+> Understand the project and its components
 
+# Understand the project and its components
 
-Input validation & sanitisation: Validate inputs with JSON Schema Zod.
+## Strategy
 
-Authentication & authorization: Implement token‑based auth (e.g., JWT) and enforce role‑based permissions. Follow the principle of least privilege.
+To understand the project and its components, you can use strategy:
 
-Error handling: Use guard clauses for early returns, avoid deep nesting; implement custom error classes; log errors and use monitoring tools.
-
-Adopt Dynamic imports for React; minimize bundle size.
+- Have a look at the imports of the files. If there components of files related to the logic you are working on, you can use them to understand the project.
+- If you need the folder structure, call the tool to get the folder structure.
+- If you need to read the code, call the tool to get the code.
 
 ---
 > Source: [ClaudiuBogdan/hack-for-facts-eb-client](https://github.com/ClaudiuBogdan/hack-for-facts-eb-client) — distributed by [TomeVault](https://tomevault.io).
