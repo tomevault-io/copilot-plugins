@@ -1,86 +1,73 @@
-## debug-beaker-experiments
+## experiments
 
-> Use when user asks to debug beaker experiments, fix failed jobs, check experiment errors, investigate beaker failures, or troubleshoot training runs
+> Use when creating new pretraining experiments, modifying model architecture, launching training jobs, writing experiment scripts, or working with configs in scripts/official/
 
 
-# Debugging Beaker Experiments
+# Experiment Development
 
-## Quick Commands
+## Key Files to Reference
+- **Canonical experiment script**: `scripts/official/base.py` - copy and modify `build_model_config()`
+- **Shared builders**: `scripts/official/script.py` - common configs for dataloader, trainer, etc.
+- **Main entrypoint**: `olmoearth_pretrain/internal/experiment.py` - handles `launch` → `train` flow
+- **Config pattern examples**: `olmoearth_pretrain/nn/flexi_vit.py` (see `EncoderConfig`, `PredictorConfig`)
+- **Model size presets**: `olmoearth_pretrain/internal/utils.py` → `MODEL_SIZE_ARGS`
+- **Modality enum**: `olmoearth_pretrain/data/constants.py` → `Modality`
 
-See `check-beaker-job-status.mdc` for detailed Beaker RPC API reference.
+## Config Pattern
+All configurable components follow `Config` → `build()`. See `EncoderConfig` in `olmoearth_pretrain/nn/flexi_vit.py` for the canonical pattern.
 
-```bash
-# Get current user's author ID
-AUTHOR_ID=$(beaker account whoami --format json | jq -r '.[0].id')
+**Key rules:**
+- Configs are `@dataclass` subclasses of `Config`
+- `build()` validates then constructs the object
+- Use `as_dict(exclude_none=True, recurse=False)` for kwargs
+- **Always subclass, never modify base classes**
 
-# Find experiments (use RPC API for filtering)
-beaker rpc call ListWorkloads '{
-  "options": {
-    "authorId": "'"$AUTHOR_ID"'",
-    "organizationId": "us_wvnghctl47k0",
-    "workloadType": "WORKLOAD_TYPE_EXPERIMENT",
-    "nameOrDescriptionSubstring": "<search_term>",
-    "status": "STATUS_FAILED",
-    "pageSize": 20
-  }
-}'
+## Experiment Script Structure
+Scripts in `scripts/official/` inject builder functions into `main()`. Write/modify the builder for the component you're changing (e.g., `build_model_config()` for architecture changes, `build_train_module_config()` for loss/optimizer changes). See `scripts/official/base.py` as the template.
 
-# Get logs (most common)
-beaker experiment logs <EXPERIMENT_ID> 2>&1 | tail -300
+## Launch Configuration
 
-# Get metadata
-beaker experiment get <EXPERIMENT_ID> --format json
-```
-
-## Common Error Patterns
-
-1. **Python Tracebacks** - Look for `Traceback (most recent call last)` and follow to the actual error
-2. **Shape Mismatches** - einops `EinopsError: Shape mismatch` → tensor dimension issues
-3. **Import Errors** - Missing modules or circular imports
-4. **CUDA/GPU Errors** - OOM, device mismatch, NCCL errors
-5. **Config Errors** - Invalid configuration values
-
-## Debugging Workflow
-
-1. **Get logs**: `beaker experiment logs <EXP_ID> 2>&1 | tail -300`
-2. **Find the error**: Look for traceback, identify file and line
-3. **Read relevant code**: Use the file/line from traceback
-4. **For Python errors**: Write a small unit test to reproduce, then fix
-5. **For multi-GPU errors**: Suggest how to reproduce and propose a fix directly without test (can't reproduce locally)
-6. **For NCCL ERRORS**: Make sure to look up further in the log files to find the underlying cause
-
-## Summarize Findings
-Provide:
-- **Root Cause**: The actual error and why
-- **Location**: File and line number
-- **Context**: What was being executed (training, eval, etc.)
-
-## Example Workflow
+When you run with `launch`, it submits to Beaker which runs the same script with `train` subcommand.
 
 ```bash
-# 1. User says "my tokenization experiment failed"
-AUTHOR_ID=$(beaker account whoami --format json | jq -r '.[0].id')
+# Dry run first - always test config generation
+python3 scripts/official/your_script.py dry_run run_name local
 
-beaker rpc call ListWorkloads '{
-  "options": {
-    "authorId": "'"$AUTHOR_ID"'",
-    "organizationId": "us_wvnghctl47k0",
-    "workloadType": "WORKLOAD_TYPE_EXPERIMENT",
-    "nameOrDescriptionSubstring": "tokenization",
-    "status": "STATUS_FAILED",
-    "pageSize": 10
-  }
-}'
-# Output shows experiment ID, e.g.: 01KEYN069TJM97JGNQ2TWRPH51
-
-# 2. Get the logs
-beaker experiment logs <EXPERIMENT_ID> 2>&1 | tail -300
-
-# 3. Analyze error (example: EinopsError shape mismatch)
-# 4. Read relevant code files
-# 5. Fix the bug
-# 6. Run tests to verify
+# Launch to Beaker
+python3 scripts/official/your_script.py launch run_name ai2/jupiter \
+  --launch.num_gpus=8 \
+  --launch.clusters="[ai2/jupiter,ai2/ceres]" \
+  --trainer.callbacks.wandb.project=YYYY_MM_DD_experiment_name
 ```
+
+### CLI Overrides
+Use dotlist notation: `--model.encoder_config.depth=24`
+
+---
+
+## Git Workflow
+
+**⚠️ CRITICAL: Always commit and push before launching Beaker jobs**
+
+Beaker pulls code from the repository, so uncommitted changes won't be included!
+
+---
+
+## Naming Conventions
+
+| What | Pattern | Example |
+|------|---------|---------|
+| Branch | `<username>/<descriptive-name>` | `henryh/per-modality-projection` |
+| W&B Project | `YYYY_MM_DD_experiment_description` | `2025_11_21_masking_ablations` |
+| Run Name | `<base>_<variant>` | `base_encoder_per_mod_proj` |
+| Script | `base_<component>_<modification>.py` | `base_mae.py` |
+
+
+## When submitting new experiments append a new incremented number if the experiment already exists
+- checkpoint exists errors can occur if we dont bump the number such as appending _1
+
+**Pretraining Guide:**
+See [Pretraining & Architecture Design Docs](https://github.com/allenai/geofm/blob/main/docs/pretraining.md) for strategy, config, and example scripts.
 
 ---
 > Source: [allenai/olmoearth_pretrain](https://github.com/allenai/olmoearth_pretrain) — distributed by [TomeVault](https://tomevault.io).
