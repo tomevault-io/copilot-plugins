@@ -1,146 +1,107 @@
-## data
+## essentials
 
-> Use when implementing data fetching, API calls, server/client components, or SWR hooks
+> Critical rules that must always be followed
 
 
-# Data Fetching
+# Essentials
 
-## Core Pattern: Server → Client → SWR
+## Package Manager
 
-### 1. Server Page Fetches Data
+Use `bun`, never npm/yarn/pnpm.
 
-```tsx
-// app/(app)/[orgId]/tasks/page.tsx
-export default async function TasksPage({ params }: { params: Promise<{ orgId: string }> }) {
-  const { orgId } = await params; // From URL, NOT session
-  const tasks = await getTasks(orgId);
-  return <TaskListClient organizationId={orgId} initialTasks={tasks} />;
-}
+```bash
+bun install          # Install deps
+bun add <pkg>        # Add package
+bun run <script>     # Run script
+bunx <cmd>           # Execute binary
 ```
 
-### 2. Client Component Receives Initial Data
+## Components
+
+**Use `@trycompai/design-system` first**, `@trycompai/ui` only as fallback.
 
 ```tsx
-// components/TaskListClient.tsx
-'use client';
+// ✅ Design system
+import { Button, Card, Input, Select } from '@trycompai/design-system';
+import { Add, Close } from '@trycompai/design-system/icons';
 
-export function TaskListClient({ organizationId, initialTasks }: Props) {
-  const { tasks, createTask, updateTask } = useTasks({
-    organizationId,
-    initialData: initialTasks,
-  });
-  // Initial render is instant - no loading state
-}
+// ❌ Don't use when DS has the component
+import { Button } from '@trycompai/ui/button';
+import { Plus } from 'lucide-react';
 ```
 
-### 3. SWR Hook with fallbackData
+**No `className` on DS components** - use variants and props only.
 
 ```tsx
-// hooks/useTasks.ts
-export function useTasks({ organizationId, initialData }: UseTasksOptions) {
-  const { data, mutate } = useSWR(
-    ['/v1/tasks', organizationId], // Include orgId for cache isolation
-    async ([endpoint, orgId]) => {
-      const response = await apiClient.get(endpoint, orgId);
-      return response.data?.tasks ?? [];
-    },
-    { fallbackData: initialData }
-  );
+// ✅ Use variants
+<Button variant="destructive" size="sm">Delete</Button>
 
-  const createTask = async (input: CreateTaskInput) => {
-    await apiClient.post('/v1/tasks', input, organizationId);
-    mutate(); // Revalidate
-  };
-
-  const updateTask = async ({ taskId, input }: { taskId: string; input: UpdateTaskInput }) => {
-    await apiClient.put(`/v1/tasks/${taskId}`, input, organizationId);
-    mutate(); // Revalidate
-  };
-
-  return { tasks: data ?? [], createTask, updateTask, mutate };
-}
+// ❌ No className overrides
+<Button className="bg-red-500">Delete</Button>
 ```
 
-## API Client
+## TypeScript
 
-Use `apiClient` from `@/lib/api-client`:
+**No `any`. No unsafe type assertions.**
 
 ```tsx
-import { apiClient } from '@/lib/api-client';
+// ✅ Validate external data with zod
+const TaskSchema = z.object({ id: z.string(), title: z.string() });
+const task = TaskSchema.parse(response.data);
 
-await apiClient.get<ResponseType>('/v1/endpoint', organizationId);
-await apiClient.post<ResponseType>('/v1/endpoint', body, organizationId);
-await apiClient.put<ResponseType>('/v1/endpoint', body, organizationId);
-await apiClient.delete('/v1/endpoint', organizationId);
+// ❌ Never
+const data: any = fetchData();
+const task = response as Task;
 ```
 
-## Server vs Client Components
+## Data Fetching
 
-**Layouts = server.** Interactive logic in separate client components.
+**Get `organizationId` from URL params, not session.**
 
 ```tsx
-// layout.tsx (server)
-export default function Layout({ children }) {
-  return (
-    <PageLayout>
-      <PageHeader title="Title" />
-      <ClientTabs /> {/* Client component */}
-      {children}
-    </PageLayout>
-  );
+// ✅ From params
+export default async function Page({ params }: { params: Promise<{ orgId: string }> }) {
+  const { orgId } = await params;
 }
 
-// components/ClientTabs.tsx
-'use client';
-export function ClientTabs() {
-  const router = useRouter();
-  // Interactive logic here
-}
+// ❌ Not from session
+const session = await auth.api.getSession();
+const orgId = session?.session?.activeOrganizationId;
+```
+
+**Server components fetch, pass to client with SWR `fallbackData`.**
+
+```tsx
+// Server page
+const data = await fetchData(orgId);
+return <ClientComponent initialData={data} />;
+
+// Client component
+const { data } = useSWR(key, fetcher, { fallbackData: initialData });
 ```
 
 ## State Management
 
-**No `nuqs`** - use React state or Next.js patterns:
+**No `nuqs`** - use React `useState` for UI state, Next.js for URL state.
 
 ```tsx
 // ✅ React state for UI
 const [isOpen, setIsOpen] = useState(false);
 
-// ✅ Next.js for URL state
-const router = useRouter();
-const searchParams = useSearchParams();
-
 // ❌ No nuqs
 import { useQueryState } from 'nuqs';
 ```
 
-## Rules
+## After Changes
 
-```tsx
-// ✅ Always
-const { orgId } = await params;                    // From URL params
-const { data } = useSWR(key, f, { fallbackData }); // With initial data
-await apiClient.get('/v1/endpoint', orgId);        // Use apiClient
-useSWR(['/v1/tasks', orgId], fetcher);            // Include orgId in key
+**Always run checks after code changes:**
 
-// ❌ Never
-const orgId = session?.activeOrganizationId;       // From session
-const { data } = useSWR('/api/data');              // No initial data
-await fetch('/api/endpoint');                      // Direct fetch
+```bash
+bun run typecheck
+bun run lint
 ```
 
-## File Structure
-
-```
-app/(app)/[orgId]/tasks/
-├── page.tsx                 # Server - fetches data
-├── components/
-│   └── TaskListClient.tsx   # Client - receives initialData
-├── hooks/
-│   └── useTasks.ts          # SWR hook with mutations
-└── data/
-    └── queries.ts           # Server-side queries
-```
+Fix all errors before committing.
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
