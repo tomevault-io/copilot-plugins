@@ -1,0 +1,9 @@
+{
+  "name": "roryeckel--wyoming-openai",
+  "displayName": "wyoming_openai",
+  "description": "OpenAI-Compatible Proxy Middleware for the Wyoming Protocol",
+  "version": "1.0.0",
+  "author": "roryeckel",
+  "homepage": "https://github.com/roryeckel/wyoming_openai",
+  "skills": []
+}
