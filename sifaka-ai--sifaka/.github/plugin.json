@@ -1,0 +1,9 @@
+{
+  "name": "sifaka-ai--sifaka",
+  "displayName": "sifaka",
+  "description": "Sifaka is an open-source framework that adds reflection and reliability to large language model (LLM) applications.",
+  "version": "1.0.0",
+  "author": "sifaka-ai",
+  "homepage": "https://github.com/sifaka-ai/sifaka",
+  "skills": []
+}
