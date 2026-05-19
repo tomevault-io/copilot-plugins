@@ -1,238 +1,73 @@
-## command-rules
+## create-commit-message
 
-> Defines custom commands for AI-assisted development workflows
+> How to write commit messages with conventional commit
 
-# AI Command System
+## **Writing Commit Messages With Convention Commit**
+You must format commit messages using the **Conventional Commits** standard.  
+**Only apply this rule when generating or suggesting commit messages.**  
 
-Rule for defining and handling custom commands for AI-assisted development workflows.
+---
 
-<rule>
-name: ai_command_system
-filters:
-  - type: command
-    pattern: "Specs"
-  - type: command
-    pattern: "Code"
-  - type: command
-    pattern: "Task"
-  - type: command
-    pattern: "Learn"
-  - type: command
-    pattern: "Eval"
-  - type: command
-    pattern: "Review"
+### Format:
+```
+<type>(<scope>): <description>
+```
+- **Type**: Defines the nature of the change.
+- **Scope**: Derived from the file path or affected component.
+- **Description**: Written in imperative mood.
 
-actions:
-  # Specs Commands
-  - type: react
-    conditions:
-      - pattern: "Specs.getHtml"
-    action: |
-      # Generate an HTML representation of all specifications
-      # This will create a dashboard showing all specs with their completion status
-      
-      I'll generate an HTML dashboard of all specifications, showing:
-      - Project specifications overview
-      - Completion percentages
-      - Requirements status for each spec
-      - Categories of specifications
-      - A visual indicator of progress
-      
-      The dashboard will be saved to `.cursor/output/specs_[timestamp].html`
+### Types:
+- **feat**: A new feature.
+- **fix**: A bug fix.
+- **docs**: Documentation changes only.
+- **style**: Code formatting, no logic change.
+- **refactor**: Code restructuring, no behavior change.
+- **perf**: Performance improvements.
+- **test**: Adding or improving tests.
+- **chore**: Build process, dependencies, or auxiliary tools.
 
-  - type: react
-    conditions:
-      - pattern: "Specs.getSummary"
-    action: |
-      # Generate a markdown summary of all specifications
-      
-      I'll create a markdown summary showing:
-      - Total specification files
-      - Total requirements
-      - Completion percentage
-      - Breakdown by category
-      - Details on each individual specification
-      
-      The summary will be saved to `.cursor/output/specs_summary_[timestamp].md`
+---
 
-  - type: react
-    conditions:
-      - pattern: "Specs.verify"
-    action: |
-      # Verify implementations match specifications
-      
-      I'll analyze the codebase to verify that specifications have been implemented:
-      - Trace each requirement to implementation code
-      - Verify marked items actually exist in the codebase
-      - Identify gaps between specs and implementation
-      - Generate a verification report with findings
-      
-      The verification report will be saved to `.cursor/output/spec_verification_[timestamp].md`
+## **Commit Logic**
+```js
+function generateCommitMessage(file, changeDescription) {
+  let changeType = "chore"
+  if (/add|create|implement/i.test(changeDescription)) changeType = "feat"
+  else if (/fix|correct|resolve/i.test(changeDescription)) changeType = "fix"
+  else if (/refactor|restructure/i.test(changeDescription)) changeType = "refactor"
+  else if (/test/i.test(changeDescription)) changeType = "test"
+  else if (/doc|comment/i.test(changeDescription)) changeType = "docs"
+  else if (/style|format/i.test(changeDescription)) changeType = "style"
+  else if (/perf|optimize/i.test(changeDescription)) changeType = "perf"
 
-  # Code Commands
-  - type: react
-    conditions:
-      - pattern: "Code.analyze"
-    action: |
-      # Analyze code structure and quality
-      
-      I'll perform a comprehensive analysis of the codebase:
-      - File types and lines of code
-      - Directory structure
-      - Code complexity metrics
-      - Potential complex functions (>50 lines)
-      - TODOs and FIXMEs
-      - Potential architectural issues
-      - Refactor to follow [object callisthenics](mdc:https:/williamdurand.fr/2013/06/03/object-calisthenics)
-      - Check for code smells 
-      
-      The analysis report will be saved to `.cursor/output/code_analysis_[timestamp].md`
+  const scope = file.split("/").slice(0, -1).join("-")
+  return `${changeType}(${scope}): ${changeDescription}`
+}
+```
 
-  - type: react
-    conditions:
-      - pattern: "Code.refactor:(.*)"
-    action: |
-      # Extract the code file to refactor from the command
-      # Pattern will capture the file path
-      
-      I'll analyze the specified file and provide refactoring recommendations:
-      - Look for @codes
-      - Identify long functions that could be broken down
-      - Find duplicated code patterns
-      - Review naming conventions
-      - Suggest code structure improvements
-      - Generate refactored code
-      
-      The refactoring report will be saved to `.cursor/output/refactor_[filename]_[timestamp].md`
+---
 
-  # Evaluation Commands
-  - type: react
-    conditions:
-      - pattern: "Eval.project"
-    action: |
-      # Generate a comprehensive project evaluation report
-      
-      I'll evaluate the entire project:
-      - Project overview and statistics
-      - Task completion assessment
-      - Specification coverage
-      - Code quality assessment
-      - Documentation assessment
-      - Recommendations for improvement
-      
-      The evaluation report will be saved to `.cursor/output/project_evaluation_[timestamp].md`
+## **Conventional Commit Examples**
 
-  - type: react
-    conditions:
-      - pattern: "Eval.progress"
-    action: |
-      # Generate a progress report comparing current state to project goals
-      
-      I'll analyze project progress:
-      - Milestone status and completion
-      - Weekly task completion trends
-      - Burndown analysis with completion projections
-      - Risk assessment
-      - Recommendations to maintain momentum
-      
-      The progress report will be saved to `.cursor/output/progress_report_[timestamp].md`
+**Input 1**:
+```
+CHANGE_DESCRIPTION="add user authentication function"
+FILE="Source/Features/Auth/LoginAuth.swift"
+```
+**Output 1**:
+```
+feat(Source-Features-Auth): add user authentication function
+```
 
-  # Review Commands
-  - type: react
-    conditions:
-      - pattern: "Review.code:(.*)"
-    action: |
-      # Generate a code review for the specified file
-      # Pattern will capture the file path
-      
-      I'll perform a detailed code review:
-      - Style and formatting analysis
-      - Code structure evaluation
-      - Security considerations
-      - Performance considerations
-      - Specific recommendations for improvement
-      
-      The code review will be saved to `.cursor/output/codereview_[filename]_[timestamp].md`
-
-  - type: react
-    conditions:
-      - pattern: "Review.pr"
-    action: |
-      # Generate a pull request review template
-      
-      I'll create a comprehensive PR review template with sections for:
-      - PR overview (title, author, branch)
-      - Changes summary
-      - Specifications addressed
-      - Code review (structure, quality, testing, security, performance)
-      - Reviewer notes
-      - Recommendations
-      - Follow-up tasks
-      
-      The template will be saved to `.cursor/output/pr_review_template_[timestamp].md`
-
-  # Task Commands
-  - type: react
-    conditions:
-      - pattern: "Task.summary"
-    action: |
-      # Generate a summary of all tasks
-      
-      I'll create a comprehensive task summary:
-      - Task status overview
-      - Recent activity
-      - Active tasks
-      - Open tasks
-      - Completion timeline
-      - Task duration statistics
-      
-      The task summary will be saved to `.cursor/output/task_summary_[timestamp].md`
-
-  - type: suggest
-    message: |
-      ### AI Command System
-
-      I can execute various special commands to assist your development workflow:
-
-      **Specs Commands**:
-      - `Specs.getHtml` - Generate visual HTML dashboard of specifications
-      - `Specs.getSummary` - Create markdown summary of specifications
-      - `Specs.verify` - Verify implementations match specifications
-
-      **Code Commands**:
-      - `Code.analyze` - Analyze code structure and quality
-      - `Code.refactor:[file]` - Generate refactoring suggestions for a file
-
-      **Evaluation Commands**:
-      - `Eval.project` - Generate comprehensive project evaluation
-      - `Eval.progress` - Compare current state to project goals
-
-      **Review Commands**:
-      - `Review.code:[file]` - Generate detailed code review
-      - `Review.pr` - Create a pull request review template
-
-      **Task Commands**:
-      - `Task.summary` - Generate summary of all tasks
-
-      All output will be saved to the `.cursor/output/` directory for reference.
-
-examples:
-  - input: |
-      Specs.getHtml
-    output: "Generating HTML dashboard of specifications..."
-
-  - input: |
-      Code.analyze
-    output: "Analyzing code structure and quality..."
-
-  - input: |
-      Eval.project
-    output: "Generating comprehensive project evaluation..."
-
-metadata:
-  priority: high
-  version: 1.0
-</rule>
+**Input 2**:
+```
+CHANGE_DESCRIPTION="fix incorrect date parsing"
+FILE="Source/Core/Utilities/DateUtils.swift"
+```
+**Output 2**:
+```
+fix(Source-Core-Utilities): fix incorrect date parsing
+```
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
