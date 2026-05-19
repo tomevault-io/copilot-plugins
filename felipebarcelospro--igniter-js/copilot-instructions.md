@@ -1,1083 +1,71 @@
-## writing-guidelines
+## writing-styles
 
-> This guide ensures consistent, high-quality documentation across all Igniter.js content types (blog, docs, templates, updates). It's designed for both human authors and AI agents to produce excellent developer experiences.
+> This guide defines the writing standards for all Igniter.js content: documentation, blog posts, templates, and updates.
 
-# Writing Guidelines for Humans and LLMs
+## ✍️ Unified Documentation Style Guide (for LLMs & Authors)
 
-This guide ensures consistent, high-quality documentation across all Igniter.js content types (blog, docs, templates, updates). It's designed for both human authors and AI agents to produce excellent developer experiences.
+This guide defines the writing standards for all Igniter.js content: documentation, blog posts, templates, and updates.
 
-## Core Style Principles
+### 🎯 Core Style Principles (Applies to All Documentation)
 
-| Principle | Definition | Example: Good | Example: Bad |
-|-----------|------------|--------------|-------------|
-| Clear Language | Use simple, direct language with short words and sentences. Avoid unnecessary jargon. | "Click save to store your changes." | "Initiate the persistence process by activating the storage mechanism." |
-| Developer-Focused | Write in a professional but approachable tone that addresses the reader directly. | "You can configure this option in the settings panel." | "Users might want to adjust configuration parameters." |
-| Example-Driven | Include practical code examples for all key concepts. | "Use the `useState` hook: `const [count, setCount] useState(0)`" | "State management is an important React concept." |
-| Active Voice | Make the subject perform the action rather than receive it. | "React renders the component." | "The component is rendered by React." |
-| Success-First | Show working examples before explaining theory. | "First, create a component: `function Button() {...}`. Now let's understand how it works..." | "The component lifecycle has several phases which you must understand before implementation..." |
-| Transparent | Be honest about limitations and challenges. | "This approach works well for small datasets but may cause performance issues with larger ones." | "This is the optimal solution for data management." |
-| Consistent Terms | Use the same terminology throughout to refer to the same concepts. | "Route" consistently or "endpoint" consistently, not both interchangeably. | Mixing "callback function" and "handler" for the same concept. |
+1. **Clarity Over Cleverness**  
+   Use simple, direct language. Favor short words and short sentences. Avoid jargon unless it's essential—and if it is, define it once.
 
----
+2. **Speak Developer**  
+   Write the way you'd speak to a smart, curious engineer sitting next to you. Friendly, confident, and precise.
 
-## Fumadocs-Specific Guidelines
+3. **Show, Don't Just Tell**  
+   Use examples liberally. Explain ideas with real code, not abstract theory. Every key concept should be backed by a working snippet.
 
-Igniter.js documentation uses **Fumadocs**, a modern documentation framework with MDX support and powerful components.
+4. **Write in Active Voice**  
+   ✅ "Click the button to save your changes."  
+   ❌ "The button should be clicked in order for changes to be saved."
 
-### Available MDX Components
+5. **Present First, Explain Later**  
+   Get the reader to success as quickly as possible. After they've seen something work, then explain how/why it works.
 
-Always use these components from `mdx-components.tsx` when appropriate:
+6. **Be Honest and Human**  
+   If something is tricky, say so. If you're recommending a workaround, explain why. Transparency builds trust.
 
-#### Content Organization
-- **`<Callout />`** - Highlight important information (types: `info`, `warn`, `error`, `success`)
-- **`<Accordions />` + `<Accordion />`** - Collapsible content sections
-- **`<Tabs />` + `<Tab />`** - Tabbed content (supports persistence with `groupId`)
-- **`<Steps />` + `<Step />`** - Step-by-step instructions
+7. **Use consistent terminology**  
+   Always refer to concepts, components, and APIs by the same name. Don't mix "endpoint" and "route" if they mean the same thing.
 
-#### Code & Files
-- **`<CodeBlock />`** - Enhanced code blocks with syntax highlighting
-- **`<Files />`, `<Folder />`, `<File />`** - File structure visualization
-- **`<TypeTable />`** - API/type documentation tables
-
-#### Other Components
-- **`<Banner />`** - Page-level announcements
-- **`<Card />`, `<Cards />`** - Content cards for links/features
-
-### Component Usage Examples
-
-```mdx
-<!-- Callout for warnings -->
-<Callout type="warn" title="Important">
-  Make sure to configure your environment variables before deployment.
-</Callout>
-
-<!-- Steps for tutorials -->
-<Steps>
-  <Step>
-    ### Install Dependencies
-    Run `npm install @igniter-js/core`
-  </Step>
-  
-  <Step>
-    ### Configure
-    Create a `igniter.config.ts` file
-  </Step>
-</Steps>
-
-<!-- Tabs for multiple options -->
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']} groupId="package-manager">
-  <Tab value="npm">
-    ```bash
-    npm install @igniter-js/core
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add @igniter-js/core
-    ```
-  </Tab>
-</Tabs>
-
-<!-- File structure -->
-<Files>
-  <Folder name="src" defaultOpen>
-    <Folder name="features">
-      <File name="users.controller.ts" />
-    </Folder>
-    <File name="igniter.ts" />
-  </Folder>
-</Files>
-```
+8. **Verify Before Documenting**  
+   **NEVER assume API behavior.** Always check the actual implementation in `packages/` before writing code examples or documentation. Read source code, interfaces, and type definitions to ensure accuracy.
 
 ---
 
-## 🔍 CRITICAL: Always Verify Implementation Before Documenting
+### 📘 Documentation (Docs): Writing Style
 
-**NEVER assume how Igniter.js APIs work. ALWAYS verify the actual implementation.**
+**Tone:** Clear, technical, and helpful  
+**Voice:** An expert engineer sharing knowledge directly
 
-Before documenting any feature, API, or pattern:
+#### ✅ Style Rules:
+- **Verify Implementation**: Always check `packages/` source code before documenting APIs
+- Use **second person** ("you") to address developers directly
+- Keep explanations **focused and concise**
+- Start with **working examples**, then explain concepts
+- Use **`<Callout>`** for important notes and warnings
+- Include **complete, runnable code examples** that match actual APIs
+- Structure with **`<Steps>`** for sequential instructions
+- Use **`<Tabs>`** for package manager commands (with `groupId="package-manager"`)
+- Add **`<TypeTable>`** for API reference documentation
+- Show **file structures** with `<Files>`, `<Folder>`, `<File>` components
+- **Never assume**: If unsure about an API, search and read the implementation
 
-1. **Search the codebase** for the actual implementation in `packages/`
-2. **Read the source code** to understand:
-   - Function signatures and parameters
-   - Return types and structures
-   - Available methods and properties
-   - Type definitions in `.d.ts` files
-3. **Check interfaces** (`interface` and `type` definitions) to understand contracts
-4. **Review existing examples** in the codebase for correct usage patterns
-5. **Test your understanding** by looking at how it's used elsewhere
-
-### Why This Matters
-
-- **Type Safety**: Incorrect API usage breaks TypeScript inference
-- **Developer Trust**: Wrong documentation causes frustration and bugs
-- **Code Consistency**: Ensures all examples match the actual implementation
-- **Framework Evolution**: APIs change, and documentation must reflect current state
-
-### Verification Checklist
-
-- [ ] Found the implementation in `packages/`
-- [ ] Read the source code and interfaces
-- [ ] Verified all imports and exports
-- [ ] Checked type definitions
-- [ ] Reviewed how it's used in existing code/docs
-- [ ] Ensured code examples compile and work correctly
-
-## For LLM Content Generation
-
-### Formatting Instructions
-
-When generating content with an LLM, ensure the following:
-
-1. **Verify Implementation First**: Always check `packages/` before documenting any API
-2. **Structured Data**: Present information in well-defined structures like tables, numbered lists, and hierarchical headings
-3. **Explicit Examples**: Always include contrastive examples (good vs. bad)
-4. **Clear Boundaries**: Use explicit section markers and consistent formatting patterns
-5. **Context-Awareness**: Begin with the most critical information for the document type
-6. **Pattern Consistency**: Maintain consistent patterns throughout similar sections
-7. **Component Usage**: Use Fumadocs components appropriately for the content type
-
-### LLM Content Templates
-
-For each document type, LLMs should structure content as follows:
-
-```yaml
-DocumentType: [Tutorial|HowTo|Reference|Explanation|BlogPost|Update]
-Audience: [Beginner|Intermediate|Advanced]
-PrimaryGoal: "Single sentence describing document purpose"
-Sections:
-  - Name: "Introduction"
-    Content: "Clear goal statement with outcomes"
-  - Name: "Prerequisites"
-    Content: "Bulleted list of requirements"
-  - Name: "MainContent"
-    Content: "Follows appropriate structure for document type"
-  - Name: "Conclusion"
-    Content: "Summary and next steps"
-```
-
-
-## Document Types and Their Styles
-
-### Documentation (Docs)
-
-**Purpose**: Comprehensive technical documentation for Igniter.js features, APIs, and concepts
-**Location**: `apps/www/content/docs/`
-
-#### Frontmatter Schema
-```yaml
----
-title: "Feature Name"
-description: "Brief description of the feature or concept"
----
-```
-
-#### Writing Rules
-- Start with H2 headings (never H1 - title from frontmatter is H1)
-- Use `<Callout>` for important notes, warnings, and tips
-- Include working code examples for every concept
-- Use `<TypeTable>` for API documentation
-- Add `<Steps>` for setup instructions
-- Use `<Tabs>` for package manager commands with `groupId="package-manager"`
-
-#### Structure Template
+#### 📝 Example Structure:
 ```mdx
 ---
 title: "Feature Name"
-description: "What this feature does in one sentence"
+description: "Brief description of what this feature does"
 ---
 
 ## Introduction
 
-Brief overview of what this feature solves.
+What problem does this solve? One paragraph maximum.
 
 <Callout type="info">
-  Important context or prerequisite knowledge.
-</Callout>
-
-## Installation
-
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']} groupId="package-manager">
-  <Tab value="npm">
-    ```bash
-    npm install package-name
-    ```
-  </Tab>
-  <!-- Other package managers -->
-</Tabs>
-
-## Basic Usage
-
-Simple example showing the feature in action:
-
-```typescript
-// Complete, runnable example
-import { feature } from '@igniter-js/core';
-
-const result = feature();
-```
-
-## API Reference
-
-<TypeTable type={{
-  propName: {
-    type: 'string',
-    description: 'What this prop does',
-    required: true
-  }
-}} />
-
-## Advanced Usage
-
-More complex scenarios and edge cases.
-
-## Troubleshooting
-
-Common issues and solutions.
-```
-
-### Blog Posts
-
-**Purpose**: Announcements, tutorials, and thought leadership
-**Location**: `apps/www/content/blog/`
-
-#### Frontmatter Schema
-```yaml
----
-title: "Post Title"
-description: "Engaging description for SEO and previews"
-cover: "https://example.com/cover.jpg" # Optional
-tags: ["tutorial", "announcement"] # Optional
----
-```
-
-#### Writing Rules
-- Use engaging, conversational tone
-- Include real-world examples and use cases
-- Add visual elements (images, diagrams) when helpful
-- Use `<Callout>` for key takeaways
-- Include code examples with syntax highlighting
-- End with clear next steps or call-to-action
-
-#### Structure Template
-```mdx
----
-title: "Introducing Feature X"
-description: "How Feature X revolutionizes your workflow"
-tags: ["announcement", "feature"]
----
-
-## The Problem
-
-Describe the pain point this addresses.
-
-## The Solution
-
-How Igniter.js solves this problem.
-
-```typescript
-// Show the feature in action
-const example = createFeature({
-  // ...
-});
-```
-
-<Callout type="success" title="Key Benefit">
-  Highlight the main advantage.
-</Callout>
-
-## How It Works
-
-Deeper explanation with examples.
-
-## Getting Started
-
-<Steps>
-  <Step>
-    ### Install
-    Installation instructions
-  </Step>
-  <Step>
-    ### Configure
-    Configuration steps
-  </Step>
-</Steps>
-
-## What's Next
-
-Future plans and how to get involved.
-```
-
-### Templates
-
-**Purpose**: Showcase starter templates and their features
-**Location**: `apps/www/content/templates/`
-
-#### Frontmatter Schema
-```yaml
----
-title: "Template Name"
-description: "What this template provides"
-framework: "Next.js" # or "Bun", "Express", etc.
-demo: "https://demo-url.com"
-repository: "https://github.com/repo" # Optional
-stack: ["TypeScript", "Prisma", "Redis"]
-useCases: ["Full-Stack", "API"]
-creator:
-  username: "github-username"
-  name: "Display Name" # Optional
-  avatar: "https://avatar-url" # Optional
----
-```
-
-#### Writing Rules
-- Focus on what the template provides out-of-the-box
-- Use `<Files>` component to show project structure
-- Include quick start instructions with `<Steps>`
-- Show key features with code examples
-- Add deployment instructions
-- Use `<Callout>` for important setup notes
-
-#### Structure Template
-```mdx
----
-title: "Next.js Full-Stack Starter"
-description: "Production-ready Next.js app with Igniter.js"
-framework: "Next.js"
-demo: "https://demo.vercel.app"
-stack: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"]
-useCases: ["Full-Stack"]
-creator:
-  username: "felipebarcelospro"
----
-
-## Overview
-
-What this template includes and who it's for.
-
-## Features
-
-- ✅ Feature 1
-- ✅ Feature 2
-- ✅ Feature 3
-
-## Project Structure
-
-<Files>
-  <Folder name="src" defaultOpen>
-    <Folder name="features">
-      <File name="users.controller.ts" />
-    </Folder>
-    <File name="igniter.ts" />
-  </Folder>
-</Files>
-
-## Quick Start
-
-<Steps>
-  <Step>
-    ### Clone and Install
-    ```bash
-    git clone repo-url
-    npm install
-    ```
-  </Step>
-  
-  <Step>
-    ### Configure Environment
-    ```bash
-    cp .env.example .env
-    ```
-  </Step>
-  
-  <Step>
-    ### Run Development Server
-    ```bash
-    npm run dev
-    ```
-  </Step>
-</Steps>
-
-<Callout type="info">
-  Important configuration notes.
-</Callout>
-
-## Key Features Explained
-
-### Feature 1
-
-Code example showing the feature.
-
-## Deployment
-
-Instructions for deploying to production.
-```
-
-### Learn Course (Tutorial Chapters)
-
-**Purpose**: Step-by-step tutorial chapters for building applications with Igniter.js
-**Location**: `apps/www/content/learn/`
-
-#### Frontmatter Schema
-```yaml
----
-title: "XX: Chapter Title"
-description: "What you'll learn in this chapter"
----
-```
-
-#### Course-Specific Components
-
-These components are available only in the learn course:
-
-- **`<ChapterObjectives />`** - Lists learning objectives at the start of each chapter
-- **`<ChapterNav />`** - Navigation between chapters at the end
-- **`<Quiz />`** - Interactive quizzes to test understanding
-
-#### Writing Rules for Course Chapters
-
-- **Start with Objectives**: Use `<ChapterObjectives>` to list what students will learn
-- **Explain Before Showing**: Always explain concepts before diving into code
-- **Complete Code Examples**: Every code block must be complete, runnable, and tested
-- **Business Logic Comments**: Use `// Business Rule:` and `// Observation:` comments to explain code logic
-- **"Understanding..." Sections**: Include sections like "Understanding the Controller" to deepen knowledge
-- **Show Real APIs**: Always use actual Igniter.js APIs from `packages/` - verify before writing
-- **Include Quiz Questions**: Add `<Quiz>` components to reinforce key concepts
-- **Chapter Navigation**: Always end with `<ChapterNav>` linking to next chapter
-- **File Paths**: Use `<Files>` component to show project structure frequently
-- **Callouts for Tips**: Use `<Callout type="info">` for tips and `<Callout type="success">` for achievements
-
-#### Code Comment Patterns
-
-When writing code examples for the course, use these comment patterns:
-
-```typescript
-// Business Rule: Explains why a business decision was made
-// This helps students understand not just what, but why
-
-// Observation: Explains what's happening or what to notice
-// Useful for highlighting important patterns or behaviors
-```
-
-#### Structure Template for Course Chapters
-
-```mdx
----
-title: "03: Your First Feature"
-description: "Generate and understand your first Igniter.js feature"
----
-
-<ChapterObjectives
-  objectives={[
-    { text: 'Use the CLI to generate a feature' },
-    { text: 'Understand the feature structure' },
-    { text: 'Learn how controllers handle HTTP requests' }
-  ]}
-/>
-
-## Introduction
-
-Brief context about what we're building and why.
-
-## Step-by-Step Instructions
-
-Detailed instructions with complete code examples.
-
-```typescript
-// Business Rule: Why we do this
-import { igniter } from "@/igniter";
-
-export const myController = igniter.controller({
-  // Complete implementation
-});
-```
-
-### Understanding the Code
-
-Deep dive into what the code does and why it works this way.
-
-<Callout type="info" title="Key Concept">
-  Important insight about the pattern we just used.
-</Callout>
-
-## Testing Your Implementation
-
-How to verify everything works.
-
-<Quiz
-  question="What does this pattern accomplish?"
-  options={[
-    { label: 'Option 1', value: 'a' },
-    { label: 'Correct option', value: 'b', isCorrect: true }
-  ]}
-  explanation="Why this is the correct answer."
-/>
-
-<ChapterNav
-  current={{
-    number: 3,
-    title: "Your First Feature"
-  }}
-  next={{
-    number: 4,
-    title: "Authentication",
-    description: "Build a complete authentication system",
-    href: "/learn/04-authentication"
-  }}
-/>
-```
-
-#### Example Chapter Structure Pattern
-
-Every chapter should follow this flow:
-
-1. **ChapterObjectives** - What students will learn
-2. **Introduction** - Context and overview
-3. **Step-by-Step Instructions** - Complete, verified code examples
-4. **Understanding Sections** - Deep dives into concepts
-5. **Testing** - How to verify it works
-6. **Quiz** - Reinforce key concepts
-7. **ChapterNav** - Link to next chapter
-
-### Updates (Changelog)
-
-**Purpose**: Version updates and changelog entries
-**Location**: `apps/www/content/updates/`
-
-#### Frontmatter Schema
-```yaml
----
-title: "v1.2.0 - Feature Release"
-description: "What's new in this version"
-cover: "cover-image-url" # Optional
----
-```
-
-#### Writing Rules
-- Start with version number and release date
-- Group changes by category (Features, Bug Fixes, Breaking Changes)
-- Use bullet points for individual changes
-- Link to relevant documentation
-- Include migration guides for breaking changes
-- Use `<Callout type="warn">` for breaking changes
-
-#### Structure Template
-```mdx
----
-title: "v1.2.0 - Real-Time Features"
-description: "Added SSE support and real-time data synchronization"
----
-
-Released on October 28, 2025
-
-## 🎉 Features
-
-- **Real-Time Updates**: Added SSE-based real-time data synchronization
-- **New Adapter**: Redis adapter for caching and pub/sub
-- **Improved DX**: Better TypeScript inference for controllers
-
-## 🐛 Bug Fixes
-
-- Fixed type inference issue in nested controllers
-- Resolved memory leak in job queue
-
-## ⚠️ Breaking Changes
-
-<Callout type="warn" title="Migration Required">
-  The `createController` function signature has changed.
-</Callout>
-
-### Before
-```typescript
-createController({ path: '/users' })
-```
-
-### After
-```typescript
-igniter.controller({ path: '/users' })
-```
-
-## 📚 Documentation
-
-- Updated [Controller Guide](/docs/controllers)
-- New [Real-Time Guide](/docs/real-time)
-
-## 🔗 Links
-
-- [Full Changelog](https://github.com/org/repo/releases/tag/v1.2.0)
-- [Migration Guide](/docs/migration/v1.2)
-```
-
----
-
-## MDX Documentation Formatting Rules
-
-### Document Structure
-
-1. **Frontmatter requirements**:
-   ```mdx
-   ---
-   title: "Component Name"
-   description: "A brief single-paragraph description of the component or feature."
-   ---
-   ```
-
-2. **Heading hierarchy**:
-   - Never use H1 - the title from frontmatter serves as H1
-   - Start document structure with H2
-   - Maintain proper nesting of headings (H2 → H3 → H4)
-
-
-3. **Code formatting**:
-   - Inline code: Use backticks for properties, functions, variables: `useState`
-   - Code blocks: Use triple backticks with language identifier
-     ```jsx
-     function Example() {
-       return <div>Example component</div>;
-     }
-     ```
-
-4. **Terminology consistency**:
-   - Define terms on first use: "Content Delivery Network (CDN)"
-   - Use the same term throughout the document
-
-### Machine-Readable Patterns for LLMs
-
-When writing documentation that will be processed by LLMs, follow these additional patterns:
-
-1. **Explicit section markers**: Use clear heading patterns and consistent depth
-2. **Pattern-based formatting**: Keep similar content in predictable structures
-3. **Numbered instructions**: Use explicit numbers for sequential steps
-4. **Key-value patterns**: Format properties, parameters and configurations as distinct key-value pairs
-5. **Contrastive examples**: Always provide both correct and incorrect examples
-6. **Semantic indicators**: Use formatting (bold, italics, code blocks) consistently for semantic meaning
-
----
-
-## Visual Structure & DX Best Practices
-
-Optimize documentation for scanning, understanding, and action. These patterns improve developer experience significantly.
-
-### Content Hierarchy Patterns
-
-**1. Progressive Disclosure**
-- Start with **what** → then **why** → then **how**
-- Use overview sections before diving into details
-- Place advanced topics after basic ones
-
-```mdx
-## Overview
-High-level explanation of what this feature does.
-
-## Quick Start
-Get something working immediately.
-
-## Understanding the Concepts
-Deeper explanation after hands-on experience.
-
-## Advanced Usage
-More complex scenarios and edge cases.
-```
-
-**2. Section Naming Conventions**
-- **"Understanding..."** - Use after showing code to explain concepts
-- **"Key Concepts"** - Summary of important ideas
-- **"Testing..."** - How to verify something works
-- **"Why...?"** - Explains decisions and trade-offs
-- **"Common Patterns"** - Frequently used approaches
-
-**3. Visual Breathing Room**
-- Add horizontal rules (`---`) between major sections
-- Use spacing to separate concepts, not just headings
-- Group related content with consistent patterns
-
-### Code Example Patterns
-
-**1. Complete vs. Snippets**
-- **Complete examples**: For tutorials, course, getting started
-- **Snippets**: For reference docs showing specific patterns
-- Always include necessary imports in complete examples
-
-**2. Progressive Code Examples**
-```mdx
-### Basic Example
-```typescript
-// Simple, minimal working example
-```
-
-### Adding Features
-```typescript
-// Builds on basic example
-```
-
-### Production Ready
-```typescript
-// Complete example with error handling, etc.
-```
-```
-
-**3. Before/After Comparisons**
-Use `<Tabs>` to show different approaches:
-
-```mdx
-<Tabs items={['Without Feature', 'With Feature']}>
-  <Tab value="Without Feature">
-    ```typescript
-    // Old way
-    ```
-  </Tab>
-  <Tab value="With Feature">
-    ```typescript
-    // New way - better!
-    ```
-  </Tab>
-</Tabs>
-```
-
-### Comparison Tables
-
-Use tables for feature comparisons, API differences, etc.:
-
-```mdx
-| Feature | Option A | Option B |
-|---------|----------|----------|
-| Type Safety | ✅ Full | ⚠️ Partial |
-| Performance | ⚡ Fast | ⚡⚡ Faster |
-```
-
-**When to use tables:**
-- Comparing multiple options/features
-- Showing configuration differences
-- Listing pros/cons side-by-side
-- API parameter comparisons
-
-### Callout Strategy
-
-**Strategic use of callouts:**
-- `<Callout type="info">` - Context, prerequisites, background
-- `<Callout type="warn">` - Potential issues, breaking changes
-- `<Callout type="success">` - Achievements, checkpoints, wins
-- `<Callout type="error">` - Critical errors, things that will break
-
-**Callout placement:**
-- **Before code**: Warnings, prerequisites
-- **After code**: Success messages, next steps
-- **Standalone**: Important context, tips
-
-### Lists and Formatting
-
-**1. Bullet Lists** - Use for:
-- Features
-- Steps without strict order
-- Options to choose from
-- Benefits/consequences
-
-**2. Numbered Lists** - Use for:
-- Sequential steps
-- Ordered priorities
-- Step-by-step instructions
-
-**3. Bold Text** - Use for:
-- Key concepts (first mention)
-- Important terms
-- Emphasis on critical information
-
-**4. Inline Code** - Use for:
-- Function names: `igniter.controller()`
-- File paths: `src/features/user/`
-- Config values: `"production"`
-- API endpoints: `/api/v1/users`
-
-### Cross-References and Links
-
-**1. Internal Links**
-- Link to related concepts: `[See Controllers](/docs/controllers)`
-- Use descriptive link text, not "click here"
-- Include context: "To learn more, see [Authentication](/docs/auth)"
-
-**2. Related Sections**
-Use callouts to guide readers:
-
-```mdx
-<Callout type="info" title="Related">
-  This builds on concepts from [Procedures](/docs/procedures). 
-  Make sure you understand those first.
-</Callout>
-```
-
-**3. Next Steps**
-Always guide readers forward:
-
-```mdx
-## Next Steps
-
-- Try building [Feature X](/docs/feature-x)
-- Read about [Concept Y](/docs/concept-y)
-- Explore [Advanced Patterns](/docs/advanced)
-```
-
-### Common Patterns
-
-**1. "Understanding..." Sections**
-After showing code, explain it:
-
-```mdx
-```typescript
-// Code example here
-```
-
-### Understanding the Code
-
-Break down what the code does and why it works.
-```
-
-**2. Key Concepts Recap**
-After complex sections:
-
-```mdx
-## Key Concepts Review
-
-**1. Concept Name**: Brief explanation
-**2. Another Concept**: Brief explanation
-```
-
-**3. Testing Patterns**
-Always show how to verify:
-
-```mdx
-## Testing Your Implementation
-
-1. Run the dev server
-2. Navigate to `/your-endpoint`
-3. You should see...
-```
-
-**4. Error Prevention**
-Highlight common mistakes:
-
-```mdx
-<Callout type="warn" title="Common Mistake">
-  Don't forget to... Many developers miss this step!
-</Callout>
-```
-
-### Visual Organization Rules
-
-**1. Section Length**
-- Keep sections focused (200-400 words ideal)
-- Break long sections into subsections
-- Use visual breaks (hrules, callouts) for separation
-
-**2. Heading Depth**
-- H2 for major sections
-- H3 for subsections
-- H4 sparingly (only when truly needed)
-- Never skip heading levels
-
-**3. Code Block Context**
-Always provide context before code:
-
-```mdx
-## Creating a Controller
-
-To create a controller, follow this pattern:
-
-```typescript
-// Code here
-```
-
-This pattern ensures type safety...
-```
-
-**4. Emphasis Hierarchy**
-- **Bold** for important concepts/terms
-- *Italic* for emphasis within sentences
-- `Code` for technical terms
-- **Bold + Code** for highlighting API usage: **`igniter.controller()`**
-
-### Tables of Contents (ToC)
-
-For longer documents, consider structured ToC:
-
-```mdx
-## In This Chapter
-
-- [Setting Up](#setting-up)
-- [Configuration](#configuration)
-- [Usage Examples](#usage-examples)
-- [Troubleshooting](#troubleshooting)
-```
-
-### Visual Aids
-
-**1. Diagrams** - Use Mermaid for:
-- Architecture diagrams
-- Data flow
-- Component relationships
-
-**2. Screenshots** - When helpful:
-- UI components
-- CLI output
-- IDE configurations
-
-**3. Animated Gifs/Videos** - For:
-- Complex workflows
-- Tool demonstrations
-- Multi-step processes
-
-## Content Quality Checklist
-
-### For All Content Types
-
-- [ ] Frontmatter is complete with required fields
-- [ ] No H1 headings in document body (title from frontmatter)
-- [ ] Code examples are complete and runnable
-- [ ] Inline code uses backticks for technical terms
-- [ ] Links are valid and properly formatted
-- [ ] Images have alt text
-- [ ] Terminology is consistent throughout
-- [ ] Visual hierarchy is clear (proper heading levels)
-- [ ] Callouts used strategically, not excessively
-- [ ] Related content cross-referenced appropriately
-
-### For Documentation
-
-- [ ] Installation instructions use `<Tabs>` with `groupId="package-manager"`
-- [ ] Important notes use `<Callout>` with appropriate type
-- [ ] Setup instructions use `<Steps>` component
-- [ ] API documentation uses `<TypeTable>` when appropriate
-- [ ] File structures use `<Files>`, `<Folder>`, `<File>` components
-- [ ] Code blocks specify language for syntax highlighting
-
-### For Blog Posts
-
-- [ ] Has engaging title and description
-- [ ] Includes practical examples
-- [ ] Has clear introduction and conclusion
-- [ ] Tags are relevant and helpful
-- [ ] Contains call-to-action or next steps
-
-### For Templates
-
-- [ ] All frontmatter schema fields are present
-- [ ] Project structure uses `<Files>` component
-- [ ] Quick start uses `<Steps>` component
-- [ ] Demo and repository links are valid
-- [ ] Stack and use cases are clearly defined
-
-### For Updates
-
-- [ ] Version number in title
-- [ ] Changes grouped by category
-- [ ] Breaking changes use warning callouts
-- [ ] Migration guides included when needed
-- [ ] Links to relevant documentation
-
----
-
-## Fumadocs Component Reference
-
-### Quick Reference Table
-
-| Component | Use Case | Required Props | Example |
-|-----------|----------|----------------|---------|
-| `<Callout>` | Highlights, warnings, tips | `type` | `<Callout type="warn">...</Callout>` |
-| `<Steps>` | Sequential instructions | None | `<Steps><Step>...</Step></Steps>` |
-| `<Tabs>` | Alternative options | `items`, `groupId` (optional) | `<Tabs items={['npm', 'pnpm']}>` |
-| `<Accordion>` | Collapsible content | `title` | `<Accordion title="FAQ">...</Accordion>` |
-| `<Files>` | File structure | None | `<Files><Folder>...</Folder></Files>` |
-| `<TypeTable>` | API documentation | `type` | `<TypeTable type={{...}} />` |
-| `<Card>` | Feature highlights | `title`, `href` (optional) | `<Card title="Feature">...</Card>` |
-
-### Callout Types and When to Use
-
-```mdx
-<!-- Information and tips -->
-<Callout type="info" title="Good to Know">
-  Additional context that helps understanding.
-</Callout>
-
-<!-- Warnings and cautions -->
-<Callout type="warn" title="Important">
-  Something that could cause issues if ignored.
-</Callout>
-
-<!-- Errors and critical issues -->
-<Callout type="error" title="Breaking Change">
-  Something that will break existing code.
-</Callout>
-
-<!-- Success and achievements -->
-<Callout type="success" title="Pro Tip">
-  Best practices and optimizations.
-</Callout>
-```
-
-### Package Manager Tabs (Standard Pattern)
-
-Always use this exact pattern for package installation:
-
-```mdx
-<Tabs items={['npm', 'pnpm', 'yarn', 'bun']} groupId="package-manager">
-  <Tab value="npm">
-    ```bash
-    npm install package-name
-    ```
-  </Tab>
-  <Tab value="pnpm">
-    ```bash
-    pnpm add package-name
-    ```
-  </Tab>
-  <Tab value="yarn">
-    ```bash
-    yarn add package-name
-    ```
-  </Tab>
-  <Tab value="bun">
-    ```bash
-    bun add package-name
-    ```
-  </Tab>
-</Tabs>
-```
-
-### File Structure Pattern
-
-```mdx
-<Files>
-  <Folder name="src" defaultOpen>
-    <Folder name="features">
-      <File name="users.controller.ts" />
-      <File name="posts.controller.ts" />
-    </Folder>
-    <Folder name="lib">
-      <File name="database.ts" />
-    </Folder>
-    <File name="igniter.ts" />
-  </Folder>
-  <File name="package.json" />
-</Files>
-```
-
----
-
-## Common Patterns and Examples
-
-### Feature Documentation Pattern
-
-```mdx
----
-title: "Feature Name"
-description: "What it does in one sentence"
----
-
-## Introduction
-
-Brief overview and use case.
-
-<Callout type="info">
-  Important prerequisite or context.
+  Important context or prerequisite.
 </Callout>
 
 ## Installation
@@ -1095,203 +83,510 @@ Brief overview and use case.
 
 <Steps>
   <Step>
-    ### Step Title
-    Instructions and code example
+    ### Install and Configure
+    Complete code example that works.
   </Step>
   
   <Step>
-    ### Next Step
-    More instructions
+    ### Use the Feature
+    Another working example.
   </Step>
 </Steps>
-
-## Examples
-
-### Basic Example
-
-```typescript
-// Complete, runnable example
-```
-
-### Advanced Example
-
-```typescript
-// More complex scenario
-```
 
 ## API Reference
 
 <TypeTable type={{
-  propName: {
+  propertyName: {
     type: 'string',
-    description: 'Description',
+    description: 'What this does',
     required: true
   }
 }} />
 ```
 
-### Tutorial Pattern
+---
 
+### 📗 Blog Posts: Writing Style
+
+**Tone:** Engaging, conversational, and inspiring  
+**Voice:** A developer sharing insights and experiences
+
+#### ✅ Style Rules:
+- Use **first person** ("I", "we") or **second person** ("you")
+- Tell a **story** - what's the journey or insight?
+- Include **real-world examples** and use cases
+- Use **visual elements** (images, diagrams, demos)
+- Add **`<Callout>`** for key takeaways
+- Include **working code examples** with context
+- End with **clear next steps** or call-to-action
+- Use **tags** to categorize content
+
+#### 📝 Example Structure:
 ```mdx
 ---
-title: "Building X with Igniter.js"
-description: "Learn how to build X from scratch"
-tags: ["tutorial"]
+title: "Introducing Real-Time Features in Igniter.js"
+description: "How we built SSE-based real-time updates that just work"
+tags: ["announcement", "feature", "real-time"]
+cover: "https://example.com/cover.jpg"
 ---
 
-## What You'll Build
+## The Challenge
 
-Description and screenshot/demo of final result.
+Developers told us real-time features were too complex...
 
-## Prerequisites
+## Our Solution
 
-- Node.js 18+
-- Basic TypeScript knowledge
-- Igniter.js installed
+We built SSE-based real-time updates that work out of the box:
 
-## Project Setup
+```typescript
+// One line of code for real-time
+export const posts = igniter.query({
+  stream: true, // That's it!
+  handler: async () => { /* ... */ }
+});
+```
+
+<Callout type="success" title="Key Benefit">
+  Real-time updates with zero configuration.
+</Callout>
+
+## How It Works
+
+Deep dive into the implementation...
+
+## Getting Started
 
 <Steps>
   <Step>
-    ### Create Project
+    ### Install the Package
+    Installation code
+  </Step>
+</Steps>
+
+## What's Next
+
+We're working on WebSocket support, GraphQL subscriptions...
+```
+
+---
+
+### 📙 Templates: Writing Style
+
+**Tone:** Practical, clear, and motivating  
+**Voice:** A guide showing what's possible
+
+#### ✅ Style Rules:
+- Focus on **what's included** out-of-the-box
+- Use **`<Files>`** to visualize project structure
+- Add **`<Steps>`** for quick start instructions
+- Show **key features** with code examples
+- Include **deployment instructions**
+- Use **`<Callout>`** for important setup notes
+- Link to **live demo** and **repository**
+- Specify **tech stack** clearly
+
+#### 📝 Example Structure:
+```mdx
+---
+title: "Next.js Full-Stack Starter"
+description: "Production-ready Next.js app with Igniter.js, Prisma, and Redis"
+framework: "Next.js"
+demo: "https://demo.vercel.app"
+repository: "https://github.com/user/repo"
+stack: ["Next.js", "TypeScript", "Prisma", "Redis", "Tailwind CSS"]
+useCases: ["Full-Stack", "SaaS"]
+creator:
+  username: "felipebarcelospro"
+  name: "Felipe Barcelos"
+---
+
+## Overview
+
+This template provides everything you need to build a production-ready full-stack application.
+
+## Features
+
+- ✅ Type-safe API with Igniter.js
+- ✅ Database with Prisma ORM
+- ✅ Caching with Redis
+- ✅ Authentication ready
+- ✅ Tailwind CSS styling
+
+## Project Structure
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <Folder name="features">
+      <File name="users.controller.ts" />
+      <File name="posts.controller.ts" />
+    </Folder>
+    <File name="igniter.ts" />
+  </Folder>
+</Files>
+
+## Quick Start
+
+<Steps>
+  <Step>
+    ### Clone and Install
     ```bash
-    npx create-igniter-app my-app
+    git clone https://github.com/user/repo
+    cd repo
+    npm install
     ```
   </Step>
   
   <Step>
-    ### Install Dependencies
-    <Tabs items={['npm', 'pnpm']} groupId="package-manager">
-      <Tab value="npm">
-        ```bash
-        npm install
-        ```
-      </Tab>
-    </Tabs>
+    ### Configure Environment
+    ```bash
+    cp .env.example .env
+    # Edit .env with your settings
+    ```
+  </Step>
+  
+  <Step>
+    ### Run Development Server
+    ```bash
+    npm run dev
+    ```
   </Step>
 </Steps>
 
-## Implementation
-
-### Part 1: Feature Setup
-
-Code and explanation.
-
-<Callout type="success">
-  Checkpoint: You should now see...
+<Callout type="info">
+  Make sure PostgreSQL and Redis are running locally.
 </Callout>
 
-### Part 2: Adding Functionality
+## Deployment
 
-More code and explanation.
+Deploy to Vercel with one click...
+```
+
+---
+
+### 📕 Updates (Changelog): Writing Style
+
+**Tone:** Clear, factual, and organized  
+**Voice:** Release notes with helpful context
+
+#### ✅ Style Rules:
+- Start with **version number** and **release date**
+- Group changes by **category** (Features, Bug Fixes, Breaking Changes)
+- Use **bullet points** for individual changes
+- Use **`<Callout type="warn">`** for breaking changes
+- Include **migration guides** when needed
+- Link to **relevant documentation**
+- Show **before/after** code for breaking changes
+
+#### 📝 Example Structure:
+```mdx
+---
+title: "v1.2.0 - Real-Time Features"
+description: "Added SSE support and real-time synchronization"
+---
+
+Released on October 28, 2025
+
+## 🎉 Features
+
+- **Real-Time Updates**: SSE-based data synchronization
+- **Redis Adapter**: New caching and pub/sub adapter
+- **Better Types**: Improved TypeScript inference
+
+## 🐛 Bug Fixes
+
+- Fixed type inference in nested controllers
+- Resolved memory leak in job queue
+
+## ⚠️ Breaking Changes
+
+<Callout type="warn" title="Migration Required">
+  The controller API has changed in this release.
+</Callout>
+
+### Before
+```typescript
+createController({ path: '/users' })
+```
+
+### After
+```typescript
+igniter.controller({ path: '/users' })
+```
+
+## 📚 Documentation
+
+- Updated Controller Guide
+- New Real-Time Guide
+
+## 🔗 Links
+
+- Full Changelog on GitHub
+- Migration Guide
+```
+
+---
+
+### 🧩 Additional Style Conventions
+
+| Rule | Example |
+|------|---------|
+| ✅ Use inline code for technical terms | `fetchData()`, `useState`, `@igniter-js/core` |
+| ✅ Use fenced code blocks for multi-line code | \`\`\`ts ... \`\`\` |
+| ✅ Use bold for emphasis | **important concept** |
+| ✅ Use emojis sparingly in updates/blog | ✅, 🎉, 🐛, ⚠️ |
+| ✅ Spell out acronyms on first use | "Server-Sent Events (SSE)" |
+| ❌ Avoid ellipses in instructions | Don't use "Click Save..." |
+| ✅ Use present tense for documentation | "returns" not "will return" |
+| ✅ Use past tense for changelogs | "Fixed", "Added", "Removed" |
+
+---
+
+# 📄 MDX-First Documentation Rules
+
+When documenting projects that utilize Fumadocs, it's essential to adhere to specific conventions to maintain consistency and clarity. Below are key guidelines to follow:
+
+**1. Use MDX for Documentation**
+
+Always author documentation using MDX (Markdown for JSX). MDX combines the simplicity of Markdown with the power of JSX, allowing for the inclusion of interactive components within your documentation. This approach enhances the readability and functionality of the documentation. Fumadocs provides extensive support for MDX, making it the preferred choice for creating comprehensive and interactive documentation.
+
+**2. Frontmatter Configuration**
+
+At the beginning of each MDX document, include a frontmatter section to define metadata such as the title and description. This metadata is crucial for organizing and presenting the documentation effectively. An example of a frontmatter section is:
+
+```mdx
+---
+title: MySQL Adapter
+description: The MySQL adapter provides integration with MySQL and MariaDB, widely-used relational database systems known for reliability, performance, and broad compatibility.
+---
+```
+
+The `description` field serves as an introductory paragraph and should be placed immediately after the frontmatter. This ensures that readers receive a concise overview of the document's content right from the start.
+
+**3. Heading Structure**
+
+Do not use an H1 heading at the beginning of the document. The `title` defined in the frontmatter is automatically rendered as the main heading of the page. Starting with an H1 heading would duplicate the title and disrupt the document's structure. Instead, begin with an H2 or appropriate subheading to introduce sections within the document.
+
+**4. Consistent Writing Style**
+
+- **Clarity and Conciseness**: Use clear and concise language to convey information effectively.
+- **Active Voice**: Prefer active voice over passive voice to make sentences more direct and vigorous.
+- **Consistent Terminology**: Use consistent terminology throughout the documentation to avoid confusion.
+- **Code Blocks**: For code examples, use fenced code blocks with appropriate language identifiers for syntax highlighting. For example:
+
+  ```js
+  console.log('Hello, World!');
+  ```
+
+### 🧩 Example Template for Tutorial
+
+```md
+# Getting Started with [Product]
+
+In this tutorial, you'll build a simple [thing] using [product/tool]. By the end, you'll have a working [result] and understand the basics of how it works.
+
+## Prerequisites
+- Node.js v18+
+- A basic understanding of JavaScript
+
+## Step 1: Install the CLI
+
+<Tabs items={['npm', 'pnpm', 'yarn', 'bun']} groupId="package-manager">
+  <Tab value="npm">
+    ```bash
+    npx our-cli
+    ```
+  </Tab>
+</Tabs>
+
+You should now be able to run:
+
+```bash
+our-cli --help
+```
+
+If that works, let's move on.
+
+...
+
+## Conclusion
+
+You've just built a working [thing]! Next, try our [how-to guide] to add [extra feature].
+```
+
+---
+
+## 📚 Learn Course (Tutorial Chapters): Writing Style
+
+**Tone:** Instructional, encouraging, and thorough  
+**Voice:** A patient teacher guiding step-by-step
+
+### ✅ Course-Specific Style Rules:
+
+- **Always verify APIs**: Check `packages/` source code before showing any Igniter.js API usage
+- **Use ChapterObjectives**: Start every chapter with `<ChapterObjectives>` listing what students will learn
+- **Explain then Show**: Explain concepts before showing code (understand → implement)
+- **Complete Examples**: Every code block must be complete, executable, and match the real API
+- **Business Logic Comments**: Use `// Business Rule:` and `// Observation:` to explain code decisions
+- **Understanding Sections**: Include sections like "Understanding the Controller" to deepen learning
+- **Add Quizzes**: Use `<Quiz>` components to reinforce key concepts
+- **Chapter Navigation**: Always end with `<ChapterNav>` to guide students to the next chapter
+- **Show File Structure**: Use `<Files>` frequently to help students navigate the project
+- **Success Callouts**: Use `<Callout type="success">` after completing major milestones
+
+### Course Chapter Structure:
+
+```mdx
+---
+title: "XX: Chapter Title"
+description: "What you'll learn"
+---
+
+<ChapterObjectives
+  objectives={[
+    { text: 'First learning objective' },
+    { text: 'Second learning objective' }
+  ]}
+/>
+
+## Introduction
+
+Why this chapter matters and what we're building.
+
+## Step-by-Step Instructions
+
+Complete, verified code examples with explanations.
+
+```typescript
+// Business Rule: Why we do this
+import { igniter } from "@/igniter";
+
+export const controller = igniter.controller({
+  // Complete implementation
+});
+```
+
+### Understanding the Implementation
+
+Deep dive into what the code does and why.
+
+<Callout type="info" title="Key Concept">
+  Important insight about the pattern.
+</Callout>
 
 ## Testing
 
 How to verify it works.
 
-## Next Steps
+<Quiz
+  question="What does this accomplish?"
+  options={[
+    { label: 'Wrong', value: 'a' },
+    { label: 'Correct', value: 'b', isCorrect: true }
+  ]}
+  explanation="Why this is correct."
+/>
 
-- Try adding feature Y
-- Read about concept Z
-- Deploy to production
+<ChapterNav
+  current={{ number: 3, title: "Current Chapter" }}
+  next={{
+    number: 4,
+    title: "Next Chapter",
+    description: "What's next",
+    href: "/learn/04-next-chapter"
+  }}
+/>
 ```
+
+### Code Comment Patterns for Course
+
+When writing code for the course, use these comment types:
+
+- **`// Business Rule:`** - Explains why a business decision was made
+- **`// Observation:`** - Highlights what's happening or what to notice
+- **Regular comments** - Explain what the code does
 
 ---
 
-## Migration Guide: Converting Existing Content
+## 🎨 Visual Structure & DX Enhancement
 
-### From Old Blog to Fumadocs Blog
+### Content Flow Best Practices
 
-1. Extract frontmatter from Next.js page structure
-2. Move MDX content to `apps/www/content/blog/`
-3. Update frontmatter to match schema
-4. Convert components to Fumadocs equivalents
-5. Test rendering in new structure
+**Progressive Disclosure Pattern:**
+1. **Overview** - What is this? (one paragraph)
+2. **Quick Start** - Get it working fast
+3. **Understanding** - Deep dive after success
+4. **Advanced** - More complex scenarios
 
-### From App Templates to Template Docs
+**"Understanding..." Pattern:**
+After showing code, always explain:
+- What each part does
+- Why it works this way
+- Key concepts to remember
 
-1. Create MDX file in `apps/www/content/templates/`
-2. Fill frontmatter with template metadata
-3. Add project structure with `<Files>` component
-4. Include quick start with `<Steps>`
-5. Link to live demo and repository
+**Section Naming:**
+- Use **"Understanding the..."** after code examples
+- Use **"Key Concepts"** for summaries
+- Use **"Why...?"** for explanations
+- Use **"Common Patterns"** for best practices
 
-### Changelog to Updates
+### Visual Organization
 
-1. Group commits by version
-2. Create update file per version
-3. Categorize changes (Features, Fixes, Breaking)
-4. Add migration guides for breaking changes
-5. Link to relevant documentation
+**Breathing Room:**
+- Use horizontal rules (`---`) between major sections
+- Leave space between concepts
+- Group related content visually
 
----
+**Code Example Context:**
+Always provide context before code blocks:
+- What the code does
+- Where it goes
+- Why it's needed
 
-## AI Agent Guidelines
+**Emphasis Hierarchy:**
+- **Bold** for key concepts
+- `Inline code` for technical terms
+- **Bold + code** for API emphasis: **`igniter.controller()`**
 
-When generating content as an AI agent:
+### Comparison Patterns
 
-1. **Verify Implementation First**: Before writing any code example, search `packages/` and read the actual implementation
-2. **Always read the relevant instruction file first** (this file)
-3. **Match the document type** to the appropriate section above
-4. **Use exact frontmatter schemas** as defined
-5. **Implement Fumadocs components** where appropriate
-6. **Follow formatting patterns** consistently
-7. **Include complete code examples** that users can copy-paste and that match the real API
-8. **Verify API usage** by checking interfaces, types, and existing examples
-9. **Test all links** before submitting
-10. **Use consistent terminology** from the Igniter.js docs
-11. **Add helpful callouts** strategically (not excessively)
-12. **Structure content** for easy scanning using visual hierarchy principles
-13. **For course chapters**: Use `<ChapterObjectives>`, `<Quiz>`, and `<ChapterNav>` components
-14. **Apply DX best practices**: Progressive disclosure, visual breathing room, clear cross-references
-15. **Review visual structure**: Ensure content is scannable and well-organized
+Use `<Tabs>` for showing alternatives:
 
-### Content Generation Workflow
-
-```
-1. Identify content type (docs/blog/template/update/learn)
-2. VERIFY IMPLEMENTATION: Search packages/ and read source code
-3. Read relevant schema and rules from this file
-4. Create frontmatter with all required fields
-5. Structure content using appropriate pattern
-6. Add Fumadocs components for better UX
-7. Include code examples that match the verified implementation
-8. Review against quality checklist
-9. Ensure all links and references are valid
-10. For course: Add ChapterObjectives, Quiz, and ChapterNav
+```mdx
+<Tabs items={['Option A', 'Option B']}>
+  <Tab value="Option A">
+    Code example A
+  </Tab>
+  <Tab value="Option B">
+    Code example B
+  </Tab>
+</Tabs>
 ```
 
-### Verification Workflow for Code Examples
+Use tables for feature comparisons, pros/cons, etc.
 
-When including code examples, follow this process:
+### Strategic Callout Usage
 
-1. **Find the Implementation**
-   ```bash
-   # Search for the function/class/interface in packages/
-   grep -r "igniter.controller" packages/
-   ```
+- **Before code**: Warnings, prerequisites
+- **After code**: Success messages, next steps  
+- **Standalone**: Important context, tips
 
-2. **Read the Source**
-   - Open the file where it's defined
-   - Check function signatures
-   - Read JSDoc comments
-   - Review type definitions
+Don't overuse callouts - they lose impact if everything is highlighted.
 
-3. **Check Usage Examples**
-   - Look for tests in `packages/*/tests/`
-   - Check existing documentation
-   - Review examples in `apps/` directories
+### Cross-Reference Strategy
 
-4. **Verify Your Example**
-   - Ensure imports are correct
-   - Check parameter names match the interface
-   - Verify return types
-   - Confirm method names are accurate
+Always guide readers:
+- Link to prerequisites
+- Suggest next steps
+- Reference related concepts
+- Use descriptive link text
 
-5. **Test Compilation**
-   - Ensure TypeScript types are correct
-   - Verify the code would compile
-   - Check for missing dependencies
+Example:
+```mdx
+<Callout type="info" title="Prerequisite">
+  This builds on [Controllers](/docs/controllers). 
+  Review that first if needed.
+</Callout>
+```
 
 ---
 > Source: [felipebarcelospro/igniter-js](https://github.com/felipebarcelospro/igniter-js) — distributed by [TomeVault](https://tomevault.io).
