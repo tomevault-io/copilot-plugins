@@ -1,217 +1,281 @@
-## systempatterns
+## techcontext
 
-> App plugin architecture patterns and critical implementation paths.
+> Describes technologies, frameworks, and other tools used in this repository.
 
+# Tech Context
 
-# System Patterns
+## Technologies Used
 
-## App Plugin Architecture
+- **Frontend**: React 18.3.1 + TypeScript 5.9.3 + Grafana Scenes 7.0.3
+- **Backend**: Go 1.23+ with grafana-plugin-sdk-go v0.290.0
+- **Styling**: Emotion CSS-in-JS with Grafana UI theming system
+- **State Management**: Grafana Scenes for complex scene-based state
+- **Bundling**: Webpack 5.102.1 with custom configuration
+- **Testing**: Jest 30.2.0 + React Testing Library + Playwright 1.56.1 for E2E, Go testing for backend
+- **Runtime**: Node.js 22+ with npm 11.6.2 package management
 
-This Grafana App Plugin integrates as a sidebar panel using **Grafana Scenes** for state management. Key architectural layers:
+## Development Setup
 
-- **Extension Layer**: Sidebar components and navigation links registered via plugin.json
-- **Data Layer**: Multi-strategy content fetchers with fallbacks for external docs and recommender service
-- **External Layer**: ML-based recommender service and Grafana.com documentation
+- **Build System**: Webpack with TypeScript, SWC compilation, and hot reloading (frontend); Mage for Go backend
+- **Dev Environment**: Docker Compose with Grafana OSS for local testing
+- **Scripts**: `npm run dev` (watch mode), `npm run build` (production), `npm run server` (Docker)
+- **Go Build**: `mage build:darwin` (macOS), `mage build:linux` (Linux), `npm run build:backend` (Linux via npm)
+- **Code Quality**: ESLint + Prettier with Grafana configs, TypeScript strict mode; `golangci-lint` for Go
+- **Testing**: `npm run test:ci` (Jest CI mode), `npm run test:go` (Go tests), `npm run e2e` (Playwright), `npm run typecheck`
 
-## Plugin-Specific Decisions
+## Technical Constraints
 
-- **Grafana Scenes over React Router**: Leverages Grafana's native scene-based navigation and state management
-- **localStorage Tab Persistence**: Browser-like multi-tab experience survives page reloads
-- **Context-Aware Recommendations**: Analyzes current Grafana state (page, datasources, dashboard) to suggest relevant content
-- **Interactive Elements System**: Custom `data-targetaction` attributes enable "Show me"/"Do it" automation of Grafana UI actions
-- **@dnd-kit for Drag-and-Drop**: All sortable/draggable interactions should use @dnd-kit library for built-in accessibility, touch device support, smooth animations, and consistency.
+- **Grafana Version**: Requires Grafana >=12.3.0-0 for extension points compatibility
+- **Plugin Architecture**: Must use Grafana's app plugin structure with `plugin.json`
+- **Extension Points**: Limited to `grafana/extension-sidebar/v0-alpha` integration
+- **Browser Support**: Modern browsers only (ES2020+), no IE support
+- **Bundle Size**: Webpack optimization required for performance in Grafana context
 
-**Important**: Do NOT implement drag-and-drop using native HTML5 DnD or other libraries. Always use the @dnd-kit components to maintain consistency and accessibility
+## Dependencies
+
+**Frontend Runtime**:
+- `@grafana/data`, `@grafana/ui`, `@grafana/runtime`, `@grafana/scenes` (12.4.0 / 7.0.3)
+- `react` + `react-dom` (18.3.1), `react-router-dom` (6.28.0)
+- `@emotion/css` (11.13.5) for styling
+- `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities` for drag-and-drop
+
+**Backend Runtime** (Go):
+- `grafana-plugin-sdk-go` (v0.290.0) - Grafana plugin SDK
+- `gorilla/websocket` (v1.5.3) - WebSocket connections
+- `golang.org/x/crypto` - SSH/crypto utilities
+
+**Development**:
+- `typescript` (5.9.3), `webpack` (5.102.1) + loaders, `jest` (30.2.0) + testing utilities
+- `@grafana/eslint-config`, `@playwright/test` (1.56.1), `@swc/core` (1.15.1) for compilation
+- `sass` (1.94.0), `terser-webpack-plugin` (5.3.14) for asset processing
+- `mage` (v1.15.0) - Go build tool
+
+## Project Version & Release Management
+
+- **Current Version**: 1.1.71 (see package.json)
+- **License**: Apache-2.0
+- **Package Manager**: npm@11.6.2 with lockfile-based dependency management
+- **Release Strategy**: Semantic versioning with automated plugin signing
+
+## Tool Usage Patterns
+
+- **TypeScript**: Strict mode with comprehensive type definitions for all components
+- **Component Architecture**: Functional components with hooks, no class components
+- **Styling**: Emotion CSS-in-JS with `useStyles2` hook and Grafana theme integration
+- **Testing Strategy**: Unit tests with Jest, component tests with RTL, E2E with Playwright
+- **Code Organization**: Engine-based modules with clear separation of concerns (interactive-engine, context-engine, requirements-manager)
+- **Build Pipeline**: Development with watch mode, production with optimization and signing
+- **Drag-and-Drop**: @dnd-kit library for all sortable/draggable interactions (see `src/components/block-editor/dnd/`)
+
+## Current Architecture & Data Flow Overviews
+
+Architecture: Layered system with Context System → Documentation Rendering → 
+Interactive Guide System. For detailed architecture and data flows, see `docs/architecture.dot`.
+Do NOT read `architecture.dot` unless you're working on cross-component changes or need to understand system-wide data flows.
+
+## Key Architectural Patterns
+
+### 1. Context Detection (Automatic & Continuous)
+- **EchoSrv Integration**: Listens to Grafana analytics events for datasource/viz selection
+- **Location Monitoring**: Tracks URL changes via LocationService and browser events
+- **Debounced Updates**: Centralized timeout manager prevents rapid-fire API calls
+- **Event Buffer**: Handles missed events when plugin is closed/reopened
+
+### 2. Documentation Processing (2-Phase Pipeline)
+- **Phase 1: Fetching** (content-fetcher.ts)
+  - Multi-strategy fetching with fallbacks
+  - Bundled content support
+  - Unstyled content handling for Grafana docs
+- **Phase 2: Parsing** (html-parser.ts → content-renderer.tsx)
+  - HTML → React component tree conversion
+  - Fail-fast error handling with detailed diagnostics
+  - Interactive element extraction and configuration
+
+### 3. Interactive Guide System (Layered Architecture)
+- **Component Layer**: React components (InteractiveSection, InteractiveStep, etc.)
+- **Hook Layer**: Business logic (interactive.hook, step-checker.hook)
+- **Handler Layer**: Action execution (FocusHandler, ButtonHandler, etc.)
+- **Manager Layer**: State coordination (InteractiveStateManager, SequentialRequirementsManager)
+- **Utility Layer**: DOM operations (navigation-manager, element-validator, enhanced-selector)
+
+### 4. Requirements & Objectives System
+
+**Step Checking Priority** (`step-checker.hook.ts`):
+
+1. **Check Objectives** (`data-objectives`)
+   - If met → Auto-complete (`completionReason: objectives`)
+   - If not → Continue to #2
+
+2. **Check Sequential Eligibility**
+   - If ineligible → Block (show sequential message)
+   - If eligible → Continue to #3
+
+3. **Check Requirements** (`data-requirements`)
+   - If met → Enable step
+   - If failed & fixable → Offer "Fix this" button
+   - If failed & skippable → Offer "Skip" button
+   - If failed → Show explanation (`data-hint`)
+
+**Requirements Checking** (`requirements-checker.utils.ts`):
+- Pure checks: `has-datasource`, `is-admin`, `has-permission`
+- DOM checks: `exists-reftarget`, `navmenu-open`
+- Retry logic: 3 attempts with 200ms delay
+- Fail-open: Unknown requirements pass with warning
+
+### 5. Auto-Detection System (Opt-in Feature)
+
+**ActionMonitor** (Singleton):
+- Registers global DOM listeners (click, input, hover)
+- Filters non-interactive elements (`action-detector`)
+- Emits `user-action-detected` events
+
+**Interactive Components Subscribe**:
+- Only when: enabled, eligible, not completed
+- Match action via `action-matcher.ts`:
+  1. Try coordinate-based matching (with 16px padding)
+  2. Fallback to selector-based matching
+- On match: Auto-complete step + track analytics
+
+**Disabled During Section Execution**:
+- Prevents conflicts with automated sequences
+- Re-enabled when section completes
+
+### 6. Global Interaction Blocking (Section Execution Safety)
+
+**`global-interaction-blocker.ts`** (Singleton)
+
+**Three Overlays**:
+
+1. **Main Content Overlay**
+   - Covers `#pageContent` area
+   - Status indicator with cancel button
+   - Resize/scroll tracking
+
+2. **Header Overlay**
+   - Covers top navigation bar
+   - Spans full viewport width
+   - Prevents navigation during execution
+
+3. **Fullscreen Modal Overlay** (Dynamic)
+   - Activated when modal detected
+   - MutationObserver monitors DOM for modals
+   - Polling fallback (500ms) for edge cases
+
+**Cancellation**:
+- Click cancel button
+- Keyboard: Ctrl+C (global handler)
+- Callback to section → cleanup & restore state
 
 ## Component Relationships
 
-- `App.tsx` → Scene setup and auto-launch logic
-- `CombinedLearningJourneyPanel` → Tab orchestration and content rendering (`docs-panel.tsx`)
-- `ContextPanel` → Recommendations display using `useContextPanel` hook (`context-panel.tsx`)
-- **Interactive Engine** → Business logic in `src/interactive-engine/`
-- **Context Engine** → Context analysis in `src/context-engine/`
-- **Requirements Manager** → Requirements validation in `src/requirements-manager/`
-- **Utils** → General utilities in `src/utils/` (routing, plugin helpers, variable substitution, feature flag tracking, timeout management, experiments)
-- **Package Engine** → Package resolution, loading, and dependency queries in `src/package-engine/`
-- **Styles** → Theme-aware functions in `src/styles/*.styles.ts`
+### Navigation & Visibility Stack
 
-## Critical Implementation Paths
+1. **InteractiveStep/Section** → calls action handlers
+2. **action-handlers/*** → delegates to navigation utilities
+3. **navigation-manager.ts**
+   - `ensureNavigationOpen()` - Open/dock nav menu if needed
+   - `ensureElementVisible()` - Scroll into view (custom containers)
+   - `highlightWithComment()` - Visual feedback with tooltip
+   - `expandParentNavigationSection()` - Expand collapsed nav sections
+4. **element-validator.ts**
+   - `isElementVisible()` - Check CSS display/visibility/opacity
+   - `isInViewport()` - Check position in viewport
+   - `hasFixedPosition()` - Detect fixed/sticky positioning
+   - `getScrollParent()` - Find custom scroll containers
+5. **enhanced-selector.ts**
+   - `querySelectorAllEnhanced()` - Complex selector support
+   - `:has()` fallback - Parent-child relationships
+   - `:contains()` - Text content matching
+   - `:nth-match()` - Custom global nth matching
 
-**Context Analysis → Recommendations**:
-1. `context-engine/context.service.ts` → Extract context tags from Grafana state
-2. `context-engine/context.service.ts` → Call recommender service
-3. `context-engine/context.hook.ts` (useContextPanel) → Process and render recommendations
-4. User interaction → Tab creation with content
+### State Management Flow
 
-**Content Loading with Interactive Elements**:
-1. `docs-retrieval/content-fetcher.ts` → Multi-strategy HTML fetching with fallbacks
-2. `docs-retrieval/html-parser.ts` → Parse HTML to React component tree
-3. `docs-retrieval/content-renderer.tsx` → Render React components with interactive elements
-4. `interactive-engine/interactive.hook.ts` (useInteractiveElements) → Handle "show me"/"do it" events, check requirements, highlight/automate UI elements
-5. `requirements-manager/step-checker.hook.ts` → Validate requirements and objectives
-6. Render in tab with progress tracking
+1. **InteractiveStep/Section** (React components)
+2. **step-checker.hook.ts** (Requirements/Objectives)
+3. **SequentialRequirementsManager** (Global state coordination)
+   - `registerStep()` - Track step in global registry
+   - `updateStep()` - Update step state
+   - `startDOMMonitoring()` - Watch for DOM/URL changes
+   - `triggerReactiveCheck()` - Selective step rechecking
+   - `triggerStepEligibilityCheck()` - Unlock next step
+4. **interactive-state-manager.ts**
+   - `setState()` - Track execution state
+   - `startSectionBlocking()` - Delegate to global blocker
+   - Event: `interactive-action-completed`
+5. **global-interaction-blocker.ts** (Singleton)
+   - Create overlays (main, header, fullscreen)
+   - Block user interactions
+   - Handle cancellation (Ctrl+C)
+   - Modal detection & dynamic overlay switching
 
-## Gamification System Architecture
+### Link Handling Flow
 
-**Data Flow**:
-- Guide completion → `user-storage.ts:markGuideCompleted()` → Check badges → Update streak → Dispatch events
-- `useLearningPaths` hook → Subscribes to events → Updates React state
-- Badge toasts queued and shown sequentially
+1. **User clicks link in content**
+2. **link-handler.hook.ts** (`useLinkClickHandler`)
+   - Journey start buttons → `loadTabContent()`
+   - Grafana docs links → `openDocsPage()` / `openLearningJourney()`
+   - Side/related journeys → Open in new tab
+   - External links → `window.open()`
+   - GitHub allowed URLs → Try unstyled.html version
+   - Images → Create lightbox modal
+3. **global-link-interceptor.hook.ts** (if enabled in config)
+   - Listens globally (capture phase)
+   - Filters: Grafana docs/guides/learning-journeys
+   - Respects modifiers (Ctrl/Cmd+Click → new tab)
+   - Excludes: Already inside `[data-pathfinder-content]`
+   - Opens in Pathfinder instead of browser
 
-**Key Components**:
-- `LearningPathCard` → Collapsible card with progress ring, expandable guide list
-- `BadgeUnlockedToast` → Celebratory modal with confetti, auto-dismiss with queue support
-- `ProgressRing` → SVG circular progress indicator with gradient stroke
-- `StreakIndicator` → Fire emoji with day count display
+## Performance Optimizations
 
-**Badge Triggers**:
-- `guide-completed` → Any/specific guide completion
-- `path-completed` → All guides in a path finished
-- `streak` → Consecutive days of activity (3-day, 7-day milestones)
+1. **Debouncing & Timeout Management**
+   - Centralized `TimeoutManager` singleton
+   - Context refresh: 500ms debounce
+   - UI updates: 50ms debounce
+   - Prevents competing timeout mechanisms
 
-**Learning Paths Critical Path**:
-1. `learning-paths/paths.json` / `learning-paths/paths-cloud.json` → OSS and Cloud path definitions; `learning-paths/paths-data.ts:getPathsData()` selects the correct set at runtime based on Grafana edition
-2. `learning-paths/badges.ts` → Badge definitions and trigger conditions
-3. `learning-paths/streak-tracker.ts` → Daily streak calculation logic
-4. `learning-paths/learning-paths.hook.ts` → Main React hook for state management
-5. `lib/user-storage.ts:learningProgressStorage` → Persists progress in localStorage
-6. `components/LearningPaths/MyLearningTab.tsx` → Main UI for gamified experience
-7. Progress events dispatched via `learning-progress-updated` CustomEvent
+2. **Selective Reactive Checking**
+   - Only rechecks eligible (non-completed) steps
+   - Watches specific DOM attributes (aria-expanded, data-testid, etc.)
+   - Debounced DOM observer (800ms)
+   - Lightweight click listener for nav toggles
 
-**Analytics Events**:
-- `learning_path_progress` → Tracks path interaction with completion %
-- `badge_unlocked` → Tracks badge awards with trigger type
+3. **Memoization & Caching**
+   - Plugin config memoized with useMemo
+   - Action handlers created once with useMemo
+   - Journey completion stored in localStorage
+   - Content parsed once per load
 
-## Frontend tier model
+4. **Smart Event Buffering**
+   - EchoSrv events buffered (max 10 events, 5 min TTL)
+   - Handles plugin close/reopen gracefully
+   - Initializes from recent events on startup
 
-Imports flow **downward only** through these tiers. Cross-tier rules are enforced by ESLint and `src/validation/architecture.test.ts`; exceptions require an explicit allowlist entry with justification.
+## Error Handling Strategy
 
-- **Tier 0 — Types & constants**: `types/`, `constants/`. Pure type definitions and configuration constants; no runtime behavior; safe to import from anywhere.
-- **Tier 1 — Engines & providers**: `context-engine/`, `docs-retrieval/`, `interactive-engine/`, `package-engine/`, `learning-paths/`, `requirements-manager/`, `recovery/`, `validation/`. Hold the business logic. Each exposes a barrel `index.ts`; consumers import only the public surface.
-- **Tier 2 — UI**: `components/`, `pages/`. Compose engines into rendered surfaces.
-- **Tier 3 — Support**: `lib/`, `security/`, `styles/`, `global-state/`, `integrations/`, `hooks/`, `utils/`, `test-utils/`, `bundled-interactives/`, `locales/`, `img/`, `cli/`. Auxiliary utilities and feature integrations; imported by Tier 1 and Tier 2.
+1. **Fail-Fast Content Parsing**
+   - HTML parsing errors collected with context
+   - Shows detailed error UI (ContentParsingError)
+   - Preserves original HTML for debugging
+   - No silent failures
 
-## Frontend subsystem reference
+2. **Graceful Degradation**
+   - External recommender unavailable → Static recommendations
+   - Content fetch failure → Error message with retry
+   - Requirements timeout → Retry with exponential backoff
+   - Unknown requirements → Pass with warning (fail-open)
 
-Compact catalogue. For each subsystem: purpose, entry point (file an agent should read first), and its position in the tier model. Per-subsystem deep-dives live in `docs/developer/engines/`, `docs/developer/utils/README.md`, `docs/developer/constants/README.md`, and `docs/developer/learning-paths/README.md`.
+3. **User-Friendly Messages**
+   - Error type categorization (network, not-found, timeout, etc.)
+   - Requirement explanations (data-hint > mapped messages)
+   - Fix suggestions when available
+   - Context-aware guidance
 
-**Tier 0:**
+## Extension Points
 
-- `types/` — Centralized TypeScript type definitions. Entry: `types/index.ts` barrel. Key modules: `json-guide.types`, `package.types`, `interactive-actions.types`, `requirements.types`, `content.types`, `learning-paths.types`, `v1-recommender.types`.
-- `constants/` — Glob-scoped constants. Entry: `src/constants.ts` (root barrel) + `src/constants/` subdir (selectors, interactive-config, testIds, z-index). See `docs/developer/constants/README.md`.
-
-**Tier 1 — engines:**
-
-- `context-engine/` — Detects Grafana context (URL, datasources, dashboard) and calls the recommender. Entry: `context.service.ts`. Hook: `useContextPanel()`. See `docs/developer/engines/context-engine.md`.
-- `docs-retrieval/` — Multi-strategy content fetcher and renderer. Entry: `content-fetcher.ts` (`fetchUnifiedContent`). Renders via `content-renderer.tsx`. Journey-completion helpers in `learning-journey-helpers.ts`.
-- `interactive-engine/` — Executes interactive step actions. Entry: `interactive.hook.ts` (`useInteractiveElements`). Action handlers under `action-handlers/`. See `docs/developer/engines/interactive-engine.md`.
-- `package-engine/` — Package resolution + loading. Entry: `composite-resolver.ts` (`createCompositeResolver`). Resolver chain: bundled → online CDN → recommender API.
-- `learning-paths/` — Progress / badges / streaks / next-action. Entry: `learning-paths.hook.ts`. Badge definitions in `badges.ts`. See `docs/developer/learning-paths/README.md`.
-- `requirements-manager/` — Prereqs + postconditions for steps. Entry: `requirements-checker.hook.ts` (`useStepChecker`). State machine in `step-state.ts`. See `docs/developer/engines/requirements-manager.md`.
-- `recovery/` — Auto-recovery: decides whether the user is in the right place for a guide. Entry: `alignment-evaluator.ts` (`evaluateAlignment`).
-- `validation/` — Zod schemas + condition validators. Entry: `validate-guide.ts`. Architecture rules enforced by `architecture.test.ts`.
-
-**Tier 2 — UI:**
-
-- `components/` — React + Scenes UI. Major panels: `App/App.tsx` (root), `docs-panel/docs-panel.tsx` (~40 KB hub), `Home/`, `interactive-tutorial/`, `LearningPaths/`, `LiveSession/`, `block-editor/`, `floating-panel/`, `full-screen/`, `kiosk/`, `PrTester/`.
-- `pages/` — Grafana Scenes routing. Entries: `homePage.ts`, `docsPage.ts`. Both registered by `App.tsx`.
-
-**Tier 3 — support:**
-
-- `lib/` — Shared utilities. Sub-areas: `analytics.ts`, `user-storage.ts`, `dom/` (selector pipeline: detect → generate → validate → retry), `async-utils.ts`, `package-recommendations-client.ts`.
-- `security/` — URL allowlists, HTML / log sanitization. Entry: `security/index.ts`. Key: `parseUrlSafely`, `validateTutorialUrl`, `sanitizeDocumentationHTML`. See `.cursor/rules/frontend-security.mdc`.
-- `styles/` — Theme-aware CSS-in-JS factories (Emotion). One `*.styles.ts` per component.
-- `global-state/` — Cross-component stores (Zustand + React context). Files: `sidebar.ts`, `panel-mode.ts`, `link-interception.ts`, `interactive-navigation.ts`, `alignment-pending-context.ts`.
-- `integrations/` — Optional integrations: `assistant-integration/` (`<assistant>` tags), `coda/` (terminal), `workshop/` (action capture + replay). See `.cursor/rules/coda.mdc`, `docs/developer/ASSISTANT_INTEGRATION.md`, `docs/developer/integrations/workshop.md`.
-- `hooks/` — Cross-cutting hooks: `usePendingGuideLaunch`, `useAlignmentReevaluation`.
-- `utils/` — Business logic and utilities. Files: `dev-mode.ts`, `openfeature.ts`, `timeout-manager.ts`, `variable-substitution.ts`, `experiments.ts`, `find-doc-page.ts`. See `docs/developer/utils/README.md`.
-- `test-utils/` — Test fixtures. `openfeature-mock.ts`.
-- `bundled-interactives/` — Offline-fallback JSON guides + `repository.json`. Static asset directory; no code.
-- `locales/` — i18n translation files (en-US base + de-DE, fr-FR, es-ES, cs-CZ, etc.). Loaded via `@grafana/i18n`.
-- `img/` — Static SVG / PNG assets (logos, mascot illustrations, screenshots).
-- `cli/` — Authoring CLI (`pathfinder-cli`) and TypeScript MCP server (`src/cli/mcp/`). Entry: `cli/index.ts`. See `docs/developer/CLI_TOOLS.md` and `docs/developer/MCP_SERVER.md`.
-
-## Key dependency edges
-
-The load-bearing wiring. If you change a producer here, audit consumers carefully.
-
-| Producer                              | Consumer                                  | Contract                                                       |
-| ------------------------------------- | ----------------------------------------- | -------------------------------------------------------------- |
-| `bundled-interactives/repository.json` | `package-engine/loader.ts`               | Fallback content when online CDN unavailable                   |
-| `docs-retrieval` (`fetchUnifiedContent`) | `context-engine`, `components/docs-panel` | Multi-strategy fetch returns parsed guide                    |
-| `context-engine` (`getRecommendations`) | `components/docs-panel`, `Home`          | Returns scored `Recommendation[]` from recommender or bundled  |
-| `package-engine` (`createCompositeResolver`) | `docs-retrieval`, `context-engine`  | Bundled-first fallback chain                                   |
-| `requirements-manager` (`checkRequirements`) | `interactive-engine`, `components/interactive-tutorial` | Synchronous prereq verification          |
-| `interactive-engine` (`useInteractiveElements`) | `components/interactive-tutorial`     | Action execution + auto-completion detection                |
-| `lib/dom` (`resolveSelector`)          | `interactive-engine`                     | Selector pipeline: detect → generate → validate → retry        |
-| `global-state/sidebar`, `panel-mode`   | `components/docs-panel`, `App`           | Sidebar visibility + content/editor mode                       |
-| `security` (`parseUrlSafely`, `validateTutorialUrl`) | All subsystems handling URLs | Boundary validation for any URL crossing trust zones           |
-| `learning-paths` (`useGuideCompletion`) | `components/docs-panel`, `interactive-engine` | Progress events + badge unlock                          |
-| `recovery` (`evaluateAlignment`)       | `components/docs-panel`, `hooks/useAlignmentReevaluation` | Detects misalignment, triggers prompts            |
-
-## Backend architecture (`pkg/`)
-
-The Go backend is a **thin bridge** between the React frontend and the **Coda VM provisioning service**. No database — all state is ephemeral or delegated to Coda. Built on `grafana-plugin-sdk-go`.
-
-**File map:**
-
-| File                                | Role                                                                                                              |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `main.go`                           | Plugin entrypoint. Calls `app.Manage("grafana-pathfinder-app", plugin.NewApp, ...)`                                |
-| `plugin/app.go`                     | `App` struct (implements `instancemgmt.Instance`, `CallResourceHandler`, `StreamHandler`). Holds `CodaClient`, stream-sessions map, per-user VM cache. |
-| `plugin/resources.go`               | HTTP resource handlers — `http.ServeMux` wrapped in `httpadapter.New`. Input allowlists.                          |
-| `plugin/settings.go`                | Parses `JSONData` and decrypts `SecureJSONData`. Reads `CodaAPIURL`, `CodaRelayURL`, `EnrollmentKey`, `RefreshToken`. |
-| `plugin/stream.go`                  | Grafana Live `SubscribeStream` / `PublishStream` / `RunStream`. The largest file. VM resolution, SSH retry, heartbeat (3s), VM-expiry poll (15s). |
-| `plugin/terminal.go`                | `TerminalSession` — SSH session over a `WSConn`. PTY, stdin/stdout/stderr pipes, private-key normalization.        |
-| `plugin/wsconn.go`                  | `WSConn` — adapts gorilla/websocket as `net.Conn` for SSH-over-WebSocket. Pong-based read-deadline reset (90s).    |
-| `plugin/coda.go`                    | `CodaClient` — JWT-authenticated REST. VM CRUD, sample apps, alloy scenarios. Token refresh under `RWMutex`. Per-user quota: 3 VMs. |
-| `plugin/mcp.go`                     | **Experimental MCP spike** (PR #643). NON-PRODUCTION. Real AI authoring lives in TypeScript under `src/cli/mcp/`. |
-| `plugin/package_recommendations.go` | CDN package-index cache (6h TTL, single-flight dedup, 8-way parallel manifest fetch, bounded memory).            |
-| `plugin/static.go`                  | `embed.FS` declarations for `repository.json` + `guides/` content.                                                |
-
-**HTTP request flow (e.g., `POST /vms`):**
-
-1. Plugin SDK dispatches to `App.CallResource()`
-2. `http.ServeMux` routes to `App.handleVMs` → `handleCreateVM`
-3. Verifies Coda is registered, validates body, gets `X-Grafana-User` header, checks quota via `CodaClient.CountVMsForUser`
-4. `CodaClient.CreateVM` — refreshes token if needed via `setAuthHeader`, POSTs to `{codaAPIURL}/api/v1/vms`, returns `VM` struct
-5. `writeJSON(w, http.StatusCreated, vm)`
-
-**Terminal stream flow (`terminal/{vmId}/{nonce}/{template?}/{app?}`):**
-
-1. Frontend xterm.js subscribes via Grafana Live → `App.SubscribeStream` accepts
-2. `App.RunStream` begins:
-   - `resolveVMForUser` — 3-tier cache: in-memory `userVMs[userLogin]` → `CodaClient.FindActiveVMForUser` → quota cleanup if needed → `CodaClient.CreateVM`
-   - `waitForVMActive` — polls `GetVM` every 3s, emits `status` frames (`pending` / `provisioning` / `active`) to the client. Timeout: 60 attempts (~3 min)
-   - SSH retry loop (3 attempts):
-     - `ConnectSSHViaRelay(relayURL, vmID, creds, accessToken)` — dial `wss://{relayURL}/relay/{vmID}` with `Authorization: Bearer {token}`; wrap as `WSConn`; SSH handshake over the WebSocket
-     - On auth error: `GetVM` to refresh creds, retry (max 2 refreshes)
-     - On transient error: 5s delay, retry
-   - `NewTerminalSessionWithClient` — `RequestPty("xterm-256color", 24, 80, …)`, `session.Shell()`, start `forwardOutput` + `forwardStderr` goroutines
-   - Store session in `streamSessions[path]`
-   - Send `connected` frame with `vmId`
-   - Start heartbeat goroutine (3s) and VM-expiry poll goroutine (15s)
-   - Block on `<-streamCtx.Done()`
-3. `App.PublishStream` — receives `{type: "input"|"resize", data}` from frontend; looks up session in `streamSessions[path]`; forwards via `session.Write` or `session.Resize`
-4. SSH stdout/stderr → `forwardOutput` / `forwardStderr` → `onOutput` callback → `sender.SendFrame` with `TerminalStreamOutput{Type: "output", Data: ...}`
-
-**Stream message types** (`TerminalStreamOutput.Type`):
-
-- `output` — SSH stdout / stderr bytes
-- `status` — VM state update (`pending` / `provisioning` / `active` / `retrying`)
-- `error` — error message + imminent disconnect
-- `connected` — handshake complete, includes `vmId`
-- `disconnected` — stream ended cleanly
-- `heartbeat` — keep-alive (no payload)
-
-**Security boundaries:**
-
-- `isAllowedCodaURL` — `https` only, host in `.lg.grafana-dev.com` / `.grafana.com`
-- `IsAllowedRelayURL` — `wss` only, same host allowlist
-- Package-recommendations URL — `https` + explicit hostname allowlist
-- SSH `HostKeyCallback: InsecureIgnoreHostKey` — intentional, VMs are ephemeral
-
-For the full operational reference (failure modes, troubleshooting, scale considerations), load `docs/developer/CODA.md`. For agent-facing constraints on Coda code, load `.cursor/rules/coda.mdc`.
+1. **New Action Types**: Add handler in `action-handlers/` + update `interactive.hook.ts`
+2. **New Requirements**: Add check function in `requirements-checker.utils.ts`
+3. **New Auto-Detection**: Extend `action-detector.ts` detection logic
+4. **New Content Sources**: Add strategy in `content-fetcher.ts`
 
 ---
 > Source: [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app) — distributed by [TomeVault](https://tomevault.io).
