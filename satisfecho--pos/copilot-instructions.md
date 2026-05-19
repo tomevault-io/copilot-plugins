@@ -1,14 +1,20 @@
-## fastapi-sqlmodel-backend
+## front-smoke-test
 
-> FastAPI + SQLModel: migrations, models, API shape, backend tests in Docker
+> When working on front, run a quick headless browser smoke test to verify the app works
 
 
-# Backend – FastAPI, SQLModel, migrations
+# Frontend – Run Headless Smoke Test
 
-- **Schema changes** go through versioned SQL under **`back/migrations/`** and the runner **`python -m app.migrate`** (see **`back/migrations/README.md`** and **`back/migrations/EXAMPLE_NEW_MIGRATION.md`**). Prefer timestamped filenames for new migrations. After adding SQL, run migrate in Docker and **`--check`** when the docs say to.
-- **Models:** Keep SQLModel / table definitions consistent with the DB; ensure new models are **imported** so metadata is registered wherever the app expects (follow existing `app/models.py` / `main.py` patterns).
-- **API contract:** Use explicit request/response types; preserve **tenant isolation** and auth checks consistent with neighboring routes. For behaviour rules, skim **`docs/`** and **`AGENTS.md`** for payments, reservations, and multi-tenant notes.
-- **Tests:** Run **`pytest`** inside the **`back`** container (see **`AGENTS.md`** / **`docs/testing.md`**) — e.g. `docker compose -f docker-compose.yml -f docker-compose.dev.yml exec back python3 -m pytest` with a path or `-q` as appropriate. Do not rely on unverified API behaviour.
+When you change code under `front/` (Angular app):
+
+1. **After your changes**, run a quick headless-browser smoke test so the app is still working.
+2. Use the project’s existing Puppeteer scripts. From the repo root, with the app reachable (e.g. via Docker on 4202):
+   - **Quick smoke:** `BASE_URL=http://127.0.0.1:4202 npm run test:landing-version --prefix front` (Puppeteer is headless by default; use `HEADLESS=0` to watch.)
+   - Or another fast script such as `test:landing-provider-links` or a test that touches the area you changed (e.g. `test:working-plan` for working-plan changes).
+3. If the test fails, fix the cause before considering the change done.
+4. Review the frontend logs for errors and warnings; fix them before considering the change done.
+
+This keeps regressions from frontend edits from going unnoticed.
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
