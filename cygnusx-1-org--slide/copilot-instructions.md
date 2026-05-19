@@ -1,15 +1,10 @@
-## performance
+## project
 
-> Rules to write code with better performance
+> This is the project description.
 
 
-1. Minimize recomposition using proper keys
-2. Use proper lazy loading with LazyColumn and LazyRow
-3. Implement efficient image loading
-4. Use proper state management to prevent unnecessary updates
-5. Follow proper lifecycle awareness
-6. Implement proper memory management
-7. Use proper background processing
+1. Slide is a Android java app.
+2. It is a Reddit client that uses the JRAW library to access the Reddit API.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
