@@ -1,152 +1,76 @@
-## collection-cmds
+## fulltext-cmds
 
-> `pyzotero` documentation for working with collections
+> `pyzotero` documentation for working with full-text content
 
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the collection-related functionality in our CLI wrapper.
+This document contains the portion of the `pyzotero` documentation that corresponds to the full-text content functionality in our CLI wrapper.
 
-# Collection Commands
+# Full-Text Commands
 
-## Retrieving Collections
-
-```python
-# Return all collections (including subcollections)
-zot.collections([search/request parameters])
-```
-
-Returns a library's collections, including subcollections.
+## Retrieving Full-Text Content
 
 ```python
-# Return top-level collections
-zot.collections_top([search/request parameters])
-```
-
-Returns a library's top-level collections.
-
-```python
-# Return a specific collection
-zot.collection(collectionID[, search/request parameters])
+# Get new full-text content since a specific version
+zot.new_fulltext(since)
 ```
 
 Parameters:
-- `collectionID`: a Zotero library collection ID
+- `since`: a library version string, e.g. "1085"
 
-Returns a specific collection.
+Returns a dict containing item keys and library versions newer than the provided version.
+
+Example of returned data:
+```python
+{
+    u'229QED6I': 747,
+    u'22TGJFS2': 769,
+    u'23SZWREM': 764
+}
+```
 
 ```python
-# Return sub-collections of a collection
-zot.collections_sub(collectionID[, search/request parameters])
+# Get full-text for an item
+zot.fulltext_item(itemID[, search/request parameters])
 ```
 
 Parameters:
-- `collectionID`: a Zotero library collection ID
+- `itemID`: a Zotero item ID
 
-Returns the sub-collections of a specific collection.
+Returns a dict containing full-text data for the given attachment item. `indexedChars` and `totalChars` are used for text documents, while `indexedPages` and `totalPages` are used for PDFs.
+
+Example of returned data:
+```python
+{
+    "content": "This is full-text content.",
+    "indexedPages": 50,
+    "totalPages": 50
+}
+```
+
+## Setting Full-Text Content
 
 ```python
-# Return all collections in a flat list
-zot.all_collections([collectionID])
+# Set full-text data for an item
+zot.set_fulltext(itemID, payload)
 ```
 
 Parameters:
-- `collectionID`: a Zotero library collection ID (optional)
+- `itemID`: should correspond to an existing attachment item
+- `payload`: a dict containing three keys
+  - `content`: the full-text content
+  - For text documents: `indexedChars` and `totalChars` OR
+  - For PDFs: `indexedPages` and `totalPages`
 
-Returns either all collections and sub-collections in a flat list, or, if a collection ID is specified, that collection and all of its sub-collections. This method can be called at any collection "depth".
-
+Example payload:
 ```python
-# Get collection tags
-zot.collection_tags(collectionID[, search/request parameters])
+{
+    "content": "This is full-text content.",
+    "indexedPages": 50,
+    "totalPages": 50
+}
 ```
 
-Parameters:
-- `collectionID`: a collection ID
-
-Retrieve all tags for a given collection.
-
-## Creating and Updating Collections
-
-```python
-# Create a new collection
-zot.create_collections(dicts[, last_modified])
-```
-
-Parameters:
-- `dicts`: list of dicts each containing the key `name`, with each value being a new collection name to create. Each dict may optionally contain a `parentCollection` key with the ID of an existing collection.
-- `last_modified`: If not None will set the value of the If-Unmodified-Since-Version header.
-
-```python
-# Add items to a collection
-zot.addto_collection(collection, item)
-```
-
-Parameters:
-- `collection`: a collection key
-- `item`: an item dict retrieved using an API call
-
-Add the specified item(s) to the specified collection.
-
-```python
-# Remove items from a collection
-zot.deletefrom_collection(collection, item)
-```
-
-Parameters:
-- `collection`: a collection key
-- `item`: a dict containing item data
-
-Remove the specified item from the specified collection.
-
-```python
-# Update collection metadata
-zot.update_collection(collection, last_modified])
-```
-
-Parameters:
-- `collection`: a dict containing collection data, previously retrieved
-
-Update existing collection metadata (name etc.).
-
-```python
-# Update multiple collections
-zot.update_collections(collection_items)
-```
-
-Parameters:
-- `collection_items`: a list of dicts containing Collection data
-
-Update multiple existing collection metadata. The API only accepts 50 collections per call, so longer updates are chunked.
-
-## Deleting Collections
-
-```python
-# Delete a collection
-zot.delete_collection(collection[, last_modified])
-```
-
-Parameters:
-- `collection`: a dict containing collection data, previously retrieved. Alternatively, you may pass a list of collection dicts.
-- `last_modified`: If not None will set the value of the If-Unmodified-Since-Version header.
-
-Example of collection data:
-```python
-{u'data': {u'key': u'5TSDXJG6',
-            u'name': u'Critical GIS',
-            u'parentCollection': False,
-            u'relations': {},
-            u'version': 778},
-  u'key': u'5TSDXJG6',
-  u'library': {u'id': 436,
-               u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei',
-                                         u'type': u'text/html'}},
-               u'name': u'urschrei',
-               u'type': u'user'},
-  u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei/collections/5TSDXJG6',
-                            u'type': u'text/html'},
-             u'self': {u'href': u'https://api.zotero.org/users/436/collections/5TSDXJG6',
-                       u'type': u'application/json'}},
-  u'meta': {u'numCollections': 0, u'numItems': 1},
-  u'version': 778}
-``` 
+Returns a boolean indicating success. 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
