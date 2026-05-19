@@ -1,11 +1,37 @@
-## shell
+## typescript
 
-> Shell
+> Typescript
 
-## Shell
+## Typescript
 
 
-- Assume zsh for any shell scripts. The latest version of modern utilities like ripgrep (rg), fdfind (fd), bat, httpie (http), zq (zed), jq, procs, rsync are installed and you can request I install additional utilities.
+- Use `pnpm` or `pnpx` and not `npm` or `npx`.
+  - Use `just js_shadcn`, `just pnpm`, and `just js_lint` instead of executing these operations exactly. @just/javascript.just
+- Node libraries are not available
+- Use `lib/` for generic code, `utils/` for project utilities, `hooks/` for React hooks, and `helpers/` for page-specific helpers.
+- Prefer `function theName() {` over `const theName = () =>`
+- Use `import { invariant } from @epic-web/invariant` instead of another invariant library
+- Use `requireEnv("VITE_THE_ENV_VAR")` instead of `process.env.THE_ENV_VAR`
+- Don't use `console.{log,error}`. Use `from ~/configuration/logging import log` and `log.info("string", {structured: "log"})` instead.
+
+Here's how frontend code is organized in `web/app/`:
+
+- `lib/` not specific to the project. This code could be a separate package at some point.
+- `utils/` project-specific code, but not specific to a particular page.
+- `helpers/` page- or section-specific code that is not a component, hook, etc.
+- `hooks/` react hooks.
+- `configuration/` providers, library configuration, and other setup code.
+- `components/` react components.
+  - `ui/` reusable ShadCN UI components (buttons, forms, etc.).
+  - `shared/` components shared across multiple pages.
+  - create additional folders for route- or section-specific components.
+
+### Dates & Times
+
+* Always use the ISO 8601 format when sending dates in an API request.
+* Use `Temporal` for any date or time manipulation. You can assume it's available in the browser.
+* DateTime objects should always be converted to UTC before included in any API request. Never send a timestamp with the user's timezone.
+* Unless otherwise specified, do not shift server-provided times based on the user's timezone.
 
 ---
 > Source: [iloveitaly/llm-ide-rules](https://github.com/iloveitaly/llm-ide-rules) — distributed by [TomeVault](https://tomevault.io).
