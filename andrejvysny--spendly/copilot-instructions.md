@@ -1,16 +1,16 @@
-## gocardless
+## import-wizard
 
-> When working on GoCardless or bank data integration (requisitions, accounts, sync).
+> When working on the Import wizard (upload, configure, map, clean, process steps).
 
 
-# GoCardless
+# Import wizard
 
-- Prefer delegating to the `gocardless` subagent for Bank Data integration work.
-- Full docs: docs/ai/GoCardless_Architecture.md.
-- Controllers: GoCardlessController (routes under settings/bank). BankDataController for settings UI.
-- Use BankDataClientInterface; production vs mock via client factories (GoCardlessClientFactoryInterface, ProductionClientFactory, MockClientFactory).
-- Token/requisition flow: TokenManager, requisition creation and callback handling. Do not hardcode secrets.
-- **CLI**: All flows can be tested via terminal. Commands: `gocardless:institutions`, `gocardless:requisitions`, `gocardless:connect`, `gocardless:import-account`, `gocardless:sync`, `gocardless:sync-all`, `gocardless:delete-requisition`, `gocardless:refresh-balance`, `gocardless:retry-failures`. See AGENTS.md (GoCardless CLI) and docs/ai/GoCardless_Architecture.md.
+- Prefer delegating to the `import-wizard` subagent for import wizard work.
+- Steps: upload → configure → map → clean → confirm/process. Backend: ImportWizardController (routes under imports/wizard).
+- Key services: TransactionImportService, CsvProcessor, TransactionRowProcessor; mapping and persistence in app/Services/TransactionImport/, app/Services/Csv/.
+- When changing steps or mappings: keep backend step APIs and frontend wizard state in sync. Frontend: resources/js/pages/import/ (ImportWizard, wizard-steps/).
+- Reference: app/Http/Controllers/Import/ImportWizardController.php, resources/js/pages/import/components/ImportWizard.tsx.
+- **CLI import**: CSV can be imported from the terminal via `php artisan import:csv <file> --account=...`. See AGENTS.md (section "CLI and AI agent usage") for options and examples.
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
