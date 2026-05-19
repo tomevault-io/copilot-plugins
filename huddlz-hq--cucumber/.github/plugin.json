@@ -1,0 +1,9 @@
+{
+  "name": "huddlz-hq--cucumber",
+  "displayName": "cucumber",
+  "description": "A cucumber library written in elixir",
+  "version": "1.0.0",
+  "author": "huddlz-hq",
+  "homepage": "https://github.com/huddlz-hq/cucumber",
+  "skills": []
+}
