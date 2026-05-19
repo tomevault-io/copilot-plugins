@@ -1,0 +1,389 @@
+## mcp
+
+> This is the **Local Falcon MCP Server** (`@local-falcon/mcp`), a Model Context Protocol server that wraps the [Local Falcon API](https://docs.localfalcon.com). It enables AI agents to run geo-grid rank tracking scans, retrieve reports, manage campaigns, monitor Google Business Profiles, and analyze competitive positioning across Google Maps, Apple Maps, and AI search platforms.
+
+# CLAUDE.md — @local-falcon/mcp
+
+## Project Overview
+
+This is the **Local Falcon MCP Server** (`@local-falcon/mcp`), a Model Context Protocol server that wraps the [Local Falcon API](https://docs.localfalcon.com). It enables AI agents to run geo-grid rank tracking scans, retrieve reports, manage campaigns, monitor Google Business Profiles, and analyze competitive positioning across Google Maps, Apple Maps, and AI search platforms.
+
+**Package:** [`@local-falcon/mcp`](https://www.npmjs.com/package/@local-falcon/mcp) (npm)
+**Version:** 1.4.3
+**License:** MIT
+**Runtime:** Node.js 18+
+**Language:** TypeScript (strict mode)
+
+## Architecture
+
+```
+index.ts          → Entry point. Transport selection (STDIO, SSE, HTTP), session management, OAuth 2.1
+server.ts         → MCP tool registrations. Exports getServer() which creates McpServer with 37 tools
+localfalcon.ts    → API client layer. All fetch functions, rate limiting, retry logic, timeout handling
+oauth/            → OAuth 2.1 authorization server (routes, provider, config, state/client stores)
+```
+
+### Key Design Patterns
+
+- **`server.ts`** exports a single `getServer(sessionMapping)` function that creates and returns an `McpServer` instance with all 37 tools registered via `server.tool(name, description, zodSchema, annotations, handler)`. Every tool includes MCP tool annotations (`readOnlyHint`, `destructiveHint`) that signal to AI clients whether a tool reads data or modifies state.
+- **`localfalcon.ts`** contains one exported function per API endpoint. Two call patterns:
+  - **URL params (v1):** `new URL(endpoint)` → `url.searchParams.set()` → POST with JSON headers
+  - **FormData (v2):** `new FormData()` → `form.append()` → POST with form body
+- **API key resolution:** `getApiKey(ctx)` checks the session mapping first (for OAuth-authenticated remote sessions), then falls back to `process.env.LOCAL_FALCON_API_KEY` (for STDIO/local use).
+- **`handleNullOrUndefined()`** converts null/undefined Zod outputs to empty strings before passing to API client functions. The API client functions then use `if (value)` guards to skip empty params.
+
+### Infrastructure (localfalcon.ts)
+
+| Component | Details |
+|---|---|
+| Rate Limiter | Sliding window, 5 requests per 1000ms |
+| Retry | Exponential backoff, 3 retries, 1s initial delay. Retries on network errors, timeouts, 5xx responses |
+| Timeout | 30s default (`DEFAULT_TIMEOUT_MS`), 60s for long operations (`LONG_OPERATION_TIMEOUT_MS`) |
+| JSON Parsing | `safeParseJson()` helper with error logging |
+
+### Transport Modes
+
+Started via CLI argument to `index.ts`:
+
+| Mode | Command | Description |
+|---|---|---|
+| `stdio` (default) | `npm run start` or `npm run start:stdio` | Standard I/O for local MCP clients |
+| `sse` | `npm run start:sse` | Server-Sent Events, OAuth 2.1 protected |
+| `http` | `npm run start:http` | Streamable HTTP, OAuth 2.1 protected |
+| `HTTPAndSSE` | `npm run start:HTTPAndSSE` | Both HTTP and SSE on same server |
+
+Remote modes (SSE, HTTP) use OAuth 2.1 with PKCE for authentication. The server implements RFC 8414 (Authorization Server Metadata), RFC 9728 (Protected Resource Metadata), and RFC 7591 (Dynamic Client Registration).
+
+## Tool Inventory
+
+### Reports — List & Retrieve (20 tools, all support `fieldmask`)
+
+| Tool | Description |
+|---|---|
+| `listLocalFalconScanReports` | List scan reports. Filter by placeId, keyword, platform, gridSize, date range, campaignKey |
+| `getLocalFalconReport` | Get a specific scan report by report_key |
+| `listLocalFalconTrendReports` | List trend reports. Filter by placeId, keyword, platform, date range |
+| `getLocalFalconTrendReport` | Get a specific trend report by report_key |
+| `listLocalFalconLocationReports` | List location reports. Filter by placeId, keyword, date range |
+| `getLocalFalconLocationReport` | Get a specific location report by report_key |
+| `listLocalFalconKeywordReports` | List keyword reports. Filter by keyword, date range |
+| `getLocalFalconKeywordReport` | Get a specific keyword report by report_key |
+| `getLocalFalconCompetitorReports` | List competitor reports. Filter by placeId, keyword, gridSize, date range |
+| `getLocalFalconCompetitorReport` | Get a specific competitor report by report_key |
+| `listLocalFalconCampaignReports` | List campaign reports. Filter by placeId, date range, runDate |
+| `getLocalFalconCampaignReport` | Get a specific campaign report by report_key, optional run date |
+| `listLocalFalconGuardReports` | List Falcon Guard reports. Filter by status, date range |
+| `getLocalFalconGuardReport` | Get a specific guard report by placeId, optional date range |
+| `listLocalFalconReviewsAnalysisReports` | List reviews analysis reports. Filter by placeId, frequency, reviewsKey |
+| `getLocalFalconReviewsAnalysisReport` | Get a specific reviews analysis report by report_key |
+| `listAllLocalFalconLocations` | List all saved locations in the account. Filter by query |
+| `getLocalFalconGoogleBusinessLocations` | Search Google for business listings by query, optional near filter |
+| `listLocalFalconAutoScans` | List individually scheduled auto-scans. Filter by placeId, keyword, gridSize, frequency, status, platform |
+| `viewLocalFalconAccountInformation` | Get account info (user, credits, subscription). Optional returnField filter |
+
+### Actions (17 tools, no fieldmask)
+
+| Tool | Description |
+|---|---|
+| `runLocalFalconScan` | Run a new geo-grid scan (costs credits) |
+| `createLocalFalconCampaign` | Create a scheduled campaign |
+| `runLocalFalconCampaign` | Manually trigger a campaign run (costs credits) |
+| `pauseLocalFalconCampaign` | Pause a campaign schedule |
+| `resumeLocalFalconCampaign` | Resume a paused/deactivated campaign |
+| `reactivateLocalFalconCampaign` | Reactivate a campaign deactivated for insufficient credits |
+| `addLocationsToFalconGuard` | Add location(s) to Falcon Guard monitoring |
+| `pauseFalconGuardProtection` | Pause Guard monitoring for location(s) |
+| `resumeFalconGuardProtection` | Resume Guard monitoring for location(s) |
+| `removeFalconGuardProtection` | Remove location(s) from Guard entirely |
+| `searchForLocalFalconBusinessLocation` | Search for businesses on Google or Apple Maps |
+| `saveLocalFalconBusinessLocationToAccount` | Save a business to the Local Falcon account |
+| `getLocalFalconGrid` | Generate grid coordinates for manual single-point checks |
+| `getLocalFalconRankingAtCoordinate` | Check ranking at a single coordinate |
+| `getLocalFalconKeywordAtCoordinate` | Get raw SERP data at a single coordinate |
+| `searchLocalFalconKnowledgeBase` | Search the help/docs knowledge base |
+| `getLocalFalconKnowledgeBaseArticle` | Get full content of a knowledge base article |
+
+## Tool Annotations
+
+Every `server.tool()` call includes an MCP tool annotations object that tells AI clients whether the tool is safe to auto-execute or should require user confirmation. These are placed after the Zod input schema and before the handler callback.
+
+### Read-Only (26 tools) — `{ readOnlyHint: true }`
+
+These tools only retrieve data. They never modify state, create resources, or cost credits.
+
+All 20 report list/get tools, plus: `listAllLocalFalconLocations`, `getLocalFalconGoogleBusinessLocations`, `getLocalFalconGrid`, `getLocalFalconRankingAtCoordinate`, `getLocalFalconKeywordAtCoordinate`, `viewLocalFalconAccountInformation`, `searchForLocalFalconBusinessLocation`, `searchLocalFalconKnowledgeBase`, `getLocalFalconKnowledgeBaseArticle`.
+
+### Destructive / Credit-Consuming (3 tools) — `{ destructiveHint: true }`
+
+These tools consume credits (irreversible) or permanently remove resources. AI clients should always confirm with the user before executing.
+
+| Tool | Reason |
+|---|---|
+| `runLocalFalconScan` | Costs credits |
+| `runLocalFalconCampaign` | Costs credits |
+| `removeFalconGuardProtection` | Permanently removes Guard monitoring |
+
+### State-Changing / Non-Destructive (8 tools) — `{ readOnlyHint: false, destructiveHint: false }`
+
+These tools modify state but are reversible and do not consume credits.
+
+`createLocalFalconCampaign`, `pauseLocalFalconCampaign`, `resumeLocalFalconCampaign`, `reactivateLocalFalconCampaign`, `saveLocalFalconBusinessLocationToAccount`, `addLocationsToFalconGuard`, `pauseFalconGuardProtection`, `resumeFalconGuardProtection`.
+
+## Valid Enum Values
+
+All enum values are validated via Zod schemas in `server.ts`.
+
+### Platform
+
+**`runLocalFalconScan`:**
+`google`, `apple`, `gaio`, `chatgpt`, `gemini`, `grok`, `aimode`
+
+**Filter/list tools (`listLocalFalconScanReports`, `listLocalFalconTrendReports`, `listLocalFalconAutoScans`):**
+`google`, `apple`, `gaio`, `chatgpt`, `gemini`, `grok`
+
+**`searchForLocalFalconBusinessLocation`:**
+`google`, `apple`
+
+### Grid Size
+
+**`runLocalFalconScan`:**
+`3`, `5`, `7`, `9`, `11`, `13`, `15`
+
+**Filter/list tools (`listLocalFalconScanReports`, `listLocalFalconAutoScans`) and `createLocalFalconCampaign`:**
+`3`, `5`, `7`, `9`, `11`, `13`, `15`, `17`, `19`, `21`
+
+**`getLocalFalconCompetitorReports`:**
+`3`, `5`, `7`, `9`, `11`, `13`, `15`
+
+### Measurement
+`mi`, `km`
+
+### Frequency (campaigns and auto-scans)
+`one-time`, `daily`, `weekly`, `biweekly`, `monthly`
+
+### Reviews Analysis Frequency
+`one_time`, `daily`, `weekly`, `two_weeks`, `three_weeks`, `four_weeks`, `monthly`
+
+### Guard Report Status
+`protected`, `paused`
+
+### Account Return Field
+`user`, `credit package`, `subscription`, `credits`
+
+## Fieldmask Support
+
+All 20 get/list tools accept an optional `fieldmask` parameter — a comma-separated string of field names to return from the API.
+
+### Syntax
+- Dot notation for nested fields: `location.name`, `statistics.metrics.primaryBusiness`
+- Wildcards for arrays: `scans.*.arp`, `businesses.*.name`
+- Passed to the API as either a URL query parameter (`fieldmask=...`) or a FormData field (`fieldmask`), depending on the endpoint pattern
+
+### Implementation
+In `server.ts`, the `fieldmask` parameter is defined as `z.string().nullish()` on every get/list tool schema. It is passed through `handleNullOrUndefined()` to the corresponding `localfalcon.ts` function, which appends it to the request only when non-empty.
+
+## Parameter Naming Conventions
+
+Parameters use **camelCase** in the Zod schemas (server.ts) and are converted to **snake_case** when sent to the API (localfalcon.ts):
+
+| Server (camelCase) | API (snake_case) |
+|---|---|
+| `placeId` | `place_id` |
+| `reportKey` | `report_key` |
+| `campaignKey` | `campaign_key` |
+| `gridSize` | `grid_size` |
+| `startDate` | `start_date` |
+| `endDate` | `end_date` |
+| `nextToken` | `next_token` |
+| `aiAnalysis` | `ai_analysis` |
+| `reviewsKey` | `reviews_key` |
+| `guardKey` | `guard_key` |
+| `returnField` | `return` |
+| `runDate` | `run` |
+
+## API Versions
+
+The Local Falcon API has two base URLs used by `localfalcon.ts`:
+
+- **v1** (`https://api.localfalcon.com/v1`): Reports, trend reports, keyword reports, location reports, competitor reports, campaign list/detail, guard list/detail, grid, result, search, places, reviews, knowledge base
+- **v2** (`https://api.localfalcon.com/v2`): Run scan, locations search/add, guard add/pause/resume/delete, campaigns create/run/pause/resume/reactivate, account, knowledge base
+
+Public API documentation: [docs.localfalcon.com](https://docs.localfalcon.com)
+
+## Release & Deployment
+
+| Component | Details |
+|---|---|
+| npm auto-publish | GitHub Action (`.github/workflows/npm-publish.yml`) triggers on GitHub release creation |
+| MCPB packaging | `manifest.json` (v0.3 spec) + `.mcpbignore` + `mcpb pack . local-falcon-mcp.mcpb` |
+| OAuth 2.1 | Working end-to-end for remote transports (SSE, HTTP). RFC 8414 / RFC 9728 / RFC 7591 |
+| SKILL.md | AI client integration skill definition in `skills/` with 3 reference files |
+
+### MCPB Build
+```bash
+npm run build                          # Compile TypeScript to dist/
+mcpb validate manifest.json            # Validate manifest
+mcpb pack . local-falcon-mcp.mcpb      # Create .mcpb bundle
+```
+
+## Development
+
+### Prerequisites
+- Node.js 18+
+- TypeScript 5.8+
+
+### Setup
+```bash
+npm install
+cp .env.example .env.local
+# Add your LOCAL_FALCON_API_KEY to .env.local
+```
+
+### Build & Type Check
+```bash
+npx tsc --noEmit         # Type check only (strict mode, zero warnings expected)
+npm run build             # Build to dist/ (uses --noCheck for speed)
+```
+
+### Run
+```bash
+npm run start             # STDIO mode (default)
+npm run start:sse         # SSE mode with OAuth
+npm run start:http        # HTTP mode with OAuth
+npm run start:HTTPAndSSE  # Both SSE and HTTP
+```
+
+### Inspect
+```bash
+npm run inspector         # Launch MCP Inspector UI
+```
+
+### Docker
+```bash
+npm run docker:build
+npm run docker:run
+```
+
+### TypeScript Configuration
+- Target: ES2022
+- Module: NodeNext
+- Strict mode enabled
+- Output: `./dist`
+
+## Project Constants
+
+| Constant | Value | Location |
+|---|---|---|
+| `DEFAULT_LIMIT` | `"10"` | server.ts — default page size for list endpoints |
+| `DEFAULT_TIMEOUT_MS` | `30000` | localfalcon.ts |
+| `LONG_OPERATION_TIMEOUT_MS` | `60000` | localfalcon.ts |
+| `MAX_RETRIES` | `3` | localfalcon.ts |
+| `INITIAL_RETRY_DELAY_MS` | `1000` | localfalcon.ts |
+| `RATE_LIMIT_MAX_REQUESTS` | `5` | localfalcon.ts |
+| `RATE_LIMIT_WINDOW_MS` | `1000` | localfalcon.ts |
+
+## File Reference
+
+| File | Purpose |
+|---|---|
+| `index.ts` | Entry point — transport selection, session management, Express app, OAuth routes |
+| `server.ts` | MCP server factory — `getServer()` with all 37 tool registrations |
+| `localfalcon.ts` | API client — fetch functions, rate limiter, retry logic, types |
+| `oauth/` | OAuth 2.1 implementation (authorization, tokens, PKCE, client registration) |
+| `package.json` | Package config, scripts, dependencies |
+| `manifest.json` | MCPB Desktop Extension manifest (v0.3 spec) — tools, icons, user_config |
+| `.mcpbignore` | Exclusion patterns for MCPB bundle creation |
+| `tsconfig.json` | TypeScript compiler configuration |
+| `.env.example` | Environment variable template |
+| `Dockerfile` | Container build configuration |
+| `skills/` | AI skills — MCP tool usage skill and local visibility strategy skill |
+| `.claude-plugin/` | Claude Code plugin manifest (`plugin.json`) |
+| `.mcp.json` | Remote MCP server configuration for Claude Code plugin |
+| `.github/workflows/` | npm auto-publish on GitHub release |
+| `vite.ui.config.ts` | Vite build config for MCP App UI entries |
+| `ui/geogrid-heatmap/` | Geo-grid heatmap MCP App — interactive Google Maps widget |
+| `_spec/` | Internal development specs (gitignored, not published) |
+
+## MCP Apps
+
+The server includes MCP App support via `@modelcontextprotocol/ext-apps`. Apps are interactive HTML widgets embedded in AI clients.
+
+### Geo-Grid Heatmap
+
+An interactive Google Maps widget that visualizes geo-grid scan data with colored rank pins, metrics bar, and clickable detail panels.
+
+| Component | Details |
+|---|---|
+| Source | `ui/geogrid-heatmap/` (index.html, main.ts, styles.css) |
+| Build | `npm run build:ui` → `dist/ui/geogrid-heatmap/index.html` (~230 KB single-file) |
+| Google Maps API Key | Set `GOOGLE_MAPS_API_KEY` env var at build time (GCP project `lf-mcp-apps`) |
+| Resource URI | `ui://reports/geogrid-heatmap` |
+| Linked Tool | `getLocalFalconReport` (via `registerAppTool` with `_meta.ui.resourceUri`) |
+| Data Resource | `localfalcon://reports/{report_key}/data_points` (fetches full grid data for the widget) |
+
+### Build
+
+```bash
+GOOGLE_MAPS_API_KEY=your-key npm run build:ui
+```
+
+The `build` script runs both TypeScript compilation and UI builds.
+
+## ChatGPT MCP Connector Compatibility
+
+### OAuth 2.1 Requirements (ChatGPT-specific)
+
+ChatGPT's MCP connector (`openai-mcp/1.0.0`) has stricter OAuth requirements than Claude's:
+
+| Requirement | Detail | File |
+|---|---|---|
+| **Scopes aligned** | Both `.well-known/oauth-authorization-server` and `.well-known/oauth-protected-resource` must advertise `["api", "offline_access"]` | `index.ts` |
+| **Token response scope** | Token endpoint must return `scope: "api offline_access"` matching the requested scope — mismatches cause re-auth loops | `oauth/routes.ts` |
+| **`refresh_token` grant** | `grant_types_supported` must include `"refresh_token"` | `index.ts` |
+| **Widget domain** | `_meta.ui.domain` required on MCP App resources — without it, ChatGPT loops OAuth on tool calls. Format: `{url-derived}.oaiusercontent.com` | `server.ts` |
+
+### MCP Apps Bridge Differences (ChatGPT vs Claude)
+
+ChatGPT's MCP Apps bridge delivers tool results differently from Claude's:
+
+**Claude:** `ontoolresult` receives `{content: [{type: "text", text: "single-encoded JSON"}]}`
+
+**ChatGPT:** `ontoolresult` receives `params` from `ui/notifications/tool-result` with TWO paths:
+- `content[0].text` — **double-encoded**: JSON string wrapping a `{text: "json"}` envelope
+- `structuredContent.text` — **single-encoded**: clean JSON string (preferred)
+
+**Parsing strategy in `main.ts` (priority order):**
+1. **Tier 0:** `result.structuredContent.text` → `JSON.parse()` (ChatGPT clean path)
+2. **Tier 1:** `result.content[]` array → find `type: "text"` block → `JSON.parse(block.text)` (Claude path)
+3. **Tier 2:** `result.text` as string → `JSON.parse(result.text)` (simple text wrapper)
+4. **Tier 3:** `result.data` or raw `result` (generic fallback)
+5. **Double-encoding unwrapper:** If result has no `report_key` but has `text` string → `JSON.parse(reportData.text)`
+
+### `_meta: null` Workaround (Critical for ChatGPT)
+
+The MCP SDK's `server.resource()` serializes `_meta` as `null` in JSON-RPC responses. ChatGPT's bridge Zod schema requires `_meta` to be an object — `null` fails validation, causing `readServerResource` to time out.
+
+**Fix:** `patchNullMeta()` in `main.ts` — a recursive function that replaces `_meta: null` with `_meta: {}` at any depth. Installed as a monkey-patch on `window.addEventListener` before `new App()`. Safe for Claude — Claude's responses have `_meta` as an object or absent, never `null`.
+
+### Google Maps API Key — ChatGPT Referrer
+
+The Maps JavaScript API key (GCP project `lf-mcp-apps`) must allow ChatGPT's widget sandbox as an HTTP referrer:
+
+| Referrer | Purpose |
+|---|---|
+| `*.oaiusercontent.com/*` | ChatGPT widget sandbox |
+| `*.web-sandbox.oaiusercontent.com/*` | ChatGPT specific sandbox subdomain |
+| `*.claudemcpcontent.com/*` | Claude widget sandbox |
+| `*.localfalcon.com/*` | Production + dev |
+
+### OAuth Browser State Issue
+
+ChatGPT's OAuth dialog enters an infinite React render loop in normal Chrome sessions due to stale React Router state. **Incognito mode works reliably.** This is a ChatGPT frontend bug.
+
+### Error Handling in Tool Responses
+
+Tool handlers never expose raw `error.message` to users — catch blocks log the full error to `console.error` and return a generic user-facing message. This prevents leaking internal API details.
+
+---
+> Source: [local-falcon/mcp](https://github.com/local-falcon/mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
