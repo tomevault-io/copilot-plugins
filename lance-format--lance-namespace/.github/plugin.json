@@ -1,0 +1,9 @@
+{
+  "name": "lance-format--lance-namespace",
+  "displayName": "lance-namespace",
+  "description": "Lance Namespace is an open specification for describing access and operations against a collection of tables in a multimodal lakehouse",
+  "version": "1.0.0",
+  "author": "lance-format",
+  "homepage": "https://github.com/lance-format/lance-namespace",
+  "skills": []
+}
