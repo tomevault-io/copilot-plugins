@@ -1,0 +1,9 @@
+{
+  "name": "cloudflare--claude-managed-agents",
+  "displayName": "claude-managed-agents",
+  "description": "claude-managed-agents",
+  "version": "1.0.0",
+  "author": "cloudflare",
+  "homepage": "https://github.com/cloudflare/claude-managed-agents",
+  "skills": []
+}
