@@ -1,0 +1,9 @@
+{
+  "name": "cprobe--catpaw",
+  "displayName": "catpaw",
+  "description": "A lightweight monitoring agent that detects anomalies, auto-diagnoses root causes with AI, and lets you troubleshoot interactively via chat",
+  "version": "1.0.0",
+  "author": "cprobe",
+  "homepage": "https://github.com/cprobe/catpaw",
+  "skills": []
+}
