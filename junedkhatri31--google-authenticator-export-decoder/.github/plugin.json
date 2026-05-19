@@ -1,0 +1,9 @@
+{
+  "name": "junedkhatri31--google-authenticator-export-decoder",
+  "displayName": "google-authenticator-export-decoder",
+  "description": "Privacy-first React app that scans Google Authenticator export QR codes to decode accounts, copy secrets, or regenerate otpauth URLs entirely offline.",
+  "version": "1.0.0",
+  "author": "junedkhatri31",
+  "homepage": "https://github.com/junedkhatri31/google-authenticator-export-decoder",
+  "skills": []
+}
