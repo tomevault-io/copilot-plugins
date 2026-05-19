@@ -1,9 +1,9 @@
 {
   "name": "udibo--juniper",
   "displayName": "juniper",
-  "description": "juniper",
+  "description": "Juniper is a web framework for building React applications with Deno. It combines Hono for server-side routing with React Router for client-side navigation, providing a seamless full-stack development",
   "version": "1.0.0",
   "author": "udibo",
-  "homepage": "https://tomevault.io/claim/udibo",
+  "homepage": "https://github.com/udibo/juniper",
   "skills": []
 }
