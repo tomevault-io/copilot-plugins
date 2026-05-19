@@ -1,38 +1,31 @@
-## ai-live2d-client
+## 02-development-workflow
 
-> - Electron - 跨平台桌面应用开发框架
+> - `pnpm dev` - 启动开发环境（同时启动所有包）
 
-# 技术栈
+# 开发工作流
 
-本项目使用的主要技术栈：
+## 开发命令
 
-## 核心技术
+- `pnpm dev` - 启动开发环境（同时启动所有包）
+- `pnpm build` - 构建所有包
+- `pnpm package` - 打包应用为可分发格式
+- `pnpm clean` - 清理构建产物
 
-- Electron - 跨平台桌面应用开发框架
-- React - 用户界面库
-- TypeScript - 类型安全的JavaScript超集
-- Live2D Cubism - Live2D模型渲染引擎
+## 开发流程
 
-## 构建工具
+1. 修改 [types](mdc:packages/types/src) 包中的共享类型（如需要）
+2. 开发 [renderer](mdc:packages/renderer/src) 包中的前端UI
+3. 开发 [electron](mdc:packages/electron/src) 包中的主进程逻辑
+4. 使用 `pnpm dev` 启动开发环境进行测试
+5. 使用 `pnpm build` 构建项目
+6. 使用 `pnpm package` 打包应用
 
-- Turborepo - 高性能构建系统
-- pnpm - 快速、节省磁盘空间的包管理器
-- Vite - 现代前端构建工具
-- electron-builder - 打包和分发Electron应用
+## 注意事项
 
-## 开发工具
-
-- electron-reload - 提供Electron应用的热重载功能
-- concurrently - 同时运行多个命令的工具
-- cross-env - 跨平台设置环境变量
-
-## 最佳实践
-
-- 使用TypeScript确保类型安全
-- 使用模块化设计组织代码
-- 使用pnpm workspace管理多包项目
-- 使用Turborepo优化构建流程
+- 开发模式下支持热重载，修改代码后应用会自动更新
+- Electron主进程和渲染进程通过IPC通信
+- 所有包之间的依赖关系通过workspace管理
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Cookieboty) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [Cookieboty/ai-live2d-client](https://github.com/Cookieboty/ai-live2d-client) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
