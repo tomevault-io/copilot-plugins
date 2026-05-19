@@ -1,0 +1,9 @@
+{
+  "name": "sooperset--mcp-atlassian",
+  "displayName": "mcp-atlassian",
+  "description": "MCP server for Atlassian tools (Confluence, Jira)",
+  "version": "1.0.0",
+  "author": "sooperset",
+  "homepage": "https://github.com/sooperset/mcp-atlassian",
+  "skills": []
+}
