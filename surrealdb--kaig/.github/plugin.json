@@ -1,0 +1,9 @@
+{
+  "name": "surrealdb--kaig",
+  "displayName": "kaig",
+  "description": "Hi! My name is Kai G. I'm a knowledge AI, skilled in vector search, and graph RAG. My DB of choice is SurrealDB.",
+  "version": "1.0.0",
+  "author": "surrealdb",
+  "homepage": "https://github.com/surrealdb/kaig",
+  "skills": []
+}
