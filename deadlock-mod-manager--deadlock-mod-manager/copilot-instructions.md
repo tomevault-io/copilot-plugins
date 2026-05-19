@@ -1,17 +1,39 @@
-## 031-never-use-any
+## 035-error-handling
 
-> Never use `any`, `unknown`, or TypeScript type casting.
+> TypeScript errors: use BaseError subclasses from @deadlock-mods/common instead of raw Error
 
 
-Never use `any`, `unknown`, or TypeScript type casting.
+# Error Handling (TypeScript)
 
-This includes:
-- The `any` type
-- The `unknown` type
-- Type assertions using `as` (e.g., `value as SomeType`)
-- Type assertions using angle brackets (e.g., `<SomeType>value`)
+## Do not throw raw `Error`
 
-Types should be correct and properly inferred or explicitly defined. If you find yourself needing to cast types, refactor the code to use proper type definitions, type guards, or type narrowing instead.
+- Do **not** use `throw new Error("...")` in application or library code.
+- Throw a `BaseError` subclass from `@deadlock-mods/common` so errors carry a stable `code` and optional `originalError`.
+
+## Choosing an error class
+
+| Situation | Prefer |
+|-----------|--------|
+| Missing env / invalid config | `ConfigurationError` |
+| External provider or integration (e.g. GameBanana) | `ProviderError` |
+| Archive / extraction failure | `ExtractionError` |
+| Resource not found (non-DB or generic API) | `NotFoundError` |
+| Auth required / permission denied | `UnauthorizedError` / `ForbiddenError` |
+| Invalid input / parsing | `ValidationError` |
+| Drizzle / Postgres errors | Use `mapDrizzleError` or DB-specific errors in `@deadlock-mods/common` |
+| Catch-all internal failure | `RuntimeError` or `UnknownError` |
+
+## New domain-specific errors
+
+- Add a new `BaseError` subclass in `packages/common/src/errors/` when the same failure mode appears in multiple places and needs a dedicated `GenericErrorCode` or `ApiErrorCode`.
+- Prefer extending existing classes over introducing duplicates.
+
+## Exceptions
+
+- **React context invariants** in generated UI (e.g. shadcn `packages/ui`) may keep `throw new Error` to stay aligned with upstream.
+- **Tests** may use raw `Error` when the test harness expects it.
+
+See [generic.ts](mdc:packages/common/src/errors/generic.ts) and [codes.ts](mdc:packages/common/src/errors/codes.ts).
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
