@@ -1,171 +1,45 @@
-## hailo-apps
+## core-framework
 
-> Build a complete agent app with LLM reasoning + tool execution on Hailo-10H.
-
-
-# Skill: Build Agent Application with Tool Calling
-
-Build a complete agent app with LLM reasoning + tool execution on Hailo-10H.
-
-## When This Skill Is Loaded
-
-- User wants an **LLM agent** that can **call tools / functions**
-- User mentions: agent, tools, function calling, actions, execute
-- User needs an AI that can **do things** (not just chat)
-
-## Reference Implementation
-
-Study `hailo_apps/python/gen_ai_apps/agent_tools_example/` — the canonical agent app:
-- `agent_tools_example.py` — Main agent loop
-- `tools/` — Tool implementations (subclass `BaseTool`)
-- `config.yaml` — Tool configuration
-
-Also study the agent utilities:
-- `gen_ai_utils/llm_utils/tool_parsing.py` — Parse LLM output for tool calls
-- `gen_ai_utils/llm_utils/tool_execution.py` — `BaseTool`, `ToolResult`
-- `gen_ai_utils/llm_utils/tool_discovery.py` — Auto-discover tools from directory
-
-## Build Process
-
-### Step 1: Create App Directory
-
-Create the app directory:
-
-```
-hailo_apps/python/<type>/<app_name>/
-├── app.yaml              # App manifest (type: gen_ai)
-├── run.sh                # Launch wrapper
-├── __init__.py
-├── <app_name>.py         # Main agent loop
-├── tools/
-│   ├── __init__.py
-│   ├── config.yaml          # Tool metadata
-│   ├── my_tool_1.py         # Implements BaseTool
-│   └── my_tool_2.py         # Implements BaseTool
-└── README.md             # Usage documentation (REQUIRED — never skip)
-```
-
-Create `app.yaml` with `type: gen_ai` and `run.sh` wrapper.
-Do NOT register in `defines.py` or `resources_config.yaml`.
-
-### Step 2: Build a Tool
-
-Each tool implements the `BaseTool` interface:
-
-```python
-from hailo_apps.python.gen_ai_apps.agent_tools_example.tools.base import BaseTool, ToolResult
-
-class WeatherTool(BaseTool):
-    @property
-    def name(self) -> str:
-        return "get_weather"
-
-    @property
-    def description(self) -> str:
-        return "Get current weather for a city"
-
-    @property
-    def schema(self) -> dict:
-        return {
-            "type": "object",
-            "properties": {
-                "city": {
-                    "type": "string",
-                    "description": "City name (e.g., 'Tel Aviv')"
-                }
-            },
-            "required": ["city"]
-        }
-
-    def run(self, **kwargs) -> ToolResult:
-        city = kwargs["city"]
-        # Actual implementation here
-        return ToolResult(
-            success=True,
-            data={"city": city, "temperature": 25, "condition": "Sunny"}
-        )
-```
-
-### Step 4: Build Tool Config
-
-```yaml
-# tools/config.yaml
-version: "1.0"
-tool_name: "my_agent"
-persona: "You are a helpful assistant with access to tools."
-capabilities:
-  - "Look up weather information"
-  - "Perform calculations"
-few_shot_examples:
-  - user: "What's the weather in Tel Aviv?"
-    assistant: "I'll check the weather for you."
-    tool_call: '{"name": "get_weather", "arguments": {"city": "Tel Aviv"}}'
-```
-
-### Step 5: Build Main App
-
-```python
-import signal
-import argparse
-
-from hailo_apps.python.core.common.hailo_logger import get_logger
-logger = get_logger(__name__)
-
-APP_NAME = "my_agent_app"
+> You are working on the **core framework** (shared utilities, GStreamerApp base class, parsers, logging, HEF utilities).
 
 
-def main():
-    parser = argparse.ArgumentParser(description="My Agent App")
-    parser.add_argument("--debug", action="store_true", help="Show tool calls")
-    parser.add_argument("--multi-turn", action="store_true", help="Enable multi-turn context")
-    parser.add_argument("--voice", action="store_true", help="Enable voice input")
-    parser.add_argument("--no-tts", action="store_true", help="Disable TTS")
-    args = parser.parse_args()
+# Core Framework — Contextual Instructions
 
-    signal.signal(signal.SIGINT, lambda s, f: sys.exit(0))
+You are working on the **core framework** (shared utilities, GStreamerApp base class, parsers, logging, HEF utilities).
 
-    # Initialize agent (uses AgentApp or custom loop)
-    # Tool discovery from tools/ directory
-    # Main loop: user input → LLM reasoning → tool parsing → execution → response
+## Required Context Files
 
+Read these files before making changes (paths relative to `.hailo/`):
 
-if __name__ == "__main__":
-    main()
-```
+- `instructions/architecture.md` — System architecture, module dependency graph
+- `instructions/coding-standards.md` — Import rules, logging, conventions
+- `toolsets/core-framework-api.md` — Full API reference for core modules
+- `memory/hailo_platform_api.md` — VDevice, HEF resolution patterns
+- `memory/common_pitfalls.md` — Known anti-patterns to avoid
 
-### Step 6: Validate
+## Additional Context (load if relevant)
 
-```bash
-python3 .hailo/scripts/validate_app.py hailo_apps/python/gen_ai_apps/my_agent_app --smoke-test
-```
+- If GStreamer: `instructions/gstreamer-pipelines.md`, `toolsets/gstreamer-elements.md`
+- If models/HEF: `skills/hl-model-management.md`, `toolsets/hailort-api.md`
 
-## Critical Conventions
+## Critical Notes for Core Changes
 
-1. **Tool interface**: Implement `BaseTool` with `name`, `description`, `schema`, `run()`
-2. **Return**: `ToolResult(success=bool, data=dict)`
-3. **Discovery**: Tools auto-discovered from `tools/` directory
-4. **Config**: YAML with `persona`, `capabilities`, `few_shot_examples`
-5. **JSON Schema**: Each tool's `schema` property returns valid JSON Schema
-6. **Parsing**: Use `tool_parsing` utilities to extract tool calls from LLM output
-7. **Context**: `context_manager` for multi-turn, `StateManager` for persistence
-8. **Logging**: `get_logger(__name__)`
+- Core is imported by ALL app types — changes have wide impact
+- `defines.py` is the app registry — used by every app for constants
+- `resolve_hef_path()` in `core.py` is the single source of truth for model path resolution
+- `get_logger(__name__)` is the only acceptable logging pattern
+- Parser functions (`get_pipeline_parser`, `get_standalone_parser`) must stay backward-compatible
+- Always run tests after core changes: `pytest tests/ -v`
 
-## Agent Reasoning Loop
+## Key Modules
 
-```
-User Input
-    │
-    ▼
-LLM generates response
-    │
-    ├── Contains tool call? → Parse → Execute tool → Feed result back to LLM
-    │                                                       │
-    │                                                       ▼
-    │                                              LLM generates final response
-    │
-    └── No tool call? → Direct response to user
-```
+- `hailo_apps/python/core/common/defines.py` — App name constants, shared IDs
+- `hailo_apps/python/core/common/core.py` — `resolve_hef_path()`, core utilities
+- `hailo_apps/python/core/common/parser.py` — CLI argument parsers
+- `hailo_apps/python/core/common/hailo_logger.py` — Logging setup
+- `hailo_apps/python/core/gstreamer/gstreamer_app.py` — GStreamerApp base class
+- `hailo_apps/python/core/gstreamer/gstreamer_helper_pipelines.py` — Pipeline string builders
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/hailo-ai) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
