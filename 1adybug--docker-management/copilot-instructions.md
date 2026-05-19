@@ -1,214 +1,182 @@
-## next
+## react
 
-> 针对 `Next.js` 16 项目的规则
+> - 生成 `React` 组件时，尽量使用函数式组件，而不是类组件
 
 
-# Next Rules
+# React Rules
 
-针对 `Next.js` 16 项目的规则
+## 规则
 
-## server action
+- 生成 `React` 组件时，尽量使用函数式组件，而不是类组件
 
-如果你需要创建一个 `server action`，例如 `addUser`，你应该按照以下规则创建：
+- 禁止使用 `<></>`，必须使用从 `React` 导入的 `Fragment` 组件
 
-1. 在 `@/schemas` 目录下创建一个名为 `addUser.ts` 的文件，它的内容应该如下：
+- 组件的 `props` 书写的优先级为：身份属性 (`ref`、`key`、`id`) > 样式属性 (`className`、`classNames`、`style`、`size` 等等) > 其他属性 (`value`、`defaultValue` 等等) > 回调事件 (`onClick`、`onChange` 等等)
 
-    ```typescript
-    import { getParser } from "."
-    import { z } from "zod"
+- 请始终使用 `on` + 事件名作为事件处理函数的名称，比如 `onClick` 事件处理函数应该命名为 `onClick`，而不是 `handleClick`
 
-    import { phoneSchema } from "./phone"
+- 你应该将根组件的 `props` 当做基础的 `props` 类型，将当前组件所需的原始数据当做 `data` 属性
 
-    import { roleSchema } from "./role"
+    ```tsx
+    import { ComponentProps, FC } from "react"
 
-    import { usernameSchema } from "./username"
+    import { clsx, StrictOmit } from "deepsea-tools"
 
-    export const addUserSchema = z.object(
-        {
-            username: usernameSchema,
-            phone: phoneSchema,
-            role: roleSchema,
-        },
-        { message: "无效的用户参数" },
+    export interface Book {
+        id: string
+        name: string
+        isbn: string
+    }
+
+    export interface BookProps extends StrictOmit<ComponentProps<"div">, "children"> {
+        data?: Book
+    }
+
+    const Book: FC<BookProps> = ({ className, data, ...rest }) => (
+        <div className={clsx("container", className)} {...rest}>
+            <div>{data?.name}</div>
+            <div>{data?.isbn}</div>
+        </div>
     )
 
-    export type AddUserParams = z.infer<typeof addUserSchema>
-
-    export const addUserParser = getParser(addUserSchema)
+    export default Book
     ```
 
-2. 在 `@/shared` 目录下创建一个名为 `addUser.ts` 的文件，它的内容应该如下：
+    因为 `Book` 组件的根元素是 `div`，所以 `BookProps` 类型应该继承自 `StrictOmit<ComponentProps<"div">, "children">`，如果 `Book` 组件的根组件不是 `html` 元素，例如 `Container` 组件，则应该继承自 `StrictOmit<ComponentProps<typeof Container>, "children">`，或者如果存在 `ContainerProps` 类型，则应该继承自 `StrictOmit<ContainerProps, "children">`
 
-    ```typescript
-    import { prisma } from "@/prisma"
-    import { User } from "@/prisma/generated/client"
-    import { AddUserParams } from "@/schemas/addUser"
-    import { ClientError } from "@/utils/clientError"
+    `data` 属性是指整个项目中某种数据的原始类型，例如从 `queryBook` 接口等 api 函数中获取到的数据，这时 `data` 的类型就是 `Book` 类型
 
-    export async function addUser({ username, phone }: AddUserParams) {
-        const count = await prisma.user.count({ where: { username } })
+- 尽量直接在函数式组件的参数中解构 `props`，获取需要使用的属性，将剩余的属性作为 `rest` 属性
 
-        // 如果函数内部需要抛出错误，请使用 `ClientError` 类，它的使用方法与 `Error` 类一致，同时支持更多用法，详细请参考 `@/utils/clientError` 文件
-        if (count > 0) throw new ClientError("用户名已存在")
+- 如果你需要根组件设置 `className`，请使用从 `deepsea-tools` 中导入的 `clsx` 函数来合并 `className`，例如上方的：
 
-        const count2 = await prisma.user.count({ where: { phone } })
-        if (count2 > 0) throw new ClientError("手机号已存在")
-        const user = await prisma.user.create({ data: { username, phone } })
-        return user
+    ```tsx
+    return (
+        <div className={clsx("container", className)} {...rest}>
+            ...
+        </div>
+    )
+    ```
+
+- 如果组件是一个受控组件，请使用 `value` 和 `onValueChange` 来实现受控组件，这两个属性都应该是可选，并且在组件内部，你应该使用从 `soda-hooks` 中导入的 `useInputState` 的钩子来实现内部状态与外部状态的同步，例如：
+
+    ```tsx
+    import { ComponentProps, FC } from "react"
+
+    import { StrictOmit } from "deepsea-tools"
+
+    export interface MyInputProps extends StrictOmit<ComponentProps<typeof OtherInput>, "value" | "onValueChange"> {
+        value?: string
+        onValueChange?: (value: string) => void
     }
 
-    // 如果这个 server action 只允许特定的用户指定，可以为 @/shared 目录下的响应函数添加一个 `filter` 属性
-    // `filter` 属性接受两种类型，一种是 `boolean` 类型，一种是 `(user: User) => boolean` 函数类型
-    // 当你传入 `boolean` 类型时， `true` 代表只有登录且未被禁用的用户才能访问，`false` 代表不做任何限制，包括未登录用户
-    // 当你传入 `(user: User) => boolean` 函数类型时，函数返回 `true` 代表用户可以访问，返回 `false` 代表用户不能访问
-    // filter 属性默认值为 `true`，代表只有登录且未被禁用的用户才能访问
-    addUser.filter = function filter(user: User) {
-        return user.role === "ADMIN"
-    }
-    ```
+    const MyInput: FC<MyInputProps> = ({ value: _value, onValueChange: _onValueChange, ...rest }) => {
+        const [value, setValue] = useInputState(_value)
 
-3. 在 `@/actions` 目录下创建一个名为 `addUser.ts` 的文件，它的内容应该如下：
-
-    ```typescript
-    "use server"
-
-    import { addUserSchema } from "@/schemas/addUser"
-    import { createResponseFn } from "@/server/createResponseFn"
-    import { addUser } from "@/shared/addUser"
-
-    export const addUserAction = createResponseFn({
-        fn: addUser,
-        schema: addUserSchema,
-        name: "addUser",
-    })
-    ```
-
-4. 在 `@/presets` 目录下创建一个名为 `createUseAddUser.ts` 的文件，它的内容应该如下：
-
-    ```typescript
-    import { useId } from "react"
-
-    import { withUseMutationDefaults } from "soda-tanstack-query"
-    import { addUser } from "@/shared/addUser"
-
-    export const createUseAddUser = withUseMutationDefaults<typeof addUser>(() => {
-        const key = useId()
-        return {
-            onMutate(variables, context) {
-                message.open({
-                    key,
-                    type: "loading",
-                    content: "新增用户中...",
-                    duration: 0,
-                })
-            },
-            onSuccess(data, variables, onMutateResult, context) {
-                // 请在此刷新其他需要刷新的关联的 query
-                context.client.invalidateQueries({ queryKey: ["query-user"] })
-
-                context.client.invalidateQueries({ queryKey: ["get-user", data.id] })
-
-                message.open({
-                    key,
-                    type: "success",
-                    content: "新增用户成功",
-                })
-            },
-            onError(error, variables, onMutateResult, context) {
-                message.destroy(key)
-            },
-            onSettled(data, error, variables, onMutateResult, context) {},
+        function onValueChange(value: string) {
+            setValue(value)
+            _onValueChange?.(value)
         }
-    })
+
+        return <OtherInput value={value} onValueChange={onValueChange} {...rest} />
+    }
+
+    export default MyInput
     ```
 
-5. 在 `@/hooks` 目录下创建一个名为 `useAddUser.ts` 的文件，它的内容应该如下：
+- 如果你需要使用 `React` 中的某个导入，请使用 `import { xxx } from "react"` 而不是 `React.xxx` 的形式，如果已经存在同名的变量或者类型，请使用 `import { xxx as reactXxx } from "react"`，变量使用小驼峰命名，类型使用大驼峰命名
 
-    ```typescript
-    import { createRequestFn } from "deepsea-tools"
-    import { addUserAction } from "@/actions/addUser"
-    import { createUseAddUser } from "@/presets/createUseAddUser"
+- 如果你需要在组件内部添加一个事件处理函数，而组件的 `props` 中存在同名的事件处理函数，你应该这样处理：
 
-    export const addUserClient = createRequestFn(addUserAction)
+    ```tsx
+    // 因为 global 中存在 MouseEvent 类型，与 react 中的 MouseEvent 类型冲突，所以需要将 react 中的 MouseEvent 类型重命名为 ReactMouseEvent
+    import { ComponentProps, FC, MouseEvent as ReactMouseEvent } from "react"
 
-    export const useAddUser = createUseAddUser(addUserClient)
+    import { StrictOmit } from "deepsea-tools"
+
+    export interface AppProps extends StrictOmit<ComponentProps<"div">, "children"> {}
+
+    // 将 props 中的同名事件处理函数加一个下划线前缀
+    const App: FC<AppProps> = ({ onClick: _onClick, ...rest }) => {
+        function onClick(event: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
+            // 优先处理内部逻辑
+            console.log("onClick")
+
+            // 然后调用外部的事件处理函数
+            _onClick?.(event)
+        }
+
+        return (
+            <div onClick={onClick} {...rest}>
+                Hello World!
+            </div>
+        )
+    }
+
+    export default App
     ```
 
-## Schema
+- 如果你的组件内部没有任何逻辑，只有 `return` 一个组件，请直接返回该组件，不要使用 `return` 关键字，例如：
 
-当你需要创建一个 `schema` 时，如果是一个对象或者数组，你应该将它们独立出来作为一个文件，而不是直接在 `schema` 中定义，例如：
+    ```tsx
+    const App: FC<AppProps> = ({ className, ...rest }) => (
+        <div className={clsx("container", className)} {...rest}>
+            Hello World!
+        </div>
+    )
+    ```
 
-```typescript
-import { getParser } from "."
-import { z } from "zod"
+- 当你在组件内部需要获取根组件的 `ref`，而 `props` 中也有 `ref` 属性时，你应该这样处理：
 
-export const addUserSchema = z.object(
-    {
-        username: z
-            .string({ message: "无效的用户名" })
-            .min(4, { message: "用户名长度不能低于 4 位" })
-            .max(16, { message: "用户名长度不能超过 16 位" })
-            .regex(/^[a-zA-Z0-9_]+$/, { message: "用户名只能包含字母、数字和下划线" })
-            .regex(/^[a-zA-Z]/, { message: "用户名必须以字母开头" }),
-        phone: z.string({ message: "无效的手机号" }).regex(phoneRegex, { message: "无效的手机号" }),
-    },
-    { message: "无效的用户参数" },
-)
+    ```tsx
+    const App: FC<AppProps> = ({ ref, ...rest }) => {
+        const container = useRef<HTMLDivElement>(null)
 
-export type AddUserParams = z.infer<typeof addUserSchema>
+        useImperativeHandle(ref, () => container.current!)
 
-export const addUserParser = getParser(addUserSchema)
-```
+        return (
+            <div ref={container} {...rest}>
+                Hello World!
+            </div>
+        )
+    }
+    ```
 
-你应该将 `usernameSchema` 和 `phoneSchema` 独立出来成为两个独立的文件，便于复用，而不是直接在 `schema` 中定义，例如：
+- 如果组件没有 `children`，请使用自闭合标签，例如 `<div />` 而不是 `<div></div>`
 
-```typescript
-import { getParser } from "."
-import { z } from "zod"
+- 如果 jsx 中某个元素的属性（非 `children` 属性）的类型为回调函数，并且这个回调函数无法使用一行代码完成，请使用 `function` 关键字声明一个函数，然后传递给该属性，例如：
 
-export const usernameSchema = z
-    .string({ message: "无效的用户名" })
-    .min(4, { message: "用户名长度不能低于 4 位" })
-    .max(16, { message: "用户名长度不能超过 16 位" })
-    .regex(/^[a-zA-Z0-9_]+$/, { message: "用户名只能包含字母、数字和下划线" })
-    .regex(/^[a-zA-Z]/, { message: "用户名必须以字母开头" })
+    ```tsx
+    const App: FC<AppProps> = ({ className, ...rest }) => {
+        function onClick(event: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
+            console.log("onClick")
+            doSomething()
+        }
 
-export type UsernameParams = z.infer<typeof usernameSchema>
+        return (
+            <div onClick={onClick} {...rest}>
+                Hello World!
+            </div>
+        )
+    }
+    ```
 
-export const usernameParser = getParser(usernameSchema)
-```
+- 如果你使用的是 `shadcn/ui` 的组件，禁止自动生成组件代码，必须使用命令行工具 `npx shadcn@latest add <component-name>` 来添加组件
 
-## Utils
+- 禁止修改 `shadcn/ui` 添加的原始组件，一般路径为 `@/components/ui/**/*.tsx`
 
-`@/utils` 目录下的文件必须只能是客户端可以访问的工具函数，或者客户端和服务器都可以访问的工具函数，如果一个工具函数只能在服务器访问，或者不能暴露给客户端，请将它放在 `@/server` 目录下
+- 如果你使用的是 `ai-elements` 的组件，禁止修改原始组件，一般路径为 `@/components/ai-elements/**/*.tsx`
 
-## Middleware
+## 组件与页面
 
-在 `Next.js` 16 中，`middleware.ts` 已经被弃用，请使用 `proxy.ts` 文件来实现中间件功能，并且导出的函数名必须为 `proxy`，例如：
+请遵循以下规则生成组件或页面，并在新增时考虑复用与抽取：
 
-```typescript
-import { NextRequest, NextResponse } from "next/server"
-
-export async function proxy(request: NextRequest) {
-    const requestHeaders = new Headers(request.headers)
-    requestHeaders.set("current-url", request.url)
-
-    const response = NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
-    })
-
-    return response
-}
-```
-
-## Api Route
-
-- 只有当你的某个功能必须通过 `HTTP` 接口的方式才能实现时，比如需要允许第三方调用的接口或者 `server action` 无法满足需求时，你才需要创建一个 `api route`，否则你应该创建一个 `server action`
-- 你依然需要遵守 `server action` 的规则，核心的实现逻辑与 `server action` 一致，比如 `schema` （负责校验数据）的创建、`shared` 函数（负责核心逻辑）的创建等，这些规则同样适用于 `api route`
-- 所以 `api route` 的创建规则与 `server action` 的创建规则一致，你只需要按照 `server action` 的创建规则创建即可，唯一不同的地方是，你需要将 `api route` 按照 Next.js 的 `api route` 规则创建，而不是 `@/actions` 目录下
-- 当然如果这个功能可以通过 `server action` 实现并且是给内部使用的，你也可以同时按照 `server action` 的创建规则创建一个 `server action`，这样 `server action` 和 `api route` 都可以使用，但是 `server action` 是给内部使用的，而 `api route` 是给外部使用的
+1. 先分析页面结构，识别重复的 UI 片段与逻辑，并判断是否值得抽取。不要为了抽取而抽取，优先考虑维护成本。
+2. 抽取的组件应该放在公共的 `@/components` 目录下，工具函数应该放在公共的 `@/utils` 目录下，禁止放在其他目录下。
+3. 新增组件或页面前，检查已有目录（尤其是 `@/components` 与 `@/utils`）是否已有可复用实现，优先复用而非重复创建。
+4. 抽取时保持原有 UI 风格与交互一致，避免引入不必要的样式或行为变化。
+5. 组件拆分要能提升可读性与可测试性；若拆分后跨文件沟通成本增加，则保留在原文件。
+6. 对抽取出的组件与工具，提供清晰的 props 或函数签名与命名，便于后续维护与扩展。
 
 ---
 > Source: [1adybug/docker-management](https://github.com/1adybug/docker-management) — distributed by [TomeVault](https://tomevault.io).
