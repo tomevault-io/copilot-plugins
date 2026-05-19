@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--gsh",
+  "displayName": "gsh",
+  "description": "A battery-included, POSIX-compatible, generative shell",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/gsh",
+  "skills": []
+}
