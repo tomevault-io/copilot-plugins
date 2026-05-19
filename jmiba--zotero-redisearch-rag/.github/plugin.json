@@ -1,0 +1,9 @@
+{
+  "name": "jmiba--zotero-redisearch-rag",
+  "displayName": "zotero-redisearch-rag",
+  "description": "An Obsidian plugin that synchronizes selected Zotero full-text items with your vault in realtime, vectorizes them and lets you chat with your pdf documents.",
+  "version": "1.0.0",
+  "author": "jmiba",
+  "homepage": "https://github.com/jmiba/zotero-redisearch-rag",
+  "skills": []
+}
