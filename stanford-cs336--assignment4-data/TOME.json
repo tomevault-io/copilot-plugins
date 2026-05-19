@@ -4,7 +4,7 @@
   "repo": "assignment4-data",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/stanford-cs336/assignment4-data",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:39:42Z"
+  "distributed_at": "2026-05-19T10:42:37Z"
 }
