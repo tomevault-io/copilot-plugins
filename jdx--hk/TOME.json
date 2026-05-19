@@ -4,7 +4,7 @@
   "repo": "hk",
   "description": "git hooks and project lints",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jdx/hk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:27:58Z"
+  "distributed_at": "2026-05-19T01:20:15Z"
 }
