@@ -1,0 +1,9 @@
+{
+  "name": "mark3labs--mcphost",
+  "displayName": "mcphost",
+  "description": "A CLI host application that enables Large Language Models (LLMs) to interact with external tools through the Model Context Protocol (MCP).",
+  "version": "1.0.0",
+  "author": "mark3labs",
+  "homepage": "https://github.com/mark3labs/mcphost",
+  "skills": []
+}
