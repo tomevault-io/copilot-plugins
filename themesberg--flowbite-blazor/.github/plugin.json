@@ -1,0 +1,9 @@
+{
+  "name": "themesberg--flowbite-blazor",
+  "displayName": "flowbite-blazor",
+  "description": "Blazor components built for Flowbite and Tailwind CSS",
+  "version": "1.0.0",
+  "author": "themesberg",
+  "homepage": "https://github.com/themesberg/flowbite-blazor",
+  "skills": []
+}
