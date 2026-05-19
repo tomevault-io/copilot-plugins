@@ -1,17 +1,18 @@
-## 01-coding-standards
+## 02-testing-standards
 
-> These apply to **all code** in this repository (TypeScript, PHP, Markdown, JSON):
+> * All CLI logic is covered by **Vitest** unit tests:
 
-# Global Coding Standards
+# Testing & CI
 
-These apply to **all code** in this repository (TypeScript, PHP, Markdown, JSON):
-
-* Use **ESLint + Prettier** for all JavaScript/TypeScript files; run `npm run lint` before committing.
-* PHP code must pass **PHP‑Stan level 8** and **Pint** auto‑format (run `composer pint`).
-* Markdown follows the GitHub Markdown style guide; wrap lines at 120 chars.
-* JSON files must be pretty‑printed with 2‑space indent.
-
-> Any new template file must follow the same style conventions.
+* All CLI logic is covered by **Vitest** unit tests:
+  * `tests/cli/file-helpers.test.js` - Tests for file operations
+  * `tests/cli/config.test.js` - Tests for configuration handling
+  * `tests/cli/stack-helpers.test.js` - Tests for common stack functionality
+  * `tests/cli/nextjs-helpers.test.js` - Tests for Next.js specific functionality
+* Template‑generation is validated by snapshot tests (`tests/templates/`).
+* CI (GitHub Actions) runs `npm run test` and checks formatting.
+* Before publishing a new version, run `npm run test -- --update` to refresh snapshots if necessary.
+* Pre-commit and pre-push hooks run tests automatically using Husky.
 
 ---
 > Source: [tecnomanu/agent-rules-kit](https://github.com/tecnomanu/agent-rules-kit) — distributed by [TomeVault](https://tomevault.io).
