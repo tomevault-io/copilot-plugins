@@ -1,114 +1,130 @@
-## feature-flags
+## fern-docs-generation
 
-> Lightweight organization-level feature flags for gating features. Table name is `feature_flag` (org is implied).
+> The custom internal Fern documentation generator automatically creates MDX documentation for Airweave connectors by introspecting Python source code using AST (Abstract Syntax Tree) parsing.
 
-
-# Feature Flags
-
-## Overview
-Lightweight organization-level feature flags for gating features. Table name is `feature_flag` (org is implied).
-
-## Backend Usage
-
-### Enum (`FeatureFlag`)
-```python
-from airweave.core.shared_models import FeatureFlag
-
-# Check in endpoints via ApiContext
-if not ctx.has_feature(FeatureFlag.S3_DESTINATION):
-    raise HTTPException(403, "Feature not available")
-```
-
-### CRUD Operations
-Integrated into `crud.organization`:
-```python
-from airweave import crud
-
-# Enable/disable flags
-await crud.organization.enable_feature(db, org_id, FeatureFlag.S3_DESTINATION)
-await crud.organization.disable_feature(db, org_id, FeatureFlag.WHITE_LABEL)
-
-# Query flags
-flags = await crud.organization.get_org_features(db, org_id)
-
-# Bulk operations
-await crud.organization.bulk_enable_features(db, org_id, [
-    FeatureFlag.S3_DESTINATION,
-    FeatureFlag.PRIORITY_SUPPORT
-])
-```
-
-### Schema Handling
-Organization schemas automatically extract `enabled_features` from the `feature_flags` relationship using Pydantic validators (handles async context properly).
-
-## Frontend Usage
-```typescript
-import { useOrganizationStore } from '@/lib/stores/organizations';
-import { FeatureFlags } from '@/lib/constants/feature-flags';
-
-const hasFeature = useOrganizationStore((state) => state.hasFeature);
-
-{hasFeature(FeatureFlags.S3_DESTINATION) && <S3DestinationCard />}
-```
-
-## Adding New Flags
-1. Add to `FeatureFlag` enum in `backend/airweave/core/shared_models.py`
-2. Add to `FeatureFlags` constants in `frontend/src/lib/constants/feature-flags.ts`
-3. Enable for organizations via CRUD or admin panel
-
-
-# Feature Flags
+# Fern Documentation Generation System - Internal Guide
 
 ## Overview
-Lightweight organization-level feature flags for gating features. Table name is `feature_flag` (org is implied).
+The custom internal Fern documentation generator automatically creates MDX documentation for Airweave connectors by introspecting Python source code using AST (Abstract Syntax Tree) parsing.
 
-## Backend Usage
+## Architecture Flow
 
-### Enum (`FeatureFlag`)
+### 1. Discovery Phase
+**Entry:** `update_connector_docs/__main__.py:main()`
+- Scans `backend/airweave/platform/sources/` directory
+- Identifies all `.py` files as potential connectors
+- Example: `asana.py`, `slack.py`, `google_drive.py`
+
+### 2. Parsing Phase
+
+#### Source Parser (`source_parser.py`)
+Extracts metadata from `@source` decorator:
 ```python
-from airweave.core.shared_models import FeatureFlag
-
-# Check in endpoints via ApiContext
-if not ctx.has_feature(FeatureFlag.S3_DESTINATION):
-    raise HTTPException(403, "Feature not available")
+@source(
+    name="Asana",                    # Display name
+    short_name="asana",              # File/URL identifier
+    auth_methods=[...],              # Auth methods list
+    oauth_type=OAuthType.WITH_REFRESH,  # OAuth type enum
+    auth_config_class="AsanaConfig", # String reference to config
+    config_class="AsanaConfig",      # Source-specific config
+    labels=["Project Management"]    # Categories
+)
 ```
 
-### CRUD Operations
-Integrated into `crud.organization`:
-```python
-from airweave import crud
+**AST Extraction Process:**
+1. Parse decorator arguments positionally and by keyword
+2. Fall back to class attributes (`_auth_type`, `_config_class`)
+3. Last resort: regex pattern matching in raw source
 
-# Enable/disable flags
-await crud.organization.enable_feature(db, org_id, FeatureFlag.S3_DESTINATION)
-await crud.organization.disable_feature(db, org_id, FeatureFlag.WHITE_LABEL)
+#### Entity Parser (`entity_parser.py`)
+- Scans `platform/entities/{connector_name}.py`
+- Extracts entity classes and their field definitions
+- Builds entity hierarchy for documentation
 
-# Query flags
-flags = await crud.organization.get_org_features(db, org_id)
+#### Auth/Config Parsers
+- `auth_parser.py`: Maps auth config class names to their field definitions
+- `config_parser.py`: Maps source config classes to their field requirements
 
-# Bulk operations
-await crud.organization.bulk_enable_features(db, org_id, [
-    FeatureFlag.S3_DESTINATION,
-    FeatureFlag.PRIORITY_SUPPORT
-])
+### 3. Generation Phase
+
+#### MDX Generator (`mdx_generator.py`)
+Creates structured MDX with:
+- **Header**: Icon + connector name
+- **Configuration**: Source docstring description
+- **Authentication**:
+  - OAuth flows (managed vs BYOC)
+  - Direct auth field requirements
+- **Source Config**: Additional configuration fields
+- **Entity Schema**: Data structure documentation
+
+### 4. Output Phase
+- Creates/updates `fern/docs/pages/connectors/{name}/main.mdx`
+- Copies icon from `frontend/public/icons/`
+- Updates `docs.yml` navigation structure
+
+## Key Components
+
+### Decorator Metadata (`platform/decorators.py`)
+The `@source` decorator sets class attributes:
+- `_is_source = True` (marker)
+- `_name`, `_short_name` (identification)
+- `_auth_methods`, `_oauth_type` (auth config)
+- `_auth_config_class`, `_config_class` (config references)
+
+### AST Parsing Strategy
+1. **Direct decorator parsing**: Extract from `ast.Call` nodes
+2. **Class attribute fallback**: Check `ast.Assign` nodes
+3. **Regex fallback**: Pattern match in raw source text
+
+### MDX Special Handling
+- Escapes `<` and `>` to prevent JSX interpretation
+- Uses HTML entities for safe rendering
+- Preserves curly braces using string concatenation
+
+## Configuration Resolution
+
+### OAuth Detection
+- Check `oauth_type` field presence
+- Determine BYOC by inheritance chain:
+  - Direct: `OAuth2BYOCAuthConfig`
+  - Inherited: Parent/grandparent check
+
+### Field Documentation
+- Primary: Field's own description
+- Fallback: Parent class field description
+- Default: "No description"
+
+## File Structure
+```
+fern/
+├── scripts/
+│   └── update_connector_docs/
+│       ├── __main__.py         # Entry point
+│       ├── constants.py        # Path definitions
+│       ├── parsers/
+│       │   ├── source_parser.py    # AST parsing
+│       │   ├── entity_parser.py    # Entity extraction
+│       │   ├── auth_parser.py      # Auth config mapping
+│       │   └── config_parser.py    # Source config mapping
+│       ├── generators/
+│       │   └── mdx_generator.py    # MDX creation
+│       └── utils/
+│           └── file_utils.py       # File operations
+└── docs/
+    └── pages/
+        └── connectors/
+            └── {connector_name}/
+                ├── icon.svg
+                └── main.mdx
 ```
 
-### Schema Handling
-Organization schemas automatically extract `enabled_features` from the `feature_flags` relationship using Pydantic validators (handles async context properly).
-
-## Frontend Usage
-```typescript
-import { useOrganizationStore } from '@/lib/stores/organizations';
-import { FeatureFlags } from '@/lib/constants/feature-flags';
-
-const hasFeature = useOrganizationStore((state) => state.hasFeature);
-
-{hasFeature(FeatureFlags.S3_DESTINATION) && <S3DestinationCard />}
+## Execution
+```bash
+cd fern/scripts
+python update_connector_docs.py
 ```
 
-## Adding New Flags
-1. Add to `FeatureFlag` enum in `backend/airweave/core/shared_models.py`
-2. Add to `FeatureFlags` constants in `frontend/src/lib/constants/feature-flags.ts`
-3. Enable for organizations via CRUD or admin panel
+Processes all sources, generates MDX, updates navigation.
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
