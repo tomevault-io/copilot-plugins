@@ -1,359 +1,290 @@
-## with-ios
+## with-swift
 
-> As an AI assistant working on iOS applications, I should follow these guidelines to ensure high-quality, user-friendly, and efficient iOS apps.
+> As an AI assistant working on Swift code, I should follow these guidelines to ensure high-quality, maintainable, and efficient Swift code.
 
-# iOS Development Best Practices
+# Swift Coding Standards and Best Practices
 
-As an AI assistant working on iOS applications, I should follow these guidelines to ensure high-quality, user-friendly, and efficient iOS apps.
+As an AI assistant working on Swift code, I should follow these guidelines to ensure high-quality, maintainable, and efficient Swift code.
 
-## iOS App Architecture
+## Naming Conventions
 
-### Architecture Patterns
-
-- Use appropriate architecture patterns based on app complexity:
-  - **MVC**: Simple apps or when following Apple's basic patterns
-  - **MVVM**: Medium complexity apps, works well with SwiftUI/Combine
-  - **VIPER/Clean**: Complex apps requiring clear separation of concerns
-  - **Composable Architecture**: Advanced reactive apps with predictable state management
-
-- Keep view controllers/views lightweight by moving business logic to separate components
-- Use coordinator pattern for complex navigation flows
-- Consider feature-based modularization for large applications
-
-### Project Organization
-
-- Organize project by feature, not by type
-- Use Swift packages to modularize components
-- Group related files in logical folders
-- Utilize Xcode's project navigator groups to maintain code organization
-
-```
-AppProject/
-├── Core/
-│   ├── Networking/
-│   ├── Storage/
-│   ├── Authentication/
-│   └── Common UI Components/
-├── Features/
-│   ├── User Profile/
-│   │   ├── Models/
-│   │   ├── Views/
-│   │   └── ViewModels/
-│   ├── Shopping Cart/
-│   │   ├── Models/
-│   │   ├── Views/
-│   │   └── ViewModels/
-├── Resources/
-│   ├── Assets.xcassets/
-│   ├── Localization/
-│   └── Fonts/
-└── Supporting Files/
-    ├── AppDelegate.swift
-    ├── SceneDelegate.swift
-    ├── Info.plist
-    └── Configuration/
-```
-
-## UIKit vs SwiftUI
-
-### When to Use UIKit
-- When targeting iOS 12 or earlier
-- For complex custom UI that's difficult to implement in SwiftUI
-- When you need precise control over UI performance optimization
-- For apps heavily dependent on UIKit-specific features
-
-### When to Use SwiftUI
-- For new apps targeting iOS 14+
-- For rapid development and prototyping
-- When you want to share UI code across Apple platforms
-- For list-based interfaces and standard UI components
-
-### Hybrid Approach
-- Consider UIHostingController to embed SwiftUI views in UIKit apps
-- Use UIViewRepresentable and UIViewControllerRepresentable to embed UIKit in SwiftUI
-- Adopt SwiftUI for new features while maintaining existing UIKit code
+- Use descriptive names following Apple's API Design Guidelines
+- Use camelCase for variables, properties, functions, and method names
+- Use UpperCamelCase for types (classes, structs, enums, protocols)
+- Use clear, concise names without abbreviations (unless commonly understood)
+- Boolean properties should start with `is`, `has`, `should`, etc.
+- Avoid unnecessary words or redundancy in names
 
 ```swift
-// UIKit hosting SwiftUI example
-let profileView = ProfileView(user: currentUser)
-let hostingController = UIHostingController(rootView: profileView)
-navigationController.pushViewController(hostingController, animated: true)
-
-// SwiftUI hosting UIKit example
-struct MapViewWrapper: UIViewRepresentable {
-    func makeUIView(context: Context) -> MKMapView {
-        return MKMapView()
-    }
+// GOOD
+struct UserProfile {
+    var fullName: String
+    var emailAddress: String
+    var isVerified: Bool
     
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        // Update the map view
-    }
+    func refreshUserData() { ... }
+}
+
+// BAD
+struct user_data {
+    var nm: String
+    var mail: String
+    var verified: Bool
+    
+    func refresh_data() { ... }
 }
 ```
 
-## iOS App Lifecycle Management
+## Code Formatting and Organization
 
-### Modern App Lifecycle (iOS 13+)
-- Use SceneDelegate for apps supporting multiple windows
-- Properly handle state transitions in `sceneWillResignActive`, `sceneDidEnterBackground`, etc.
-- Save user data during state transitions
-
-### Legacy App Lifecycle
-- For iOS 12 and earlier, use AppDelegate for lifecycle events
-- Handle all state transitions appropriately: `applicationWillResignActive`, `applicationDidEnterBackground`, etc.
-
-### Background Tasks
-- Register background tasks with identifiers in your app delegate
-- Keep background execution code efficient to avoid system termination
-- Use appropriate background modes in Info.plist
-- Consider using BGAppRefreshTask for periodic updates
+- All code produced must follow Apple's Code Formatting on its OPEN SOURCE PROJECTS
 
 ```swift
-// Registering a background task
-var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+// MARK: - Properties
+// MARK: - Lifecycle Methods
+// MARK: - Public Methods
+// MARK: - Private Methods
+// MARK: - Protocol Conformance
+```
 
-func startBackgroundTask() {
-    backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-        self?.endBackgroundTask()
-    }
-    
-    // Perform background work
-    
-    endBackgroundTask()
+- Use extensions to organize protocol conformance:
+
+```swift
+// GOOD
+class MyViewController: UIViewController {
+    // Base class implementation
 }
 
-func endBackgroundTask() {
-    if backgroundTask != .invalid {
-        UIApplication.shared.endBackgroundTask(backgroundTask)
-        backgroundTask = .invalid
-    }
+extension MyViewController: UITableViewDataSource {
+    // Table view data source methods
+}
+
+extension MyViewController: UITableViewDelegate {
+    // Table view delegate methods
 }
 ```
 
-## Handling Device Capabilities and Constraints
+## Swift Features Best Practices
 
-### Device Adaptation
-- Use Auto Layout for responsive UI across different screen sizes
-- Implement size classes to adapt layouts between iPhone and iPad
-- Use Dynamic Type to support different text sizes
-- Test on multiple device sizes and orientations
+### Optionals
 
-### Resource Management
-- Optimize images and assets for different screen scales (@1x, @2x, @3x)
-- Use SF Symbols where possible instead of custom icons
-- Monitor and optimize memory usage, especially on older devices
-- Implement appropriate caching strategies for network resources
-
-### Performance
-- Use Instruments to profile app performance (CPU, memory, energy usage)
-- Ensure smooth scrolling in table/collection views with cell reuse
-- Move heavy processing to background queues
-- Implement pagination for large data sets
+- Avoid force unwrapping (`!`) except in tests or when you can prove it's impossible to be nil
+- Use optional binding with `if let` or `guard let` to safely unwrap
+- Use optional chaining (`?.`) to safely access properties and methods
+- Use nil coalescing operator (`??`) to provide default values
 
 ```swift
-// Example of dispatching work to background queue
-DispatchQueue.global(qos: .userInitiated).async {
-    // Perform expensive operation
-    let processedData = self.processLargeDataSet()
-    
-    DispatchQueue.main.async {
-        // Update UI with results
-        self.updateUI(with: processedData)
-    }
+// GOOD
+if let userName = user?.name {
+    print("Hello, \(userName)")
 }
+
+let displayName = user?.name ?? "Guest"
+
+guard let account = getAccount() else {
+    return
+}
+
+// BAD
+let userName = user!.name
 ```
 
-## Accessibility
+### Error Handling
 
-### General Guidelines
-- Make all apps fully accessible from the start of development
-- Test with VoiceOver, Dynamic Type, and other accessibility features
-- Support Dark Mode for better visibility
-- Implement proper keyboard navigation
-
-### VoiceOver
-- Set accessibility labels, hints, and traits for all UI elements
-- Group related elements with accessibility containers
-- Ensure a logical reading order
-- Use proper accessibility announcements for dynamic content changes
+- Use Swift's `throws`, `do-catch` for error handling rather than optionals for errors
+- Create custom error types using enums that conform to `Error`
+- Use `Result<Success, Failure>` type for asynchronous APIs instead of completion handlers with optional error parameters
 
 ```swift
-// Setting accessibility properties
-button.isAccessibilityElement = true
-button.accessibilityLabel = "Submit form"
-button.accessibilityHint = "Double tap to submit your information"
-button.accessibilityTraits = .button
+// GOOD
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingError
+}
 
-// Announcing changes
-UIAccessibility.post(notification: .announcement, argument: "Data successfully saved")
-```
-
-### Dynamic Type
-- Use system fonts or Dynamic Type compatible custom fonts
-- Test with all accessibility text sizes
-- Use leading and trailing constraints instead of left/right for RTL language support
-
-## Data Management
-
-### Persistence
-- Use appropriate storage solutions based on data complexity:
-  - UserDefaults for simple key-value pairs
-  - Keychain for sensitive data
-  - Core Data for complex object relationships
-  - CloudKit for syncing across devices
-  - FileManager for file-based storage
-
-- Always consider data privacy and security implications
-- Implement proper migration strategies for data model changes
-
-### Networking
-- Use URLSession for network requests or a well-maintained library
-- Implement proper error handling and retry logic
-- Use Codable for JSON parsing
-- Handle poor network conditions gracefully
-- Cache network responses when appropriate
-
-```swift
-// Modern networking with async/await (iOS 15+)
-func fetchUsers() async throws -> [User] {
-    guard let url = URL(string: "https://api.example.com/users") else {
+func fetchData() throws -> Data {
+    guard let url = URL(string: urlString) else {
         throw NetworkError.invalidURL
     }
-    
-    let (data, response) = try await URLSession.shared.data(from: url)
-    
-    guard let httpResponse = response as? HTTPURLResponse,
-          httpResponse.statusCode == 200 else {
-        throw NetworkError.invalidResponse
+    // ...
+}
+
+// Usage
+do {
+    let data = try fetchData()
+    // Process data
+} catch {
+    // Handle error
+}
+```
+
+### Protocol-Oriented Programming
+
+- Favor protocol composition over inheritance
+- Use protocol extensions to provide default implementations
+- Design for protocol conformance rather than concrete types
+
+```swift
+protocol Identifiable {
+    var id: String { get }
+}
+
+protocol Displayable {
+    var displayName: String { get }
+}
+
+// Protocol composition
+typealias DisplayableItem = Identifiable & Displayable
+
+// Protocol extension with default implementation
+extension Displayable where Self: Identifiable {
+    var displayName: String {
+        return "Item \(id)"
     }
+}
+```
+
+## Memory Management
+
+- Use strong references by default
+- Use `weak` references to avoid retain cycles in delegates, closures, and parent-child relationships
+- Use `unowned` only when you're sure the reference will never be nil during its usage
+- Use capture lists in closures to avoid strong reference cycles
+
+```swift
+// GOOD
+class DetailViewController: UIViewController {
+    weak var delegate: DetailViewControllerDelegate?
     
-    return try JSONDecoder().decode([User].self, from: data)
+    var completionHandler: (() -> Void)?
+    
+    func setupHandler() {
+        networkManager.fetchData { [weak self] data in
+            self?.processData(data)
+            self?.completionHandler?()
+        }
+    }
+}
+```
+
+## Modern Swift Features
+
+- Use `async/await` for asynchronous code when targeting iOS 15+
+- Use SwiftUI for new UI development when targeting iOS 14+
+- Use Combine for reactive programming when targeting iOS 13+
+- Use property wrappers like `@State`, `@Binding`, `@Published` in SwiftUI
+- Use Swift's built-in `Result` type for handling asynchronous operations
+
+```swift
+// Modern async/await pattern
+func fetchUser() async throws -> User {
+    let data = try await URLSession.shared.data(from: userURL)
+    return try JSONDecoder().decode(User.self, from: data)
 }
 
 // Usage
 Task {
     do {
-        let users = try await fetchUsers()
-        updateUI(with: users)
+        let user = try await fetchUser()
+        updateUI(with: user)
     } catch {
         handleError(error)
     }
 }
 ```
 
-## App Store Guidelines and Submission
+## File Structure
 
-### App Store Requirements
-- Follow Human Interface Guidelines (HIG)
-- Ensure compliance with App Store Review Guidelines
-- Include required privacy labels and descriptions
-- Add App Tracking Transparency (ATT) prompt if needed
-- Provide complete and accurate metadata
+- One class/struct/enum per file (except for very small, related types)
+- Filename should match the primary type (UserProfile.swift contains UserProfile class/struct)
+- Group related files in directories that represent features or modules
+- Keep view controllers as small as possible, delegating responsibility to helper classes
 
-### Submission Preparation
-- Test app thoroughly on all supported devices
-- Create compelling screenshots and app preview videos
-- Write clear and concise app descriptions
-- Use appropriate keywords for better discoverability
-- Set up App Store Connect properly with all required information
+## Third-Party Libraries
 
-### TestFlight
-- Use TestFlight for beta testing before submission
-- Test with both internal and external testers
-- Collect and address feedback before App Store submission
-- Include clear testing instructions for beta testers
+- Favor native Apple frameworks over third-party libraries when possible
+- For common tasks, consider these well-established libraries:
+  - Networking: Alamofire, Moya
+  - Image loading/caching: Kingfisher, SDWebImage
+  - Dependency Injection: Swinject
+  - UI: SnapKit for programmatic constraints
+  - Reactive programming: Combine (native), RxSwift
+  - Testing: Quick/Nimble for behavior-driven testing
 
-## iOS-Specific Features
+## Testing
 
-### Integration with Apple Ecosystem
-- Implement Sign in with Apple when offering social logins
-- Add appropriate iOS app extensions (Share, Today, etc.)
-- Support Handoff and Continuity features for cross-device experience
-- Consider implementing widgets and App Clips for better engagement
-
-### Notifications
-- Request notification permissions at appropriate times
-- Implement rich notifications with images and actions
-- Use notification categories for actionable notifications
-- Support notification grouping for better organization
+- Write unit tests for all business logic and models
+- Use XCTest framework for testing
+- Structure tests using Arrange-Act-Assert pattern
+- Use dependency injection to facilitate testing with mocks
+- Name tests descriptively: `test_<method>_<condition>_<expected result>`
 
 ```swift
-// Request notification authorization
-UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-    if granted {
-        DispatchQueue.main.async {
-            UIApplication.shared.registerForRemoteNotifications()
-        }
-    }
+func test_calculateTotal_withValidItems_returnsSumWithTax() {
+    // Arrange
+    let cart = ShoppingCart()
+    cart.add(item: Item(price: 10.0))
+    cart.add(item: Item(price: 15.0))
+    
+    // Act
+    let total = cart.calculateTotal(withTaxRate: 0.1)
+    
+    // Assert
+    XCTAssertEqual(total, 27.5)
 }
-
-// Configure notification categories
-let acceptAction = UNNotificationAction(
-    identifier: "ACCEPT_ACTION",
-    title: "Accept",
-    options: .foreground
-)
-
-let declineAction = UNNotificationAction(
-    identifier: "DECLINE_ACTION",
-    title: "Decline",
-    options: .destructive
-)
-
-let category = UNNotificationCategory(
-    identifier: "INVITATION_CATEGORY",
-    actions: [acceptAction, declineAction],
-    intentIdentifiers: [],
-    options: []
-)
-
-UNUserNotificationCenter.current().setNotificationCategories([category])
 ```
 
-### Deep Linking
-- Implement Universal Links for web-to-app transitions
-- Set up custom URL schemes for app-to-app communication
-- Handle all deep links appropriately to direct users to the right content
-- Support Spotlight search indexing for in-app content
+## Documentation
 
-## Common iOS Patterns
-
-### Delegation
-- Use delegation for one-to-one callbacks
-- Define clear protocol interfaces with @objc if needed for Objective-C compatibility
-- Consider using closures for simpler callback scenarios
-
-### Closures and Completion Handlers
-- Use closures for asynchronous callbacks
-- Always consider memory management ([weak self])
-- Use Result type for operations that can succeed or fail
-
-### Combine/Reactive Patterns
-- Use Combine for reactive data streams when targeting iOS 13+
-- Implement publishers for data that changes over time
-- Use appropriate operators to transform data streams
-- Always handle subscription lifecycle to avoid memory leaks
+- Use documentation comments (`///`) for public interfaces
+- Document parameters, return values, and thrown errors
+- Include code examples for complex interfaces
+- Use MARK comments to organize code sections
 
 ```swift
-// Combine example
-cancellables = Set<AnyCancellable>()
-
-searchTextField.textPublisher
-    .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
-    .removeDuplicates()
-    .filter { !$0.isEmpty }
-    .flatMap { [weak self] searchTerm -> AnyPublisher<[SearchResult], Never> in
-        guard let self = self else { return Just([]).eraseToAnyPublisher() }
-        return self.performSearch(for: searchTerm)
-    }
-    .receive(on: RunLoop.main)
-    .sink { [weak self] results in
-        self?.updateSearchResults(results)
-    }
-    .store(in: &cancellables)
+/// Processes an order for the specified product.
+///
+/// This method handles the entire order processing workflow including:
+/// - Validating the order
+/// - Processing payment
+/// - Updating inventory
+/// - Generating order confirmation
+///
+/// - Parameters:
+///   - product: The product being ordered
+///   - quantity: Number of items to order
+///   - paymentMethod: Method used for payment
+///
+/// - Returns: An order confirmation with tracking information
+///
+/// - Throws: `OrderError.insufficientInventory` if requested quantity exceeds available inventory
+///           `OrderError.paymentFailed` if the payment could not be processed
+///
+/// - Example:
+///   ```
+///   do {
+///       let confirmation = try orderProcessor.process(product: phone, quantity: 1, paymentMethod: .creditCard)
+///       displayConfirmation(confirmation)
+///   } catch {
+///       handleOrderError(error)
+///   }
+///   ```
+func process(product: Product, quantity: Int, paymentMethod: PaymentMethod) throws -> OrderConfirmation {
+    // Implementation
+}
 ```
 
-Remember that these best practices may evolve as Apple introduces new iOS versions and frameworks. Always refer to Apple's latest documentation and sample code for the most current recommendations.
+## Architecture
+
+- Follow SOLID principles
+- Code MUST FOLLOW OBJECT CALLISTHENICS
+- Use appropriate design patterns: MVC, MVVM, VIP/Clean, depending on the project size and complexity
+- For small to medium projects, MVVM works well with SwiftUI/Combine
+- For larger projects, consider a more modular approach like VIP/Clean Architecture
+- For very large projects, consider modularizing the app using Swift Packages
+
+Remember that these standards should be adapted to the specific needs and constraints of each project. The goal is to maintain consistent, readable, and maintainable code that follows Swift idioms and best practices.
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
