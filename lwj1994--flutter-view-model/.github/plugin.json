@@ -1,0 +1,14 @@
+{
+  "name": "lwj1994--flutter-view-model",
+  "displayName": "flutter_view_model",
+  "description": "pure & lightweight state management library for Flutter",
+  "version": "1.0.0",
+  "author": "lwj1994",
+  "homepage": "https://github.com/lwj1994/flutter_view_model",
+  "skills": [
+    {
+      "name": "view_model",
+      "description": ""
+    }
+  ]
+}
