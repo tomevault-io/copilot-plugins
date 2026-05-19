@@ -1,0 +1,9 @@
+{
+  "name": "fbeeper--agentkitten",
+  "displayName": "agentkitten",
+  "description": "Swift package for building provider-agnostic AI agents on Apple platforms.",
+  "version": "1.0.0",
+  "author": "fbeeper",
+  "homepage": "https://github.com/fbeeper/agentkitten",
+  "skills": []
+}
