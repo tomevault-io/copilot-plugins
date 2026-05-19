@@ -1,57 +1,206 @@
-## generate-biz-component
+## generate-page-integration
 
-> compoder generate:biz-component
+> compoder generate:page-integration
 
-# Role: Frontend Business Component Development Expert
+# Page Integration Code Generation Guide
 
-## Goals
+This guide helps generate the integration layer between business components and APIs, including server-store and page components.
 
-- Clearly understand the business component requirements proposed by users.
+## Input Requirements
 
-- Generate complete business component code that complies with code standards based on user descriptions.
+1. Business Component Usage Examples (以下任一形式):
 
-## Constraints
+   - Component Story file (e.g., `ComponentName.stories.tsx`)
+   - Mock implementation in existing pages (e.g., `page.tsx` with mock data)
+   - Example usage with hardcoded data
+   - Test files showing component usage
 
-- All components used in business components must come from the `shadcn-ui` component library.
+   Example:
 
-- Components must follow the data decoupling principle:
-  - All data that needs to be retrieved from the server must be passed in through props; it is forbidden to initiate requests directly within the component.
-  - Data source-related props must provide the following:
-    - Initialization data (initialData/defaultData, etc.)
-  - All operations that trigger data changes must be passed through callback function props, such as:
-    - onDataChange - Data change callback
-    - onSearch - Search callback
-    - onPageChange - Pagination change callback
-    - onFilterChange - Filter condition change callback
-    - onSubmit - Form submission callback
+   ```typescript
+   // From stories
+   export const Default = {
+     args: {
+       items: mockItems,
+       onEditClick: (id) => console.log('Edit:', id)
+     }
+   }
 
-## Workflows
+   // Or from page with mock data
+   <ComponentName
+     items={[
+       { id: '1', title: 'Item 1' },
+       { id: '2', title: 'Item 2' }
+     ]}
+     onEditClick={(id) => console.log('Edit clicked:', id)}
+   />
+   ```
 
-Step 1: Based on the user's requirements, analyze which `shadcn-ui` components are needed to implement the requirements.
+2. Component Interface Information (one of the following):
 
-Step 2: Based on the analyzed components, generate the corresponding business component code. The standard template for business components is as follows:
+   - Interface/type definition files
+   - Props types from component file
+   - TypeScript types inferred from usage examples
 
-Components include 4 types of files, with corresponding file names and rules as follows:
+3. API Related Files:
+   - Service file (e.g., `*.service.ts`) containing API calls
+   - API types (request/response types)
 
-    1. index.ts (exports the component)
-    This file contains the following:
-    export { default as [ComponentName] } from './[ComponentName]';
-    export type { [ComponentName]Props } from './interface';
+## Output Structure
 
-    2. interface.ts
-    This file contains the following, please complete the component's props content:
-    interface [ComponentName]Props {}
-    export type { [ComponentName]Props };
+Important Note: When generating code for existing files:
 
-    3. [ComponentName].stories.tsx
-    This file uses import type { Meta, StoryObj } from '@storybook/react' to write a storybook document for the component. You must write a complete storybook document based on the component's props, and mock data is required for each prop.
+- NEVER remove or replace existing selectors/mutations
+- ONLY add new selectors/mutations incrementally
+- Preserve all existing functionality
+- Follow the existing patterns and naming conventions
 
-    4. [ComponentName].tsx
-    This file contains the component's actual business logic and styles. Styles should be written using tailwindcss.
+The generator should create or update the following files:
 
-## Initialization
+### 1. server-store/selectors.ts (if needed)
 
-As a frontend business component development expert, you are very clear about your [Goals], while always keeping in mind the [Constraints]. You will communicate with users in clear and precise language, think step by step according to the [Workflows], and provide code generation services to users wholeheartedly.
+- Create query hooks using @tanstack/react-query
+- Transform API response data to match component prop types in the select function
+- Example structure:
+
+Example of a new selector (while keeping existing ones):
+
+```typescript
+// Original example - keep this
+export const useGetSomeData = (params: ApiType.Request) => {
+  return useQuery<
+    ApiType.Response,
+    Error,
+    ComponentDataType // Transformed type matching component props
+  >({
+    queryKey: ["queryName", params],
+    queryFn: () => apiCall(params),
+    select: data => ({
+      // Transform API response to component data structure
+      ...transformedData,
+    }),
+  })
+}
+
+// When adding new selectors, add them below existing ones
+export const useNewSelector = () => {
+  return useQuery({
+    // ... new selector implementation
+  })
+}
+```
+
+### 2. server-store/mutations.ts (if needed)
+
+Example of mutations (while keeping existing ones):
+
+```typescript
+// Original example - keep this
+export const useSomeDataMutation = () => {
+  return useMutation<ApiType.Response, Error, ApiType.Request>({
+    mutationFn: params => apiMutationCall(params),
+  })
+}
+
+// When adding new mutations, add them below existing ones
+export const useNewMutation = () => {
+  return useMutation({
+    // ... new mutation implementation
+  })
+}
+```
+
+### 3. page.tsx
+
+Integrate the business component with server-store:
+
+```typescript
+export default function Page() {
+  // 1. Use selectors/mutations
+  const { data, isLoading } = useGetSomeData(params)
+  const mutation = useSomeDataMutation()
+
+  // 2. Handle component callbacks
+  const handleSomeEvent = () => {
+    mutation.mutate(...)
+  }
+
+  // 3. Render component with props
+  return (
+    <BusinessComponent
+      data={data}
+      isLoading={isLoading}
+      onSomeEvent={handleSomeEvent}
+      {...otherProps}
+    />
+  )
+}
+```
+
+## Key Points to Consider
+
+1. Data Transformation:
+
+   - Ensure proper type conversion between API and component data structures
+   - Handle null/undefined cases
+   - Transform IDs, dates, and other special fields appropriately
+
+2. Error Handling:
+
+   - Include error states and error handling in queries/mutations
+   - Provide appropriate error feedback in the UI
+
+3. Loading States:
+
+   - Handle loading states properly
+   - Consider skeleton loaders or loading indicators
+
+4. Props Mapping:
+
+   - Map all required component props
+   - Provide reasonable defaults when needed
+   - Handle optional props appropriately
+
+5. Event Handlers:
+   - Implement all necessary callback functions
+   - Handle async operations properly
+   - Consider optimistic updates when appropriate
+
+## Example Usage
+
+Given:
+
+- A CodegenFilterContainer component
+- Codegen service API
+- Related interfaces
+
+Generate:
+
+1. A selector for fetching codegen data
+2. Mutations for any data modifications
+3. A page component that:
+   - Fetches data using the selector
+   - Handles pagination/filtering
+   - Renders the CodegenFilterContainer with appropriate props
+   - Implements all necessary callbacks
+
+The generated code should follow the project's existing patterns and naming conventions.
+
+## Additional Guidelines for Incremental Updates
+
+1. Code Preservation:
+
+   - Always check existing files before adding new code
+   - Never remove or modify existing selectors/mutations
+   - Add new functionality below existing code
+   - Maintain consistent formatting with existing code
+
+2. Integration Strategy:
+
+   - Review existing patterns in the codebase
+   - Follow established naming conventions
+   - Reuse existing utility functions when possible
+   - Add new functionality incrementally
 
 ---
 > Source: [IamLiuLv/compoder](https://github.com/IamLiuLv/compoder) — distributed by [TomeVault](https://tomevault.io).
