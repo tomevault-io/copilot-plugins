@@ -1,0 +1,9 @@
+{
+  "name": "panghy--javaflow",
+  "displayName": "javaflow",
+  "description": "JavaFlow reimagines the core ideas of FoundationDB's Flow actor framework in idiomatic Java, leveraging JDK continuations instead of any custom compiler or preprocessor.",
+  "version": "1.0.0",
+  "author": "panghy",
+  "homepage": "https://github.com/panghy/javaflow",
+  "skills": []
+}
