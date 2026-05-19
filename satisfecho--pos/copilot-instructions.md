@@ -1,15 +1,28 @@
-## docker-compose-haproxy
+## error-investigation-workflow
 
-> Use the correct compose file pair for dev vs prod; HAProxy is the browser entrypoint in Docker
+> When investigating errors, read container logs, check docs, reproduce with Puppeteer, fix and retest
 
 
-# Docker Compose & HAProxy
+# Error Investigation Workflow
 
-- **Local dev** commands (`up`, `ps`, `logs`, `exec`, `restart`) should use **both** base + dev overlay:  
-  `docker compose -f docker-compose.yml -f docker-compose.dev.yml …`
-- **Production / amvara9** uses **`docker-compose.prod.yml`** instead of **`docker-compose.dev.yml`** (same base file). Do not mix overlays.
-- **Browser / smoke tests:** Traffic goes through **HAProxy**; use the **published host port** from `docker compose ps` (dev default **4202** unless overridden). **`BASE_URL`** for Puppeteer is typically `http://127.0.0.1:4202`.
-- After compose or proxy changes, check **haproxy**, **front**, and **back** logs and run a minimal smoke (**`docs/testing.md`**, **`AGENTS.md`**).
+When investigating or fixing reported errors:
+
+1. **Read container logs** (in this order):
+   - Frontend: `docker logs pos-front 2>&1 | tail -n …`
+   - Backend: `docker logs pos-back 2>&1 | tail -n …`
+   - HAProxy: `docker logs pos-haproxy 2>&1 | tail -n …`
+   - Database: `docker logs pos-postgres 2>&1 | tail -n …`  
+   Use `grep -iE 'error|exception|traceback|422|500'` when useful.
+
+2. **Identify relevant docs** in `docs/` (e.g. `docs/*.md`, `AGENTS.md`, `README.md`) that describe the failing feature, deployment, or environment (e.g. amvara9, HAProxy, API, menu, payments).
+
+3. **Reproduce locally**:
+   - Use a local browser and/or a Puppeteer script under `front/scripts/` (e.g. `test-api-docs.mjs`, `test-demo-data.mjs`, `test-rate-limit.mjs`) with `BASE_URL=http://127.0.0.1:4202` (or the dev port).
+   - Run the script or manual steps until the error is reproduced.
+
+4. **Fix and retest**: Apply the fix, then re-run the same reproduction steps (Puppeteer or browser) until the error is gone. Do not report "fixed" until the test passes.
+
+5. **Amvara9**: The amvara9 deployment has a slightly different setup (see e.g. `docs/0001-ci-cd-amvara9.md`, `docs/0027-amvara9-menu-images-troubleshooting.md`, `docs/0026-haproxy-ssl-amvara9.md`). If the error might be environment-specific, check those docs and consider prod vs dev differences (ports, certs, nginx, API base URL).
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
