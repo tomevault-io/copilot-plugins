@@ -1,0 +1,9 @@
+{
+  "name": "kuberik--kuberik",
+  "displayName": "kuberik",
+  "description": "Kubernetes-native continuous delivery. Safe, hands-off deployments.",
+  "version": "1.0.0",
+  "author": "kuberik",
+  "homepage": "https://github.com/kuberik/kuberik",
+  "skills": []
+}
