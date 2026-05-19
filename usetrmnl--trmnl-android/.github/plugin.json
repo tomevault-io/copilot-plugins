@@ -1,0 +1,9 @@
+{
+  "name": "usetrmnl--trmnl-android",
+  "displayName": "trmnl-android",
+  "description": "Utility to display TRMNL screens on an Android device",
+  "version": "1.0.0",
+  "author": "usetrmnl",
+  "homepage": "https://github.com/usetrmnl/trmnl-android",
+  "skills": []
+}
