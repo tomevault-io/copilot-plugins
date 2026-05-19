@@ -1,0 +1,9 @@
+{
+  "name": "blorp-labs--blorp",
+  "displayName": "blorp",
+  "description": "Blorp \u2013 a Threadiverse client for Lemmy and PieFed. Web, iOS & macOS, and more!",
+  "version": "1.0.0",
+  "author": "Blorp-Labs",
+  "homepage": "https://github.com/Blorp-Labs/blorp",
+  "skills": []
+}
