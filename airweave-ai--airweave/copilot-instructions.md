@@ -1,52 +1,244 @@
-## airweave-overview
+## api-layer
 
-> General overview of Airweave.
+> FastAPI-based HTTP interface providing RESTful endpoints for SDK access and frontend communication, with unified Auth0/API key authentication.
 
-# Airweave Overview
+# Airweave API Layer Rules
 
-## What is Airweave?
-
-Airweave is an open-source platform that makes **any app searchable for your agent** by syncing data from various sources with minimal configuration for agentic search. It serves as a bridge between your data sources and agents, transforming raw data into queryable knowledge.
-
-> There is an adjacent repository called `infra-core` which manages all the infrastructure.
+## Overview
+FastAPI-based HTTP interface providing RESTful endpoints for SDK access and frontend communication, with unified Auth0/API key authentication.
 
 ## Architecture
-- Monorepo: Python FastAPI backend + React/TypeScript frontend + Python Temporal workers + Node.js MCP server
-- Data Flow: Sources → Processing → Vector/Graph DBs → Agent Queries
-- MCP Integration: Streamable HTTP transport (MCP 2025-03-26) for cloud-based AI assistants (OpenAI Agent Builder, etc.)
-- Tested with Monke (internal E2E testing framework)
 
-## Technical Capabilities
-- Data synchronization configuration via UI or API
-- Multi-tenant architecture with OAuth2
-- Entity extraction and transformation pipeline
-- Sync triggers: manual, scheduled, or API-driven
-- Incremental updates using content hashing
-- Scales from local development to production environments
+### Structure
+```
+api/
+├── v1/
+│   ├── api.py              # Main router aggregation
+│   └── endpoints/          # Individual endpoint modules
+├── deps.py                 # Dependency injection & auth resolution
+├── router.py              # Custom TrailingSlashRouter
+├── middleware.py          # Request processing & CORS
+└── auth.py               # Auth0 integration & token validation
+```
 
-## Data Sources
-Airweave can extract and process data from:
-- API endpoints (REST) / Productivity and collaboration tools
-- Relational databases
-- Document stores
-- File systems and storage services
+### Endpoint Categories
+- **Public API (SDK)**: `/sources/`, `/collections/`, `/source-connections/`
+- **Internal Frontend**: `/users/`, `/organizations/`, `/api-keys/`, `/sync/`, `/dag/`, `/entities/`, `/destinations/`
+- **Connect Frontend API**: `/connect/` - Short-lived session tokens for embedded frontend integration flows (Plaid-style Connect modal)
 
+### Key Endpoints
 
-## Technology Implementation
-- Backend: FastAPI with PostgreSQL metadata store
-- Frontend: React/TypeScript with ShadCN components
-- MCP Server: Node.js with stdio (local) and Streamable HTTP (hosted) transports for AI assistant integration
-- Storage: Qdrant (will add more, DWH-type storage later)
-- Deployment: Docker Compose (dev), Kubernetes (prod)
-- Processing: Async workers with Temporal
-- Messages: Redis PubSub
-- Documentation: Fern
+#### Sources API
+- **GET /sources/{short_name}**: Retrieves source details including:
+  - Core metadata (name, description)
+  - Authentication methods (`auth_methods`)
+  - Configuration schemas (`auth_fields`, `config_fields`)
+  - **Auth Provider Support** (`supported_auth_providers`): List of auth provider short names that support this source
 
-## For Developers
-- Local setup uses Docker Compose
-- Prod setup with Kubernetes (upcoming)
-- Configuration via environment variables
-- Extensible for custom sources and destinations
+#### Source Connections API
+- **POST /source-connections**: Creates a new connection with validation:
+  - For direct auth: validates credential format
+  - For OAuth: handles authorization flows
+  - For auth providers: validates provider exists and supports the source
+- **POST /source-connections/{id}/verify-oauth**: Verifies claim-token ownership and triggers deferred sync. Called after the OAuth callback completes to prove the caller that initiated the flow is the one completing it. Required for all browser-based OAuth flows.
+
+## Core Components
+
+### 1. TrailingSlashRouter
+```python
+from airweave.api.router import TrailingSlashRouter
+router = TrailingSlashRouter()  # Handles /endpoint and /endpoint/
+```
+
+### 2. API Context (deps.py)
+The `get_context` dependency provides unified authentication and request context handling:
+
+```python
+@router.get("/")
+async def my_endpoint(
+    ctx: ApiContext = Depends(deps.get_context),
+):
+    # Provides: organization, user, logger, request_id, auth_method, analytics
+```
+
+`ApiContext` inherits from `BaseContext` (`core.context`), which provides organization identity and logger. `ApiContext` adds HTTP-specific fields: `request_id`, `auth_method`, `auth_metadata`, `analytics`.
+
+CRUD operations accept `BaseContext` (the parent type), so `ApiContext` works everywhere. Background jobs and Temporal activities use `BaseContext` directly without API-specific fields.
+
+**ApiContext Resolution Flow:**
+1. Check auth method: system (dev), Auth0, or API key
+2. Resolve organization ID from header or defaults
+3. Validate organization access
+4. Create contextual logger with request metadata
+5. Return `ApiContext` (extends `BaseContext`) with injected logger and analytics
+
+**Key Features:**
+- Supports multiple auth methods simultaneously
+- Organization context via `X-Organization-ID` header
+- Automatic access validation
+- Pre-configured contextual logger injected via dependency injection
+- Request tracking with unique request IDs
+
+### 3. Authentication Methods
+
+#### Auth0 Integration (auth.py)
+- Production: Real Auth0 with JWT validation
+- Development: Mock Auth0 when `AUTH_ENABLED=false`
+- Token verification: `get_user_from_token()` for WebSocket/SSE
+
+#### API Key Authentication
+- Header: `X-API-Key: <key>`
+- Single organization scope
+- Expiration validation
+- No user context (service-to-service)
+
+#### System Authentication
+- Local development with `AUTH_ENABLED=false`
+- Uses `FIRST_SUPERUSER` as default user
+- Full access to all organizations
+
+#### Connect Session Authentication
+- Header: `Authorization: Bearer <session_token>` (10-minute TTL)
+- Created via `POST /connect/sessions` with API key auth
+- Scope: Single collection + optional integration restrictions
+- Modes: `all`, `connect`, `manage`, `reauth` - control permitted operations
+
+### 4. Middleware Stack (middleware.py)
+
+**Request Processing Pipeline:**
+1. `add_request_id`: Generates unique request ID for tracing
+2. `log_requests`: Logs request details and duration
+3. `exception_logging_middleware`: Catches and logs unhandled exceptions
+
+**CORS Handling:**
+- Dynamic origin validation
+- Special handling for OAuth endpoints
+- White-label endpoint support
+- Credentials support for cross-origin requests
+
+**Exception Handlers:**
+- `validation_exception_handler`: Enhanced 422 errors with schema context
+- `permission_exception_handler`: 403 for access violations
+- `not_found_exception_handler`: 404 for missing resources
+
+### 5. Context Cache Service (core/context_cache_service.py)
+Redis-backed cache implementing cache-aside pattern to reduce database load on high-traffic endpoints. Caches organizations (5min TTL), users (3min TTL), and API key mappings (10min TTL). API keys are encrypted before use as cache keys for security. All cache operations fail gracefully—errors are logged but never block requests. Integrated into `deps.py` to serve cached data during `ApiContext` resolution.
+
+### 6. Rate Limiter Service (core/rate_limiter_service.py)
+Distributed rate limiter using Redis sorted sets with sliding window algorithm for accurate per-minute limiting across horizontally scaled instances. Limits are plan-based: Developer (10/min), Pro (100/min), Team (250/min), Enterprise (unlimited). Automatically reads billing plan from cached organization data in `ApiContext` (populated via cache service). On limit exceeded, raises `RateLimitExceededException` with `retry_after` calculated from oldest request timestamp. Integrated via middleware for all API requests.
+
+## Key Patterns
+
+### Standard Endpoint Structure
+```python
+@router.post("/", response_model=schemas.ResponseModel)
+async def create_resource(
+    resource_in: schemas.ResourceCreate,
+    db: AsyncSession = Depends(deps.get_db),
+    ctx: ApiContext = Depends(deps.get_context),
+) -> schemas.ResponseModel:
+    """Clear description."""
+    # Validate → Delegate to CRUD/Service → Return schema
+```
+
+### Protocol-based DI with Inject()
+For domain services, use `Inject(Protocol)` to resolve implementations from the DI container:
+```python
+from airweave.api.deps import Inject
+from airweave.domains.organizations.protocols import OrganizationServiceProtocol
+
+@router.post("/")
+async def create_organization(
+    org_data: schemas.OrganizationCreate,
+    db: AsyncSession = Depends(deps.get_db),
+    user: User = Depends(deps.get_user),
+    org_service: OrganizationServiceProtocol = Inject(OrganizationServiceProtocol),
+) -> schemas.Organization:
+    return await org_service.create_organization(db=db, org_data=org_data, owner_user=user)
+```
+`Inject()` introspects the `Container` dataclass to find the field matching the requested protocol type. This decouples endpoints from concrete implementations.
+
+Identity and payment providers are abstracted behind protocols (`IdentityProvider`, `PaymentGatewayProtocol`) with concrete adapters (Auth0, Stripe) and null/fake adapters for dev/testing.
+
+### Naming Conventions
+- `list_resources()` → GET `/`
+- `create_resource()` → POST `/`
+- `get_resource()` → GET `/{id}`
+- `update_resource()` → PUT `/{id}`
+- `delete_resource()` → DELETE `/{id}`
+
+### Error Handling
+```python
+raise HTTPException(status_code=404, detail="Resource not found")
+```
+- `NotFoundException` → 404
+- `PermissionException` → 403
+- `ValidationError` → 422
+
+### CRUD Integration
+```python
+# ✅ Always delegate to CRUD layer
+return await crud.collection.get_multi(db, ctx=ctx)
+
+# ❌ Never query directly in endpoints
+```
+
+### Service Layer Usage
+Complex operations use service layers:
+```python
+collection = await collection_service.create(
+    db, collection_in=collection_in, ctx=ctx
+)
+```
+
+## Security
+- Organization access validated via ApiContext
+- Role-based mutation guards via `require_org_role()` (see below)
+- API keys encrypted at rest
+- Auth fields hidden by default
+- Request ID tracking for audit trails
+
+### Role-Based Access Control (`require_org_role`)
+Read-only endpoints use `Depends(deps.get_context)`. Mutation endpoints use `deps.require_org_role(logic.can_manage_*)` to enforce admin/owner role checks before the handler runs.
+
+```python
+# Read endpoint — any authenticated user
+@router.get("/")
+async def list_resources(
+    ctx: ApiContext = Depends(deps.get_context),
+): ...
+
+# Mutation endpoint — admin/owner only
+@router.post("/")
+async def create_resource(
+    resource_in: schemas.ResourceCreate,
+    db: AsyncSession = Depends(deps.get_db),
+    ctx: ApiContext = deps.require_org_role(logic.can_manage_resources),
+): ...
+```
+
+Use `block_api_key_auth=True` for self-referential resources (e.g. API keys managing API keys) to prevent privilege escalation:
+
+```python
+ctx: ApiContext = deps.require_org_role(
+    logic.can_manage_api_keys, block_api_key_auth=True
+),
+```
+
+## Best Practices
+1. Always use Pydantic schemas for request/response
+2. Include OpenAPI descriptions and examples
+3. Use dependency injection for common functionality
+4. Delegate database operations to CRUD layer
+5. Handle streaming with `StreamingResponse` for SSE
+6. Add background tasks for async operations
+7. Use contextual logger from `ctx.logger` (injected via DI)
+
+# Return complete object
+return await crud.resource.get(db, id=resource.id, ...)
+
+# Return complete object
+return await crud.resource.get(db, id=resource.id, ...)
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
