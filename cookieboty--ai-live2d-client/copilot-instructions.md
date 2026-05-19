@@ -1,38 +1,32 @@
-## 04-renderer-package
+## 05-types-package
 
-> - [src/index.tsx](mdc:packages/renderer/src/index.tsx) - 渲染进程入口文件
+> - [src/index.ts](mdc:packages/types/src/index.ts) - 类型定义入口文件
 
-# Renderer包
+# Types包
 
 ## 目录结构
 
-- [src/index.tsx](mdc:packages/renderer/src/index.tsx) - 渲染进程入口文件
-- [src/App.tsx](mdc:packages/renderer/src/App.tsx) - 主应用组件
-- [src/components/](mdc:packages/renderer/src/components) - React组件
-- [src/utils/](mdc:packages/renderer/src/utils) - 实用工具
-- [src/types/](mdc:packages/renderer/src/types) - 类型定义
-- [src/cubism2/](mdc:packages/renderer/src/cubism2) - Live2D Cubism相关代码
-- [src/assets/](mdc:packages/renderer/src/assets) - 静态资源
-- [public/](mdc:packages/renderer/public) - 公共资源目录
+- [src/index.ts](mdc:packages/types/src/index.ts) - 类型定义入口文件
 
 ## 配置文件
 
-- [package.json](mdc:packages/renderer/package.json) - 包配置和依赖
-- [vite.config.ts](mdc:packages/renderer/vite.config.ts) - Vite配置
-- [tsconfig.json](mdc:packages/renderer/tsconfig.json) - TypeScript配置
+- [package.json](mdc:packages/types/package.json) - 包配置和依赖
+- [tsconfig.json](mdc:packages/types/tsconfig.json) - TypeScript配置
 
 ## 开发命令
 
-- `pnpm dev` - 启动Vite开发服务器
-- `pnpm build` - 构建渲染进程代码
-- `pnpm copy-assets` - 复制Live2D资源
+- `pnpm dev` - 启动TypeScript监视模式
+- `pnpm build` - 构建类型定义
+- `pnpm clean` - 清理构建产物
 
-## 主要功能
+## 主要类型
 
-- 实现透明UI界面
-- 加载和显示Live2D模型
-- 提供模型互动功能
-- 显示消息气泡
+- `IpcApi` - 定义主进程和渲染进程之间的IPC通信接口
+- `ElectronApi` - 定义在渲染进程中可用的Electron API
+
+## 使用方式
+
+此包被其他包作为依赖引入，提供共享的类型定义，确保主进程和渲染进程之间类型安全的通信。
 
 ---
 > Source: [Cookieboty/ai-live2d-client](https://github.com/Cookieboty/ai-live2d-client) — distributed by [TomeVault](https://tomevault.io).
