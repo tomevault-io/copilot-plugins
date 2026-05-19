@@ -1,0 +1,9 @@
+{
+  "name": "anoek--sandbox",
+  "displayName": "sandbox",
+  "description": "A tool for creating lightweight containerized copy-on-write views of your computer for safely running programs and managing output.",
+  "version": "1.0.0",
+  "author": "anoek",
+  "homepage": "https://github.com/anoek/sandbox",
+  "skills": []
+}
