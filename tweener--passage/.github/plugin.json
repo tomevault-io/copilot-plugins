@@ -1,0 +1,9 @@
+{
+  "name": "tweener--passage",
+  "displayName": "passage",
+  "description": "A Kotlin/Compose Multiplatform library for easy authentication on Android and iOS.",
+  "version": "1.0.0",
+  "author": "Tweener",
+  "homepage": "https://github.com/Tweener/passage",
+  "skills": []
+}
