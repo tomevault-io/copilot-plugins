@@ -1,0 +1,9 @@
+{
+  "name": "zocomputer--selectron",
+  "displayName": "selectron",
+  "description": "AI web parser library + CLI",
+  "version": "1.0.0",
+  "author": "zocomputer",
+  "homepage": "https://github.com/zocomputer/selectron",
+  "skills": []
+}
