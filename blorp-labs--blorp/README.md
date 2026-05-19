@@ -7,11 +7,11 @@ Blorp – a Threadiverse client for Lemmy and PieFed. Web, iOS & macOS, and more
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Blorp-Labs/blorp](https://github.com/Blorp-Labs/blorp).
+Original source: `CLAUDE.md` in [Blorp-Labs/blorp](https://github.com/Blorp-Labs/blorp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
