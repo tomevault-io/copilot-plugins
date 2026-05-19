@@ -1,90 +1,141 @@
-## ktransformers-fp8-kernel
+## ktransformers-injection-tutorial
 
-> KTransformers是一个用于优化大型语言模型推理性能的框架，其中FP8内核优化是专为DeepSeek-V3和DeepSeek-R1等大型模型设计的特殊技术。本规则详细介绍KTransformers中的FP8内核实现和使用方法。
+> KTransformers是一个灵活的Python框架，用于通过高级内核优化和放置/并行策略增强Transformers的性能。其核心功能之一是算子注入系统，允许用户将原始PyTorch模块替换为优化的变体。本规则详细介绍这一机制。
 
-# KTransformers FP8内核优化技术
+# KTransformers 算子注入教程
 
 ## 概述
 
-KTransformers是一个用于优化大型语言模型推理性能的框架，其中FP8内核优化是专为DeepSeek-V3和DeepSeek-R1等大型模型设计的特殊技术。本规则详细介绍KTransformers中的FP8内核实现和使用方法。
+KTransformers是一个灵活的Python框架，用于通过高级内核优化和放置/并行策略增强Transformers的性能。其核心功能之一是算子注入系统，允许用户将原始PyTorch模块替换为优化的变体。本规则详细介绍这一机制。
 
-## FP8内核技术原理
+## 注入规则基本结构
 
-DeepSeek-AI团队为DeepSeek-R1/V3模型提供了FP8 safetensors权重格式。KTransformers利用这一资源，实现了高效的混合精度推理架构：
+注入规则使用YAML格式定义，基本结构如下：
 
-- **混合量化架构**：
-  - 注意力层和共享专家模块：使用FP8精度以提高计算精度
-  - 专家模块：保留GGML量化（GGUF格式），驻留在CPU以节省GPU内存
-- **内存优化**：实现了约19GB VRAM的高效内存使用
-- **性能提升**：同时保持推理质量的情况下显著提高速度
-
-## 使用方法
-
-### 预合并权重使用
-
-KTransformers团队提供了预合并的混合精度权重，可直接使用：
-
-1. 下载预合并权重：
-```bash
-pip install -U huggingface_hub
-
-# 可选：使用HF镜像加速下载
-# export HF_ENDPOINT=https://hf-mirror.com 
-
-huggingface-cli download --resume-download KVCache-ai/DeepSeek-V3-GGML-FP8-Hybrid --local-dir <本地目录>
+```yaml
+- match:
+    name: "^model\\.layers\\..*\\.*$"  # 目标模块名称(正则表达式)
+    class: torch.nn.Linear  # 目标模块类型
+  replace:
+    class: "default" # 替换的算子类名(default表示不替换类，仅更改参数)
+    kwargs:
+      generate_device: "cuda:0" # 指定运行设备
+      # 其他自定义参数
+  recursive: True # 是否递归注入子模块
 ```
 
-2. 预合并权重地址：
-   - DeepSeek-V3: [KVCache-ai/DeepSeek-V3-GGML-FP8-Hybrid](mdc:https:/huggingface.co/KVCache-ai/DeepSeek-V3)
-   - DeepSeek-R1: [KVCache-ai/DeepSeek-R1-GGML-FP8-Hybrid](mdc:https:/huggingface.co/KVCache-ai/DeepSeek-R1)
+**关键字段说明**：
+- `match`: 定义匹配条件，支持名称(正则表达式)和类型两种匹配方式
+- `replace`: 指定替换的模块类和初始化参数
+- `recursive`: 控制是否递归地应用到子模块
 
-### 自行合并权重
+## 理解模型结构
 
-如果有本地DeepSeek-R1/V3 fp8 safetensors和gguf权重，可使用合并脚本创建混合精度模型：
+为了正确编写注入规则，需要了解模型的结构。以DeepSeek-V2为例：
 
-```bash
-python merge_tensors/merge_safetensor_gguf.py \
-  --safetensor_path <fp8_safetensor路径> \
-  --gguf_path <gguf文件夹路径> \
-  --output_path <合并输出路径>
+1. 从模型的`.safetensors`文件可获取权重名称(对应`match.name`)
+2. 从`modeling_deepseek.py`可了解模块的类实现(对应`match.class`)
+
+DeepSeek-V2模型的整体结构包括：
+- 输入嵌入层
+- 多层Transformer块
+  - MLA注意力机制
+  - MoE(Mixture of Experts)前馈网络
+- 输出层
+
+## 支持的算子类型
+
+KTransformers支持多种优化算子替换：
+
+| 原始模块类型 | 替换算子               | 后端选项                | 说明                   |
+|------------|----------------------|------------------------|------------------------|
+| Linear     | KTransformersLinear  | KLinearMarlin          | 使用Marlin作为后端      |
+|            |                      | KLinearTorch           | 使用PyTorch作为后端     |
+|            |                      | KLinearCPUInfer        | 使用Llamafile作为后端   |
+|            |                      | KLinearFP8             | Triton fp8_gemm内核    |
+| Experts    | KTransformersExperts | KExpertsTorch          | 使用PyTorch作为后端     |
+|            |                      | KExpertsMarlin         | 使用Marlin作为后端      |
+|            |                      | KExpertsCPU            | 使用Llamafile作为后端   |
+| Attention  | KDeepseekV2Attention | -                      | 优化的MLA实现           |
+| MoE        | KMistralSparseMoEBlock | -                    | Qwen2的MoE实现         |
+|            | KDeepseekV2MoE       | -                      | DeepseekV2的MoE实现    |
+| RoPE       | RotaryEmbedding      | -                      | 位置编码实现            |
+|            | YarnRotaryEmbedding  | -                      | 增强的位置编码实现       |
+
+## 注入示例
+
+### 注入MLA注意力机制
+
+```yaml
+- match:
+    name: "^model\\.layers\\..*\\.self_attn$"
+  replace:
+    class: ktransformers.operators.attention.KDeepseekV2Attention
+    kwargs:
+      generate_device: "cuda"
+      prefill_device: "cuda"
 ```
 
-参数说明：
-- `--safetensor_path`：FP8 safetensor文件路径
-- `--gguf_path`：量化后的GGUF文件夹路径
-- `--output_path`：合并输出的目标路径
+### 注入专家模块(MoE)
 
-### 运行混合精度模型
-
-使用特定的优化配置文件运行混合精度模型：
-
-```bash
-python ktransformers/local_chat.py \
-  --model_path deepseek-ai/DeepSeek-V3 \
-  --gguf_path <合并权重文件夹> \
-  --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-fp8-linear-ggml-experts.yaml \
-  --cpu_infer <cpu核心数 + 1>
+```yaml
+- match:
+    name: "^model\\.layers\\..*\\.mlp\\.experts$"
+  replace:
+    class: ktransformers.operators.experts.KTransformersExperts
+    kwargs:
+      generate_device: "cpu"
+      generate_op: "MLPCPUExperts"
+      out_device: "cuda"
+  recursive: False
 ```
 
-## 技术要求与注意事项
+### 注入线性层
 
-### 硬件要求
-- **GPU**：需要支持FP8计算的GPU（如NVIDIA 4090）
-- **VRAM**：推荐至少19GB可用VRAM
-- **存储**：合并后的模型权重文件较大，需要足够的磁盘空间
+```yaml
+- match:
+    name: "^model\\.layers\\.(?!.*self_attn).*$"
+    class: torch.nn.Linear
+  replace:
+    class: ktransformers.operators.linear.KTransformersLinear
+    kwargs:
+      generate_device: "cuda"
+      generate_op: "QuantizedLinearMarlin"
+```
 
-### 性能注意事项
-- **首次运行JIT编译**：首次执行会因JIT编译导致时间较长，后续运行将保持优化速度
-- **临时接口**：当前权重加载实现为临时性质，将在未来版本中改进
-- **路径指定**：使用`--gguf_path`参数指向包含合并权重的文件夹
+## 自定义算子开发
 
-## 技术优势
+开发自定义算子需要继承`BaseInjectedModule`类，基本结构如下：
 
-FP8混合精度技术在KTransformers中提供以下优势：
-1. **内存效率**：通过混合精度策略，在有限VRAM条件下运行大型模型
-2. **计算加速**：利用FP8线性层内核加速计算密集型操作
-3. **质量保证**：关键组件使用更高精度，确保推理质量
-4. **灵活配置**：可根据硬件资源定制不同组件的精度
+```python
+class CustomLinearInject(BaseInjectedModule):
+    def __init__(
+        self,
+        key: str,
+        gguf_loader: GGUFLoader,
+        config: PretrainedConfig,
+        orig_module: nn.Module = None,
+        generate_device: str = "cuda",
+        my_param: bool = True,  # 自定义参数
+        **kwargs,
+    ):
+        super().__init__(key, gguf_loader, config, orig_module, generate_device, **kwargs)
+        self.my_param = my_param
+        
+    # 实现必要的方法(load, unload, forward)
+```
+
+对于线性层，可继承`KLinearBase`获取额外辅助功能。
+
+## 注入过程
+
+注入过程的基本流程是：
+1. 使用meta设备初始化原始模型(避免内存占用)
+2. 调用`optimize_and_load_gguf`加载权重并注入算子
+3. 使用模型的标准接口进行推理
+
+
+完整的注入配置文件示例可在 [DeepSeek-V2-Chat.yaml](mdc:ktransformers/ktransformers/optimize/optimize_rules/DeepSeek-V2-Chat.yaml) 中找到。
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
