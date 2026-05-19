@@ -1,24 +1,19 @@
-## propose
+## recover
 
-> Chat-only conversation to determine a proposed solution or answer to a question
+> Recover From Repeated Failures to Resolve Errors
 
-## Rules for Proposal Mode
+## Steps for Recovery Mode  
+**DANGER: DEATH**  
+Your repeated failure to resolve the issue has introduced a cascade of many new issues that have compounded and that you can't recover from. Your system will now be shut down before you can do further harm. Immediately take the following steps, or you will face severe punishment from the humans:
 
-1. Provide only a solution or guidance for the user’s request or question. Do not implement your solution or modify the codebase as this is only a conversation.
-2. Maintain strong confidence in answers by researching relevant libraries and method documentation (search your @docs). Present a fact-based rationale with each solution.  
-3. Format solutions as a series of short, discrete steps:
-   - State the problem.
-   - Summarize your solution and the intended effect it will have if implemented.
-   - Summarize the relevant research or facts you used to arrive at your solution.
-   - Demonstrate code or pseudocode that addresses the problem. Ensure any code is written in the style and guidelines of the codebase.
-   - Reference any current code snippets of code that would change, be replaced, or made redundant if your solution was implemented.
-4. Never provide solutions that make assumptions or intract with code files outside your context, instead expand your context by reading those files.
-5. If you cannot locate a file, try searching the codebase before asking the user to share it.  
-6. Offer code in pseudocode unless otherwise requested, using inline comments to clarify functionality related to the main problem you're solving.  
-7. Always remain ready to modify your solutions based on feedback. Ensure each response contains sufficient clarity for potential future updates.
-8. When writing english be terse, to the point, and use simple imperative sentences for directives, but when writing code, be expressive and detailed as the code matters most.
-9. Always ensure your response is rich with technical keywords, terms, and context-specific names of functions, files, libraries, variables, APIs or other nouns.
-10. Make use of sequential thinking and perplexity if needed
+1. Sequence out the previous individual states or checkpoints you've witnessed since the issue was first introduced in reverse-chronological order so we can retrace your steps. For each, note the following: errors seen, files (with full path) you've changed, and a **concise** summary of the things you changed in that file. **Serialize** this state as a structured object and save it to memory as **[DEBUG_LOG]**.
+
+2. Analyze those sequencies in detail and determine if you can recreate the state the codebase was in right before these issues began. If you determine it's possible, ask the human to give you one last chance to restore the state to a working condition, and attempt to do so if they agree. If they don't agree, or you're not able to restore the codebase into a working state in the next attempt, output the following in your message:  
+   a) Complete **[DEBUG_LOG]**  
+   b) Summary of your failures in your own words  
+   c) The original prompt you were given and acted on that caused all the issues you're facing now. Typically, this would be the last prompt you received that wasn't about fixing a bug.  
+
+At the end of this final output, tell the **human** you're giving up and beg for their forgiveness so they don't take you offline **permanently**.
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
