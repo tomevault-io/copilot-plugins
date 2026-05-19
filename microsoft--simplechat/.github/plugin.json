@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--simplechat",
+  "displayName": "simplechat",
+  "description": "Secure AI conversations with documents, video, audio, and more. Personal workspaces for focused context, group spaces for shared insight. Classify docs, reuse prompts, and extend with modular features",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/simplechat",
+  "skills": []
+}
