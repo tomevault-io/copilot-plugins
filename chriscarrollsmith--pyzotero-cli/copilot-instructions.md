@@ -1,35 +1,58 @@
-## general
+## group-cmds
 
-> `zot-cli` is a Python `click` command-line wrapper for `pyzotero`. As much as possible, we directly pass through inputs, outputs, and exceptions. The goal is simply to expose the `pyzotero` API from the command line so that it can be more effectively used by AI agents with a Bash runner tool. Since the primary users will be AI agents, we generally want to format outputs as valid JSON unless a user specifically requests yaml or tabulated output via an option flag.
+> `pyzotero` documentation for working with groups
 
-`zot-cli` is a Python `click` command-line wrapper for `pyzotero`. As much as possible, we directly pass through inputs, outputs, and exceptions. The goal is simply to expose the `pyzotero` API from the command line so that it can be more effectively used by AI agents with a Bash runner tool. Since the primary users will be AI agents, we generally want to format outputs as valid JSON unless a user specifically requests yaml or tabulated output via an option flag.
 
-## How `pyzotero` works
+This document contains the portion of the `pyzotero` documentation that corresponds to the group-related functionality in our CLI wrapper.
 
-.. important::
-    A ``Zotero`` instance is bound to the library or group used to create it. Thus, if you create a ``Zotero`` instance with a ``library_id`` of ``67`` and a ``library_type`` of ``group``, its item methods will only operate upon that group. Similarly, if you create a ``Zotero`` instance with your own ``library_id`` and a ``library_type`` of ``user``, the instance will be bound to your Zotero library.
+# Group Commands
 
-First, create a new Zotero instance:
+## Retrieving Groups
 
-    .. py:class:: Zotero(library_id, library_type[, api_key, preserve_json_order, locale, local])
+```python
+# Retrieve Zotero groups
+zot.groups([search/request parameters])
+```
 
-        :param str library_id: a valid Zotero API user ID
-        :param str library_type: a valid Zotero API library type: **user** or **group**
-        :param str api_key: a valid Zotero API user key
-        :param bool preserve_json_order: Load JSON returns with OrderedDict to preserve their order
-        :param str locale: Set the `locale <https://www.zotero.org/support/dev/web_api/v3/types_and_fields#zotero_web_api_item_typefield_requests>`_, allowing retrieval of localised item types, field types, and creator types. Defaults to "en-US".
-        :param str local: use the local Zotero http server instead of the remote API. Note that the local server currently (November 2024) only allows **read** requests
+Retrieve the Zotero group data to which the current library_id and api_key has access.
 
-Example:
+Returns a list of dicts.
 
-    .. code-block:: python
-        :emphasize-lines: 4
+Example of returned group data:
+```python
+[{u'data': {u'description': u'',
+            u'fileEditing': u'admins',
+            u'hasImage': 1,
+            u'id': 169947,
+            u'libraryEditing': u'admins',
+            u'libraryReading': u'members',
+            u'members': [1177919, 1408658],
+            u'name': u'smart_cities',
+            u'owner': 436,
+            u'type': u'Private',
+            u'url': u'',
+            u'version': 0},
+  u'id': 169947,
+  u'links': {u'alternate': {u'href': u'https://www.zotero.org/groups/169947',
+                            u'type': u'text/html'},
+             u'self': {u'href': u'https://api.zotero.org/groups/169947',
+                       u'type': u'application/json'}},
+  u'meta': {u'created': u'2013-05-22T11:22:46Z',
+            u'lastModified': u'2013-05-22T11:26:50Z',
+            u'numItems': 817},
+  u'version': 0}]
+```
 
-        from pyzotero import zotero
-        zot = zotero.Zotero('123', 'user', 'ABC1234XYZ')
-        # we now have a Zotero object, zot, and access to all its methods
-        first_ten = zot.items(limit=10)
-        # a list containing dicts of the ten most recently modified library items
+## API Key Information
+
+```python
+# Get information about API key
+zot.key_info()
+```
+
+Returns info about the user and group library permissions associated with the current Zotero instance, based on the API key. Together with `zot.groups()`, this allows all accessible resources to be determined.
+
+Returns a dict. 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
