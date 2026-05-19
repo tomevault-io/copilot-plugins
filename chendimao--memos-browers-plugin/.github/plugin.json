@@ -1,0 +1,9 @@
+{
+  "name": "chendimao--memos-browers-plugin",
+  "displayName": "memos-browers-plugin",
+  "description": "Memos Quick Note - \u60a8\u7684\u667a\u80fd\u7b14\u8bb0\u52a9\u624b  \u5feb\u901f\u6355\u6349\u7075\u611f\uff0c\u8f7b\u677e\u7ba1\u7406\u77e5\u8bc6\u3002\u652f\u6301 Memos v0.18/v0.24/v0.25/v0.26\u7248\u672c\uff0c\u4e00\u952e\u4fdd\u5b58\u7f51\u9875\u5185\u5bb9\uff0c\u667a\u80fd\u6807\u7b7e\u8865\u5168\uff0c\u6587\u4ef6\u56fe\u7247\u4e0a\u4f20\uff0c\u81ea\u5b9a\u4e49\u5feb\u6377\u952e\uff0c\u4e2a\u6027\u5316\u8bbe\u7f6e\uff0c\u8ba9\u60a8\u7684\u7b14\u8bb0\u4f53\u9a8c\u66f4\u9ad8\u6548\u3001\u66f4\u667a\u80fd",
+  "version": "1.0.0",
+  "author": "chendimao",
+  "homepage": "https://github.com/chendimao/memos-browers-plugin",
+  "skills": []
+}
