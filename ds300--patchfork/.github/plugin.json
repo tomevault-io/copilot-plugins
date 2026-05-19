@@ -1,0 +1,9 @@
+{
+  "name": "ds300--patchfork",
+  "displayName": "patchfork",
+  "description": "A clever (derogatory) immutable state utility for TypeScript",
+  "version": "1.0.0",
+  "author": "ds300",
+  "homepage": "https://github.com/ds300/patchfork",
+  "skills": []
+}
