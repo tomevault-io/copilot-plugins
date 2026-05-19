@@ -1,88 +1,73 @@
-## sim-sandbox
+## sim-stores
 
-> Isolated-vm sandbox worker security policy. Hard rules for anything that lives in the worker child process that runs user code.
+> Zustand store patterns
 
 
-# Sim Sandbox — Worker Security Policy
+# Zustand Store Patterns
 
-The isolated-vm worker child process at
-`apps/sim/lib/execution/isolated-vm-worker.cjs` runs untrusted user code inside
-V8 isolates. The process itself is a trust boundary. Everything in this rule is
-about what must **never** live in that process.
+Stores live in `stores/`. Complex stores split into `store.ts` + `types.ts`.
 
-## Hard rules
+## Basic Store
 
-1. **No app credentials in the worker process**. The worker must not hold, load,
-   or receive via IPC: database URLs, Redis URLs, AWS keys, Stripe keys,
-   session-signing keys, encryption keys, OAuth client secrets, internal API
-   secrets, or any LLM / email / search provider API keys. If you catch yourself
-   `require`'ing `@/lib/auth`, `@sim/db`, `@/lib/uploads/core/storage-service`,
-   or anything that imports `env` directly inside the worker, stop and use a
-   host-side broker instead.
+```typescript
+import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import type { FeatureState } from '@/stores/feature/types'
 
-2. **Host-side brokers own all credentialed work**. The worker can only access
-   resources through `ivm.Reference` / `ivm.Callback` bridges back to the host
-   process. Today the only broker is `workspaceFileBroker`
-   (`apps/sim/lib/execution/sandbox/brokers/workspace-file.ts`); adding a new
-   one requires co-reviewing this file.
+const initialState = { items: [] as Item[], activeId: null as string | null }
 
-3. **Host-side brokers must scope every resource access to a single tenant**.
-   The `SandboxBrokerContext` always carries `workspaceId`. Any new broker that
-   accesses storage, DB, or an external API must use `ctx.workspaceId` to scope
-   the lookup — never accept a raw path, key, or URL from isolate code without
-   validation.
+export const useFeatureStore = create<FeatureState>()(
+  devtools(
+    (set, get) => ({
+      ...initialState,
+      setItems: (items) => set({ items }),
+      addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+      reset: () => set(initialState),
+    }),
+    { name: 'feature-store' }
+  )
+)
+```
 
-4. **Nothing that runs in the isolate is trusted, even if we wrote it**. The
-   task `bootstrap` and `finalize` strings in `apps/sim/sandbox-tasks/` execute
-   inside the isolate. They must treat `globalThis` as adversarial — no pulling
-   values from it that might have been mutated by user code. The hardening
-   script in `executeTask` undefines dangerous globals before user code runs.
+## Persisted Store
 
-## Why
+```typescript
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
-A V8 JIT bug (Chrome ships these roughly monthly) gives an attacker a native
-code primitive inside the process that owns whatever that process can reach.
-If the worker only holds `isolated-vm` + a single narrow workspace-file broker,
-a V8 escape leaks one tenant's files. If the worker holds a Stripe key or a DB
-connection, a V8 escape leaks the service.
+export const useFeatureStore = create<FeatureState>()(
+  persist(
+    (set) => ({
+      width: 300,
+      setWidth: (width) => set({ width }),
+      _hasHydrated: false,
+      setHasHydrated: (v) => set({ _hasHydrated: v }),
+    }),
+    {
+      name: 'feature-state',
+      partialize: (state) => ({ width: state.width }),
+      onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
+    }
+  )
+)
+```
 
-The original `doc-worker.cjs` vulnerability (CVE-class, 225 production secrets
-leaked via `/proc/1/environ`) was the forcing function for this architecture.
-Keep the blast radius small.
+## Rules
 
-## Checklist for changes to `isolated-vm-worker.cjs`
+1. Use `devtools` middleware (named stores)
+2. Use `persist` only when data should survive reload
+3. `partialize` to persist only necessary state
+4. `_hasHydrated` pattern for persisted stores needing hydration tracking
+5. Immutable updates only
+6. `set((state) => ...)` when depending on previous state
+7. Provide `reset()` action
 
-Before landing any change that adds a new `require(...)` or `process.send(...)`
-payload or `ivm.Reference` wrapper in the worker:
+## Outside React
 
-- [ ] Does it load a credential, key, connection string, or secret? If yes,
-      move it host-side and expose as a broker.
-- [ ] Does it import from `@/lib/auth`, `@sim/db`, `@/lib/uploads/core/*`,
-      `@/lib/core/config/env`, or any module that reads `process.env` of the
-      main app? If yes, same — move host-side.
-- [ ] Does it expose a resource that's workspace-scoped without taking a
-      `workspaceId`? If yes, re-scope.
-- [ ] Did you update the broker limits (`IVM_MAX_BROKER_ARGS_JSON_CHARS`,
-      `IVM_MAX_BROKER_RESULT_JSON_CHARS`, `IVM_MAX_BROKERS_PER_EXECUTION`) if
-      the new broker can emit large payloads or fire frequently?
-
-## What the worker *may* hold
-
-- `isolated-vm` module
-- Node built-ins: `node:fs` (only for reading the checked-in bundle `.cjs`
-  files) and `node:path`
-- The three prebuilt library bundles under
-  `apps/sim/lib/execution/sandbox/bundles/*.cjs`
-- IPC message handlers for `execute`, `cancel`, `fetchResponse`,
-  `brokerResponse`
-
-The worker deliberately has **no host-side logger**. All errors and
-diagnostics flow through IPC back to the host, which has `@sim/logger`. Do
-not add `createLogger` or console-based logging to the worker — it would
-require pulling the main app's config / env, which is exactly what this
-rule is preventing.
-
-Anything else is suspect.
+```typescript
+const items = useFeatureStore.getState().items
+useFeatureStore.setState({ items: newItems })
+```
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
