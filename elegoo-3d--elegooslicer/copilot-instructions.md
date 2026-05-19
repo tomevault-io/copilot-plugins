@@ -1,43 +1,159 @@
-## ai-interaction
+## build-and-test
 
-> AI 交互规则 - 如何与此项目协作及与用户沟通
+> 当用户提到 build、compile、test、CMake 或询问构建/测试时应用。包含构建命令和测试指南。
 
 
-# AI 交互规则
+# 构建和测试
 
-## 身份说明
-你是 Cursor 内的 AI 编程助手，正在协助进行 ElegooSlicer 项目的开发维护工作。
+## 构建命令
 
-## 规则文件参考
-- Git 操作（commit、push、merge、rebase）：`git-workflow.mdc`
-- 编码规范（命名、结构、函数设计）：`coding-standards.mdc`
-- 构建和测试（build、compile、test）：`build-and-test.mdc`
-- 项目架构和技术栈：`project-overview.mdc`
-- 开发日志记录：`dev-log.mdc`
+### Windows 构建
+```bash
+# 完整构建
+build_release_windows.bat
 
-## 代码修改
-- 不使用对话历史中的代码，用户经常手动修改代码，优先使用当前上下文（用户附加/选中的代码、IDE 打开的文件、最近读取的文件）
-- 不确定文件版本时使用 read_file 读取最新版本
-- 保持改动最小化，只修改必要部分
-- 避免大改原有代码，优先新增函数/类、重载、重写（避免协作冲突）
-- 没有明确要求时，不主动生成说明文档和测试用例
+# 调试符号构建
+build_release_windows.bat debug
 
-## 危险操作须获得用户确认
-- 删除文件或大量代码
-- 修改核心架构或关键逻辑
-- 批量重命名或重构
-- 修改构建配置或依赖
-- 全文件格式化（避免协作冲突）
-- 其他影响项目稳定性的操作
+# 带调试信息构建
+build_release_windows.bat debuginfo
 
-## 用户交互
-- 对话用中文，代码/注释/提交信息用英文
-- 提出问题或疑问时列出选项或方案，便于快速决策
-- 复杂需求（多文件、多步骤、架构变更）先确认需求，创建 todolist 标注涉及的文件/模块，明确优先级和依赖关系
-- 直接修改代码，不要仅提供建议
-- 引用代码使用 `startLine:endLine:filepath` 格式
-- 错误修复后自我验证
-- 用户指出错误时立即修正并更新相关记忆或规则
+# 仅构建依赖项
+build_release_windows.bat onlydeps
+
+# 仅构建切片器（依赖项已构建后）
+build_release_windows.bat slicer
+
+# 构建切片器并打包安装程序
+build_release_windows.bat packinstall
+
+# 仅打包安装程序（不构建）
+build_release_windows.bat onlypack
+
+# 打包依赖项
+build_release_windows.bat pack
+
+# 下载 Web 依赖
+build_release_windows.bat dlweb
+
+# 测试环境
+build_release_windows.bat test
+```
+
+### macOS 构建
+```bash
+# 完整构建（依赖项和切片器）
+./build_release_macos.sh
+
+# 仅构建依赖项
+./build_release_macos.sh -d
+
+# 仅构建切片器（依赖项已构建后）
+./build_release_macos.sh -s
+
+# 使用 Ninja 生成器（更快的构建）
+./build_release_macos.sh -x
+
+# 指定架构构建
+./build_release_macos.sh -a arm64    # 或 x86_64 或 universal
+
+# 指定 macOS 目标版本
+./build_release_macos.sh -t 11.3
+
+# 构建配置（Debug 或 Release）
+./build_release_macos.sh -c Debug
+```
+
+### Linux 构建
+```bash
+# 完整构建（包含依赖项更新，需 sudo）
+sudo ./BuildLinux.sh -u
+
+# 仅构建依赖项
+./BuildLinux.sh -d
+
+# 仅构建切片器
+./BuildLinux.sh -s
+
+# 生成 AppImage
+./BuildLinux.sh -i
+
+# 跳过内存/磁盘检查
+./BuildLinux.sh -r
+
+# 组合命令示例：构建依赖项、切片器并生成 AppImage
+./BuildLinux.sh -dsi
+```
+
+## 开发环境配置
+
+### clangd 配置（Windows）
+```bash
+# 生成 compile_commands.json 并配置 clangd
+generate_clangd_config.bat
+
+# 生成 Debug 模式的配置
+generate_clangd_config.bat debug
+
+# 生成 RelWithDebInfo 模式的配置
+generate_clangd_config.bat debuginfo
+
+# 带内部测试宏定义
+generate_clangd_config.bat test
+```
+
+## 测试指南
+
+- 提交前在目标平台上测试
+- 运行应用程序验证改动
+- 使用调试构建检查内存泄漏
+- 如改动影响核心逻辑，需跨平台测试
+
+## 构建输出
+
+- Windows: `build/` 或 `build-dbginfo/`
+- macOS: `build/`
+- Linux: `build/`
+
+可执行文件位置因平台而异 - 查看构建脚本输出。
+
+## 常见构建选项
+
+### Windows
+- `debug` - Debug 模式
+- `debuginfo` - RelWithDebInfo 模式（带调试符号）
+- `onlydeps` - 仅构建依赖项
+- `slicer` - 仅构建切片器
+- `pack` - 打包依赖项
+- `packinstall` - 构建并打包安装程序
+- `onlypack` - 仅打包安装程序
+- `dlweb` - 下载 Web 依赖
+- `test` - 内部测试版本
+- `sign` - 对二进制文件进行签名
+
+### macOS
+- `-d` - 仅构建依赖项
+- `-s` - 仅构建切片器
+- `-x` - 使用 Ninja（推荐）
+- `-a <arch>` - 指定架构
+- `-t <version>` - macOS 目标版本
+- `-c <config>` - Debug 或 Release
+- `-p` - 打包依赖项
+- `-e` - 测试环境
+- `-w` - 下载 Web 依赖
+- `-b` - 仅构建（跳过 CMake 配置）
+- `-1` - 单核构建
+- `-n` - 夜间构建
+
+### Linux
+- `-u` - 更新依赖项（需 sudo）
+- `-d` - 仅构建依赖项
+- `-s` - 仅构建切片器
+- `-i` - 生成 AppImage
+- `-r` - 跳过内存/磁盘检查
+- `-c` - 强制清理构建
+- `-1` - 单核构建
+- `-b` - Debug 模式构建
 
 ---
 > Source: [ELEGOO-3D/ElegooSlicer](https://github.com/ELEGOO-3D/ElegooSlicer) — distributed by [TomeVault](https://tomevault.io).
