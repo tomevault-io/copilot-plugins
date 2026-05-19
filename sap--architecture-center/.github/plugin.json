@@ -1,0 +1,9 @@
+{
+  "name": "sap--architecture-center",
+  "displayName": "architecture-center",
+  "description": "The SAP Architecture Center provides solution reference architectures, helping businesses adopt SAP solutions to turn data into valuable business insights.",
+  "version": "1.0.0",
+  "author": "SAP",
+  "homepage": "https://github.com/SAP/architecture-center",
+  "skills": []
+}
