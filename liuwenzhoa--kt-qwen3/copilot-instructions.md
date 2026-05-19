@@ -1,123 +1,132 @@
-## ktransformers-docker
+## ktransformers-faq
 
-> KTransformers提供了官方Docker镜像，方便用户快速部署和测试。本规则详细介绍如何使用Docker容器运行KTransformers，避免复杂的环境配置过程。
+> KTransformers是一个优化大型语言模型推理性能的框架，支持在有限资源下运行像DeepSeek-R1、DeepSeek-V3等大型模型。本规则总结了使用KTransformers时可能遇到的常见问题及其解决方案。
 
-# KTransformers Docker使用指南
+# KTransformers 常见问题解答
 
 ## 概述
 
-KTransformers提供了官方Docker镜像，方便用户快速部署和测试。本规则详细介绍如何使用Docker容器运行KTransformers，避免复杂的环境配置过程。
+KTransformers是一个优化大型语言模型推理性能的框架，支持在有限资源下运行像DeepSeek-R1、DeepSeek-V3等大型模型。本规则总结了使用KTransformers时可能遇到的常见问题及其解决方案。
 
-## 前提条件
+## 安装问题
 
-在使用KTransformers的Docker镜像前，请确保：
+### 1. GLIBCXX版本缺失错误
 
-1. 您的系统已正确安装并运行Docker
-2. 创建一个专用文件夹用于存储大型模型和中间文件（例如 `/mnt/models`）
-3. 如需在Docker中使用GPU，请确保已安装[nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
-
-## Docker镜像获取
-
-### 方式一：直接拉取官方镜像
-
-```bash
-docker pull approachingai/ktransformers:0.2.1
+**问题描述**：
+```
+ImportError: /lib/x86_64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.32' not found
 ```
 
-**注意事项**：官方镜像是在支持AVX512指令集的CPU上编译的。如果您的CPU不支持AVX512，建议在容器内重新编译并安装ktransformers。
+**解决方案**：
+在Ubuntu 22.04系统上，需要更新libstdc++库：
+```bash
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install --only-upgrade libstdc++6
+```
 
-### 方式二：本地构建Docker镜像
+### 2. Version `GLIBCXX_3.4.30' not found
 
-如果需要自定义镜像或适配特定环境，可以本地构建：
+**问题描述**：
+```
+ImportError: /mnt/data/miniconda3/envs/xxx/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /home/xxx/xxx/ktransformers/./cpuinfer_ext.cpython-312-x86_64-linux-gnu.so)
+```
 
-1. 从ktransformers仓库[Dockerfile](mdc:ktransformers/Dockerfile)下载Dockerfile
-2. 在Dockerfile目录执行构建命令：
-   ```bash
-   docker build -t approachingai/ktransformers:0.2.1 .
+**解决方案**：
+使用conda安装较新版本的libstdcxx-ng：
+```bash
+conda install -c conda-forge libstdcxx-ng
+```
+
+## 模型相关问题
+
+### 1. DeepSeek-R1没有输出初始`<think>`标记
+
+**问题描述**：
+DeepSeek-R1模型在某些查询中可能会跳过思考模式（即省略`<think>\n\n</think>`），这可能影响模型性能。
+
+**解决方案**：
+使用`--force_think true`参数强制模型在每次输出开始时以`<think>\n`开头：
+```bash
+python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --force_think true
+```
+
+### 2. 运行bfloat16 MoE模型时数据显示NaN
+
+**问题描述**：
+推理过程中出现概率张量包含`inf`、`nan`或小于0的元素的错误。
+
+**解决方案**：
+这个问题在Ubuntu 22.04上是由于g++版本太旧，预定义宏不包括avx_bf16。建议使用Ubuntu 22.04的g++ 11.4或更高版本，已确认可以正常工作。
+
+### 3. 加载gguf文件出错
+
+**检查事项**：
+1. 确保`--gguf_path`目录中有`.gguf`文件
+2. 该目录应只包含来自一个模型的gguf文件
+3. 文件夹名称本身不应以`.gguf`结尾
+4. 检查文件是否损坏，可通过验证sha256sum与官方源一致
+
+## 性能优化问题
+
+### 1. 如何充分利用多余显存
+
+如果您的显存超过模型基本需求，可以：
+
+1. **扩大上下文窗口**：
+   - 对于local_chat.py：增加`--max_new_tokens`的值
+   - 对于服务器：增加`--cache_lens`的值
+
+2. **将更多权重移至GPU**：
+   使用或修改优化配置文件，例如：
+   ```yaml
+   - match:
+      name: "^model\\.layers\\.([4-10])\\.mlp\\.experts$"
+    replace:
+      class: ktransformers.operators.experts.KTransformersExperts  
+      kwargs:
+        generate_device: "cuda:0"
+        generate_op: "KExpertsMarlin"
+    recursive: False
    ```
+   
+   注意事项：
+   - 在GPU上执行专家会与CUDA Graph冲突
+   - 将DeepSeek-V3/R1的单层专家放在GPU上至少需要5.6GB显存
 
-## 使用Docker运行KTransformers
+### 2. 多GPU资源利用
 
-### 启动容器
-
+如果显存不足但有多个GPU，可以使用多GPU配置：
 ```bash
-# 创建并启动容器
-docker run --gpus all -v /path/to/models:/models --name ktransformers -itd approachingai/ktransformers:0.2.1
-
-# 进入容器
-docker exec -it ktransformers /bin/bash
+python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-multi-gpu.yaml
 ```
 
-参数说明：
-- `--gpus all`：分配所有可用GPU给容器
-- `-v /path/to/models:/models`：将本地模型目录挂载到容器内的/models目录
-- `--name ktransformers`：设置容器名称
-- `-itd`：以交互式、终端、后台方式运行容器
+也可以参考基本配置文件编写适合4/8 GPU的优化规则文件。
 
-### 在容器内运行KTransformers
+注意：ktransformers的多GPU策略是流水线，主要用于模型权重分配，不会加速模型推理。
 
-容器内置了KTransformers环境，可以直接运行：
+### 3. 获得最佳性能的CPU配置
 
-```bash
-python -m ktransformers.local_chat \
-  --gguf_path /models/path/to/gguf_path \
-  --model_path /models/path/to/model_path \
-  --cpu_infer 33
-```
+使用`--cpu_infer`参数控制用于推理的CPU核心数。使用的核心越多，模型运行越快，但不是越多越好，建议将其设置为略低于实际核心数的值。
 
-您可以根据需要调整命令参数，例如：
-- `--max_new_tokens`：设置生成的最大token数
-- `--cpu_infer`：设置使用的CPU核心数量（建议略低于实际CPU核心数）
-- `--use_cuda_graph`：启用CUDA图加速
-- `--optimize_config_path`：指定优化配置文件路径
+### 4. 使用fp8预填充非常慢的问题
 
-## 高级配置
+FP8内核是通过JIT构建的，首次运行会很慢，但后续运行会变快。
 
-### 数据持久化
+## 特殊硬件兼容性
 
-为了保存训练数据或配置，可以使用额外的卷挂载：
+### 1. 在Volta和Turing架构显卡上运行
 
-```bash
-docker run --gpus all \
-  -v /path/to/models:/models \
-  -v /path/to/configs:/workspace/configs \
-  --name ktransformers -itd approachingai/ktransformers:0.2.1
-```
+对于较早的GPU架构（如Volta和Turing），可以：
 
-### 端口映射
+1. 获取最新源代码
+2. 修改优化配置文件，将所有`KLinearMarlin`替换为`KLinearTorch`
+3. 从源代码重新编译
+4. 安装flash-attn（即使不使用，不安装也会报错）
+5. 修改local_chat.py，将所有`flash_attention_2`替换为`eager`
+6. 运行local_chat.py，确保系统内存容量大于模型完整大小
 
-如果需要使用KTransformers服务器功能并从主机访问，可以添加端口映射：
-
-```bash
-docker run --gpus all \
-  -v /path/to/models:/models \
-  -p 10002:10002 \
-  --name ktransformers -itd approachingai/ktransformers:0.2.1
-```
-
-## 内存优化
-
-Docker默认可能限制容器内存使用，对于大型模型推理，建议设置足够的内存限制：
-
-```bash
-docker run --gpus all \
-  -v /path/to/models:/models \
-  --shm-size=64g \
-  --memory=256g \
-  --name ktransformers -itd approachingai/ktransformers:0.2.1
-```
-
-## 故障排除
-
-1. 如果遇到CUDA相关错误，请检查nvidia-docker是否正确安装
-2. 如果模型加载失败，确认挂载路径是否正确
-3. 对于CPU不支持AVX512的情况，在容器内重新编译KTransformers：
-   ```bash
-   cd /workspace/ktransformers
-   bash install.sh
-   ```
-
-更多详细操作和高级选项，请参考[README_ZH.md](mdc:ktransformers/README_ZH.md)。
+性能优化：修改注意力处理代码，使用较低精度进行中间计算。详细修改参见FAQ文档。
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
