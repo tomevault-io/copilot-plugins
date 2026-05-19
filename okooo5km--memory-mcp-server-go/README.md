@@ -7,11 +7,11 @@ A Model Context Protocol server that provides knowledge graph management capabil
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [okooo5km/memory-mcp-server-go](https://github.com/okooo5km/memory-mcp-server-go).
+Original source: `CLAUDE.md` in [okooo5km/memory-mcp-server-go](https://github.com/okooo5km/memory-mcp-server-go).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
