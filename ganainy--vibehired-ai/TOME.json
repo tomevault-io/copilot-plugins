@@ -1,0 +1,44 @@
+{
+  "name": "VibeHired-ai",
+  "owner": "ganainy",
+  "repo": "VibeHired-ai",
+  "description": "AI-powered job application tracker \u2014 auto-tailors CVs & cover letters per job, scores ATS compatibility, tracks applications with a Kanban board, and builds a public dev portfolio. Built with React, Node.js & Google Gemini. \u2192 https://vibehired.ganainy.dev",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ganainy/VibeHired-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T18:49:30Z"
+}
