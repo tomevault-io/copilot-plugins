@@ -1,0 +1,9 @@
+{
+  "name": "logiscape--mcp-sdk-php",
+  "displayName": "mcp-sdk-php",
+  "description": "Model Context Protocol SDK for PHP",
+  "version": "1.0.0",
+  "author": "logiscape",
+  "homepage": "https://github.com/logiscape/mcp-sdk-php",
+  "skills": []
+}
