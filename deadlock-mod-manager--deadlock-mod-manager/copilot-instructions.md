@@ -1,136 +1,79 @@
 ## deadlock-mod-manager
 
-> Use when user asks to create or update *.mdc files
+> This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
 
-# MDC File Format Guide
+# Instructions for AI Agents
 
-MDC (Markdown Configuration) files are used by Cursor to provide context-specific instructions to AI assistants. This guide explains how to create and maintain these files properly.
+This file provides guidance for AI coding agents (Claude Code, Cursor Agent, Copilot Workspace, Windsurf, etc.) operating on this codebase.
 
-## File Structure
+## Before You Begin
 
-Each MDC file consists of two main parts:
+1. Check the `.cursor/rules` directory for relevant guidance before starting any task.
+2. Read [CONTRIBUTING.md](./CONTRIBUTING.md) and understand the project's conventions.
+3. Read the [AI Policy](./AI_POLICY.md) — contributions must comply with it.
+4. Familiarize yourself with the [project structure](https://docs.deadlockmods.app/developer-docs/project-structure) and [architecture](https://docs.deadlockmods.app/developer-docs/architecture).
 
-1. **Frontmatter** - Configuration metadata at the top of the file
-2. **Markdown Content** - The actual instructions in Markdown format
+## Project Context
 
-### Frontmatter
+Deadlock Mod Manager is a Tauri + React + TypeScript desktop app for managing mods for Valve's Deadlock game. It's a monorepo managed with pnpm workspaces and Turborepo.
 
-The frontmatter must be the first thing in the file and must be enclosed between triple-dash lines (`---`). Configuration should be based on the intended behavior:
+Key directories:
 
-```
----
-# Configure your rule based on desired behavior:
+- `apps/desktop` — Tauri desktop app (React frontend + Rust backend)
+- `apps/api` — Backend API service (Bun + Hono)
+- `apps/bot` — Discord bot application
+- `apps/lockdex` — Lockdex service application
+- `apps/www` — Web application (Vite + React)
+- `apps/docs` — Documentation site (Fumadocs)
+- `packages/` — Shared packages (common, database, distributed-lock, logging, queue, shared, vpk-parser, ui)
 
-description: Brief description of what the rule does
-globs: **/*.js, **/*.ts  # Optional: Comma-separated list, not an array
-alwaysApply: false       # Set to true for global rules
----
-```
+## Rules for AI Agents
 
-> **Important**: Despite the appearance, the frontmatter is not strictly YAML formatted. The `globs` field is a comma-separated list and should NOT include brackets `[]` or quotes `"`.
+### DO
 
-#### Guidelines for Setting Fields
+- Help the human contributor understand code and debug issues
+- Suggest improvements that follow existing patterns in the codebase
+- Write tests for new and existing functionality
+- Use oxfmt for formatting and oxlint for linting (not ESLint/Prettier/Biome)
+- Follow the existing commit convention: `type(scope): description` (see [.cursor/skills/git-conventions/SKILL.md](.cursor/skills/git-conventions/SKILL.md)); commit on the current branch unless the user asks to use a feature branch
+- Respect TypeScript strict mode — never use `any` or `unknown`, use proper types (see 031-never-use-any.mdc)
+- Use `react-i18next` for any user-facing strings (check `apps/desktop/src/locales/`)
+- Use React Query mutations for async operations, not manual useState loading (see 030-coding-style.mdc)
 
-- **description**: Should be agent-friendly and clearly describe when the rule is relevant. Format as `<topic>: <details>` for best results.
-- **globs**: 
-  - If a rule is only relevant in very specific situations, leave globs empty so it's loaded only when applicable to the user request.
-  - If the only glob would match all files (like `**/*`), leave it empty and set `alwaysApply: true` instead.
-  - Otherwise, be as specific as possible with glob patterns to ensure rules are only applied with relevant files.
-- **alwaysApply**: Use sparingly for truly global guidelines.
+### DON'T
 
-#### Glob Pattern Examples
+- Generate entire pull requests autonomously
+- Open issues based on static analysis without human verification
+- Refactor code without prior discussion with maintainers
+- Add new dependencies without justification
+- Introduce patterns that don't already exist in the codebase without discussion
+- Submit code that the human operator cannot explain or modify
 
-- **/*.js - All JavaScript files
-- src/**/*.jsx - All JSX files in the src directory
-- **/components/**/*.vue - All Vue files in any components directory
+### Code Quality Checklist
 
-### Markdown Content
+Before the human submits your work, ensure:
 
-After the frontmatter, the rest of the file should be valid Markdown:
+- [ ] `pnpm lint:fix` and `pnpm format:fix` have been run
+- [ ] `pnpm check-types` passes
+- [ ] Changes are tested (manually at minimum, automated tests preferred)
+- [ ] PR description explains _what_ and _why_, not just _how_
+- [ ] AI usage is disclosed per the [AI Policy](./AI_POLICY.md)
 
-```markdown
-# Title of Your Rule
+## Tech Stack Quick Reference
 
-## Section 1
-- Guidelines and information
-- Code examples
-
-## Section 2
-More detailed information...
-```
-
-## Special Features
-
-### File References
-
-You can reference other files from within an MDC file using the markdown link syntax:
-
-```
-[rule-name.mdc](mdc:location/of/the/rule.mdc)
-```
-
-When this rule is activated, the referenced file will also be included in the context.
-
-### Code Blocks
-
-Use fenced code blocks for examples:
-
-````markdown
-```javascript
-// Example code
-function example() {
-  return "This is an example";
-}
-```
-````
-
-## Best Practices
-
-1. **Clear Organization**
-   - Use numbered prefixes (e.g., `01-workflow.mdc`) for sorting rules logically
-   - Place task-specific rules in the `tasks/` subdirectory
-   - Use descriptive filenames that indicate the rule's purpose
-
-2. **Frontmatter Specificity**
-   - Be specific with glob patterns to ensure rules are only applied in relevant contexts
-   - Use `alwaysApply: true` for truly global guidelines
-   - Make descriptions clear and concise so AI knows when to apply the rule
-
-3. **Content Structure**
-   - Start with a clear title (H1)
-   - Use hierarchical headings (H2, H3, etc.) to organize content
-   - Include examples where appropriate
-   - Keep instructions clear and actionable
-
-4. **File Size Considerations**
-   - Keep files focused on a single topic or closely related topics
-   - Split very large rule sets into multiple files and link them with references
-   - Aim for under 300 lines per file when possible
-
-## Usage in Cursor
-
-When working with files in Cursor, rules are automatically applied when:
-
-1. The file you're working on matches a rule's glob pattern
-2. A rule has `alwaysApply: true` set in its frontmatter
-3. The agent thinks the rule's description matches the user request
-4. You explicitly reference a rule in a conversation with Cursor's AI
-
-## Creating/Renaming/Removing Rules
-
-   - When a rule file is added/renamed/removed, update also the list under 010-workflow.mdc.
-   - When changs are made to multiple `mdc` files from a single request, review also [999-mdc-format](mdc:(mdc:.cursor/rules/999-mdc-format.mdc)) to consider whether to update it too.
-
-## Updating Rules
-
-When updating existing rules:
-
-1. Maintain the frontmatter format
-2. Keep the same glob patterns unless intentionally changing the rule's scope
-3. Update the description if the purpose of the rule changes
-4. Consider whether changes should propagate to related rules (e.g., CE versions)
+| Layer             | Technology                           |
+| ----------------- | ------------------------------------ |
+| Desktop Framework | Tauri v2                             |
+| Frontend          | React + TypeScript + Tailwind CSS v4 |
+| Backend (Desktop) | Rust                                 |
+| API Server        | Bun + Hono                           |
+| Database          | PostgreSQL + Drizzle ORM             |
+| Package Manager   | pnpm (monorepo)                      |
+| Build System      | Turborepo                            |
+| Linter/Formatter  | oxlint + oxfmt                       |
+| i18n              | react-i18next                        |
+| Docs              | Fumadocs                             |
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/deadlock-mod-manager)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/deadlock-mod-manager)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
