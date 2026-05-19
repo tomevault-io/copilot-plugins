@@ -4,7 +4,7 @@
   "repo": "probo",
   "description": "Open source solutions for SOC2, GDPR, and ISO27001",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/getprobo/probo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:49:58Z"
+  "distributed_at": "2026-05-19T03:13:44Z"
 }
