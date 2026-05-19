@@ -1,0 +1,9 @@
+{
+  "name": "frederikhasecke--diffused-texture-addon",
+  "displayName": "diffused-texture-addon",
+  "description": "Generate Diffuse Textures on Meshes directly in Blender 3D with Stable Diffusion.",
+  "version": "1.0.0",
+  "author": "FrederikHasecke",
+  "homepage": "https://github.com/FrederikHasecke/diffused-texture-addon",
+  "skills": []
+}
