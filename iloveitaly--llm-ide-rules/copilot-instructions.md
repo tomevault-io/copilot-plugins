@@ -1,55 +1,17 @@
-## alembic-migrations
+## fastapi
 
-> Alembic Migrations
+> Fastapi
 
-## Alembic Migrations
+## Fastapi
 
 
-### Default Content for New Non-Nullable Columns
-
-To add a non-nullable column and set a specific value for all existing rows without a persistent server default:
-
-```python
-# 1. Add the column as nullable (no default needed):
-op.add_column('distribution', sa.Column('default_campaign_ending_date', sa.DateTime(timezone=True), nullable=True))
-# 2. Update existing rows with your desired value (e.g., a specific datetime)
-op.execute("UPDATE distribution SET default_campaign_ending_date = %s", [datetime.utcnow()])
-# 3. Alter the column to non-nullable:
-op.alter_column('distribution', 'default_campaign_ending_date', nullable=False)
-```
-
-### Record Backfill Operations
-
-For migrations that include data mutation, and not only schema modifications, use this pattern to setup a session:
-
-```python
-from alembic import op
-from sqlmodel import Session
-from activemodel.session_manager import global_session
-from app import log
-
-def run_migration_helper():
-  pass
-
-def upgrade() -> None:
-  session = Session(bind=op.get_bind())
-
-  with global_session(session):
-      run_migration_helper()
-      flip_point_coordinates()
-      backfill_screening_host_data()
-
-  # flush before running any other operations, otherwise not all changes will persist to the transaction
-  session.flush()
-```
-
-However, if you don't need the business logic attached to the models, you can execute a query using `op.execute`:
-
-```python
-op.execute(
-  TheModel.__table__.update().values({"a_field": "a_value"}) # type: ignore
-)
-```
+- When throwing a `HTTPException`, do not add a `detail=` and use a named status code (`status.HTTP_400_BAD_REQUEST`)
+- Do not return a `dict`, instead create a `class RouteNameResponse`
+  - Locate these classes right above the `def route_name():` function which uses them.
+- Use `Model.one` when a record must exist in order for the business logic to succeed.
+- Do not try/except `Model.one` when using a parameter from the request to pull a record. Let this exception bubble up.
+- Use `model_id: Annotated[TypeID, Path()]` to represent a model ID as a URL path parameter
+- Use the typed route helpers in `app/generated/fastapi_typed_routes.py` for all URL generation.
 
 ---
 > Source: [iloveitaly/llm-ide-rules](https://github.com/iloveitaly/llm-ide-rules) — distributed by [TomeVault](https://tomevault.io).
