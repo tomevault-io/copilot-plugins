@@ -1,9 +1,9 @@
 {
   "name": "olafgeibig--knowledge-mcp",
   "displayName": "knowledge-mcp",
-  "description": "knowledge-mcp",
+  "description": "A MCP server that is a locally running knowledge base with a hybrid vector and graph RAG engine using LightRAG",
   "version": "1.0.0",
   "author": "olafgeibig",
-  "homepage": "https://tomevault.io/claim/olafgeibig",
+  "homepage": "https://github.com/olafgeibig/knowledge-mcp",
   "skills": []
 }
