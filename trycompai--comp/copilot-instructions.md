@@ -1,135 +1,147 @@
-## infra
+## prisma
 
-> Use when working with packages, dependencies, monorepo structure, or build configuration
+> Prisma schema conventions and migration workflow
 
 
-# Infrastructure
+# Prisma Schema
 
-## Package Manager
+## Migration Workflow
 
-**Use `bun`, never npm/yarn/pnpm.**
+**Schema changes happen in `packages/db`, then regenerate types in each app.**
 
-```bash
-bun install              # Install deps
-bun add <pkg>            # Add package
-bun add -D <pkg>         # Add dev dependency
-bun run <script>         # Run script
-bunx <cmd>               # Execute binary
-```
-
-## Monorepo Structure
-
-```
-comp/
-├── apps/
-│   ├── api/             # NestJS backend
-│   ├── app/             # Next.js main app
-│   └── portal/          # Next.js portal
-├── packages/
-│   ├── db/              # Prisma (@trycompai/db)
-│   ├── ui/              # Legacy UI (@trycompai/ui); prefer @trycompai/design-system
-│   └── ...
-├── turbo.json
-└── package.json
-```
-
-## Running Commands
+### Step 1: Edit Schema
 
 ```bash
-# Multi-package (via turbo)
-bun run build            # Build all
-bun run lint             # Lint all
-bun run typecheck        # Type check all
-bun run dev              # Dev all
-
-# Single package
-bun run -F apps/app dev
-bun run -F @trycompai/db prisma:generate
-turbo build --filter=@trycompai/ui
+# Schema files are in packages/db/prisma/schema/
+packages/db/prisma/schema/
+├── schema.prisma      # Main schema with datasource
+├── user.prisma        # User models
+├── task.prisma        # Task models
+└── ...
 ```
 
-## Importing Between Packages
-
-```tsx
-// ✅ Import from package name
-import { Button } from '@trycompai/design-system';
-import { prisma } from '@trycompai/db';
-
-// ❌ Never relative paths across packages
-import { Button } from '../../../packages/ui/src/button';
-```
-
-## Adding Dependencies
+### Step 2: Create Migration
 
 ```bash
-# To specific package
-bun add axios -F apps/app
-bun add -D vitest -F @trycompai/ui
-
-# To root (dev tools only)
-bun add -D -w prettier typescript
+# Run from packages/db
+cd packages/db
+bunx prisma migrate dev --name your_migration_name
 ```
 
-## After Code Changes
-
-**Always run checks:**
+### Step 3: Regenerate Types in Apps
 
 ```bash
-bun run typecheck
-bun run lint
+# Each app needs to regenerate Prisma client types
+bun run -F apps/app db:generate
+bun run -F apps/api db:generate
+bun run -F apps/portal db:generate
+
+# Or from root (if configured)
+bun run prisma:generate
 ```
 
-Fix all errors before committing.
-
-## Common TypeScript Fixes
-
-- **Property does not exist**: Check interface definitions
-- **Type mismatch**: Verify expected vs actual type
-- **Empty interface extends**: Use `type X = SomeType` instead
-
-## Common ESLint Fixes
-
-- **Unused variables**: Remove or prefix with `_`
-- **Any type**: Add proper typing
-- **Empty object type**: Use `type` instead of `interface`
-
-## Creating a New Package
+### ✅ Always Do This
 
 ```bash
-mkdir packages/my-package
+# 1. Make schema changes in packages/db
+# 2. Create migration
+cd packages/db && bunx prisma migrate dev --name add_user_role
+
+# 3. Regenerate types in ALL apps that use the db
+bun run -F apps/app db:generate
+bun run -F apps/api db:generate
+bun run -F apps/portal db:generate
 ```
 
-```json
-// packages/my-package/package.json
-{
-  "name": "@trycompai/my-package",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./src/index.ts",
-  "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "typecheck": "tsc --noEmit"
-  }
+### ❌ Never Do This
+
+```bash
+# Don't edit schema in app directories
+apps/app/prisma/schema.prisma  # ❌ Wrong location
+
+# Don't forget to regenerate types
+bunx prisma migrate dev  # ✅ Created migration
+# ... forgot to run db:generate in apps  # ❌ Types out of sync
+```
+
+## Core Rule
+
+**Always use prefixed CUIDs for IDs** using `generate_prefixed_cuid`.
+
+## ID Pattern
+
+### ✅ Always Do This
+
+```prisma
+model User {
+  id String @id @default(dbgenerated("generate_prefixed_cuid('usr'::text)"))
+  // ... other fields
+}
+
+model Task {
+  id String @id @default(dbgenerated("generate_prefixed_cuid('tsk'::text)"))
+  // ... other fields
+}
+
+model Organization {
+  id String @id @default(dbgenerated("generate_prefixed_cuid('org'::text)"))
+  // ... other fields
 }
 ```
 
-```json
-// packages/my-package/tsconfig.json
-{
-  "extends": "@trycompai/tsconfig/base.json",
-  "include": ["src"]
+### ❌ Never Do This
+
+```prisma
+// Don't use UUID
+model User {
+  id String @id @default(uuid())
+}
+
+// Don't use auto-increment
+model User {
+  id Int @id @default(autoincrement())
+}
+
+// Don't forget ::text cast
+model User {
+  id String @id @default(dbgenerated("generate_prefixed_cuid('usr')")) // ❌ Missing ::text
 }
 ```
 
-## Package Boundaries
+## Prefix Guidelines
 
-**✅ Create packages for:**
-- Code used by 2+ apps
-- Self-contained, focused functionality
+| Entity       | Prefix | Example ID                     |
+| ------------ | ------ | ------------------------------ |
+| User         | `usr`  | `usr_BJRIZLgRPuWt8MvMjkSY82f1` |
+| Organization | `org`  | `org_cK9xMnPqRs2tUvWx3yZa4b5c` |
+| Task         | `tsk`  | `tsk_dE6fGhIj7kLmNoP8qRsT9uVw` |
+| Control      | `ctl`  | `ctl_xY0zAaBb1cDdEe2fFgGh3iIj` |
+| Policy       | `pol`  | `pol_kK4lLmMn5oOpPq6rRsSt7uUv` |
 
-**❌ Don't create packages for:**
-- Code only used in one app (colocate instead)
-- App-specific business logic
+## Rules
+
+1. **Short prefixes** - Use 2-3 characters
+2. **Unique prefixes** - Each model gets its own prefix
+3. **Always cast** - Include `::text` in the function call
+4. **Use dbgenerated** - Wrap the function call in `dbgenerated()`
+
+## Benefits
+
+- Human-readable IDs at a glance (`usr_` vs `org_`)
+- Easy debugging in logs
+- Safe to expose in URLs
+- Unique across all tables
+
+## Checklist
+
+After schema changes:
+
+- [ ] Schema edited in `packages/db/prisma/schema/`
+- [ ] Migration created with `bunx prisma migrate dev`
+- [ ] Types regenerated in `apps/app` with `db:generate`
+- [ ] Types regenerated in `apps/api` with `db:generate`
+- [ ] Types regenerated in `apps/portal` with `db:generate`
+- [ ] New models use prefixed CUID IDs
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
