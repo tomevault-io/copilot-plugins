@@ -1,319 +1,448 @@
-## branch-naming-conventions
+## browserserviceskit-integration
 
-> DuckDuckGo browser development follows **GitHub Flow**, a streamlined branching strategy that maintains a single main branch with feature branches for development work.
+> BrowserServicesKit is the core shared library providing essential browser functionality to both iOS and macOS DuckDuckGo applications. It ensures consistent behavior and code reuse across platforms while maintaining privacy as the primary focus.
 
 
-# Branch Naming Conventions & GitHub Flow
+# BrowserServicesKit Integration Guide
 
 ## Overview
+BrowserServicesKit is the core shared library providing essential browser functionality to both iOS and macOS DuckDuckGo applications. It ensures consistent behavior and code reuse across platforms while maintaining privacy as the primary focus.
 
-DuckDuckGo browser development follows **GitHub Flow**, a streamlined branching strategy that maintains a single main branch with feature branches for development work.
+## Core Modules and Usage
 
-**Reference**: [GitHub Flow Documentation](https://docs.github.com/en/get-started/using-github/github-flow)
+### Privacy & Protection
+Always use BrowserServicesKit for privacy-related functionality:
 
-## Core Principles
+```swift
+// ✅ CORRECT - Content blocking integration
+import BrowserServicesKit
+import ContentBlocking
 
-### Main Branch Strategy
-- **Single source of truth**: All development branches from `main`
-- **Always deployable**: `main` branch should always be in a deployable state
-- **Merge via PR**: All changes merged back through Pull Requests (except releases)
+final class PrivacyManager {
+    private let contentBlockingManager = ContentBlockingManager.shared
+    
+    func enableContentBlocking(for webView: WKWebView) {
+        contentBlockingManager.enable(for: webView)
+    }
+    
+    func updateBlockingRules() async {
+        await contentBlockingManager.updateRules()
+    }
+}
 
-### Branch Lifecycle
-1. Create branch from `main`
-2. Develop feature/fix on branch
-3. Open Pull Request to `main`
-4. Code review and testing
-5. Merge to `main`
-6. **Delete branch** immediately after merge
+// ✅ CORRECT - Privacy configuration
+import PrivacyConfig
 
-## Branch Naming Conventions
-
-### Single Developer Features & Bugfixes
-
-For work by a single developer:
-
-```
-Format:  <developer-name>/<feature-or-fix-name>
-```
-
-**Examples:**
-- `alice/bookmark-sync`
-- `alice/fix-bookmark-sync`
-- `bob/credit-card-autofill`
-- `charlie/fix-crash-on-startup`
-
-**Guidelines:**
-- Use kebab-case (lowercase with hyphens)
-- Be descriptive but concise
-- Include "fix-" prefix for bugfixes when helpful
-
-### Multi-Developer Features
-
-For collaborative features, use a two-stage approach:
-
-#### 1. Base Feature Branch
-```
-Format:  <feature-name>
-Example: autofill
+final class PrivacyFeatureManager {
+    private let privacyConfig = PrivacyConfiguration.shared
+    
+    func isFeatureEnabled(_ feature: PrivacyFeature) -> Bool {
+        return privacyConfig.isEnabled(feature)
+    }
+}
 ```
 
-#### 2. Individual Developer Branches
-```
-Format:  <feature-name>/<developer-name>/<sub-feature-name>
-Example: autofill/alice/settings-list-changes
-```
+### Data Management
+Use BrowserServicesKit for all data persistence:
 
-**Workflow:**
-1. Create base feature branch from `main`
-2. Developers create individual branches from base feature branch
-3. Individual branches merge into base feature branch
-4. Base feature branch merges into `main`
+```swift
+// ✅ CORRECT - Bookmarks management
+import Bookmarks
 
-### Release Branches
+final class BookmarkService {
+    private let bookmarkManager = BookmarkManager.shared
+    
+    func saveBookmark(_ bookmark: Bookmark) async {
+        await bookmarkManager.save(bookmark)
+    }
+    
+    func fetchBookmarks() async -> [Bookmark] {
+        return await bookmarkManager.fetchAll()
+    }
+}
 
-Release branches follow semantic versioning:
+// ✅ CORRECT - Secure credential storage
+import SecureVault
 
-```
-Format:  release/<version>
-Example: release/0.18.5
-```
-
-**Special Notes:**
-- No developer name prefix
-- Use semantic versioning format
-- **Exception**: Release branches merge to `main` via local merge (not PR)
-- Delete immediately after merge
-
-### Hotfix Branches
-
-Critical fixes for production issues:
-
-```
-Format:  hotfix/<version>
-Example: hotfix/5.50.1
-```
-
-**Critical Requirements:**
-- Use hotfix version number
-- **MUST delete immediately after merge**
-- Some tooling blocks subsequent hotfixes if previous hotfix branch exists
-- Higher priority than regular releases
-
-## Branch Management Best Practices
-
-### ✅ DO
-
-```bash
-# Create feature branch from main
-git checkout main
-git pull origin main
-git checkout -b alice/new-feature
-
-# Meaningful commit messages
-git commit -m "Add user authentication for secure vault"
-
-# Keep branches up to date
-git rebase main  # or git merge main
-
-# Delete branch after merge
-git branch -d alice/new-feature
-git push origin --delete alice/new-feature
+final class CredentialManager {
+    private let secureVault = SecureVault.shared
+    
+    func storeCredential(_ credential: WebsiteCredential) async throws {
+        try await secureVault.store(credential)
+    }
+    
+    func retrieveCredentials(for domain: String) async throws -> [WebsiteCredential] {
+        return try await secureVault.credentials(for: domain)
+    }
+}
 ```
 
-### ❌ DON'T
+### Navigation and URL Handling
+Use BrowserServicesKit for navigation logic:
 
-```bash
-# Don't use unclear names
-git checkout -b temp
-git checkout -b fix
-git checkout -b test-branch
+```swift
+// ✅ CORRECT - Navigation handling
+import Navigation
 
-# Don't leave merged branches
-# (Clutters repository and can cause tooling issues)
-
-# Don't work directly on main
-git checkout main
-# Edit files directly... ❌
-
-# Don't use inconsistent naming
-git checkout -b Alice/NewFeature  # Mixed case
-git checkout -b alice_new_feature  # Underscore instead of hyphen
+final class NavigationManager {
+    private let navigationController = NavigationController()
+    
+    func navigate(to url: URL) {
+        let request = NavigationRequest(url: url)
+        navigationController.navigate(request)
+    }
+    
+    func canGoBack() -> Bool {
+        return navigationController.canGoBack
+    }
+}
 ```
 
-## Example Workflows
+### User Scripts and Content Injection
+Use BrowserServicesKit for JavaScript injection:
 
-### Single Developer Feature
+```swift
+// ✅ CORRECT - User script management
+import UserScript
 
-```bash
-# Start new feature
-git checkout main
-git pull origin main
-git checkout -b alice/password-manager
-
-# Work on feature
-# ... make changes ...
-git add .
-git commit -m "Implement password storage encryption"
-
-# Push and create PR
-git push origin alice/password-manager
-# Create PR via GitHub UI
-
-# After PR is merged, cleanup
-git checkout main
-git pull origin main
-git branch -d alice/password-manager
-git push origin --delete alice/password-manager
+final class ContentScriptManager {
+    private let userScriptManager = UserScriptManager()
+    
+    func injectPrivacyScripts(into webView: WKWebView) {
+        let scripts = userScriptManager.privacyScripts
+        scripts.forEach { script in
+            webView.configuration.userContentController.addUserScript(script)
+        }
+    }
+}
 ```
 
-### Multi-Developer Feature
+## Platform-Specific Integration
 
-```bash
-# Team lead creates base branch
-git checkout main
-git pull origin main
-git checkout -b autofill
-git push origin autofill
+### iOS Integration Pattern
+```swift
+// ✅ CORRECT - iOS-specific BrowserServicesKit usage
+import BrowserServicesKit
+import UIKit
 
-# Developer creates individual branch
-git checkout autofill
-git pull origin autofill
-git checkout -b autofill/alice/credential-storage
-
-# Work and merge to base feature branch
-# ... development work ...
-git push origin autofill/alice/credential-storage
-# Create PR to merge into 'autofill' branch
-
-# Eventually merge base feature to main
-# Create PR from 'autofill' to 'main'
+final class iOSBrowserViewController: UIViewController {
+    private let contentBlockingManager = ContentBlockingManager.shared
+    private let privacyDashboard = PrivacyDashboard()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupBrowserServices()
+    }
+    
+    private func setupBrowserServices() {
+        // Configure content blocking for iOS
+        contentBlockingManager.configure(for: .iOS)
+        
+        // Setup privacy dashboard
+        privacyDashboard.delegate = self
+    }
+}
 ```
 
-### Hotfix Workflow
+### macOS Integration Pattern
+```swift
+// ✅ CORRECT - macOS-specific BrowserServicesKit usage
+import BrowserServicesKit
+import AppKit
 
-```bash
-# Create hotfix from main
-git checkout main
-git pull origin main
-git checkout -b hotfix/5.50.1
-
-# Fix critical issue
-# ... emergency fixes ...
-git commit -m "Fix critical security vulnerability"
-
-# Merge and IMMEDIATELY delete
-git push origin hotfix/5.50.1
-# Create PR and merge immediately
-git branch -d hotfix/5.50.1
-git push origin --delete hotfix/5.50.1
+final class macOSBrowserViewController: NSViewController {
+    private let contentBlockingManager = ContentBlockingManager.shared
+    private let downloadManager = DownloadManager.shared
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupBrowserServices()
+    }
+    
+    private func setupBrowserServices() {
+        // Configure content blocking for macOS
+        contentBlockingManager.configure(for: .macOS)
+        
+        // Setup download handling
+        downloadManager.delegate = self
+    }
+}
 ```
 
-## Common Patterns
+## Feature-Specific Integration
 
-### Feature Names
+### Autofill Integration
+```swift
+// ✅ CORRECT - Autofill implementation
+import Autofill
+import BrowserServicesKit
 
-| Type | Good Examples | Bad Examples |
-|------|---------------|--------------|
-| **New Features** | `user-authentication`<br>`bookmark-sync`<br>`credit-card-autofill` | `feature`<br>`new-stuff`<br>`implementation` |
-| **Bug Fixes** | `fix-memory-leak`<br>`fix-crash-on-startup`<br>`fix-bookmark-deletion` | `bug`<br>`fix`<br>`temp-fix` |
-| **Improvements** | `improve-performance`<br>`optimize-database`<br>`refactor-networking` | `better`<br>`update`<br>`changes` |
-
-### Developer Names
-
-| Format | Example |
-|--------|---------|
-| **First name** | `alice/new-feature` |
-| **GitHub username** | `alice-dev/new-feature` |
-| **Consistent choice** | Pick one format and stick to it |
-
-## Branch Protection & CI
-
-### Main Branch Protection
-- **Required status checks**: All CI must pass
-- **Required reviews**: At least one approval required
-- **No force pushes**: Maintain history integrity
-- **Delete head branches**: Automatic cleanup after merge
-
-### Feature Branch CI
-- Shellcheck validation for script changes
-- Unit tests must pass
-- Build verification for iOS and macOS
-- Code style validation
-
-## Git Configuration Tips
-
-### Helpful Git Settings
-
-```bash
-# Auto-delete tracking branches for deleted remotes
-git config --global fetch.prune true
-
-# Auto-setup upstream when pushing new branches
-git config --global push.autoSetupRemote true
-
-# Use more descriptive default branch names
-git config --global init.defaultBranch main
+final class AutofillCoordinator {
+    private let autofillManager = AutofillManager.shared
+    
+    func setupAutofill(for webView: WKWebView) {
+        // Configure autofill user scripts
+        let autofillScripts = autofillManager.userScripts
+        autofillScripts.forEach { script in
+            webView.configuration.userContentController.addUserScript(script)
+        }
+        
+        // Setup message handlers
+        autofillManager.setupMessageHandlers(for: webView)
+    }
+    
+    func handleAutofillRequest(_ request: AutofillRequest) async {
+        await autofillManager.handleRequest(request)
+    }
+}
 ```
 
-### Useful Aliases
+### Sync Integration
+```swift
+// ✅ CORRECT - Sync functionality
+import DDGSync
+import BrowserServicesKit
 
-```bash
-# Quick branch switching
-git config --global alias.co checkout
-git config --global alias.br branch
-
-# Clean up merged branches
-git config --global alias.cleanup "!git branch --merged | grep -v '\\*\\|main\\|develop' | xargs -n 1 git branch -d"
-
-# Show branch with tracking info
-git config --global alias.branches "branch -vv"
+final class SyncManager {
+    private let syncService = SyncService.shared
+    
+    func enableSync() async {
+        await syncService.enable()
+    }
+    
+    func syncBookmarks() async {
+        await syncService.sync(.bookmarks)
+    }
+    
+    func syncCredentials() async {
+        await syncService.sync(.credentials)
+    }
+}
 ```
 
-## Troubleshooting
+## Testing with BrowserServicesKit
 
-### Branch Already Exists
-```bash
-# If remote branch exists but you don't have it locally
-git fetch origin
-git checkout -b alice/feature-name origin/alice/feature-name
+### Mock BrowserServicesKit Components
+```swift
+// ✅ CORRECT - Testing with mocks
+import BrowserServicesKit
+import XCTest
+
+final class MockContentBlockingManager: ContentBlockingManagerProtocol {
+    var enabledRules: [ContentBlockingRule] = []
+    var isBlocked: Bool = false
+    
+    func enable(rules: [ContentBlockingRule]) {
+        enabledRules = rules
+    }
+    
+    func isBlocked(url: URL) -> Bool {
+        return isBlocked
+    }
+}
+
+final class BrowserFeatureTests: XCTestCase {
+    private var mockContentBlocking: MockContentBlockingManager!
+    private var browserManager: BrowserManager!
+    
+    override func setUp() {
+        super.setUp()
+        mockContentBlocking = MockContentBlockingManager()
+        browserManager = BrowserManager(contentBlocking: mockContentBlocking)
+    }
+    
+    func testContentBlockingEnabled() {
+        // Given
+        let rules = [ContentBlockingRule.trackerRule]
+        
+        // When
+        browserManager.enableContentBlocking(rules: rules)
+        
+        // Then
+        XCTAssertEqual(mockContentBlocking.enabledRules, rules)
+    }
+}
 ```
 
-### Hotfix Branch Blocked
-```bash
-# If hotfix creation is blocked, check for existing hotfix branches
-git branch -r | grep hotfix
-# Delete any remaining hotfix branches
-git push origin --delete hotfix/previous-version
+## Configuration and Environment
+
+### Environment-Based Configuration
+```swift
+// ✅ CORRECT - Environment configuration
+import Configuration
+import BrowserServicesKit
+
+final class AppConfiguration {
+    static func configure() {
+        // Configure BrowserServicesKit for current environment
+        let config = Configuration.current
+        
+        BrowserServicesKit.configure(
+            environment: config.environment,
+            privacyConfig: config.privacyConfig,
+            contentBlockingConfig: config.contentBlockingConfig
+        )
+    }
+}
 ```
 
-### Sync with Main
-```bash
-# Keep feature branch updated with main
-git checkout alice/feature-name
-git rebase main  # or: git merge main
-git push origin alice/feature-name --force-with-lease  # if rebased
+### Feature Flag Integration
+```swift
+// ✅ CORRECT - Feature flag integration
+import FeatureFlags
+import BrowserServicesKit
+
+extension FeatureFlags {
+    var isAdvancedPrivacyEnabled: Bool {
+        return isEnabled(.advancedPrivacy)
+    }
+    
+    var isEnhancedAutofillEnabled: Bool {
+        return isEnabled(.enhancedAutofill)
+    }
+}
+
+final class FeatureFlagBrowserManager {
+    func configureFeatures() {
+        if FeatureFlags.shared.isAdvancedPrivacyEnabled {
+            PrivacyConfiguration.shared.enableAdvancedFeatures()
+        }
+        
+        if FeatureFlags.shared.isEnhancedAutofillEnabled {
+            AutofillManager.shared.enableEnhancedFeatures()
+        }
+    }
+}
 ```
 
-## Integration with Development Tools
+## Performance Optimization
 
-### Xcode Integration
-- Branch names appear in Xcode source control
-- Use descriptive names for better identification
-- Avoid special characters that might cause Xcode issues
+### Efficient BrowserServicesKit Usage
+```swift
+// ✅ CORRECT - Performance-optimized usage
+import BrowserServicesKit
 
-### CI/CD Pipeline
-- Branch names used in build artifacts
-- Feature branches trigger full test suites
-- Release branches trigger deployment pipelines
+final class OptimizedBrowserManager {
+    private let contentBlockingManager = ContentBlockingManager.shared
+    private var cachedRules: [ContentBlockingRule] = []
+    
+    func loadContentBlockingRules() async {
+        // Cache rules to avoid repeated API calls
+        if cachedRules.isEmpty {
+            cachedRules = await contentBlockingManager.loadRules()
+        }
+        
+        // Apply cached rules
+        await contentBlockingManager.apply(cachedRules)
+    }
+    
+    func updateRulesIfNeeded() async {
+        let lastUpdate = await contentBlockingManager.lastUpdateTime
+        let shouldUpdate = Date().timeIntervalSince(lastUpdate) > 3600 // 1 hour
+        
+        if shouldUpdate {
+            await loadContentBlockingRules()
+        }
+    }
+}
+```
 
-### Issue Tracking
-- Reference GitHub issues in branch names when helpful:
-  - `alice/fix-issue-1234-memory-leak`
-  - `bob/feature-567-dark-mode`
+## Error Handling
 
----
+### BrowserServicesKit Error Handling
+```swift
+// ✅ CORRECT - Error handling patterns
+import BrowserServicesKit
 
-Following these conventions ensures consistent, organized development workflow across the DuckDuckGo browser codebase and facilitates collaboration between team members. 
+enum BrowserServiceError: LocalizedError {
+    case contentBlockingFailed
+    case bookmarkSaveFailed
+    case credentialStoreFailed
+    
+    var errorDescription: String? {
+        switch self {
+        case .contentBlockingFailed:
+            return "Failed to enable content blocking"
+        case .bookmarkSaveFailed:
+            return "Failed to save bookmark"
+        case .credentialStoreFailed:
+            return "Failed to store credential"
+        }
+    }
+}
+
+final class ErrorHandlingBrowserManager {
+    func enableContentBlocking() async {
+        do {
+            try await ContentBlockingManager.shared.enable()
+        } catch {
+            // Log error and provide fallback
+            Logger.error("Content blocking failed: \(error)")
+            await showErrorToUser(BrowserServiceError.contentBlockingFailed)
+        }
+    }
+}
+```
+
+## API Usage Guidelines
+
+### Consistent API Patterns
+```swift
+// ✅ CORRECT - Follow BrowserServicesKit API patterns
+import BrowserServicesKit
+
+final class BrowserAPIManager {
+    // Use async/await for async operations
+    func loadData() async throws -> BrowserData {
+        return try await BrowserDataManager.shared.load()
+    }
+    
+    // Use Combine for reactive streams
+    func observePrivacyEvents() -> AnyPublisher<PrivacyEvent, Never> {
+        return PrivacyManager.shared.privacyEventPublisher
+    }
+    
+    // Use completion handlers only when required by platform APIs
+    func legacyOperation(completion: @escaping (Result<Data, Error>) -> Void) {
+        Task {
+            do {
+                let data = try await modernAsyncOperation()
+                completion(.success(data))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+}
+```
+
+## Common Integration Patterns
+
+### Dependency Injection with BrowserServicesKit
+```swift
+// ✅ CORRECT - Dependency injection pattern
+protocol BrowserServiceProvider {
+    var contentBlockingManager: ContentBlockingManagerProtocol { get }
+    var bookmarkManager: BookmarkManagerProtocol { get }
+    var autofillManager: AutofillManagerProtocol { get }
+}
+
+final class DefaultBrowserServiceProvider: BrowserServiceProvider {
+    let contentBlockingManager: ContentBlockingManagerProtocol = ContentBlockingManager.shared
+    let bookmarkManager: BookmarkManagerProtocol = BookmarkManager.shared
+    let autofillManager: AutofillManagerProtocol = AutofillManager.shared
+}
+
+final class BrowserViewModel: ObservableObject {
+    private let serviceProvider: BrowserServiceProvider
+    
+    init(serviceProvider: BrowserServiceProvider = DefaultBrowserServiceProvider()) {
+        self.serviceProvider = serviceProvider
+    }
+}
+```
+
+This guide ensures proper integration with BrowserServicesKit while maintaining privacy-first principles and cross-platform compatibility. 
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
