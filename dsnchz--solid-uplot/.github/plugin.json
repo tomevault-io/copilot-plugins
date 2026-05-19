@@ -1,0 +1,9 @@
+{
+  "name": "dsnchz--solid-uplot",
+  "displayName": "solid-uplot",
+  "description": "SolidJS wrapper for uPlot \u2014 an ultra-fast, tiny time-series & charting library with a SolidJS enhanced plugin system",
+  "version": "1.0.0",
+  "author": "dsnchz",
+  "homepage": "https://github.com/dsnchz/solid-uplot",
+  "skills": []
+}
