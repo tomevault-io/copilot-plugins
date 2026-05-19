@@ -1,0 +1,44 @@
+{
+  "name": "weread-challenge-selenium",
+  "owner": "jqknono",
+  "repo": "weread-challenge-selenium",
+  "description": "\u5fae\u4fe1\u8bfb\u4e66\u81ea\u52a8\u7b7e\u5230\u5237\u65f6\u957f",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jqknono/weread-challenge-selenium",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T02:43:36Z"
+}
