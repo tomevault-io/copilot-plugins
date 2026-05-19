@@ -1,0 +1,9 @@
+{
+  "name": "ruth205--finalproject",
+  "displayName": "FinalProject",
+  "description": "EMG-based prosthetic gripper using ESP32, ROS2, and neuromorphic learning",
+  "version": "1.0.0",
+  "author": "ruth205",
+  "homepage": "https://github.com/ruth205/FinalProject",
+  "skills": []
+}
