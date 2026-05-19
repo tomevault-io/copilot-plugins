@@ -1,0 +1,9 @@
+{
+  "name": "hostinger-bot--btch-downloader",
+  "displayName": "btch-downloader",
+  "description": "A lightweight TypeScript/JavaScript library for downloading videos, images, and audio from Instagram, TikTok, YouTube, Capcut, Pinterest, Twitter, X, Google Drive, MediaFire, Douyin, SnackVideo, Xiaoh",
+  "version": "1.0.0",
+  "author": "hostinger-bot",
+  "homepage": "https://github.com/hostinger-bot/btch-downloader",
+  "skills": []
+}
