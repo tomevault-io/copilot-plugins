@@ -1,0 +1,9 @@
+{
+  "name": "owenlamont--uv-secure",
+  "displayName": "uv-secure",
+  "description": "Scan your uv.lock file for dependencies with known vulnerabilities",
+  "version": "1.0.0",
+  "author": "owenlamont",
+  "homepage": "https://github.com/owenlamont/uv-secure",
+  "skills": []
+}
