@@ -1,0 +1,9 @@
+{
+  "name": "dariushoule--x64dbg-automate",
+  "displayName": "x64dbg-automate",
+  "description": "ZMQ and Messagepack Powered Remote Automation Plugin for x64dbg",
+  "version": "1.0.0",
+  "author": "dariushoule",
+  "homepage": "https://github.com/dariushoule/x64dbg-automate",
+  "skills": []
+}
