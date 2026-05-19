@@ -7,11 +7,11 @@ A vibe-coded CLI tool to calculate k8s pod requests and usage
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [madeddie/k8s-resource-cli](https://github.com/madeddie/k8s-resource-cli).
+Original source: `CLAUDE.md` in [madeddie/k8s-resource-cli](https://github.com/madeddie/k8s-resource-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
