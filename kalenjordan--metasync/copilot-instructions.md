@@ -1,38 +1,10 @@
-## error-handling
+## logging
 
-> This project follows specific error handling patterns to maintain clean code and predictable error flows.
+> You can indent sections by using logger.startSection() and logger.endSection() with [Logger.js](mdc:utils/Logger.js)
 
-# Error Handling
-
-This project follows specific error handling patterns to maintain clean code and predictable error flows.
-
-## Core Principles
-
-- **Don't add try/catch blocks** unless specifically requested
-- Let errors bubble up to be handled by higher-level error handlers
-- The main error handling occurs in the CLI entry point [cli.js](mdc:cli.js)
-- Use the centralized logger for error reporting [utils/Logger.js](mdc:utils/Logger.js)
-
-## Error Flow
-
-1. Low-level utility functions should throw errors rather than catching them
-2. Strategy classes should only catch errors they can specifically handle
-3. The main CLI entry point has try/catch blocks that:
-   - Log the error using the logger
-   - Close log files properly
-   - Exit with appropriate error codes
-
-## Logging Errors
-
-When reporting errors, use the logger's error function:
-
-```javascript
-logger.error(`Error message: ${error.message}`);
-```
-
-## API Error Handling
-
-When dealing with Shopify API errors, use the existing utilities in ShopifyClient to handle and log them appropriately. Let API errors bubble up unless there's a specific recovery action.
+You can indent sections by using logger.startSection() and logger.endSection() with [Logger.js](mdc:utils/Logger.js)
+To log a newline without a bullet next to it use logger.newline()
+Don't use `if (this.debug)` when adding in debug logging.
 
 ---
 > Source: [kalenjordan/metasync](https://github.com/kalenjordan/metasync) — distributed by [TomeVault](https://tomevault.io).
