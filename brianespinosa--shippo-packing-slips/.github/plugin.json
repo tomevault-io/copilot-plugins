@@ -1,0 +1,9 @@
+{
+  "name": "brianespinosa--shippo-packing-slips",
+  "displayName": "shippo-packing-slips",
+  "description": "Raspberry Pi scripts to print packing slips, shipping labels, and schedule USPS pickups at regular intervals using the Shippo API",
+  "version": "1.0.0",
+  "author": "brianespinosa",
+  "homepage": "https://github.com/brianespinosa/shippo-packing-slips",
+  "skills": []
+}
