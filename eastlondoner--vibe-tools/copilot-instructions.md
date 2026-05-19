@@ -1,16 +1,8 @@
-## good-behaviour
+## repo
 
-> Rules of good behaviour
+> Finding code
 
-Do not hard code data into code unless specifically requested by me.
-
-If you have an idea on why something is failing, always validate that idea with testing before changing code.
-
-Do not write stub or fake methods. Write production ready code first time.
-
-Do not cheat on tests and checks by adding hard-coded values or assertions.
-
-Do not make statements about functionality working unless you have tested it. Perform your own tests first, do not assume that your changes or my changes just work until you have seen evidence from tests.
+Always use `vibe-tools repo <question>` as your first way to search for files where particular code or logic is contained. Explain what you're looking for and ask for a list of files with a summary of their role as a response. This is the best way to find the correct files to read or edit.
 
 ---
 > Source: [eastlondoner/vibe-tools](https://github.com/eastlondoner/vibe-tools) — distributed by [TomeVault](https://tomevault.io).
