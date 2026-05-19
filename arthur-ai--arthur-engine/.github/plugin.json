@@ -1,0 +1,18 @@
+{
+  "name": "arthur-ai--arthur-engine",
+  "displayName": "arthur-engine",
+  "description": "Make AI work for Everyone - Monitoring and governing for your AI/ML ",
+  "version": "1.0.0",
+  "author": "arthur-ai",
+  "homepage": "https://github.com/arthur-ai/arthur-engine",
+  "skills": [
+    {
+      "name": "setup-genai-dev",
+      "description": ""
+    },
+    {
+      "name": "start-genai-backend",
+      "description": ""
+    }
+  ]
+}
