@@ -1,0 +1,9 @@
+{
+  "name": "vectara--open-rag-eval",
+  "displayName": "open-rag-eval",
+  "description": "RAG evaluation without the need for \"golden answers\"",
+  "version": "1.0.0",
+  "author": "vectara",
+  "homepage": "https://github.com/vectara/open-rag-eval",
+  "skills": []
+}
