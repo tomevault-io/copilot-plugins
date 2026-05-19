@@ -1,20 +1,55 @@
-## front-smoke-test
+## git-development-branch-workflow
 
-> When working on front, run a quick headless browser smoke test to verify the app works
+> Work on development; promote to master only on 2h cadence, big prod changes, or urgent issue
 
 
-# Frontend – Run Headless Smoke Test
+# Git: `development` vs `master` (essential)
 
-When you change code under `front/` (Angular app):
+Routine work targets **`development`**, not **`master`**. **`master`** tracks what is ready for **production** (e.g. deploy to amvara9 from `master`).
 
-1. **After your changes**, run a quick headless-browser smoke test so the app is still working.
-2. Use the project’s existing Puppeteer scripts. From the repo root, with the app reachable (e.g. via Docker on 4202):
-   - **Quick smoke:** `BASE_URL=http://127.0.0.1:4202 npm run test:landing-version --prefix front` (Puppeteer is headless by default; use `HEADLESS=0` to watch.)
-   - Or another fast script such as `test:landing-provider-links` or a test that touches the area you changed (e.g. `test:working-plan` for working-plan changes).
-3. If the test fails, fix the cause before considering the change done.
-4. Review the frontend logs for errors and warnings; fix them before considering the change done.
+## Sync before you change anything (multi-agent)
 
-This keeps regressions from frontend edits from going unnoticed.
+Several agents (and humans) push to **`development`**. Treat **“get latest”** as **`git fetch` + `git pull --rebase`** on **`development`**, not as opening a GitHub pull request for every sync.
+
+| When | Action |
+|------|--------|
+| **Before the first edit** in a session or agent step (code, task files, changelog) | Run **`./scripts/git-sync-development.sh`** from repo root (or equivalent: `git fetch origin`, checkout **`development`**, `git pull --rebase --autostash origin development`). |
+| **Before `git push`** | Pull/rebase again on **`development`** so your push is based on the current remote tip. |
+| **Orchestrator** | **`agents/pos-agent-loop.sh`** runs the sync script **at the start of each step** (log reviewer, feature coder, coder, tester, closer, committer). Disable with **`AGENT_GIT_SYNC=0`** only for offline or special cases. |
+
+If sync fails (merge conflict after rebase, no network), **stop** and resolve; do not layer new commits on a stale tree.
+
+## Where to commit and push
+
+1. **Branch:** Check out **`development`** before starting work. If it does not exist locally:  
+   `git fetch origin && git checkout -b development origin/development`  
+   (or create **`development`** from **`master`** and push if the remote branch does not exist yet.)
+2. **Commits:** Make commits on **`development`** (or a short-lived branch that merges back into **`development`** first).
+3. **Push after work:** Push **`development`** to **`origin`**:  
+   `git push origin development`  
+   Do **not** routinely push only to **`master`** for normal fixes and features.
+
+## When `development` may be merged into `master` (and `master` pushed)
+
+Merge **`development` → `master`** (fast-forward or merge commit, per team habit) **only** when **at least one** of these holds:
+
+| Trigger | Meaning |
+|--------|---------|
+| **~2-hour cadence** | Batch promotion: roughly every **two hours**, integrate tested work from **`development`** into **`master`** and push (human operator or scheduled job — not every single commit). |
+| **Big production change** | Large or high-risk change that **must** go live soon: security fixes, data-integrity fixes, payment/order critical paths, migrations that block deploy, multi-tenant outages, or similarly material production impact. State that in the PR/commit message or task. |
+| **Urgent / production in issue** | The linked **GitHub issue** (or explicit user instruction) says **urgent**, **hotfix**, **production**, **deploy now**, or equivalent — then merging to **`master`** immediately is allowed. Prefer label **`production-urgent`** on the issue when applicable. |
+
+If none of the above applies, **stop after pushing `development`**; do **not** merge to **`master`**.
+
+## Agents and the committer role
+
+- **Coder / tester / closer:** Work on **`development`**; never assume **`master`** must be updated the same hour.
+- **Committer / changelog:** Commit on **`development`** and **`git push origin development`**. Merge to **`master`** only per the table above.
+- **When the user says “push”** (no other qualifier): push **`development`**, not a blind push of whatever branch is current — if you are on **`master`**, switch back to **`development`** for ongoing work after any allowed **`master`** promotion.
+
+## Conflicts with other instructions
+
+If anything else suggests “always push **master**” for every change, **this rule wins** for branch choice and promotion timing, except when the **user explicitly** asks to merge or release to production now.
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
