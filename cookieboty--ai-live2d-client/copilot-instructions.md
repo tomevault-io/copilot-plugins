@@ -1,35 +1,38 @@
-## 03-electron-package
+## 04-renderer-package
 
-> - [src/main.ts](mdc:packages/electron/src/main.ts) - 主进程入口文件
+> - [src/index.tsx](mdc:packages/renderer/src/index.tsx) - 渲染进程入口文件
 
-# Electron包
+# Renderer包
 
 ## 目录结构
 
-- [src/main.ts](mdc:packages/electron/src/main.ts) - 主进程入口文件
-- [src/preload.ts](mdc:packages/electron/src/preload.ts) - 预加载脚本
+- [src/index.tsx](mdc:packages/renderer/src/index.tsx) - 渲染进程入口文件
+- [src/App.tsx](mdc:packages/renderer/src/App.tsx) - 主应用组件
+- [src/components/](mdc:packages/renderer/src/components) - React组件
+- [src/utils/](mdc:packages/renderer/src/utils) - 实用工具
+- [src/types/](mdc:packages/renderer/src/types) - 类型定义
+- [src/cubism2/](mdc:packages/renderer/src/cubism2) - Live2D Cubism相关代码
+- [src/assets/](mdc:packages/renderer/src/assets) - 静态资源
+- [public/](mdc:packages/renderer/public) - 公共资源目录
 
 ## 配置文件
 
-- [package.json](mdc:packages/electron/package.json) - 包配置和依赖
-- [tsconfig.json](mdc:packages/electron/tsconfig.json) - TypeScript配置
-
-## 打包配置
-
-Electron Builder配置位于[package.json](mdc:packages/electron/package.json)的`build`字段。
+- [package.json](mdc:packages/renderer/package.json) - 包配置和依赖
+- [vite.config.ts](mdc:packages/renderer/vite.config.ts) - Vite配置
+- [tsconfig.json](mdc:packages/renderer/tsconfig.json) - TypeScript配置
 
 ## 开发命令
 
-- `pnpm dev` - 开发模式启动（支持热重载）
-- `pnpm build` - 构建主进程代码
-- `pnpm package` - 打包应用为可分发格式
+- `pnpm dev` - 启动Vite开发服务器
+- `pnpm build` - 构建渲染进程代码
+- `pnpm copy-assets` - 复制Live2D资源
 
 ## 主要功能
 
-- 创建透明无边框窗口
-- 处理窗口拖拽
-- 实现窗口置顶切换
-- 提供预加载API供渲染进程调用
+- 实现透明UI界面
+- 加载和显示Live2D模型
+- 提供模型互动功能
+- 显示消息气泡
 
 ---
 > Source: [Cookieboty/ai-live2d-client](https://github.com/Cookieboty/ai-live2d-client) — distributed by [TomeVault](https://tomevault.io).
