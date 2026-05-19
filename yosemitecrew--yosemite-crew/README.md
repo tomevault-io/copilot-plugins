@@ -7,11 +7,11 @@ Open source operating system for animal health
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [YosemiteCrew/Yosemite-Crew](https://github.com/YosemiteCrew/Yosemite-Crew).
+Original source: `CLAUDE.md` in [YosemiteCrew/Yosemite-Crew](https://github.com/YosemiteCrew/Yosemite-Crew).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
