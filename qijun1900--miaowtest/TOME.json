@@ -1,0 +1,44 @@
+{
+  "name": "MiaowTest",
+  "owner": "qijun1900",
+  "repo": "MiaowTest",
+  "description": "\u57fa\u4e8e Uni-app + Vue3 + Express + MongoDB + LangChain \u7684\u8de8\u5e73\u53f0\u667a\u80fd\u5237\u9898\u7cfb\u7edf\u3002\u652f\u6301\u5fae\u4fe1\u5c0f\u7a0b\u5e8f\u3001H5\u3001App \u591a\u7aef\u9002\u914d\uff0c\u96c6\u6210 AI\u5bf9\u8bdd\u3001\u6df1\u5ea6\u601d\u8003\u3001\u6d41\u5f0f\u8f93\u51fa\u3001\u4f1a\u8bdd\u7ba1\u7406\u7b49\u80fd\u529b\u3002\u5305\u542b\u7528\u6237\u7aef\u3001\u7ba1\u7406\u7aef\u548c\u540e\u7aef API \u4e09\u5927\u5b50\u7cfb\u7edf\uff0c\u652f\u6301\u9898\u5e93\u7ba1\u7406\u3001\u7ec3\u4e60\u7edf\u8ba1\u3001\u9519\u9898\u6c89\u6dc0\u3001Agent\u5bf9\u8bdd\u53ca\u5fae\u4fe1\u4e91\u6258\u7ba1\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qijun1900/MiaowTest",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T21:17:35Z"
+}
