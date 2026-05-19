@@ -1,0 +1,9 @@
+{
+  "name": "djm81--chroma-mcp-server",
+  "displayName": "chroma_mcp_server",
+  "description": "MCP Server for ChromaDB integration into Cursor with MCP compatible AI models",
+  "version": "1.0.0",
+  "author": "djm81",
+  "homepage": "https://github.com/djm81/chroma_mcp_server",
+  "skills": []
+}
