@@ -1,88 +1,83 @@
-## react-general-guidelines
+## react-state-management
 
-> React general guidelines for Twenty CRM
+> React state management guidelines for Twenty CRM
 
-# React Guidelines
+# React State Management
 
-## Core Rules
-- **Functional components only** (no classes)
-- **Named exports only** (no default exports)
-- **Event handlers over useEffect** for state updates
-
-## Component Structure
+## Recoil Patterns
 ```typescript
-// ✅ Correct
-export const UserProfile = ({ user, onEdit }: UserProfileProps) => {
-  const handleEdit = () => onEdit(user.id);
-  
-  return (
-    <StyledContainer>
-      <h1>{user.name}</h1>
-      <Button onClick={handleEdit}>Edit</Button>
-    </StyledContainer>
-  );
-};
-```
-
-## Props & Event Handlers
-```typescript
-// ✅ Correct - Destructure props
-const Button = ({ onClick, isDisabled, children }: ButtonProps) => (
-  <button onClick={onClick} disabled={isDisabled}>
-    {children}
-  </button>
-);
-
-// ✅ Correct - Event handlers over useEffect
-const UserForm = ({ onSubmit }: UserFormProps) => {
-  const handleSubmit = async (data: FormData) => {
-    await onSubmit(data);
-    // Direct event handling, not useEffect
-  };
-
-  return <Form onSubmit={handleSubmit} />;
-};
-```
-
-## Component Design
-- **Small, focused components** - Single responsibility
-- **Composition over inheritance** - Combine simple components
-- **Extract complex logic** into custom hooks
-
-```typescript
-// ✅ Good - Composed from smaller components
-const UserCard = ({ user }: UserCardProps) => (
-  <StyledCard>
-    <UserAvatar user={user} />
-    <UserInfo user={user} />
-    <UserActions user={user} />
-  </StyledCard>
-);
-```
-
-## Performance
-```typescript
-// ✅ Use memo for expensive components only
-const ExpensiveChart = memo(({ data }: ChartProps) => {
-  // Complex rendering logic
-  return <ComplexChart data={data} />;
+// ✅ Atoms for primitive state
+export const currentUserState = atom<User | null>({
+  key: 'currentUserState',
+  default: null,
 });
 
-// ✅ Memoize callbacks when needed
-const UserList = ({ users, onUserSelect }: UserListProps) => {
-  const handleUserSelect = useCallback((user: User) => {
-    onUserSelect(user);
-  }, [onUserSelect]);
+// ✅ Selectors for derived state
+export const userDisplayNameSelector = selector({
+  key: 'userDisplayNameSelector',
+  get: ({ get }) => {
+    const user = get(currentUserState);
+    return user ? `${user.firstName} ${user.lastName}` : 'Guest';
+  },
+});
 
-  return (
-    <div>
-      {users.map(user => (
-        <UserItem key={user.id} user={user} onSelect={handleUserSelect} />
-      ))}
-    </div>
-  );
+// ✅ Atom families for dynamic atoms
+export const userByIdState = atomFamily<User | null, string>({
+  key: 'userByIdState',
+  default: null,
+});
+```
+
+## Local State Guidelines
+```typescript
+// ✅ Multiple useState for unrelated state
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState<string | null>(null);
+const [data, setData] = useState<User[]>([]);
+
+// ✅ useReducer for complex state logic
+type FormAction = 
+  | { type: 'SET_FIELD'; field: string; value: string }
+  | { type: 'SET_ERRORS'; errors: Record<string, string> }
+  | { type: 'RESET' };
+
+const formReducer = (state: FormState, action: FormAction): FormState => {
+  switch (action.type) {
+    case 'SET_FIELD':
+      return { ...state, [action.field]: action.value };
+    case 'SET_ERRORS':
+      return { ...state, errors: action.errors };
+    case 'RESET':
+      return initialFormState;
+    default:
+      return state;
+  }
 };
 ```
+
+## Data Flow Rules
+- **Props down, events up** - Unidirectional data flow
+- **Avoid bidirectional binding** - Use callback functions
+- **Normalize complex data** - Use lookup tables over nested objects
+
+```typescript
+// ✅ Normalized state structure
+type UsersState = {
+  byId: Record<string, User>;
+  allIds: string[];
+};
+
+// ✅ Functional state updates
+const increment = useCallback(() => {
+  setCount(prev => prev + 1);
+}, []);
+```
+
+## Performance Tips
+- Use atom families for dynamic data collections
+- Implement proper selector caching
+- Avoid heavy computations in selectors
+- Batch state updates when possible
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
