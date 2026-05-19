@@ -7,11 +7,11 @@ This NVIDIA RAG blueprint serves as a reference solution for a foundational Retr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NVIDIA-AI-Blueprints/rag](https://github.com/NVIDIA-AI-Blueprints/rag).
+Original source: `CLAUDE.md` in [NVIDIA-AI-Blueprints/rag](https://github.com/NVIDIA-AI-Blueprints/rag).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
