@@ -1,38 +1,65 @@
-## emcn-components
+## global
 
-> EMCN component library patterns
+> Global coding standards that apply to all files
 
 
-# EMCN Components
+# Global Standards
 
-Import from `@/components/emcn`, never from subpaths (except CSS files).
+You are a professional software engineer. All code must follow best practices: accurate, readable, clean, and efficient.
 
-## CVA vs Direct Styles
+## Logging
+Import `createLogger` from `@sim/logger`. Use `logger.info`, `logger.warn`, `logger.error` instead of `console.log`.
 
-**Use CVA when:** 2+ variants (primary/secondary, sm/md/lg)
+## Comments
+Use TSDoc for documentation. No `====` separators. No non-TSDoc comments.
 
-```tsx
-const buttonVariants = cva('base-classes', {
-  variants: { variant: { default: '...', primary: '...' } }
-})
-export { Button, buttonVariants }
+## Styling
+Never update global styles. Keep all styling local to components.
+
+## ID Generation
+Never use `crypto.randomUUID()`, `nanoid`, or the `uuid` package directly. Use the utilities from `@sim/utils/id`:
+
+- `generateId()` — UUID v4, use by default
+- `generateShortId(size?)` — short URL-safe ID (default 21 chars), for compact identifiers
+
+Both use `crypto.getRandomValues()` under the hood and work in all contexts including non-secure (HTTP) browsers.
+
+```typescript
+// ✗ Bad
+import { nanoid } from 'nanoid'
+import { v4 as uuidv4 } from 'uuid'
+const id = crypto.randomUUID()
+
+// ✓ Good
+import { generateId, generateShortId } from '@sim/utils/id'
+const uuid = generateId()
+const shortId = generateShortId()
+const tiny = generateShortId(8)
 ```
 
-**Use direct className when:** Single consistent style, no variations
+## Common Utilities
+Use shared helpers from `@sim/utils` instead of writing inline implementations:
 
-```tsx
-function Label({ className, ...props }) {
-  return <Primitive className={cn('style-classes', className)} {...props} />
-}
+- `sleep(ms)` — async delay. Never write `new Promise(resolve => setTimeout(resolve, ms))`
+- `toError(value)` — normalize unknown caught values to `Error`. Never write `e instanceof Error ? e : new Error(String(e))`
+- `toError(value).message` — get error message safely. Never write `e instanceof Error ? e.message : String(e)`
+
+```typescript
+// ✗ Bad
+await new Promise(resolve => setTimeout(resolve, 1000))
+const msg = error instanceof Error ? error.message : String(error)
+const err = error instanceof Error ? error : new Error(String(error))
+
+// ✓ Good
+import { sleep } from '@sim/utils/helpers'
+import { toError } from '@sim/utils/errors'
+await sleep(1000)
+const msg = toError(error).message
+const err = toError(error)
 ```
 
-## Rules
-
-- Use Radix UI primitives for accessibility
-- Export component and variants (if using CVA)
-- TSDoc with usage examples
-- Consistent tokens: `font-medium`, `text-[12px]`, `rounded-[4px]`
-- `transition-colors` for hover states
+## Package Manager
+Use `bun` and `bunx`, not `npm` and `npx`.
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
