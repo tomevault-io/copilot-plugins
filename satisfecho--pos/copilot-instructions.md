@@ -1,28 +1,14 @@
-## error-investigation-workflow
+## fastapi-sqlmodel-backend
 
-> When investigating errors, read container logs, check docs, reproduce with Puppeteer, fix and retest
+> FastAPI + SQLModel: migrations, models, API shape, backend tests in Docker
 
 
-# Error Investigation Workflow
+# Backend – FastAPI, SQLModel, migrations
 
-When investigating or fixing reported errors:
-
-1. **Read container logs** (in this order):
-   - Frontend: `docker logs pos-front 2>&1 | tail -n …`
-   - Backend: `docker logs pos-back 2>&1 | tail -n …`
-   - HAProxy: `docker logs pos-haproxy 2>&1 | tail -n …`
-   - Database: `docker logs pos-postgres 2>&1 | tail -n …`  
-   Use `grep -iE 'error|exception|traceback|422|500'` when useful.
-
-2. **Identify relevant docs** in `docs/` (e.g. `docs/*.md`, `AGENTS.md`, `README.md`) that describe the failing feature, deployment, or environment (e.g. amvara9, HAProxy, API, menu, payments).
-
-3. **Reproduce locally**:
-   - Use a local browser and/or a Puppeteer script under `front/scripts/` (e.g. `test-api-docs.mjs`, `test-demo-data.mjs`, `test-rate-limit.mjs`) with `BASE_URL=http://127.0.0.1:4202` (or the dev port).
-   - Run the script or manual steps until the error is reproduced.
-
-4. **Fix and retest**: Apply the fix, then re-run the same reproduction steps (Puppeteer or browser) until the error is gone. Do not report "fixed" until the test passes.
-
-5. **Amvara9**: The amvara9 deployment has a slightly different setup (see e.g. `docs/0001-ci-cd-amvara9.md`, `docs/0027-amvara9-menu-images-troubleshooting.md`, `docs/0026-haproxy-ssl-amvara9.md`). If the error might be environment-specific, check those docs and consider prod vs dev differences (ports, certs, nginx, API base URL).
+- **Schema changes** go through versioned SQL under **`back/migrations/`** and the runner **`python -m app.migrate`** (see **`back/migrations/README.md`** and **`back/migrations/EXAMPLE_NEW_MIGRATION.md`**). Prefer timestamped filenames for new migrations. After adding SQL, run migrate in Docker and **`--check`** when the docs say to.
+- **Models:** Keep SQLModel / table definitions consistent with the DB; ensure new models are **imported** so metadata is registered wherever the app expects (follow existing `app/models.py` / `main.py` patterns).
+- **API contract:** Use explicit request/response types; preserve **tenant isolation** and auth checks consistent with neighboring routes. For behaviour rules, skim **`docs/`** and **`AGENTS.md`** for payments, reservations, and multi-tenant notes.
+- **Tests:** Run **`pytest`** inside the **`back`** container (see **`AGENTS.md`** / **`docs/testing.md`**) — e.g. `docker compose -f docker-compose.yml -f docker-compose.dev.yml exec back python3 -m pytest` with a path or `-q` as appropriate. Do not rely on unverified API behaviour.
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
