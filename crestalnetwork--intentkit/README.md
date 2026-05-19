@@ -7,14 +7,14 @@ IntentKit is an open-source, self-hosted cloud agent cluster that manages a coll
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit).
+Original source: `AGENTS.md` in [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [crestalnetwork/intentkit](https://github.com/crestalnetwork/intentkit) — a repo with 6497+ stars on GitHub.
