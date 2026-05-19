@@ -1,0 +1,9 @@
+{
+  "name": "laipz8200--anime-librarian",
+  "displayName": "anime-librarian",
+  "description": "A command-line tool that uses AI to rename and organize video files.",
+  "version": "1.0.0",
+  "author": "laipz8200",
+  "homepage": "https://github.com/laipz8200/anime-librarian",
+  "skills": []
+}
