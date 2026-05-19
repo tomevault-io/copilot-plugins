@@ -7,13 +7,13 @@ The Typescript MCP Framework
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [QuantGeekDev/mcp-framework](https://github.com/QuantGeekDev/mcp-framework).
+Original source: `CLAUDE.md` in [QuantGeekDev/mcp-framework](https://github.com/QuantGeekDev/mcp-framework).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
