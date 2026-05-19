@@ -1,0 +1,9 @@
+{
+  "name": "clerk--clerk-android",
+  "displayName": "clerk-android",
+  "description": "Android SDK for Clerk",
+  "version": "1.0.0",
+  "author": "clerk",
+  "homepage": "https://github.com/clerk/clerk-android",
+  "skills": []
+}
