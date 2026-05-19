@@ -1,0 +1,9 @@
+{
+  "name": "ymahlau--fdtdx",
+  "displayName": "fdtdx",
+  "description": "Electromagnetic FDTD Simulations in JAX",
+  "version": "1.0.0",
+  "author": "ymahlau",
+  "homepage": "https://github.com/ymahlau/fdtdx",
+  "skills": []
+}
