@@ -1,0 +1,9 @@
+{
+  "name": "wnzzer--rank-analysis",
+  "displayName": "rank-analysis",
+  "description": "\u57fa\u4e8eTauri 2 + Rust\uff0c\u6784\u5efa\u7684\u4e00\u4e2aLOL \u82f1\u96c4\u8054\u76df\u817e\u8baf\u670d\u6218\u7ee9\u67e5\u8be2\u52a9\u624b\uff0c\u521b\u65b0\u5f0f\u6807\u7b7e\u6807\u8bb0\u673a\u5236\uff0c\u4e00\u952e\u5206\u6790\u7684\u6df7\u5b50\u3001\u725b\u9a6c\u961f\u53cb",
+  "version": "1.0.0",
+  "author": "wnzzer",
+  "homepage": "https://github.com/wnzzer/rank-analysis",
+  "skills": []
+}
