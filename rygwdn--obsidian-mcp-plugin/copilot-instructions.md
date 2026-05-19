@@ -1,67 +1,53 @@
-## release-process
+## testing-best-practices
 
-> Details on how to perform a release
+> Tests should use real implementations instead of mocks whenever possible. The [test/resources.test.ts](mdc:test/resources.test.ts) file serves as a good example of this approach.
 
-# Release Process
+# Testing Best Practices
 
-Follow these steps to properly release a new version of the MCP plugin for Obsidian submission:
+## Unit Tests (test/)
 
-## Pre-Release Checklist
-- Ensure all tests pass: `npm run check`
-- Ensure all changes have been committed to the repository
-- Review the non-test diff since the last release
-- Update [CHANGELOG.md](mdc:CHANGELOG.md) with the new version:
-   ```markdown
-   ## [x.y.z] - YYYY-MM-DD
-   - feat: New feature description
-   - fix: Bug fix description
-   - refactor: Other changes
-   ```
+Tests should use real implementations instead of mocks whenever possible. The [test/resources.test.ts](mdc:test/resources.test.ts) file serves as a good example of this approach.
 
-## Version Bump
-- Update the version number in the package.json
-- Run the version bump script to update version references `npm run version`
-  This script:
-  - Updates the version in [manifest.json](mdc:manifest.json)
-  - Updates [versions.json](mdc:versions.json) with the new version
-- Run a final check: `npm run check`
-- Commit all the changes `git commit -a -m 'release: prepare x.y.z release'`
+Key testing principles:
+- Set up test environment with realistic data
+- Use MockApp to simulate Obsidian's API
+- Avoid vi.mock() for any of the code under test
 
-## Tag and Push
-```bash
-git tag x.y.z
-git push origin x.y.z
+Run unit tests with: `npm run test`
+
+## E2E Tests (e2e/)
+
+End-to-end tests run against a real Obsidian instance using Playwright in a Docker container.
+
+### Structure
+- `e2e/tests/` - Playwright test files
+- `e2e/helpers/mcp-client.ts` - MCP SDK client wrapper for testing
+- `e2e/helpers/obsidian.ts` - Obsidian launch and management helpers
+- `e2e/test-vault/` - Test vault with sample data
+
+### MCP Client
+E2E tests use the official MCP SDK (`@modelcontextprotocol/sdk`) with `StreamableHTTPClientTransport`:
+```typescript
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { createMcpClient } from "../helpers/mcp-client";
+
+const client = await createMcpClient();
+const result = await client.listTools();
+await client.close();
 ```
 
-## GitHub Release
-After pushing the tag, GitHub Actions will:
-- Create a draft release with notes from the CHANGELOG
-- Build the plugin
-- Upload the required files as binary attachments to the release:
-  - main.js
-  - manifest.json
-  - styles.css (if used by the plugin)
+### Running E2E Tests
+E2E tests require Docker/Podman:
+```bash
+# Build the test container
+podman build -t obsidian-mcp-e2e -f e2e/Dockerfile .
 
-## IMPORTANT: Obsidian Plugin Requirements
-For Obsidian plugin directory submission, the release MUST have:
-1. The tag version (x.y.z) MUST exactly match the version in manifest.json
-2. The main.js, manifest.json, and styles.css (if applicable) files MUST be uploaded as binary attachments
-3. After review, the draft release must be published
+# Run all e2e tests
+podman run --rm --ipc=host -v $(pwd)/e2e/test-results:/app/e2e/test-results obsidian-mcp-e2e
 
-## Final Steps
-- Wait for GitHub workflows to complete:
-   ```bash
-   # Get the run IDs for the latest release
-   gh run list -c $(git rev-parse x.y.z)
-   # Wait for the run to complete
-   gh run watch {CI run id}
-   gh run watch {release run id}
-   ```
-- View and publish the release:
-   ```bash
-   gh release view x.y.z --web
-   ```
-- After publishing the release, verify that all required files are attached to the release
+# Run specific test
+podman run --rm --ipc=host obsidian-mcp-e2e npm run test:e2e -- --grep "should list"
+```
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
