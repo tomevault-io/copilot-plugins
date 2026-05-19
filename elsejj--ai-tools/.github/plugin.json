@@ -1,0 +1,9 @@
+{
+  "name": "elsejj--ai-tools",
+  "displayName": "ai-tools",
+  "description": "ai-tools  call your llm based tools through shortcut (ctrl-q) in any application",
+  "version": "1.0.0",
+  "author": "elsejj",
+  "homepage": "https://github.com/elsejj/ai-tools",
+  "skills": []
+}
