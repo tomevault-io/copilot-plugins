@@ -1,0 +1,9 @@
+{
+  "name": "adipuscasu--findduplicates",
+  "displayName": "FindDuplicates",
+  "description": "Console application used to remove duplicate files from subfolders of a given folder location",
+  "version": "1.0.0",
+  "author": "adipuscasu",
+  "homepage": "https://github.com/adipuscasu/FindDuplicates",
+  "skills": []
+}
