@@ -1,0 +1,9 @@
+{
+  "name": "mark3labs--mcp-go",
+  "displayName": "mcp-go",
+  "description": "A Go implementation of the Model Context Protocol (MCP), enabling seamless integration between LLM applications and external data sources and tools.",
+  "version": "1.0.0",
+  "author": "mark3labs",
+  "homepage": "https://github.com/mark3labs/mcp-go",
+  "skills": []
+}
