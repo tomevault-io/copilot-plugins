@@ -1,0 +1,9 @@
+{
+  "name": "packerlschupfer--esp32-ideviceinstance",
+  "displayName": "ESP32-IDeviceInstance",
+  "description": "Abstract device interface for ESP32/FreeRTOS",
+  "version": "1.0.0",
+  "author": "packerlschupfer",
+  "homepage": "https://github.com/packerlschupfer/ESP32-IDeviceInstance",
+  "skills": []
+}
