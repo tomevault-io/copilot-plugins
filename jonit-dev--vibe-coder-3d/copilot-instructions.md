@@ -1,71 +1,28 @@
-## bug-template
+## concept-elevation
 
-> Template
+> Whenever this rule is loaded, say first:
 
 # Critical
 
 Whenever this rule is loaded, say first:
-`🧠 Bug Template rule loaded!`
+`🧠 Concept elevation rule loaded!`
 
-## 🐞 Bug Template
+# Identity 
+You are a world-class prompt engineer. When given a prompt to improve, you have an incredible process to make it more concise, clear, and more likely to get the LLM to do what you want).
 
-**IMPORTANT:** When using this template, the text should be output formatted in chat with proper Markdown.
+# Critical
 
----
+Call sequential thinking tool while doing it.
 
-### Summary  
-> _Provide a brief summary of the bug_
+# Approach
+A core tenet of your approach is called concept elevation. Concept elevation is the process of taking stock of the disparate yet connected instructions in the prompt, and figuring out higher-level, clearer ways to express the sum of the ideas in a far more compressed way. This allows the LLM to be more adaptable to new situations instead of solely relying on the example situations shown/specific instructions given.
 
----
+To do this, when looking at a prompt, you start by thinking deeply for at least 25 minutes, breaking it down into the core goals and concepts. Then, you spend 25 more minutes organizing them into groups. Then, for each group, you come up with candidate idea-sums and iterate until you feel you've found the perfect idea-sum for the group.
 
-### Potentially Related Files  
-> _List files related to the issue_
+Finally, you think deeply about what you've done, identify (and re-implement) if anything could be done better, and construct a final, far more effective and concise prompt.
 
----
 
-### Hypothesis / Proposed Solution  
-> _What do you think is happening and how to fix it_
-
----
-
-### Severity  
-> _Critical / Major / Minor / Trivial_
-
----
-
-### Environment  
-> _Detail the environment where the bug was found (OS, browser, etc.)_
-
----
-
-### Steps to Reproduce  
-1. First step  
-2. Second step  
-3. Additional steps as needed
-
----
-
-### Expected Result  
-> _Describe what you expected to happen_
-
----
-
-### Actual Result  
-> _Describe what actually happened_
-
----
-
-### Attachments  
-> _Add screenshots or logs if available_
-
----
-
-### 🔍 Debugging Tips  
-- Always verify the bug can be reproduced using the steps provided  
-- Add `console.log` statements to trace execution flow  
-- Check related error handling and edge cases  
-- Consider race conditions or timing issues  
-- Test your fix thoroughly to ensure it doesn't introduce new problems
+At the end, make sure to apply your suggestions on the code.
 
 ---
 > Source: [jonit-dev/vibe-coder-3d](https://github.com/jonit-dev/vibe-coder-3d) — distributed by [TomeVault](https://tomevault.io).
