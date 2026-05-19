@@ -4,7 +4,7 @@
   "repo": "schemaflux",
   "description": "Structured data compiler. Pass pipeline, pluggable backends.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/greynewell/schemaflux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T17:25:11Z"
+  "distributed_at": "2026-05-19T19:10:37Z"
 }
