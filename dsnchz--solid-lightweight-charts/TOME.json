@@ -2,7 +2,7 @@
   "name": "solid-lightweight-charts",
   "owner": "dsnchz",
   "repo": "solid-lightweight-charts",
-  "description": "",
+  "description": "TradingView Lightweight Charts\u2122 as SolidJS components",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dsnchz/solid-lightweight-charts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:51:46Z"
+  "distributed_at": "2026-05-19T18:01:08Z"
 }
