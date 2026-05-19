@@ -1,0 +1,9 @@
+{
+  "name": "pgdogdev--pgdog",
+  "displayName": "pgdog",
+  "description": "PostgreSQL connection pooler, load balancer and database sharder.",
+  "version": "1.0.0",
+  "author": "pgdogdev",
+  "homepage": "https://github.com/pgdogdev/pgdog",
+  "skills": []
+}
