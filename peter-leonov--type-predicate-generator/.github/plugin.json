@@ -1,0 +1,9 @@
+{
+  "name": "peter-leonov--type-predicate-generator",
+  "displayName": "type-predicate-generator",
+  "description": "Type safe predicate generator for TypeScript",
+  "version": "1.0.0",
+  "author": "peter-leonov",
+  "homepage": "https://github.com/peter-leonov/type-predicate-generator",
+  "skills": []
+}
