@@ -1,136 +1,216 @@
-## 020-codebase-structure
+## 030-coding-style
 
-> Project structure, commands, and development setup guidelines for the Deadlock Mod Manager monorepo
+> Coding Style: Guidelines for code formatting, naming conventions, and best practices across TypeScript, React, Tauri, and Next.js
 
 
-# Codebase Structure and Commands
+# Coding Style Guidelines
 
-## Project Structure
+## Technology-Specific Guidelines
 
-The project follows a monorepo structure using pnpm workspaces:
+### TypeScript
 
-### Core Directories
+- **NEVER use `any` types** - Always provide proper type definitions
+- Use `unknown` instead of `any` when the type is truly unknown
+- Use interfaces for object shapes that will be extended
+- Use type aliases for complex types and unions
+- Use the latest TypeScript features appropriately
+- **Avoid dynamic imports** - use static imports at the top of files for better performance and code clarity
 
-- `apps/` - Main applications
-  - `api/` - Backend API service (Bun + Hono)
-  - `bot/` - Discord bot application
-  - `desktop/` - Tauri desktop application
-  - `lockdex/` - Lockdex service application
-  - `www/` - Web application (Vite + React)
-- `packages/` - Shared packages and utilities
-  - `common/` - Common error handling and utilities
-  - `database/` - Database schema and client (Drizzle ORM)
-  - `distributed-lock/` - Distributed locking utilities
-  - `logging/` - Structured logging package
-  - `queue/` - Queue management utilities
-  - `shared/` - Shared utilities and type definitions
-  - `vpk-parser/` - VPK file parsing utilities (Rust + TypeScript)
-- `tools/` - Development tools and configurations
-  - `typescript/` - Shared TypeScript configurations
-- `.cursor/` - Project rules and documentation
-- `.vscode/` - VS Code configuration
-- `.turbo/` - Turborepo cache and configuration
+```typescript
+// ✅ Good: Proper type definitions
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+}
 
-### Configuration Files
+function processUser(user: UserData): void {
+  // Implementation
+}
 
-- `package.json` - Root project dependencies and scripts
-- `pnpm-workspace.yaml` - Workspace configuration
-- `turbo.json` - Turborepo configuration
-- `compose.yml` - Docker Compose for local development
-- `biome.jsonc` - Biome configuration for linting and formatting
-- `lefthook.yml` - Git hooks configuration
-- `netlify.toml` - Netlify deployment configuration
-- `.gitignore` - Git ignore configuration
+// ✅ Good: Use unknown for truly unknown types
+function parseJson(text: string): unknown {
+  return JSON.parse(text);
+}
 
-## Available Commands
+// ❌ Bad: Using any type
+function processData(data: any): any {
+  return data.someProperty;
+}
 
-### Development Commands
-
-```bash
-# Start development servers
-pnpm dev                    # Start desktop development (default)
-pnpm --filter api dev       # Start API development server
-pnpm --filter bot dev       # Start Discord bot development
-pnpm --filter desktop dev   # Start desktop development
-pnpm --filter lockdex dev   # Start Lockdex service development
-pnpm --filter www dev       # Start web development server
-
-# Code Quality
-pnpm lint                  # Run linting with Biome
-pnpm format               # Format code with Biome
+// ✅ Good: Generic types instead of any
+function processData<T>(data: T): T {
+  return data;
+}
 ```
 
-### Database Commands
+### React Components
 
-```bash
-pnpm db:push              # Push schema to database
-pnpm db:seed              # Seed database with initial data
-pnpm generate             # Generate database migrations
+- Use functional components with hooks
+- Use named exports for components
+- Keep components small and focused on a single responsibility
+- Use proper prop typing
+- **Use React Query mutations for async operations** - Never manually manage loading state with `useState` for async operations. Use `useMutation` from `@tanstack/react-query` instead
+
+```typescript
+// ✅ Good: Using React Query mutation
+const deleteItemMutation = useMutation({
+  mutationFn: (id: string) => deleteItem(id),
+  meta: {
+    skipGlobalErrorHandler: true,
+  },
+  onSuccess: () => {
+    toast.success("Item deleted");
+    queryClient.invalidateQueries({ queryKey: ["items"] });
+  },
+  onError: (error) => {
+    toast.error(error.message);
+  },
+});
+
+<Button
+  onClick={() => deleteItemMutation.mutate(itemId)}
+  disabled={deleteItemMutation.isPending}>
+  {deleteItemMutation.isPending ? "Deleting..." : "Delete"}
+</Button>
+
+// ❌ Bad: Manually managing loading state
+const [isDeleting, setIsDeleting] = useState(false);
+
+const handleDelete = async () => {
+  setIsDeleting(true);
+  try {
+    await deleteItem(itemId);
+    toast.success("Item deleted");
+  } catch (error) {
+    toast.error(error.message);
+  } finally {
+    setIsDeleting(false);
+  }
+};
+
+<Button onClick={handleDelete} disabled={isDeleting}>
+  {isDeleting ? "Deleting..." : "Delete"}
+</Button>
 ```
 
-### Build Commands
+### Backend (Bun + Hono)
 
-```bash
-pnpm build                 # Build all packages and applications
-pnpm --filter api build    # Build only API
-pnpm --filter bot build    # Build only Discord bot
-pnpm --filter desktop build # Build only desktop application
-pnpm --filter lockdex build # Build only Lockdex service
-pnpm --filter www build    # Build only web application
+- Use middleware for cross-cutting concerns
+- Validate request data with Zod
+- Use proper error handling with structured responses
+- Structure routes logically by resource
+- Leverage Bun's performance optimizations
+
+### Desktop Application (Tauri)
+
+- Follow Tauri framework conventions
+- Separate frontend React code from Rust backend
+- Use Tauri commands for system interactions
+- Keep performance in mind for desktop applications
+- Handle errors gracefully between frontend and backend
+
+### Web Application (Next.js)
+
+- Use App Router for new features
+- Implement proper SEO optimization
+- Follow Next.js best practices for performance
+- Use server components where appropriate
+
+## Comments and Documentation
+
+- Write self-documenting code, no need to add extra comments
+- **Avoid obvious comments** that just repeat what the code does
+- Add comments only for complex logic, business rules, or non-obvious decisions
+- Document public APIs and interfaces
+- Use meaningful variable and function names instead of explanatory comments
+
+```typescript
+// ✅ Good: Meaningful names, minimal comments
+async function fetchUsers(
+  page: number,
+  limit: number
+): Promise<PaginatedResponse<User>> {
+  const users = await userRepository.findPaginated(page, limit);
+  return transformToResponse(users);
+}
+
+// ❌ Bad: Obvious comments that repeat the code
+async function fetchUsers(page: number, limit: number) {
+  // Create write stream for direct streaming to file
+  const writeStream = createWriteStream(filePath);
+
+  // Convert Web ReadableStream to Node.js stream
+  const nodeStream = Readable.fromWeb(response.body);
+}
+
+// ✅ Good: Comment explains WHY, not WHAT
+async function processLargeFile(filePath: string) {
+  // Use streaming to avoid loading entire file into memory for files > 100MB
+  if (fileSize > 100 * 1024 * 1024) {
+    return processWithStreaming(filePath);
+  }
+  return processInMemory(filePath);
+}
 ```
 
-### Package Management
+## Styling
 
-```bash
-# Add dependencies to specific packages
-pnpm add <package> --filter <package-name>      # Add production dependency
-pnpm add -D <package> --filter <package-name>   # Add dev dependency
+- Use Tailwind CSS for styling
+- Follow component-based styling practices
+- Use utility classes for one-off styling needs
+- Extract common patterns to shared components
+
+## Git Commit Guidelines
+
+For detailed git commit message format, branch naming conventions, and version control practices, see [git-conventions](../skills/git-conventions/SKILL.md).
+
+**Quick Reference:**
+- Use conventional commits format: `<type>(<scope>): <description>`
+- Branch names: `<type>/<description>` in kebab-case
+- Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `perf`, `test`, `build`, `ci`
+
+## Import and Module Guidelines
+
+### Static Imports
+
+- **Always use static imports** at the top of files instead of dynamic imports
+- Import all dependencies at the file beginning for better bundling and performance
+- Use tree-shaking friendly named imports when possible
+
+```typescript
+// ✅ Good: Static imports at top of file
+import { readFile, stat } from "node:fs/promises";
+import { pipeline } from "node:stream/promises";
+import { createReadStream } from "node:fs";
+
+// ❌ Bad: Dynamic imports
+const { pipeline } = await import("node:stream/promises");
 ```
 
-## Development Setup
+### Memory-Efficient Patterns
 
-1. Install dependencies:
+- **Use streaming APIs** instead of loading large files into memory
+- **Avoid buffer accumulation** for large data processing
+- **Implement proper cleanup** for temporary files and streams
+- **Set appropriate file size limits** based on available memory
 
-   ```bash
-   npm i -g pnpm
-   pnpm install
-   ```
+```typescript
+// ✅ Good: Streaming approach
+await pipeline(readStream, transformStream, writeStream);
 
-2. Configure environment:
+// ❌ Bad: Loading entire file into memory
+const fileData = await readFile(largePath);
+```
 
-   - Create appropriate environment files for each app
-   - Fill required environment variables
+## Core Philosophy
 
-3. Start development:
-
-   ```bash
-   # Start desktop app (default)
-   pnpm dev
-
-   # Or start individual apps
-   pnpm --filter api dev
-   pnpm --filter bot dev
-   pnpm --filter desktop dev
-   pnpm --filter lockdex dev
-   pnpm --filter www dev
-   ```
-
-4. Build for production:
-   ```bash
-   pnpm build
-   ```
-
-## Best Practices
-
-1. Always use pnpm for package management
-2. Use the `--filter` flag when working with specific packages
-3. Keep shared code in the appropriate packages directory (`packages/shared`, `packages/database`, etc.)
-4. Follow the established environment variable conventions
-5. Run code quality checks before committing:
-   ```bash
-   pnpm lint
-   pnpm check-types
-   ```
+- Code is primarily written for humans to read and understand, not just for computers to execute
+- "Explicit is better than implicit. Simple is better than complex. Readability counts."
+- Maintain consistency with existing code style when modifying files
+- Keep code DRY (Don't Repeat Yourself)
+- Prefer verbose variable names and maintainability over concise code
+- **Optimize for memory efficiency** in data processing applications
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
