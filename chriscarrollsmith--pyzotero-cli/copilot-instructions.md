@@ -1,238 +1,156 @@
-## item-cmds
+## search-cmds
 
-> `pyzotero` documentation for working with items
+> `pyzotero` documentation for searching and querying
 
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the item-related functionality in our CLI wrapper.
+This document contains the portion of the `pyzotero` documentation that corresponds to the search and query functionality in our CLI wrapper.
 
-# Item Commands
+# Search Commands
 
-## Retrieving Items
+## Search Parameters
+
+You can add search parameters to many Read API methods using the following pattern:
 
 ```python
-# Return Zotero library items
-zot.items([search/request parameters])
+# Set parameters directly on the API call
+results = zot.top(limit=7, start=3, q="Shakespeare")
+
+# Or set parameters using the explicit method
+zot.add_parameters(limit=7, start=3, q="Shakespeare")
+results = zot.top()
 ```
 
-Returns a list of dicts containing Zotero library items.
+The following search parameters are available:
+
+- `format`: "atom", "bib", "bibtex", "json", "keys", "versions". Pyzotero retrieves and decodes JSON responses by default.
+- `itemKey`: A comma-separated list of item keys. Valid only for item requests. Up to 50 items can be specified in a single request.
+
+**Search-specific parameters:**
+- `itemType`: Item type search. See the [Search Syntax](https://www.zotero.org/support/dev/web_api/v3/basics#search_syntax) for details.
+- `q`: Quick search. Searches titles and individual creator fields by default. Use the `qmode` parameter to change the mode.
+- `qmode`: Quick search mode. To include full-text content in the search, use `everything`. Defaults to `titleCreatorYear`.
+- `tag`: Tag search. More than one tag may be passed by passing a list of strings – These are treated as AND search terms. You can search for items matching any tag in a list by using OR: `"tag1 OR tag2"`, and all items which exclude a tag: `"-tag"`.
+
+**Result control parameters:**
+- `sort`: The field by which entries are sorted (e.g., `dateAdded`, `dateModified`, `title`, `creator`, etc.)
+- `direction`: `asc` or `desc` 
+- `limit`: 1 – 100 or None
+- `start`: 1 – total number of items in your library or None
+- `since`: Return only objects modified after the specified library version
+
+## Saved Searches
 
 ```python
-# Return count of all items in a library/group
-zot.count_items()
+# Retrieve all saved searches
+zot.searches()
 ```
 
-Returns an integer count of all items.
+Retrieve all saved searches. Note that this retrieves saved search metadata, as opposed to content; saved searches cannot currently be run using the API.
 
 ```python
-# Return top-level library items
-zot.top([search/request parameters])
-```
-
-Returns a list of dicts containing top-level Zotero library items.
-
-```python
-# Return publications from "My Publications"
-zot.publications([search/request parameters])
-```
-
-Returns the publications from the "My Publications" collection of a user's library. Only available on user libraries.
-
-```python
-# Return trashed items
-zot.trash([search/request parameters])
-```
-
-Returns library items from the library's trash.
-
-```python
-# Return deleted items
-zot.deleted([search/request parameters])
-```
-
-Returns deleted collections, library items, tags, searches and settings (requires "since=" parameter).
-
-```python
-# Return a specific item
-zot.item(itemID[, search/request parameters])
+# Create a new saved search
+zot.saved_search(name, conditions)
 ```
 
 Parameters:
-- `itemID`: a zotero item ID
+- `name`: the name of the search
+- `conditions`: one or more dicts containing search conditions and operators
 
-Returns a list containing a dict for the specified item.
+Create a new saved search. `conditions` is a list of one or more dicts, each of which must contain the following three string keys: `condition`, `operator`, `value`.
 
 ```python
-# Return child items of a specific item
-zot.children(itemID[, search/request parameters])
+# Delete saved searches
+zot.delete_saved_search(search_keys)
 ```
 
 Parameters:
-- `itemID`: a zotero item ID
+- `search_keys`: list of unique saved search keys
 
-Returns the child items of a specific item.
+Delete one or more saved searches.
 
 ```python
-# Return items from a specific collection
-zot.collection_items(collectionID[, search/request parameters])
+# Show available saved search operators
+zot.show_operators()
+```
+
+Returns a list of available saved search operators.
+
+```python
+# Show available saved search conditions
+zot.show_conditions()
+```
+
+Returns a list of available saved search conditions.
+
+```python
+# Show operators for a condition
+zot.show_condition_operators(condition)
 ```
 
 Parameters:
-- `collectionID`: a Zotero collection ID
+- `condition`: a valid saved search condition
 
-Returns items from the specified collection. This does not include items in sub-collections.
+Returns a list of available operators for a given saved search condition.
 
-```python
-# Return top-level items from a collection
-zot.collection_items_top(collectionID[, search/request parameters])
-```
-
-Parameters:
-- `collectionID`: a Zotero collection ID
-
-Returns top-level items from the specified collection.
+## Special Search Methods
 
 ```python
-# Retrieve a set of non-adjacent items
-zot.get_subset(itemIDs[, search/request parameters])
+# Follow paginated results
+zot.follow()
 ```
 
-Parameters:
-- `itemIDs`: a list of Zotero Item IDs
-
-Retrieve an arbitrary set of non-adjacent items. Limited to 50 items per call.
-
-## Item Methods
-
-```python
-# Get available item types
-zot.item_types()
-```
-
-Returns a dict containing all available item types.
-
-```python
-# Get available item fields
-zot.item_fields()
-```
-
-Returns a dict of all available item fields.
-
-```python
-# Get creator types for an item type
-zot.item_creator_types(itemtype)
-```
-
-Parameters:
-- `itemtype`: a valid Zotero item type (from `item_types()`)
-
-Returns a dict of all valid creator types for the specified item type.
-
-```python
-# Get all creator fields
-zot.creator_fields()
-```
-
-Returns a dict containing all localized creator fields.
-
-```python
-# Get fields for an item type
-zot.item_type_fields(itemtype)
-```
-
-Parameters:
-- `itemtype`: a valid Zotero item type (from `item_types()`)
-
-Returns all valid fields for the specified item type.
-
-```python
-# Get item creation template
-zot.item_template(itemtype, linkmode)
-```
-
-Parameters:
-- `itemtype`: a valid Zotero item type (from `item_types()`)
-- `linkmode`: either None (default) or a valid Zotero linkMode value required when itemtype is attachment
-
-Returns an item creation template for the specified item type.
-
-## Creating and Updating Items
-
-```python
-# Create Zotero library items
-zot.create_items(items[, parentid, last_modified])
-```
-
-Parameters:
-- `items`: one or more dicts containing item data
-- `parentid`: A Parent item ID. This will cause the item(s) to become child items of the given parent ID
-- `last_modified`: If not None will set the value of the If-Unmodified-Since-Version header
-
-Returns a copy of the created item(s) if successful. Use of `item_template()` is recommended to first obtain a valid structure.
+After any Read API call which can retrieve multiple items, calling `follow()` will repeat that call, but for the next number of items, where the number is either a value set by the user for the original call, or 50 by default. Each subsequent call to `follow()` will extend the offset.
 
 Example:
 ```python
-template = zot.item_template('book')
-template['creators'][0]['firstName'] = 'Monty'
-template['creators'][0]['lastName'] = 'Cantsin'
-template['title'] = 'Maris Kundzins: A Life'
-resp = zot.create_items([template])
-```
-
-If successful, `resp` will be a dict containing the creation status of each item:
-```python
-{'failed': {}, 'success': {'0': 'ABC123'}, 'unchanged': {}}
+first_item = zot.top(limit=1)  # retrieve the most recently added/modified top-level item
+next_item = zot.follow()       # get the next item
+third_item = zot.follow()      # get the third item
 ```
 
 ```python
-# Update an item in your library
-zot.update_item(item [, last_modified])
+# Get all results in one call
+zot.everything(api_call)
 ```
-
-Parameters:
-- `item`: a dict containing item data. Fields not in item will be left unmodified.
-- `last_modified`: If not None, will set the value of the If-Unmodified-Since-Version header.
-
-Will return True if successful, or raise an error.
 
 Example:
 ```python
-i = zot.items()
-i[0]['data']['title'] = 'The Sheltering Sky'
-i[0]['data']['creators'][0]['firstName'] = 'Paul'
-i[0]['data']['creators'][0]['lastName'] = 'Bowles'
-zot.update_item(i[0])
+# retrieve all top-level items
+toplevel = zot.everything(zot.top())
 ```
 
 ```python
-# Update multiple items in your library
-zot.update_items(items)
+# Use generator for pagination
+zot.iterfollow()
 ```
 
-Parameters:
-- `items`: a list of dicts containing Item data. Fields not in item will be left unmodified.
+Returns a generator over the `follow()` method.
 
-Will return True if successful, or raise an error. The API accepts 50 items per call, so longer updates are chunked.
+Example:
+```python
+z = zot.top(limit=5)
+lazy = zot.iterfollow()
+lazy.next()  # the next() call returns the next five items
+```
 
 ```python
-# Check item validity
-zot.check_items(items)
+# Create generator from API call
+zot.makeiter(API_call)
 ```
 
 Parameters:
-- `items`: one or more dicts containing item data
+- `API_call`: a Pyzotero Read API method capable of returning multiple items
 
-Check whether items to be created contain only valid keys. This method creates a set of valid keys by calling `item_fields()`, then compares the user-created dicts to it. If any keys are unknown, an `InvalidItemFields` exception is raised.
+Returns a generator over a Read API method.
 
-## Deleting Items
-
+Example:
 ```python
-# Delete items from your library
-zot.delete_item(item[, last_modified])
+gen = zot.makeiter(zot.top(limit=5))
+gen.next()  # returns the first five items
+gen.next()  # returns the next five items
 ```
 
-Parameters:
-- `item`: a list of one or more dicts containing item data. You must first retrieve the item(s) you wish to delete, as version data is required.
-- `last_modified`: If not None, will set the value of the If-Unmodified-Since-Version header. 
+**Warning**: The `follow()`, `everything()` and `makeiter()` methods are only valid for methods which can return multiple library items. 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
