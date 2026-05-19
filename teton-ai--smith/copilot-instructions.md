@@ -1,0 +1,42 @@
+## smith
+
+> Monorepo for an open-source fleet management system:
+
+# Project Rules
+
+## Summary
+Monorepo for an open-source fleet management system:
+- **smithd**: Rust daemon, runs on devices (critical, handle with extra care).
+- **updater**: Rust daemon, updates `smithd`.
+- **api**: Rust service, communication layer for `smithd`.
+- **dashboard**: React (Next.js for routing only), fully client-side UI.
+- **cli**: Rust tool for users, less critical than `smithd`.
+
+## General Guidelines
+- Prioritize correctness and clarity. Efficiency comes second unless specified.
+- Add code to existing files when possible; avoid scattering logic across many small files.
+- Write comments only to explain *why*, not *what*.
+- Do not add speculative features or “creative” additions unless explicitly requested.
+
+## Database
+- The `schema.sql` file is the source of truth for the current database schema, not the migrations folder.
+
+## Rust (smithd, updater, api, cli)
+- Do not use panicking calls (`unwrap`, `expect`, unchecked indexing).
+- Use `?` to propagate errors.
+- Do not silently discard errors (`let _ =`). Instead:
+  - Propagate with `?`
+  - Log with `tracing::error!` or `.inspect_err(|e| tracing::error!(...))`
+  - Use `match` / `if let Err(...)` for custom handling
+- Don't forget `cargo fmt` when you are done
+
+## React (dashboard)
+- Next.js is for routing only.
+- Do not use server components.
+- Do not use API routes.
+- Do not use SSR.
+- All code must run client-side.
+
+---
+> Source: [Teton-ai/smith](https://github.com/Teton-ai/smith) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
