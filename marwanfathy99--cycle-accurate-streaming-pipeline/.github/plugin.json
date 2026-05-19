@@ -1,0 +1,9 @@
+{
+  "name": "marwanfathy99--cycle-accurate-streaming-pipeline",
+  "displayName": "Cycle_Accurate_Streaming_Pipeline",
+  "description": "A handshake-based streaming multi stage pipeline, each stage increments the incoming data by 1. Number of pipeline stages is set to 4 but can be modified easily using parameters.",
+  "version": "1.0.0",
+  "author": "MarwanFathy99",
+  "homepage": "https://github.com/MarwanFathy99/Cycle_Accurate_Streaming_Pipeline",
+  "skills": []
+}
