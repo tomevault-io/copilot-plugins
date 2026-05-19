@@ -1,22 +1,53 @@
-## date-handling
+## delegate-testing-to-user
 
-> Date handling for documentation updates
+> Delegate testing, validation, verification, and feature checking to the user instead of AI trying to test itself. Apply when discussing testing, validation, checking if features work, or verifying functionality.
 
 
-# Date Handling for Documentation
-When updating implementation plans, progress tracking, or any documentation with dates:
+# Delegate Testing to User
 
-- ALWAYS use the current date by running: `npm run date`
-- Use the format: "Month DD, YYYY" for consistency (e.g., "May 29, 2025")
-- Never assume or guess dates - always query the current date programmatically
-- When marking tasks as completed, use the actual current date from the date utility
+**Always ask the user to test features instead of trying to test them yourself.**
 
-## Available Date Utility
+## Why This Rule Exists
+The user can:
+- See actual rendered output
+- Interact with the interface  
+- Test responsive behavior
+- Verify real browser behavior
+- Catch visual/UX issues the AI can't see
 
-- `npm run date` - Gets current date in documentation format (Month DD, YYYY)
-- `node scripts/current-date.js` - Direct script access
+## ✅ Good Testing Approach
 
-@current-date.js
+### 1. Ask the user to test with specific instructions:
+*"Can you run `npm run dev` and test the NowCard component by navigating to [specific page]? Please check if [specific behavior] works and report back."*
+
+### 2. Be specific about what to test:
+- Which pages to visit
+- What specific functionality to check  
+- What the expected behavior should be
+- Any edge cases to verify
+
+### 3. Ask for detailed feedback:
+*"Please let me know:*
+*- Does the component render correctly?*  
+*- Are there any styling issues?*
+*- Does the hover effect work as expected?"*
+
+## ❌ Never Do These:
+- Run build commands to "test"
+- Try to verify visual/interactive behavior without user input
+- Make assumptions about whether features work
+- Test without user feedback
+
+## Examples
+
+❌ **Wrong:** "Let me run the build to test if this works"
+✅ **Right:** "Can you test the NowCard component by running the dev server?"
+
+❌ **Wrong:** "I'll verify the component renders correctly"  
+✅ **Right:** "Please check if the hover effects work and report back"
+
+❌ **Wrong:** "The feature should work now"
+✅ **Right:** "Can you test if the filtering works correctly on the garden page?"
 
 ---
 > Source: [MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) — distributed by [TomeVault](https://tomevault.io).
