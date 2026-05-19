@@ -1,52 +1,174 @@
-## node-candidate-mcp-server
+## typescript-mcp
 
-> MCP is a standard protocol to exchange contextual data between clients, servers, and LLMs. This rule provides an at-a-glance reference for key concepts, spec versions, tooling, and best practices.
+> MCP TypeScript SDK implements the full Model Context Protocol specification, allowing you to build MCP servers and clients using TypeScript.
 
- # Model Context Protocol (MCP)
+ # MCP TypeScript SDK
 
-MCP is a standard protocol to exchange contextual data between clients, servers, and LLMs. This rule provides an at-a-glance reference for key concepts, spec versions, tooling, and best practices.
+MCP TypeScript SDK implements the full Model Context Protocol specification, allowing you to build MCP servers and clients using TypeScript.
+
+## Installation
+
+```bash
+npm install @modelcontextprotocol/sdk --save
+# or
+yarn add @modelcontextprotocol/sdk
+```
+
+## Quickstart: Create an MCP Server
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "DemoServer", version: "1.0.0" });
+
+// Define a simple addition tool
+type AddParams = { a: number; b: number };
+server.tool(
+  "add",
+  { a: z.number(), b: z.number() },
+  async ({ a, b }: AddParams) => ({ content: [{ type: "text", text: `${a + b}` }] })
+);
+
+// Start listening on stdin/stdout transport
+await server.connect(new StdioServerTransport());
+```
 
 ## Core Concepts
 
-- **Lifecycle**: Define session start/end, request and response phases.
-- **Messages**: JSON-encoded context, prompts, and completions.
-- **Transports**: HTTP, WebSocket, gRPC—pluggable transports for message delivery.
-- **Cancellation**: Send cancellation messages to abort in-progress requests.
-- **Ping (Heartbeat)**: Keep connections alive; detect timeouts.
-- **Progress**: Stream partial results and progress updates.
-- **Roots**: External content references (e.g. code, docs) managed by ID.
-- **Sampling**: Control streaming vs. non-streaming completions; fine-tune sampling parameters.
-- **Tools**: Plugin external actions and APIs into LLM workflows.
+- **McpServer**: entry point for protocol compliance, message routing, and lifecycle management.
+- **Resources**: read-only data endpoints via `server.resource(name, template, handler)` and `ResourceTemplate`.
+- **Tools**: action endpoints via `server.tool(name, schema, executor)`.
+- **Prompts**: reusable message templates via `server.prompt(name, schema, builder)`.
+- **Transports**: connect servers/clients over stdio, HTTP, SSE, or Streamable HTTP (`StdioServerTransport`, `StreamableHttpServerTransport`, etc.).
 
-## Specification Versions
+## Preferred Transport: Streamable HTTP
 
-- **Basic 2024-11-05**: Overview, lifecycle, messages, transports, utilities (cancellation, ping, progress).
-- **Server/Client 2024-11-05**: Prompts, resources, roots, sampling, tools, logging, pagination.
-- **Extended 2025-03-26**: Authorization, architecture refinements, changelog.
-- **Drafts**: Early designs; consult changelog for breaking changes.
+Streamable HTTP is the recommended transport for production environments, offering full-duplex streaming, session management, and backward compatibility over older SSE-based transports.
 
-## SDKs & Examples
+### Streamable HTTP Server Example
 
-- **TypeScript SDK**: https://github.com/modelcontextprotocol/typescript-sdk
-- **Python SDK**: https://github.com/modelcontextprotocol/python-sdk
-- **Java/Kotlin/C# SDKs**: Refer to https://modelcontextprotocol.io
-- **Example Clients & Servers**: https://modelcontextprotocol.io/examples.md
+```typescript
+import express from "express";
+import { randomUUID } from "crypto";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
+
+const app = express();
+app.use(express.json());
+
+const server = new McpServer({ name: "StreamableExample", version: "1.0.0" });
+const transports: Record<string, StreamableHTTPServerTransport> = {};
+
+app.post('/mcp', async (req, res) => {
+  const sid = req.headers['mcp-session-id'] as string | undefined;
+  let transport: StreamableHTTPServerTransport;
+
+  if (sid && transports[sid]) {
+    transport = transports[sid];
+  } else if (!sid && isInitializeRequest(req.body)) {
+    transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: () => randomUUID(),
+      onsessioninitialized: (sessionId) => (transports[sessionId] = transport)
+    });
+    transport.onclose = () => delete transports[transport.sessionId!];
+  } else {
+    res.status(400).send("Invalid request");
+    return;
+  }
+
+  await server.connect(transport);
+  transport.handleRequest(req, res);
+});
+
+const PORT = process.env.PORT ?? 3000;
+app.listen(PORT, () => console.log(`MCP Streamable HTTP server listening on ${PORT}`));
+```
+
+## Examples
+
+## Examples
+
+### Echo Server
+
+```typescript
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "Echo", version: "1.0.0" });
+
+server.resource(
+  "echo",
+  new ResourceTemplate("echo://{message}", { list: undefined }),
+  async (uri, { message }) => ({ contents: [{ uri: uri.href, text: `Resource echo: ${message}` }] })
+);
+
+server.tool(
+  "echo",
+  { message: z.string() },
+  async ({ message }) => ({ content: [{ type: "text", text: `Tool echo: ${message}` }] })
+);
+
+server.prompt(
+  "echo",
+  { message: z.string() },
+  ({ message }) => ({ messages: [{ role: "user", content: { type: "text", text: `Please process: ${message}` } }] })
+);
+```
+
+### SQLite Explorer
+
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import sqlite3 from "sqlite3";
+import { promisify } from "util";
+import { z } from "zod";
+
+const server = new McpServer({ name: "SQLiteExplorer", version: "1.0.0" });
+const db = new sqlite3.Database("data.db");
+const allAsync = promisify(db.all.bind(db));
+
+server.resource(
+  "tables",
+  "sqlite://tables",
+  async () => {
+    const rows = await allAsync(`SELECT name FROM sqlite_master WHERE type='table'`);
+    return { contents: rows.map(r => ({ uri: `sqlite://table/${r.name}`, text: r.name })) };
+  }
+);
+```
+
+## Quickstart: Create an MCP Client
+
+```typescript
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+
+const client = new Client({ name: "DemoClient", version: "1.0.0" });
+await client.connect(new StdioClientTransport());
+
+// List available tools and call one
+const tools = await client.listTools();
+const result = await client.callTool({ toolName: tools[0].name, args: { message: "Hi" } });
+console.log(result);
+```
+
+## Testing & Debugging
+
+- Use the [MCP Inspector](mdc:https:/github.com/modelcontextprotocol/inspector) for interactive protocol testing.
+- Add logging or use `server.on('message', ...)` and `client.on('message', ...)` for low-level tracing.
 
 ## Best Practices
 
-- Always annotate messages with spec version and timestamp.
-- Use **roots** to manage large contexts; avoid embedding bulky data inline.
-- Gracefully handle **cancellation** and **errors**; propagate clear error codes.
-- Emit **progress** events for long-running streams to improve UX.
-- Maintain a **ping** schedule to detect and recover dropped connections.
-- Leverage **tools** to encapsulate external API calls and side effects.
-- Follow spec utilities: **logging**, **pagination**, and **completion** conventions.
-- Review the official spec and changelog regularly to stay up to date.
+- Always specify `name` and `version` in server/client metadata.
+- Validate inputs with **zod** schemas for safety.
+- Emit **progress** or **cancellation** updates for long-running tasks.
+- Choose appropriate transport: stdio for CLI, Streamable HTTP for web services.
+- Keep resource handlers idempotent and side-effect-free.
+- Review official docs: https://modelcontextprotocol.io/sdk/typescript
 
 ---
-_For full details, consult the online documentation at https://modelcontextprotocol.io_
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/jhgaylor)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/jhgaylor)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [jhgaylor/node-candidate-mcp-server](https://github.com/jhgaylor/node-candidate-mcp-server) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
