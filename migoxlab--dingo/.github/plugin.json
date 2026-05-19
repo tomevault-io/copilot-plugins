@@ -1,9 +1,9 @@
 {
   "name": "migoxlab--dingo",
   "displayName": "dingo",
-  "description": "dingo",
+  "description": "Dingo: A Comprehensive AI Data, Model and Application Quality Evaluation Tool",
   "version": "1.0.0",
   "author": "MigoXLab",
-  "homepage": "https://tomevault.io/claim/MigoXLab",
+  "homepage": "https://github.com/MigoXLab/dingo",
   "skills": []
 }
