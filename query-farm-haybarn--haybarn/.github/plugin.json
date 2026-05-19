@@ -1,0 +1,9 @@
+{
+  "name": "query-farm-haybarn--haybarn",
+  "displayName": "haybarn",
+  "description": "Haybarn \u2014 an independent derived distribution of DuckDB by Query Farm",
+  "version": "1.0.0",
+  "author": "Query-farm-haybarn",
+  "homepage": "https://github.com/Query-farm-haybarn/haybarn",
+  "skills": []
+}
