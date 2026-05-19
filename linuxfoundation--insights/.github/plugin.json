@@ -1,0 +1,9 @@
+{
+  "name": "linuxfoundation--insights",
+  "displayName": "insights",
+  "description": "Insights into the world's most critical open source software.",
+  "version": "1.0.0",
+  "author": "linuxfoundation",
+  "homepage": "https://github.com/linuxfoundation/insights",
+  "skills": []
+}
