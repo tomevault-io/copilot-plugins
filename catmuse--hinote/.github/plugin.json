@@ -1,0 +1,9 @@
+{
+  "name": "catmuse--hinote",
+  "displayName": "HiNote",
+  "description": "Add comments to highlighted notes, use AI for thinking, and flashcards for memory.",
+  "version": "1.0.0",
+  "author": "CatMuse",
+  "homepage": "https://github.com/CatMuse/HiNote",
+  "skills": []
+}
