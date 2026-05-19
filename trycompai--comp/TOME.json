@@ -4,7 +4,7 @@
   "repo": "comp",
   "description": "AI Native platform to get companies compliant - Vanta & Drata Alternative",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trycompai/comp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:15:04Z"
+  "distributed_at": "2026-05-19T00:10:19Z"
 }
