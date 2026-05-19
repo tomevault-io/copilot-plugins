@@ -4,7 +4,7 @@
   "repo": "harvous",
   "description": "Making the home for your Bible study.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harvouscom/harvous",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T16:47:24Z"
+  "distributed_at": "2026-05-19T17:01:20Z"
 }
