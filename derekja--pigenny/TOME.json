@@ -4,7 +4,7 @@
   "repo": "pigenny",
   "description": "generator control from the luxpower, all on the pi4b with waveshare and relay expansions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/derekja/pigenny",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:10:44Z"
+  "distributed_at": "2026-05-19T02:18:41Z"
 }
