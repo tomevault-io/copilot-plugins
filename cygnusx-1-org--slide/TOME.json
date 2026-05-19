@@ -4,7 +4,7 @@
   "repo": "Slide",
   "description": "Slide is an open-source, ad-free Reddit browser for Android.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cygnusx-1-org/Slide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T07:21:12Z"
+  "distributed_at": "2026-05-19T07:21:56Z"
 }
