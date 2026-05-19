@@ -1,268 +1,146 @@
-## cursor-usage
+## data
 
-> How to write and manage Cursor rules - invoke with @cursor-usage
+> Use when implementing data fetching, API calls, server/client components, or SWR hooks
 
 
-# Using Cursor Rules
+# Data Fetching
 
-## Overview
+## Core Pattern: Server → Client → SWR
 
-Cursor rules provide system-level instructions to the AI to maintain code consistency, quality, and adherence to project standards. They are stored in the `.cursor/rules/` directory as `.mdc` (Markdown with frontmatter) files.
-
-## Rule File Structure
-
-Each `.mdc` rule file consists of two parts:
-
-### 1. Frontmatter (YAML metadata)
-
-```yaml
----
-description: Brief overview of what this rule enforces
-globs: **/*.{ts,tsx}
-alwaysApply: true
----
-```
-
-**Frontmatter Fields:**
-
-- `description`: A clear, concise explanation of the rule's purpose
-- `globs`: Glob pattern to match files where this rule should apply (plain string, no quotes or arrays)
-  - Examples:
-    - `**/*.tsx` - All TSX files
-    - `**/*.{ts,tsx}` - All TS and TSX files
-    - `apps/*/components/**/*.tsx` - All TSX files in any app's components directory
-    - `**/trigger/**/*.ts` - All TS files in trigger directories
-- `alwaysApply`: Boolean indicating if the rule should always be active
-  - `true`: Rule is always active when working on matching files
-  - `false`: Rule can be selectively invoked with `@rule-name`
-
-### 2. Content (Markdown)
-
-The body of the rule file contains the actual guidelines, examples, and instructions written in Markdown format.
-
-## How Rules Are Applied
-
-### Automatic Application
-
-Rules with `alwaysApply: true` are automatically loaded when:
-
-- You open a file matching the `globs` pattern
-- You're working on code that matches the pattern
-- Cursor AI generates or suggests code for matching files
-
-### Manual Invocation
-
-You can reference specific rules in your prompts:
-
-```
-@design-system create a new button component
-```
-
-This explicitly tells Cursor to apply the design-system rule.
-
-## Best Practices for Writing Rules
-
-### 1. Keep Rules Focused
-
-- Each rule file should cover a specific domain (e.g., design system, API patterns, testing)
-- Avoid mixing unrelated concerns in a single rule file
-- Aim for rules under 500 lines for better AI comprehension
-
-### 2. Provide Concrete Examples
-
-Always include:
-
-- ✅ Good examples (what TO do)
-- ❌ Bad examples (what NOT to do)
-- Real code snippets from your project
+### 1. Server Page Fetches Data
 
 ```tsx
-// ✅ Good: Use semantic tokens
-<div className="bg-background text-foreground">Content</div>
-
-// ❌ Bad: Hardcoded colors
-<div className="bg-white text-black">Content</div>
+// app/(app)/[orgId]/tasks/page.tsx
+export default async function TasksPage({ params }: { params: Promise<{ orgId: string }> }) {
+  const { orgId } = await params; // From URL, NOT session
+  const tasks = await getTasks(orgId);
+  return <TaskListClient organizationId={orgId} initialTasks={tasks} />;
+}
 ```
 
-### 3. Use Clear Section Headers
+### 2. Client Component Receives Initial Data
 
-Organize content with descriptive headers:
+```tsx
+// components/TaskListClient.tsx
+'use client';
 
-```markdown
-## Core Principles
+export function TaskListClient({ organizationId, initialTasks }: Props) {
+  const { tasks, createTask, updateTask } = useTasks({
+    organizationId,
+    initialData: initialTasks,
+  });
+  // Initial render is instant - no loading state
+}
+```
+
+### 3. SWR Hook with fallbackData
+
+```tsx
+// hooks/useTasks.ts
+export function useTasks({ organizationId, initialData }: UseTasksOptions) {
+  const { data, mutate } = useSWR(
+    ['/v1/tasks', organizationId], // Include orgId for cache isolation
+    async ([endpoint, orgId]) => {
+      const response = await apiClient.get(endpoint, orgId);
+      return response.data?.tasks ?? [];
+    },
+    { fallbackData: initialData }
+  );
+
+  const createTask = async (input: CreateTaskInput) => {
+    await apiClient.post('/v1/tasks', input, organizationId);
+    mutate(); // Revalidate
+  };
+
+  const updateTask = async ({ taskId, input }: { taskId: string; input: UpdateTaskInput }) => {
+    await apiClient.put(`/v1/tasks/${taskId}`, input, organizationId);
+    mutate(); // Revalidate
+  };
+
+  return { tasks: data ?? [], createTask, updateTask, mutate };
+}
+```
+
+## API Client
+
+Use `apiClient` from `@/lib/api-client`:
+
+```tsx
+import { apiClient } from '@/lib/api-client';
+
+await apiClient.get<ResponseType>('/v1/endpoint', organizationId);
+await apiClient.post<ResponseType>('/v1/endpoint', body, organizationId);
+await apiClient.put<ResponseType>('/v1/endpoint', body, organizationId);
+await apiClient.delete('/v1/endpoint', organizationId);
+```
+
+## Server vs Client Components
+
+**Layouts = server.** Interactive logic in separate client components.
+
+```tsx
+// layout.tsx (server)
+export default function Layout({ children }) {
+  return (
+    <PageLayout>
+      <PageHeader title="Title" />
+      <ClientTabs /> {/* Client component */}
+      {children}
+    </PageLayout>
+  );
+}
+
+// components/ClientTabs.tsx
+'use client';
+export function ClientTabs() {
+  const router = useRouter();
+  // Interactive logic here
+}
+```
+
+## State Management
+
+**No `nuqs`** - use React state or Next.js patterns:
+
+```tsx
+// ✅ React state for UI
+const [isOpen, setIsOpen] = useState(false);
+
+// ✅ Next.js for URL state
+const router = useRouter();
+const searchParams = useSearchParams();
+
+// ❌ No nuqs
+import { useQueryState } from 'nuqs';
+```
 
 ## Rules
 
-## Examples
+```tsx
+// ✅ Always
+const { orgId } = await params;                    // From URL params
+const { data } = useSWR(key, f, { fallbackData }); // With initial data
+await apiClient.get('/v1/endpoint', orgId);        // Use apiClient
+useSWR(['/v1/tasks', orgId], fetcher);            // Include orgId in key
 
-## Exceptions
-
-## Common Mistakes
+// ❌ Never
+const orgId = session?.activeOrganizationId;       // From session
+const { data } = useSWR('/api/data');              // No initial data
+await fetch('/api/endpoint');                      // Direct fetch
 ```
 
-### 4. Define Exceptions Explicitly
-
-If there are cases where rules don't apply, state them clearly:
-
-```markdown
-## Exceptions
-
-The ONLY time you can pass className to a design system component is for:
-
-1. Width utilities: `w-full`, `max-w-md`
-2. Responsive display: `hidden`, `md:block`
-```
-
-### 5. Include Checklists
-
-Provide actionable checklists for validation:
-
-```markdown
-## Code Review Checklist
-
-Before committing:
-
-- [ ] Uses semantic color tokens
-- [ ] Works in both light and dark mode
-- [ ] Fully responsive
-```
-
-## Managing Rules
-
-### Creating a New Rule
-
-1. Create a new `.mdc` file in `.cursor/rules/`
-2. Add appropriate frontmatter
-3. Write clear guidelines with examples
-4. Test by working on matching files
-
-### Updating Existing Rules
-
-1. Edit the `.mdc` file
-2. Rules are automatically reloaded
-3. Test changes with relevant files
-
-### Organizing Rules
-
-Recommended structure:
+## File Structure
 
 ```
-.cursor/rules/
-├── design-system.mdc       # Component usage, variants, composition
-├── code-standards.mdc      # General code quality rules
-├── typescript-rules.mdc    # TypeScript type safety
-├── react-code.mdc          # React patterns and conventions
-├── data-fetching.mdc       # Server/client data patterns
-└── cursor-usage.mdc        # This file - how to use rules
+app/(app)/[orgId]/tasks/
+├── page.tsx                 # Server - fetches data
+├── components/
+│   └── TaskListClient.tsx   # Client - receives initialData
+├── hooks/
+│   └── useTasks.ts          # SWR hook with mutations
+└── data/
+    └── queries.ts           # Server-side queries
 ```
-
-## Rule Scope with Globs
-
-### Common Glob Patterns
-
-```yaml
-# All TypeScript/TSX files
-globs: **/*.{ts,tsx}
-
-# Only TSX files (React components)
-globs: **/*.tsx
-
-# Only trigger task files
-globs: **/trigger/**/*.ts
-
-# Prisma schema files
-globs: **/*.prisma
-
-# All JSON and TypeScript files
-globs: **/*.{ts,tsx,json}
-```
-
-### Glob Pattern Tips
-
-- Use `**` for recursive directory matching
-- Use `*` for single-level wildcard
-- Use `{ts,tsx}` for multiple extensions
-- No quotes or array brackets needed
-- Be specific to avoid over-applying rules
-
-## Debugging Rules
-
-### Rule Not Applying?
-
-1. Check the `globs` pattern matches your file
-2. Verify frontmatter YAML syntax is correct
-3. Ensure `alwaysApply` is set appropriately
-4. Try manually invoking with `@ruleName`
-
-### Rule Conflicting?
-
-1. Check if multiple rules apply to the same files
-2. Make rules more specific with tighter `globs`
-3. Consolidate related rules into one file
-
-## Advanced Features
-
-### Conditional Rules
-
-Use `alwaysApply: false` for rules that should only apply in specific contexts:
-
-```yaml
----
-description: Performance optimization guidelines
-globs: **/*.ts
-alwaysApply: false
----
-```
-
-Invoke with: `@performance-optimization refactor this component`
-
-### Hierarchical Rules
-
-More specific globs take precedence:
-
-- `design-system.mdc` with `globs: **/*.tsx` (broad)
-- `trigger.basic.mdc` with `globs: **/trigger/**/*.ts` (specific)
-
-The specific rule will have more weight for trigger files.
-
-## Quick Reference
-
-### Create a New Rule
-
-```bash
-touch .cursor/rules/my-new-rule.mdc
-```
-
-```yaml
----
-description: What this rule enforces
-globs: **/*.{ts,tsx}
-alwaysApply: true
----
-
-# Rule Title
-
-## Guidelines
-
-- Point 1
-- Point 2
-```
-
-### Apply a Rule
-
-- Automatic: Save a file matching the `globs` pattern
-- Manual: Use `@my-new-rule` in your prompt
-
-### Debug a Rule
-
-1. Check file matches `globs` pattern
-2. Verify YAML frontmatter syntax
-3. Look for conflicting rules
-4. Try manual invocation
-
----
-
-**Remember**: Rules are here to help, not hinder. If a rule doesn't make sense for a specific case, discuss with the team and update the rule accordingly.
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
