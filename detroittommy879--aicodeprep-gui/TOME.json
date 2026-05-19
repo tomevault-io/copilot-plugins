@@ -4,7 +4,7 @@
   "repo": "aicodeprep-gui",
   "description": "Surgical context engineering with a nice UI, Windows, Mac, Linux, BSD, anywhere where python & Qt run",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/detroittommy879/aicodeprep-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T01:13:45Z"
+  "distributed_at": "2026-05-19T03:38:10Z"
 }
