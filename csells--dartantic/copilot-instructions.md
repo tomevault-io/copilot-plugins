@@ -1,0 +1,316 @@
+## dartantic
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Dartantic is an agentic AI framework for Dart that provides easy integration with multiple AI providers (OpenAI, OpenAI Responses API, Google, Anthropic, Mistral, Cohere, Ollama, OpenRouter, xAI / Grok via OpenAI-compatible chat completions, xAI Responses / Grok via the Responses API). The optional `packages/dartantic_firebase_ai/` package adds Gemini through Firebase AI Logic for Flutter. It features streaming output, typed responses, tool calling, embeddings, and MCP (Model Context Protocol) support.
+
+The project is organized as a monorepo with multiple packages:
+- `packages/dartantic_interface/` - Core interfaces and types shared across all Dartantic packages
+- `packages/dartantic_ai/` - Main implementation with provider integrations (primary development focus)
+- `packages/dartantic_firebase_ai/` - Flutter-only Firebase AI Logic provider (`firebase-google` / `firebase-vertex` on `Agent.providerFactories`)
+- `packages/dartantic_chat/` - Flutter chat UI widgets for AI applications (fork of flutter/ai toolkit)
+- `samples/dartantic_cli/` - Command-line interface for the Dartantic framework
+- `samples/chatarang/` - Interactive command-line chat application with tool support
+
+## Documentation
+
+- **External Docs**: Full documentation at [docs.dartantic.ai](https://docs.dartantic.ai)
+- **Wiki Documentation**: The `wiki/` folder contains comprehensive architecture documentation. See `wiki/Home.md` for the complete index of design documents, specifications, and implementation guides.
+- **Design documents should NOT include code implementations** - Specifications in the `wiki/` folder should describe algorithms, data flow, and architecture without including actual code, as code in documentation immediately goes stale. Implementation details belong in the code itself, not in design docs.
+
+## Development Commands
+
+### Building and Testing
+```bash
+# Run all tests in the dartantic_ai package
+cd packages/dartantic_ai && dart test
+
+# Run a specific test file
+cd packages/dartantic_ai && dart test test/specific_test.dart
+
+# Run tests matching a name pattern
+cd packages/dartantic_ai && dart test -n "pattern"
+
+# Run a single test by name
+cd packages/dartantic_ai && dart test -n "test name"
+
+# Analyze code for issues
+cd packages/dartantic_ai && dart analyze
+
+# Format code
+cd packages/dartantic_ai && dart format .
+
+# Check formatting without making changes
+cd packages/dartantic_ai && dart format --set-exit-if-changed .
+```
+
+### Running Examples
+```bash
+# Run example files (from dartantic_ai package)
+cd packages/dartantic_ai && dart run example/bin/single_turn_chat.dart
+cd packages/dartantic_ai && dart run example/bin/typed_output.dart
+cd packages/dartantic_ai && dart run example/bin/tool_calling.dart
+
+# Run dartantic_chat Flutter examples (requires API key)
+cd packages/dartantic_chat/example && flutter run --dart-define=GEMINI_API_KEY=$GEMINI_API_KEY
+```
+
+### Debugging
+```bash
+# Enable detailed logging via environment variable
+DARTANTIC_LOG_LEVEL=FINE dart run example/bin/single_turn_chat.dart
+
+# Log levels: SEVERE, WARNING, INFO, FINE (most verbose)
+DARTANTIC_LOG_LEVEL=INFO dart test test/specific_test.dart
+```
+
+### Package Management
+```bash
+# Get dependencies
+cd packages/dartantic_ai && dart pub get
+
+# Upgrade dependencies
+cd packages/dartantic_ai && dart pub upgrade
+```
+
+### Dartantic CLI Development
+```bash
+# Run the CLI (from samples/dartantic_cli directory)
+cd samples/dartantic_cli && dart run bin/dartantic.dart -p "Hello"
+
+# Run CLI tests
+cd samples/dartantic_cli && dart test
+
+# Run a single CLI test
+cd samples/dartantic_cli && dart test test/cli_test.dart
+
+# Run all CLI example scripts
+cd samples/dartantic_cli && bash example/run_all.sh
+
+# Run a single example
+cd samples/dartantic_cli && bash example/basic/simple_chat.sh
+```
+
+## Architecture
+
+### Six-Layer Architecture
+
+Dartantic uses a six-layer architecture with clear separation of concerns:
+
+1. **API Layer** (`lib/src/agent/agent.dart`)
+   - Thin coordination layer - main user-facing interface
+   - Model string parsing and provider selection
+   - Conversation state management
+   - Public API contracts
+
+2. **Orchestration Layer** (`lib/src/agent/orchestrators/`)
+   - Complex workflow management (streaming, tool execution, typed output)
+   - `DefaultStreamingOrchestrator` - Standard chat workflows
+   - `TypedOutputStreamingOrchestrator` - Structured JSON output
+   - `StreamingState` - Encapsulated mutable state per request
+   - `ToolExecutor` - Centralized tool execution with error handling
+
+3. **Provider Abstraction Layer** (`packages/dartantic_interface/`)
+   - Clean contracts independent of implementation
+   - Provider interface with capability declarations
+   - ChatModel and EmbeddingsModel interfaces
+   - Core types re-exported from `genai_primitives` (ChatMessage, Part types, ToolDefinition)
+   - Schema construction via `json_schema_builder` (use `S.*` builder methods)
+
+4. **Provider Implementation Layer** (`lib/src/providers/`, `lib/src/chat_models/`, `lib/src/embeddings_models/`)
+   - Provider-specific implementations isolated
+   - Message mappers convert between Dartantic and provider formats
+   - Protocol handlers for each provider's API
+   - Each provider follows consistent structure:
+     - Provider class (`providers/*_provider.dart`) - Factory for models
+     - Chat model (`chat_models/*/`) - API communication and streaming
+     - Message mappers (`chat_models/*/_message_mappers.dart`) - Format conversion
+     - Options classes - Provider-specific configuration
+
+5. **Infrastructure Layer** (`lib/src/shared/`)
+   - Cross-cutting concerns (logging, HTTP retry, exceptions)
+   - `RetryHttpClient` - Automatic retry with exponential backoff
+   - `LoggingOptions` - Hierarchical logging configuration
+   - Exception hierarchy
+
+6. **Protocol Layer**
+   - HTTP clients and direct API communication
+   - Network-level operations
+
+### Key Architectural Principles
+
+- **Streaming-First Design**: All operations built on streaming foundation; process entire model stream before making decisions
+- **Exception Transparency**: Never suppress exceptions; let errors bubble up with full context
+- **Resource Management**: Direct model creation through providers; guaranteed cleanup via try/finally; simple disposal
+- **State Isolation**: Each request gets its own `StreamingState` instance; no state leaks between requests
+- **Provider Agnostic**: Same orchestrators work across all providers; provider quirks isolated in implementation layer
+
+### Architecture Best Practices
+
+- **TDD (Test-Driven Development)** - write the tests first; the implementation code isn't done until the tests pass.
+- **DRY (Don't Repeat Yourself)** – eliminate duplicated logic by extracting shared utilities and modules.
+- **Separation of Concerns** – each module should handle one distinct responsibility.
+- **Single Responsibility Principle (SRP)** – every class/module/function/file should have exactly one reason to change.
+- **Clear Abstractions & Contracts** – expose intent through small, stable interfaces and hide implementation details.
+- **Low Coupling, High Cohesion** – keep modules self-contained, minimize cross-dependencies.
+- **Scalability & Statelessness** – design components to scale horizontally and prefer stateless services when possible.
+- **Observability & Testability** – build in logging, metrics, tracing, and ensure components can be unit/integration tested.
+- **KISS (Keep It Simple, Sir)** - keep solutions as simple as possible.
+- **YAGNI (You're Not Gonna Need It)** – avoid speculative complexity or over-engineering.
+- **Don't Swallow Errors** by catching exceptions, silently filling in required but missing values or adding timeouts when something hangs unexpectedly. All of those are exceptions that should be thrown so that the errors can be seen, root causes can be found and fixes can be applied.
+- **No Placeholder Code** - we're building production code here, not toys.
+- **No Comments for Removed Functionality** - the source is not the place to keep history of what's changed; it's the place to implement the current requirements only.
+- **Layered Architecture** - organize code into clear tiers where each layer depends only on the one(s) below it, keeping logic cleanly separated.
+- **Prefer Non-Nullable Variables** when possible; use nullability sparingly.
+- **Prefer Async Notifications** when possible over inefficient polling.
+- **Consider First Principles** to assess your current architecture against the one you'd use if you started over from scratch.
+- **Eliminate Race Conditions** that might cause dropped or corrupted data.
+- **Write for Maintainability** so that the code is clear and readable and easy to maintain by future developers.
+- **Arrange Project Idiomatically** for the language and framework being used, including recommended lints, static analysis tools, folder structure and gitignore entries.
+
+### Message Flow
+
+Dartantic maintains clean request/response semantics:
+```
+User: Initial prompt
+Model: Response with tool calls [toolCall1, toolCall2, toolCall3]
+User: Tool results [result1, result2, result3]  // Single consolidated message
+Model: Final synthesis response
+```
+
+Tool results are always consolidated into a single user message, never split across multiple messages. The orchestration layer handles accumulation during streaming and consolidation after execution.
+
+### Model String Format
+
+The Agent accepts flexible model string formats:
+- `"openai"` - Provider only (uses defaults)
+- `"openai:gpt-4o"` - Provider + chat model (legacy colon notation)
+- `"openai/gpt-4o"` - Provider + chat model (slash notation)
+- `"openai?chat=gpt-4o&embeddings=text-embedding-3-small"` - URI with query parameters
+
+Parsed via `ModelStringParser` in `lib/src/agent/model_string_parser.dart`.
+
+### Dartantic CLI Architecture
+
+The CLI (`samples/dartantic_cli/`) exposes Dartantic framework functionality via command line:
+
+- **Commands**: `chat` (default), `generate`, `embed`, `models`
+- **Entry Point**: `bin/dartantic.dart` → `DartanticCommandRunner` in `lib/src/runner.dart`
+- **Key Components**:
+  - `SettingsLoader` - Loads and validates `~/.dartantic/settings.yaml`
+  - `PromptProcessor` - Handles `@filename` attachments and `.prompt` dotprompt templates
+  - `Chunker` - Text chunking for embeddings
+  - `McpToolCollector` - MCP server tool integration
+
+**Agent Resolution**: CLI agent names can be:
+1. Built-in provider names (e.g., `google`, `anthropic`, `openai`)
+2. Custom agents defined in `~/.dartantic/settings.yaml`
+3. Model strings (e.g., `openai:gpt-4o`, `anthropic/claude-sonnet-4-20250514`)
+
+See `wiki/CLI-Spec.md` for complete specification including exit codes, settings schema, and test scenarios.
+
+## Testing Strategy
+
+- **ALWAYS check for existing tests before creating new ones** - Search the test directory for related tests using grep/glob before creating new test files. Update existing tests rather than duplicating functionality.
+- Integration tests connect to actual providers when API keys are available (from environment variables or `~/global_env.sh`)
+- Mock tools and utilities in `test/test_tools.dart` and `test/test_utils.dart`
+- Focus on 80% cases; edge cases are documented but not exhaustively tested
+
+### Capability-Based Provider Filtering
+
+Tests use `requiredCaps` to filter providers by capability. This ensures tests only run against providers that support required features. The test infrastructure uses `ProviderTestCaps` (a test-only enum in `test/test_helpers/run_provider_test.dart`) to describe what capabilities each provider's default model supports:
+
+```dart
+// In test files, use runProviderTest with requiredCaps:
+runProviderTest(
+  'test description',
+  (provider) async { /* test code */ },
+  requiredCaps: {ProviderTestCaps.multiToolCalls},
+);
+```
+
+See `ProviderTestCaps` in `test/test_helpers/run_provider_test.dart` for test capabilities. For runtime capability discovery, use `Provider.listModels()`.
+
+## Configuration
+
+- **Linting**: Uses `all_lint_rules_community` with custom overrides in `analysis_options.yaml`
+  - Single quotes for strings
+  - 80-character line width
+  - `public_member_api_docs: true` for public APIs
+  - `unnecessary_final: false` (finals are encouraged)
+- **API Keys**: Sourced from environment variables or `~/global_env.sh` file
+  - Pattern: `{PROVIDER}_API_KEY` (e.g., `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`)
+  - See `wiki/Agent-Config-Spec.md` for complete resolution logic
+
+## Working with Providers
+
+### Adding New Providers
+
+1. Create provider class in `lib/src/providers/` extending `Provider`
+2. Implement `createChatModel()` and optionally `createEmbeddingsModel()`
+3. Create chat model in `lib/src/chat_models/<provider>_chat/`
+4. Implement message mappers in `<provider>_message_mappers.dart`
+5. Register provider factory in `Agent.providerFactories` in `lib/src/agent/agent.dart`
+6. Add provider's test capabilities to `providerTestCaps` map in `test/test_helpers/run_provider_test.dart`
+7. Create tests following existing patterns in `test/`
+
+### Provider Structure
+
+Each provider implementation includes:
+- Provider factory class
+- Chat model with streaming support
+- Message mappers for bidirectional conversion
+- Options class for provider-specific configuration
+- Response model classes (if needed)
+
+See `wiki/Provider-Implementation-Guide.md` for detailed guide.
+
+### Thinking (Extended Reasoning)
+
+Thinking support is unified across providers via `ThinkingPart`. Enable with `enableThinking: true` on the Agent.
+
+**How it works:**
+- Thinking text is stored in `ThinkingPart` within the model message
+- During streaming, `ThinkingPart`s are emitted for real-time display, then consolidated into a single part
+- Provider-specific signatures for multi-turn tool calling are stored in message metadata:
+  - **Anthropic**: `_anthropic_thinking_signature` - signature string for ThinkingBlock continuity
+  - **Google**: `_google_thought_signatures` - byte signatures keyed by tool call ID (stored as `List<int>`)
+
+These signatures are automatically preserved in conversation history and sent back to the provider when tool results are returned. This allows the model to maintain reasoning context across tool call boundaries.
+
+**Consolidation invariants (enforced by tests):**
+- ThinkingPart consolidation works exactly like TextPart consolidation via `MessageAccumulator`
+- The final consolidated message has at most ONE ThinkingPart (all thinking joined)
+- The final consolidated message has at most ONE TextPart (all text joined)
+- TextPart comes before ThinkingPart in the consolidated message parts list
+- Streaming-only ThinkingPart messages (for display) are filtered by `AgentResponseAccumulator`
+
+See `wiki/Thinking.md` for full architecture documentation.
+
+## Important Implementation Notes
+
+- **No Try-Catch in Examples**: Example apps are happy-path only; exceptions should propagate to expose issues
+- **No Try-Catch in Tests**: Tests should fail on exceptions, not swallow them
+- **No Try-Catch in Implementation**: Only catch exceptions to add context before re-throwing, never to suppress errors
+- **Scratch Files**: Use `tmp/` folder at project root for temporary/test files
+- **Silent Tests**: Successful tests produce no output; failures reported via `expect()`. Remove diagnostic `print()` statements before committing.
+- **Accumulator Filtering Rule**: The `AgentResponseAccumulator` filters ONLY streaming-only ThinkingPart messages (messages where ALL parts are ThinkingPart). These are emitted during streaming for real-time display but are duplicated in the consolidated model message. The consolidated message (ThinkingPart + TextPart/ToolPart, with signature metadata) MUST be preserved because provider mappers (e.g., Anthropic) need it for multi-turn tool calling. Empty model messages (no parts) must also pass through.
+
+## Dartantic Chat
+
+The `packages/dartantic_chat/` package provides Flutter chat UI widgets:
+- Widget architecture: `AgentChatView`, `ChatHistoryProvider`, `DartanticProvider`
+- Input state machine and action button patterns
+- Testing patterns: EchoProvider timing, finding action buttons by tooltip
+- Example apps in `packages/dartantic_chat/example/lib/`
+- See `wiki/Chat-Architecture.md` for architecture documentation
+
+---
+> Source: [csells/dartantic](https://github.com/csells/dartantic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
