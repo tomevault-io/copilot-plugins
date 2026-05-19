@@ -1,0 +1,9 @@
+{
+  "name": "microbiomedata--nmdc-bermap",
+  "displayName": "nmdc-bermap",
+  "description": "A \"map\" of BER BRCs and SFAs",
+  "version": "1.0.0",
+  "author": "microbiomedata",
+  "homepage": "https://github.com/microbiomedata/nmdc-bermap",
+  "skills": []
+}
