@@ -1,0 +1,9 @@
+{
+  "name": "pow-software--bytesync",
+  "displayName": "ByteSync",
+  "description": "ByteSync is a free and open-source tool for file synchronization, backup, and deduplication. It works locally or remotely, with no VPNs or firewall configuration required. Transfers only file differen",
+  "version": "1.0.0",
+  "author": "POW-Software",
+  "homepage": "https://github.com/POW-Software/ByteSync",
+  "skills": []
+}
