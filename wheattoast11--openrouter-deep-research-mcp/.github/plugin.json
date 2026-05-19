@@ -1,0 +1,9 @@
+{
+  "name": "wheattoast11--openrouter-deep-research-mcp",
+  "displayName": "openrouter-deep-research-mcp",
+  "description": "A multi-agent research MCP server + mini client adapter - orchestrates a net of async agents or streaming swarm to conduct ensemble consensus-backed research. Each task builds its own indexed pglite d",
+  "version": "1.0.0",
+  "author": "wheattoast11",
+  "homepage": "https://github.com/wheattoast11/openrouter-deep-research-mcp",
+  "skills": []
+}
