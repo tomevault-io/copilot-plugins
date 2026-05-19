@@ -1,96 +1,123 @@
-## ktransformers-amx
+## ktransformers-docker
 
-> 本规则详细介绍KTransformers 0.3版本中的高级矩阵扩展(AMX)优化功能。AMX是Intel为x86架构引入的专门指令扩展，从Sapphire Rapids(第四代至强可扩展处理器)开始支持，可显著加速大规模矩阵计算，尤其适合深度学习推理与机器学习工作负载。
+> KTransformers提供了官方Docker镜像，方便用户快速部署和测试。本规则详细介绍如何使用Docker容器运行KTransformers，避免复杂的环境配置过程。
 
-# KTransformers AMX 优化
+# KTransformers Docker使用指南
 
 ## 概述
 
-本规则详细介绍KTransformers 0.3版本中的高级矩阵扩展(AMX)优化功能。AMX是Intel为x86架构引入的专门指令扩展，从Sapphire Rapids(第四代至强可扩展处理器)开始支持，可显著加速大规模矩阵计算，尤其适合深度学习推理与机器学习工作负载。
+KTransformers提供了官方Docker镜像，方便用户快速部署和测试。本规则详细介绍如何使用Docker容器运行KTransformers，避免复杂的环境配置过程。
 
-## AMX指令集基础
+## 前提条件
 
-AMX引入了Tile寄存器的概念，每个CPU核心包含8个专用寄存器(tmm0-tmm7)，每个寄存器最多可存储16行×64字节的数据。主要指令包括：
+在使用KTransformers的Docker镜像前，请确保：
 
-- **配置指令**：LDTILECFG, STTILECFG, TILERELEASE, TILEZERO
-- **加载/存储指令**：TILELOADD, TILELOADDT1, TILESTORED
-- **INT8计算指令**：TDPBSSD, TDPBUSD, TDPBUUD, TDPBSUD
-- **BF16计算指令**：TDPBF16PS
+1. 您的系统已正确安装并运行Docker
+2. 创建一个专用文件夹用于存储大型模型和中间文件（例如 `/mnt/models`）
+3. 如需在Docker中使用GPU，请确保已安装[nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
 
-相比传统指令集，AMX可以在16个CPU周期内执行32,768个乘/加操作，使每个核心每周期完成2048个乘/加操作，是AVX-512的8倍性能。
+## Docker镜像获取
 
-## KTransformers中的AMX优化技术
+### 方式一：直接拉取官方镜像
 
-### 1. AMX Tiling感知内存布局
-
-为充分发挥AMX性能，KTransformers实现了专为AMX优化的内存布局：
-- 专家权重矩阵被预先重新排列为与AMX Tile寄存器尺寸匹配的子矩阵
-- 子矩阵起始地址对齐到64字节，避免缓存行分裂
-- 根据计算访问模式顺序排列子矩阵，最大化L1/L2缓存命中率
-
-### 2. 缓存友好的AMX内核
-
-优化设计围绕CPU的多级缓存层次结构进行：
-- 专家权重矩阵按列划分为多个任务，动态调度到各线程
-- 在每个任务内，专家权重按行划分为适合L2缓存的块
-- 计算过程中，数据在Tile寄存器或L1缓存中累积，避免额外的内存访问
-
-### 3. 低算术强度场景的AVX-512内核适配
-
-根据计算场景智能切换AMX和AVX-512内核：
-- 长提示预填充阶段自动选择AMX内核(每个专家平均处理超过4个token)
-- 短提示预填充和解码阶段动态切换到AVX-512内核
-- 确保在不同算术强度条件下都能发挥最佳效率
-
-### 4. MoE算子融合和动态调度
-
-为减少调度开销和负载不平衡问题：
-- 将同层中所有专家的同类型矩阵计算融合为统一任务
-- 融合没有数据依赖的Gate和Up投影计算
-- 实现动态任务调度策略，细粒度子任务分布与"任务窃取"机制相结合
-
-## 性能提升
-
-得益于这些优化，KTransformers的AMX内核在Xeon4 CPU上能够实现：
-- 21 TFLOPS的BF16吞吐量
-- 35 TOPS的INT8吞吐量
-- 约为PyTorch通用AMX内核的4倍性能
-
-在Qwen3MoE模型上，工作站场景(Xeon 4 + RTX 4090)下实现了高达347 tokens/s的预填充性能。
-
-## 使用方法
-
-### 检查AMX支持
-
-使用以下命令确认CPU支持AMX：
 ```bash
-lscpu | grep -i amx
+docker pull approachingai/ktransformers:0.2.1
 ```
 
-如果支持，输出应包含`amx-bf16 amx-int8 amx-tile`标志。
+**注意事项**：官方镜像是在支持AVX512指令集的CPU上编译的。如果您的CPU不支持AVX512，建议在容器内重新编译并安装ktransformers。
 
-### 在KTransformers中启用AMX
+### 方式二：本地构建Docker镜像
 
-通过YAML配置修改启用AMX：
-```yaml
-- match:
-    name: "^model\\.layers\\..*\\.mlp\\.experts$"
-  replace:
-    class: ktransformers.operators.experts.KTransformersExperts
-    kwargs:
-      # ...其他参数...
-      backend: "AMXInt8"  # 或 "AMXBF16" 或 "llamafile"(默认)
-```
+如果需要自定义镜像或适配特定环境，可以本地构建：
 
-### 启动Qwen3MoE模型
+1. 从ktransformers仓库[Dockerfile](mdc:ktransformers/Dockerfile)下载Dockerfile
+2. 在Dockerfile目录执行构建命令：
+   ```bash
+   docker build -t approachingai/ktransformers:0.2.1 .
+   ```
 
-使用以下命令运行Qwen3MoE模型：
+## 使用Docker运行KTransformers
+
+### 启动容器
+
 ```bash
-# AMX后端
-python ktransformers/server/main.py --architectures Qwen3MoeForCausalLM --model_path <model_dir> --gguf_path <gguf_dir> --optimize_config_path ktransformers/optimize/optimize_rules/Qwen3Moe-serve-amx.yaml --backend_type balance_serve
+# 创建并启动容器
+docker run --gpus all -v /path/to/models:/models --name ktransformers -itd approachingai/ktransformers:0.2.1
+
+# 进入容器
+docker exec -it ktransformers /bin/bash
 ```
 
-**注意**：当前AMX支持仅支持从BF16 GGUF文件读取权重。
+参数说明：
+- `--gpus all`：分配所有可用GPU给容器
+- `-v /path/to/models:/models`：将本地模型目录挂载到容器内的/models目录
+- `--name ktransformers`：设置容器名称
+- `-itd`：以交互式、终端、后台方式运行容器
+
+### 在容器内运行KTransformers
+
+容器内置了KTransformers环境，可以直接运行：
+
+```bash
+python -m ktransformers.local_chat \
+  --gguf_path /models/path/to/gguf_path \
+  --model_path /models/path/to/model_path \
+  --cpu_infer 33
+```
+
+您可以根据需要调整命令参数，例如：
+- `--max_new_tokens`：设置生成的最大token数
+- `--cpu_infer`：设置使用的CPU核心数量（建议略低于实际CPU核心数）
+- `--use_cuda_graph`：启用CUDA图加速
+- `--optimize_config_path`：指定优化配置文件路径
+
+## 高级配置
+
+### 数据持久化
+
+为了保存训练数据或配置，可以使用额外的卷挂载：
+
+```bash
+docker run --gpus all \
+  -v /path/to/models:/models \
+  -v /path/to/configs:/workspace/configs \
+  --name ktransformers -itd approachingai/ktransformers:0.2.1
+```
+
+### 端口映射
+
+如果需要使用KTransformers服务器功能并从主机访问，可以添加端口映射：
+
+```bash
+docker run --gpus all \
+  -v /path/to/models:/models \
+  -p 10002:10002 \
+  --name ktransformers -itd approachingai/ktransformers:0.2.1
+```
+
+## 内存优化
+
+Docker默认可能限制容器内存使用，对于大型模型推理，建议设置足够的内存限制：
+
+```bash
+docker run --gpus all \
+  -v /path/to/models:/models \
+  --shm-size=64g \
+  --memory=256g \
+  --name ktransformers -itd approachingai/ktransformers:0.2.1
+```
+
+## 故障排除
+
+1. 如果遇到CUDA相关错误，请检查nvidia-docker是否正确安装
+2. 如果模型加载失败，确认挂载路径是否正确
+3. 对于CPU不支持AVX512的情况，在容器内重新编译KTransformers：
+   ```bash
+   cd /workspace/ktransformers
+   bash install.sh
+   ```
+
+更多详细操作和高级选项，请参考[README_ZH.md](mdc:ktransformers/README_ZH.md)。
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
