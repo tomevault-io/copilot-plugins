@@ -1,0 +1,9 @@
+{
+  "name": "sudowealth--schwab-api",
+  "displayName": "schwab-api",
+  "description": "TypeScript client for Charles Schwab API with OAuth support, market data, trading functionality, and complete type safety",
+  "version": "1.0.0",
+  "author": "sudowealth",
+  "homepage": "https://github.com/sudowealth/schwab-api",
+  "skills": []
+}
