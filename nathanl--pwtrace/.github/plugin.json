@@ -1,0 +1,9 @@
+{
+  "name": "nathanl--pwtrace",
+  "displayName": "pwtrace",
+  "description": "Playwright trace file CLI interface, for humans and LLMs",
+  "version": "1.0.0",
+  "author": "nathanl",
+  "homepage": "https://github.com/nathanl/pwtrace",
+  "skills": []
+}
