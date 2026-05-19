@@ -1,0 +1,9 @@
+{
+  "name": "autobrr--mkbrr",
+  "displayName": "mkbrr",
+  "description": "\u26a1 mkbrr is a tool to create, modify and inspect torrent files. Fast.",
+  "version": "1.0.0",
+  "author": "autobrr",
+  "homepage": "https://github.com/autobrr/mkbrr",
+  "skills": []
+}
