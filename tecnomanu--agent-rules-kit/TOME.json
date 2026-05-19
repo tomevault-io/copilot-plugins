@@ -4,7 +4,7 @@
   "repo": "agent-rules-kit",
   "description": "Bootstrap of Cursor rules (.mdc) and mirror documentation (.md) for AI agent-guided projects.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tecnomanu/agent-rules-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:48:33Z"
+  "distributed_at": "2026-05-19T10:59:32Z"
 }
