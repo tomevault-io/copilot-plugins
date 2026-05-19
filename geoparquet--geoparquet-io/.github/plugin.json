@@ -1,0 +1,9 @@
+{
+  "name": "geoparquet--geoparquet-io",
+  "displayName": "geoparquet-io",
+  "description": "A collection of tools for GeoParquet, built on DuckDB, GDAL & Obstore",
+  "version": "1.0.0",
+  "author": "geoparquet",
+  "homepage": "https://github.com/geoparquet/geoparquet-io",
+  "skills": []
+}
