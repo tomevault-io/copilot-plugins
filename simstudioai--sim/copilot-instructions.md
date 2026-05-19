@@ -1,288 +1,141 @@
-## sim-integrations
+## sim-queries
 
-> Adding new integrations (tools, blocks, triggers)
+> React Query patterns for the Sim application
 
 
-# Adding Integrations
+# React Query Patterns
 
-## Overview
+All React Query hooks live in `hooks/queries/`. All server state must go through React Query — never use `useState` + `fetch` in components for data fetching or mutations.
 
-Adding a new integration typically requires:
-1. **Tools** - API operations (`tools/{service}/`)
-2. **Block** - UI component (`blocks/blocks/{service}.ts`)
-3. **Icon** - SVG icon (`components/icons.tsx`)
-4. **Trigger** (optional) - Webhooks/polling (`triggers/{service}/`)
+## Query Key Factory
 
-Always look up the service's API docs first.
-
-## 1. Tools (`tools/{service}/`)
-
-```
-tools/{service}/
-├── index.ts           # Export all tools
-├── types.ts           # Params/response types
-├── {action}.ts        # Individual tool (e.g., send_message.ts)
-└── ...
-```
-
-**Tool file structure:**
+Every query file defines a hierarchical keys factory with an `all` root key and intermediate plural keys for prefix-level invalidation:
 
 ```typescript
-// tools/{service}/{action}.ts
-import type { {Service}Params, {Service}Response } from '@/tools/{service}/types'
-import type { ToolConfig } from '@/tools/types'
-
-export const {service}{Action}Tool: ToolConfig<{Service}Params, {Service}Response> = {
-  id: '{service}_{action}',
-  name: '{Service} {Action}',
-  description: 'What this tool does',
-  version: '1.0.0',
-  oauth: { required: true, provider: '{service}' }, // if OAuth
-  params: { /* param definitions */ },
-  request: {
-    url: '/api/tools/{service}/{action}',
-    method: 'POST',
-    headers: () => ({ 'Content-Type': 'application/json' }),
-    body: (params) => ({ ...params }),
-  },
-  transformResponse: async (response) => {
-    const data = await response.json()
-    if (!data.success) throw new Error(data.error)
-    return { success: true, output: data.output }
-  },
-  outputs: { /* output definitions */ },
+export const entityKeys = {
+  all: ['entity'] as const,
+  lists: () => [...entityKeys.all, 'list'] as const,
+  list: (workspaceId?: string) => [...entityKeys.lists(), workspaceId ?? ''] as const,
+  details: () => [...entityKeys.all, 'detail'] as const,
+  detail: (id?: string) => [...entityKeys.details(), id ?? ''] as const,
 }
 ```
 
-**Register in `tools/registry.ts`:**
+Never use inline query keys — always use the factory.
+
+## File Structure
 
 ```typescript
-import { {service}{Action}Tool } from '@/tools/{service}'
-// Add to registry object
-{service}_{action}: {service}{Action}Tool,
+// 1. Query keys factory
+// 2. Types (if needed)
+// 3. Private fetch functions (accept signal parameter)
+// 4. Exported hooks
 ```
 
-## 2. Block (`blocks/blocks/{service}.ts`)
+## Query Hook
+
+- Every `queryFn` must destructure and forward `signal` for request cancellation
+- Every query must have an explicit `staleTime`
+- Use `keepPreviousData` only on variable-key queries (where params change), never on static keys
+- Same-origin JSON calls must go through `requestJson(contract, ...)` from `@/lib/api/client/request` against the contract in `@/lib/api/contracts/**`
 
 ```typescript
-import { {Service}Icon } from '@/components/icons'
-import type { BlockConfig } from '@/blocks/types'
-import type { {Service}Response } from '@/tools/{service}/types'
+import { requestJson } from '@/lib/api/client/request'
+import { listEntitiesContract, type EntityList } from '@/lib/api/contracts/entities'
 
-export const {Service}Block: BlockConfig<{Service}Response> = {
-  type: '{service}',
-  name: '{Service}',
-  description: 'Short description',
-  longDescription: 'Detailed description',
-  category: 'tools',
-  bgColor: '#hexcolor',
-  icon: {Service}Icon,
-  subBlocks: [ /* see SubBlock Properties below */ ],
-  tools: {
-    access: ['{service}_{action}', ...],
-    config: {
-      tool: (params) => `{service}_${params.operation}`,
-      params: (params) => ({ ...params }),
+async function fetchEntities(workspaceId: string, signal?: AbortSignal): Promise<EntityList> {
+  const data = await requestJson(listEntitiesContract, {
+    query: { workspaceId },
+    signal,
+  })
+  return data.entities
+}
+
+export function useEntityList(workspaceId?: string, options?: { enabled?: boolean }) {
+  return useQuery({
+    queryKey: entityKeys.list(workspaceId),
+    queryFn: ({ signal }) => fetchEntities(workspaceId as string, signal),
+    enabled: Boolean(workspaceId) && (options?.enabled ?? true),
+    staleTime: 60 * 1000,
+    placeholderData: keepPreviousData,
+  })
+}
+```
+
+## Mutation Hook
+
+- Use targeted invalidation (`entityKeys.lists()`) not broad (`entityKeys.all`) when possible
+- Invalidation must cover all affected query key prefixes (lists, details, related views)
+
+```typescript
+export function useCreateEntity() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (variables) => { /* fetch POST */ },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: entityKeys.lists() })
     },
-  },
-  inputs: { /* input definitions */ },
-  outputs: { /* output definitions */ },
+  })
 }
 ```
 
-### SubBlock Properties
+## Optimistic Updates
+
+For optimistic mutations, use `onSettled` (not `onSuccess`) for cache reconciliation — `onSettled` fires on both success and error, ensuring the cache is always reconciled with the server.
 
 ```typescript
-{
-  id: 'fieldName',           // Unique identifier
-  title: 'Field Label',      // UI label
-  type: 'short-input',       // See SubBlock Types below
-  placeholder: 'Hint text',
-  required: true,            // See Required below
-  condition: { ... },        // See Condition below
-  dependsOn: ['otherField'], // See DependsOn below
-  mode: 'basic',             // 'basic' | 'advanced' | 'both' | 'trigger'
+export function useUpdateEntity() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (variables) => { /* ... */ },
+    onMutate: async (variables) => {
+      await queryClient.cancelQueries({ queryKey: entityKeys.detail(variables.id) })
+      const previous = queryClient.getQueryData(entityKeys.detail(variables.id))
+      queryClient.setQueryData(entityKeys.detail(variables.id), /* optimistic value */)
+      return { previous }
+    },
+    onError: (_err, variables, context) => {
+      queryClient.setQueryData(entityKeys.detail(variables.id), context?.previous)
+    },
+    onSettled: (_data, _error, variables) => {
+      queryClient.invalidateQueries({ queryKey: entityKeys.lists() })
+      queryClient.invalidateQueries({ queryKey: entityKeys.detail(variables.id) })
+    },
+  })
 }
 ```
 
-**SubBlock Types:** `short-input`, `long-input`, `dropdown`, `code`, `switch`, `slider`, `oauth-input`, `channel-selector`, `user-selector`, `file-upload`, etc.
+For optimistic mutations syncing with Zustand, use `createOptimisticMutationHandlers` from `@/hooks/queries/utils/optimistic-mutation`.
 
-### `condition` - Show/hide based on another field
+## useCallback Dependencies
 
-```typescript
-// Show when operation === 'send'
-condition: { field: 'operation', value: 'send' }
-
-// Show when operation is 'send' OR 'read'
-condition: { field: 'operation', value: ['send', 'read'] }
-
-// Show when operation !== 'send'
-condition: { field: 'operation', value: 'send', not: true }
-
-// Complex: NOT in list AND another condition
-condition: {
-  field: 'operation',
-  value: ['list_channels', 'list_users'],
-  not: true,
-  and: { field: 'destinationType', value: 'dm', not: true }
-}
-```
-
-### `required` - Field validation
+Never include mutation objects (e.g., `createEntity`) in `useCallback` dependency arrays — the mutation object is not referentially stable and changes on every state update. The `.mutate()` and `.mutateAsync()` functions are stable in TanStack Query v5.
 
 ```typescript
-// Always required
-required: true
+// ✗ Bad — causes unnecessary recreations
+const handler = useCallback(() => {
+  createEntity.mutate(data)
+}, [createEntity]) // unstable reference
 
-// Conditionally required (same syntax as condition)
-required: { field: 'operation', value: 'send' }
+// ✓ Good — omit from deps, mutate is stable
+const handler = useCallback(() => {
+  createEntity.mutate(data)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [data])
 ```
 
-### `dependsOn` - Clear field when dependencies change
+## Boundary Types
 
-```typescript
-// Clear when credential changes
-dependsOn: ['credential']
+- Hooks must import named type aliases from `@/lib/api/contracts/**` (e.g., `import { listEntitiesContract, type EntityList } from '@/lib/api/contracts/entities'`). Never write `z.input<...>` or `z.output<...>` in hooks.
+- Hooks must not `import { z } from 'zod'`. Boundary types come from contract aliases; non-boundary helpers can stay in plain TypeScript.
+- For non-contract endpoints (multipart uploads, binary downloads, streaming responses, signed-URL flows, OAuth redirects, external origins), it is OK to keep raw `fetch`. Each legitimate raw `fetch(` call inside `apps/sim/hooks/queries/**` or `apps/sim/hooks/selectors/**` must be preceded by a `// boundary-raw-fetch: <reason>` annotation on the immediately preceding line (up to three non-empty preceding comment lines are tolerated). The reason must be non-empty — empty reasons fail strict mode. The audit script `scripts/check-api-validation-contracts.ts` (`bun run check:api-validation` / `bun run check:api-validation:strict`) enforces this.
 
-// Clear when authMethod changes AND (credential OR botToken) changes
-dependsOn: { all: ['authMethod'], any: ['credential', 'botToken'] }
-```
+## Naming
 
-### `mode` - When to show field
-
-- `'basic'` - Only in basic mode (default UI)
-- `'advanced'` - Only in advanced mode (manual input)
-- `'both'` - Show in both modes (default)
-- `'trigger'` - Only when block is used as trigger
-
-### `canonicalParamId` - Link basic/advanced alternatives
-
-Use to map multiple UI inputs to a single logical parameter:
-
-```typescript
-// Basic mode: Visual selector
-{
-  id: 'fileSelector',
-  type: 'file-selector',
-  mode: 'basic',
-  canonicalParamId: 'fileId',
-  required: true,
-},
-// Advanced mode: Manual input
-{
-  id: 'manualFileId',
-  type: 'short-input',
-  mode: 'advanced',
-  canonicalParamId: 'fileId',
-  required: true,
-},
-```
-
-**Critical Rules:**
-- `canonicalParamId` must NOT match any subblock's `id`
-- `canonicalParamId` must be unique per operation/condition context
-- **Required consistency:** All subblocks in a canonical group must have the same `required` status
-- **Inputs section:** Must list canonical param IDs (e.g., `fileId`), NOT raw subblock IDs
-- **Params function:** Must use canonical param IDs (raw IDs are deleted after canonical transformation)
-
-**Register in `blocks/registry.ts`:**
-
-```typescript
-import { {Service}Block } from '@/blocks/blocks/{service}'
-// Add to registry object (alphabetically)
-{service}: {Service}Block,
-```
-
-## 3. Icon (`components/icons.tsx`)
-
-```typescript
-export function {Service}Icon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...props} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* SVG path from service's brand assets */}
-    </svg>
-  )
-}
-```
-
-## 4. Trigger (`triggers/{service}/`) - Optional
-
-```
-triggers/{service}/
-├── index.ts           # Export all triggers
-├── webhook.ts         # Webhook handler
-├── utils.ts           # Shared utilities
-└── {event}.ts         # Specific event handlers
-```
-
-**Register in `triggers/registry.ts`:**
-
-```typescript
-import { {service}WebhookTrigger } from '@/triggers/{service}'
-// Add to TRIGGER_REGISTRY
-{service}_webhook: {service}WebhookTrigger,
-```
-
-## File Handling
-
-When integrations handle file uploads/downloads, use `UserFile` objects consistently.
-
-### File Input (Uploads)
-
-1. **Block subBlocks:** Use basic/advanced mode pattern with `canonicalParamId`
-2. **Normalize in block config:** Use `normalizeFileInput` from `@/blocks/utils`
-3. **Internal API route:** Create route that uses `downloadFileFromStorage` to get file content
-4. **Tool routes to internal API:** Don't call external APIs directly with files
-
-```typescript
-// In block tools.config:
-import { normalizeFileInput } from '@/blocks/utils'
-
-const normalizedFile = normalizeFileInput(
-  params.uploadFile || params.fileRef || params.fileContent,
-  { single: true }
-)
-if (normalizedFile) params.file = normalizedFile
-```
-
-### File Output (Downloads)
-
-Use `FileToolProcessor` in tool `transformResponse` to store files:
-
-```typescript
-import { FileToolProcessor } from '@/executor/utils/file-tool-processor'
-
-const processor = new FileToolProcessor(context)
-const file = await processor.processFileData({
-  data: base64Content,
-  mimeType: 'application/pdf',
-  filename: 'doc.pdf',
-})
-```
-
-### Key Helpers
-
-| Helper | Location | Purpose |
-|--------|----------|---------|
-| `normalizeFileInput` | `@/blocks/utils` | Normalize file params in block config |
-| `processFilesToUserFiles` | `@/lib/uploads/utils/file-utils` | Convert raw inputs to UserFile[] |
-| `downloadFileFromStorage` | `@/lib/uploads/utils/file-utils.server` | Get Buffer from UserFile |
-| `FileToolProcessor` | `@/executor/utils/file-tool-processor` | Process tool output files |
-
-## Checklist
-
-- [ ] Look up API docs for the service
-- [ ] Create `tools/{service}/types.ts` with proper types
-- [ ] Create tool files for each operation
-- [ ] Create `tools/{service}/index.ts` barrel export
-- [ ] Register tools in `tools/registry.ts`
-- [ ] Add icon to `components/icons.tsx`
-- [ ] Create block in `blocks/blocks/{service}.ts`
-- [ ] Register block in `blocks/registry.ts`
-- [ ] (Optional) Create triggers in `triggers/{service}/`
-- [ ] (Optional) Register triggers in `triggers/registry.ts`
-- [ ] (If file uploads) Create internal API route with `downloadFileFromStorage`
-- [ ] (If file uploads) Use `normalizeFileInput` in block config
+- **Keys**: `entityKeys`
+- **Query hooks**: `useEntity`, `useEntityList`
+- **Mutation hooks**: `useCreateEntity`, `useUpdateEntity`, `useDeleteEntity`
+- **Fetch functions**: `fetchEntity`, `fetchEntities` (private)
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
