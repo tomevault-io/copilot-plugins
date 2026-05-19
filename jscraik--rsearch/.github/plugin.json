@@ -1,0 +1,9 @@
+{
+  "name": "jscraik--rsearch",
+  "displayName": "rSearch",
+  "description": "Search, fetch, and download arXiv papers from the terminal. CLI + programmatic TypeScript client",
+  "version": "1.0.0",
+  "author": "jscraik",
+  "homepage": "https://github.com/jscraik/rSearch",
+  "skills": []
+}
