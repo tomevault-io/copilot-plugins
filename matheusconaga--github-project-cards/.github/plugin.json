@@ -1,0 +1,9 @@
+{
+  "name": "matheusconaga--github-project-cards",
+  "displayName": "github-project-cards",
+  "description": "Open-source tool to generate beautiful, customizable GitHub project cards with live preview, themes, and easy integration for READMEs and portfolios.",
+  "version": "1.0.0",
+  "author": "matheusconaga",
+  "homepage": "https://github.com/matheusconaga/github-project-cards",
+  "skills": []
+}
