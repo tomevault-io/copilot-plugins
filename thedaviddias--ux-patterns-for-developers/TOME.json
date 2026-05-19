@@ -1,0 +1,44 @@
+{
+  "name": "ux-patterns-for-developers",
+  "owner": "thedaviddias",
+  "repo": "ux-patterns-for-developers",
+  "description": "\ud83e\udde9 Developer ecosystem for UX patterns: comprehensive docs, ready-to-use components, and real-world examples",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/thedaviddias/ux-patterns-for-developers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T04:07:12Z"
+}
