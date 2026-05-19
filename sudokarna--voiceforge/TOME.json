@@ -4,7 +4,7 @@
   "repo": "VoiceForge",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SudoKarNa/VoiceForge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T06:47:02Z"
+  "distributed_at": "2026-05-19T12:51:33Z"
 }
