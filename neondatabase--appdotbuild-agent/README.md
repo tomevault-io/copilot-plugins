@@ -7,11 +7,11 @@ The agent that generates working apps (and maybe some other things)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent).
+Original source: `CLAUDE.md` in [neondatabase/appdotbuild-agent](https://github.com/neondatabase/appdotbuild-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
