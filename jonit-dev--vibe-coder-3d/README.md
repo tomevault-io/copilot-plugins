@@ -2,16 +2,18 @@
 
 > Source: [jonit-dev/vibe-coder-3d](https://github.com/jonit-dev/vibe-coder-3d) — distributed by [TomeVault](https://tomevault.io)
 
+@react-three/fiber 3D game engine
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [jonit-dev/vibe-coder-3d](https://github.com/jonit-dev/vibe-coder-3d).
+Original source: `CLAUDE.md` in [jonit-dev/vibe-coder-3d](https://github.com/jonit-dev/vibe-coder-3d).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
