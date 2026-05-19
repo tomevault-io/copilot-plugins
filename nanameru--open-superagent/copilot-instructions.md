@@ -1,23 +1,38 @@
-## git-worktree
+## mastra-local
 
-> git branch ai-task-$i main
+> １.  **ポート 4114 を使用しているプロセスを特定**
 
-5個同時にワークツリー作成できるコマンド
-"""
-for i in {1..5}; do
-  git branch ai-task-$i main
-  git worktree add ../ai-task-$i ai-task-$i
-done
-"""
+## 対応手順
 
-npm run dev同時起動するコマンド
-"""
-for i in {1..5}; do
-  port=$((3000 + i))
-  (cd ../ai-task-$i && npm run dev -- --port=$port) &
-done
-wait
-"""
+    ```
+
+１.  **ポート 4114 を使用しているプロセスを特定**
+
+    ```bash
+    lsof -i :4114 | grep LISTEN | cat
+    ```
+
+    **実行結果 (例):**
+    ```
+    node    7744 kimurataiyou   17u  IPv6 0x713985d602229aae      0t0  TCP *:jomamqmonitor (LISTEN)
+    ```
+    -> PID `7744` がポートを使用中。
+
+２.  **該当プロセスを強制終了**
+
+    ```bash
+    kill -9 7744
+    ```
+
+3.  **Mastra 開発サーバーを再起動 (正しいコマンド)**
+
+    ```bash
+    mastra dev
+    ```
+    -> サーバーが正常に起動するはず。
+## まとめ
+
+Mastra 開発サーバー (`mastra dev`) が使用するポート (デフォルト `4111`) や、関連するプロセス (例: Next.js 開発サーバー `npm run dev` が使用するポート `4114`) が他のプロセスによって使用されている場合、`EADDRINUSE` エラーが発生する。`lsof` コマンドでポートを使用しているプロセスの PID を特定し、`kill -9 <PID>` で強制終了することで解決できる。
 
 ---
 > Source: [nanameru/Open_SuperAgent](https://github.com/nanameru/Open_SuperAgent) — distributed by [TomeVault](https://tomevault.io).
