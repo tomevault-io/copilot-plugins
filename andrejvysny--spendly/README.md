@@ -7,13 +7,13 @@ Spendly is an open-source personal finance tracker that helps you manage your fi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [andrejvysny/spendly](https://github.com/andrejvysny/spendly).
+Original source: `.cursor/rules/*.mdc` in [andrejvysny/spendly](https://github.com/andrejvysny/spendly).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
