@@ -1,0 +1,18 @@
+## temu-v0
+
+> This is a project using Vite, TypeScript, Tailwind CSS, shadcn/ui, and React. It is used as a prototyping environment for front-end experiences.
+
+This is a project using Vite, TypeScript, Tailwind CSS, shadcn/ui, and React. It is used as a prototyping environment for front-end experiences.
+
+- Use prebuilt components from the shadcn/ui library after it is imported: `import { alert, AlertDescription, AlertTitle, AlertDialog, AlertDialogAction } from '@/components/ui/alert'`;.
+- To get a sense of which components exist look in `./src/components`.
+- Ensure that React components use Tailwind CSS for styling. Minimize use of CSS in CSS files (but use it where necessary).
+- Use functional React components as much as possible, with hooks where necessary.
+- Where complex state handling is needed, favor use of React context over installing state management packages.
+- When you need to use icons only use Lucide React after it is imported: `import { Camera } from 'lucide-react';`.
+- See package.json to see packages already installed.
+- If the user asks you to persist things, favor simple local storage solutions over more durable options.
+
+---
+> Source: [max/temu-v0](https://github.com/max/temu-v0) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
