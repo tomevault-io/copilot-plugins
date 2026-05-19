@@ -1,0 +1,9 @@
+{
+  "name": "joshuadavidthomas--django-language-server",
+  "displayName": "django-language-server",
+  "description": "A language server for the Django web framework",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/django-language-server",
+  "skills": []
+}
