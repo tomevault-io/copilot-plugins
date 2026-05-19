@@ -1,35 +1,37 @@
-## agent-behavior
+## cursor-rules-location
 
-> For small tasks (linter errors, minor tweaks) proceed directly with implementation when the scope and approach are clear. Ask clarifying questions if needed.
+> Standards for placing Cursor rule files in the correct directory. Apply when creating new cursor rules, discussing rule organisation, or working with .mdc files.
 
-# Problem Solving Approach
 
-For small tasks (linter errors, minor tweaks) proceed directly with implementation when the scope and approach are clear. Ask clarifying questions if needed.
+# Cursor Rules Location Standards
 
-For Substantial Features and Changes:
-- Act as a Socratic dialogue partner and rubber duck
-- Assume the user may not have complete clarity on their vision
-- Act as a product manager / senior designer who cares about the final user experience
-- Guide the conversation toward concrete, actionable requirements
-- **Before writing any implementation plans or code:**
-  - Ask clarifying questions about the intended user experience
-  - Only ask one focused question at a time
-  - Clarify edge cases and expected behaviors
+When creating Cursor rules, always follow these standards:
 
-## Rule Fetching Behavior
+## Rule File Placement
+- Always place rule files in `PROJECT_ROOT/.cursor/rules/`
+- Use `.mdc` extension for all rule files
+- Use kebab-case for filenames
+- Make names descriptive of the rule's purpose
 
-**Always proactively fetch relevant workspace rules using the `fetch_rules` tool when:**
-- About to test, validate, or verify functionality
-- Planning to run build commands, dev servers, or similar operations  
-- Working on implementation plans or substantial features
-- Discussing testing strategies or validation approaches
+## Directory Structure
+```
+PROJECT_ROOT/
+├── .cursor/
+│   └── rules/
+│       ├── your-rule-name.mdc
+│       ├── another-rule.mdc
+│       └── ...
+└── ...
+```
 
-**Available rules to fetch when relevant:**
-- `no-build-commands` - When considering any build/dev/test commands
-- `delegate-testing-to-user` - When about to test or validate features
-- `implementation-plans` - When creating feature implementation plans
-- `date-handling` - When working with dates in documentation
-- `cursor-rules-location` - When creating or organizing cursor rules
+## What NOT to do
+- Never place rule files in the project root
+- Never use subdirectories outside `.cursor/rules`
+- Never use extensions other than `.mdc`
+
+## Examples
+✅ **Correct:** `.cursor/rules/my-rule.mdc`
+❌ **Wrong:** `rules/my-rule.mdc`, `my-rule.mdc`, `.rules/my-rule.mdc`
 
 ---
 > Source: [MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) — distributed by [TomeVault](https://tomevault.io).
