@@ -1,0 +1,9 @@
+{
+  "name": "samzong--gmc",
+  "displayName": "gmc",
+  "description": "Parallel git worktrees for parallel AI agents \u2014 plus AI-generated commits.",
+  "version": "1.0.0",
+  "author": "samzong",
+  "homepage": "https://github.com/samzong/gmc",
+  "skills": []
+}
