@@ -1,0 +1,9 @@
+{
+  "name": "phildougherty--mcp-compose",
+  "displayName": "mcp-compose",
+  "description": "Compose, manage, and run MCP servers as Docker containers. With a Unified API gateway built in.",
+  "version": "1.0.0",
+  "author": "phildougherty",
+  "homepage": "https://github.com/phildougherty/mcp-compose",
+  "skills": []
+}
