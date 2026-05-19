@@ -1,0 +1,9 @@
+{
+  "name": "northcarolinarivalrobotics--tide",
+  "displayName": "tide",
+  "description": "Tide is a simple robotics framework made for building mobile robots.",
+  "version": "1.0.0",
+  "author": "NorthCarolinaRivalRobotics",
+  "homepage": "https://github.com/NorthCarolinaRivalRobotics/tide",
+  "skills": []
+}
