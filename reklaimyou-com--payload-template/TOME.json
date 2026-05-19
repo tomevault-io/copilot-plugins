@@ -4,7 +4,7 @@
   "repo": "payload-template",
   "description": "A modern Next.js 16 + PayloadCMS 3 starter template with TailwindCSS 4, shadcn/ui, and Vercel deployment",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReklaimYou-com/payload-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T21:23:33Z"
+  "distributed_at": "2026-05-19T00:54:50Z"
 }
