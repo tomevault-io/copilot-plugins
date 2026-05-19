@@ -1,0 +1,9 @@
+{
+  "name": "crewrig--crewrig",
+  "displayName": "crewrig",
+  "description": "A layered AI assistant configuration with shared skill sandbox and built-in harness engineering loop.",
+  "version": "1.0.0",
+  "author": "crewrig",
+  "homepage": "https://github.com/crewrig/crewrig",
+  "skills": []
+}
