@@ -1,0 +1,9 @@
+{
+  "name": "shader-slang--slangpy",
+  "displayName": "slangpy",
+  "description": "Making it easier to work with slang in python",
+  "version": "1.0.0",
+  "author": "shader-slang",
+  "homepage": "https://github.com/shader-slang/slangpy",
+  "skills": []
+}
