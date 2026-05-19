@@ -4,7 +4,7 @@
   "repo": "oxygen",
   "description": "oxygen is the next-generation data platform for agents built with rust and duckdb. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oxy-hq/oxygen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:41:36Z"
+  "distributed_at": "2026-05-19T01:35:23Z"
 }
