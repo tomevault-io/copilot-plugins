@@ -7,13 +7,13 @@ Igniter is a modern, type-safe HTTP framework designed to streamline the develop
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [felipebarcelospro/igniter-js](https://github.com/felipebarcelospro/igniter-js).
+Original source: `.cursor/rules/*.mdc` in [felipebarcelospro/igniter-js](https://github.com/felipebarcelospro/igniter-js).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
