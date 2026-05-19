@@ -1,0 +1,9 @@
+{
+  "name": "zhendalf--claude-mcp",
+  "displayName": "claude-mcp",
+  "description": "An MCP server that allows AI tools to interact with Claude Code programmatically with session continuity and async execution support.",
+  "version": "1.0.0",
+  "author": "zhendalf",
+  "homepage": "https://github.com/zhendalf/claude-mcp",
+  "skills": []
+}
