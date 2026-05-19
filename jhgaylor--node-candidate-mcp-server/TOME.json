@@ -2,7 +2,7 @@
   "name": "node-candidate-mcp-server",
   "owner": "jhgaylor",
   "repo": "node-candidate-mcp-server",
-  "description": "",
+  "description": "A Model Context Protocol (MCP) server library that gives LLMs access to information about a candidate.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/jhgaylor",
+  "source_url": "https://github.com/jhgaylor/node-candidate-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T07:42:52Z"
+  "distributed_at": "2026-05-19T20:45:04Z"
 }
