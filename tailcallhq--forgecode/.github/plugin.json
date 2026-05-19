@@ -1,0 +1,9 @@
+{
+  "name": "tailcallhq--forgecode",
+  "displayName": "forgecode",
+  "description": "AI enabled pair programmer for Claude, GPT, O Series, Grok, Deepseek, Gemini and 300+ models",
+  "version": "1.0.0",
+  "author": "tailcallhq",
+  "homepage": "https://github.com/tailcallhq/forgecode",
+  "skills": []
+}
