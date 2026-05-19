@@ -1,29 +1,76 @@
-## dev-log
+## git-workflow
 
-> 当用户说"记录"时创建/更新开发日志（仅在用户主动触发时记录）
+> 当用户提到 git、commit、push、merge、rebase、conflict 或代码提交时应用。包含 rebase 工作流、版本分支管理和提交消息格式。
 
 
-# 开发日志规则
+# Git 工作流
 
-## 核心原则
-- 简洁：几句话说清楚，不要写成技术文档
-- 要点化：用列表，不要长篇大论
-- 被动触发：仅在用户说"记录"时才记录，不要自动记录
+## 注意事项
+- 提交消息使用英文
+- 保持线性历史：始终使用 `git pull --rebase`，禁止使用 `git pull` 或 `git merge`（会创建合并提交）。
 
-## 目录和命名
-- 目录：`dev_log/`
-- 命名规则：
-  - **较大功能/新功能/重构**：创建 `module-name.md`
-  - **日常修正/优化/小改动**：追加到 `YYYY-MM-DD.md`
-- 禁止一个功能创建多个文件（如 test-checklist、final-status 等）
+## 标准工作流
 
-## 记录内容
-必须：日期、需求（1-2句话）、实现方案（3-5要点）、新增/修改文件、状态
-可选：修复问题、待测试事项、注意事项、已完成TODO、待完成TODO（较大功能）
+```bash
+git add <files>
+git commit -m "type(scope): description"
+git pull --rebase origin <branch>
+# 如有冲突：解决后 git add <files> -> git rebase --continue
+git push origin <branch>
+```
 
-## 禁止
-- 详细代码示例、完整架构图、详细测试步骤
-- 没有用户触发就自动记录
+## 分支管理
+
+- main/master：生产就绪代码，禁止直接提交，版本分支发版后合并并打标签
+- 版本分支（如 v1.3.0）：主开发分支，所有开发工作在此进行
+
+## 提交消息格式
+
+基本格式：`<type>(<scope>): <subject>`
+
+Type：
+- feat: 新功能
+- fix: 修复问题
+- docs: 文档变更
+- style: 代码格式（不影响代码运行）
+- refactor: 重构
+- test: 增加测试
+- chore: 构建过程或辅助工具变动
+
+Scope：gui, slicer, network, printer, config, build, deps 或具体模块名（可选）
+Subject：祈使语气，小写开头，无句号，最多50字符
+
+完整格式规则：
+- 标题和正文之间空一行
+- 正文每行不超过72字符
+- 正文详细描述提交内容和原因
+- Footer 引用相关任务或问题（如 Closes #123）
+
+完整格式示例：
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+实际示例：
+```
+fix(network): resolve timeout in printer discovery
+
+Fixed timeout issue during printer discovery
+- Modified network request timeout settings
+- Added retry mechanism for network fluctuations
+
+Closes #123
+```
+
+简单提交可省略 body 和 footer：
+```
+feat(gui): add crash test menu for debugging
+fix(network): resolve timeout in printer discovery
+```
 
 ---
 > Source: [ELEGOO-3D/ElegooSlicer](https://github.com/ELEGOO-3D/ElegooSlicer) — distributed by [TomeVault](https://tomevault.io).
