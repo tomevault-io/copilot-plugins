@@ -1,0 +1,9 @@
+{
+  "name": "yuji-hatakeyama--opencode-gpt-imagegen",
+  "displayName": "opencode-gpt-imagegen",
+  "description": "OpenCode plugin: image generation via your ChatGPT subscription or OpenAI API",
+  "version": "1.0.0",
+  "author": "yuji-hatakeyama",
+  "homepage": "https://github.com/yuji-hatakeyama/opencode-gpt-imagegen",
+  "skills": []
+}
