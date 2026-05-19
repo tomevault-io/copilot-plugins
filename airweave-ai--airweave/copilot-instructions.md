@@ -1,130 +1,149 @@
-## fern-docs-generation
+## form-validation
 
-> The custom internal Fern documentation generator automatically creates MDX documentation for Airweave connectors by introspecting Python source code using AST (Abstract Syntax Tree) parsing.
+> Minimal, non-intrusive validation that guides without blocking. No success messages or harsh errors, just essential hints.
 
-# Fern Documentation Generation System - Internal Guide
+# Airweave Validation System
 
-## Overview
-The custom internal Fern documentation generator automatically creates MDX documentation for Airweave connectors by introspecting Python source code using AST (Abstract Syntax Tree) parsing.
+## Philosophy
+Minimal, non-intrusive validation that guides without blocking. No success messages or harsh errors, just essential hints.
 
-## Architecture Flow
+## Core Components
 
-### 1. Discovery Phase
-**Entry:** `update_connector_docs/__main__.py:main()`
-- Scans `backend/airweave/platform/sources/` directory
-- Identifies all `.py` files as potential connectors
-- Example: `asana.py`, `slack.py`, `google_drive.py`
+### `ValidatedInput` Component
+- Replaces standard inputs with validation-aware inputs
+- Shows hints after debounce delay (typically 500ms)
+- Immediate validation on blur for some fields
+- Subtle 30% opacity border colors
+- Real-time feedback during typing (not just on submit)
 
-### 2. Parsing Phase
+### Validation Rules (`lib/validation/rules.ts`)
 
-#### Source Parser (`source_parser.py`)
-Extracts metadata from `@source` decorator:
-```python
-@source(
-    name="Asana",                    # Display name
-    short_name="asana",              # File/URL identifier
-    auth_methods=[...],              # Auth methods list
-    oauth_type=OAuthType.WITH_REFRESH,  # OAuth type enum
-    auth_config_class="AsanaConfig", # String reference to config
-    config_class="AsanaConfig",      # Source-specific config
-    labels=["Project Management"]    # Categories
-)
+#### General Validators
+- **`collectionNameValidation`**: 4-64 characters
+- **`sourceConnectionNameValidation`**: 4-42 characters
+- **`urlValidation`**: Must start with `http://` or `https://`
+- **`emailValidation`**: Basic format check
+- **`apiKeyValidation`**: Detects placeholder text, shows on change with 500ms debounce
+
+#### Source-Specific Validators
+
+**GitHub**
+- **`githubTokenValidation`**: Validates format (ghp_, github_pat_, or 40-char hex)
+- **`repoNameValidation`**: Enforces owner/repo format (e.g., "airweave-ai/airweave")
+
+**Stripe**
+- **`stripeApiKeyValidation`**: Checks for sk_test_ or sk_live_ prefix, min 20 chars
+
+**Bitbucket**
+- **`workspaceValidation`**: Alphanumeric + hyphens + underscores
+- **`repoSlugValidation`**: Alphanumeric + hyphens + underscores + dots
+
+**PostgreSQL/Databases**
+- **`databaseHostValidation`**: Rejects protocol prefixes (http://, postgresql://, etc.)
+- **`databasePortValidation`**: Validates 1-65535 range, rejects non-numeric strings
+- **`databaseTablesValidation`**: Accepts "*" or comma-separated table names
+
+**Auth Providers**
+- **`clientIdValidation`**: Generic client ID validation
+- **`clientSecretValidation`**: Generic client secret validation
+- **`authConfigIdValidation`**: For Composio config IDs
+- **`accountIdValidation`**: For auth provider account IDs
+- **`projectIdValidation`**: For Pipedream project IDs
+- **`environmentValidation`**: For environment fields
+
+## Usage
+
+### Basic Usage
+```tsx
+import { ValidatedInput } from '@/components/ui/validated-input';
+import { collectionNameValidation } from '@/lib/validation/rules';
+
+<ValidatedInput
+  value={name}
+  onChange={setName}
+  validation={collectionNameValidation}
+  placeholder="Enter name"
+  className="..."
+/>
 ```
 
-**AST Extraction Process:**
-1. Parse decorator arguments positionally and by keyword
-2. Fall back to class attributes (`_auth_type`, `_config_class`)
-3. Last resort: regex pattern matching in raw source
+### Source-Specific Auth Fields
+```tsx
+import { getAuthFieldValidation } from '@/lib/validation/rules';
 
-#### Entity Parser (`entity_parser.py`)
-- Scans `platform/entities/{connector_name}.py`
-- Extracts entity classes and their field definitions
-- Builds entity hierarchy for documentation
-
-#### Auth/Config Parsers
-- `auth_parser.py`: Maps auth config class names to their field definitions
-- `config_parser.py`: Maps source config classes to their field requirements
-
-### 3. Generation Phase
-
-#### MDX Generator (`mdx_generator.py`)
-Creates structured MDX with:
-- **Header**: Icon + connector name
-- **Configuration**: Source docstring description
-- **Authentication**:
-  - OAuth flows (managed vs BYOC)
-  - Direct auth field requirements
-- **Source Config**: Additional configuration fields
-- **Entity Schema**: Data structure documentation
-
-### 4. Output Phase
-- Creates/updates `fern/docs/pages/connectors/{name}/main.mdx`
-- Copies icon from `frontend/public/icons/`
-- Updates `docs.yml` navigation structure
-
-## Key Components
-
-### Decorator Metadata (`platform/decorators.py`)
-The `@source` decorator sets class attributes:
-- `_is_source = True` (marker)
-- `_name`, `_short_name` (identification)
-- `_auth_methods`, `_oauth_type` (auth config)
-- `_auth_config_class`, `_config_class` (config references)
-
-### AST Parsing Strategy
-1. **Direct decorator parsing**: Extract from `ast.Call` nodes
-2. **Class attribute fallback**: Check `ast.Assign` nodes
-3. **Regex fallback**: Pattern match in raw source text
-
-### MDX Special Handling
-- Escapes `<` and `>` to prevent JSX interpretation
-- Uses HTML entities for safe rendering
-- Preserves curly braces using string concatenation
-
-## Configuration Resolution
-
-### OAuth Detection
-- Check `oauth_type` field presence
-- Determine BYOC by inheritance chain:
-  - Direct: `OAuth2BYOCAuthConfig`
-  - Inherited: Parent/grandparent check
-
-### Field Documentation
-- Primary: Field's own description
-- Fallback: Parent class field description
-- Default: "No description"
-
-## File Structure
-```
-fern/
-├── scripts/
-│   └── update_connector_docs/
-│       ├── __main__.py         # Entry point
-│       ├── constants.py        # Path definitions
-│       ├── parsers/
-│       │   ├── source_parser.py    # AST parsing
-│       │   ├── entity_parser.py    # Entity extraction
-│       │   ├── auth_parser.py      # Auth config mapping
-│       │   └── config_parser.py    # Source config mapping
-│       ├── generators/
-│       │   └── mdx_generator.py    # MDX creation
-│       └── utils/
-│           └── file_utils.py       # File operations
-└── docs/
-    └── pages/
-        └── connectors/
-            └── {connector_name}/
-                ├── icon.svg
-                └── main.mdx
+// Auto-detects validation based on field name and source
+<ValidatedInput
+  value={authFields[field.name]}
+  onChange={(value) => setAuthFields({ ...authFields, [field.name]: value })}
+  validation={getAuthFieldValidation(field.name, sourceDetails?.short_name)}
+/>
 ```
 
-## Execution
-```bash
-cd fern/scripts
-python update_connector_docs.py
-```
+## Field Type Detection
 
-Processes all sources, generates MDX, updates navigation.
+The `getAuthFieldValidation(fieldType: string, sourceShortName?: string)` function auto-detects validation based on field names and optionally source context:
+
+### Source-Specific Routing
+- **Stripe `api_key`** → `stripeApiKeyValidation` (when sourceShortName === 'stripe')
+- Other sources fall through to generic validators
+
+### Field Name Mapping
+- **API Keys & Tokens**
+  - `api_key` → Generic API key validation (placeholder detection)
+  - `token`, `access_token` → API key validation
+  - `personal_access_token` → GitHub token validation
+
+- **URLs**
+  - `url`, `endpoint`, `base_url`, `cluster_url`, `uri` → URL validation (requires http:// or https://)
+
+- **Database Fields**
+  - `host` → Database host validation (no protocol)
+  - `port` → Port range validation (1-65535, numeric only)
+  - `tables` → Table list validation (* or comma-separated)
+
+- **User Credentials**
+  - `email`, `username` → Email validation
+  - `client_id` → Client ID validation
+  - `client_secret` → Client secret validation
+
+- **Source-Specific Fields**
+  - `repo_name` → GitHub repository validation
+  - `workspace` → Bitbucket workspace validation
+  - `repo_slug` → Bitbucket repo slug validation (allows dots)
+
+- **Auth Provider Fields**
+  - `auth_config_id` → Auth config ID validation
+  - `account_id` → Account ID validation
+  - `project_id` → Project ID validation
+  - `external_user_id` → External user ID validation
+  - `environment` → Environment validation
+
+## Validation Timing
+
+### Debounce Settings
+- **500ms**: Most text fields (repo names, GitHub tokens, Stripe keys, API keys)
+- **300ms**: Database ports
+- **0ms**: Some specialized fields requiring immediate feedback
+
+### Show Behavior
+- **`showOn: 'change'`**: Validates during typing (after debounce) - used for most fields
+- **`showOn: 'blur'`**: Validates only when field loses focus - rarely used
+
+## Visual Feedback
+- **Info**: Gray text, amber border at 20% opacity (for empty/incomplete fields)
+- **Warning**: Amber text/border at 30% opacity (for invalid inputs)
+- **No success states**: We don't celebrate valid input, just guide when invalid
+
+## Implementation Notes
+
+### Port Validation
+Uses regex check (`/^\d+$/`) before `parseInt` to reject strings like "123abc" that would otherwise parse as valid.
+
+### Empty Field Handling
+Most validators return `{ isValid: true }` for empty fields to allow partial form completion. Backend validation handles required field checks on submission.
+
+### Source Context Awareness
+The validation system can route to source-specific validators when `sourceShortName` is provided, enabling different validation logic for fields with common names (like `api_key`) across different sources.
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
