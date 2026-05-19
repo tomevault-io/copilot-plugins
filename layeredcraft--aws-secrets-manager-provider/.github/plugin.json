@@ -1,0 +1,9 @@
+{
+  "name": "layeredcraft--aws-secrets-manager-provider",
+  "displayName": "aws-secrets-manager-provider",
+  "description": "AWS Secrets Manager Configuration Provider",
+  "version": "1.0.0",
+  "author": "LayeredCraft",
+  "homepage": "https://github.com/LayeredCraft/aws-secrets-manager-provider",
+  "skills": []
+}
