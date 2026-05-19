@@ -1,0 +1,9 @@
+{
+  "name": "seatedro--glimpse",
+  "displayName": "glimpse",
+  "description": "Copy code from your codebase to clipboard instantly for LLM context!",
+  "version": "1.0.0",
+  "author": "seatedro",
+  "homepage": "https://github.com/seatedro/glimpse",
+  "skills": []
+}
