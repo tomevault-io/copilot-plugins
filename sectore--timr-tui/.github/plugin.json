@@ -1,0 +1,9 @@
+{
+  "name": "sectore--timr-tui",
+  "displayName": "timr-tui",
+  "description": "TUI to organize your time: Pomodoro, Countdown, Timer, Event.",
+  "version": "1.0.0",
+  "author": "sectore",
+  "homepage": "https://github.com/sectore/timr-tui",
+  "skills": []
+}
