@@ -1,0 +1,9 @@
+{
+  "name": "derekja--pigenny",
+  "displayName": "pigenny",
+  "description": "generator control from the luxpower, all on the pi4b with waveshare and relay expansions",
+  "version": "1.0.0",
+  "author": "derekja",
+  "homepage": "https://github.com/derekja/pigenny",
+  "skills": []
+}
