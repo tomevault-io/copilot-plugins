@@ -1,0 +1,44 @@
+{
+  "name": "easykafka",
+  "owner": "studeyang",
+  "repo": "easykafka",
+  "description": "Make kafka easier to use.\uff08\u57fa\u4e8e Spring Kafka \u589e\u5f3a\uff0c\u8ba9\u6d88\u606f\u6536\u53d1\u66f4\u7b80\u5355\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/studeyang/easykafka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T11:08:49Z"
+}
