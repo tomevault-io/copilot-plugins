@@ -1,0 +1,9 @@
+{
+  "name": "sn4k3--updatum",
+  "displayName": "Updatum",
+  "description": "A C# library that enables automatic application updates via GitHub Releases.",
+  "version": "1.0.0",
+  "author": "sn4k3",
+  "homepage": "https://github.com/sn4k3/Updatum",
+  "skills": []
+}
