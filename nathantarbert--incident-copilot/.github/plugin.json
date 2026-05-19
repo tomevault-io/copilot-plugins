@@ -1,0 +1,9 @@
+{
+  "name": "nathantarbert--incident-copilot",
+  "displayName": "incident-copilot",
+  "description": "\ud83d\udd10 AI-powered incident-response dashboard built with CopilotKit + Custom Agent \u2014 natural-language triage, human-in-the-loop actions, and live charts over a decade of global cybersecurity threats.",
+  "version": "1.0.0",
+  "author": "NathanTarbert",
+  "homepage": "https://github.com/NathanTarbert/incident-copilot",
+  "skills": []
+}
