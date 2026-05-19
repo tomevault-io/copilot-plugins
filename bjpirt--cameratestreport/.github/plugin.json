@@ -1,0 +1,9 @@
+{
+  "name": "bjpirt--cameratestreport",
+  "displayName": "cameraTestReport",
+  "description": "A tool to collect data on a camera test",
+  "version": "1.0.0",
+  "author": "bjpirt",
+  "homepage": "https://github.com/bjpirt/cameraTestReport",
+  "skills": []
+}
