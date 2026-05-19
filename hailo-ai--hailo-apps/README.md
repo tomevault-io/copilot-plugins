@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [hailo-ai/hailo-apps](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/hailo-ai#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps)
 
 ---
 
@@ -23,6 +23,6 @@ Install this config instantly:
 ```
 npx tomevault install hailo-ai/hailo-apps
 ```
-Or browse all formats at [https://tomevault.io/claim/hailo-ai](https://tomevault.io/claim/hailo-ai).
+Source: [github.com/hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps).
 
 <!-- genome:a-i-q -->
