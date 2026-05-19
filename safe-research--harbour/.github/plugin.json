@@ -1,0 +1,9 @@
+{
+  "name": "safe-research--harbour",
+  "displayName": "harbour",
+  "description": "Harbour is a safe decentralised place where Safe transactions wait before sailing onto the blockchain",
+  "version": "1.0.0",
+  "author": "safe-research",
+  "homepage": "https://github.com/safe-research/harbour",
+  "skills": []
+}
