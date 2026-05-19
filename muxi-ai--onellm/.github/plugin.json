@@ -1,0 +1,9 @@
+{
+  "name": "muxi-ai--onellm",
+  "displayName": "onellm",
+  "description": "Unified interface for interacting with various LLMs hundreds of models, caching, fallback mechanisms, and enhanced reliability.",
+  "version": "1.0.0",
+  "author": "muxi-ai",
+  "homepage": "https://github.com/muxi-ai/onellm",
+  "skills": []
+}
