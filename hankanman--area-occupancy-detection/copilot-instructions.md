@@ -1,62 +1,145 @@
-## code-quality-rules
+## development-workflows
 
-> **Problem**: Raising exceptions within try blocks that catch those same exceptions is redundant and flagged by ruff's TRY301 rule.
+> 1. **Development Script**: Run `./scripts/develop` to set up the development environment
 
+# Development Workflows and Debugging Guide
 
-## Avoid `raise-within-try` (TRY301)
+## Quick Start Development
 
-**Problem**: Raising exceptions within try blocks that catch those same exceptions is redundant and flagged by ruff's TRY301 rule.
+### Setting Up Development Environment
+1. **Development Script**: Run `./scripts/develop` to set up the development environment
+2. **Dependencies**: Check [requirements_test.txt](mdc:requirements_test.txt) for test dependencies
+3. **Linting Setup**: [pyproject.toml](mdc:pyproject.toml) contains all linting configurations
 
-**Solution**: Extract validation logic to helper functions defined OUTSIDE the try block. The raise statement should be in a separate function, not directly in the try block.
+### Running Tests
+```bash
+# Run all tests
+pytest
 
-**Bad Example**:
+# Run specific test file
+pytest tests/test_coordinator.py
 
-```python
-try:
-    if condition:
-        raise ValueError("Error message")  # TRY301 violation
-except ValueError:
-    handle_error()
+# Run with coverage
+pytest --cov=custom_components.area_occupancy
+
+# Run specific test method
+pytest tests/test_coordinator.py::TestAreaOccupancyCoordinator::test_probability_calculation
 ```
 
-**Good Example - Module-level helper function**:
+## Debugging Common Issues
 
+### Storage and Migration Problems
+- **Storage KeyError 'data'**: Check [storage.py](mdc:custom_components/area_occupancy/storage.py) async_load override method
+- **Migration Failures**: Debug in [migrations.py](mdc:custom_components/area_occupancy/migrations.py) with version checking
+- **Storage Format Issues**: Verify Home Assistant Store format in [storage.py](mdc:custom_components/area_occupancy/storage.py)
+
+### Probability Calculation Issues
+- **Bayesian Math**: Check [utils.py](mdc:custom_components/area_occupancy/utils.py) bayesian_probability function
+- **Entity States**: Debug in [data/entity.py](mdc:custom_components/area_occupancy/data/entity.py) state change handlers
+- **Prior Learning**: Verify [data/prior.py](mdc:custom_components/area_occupancy/data/prior.py) historical analysis
+
+### Circular Import Problems
+- **Entity Type Imports**: Check [data/entity_type.py](mdc:custom_components/area_occupancy/data/entity_type.py) and [data/prior.py](mdc:custom_components/area_occupancy/data/prior.py)
+- **Use TYPE_CHECKING**: Import types only in TYPE_CHECKING blocks
+- **Runtime Imports**: Move actual imports inside functions if needed
+
+## Testing Strategies
+
+### Centralized Mock Usage
+- **Always Use**: [tests/conftest.py](mdc:tests/conftest.py) fixtures instead of local mocks
+- **Mock Strategy**: Read [tests/README_CENTRALIZED_MOCKS.md](mdc:tests/README_CENTRALIZED_MOCKS.md) for detailed patterns
+- **Fixture Dependencies**: Use `mock_hass`, `mock_config_entry`, `mock_coordinator` consistently
+
+### Test Data Patterns
 ```python
-def _validate_condition() -> None:
-    """Validate condition and raise if invalid."""
-    if condition:
-        raise ValueError("Error message")
+# Use centralized fixtures
+def test_my_feature(mock_coordinator, mock_entity_manager):
+    # Test implementation
+    pass
 
-try:
-    _validate_condition()
-except ValueError:
-    handle_error()
+# Avoid local fixtures - use centralized ones instead
 ```
 
-**Good Example - Class method helper**:
+## Debugging Services
 
-```python
-class MyClass:
-    def _validate_data(self, data: dict) -> None:
-        """Validate data and raise if invalid."""
-        if not data:
-            raise ValueError("Data is required")
+### Using Built-in Debug Services
+The component provides debugging services in [service.py](mdc:custom_components/area_occupancy/service.py):
 
-    def process(self):
-        try:
-            self._validate_data(self.data)
-        except ValueError:
-            handle_error()
+1. **area_occupancy.debug_probabilities** - View current probability calculations
+2. **area_occupancy.debug_entities** - Inspect entity states and configurations
+3. **area_occupancy.force_update_priors** - Manually trigger prior learning
+4. **area_occupancy.reset_learned_data** - Clear learned historical data
+
+### Service Call Examples
+```yaml
+# Debug current state
+service: area_occupancy.debug_probabilities
+target:
+  entity_id: binary_sensor.office_occupancy
+
+# Force prior update
+service: area_occupancy.force_update_priors
+target:
+  entity_id: binary_sensor.office_occupancy
 ```
 
-**Pattern to follow**:
+## Code Quality and Standards
 
-1. Define validation functions OUTSIDE try blocks (as module-level functions or class methods)
-2. Pass any needed variables/parameters to these functions
-3. Call the validation function from within the try block
-4. The raise statement should be in the helper function, not directly in the try block
+### Linting and Formatting
+- **Run Linting**: `./scripts/lint` executes pylint and ruff checks
+- **Pylint Config**: [pyproject.toml](mdc:pyproject.toml) contains pylint configuration
+- **Ruff Config**: [pylint/ruff.toml](mdc:pylint/ruff.toml) for code formatting
 
-This makes exceptions reusable across multiple call sites and avoids redundant try-except patterns.
+### Type Checking
+- **MyPy Config**: [mypy.ini](mdc:mypy.ini) for type checking configuration
+- **Type Hints**: Always add type hints for public methods
+- **Import Patterns**: Use TYPE_CHECKING for type-only imports
+
+## Performance Considerations
+
+### Storage Optimization
+- **Debounced Saves**: Storage uses debouncing to reduce write frequency
+- **Memory Usage**: Prior learning caches are cleaned up periodically
+- **Background Tasks**: Decay calculations run on timers
+
+### Probability Calculation Efficiency
+- **Entity Aggregation**: Cached in coordinator for performance
+- **State Change Handling**: Only recalculates when states actually change
+- **Batch Updates**: Multiple entity changes processed together
+
+## Common Development Tasks
+
+### Adding New Entity Types
+1. Define constants in [const.py](mdc:custom_components/area_occupancy/const.py)
+2. Add entity type logic in [data/entity_type.py](mdc:custom_components/area_occupancy/data/entity_type.py)
+3. Update configuration flow in [config_flow.py](mdc:custom_components/area_occupancy/config_flow.py)
+4. Add tests in [tests/test_data_entity_type.py](mdc:tests/test_data_entity_type.py)
+
+### Modifying Probability Logic
+1. Update calculations in [utils.py](mdc:custom_components/area_occupancy/utils.py)
+2. Modify coordinator logic in [coordinator.py](mdc:custom_components/area_occupancy/coordinator.py)
+3. Update entity handling in [data/entity.py](mdc:custom_components/area_occupancy/data/entity.py)
+4. Add comprehensive tests in [tests/test_coordinator.py](mdc:tests/test_coordinator.py)
+
+### Configuration Changes
+1. Add constants to [const.py](mdc:custom_components/area_occupancy/const.py)
+2. Update config schema in [data/config.py](mdc:custom_components/area_occupancy/data/config.py)
+3. Modify config flow in [config_flow.py](mdc:custom_components/area_occupancy/config_flow.py)
+4. Add migration logic in [migrations.py](mdc:custom_components/area_occupancy/migrations.py) if needed
+5. Update version constants and add tests
+
+## Memory Management Best Practices
+
+### Storage Patterns
+- **Initialize Once**: Storage manager initialized in coordinator setup
+- **Graceful Degradation**: Handle storage failures without breaking functionality
+- **Migration Safety**: Always provide fallbacks for migration failures
+- **Cleanup**: Properly cleanup storage on component removal
+
+### Testing Memory Patterns
+- **Mock Storage**: Use centralized storage mocks from [conftest.py](mdc:tests/conftest.py)
+- **Isolated Tests**: Each test should have isolated storage state
+- **Cleanup**: Tests should not leave persistent state between runs
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
