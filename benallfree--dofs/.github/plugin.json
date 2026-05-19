@@ -1,0 +1,9 @@
+{
+  "name": "benallfree--dofs",
+  "displayName": "dofs",
+  "description": "A filesystem for Cloudflare Durable Objects",
+  "version": "1.0.0",
+  "author": "benallfree",
+  "homepage": "https://github.com/benallfree/dofs",
+  "skills": []
+}
