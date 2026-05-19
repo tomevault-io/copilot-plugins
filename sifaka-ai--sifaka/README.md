@@ -7,11 +7,11 @@ Sifaka is an open-source framework that adds reflection and reliability to large
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [sifaka-ai/sifaka](https://github.com/sifaka-ai/sifaka).
+Original source: `CLAUDE.md` in [sifaka-ai/sifaka](https://github.com/sifaka-ai/sifaka).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
