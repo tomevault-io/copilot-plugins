@@ -1,0 +1,9 @@
+{
+  "name": "laurynas-biveinis--elisp-dev-mcp",
+  "displayName": "elisp-dev-mcp",
+  "description": "Dev tools in Emacs MCP for agentic Elisp development with LLMs",
+  "version": "1.0.0",
+  "author": "laurynas-biveinis",
+  "homepage": "https://github.com/laurynas-biveinis/elisp-dev-mcp",
+  "skills": []
+}
