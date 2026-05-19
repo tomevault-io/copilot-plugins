@@ -1,0 +1,9 @@
+{
+  "name": "meilisearch--meilisearch-mcp",
+  "displayName": "meilisearch-mcp",
+  "description": "A Model Context Protocol (MCP) server for interacting with Meilisearch through LLM interfaces.",
+  "version": "1.0.0",
+  "author": "meilisearch",
+  "homepage": "https://github.com/meilisearch/meilisearch-mcp",
+  "skills": []
+}
