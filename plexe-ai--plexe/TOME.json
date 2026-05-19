@@ -4,7 +4,7 @@
   "repo": "plexe",
   "description": "\u2728 Build a machine learning model from a prompt",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/plexe-ai/plexe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:44:11Z"
+  "distributed_at": "2026-05-19T03:03:09Z"
 }
