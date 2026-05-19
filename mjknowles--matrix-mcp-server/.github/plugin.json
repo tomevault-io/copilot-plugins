@@ -1,0 +1,9 @@
+{
+  "name": "mjknowles--matrix-mcp-server",
+  "displayName": "matrix-mcp-server",
+  "description": "MCP Server for a Matrix home server integration; chat, manage rooms, etc.",
+  "version": "1.0.0",
+  "author": "mjknowles",
+  "homepage": "https://github.com/mjknowles/matrix-mcp-server",
+  "skills": []
+}
