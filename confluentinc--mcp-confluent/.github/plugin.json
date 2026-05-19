@@ -1,0 +1,9 @@
+{
+  "name": "confluentinc--mcp-confluent",
+  "displayName": "mcp-confluent",
+  "description": "mcp-confluent",
+  "version": "1.0.0",
+  "author": "confluentinc",
+  "homepage": "https://github.com/confluentinc/mcp-confluent",
+  "skills": []
+}
