@@ -7,11 +7,11 @@ The official Kotlin SDK for Model Context Protocol servers and clients. Maintain
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk).
+Original source: `CLAUDE.md` in [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
