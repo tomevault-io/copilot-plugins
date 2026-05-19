@@ -1,0 +1,9 @@
+{
+  "name": "ryanbr--network-scanner",
+  "displayName": "network-scanner",
+  "description": "A network scanner to output in various adblock formats",
+  "version": "1.0.0",
+  "author": "ryanbr",
+  "homepage": "https://github.com/ryanbr/network-scanner",
+  "skills": []
+}
