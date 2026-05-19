@@ -1,0 +1,9 @@
+{
+  "name": "ybrs--pg-catalog",
+  "displayName": "pg_catalog",
+  "description": "Provides a postgres compatibility layer for custom databases",
+  "version": "1.0.0",
+  "author": "ybrs",
+  "homepage": "https://github.com/ybrs/pg_catalog",
+  "skills": []
+}
