@@ -1,68 +1,46 @@
-## tag-cmds
+## tests
 
-> `pyzotero` documentation for working with tags
+> At this initial stage of the project, tests are intended to be end-to-end integration tests using real API credentials and real API calls to make sure that dependencies behave as our code expects. Zotero resources should be set up and torn down as necessary.
 
+At this initial stage of the project, tests are intended to be end-to-end integration tests using real API credentials and real API calls to make sure that dependencies behave as our code expects. Zotero resources should be set up and torn down as necessary.
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the tag-related functionality in our CLI wrapper.
+Prefix pytest commands with `uv run` to make sure the test is run in the virtual environment. To limit information overload, run either a single test file or a single test: `uv run pytest tests/<test_file_name.py>::<test_name>`
 
-# Tags Commands
+Import the Click command group like `from pyzotero_cli.zot_cli import zot`. Avoid name collisions with the `zot` object.
 
-## Retrieving Tags
+Sequence arguments in `CliRunner.invoke` so that options for a parent command come before any subcommands.
 
-```python
-# Retrieve all tags from a library
-zot.tags([search/request parameters])
-```
+Tests should validate, among other things, that the default output format is valid JSON, correctly serialized, and not just a Python dictionary coerced to string.
 
-Returns a library's tags as a list of strings.
+The following Pytest fixtures are available in `conftest.py`:
 
-```python
-# Retrieve tags from a specific item
-zot.item_tags(itemID[, search/request parameters])
-```
+- **`isolated_config` (scope="function")**  
+  - **Purpose:** Isolates the config file for each test to prevent interference.  
+  - **Use Case:** Any test that reads or writes to the `zot-cli` config file.  
 
-Parameters:
-- `itemID`: a valid Zotero library Item ID
+- **`real_api_credentials` (scope="session")**  
+  - **Purpose:** Provides real Zotero API credentials from environment variables.  
+  - **Use Case:** Tests requiring real API access (e.g., creating/deleting items or tags).  
 
-Returns tags from a specific item as a list of strings.
+- **`active_profile_with_real_credentials` (scope="function")**  
+  - **Purpose:** Sets up and activates a profile with real API credentials.  
+  - **Use Case:** Tests that rely on a pre-configured active profile.  
 
-Example of returned tag data:
-```
-['Authority in literature', 'Errata']
-```
+- **`runner` (scope="session")**
+  - **Purpose:** Creates the Click `CliRunner` object.
+  - **Use case:** Simulates client for running user CLI commands.
 
-## Deleting Tags
+- **`zot_instance` (scope="function")**
+  - **Purpose:** Provides an authenticated Pyzotero instance for direct API checks.
+  - **Use Case:** Tests that need to interact directly with the Zotero API.
 
-```python
-# Delete one or more tags from your library
-zot.delete_tags(tag_a[, tag …])
-```
+- **`temp_item_with_tags` (scope="function")**  
+  - **Purpose:** Creates and cleans up a temporary item with tags.  
+  - **Use Case:** Tests for item-tag relationships (e.g., listing tags for an item).
 
-Parameters:
-- `tag`: the tag(s) you'd like to delete
-
-You may also pass a list using `zot.delete_tags(*[tag_list])`
-
-## Adding Tags
-
-```python
-# Add one or more tags to an item
-zot.add_tags(item, tag[, tag …])
-```
-
-Parameters:
-- `item`: a dict containing item data
-- `tag`: the tag(s) you'd like to add to the item
-
-You may also pass a list using `zot.add_tags(item, *[tag_list])`
-
-Example:
-```python
-z = zot.top(limit=1)
-# we've now retrieved the most recent top-level item
-updated = zot.add_tags(z[0], 'tag1', 'tag2', 'tag3')
-# updated now contains a representation of the updated server item
-``` 
+- **`temp_parent_item` (scope="function")**
+  - **Purpose:** Creates a temporary regular item (journalArticle) for attaching files and cleans it up.
+  - **Use Case:** Tests that require a parent item for attachments or related operations.
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
