@@ -1,87 +1,101 @@
-## util-cmds
+## utils
 
-> `pyzotero` documentation for utility commands
+> `pyzotero` general documentation and utilities
 
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the utility command functionality in our CLI wrapper.
+This document contains the general `pyzotero` documentation and utilities that are useful across all modules in our CLI wrapper.
 
-# Utility Commands
+# Pyzotero Utilities
 
-## Version Information
-
-```python
-# Get item versions
-zot.item_versions([search/request parameters])
-```
-
-Returns a dict containing version information for items in the library.
+## Getting Started
 
 ```python
-# Get collection versions
-zot.collection_versions(itemID[, search/request parameters])
+from pyzotero import zotero
+zot = zotero.Zotero(library_id, library_type, api_key)
+items = zot.top(limit=5)
+# we've retrieved the latest five top-level items in our library
+# we can print each item's item type and ID
+for item in items:
+  print('Item Type: %s | Key: %s' % (item['data']['itemType'], item['data']['key']))
 ```
 
-Parameters:
-- `itemID`: a Zotero item ID
+## Zotero Instance Creation
 
-Returns a dict containing version information for collections in the library.
-
-Example of returned version data:
-```python
-{'C9KW275P': 3915, 'IB489TKM': 4025}
-```
-
-```python
-# Get last modified version
-zot.last_modified_version()
-```
-
-Returns the last modified version of the library as an integer.
-
-## Item Counts
+A `Zotero` instance is bound to the library or group used to create it. Thus, if you create a `Zotero` instance with a `library_id` of `67` and a `library_type` of `group`, its item methods will only operate upon that group. Similarly, if you create a `Zotero` instance with your own `library_id` and a `library_type` of `user`, the instance will be bound to your Zotero library.
 
 ```python
-# Get count of all items in library
-zot.count_items()
+# Create a new Zotero instance
+from pyzotero import zotero
+zot = zotero.Zotero('123', 'user', 'ABC1234XYZ')
+# we now have a Zotero object, zot, and access to all its methods
+first_ten = zot.items(limit=10)
+# a list containing dicts of the ten most recently modified library items
 ```
 
-Returns a count of all items in a library/group.
+## Reading API Response Data
+
+In contrast to the v1 API, a great deal of additional metadata is now returned. In most cases, simply accessing items by referring to their `item['data']` key will suffice.
+
+Example of returned item data:
+```python
+{u'data': {u'ISBN': u'0810116820',
+          u'abstractNote': u'',
+          u'accessDate': u'',
+          u'archive': u'',
+          u'archiveLocation': u'',
+          u'callNumber': u'HIB 828.912 BEC:3g N9',
+          u'collections': [u'2UNGXMU9'],
+          u'creators': [{u'creatorType': u'author',
+                          u'firstName': u'Daniel',
+                          u'lastName': u'Katz'}],
+          u'date': u'1999',
+          # ... more fields ...
+          u'title': u'Saying I No More: Subjectivity and Consciousness in The Prose of Samuel Beckett',
+          u'url': u'',
+          u'version': 792,
+          u'volume': u''},
+ u'key': u'VDNIEAPH',
+ u'library': {u'id': 436,
+              u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei',
+                                        u'type': u'text/html'}},
+              u'name': u'urschrei',
+              u'type': u'user'},
+ u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei/items/VDNIEAPH',
+                          u'type': u'text/html'},
+            u'self': {u'href': u'https://api.zotero.org/users/436/items/VDNIEAPH',
+                      u'type': u'application/json'}},
+ u'meta': {u'creatorSummary': u'Katz',
+          u'numChildren': 0,
+          u'parsedDate': u'1999-00-00'},
+ u'version': 792}
+```
+
+## Pagination and Retrieval Tips
+
+The Read API returns 25 results by default (the API documentation claims 50). In the interests of usability, Pyzotero returns 100 items by default, by setting the API `limit` parameter to 100, unless it's set by the user. 
+
+If you wish to retrieve all top-level items without specifying a `limit` parameter, you'll have to wrap your call with `Zotero.everything()`:
+```python
+results = zot.everything(zot.top())
+```
+
+## Export Formats
+
+If you want to retrieve citation or bibliography entries, use these parameters:
 
 ```python
-# Get count of top-level items
-zot.num_items()
+zot.add_parameters(content='bib', style='mla')
 ```
 
-Returns the count of top-level items in the library.
+If these are set, the return value is a list of UTF-8 formatted HTML `div` elements, each containing an item: `['<div class="csl-entry">(content)</div>']`.
 
-```python
-# Get count of items in a collection
-zot.num_collectionitems(collectionID)
-```
+You may also set `content='citation'` if you wish to retrieve citations. Similar to `bib`, the result will be a list of one or more HTML `span` elements.
 
-Parameters:
-- `collectionID`: a Zotero collection ID
+If you select one of the available export formats as the `content` parameter, pyzotero will in most cases return a list of unicode strings in the format you specified. The exception is the `csljson` format, which is parsed into a list of dicts.
 
-Returns the count of items in the specified collection.
+If you set `format='keys'`, a newline-delimited string containing item keys will be returned.
 
-## Error Handling
-
-Where possible, any `ZoteroError` which is raised will preserve the underlying error in its `__cause__` and `__context__` properties, should you wish to work with these directly.
-
-## Configuration
-
-```python
-# Create a Zotero instance
-zot = zotero.Zotero(library_id, library_type, api_key, preserve_json_order, locale, local)
-```
-
-Parameters:
-- `library_id`: a valid Zotero API user ID
-- `library_type`: a valid Zotero API library type: **user** or **group**
-- `api_key`: a valid Zotero API user key
-- `preserve_json_order`: Load JSON returns with OrderedDict to preserve their order
-- `locale`: Set the locale, allowing retrieval of localized item types, field types, and creator types. Defaults to "en-US"
-- `local`: use the local Zotero http server instead of the remote API. Note that the local server currently only allows **read** requests 
+If you set `format='bibtex'`, a bibtexparser object containing citations will be returned. You can access the citations as a list of dicts using the `.entries` property. 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
