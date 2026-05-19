@@ -1,0 +1,9 @@
+{
+  "name": "deadlock-mod-manager--deadlock-mod-manager",
+  "displayName": "deadlock-mod-manager",
+  "description": "A mod manager for the Valve game Deadlock.",
+  "version": "1.0.0",
+  "author": "deadlock-mod-manager",
+  "homepage": "https://github.com/deadlock-mod-manager/deadlock-mod-manager",
+  "skills": []
+}
