@@ -4,7 +4,7 @@
   "repo": "gmc",
   "description": "Parallel git worktrees for parallel AI agents \u2014 plus AI-generated commits.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/samzong/gmc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T17:08:04Z"
+  "distributed_at": "2026-05-19T17:59:21Z"
 }
