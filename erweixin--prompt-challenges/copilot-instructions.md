@@ -1,0 +1,246 @@
+## prompt-challenges
+
+> 大众向大模型学习路径：从清晰表达需求到工具、MCP、Skills、Harness；题库为全新命题，旧题已归档至 `_archive/questions/`。
+
+# Prompt Challenges 项目 Cursor Rules
+
+## 项目概述
+大众向大模型学习路径：从清晰表达需求到工具、MCP、Skills、Harness；题库为全新命题，旧题已归档至 `_archive/questions/`。
+
+## 技术栈
+- **站点**: Astro 5 + TypeScript + Tailwind CSS v4（`@tailwindcss/vite`）
+- **交互岛**: React 19（如 `PromptScorer`）
+- **内容**: `src/content/challenges/` Markdown + Content Collection（`src/content.config.ts`）
+- **国际化**: 路由前缀 `/zh`、`/en`
+- **部署**: Cloudflare Pages + Worker（`@astrojs/cloudflare`）；评分 API 为 `src/pages/api/score.ts`
+- **参考**: 旧 Next 实现见 `_legacy/site/`（勿作为运行入口）
+
+## 代码规范
+
+### 文件命名
+- 组件文件使用PascalCase: `ChallengeCard.tsx`
+- 工具函数使用camelCase: `challenge-parser.ts`
+- Astro 页面：`src/pages/.../*.astro`
+- 挑战文件使用数字前缀: `00-text-summary.md`
+
+### TypeScript规范
+- 严格模式: 启用所有严格检查
+- 类型定义: 优先使用interface而非type
+- 导入顺序: React → 第三方库 → 内部模块 → 类型定义
+- 组件props: 使用interface定义，包含JSDoc注释
+
+### React组件规范
+```typescript
+interface ComponentProps {
+  /** 组件描述 */
+  prop: string;
+}
+
+/**
+ * 组件描述
+ */
+export function Component({ prop }: ComponentProps) {
+  // 组件实现
+}
+```
+
+### 样式规范
+- 优先使用Tailwind CSS类名
+- 自定义样式使用CSS Modules或styled-components
+- 响应式设计: 移动端优先
+- 主题色: 遵循项目设计系统
+
+## 项目结构规范
+
+### 挑战题目结构（Content Collection）
+```
+src/content/challenges/
+├── *.zh.md / *.en.md   # 文件名区分语言；frontmatter: id, locale, learningStage, learningOrder, contentKind, difficulty
+└── （旧 questions/ 已迁至 _archive/questions/）
+```
+
+### 网站结构
+```
+src/
+├── content/challenges/  # 题目 Markdown
+├── pages/               # Astro 路由（含 api/score）
+├── components/          # .astro + react/
+├── layouts/
+├── lib/                 # 排序、分组等
+├── i18n/
+├── server/              # 评分逻辑
+└── styles/
+```
+
+## 挑战题目编写规范
+
+### Markdown格式
+- 使用标准Markdown语法
+- 包含中英文双语版本
+- 题目编号使用两位数前缀
+- 必须包含知识点标签
+
+### 题目结构
+```markdown
+# 题目名称
+
+## 目标
+明确描述题目目标
+
+## 要求
+- 具体要求1
+- 具体要求2
+
+## 测试用例
+提供具体的测试示例
+
+## 评分标准
+详细的评分规则
+
+## 知识点标签
+`标签1`, `标签2`, `标签3`
+```
+
+## 国际化规范
+
+### 文件命名
+- 英文版本: `filename.en.md`
+- 中文版本: `filename.md`
+
+### 翻译要求
+- 保持技术术语一致性
+- 确保语义准确传达
+- 考虑文化差异
+
+## 性能优化
+
+### Astro 优化
+- 默认少 JS；交互使用 React island（`client:load`）
+- 读本/列表预渲染；`/api/score` 保持服务端
+- 图片与资源走 `public/`
+
+### 代码优化
+- React 组件仅保留评分岛等必要交互
+- 避免在岛外引入大型客户端库
+
+## 测试规范
+
+### 单元测试
+- 核心工具函数必须有测试
+- 使用Jest + Testing Library
+- 测试覆盖率 > 80%
+
+### 集成测试
+- 关键用户流程测试
+- API端点测试
+- 国际化功能测试
+
+## 文档规范
+
+### 代码注释
+- 复杂逻辑必须有注释
+- 使用JSDoc格式
+- 中文注释优先
+
+### README更新
+- 新增挑战时更新README
+- 保持目录结构同步
+- 更新知识点标签
+
+## 提交规范
+
+### Git提交信息
+```
+feat: 添加新的挑战题目
+fix: 修复评分系统bug
+docs: 更新README文档
+style: 调整UI样式
+refactor: 重构挑战解析器
+test: 添加测试用例
+```
+
+### 分支管理
+- main: 主分支，稳定版本
+- develop: 开发分支
+- feature/*: 功能分支
+- hotfix/*: 紧急修复分支
+
+## 安全规范
+
+### 输入验证
+- 所有用户输入必须验证
+- 防止XSS攻击
+- 实现CSRF保护
+
+### 数据安全
+- 敏感信息不提交到代码库
+- 使用环境变量管理配置
+- 定期更新依赖包
+
+## 部署规范
+
+### 环境配置
+- 开发环境: localhost:8080
+- 生产环境: Vercel自动部署
+- 环境变量: 使用.env.local
+
+### 构建优化
+- 启用压缩和缓存
+- 优化资源加载
+- 监控性能指标
+
+## 代码审查要点
+
+### 功能完整性
+- 是否满足题目要求
+- 是否包含测试用例
+- 是否支持国际化
+
+### 代码质量
+- 类型安全性
+- 错误处理
+- 性能影响
+- 可维护性
+
+### 用户体验
+- 响应式设计
+- 加载性能
+- 可访问性
+- 用户反馈
+
+## 常见问题解决
+
+### 挑战解析问题
+- 检查Markdown格式
+- 验证标签格式
+- 确认文件路径
+
+### 国际化问题
+- 检查locale配置
+- 验证翻译完整性
+- 测试语言切换
+
+### 性能问题
+- 分析包大小
+- 检查重复渲染
+- 优化图片加载
+
+## 学习资源
+
+### Prompt Engineering
+- OpenAI官方文档
+- Anthropic Claude指南
+- 学术论文和实践案例
+
+### 技术栈学习
+- Next.js官方文档
+- TypeScript手册
+- Tailwind CSS指南
+
+---
+
+遵循这些规范，确保代码质量和项目一致性！ 
+
+---
+> Source: [erweixin/prompt-challenges](https://github.com/erweixin/prompt-challenges) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
