@@ -1,0 +1,9 @@
+{
+  "name": "johnan--homeassistant-homevolt-local",
+  "displayName": "homeassistant-homevolt-local",
+  "description": "Home Assistant integration for locally accessing Homevolt batteries",
+  "version": "1.0.0",
+  "author": "JohNan",
+  "homepage": "https://github.com/JohNan/homeassistant-homevolt-local",
+  "skills": []
+}
