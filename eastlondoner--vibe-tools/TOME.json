@@ -4,7 +4,7 @@
   "repo": "vibe-tools",
   "description": "Give Cursor Agent an AI Team and Advanced Skills",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eastlondoner/vibe-tools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:38:57Z"
+  "distributed_at": "2026-05-19T01:41:51Z"
 }
