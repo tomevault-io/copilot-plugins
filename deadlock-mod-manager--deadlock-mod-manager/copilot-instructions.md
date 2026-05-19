@@ -1,39 +1,209 @@
-## 035-error-handling
+## 040-logging
 
-> TypeScript errors: use BaseError subclasses from @deadlock-mods/common instead of raw Error
+> Logging: Guidelines for implementing structured logging using @deadlock-mods/logging package
 
 
-# Error Handling (TypeScript)
+# Logging Guidelines
 
-## Do not throw raw `Error`
+The following rules describe how logging should be implemented in the Deadlock Mod Manager codebase. In general, avoid `console.log` statements and make sure to use the structured logger initialized in every app. For detailed guidelines, please refer to the specific sections below.
 
-- Do **not** use `throw new Error("...")` in application or library code.
-- Throw a `BaseError` subclass from `@deadlock-mods/common` so errors carry a stable `code` and optional `originalError`.
+## Overview
 
-## Choosing an error class
+A package in this monorepo `@deadlock-mods/logging` provides structured logging with:
 
-| Situation | Prefer |
-|-----------|--------|
-| Missing env / invalid config | `ConfigurationError` |
-| External provider or integration (e.g. GameBanana) | `ProviderError` |
-| Archive / extraction failure | `ExtractionError` |
-| Resource not found (non-DB or generic API) | `NotFoundError` |
-| Auth required / permission denied | `UnauthorizedError` / `ForbiddenError` |
-| Invalid input / parsing | `ValidationError` |
-| Drizzle / Postgres errors | Use `mapDrizzleError` or DB-specific errors in `@deadlock-mods/common` |
-| Catch-all internal failure | `RuntimeError` or `UnknownError` |
+- Context support
+- Error handling
+- Request-scoped logging
+- Type-safe logthods
+- Environment-aware formatting
 
-## New domain-specific errors
+The logging format depends on the `NODE_ENV` environment variable:
 
-- Add a new `BaseError` subclass in `packages/common/src/errors/` when the same failure mode appears in multiple places and needs a dedicated `GenericErrorCode` or `ApiErrorCode`.
-- Prefer extending existing classes over introducing duplicates.
+- Development mode: Simple colorized output
+- Production mode: [logfmt format](https://brandur.org/logfmt)
 
-## Exceptions
+## Installation
 
-- **React context invariants** in generated UI (e.g. shadcn `packages/ui`) may keep `throw new Error` to stay aligned with upstream.
-- **Tests** may use raw `Error` when the test harness expects it.
+```bash
+pnpm add @deadlock-mods/logging
+```
 
-See [generic.ts](mdc:packages/common/src/errors/generic.ts) and [codes.ts](mdc:packages/common/src/errors/codes.ts).
+## Basic Usage
+
+### Log Levels
+
+The logger supports six standard log levels, each with its own method:
+
+- `info()` - For general information messages
+- `warn()` - For warning messages that require attention
+- `error()` - For error messages that indicate failures
+- `debug()` - For debug information (disabled in production by default)
+- `trace()` - For detailed debugging information (disabled in production by default)
+- `fatal()` - For critical errors that require immediate attention
+
+### Message Parameters
+
+Multiple parameters:
+
+```ts
+logger.info("User", 123, "logged in");
+```
+
+String formatting:
+
+```ts
+logger.info("User %s logged in from %s", "john", "localhost");
+```
+
+### Contextual Logging
+
+Add context to your logs using the `withMetadata` method:
+
+```ts
+log.withMetadata({
+  requestId: "123",
+  userId: "user_456",
+});
+
+// Context will be included in all subsequent log messages
+log.info("Processing request");
+log.warn("User quota exceeded");
+```
+
+Chain context with log methods:
+
+```ts
+log.withMetadata({ requestId: "123" }).info("Processing request");
+```
+
+### Error Logging
+
+When using error logging methods (`withError` or `errorOnly`), errors are automatically reported to Sentry for error tracking when the log level is `error` or `fatal`. This behavior can be disabled by setting `skipSentry: true` in the metadata.
+
+#### With Message
+
+```ts
+const error = new Error("Database connection failed");
+// Reports to Sentry by default
+log.withError(error).error("Failed to process request");
+
+// Skip Sentry reporting
+log
+  .withMetadata({ skipSentry: true })
+  .withError(error)
+  .error("Failed to process request");
+
+// Can use any log level
+log.withError(error).warn("Database connection unstable"); // Not sent to Sentry
+log.withError(error).info("Retrying connection"); // Not sent to Sentry
+```
+
+#### Error-Only
+
+```ts
+// Default level is 'error' and reports to Sentry
+log.errorOnly(new Error("Database connection failed"));
+
+// With custom level
+log.errorOnly(new Error("Connection timeout"), {
+  logLevel: LogLevel.warn, // Not sent to Sentry
+});
+
+// With context
+log
+  .withMetadata({ requestId: "123" })
+  .withError(new Error("Not found"))
+  .error("Resource not found"); // Reports to Sentry
+```
+
+### Child Loggers
+
+Create loggers that inherit context:
+
+```ts
+const child = logger.child({ requestId: "123" });
+child.info("Processing request");
+```
+
+## Request-Scoped Logging
+
+The logger supports request-scoped context using AsyncLocalStorage for automatic context propagation.
+
+### Setup
+
+```ts
+import { createAppLogger, createLoggerContext } from "@deadlock-mods/logging";
+
+export const loggerContext = createLoggerContext();
+export const logger = createAppLogger({
+  app: "app-api",
+  context: loggerContext,
+});
+```
+
+### Middleware Integration
+
+```ts
+app.use("*", async (c, next) => {
+  await loggerContext.storage.run(
+    { requestId: c.get("requestId") },
+    async () => {
+      await next();
+    }
+  );
+});
+```
+
+Example output:
+
+```ts
+logger.info("Processing request");
+// {
+//   "level": "info",
+//   "message": "Processing request",
+//   "context": { "requestId": "123" }
+// }
+```
+
+## Testing
+
+Use the mock logger for testing:
+
+```ts
+const mockLogger = createMockLogger();
+someFunction(mockLogger);
+```
+
+## Best Practices
+
+1. **Always use structured logging**
+
+   - Avoid `console.log`, `console.error`, etc.
+   - Use appropriate log levels
+   - Include relevant context
+
+2. **Context Guidelines**
+
+   - Keep context data relevant and concise
+   - Use consistent key names across the application
+   - Don't include sensitive information in logs
+
+3. **Error Handling**
+
+   - Always log the full error object using `withError`
+   - Include enough context to debug the issue
+   - Use appropriate log levels for different error severities
+
+4. **Performance Considerations**
+
+   - Use debug/trace levels for verbose logging
+   - Consider log volume in production
+   - Implement log sampling for high-volume endpoints
+
+5. **Security**
+   - Never log sensitive data (passwords, tokens, etc.)
+   - Mask or truncate potentially sensitive values
+   - Follow data protection regulations for your region
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
