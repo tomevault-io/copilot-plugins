@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--recipe-tool",
+  "displayName": "recipe-tool",
+  "description": "Experimental tool for creating \"recipes\" to drive automations",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/recipe-tool",
+  "skills": []
+}
