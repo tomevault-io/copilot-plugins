@@ -1,0 +1,9 @@
+{
+  "name": "facebook--capi-param-builder",
+  "displayName": "capi-param-builder",
+  "description": "Conversions API parameter builder to help enhance the parameter qualities for Conversions API events",
+  "version": "1.0.0",
+  "author": "facebook",
+  "homepage": "https://github.com/facebook/capi-param-builder",
+  "skills": []
+}
