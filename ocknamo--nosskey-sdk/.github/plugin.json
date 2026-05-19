@@ -1,0 +1,9 @@
+{
+  "name": "ocknamo--nosskey-sdk",
+  "displayName": "nosskey-sdk",
+  "description": "SDK for Passkey-Derived Nostr Identity a.k.a. Nosskey",
+  "version": "1.0.0",
+  "author": "ocknamo",
+  "homepage": "https://github.com/ocknamo/nosskey-sdk",
+  "skills": []
+}
