@@ -1,0 +1,9 @@
+{
+  "name": "hefgi--ecluse",
+  "displayName": "ecluse",
+  "description": "Ephemeral local dev environments for coding agents \u2014 works whether your stack lives in Docker, on the host, or a mix. Run agents in parallel; each worktree gets isolated ports and data. No collisions,",
+  "version": "1.0.0",
+  "author": "hefgi",
+  "homepage": "https://github.com/hefgi/ecluse",
+  "skills": []
+}
