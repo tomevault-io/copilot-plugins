@@ -1,0 +1,9 @@
+{
+  "name": "tigranbs--mcgravity",
+  "displayName": "mcgravity",
+  "description": "Fast TUI that orchestrates AI coding tools (Claude Code, Codex, Gemini) in a plan\u2192execute\u2192review loop. Breaks work into atomic tasks for easier verification and course-correction.",
+  "version": "1.0.0",
+  "author": "tigranbs",
+  "homepage": "https://github.com/tigranbs/mcgravity",
+  "skills": []
+}
