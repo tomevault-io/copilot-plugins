@@ -1,0 +1,9 @@
+{
+  "name": "smythos--smyth-docs",
+  "displayName": "smyth-docs",
+  "description": "Everything you need to build, deploy, and collaborate with agents. Ride the llama, avoid the drama.",
+  "version": "1.0.0",
+  "author": "SmythOS",
+  "homepage": "https://github.com/SmythOS/smyth-docs",
+  "skills": []
+}
