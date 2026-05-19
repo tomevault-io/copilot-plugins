@@ -1,62 +1,20 @@
-## 45-inngest
+## 50-mongodb
 
-> Inngest function definition conventions — concurrency, retries, step.run, logging, and dev/prod differences
+> MongoDB pooling, schema locations, and reliability fixes
 
 
-# Inngest Conventions
+# MongoDB Guidelines
 
-## Function Definition
+- Pooling fix and migration notes: [MONGODB_CONNECTION_POOLING_FIX.md](mdc:MONGODB_CONNECTION_POOLING_FIX.md), [UNIFIED_MONGODB_POOL_MIGRATION.md](mdc:UNIFIED_MONGODB_POOL_MIGRATION.md).
+- Topology closure fix: [MONGODB_TOPOLOGY_CLOSED_FIX.md](mdc:MONGODB_TOPOLOGY_CLOSED_FIX.md), [MONGODB_CONNECTION_REFACTORING_SUMMARY.md](mdc:MONGODB_CONNECTION_REFACTORING_SUMMARY.md).
+- Connection provider: [api/src/services/database-connection.service.ts](mdc:api/src/services/database-connection.service.ts).
+- Schemas: [api/src/database/schema.ts](mdc:api/src/database/schema.ts), [api/src/database/workspace-schema.ts](mdc:api/src/database/workspace-schema.ts).
 
-```typescript
-import { inngest } from "../client";
-import { loggers } from "../../logging";
+Rules:
 
-const log = loggers.inngest();
-
-export const myFunction = inngest.createFunction(
-  {
-    id: "my-function",
-    name: "My Function",
-    retries: 3,
-    concurrency: { limit: 1, key: "event.data.flowId" },
-    cancelOn: [{ event: "flow.cancel", match: "data.flowId" }],
-  },
-  { event: "my/event.name" },
-  async ({ event, step }) => {
-    const result = await step.run("do-work", async () => {
-      // Idempotent unit of work
-    });
-  },
-);
-```
-
-## Rules
-
-- **`step.run`** for every side-effectful operation — makes units idempotent and resumable on retry.
-- **`concurrency`** — always set with a `key` to prevent duplicate runs for the same entity. Use `event.data.flowId`, `event.data.dashboardId`, etc.
-- **`retries`** — set explicitly. Don't rely on Inngest defaults. Use `retries: 0` for non-retryable work.
-- **`cancelOn`** — add for long-running flows so users can cancel via UI.
-- **Logging** — use `loggers.inngest()` at module level. Do not mix with `console.log` or Inngest's built-in `logger`.
-- **Schedulers disabled in dev** — `flowSchedulerFunction` and `dashboardSchedulerFunction` are only registered when `NODE_ENV !== "development"` (see `api/src/inngest/index.ts`). Test scheduled flows by sending events manually.
-
-## Triggers
-
-| Type | Syntax |
-|------|--------|
-| Event | `{ event: "flow.execute" }` |
-| Cron | `{ cron: "0 */6 * * *" }` |
-| Multiple | `[{ event: "a" }, { event: "b" }]` |
-
-## Registration
-
-Export the function and add it to the array in `api/src/inngest/index.ts`. Functions not in this array won't be registered with the Inngest dev server or production.
-
-## Reference Files
-
-- Client: `api/src/inngest/client.ts`
-- Function registry: `api/src/inngest/index.ts`
-- Flow example: `api/src/inngest/functions/flow.ts`
-- Webhook example: `api/src/inngest/functions/webhook-flow.ts`
+- Always obtain clients via `database-connection.service`; do not instantiate new `MongoClient` per request.
+- Service resolves connection strings from workspace entities by ID; prefer `getConnectionById`.
+- Avoid schema drift; update both `schema.ts` and `workspace-schema.ts` when adding fields.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
