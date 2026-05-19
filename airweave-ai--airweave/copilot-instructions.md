@@ -1,397 +1,177 @@
-## frontend-rules
+## mcp-server
 
-> - **React 18** with TypeScript for type-safe component development
+> MCP (Model Context Protocol) server architecture and implementation
 
-# Airweave Frontend Architecture & Guidelines
+# Airweave MCP Server Architecture
 
-## Tech Stack & Core Technologies
-- **React 18** with TypeScript for type-safe component development
-- **Vite** for fast development builds and HMR
-- **TailwindCSS** with **ShadCN UI** components for consistent design
-- **Radix UI** primitives with **Lucide** icons for accessible components
-- **React Router** for client-side routing with file-based organization
-- **Zustand** for state management with persistence
-- **React Query** for server state and data fetching
-- **Auth0** for authentication with custom context wrapper
-- **SSE (Server-Sent Events)** for real-time sync progress
+## Overview
 
-## Project Structure
+The Airweave MCP Server provides search capabilities for AI assistants through the Model Context Protocol (MCP). It supports both local desktop clients and cloud-based AI platforms, with API key and OAuth 2.0 authentication.
+
+## Deployment Modes
+
+### 1. Local Mode (Desktop AI Clients)
+- **Transport**: stdio (standard input/output)
+- **Target**: Claude Desktop, Cursor, VS Code
+- **Entry Point**: `src/index.ts`
+- **Installation**: `npx airweave-mcp-search`
+- **Architecture**: Single-tenant, one server instance per user
+- **Authentication**: API key from environment variables
+
+### 2. Hosted Mode (Cloud AI Platforms)
+- **Transport**: Streamable HTTP (MCP 2025-03-26)
+- **Target**: OpenAI Agent Builder, Cursor (remote), any HTTP MCP client
+- **Entry Point**: `src/index-http.ts`
+- **Deployment**: Azure Kubernetes Service
+- **URL**: `https://mcp.airweave.ai/mcp`
+- **Architecture**: Fully stateless — a fresh McpServer + transport is created per request
+- **Authentication**: API key (via headers) or OAuth 2.0 (via Auth0)
+
+## Architecture Components
+
+### Core Server (`src/server.ts`)
+- **McpServer**: MCP server factory — `createMcpServer(config)` returns an isolated instance
+- **Tool Registration**: Dynamic tool creation based on collection (`search-{collection}`, `get-config`)
+- **Airweave Client**: API client for search operations (`src/api/airweave-client.ts`)
+
+### Streamable HTTP Server (`src/index-http.ts`)
+- **Express App**: HTTP server with health checks and info endpoints
+- **Streamable HTTP Transport**: MCP 2025-03-26 transport, stateless (no sessions)
+- **Request Handling**: POST `/mcp` — creates fresh McpServer per request
+- **Dual Auth**: `resolveAuth` middleware resolves API key vs OAuth per request
+- **OAuth Router**: `mcpAuthRouter` from MCP SDK handles OAuth protocol endpoints when enabled
+
+### Authentication (`src/auth/`)
+
+#### `resolveAuth` middleware (in `index-http.ts`)
+Priority-based auth resolution per request:
+1. `X-API-Key` header present → API key auth, no JWT check
+2. `Authorization: Bearer <token>` with OAuth enabled → attempt JWT verification via `Auth0OAuthProvider.verifyAccessToken`; if valid → OAuth path (`req.auth` set); if invalid → fallback to API key
+3. No credential → 401
+
+#### Auth0 OAuth Provider (`src/auth/auth0-provider.ts`)
+- Implements `OAuthServerProvider` from the MCP SDK
+- Handles: `authorize` (redirect to Auth0), `exchangeAuthorizationCode`, `exchangeRefreshToken`, `verifyAccessToken` (JWKS-based JWT verification), `revokeToken`
+- Uses `jose` library for JWT verification with JWKS auto-discovery
+- Config via env vars: `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `AUTH0_AUDIENCE`
+
+#### Auth0 Callback (`src/auth/auth0-callback.ts`)
+- Express handler for `/oauth/callback`
+- Receives Auth0 authorization code, exchanges it for a local authorization code via the provider
+- Redirects back to the MCP client's `redirect_uri` with the local code
+
+#### OAuth Transaction Store (`src/auth/oauth-transaction-store.ts`)
+- Redis-backed store for pending OAuth authorizations and authorization codes
+- TTL-based expiry (10 min for pending auths, 10 min for codes)
+- Atomic code consumption (Redis `GET` + `DEL`)
+
+#### Registered Clients Store (`src/auth/registered-clients-store.ts`)
+- Redis-backed store for dynamically registered OAuth clients (RFC 7591)
+- 7-day TTL — stateless MCP means clients re-register naturally after expiry
+
+#### Redis Client (`src/auth/redis.ts`)
+- Singleton Redis client with lazy connect
+- `getRedisClient()`, `ensureRedisReady()`, `disconnectRedis()`
+- URL built from `MCP_REDIS_URL` or `REDIS_HOST`/`REDIS_PORT`/`REDIS_PASSWORD`
+
+#### Security Utilities (`src/auth/security.ts`)
+- `redactSensitiveValue`: masks tokens/secrets for logging
+- `hashIdentifier`: SHA-256 hashing for identifiers
+- `safeLogObject`: recursively redacts sensitive keys in objects
+
+### Organization Resolver (`src/api/org-resolver.ts`)
+- Resolves which organization owns a collection for OAuth users
+- Fetches user's orgs, probes each in parallel (`Promise.all`) for the target collection
+- LRU in-memory cache (max 500 entries, 5-min TTL) keyed by `hash(token):collection`
+
+### Tools
+- **Search Tool**: `search-{collection}` — full search with query, filters, pagination, reranking
+- **Config Tool**: `get-config` — server configuration display
+
+## Configuration
+
+### Environment Variables
+
+**Core (both modes):**
+- `AIRWEAVE_COLLECTION`: Default collection readable ID
+- `AIRWEAVE_BASE_URL`: API base URL (default: `https://api.airweave.ai`)
+- `PORT`: Server port (default: 8080)
+
+**Local mode only:**
+- `AIRWEAVE_API_KEY`: API key for authentication
+
+**OAuth (hosted mode, when `MCP_OAUTH_ENABLED=true`):**
+- `MCP_OAUTH_ENABLED`: Set to `true` to enable OAuth 2.0
+- `MCP_BASE_URL`: Public URL of the MCP server (used for OAuth metadata/redirects)
+- `AUTH0_DOMAIN`: Auth0 tenant domain
+- `AUTH0_AUDIENCE`: Auth0 API audience identifier
+- `AUTH0_CLIENT_ID`: Auth0 application client ID
+- `AUTH0_CLIENT_SECRET`: Auth0 application client secret
+- `REDIS_HOST`: Redis host (default: `localhost`)
+- `REDIS_PORT`: Redis port (default: `6379`)
+- `REDIS_PASSWORD`: Redis password (optional)
+- `MCP_REDIS_URL`: Full Redis URL (overrides individual REDIS_* vars)
+
+## OAuth Flow
+
 ```
-frontend/src/
-├── components/         # Reusable UI components
-│   ├── ui/            # ShadCN UI primitives
-│   ├── shared/        # Shared business components
-│   └── [feature]/     # Feature-specific components
-├── pages/             # Route-level components
-├── lib/               # Core utilities and providers
-│   ├── api.ts         # API client with auth integration
-│   ├── stores/        # Zustand state stores
-│   └── auth-context.tsx # Auth provider
-├── hooks/             # Custom React hooks
-├── services/          # Business logic services
-├── config/            # Configuration files
-├── constants/         # App constants
-└── styles/            # Global CSS styles
-    └── toast.css      # Custom toast styling
-```
-
-## API Layer (`lib/api.ts`)
-
-The API client is the central hub for all backend communication with sophisticated features:
-
-### Core Features
-- **Token Management**: Automatic token injection via provider pattern
-- **Request Queuing**: Queues requests while auth initializes
-- **Organization Context**: Auto-injects `X-Organization-ID` header
-- **Session Tracking**: Auto-injects `X-Airweave-Session-ID` header with PostHog session ID for session replay linking
-- **Auto-Retry**: Refreshes token on 401/403 and retries
-- **Organization Auto-Switching**: Detects resource org mismatches and switches context
-- **Type-Safe Responses**: Returns typed Response objects
-
-### Usage Pattern
-```typescript
-// Always use relative paths (no /api/v1 prefix)
-const response = await apiClient.get('/collections');
-const response = await apiClient.post('/source-connections', data);
-const response = await apiClient.delete('/api-keys', { id: keyId });
-```
-
-### Token Provider Pattern
-The API client uses a pluggable token provider set up in `main.tsx`:
-```typescript
-setTokenProvider({
-  getToken: async () => await auth.getToken(),
-  clearToken: () => auth.clearToken(),
-  isReady: () => auth.isReady()
-});
-```
-
-## State Management Architecture
-
-### 1. **Organization Store** (`stores/organizations.ts`)
-- Manages user organizations with persistence
-- Handles organization switching with state cleanup
-- Auto-selects best organization (current → primary → first)
-- Clears org-specific data on switch (collections, API keys)
-
-### 2. **Collections Store** (`stores/collections.ts`)
-- Caches collections (with API-provided `source_connection_summaries` for list views)
-- Implements event-driven updates via custom event bus
-- Smart caching with force refresh option
-- Handles collection CRUD events automatically
-- Source connection details for list pages come from `GET /collections` response (no per-card fetching)
-
-### 3. **Sync State Store** (`stores/syncStateStore.ts`)
-- Real-time sync progress via SSE
-- Manages multiple concurrent subscriptions
-- Session storage for progress persistence
-- Automatic cleanup and health checks
-
-### 4. **API Keys Store** (`stores/apiKeys.ts`)
-- Organization-scoped API key management
-- Auto-clears on organization switch
-
-## Authentication Flow
-
-### Auth0 Integration
-1. **Provider Hierarchy**:
-   ```
-   PostHogProvider → ThemeProvider → BrowserRouter → Auth0Provider → AuthProvider → ApiAuthConnector → App
-   ```
-   - **PostHogProvider**: Initializes PostHog analytics and session tracking (outermost)
-   - **ThemeProvider**: Manages dark/light theme persistence
-   - **BrowserRouter**: React Router client-side routing
-   - **Auth0Provider**: Handles user authentication
-   - **AuthProvider**: Manages token lifecycle and auth state
-   - **ApiAuthConnector**: Connects auth to API client
-
-2. **Auth Context** (`lib/auth-context.tsx`):
-   - Manages Auth0 token lifecycle
-   - Provides `getToken()` for API calls
-   - Handles dev mode (auth disabled)
-   - Token initialization tracking
-
-3. **Token Caching Strategy** (`lib/auth0-provider.tsx`):
-   - `getCacheLocation()` selects `memory` for custom Auth0 domains and `localstorage` for standard `*.auth0.com` tenants
-   - Custom domains share the app's eTLD+1, so the Auth0 session cookie is first-party — tokens stay in memory only (no XSS surface via localStorage)
-   - Standard tenants use a third-party cookie that Safari ITP / Firefox strict / Chrome incognito block, so tokens must be persisted in localStorage
-   - `useRefreshTokens={true}` — refresh token rotation is always enabled
-   - `useRefreshTokensFallback={true}` — enables iframe-based silent auth as a fallback when the refresh token is unavailable (e.g. after a page refresh with memory cache)
-
-4. **Auth Guard** (`components/AuthGuard.tsx`):
-   - Protects routes requiring authentication
-   - Initializes organizations on first load
-   - Redirects to `/no-organization` if needed
-
-### OAuth2 Source Authentication
-- Separate OAuth flow for connecting data sources
-- State preserved in sessionStorage during redirect
-- Handles both standard and SemanticMcp flows
-- Error recovery with detailed user feedback
-- **Redirect validation**: Always use `safeRedirectPath()` from `lib/utils/url-validation.ts` when assigning `window.location.href` after an OAuth callback — never use raw query-string values
-
-#### Browser OAuth Claim-Token Contract
-All browser OAuth flows use a two-step handoff to trigger the initial sync:
-
-1. **Before redirect**: `POST /source-connections` returns `auth.claim_token`. Store it in `sessionStorage` keyed as `oauth_claim_token:{source_connection_id}` before navigating to `auth.auth_url`.
-2. **After redirect**: The backend callback 303-redirects to the frontend with `?status=success&source_connection_id=...`. On landing, retrieve the stored claim token and call `POST /source-connections/{id}/verify-oauth` with `{ claim_token }` to trigger the deferred sync workflow.
-3. **Cleanup**: Only remove the `oauth_claim_token:*` entry from `sessionStorage` after `verify-oauth` returns a successful (`response.ok`) response — this preserves the token for retry on failure.
-
-Skipping the `verify-oauth` call leaves the sync job stuck in `PENDING` indefinitely.
-
-## Component Patterns
-
-### 1. **Dialog Flow System** (`components/shared/DialogFlow.tsx`)
-- Multi-step dialog orchestration
-- State preservation across OAuth redirects
-- Error handling with retry capabilities
-- Flexible view composition
-
-### 2. **View Components**
-- Encapsulate specific UI flows
-- Accept `viewData` prop for state
-- Use `onNext`, `onBack`, `onCancel` callbacks
-- Handle errors via `onError` prop
-
-### 3. **Error Handling Pattern**
-```typescript
-const handleError = (error: Error | string, errorSource?: string) => {
-  if (onError) {
-    onError(error, errorSource);
-  } else {
-    redirectWithError(navigate, {
-      serviceName: errorSource,
-      errorMessage: error.message,
-      dialogId: viewData?.dialogId
-    });
-  }
-};
+MCP Client (Cursor/mcp-remote)
+    │
+    ├─ GET /.well-known/oauth-authorization-server  → discover endpoints
+    ├─ POST /register                                → dynamic client registration
+    ├─ GET /authorize                                → redirect to Auth0 login
+    │       └─ Auth0 login page
+    │           └─ POST /oauth/callback              → exchange Auth0 code for local code
+    ├─ POST /token                                   → exchange local code for Auth0 tokens
+    └─ POST /mcp (Authorization: Bearer <jwt>)       → authenticated MCP request
 ```
 
-## Real-Time Features
+## Testing
 
-### SSE (Server-Sent Events)
-- Used for sync job progress updates
-- Automatic reconnection handling
-- Progress persistence across page reloads
-- Multiple concurrent subscriptions
+### Test Files
+- `tests/mcp-server.test.ts` — core MCP functionality, tool registration, parameter validation
+- `tests/http-transport.test.ts` — stateless HTTP transport, collection headers
+- `tests/auth/auth0-provider.test.ts` — OAuth provider: authorize, token exchange, JWT verification, revocation
+- `tests/auth/auth0-callback.test.ts` — callback handler: param validation, redirects, error handling
+- `tests/auth/oauth-transaction-store.test.ts` — pending auth CRUD, code issuance/consumption, TTLs
+- `tests/auth/registered-clients-store.test.ts` — client registration, retrieval, TTL expiry
+- `tests/auth/redis.test.ts` — singleton lifecycle, URL construction, connect/disconnect
+- `tests/auth/security.test.ts` — redaction, hashing, safe logging
+- `tests/api/org-resolver.test.ts` — org resolution, parallel probing, LRU cache eviction
+- `tests/index-http-oauth.test.ts` — dual-auth integration: API key priority, JWT verification, fallback
 
-### Event Bus System
-- Custom events for collection updates
-- Window-level event dispatching
-- Auto-refresh on CRUD operations
+### Test Commands
+- `npm run test:all` — run everything
+- `npm run test:mcp` — core MCP tests only
+- `npm run test:http` — HTTP transport tests only
+- `npm run test:oauth` — OAuth + org-resolver tests only
+- `npm run test:coverage` — full suite with coverage report
 
-## Routing Architecture
+### Test Patterns
+- All external dependencies are mocked (`vi.mock`): Redis, fetch, jose
+- Auth0 provider tests mock JWKS/JWT verification via `jose`
+- Org resolver tests mock fetch responses for orgs and collection probes
+- OAuth integration tests replicate the Express app with `supertest`
 
-### Route Structure
-```typescript
-// Public routes (no auth required)
-/login
-/callback
-/semantic-mcp
-/no-organization
+## Development Guidelines
 
-// Protected routes (auth required)
-/ (dashboard)
-/collections
-/collections/:readable_id
-/organization/settings
-```
+### Code Structure
+- TypeScript with strict typing
+- Async/await for all I/O
+- No sessions — every request is independent
+- `express.Request` extended with `_authMethod` and `auth` for dual-auth
 
-### Route Protection
-- `AuthGuard` wrapper for protected routes
-- Organization initialization on first access
-- Automatic redirects for unauthenticated users
+### Key Patterns
+- **Stateless requests**: fresh `McpServer` + `StreamableHTTPServerTransport` per POST
+- **Auth resolution**: `resolveAuth` middleware runs before `/mcp` handler
+- **OAuth gating**: all OAuth code paths check `oauthEnabled` flag
+- **Org resolution**: only runs for OAuth requests (API key users have org context built-in)
 
-## Error Handling & User Feedback
-
-### Error Utils (`lib/error-utils.ts`)
-- Centralized error storage in localStorage
-- Redirect with error context preservation
-- Dialog-specific error targeting via `dialogId`
-
-### Toast Notifications
-
-#### Setup & Configuration
-- **Sonner** library with custom styling via `toast-custom` class
-- Global CSS import: `import '@/styles/toast.css'` in `App.tsx`
-- Toaster configured with `className: 'toast-custom'` for custom styling
-
-#### Toast Types & Patterns
-```typescript
-import { toast } from 'sonner';
-
-// Success notifications (green theme)
-toast.success('Operation completed successfully');
-
-// Error notifications (red theme)
-toast.error('Something went wrong');
-
-// Info notifications (blue theme)
-toast.info('Additional information');
-
-// Warning notifications (yellow theme)
-toast.warning('Please review this action');
-```
-
-#### Custom Styling Features
-- **Enhanced animations**: Slide-in from right with custom easing
-- **Type-specific styling**: Each toast type has distinct colors and borders
-- **Colored left border**: Visual indicator for toast type
-- **Consistent theming**: Uses CSS variables for dark/light mode
-- **Hover effects**: Subtle transform and shadow changes
-
-#### Usage Guidelines
-- Use appropriate toast types for different scenarios
-- Keep messages concise and actionable
-- Avoid overusing toasts for non-critical information
-- Organization switch notifications use success type
-
-### Error Views
-- `ConnectionErrorView` for connection failures
-- Retry capabilities with state restoration
-- Technical details with copy functionality
-
-## Development Patterns
-
-### 1. **TypeScript Usage**
-- Strict typing for all components
-- Interface definitions for props
-- Type inference where possible
-- Avoid `any` types
-- Always try to user interfaces defined universally in /types/index.ts (which wrap Pydantic schemas defined in backend)
-
-### 2. **Component Organization**
-```typescript
-// Standard component structure
-interface ComponentProps {
-  // Required props first
-  onAction: () => void;
-  data: DataType;
-  // Optional props with defaults
-  variant?: 'primary' | 'secondary';
-}
-
-export const Component: React.FC<ComponentProps> = ({
-  onAction,
-  data,
-  variant = 'primary'
-}) => {
-  // Hooks first
-  const [state, setState] = useState();
-
-  // Effects next
-  useEffect(() => {}, []);
-
-  // Handlers
-  const handleClick = () => {};
-
-  // Render
-  return <div>...</div>;
-};
-```
-
-### 3. **State Management Best Practices**
-- Use Zustand stores for global state
-- React Query for server state
-- Local state for UI-only concerns
-- Custom hooks for shared logic
-
-### 4. **API Integration Patterns**
-```typescript
-// Always check response.ok
-const response = await apiClient.get('/endpoint');
-if (!response.ok) {
-  throw new Error(`Failed: ${response.status}`);
-}
-const data = await response.json();
-
-// Handle loading states
-const [isLoading, setIsLoading] = useState(false);
-try {
-  setIsLoading(true);
-  // ... API call
-} finally {
-  setIsLoading(false);
-}
-```
-
-### 5. **Styling Guidelines**
-- Use Tailwind classes with `cn()` utility
-- Component variants with CVA
-- Consistent spacing with Tailwind scale
-- Dark mode support via CSS variables
-
-## Performance Optimizations
-
-### 1. **Data Caching**
-- Collections cached until force refresh
-- Source details cached by short name
-- API keys cached per organization
-
-### 2. **Request Deduplication**
-- Prevents duplicate requests while loading
-- Smart organization context switching
-- Request queuing during auth init
-
-### 3. **Component Optimization**
-- Memoization for expensive computations
-- Callback refs for stable references
-- Lazy loading for route components
-
-## Security Considerations
-
-### 1. **Token Management**
-- Tokens never exposed in URLs
-- Automatic cleanup on logout
-- Secure storage in Auth0
-
-### 2. **Organization Isolation**
-- API automatically scopes to current org
-- State cleared on organization switch
-- Proper access control checks
-
-### 3. **Role-Based UI Gating**
-Use `useOrganizationContext()` to gate mutation actions by the current user's organization role:
-
-```typescript
-const { canManageOrganization } = useOrganizationContext();
-const canManage = canManageOrganization();
-```
-
-Standard pattern — disable controls with a tooltip for non-admins:
-```typescript
-<Button disabled={!canManage} title={!canManage ? "Admin access required" : undefined}>
-  Create
-</Button>
-```
-
-Available helpers from `useOrganizationContext()`:
-- `canManageOrganization(orgId?)` — returns `true` for `admin` or `owner`
-- `canDeleteOrganization(orgId?)` — returns `true` for `owner` only
-- `isCurrentUserOwner(orgId?)` — owner check
-- `isCurrentUserAdmin(orgId?)` — admin or owner check
-
-### 4. **Error Handling**
-- Sensitive data stripped from errors
-- Token cache location is conditional: custom Auth0 domains use `memory` (no localStorage exposure), standard `*.auth0.com` tenants use `localstorage` (necessary due to third-party cookie restrictions)
-- Secure OAuth state management
-
-### 5. **Redirect Safety**
-- Never assign `window.location.href` (or similar navigation) to a URL derived from query parameters, `sessionStorage`, or any external input without validation
-- Use `safeRedirectPath()` from `lib/utils/url-validation.ts` — it rejects absolute URLs, protocol-relative paths, and other open-redirect vectors, returning a safe fallback
-- Use `isSafeRedirectPath()` from the same module when you need a boolean check without a fallback
-- This applies everywhere, but is especially critical in OAuth callback handlers (`AuthCallback.tsx`, `SemanticMcpCallback.tsx`)
-
-### 6. **Randomness**
-- Never use `Math.random()` — it is banned by ESLint
-- Use `crypto.getRandomValues()` for random bytes/integers
-- Use `crypto.randomUUID()` for UUIDs
-
-### 7. **XSS Prevention**
-- Never assign to `innerHTML` — it is banned by ESLint (CASA-41)
-- Never use `dangerouslySetInnerHTML` — it is banned by ESLint (CASA-41)
-- Use React state-driven rendering and `textContent` instead
+### Deployment
+- Docker containerization
+- Kubernetes deployment (AKS)
+- Health check at `/health`
+- Graceful shutdown: `disconnectRedis()` + `shutdownPostHog()` on SIGTERM/SIGINT
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
