@@ -1,0 +1,9 @@
+{
+  "name": "open-telemetry--opentelemetry-go-compile-instrumentation",
+  "displayName": "opentelemetry-go-compile-instrumentation",
+  "description": "OpenTelemetry Go Compile Instrumentation",
+  "version": "1.0.0",
+  "author": "open-telemetry",
+  "homepage": "https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation",
+  "skills": []
+}
