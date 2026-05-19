@@ -1,0 +1,9 @@
+{
+  "name": "kirschbaum-development--commentions",
+  "displayName": "commentions",
+  "description": "Commentions is a drop-in package for Filament that allows you to add comments to your resources with mentions and reactions.",
+  "version": "1.0.0",
+  "author": "kirschbaum-development",
+  "homepage": "https://github.com/kirschbaum-development/commentions",
+  "skills": []
+}
