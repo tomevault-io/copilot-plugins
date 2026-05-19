@@ -1,0 +1,9 @@
+{
+  "name": "waldzellai--adk-typescript",
+  "displayName": "adk-typescript",
+  "description": "TypeScript port of Google's Agent Development Kit from Python. #TSinAI #glassBeadFriday",
+  "version": "1.0.0",
+  "author": "waldzellai",
+  "homepage": "https://github.com/waldzellai/adk-typescript",
+  "skills": []
+}
