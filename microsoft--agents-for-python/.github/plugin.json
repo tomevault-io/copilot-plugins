@@ -1,0 +1,9 @@
+{
+  "name": "microsoft--agents-for-python",
+  "displayName": "Agents-for-python",
+  "description": "This repository is for active development of the Microsoft 365 Agent SDK components for Python",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/Agents-for-python",
+  "skills": []
+}
