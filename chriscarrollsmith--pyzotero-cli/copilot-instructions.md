@@ -1,33 +1,153 @@
-## pyzotero-cli
+## collection-cmds
 
-> Importing and handling `pyzotero` exception types
+> `pyzotero` documentation for working with collections
 
-## `pyzotero` exception types
 
-Import `pyzotero` exception types from `pyzotero.zotero_errors` where necessary to catch and handle them. Here are the available types, with their use cases and status codes (where applicable):
+This document contains the portion of the `pyzotero` documentation that corresponds to the collection-related functionality in our CLI wrapper.
 
-*   `PyZoteroError`: Generic parent exception.
-*   `ParamNotPassedError`: Raised if a required parameter isn't passed.
-*   `CallDoesNotExistError`: Raised if the specified API call doesn't exist.
-*   `UnsupportedParamsError`: Raised when unsupported parameters are passed.
-*   `UserNotAuthorisedError`: Raised when the user is not allowed to retrieve the resource.
-*   `TooManyItemsError`: Raised when too many items are passed to a Write API method.
-*   `MissingCredentialsError`: Raised when an attempt is made to create a Zotero instance without providing both the user ID and the user key.
-*   `InvalidItemFieldsError`: Raised when an attempt is made to create/update items with invalid fields.
-*   `ResourceNotFoundError`: Raised when a resource (item, collection etc.) could not be found.
-*   `HTTPError`: Raised for miscellaneous URLLib errors.
-*   `CouldNotReachURLError`: Raised when a URL can't be reached.
-*   `ConflictError` (409): Raised when the target library is locked.
-*   `PreConditionFailedError` (412): Raised when the provided X-Zotero-Write-Token has already been submitted.
-*   `RequestEntityTooLargeError` (413): Raised when an upload would exceed the storage quota of the library owner.
-*   `PreConditionRequiredError` (428): Raised when If-Match or If-None-Match was not provided.
-*   `TooManyRequestsError` (429): Raised when there are too many unfinished uploads.
-*   `FileDoesNotExistError`: Raised when a file path to be attached can't be opened or doesn't exist.
-*   `TooManyRetriesError`: Raised after the backoff period for new requests exceeds 32 seconds.
-*   `UploadError`: Raised if the connection drops during upload or some other non-HTTP error code is returned.
+# Collection Commands
 
-Where possible, any ``ZoteroError`` which is raised will preserve the underlying error in its ``__cause__`` and ``__context__`` properties, should you wish to work with these directly.
+## Retrieving Collections
+
+```python
+# Return all collections (including subcollections)
+zot.collections([search/request parameters])
+```
+
+Returns a library's collections, including subcollections.
+
+```python
+# Return top-level collections
+zot.collections_top([search/request parameters])
+```
+
+Returns a library's top-level collections.
+
+```python
+# Return a specific collection
+zot.collection(collectionID[, search/request parameters])
+```
+
+Parameters:
+- `collectionID`: a Zotero library collection ID
+
+Returns a specific collection.
+
+```python
+# Return sub-collections of a collection
+zot.collections_sub(collectionID[, search/request parameters])
+```
+
+Parameters:
+- `collectionID`: a Zotero library collection ID
+
+Returns the sub-collections of a specific collection.
+
+```python
+# Return all collections in a flat list
+zot.all_collections([collectionID])
+```
+
+Parameters:
+- `collectionID`: a Zotero library collection ID (optional)
+
+Returns either all collections and sub-collections in a flat list, or, if a collection ID is specified, that collection and all of its sub-collections. This method can be called at any collection "depth".
+
+```python
+# Get collection tags
+zot.collection_tags(collectionID[, search/request parameters])
+```
+
+Parameters:
+- `collectionID`: a collection ID
+
+Retrieve all tags for a given collection.
+
+## Creating and Updating Collections
+
+```python
+# Create a new collection
+zot.create_collections(dicts[, last_modified])
+```
+
+Parameters:
+- `dicts`: list of dicts each containing the key `name`, with each value being a new collection name to create. Each dict may optionally contain a `parentCollection` key with the ID of an existing collection.
+- `last_modified`: If not None will set the value of the If-Unmodified-Since-Version header.
+
+```python
+# Add items to a collection
+zot.addto_collection(collection, item)
+```
+
+Parameters:
+- `collection`: a collection key
+- `item`: an item dict retrieved using an API call
+
+Add the specified item(s) to the specified collection.
+
+```python
+# Remove items from a collection
+zot.deletefrom_collection(collection, item)
+```
+
+Parameters:
+- `collection`: a collection key
+- `item`: a dict containing item data
+
+Remove the specified item from the specified collection.
+
+```python
+# Update collection metadata
+zot.update_collection(collection, last_modified])
+```
+
+Parameters:
+- `collection`: a dict containing collection data, previously retrieved
+
+Update existing collection metadata (name etc.).
+
+```python
+# Update multiple collections
+zot.update_collections(collection_items)
+```
+
+Parameters:
+- `collection_items`: a list of dicts containing Collection data
+
+Update multiple existing collection metadata. The API only accepts 50 collections per call, so longer updates are chunked.
+
+## Deleting Collections
+
+```python
+# Delete a collection
+zot.delete_collection(collection[, last_modified])
+```
+
+Parameters:
+- `collection`: a dict containing collection data, previously retrieved. Alternatively, you may pass a list of collection dicts.
+- `last_modified`: If not None will set the value of the If-Unmodified-Since-Version header.
+
+Example of collection data:
+```python
+{u'data': {u'key': u'5TSDXJG6',
+            u'name': u'Critical GIS',
+            u'parentCollection': False,
+            u'relations': {},
+            u'version': 778},
+  u'key': u'5TSDXJG6',
+  u'library': {u'id': 436,
+               u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei',
+                                         u'type': u'text/html'}},
+               u'name': u'urschrei',
+               u'type': u'user'},
+  u'links': {u'alternate': {u'href': u'https://www.zotero.org/urschrei/collections/5TSDXJG6',
+                            u'type': u'text/html'},
+             u'self': {u'href': u'https://api.zotero.org/users/436/collections/5TSDXJG6',
+                       u'type': u'application/json'}},
+  u'meta': {u'numCollections': 0, u'numItems': 1},
+  u'version': 778}
+``` 
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/chriscarrollsmith) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
