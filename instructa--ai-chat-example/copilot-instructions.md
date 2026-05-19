@@ -1,16 +1,20 @@
-## main
+## route
 
-> - Always get recommendation and best practice considering latest NOW date
+> - All route files must be TypeScript React (`.tsx`).
 
-# Main Project Rules
+# Route File Rule
 
-- Always get recommendation and best practice considering latest NOW date
-
-- Never use `npx shadcn-ui@latest`! Always use `npx shadcn@latest`.
-- Always use pnpm as the package manager.
-- All route files must be written in **TypeScript React** (`.tsx`).
+- All route files must be TypeScript React (`.tsx`).
+- Export exactly one named constant `Route` per file. No default exports.
+- Use `createFileRoute('/path')` or `createRootRoute` for route definitions. The path must match the file structure.
+- Place the main component after the `Route` export, named `<FileName>Component`.
+- If a loader is needed, use an async `loader` function and destructure params directly.
+- Always check `res.ok` after fetches in loaders; throw on failure.
+- Use `Route.useLoaderData()` for typed data access.
+- For error handling, add `errorComponent` and/or `notFoundComponent` as needed.
+- Use the typed `<Link>` from `@tanstack/react-router` for navigation, with proper `to`, `params`, and styling.
 - Use alias imports: `@` resolves to root `./`.
-- Don't use default exports in route files.
+- Do not use default exports in route files.
 
 ---
 > Source: [instructa/ai-chat-example](https://github.com/instructa/ai-chat-example) — distributed by [TomeVault](https://tomevault.io).
