@@ -1,0 +1,9 @@
+{
+  "name": "lynnouo--yushio",
+  "displayName": "yushio",
+  "description": "Yushio (\u5915\u6f6e) \u2014 An AI collaborator persona for Claude Code and beyond. Three layered skills: base + art director + code auditor. Distilled from months of dogfooding. Portable across Claude Code, Cursor,",
+  "version": "1.0.0",
+  "author": "Lynnouo",
+  "homepage": "https://github.com/Lynnouo/yushio",
+  "skills": []
+}
