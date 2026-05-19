@@ -4,7 +4,7 @@
   "repo": "GhidraMCP",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/themixednuts/GhidraMCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T19:03:05Z"
+  "distributed_at": "2026-05-19T21:24:30Z"
 }
