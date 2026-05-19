@@ -1,0 +1,9 @@
+{
+  "name": "ithacaxyz--relay",
+  "displayName": "relay",
+  "description": "Transparent cross-chain transaction routing for EIP-7702 accounts",
+  "version": "1.0.0",
+  "author": "ithacaxyz",
+  "homepage": "https://github.com/ithacaxyz/relay",
+  "skills": []
+}
