@@ -1,46 +1,24 @@
-## 00-project-context
+## 10-typescript-style
 
-> Mako monorepo essentials — entry points, env, key directories, and rule pointers
+> TypeScript and React code style guidance
 
 
-# Mako Project Context
+# TypeScript & React Guidelines
 
-## Entry Points
+- Prefer explicit types for exported APIs; avoid `any`.
+- Use early returns and guard clauses; keep nesting shallow.
+- Handle errors meaningfully; do not swallow exceptions.
+- Follow descriptive naming (functions are verbs, variables are nouns). Avoid abbreviations.
+- Keep comments short and explain "why", not "how". Avoid inline noise.
+- Match existing formatting and do not reformat unrelated code in edits.
+- Frontend: co-locate components under `app/src/components/**` and hooks under `app/src/hooks/**`.
+- Backend: group routes under `api/src/routes/**` and services under `api/src/services/**`.
 
-- API (Hono + TS): [api/src/index.ts](mdc:api/src/index.ts) → port `WEB_API_PORT=8080`
-- App (Vite + React): [app/src/main.tsx](mdc:app/src/main.tsx) → port 5173, proxy `/api` → `http://localhost:8080`
-- Sync CLI: `pnpm run sync` → [api/src/sync/cli.ts](mdc:api/src/sync/cli.ts)
-- Inngest: `GET|PUT|POST /api/inngest` → [api/src/inngest/](mdc:api/src/inngest)
+## `any` Policy
 
-## Environment (local)
-
-`DATABASE_URL`, `WEB_API_PORT=8080`, `BASE_URL=http://localhost:8080`, `CLIENT_URL=http://localhost:5173`
-
-## Key Directories
-
-| Area | Path |
-|------|------|
-| Routes | `api/src/routes/**` |
-| Services | `api/src/services/**` |
-| Connectors | `api/src/connectors/**` |
-| Database schemas | `api/src/database/schema.ts`, `workspace-schema.ts` |
-| Connections | `api/src/services/database-connection.service.ts` (always use this; never `new MongoClient`) |
-| Auth | `api/src/auth/**` — prefer `unifiedAuthMiddleware` |
-| Inngest jobs | `api/src/inngest/functions/**` |
-| Migrations | `api/src/migrations/**` |
-| Frontend components | `app/src/components/**` |
-| Zustand stores | `app/src/store/**` |
-
-## Commands
-
-- `pnpm dev` — API + App + Inngest dev
-- `pnpm build` — lint + build all
-- `pnpm migrate` / `pnpm migrate status` / `pnpm migrate create "name"`
-
-## Conventions
-
-- Never edit `dist/**`; edit sources and rebuild.
-- Scoped rules in this directory cover: [TypeScript style](mdc:.cursor/rules/10-typescript-style.mdc), [Connectors](mdc:.cursor/rules/15-connector-agnostic.mdc), [MUI theme](mdc:.cursor/rules/16-mui-theme.mdc), [API routing](mdc:.cursor/rules/20-api-routing.mdc), [Auth](mdc:.cursor/rules/30-auth.mdc), [Sync](mdc:.cursor/rules/40-sync.mdc), [Inngest](mdc:.cursor/rules/45-inngest.mdc), [MongoDB](mdc:.cursor/rules/50-mongodb.mdc), [CDC pipeline](mdc:.cursor/rules/55-sync-cdc.mdc), [Webhooks](mdc:.cursor/rules/60-webhooks.mdc), [Frontend](mdc:.cursor/rules/70-frontend.mdc), [Chat performance](mdc:.cursor/rules/75-chat-performance.mdc), [Engineering ops](mdc:.cursor/rules/80-engineering-ops.mdc), [Build/deploy](mdc:.cursor/rules/90-build-deploy.mdc), [Migrations](mdc:.cursor/rules/90-migrations.mdc).
+- **New code**: `any` is forbidden. Use `unknown` + type narrowing, generics, or specific types.
+- **Third-party boundaries** (Monaco Editor, MUI internals, chart libraries): use `unknown` with assertion or a thin typed wrapper. If `any` is truly unavoidable, add a `// eslint-disable-next-line @typescript-eslint/no-explicit-any` with a brief justification.
+- **Existing hotspots** (not blockers, but migrate when touching): `ResultsChart.tsx`, `Chat.tsx`, `workspace-context.tsx`, `ThemeContext.tsx`, `flowStore.ts`.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
