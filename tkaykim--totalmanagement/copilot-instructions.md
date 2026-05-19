@@ -1,18 +1,50 @@
-## rules
+## supabase
 
-> 필수 : 0. 모든 기능, 페이지, api, 컴포넌트, 모달을 구현할 때에는 한 페이지에 와르르 집어넣지 말고, 적절히 파일을 분리하여 한 tsx파일이나 페이지, api문서가 너무 길어지지 않도록 적절히 분리하여 구성하세요.
+> Supabase Migration SQL Guideline
 
-필수 : 0. 모든 기능, 페이지, api, 컴포넌트, 모달을 구현할 때에는 한 페이지에 와르르 집어넣지 말고, 적절히 파일을 분리하여 한 tsx파일이나 페이지, api문서가 너무 길어지지 않도록 적절히 분리하여 구성하세요.
 
-**배포는 꼭 필요할 때에만 하고 사용자가 테스트를 마치고 배포를 승인했거나, 본인이 Playwright mcp를 활용하여 직접 눈으로 보고, supbase mcp를 통해 DB에도 반영이 되었는지 체크를 한 후에 배포해야합니다.**
+# Supabase Migration SQL Guideline
 
-1. 특정 기능 구현이나 수정이 완료되면, 실제 동작하는지 확인할 때에는 'playwright MCP'를 활용하여 직접 확인하고 디버깅까지 마친 후 보고할 것. 이때, 실제로 브라우저를 띄워 사용자도 모니터링 과정을 눈으로 직접 볼 수 있게 작동할 것.
+## Must
+- Each migration file must have a unique name with number prefix (e.g., `0001_create_users_table.sql`)
+- Each migration must be idempotent (can be run multiple times without error)
+- Use `CREATE TABLE IF NOT EXISTS` instead of just `CREATE TABLE`
+- Include proper error handling with `BEGIN` and `EXCEPTION` blocks
+- Add comments for complex operations
+- Always specify column types explicitly
+- Include proper constraints (NOT NULL, UNIQUE, etc.) where appropriate
+- Add updated_at column to all tables, and use trigger to update it
+- always check other migrations to avoid conflicts
 
-2. sql의 수정이 필요하거나, db와의 연동상태, CRUD 상태에 대한 결과를 확인할 때에는 'supabase mcp'를 통해 직접 수행하라. 현재 DB 스키마 구조를 이해하고자 할 때에도 MCP를 연결하여 현재 DB상태를 직접 확인하고 고려하라.
+## Should
+- Keep migrations small 
+- Use consistent naming conventions for tables and columns
+- Use snake_case for all identifiers
+- Document breaking changes
 
-3. 배포를 명령받은 경우에만 npm run build를 직접 수행하고 오류가 없는지 확인 후, 디버깅 완벽하게 해서 오류가 없는 경우에 git에 add, commit, push까지 직접 진행하고 배포에 오류가 난다면 다시 build 수정해서 npm run build 후 완벽하게 작동하는지 체크 한 다음 다시 git push 반복하여 정상 빌드 될때까지 반복하라.
+## Recommended Patterns
+- Use RLS (Row Level Security) for access control
+- Set up proper indexes for frequently queried columns
+- Use foreign key constraints to maintain referential integrity
+- Leverage Postgres extensions when appropriate
+- Use enums for fields with a fixed set of values
+- Consider using views for complex queries
 
-기능 구현을 마치면 0번을 점검하고, 1번까지 수행한 다음 보고할 것
+## Schema Organization
+- Group related tables together
+- Use schemas to organize tables by domain
+- Consider using Postgres schemas for multi-tenant applications
+- Keep authentication tables in the auth schema
+
+## Performance Considerations
+- Avoid adding/removing columns from large tables in production
+- Use appropriate data types to minimize storage
+- Add indexes strategically (not excessively)
+
+## Security Best Practices
+- Never store plaintext passwords
+- Use RLS policies to restrict data access
+- Sanitize all user inputs
 
 ---
 > Source: [tkaykim/totalmanagement](https://github.com/tkaykim/totalmanagement) — distributed by [TomeVault](https://tomevault.io).
