@@ -1,0 +1,9 @@
+{
+  "name": "erweixin--prompt-challenges",
+  "displayName": "prompt-challenges",
+  "description": "A practical LLM learning path from clear prompting to tool use, IDE collaboration, MCP, Skills, and harness-driven agent workflows.",
+  "version": "1.0.0",
+  "author": "erweixin",
+  "homepage": "https://github.com/erweixin/prompt-challenges",
+  "skills": []
+}
