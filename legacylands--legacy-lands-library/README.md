@@ -7,11 +7,11 @@ Enterprise-grade modular framework for Minecraft server development with multi-t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LegacyLands/legacy-lands-library](https://github.com/LegacyLands/legacy-lands-library).
+Original source: `CLAUDE.md` in [LegacyLands/legacy-lands-library](https://github.com/LegacyLands/legacy-lands-library).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
