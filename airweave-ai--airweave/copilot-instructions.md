@@ -1,409 +1,97 @@
-## sync-architecture
+## token-provider-exceptions
 
-> The sync module orchestrates data flow from sources to destinations using a highly concurrent, pull-based asynchronous architecture with sophisticated backpressure control, real-time progress tracking, and automatic OAuth token management.
+> Token provider exception design and how it feeds into the source connection domain
 
-# Airweave Sync Architecture - Deep Dive
 
-## Overview
+# Token Provider Exceptions → Source Connection Actionability
 
-The sync module orchestrates data flow from sources to destinations using a highly concurrent, pull-based asynchronous architecture with sophisticated backpressure control, real-time progress tracking, and automatic OAuth token management.
+## Three exception layers
 
-## Core Architecture Principles
+```
+OAuth2 token endpoint / Auth provider API
+        ↓ raises typed domain exceptions
+OAuthRefreshServerError, OAuthRefreshTokenRevokedError, ...     (domains/oauth/exceptions.py)
+AuthProviderAccountNotFoundError, AuthProviderAuthError, ...    (platform/auth_providers/exceptions.py)
+        ↓ token providers catch + translate
+TokenCredentialsInvalidError, TokenProviderAccountGoneError, ... (domains/sources/token_providers/exceptions.py)
+        ↓ each carries:
+        .provider_kind  ("oauth" | "auth_provider" | "static")
+        .source_short_name
+        .__cause__  (original exception)
+```
 
-### 1. Pull-Based Concurrency Model
-- **Worker Pool Pattern**: Uses `AsyncWorkerPool` with semaphore-controlled concurrency (default: 20 workers)
-- **Pull vs Push**: Workers pull entities from the stream only when ready, preventing system overload
-- **Backpressure**: `AsyncSourceStream` uses bounded queues (default: 10000) to naturally throttle producers
+## Token provider exception hierarchy
 
-### 2. Separation of Concerns
-- **Producer/Consumer Decoupling**: Source generation runs independently from entity processing
-- **Modular Pipeline**: Each stage (enrich, transform, vectorize, persist) is isolated
-- **Resource Isolation**: Database sessions created only when needed to minimize connection usage
+```
+TokenProviderError (SourceError)
+├── TokenExpiredError                    — token is known-dead, cannot be refreshed (fast abort)
+├── TokenCredentialsInvalidError         — token/refresh_token expired or revoked
+├── TokenProviderAccountGoneError        — external record deleted (Composio/Pipedream)
+│     .account_id
+├── TokenProviderConfigError             — fundamental misconfiguration
+├── TokenProviderMissingCredsError       — response missing required fields
+│     .missing_fields
+├── TokenProviderRateLimitError          — upstream rate-limiting
+│     .retry_after
+├── TokenProviderServerError             — 5xx / timeout / connection error from credential source
+│     .status_code
+└── TokenRefreshNotSupportedError        — static token / no refresh_token
+```
 
-## Component Deep Dive
+`TokenExpiredError` is raised by `get_token()` when the provider knows the token is dead and refresh is impossible (e.g. the refresh_token itself is revoked). Callers should treat it as a permanent failure and surface `NEEDS_REAUTH` immediately without retrying.
 
-### SyncFactory
-**Purpose**: Factory that builds SyncContext (data), SyncRuntime (services), and wires them into the orchestrator
+## How the SC domain makes this actionable
 
-**Key Responsibilities**:
-- Builds SyncContext (frozen data) via SyncContextBuilder
-- Builds source + cursor directly via `_build_source()` (uses SourceLifecycleService)
-- Builds destinations via DestinationsContextBuilder
-- Builds entity tracker via `_build_entity_tracker()` (inlined, no separate builder)
-- Assembles SyncRuntime from per-sync state
-- Configures contextual logging with sync metadata
-- Wires pipelines, handlers, worker pool, and stream
+### Connection status expansion
 
-**DI Model**: Instance-based with constructor-injected deps. Stateless app-scoped services (event_bus, usage_checker, processor, arf_service) are held by the factory and injected directly into consumers (SyncOrchestrator, EntityPipeline), not stored in SyncRuntime.
-
-### SyncContext (frozen data)
-**Purpose**: Immutable data describing a sync run. Inherits from `BaseContext` (sibling to `ApiContext`).
-
-**Fields** (flat, no sub-contexts):
-- `sync_id`, `sync_job_id`, `collection_id`, `source_connection_id`: Scope IDs
-- `sync`, `sync_job`, `collection`, `connection`: Schema objects
-- `execution_config`, `force_full_sync`, `batch_size`, `max_batch_latency_ms`: Config
-- `entity_map`: Maps entity types to UUIDs
-- `source_short_name`: Derived from source at build time
-- From `BaseContext`: `organization`, `user`, `logger`
-
-Can be passed directly as `ctx` to CRUD operations (it IS a `BaseContext`).
-
-### SyncRuntime (live services)
-**Purpose**: Holds per-sync mutable state for a sync run. Separate from SyncContext.
-
-**Fields**:
-- `source`: Source instance with OAuth token management
-- `cursor`: Mutable sync cursor for incremental syncs
-- `destinations`: List of destination instances
-- `entity_tracker`: Centralized entity state tracker
-
-Stateless singletons (event_bus, usage_checker, embedders) are NOT stored here — they are DI'd directly into their consumers via constructor injection.
-
-Built by the factory, held by the orchestrator, injected into pipeline/handler constructors.
-
-### Builders
-- **SyncContextBuilder** (`builders/sync.py`): Builds data-only SyncContext
-- **SyncFactory._build_source()**: Builds source + cursor directly (uses SourceLifecycleService), returns `SourceBuildResult`
-- **DestinationsContextBuilder** (`builders/destinations.py`): Builds destination instances
-- **SyncFactory._build_entity_tracker()**: Builds EntityTracker with initial counts (inlined into factory)
-
-The factory calls build helpers in sequence, then assembles SyncRuntime.
-
-### SyncOrchestrator
-**Purpose**: Coordinates the entire sync workflow with error handling and progress tracking
-
-**Workflow Stages**:
-1. **Start**: Updates job status to IN_PROGRESS
-2. **Process**: Manages entity streaming and concurrent processing
-3. **Complete/Fail**: Updates final status with statistics
-
-**Key Methods**:
-- `run()`: Main entry point with try/catch for proper cleanup
-- `_process_entities()`: Implements pull-based processing loop
-- `_handle_completed_tasks()`: Cleans completed tasks and checks for errors
-- `_wait_for_remaining_tasks()`: Ensures all tasks complete before finishing
-
-**Constructor-Injected Services**: Receives `event_bus`, `usage_checker`, `usage_ledger`, and `sync_cursor_service` directly via constructor — not through SyncRuntime.
-
-**Concurrency Management**:
 ```python
-# Workers pull entities only when ready
-async for entity in stream.get_entities():
-    if entity.airweave_system_metadata.should_skip:
-        # Skip without using a worker
-        await sync_context.entity_tracker.record_skipped(1)
-        continue
-
-    # Submit to worker pool (blocks if all workers busy)
-    task = await worker_pool.submit(...)
+class SourceConnectionStatus(str, Enum):
+    ACTIVE = "active"
+    PENDING_AUTH = "pending_auth"
+    SYNCING = "syncing"
+    PENDING_SYNC = "pending_sync"
+    NEEDS_REAUTH = "needs_reauth"   # ← credentials expired/revoked, user must re-authenticate
+    ERROR = "error"                 # ← config/permanent errors
+    INACTIVE = "inactive"
 ```
 
-### AsyncSourceStream
-**Purpose**: Manages async streaming with backpressure between producer and consumer
+### Error reason on the connection model
 
-**Architecture**:
-- **Producer Task**: Runs independently, filling queue from source generator
-- **Bounded Queue**: Implements backpressure (blocks producer when full)
-- **Consumer Interface**: `get_entities()` yields items as they become available
-- **Error Propagation**: Producer exceptions are captured and re-raised to consumer
-
-**Key Features**:
-- Context manager support for proper resource cleanup
-- Progress logging every 50 items
-- Graceful shutdown with timeout handling
-- Sentinel value (None) signals end of stream
-
-### EntityPipeline
-**Purpose**: Orchestrates entity processing through the action/handler architecture
-
-**Pipeline Stages**:
-1. **Track & Dedupe**: EntityTracker records encounter, skips duplicates
-2. **Prepare**: Populate fields, enrich metadata, compute content hash
-3. **Resolve Actions**: EntityActionResolver determines INSERT/UPDATE/DELETE/KEEP
-4. **Dispatch**: EntityActionDispatcher routes actions to handlers concurrently
-
-**Action Types** (`domains/sync_pipeline/entity/actions.py`):
-- `InsertAction`: New entity, not in database
-- `UpdateAction`: Hash changed from stored value
-- `DeleteAction`: DeletionEntity from source
-- `KeepAction`: Hash matches stored value (no-op)
-
-**Handlers** (`domains/sync_pipeline/entity/handlers/`):
-| Handler | Responsibility | Execution |
-|---------|----------------|-----------|
-| `DestinationHandler` | Chunking → embedding → vector DB writes | Concurrent |
-| `ArfHandler` | Captures raw entities to ARF storage via `ArfService` | Concurrent |
-| `PostgresHandler` | Persists entity metadata | Sequential (last) |
-
-**Error Handling**:
-- Catches exceptions per entity (doesn't fail entire sync)
-- Marks failed entities as "skipped" via EntityTracker
-- Detailed error logging with entity context
-
-### SyncDAGRouter
-**Purpose**: Routes entities through transformation pipeline based on DAG structure
-
-**Key Components**:
-- **Execution Route**: Pre-computed routing map for O(1) lookups
-- **Transformer Cache**: Pre-loaded transformers to avoid database queries
-- **Entity Lineage**: Tracks parent-child relationships through transformations
-
-**Routing Logic**:
 ```python
-# Route map: (producer_node_id, entity_type_id) -> consumer_node_id
-route_map[(producer, entity_definition_short_name)] = consumer_node_id
-
-# Special case: routes to destination return None (stops routing)
-if all_edges_go_to_destinations:
-    route_map[key] = None
+error_code: Optional[str]     # machine-readable enum value
+error_message: Optional[str]  # human-readable, shown to user
 ```
 
-**Advanced Features**:
-- Handles multi-path routing through DAG
-- Optimized for chunk processing (files → chunks)
+### Error code enum
 
-### AsyncWorkerPool
-**Purpose**: Controls concurrent task execution with semaphore-based limiting
-
-**Implementation Details**:
-- **Semaphore Control**: Limits active tasks (prevents resource exhaustion)
-- **Task Tracking**: Maintains set of pending tasks with cleanup callbacks
-- **Detailed Logging**: Tracks task lifecycle (submit → wait → start → complete)
-- **Thread Awareness**: Logs thread IDs for debugging concurrency issues
-
-**Key Methods**:
-- `submit()`: Creates task and adds to tracking set
-- `_run_with_semaphore()`: Wraps coroutine with semaphore acquisition
-- `_handle_task_completion()`: Cleans up completed/failed tasks
-
-### EntityTracker
-**Purpose**: Centralized entity state tracking (dedup + progress + encounter tracking)
-
-**Responsibilities**:
-- **Deduplication**: Tracks `(entity_id, entity_definition_short_name)` to prevent reprocessing
-- **Encounter Counting**: Maintains count of entities by type for stats
-- **Progress Stats**: Thread-safe counters for inserted/updated/deleted/kept/skipped
-
-**Key Methods**:
-- `track()`: Records entity encounter, returns False if duplicate
-- `record_action()`: Increments stat counter (inserted, updated, etc.)
-- `get_stats()`: Returns `SyncStats` for job completion
-- `get_all_encountered_ids_flat()`: Returns set of all entity IDs (for orphan cleanup)
-
-### SyncProgressRelay (EventSubscriber)
-**Purpose**: Event-driven subscriber that relays sync progress to Redis pubsub for real-time updates
-
-**Architecture**:
-- Extends `EventSubscriber`, subscribes to `entity.*`, `access_control.*`, and `sync.*` events on the EventBus
-- Sessions are auto-created on `sync.running` events — no factory wiring needed
-- Accumulates progress in per-sync sessions, publishes aggregated updates
-
-**Features**:
-- **Event-Driven**: Reacts to `EntityBatchProcessedEvent`, `SyncLifecycleEvent`, etc.
-- **Redis Integration**: Publishes to `sync_job:{job_id}` channels
-- **Snapshot Storage**: Stores progress snapshots with TTL for stuck job detection
-
-**Redis Snapshot Storage**:
-- Key: `sync_progress_snapshot:{job_id}`
-- Includes `last_update_timestamp` for cleanup job to detect stuck syncs
-- 30-minute TTL to automatically clean up completed syncs
-
-### TokenManager
-**Purpose**: Manages OAuth2 token refresh for long-running syncs
-
-**Key Features**:
-- **Automatic Refresh**: Refreshes tokens before expiry (25-minute intervals)
-- **Concurrent Refresh Prevention**: Uses async lock to prevent duplicate refreshes
-- **Direct Injection**: Supports non-refreshable tokens (skips refresh)
-
-**Refresh Logic**:
 ```python
-# Only refreshes for specific auth types
-if auth_type in (AuthType.oauth2_with_refresh, AuthType.oauth2_with_refresh_rotating):
-    # Refresh if older than 25 minutes
-    if time_since_refresh > REFRESH_INTERVAL_SECONDS:
-        await self._refresh_token()
+class ConnectionErrorCode(str, Enum):
+    CREDENTIALS_EXPIRED = "credentials_expired"
+    ACCOUNT_DELETED = "account_deleted"
+    CONFIG_ERROR = "config_error"
+    MISSING_CREDENTIALS = "missing_credentials"
+    SERVER_ERROR = "server_error"
+    RATE_LIMITED = "rate_limited"
 ```
 
-### Async Helpers
-**Purpose**: Performance utilities for CPU-bound operations
+### Exception → (status, code, message) mapping
 
-**Key Utilities**:
-- **Shared Thread Pool**: Reuses executor for all CPU-bound tasks
-- **Async Hashing**: Non-blocking file/content hashing
-- **Stable Serialization**: Consistent object serialization for hashing
-- **Chunked File Reading**: Memory-efficient file processing
+| Exception | Status | Error code | User-facing message pattern |
+|---|---|---|---|
+| `TokenCredentialsInvalidError` (oauth) | `NEEDS_REAUTH` | `credentials_expired` | "Your {source} token expired. Re-authenticate to continue syncing." |
+| `TokenCredentialsInvalidError` (auth_provider) | `NEEDS_REAUTH` | `credentials_expired` | "Your {provider} connection to {source} expired. Re-connect in {provider}." |
+| `TokenProviderAccountGoneError` | `NEEDS_REAUTH` | `account_deleted` | "Your {provider} account for {source} was deleted. Re-create the connection." |
+| `TokenProviderConfigError` | `ERROR` | `config_error` | "Connection misconfigured. Contact support." |
+| `TokenProviderMissingCredsError` | `ERROR` | `missing_credentials` | "Incomplete credentials from {provider}. Re-authenticate." |
+| `TokenProviderRateLimitError` | *(no change)* | — | Silent retry. Connection stays in current state. |
+| `TokenProviderServerError` | *(no change)* | — | Silent retry. Becomes `ERROR` after N consecutive failures. |
 
-## Data Flow - Detailed
+### Key rules
 
-### 1. Initialization Phase
-```
-SyncFactory.create_orchestrator()
-├── Resolve layered SyncConfig (collection → sync → job overrides)
-├── Resolve source connection from DB
-├── Build source + cursor via _build_source() (SourceLifecycleService)
-├── Build destinations via DestinationsContextBuilder
-├── Build EntityTracker via _build_entity_tracker() (with initial counts)
-├── Build entity_map from EntityDefinitionRegistry
-├── Assemble SyncContext (frozen data) via SyncContextBuilder
-├── Assemble SyncRuntime (source, cursor, entity_tracker, destinations)
-├── Wire EntityPipeline
-│   ├── EntityActionResolver
-│   └── EntityActionDispatcher (via EntityDispatcherBuilder)
-├── Wire AccessControlPipeline
-├── Wire AsyncSourceStream
-└── Create SyncOrchestrator (with DI'd event_bus, usage_checker, usage_ledger, sync_cursor_service)
-```
-
-### 2. Streaming Phase
-```
-AsyncSourceStream (Producer)
-├── Runs in separate task
-├── Generates entities from source
-├── Puts in bounded queue (backpressure)
-└── Signals completion with None
-
-SyncOrchestrator (Consumer)
-├── Pulls from stream when worker available
-├── Skips marked entities without worker
-└── Submits to worker pool
-```
-
-### 3. Processing Phase (Per Batch)
-```
-EntityPipeline.process()
-├── Track & dedupe (EntityTracker)
-├── Prepare entities (enrich, compute hash)
-├── Resolve actions (EntityActionResolver)
-│   ├── Query DB for existing hashes
-│   └── Return ActionBatch (inserts, updates, deletes, keeps)
-└── Dispatch to handlers (EntityActionDispatcher)
-    ├── DestinationHandler (concurrent)
-    │   └── text → chunks → embeddings → vector DB
-    ├── ArfHandler (concurrent)
-    │   └── Capture to ARF storage via ArfService
-    └── PostgresHandler (sequential, last)
-        └── Persist entity metadata
-```
-
-### 4. Progress Tracking
-```
-EntityTracker records action
-├── Emits domain events via EventBus (entity.batch_processed, etc.)
-├── SyncProgressRelay (EventSubscriber) receives events
-│   ├── Accumulates progress in per-sync session
-│   ├── Publishes to Redis pubsub (sync_job:{job_id})
-│   └── Stores snapshot in Redis (sync_progress_snapshot:{job_id})
-└── Frontend/API subscribers receive real-time updates
-```
-
-## Orphaned Workflow Self-Destruct
-
-**Problem**: Workflows may execute after their sync/source_connection is deleted (race condition between schedule deletion and queued workflows).
-
-**Solution**: Self-healing workflows that detect orphaned state and clean up automatically.
-
-**Detection Points**:
-1. **Early** (in `create_sync_job_activity`): Checks if sync exists before creating job
-   - Returns `CreateSyncJobResult(orphaned=True, sync_id=..., reason=...)` if not found
-2. **Late** (in `run_sync_activity`): Catches `NotFoundException` during execution
-   - Domain code raises `OrphanedSyncError(sync_id)` (in `exceptions.py`)
-   - Activity boundary converts to explicit `ApplicationError` with:
-     - `type=ORPHANED_SYNC_ERROR_TYPE` (shared constant in `exceptions.py`)
-     - `non_retryable=True` (permanent condition)
-     - `category=ApplicationErrorCategory.BENIGN` (suppresses error metrics/logs)
-     - Structured `details`: `(sync_id, reason)` accessible on workflow side
-
-**Temporal serialization**: The workflow detects orphaned syncs by checking
-`error.cause.type == ORPHANED_SYNC_ERROR_TYPE` on the `ApplicationError` inside
-the `ActivityError` wrapper. Structured details are accessed via `error.cause.details`.
-The `BENIGN` category prevents orphaned syncs from polluting error metrics and
-OpenTelemetry traces since they are expected operational behavior.
-
-**Self-Destruct Flow**:
-```python
-if self._is_orphaned_sync_error(e):
-    reason = self._extract_orphaned_reason(e)  # from ApplicationError.details
-    await self._self_destruct(sync_dict, ctx_dict, reason)
-    return  # Exit gracefully without error
-```
-
-**Cleanup Actions** (in `self_destruct_orphaned_sync_activity`):
-- Deletes all schedule types: `sync-{id}`, `minute-sync-{id}`, `daily-cleanup-{id}`
-- Uses existing `temporal_schedule_service.delete_schedule_handle()`
-- Logs with INFO level, not ERROR
-- Idempotent (safe for concurrent workflows)
-
-**Result**: No "Source connection record not found" errors, graceful workflow exits, automatic schedule cleanup.
-
-
-## Temporal Module Structure
-
-Activities and workflows live under `domains/temporal/` with single-responsibility modules.
-
-### Activities (`domains/temporal/activities/`)
-
-Each activity is a `@dataclass` with explicit DI, one class per file:
-
-| File | Class | Responsibility |
-|------|-------|---------------|
-| `run_sync.py` | `RunSyncActivity` | Execute a sync job with heartbeating and stall detection |
-| `create_sync_job.py` | `CreateSyncJobActivity` | Create sync job record (for scheduled runs) |
-| `transition_sync_job.py` | `TransitionSyncJobActivity` | Terminal state transitions via SyncJobStateMachine |
-| `cleanup_stuck_sync_jobs.py` | `CleanupStuckSyncJobsActivity` | Detect and cancel stuck jobs |
-| `self_destruct_orphaned_sync.py` | `SelfDestructOrphanedSyncActivity` | Clean up schedules for orphaned syncs |
-| `cleanup_sync_data.py` | `CleanupSyncDataActivity` | Remove Vespa + ARF data for deleted syncs |
-| `api_key_notifications.py` | `CheckAndNotifyExpiringKeysActivity` | Email notifications for expiring API keys |
-
-`activities/__init__.py` re-exports both class names and `.run` method references (used by workflows).
-
-### Workflows (`domains/temporal/workflows/`)
-
-Each workflow is one class per file, using `workflow.unsafe.imports_passed_through()` for activity imports and named timeout/retry constants:
-
-| File | Class |
-|------|-------|
-| `run_source_connection.py` | `RunSourceConnectionWorkflow` — four-phase orchestration |
-| `cleanup_stuck_sync_jobs.py` | `CleanupStuckSyncJobsWorkflow` — periodic stuck-job cleanup |
-| `cleanup_sync_data.py` | `CleanupSyncDataWorkflow` — post-deletion data cleanup |
-| `api_key_notifications.py` | `APIKeyExpirationCheckWorkflow` |
-
-### Worker Wiring (`domains/temporal/worker/`)
-
-`wiring.py` is the DI wiring point: reads dependencies from `container` and instantiates activity dataclasses. `get_workflows()` returns the list of workflow classes.
-
-### Domain Services (`domains/temporal/`)
-
-- `service.py` — `TemporalWorkflowService`: start/cancel workflows
-- `schedule_service.py` — `TemporalScheduleService`: CRUD for Temporal schedules
-- `protocols.py` — Protocol definitions for the above
-
-### Tests
-
-Co-located alongside source code:
-- `activities/tests/` — activity unit tests with fake dependencies
-- `workflows/tests/` — workflow tests using `WorkflowEnvironment.start_time_skipping()` and mock activities
-- `worker/tests/` — worker startup and config tests
-
-## Best Practices
-
-### When Extending
-1. Maintain pull-based architecture
-2. Use async locks for shared state
-3. Create database sessions sparingly
-4. Log with contextual information
-5. Handle errors at entity level
-
-
-### Common Pitfalls
-1. Don't block the event loop
-2. Avoid unbounded concurrency
-3. Handle token refresh properly
-4. Clean up resources in finally blocks
-5. Test with large datasets
-
-This architecture enables efficient processing of millions of entities with optimal resource usage, real-time monitoring, and robust error handling.
+- **Rate limit and server error don't change connection status.** They're operational. Only persistent failures touch the connection state.
+- **`NEEDS_REAUTH` is not `ERROR`.** It's recoverable with a clear user action. The frontend shows a re-auth button, not a scary error banner.
+- **`provider_kind` differentiates the user message**, not the status. OAuth expired = "re-authenticate with us". Auth provider expired = "re-link in Composio/Pipedream."
+- **`error_code` is stored as varchar** but typed as a Python Enum. Flexible in storage, strict in code.
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
