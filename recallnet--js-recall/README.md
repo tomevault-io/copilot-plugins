@@ -7,13 +7,13 @@ JS/TS monorepo for the Recall network
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [recallnet/js-recall](https://github.com/recallnet/js-recall).
+Original source: `.cursor/rules/*.mdc` in [recallnet/js-recall](https://github.com/recallnet/js-recall).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
