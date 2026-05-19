@@ -1,0 +1,9 @@
+{
+  "name": "tlaloc-es--killpy",
+  "displayName": "killpy",
+  "description": "\ud83d\udc0d CLI tool to find and delete unused Python virtual environments (.venv, poetry, conda, pipenv, uv). Reclaim disk space effortlessly \u2014 supports bulk delete, size reporting, and pycache cleanup.",
+  "version": "1.0.0",
+  "author": "Tlaloc-Es",
+  "homepage": "https://github.com/Tlaloc-Es/killpy",
+  "skills": []
+}
