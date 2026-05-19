@@ -1,0 +1,44 @@
+{
+  "name": "XiaomiAlbumSyncer",
+  "owner": "Coooolfan",
+  "repo": "XiaomiAlbumSyncer",
+  "description": "\u5168\u91cf/\u589e\u91cf/\u5b9a\u65f6 \u4e0b\u8f7d\u5c0f\u7c73\u4e91\u670d\u52a1\u4e2d\u7684 \u76f8\u518c/\u5f55\u97f3 \u5230\u672c\u5730",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Coooolfan/XiaomiAlbumSyncer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T05:08:32Z"
+}
