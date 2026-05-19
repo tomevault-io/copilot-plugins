@@ -7,11 +7,11 @@ Parallel git worktrees for parallel AI agents — plus AI-generated commits.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [samzong/gmc](https://github.com/samzong/gmc).
+Original source: `CLAUDE.md` in [samzong/gmc](https://github.com/samzong/gmc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
