@@ -1,7 +1,7 @@
 {
   "name": "chriscarrollsmith--pyzotero-cli",
   "displayName": "pyzotero-cli",
-  "description": "pyzotero-cli",
+  "description": "Use Zotero from the command line, e.g., for AI-assisted reference / citation management in academic writing \u2014 CLI wrapper for pyzotero",
   "version": "1.0.0",
   "author": "chriscarrollsmith",
   "homepage": "https://github.com/chriscarrollsmith/pyzotero-cli",
