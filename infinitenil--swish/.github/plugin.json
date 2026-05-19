@@ -1,0 +1,9 @@
+{
+  "name": "infinitenil--swish",
+  "displayName": "swish",
+  "description": "A Clojure inspired Lisp written by Claude Code in Swift. For embedding or compiling to Swift.",
+  "version": "1.0.0",
+  "author": "infiniteNIL",
+  "homepage": "https://github.com/infiniteNIL/swish",
+  "skills": []
+}
