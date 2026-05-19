@@ -122144,6 +122144,16 @@
       "description": "Nova \u662f\u4e00\u4e2a\u9762\u5411\u957f\u7bc7\u5c0f\u8bf4\u521b\u4f5c\u7684 AI \u5199\u4f5c\u5de5\u4f5c\u53f0\uff0c\u76ee\u6807\u662f\u63d0\u4f9b\u7c7b\u4f3c IDE \u7684\u521b\u4f5c\u4f53\u9a8c\uff0c\u8986\u76d6\u7075\u611f\u3001\u8bbe\u5b9a\u3001\u5927\u7eb2\u3001\u5206\u5377\u3001\u5206\u7ae0\u3001\u7ec6\u7eb2\u3001\u6b63\u6587\u3001\u7248\u672c\u7ba1\u7406\u548c\u4e00\u81f4\u6027\u68c0\u67e5\u7b49\u6d41\u7a0b\u3002"
     },
     {
+      "name": "yulonglin--dotfiles",
+      "source": "./yulonglin--dotfiles",
+      "description": "Highly-opinionated setup for AI safety research with coding agents (Claude Code, Codex, Gemini CLI)"
+    },
+    {
+      "name": "yulonglin--dotfiles",
+      "source": "./yulonglin--dotfiles",
+      "description": "Highly-opinionated setup for AI safety research with coding agents (Claude Code, Codex, Gemini CLI)"
+    },
+    {
       "name": "yschimke--compose-ai-tools",
       "source": "./yschimke--compose-ai-tools",
       "description": "Helping the Agents Compose the Things"
@@ -141139,6 +141149,11 @@
       "description": "Self-hosted, API-first e-commerce orchestration platform \u2014 sync products, inventory, and orders across any marketplace."
     },
     {
+      "name": "crewrig--crewrig",
+      "source": "./crewrig--crewrig",
+      "description": "A layered AI assistant configuration with shared skill sandbox and built-in harness engineering loop."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -150469,6 +150484,26 @@
       "description": "ccpulse"
     },
     {
+      "name": "mc3545dada--mspm0-skill",
+      "source": "./mc3545dada--mspm0-skill",
+      "description": "\u9762\u5411\u7535\u8d5b\u7684 MSPM0 + CCS + SysConfig Agent Skill"
+    },
+    {
+      "name": "md-mushfiqur123--mxclaw",
+      "source": "./md-mushfiqur123--mxclaw",
+      "description": "mxclaw"
+    },
+    {
+      "name": "mc3545dada--mspm0-skill",
+      "source": "./mc3545dada--mspm0-skill",
+      "description": "\u9762\u5411\u7535\u8d5b\u7684 MSPM0 + CCS + SysConfig Agent Skill"
+    },
+    {
+      "name": "igorwarzocha--opencode-extensions-tui",
+      "source": "./igorwarzocha--opencode-extensions-tui",
+      "description": "A TUI-based Opencode Extensions Manager"
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -152592,6 +152627,16 @@
       "name": "michaeljayw--codingagentim",
       "source": "./michaeljayw--codingagentim",
       "description": "CodingAgentIM"
+    },
+    {
+      "name": "entropyvortex--meta-llm-charter",
+      "source": "./entropyvortex--meta-llm-charter",
+      "description": "Compact operational charter that turns LLM coding agents into disciplined principal engineers. Eleven rules + one meta-rule."
+    },
+    {
+      "name": "cap-go--capacitor-native-navigation",
+      "source": "./cap-go--capacitor-native-navigation",
+      "description": "Capacitor plugin for Liquid glass native navigation tabs"
     },
     {
       "name": "keshavxa--keshav-portfolio",
