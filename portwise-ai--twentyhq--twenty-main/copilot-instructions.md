@@ -1,102 +1,109 @@
-## feedback-incorporation
+## file-structure
 
-> Guidelines for incorporating user feedback and improving cursor rules
+> File structure guidelines for Twenty CRM
 
-# Feedback Incorporation Guidelines
+# File Structure Guidelines
 
-## Post-Interaction Reflection
+## Directory Organization
+```
+packages/twenty-front/src/
+├── components/      # Reusable UI components
+├── pages/          # Route components  
+├── modules/        # Feature modules
+├── hooks/          # Custom hooks
+├── services/       # API services
+└── types/          # Type definitions
 
-After each coding session or significant interaction, the AI should:
-
-### 1. Reflect on User Feedback
-- **Identify patterns** in user corrections or suggestions
-- **Note recurring issues** that could be prevented with better rules
-- **Recognize gaps** in current cursor rules or guidelines
-
-### 2. Suggest Rule Improvements
-When user provides feedback that reveals a pattern or preference:
-
-```typescript
-// Example feedback patterns to watch for:
-// - "We don't use useEffect, handle state changes in event callbacks"
-// - "We don't use JSDoc blocks, prefer // comments"
-// - "Always use named exports, never default exports"
-// - "We prefer functional components over class components"
-// - "Use event handlers over useEffect for state updates"
+packages/twenty-server/src/
+├── modules/        # Feature modules
+├── entities/       # Database entities
+├── dto/           # Data transfer objects
+└── utils/         # Helper functions
 ```
 
-### 3. Proactive Rule Suggestions
-At the end of interactions, suggest:
-
-```markdown
-## 💡 Suggested Cursor Rule Updates
-
-Based on your feedback today, I recommend adding/updating these rules:
-
-**Code Style Rule Update:**
-- Add preference for // comments over JSDoc blocks
-- Enforce named exports only (no default exports)
-
-**React Guidelines Update:**
-- Document preference for event handlers over useEffect
-- Add functional components only rule
-
-Would you like me to help incorporate these into your cursor rules?
+## File Naming
+- **kebab-case** for all files and directories
+- **Descriptive suffixes** for clarity
+```
+// ✅ Correct naming
+user-profile.component.tsx
+user-profile.styles.ts
+user-profile.test.tsx
+user.service.ts
+user.entity.ts
+create-user.dto.ts
 ```
 
-## Implementation Process
-
-### When to Suggest Updates
-- User corrects the same type of mistake multiple times
-- User explains a codebase-specific preference
-- User points out missing functionality or incomplete implementations
-- User provides context about existing patterns not captured in rules
-
-### How to Present Suggestions
-1. **Summarize the pattern** observed from feedback
-2. **Propose specific rule language** that would prevent the issue
-3. **Explain the benefit** of codifying this knowledge
-4. **Ask for confirmation** before implementing
-
-### Rule Categories to Consider
-- **Code Style**: Formatting, naming, comment styles, export patterns
-- **React Patterns**: Hook usage, component structure, state management
-- **Architecture**: File organization, import patterns, component composition
-- **Testing**: Test structure, naming, coverage expectations
-- **Performance**: Optimization patterns, anti-patterns to avoid
-
-## Example Feedback Integration
-
-```markdown
-## Today's Learning: React State Management Patterns
-
-**User Feedback Received:**
-- "We don't use useEffect, handle state changes in event callbacks"
-- "We don't use JSDoc blocks, prefer // comments"
-- "Always use named exports, never default exports"
-
-**Proposed Rule Additions:**
+## Index Files & Barrel Exports
 ```typescript
-// ✅ React State Updates - Use event handlers, not useEffect
-const handleButtonClick = () => {
-  setData(newData); // Direct state update in event handler
+// ✅ Clean barrel exports in index.ts
+export { UserCard } from './user-card.component';
+export { UserList } from './user-list.component';
+export type { UserCardProps, UserListProps } from './types';
+
+// ✅ Usage - clean imports
+import { UserCard, UserList } from '@/components/user';
+```
+
+## Module Structure
+```
+src/modules/user/
+├── components/     # Module-specific components
+├── hooks/         # Module hooks
+├── services/      # API services
+├── types/         # Type definitions
+└── index.ts       # Module exports
+```
+
+## Import/Export Patterns
+```typescript
+// ✅ Import organization
+// 1. External libraries
+import React from 'react';
+import styled from 'styled-components';
+
+// 2. Internal modules (absolute paths)
+import { Button } from '@/components/ui';
+import { UserService } from '@/services';
+
+// 3. Relative imports
+import { UserCardProps } from './types';
+
+// ✅ Named exports only (no default exports)
+export const UserComponent = ({ user }: UserProps) => {
+  // Component implementation
 };
-
-// ❌ Avoid useEffect for state updates
-// useEffect(() => { setData(newData); }, [trigger]);
-
-// ✅ Named exports only
-export const UserComponent = () => {};
-export const useUserData = () => {};
 ```
 
-**Benefits:**
-- Prevents useEffect overuse and related bugs
-- Ensures consistent export patterns across codebase
-- Documents preferred React patterns for the team
+## File Size Guidelines
+- **Components**: Under 300 lines
+- **Services**: Under 500 lines  
+- **Extract logic** into hooks/utilities when files grow large
+- **Use composition** over large monolithic components
+
+## Configuration Files
+
+### Project Configuration
+```
+.vscode/                       # VSCode settings
+├── settings.json
+├── extensions.json
+└── launch.json
+
+.github/                       # GitHub workflows
+├── workflows/
+└── templates/
+
+.cursor/                       # Cursor rules
+├── rules/
+└── environment.json
 ```
 
-This approach helps the AI learn from each interaction and continuously improve the development experience.
+### Build Configuration
+- Keep build configs in root or package directories
+- Use consistent naming for config files
+- Comment complex configurations
+- Version control all configuration files
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
