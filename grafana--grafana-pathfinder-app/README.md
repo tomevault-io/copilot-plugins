@@ -7,11 +7,11 @@ Get help exactly when and where you need it. Grafana Interactive Learning brings
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app).
+Original source: `CLAUDE.md` in [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
