@@ -1,0 +1,9 @@
+{
+  "name": "mailtrap--mailtrap-openapi",
+  "displayName": "mailtrap-openapi",
+  "description": "Official mailtrap.io OpenAPI specs collection",
+  "version": "1.0.0",
+  "author": "mailtrap",
+  "homepage": "https://github.com/mailtrap/mailtrap-openapi",
+  "skills": []
+}
