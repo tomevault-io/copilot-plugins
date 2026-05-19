@@ -1,0 +1,9 @@
+{
+  "name": "smartflow-systems--sfs-control-tower",
+  "displayName": "sfs-control-tower",
+  "description": "SmartFlow Systems Operations Control Center - Central dashboard for monitoring and managing all 26 SFS repositories",
+  "version": "1.0.0",
+  "author": "smartflow-systems",
+  "homepage": "https://github.com/smartflow-systems/sfs-control-tower",
+  "skills": []
+}
