@@ -4,7 +4,7 @@
   "repo": "ComfyUI-Lora-Manager",
   "description": "LoRA Manager for ComfyUI - A powerful extension for organizing, previewing, and integrating LoRA models with metadata and workflow support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/willmiao/ComfyUI-Lora-Manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:19:59Z"
+  "distributed_at": "2026-05-19T01:12:43Z"
 }
