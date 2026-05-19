@@ -1,9 +1,9 @@
-## c-style-comments
+## comments
 
-> Leave the beginning of C style comment blocks alone
+> Leave comments alone
 
 
-Leave the beginning of C style comment blocks alone, and don't change their indentation. An example is "/**".
+Leave comments alone unless you are changing the code assoicated with them. Even then don't make superfluous changes to comments.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
