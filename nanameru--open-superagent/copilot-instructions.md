@@ -1,38 +1,303 @@
-## mastra-local
+## mastra-workflow
 
-> １.  **ポート 4114 を使用しているプロセスを特定**
+> Mastraのワークフローは、複雑なタスクを管理可能なステップに分解し、実行フローを制御するための強力なシステムです。TypeScriptで記述され、型安全性を保ちながら柔軟な処理フローを構築できます。
 
-## 対応手順
+# Mastraワークフロー完全ガイド
 
-    ```
+## 概要
 
-１.  **ポート 4114 を使用しているプロセスを特定**
+Mastraのワークフローは、複雑なタスクを管理可能なステップに分解し、実行フローを制御するための強力なシステムです。TypeScriptで記述され、型安全性を保ちながら柔軟な処理フローを構築できます。
 
-    ```bash
-    lsof -i :4114 | grep LISTEN | cat
-    ```
+## ワークフローの基本構造
 
-    **実行結果 (例):**
-    ```
-    node    7744 kimurataiyou   17u  IPv6 0x713985d602229aae      0t0  TCP *:jomamqmonitor (LISTEN)
-    ```
-    -> PID `7744` がポートを使用中。
+### ワークフローの作成
 
-２.  **該当プロセスを強制終了**
+```typescript
+import { createWorkflow } from '@mastra/core/workflows';
+import { z } from 'zod';
 
-    ```bash
-    kill -9 7744
-    ```
+const myWorkflow = createWorkflow({
+  id: 'my-workflow',
+  description: 'ワークフローの説明',
+  inputSchema: z.object({
+    message: z.string(),
+  }),
+  outputSchema: z.object({
+    result: z.string(),
+  }),
+});
+```
 
-3.  **Mastra 開発サーバーを再起動 (正しいコマンド)**
+### ステップの定義
 
-    ```bash
-    mastra dev
-    ```
-    -> サーバーが正常に起動するはず。
-## まとめ
+ワークフローは複数のステップから構成されます。各ステップは独立した処理単位として定義されます：
 
-Mastra 開発サーバー (`mastra dev`) が使用するポート (デフォルト `4111`) や、関連するプロセス (例: Next.js 開発サーバー `npm run dev` が使用するポート `4114`) が他のプロセスによって使用されている場合、`EADDRINUSE` エラーが発生する。`lsof` コマンドでポートを使用しているプロセスの PID を特定し、`kill -9 <PID>` で強制終了することで解決できる。
+```typescript
+import { createStep } from '@mastra/core/workflows';
+
+const processStep = createStep({
+  id: 'process-data',
+  description: 'データを処理する',
+  inputSchema: z.object({
+    data: z.string(),
+  }),
+  outputSchema: z.object({
+    processed: z.string(),
+  }),
+  execute: async ({ inputData }) => {
+    return { processed: inputData.data.toUpperCase() };
+  },
+});
+```
+
+## 制御フロー
+
+### 順次実行
+
+最も基本的なパターンは、ステップを順番に実行することです：
+
+```typescript
+const workflow = createWorkflow({...})
+  .then(step1)
+  .then(step2)
+  .then(step3);
+```
+
+### 条件分岐
+
+`if`メソッドを使用して条件分岐を実装できます：
+
+```typescript
+workflow
+  .then(checkCondition)
+  .if(
+    (data) => data.condition === true,
+    (flow) => flow.then(trueStep),
+    (flow) => flow.then(falseStep)
+  );
+```
+
+### 並列実行
+
+複数のステップを並列に実行する場合：
+
+```typescript
+workflow
+  .parallel([
+    step1,
+    step2,
+    step3
+  ])
+  .then(combineResults);
+```
+
+## 動的ワークフロー
+
+実行時に動的にステップを追加したり、フローを変更することができます：
+
+```typescript
+const dynamicWorkflow = createWorkflow({...})
+  .then(async (context) => {
+    const steps = await determineSteps(context.inputData);
+    return context.parallel(steps);
+  });
+```
+
+## エラーハンドリング
+
+### try-catchパターン
+
+```typescript
+workflow
+  .try(
+    (flow) => flow.then(riskyStep),
+    (flow, error) => flow.then(errorHandler)
+  );
+```
+
+### ステップレベルのエラーハンドリング
+
+```typescript
+const stepWithErrorHandling = createStep({
+  id: 'safe-step',
+  execute: async ({ inputData }) => {
+    try {
+      return await riskyOperation(inputData);
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
+});
+```
+
+## 入力データマッピング
+
+ステップ間でデータを変換・マッピングする方法：
+
+```typescript
+workflow
+  .then(step1)
+  .map((data) => ({
+    transformedData: data.originalData,
+    additionalInfo: 'added',
+  }))
+  .then(step2);
+```
+
+## ネストされたワークフロー
+
+ワークフローを他のワークフロー内で使用：
+
+```typescript
+const subWorkflow = createWorkflow({...});
+const mainWorkflow = createWorkflow({...})
+  .then(prepareData)
+  .then(subWorkflow)
+  .then(processResults);
+```
+
+## ランタイム変数
+
+実行時に変数を管理：
+
+```typescript
+workflow
+  .setVariable('counter', 0)
+  .then((context) => {
+    const counter = context.getVariable('counter');
+    context.setVariable('counter', counter + 1);
+    return { count: counter };
+  });
+```
+
+## サスペンドとレジューム
+
+長時間実行されるワークフローの中断と再開：
+
+```typescript
+workflow
+  .then(startProcess)
+  .suspend('wait-for-approval')
+  .then(continueAfterApproval);
+
+// 後で再開
+await workflow.resume('wait-for-approval', approvalData);
+```
+
+## エージェントとツールとの統合
+
+Mastraのエージェントやツールとの連携：
+
+```typescript
+import { myAgent } from './agents';
+import { myTool } from './tools';
+
+const agentWorkflow = createWorkflow({...})
+  .then(async (context) => {
+    const agentResult = await myAgent.execute(context.inputData);
+    return agentResult;
+  })
+  .then(async (context) => {
+    const toolResult = await myTool.execute({
+      context: context.inputData
+    });
+    return toolResult;
+  });
+```
+
+## 変数管理
+
+### グローバル変数
+
+```typescript
+workflow
+  .setGlobalVariable('apiKey', process.env.API_KEY)
+  .then((context) => {
+    const apiKey = context.getGlobalVariable('apiKey');
+    return callAPI(apiKey);
+  });
+```
+
+### スコープ付き変数
+
+```typescript
+workflow
+  .scope('user-session', (flow) => 
+    flow
+      .setVariable('userId', getUserId())
+      .then(processUserData)
+  );
+```
+
+## Inngestワークフロー統合
+
+Inngestとの統合により、イベント駆動型ワークフローを構築：
+
+```typescript
+import { inngest } from './inngest-client';
+
+const inngestWorkflow = inngest.createFunction(
+  { id: 'process-order' },
+  { event: 'order.created' },
+  async ({ event, step }) => {
+    const validated = await step.run('validate', () => 
+      validateOrder(event.data)
+    );
+    
+    const processed = await step.run('process', () =>
+      processOrder(validated)
+    );
+    
+    return processed;
+  }
+);
+```
+
+## ベストプラクティス
+
+1. **型安全性**: 常にZodスキーマを使用して入出力を定義
+2. **エラーハンドリング**: 各ステップで適切なエラー処理を実装
+3. **モジュール化**: 再利用可能なステップを作成
+4. **ログ記録**: 各ステップで適切なログを出力
+5. **テスト**: 各ステップを個別にテスト可能に設計
+
+## 高度な使用例
+
+### 再試行ロジック
+
+```typescript
+const retryableStep = createStep({
+  id: 'retry-step',
+  execute: async ({ inputData }, { retry }) => {
+    try {
+      return await unstableOperation(inputData);
+    } catch (error) {
+      if (retry.attemptNumber < 3) {
+        throw retry.retryAfter(1000 * retry.attemptNumber);
+      }
+      throw error;
+    }
+  },
+});
+```
+
+### 条件付き並列実行
+
+```typescript
+workflow
+  .then(analyzeData)
+  .if(
+    (data) => data.requiresParallelProcessing,
+    (flow) => flow.parallel([
+      heavyComputation1,
+      heavyComputation2,
+      heavyComputation3,
+    ]),
+    (flow) => flow.then(simpleComputation)
+  );
+```
+
+このドキュメントは、Mastraワークフローシステムの包括的なガイドとして、基本的な使用方法から高度な機能まで幅広くカバーしています。
 
 ---
 > Source: [nanameru/Open_SuperAgent](https://github.com/nanameru/Open_SuperAgent) — distributed by [TomeVault](https://tomevault.io).
