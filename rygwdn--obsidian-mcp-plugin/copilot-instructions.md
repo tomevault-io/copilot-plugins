@@ -1,41 +1,23 @@
-## commit-message-format
+## git-workflow
 
-> Instructions for writing commit messages
+> Follow these best practices when working with Git in this project:
 
-# Commit Message Format
+Follow these best practices when working with Git in this project:
 
-All commits to this codebase should follow the conventional commit format:
-
-## Format
-```
-<type>: <concise description>
-
-[optional body with details]
-```
-
-## Types
-- `feat`: New features or significant enhancements
-- `fix`: Bug fixes
-- `docs`: Documentation changes
-- `style`: Code style/formatting changes (no functional changes)
-- `refactor`: Code changes that neither fix bugs nor add features
-- `perf`: Performance improvements
-- `test`: Adding or correcting tests
-- `chore`: Maintenance tasks, dependencies, etc.
-
-## Guidelines
-- Keep the first line under 72 characters
-- Use present tense ("add feature" not "added feature")
-- Be specific about what changed
-- Reference issue numbers in the body when applicable
-- Do not mention Claude or other AI assistants in commit messages
-
-## Examples
-```
-feat: add daily note resources to MCP
-fix: resolve issue with file path normalization
-docs: update README with new tools documentation
-refactor: consolidate resource tools and tests
+- NEVER execute Git commands without explicit user permission
+- Always propose Git commands to the user before running them
+- Always disable the pager when using Git in scripts or automation:
+  ```bash
+  git --no-pager <command>
+  ```
+- Use non-interactive commands when running in scripts or automation:
+  ```bash
+  git commit -m "message" # Instead of git commit
+  git merge --no-edit branch-name # Instead of interactive merge
+  git rebase -i HEAD~3 # Avoid when in automation
+  ```
+- Ensure all checks pass before merging
+- Reference the [commit message format](mdc:.cursor/rules/commit-message-format.mdc) for proper commit messages
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
