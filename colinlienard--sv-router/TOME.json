@@ -4,7 +4,7 @@
   "repo": "sv-router",
   "description": "\ud83d\udea6 Type-safe routing for Svelte SPAs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/colinlienard/sv-router",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:16:12Z"
+  "distributed_at": "2026-05-19T09:19:15Z"
 }
