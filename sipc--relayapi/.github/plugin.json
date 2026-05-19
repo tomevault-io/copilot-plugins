@@ -1,0 +1,9 @@
+{
+  "name": "sipc--relayapi",
+  "displayName": "RelayAPI",
+  "description": "RelayAPI - \u4e00\u7ad9\u5f0f\u7ba1\u7406\u4f60\u7684 Codex OAuth",
+  "version": "1.0.0",
+  "author": "SIPC",
+  "homepage": "https://github.com/SIPC/RelayAPI",
+  "skills": []
+}
