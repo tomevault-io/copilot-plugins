@@ -1,0 +1,9 @@
+{
+  "name": "betterthantomorrow--calva-backseat-driver",
+  "displayName": "calva-backseat-driver",
+  "description": "VS Code AI Agent Interactive Programming. Tools for CoPIlot and other assistants. Can also be used as an MCP server.",
+  "version": "1.0.0",
+  "author": "BetterThanTomorrow",
+  "homepage": "https://github.com/BetterThanTomorrow/calva-backseat-driver",
+  "skills": []
+}
