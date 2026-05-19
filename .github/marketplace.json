@@ -72229,6 +72229,16 @@
       "description": "vinoflare"
     },
     {
+      "name": "conveyal--osmix",
+      "source": "./conveyal--osmix",
+      "description": "OpenStreetMap reader, writer, and merge tool. Written in TypeScript."
+    },
+    {
+      "name": "conveyal--osmix",
+      "source": "./conveyal--osmix",
+      "description": "OpenStreetMap reader, writer, and merge tool. Written in TypeScript."
+    },
+    {
       "name": "navikt--cplt",
       "source": "./navikt--cplt",
       "description": "Drop in replacement sandbox for GitHub Copilot CLI for macOS"
@@ -73472,6 +73482,11 @@
       "name": "mahmoudimus--ida-taskr",
       "source": "./mahmoudimus--ida-taskr",
       "description": "IDA Taskr is a pure Python library for IDA Pro related parallel computing. It lets you use the power of Qt (built-in to IDA!) and Python's powerful multiprocessing and asyncio systems to quickly proce"
+    },
+    {
+      "name": "reddit--devvit-template-react",
+      "source": "./reddit--devvit-template-react",
+      "description": "devvit-template-react"
     },
     {
       "name": "mulhamna--jira-commands",
@@ -76642,6 +76657,11 @@
       "name": "platformatic--php",
       "source": "./platformatic--php",
       "description": "PHP stackable for Watt"
+    },
+    {
+      "name": "mfe-orchestrator--mfe-orchestrator",
+      "source": "./mfe-orchestrator--mfe-orchestrator",
+      "description": "Micro Frontend Orchestrator"
     },
     {
       "name": "10xchengtu--mux0",
@@ -105039,6 +105059,21 @@
       "description": "> Transform Claude Code CLI into your AI development companion with voice control, background processing, and intelligent automation."
     },
     {
+      "name": "clerk--clerk-android",
+      "source": "./clerk--clerk-android",
+      "description": "Android SDK for Clerk"
+    },
+    {
+      "name": "wirasm--pipedrive-mcp",
+      "source": "./wirasm--pipedrive-mcp",
+      "description": "pipedrive-mcp"
+    },
+    {
+      "name": "clerk--clerk-android",
+      "source": "./clerk--clerk-android",
+      "description": "Android SDK for Clerk"
+    },
+    {
       "name": "mohiwalla--memes",
       "source": "./mohiwalla--memes",
       "description": "Selected good meme GIFs by community"
@@ -116739,6 +116774,21 @@
       "description": "Multi-agent swarm framework. Seven autonomous agents. 30 skills. One shared mesh. Zero infrastructure."
     },
     {
+      "name": "kaelio--ktx",
+      "source": "./kaelio--ktx",
+      "description": "KTX is the context layer for analytics agents"
+    },
+    {
+      "name": "kaelio--ktx",
+      "source": "./kaelio--ktx",
+      "description": "KTX is the context layer for analytics agents"
+    },
+    {
+      "name": "kaelio--ktx",
+      "source": "./kaelio--ktx",
+      "description": "KTX is the context layer for analytics agents"
+    },
+    {
       "name": "lightninglabs--lnget",
       "source": "./lightninglabs--lnget",
       "description": "wget for the pay-per-request web (powered by Lightning Lab's L402 protocol)"
@@ -122152,6 +122202,11 @@
       "name": "yulonglin--dotfiles",
       "source": "./yulonglin--dotfiles",
       "description": "Highly-opinionated setup for AI safety research with coding agents (Claude Code, Codex, Gemini CLI)"
+    },
+    {
+      "name": "cloudflare--claude-managed-agents",
+      "source": "./cloudflare--claude-managed-agents",
+      "description": "claude-managed-agents"
     },
     {
       "name": "yschimke--compose-ai-tools",
