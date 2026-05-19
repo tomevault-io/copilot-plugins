@@ -1,0 +1,9 @@
+{
+  "name": "mantisai--sieves",
+  "displayName": "sieves",
+  "description": "Plug-and-play document AI with zero-shot models.",
+  "version": "1.0.0",
+  "author": "MantisAI",
+  "homepage": "https://github.com/MantisAI/sieves",
+  "skills": []
+}
