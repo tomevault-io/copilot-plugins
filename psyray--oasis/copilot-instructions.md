@@ -1,0 +1,34 @@
+## git-history-conventions
+
+> Commit and release conventions inferred from OASIS history
+
+
+# OASIS Git Conventions
+
+- Use Conventional Commit prefixes seen in history: `feat`, `fix`, `refactor`, `docs`, `release`, `version`.
+- Keep commit subjects short and scoped to user-visible intent (why), not low-level implementation detail.
+- For release-oriented changes, keep version, changelog, and docs aligned in the same working session.
+- When a CLI flag or behavior changes, update `README.md` in the same change to avoid drift.
+- In `README.md`, keep the `Features` section as a concise summary only; place detailed behavior and usage in the existing relevant section.
+- If a user-visible feature has no relevant `README.md` section yet, add a dedicated section instead of overloading `Features`.
+- Keep `CHANGELOG.md` entries succinct and strictly consistent with the file's existing charter/style.
+- Write `CHANGELOG.md` notes under the version that matches the current branch lineage; do not backfill unrelated version buckets.
+- When install or upgrade steps change, keep `README.md` aligned with the **pipx** workflow (`pipx uninstall oasis && pipx install -e .`; document `pipx install -e ".[dev]"` when optional dev dependencies such as **coverage** should be part of the documented workflow).
+- When structured output or report schema changes, align `oasis/schemas/`, report templates, and contract tests (e.g., `tests/test_report_schema.py`) in the same change set.
+- When audit markdown shape changes (especially `Audit Metrics Summary` tables), ship coordinated updates in `oasis/report.py`, `oasis/web.py`, dashboard JS consumers, and `README.md`/`CHANGELOG.md`.
+- When the **dashboard assistant** changes (REST routes under `/api/assistant/*`, chat persistence layout, RAG retrieval, validation limits, or report JSON fields consumed by the assistant), align `oasis/web.py`, `oasis/helpers/assistant/**`, `oasis/helpers/context/path_containment.py`, dashboard modules (`assistant.js`, `assistant-constants.js`, `api.js`, modal/views), and tests (`tests/test_web_assistant_api.py`, `tests/test_assistant_*.py`) in the same change set; document flags and behavior in `README.md` and `CHANGELOG.md`.
+- When the **finding-validation contract** changes (sink resolution from indices, `finding_scope_report_path` resolution in `POST /api/assistant/investigate`, post-verdict `entry_points` filtering for `flow` / `access` families, or the `scope_focus` block in the LLM synthesis payload), align `oasis/web.py`, `oasis/helpers/assistant/web/sink_resolution.py`, `oasis/helpers/assistant/web/result_presentation.py`, `oasis/helpers/assistant/think/investigation_synth.py` (system prompt + payload), `oasis/helpers/executive/assistant_scope.py` (used by both chat and investigate), dashboard modules (`assistant.js`, modal views displaying scope/EPs), and tests (`tests/test_assistant_validation.py` for helpers + filtering, `tests/test_web_assistant_api.py` for the route). The verdict (`status`, `confidence`, `summary`) **must remain honest** (computed on full evidence): EP filtering is presentation-only.
+- When the **incremental scan progress wire contract** changes (`EXEC_SUMMARY_PROGRESS_EVENT_VERSION`, `SCAN_PROGRESS_EXTENDED_KEYS`, stripping in `publish_incremental_summary`, `web.py` aggregation, or dashboard handlers), ship the coordinated updates together—especially constants at the top of `oasis/helpers/progress.py`, `oasis/report.py`, `oasis/web.py`, `oasis/static/js/dashboard/*.js`, and contract tests in `tests/test_report_schema.py` when behavior is contract-visible—so `main` never exposes mismatched producers and consumers.
+- When dashboard filtering behavior changes (model / vulnerability / date / **project** / **severity** tier filters, or **filtered preview** behavior), update both frontend (`oasis/static/js/dashboard/*.js` — including **`urlWithActiveFilters`** on preview fetches) and backend filter + guard APIs (`oasis/web.py`) in the same change set to avoid split-brain behavior.
+- When **`analysis_root`** storage or **`security_reports/` layout** resolution changes, align `oasis/helpers/analysis_root_path.py`, report/export path helpers (`oasis/helpers/report_project.py`, writers), `oasis/web.py`, assistant RAG roots, assistant path containment, and `README.md` / `CHANGELOG.md` when user-visible.
+- When **executive summary canonical JSON** shape changes (`schema_version`, overview, guidance, tier definitions, similarity highlights), align `oasis/report.py`, `oasis/helpers/executive_summary.py`, schemas/templates, dashboard executive preview (`executive-preview.js`, `modal.js`), and contract tests (`tests/test_report_schema.py`).
+- When **structured audit JSON** (`audit_report.json`) or **md → json sibling** artifact rules change, align `oasis/schemas/audit_report.py`, `oasis/helpers/dashboard/json_sibling.py`, dashboard `audit-report-paths.js`, `oasis/web.py` metrics/preview paths, and Markdown/HTML generation from the same document.
+- When **report HTML / Jinja escaping** policy changes, coordinate the Jinja environment, `oasis/templates/reports/**`, `oasis/helpers/dashboard/report_preview_html.py`, and any dashboard injection paths so modal and exports stay consistent.
+- When **LangGraph orchestration** changes (`oasis/agent/` graph topology, `graph_labels.py` ids, `OasisGraphState`, or the `SecurityAnalyzer.langgraph_*` hooks in `analyze.py`), keep `oasis/helpers/progress.py` (graph pipeline rows), `langgraph_cli.py`, and `tests/test_analyze_orchestration.py` aligned in the same change set when behavior or contracts shift.
+- Prefer incremental commits focused on one concern (e.g., caching, web UI bugfixes, model integration).
+- When adding or fixing non-trivial behavior, extend or add **unit tests** in `tests/` in the module that matches the area (e.g. `test_report_schema.py` for report contracts, `test_cache.py` for cache, `test_helpers_dashboard.py` for dashboard-facing helpers)—same change set when the behavior is contract- or regression-sensitive.
+- Avoid landing **duplicated** behavior across commits: if you introduce shared logic, migrate all call sites in the same change set (or follow immediately with a `refactor:`) so `main` does not retain two competing implementations.
+
+---
+> Source: [psyray/oasis](https://github.com/psyray/oasis) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
