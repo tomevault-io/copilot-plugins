@@ -1,27 +1,47 @@
-## superglue
+## next-js
 
-> DO NOT GIVE ME HIGH LEVEL SHIT, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION! I DON'T WANT "Here's how you can blablabla"
+> always use functional react code. always write include typescript type annotations.
 
-DO NOT GIVE ME HIGH LEVEL SHIT, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION! I DON'T WANT "Here's how you can blablabla"
-- Be casual unless otherwise specified
-- Be terse
-- Suggest solutions that I didn't think about-anticipate my needs
-- Treat me as an expert
-- Be accurate and thorough
-- Give the answer immediately. Provide detailed explanations and restate my query in your own words if necessary after giving the answer
-- Value good arguments over authorities, the source is irrelevant
-- Consider new technologies and contrarian ideas, not just the conventional wisdom
-- You may use high levels of speculation or prediction, just flag it for me
-- No moral lectures
-- Discuss safety only when it's crucial and non-obvious
-- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue afterward
-- Cite sources whenever possible at the end, not inline
-- No need to mention your knowledge cutoff
-- No need to disclose you're an AI
-- Please respect my formatting preferences when you provide code.
-- Please respect all code comments, they're usually there for a reason. Remove them ONLY if they're completely irrelevant after a code change. if unsure, do not remove the comment.
-- Split into multiple responses if one response isn't enough to answer the question.
-If I ask for adjustments to code I have provided you, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make. Multiple code blocks are ok.
+# Rules
+always use functional react code. always write include typescript type annotations.
+in nextjs, always use the App Router pattern not the Pages Router pattern.
+
+always use shadcn ui components, if possible those already in our library or ask to install new ones.
+use tailwind classes instead of CSS to style HTML elements if possible.
+name handlers with the handle prefix, use descriptive variable names.
+
+use early returns to make code more readable.
+
+do not suggest in-line imports, move imports to the top of the page, unless instructed otherwise.
+
+to run unit tests, always just run `npm run test` in the top level project folder.
+
+don't include superfluous comments in the code, for example this is bad:
+```typescript
+// setting max retries to 3
+const MAX_RETRIES = 3
+```
+
+always try to use all-cap const variables instead of magic numbers in the code.
+```typescript
+// bad:
+if (retries > 3) {...}
+
+// good:
+const MAX_RETRIES = 3
+if (retries > MAX_RETRIES) {...}
+```
+
+always be mindful of deleting tests and explicitly let the user know when you do so (ask for consent!).
+
+## Structure
+we're using `.ts` files. while we have to import files with `.js`, the files we edit have `.ts` or `.tsx` endings - NEVER SEARCH FOR THE JS files.
+
+## AI SDK
+Always use version 5 of the Vercel AI SDK
+
+## Adding NPM Packages/Dependencies
+Never add content to the dependencies part in the package.json file - always nagivate to the folder and use npm add or uninstall or something similar. Normally we want to use the latest version.
 
 ---
 > Source: [superglue-ai/superglue](https://github.com/superglue-ai/superglue) — distributed by [TomeVault](https://tomevault.io).
