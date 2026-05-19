@@ -1,0 +1,9 @@
+{
+  "name": "yworks--yfiles-graphs-for-streamlit",
+  "displayName": "yfiles-graphs-for-streamlit",
+  "description": "The home of the Streamlit graph visualization component powered by yFiles for HTML",
+  "version": "1.0.0",
+  "author": "yWorks",
+  "homepage": "https://github.com/yWorks/yfiles-graphs-for-streamlit",
+  "skills": []
+}
