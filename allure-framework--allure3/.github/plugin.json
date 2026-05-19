@@ -1,0 +1,9 @@
+{
+  "name": "allure-framework--allure3",
+  "displayName": "allure3",
+  "description": "Allure Report is a flexible multi-language test report tool to show you a detailed representation of what has been tested and extract maximum from the everyday execution of tests",
+  "version": "1.0.0",
+  "author": "allure-framework",
+  "homepage": "https://github.com/allure-framework/allure3",
+  "skills": []
+}
