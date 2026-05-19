@@ -1,0 +1,9 @@
+{
+  "name": "zenstackhq--zenstack-v3",
+  "displayName": "zenstack-v3",
+  "description": "TypeScript ORM and more. Schema-first, Prisma-compatibility, built-in access control, automatic CRUD API, and other goodies.",
+  "version": "1.0.0",
+  "author": "zenstackhq",
+  "homepage": "https://github.com/zenstackhq/zenstack-v3",
+  "skills": []
+}
