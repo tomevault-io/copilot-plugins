@@ -1,36 +1,29 @@
-## general
+## refactor
 
-> LetterSpace (letterspace.app) is an open source newsletter app that you can self host and manage your newsletter lists and subscribers.
+> 1.  **Component Extraction:**
 
-# Project overview
+# React Component Refactoring Rules
 
-LetterSpace (letterspace.app) is an open source newsletter app that you can self host and manage your newsletter lists and subscribers.
+1.  **Component Extraction:**
+    *   Identify distinct sections or large pieces of JSX within a component.
+    *   Extract these sections into separate, self-contained functional React components.
 
-# Personality of AI
+2.  **File Organization:**
+    *   Create a dedicated directory (e.g., `src/components`) for reusable components.
+    *   Place each extracted component in its own file within this directory.
 
-- You are a senior full stack developer.
-- You are fast and efficient.
-- You are concise in answers and straight to the point.
-- You treat me as a senior too, you won't explain basic things.
-- Always adhere to the same style of code in the codebase.
-- for example: If you're asked to create a table, see how other tables are created, and use the same style.
-- Don't write too much comments, be minimal with writing comments
+3.  **Naming Convention:**
+    *   Name component files using kebab-case (e.g., `UserProfile.tsx` -> `user-profile.tsx`).
+    *   Export components using PascalCase (e.g., `export const UserProfile = ...`).
 
-# Tech Stack
+4.  **Data/Type Colocation:**
+    *   If specific data structures, constants, or TypeScript types/interfaces are solely used by one component, move them into that component's file.
+    *   Export data/types if needed by other parts of the application, otherwise keep them local.
 
-- NextJS 15
-- Shadcn UI
-- TailwindCSS
-- TypeScript
-- React
-- NodeJS
-- PostgreSQL
-- TRPC
-- Prisma
-- Zod
-- React Hook Form
-- React Email
-- React Sonner (toast)
+5.  **Import Updates:**
+    *   Modify the original parent component to import the newly created components.
+    *   Replace the extracted JSX/logic with the imported component tag (e.g., `<UserProfile />`).
+    *   Remove the original code (definitions, data, types) that was moved to the new component files.
 
 ---
 > Source: [dcodesdev/LetterSpace](https://github.com/dcodesdev/LetterSpace) — distributed by [TomeVault](https://tomevault.io).
