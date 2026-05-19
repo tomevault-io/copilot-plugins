@@ -1,141 +1,88 @@
-## sim-queries
+## sim-sandbox
 
-> React Query patterns for the Sim application
+> Isolated-vm sandbox worker security policy. Hard rules for anything that lives in the worker child process that runs user code.
 
 
-# React Query Patterns
+# Sim Sandbox — Worker Security Policy
 
-All React Query hooks live in `hooks/queries/`. All server state must go through React Query — never use `useState` + `fetch` in components for data fetching or mutations.
+The isolated-vm worker child process at
+`apps/sim/lib/execution/isolated-vm-worker.cjs` runs untrusted user code inside
+V8 isolates. The process itself is a trust boundary. Everything in this rule is
+about what must **never** live in that process.
 
-## Query Key Factory
+## Hard rules
 
-Every query file defines a hierarchical keys factory with an `all` root key and intermediate plural keys for prefix-level invalidation:
+1. **No app credentials in the worker process**. The worker must not hold, load,
+   or receive via IPC: database URLs, Redis URLs, AWS keys, Stripe keys,
+   session-signing keys, encryption keys, OAuth client secrets, internal API
+   secrets, or any LLM / email / search provider API keys. If you catch yourself
+   `require`'ing `@/lib/auth`, `@sim/db`, `@/lib/uploads/core/storage-service`,
+   or anything that imports `env` directly inside the worker, stop and use a
+   host-side broker instead.
 
-```typescript
-export const entityKeys = {
-  all: ['entity'] as const,
-  lists: () => [...entityKeys.all, 'list'] as const,
-  list: (workspaceId?: string) => [...entityKeys.lists(), workspaceId ?? ''] as const,
-  details: () => [...entityKeys.all, 'detail'] as const,
-  detail: (id?: string) => [...entityKeys.details(), id ?? ''] as const,
-}
-```
+2. **Host-side brokers own all credentialed work**. The worker can only access
+   resources through `ivm.Reference` / `ivm.Callback` bridges back to the host
+   process. Today the only broker is `workspaceFileBroker`
+   (`apps/sim/lib/execution/sandbox/brokers/workspace-file.ts`); adding a new
+   one requires co-reviewing this file.
 
-Never use inline query keys — always use the factory.
+3. **Host-side brokers must scope every resource access to a single tenant**.
+   The `SandboxBrokerContext` always carries `workspaceId`. Any new broker that
+   accesses storage, DB, or an external API must use `ctx.workspaceId` to scope
+   the lookup — never accept a raw path, key, or URL from isolate code without
+   validation.
 
-## File Structure
+4. **Nothing that runs in the isolate is trusted, even if we wrote it**. The
+   task `bootstrap` and `finalize` strings in `apps/sim/sandbox-tasks/` execute
+   inside the isolate. They must treat `globalThis` as adversarial — no pulling
+   values from it that might have been mutated by user code. The hardening
+   script in `executeTask` undefines dangerous globals before user code runs.
 
-```typescript
-// 1. Query keys factory
-// 2. Types (if needed)
-// 3. Private fetch functions (accept signal parameter)
-// 4. Exported hooks
-```
+## Why
 
-## Query Hook
+A V8 JIT bug (Chrome ships these roughly monthly) gives an attacker a native
+code primitive inside the process that owns whatever that process can reach.
+If the worker only holds `isolated-vm` + a single narrow workspace-file broker,
+a V8 escape leaks one tenant's files. If the worker holds a Stripe key or a DB
+connection, a V8 escape leaks the service.
 
-- Every `queryFn` must destructure and forward `signal` for request cancellation
-- Every query must have an explicit `staleTime`
-- Use `keepPreviousData` only on variable-key queries (where params change), never on static keys
-- Same-origin JSON calls must go through `requestJson(contract, ...)` from `@/lib/api/client/request` against the contract in `@/lib/api/contracts/**`
+The original `doc-worker.cjs` vulnerability (CVE-class, 225 production secrets
+leaked via `/proc/1/environ`) was the forcing function for this architecture.
+Keep the blast radius small.
 
-```typescript
-import { requestJson } from '@/lib/api/client/request'
-import { listEntitiesContract, type EntityList } from '@/lib/api/contracts/entities'
+## Checklist for changes to `isolated-vm-worker.cjs`
 
-async function fetchEntities(workspaceId: string, signal?: AbortSignal): Promise<EntityList> {
-  const data = await requestJson(listEntitiesContract, {
-    query: { workspaceId },
-    signal,
-  })
-  return data.entities
-}
+Before landing any change that adds a new `require(...)` or `process.send(...)`
+payload or `ivm.Reference` wrapper in the worker:
 
-export function useEntityList(workspaceId?: string, options?: { enabled?: boolean }) {
-  return useQuery({
-    queryKey: entityKeys.list(workspaceId),
-    queryFn: ({ signal }) => fetchEntities(workspaceId as string, signal),
-    enabled: Boolean(workspaceId) && (options?.enabled ?? true),
-    staleTime: 60 * 1000,
-    placeholderData: keepPreviousData,
-  })
-}
-```
+- [ ] Does it load a credential, key, connection string, or secret? If yes,
+      move it host-side and expose as a broker.
+- [ ] Does it import from `@/lib/auth`, `@sim/db`, `@/lib/uploads/core/*`,
+      `@/lib/core/config/env`, or any module that reads `process.env` of the
+      main app? If yes, same — move host-side.
+- [ ] Does it expose a resource that's workspace-scoped without taking a
+      `workspaceId`? If yes, re-scope.
+- [ ] Did you update the broker limits (`IVM_MAX_BROKER_ARGS_JSON_CHARS`,
+      `IVM_MAX_BROKER_RESULT_JSON_CHARS`, `IVM_MAX_BROKERS_PER_EXECUTION`) if
+      the new broker can emit large payloads or fire frequently?
 
-## Mutation Hook
+## What the worker *may* hold
 
-- Use targeted invalidation (`entityKeys.lists()`) not broad (`entityKeys.all`) when possible
-- Invalidation must cover all affected query key prefixes (lists, details, related views)
+- `isolated-vm` module
+- Node built-ins: `node:fs` (only for reading the checked-in bundle `.cjs`
+  files) and `node:path`
+- The three prebuilt library bundles under
+  `apps/sim/lib/execution/sandbox/bundles/*.cjs`
+- IPC message handlers for `execute`, `cancel`, `fetchResponse`,
+  `brokerResponse`
 
-```typescript
-export function useCreateEntity() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: async (variables) => { /* fetch POST */ },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: entityKeys.lists() })
-    },
-  })
-}
-```
+The worker deliberately has **no host-side logger**. All errors and
+diagnostics flow through IPC back to the host, which has `@sim/logger`. Do
+not add `createLogger` or console-based logging to the worker — it would
+require pulling the main app's config / env, which is exactly what this
+rule is preventing.
 
-## Optimistic Updates
-
-For optimistic mutations, use `onSettled` (not `onSuccess`) for cache reconciliation — `onSettled` fires on both success and error, ensuring the cache is always reconciled with the server.
-
-```typescript
-export function useUpdateEntity() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: async (variables) => { /* ... */ },
-    onMutate: async (variables) => {
-      await queryClient.cancelQueries({ queryKey: entityKeys.detail(variables.id) })
-      const previous = queryClient.getQueryData(entityKeys.detail(variables.id))
-      queryClient.setQueryData(entityKeys.detail(variables.id), /* optimistic value */)
-      return { previous }
-    },
-    onError: (_err, variables, context) => {
-      queryClient.setQueryData(entityKeys.detail(variables.id), context?.previous)
-    },
-    onSettled: (_data, _error, variables) => {
-      queryClient.invalidateQueries({ queryKey: entityKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: entityKeys.detail(variables.id) })
-    },
-  })
-}
-```
-
-For optimistic mutations syncing with Zustand, use `createOptimisticMutationHandlers` from `@/hooks/queries/utils/optimistic-mutation`.
-
-## useCallback Dependencies
-
-Never include mutation objects (e.g., `createEntity`) in `useCallback` dependency arrays — the mutation object is not referentially stable and changes on every state update. The `.mutate()` and `.mutateAsync()` functions are stable in TanStack Query v5.
-
-```typescript
-// ✗ Bad — causes unnecessary recreations
-const handler = useCallback(() => {
-  createEntity.mutate(data)
-}, [createEntity]) // unstable reference
-
-// ✓ Good — omit from deps, mutate is stable
-const handler = useCallback(() => {
-  createEntity.mutate(data)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [data])
-```
-
-## Boundary Types
-
-- Hooks must import named type aliases from `@/lib/api/contracts/**` (e.g., `import { listEntitiesContract, type EntityList } from '@/lib/api/contracts/entities'`). Never write `z.input<...>` or `z.output<...>` in hooks.
-- Hooks must not `import { z } from 'zod'`. Boundary types come from contract aliases; non-boundary helpers can stay in plain TypeScript.
-- For non-contract endpoints (multipart uploads, binary downloads, streaming responses, signed-URL flows, OAuth redirects, external origins), it is OK to keep raw `fetch`. Each legitimate raw `fetch(` call inside `apps/sim/hooks/queries/**` or `apps/sim/hooks/selectors/**` must be preceded by a `// boundary-raw-fetch: <reason>` annotation on the immediately preceding line (up to three non-empty preceding comment lines are tolerated). The reason must be non-empty — empty reasons fail strict mode. The audit script `scripts/check-api-validation-contracts.ts` (`bun run check:api-validation` / `bun run check:api-validation:strict`) enforces this.
-
-## Naming
-
-- **Keys**: `entityKeys`
-- **Query hooks**: `useEntity`, `useEntityList`
-- **Mutation hooks**: `useCreateEntity`, `useUpdateEntity`, `useDeleteEntity`
-- **Fetch functions**: `fetchEntity`, `fetchEntities` (private)
+Anything else is suspect.
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
