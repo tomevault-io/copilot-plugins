@@ -1,0 +1,9 @@
+{
+  "name": "geekywizkid--video-processing-service",
+  "displayName": "video_processing_service",
+  "description": "Video Processing Service is an automated video processing service that supports extracting audio from videos, generating subtitles, and embedding subtitles into the video. ",
+  "version": "1.0.0",
+  "author": "GeekyWizKid",
+  "homepage": "https://github.com/GeekyWizKid/video_processing_service",
+  "skills": []
+}
