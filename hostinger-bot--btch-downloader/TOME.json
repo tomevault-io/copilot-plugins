@@ -4,7 +4,7 @@
   "repo": "btch-downloader",
   "description": "A lightweight TypeScript/JavaScript library for downloading videos, images, and audio from Instagram, TikTok, YouTube, Capcut, Pinterest, Twitter, X, Google Drive, MediaFire, Douyin, SnackVideo, Xiaohongshu, Cocofun, Spotify, Youtube Search, SounCloud, Threads, Kuaishou and Facebook.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hostinger-bot/btch-downloader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T18:56:28Z"
+  "distributed_at": "2026-05-19T20:48:17Z"
 }
