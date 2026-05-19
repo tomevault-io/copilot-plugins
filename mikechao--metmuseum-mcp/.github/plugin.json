@@ -1,0 +1,9 @@
+{
+  "name": "mikechao--metmuseum-mcp",
+  "displayName": "metmuseum-mcp",
+  "description": "Met Museum MCP integration to discover the art collection at The Metropolitan Museum of Art in New York",
+  "version": "1.0.0",
+  "author": "mikechao",
+  "homepage": "https://github.com/mikechao/metmuseum-mcp",
+  "skills": []
+}
