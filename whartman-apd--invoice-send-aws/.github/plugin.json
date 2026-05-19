@@ -1,0 +1,9 @@
+{
+  "name": "whartman-apd--invoice-send-aws",
+  "displayName": "invoice_send_aws",
+  "description": "invoice_send_aws",
+  "version": "1.0.0",
+  "author": "whartman-APD",
+  "homepage": "https://github.com/whartman-APD/invoice_send_aws",
+  "skills": []
+}
