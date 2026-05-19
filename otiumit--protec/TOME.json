@@ -2,7 +2,7 @@
   "name": "protec",
   "owner": "OtiumIT",
   "repo": "protec",
-  "description": "",
+  "description": "Sistema de Prote\u00e7\u00e3o e Controle",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/OtiumIT",
+  "source_url": "https://github.com/OtiumIT/protec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T09:39:41Z"
+  "distributed_at": "2026-05-19T12:58:12Z"
 }
