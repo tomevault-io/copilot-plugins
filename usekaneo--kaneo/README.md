@@ -2,6 +2,8 @@
 
 > Sourced from [usekaneo/kaneo](https://github.com/usekaneo/kaneo) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+🎯 All you need. Nothing you don't. Open source project management that works for you, not against you.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
