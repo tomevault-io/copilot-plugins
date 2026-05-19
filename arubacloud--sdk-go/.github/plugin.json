@@ -1,0 +1,9 @@
+{
+  "name": "arubacloud--sdk-go",
+  "displayName": "sdk-go",
+  "description": "ArubaCloud Go SDK",
+  "version": "1.0.0",
+  "author": "Arubacloud",
+  "homepage": "https://github.com/Arubacloud/sdk-go",
+  "skills": []
+}
