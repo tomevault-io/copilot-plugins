@@ -1,407 +1,306 @@
-## performance-optimization
+## pixel-definitions
 
-> // Use weak/unowned references appropriately
+> Rules for creating and maintaining pixel definition JSON5 files that document pixels fired by the iOS and macOS apps
 
+# Pixel Registry Definitions
 
-# Performance Optimization Guidelines
+## Overview
 
-## Memory Management
+Pixel definitions are JSON5 files that document pixels and wide events fired by the iOS and macOS apps. They live in:
 
-### Avoid Retain Cycles
-```swift
-// Use weak/unowned references appropriately
-class ViewController: UIViewController {
-    private var timer: Timer?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Bad - Creates retain cycle
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.updateUI()
-        }
-        
-        // Good - Weak reference prevents retain cycle
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateUI()
-        }
-    }
-    
-    deinit {
-        timer?.invalidate()
-    }
-}
-```
+- **iOS:** `iOS/PixelDefinitions/pixels/definitions/*.json5`
+- **macOS:** `macOS/PixelDefinitions/pixels/definitions/*.json5`
+- **iOS wide events:** `iOS/PixelDefinitions/wide_events/definitions/*.json5`
 
-### Lazy Loading
-```swift
-class DataManager {
-    // Load expensive resources only when needed
-    private lazy var database: Database = {
-        return Database()
-    }()
-    
-    // Use computed properties for lightweight calculations
-    var itemCount: Int {
-        return items.count
-    }
-    
-    // Cache expensive computations
-    private var _processedData: [ProcessedItem]?
-    var processedData: [ProcessedItem] {
-        if let cached = _processedData {
-            return cached
-        }
-        let processed = items.map { ProcessedItem($0) }
-        _processedData = processed
-        return processed
+Each platform has its own `params_dictionary.json5` and `suffixes_dictionary.json5` for reusable definitions.
+
+**Note:** Each definitions directory contains a `TEMPLATE.json5` file. These are scaffolds for creating new definition files — they are not real pixel definitions. Ignore them when reviewing or auditing existing definitions (their placeholder `expires` dates are intentional examples).
+
+## Pixel Definition Structure
+
+Each `.json5` file is a JSON5 object where keys are pixel names and values describe the pixel:
+
+```json5
+{
+    "pixel_name_here": {
+        "description": "When and why this pixel fires",
+        "owners": ["githubUsername"],
+        "triggers": ["other"],
+        "suffixes": ["first_daily_count", "platform", "form_factor"],
+        "parameters": ["appVersion", "errorCode", "errorDomain"],
+        // Only for temporary pixels — omit for permanent ones
+        "expires": "2025-06-30"
     }
 }
 ```
 
-### Memory-Efficient Collections
-```swift
-// Use appropriate collection types
-struct LargeDataSet {
-    // Bad - Loads all data into memory
-    var allItems: [Item] {
-        return database.fetchAll()
-    }
-    
-    // Good - Use lazy sequences
-    var items: LazySequence<[Item]> {
-        return database.fetchAll().lazy
-    }
-    
-    // Better - Use pagination
-    func items(page: Int, pageSize: Int = 50) -> [Item] {
-        return database.fetch(offset: page * pageSize, limit: pageSize)
-    }
-}
+### Required Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `description` | string | When the pixel fires and its purpose |
+| `owners` | string[] | GitHub usernames of responsible people |
+| `triggers` | string[] | What causes the pixel to fire (see trigger values below) |
+
+### Optional Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `suffixes` | array | Dynamic parts appended to the pixel name |
+| `parameters` | array | Query parameters sent with the pixel |
+| `expires` | string | ISO date (`YYYY-MM-DD`) for temporary pixels |
+
+### Trigger Values
+
+Valid trigger values: `"other"`, `"scheduled"`, `"startup"`, `"page_load"`, `"new_tab"`, `"exception"`, `"user_submitted"`, `"search_ddg"`.
+
+Most pixels use `"other"`. Use `"scheduled"` for daily/periodic pixels, `"startup"` for app-launch pixels, and `"page_load"` for navigation-related pixels.
+
+## Determining Parameters from Swift Code
+
+Pixel definitions must document **all** query parameters sent over the wire, including default ones. To determine the correct parameters:
+
+### Always-included Parameters
+
+**`appVersion`** is added by default to every pixel by PixelKit. Include `"appVersion"` in every definition, unless the pixel call disables it.
+
+**`pixelSource`** is automatically added only if the pixel's `standardParameters` property returns `[.pixelSource]`. Check the pixel event's `standardParameters` computed property in Swift — if it returns `[.pixelSource]`, include `"pixelSource"` in the definition.
+
+### Error Parameters
+
+If the pixel event carries an `Error` (via associated value or the `error` property), PixelKit automatically extracts and sends:
+- `errorCode` (key: `"e"`) and `errorDomain` (key: `"d"`)
+- `underlyingErrorCode` (key: `"ue"`) and `underlyingErrorDomain` (key: `"ud"`) if present
+
+Include these dictionary references in the definition when the pixel carries error information.
+
+### Custom Parameters
+
+Check the pixel event's `parameters` computed property in Swift for any additional parameters. Also inspect the call site where the pixel is fired — look for `withAdditionalParameters:` arguments and trace any helper functions that build those parameters. These are pixel-specific and must be included in the definition (either as dictionary references or inline objects).
+
+### Where to Look in Swift
+
+- **iOS:** `iOS/Core/PixelEvent.swift` defines pixel names. `iOS/Core/Pixel.swift` has `PixelParameters` constants. Check the `parameters` and `standardParameters` properties on the pixel event enum.
+- **macOS:** `macOS/DuckDuckGo/Statistics/GeneralPixel.swift` defines many pixel names, parameters, and standard parameters. However, pixel events can also be defined in dedicated files (e.g. `UpdateFlowPixels.swift`, `CrashReportPixels.swift`) — search for types conforming to `PixelKitEvent`.
+- **Shared:** `SharedPackages/BrowserServicesKit/Sources/PixelKit/` contains `PixelKit.swift` (firing logic) and `PixelKitEvent.swift` (protocol).
+
+## Reusing Parameters from the Dictionary
+
+`params_dictionary.json5` defines common parameters. Reference them by key name as a string:
+
+```json5
+"parameters": [
+    "appVersion",       // Reuses definition from params_dictionary.json5
+    "errorCode",        // key: "e", type: integer
+    "errorDomain",      // key: "d", type: string
+    "underlyingErrorCode",
+    "underlyingErrorDomain"
+]
 ```
 
-## UI Performance
+To define a custom inline parameter, use an object instead:
 
-### Main Thread Protection
-```swift
-class ImageLoader {
-    func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        Task {
-            // Perform heavy work on background queue
-            let data = try? await URLSession.shared.data(from: url).0
-            let image = data.flatMap { UIImage(data: $0) }
-            
-            // Always update UI on main thread
-            await MainActor.run {
-                completion(image)
+```json5
+"parameters": [
+    "appVersion",
+    {
+        "key": "customParam",
+        "type": "string",
+        "description": "What this parameter represents",
+        "enum": ["value1", "value2"]
+    }
+]
+```
+
+### Parameter Object Fields
+
+- `key` — the actual query parameter key sent in the pixel (use this for fixed keys)
+- `keyPattern` — regex pattern for dynamic keys (e.g. `"^ue[0-9]?$"` for `ue`, `ue0`, `ue1`, etc.)
+- `type` — `"string"`, `"integer"`, `"number"`, or `"boolean"`
+- `description` — what the parameter represents
+- `enum` — allowed values (optional)
+- `pattern` — regex validation pattern (optional)
+- `examples` — example values (optional)
+
+Use `key` or `keyPattern`, not both.
+
+## Suffixes
+
+A suffix is a string appended to the base pixel name to create distinct variants of the same pixel. For example, a pixel with the `"daily"` suffix set will produce a variant with `_daily` appended to the name (e.g. `m_mac_default-browser_daily`). When a pixel has multiple suffix sets, PixelKit generates all combinations — so `["first_daily_count", "platform", "form_factor"]` produces variants like `m_pixel_count_ios_phone`, `m_pixel_daily_ios_tablet`, etc.
+
+In some cases a suffix value is always present (rather than being a set of variants). For example, a pixel fired with the legacy daily frequency always gets `_d` appended to its name. When the suffix is fixed and always present, it may be baked directly into the pixel name in the definition (e.g. `m_mac_daily_active_user_d`) rather than declared in the `suffixes` field. See "Legacy Suffix Patterns" below.
+
+### Reusing Suffixes from the Dictionary
+
+`suffixes_dictionary.json5` defines common suffixes. Reference them by key name:
+
+```json5
+// Each string references a suffix set from the dictionary
+"suffixes": ["first_daily_count", "platform", "form_factor"]
+```
+
+Common suffix keys (both platforms unless noted):
+- `first_daily_count` — `["first", "daily", "count"]`
+- `legacy_daily_count` — `["d", "c"]`
+- `daily` — `["daily"]`
+- `daily_standard` — `["daily", ""]`
+- `count` — `["count"]`
+- `daily_count` — `["daily", "count"]` (macOS only)
+- `platform` — `["ios"]` (iOS only)
+- `form_factor` — `["phone", "tablet"]` (iOS only)
+- `time_bucket` — `["0", "0.1", "0.5", "1", "5", "10", "20", "40", "more"]` (iOS only)
+
+For custom inline suffixes, use an object:
+
+```json5
+"suffixes": [
+    "first_daily_count",
+    {
+        "description": "The result of the operation",
+        "enum": ["success", "failure"]
+    }
+]
+```
+
+Inline suffix objects support `description`, `enum`, and optionally `key`, `type`, and `pattern` (same fields as parameter objects).
+
+### Mapping Swift Firing Methods to Suffixes
+
+The suffix you use depends on how the pixel is fired in Swift:
+
+**iOS** (uses `DailyPixel` / `Pixel` / `UniquePixel`):
+
+| Swift Method | Suffix Dictionary Key |
+|---|---|
+| `Pixel.fire(pixel:)` | No scheduling suffix (use only `platform`/`form_factor`) |
+| `DailyPixel.fire(pixel:)` | `"daily"` |
+| `DailyPixel.fireDailyAndCount(pixel:)` | `"first_daily_count"` |
+| `DailyPixel.fireDailyAndCount(pixel:, pixelNameSuffixes: .legacyDailyPixelSuffixes)` | `"legacy_daily_count"` |
+| `UniquePixel.fire(pixel:)` | No suffix (pixel name typically ends in `_u` or `_unique`) |
+
+On iOS, most pixels also get `platform` and `form_factor` suffixes appended automatically. Include `["platform", "form_factor"]` for iOS pixels unless you confirm otherwise.
+
+**macOS** (uses `PixelKit.fire(event, frequency:)`):
+
+| `frequency:` Value | Suffix Dictionary Key |
+|---|---|
+| `.standard` (or omitted) | No scheduling suffix |
+| `.daily` | `"daily"` |
+| `.dailyAndCount` | `"daily_count"` (macOS) or `"first_daily_count"` (iOS) |
+| `.dailyAndStandard` | `"daily_standard"` |
+| `.legacyDaily` | No suffix field — the `_d` is baked into the pixel name (see "Legacy Suffix Patterns") |
+| `.legacyDailyAndCount` | `"legacy_daily_count"` |
+
+Note: iOS `DailyPixel.fireDailyAndCount` uses `"first_daily_count"` (includes a `_first` pixel on first-ever fire). macOS `.dailyAndCount` uses `"daily_count"` (no `_first`). Check which platform you are writing for.
+
+### Compound Suffixes
+
+Suffixes can be nested in an inner array to form compound suffixes (combined into a single suffix segment):
+
+```json5
+"suffixes": [["platform", "form_factor"]]
+```
+
+This produces suffixes like `ios_phone`, `ios_tablet` rather than separate independent suffix positions.
+
+### Legacy Suffix Patterns
+
+Some older pixels use legacy firing frequencies (`.legacyDaily`, `.legacyDailyAndCount`) where the  pixel library appends short suffixes like `_d` (daily) or `_c` (count) to the pixel name. In these cases, the suffix is baked directly into the pixel name in the definition rather than declared in the `suffixes` field.
+
+For example, `m_mac_daily_active_user_d` is fired with `frequency: .legacyDaily`. The Swift code defines the base name as `"m_mac_daily_active_user"`, and PixelKit appends `_d` automatically. The definition uses the full name `m_mac_daily_active_user_d` with no `suffixes` field — this is correct.
+
+Compare this to the modern pattern where `m_mac_default-browser` uses `frequency: .daily` and declares `"suffixes": ["daily"]`, producing `m_mac_default-browser_daily`.
+
+When writing definitions for legacy pixels, use the full pixel name (including the baked-in suffix) and use the `"legacy_daily_count"` suffix dictionary entry only if the pixel uses `.legacyDailyAndCount` (which produces both `_d` and `_c` variants).
+
+## Wide Events (iOS)
+
+Wide events use a different, richer schema in `iOS/PixelDefinitions/wide_events/definitions/`. They have a hierarchical structure with `meta`, `feature`, and `feature.data` sections:
+
+```json5
+{
+    "event-name": {
+        "description": "The purpose of the wide event",
+        "owners": ["githubUsername"],
+        "meta": {
+            "type": "unique-event-name",
+            "version": "0.0"
+        },
+        "feature": {
+            "name": "feature-name",
+            "status": ["SUCCESS", "FAILURE", "UNKNOWN"],
+            "data": {
+                "ext": {
+                    "custom_field": {
+                        "type": "string",
+                        "description": "A custom extension field",
+                        "enum": ["val1", "val2"]
+                    },
+                    // Can reference props_dictionary.json entries by string
+                    "application_state": "foregroundBackgroundState"
+                },
+                "error": {
+                    "domain": { "type": "string", "description": "Error domain" },
+                    "code": { "type": "integer", "description": "Error code" }
+                }
             }
         }
     }
 }
 ```
 
-### Efficient Table/Collection Views
-```swift
-class OptimizedTableViewController: UITableViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Register reusable cells
-        tableView.register(CustomCell.self, forCellReuseIdentifier: "Cell")
-        
-        // Set estimated heights for better scrolling
-        tableView.estimatedRowHeight = 44.0
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        // Enable prefetching
-        tableView.prefetchDataSource = self
-    }
-    
-    // Reuse cells efficiently
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
-        
-        // Configure cell with minimal work
-        cell.configure(with: items[indexPath.row])
-        
-        // Cancel any ongoing async work
-        cell.prepareForReuse()
-        
-        return cell
-    }
-}
+Wide events sent as standard pixels (in `pixels/definitions/`) use `wideEvent*` parameters from the params dictionary (e.g. `wideEventAppName`, `wideEventFeatureStatus`, `wideEventErrorDomain`).
 
-extension OptimizedTableViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        // Preload data for upcoming cells
-        let urls = indexPaths.compactMap { items[$0.row].imageURL }
-        ImageCache.shared.preload(urls: urls)
-    }
-}
+## Naming Conventions
+
+- **iOS pixels:** typically prefixed with `m_` (e.g. `m_netp_ev_good_latency`), though some lack this prefix (e.g. `autofill_extension_*`, `attributed_metric_*`)
+- **macOS pixels:** typically prefixed with `m_mac_` (e.g. `m_mac_daily_active_user_d`)
+- **iOS wide events (as pixels):** prefixed with `m_ios_wide_` (e.g. `m_ios_wide_vpn_connection`)
+- Use lowercase with underscores or hyphens
+- Always use the exact pixel name string from the Swift code (e.g. from `PixelEvent.swift` or `GeneralPixel.swift`)
+
+## File Organization
+
+Group related pixels into a single definition file named after the feature area, for example:
+
+- `navigation.json5` — Browser navigation pixels
+- `onboarding.json5` — Onboarding pixels
+- `vpn_latency.json5` — VPN latency measurement pixels
+
+See existing files in the `definitions/` directory for naming patterns.
+
+## Validation and Linting
+
+Run from the `iOS/` or `macOS/` directory:
+
+```bash
+# Install dependencies (from repo root)
+npm clean-install --include-workspace-root
+
+# Full validation (schema + formatting)
+npm run validate-pixel-defs
+
+# Schema validation only
+npm run validate-defs-without-formatting
+
+# Check formatting
+npm run pixel-lint
+
+# Auto-fix formatting
+npm run pixel-lint.fix
 ```
 
-### Image Optimization
-```swift
-extension UIImage {
-    // Resize images to appropriate size
-    func resized(to targetSize: CGSize) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        return renderer.image { _ in
-            self.draw(in: CGRect(origin: .zero, size: targetSize))
-        }
-    }
-    
-    // Decode images on background queue
-    func decodedImage() -> UIImage? {
-        guard let cgImage = cgImage else { return nil }
-        
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(
-            data: nil,
-            width: cgImage.width,
-            height: cgImage.height,
-            bitsPerComponent: 8,
-            bytesPerRow: cgImage.width * 4,
-            space: colorSpace,
-            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
-        )
-        
-        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
-        
-        guard let decodedImage = context?.makeImage() else { return nil }
-        return UIImage(cgImage: decodedImage)
-    }
-}
-```
+**Always run `npm run validate-pixel-defs`** from the relevant platform directory after making changes.
 
-## Network Performance
+## Quick Reference: Adding a New Pixel
 
-### Efficient API Calls
-```swift
-class APIClient {
-    private let session: URLSession
-    private let cache = URLCache(
-        memoryCapacity: 10 * 1024 * 1024,  // 10 MB
-        diskCapacity: 50 * 1024 * 1024,     // 50 MB
-        diskPath: nil
-    )
-    
-    init() {
-        let configuration = URLSessionConfiguration.default
-        configuration.urlCache = cache
-        configuration.requestCachePolicy = .returnCacheDataElseLoad
-        configuration.timeoutIntervalForRequest = 30
-        configuration.httpMaximumConnectionsPerHost = 5
-        
-        self.session = URLSession(configuration: configuration)
-    }
-    
-    // Batch requests when possible
-    func fetchMultipleItems(ids: [String]) async throws -> [Item] {
-        // Bad - Multiple individual requests
-        // let items = try await ids.asyncMap { try await fetchItem(id: $0) }
-        
-        // Good - Single batch request
-        let request = BatchRequest(ids: ids)
-        return try await fetch(request)
-    }
-    
-    // Use compression
-    func createRequest(url: URL) -> URLRequest {
-        var request = URLRequest(url: url)
-        request.addValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
-        return request
-    }
-}
-```
-
-### Download Optimization
-```swift
-class DownloadManager {
-    // Use background sessions for large downloads
-    private lazy var backgroundSession: URLSession = {
-        let configuration = URLSessionConfiguration.background(withIdentifier: "com.duckduckgo.downloads")
-        configuration.isDiscretionary = true
-        configuration.sessionSendsLaunchEvents = true
-        return URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-    }()
-    
-    // Resume interrupted downloads
-    func resumeDownload(from resumeData: Data) {
-        let task = backgroundSession.downloadTask(withResumeData: resumeData)
-        task.resume()
-    }
-    
-    // Limit concurrent downloads
-    private let downloadQueue = OperationQueue()
-    
-    init() {
-        downloadQueue.maxConcurrentOperationCount = 3
-    }
-}
-```
-
-## Database Performance
-
-### Efficient Queries
-```swift
-import GRDB
-
-class DatabaseManager {
-    // Use indexes for frequently queried columns
-    func createIndexes(_ db: Database) throws {
-        try db.create(index: "idx_bookmarks_url", on: "bookmarks", columns: ["url"])
-        try db.create(index: "idx_history_date", on: "history", columns: ["visitDate"])
-    }
-    
-    // Batch operations
-    func insertMultipleItems(_ items: [Item]) throws {
-        try dbQueue.write { db in
-            // Use transactions for bulk operations
-            try items.forEach { item in
-                try item.insert(db)
-            }
-        }
-    }
-    
-    // Use appropriate fetch limits
-    func fetchRecentHistory(limit: Int = 100) throws -> [HistoryItem] {
-        try dbQueue.read { db in
-            try HistoryItem
-                .order(Column("visitDate").desc)
-                .limit(limit)
-                .fetchAll(db)
-        }
-    }
-    
-    // Optimize complex queries
-    func searchBookmarks(query: String) throws -> [Bookmark] {
-        try dbQueue.read { db in
-            // Use FTS (Full Text Search) for text searching
-            let pattern = "%\(query)%"
-            return try Bookmark
-                .filter(Column("title").like(pattern) || Column("url").like(pattern))
-                .limit(50)
-                .fetchAll(db)
-        }
-    }
-}
-```
-
-## Algorithm Optimization
-
-### Use Efficient Data Structures
-```swift
-// Choose appropriate data structures
-class URLMatcher {
-    // Bad - O(n) lookup
-    private var blockedURLs: [String] = []
-    
-    func isBlocked(_ url: String) -> Bool {
-        return blockedURLs.contains(url)
-    }
-    
-    // Good - O(1) lookup
-    private var blockedURLSet: Set<String> = []
-    
-    func isBlockedOptimized(_ url: String) -> Bool {
-        return blockedURLSet.contains(url)
-    }
-}
-```
-
-### Avoid Expensive Operations
-```swift
-extension Array {
-    // Bad - Creates multiple intermediate arrays
-    func processItems() -> [ProcessedItem] {
-        return self
-            .compactMap { $0 as? Item }
-            .filter { $0.isValid }
-            .map { ProcessedItem($0) }
-            .sorted { $0.priority > $1.priority }
-    }
-    
-    // Good - Use lazy evaluation
-    func processItemsOptimized() -> [ProcessedItem] {
-        return self.lazy
-            .compactMap { $0 as? Item }
-            .filter { $0.isValid }
-            .map { ProcessedItem($0) }
-            .sorted { $0.priority > $1.priority }
-    }
-}
-```
-
-## Monitoring and Profiling
-
-### Performance Metrics
-```swift
-class PerformanceMonitor {
-    static func measure<T>(
-        _ title: String,
-        operation: () throws -> T
-    ) rethrows -> T {
-        let startTime = CFAbsoluteTimeGetCurrent()
-        defer {
-            let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
-            print("⏱ \(title): \(timeElapsed)s")
-            
-            // Log slow operations
-            if timeElapsed > 1.0 {
-                Pixel.fire(.performanceWarning(operation: title, duration: timeElapsed))
-            }
-        }
-        return try operation()
-    }
-}
-
-// Usage
-let results = PerformanceMonitor.measure("Database Query") {
-    try database.fetchAllBookmarks()
-}
-```
-
-### Memory Monitoring
-```swift
-class MemoryMonitor {
-    static var currentMemoryUsage: Double {
-        var info = mach_task_basic_info()
-        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
-        
-        let result = withUnsafeMutablePointer(to: &info) {
-            $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
-                task_info(mach_task_self_,
-                         task_flavor_t(MACH_TASK_BASIC_INFO),
-                         $0,
-                         &count)
-            }
-        }
-        
-        return result == KERN_SUCCESS ? Double(info.resident_size) / 1024.0 / 1024.0 : 0
-    }
-    
-    static func logMemoryUsage(_ context: String) {
-        let usage = currentMemoryUsage
-        print("💾 Memory usage (\(context)): \(usage) MB")
-        
-        if usage > 200 { // 200 MB threshold
-            Pixel.fire(.highMemoryUsage(context: context, usage: usage))
-        }
-    }
-}
-```
-
-## Best Practices Summary
-
-1. **Profile First**: Use Instruments to identify actual bottlenecks
-2. **Measure Impact**: Quantify performance improvements
-3. **Cache Wisely**: Cache expensive computations but watch memory usage
-4. **Async Everything**: Keep UI responsive with background processing
-5. **Batch Operations**: Combine multiple operations when possible
-6. **Lazy Loading**: Load data only when needed
-7. **Resource Management**: Release resources promptly
-8. **Monitor Production**: Track performance metrics in production
+1. Determine the pixel name and parameters from the iOS/macOS codebase
+2. Find or create the appropriate `.json5` file in `{platform}/PixelDefinitions/pixels/definitions/`
+3. Add your pixel entry with `description`, `owners`, `triggers`
+4. Add `suffixes` and `parameters` — reuse dictionary entries wherever possible
+5. Check whether the pixel should be temporary, and if so then add `"expires": "YYYY-MM-DD"`
+6. Run `npm run validate-pixel-defs` from the platform directory
+7. Run `npm run pixel-lint.fix` if formatting issues are reported
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
