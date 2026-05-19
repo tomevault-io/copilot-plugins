@@ -1,0 +1,9 @@
+{
+  "name": "avwohl--uplm80",
+  "displayName": "uplm80",
+  "description": "PL/M-80 compiler targeting Zilog Z80 assembly language",
+  "version": "1.0.0",
+  "author": "avwohl",
+  "homepage": "https://github.com/avwohl/uplm80",
+  "skills": []
+}
