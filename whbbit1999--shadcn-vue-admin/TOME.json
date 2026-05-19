@@ -1,0 +1,44 @@
+{
+  "name": "shadcn-vue-admin",
+  "owner": "Whbbit1999",
+  "repo": "shadcn-vue-admin",
+  "description": "Admin Dashboard UI crafted with Shadcn-vue, Vue3 and Vite. Built with responsiveness and accessibility in mind.\u7ba1\u7406\u9762\u677f UI \u91c7\u7528 Shadcn-vue\u3001Vue3 \u548c Vite \u7cbe\u5fc3\u6253\u9020\u3002\u6784\u5efa\u65f6\u5145\u5206\u8003\u8651\u4e86\u54cd\u5e94\u80fd\u529b\u548c\u53ef\u8bbf\u95ee\u6027\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Whbbit1999/shadcn-vue-admin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T03:47:49Z"
+}
