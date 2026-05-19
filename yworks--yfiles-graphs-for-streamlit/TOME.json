@@ -1,0 +1,44 @@
+{
+  "name": "yfiles-graphs-for-streamlit",
+  "owner": "yWorks",
+  "repo": "yfiles-graphs-for-streamlit",
+  "description": "The home of the Streamlit graph visualization component powered by yFiles for HTML",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yWorks/yfiles-graphs-for-streamlit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T17:18:24Z"
+}
