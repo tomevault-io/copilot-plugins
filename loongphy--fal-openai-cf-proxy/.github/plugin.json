@@ -1,0 +1,9 @@
+{
+  "name": "loongphy--fal-openai-cf-proxy",
+  "displayName": "fal-openai-cf-proxy",
+  "description": "OpenAI compatible /chat/completions endpoint for fal.ai",
+  "version": "1.0.0",
+  "author": "Loongphy",
+  "homepage": "https://github.com/Loongphy/fal-openai-cf-proxy",
+  "skills": []
+}
