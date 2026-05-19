@@ -1,0 +1,9 @@
+{
+  "name": "aryelu--eslint-plugin-code-complete",
+  "displayName": "eslint-plugin-code-complete",
+  "description": "A custom ESLint plugin that enforces high cohesion, low coupling, and other core principles of clean, maintainable software design \u2014 inspired by Code Complete.",
+  "version": "1.0.0",
+  "author": "aryelu",
+  "homepage": "https://github.com/aryelu/eslint-plugin-code-complete",
+  "skills": []
+}
