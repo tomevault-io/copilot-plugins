@@ -1,10 +1,9 @@
-## project
+## remains-the-same
 
-> This is the project description.
+> NEVER give the "Rest of the code remains the same
 
 
-1. Slide is a Android java app.
-2. It is a Reddit client that uses the JRAW library to access the Reddit API.
+NEVER give "Rest of the code remains the same" or anything like it in the an answer. It will lead code getting removed by accident, and hence it will head to bugs.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
