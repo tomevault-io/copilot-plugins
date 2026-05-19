@@ -1,0 +1,9 @@
+{
+  "name": "laurynas-biveinis--mcp-server-lib-el",
+  "displayName": "mcp-server-lib.el",
+  "description": "Emacs Lisp implementation of the Model Context Protocol",
+  "version": "1.0.0",
+  "author": "laurynas-biveinis",
+  "homepage": "https://github.com/laurynas-biveinis/mcp-server-lib.el",
+  "skills": []
+}
