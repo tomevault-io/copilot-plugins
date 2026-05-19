@@ -1,0 +1,9 @@
+{
+  "name": "briehq--brie-extension",
+  "displayName": "brie-extension",
+  "description": "Capture screenshots, console errors, network issues, and user actions, giving developers full context instantly.",
+  "version": "1.0.0",
+  "author": "briehq",
+  "homepage": "https://github.com/briehq/brie-extension",
+  "skills": []
+}
