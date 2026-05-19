@@ -4,7 +4,7 @@
   "repo": "Hex",
   "description": "VOICE \u2192 WORDS",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kitlangton/Hex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:05:44Z"
+  "distributed_at": "2026-05-19T01:05:09Z"
 }
