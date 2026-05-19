@@ -4,7 +4,7 @@
   "repo": "gaia",
   "description": "Build AI agents for your PC",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amd/gaia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:31:50Z"
+  "distributed_at": "2026-05-19T06:44:29Z"
 }
