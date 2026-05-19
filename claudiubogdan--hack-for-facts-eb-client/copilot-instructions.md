@@ -1,22 +1,12 @@
-## create-rule
+## functional
 
-> Create rule file for a new feature
+> Use pure functions wherever possible. Functions should return new values without side effects. Avoid mutation of shared state; use immutability and persistent data structures.
 
-
-Example:
-
-```rule.mdc
-
-When implementing multi-axis chart functionality:
-1. Group series by their unit property to determine the number of Y-axes needed
-2. Alternate Y-axes between left and right orientations for better readability
-3. Use distinct colors for each Y-axis and match them with the axis label color
-4. Display the unit as the Y-axis label at a -90 degree angle
-5. Format values according to their unit type (%, RON, or custom units)
-6. Ensure tooltips display values with their appropriate units
-7. Default to 'RON' unit when no unit is specified
-8. Support unit customization in series configuration UI
-```
+Use pure functions wherever possible. Functions should return new values without side effects. Avoid mutation of shared state; use immutability and persistent data structures.
+Represent operations as small composable functions. Use higher‑order functions and avoid nested callbacks. In React, use async/await rather than callbacks to avoid callback hell.
+Follow the RO‑RO (Receive Object, Return Object) pattern: functions accept an object argument and return an object. This makes parameters and return values explicit and easy to extend.
+Use default parameter values and destructuring for readability.
+Prefer composition over inheritance; avoid using classes in GraphQL resolvers.
 
 ---
 > Source: [ClaudiuBogdan/hack-for-facts-eb-client](https://github.com/ClaudiuBogdan/hack-for-facts-eb-client) — distributed by [TomeVault](https://tomevault.io).
