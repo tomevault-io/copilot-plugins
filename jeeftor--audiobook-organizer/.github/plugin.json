@@ -1,0 +1,9 @@
+{
+  "name": "jeeftor--audiobook-organizer",
+  "displayName": "audiobook-organizer",
+  "description": "Organize and rename audiobook libraries for Audiobookshelf using metadata.json, EPUB, MP3, and M4B metadata.",
+  "version": "1.0.0",
+  "author": "jeeftor",
+  "homepage": "https://github.com/jeeftor/audiobook-organizer",
+  "skills": []
+}
