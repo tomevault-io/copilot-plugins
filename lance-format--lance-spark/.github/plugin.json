@@ -1,0 +1,9 @@
+{
+  "name": "lance-format--lance-spark",
+  "displayName": "lance-spark",
+  "description": "Spark integrations for working with Lance datasets",
+  "version": "1.0.0",
+  "author": "lance-format",
+  "homepage": "https://github.com/lance-format/lance-spark",
+  "skills": []
+}
