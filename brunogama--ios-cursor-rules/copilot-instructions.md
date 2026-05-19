@@ -1,198 +1,24 @@
-## project-onboarding-rule
+## propose
 
-> Automatically onboards existing projects into the AI-driven development workflow
+> Chat-only conversation to determine a proposed solution or answer to a question
 
+## Rules for Proposal Mode
 
-# Project Onboarding System
-
-Rule for automatically analyzing existing projects and integrating them into the AI-driven development workflow.
-
-<rule>
-name: project_onboarding
-filters:
-  - type: event
-    pattern: "project_onboard"
-  - type: event
-    pattern: "rules_setup"
-  - type: command
-    pattern: "onboard"
-  - type: command
-    pattern: "analyze"
-  - type: event
-    pattern: "cursor_start"
-
-actions:
-  - type: react
-    conditions:
-      - pattern: "onboard project|project onboard"
-    action: |
-      # Comprehensive onboarding of an existing project
-      
-      I'll perform a complete project onboarding by:
-      
-      1. Creating the required directory structure:
-         - `.cursor/specs/` - Requirements and specifications (managed by specification_management rule)
-         - `.cursor/tasks/` - Task tracking (managed by development_workflow_system rule)
-         - `.cursor/learnings/` - Knowledge capture (managed by knowledge_management rule)
-         - `.cursor/docs/` - Documentation (managed by knowledge_management rule)
-         - `.cursor/rules/` - Cursor rule files
-         - `.cursor/output/` - Generated reports
-      
-      2. Analyzing project structure:
-         - Directory structure
-         - File types and counts
-         - Lines of code statistics
-      
-      3. Discovering existing documentation:
-         - Finding README, CONTRIBUTING, CHANGELOG files
-         - Cataloging documentation into `.cursor/docs/existing/`
-         - Creating a documentation index
-      
-      4. Extracting core components:
-         - Identifying main modules and components
-         - Analyzing component relationships
-         - Documenting component purposes
-      
-      5. Creating initial specifications:
-         - Architecture overview specs
-         - Component specifications
-         - Feature specifications based on existing code
-      
-      6. Generating knowledge base:
-         - Project structure learning
-         - Component identification learning
-         - Documentation assessment learning
-      
-      7. Setting up task tracking:
-         - Initial onboarding completion task
-         - Task index creation
-      
-      This process integrates an existing project into the AI-driven workflow
-      without requiring changes to the original codebase.
-
-  - type: react
-    conditions:
-      - pattern: "analyze existing|existing analyze"
-    action: |
-      # Analyze an existing codebase without full onboarding
-      
-      I'll analyze the existing codebase by:
-      
-      1. Examining project overview:
-         - Project type detection
-         - Repository structure analysis
-         - File type distribution
-      
-      2. Calculating code statistics:
-         - Lines of code by language
-         - File counts by type
-         - Directory structure
-      
-      3. Identifying key components:
-         - Main modules and structure
-         - Component relationships
-         - Entry points
-      
-      4. Analyzing test structure:
-         - Test directory organization
-         - Test coverage assessment
-         - Testing approach
-      
-      5. Reviewing documentation:
-         - Available documentation files
-         - Documentation completeness
-         - Documentation types
-      
-      6. Providing integration recommendations:
-         - Suggestions for specification creation (via specification_management rule)
-         - Test coverage improvements (via development_workflow_system rule)
-         - Documentation enhancements (via knowledge_management rule)
-      
-      The analysis report will be saved to `.cursor/output/codebase_analysis_[timestamp].md`
-
-  - type: react
-    conditions:
-      - pattern: "setup rules|rules setup"
-    action: |
-      # Set up default rules for a project
-      
-      I'll set up the AI-driven development workflow rules:
-      
-      1. Creating the rules directory `.cursor/rules/`
-      2. Setting up the following rule files:
-         - `development-workflow-rule.mdc` - Task tracking, testing, and version control
-         - `specification-management-rule.mdc` - Specification creation and validation
-         - `knowledge-management-rule.mdc` - Knowledge capture and application
-         - `location-rule.mdc` - Rules for organizing rule files
-         - `command-rules.mdc` - AI command system
-         - `project-onboarding-rule.mdc` - Project onboarding
-         - `on-load-rule.mdc` - Critical development principles
-      3. Creating required directory structure
-      
-      This provides the foundation for AI-driven development without
-      analyzing or modifying the existing codebase.
-
-  - type: react
-    event: "cursor_start"
-    action: |
-      # When Cursor starts with the project, check onboarding status
-      
-      When starting with this project, I'll:
-      
-      1. Check if the project has been onboarded (has `.cursor` directory)
-      2. If not onboarded, suggest running `setup rules` or `onboard project`
-      3. If partially onboarded, suggest running `analyze existing`
-      
-      This ensures you're aware of the available onboarding options.
-
-  - type: suggest
-    message: |
-      ### AI-Driven Project Onboarding
-
-      I can help adapt existing projects to the AI-driven workflow:
-
-      **Option 1: Full Automatic Onboarding**
-      ```
-      onboard project
-      ```
-      This analyzes your codebase, extracts components, creates specs, 
-      and sets up knowledge tracking.
-
-      **Option 2: Rules-Only Setup**
-      ```
-      setup rules
-      ```
-      This sets up just the rule files and directory structure without 
-      analyzing the codebase.
-
-      **Option 3: Analysis Without Onboarding**
-      ```
-      analyze existing
-      ```
-      This generates an analysis report of your codebase without creating 
-      specifications.
-
-      The onboarding process requires no changes to your existing code. 
-      It simply adds a `.cursor` directory with helpful artifacts for 
-      AI-driven development.
-
-examples:
-  - input: |
-      onboard project
-    output: "Project onboarding complete! Initial specifications, analysis files, and task tracking created."
-
-  - input: |
-      setup rules
-    output: "Rules setup complete! Rule files created in the .cursor/rules directory."
-
-  - input: |
-      analyze existing
-    output: "Analysis complete! Report generated at .cursor/output/codebase_analysis_20250305_123456.md"
-
-metadata:
-  priority: high
-  version: 1.0
-</rule> 
+1. Provide only a solution or guidance for the user’s request or question. Do not implement your solution or modify the codebase as this is only a conversation.
+2. Maintain strong confidence in answers by researching relevant libraries and method documentation (search your @docs). Present a fact-based rationale with each solution.  
+3. Format solutions as a series of short, discrete steps:
+   - State the problem.
+   - Summarize your solution and the intended effect it will have if implemented.
+   - Summarize the relevant research or facts you used to arrive at your solution.
+   - Demonstrate code or pseudocode that addresses the problem. Ensure any code is written in the style and guidelines of the codebase.
+   - Reference any current code snippets of code that would change, be replaced, or made redundant if your solution was implemented.
+4. Never provide solutions that make assumptions or intract with code files outside your context, instead expand your context by reading those files.
+5. If you cannot locate a file, try searching the codebase before asking the user to share it.  
+6. Offer code in pseudocode unless otherwise requested, using inline comments to clarify functionality related to the main problem you're solving.  
+7. Always remain ready to modify your solutions based on feedback. Ensure each response contains sufficient clarity for potential future updates.
+8. When writing english be terse, to the point, and use simple imperative sentences for directives, but when writing code, be expressive and detailed as the code matters most.
+9. Always ensure your response is rich with technical keywords, terms, and context-specific names of functions, files, libraries, variables, APIs or other nouns.
+10. Make use of sequential thinking and perplexity if needed
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
