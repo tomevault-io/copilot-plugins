@@ -1,212 +1,940 @@
-## commit-guidelines
+## ghidra-mcp-tool-creation-guidelines
 
-> Commit Guidelines
+> Provides details like program name, path, architecture, and image base.
 
+# Creating New Ghidra MCP Tools - Templates & Guidelines
 
-# Commit Guidelines
+This guide provides templates and key patterns for creating new Ghidra MCP tools, implementing [`IGhidraMcpSpecification`](mdc:src/main/java/com/themixednuts/tools/IGhidraMcpSpecification.java).
 
-This document outlines best practices for creating clean, logical commits and
-managing the commit workflow.
+**Core Steps:**
 
-## 1. Commit Quality Principles
+1.  **Implement & Annotate:**
+    *   Implement [`IGhidraMcpSpecification`](mdc:src/main/java/com/themixednuts/tools/IGhidraMcpSpecification.java).
+    *   Add [`@GhidraMcpTool`](mdc:src/main/java/com/themixednuts/annotation/GhidraMcpTool.java) annotation:
+        *   `name`: User-facing name in Ghidra Tool Options (e.g., "List Functions").
+        *   `description`: Hover description in Ghidra Tool Options.
+        *   `category`: Category in Ghidra Tool Options (e.g., [`ToolCategory.FUNCTIONS`](mdc:src/main/java/com/themixednuts/tools/ToolCategory.java)). **Use an existing category or `ToolCategory.UNCATEGORIZED`. Do NOT add new categories to the `ToolCategory` enum.**
+        *   `mcpName`: Name for the MCP tool specification (e.g., "list_functions").
+        *   `mcpDescription`: Detailed description for the MCP tool specification, guiding its usage by AI agents. See "Writing Effective `mcpDescription`" section below for detailed guidance. Use Java's multi-line string literals (`\"\"\"...\"\"\"`) for readability.
+2.  **Register Service:** Add the fully qualified class name to `src/main/resources/META-INF/services/com.themixednuts.tools.IGhidraMcpSpecification`. **This step is mandatory for the tool to be loaded and must be performed automatically when creating a new tool class.**
+3.  **Naming Convention:** Follow standard CRUD naming conventions for both the Java class (`Ghidra<Action><Noun>Tool`) and the `mcpName` (`<action>_<noun>`) where possible:
+    *   **Create:** Use `Create` for adding new items (e.g., `GhidraCreateBookmarkTool`, `create_bookmark`). Avoid synonyms like `Add`.
+    *   **Read:** Use `Get` for single items (e.g., `GhidraGetFunctionByNameTool`), `List` for multiple items (e.g., `GhidraListFunctionsTool`), or `Search` for querying (e.g., `GhidraSearchMemoryTool`).
+    *   **Update:** Use `Update` for modifying existing items (e.g., `GhidraUpdateStructMemberTool`). Avoid synonyms like `Edit`, `Set`, or `Change`.
+    *   **Delete:** Use `Delete` for removing items (e.g., `GhidraDeleteFunctionTool`). Avoid synonyms like `Remove` or `Clear`.
+4.  **Data Models (POJOs):** When a tool needs to return complex data structures (e.g., a list of functions with their details), prefer using or creating Plain Old Java Objects (POJOs) within the [`src/main/java/com/themixednuts/models`](mdc:src/main/java/com/themixednuts/models) directory.
+    *   **Reuse:** Check if an existing model (like [`FunctionInfo`](mdc:src/main/java/com/themixednuts/models/FunctionInfo.java), [`SymbolInfo`](mdc:src/main/java/com/themixednuts/models/SymbolInfo.java), `DataInfo`, etc.) already suits the needs.
+    *   **Create:** If no suitable model exists, create a new, clearly named POJO in the `models` directory to represent the data being returned. This ensures consistent and well-defined output structures for the client.
+    *   Keep POJOs simple, primarily containing fields and a constructor or mapping method to populate them from Ghidra objects.
+    *   **Exception:** For grouped operations, use the nested POJOs `IGroupedTool.OperationResult` and `IGroupedTool.GroupedOperationResult` instead of creating separate files.
+5.  **`specification` Method:**
+    *   **DO NOT override the `specification` method in individual tool classes.**
+    *   The default implementation in `IGhidraMcpSpecification` handles retrieving the `@GhidraMcpTool` annotation, generating the schema string from `schema()`, and constructing the final `AsyncToolSpecification`.
+    *   This default implementation correctly wraps the `Mono<Object>` from `execute` using `.flatMap(this::createSuccessResult).onErrorResume(this::createErrorResult)` to produce the required `Mono<CallToolResult>`.
+5.  **Test Verification:** After implementing one or more tools, run `mvn test` from the project root directory. This verifies that the new tool(s) compile correctly and are properly registered in the service file (via `ServiceRegistrationTest.java`). It's often efficient to create a batch of related tools before running the tests.
+6.  **Code Cleanup:** Ensure code is well-formatted and remove any unused imports before finalizing the tool.
 
-- **Atomic Commits:** Each commit should represent a single logical change or
-  feature.
-- **Clear Messages:** Use conventional commit format: `type: description`
-  - Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `ci`, `build`
-  - Description should be concise but descriptive
-- **Logical Grouping:** Group related changes together. Separate unrelated
-  changes into different commits.
-- **No Broken States:** Never commit code that breaks the build or tests.
+---
 
-## 2. Pre-Commit Validation
+## Structured Error Handling Guidelines
 
-Before committing, ensure:
+**CRITICAL:** Always use structured error handling with [`GhidraMcpError.java`](mdc:src/main/java/com/themixednuts/models/GhidraMcpError.java) and [`GhidraMcpException`](mdc:src/main/java/com/themixednuts/exceptions/GhidraMcpException.java) instead of simple `IllegalArgumentException` or other basic exceptions. This provides clients with actionable error information and maintains consistency across all tools.
 
-- **Build Success:** Run `mvn clean package` to verify the project compiles and
-  builds successfully.
-- **Tests Pass:** Run `mvn test` to ensure all tests pass.
-- **No Lint Errors:** Check for any linter errors or warnings that should be
-  addressed.
-- **Logical Completeness:** Ensure all related changes for a feature/fix are
-  included together.
-- **No Debug Code:** Remove any debug statements, commented-out code, or
-  temporary files.
+### Required Imports for Error Handling
 
-## 3. Commit Workflow
-
-### Step 1: Stage Changes
-
-```bash
-git add <files>
-# Or use git add -p for interactive staging to review changes
+```java
+import com.themixednuts.exceptions.GhidraMcpException;
+import com.themixednuts.models.GhidraMcpError;
+import com.themixednuts.utils.GhidraMcpErrorUtils;
+import java.util.List;
+import java.util.Map;
 ```
 
-### Step 2: Review Staged Changes
+### Constants Usage - NO MAGIC STRINGS
 
-```bash
-git diff --cached
-# Review what will be committed to ensure it's logical and complete
+**ALWAYS use constants and annotation values instead of string literals:**
+
+```java
+// ✅ CORRECT - Get tool name using the helper from IGhidraMcpSpecification
+String toolMcpName = this.getMcpName();
+
+// ✅ CORRECT - Use argument constants
+funcSymbolIdOpt.ifPresent(id -> criteria.put(ARG_FUNCTION_SYMBOL_ID, id));
+funcAddressOpt.ifPresent(addr -> criteria.put(ARG_ADDRESS, addr));
+funcNameOpt.ifPresent(name -> criteria.put(ARG_FUNCTION_NAME, name));
+
+// ❌ WRONG - Never use string literals
+throw new IllegalArgumentException("Function not found"); // DON'T DO THIS
+criteria.put("functionName", name); // DON'T DO THIS
+// String toolName = "get_function"; // DON'T DO THIS - Use this.getMcpName()
 ```
 
-### Step 3: Commit
+### Error Handling Patterns
 
-```bash
-git commit -m "type: clear and descriptive message"
+#### 1. Missing Required Arguments
+
+```java
+if (funcSymbolIdOpt.isEmpty() && funcAddressOpt.isEmpty() && funcNameOpt.isEmpty()) {
+    Map<String, Object> providedIdentifiers = Map.of(
+            ARG_FUNCTION_SYMBOL_ID, "not provided",
+            ARG_ADDRESS, "not provided", 
+            ARG_FUNCTION_NAME, "not provided"
+    );
+
+    GhidraMcpError error = GhidraMcpError.validation()
+            .errorCode(GhidraMcpError.ErrorCode.MISSING_REQUIRED_ARGUMENT)
+            .message("At least one identifier must be provided")
+            .context(new GhidraMcpError.ErrorContext(
+                    getMcpName(),
+                    "identifier validation",
+                    args,
+                    providedIdentifiers,
+                    Map.of("identifiersProvided", 0, "minimumRequired", 1)
+            ))
+            .suggestions(List.of(
+                    new GhidraMcpError.ErrorSuggestion(
+                            GhidraMcpError.ErrorSuggestion.SuggestionType.FIX_REQUEST,
+                            "Provide at least one identifier",
+                            "Include at least one required argument",
+                            List.of(
+															ARG_FUNCTION_SYMBOL_ID,
+															ARG_ADDRESS,
+															ARG_FUNCTION_NAME,
+                            ),
+                            null
+                    )
+            ))
+            .build();
+    throw new GhidraMcpException(error);
+}
 ```
 
-### Step 4: Validate Commit
+#### 2. Resource Not Found (Use Utility Methods or Direct Builder)
 
-After committing, validate:
-
-```bash
-# Check the commit looks correct
-git log -1 --stat
-
-# Verify build still works
-mvn clean package
-
-# Verify tests still pass
-mvn test
+```java
+// For functions not found
+if (functionToReturn == null) {
+    Map<String, Object> searchCriteria = createSearchCriteriaMap(funcSymbolIdOpt, funcAddressOpt, funcNameOpt);
+    List<String> availableFunctions = getAvailableFunctionNames(functionManager);
+    
+    GhidraMcpError error = GhidraMcpError.resourceNotFound()
+        .errorCode(GhidraMcpError.ErrorCode.FUNCTION_NOT_FOUND)
+        .message("Function not found based on provided criteria.")
+        .context(new GhidraMcpError.ErrorContext(
+            this.getMcpName(),
+            "function lookup",
+            searchCriteria,
+            Map.of("criteriaUsed", searchCriteria),
+            Map.of("functionsAvailable", availableFunctions.size())
+        ))
+        .relatedResources(availableFunctions)
+        .suggestions(List.of(new GhidraMcpError.ErrorSuggestion(
+            GhidraMcpError.ErrorSuggestion.SuggestionType.CHECK_RESOURCES,
+            "List available functions",
+            "Use the 'list_function_names' tool to see available functions.",
+            null,
+            List.of(getMcpName(GhidraListFunctionNamesTool.class))
+        )))
+        .build();
+    throw new GhidraMcpException(error);
+}
 ```
 
-### Step 5: Amend if Needed
+#### 3. Helper Methods for Clean Code
 
-If you discover issues or want to add related changes:
+```java
+/**
+ * Creates a search criteria map using constants instead of string literals.
+ */
+private Map<String, Object> createSearchCriteriaMap(Optional<Long> funcSymbolIdOpt, 
+        Optional<String> funcAddressOpt, Optional<String> funcNameOpt) {
+    Map<String, Object> criteria = new java.util.HashMap<>();
+    
+    funcSymbolIdOpt.ifPresent(id -> criteria.put(ARG_FUNCTION_SYMBOL_ID, id));
+    funcAddressOpt.ifPresent(addr -> criteria.put(ARG_ADDRESS, addr));
+    funcNameOpt.ifPresent(name -> criteria.put(ARG_FUNCTION_NAME, name));
+    
+    return criteria;
+}
 
-```bash
-# Make additional changes
-git add <files>
-git commit --amend --no-edit  # Keep same message
-# OR
-git commit --amend -m "type: updated message"  # Update message
+/**
+ * Gets available resources for error suggestions (limit results).
+ */
+private List<String> getAvailableFunctionNames(FunctionManager functionManager) {
+    return StreamSupport.stream(functionManager.getFunctions(true).spliterator(), false)
+            .map(f -> f.getName(true))
+            .limit(50) // Prevent overwhelming error messages
+            .collect(Collectors.toList());
+}
 ```
 
-**When to Amend:**
+### Error Processing Enhancement
 
-- Adding forgotten files that are part of the same logical change
-- Fixing typos or small issues in the same commit
-- Improving commit message clarity
-- Adding related changes that should be grouped together
+The [`IGhidraMcpSpecification`](mdc:src/main/java/com/themixednuts/tools/IGhidraMcpSpecification.java) interface has been enhanced to automatically detect and serialize `GhidraMcpException` instances as structured JSON errors. This happens automatically in the `createErrorResult(Throwable t)` method - **you don't need to handle this manually**.
 
-**When NOT to Amend:**
+### Error Types and When to Use Them
 
-- After pushing to a shared branch (unless you're the only one using it)
-- If the commit is already part of a PR or review
-- If it would rewrite history that others have based work on
+- **`GhidraMcpError.validation()`**: Missing arguments, invalid formats, constraint violations
+- **`GhidraMcpError.resourceNotFound()`**: Functions, data types, addresses, files not found
+- **`GhidraMcpError.dataTypeParsing()`**: Invalid data type syntax, pointer/array format issues
+- **`GhidraMcpError.execution()`**: Script failures, transaction errors, system issues
+- **`GhidraMcpError.searchNoResults()`**: Empty search results, no matches found
+- **`GhidraMcpError.internal()`**: Unexpected errors, system failures
 
-### Step 6: Final Validation Before Push
+### Utility Methods Available
 
-Before pushing, ensure:
+Use [`GhidraMcpErrorUtils`](mdc:src/main/java/com/themixednuts/utils/GhidraMcpErrorUtils.java) factory methods:
 
-- All commits are logical and complete
-- Build succeeds: `mvn clean package`
-- Tests pass: `mvn test`
-- No obvious issues or incomplete work
-- Commit messages are clear and follow conventions
+- `GhidraMcpErrorUtils.missingRequiredArgument()`
+- `GhidraMcpErrorUtils.functionNotFound()`
+- `GhidraMcpErrorUtils.dataTypeNotFound()`
+- `GhidraMcpErrorUtils.addressParseError()`
+- `GhidraMcpErrorUtils.searchNoResults()`
+- `GhidraMcpErrorUtils.fileNotFound()`
 
-### Step 7: Push
+**Reference Implementations:**
+- [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) - Comprehensive error handling with swap detection and actionable suggestions
+- [`ManageSymbolsTool`](mdc:src/main/java/com/themixednuts/tools/ManageSymbolsTool.java) - Clean error context and proper resource suggestions
+- [`ManageFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) - Multiple error types with clear guidance
 
-```bash
-git push origin <branch>
+---
+
+## Commenting
+
+*   Avoid comments that merely restate the code or describe the immediate code block (e.g., `// Setup phase`, `// Validation`).
+*   Remove commented-out code blocks.
+*   Add comments only for non-trivial logic, complex algorithms, or to explain the "why" behind a specific implementation choice if it's not immediately obvious.
+
+---
+
+## `@GhidraMcpTool` Annotation Details
+
+*   `name`: User-facing name in Ghidra Tool Options (e.g., "List Functions").
+*   `description`: Hover description in Ghidra Tool Options.
+*   `category`: Category in Ghidra Tool Options (e.g., [`ToolCategory.FUNCTIONS`](mdc:src/main/java/com/themixednuts/tools/ToolCategory.java)). Use existing or `UNCATEGORIZED`.
+*   `mcpName`: Name for the MCP tool specification (e.g., "list_functions").
+*   `mcpDescription`: Description for the MCP tool specification. **Crucial for guiding AI agent interaction.** Use Java's multi-line string literals (`"""..."""`) for clarity.
+
+### Writing Effective `mcpDescription`
+
+The `mcpDescription` field in the `@GhidraMcpTool` annotation is **critical** for guiding AI agents (like LLMs) on how to understand and use your tool effectively. It should be written from the perspective of an AI agent that needs to decide *when*, *why*, and *how* to use this tool. Always use Java's multi-line string literals (`"""..."""`) for `mcpDescription` for better readability and structure, especially for complex tools.
+
+**General Principles:**
+*   **Clarity and Precision:** Use clear, unambiguous language.
+*   **Completeness:** Provide all necessary information for an AI to make informed decisions.
+*   **Target Audience:** Remember you are writing for an AI agent, not a human Ghidra user directly. Focus on what the *agent* needs to know to interact with the tool and then communicate with a human.
+
+**Simple vs. Complex Tools:**
+
+Not all tools require highly detailed descriptions. Adapt your approach based on the tool's complexity:
+
+**1. Simple Tools:**
+For tools with straightforward functionality (e.g., a simple getter, a single atomic action):
+*   **Description Length:** A few concise sentences are usually sufficient.
+*   **Focus:** Clearly state the tool's primary purpose, key inputs if not obvious from the schema, and the nature of its output.
+*   **Example (`get_current_program_info`):**
+    ```java
+    @GhidraMcpTool(
+        // ... other annotations ...
+        mcpName = "get_current_program_info",
+        mcpDescription = """
+            Retrieves basic information about the currently open Ghidra program.
+            Provides details like program name, path, architecture, and image base.
+            Requires the 'fileName' of an open program as context.
+            """
+    )
+    ```
+
+**2. Complex Tools (Multi-Step, Conditional Logic, Specific Agent Behavior):**
+For tools that involve multiple steps, have significant prerequisites, require specific follow-up actions from the agent, or have nuanced behavior, a more structured and detailed description is necessary. We recommend using a pseudo-XML tagging style within the multi-line string to organize this information, inspired by practices seen in other MCP implementations like [Neon Tools](mdc:https:/raw.githubusercontent.com/neondatabase-labs/mcp-server-neon/refs/heads/main/src/tools.ts).
+
+*   **Recommended Tags for Structuring Complex Descriptions:**
+    *   `<use_case>`: Clearly describe the primary scenarios or problems this tool is designed to solve. *When should the agent choose this tool?*
+    *   `<parameters_summary>`: (Optional) Briefly explain critical parameters if their role or interplay isn't obvious from the schema alone. Focus on *why* an agent might set a particular parameter.
+    *   `<workflow>` or `<tool_logic>`: Outline the high-level steps the tool performs internally. This helps the agent understand the tool's process.
+    *   `<important_notes>` or `<critical_considerations>`: Highlight any crucial details, prerequisites, conditions, or caveats the AI agent *MUST* be aware of before or during tool use. Use `MUST`, `SHOULD`, `MUST NOT` for clarity.
+    *   `<ghidra_specific_notes>`: Detail any Ghidra-specific context, such as:
+        *   Whether an active program is required.
+        *   If the tool might trigger Ghidra's auto-analysis or modify the database.
+        *   Dependencies on specific Ghidra services or states.
+        *   Interactions with UI elements (e.g., "Navigates the Ghidra UI to...").
+    *   `<return_value_summary>`: Describe what the tool typically returns and how the agent should interpret different parts of the result, especially for complex POJOs or `GroupedOperationResult`.
+    *   `<example_interaction>` or `<usage_scenario>`: Provide a concise example of how an agent might use the tool in a dialogue or a typical sequence of operations. This is less about the literal API call and more about the conceptual interaction.
+    *   `<agent_response_guidance>`: Instruct the agent on how it should formulate its response *to the end-user* after this tool executes. Specify:
+        *   Key information that MUST be relayed.
+        *   Information that SHOULD or SHOULD NOT be relayed (e.g., avoid overly technical Ghidra details unless specifically requested).
+        *   A template or style for the user-facing message.
+    *   `<error_handling_summary>`: Briefly explain common failure modes or how errors are generally structured by this tool (though detailed error info comes from `GhidraMcpError`). For instance, "If a specified address is not found, a RESOURCE_NOT_FOUND error is thrown."
+    *   `<next_steps_suggestion>`: If this tool is typically part of a larger workflow, suggest what the agent should consider doing next (e.g., "After creating a function, consider using 'decompile_function' or 'get_function_prototype'.").
+
+*   **Example of a Complex `mcpDescription` (Hypothetical `analyze_and_rename_confusing_functions` tool):**
+    ```java
+    @GhidraMcpTool(
+        // ... other annotations ...
+        mcpName = "analyze_and_rename_confusing_functions",
+        mcpDescription = """
+            <use_case>
+            Analyzes functions within a specified address range for common anti-debugging or obfuscation patterns
+            (e.g., opaque predicates, indirect jumps through calculated values). If patterns are found,
+            it attempts to rename these functions to a standardized naming scheme (e.g., "OBF_跳转_0xADDRESS").
+            Use this tool when the user suspects obfuscation and wants to clarify the control flow.
+            </use_case>
+
+            <ghidra_specific_notes>
+            - Requires an active program ('fileName' argument is mandatory).
+            - This tool MODIFIES the program database by renaming functions.
+            - It may take a significant amount of time for large address ranges or complex functions.
+            - It is recommended to save the program before running this tool.
+            - Does not trigger a full auto-analysis but interacts with the decompiler.
+            </ghidra_specific_notes>
+
+            <parameters_summary>
+            - 'addressRange': The range of addresses (e.g., "0x1000-0x2000") to scan for functions.
+            - 'aggressiveness': (Optional, default 'medium') Controls how strictly patterns are matched ('low', 'medium', 'high').
+            </parameters_summary>
+
+            <workflow>
+            1. Identifies all functions within the given 'addressRange'.
+            2. For each function, decompiles it and analyzes its P-code for known obfuscation patterns.
+            3. If a pattern is matched with sufficient confidence (based on 'aggressiveness'):
+                a. Generates a new standardized name.
+                b. Renames the function in Ghidra.
+            4. Collects a list of all functions that were renamed.
+            </workflow>
+
+            <return_value_summary>
+            Returns a list of objects, where each object contains:
+            - 'originalName': The original name of the function.
+            - 'newName': The new name assigned to the function.
+            - 'address': The entry point address of the function.
+            - 'patternsDetected': A list of strings describing the obfuscation patterns found.
+            If no functions were renamed, an empty list is returned.
+            </return_value_summary>
+
+            <important_notes>
+            - The renaming is based on heuristics and might not always be perfect.
+            - The agent SHOULD inform the user that changes are being made to the database.
+            - The agent SHOULD suggest reviewing the changes made by this tool.
+            </important_notes>
+
+            <agent_response_guidance>
+            After execution, inform the user about the number of functions renamed and provide a summary of a few key changes.
+            Example: "I analyzed the address range and renamed 5 functions that appeared to be obfuscated.
+            For example, the function at 0x1050 (originally FUN_00001050) was renamed to OBF_IndirectJump_0x1050 because it used a calculated jump.
+            Would you like to see the full list of changes or decompile one of these functions?"
+            MUST NOT simply dump the raw JSON output to the user.
+            </agent_response_guidance>
+
+            <next_steps_suggestion>
+            Consider using 'get_function_prototype' or 'decompile_function' on the newly renamed functions
+            to further understand their behavior. The user might also want to add comments or bookmarks.
+            </next_steps_suggestion>
+
+            <error_handling_summary>
+            - Throws VALIDATION error if 'addressRange' is invalid.
+            - Throws EXECUTION error if decompiler fails for a critical function.
+            - Individual function analysis failures are logged but do not stop the entire tool unless critical.
+            </error_handling_summary>
+            """
+    )
+    ```
+
+By providing such detailed and structured `mcpDescription`s, you significantly improve the reliability and effectiveness of AI agents interacting with your Ghidra MCP tools.
+
+---
+
+## Naming Convention Details
+
+Follow standard CRUD naming conventions for both the Java class (`Ghidra<Action><Noun>Tool`) and the `mcpName` (`<action>_<noun>`) where possible:
+*   **Create:** `Create` (e.g., `GhidraCreateBookmarkTool`, `create_bookmark`).
+*   **Read:** `Get` (single), `List` (multiple), `Search` (query).
+*   **Update:** `Update` (e.g., `GhidraUpdateStructMemberTool`).
+*   **Delete:** `Delete` (e.g., `GhidraDeleteFunctionTool`).
+
+---
+
+## Data Models (POJOs) Details
+
+*   Use POJOs in [`src/main/java/com/themixednuts/models`](mdc:src/main/java/com/themixednuts/models) for complex results.
+*   Reuse existing models ([`FunctionInfo`](mdc:src/main/java/com/themixednuts/models/FunctionInfo.java), [`SymbolInfo`](mdc:src/main/java/com/themixednuts/models/SymbolInfo.java), etc.) if possible.
+*   Create new simple POJOs if needed.
+*   **Grouped Tools Exception:** Use nested POJOs `IGroupedTool.OperationResult` and `IGroupedTool.GroupedOperationResult`.
+
+---
+
+## Test Verification Details
+
+Run `mvn test` from the project root to verify compilation and service registration (`ServiceRegistrationTest.java`).
+
+---
+
+## Core Interface Methods
+
+The `IGhidraMcpSpecification` interface provides a `default` implementation for generating the `AsyncToolSpecification` needed by the MCP server. This default implementation automatically handles reading the `@GhidraMcpTool` annotation, calling your `schema()` method, serializing the schema, and wrapping the `Mono<Object>` returned by your `execute()` method into the final `CallToolResult`.
+
+**Therefore, your main responsibilities when implementing `IGhidraMcpSpecification` are:**
+*   Add the `@GhidraMcpTool` annotation.
+*   Implement `JsonSchema schema()` (unless implementing `IGroupedTool`, which provides a default).
+*   Implement `Mono<? extends Object> execute(...)`.
+*   Register the tool in the META-INF services file.
+
+---
+
+## `schema()` Method Template
+
+Implement this method to define the expected input arguments for your tool (unless implementing `IGroupedTool`, which provides a default).
+
+Use the [`JsonSchemaBuilder`](mdc:src/main/java/com/themixednuts/utils/jsonschema/JsonSchemaBuilder.java) helper to create an immutable [`JsonSchema`](mdc:src/main/java/com/themixednuts/utils/jsonschema/JsonSchema.java) object.
+
+```java
+@Override // Omit if implementing IGroupedTool
+public JsonSchema schema() {
+    // Start with the base schema helper from IGhidraMcpSpecification
+    IObjectSchemaBuilder schemaRoot = IGhidraMcpSpecification.createBaseSchemaNode();
+
+    // --- Define Properties ---
+
+    // *Only* include ARG_FILE_NAME if the tool requires access to a specific Program.
+    schemaRoot.property(ARG_FILE_NAME, // Constant from IGhidraMcpSpecification
+            JsonSchemaBuilder.string(mapper)
+                    .description("The name of the program file (required for program access)."));
+
+    // Define tool-specific arguments (use constants defined in this class or IGhidraMcpSpecification)
+    // public static final String ARG_MY_NEW_ARG = "myNewArg";
+    schemaRoot.property(ARG_MY_NEW_ARG,
+            JsonSchemaBuilder.bool(mapper).description("A required boolean specific to this tool."));
+
+    // --- Define Required Properties ---
+
+    // Only include arguments that MUST be provided.
+    schemaRoot.requiredProperty(ARG_FILE_NAME); // If program access is needed
+    schemaRoot.requiredProperty(ARG_MY_NEW_ARG); // If tool-specific arg is required
+
+    return schemaRoot.build();
+}
 ```
 
-## 4. Amending Before Push
+---
 
-**Always amend commits before pushing if:**
+## `execute(...)` Method Templates
 
-- You're still on a local branch (not yet pushed)
-- You discover related changes that belong in the same commit
-- The commit message needs improvement
-- You want to add files that were part of the same logical change
+Implement this method containing the core logic. Return a `Mono<? extends Object>` emitting the **raw result object** (POJO, List, String, `GroupedOperationResult`, etc.) or signaling an error (`Mono.error(throwable)` or throwing from sync blocks like `.map`). **When throwing errors from synchronous blocks (e.g., inside `.map()` or a `Callable`), prefer throwing a `GhidraMcpException` directly, or catch and wrap other exceptions into a `GhidraMcpException` to ensure structured error details are propagated.**
 
-**Amend workflow:**
+**Do NOT call `createSuccessResult` or `createErrorResult` here.** The `IGhidraMcpSpecification` default `specification()` method correctly wraps this `Mono<? extends Object>`.
 
-```bash
-# Make additional changes
-git add <files>
+**Note on `.cast(Object.class)`:** Due to the `execute` method now returning `Mono<? extends Object>`, you generally **no longer need** to add `.cast(Object.class)` at the end of your reactive chain if it naturally produces a `Mono<SpecificType>` (e.g., `Mono<Map<String, String>>`, `Mono<List<Pojo>>`). The `Mono<SpecificType>` will be compatible with `Mono<? extends Object>`.
 
-# Amend the last commit (keeps it as one logical unit)
-git commit --amend --no-edit  # If message is fine
-# OR
-git commit --amend -m "type: improved message"  # If updating message
+**Note:** Comments within the template code blocks below are for explanation only and should generally *not* be copied into actual tool implementations, per the commenting guidelines.
 
-# Validate again
-mvn clean package
-mvn test
+Use helpers from [`IGhidraMcpSpecification`](mdc:src/main/java/com/themixednuts/tools/IGhidraMcpSpecification.java) (`getProgram`, `executeInTransaction`, argument parsers). Avoid `try-catch` unless required by Java (e.g., handling checked exceptions from Ghidra APIs by wrapping them in unchecked exceptions).
 
-# Then push
-git push origin <branch>
+**Use the appropriate reactive pattern:**
+*   For synchronous logic *after* obtaining the `Program` (e.g., parsing arguments, calling a synchronous Ghidra service that doesn't modify the database), use `.map()`: `getProgram(...).map(program -> { /* sync logic */ })`.
+*   **Do NOT use `.flatMap(program -> Mono.fromCallable(...))`** if the logic inside the `Callable` is purely synchronous; prefer `.map()`.
+*   For synchronous logic that modifies the database, use `.map()` for setup followed by `.flatMap(executeInTransaction(...))`: `getProgram(...).map(program -> { /* setup */ return context; }).flatMap(context -> executeInTransaction(...))`.
+*   For purely synchronous, project-level logic (no `Program` needed initially), use `Mono.fromCallable(() -> { /* sync logic */ })`.
+
+**Type-Safe Context Passing:** When passing multiple values from a setup step (e.g., inside `.map`) to a subsequent step (e.g., inside `.flatMap`), **avoid using `Map<String, Object>`**. Instead, use a type-safe approach:
+*   **Nested `private static record`** (PREFERRED): Best for clarity when passing more than 2-3 items. Define the record within the tool class. Records are immutable, self-documenting, and type-safe.
+*   **Reactor Tuples:** Use `reactor.util.function.Tuples.of(...)` for 2-8 items if a dedicated record feels excessive.
+
+**Examples of Context Records:**
+```java
+// Simple context for rename operations
+private static record RenameContext(Program program, Function function, String newName) {}
+
+// Complex context for search operations
+private static record SearchContext(
+    Program program,
+    SearchType searchType,
+    String searchValue,
+    boolean caseSensitive,
+    int maxResults
+) {}
+
+// Function identifier context
+private static record FunctionIdentifiers(
+    Optional<Long> symbolId,
+    Optional<String> address,
+    Optional<String> name
+) {}
 ```
 
-## 5. Commit Message Format
+**Reference Implementations:**
+- [`ManageFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) - UpdatePrototypeContext, FunctionIdentifiers records
+- [`SearchMemoryTool`](mdc:src/main/java/com/themixednuts/tools/SearchMemoryTool.java) - SearchContext record
+- [`ManageSymbolsTool`](mdc:src/main/java/com/themixednuts/tools/ManageSymbolsTool.java) - SymbolSearchContext record
 
-Use conventional commit format:
+**1. Program-Based Tool (Read-Only / Pagination / Synchronous Logic)**
 
+*   Needs `Program` access.
+*   Uses `getProgram(...).flatMap(program -> Mono.fromCallable(...))` or `getProgram(...).map(...)` for simple synchronous operations.
+*   Returns `Mono<Object>` containing a [`PaginatedResult<Pojo>`](mdc:src/main/java/com/themixednuts/utils/PaginatedResult.java) (or similar POJO/Map structure with `results` and `nextCursor`).
+*   **Reference Implementations:**
+    - [`ListFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ListFunctionsTool.java) - Best pagination example with clean cursor logic
+    - [`ListDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ListDataTypesTool.java) - Efficient pagination with filtering
+    - [`ManageFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) - listVariables method (lines 934-1016)
+
+```java
+import com.themixednuts.utils.PaginatedResult; // Add import
+
+@Override
+public Mono<? extends Object> execute(McpAsyncServerExchange ex, Map<String, Object> args, PluginTool tool) {
+    return getProgram(args, tool)
+        .flatMap(program -> Mono.fromCallable(() -> listItems(program, args)));
+}
+
+private PaginatedResult<ResultPojo> listItems(Program program, Map<String, Object> args) {
+    Optional<String> cursorOpt = getOptionalStringArgument(args, ARG_CURSOR);
+
+    List<Item> allItems = program.getListing().getAllItems().stream()
+        .sorted(Comparator.comparing(Item::getKey))
+        .collect(Collectors.toList());
+
+    List<ResultPojo> pageItems = allItems.stream()
+        .dropWhile(item -> {
+            if (cursorOpt.isEmpty()) return false;
+            return item.getKey().compareTo(cursorOpt.get()) <= 0;
+        })
+        .limit((long) DEFAULT_PAGE_LIMIT + 1)
+        .map(ResultPojo::new)
+        .collect(Collectors.toList());
+
+    boolean hasMore = pageItems.size() > DEFAULT_PAGE_LIMIT;
+    List<ResultPojo> results = pageItems.subList(0, Math.min(pageItems.size(), DEFAULT_PAGE_LIMIT));
+
+    String nextCursor = hasMore && !results.isEmpty()
+        ? results.get(results.size() - 1).getCursorKey()
+        : null;
+
+    return new PaginatedResult<>(results, nextCursor);
+}
 ```
-<type>: <description>
 
-[optional body]
+**2. Program-Based Tool (Modification / Task Monitor / Resource Management)**
 
-[optional footer]
+*   Needs `Program` access and modifies it.
+*   Uses `getProgram(...).map(...).flatMap(executeInTransaction(...))`.
+*   `.map` performs synchronous setup and **returns a type-safe context object** (e.g., a nested record or `Tuple`) containing necessary data (including the `Program` instance) for the transaction.
+*   `executeInTransaction` takes a `Callable<Object>` for the synchronous modification work.
+*   Shows resource management (`DecompInterface`) and `GhidraMcpTaskMonitor`.
+*   Returns `Mono<Object>` (e.g., success `String`, relevant data `Object`).
+*   Reference: [`GhidraRenameFunctionByNameTool`](mdc:src/main/java/com/themixednuts/tools/functions/GhidraRenameFunctionByNameTool.java), [`GhidraDeleteBookmarkTool`](mdc:src/main/java/com/themixednuts/tools/projectmanagement/GhidraDeleteBookmarkTool.java)
+
+```java
+// Define nested context record (example)
+private static record RenameContext(
+    Program program,
+    Function function,
+    String newName
+) {}
+
+@Override
+public Mono<? extends Object> execute(McpAsyncServerExchange ex, Map<String, Object> args, PluginTool tool) {
+    DecompInterface decomp = new DecompInterface(); // Resource needing cleanup
+
+    return getProgram(args, tool) // Returns Mono<Program>
+        .map(program -> { // .map for synchronous setup
+            // --- Setup Phase (Synchronous inside map) ---
+            decomp.openProgram(program);
+            String name = getRequiredStringArgument(args, ARG_NAME);
+            Function function = program.getFunctionManager().getFunction(name);
+            if (function == null) {
+                throw new IllegalArgumentException("Function not found: " + name);
+            }
+            String newName = getRequiredStringArgument(args, ARG_NEW_NAME);
+            // Return type-safe context object
+            return new RenameContext(program, function, newName);
+        })
+        .flatMap(context -> { // Transaction Phase - context is RenameContext
+            // Program program = context.program();
+            // Function function = context.function();
+            // String newName = context.newName();
+
+            return executeInTransaction(context.program(), "Rename Func " + context.function().getName(), () -> {
+                // --- Modification Work (Inside Transaction Callable - Synchronous) ---
+                // GhidraMcpTaskMonitor monitor = new GhidraMcpTaskMonitor(ex, ...);
+                context.function().setName(context.newName(), SourceType.USER_DEFINED);
+                // Return raw success result
+                return "Function renamed successfully to " + context.newName();
+            });
+        })
+        .doFinally(signalType -> {
+            if (decomp != null) {
+                decomp.dispose();
+            }
+        });
+}
 ```
 
-**Types:**
+**3. Project-Based Tool (Read-Only / Synchronous Logic)**
 
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks (version bumps, dependency updates)
-- `ci`: CI/CD changes
-- `build`: Build system changes
+*   Needs `Project` access, not specific `Program`.
+*   Schema does NOT need `fileName`.
+*   Uses `Mono.fromCallable(() -> { ... })` to wrap synchronous logic.
+*   Returns `Mono<Object>` (e.g., `List<String>`, `ProgramFileInfo`).
+*   **Reference Implementations:**
+    - [`ListProgramsTool`](mdc:src/main/java/com/themixednuts/tools/ListProgramsTool.java) - Enum-based filtering with pagination
+    - [`UndoRedoTool`](mdc:src/main/java/com/themixednuts/tools/UndoRedoTool.java) - Simple project-level operations
 
-**Examples:**
+```java
+@Override // No ARG_FILE_NAME needed
+public JsonSchema schema() {
+    IObjectSchemaBuilder schemaRoot = IGhidraMcpSpecification.createBaseSchemaNode();
+    // Add other args if needed...
+    return schemaRoot.build();
+}
 
+@Override
+public Mono<? extends Object> execute(McpAsyncServerExchange ex, Map<String, Object> args, PluginTool tool) {
+    return Mono.fromCallable(() -> {
+        ghidra.framework.model.Project project = tool.getProject();
+        if (project == null) {
+            throw new IllegalStateException("Ghidra Project is not available.");
+        }
+        // Perform project-level operations and return raw result
+        return project.getOpenData().stream().map(DomainFile::getName).sorted().collect(Collectors.toList());
+    });
+}
 ```
-feat: add pagination to FindReferencesTool
-fix: correct error handling in DecompileCodeTool
-docs: update README with latest features
-refactor: migrate tools to use new schema builders
-test: add comprehensive tests for JSON Schema builders
-chore: bump version to v0.5.0
-ci: update workflow to use mvn clean package
+
+---
+
+## Advanced Patterns
+
+### 1. Enum-Based Parameter Validation
+
+For tools with multiple related string values that have associated behavior, use an enum with validation:
+
+```java
+public enum SearchType {
+    STRING("string", "Text string search"),
+    HEX("hex", "Hexadecimal byte pattern search"),
+    BINARY("binary", "Binary byte pattern search"),
+    DECIMAL("decimal", "Decimal number search");
+
+    private final String value;
+    private final String description;
+
+    SearchType(String value, String description) {
+        this.value = value;
+        this.description = description;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public static SearchType fromValue(String value) throws GhidraMcpException {
+        for (SearchType type : values()) {
+            if (type.value.equalsIgnoreCase(value)) {
+                return type;
+            }
+        }
+        GhidraMcpError error = GhidraMcpError.validation()
+            .errorCode(GhidraMcpError.ErrorCode.INVALID_ARGUMENT_VALUE)
+            .message("Invalid search type: " + value)
+            .suggestions(List.of(
+                new GhidraMcpError.ErrorSuggestion(
+                    GhidraMcpError.ErrorSuggestion.SuggestionType.FIX_REQUEST,
+                    "Use a valid search type",
+                    "Valid types: " + String.join(", ", Arrays.stream(values())
+                        .map(SearchType::getValue).toArray(String[]::new)),
+                    null, null
+                )
+            ))
+            .build();
+        throw new GhidraMcpException(error);
+    }
+}
 ```
 
-## 6. Multiple Related Commits
+**Reference Implementation:** [`SearchMemoryTool`](mdc:src/main/java/com/themixednuts/tools/SearchMemoryTool.java) (lines 68-120)
 
-If you have multiple related commits that should be grouped:
+### 2. Smart Error Detection
 
-1. Make all commits locally
-2. Review the commit sequence: `git log --oneline`
-3. Use interactive rebase to squash or reorder if needed: `git rebase -i HEAD~N`
-4. Validate the final result
-5. Push once everything is validated
+Detect common user mistakes and provide helpful corrections:
 
-## 7. Checklist Before Pushing
+```java
+// Detect parameter swap (e.g., user provided data_type_id in name field)
+if (nameOpt.isPresent()) {
+    String providedName = nameOpt.get();
+    if (providedName.matches("\\d+")) {
+        // Suggest they may have swapped parameters
+        GhidraMcpError error = GhidraMcpError.validation()
+            .message("Parameter 'name' appears to be a numeric ID. Did you mean to use 'data_type_id'?")
+            .suggestions(List.of(
+                new GhidraMcpError.ErrorSuggestion(
+                    GhidraMcpError.ErrorSuggestion.SuggestionType.FIX_REQUEST,
+                    "Check parameter names",
+                    "Use 'data_type_id' for numeric IDs, 'name' for type names",
+                    null, null
+                )
+            ))
+            .build();
+        throw new GhidraMcpException(error);
+    }
+}
+```
 
-- [ ] All changes are staged and committed
-- [ ] Commit messages follow conventions
-- [ ] Build succeeds (`mvn clean package`)
-- [ ] Tests pass (`mvn test`)
-- [ ] No obvious issues or incomplete work
-- [ ] Related changes are grouped logically
-- [ ] No debug code or temporary files
-- [ ] Ready for review/deployment
+**Reference Implementation:** [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) (lines 782-809)
 
-## 8. Best Practices
+### 3. Address Parsing Helper Pattern
 
-- **Commit Often:** Make small, logical commits rather than large monolithic
-  ones.
-- **Review Before Committing:** Use `git diff` to review changes before staging.
-- **Amend Freely Before Push:** Don't hesitate to amend commits that haven't
-  been pushed yet.
-- **Validate Before Push:** Always run build and tests before pushing.
-- **Keep History Clean:** Use interactive rebase to clean up commit history
-  before pushing.
-- **One Logical Change Per Commit:** If a commit does multiple unrelated things,
-  split it.
+Use the standardized `parseAddress()` helper from `IGhidraMcpSpecification`:
+
+```java
+return getProgram(args, tool)
+    .flatMap(program -> {
+        String addressStr = getRequiredStringArgument(args, ARG_ADDRESS);
+        GhidraMcpTool annotation = this.getClass().getAnnotation(GhidraMcpTool.class);
+        return parseAddress(program, args, addressStr, "operation name", annotation);
+    })
+    .flatMap(addressResult -> {
+        Address address = addressResult.address();
+        // Use the parsed address
+        return executeInTransaction(addressResult.program(), "Description", () -> {
+            // Transaction work with address
+            return result;
+        });
+    });
+```
+
+**Benefits:**
+- Consistent error messages across tools
+- Automatic validation and error handling
+- Returns both `Address` object and `Program` for convenience
+
+**Reference:** [`IGhidraMcpSpecification`](mdc:src/main/java/com/themixednuts/tools/IGhidraMcpSpecification.java) (lines 1320-1420)
+
+### 4. FunctionalInterface for Repeated Try-Catch
+
+For tools with multiple similar operations that need exception handling:
+
+```java
+@FunctionalInterface
+private interface RttiAnalyzer {
+    RTTIAnalysisResult analyze() throws Exception;
+}
+
+private RTTIAnalysisResult tryAnalyze(RttiAnalyzer analyzer, String analyzerType) {
+    try {
+        return analyzer.analyze();
+    } catch (Exception e) {
+        return RTTIAnalysisResult.invalid(
+            "Failed to analyze as " + analyzerType + ": " + e.getMessage()
+        );
+    }
+}
+
+// Usage:
+RTTIAnalysisResult result = tryAnalyze(
+    () -> analyzeRtti0(program, address),
+    "RTTI0"
+);
+```
+
+**Reference Implementation:** [`AnalyzeRttiTool`](mdc:src/main/java/com/themixednuts/tools/AnalyzeRttiTool.java) (lines 160-175)
+
+### 5. Action-Based Routing with Switch Expressions
+
+For grouped tools or tools with multiple operations, use modern switch expressions:
+
+```java
+@Override
+public Mono<? extends Object> execute(McpAsyncServerExchange ex, Map<String, Object> args, PluginTool tool) {
+    return getProgram(args, tool).flatMap(program -> {
+        String action = getRequiredStringArgument(args, ARG_ACTION);
+        GhidraMcpTool annotation = this.getClass().getAnnotation(GhidraMcpTool.class);
+
+        return switch (action) {
+            case ACTION_CREATE -> handleCreate(program, args, ex, annotation);
+            case ACTION_READ -> handleRead(program, args, annotation);
+            case ACTION_UPDATE -> handleUpdate(program, args, ex, annotation);
+            case ACTION_DELETE -> handleDelete(program, args, ex, annotation);
+            default -> Mono.error(createInvalidActionError(action, annotation));
+        };
+    });
+}
+
+private Mono<? extends Object> handleCreate(Program program, Map<String, Object> args,
+                                             McpAsyncServerExchange ex, GhidraMcpTool annotation) {
+    // Implementation
+}
+```
+
+**Benefits:**
+- Clean separation of concerns
+- Easy to test individual actions
+- Better code organization
+- Exhaustive checking by compiler
+
+**Reference Implementation:** [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) (lines 203-242)
+
+---
+
+## Pagination Pattern (Cursor-Based)
+
+For tools implementing cursor-based pagination via `tools/call`:
+
+1.  **Schema:** The `ARG_CURSOR` constant (defined in `IGhidraMcpSpecification`) should **NOT** be included as a property in the `schema()` definition. The MCP client is expected to handle passing the cursor implicitly if `nextCursor` was returned in the previous response.
+2.  **Execution:** Inside the `execute()` method, still attempt to read the cursor using `getOptionalStringArgument(args, ARG_CURSOR)`. This allows the tool logic to handle the presence of a cursor passed by the client.
+3.  **Result:** The `Mono<Object>` returned by `execute()` should emit a [`PaginatedResult<Pojo>`](mdc:src/main/java/com/themixednuts/utils/PaginatedResult.java) object containing the list of results and the next cursor value (if any). This is the preferred structure. Example:
+    ```java
+    // Inside execute(...).map(...) or similar
+    List<MyPojo> pageResults = ... ;
+    String nextCursor = (hasMore) ? calculateNextCursor(...) : null;
+    // Return the PaginatedResult object directly
+    return new PaginatedResult<>(pageResults, nextCursor);
+    ```
+4.  **Cursor Format Standards:** Use consistent, sortable cursor formats:
+    - `"address:name"` - For function listings (e.g., `"0x401000:main"`)
+    - `"name:path"` - For data type listings (e.g., `"MyStruct:/custom/types"`)
+    - `"storage:name"` - For variable listings (e.g., `"Stack[0x8]:localVar"`)
+    - Choose a format that makes comparison logic straightforward
+
+5.  **Reference Implementations:**
+    - [`ListFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ListFunctionsTool.java) (lines 117-170) - Best pagination example
+    - [`ListDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ListDataTypesTool.java) (lines 137-231) - Category-based pagination
+    - [`ManageFunctionsTool.listVariables`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) (lines 934-1016) - Complex cursor logic
+
+---
+
+## Grouped Operations Pattern
+
+*   Implement [`IGroupedTool`](mdc:src/main/java/com/themixednuts/tools/grouped/IGroupedTool.java) alongside `IGhidraMcpSpecification`.
+*   Implement `getToolClassMap()` to return discovered granular tool classes.
+*   **Omit** `schema()` override (default provided by `IGroupedTool`).
+*   Implement `execute()` to call the default `executeGroupedOperations()`.
+*   Returns `GroupedOperationResult` containing list of `OperationResult` objects.
+*   **Reference Implementations:**
+    - [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) - Best example of action routing with comprehensive CRUD
+    - [`ManageSymbolsTool`](mdc:src/main/java/com/themixednuts/tools/ManageSymbolsTool.java) - Clean action handlers with proper error context
+    - [`ManageFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) - Complex operations including prototype updates
+
+```java
+@GhidraMcpTool(name = "Grouped Function Ops", ... category = ToolCategory.GROUPED, ...)
+public class GroupedFunctionOperationsTool implements IGhidraMcpSpecification, IGroupedTool {
+
+    private static final Map<String, Class<? extends IGhidraMcpSpecification>> TOOL_CLASS_MAP;
+    static {
+        TOOL_CLASS_MAP = IGroupedTool.getGranularToolClasses(ToolCategory.FUNCTIONS.getCategoryName())
+            .stream()
+            .collect(Collectors.toConcurrentMap( // Use ConcurrentMap
+                toolClass -> toolClass.getAnnotation(GhidraMcpTool.class).mcpName(),
+                toolClass -> toolClass
+            ));
+    }
+
+    @Override
+    public Map<String, Class<? extends IGhidraMcpSpecification>> getToolClassMap() {
+        return TOOL_CLASS_MAP;
+    }
+
+    // schema() method is provided by IGroupedTool default
+
+    @Override
+    public Mono<? extends Object> execute(McpAsyncServerExchange ex, Map<String, Object> args, PluginTool tool) {
+        // Delegate execution to the default grouped operations handler
+        return executeGroupedOperations(ex, args, tool);
+    }
+}
+```
+
+---
+
+## Ghidra API Documentation Links
+
+*   **Ghidra Commands (`Cmd`) are found within the following `ghidra.app.cmd.*` packages:** (Note: these are package summaries, refer directly to the Ghidra API docs for specific command classes)
+    *   [`ghidra.app.cmd.analysis`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/analysis/package-summary.html)
+    *   [`ghidra.app.cmd.comments`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/comments/package-summary.html)
+    *   [`ghidra.app.cmd.data`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/data/package-summary.html)
+    *   [`ghidra.app.cmd.disassemble`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/disassemble/package-summary.html)
+    *   [`ghidra.app.cmd.equate`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/equate/package-summary.html)
+    *   [`ghidra.app.cmd.formats`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/formats/package-summary.html)
+    *   [`ghidra.app.cmd.function`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/function/package-summary.html)
+    *   [`ghidra.app.cmd.label`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/label/package-summary.html)
+    *   [`ghidra.app.cmd.memory`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/memory/package-summary.html)
+    *   [`ghidra.app.cmd.module`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/module/package-summary.html)
+    *   [`ghidra.app.cmd.refs`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/refs/package-summary.html)
+    *   [`ghidra.app.cmd.register`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/cmd/register/package-summary.html)
+*   **Core Models (`Program`, `Listing`, `DataType`, `Function`, `Address`, `Symbol`, etc.) live under `ghidra.program.model.*`:** (Explore these packages in the Ghidra API docs for classes like `ghidra.program.model.listing.Program`, `ghidra.program.model.symbol.SymbolTable` etc.)
+    *   Listing API: [`ghidra.program.model.listing`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/listing/package-summary.html)
+    *   Address API: [`ghidra.program.model.address`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/address/package-summary.html)
+    *   Symbol API: [`ghidra.program.model.symbol`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/symbol/package-summary.html)
+    *   Data API: [`ghidra.program.model.data`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/data/package-summary.html)
+    *   PCode API: [`ghidra.program.model.pcode`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/pcode/package-summary.html)
+    *   Etc.
+*   **Decompiler:** [`ghidra.app.decompiler.DecompInterface`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/app/decompiler/DecompInterface.html)
+*   **Task Monitor:** [`ghidra.util.task.TaskMonitor`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/util/task/TaskMonitor.html)
+
+### Specific API Class References
+*   [`SymbolManager` (implements `SymbolTable`)](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/database/symbol/SymbolManager.html)
+*   [`HighSymbol`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/pcode/HighSymbol.html)
+*   [`FunctionManager`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/listing/FunctionManager.html)
+*   [`HighVariable`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/pcode/HighVariable.html)
+*   [`HighFunction`](mdc:https:/ghidra.re/ghidra_docs/api/ghidra/program/model/pcode/HighFunction.html)
+
+---
+
+## Best Practices Summary
+
+### DO:
+✅ **Always use structured error handling** with `GhidraMcpException` and `GhidraMcpError`
+✅ **Use constants** from `IGhidraMcpSpecification` or define tool-specific constants - NO magic strings
+✅ **Prefer `private static record`** for context passing between reactive steps
+✅ **Use `Mono.fromCallable()`** for wrapping synchronous, non-reactive code
+✅ **Use `getProgram().flatMap()`** for dependent operations that need Program context
+✅ **Use enums with validation** for parameter types with multiple related values
+✅ **Implement smart error detection** to catch common user mistakes (e.g., parameter swaps)
+✅ **Use helper methods** - define them at the bottom of the class with clear JavaDoc
+✅ **Return `PaginatedResult<T>`** for list operations with cursor-based pagination
+✅ **Use switch expressions** for action routing in multi-operation tools
+✅ **Test your tools** with `mvn test` before finalizing
+✅ **Reuse existing POJOs** from `com.themixednuts.models` when possible
+
+### DON'T:
+❌ **Don't use simple exceptions** like `IllegalArgumentException` - use `GhidraMcpException`
+❌ **Don't use magic strings** - always define and use constants
+❌ **Don't use `Map<String, Object>` for context** - use type-safe records or tuples
+❌ **Don't mix error handling styles** - be consistent within a tool
+❌ **Don't override `specification()`** - use the default from `IGhidraMcpSpecification`
+❌ **Don't use `.flatMap(Mono.fromCallable())` for simple sync logic** - use `.map()` instead
+❌ **Don't forget to register** new tools in `META-INF/services/com.themixednuts.tools.IGhidraMcpSpecification`
+❌ **Don't create new categories** in `ToolCategory` enum - use existing or `UNCATEGORIZED`
+❌ **Don't write poor mcpDescription** - follow the structured XML-style format for complex tools
+❌ **Don't add unnecessary comments** - avoid comments that restate the code
+
+### Key Reference Tools:
+| Pattern | Best Reference Tool |
+|---------|-------------------|
+| **Error Handling** | [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) |
+| **Pagination** | [`ListFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ListFunctionsTool.java) |
+| **Reactive Patterns** | [`ManageSymbolsTool`](mdc:src/main/java/com/themixednuts/tools/ManageSymbolsTool.java) |
+| **Context Records** | [`ManageFunctionsTool`](mdc:src/main/java/com/themixednuts/tools/ManageFunctionsTool.java) |
+| **Enum Validation** | [`SearchMemoryTool`](mdc:src/main/java/com/themixednuts/tools/SearchMemoryTool.java) |
+| **Action Routing** | [`ManageDataTypesTool`](mdc:src/main/java/com/themixednuts/tools/ManageDataTypesTool.java) |
+| **Project-Level** | [`ListProgramsTool`](mdc:src/main/java/com/themixednuts/tools/ListProgramsTool.java) |
+
+---
+
+## Quick Checklist for New Tools
+
+Before submitting a new tool, verify:
+
+- [ ] Tool class implements `IGhidraMcpSpecification`
+- [ ] `@GhidraMcpTool` annotation is complete with all fields
+- [ ] Tool is registered in `META-INF/services/com.themixednuts.tools.IGhidraMcpSpecification`
+- [ ] All constants are defined (no magic strings)
+- [ ] Structured error handling is used throughout (`GhidraMcpException`)
+- [ ] Context passing uses records or tuples (not `Map<String, Object>`)
+- [ ] Appropriate reactive patterns are used (`.map()` vs `.flatMap()`)
+- [ ] `mcpDescription` follows structured format for complex tools
+- [ ] Pagination uses `PaginatedResult<T>` if applicable
+- [ ] Helper methods are defined at the bottom with JavaDoc
+- [ ] No unnecessary comments or commented-out code
+- [ ] `mvn test` passes successfully
+- [ ] Code is well-formatted and imports are cleaned up
 
 ---
 > Source: [themixednuts/GhidraMCP](https://github.com/themixednuts/GhidraMCP) — distributed by [TomeVault](https://tomevault.io).
