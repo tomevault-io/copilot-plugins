@@ -1,23 +1,31 @@
-## git-workflow
+## mcp-plugin-architecture
 
-> Follow these best practices when working with Git in this project:
+> This plugin follows a structured architecture for tools and resources:
 
-Follow these best practices when working with Git in this project:
+# MCP Plugin Architecture
 
-- NEVER execute Git commands without explicit user permission
-- Always propose Git commands to the user before running them
-- Always disable the pager when using Git in scripts or automation:
-  ```bash
-  git --no-pager <command>
-  ```
-- Use non-interactive commands when running in scripts or automation:
-  ```bash
-  git commit -m "message" # Instead of git commit
-  git merge --no-edit branch-name # Instead of interactive merge
-  git rebase -i HEAD~3 # Avoid when in automation
-  ```
-- Ensure all checks pass before merging
-- Reference the [commit message format](mdc:.cursor/rules/commit-message-format.mdc) for proper commit messages
+This plugin follows a structured architecture for tools and resources:
+
+## Tools
+- Tools are defined in the [tools/](mdc:tools) directory
+- Each tool follows a registration pattern with name, description, and handler
+- Tools should use the logger from [tools/logging.ts](mdc:tools/logging.ts)
+- Tools for file access should use VaultFileResource
+
+## Resources
+- Resources provide standardized access to Obsidian data
+- The [tools/vault_file_resource.ts](mdc:tools/vault_file_resource.ts) provides the foundation for file access
+- Resources must be registered with the MCP server
+- Resources should handle daily notes through [tools/daily_note_utils.ts](mdc:tools/daily_note_utils.ts)
+
+## Daily Notes Support
+- Daily notes follow the special scheme: `daily:///<date>` (e.g., `daily:///today`, `daily:///2024-01-15`)
+- Support aliases: "today", "yesterday", "tomorrow"
+
+## Server Implementation
+- MCP server uses `StreamableHTTPServerTransport` from `@modelcontextprotocol/sdk`
+- Server is defined in [mcp_server.ts](mdc:mcp_server.ts)
+- HTTP endpoint at `/mcp` handles JSON-RPC requests with Bearer token authentication
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
