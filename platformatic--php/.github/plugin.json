@@ -1,0 +1,9 @@
+{
+  "name": "platformatic--php",
+  "displayName": "php",
+  "description": "PHP stackable for Watt",
+  "version": "1.0.0",
+  "author": "platformatic",
+  "homepage": "https://github.com/platformatic/php",
+  "skills": []
+}
