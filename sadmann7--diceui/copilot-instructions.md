@@ -1,176 +1,214 @@
-## react-patterns
+## tablcn-migration
 
-> - **UIs are thin wrappers over data** - avoid using local state (like useState) unless absolutely necessary and it's independent of business logic
+> enableSearch?: boolean;      // Ctrl+F search
 
+# Tablcn to DiceUI Migration
 
-# React Patterns and Best Practices
+This rule guides the migration of data-grid and data-table changes from the tablcn upstream repository to the diceui docs.
 
-## Core Philosophy
+## When to Use
 
-- **UIs are thin wrappers over data** - avoid using local state (like useState) unless absolutely necessary and it's independent of business logic
-- Even when local state seems needed, consider if you can flatten the UI state into a basic calculation
-- useState is only necessary if it's truly reactive and cannot be derived
+Use this rule when PRs are merged into the tablcn repository and need to be synced to diceui. Common scenarios:
+- New features added to data-grid or data-table
+- Bug fixes in components
+- New keyboard shortcuts or props added
+- API changes to hooks or components
 
-## State Management
+---
 
-- **Choose state machines over multiple useStates** - multiple useState calls make code harder to reason about
-- Prefer a single state object with reducers for complex state logic
-- Co-locate related state rather than spreading it across multiple useState calls
+## Data Grid Migration
 
-## Component Architecture
+### 1. Fix Import Paths
 
-- **Create new component abstractions when nesting conditional logic**
-- Move complex logic to new components rather than deeply nested conditionals
-- Use ternaries only for small, easily readable logic
-- Avoid top-level if/else statements in JSX - extract to components instead
+After updating registry files, fix all incorrect import paths:
 
-## Side Effects and Dependencies
+**Files to check:**
+- `docs/lib/data-grid.ts`
+- `docs/hooks/use-data-grid.ts`
+- `docs/hooks/use-data-grid-undo-redo.ts` (if exists)
+- `docs/components/data-grid/*.tsx` (all files)
 
-- **Avoid putting dependent logic in useEffects** - it causes misdirection about what the logic is doing
-- Choose to explicitly define logic rather than depend on implicit reactive behavior
-- When useEffect is necessary, be explicit about dependencies and cleanup
-- Prefer derived state and event handlers over effect-driven logic
-
-## Timing and Async Patterns
-
-- **setTimeouts are flaky and usually a hack** - always provide a comment explaining why setTimeout is needed
-- Consider alternatives like:
-  - Proper loading states
-  - Suspense boundaries
-  - Event-driven patterns
-  - State machines with delayed transitions
-  - requestAnimateFrame and queuMicrotask
-
-## Code Quality Impact
-
-These patterns prevent subtle bugs that pile up into major issues. While code may "work" without following these guidelines, violations often lead to:
-
-- Hard-to-debug timing issues
-- Unexpected re-renders
-- State synchronization problems
-- Complex refactoring requirements
-
-## Examples
-
-### ❌ Avoid: Multiple useState
-
+**Import path transformations:**
 ```tsx
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(null);
-const [data, setData] = useState(null);
+// WRONG - from tablcn registry
+from "@/components/data-grid/data-grid"
+
+// CORRECT - split into lib and types
+from "@/lib/data-grid"      // for utility functions
+from "@/types/data-grid"    // for type imports
 ```
 
-### ✅ Prefer: State machine
+**Utility functions (go to @/lib/data-grid):**
+- `flexRender`, `getCellKey`, `parseCellKey`
+- `getColumnBorderVisibility`, `getColumnPinningStyle`, `getColumnVariant`
+- `getRowHeightValue`, `getLineCount`
+- `getIsFileCellData`, `getIsInPopover`, `getScrollDirection`
+- `matchSelectOption`, `scrollCellIntoView`
+- `getUrlHref`, `parseLocalDate`, `formatDateToString`, `formatDateForDisplay`
+- `formatFileSize`, `getFileIcon`
 
+**Types (go to @/types/data-grid):**
+- `Direction`, `RowHeightValue`, `CellPosition`, `CellRange`
+- `CellOpts`, `CellUpdate`, `CellSelectOption`
+- `SelectionState`, `ContextMenuState`, `PasteDialogState`
+- `NavigationDirection`, `SearchState`, `DataGridCellProps`, `FileCellData`
+- `FilterValue`, `*FilterOperator` types
+
+### 2. Update Documentation
+
+Update `docs/content/docs/components/data-grid.mdx`:
+
+- **Installation (Step 2):** Add new optional component/hook installations
+- **Installation (Step 3):** Update import path fix instructions for new files
+- **Usage:** Add `### With [Feature Name]` sections with code examples
+- **API Reference:** Add `<AutoTypeTable>` for new hooks/components
+- **Keyboard Interactions:** Add new shortcuts to appropriate category
+- **Features:** Update Core Features, Cell Variants, or Advanced Features
+
+### 3. Update Types
+
+Update `docs/types/docs/data-grid.ts`:
+- Add new prop/return interfaces with JSDoc comments
+- Update `DataGridKeyboardShortcutsProps` for new keyboard features
+
+---
+
+## Data Table Migration
+
+### 1. Fix Import Paths
+
+**Files to check:**
+- `docs/components/data-table/data-table.tsx`
+- `docs/components/data-table/data-table-toolbar.tsx`
+- `docs/lib/data-table.ts`
+- `docs/lib/parsers.ts`
+- `docs/hooks/use-data-table.ts`
+
+**Import path transformations:**
 ```tsx
-function useLazyRef<T>(fn: () => T) {
-  const ref = React.useRef<T | null>(null);
+// WRONG - from tablcn registry
+from "@/components/data-table/data-table"
 
-  if (ref.current === null) {
-    ref.current = fn();
-  }
-
-  return ref as React.RefObject<T>;
-}
-
-interface Store<T> {
-  subscribe: (callback: () => void) => () => void
-  getState: () => T
-  setState: <K extends keyof T>(key: K, value: T[K]) => void
-  notify: () => void
-}
-
-function createStore<T>(
-  listenersRef: React.RefObject<Set<() => void>>,
-  stateRef: React.RefObject<T>,
-  onValueChange?: Partial<{
-    [K in keyof T]: (value: T[K], store: Store<T>) => void
-  }>
-): Store<T> {
-  const store: Store<T> = {
-      subscribe: (cb) => {
-          listenersRef.current.add(cb);
-      return () => listenersRef.current.delete(cb);
-    },
-    getState: () => stateRef.current,
-    setState: (key, value) => {
-      if (Object.is(stateRef.current[key], value)) return;
-      stateRef.current[key] = value;
-      onValueChange?.[key]?.(value, store);
-      store.notify();
-    },
-    notify: () => {
-      for (const cb of listenersRef.current) {
-        cb();
-      }
-    },
-  };
-
-  return store;
-}
-
-function useStoreSelector<T, U>(
-  store: Store<T>,
-  selector: (state: T) => U
-): U {
-  const getSnapshot = React.useCallback(
-    () => selector(store.snapshot()),
-    [store, selector]
-  );
-  
-  return React.useSyncExternalStore(
-    store.subscribe,
-    getSnapshot,
-    getSnapshot
-  );
-}
+// CORRECT - split into lib, config, and types
+from "@/lib/data-table"      // for utility functions (getCommonPinningStyles, etc.)
+from "@/config/data-table"   // for dataTableConfig
+from "@/types/data-table"    // for type imports
 ```
 
-### ❌ Avoid: Complex conditionals in JSX
+**Utility functions (go to @/lib/data-table):**
+- `getCommonPinningStyles`
+- `getFilterOperators`
+- `getDefaultFilterOperator`
+- Other utility functions
 
-```tsx
-return (
-  <div>
-    {user ? (
-      user.isAdmin ? (
-        <AdminPanel />
-      ) : user.isPremium ? (
-        <PremiumDashboard />
-      ) : (
-        <BasicDashboard />
-      )
-    ) : (
-      <LoginForm />
-    )}
-  </div>
-);
+**Config (go to @/config/data-table):**
+- `dataTableConfig`
+
+**Types (go to @/types/data-table):**
+- `ExtendedColumnFilter`, `ExtendedColumnSort`
+- `FilterOperator`, `FilterVariant`
+- `DataTableConfig`, `ColumnType`
+- Other type definitions
+
+### 2. Update Documentation
+
+Update `docs/content/docs/components/data-table.mdx`:
+
+- **Installation (Step 3/4):** Add new optional components
+- **Installation (Step 4/5):** Update import path fix instructions
+- **Usage:** Add new usage examples
+- **API Reference:** Add `<AutoTypeTable>` references
+- **Features:** Update feature lists
+
+### 3. Update Types
+
+Update `docs/types/docs/data-table.ts`:
+- Add new interfaces with JSDoc comments
+- Update existing interfaces when props change
+
+---
+
+## Quick Commands
+
+**Find data-grid files with wrong imports:**
+```bash
+grep -r 'from "@/components/data-grid/data-grid"' docs/
 ```
 
-### ✅ Prefer: Component abstraction
+**Find data-table files with wrong imports:**
+```bash
+grep -r 'from "@/components/data-table/data-table"' docs/
+```
+
+**Data Grid files commonly needing fixes:**
+```
+docs/lib/data-grid.ts
+docs/hooks/use-data-grid.ts
+docs/hooks/use-data-grid-undo-redo.ts
+docs/components/data-grid/data-grid.tsx
+docs/components/data-grid/data-grid-cell.tsx
+docs/components/data-grid/data-grid-cell-wrapper.tsx
+docs/components/data-grid/data-grid-cell-variants.tsx
+docs/components/data-grid/data-grid-column-header.tsx
+docs/components/data-grid/data-grid-context-menu.tsx
+docs/components/data-grid/data-grid-paste-dialog.tsx
+docs/components/data-grid/data-grid-row.tsx
+docs/components/data-grid/data-grid-search.tsx
+```
+
+**Data Table files commonly needing fixes:**
+```
+docs/lib/data-table.ts
+docs/lib/parsers.ts
+docs/hooks/use-data-table.ts
+docs/components/data-table/data-table.tsx
+docs/components/data-table/data-table-toolbar.tsx
+```
+
+---
+
+## Example Migration PR Description
+
+```markdown
+## Changes from tablcn
+
+### Data Grid
+- feat(data-grid): add undo-redo support (#1093)
+- fix(data-grid): improve delete rows shortcut (#1094)
+
+### Data Table
+- feat(data-table): add new filter variant (#XXX)
+
+## DiceUI Updates
+
+### Import Path Fixes
+- Fixed imports in data-grid components and hooks
+- Fixed imports in data-table components
+
+### Documentation
+- Added new hook/component installations
+- Added usage examples
+- Added API references
+- Updated keyboard shortcuts
+
+### Types
+- Added new interfaces for API documentation
+```
+
+---
+
+## DataGridKeyboardShortcuts Flags
+
+When adding features with keyboard shortcuts:
 
 ```tsx
-function UserDashboard({ user }) {
-  if (!user) return <LoginForm />;
-  if (user.isAdmin) return <AdminPanel />;
-  if (user.isPremium) return <PremiumDashboard />;
-  return <BasicDashboard />;
+export interface DataGridKeyboardShortcutsProps {
+  enableSearch?: boolean;      // Ctrl+F search
+  enableUndoRedo?: boolean;    // Ctrl+Z, Ctrl+Shift+Z
+  enablePaste?: boolean;       // Ctrl+V paste
+  enableRowAdd?: boolean;      // Shift+Enter row insert
+  enableRowsDelete?: boolean;  // Ctrl+Backspace/Delete row delete
 }
-```
-
-### ❌ Avoid: Effect-driven logic
-
-```tsx
-useEffect(() => {
-  if (user && user.preferences) {
-    setTheme(user.preferences.theme);
-  }
-}, [user]);
-```
-
-### ✅ Prefer: Derived values
-
-```tsx
-const theme = user?.preferences?.theme ?? 'default';
 ```
 
 ---
