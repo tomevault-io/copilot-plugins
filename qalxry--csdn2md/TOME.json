@@ -1,0 +1,44 @@
+{
+  "name": "csdn2md",
+  "owner": "Qalxry",
+  "repo": "csdn2md",
+  "description": "\u4e0b\u8f7dCSDN\u6587\u7ae0\u4e3a\u8fd1\u4e4e\u5b8c\u7f8e\u7684Markdown\u6587\u4ef6\uff0c\u652f\u6301\u4e13\u680f\u6279\u91cf\u4e0b\u8f7d\u3002\u6392\u7248\u7ecf\u8fc7\u7cbe\u5fc3\u8c03\u6559\uff0c\u6700\u5927\u7a0b\u5ea6\u652f\u6301CSDN\u7f16\u8f91\u5668\u7684\u8bed\u6cd5\u7279\u6027\uff1aKaTeX\u5185\u8054\u516c\u5f0f\u3001KaTeX\u516c\u5f0f\u5757\u3001\u56fe\u7247\u3001\u5185\u8054\u4ee3\u7801\u3001\u4ee3\u7801\u5757\u3001Bilibili\u89c6\u9891\u63a7\u4ef6\u3001\u6709\u5e8f/\u65e0\u5e8f/\u4efb\u52a1/\u81ea\u5b9a\u4e49\u5217\u8868\u3001\u76ee\u5f55\u3001\u6ce8\u811a\u3001\u52a0\u7c97\u659c\u4f53\u5220\u9664\u7ebf\u4e0b\u6ed1\u7ebf\u9ad8\u4eae\u3001\u5185\u5bb9\u5c45\u5de6/\u4e2d/\u53f3\u3001\u5f15\u7528\u5757\u3001\u94fe\u63a5\u3001\u5feb\u6377\u952e\uff08kbd\uff09\u3001\u8868\u683c\u3001\u4e0a\u4e0b\u6807\u3001\u7518\u7279\u56fe\u3001UML\u56fe\u3001FlowChart\u6d41\u7a0b\u56fe\u7b49\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Qalxry/csdn2md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T01:21:13Z"
+}
