@@ -1,0 +1,9 @@
+{
+  "name": "kdroidfilter--platform-tools",
+  "displayName": "Platform-Tools",
+  "description": "PlatformTools is a Kotlin Multiplatform library designed to provide platform-specific utilities and tools for managing operating systems, cache directories, and application versioning seamlessly acros",
+  "version": "1.0.0",
+  "author": "kdroidFilter",
+  "homepage": "https://github.com/kdroidFilter/Platform-Tools",
+  "skills": []
+}
