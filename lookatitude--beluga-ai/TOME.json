@@ -1,0 +1,87 @@
+{
+  "name": "beluga-ai",
+  "owner": "lookatitude",
+  "repo": "beluga-ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-writing",
+      "path": ".claude/skills/doc-writing",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/doc-writing",
+      "description": ""
+    },
+    {
+      "name": "go-framework",
+      "path": ".claude/skills/go-framework",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/go-framework",
+      "description": ""
+    },
+    {
+      "name": "go-interfaces",
+      "path": ".claude/skills/go-interfaces",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/go-interfaces",
+      "description": ""
+    },
+    {
+      "name": "go-testing",
+      "path": ".claude/skills/go-testing",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/go-testing",
+      "description": ""
+    },
+    {
+      "name": "provider-implementation",
+      "path": ".claude/skills/provider-implementation",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/provider-implementation",
+      "description": ""
+    },
+    {
+      "name": "streaming-patterns",
+      "path": ".claude/skills/streaming-patterns",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/streaming-patterns",
+      "description": ""
+    },
+    {
+      "name": "website-development",
+      "path": ".claude/skills/website-development",
+      "github_url": "https://github.com/lookatitude/beluga-ai/tree/main/.claude/skills/website-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lookatitude/beluga-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T00:30:19Z"
+}
