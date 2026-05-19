@@ -1,33 +1,84 @@
-## swiftui-accessibility
+## testing-conventions
 
-> SwiftUI accessibility rules for VoiceOver — labels, hints, traits, values, and attribute preservation
+> Testing conventions — JUnit 4, Kotest property tests, instrumented tests, what to test when
 
 
-# SwiftUI Accessibility Rules
+# Testing Conventions
 
-A core user base relies on VoiceOver. **Every UI change must preserve and improve accessibility.** Breaking accessibility is treated as seriously as breaking functionality.
+## Frameworks
 
-## Required modifiers
+- **Unit tests**: JUnit 4
+- **Property tests**: Kotest Property Testing (`io.kotest:kotest-property`)
+- **UI tests**: Compose UI Testing (`ui-test-junit4`)
+- **iOS tests**: XCTest
 
-- Use `.accessibilityLabel()` on interactive elements and images
-- Use `.accessibilityHint()` for non-obvious interactions
-- Mark section titles with `.accessibilityAddTraits(.isHeader)`
-- Use `.accessibilityValue()` for dynamic state (sliders, pickers)
-- Custom drawn views need `.accessibilityRepresentation` or `.accessibilityElement(children:)`
+## Running tests
 
-## Never remove existing accessibility modifiers
+```bash
+./gradlew testDebugUnitTest       # All Android unit tests
+./gradlew connectedAndroidTest    # Instrumented tests (requires emulator/device)
+```
 
-Do not remove `.accessibilityLabel()`, `.accessibilityHint()`, `.accessibilityAddTraits()`, or `.accessibilityValue()` during refactoring. If restructuring a view, preserve all accessibility modifiers in the new structure.
+## Property tests (Kotest)
 
-## Label style
+Property tests generate thousands of random inputs and verify invariants. Use `runBlocking { checkAll(...) { ... } }` with JUnit 4.
 
-- Sentence case: `"Play all inversions"`, not `"Play All Inversions"`
-- Action-oriented: `"Open settings"`, `"Delete note"`
-- Conditional for toggles: `isPlaying ? "Stop" : "Play"`
+```kotlin
+@Test
+fun `transpose identity`() = runBlocking {
+    checkAll(Arb.string(), Arb.int(0..11)) { chord, semitones ->
+        val result = transpose(transpose(chord, semitones), -semitones)
+        assertEquals(chord, result)
+    }
+}
+```
 
-## Helper utilities
+Domain logic (`domain/` package) is pure Kotlin — add property tests for new invariants.
 
-`AccessibilityHelper` in `iosApp/UkuleleCompanion/Helpers/` provides VoiceOver announcement support. Use it for dynamic announcements that cannot be expressed with static modifiers.
+## What to test when
+
+- **Chord/note logic changes**: Test both High-G and Low-G tuning
+- **Fretboard UI changes**: Test left-handed mode
+- **UI changes**: Verify light, dark, and high-contrast themes
+- **New domain logic**: Add property tests for invariants
+- **Accessibility changes**: Run instrumented accessibility tests
+
+## Existing test files
+
+### Unit tests (`app/src/test/`)
+
+| File | Tests |
+|------|-------|
+| `PitchDetectorTest.kt` | YIN pitch detection with synthetic sine waves |
+| `AudioResamplerTest.kt` | Downsampling ratio, empty input, frequency preservation |
+| `FFTProcessorTest.kt` | DC signal, pure sine peak, FFT/IFFT round-trip |
+| `TunerNoteMapperTest.kt` | Frequency-to-note mapping, string matching, hysteresis |
+| `TtsAnnouncementThrottlerTest.kt` | Tuner spoken feedback throttling |
+
+### Property tests (`app/src/test/`, `*PropertyTest.kt`)
+
+| File | Invariants |
+|------|------------|
+| `TransposePropertyTest.kt` | Identity, inverse round-trip, associativity, chord name preservation |
+| `ChordNameParserPropertyTest.kt` | Arbitrary string robustness, known chord parsing, case insensitivity |
+| `ChordDetectorPropertyTest.kt` | Empty/single/pair handling, known formula detection |
+| `FFTProcessorPropertyTest.kt` | FFT/IFFT round-trip with random signals, sine peak detection |
+| `PitchDetectorPropertyTest.kt` | Silent/quiet buffer rejection, pure sine accuracy |
+| `ChordSheetTransposePropertyTest.kt` | Zero/twelve identity, double transpose round-trip |
+| `CapoCalculatorPropertyTest.kt` | Capo position range, score ordering, voicing fret range |
+
+### Instrumented tests (`app/src/androidTest/`)
+
+| File | Tests |
+|------|-------|
+| `AccessibilityTest.kt` | Content descriptions, headings, clickable node descriptions |
+| `TunerSpokenFeedbackTest.kt` | Live-region semantics suppressed when spoken feedback is enabled |
+
+### iOS tests (`iosApp/UkuleleCompanionTests/`)
+
+| File | Tests |
+|------|-------|
+| `SettingsViewModelTests.swift` | Default values, save/load, export/import, onboarding flag |
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
