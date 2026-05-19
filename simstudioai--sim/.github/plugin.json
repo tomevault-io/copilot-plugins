@@ -1,0 +1,9 @@
+{
+  "name": "simstudioai--sim",
+  "displayName": "sim",
+  "description": "Build, deploy, and orchestrate AI agents. Sim is the central intelligence layer for your AI workforce.",
+  "version": "1.0.0",
+  "author": "simstudioai",
+  "homepage": "https://github.com/simstudioai/sim",
+  "skills": []
+}
