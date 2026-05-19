@@ -1,0 +1,9 @@
+{
+  "name": "migratorywhale--stackchan-mcp",
+  "displayName": "stackchan-mcp",
+  "description": "Give your AI a body. MCP bridge for Stack-chan (M5Stack CoreS3) \u2014 speak, listen, see, move, emote.",
+  "version": "1.0.0",
+  "author": "migratorywhale",
+  "homepage": "https://github.com/migratorywhale/stackchan-mcp",
+  "skills": []
+}
