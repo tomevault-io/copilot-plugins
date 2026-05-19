@@ -1,166 +1,108 @@
-## network-quality-testing
+## network-quality-variance-scoring
 
-> The NetworkQualityMonitor is a comprehensive network quality testing framework designed for the DuckDuckGo Privacy Browser. It provides pre-flight network connectivity and performance checks to ensure optimal browser performance.
+> NetworkQualityMonitor displays variance in **milliseconds** (user-friendly) but scores using **Coefficient of Variation (CV)** internally. This provides fair comparison across different latency ranges.
 
 
-# NetworkQualityMonitor Testing Framework
+# Network Quality Variance Scoring Using Coefficient of Variation
 
 ## Overview
 
-The NetworkQualityMonitor is a comprehensive network quality testing framework designed for the DuckDuckGo Privacy Browser. It provides pre-flight network connectivity and performance checks to ensure optimal browser performance.
+NetworkQualityMonitor displays variance in **milliseconds** (user-friendly) but scores using **Coefficient of Variation (CV)** internally. This provides fair comparison across different latency ranges.
 
-## Architecture Principles
+## Display vs Scoring
 
-### SOLID Design
-- **Single Responsibility**: Each tester handles one specific network metric
-- **Open/Closed**: Protocol-based design allows extension without modification
-- **Dependency Injection**: All dependencies injected for testability
-- **Interface Segregation**: Focused protocols for each test type
+- **UI Display**: Shows variance in milliseconds (e.g., "5.2 ms (10.4%)")
+- **Internal Scoring**: Uses CV = (stdDev/mean) × 100 for penalties
+- **Quality Labels**: Based on CV percentage thresholds
 
-### Component Structure
-```
-NetworkQualityMonitor (Orchestrator)
-├── HttpResponseTester (Latency)
-├── BandwidthTester (Speed)
-├── DNSTester (Resolution)
-├── BufferBloatTester (Congestion)
-└── NetworkScoreCalculator (Scoring)
-```
+## Why CV for Scoring?
 
-## Test Implementation Details
+A 10ms variance means different things at different latencies:
+- 10ms variance on 50ms latency = 20% CV (moderate issue)
+- 10ms variance on 200ms latency = 5% CV (excellent consistency)
 
-### HTTP Response Testing (Latency)
-- **Multi-endpoint sampling**: Tests CDN endpoints (CloudFlare, Fastly, CloudFront)
-- **Statistical analysis**: Calculates median, mean, standard deviation, CV
-- **Smart aggregation**: Best site selection with weighted penalties
-- **Metrics**: P50/P95 percentiles, variance, failure rate
+Using CV ensures fair scoring regardless of base latency.
 
-### Bandwidth Testing
-- **Server selection**: Quick 10MB test, then full test on best servers
-- **Download measurement**: Multiple runs, returns maximum speed
-- **Upload measurement**: Chunked uploads (50MB x 2)
-- **Optimization**: Range requests, cache-busting, timeout protection
+## CV Thresholds and Test Iterations
 
-### DNS Testing
-- **Domain resolution**: Popular domains (google.com, cloudflare.com)
-- **Timing precision**: CFAbsoluteTime for microsecond accuracy
-- **Failure tracking**: Resolution success/failure rates
-- **System resolver**: Uses native DNS resolution
+| CV Range | Quality | Penalty | Test Iterations | Testing Impact |
+|----------|---------|---------|-----------------|----------------|
+| <10% | Excellent | 0 pts | ~30 iterations | Quick reliable tests |
+| 10-20% | Good | -20 pts | ~100 iterations | Reasonable test time |
+| 20-40% | Fair | -40 pts | ~400 iterations | Lengthy test cycles |
+| >40% | Poor | -60 to -80 pts | 1000+ iterations | Practically unreliable |
 
-### Buffer Bloat Testing
-- **Baseline measurement**: Unloaded network latency
-- **Load testing**: Concurrent downloads during latency measurement
-- **Grade assignment**: A-F based on latency increase percentage
-- **Real-time impact**: Critical for video calls, gaming
+## Implementation
 
-## Scoring Algorithm
-
-### Component Weights
-- HTTP Response: 25%
-- Bandwidth: 35%
-- DNS: 15%
-- Buffer Bloat: 25%
-
-### Quality Ratings
-- **Excellent (80-100)**: Optimal performance
-- **Good (60-79)**: Good for most tasks
-- **Fair (40-59)**: May experience issues
-- **Poor (0-39)**: Significant issues likely
-
-## Testing Best Practices
-
-### Unit Testing
 ```swift
-// Use protocol-based mocks
-class MockHttpResponseTester: HttpResponseTesting {
-    func performTest(...) async throws -> HttpResponseResult {
-        // Return deterministic results
-    }
+// Display shows milliseconds
+value: String(format: "%.1f ms", responseVariance)
+
+// Quality label uses CV internally
+let cv = (variance / avgResponseTime) * 100
+if cv < 10 { return "Excellent" }
+else if cv < 20 { return "Good" }
+else if cv < 40 { return "Fair" }
+else { return "Poor" }
+
+// Scoring penalty based on CV
+switch coefficientOfVariation {
+case ..<10: penalty = 0
+case 10..<20: penalty = 20
+case 20..<40: penalty = 40
+case 40..<60: penalty = 60
+default: penalty = 80
 }
 ```
 
-### Integration Testing
-- Mock NetworkSession for controlled responses
-- Test error scenarios and edge cases
-- Verify progress callback behavior
+## Statistical Analysis
 
-### Performance Testing
-- Monitor memory usage during large downloads
-- Verify timeout handling
-- Test concurrent execution
+Smart Warm-up Phase:
+  - Initial "cold" request to each endpoint (DNS resolution, TLS handshake)
+  - These measurements are discarded to eliminate first-request bias
+  - Ensures subsequent measurements reflect warm connection performance
 
-## Usage Patterns
+Interleaved Sampling:
+  - Endpoints tested in randomized rounds (not consecutively)
+  - Prevents TCP connection reuse artifacts
+  - 15 samples per endpoint with 50ms delays between measurements
+  - More representative of real browsing patterns
 
-### Basic Implementation
-```swift
-let monitor = NetworkQualityMonitor()
-let results = try await monitor.runTest()
-print("Quality: \(results.quality.rawValue)")
-```
+Per-Site Calculations:
+  - Calculate median response time (robust to outliers)
+  - Calculate variance and standard deviation
+  - Track individual site consistency
 
-### With Progress Reporting
-```swift
-monitor.progressCallback = { progress, message in
-    // Update UI with progress
-}
-```
+Global Aggregation:
+  adjustedResponseTime = median(all_site_medians)
 
-### Custom Configuration
-```swift
-let config = TestConfiguration(
-    latencyTestURLs: customURLs,
-    latencySamplesPerEndpoint: 20
-)
-let monitor = NetworkQualityMonitor(configuration: config)
-```
+Variance Scoring:
+  - Display: Standard deviation in milliseconds (user-friendly)
+  - Scoring: Coefficient of Variation (CV = stdDev/mean × 100)
+  - CV determines penalties based on relative variance
 
-## Security Considerations
+Dual Penalty System:
+  1. CV-based: Relative variance penalties (up to 80 points)
+  2. P95-P50 Spread: Percentage-based spike penalties (up to 40 points)
 
-- **HTTPS only**: All endpoints use secure connections
-- **No user data**: Only generic test payloads
-- **Certificate validation**: Standard validation enabled
-- **Rate limiting**: Built-in delays between samples
+## Key Metrics
 
-## Error Handling
+- **averageResponseTime**: Median of all site medians (geographic reality)
+- **responseVariance**: Standard deviation in ms (consistency indicator)
+- **latencySpread**: P95-P50 difference (spike detection)
+- **p50/p95**: Percentiles for typical and worst-case assessment
 
-### Error Types
-- `invalidResponse`: HTTP errors, malformed data
-- `allTestsFailed`: Complete connectivity loss
-- `insufficientData`: Not enough samples collected
-- `timeout`: Test exceeded time limit
+## Testing Impact
 
-### Recovery Strategies
-- Continue testing if individual endpoints fail
-- Provide partial results when possible
-- Clear error reporting with localized descriptions
+The CV directly determines test reliability:
+- **<10% CV**: Standard test suite (30-50 iterations)
+- **10-20% CV**: Increase to 100-150 iterations
+- **20-40% CV**: Need 400+ iterations for confidence
+- **>40% CV**: Results unreliable even with 1000+ iterations
 
-## Performance Optimizations
+## Key Principle
 
-- **HEAD requests**: Minimal data for latency tests
-- **Range requests**: Efficient server selection
-- **Connection reuse**: URLSession connection pooling
-- **Memory streaming**: Large downloads streamed, not buffered
-
-## Package Integration
-
-### Adding to Project
-1. Add NetworkQualityMonitor package dependency
-2. Import NetworkQualityMonitor module
-3. Initialize with configuration
-4. Handle async test execution
-
-### Debug Menu Integration
-- Available under Debug → Network Quality
-- Individual test execution
-- Detailed result display
-
-## Future Enhancements
-
-- IPv6 testing separation
-- Jitter analysis
-- Packet loss detection
-- Geographic server selection
-- Historical trending
+**Variance has HUGE impact on performance testing.** High CV connections can turn a 1-hour test into a 10-hour marathon with less reliable results than a 30-minute test on a stable connection.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
