@@ -1,0 +1,9 @@
+{
+  "name": "mturac--everything-openai-codex",
+  "displayName": "everything-openai-codex",
+  "description": "EOC: open-source operating system for OpenAI Codex workflows with agents, skills, hooks, rules, memory, safety gates, and cross-harness adapters.",
+  "version": "1.0.0",
+  "author": "mturac",
+  "homepage": "https://github.com/mturac/everything-openai-codex",
+  "skills": []
+}
