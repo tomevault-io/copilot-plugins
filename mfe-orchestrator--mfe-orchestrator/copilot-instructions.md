@@ -1,0 +1,631 @@
+## mfe-orchestrator
+
+> This is a **monorepo** microfrontend orchestrator project with:
+
+# Microfrontend Orchestrator - Cursor Rules
+
+## Project Overview
+
+This is a **monorepo** microfrontend orchestrator project with:
+
+- **📦 Monorepo**: pnpm workspace with centralized dependency management
+- **⚡ Turbo**: Build system for optimized task orchestration and caching
+- **🎨 Biome**: Unified linting and formatting across all packages
+- **🪝 Lefthook**: Git hooks for automated code quality checks
+- **📋 Commitlint**: Enforced conventional commit messages
+
+### Architecture
+
+- **Backend**: Fastify (Node.js/TypeScript) with MongoDB, Redis
+- **Frontend**: React with TypeScript, React Router, TanStack Query, Zustand
+- Uses shadcn/ui components, Tailwind CSS, i18n for internationalization
+
+### Workspace Structure
+
+```
+/
+├── backend/           # Fastify backend package
+├── frontend/          # React frontend package
+├── package.json       # Workspace root with shared scripts
+├── pnpm-workspace.yaml # Workspace configuration
+├── turbo.json         # Turbo build configuration
+├── biome.json         # Biome configuration for all packages
+├── lefthook.yml       # Git hooks configuration
+└── commitlint.config.js # Commit message validation
+```
+
+---
+
+## Frontend Rules
+
+### Routing & Navigation
+
+- ❌ **NEVER use Next.js router** - We use React Router with `react-router-dom`
+- All pages must be located under `src/pages/`
+- All components must be located under `src/components/`
+- When creating a new page:
+  1. Add the route in `src/Routes.tsx`
+  2. Add the navigation link in the sidebar (`src/theme/layout/MainLayout.tsx` or related sidebar components)
+- Use lazy loading for all page components
+- Use `<Suspense>` with `<Spinner />` for route loading states
+
+### Forms & Validation
+
+- Always use **react-hook-form** for forms
+- Use form components from `src/components/ui/form`
+- Use input components from `src/components/input/` (TextField.rhf, SelectField.rhf, etc.)
+- Don't use `onError` callback in `useQuery` hooks
+
+### Internationalization
+
+- Internationalize everything using the **i18n module**
+- Use translations from `public/locales/{lang}/` folders
+- Existing languages: `en`, `it`
+- Use the `useTranslation` hook from `react-i18next`
+
+### UI Components
+
+- Always reuse existing **UI elements** from `src/components/ui/`
+- Use components from shadcn/ui library (`@/components/ui/`)
+- Use icons from **lucide-react** only
+- Don't create new UI components from scratch - check existing ones first
+
+### API Calls & Data Fetching
+
+- For API calls on page load, use `import { useQuery } from '@tanstack/react-query'`
+- Wrap the component with `<ApiStatusHandler queries={[dataQuery]}>`
+- Example:
+
+```tsx
+const dataQuery = useQuery({
+  queryKey: ["key", param],
+  queryFn: () => apiFunction(param),
+});
+return (
+  <ApiStatusHandler queries={[dataQuery]}>
+    {/* Your component content */}
+  </ApiStatusHandler>
+);
+```
+
+- Never use `onError` in `useQuery` hooks
+- The API client/hooks are located under `src/hooks/` or `src/api/`
+
+### Toast Notifications
+
+- Use Zustand store for toast notifications
+- Import: `import useToastNotificationStore from '@/store/useToastNotificationStore';`
+- Usage:
+
+```tsx
+const notifications = useToastNotificationStore();
+notifications.showSuccessNotification({ message: "message" });
+notifications.showErrorNotification({ message: "message" });
+notifications.showWarningNotification({ message: "message" });
+notifications.showInfoNotification({ message: "message" });
+```
+
+### Component Structure
+
+- All pages in `src/pages/`
+- All components in `src/components/`
+- Use TypeScript for all components
+- Use functional components with TypeScript interfaces
+
+### State Management
+
+- Use Zustand for global state (see `src/store/`)
+- Use React Query for server state caching
+- Use local state for component-specific state
+
+---
+
+## Backend Rules
+
+### Architecture Pattern
+
+The backend follows a layered architecture:
+
+- **Models**: `src/models/` - Mongoose schemas and interfaces
+- **Services**: `src/service/` - Business logic layer
+- **Controllers**: `src/controller/` - API route handlers
+- **Plugins**: `src/plugins/` - Fastify plugins (autoloaded)
+
+### Controller Pattern
+
+- Controllers are auto-loaded from `src/controller/` directory
+- Export as default async function: `export default async function controllerName(fastify: FastifyInstance)`
+- Access database user from `request.databaseUser`
+- Use service layer for business logic
+- Example structure:
+
+```typescript
+export default async function myController(fastify: FastifyInstance) {
+  fastify.get("/endpoint", async (request, reply) => {
+    const result = await new MyService(request.databaseUser).method();
+    return reply.send(result);
+  });
+}
+```
+
+### Service Pattern
+
+- Services extend `BaseAuthorizedService` for authorization checks
+- Services receive `databaseUser` in constructor
+- Services contain business logic, data validation, and database operations
+- Example:
+
+```typescript
+export class MyService extends BaseAuthorizedService {
+  constructor(user?: IUser) {
+    super(user);
+  }
+
+  async method(param: string) {
+    // Business logic here
+    return result;
+  }
+}
+```
+
+### Model Pattern
+
+- Models use Mongoose schemas
+- Define TypeScript interface extending `Document<ObjectId>`
+- Use timestamps: `{ timestamps: true }`
+- Export both model and interface
+- Example:
+
+```typescript
+export interface IMyModel extends Document<ObjectId> {
+  name: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const mySchema = new Schema<IMyModel>(
+  {
+    name: { type: String, required: true },
+    status: { type: String, required: true },
+  },
+  { timestamps: true }
+);
+
+const MyModel = mongoose.model<IMyModel>("MyModel", mySchema);
+export default MyModel;
+```
+
+### Authentication & Authorization
+
+- Controllers inherit authentication from authorization plugin
+- Use `request.databaseUser` to access authenticated user
+- Check access with service methods like `this.ensureAccessToProject()` from `BaseAuthorizedService`
+- Public endpoints: `{ config: { authMethod: AuthenticationMethod.PUBLIC } }`
+
+### Error Handling
+
+- Custom errors in `src/errors/`
+- Error handler plugin registers all error handlers
+- Use specific error types (EntityNotFoundError, UserCannotAccessThisProjectError, etc.)
+- Always throw meaningful errors with context
+
+### Environment Variables
+
+- Use environment variables from `process.env`
+- Configuration loaded via `@fastify/env` plugin
+- Document all environment variables in README.md
+
+#### Required Environment Variables for Local Development
+
+Create `.env` file in `backend/` directory with:
+
+```bash
+# Database Configuration
+NOSQL_DATABASE_URL=mongodb://localhost:27018/admin
+NOSQL_DATABASE_USERNAME=root
+NOSQL_DATABASE_PASSWORD=example
+NOSQL_DATABASE_NAME=development
+
+# Cache
+REDIS_URL=redis://localhost:6379
+
+# Application Settings
+REGISTRATION_ALLOWED=true
+ALLOW_EMBEDDED_LOGIN=true
+NODE_ENV=development
+MICROFRONTEND_HOST_FOLDER=/path/to/your/microfrontends
+
+# Optional: GitHub OAuth for code repository integration
+CODE_REPOSITORY_GITHUB_CLIENT_ID=your_github_client_id
+CODE_REPOSITORY_GITHUB_CLIENT_SECRET=your_github_client_secret
+```
+
+#### New Environment Variables Added
+
+- `NOSQL_DATABASE_USERNAME` - MongoDB username (separate from URL)
+- `NOSQL_DATABASE_PASSWORD` - MongoDB password (separate from URL)
+- `NODE_ENV` - Node.js environment mode (development/production/test)
+- `CODE_REPOSITORY_GITHUB_CLIENT_ID` - GitHub OAuth client ID for repository integration
+- `CODE_REPOSITORY_GITHUB_CLIENT_SECRET` - GitHub OAuth client secret for repository integration
+
+### Fastify Plugins
+
+- Plugins are auto-loaded from `src/plugins/`
+- Use `fastifyPlugin` wrapper for plugins
+- Specify dependencies in plugin metadata
+- Plugin registration order matters
+
+---
+
+## General Code Quality Rules
+
+### Code Quality Tools
+
+This project uses automated tools for consistent code quality:
+
+- **🎨 Biome**: Unified linting and formatting (replaces ESLint + Prettier)
+- **🪝 Lefthook**: Git hooks for pre-commit checks (replaces Husky)
+- **📋 Commitlint**: Conventional commit validation
+- **⚡ Turbo**: Optimized build pipeline with caching
+
+### Available Commands
+
+Use these workspace-level commands:
+
+```bash
+# Development
+pnpm dev              # Start both backend and frontend
+pnpm dev:backend      # Start backend only
+pnpm dev:frontend     # Start frontend only
+
+# Building
+pnpm build            # Build all packages
+pnpm build:backend    # Build backend only
+pnpm build:frontend   # Build frontend only
+
+# Code Quality
+pnpm lint             # Lint all packages with Biome
+pnpm format           # Format all packages with Biome
+pnpm typecheck        # TypeScript check for all packages
+
+# Testing
+pnpm test             # Run tests in all packages
+```
+
+### TypeScript
+
+- Use strict TypeScript
+- Always type function parameters and return types
+- Use interfaces for object shapes
+- Avoid `any` type - use `unknown` instead
+
+### File Organization
+
+- Group related files by feature/domain
+- Use consistent naming conventions (PascalCase for components, camelCase for functions)
+- Keep components small and focused
+- Extract reusable logic into custom hooks
+
+### Git Workflow & Commit Conventions
+
+- This is a production codebase
+- No backwards compatibility constraints needed
+- Create feature branches: `feature/YourFeatureName`
+- **ALWAYS pull latest changes before committing**: `git pull` or `git pull --rebase`
+- Commit frequently with meaningful messages
+- **MUST follow Conventional Commits specification** - See: https://www.conventionalcommits.org/en/v1.0.0/
+
+#### Commit Message Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Commit Types
+
+**Required types:**
+
+- `feat`: A new feature (correlates with MINOR in SemVer)
+- `fix`: A bug fix (correlates with PATCH in SemVer)
+
+**Additional types (based on Angular convention):**
+
+- `build`: Changes that affect the build system or external dependencies
+- `chore`: Changes to the build process or auxiliary tools (e.g., bumping deps)
+- `ci`: Changes to CI configuration files and scripts
+- `docs`: Documentation only changes
+- `refactor`: Code change that neither fixes a bug nor adds a feature
+- `perf`: A code change that improves performance
+- `style`: Changes that don't affect the meaning of the code (white-space, formatting, etc.)
+- `test`: Adding missing tests or correcting existing tests
+
+#### Breaking Changes
+
+- Use `!` after type/scope to indicate breaking change: `feat!: ...` or `feat(api)!: ...`
+- Or use footer: `BREAKING CHANGE: <description>`
+- Breaking changes correlate with MAJOR in SemVer
+
+#### Scope (Optional)
+
+Use scope to specify the area of the codebase affected:
+
+- `feat(api): add new endpoint`
+- `fix(auth): resolve token expiration issue`
+- `refactor(ui): improve button component`
+
+**Project-specific scopes:**
+
+- `backend`, `frontend` - General area
+- `api`, `auth`, `ui`, `i18n` - Specific module
+- `controller`, `service`, `model` - Backend layer
+- `component`, `page`, `hook` - Frontend layer
+
+#### Examples
+
+**Basic commit:**
+
+```
+feat: add deployment dashboard page
+```
+
+**Commit with scope:**
+
+```
+feat(api): add GET /microfrontends endpoint
+```
+
+**Bug fix:**
+
+```
+fix(auth): handle expired tokens correctly
+```
+
+**Breaking change:**
+
+```
+feat!: change authentication API structure
+
+BREAKING CHANGE: Authentication now requires API key instead of JWT token
+```
+
+**Breaking change with scope and !:**
+
+```
+feat(api)!: remove deprecated endpoints
+```
+
+**Documentation:**
+
+```
+docs: update README with environment variables
+```
+
+**Refactor:**
+
+```
+refactor(service): simplify authorization checks
+```
+
+**Performance:**
+
+```
+perf(backend): optimize database queries
+```
+
+**Multi-paragraph commit with footers:**
+
+```
+fix(deployment): prevent racing conditions
+
+Introduce a request id and a reference to latest deployment request.
+Dismiss incoming responses other than from latest request.
+
+Remove timeouts which were used to mitigate the racing issue.
+
+Reviewed-by: Z
+Closes: #123
+```
+
+#### Best Practices
+
+- **ALWAYS pull latest changes before committing**: `git pull` or `git pull --rebase` to avoid conflicts
+- Keep description concise and imperative mood (e.g., "add" not "added")
+- Use body for detailed explanation when needed
+- Reference issues in footers: `Closes: #123` or `Refs: #123`
+- For multi-commit features, use consistent scopes across commits
+- One logical change per commit
+- If a commit fits multiple types, split into multiple commits when possible
+
+### Dependencies
+
+- Backend uses `pnpm` as package manager
+- Frontend uses `pnpm` as package manager
+- Lock files are committed
+- All packages should be kept up to date
+
+### Testing
+
+- Write tests for business logic
+- Use TypeScript for tests
+- Test services and controllers
+- Integration tests for API endpoints
+
+### Code Style
+
+- Use Prettier for formatting (run `pnpm run prettier`)
+- Use ESLint for linting (run `pnpm run lint`)
+- Follow existing code patterns in the codebase
+- Add JSDoc comments for public APIs
+
+---
+
+## Development Workflow
+
+### Local Development Setup
+
+1. **Install dependencies**: `pnpm install` (installs for all packages)
+2. **Start Docker services**: `cd docker-local && docker compose -f docker-compose-development.yaml up -d`
+3. **Create `.env` file** in `backend/` directory (see Environment Variables section above)
+4. **Start development**: `pnpm dev` (starts both backend and frontend)
+
+### Running the Project
+
+- Start Docker services first (MongoDB, Redis)
+- Create and configure `.env` file in backend directory
+- Use `pnpm dev` to start both services simultaneously
+- Backend available at `http://localhost:8080`
+- Frontend available at `http://localhost:3000`
+
+### API Documentation
+
+- Swagger UI available at `/api-docs`
+- Document new endpoints with OpenAPI annotations
+
+---
+
+## When Adding New Features
+
+### Checklist:
+
+- [ ] Added backend model if needed
+- [ ] Added backend service with business logic
+- [ ] Added backend controller with routes
+- [ ] Added frontend API hook/function
+- [ ] Added frontend component/page
+- [ ] Added route to `Routes.tsx`
+- [ ] Added sidebar navigation link
+- [ ] Added internationalization strings
+- [ ] Tested end-to-end functionality
+- [ ] No linting errors
+- [ ] No TypeScript errors
+
+### Backend Feature Checklist:
+
+- [ ] Created/updated model in `src/models/`
+- [ ] Created/updated service in `src/service/`
+- [ ] Created/updated controller in `src/controller/`
+- [ ] Added error handling
+- [ ] Added authorization checks
+- [ ] Swagger documentation updated
+
+### Frontend Feature Checklist:
+
+- [ ] Created page in `src/pages/`
+- [ ] Created components in `src/components/`
+- [ ] Added route in `Routes.tsx`
+- [ ] Added navigation link
+- [ ] Added i18n strings
+- [ ] Added API hooks
+- [ ] Used ApiStatusHandler for data loading
+- [ ] Added toast notifications for user feedback
+
+---
+
+## Common Patterns
+
+### Backend: Getting User's Projects
+
+```typescript
+const projects = await new ProjectService(request.databaseUser).findMine(
+  request.databaseUser._id
+);
+```
+
+### Backend: Creating Entity with Project Association
+
+```typescript
+const projectId = getProjectIdFromRequest(request);
+if (!projectId) {
+  return reply.status(400).send({ error: "Project ID is required" });
+}
+const entity = await new EntityService(request.databaseUser).create(
+  projectId,
+  request.body
+);
+```
+
+### Backend: Authorization Check
+
+```typescript
+await this.ensureAccessToProject(projectId);
+await this.ensureAccessToEnvironment(environmentId);
+await this.ensureAccessToDeployment(deploymentId);
+```
+
+### Frontend: API Call in Page
+
+```typescript
+const pageApi = usePageApi();
+const dataQuery = useQuery({
+  queryKey: ["data", params],
+  queryFn: () => pageApi.getData(params),
+});
+
+return (
+  <ApiStatusHandler queries={[dataQuery]}>{/* Render data */}</ApiStatusHandler>
+);
+```
+
+### Frontend: Form Handling
+
+```typescript
+const form = useForm<FormData>({
+  resolver: zodResolver(schema),
+});
+// Use TextField.rhf, SelectField.rhf, etc.
+```
+
+### Frontend: Toast Notification
+
+```typescript
+const notifications = useToastNotificationStore();
+notifications.showSuccessNotification({ message: "Success!" });
+```
+
+---
+
+## Important Reminders
+
+1. ✅ Always pull latest changes before committing: `git pull` or `git pull --rebase`
+2. ✅ Always use Conventional Commits format for commit messages
+3. ✅ Reuse existing UI components before creating new ones
+4. ✅ Use i18n for all user-facing text
+5. ✅ Always use react-hook-form for forms
+6. ✅ Use lucide-react for icons
+7. ✅ Wrap page components with ApiStatusHandler for data loading
+8. ✅ Add routes and navigation when creating new pages
+9. ✅ Services extend BaseAuthorizedService for authorization
+10. ✅ Controllers use services for business logic
+11. ✅ Models use Mongoose with timestamps
+12. ✅ Throw meaningful errors with context
+
+---
+
+## Performance Considerations
+
+- Use lazy loading for routes
+- Use React Query for efficient data fetching and caching
+- Minimize database queries - use aggregation when possible
+- Use Redis for caching when appropriate
+- Optimize bundle size - check import sizes
+
+---
+
+## Security Considerations
+
+- Always validate user input
+- Use parameterized queries (Mongoose handles this)
+- Check user permissions in services
+- Sanitize file uploads
+- Use environment variables for secrets
+- Implement rate limiting on sensitive endpoints
+- Use HTTPS in production
+
+---
+> Source: [mfe-orchestrator/mfe-orchestrator](https://github.com/mfe-orchestrator/mfe-orchestrator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
