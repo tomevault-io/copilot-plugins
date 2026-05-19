@@ -4,7 +4,7 @@
   "repo": "legacy-lands-library",
   "description": "Enterprise-grade modular framework for Minecraft server development with multi-tier caching, Redis Streams, resilient data processing, and modern Java concurrency. Built on Fairy Framework for production-scale plugin development.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LegacyLands/legacy-lands-library",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:22:43Z"
+  "distributed_at": "2026-05-19T04:56:49Z"
 }
