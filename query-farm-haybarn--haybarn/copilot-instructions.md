@@ -1,0 +1,303 @@
+## haybarn
+
+> Guidance for Claude Code (and humans) working in this repository.
+
+# CLAUDE.md — Haybarn
+
+Guidance for Claude Code (and humans) working in this repository.
+
+## What this repo is
+
+**Haybarn** is an independent derived distribution of DuckDB ("Haybarn, powered
+by DuckDB"), published by Query Farm LLC. This repo is a **hard fork** of
+`duckdb/duckdb`, currently based on the upstream **`v1.5.2`** tag.
+
+All Haybarn-specific changes are a small, curated **commit stack** on top of the
+upstream tag — not scattered edits. Keep it that way: the stack must stay easy to
+rebase onto future DuckDB releases. See `HAYBARN/REBASE.md`.
+
+## Hard rules
+
+- **Never rename the `duckdb::` C++ namespace, exported symbols, public header
+  names (`duckdb.h`/`.hpp`), the `.duckdb_extension` suffix, the extension
+  platform string, or the `DUCKDB_VERSION` macro.** Haybarn is deliberately
+  ABI-compatible with upstream DuckDB. Only *artifacts* are renamed
+  (`haybarn` CLI, `libhaybarn*` libraries) and *branding* is changed.
+- **Trademark compliance is mandatory.** Product name is always "Haybarn", never
+  "DuckDB Haybarn". DuckDB only appears descriptively ("powered by DuckDB"). No
+  DuckDB logo or duck-derived marks. Keep the MIT `LICENSE` verbatim; keep
+  `NOTICE` accurate. Full rules: the trademark guidelines at
+  https://duckdb.org/trademark_guidelines.
+- **One commit = one concern.** Prefer adding new files over editing upstream
+  files. When you must edit an upstream file, keep it surgical.
+- **The extension trust root is a single Haybarn key.** DuckDB-signed extensions
+  must not load. Don't re-add upstream signing keys.
+- **When you change a user-facing engine string, update the tests that assert it.**
+  We have learned this the hard way more than once. Engine error wording in
+  `src/main/...`, banner text, CLI prompt — there are matching asserts in
+  `test/sql/**/*.test`, `test/api/test_api.cpp`, and `tools/shell/tests/*.py`
+  that must move together. Sample failures we've hit: `test_shell_basics.py::
+  test_open_non_database` asserting `"not a valid DuckDB database file"` and
+  `test/api/test_api.cpp:569,576` asserting `ex.what()` contains `"DuckDB"`.
+  Branding sweeps have multi-language test surface.
+
+## The Haybarn commit stack (on top of `v1.5.2`)
+
+| Concern | Key files |
+|---|---|
+| branding: artifact names | `src/CMakeLists.txt`, `tools/shell/CMakeLists.txt`, `tools/shell/rc/duckdb.rc`, `src/version.rc` |
+| branding: CLI banner + user-agent | `tools/shell/shell.cpp`, `src/main/config.cpp` |
+| signing: embedded extension keys | `src/main/extension/extension_helper.cpp` |
+| signing: repository URLs | `src/include/duckdb/main/extension_install_info.hpp`, `src/main/extension_install_info.cpp` |
+| ci: Haybarn workflows | `.github/workflows/haybarn-*.yml` (new files) |
+| ci: neuter upstream triggers | upstream `.github/workflows/*.yml` |
+| packaging: bundle outputs | `Makefile` |
+| docs | `README.md`, `NOTICE`, `HAYBARN/`, this file |
+
+## Building
+
+```sh
+make release          # -> build/release/haybarn, build/release/src/libhaybarn.*
+```
+
+For a build whose `version()` reports the release version (not a `git describe`
+dev string), pin it the way CI does:
+
+```sh
+OVERRIDE_GIT_DESCRIBE=v1.5.2 make release
+```
+
+## Distribution
+
+- **Binaries:** GitHub Releases under `Query-farm-haybarn/haybarn`, with
+  `SHA256SUMS` + detached GPG signature + GitHub SLSA build-provenance
+  attestations (each artifact bound to its commit/workflow/run; verified via
+  `gh attestation verify <file> --repo Query-farm-haybarn/haybarn`).
+  OS-native code signing (Apple/Windows) is not wired up yet — TODOs are marked
+  in `.github/workflows/haybarn-*.yml`.
+- **Extensions:** Cloudflare R2, single bucket fronted by
+  `haybarn-extensions.query.farm`, segregated by top-level path prefix:
+  - Core: `https://haybarn-extensions.query.farm/core` (this repo, via
+    `haybarn-extensions.yml`).
+  - Community: `https://haybarn-extensions.query.farm/community` (separate
+    repo `Query-farm-haybarn/haybarn-community-extensions`, mirror of
+    upstream's ~150 community extensions rebuilt against the Haybarn
+    engine; deploys to the same bucket under the `community/` prefix).
+  Both signed with the SAME Haybarn extension key (`HAYBARN_EXTENSION_SIGNING_PK`
+  secret; public half embedded in `extension_helper.cpp` as
+  `HAYBARN_TRUST_ROOT`, referenced by both `public_keys[]` and
+  `community_public_keys[]`). One trust root, two distribution channels.
+- Release tags are `haybarn-v<version>`; the `haybarn-*.yml` workflows trigger on
+  them. The upstream `OnTag.yml` (matches `v*.*.*`) is intentionally left alone —
+  it never matches Haybarn tags.
+
+## Pinning + rolling forward
+
+Every drifting CI reference is **pinned** — runner OS, manylinux image, the
+`duckdb/extension-ci-tools` SHA, pybind11. The pipeline is meant to be
+reproducible; do not loosen pins to make a build green, adapt the *source* and
+roll the pin forward deliberately. The where/why/how is in
+[`HAYBARN/ROLL-FORWARD.md`](HAYBARN/ROLL-FORWARD.md).
+
+## CI infrastructure
+
+The Linux build environment is centrally maintained:
+
+- **Pre-built images on GHCR** at `ghcr.io/query-farm-haybarn/haybarn-<arch>-<variant>:v1.5.2`.
+  Built from `Query-farm-haybarn/haybarn-extension-ci-tools/docker/<arch>/Dockerfile`
+  by `.github/workflows/publish-build-images.yml` in that repo. Public packages.
+  - **Linux**: 12 images — `haybarn-linux_{amd64,arm64,amd64_musl,arm64_musl}-{base,rust,full}:v1.5.2`.
+  - **wasm**: 1 image — `haybarn-wasm:v1.5.2` (Phase D, ubuntu 24.04 base + emsdk 3.1.71
+    + vcpkg + ccache 4.13.6, no arch/variant fan-out). Consumers opt in via
+    `use_prebuilt_wasm_image: true`. Removes per-run `mymindstorm/setup-emsdk`
+    (~30-60s × 3 wasm legs) AND stabilises the emcc path inside the container
+    so ccache hashes repeat across runs (verified: 100% combined hit rate on
+    back-to-back same-SHA runs).
+- Consumers — `haybarn-release.yml` here, `haybarn-extensions.yml` here, the
+  four build-fork extension repos (iceberg/ducklake/delta/httpfs), and
+  `haybarn-community-extensions/build.yml` — `docker pull` these instead of
+  `docker build`-ing inline. Saves ~5–8 min × 4 Linux archs per build, and
+  another ~30s × 3 wasm legs.
+- Variant selection (Linux only): `base` (no toolchains), `-rust` (Rust),
+  `-full` (rust + go + fortran + parser_tools + unixodbc + multimedia).
+  Engine release uses `base`; core extensions use `full`. Community-extensions
+  reads each descriptor's `requires_toolchains` field and picks variant
+  accordingly.
+- macOS / Windows jobs still run native on GH runners — no Docker.
+
+ccache is wired through R2 (`http://haybarn-vcpkg-cache.rusty-bb6.workers.dev/ccache`)
+for cross-leg and cross-repo hits:
+
+- **Linux Docker + wasm Docker**: ccache 4.13.6 baked into the GHCR images
+  (musl-static binary from upstream GitHub release).
+- **macOS**: Homebrew ships 4.13+, works as-is.
+- **Windows**: `hendrikmuhs/ccache-action` installs 4.9.1 from chocolatey,
+  whose HTTP backend silently fails bearer-auth PUTs. The reusable workflow
+  drops a 4.13.6 binary over the installed copy after the action runs.
+- **No L1 GitHub Actions cache.** Empirically thrashing under high-churn
+  community-ext builds (10 GB per-repo cap, LRU evictions faster than the
+  cache could populate). R2 is the only ccache backend. The
+  `hendrikmuhs/ccache-action` invocations on the non-Docker legs are set to
+  `save: false, read-only: true` so the action still installs the binary
+  but doesn't push to the L1 cache.
+
+The R2 bucket holds vcpkg binaries and ccache objects under different
+key prefixes. The bearer token is `HAYBARN_VCPKG_TOKEN` (org-level secret;
+mapped to the lowercase `vcpkg_token` callee secret via explicit `secrets:`
+mapping — `secrets: inherit` doesn't rename).
+
+**ccache measurement gotcha** (learned the hard way): cache keys are
+sensitive to more than source code — environment variable ordering, CCACHE_*
+config flags, the workflow file contents, all factor in. When measuring
+hit-rate after a change, always fire two consecutive runs on the same
+ci-tools SHA before drawing conclusions. A "0% remote hit" reading on a
+fresh SHA just means nothing was warm yet, not that writes are broken.
+
+## Distribution / release flow
+
+- Release tag pattern: `haybarn-v<version>` (e.g. `haybarn-v1.5.2-rc9`). Fires
+  `haybarn-release.yml` (engine binaries) and `haybarn-extensions.yml` (core
+  extensions), and the same tag on each downstream client repo fires their
+  workflows.
+- Engine release artifacts: `release/` directory uploaded to GH Releases by
+  `haybarn-release.yml`, which also attaches a SLSA build-provenance
+  attestation (`actions/attest-build-provenance`) to every artifact at build
+  time. The `Haybarn Publish` workflow runs on `workflow_run` after Release
+  succeeds, doing `SHA256SUMS` + GPG-detach-sign and creating the GitHub
+  Release. (cosign `sign-blob` was dropped in rc7 — the attestation supersedes
+  it and is verifiable against this repo specifically, whereas the cosign
+  recipe had an unpinnable `.*` identity regex.)
+- After `Haybarn Publish` lands, two more workflows fan-out from its
+  `workflow_run` signal:
+  - `haybarn-npm-publish.yml` — downloads the release zips, assembles 7
+    per-platform leaves `@haybarn/cli-*` + one meta `haybarn`, publishes to
+    npm via Trusted Publisher OIDC (`actions/setup-node@v6` with Node 24,
+    which ships npm 11; npm 10's `--provenance` signs Sigstore but skips
+    the publish-authorizing token exchange).
+  - `haybarn-pypi-cli-publish.yml` — builds one platform-tagged wheel per
+    release zip into the `haybarn-cli` PyPI project, published via PyPI
+    Trusted Publisher OIDC.
+  Result: every tag push automatically lands on GitHub Releases + npm +
+  PyPI. Users run `npx haybarn@rc` or `uvx haybarn-cli==<version>`.
+- **GPG key gotcha**: the `HAYBARN_GPG_PRIVATE_KEY` org secret is stored
+  hex-encoded (`gpg --export-secret-keys ... | xxd -p`), NOT ASCII-armored.
+  The publish workflow probes 6 shapes (armored, armored-with-`\n`-escapes,
+  base64-of-binary, base64-of-armored, hex, raw) and imports the first that
+  works. Don't re-store the secret unless rotating.
+- **R2 secret name oddity**: the actual access-key-secret is stored under
+  `R2_SECRET_KEY_ID` (the `_ID` suffix is a misnomer; the value is the SECRET
+  half of the access pair). `R2_ACCESS_KEY_ID` is the ID. Both at org level.
+- Tag-triggered runs of `haybarn-extensions.yml` are in `dry_run` mode by
+  default — actual R2 deploys only happen on `workflow_dispatch` with
+  `deploy=true`. (haybarn-community-extensions deploys-on-every-push.)
+
+## Extending the build-fork extensions
+
+`iceberg`, `ducklake`, `delta`, and `httpfs` are Haybarn build-forks at
+`Query-farm-haybarn/haybarn-<ext>`, so Haybarn-specific changes can land on top
+of upstream over time. Procedure for adding a change to a fork and rolling the
+core build to pick it up: [`HAYBARN/EXTENDING-FORKS.md`](HAYBARN/EXTENDING-FORKS.md).
+
+## Related repos (Query-farm-haybarn org)
+
+Haybarn is multi-repo. Each is pinned by SHA where another consumes it.
+
+| Repo | Purpose | Tag-trigger |
+|---|---|---|
+| `haybarn` (this) | Engine fork, core extensions config, in-tree extensions | `haybarn-v*` |
+| `haybarn-extension-ci-tools` | Fork of `duckdb/extension-ci-tools` with vcpkg-token + GHCR + ccache 4.13.6 patches | none (consumed by SHA pin) |
+| `haybarn-community-extensions` | Mirror of `duckdb/community-extensions` rebuilt against this engine | push to `main` (build), workflow_dispatch (deploy) |
+| `haybarn-python` | Python wheels — fork of `duckdb-python` | `haybarn-v*` |
+| `haybarn-jdbc` | JDBC jar — fork of `duckdb-java` | `haybarn-v*` |
+| `haybarn-node-neo` | Node bindings — fork of `duckdb-node-neo` | `haybarn-v*` |
+| `haybarn-iceberg`, `haybarn-ducklake`, `haybarn-delta`, `haybarn-httpfs` | Build-forks for the listed core extensions | consumed by core extension build via SHA pin |
+| `haybarn-vcpkg-worker` | Cloudflare Worker fronting R2 for vcpkg + ccache caches | manual deploy |
+| `haybarn-org-profile` | Org-level docs / landing | n/a |
+
+## Recent state (as of 2026-05-16)
+
+Current rc series: **`haybarn-v1.5.2-rc9`**. Major work this cycle:
+
+- **rc9 — branding cleanup in autoload lists.** Removed `motherduck`,
+  `lance`, and `vortex` from `internal_extensions[]`, `auto_install[]`,
+  and `AUTOLOADABLE_EXTENSIONS[]`. Also dropped the `md` → `motherduck`
+  alias. These were upstream-DuckDB-only listings that would never load
+  against the Haybarn trust root anyway; advertising them as autoloadable
+  produced confusing signature-error UX. Users can still INSTALL/LOAD
+  them manually against the upstream DuckDB repo.
+- **rc8 — extension cache directory.** Flipped the CMakeLists.txt
+  `EXTENSION_DIRECTORIES` CACHE default from `~/.duckdb/extensions` to
+  `~/.haybarn/extensions`. The C++ `#define` fallback in
+  `extension_install.cpp` was already correct but dead — CMake stamps
+  this value into a compile-time macro via `target_compile_definitions`
+  that wins. Every Haybarn build through rc7 was silently writing to
+  `~/.duckdb/`, where signature verification would always fail.
+- **rc7 — SLSA build-provenance attestations.** Added to
+  `haybarn-release.yml` (all 4 jobs) via `actions/attest-build-provenance@v2`;
+  cosign `sign-blob` dropped from `haybarn-publish.yml` along with the
+  misleading `.*` identity-regex recipe in the release notes. GPG
+  signature retained for the traditional audience.
+
+This-session adjacent work (not engine-versioned):
+
+- **npm publishing wired up** end-to-end. `npx haybarn@rc` works as of
+  the rc7 smoke test; rc8/rc9 will land automatically via the
+  `haybarn-npm-publish.yml` workflow that fires on `workflow_run` after
+  `Haybarn Publish` completes. Layout: `haybarn` meta package +
+  `@haybarn/cli-<plat>` leaves (linux x64/arm64 glibc+musl, darwin
+  x64/arm64, win32 x64). OIDC Trusted Publisher; no NPM_TOKEN secret.
+- **PyPI `haybarn-cli` publishing wired up** end-to-end. `uvx
+  haybarn-cli==<version>` works. Same trigger model
+  (`haybarn-pypi-cli-publish.yml` on `workflow_run`). One project, seven
+  platform-tagged wheels (`manylinux_2_28_*`, `musllinux_1_2_*`,
+  `macosx_11_0_*`, `win_amd64`). OIDC Trusted Publisher + PEP 740
+  attestations.
+- **Wasm Phase D image** published at `ghcr.io/.../haybarn-wasm:v1.5.2`.
+  Confirmed 100% combined ccache hit rate on back-to-back runs once
+  callers opt into `use_prebuilt_wasm_image: true`. Predicted to save
+  ~30-50 CI hours per full `build_all` against the 240-extension catalog.
+- **haybarn-status worker** live at <https://haybarn-status.query.farm>;
+  uses display_title (set by build.yml's run-name when
+  `extension_name` is an input) as the primary signal for per-extension
+  attribution in the community matrix.
+- **GitHub Actions version bumps** in extension-ci-tools — Node-20-era
+  pins (`actions/checkout@v2/v4`, `actions/setup-python@v5`,
+  `actions/download-artifact@v4`) → current. Other repos still need
+  the same sweep.
+
+Earlier (rc6) work this series:
+
+- Single-bucket distribution split on `haybarn-extensions.query.farm`:
+  core under `/core`, community under `/community`. (Earlier in the series
+  community had its own `haybarn-community-extensions.query.farm`
+  subdomain; consolidated to one custom domain for simpler ops.)
+- Pre-built GHCR build-environment images for all Linux platforms (3 toolchain variants × 4 archs).
+- Community-extensions repo bootstrapped with `waddle` smoke extension; first
+  end-to-end validation deployed 9 platform binaries to R2 and verified
+  anonymous HTTP fetch.
+- ccache HTTP backend bearer-auth fixed across all platforms (wasm + Windows
+  were on broken 4.9.1; now 4.13.6 everywhere).
+- Publish workflow's GPG key import made resilient to whatever shape the
+  secret was stored in (it turned out to be hex).
+- Engine release flow now also pulls Phase A images instead of inline
+  `docker build` + runtime tool installs.
+
+What's known broken / not yet done: see `~/.claude/projects/.../memory/haybarn-status.md`
+for the latest "pending" list. Engine client repos (`haybarn-jdbc`,
+`haybarn-node-neo`) need their submodule bumps + first tag pushes; PyPI/NPM
+publishing for haybarn-python (the *library*, distinct from `haybarn-cli`)
+is gated on a workflow_dispatch with `publish=pypi`. Also: `sync_from_upstream`
+on haybarn-community-extensions needs the repo's Actions setting flipped to
+"Allow GitHub Actions to create and approve pull requests" before it can open
+the 240-descriptor import PR; once that's flipped and the PR merges,
+`build_all.yml` can fan out per-extension builds across the full catalog.
+
+## Local layout
+
+- `/Users/rusty/Development/haybarn/haybarn` — this repo (the core fork).
+- `/Users/rusty/Development/haybarn/duckdb-v1.5.2` — pristine upstream reference.
+- `/Users/rusty/Development/haybarn/keys` — signing keys, **never committed**.
+
+---
+> Source: [Query-farm-haybarn/haybarn](https://github.com/Query-farm-haybarn/haybarn) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
