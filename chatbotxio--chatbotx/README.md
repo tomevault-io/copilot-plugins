@@ -7,13 +7,13 @@ Open-source omnichannel chatbot for agentic workflows via APIs, CLI, and MCP. An
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [ChatbotXIO/ChatbotX](https://github.com/ChatbotXIO/ChatbotX).
+Original source: `CLAUDE.md` in [ChatbotXIO/ChatbotX](https://github.com/ChatbotXIO/ChatbotX).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
