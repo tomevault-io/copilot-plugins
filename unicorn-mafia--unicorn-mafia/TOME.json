@@ -4,7 +4,7 @@
   "repo": "unicorn-mafia",
   "description": "\ud83e\udd84 London's leading hacker community",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/unicorn-mafia/unicorn-mafia",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:45:34Z"
+  "distributed_at": "2026-05-19T10:47:32Z"
 }
