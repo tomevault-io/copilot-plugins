@@ -1,0 +1,9 @@
+{
+  "name": "rioskit--obsidian-todo-txt-mode",
+  "displayName": "obsidian-todo-txt-mode",
+  "description": "Obsidian plugin for todo.txt file format support",
+  "version": "1.0.0",
+  "author": "rioskit",
+  "homepage": "https://github.com/rioskit/obsidian-todo-txt-mode",
+  "skills": []
+}
