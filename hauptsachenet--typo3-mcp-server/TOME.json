@@ -1,0 +1,44 @@
+{
+  "name": "typo3-mcp-server",
+  "owner": "hauptsacheNet",
+  "repo": "typo3-mcp-server",
+  "description": "One MCP endpoint connects your TYPO3 site to Claude, Cursor, n8n, and any AI tool \u2014 safely through workspaces.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hauptsacheNet/typo3-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T20:33:41Z"
+}
