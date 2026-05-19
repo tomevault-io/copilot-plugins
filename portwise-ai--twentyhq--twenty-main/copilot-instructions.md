@@ -1,83 +1,27 @@
-## react-state-management
+## server-migrations
 
-> React state management guidelines for Twenty CRM
+> Guidelines for generating and managing TypeORM migrations in twenty-server
 
-# React State Management
 
-## Recoil Patterns
-```typescript
-// ✅ Atoms for primitive state
-export const currentUserState = atom<User | null>({
-  key: 'currentUserState',
-  default: null,
-});
+## Server Migrations (twenty-server)
 
-// ✅ Selectors for derived state
-export const userDisplayNameSelector = selector({
-  key: 'userDisplayNameSelector',
-  get: ({ get }) => {
-    const user = get(currentUserState);
-    return user ? `${user.firstName} ${user.lastName}` : 'Guest';
-  },
-});
+- **When changing an entity, always generate a migration**
+  - If you modify a `*.entity.ts` file in `packages/twenty-server/src`, you **must** generate a corresponding TypeORM migration instead of manually editing the database schema.
+  - Use the Nx + TypeORM command from the project root:
 
-// ✅ Atom families for dynamic atoms
-export const userByIdState = atomFamily<User | null, string>({
-  key: 'userByIdState',
-  default: null,
-});
-```
+    ```bash
+    npx nx run twenty-server:typeorm migration:generate src/database/typeorm/core/migrations/common/[name] -d src/database/typeorm/core/core.datasource.ts
+    ```
 
-## Local State Guidelines
-```typescript
-// ✅ Multiple useState for unrelated state
-const [isLoading, setIsLoading] = useState(false);
-const [error, setError] = useState<string | null>(null);
-const [data, setData] = useState<User[]>([]);
+  - Replace `[name]` with a descriptive, kebab-case migration name that reflects the change (for example, `add-agent-turn-evaluation`).
 
-// ✅ useReducer for complex state logic
-type FormAction = 
-  | { type: 'SET_FIELD'; field: string; value: string }
-  | { type: 'SET_ERRORS'; errors: Record<string, string> }
-  | { type: 'RESET' };
+- **Prefer generated migrations over manual edits**
+  - Let TypeORM infer schema changes from the updated entities; only adjust the generated migration file manually if absolutely necessary (for example, for data backfills or complex constraints).
+  - Keep schema changes (DDL) in these generated migrations and avoid mixing in heavy data migrations unless there is a strong reason and clear comments.
 
-const formReducer = (state: FormState, action: FormAction): FormState => {
-  switch (action.type) {
-    case 'SET_FIELD':
-      return { ...state, [action.field]: action.value };
-    case 'SET_ERRORS':
-      return { ...state, errors: action.errors };
-    case 'RESET':
-      return initialFormState;
-    default:
-      return state;
-  }
-};
-```
-
-## Data Flow Rules
-- **Props down, events up** - Unidirectional data flow
-- **Avoid bidirectional binding** - Use callback functions
-- **Normalize complex data** - Use lookup tables over nested objects
-
-```typescript
-// ✅ Normalized state structure
-type UsersState = {
-  byId: Record<string, User>;
-  allIds: string[];
-};
-
-// ✅ Functional state updates
-const increment = useCallback(() => {
-  setCount(prev => prev + 1);
-}, []);
-```
-
-## Performance Tips
-- Use atom families for dynamic data collections
-- Implement proper selector caching
-- Avoid heavy computations in selectors
-- Batch state updates when possible
+- **Keep migrations consistent and reversible**
+  - Ensure the generated migration includes both `up` and `down` logic that correctly applies and reverts the entity change when possible.
+  - Do not delete or rewrite existing, committed migrations unless you are explicitly working on a pre-release branch where history rewrites are allowed by team conventions.
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
