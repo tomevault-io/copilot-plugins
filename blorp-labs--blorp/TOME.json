@@ -4,7 +4,7 @@
   "repo": "blorp",
   "description": "Blorp \u2013 a Threadiverse client for Lemmy and PieFed. Web, iOS & macOS, and more!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Blorp-Labs/blorp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:30:23Z"
+  "distributed_at": "2026-05-19T09:27:07Z"
 }
