@@ -1,199 +1,166 @@
-## coda
+## frontend-security
 
-> Coda VM provisioning system and terminal integration with Pathfinder.
+> Unified frontend security rule covering frontend code and AI agent behavior.
 
 
-# Coda integration
+# Frontend Security Rules
 
-> For full reference, see [`docs/developer/CODA.md`](../../docs/developer/CODA.md).
+## F1 — Avoid Untrusted SVGs
+Do **not** use dynamically generated or user-supplied SVGs directly, as they can cause XSS vulnerabilities.  
+If you must render a non-static SVG, sanitize it first using **DOMPurify**.
 
-## Overview
-
-**Coda** is a separate backend service (`grafana-coda-app`) that provisions ephemeral 30-minute VMs on AWS. Pathfinder's Go backend is the sole consumer of Coda's REST API — the React frontend never calls Coda directly.
-
-```
-Frontend (React / xterm.js)
-    │  Grafana Live WebSocket (bidirectional)
-    ↓
-Backend Plugin (Go)
-    ├─ REST API ──→ Coda Server  (VM CRUD, sample apps, auth)
-    └─ WebSocket ─→ Relay ─→ SSH ─→ EC2 VM
+**Do**
+```tsx
+import DOMPurify from 'dompurify';
+const clean = DOMPurify.sanitize(untrustedSvg, { USE_PROFILES: { svg: true } });
+return <div dangerouslySetInnerHTML={{ __html: clean }} />;
 ```
 
-Coda itself has four components: **Server** (Node.js/Express/PostgreSQL), **Job Manager** (K8s webhook service), **Runner** (Terraform/Jsonnet provisioning), and **Relay** (Go WebSocket-to-TCP SSH proxy).
-
-## End-to-end connection flow
-
-1. User clicks "Connect" or a guide's terminal-connect button.
-2. `useTerminalLive.connect(vmOpts?)` subscribes to a Grafana Live channel.
-3. Backend `RunStream` calls `resolveVMForUser` (cache → ListVMs → CreateVM).
-4. Backend polls `GetVM` every 3 s until `active` (up to 60 attempts).
-5. Backend opens WebSocket to Relay at `wss://{relayURL}/relay/{vmID}`.
-6. Relay proxies WebSocket bytes to the VM's SSH port (TCP).
-7. Backend performs SSH handshake over the `WSConn` adapter, opens a PTY session.
-8. SSH stdout/stderr → `sender.SendFrame` → frontend `terminal.write()`.
-9. Frontend keystrokes → `PublishStream` → `session.Write()` → SSH stdin.
-
-## Grafana Live stream path
-
-```
-terminal/{vmId}/{nonce}                                → default (vm-aws)
-terminal/{vmId}/{nonce}/{template}                     → custom template
-terminal/{vmId}/{nonce}/{template}/{app}               → custom template + app (sample-app)
-terminal/{vmId}/{nonce}/vm-aws-alloy-scenario/{id}     → alloy scenario (id may contain slashes)
+**Don't**
+```tsx
+return <div dangerouslySetInnerHTML={{ __html: untrustedSvg }} />;
 ```
 
-`vmId` is `"new"` on first connect; backend resolves the real VM. For `vm-aws-alloy-scenario`, all remaining path segments are joined as the scenario ID.
+**Agent behavior**  
+If SVG data originates from user input, remote URLs, or uploads, **always** sanitize with DOMPurify or prefer a React-based icon component instead.
 
-## VM resolution (`resolveVMForUser`)
+---
 
-Priority: in-memory cache → `FindActiveVMForUser` (ListVMs) → quota cleanup if needed → `CreateVM`.
+## F2 — Use Safe React Data Bindings
+React data bindings (`{}`) automatically escape values and prevent XSS.  
+Always prefer these for inserting dynamic text.
 
-Reuse is scoped by **template + app/scenario**:
-
-- Same template, same app/scenario → reuse existing VM.
-- Same template, different app/scenario → **destroy** old VM, create new.
-- Different template → skip old, create new.
-
-Quota: max 3 non-terminal VMs per user (`maxUserVMs`). When quota is full, `cleanupUserVMsForQuota` force-destroys all stale usable VMs and polls until count drops before retrying.
-
-## VM state machine
-
-```
-pending → provisioning → active → destroying → destroyed
-    │           │           │
-    └───────────┴───────────┴──→ error
+**Do**
+```tsx
+return <li>{data}</li>;
 ```
 
-Additional state: `pooled` (pre-provisioned in hot pool, `vm-aws` only).
+**Don't**
+```tsx
+return <li dangerouslySetInnerHTML={{ __html: data }} />;
+```
 
-Usable states: `active`, `pending`, `provisioning`.
-Terminal states: `destroyed`, `destroying`, `error`.
+**Agent behavior**  
+Prefer `{}` over `dangerouslySetInnerHTML`. Only allow `dangerouslySetInnerHTML` when absolutely required **and** when properly sanitized (see F4).
 
-## Key files
+---
 
-### Backend (Go)
+## F3 — Don't Treat URLs as Strings
+Always use a proper URL parsing/handling API — e.g., the native **`URL`** constructor, **`URLSearchParams`**, or safe utilities provided by your framework.  
+Prefer the URL Web API directly instead of string concatenation.
 
-| File | Purpose |
-|------|---------|
-| `pkg/plugin/coda.go` | `CodaClient` — REST calls to Coda (CreateVM, GetVM, DeleteVM, ListVMs, ListSampleApps, ListAlloyScenarios), JWT auth refresh |
-| `pkg/plugin/stream.go` | `RunStream`, `resolveVMForUser`, `waitForVMActive`, `vmRequestOpts`, heartbeat, VM expiry poll |
-| `pkg/plugin/terminal.go` | `ConnectSSHViaRelay`, `NewTerminalSessionWithClient`, PTY management, SSH retry logic |
-| `pkg/plugin/wsconn.go` | `WSConn` — `net.Conn` adapter over WebSocket for SSH transport |
-| `pkg/plugin/resources.go` | HTTP handlers: `/coda/register`, `/vms`, `/vms/{id}`, `/sample-apps`, `/alloy-scenarios`, `/health` |
-| `pkg/plugin/app.go` | Plugin lifecycle, `CodaClient` creation from settings, `streamSessions` map |
-| `pkg/plugin/settings.go` | Plugin settings: `CodaRegistered`, `CodaAPIURL`, `CodaRelayURL`, secure `RefreshToken`/`EnrollmentKey` |
+**Don't**
+```ts
+// Unsafe string concatenation
+const endpoint = apiBase + '/users?id=' + userId;
+fetch(endpoint);
 
-### Frontend (TypeScript)
+const redirectUrl = '/redirect?target=' + location.href;
+window.location.href = redirectUrl;
+```
 
-| File | Purpose |
-|------|---------|
-| `src/integrations/coda/TerminalContext.tsx` | Shared React context: `connect(vmOpts?)`, `openTerminal(vmOpts?)`, `sendCommand`, module-level status |
-| `src/integrations/coda/useTerminalLive.hook.ts` | Grafana Live subscription, `connect(vmOpts?)` with `TerminalVMOptions` (`template`/`app`/`scenario`), animated provision progress bar, handshake timeout |
-| `src/integrations/coda/TerminalPanel.tsx` | xterm.js panel: fit/resize, scrollback persistence, WebGL renderer, auto-reconnect |
-| `src/integrations/coda/terminal-storage.ts` | localStorage/sessionStorage keys for panel state, scrollback, and last VM opts (template/app/scenario for auto-reconnect) |
-| `src/components/interactive-tutorial/terminal-connect-step.tsx` | "Try in terminal" button in guides, accepts `vmTemplate`/`vmApp`/`vmScenario` props |
-| `src/components/block-editor/forms/TerminalConnectBlockForm.tsx` | Guide authoring form for terminal-connect blocks; uses `useCodaOptions` hook to fetch sample apps or alloy scenarios |
-| `src/types/json-guide.types.ts` | `JsonTerminalConnectBlock` type with `vmTemplate`/`vmApp`/`vmScenario` fields |
-| `src/types/json-guide.schema.ts` | Zod schema for terminal-connect blocks |
+**Do**
+```ts
+// Safe construction with URL and URLSearchParams
+const url = new URL('/users', apiBase);
+url.searchParams.set('id', userId);
+await fetch(url.toString());
 
-## Configuration
-
-### Plugin jsonData (public)
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `enableCodaTerminal` | `false` | Feature gate for terminal UI and block palette |
-| `codaRegistered` | `false` | Whether Coda registration succeeded |
-| `codaApiUrl` | — | Coda Server base URL (must be `https`, allowed host suffixes) |
-| `codaRelayUrl` | — | Relay WebSocket URL (must be `wss`, same host allowlist) |
-
-### Secure jsonData
-
-| Key | Description |
-|-----|-------------|
-| `refreshToken` | JWT refresh token from Coda registration |
-| `enrollmentKey` | One-time enrollment key used during registration |
-
-### Feature gating
-
-The terminal panel is shown when `isDevMode && pluginConfig.enableCodaTerminal`. Block palette terminal blocks require `enableCodaTerminal` only.
-
-## Coda REST API contract (Pathfinder subset)
-
-| Method | Endpoint | Purpose |
-|--------|----------|---------|
-| `POST` | `/api/v1/auth/register` | Register Grafana instance (enrollment key → refresh token) |
-| `POST` | `/api/v1/auth/refresh` | Refresh JWT access token |
-| `POST` | `/api/v1/vms` | Create VM (`template`, `owner`, `config`) |
-| `GET` | `/api/v1/vms/:id` | Get VM status + credentials |
-| `DELETE` | `/api/v1/vms/:id` | Destroy VM (`?force=true` for stuck VMs) |
-| `GET` | `/api/v1/vms` | List VMs (query: `owner`, `state`, `limit`) |
-| `GET` | `/api/v1/sample-apps` | List available sample apps |
-| `GET` | `/api/v1/alloy-scenarios` | List available Alloy scenarios |
-
-Auth: `Authorization: Bearer {accessToken}` — auto-refreshed by `CodaClient`.
-
-## SSH relay flow
-
-1. `ConnectSSHViaRelay(relayURL, vmID, creds, token)` dials `wss://{relayURL}/relay/{vmID}`.
-2. `WSConn` wraps the WebSocket as a `net.Conn` (binary messages, 30 s write deadline, 90 s pong deadline).
-3. SSH handshake over `WSConn` using the VM's private key (`ssh.PublicKeys`).
-4. `NewTerminalSessionWithClient` opens a PTY (`xterm-256color`, 24×80) with stdin/stdout/stderr pipes.
-
-## Retry and error handling
-
-| Constant | Value | Description |
-|----------|-------|-------------|
-| `maxSSHRetries` | 3 | SSH connection attempts before giving up |
-| `maxCredentialRefreshes` | 2 | Times to re-fetch credentials on auth failure |
-| `sshRetryDelay` | 5 s | Delay between SSH retries |
-| VM poll interval | 3 s | `waitForVMActive` polling frequency |
-| VM poll max attempts | 60 | ~3 minutes total wait for VM to become active |
-| Heartbeat interval | 3 s | Keep Grafana Live stream alive |
-| VM expiry poll | 15 s | Check if active VM entered terminal state |
-| Frontend handshake timeout | 35 s | Reset on each status update from backend |
-
-After all SSH retries fail, the backend destroys the VM and frees the quota slot.
-
-## VM templates
-
-| Template | Instance | AMI | Pool | Use |
-|----------|----------|-----|------|-----|
-| `vm-aws` | t3.micro | `coda-vm` | Hot pool | Default sandbox |
-| `vm-aws-sample-app` | t3.small | `coda-sample-app-vm` | On-demand | Pre-configured integration app |
-| `vm-aws-alloy-scenario` | t3.small | `coda-alloy-scenario-vm` | On-demand | Grafana Alloy learning scenario |
-
-Sample app flow: `CreateVM("vm-aws-sample-app", user, { "app": "nginx" })` → EC2 user-data runs `systemctl start coda-bootstrap@nginx` → bootstrap renders cloud-init template, installs the app + Alloy with placeholder config.
-
-Alloy scenario flow: `CreateVM("vm-aws-alloy-scenario", user, { "scenario": "otel-examples/cost-control" })` → EC2 user-data bootstraps the selected scenario. Scenario IDs may contain slashes and are passed as-is to the Coda API.
-
-## Terminal-connect block type
-
-Guides request specific VM templates via `terminal-connect` blocks:
-
-```json
-{
-  "type": "terminal-connect",
-  "content": "Connect to an nginx sandbox:",
-  "buttonText": "Connect to nginx sandbox",
-  "vmTemplate": "vm-aws-sample-app",
-  "vmApp": "nginx"
+// Validate redirects
+const nextUrl = new URL(userInputUrl, window.location.origin);
+if (nextUrl.origin === window.location.origin) {
+  window.location.href = nextUrl.toString();
+} else {
+  console.error('Blocked potential open redirect');
 }
 ```
 
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `vmTemplate` | string | `""` (→ `vm-aws`) | VM template to provision |
-| `vmApp` | string | `""` | App name for `vm-aws-sample-app` |
-| `vmScenario` | string | `""` | Scenario ID for `vm-aws-alloy-scenario` (may contain `/`) |
+**Agent behavior**
+- Never build URLs through string concatenation.  
+- Always use `new URL()` or an equivalent safe API.  
+- For user-supplied URLs:
+  - Validate origin and protocol before using or redirecting.
+  - Reject `javascript:` or `data:` URLs.
+  - Apply `textUtil.sanitizeUrl()` when in doubt.
+- Prefer explicit accessors (`url.hostname`, `url.pathname`, `url.searchParams`) over string slicing or regex.
 
-## Security constraints
+---
 
-- Coda API URL must be `https` with host in `allowedHostSuffixes` (`.lg.grafana-dev.com`, `.grafana.com`).
-- Relay URL must be `wss` with the same host allowlist.
-- SSH host key verification is disabled (`InsecureIgnoreHostKey`) because VMs are ephemeral.
-- VM credentials (private key, IP) are never exposed to the frontend — only the backend handles SSH.
+## F4 — Sanitize HTML and URLs
+Avoid `dangerouslySetInnerHTML` unless you sanitize first.  
+Always sanitize HTML and URLs before rendering or linking.
+
+**Do**
+```tsx
+import { textUtil } from '@grafana/data';
+
+// Sanitize HTML:
+return <div dangerouslySetInnerHTML={{ __html: textUtil.sanitize(data) }} />;
+
+// Sanitize URLs:
+const safeHref = textUtil.sanitizeUrl(url);
+return <a href={safeHref}>{label}</a>;
+```
+
+**Don't**
+```tsx
+return <div dangerouslySetInnerHTML={{ __html: data }} />;
+<a href={url}>{label}</a>;
+```
+
+**Agent behavior**  
+If suggesting `dangerouslySetInnerHTML`, ensure it is paired with `textUtil.sanitize`.  
+Add a clear comment, for example:
+// SECURITY: sanitized HTML before injection (F4)
+
+---
+
+## F5 — Avoid Insecure DOM APIs
+Avoid unsafe DOM APIs that can inject malicious content.
+
+**Forbidden**
+- `element.innerHTML`
+- `element.outerHTML`
+- `insertAdjacentHTML`
+- dynamic `script.src` assignments
+
+**Do**
+```ts
+const el = document.createElement('div');
+el.textContent = userInput; // safe text insertion
+```
+
+**Don't**
+```ts
+el.innerHTML = userInput;
+const script = document.createElement('script');
+script.src = dynamicUrl;
+```
+
+**Agent behavior**  
+Use `document.createElement`, `textContent`, and safe attribute APIs for dynamic content.  
+If HTML is needed, apply F4 sanitization first.
+
+---
+
+## F6 — Global URL & Link Validation
+- Reject or sanitize dangerous URL schemes (`javascript:`, `data:`, etc.).  
+- Always pass URLs through `textUtil.sanitizeUrl(url)` before use (this wraps a hardened sanitizer).  
+- Never build anchors or images with unvalidated external input.
+
+---
+
+## Agent Conduct
+- When uncertain about sanitization or trust level, **pause and request review**.  
+- Prefer removing unsafe code over leaving TODOs.  
+- Annotate security-relevant changes:
+```tsx
+// SECURITY: sanitized SVG (F1)
+// SECURITY: used safe React binding (F2)
+// SECURITY: constructed URL with URL API (F3)
+// SECURITY: sanitized HTML/URL (F4)
+// SECURITY: avoided unsafe DOM API (F5)
+```
 
 ---
 > Source: [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app) — distributed by [TomeVault](https://tomevault.io).
