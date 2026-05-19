@@ -1,209 +1,149 @@
-## 040-logging
+## 050-tauri-version
 
-> Logging: Guidelines for implementing structured logging using @deadlock-mods/logging package
+> Tauri Version Enforcement - Ensure Tauri v2 is used consistently across the project
 
 
-# Logging Guidelines
-
-The following rules describe how logging should be implemented in the Deadlock Mod Manager codebase. In general, avoid `console.log` statements and make sure to use the structured logger initialized in every app. For detailed guidelines, please refer to the specific sections below.
+# Tauri Version Enforcement
 
 ## Overview
 
-A package in this monorepo `@deadlock-mods/logging` provides structured logging with:
+This project MUST use Tauri v2 consistently across all Tauri-related dependencies and configurations. This rule ensures version consistency and prevents accidental downgrades or mixed versions.
 
-- Context support
-- Error handling
-- Request-scoped logging
-- Type-safe logthods
-- Environment-aware formatting
+## Required Tauri v2 Dependencies
 
-The logging format depends on the `NODE_ENV` environment variable:
+### Rust Dependencies (Cargo.toml)
 
-- Development mode: Simple colorized output
-- Production mode: [logfmt format](https://brandur.org/logfmt)
+All Tauri-related dependencies in `apps/desktop/src-tauri/Cargo.toml` MUST use version `"2"`:
 
-## Installation
+```toml
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
 
-```bash
-pnpm add @deadlock-mods/logging
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-http = "2"
+tauri-plugin-os = "2"
+tauri-plugin-upload = "2"
+tauri-plugin-store = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-log = "2"
+tauri-plugin-process = "2"
+tauri-plugin-deep-link = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-updater = "2"
 ```
 
-## Basic Usage
+### JavaScript/TypeScript Dependencies (package.json)
 
-### Log Levels
+All `@tauri-apps/*` packages in `apps/desktop/package.json` MUST use v2 compatible versions:
 
-The logger supports six standard log levels, each with its own method:
-
-- `info()` - For general information messages
-- `warn()` - For warning messages that require attention
-- `error()` - For error messages that indicate failures
-- `debug()` - For debug information (disabled in production by default)
-- `trace()` - For detailed debugging information (disabled in production by default)
-- `fatal()` - For critical errors that require immediate attention
-
-### Message Parameters
-
-Multiple parameters:
-
-```ts
-logger.info("User", 123, "logged in");
+```json
+{
+  "dependencies": {
+    "@tauri-apps/api": "^2.1.1",
+    "@tauri-apps/plugin-deep-link": "~2.4.3",
+    "@tauri-apps/plugin-fs": "^2.2.0",
+    "@tauri-apps/plugin-http": "~2.5.2",
+    "@tauri-apps/plugin-log": ">=2",
+    "@tauri-apps/plugin-os": "^2.2.0",
+    "@tauri-apps/plugin-process": "^2.2.0",
+    "@tauri-apps/plugin-shell": "^2",
+    "@tauri-apps/plugin-store": "^2.2.0",
+    "@tauri-apps/plugin-updater": "^2.3.0",
+    "@tauri-apps/plugin-upload": "^2.2.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}
 ```
 
-String formatting:
+## Version Patterns
 
-```ts
-logger.info("User %s logged in from %s", "john", "localhost");
+### Acceptable Version Patterns for v2
+
+- `"2"` - Exact major version (preferred for Rust dependencies)
+- `"^2.x.x"` - Compatible with v2.x.x (preferred for npm dependencies)
+- `"~2.x.x"` - Patch-level changes within v2.x.x
+- `">=2"` - At least v2 (use with caution)
+
+### Forbidden Version Patterns
+
+- `"1"` or `"^1.x.x"` - Tauri v1 (deprecated)
+- `"3"` or `"^3.x.x"` - Future versions (not released/tested)
+- `"*"` - Any version (too permissive)
+
+## Configuration Requirements
+
+### Tauri Configuration (tauri.conf.json)
+
+The Tauri configuration file MUST be compatible with v2 schema and capabilities system:
+
+```json
+{
+  "$schema": "https://schema.tauri.app/config/2.0.0"
+  // ... rest of configuration
+}
 ```
 
-### Contextual Logging
+### Capabilities System
 
-Add context to your logs using the `withMetadata` method:
+Tauri v2 uses a capabilities-based security model. All permissions MUST be defined in `capabilities/default.json` or other capability files, NOT in the main config.
 
-```ts
-log.withMetadata({
-  requestId: "123",
-  userId: "user_456",
-});
+## Migration Guidelines
 
-// Context will be included in all subsequent log messages
-log.info("Processing request");
-log.warn("User quota exceeded");
-```
+### When Adding New Tauri Dependencies
 
-Chain context with log methods:
+1. Always check the official Tauri v2 plugin list: https://v2.tauri.app/plugin/
+2. Use the latest stable v2 version available
+3. Update both Rust (Cargo.toml) and JavaScript (package.json) sides if the plugin has both
 
-```ts
-log.withMetadata({ requestId: "123" }).info("Processing request");
-```
+### When Updating Existing Dependencies
 
-### Error Logging
+1. Only update to newer v2.x.x versions
+2. Never downgrade to v1.x.x
+3. Test thoroughly after version updates
+4. Check release notes for breaking changes within v2
 
-When using error logging methods (`withError` or `errorOnly`), errors are automatically reported to Sentry for error tracking when the log level is `error` or `fatal`. This behavior can be disabled by setting `skipSentry: true` in the metadata.
+## Error Prevention
 
-#### With Message
+### Common Mistakes to Avoid
 
-```ts
-const error = new Error("Database connection failed");
-// Reports to Sentry by default
-log.withError(error).error("Failed to process request");
+- Installing v1 plugins by accident
+- Mixing v1 and v2 dependencies
+- Using deprecated v1 API calls in JavaScript code
+- Forgetting to update both Rust and JS sides of plugins
 
-// Skip Sentry reporting
-log
-  .withMetadata({ skipSentry: true })
-  .withError(error)
-  .error("Failed to process request");
+### Pre-commit Checklist
 
-// Can use any log level
-log.withError(error).warn("Database connection unstable"); // Not sent to Sentry
-log.withError(error).info("Retrying connection"); // Not sent to Sentry
-```
+- [ ] All Tauri dependencies use v2
+- [ ] No v1 dependencies present
+- [ ] Capabilities are properly configured
+- [ ] Both Rust and JS sides are updated together
 
-#### Error-Only
+## Troubleshooting
 
-```ts
-// Default level is 'error' and reports to Sentry
-log.errorOnly(new Error("Database connection failed"));
+### If v1 Dependencies Are Found
 
-// With custom level
-log.errorOnly(new Error("Connection timeout"), {
-  logLevel: LogLevel.warn, // Not sent to Sentry
-});
+1. Remove the v1 dependency: `cargo remove <package-name>`
+2. Add the v2 equivalent: `cargo add <package-name>@2`
+3. Update the JavaScript side if applicable
+4. Update any deprecated API calls in the code
 
-// With context
-log
-  .withMetadata({ requestId: "123" })
-  .withError(new Error("Not found"))
-  .error("Resource not found"); // Reports to Sentry
-```
+### If Version Conflicts Occur
 
-### Child Loggers
+1. Check `Cargo.lock` for conflicting versions
+2. Remove `Cargo.lock` and `target/` directory
+3. Run `cargo clean && cargo build`
+4. Verify all dependencies resolve to v2
 
-Create loggers that inherit context:
+## Reference Links
 
-```ts
-const child = logger.child({ requestId: "123" });
-child.info("Processing request");
-```
-
-## Request-Scoped Logging
-
-The logger supports request-scoped context using AsyncLocalStorage for automatic context propagation.
-
-### Setup
-
-```ts
-import { createAppLogger, createLoggerContext } from "@deadlock-mods/logging";
-
-export const loggerContext = createLoggerContext();
-export const logger = createAppLogger({
-  app: "app-api",
-  context: loggerContext,
-});
-```
-
-### Middleware Integration
-
-```ts
-app.use("*", async (c, next) => {
-  await loggerContext.storage.run(
-    { requestId: c.get("requestId") },
-    async () => {
-      await next();
-    }
-  );
-});
-```
-
-Example output:
-
-```ts
-logger.info("Processing request");
-// {
-//   "level": "info",
-//   "message": "Processing request",
-//   "context": { "requestId": "123" }
-// }
-```
-
-## Testing
-
-Use the mock logger for testing:
-
-```ts
-const mockLogger = createMockLogger();
-someFunction(mockLogger);
-```
-
-## Best Practices
-
-1. **Always use structured logging**
-
-   - Avoid `console.log`, `console.error`, etc.
-   - Use appropriate log levels
-   - Include relevant context
-
-2. **Context Guidelines**
-
-   - Keep context data relevant and concise
-   - Use consistent key names across the application
-   - Don't include sensitive information in logs
-
-3. **Error Handling**
-
-   - Always log the full error object using `withError`
-   - Include enough context to debug the issue
-   - Use appropriate log levels for different error severities
-
-4. **Performance Considerations**
-
-   - Use debug/trace levels for verbose logging
-   - Consider log volume in production
-   - Implement log sampling for high-volume endpoints
-
-5. **Security**
-   - Never log sensitive data (passwords, tokens, etc.)
-   - Mask or truncate potentially sensitive values
-   - Follow data protection regulations for your region
+- [Tauri v2 Documentation](https://v2.tauri.app/)
+- [Tauri v2 Migration Guide](https://v2.tauri.app/migrate/)
+- [Tauri v2 Plugin Directory](https://v2.tauri.app/plugin/)
+- [Tauri v2 Breaking Changes](https://github.com/tauri-apps/tauri/blob/v2/MIGRATION.md)
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
