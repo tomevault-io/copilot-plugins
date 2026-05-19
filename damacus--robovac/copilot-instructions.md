@@ -1,15 +1,12 @@
-## code-style-guide
+## python-hooks
 
-> Write failing tests first.
+> AI instruction file for robovac by damacus
 
 
-# Code Style Guide
+# Python Hooks
 
-Write failing tests first.
-Make sure that we can use each method before fixing it.
-Perform TDD
-Write clean readable code
-Anyone should be able to follow the logic
+- task lint
+- task type-check
 
 ---
 > Source: [damacus/robovac](https://github.com/damacus/robovac) — distributed by [TomeVault](https://tomevault.io).
