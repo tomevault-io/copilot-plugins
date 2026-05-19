@@ -1,0 +1,9 @@
+{
+  "name": "codealive-ai--codealive-mcp",
+  "displayName": "codealive-mcp",
+  "description": "The most accurate and comprehensive Context Engine as a service, optimized for large codebases, powered by advanced GraphRAG and accessible via MCP. It enriches the context for AI agents like Codex, C",
+  "version": "1.0.0",
+  "author": "CodeAlive-AI",
+  "homepage": "https://github.com/CodeAlive-AI/codealive-mcp",
+  "skills": []
+}
