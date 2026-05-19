@@ -1,0 +1,9 @@
+{
+  "name": "prefecthq--fastmcp",
+  "displayName": "fastmcp",
+  "description": "\ud83d\ude80 The fast, Pythonic way to build MCP servers and clients.",
+  "version": "1.0.0",
+  "author": "PrefectHQ",
+  "homepage": "https://github.com/PrefectHQ/fastmcp",
+  "skills": []
+}
