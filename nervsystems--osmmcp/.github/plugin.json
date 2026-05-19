@@ -1,0 +1,9 @@
+{
+  "name": "nervsystems--osmmcp",
+  "displayName": "osmmcp",
+  "description": "OpenStreetMap MCP server providing precision geospatial tools for LLMs via Model Context Protocol. Features geocoding, routing, nearby places, neighborhood analysis, EV charging stations, and more.",
+  "version": "1.0.0",
+  "author": "NERVsystems",
+  "homepage": "https://github.com/NERVsystems/osmmcp",
+  "skills": []
+}
