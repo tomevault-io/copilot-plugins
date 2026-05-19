@@ -1,0 +1,9 @@
+{
+  "name": "fsspec--projspec",
+  "displayName": "projspec",
+  "description": "A project about projects",
+  "version": "1.0.0",
+  "author": "fsspec",
+  "homepage": "https://github.com/fsspec/projspec",
+  "skills": []
+}
