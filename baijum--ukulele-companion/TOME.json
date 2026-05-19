@@ -4,7 +4,7 @@
   "repo": "ukulele-companion",
   "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/baijum/ukulele-companion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T06:23:58Z"
+  "distributed_at": "2026-05-19T12:38:30Z"
 }
