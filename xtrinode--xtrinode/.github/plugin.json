@@ -1,0 +1,9 @@
+{
+  "name": "xtrinode--xtrinode",
+  "displayName": "xtrinode",
+  "description": "XTrinode is a Kubernetes-native control plane for elastic Trino runtimes with operator-managed lifecycle, gateway routing, catalogs, autosuspend/resume, KEDA scaling, and cloud-provider node-pool supp",
+  "version": "1.0.0",
+  "author": "xtrinode",
+  "homepage": "https://github.com/xtrinode/xtrinode",
+  "skills": []
+}
