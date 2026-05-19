@@ -1,76 +1,35 @@
-## fulltext-cmds
+## general
 
-> `pyzotero` documentation for working with full-text content
+> `zot-cli` is a Python `click` command-line wrapper for `pyzotero`. As much as possible, we directly pass through inputs, outputs, and exceptions. The goal is simply to expose the `pyzotero` API from the command line so that it can be more effectively used by AI agents with a Bash runner tool. Since the primary users will be AI agents, we generally want to format outputs as valid JSON unless a user specifically requests yaml or tabulated output via an option flag.
 
+`zot-cli` is a Python `click` command-line wrapper for `pyzotero`. As much as possible, we directly pass through inputs, outputs, and exceptions. The goal is simply to expose the `pyzotero` API from the command line so that it can be more effectively used by AI agents with a Bash runner tool. Since the primary users will be AI agents, we generally want to format outputs as valid JSON unless a user specifically requests yaml or tabulated output via an option flag.
 
-This document contains the portion of the `pyzotero` documentation that corresponds to the full-text content functionality in our CLI wrapper.
+## How `pyzotero` works
 
-# Full-Text Commands
+.. important::
+    A ``Zotero`` instance is bound to the library or group used to create it. Thus, if you create a ``Zotero`` instance with a ``library_id`` of ``67`` and a ``library_type`` of ``group``, its item methods will only operate upon that group. Similarly, if you create a ``Zotero`` instance with your own ``library_id`` and a ``library_type`` of ``user``, the instance will be bound to your Zotero library.
 
-## Retrieving Full-Text Content
+First, create a new Zotero instance:
 
-```python
-# Get new full-text content since a specific version
-zot.new_fulltext(since)
-```
+    .. py:class:: Zotero(library_id, library_type[, api_key, preserve_json_order, locale, local])
 
-Parameters:
-- `since`: a library version string, e.g. "1085"
+        :param str library_id: a valid Zotero API user ID
+        :param str library_type: a valid Zotero API library type: **user** or **group**
+        :param str api_key: a valid Zotero API user key
+        :param bool preserve_json_order: Load JSON returns with OrderedDict to preserve their order
+        :param str locale: Set the `locale <https://www.zotero.org/support/dev/web_api/v3/types_and_fields#zotero_web_api_item_typefield_requests>`_, allowing retrieval of localised item types, field types, and creator types. Defaults to "en-US".
+        :param str local: use the local Zotero http server instead of the remote API. Note that the local server currently (November 2024) only allows **read** requests
 
-Returns a dict containing item keys and library versions newer than the provided version.
+Example:
 
-Example of returned data:
-```python
-{
-    u'229QED6I': 747,
-    u'22TGJFS2': 769,
-    u'23SZWREM': 764
-}
-```
+    .. code-block:: python
+        :emphasize-lines: 4
 
-```python
-# Get full-text for an item
-zot.fulltext_item(itemID[, search/request parameters])
-```
-
-Parameters:
-- `itemID`: a Zotero item ID
-
-Returns a dict containing full-text data for the given attachment item. `indexedChars` and `totalChars` are used for text documents, while `indexedPages` and `totalPages` are used for PDFs.
-
-Example of returned data:
-```python
-{
-    "content": "This is full-text content.",
-    "indexedPages": 50,
-    "totalPages": 50
-}
-```
-
-## Setting Full-Text Content
-
-```python
-# Set full-text data for an item
-zot.set_fulltext(itemID, payload)
-```
-
-Parameters:
-- `itemID`: should correspond to an existing attachment item
-- `payload`: a dict containing three keys
-  - `content`: the full-text content
-  - For text documents: `indexedChars` and `totalChars` OR
-  - For PDFs: `indexedPages` and `totalPages`
-
-Example payload:
-```python
-{
-    "content": "This is full-text content.",
-    "indexedPages": 50,
-    "totalPages": 50
-}
-```
-
-Returns a boolean indicating success. 
+        from pyzotero import zotero
+        zot = zotero.Zotero('123', 'user', 'ABC1234XYZ')
+        # we now have a Zotero object, zot, and access to all its methods
+        first_ten = zot.items(limit=10)
+        # a list containing dicts of the ten most recently modified library items
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
