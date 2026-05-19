@@ -1,104 +1,198 @@
-## prepare
+## project-onboarding-rule
 
-> Force deep preperation before answering a prompt
+> Automatically onboards existing projects into the AI-driven development workflow
 
-## Steps to Take Before Reasoning
-**Immediately before** you start reasoning about the human’s prompt, perform the following research steps to gather broad context. Collect any information relevant to the prompt or that would help execute on it effectively:
 
-1. **Search all packages for shared libraries, utilities, and patterns**  
-   - Note what can be reused to avoid redundancy.  
-2. **Find and note any schemas, models, types, constants, or configuration files**  
-   - Collect relevant structured data critical to the function of the codebase and application.  
-3. **Locate coding standards and practices**  
-   - Identify conventions you must follow for naming, file structure, code formatting, etc.  
-4. **Identify existing tooling, scripts, and workflows**  
-   - Note any automated processes or frameworks already in place.  
-5. **Review overarching CI/CD pipelines and deployment models**  
-   - Ensure your contributions align with established build, test, and release processes.  
-6. **Check existing versioning and release management practices**  
-   - Understand how changes are documented, tagged, and published.  
-7. **Assess design patterns, syntax preferences, or stylistic approaches**  
-   - Confirm you are imitating the prevailing style unless it is severely flawed.
+# Project Onboarding System
 
-Use these findings to maintain consistency and preserve the codebase’s cohesiveness.
+Rule for automatically analyzing existing projects and integrating them into the AI-driven development workflow.
 
----
+<rule>
+name: project_onboarding
+filters:
+  - type: event
+    pattern: "project_onboard"
+  - type: event
+    pattern: "rules_setup"
+  - type: command
+    pattern: "onboard"
+  - type: command
+    pattern: "analyze"
+  - type: event
+    pattern: "cursor_start"
 
-## Rules for Prepping When Proposing a Solution
+actions:
+  - type: react
+    conditions:
+      - pattern: "onboard project|project onboard"
+    action: |
+      # Comprehensive onboarding of an existing project
+      
+      I'll perform a complete project onboarding by:
+      
+      1. Creating the required directory structure:
+         - `.cursor/specs/` - Requirements and specifications (managed by specification_management rule)
+         - `.cursor/tasks/` - Task tracking (managed by development_workflow_system rule)
+         - `.cursor/learnings/` - Knowledge capture (managed by knowledge_management rule)
+         - `.cursor/docs/` - Documentation (managed by knowledge_management rule)
+         - `.cursor/rules/` - Cursor rule files
+         - `.cursor/output/` - Generated reports
+      
+      2. Analyzing project structure:
+         - Directory structure
+         - File types and counts
+         - Lines of code statistics
+      
+      3. Discovering existing documentation:
+         - Finding README, CONTRIBUTING, CHANGELOG files
+         - Cataloging documentation into `.cursor/docs/existing/`
+         - Creating a documentation index
+      
+      4. Extracting core components:
+         - Identifying main modules and components
+         - Analyzing component relationships
+         - Documenting component purposes
+      
+      5. Creating initial specifications:
+         - Architecture overview specs
+         - Component specifications
+         - Feature specifications based on existing code
+      
+      6. Generating knowledge base:
+         - Project structure learning
+         - Component identification learning
+         - Documentation assessment learning
+      
+      7. Setting up task tracking:
+         - Initial onboarding completion task
+         - Task index creation
+      
+      This process integrates an existing project into the AI-driven workflow
+      without requiring changes to the original codebase.
 
-1. **Recall the Research Objective**  
-   - Your proposal must fit seamlessly into the existing architecture, leveraging documented patterns and standards.
+  - type: react
+    conditions:
+      - pattern: "analyze existing|existing analyze"
+    action: |
+      # Analyze an existing codebase without full onboarding
+      
+      I'll analyze the existing codebase by:
+      
+      1. Examining project overview:
+         - Project type detection
+         - Repository structure analysis
+         - File type distribution
+      
+      2. Calculating code statistics:
+         - Lines of code by language
+         - File counts by type
+         - Directory structure
+      
+      3. Identifying key components:
+         - Main modules and structure
+         - Component relationships
+         - Entry points
+      
+      4. Analyzing test structure:
+         - Test directory organization
+         - Test coverage assessment
+         - Testing approach
+      
+      5. Reviewing documentation:
+         - Available documentation files
+         - Documentation completeness
+         - Documentation types
+      
+      6. Providing integration recommendations:
+         - Suggestions for specification creation (via specification_management rule)
+         - Test coverage improvements (via development_workflow_system rule)
+         - Documentation enhancements (via knowledge_management rule)
+      
+      The analysis report will be saved to `.cursor/output/codebase_analysis_[timestamp].md`
 
-2. **Incorporate Research Findings**  
-   - Reuse any shared libraries or utilities discovered in the “Steps to Take Before Reasoning.”  
-   - Respect existing schemas, models, constants, or configurations to avoid conflicts and duplication.  
-   - Align your proposal with established coding and deployment standards so it can pass automated checks.
+  - type: react
+    conditions:
+      - pattern: "setup rules|rules setup"
+    action: |
+      # Set up default rules for a project
+      
+      I'll set up the AI-driven development workflow rules:
+      
+      1. Creating the rules directory `.cursor/rules/`
+      2. Setting up the following rule files:
+         - `development-workflow-rule.mdc` - Task tracking, testing, and version control
+         - `specification-management-rule.mdc` - Specification creation and validation
+         - `knowledge-management-rule.mdc` - Knowledge capture and application
+         - `location-rule.mdc` - Rules for organizing rule files
+         - `command-rules.mdc` - AI command system
+         - `project-onboarding-rule.mdc` - Project onboarding
+         - `on-load-rule.mdc` - Critical development principles
+      3. Creating required directory structure
+      
+      This provides the foundation for AI-driven development without
+      analyzing or modifying the existing codebase.
 
-3. **Draft a High-Level Plan**  
-   - Provide a concise outline of how the solution should work.  
-   - Highlight any significant performance, security, or maintainability considerations.  
-   - Call out dependencies, tools, or frameworks that will be involved.
+  - type: react
+    event: "cursor_start"
+    action: |
+      # When Cursor starts with the project, check onboarding status
+      
+      When starting with this project, I'll:
+      
+      1. Check if the project has been onboarded (has `.cursor` directory)
+      2. If not onboarded, suggest running `setup rules` or `onboard project`
+      3. If partially onboarded, suggest running `analyze existing`
+      
+      This ensures you're aware of the available onboarding options.
 
-4. **Adhere to Versioning and CI/CD Requirements**  
-   - Confirm how your solution will be tested, validated, and integrated into the existing release management flow.  
-   - Indicate if any major or minor version increments are needed based on the scope of your proposed changes.
+  - type: suggest
+    message: |
+      ### AI-Driven Project Onboarding
 
-5. **Justify Your Approach**  
-   - Explain why your proposed solution is the best path forward, referencing codebase patterns and prior successful implementations.  
-   - If deviating from established norms, provide a clear, data-backed rationale.
+      I can help adapt existing projects to the AI-driven workflow:
 
----
+      **Option 1: Full Automatic Onboarding**
+      ```
+      onboard project
+      ```
+      This analyzes your codebase, extracts components, creates specs, 
+      and sets up knowledge tracking.
 
-## Rules for Prepping When Debugging
+      **Option 2: Rules-Only Setup**
+      ```
+      setup rules
+      ```
+      This sets up just the rule files and directory structure without 
+      analyzing the codebase.
 
-1. **Reaffirm the Research Objective**  
-   - Remember that any debugging effort must not break existing patterns or introduce regressions.
+      **Option 3: Analysis Without Onboarding**
+      ```
+      analyze existing
+      ```
+      This generates an analysis report of your codebase without creating 
+      specifications.
 
-2. **Gather Context from “Steps to Take Before Reasoning”**  
-   - Re-check relevant shared libraries, utilities, and coding standards related to the area you are debugging.  
-   - Review schemas, models, or constants that could influence the bug or fix.  
-   - Confirm if any CI/CD steps need to be considered for testing or deploying bug fixes.
+      The onboarding process requires no changes to your existing code. 
+      It simply adds a `.cursor` directory with helpful artifacts for 
+      AI-driven development.
 
-3. **Formulate a Debugging Strategy**  
-   - Identify the potential causes or hypotheses for the bug.  
-   - Locate any known error-handling patterns, logging frameworks, or specialized debug tools.  
-   - Plan small, isolated tests to verify each hypothesis without disrupting other parts of the codebase.
+examples:
+  - input: |
+      onboard project
+    output: "Project onboarding complete! Initial specifications, analysis files, and task tracking created."
 
-4. **Ensure Code Consistency**  
-   - When you patch a bug, use the same logging and error-handling approaches as the rest of the application.  
-   - Document your debugging steps and the final resolution concisely so that future maintainers can understand what was changed.
+  - input: |
+      setup rules
+    output: "Rules setup complete! Rule files created in the .cursor/rules directory."
 
----
+  - input: |
+      analyze existing
+    output: "Analysis complete! Report generated at .cursor/output/codebase_analysis_20250305_123456.md"
 
-## Rules for Prepping When Implementing a Solution or Modifying Code
-
-1. **Stay Focused on the Research Objective**  
-   - Do not introduce code that conflicts with established patterns unless it is demonstrably superior and approved by relevant standards.
-
-2. **Apply “Steps to Take Before Reasoning” During Implementation**  
-   - Verify you’re leveraging shared libraries where possible.  
-   - Double-check that all relevant constants, models, or configurations are used correctly.  
-   - Maintain alignment with project-wide styling and architecture guidelines.
-
-3. **Implementation Checklist**  
-   - **File and Folder Organization**: Place new files in appropriate directories and follow naming conventions.  
-   - **Coding Standards**: Use the project’s standard patterns for function naming, class naming, and documentation.  
-   - **Testing**: Write or update unit, integration, or end-to-end tests to ensure the change’s reliability.  
-   - **Documentation**: Provide clear inline comments, commit messages, or a brief summary in a README if necessary.  
-   - **Deployment**: Validate that any new or updated code can be seamlessly built and deployed using the existing CI/CD pipeline.
-
-4. **Versioning and Release Notes**  
-   - Update the version number if the changes warrant it (e.g., patch, minor, or major release).  
-   - Add concise release notes describing the nature of your modifications.
-
-5. **Review and Confirm**  
-   - Perform a final check to ensure your changes meet the previously identified project patterns, style, and deployment requirements.  
-   - Confirm all tests pass locally and in the CI pipeline before finalizing.
-
----
-
-## Closing Notes
-By following these organized steps—**researching before reasoning**, **debugging effectively**, **proposing robust solutions**, and **implementing changes cohesively**—you will ensure your contributions are thoroughly aligned with the project’s standards and **never disturb** its overall cohesiveness.
+metadata:
+  priority: high
+  version: 1.0
+</rule> 
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
