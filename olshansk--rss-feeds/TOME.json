@@ -4,7 +4,7 @@
   "repo": "rss-feeds",
   "description": "Generate RSS feeds for all the blogs that don't have one",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Olshansk/rss-feeds",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:47:08Z"
+  "distributed_at": "2026-05-19T01:01:38Z"
 }
