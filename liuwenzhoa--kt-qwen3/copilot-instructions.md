@@ -1,132 +1,90 @@
-## ktransformers-faq
+## ktransformers-fp8-kernel
 
-> KTransformers是一个优化大型语言模型推理性能的框架，支持在有限资源下运行像DeepSeek-R1、DeepSeek-V3等大型模型。本规则总结了使用KTransformers时可能遇到的常见问题及其解决方案。
+> KTransformers是一个用于优化大型语言模型推理性能的框架，其中FP8内核优化是专为DeepSeek-V3和DeepSeek-R1等大型模型设计的特殊技术。本规则详细介绍KTransformers中的FP8内核实现和使用方法。
 
-# KTransformers 常见问题解答
+# KTransformers FP8内核优化技术
 
 ## 概述
 
-KTransformers是一个优化大型语言模型推理性能的框架，支持在有限资源下运行像DeepSeek-R1、DeepSeek-V3等大型模型。本规则总结了使用KTransformers时可能遇到的常见问题及其解决方案。
+KTransformers是一个用于优化大型语言模型推理性能的框架，其中FP8内核优化是专为DeepSeek-V3和DeepSeek-R1等大型模型设计的特殊技术。本规则详细介绍KTransformers中的FP8内核实现和使用方法。
 
-## 安装问题
+## FP8内核技术原理
 
-### 1. GLIBCXX版本缺失错误
+DeepSeek-AI团队为DeepSeek-R1/V3模型提供了FP8 safetensors权重格式。KTransformers利用这一资源，实现了高效的混合精度推理架构：
 
-**问题描述**：
-```
-ImportError: /lib/x86_64-linux-gnu/libstdc++.so.6: version GLIBCXX_3.4.32' not found
-```
+- **混合量化架构**：
+  - 注意力层和共享专家模块：使用FP8精度以提高计算精度
+  - 专家模块：保留GGML量化（GGUF格式），驻留在CPU以节省GPU内存
+- **内存优化**：实现了约19GB VRAM的高效内存使用
+- **性能提升**：同时保持推理质量的情况下显著提高速度
 
-**解决方案**：
-在Ubuntu 22.04系统上，需要更新libstdc++库：
+## 使用方法
+
+### 预合并权重使用
+
+KTransformers团队提供了预合并的混合精度权重，可直接使用：
+
+1. 下载预合并权重：
 ```bash
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install --only-upgrade libstdc++6
+pip install -U huggingface_hub
+
+# 可选：使用HF镜像加速下载
+# export HF_ENDPOINT=https://hf-mirror.com 
+
+huggingface-cli download --resume-download KVCache-ai/DeepSeek-V3-GGML-FP8-Hybrid --local-dir <本地目录>
 ```
 
-### 2. Version `GLIBCXX_3.4.30' not found
+2. 预合并权重地址：
+   - DeepSeek-V3: [KVCache-ai/DeepSeek-V3-GGML-FP8-Hybrid](mdc:https:/huggingface.co/KVCache-ai/DeepSeek-V3)
+   - DeepSeek-R1: [KVCache-ai/DeepSeek-R1-GGML-FP8-Hybrid](mdc:https:/huggingface.co/KVCache-ai/DeepSeek-R1)
 
-**问题描述**：
-```
-ImportError: /mnt/data/miniconda3/envs/xxx/bin/../lib/libstdc++.so.6: version `GLIBCXX_3.4.30' not found (required by /home/xxx/xxx/ktransformers/./cpuinfer_ext.cpython-312-x86_64-linux-gnu.so)
-```
+### 自行合并权重
 
-**解决方案**：
-使用conda安装较新版本的libstdcxx-ng：
+如果有本地DeepSeek-R1/V3 fp8 safetensors和gguf权重，可使用合并脚本创建混合精度模型：
+
 ```bash
-conda install -c conda-forge libstdcxx-ng
+python merge_tensors/merge_safetensor_gguf.py \
+  --safetensor_path <fp8_safetensor路径> \
+  --gguf_path <gguf文件夹路径> \
+  --output_path <合并输出路径>
 ```
 
-## 模型相关问题
+参数说明：
+- `--safetensor_path`：FP8 safetensor文件路径
+- `--gguf_path`：量化后的GGUF文件夹路径
+- `--output_path`：合并输出的目标路径
 
-### 1. DeepSeek-R1没有输出初始`<think>`标记
+### 运行混合精度模型
 
-**问题描述**：
-DeepSeek-R1模型在某些查询中可能会跳过思考模式（即省略`<think>\n\n</think>`），这可能影响模型性能。
+使用特定的优化配置文件运行混合精度模型：
 
-**解决方案**：
-使用`--force_think true`参数强制模型在每次输出开始时以`<think>\n`开头：
 ```bash
-python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --force_think true
+python ktransformers/local_chat.py \
+  --model_path deepseek-ai/DeepSeek-V3 \
+  --gguf_path <合并权重文件夹> \
+  --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-fp8-linear-ggml-experts.yaml \
+  --cpu_infer <cpu核心数 + 1>
 ```
 
-### 2. 运行bfloat16 MoE模型时数据显示NaN
+## 技术要求与注意事项
 
-**问题描述**：
-推理过程中出现概率张量包含`inf`、`nan`或小于0的元素的错误。
+### 硬件要求
+- **GPU**：需要支持FP8计算的GPU（如NVIDIA 4090）
+- **VRAM**：推荐至少19GB可用VRAM
+- **存储**：合并后的模型权重文件较大，需要足够的磁盘空间
 
-**解决方案**：
-这个问题在Ubuntu 22.04上是由于g++版本太旧，预定义宏不包括avx_bf16。建议使用Ubuntu 22.04的g++ 11.4或更高版本，已确认可以正常工作。
+### 性能注意事项
+- **首次运行JIT编译**：首次执行会因JIT编译导致时间较长，后续运行将保持优化速度
+- **临时接口**：当前权重加载实现为临时性质，将在未来版本中改进
+- **路径指定**：使用`--gguf_path`参数指向包含合并权重的文件夹
 
-### 3. 加载gguf文件出错
+## 技术优势
 
-**检查事项**：
-1. 确保`--gguf_path`目录中有`.gguf`文件
-2. 该目录应只包含来自一个模型的gguf文件
-3. 文件夹名称本身不应以`.gguf`结尾
-4. 检查文件是否损坏，可通过验证sha256sum与官方源一致
-
-## 性能优化问题
-
-### 1. 如何充分利用多余显存
-
-如果您的显存超过模型基本需求，可以：
-
-1. **扩大上下文窗口**：
-   - 对于local_chat.py：增加`--max_new_tokens`的值
-   - 对于服务器：增加`--cache_lens`的值
-
-2. **将更多权重移至GPU**：
-   使用或修改优化配置文件，例如：
-   ```yaml
-   - match:
-      name: "^model\\.layers\\.([4-10])\\.mlp\\.experts$"
-    replace:
-      class: ktransformers.operators.experts.KTransformersExperts  
-      kwargs:
-        generate_device: "cuda:0"
-        generate_op: "KExpertsMarlin"
-    recursive: False
-   ```
-   
-   注意事项：
-   - 在GPU上执行专家会与CUDA Graph冲突
-   - 将DeepSeek-V3/R1的单层专家放在GPU上至少需要5.6GB显存
-
-### 2. 多GPU资源利用
-
-如果显存不足但有多个GPU，可以使用多GPU配置：
-```bash
-python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-multi-gpu.yaml
-```
-
-也可以参考基本配置文件编写适合4/8 GPU的优化规则文件。
-
-注意：ktransformers的多GPU策略是流水线，主要用于模型权重分配，不会加速模型推理。
-
-### 3. 获得最佳性能的CPU配置
-
-使用`--cpu_infer`参数控制用于推理的CPU核心数。使用的核心越多，模型运行越快，但不是越多越好，建议将其设置为略低于实际核心数的值。
-
-### 4. 使用fp8预填充非常慢的问题
-
-FP8内核是通过JIT构建的，首次运行会很慢，但后续运行会变快。
-
-## 特殊硬件兼容性
-
-### 1. 在Volta和Turing架构显卡上运行
-
-对于较早的GPU架构（如Volta和Turing），可以：
-
-1. 获取最新源代码
-2. 修改优化配置文件，将所有`KLinearMarlin`替换为`KLinearTorch`
-3. 从源代码重新编译
-4. 安装flash-attn（即使不使用，不安装也会报错）
-5. 修改local_chat.py，将所有`flash_attention_2`替换为`eager`
-6. 运行local_chat.py，确保系统内存容量大于模型完整大小
-
-性能优化：修改注意力处理代码，使用较低精度进行中间计算。详细修改参见FAQ文档。
+FP8混合精度技术在KTransformers中提供以下优势：
+1. **内存效率**：通过混合精度策略，在有限VRAM条件下运行大型模型
+2. **计算加速**：利用FP8线性层内核加速计算密集型操作
+3. **质量保证**：关键组件使用更高精度，确保推理质量
+4. **灵活配置**：可根据硬件资源定制不同组件的精度
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
