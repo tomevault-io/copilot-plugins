@@ -1,0 +1,9 @@
+{
+  "name": "wise-vision--ros2-mcp",
+  "displayName": "ros2_mcp",
+  "description": "Advanced MCP Server ROS 2 bridging AI agents straight into robotics",
+  "version": "1.0.0",
+  "author": "wise-vision",
+  "homepage": "https://github.com/wise-vision/ros2_mcp",
+  "skills": []
+}
