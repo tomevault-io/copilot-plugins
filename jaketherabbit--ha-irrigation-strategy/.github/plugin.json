@@ -1,0 +1,9 @@
+{
+  "name": "jaketherabbit--ha-irrigation-strategy",
+  "displayName": "HA-Irrigation-Strategy",
+  "description": "Home Assistant Irrigation Strategy with Crop Steering and full GUI configuration via blueprints",
+  "version": "1.0.0",
+  "author": "JakeTheRabbit",
+  "homepage": "https://github.com/JakeTheRabbit/HA-Irrigation-Strategy",
+  "skills": []
+}
