@@ -1,0 +1,9 @@
+{
+  "name": "shamanic-technologies--content-generation-service",
+  "displayName": "content-generation-service",
+  "description": "Open Source email generation service",
+  "version": "1.0.0",
+  "author": "shamanic-technologies",
+  "homepage": "https://github.com/shamanic-technologies/content-generation-service",
+  "skills": []
+}
