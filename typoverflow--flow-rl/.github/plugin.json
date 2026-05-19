@@ -1,0 +1,9 @@
+{
+  "name": "typoverflow--flow-rl",
+  "displayName": "flow-rl",
+  "description": "Flow RL is a high-performance RL library with flow and diffusion models.",
+  "version": "1.0.0",
+  "author": "typoverflow",
+  "homepage": "https://github.com/typoverflow/flow-rl",
+  "skills": []
+}
