@@ -1,0 +1,9 @@
+{
+  "name": "hald--things-mcp",
+  "displayName": "things-mcp",
+  "description": "Things.app MCP Server",
+  "version": "1.0.0",
+  "author": "hald",
+  "homepage": "https://github.com/hald/things-mcp",
+  "skills": []
+}
