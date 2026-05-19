@@ -1,0 +1,9 @@
+{
+  "name": "cfg2-com--dev-env-win",
+  "displayName": "dev-env-win",
+  "description": "Scripts and config for a Windows development environment",
+  "version": "1.0.0",
+  "author": "cfg2-com",
+  "homepage": "https://github.com/cfg2-com/dev-env-win",
+  "skills": []
+}
