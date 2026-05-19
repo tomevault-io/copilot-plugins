@@ -1,0 +1,9 @@
+{
+  "name": "ericc-ch--copilot-api",
+  "displayName": "copilot-api",
+  "description": "Turn GitHub Copilot into OpenAI/Anthropic API compatible server. Usable with Claude Code!",
+  "version": "1.0.0",
+  "author": "ericc-ch",
+  "homepage": "https://github.com/ericc-ch/copilot-api",
+  "skills": []
+}
