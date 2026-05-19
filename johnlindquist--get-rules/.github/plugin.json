@@ -1,0 +1,9 @@
+{
+  "name": "johnlindquist--get-rules",
+  "displayName": "get-rules",
+  "description": "Downloads .mdc rule files for Cursor from johnlindquist/rules-for-tools repository.",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/get-rules",
+  "skills": []
+}
