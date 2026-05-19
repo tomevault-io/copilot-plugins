@@ -1,38 +1,84 @@
-## batchjoborchestrator
+## fastapiserverendpoints
 
-> description: BatchJobOrchestrator in llm-food, handling efficient batch processing of files
+> description: FastAPI endpoints in llm-food, including synchronous and asynchronous file processing
 
 ---
-description: BatchJobOrchestrator in llm-food, handling efficient batch processing of files
+description: FastAPI endpoints in llm-food, including synchronous and asynchronous file processing
 globs: llm_food/app.py
 alwaysApply: false
 ---
-# Batch Job Orchestrator
+# FastAPI Server Endpoints
 
-The BatchJobOrchestrator in llm-food manages the processing of multiple files efficiently, using temporary files and thread pool execution for optimal performance.
+The `llm-food` API is built using FastAPI and provides both synchronous and asynchronous endpoints for file conversion. The endpoints are designed to handle different types of document processing needs efficiently.
 
-## Core Components
+## Key Design Principles
 
-### 1. Batch Job Creation
+1. **Synchronous vs Non-Blocking Operations:**
+   - Synchronous operations for immediate file conversion (`/convert`)
+   - Non-blocking batch processing for multiple files (`/batch`)
+   - Thread pool execution for CPU-intensive operations
+
+2. **File Handling:**
+   - Immediate temporary file creation for uploaded files
+   - Proper cleanup of temporary files
+   - Efficient memory usage by avoiding in-memory file storage
+
+3. **Authentication:**
+   - Optional Bearer token authentication
+   - Configurable via environment variables
+
+## Endpoint Overview
+
+### 1. Synchronous Conversion (`/convert`)
+- Handles single file uploads
+- Immediate processing and response
+- Supports various file formats (PDF, DOCX, RTF, PPTX, HTML)
+
+### 2. Batch Processing (`/batch`)
+- Non-async endpoint running in FastAPI's thread pool
+- Immediate temporary file creation
+- Background task processing
+- Progress tracking via status endpoint
+- Efficient memory usage
+
+### 3. Status and Results (`/status/{task_id}`, `/batch/{task_id}`)
+- Track batch job progress
+- Retrieve completed results
+- Error reporting and handling
+
+## Implementation Details
+
+### Batch Processing Flow
+
 ```python
+@app.post("/batch", dependencies=[Depends(authenticate_request)])
 def batch_files_upload(
     background_tasks: BackgroundTasks,
     files: List[UploadFile],
     output_gcs_path: str,
 ):
-    """
-    Non-async endpoint that immediately writes files to disk and queues processing tasks.
-    Runs in FastAPI's thread pool to avoid blocking the event loop.
-    """
-    # Create temporary files
+    # Create temporary files immediately
     temp_files = []
     for f in files:
         temp_file = tempfile.NamedTemporaryFile(suffix=ext, delete=False)
         temp_files.append(temp_file.name)
         shutil.copyfileobj(f.file, temp_file)
+        temp_file.close()
+
+    # Process files in background tasks
+    background_tasks.add_task(
+        _process_single_non_pdf_file_and_upload,
+        temp_file_path,  # Pass file path instead of content
+        ...
+    )
+
+    return {"task_id": main_batch_job_id}
 ```
 
-### 2. PDF Batch Processing
+### Background Processing Functions
+
+The background processing functions are designed to be non-async to run efficiently in FastAPI's thread pool:
+
 ```python
 def _run_gemini_pdf_batch_conversion(
     pdf_inputs_list: List[tuple[str, str]],  # (filename, temp_file_path)
@@ -40,172 +86,62 @@ def _run_gemini_pdf_batch_conversion(
     main_batch_job_id: str,
     gemini_batch_sub_job_id: str,
 ):
-    """
-    Non-async function for processing PDFs using Gemini Batch API.
-    Runs in thread pool for efficient execution.
-    """
-    # Initialize clients
-    storage_client = storage.Client(...)
-    gemini_client = get_gemini_client()
+    # Process PDFs using Gemini Batch API
+    # Runs in thread pool, non-blocking
+    ...
 
-    # Process PDFs and create page images
-    for original_pdf_filename, temp_file_path in pdf_inputs_list:
-        with open(temp_file_path, "rb") as pdf_file:
-            page_images = convert_from_bytes(pdf_file.read())
-        
-        # Upload images and create tasks
-        for page_num, page_image in enumerate(page_images):
-            # Save to GCS and update database
-            ...
-
-    # Submit Gemini batch job
-    gemini_job = gemini_client.batches.create(...)
-
-    # Process results and update database
-    if gemini_job.state == JobState.JOB_STATE_SUCCEEDED:
-        # Process predictions and create final markdown files
-        ...
-```
-
-### 3. Non-PDF Processing
-```python
 def _process_single_non_pdf_file_and_upload(
     temp_file_path: str,
     file_ext: str,
     original_filename: str,
     ...
 ):
-    """
-    Non-async function for processing individual non-PDF files.
-    Runs in thread pool for efficient execution.
-    """
-    # Read from temporary file
-    with open(temp_file_path, "rb") as f:
-        content_bytes = f.read()
-
-    # Process content and upload results
-    markdown_texts = _process_file_content(...)
-    
-    # Upload to GCS and update database
+    # Process non-PDF files
+    # Runs in thread pool, non-blocking
     ...
-
-    # Clean up temporary file
-    os.unlink(temp_file_path)
 ```
 
-## Key Features
-
-1. **Efficient File Handling:**
-   - Immediate writing to temporary files
-   - No memory accumulation
-   - Proper cleanup after processing
-
-2. **Thread Pool Execution:**
-   - Non-async processing functions
-   - Runs in FastAPI's thread pool
-   - Avoids blocking the event loop
-
-3. **Status Tracking:**
-   - Database updates for progress
-   - Error handling and reporting
-   - Final status updates
-
-4. **Resource Management:**
-   - Proper client initialization
-   - Connection pooling
-   - Temporary file cleanup
-
-## Database Schema
-
-The orchestrator uses three main tables:
-
-1. **batch_jobs:**
-   - Overall job status
-   - File counts and progress
-   - Output path information
-
-2. **gemini_pdf_batch_sub_jobs:**
-   - Gemini batch job details
-   - PDF processing status
-   - Error tracking
-
-3. **file_tasks:**
-   - Individual file/page status
-   - Processing results
-   - Error messages
-
-## Status Management
+### Status Management
 
 ```python
 def _check_and_finalize_batch_job_status(
     main_batch_job_id: str,
     con: duckdb.DuckDBPyConnection,
 ):
-    """
-    Non-async function for checking and updating job status.
-    Called by background tasks to update overall job status.
-    """
-    # Check completion status
-    job_info = con.execute(
-        "SELECT total_input_files, overall_processed_count, overall_failed_count, status FROM batch_jobs WHERE job_id = ?",
-        (main_batch_job_id,)
-    ).fetchone()
-
-    # Update status if all files processed
-    if (processed_count + failed_count) >= total_files:
-        new_status = "completed_with_errors" if failed_count > 0 else "completed"
-        con.execute(
-            "UPDATE batch_jobs SET status = ? WHERE job_id = ?",
-            (new_status, main_batch_job_id)
-        )
-```
-
-## Error Handling
-
-```python
-def _record_pdf_failure(
-    con: duckdb.DuckDBPyConnection,
-    batch_job_id: str,
-    pdf_filename: str,
-    error_message: str,
-    current_time: datetime,
-):
-    """
-    Helper function for consistent error recording.
-    Updates both file_tasks and batch_jobs tables.
-    """
-    file_task_id = str(uuid.uuid4())
-    con.execute(
-        "INSERT INTO file_tasks (...) VALUES (...)",
-        (file_task_id, batch_job_id, pdf_filename, "failed", error_message, ...)
-    )
-    con.execute(
-        "UPDATE batch_jobs SET overall_failed_count = overall_failed_count + 1",
-        (batch_job_id,)
-    )
+    # Non-async status check and update
+    # Called by background tasks
+    ...
 ```
 
 ## Best Practices
 
-1. **Resource Management:**
-   - Always clean up temporary files
-   - Close database connections properly
-   - Release client resources
+1. **Memory Management:**
+   - Use temporary files instead of in-memory storage
+   - Clean up temporary files after processing
+   - Stream file uploads to disk
 
 2. **Error Handling:**
-   - Consistent error recording
-   - Proper status updates
-   - Cleanup on failure
+   - Proper cleanup in case of errors
+   - Detailed error reporting in database
+   - Status updates for failed operations
 
-3. **Performance:**
-   - Use thread pool for CPU-intensive tasks
-   - Avoid memory accumulation
-   - Efficient database operations
+3. **Database Operations:**
+   - Consistent transaction handling
+   - Status updates for tracking
+   - Proper connection management
 
-4. **Status Tracking:**
-   - Regular status updates
-   - Detailed error messages
-   - Progress monitoring 
+4. **Background Tasks:**
+   - Non-async processing functions for thread pool execution
+   - Progress tracking and status updates
+   - Resource cleanup
+
+## Configuration
+
+The server can be configured through environment variables:
+- `LLM_FOOD_HOST`: Server host (default: "0.0.0.0")
+- `LLM_FOOD_PORT`: Server port (default: 8000)
+- `LLM_FOOD_RELOAD`: Enable/disable reload in development
+- `API_AUTH_TOKEN`: Optional authentication token 
 
 ---
 > Source: [altaidevorg/llm-food](https://github.com/altaidevorg/llm-food) — distributed by [TomeVault](https://tomevault.io).
