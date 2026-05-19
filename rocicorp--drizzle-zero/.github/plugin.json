@@ -1,0 +1,9 @@
+{
+  "name": "rocicorp--drizzle-zero",
+  "displayName": "drizzle-zero",
+  "description": "Generate Zero schemas from Drizzle ORM schemas.",
+  "version": "1.0.0",
+  "author": "rocicorp",
+  "homepage": "https://github.com/rocicorp/drizzle-zero",
+  "skills": []
+}
