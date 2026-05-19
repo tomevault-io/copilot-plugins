@@ -7,13 +7,13 @@ Free and open-source SQL client built for AI and the web. The new way to query y
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [mako-ai/mako](https://github.com/mako-ai/mako).
+Original source: `CLAUDE.md` in [mako-ai/mako](https://github.com/mako-ai/mako).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
