@@ -1,73 +1,116 @@
-## refactor
+## task-list
 
-> Guidelines for iterative refactoring to improve code quality and reliability
+> Guidelines for creating and managing task lists in markdown files to track project progress
 
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Task List Management
 
-# Critical
+Guidelines for creating and managing task lists in markdown files to track project progress
+
 
 Whenever this rule is loaded, say first:
-`🧠 Refactoring guidelines rule loaded!`
+`🧠 Task list management rules loaded`
 
-# Iterative Refactoring Approach
+## Task List Creation
 
-This rule outlines a methodical approach to refactoring code for improved reliability, maintainability, and readability.
+1. Create task lists in a markdown file (in the project root):
+   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
+   - Include a clear title and description of the feature being implemented
 
-## Core Principles
+2. Structure the file with these sections:
+   ```markdown
+   # Feature Name Implementation
+   
+   Brief description of the feature and its purpose.
+   
+   ## Completed Tasks
+   
+   - [x] Task 1 that has been completed
+   - [x] Task 2 that has been completed
+   
+   ## In Progress Tasks
+   
+   - [ ] Task 3 currently being worked on
+   - [ ] Task 4 to be completed soon
+   
+   ## Future Tasks
+   
+   - [ ] Task 5 planned for future implementation
+   - [ ] Task 6 planned for future implementation
+   
+   ## Implementation Plan
+   
+   Detailed description of how the feature will be implemented.
+   
+   ### Relevant Files
+   
+   - path/to/file1.ts - Description of purpose
+   - path/to/file2.ts - Description of purpose
+   ```
 
-1. **Make incremental changes**: Refactor step by step, testing after each meaningful change.
-2. **Preserve behavior**: Ensure refactoring doesn't alter the functionality of the code.
-3. **Improve reliability**: Focus on making the code more robust against failures.
-4. **Use meaningful commits**: Each commit should represent a specific improvement.
-5. **Run related tests after each refactor**: Make sure to run tests and they pass before you commit. 
-6. **Fix all type issues**: Fix type issues once you spot them.
+## Task List Maintenance
 
-## Refactoring Techniques
+1. Update the task list as you progress:
+   - Mark tasks as completed by changing `[ ]` to `[x]`
+   - Add new tasks as they are identified
+   - Move tasks between sections as appropriate
 
-### 1. Method Extraction
-- Extract repeated or complex logic into separate, well-named methods
-- Aim for methods that do one thing and do it well
-- Keep method signatures clear and consistent
+2. Keep "Relevant Files" section updated with:
+   - File paths that have been created or modified
+   - Brief descriptions of each file's purpose
+   - Status indicators (e.g., ✅) for completed components
 
-### 2. Error Handling
-- Catch errors at appropriate levels
-- Provide meaningful error messages
-- Log detailed error context (IDs, timestamps, relevant state)
-- Ensure clean resource cleanup in finally blocks
-- Handle edge cases explicitly
+3. Add implementation details:
+   - Architecture decisions
+   - Data flow descriptions
+   - Technical components needed
+   - Environment configuration
 
-### 3. Code Simplification
-- Replace complex conditionals with simpler expressions
-- Remove redundant code
-- Use early returns to reduce nesting
-- Extract helper methods for clarity
+## AI Instructions
 
-### 4. Atomic Updates
-- Prefer atomic operations where possible
-- Minimize the chance of leaving data in inconsistent states
-- Use transactions or locking when necessary
+When working with task lists, the AI should:
 
-### 5. Testing Approach
-- Run tests after each significant change
-- Don't proceed with further changes if tests are failing
-- Add tests for edge cases discovered during refactoring
+1. Regularly update the task list file after implementing significant components
+2. Mark completed tasks with [x] when finished
+3. Add new tasks discovered during implementation
+4. Maintain the "Relevant Files" section with accurate file paths and descriptions
+5. Document implementation details, especially for complex features
+6. When implementing tasks one by one, first check which task to implement next
+7. After implementing a task, update the file to reflect progress
 
-## Implementation Process
+## Example Task Update
 
-1. **Analyze**: Understand the code before changing it
-2. **Plan**: Identify specific areas for improvement
-3. **Refactor**: Make small, focused changes
-4. **Test**: Verify behavior is preserved
-5. **Commit**: Save the working state with descriptive messages
-6. **Repeat**: Continue with the next improvement
+When updating a task from "In Progress" to "Completed":
 
-## Example Refactorings
+```markdown
+## In Progress Tasks
 
-- Extracting validation logic
-- Improving error handling and recovery
-- Adding robust null/undefined checks
-- Creating helper methods for repeated operations
-- Enhancing logging for better debugging
-- Simplifying complex conditional flows 
+- [ ] Implement database schema
+- [ ] Create API endpoints for data access
+
+## Completed Tasks
+
+- [x] Set up project structure
+- [x] Configure environment variables
+```
+
+Should become:
+
+```markdown
+## In Progress Tasks
+
+- [ ] Create API endpoints for data access
+
+## Completed Tasks
+
+- [x] Set up project structure
+- [x] Configure environment variables
+- [x] Implement database schema
+```
 
 ---
 > Source: [jonit-dev/vibe-coder-3d](https://github.com/jonit-dev/vibe-coder-3d) — distributed by [TomeVault](https://tomevault.io).
