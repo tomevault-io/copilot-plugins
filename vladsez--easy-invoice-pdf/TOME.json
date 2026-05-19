@@ -1,0 +1,44 @@
+{
+  "name": "easy-invoice-pdf",
+  "owner": "VladSez",
+  "repo": "easy-invoice-pdf",
+  "description": "Free & Open-Source Invoice Generator \u2013 Live PDF Preview, No Sign-Up, 100% In-Browser. Includes a Stripe-style invoice template. Star if you like it \ud83c\udf1f ",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/VladSez/easy-invoice-pdf",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T09:15:16Z"
+}
