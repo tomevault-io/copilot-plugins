@@ -1,56 +1,36 @@
-## oasis-dev-install-pipx
+## oasis-lint-gates-python-js
 
-> Local OASIS install and tests via pipx editable workflow
+> Prevent recurring Python/JS lint regressions with mandatory pre-completion checks
 
 
-# OASIS development install (pipx)
+# OASIS Lint Gates (Python + JavaScript)
 
-- Install or refresh the `oasis` CLI using **pipx** with an editable install:
+Apply this checklist before claiming implementation is done.
 
-```bash
-pipx uninstall oasis && pipx install -e .
-```
+## Mandatory final checks
 
-- If `pipx uninstall oasis` is interpreted as a local path (because an `oasis/` directory exists), run the command from outside the repository root.
-- Use this flow after dependency or entrypoint changes so the isolated venv matches the working tree.
-- Do not assume a global `pip install`; the project standard for local tooling is **pipx**.
+- Run `ReadLints` on every edited Python/JS file.
+- If any new diagnostics appear, fix them before final response.
+- Do not stop at “logic is correct”; code must also be lint-clean.
 
-# Optional development dependencies
+## Python guardrails
 
-- Optional dev tools (e.g. **coverage**) are declared in `pyproject.toml` under `[project.optional-dependencies] dev`.
-- Install the package **with** that extra so those tools are available in the pipx venv:
+- Do not use broad `except Exception` unless explicitly justified.
+- Prefer specific exception tuples and log warnings on safe fallbacks.
+- Normalize untrusted/coerced values with defensive helpers before casting.
+- Keep shaping logic in small helpers (avoid oversized orchestration functions).
 
-```bash
-pipx uninstall oasis && pipx install -e ".[dev]"
-```
+## JavaScript guardrails
 
-- Use `pipx install -e .` (no extra) when you only need the runtime CLI without dev-only packages.
+- Prefer `else if` over nested `if` inside `else`.
+- Remove redundant operations (`slice(0)`, duplicated transforms, dead branches).
+- Normalize dynamic values once (e.g., `trim()`/`String(...)`) and reuse.
+- Keep rendering blocks decomposed into focused helpers to reduce complexity.
 
-# OASIS test execution (pipx)
+## Verification evidence in responses
 
-- Run Python tests through the pipx environment, not the system Python.
-- Recommended command pattern:
-
-```bash
-PYTHONPATH="$(pwd)" pipx run --spec . python -m unittest tests.<module_or_class>
-```
-
-- For targeted regression checks touching several areas, keep a single pipx invocation:
-
-```bash
-PYTHONPATH="$(pwd)" pipx run --spec . python -m unittest tests.test_oasis_cli tests.test_embedding_pure tests.test_report_schema
-```
-
-# Coverage (requires `[dev]`)
-
-- With `.[dev]` installed, run from the repository root so imports resolve:
-
-```bash
-PYTHONPATH="$(pwd)" coverage run -m unittest discover -s tests
-coverage report
-```
-
-- Prefer **discover** over hand-picking modules when validating a broader change; target a single `tests/test_<area>.py` file when the edit is localized.
+- Mention which lint checks were executed.
+- Mention whether diagnostics are now zero (for edited files).
 
 ---
 > Source: [psyray/oasis](https://github.com/psyray/oasis) — distributed by [TomeVault](https://tomevault.io).
