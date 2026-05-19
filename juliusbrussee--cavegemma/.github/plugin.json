@@ -1,0 +1,9 @@
+{
+  "name": "juliusbrussee--cavegemma",
+  "displayName": "cavegemma",
+  "description": "LoRA fine-tune Gemma 4 31B to speak caveman-mode natively. Style: github.com/JuliusBrussee/caveman",
+  "version": "1.0.0",
+  "author": "JuliusBrussee",
+  "homepage": "https://github.com/JuliusBrussee/cavegemma",
+  "skills": []
+}
