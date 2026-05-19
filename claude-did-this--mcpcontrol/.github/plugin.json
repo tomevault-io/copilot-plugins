@@ -1,0 +1,9 @@
+{
+  "name": "claude-did-this--mcpcontrol",
+  "displayName": "MCPControl",
+  "description": "MCP server for Windows OS automation",
+  "version": "1.0.0",
+  "author": "claude-did-this",
+  "homepage": "https://github.com/claude-did-this/MCPControl",
+  "skills": []
+}
