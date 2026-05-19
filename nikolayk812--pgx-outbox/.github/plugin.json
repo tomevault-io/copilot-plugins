@@ -1,0 +1,9 @@
+{
+  "name": "nikolayk812--pgx-outbox",
+  "displayName": "pgx-outbox",
+  "description": "Simple Golang implementation for transactional outbox pattern for PostgreSQL using jackc/pgx driver",
+  "version": "1.0.0",
+  "author": "nikolayk812",
+  "homepage": "https://github.com/nikolayk812/pgx-outbox",
+  "skills": []
+}
