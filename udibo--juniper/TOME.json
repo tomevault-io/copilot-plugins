@@ -4,7 +4,7 @@
   "repo": "juniper",
   "description": "Juniper is a web framework for building React applications with Deno. It combines Hono for server-side routing with React Router for client-side navigation, providing a seamless full-stack development experience.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/udibo/juniper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T17:11:29Z"
+  "distributed_at": "2026-05-19T18:02:43Z"
 }
