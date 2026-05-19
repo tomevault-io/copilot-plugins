@@ -1,43 +1,24 @@
-## obsidian-mcp-plugin
+## code-style-guidelines
 
-> This document contains preferences and commands for Claude to use when working with this codebase.
+> Follow these conventions for consistent code:
 
-# Claude Coding Assistant Preferences
 
-This document contains preferences and commands for Claude to use when working with this codebase.
+# Code Style Guidelines
 
-## Commands to Run
+Follow these conventions for consistent code:
 
-After making changes, Claude should run the following commands to validate the changes:
+- Use TypeScript with proper typing throughout
+- Avoid `any` types whenever possible
+- Follow the conventional commit format (feat:, fix:, refactor:, etc.)
+- Create meaningful tests with descriptive it() blocks
+- Use descriptive variable names.
+- Add comments only for complex logic, non-obvious decisions, or to explain "why" something is done if not immediately clear from the code.
+- Avoid comments that merely restate what the code does, or that become outdated quickly (e.g., comments tracking interactive changes during development).
+- Favor composition over inheritance
+- Use centralized logging via the logger utility
+- For testing, prefer inline snapshots where appropriate
 
-```bash
-# Full check including linting, formatting, typechecking and unit tests
-npm run check
-
-# E2E tests (requires Docker/Podman, run outside sandbox)
-podman build -t obsidian-mcp-e2e -f e2e/Dockerfile .
-podman run --rm --ipc=host -v $(pwd)/e2e/test-results:/app/e2e/test-results obsidian-mcp-e2e
-```
-
-## References to Project Guidelines
-
-Claude should follow these guidelines when working with the codebase:
-
-- **Code Style**: @.cursor/rules/code-style-guidelines.mdc
-- **Commit Messages**: @.cursor/rules/commit-message-format.mdc
-- **Plugin Architecture**: @.cursor/rules/mcp-plugin-architecture.mdc
-- **Release Process**: @.cursor/rules/release-process.mdc
-- **Testing Best Practices**: @.cursor/rules/testing-best-practices.mdc
-
-## MCP Protocol Requirements
-
-- Always log tool calls and resource usage with performance metrics
-
-## Documentation
-
-- Update CHANGELOG.md when adding new features or fixing issues
-- Place new changes under the [Unreleased] section
-- Document user-facing features in README.md
+See [CLAUDE.md](mdc:CLAUDE.md) for additional style guidelines.
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
