@@ -1,54 +1,206 @@
-## import-hygiene
+## instrumentation-facades
 
-> Prevent accidental or unrequested import churn that causes build/lint issues and diffs unrelated to the task. Ensure SwiftUI is only imported where required (e.g., #Preview blocks) and avoid touching existing imports unless strictly necessary.
+> Pattern for abstracting pixel and wide event instrumentation behind domain-specific protocols.
 
+# Instrumentation Facades
 
-# Import Hygiene & Preview-Only Imports
+Feature code often becomes verbose when sending many pixels, or mixing pixel calls and wide event lifecycle management.
 
-## Purpose
-Prevent accidental or unrequested import churn that causes build/lint issues and diffs unrelated to the task. Ensure SwiftUI is only imported where required (e.g., #Preview blocks) and avoid touching existing imports unless strictly necessary.
+Consider a subscription purchase flow that needs to:
+- Fire a daily pixel when purchase starts
+- Start a wide event flow
+- Update the wide event with timing data
+- Fire unique pixels on success
+- Complete the wide event with success/failure/cancelled status
+- Handle multiple error cases with different failing steps
 
-## Rules (Always Apply)
+This leads to instrumentation code scattered throughout the feature, making it hard to:
+- Understand the feature's core logic
+- Test the feature in isolation
+- Modify instrumentation without touching feature code
+- Ensure all instrumentation points are covered
 
-1. Do not change imports unless:
-   - A new symbol is introduced that the compiler cannot resolve without the import
-   - An existing import is provably unused and removal is part of the explicit task scope
-   - The change resolves a red compiler error you introduced in this edit
+We can improve this using the facade pattern, abstracting our instrumentation behind a protocol. This is done by defining a protocol with domain-specific hooks that the feature calls, then implementing the protocol in a dedicated object that handles all instrumentation.
 
-2. Keep platform/framework imports minimal and local:
-   - Prefer `import AppKit` for macOS UI code
-   - Prefer `import UIKit` for iOS UI code
-   - Do not add `import SwiftUI` to AppKit/UIKit view controllers unless they embed SwiftUI.
+### Benefits
 
-3. Scope SwiftUI to previews:
-   - Only import `SwiftUI` inside `#if DEBUG` blocks for `#Preview` declarations
-   - **Example:** See [swiftui-preview-import.swift](import-hygiene/swiftui-preview-import.swift)
+1. **Feature code emits domain events only** - Cleaner, more readable feature logic
+2. **Instrumentation logic is centralized** - Easy to audit and modify
+3. **Easy to inject mocks for unit testing** - Test feature behavior without pixel dependencies
 
-4. Keep Shared Modules stable:
-   - Do not remove `import Common` or other project modules unless a dedicated cleanup task
-   - If a module is required elsewhere in the file, do not move or duplicate it
+## File Organization
 
-5. Lint & Build first, then adjust:
-   - If a file shows missing-types errors after your edits (e.g., `Cannot find type 'FireproofDomains'`), prefer adding the specific missing import required for those existing symbols
-   - Avoid speculative imports
+Instrumentation facades should be placed in the **same module as the feature** they instrument:
 
-6. No import reordering for style-only reasons unless the repository enforces it via formatter
+| Component | Location |
+|-----------|----------|
+| Protocol | Feature module (e.g., `Subscription/SubscriptionPurchaseInstrumentation.swift`) |
+| Default Implementation | Same module as protocol |
+| Mock for Testing | Test target or same module |
 
-## Rationale
-- Unnecessary import edits generate churn and can break platform- or target-specific build settings
-- Scoping SwiftUI to previews avoids accidental framework inclusion and linking in non-preview code paths
+For features that span iOS and macOS, place the protocol and implementation in a shared package (e.g., `BrowserServicesKit`).
 
-## Examples
+## Pattern Structure
 
-- **CORRECT (AppKit-only controller):** See [appkit-only-controller.swift](import-hygiene/appkit-only-controller.swift)
+### Step 1: Define the Protocol
 
-- **CORRECT (preview-only SwiftUI):** See [preview-only-swiftui.swift](import-hygiene/preview-only-swiftui.swift)
+Create a protocol with methods for each instrumentation hook your feature needs. Name methods after domain events, not pixels:
 
-- **AVOID:** See [import-to-avoid.swift](import-hygiene/import-to-avoid.swift)
+```swift
+public protocol SubscriptionPurchaseInstrumentation: AnyObject {
+    func purchaseAttemptStarted(selectionID: String, freeTrialEligible: Bool, ...)
+    func purchaseCancelled()
+    func purchaseFailed(step: FailingStep, error: Error)
+    func activationSucceeded()
+    // ... other domain events
+}
+```
 
-## Enforcement Guidance
-- During PR review, reject changes that add/remove imports without a clear necessity
-- Prefer comments in code review over automated reordering unless enforced by tooling
+### Step 2: Implement the Default Class
+
+Create an implementation that translates domain events to pixels and wide events. The implementation:
+- Fires appropriate pixels (standard, daily, or unique)
+- Manages wide event lifecycle (start, update, complete)
+- Tracks internal state like the current wide event data
+
+```swift
+public final class DefaultSubscriptionPurchaseInstrumentation: SubscriptionPurchaseInstrumentation {
+    private let wideEvent: WideEventManaging
+    private var purchaseWideEventData: SubscriptionPurchaseWideEventData?
+
+    public func purchaseAttemptStarted(...) {
+        DailyPixel.fireDailyAndCount(pixel: .subscriptionPurchaseAttempt, ...)
+        purchaseWideEventData = SubscriptionPurchaseWideEventData(...)
+        wideEvent.startFlow(purchaseWideEventData!)
+    }
+
+    public func activationSucceeded() {
+        UniquePixel.fire(pixel: .subscriptionActivated)
+        wideEvent.completeFlow(purchaseWideEventData!, status: .success, ...)
+    }
+}
+```
+
+### Step 3: Use in Feature Code
+
+Inject the instrumentation protocol and call it at appropriate points in your feature logic:
+
+```swift
+final class SubscriptionPurchaseFeature {
+    private let instrumentation: SubscriptionPurchaseInstrumentation
+
+    func subscriptionSelected(...) async {
+        instrumentation.purchaseAttemptStarted(...)
+
+        switch await performPurchase() {
+        case .success:
+            instrumentation.activationSucceeded()
+        case .failure(let error):
+            instrumentation.purchaseFailed(step: .accountPayment, error: error)
+        }
+    }
+}
+```
+
+## Dependency Injection
+
+### Constructor Injection (Preferred)
+
+Pass the instrumentation as an init parameter:
+
+```swift
+final class SubscriptionPurchaseFeature {
+    private let instrumentation: SubscriptionPurchaseInstrumentation
+
+    init(instrumentation: SubscriptionPurchaseInstrumentation = DefaultSubscriptionPurchaseInstrumentation()) {
+        self.instrumentation = instrumentation
+    }
+}
+```
+
+### Property Injection
+
+For cases where the instrumentation is set after initialization (e.g., UserScripts):
+
+```swift
+final class DebugUserScript {
+    weak var instrumentation: TabInstrumentationProtocol?
+}
+
+// In the parent object:
+private let instrumentation = TabInstrumentation()
+
+func configureUserScripts() {
+    userScripts.debugScript.instrumentation = instrumentation
+}
+```
+
+## Testing with Mocks
+
+Create a mock that records method calls for verification:
+
+```swift
+final class MockSubscriptionPurchaseInstrumentation: SubscriptionPurchaseInstrumentation {
+    private(set) var purchaseAttemptStartedCalls: [...] = []
+    private(set) var activationSucceededCallCount = 0
+
+    func purchaseAttemptStarted(...) {
+        purchaseAttemptStartedCalls.append(...)
+    }
+}
+```
+
+Then verify behavior in tests:
+
+```swift
+func testPurchaseSuccess() async {
+    let mock = MockSubscriptionPurchaseInstrumentation()
+    let feature = SubscriptionPurchaseFeature(instrumentation: mock)
+
+    await feature.subscriptionSelected(...)
+
+    XCTAssertEqual(mock.activationSucceededCallCount, 1)
+}
+```
+
+## Alternative: EventMapping for Shared Packages
+
+For features in shared Swift packages that can't directly import `Pixel` or `PixelKit`, use `EventMapping` instead of a full instrumentation facade. See `SharedPackages/BrowserServicesKit/Sources/Common/EventMapping.swift` for the base class.
+
+The pattern:
+1. **Define events in the shared package** as an enum (e.g., `MyFeatureEvent`)
+2. **Create an EventMapper in the app target** that switches on events and fires the appropriate pixels
+3. **Inject the EventMapping** into your shared package class
+
+See `MaliciousSiteProtectionEventMapper` in `iOS/DuckDuckGo/MaliciousSiteProtection/Events/` for a production example.
+
+**When to use EventMapping vs Instrumentation Facades:**
+- Use **EventMapping** when: Feature is in a shared package, events are simple fire-and-forget
+- Use **Instrumentation Facades** when: Feature needs wide event lifecycle management, complex state tracking, or many related instrumentation calls
+
+## When to Use Instrumentation Facades
+
+Use this pattern when any of the following are true:
+
+- A feature has 3+ distinct instrumentation calls
+- Pixels and wide events are mixed in the same flow
+- You need to test feature logic without pixel side effects
+- Instrumentation logic is complex (conditional firing, parameter assembly)
+
+Skip this pattern for:
+
+- Simple features with 1-2 pixels
+
+## Design Guidelines
+
+1. **Name methods after domain events, not pixels**: Use `purchaseAttemptStarted`, not `fireSubscriptionPurchaseAttemptPixel`.
+2. **Keep the protocol focused**: One protocol per feature/flow. Don't create a mega-protocol for all app instrumentation.
+3. **Hide implementation details**: The protocol shouldn't expose whether something is a daily pixel, unique pixel, or wide event.
+4. **Document expected call order**: If methods must be called in sequence (e.g., `startPurchase` before `completePurchase`), document this in the protocol.
+
+## Related Documentation
+
+- `pixels.mdc` - One-off instrumentation events
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
