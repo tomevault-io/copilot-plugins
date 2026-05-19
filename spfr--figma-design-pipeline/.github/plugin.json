@@ -1,0 +1,9 @@
+{
+  "name": "spfr--figma-design-pipeline",
+  "displayName": "figma-design-pipeline",
+  "description": "Open-source MCP pipeline for Figma: inspect designs, apply safe mutations, sync tokens, and generate code with Claude, Codex, Gemini, and Figma desktop.",
+  "version": "1.0.0",
+  "author": "spfr",
+  "homepage": "https://github.com/spfr/figma-design-pipeline",
+  "skills": []
+}
