@@ -1,9 +1,9 @@
-## comments-instructions
+## dependecies
 
-> Read comments for instructions
+> Use existing dependecies
 
 
-Look for comments that might instruct you about what to not do, or how removing the code below it might break something.
+Try to use existing dependecies as much as possible, and avoid introducing new dependecies unless necessary.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
