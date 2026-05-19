@@ -4,7 +4,7 @@
   "repo": "wyoming_openai",
   "description": "OpenAI-Compatible Proxy Middleware for the Wyoming Protocol",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/roryeckel/wyoming_openai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T01:22:40Z"
+  "distributed_at": "2026-05-19T03:45:25Z"
 }
