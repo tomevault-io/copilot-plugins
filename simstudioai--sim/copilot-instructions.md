@@ -1,72 +1,42 @@
-## sim-stores
+## sim-styling
 
-> Zustand store patterns
+> Tailwind CSS and styling conventions
 
 
-# Zustand Store Patterns
+# Styling Rules
 
-Stores live in `stores/`. Complex stores split into `store.ts` + `types.ts`.
+## Tailwind
 
-## Basic Store
+1. **No inline styles** - Use Tailwind classes
+2. **No duplicate dark classes** - Skip `dark:` when value matches light mode
+3. **Exact values** - `text-[14px]`, `h-[26px]`
+4. **Transitions** - `transition-colors` for interactive states
+
+## Conditional Classes
 
 ```typescript
-import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-import type { FeatureState } from '@/stores/feature/types'
+import { cn } from '@/lib/utils'
 
-const initialState = { items: [] as Item[], activeId: null as string | null }
-
-export const useFeatureStore = create<FeatureState>()(
-  devtools(
-    (set, get) => ({
-      ...initialState,
-      setItems: (items) => set({ items }),
-      addItem: (item) => set((state) => ({ items: [...state.items, item] })),
-      reset: () => set(initialState),
-    }),
-    { name: 'feature-store' }
-  )
-)
+<div className={cn(
+  'base-classes',
+  isActive && 'active-classes',
+  disabled ? 'opacity-60' : 'hover:bg-accent'
+)} />
 ```
 
-## Persisted Store
+## CSS Variables
+
+For dynamic values (widths, heights) synced with stores:
 
 ```typescript
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+// In store
+setWidth: (width) => {
+  set({ width })
+  document.documentElement.style.setProperty('--sidebar-width', `${width}px`)
+}
 
-export const useFeatureStore = create<FeatureState>()(
-  persist(
-    (set) => ({
-      width: 300,
-      setWidth: (width) => set({ width }),
-      _hasHydrated: false,
-      setHasHydrated: (v) => set({ _hasHydrated: v }),
-    }),
-    {
-      name: 'feature-state',
-      partialize: (state) => ({ width: state.width }),
-      onRehydrateStorage: () => (state) => state?.setHasHydrated(true),
-    }
-  )
-)
-```
-
-## Rules
-
-1. Use `devtools` middleware (named stores)
-2. Use `persist` only when data should survive reload
-3. `partialize` to persist only necessary state
-4. `_hasHydrated` pattern for persisted stores needing hydration tracking
-5. Immutable updates only
-6. `set((state) => ...)` when depending on previous state
-7. Provide `reset()` action
-
-## Outside React
-
-```typescript
-const items = useFeatureStore.getState().items
-useFeatureStore.setState({ items: newItems })
+// In component
+<aside style={{ width: 'var(--sidebar-width)' }} />
 ```
 
 ---
