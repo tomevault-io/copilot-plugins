@@ -1,0 +1,9 @@
+{
+  "name": "elegoo-3d--elegooslicer",
+  "displayName": "ElegooSlicer",
+  "description": "ElegooSlicer is an open-source slicer compatible with most FDM printers. Currently, ElegooSlicer is undergoing rapid iteration, with more features to be released soon. Please stay tuned for updates.",
+  "version": "1.0.0",
+  "author": "ELEGOO-3D",
+  "homepage": "https://github.com/ELEGOO-3D/ElegooSlicer",
+  "skills": []
+}
