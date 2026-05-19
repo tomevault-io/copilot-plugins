@@ -1,0 +1,9 @@
+{
+  "name": "joryeugene--calmhive-cli",
+  "displayName": "calmhive-cli",
+  "description": "> Transform Claude Code CLI into your AI development companion with voice control, background processing, and intelligent automation.",
+  "version": "1.0.0",
+  "author": "joryeugene",
+  "homepage": "https://github.com/joryeugene/calmhive-cli",
+  "skills": []
+}
