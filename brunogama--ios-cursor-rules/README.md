@@ -2,6 +2,8 @@
 
 > Tome by [brunogama](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io)
 
+ios cursor rules
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [brunogama/ios-cursor-rules](https://g
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — a repo with 0+ stars on GitHub.
+From [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — a repo with 71+ stars on GitHub.
 
 ---
 
