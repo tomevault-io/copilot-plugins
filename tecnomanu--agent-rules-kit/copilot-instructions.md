@@ -1,70 +1,83 @@
-## 03-file-operations
+## 04-cli-development
 
-> These guidelines apply to all file operations in the Agent Rules Kit project.
+> When you modify the CLI or add new stack templates:
 
-# File Operations Guidelines
 
-These guidelines apply to all file operations in the Agent Rules Kit project.
-!Important: Al the system and files most be in english 
- <!-- In the future: or using the translations system -->
+# CLI development & Rule generation
 
-## File Creation and Modification
+When you modify the CLI or add new stack templates:
 
-- Before creating a file, check if it already exists to avoid duplication
-- When modifying existing files, preserve the original formatting and style
-- If a file exists and there is no explicit instruction to overwrite, merge content instead of replacing
-- Ensure all new files have appropriate permissions
-- Add file headers with description and copyright information where applicable
+1. **CLI**
 
-## Template Files
+    - Update prompts in `cli/index.js`.
+    - Organize services in appropriate files in `cli/services/`:
+        - `base-service.js` - Base functionality shared across all services
+        - `file-service.js` - File operations and template processing
+        - `config-service.js` - Configuration and constants management
+        - `stack-service.js` - Common stack functionality
+        - `mcp/mcp-service.js` - MCP tools integration (v2.0+)
+        - Stack-specific services in `stack/` directory (e.g., `stack/nextjs-service.js`, `stack/laravel-service.js`)
+    - Respect `templates/kit-config.json` for configuration.
+    - Add/adjust helper scripts in `version-detector.js`.
 
-- Template files in the `templates/` directory should:
-  - Use clear, descriptive names
-  - Include meaningful comments
-  - Provide examples for customization
-  - Follow the established naming patterns
-  - Use proper file extensions
+2. **New stacks or architectures**
 
-## Rule Files Structure
+    - Create `templates/stacks/<stack>/base/` with generic rules.
+    - Create `templates/stacks/<stack>/architectures/<arch_name>/` with architecture-specific rules.
+    - Add overlay folders `v<major>/` for breaking changes only.
+    - Update `kit-config.json`:
+        - `globs`
+        - `version_ranges`
+        - `default_architecture`
+        - `architectures` for stack-specific architectures
+        - `pattern_rules` if needed.
 
-- All rule files should follow a consistent structure:
-  - Title at the top
-  - Brief description of purpose
-  - Sections with clear headings
-  - Code examples where appropriate
-  - Version compatibility information if relevant
+3. **MCP Tools (v2.0+)**
 
-## Path Handling
+    - Create `templates/mcp-tools/<tool>/` with tool-specific rules.
+    - Add tool usage patterns and best practices.
+    - Update `kit-config.json` in `mcp_tools` section:
+        - `name` - Display name for the tool
+        - `description` - Detailed description of functionality
+    - Test multi-select functionality in CLI.
 
-- Use path manipulation utilities (like Node.js `path` module) instead of string concatenation
-- Handle both relative and absolute paths correctly
-- Use platform-appropriate path separators
-- Normalize paths when comparing or storing them
-- Validate paths before file operations
+4. **Template variables**
 
-## File I/O
+    - Use placeholders like `{projectPath}`, `{detectedVersion}`, `{versionRange}`, `{stack}` in templates.
+    - These will be automatically replaced when generating rules.
 
-- Use asynchronous file operations when possible
-- Properly handle file operation errors
-- Close file handles after use
-- Use appropriate encoding for text files (UTF-8 preferred)
-- Implement proper error recovery for file operations
+5. **Docs**
 
-## Configuration Files
+    - Document new behaviour in `README.md` & `/docs/cli.md`.
+    - Update `/docs/mcp-tools-guide.md` for MCP tools changes.
+    - Change `Implementation Status` block with percent progress of current implementations and add new if is a new implementation.
 
-- Keep configuration files in standard formats (JSON, YAML, etc.)
-- Validate configuration files against schemas
-- Provide sensible defaults
-- Document all configuration options
-- Use environment variables for sensitive information
+6. **CLI Testing**
+    - Always use `--auto` or `--auto-install` when testing CLI commands to avoid interactive prompts
+    - Test different IDEs with specific flags:
 
-## Version Control Considerations
+        ```bash
+        # Test with auto-install (no prompts)
+        node cli/index.js --stack=laravel --version=12 --global --auto
 
-- Don't track generated files in version control
-- Add appropriate entries to .gitignore
-- Consider using .gitattributes for handling line endings
-- Backup important files before destructive operations
-- Ensure file timestamps are preserved when appropriate
+        # Test different IDEs
+        node cli/index.js --stack=react --version=18 --ide=claude --auto
+        node cli/index.js --stack=nextjs --version=14 --ide=vscode --auto
+        ```
+
+    - Verify file generation in correct directories:
+        - Cursor: `.cursor/rules/rules-kit/`
+        - Claude: `CLAUDE.md`
+        - VS Code: `.github/copilot-instructions.md`
+    - Test backup functionality for existing files
+
+After changes, run:
+
+```bash
+pnpm run lint
+pnpm run test
+pnpx agent-rules-kit --update
+```
 
 ---
 > Source: [tecnomanu/agent-rules-kit](https://github.com/tecnomanu/agent-rules-kit) — distributed by [TomeVault](https://tomevault.io).
