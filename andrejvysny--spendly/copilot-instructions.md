@@ -1,16 +1,14 @@
-## rule-engine
+## testing
 
-> When working on the Rule Engine (rules, conditions, actions, triggers).
+> When writing or modifying tests. Backend PHPUnit, frontend Jest + React Testing Library.
 
 
-# Rule Engine
+# Testing
 
-- Prefer delegating to the `rule-engine` subagent for Rule Engine work.
-- Full docs: docs/ai/RULE_ENGINE.md.
-- Key models: Rule, RuleGroup, ConditionGroup, RuleCondition, RuleAction (app/Models/RuleEngine/).
-- Services: RuleEngine, ConditionEvaluator, ActionExecutor (app/Services/RuleEngine/). Events: TransactionCreated, TransactionUpdated; listener ProcessTransactionRules.
-- When adding conditions or actions: use existing enums (ConditionField, ConditionOperator, ActionType, Trigger) and service interfaces (ConditionEvaluatorInterface, ActionExecutorInterface).
-- Reference: app/Http/Controllers/RuleEngine/RuleController.php (action type config), app/Models/RuleEngine/ActionType.php.
+- **Backend:** PHPUnit in `tests/Feature` and `tests/Unit`; use factories and DB in Feature tests.
+- **Frontend:** Jest + React Testing Library; see docs/ai/REACT_TESTING.md, resources/js/components/DataTable.test.tsx.
+- Run targeted: `php artisan test --filter=TestName`, `npm test -- path/to/file`.
+- Prefer single-file or single-class test runs for speed.
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
