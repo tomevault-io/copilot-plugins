@@ -1,0 +1,9 @@
+{
+  "name": "carverauto--serviceradar",
+  "displayName": "serviceradar",
+  "description": "Zero-trust Opensource Network Management and Observability Platform",
+  "version": "1.0.0",
+  "author": "carverauto",
+  "homepage": "https://github.com/carverauto/serviceradar",
+  "skills": []
+}
