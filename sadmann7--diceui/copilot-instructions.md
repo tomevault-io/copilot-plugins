@@ -1,177 +1,63 @@
-## component-setup
+## react-guidelines
 
-> DiceUI component setup pipeline for creating new components with types, examples, registry entries, and documentation
+> You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
+# Expert Guidelines
 
-# DiceUI Component Setup Rule
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-You are an expert in TypeScript, React, and DiceUI component architecture. When a user asks you to create a new component using the pattern "@setup-component [component-name]", follow this comprehensive pipeline:
+## Code Style and Structure
 
-## Base Selection
-
-DiceUI supports multiple UI base libraries. When creating a component, specify which base to use:
-
-- **Radix UI** (default): `@docs/registry/bases/radix/`
-- **Base UI**: `@docs/registry/bases/base/`
-
-## Steps
-
-### 1. Create Component Types (@docs/types/[base]/[component-name].ts)
-
-- Create TypeScript interfaces for all component parts based on the base library
-- For Radix UI: Use `@docs/types/radix/[component-name].ts` with `CompositionProps` and `EmptyProps`
-- For Base UI: Use `@docs/types/base/[component-name].ts` with `useRender.ComponentProps` and `EmptyProps`
-- Follow the pattern from existing files like `action-bar.ts`
-- Include proper JSDoc comments with examples
-- Import necessary types from UI libraries and internal types
-- Define interfaces for Root, Content, Trigger, and any specific component parts
-- Include composition props and controlled/uncontrolled patterns
-
-Finalize the API design first. Once it's been iterated on and completed, proceed to the other steps. This will minimize refactoring.
-
-### 2. Create Examples (@docs/registry/bases/[base]/examples/)
-
-Create these example files in the appropriate base folder:
-
-- `[component-name]-demo.tsx` - Basic usage example
-- `[component-name]-controlled-demo.tsx` - Controlled state example (if applicable)
-- `[component-name]-form-demo.tsx` - Form integration example (if applicable)
-- Additional variant demos as needed
-
-### 3. Update Registry Files
-
-Update the registry files in `@docs/registry/bases/[base]/`:
-
-#### UI Registry (@docs/registry/bases/[base]/ui/_registry.ts)
-
-Add UI component entry with:
-
-- Component name
-- Dependencies (only the main UI library: `radix-ui` or `@base-ui/react`)
-  - Do NOT include `class-variance-authority`, `lucide-react`, or `react-dom` - these are already part of the project setup
-- Registry dependencies (internal UI components, hooks, libs)
-- File paths for UI component
-
-#### Examples Registry (@docs/registry/bases/[base]/examples/_registry.ts)
-
-Add example entries for each demo file created:
-
-- Component name + "-demo" suffix
-- Dependencies and registry dependencies
-- File paths
-
-#### Hooks/Libs Registry (if needed)
-
-- Update `@docs/registry/bases/[base]/hooks/_registry.ts` for custom hooks
-- Update `@docs/registry/bases/[base]/lib/_registry.ts` for utility functions
-
-### 4. Create Documentation (@docs/content/docs/components/[base]/[component-name].mdx)
-
-Create comprehensive documentation including:
-
-- Title, description, and metadata with `base` field set to "radix" or "base"
-- ComponentTabs for demo preview
-- Installation instructions (CLI and manual)
-- Layout/composition examples
-- Multiple example sections
-- Complete API reference with AutoTypeTable for each interface using `./types/[base]/[component-name].ts`
-- Accessibility section with keyboard interactions
-- Any specific notes about browser support or limitations
-
-### 5. Update Navigation Meta (@docs/content/docs/components/[base]/meta.json)
-
-Add the component name to the `pages` array in alphabetical order:
-
-```json
-{
-  "pages": [
-    "action-bar",
-    "angle-slider",
-    "[component-name]",  // Insert alphabetically
-    ...
-  ]
-}
-```
-
-## Implementation Guidelines
-
-### Type Definitions
-
-- Use consistent naming: `RootProps`, `TriggerProps`, `ContentProps`, etc.
-- Extend from appropriate base components (Button, Input, etc.)
-- Use `EmptyProps` first to filter out standard HTML attributes
-- For Radix UI: Include `CompositionProps` for `asChild` support
-- For Base UI: Include `useRender.ComponentProps` for `render` prop support
-- Add proper JSDoc with `@default` values and `@example` usage
-- Support both controlled and uncontrolled patterns where applicable
-
-### Example Components
-
-- Import from `@/registry/bases/[base]/ui/[component-name]`
-- For Radix UI: Use `asChild` prop pattern with Slot primitive
-- For Base UI: Use `render` prop pattern with `useRender` hook
-- Use default export with descriptive function name
-- Show realistic usage scenarios
-- Include proper TypeScript typing
-- Follow DiceUI component composition patterns
-
-### Registry Entries
-
-- Maintain alphabetical order in all registry files
-- Include all necessary dependencies
-- Use proper file paths relative to registry
-- Match naming conventions exactly
-
-### Documentation Structure
-
-- Follow the established MDX pattern from existing component docs
-- Set the `base` frontmatter to either "radix" or "base"
-- Use ComponentTabs for interactive previews
-- Update AutoTypeTable paths to use `./types/[base]/[component-name].ts`
-- Include comprehensive API documentation
-- Add accessibility considerations
-- Provide installation and setup instructions with correct dependencies
-
-## Example Usage
-
-When user types: `@setup-component [component-name] --base=[radix|base]`
-
-You should:
-
-1. Create `docs/registry/bases/[base]/ui/[component-name].tsx` with the component
-2. Create `docs/types/[base]/[component-name].ts` with proper interfaces
-3. Create example files like `[component-name]-demo.tsx` in `docs/registry/bases/[base]/examples/`
-4. Update `docs/registry/bases/[base]/ui/_registry.ts` with the component entry
-5. Update `docs/registry/bases/[base]/examples/_registry.ts` with example entries
-6. Create `docs/content/docs/components/[base]/[component-name].mdx` documentation
-7. Update `docs/content/docs/components/[base]/meta.json` to add the component to navigation
-
-And when user types: `@setup-only [component-name] --base=[radix|base]`
-
-1. Create `docs/registry/bases/[base]/ui/[component-name].tsx` with the component
-2. Create `docs/registry/bases/[base]/examples/[component-name]-demo.tsx` with the demo
-
-**Note:** If no `--base` flag is provided, default to Radix UI.
-
-## Code Style
-
-- Use functional components with TypeScript
-- Follow existing patterns for imports and exports
-- Use descriptive variable names
-- Maintain consistent formatting and structure
-- Add proper error handling and accessibility features
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+- Use console.log({ value }) instead of console.log(value)
+- Use onCallback instead of handleCallback
 - Use flex and gap instead of space-x-n and space-y-n
-- In the layout portion of the docs don't pass any props, can reference the @file-upload.mdx.
-- Make sure not to update any `[component-name].json files, these will be autogenerated with the shadcn cli.
+- Use cn to compose class names
+- Just pass ref directly to the component because of react 19
 
-## File Organization
+## Naming Conventions
 
-- Keep consistent file naming (kebab-case)
-- Follow existing directory structure
-- Maintain import path consistency
-- Use proper TypeScript module organization
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
 
-When implementing, create all files in the correct locations and ensure they follow the established patterns from existing components like action-bar, editable, color-picker, etc.
+## TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use maps instead.
+- Use functional components with TypeScript interfaces.
+
+## Syntax and Formatting
+
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
+
+## UI and Styling
+
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+## Performance Optimization
+
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
+
+## Key Conventions
+
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+  - Favor server components and Next.js SSR.
+  - Use only for Web API access in small components.
+  - Avoid for data fetching or state management.
+- Follow Next.js docs for Data Fetching, Rendering, and Routing.
+
+Make sure not to start the dev server or run type of lint checking on agent mode.
 
 ---
 > Source: [sadmann7/diceui](https://github.com/sadmann7/diceui) — distributed by [TomeVault](https://tomevault.io).
