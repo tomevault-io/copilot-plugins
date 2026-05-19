@@ -1,0 +1,9 @@
+{
+  "name": "openlinker-project--openlinker",
+  "displayName": "openlinker",
+  "description": "Self-hosted, API-first e-commerce orchestration platform \u2014 sync products, inventory, and orders across any marketplace.",
+  "version": "1.0.0",
+  "author": "openlinker-project",
+  "homepage": "https://github.com/openlinker-project/openlinker",
+  "skills": []
+}
