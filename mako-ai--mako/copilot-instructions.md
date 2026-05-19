@@ -1,24 +1,68 @@
-## 10-typescript-style
+## 15-connector-agnostic
 
-> TypeScript and React code style guidance
+> Connector agnosticism and schema-driven UI rules for data source connectors
 
 
-# TypeScript & React Guidelines
+# Connector Agnosticism & Schema-Driven UI
 
-- Prefer explicit types for exported APIs; avoid `any`.
-- Use early returns and guard clauses; keep nesting shallow.
-- Handle errors meaningfully; do not swallow exceptions.
-- Follow descriptive naming (functions are verbs, variables are nouns). Avoid abbreviations.
-- Keep comments short and explain "why", not "how". Avoid inline noise.
-- Match existing formatting and do not reformat unrelated code in edits.
-- Frontend: co-locate components under `app/src/components/**` and hooks under `app/src/hooks/**`.
-- Backend: group routes under `api/src/routes/**` and services under `api/src/services/**`.
+Purpose: Ensure adding a new connector requires only dropping a new folder under `api/src/connectors/**` and exposing a schema; no app code outside that folder needs changes.
 
-## `any` Policy
+Rules:
 
-- **New code**: `any` is forbidden. Use `unknown` + type narrowing, generics, or specific types.
-- **Third-party boundaries** (Monaco Editor, MUI internals, chart libraries): use `unknown` with assertion or a thin typed wrapper. If `any` is truly unavoidable, add a `// eslint-disable-next-line @typescript-eslint/no-explicit-any` with a brief justification.
-- **Existing hotspots** (not blockers, but migrate when touching): `ResultsChart.tsx`, `Chat.tsx`, `workspace-context.tsx`, `ThemeContext.tsx`, `flowStore.ts`.
+- Connectors must be 100% self-contained under `api/src/connectors/<type>/`.
+- Connector schemas should define only credentials/connection settings (endpoint, API keys, auth headers).
+- Query definitions (for query-based connectors) belong at the **flow level** (Flow.queries), not in connector config.
+- UI must be schema-driven: forms render using the schema returned by `/api/connectors/:type/schema`.
+- Do NOT hardcode connector-specific logic in shared components (e.g., `app/src/components/**`), routes, or services.
+- If conditional fields are needed, use schema properties like `showIf` and `type: "select"` with `options`; never add branching by connector type in UI code.
+- Connector registration happens via registries; adding a connector should not require editing the UI or non-registry backend files.
+- Keep any connector-specific data transformations inside the connector implementation.
+
+## Flow-Level Queries Schema
+
+For connectors that require user-defined queries (like GraphQL, PostHog, or custom SQL connectors), the schema should expose a `transferQueries` property:
+
+```typescript
+static getConfigSchema() {
+  return {
+    fields: [
+      // Connection/credential fields only
+      { name: "endpoint", label: "Endpoint URL", type: "string", required: true },
+    ],
+    // Queries are configured at the Flow level
+    transferQueries: {
+      label: "GraphQL Queries",  // Display label
+      required: true,            // Whether at least one query is required
+      fields: [                  // Schema for each query item
+        { name: "name", label: "Entity Name", type: "string", required: true },
+        { name: "query", label: "Query", type: "textarea", required: true, rows: 8 },
+        { name: "batch_size", label: "Batch Size", type: "number", default: 100 },
+      ],
+    },
+  };
+}
+```
+
+The frontend reads `schema.transferQueries` and dynamically renders the query editor in the Flow form. **Never** check connector types like `if (type === "graphql")` in UI code.
+
+## HTTP & Rate Limiting
+
+- Connectors using HTTP APIs should handle 429 (rate limit) and 5xx errors with retry + exponential backoff.
+- Prefer a shared retry pattern within the connector (e.g., `executeWithRetry` wrapper) rather than ad-hoc retry loops in each method.
+- Respect `Retry-After` headers when present.
+- Do NOT log raw request/response headers — they may contain API keys or auth tokens.
+
+## Schema Wiring
+
+- **Every field in `getConfigSchema()` must be read at runtime.** If the schema exposes `api_base_url`, the connector client must use `this.dataSource.config.api_base_url` — never hardcode the URL.
+- Credentials live on `this.dataSource.config` (decrypted at sync time). Fields with `type: "password"` or `encrypted: true` are encrypted at rest automatically.
+
+## Enforcement Guidance
+
+- During reviews, reject edits that add `if (type === "xyz")` checks outside connector folders.
+- Prefer updating connector schemas over UI code to change field order, visibility, or control types.
+- Check for `transferQueries` schema property presence, not connector type names.
+- Verify that all schema fields are wired to the connector client — dead schema fields confuse users.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
