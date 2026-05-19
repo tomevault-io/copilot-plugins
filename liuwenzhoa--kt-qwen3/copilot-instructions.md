@@ -1,205 +1,95 @@
-## ktransformers-installation
+## ktransformers-long-context-tutorial
 
-> 目前KTransformers有两个主要版本：
+> 本规则提供KTransformers长上下文功能的详细使用指南。KTransformers是一个优化大型语言模型推理性能的框架，其长上下文功能允许在有限硬件资源上处理超长的文本序列。
 
-# KTransformers 安装和运行指南
+# KTransformers长上下文使用教程
 
-## 版本信息
+## 概述
 
-目前KTransformers有两个主要版本：
-- **V0.2** - 当前主分支
-- **V0.3** - 预览版本，目前仅提供二进制分发
+本规则提供KTransformers长上下文功能的详细使用指南。KTransformers是一个优化大型语言模型推理性能的框架，其长上下文功能允许在有限硬件资源上处理超长的文本序列。
 
-## 环境准备
+## 当前支持状态
 
-在安装KTransformers前，需要满足以下条件：
+目前，长上下文功能仅由`local_chat.py`接口支持，与服务器接口的集成正在开发中。
 
-1. **CUDA要求**：CUDA 12.1及以上版本
-   ```sh
-   # 将CUDA添加到PATH
-   if [ -d "/usr/local/cuda/bin" ]; then
-       export PATH=$PATH:/usr/local/cuda/bin
-   fi
-   
-   if [ -d "/usr/local/cuda/lib64" ]; then
-       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64
-   fi
-   
-   if [ -d "/usr/local/cuda" ]; then
-       export CUDA_PATH=$CUDA_PATH:/usr/local/cuda
-   fi
-   ```
+## 模型准备
 
-2. **系统要求**：Linux-x86_64环境，gcc/g++ >= 11，cmake >= 3.25
-   ```sh
-   sudo apt-get update 
-   sudo apt-get install build-essential cmake ninja-build patchelf
-   ```
+为方便用户使用，KTransformers团队已将长上下文所需的模型配置、gguf和tokenizer上传至HuggingFace仓库：
 
-3. **Python环境**：推荐使用Miniconda3或Anaconda3创建Python=3.11的虚拟环境
-   ```sh
-   conda create --name ktransformers python=3.11
-   conda activate ktransformers
-   conda install -c conda-forge libstdcxx-ng
-   ```
+访问链接：https://huggingface.co/nilv234/internlm2_5_to_llama_1m/tree/main
 
-4. **Python依赖**：PyTorch、packaging和ninja
-   ```sh
-   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-   pip3 install packaging ninja cpufeature numpy
-   ```
+## 启动方法
 
-5. **Flash-Attention**：从GitHub下载适当版本
-   ```sh
-   # 从 https://github.com/Dao-AILab/flash-attention/releases 下载
-   ```
+要在24GB VRAM的环境中使用支持1M上下文的InternLM2.5-7B-Chat-1M模型，需要：
 
-## 多并发支持
+1. 设置`model_path`和`gguf_path`指向下载的模型仓库路径
+2. 将模式设置为`"long_context"`
 
-如果需要启用多并发支持，需要安装以下额外依赖：
-```sh
-sudo apt install libtbb-dev libssl-dev libcurl4-openssl-dev libaio1 libaio-dev libgflags-dev zlib1g-dev libfmt-dev
+启动命令示例：
+```bash
+python local_chat.py --model_path="/data/model/internlm2_5_to_llama_1m" \
+  --gguf_path="/data/model/internlm2_5_to_llama_1m" \
+  --max_new_tokens=500 \
+  --cpu_infer=10 \
+  --use_cuda_graph=True \
+  --mode="long_context" \
+  --prompt_file="/path/to/file"
 ```
 
-## 安装方法
+## 配置参数说明
 
-### 源码编译安装
+首次运行`local_chat.py`后，系统会在`~/.ktransformers`目录下自动创建一个config.yaml文件，其中包含长上下文相关的配置参数：
 
-1. **初始化源代码**
-   ```sh
-   git clone https://github.com/kvcache-ai/ktransformers.git
-   cd ktransformers
-   git submodule update --init --recursive
-   ```
-
-2. **基本安装（Linux）**
-   ```sh
-   bash install.sh
-   ```
-
-3. **双CPU和1T RAM系统安装**
-   ```sh
-   apt install libnuma-dev
-   export USE_NUMA=1
-   bash install.sh  # 或 make dev_install
-   ```
-
-4. **多并发系统安装**
-   ```sh
-   USE_BALANCE_SERVE=1 bash ./install.sh
-   ```
-
-5. **双CPU和1T RAM的多并发系统**
-   ```sh
-   USE_BALANCE_SERVE=1 USE_NUMA=1 bash ./install.sh
-   ```
-
-6. **Windows安装**（目前推荐使用WSL）
-   ```sh
-   install.bat
-   ```
-
-## 本地聊天测试
-
-提供了简单的命令行本地聊天Python脚本用于测试。这是一个简单的测试工具，仅支持单轮聊天。
-
-### 运行示例
-
-```sh
-# 从克隆的仓库根目录开始
-mkdir DeepSeek-V2-Lite-Chat-GGUF
-cd DeepSeek-V2-Lite-Chat-GGUF
-
-wget https://huggingface.co/mradermacher/DeepSeek-V2-Lite-GGUF/resolve/main/DeepSeek-V2-Lite.Q4_K_M.gguf -O DeepSeek-V2-Lite-Chat.Q4_K_M.gguf
-
-cd ..
-
-# 启动本地聊天
-python -m ktransformers.local_chat --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path ./DeepSeek-V2-Lite-Chat-GGUF
+```yaml
+chunk_size: 4096         # 预填充块大小
+max_seq_len: 100000      # KVCache长度
+block_size: 128          # KVCache块大小
+local_windows_len: 4096  # 存储在GPU上的KVCache长度
+second_select_num: 96    # 预选后每次选择的KVCache块数量
+threads_num: 64          # CPU线程数
+anchor_type: DYNAMIC     # KVCache块代表性token选择方法
+kv_type: FP16            # KV缓存类型
+dense_layer_num: 0       # 不需要填充或选择KVCache的前几层
+anchor_num: 1            # KVCache块内代表性token的数量
+preselect_block: False   # 是否预选
+head_select_mode: SHARED # 所有kv_heads联合选择
+preselect_block_count: 96 # 预选的块数量
+layer_step: 1            # 每隔几层选择一次
+token_step: 1            # 每隔几个token选择一次
 ```
 
-### 命令参数
+用户可以根据自己的需求和硬件资源调整这些参数。
 
-- `--model_path`（必需）：模型名称或本地路径
-- `--gguf_path`（必需）：包含GGUF文件的目录路径
-- `--optimize_config_path`：包含优化规则的YAML文件路径
-- `--max_new_tokens`：生成的最大新标记数（默认=1000）
-- `--cpu_infer`：用于推理的CPU数量（默认=10）
+## 内存需求
 
-## 服务器启动
+不同上下文长度对应的DRAM需求如下表所示：
 
-在v0.2.4版本中支持多并发功能。
+| 上下文长度 | 4K   | 32K  | 64K  | 128K | 512K | 1M     |
+|----------|------|------|------|------|------|--------|
+| DRAM (GB) | 0.5  | 4.29 | 8.58 | 17.1 | 68.7 | 145.49 |
 
-```sh
-python ktransformers/server/main.py --model_path /mnt/data/models/DeepSeek-V3 --gguf_path /mnt/data/models/DeepSeek-V3-GGUF/DeepSeek-V3-Q4_K_M/ --cpu_infer 62 --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-serve.yaml --port 10002 --chunk_size 256 --max_new_tokens 1024 --max_batch_size 4 --port 10002 --cache_lens 32768 --backend_type balance_serve
-```
+**重要提示**：请根据您的DRAM实际大小选择合适的`max_seq_len`参数值。
 
-### 服务器参数
+## 使用流程
 
-- `--chunk_size`：引擎在单次运行中处理的最大标记数
-- `--cache_lens`：调度器分配的kvcache的总长度
-- `--backend_type`：`balance_serve`是多并发后端引擎，`ktransformers`是原始单并发引擎
-- `--max_batch_size`：引擎在单次运行中处理的最大请求数（仅由`balance_serve`支持）
+1. 准备好输入文本文件(如果有)，通过`--prompt_file`参数指定
+2. 启动`local_chat.py`，使用上述命令
+3. 当终端显示`chat:`提示时，如果已通过`prompt_file`指定了输入文本，只需按Enter键即可开始处理
+4. 若未指定输入文件，可在`chat:`提示后直接输入文本
 
-## Web UI启动
+## 性能优化建议
 
-### 不带网站启动
+- 增加`cpu_infer`参数值可提高处理速度，但应确保不超过实际CPU核心数
+- 调整`chunk_size`和`block_size`可以平衡内存使用和处理效率
+- 对于大型文档处理，建议启用`preselect_block`选项
+- 在资源充足的情况下，可以增加`second_select_num`参数以提高准确性
 
-```sh
-ktransformers --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path /path/to/DeepSeek-V2-Lite-Chat-GGUF --port 10002
-```
+## 故障排除
 
-### 带网站启动
-
-```sh
-ktransformers --model_path deepseek-ai/DeepSeek-V2-Lite-Chat --gguf_path /path/to/DeepSeek-V2-Lite-Chat-GGUF --port 10002 --web True
-```
-
-### 使用transformers启动
-
-```sh
-ktransformers --type transformers --model_path /mnt/data/model/Qwen2-0.5B-Instruct --port 10002 --web True
-```
-
-访问网站：http://localhost:10002/web/index.html#/chat
-
-## 支持的模型和量化格式
-
-### 支持的模型列表
-
-- DeepSeek-R1
-- DeepSeek-V3
-- DeepSeek-V2
-- DeepSeek-V2.5
-- Qwen2-57B
-- DeepSeek-V2-Lite
-- Mixtral-8x7B
-- Mixtral-8x22B
-
-### 支持的量化格式
-
-- IQ1_S
-- IQ2_XXS
-- Q2_K_L
-- Q2_K_XS
-- Q3_K_M
-- Q4_K_M
-- Q5_K_M
-- Q6_K
-- Q8_0
-
-### 推荐的模型和资源需求
-
-| 模型名称                      | 模型大小 | VRAM  | 最小DRAM      | 推荐DRAM   |
-|------------------------------|--------|-------|--------------|--------------|
-| DeepSeek-R1-q4_k_m           | 377G   | 14G   | 382G         | 512G         |
-| DeepSeek-V3-q4_k_m           | 377G   | 14G   | 382G         | 512G         |
-| DeepSeek-V2-q4_k_m           | 133G   | 11G   | 136G         | 192G         |
-| DeepSeek-V2.5-q4_k_m         | 133G   | 11G   | 136G         | 192G         |
-| Qwen2-57B-A14B-Instruct-q4_k_m | 33G  | 8G    | 34G          | 64G          |
-| DeepSeek-V2-Lite-q4_k_m      | 9.7G   | 3G    | 13G          | 16G          |
-| Mixtral-8x7B-q4_k_m          | 25G    | 1.6G  | 51G          | 64G          |
-| Mixtral-8x22B-q4_k_m         | 80G    | 4G    | 86.1G        | 96G          |
+如果遇到内存不足错误，可尝试：
+1. 减小`max_seq_len`值
+2. 减小`block_size`值
+3. 确保系统有足够的DRAM和VRAM
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
