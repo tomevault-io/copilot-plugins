@@ -4,7 +4,7 @@
   "repo": "metapak",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sreevarshan-xenoz/metapak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T17:37:53Z"
+  "distributed_at": "2026-05-19T00:15:13Z"
 }
