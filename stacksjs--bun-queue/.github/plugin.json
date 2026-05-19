@@ -1,0 +1,9 @@
+{
+  "name": "stacksjs--bun-queue",
+  "displayName": "bun-queue",
+  "description": "A modern & powerful Queue / Messaging system. Optimized for Bun usage. UI coming soon.",
+  "version": "1.0.0",
+  "author": "stacksjs",
+  "homepage": "https://github.com/stacksjs/bun-queue",
+  "skills": []
+}
