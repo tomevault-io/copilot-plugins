@@ -1,319 +1,243 @@
-## connect-widget
+## connector-cursors
 
-> The Connect widget is an embeddable component that allows end users to manage their source connections within third-party applications. It runs inside an iframe and communicates with parent applications via `postMessage`.
+> Cursors enable **incremental syncs** by tracking progress between executions using **typed Pydantic schemas**. Instead of untyped dicts, each source defines a cursor schema with validated fields.
 
-# Airweave Connect Widget Architecture
+# Connector Cursors - Typed Incremental Sync
 
-## What is Connect?
+## Overview
 
-The Connect widget is an embeddable component that allows end users to manage their source connections within third-party applications. It runs inside an iframe and communicates with parent applications via `postMessage`.
+Cursors enable **incremental syncs** by tracking progress between executions using **typed Pydantic schemas**. Instead of untyped dicts, each source defines a cursor schema with validated fields.
 
-## Tech Stack & Core Technologies
-- **React 19** with TypeScript for type-safe component development
-- **Vite** for fast development builds and HMR
-- **TailwindCSS v4** for styling with CSS-first configuration
-- **Base UI** (`@base-ui/react`) for accessible, unstyled primitives
-- **Lucide** icons for consistent iconography
-- **TanStack Router** for file-based routing with type safety
-- **TanStack Query** for server state and data fetching
-- **marked** for Markdown rendering in form field descriptions (with XSS-safe link renderer)
-- **No authentication** - relies on session tokens passed from parent
+## Architecture
 
-## Project Structure
+### Lifecycle
 ```
-connect/src/
-├── components/         # UI components
-│   ├── ActionErrorBanner.tsx  # Dismissible inline error banner for action failures
-│   ├── ConnectionItem.tsx     # Single connection display (supports reconnect loading state)
-│   ├── ConnectionsErrorView.tsx
-│   ├── DynamicFormField.tsx   # Dynamic form fields with markdown support
-│   ├── EmptyState.tsx         # Dual-layout empty state (rich hero when showConnect=true, simple manage view otherwise)
-│   ├── ErrorScreen.tsx        # Full-screen error display
-│   ├── FolderSelectionView.tsx # Folder picker wrapper (optional feature)
-│   ├── FolderTree.tsx         # Hierarchical folder checkbox tree
-│   ├── LoadingScreen.tsx      # Loading spinner (legacy, prefer contextual skeletons)
-│   ├── PoweredByAirweave.tsx  # Footer branding
-│   ├── SessionProvider.tsx    # Session context provider
-│   ├── Skeleton.tsx           # Contextual skeleton loaders (ConnectionItemSkeleton, SourceItemSkeleton, SourceConfigSkeleton)
-│   ├── SourceItem.tsx         # Single source in picker
-│   ├── SourcesList.tsx        # Source selection grid
-│   └── SuccessScreen.tsx      # Main connected state
-├── hooks/
-│   └── useParentMessaging.ts  # iframe ↔ parent communication
-├── lib/
-│   ├── api.ts                 # API client with session auth
-│   ├── connection-utils.ts    # Connection status helpers
-│   ├── env.ts                 # Environment configuration
-│   ├── icons.ts               # Icon registry and helpers
-│   ├── oauth.ts               # OAuth popup and message handling
-│   ├── theme-defaults.ts      # Default theme configuration
-│   ├── theme.tsx              # Theme context and CSS variables
-│   ├── types.ts               # TypeScript type definitions
-│   └── useOAuthFlow.ts        # OAuth flow state management hook
-├── routes/
-│   ├── __root.tsx             # Root layout
-│   ├── index.tsx              # Main entry route
-│   └── oauth-callback.tsx     # OAuth callback handler
-├── router.tsx                 # TanStack Router setup
-├── routeTree.gen.ts           # Auto-generated route tree
-└── styles.css                 # Global styles and Tailwind imports
+1. SyncFactory loads cursor from DB → instantiates typed Pydantic schema
+2. Factory injects cursor into source via source.set_cursor()
+3. Source reads cursor.data (dict), updates with cursor.update(**fields)
+4. Orchestrator saves cursor.get() back to DB after sync
 ```
 
-## Key Architectural Patterns
+### Key Components
+- **Cursor Schema** (`platform/cursors/{source}.py`): Pydantic model defining cursor structure
+- **Runtime Cursor** (`SyncCursor`): Wrapper providing `update()` and `data` API
+- **Source Decorator**: `cursor_class=MyCursor` links source to schema (direct class reference, not string!)
 
-### 1. Session-Based Authentication
-Connect uses session tokens instead of user authentication:
-```typescript
-interface ConnectSessionContext {
-  sessionToken: string;
-  apiBaseUrl: string;
-}
-```
-Sessions are passed via URL parameters or parent messages.
+## Creating a Cursor Schema
 
-### 2. Parent Communication (`useParentMessaging`)
-The widget runs in an iframe and communicates with the parent via `postMessage`.
+Create a Pydantic model in `platform/cursors/{source_name}.py`:
 
-**SECURITY: Origin validation is enforced for postMessage:**
+```python
+from pydantic import Field
+from ._base import BaseCursor
 
-The Connect widget captures the parent origin from the first `TOKEN_RESPONSE` message and validates all subsequent messages against it:
-
-```typescript
-// In useParentMessaging.ts - parent origin is captured and stored
-const parentOriginRef = useRef<string | null>(null);
-
-const handleMessage = (event: MessageEvent) => {
-  // Capture origin from first TOKEN_RESPONSE
-  if (data.type === "TOKEN_RESPONSE" && !parentOriginRef.current) {
-    parentOriginRef.current = event.origin;
-  }
-
-  // Validate all messages once origin is established
-  if (parentOriginRef.current && event.origin !== parentOriginRef.current) {
-    return; // Ignore messages from unexpected origins
-  }
-  // Process message...
-};
-
-// SENDING: Uses captured origin (falls back to "*" only for initial CONNECT_READY)
-const sendToParent = (message) => {
-  const targetOrigin = parentOriginRef.current || "*";
-  window.parent.postMessage(message, targetOrigin);
-};
+class GmailCursor(BaseCursor):
+    """Gmail incremental sync cursor using history API."""
+    history_id: str = Field(default="", description="Gmail history ID")
 ```
 
-**Available message types:**
-```typescript
-// Notify parent of connection changes
-notifyConnectionCreated(connectionId: string);
-notifyStatusChange(status: SessionStatus);
-requestClose(reason: "success" | "cancel" | "error");
+**Common patterns**:
+
+**Single field** (API token):
+```python
+class GoogleDriveCursor(BaseCursor):
+    start_page_token: str = Field(default="", description="Drive Changes API token")
 ```
 
-### 3. OAuth Flow Security
-OAuth uses same-origin popups with validated messaging and claim-token verification:
-```typescript
-// oauth-callback.tsx posts to same origin
-window.opener.postMessage({ type: "OAUTH_COMPLETE", ...result }, window.location.origin);
-
-// oauth.ts validates origin when receiving
-const handler = (event: MessageEvent) => {
-  if (event.origin !== window.location.origin) return;
-  // Process OAUTH_COMPLETE...
-};
+**Multiple fields** (per-resource):
+```python
+class AirtableCursor(BaseCursor):
+    table_cursors: Dict[str, str] = Field(
+        default_factory=dict,
+        description="Per-table cursor values (table_id -> last_modified_time)"
+    )
 ```
 
-**Claim-token verification (two-step completion):**
-After the OAuth popup completes, the Connect widget calls `verifyOAuth` with the claim token before considering the flow complete. The claim token is returned by the initial `createSourceConnection` call and stored in `claimTokenRef`. This ensures the caller that initiated the OAuth flow is the same one completing it.
-
-See `useOAuthFlow.ts` lines 66-72 for the implementation:
-```typescript
-if (claimTokenRef.current) {
-  await apiClient.verifyOAuth(
-    result.source_connection_id,
-    claimTokenRef.current,
-  );
-  claimTokenRef.current = null;
-}
+**Complex composite** (metadata + per-resource):
+```python
+class OutlookMailCursor(BaseCursor):
+    delta_link: Optional[str] = Field(None, description="Primary delta link")
+    folder_delta_links: Dict[str, str] = Field(default_factory=dict)
+    folder_names: Dict[str, str] = Field(default_factory=dict)
 ```
 
-### 4. Theming System
-Fully customizable via CSS variables passed from parent:
-```typescript
-interface ConnectTheme {
-  colors: { primary, background, text, border, ... };
-  fonts: { family, sizeBase, ... };
-  spacing: { base, containerPadding, ... };
-  borderRadius: { base, button, card, ... };
-}
-```
-Theme values are injected as CSS custom properties (`--connect-*`).
+## Using Cursors in Sources
 
-### 5. View Navigation
-Internal view state managed within `SuccessScreen.tsx`:
-```typescript
-type NavigateView = "connections" | "sources" | "configure" | "folder-selection";
-```
+### 1. Import and Register Cursor
 
-**View flow:**
-- `connections` - List of existing source connections (default for manage mode)
-- `sources` - Source picker grid (default for connect mode)
-- `configure` - Source configuration form (auth fields, config fields)
-- `folder-selection` - Optional folder picker shown after OAuth (when `enableFolderSelection` enabled)
+```python
+from airweave.platform.cursors import GmailCursor
 
-### 6. Connect Options
-Optional features controlled via `ConnectOptions`:
-```typescript
-interface ConnectOptions {
-  showConnectionName?: boolean;     // Show name field in configure form (default: false)
-  enableFolderSelection?: boolean;  // Show folder picker after OAuth (default: false)
-}
+@source(
+    name="Gmail",
+    short_name="gmail",
+    # ...
+    supports_continuous=True,
+    cursor_class=GmailCursor,  # Direct class reference - typed!
+)
+class GmailSource(BaseSource):
+    ...
 ```
 
-**Related components:**
-- `FolderSelectionView.tsx` - Wrapper for folder selection UI
-- `FolderTree.tsx` - Hierarchical folder checkbox tree with indeterminate states
+### 2. Read Cursor Data
 
-## Component Patterns
+```python
+async def generate_entities(self) -> AsyncGenerator[BaseEntity, None]:
+    # Get cursor as dict
+    cursor_data = self.cursor.data if self.cursor else {}
+    last_history_id = cursor_data.get("history_id")
 
-### Base UI Usage
-Use Base UI primitives for accessible, unstyled components:
-```typescript
-import { Button } from "@base-ui/react";
-
-// Style with Tailwind classes
-<Button className="px-4 py-2 bg-primary rounded-md">
-  Click me
-</Button>
+    if last_history_id:
+        self.logger.info(f"📊 Incremental sync from history_id={last_history_id}")
+        async for entity in self._fetch_incremental(last_history_id):
+            yield entity
+    else:
+        self.logger.info("🔄 Full sync (no cursor)")
+        async for entity in self._fetch_all():
+            yield entity
 ```
 
-### API Client Pattern
-```typescript
-import { createConnectClient } from "@/lib/api";
+### 3. Update Cursor
 
-const client = createConnectClient(session);
-const connections = await client.getSourceConnections();
+**Single field**:
+```python
+if self.cursor:
+    self.cursor.update(history_id=new_history_id)
 ```
 
-### TanStack Query Usage
-```typescript
-import { useQuery } from "@tanstack/react-query";
-
-const { data, isLoading, error } = useQuery({
-  queryKey: ["source-connections"],
-  queryFn: () => client.getSourceConnections(),
-});
+**Multiple fields**:
+```python
+if self.cursor:
+    self.cursor.update(
+        last_repository_pushed_at=pushed_at,
+        repo_name=repo_name,
+        branch=branch_name,
+    )
 ```
 
-## Development Guidelines
+**Dict field**:
+```python
+if self.cursor:
+    # Get current dict
+    cursor_data = self.cursor.data
+    table_cursors = cursor_data.get("table_cursors", {})
 
-### 1. Component Organization
-- Keep components focused and single-purpose
-- Use TypeScript interfaces for all props
-- Prefer composition over complex props
+    # Update dict
+    table_cursors[f"{schema}.{table}"] = timestamp.isoformat()
 
-### 2. Styling Guidelines
-- Use Tailwind utility classes
-- Reference theme variables via `var(--connect-*)` when needed
-- Avoid hardcoded colors; use theme tokens
-
-### 3. State Management
-- TanStack Query for server state
-- React state for local UI state
-- Context for shared session/theme data
-
-### 4. API Integration
-```typescript
-// Use contextual skeleton loaders instead of a generic LoadingScreen
-if (isLoading) {
-  return (
-    <PageLayout title={labels.sourcesHeading}>
-      <ConnectionItemSkeleton />
-      <ConnectionItemSkeleton />
-    </PageLayout>
-  );
-}
-if (error) return <ConnectionsErrorView error={error} labels={labels} />;
+    # Write back
+    self.cursor.update(table_cursors=table_cursors)
 ```
 
-Available skeleton components: `ConnectionItemSkeleton`, `SourceItemSkeleton`, `SourceConfigSkeleton` (all in `Skeleton.tsx`).
+## Complete Example
 
-For action-level errors (e.g. delete or reconnect failures), use `ActionErrorBanner` — a dismissible, auto-fading inline banner styled with `--connect-error`.
+```python
+# platform/cursors/github.py
+from pydantic import Field
+from ._base import BaseCursor
 
-### 5. Coding Conventions
-- Prefix unused variables/arguments with `_` (enforced by ESLint)
-- Example: `const handler = (_event: Event) => { ... }`
+class GitHubCursor(BaseCursor):
+    last_repository_pushed_at: str = Field(default="")
+    repo_name: Optional[str] = Field(default=None)
 
-## Packages & SDKs
+# platform/sources/github.py
+from airweave.platform.cursors import GitHubCursor
 
-The connect widget can be embedded via packages:
-```
-connect/packages/
-├── react/           # React wrapper component
-└── vanilla/         # Vanilla JS embed script
-```
+@source(
+    name="GitHub",
+    short_name="github",
+    cursor_class=GitHubCursor,
+    supports_continuous=True,
+)
+class GitHubSource(BaseSource):
 
-## Testing
+    async def generate_entities(self):
+        cursor_data = self.cursor.data if self.cursor else {}
+        last_pushed_at = cursor_data.get("last_repository_pushed_at")
 
-Run tests with:
-```bash
-cd connect && npm run test
-```
+        if last_pushed_at:
+            self.logger.info(f"Incremental sync from {last_pushed_at}")
 
-Use Vitest with Testing Library for component tests.
+        async for repo in self._fetch_repos():
+            # Process repo...
+            yield repo_entity
 
-## Key Differences from Main Frontend
-
-| Aspect | Connect Widget | Main Frontend |
-|--------|---------------|---------------|
-| React version | 19 | 18 |
-| UI Components | Base UI | ShadCN UI |
-| Router | TanStack Router | React Router |
-| Auth | Session tokens | Auth0 |
-| State | TanStack Query only | Zustand + Query |
-| Deployment | Embeddable iframe | Standalone app |
-
-## Docker Deployment
-
-The Connect widget uses a multi-stage Docker build for production deployment:
-
-### Build Stage
-- **Base image:** `node:20-slim`
-- Copies frontend icons from `../frontend/src/components/icons/apps/` (required by vite.config.ts)
-- Builds with `npm run build`, producing `.output/` directory
-
-### Runtime Stage
-- **Base image:** `node:20-alpine`
-- Runs on port 8082 (configurable via `PORT` env var)
-- Uses `docker-entrypoint.sh` for runtime configuration
-
-### Runtime Configuration (`/config.js`)
-The entrypoint script generates `/config.js` at container startup to inject environment variables:
-
-```javascript
-// Generated by docker-entrypoint.sh
-window.__CONNECT_ENV__ = {
-  API_URL: "${API_URL}"
-};
+            # Update cursor
+            if self.cursor:
+                self.cursor.update(
+                    last_repository_pushed_at=repo.pushed_at,
+                    repo_name=repo.name,
+                )
 ```
 
-This script is loaded in `__root.tsx` via the head scripts array and read by `lib/env.ts`:
+## Best Practices
 
-```typescript
-// In env.ts - reads runtime config
-const env = window.__CONNECT_ENV__ || {};
-export const API_URL = env.API_URL || import.meta.env.VITE_API_URL;
+1. **Update cursor incrementally** - Don't wait until sync completes
+   ```python
+   async for entity in fetch_entities():
+       yield entity
+       self.cursor.update(field=entity.timestamp)  # Update as you go
+   ```
+
+2. **Always log sync mode** - Help debugging
+   ```python
+   if last_cursor:
+       self.logger.info(f"📊 Incremental sync from {last_cursor}")
+   else:
+       self.logger.info("🔄 Full sync (first run)")
+   ```
+
+3. **Serialize datetimes** - Use ISO format
+   ```python
+   self.cursor.update(timestamp=dt.isoformat())
+   ```
+
+4. **Handle missing cursor** - First sync has no cursor
+   ```python
+   cursor_data = self.cursor.data if self.cursor else {}
+   ```
+
+5. **Check cursor before updating**
+   ```python
+   if self.cursor:
+       self.cursor.update(field=value)
+   ```
+
+## Common Pitfalls
+
+❌ **Updating only at end**
+```python
+# Bad - cursor lost if sync fails
+async for entity in entities:
+    yield entity
+self.cursor.update(last_id=entity.id)  # Only once at end
 ```
 
-**Important:** The `/config.js` script is only generated in Docker deployments. During local development, Vite environment variables (`VITE_*`) are used instead.
+✅ **Update incrementally**
+```python
+# Good - cursor tracks progress
+async for entity in entities:
+    yield entity
+    if self.cursor:
+        self.cursor.update(last_id=entity.id)  # Update each time
+```
 
-### Environment Variables
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `API_URL` | `http://localhost:8001` | Backend API URL |
-| `PORT` | `8082` | Server port |
-| `CSP_FRAME_ANCESTORS` | `*` | Origins allowed to embed Connect in an iframe |
-| `CSP_ADDITIONAL_CONNECT_SRC` | _(empty)_ | Extra origins for CSP connect-src (space-separated) |
+## System Behavior
+
+**The system automatically**:
+- Loads cursor from database before sync (via `sync_cursor_service`)
+- Instantiates typed Pydantic model (validates structure)
+- Injects cursor into source
+- Saves cursor after successful sync
+- Skips loading cursor for force_full_sync (but still saves it)
+
+**Sources only need to**:
+1. Create typed cursor schema
+2. Register via `cursor_class=` decorator
+3. Read with `cursor.data`
+4. Update with `cursor.update(**fields)`
+
+**Result**: Type-safe incremental syncs with automatic validation and persistence.
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
