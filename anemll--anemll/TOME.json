@@ -4,7 +4,7 @@
   "repo": "Anemll",
   "description": "Artificial Neural Engine Machine Learning Library",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Anemll/Anemll",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:47:06Z"
+  "distributed_at": "2026-05-19T02:11:34Z"
 }
