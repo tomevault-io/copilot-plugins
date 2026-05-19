@@ -7,11 +7,11 @@ Balatro Mod Manager by Skyline
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [skyline69/balatro-mod-manager](https://github.com/skyline69/balatro-mod-manager).
+Original source: `CLAUDE.md` in [skyline69/balatro-mod-manager](https://github.com/skyline69/balatro-mod-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
