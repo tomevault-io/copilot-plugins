@@ -1,0 +1,9 @@
+{
+  "name": "gariti--jwst-cosmos",
+  "displayName": "jwst-cosmos",
+  "description": "JWST Space Image Browser and AI Image Generator TUI",
+  "version": "1.0.0",
+  "author": "gariti",
+  "homepage": "https://github.com/gariti/jwst-cosmos",
+  "skills": []
+}
