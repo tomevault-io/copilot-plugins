@@ -1,416 +1,86 @@
-## deployment-devops
+## project-overview
 
-> Deployment and DevOps guidelines for Docker Compose and Kubernetes
+> Overview of the Kaneo project structure, architecture, and key technologies
 
-# Deployment & DevOps Guidelines
+# Project Overview
 
-Kaneo supports multiple deployment methods: Docker Compose for development/testing and Kubernetes for production. This document outlines deployment patterns and best practices.
+Kaneo is a self-hosted project management platform built with a focus on simplicity and performance. This document provides an overview of the project structure and architecture.
 
-## Docker Compose
+## Project Structure
 
-### Configuration
-
-The main Docker Compose configuration is in `compose.yml` at the project root.
-
-### Service Structure
-
-```yaml
-services:
-  postgres:
-    image: postgres:16-alpine
-    env_file:
-      - .env
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  api:
-    image: ghcr.io/usekaneo/api:latest
-    ports:
-      - "1337:1337"
-    env_file:
-      - .env
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: unless-stopped
-
-  web:
-    image: ghcr.io/usekaneo/web:latest
-    ports:
-      - "5173:5173"
-    env_file:
-      - .env
-    depends_on:
-      - api
-    restart: unless-stopped
-```
-
-### Best Practices
-
-1. **Health Checks**: Always include health checks for databases
-2. **Dependencies**: Use `depends_on` with `condition: service_healthy` for databases
-3. **Volumes**: Use named volumes for persistent data
-4. **Restart Policy**: Use `unless-stopped` for production-like behavior
-5. **Environment Variables**: Use `.env` file, never hardcode secrets
-
-```yaml
-# Good: Proper health check and dependency
-services:
-  api:
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-  postgres:
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-```
-
-## Kubernetes (Helm Charts)
-
-### Chart Structure
-
-Helm charts are located in `charts/kaneo/`:
+Kaneo is organized as a **monorepo** using pnpm workspaces:
 
 ```
-charts/kaneo/
-├── Chart.yaml              # Chart metadata
-├── values.yaml             # Default values
-├── README.md               # Chart documentation
-└── templates/
-    ├── deployment.yaml     # API and Web deployments
-    ├── services.yaml       # Service definitions
-    ├── ingress.yaml        # Ingress configuration
-    ├── postgresql-deployment.yaml  # PostgreSQL deployment
-    ├── pvc.yaml            # Persistent volume claims
-    ├── hpa.yaml            # Horizontal Pod Autoscaler
-    └── serviceaccount.yaml # Service accounts
+kaneo/
+├── apps/
+│   ├── api/          # Backend API (Hono/Node.js)
+│   ├── docs/         # Documentation site (Next.js)
+│   └── web/          # Frontend app (React/Vite)
+├── packages/         # Shared code and configs
+│   ├── email/        # Email utilities
+│   ├── libs/         # Shared libraries
+│   └── typescript-config/  # TypeScript configurations
+├── charts/           # Kubernetes Helm charts
+├── .cursor/          # Cursor IDE rules
+└── compose.yml       # Docker Compose configuration
 ```
 
-### Deployment Patterns
+## Technology Stack
 
-#### API Deployment
+### Backend (API)
+- **Framework**: Hono (lightweight web framework)
+- **Runtime**: Node.js
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Better Auth
+- **Validation**: Valibot
+- **API Documentation**: OpenAPI (hono-openapi)
+- **Build Tool**: esbuild
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "kaneo.fullname" . }}-api
-spec:
-  replicas: {{ .Values.api.replicaCount }}
-  template:
-    spec:
-      containers:
-      - name: api
-        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
-        env:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: {{ include "kaneo.fullname" . }}-secrets
-              key: database-url
-```
+### Frontend (Web)
+- **Framework**: React 18+
+- **Routing**: TanStack Router
+- **Data Fetching**: TanStack Query (React Query)
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: Custom component library
 
-#### Web Deployment
+### Development Tools
+- **Package Manager**: pnpm
+- **Linting/Formatting**: Biome
+- **TypeScript**: Strict mode enabled
+- **Git Hooks**: Husky
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "kaneo.fullname" . }}-web
-spec:
-  replicas: {{ .Values.web.replicaCount }}
-  template:
-    spec:
-      containers:
-      - name: web
-        image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
-        env:
-        - name: VITE_API_URL
-          value: {{ .Values.web.apiUrl | quote }}
-```
+## Key Principles
 
-### Best Practices
+1. **Simplicity First**: Features exist to solve real problems, not to impress
+2. **Performance**: Fast load times and responsive interactions
+3. **Self-Hosted**: Your data stays yours
+4. **Open Source**: Free forever, MIT licensed
 
-1. **Secrets Management**: Use Kubernetes Secrets, never hardcode
-2. **ConfigMaps**: Use ConfigMaps for non-sensitive configuration
-3. **Resource Limits**: Always set resource requests and limits
-4. **Health Checks**: Include liveness and readiness probes
-5. **Replicas**: Configure appropriate replica counts for high availability
+## Development Workflow
 
-```yaml
-# Good: Proper resource limits and health checks
-containers:
-- name: api
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "100m"
-    limits:
-      memory: "512Mi"
-      cpu: "500m"
-  livenessProbe:
-    httpGet:
-      path: /api/health
-      port: 1337
-    initialDelaySeconds: 30
-    periodSeconds: 10
-  readinessProbe:
-    httpGet:
-      path: /api/health
-      port: 1337
-    initialDelaySeconds: 5
-    periodSeconds: 5
-```
+1. **Install dependencies**: `pnpm install`
+2. **Start development**: `pnpm dev` (starts both API and web)
+3. **Lint code**: `pnpm lint` (runs Biome)
+4. **Database migrations**: `pnpm --filter @kaneo/api db:generate` and `db:migrate`
 
-## Environment Variables
+## Environment Setup
 
-### Development
+All environment variables are configured in a single `.env` file at the project root. See `ENVIRONMENT_SETUP.md` for detailed configuration instructions.
 
-All environment variables in a single `.env` file at project root:
+## Deployment
 
-```bash
-# Database
-DATABASE_URL=postgresql://kaneo_user:kaneo_password@localhost:5432/kaneo
-POSTGRES_DB=kaneo
-POSTGRES_USER=kaneo_user
-POSTGRES_PASSWORD=kaneo_password
+- **Docker Compose**: Quick setup for development/testing
+- **Kubernetes**: Production-ready Helm charts in `charts/`
+- **Self-Hosted**: Designed to run on your infrastructure
 
-# API
-KANEO_API_URL=http://localhost:1337
-AUTH_SECRET=your-secret-key
+## Contributing
 
-# Web
-KANEO_CLIENT_URL=http://localhost:5173
-VITE_API_URL=http://localhost:1337
-```
-
-### Production
-
-Use Kubernetes Secrets and ConfigMaps:
-
-```yaml
-# Secret for sensitive data
-apiVersion: v1
-kind: Secret
-metadata:
-  name: kaneo-secrets
-type: Opaque
-stringData:
-  database-url: postgresql://user:pass@postgres:5432/kaneo
-  auth-secret: your-secret-key
-
-# ConfigMap for non-sensitive data
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kaneo-config
-data:
-  api-url: https://api.example.com
-  client-url: https://app.example.com
-```
-
-## Database Migrations
-
-### Automatic Migrations
-
-Migrations run automatically on API startup:
-
-```typescript
-// apps/api/src/index.ts
-await migrate(db, {
-  migrationsFolder: `${process.cwd()}/drizzle`,
-});
-```
-
-### Manual Migrations
-
-For production, consider running migrations separately:
-
-```bash
-# In Kubernetes, use a Job
-kubectl run migrate-db --image=ghcr.io/usekaneo/api:latest -- \
-  node -e "require('./dist/migrate.js')"
-```
-
-## Health Checks
-
-### API Health Endpoint
-
-The API exposes a health check endpoint:
-
-```typescript
-// apps/api/src/index.ts
-api.get("/health", (c) => {
-  return c.json({ status: "ok" });
-});
-```
-
-### Kubernetes Probes
-
-```yaml
-livenessProbe:
-  httpGet:
-    path: /api/health
-    port: 1337
-  initialDelaySeconds: 30
-  periodSeconds: 10
-
-readinessProbe:
-  httpGet:
-    path: /api/health
-    port: 1337
-  initialDelaySeconds: 5
-  periodSeconds: 5
-```
-
-## Scaling
-
-### Horizontal Pod Autoscaling
-
-Configure HPA in `charts/kaneo/templates/hpa.yaml`:
-
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: {{ include "kaneo.fullname" . }}-api
-spec:
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-```
-
-## Ingress
-
-### TLS Configuration
-
-Always use TLS in production:
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: kaneo-ingress
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-spec:
-  tls:
-  - hosts:
-    - app.example.com
-    secretName: kaneo-tls
-  rules:
-  - host: app.example.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: kaneo-web
-            port:
-              number: 80
-```
-
-## Monitoring
-
-### Logging
-
-- Use structured logging
-- Include request IDs for tracing
-- Log errors with context
-
-### Metrics
-
-- Expose Prometheus metrics if needed
-- Monitor database connection pools
-- Track API response times
-
-## Backup & Recovery
-
-### Database Backups
-
-For PostgreSQL:
-
-```bash
-# Backup
-kubectl exec -it postgres-pod -- pg_dump -U kaneo kaneo > backup.sql
-
-# Restore
-kubectl exec -i postgres-pod -- psql -U kaneo kaneo < backup.sql
-```
-
-### Volume Backups
-
-Use volume snapshots for persistent data:
-
-```yaml
-apiVersion: snapshot.storage.k8s.io/v1
-kind: VolumeSnapshot
-metadata:
-  name: postgres-snapshot
-spec:
-  source:
-    persistentVolumeClaimName: postgres-pvc
-```
-
-## Security
-
-### Image Security
-
-- Use specific image tags, not `latest`
-- Scan images for vulnerabilities
-- Use minimal base images (Alpine Linux)
-
-### Network Policies
-
-Restrict pod-to-pod communication:
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: kaneo-api-policy
-spec:
-  podSelector:
-    matchLabels:
-      app: kaneo-api
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: kaneo-web
-    ports:
-    - protocol: TCP
-      port: 1337
-```
-
-### Secrets Management
-
-- Never commit secrets to Git
-- Use Kubernetes Secrets or external secret managers
-- Rotate secrets regularly
-- Use least privilege principle
+See `CONTRIBUTING.md` for guidelines on:
+- Code style (Biome configuration)
+- Commit messages (Conventional Commits)
+- Project structure conventions
+- Getting help
 
 ---
 > Source: [usekaneo/kaneo](https://github.com/usekaneo/kaneo) — distributed by [TomeVault](https://tomevault.io).
