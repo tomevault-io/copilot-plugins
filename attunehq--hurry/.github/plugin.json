@@ -1,0 +1,22 @@
+{
+  "name": "attunehq--hurry",
+  "displayName": "hurry",
+  "description": "Faster builds, zero effort.",
+  "version": "1.0.0",
+  "author": "attunehq",
+  "homepage": "https://github.com/attunehq/hurry",
+  "skills": [
+    {
+      "name": "rust-programming",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "description": ""
+    },
+    {
+      "name": "task-externalization",
+      "description": ""
+    }
+  ]
+}
