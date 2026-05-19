@@ -1,0 +1,9 @@
+{
+  "name": "vantage-sh--vantage-mcp-server",
+  "displayName": "vantage-mcp-server",
+  "description": "MCP Server to fetch costs and usage data from your Vantage account.",
+  "version": "1.0.0",
+  "author": "vantage-sh",
+  "homepage": "https://github.com/vantage-sh/vantage-mcp-server",
+  "skills": []
+}
