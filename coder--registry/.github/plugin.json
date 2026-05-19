@@ -1,0 +1,9 @@
+{
+  "name": "coder--registry",
+  "displayName": "registry",
+  "description": "Publish Coder modules and templates for other developers to use.",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/registry",
+  "skills": []
+}
