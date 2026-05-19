@@ -1,0 +1,30 @@
+{
+  "name": "forceinjection--domain-driven-design-skills",
+  "displayName": "domain-driven-design-skills",
+  "description": "Domain driven design skills for architect",
+  "version": "1.0.0",
+  "author": "ForceInjection",
+  "homepage": "https://github.com/ForceInjection/domain-driven-design-skills",
+  "skills": [
+    {
+      "name": "jwt-auth-expert",
+      "description": ""
+    },
+    {
+      "name": "vue-testing",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-story",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "description": ""
+    }
+  ]
+}
