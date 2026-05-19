@@ -303,5 +303,5 @@ This command will typecheck the code and attempt to build it.
 Your task is not considered finished until this test passes without errors.
 
 ---
-> Source: [derekross/yakbak](https://github.com/derekross/yakbak) — distributed by [TomeVault](https://tomevault.io/claim/derekross).
-<!-- tomevault:4.0:copilot_instructions:2026-04-17 -->
+> Source: [derekross/yakbak](https://github.com/derekross/yakbak) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
