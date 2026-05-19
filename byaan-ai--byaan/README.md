@@ -7,11 +7,11 @@ Open-Source data analyst your team actually owns. Ask in Slack, on Mac, or via M
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [byaan-ai/byaan](https://github.com/byaan-ai/byaan).
+Original source: `CLAUDE.md` in [byaan-ai/byaan](https://github.com/byaan-ai/byaan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
