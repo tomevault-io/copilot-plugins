@@ -1,0 +1,9 @@
+{
+  "name": "terrabyte-dev--hinge-auto",
+  "displayName": "hinge-auto",
+  "description": "Emulator + ADB + Claude/Ollama vision: experimental Hinge automation that judges profiles and writes personalized openers against a user-defined rubric.",
+  "version": "1.0.0",
+  "author": "TerraByte-Dev",
+  "homepage": "https://github.com/TerraByte-Dev/hinge-auto",
+  "skills": []
+}
