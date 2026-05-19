@@ -1,0 +1,9 @@
+{
+  "name": "damacus--robovac",
+  "displayName": "robovac",
+  "description": "Control your Eufy RoboVac from Home Assistant",
+  "version": "1.0.0",
+  "author": "damacus",
+  "homepage": "https://github.com/damacus/robovac",
+  "skills": []
+}
