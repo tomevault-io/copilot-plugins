@@ -1,63 +1,140 @@
-## data
+## python
 
-> This rule outlines best practices for creating impactful data visualizations in Power BI, emphasizing data storytelling, inspired by [Microsoft’s data storytelling guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling), and visual hierarchy, informed by [Tailwind App’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design).
+> - Use Python 3.10 minimum
 
-# Effective Data Storytelling and Visual Hierarchy
+# Python Development Rules
 
-This rule outlines best practices for creating impactful data visualizations in Power BI, emphasizing data storytelling, inspired by [Microsoft’s data storytelling guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling), and visual hierarchy, informed by [Tailwind App’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design).
+## Language Requirements
+- Use Python 3.10 minimum
+- Leverage Python 3.10+ features when appropriate:
+  - `match-case` statements for complex conditionals
+  - Union types with `|` syntax: `str | None` instead of `Optional[str]`
+  - Structural pattern matching
+  - Parameter specification variables (`ParamSpec`)
 
-## Data Storytelling Guidelines
+## Code Style & Structure
 
-1. **Define the Narrative**:
-   - Craft a clear story with context, analysis, and conclusion, as per [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling).
-   - Example: Highlight sales trends to show growth, not just raw data.
+### Control Flow
+- **Always prefer guard clauses and early returns** over nested conditionals
+- Use `return`, `continue`, or `break` early to handle edge cases and error conditions
+- Avoid deep nesting - flatten code structure with guard clauses
+- Maximum nesting depth: 2-3 levels
 
-2. **Know Your Audience**:
-   - Tailor visuals to audience needs (e.g., financial metrics for executives), aligning with [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling).
-   - Example: Focus on campaign ROI for marketers, not database metrics.
+**Preferred pattern:**
+```python
+def process_data(data: dict | None) -> str | None:
+    if not data:
+        return None
+    
+    if 'required_field' not in data:
+        return None
+    
+    # Main logic here
+    return process_result(data)
+```
 
-3. **Simplify and Focus**:
-   - Highlight key data with concise annotations, per [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling).
-   - Example: Display 2-3 critical metrics, not all columns.
+**Avoid this anti-pattern:**
+```python
+def process_data(data: dict | None) -> str | None:
+    if data:
+        if 'required_field' in data:
+            # Main logic deeply nested
+            return process_result(data)
+    return None
+```
 
-4. **Provide Context**:
-   - Use benchmarks or comparisons for meaning, as recommended by [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling).
-   - Example: Compare sales to targets to reveal gaps.
+### Function Design
+- Keep functions focused with single responsibilities (max 20-30 lines)
+- Use guard clauses to validate inputs early
+- Prefer pure functions when possible (no side effects)
+- Use descriptive names that clearly indicate purpose
+- When dealing with Frontend data, prefer API-based models which return JSON instead of forms and request parsing.
 
-5. **Encourage Action**:
-   - Prompt decisions with clear calls to action, per [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling).
-   - Example: Suggest loyalty programs for declining retention.
+### Type Annotations
+- Use type hints consistently throughout codebase
+- Prefer Python 3.10+ union syntax: `str | None` over `Optional[str]`
+- Use `TypeAlias` for complex type definitions
+- Consider using `Protocol` for structural typing
+- Use `Final` for constants that shouldn't be reassigned
 
-## Visual Hierarchy Guidelines
+### Error Handling
+- Prefer specific exceptions over generic `Exception`
+- Use guard clauses for input validation
+- Fail fast - validate early, return/raise immediately on invalid input
+- Consider using `Result` pattern for functions that may fail
 
-1. **Prioritize Key Elements**:
-   - Place key visuals (e.g., KPIs) at the top/center, using *size and scale* ([Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design)).
-   - Example: Make revenue KPI cards larger and central.
+## Package Management (uv)
+- **Prefer `uv` over pip** for all dependency management
+- Use `uv add package-name` instead of `pip install`
+- Use `uv add --dev package-name` for development dependencies
+- Use `uv run script.py` for executing scripts in project environment
+- Use `uv sync` for installing dependencies from lock files
+- Create virtual environments with `uv venv .venv`
+- Pin exact versions in production: `uv add "package==1.2.3"`
 
-2. **Use Consistent Design**:
-   - Apply a 3-5 color palette and consistent *typography* for cohesion ([Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design)).
-   - Example: Use green for growth, red for declines.
+## Project Structure
+```
+project/
+├── pyproject.toml          # Project configuration
+├── uv.lock                 # Dependency lock file (commit this)
+├── README.md               # Project documentation
+├── src/
+│   └── package_name/       # Source code
+└── tests/                  # Test files
+```
 
-3. **Leverage White Space**:
-   - Use *negative space* to separate sections and reduce clutter ([Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design)).
-   - Example: Add padding around charts for clarity.
+### Configuration Files
+- **Always include `pyproject.toml`** for project configuration
+- Specify Python version requirement: `requires-python = ">=3.10"`
+- Use `uv.lock` for dependency locking (commit to version control)
+- Configure linting tools (ruff, mypy) in pyproject.toml
 
-4. **Guide the Eye**:
-   - Arrange visuals logically (e.g., left-to-right) with *alignment and flow* ([Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design)).
-   - Example: Show trend charts before detailed breakdowns.
+### Example pyproject.toml:
+```toml
+[project]
+name = "your-project"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = []
 
-5. **Choose Appropriate Visuals**:
-   - Select clear chart types (e.g., line for trends, bar for comparisons) ([Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design)).
-   - Example: Use bar charts for regional sales, not pie charts.
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy"]
 
-## Best Practices
+[tool.ruff]
+line-length = 88
+target-version = "py310"
 
-- **Iterate and Test**: Gather stakeholder feedback for clarity.
-- **Use Tool Features**: Add interactivity (e.g., tooltips, filters) without clutter.
-- **Accessibility**: Ensure colorblind-friendly colors and legible text.
-- **Performance**: Optimize data models for fast loading.
+[tool.mypy]
+python_version = "3.10"
+strict = true
+```
 
-By following these guidelines, your visualizations will tell a compelling story, per [Microsoft’s guide](mdc:https:/www.microsoft.com/en-us/power-platform/products/power-bi/topics/data-storytelling), and use visual hierarchy, per [Tailwind’s blog](mdc:https:/www.tailwindapp.com/blog/visual-hierarchy-in-design), to highlight key insights effectively.```
+## Code Organization Principles
+- **Prefer composition over inheritance** - use dependency injection
+- Keep classes small and focused (Single Responsibility Principle)
+- Use dataclasses or Pydantic models for data structures
+- Group related functionality into modules
+- Use `__init__.py` to control public API exposure
+
+## Performance & Best Practices
+- Use f-strings for string formatting
+- Prefer list/dict comprehensions over loops when readable
+- Use `pathlib` instead of `os.path` for file operations
+- Consider using `functools.lru_cache` for expensive pure functions
+- Use context managers (`with` statements) for resource management
+
+## Testing Guidelines
+- Write tests alongside code development
+- Use descriptive test names that explain the scenario
+- Follow AAA pattern: Arrange, Act, Assert
+- Use pytest fixtures for test setup
+- Aim for high test coverage but focus on critical paths
+
+## Documentation
+- Use docstrings for all public functions/classes
+- Follow Google or NumPy docstring style consistently
+- Include type information in docstrings when helpful
+- Keep README.md updated with setup and usage instructions
 
 ---
 > Source: [mez-0/citadel](https://github.com/mez-0/citadel) — distributed by [TomeVault](https://tomevault.io).
