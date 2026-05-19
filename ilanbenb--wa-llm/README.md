@@ -7,13 +7,13 @@ A WhatsApp bot that can participate in group conversations, powered by AI. The b
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ilanbenb/wa_llm](https://github.com/ilanbenb/wa_llm).
+Original source: `.cursor/rules/*.mdc` in [ilanbenb/wa_llm](https://github.com/ilanbenb/wa_llm).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
