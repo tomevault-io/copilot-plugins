@@ -4,7 +4,7 @@
   "repo": "balatro-mod-manager",
   "description": "Balatro Mod Manager by Skyline",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skyline69/balatro-mod-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:53:52Z"
+  "distributed_at": "2026-05-19T07:01:31Z"
 }
