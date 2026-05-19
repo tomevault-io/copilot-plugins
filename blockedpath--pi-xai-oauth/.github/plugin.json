@@ -1,0 +1,9 @@
+{
+  "name": "blockedpath--pi-xai-oauth",
+  "displayName": "pi-xai-oauth",
+  "description": "xAI (Grok) provider with OAuth support for pi",
+  "version": "1.0.0",
+  "author": "BlockedPath",
+  "homepage": "https://github.com/BlockedPath/pi-xai-oauth",
+  "skills": []
+}
