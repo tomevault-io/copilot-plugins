@@ -1,0 +1,9 @@
+{
+  "name": "kyomind--weamind",
+  "displayName": "WeaMind",
+  "description": "Your smart LINE assistant for instant Taiwan weather.",
+  "version": "1.0.0",
+  "author": "kyomind",
+  "homepage": "https://github.com/kyomind/WeaMind",
+  "skills": []
+}
