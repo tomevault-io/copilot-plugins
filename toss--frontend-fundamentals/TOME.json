@@ -2,7 +2,7 @@
   "name": "frontend-fundamentals",
   "owner": "toss",
   "repo": "frontend-fundamentals",
-  "description": "",
+  "description": "Essential principles for frontend development",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/toss",
+  "source_url": "https://github.com/toss/frontend-fundamentals",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T08:32:40Z"
+  "distributed_at": "2026-05-19T03:41:39Z"
 }
