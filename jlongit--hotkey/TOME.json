@@ -1,0 +1,44 @@
+{
+  "name": "hotkey",
+  "owner": "JlonGit",
+  "repo": "hotkey",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e AutoHotkey v2.0 \u7684 Windows \u5feb\u6377\u952e\u589e\u5f3a\u811a\u672c\uff0c\u63d0\u4f9b\u4e86\u4e30\u5bcc\u7684\u529f\u80fd\u6765\u63d0\u9ad8\u60a8\u7684\u5de5\u4f5c\u6548\u7387\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/JlonGit/hotkey",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T16:36:01Z"
+}
