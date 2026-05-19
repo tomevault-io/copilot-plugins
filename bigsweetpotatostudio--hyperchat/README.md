@@ -7,14 +7,14 @@ HyperChat is a Chat client that strives for openness, utilizing APIs from variou
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [BigSweetPotatoStudio/HyperChat](https://github.com/BigSweetPotatoStudio/HyperChat).
+Original source: `CLAUDE.md` in [BigSweetPotatoStudio/HyperChat](https://github.com/BigSweetPotatoStudio/HyperChat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/BigSweetPotatoStudio/HyperChat](https://github.com/BigSweetPotatoStudio/HyperChat)
