@@ -1,0 +1,9 @@
+{
+  "name": "grafana--grafana-pathfinder-app",
+  "displayName": "grafana-pathfinder-app",
+  "description": "Get help exactly when and where you need it. Grafana Interactive Learning brings contextual documentation and interactive tutorials directly into Grafana, so you can learn and build without leaving yo",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/grafana-pathfinder-app",
+  "skills": []
+}
