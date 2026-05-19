@@ -1,0 +1,9 @@
+{
+  "name": "d13--vscode-web-components-ai",
+  "displayName": "vscode-web-components-ai",
+  "description": "Supercharge your AI coding assistants with web component information from your workspace and dependencies.",
+  "version": "1.0.0",
+  "author": "d13",
+  "homepage": "https://github.com/d13/vscode-web-components-ai",
+  "skills": []
+}
