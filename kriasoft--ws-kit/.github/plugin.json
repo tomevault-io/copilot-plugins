@@ -1,0 +1,9 @@
+{
+  "name": "kriasoft--ws-kit",
+  "displayName": "ws-kit",
+  "description": "Type-safe WebSocket message routing & RPC for Bun, Cloudflare, and browsers",
+  "version": "1.0.0",
+  "author": "kriasoft",
+  "homepage": "https://github.com/kriasoft/ws-kit",
+  "skills": []
+}
