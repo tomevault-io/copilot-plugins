@@ -1,242 +1,216 @@
-## swiftui-advanced
+## swiftui-style
 
-> Create reusable ViewModifiers for common styling:
+> struct FeatureView: View {
 
 
-# Advanced SwiftUI Patterns
+# SwiftUI Style Guide with Design System Integration for DuckDuckGo Browser
 
-## ViewModifier Composition
-Create reusable ViewModifiers for common styling:
+## View Structure
 
+### View Organization
 ```swift
-// ✅ ADVANCED - Composable ViewModifiers
-struct DuckDuckGoButtonStyle: ViewModifier {
-    let style: ButtonStyleType
-    
-    func body(content: Content) -> some View {
-        content
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(backgroundColorForStyle())
-            .foregroundColor(textColorForStyle())
-            .cornerRadius(8)
-            .font(.body.weight(.medium))
-    }
-    
-    private func backgroundColorForStyle() -> Color {
-        switch style {
-        case .primary:
-            return Color(designSystemColor: .buttonPrimaryBackground)
-        case .secondary:
-            return Color(designSystemColor: .buttonSecondaryBackground)
-        case .ghost:
-            return .clear
-        }
-    }
-    
-    private func textColorForStyle() -> Color {
-        switch style {
-        case .primary:
-            return Color(designSystemColor: .buttonPrimaryText)
-        case .secondary:
-            return Color(designSystemColor: .buttonSecondaryText)
-        case .ghost:
-            return Color(designSystemColor: .textLink)
-        }
-    }
-}
-
-// Usage
-extension View {
-    func duckDuckGoButtonStyle(_ style: ButtonStyleType) -> some View {
-        modifier(DuckDuckGoButtonStyle(style: style))
-    }
-}
-```
-
-## PreferenceKey for Cross-View Communication
-Use PreferenceKey for sophisticated view communication:
-
-```swift
-// ✅ ADVANCED - PreferenceKey for collecting data from child views
-struct ViewSizePreferenceKey: PreferenceKey {
-    static var defaultValue: [String: CGSize] = [:]
-    
-    static func reduce(value: inout [String: CGSize], nextValue: () -> [String: CGSize]) {
-        value.merge(nextValue()) { $1 }
-    }
-}
-
-struct SizeReportingView<Content: View>: View {
-    let id: String
-    let content: Content
-    
-    init(id: String, @ViewBuilder content: () -> Content) {
-        self.id = id
-        self.content = content()
-    }
-    
-    var body: some View {
-        content
-            .background(
-                GeometryReader { geometry in
-                    Color.clear
-                        .preference(key: ViewSizePreferenceKey.self, 
-                                  value: [id: geometry.size])
-                }
-            )
-    }
-}
-
-// Usage
-struct ParentView: View {
-    @State private var childSizes: [String: CGSize] = [:]
-    
-    var body: some View {
-        VStack {
-            SizeReportingView(id: "header") {
-                HeaderView()
-            }
-            
-            SizeReportingView(id: "content") {
-                ContentView()
-            }
-        }
-        .onPreferenceChange(ViewSizePreferenceKey.self) { sizes in
-            self.childSizes = sizes
-        }
-    }
-}
-```
-
-## Environment-based Dependency Injection
-Use SwiftUI Environment for dependency injection:
-
-```swift
-// ✅ ADVANCED - Environment-based DI
-struct DependencyProviderKey: EnvironmentKey {
-    static let defaultValue: DependencyProvider = AppDependencyProvider.shared
-}
-
-extension EnvironmentValues {
-    var dependencies: DependencyProvider {
-        get { self[DependencyProviderKey.self] }
-        set { self[DependencyProviderKey.self] = newValue }
-    }
-}
-
-// Usage in views
 struct FeatureView: View {
-    @Environment(\.dependencies) var dependencies
+    // MARK: - Environment and State
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var appSettings: AppSettings
+    
+    // MARK: - State and Binding
+    @State private var localState = false
+    @Binding var externalState: Bool
+    
+    // MARK: - View Model
     @StateObject private var viewModel: FeatureViewModel
     
-    init() {
-        // Note: This approach has limitations - see ios-architecture.md for preferred DI pattern
+    // MARK: - Body
+    var body: some View {
+        content
+            .onAppear { viewModel.onAppear() }
     }
     
-    var body: some View {
-        // View implementation
+    // MARK: - Subviews
+    @ViewBuilder
+    private var content: some View {
+        // Main content here
     }
 }
 ```
 
-## Complex Animation Patterns
-Use sophisticated animations for better UX:
+## Design System Integration
+
+### REQUIRED: Use DesignResourcesKit Colors
+ALWAYS use semantic colors from DesignResourcesKit instead of hardcoded or system colors:
 
 ```swift
-// ✅ ADVANCED - Coordinated animations
-struct TabSwitcherView: View {
-    @State private var selectedTab: Int = 0
-    @State private var animationPhase: AnimationPhase = .idle
+// ✅ CORRECT - DesignResourcesKit semantic colors
+Text("Title")
+    .foregroundColor(Color(designSystemColor: .textPrimary))
+    .background(Color(designSystemColor: .surface))
+
+VStack {
+    Rectangle()
+        .fill(Color(designSystemColor: .accent))
     
-    enum AnimationPhase {
-        case idle, switching, settled
-    }
+    Button("Action") { }
+        .foregroundColor(Color(designSystemColor: .controlsFillPrimary))
+}
+.background(Color(designSystemColor: .background))
+
+// ❌ INCORRECT - Hardcoded or system colors
+Text("Title")
+    .foregroundColor(.black) // Don't use hardcoded colors
+    .background(.gray) // Don't use system colors
+
+// ❌ INCORRECT - Manual dark mode handling
+@Environment(\.colorScheme) var colorScheme
+let textColor = colorScheme == .dark ? Color.white : Color.black // Use semantic colors instead
+```
+
+### REQUIRED: Use DesignResourcesKit Icons
+ALWAYS use icons from DesignResourcesKitIcons package:
+
+```swift
+// ✅ CORRECT - DesignResourcesKit icons
+Button(action: addAction) {
+    Image(uiImage: DesignSystemImages.Glyphs.Size16.add)
+        .foregroundColor(Color(designSystemColor: .accent))
+}
+
+Image(uiImage: DesignSystemImages.Color.Size24.bookmark)
+    .resizable()
+    .frame(width: 24, height: 24)
+
+// ❌ INCORRECT - System or custom icons
+Button(action: addAction) {
+    Image(systemName: "plus") // Use DesignResourcesKit icons
+}
+
+Image("custom_icon") // Use DesignResourcesKit icons instead
+```
+
+### Design System Color Categories
+Use appropriate semantic color categories:
+
+```swift
+// Text colors
+.foregroundColor(Color(designSystemColor: .textPrimary))
+.foregroundColor(Color(designSystemColor: .textSecondary))
+.foregroundColor(Color(designSystemColor: .textLink))
+
+// Background colors
+.background(Color(designSystemColor: .background))
+.background(Color(designSystemColor: .surface))
+.background(Color(designSystemColor: .panel))
+
+// Control colors
+.foregroundColor(Color(designSystemColor: .controlsFillPrimary))
+.foregroundColor(Color(designSystemColor: .controlsFillSecondary))
+
+// Button colors (use specific button color tokens)
+.foregroundColor(Color(designSystemColor: .buttonPrimaryText))
+.background(Color(designSystemColor: .buttonPrimaryBackground))
+```
+
+### Typography with Design System
+Use semantic typography that integrates with the design system:
+
+```swift
+// ✅ CORRECT - Design system typography
+Text("Header")
+    .font(.title2.weight(.semibold))
+    .foregroundColor(Color(designSystemColor: .textPrimary))
+
+Text("Body")
+    .font(.body)
+    .foregroundColor(Color(designSystemColor: .textSecondary))
+
+Text("Caption")
+    .font(.caption)
+    .foregroundColor(Color(designSystemColor: .textSecondary))
+
+// Platform-specific typography (macOS)
+#if os(macOS)
+Text("Preference Title")
+    .font(Fonts.preferencePaneTitle)
+    .foregroundColor(Color(designSystemColor: .textPrimary))
+#endif
+```
+
+### Theme Integration
+Use Theme protocol for complex scenarios:
+
+```swift
+// ✅ CORRECT - Theme integration for advanced scenarios
+struct ComplexView: View {
+    @EnvironmentObject var themeManager: ThemeManager
     
     var body: some View {
         VStack {
-            TabPickerView(selectedTab: $selectedTab)
-                .animation(.easeInOut(duration: 0.3), value: selectedTab)
-            
-            TabContent(selectedTab: selectedTab)
-                .transition(.asymmetric(
-                    insertion: .move(edge: .trailing).combined(with: .opacity),
-                    removal: .move(edge: .leading).combined(with: .opacity)
-                ))
-                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: selectedTab)
+            Text("Content")
+                .foregroundColor(Color(themeManager.currentTheme.textColor))
         }
-        .onChange(of: selectedTab) { newValue in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                animationPhase = .switching
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                withAnimation(.easeOut(duration: 0.1)) {
-                    animationPhase = .settled
-                }
-            }
+        .background(Color(themeManager.currentTheme.backgroundColor))
+    }
+}
+
+// ✅ PREFERRED - Direct semantic colors for simple cases
+struct SimpleView: View {
+    var body: some View {
+        Text("Content")
+            .foregroundColor(Color(designSystemColor: .textPrimary))
+            .background(Color(designSystemColor: .background))
+    }
+}
+```
+
+## Component Patterns
+
+### Reusable Components
+- Create small, focused components
+- Use ViewModifiers for common styling
+- Leverage ViewBuilder for conditional content
+
+```swift
+struct PrimaryButton: View {
+    let title: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.accentColor)
+                .cornerRadius(8)
         }
     }
 }
 ```
 
-## Custom Layout with Layout Protocol (iOS 16+)
-Create sophisticated layouts:
-
+### Lists and Navigation
 ```swift
-// ✅ ADVANCED - Custom layout for complex arrangements
-@available(iOS 16.0, macOS 13.0, *)
-struct FlexibleGrid: Layout {
-    let spacing: CGFloat
-    let itemSize: CGSize
-    
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let containerWidth = proposal.width ?? 300
-        let itemsPerRow = max(1, Int(containerWidth / (itemSize.width + spacing)))
-        let rows = (subviews.count + itemsPerRow - 1) / itemsPerRow
-        
-        let totalWidth = CGFloat(itemsPerRow) * itemSize.width + CGFloat(itemsPerRow - 1) * spacing
-        let totalHeight = CGFloat(rows) * itemSize.height + CGFloat(rows - 1) * spacing
-        
-        return CGSize(width: totalWidth, height: totalHeight)
-    }
-    
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let containerWidth = bounds.width
-        let itemsPerRow = max(1, Int(containerWidth / (itemSize.width + spacing)))
-        
-        for (index, subview) in subviews.enumerated() {
-            let row = index / itemsPerRow
-            let column = index % itemsPerRow
-            
-            let x = bounds.minX + CGFloat(column) * (itemSize.width + spacing)
-            let y = bounds.minY + CGFloat(row) * (itemSize.height + spacing)
-            
-            subview.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(itemSize))
+List {
+    Section {
+        ForEach(items) { item in
+            NavigationLink(destination: DetailView(item: item)) {
+                ItemRow(item: item)
+            }
         }
+    } header: {
+        Text("Section Title")
     }
 }
+.listStyle(.insetGrouped)
 ```
 
-## State Management with @Observable (iOS 17+)
-Use the modern @Observable macro when available:
+## State Management
 
+### View Model Pattern
 ```swift
-// ✅ MODERN - @Observable for iOS 17+
-@available(iOS 17.0, macOS 14.0, *)
-@Observable
-final class ModernViewModel {
-    var items: [Item] = []
-    var isLoading = false
-    var selectedItem: Item?
+class FeatureViewModel: ObservableObject {
+    @Published var items: [Item] = []
+    @Published var isLoading = false
+    @Published var error: Error?
     
-    private let service: FeatureServiceProtocol
-    
-    init(service: FeatureServiceProtocol) {
-        self.service = service
-    }
-    
-    @MainActor
     func loadData() async {
         isLoading = true
         defer { isLoading = false }
@@ -244,31 +218,119 @@ final class ModernViewModel {
         do {
             items = try await service.fetchItems()
         } catch {
-            // Handle error
-        }
-    }
-}
-
-// Usage
-struct ModernFeatureView: View {
-    @State private var viewModel: ModernViewModel
-    
-    init(service: FeatureServiceProtocol) {
-        self._viewModel = State(initialValue: ModernViewModel(service: service))
-    }
-    
-    var body: some View {
-        List(viewModel.items, selection: $viewModel.selectedItem) { item in
-            ItemRow(item: item)
-        }
-        .task {
-            await viewModel.loadData()
+            self.error = error
         }
     }
 }
 ```
 
-See `swiftui-style.md` for basic SwiftUI patterns and design system integration.
+### Async Operations
+```swift
+struct ContentView: View {
+    @StateObject private var viewModel = ViewModel()
+    
+    var body: some View {
+        content
+            .task {
+                await viewModel.loadData()
+            }
+            .refreshable {
+                await viewModel.refresh()
+            }
+    }
+}
+```
+
+## Animations and Transitions
+
+### Smooth Animations
+```swift
+@State private var isExpanded = false
+
+var body: some View {
+    VStack {
+        content
+            .frame(height: isExpanded ? 200 : 100)
+            .animation(.spring(), value: isExpanded)
+    }
+}
+```
+
+### Custom Transitions
+```swift
+.transition(.asymmetric(
+    insertion: .move(edge: .trailing).combined(with: .opacity),
+    removal: .move(edge: .leading).combined(with: .opacity)
+))
+```
+
+## Accessibility
+
+### Always Include Accessibility
+```swift
+Image(systemName: "star.fill")
+    .accessibilityLabel("Favorite")
+    .accessibilityHint("Double tap to toggle favorite status")
+
+Button(action: action) {
+    Text("Submit")
+}
+.accessibilityIdentifier("submit_button")
+```
+
+## Performance Considerations
+
+### Lazy Loading
+```swift
+ScrollView {
+    LazyVStack {
+        ForEach(items) { item in
+            ItemView(item: item)
+        }
+    }
+}
+```
+
+### Avoid Expensive Operations in Body
+```swift
+// Bad
+var body: some View {
+    let processedData = expensiveOperation(data) // Don't do this
+    Text(processedData)
+}
+
+// Good
+@State private var processedData: String = ""
+
+var body: some View {
+    Text(processedData)
+        .onAppear {
+            processedData = expensiveOperation(data)
+        }
+}
+```
+
+## Preview Support
+
+### Comprehensive Previews
+```swift
+struct FeatureView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            FeatureView()
+                .previewDisplayName("Default")
+            
+            FeatureView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+            
+            FeatureView()
+                .previewDevice("iPhone SE (3rd generation)")
+                .previewDisplayName("Small Device")
+        }
+    }
+}
+```
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
