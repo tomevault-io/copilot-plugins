@@ -1,8 +1,8 @@
-## scripts
+## tests
 
-> You DO NOT need to add the project root to sys.path to allow importing 'selectron'. DO NOT ADD THIS.
+> Don't worry about fixing pytest import issues (these are false positives from the linting environment)
 
-You DO NOT need to add the project root to sys.path to allow importing 'selectron'. DO NOT ADD THIS.
+Don't worry about fixing pytest import issues (these are false positives from the linting environment)
 
 ---
 > Source: [zocomputer/selectron](https://github.com/zocomputer/selectron) — distributed by [TomeVault](https://tomevault.io).
