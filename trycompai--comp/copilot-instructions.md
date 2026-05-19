@@ -1,25 +1,185 @@
-## comp
+## code
 
-> Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
+> Use when writing TypeScript/React code - covers type safety, component patterns, and file organization
 
-# Project Rules
 
-Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
+# Code Standards
 
-## Quick Reference
+## TypeScript
 
-- **Package manager**: `bun` (never npm/yarn/pnpm)
-- **No `as any`** casts. No `@ts-ignore`. Fix the types instead.
-- **Max 300 lines** per file.
-- **Session auth only** — no JWT. Use `credentials: 'include'` for API calls.
-- **RBAC**: `@RequirePermission('resource', 'action')` on every API endpoint. Gate UI with `hasPermission()`.
-- **Design system**: Always `@trycompai/design-system` first, `@trycompai/ui` only as fallback. Icons from `@trycompai/design-system/icons`.
-- **Data fetching**: Server components use `serverApi`. Client components use SWR hooks with `apiClient`.
-- **No server actions** for new features. Call NestJS API directly.
-- **Tests required** for every new feature. TDD preferred.
-- **Conventional commits**: `<type>(<scope>): <description>`
-- **Controller format**: `@Controller({ path: 'name', version: '1' })`, NOT `@Controller('v1/name')`
-- **Permission resources**: organization, member, control, evidence, policy, risk, vendor, task, framework, audit, finding, questionnaire, integration, apiKey, trust, pentest, app, compliance
+### No `any`, No Unsafe Casts
+
+```tsx
+// ✅ Validate with zod
+const TaskSchema = z.object({ id: z.string(), title: z.string() });
+const task = TaskSchema.parse(response.data);
+
+// ✅ Use unknown and narrow
+const parseResponse = (data: unknown): Task => {
+  if (!isTask(data)) throw new Error('Invalid');
+  return data;
+};
+
+// ❌ Never
+const data: any = fetchData();
+const task = response as Task;
+const name = user!.name;
+// @ts-ignore
+```
+
+### Generics Over Any
+
+```tsx
+// ✅ Generic
+const first = <T>(items: T[]): T | undefined => items[0];
+
+// ❌ Any
+const first = (items: any[]): any => items[0];
+```
+
+## React Patterns
+
+### Named Exports, PascalCase
+
+```tsx
+// ✅ Named export, PascalCase file
+// TaskCard.tsx
+export function TaskCard({ task }: TaskCardProps) { ... }
+
+// ❌ Default export, lowercase
+export default function taskCard() { ... }
+```
+
+### Derive State, Avoid useEffect
+
+```tsx
+// ✅ Derived
+const completedCount = tasks.filter(t => t.completed).length;
+
+// ❌ Synced state
+const [count, setCount] = useState(0);
+useEffect(() => {
+  setCount(tasks.filter(t => t.completed).length);
+}, [tasks]);
+```
+
+### When useEffect IS Appropriate
+
+```tsx
+// External subscriptions
+useEffect(() => {
+  const sub = eventSource.subscribe(handler);
+  return () => sub.unsubscribe();
+}, []);
+
+// DOM measurements
+useEffect(() => {
+  setHeight(ref.current?.getBoundingClientRect().height);
+}, []);
+```
+
+### Toasts with Sonner
+
+```tsx
+import { toast } from 'sonner';
+
+toast.success('Task created');
+toast.error('Failed to save');
+toast.promise(saveTask(), {
+  loading: 'Saving...',
+  success: 'Saved!',
+  error: 'Failed',
+});
+```
+
+## File Structure
+
+### Colocate at Route Level
+
+```
+app/(app)/[orgId]/tasks/
+├── page.tsx              # Server component
+├── components/
+│   └── TaskList.tsx      # Client component
+├── hooks/
+│   └── useTasks.ts       # SWR hook
+└── data/
+    └── queries.ts        # Server queries
+```
+
+### Share Only When Reused 3+ Times
+
+```
+src/components/shared/    # Cross-page components
+src/hooks/                # Shared hooks (useApiSWR, useDebounce)
+```
+
+## Code Quality
+
+### File Size Limit: 300 Lines
+
+Split large files into focused components.
+
+### Named Parameters for 2+ Args
+
+```tsx
+// ✅ Named
+const createTask = ({ title, assigneeId }: CreateTaskParams) => { ... };
+createTask({ title: 'Review PR', assigneeId: user.id });
+
+// ❌ Positional
+const createTask = (title: string, assigneeId: string) => { ... };
+createTask('Review PR', user.id); // What's the 2nd param?
+```
+
+### Early Returns
+
+```tsx
+// ✅ Early return
+function processTask(task: Task | null) {
+  if (!task) return null;
+  if (task.deleted) return null;
+  return <TaskCard task={task} />;
+}
+
+// ❌ Nested
+function processTask(task) {
+  if (task) {
+    if (!task.deleted) {
+      return <TaskCard task={task} />;
+    }
+  }
+  return null;
+}
+```
+
+### Event Handler Naming
+
+```tsx
+// ✅ Prefix with "handle"
+const handleClick = () => { ... };
+const handleSubmit = (e: FormEvent) => { ... };
+const handleTaskCreate = (task: Task) => { ... };
+```
+
+## Accessibility
+
+```tsx
+// Interactive elements need keyboard support
+<div
+  role="button"
+  tabIndex={0}
+  onClick={handleClick}
+  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+  aria-label="Delete task"
+>
+  <TrashIcon />
+</div>
+
+// Form inputs need labels
+<label htmlFor="task-name">Task Name</label>
+<input id="task-name" type="text" />
+```
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
