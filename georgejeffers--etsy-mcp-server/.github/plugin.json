@@ -1,0 +1,9 @@
+{
+  "name": "georgejeffers--etsy-mcp-server",
+  "displayName": "etsy-mcp-server",
+  "description": "Etsy MCP Server - Upload Listings, Edit Listings, All via an LLM through MCP!",
+  "version": "1.0.0",
+  "author": "georgejeffers",
+  "homepage": "https://github.com/georgejeffers/etsy-mcp-server",
+  "skills": []
+}
