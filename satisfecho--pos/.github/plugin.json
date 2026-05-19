@@ -1,0 +1,9 @@
+{
+  "name": "satisfecho--pos",
+  "displayName": "pos",
+  "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. ",
+  "version": "1.0.0",
+  "author": "satisfecho",
+  "homepage": "https://github.com/satisfecho/pos",
+  "skills": []
+}
