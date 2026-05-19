@@ -1,95 +1,90 @@
-## juniper
+## testing-guidelines
 
-> - Use `deno task test` to run all tests across the workspace.
+> description: "Guidelines for writing and running tests in the Juniper project using Deno, @std/testing, and the Deno MCP server."
 
-# AGENTS.md
+\
+---
+description: "Guidelines for writing and running tests in the Juniper project using Deno, @std/testing, and the Deno MCP server."
+alwaysApply: true
+# globs: ["**/*.test.ts"] # Optional: to auto-attach for test files.
+---
+# Testing Guidelines
 
-## Testing
+## Test Execution
+- Use the Deno MCP server to run tests.
+  - To run all tests: (Use the MCP server's functionality for running all tests)
+  - To run a specific test file: (Use the MCP server, providing the path/to/test.ts)
+  - To run tests for examples in docstrings or markdown files: (Use the MCP server with the appropriate option, e.g., --doc path/to/file.ts)
+- **ALWAYS** run tests using the Deno MCP server after writing or modifying test files (`*.test.ts`) or the source code files they cover.
+  - If you modified a specific file and its corresponding test, use the Deno MCP server to run `path/to/your.test.ts`.
+  - If changes are broader or you are unsure, consider running all tests via the Deno MCP server.
+- After running tests with the appropriate coverage flag (e.g., via the Deno MCP server's test functionality with coverage enabled), use the Deno MCP server's `coverage` tool to view the detailed coverage report (equivalent to `deno coverage --detailed`). Ensure new code has test coverage.
 
-- Use `deno task test` to run all tests across the workspace.
-  - It runs `deno test` with the correct permissions and environment variables.
-  - Never call `deno test` directly.
-  - The test task can take all the same arguments as `deno test`.
-  - To run tests for a specific file, use `deno task test ./src/server.test.tsx`
-  - Prefer running tests more narrowly to reduce token usage. Output is large
-    when running all tests.
-  - Temporarily change `describe` or `it` to `describe.only` or `it.only` to
-    focus specific test groups or cases.
-- Workspace-specific test tasks are available:
-  - `deno task test:juniper` runs tests for the src (Juniper library) workspace.
-  - `deno task test:example` runs tests for the example workspace.
-  - `deno task test:minimal` runs tests for the minimal template workspace.
-- To get updated test coverage statistics for the Juniper library, run
-  `deno task test:juniper --coverage`. Then run `deno coverage --detailed` from
-  the src directory to see lines that are missing coverage.
-- For live reload of changes in the browser
-  - start the dev server with `deno task dev`.
-  - This runs the example project's development server.
-  - After any edits are made to the example, it will rebuild the application and
-    refresh the page.
-- CI will reject a commit if it doesn't pass `deno task check`.
-- Formatting issues can be automatically fixed with `deno fmt`.
-- For stubs and spys, prefer using explicit resource management over manually
-  adding try/finally with restore call.
-- Never disable sanitization to get tests to pass.
-- Use `describe` and `it` from `@std/testing/bdd` instead of `Deno.test`.
-- If spys, stubs, fakes, or simulated time is needed, use `@std/testing/mock`
-  and `@std/testing/time` instead of implementing your own.
-- For making assertions, prefer using `@std/assert` when possible. Use assertion
-  functions rather than using if statements that throw.
+## Coverage Notes
+- Coverage files (.cov) are generated when tests are run (e.g. via `deno task test` or the Deno MCP server's `test` tool with the coverage flag).
+- The output of the `coverage` MCP tool (and `deno coverage --detailed`) will be based on the last set of tests for which coverage data was generated and stored (typically in the `./cov` directory).
+- If you see the error "No covered files included in the report" when running the `coverage` tool or `deno coverage --detailed`, it means that no .cov files were found or they are empty. This usually indicates that the tests (which generate these coverage files) need to be run or re-run. Ensure tests have completed successfully and have generated coverage data before checking the coverage report.
 
-## Referencing documentation
+## Test Structure and Practices
+- Tests should be based on other existing tests.
+- Place test files adjacent to source files with a `.test.ts` extension (e.g., `example/main.test.ts` for `example/main.ts`).
+- Use BDD-style testing with `@std/testing/bdd`.
+- Structure tests using `describe()` for test groups and `it()` for individual test cases.
+- Co-locate related lifecycle hooks (`beforeAll()`, `afterAll()`, `beforeEach()`, `afterEach()`) for better readability. These are for setup and teardown of resources.
+- Never use `node:test`. Lifecycle hooks should be imported from `@std/testing/bdd`.
+- Use assertions from `@std/assert`.
+- Prefer snapshots created with `isSnapshotMode()` over `assertSnapshot()`. When using snapshot mode, the test should write to a file as shown in the relevant documentation for the function.
+- For time-dependent tests, use `FakeTime` from `@std/testing/time` to control time progression explicitly, avoiding real delays (e.g., `setTimeout`).
 
-- For JSR (jsr.io) documentation, you must include an accept header, otherwise
-  it will respond with a 404 not found error.
 
-## Style
+### Example Test Structure:
+```typescript
+import { afterAll, afterEach, beforeAll, beforeEach, describe, it } from "@std/testing/bdd";
+import { assertEquals } from "@std/assert";
 
-### Types
+describe("UserService", () => {
+  // Group-level setup and teardown
+  beforeAll(() => {
+    // Setup that runs once before all tests in this group
+    // e.g., database connection, test data initialization
+  });
+  afterAll(() => {
+    // Cleanup that runs once after all tests in this group complete
+    // e.g., close database connection, remove test data
+  });
 
-Try to avoid ever using the `any` type.
+  // Per-test setup and teardown
+  beforeEach(() => {
+    // Setup that runs before each test case
+    // e.g., reset service state, mock setup
+  });
+  afterEach(() => {
+    // Cleanup that runs after each test case completes
+    // e.g., clear mocks, reset state
+  });
 
-### Imports
+  it("should create new user", () => {
+    // Test implementation
+    assertEquals(actual, expected);
+  });
 
-Imports should be split up into 4 groups as shown in the example below. The
-comments are there to explain the code style.
+  describe("authentication", () => {
+    // Nested group setup and teardown
+    beforeAll(() => {
+      // Setup for this nested group only
+    });
+    afterAll(() => {
+      // Teardown for this nested group only
+    });
 
-```ts
-// Third party module imports
-import { assertEquals, assertStringIncludes } from "@std/assert";
-import { afterAll, beforeAll, describe, it } from "@std/testing/bdd";
-import { Hono } from "hono";
-import type { Env, Schema } from "hono"; // Types imported separately immediately after regular imports
-import SuperJSON from "superjson";
-
-// First party module imports
-import { isDevelopment } from "@udibo/juniper/utils/env";
-
-// Imports using absolute paths in the example directory
-import { server } from "/main.ts";
-import { postService } from "/services/post.ts";
-import type { NewPost } from "/services/post.ts";
-
-// Relative path imports
-import { Button } from "./button.tsx";
-```
-
-Here is a copy of all first party modules from the src/deno.json configuration
-file. Never import them by their relative path. For example, import the server
-module using "@udibo/juniper/server" instead of "./server.tsx".
-
-```json
-"exports": {
-  ".": "./mod.ts",
-  "./build": "./build.ts",
-  "./dev": "./dev.ts",
-  "./server": "./server.tsx",
-  "./client": "./client.tsx",
-  "./utils/env": "./utils/env.ts",
-  "./utils/otel": "./utils/otel.ts",
-  "./utils/testing": "./utils/testing.ts"
-},
-```
+    it("should validate credentials", () => {
+      // Nested test implementation
+    });
+  });
+});
+```## Task Management (General)
+- For tasks other than testing, use `deno task` to run predefined tasks from `deno.json`.
+- Check `deno.json` for available tasks.
 
 ---
 > Source: [udibo/juniper](https://github.com/udibo/juniper) — distributed by [TomeVault](https://tomevault.io).
