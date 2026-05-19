@@ -1,0 +1,381 @@
+## devhaven
+
+> DevHaven 当前仓库已经收口为 **纯 macOS 原生主线**：唯一保留的应用源码位于 `macos/`，技术栈为 **SwiftUI + AppKit + Swift Package + GhosttyKit + Sparkle**。
+
+# 项目概览（DevHaven）
+
+DevHaven 当前仓库已经收口为 **纯 macOS 原生主线**：唯一保留的应用源码位于 `macos/`，技术栈为 **SwiftUI + AppKit + Swift Package + GhosttyKit + Sparkle**。
+
+## 复杂布局实现约定
+
+- 保持 **SwiftUI + AppKit** 作为应用主壳、窗口生命周期、导航结构、业务状态与原生能力接入的真相源。
+- 对于**复杂布局、复杂表单、动态编辑区、需要高频调整视觉结构的页面**，优先考虑采用 **`WKWebView` 内嵌本地静态 React 资源** 的方案实现 UI。
+- React 负责页面渲染、交互编排与局部乐观更新；Swift 负责状态真相源、校验、持久化、进程/系统能力与业务动作收口。
+- 已 React 化的复杂页面应采用标准 Node / Vite 工程目录维护源码，并通过对应 `macos/scripts/build-*-webui.sh` 生成随 App bundle 分发的本地静态资源；不要手写长期维护的单体 `host.js` 作为 React 源码真相源。
+- 原生 `dev` / release 构建入口需要先构建这些 React WebUI 资源，再进入 Swift 构建；App 运行时只加载生成后的本地静态资源，不在运行时依赖 Node。
+- Ghostty、Workspace 主壳、Git / Commit / Diff 主链这类强原生交互区域，除非明确批准，不要为了“统一技术栈”而整体 React 化。
+
+## 当前目录结构
+
+- `dev`
+  - 本机开发态入口；负责确保 `macos/Vendor` 可用（必要时复用同仓库其他 worktree 的 vendor）、接入 unified log 并运行 `swift run --package-path macos DevHavenApp`
+- `release`
+  - 本机 release 打包入口；固定委托 `bash macos/scripts/build-native-app.sh --release`，并透传其余参数
+- `macos/Package.swift`
+  - 原生子工程入口
+- `macos/WebUI/WorkspaceRunConfiguration/`
+  - 运行配置页的标准 React + Vite 源码工程；源码位于 `src/`，通过 `npm run build` 输出到 App 资源目录
+- `macos/Sources/DevHavenApp/`
+  - 原生 UI、窗口壳、GhosttyKit 宿主、设置页、终端工作区视图、Sparkle updater 运行时
+- `macos/Sources/DevHavenApp/WorkspaceRunConfigurationResources/`
+  - 运行配置 React 页面的构建产物；由 `macos/WebUI/WorkspaceRunConfiguration` 生成并随 App bundle 分发，Swift 侧 `WKWebView` 只加载这里的静态资源
+- `macos/Sources/DevHavenApp/Update/`
+  - Sparkle 相关的 bundle 元数据解析、appcast 手动检查、更新诊断与 updater controller
+- `macos/Sources/DevHavenApp/AgentResources/`
+  - 随 App bundle 分发的 Claude / Codex wrapper、Claude hook 与 signal emit 脚本
+  - `shell/devhaven-agent-path.{zsh,bash}` 负责在用户 shell startup 可能重写 PATH 后重新把 Agent wrapper bin 目录归一化到 PATH 首位；不能只判断“路径是否存在”，因为用户 rc 可能把 Node / npm bin 再次顶到最前面
+- `macos/Sources/DevHavenApp/DevHavenAppResourceLocator.swift`
+  - App bundle 资源定位器；统一解析 `DevHavenNative_DevHavenApp.bundle`、`GhosttyResources` 与 `AgentResources`
+- `macos/Sources/DevHavenApp/WorkspaceAgentStatusAccessory.swift`
+  - 侧边栏 Agent 状态图标 / 文案映射；只负责展示语义，不负责状态聚合
+- `macos/Sources/DevHavenApp/WorkspaceRunToolbarView.swift`
+  - workspace 顶部右侧的轻量运行控制区；负责展示当前项目 `Project.runConfigurations` 运行配置菜单，以及 Run / Stop / Logs / 配置按钮，不直接持有进程或日志真相源
+- `macos/Sources/DevHavenApp/WorkspaceRunConsolePanel.swift`
+  - workspace 底部 Run Console；只负责按运行配置复用 tab、日志文本展示与“清空显示 / 打开日志 / 收起”入口，不直接启动或停止进程
+- `macos/Sources/DevHavenApp/WorkspaceScriptConfigurationSheet.swift`
+  - 当前项目的 typed 运行配置面板（`WorkspaceRunConfigurationSheet`）；负责编辑 `Project.runConfigurations`，首批支持 `customShell` 与 `remoteLogViewer`，不再依赖 Settings 里的通用脚本模板入口
+- `macos/Sources/DevHavenApp/WorkspaceTerminalCommands.swift`
+  - 工作区 terminal 的查找类菜单命令与 FocusedValue key；只负责把 App 菜单动作桥接到当前 focused pane，不持有 pane/runtime 真相源
+- `macos/Sources/DevHavenApp/WorkspaceProjectCommands.swift`
+  - 工作区“打开项目”菜单命令与 FocusedValue key；只负责把 App 菜单动作桥接到当前 workspace 壳层的 project picker 展示态，不持有 Core 业务状态真相源
+- `macos/Sources/DevHavenApp/WorkspaceSplitTreeView.swift`
+  - 工作区 pane 扁平布局渲染；根据 `WorkspacePaneTree` 的 leaf frame / split handle 结果平铺 pane 与 divider overlay，不再让 pane host 跟着递归 split 树迁移
+- `macos/Sources/DevHavenApp/WorkspaceRootView.swift`
+  - Workspace 根布局；负责项目导航与右侧 Workspace chrome 的 split、导航宽度持久化，以及“项目列表不属于工作区 chrome”这一层级关系
+- `macos/Sources/DevHavenApp/WorkspaceProjectSidebarHostView.swift`
+  - Workspace 外层项目导航宿主；负责已打开项目列表、project picker、worktree dialog 与删除 worktree 确认，不负责 terminal / Git 主内容
+- `macos/Sources/DevHavenApp/WorkspaceChromeContainerView.swift`
+  - Workspace 外围 chrome 容器；当前负责右侧工作区壳的 `左侧 tool window stripe | 主内容区` 布局与边框包裹，不再承载顶部栏或右侧辅助按钮区；默认不要再加外围额外 padding
+- `macos/Sources/DevHavenApp/WorkspaceCommitSideToolWindowHostView.swift`
+  - Commit 左侧独立工具窗宿主；负责 Commit 空态 / `WorkspaceCommitRootView` 路由、侧边焦点桥接，以及把 changes browser 的“单击同步已打开 preview / 双击打开或聚焦单实例 preview”统一桥接到 workspace runtime diff 标签页
+- `macos/Sources/DevHavenApp/WorkspaceCommitRootView.swift`
+  - Commit tool window 根容器；当前负责 changes browser + commit panel 双分区布局、初始化刷新，以及统一 preview 同步 / 打开闭包向下传递
+- `macos/Sources/DevHavenApp/WorkspaceCommitChangesBrowserView.swift`
+  - Commit tool window 左侧 changes browser；负责变更列表展示、inclusion toggle、选中项高亮，以及“单击同步已打开 preview / 双击打开或聚焦单实例 preview”；不要回退成一个文件一个 diff 标签页
+- `macos/Sources/DevHavenApp/WorkspaceCommitDiffPreviewView.swift`
+  - Commit diff preview 组件；当前文件保留以承载 diff preview 四态展示逻辑，但默认不再挂入 Commit tool window 根布局
+- `macos/Sources/DevHavenApp/WorkspaceCommitPanelView.swift`
+  - Commit tool window 底部 panel；负责提交信息编辑、基础 options（amend / sign-off / author）、主动作入口与 execution state 反馈
+- `macos/Sources/DevHavenApp/WorkspaceHostView.swift`
+  - Workspace 顶部标签宿主；负责统一渲染 terminal tab + runtime diff tab，并按 selected presented tab 在 terminal tree / diff viewer 之间切换；diff 内容区点击需回写 `.diffTab(...)` focused area
+- `macos/Sources/DevHavenApp/WorkspaceDiffTabView.swift`
+  - Workspace 独立 diff 标签页视图壳；负责 load state 路由、顶部 navigation bar 接线，以及把 patch / two-side / merge viewer 分发到独立子组件，不再自己拼 subtitle 或 pane header
+- `macos/Sources/DevHavenApp/WorkspaceDiffNavigationBarView.swift`
+  - Diff 顶部导航条；负责 Previous / Next Difference、差异/文件计数、viewer mode 切换与 refresh 入口，只消费 processor 输出的 navigator state
+- `macos/Sources/DevHavenApp/WorkspaceDiffPaneHeaderView.swift`
+  - Diff pane 头部；负责渲染结构化 pane metadata（title/path/oldPath/revision/hash/author/time/copy affordance），不要在其它 App 视图里重新拼标题副文案
+- `macos/Sources/DevHavenApp/WorkspaceDiffPatchViewerView.swift`
+  - Patch viewer 子组件；负责历史 patch/unified/side-by-side 文本呈现与 patch pane header
+- `macos/Sources/DevHavenApp/WorkspaceDiffTwoSideViewerView.swift`
+  - Two-side compare viewer 子组件；负责 compare side rail、overview gutter、selected difference 同步滚动，以及左右 editor 宿主接线
+- `macos/Sources/DevHavenApp/WorkspaceDiffMergeViewerView.swift`
+  - Merge viewer 子组件；负责 conflict side rail、overview gutter、selected difference 同步滚动，以及 ours/base/theirs/result editor 宿主接线
+- `macos/Sources/DevHavenApp/WorkspaceTextEditorView.swift`
+  - macOS 文本编辑宿主；通过 `NSViewRepresentable` 封装 `NSTextView`，供 compare / merge editor 复用，统一承接只读与可编辑文本 pane、line highlight / inline highlight 渲染、selected-difference scroll request 语义，以及同一 diff 标签页内的纵向同步滚动
+- `macos/Sources/DevHavenApp/WorkspaceGitRootView.swift`
+  - Git tool window 根容器；负责顶部 `Git` 标题 + `Log / Console` 次级入口、Console 占位路由、`Log -> WorkspaceGitIdeaLogView / Git -> branches|operations 主链` 的根级切换，以及统一 open diff 闭包向 Log 主链下传
+- `macos/Sources/DevHavenApp/WorkspaceGitSidebarView.swift`
+  - 非 `.log` section 的 Git sections、execution worktree selector 与 refs 概览；标准 IDEA Log 主链不再使用此 sidebar
+- `macos/Sources/DevHavenApp/WorkspaceGitToolbarView.swift`
+  - `Git` 顶层 tab 下的二级 section toolbar；只负责 `branches / operations` 切换与刷新，不再承担 `.log` 入口或 log filter
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogView.swift`
+  - 标准 IDEA Log 根容器；负责 `左侧 branches control strip + 可展开 branches panel + MainFrame（左 toolbar+table | 右信息栏）` 总体布局，并继续向右侧信息栏传递统一 open diff 闭包
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogBranchesPanelView.swift`
+  - 标准 IDEA Log 左侧 branches panel；负责 refs 搜索、本地/远端/标签分组、group count header、友好 revision 标题、revision filter 选择与 panel 收起，不承担 author/date/path 过滤
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogToolbarView.swift`
+  - 标准 IDEA Log filter toolbar；负责搜索、author/date/path filter 与刷新；branch filter 主入口不在这里，也不要再把 details/diff preview 显隐开关塞回 toolbar
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogTableView.swift`
+  - 标准 IDEA Log 提交表格；负责 `Subject / Author / Date / Hash` 列、行内 graph/decorations 与当前分支高亮，并消费 Core 提供的 visible graph row / recommended width
+- `macos/Sources/DevHavenApp/WorkspaceGitCommitGraphView.swift`
+  - 标准 IDEA Log commit graph Canvas renderer；负责把结构化 visible graph print elements 画成连续线段 / 节点，不再直接显示 `graphPrefix` 字符串
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogRightSidebarView.swift`
+  - 标准 IDEA Log 最右侧信息栏；负责 `Changes Browser + Commit Details` 的纵向 split，不再使用错误的底部 pane / diff preview 结构，并负责把统一 open diff 闭包桥接给 changes browser
+- `macos/Sources/DevHavenApp/WorkspaceGitConsoleView.swift`
+  - Git tool window 的 Console 顶层占位视图；本轮只负责对齐 `Git / Log / Console` 根级结构，不承担真实 Git 命令日志后端
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogChangesView.swift`
+  - 标准 IDEA Log 右侧信息栏上半区 changes browser；负责顶部 toolbar、全局展开/折叠控制、小型 tree changes browser、目录节点与文件节点的 `文件名主标题 + 路径/rename 次信息` 分层展示，并保持 selected file 联动与双击打开独立 diff 标签页
+- `macos/Sources/DevHavenApp/WorkspaceGitIdeaLogDetailsView.swift`
+  - 标准 IDEA Log 右侧信息栏下半区 commit details；负责 message / author / refs / parent hashes 呈现，并在 App 层把 decorations 拆成 branch/tag badge 语义
+- `macos/Sources/DevHavenApp/WorkspaceGitChangesView.swift`
+  - staged / unstaged / untracked 变更分组、discard、commit/amend 入口
+- `macos/Sources/DevHavenApp/WorkspaceGitBranchesView.swift`
+  - local / remote 分支列表、create / checkout / delete local branch 入口
+- `macos/Sources/DevHavenApp/WorkspaceGitOperationsView.swift`
+  - fetch / pull / push / abort、ahead/behind、ongoing operation state 与 remotes 展示
+- `macos/Sources/DevHavenApp/Ghostty/GhosttySurfaceCallbackContext.swift`
+  - Ghostty surface callback 的稳定 userdata 宿主；负责在 surface teardown 与跨线程 hop 场景下安全暴露/失效当前 bridge
+- `macos/Sources/DevHavenApp/Ghostty/GhosttySurfaceMenuShortcutRoutingPolicy.swift`
+  - Ghostty 终端聚焦态下的菜单快捷键路由策略；只决定哪些 `⌘ / ⌃` 组合键应优先交给 App 主菜单，避免具体菜单快捷键被终端绑定吞掉
+- `macos/Sources/DevHavenApp/Ghostty/GhosttySurfaceSearchOverlay.swift`
+  - Ghostty 搜索浮层；只负责终端搜索 UI、输入与 next/previous/close binding action，不负责 pane 选择与菜单分发
+- `macos/Sources/DevHavenApp/Ghostty/GhosttySurfaceLifecycleDiagnostics.swift`
+  - Ghostty split/attach/focus/reuse 运行期 unified log 收口；只记录 pane/workspace/surface/focus/attachment/resize 等结构化状态，不记录终端可见文本
+- `macos/Sources/DevHavenApp/CodexAgentDisplayHeuristics.swift`
+  - Codex 交互可见文本 -> 展示态结构特征（running / waiting）启发式规则；只做纯字符串判断，不读写 signal，供混合状态机 fallback 使用
+- `macos/Sources/DevHavenApp/CodexAgentDisplaySnapshot.swift`
+  - Codex 展示态专用最近文本窗口快照；只保存 pane 级最近文本窗口与最近活动时间，供 App 运行时 fallback 使用，不写回 signal / restore / 持久化存储
+- `macos/Sources/DevHavenApp/CodexAgentDisplayStateRefresher.swift`
+  - 消费 pane 级 Codex 展示快照并维护 pane 级活动度观测，基于 `signal + notify + activity fallback` 生成 Codex 展示态 override；只作用于 App 运行时内存，不回写 signal store
+- `macos/Sources/DevHavenCore/`
+  - 数据模型、兼容存储、Git/worktree 服务、ViewModel
+- `macos/Sources/DevHavenCore/Models/AppUpdateModels.swift`
+  - 更新通道模型（stable / nightly）与设置层共享枚举
+- `macos/Sources/DevHavenCore/Models/WorkspaceGitModels.swift`
+  - Workspace tool window 共享模型；包含 `WorkspaceToolWindowKind / Placement / FocusedArea / SideState / BottomState`、Git panel mutation kind 与结构化错误
+- `macos/Sources/DevHavenCore/Models/WorkspaceCommitModels.swift`
+  - Commit tool window 共享模型；负责提交变更快照、inclusion、diff preview、commit options 与 execution 状态壳
+- `macos/Sources/DevHavenCore/Models/WorkspaceDiffSessionModels.swift`
+  - Diff session / request chain 共享模型；负责 request item、request chain、current difference anchor、navigator state 与 session state，禁止再把这些 processor 真相源塞回 `WorkspaceDiffModels.swift`
+- `macos/Sources/DevHavenCore/Models/WorkspaceDiffPaneMetadataModels.swift`
+  - Diff pane metadata / viewer descriptor 共享模型；负责 pane metadata、metadata seed、pane descriptor、viewer descriptor 与 header role
+- `macos/Sources/DevHavenCore/Models/WorkspaceDiffModels.swift`
+  - Workspace runtime diff 标签页共享模型；负责 diff source/open request/tab state/document state，以及 patch / compare / merge 三类 loaded document、editor pane line highlight / inline highlight、compare block / merge conflict block 与“打开来源上下文（origin presented tab / focused area）”等统一表达；request chain / pane metadata 已拆出独立文件；merge inline highlight 也走同一套 pane inline highlight 模型，不要另起一套 merge 专用高亮结构
+- `macos/Sources/DevHavenCore/Models/WorkspaceGitLogFilterModels.swift`
+  - 标准 IDEA Log filter collection 共享模型；负责 text / revision / author / date / path 组合过滤表达
+- `macos/Sources/DevHavenCore/Models/WorkspaceGitLogTableModels.swift`
+  - 标准 IDEA Log table / display options 共享模型；负责列集合、display options 与 log table row 包装模型
+- `macos/Sources/DevHavenCore/Models/WorkspaceGitCommitGraphCoreModels.swift`
+  - 标准 IDEA Log graph core 共享模型；负责 permanent model、visible rows、node/edge print elements 与 recommended width
+- `macos/Sources/DevHavenCore/Models/WorkspaceGitCommitGraphCoreBuilder.swift`
+  - 标准 IDEA Log graph core builder；负责基于 head priority / permanent layout index 把 commit DAG 转成 visible graph rows，并输出对齐 IDEA `PrintElement` 语义的 `current/other row position` edge segments
+- `macos/Sources/DevHavenCore/Models/WorkspaceAgentSessionModels.swift`
+  - Claude / Codex 会话 signal schema、状态优先级与编码兼容层
+- `macos/Sources/DevHavenCore/Storage/NativeGitCommandRunner.swift`
+  - Git CLI 统一执行器；负责 timeout、stdout/stderr 与环境变量注入
+- `macos/Sources/DevHavenCore/Storage/NativeGitParsers.swift`
+  - Git 文本输出解析：`log --graph`、`status --porcelain=v2`、refs、remotes、commit detail 等
+- `macos/Sources/DevHavenCore/Storage/NativeGitRepositoryService.swift`
+  - Workspace Git 面板查询 / mutation 主链；负责 refs/log/changes/operations 读取、标准 IDEA Log 的作者候选 / 文件级 diff 查询、working tree compare/merge 所需的 HEAD / INDEX / LOCAL / conflict stages 文本读取、LOCAL 文件写回、tracked/untracked compare block 所需的 hunk patch stage/unstage、非交互 mutation、结构化错误与 repo 级串行化
+- `macos/Sources/DevHavenCore/Storage/NativeGitCommitWorkflowService.swift`
+  - Commit workflow service；负责提交快照读取、working tree diff preview 与 inclusion 驱动的 commit/amend/commit-and-push 执行编排
+- `macos/Sources/DevHavenCore/Storage/WorkspaceDiffPatchParser.swift`
+  - Workspace diff patch parser；只负责 Git Log / 历史 diff 的 unified patch 解析；working tree compare / merge editor 不应再依赖它充当真相源
+- `macos/Sources/DevHavenCore/ViewModels/WorkspaceGitLogViewModel.swift`
+  - 标准 IDEA Log 运行时状态层；负责 filter debounce、log table 选择、commit details / file diff 联动与 details/diff preview 显隐
+- `macos/Sources/DevHavenCore/ViewModels/WorkspaceCommitViewModel.swift`
+  - Commit tool window 运行时状态层；负责 changes snapshot、inclusion 选择、异步 diff preview 读取、draft/options 与 execution state
+- `macos/Sources/DevHavenCore/ViewModels/WorkspaceDiffTabViewModel.swift`
+  - Workspace 独立 diff 标签页运行时状态层；负责按 request chain/session 加载 Git Log / working tree diff、维护 current difference / viewer descriptor / pane metadata，并在 compare/merge editor 上生成 blocks/highlights/inline-highlights、处理 block 级 stage/unstage/revert 与冲突块 accept 动作；compare 与 merge 的字符级高亮都必须在这一层生成，不要把 diff 算法下沉到 App 视图
+- `macos/Sources/DevHavenCore/Storage/WorkspaceAgentSignalStore.swift`
+  - 监听 `~/.devhaven/agent-status/sessions/` signal 文件、清理陈旧状态并向 ViewModel 推送快照
+- `macos/Sources/DevHavenCore/Storage/WorkspaceRestoreStore.swift`
+  - 工作区恢复快照存储；负责 `~/.devhaven/session-restore/manifest{,.prev}.json` 与 `panes/*.txt` 的主/回退 manifest、pane 文本分文件读写，并保证 current/prev 两代快照引用的 pane 文本同时可回退
+- `macos/Sources/DevHavenCore/Restore/WorkspaceRestoreCoordinator.swift`
+  - 工作区恢复协调器；负责启动 hydrate、自动保存节流、pane 上下文 merge 与空工作区时清理恢复快照
+- `macos/Sources/DevHavenApp/WorkspaceNotificationPresenter.swift`
+  - 工作区系统通知 / 声音提醒 presenter；统一处理通知权限与本地提醒
+- `macos/Sources/DevHavenApp/WorkspaceNotificationPopover.swift`
+  - 工作区通知 popover 与 bell 入口视图
+- `macos/Sources/DevHavenCore/Models/WorkspaceNotificationModels.swift`
+  - 工作区运行时通知、未读状态与任务状态模型
+- `macos/Sources/DevHavenCore/Models/WorkspaceRunModels.swift`
+  - workspace run configuration / reused session / console state / manager event 模型；描述运行配置、typed executable（shell/process）、按配置复用的会话槽位与底部 console 展示态，不直接执行命令
+- `macos/Sources/DevHavenCore/Run/WorkspaceRunLogStore.swift`
+  - Run Console 日志文件存储；统一负责 `~/.devhaven/run-logs/` 下的日志文件创建与追加
+- `macos/Sources/DevHavenCore/Run/WorkspaceRunManager.swift`
+  - workspace 运行命令管理器；负责 `Process + Pipe` 启动脚本命令、实时输出桥接、停止进程与 session 生命周期事件，不参与 SwiftUI 布局
+- `macos/Tests/`
+  - 原生 UI / Core 测试
+- `macos/scripts/build-native-app.sh`
+  - 原生 `.app` 本地打包脚本；负责嵌入 Sparkle.framework，并写入 `CFBundleVersion` / `SUFeedURL` / `DevHavenUpdateDeliveryMode` / 下载页 URL / `SUPublicEDKey`
+- `macos/scripts/build-run-configuration-webui.sh`
+  - 运行配置页 React WebUI 构建脚本；负责安装 Node 依赖并将 Vite 构建产物写入 `WorkspaceRunConfigurationResources`
+- `macos/scripts/setup-ghostty-framework.sh`
+  - 准备 `macos/Vendor` 的 Ghostty framework / resources
+- `macos/scripts/setup-sparkle-framework.sh`
+  - 准备 `macos/Vendor` 的 Sparkle.xcframework 与 SparkleTools
+- `macos/scripts/create-universal-app.sh`
+  - 把 arm64 / x86_64 `.app` 合成 universal `.app`，供 Sparkle feed 发布使用
+- `macos/scripts/generate-appcast.sh`
+  - Sparkle `generate_appcast` 的统一封装，负责生成 stable/nightly appcast
+- `macos/scripts/promote-appcast.sh`
+  - 将 staged appcast 提升到固定 alias release（如 `stable-appcast` / `nightly`）
+- `macos/Resources/AppMetadata.json`
+  - 原生打包元数据真相源（`productName` / `bundleIdentifier` / `version` / `buildNumber` / `stableFeedURL` / `nightlyFeedURL` / `updateDeliveryMode` / stable/nightly 下载页）
+- `macos/Resources/DevHaven.icns`
+  - 原生 App 图标
+- `.github/workflows/release.yml`
+  - stable release / staged appcast / universal updater 资产发布链路
+- `.github/workflows/nightly.yml`
+  - nightly 独立构建、独立 appcast feed 与 alias promote 链路
+- `docs/releases/`
+  - 发布说明
+- `tasks/todo.md`
+  - 当前任务记录与 Review
+- `tasks/lessons.md`
+  - 可复用教训
+
+## 模块边界
+
+### 1) 原生 App 壳
+- 入口：`macos/Sources/DevHavenApp/DevHavenApp.swift`
+- 退出保护：`macos/Sources/DevHavenApp/AppQuitGuard.swift`
+- 主界面壳：`AppRootView.swift`、`MainContentView.swift`、`ProjectDetailRootView.swift`
+- 终端工作区壳：`WorkspaceRootView.swift`、`WorkspaceProjectSidebarHostView.swift`、`WorkspaceChromeContainerView.swift`、`WorkspaceShellView.swift`、`WorkspaceHostView.swift`、`WorkspaceProjectListView.swift`
+  - `DevHavenApp.swift` 还负责单主窗口生命周期与 App 级命令收口：通过 `NSApplicationDelegateAdaptor` 阻止“最后一个窗口关闭即退出”，并在应用重新激活 / dock reopen 时恢复主窗口；`CommandGroup(replacing: .appTermination)` 也在这里接管
+  - `AppQuitGuard.swift` 负责 `⌘Q` / “退出 DevHaven” 的双击退出保护、1.5 秒确认窗口与轻提示 toast；第一次请求不应直接 terminate，第二次才允许退出
+  - `AppRootView` 负责在 scene 进入 `inactive/background` 与 `willTerminate` 时同步 flush 工作区恢复快照；不要把退出时保存散落到多个 view
+  - `AppRootView` 还负责注入 `⌘W` 关闭级联：先关闭当前浮层，再按 pane -> tab -> 退出 workspace -> 主页关闭窗口 的顺序收口；只有已经回到主页时，主窗口关闭提醒桥才应参与；同一层还负责承载 `⌘Q` 的 toast 轻提示展示
+  - `WorkspaceRootView` 是 Workspace 的根布局真相源：左侧是项目导航 split，右侧才是被 chrome 包裹的工作区内容；项目列表不属于 Workspace chrome。
+  - `WorkspaceProjectSidebarHostView` 负责项目导航侧的 project picker / worktree 创建与删除流转；这些对话框不应再耦合到 `WorkspaceShellView`。
+  - `WorkspaceChromeContainerView` 负责“类似 IDEA 的外围壳”：在项目导航右侧提供 `左侧 tool window stripe | 主内容区` 布局。stripe 属于主工作区壳的一部分，不属于项目导航，也不要把它提升到 `WorkspaceRootView` 最外层。不要把 Commit/Git 业务真相源塞进这个壳层，也不要重新引入顶部栏或右侧辅助按钮区
+  - `WorkspaceShellView` 现在负责 Workspace 中央内容区：顶部区域是 `Commit 侧边工具窗（可选） | terminal 主区`，底部区域是 **Git 专属** bottom tool window host；也就是说 Commit side panel 必须位于底部 Git tools 面板上方，而不是整块落在其左侧。terminal focused search action、pane 快照与 agent signal 接线都在这里收口。Commit 不再经由 Shell 底部路由，而是由 `WorkspaceCommitSideToolWindowHostView` 挂到 Shell 的顶部区域；当底部 Git tool window 可见时，顶部区域与 Git tool window 必须通过可拖拽的纵向 `WorkspaceSplitView` 共享高度，拖拽结果写回 `NativeAppViewModel.updateWorkspaceBottomToolWindowHeight(...)`；当 Commit side panel 可见时，它与 terminal 主区必须通过可拖拽的横向 `WorkspaceSplitView` 共享宽度，拖拽结果写回 `NativeAppViewModel.updateWorkspaceSideToolWindowWidth(...)`。侧边 Commit 宽度与底部 Git 高度都属于内存态，不进入 workspace restore snapshot。入口按钮不在 Shell 内，而在 `WorkspaceChromeContainerView` 的 stripe 中
+  - `WorkspaceShellView` 也是 Git Log -> workspace diff 标签页的 App 层入口：Git Log changes browser 的双击仍统一收口到 `NativeAppViewModel.openActiveWorkspaceDiffTab(...)`；但该入口现在必须先尽力构造成 request chain session，不要在 Git tool window 内再做第二套 preview 弹层或独立窗口状态
+  - `WorkspaceHostView` 是 Workspace 顶部 presented tabs 的真相宿主：terminal tabs 与 runtime diff tabs 必须共用同一条 tab bar / selection / close 逻辑；diff 标签页只存在运行时，不进入 workspace restore snapshot
+  - `WorkspaceFocusedArea` 现在必须显式区分 `.terminal / .sideToolWindow / .bottomToolWindow / .diffTab`；diff 标签页不能再伪装成 terminal focused area
+  - `WorkspaceShellView` 负责把已加载 pane 的 cwd/title/可见文本快照桥接给 `NativeAppViewModel`；Core 层只接收 `WorkspaceTerminalRestoreContext`，不要反向依赖 App 侧 `GhosttySurfaceHostModel`
+  - `WorkspaceShellView` 里的 terminal 搜索菜单守门以 `NativeAppViewModel.workspaceFocusedArea` 为唯一 App 侧真相源；不要再回退到 `workspacePrimaryMode`，也不要在 Shell 内复制第二份“当前焦点区域”状态
+- `NativeAppViewModel.toggleWorkspaceToolWindow(...)` 必须根据 `WorkspaceToolWindowKind.placement` 把操作路由到 side / bottom 两套运行时状态，并把“激活 tool window”与“准备对应上下文”一起收口；不要再让 `WorkspaceChromeContainerView` / `WorkspaceShellView` 到处直接调用 `prepareActiveWorkspaceGitViewModel()`
+- `NativeAppViewModel.syncActiveWorkspaceToolWindowContext()` 现在同时收口“可见的侧边 Commit”和“可见的底部 Git”两条上下文预热：`prepareActiveWorkspaceCommitViewModel()` 与 `prepareActiveWorkspaceGitViewModel()` 都要由 ViewModel 统一驱动，不要在 App 视图层各自维护缓存
+  - Commit tool window 的真实内容由 `WorkspaceCommitSideToolWindowHostView -> WorkspaceCommitRootView` 这条主链承接；当前主链先保留 changes browser + commit panel，diff preview 组件默认不挂载，后续若恢复也应在既有边界内渐进补齐，不要把提交态散回 `WorkspaceShellView`
+  - Commit changes browser 不再按文件粒度创建多个 diff 标签页；应通过 `NativeAppViewModel.openActiveWorkspaceCommitDiffPreview(...) / syncActiveWorkspaceCommitDiffPreviewIfNeeded(...)` 复用当前 execution worktree 下的单实例 preview，并把当前 changes snapshot 规范化成 request chain，在实例内切换 active session item
+  - Git tool window 的真实内容由 `WorkspaceGitRootView` 与其子视图承接；`WorkspaceGitRootView` 现在是 `Git` 标题 + `Log / Console` 次级入口的真相源。不要把 Git 业务状态重新塞回 `WorkspaceShellView`，也不要把这层入口选择写回持久化存储
+  - 标准 IDEA Log 的 `.log` section 已不再复用 `WorkspaceGitSidebarView`；左侧分支树必须由 `WorkspaceGitIdeaLogBranchesPanelView` 独立承接，最右侧信息栏必须由 `WorkspaceGitIdeaLogRightSidebarView` 承接，toolbar 只负责 text/author/date/path 等过滤，不要再把 `.log` 重新耦合回旧 sidebar，也不要把 branch filter 主入口或错误的 bottom pane/diff preview 塞回顶部/底部
+  - 标准 IDEA Log 的 commit graph 必须走 `WorkspaceGitCommitGraphCoreBuilder -> WorkspaceGitLogViewModel.graphVisibleModel -> WorkspaceGitCommitGraphView` 这条结构化渲染链路；不要回退成 `Text(graphPrefix)` 的字符假图谱，也不要回退到按单行 ASCII 前缀反推 glyph 的旧方案
+- 工作区通知 / Agent 体验：`WorkspaceNotificationPopover.swift`、`WorkspaceNotificationPresenter.swift`、`WorkspaceAgentStatusAccessory.swift`
+- 工作区运行体验：`WorkspaceRunToolbarView.swift`、`WorkspaceRunConsolePanel.swift`、`WorkspaceScriptConfigurationSheet.swift`
+  - `WorkspaceHostView` 负责把当前 workspace/project 的 run state 接到顶部 `WorkspaceRunToolbarView` 与底部 `WorkspaceRunConsolePanel`；顶部 `配置` 入口只打开当前项目的 typed 运行配置面板，Settings 不再承载脚本模板管理；App 层只做按钮桥接与日志展示，不要在 SwiftUI 里直接 new `Process`
+- 更新体验：`Update/DevHavenBuildMetadata.swift`、`Update/DevHavenUpdateDiagnostics.swift`、`Update/DevHavenUpdateController.swift`
+  - `DevHavenBuildMetadata` 只负责从 bundle 解析 `CFBundleVersion`、stable/nightly feed URL、下载页 URL、交付模式与 `SUPublicEDKey`；开发态 `swift run` 或缺失 feed 时必须禁用检查更新
+  - `DevHavenUpdateController` 负责把设置页 / 菜单动作桥接到 Sparkle 或 appcast 手动检查，并维护可复制的升级诊断文本；默认 manual-download 模式下只能“检查更新 + 打开下载页”，Sparkle delegate 回调不能直接跨进 `@MainActor` conformance，需通过独立 bridge 回主线程更新状态
+- Ghostty 集成：`Ghostty/` 目录下的 runtime / surface / host / view 相关文件
+  - 剪贴板与路径粘贴语义由 `Ghostty/GhosttyPasteboard.swift` 收口，`GhosttyRuntime` 只负责把解析结果桥接给 libghostty
+  - `GhosttySurfaceBridge` 现在同时桥接 desktop notification / progress report / bell / search 状态；Bridge 只翻译终端事件，不做排序、已读、系统通知、菜单分发等应用决策
+  - `GhosttySurfaceCallbackContext` 是 Ghostty C callback 的 userdata 真相源；跨线程回调必须先拿稳定 context，再在真正执行时解析 active bridge，不能继续把 `GhosttySurfaceBridge` 的裸指针直接跨队列传递
+  - `GhosttyRuntimeEnvironmentBuilder` / `GhosttySurfaceHostModel` 负责把 `DEVHAVEN_AGENT_SIGNAL_DIR`、`DEVHAVEN_AGENT_RESOURCES_DIR` 与 wrapper `PATH` 注入内嵌终端；`GhosttySurfaceHostModel` 还负责把当前 pane 的搜索命令收口为最小动作入口（start / selection / next / previous / end），但不持有第二套搜索真相源；终端环境注入在 host 层收口，不要把 bundle 解析散落到 view / script / ViewModel 多处
+  - `GhosttySurfaceHostModel.currentVisibleText()` 只用于 restore/snapshot 等显式读取场景；Codex 展示态 fallback 必须优先读取 host 内存中的 `CodexAgentDisplaySnapshot`，不能在 sidebar 刷新链路里直接整屏 `read_text`
+  - `GhosttyRuntime.tick()` 触发的内容失效脉冲只允许驱动 host 侧 debounce 更新 Codex 小窗口；不要把它扩展成通用终端全文缓存或新的 signal 主链
+  - `GhosttySurfaceLifecycleDiagnostics` 只用于 split/attach/focus/reuse/resize 边界的运行期排障；日志应保持结构化、低歧义，默认不要记录终端可见文本或其它高噪音/高敏感内容
+  - 搜索 UI 的展示条件以 `GhosttySurfaceState.searchNeedle` 为唯一真相源；不要再在 `WorkspaceShellView` / `DevHavenApp` 复制一份“是否显示搜索栏”的平行状态
+  - App 菜单的搜索动作必须经由 `WorkspaceTerminalCommands` + `FocusedValue` 路由到当前 focused pane；不要在 `DevHavenApp.swift` 里直接查 pane/store/runtime，避免把场景态耦合回全局菜单层
+  - App 菜单的“打开项目”动作必须经由 `WorkspaceProjectCommands` + `FocusedValue` 路由到当前 `WorkspaceShellView` 的 project picker 展示态；不要把这类壳层弹窗状态下沉到 `NativeAppViewModel`
+  - 对 zsh / bash 这类会继续加载用户 rc 文件的 shell，不能假设“进程启动时注入的 PATH”会一直保留；如果 Agent wrapper 依赖 PATH 前缀，必须在 shell integration 的 prompt/precmd 阶段再补一次，并把 wrapper bin 归一化到 PATH 首位，避免被用户 `.zshrc` / `.bashrc` 覆盖后直接绕过 wrapper
+  - `DevHavenAppResourceBundleLocator` 是非 actor 的 bundle candidate 真相源；`GhosttyAppRuntime` 与 `DevHavenAppResourceLocator` 都应复用它，不要在非 UI 资源查找逻辑里直接耦合 `@MainActor` runtime
+  - `AgentResources/bin/claude` 负责给 Claude 注入 hooks 与 session id；`AgentResources/hooks/devhaven-claude-hook` 把结构化 hook 事件写成 signal；`AgentResources/bin/codex` 负责写 running/completed/failed signal，并通过单次 CLI config override 给真实 Codex 注入 `notify`；`AgentResources/bin/devhaven-codex-notify` 负责把 `agent-turn-complete` payload 写成 waiting signal；`devhaven-agent-emit` 是唯一 signal 落盘入口
+  - split/tree 重排后的 pane 复用必须等 `GhosttySurfaceScrollView` 真正完成 attach/layout，再由 `GhosttySurfaceHostModel.surfaceViewDidAttach(...)` 重放 `occlusion / focus` 等 attachment-sensitive 状态；不要在 `acquireSurfaceView()` 这种“容器还没换完”的阶段提前 replay
+  - `WorkspaceSplitTreeView` 不再递归嵌套 pane host；split 后旧 pane 只能改变 frame，不能因为树父层级变化再创建第二个宿主去抢同一个 `GhosttyTerminalSurfaceView`
+  - 如果 surface 在复用前已经拿到窗口真实焦点，`GhosttyTerminalSurfaceView.prepareForContainerReuse()` / `tearDown()` 必须先释放 owned `firstResponder`，再清本地 focus/cache；不要让带着旧 responder 身份的 surface 直接挂到新的 split 容器
+  - `GhosttyTerminalSurfaceView` 的焦点补偿必须是**可取消**的；任何延迟 focus retry 在 view detach / tearDown / becomeFirstResponder 后都要取消，避免后台 Task 跨 pane / 跨测试继续操作旧 window
+
+### 2) 原生业务与兼容层
+- ViewModel：`macos/Sources/DevHavenCore/ViewModels/`
+- Git / worktree：`NativeGitWorktreeService.swift`、`NativeGitRepositoryService.swift`
+- 数据兼容：`LegacyCompatStore.swift`
+- 模型：`macos/Sources/DevHavenCore/Models/`
+- `AppSettings` 现在额外持久化 `updateChannel`、`updateAutomaticallyChecks`、`updateAutomaticallyDownloads`；默认值必须兼容旧配置回退，不能因为新增字段破坏现有 `app_state.json` 读取
+- `Project.isGitRepository` 是项目是否为 Git 仓库的**轻量真相源**；目录刷新阶段只能基于 `.git` / worktree 做便宜判定，不能再把 `gitCommits > 0` 当成 repo 类型判断
+- `NativeAppViewModel.refreshProjectCatalog()` 现在只负责目录发现、目录元数据更新与 worktree 过滤；不要在目录刷新链路里再执行 `git rev-list` / `git log` 这类昂贵 Git 子进程
+- `NativeAppViewModel.refreshGitStatistics{Async}` 现在统一负责 `gitCommits`、`gitLastCommit`、`gitLastCommitMessage` 与 `gitDaily` 的刷新；目标集应基于 `isGitRepository`，而不是旧的 commitCount 缓存
+- `LegacyCompatStore.updateProjectsGitMetadata(...)` 是 Git 元数据的局部写回入口；它必须按 path 保留未知字段，避免为了更新 Git 统计而重写整份项目对象
+- `NativeAppViewModel.prepareActiveWorkspaceGitViewModel()` 负责把 active project / worktree 解析为 root repository，并按 `rootProjectPath` 缓存 `WorkspaceGitViewModel`
+- `NativeAppViewModel.prepareActiveWorkspaceCommitViewModel()` 负责把 active project / worktree 解析为 `WorkspaceCommitRepositoryContext`，并按 `rootProjectPath` 缓存 `WorkspaceCommitViewModel`
+- `NativeAppViewModel` 现在额外维护两套 Workspace tool window 运行时真相源：`workspaceSideToolWindowState`（当前用于 Commit 左侧独立工具窗的 `active kind / visible / width`）、`workspaceBottomToolWindowState`（当前用于 Git 底部工具窗的 `active kind / visible / height`），以及 `workspaceFocusedArea`；这三者都只存在内存，不写回 restore snapshot / app state
+- `NativeAppViewModel` 还负责按当前 active workspace session 管理 `workspaceDiffTabsByProjectPath / workspaceSelectedPresentedTabByProjectPath` 等 runtime diff tab 状态；`openWorkspaceDiffSession(...) / openActiveWorkspaceDiffSession(...)` 是 session 级入口，`openActiveWorkspaceDiffTab(...)` 只是单文件 fallback convenience API；Commit 继续通过 `openActiveWorkspaceCommitDiffPreview(...) / syncActiveWorkspaceCommitDiffPreviewIfNeeded(...)` 复用单实例 preview，但内部也必须统一构造成 request chain session；不要让 Git Log / Commit 各自维护 projectPath 归属或第二套 tab registry
+  - `openActiveWorkspaceDiffTab(...)` 打开 diff 时必须记录 origin context（打开前的 presented tab + focused area），并在 `closeWorkspaceDiffTab(...)` 关闭当前 diff 时优先恢复该上下文；只有 origin 失效时才允许退回“相邻 diff / 当前 terminal tab”类 fallback
+  - Commit preview 的 runtime diff identity 必须按 execution worktree 稳定复用（例如 `commit-preview|<executionPath>`），不能再把 `filePath` 混入 identity 导致一文件一标签页；但同一 preview tab 内的 `WorkspaceDiffRequestChain.activeIndex` 必须随用户选中的文件切换
+- `WorkspaceGitViewModel` 是 Git tool window 的 runtime-only 根状态层：`repositoryContext.repositoryPath` 表示仓库级读模型真相源，`selectedExecutionWorktreePath` 表示 worktree 级执行面真相源；其 `logViewModel` 专门承接标准 IDEA Log 的 `.log` section
+- `WorkspaceGitLogViewModel` 负责 `.log` section 的 filter collection、visible graph、log table、bottom pane 与文件级 diff preview 主链；不要再把标准 IDEA Log 状态散落回 `WorkspaceGitRootView` 或旧 sidebar
+- `WorkspaceGitViewModel` 的 `changes / ahead-behind / operation state / fetch / pull / push / abort / commit / branch mutation` 仍基于 selected execution worktree 执行或观察；`.log` 的 commit details / file diff 则通过 `WorkspaceGitLogViewModel` 基于 root repository 读取
+- `NativeGitRepositoryService` 只负责 Git 面板主链；`NativeGitWorktreeService` 继续负责 create/remove/list worktree，不要混淆两条服务边界
+- `NativeGitCommitWorkflowService` 负责 Commit tool window 主链（快照/preview/执行）；避免再把 inclusion 规则散落到 App 视图或 `WorkspaceGitViewModel`
+- Git mutation 串行化必须按 **git common dir / root repository** 收口，不能按单个 worktree path 串行；但 ongoing operation state 检测仍要基于当前 execution worktree 的 gitdir marker
+- `NativeAppViewModel` 现在额外维护按 `projectPath` 组织的运行时工作区注意力状态（通知列表、未读数、pane 任务状态、pane Agent 状态 / 摘要 / 类型）；这部分只存在内存，不写回 `projects.json`
+- `NativeAppViewModel` 现在还维护按 `projectPath` 组织的 workspace run console 状态（已创建 sessions、当前选中 session、当前选中脚本、底部 console 显隐）；这部分只存在内存，不写回 `projects.json` / `app_state.json`
+- workspace Run Console 的运行配置来源固定由当前项目 `Project.runConfigurations` 推导；首批类型只有 `customShell` 与 `remoteLogViewer`，其中 `remoteLogViewer` 直接渲染为 `/usr/bin/ssh` 结构化进程参数，不再依赖 shared scripts / manifest / helper 模板体系；同一配置重复 Run 时必须复用同一个 console tab，而不是无限累积 execution history；真正的执行与停止必须经由 `WorkspaceRunManager`，不要让 `WorkspaceRunToolbarView` / `WorkspaceRunConsolePanel` 自己直接持有 `Process`
+- `WorkspaceAgentSignalStore` 只负责读取 / 归一化 signal 文件与目录监听；sidebar 排序、group 聚合、显示文案仍属于 `NativeAppViewModel` / App UI，避免把 UI 规则塞回存储层
+- `NativeAppViewModel` 现在还负责工作区快照恢复的接线：仅在首轮 `load()` 且当前没有打开会话时应用 `WorkspaceRestoreCoordinator.loadSnapshot()`；后续 catalog refresh / 普通 reload 不得再次覆盖运行中 workspace
+- 工作区恢复边界明确是 **workspace snapshot**，不是 live terminal：只恢复已打开项目、tab/pane 拓扑，以及 pane 的 cwd/标题/文本提示；绝不恢复原 shell/PTY 进程
+- Commit / Git tool window 都属于 workspace 内的运行时业务面板，不属于 restore snapshot：不要把侧边 Commit 宽度、底部 Git 高度、tool window active kind/visible、Git section、搜索词、selected commit/file、execution worktree 或 focused area 持久化到 `WorkspaceRestoreStore`
+- runtime diff 标签页同样不属于 restore snapshot：不要把 diff tab 列表、当前选中的 diff、viewer mode 或解析后的 patch 文档写回 `WorkspaceRestoreStore` / `app_state.json`
+- pane 快照文本只能存到 `~/.devhaven/session-restore/panes/*.txt`，不要把大段终端文本塞进 `app_state.json` / `projects.json`
+- Codex 的“等待输入”仍属于**展示态语义**而不是新协议字段，但当前主链已升级为 `wrapper 进程态 + official notify turn-complete + App 活动度 fallback`：signal store 继续收口运行时 signal，`NativeAppViewModel` / App UI 再按 host 内存中的最近文本窗口与活动度做运行时修正；不要在固定定时刷新链路里直接整屏抓取 terminal 可见文本
+- workspace 侧边栏里 **root project 卡片的 Agent 状态只反映 root project 自己的 pane**；worktree 的 Agent 状态只显示在各自 worktree 行，不要再向父级卡片冒泡，避免把子 worktree 活动误读成父项目整体状态
+- signal 文件名不是原始 `terminalSessionId`，而是其稳定安全编码；因为 workspace/session 标识可能包含 `/`，脚本与 store 必须复用同一命名规则，不能直接把原始 session id 当文件名
+- 本地数据目录：`~/.devhaven/`
+  - `app_state.json`
+  - `projects.json`
+  - `agent-status/sessions/*.json`
+- `session-restore/manifest.json`
+- `session-restore/manifest.prev.json`
+- `session-restore/panes/*.txt`
+- `run-logs/*.log`
+- `PROJECT_NOTES.md`
+- `PROJECT_TODO.md`
+
+### 3) 原生发布主链
+- 本地测试：`swift test --package-path macos`
+- 本地打包：`./release`（内部调用 `bash macos/scripts/build-native-app.sh --release`）
+- GitHub Release：`.github/workflows/release.yml`
+- Nightly 发布：`.github/workflows/nightly.yml`
+- 3.0.0 起 release/nightly workflow **不再依赖 Node / pnpm / Tauri**
+- stable / nightly 都通过 matrix 同时构建 `arm64` 与 `x86_64` 两个 macOS 产物，二者都跑在 `macos-26`：
+  - `arm64`：原生 runner 架构直接构建，并执行一次 `swift build --package-path macos -c debug` 做轻量编译校验
+  - `x86_64`：通过 `DEVHAVEN_NATIVE_TRIPLE=x86_64-apple-macosx14.0` 交叉构建，并额外执行一次 `swift build --package-path macos -c debug --triple x86_64-apple-macosx14.0` 做编译验证
+- matrix 产物会先各自上传架构 zip，再由后置 job 用 `create-universal-app.sh` 合成 `DevHaven-macos-universal.zip`；Sparkle appcast 只指向 universal 安装包，避免客户端升级链路再做架构分叉判断
+- release / nightly workflow 都会先打印 `xcodebuild -version`，并固定 `git fetch` Ghostty 源码（当前 pin：`da10707f93104c5466cd4e64b80ff48f789238a0`）+ `setup-ghostty-framework.sh` / `setup-sparkle-framework.sh` 准备 vendor，再执行轻量编译校验、打包、appcast 生成
+- stable feed 采用 staged appcast：先上传 immutable release assets 与 `appcast-staged.xml`，最后通过 `promote-appcast.sh` 把 feed 提升到 `stable-appcast/appcast.xml`；nightly 同理维护 `nightly/appcast.xml`
+- Sparkle appcast 生成脚本会优先复用 alias release 上已发布的旧 appcast，保留历史条目；当前 `maximum-deltas=0`，先以完整包升级为主，后续再扩展 delta 更新
+
+## 当前关键事实
+
+- 仓库内旧的 React / Vite / Tauri / Rust 兼容源码已删除；后续不要再按 `src/`、`src-tauri/`、`package.json`、`vite.config.ts` 这些入口排查问题。
+- 根目录 `./dev` 是推荐的本机原生开发态入口；它默认会先确保 `macos/Vendor/` 可用（Ghostty + Sparkle，当前 worktree 缺失时会优先复用同仓库其他 worktree 已准备好的 vendor），再用 macOS unified log 观察 `DevHavenNative` / `com.mitchellh.ghostty`，最后启动 `swift run --package-path macos DevHavenApp`。
+- 由于 `./dev` 走的是 `swift run` 直接启动可执行文件而不是 `.app` bundle，macOS `UserNotifications` 在这种开发态下不可安全初始化；`WorkspaceNotificationPresenter` 必须先判断当前进程是否真的是 `.app` bundle，再决定是否调用 `UNUserNotificationCenter`，否则只能降级为提示音 / 应用内通知。
+- 根目录 `./release` 是推荐的本机 release 打包入口；它只负责把仓库根作为工作目录，并固定调用 `bash macos/scripts/build-native-app.sh --release`，不要在这里复制第二套打包逻辑。
+- DevHaven 内嵌 Ghostty 终端会**优先**读取 `~/.devhaven/ghostty/config` 与 `~/.devhaven/ghostty/config.ghostty`；如果这里还没有 DevHaven 专属配置，则会回退到独立 Ghostty App 的现有全局配置（如 `~/Library/Application Support/com.mitchellh.ghostty/config*`），避免升级后突然丢失用户已有的主题 / 键位 / 字体设置。
+- `macos/Vendor/` 不是版本库真相源，只是本机开发时通过 `setup-ghostty-framework.sh` / `setup-sparkle-framework.sh` 准备的本地 vendor 目录；该目录由 `.gitignore` 忽略，不应提交。linked worktree 默认也不会自动继承该目录，需要通过脚本准备或复用现有 vendor。
+- 由于 `macos/Package.swift` 的 `GhosttyKit` 是本地 binary target，任何干净 checkout（包括 CI）在跑 `swift build --package-path macos` 或 `swift test --package-path macos` 前都必须先把有效的 `macos/Vendor/GhosttyKit.xcframework` 准备好。
+- 原生打包脚本只依赖：
+  - `macos/Resources/AppMetadata.json`
+  - `macos/Resources/DevHaven.icns`
+  - `macos/Vendor/`（Ghostty + Sparkle，本机准备）
+  - `swift build` 产物
+- `swift build` 产出的 `DevHavenNative_DevHavenApp.bundle` 会在组装 `.app` 时被复制到 `DevHaven.app/Contents/Resources/`；`GhosttyAppRuntime` 会显式从这个资源 bundle 中解析 `GhosttyResources/ghostty`，不要再假设 release 产物里直接依赖 `Bundle.module` 就一定能找到资源。
+- `build-native-app.sh` 现在还会把 `Sparkle.framework` 嵌入 `Contents/Frameworks/`，并在主可执行文件上注入 `@executable_path/../Frameworks` 运行时 `rpath`，避免 release `.app` 启动时找不到 Sparkle；同时写入 `CFBundleVersion`、`SUFeedURL`、`DevHavenStableFeedURL`、`DevHavenNightlyFeedURL`、`DevHavenUpdateDeliveryMode`、stable/nightly 下载页与 `SUPublicEDKey` 到 `Info.plist`；当前默认交付模式为 `manualDownload`。
+- `DevHavenBuildMetadata` 现在区分 `supportsUpdateChecks` 与 `supportsAutomaticUpdates`：前者只要求当前进程运行于 `.app` bundle 且 stable/nightly feed 存在；后者还要求交付模式为 `automatic` 且 `SUPublicEDKey` 非空。开发态 `swift run` 与测试态应默认禁用检查更新。
+- `app_state.json` 的 `settings` 现在额外包含升级通道、自动检查更新、自动下载更新；设置页保存时必须透传这些字段，避免被旧 UI 重建逻辑覆盖。
+- release workflow / nightly workflow 的 Sparkle feed 固定别名分别是 `stable-appcast/appcast.xml` 与 `nightly/appcast.xml`；真正的安装包仍挂在不可变的版本 tag / nightly 时间戳 tag 上，客户端永远先看 feed、再下载 immutable asset。
+- `AgentResources/` 也随同 `DevHavenNative_DevHavenApp.bundle` 一起打包；wrapper / hook 只在内嵌终端显式注入的环境变量存在时生效，外部 shell 直接调用真实 `claude` / `codex` 不应被 DevHaven 强耦合。
+- Claude 会话状态主链是 `wrapper -> hooks -> signal JSON -> WorkspaceAgentSignalStore -> NativeAppViewModel -> Sidebar`；Codex 当前主链已升级为 `wrapper running/completed/failed -> official notify 写 waiting -> signal JSON -> Store -> NativeAppViewModel -> Sidebar`，App 只在 `running/waiting` 两态之间做活动度 / 最近文本窗口 fallback 修正。不要把终端内容分析当主真相源，也不要把 heuristic 结果反写回 signal。
+- Workspace side/bottom tool window 当前都是 runtime-only：`workspaceSideToolWindowState.activeKind / isVisible / width`、`workspaceBottomToolWindowState.activeKind / isVisible / height`、`workspaceFocusedArea`、Git section、搜索词、selected commit/file、execution worktree 都不会写入 `WorkspaceRestoreStore` 或 `WorkspaceTerminalRestoreContext`；App 恢复 workspace 时只恢复 terminal pane/context，不恢复侧边/底部工具窗当前界面
+- Workspace Git 面板遵循 **仓库级读模型 + worktree 级执行面**：标准 IDEA Log 的 `.log` section 通过 `WorkspaceGitLogViewModel` 读取 root repository 的 log / commit details / file diff；Changes / Branches / Operations 的 mutation 与运行时状态绑定 selected execution worktree
+- Git 面板中的网络/交互敏感命令默认走非交互模式；若遇到 auth / editor / signing / hooks / conflict continue 这类场景，应返回结构化错误并提示用户回到 terminal 处理，而不是在面板里卡住
+- `WorkspaceAgentSessionSignal.updatedAt` 需要兼容 App 侧编码与脚本 ISO8601 落盘；读取 signal 时必须接受 Unix 时间戳与 ISO8601 字符串两种格式。
+- `app_state.json` 的 `settings` 现在包含工作区通知开关：应用内通知、提示音、系统通知、收到通知后 worktree 置顶；通知内容本身不持久化。
+- Agent signal 文件属于运行时临时状态：`running / waiting` 会按 pid + 超时清理，`completed / failed` 只保留短暂摘要后回落为 idle；不要把这类瞬时状态写回 `projects.json` / `app_state.json`。
+- 工作区恢复快照使用 `manifest.json` + `manifest.prev.json` 回退；pane 文本按 **每次保存唯一的 `snapshotTextRef`** 单独落盘，`prune` 只能在新 manifest 成功写入后执行，且必须同时保留 current/prev 两代 manifest 引用的 pane 文本。恢复后始终新起 shell，但不额外弹出“已恢复上下文快照”的提示 UI。
+
+## 本次变更原因
+
+- 纠正 Workspace 抽象层级：Git 不再是 `Terminal / Git` 一级主模式，而是与 terminal 同屏共存的 **bottom tool window**；因此需要删除 `workspacePrimaryMode` 主链、改用 `workspaceSideToolWindowState + workspaceBottomToolWindowState + workspaceFocusedArea`，并同步移除旧的 mode switcher 入口。
+- 继续对齐 IDEA 的工具窗入口位置：`bottom tool window` 指的是**内容停靠在底部**，不代表按钮也在底部；当前正确层级是 `[项目导航] | [左侧 stripe | 主内容区]`，因此 Git 入口从 `WorkspaceShellView` 底部按钮栏迁回 `WorkspaceChromeContainerView` 内部的左侧 stripe，且 stripe 只放 icon-only 工具窗按钮。
+- 继续对齐 IDEA 的 Commit 语义：Commit 不应只是“左侧 stripe 上的一个按钮”，而应是 **左侧独立 tool window**；同时它在 Workspace 结构中必须位于底部 Git tools 面板的上方。因此需要把 Commit 从 `WorkspaceShellView` 的底部路由中拆出，改挂到 Shell 顶部区域，而不是挂在整个 Shell 左侧；运行时状态也随之从单一 `workspaceToolWindowState` 拆成 `workspaceSideToolWindowState + workspaceBottomToolWindowState`。
+- 在 DevHaven 的 Workspace 内补齐一套对标 IDEA 的 Git 管理主链：引入仓库级 log/refs、worktree 级 changes/branches/operations，以及 Git 面板专用服务 / ViewModel / 结构化错误主链。
+- 将 Git 面板的 `.log` section 从早期 dashboard / sidebar 变体收口为 **标准 IDEA Log**：顶部 filter toolbar、中间 log table、下方 changes/details pane 与独立文件级 diff preview。
+- 为 DevHaven 建立完整的 macOS 升级基础设施：客户端新增 stable / nightly 更新偏好、appcast 手动检查 / Sparkle runtime 与可复制诊断，发布侧补齐 Sparkle vendor、通用安装包、staged appcast 与 alias feed promote。
+- 解决“当前仓库只有原生打包，没有长期可演进升级主链”的缺口：后续 stable/nightly 都必须沿 `immutable asset -> appcast-staged -> alias promote` 这条单主链演进，避免资产未就绪就让客户端看到新 feed。
+- 补齐 DevHaven 内嵌 Ghostty 的宿主搜索能力：当前需要通过宿主侧菜单命令、focused pane 路由、search action bridge 与搜索浮层形成完整闭环，不能误以为 libghostty 会自动提供可见 find bar。
+- 补齐 DevHaven 的非 live 工作区恢复链路：用户关闭 App 后，下次启动需要优先恢复已打开项目、tab/pane 布局和 pane 上下文快照，但不引入 daemon / PTY 保活。
+- 收口 DevHaven 的单主窗口关闭语义：`⌘W` 误关整个主窗口时必须先提醒用户，同时 last-window close 不应直接把应用判定为“彻底退出”，应用再次激活时应能恢复主窗口。
+- 将 Codex 展示态 fallback 从“固定定时整屏读取 pane 可见文本”收口为“host 内存中的最近文本窗口 + 活动度”，避免长时间运行时由 `ghostty_surface_read_text` / 字符串处理造成持续堆内存增长。
+- 将 Workspace 布局调整为“项目导航外置 + 右侧独立 chrome 工作区”，以更接近 IDEA 的层次：项目按外层导航组织，真正的工作区内容被外围按钮/边框包裹。
+
+## 修改约束
+
+- 如果改动涉及目录结构、模块职责、打包链路或版本真相源，必须同步更新本文件。
+- 新的架构说明只记录当前仍然存在并参与主链的模块；不要把已删除的旧栈重新写回本文件。
+- 做删除类改动时，优先同时删除对应的构建入口、文档入口和设置入口，避免留下“代码没了但说明还在”的半残状态。
+
+---
+> Source: [zxcvbnmzsedr/devhaven](https://github.com/zxcvbnmzsedr/devhaven) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
