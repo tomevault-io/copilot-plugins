@@ -1,0 +1,9 @@
+{
+  "name": "effect-ts--effect-smol",
+  "displayName": "effect-smol",
+  "description": "Core libraries and experimental work for Effect v4",
+  "version": "1.0.0",
+  "author": "Effect-TS",
+  "homepage": "https://github.com/Effect-TS/effect-smol",
+  "skills": []
+}
