@@ -1,0 +1,9 @@
+{
+  "name": "rickyrobinett--timetravel-camera",
+  "displayName": "timetravel-camera",
+  "description": "Uses OpenAI gpt-image-1, Cloudflare Workers & Cloudflare R2 to create a camera that simulates your image in different time periods",
+  "version": "1.0.0",
+  "author": "rickyrobinett",
+  "homepage": "https://github.com/rickyrobinett/timetravel-camera",
+  "skills": []
+}
