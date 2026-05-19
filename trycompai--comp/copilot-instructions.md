@@ -1,185 +1,268 @@
-## code
+## cursor-usage
 
-> Use when writing TypeScript/React code - covers type safety, component patterns, and file organization
+> How to write and manage Cursor rules - invoke with @cursor-usage
 
 
-# Code Standards
+# Using Cursor Rules
 
-## TypeScript
+## Overview
 
-### No `any`, No Unsafe Casts
+Cursor rules provide system-level instructions to the AI to maintain code consistency, quality, and adherence to project standards. They are stored in the `.cursor/rules/` directory as `.mdc` (Markdown with frontmatter) files.
+
+## Rule File Structure
+
+Each `.mdc` rule file consists of two parts:
+
+### 1. Frontmatter (YAML metadata)
+
+```yaml
+---
+description: Brief overview of what this rule enforces
+globs: **/*.{ts,tsx}
+alwaysApply: true
+---
+```
+
+**Frontmatter Fields:**
+
+- `description`: A clear, concise explanation of the rule's purpose
+- `globs`: Glob pattern to match files where this rule should apply (plain string, no quotes or arrays)
+  - Examples:
+    - `**/*.tsx` - All TSX files
+    - `**/*.{ts,tsx}` - All TS and TSX files
+    - `apps/*/components/**/*.tsx` - All TSX files in any app's components directory
+    - `**/trigger/**/*.ts` - All TS files in trigger directories
+- `alwaysApply`: Boolean indicating if the rule should always be active
+  - `true`: Rule is always active when working on matching files
+  - `false`: Rule can be selectively invoked with `@rule-name`
+
+### 2. Content (Markdown)
+
+The body of the rule file contains the actual guidelines, examples, and instructions written in Markdown format.
+
+## How Rules Are Applied
+
+### Automatic Application
+
+Rules with `alwaysApply: true` are automatically loaded when:
+
+- You open a file matching the `globs` pattern
+- You're working on code that matches the pattern
+- Cursor AI generates or suggests code for matching files
+
+### Manual Invocation
+
+You can reference specific rules in your prompts:
+
+```
+@design-system create a new button component
+```
+
+This explicitly tells Cursor to apply the design-system rule.
+
+## Best Practices for Writing Rules
+
+### 1. Keep Rules Focused
+
+- Each rule file should cover a specific domain (e.g., design system, API patterns, testing)
+- Avoid mixing unrelated concerns in a single rule file
+- Aim for rules under 500 lines for better AI comprehension
+
+### 2. Provide Concrete Examples
+
+Always include:
+
+- ✅ Good examples (what TO do)
+- ❌ Bad examples (what NOT to do)
+- Real code snippets from your project
 
 ```tsx
-// ✅ Validate with zod
-const TaskSchema = z.object({ id: z.string(), title: z.string() });
-const task = TaskSchema.parse(response.data);
+// ✅ Good: Use semantic tokens
+<div className="bg-background text-foreground">Content</div>
 
-// ✅ Use unknown and narrow
-const parseResponse = (data: unknown): Task => {
-  if (!isTask(data)) throw new Error('Invalid');
-  return data;
-};
-
-// ❌ Never
-const data: any = fetchData();
-const task = response as Task;
-const name = user!.name;
-// @ts-ignore
+// ❌ Bad: Hardcoded colors
+<div className="bg-white text-black">Content</div>
 ```
 
-### Generics Over Any
+### 3. Use Clear Section Headers
 
-```tsx
-// ✅ Generic
-const first = <T>(items: T[]): T | undefined => items[0];
+Organize content with descriptive headers:
 
-// ❌ Any
-const first = (items: any[]): any => items[0];
+```markdown
+## Core Principles
+
+## Rules
+
+## Examples
+
+## Exceptions
+
+## Common Mistakes
 ```
 
-## React Patterns
+### 4. Define Exceptions Explicitly
 
-### Named Exports, PascalCase
+If there are cases where rules don't apply, state them clearly:
 
-```tsx
-// ✅ Named export, PascalCase file
-// TaskCard.tsx
-export function TaskCard({ task }: TaskCardProps) { ... }
+```markdown
+## Exceptions
 
-// ❌ Default export, lowercase
-export default function taskCard() { ... }
+The ONLY time you can pass className to a design system component is for:
+
+1. Width utilities: `w-full`, `max-w-md`
+2. Responsive display: `hidden`, `md:block`
 ```
 
-### Derive State, Avoid useEffect
+### 5. Include Checklists
 
-```tsx
-// ✅ Derived
-const completedCount = tasks.filter(t => t.completed).length;
+Provide actionable checklists for validation:
 
-// ❌ Synced state
-const [count, setCount] = useState(0);
-useEffect(() => {
-  setCount(tasks.filter(t => t.completed).length);
-}, [tasks]);
+```markdown
+## Code Review Checklist
+
+Before committing:
+
+- [ ] Uses semantic color tokens
+- [ ] Works in both light and dark mode
+- [ ] Fully responsive
 ```
 
-### When useEffect IS Appropriate
+## Managing Rules
 
-```tsx
-// External subscriptions
-useEffect(() => {
-  const sub = eventSource.subscribe(handler);
-  return () => sub.unsubscribe();
-}, []);
+### Creating a New Rule
 
-// DOM measurements
-useEffect(() => {
-  setHeight(ref.current?.getBoundingClientRect().height);
-}, []);
-```
+1. Create a new `.mdc` file in `.cursor/rules/`
+2. Add appropriate frontmatter
+3. Write clear guidelines with examples
+4. Test by working on matching files
 
-### Toasts with Sonner
+### Updating Existing Rules
 
-```tsx
-import { toast } from 'sonner';
+1. Edit the `.mdc` file
+2. Rules are automatically reloaded
+3. Test changes with relevant files
 
-toast.success('Task created');
-toast.error('Failed to save');
-toast.promise(saveTask(), {
-  loading: 'Saving...',
-  success: 'Saved!',
-  error: 'Failed',
-});
-```
+### Organizing Rules
 
-## File Structure
-
-### Colocate at Route Level
+Recommended structure:
 
 ```
-app/(app)/[orgId]/tasks/
-├── page.tsx              # Server component
-├── components/
-│   └── TaskList.tsx      # Client component
-├── hooks/
-│   └── useTasks.ts       # SWR hook
-└── data/
-    └── queries.ts        # Server queries
+.cursor/rules/
+├── design-system.mdc       # Component usage, variants, composition
+├── code-standards.mdc      # General code quality rules
+├── typescript-rules.mdc    # TypeScript type safety
+├── react-code.mdc          # React patterns and conventions
+├── data-fetching.mdc       # Server/client data patterns
+└── cursor-usage.mdc        # This file - how to use rules
 ```
 
-### Share Only When Reused 3+ Times
+## Rule Scope with Globs
 
-```
-src/components/shared/    # Cross-page components
-src/hooks/                # Shared hooks (useApiSWR, useDebounce)
-```
+### Common Glob Patterns
 
-## Code Quality
+```yaml
+# All TypeScript/TSX files
+globs: **/*.{ts,tsx}
 
-### File Size Limit: 300 Lines
+# Only TSX files (React components)
+globs: **/*.tsx
 
-Split large files into focused components.
+# Only trigger task files
+globs: **/trigger/**/*.ts
 
-### Named Parameters for 2+ Args
+# Prisma schema files
+globs: **/*.prisma
 
-```tsx
-// ✅ Named
-const createTask = ({ title, assigneeId }: CreateTaskParams) => { ... };
-createTask({ title: 'Review PR', assigneeId: user.id });
-
-// ❌ Positional
-const createTask = (title: string, assigneeId: string) => { ... };
-createTask('Review PR', user.id); // What's the 2nd param?
+# All JSON and TypeScript files
+globs: **/*.{ts,tsx,json}
 ```
 
-### Early Returns
+### Glob Pattern Tips
 
-```tsx
-// ✅ Early return
-function processTask(task: Task | null) {
-  if (!task) return null;
-  if (task.deleted) return null;
-  return <TaskCard task={task} />;
-}
+- Use `**` for recursive directory matching
+- Use `*` for single-level wildcard
+- Use `{ts,tsx}` for multiple extensions
+- No quotes or array brackets needed
+- Be specific to avoid over-applying rules
 
-// ❌ Nested
-function processTask(task) {
-  if (task) {
-    if (!task.deleted) {
-      return <TaskCard task={task} />;
-    }
-  }
-  return null;
-}
+## Debugging Rules
+
+### Rule Not Applying?
+
+1. Check the `globs` pattern matches your file
+2. Verify frontmatter YAML syntax is correct
+3. Ensure `alwaysApply` is set appropriately
+4. Try manually invoking with `@ruleName`
+
+### Rule Conflicting?
+
+1. Check if multiple rules apply to the same files
+2. Make rules more specific with tighter `globs`
+3. Consolidate related rules into one file
+
+## Advanced Features
+
+### Conditional Rules
+
+Use `alwaysApply: false` for rules that should only apply in specific contexts:
+
+```yaml
+---
+description: Performance optimization guidelines
+globs: **/*.ts
+alwaysApply: false
+---
 ```
 
-### Event Handler Naming
+Invoke with: `@performance-optimization refactor this component`
 
-```tsx
-// ✅ Prefix with "handle"
-const handleClick = () => { ... };
-const handleSubmit = (e: FormEvent) => { ... };
-const handleTaskCreate = (task: Task) => { ... };
+### Hierarchical Rules
+
+More specific globs take precedence:
+
+- `design-system.mdc` with `globs: **/*.tsx` (broad)
+- `trigger.basic.mdc` with `globs: **/trigger/**/*.ts` (specific)
+
+The specific rule will have more weight for trigger files.
+
+## Quick Reference
+
+### Create a New Rule
+
+```bash
+touch .cursor/rules/my-new-rule.mdc
 ```
 
-## Accessibility
+```yaml
+---
+description: What this rule enforces
+globs: **/*.{ts,tsx}
+alwaysApply: true
+---
 
-```tsx
-// Interactive elements need keyboard support
-<div
-  role="button"
-  tabIndex={0}
-  onClick={handleClick}
-  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
-  aria-label="Delete task"
->
-  <TrashIcon />
-</div>
+# Rule Title
 
-// Form inputs need labels
-<label htmlFor="task-name">Task Name</label>
-<input id="task-name" type="text" />
+## Guidelines
+
+- Point 1
+- Point 2
 ```
+
+### Apply a Rule
+
+- Automatic: Save a file matching the `globs` pattern
+- Manual: Use `@my-new-rule` in your prompt
+
+### Debug a Rule
+
+1. Check file matches `globs` pattern
+2. Verify YAML frontmatter syntax
+3. Look for conflicting rules
+4. Try manual invocation
+
+---
+
+**Remember**: Rules are here to help, not hinder. If a rule doesn't make sense for a specific case, discuss with the team and update the rule accordingly.
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
