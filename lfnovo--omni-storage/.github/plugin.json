@@ -1,0 +1,9 @@
+{
+  "name": "lfnovo--omni-storage",
+  "displayName": "omni-storage",
+  "description": "A simple API to use multiple storage providers with a common interface",
+  "version": "1.0.0",
+  "author": "lfnovo",
+  "homepage": "https://github.com/lfnovo/omni-storage",
+  "skills": []
+}
