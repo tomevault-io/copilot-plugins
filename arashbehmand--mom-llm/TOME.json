@@ -1,0 +1,44 @@
+{
+  "name": "mom-llm",
+  "owner": "arashbehmand",
+  "repo": "mom-llm",
+  "description": "MoM Service: OpenAI-compatible API that orchestrates multiple LLMs in parallel and synthesizes their responses into superior answers. Get GPT-5, Claude, and Gemini working together. Features intelligent caching, multimodal vision support, cost tracking, and comprehensive observability.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/arashbehmand/mom-llm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T05:51:31Z"
+}
