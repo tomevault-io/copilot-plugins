@@ -1,130 +1,293 @@
-## testing-guidelines
+## translations
 
-> Testing guidelines for Twenty CRM
+> Translation guidelines for Twenty CRM
 
-# Testing Guidelines
+# Translation Guidelines
 
-## Test Structure (AAA Pattern)
-```typescript
-describe('UserService', () => {
-  describe('when getting user by ID', () => {
-    it('should return user data for valid ID', async () => {
-      // Arrange
-      const userId = '123';
-      const expectedUser = { id: '123', name: 'John' };
-      mockUserRepository.findById.mockResolvedValue(expectedUser);
+## Internationalization (i18n) Overview
 
-      // Act
-      const result = await userService.getUserById(userId);
+### Supported Languages
+- English (en) - Primary language
+- French (fr) - Secondary language
+- German (de) - Planned
+- Spanish (es) - Planned
+- Additional languages based on community contributions
 
-      // Assert
-      expect(result).toEqual(expectedUser);
-    });
-  });
-});
+### i18n Architecture
+- Use react-i18next for React components
+- Store translations in JSON files
+- Implement namespace-based organization
+- Support for interpolation and pluralization
+
+## File Structure
+
+### Translation Files
+```
+src/locales/
+├── en/                        # English translations
+│   ├── common.json           # Common UI strings
+│   ├── auth.json             # Authentication strings
+│   ├── dashboard.json        # Dashboard specific
+│   ├── forms.json            # Form labels and validation
+│   └── errors.json           # Error messages
+├── fr/                       # French translations
+│   ├── common.json
+│   ├── auth.json
+│   └── ...
+└── index.ts                  # i18n configuration
 ```
 
-## React Component Testing
-```typescript
-// ✅ Test user behavior, not implementation
-describe('LoginForm', () => {
-  it('should display error message for invalid credentials', async () => {
-    const mockOnSubmit = jest.fn().mockRejectedValue(new Error('Invalid credentials'));
-    render(<LoginForm onSubmit={mockOnSubmit} />);
+### Translation Keys
+- Use nested objects for organization
+- Follow consistent naming patterns
+- Include context in key names
+  ```json
+  {
+    "auth": {
+      "login": {
+        "title": "Sign In",
+        "email": "Email Address",
+        "password": "Password",
+        "submit": "Sign In",
+        "forgotPassword": "Forgot Password?"
+      },
+      "register": {
+        "title": "Create Account",
+        "confirmPassword": "Confirm Password"
+      }
+    }
+  }
+  ```
 
-    await user.type(screen.getByLabelText(/email/i), 'invalid@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'wrongpassword');
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
+## Translation Implementation
 
-    expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument();
-  });
-});
-```
+### React Components
+- Use useTranslation hook
+- Specify namespaces for better organization
+- Handle loading states properly
+  ```typescript
+  // ✅ Correct
+  import { useTranslation } from 'react-i18next';
 
-## Mocking Patterns
-```typescript
-// ✅ Service mocking
-const mockEmailService = {
-  sendEmail: jest.fn().mockResolvedValue({ success: true }),
-  validateEmail: jest.fn().mockReturnValue(true),
-};
+  const LoginForm = () => {
+    const { t } = useTranslation('auth');
 
-// ✅ Test data factories
-const createTestUser = (overrides = {}) => ({
-  id: uuid(),
-  email: 'test@example.com',
-  name: 'Test User',
-  ...overrides,
-});
+    return (
+      <form>
+        <h1>{t('login.title')}</h1>
+        <input 
+          placeholder={t('login.email')}
+          type="email"
+        />
+        <input 
+          placeholder={t('login.password')}
+          type="password"
+        />
+        <button type="submit">
+          {t('login.submit')}
+        </button>
+      </form>
+    );
+  };
+  ```
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-```
+### Interpolation
+- Use interpolation for dynamic content
+- Pass variables through t() function
+- Keep interpolation simple and readable
+  ```typescript
+  // ✅ Correct
+  const WelcomeMessage = ({ userName }: { userName: string }) => {
+    const { t } = useTranslation('common');
+    
+    return (
+      <h1>{t('welcome.message', { name: userName })}</h1>
+    );
+  };
 
-## Testing Principles
-- **Test behavior, not implementation** - Focus on what users see/do
-- **Use descriptive test names** - "should [behavior] when [condition]"
-- **Query by user-visible elements** - text, roles, labels over test IDs
-- **Keep tests isolated** - Independent and repeatable
-- **70% unit, 20% integration, 10% E2E** - Test pyramid
+  // Translation file
+  {
+    "welcome": {
+      "message": "Welcome back, {{name}}!"
+    }
+  }
+  ```
 
-## Running Tests
+### Pluralization
+- Handle singular/plural forms correctly
+- Use count-based pluralization
+- Support different plural rules per language
+  ```typescript
+  // ✅ Correct
+  const ItemCount = ({ count }: { count: number }) => {
+    const { t } = useTranslation('common');
+    
+    return (
+      <span>{t('items.count', { count })}</span>
+    );
+  };
 
-### Single Test File Execution
-```bash
-# ✅ Run a specific test file (PREFERRED - Fast & Efficient)
-npx jest path/to/test.test.ts --config=packages/PROJECT/jest.config.mjs
+  // Translation file
+  {
+    "items": {
+      "count_one": "{{count}} item",
+      "count_other": "{{count}} items"
+    }
+  }
+  ```
 
-# Key Benefits:
-# - Only runs the specific test file (fast)
-# - No dependency resolution overhead
-# - Immediate feedback for test development
+## Translation Management
 
-# ✅ Examples:
-# Frontend tests (use .test.ts extension)
-npx jest packages/twenty-front/src/modules/localization/utils/detection/detectNumberFormat.test.ts --config=packages/twenty-front/jest.config.mjs
+### Adding New Strings
+1. Add English translation first
+2. Use descriptive keys that indicate context
+3. Include comments for translators when needed
+4. Test with long translations to ensure UI flexibility
+  ```json
+  {
+    "user": {
+      "profile": {
+        // Displayed in user profile header
+        "displayName": "Display Name",
+        // Used in forms when editing profile
+        "editDisplayName": "Edit Display Name",
+        // Confirmation message after profile update
+        "updateSuccess": "Profile updated successfully"
+      }
+    }
+  }
+  ```
 
-# Server tests (use .spec.ts extension)
-npx jest packages/twenty-server/src/utils/__test__/is-work-email.spec.ts --config=packages/twenty-server/jest.config.mjs
+### Translation Validation
+- Use TypeScript for translation key validation
+- Implement automated checks for missing translations
+- Validate interpolation parameters
+  ```typescript
+  // ✅ Correct - Type-safe translations
+  type TranslationKey = 
+    | 'auth.login.title'
+    | 'auth.login.email'
+    | 'auth.login.password'
+    | 'common.welcome.message';
 
-# ❌ AVOID - This runs ALL tests (slow):
-npx nx test twenty-front --testPathPattern=detectNumberFormat.test.ts
+  const t = (key: TranslationKey, options?: any) => {
+    // Translation implementation
+  };
+  ```
 
-# ✅ Run tests in watch mode for development:
-npx jest path/to/test.test.ts --config=packages/twenty-front/jest.config.mjs --watch
+## Best Practices
 
-# ✅ Run with coverage for single file:
-npx jest path/to/test.test.ts --config=packages/twenty-front/jest.config.mjs --coverage
-```
+### Key Naming
+- Use descriptive, hierarchical keys
+- Avoid abbreviations
+- Group related translations
+- Keep keys consistent across languages
+  ```json
+  // ✅ Correct
+  {
+    "dashboard": {
+      "header": {
+        "title": "Dashboard",
+        "subtitle": "Welcome to your workspace"
+      },
+      "actions": {
+        "createNew": "Create New",
+        "refresh": "Refresh Data",
+        "export": "Export"
+      }
+    }
+  }
 
-### Test Suite Execution
-```bash
-# Run all tests for a project (use sparingly)
-npx nx test twenty-front
-npx nx test twenty-server
+  // ❌ Incorrect
+  {
+    "dash_title": "Dashboard",
+    "newBtn": "New",
+    "refreshData": "Refresh"
+  }
+  ```
 
-# Run tests matching a pattern
-npx jest --testNamePattern="UserService" --config=packages/twenty-front/jest.config.mjs
-```
+### String Guidelines
+- Write clear, concise text
+- Use consistent terminology
+- Consider character limits for UI elements
+- Avoid concatenating translated strings
+  ```json
+  // ✅ Correct
+  {
+    "user": {
+      "status": {
+        "online": "Online",
+        "offline": "Offline",
+        "away": "Away"
+      }
+    }
+  }
 
-## Common Patterns
-```typescript
-// Async testing
-await waitFor(() => {
-  expect(screen.getByText('Loading...')).not.toBeInTheDocument();
-});
+  // ❌ Incorrect - Don't concatenate
+  {
+    "user": {
+      "statusPrefix": "User is ",
+      "statusOnline": "online"
+    }
+  }
+  ```
 
-// User interactions
-await user.click(screen.getByRole('button'));
-await user.type(screen.getByLabelText(/search/i), 'query');
+### Context Information
+- Provide context for translators
+- Include character limits when relevant
+- Explain when/where text appears
+- Note any technical constraints
+  ```json
+  {
+    "button": {
+      // Primary action button, max 20 characters
+      "save": "Save Changes",
+      // Secondary button in modal footer
+      "cancel": "Cancel",
+      // Destructive action, should sound cautious
+      "delete": "Delete Permanently"
+    }
+  }
+  ```
 
-// API integration tests
-const response = await request(app)
-  .post('/api/users')
-  .send(userData)
-  .expect(201);
-```
+## Workflow
+
+### Development Process
+1. Develop features with English translations
+2. Use placeholder keys during development
+3. Finalize translation keys before feature completion
+4. Add translations to all supported languages
+5. Test with different language strings
+
+### Translation Updates
+1. Create translation tasks for new features
+2. Provide context and screenshots to translators
+3. Review translations for consistency
+4. Test UI with translated strings
+5. Update documentation when needed
+
+### Quality Assurance
+- Review translations in context
+- Test with longest expected translations
+- Verify formatting with interpolation
+- Check for cultural appropriateness
+- Ensure accessibility with screen readers
+
+## Maintenance
+
+### Regular Tasks
+- Review and update outdated translations
+- Check for unused translation keys
+- Maintain consistency across languages
+- Update translation documentation
+- Monitor for missing translations in new features
+
+### Tools and Automation
+- Use automated translation validation
+- Implement missing translation detection
+- Set up continuous integration checks
+- Maintain translation coverage reports
+- Use translation management platforms when needed
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
