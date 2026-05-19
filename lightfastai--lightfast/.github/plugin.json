@@ -1,0 +1,14 @@
+{
+  "name": "lightfastai--lightfast",
+  "displayName": "lightfast",
+  "description": "Lightfast is the operating system that runs your startup. Your tools, your agents, your entire operation \u2014 orchestrated in one place. Strategy, ops, execution. Lightfast runs all of it.",
+  "version": "1.0.0",
+  "author": "lightfastai",
+  "homepage": "https://github.com/lightfastai/lightfast",
+  "skills": [
+    {
+      "name": "turborepo",
+      "description": ""
+    }
+  ]
+}
