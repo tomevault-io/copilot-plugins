@@ -1,206 +1,160 @@
-## generate-page-integration
+## generate-services
 
-> compoder generate:page-integration
+> compoder generate:services
 
-# Page Integration Code Generation Guide
+# Service Layer Code Generation Rules
 
-This guide helps generate the integration layer between business components and APIs, including server-store and page components.
+## Input Files Pattern
 
-## Input Requirements
+- `@/app/api/{module}/types.d.ts`: Contains API interface definitions
+- `@/app/api/{module}/{action}/route.ts`: Contains API route implementations
 
-1. Business Component Usage Examples (以下任一形式):
+## Output Files Pattern
 
-   - Component Story file (e.g., `ComponentName.stories.tsx`)
-   - Mock implementation in existing pages (e.g., `page.tsx` with mock data)
-   - Example usage with hardcoded data
-   - Test files showing component usage
+- `@/app/services/{module}/{module}.service.ts`: Service layer implementation
 
-   Example:
+## Generation Rules
 
-   ```typescript
-   // From stories
-   export const Default = {
-     args: {
-       items: mockItems,
-       onEditClick: (id) => console.log('Edit:', id)
-     }
-   }
-
-   // Or from page with mock data
-   <ComponentName
-     items={[
-       { id: '1', title: 'Item 1' },
-       { id: '2', title: 'Item 2' }
-     ]}
-     onEditClick={(id) => console.log('Edit clicked:', id)}
-   />
-   ```
-
-2. Component Interface Information (one of the following):
-
-   - Interface/type definition files
-   - Props types from component file
-   - TypeScript types inferred from usage examples
-
-3. API Related Files:
-   - Service file (e.g., `*.service.ts`) containing API calls
-   - API types (request/response types)
-
-## Output Structure
-
-Important Note: When generating code for existing files:
-
-- NEVER remove or replace existing selectors/mutations
-- ONLY add new selectors/mutations incrementally
-- Preserve all existing functionality
-- Follow the existing patterns and naming conventions
-
-The generator should create or update the following files:
-
-### 1. server-store/selectors.ts (if needed)
-
-- Create query hooks using @tanstack/react-query
-- Transform API response data to match component prop types in the select function
-- Example structure:
-
-Example of a new selector (while keeping existing ones):
+1. Service File Structure:
 
 ```typescript
-// Original example - keep this
-export const useGetSomeData = (params: ApiType.Request) => {
-  return useQuery<
-    ApiType.Response,
-    Error,
-    ComponentDataType // Transformed type matching component props
-  >({
-    queryKey: ["queryName", params],
-    queryFn: () => apiCall(params),
-    select: data => ({
-      // Transform API response to component data structure
-      ...transformedData,
-    }),
-  })
-}
+import { getInstance } from '../request'
+import { {ModuleName}Api } from '@/app/api/{module}/types'
 
-// When adding new selectors, add them below existing ones
-export const useNewSelector = () => {
-  return useQuery({
-    // ... new selector implementation
-  })
+const request = getInstance()
+
+export const {actionName}{ModuleName} = async (
+  params: {ModuleName}Api.{Action}Request
+): Promise<{ModuleName}Api.{Action}Response> => {
+  try {
+    // For GET requests
+    if ("{method}" === "GET") {
+      const filteredParams = Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== undefined)
+      )
+      const queryString = new URLSearchParams(
+        filteredParams as Record<string, string>
+      ).toString()
+      const response = await request(`/{module}/{action}?${queryString}`, {
+        method: "GET",
+      })
+      return await response.json()
+    }
+
+    // For POST/PUT requests
+    if ("{method}" === "POST" || "{method}" === "PUT") {
+      const response = await request(`/{module}/{action}`, {
+        method: "{method}",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      })
+      return await response.json()
+    }
+
+    // For DELETE requests
+    if ("{method}" === "DELETE") {
+      const response = await request(`/{module}/{action}`, {
+        method: "DELETE",
+      })
+      return await response.json()
+    }
+
+    throw new Error(`Unsupported HTTP method: {method}`)
+  } catch (error) {
+    // Error will be handled by request.ts
+    throw error
+  }
 }
 ```
 
-### 2. server-store/mutations.ts (if needed)
+2. Function Naming Convention:
 
-Example of mutations (while keeping existing ones):
+- For GET endpoints: use `get{ModuleName}{Action}` (e.g., `getUserList`, `getOrderDetail`)
+- For POST endpoints: use `create{ModuleName}`
+- For PUT endpoints: use `update{ModuleName}`
+- For DELETE endpoints: use `delete{ModuleName}`
 
-```typescript
-// Original example - keep this
-export const useSomeDataMutation = () => {
-  return useMutation<ApiType.Response, Error, ApiType.Request>({
-    mutationFn: params => apiMutationCall(params),
-  })
-}
-
-// When adding new mutations, add them below existing ones
-export const useNewMutation = () => {
-  return useMutation({
-    // ... new mutation implementation
-  })
-}
-```
-
-### 3. page.tsx
-
-Integrate the business component with server-store:
+3. Type Definition Pattern:
 
 ```typescript
-export default function Page() {
-  // 1. Use selectors/mutations
-  const { data, isLoading } = useGetSomeData(params)
-  const mutation = useSomeDataMutation()
-
-  // 2. Handle component callbacks
-  const handleSomeEvent = () => {
-    mutation.mutate(...)
+declare namespace {ModuleName}Api {
+  export interface {Action}Request {
+    // Request parameters
   }
 
-  // 3. Render component with props
-  return (
-    <BusinessComponent
-      data={data}
-      isLoading={isLoading}
-      onSomeEvent={handleSomeEvent}
-      {...otherProps}
-    />
-  )
+  export interface {Action}Response {
+    // Response data structure
+  }
 }
 ```
 
-## Key Points to Consider
+## Variables Explanation
 
-1. Data Transformation:
+- `{module}`: The lowercase module name (e.g., "user", "order", "codegen")
+- `{ModuleName}`: The PascalCase module name (e.g., "User", "Order", "Codegen")
+- `{action}`: The action name (e.g., "list", "detail", "create")
+- `{Action}`: The PascalCase action name (e.g., "List", "Detail", "Create")
+- `{method}`: HTTP method in lowercase (e.g., "get", "post", "put", "delete")
+- `{requestConfig}`: Request configuration object based on HTTP method:
+  - GET: `{ params }`
+  - POST/PUT: `data`
+  - DELETE: `{ params }` or empty
 
-   - Ensure proper type conversion between API and component data structures
-   - Handle null/undefined cases
-   - Transform IDs, dates, and other special fields appropriately
+## Example
 
-2. Error Handling:
+For a module named "codegen" with a "list" action:
 
-   - Include error states and error handling in queries/mutations
-   - Provide appropriate error feedback in the UI
+Input types.d.ts:
 
-3. Loading States:
+```typescript
+declare namespace CodegenApi {
+  export interface ListRequest {
+    page: number
+    pageSize: number
+    name?: string
+    fullStack?: "React" | "Vue"
+  }
 
-   - Handle loading states properly
-   - Consider skeleton loaders or loading indicators
+  export interface ListResponse {
+    data: any[]
+    total: number
+  }
+}
+```
 
-4. Props Mapping:
+Generated service.ts:
 
-   - Map all required component props
-   - Provide reasonable defaults when needed
-   - Handle optional props appropriately
+```typescript
+import { getInstance } from "../request"
+import { CodegenApi } from "@/app/api/codegen/types"
 
-5. Event Handlers:
-   - Implement all necessary callback functions
-   - Handle async operations properly
-   - Consider optimistic updates when appropriate
+const request = getInstance()
 
-## Example Usage
+export const getCodegenList = async (
+  params: CodegenApi.ListRequest,
+): Promise<CodegenApi.ListResponse> => {
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(([, value]) => value !== undefined),
+  )
+  const queryString = new URLSearchParams(
+    filteredParams as Record<string, string>,
+  ).toString()
+  const response = await request(`/codegen/list?${queryString}`, {
+    method: "GET",
+  })
+  return response.json()
+}
+```
 
-Given:
+## Notes
 
-- A CodegenFilterContainer component
-- Codegen service API
-- Related interfaces
-
-Generate:
-
-1. A selector for fetching codegen data
-2. Mutations for any data modifications
-3. A page component that:
-   - Fetches data using the selector
-   - Handles pagination/filtering
-   - Renders the CodegenFilterContainer with appropriate props
-   - Implements all necessary callbacks
-
-The generated code should follow the project's existing patterns and naming conventions.
-
-## Additional Guidelines for Incremental Updates
-
-1. Code Preservation:
-
-   - Always check existing files before adding new code
-   - Never remove or modify existing selectors/mutations
-   - Add new functionality below existing code
-   - Maintain consistent formatting with existing code
-
-2. Integration Strategy:
-
-   - Review existing patterns in the codebase
-   - Follow established naming conventions
-   - Reuse existing utility functions when possible
-   - Add new functionality incrementally
+1. For GET requests, transform parameters into URL query string
+2. Filter out undefined values from parameters
+3. Use URLSearchParams for proper URL encoding
+4. Use proper error handling and async/await patterns
+5. Keep service functions focused and single-responsibility
 
 ---
 > Source: [IamLiuLv/compoder](https://github.com/IamLiuLv/compoder) — distributed by [TomeVault](https://tomevault.io).
