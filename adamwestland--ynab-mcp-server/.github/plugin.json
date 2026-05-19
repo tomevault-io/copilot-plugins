@@ -1,0 +1,9 @@
+{
+  "name": "adamwestland--ynab-mcp-server",
+  "displayName": "ynab-mcp-server",
+  "description": "A Model Context Protocol (MCP) server providing comprehensive integration with the You Need A Budget (YNAB) API for AI assistants",
+  "version": "1.0.0",
+  "author": "adamwestland",
+  "homepage": "https://github.com/adamwestland/ynab-mcp-server",
+  "skills": []
+}
