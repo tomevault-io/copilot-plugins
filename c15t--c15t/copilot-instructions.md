@@ -1,85 +1,102 @@
-## ts-docs
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> ts-docs / js-docs
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-Analyze and refactor my TypeScript codebase with these strict guidelines:
 
-1. Maximize type inference while maintaining strict type safety
-2. Replace all generic type parameters with descriptive names that reflect their purpose:
-   - Change T → EntityType, K → KeyType, V → ValueType, etc.
-   - Use semantic naming that communicates the parameter's role
+Default to using Bun instead of Node.js.
 
-3. Apply these DRY principles:
-   - Extract common type patterns into reusable utility types
-   - Leverage conditional types to avoid repetition
-   - Use mapped types where appropriate to transform existing types
-   - Implement template literal types to generate string unions
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Use `bunx <package> <command>` instead of `npx <package> <command>`
+- Bun automatically loads .env, so don't use dotenv.
 
-4. Enforce strict typing standards:
-   - Eliminate ALL usage of 'any' type
-   - Replace 'any' with appropriate 'unknown' types when necessary
-   - Use 'never' for exhaustive checks
-   - Add proper index signatures when dealing with dynamic properties
+## APIs
 
-5. Add comprehensive TSDoc comments that include:
-   - Function/interface purpose
-   - Type parameter explanations
-   - Parameter documentation
-   - Return type documentation
-   - Edge case handling
-   - @internal tag for internal-only components
-   - @throws tag to document potential errors and exceptions
-   - @see tags to reference related functions/types
-   - @example tags with practical usage scenarios
-   - @deprecated tag for deprecated features with migration paths
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-6. Document error handling:
-   - Add @throws tags for all functions that might throw errors
-   - Specify exact error types or custom error classes
-   - Document conditions that trigger each error
-   - Provide guidance on how to handle/prevent errors
 
-For example, transform:
+## Frontend
 
-function fetchData<T>(url: string, options?: object): Promise<T> {
-  return fetch(url, options).then(res => res.json());
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+// import .css files directly and it works
+import './index.css';
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
 }
 
-Into:
+root.render(<Frontend />);
+```
 
-/**
- * Fetches and parses JSON data from a remote endpoint
- * 
- * @typeParam ResponseType - The expected type of the parsed response
- * 
- * @param url - The URL to fetch data from
- * @param options - Optional fetch configuration options
- * @returns Promise resolving to the parsed response data
- * 
- * @throws {TypeError} When the response is not valid JSON
- * @throws {Error} When the network request fails
- * 
- * @example
- * ```ts
- * // Fetching a typed user response
- * interface User { id: number; name: string }
- * const user = await fetchData<User>('/api/users/1');
- * ```
- */
-function fetchData<ResponseType>(
-  url: string, 
-  options?: RequestInit
-): Promise<ResponseType> {
-  return fetch(url, options)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
-      }
-      return response.json() as Promise<ResponseType>;
-    });
-}
+Then, run index.ts
 
-Provide the refactored code with strict typing and clear documentation.
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
 
 ---
 > Source: [c15t/c15t](https://github.com/c15t/c15t) — distributed by [TomeVault](https://tomevault.io).
