@@ -1,44 +1,44 @@
-## core-framework
+## gen-ai-apps
 
-> You are working on the **core framework** (shared utilities, GStreamerApp base class, parsers, logging, HEF utilities).
+> You are working on a **Gen AI application** (VLM, LLM, Whisper, Voice, or Agent).
 
 
-# Core Framework — Contextual Instructions
+# Gen AI Apps — Contextual Instructions
 
-You are working on the **core framework** (shared utilities, GStreamerApp base class, parsers, logging, HEF utilities).
+You are working on a **Gen AI application** (VLM, LLM, Whisper, Voice, or Agent).
 
 ## Required Context Files
 
 Read these files before making changes (paths relative to `.hailo/`):
 
-- `instructions/architecture.md` — System architecture, module dependency graph
-- `instructions/coding-standards.md` — Import rules, logging, conventions
-- `toolsets/core-framework-api.md` — Full API reference for core modules
-- `memory/hailo_platform_api.md` — VDevice, HEF resolution patterns
+- `instructions/gen-ai-development.md` — VLM/LLM/Whisper development patterns
+- `instructions/coding-standards.md` — Import rules, logging, HEF resolution
+- `toolsets/gen-ai-utilities.md` — LLM streaming, voice processing, agent tools API
+- `toolsets/hailort-api.md` — VDevice, VLM, LLM, Speech2Text API
+- `memory/gen_ai_patterns.md` — Architecture patterns, multiprocessing gotchas
 - `memory/common_pitfalls.md` — Known anti-patterns to avoid
 
 ## Additional Context (load if relevant)
 
-- If GStreamer: `instructions/gstreamer-pipelines.md`, `toolsets/gstreamer-elements.md`
-- If models/HEF: `skills/hl-model-management.md`, `toolsets/hailort-api.md`
+- If VLM: `toolsets/vlm-backend-api.md`, `skills/hl-build-vlm-app/SKILL.md`
+- If Agent: `skills/hl-build-agent-app/SKILL.md`
+- If Voice/Whisper: `skills/hl-build-voice-app/SKILL.md`
+- If Camera: `memory/camera_and_display.md`, `skills/hl-camera.md`
 
-## Critical Notes for Core Changes
+## Key Patterns for Gen AI
 
-- Core is imported by ALL app types — changes have wide impact
-- `defines.py` is the app registry — used by every app for constants
-- `resolve_hef_path()` in `core.py` is the single source of truth for model path resolution
-- `get_logger(__name__)` is the only acceptable logging pattern
-- Parser functions (`get_pipeline_parser`, `get_standalone_parser`) must stay backward-compatible
-- Always run tests after core changes: `pytest tests/ -v`
+- Use `get_standalone_parser()` for CLI arguments
+- Use `SHARED_VDEVICE_GROUP_ID` for VDevice creation
+- VLM/LLM use multiprocessing backends — check `gen_ai_patterns.md` for the worker process pattern
+- Always resolve HEF paths with `resolve_hef_path(path, app_name, arch)`
+- Register new apps in `hailo_apps/python/core/common/defines.py`
 
-## Key Modules
+## Reference Implementations
 
-- `hailo_apps/python/core/common/defines.py` — App name constants, shared IDs
-- `hailo_apps/python/core/common/core.py` — `resolve_hef_path()`, core utilities
-- `hailo_apps/python/core/common/parser.py` — CLI argument parsers
-- `hailo_apps/python/core/common/hailo_logger.py` — Logging setup
-- `hailo_apps/python/core/gstreamer/gstreamer_app.py` — GStreamerApp base class
-- `hailo_apps/python/core/gstreamer/gstreamer_helper_pipelines.py` — Pipeline string builders
+- VLM app: `hailo_apps/python/gen_ai_apps/vlm_chat/`
+- Agent app: `hailo_apps/python/gen_ai_apps/agent_tools_example/`
+- Voice: `hailo_apps/python/gen_ai_apps/gen_ai_utils/voice_processing/`
+- LLM utils: `hailo_apps/python/gen_ai_apps/gen_ai_utils/llm_utils/`
 
 ---
 > Source: [hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps) — distributed by [TomeVault](https://tomevault.io).
