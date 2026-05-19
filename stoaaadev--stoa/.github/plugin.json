@@ -1,0 +1,9 @@
+{
+  "name": "stoaaadev--stoa",
+  "displayName": "stoa",
+  "description": "Multi-agent swarm framework. Seven autonomous agents. 30 skills. One shared mesh. Zero infrastructure.",
+  "version": "1.0.0",
+  "author": "stoaaadev",
+  "homepage": "https://github.com/stoaaadev/stoa",
+  "skills": []
+}
