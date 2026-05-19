@@ -16964,11 +16964,6 @@
       "description": "Minimal kernel to make any AI coding agent stateful. Clone, point your agent, go."
     },
     {
-      "name": "umputun--revdiff",
-      "source": "./umputun--revdiff",
-      "description": "TUI for reviewing diffs, files, and documents with inline annotations"
-    },
-    {
       "name": "specterops--mssqlhound",
       "source": "./specterops--mssqlhound",
       "description": "Go (formerly PowerShell) collector for adding MSSQL attack paths to BloodHound with OpenGraph"
@@ -17297,11 +17292,6 @@
       "name": "opensouls--opensouls",
       "source": "./opensouls--opensouls",
       "description": "The framework for AI souls"
-    },
-    {
-      "name": "umputun--cc-thingz",
-      "source": "./umputun--cc-thingz",
-      "description": "various things for claude code"
     },
     {
       "name": "aspegio--nelson",
@@ -38132,6 +38122,11 @@
       "name": "ashbuk--dabri",
       "source": "./ashbuk--dabri",
       "description": "Dabri \u2022 Native Linux Speech-to-Text (STT) \u2022 Offline, Privacy-First"
+    },
+    {
+      "name": "heddxh--neodb-you",
+      "source": "./heddxh--neodb-you",
+      "description": "A native Android app for NeoDB, crafted with Jetpack Compose and Material 3/You."
     },
     {
       "name": "dnakov--kittyfarm",
@@ -64292,11 +64287,6 @@
       "name": "indras-mirror--llama-cpp-turboq-mtp",
       "source": "./indras-mirror--llama-cpp-turboq-mtp",
       "description": "Fused TBQ4 Flash Attention + MTP + Shared Tensors for llama.cpp \u2014 82+ tok/s with lossless 4.25 bpv KV cache at 200K context on RTX 4090"
-    },
-    {
-      "name": "umputun--newscope",
-      "source": "./umputun--newscope",
-      "description": "AI-powered RSS feed curator that automatically classifies and scores articles based on your interests"
     },
     {
       "name": "chrisuthe--multi-sendspin-player-container",
@@ -99134,11 +99124,6 @@
       "description": "Making a modern IME keyboard that specifically targets the Unihertz Titan 2"
     },
     {
-      "name": "umputun--local-docs-mcp",
-      "source": "./umputun--local-docs-mcp",
-      "description": "MCP serving local docs"
-    },
-    {
       "name": "mesailor--shadcn-chat",
       "source": "./mesailor--shadcn-chat",
       "description": "A customizable chat window component built with Shadcn UI and React."
@@ -108694,6 +108679,21 @@
       "description": "Centralized LLM prompt instructions for Copilot and Cursor, including scripts to convert and sync rules for Python, React, Shell, and TypeScript. Designed for rapid reuse and contribution across proje"
     },
     {
+      "name": "iloveitaly--llm-ide-rules",
+      "source": "./iloveitaly--llm-ide-rules",
+      "description": "Centralized LLM prompt instructions for Copilot and Cursor, including scripts to convert and sync rules for Python, React, Shell, and TypeScript. Designed for rapid reuse and contribution across proje"
+    },
+    {
+      "name": "iloveitaly--llm-ide-rules",
+      "source": "./iloveitaly--llm-ide-rules",
+      "description": "Centralized LLM prompt instructions for Copilot and Cursor, including scripts to convert and sync rules for Python, React, Shell, and TypeScript. Designed for rapid reuse and contribution across proje"
+    },
+    {
+      "name": "iloveitaly--llm-ide-rules",
+      "source": "./iloveitaly--llm-ide-rules",
+      "description": "Centralized LLM prompt instructions for Copilot and Cursor, including scripts to convert and sync rules for Python, React, Shell, and TypeScript. Designed for rapid reuse and contribution across proje"
+    },
+    {
       "name": "scardoso-lu--google-antigravity-settings",
       "source": "./scardoso-lu--google-antigravity-settings",
       "description": "google-antigravity-settings"
@@ -112587,6 +112587,16 @@
       "name": "rioskit--obsidian-todo-txt-mode",
       "source": "./rioskit--obsidian-todo-txt-mode",
       "description": "Obsidian plugin for todo.txt file format support"
+    },
+    {
+      "name": "brain-db-io--brain-db",
+      "source": "./brain-db-io--brain-db",
+      "description": "brain-db"
+    },
+    {
+      "name": "numb94--crewai-astock",
+      "source": "./numb94--crewai-astock",
+      "description": "\u57fa\u4e8e CrewAI \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u7684 A \u80a1\u667a\u80fd\u5206\u6790\u4e0e\u63a8\u8350\u7cfb\u7edf | Multi-agent A-share stock   analyst built on CrewAI"
     },
     {
       "name": "marcoporcellato--logseq-matryca-parser",
@@ -122122,6 +122132,11 @@
       "name": "skeletorflet--opencode-supreme-setup",
       "source": "./skeletorflet--opencode-supreme-setup",
       "description": "opencode-supreme-setup"
+    },
+    {
+      "name": "nicolethoen--patternfly-ai-coding",
+      "source": "./nicolethoen--patternfly-ai-coding",
+      "description": "For developers and AI agents who want to build PatternFly applications using the latest best practices, with AI assistance (Cursor, Copilot, ChatGPT, etc.)."
     },
     {
       "name": "yschimke--compose-ai-tools",
@@ -141019,6 +141034,106 @@
       "description": "Apps for Rokid AI glasses"
     },
     {
+      "name": "zai-org--synapse",
+      "source": "./zai-org--synapse",
+      "description": "Self-hosted AI workspace with shareable AI teammates, shared conversations, memory, and governed access to plugins, MCP tools, and local devices."
+    },
+    {
+      "name": "thesammykins--lgtvmenubar",
+      "source": "./thesammykins--lgtvmenubar",
+      "description": "LGTVMenuBar"
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "haixuantao--xoq",
+      "source": "./haixuantao--xoq",
+      "description": "XoQ"
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "dragonscale-labs--planning-plugin",
+      "source": "./dragonscale-labs--planning-plugin",
+      "description": "planning-plugin"
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "nathanl--pwtrace",
+      "source": "./nathanl--pwtrace",
+      "description": "Playwright trace file CLI interface, for humans and LLMs"
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "johnsonlee--graphite",
+      "source": "./johnsonlee--graphite",
+      "description": "Structured codebase context for LLMs"
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "satisfecho--pos",
+      "source": "./satisfecho--pos",
+      "description": "Restaurant POS and ordering \u2014 self-hosted, multi-tenant, real-time. Menu, tables, reservations, Stripe+Revolut payment, kitchen display, reports, shift-management, provider inventory+ordering. "
+    },
+    {
+      "name": "en-nam--ennam-kg-workspace",
+      "source": "./en-nam--ennam-kg-workspace",
+      "description": "ennam.kg.workspace"
+    },
+    {
+      "name": "kaakati--rails-enterprise-dev",
+      "source": "./kaakati--rails-enterprise-dev",
+      "description": "Enterprise-grade Rails development workflow with multi-agent orchestration, beads task tracking, and quality gates. Generic and portable across any Rails project."
+    },
+    {
+      "name": "lxc-9349--pjfun-blog",
+      "source": "./lxc-9349--pjfun-blog",
+      "description": "\u8fd9\u662f\u4e00\u4e2a\u96f6\u540e\u7aef\u3001\u7eaf\u9759\u6001\u3001\u9876\u7ea7\u52a8\u6548\u3001\u5168\u7403\u79d2\u5f00\u7684\u73b0\u4ee3\u5316\u4e2a\u4eba\u535a\u5ba2\u7cfb\u7edf\u3002 "
+    },
+    {
+      "name": "openlinker-project--openlinker",
+      "source": "./openlinker-project--openlinker",
+      "description": "Self-hosted, API-first e-commerce orchestration platform \u2014 sync products, inventory, and orders across any marketplace."
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -150252,6 +150367,101 @@
       "name": "the-b-l-u-e-project--blue-prototype",
       "source": "./the-b-l-u-e-project--blue-prototype",
       "description": "The broad learning universal education system"
+    },
+    {
+      "name": "yuji-hatakeyama--opencode-gpt-imagegen",
+      "source": "./yuji-hatakeyama--opencode-gpt-imagegen",
+      "description": "OpenCode plugin: image generation via your ChatGPT subscription or OpenAI API"
+    },
+    {
+      "name": "imsobear--agentmind",
+      "source": "./imsobear--agentmind",
+      "description": "A live window into your agent's mind."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "baijum--ukulele-companion",
+      "source": "./baijum--ukulele-companion",
+      "description": "An offline app for learning ukulele \u2014 on Android and iOS. Chords, scales, music theory, composition tools, and more."
+    },
+    {
+      "name": "aperio-lang--aperio",
+      "source": "./aperio-lang--aperio",
+      "description": "aperio"
+    },
+    {
+      "name": "jsoizo--php-result",
+      "source": "./jsoizo--php-result",
+      "description": "A type-safe Result type for PHP 8.2+ with PHPStan support."
+    },
+    {
+      "name": "xiaoxinghu--doing-el",
+      "source": "./xiaoxinghu--doing-el",
+      "description": "doing.el"
+    },
+    {
+      "name": "meathill--muicv",
+      "source": "./meathill--muicv",
+      "description": "Smart AI agent for building CV and finding jobs"
+    },
+    {
+      "name": "markusl--statfin-mcp",
+      "source": "./markusl--statfin-mcp",
+      "description": "Production-grade Model Context Protocol (MCP) server for Statistics Finland's StatFin database. Enables AI assistants like Claude to browse, search, and query Finnish statistical data."
+    },
+    {
+      "name": "henryzaba--globe-dotmatrix",
+      "source": "./henryzaba--globe-dotmatrix",
+      "description": "globe-dotmatrix"
+    },
+    {
+      "name": "query-farm-haybarn--haybarn",
+      "source": "./query-farm-haybarn--haybarn",
+      "description": "Haybarn \u2014 an independent derived distribution of DuckDB by Query Farm"
+    },
+    {
+      "name": "omar-toma--ccpulse",
+      "source": "./omar-toma--ccpulse",
+      "description": "ccpulse"
     },
     {
       "name": "cheerhuan--save-your-token",
@@ -252967,6 +253177,256 @@
       "name": "renatowernik--str8global",
       "source": "./renatowernik--str8global",
       "description": "Str8Global"
+    },
+    {
+      "name": "greydondesu--sekai-inventory",
+      "source": "./greydondesu--sekai-inventory",
+      "description": "\ud83c\udfb4 Project SEKAI card inventory manager CLI - track, update & search your collection"
+    },
+    {
+      "name": "sidgangal--sidgangal-website",
+      "source": "./sidgangal--sidgangal-website",
+      "description": "Personal website - Build, Invest, Thrive"
+    },
+    {
+      "name": "marcusgraetsch--digital-capitalism-research",
+      "source": "./marcusgraetsch--digital-capitalism-research",
+      "description": "digital-capitalism-research"
+    },
+    {
+      "name": "brianespinosa--shippo-packing-slips",
+      "source": "./brianespinosa--shippo-packing-slips",
+      "description": "Raspberry Pi scripts to print packing slips, shipping labels, and schedule USPS pickups at regular intervals using the Shippo API"
+    },
+    {
+      "name": "kmufti7--intelliflow-core",
+      "source": "./kmufti7--intelliflow-core",
+      "description": "Core platform components for IntelliFlow OS"
+    },
+    {
+      "name": "pkayokay--tictactoe-phoenix",
+      "source": "./pkayokay--tictactoe-phoenix",
+      "description": "tictactoe-phoenix"
+    },
+    {
+      "name": "codewiresh--cli",
+      "source": "./codewiresh--cli",
+      "description": "Environments for AI agents and their owners."
+    },
+    {
+      "name": "thephotocrm--ashtonvalephoto",
+      "source": "./thephotocrm--ashtonvalephoto",
+      "description": "ashtonvalephto"
+    },
+    {
+      "name": "onurburak9--opencommish",
+      "source": "./onurburak9--opencommish",
+      "description": "opencommish"
+    },
+    {
+      "name": "mr-akami--coodinate-converter-browser",
+      "source": "./mr-akami--coodinate-converter-browser",
+      "description": "coodinate-converter-browser"
+    },
+    {
+      "name": "rangapin--hr-hiring-signals",
+      "source": "./rangapin--hr-hiring-signals",
+      "description": "hr-hiring-signals"
+    },
+    {
+      "name": "jerryfenc--business-performance-analysis-platform",
+      "source": "./jerryfenc--business-performance-analysis-platform",
+      "description": "Business_Performance_Analysis_Platform"
+    },
+    {
+      "name": "fellesdatakatalog--fdk-labs",
+      "source": "./fellesdatakatalog--fdk-labs",
+      "description": "fdk-labs"
+    },
+    {
+      "name": "a23966719-blip",
+      "source": "./a23966719-blip",
+      "description": "---"
+    },
+    {
+      "name": "packoutsev--assitant",
+      "source": "./packoutsev--assitant",
+      "description": "Assitant "
+    },
+    {
+      "name": "1adybug--docker-management",
+      "source": "./1adybug--docker-management",
+      "description": "docker-management"
+    },
+    {
+      "name": "kazukiyunoue--writing-template",
+      "source": "./kazukiyunoue--writing-template",
+      "description": "writing-template"
+    },
+    {
+      "name": "1adybug--docker-management",
+      "source": "./1adybug--docker-management",
+      "description": "docker-management"
+    },
+    {
+      "name": "ranikronenberger-ai--unhinged",
+      "source": "./ranikronenberger-ai--unhinged",
+      "description": "unhinged"
+    },
+    {
+      "name": "1adybug--docker-management",
+      "source": "./1adybug--docker-management",
+      "description": "docker-management"
+    },
+    {
+      "name": "sudokarna--voiceforge",
+      "source": "./sudokarna--voiceforge",
+      "description": "VoiceForge"
+    },
+    {
+      "name": "1adybug--docker-management",
+      "source": "./1adybug--docker-management",
+      "description": "docker-management"
+    },
+    {
+      "name": "marvinsong-cell--clover-wireframe",
+      "source": "./marvinsong-cell--clover-wireframe",
+      "description": "clover-wireframe"
+    },
+    {
+      "name": "1adybug--docker-management",
+      "source": "./1adybug--docker-management",
+      "description": "docker-management"
+    },
+    {
+      "name": "devgirishattri--agent-plugins",
+      "source": "./devgirishattri--agent-plugins",
+      "description": "Claude Code plugins \u2014 session management, productivity tools, and utilities for Claude Code CLI. Install via /plugin marketplace add    girishattri/claude-plugins."
+    },
+    {
+      "name": "gastonvar--portfolio",
+      "source": "./gastonvar--portfolio",
+      "description": "My portfolio."
+    },
+    {
+      "name": "bharathreddybits--pre-payroll-approval-guard",
+      "source": "./bharathreddybits--pre-payroll-approval-guard",
+      "description": "Pre-Payroll Approval Guard - SaaS app for detecting material payroll changes"
+    },
+    {
+      "name": "hjewkes--workout-analytics",
+      "source": "./hjewkes--workout-analytics",
+      "description": "workout-analytics"
+    },
+    {
+      "name": "tartakovsky--sunstonetales",
+      "source": "./tartakovsky--sunstonetales",
+      "description": "Sunstone Tales \u2014 children's bedtime stories"
+    },
+    {
+      "name": "hjewkes--workout-analytics",
+      "source": "./hjewkes--workout-analytics",
+      "description": "workout-analytics"
+    },
+    {
+      "name": "shamanic-technologies--content-generation-service",
+      "source": "./shamanic-technologies--content-generation-service",
+      "description": "Open Source email generation service"
+    },
+    {
+      "name": "otiumit--protec",
+      "source": "./otiumit--protec",
+      "description": "Sistema de Prote\u00e7\u00e3o e Controle"
+    },
+    {
+      "name": "pran-d--diffusion-planner",
+      "source": "./pran-d--diffusion-planner",
+      "description": "diffusion-planner"
+    },
+    {
+      "name": "mybricks--mybricks-ide-ui-plugin-vscode",
+      "source": "./mybricks--mybricks-ide-ui-plugin-vscode",
+      "description": "mybricks-ide-ui-plugin-vscode"
+    },
+    {
+      "name": "vikashbagla--vikash-wms",
+      "source": "./vikashbagla--vikash-wms",
+      "description": "Wealth Management System App"
+    },
+    {
+      "name": "thankgod74--startistic",
+      "source": "./thankgod74--startistic",
+      "description": "start"
+    },
+    {
+      "name": "spfr--figma-design-pipeline",
+      "source": "./spfr--figma-design-pipeline",
+      "description": "Open-source MCP pipeline for Figma: inspect designs, apply safe mutations, sync tokens, and generate code with Claude, Codex, Gemini, and Figma desktop."
+    },
+    {
+      "name": "sozercan--pano",
+      "source": "./sozercan--pano",
+      "description": "\ud83d\udcca Modern Kubernetes TestGrid viewer"
+    },
+    {
+      "name": "robertgleison--magic-grimoire",
+      "source": "./robertgleison--magic-grimoire",
+      "description": "A tiny project to study system design with Magic the Gathering"
+    },
+    {
+      "name": "taylormeador--stock-analysis",
+      "source": "./taylormeador--stock-analysis",
+      "description": "stock-analysis"
+    },
+    {
+      "name": "purduehackers--shelter",
+      "source": "./purduehackers--shelter",
+      "description": "Projects looking for a loving home!"
+    },
+    {
+      "name": "ncukondo-research--ai-vs-human-feedback-analysis",
+      "source": "./ncukondo-research--ai-vs-human-feedback-analysis",
+      "description": "Complete analysis code for the research paper \"Comparison of Feedback from AI and Supervisors\""
+    },
+    {
+      "name": "gvera-multivia--xaloc2026-main",
+      "source": "./gvera-multivia--xaloc2026-main",
+      "description": "xaloc2026-main"
+    },
+    {
+      "name": "madeddie--k8s-resource-cli",
+      "source": "./madeddie--k8s-resource-cli",
+      "description": "A vibe-coded CLI tool to calculate k8s pod requests and usage"
+    },
+    {
+      "name": "jackcarvajal--dental-portfolio",
+      "source": "./jackcarvajal--dental-portfolio",
+      "description": "Mi portafolio dental"
+    },
+    {
+      "name": "nathantarbert--incident-copilot",
+      "source": "./nathantarbert--incident-copilot",
+      "description": "\ud83d\udd10 AI-powered incident-response dashboard built with CopilotKit + Custom Agent \u2014 natural-language triage, human-in-the-loop actions, and live charts over a decade of global cybersecurity threats."
+    },
+    {
+      "name": "smist37--fitnotes-coach",
+      "source": "./smist37--fitnotes-coach",
+      "description": "fitnotes-coach"
+    },
+    {
+      "name": "mereditharmcgee--ratemyplace",
+      "source": "./mereditharmcgee--ratemyplace",
+      "description": "ratemyplace"
+    },
+    {
+      "name": "lettuce222--rss-feed",
+      "source": "./lettuce222--rss-feed",
+      "description": "rss-feed"
+    },
+    {
+      "name": "meiyaobuyao123-hash--agent-trading",
+      "source": "./meiyaobuyao123-hash--agent-trading",
+      "description": "Agent-Trading"
     }
   ]
 }
