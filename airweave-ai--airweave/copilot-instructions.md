@@ -1,35 +1,127 @@
-## arf
+## auth-providers
 
-> Raw entity capture for replay, debugging, and evals.
+> Auth providers enable third-party services (Pipedream, Composio) to supply credentials for source connections, eliminating manual credential management and enabling OAuth at scale for agent developers who are already using these connector providers.
 
-# Airweave Raw Format (ARF)
+# Airweave Auth Providers
 
-Raw entity capture for replay, debugging, and evals.
+## Overview
+Auth providers enable third-party services (Pipedream, Composio) to supply credentials for source connections, eliminating manual credential management and enabling OAuth at scale for agent developers who are already using these connector providers.
 
-## Structure
+## Architecture
+
+### Core Components
+```
+domains/auth_provider/
+├── _base.py              # BaseAuthProvider abstract class
+├── auth_result.py        # AuthResult dataclass
+├── exceptions.py         # Typed exception hierarchy
+├── protocols.py          # Domain protocols
+├── registry.py           # Provider discovery/registration
+├── service.py            # AuthProviderService
+├── types.py              # Shared type aliases
+├── providers/
+│   ├── composio.py       # API key provider
+│   ├── klavis.py         # Future provider
+│   └── pipedream.py      # OAuth2 provider (tokens expire in 3600s)
+└── tests/
+```
+
+### Provider Registration
+```python
+@auth_provider(
+    name="Pipedream",
+    short_name="pipedream",
+    auth_config_class=PipedreamAuthConfig,
+    config_class=PipedreamConfig,
+)
+class PipedreamAuthProvider(BaseAuthProvider):
+    async def create(credentials, config): ...
+    async def get_creds_for_source(source_short_name, fields): ...
+```
+
+### Provider Configuration
+Providers have several configuration mechanisms:
+
+#### Field Mappings
+Map between Airweave and external service naming:
+```python
+# Map Airweave field names to provider field names
+FIELD_NAME_MAPPING = {"api_key": "generic_api_key", "personal_access_token": "access_token"}
+
+# Map Airweave source names to provider source names (only needed when names differ)
+SLUG_NAME_MAPPING = {
+    "google_drive": "googledrive",
+    "google_slides": "googleslides",
+    "outlook_mail": "outlook"
+}
+```
+
+
+## Integration with TokenProviderProtocol
+
+Auth providers integrate via `AuthProviderTokenProvider`, one of three `TokenProviderProtocol` implementations:
+
+### Protocol hierarchy
 
 ```
-raw/{sync_id}/
-├── manifest.json          # Sync metadata
-├── entities/{id}.json     # One file per entity
-└── files/{id}_{name}      # Binary files (optional)
+SourceAuthProvider (Protocol)          — base: provider_kind + supports_refresh
+├── TokenProviderProtocol (Protocol)   — get_token() + force_refresh()
+│   ├── OAuthTokenProvider             — expiry-aware refresh, DB-backed
+│   ├── StaticTokenProvider            — raw string / API key (no refresh)
+│   └── AuthProviderTokenProvider      — delegates to Pipedream / Composio
+└── DirectCredentialProvider[T]        — structured creds (NTLM, client_credentials)
 ```
 
-## Key Files
+```python
+class SourceAuthProvider(Protocol):
+    @property
+    def provider_kind(self) -> AuthProviderKind: ...  # "oauth" | "auth_provider" | "static" | "credential"
+    @property
+    def supports_refresh(self) -> bool: ...
 
-- **StoragePaths**: `domains/storage/paths.py` (path constants: `arf_sync_path`, `arf_entity_path`, `safe_filename`)
-- **ArfService**: `domains/arf/service.py` (write operations during sync, implements `ArfServiceProtocol`)
-- **ArfReader**: `domains/arf/reader.py` (entity reconstruction for replay, implements `ArfReaderProtocol`)
-- **ArfReplaySource**: `domains/arf/replay_source.py` (internal source for ARF replay)
-- **Protocols**: `domains/arf/protocols.py` (`ArfServiceProtocol`, `ArfReaderProtocol`)
-- **Fakes**: `domains/arf/fakes/` (in-memory test doubles: `FakeArfService`, `FakeArfReader`)
-- **StorageBackend protocol**: `domains/storage/protocols.py` (injected into ArfService/ArfReader)
-- **Storage adapters** (FYI): `adapters/storage/` (Filesystem, Azure Blob, AWS S3, GCP GCS)
-- **Config**: `STORAGE_BACKEND` (filesystem, azure, aws, gcp)
+class TokenProviderProtocol(SourceAuthProvider, Protocol):
+    async def get_token(self) -> str: ...
+    async def force_refresh(self) -> str: ...
+```
 
-## Usage
+Sources receive `auth: SourceAuthProvider` at construction. Narrow the type in `create()` to declare what you need:
+- `auth: TokenProviderProtocol` for token-based sources (90%)
+- `auth: DirectCredentialProvider[MyAuthConfig]` for structured-credential sources
 
-`ArfService` is injected into `ArfHandler` via `EntityDispatcherBuilder`. Capture happens during action dispatch (INSERT/UPDATE entities stored, DELETE entities removed). The `ArfHandler` lives in `platform/sync/handlers/arf.py`.
+### AuthProviderTokenProvider
+Created by `SourceLifecycleService` when a source connection has an `auth_provider_connection_id`.
+
+```python
+# Lifecycle builds the provider with the auth provider instance
+provider = AuthProviderTokenProvider(
+    auth_provider=auth_provider_instance,
+    source_short_name="slack",
+    auth_config_fields=["access_token", "refresh_token"],
+    logger=logger,
+)
+```
+
+#### Refresh Flow
+1. **`get_token()`** — calls `auth_provider.get_creds_for_source()` each time to fetch fresh credentials from the external service (Pipedream/Composio)
+2. **`force_refresh()`** — same as `get_token()` (auth providers always return fresh creds)
+3. **Retry** — uses tenacity (3 attempts, exponential backoff) on `AuthProviderServerError` / `AuthProviderRateLimitError`
+4. **Error translation** — `AuthProviderError` subtypes are mapped to `TokenProviderError` subtypes:
+   - `AuthProviderAuthError` → `TokenCredentialsInvalidError`
+   - `AuthProviderAccountNotFoundError` → `TokenProviderAccountGoneError`
+   - `AuthProviderMissingFieldsError` → `TokenProviderMissingCredsError`
+   - `AuthProviderConfigError` → `TokenProviderConfigError`
+   - `AuthProviderRateLimitError` → `TokenProviderRateLimitError`
+   - `AuthProviderServerError` → `TokenProviderServerError`
+
+### Provider Resolution (in SourceLifecycleService)
+1. Auth provider connection present → `AuthProviderTokenProvider`
+2. OAuth credentials with `oauth_type` → `OAuthTokenProvider`
+3. Direct token injection → `StaticTokenProvider`
+
+## Database Schema
+- **auth_providers**: Provider definitions from decorators
+- **auth_provider_connections**: User's configured providers (encrypted)
+- **source_connections**: Links to auth provider via `auth_provider_connection_id`
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
