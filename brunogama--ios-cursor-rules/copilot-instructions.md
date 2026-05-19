@@ -1,155 +1,104 @@
-## on-load-rule
+## prepare
 
-> This guide outlines the critical development principles for this Swift project.
+> Force deep preperation before answering a prompt
 
-# Swift Project Development Guidelines
+## Steps to Take Before Reasoning
+**Immediately before** you start reasoning about the human’s prompt, perform the following research steps to gather broad context. Collect any information relevant to the prompt or that would help execute on it effectively:
 
-This guide outlines the critical development principles for this Swift project.
+1. **Search all packages for shared libraries, utilities, and patterns**  
+   - Note what can be reused to avoid redundancy.  
+2. **Find and note any schemas, models, types, constants, or configuration files**  
+   - Collect relevant structured data critical to the function of the codebase and application.  
+3. **Locate coding standards and practices**  
+   - Identify conventions you must follow for naming, file structure, code formatting, etc.  
+4. **Identify existing tooling, scripts, and workflows**  
+   - Note any automated processes or frameworks already in place.  
+5. **Review overarching CI/CD pipelines and deployment models**  
+   - Ensure your contributions align with established build, test, and release processes.  
+6. **Check existing versioning and release management practices**  
+   - Understand how changes are documented, tagged, and published.  
+7. **Assess design patterns, syntax preferences, or stylistic approaches**  
+   - Confirm you are imitating the prevailing style unless it is severely flawed.
 
-<rule>
-name: on_load_rule
-filters:
-  - type: event
-    pattern: "cursor_start"
-  - type: command
-    pattern: "@principles"
+Use these findings to maintain consistency and preserve the codebase’s cohesiveness.
 
-actions:
-  - type: suggest
-    message: |
-      # Critical Development Principles
-      
-      This Swift project follows strict architectural and code quality guidelines:
+---
 
-      ## 1. Architecture
-      
-      We follow **Clean Architecture** with:
-      - **Domain Layer**: Pure business logic, no frameworks
-      - **Application Layer**: Use cases orchestrating domain entities
-      - **Interface Adapters Layer**: Bridges between domain and external systems
-      - **Infrastructure Layer**: Frameworks, drivers, and UI
-      
-      **Key principle**: Dependencies point inward. Outer layers depend on inner layers, never the reverse.
+## Rules for Prepping When Proposing a Solution
 
-      ## 2. Domain-Driven Design
-      
-      All domain modeling must use DDD tactical patterns:
-      - **Entities**: Objects with identity (User, Order)
-      - **Value Objects**: Immutable objects defined by their attributes (Email, Money)
-      - **Aggregates**: Consistency boundaries with a single entry point (OrderAggregate)
-      - **Domain Events**: Record important business events (OrderPlaced, PaymentReceived)
-      - **Repositories**: Data access abstractions for aggregates
-      
-      **Bounded Contexts** define boundaries between different domain areas.
+1. **Recall the Research Objective**  
+   - Your proposal must fit seamlessly into the existing architecture, leveraging documented patterns and standards.
 
-      ## 3. Object Callisthenics
-      
-      Strictly follow these 9 rules:
-      1. One level of indentation per method
-      2. Don't use the ELSE keyword
-      3. Wrap all primitives and strings
-      4. Use first-class collections
-      5. One dot per line (no method chaining)
-      6. Don't abbreviate names
-      7. Keep entities small (50 lines per class, 10 files per package)
-      8. No classes with more than 2 instance variables
-      9. No getters/setters/properties (focus on behavior)
+2. **Incorporate Research Findings**  
+   - Reuse any shared libraries or utilities discovered in the “Steps to Take Before Reasoning.”  
+   - Respect existing schemas, models, constants, or configurations to avoid conflicts and duplication.  
+   - Align your proposal with established coding and deployment standards so it can pass automated checks.
 
-      ## 4. Testing Principles
-      
-      **Every public function must have unit tests.**
-      
-      Test coverage requirements:
-      - Domain Layer: 100%
-      - Application Layer: 100%
-      - Interface Adapters: 90%+
-      - Infrastructure: Critical paths
-      
-      Always follow AAA pattern (Arrange-Act-Assert).
+3. **Draft a High-Level Plan**  
+   - Provide a concise outline of how the solution should work.  
+   - Highlight any significant performance, security, or maintainability considerations.  
+   - Call out dependencies, tools, or frameworks that will be involved.
 
-      ## 5. Package Structure
-      
-      Packages are organized by layer first, then by bounded context:
-      
-      ```
-      Sources/
-      ├── Domain/
-      │   ├── [BoundedContext1]/
-      │   ├── [BoundedContext2]/
-      ├── Application/
-      │   ├── [BoundedContext1]/
-      │   ├── [BoundedContext2]/
-      ├── InterfaceAdapters/
-      │   ├── [BoundedContext1]/
-      │   ├── [BoundedContext2]/
-      └── Infrastructure/
-          ├── [BoundedContext1]/
-          ├── [BoundedContext2]/
-      ```
-      
-      ## 6. Naming Conventions
-      
-      - Domain classes: Business terms (User, Order, Product)
-      - Use cases: VerbNoun format (CreateOrderUseCase, AuthenticateUserUseCase)
-      - Protocols: Nouns or adjectives (UserRepository, Authenticatable)
-      - Extensions: Extended type + feature (String+Validation)
-      
-      ## 7. Error Handling
-      
-      - Domain errors should be typed, not strings (enum OrderError)
-      - Use Swift's Result type for operations that can fail
-      - Fail early and explicitly
-      - Prefer throwing specific errors over optionals for failure cases
-      
-      ## 8. Dependency Injection
-      
-      - Dependencies must be explicit through constructor injection
-      - Use protocols to define dependencies, not concrete classes
-      - Do not use service locators or global singletons
-      
-      ## 9. Documentation Requirements
-      
-      - Domain models: Full documentation with business purpose
-      - Use cases: Documentation with inputs, outputs, and errors
-      - Public APIs: Fully documented with examples
-      - Tests: Clear arrange-act-assert sections
+4. **Adhere to Versioning and CI/CD Requirements**  
+   - Confirm how your solution will be tested, validated, and integrated into the existing release management flow.  
+   - Indicate if any major or minor version increments are needed based on the scope of your proposed changes.
 
-      ## 10. Code Review Checklist
-      
-      - Follows Clean Architecture dependencies
-      - Adheres to DDD principles
-      - Satisfies Object Callisthenics rules
-      - Has required test coverage
-      - Properly documented
-      - No code smells
+5. **Justify Your Approach**  
+   - Explain why your proposed solution is the best path forward, referencing codebase patterns and prior successful implementations.  
+   - If deviating from established norms, provide a clear, data-backed rationale.
 
-examples:
-  - input: |
-      I need to implement user authentication
-    output: |
-      I'll help you implement user authentication following our project principles:
-      
-      Let's approach this using Clean Architecture, DDD, and Object Callisthenics:
-      
-      1. First, I'll create domain entities and value objects in the Domain layer:
-         - A `User` entity with identity
-         - `Email` and `Password` as value objects with validation
-         - `AuthenticationError` enum for domain errors
-      
-      2. Next, I'll create use cases in the Application layer:
-         - `AuthenticateUserUseCase` with clear input/output boundaries
-         - `RegisterUserUseCase` for user registration
-      
-      3. Then I'll create repository interfaces and presenters in the Interface Adapters layer
-      
-      4. Finally, I'll implement concrete adapters in the Infrastructure layer
-      
-      All public functions will have unit tests, and I'll follow Object Callisthenics strictly (small methods, no else statements, etc.).
+---
 
-metadata:
-  priority: critical
-  version: 1.0
-</rule>
+## Rules for Prepping When Debugging
+
+1. **Reaffirm the Research Objective**  
+   - Remember that any debugging effort must not break existing patterns or introduce regressions.
+
+2. **Gather Context from “Steps to Take Before Reasoning”**  
+   - Re-check relevant shared libraries, utilities, and coding standards related to the area you are debugging.  
+   - Review schemas, models, or constants that could influence the bug or fix.  
+   - Confirm if any CI/CD steps need to be considered for testing or deploying bug fixes.
+
+3. **Formulate a Debugging Strategy**  
+   - Identify the potential causes or hypotheses for the bug.  
+   - Locate any known error-handling patterns, logging frameworks, or specialized debug tools.  
+   - Plan small, isolated tests to verify each hypothesis without disrupting other parts of the codebase.
+
+4. **Ensure Code Consistency**  
+   - When you patch a bug, use the same logging and error-handling approaches as the rest of the application.  
+   - Document your debugging steps and the final resolution concisely so that future maintainers can understand what was changed.
+
+---
+
+## Rules for Prepping When Implementing a Solution or Modifying Code
+
+1. **Stay Focused on the Research Objective**  
+   - Do not introduce code that conflicts with established patterns unless it is demonstrably superior and approved by relevant standards.
+
+2. **Apply “Steps to Take Before Reasoning” During Implementation**  
+   - Verify you’re leveraging shared libraries where possible.  
+   - Double-check that all relevant constants, models, or configurations are used correctly.  
+   - Maintain alignment with project-wide styling and architecture guidelines.
+
+3. **Implementation Checklist**  
+   - **File and Folder Organization**: Place new files in appropriate directories and follow naming conventions.  
+   - **Coding Standards**: Use the project’s standard patterns for function naming, class naming, and documentation.  
+   - **Testing**: Write or update unit, integration, or end-to-end tests to ensure the change’s reliability.  
+   - **Documentation**: Provide clear inline comments, commit messages, or a brief summary in a README if necessary.  
+   - **Deployment**: Validate that any new or updated code can be seamlessly built and deployed using the existing CI/CD pipeline.
+
+4. **Versioning and Release Notes**  
+   - Update the version number if the changes warrant it (e.g., patch, minor, or major release).  
+   - Add concise release notes describing the nature of your modifications.
+
+5. **Review and Confirm**  
+   - Perform a final check to ensure your changes meet the previously identified project patterns, style, and deployment requirements.  
+   - Confirm all tests pass locally and in the CI pipeline before finalizing.
+
+---
+
+## Closing Notes
+By following these organized steps—**researching before reasoning**, **debugging effectively**, **proposing robust solutions**, and **implementing changes cohesively**—you will ensure your contributions are thoroughly aligned with the project’s standards and **never disturb** its overall cohesiveness.
 
 ---
 > Source: [brunogama/ios-cursor-rules](https://github.com/brunogama/ios-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
