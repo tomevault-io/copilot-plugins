@@ -1,0 +1,9 @@
+{
+  "name": "neondatabase--neon-pkgs",
+  "displayName": "neon-pkgs",
+  "description": "\ud83d\udc18 CLI to help you hit the ground running without any sign-up. Instantiate a database with a single-command.",
+  "version": "1.0.0",
+  "author": "neondatabase",
+  "homepage": "https://github.com/neondatabase/neon-pkgs",
+  "skills": []
+}
