@@ -1,42 +1,46 @@
-## standalone-apps
+## tests
 
-> You are working on a **standalone inference application** (HailoInfer + OpenCV, no GStreamer).
+> You are working on **tests** for the Hailo Apps repository.
 
 
-# Standalone Apps — Contextual Instructions
+# Tests — Contextual Instructions
 
-You are working on a **standalone inference application** (HailoInfer + OpenCV, no GStreamer).
+You are working on **tests** for the Hailo Apps repository.
 
 ## Required Context Files
 
 Read these files before making changes (paths relative to `.hailo/`):
 
-- `skills/hl-build-standalone-app/SKILL.md` — Standalone app patterns
-- `instructions/coding-standards.md` — Import rules, logging, HEF resolution
-- `toolsets/core-framework-api.md` — HailoInfer, camera_utils, parsers
-- `toolsets/hailort-api.md` — VDevice, HEF resolution, constants
-- `memory/hailo_platform_api.md` — VDevice creation, HEF resolution chain
+- `instructions/testing-patterns.md` — pytest framework, markers, fixtures, patterns
+- `skills/hl-validate.md` — 5 validation levels, test templates
+- `instructions/coding-standards.md` — Import rules, logging conventions
 - `memory/common_pitfalls.md` — Known anti-patterns to avoid
 
-## Additional Context (load if relevant)
+## Key Patterns for Tests
 
-- If camera input: `memory/camera_and_display.md`, `skills/hl-camera.md`
-- If adding models: `skills/hl-model-management.md`
+- Use `pytest` with markers: `@pytest.mark.pipeline`, `@pytest.mark.standalone`, `@pytest.mark.gen_ai`
+- Test config in `hailo_apps/config/test_definition_config.yaml`
+- Control which tests run via `tests/test_control.yaml`
+- Use fixtures from `tests/conftest.py`
+- Always use absolute imports in tests
 
-## Key Patterns for Standalone Apps
+## Running Tests
 
-- Use `HailoInfer` for inference (wraps VDevice + HEF loading)
-- Use `get_standalone_parser()` for CLI arguments
-- Use `SHARED_VDEVICE_GROUP_ID` for VDevice creation
-- Always resolve HEF paths with `resolve_hef_path(path, app_name, arch)`
-- OpenCV for frame capture and display — check `camera_and_display.md` for BGR/RGB gotchas
-- Register new apps in `hailo_apps/python/core/common/defines.py`
+```bash
+pytest tests/test_runner.py -v              # Pipeline app tests
+pytest tests/test_standalone_runner.py -v   # Standalone tests
+pytest tests/test_gen_ai.py -v              # GenAI tests (Hailo-10H only)
+pytest tests/test_sanity_check.py -v        # Sanity checks
+pytest tests/ -v                            # All tests
+```
 
-## Reference Implementations
+## Key Test Files
 
-- Object detection: `hailo_apps/python/standalone_apps/object_detection/`
-- Pose estimation: `hailo_apps/python/standalone_apps/pose_estimation/`
-- Instance segmentation: `hailo_apps/python/standalone_apps/instance_segmentation/`
+- `tests/conftest.py` — Shared fixtures and configuration
+- `tests/test_runner.py` — Pipeline app test runner
+- `tests/test_standalone_runner.py` — Standalone app tests
+- `tests/test_gen_ai.py` — Gen AI app tests
+- `tests/test_utils.py` — Test utility functions
 
 ---
 > Source: [hailo-ai/hailo-apps](https://github.com/hailo-ai/hailo-apps) — distributed by [TomeVault](https://tomevault.io).
