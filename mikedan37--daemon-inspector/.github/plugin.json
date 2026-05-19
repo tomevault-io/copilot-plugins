@@ -1,0 +1,9 @@
+{
+  "name": "mikedan37--daemon-inspector",
+  "displayName": "daemon-inspector",
+  "description": "daemon-inspector is a read-only forensic CLI for macOS that observes launchd daemons over time. It collects snapshots, derives lifecycle events, tracks instability, and inspects on-disk binaries witho",
+  "version": "1.0.0",
+  "author": "Mikedan37",
+  "homepage": "https://github.com/Mikedan37/daemon-inspector",
+  "skills": []
+}
