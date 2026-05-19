@@ -1,124 +1,136 @@
-## trigger-scheduled-tasks
+## ui
 
-> How to write and use scheduled Trigger.dev tasks
+> 1. **First choice:** `@trycompai/design-system`
 
-# Scheduled tasks (cron)
+# UI Components
 
-Recurring tasks using cron. For one-off future runs, use the **delay** option.
+## Design System Priority
 
-## Define a scheduled task
+1. **First choice:** `@trycompai/design-system`
+2. **Fallback:** `@trycompai/ui` only if DS doesn't have the component
 
-```ts
-import { schedules } from "@trigger.dev/sdk";
+```tsx
+// ✅ Design system
+import { Button, Card, Input, Sheet, Badge } from '@trycompai/design-system';
+import { Add, Close, ArrowRight } from '@trycompai/design-system/icons';
 
-export const task = schedules.task({
-  id: "first-scheduled-task",
-  run: async (payload) => {
-    payload.timestamp; // Date (scheduled time, UTC)
-    payload.lastTimestamp; // Date | undefined
-    payload.timezone; // IANA, e.g. "America/New_York" (default "UTC")
-    payload.scheduleId; // string
-    payload.externalId; // string | undefined
-    payload.upcoming; // Date[]
+// ❌ Don't use when DS has it
+import { Button } from '@trycompai/ui/button';
+import { Plus } from 'lucide-react';
+```
 
-    payload.timestamp.toLocaleString("en-US", { timeZone: payload.timezone });
+## No className on DS Components
+
+DS components don't accept `className`. Use variants and props only.
+
+```tsx
+// ✅ Use variants
+<Button variant="destructive" size="sm" loading={isLoading}>Delete</Button>
+<Button type="submit" iconRight={<ArrowRight size={16} />}>Continue</Button>
+<Badge variant="outline">Active</Badge>
+
+// ❌ TypeScript will error
+<Button className="bg-red-500">Delete</Button>
+```
+
+## Layout with Wrapper Divs
+
+For layout concerns, wrap DS components:
+
+```tsx
+// ✅ Wrapper for width
+<div className="w-full">
+  <Button>Full Width</Button>
+</div>
+
+// ✅ Use Stack for spacing
+<Stack gap="4" direction="row">
+  <Button>First</Button>
+  <Button>Second</Button>
+</Stack>
+```
+
+## Componentize Repeated Patterns
+
+If a pattern appears 2+ times, extract it:
+
+```tsx
+// Repeated? Make a component
+<div className="flex items-center gap-2">
+  <div className="w-2 h-2 rounded-full bg-green-500" />
+  <span className="text-sm">Active</span>
+</div>
+// → Create <StatusDot status="active" />
+```
+
+## Extension Strategy
+
+When you need new styling:
+
+1. **Check existing variants** - component may already support it
+2. **Add a variant** to the component's `cva` definition
+3. **Create a new component** if it's a genuinely new pattern
+
+```tsx
+// Adding a variant
+const badgeVariants = cva("...", {
+  variants: {
+    variant: {
+      // existing...
+      counter: "bg-muted text-muted-foreground tabular-nums font-mono",
+    },
   },
 });
 ```
 
-> Scheduled tasks need at least one schedule attached to run.
+## Semantic Colors
 
-## Attach schedules
+Use CSS variables, not hardcoded colors:
 
-**Declarative (sync on dev/deploy):**
+```tsx
+// ✅ Semantic tokens
+<div className="bg-background text-foreground border-border">
+<div className="bg-muted text-muted-foreground">
+<div className="bg-destructive/10 text-destructive">
 
-```ts
-schedules.task({
-  id: "every-2h",
-  cron: "0 */2 * * *", // UTC
-  run: async () => {},
-});
-
-schedules.task({
-  id: "tokyo-5am",
-  cron: { pattern: "0 5 * * *", timezone: "Asia/Tokyo", environments: ["PRODUCTION", "STAGING"] },
-  run: async () => {},
-});
+// ❌ Hardcoded
+<div className="bg-white text-black">
+<div className="bg-[#059669]">
 ```
 
-**Imperative (SDK or dashboard):**
+## Dark Mode
 
-```ts
-await schedules.create({
-  task: task.id,
-  cron: "0 0 * * *",
-  timezone: "America/New_York", // DST-aware
-  externalId: "user_123",
-  deduplicationKey: "user_123-daily", // updates if reused
-});
+Always support both modes:
+
+```tsx
+// Status colors with dark variants
+<div className="bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400">
+<div className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400">
 ```
 
-### Dynamic / multi-tenant example
+## Icons
 
-```ts
-// /trigger/reminder.ts
-export const reminderTask = schedules.task({
-  id: "todo-reminder",
-  run: async (p) => {
-    if (!p.externalId) throw new Error("externalId is required");
-    const user = await db.getUser(p.externalId);
-    await sendReminderEmail(user);
-  },
-});
+Carbon icons from DS, not lucide:
+
+```tsx
+// ✅ Design system icons with size prop
+import { Add, Close, ChevronDown } from '@trycompai/design-system/icons';
+<Add size={16} />
+
+// ❌ Don't use lucide
+import { Plus, X } from 'lucide-react';
+<Plus className="h-4 w-4" />
 ```
 
-```ts
-// app/reminders/route.ts
-export async function POST(req: Request) {
-  const data = await req.json();
-  return Response.json(
-    await schedules.create({
-      task: reminderTask.id,
-      cron: "0 8 * * *",
-      timezone: data.timezone,
-      externalId: data.userId,
-      deduplicationKey: `${data.userId}-reminder`,
-    })
-  );
-}
+## Anti-Patterns
+
+```tsx
+// ❌ Never do these
+<div style={{ display: 'flex' }}>              // Inline styles
+<Button className="bg-red-500">               // className on DS
+<div className="bg-[#059669]">                // Hardcoded colors
+<div className="w-[847px]">                   // Arbitrary values
 ```
-
-## Cron syntax (no seconds)
-
-```
-* * * * *
-| | | | └ day of week (0–7 or 1L–7L; 0/7=Sun; L=last)
-| | | └── month (1–12)
-| | └──── day of month (1–31 or L)
-| └────── hour (0–23)
-└──────── minute (0–59)
-```
-
-## When schedules won't trigger
-
-- **Dev:** only when the dev CLI is running.
-- **Staging/Production:** only for tasks in the **latest deployment**.
-
-## SDK management (quick refs)
-
-```ts
-await schedules.retrieve(id);
-await schedules.list();
-await schedules.update(id, { cron: "0 0 1 * *", externalId: "ext", deduplicationKey: "key" });
-await schedules.deactivate(id);
-await schedules.activate(id);
-await schedules.del(id);
-await schedules.timezones(); // list of IANA timezones
-```
-
-## Dashboard
-
-Create/attach schedules visually (Task, Cron pattern, Timezone, Optional: External ID, Dedup key, Environments). Test scheduled tasks from the **Test** page.
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
