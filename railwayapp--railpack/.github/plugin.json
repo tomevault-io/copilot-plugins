@@ -1,0 +1,9 @@
+{
+  "name": "railwayapp--railpack",
+  "displayName": "railpack",
+  "description": "Zero-config application builder that automatically analyzes and turns your code into an image",
+  "version": "1.0.0",
+  "author": "railwayapp",
+  "homepage": "https://github.com/railwayapp/railpack",
+  "skills": []
+}
