@@ -1,53 +1,42 @@
-## delegate-testing-to-user
+## implementation-plans
 
-> Delegate testing, validation, verification, and feature checking to the user instead of AI trying to test itself. Apply when discussing testing, validation, checking if features work, or verifying functionality.
+> Guidelines for writing feature implementation plans
 
+# Feature Implementation Plan Standards
 
-# Delegate Testing to User
+When creating implementation plans for a single feature:
 
-**Always ask the user to test features instead of trying to test them yourself.**
+- Keep the plan scoped to only that feature.
+- Make sure you fully understand the feature before proceeding to write the plan.
+- Ask the user questions to clarify your understanding. The user often won't have figured out all the details of a feature before they begin to build it. You should act like an expert product manager and help them think through the user experience and technical implementation of each feature.
+- New plans should be markdown files stored inside the "planning" folder. Create this folder if it doesn't exist yet.
 
-## Why This Rule Exists
-The user can:
-- See actual rendered output
-- Interact with the interface  
-- Test responsive behavior
-- Verify real browser behavior
-- Catch visual/UX issues the AI can't see
+## Document Structure
 
-## ✅ Good Testing Approach
+- Maintain a task checklist with checkboxes (- [ ] or - [x])
+- Include "Current Phase" and "Overall Progress" summaries
+- Write in present tense for current work, past tense for completed work
+- Include specific file names and locations when mentioning code changes
+- Make notes on completed tasks at the bottom with full details
+- Use consistent formatting for task IDs (P1.1, P1.2, etc.)
 
-### 1. Ask the user to test with specific instructions:
-*"Can you run `npm run dev` and test the NowCard component by navigating to [specific page]? Please check if [specific behavior] works and report back."*
+## Phase Completion Workflow
 
-### 2. Be specific about what to test:
-- Which pages to visit
-- What specific functionality to check  
-- What the expected behavior should be
-- Any edge cases to verify
+After completing each phase of implementation:
+- Ask the user to test the implementation and verify it looks correct
+- Update the planning document to mark completed tasks as done
+- Move detailed completion notes to the bottom of the document
+- Update the "Current Phase" and "Overall Progress" sections
+- Update the "Last Updated" timestamp using `npm run date` which will give you today's date
 
-### 3. Ask for detailed feedback:
-*"Please let me know:*
-*- Does the component render correctly?*  
-*- Are there any styling issues?*
-*- Does the hover effect work as expected?"*
+## Task Documentation
 
-## ❌ Never Do These:
-- Run build commands to "test"
-- Try to verify visual/interactive behavior without user input
-- Make assumptions about whether features work
-- Test without user feedback
-
-## Examples
-
-❌ **Wrong:** "Let me run the build to test if this works"
-✅ **Right:** "Can you test the NowCard component by running the dev server?"
-
-❌ **Wrong:** "I'll verify the component renders correctly"  
-✅ **Right:** "Please check if the hover effects work and report back"
-
-❌ **Wrong:** "The feature should work now"
-✅ **Right:** "Can you test if the filtering works correctly on the garden page?"
+Each completed task should include:
+- Files modified/created
+- Key features implemented
+- Technical improvements made
+- User experience enhancements
+- Any issues resolved
 
 ---
 > Source: [MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) — distributed by [TomeVault](https://tomevault.io).
