@@ -4,7 +4,7 @@
   "repo": "byaan",
   "description": "Open-Source data analyst your team actually owns. Ask in Slack, on Mac, or via MCP. Byaan learns your business. Read-only by design",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/byaan-ai/byaan",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:49:16Z"
+  "distributed_at": "2026-05-19T00:02:04Z"
 }
