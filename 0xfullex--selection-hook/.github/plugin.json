@@ -1,0 +1,9 @@
+{
+  "name": "0xfullex--selection-hook",
+  "displayName": "selection-hook",
+  "description": "The first open-source, cross-platform library for text selection monitoring and global   mouse/keyboard event hooks \u2014 production-grade, for Node.js and Electron.",
+  "version": "1.0.0",
+  "author": "0xfullex",
+  "homepage": "https://github.com/0xfullex/selection-hook",
+  "skills": []
+}
