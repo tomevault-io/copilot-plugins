@@ -1,0 +1,9 @@
+{
+  "name": "dellolmstead-eng--ae210finalexamgrader",
+  "displayName": "AE210FinalExamGrader",
+  "description": "Autograder for the JET portion of the AE 210 final exam",
+  "version": "1.0.0",
+  "author": "dellolmstead-eng",
+  "homepage": "https://github.com/dellolmstead-eng/AE210FinalExamGrader",
+  "skills": []
+}
