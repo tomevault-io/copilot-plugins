@@ -1,29 +1,72 @@
-## landing-seo-geo
+## sim-architecture
 
-> SEO and GEO guidelines for the landing page
+> Core architecture principles for the Sim app
 
 
-# Landing Page — SEO / GEO
+# Sim App Architecture
 
-## SEO
+## Core Principles
+1. **Single Responsibility**: Each component, hook, store has one clear purpose
+2. **Composition Over Complexity**: Break down complex logic into smaller pieces
+3. **Type Safety First**: TypeScript interfaces for all props, state, return types
+4. **Predictable State**: Zustand for global state, useState for UI-only concerns
 
-- One `<h1>` per page, in Hero only — never add another.
-- Strict heading hierarchy: H1 (Hero) → H2 (section titles) → H3 (feature names).
-- Every section: `<section id="…" aria-labelledby="…-heading">`.
-- Decorative/animated elements: `aria-hidden="true"`.
-- All internal routes use Next.js `<Link>` (crawlable). External links get `rel="noopener noreferrer"`.
-- Navbar is a Server Component (no `'use client'`) for immediate crawlability. Logo `<Image>` has `priority` (LCP element).
-- Navbar `<nav>` carries `SiteNavigationElement` schema.org markup.
-- Feature lists must stay in sync with `WebApplication.featureList` in `structured-data.tsx`.
+## Root-Level Structure
 
-## GEO (Generative Engine Optimisation)
+```
+apps/sim/
+├── app/                 # Next.js app router (pages, API routes)
+├── blocks/              # Block definitions and registry
+├── components/          # Shared UI (emcn/, ui/)
+├── executor/            # Workflow execution engine
+├── hooks/               # Shared hooks (queries/, selectors/)
+├── lib/                 # App-wide utilities
+├── providers/           # LLM provider integrations
+├── stores/              # Zustand stores
+├── tools/               # Tool definitions
+└── triggers/            # Trigger definitions
+```
 
-- **Answer-first pattern**: each section's H2 + subtitle should directly answer a user question (e.g. "What is Sim?", "How fast can I deploy?").
-- **Atomic answer blocks**: each feature / template card should be independently extractable by an AI summariser.
-- **Entity consistency**: always write "Sim" by name — never "the platform" or "our tool".
-- **Keyword density**: first 150 visible chars of Hero must name "Sim", "AI agents", "agentic workflows".
-- **sr-only summaries**: Hero and Templates each have a `<p className="sr-only">` (~50 words) as an atomic product/catalog summary for AI citation.
-- **Specific numbers**: prefer concrete figures ("1,000+ integrations", "15+ AI providers") over vague claims.
+## Feature Organization
+
+Features live under `app/workspace/[workspaceId]/`:
+
+```
+feature/
+├── components/          # Feature components
+├── hooks/               # Feature-scoped hooks
+├── utils/               # Feature-scoped utilities (2+ consumers)
+├── feature.tsx          # Main component
+└── page.tsx             # Next.js page entry
+```
+
+## Naming Conventions
+- **Components**: PascalCase (`WorkflowList`)
+- **Hooks**: `use` prefix (`useWorkflowOperations`)
+- **Files**: kebab-case (`workflow-list.tsx`)
+- **Stores**: `stores/feature/store.ts`
+- **Constants**: SCREAMING_SNAKE_CASE
+- **Interfaces**: PascalCase with suffix (`WorkflowListProps`)
+
+## Utils Rules
+
+- **Never create `utils.ts` for single consumer** - inline it
+- **Create `utils.ts` when** 2+ files need the same helper
+- **Check existing sources** before duplicating (`lib/` has many utilities)
+- **Location**: `lib/` (app-wide) → `feature/utils/` (feature-scoped) → inline (single-use)
+
+## API Contracts
+
+Boundary HTTP request and response shapes for all routes under `apps/sim/app/api/**` live in `apps/sim/lib/api/contracts/` (one file per resource family). Routes and clients consume the same contract — routes never define route-local boundary Zod schemas, and clients never define ad-hoc wire types. Domain validators that are not HTTP boundaries (tools, blocks, triggers, connectors, realtime handlers, internal helpers) may still use Zod directly; the contract rule is boundary-only.
+
+- Each contract is built with `defineRouteContract({ method, path, params?, query?, body?, headers?, response: { mode: 'json', schema } })` and exports both schemas and named TypeScript type aliases (e.g., `export type CreateFolderBody = z.input<typeof createFolderBodySchema>`).
+- Shared identifier schemas live in `apps/sim/lib/api/contracts/primitives.ts`.
+- Routes validate via canonical helpers in `apps/sim/lib/api/server/validation.ts` (`parseRequest`, `validationErrorResponse`, `getValidationErrorMessage`, `isZodError`). Routes never `import { z } from 'zod'` and never use `instanceof z.ZodError`.
+- Clients call `requestJson(contract, ...)` from `apps/sim/lib/api/client/request.ts`; hooks import named type aliases from contracts, never `z.input/z.output`.
+- Routes under `apps/sim/app/api/v1/**` use `apps/sim/app/api/v1/middleware.ts` for shared auth, rate-limit, and workspace access. Compose contract validation inside that middleware.
+- `bun run check:api-validation` enforces this policy and must pass on PRs.
+
+`bun run check:api-validation:strict` is the strict CI gate and additionally fails on annotations with empty reasons. Four per-line opt-out forms are recognized: `// boundary-raw-fetch: <reason>` (placed immediately above a legitimate raw `fetch(` call in `apps/sim/hooks/queries/**` or `apps/sim/hooks/selectors/**` for stream/binary/multipart/signed-URL/OAuth-redirect/external-origin cases), `// double-cast-allowed: <reason>` (placed immediately above an `as unknown as X` cast outside test files), `// boundary-raw-json: <reason>` (placed immediately above a raw `await request.json()` / `await req.json()` read in a route handler that cannot go through `parseRequest` — JSON-RPC envelopes, tolerant `.catch(() => ({}))` parses), and `// untyped-response: <reason>` (placed immediately above a `schema: z.unknown()` response declaration in a contract file when the response body is genuinely opaque). The reason must be non-empty. Whole-file allowlists for routes that legitimately import Zod for non-boundary reasons go through `INDIRECT_ZOD_ROUTES` in `scripts/check-api-validation-contracts.ts`, not per-line annotations.
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
