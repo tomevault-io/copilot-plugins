@@ -1,0 +1,9 @@
+{
+  "name": "onflow--flowalp",
+  "displayName": "FlowALP",
+  "description": "Decentralized lending and borrowing protocol on Flow. Token-agnostic Cadence smart contracts (FlowALPv0) operating over any FungibleToken.Vault, with DeFi Actions composability, position management, i",
+  "version": "1.0.0",
+  "author": "onflow",
+  "homepage": "https://github.com/onflow/FlowALP",
+  "skills": []
+}
