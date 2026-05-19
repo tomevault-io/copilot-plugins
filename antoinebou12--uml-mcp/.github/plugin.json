@@ -1,0 +1,26 @@
+{
+  "name": "antoinebou12--uml-mcp",
+  "displayName": "uml-mcp",
+  "description": "UML-MCP Server is a UML diagram generation tool based on MCP (Model Context Protocol), which can help users generate various types of UML diagrams through natural language description or directly writ",
+  "version": "1.0.0",
+  "author": "antoinebou12",
+  "homepage": "https://github.com/antoinebou12/uml-mcp",
+  "skills": [
+    {
+      "name": "mcp-python",
+      "description": ""
+    },
+    {
+      "name": "modern-python",
+      "description": ""
+    },
+    {
+      "name": "sequential-thinking",
+      "description": ""
+    },
+    {
+      "name": "uml-diagramming",
+      "description": ""
+    }
+  ]
+}
