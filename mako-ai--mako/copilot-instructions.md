@@ -1,68 +1,24 @@
-## 15-connector-agnostic
+## 16-mui-theme
 
-> Connector agnosticism and schema-driven UI rules for data source connectors
+> MUI styling rules — use global theme for consistency, avoid per-component ad-hoc styles
 
 
-# Connector Agnosticism & Schema-Driven UI
+# MUI Styling via Global Theme
 
-Purpose: Ensure adding a new connector requires only dropping a new folder under `api/src/connectors/**` and exposing a schema; no app code outside that folder needs changes.
+Purpose: Keep visual consistency by centralizing MUI component styling in the global theme.
 
 Rules:
 
-- Connectors must be 100% self-contained under `api/src/connectors/<type>/`.
-- Connector schemas should define only credentials/connection settings (endpoint, API keys, auth headers).
-- Query definitions (for query-based connectors) belong at the **flow level** (Flow.queries), not in connector config.
-- UI must be schema-driven: forms render using the schema returned by `/api/connectors/:type/schema`.
-- Do NOT hardcode connector-specific logic in shared components (e.g., `app/src/components/**`), routes, or services.
-- If conditional fields are needed, use schema properties like `showIf` and `type: "select"` with `options`; never add branching by connector type in UI code.
-- Connector registration happens via registries; adding a connector should not require editing the UI or non-registry backend files.
-- Keep any connector-specific data transformations inside the connector implementation.
+- Use the global theme in `app/src/contexts/ThemeContext.tsx` for styling MUI components.
+- Prefer `components.<MuiX>.defaultProps` and `components.<MuiX>.styleOverrides` to adjust variants, sizes, paddings, borders, etc.
+- Default variants for inputs/selects should be defined globally (e.g., outlined) unless a component explicitly needs a different variant.
+- Do NOT set per-component ad-hoc styles for shared patterns; push common changes into the theme.
+- If a one-off deviation is required, document the reason inline and keep it local to that component.
 
-## Flow-Level Queries Schema
+Enforcement guidance:
 
-For connectors that require user-defined queries (like GraphQL, PostHog, or custom SQL connectors), the schema should expose a `transferQueries` property:
-
-```typescript
-static getConfigSchema() {
-  return {
-    fields: [
-      // Connection/credential fields only
-      { name: "endpoint", label: "Endpoint URL", type: "string", required: true },
-    ],
-    // Queries are configured at the Flow level
-    transferQueries: {
-      label: "GraphQL Queries",  // Display label
-      required: true,            // Whether at least one query is required
-      fields: [                  // Schema for each query item
-        { name: "name", label: "Entity Name", type: "string", required: true },
-        { name: "query", label: "Query", type: "textarea", required: true, rows: 8 },
-        { name: "batch_size", label: "Batch Size", type: "number", default: 100 },
-      ],
-    },
-  };
-}
-```
-
-The frontend reads `schema.transferQueries` and dynamically renders the query editor in the Flow form. **Never** check connector types like `if (type === "graphql")` in UI code.
-
-## HTTP & Rate Limiting
-
-- Connectors using HTTP APIs should handle 429 (rate limit) and 5xx errors with retry + exponential backoff.
-- Prefer a shared retry pattern within the connector (e.g., `executeWithRetry` wrapper) rather than ad-hoc retry loops in each method.
-- Respect `Retry-After` headers when present.
-- Do NOT log raw request/response headers — they may contain API keys or auth tokens.
-
-## Schema Wiring
-
-- **Every field in `getConfigSchema()` must be read at runtime.** If the schema exposes `api_base_url`, the connector client must use `this.dataSource.config.api_base_url` — never hardcode the URL.
-- Credentials live on `this.dataSource.config` (decrypted at sync time). Fields with `type: "password"` or `encrypted: true` are encrypted at rest automatically.
-
-## Enforcement Guidance
-
-- During reviews, reject edits that add `if (type === "xyz")` checks outside connector folders.
-- Prefer updating connector schemas over UI code to change field order, visibility, or control types.
-- Check for `transferQueries` schema property presence, not connector type names.
-- Verify that all schema fields are wired to the connector client — dead schema fields confuse users.
+- During reviews, suggest migrating repeated inline styles to the theme.
+- Reject edits that change common component variants locally without updating the theme, unless justified.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
