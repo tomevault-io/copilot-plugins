@@ -2,9 +2,9 @@
   "name": "deadlock-mod-manager",
   "owner": "deadlock-mod-manager",
   "repo": "deadlock-mod-manager",
-  "description": "AI instruction files for deadlock-mod-manager by deadlock-mod-manager",
-  "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "A mod manager for the Valve game Deadlock.",
+  "type": "config",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "opensrc",
-      "path": ".cursor/skills/opensrc",
-      "github_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager/tree/main/.cursor/skills/opensrc",
-      "description": ""
-    }
-  ],
-  "claim_url": "https://tomevault.io/claim/deadlock-mod-manager",
+  "skills": [],
+  "source_url": "https://github.com/deadlock-mod-manager/deadlock-mod-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:08:51Z"
+  "distributed_at": "2026-05-19T03:55:17Z"
 }
