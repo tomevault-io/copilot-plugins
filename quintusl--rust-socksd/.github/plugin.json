@@ -1,0 +1,9 @@
+{
+  "name": "quintusl--rust-socksd",
+  "displayName": "rust-socksd",
+  "description": "A high-performance SOCKS5 and HTTP proxy server written in Rust.",
+  "version": "1.0.0",
+  "author": "quintusl",
+  "homepage": "https://github.com/quintusl/rust-socksd",
+  "skills": []
+}
