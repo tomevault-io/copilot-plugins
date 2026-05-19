@@ -1,14 +1,15 @@
-## testing
+## ui-shadcn
 
-> When writing or modifying tests. Backend PHPUnit, frontend Jest + React Testing Library.
+> Use when building or changing UI. Reuse shadcn/ui primitives and follow design system.
 
 
-# Testing
+# UI / shadcn
 
-- **Backend:** PHPUnit in `tests/Feature` and `tests/Unit`; use factories and DB in Feature tests.
-- **Frontend:** Jest + React Testing Library; see docs/ai/REACT_TESTING.md, resources/js/components/DataTable.test.tsx.
-- Run targeted: `php artisan test --filter=TestName`, `npm test -- path/to/file`.
-- Prefer single-file or single-class test runs for speed.
+- Prefer delegating to the `frontend` subagent for shadcn/Tailwind UI work.
+- Reuse primitives from `resources/js/components/ui`. Do not duplicate; compose or extend.
+- New components: build from ui (Button, Card, Dialog, Input, etc.); use `cn()` and CVA where appropriate.
+- Icons: lucide-react.
+- Reference: components.json (aliases), resources/js/components/ui/button.tsx (CVA + cn pattern).
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
