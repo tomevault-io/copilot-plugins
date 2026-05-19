@@ -1,0 +1,9 @@
+{
+  "name": "layer-3--nitrolite",
+  "displayName": "nitrolite",
+  "description": "Nitrolite is a simplified version of Nitro that facilitates prototyping of state-channel applications",
+  "version": "1.0.0",
+  "author": "layer-3",
+  "homepage": "https://github.com/layer-3/nitrolite",
+  "skills": []
+}
