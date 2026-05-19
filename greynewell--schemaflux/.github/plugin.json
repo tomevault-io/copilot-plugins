@@ -1,0 +1,9 @@
+{
+  "name": "greynewell--schemaflux",
+  "displayName": "schemaflux",
+  "description": "Structured data compiler. Pass pipeline, pluggable backends.",
+  "version": "1.0.0",
+  "author": "greynewell",
+  "homepage": "https://github.com/greynewell/schemaflux",
+  "skills": []
+}
