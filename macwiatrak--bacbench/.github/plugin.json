@@ -1,0 +1,9 @@
+{
+  "name": "macwiatrak--bacbench",
+  "displayName": "BacBench",
+  "description": "Multi-scale and multi-task benchmark for evaluating ML models for bacterial genomics across the bacterial tree of life.",
+  "version": "1.0.0",
+  "author": "macwiatrak",
+  "homepage": "https://github.com/macwiatrak/BacBench",
+  "skills": []
+}
