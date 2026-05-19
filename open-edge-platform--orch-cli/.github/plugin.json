@@ -1,0 +1,9 @@
+{
+  "name": "open-edge-platform--orch-cli",
+  "displayName": "orch-cli",
+  "description": "Open Edge Platform Command Line Interface",
+  "version": "1.0.0",
+  "author": "open-edge-platform",
+  "homepage": "https://github.com/open-edge-platform/orch-cli",
+  "skills": []
+}
