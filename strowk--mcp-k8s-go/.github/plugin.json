@@ -1,0 +1,9 @@
+{
+  "name": "strowk--mcp-k8s-go",
+  "displayName": "mcp-k8s-go",
+  "description": "MCP server connecting to Kubernetes",
+  "version": "1.0.0",
+  "author": "strowk",
+  "homepage": "https://github.com/strowk/mcp-k8s-go",
+  "skills": []
+}
