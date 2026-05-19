@@ -1,0 +1,9 @@
+{
+  "name": "massolari--neoment",
+  "displayName": "neoment",
+  "description": "A Neovim Matrix Client written in lua",
+  "version": "1.0.0",
+  "author": "Massolari",
+  "homepage": "https://github.com/Massolari/neoment",
+  "skills": []
+}
