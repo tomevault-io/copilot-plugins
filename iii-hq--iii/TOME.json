@@ -4,7 +4,7 @@
   "repo": "iii",
   "description": "Effortlessly compose, extend, and observe every service in real-time for the first time ever.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/iii-hq/iii",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:34:41Z"
+  "distributed_at": "2026-05-19T01:40:22Z"
 }
