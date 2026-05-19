@@ -1,0 +1,9 @@
+{
+  "name": "snowflake-labs--cocoplus",
+  "displayName": "cocoplus",
+  "description": "CocoPlus is an AI-powered development lifecycle plugin for the Snowflake Cortex Code CLI. It brings structured, multi-agent workflows to data engineering projects \u2014 covering everything from project in",
+  "version": "1.0.0",
+  "author": "Snowflake-Labs",
+  "homepage": "https://github.com/Snowflake-Labs/cocoplus",
+  "skills": []
+}
