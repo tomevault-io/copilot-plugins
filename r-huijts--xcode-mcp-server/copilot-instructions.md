@@ -1,207 +1,215 @@
-## path-management
+## tools-overview
 
-> This document provides a detailed explanation of the path management system used in the MCP Server. It covers the architecture, components, workflows, and security considerations.
+> This document provides a comprehensive overview of the tools available in the Xcode MCP Server and explains how they interact with Xcode projects.
 
-# Path Management System
+# Xcode MCP Server Tools Overview
 
-This document provides a detailed explanation of the path management system used in the MCP Server. It covers the architecture, components, workflows, and security considerations.
+This document provides a comprehensive overview of the tools available in the Xcode MCP Server and explains how they interact with Xcode projects.
 
-## Overview
+## Server Architecture
 
-The path management system provides a centralized, secure, and consistent way to handle file paths and directory navigation throughout the application. It was designed to address several key challenges:
+The Xcode MCP Server is organized into the following modules:
 
-1. **Security**: Prevent access to unauthorized parts of the filesystem
-2. **Consistency**: Handle diverse path formats in a uniform manner
-3. **Clarity**: Provide clear error messages and path resolution
-4. **Navigation**: Support intuitive directory navigation with memory of previous locations
-5. **Validation**: Ensure paths meet security and format requirements
+- **Project Management**: Tools for working with Xcode projects
+- **File Operations**: Tools for reading and writing files
+- **Build & Testing**: Tools for building and testing projects
+- **CocoaPods Integration**: Tools for managing CocoaPods dependencies
+- **Swift Package Manager**: Tools for managing Swift Package Manager functionality
+- **Simulator Tools**: Tools for interacting with iOS simulators
+- **Xcode Utilities**: Miscellaneous Xcode-specific tools
+- **Path Management**: System for secure file access and directory navigation
 
-## Components
+## Project Management Tools
 
-The system consists of three main components:
+| Tool | Description |
+|------|-------------|
+| `set_projects_base_dir` | Sets the base directory where Xcode projects are stored |
+| `set_project_path` | Sets the active Xcode project (xcodeproj, xcworkspace, or SPM) |
+| `get_active_project` | Retrieves detailed information about the active project |
+| `find_projects` | Finds Xcode projects in the specified directory |
+| `get_project_configuration` | Retrieves configuration details for the active project |
+| `detect_active_project` | Attempts to automatically detect the active Xcode project |
+| `change_directory` | Changes the active directory for relative path operations |
+| `push_directory` | Pushes current directory to stack and changes to a new directory |
+| `pop_directory` | Returns to previous directory from stack |
+| `get_current_directory` | Shows the current active directory |
 
-### 1. PathManager
+These tools help you navigate and manage Xcode projects. The server supports multiple project types including regular .xcodeproj files, workspaces (.xcworkspace), and Swift Package Manager projects (Package.swift).
 
-`PathManager` is the core class responsible for all path-related operations. It handles:
+## File Operation Tools
 
-- Path normalization and expansion
-- Security boundary enforcement
-- Path validation for reading and writing
-- Directory change tracking
-- Path joining and relation checking
+| Tool | Description |
+|------|-------------|
+| `read_file` | Reads the contents of a file within allowed directories |
+| `write_file` | Writes or updates file content within allowed directories |
+| `copy_file` | Copies a file or directory to a new location |
+| `move_file` | Moves a file or directory to a new location |
+| `delete_file` | Deletes a file or directory |
+| `create_directory` | Creates a new directory |
+| `list_project_files` | Lists all files within an Xcode project |
+| `list_directory` | Lists directory contents with options for format and hidden files |
+| `get_file_info` | Gets detailed information about a file or directory |
+| `find_files` | Searches for files matching a pattern in a directory |
+| `resolve_path` | Shows how a path would be resolved |
+| `check_file_exists` | Checks if a file or directory exists |
 
-```typescript
-// Example: Creating and using PathManager
-const pathManager = new PathManager(config);
-pathManager.setProjectsBaseDir('/path/to/projects');
-pathManager.setActiveProject('/path/to/projects/MyProject.xcodeproj');
+File operation tools allow you to interact with files securely. All operations use the path management system for validation and security.
 
-// Normalize and validate paths
-const normalizedPath = pathManager.normalizePath('~/projects/file.txt');
-const isAllowed = pathManager.isPathAllowed(normalizedPath);
-```
+## Build & Testing Tools
 
-### 2. SafeFileOperations
+| Tool | Description |
+|------|-------------|
+| `analyze_file` | Analyzes a source file for potential issues using Xcode's static analyzer |
+| `build_project` | Builds the active Xcode project with specified configuration and scheme |
+| `run_tests` | Executes tests for the active Xcode project, optionally with a test plan |
 
-`SafeFileOperations` builds on `PathManager` to provide secure file operations with consistent error handling. It includes:
+Build and testing tools interact with Xcode's build system to compile your projects and run tests. They use `xcodebuild` in the background.
 
-- Safe file reading with validation
-- Secure file writing with directory creation
-- Safe directory listing
-- Consistent error handling
+## CocoaPods Integration
 
-```typescript
-// Example: Using SafeFileOperations
-const fileOps = new SafeFileOperations(pathManager);
+| Tool | Description |
+|------|-------------|
+| `pod_install` | Runs 'pod install' in the active project directory |
+| `pod_update` | Runs 'pod update' in the active project directory |
+| `pod_outdated` | Checks for outdated dependencies in the project |
+| `pod_repo_update` | Updates the local CocoaPods spec repositories |
+| `pod_deintegrate` | Removes CocoaPods from the project |
+| `pod_init` | Initializes a new Podfile in the project |
+| `check_cocoapods` | Checks if the active project uses CocoaPods and returns setup information |
 
-// Reading a file safely
-const fileContent = await fileOps.readFile('config.json');
+CocoaPods tools allow you to manage CocoaPods dependencies in your iOS projects. These tools require CocoaPods to be installed on your system.
 
-// Writing a file with proper validation
-await fileOps.writeFile('settings.json', jsonContent, true);
-```
+## Swift Package Manager Tools
 
-### 3. ProjectDirectoryState
+| Tool | Description |
+|------|-------------|
+| `init_swift_package` | Initializes a new Swift Package Manager project with options for type and testing |
+| `add_swift_package` | Adds a Swift Package dependency to the active project |
+| `update_swift_package` | Updates dependencies with options for specific packages and versions |
+| `swift_package_command` | Executes arbitrary Swift Package Manager commands |
+| `build_swift_package` | Builds a Swift Package with configuration options |
+| `test_swift_package` | Tests a Swift Package with filtering and parallel options |
+| `show_swift_dependencies` | Displays dependency graphs in various formats |
+| `clean_swift_package` | Cleans build artifacts with options for global cache |
+| `dump_swift_package` | Dumps the Package.swift manifest as JSON |
 
-`ProjectDirectoryState` manages the active directory state and navigation. It provides:
+Swift Package Manager tools provide comprehensive support for Swift packages and dependencies. They interact with the Swift Package Manager CLI and provide enhanced error reporting.
 
-- Active directory tracking
-- Directory stack for navigation history
-- Path resolution relative to active directory
-- State restoration
+## Simulator Tools
 
-```typescript
-// Example: Directory navigation
-const dirState = new ProjectDirectoryState(pathManager);
+| Tool | Description |
+|------|-------------|
+| `list_simulators` | Lists all available iOS simulators |
+| `boot_simulator` | Boots an iOS simulator identified by its UDID |
+| `shutdown_simulator` | Shuts down an active iOS simulator |
+| `install_app` | Installs an app on a simulator |
+| `uninstall_app` | Removes an app from a simulator |
+| `launch_app` | Launches an app on a simulator |
+| `terminate_app` | Terminates a running app on a simulator |
+| `take_screenshot` | Captures a screenshot of a simulator |
+| `record_video` | Records video of simulator activity |
 
-// Navigate to a directory
-dirState.setActiveDirectory('/path/to/project/src');
+Simulator tools allow you to interact with iOS simulators. They use the `simctl` command-line tool that is part of Xcode.
 
-// Push current directory to stack and navigate to new directory
-dirState.pushDirectory('/path/to/project/src/components');
+## Xcode Utilities
 
-// Return to previous directory
-dirState.popDirectory();
-```
+| Tool | Description |
+|------|-------------|
+| `run_xcrun` | Executes a specified Xcode tool via 'xcrun' |
+| `compile_asset_catalog` | Compiles an asset catalog using 'actool' |
+| `run_lldb` | Launches the LLDB debugger with custom arguments |
+| `trace_app` | Captures a performance trace of an application using 'xctrace' |
+| `get_xcode_info` | Retrieves information about the installed Xcode |
+| `generate_app_icons` | Generates an app icon set from a source image |
 
-## Path Resolution Workflow
+These utilities provide access to various Xcode command-line tools and debugging functionality.
 
-The path resolution workflow follows this sequence:
+## Path Management
 
-1. **Input**: Path is received from user or tool (may be relative, absolute, or contain variables)
-2. **Expansion**: Environment variables and tilde are expanded (`~/docs` → `/home/user/docs`)
-3. **Normalization**: Path is normalized to remove redundancies (`../src/./file.js` → `src/file.js`)
-4. **Resolution**: If relative, path is resolved against active directory
-5. **Validation**: Path is checked against security boundaries
-6. **Operation**: If valid, the requested operation is performed
+The server includes a comprehensive path management system that provides:
 
-See the [Path Resolution Workflow Diagram](../assets/path-resolution-workflow.md) for a visual representation of this process.
+1. **Security**: File operations are restricted to allowed directories
+2. **Validation**: Paths are validated for reading and writing
+3. **Resolution**: Relative paths are resolved against active directory
+4. **Navigation**: Directory stack for easy navigation
+5. **Boundaries**: Project boundaries are enforced for security
 
-## Security Boundaries
-
-The system enforces strict security boundaries to prevent unauthorized file access:
-
-1. **Project Base Directory**: All operations must occur within the configured projects directory
-2. **Active Project Directory**: Operations are allowed within the active project's directory
-3. **Server Directory**: Read operations (but not write) may be allowed within the server's directory
-
-Attempts to access paths outside these boundaries will result in a `PathAccessError`.
-
-## Directory Navigation
-
-Directory navigation follows these rules:
-
-1. The active directory starts at the active project's root
-2. `change_directory` changes the active directory
-3. `push_directory` remembers the current directory and changes to a new one
-4. `pop_directory` returns to the previously remembered directory
-5. If no active directory is set, operations default to the project root
-
-```
-Project Root
-└── src/
-    ├── components/  <- push_directory here
-    │   └── button.ts
-    └── utils/       <- pop_directory back to src, then change_directory here
-        └── helpers.ts
-```
-
-## Error Handling
-
-The system provides detailed error handling with specific error types:
-
-- **PathAccessError**: Thrown when a path is outside permitted boundaries
-- **FileOperationError**: Thrown when a file operation fails
-- **ProjectNotFoundError**: Thrown when no active project is set
-
-Each error includes the path and a detailed message explaining the issue.
-
-## Path Tools
-
-The system provides several tools for users:
+Path management tools include:
 
 | Tool | Description |
 |------|-------------|
 | `change_directory` | Changes the active directory |
-| `push_directory` | Pushes current directory to stack and changes directory |
-| `pop_directory` | Returns to previous directory from stack |
-| `get_current_directory` | Shows the current active directory |
+| `push_directory` | Remembers current directory and changes to a new one |
+| `pop_directory` | Returns to previously remembered directory |
+| `get_current_directory` | Shows current active directory |
 | `resolve_path` | Shows how a path would be resolved |
 
-## Best Practices
+## How the Tools Interact with Xcode Projects
 
-When working with the path management system:
+### Project Detection
 
-1. **Use Relative Paths**: Prefer relative paths when appropriate
-2. **Check Boundaries**: Use `resolve_path` to check if operations will be allowed
-3. **Stack Navigation**: Use `push_directory`/`pop_directory` for temporary directory changes
-4. **Handle Errors**: Catch and handle path-related errors appropriately
-5. **Validate Input**: Validate paths before attempting operations
+The server attempts to detect the active Xcode project using the following methods:
 
-## Configuration
+1. **AppleScript**: Attempts to get the frontmost Xcode project via AppleScript.
+2. **Base Directory Scan**: If a base directory is set, scans for projects there.
+3. **Recent Projects**: Reads recent projects from Xcode defaults.
 
-The path management system can be configured through:
+### Project Types Support
 
-1. **Environment Variables**: Set `PROJECTS_BASE_DIR` in `.env`
-2. **Runtime Config**: Set `config.projectsBaseDir` when initializing the server
-3. **Tools**: Use `set_projects_base_dir` tool to change at runtime
+The server supports different project types:
 
-## Examples
+- **Regular `.xcodeproj` projects**: Standard Xcode projects.
+- **Workspace projects (`.xcworkspace`)**: For CocoaPods or multi-project setups.
+- **Swift Package Manager projects**: Identified by `Package.swift` files.
 
-### Example 1: Reading a File Relative to Active Directory
+For workspace projects, the server extracts contained projects and identifies the main project inside the workspace.
 
-```typescript
-// If active directory is /path/to/project/src
-const fileContent = await server.fileOperations.readFile('config.json');
-// Resolves to /path/to/project/src/config.json
-```
+### File Operations
 
-### Example 2: Directory Stack Navigation
+All file operations use the path management system:
 
-```typescript
-// Starting at /path/to/project
-server.directoryState.pushDirectory('src/components');
-// Now at /path/to/project/src/components
+1. Paths are resolved against the active directory
+2. Paths are validated for security boundaries
+3. Operations are only performed on allowed paths
+4. Detailed error messages are provided for failures
 
-// Do some operations...
+### Build System Integration
 
-server.directoryState.popDirectory();
-// Back to /path/to/project
-```
+Build tools interact with `xcodebuild` or Swift Package Manager's `swift build` depending on the project type:
 
-### Example 3: Path Resolution
+- For regular Xcode projects, it uses `xcodebuild -project`.
+- For workspace projects, it uses `xcodebuild -workspace`.
+- For SPM projects, it uses `swift build`.
 
-```typescript
-const result = await server.server.runTool(
-  "resolve_path", 
-  { path: "../configs/settings.json" }
-);
-// Shows how "../configs/settings.json" resolves from current directory
-```
+### Package Manager Integration
 
-## Conclusion
+The server integrates with both CocoaPods and Swift Package Manager:
 
-The path management system provides a secure, consistent, and intuitive way to handle file and directory operations. By centralizing path logic, it ensures that all tools operate within safe boundaries while providing a flexible and convenient user experience. 
+- CocoaPods tools manage dependencies in a Podfile, with support for repo management and outdated dependencies.
+- Swift Package Manager tools provide comprehensive support for Swift packages, including dependency analysis and visualization.
+
+## Using the Tools
+
+Each tool takes specific parameters and returns text-based results. All tools validate their inputs and provide clear error messages if something goes wrong.
+
+To use the tools effectively:
+
+1. First set the active project if not automatically detected using `set_project_path`.
+2. Navigate to relevant directories using `change_directory`, `push_directory`, and `pop_directory`.
+3. Use the appropriate tools based on your project type (regular, workspace, or SPM).
+4. Check the tool descriptions for required parameters.
+
+For workspace and CocoaPods projects, the server will automatically detect the project structure and provide appropriate support.
+
+## Troubleshooting
+
+If you encounter issues:
+
+- Check if the active project is correctly set with `get_active_project`.
+- Verify current directory with `get_current_directory`.
+- For path issues, use `resolve_path` to debug path resolution.
+- For build or test issues, ensure the configuration and scheme are valid.
+- For CocoaPods or SPM issues, verify the package manager is properly set up. 
 
 ---
 > Source: [r-huijts/xcode-mcp-server](https://github.com/r-huijts/xcode-mcp-server) — distributed by [TomeVault](https://tomevault.io).
