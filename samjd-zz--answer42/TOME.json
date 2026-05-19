@@ -4,7 +4,7 @@
   "repo": "answer42",
   "description": "Answer42 is a sophisticated AI-powered platform for academic researchers, students, and scholars to upload, analyze, and interact with research papers using multiple AI providers. Combines advanced paper processing with intelligent chat capabilities, 9-agent multi-agent processing pipeline.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/samjd-zz/answer42",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T17:20:05Z"
+  "distributed_at": "2026-05-19T19:08:18Z"
 }
