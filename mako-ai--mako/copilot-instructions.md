@@ -1,17 +1,46 @@
-## 60-webhooks
+## 70-frontend
 
-> Webhook handlers, idempotency, and security guidance
+> Frontend conventions for Vite + React app
 
 
-# Webhook Guidelines
+# Frontend Guidelines
 
-- Overview and fixes: [WEBHOOK_IMPLEMENTATION.md](mdc:WEBHOOK_IMPLEMENTATION.md), [WEBHOOK_BUGS_FIXED.md](mdc:WEBHOOK_BUGS_FIXED.md), [WEBHOOK_SIMPLIFICATION_SUMMARY.md](mdc:WEBHOOK_SIMPLIFICATION_SUMMARY.md).
+- Entry: [app/src/main.tsx](mdc:app/src/main.tsx), root app: [app/src/App.tsx](mdc:app/src/App.tsx).
+- State: colocate slices in [app/src/store/](mdc:app/src/store/); hooks in [app/src/hooks/](mdc:app/src/hooks/).
+- UI: components under [app/src/components/](mdc:app/src/components/); pages under [app/src/pages/](mdc:app/src/pages/).
+
+Dev server:
+
+- Vite runs on port 5173 and proxies `/api` to `http://localhost:8080` (see [app/vite.config.ts](mdc:app/vite.config.ts)).
 
 Rules:
 
-- Verify signatures using provider libraries; reject on mismatch before parsing body.
-- Enforce idempotency by event ID; store processed IDs to prevent duplicates.
-- Keep handlers lean: validate, enqueue work (Inngest), and respond 200 quickly.
+- Avoid prop drilling; introduce context or store slices where needed.
+- Keep components small; extract presentational components.
+- Do not import from `app/dist/**`.
+
+API access pattern (**for new code**):
+
+- All network calls should originate from Zustand stores under `app/src/store/**`.
+- Components, pages, hooks, and contexts should not call `fetch`, `axios`, or `apiClient` directly; they should invoke store methods.
+- Stores must use the centralized `apiClient` (`app/src/lib/api-client.ts`) for all requests. Do not use raw `fetch` or `axios` in stores.
+- Workspace-scoped requests must target `/workspaces/:id/...`; rely on `apiClient` to inject the `x-workspace-id` header.
+- Centralize error handling in stores; surface simple result types to components.
+- Gate store calls on workspace readiness when applicable (e.g., after workspace context resolves).
+
+Known exceptions (legacy — do not extend, migrate when touching):
+
+- `Chat.tsx`, `Editor.tsx` — streaming endpoints use raw `fetch` for SSE/ReadableStream.
+- `ConnectorForm.tsx`, `ConnectorTab.tsx` — direct `fetch` for connector config.
+- `OnboardingFlow.tsx`, `Settings.tsx` — direct `apiClient` in components.
+- `useCustomPrompt.ts` — raw `fetch` in hook.
+- `consoleStore.ts` `saveConsole` — raw `fetch` for 409 conflict handling (should migrate to `apiClient`).
+- Auth flows (`lib/auth-client.ts`) — separate client, not subject to this rule.
+
+Zustand store pattern:
+
+- Use `create` + `immer` middleware. Add `persist` when state should survive page reloads.
+- `app/src/store/lib/createDomainStore.ts` provides `AsyncState` and `withAsyncState` helpers — prefer these for new stores with async operations.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
