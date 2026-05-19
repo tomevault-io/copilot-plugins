@@ -1,0 +1,9 @@
+{
+  "name": "tuurlijk--apisnip",
+  "displayName": "apisnip",
+  "description": "A terminal user interface (TUI) tool for trimming OpenAPI specifications down to size. Apisnip allows you to interactively select which endpoints to keep in your API specification, making it easy to g",
+  "version": "1.0.0",
+  "author": "Tuurlijk",
+  "homepage": "https://github.com/Tuurlijk/apisnip",
+  "skills": []
+}
