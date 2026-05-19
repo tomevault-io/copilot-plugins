@@ -1,0 +1,9 @@
+{
+  "name": "modelcontextprotocol--servers",
+  "displayName": "servers",
+  "description": "Model Context Protocol Servers",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/servers",
+  "skills": []
+}
