@@ -1,326 +1,174 @@
-## changelog-process
+## code-style
 
-> Process and guidelines for creating release changelogs for Twenty CRM
+> Code style guidelines for Twenty CRM
 
-# Twenty Release Changelog Process
+# Code Style Guidelines
 
-Complete guide for creating release changelogs, including codebase research, file structure, and content guidelines.
+## Formatting Standards
+- **Prettier**: 2-space indentation, single quotes, trailing commas, semicolons
+- **Print width**: 80 characters
+- **ESLint**: No unused imports, consistent import ordering, prefer const over let
 
-## Prerequisites
+## Naming Conventions
+```typescript
+// ✅ Variables and functions - camelCase
+const userAccountBalance = 1000;
+const calculateMonthlyPayment = () => {};
 
-Before starting, gather the following information:
+// ✅ Constants - SCREAMING_SNAKE_CASE
+const API_ENDPOINTS = {
+  USERS: '/api/users',
+  ORDERS: '/api/orders',
+} as const;
 
-### Required Information
+// ✅ Types and Classes - PascalCase
+class UserService {}
+type UserAccountData = {};
+type ButtonProps = {}; // Component props suffix with 'Props'
 
-**Version Number**: `{VERSION}` (e.g., 1.9.0, 2.0.0, 2.1.0)
+// ✅ Files and directories - kebab-case
+// user-profile.component.tsx
+// user-profile.styles.ts
 
-**Release Date**: Use today's date in format: YYYY-MM-DD
+// ❌ NEVER use abbreviations in variable names
+// Bad
+const users = data.map((u) => u.name);
+const field = items.find((f) => f.id === id);
 
-### Changes/Features to Document
-
-List the features and changes to include in this release:
-
-1. **Feature Name**: ______________________________
-   - Brief description: ______________________________
-   - Related area (workflow, UI, backend, etc.): ______________________________
-
-2. **Feature Name**: ______________________________
-   - Brief description: ______________________________
-   - Related area: ______________________________
-
-3. **Feature Name**: ______________________________
-   - Brief description: ______________________________
-   - Related area: ______________________________
-
-## Codebase Research Guide
-
-If feature descriptions are not provided or need enhancement, research the codebase:
-
-### Where to Look
-
-**For Workflow Features:**
-- Frontend: `packages/twenty-front/src/modules/workflow/`
-- Backend: `packages/twenty-server/src/modules/workflow/`
-- Components: `packages/twenty-front/src/modules/workflow/components/`
-
-**For UI/UX Changes:**
-- Components: `packages/twenty-front/src/modules/ui/`
-- Layout: `packages/twenty-front/src/modules/layout/`
-- Design system: `packages/twenty-ui/src/`
-
-**For Backend/API Features:**
-- Server modules: `packages/twenty-server/src/modules/`
-- Entities: `packages/twenty-server/src/entities/`
-- Services: Look for `*.service.ts` files
-
-**For Database/ORM Changes:**
-- Migrations: `packages/twenty-server/src/database/typeorm/`
-- Entities: `packages/twenty-server/src/entities/`
-
-### Research Commands
-
-```bash
-# Find recent merged PRs (adjust date as needed)
-gh pr list --search "merged:>2025-10-01" --limit 50 --state merged
-
-# View recent commits
-git log --since="2 weeks ago" --oneline --no-merges
-
-# View commits between releases (replace with actual release tags)
-git log v1.7.0..v1.8.0 --oneline
-
-# Search for specific feature keywords in code
-grep -r "iterator" packages/twenty-front/src/modules/workflow/
-grep -r "bulk select" packages/twenty-front/src/modules/workflow/
-
-# Find recent changes in specific directory
-git log --since="2 weeks ago" --oneline -- packages/twenty-front/src/modules/workflow/
+// Good
+const users = data.map((user) => user.name);
+const field = items.find((item) => item.id === id);
+const fieldMetadata = inlineFields.find(
+  (fieldMetadataItem) => fieldMetadataItem.name === fieldName,
+);
 ```
 
-### Using Codebase Search
+## Import Organization
+```typescript
+// ✅ Correct import order
+// 1. External libraries
+import React from 'react';
+import { useCallback } from 'react';
+import styled from 'styled-components';
 
-Use the AI codebase search to find:
-- "How does the workflow iterator node work?"
-- "Where is bulk select implemented for workflows?"
-- "What changes were made to the search node limit?"
+// 2. Internal modules (absolute paths)
+import { Button } from '@/components/ui';
+import { UserService } from '@/services';
 
-## Step-by-Step Process
-
-### 1. Setup Git Branch
-
-**IMPORTANT**: Always start from an up-to-date main branch to avoid merge conflicts and ensure the changelog is based on the latest code.
-
-```bash
-cd /Users/thomascolasdesfrancs/code/twenty
-git checkout main
-git pull origin main
-git checkout -b {VERSION}
+// 3. Relative imports
+import { UserCardProps } from './types';
 ```
 
-Replace `{VERSION}` with the actual version number (e.g., `1.9.0`)
+## Function Structure
+```typescript
+// ✅ Small, focused functions
+// ✅ Required parameters first, optional last
+const processUserData = (
+  user: User,
+  options: ProcessingOptions,
+  callback?: (result: ProcessedUser) => void
+): ProcessedUser => {
+  const processedUser = transformUserData(user);
+  applyOptions(processedUser, options);
 
-⚠️ **Do this first** before making any file changes. This ensures your branch is based on the latest main.
+  if (callback) {
+    callback(processedUser);
+  }
 
-### 2. Create File Structure
-
-**Create changelog file:**
-- Path: `packages/twenty-website/src/content/releases/{VERSION}.mdx`
-- Example: `packages/twenty-website/src/content/releases/1.9.0.mdx`
-
-**Create image folder:**
-- Path: `packages/twenty-website/public/images/releases/{MINOR_VERSION}/`
-- Example for version 1.9.0: `packages/twenty-website/public/images/releases/1.9/`
-- Example for version 2.0.0: `packages/twenty-website/public/images/releases/2.0/`
-
-```bash
-# Create the image folder
-mkdir -p packages/twenty-website/public/images/releases/{MINOR_VERSION}
+  return processedUser;
+};
 ```
 
-### 3. Move Illustration Files
+## Comments
+```typescript
+// ✅ Use short-form comments, NOT JSDoc blocks
+// ✅ Explain business logic and non-obvious intentions (WHY, not WHAT)
+// Apply 15% discount for premium users with orders > $100
+const discount = isPremiumUser && orderTotal > 100 ? 0.15 : 0;
 
-**Source:** `/Users/thomascolasdesfrancs/Downloads/🆕`
+// TODO: Replace with proper authentication service
+const isAuthenticated = localStorage.getItem('token') !== null;
 
-**Destination:** `packages/twenty-website/public/images/releases/{MINOR_VERSION}/`
+// ✅ Multi-line comments use multiple // lines (NOT /** */ blocks)
+// Calculates the total price after applying tax and discount
+// Returns the final price that should be charged to the customer
+const calculateTotalPrice = (basePrice: number): number => {
+  // Implementation
+};
 
-**Naming Convention:** `{VERSION}-descriptive-name.png`
+// ❌ AVOID obvious comments that just describe what code does
+// Bad: Get all inline fields dynamically
+const { inlineFieldMetadataItems } = useFieldListFieldMetadataItems({...});
 
-Examples:
-- `1.9.0-feature-name.png`
-- `1.9.0-another-feature.png`
+// Bad: Define standard fields in display order
+const standardFieldOrder = ['startsAt', 'endsAt', 'conferenceLink'];
 
-```bash
-# Move and rename files
-cp ~/Downloads/🆕/source-file.png packages/twenty-website/public/images/releases/{MINOR_VERSION}/{VERSION}-feature-name.png
+// Bad: Split fields into standard and custom
+const standardFields = standardFieldOrder.map(...)
+
+// ✅ GOOD: Only comment if explaining non-obvious business logic
+// Calendar events display standard fields first, then custom fields after participants
+// to maintain consistency with the legacy UI behavior
+const standardFields = standardFieldOrder.map(...)
+
+// ❌ AVOID JSDoc blocks - use short comments instead
+/**
+ * This style is NOT preferred in this codebase
+ */
 ```
 
-### 4. Research Features (if needed)
+**Comment Guidelines:**
+- **DO** comment complex business rules or domain-specific logic
+- **DO** comment non-obvious algorithmic decisions
+- **DO** add TODOs for future improvements
+- **DON'T** comment obvious variable declarations or function calls
+- **DON'T** comment what is already clear from well-named variables/functions
+- **DON'T** add comments that just repeat what the code says
 
-If descriptions are not provided:
-1. Use the research commands above to find recent PRs and commits
-2. Search the codebase for feature-related code
-3. Read PR descriptions for context
-4. Check component comments and documentation
+## Utility Helpers
+```typescript
+// ✅ Use existing utility helpers instead of manual checks
+import { isDefined } from 'twenty-shared/utils';
+import { isNonEmptyString, isNonEmptyArray } from '@sniptt/guards';
 
-### 5. Write Changelog Content
+// ❌ Manual type guards
+const validItems = items.filter((item): item is Item => item !== undefined);
+const hasValue = value !== null && value !== undefined;
 
-Create the MDX file with this structure:
+// ✅ Use utility helpers
+const validItems = items.filter(isDefined);
+const hasValue = isDefined(value);
 
-```markdown
----
-release: {VERSION}
-Date: {YYYY-MM-DD}
----
-
-# Feature 1 Name
-
-Short description explaining what the feature does and why it's useful. Keep it user-focused and concise (1-2 sentences).
-
-![](/images/releases/{MINOR_VERSION}/{VERSION}-feature-1.png)
-
-# Feature 2 Name
-
-Another short description of the second feature.
-
-![](/images/releases/{MINOR_VERSION}/{VERSION}-feature-2.png)
-
-# Feature 3 Name
-
-Description of the third feature.
-
-![](/images/releases/{MINOR_VERSION}/{VERSION}-feature-3.png)
+// Other useful helpers:
+// - isDefined(value) - checks !== null && !== undefined
+// - isNonEmptyString(value) - checks string is defined and not empty
+// - isNonEmptyArray(value) - checks array is defined and has items
 ```
 
-**Style Guidelines:**
-- Use H1 (`#`) for feature names
-- Keep descriptions to 1-2 sentences
-- Focus on user benefits, not technical implementation
-- Use active voice
-- Start with what the user can now do
-- **NEVER mention the brand name "Twenty"** in changelog text - use "your workspace", "the platform", or similar neutral references instead
+## Security Patterns
+```typescript
+// ✅ CSV Export: Always apply security first, then formatting
+const safeValue = formatValueForCSV(sanitizeValueForCSVExport(userInput));
 
-**Reference Previous Changelogs:**
-- Check `packages/twenty-website/src/content/releases/` for examples
-- Recent releases: 1.7.0.mdx, 1.6.0.mdx, 1.5.0.mdx
-
-### 6. Review
-
-Open the changelog file for review:
-```bash
-# Open in Cursor
-cursor packages/twenty-website/src/content/releases/{VERSION}.mdx
-
-# Open image folder to verify illustrations
-open packages/twenty-website/public/images/releases/{MINOR_VERSION}
+// ✅ Input validation before processing
+const sanitizedInput = validateAndSanitize(userInput);
+const result = processData(sanitizedInput);
 ```
 
-Review checklist:
-- [ ] Version number is correct in frontmatter
-- [ ] Date is today's date
-- [ ] All features are documented
-- [ ] Image paths are correct
-- [ ] Image files exist in the folder
-- [ ] Descriptions are clear and user-focused
-- [ ] Spelling and grammar are correct
-
-### 7. Present Changelog for User Approval
-
-**IMPORTANT**: Before committing and creating the PR, always show the complete changelog content to the user and wait for explicit approval.
-
-**What to show:**
-1. Display the full MDX content of the changelog file
-2. Confirm that illustration files were moved to the correct location
-3. List the image file names and paths
-
-**What to say:**
+## Error Handling
+```typescript
+// ✅ Proper error types and meaningful messages
+try {
+  const user = await userService.findById(userId);
+  if (!user) {
+    throw new UserNotFoundError(`User with ID ${userId} not found`);
+  }
+  return user;
+} catch (error) {
+  logger.error('Failed to fetch user', { userId, error });
+  throw error;
+}
 ```
-I've created the changelog for version {VERSION}. Here's the content for your review:
-
-[Show full MDX content]
-
-Images moved to:
-- packages/twenty-website/public/images/releases/{MINOR_VERSION}/{VERSION}-feature-1.png
-- packages/twenty-website/public/images/releases/{MINOR_VERSION}/{VERSION}-feature-2.png
-
-Please review the content. Once you approve, I'll commit the changes and create the pull request.
-```
-
-**Wait for user approval before proceeding to step 8.**
-
-Possible user responses:
-- "Looks good" / "Approve" / "Create the PR" → Proceed to step 8
-- Requests changes → Make the requested edits, then show content again
-- Asks questions → Answer them, then wait for approval
-
-### 8. Commit Changes
-
-```bash
-# Check status
-git status
-
-# Add files
-git add packages/twenty-website/src/content/releases/{VERSION}.mdx
-git add packages/twenty-website/public/images/releases/{MINOR_VERSION}/
-
-# Commit
-git commit -m "Add {VERSION} release changelog"
-
-# Push branch
-git push -u origin {VERSION}
-```
-
-### 9. Create Pull Request
-
-```bash
-# Create PR using GitHub CLI
-gh pr create \
-  --title "Release {VERSION}" \
-  --body "## Release {VERSION}
-
-This release includes:
-
-- Feature 1
-- Feature 2
-- Feature 3
-
-Changelog file: \`packages/twenty-website/src/content/releases/{VERSION}.mdx\`
-Release date: {DATE}" \
-  --base main \
-  --head {VERSION}
-```
-
-Or visit: `https://github.com/twentyhq/twenty/pull/new/{VERSION}`
-
-## File Naming Conventions
-
-### Changelog Files
-- **Format**: `{MAJOR}.{MINOR}.{PATCH}.mdx`
-- **Convention**: One file per complete version
-- **Examples**: `1.6.0.mdx`, `1.7.0.mdx`, `2.0.0.mdx`
-- **Location**: `packages/twenty-website/src/content/releases/`
-
-### Image Folders
-- **Format**: `{MAJOR}.{MINOR}/`
-- **Convention**: One folder per minor version (shared across patches)
-- **Examples**: `1.6/`, `1.7/`, `2.0/`
-- **Location**: `packages/twenty-website/public/images/releases/`
-
-### Image Files
-- **Format**: `{VERSION}-descriptive-name.png`
-- **Convention**: Kebab-case descriptive names
-- **Examples**: 
-  - `1.8.0-workflow-iterator.png`
-  - `1.8.0-bulk-select.png`
-  - `1.9.0-new-feature.png`
-
-## Quick Reference Template
-
-Copy and fill this for each release:
-
-```
-VERSION: ___________
-DATE: ___________
-MINOR_VERSION: ___________
-
-Features to document:
-1. ___________________________
-2. ___________________________
-3. ___________________________
-
-Branch name: {VERSION}
-Changelog path: packages/twenty-website/src/content/releases/{VERSION}.mdx
-Images path: packages/twenty-website/public/images/releases/{MINOR_VERSION}/
-```
-
-## Tips
-
-- **Start early**: Begin documenting features as they're developed
-- **User perspective**: Write for users, not developers
-- **Be concise**: 1-2 sentences per feature
-- **Visual first**: Illustrations should showcase the feature clearly
-- **Consistent style**: Match tone and structure of previous changelogs
-- **Test links**: Verify all image paths work before committing
-- **Research thoroughly**: Use codebase search to understand features deeply
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
