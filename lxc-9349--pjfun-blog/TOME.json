@@ -1,0 +1,44 @@
+{
+  "name": "pjfun-blog",
+  "owner": "LXC-9349",
+  "repo": "pjfun-blog",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u96f6\u540e\u7aef\u3001\u7eaf\u9759\u6001\u3001\u9876\u7ea7\u52a8\u6548\u3001\u5168\u7403\u79d2\u5f00\u7684\u73b0\u4ee3\u5316\u4e2a\u4eba\u535a\u5ba2\u7cfb\u7edf\u3002 ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LXC-9349/pjfun-blog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T13:24:59Z"
+}
