@@ -4,7 +4,7 @@
   "repo": "dsa-practice",
   "description": "A curated DSA practice repo solving problems in three tiers: brute-force, optimized, and optimal. Each solution includes clear explanations, complexity analysis, and clean, testable code across arrays, strings, linked lists, trees, graphs, DP, and greedy. Designed for interview prep and systematic skill growth.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thezaidsheikh/dsa-practice",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:21:10Z"
+  "distributed_at": "2026-05-19T02:42:39Z"
 }
