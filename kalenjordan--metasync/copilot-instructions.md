@@ -1,26 +1,69 @@
-## naming-conventions
+## project-structure
 
-> - **Utility Files**: All files in the `utils/` directory must follow `CamelCase.js` naming format
+> This project syncs Shopify Metaobject and Metafield definitions between stores.
 
-# Naming Conventions
+# Project Structure
 
-## File Naming
+This project syncs Shopify Metaobject and Metafield definitions between stores.
 
-- **Utility Files**: All files in the `utils/` directory must follow `CamelCase.js` naming format
-  - Examples: `MetafieldHandler.js`, `ProductImageHandler.js`, `ShopifyIDUtils.js`
+## Core Files
 
-- **Strategy Files**: Strategy classes in the `strategies/` directory should follow `CamelCase.js` naming format
-  - Examples: `MetaobjectSyncStrategy.js`, `ProductMetafieldSyncStrategy.js`
+- **`cli.js`**: [cli.js](mdc:cli.js) e main entry point for the command-line tool. It handles:
+    - Parsing command-line arguments using `commander`.
+    - Reading store credentials from `~/metasync.yaml`.
+    - Setting up Shopify API clients using `shopify-api-node`.
+    - Wrapping the clients with `ShopifyClient` for logging.
+    - Selecting and executing the appropriate sync strategy based on the `--resource-type` option.
+    - Displaying the final summary.
 
-## Class Naming
+- **`utils/ShopifyClient.js`**: [utils/ShopifyClient.js](mdc:utils/ShopifyClient.js) provides a wrapper around the `shopify-api-node` client to centralize GraphQL call logging using the project's logger. It formats debug logs based on the `--debug` flag.
 
-Classes should match their filename:
-- A file named `MetafieldHandler.js` should export a class called `MetafieldHandler`
+- **`~/metasync.yaml`**: Stores the domain and access tokens for different Shopify stores, referenced by name (e.g., `--source shop1`). Example in `metasync.example.yaml`.
 
-## Method Naming
+## Strategy Pattern
 
-- Use camelCase for method names (e.g., `createMetafield()`, `updateProduct()`)
-- Getter methods should begin with "get" (e.g., `getProductById()`)
+The core sync logic is implemented using the Strategy pattern, located in the `strategies/` directory.
+
+- **`strategies/`**: Contains strategy classes for different resource types.
+    - **`BaseMetafieldSyncStrategy.js`**: [strategies/BaseMetafieldSyncStrategy.js](mdc:strategies/BaseMetafieldSyncStrategy.js) is the base class for all metafield sync strategies.
+    - **`MetaobjectSyncStrategy.js`**: [strategies/MetaobjectSyncStrategy.js](mdc:strategies/MetaobjectSyncStrategy.js) handles all logic related to syncing Metaobject definitions and data (fetching, creating, updating, reconciling).
+    - **`ProductMetafieldSyncStrategy.js`**: [strategies/ProductMetafieldSyncStrategy.js](mdc:strategies/ProductMetafieldSyncStrategy.js) handles syncing Product Metafield definitions.
+    - **`ProductSyncStrategy.js`**: [strategies/ProductSyncStrategy.js](mdc:strategies/ProductSyncStrategy.js) orchestrates syncing Products between Shopify stores, coordinating specialized utility classes for batch processing, CRUD operations, metafield handling, and result tracking.
+    - **`PageSyncStrategy.js`**: [strategies/PageSyncStrategy.js](mdc:strategies/PageSyncStrategy.js) handles syncing Pages between Shopify stores.
+    - Additional metafield sync strategies for various resources (Customers, Variants, Orders, Companies).
+
+Each strategy class typically:
+- Takes the wrapped source/target clients and options in its constructor.
+- Implements a `sync()` method called by `cli.js`.
+- Contains methods for fetching, creating, and updating the specific resource type.
+- May contain helper methods specific to that resource type.
+- Includes logic for listing available definitions if required options are missing.
+
+## Utility Classes
+
+The project uses specialized utility classes to handle specific aspects of Shopify synchronization:
+
+- **`utils/`**: Contains utility classes that provide focused functionality.
+    - **`MetafieldHandler.js`**: [utils/MetafieldHandler.js](mdc:utils/MetafieldHandler.js) manages batched metafield operations, respecting Shopify's 25-metafield limit per API call.
+    - **`ProductImageHandler.js`**: [utils/ProductImageHandler.js](mdc:utils/ProductImageHandler.js) handles image uploads and variant image associations.
+    - **`ProductPublicationHandler.js`**: [utils/ProductPublicationHandler.js](mdc:utils/ProductPublicationHandler.js) manages publication channels and publishing products to Shopify sales channels.
+    - **`ProductBaseHandler.js`**: [utils/ProductBaseHandler.js](mdc:utils/ProductBaseHandler.js) provides core product CRUD operations (create, read, update, delete).
+    - **`ProductVariantHandler.js`**: [utils/ProductVariantHandler.js](mdc:utils/ProductVariantHandler.js) handles product variant operations.
+    - **`ProductBatchProcessor.js`**: [utils/ProductBatchProcessor.js](mdc:utils/ProductBatchProcessor.js) handles product batch fetching and pagination.
+    - **`ProductMetafieldProcessor.js`**: [utils/ProductMetafieldProcessor.js](mdc:utils/ProductMetafieldProcessor.js) processes and transforms product metafields.
+    - **`ProductOperationHandler.js`**: [utils/ProductOperationHandler.js](mdc:utils/ProductOperationHandler.js) coordinates product creation and updating with related entities.
+    - **`MetafieldFilterUtils.js`**: [utils/MetafieldFilterUtils.js](mdc:utils/MetafieldFilterUtils.js) filters metafields based on namespace and key constraints.
+    - **`SyncResultTracker.js`**: [utils/SyncResultTracker.js](mdc:utils/SyncResultTracker.js) tracks operation results and formats them for display.
+    - **`ShopifyIDUtils.js`**: [utils/ShopifyIDUtils.js](mdc:utils/ShopifyIDUtils.js) provides utility methods for Shopify ID validation and conversion.
+    - **`Logger.js`**: [Logger.js](mdc:utils/Logger.js) provides consistent log formatting with indentation, symbols, and color coding.
+    - **`ErrorHandler.js`**: [utils/ErrorHandler.js](mdc:utils/ErrorHandler.js) provides standardized error handling.
+    - **`CommandSetup.js`**: [utils/CommandSetup.js](mdc:utils/CommandSetup.js) handles command-line interface setup.
+
+The utility classes follow a composition pattern, where strategy classes initialize and use these utilities rather than inheriting from them. This approach improves modularity and maintainability by breaking down complex operations into specialized components.
+
+## Chalk
+
+Use chalk package for coloringtext in cli.
 
 ---
 > Source: [kalenjordan/metasync](https://github.com/kalenjordan/metasync) — distributed by [TomeVault](https://tomevault.io).
