@@ -1,24 +1,41 @@
-## code-style-guidelines
+## commit-message-format
 
-> Follow these conventions for consistent code:
+> Instructions for writing commit messages
 
+# Commit Message Format
 
-# Code Style Guidelines
+All commits to this codebase should follow the conventional commit format:
 
-Follow these conventions for consistent code:
+## Format
+```
+<type>: <concise description>
 
-- Use TypeScript with proper typing throughout
-- Avoid `any` types whenever possible
-- Follow the conventional commit format (feat:, fix:, refactor:, etc.)
-- Create meaningful tests with descriptive it() blocks
-- Use descriptive variable names.
-- Add comments only for complex logic, non-obvious decisions, or to explain "why" something is done if not immediately clear from the code.
-- Avoid comments that merely restate what the code does, or that become outdated quickly (e.g., comments tracking interactive changes during development).
-- Favor composition over inheritance
-- Use centralized logging via the logger utility
-- For testing, prefer inline snapshots where appropriate
+[optional body with details]
+```
 
-See [CLAUDE.md](mdc:CLAUDE.md) for additional style guidelines.
+## Types
+- `feat`: New features or significant enhancements
+- `fix`: Bug fixes
+- `docs`: Documentation changes
+- `style`: Code style/formatting changes (no functional changes)
+- `refactor`: Code changes that neither fix bugs nor add features
+- `perf`: Performance improvements
+- `test`: Adding or correcting tests
+- `chore`: Maintenance tasks, dependencies, etc.
+
+## Guidelines
+- Keep the first line under 72 characters
+- Use present tense ("add feature" not "added feature")
+- Be specific about what changed
+- Reference issue numbers in the body when applicable
+- Do not mention Claude or other AI assistants in commit messages
+
+## Examples
+```
+feat: add daily note resources to MCP
+fix: resolve issue with file path normalization
+docs: update README with new tools documentation
+refactor: consolidate resource tools and tests
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
