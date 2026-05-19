@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [stanford-cs336/assignment4-data](https://github.com/stanford-cs336/assignment4-data).
+Original source: `CLAUDE.md` in [stanford-cs336/assignment4-data](https://github.com/stanford-cs336/assignment4-data).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
