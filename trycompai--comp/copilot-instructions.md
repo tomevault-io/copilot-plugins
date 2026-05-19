@@ -1,147 +1,186 @@
-## prisma
+## prompt-engineering
 
-> Prisma schema conventions and migration workflow
+> Prompt engineering best practices - invoke with @prompt-engineering
 
 
-# Prisma Schema
+# Prompt Engineering Best Practices
 
-## Migration Workflow
+Based on [Claude's Prompt Engineering Documentation](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)
 
-**Schema changes happen in `packages/db`, then regenerate types in each app.**
+## Core Principles
 
-### Step 1: Edit Schema
+### 1. Define Success Criteria First
 
-```bash
-# Schema files are in packages/db/prisma/schema/
-packages/db/prisma/schema/
-├── schema.prisma      # Main schema with datasource
-├── user.prisma        # User models
-├── task.prisma        # Task models
-└── ...
+Before writing prompts:
+
+- **Establish clear objectives**: What constitutes a successful response?
+- **Create evaluation metrics**: How will you measure prompt effectiveness?
+- **Draft and iterate**: Start with a first draft and refine based on results
+
+### 2. When to Use Prompt Engineering vs Fine-tuning
+
+Prompt engineering is preferred because:
+
+- **Resource efficient**: Only requires text input, no GPUs
+- **Cost effective**: Uses base model pricing
+- **Maintains updates**: Works across model versions
+- **Time saving**: Instant results vs hours/days for fine-tuning
+- **Minimal data needs**: Works with zero-shot or few-shot
+- **Flexible iteration**: Quick experimentation cycle
+- **Preserves knowledge**: No catastrophic forgetting
+- **Transparent**: Human-readable, easy to debug
+
+---
+
+## The 6 Core Techniques
+
+### 1. Be Clear and Direct
+
+**Principle**: Provide explicit, unambiguous instructions.
+
+```
+❌ Bad: "Tell me about it"
+✅ Good: "Summarize the following article in three bullet points, focusing on key findings"
+
+❌ Bad: "Help with code"
+✅ Good: "Debug this Python function that should return the sum of even numbers in a list"
 ```
 
-### Step 2: Create Migration
+**Tips**:
 
-```bash
-# Run from packages/db
-cd packages/db
-bunx prisma migrate dev --name your_migration_name
+- State the task explicitly at the start
+- Specify the desired output format (bullet points, JSON, paragraphs)
+- Include constraints (word count, tone, audience)
+- Mention what to include AND what to exclude
+
+### 2. Use Examples (Multishot Prompting)
+
+**Principle**: Show the model what you want through examples.
+
+```xml
+<examples>
+  <example>
+    <input>The movie was absolutely terrible, waste of time</input>
+    <output>{"sentiment": "negative", "confidence": 0.95}</output>
+  </example>
+  <example>
+    <input>Decent film, not great but watchable</input>
+    <output>{"sentiment": "neutral", "confidence": 0.7}</output>
+  </example>
+  <example>
+    <input>Best movie I've seen this year!</input>
+    <output>{"sentiment": "positive", "confidence": 0.9}</output>
+  </example>
+</examples>
+
+Now analyze: "The special effects were amazing but the plot was confusing"
 ```
 
-### Step 3: Regenerate Types in Apps
+**Tips**:
 
-```bash
-# Each app needs to regenerate Prisma client types
-bun run -F apps/app db:generate
-bun run -F apps/api db:generate
-bun run -F apps/portal db:generate
+- Include 3-5 diverse examples covering edge cases
+- Show examples of BOTH good and bad outputs
+- Match example complexity to your actual use case
+- Order examples from simple to complex
 
-# Or from root (if configured)
-bun run prisma:generate
+### 3. Let Claude Think (Chain of Thought)
+
+**Principle**: Encourage step-by-step reasoning for complex tasks.
+
+```xml
+<instruction>
+Solve this problem step by step. Show your reasoning before giving the final answer.
+</instruction>
+
+<problem>
+A train leaves Station A at 9:00 AM traveling at 60 mph. Another train leaves
+Station B at 10:00 AM traveling at 80 mph toward Station A. The stations are
+280 miles apart. When will the trains meet?
+</problem>
+
+<thinking>
+[Let Claude work through the problem here]
+</thinking>
+
+<answer>
+[Final answer after reasoning]
+</answer>
 ```
 
-### ✅ Always Do This
+**Tips**:
 
-```bash
-# 1. Make schema changes in packages/db
-# 2. Create migration
-cd packages/db && bunx prisma migrate dev --name add_user_role
+- Use phrases like "Think step by step" or "Explain your reasoning"
+- For complex tasks, explicitly request a thinking section
+- Chain of thought improves accuracy on math, logic, and multi-step problems
+- Can use `<thinking>` tags to separate reasoning from output
 
-# 3. Regenerate types in ALL apps that use the db
-bun run -F apps/app db:generate
-bun run -F apps/api db:generate
-bun run -F apps/portal db:generate
+### 4. Use XML Tags
+
+**Principle**: Structure prompts with clear delimiters for better parsing.
+
+```xml
+<context>
+You are helping debug a penetration testing tool that automates security scans.
+</context>
+
+<task>
+Analyze the following error log and identify the root cause.
+</task>
+
+<error_log>
+[2024-01-15 10:23:45] ERROR: Connection timeout after 30s
+[2024-01-15 10:23:45] DEBUG: Target: 192.168.1.1:443
+[2024-01-15 10:23:45] DEBUG: Retry attempt 3 of 3
+</error_log>
+
+<output_format>
+Provide your analysis in this format:
+- Root cause: [one sentence]
+- Evidence: [relevant log lines]
+- Recommended fix: [actionable steps]
+</output_format>
 ```
 
-### ❌ Never Do This
+**Common XML Tags**:
 
-```bash
-# Don't edit schema in app directories
-apps/app/prisma/schema.prisma  # ❌ Wrong location
+- `<context>` - Background information
+- `<task>` or `<instruction>` - What to do
+- `<examples>` - Sample inputs/outputs
+- `<constraints>` - Limitations or rules
+- `<output_format>` - Expected response structure
+- `<thinking>` - Reasoning section
+- `<answer>` - Final response
 
-# Don't forget to regenerate types
-bunx prisma migrate dev  # ✅ Created migration
-# ... forgot to run db:generate in apps  # ❌ Types out of sync
+### 5. Give Claude a Role (System Prompts)
+
+**Principle**: Assign a persona to influence response style and expertise.
+
+```xml
+<role>
+You are a senior security researcher with 15 years of experience in penetration
+testing. You specialize in web application security and have discovered multiple
+CVEs. You communicate findings clearly and prioritize actionable recommendations.
+</role>
+
+<task>
+Review this HTTP response and identify potential security vulnerabilities.
+</task>
 ```
 
-## Core Rule
+**Effective Role Elements**:
 
-**Always use prefixed CUIDs for IDs** using `generate_prefixed_cuid`.
+- Expertise level (senior, expert, specialist)
+- Domain knowledge (security, finance, medicine)
+- Communication style (technical, friendly, formal)
+- Priorities (accuracy, brevity, thoroughness)
 
-## ID Pattern
+### 6. Prefill Claude's Response
 
-### ✅ Always Do This
+**Principle**: Start the response to guide format and direction.
 
-```prisma
-model User {
-  id String @id @default(dbgenerated("generate_prefixed_cuid('usr'::text)"))
-  // ... other fields
-}
-
-model Task {
-  id String @id @default(dbgenerated("generate_prefixed_cuid('tsk'::text)"))
-  // ... other fields
-}
-
-model Organization {
-  id String @id @default(dbgenerated("generate_prefixed_cuid('org'::text)"))
-  // ... other fields
-}
 ```
-
-### ❌ Never Do This
-
-```prisma
-// Don't use UUID
-model User {
-  id String @id @default(uuid())
-}
-
-// Don't use auto-increment
-model User {
-  id Int @id @default(autoincrement())
-}
-
-// Don't forget ::text cast
-model User {
-  id String @id @default(dbgenerated("generate_prefixed_cuid('usr')")) // ❌ Missing ::text
-}
+Human: List the top 3 security vulnerabilities in this code.
 ```
-
-## Prefix Guidelines
-
-| Entity       | Prefix | Example ID                     |
-| ------------ | ------ | ------------------------------ |
-| User         | `usr`  | `usr_BJRIZLgRPuWt8MvMjkSY82f1` |
-| Organization | `org`  | `org_cK9xMnPqRs2tUvWx3yZa4b5c` |
-| Task         | `tsk`  | `tsk_dE6fGhIj7kLmNoP8qRsT9uVw` |
-| Control      | `ctl`  | `ctl_xY0zAaBb1cDdEe2fFgGh3iIj` |
-| Policy       | `pol`  | `pol_kK4lLmMn5oOpPq6rRsSt7uUv` |
-
-## Rules
-
-1. **Short prefixes** - Use 2-3 characters
-2. **Unique prefixes** - Each model gets its own prefix
-3. **Always cast** - Include `::text` in the function call
-4. **Use dbgenerated** - Wrap the function call in `dbgenerated()`
-
-## Benefits
-
-- Human-readable IDs at a glance (`usr_` vs `org_`)
-- Easy debugging in logs
-- Safe to expose in URLs
-- Unique across all tables
-
-## Checklist
-
-After schema changes:
-
-- [ ] Schema edited in `packages/db/prisma/schema/`
-- [ ] Migration created with `bunx prisma migrate dev`
-- [ ] Types regenerated in `apps/app` with `db:generate`
-- [ ] Types regenerated in `apps/api` with `db:generate`
-- [ ] Types regenerated in `apps/portal` with `db:generate`
-- [ ] New models use prefixed CUID IDs
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
