@@ -4,7 +4,7 @@
   "repo": "fastmcp",
   "description": "\ud83d\ude80 The fast, Pythonic way to build MCP servers and clients.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/PrefectHQ/fastmcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T08:54:33Z"
+  "distributed_at": "2026-05-19T09:06:12Z"
 }
