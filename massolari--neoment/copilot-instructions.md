@@ -1,0 +1,34 @@
+## neoment
+
+> - `devbox run test` - Run all tests using Busted
+
+# Neoment.nvim - Agent Guidelines
+
+## Build/Test Commands
+- `devbox run test` - Run all tests using Busted
+- `devbox run test:watch` - Run tests in watch mode
+- Tests use Busted test framework with luassert assertions
+
+## Code Style
+- Use tabs for indentation
+- Module pattern: `local M = {}` and `return M`
+- Import style: `local module = require("neoment.module")`
+- Function docs: Use `---` comments with `@param` and `@return` annotations
+- Type annotations: Use `--- @type` and `--- @class` for LSP support
+- Error handling: Use custom error monad pattern from `neoment.error`
+- Async patterns: Use `vim.schedule()` for UI updates from async contexts
+- Naming: snake_case for variables/functions, PascalCase for classes
+- File organization: One module per file, grouped by functionality
+- Tests: Use `describe()` and `it()` with descriptive names
+- Vim API: Prefer `vim.api.*` over legacy `vim.fn.*` where possible
+- Buffer/Window options: Use `vim.bo[buf]` and `vim.wo[win]` instead of `nvim_set_option_value`
+
+## Architecture
+- Matrix client implementation for Neovim
+- Modular design with separate concerns (sync, rooms, storage, etc.)
+- Custom error handling with Result-like pattern
+- Async operation handling with proper scheduling
+
+---
+> Source: [Massolari/neoment](https://github.com/Massolari/neoment) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
