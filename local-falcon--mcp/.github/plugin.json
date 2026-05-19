@@ -1,0 +1,9 @@
+{
+  "name": "local-falcon--mcp",
+  "displayName": "mcp",
+  "description": "MCP server for Local Falcon's local SEO and AI visibility platform: geo-grid rank tracking, campaign management, and competitor analysis via Model Context Protocol",
+  "version": "1.0.0",
+  "author": "local-falcon",
+  "homepage": "https://github.com/local-falcon/mcp",
+  "skills": []
+}
