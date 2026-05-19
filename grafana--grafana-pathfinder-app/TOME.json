@@ -4,7 +4,7 @@
   "repo": "grafana-pathfinder-app",
   "description": "Get help exactly when and where you need it. Grafana Interactive Learning brings contextual documentation and interactive tutorials directly into Grafana, so you can learn and build without leaving your workflow.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/grafana/grafana-pathfinder-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T08:42:57Z"
+  "distributed_at": "2026-05-19T08:49:53Z"
 }
