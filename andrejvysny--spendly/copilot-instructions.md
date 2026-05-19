@@ -1,40 +1,181 @@
 ## spendly
 
-> Subagent routing guidance. Apply to every task to maximize delegation to project subagents.
+> Spendly is a Laravel-React personal finance tracker with GoCardless bank integration, transaction rule engine, and CSV import system. The codebase follows service-oriented architecture with clear separation between business logic and data access.
 
+# Copilot Instructions for Spendly
 
-# Subagent routing (always-on)
+## Project Overview
+Spendly is a Laravel-React personal finance tracker with GoCardless bank integration, transaction rule engine, and CSV import system. The codebase follows service-oriented architecture with clear separation between business logic and data access.
 
-When a user request matches one of the domains below, **delegate early** to the corresponding project subagent and let it drive decisions in its specialty area. Prefer running subagents **in parallel** when work can be cleanly split (e.g. backend + frontend + verification).
+## Essential Architecture Patterns
 
-## Domain → subagent mapping
+### Service Layer Architecture
+- **Controllers** are thin - delegate complex logic to services (`app/Services/`)
+- **Services** contain business logic (`GoCardlessService`, `RuleEngine`) 
+- **Repositories** handle data access (`app/Repositories/`)
+- **Models** use Eloquent relationships and scopes effectively
 
-- **Import wizard / CSV imports** → `import-wizard`
-  - Triggers: “import wizard”, “CSV import”, “mapping”, “clean step”, “import failures”, “imports/wizard”, files under `app/Http/Controllers/Import/`, `app/Services/TransactionImport/`, `app/Services/Csv/`, `resources/js/pages/import/`.
+### Transaction Rule Engine
+- Rules processed via Laravel Pipeline pattern (`RuleEngine`)
+- Event-driven execution on transaction create/update (`ProcessRulesJob`)
+- Rules have conditions (amount/IBAN/description) and actions (set category/add tag)
+- Pipeline processes rules by priority order, respecting stop conditions
 
-- **GoCardless / Bank Data** → `gocardless`
-  - Triggers: “GoCardless”, “bank data”, “requisition”, “institutions”, “token refresh”, “sync transactions”, “mock client”, settings/bank data pages, files under `app/Services/GoCardless/`, `app/Http/Controllers/Settings/BankDataController.php`, `resources/js/pages/settings/bank_data.tsx`.
+### CSV Import System  
+- Multi-step wizard: upload → configure → preview → process
+- Field auto-mapping using pattern matching (`FieldMappingService.ts`)
+- Duplicate detection via configurable identifiers
+- Failure recovery with manual field mapping interface
+- Import mappings saved/reusable per bank
 
-- **Rule Engine** → `rule-engine`
-  - Triggers: “rules”, “conditions”, “operators”, “actions”, “triggers”, “execute rules”, “dry run”, files under `app/Services/RuleEngine/`, `app/Models/RuleEngine/`, `resources/js/pages/rules/`.
+### GoCardless Integration
+- Token management with automatic refresh (`TokenManager`)
+- Service provider pattern for dependency injection (`GoCardlessServiceProvider`)
+- Paginated transaction sync with date range calculation
+- Account mapping between GoCardless and local models
 
-- **Frontend UI / React / TypeScript** → `frontend`
-  - Triggers: React components/pages/hooks, shadcn/Tailwind work, accessibility, performance, files under `resources/js/**` or `resources/css/**`.
+## Development Workflows
 
-- **Architecture / Algorithms / system design** → `architecture`
-  - Triggers: API design, data modeling, performance strategy, algorithm choice, cross-cutting refactors. This agent is **read-only by default** and should return a plan/decision record + recommended next steps.
+### Docker Development Environment
+**IMPORTANT**: Always run PHP and Composer commands through Docker Compose using the `cli` service:
+```bash
+# PHP commands
+docker compose run cli php [command]
 
-- **Debugging regressions / failing tests / runtime errors** → `debugger`
-- **Run/fix tests** → `test-runner`
-- **Independent verification** (after claiming work complete) → `verifier`
+# Composer commands  
+docker compose run cli composer [command]
 
-## Delegation best practices
+# Artisan commands
+docker compose run cli php artisan [command]
 
-- If the request is domain-specific, **route to exactly one specialist** first; only then proceed to implementation.
-- If a change spans domains, delegate specialists in parallel (e.g. `gocardless` + `frontend`) and synthesize a single coherent plan before editing.
-- Always include key file paths, routes, and invariants from repo docs/rules when delegating so subagents start with the right context.
+# Vendor binaries
+docker compose run cli ./vendor/bin/[binary]
+```
+
+### Backend Commands
+```bash
+# Tests with coverage
+docker compose run cli php artisan test --coverage
+
+# Code quality
+docker compose run cli ./vendor/bin/phpstan analyse
+docker compose run cli ./vendor/bin/pint
+
+# Database operations  
+docker compose run cli php artisan migrate:fresh --seed
+```
+
+### Frontend Commands
+```bash
+# Development
+npm run dev
+
+# Build & type checking
+npm run build
+npm run types
+
+# Linting & formatting
+npm run lint
+npm run format:check
+```
+
+### Docker Development
+```bash
+# Full development setup
+./scripts/dev.sh
+
+# Run tests in container
+./scripts/test.sh --coverage
+```
+
+## Key File Patterns
+
+### Laravel Structure
+- **Feature Tests**: `tests/Feature/` - test full request cycles
+- **Unit Tests**: `tests/Unit/` - test individual classes/methods
+- **Seeders**: Create realistic demo data with relationships
+- **Migrations**: Use proper foreign keys and indexes
+- **Policies**: Authorization logic for user-owned resources
+
+### React Structure  
+- **Pages**: Inertia.js page components in `resources/js/pages/`
+- **Components**: Reusable UI in `resources/js/components/`
+- **Types**: TypeScript interfaces in `resources/js/types/`
+- **Services**: Business logic in `.ts` files (e.g., `FieldMappingService`)
+
+### Critical Configuration
+- **Inertia.js**: Bridges Laravel backend with React frontend
+- **shadcn/ui**: UI component library - prefer existing components
+- **Tailwind CSS**: Utility-first styling
+- **Laravel Octane**: High-performance application server
+
+## Project-Specific Conventions
+
+### Database Design
+- User-scoped data: always include `user_id` foreign key
+- Soft deletes on user-facing resources
+- JSON metadata columns for flexible data storage
+- Composite indexes for common query patterns
+
+### API Responses
+```php
+// Consistent success response
+return response()->json([
+    'success' => true,
+    'data' => $data,
+    'message' => 'Operation completed'
+]);
+
+// Error response with logging
+Log::error('Operation failed', ['context' => $context]);
+return response()->json([
+    'success' => false, 
+    'error' => 'User-friendly message'
+], 500);
+```
+
+### React Component Patterns
+```tsx
+// Page component with Inertia props
+interface PageProps {
+    transactions: Transaction[];
+    filters: FilterState;
+}
+
+export default function TransactionsIndex({ transactions, filters }: PageProps) {
+    const { data, setData, post } = useForm(initialState);
+    // Component logic
+}
+```
+
+### Testing Requirements
+- **Unit tests** for services and repositories
+- **Feature tests** for API endpoints 
+- **Mock external services** (GoCardless) in tests
+- **Database transactions** for test isolation
+
+## Integration Points
+
+### GoCardless Flow
+1. Token management handles authentication
+2. Service layer orchestrates API calls  
+3. Mapper transforms external data to local models
+4. Repository persists with proper relationships
+
+### Rule Engine Integration
+- Triggered by `TransactionCreated`/`TransactionUpdated` events
+- Jobs process rules asynchronously via queues
+- Pipeline pattern enables complex rule combinations
+- Audit logging tracks all rule executions
+
+### Import System Dependencies
+- Account selection determines transaction ownership
+- Field mapping service handles bank format variations  
+- Duplicate detection prevents data corruption
+- Failure recovery maintains import state for retry
+
+When modifying these systems, ensure backward compatibility and maintain the separation of concerns established in the architecture.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/andrejvysny)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/andrejvysny)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
