@@ -1,35 +1,61 @@
-## edge-to-edge
+## ios-viewmodel
 
-> Edge-to-edge Play Store warnings and deferred action items — relevant when upgrading Material Components, handling Play Store warnings, or working on edge-to-edge / window insets
+> iOS ViewModel conventions — @Published, ObservableObject, @StateObject vs @ObservedObject, KMP Swift naming, KMP collection bridging pitfalls
 
 
-# Edge-to-Edge Play Store Warnings (Deferred)
+# iOS ViewModel Rules
 
-Two Google Play Console recommendations were analyzed in March 2026. No action is required from app code — the root cause is in the Material Components library.
+## ObservableObject pattern
 
-## Warning 1: "Edge-to-edge may not display for all users"
+ViewModels conform to `ObservableObject` and expose state via `@Published` properties.
 
-- **Status:** Already handled.
-- The app calls `enableEdgeToEdge()` in `MainActivity.onCreate()` before `setContent`.
-- Both `FretboardScreen` and `OnboardingScreen` use Material 3 `Scaffold` with `innerPadding`, which automatically accounts for system bar insets.
-- `OnboardingScreen` bottom bar applies `navigationBarsPadding()`.
-- **Follow-up:** A visual audit on an Android 15+ device/emulator could confirm nothing is clipped behind system bars (bottom sheets, dialogs, drawer, FABs).
+```swift
+class TunerViewModel: ObservableObject {
+    @Published var detectedNote: String = ""
+    @Published var centsOff: Double = 0.0
+}
+```
 
-## Warning 2: "Your app uses deprecated APIs or parameters for edge-to-edge"
+## @StateObject vs @ObservedObject
 
-- **Deprecated APIs flagged:** `setStatusBarColor`, `setNavigationBarColor`, `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES`
-- **Root cause:** Internal code in `com.google.android.material:material:1.13.0`:
-  - `EdgeToEdgeUtils.applyEdgeToEdge()` calls `window.setStatusBarColor()` / `window.setNavigationBarColor()`
-  - `BottomSheetDialog.onCreate()` uses the above utilities
-  - `MaterialDatePicker.onStart()` sets `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES`
-- **Not in app code** — the obfuscated class names (`b.q.b`, `b.t.b`, `b.v.b`, `b.r.t`) in the Play Console map to these Material library internals after R8.
-- **Upstream fix:** Commit `c2051db` in Material Components, available in `1.14.0-alpha` but not yet in a stable release.
-- **Tracked at:** https://github.com/material-components/material-components-android/issues/4507
+- Use `@StateObject` for view-owned ViewModels (the view creates and owns the instance)
+- Use `@ObservedObject` for ViewModels passed in from a parent view
 
-## Action
+```swift
+struct TunerView: View {
+    @StateObject private var viewModel = TunerViewModel()
+}
 
-- **Decision (March 2026):** No action for now.
-- **Revisit when:** Material Components `1.14.0` stable is released. Update the `material` version in `gradle/libs.versions.toml` (currently `1.13.0`) and verify the Play Console warnings are resolved.
+struct ChildView: View {
+    @ObservedObject var viewModel: TunerViewModel
+}
+```
+
+## KMP Swift naming conventions
+
+- KMP classes drop the `Shared` prefix: `PitchDetector.shared`, `UkuleleTuning.highG`
+- KMP numeric types keep their Kotlin names: `KotlinFloatArray`, `KotlinDouble` (no prefix)
+
+## KMP collection bridging
+
+Kotlin/Native bridges `List` and `Set` to different Swift types. Force-casting the **entire collection** to a Swift Array crashes for Sets.
+
+| Kotlin type | Swift bridge type | `as! [NSNumber]` safe? |
+|-------------|-------------------|------------------------|
+| `List<Int>` | `[KotlinInt]` (Array) | Yes |
+| `Set<Int>` | `Set<KotlinInt>` | **No — crashes** (Set is not Array) |
+
+```swift
+// ❌ DON'T: cast the whole collection — crashes if source is a Kotlin Set
+let values = Set((notes as! [NSNumber]).map { $0.int32Value })
+
+// ✅ DO: iterate elements individually — works for both List and Set
+let values = Set(notes.map { ($0 as! NSNumber).int32Value })
+```
+
+## Existing ViewModels
+
+`FretboardViewModel`, `MetronomeViewModel`, `FavoritesViewModel`, `SettingsViewModel`, `ChordLibraryViewModel`, `SongbookViewModel`, `MelodyViewModel`, `ProgressionsViewModel`, `LearnViewModel`, `PitchMonitorViewModel`, `ScalePracticeViewModel`, `PracticeTimerViewModel`, `CustomPatternsViewModel`, `PlayAlongViewModel`, `ChordTransitionsViewModel`, `SetlistViewModel`
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
