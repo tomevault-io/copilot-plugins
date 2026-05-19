@@ -4,7 +4,7 @@
   "repo": "maggieappleton.com-V3",
   "description": "My digital garden built with Astro and MDX. Featuring loosely opinionated notes, half-formed ideas, and content that is always growing.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MaggieAppleton/maggieappleton.com-V3",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T04:14:54Z"
+  "distributed_at": "2026-05-19T07:28:58Z"
 }
