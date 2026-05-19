@@ -4,7 +4,7 @@
   "repo": "igniter-js",
   "description": "Igniter is a modern, type-safe HTTP framework designed to streamline the development of scalable TypeScript applications.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/felipebarcelospro/igniter-js",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T23:38:25Z"
+  "distributed_at": "2026-05-19T05:11:33Z"
 }
