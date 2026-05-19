@@ -1,0 +1,14 @@
+{
+  "name": "clawpify--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "clawpify",
+  "homepage": "https://github.com/clawpify/skills",
+  "skills": [
+    {
+      "name": "clawpify",
+      "description": ""
+    }
+  ]
+}
