@@ -1,0 +1,9 @@
+{
+  "name": "allenai--olmoearth-pretrain",
+  "displayName": "olmoearth_pretrain",
+  "description": "Earth system foundation model data, training, and eval",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/olmoearth_pretrain",
+  "skills": []
+}
