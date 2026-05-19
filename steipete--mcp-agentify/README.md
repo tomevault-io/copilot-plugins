@@ -7,13 +7,13 @@ MCP orchestrator that converts MPC servers to agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [steipete/mcp-agentify](https://github.com/steipete/mcp-agentify).
+Original source: `CLAUDE.md` in [steipete/mcp-agentify](https://github.com/steipete/mcp-agentify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
