@@ -1,21 +1,16 @@
-## environment
+## linting
 
-> We use UV to manage our Python environment.
+> When you have made edits run the following commands to lint the code:
 
 
-We use UV to manage our Python environment.
+When you have made edits run the following commands to lint the code:
 
-The project uses the `.venv` directory to store the virtual environment.
+```bash
+ruff format .
+ruff check . --fix
+```
 
-To activate the virtual environment:
-
-- **macOS/Linux**: `source .venv/bin/activate`
-- **Windows (cmd)**: `.venv\Scripts\activate.bat`
-- **Windows (PowerShell)**: `.venv\Scripts\Activate.ps1`
-
-To deactivate the virtual environment, run `deactivate` (all platforms).
-
-Requirements files are in the `requirements.txt` and `requirements_test.txt` files.
+This will format the code and attempt to fix any linting errors automatically.
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
