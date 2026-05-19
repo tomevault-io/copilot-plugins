@@ -1,0 +1,9 @@
+{
+  "name": "lukexlau--react-router-v7-better-auth",
+  "displayName": "react-router-v7-better-auth",
+  "description": "\ud83d\udd10 This is a template that can be deployed on Cloudflare Workers, built with React Router v7 (Remix), Better Auth, Drizzle ORM, and D1.",
+  "version": "1.0.0",
+  "author": "lukexlau",
+  "homepage": "https://github.com/lukexlau/react-router-v7-better-auth",
+  "skills": []
+}
