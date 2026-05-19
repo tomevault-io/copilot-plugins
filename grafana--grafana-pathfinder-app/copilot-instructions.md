@@ -1,133 +1,217 @@
-## schema-coupling
+## systempatterns
 
-> Guidance for keeping TypeScript types and Zod schemas synchronized
+> App plugin architecture patterns and critical implementation paths.
 
 
-# Schema-Type Coupling Rules
+# System Patterns
 
-This project uses **co-located TypeScript types and Zod schemas** for JSON guide validation. The types in `json-guide.types.ts` are the source of truth, and schemas in `json-guide.schema.ts` must mirror them exactly.
+## App Plugin Architecture
 
-## Core Principle
+This Grafana App Plugin integrates as a sidebar panel using **Grafana Scenes** for state management. Key architectural layers:
 
-**TypeScript types define what we expect. Zod schemas enforce it at runtime.**
+- **Extension Layer**: Sidebar components and navigation links registered via plugin.json
+- **Data Layer**: Multi-strategy content fetchers with fallbacks for external docs and recommender service
+- **External Layer**: ML-based recommender service and Grafana.com documentation
 
-Every structural change to a type MUST have a corresponding schema change, and vice versa.
+## Plugin-Specific Decisions
 
-## When Modifying Types
+- **Grafana Scenes over React Router**: Leverages Grafana's native scene-based navigation and state management
+- **localStorage Tab Persistence**: Browser-like multi-tab experience survives page reloads
+- **Context-Aware Recommendations**: Analyzes current Grafana state (page, datasources, dashboard) to suggest relevant content
+- **Interactive Elements System**: Custom `data-targetaction` attributes enable "Show me"/"Do it" automation of Grafana UI actions
+- **@dnd-kit for Drag-and-Drop**: All sortable/draggable interactions should use @dnd-kit library for built-in accessibility, touch device support, smooth animations, and consistency.
 
-If you add, remove, or change a field in `json-guide.types.ts`:
+**Important**: Do NOT implement drag-and-drop using native HTML5 DnD or other libraries. Always use the @dnd-kit components to maintain consistency and accessibility
 
-1. **Update the corresponding Zod schema** in `json-guide.schema.ts`
-2. **Run `npm run typecheck`** - the `satisfies z.ZodType<T>` pattern will catch mismatches
-3. **Run `npm run validate`** - verify bundled guides still pass
-4. **Update the `KNOWN_FIELDS` export** if adding new fields (for unknown field detection)
+## Component Relationships
 
-The file `json-guide.schema.ts` exposes a global schema version. When making changes to schema, 
-always consider advising the user to update the schema version following schema best practices, 
-and providing them guidance on forwards and backwards compatibility issues as appropriate.
+- `App.tsx` → Scene setup and auto-launch logic
+- `CombinedLearningJourneyPanel` → Tab orchestration and content rendering (`docs-panel.tsx`)
+- `ContextPanel` → Recommendations display using `useContextPanel` hook (`context-panel.tsx`)
+- **Interactive Engine** → Business logic in `src/interactive-engine/`
+- **Context Engine** → Context analysis in `src/context-engine/`
+- **Requirements Manager** → Requirements validation in `src/requirements-manager/`
+- **Utils** → General utilities in `src/utils/` (routing, plugin helpers, variable substitution, feature flag tracking, timeout management, experiments)
+- **Package Engine** → Package resolution, loading, and dependency queries in `src/package-engine/`
+- **Styles** → Theme-aware functions in `src/styles/*.styles.ts`
 
-### Example: Adding a New Field
+## Critical Implementation Paths
 
-```typescript
-// 1. Add to type
-export interface JsonGuide {
-  // ... existing fields
-  newField?: string; // NEW
-}
+**Context Analysis → Recommendations**:
+1. `context-engine/context.service.ts` → Extract context tags from Grafana state
+2. `context-engine/context.service.ts` → Call recommender service
+3. `context-engine/context.hook.ts` (useContextPanel) → Process and render recommendations
+4. User interaction → Tab creation with content
 
-// 2. Add to schema
-export const JsonGuideSchema = z.object({
-  // ... existing fields
-  newField: z.string().optional(), // NEW - matches type
-}).passthrough() satisfies z.ZodType<JsonGuide>;
+**Content Loading with Interactive Elements**:
+1. `docs-retrieval/content-fetcher.ts` → Multi-strategy HTML fetching with fallbacks
+2. `docs-retrieval/html-parser.ts` → Parse HTML to React component tree
+3. `docs-retrieval/content-renderer.tsx` → Render React components with interactive elements
+4. `interactive-engine/interactive.hook.ts` (useInteractiveElements) → Handle "show me"/"do it" events, check requirements, highlight/automate UI elements
+5. `requirements-manager/step-checker.hook.ts` → Validate requirements and objectives
+6. Render in tab with progress tracking
 
-// 3. Add to KNOWN_FIELDS
-export const KNOWN_FIELDS = {
-  _guide: ['id', 'title', 'blocks', 'match', 'schemaVersion', 'newField'], // ADD HERE
-  // ...
-};
-```
+## Gamification System Architecture
 
-## When Modifying Schemas
+**Data Flow**:
+- Guide completion → `user-storage.ts:markGuideCompleted()` → Check badges → Update streak → Dispatch events
+- `useLearningPaths` hook → Subscribes to events → Updates React state
+- Badge toasts queued and shown sequentially
 
-If you change validation rules in `json-guide.schema.ts`:
+**Key Components**:
+- `LearningPathCard` → Collapsible card with progress ring, expandable guide list
+- `BadgeUnlockedToast` → Celebratory modal with confetti, auto-dismiss with queue support
+- `ProgressRing` → SVG circular progress indicator with gradient stroke
+- `StreakIndicator` → Fire emoji with day count display
 
-1. **Consider if the type needs updating** - e.g., making a field required
-2. **Update error messages** to be user-friendly
-3. **Run tests** - `npm run test:ci -- --testPathPatterns=validation`
-4. **Run `npm run validate:strict`** - ensure bundled guides comply
+**Badge Triggers**:
+- `guide-completed` → Any/specific guide completion
+- `path-completed` → All guides in a path finished
+- `streak` → Consecutive days of activity (3-day, 7-day milestones)
 
-## Coupling Markers
+**Learning Paths Critical Path**:
+1. `learning-paths/paths.json` / `learning-paths/paths-cloud.json` → OSS and Cloud path definitions; `learning-paths/paths-data.ts:getPathsData()` selects the correct set at runtime based on Grafana edition
+2. `learning-paths/badges.ts` → Badge definitions and trigger conditions
+3. `learning-paths/streak-tracker.ts` → Daily streak calculation logic
+4. `learning-paths/learning-paths.hook.ts` → Main React hook for state management
+5. `lib/user-storage.ts:learningProgressStorage` → Persists progress in localStorage
+6. `components/LearningPaths/MyLearningTab.tsx` → Main UI for gamified experience
+7. Progress events dispatched via `learning-progress-updated` CustomEvent
 
-Look for `@coupling` JSDoc tags that explicitly link types and schemas:
+**Analytics Events**:
+- `learning_path_progress` → Tracks path interaction with completion %
+- `badge_unlocked` → Tracks badge awards with trigger type
 
-```typescript
-/**
- * @coupling JsonGuideSchema in json-guide.schema.ts
- */
-export interface JsonGuide { ... }
+## Frontend tier model
 
-/**
- * @coupling JsonGuide in json-guide.types.ts
- */
-export const JsonGuideSchema = z.object({ ... });
-```
+Imports flow **downward only** through these tiers. Cross-tier rules are enforced by ESLint and `src/validation/architecture.test.ts`; exceptions require an explicit allowlist entry with justification.
 
-When you see a `@coupling` tag, **always check the linked file** before making changes.
+- **Tier 0 — Types & constants**: `types/`, `constants/`. Pure type definitions and configuration constants; no runtime behavior; safe to import from anywhere.
+- **Tier 1 — Engines & providers**: `context-engine/`, `docs-retrieval/`, `interactive-engine/`, `package-engine/`, `learning-paths/`, `requirements-manager/`, `recovery/`, `validation/`. Hold the business logic. Each exposes a barrel `index.ts`; consumers import only the public surface.
+- **Tier 2 — UI**: `components/`, `pages/`. Compose engines into rendered surfaces.
+- **Tier 3 — Support**: `lib/`, `security/`, `styles/`, `global-state/`, `integrations/`, `hooks/`, `utils/`, `test-utils/`, `bundled-interactives/`, `locales/`, `img/`, `cli/`. Auxiliary utilities and feature integrations; imported by Tier 1 and Tier 2.
 
-## Forward Compatibility
+## Frontend subsystem reference
 
-All schemas use `.passthrough()` to allow unknown fields. This means:
+Compact catalogue. For each subsystem: purpose, entry point (file an agent should read first), and its position in the tier model. Per-subsystem deep-dives live in `docs/developer/engines/`, `docs/developer/utils/README.md`, `docs/developer/constants/README.md`, and `docs/developer/learning-paths/README.md`.
 
-- Newer guides with new fields will still parse successfully
-- Unknown fields generate warnings, not errors (unless `--strict` mode)
-- The `KNOWN_FIELDS` object determines what triggers warnings
+**Tier 0:**
 
-## Validation Module Structure
+- `types/` — Centralized TypeScript type definitions. Entry: `types/index.ts` barrel. Key modules: `json-guide.types`, `package.types`, `interactive-actions.types`, `requirements.types`, `content.types`, `learning-paths.types`, `v1-recommender.types`.
+- `constants/` — Glob-scoped constants. Entry: `src/constants.ts` (root barrel) + `src/constants/` subdir (selectors, interactive-config, testIds, z-index). See `docs/developer/constants/README.md`.
 
-```
-src/validation/
-├── index.ts          # Public exports
-├── validate-guide.ts # Main validateGuide() function
-├── unknown-fields.ts # Forward compatibility warnings
-└── errors.ts         # Error formatting utilities
+**Tier 1 — engines:**
 
-src/types/
-├── json-guide.types.ts  # TypeScript interfaces for single-file guides (source of truth)
-├── json-guide.schema.ts # Zod schemas for single-file guides (runtime validation)
-├── package.types.ts     # TypeScript interfaces for two-file package model
-└── package.schema.ts    # Zod schemas for packages (ContentJson, ManifestJson, RepositoryJson)
-```
+- `context-engine/` — Detects Grafana context (URL, datasources, dashboard) and calls the recommender. Entry: `context.service.ts`. Hook: `useContextPanel()`. See `docs/developer/engines/context-engine.md`.
+- `docs-retrieval/` — Multi-strategy content fetcher and renderer. Entry: `content-fetcher.ts` (`fetchUnifiedContent`). Renders via `content-renderer.tsx`. Journey-completion helpers in `learning-journey-helpers.ts`.
+- `interactive-engine/` — Executes interactive step actions. Entry: `interactive.hook.ts` (`useInteractiveElements`). Action handlers under `action-handlers/`. See `docs/developer/engines/interactive-engine.md`.
+- `package-engine/` — Package resolution + loading. Entry: `composite-resolver.ts` (`createCompositeResolver`). Resolver chain: bundled → online CDN → recommender API.
+- `learning-paths/` — Progress / badges / streaks / next-action. Entry: `learning-paths.hook.ts`. Badge definitions in `badges.ts`. See `docs/developer/learning-paths/README.md`.
+- `requirements-manager/` — Prereqs + postconditions for steps. Entry: `requirements-checker.hook.ts` (`useStepChecker`). State machine in `step-state.ts`. See `docs/developer/engines/requirements-manager.md`.
+- `recovery/` — Auto-recovery: decides whether the user is in the right place for a guide. Entry: `alignment-evaluator.ts` (`evaluateAlignment`).
+- `validation/` — Zod schemas + condition validators. Entry: `validate-guide.ts`. Architecture rules enforced by `architecture.test.ts`.
 
-## Two-file Package Model
+**Tier 2 — UI:**
 
-The package model separates content (`content.json`) from metadata (`manifest.json`):
+- `components/` — React + Scenes UI. Major panels: `App/App.tsx` (root), `docs-panel/docs-panel.tsx` (~40 KB hub), `Home/`, `interactive-tutorial/`, `LearningPaths/`, `LiveSession/`, `block-editor/`, `floating-panel/`, `full-screen/`, `kiosk/`, `PrTester/`.
+- `pages/` — Grafana Scenes routing. Entries: `homePage.ts`, `docsPage.ts`. Both registered by `App.tsx`.
 
-- **`package.types.ts`** defines `ContentJson`, `ManifestJson`, `RepositoryJson`, `RepositoryEntry`, `GraphNode`, `GraphEdge`, and resolution types
-- **`package.schema.ts`** defines corresponding Zod schemas with defaults and refinements
-- **`json-guide.schema.ts`** retains `JsonGuideSchemaStrict` for backwards-compatible single-file guides
-- `KNOWN_FIELDS._manifest` in `json-guide.schema.ts` lists valid manifest fields for unknown field detection
-- `CURRENT_SCHEMA_VERSION` (currently `"1.1.0"`) is the default for new packages
+**Tier 3 — support:**
 
-## Commands
+- `lib/` — Shared utilities. Sub-areas: `analytics.ts`, `user-storage.ts`, `dom/` (selector pipeline: detect → generate → validate → retry), `async-utils.ts`, `package-recommendations-client.ts`.
+- `security/` — URL allowlists, HTML / log sanitization. Entry: `security/index.ts`. Key: `parseUrlSafely`, `validateTutorialUrl`, `sanitizeDocumentationHTML`. See `.cursor/rules/frontend-security.mdc`.
+- `styles/` — Theme-aware CSS-in-JS factories (Emotion). One `*.styles.ts` per component.
+- `global-state/` — Cross-component stores (Zustand + React context). Files: `sidebar.ts`, `panel-mode.ts`, `link-interception.ts`, `interactive-navigation.ts`, `alignment-pending-context.ts`.
+- `integrations/` — Optional integrations: `assistant-integration/` (`<assistant>` tags), `coda/` (terminal), `workshop/` (action capture + replay). See `.cursor/rules/coda.mdc`, `docs/developer/ASSISTANT_INTEGRATION.md`, `docs/developer/integrations/workshop.md`.
+- `hooks/` — Cross-cutting hooks: `usePendingGuideLaunch`, `useAlignmentReevaluation`.
+- `utils/` — Business logic and utilities. Files: `dev-mode.ts`, `openfeature.ts`, `timeout-manager.ts`, `variable-substitution.ts`, `experiments.ts`, `find-doc-page.ts`. See `docs/developer/utils/README.md`.
+- `test-utils/` — Test fixtures. `openfeature-mock.ts`.
+- `bundled-interactives/` — Offline-fallback JSON guides + `repository.json`. Static asset directory; no code.
+- `locales/` — i18n translation files (en-US base + de-DE, fr-FR, es-ES, cs-CZ, etc.). Loaded via `@grafana/i18n`.
+- `img/` — Static SVG / PNG assets (logos, mascot illustrations, screenshots).
+- `cli/` — Authoring CLI (`pathfinder-cli`) and TypeScript MCP server (`src/cli/mcp/`). Entry: `cli/index.ts`. See `docs/developer/CLI_TOOLS.md` and `docs/developer/MCP_SERVER.md`.
 
-```bash
-npm run typecheck       # Catch type/schema drift at compile time
-npm run validate        # Validate bundled guides (warnings allowed)
-npm run validate:strict # Validate bundled guides (warnings = errors)
-npm run test:ci -- --testPathPatterns=validation  # Run validation tests
-```
+## Key dependency edges
 
-## Agent Checklist
+The load-bearing wiring. If you change a producer here, audit consumers carefully.
 
-When modifying JSON guide types or schemas:
+| Producer                              | Consumer                                  | Contract                                                       |
+| ------------------------------------- | ----------------------------------------- | -------------------------------------------------------------- |
+| `bundled-interactives/repository.json` | `package-engine/loader.ts`               | Fallback content when online CDN unavailable                   |
+| `docs-retrieval` (`fetchUnifiedContent`) | `context-engine`, `components/docs-panel` | Multi-strategy fetch returns parsed guide                    |
+| `context-engine` (`getRecommendations`) | `components/docs-panel`, `Home`          | Returns scored `Recommendation[]` from recommender or bundled  |
+| `package-engine` (`createCompositeResolver`) | `docs-retrieval`, `context-engine`  | Bundled-first fallback chain                                   |
+| `requirements-manager` (`checkRequirements`) | `interactive-engine`, `components/interactive-tutorial` | Synchronous prereq verification          |
+| `interactive-engine` (`useInteractiveElements`) | `components/interactive-tutorial`     | Action execution + auto-completion detection                |
+| `lib/dom` (`resolveSelector`)          | `interactive-engine`                     | Selector pipeline: detect → generate → validate → retry        |
+| `global-state/sidebar`, `panel-mode`   | `components/docs-panel`, `App`           | Sidebar visibility + content/editor mode                       |
+| `security` (`parseUrlSafely`, `validateTutorialUrl`) | All subsystems handling URLs | Boundary validation for any URL crossing trust zones           |
+| `learning-paths` (`useGuideCompletion`) | `components/docs-panel`, `interactive-engine` | Progress events + badge unlock                          |
+| `recovery` (`evaluateAlignment`)       | `components/docs-panel`, `hooks/useAlignmentReevaluation` | Detects misalignment, triggers prompts            |
 
-- [ ] Type change has corresponding schema change
-- [ ] Schema change has corresponding type change (if structural)
-- [ ] `KNOWN_FIELDS` updated for new fields
-- [ ] `npm run typecheck` passes
-- [ ] `npm run validate:strict` passes
-- [ ] Validation tests pass
+## Backend architecture (`pkg/`)
+
+The Go backend is a **thin bridge** between the React frontend and the **Coda VM provisioning service**. No database — all state is ephemeral or delegated to Coda. Built on `grafana-plugin-sdk-go`.
+
+**File map:**
+
+| File                                | Role                                                                                                              |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `main.go`                           | Plugin entrypoint. Calls `app.Manage("grafana-pathfinder-app", plugin.NewApp, ...)`                                |
+| `plugin/app.go`                     | `App` struct (implements `instancemgmt.Instance`, `CallResourceHandler`, `StreamHandler`). Holds `CodaClient`, stream-sessions map, per-user VM cache. |
+| `plugin/resources.go`               | HTTP resource handlers — `http.ServeMux` wrapped in `httpadapter.New`. Input allowlists.                          |
+| `plugin/settings.go`                | Parses `JSONData` and decrypts `SecureJSONData`. Reads `CodaAPIURL`, `CodaRelayURL`, `EnrollmentKey`, `RefreshToken`. |
+| `plugin/stream.go`                  | Grafana Live `SubscribeStream` / `PublishStream` / `RunStream`. The largest file. VM resolution, SSH retry, heartbeat (3s), VM-expiry poll (15s). |
+| `plugin/terminal.go`                | `TerminalSession` — SSH session over a `WSConn`. PTY, stdin/stdout/stderr pipes, private-key normalization.        |
+| `plugin/wsconn.go`                  | `WSConn` — adapts gorilla/websocket as `net.Conn` for SSH-over-WebSocket. Pong-based read-deadline reset (90s).    |
+| `plugin/coda.go`                    | `CodaClient` — JWT-authenticated REST. VM CRUD, sample apps, alloy scenarios. Token refresh under `RWMutex`. Per-user quota: 3 VMs. |
+| `plugin/mcp.go`                     | **Experimental MCP spike** (PR #643). NON-PRODUCTION. Real AI authoring lives in TypeScript under `src/cli/mcp/`. |
+| `plugin/package_recommendations.go` | CDN package-index cache (6h TTL, single-flight dedup, 8-way parallel manifest fetch, bounded memory).            |
+| `plugin/static.go`                  | `embed.FS` declarations for `repository.json` + `guides/` content.                                                |
+
+**HTTP request flow (e.g., `POST /vms`):**
+
+1. Plugin SDK dispatches to `App.CallResource()`
+2. `http.ServeMux` routes to `App.handleVMs` → `handleCreateVM`
+3. Verifies Coda is registered, validates body, gets `X-Grafana-User` header, checks quota via `CodaClient.CountVMsForUser`
+4. `CodaClient.CreateVM` — refreshes token if needed via `setAuthHeader`, POSTs to `{codaAPIURL}/api/v1/vms`, returns `VM` struct
+5. `writeJSON(w, http.StatusCreated, vm)`
+
+**Terminal stream flow (`terminal/{vmId}/{nonce}/{template?}/{app?}`):**
+
+1. Frontend xterm.js subscribes via Grafana Live → `App.SubscribeStream` accepts
+2. `App.RunStream` begins:
+   - `resolveVMForUser` — 3-tier cache: in-memory `userVMs[userLogin]` → `CodaClient.FindActiveVMForUser` → quota cleanup if needed → `CodaClient.CreateVM`
+   - `waitForVMActive` — polls `GetVM` every 3s, emits `status` frames (`pending` / `provisioning` / `active`) to the client. Timeout: 60 attempts (~3 min)
+   - SSH retry loop (3 attempts):
+     - `ConnectSSHViaRelay(relayURL, vmID, creds, accessToken)` — dial `wss://{relayURL}/relay/{vmID}` with `Authorization: Bearer {token}`; wrap as `WSConn`; SSH handshake over the WebSocket
+     - On auth error: `GetVM` to refresh creds, retry (max 2 refreshes)
+     - On transient error: 5s delay, retry
+   - `NewTerminalSessionWithClient` — `RequestPty("xterm-256color", 24, 80, …)`, `session.Shell()`, start `forwardOutput` + `forwardStderr` goroutines
+   - Store session in `streamSessions[path]`
+   - Send `connected` frame with `vmId`
+   - Start heartbeat goroutine (3s) and VM-expiry poll goroutine (15s)
+   - Block on `<-streamCtx.Done()`
+3. `App.PublishStream` — receives `{type: "input"|"resize", data}` from frontend; looks up session in `streamSessions[path]`; forwards via `session.Write` or `session.Resize`
+4. SSH stdout/stderr → `forwardOutput` / `forwardStderr` → `onOutput` callback → `sender.SendFrame` with `TerminalStreamOutput{Type: "output", Data: ...}`
+
+**Stream message types** (`TerminalStreamOutput.Type`):
+
+- `output` — SSH stdout / stderr bytes
+- `status` — VM state update (`pending` / `provisioning` / `active` / `retrying`)
+- `error` — error message + imminent disconnect
+- `connected` — handshake complete, includes `vmId`
+- `disconnected` — stream ended cleanly
+- `heartbeat` — keep-alive (no payload)
+
+**Security boundaries:**
+
+- `isAllowedCodaURL` — `https` only, host in `.lg.grafana-dev.com` / `.grafana.com`
+- `IsAllowedRelayURL` — `wss` only, same host allowlist
+- Package-recommendations URL — `https` + explicit hostname allowlist
+- SSH `HostKeyCallback: InsecureIgnoreHostKey` — intentional, VMs are ephemeral
+
+For the full operational reference (failure modes, troubleshooting, scale considerations), load `docs/developer/CODA.md`. For agent-facing constraints on Coda code, load `.cursor/rules/coda.mdc`.
 
 ---
 > Source: [grafana/grafana-pathfinder-app](https://github.com/grafana/grafana-pathfinder-app) — distributed by [TomeVault](https://tomevault.io).
