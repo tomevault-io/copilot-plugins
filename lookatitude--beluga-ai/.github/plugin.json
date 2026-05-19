@@ -1,0 +1,38 @@
+{
+  "name": "lookatitude--beluga-ai",
+  "displayName": "beluga-ai",
+  "description": "beluga-ai",
+  "version": "1.0.0",
+  "author": "lookatitude",
+  "homepage": "https://github.com/lookatitude/beluga-ai",
+  "skills": [
+    {
+      "name": "doc-writing",
+      "description": ""
+    },
+    {
+      "name": "go-framework",
+      "description": ""
+    },
+    {
+      "name": "go-interfaces",
+      "description": ""
+    },
+    {
+      "name": "go-testing",
+      "description": ""
+    },
+    {
+      "name": "provider-implementation",
+      "description": ""
+    },
+    {
+      "name": "streaming-patterns",
+      "description": ""
+    },
+    {
+      "name": "website-development",
+      "description": ""
+    }
+  ]
+}
