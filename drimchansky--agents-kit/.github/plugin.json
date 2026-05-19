@@ -1,0 +1,9 @@
+{
+  "name": "drimchansky--agents-kit",
+  "displayName": "agents-kit",
+  "description": "A personal kit for working with Claude Code, Codex, and other coding agents",
+  "version": "1.0.0",
+  "author": "drimchansky",
+  "homepage": "https://github.com/drimchansky/agents-kit",
+  "skills": []
+}
