@@ -4,7 +4,7 @@
   "repo": "hinge-auto",
   "description": "Emulator + ADB + Claude/Ollama vision: experimental Hinge automation that judges profiles and writes personalized openers against a user-defined rubric.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TerraByte-Dev/hinge-auto",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T04:26:47Z"
+  "distributed_at": "2026-05-19T08:46:04Z"
 }
