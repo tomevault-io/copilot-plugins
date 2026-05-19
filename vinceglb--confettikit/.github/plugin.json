@@ -1,0 +1,9 @@
+{
+  "name": "vinceglb--confettikit",
+  "displayName": "ConfettiKit",
+  "description": "\ud83c\udf89 A Kotlin/Compose Multiplatform library to add vibrant, customizable confetti animations to your apps.",
+  "version": "1.0.0",
+  "author": "vinceglb",
+  "homepage": "https://github.com/vinceglb/ConfettiKit",
+  "skills": []
+}
