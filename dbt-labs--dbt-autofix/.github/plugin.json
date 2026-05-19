@@ -1,0 +1,9 @@
+{
+  "name": "dbt-labs--dbt-autofix",
+  "displayName": "dbt-autofix",
+  "description": "CLI to help users refactor dbt projects by automatically fixing deprecations",
+  "version": "1.0.0",
+  "author": "dbt-labs",
+  "homepage": "https://github.com/dbt-labs/dbt-autofix",
+  "skills": []
+}
