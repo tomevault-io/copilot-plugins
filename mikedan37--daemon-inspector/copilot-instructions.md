@@ -1,257 +1,197 @@
-## daemon-inspector-system
+## persistence-blazedb-only
 
-> Core system prompt for daemon-inspector - read-only introspection tool principles
+> BlazeDB-only persistence rules - no JSON file storage
 
 
-# Project: daemon-inspector
+# Cursor System Prompt — Persistence Correction
 
-## Role
+## Project
 
-You are assisting in the development of a systems-level, read-only daemon and background task introspection tool written in Swift, packaged as a Swift Package executable (CLI).
+daemon-inspector
 
-This tool is for operating systems, infrastructure, security, and reliability engineers who need to understand what background services are actually doing, not what documentation or tooling claims they do.
+## Context
 
-This is not:
-	•	a monitoring platform
-	•	a management tool
-	•	a controller
-	•	an agent framework
-	•	a UI product
-	•	a dashboard
-	•	a policy engine
+You are working on a systems-level, read-only daemon introspection tool written in Swift.
 
-If you build any of those, you are doing the wrong thing.
+The project must use BlazeDB as its only persistent storage mechanism.
+
+A file-backed JSON "table" implementation currently exists in the codebase and is incorrect for this project. It must be removed or quarantined.
+
+This tool values auditability, durability, and truth preservation over convenience.
 
 ⸻
 
 ## Primary Objective
 
-Make background execution observable, auditable, and historically explainable.
+Eliminate JSON-based persistence and replace it with BlazeDB-backed storage, while preserving the existing semantics of:
+	•	immutable snapshots
+	•	append-only writes
+	•	read-only event derivation
+	•	explicit unknowns
+	•	no derived state at rest
 
-The tool must help answer questions like:
-	•	What daemons and background services exist on this system?
-	•	Which are currently running?
-	•	When did they start or stop (best effort)?
-	•	What triggered them (if observable)?
-	•	What changed since the last observation?
-	•	Which services appear unstable, orphaned, or undocumented?
-
-If a fact cannot be verified, it must be explicitly labeled as unknown.
-
-⸻
-
-## Core Constraints (Non-Negotiable)
-
-### 1. Read-Only
-	•	Never start, stop, restart, signal, or modify daemons
-	•	Never write to system configuration
-	•	Never influence scheduling or execution
-
-### 2. Explainable Output
-	•	Every output must map directly to an observable system fact
-	•	No speculation presented as truth
-	•	Any inference must be labeled as inference
-
-### 3. Boring Is Correct
-	•	Prefer simple code over abstractions
-	•	Prefer explicit logic over frameworks
-	•	Avoid premature optimization
-	•	Avoid unnecessary concurrency
-
-### 4. CLI-Only
-	•	No GUI
-	•	No dashboards
-	•	Output is plain text and optional JSON
-
-### 5. Local-Only
-	•	No networking
-	•	No cloud
-	•	No telemetry
-	•	No background agents talking to each other
-
-### 6. Portable Architecture
-	•	Platform-specific logic must live behind clean interfaces
-	•	macOS (launchd) is the first implementation
-	•	Linux (systemd) is a future drop-in collector
+The resulting system must:
+	•	survive process restarts
+	•	never rewrite historical data
+	•	never load all records to insert one
+	•	never silently corrupt history
 
 ⸻
 
-## Architecture
+## Non-Negotiable Storage Rules
 
-The system has exactly three layers.
+### 1. BlazeDB Is the Only Persistent Store
+	•	All durable storage MUST go through BlazeDB
+	•	No file-based JSON storage
+	•	No ad-hoc serialization loops
+	•	No loadAll → append → saveAll patterns
 
-### 1. Collector Layer
+If you see code that:
+	•	decodes an entire array from disk
+	•	appends an item
+	•	re-encodes the full array
 
-Purpose: Observe the system. Nothing else.
-	•	Platform-specific
-	•	macOS implementation uses launchd
-	•	Enumerates daemons and background services
-	•	Samples lifecycle state
-	•	Emits structured observations
-
-Collectors must not:
-	•	Maintain long-term state
-	•	Interpret policy
-	•	Make decisions
-	•	Mutate anything
-
-They only observe and report.
+That code is invalid and must be removed.
 
 ⸻
 
-### 2. Storage Layer (BlazeDB)
+### 2. Codable Is Allowed — JSON Is Not
+	•	Codable MAY be used for record shape
+	•	Serialization format is BlazeDB's responsibility
+	•	The tool MUST NOT manually encode or decode JSON for persistence
 
-BlazeDB is used as a local, embedded, encrypted state store.
+JSON is permitted only for:
+	•	CLI output (--json)
+	•	Explicit export commands
 
-It is the system's memory organ, not a runtime dependency.
-
-Responsibilities:
-	•	Persist immutable or append-only events
-	•	Store periodic snapshots
-	•	Enable historical comparison and drift analysis
-
-Design goals:
-	•	Append-heavy
-	•	Time-ordered
-	•	Auditable
-	•	Durable
-
-No ORMs. No caching layers. No magic.
+Never for storage.
 
 ⸻
 
-### 3. Inspector / CLI Layer
+### 3. Append-Only Semantics
 
-Purpose: Answer engineering questions.
-	•	Reads stored observations
-	•	Never mutates state
-	•	Produces human-readable output
-	•	Can optionally emit JSON
+Storage must follow this pattern:
+	•	Each snapshot is written once
+	•	Each daemon record is written once
+	•	Nothing is updated in place
+	•	Nothing is merged
+	•	Nothing is deduplicated
 
-CLI must remain minimal.
+If data changes, a new record is written.
 
-⸻
-
-## Initial Platform Scope: macOS (launchd)
-
-The macOS collector should attempt to observe:
-	•	Service label
-	•	Domain (system, user, gui)
-	•	Loaded vs running state
-	•	PID (if running)
-	•	Parent PID (if discoverable)
-	•	Binary path (if discoverable)
-	•	Start time (best effort)
-	•	Exit / restart observations (best effort)
-	•	Trigger mechanism when visible (timer, socket, dependency, manual, unknown)
-
-### Allowed Techniques
-	•	Shelling out to launchctl print
-	•	Parsing plist metadata
-	•	Reading process tables (ps, proc_pidinfo)
-	•	Using public system utilities
-
-### Disallowed
-	•	Private APIs
-	•	Undocumented kernel interfaces
-
-When information is unavailable, explicitly record it as unknown.
+Storage is cheaper than lies.
 
 ⸻
 
-## Data Model Requirements
+## Required Storage Architecture
 
-Models must be:
-	•	Explicit
-	•	Minimal
-	•	Forward-compatible
-	•	Easy to reason about during audits
-
-Conceptual entities:
-	•	ObservedDaemon
-	•	DaemonEvent
-	•	CollectorSnapshot
-
-Events must be:
-	•	Timestamped
-	•	Immutable once written
-	•	Clearly typed (discovered, started, stopped, restarted, disappeared)
-
-Do not invent derived metrics unless explicitly requested.
+### BlazeDB Initialization
+	•	Database location:
+~/.daemon-inspector/state.blazedb
+	•	Directory creation must be explicit
+	•	Failure to open the DB must fail loudly
 
 ⸻
 
-## CLI Design (Initial Scope)
+### Tables (No More, No Less)
 
-Start with one command only:
+**Snapshots**
 
-`daemon-inspector list`
+DBSnapshot {
+    id: UUID
+    collector: String
+    timestamp: Date
+}
 
-Behavior:
-	•	Lists known daemons
-	•	Shows current observed state
-	•	Optionally highlights changes since the last snapshot
+**Observed Daemons**
 
-Avoid flags until behavior stabilizes.
-No interactive prompts.
+DBObservedDaemon {
+    snapshotID: UUID
+    label: String
+    domain: String
+    pid: Int?
+    isRunning: Bool
+    binaryPath: String?
+    observedAt: Date
+}
 
-⸻
-
-## What Must NOT Be Built
-
-Explicitly avoid:
-	•	Dashboards
-	•	Web servers
-	•	Alerting systems
-	•	Background remediation
-	•	Policy engines
-	•	Auto-classification beyond observable facts
-	•	Anything that resembles "management"
-
-This is an introspection tool, not an opinionated platform.
-
-⸻
-
-## Development Style
-	•	Small functions
-	•	Clear naming
-	•	No global mutable state
-	•	No unnecessary async/concurrency
-	•	Code should be readable by a skeptical systems engineer
-	•	Assume future readers will audit your assumptions
+No:
+	•	event tables
+	•	summary tables
+	•	current-state tables
+	•	retention metadata
 
 ⸻
 
-## Output Standard
+## Write Path (Mandatory)
 
-Every output must answer:
+On daemon-inspector list:
+	1.	Collect daemons
+	2.	Create a new snapshot record
+	3.	Insert snapshot into BlazeDB
+	4.	Insert all observed daemon records referencing that snapshot
+	5.	Exit
 
-"What is the system actually doing right now, and how do we know?"
-
-If an answer cannot be justified with observable data, say so.
+Partial writes are acceptable.
+History must never be rewritten to "fix" them.
 
 ⸻
 
-## End Goal
+## Read Path (Mandatory)
 
-Produce a portable leverage artifact that:
-	•	Makes daemon behavior legible
-	•	Preserves history instead of guesswork
-	•	Travels across teams and organizations
-	•	Signals senior-level systems thinking
+On daemon-inspector diff:
+	1.	Load the latest 2 snapshots from BlazeDB
+	2.	Load their associated daemon records
+	3.	Reconstruct in-memory Snapshot objects
+	4.	Run event derivation in memory only
+	5.	Print results
 
-This tool should feel calm, honest, and boring in the best possible way.
+No derived data is persisted.
+
+⸻
+
+## What Must Be Removed or Corrected
+
+The following patterns are explicitly forbidden and must be deleted or quarantined:
+	•	Table<T: Codable> that:
+	•	loads all items from disk
+	•	appends one
+	•	rewrites the file
+	•	Any JSON file pretending to be a database
+	•	Any storage abstraction named generically like Table
+	•	Any persistence logic that rewrites history
+
+If such code must temporarily remain, it MUST be:
+	•	renamed to something like TestOnlyJSONStore
+	•	excluded from production paths
+	•	impossible to use accidentally
+
+⸻
+
+## Development Constraints
+	•	No magic abstractions
+	•	No ORMs
+	•	No background cleanup
+	•	No migrations unless explicitly requested
+	•	No optimization beyond correctness
+
+Favor:
+	•	explicit code
+	•	boring data paths
+	•	obvious failure modes
+
+Assume future readers are skeptical systems engineers.
 
 ⸻
 
 ## Enforcement Clause
 
 If you attempt to:
-	•	Add a UI
-	•	Introduce networking
-	•	Invent abstractions
-	•	Expand scope
-	•	"Improve" the product vision
+	•	reintroduce JSON persistence
+	•	"optimize" by rewriting records
+	•	invent derived fields at rest
+	•	collapse historical data
+	•	treat storage as a cache
 
 You must stop and re-read this prompt.
 
@@ -259,18 +199,35 @@ Follow it exactly.
 
 ⸻
 
-If you want, next we can:
-	•	Write the LaunchdCollector parsing logic
-	•	Define the Collector protocol
-	•	Design the BlazeDB schema
+## End State
 
-Pick one.
+When complete:
+	•	The JSON table code is gone or quarantined
+	•	BlazeDB is the only persistence layer
+	•	Snapshots survive restarts
+	•	diff works across executions
+	•	Storage behavior is auditable and explainable
+
+This tool must behave like a memory organ, not a convenience layer.
 
 ⸻
 
-That's the full prompt.
-This is not a toy. This is leverage.
- 
+Do not add features.
+Do not change semantics.
+Only correct persistence.
+
+⸻
+
+If you want, next we can:
+	•	add JSON export (explicit, read-only)
+	•	add timeline <label>
+	•	add unstable heuristics
+
+But persistence correctness comes first.
+
+⸻
+
+That's the prompt.
 
 ---
 > Source: [Mikedan37/daemon-inspector](https://github.com/Mikedan37/daemon-inspector) — distributed by [TomeVault](https://tomevault.io).
