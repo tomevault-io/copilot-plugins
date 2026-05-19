@@ -1,0 +1,9 @@
+{
+  "name": "worldfnd--provekit",
+  "displayName": "provekit",
+  "description": "Client side zero-knowledge proving.",
+  "version": "1.0.0",
+  "author": "worldfnd",
+  "homepage": "https://github.com/worldfnd/provekit",
+  "skills": []
+}
