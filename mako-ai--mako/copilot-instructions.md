@@ -1,24 +1,59 @@
-## 16-mui-theme
+## 20-api-routing
 
-> MUI styling rules — use global theme for consistency, avoid per-component ad-hoc styles
+> API routing, middleware, and services conventions
 
 
-# MUI Styling via Global Theme
+# API Routing & Services
 
-Purpose: Keep visual consistency by centralizing MUI component styling in the global theme.
+- Routes live under [api/src/routes/](mdc:api/src/routes/) and should export handlers; avoid business logic in route files.
+- Shared logic should reside under [api/src/services/](mdc:api/src/services/).
+- Auth middleware: see [api/src/auth/unified-auth.middleware.ts](mdc:api/src/auth/unified-auth.middleware.ts) and [api/src/auth/auth.middleware.ts](mdc:api/src/auth/auth.middleware.ts).
+- Inngest handlers and jobs live under [api/src/inngest/](mdc:api/src/inngest/).
+- Connectors are registered via [api/src/connectors](mdc:api/src/connectors) and [api/dist/connectors/registry.js](mdc:api/dist/connectors/registry.js) is generated output.
 
-Rules:
+## Logging in Routes
 
-- Use the global theme in `app/src/contexts/ThemeContext.tsx` for styling MUI components.
-- Prefer `components.<MuiX>.defaultProps` and `components.<MuiX>.styleOverrides` to adjust variants, sizes, paddings, borders, etc.
-- Default variants for inputs/selects should be defined globally (e.g., outlined) unless a component explicitly needs a different variant.
-- Do NOT set per-component ad-hoc styles for shared patterns; push common changes into the theme.
-- If a one-off deviation is required, document the reason inline and keep it local to that component.
+Use the `loggers.api()` category for route-specific logging:
 
-Enforcement guidance:
+```typescript
+import { loggers, enrichContextWithWorkspace } from "../logging";
 
-- During reviews, suggest migrating repeated inline styles to the theme.
-- Reject edits that change common component variants locally without updating the theme, unless justified.
+const logger = loggers.api("chats"); // Creates logger for "mako.api.chats"
+
+// Log with structured context
+logger.error("Error creating chat", { error, workspaceId });
+```
+
+## Error Response Standard
+
+Use this envelope for all error responses:
+
+```typescript
+return c.json({ success: false, error: "Human-readable message" }, 400);
+```
+
+For success responses returning data, use either `c.json(data)` or `c.json({ success: true, data })` — be consistent within a route file.
+
+**Exceptions**: Streaming endpoints (agent chat) and webhook acknowledgments (`200 OK` with no body) may deviate.
+
+## Route Classification
+
+| Type | Auth | Example |
+|------|------|---------|
+| Authenticated + workspace-scoped | `unifiedAuthMiddleware` + workspace verification | `/api/workspaces/:id/consoles` |
+| Authenticated (no workspace) | `unifiedAuthMiddleware` only | `/api/workspaces` (list) |
+| Intentionally public | None | `/api/connectors/:type/schema`, `/api/webhooks/:id`, health checks |
+
+Document the classification in a comment at the top of each route file when it's not obvious.
+
+## Rules
+
+- Validate inputs at the route boundary; prefer zod or schema validation if present.
+- Return `{ success: false, error }` for errors; do not leak stack traces in responses.
+- Keep route files minimal: parameter parsing, auth, and delegating to services.
+- Use `loggers.api("<route-name>")` for route-specific logging.
+- Apply `unifiedAuthMiddleware` before workspace verification middleware.
+- Always include defense-in-depth `else` clause in workspace verification (see [30-auth.mdc](mdc:.cursor/rules/30-auth.mdc)).
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
