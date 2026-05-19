@@ -1,0 +1,9 @@
+{
+  "name": "keymusicman--compose-bom-changelog",
+  "displayName": "compose-bom-changelog",
+  "description": "This repository contains a web page and data to conveniently compare Jetpack Compose BOM version",
+  "version": "1.0.0",
+  "author": "keymusicman",
+  "homepage": "https://github.com/keymusicman/compose-bom-changelog",
+  "skills": []
+}
