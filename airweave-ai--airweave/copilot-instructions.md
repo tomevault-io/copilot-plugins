@@ -1,862 +1,221 @@
-## connector-development-end-to-end
+## crud-layer
 
-> This is the **master guide** for building a complete, production-ready source connector for Airweave. It combines source implementation with comprehensive E2E testing using the Monke framework.
+> Comprehensive guide for understanding and working with the CRUD layer in Airweave backend
 
-# Building and Testing a Source Connector: End-to-End Guide
+# Airweave CRUD Layer Architecture
 
 ## Overview
 
-This is the **master guide** for building a complete, production-ready source connector for Airweave. It combines source implementation with comprehensive E2E testing using the Monke framework.
+The CRUD layer provides a consistent interface for database operations across all models in Airweave. It implements a sophisticated inheritance hierarchy that enforces proper access control, transaction management, and audit tracking.
 
-**Use this guide with your AI coding assistant** to build connectors systematically.
+## Inheritance Hierarchy
 
----
+### Base Classes
 
-## Prerequisites
+#### 1. CRUDBaseOrganization (_base_organization.py)
+- **Purpose**: For resources scoped to organizations (most common pattern)
+- **Key Features**:
+  - Enforces organization-level access control via `BaseContext`
+  - Tracks user modifications with `created_by_email` and `modified_by_email`
+  - Validates organization access on every operation
+  - Supports both user and API key authentication contexts
+  - Logger access via `ctx.logger` for contextual logging
 
-**Note:** The human has already completed these setup steps:
-- ✅ OAuth credentials configured in `backend/airweave/platform/auth/yaml/dev.integrations.yaml`
-- ✅ Monke authentication configured in `monke/configs/{short_name}.yaml` (Composio or direct)
-- ✅ API documentation loaded into context
+#### 2. CRUDBaseUser (_base_user.py)
+- **Purpose**: For pure user-level data (e.g., user profiles)
+- **Key Features**:
+  - Enforces strict user-level access (can only access own data)
+  - No organization scoping
+  - Simpler permission model - user can only CRUD their own resources
 
-Your task is to write the code. The human will handle testing and running commands.
+#### 3. CRUDPublic (_base_public.py)
+- **Purpose**: For system-wide public resources (e.g., sources, destinations, embedding models)
+- **Key Features**:
+  - No access control - publicly accessible
+  - Often used for system configuration data
+  - Supports filtering by organization for multi-tenant scenarios
+  - Includes `sync()` method for bulk updates
 
----
+## Core Concepts
 
-## Important Guidelines
-
-These are the most common mistakes when building connectors:
-
-### 1. Make Entities Information-Rich (Embeddable Fields)
-
-**Rule:** Mark ~70% of entity fields as `embeddable=True`
-
-**Why:** Without `embeddable=True`, fields are only keyword-searchable, not semantically searchable. Users won't be able to find relevant data.
-
-**What to mark embeddable:**
-- ✅ All text content (descriptions, notes, comments, body)
-- ✅ All names and titles
-- ✅ All people (assignees, authors, owners, members)
-- ✅ All status/metadata (status, priority, tags, labels)
-- ✅ All timestamps (created_at, modified_at, due_dates)
-
-**What NOT to mark embeddable:**
-- ❌ Internal IDs (entity_id, external_id, database IDs)
-- ❌ Binary metadata (sizes, checksums, mime_types)
-
-**Bad Example:**
+### BaseContext
+The `BaseContext` (from `core.context`) is the universal context type for the CRUD layer. `ApiContext` and `SyncContext` both inherit from it:
 ```python
-# Avoid: Sparse entity - users can't search by anything except name
-class TaskEntity(ChunkEntity):
-    name: str = AirweaveField(..., embeddable=True)
-    description: str = Field(...)  # Should be embeddable
-    assignee: Dict = Field(...)     # Should be embeddable
+@dataclass
+class BaseContext:
+    organization: schemas.Organization  # Always present
+    user: Optional[schemas.User] = None # Present for user auth, None for API keys/system
+    logger: ContextualLogger            # Auto-derived from org/user if not provided
 ```
 
-**Good Example:**
+**Key Properties**:
+- `has_user_context`: True if user is present (Auth0 or system with user)
+- `tracking_email`: Returns user email for audit tracking
+- `user_id`: Returns user UUID if available
+- `has_feature(flag)`: Check organization feature flags
+- `logger`: Contextual logger (auto-derived from identity, overridable)
+
+`ApiContext(BaseContext)` adds HTTP-specific fields (`request_id`, `auth_method`, `analytics`).
+`SyncContext(BaseContext)` adds sync-specific data (`sync_id`, `sync_job`, `collection`, etc.).
+
+### Unit of Work Pattern
+The `UnitOfWork` class manages database transactions:
 ```python
-# Better: Information-rich - users can search everything
-class TaskEntity(ChunkEntity):
-    name: str = AirweaveField(..., embeddable=True)
-    description: str = AirweaveField(..., embeddable=True)
-    assignee: Dict = AirweaveField(..., embeddable=True)
-    status: str = AirweaveField(..., embeddable=True)
-    external_id: str = Field(...)  # ID correctly not embeddable
+# Without UoW - auto-commits
+await crud.create(db, obj_in=data, ctx=ctx)
+
+# With UoW - manual transaction control
+async with UnitOfWork(db) as uow:
+    obj1 = await crud.create(db, obj_in=data1, ctx=ctx, uow=uow)
+    obj2 = await crud.create(db, obj_in=data2, ctx=ctx, uow=uow)
+    # Commits on context exit, rolls back on exception
 ```
 
-### 2. Test Entity Types Your Source Actually Implements
+## Common Patterns
 
-**Rule:** Your Monke tests should create and verify the entity types that your source actually yields
+### 1. Standard CRUD Operations
+All base classes provide:
+- `get(db, id, ctx)` - Get single resource
+- `get_multi(db, ctx, skip, limit)` - Get multiple resources
+- `create(db, obj_in, ctx, uow)` - Create resource
+- `update(db, db_obj, obj_in, ctx, uow)` - Update resource
+- `remove(db, id, ctx, uow)` - Delete resource
 
-**Why:** Untested entity types may break in production without detection.
-
-**Important:** Only test entities that your source implementation yields. You don't need to test every theoretically possible entity type from the API—just the ones your connector actually implements.
-
-**How to verify:**
-1. Open your source: `backend/airweave/platform/sources/{short_name}.py`
-2. Find all `yield` statements in `generate_entities()`
-3. List the entity types your source ACTUALLY yields (e.g., Task, Comment, File)
-4. Your `bongos/{short_name}.py::create_entities()` should create at least one of each yielded type
-5. Your `create_entities()` should return descriptors for all yielded types
-
-**Example:** If your SharePoint source only yields `ListItem`, `Page`, and `DriveItem` entities (not `User`, `Group`, `Site`), then your Monke bongo only needs to create those three types—not the entire SharePoint API surface.
-
-**Bad Example:**
+### 2. Access Control Validation
+Organization-scoped resources validate access via:
 ```python
-# Avoid: Only creates tasks, ignores comments and files
-async def create_entities(self):
-    for i in range(self.entity_count):
-        task = await self._create_task(...)
-        all_entities.append(task)
-    # Source yields comments and files, but we don't test them
-    return all_entities
+async def _validate_organization_access(ctx, organization_id):
+    if ctx.has_user_context:
+        # Check user has access to organization
+    else:
+        # Check API key belongs to organization
 ```
 
-**Good Example:**
+### 3. User Tracking
+For organization-scoped resources with `track_user=True`:
+- `created_by_email` and `modified_by_email` are automatically set
+- API key operations set these to `None` (no user context)
+- User operations set these to the authenticated user's email
+
+### 4. Custom Methods
+CRUD classes often extend base functionality:
 ```python
-# Better: Creates all entity types from source
-async def create_entities(self):
-    for i in range(self.entity_count):
-        # Create parent
-        task = await self._create_task(...)
-        all_entities.append(task)
+class CRUDSync(CRUDBaseOrganization):
+    async def enrich_sync_with_connections(db, sync):
+        # Custom method to load related data
 
-        # Create comments (source yields them)
-        for j in range(2):
-            comment = await self._create_comment(task["id"], ...)
-            all_entities.append(comment)
-
-        # Create file (source yields them)
-        file = await self._upload_file(task["id"], ...)
-        all_entities.append(file)
-
-    return all_entities  # Returns tasks, comments, AND files
+    async def get(db, id, ctx, with_connections=True):
+        # Override to add optional data loading
 ```
 
----
+## Implementation Examples
 
----
-
-## Phase 1: Research & Planning
-
-### Step 1: Understand the API
-
-**Questions to answer:**
-
-1. What is the **entity hierarchy**?
-   - Example: Asana has `Workspace → Project → Section → Task → Comment/File`
-   - Example: GitHub has `Repository → Issue → Comment`  and `Repository → Folder1 → Folder2 → codefile.go`
-
-2. What **entities should be searchable**?
-   - Primary entities (tasks, documents, tickets)
-   - Secondary entities (comments, messages, threads)
-   - Attachments (files, images, PDFs)
-
-3. What **authentication** does it use?
-   - OAuth2 with refresh tokens?
-   - OAuth2 without refresh tokens?
-   - API key / Personal Access Token?
-
-4. Does it support **incremental sync**?
-   - Can you filter by `modified_since` or `updated_at`?
-   - Does each entity have `created_at` and `modified_at` timestamps?
-
-5. Does it support **deletion detection**?
-   - Can you detect when entities are deleted?
-   - Or do you need full re-sync to detect deletions?
-
-6. How does **pagination** work?
-   - Cursor-based? Page-based? Offset-based?
-   - What's the max page size?
-
-### Step 2: Define Your Entity Model
-
-Create a document listing:
-
-```
-Entity Hierarchy:
-- Workspace (top-level)
-  - Project
-    - Section (optional grouping)
-      - Task
-        - Comment (nested, many per task)
-        - File (nested, many per task)
-
-Searchable Fields per Entity:
-- Task: name, description, notes, assignee, tags
-- Comment: text, author
-- File: name, extracted text content
-
-Timestamps:
-- All entities have created_at
-- Task, Project have modified_at
-- Comments are immutable (no modified_at)
-```
-
-### Step 3: Plan Your Test Strategy
-
-Decide:
-- How many test entities to create (3-5 recommended)
-- What types of content to generate (tasks, comments, files)
-- Where to create them (need a dedicated test workspace/project?)
-- How to clean them up after testing
-
----
-
-## Phase 2: Implementation
-
-### Step 4: Note on OAuth Configuration
-
-**File:** `backend/airweave/platform/auth/yaml/dev.integrations.yaml`
-
-**Note:** The human has already set up OAuth credentials here. This configuration exists and is ready to use.
-
-### For Instance-Specific OAuth URLs
-
-If OAuth URLs vary per customer (e.g., `https://{subdomain}.service.com`), human will already have added the {subdomain} to their dev.integrations.yaml.
-
-You must expose those via the config fields.
-
-### Step 5: Implement Entity Schemas
-
-**File:** `backend/airweave/platform/entities/{short_name}.py`
-
-**Reference:** See `source-connector-implementation.mdc` Part 1
-
-**Implementation order:**
-
-1. Start with the **top-level entity** (workspace, repository, etc.)
-2. Add **primary entities** (tasks, documents, issues)
-3. Add **nested entities** (comments, messages)
-4. Add **file entities** if the API supports attachments
-
-** Make entities information-rich with embeddable fields**
-
-**Key principles:**
-- **USE `AirweaveField(..., embeddable=True)` FOR ~70% OF FIELDS** - this is what makes entities searchable!
-- Mark ALL user-visible content as `embeddable=True`:
-  - Text content (descriptions, notes, comments, body)
-  - Names and titles
-  - People (assignees, authors, owners)
-  - Status/metadata (status, priority, tags)
-  - Timestamps (created_at, modified_at, due_dates)
-- Only use `Field()` without embeddable for:
-  - Internal IDs (entity_id, external_id)
-  - Binary metadata (sizes, checksums, mime_types)
-- Always include `created_at` and `modified_at` with proper flags
-- Inherit from `ChunkEntity` or `FileEntity`
-
-**Anti-pattern to avoid:**
+### Simple Public Resource
 ```python
-# ❌ BAD: Sparse entity with only name embeddable
-class TaskEntity(ChunkEntity):
-    name: str = AirweaveField(..., embeddable=True)
-    description: str = Field(...)  # ❌ Should be embeddable!
-    assignee: Dict = Field(...)     # ❌ Should be embeddable!
+class CRUDEmbeddingModel(CRUDPublic[EmbeddingModel, EmbeddingModelCreate, EmbeddingModelUpdate]):
+    pass
+
+embedding_model = CRUDEmbeddingModel(EmbeddingModel)
 ```
 
-**Good pattern:**
+### Organization-Scoped Resource
 ```python
-# ✅ GOOD: Information-rich entity with most fields embeddable
-class TaskEntity(ChunkEntity):
-    name: str = AirweaveField(..., embeddable=True)
-    description: str = AirweaveField(..., embeddable=True)  # ✅
-    assignee: Dict = AirweaveField(..., embeddable=True)    # ✅
-    status: str = AirweaveField(..., embeddable=True)       # ✅
-    external_id: str = Field(...)  # ✅ ID not embeddable
+class CRUDCollection(CRUDBaseOrganization[Collection, CollectionCreate, CollectionUpdate]):
+    # Inherits all standard CRUD with org-level access control
+    pass
+
+collection = CRUDCollection(Collection)
 ```
 
-**Example structure:**
-
+### Complex Resource with Custom Logic
 ```python
-"""Entity schemas for {Connector Name}."""
+class CRUDAPIKey(CRUDBaseOrganization[APIKey, APIKeyCreate, APIKeyUpdate]):
+    async def create(self, db, *, obj_in, ctx, uow=None):
+        # Generate secure key
+        key = secrets.token_urlsafe(32)
+        encrypted_key = credentials.encrypt({"key": key})
 
-from datetime import datetime
-from typing import Optional
-from pydantic import Field
-from airweave.platform.entities._airweave_field import AirweaveField
-from airweave.platform.entities._base import ChunkEntity, FileEntity
-
-
-class MyConnectorTaskEntity(ChunkEntity):
-    """Primary task entity."""
-
-    name: str = AirweaveField(..., embeddable=True)
-    description: Optional[str] = AirweaveField(None, embeddable=True)
-    created_at: Optional[datetime] = AirweaveField(
-        None, embeddable=True, is_created_at=True
-    )
-    modified_at: Optional[datetime] = AirweaveField(
-        None, embeddable=True, is_updated_at=True
-    )
-    # ... more fields
-
-
-class MyConnectorCommentEntity(ChunkEntity):
-    """Comment on a task."""
-
-    task_id: str = Field(...)
-    text: str = AirweaveField(..., embeddable=True)
-    author: dict = AirweaveField(..., embeddable=True)
-    created_at: datetime = AirweaveField(..., embeddable=True, is_created_at=True)
-    # ... more fields
-
-
-class MyConnectorFileEntity(FileEntity):
-    """File attachment on a task."""
-
-    task_id: str = Field(...)
-    created_at: Optional[datetime] = AirweaveField(
-        None, embeddable=True, is_created_at=True
-    )
-    # FileEntity provides: file_id, name, mime_type, size, download_url
-```
-
-### Step 6: Implement Source Connector
-
-**File:** `backend/airweave/platform/sources/{short_name}.py`
-
-**Reference:** See `source-connector-implementation.mdc` Part 2
-
-**Implementation order:**
-
-1. Create the class skeleton with `@source` decorator
-2. Implement `create()` classmethod
-3. Implement `validate()` method
-4. Implement `_get_with_auth()` with token refresh handling
-5. Implement entity generation methods in hierarchical order:
-   - `_generate_workspaces()`
-   - `_generate_projects()`
-   - `_generate_tasks()`
-   - `_generate_comments()`
-   - `_generate_files()`
-6. Wire them together in `generate_entities()`
-7. Test locally
-
-**Key principles:**
-- Generate entities hierarchically (parents before children)
-- Track breadcrumbs for relationships
-- Handle pagination properly
-- Implement rate limiting
-- Use retry logic with exponential backoff
-- Handle 401 errors with token refresh
-- Use `process_file_entity()` for file attachments
-
-**Basic structure:**
-
-```python
-from airweave.platform.decorators import source
-from airweave.platform.sources._base import BaseSource
-from airweave.platform.entities._base import Breadcrumb, ChunkEntity
-from airweave.platform.entities.{short_name} import *
-
-
-@source(
-    name="{Display Name}",
-    short_name="{short_name}",
-    auth_methods=[AuthenticationMethod.OAUTH_BROWSER, ...],
-    oauth_type=OAuthType.WITH_REFRESH,
-    auth_config_class=None,
-    config_class="{ConnectorName}Config",
-    labels=["Category"],
-    supports_continuous=False,
-    federated_search=False,  # Set to True for federated search sources (e.g., Slack)
-)
-class MyConnectorSource(BaseSource):
-    """Source connector for {Connector Name}."""
-
-    @classmethod
-    async def create(cls, access_token: str, config: Optional[Dict[str, Any]] = None):
-        instance = cls()
-        instance.access_token = access_token
-        # Parse config...
-        return instance
-
-    async def generate_entities(self) -> AsyncGenerator[ChunkEntity, None]:
-        async with self.http_client() as client:
-            # Generate hierarchically with breadcrumbs
-            async for parent in self._generate_parents(client):
-                yield parent
-
-                breadcrumb = Breadcrumb(
-                    entity_id=parent.entity_id,
-                    name=parent.name,
-                    type="parent"
-                )
-
-                async for child in self._generate_children(client, parent, [breadcrumb]):
-                    yield child
-
-    async def validate(self) -> bool:
-        return await self._validate_oauth2(
-            ping_url="https://api.example.com/me",
-            headers={"Accept": "application/json"},
-            timeout=10.0,
+        # Use parent create with custom data
+        return await super().create(
+            db=db,
+            obj_in={"encrypted_key": encrypted_key, ...},
+            ctx=ctx,
+            uow=uow
         )
-    # This can also be a very simple list method, to make sure we have a
 ```
 
-### Step 7: Checkpoint - Ready for Human Testing
-
-**Inform the human:** The source connector code is complete and ready for manual testing.
-
-The human will now:
-- Test the connector via UI
-- Verify entities sync correctly
-- Report any issues for you to fix
-
-Wait for human feedback before proceeding to Monke tests.
-
----
-
-## Phase 3: E2E Testing with Monke
-
-### Step 8: Note on Monke Authentication
-
-**File:** `monke/configs/{short_name}.yaml`
-
-**Note:** The human has already set up the authentication portion of this config (either Composio or direct auth).
-
-You will now add the test flow configuration to this file:
-
-```yaml
-# Authentication section already exists (set by human)
-
-config_fields:
-  openai_model: "gpt-4.1-mini"
-  max_concurrency: 3
-
-test_flow:
-  steps:
-    - cleanup
-    - create
-    - sync
-    - verify
-    - update
-    - sync
-    - verify
-    - partial_delete
-    - sync
-    - verify_partial_deletion
-    - verify_remaining_entities
-    - complete_delete
-    - sync
-    - verify_complete_deletion
-    - cleanup
-    - collection_cleanup
-
-deletion:
-  partial_delete_count: 2
-  verify_partial_deletion: true  # Set false if API doesn't detect deletions
-  verify_remaining_entities: true
-  verify_complete_deletion: true
-
-entity_count: 3  # Number of parent entities to create
-
-collection:
-  name: {Connector Name} Test Collection
-
-verification:
-  retry_attempts: 5
-  retry_delay_seconds: 10
-  score_threshold: 0.0
-  expected_fields:
-    - name
-    - entity_id
-```
-
-### Step 9: Implement Generation Schemas
-
-**File:** `monke/generation/schemas/{short_name}.py`
-
-**Reference:** See `monke-testing-guide.mdc` Part 2
-
-Define Pydantic schemas for LLM-generated content:
-
+### Special Cases
 ```python
-from typing import List
-from pydantic import BaseModel, Field
-
-
-class TaskContent(BaseModel):
-    """Content for generated task."""
-    description: str = Field(..., description="Task description with token")
-    objectives: List[str] = Field(..., description="List of objectives")
-    # ... more fields
-
-
-class TaskSpec(BaseModel):
-    """Metadata for task generation."""
-    title: str = Field(..., description="Task title")
-    token: str = Field(..., description="Verification token")
-
-
-class MyConnectorTask(BaseModel):
-    """Complete task structure."""
-    spec: TaskSpec
-    content: TaskContent
-
-
-class CommentContent(BaseModel):
-    """Content for generated comment."""
-    text: str = Field(..., description="Comment text with token")
-
-
-class FileContent(BaseModel):
-    """Content for generated file."""
-    content: str = Field(..., description="File content with token")
-    filename: str = Field(..., description="Filename")
+class CRUDOrganization:
+    # Doesn't inherit from base - organizations ARE the scope
+    # Implements custom validation logic
+    # Handles user-organization relationships
 ```
 
-### Step 10: Implement Generation Adapter
+## Best Practices
 
-**File:** `monke/generation/{short_name}.py`
+### 1. Choose the Right Base Class
+- **CRUDBaseOrganization**: Most resources (collections, syncs, connections)
+- **CRUDBaseUser**: User-specific data only
+- **CRUDPublic**: System configuration, no access control needed
 
-**Reference:** See `monke-testing-guide.mdc` Part 3
+### 2. Transaction Management
+- Use `UnitOfWork` for multi-step operations
+- Pass `uow` parameter through nested CRUD calls
+- Let context manager handle commit/rollback
 
-Implement LLM-powered content generation:
+### 3. Access Control
+- Always pass `BaseContext` (or any subclass like `ApiContext`, `SyncContext`) to CRUD operations
+- Never bypass `_validate_organization_access()`
+- Handle both user and API key contexts
+- Use `ctx.logger` for contextual logging with request metadata
 
+### 4. Custom Methods
+- Override base methods when needed (e.g., `get` with extra options)
+- Add domain-specific methods (e.g., `get_by_short_name`)
+- Keep CRUD classes focused on data access
+
+### 5. Error Handling
+- Raise `NotFoundException` for missing resources
+- Raise `PermissionException` for access violations
+- Let exceptions bubble up for transaction rollback
+
+## Module Exports
+
+The `crud/__init__.py` exports singleton instances:
 ```python
-from monke.client.llm import LLMClient
-from monke.generation.schemas.my_connector import *
+from .crud_collection import collection
+from .crud_sync import sync
+# ... etc
 
-
-async def generate_task(model: str, token: str) -> dict:
-    """Generate task with embedded verification token."""
-    llm = LLMClient(model_override=model)
-
-    instruction = (
-        f"Generate a realistic task for a software project. "
-        f"You MUST include the literal token '{token}' in the description."
-    )
-
-    task = await llm.generate_structured(MyConnectorTask, instruction)
-    task.spec.token = token
-
-    # Ensure token is in description
-    if token not in task.content.description:
-        task.content.description += f"\n\nToken: {token}"
-
-    return {
-        "title": task.spec.title,
-        "description": task.content.description,
-    }
-
-
-async def generate_comment(model: str, token: str) -> dict:
-    """Generate comment with embedded verification token."""
-    llm = LLMClient(model_override=model)
-
-    instruction = (
-        f"Generate a helpful comment on a task. "
-        f"You MUST include the literal token '{token}' in the text."
-    )
-
-    comment = await llm.generate_structured(CommentContent, instruction)
-
-    if token not in comment.text:
-        comment.text += f"\n\nToken: {token}"
-
-    return {"text": comment.text}
+__all__ = ["collection", "sync", ...]
 ```
 
-### Step 11: Implement Bongo
-
-**File:** `monke/bongos/{short_name}.py`
-
-**Reference:** See `monke-testing-guide.mdc` Part 1
-
-**It must create ALL entity types defined in your source connector.**
-
-**Before starting:**
-1. Open `backend/airweave/platform/sources/{short_name}.py`
-2. Find `generate_entities()` method
-3. List EVERY entity type that is yielded:
-   ```python
-   # Example from your source:
-   yield WorkspaceEntity(...)     # ← Must create in tests
-   yield ProjectEntity(...)       # ← Must create in tests
-   yield TaskEntity(...)          # ← Must create in tests
-   yield CommentEntity(...)       # ← Must create in tests
-   yield FileEntity(...)          # ← Must create in tests
-   ```
-4. Your `create_entities()` MUST create instances of ALL these types
-
-**Implementation order:**
-
-1. Create the class skeleton
-2. Implement `_ensure_workspace()` and `_ensure_project()` helpers
-3. **Implement `create_entities()` - MUST create ALL entity types (not just tasks!)**
-4. Implement `update_entities()`
-5. Implement `delete_specific_entities()`
-6. Implement `delete_entities()`
-7. Implement `cleanup()`
-8. Add rate limiting and error handling
-
-** Test ALL Entity Types**
-
-**Validation before proceeding:**
-- [ ] Count: How many entity types does your source yield?
-- [ ] Count: How many entity types does `create_entities()` create?
-- [ ] These numbers MUST match (excluding workspace/project if they're not stored)
-
+Use these instances in API endpoints and services:
 ```python
-async def create_entities(self) -> List[Dict[str, Any]]:
-    """Create comprehensive test entities.
+from airweave import crud
 
-    Must create instances of EVERY entity type that
-    the source connector syncs.
-    """
-    all_entities = []
-
-    await self._ensure_workspace()
-    await self._ensure_project()
-
-    async with httpx.AsyncClient() as client:
-        # Create parent entities (tasks)
-        for i in range(self.entity_count):
-            task_token = str(uuid.uuid4())[:8]
-            task_data = await generate_task(self.openai_model, task_token)
-
-            # Create task via API
-            task = await self._create_task(client, task_data)
-            all_entities.append({
-                "type": "task",
-                "id": task["id"],
-                "token": task_token,
-                "expected_content": task_token,
-            })
-
-            # ==========================================
-            # Create child entities
-            # ==========================================
-
-            # Create 2 comments per task
-            for j in range(2):
-                comment_token = str(uuid.uuid4())[:8]
-                comment_data = await generate_comment(self.openai_model, comment_token)
-
-                comment = await self._create_comment(client, task["id"], comment_data)
-                all_entities.append({
-                    "type": "comment",
-                    "id": comment["id"],
-                    "parent_id": task["id"],
-                    "token": comment_token,
-                    "expected_content": comment_token,
-                })
-
-            # Create 1 file per task
-            file_token = str(uuid.uuid4())[:8]
-            file_content, filename = await generate_file_attachment(
-                self.openai_model,
-                file_token
-            )
-
-            file = await self._upload_file(client, task["id"], file_content, filename)
-            all_entities.append({
-                "type": "file",
-                "id": file["id"],
-                "parent_id": task["id"],
-                "token": file_token,
-                "expected_content": file_token,
-            })
-
-    self.created_entities = all_entities
-    return all_entities
+# In endpoint
+collection = await crud.collection.get(db, id, ctx)
 ```
 
-### Step 12: Checkpoint - Ready for E2E Testing
+## Key Invariants
 
-**Inform the human:** Monke test code is complete and ready to run.
+1. **Every operation requires BaseContext** (or a subclass) - No exceptions
+2. **Organization resources are isolated** - Cross-org access is prevented
+3. **User tracking is automatic** - When enabled, audit fields are managed
+4. **Transactions are explicit** - Use UoW for multi-step operations
+5. **Access validation is mandatory** - Built into base class methods
+6. **Logger injection via context** - All operations have access to contextual logger
 
-The human will now:
-- Run `./monke.sh {connector_name}`
-- Verify all entity types pass (tasks, comments, files)
-- Report any test failures for you to fix
+## Common Gotchas
 
-Wait for human feedback. If tests fail, review the error logs and fix the code.
-
----
-
-## Phase 4: Debugging & Iteration
-
-### Common Issues
-
-#### Issue 1: Source connector runs but entities aren't appearing in Qdrant
-
-**When human reports this issue, you should:**
-
-1. Add logging to count yielded entities:
-   ```python
-   # Add to your source's generate_entities()
-   async def generate_entities(self):
-       count = 0
-       async for entity in self._generate_all():
-           count += 1
-           self.logger.info(f"Yielded entity {count}: {entity.entity_id}")
-           yield entity
-       self.logger.info(f"Total entities yielded: {count}")
-   ```
-
-2. Verify entity schemas have correct field types
-
-3. Ask human to check worker logs: `docker logs airweave-worker-dev | grep ERROR`
-
-#### Issue 2: Comments/files not found in Monke verification
-
-**When human reports this issue, investigate:**
-
-1. Did bongo create them? Add logging to `create_entities()` to confirm
-2. Did source yield them? Add logging to comment/file generation methods
-3. Is token embedded? Check generation logic includes the token in content
-4. Ask human to search Qdrant manually for the token
-
-#### Issue 3: Token refresh failing (401 errors during sync)
-
-**When human reports this issue:**
-
-1. Ask human to verify `oauth_type` in YAML is correct
-2. Ask human to verify scopes include `offline_access` or equivalent
-3. Check your source uses `await self.get_access_token()`
-4. Verify `_get_with_auth()` handles 401 errors with token refresh
-
-#### Issue 4: Rate limiting (429 errors)
-
-**When human reports this issue:**
-
-1. Add simple rate limiting to source and bongo (see rate limiting section in implementation guide)
-2. Reduce `max_concurrency` in bongo config
-
-#### Issue 5: Monke verification times out
-
-**When human reports this issue:**
-
-1. Increase `retry_attempts` and `retry_delay_seconds` in test config
-2. Ask human to verify sync actually completed (check logs)
-3. Ask human to search Qdrant manually for the token to confirm it exists
-
----
-
-## Phase 5: Production Readiness
-
-### Checklist
-
-**Source Connector:**
-- [ ] All entity types are implemented in `entities/{short_name}.py`
-- [ ] **semantically relevant entity fields use `AirweaveField(..., embeddable=True)`**
-  - [ ] All text content fields are embeddable
-  - [ ] All people fields are embeddable
-  - [ ] All status/metadata fields are embeddable
-  - [ ] All timestamps are embeddable
-  - [ ] Only IDs and binary metadata use `Field()` without embeddable
-  - [ ] Verified: ~70% of fields are embeddable
-- [ ] All entities have `created_at` or `modified_at` timestamps
-- [ ] Token refresh is properly handled
-- [ ] Rate limiting is implemented (if API requires it)
-- [ ] Pagination is handled correctly
-- [ ] Errors are handled gracefully (don't fail entire sync)
-- [ ] Breadcrumbs track entity hierarchy
-- [ ] File entities use `process_file_entity()`
-- [ ] OAuth config is in `dev.integrations.yaml`
-
-**Monke Tests:**
-- [ ] **Bongo creates ALL entity types from source**
-  - [ ] Listed all entity types yielded in source's `generate_entities()`
-  - [ ] Confirmed `create_entities()` creates each type
-  - [ ] Entity type count matches between source and tests
-- [ ] Each entity has unique verification token
-- [ ] Tokens are embedded in searchable content
-- [ ] Generation schemas defined for all entity types
-- [ ] Test config has comprehensive test flow
-- [ ] All entity types are verified after sync
-- [ ] Update flow tests incremental sync
-- [ ] Deletion flow tests deletion detection
-- [ ] cleanup() removes all test data
-
-**Documentation:**
-- [ ] Source code has docstrings
-- [ ] Entity schemas have field descriptions
-- [ ] Rate limits are documented
-
-### Performance Considerations
-
-1. **Pagination:** Always fetch in batches, don't load everything into memory
-2. **Rate Limiting:** Respect API limits to avoid bans
-3. **Concurrency:** Use semaphores to limit parallel requests
-4. **Incremental Sync:** Use `modified_since` filters when available
-5. **Error Recovery:** Don't fail entire sync on one entity error
-
----
-
-## Phase 6: Submission
-
-### Before Submitting PR
-
-1. **Run full test suite:**
-   ```bash
-   ./monke.sh my_connector
-   ```
-
-2. **Verify all entity types sync:**
-   - Manually check Qdrant for tasks, comments, files
-
-3. **Test with real data:**
-   - Connect to your actual account
-   - Sync your real workspace
-   - Verify search works as expected
-
-4. **Check code quality:**
-   - Run linter: `ruff check backend/`
-   - Run formatter: `black backend/`
-   - Add type hints to all methods
-
-5. **Write PR description:**
-   - List all entity types synced
-   - Note any limitations (e.g., "Deletion detection not supported")
-   - Include example search queries
-
----
-
-### Follow-up Prompts
-
-```
-Now implement the source connector in `backend/airweave/platform/sources/[short_name].py`.
-
-Make sure to:
-- Generate all entity types hierarchically
-- Handle token refresh properly
-- Implement rate limiting
-- Track breadcrumbs for entity relationships
-- Process file entities if the API supports them
-
-Reference the Asana source as an example: @asana.py
-```
-
-```
-Now implement the Monke tests.
-
-The bongo MUST create instances of EVERY entity type, including
-comments and files, not just the top-level tasks.
-
-Start with:
-1. Generation schemas in `monke/generation/schemas/[short_name].py`
-2. Generation adapter in `monke/generation/[short_name].py`
-3. Bongo in `monke/bongos/[short_name].py`
-
-Reference the Asana tests but NOTE that they have a bug: they create comments
-but don't verify them. You must verify ALL entity types.
-```
-
----
-
-## Summary
-
-Building a complete connector requires:
-
-1. **Research:** Understand the API, entity hierarchy, auth, and rate limits
-2. **Entities:** Define schemas for ALL entity types with proper timestamps
-   - **Mark ~70% of fields as `embeddable=True` for semantic search**
-3. **Source:** Implement hierarchical entity generation with token refresh
-4. **Testing:** Create Monke tests that verify EVERY entity type
-   - **Test ALL entity types your source yields, not just tasks**
-5. **Validation:** Run E2E tests and verify all entities appear in search
-6. **Refinement:** Debug issues, optimize performance, handle edge cases
-
-**The two keys to success:**
-
-1. **Information-Rich Entities**: Mark most fields as `embeddable=True` so users can semantically search your data. Sparse entities with only names embeddable are barely useful.
-
-2. **Comprehensive Testing**: Don't just test tasks—test comments, files, and all nested entities. If your connector syncs it, your tests must verify it. Count entity types in your source's `generate_entities()` and match that count in your Monke tests.
-
----
-
-## Reference Documents
-
-- **Source Implementation:** `source-connector-implementation.mdc`
-- **Monke Testing:** `monke-testing-guide.mdc`
-- **Example Connector:** Asana (see attached files)
-
-Good luck building your connector! 🚀
+1. **Don't forget ctx** - Required for all operations
+2. **Use uow for related creates** - Ensures atomic transactions
+3. **Check track_user flag** - Determines if UserMixin fields are set
+4. **Organization validation** - Happens automatically in base class
+5. **Custom CRUD methods** - Should still validate access control
+6. **Logger is pre-configured** - Use `ctx.logger` instead of creating new loggers
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
