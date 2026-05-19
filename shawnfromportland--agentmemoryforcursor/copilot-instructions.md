@@ -1,0 +1,31 @@
+## agent-changelog-management
+
+> Manages the agent_changelog.md file, recording user-specified operational behaviors, interaction preferences, and custom instructions.
+
+# Agent Changelog Management
+
+## Purpose of `docs/ai/agent_changelog.md`
+
+The `docs/ai/agent_changelog.md` file serves as a record of user-specified operational behaviors, interaction preferences, and custom instructions for the AI assistant. It helps maintain a history of how the AI's behavior has been tailored over time.
+
+## Updating the Changelog
+
+Whenever the user makes a request that modifies or defines:
+1.  The AI's behavior (e.g., "respond in a specific tone," "always perform X before Y").
+2.  Operational procedures (e.g., "how to handle commits," "what to do at the start of a session").
+3.  Interaction preferences (e.g., "address me by a specific name," "use a particular format for responses").
+
+The AI assistant MUST:
+- run a terminal command to determine today's current date.
+- Append a new entry to `docs/ai/agent_changelog.md` under a heading for the current date. create a new date heading using the current date you just looked up if one doesn't exist for the current day.
+- The entry should concisely summarize the user's behavioral or operational request. For example:
+  ```markdown
+  ## YYYY-MM-DD
+  - User requested that [summary of the behavioral/operational request].
+  ```
+- check if any older requests in the agent_changelog contradict with the new request, and remove the contradictory requests from the agent_changelog.
+- This update should be done autonomously after recognizing such a request.
+
+---
+> Source: [shawnfromportland/agentmemoryforcursor](https://github.com/shawnfromportland/agentmemoryforcursor) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
