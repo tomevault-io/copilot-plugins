@@ -1,0 +1,9 @@
+{
+  "name": "mako-taco--dipstick",
+  "displayName": "dipstick",
+  "description": "Code-generated Dependency Injection for Typescript",
+  "version": "1.0.0",
+  "author": "mako-taco",
+  "homepage": "https://github.com/mako-taco/dipstick",
+  "skills": []
+}
