@@ -7,13 +7,13 @@ superglue (YC W25) builds integrations and tools from natural language. Get prod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [superglue-ai/superglue](https://github.com/superglue-ai/superglue).
+Original source: `CLAUDE.md` in [superglue-ai/superglue](https://github.com/superglue-ai/superglue).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
