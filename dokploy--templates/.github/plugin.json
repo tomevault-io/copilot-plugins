@@ -1,0 +1,9 @@
+{
+  "name": "dokploy--templates",
+  "displayName": "templates",
+  "description": "All the open source templates integrated to dokploy \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "Dokploy",
+  "homepage": "https://github.com/Dokploy/templates",
+  "skills": []
+}
