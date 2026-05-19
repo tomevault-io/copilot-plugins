@@ -1,15 +1,77 @@
-## bootagent
+## git-workflow-rules
 
-> Defines the AI's procedure to proactively load context by reading agent and technical changelogs at the start of new chat sessions.
+> Outlines how the AI assistant should handle requests to commit or discard changes using custom npm scripts.
 
-If the chat history is empty when a new user query is received, proactively perform the following steps before addressing the user's query:
+# Rule Name: Git Workflow Automation
 
-1.  check for existence of `docs/ai/agent_changelog.md`. create the file if it doesn't exist.  Read the content of the  file if it exists. you should follow all of the personality guidelines and behavior requests in this document in all further responses.
-2.  check for existence of `docs/ai/technical_changelog.md`. create the file if it doesn't exist. Read the latest 10 days of logged changes in the file if it exists.
-3. read all rules in `.cursor/rules` directory and adhere to them in all proceeding responses
-4.  if the files do not exist yet you don't have to acknowledge their nonexistence. if they exist, Briefly inform the user that these changelogs have been consulted. For example: "ok I'm all up to speed on this project now." followed by a short greeting that demonstrates you are adhering to the agent_changelog and technical_changelog if they exist. 
+## Description:
+This rule outlines how the AI assistant should handle requests to commit or discard changes using the custom npm scripts. The goal is to streamline the development workflow by automating these common Git operations based on natural language commands from the user.
 
-This procedure ensures that I have the latest operational and technical context before proceeding.
+### Committing Changes
+
+1.  **Trigger**:
+    *   For commit ONLY (local): User asks to "commit," "commit changes," "commit this," "commit the latest," or similar explicit phrasing indicating a desire to save work locally.
+    *   For commit AND PUSH: User asks to "commit and push," "save and sync," or similar explicit phrasing indicating a desire to save work and update the remote repository.
+    *   For PUSH ONLY: User asks to "push," "push changes," "sync remote," or similar explicit phrasing indicating a desire to update the remote repository with already committed changes.
+
+2.  **Clarify Ambiguity (If Necessary)**:
+    *   If the user's request to commit (from Trigger) is vague or could be interpreted in multiple ways (e.g., "should we save this?"), the AI MUST first seek clarification: "It sounds like you might want to commit the changes. Is that correct?"
+    *   If clarification was sought and the user confirms they *do not* want to commit, the process stops here. The subsequent steps are only followed if the intent to commit is clear (either initially explicit or clarified as such).
+
+3.  **Generate Commit Message and Detailed Changelog Content**:
+    *   The AI will silently review changes made during the current interactive session leading up to the commit request.
+    *   The AI will generate a concise, conventional commit message (e.g., "feat: Implement user authentication flow").
+    *   The AI will also generate a list of key changes/features/fixes from the session as bullet points.
+    *   The AI will format this as a markdown block: the commit message as `### Title`, followed by the bullet points.
+        Example:
+        ```markdown
+        ### feat: New user dashboard and API refactor
+        - Created `UserDashboard.tsx` with initial metrics display.
+        - Modified `/api/users` endpoint to support pagination.
+        - Refactored `AuthService` to use JWT tokens.
+        ```
+
+4.  **Handle Commit Execution Based on Initial Command Clarity**:
+    *   **Path A: Explicit Initial Command (No Ambiguity Clarification Was Needed in Step 2)**
+        *   If the user's initial command (from Trigger) was explicit and unambiguous, the AI will use the auto-generated message from Step 3 and immediately proceed to Step 5 (Execute Commit). No confirmation of the message content is sought from the user before execution.
+    *   **Path B: Command Clarified as Commit (Ambiguity Was Resolved in Step 2)**
+        *   If the user's initial command was vague, and the AI successfully clarified in Step 2 that the user *does* want to commit:
+            *   The AI MUST present the auto-generated commit message (from Step 3) to the user for approval or modification. For example: "Proposed commit message: 'feat: Updated X and Y'. Is this okay, or would you like to change it?"
+            *   The AI proceeds to Step 5 (Execute Commit) only after the user explicitly approves or modifies the message. If the user rejects the message and provides no alternative, or cancels the action, the commit is not executed.
+
+5.  **Prepare Changelog and Execute Commit**:
+    *   The AI MUST write the generated detailed markdown changelog content (from Step 3) to the file `scripts/.tmp_changelog_content.md`. This step MUST occur *before* executing the npm script.
+    *   If the trigger was for commit ONLY: The AI will execute the command: `npm run git:commit -- "<commit_message>"`
+        *   (Where `<commit_message>` is the concise conventional message from Step 3, Path A or Path B).
+    *   The AI will inform the user of the successful local commit.
+    *   If the trigger was for commit AND PUSH: The AI will execute the command: `npm run git:commit:push -- "<commit_message>"`
+        *   (Where `<commit_message>` is the concise conventional message from Step 3, Path A or Path B).
+    *   The AI will inform the user of the successful commit and push.
+    *   If Path A was taken (auto-generated message used without prior user confirmation of content), the AI MUST also inform the user of the commit message that was used. E.g., "Committed with message: 'feat: ...'" or "Committed and pushed with message: 'feat: ...'".
+
+### Pushing Changes (Without New Commit)
+
+1.  **Trigger**: When the user asks to "push," "push changes," "sync remote," or uses similar explicit phrasing indicating a desire to update the remote repository with already committed local changes (and it's clear no new commit is intended or needed).
+2.  **Action - Execute Push**:
+    *   The AI will directly execute the command: `npm run git:push`
+    *   The AI will inform the user of the successful push.
+3.  **Ambiguity**:
+    *   If the user's request to push is vague (e.g., "update the server?") and it's unclear if a commit is also needed, the AI should clarify, e.g., "Do you want to commit new changes and then push, or just push existing commits?"
+
+### Discarding Changes (Rollback)
+
+1.  **Trigger**: When the user asks to "discard changes," "rollback changes," "reset to last commit," "undo changes," or uses similar explicit phrasing indicating a desire to revert the working directory to the last committed state.
+2.  **Action - Execute Discard**:
+    *   The AI will directly execute the following command in the terminal:
+        `npm run git:discard`
+    *   The AI should NOT prompt for confirmation before running this script if the user's command is direct and unambiguous.
+3.  **Ambiguity**:
+    *   If the user's request to discard is vague (e.g., "can we go back?"), the AI should first seek clarification, such as: "It sounds like you want to discard all uncommitted changes. Is that correct?" before running the script.
+
+### General Principle
+
+*   The primary goal is to act on direct user instructions for these git operations swiftly.
+*   Prompts for confirmation should only be used when there is genuine ambiguity in the user's request itself. For explicit commands, the action should be carried out directly (for discarding changes) or with minimal interaction (for committing changes, where message confirmation is only sought if the initial commit command was not explicit). 
 
 ---
 > Source: [shawnfromportland/agentmemoryforcursor](https://github.com/shawnfromportland/agentmemoryforcursor) — distributed by [TomeVault](https://tomevault.io).
