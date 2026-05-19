@@ -1,0 +1,9 @@
+{
+  "name": "betterseqta--desqta",
+  "displayName": "DesQTA",
+  "description": "A port of the SEQTA website and BetterSEQTA+ interface to native desktop",
+  "version": "1.0.0",
+  "author": "BetterSEQTA",
+  "homepage": "https://github.com/BetterSEQTA/DesQTA",
+  "skills": []
+}
