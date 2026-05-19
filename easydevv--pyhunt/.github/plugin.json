@@ -1,0 +1,9 @@
+{
+  "name": "easydevv--pyhunt",
+  "displayName": "pyhunt",
+  "description": "Lightweight Python logging tool for visual call tracing, tree-structured colored logs, and easy debugging with a simple decorator. Optimized for both standard and AI-generated codebases.",
+  "version": "1.0.0",
+  "author": "EasyDevv",
+  "homepage": "https://github.com/EasyDevv/pyhunt",
+  "skills": []
+}
