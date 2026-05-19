@@ -1,0 +1,9 @@
+{
+  "name": "neutree-ai--ui",
+  "displayName": "ui",
+  "description": "The UI of neutree",
+  "version": "1.0.0",
+  "author": "neutree-ai",
+  "homepage": "https://github.com/neutree-ai/ui",
+  "skills": []
+}
