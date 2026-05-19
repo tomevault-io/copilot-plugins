@@ -1,0 +1,9 @@
+{
+  "name": "aaronsb--mother-goose",
+  "displayName": "mother-goose",
+  "description": "A Model Context Protocol (MCP) server that enables AI agents to recursively spawn and interact with Block's Goose CLI, creating nested AI instances that can collaborate on complex problems through mul",
+  "version": "1.0.0",
+  "author": "aaronsb",
+  "homepage": "https://github.com/aaronsb/mother-goose",
+  "skills": []
+}
