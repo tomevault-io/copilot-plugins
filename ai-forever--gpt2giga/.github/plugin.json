@@ -1,0 +1,9 @@
+{
+  "name": "ai-forever--gpt2giga",
+  "displayName": "gpt2giga",
+  "description": "FastAPI proxy for OpenAI-, and Anthropic-compatible clients backed by the GigaChat API",
+  "version": "1.0.0",
+  "author": "ai-forever",
+  "homepage": "https://github.com/ai-forever/gpt2giga",
+  "skills": []
+}
