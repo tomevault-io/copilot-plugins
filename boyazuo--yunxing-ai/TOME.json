@@ -1,0 +1,44 @@
+{
+  "name": "yunxing-ai",
+  "owner": "boyazuo",
+  "repo": "yunxing-ai",
+  "description": "\u4e91\u884c AI \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684 AI \u5e94\u7528\u6784\u5efa\u5e73\u53f0\uff0c\u65e8\u5728\u7b80\u5316 AI \u5e94\u7528\u7684\u5f00\u53d1\u548c\u90e8\u7f72\u8fc7\u7a0b\u3002\u901a\u8fc7\u63d0\u4f9b\u4e30\u5bcc\u7684\u5de5\u5177\u548c\u63a5\u53e3\uff0c\u5f00\u53d1\u8005\u53ef\u4ee5\u5feb\u901f\u6784\u5efa\u3001\u5b9a\u5236\u548c\u90e8\u7f72 AI \u89e3\u51b3\u65b9\u6848\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/boyazuo/yunxing-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T00:36:41Z"
+}
