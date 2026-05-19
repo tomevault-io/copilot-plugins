@@ -1,0 +1,9 @@
+{
+  "name": "aimerdoux--wavex-os",
+  "displayName": "wavex-os",
+  "description": "Open-source operating system for running an AI agent company on your own machine. Clone, run, and a localhost wizard walks you through defining your company \u2014 KPIs, org structure, agent templates, con",
+  "version": "1.0.0",
+  "author": "aimerdoux",
+  "homepage": "https://github.com/aimerdoux/wavex-os",
+  "skills": []
+}
