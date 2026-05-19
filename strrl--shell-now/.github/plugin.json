@@ -1,0 +1,9 @@
+{
+  "name": "strrl--shell-now",
+  "displayName": "shell-now",
+  "description": "Share your terminal in the browser in seconds. eg. Vibe Coding with Claude Code / Gemini CLI on your iPad!",
+  "version": "1.0.0",
+  "author": "STRRL",
+  "homepage": "https://github.com/STRRL/shell-now",
+  "skills": []
+}
