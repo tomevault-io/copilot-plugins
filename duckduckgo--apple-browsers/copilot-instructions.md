@@ -1,424 +1,307 @@
-## macos-system-integration
+## macos-window-management
 
-> Use proper service management for background agents:
+> ALWAYS use WindowsManager for creating and managing browser windows:
 
 
-# macOS System Integration Patterns
+# macOS Window Management and AppKit Patterns
 
-## Background Agents and Services
-Use proper service management for background agents:
+## WindowsManager for Window Operations
+ALWAYS use WindowsManager for creating and managing browser windows:
 
 ```swift
-// ✅ CORRECT - Background service management
-final class BackgroundServiceManager {
-    private let agentIdentifier = "com.duckduckgo.agent"
-    private let extensionIdentifier = "com.duckduckgo.extension"
-    
-    func registerBackgroundAgent() throws {
-        let service = SMAppService.agent(plistName: "BackgroundAgent.plist")
-        
-        do {
-            try service.register()
-            print("Background agent registered successfully")
-        } catch {
-            print("Failed to register background agent: \(error)")
-            throw error
-        }
+// ✅ CORRECT - WindowsManager usage
+@MainActor
+final class FeatureCoordinator {
+    func openNewWindow() {
+        let tabCollection = TabCollectionViewModel()
+        WindowsManager.openNewWindow(
+            with: tabCollection,
+            burnerMode: .regular,
+            droppingPoint: nil
+        )
     }
     
-    func unregisterBackgroundAgent() throws {
-        let service = SMAppService.agent(plistName: "BackgroundAgent.plist")
-        
-        do {
-            try service.unregister()
-            print("Background agent unregistered successfully")
-        } catch {
-            print("Failed to unregister background agent: \(error)")
-            throw error
-        }
-    }
-    
-    func checkServiceStatus() -> SMAppService.Status {
-        let service = SMAppService.agent(plistName: "BackgroundAgent.plist")
-        return service.status
+    func openWindowWithURL(_ url: URL) {
+        let tabCollection = TabCollectionViewModel()
+        let window = WindowsManager.openNewWindow(with: tabCollection)
+        window?.tabCollectionViewModel.addTab(with: url)
     }
 }
 
-// ❌ INCORRECT - Direct background processing in main app
-final class FeatureManager {
-    func startBackgroundWork() {
-        // Don't run continuous background work in main app
-        DispatchQueue.global().async {
-            while true {
-                // This will drain battery and violate sandboxing
-                self.performWork()
-                Thread.sleep(forTimeInterval: 60)
-            }
+// ❌ INCORRECT - Direct window creation
+final class FeatureCoordinator {
+    func openNewWindow() {
+        let window = NSWindow() // Don't create windows directly
+        window.makeKeyAndOrderFront(nil)
+    }
+}
+```
+
+## Window Controller Architecture
+Use NSWindowController for complex window management:
+
+```swift
+// ✅ CORRECT - NSWindowController pattern
+final class FeatureWindowController: NSWindowController {
+    private let viewModel: FeatureViewModel
+    
+    init(viewModel: FeatureViewModel) {
+        self.viewModel = viewModel
+        super.init(window: nil)
+        setupWindow()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupWindow() {
+        let contentViewController = FeatureViewController(viewModel: viewModel)
+        
+        window = NSWindow(contentViewController: contentViewController)
+        window?.setContentSize(NSSize(width: 800, height: 600))
+        window?.minSize = NSSize(width: 400, height: 300)
+        window?.center()
+        window?.title = "Feature Window"
+        
+        // Configure window behavior
+        window?.isRestorable = true
+        window?.identifier = NSUserInterfaceItemIdentifier("FeatureWindow")
+    }
+    
+    override func windowDidLoad() {
+        super.windowDidLoad()
+        
+        // Additional window setup
+        window?.delegate = self
+        setupToolbar()
+    }
+}
+
+// MARK: - NSWindowDelegate
+extension FeatureWindowController: NSWindowDelegate {
+    func windowWillClose(_ notification: Notification) {
+        // Clean up resources
+        viewModel.cleanup()
+    }
+    
+    func windowDidBecomeMain(_ notification: Notification) {
+        // Handle window becoming main
+        viewModel.windowDidBecomeActive()
+    }
+}
+```
+
+## Multi-Window State Management
+Use TabCollectionViewModel for window-specific state:
+
+```swift
+// ✅ CORRECT - Window-specific state management
+@MainActor
+final class WindowCoordinator {
+    private let tabCollectionViewModel: TabCollectionViewModel
+    private weak var windowController: NSWindowController?
+    
+    init(tabCollectionViewModel: TabCollectionViewModel) {
+        self.tabCollectionViewModel = tabCollectionViewModel
+    }
+    
+    func currentTab() -> Tab? {
+        return tabCollectionViewModel.selectedTab
+    }
+    
+    func addNewTab(with url: URL? = nil) {
+        tabCollectionViewModel.addTab(with: url)
+    }
+    
+    func closeCurrentTab() {
+        guard let currentTab = tabCollectionViewModel.selectedTab else { return }
+        tabCollectionViewModel.removeTab(currentTab)
+    }
+    
+    func closeWindow() {
+        windowController?.close()
+    }
+}
+```
+
+## Window State Restoration
+Implement proper state restoration:
+
+```swift
+// ✅ CORRECT - Window state restoration
+extension FeatureWindowController {
+    override func restoreState(with coder: NSCoder) {
+        super.restoreState(with: coder)
+        
+        // Restore window-specific state
+        if let savedData = coder.decodeObject(forKey: "viewModelState") as? Data {
+            viewModel.restoreState(from: savedData)
+        }
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        
+        // Save window-specific state
+        if let stateData = viewModel.encodeState() {
+            coder.encode(stateData, forKey: "viewModelState")
         }
     }
 }
 ```
 
-## System Extensions
-Use proper system extension lifecycle management:
+## NSViewController and SwiftUI Integration
+Use NSHostingView for SwiftUI integration:
 
 ```swift
-// ✅ CORRECT - System extension management
-import SystemExtensions
+// ✅ CORRECT - NSHostingView integration
+final class FeatureViewController: NSViewController {
+    private let viewModel: FeatureViewModel
+    
+    init(viewModel: FeatureViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = NSHostingView(rootView: FeatureView(viewModel: viewModel))
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Feature"
+        preferredContentSize = NSSize(width: 400, height: 300)
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        viewModel.viewWillAppear()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        viewModel.viewDidAppear()
+    }
+}
+```
 
-final class SystemExtensionManager: NSObject {
-    private let extensionIdentifier = "com.duckduckgo.network-extension"
+## View Controller Lifecycle
+Follow AppKit view controller patterns:
+
+```swift
+// ✅ CORRECT - AppKit lifecycle management
+final class FeatureViewController: NSViewController {
+    private var observations: Set<NSObjectProtocol> = []
     
-    func installExtension() {
-        let request = OSSystemExtensionRequest.activationRequest(
-            forExtensionWithIdentifier: extensionIdentifier,
-            queue: .main
-        )
-        request.delegate = self
-        OSSystemExtensionManager.shared.submitRequest(request)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        bindViewModel()
+        setupNotifications()
     }
     
-    func uninstallExtension() {
-        let request = OSSystemExtensionRequest.deactivationRequest(
-            forExtensionWithIdentifier: extensionIdentifier,
-            queue: .main
-        )
-        request.delegate = self
-        OSSystemExtensionManager.shared.submitRequest(request)
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        viewModel.refreshData()
     }
     
-    func checkExtensionStatus() async -> OSSystemExtensionRequest.Result? {
-        // Check if extension is already installed
-        return await withCheckedContinuation { continuation in
-            let request = OSSystemExtensionRequest.propertiesRequest(
-                forExtensionWithIdentifier: extensionIdentifier,
-                queue: .main
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        // View is fully visible
+        viewModel.trackViewAppearance()
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        viewModel.saveUserChanges()
+    }
+    
+    private func setupNotifications() {
+        let observation = NotificationCenter.default.addObserver(
+            forName: .dataUpdated,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.viewModel.refreshData()
+        }
+        observations.insert(observation)
+    }
+    
+    deinit {
+        observations.forEach { NotificationCenter.default.removeObserver($0) }
+        observations.removeAll()
+    }
+}
+```
+
+## Memory Management for Multiple Windows
+Implement proper cleanup for window controllers:
+
+```swift
+// ✅ CORRECT - Window memory management
+final class FeatureWindowController: NSWindowController {
+    private var observers: Set<NSObjectProtocol> = []
+    
+    deinit {
+        // Clean up resources
+        observers.forEach { NotificationCenter.default.removeObserver($0) }
+        observers.removeAll()
+        viewModel.cleanup()
+    }
+    
+    override func close() {
+        // Prepare for closure
+        viewModel.saveState()
+        super.close()
+    }
+    
+    func cleanupBeforeClose() {
+        // Cancel any ongoing operations
+        viewModel.cancelOngoingOperations()
+        
+        // Remove from window tracking
+        WindowTracker.shared.removeWindow(self)
+    }
+}
+```
+
+## Window Cascading and Positioning
+Handle window positioning properly:
+
+```swift
+// ✅ CORRECT - Window positioning
+extension WindowsManager {
+    static func positionNewWindow(_ window: NSWindow) {
+        if let lastWindow = NSApp.orderedWindows.first {
+            let origin = lastWindow.frame.origin
+            let offset: CGFloat = 30
+            
+            let newOrigin = NSPoint(
+                x: origin.x + offset,
+                y: origin.y - offset
             )
             
-            // Handle the properties request to determine status
-            // Implementation details...
-            continuation.resume(returning: nil)
-        }
-    }
-}
-
-// MARK: - OSSystemExtensionRequestDelegate
-extension SystemExtensionManager: OSSystemExtensionRequestDelegate {
-    func request(
-        _ request: OSSystemExtensionRequest,
-        actionForReplacingExtension existing: OSSystemExtensionProperties,
-        withExtension extension: OSSystemExtensionProperties
-    ) -> OSSystemExtensionRequest.ReplacementAction {
-        return .replace
-    }
-    
-    func requestNeedsUserApproval(_ request: OSSystemExtensionRequest) {
-        print("System extension requires user approval")
-        // Show UI to guide user through approval process
-        showUserApprovalGuidance()
-    }
-    
-    func request(
-        _ request: OSSystemExtensionRequest,
-        didFinishWithResult result: OSSystemExtensionRequest.Result
-    ) {
-        switch result {
-        case .completed:
-            print("System extension request completed successfully")
-            handleExtensionActivated()
-        case .willCompleteAfterReboot:
-            print("System extension will be activated after reboot")
-            showRebootRequiredMessage()
-        @unknown default:
-            print("Unknown system extension result: \(result)")
-        }
-    }
-    
-    func request(_ request: OSSystemExtensionRequest, didFailWithError error: Error) {
-        print("System extension request failed: \(error)")
-        handleExtensionError(error)
-    }
-    
-    private func showUserApprovalGuidance() {
-        // Show UI to guide user through System Preferences
-    }
-    
-    private func handleExtensionActivated() {
-        // Update UI to reflect extension is active
-    }
-    
-    private func showRebootRequiredMessage() {
-        // Show UI indicating reboot is required
-    }
-    
-    private func handleExtensionError(_ error: Error) {
-        // Handle extension installation errors
-    }
-}
-```
-
-## Login Items Management
-Use the modern SMAppService API for login items:
-
-```swift
-// ✅ CORRECT - Modern login items API
-import ServiceManagement
-
-final class LoginItemsManager {
-    func enableLoginItem() throws {
-        do {
-            try SMAppService.mainApp.register()
-            print("Login item enabled successfully")
-        } catch {
-            print("Failed to enable login item: \(error)")
-            throw LoginItemError.registrationFailed(error)
-        }
-    }
-    
-    func disableLoginItem() throws {
-        do {
-            try SMAppService.mainApp.unregister()
-            print("Login item disabled successfully")
-        } catch {
-            print("Failed to disable login item: \(error)")
-            throw LoginItemError.unregistrationFailed(error)
-        }
-    }
-    
-    var isLoginItemEnabled: Bool {
-        return SMAppService.mainApp.status == .enabled
-    }
-    
-    var loginItemStatus: SMAppService.Status {
-        return SMAppService.mainApp.status
-    }
-}
-
-enum LoginItemError: LocalizedError {
-    case registrationFailed(Error)
-    case unregistrationFailed(Error)
-    
-    var errorDescription: String? {
-        switch self {
-        case .registrationFailed(let error):
-            return "Failed to register login item: \(error.localizedDescription)"
-        case .unregistrationFailed(let error):
-            return "Failed to unregister login item: \(error.localizedDescription)"
-        }
-    }
-}
-
-// ❌ INCORRECT - Deprecated APIs
-final class OldLoginItemsManager {
-    func enableLoginItem() {
-        // Don't use deprecated LSSharedFileList APIs
-        let loginItems = LSSharedFileListCreate(nil, kLSSharedFileListSessionLoginItems, nil)
-        // ... deprecated implementation
-    }
-}
-```
-
-## Workspace Integration
-Integrate properly with macOS workspace:
-
-```swift
-// ✅ CORRECT - Workspace integration
-final class WorkspaceIntegration {
-    func openFileInFinder(at url: URL) {
-        NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: url.path)
-    }
-    
-    func revealInFinder(fileAt url: URL) {
-        NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
-    }
-    
-    func openWithDefaultApplication(url: URL) {
-        NSWorkspace.shared.open(url)
-    }
-    
-    func openWithApplication(url: URL, applicationURL: URL) {
-        NSWorkspace.shared.open([url], withApplicationAt: applicationURL, configuration: NSWorkspace.OpenConfiguration())
-    }
-    
-    func getDefaultApplication(for url: URL) -> URL? {
-        return NSWorkspace.shared.urlForApplication(toOpen: url)
-    }
-}
-```
-
-## Dock Integration
-Handle dock interactions properly:
-
-```swift
-// ✅ CORRECT - Dock integration
-final class DockIntegration {
-    func setBadgeCount(_ count: Int) {
-        NSApp.dockTile.badgeLabel = count > 0 ? "\(count)" : nil
-    }
-    
-    func clearBadge() {
-        NSApp.dockTile.badgeLabel = nil
-    }
-    
-    func setDockMenu(_ menu: NSMenu) {
-        NSApp.dockTile.contentView = nil
-        NSApp.dockTile.showsApplicationBadge = true
-        // Custom dock menu would be set through app delegate
-    }
-}
-
-// In AppDelegate
-extension AppDelegate: NSApplicationDelegate {
-    func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
-        let dockMenu = NSMenu()
-        
-        dockMenu.addItem(NSMenuItem(
-            title: "New Window",
-            action: #selector(newWindow),
-            keyEquivalent: ""
-        ))
-        
-        dockMenu.addItem(NSMenuItem(
-            title: "New Private Window",
-            action: #selector(newPrivateWindow),
-            keyEquivalent: ""
-        ))
-        
-        return dockMenu
-    }
-    
-    @objc func newWindow() {
-        WindowsManager.openNewWindow()
-    }
-    
-    @objc func newPrivateWindow() {
-        WindowsManager.openNewWindow(burnerMode: .burner)
-    }
-}
-```
-
-## Notification Center Integration
-Handle notifications properly:
-
-```swift
-// ✅ CORRECT - User notification handling
-import UserNotifications
-
-final class NotificationManager: NSObject {
-    func requestNotificationPermission() async -> Bool {
-        let center = UNUserNotificationCenter.current()
-        
-        do {
-            let granted = try await center.requestAuthorization(options: [.alert, .sound, .badge])
-            return granted
-        } catch {
-            print("Failed to request notification permission: \(error)")
-            return false
-        }
-    }
-    
-    func scheduleNotification(title: String, body: String, identifier: String) async {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        
-        let request = UNNotificationRequest(
-            identifier: identifier,
-            content: content,
-            trigger: nil
-        )
-        
-        do {
-            try await UNUserNotificationCenter.current().add(request)
-        } catch {
-            print("Failed to schedule notification: \(error)")
-        }
-    }
-}
-
-// MARK: - UNUserNotificationCenterDelegate
-extension NotificationManager: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        // Handle notification tap
-        handleNotificationResponse(response)
-        completionHandler()
-    }
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        // Show notification even when app is in foreground
-        completionHandler([.banner, .sound])
-    }
-    
-    private func handleNotificationResponse(_ response: UNNotificationResponse) {
-        // Handle different notification actions
-        switch response.actionIdentifier {
-        case UNNotificationDefaultActionIdentifier:
-            // User tapped the notification
-            break
-        case UNNotificationDismissActionIdentifier:
-            // User dismissed the notification
-            break
-        default:
-            break
+            // Ensure window stays on screen
+            let screenFrame = window.screen?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero
+            
+            if screenFrame.contains(NSRect(origin: newOrigin, size: window.frame.size)) {
+                window.setFrameOrigin(newOrigin)
+            } else {
+                window.center()
+            }
+        } else {
+            window.center()
         }
     }
 }
 ```
 
-## App Group UserDefaults
-Use app group UserDefaults for settings shared with system extensions:
-
-```swift
-// ✅ CORRECT - App group UserDefaults
-extension AppUserDefaults {
-    private static let appGroupUserDefaults = UserDefaults(suiteName: "group.com.duckduckgo.app")
-    
-    var networkProtectionEnabled: Bool {
-        get { 
-            appGroupUserDefaults?.bool(forKey: "network_protection_enabled") ?? false 
-        }
-        set { 
-            appGroupUserDefaults?.set(newValue, forKey: "network_protection_enabled")
-            // Notify system extension of change
-            notifySystemExtension(of: .networkProtectionToggled(newValue))
-        }
-    }
-    
-    var vpnServerLocation: String? {
-        get { 
-            appGroupUserDefaults?.string(forKey: "vpn_server_location") 
-        }
-        set { 
-            appGroupUserDefaults?.set(newValue, forKey: "vpn_server_location")
-        }
-    }
-    
-    private func notifySystemExtension(of change: SystemExtensionNotification) {
-        // Send notification to system extension via app group communication
-        let notificationName = "com.duckduckgo.settings.changed"
-        DistributedNotificationCenter.default().post(
-            name: Notification.Name(notificationName),
-            object: change.rawValue
-        )
-    }
-}
-
-enum SystemExtensionNotification: String {
-    case networkProtectionToggled = "network_protection_toggled"
-    case vpnServerChanged = "vpn_server_changed"
-}
-```
-
-See `macos-window-management.md` for window management patterns and `macos-preferences.md` for preferences UI patterns.
+See `macos-system-integration.md` for system-level integration patterns and `macos-preferences.md` for preferences management.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
