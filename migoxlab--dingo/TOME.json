@@ -2,9 +2,9 @@
   "name": "dingo",
   "owner": "MigoXLab",
   "repo": "dingo",
-  "description": "",
+  "description": "Dingo: A Comprehensive AI Data, Model and Application Quality Evaluation Tool",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/MigoXLab",
+  "source_url": "https://github.com/MigoXLab/dingo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T17:53:50Z"
+  "distributed_at": "2026-05-19T02:25:40Z"
 }
