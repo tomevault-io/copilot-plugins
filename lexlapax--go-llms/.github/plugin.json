@@ -1,0 +1,9 @@
+{
+  "name": "lexlapax--go-llms",
+  "displayName": "go-llms",
+  "description": "llm wrapper library for talking to llms with a lightweight agent framework inspired by various libraries",
+  "version": "1.0.0",
+  "author": "lexlapax",
+  "homepage": "https://github.com/lexlapax/go-llms",
+  "skills": []
+}
