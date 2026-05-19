@@ -1,80 +1,153 @@
-## location-rule
+## on-load-rule
 
-> Rules for placing and organizing Cursor rule files in the repository.
+> This guide outlines the critical development principles for this Swift project.
 
----
-description: Cursor Rules Location
-globs: *.mdc
----
-# Cursor Rules Location
+# Swift Project Development Guidelines
 
-Rules for placing and organizing Cursor rule files in the repository.
+This guide outlines the critical development principles for this Swift project.
 
 <rule>
-name: cursor_rules_location
-description: Standards for placing Cursor rule files in the correct directory
+name: on_load_rule
 filters:
-  # Match any .mdc files
-  - type: file_extension
-    pattern: "\\.mdc$"
-  # Match files that look like Cursor rules
-  - type: content
-    pattern: "(?s)<rule>.*?</rule>"
-  # Match file creation events
   - type: event
-    pattern: "file_create"
+    pattern: "cursor_start"
+  - type: command
+    pattern: "@principles"
 
 actions:
-  - type: reject
-    conditions:
-      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
-        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
-
   - type: suggest
     message: |
-      When creating Cursor rules:
+      # Critical Development Principles
+      
+      This Swift project follows strict architectural and code quality guidelines:
 
-      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
-         ```
-         .cursor/rules/
-         ├── your-rule-name.mdc
-         ├── another-rule.mdc
-         └── ...
-         ```
+      ## 1. Architecture
+      
+      We follow **Clean Architecture** with:
+      - **Domain Layer**: Pure business logic, no frameworks
+      - **Application Layer**: Use cases orchestrating domain entities
+      - **Interface Adapters Layer**: Bridges between domain and external systems
+      - **Infrastructure Layer**: Frameworks, drivers, and UI
+      
+      **Key principle**: Dependencies point inward. Outer layers depend on inner layers, never the reverse.
 
-      2. Follow the naming convention:
-         - Use kebab-case for filenames
-         - Always use .mdc extension
-         - Make names descriptive of the rule's purpose
+      ## 2. Domain-Driven Design
+      
+      All domain modeling must use DDD tactical patterns:
+      - **Entities**: Objects with identity (User, Order)
+      - **Value Objects**: Immutable objects defined by their attributes (Email, Money)
+      - **Aggregates**: Consistency boundaries with a single entry point (OrderAggregate)
+      - **Domain Events**: Record important business events (OrderPlaced, PaymentReceived)
+      - **Repositories**: Data access abstractions for aggregates
+      
+      **Bounded Contexts** define boundaries between different domain areas.
 
-      3. Directory structure:
-         ```
-         PROJECT_ROOT/
-         ├── .cursor/
-         │   └── rules/
-         │       ├── your-rule-name.mdc
-         │       └── ...
-         └── ...
-         ```
+      ## 3. Object Callisthenics
+      
+      Strictly follow these 9 rules:
+      1. One level of indentation per method
+      2. Don't use the ELSE keyword
+      3. Wrap all primitives and strings
+      4. Use first-class collections
+      5. One dot per line (no method chaining)
+      6. Don't abbreviate names
+      7. Keep entities small (50 lines per class, 10 files per package)
+      8. No classes with more than 2 instance variables
+      9. No getters/setters/properties (focus on behavior)
 
-      4. Never place rule files:
-         - In the project root
-         - In subdirectories outside .cursor/rules
-         - In any other location
+      ## 4. Testing Principles
+      
+      **Every public function must have unit tests.**
+      
+      Test coverage requirements:
+      - Domain Layer: 100%
+      - Application Layer: 100%
+      - Interface Adapters: 90%+
+      - Infrastructure: Critical paths
+      
+      Always follow AAA pattern (Arrange-Act-Assert).
+
+      ## 5. Package Structure
+      
+      Packages are organized by layer first, then by bounded context:
+      
+      ```
+      Sources/
+      ├── Domain/
+      │   ├── [BoundedContext1]/
+      │   ├── [BoundedContext2]/
+      ├── Application/
+      │   ├── [BoundedContext1]/
+      │   ├── [BoundedContext2]/
+      ├── InterfaceAdapters/
+      │   ├── [BoundedContext1]/
+      │   ├── [BoundedContext2]/
+      └── Infrastructure/
+          ├── [BoundedContext1]/
+          ├── [BoundedContext2]/
+      ```
+      
+      ## 6. Naming Conventions
+      
+      - Domain classes: Business terms (User, Order, Product)
+      - Use cases: VerbNoun format (CreateOrderUseCase, AuthenticateUserUseCase)
+      - Protocols: Nouns or adjectives (UserRepository, Authenticatable)
+      - Extensions: Extended type + feature (String+Validation)
+      
+      ## 7. Error Handling
+      
+      - Domain errors should be typed, not strings (enum OrderError)
+      - Use Swift's Result type for operations that can fail
+      - Fail early and explicitly
+      - Prefer throwing specific errors over optionals for failure cases
+      
+      ## 8. Dependency Injection
+      
+      - Dependencies must be explicit through constructor injection
+      - Use protocols to define dependencies, not concrete classes
+      - Do not use service locators or global singletons
+      
+      ## 9. Documentation Requirements
+      
+      - Domain models: Full documentation with business purpose
+      - Use cases: Documentation with inputs, outputs, and errors
+      - Public APIs: Fully documented with examples
+      - Tests: Clear arrange-act-assert sections
+
+      ## 10. Code Review Checklist
+      
+      - Follows Clean Architecture dependencies
+      - Adheres to DDD principles
+      - Satisfies Object Callisthenics rules
+      - Has required test coverage
+      - Properly documented
+      - No code smells
 
 examples:
   - input: |
-      # Bad: Rule file in wrong location
-      rules/my-rule.mdc
-      my-rule.mdc
-      .rules/my-rule.mdc
-
-      # Good: Rule file in correct location
-      .cursor/rules/my-rule.mdc
-    output: "Correctly placed Cursor rule file"
+      I need to implement user authentication
+    output: |
+      I'll help you implement user authentication following our project principles:
+      
+      Let's approach this using Clean Architecture, DDD, and Object Callisthenics:
+      
+      1. First, I'll create domain entities and value objects in the Domain layer:
+         - A `User` entity with identity
+         - `Email` and `Password` as value objects with validation
+         - `AuthenticationError` enum for domain errors
+      
+      2. Next, I'll create use cases in the Application layer:
+         - `AuthenticateUserUseCase` with clear input/output boundaries
+         - `RegisterUserUseCase` for user registration
+      
+      3. Then I'll create repository interfaces and presenters in the Interface Adapters layer
+      
+      4. Finally, I'll implement concrete adapters in the Infrastructure layer
+      
+      All public functions will have unit tests, and I'll follow Object Callisthenics strictly (small methods, no else statements, etc.).
 
 metadata:
-  priority: high
+  priority: critical
   version: 1.0
 </rule>
 
