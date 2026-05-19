@@ -4,7 +4,7 @@
   "repo": "rSearch",
   "description": "Search, fetch, and download arXiv papers from the terminal. CLI + programmatic TypeScript client",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jscraik/rSearch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:22:37Z"
+  "distributed_at": "2026-05-19T02:45:32Z"
 }
