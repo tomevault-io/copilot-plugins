@@ -1,61 +1,35 @@
-## ios-viewmodel
+## shared-module
 
-> iOS ViewModel conventions — @Published, ObservableObject, @StateObject vs @ObservedObject, KMP Swift naming, KMP collection bridging pitfalls
+> KMP shared module constraints — no platform imports in domain/, expect/actual conventions, pure Kotlin business logic
 
 
-# iOS ViewModel Rules
+# Shared Module Rules (KMP)
 
-## ObservableObject pattern
+## No platform imports in domain/
 
-ViewModels conform to `ObservableObject` and expose state via `@Published` properties.
+Code in `shared/src/commonMain/.../domain/` is pure Kotlin business logic. It MUST NOT import platform-specific classes (`java.*`, `android.*`, `Foundation`, `UIKit`, etc.).
 
-```swift
-class TunerViewModel: ObservableObject {
-    @Published var detectedNote: String = ""
-    @Published var centsOff: Double = 0.0
-}
-```
+If platform functionality is needed, use `expect/actual` declarations in the `platform/` package.
 
-## @StateObject vs @ObservedObject
+## expect/actual conventions
 
-- Use `@StateObject` for view-owned ViewModels (the view creates and owns the instance)
-- Use `@ObservedObject` for ViewModels passed in from a parent view
+- `expect` declarations live in `shared/src/commonMain/.../platform/PlatformUtils.kt`
+- `actual` implementations: `shared/src/androidMain/` (java.util), `shared/src/iosMain/` (Foundation)
+- Current expect/actual functions: `generateUuid`, `currentTimeMillis`, `currentYear`, `currentDayOfYear`
 
-```swift
-struct TunerView: View {
-    @StateObject private var viewModel = TunerViewModel()
-}
+## New business logic goes here
 
-struct ChildView: View {
-    @ObservedObject var viewModel: TunerViewModel
-}
-```
+When adding new business logic (chord detection, transposition, music theory, pitch detection, scales), implement it in the shared module so both Android and iOS benefit.
 
-## KMP Swift naming conventions
+## Package structure
 
-- KMP classes drop the `Shared` prefix: `PitchDetector.shared`, `UkuleleTuning.highG`
-- KMP numeric types keep their Kotlin names: `KotlinFloatArray`, `KotlinDouble` (no prefix)
+| Package | Contents |
+|---------|----------|
+| `domain/` | Pure Kotlin business logic — chord detection, transposition, pitch detection, scales, music theory, tuner note mapping |
+| `data/` | Data models, enums (`UkuleleTuning`, `Notes`), configuration types |
+| `platform/` | `expect/actual` declarations for platform-specific functions |
 
-## KMP collection bridging
-
-Kotlin/Native bridges `List` and `Set` to different Swift types. Force-casting the **entire collection** to a Swift Array crashes for Sets.
-
-| Kotlin type | Swift bridge type | `as! [NSNumber]` safe? |
-|-------------|-------------------|------------------------|
-| `List<Int>` | `[KotlinInt]` (Array) | Yes |
-| `Set<Int>` | `Set<KotlinInt>` | **No — crashes** (Set is not Array) |
-
-```swift
-// ❌ DON'T: cast the whole collection — crashes if source is a Kotlin Set
-let values = Set((notes as! [NSNumber]).map { $0.int32Value })
-
-// ✅ DO: iterate elements individually — works for both List and Set
-let values = Set(notes.map { ($0 as! NSNumber).int32Value })
-```
-
-## Existing ViewModels
-
-`FretboardViewModel`, `MetronomeViewModel`, `FavoritesViewModel`, `SettingsViewModel`, `ChordLibraryViewModel`, `SongbookViewModel`, `MelodyViewModel`, `ProgressionsViewModel`, `LearnViewModel`, `PitchMonitorViewModel`, `ScalePracticeViewModel`, `PracticeTimerViewModel`, `CustomPatternsViewModel`, `PlayAlongViewModel`, `ChordTransitionsViewModel`, `SetlistViewModel`
+Do not create new packages without discussion. Maintain the existing structure.
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
