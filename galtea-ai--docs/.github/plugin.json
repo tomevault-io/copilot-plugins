@@ -1,0 +1,9 @@
+{
+  "name": "galtea-ai--docs",
+  "displayName": "docs",
+  "description": "Official documentation for Galtea: guides, API reference, tutorials, changelogs, and more. Clear, versioned docs to help users and developers get started, integrate, and contribute",
+  "version": "1.0.0",
+  "author": "Galtea-AI",
+  "homepage": "https://github.com/Galtea-AI/docs",
+  "skills": []
+}
