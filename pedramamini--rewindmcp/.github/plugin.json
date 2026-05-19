@@ -1,0 +1,9 @@
+{
+  "name": "pedramamini--rewindmcp",
+  "displayName": "RewindMCP",
+  "description": "Pythonic library of Rewind.ai SQLite Database. Includes CLI and MCP interfaces.",
+  "version": "1.0.0",
+  "author": "pedramamini",
+  "homepage": "https://github.com/pedramamini/RewindMCP",
+  "skills": []
+}
