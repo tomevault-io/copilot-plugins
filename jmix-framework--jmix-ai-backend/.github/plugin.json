@@ -1,0 +1,9 @@
+{
+  "name": "jmix-framework--jmix-ai-backend",
+  "displayName": "jmix-ai-backend",
+  "description": "Backend service for Jmix AI",
+  "version": "1.0.0",
+  "author": "jmix-framework",
+  "homepage": "https://github.com/jmix-framework/jmix-ai-backend",
+  "skills": []
+}
