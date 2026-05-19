@@ -1,0 +1,9 @@
+{
+  "name": "banagale--slackprep",
+  "displayName": "slackprep",
+  "description": "slackprep is a CLI tool and Python library that converts Slack export data into structured Markdown or JSONL transcripts",
+  "version": "1.0.0",
+  "author": "banagale",
+  "homepage": "https://github.com/banagale/slackprep",
+  "skills": []
+}
