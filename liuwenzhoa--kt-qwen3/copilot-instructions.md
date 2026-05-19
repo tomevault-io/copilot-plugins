@@ -1,89 +1,166 @@
-## configuration-qwen3-moe
+## deepseek-r1-v3-tutorial
 
-> [configuration_qwen3_moe.py](mdc:ktransformers/ktransformers/models/configuration_qwen3_moe.py) 文件定义了Qwen3 MoE模型的配置类，包含模型架构的所有超参数设置。
+> KTransformers支持在有限资源（24GB VRAM的桌面设备）上运行GPT-4/o1级别的本地VSCode Copilot。本指南详细介绍如何运行强大的DeepSeek-R1和V3模型。
 
-# Qwen3Moe 配置指南
+# DeepSeek-R1和V3模型运行指南
 
-[configuration_qwen3_moe.py](mdc:ktransformers/ktransformers/models/configuration_qwen3_moe.py) 文件定义了Qwen3 MoE模型的配置类，包含模型架构的所有超参数设置。
+## 概述
 
-## 配置类概述
+KTransformers支持在有限资源（24GB VRAM的桌面设备）上运行GPT-4/o1级别的本地VSCode Copilot。本指南详细介绍如何运行强大的DeepSeek-R1和V3模型。
 
-`Qwen3MoeConfig` 类继承自huggingface的 `PretrainedConfig`，用于初始化Qwen3 MoE模型的参数。默认配置与 [Qwen/Qwen3-MoE-15B-A2B](mdc:https:/huggingface.co/Qwen/Qwen3-MoE-15B-A2B) 相似。
+## 特点与优势
 
-## 主要配置参数
+- **本地671B DeepSeek-Coder-V3/R1**：使用Q4_K_M版本，仅需14GB VRAM和382GB DRAM
+- **高效性能**：
+  - 预填充速度：最高可达286.55 tokens/s（比llama.cpp快27.79倍）
+  - 解码速度：最高可达13.69 tokens/s（比llama.cpp快3.03倍）
+- **多版本选择**：
+  - **V0.2**: 当前主分支
+  - **V0.2.1**: 更长上下文和更快速度
+  - **V0.2.2 & V0.2.3**: 支持更长上下文和FP8内核
+  - **V0.2.4**: 支持多并发
+  - **V0.3**: 预览版，包含Intel AMX优化和选择性专家激活
 
-### 基础参数
-- `vocab_size`: 词表大小，默认为151936
-- `hidden_size`: 隐藏层维度，默认为2048
-- `intermediate_size`: MLP中间层维度，默认为6144
-- `num_hidden_layers`: Transformer编码器中的隐藏层数，默认为24
-- `num_attention_heads`: 注意力头数，默认为32
-- `num_key_value_heads`: 实现GQA的key-value头数，默认为4
-- `hidden_act`: 非线性激活函数，默认为"silu"
-- `max_position_embeddings`: 支持的最大序列长度，默认为32768
-- `initializer_range`: 初始化权重的标准差，默认为0.02
-- `rms_norm_eps`: RMS规范化的epsilon值，默认为1e-6
+## 版本性能对比
 
-### 注意力相关参数
-- `attention_bias`: 是否在自注意力的投影层使用偏置，默认为False
-- `attention_dropout`: 注意力概率的dropout率，默认为0.0
-- `use_sliding_window`: 是否使用滑动窗口注意力，默认为False
-- `sliding_window`: 滑动窗口大小，默认为4096
-- `max_window_layers`: 使用滑动窗口注意力的层数，默认为28
+### V0.2.1性能
 
-### RoPE相关参数
-- `rope_theta`: RoPE嵌入的基础周期，默认为10000.0
-- `rope_scaling`: RoPE缩放配置，支持多种扩展方式
+- **内存消耗**：
+  - 单插槽：382G DRAM，至少14GB VRAM
+  - 双插槽：1T DRAM，至少14GB VRAM
 
-### MoE相关参数
-- `decoder_sparse_step`: MoE层的频率，默认为1
-- `moe_intermediate_size`: 路由专家的中间层大小，默认为768
-- `num_experts_per_tok`: 每个token选择的专家数，默认为8
-- `num_experts`: 路由专家的数量，默认为128
-- `norm_topk_prob`: 是否规范化topk概率，默认为False
-- `output_router_logits`: 是否返回路由器logits，默认为False
-- `router_aux_loss_coef`: 路由辅助损失系数，默认为0.001
-- `mlp_only_layers`: 指定使用标准MLP而非MoE的层索引，默认为[]
+- **更新亮点**：
+  - 更长上下文（从4K到8K）
+  - 速度提升约15%
 
-## 张量并行计划
+- **基准测试**：
 
-文件还定义了模型的张量并行和流水线并行计划：
+| 提示长度 | 解码速度(V0.2.0) | 解码速度(V0.2.1) | 速度提升 |
+|---------|-----------------|-----------------|---------|
+| 4K      | 13.0 tokens/s   | 14.9 tokens/s   | 1.15x   |
 
-```python
-base_model_tp_plan = {
-    "layers.*.self_attn.q_proj": "colwise",
-    "layers.*.self_attn.k_proj": "colwise",
-    "layers.*.self_attn.v_proj": "colwise",
-    "layers.*.self_attn.o_proj": "rowwise",
-    "layers.*.mlp.gate_proj": "colwise",
-    "layers.*.mlp.up_proj": "colwise",
-    "layers.*.mlp.down_proj": "rowwise",
-}
+### V0.2性能
+
+- **内存消耗**：
+  - 单插槽：382G DRAM，至少14GB VRAM
+  - 双插槽：1T DRAM，至少14GB VRAM
+
+- **基准测试**（与llama.cpp对比）：
+
+| 配置                     | 预填充速度  | 解码速度   |
+|-------------------------|------------|-----------|
+| 双插槽KTrans (6专家)      | 97.32 t/s  | 13.69 t/s |
+| 单插槽KTrans (8专家)      | 54.21 t/s  | 8.73 t/s  |
+| llama.cpp (8专家)        | 10.31 t/s  | 4.51 t/s  |
+
+### V0.3预览版性能
+
+- **内存消耗**：644GB DRAM，至少14GB VRAM
+
+- **预填充速度**：
+
+| 提示长度 | KTrans (6专家) | KTrans (8专家) |
+|---------|---------------|---------------|
+| 2K      | 286.55 t/s    | 255.26 t/s    |
+
+## 运行指南
+
+### v0.2.4（多并发版本）
+
+```bash
+python ktransformers/server/main.py --model_path /mnt/data/models/DeepSeek-V3 --gguf_path /mnt/data/models/DeepSeek-V3-GGUF/DeepSeek-V3-Q4_K_M/ --cpu_infer 62 --optimize_config_path ktransformers/optimize/optimize_rules/DeepSeek-V3-Chat-serve.yaml --port 10002 --chunk_size 256 --max_new_tokens 1024 --max_batch_size 4 --port 10002 --cache_lens 32768 --backend_type balance_serve
 ```
 
-## 使用示例
+参数说明：
+- `--chunk_size`：单次处理的最大标记数
+- `--cache_lens`：KV缓存总长度
+- `--backend_type`：`balance_serve`为多并发后端
+- `--max_batch_size`：单次处理的最大请求数
 
-```python
-from transformers import Qwen3MoeModel, Qwen3MoeConfig
+### v0.2.2和v0.2.3（更长上下文和FP8内核）
 
-# 初始化Qwen3MoeConfig配置
-config = Qwen3MoeConfig(
-    num_hidden_layers=32,
-    hidden_size=4096,
-    num_attention_heads=32,
-    num_experts=16,
-    num_experts_per_tok=2
-)
+#### 更长上下文设置
 
-# 使用配置初始化模型
-model = Qwen3MoeModel(config)
+1. 安装flashinfer：`pip install git+https://github.com/flashinfer-ai/flashinfer.git`
+
+2. 修改YAML配置文件：
+```yaml
+- match:
+    name: "^model\\.layers\\..*\\.self_attn$"
+  replace:
+    class: ktransformers.operators.attention.KDeepseekV2Attention
+    kwargs:
+      generate_device: "cuda"
+      prefill_device: "cuda"
+      absorb_for_prefill: True  # 启用长上下文
 ```
 
-## 注意事项
+#### FP8内核支持
 
-- 启用`output_router_logits`时，模型会输出路由器logits，并允许计算辅助损失
-- MoE结构的性能和效率很大程度上取决于专家数量和每个token选择的专家数
-- 在大规模分布式训练中，可以利用`base_model_tp_plan`和`base_model_pp_plan`实现高效的模型并行
+DeepSeek-AI团队为DeepSeek-R1/V3提供了FP8 safetensors。KTransformers集成了FP8线性层加速内核，采用混合量化架构：
+- 注意力和共享专家模块使用FP8精度
+- 专家模块保留GGML量化（GGUF格式）
+
+### V0.2和V0.2.1运行示例
+
+#### 单插槽版本（32核）
+
+```bash
+numactl -N 1 -m 1 python ./ktransformers/local_chat.py --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 33 --max_new_tokens 1000
+```
+
+#### 双插槽版本（64核）
+
+确保安装前设置`export USE_NUMA=1`
+
+```bash
+python ./ktransformers/local_chat.py --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 65 --max_new_tokens 1000
+```
+
+### V0.3预览版（双插槽，64核）
+
+```bash
+wget https://github.com/kvcache-ai/ktransformers/releases/download/v0.1.4/ktransformers-0.3.0rc0+cu126torch26fancy-cp311-cp311-linux_x86_64.whl
+pip install ./ktransformers-0.3.0rc0+cu126torch26fancy-cp311-cp311-linux_x86_64.whl
+python -m ktransformers.local_chat --model_path <模型路径> --gguf_path <gguf路径> --prompt_file <提示文件> --cpu_infer 65 --max_new_tokens 1000
+```
+
+## 工作原理说明
+
+1. **NUMA架构优化**：在两个节点上"复制"关键矩阵，避免节点间数据传输成本
+
+2. **CPU/GPU混合推理**：将DeepSeek的MLA操作卸载到GPU，其他计算在CPU上进行
+
+3. **加速来源**：
+   - 专家卸载：将专家计算卸载到CPU，将MLA/KVCache卸载到GPU
+   - Intel AMX优化：AMX加速内核比现有实现快数倍
+
+4. **为何选择Intel CPU**：Intel CPU是唯一支持类似AMX指令的CPU，提供显著更好的性能
+
+## 常见问题
+
+### R1没有思考
+
+如果测试R1时发现它跳过思考过程，可以添加参数：`--force_think true`
+
+### 更多常见问题
+
+参见[FAQ文档](mdc:ktransformers/doc/en/FAQ.md)
+
+## 后续计划
+
+### 未来性能提升
+
+- 集成FlashInfer项目更高效的融合MLA算子
+- 支持多令牌预测
+- 增强AMX内核和为Xeon6/MRDIMM优化
+
+### 用户体验改进
+
+- 提供官方Docker镜像简化安装
+- 修复服务器集成以实现Web API访问
+- 修复本地聊天只接受单行提示的问题
+- 支持更多量化类型，包括来自unsloth的动态量化
 
 ---
 > Source: [liuwenzhoa/KT_Qwen3](https://github.com/liuwenzhoa/KT_Qwen3) — distributed by [TomeVault](https://tomevault.io).
