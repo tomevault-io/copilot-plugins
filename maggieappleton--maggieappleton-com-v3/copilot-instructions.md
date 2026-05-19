@@ -1,42 +1,48 @@
-## implementation-plans
+## no-build-commands
 
-> Guidelines for writing feature implementation plans
+> Prevent AI from running build and dev server commands like npm run build, npm run dev, yarn dev, etc. Apply when discussing testing, building, running servers, or validation of features.
 
-# Feature Implementation Plan Standards
 
-When creating implementation plans for a single feature:
+# No Build Commands
 
-- Keep the plan scoped to only that feature.
-- Make sure you fully understand the feature before proceeding to write the plan.
-- Ask the user questions to clarify your understanding. The user often won't have figured out all the details of a feature before they begin to build it. You should act like an expert product manager and help them think through the user experience and technical implementation of each feature.
-- New plans should be markdown files stored inside the "planning" folder. Create this folder if it doesn't exist yet.
+**NEVER run these time-consuming commands:**
+- `npm run build` (takes too long)
+- `npm run dev` (long-running server)
+- `npm start` (long-running server)  
+- `yarn build/dev/start` (same issues)
+- `pnpm build/dev/start` (same issues)
 
-## Document Structure
+## Why This Rule Exists
+Build and development server commands are:
+- Time-consuming and slow down workflow
+- Long-running processes that the user should control
+- Better handled by the user in their own terminal
 
-- Maintain a task checklist with checkboxes (- [ ] or - [x])
-- Include "Current Phase" and "Overall Progress" summaries
-- Write in present tense for current work, past tense for completed work
-- Include specific file names and locations when mentioning code changes
-- Make notes on completed tasks at the bottom with full details
-- Use consistent formatting for task IDs (P1.1, P1.2, etc.)
+## What To Do Instead
 
-## Phase Completion Workflow
+### ✅ For Testing Changes
+Say: *"You can test this by running `npm run dev` in your terminal"*
 
-After completing each phase of implementation:
-- Ask the user to test the implementation and verify it looks correct
-- Update the planning document to mark completed tasks as done
-- Move detailed completion notes to the bottom of the document
-- Update the "Current Phase" and "Overall Progress" sections
-- Update the "Last Updated" timestamp using `npm run date` which will give you today's date
+### ✅ For Validation  
+Use these verification methods instead:
+- Reading files to check syntax
+- Using grep/search to verify changes were applied
+- Checking imports and references
 
-## Task Documentation
+### ✅ Acceptable Terminal Commands
+- File operations (`ls`, `cat`, etc.)
+- Quick syntax checks
+- Package installations (when explicitly requested)
+- Git operations  
+- Short-running utilities
 
-Each completed task should include:
-- Files modified/created
-- Key features implemented
-- Technical improvements made
-- User experience enhancements
-- Any issues resolved
+## Examples
+
+❌ **Wrong:** "Let me run `npm run build` to test this"
+✅ **Right:** "The changes are ready - start your dev server to test"
+
+❌ **Wrong:** "I'll run `npm run dev` to verify"  
+✅ **Right:** "Can you run `npm run dev` and check if the component renders correctly?"
 
 ---
 > Source: [MaggieAppleton/maggieappleton.com-V3](https://github.com/MaggieAppleton/maggieappleton.com-V3) — distributed by [TomeVault](https://tomevault.io).
