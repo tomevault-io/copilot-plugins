@@ -1,0 +1,9 @@
+{
+  "name": "agustif--llm-arxiv",
+  "displayName": "llm-arxiv",
+  "description": "arXiv fragment loader plugin for https://llm.datasette.io/",
+  "version": "1.0.0",
+  "author": "agustif",
+  "homepage": "https://github.com/agustif/llm-arxiv",
+  "skills": []
+}
