@@ -1,0 +1,44 @@
+{
+  "name": "A-AND-I-WEB-CLIENT",
+  "owner": "Team-AnI",
+  "repo": "A-AND-I-WEB-CLIENT",
+  "description": "A&I \uacfc\uc81c \uc6f9\uc11c\ube44\uc2a4",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Team-AnI/A-AND-I-WEB-CLIENT",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T00:07:41Z"
+}
