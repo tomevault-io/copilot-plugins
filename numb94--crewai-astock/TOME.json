@@ -1,0 +1,44 @@
+{
+  "name": "crewai-astock",
+  "owner": "Numb94",
+  "repo": "crewai-astock",
+  "description": "\u57fa\u4e8e CrewAI \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u7684 A \u80a1\u667a\u80fd\u5206\u6790\u4e0e\u63a8\u8350\u7cfb\u7edf | Multi-agent A-share stock   analyst built on CrewAI",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Numb94/crewai-astock",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T13:23:13Z"
+}
