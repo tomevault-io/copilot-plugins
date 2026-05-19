@@ -1,0 +1,9 @@
+{
+  "name": "rabbitmq--homebrew-tap",
+  "displayName": "homebrew-tap",
+  "description": "A Homebrew tap for additional RabbitMQ tooling (such as `rabbitmqadmin` v2)",
+  "version": "1.0.0",
+  "author": "rabbitmq",
+  "homepage": "https://github.com/rabbitmq/homebrew-tap",
+  "skills": []
+}
