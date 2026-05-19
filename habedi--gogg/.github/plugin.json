@@ -1,0 +1,9 @@
+{
+  "name": "habedi--gogg",
+  "displayName": "gogg",
+  "description": "A multiplatform game file downloader for GOG",
+  "version": "1.0.0",
+  "author": "habedi",
+  "homepage": "https://github.com/habedi/gogg",
+  "skills": []
+}
