@@ -4,7 +4,7 @@
   "repo": "WorkflowAI",
   "description": "WorkflowAI is an open-source platform where product and engineering teams \u2028collaborate to build and iterate on AI features.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WorkflowAI/WorkflowAI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:43:27Z"
+  "distributed_at": "2026-05-19T05:20:23Z"
 }
