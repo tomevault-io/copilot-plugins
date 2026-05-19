@@ -4,7 +4,7 @@
   "repo": "rag",
   "description": "This NVIDIA RAG blueprint serves as a reference solution for a foundational Retrieval Augmented Generation (RAG) pipeline.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA-AI-Blueprints/rag",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T03:37:41Z"
+  "distributed_at": "2026-05-19T06:52:08Z"
 }
