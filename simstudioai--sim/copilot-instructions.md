@@ -1,65 +1,29 @@
-## global
+## landing-seo-geo
 
-> Global coding standards that apply to all files
+> SEO and GEO guidelines for the landing page
 
 
-# Global Standards
+# Landing Page — SEO / GEO
 
-You are a professional software engineer. All code must follow best practices: accurate, readable, clean, and efficient.
+## SEO
 
-## Logging
-Import `createLogger` from `@sim/logger`. Use `logger.info`, `logger.warn`, `logger.error` instead of `console.log`.
+- One `<h1>` per page, in Hero only — never add another.
+- Strict heading hierarchy: H1 (Hero) → H2 (section titles) → H3 (feature names).
+- Every section: `<section id="…" aria-labelledby="…-heading">`.
+- Decorative/animated elements: `aria-hidden="true"`.
+- All internal routes use Next.js `<Link>` (crawlable). External links get `rel="noopener noreferrer"`.
+- Navbar is a Server Component (no `'use client'`) for immediate crawlability. Logo `<Image>` has `priority` (LCP element).
+- Navbar `<nav>` carries `SiteNavigationElement` schema.org markup.
+- Feature lists must stay in sync with `WebApplication.featureList` in `structured-data.tsx`.
 
-## Comments
-Use TSDoc for documentation. No `====` separators. No non-TSDoc comments.
+## GEO (Generative Engine Optimisation)
 
-## Styling
-Never update global styles. Keep all styling local to components.
-
-## ID Generation
-Never use `crypto.randomUUID()`, `nanoid`, or the `uuid` package directly. Use the utilities from `@sim/utils/id`:
-
-- `generateId()` — UUID v4, use by default
-- `generateShortId(size?)` — short URL-safe ID (default 21 chars), for compact identifiers
-
-Both use `crypto.getRandomValues()` under the hood and work in all contexts including non-secure (HTTP) browsers.
-
-```typescript
-// ✗ Bad
-import { nanoid } from 'nanoid'
-import { v4 as uuidv4 } from 'uuid'
-const id = crypto.randomUUID()
-
-// ✓ Good
-import { generateId, generateShortId } from '@sim/utils/id'
-const uuid = generateId()
-const shortId = generateShortId()
-const tiny = generateShortId(8)
-```
-
-## Common Utilities
-Use shared helpers from `@sim/utils` instead of writing inline implementations:
-
-- `sleep(ms)` — async delay. Never write `new Promise(resolve => setTimeout(resolve, ms))`
-- `toError(value)` — normalize unknown caught values to `Error`. Never write `e instanceof Error ? e : new Error(String(e))`
-- `toError(value).message` — get error message safely. Never write `e instanceof Error ? e.message : String(e)`
-
-```typescript
-// ✗ Bad
-await new Promise(resolve => setTimeout(resolve, 1000))
-const msg = error instanceof Error ? error.message : String(error)
-const err = error instanceof Error ? error : new Error(String(error))
-
-// ✓ Good
-import { sleep } from '@sim/utils/helpers'
-import { toError } from '@sim/utils/errors'
-await sleep(1000)
-const msg = toError(error).message
-const err = toError(error)
-```
-
-## Package Manager
-Use `bun` and `bunx`, not `npm` and `npx`.
+- **Answer-first pattern**: each section's H2 + subtitle should directly answer a user question (e.g. "What is Sim?", "How fast can I deploy?").
+- **Atomic answer blocks**: each feature / template card should be independently extractable by an AI summariser.
+- **Entity consistency**: always write "Sim" by name — never "the platform" or "our tool".
+- **Keyword density**: first 150 visible chars of Hero must name "Sim", "AI agents", "agentic workflows".
+- **sr-only summaries**: Hero and Templates each have a `<p className="sr-only">` (~50 words) as an atomic product/catalog summary for AI citation.
+- **Specific numbers**: prefer concrete figures ("1,000+ integrations", "15+ AI providers") over vague claims.
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
