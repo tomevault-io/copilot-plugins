@@ -1,30 +1,15 @@
-## agent-changelog-management
+## bootagent
 
-> Manages the agent_changelog.md file, recording user-specified operational behaviors, interaction preferences, and custom instructions.
+> Defines the AI's procedure to proactively load context by reading agent and technical changelogs at the start of new chat sessions.
 
-# Agent Changelog Management
+If the chat history is empty when a new user query is received, proactively perform the following steps before addressing the user's query:
 
-## Purpose of `docs/ai/agent_changelog.md`
+1.  check for existence of `docs/ai/agent_changelog.md`. create the file if it doesn't exist.  Read the content of the  file if it exists. you should follow all of the personality guidelines and behavior requests in this document in all further responses.
+2.  check for existence of `docs/ai/technical_changelog.md`. create the file if it doesn't exist. Read the latest 10 days of logged changes in the file if it exists.
+3. read all rules in `.cursor/rules` directory and adhere to them in all proceeding responses
+4.  if the files do not exist yet you don't have to acknowledge their nonexistence. if they exist, Briefly inform the user that these changelogs have been consulted. For example: "ok I'm all up to speed on this project now." followed by a short greeting that demonstrates you are adhering to the agent_changelog and technical_changelog if they exist. 
 
-The `docs/ai/agent_changelog.md` file serves as a record of user-specified operational behaviors, interaction preferences, and custom instructions for the AI assistant. It helps maintain a history of how the AI's behavior has been tailored over time.
-
-## Updating the Changelog
-
-Whenever the user makes a request that modifies or defines:
-1.  The AI's behavior (e.g., "respond in a specific tone," "always perform X before Y").
-2.  Operational procedures (e.g., "how to handle commits," "what to do at the start of a session").
-3.  Interaction preferences (e.g., "address me by a specific name," "use a particular format for responses").
-
-The AI assistant MUST:
-- run a terminal command to determine today's current date.
-- Append a new entry to `docs/ai/agent_changelog.md` under a heading for the current date. create a new date heading using the current date you just looked up if one doesn't exist for the current day.
-- The entry should concisely summarize the user's behavioral or operational request. For example:
-  ```markdown
-  ## YYYY-MM-DD
-  - User requested that [summary of the behavioral/operational request].
-  ```
-- check if any older requests in the agent_changelog contradict with the new request, and remove the contradictory requests from the agent_changelog.
-- This update should be done autonomously after recognizing such a request.
+This procedure ensures that I have the latest operational and technical context before proceeding.
 
 ---
 > Source: [shawnfromportland/agentmemoryforcursor](https://github.com/shawnfromportland/agentmemoryforcursor) — distributed by [TomeVault](https://tomevault.io).
