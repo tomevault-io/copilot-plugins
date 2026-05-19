@@ -1,0 +1,9 @@
+{
+  "name": "tantara--transformers-js-chrome",
+  "displayName": "transformers.js-chrome",
+  "description": "Chrome extension for running Generative AI in your browser locally",
+  "version": "1.0.0",
+  "author": "tantara",
+  "homepage": "https://github.com/tantara/transformers.js-chrome",
+  "skills": []
+}
