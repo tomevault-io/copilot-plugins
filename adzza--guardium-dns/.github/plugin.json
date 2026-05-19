@@ -1,0 +1,9 @@
+{
+  "name": "adzza--guardium-dns",
+  "displayName": "guardium-dns",
+  "description": "Parental controls for Technitium DNS \u2014 self-hosted dashboard with optional ASUS router integration (MAC kill switch, transparent DNS Director, DoH/DoT IP blocklist).",
+  "version": "1.0.0",
+  "author": "adzza",
+  "homepage": "https://github.com/adzza/guardium-dns",
+  "skills": []
+}
