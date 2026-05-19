@@ -1,6 +1,8 @@
 # protec
 
-> Tome by [OtiumIT](https://github.com/OtiumIT/protec) — distributed by [TomeVault](https://tomevault.io/claim/OtiumIT)
+> Tome by [OtiumIT](https://github.com/OtiumIT/protec) — distributed by [TomeVault](https://tomevault.io)
+
+Sistema de Proteção e Controle
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [OtiumIT/protec](https://github.com/Ot
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/OtiumIT)
+From [OtiumIT/protec](https://github.com/OtiumIT/protec) — a repo with 0+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install OtiumIT/protec
 ```
-Or browse all formats at [https://tomevault.io/claim/OtiumIT](https://tomevault.io/claim/OtiumIT).
+Source: [github.com/OtiumIT/protec](https://github.com/OtiumIT/protec).
 
 <!-- genome:t-i-s -->
