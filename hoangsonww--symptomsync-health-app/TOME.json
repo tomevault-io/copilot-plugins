@@ -4,7 +4,7 @@
   "repo": "SymptomSync-Health-App",
   "description": "\ud83d\udc8a A sleek, AI-powered health management full-stack web app that syncs your medications, appointments, and health logs across devices in real time. Empower your wellness journey with intelligent reminders, interactive dashboards, appealing & responsive Next.js UI/UX, and a built-in chatbot.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hoangsonww/SymptomSync-Health-App",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T05:50:02Z"
+  "distributed_at": "2026-05-19T10:51:41Z"
 }
