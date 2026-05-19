@@ -1,107 +1,180 @@
-## essentials
+## forms
 
-> Critical rules that must always be followed
+> Use when building forms - covers React Hook Form, Zod validation, and form patterns
 
 
-# Essentials
+# Forms: React Hook Form + Zod
 
-## Package Manager
+**All forms MUST use React Hook Form with Zod validation.**
 
-Use `bun`, never npm/yarn/pnpm.
-
-```bash
-bun install          # Install deps
-bun add <pkg>        # Add package
-bun run <script>     # Run script
-bunx <cmd>           # Execute binary
-```
-
-## Components
-
-**Use `@trycompai/design-system` first**, `@trycompai/ui` only as fallback.
+## Basic Pattern
 
 ```tsx
-// ✅ Design system
-import { Button, Card, Input, Select } from '@trycompai/design-system';
-import { Add, Close } from '@trycompai/design-system/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button, Input } from '@trycompai/design-system';
 
-// ❌ Don't use when DS has the component
-import { Button } from '@trycompai/ui/button';
-import { Plus } from 'lucide-react';
-```
+// 1. Define schema
+const formSchema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Min 8 characters'),
+});
 
-**No `className` on DS components** - use variants and props only.
+// 2. Infer type
+type FormData = z.infer<typeof formSchema>;
 
-```tsx
-// ✅ Use variants
-<Button variant="destructive" size="sm">Delete</Button>
+// 3. Use in component
+function MyForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
 
-// ❌ No className overrides
-<Button className="bg-red-500">Delete</Button>
-```
-
-## TypeScript
-
-**No `any`. No unsafe type assertions.**
-
-```tsx
-// ✅ Validate external data with zod
-const TaskSchema = z.object({ id: z.string(), title: z.string() });
-const task = TaskSchema.parse(response.data);
-
-// ❌ Never
-const data: any = fetchData();
-const task = response as Task;
-```
-
-## Data Fetching
-
-**Get `organizationId` from URL params, not session.**
-
-```tsx
-// ✅ From params
-export default async function Page({ params }: { params: Promise<{ orgId: string }> }) {
-  const { orgId } = await params;
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Input {...register('email')} />
+      {errors.email && <p>{errors.email.message}</p>}
+      
+      <Button type="submit" loading={isSubmitting}>
+        Submit
+      </Button>
+    </form>
+  );
 }
-
-// ❌ Not from session
-const session = await auth.api.getSession();
-const orgId = session?.session?.activeOrganizationId;
 ```
 
-**Server components fetch, pass to client with SWR `fallbackData`.**
+## Zod Schema Patterns
 
 ```tsx
-// Server page
-const data = await fetchData(orgId);
-return <ClientComponent initialData={data} />;
+const profileSchema = z.object({
+  // Strings
+  name: z.string().min(1, 'Required'),
+  email: z.string().email(),
+  website: z.string().url().optional(),
+  
+  // Numbers (coerce for inputs)
+  age: z.coerce.number().int().min(0),
+  price: z.coerce.number().positive(),
+  
+  // Arrays
+  tags: z.array(z.string()).min(1),
+  
+  // Enums
+  status: z.enum(['active', 'inactive']),
+});
 
-// Client component
-const { data } = useSWR(key, fetcher, { fallbackData: initialData });
+// Cross-field validation
+const passwordSchema = z.object({
+  password: z.string().min(8),
+  confirmPassword: z.string(),
+}).refine(d => d.password === d.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
+});
 ```
 
-## State Management
-
-**No `nuqs`** - use React `useState` for UI state, Next.js for URL state.
+## Controller for Complex Components
 
 ```tsx
-// ✅ React state for UI
-const [isOpen, setIsOpen] = useState(false);
+import { Controller } from 'react-hook-form';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@trycompai/design-system';
 
-// ❌ No nuqs
-import { useQueryState } from 'nuqs';
+<Controller
+  name="status"
+  control={control}
+  render={({ field }) => (
+    <Select onValueChange={field.onChange} value={field.value}>
+      <SelectTrigger>{field.value || 'Select...'}</SelectTrigger>
+      <SelectContent>
+        <SelectItem value="active">Active</SelectItem>
+        <SelectItem value="inactive">Inactive</SelectItem>
+      </SelectContent>
+    </Select>
+  )}
+/>
 ```
 
-## After Changes
+## Form State
 
-**Always run checks after code changes:**
-
-```bash
-bun run typecheck
-bun run lint
+```tsx
+const {
+  register,
+  handleSubmit,
+  control,
+  watch,           // Watch field values
+  setValue,        // Set field programmatically
+  reset,           // Reset form
+  setError,        // Set error manually
+  formState: {
+    errors,        // Field errors
+    isSubmitting,  // Submitting
+    isValid,       // All valid
+    isDirty,       // Modified
+  },
+} = useForm<FormData>({
+  resolver: zodResolver(schema),
+  mode: 'onChange', // Validate on change
+});
 ```
 
-Fix all errors before committing.
+## Error Handling
+
+```tsx
+const onSubmit = async (data: FormData) => {
+  try {
+    await submitToApi(data);
+  } catch (error) {
+    // Field-specific error
+    setError('email', { message: 'Email taken' });
+    // Or root error
+    setError('root', { message: 'Something went wrong' });
+  }
+};
+
+// Display root error
+{errors.root && <p>{errors.root.message}</p>}
+```
+
+## Dynamic Fields
+
+```tsx
+import { useFieldArray } from 'react-hook-form';
+
+const { fields, append, remove } = useFieldArray({
+  control,
+  name: 'items',
+});
+
+{fields.map((field, index) => (
+  <div key={field.id}>
+    <Input {...register(`items.${index}.name`)} />
+    <Button type="button" onClick={() => remove(index)}>Remove</Button>
+  </div>
+))}
+<Button type="button" onClick={() => append({ name: '' })}>Add</Button>
+```
+
+## Anti-Patterns
+
+```tsx
+// ❌ useState for form fields
+const [email, setEmail] = useState('');
+
+// ❌ Manual validation
+if (email.length < 5) setError('Too short');
+
+// ❌ Missing button type (defaults to submit)
+<Button onClick={handleCancel}>Cancel</Button>
+
+// ✅ Correct
+const { register } = useForm();
+const schema = z.object({ email: z.string().min(5) });
+<Button type="button" onClick={handleCancel}>Cancel</Button>
+```
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
