@@ -1,15 +1,25 @@
-## angular-ngx-translate
+## commit-changelog-version
 
-> Angular UI copy uses ngx-translate; add keys to all locale JSON files
+> On "commit", review changelog/README/docs and bump version when changelog has substantial changes
 
 
-# Angular – Translations (`ngx-translate`)
+# Commit: Changelog, Docs, and Version Bump
 
-- **User-visible strings** in templates should use the **`translate` pipe** (or `TranslateService` in TS), not raw literals — match surrounding components (e.g. `{{ 'SETTINGS.TITLE' | translate }}`).
-- **Keys:** Use the existing naming style (`SECTION.SUBKEY`). Prefer reusing **`COMMON.*`** keys for shared actions (Save, Cancel, Delete) when they already exist.
-- **Locale files:** Add every new key to **`front/public/i18n/*.json`** for all shipped languages (keep objects in sync across `en.json`, `de.json`, `es.json`, etc.). Do not add keys to only one file unless the task explicitly allows a partial rollout.
-- **Placeholders / attributes:** Use `[placeholder]="'KEY' | translate"` or `translate` directive patterns already used in the codebase.
-- Deeper context: **`AGENTS.md`** (smoke tests), **`docs/testing.md`** for Puppeteer scripts after UI changes.
+When the user says **"commit"** (or asks to commit changes):
+
+1. **Review and update** before committing:
+   - **CHANGELOG.md** — Ensure `[Unreleased]` reflects the current changes; move items to a new version section if cutting a release.
+   - **README.md** — Update if the change affects setup, usage, or documented behavior.
+   - **docs/** — Scan relevant `.md` files (e.g. feature docs, deployment, troubleshooting) and update any that are affected by the change.
+
+2. **Version bump** when the changelog has **substantial or important changes**:
+   - "Reasonable size" = multiple items under Unreleased, or user-visible fixes/features.
+   - Bump in `front/package.json` and `front/package-lock.json` (this repo’s source of version).
+   - Add a new `## [X.Y.Z] - YYYY-MM-DD` section in CHANGELOG.md with the entries being released; clear or reduce `[Unreleased]` accordingly.
+
+3. **If in doubt** whether to bump: prefer bumping when there are user-facing fixes or features; skip for trivial or internal-only tweaks unless the user asks for a release.
+
+4. **Branching:** Changelog commits belong on **`development`** by default. Promoting those commits to **`master`** follows **`.cursor/rules/git-development-branch-workflow.mdc`** (not every “commit” implies an immediate **`master`** push).
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
