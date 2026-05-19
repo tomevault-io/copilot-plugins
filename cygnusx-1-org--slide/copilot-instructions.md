@@ -1,9 +1,9 @@
-## comments
+## comments-instructions
 
-> Leave comments alone
+> Read comments for instructions
 
 
-Leave comments alone unless you are changing the code assoicated with them. Even then don't make superfluous changes to comments.
+Look for comments that might instruct you about what to not do, or how removing the code below it might break something.
 
 ---
 > Source: [cygnusx-1-org/Slide](https://github.com/cygnusx-1-org/Slide) — distributed by [TomeVault](https://tomevault.io).
