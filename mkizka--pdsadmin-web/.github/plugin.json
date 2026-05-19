@@ -1,0 +1,9 @@
+{
+  "name": "mkizka--pdsadmin-web",
+  "displayName": "pdsadmin-web",
+  "description": "Alternative web application for the `pdsadmin` command",
+  "version": "1.0.0",
+  "author": "mkizka",
+  "homepage": "https://github.com/mkizka/pdsadmin-web",
+  "skills": []
+}
