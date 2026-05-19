@@ -1,0 +1,9 @@
+{
+  "name": "conveyal--osmix",
+  "displayName": "osmix",
+  "description": "OpenStreetMap reader, writer, and merge tool. Written in TypeScript.",
+  "version": "1.0.0",
+  "author": "conveyal",
+  "homepage": "https://github.com/conveyal/osmix",
+  "skills": []
+}
