@@ -1,160 +1,458 @@
-## generate-services
+## generate-sql-api
 
-> compoder generate:services
+> compoder generate:sql-api
 
-# Service Layer Code Generation Rules
+# MongoDB API Generation Guide
 
-## Input Files Pattern
+This guide is for generating API endpoints based on MongoDB.
 
-- `@/app/api/{module}/types.d.ts`: Contains API interface definitions
-- `@/app/api/{module}/{action}/route.ts`: Contains API route implementations
+## User Input
 
-## Output Files Pattern
+Please provide the following information:
 
-- `@/app/services/{module}/{module}.service.ts`: Service layer implementation
+1. MongoDB Schema definition, including:
+   - Data structure and its types
+   - Required fields
+   - Default values
+   - Validation rules
 
-## Generation Rules
-
-1. Service File Structure:
+For example:
 
 ```typescript
-import { getInstance } from '../request'
-import { {ModuleName}Api } from '@/app/api/{module}/types'
+// In lib/db/[modelName]/schema.ts
+import mongoose, { Schema, model } from "mongoose"
+import { DataType, ItemType } from "./types"
 
-const request = getInstance()
+// Subdocument Schema
+const ItemSchema = new Schema({
+  value: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+})
 
-export const {actionName}{ModuleName} = async (
-  params: {ModuleName}Api.{Action}Request
-): Promise<{ModuleName}Api.{Action}Response> => {
+// Main document Schema
+const DataSchema = new Schema(
+  {
+    field1: {
+      type: String,
+      required: true,
+    },
+    field2: {
+      type: String,
+      required: true,
+    },
+    items: {
+      type: [ItemSchema],
+      required: true,
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  },
+)
+
+// Export Model
+export const Model = mongoose.models.Data || model<DataType>("Data", DataSchema)
+
+// Define corresponding types in types.ts
+export interface ItemType {
+  _id: mongoose.Types.ObjectId
+  value: string
+  createdAt: Date
+}
+
+export interface DataType {
+  _id: mongoose.Types.ObjectId
+  field1: string
+  field2: string
+  items: ItemType[]
+  createdAt: Date
+  updatedAt: Date
+}
+```
+
+2. API request type definition, including:
+   - Request method (GET/POST/PUT/DELETE)
+   - Request parameters and their types
+   - Response data structure (optional)
+
+For example:
+
+```typescript
+// In app/api/[modelName]/type.d.ts
+declare namespace ApiNamespace {
+  export interface RequestType {
+    param1: string // Parameter 1 description
+    param2: string // Parameter 2 description
+    param3: string // Parameter 3 description
+  }
+}
+```
+
+## Generation Steps
+
+1. Implement database operations (query or mutation) based on user input type definitions and MongoDB Schema
+2. Create corresponding API route handlers
+
+## Detailed Steps
+
+### 1. Implement Database Operations
+
+Based on the API request method, implement corresponding operations in the same directory level as the Schema file:
+
+#### Query Operations (lib/db/[modelName]/selectors.ts)
+
+```typescript
+import { Model } from "./schema"
+import { FilterQuery } from "mongoose"
+import { DataType } from "./types"
+
+export async function queryOperation({
+  param1,
+  param2,
+  page,
+  pageSize,
+}: {
+  param1: string
+  param2: string
+  page: number
+  pageSize: number
+}) {
   try {
-    // For GET requests
-    if ("{method}" === "GET") {
-      const filteredParams = Object.fromEntries(
-        Object.entries(params).filter(([, value]) => value !== undefined)
-      )
-      const queryString = new URLSearchParams(
-        filteredParams as Record<string, string>
-      ).toString()
-      const response = await request(`/{module}/{action}?${queryString}`, {
-        method: "GET",
-      })
-      return await response.json()
+    const skip = (page - 1) * pageSize
+
+    // 1. Build query conditions
+    let searchQuery: FilterQuery<DataType> = {
+      field1: param1,
     }
 
-    // For POST/PUT requests
-    if ("{method}" === "POST" || "{method}" === "PUT") {
-      const response = await request(`/{module}/{action}`, {
-        method: "{method}",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(params),
-      })
-      return await response.json()
+    if (param2) {
+      searchQuery.field2 = {
+        $regex: param2,
+        $options: "i",
+      }
     }
 
-    // For DELETE requests
-    if ("{method}" === "DELETE") {
-      const response = await request(`/{module}/{action}`, {
-        method: "DELETE",
-      })
-      return await response.json()
-    }
+    // 2. Execute query
+    const [data, total] = await Promise.all([
+      Model.find(searchQuery)
+        .select("field1 field2 field3")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(pageSize)
+        .lean(),
+      Model.countDocuments(searchQuery),
+    ])
 
-    throw new Error(`Unsupported HTTP method: {method}`)
+    // 3. Process return data
+    const formattedData = data.map(item => ({
+      id: item._id,
+      value: item.field1,
+      extra: item.field2,
+    }))
+
+    return {
+      data: formattedData,
+      total,
+    }
   } catch (error) {
-    // Error will be handled by request.ts
+    console.error("Error in query operation:", error)
     throw error
   }
 }
 ```
 
-2. Function Naming Convention:
-
-- For GET endpoints: use `get{ModuleName}{Action}` (e.g., `getUserList`, `getOrderDetail`)
-- For POST endpoints: use `create{ModuleName}`
-- For PUT endpoints: use `update{ModuleName}`
-- For DELETE endpoints: use `delete{ModuleName}`
-
-3. Type Definition Pattern:
+#### Mutation Operations (lib/db/[modelName]/mutations.ts)
 
 ```typescript
-declare namespace {ModuleName}Api {
-  export interface {Action}Request {
-    // Request parameters
-  }
+import { Model } from "./schema"
 
-  export interface {Action}Response {
-    // Response data structure
+export async function databaseOperation({
+  param1,
+  param2,
+  param3,
+}: {
+  param1: string
+  param2: string
+  param3: string
+}) {
+  try {
+    // 1. Find record
+    const record = await Model.findById(param1)
+    if (!record) {
+      throw new Error("Record not found")
+    }
+
+    // 2. Execute update operation
+    const targetIndex = record.items.findIndex(
+      (item: ItemType) => item._id.toString() === param2,
+    )
+    if (targetIndex === -1) {
+      throw new Error("Target not found")
+    }
+
+    record.items[targetIndex].value = param3
+    await record.save()
+
+    // 3. Return result
+    return {
+      _id: record._id,
+      ...record.toObject(),
+    }
+  } catch (error) {
+    console.error("Error in database operation:", error)
+    throw error
   }
 }
 ```
 
-## Variables Explanation
+### 2. Create API Route Handlers
 
-- `{module}`: The lowercase module name (e.g., "user", "order", "codegen")
-- `{ModuleName}`: The PascalCase module name (e.g., "User", "Order", "Codegen")
-- `{action}`: The action name (e.g., "list", "detail", "create")
-- `{Action}`: The PascalCase action name (e.g., "List", "Detail", "Create")
-- `{method}`: HTTP method in lowercase (e.g., "get", "post", "put", "delete")
-- `{requestConfig}`: Request configuration object based on HTTP method:
-  - GET: `{ params }`
-  - POST/PUT: `data`
-  - DELETE: `{ params }` or empty
+In the same directory level as the API type definition, implement corresponding routes based on operation type:
 
-## Example
-
-For a module named "codegen" with a "list" action:
-
-Input types.d.ts:
+#### List Query (app/api/[modelName]/list/route.ts)
 
 ```typescript
-declare namespace CodegenApi {
-  export interface ListRequest {
-    page: number
-    pageSize: number
-    name?: string
-    fullStack?: "React" | "Vue"
-  }
+import { NextResponse } from "next/server"
+import { queryOperation } from "@/lib/db/[modelName]/selectors"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
 
-  export interface ListResponse {
-    data: any[]
-    total: number
+export async function GET(request: Request) {
+  try {
+    // 1. Validate session
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    // 2. Connect to database
+    await connectToDatabase()
+
+    // 3. Get query parameters from URL
+    const { searchParams } = new URL(request.url)
+    const param1 = searchParams.get("param1")
+    const param2 = searchParams.get("param2")
+    const page = parseInt(searchParams.get("page") || "1")
+    const pageSize = parseInt(searchParams.get("pageSize") || "10")
+
+    if (!param1) {
+      return NextResponse.json(
+        { error: "Missing required parameter: param1" },
+        { status: 400 },
+      )
+    }
+
+    // 4. Execute query operation
+    const result = await queryOperation({
+      param1,
+      param2,
+      page,
+      pageSize,
+    })
+
+    // 5. Return result
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error in GET operation:", error)
+    return NextResponse.json(
+      { error: "Query operation failed" },
+      { status: 500 },
+    )
   }
 }
 ```
 
-Generated service.ts:
+#### Create Operation (app/api/[modelName]/create/route.ts)
 
 ```typescript
-import { getInstance } from "../request"
-import { CodegenApi } from "@/app/api/codegen/types"
+import { NextResponse } from "next/server"
+import { createOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
 
-const request = getInstance()
+export async function POST(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
 
-export const getCodegenList = async (
-  params: CodegenApi.ListRequest,
-): Promise<CodegenApi.ListResponse> => {
-  const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(([, value]) => value !== undefined),
-  )
-  const queryString = new URLSearchParams(
-    filteredParams as Record<string, string>,
-  ).toString()
-  const response = await request(`/codegen/list?${queryString}`, {
-    method: "GET",
-  })
-  return response.json()
+    await connectToDatabase()
+
+    // Get data from request body
+    const body = (await request.json()) as ApiNamespace.CreateRequest
+    const { param1, param2, param3 } = body
+
+    // Execute create operation
+    const result = await createOperation({
+      param1,
+      param2,
+      param3,
+    })
+
+    // Return created resource
+    return NextResponse.json(result, { status: 201 })
+  } catch (error) {
+    console.error("Error in POST operation:", error)
+    return NextResponse.json(
+      { error: "Create operation failed" },
+      { status: 500 },
+    )
+  }
 }
+```
+
+#### Update Operation (app/api/[modelName]/edit/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { updateOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function PUT(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    await connectToDatabase()
+
+    // Get data from request body
+    const body = (await request.json()) as ApiNamespace.EditRequest
+    const { id, param1, param2 } = body
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      )
+    }
+
+    // Execute update operation
+    const result = await updateOperation({
+      id,
+      param1,
+      param2,
+    })
+
+    return NextResponse.json(result)
+  } catch (error) {
+    console.error("Error in PUT operation:", error)
+    return NextResponse.json(
+      { error: "Update operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+#### Delete Operation (app/api/[modelName]/delete/route.ts)
+
+```typescript
+import { NextResponse } from "next/server"
+import { deleteOperation } from "@/lib/db/[modelName]/mutations"
+import type { ApiNamespace } from "../type"
+import { validateSession } from "@/lib/auth/middleware"
+import { connectToDatabase } from "@/lib/db/mongo"
+
+export async function DELETE(request: Request) {
+  try {
+    const authError = await validateSession()
+    if (authError) {
+      return authError
+    }
+
+    await connectToDatabase()
+
+    // Get parameters from URL
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get("id")
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing required parameter: id" },
+        { status: 400 },
+      )
+    }
+
+    // Execute delete operation
+    await deleteOperation({ id })
+
+    // Return empty response, indicating successful deletion
+    return new NextResponse(null, { status: 204 })
+  } catch (error) {
+    console.error("Error in DELETE operation:", error)
+    return NextResponse.json(
+      { error: "Delete operation failed" },
+      { status: 500 },
+    )
+  }
+}
+```
+
+## File Structure Example
+
+```
+lib/
+  db/
+    [modelName]/
+      schema.ts      # MongoDB Schema definition
+      types.ts       # TypeScript type definition
+      selectors.ts   # Query operations
+      mutations.ts   # Mutation operations
+app/
+  api/
+    [modelName]/     # For example: componentCode
+      type.d.ts      # API type definition
+      create/        # Create operation
+        route.ts
+      detail/        # Detail operation
+        route.ts
+      edit/          # Edit operation
+        route.ts
+      list/          # List operation
+        route.ts
+      save/          # Save operation
+        route.ts
 ```
 
 ## Notes
 
-1. For GET requests, transform parameters into URL query string
-2. Filter out undefined values from parameters
-3. Use URLSearchParams for proper URL encoding
-4. Use proper error handling and async/await patterns
-5. Keep service functions focused and single-responsibility
+1. Type Definitions:
+
+   - Use namespaces in `type.d.ts` to organize related types
+   - Ensure type definitions are clear and complete
+   - Add comments for each parameter explaining its purpose
+
+2. Database Operations:
+
+   - Query operations (GET):
+     - Support pagination
+     - Support search and filtering
+     - Optimize query performance (using lean, select, etc.)
+   - Mutation operations (POST/PUT/DELETE):
+     - Implement appropriate error handling
+     - Return unified data structure
+     - Wrap all operations in try-catch
+
+3. API Routes:
+   - Must include session validation
+   - Must include database connection
+   - Unified error handling and response format
+   - GET requests get data from URL parameters
+   - POST/PUT requests get data from request body
 
 ---
 > Source: [IamLiuLv/compoder](https://github.com/IamLiuLv/compoder) — distributed by [TomeVault](https://tomevault.io).
