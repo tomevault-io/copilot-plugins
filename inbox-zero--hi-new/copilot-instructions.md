@@ -1,35 +1,74 @@
-## prisma-best-practices
+## self-improve
 
-> description: Enforces using a singleton Prisma Client and correct migration/generation commands.
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
-\
----
-description: Enforces using a singleton Prisma Client and correct migration/generation commands.
-globs: *.ts, *.tsx, prisma/schema.prisma
-alwaysApply: true
----
 
-- **Singleton Prisma Client**: Always use the singleton Prisma Client instance from `[lib/prisma.ts](mdc:lib/prisma.ts)` for database operations. Do not instantiate `new PrismaClient()` directly in server actions, API routes, or other files.
-    - **Reasoning**: Prevents multiple database connection pools, which can exhaust resources and cause errors, especially in a Next.js development environment with hot-reloading.
-    - **Example Import**:
-      ```typescript
-      import { prisma } from "@/lib/prisma";
-      ```
+- **Rule Improvement Triggers:**
+  - New code patterns not covered by existing rules
+  - Repeated similar implementations across files
+  - Common error patterns that could be prevented
+  - New libraries or tools being used consistently
+  - Emerging best practices in the codebase
 
-- **Database Migrations**:
-    - After making changes to `[prisma/schema.prisma](mdc:prisma/schema.prisma)`, create and apply a database migration using:
-      ```bash
-      pnpm exec prisma migrate dev --name your_migration_name
-      ```
-    - Use descriptive migration names.
+- **Analysis Process:**
+  - Compare new code with existing rules
+  - Identify patterns that should be standardized
+  - Look for references to external documentation
+  - Check for consistent error handling patterns
+  - Monitor test patterns and coverage
 
-- **Prisma Client Generation**:
-    - After any schema change and successful migration, or if your Prisma Client types seem out of sync, regenerate the Prisma Client using:
-      ```bash
-      pnpm exec prisma generate
-      ```
+- **Rule Updates:**
+  - **Add New Rules When:**
+    - A new technology/pattern is used in 3+ files
+    - Common bugs could be prevented by a rule
+    - Code reviews repeatedly mention the same feedback
+    - New security or performance patterns emerge
 
-- **Refer to Official Documentation** for complex scenarios: [Using Prisma ORM with Next.js](https://www.prisma.io/docs/orm/more/help-and-troubleshooting/nextjs-help)
+  - **Modify Existing Rules When:**
+    - Better examples exist in the codebase
+    - Additional edge cases are discovered
+    - Related rules have been updated
+    - Implementation details have changed
+
+- **Example Pattern Recognition:**
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
+  
+  // Consider adding to [prisma.mdc](mdc:.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
+
+- **Rule Quality Checks:**
+  - Rules should be actionable and specific
+  - Examples should come from actual code
+  - References should be up to date
+  - Patterns should be consistently enforced
+
+- **Continuous Improvement:**
+  - Monitor code review comments
+  - Track common development questions
+  - Update rules after major refactors
+  - Add links to relevant documentation
+  - Cross-reference related rules
+
+- **Rule Deprecation:**
+  - Mark outdated patterns as deprecated
+  - Remove rules that no longer apply
+  - Update references to deprecated rules
+  - Document migration paths for old patterns
+
+- **Documentation Updates:**
+  - Keep examples synchronized with code
+  - Update references to external docs
+  - Maintain links between related rules
+  - Document breaking changes
+Follow [cursor_rules.mdc](mdc:.cursor/rules/cursor_rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [inbox-zero/hi-new](https://github.com/inbox-zero/hi-new) — distributed by [TomeVault](https://tomevault.io).
