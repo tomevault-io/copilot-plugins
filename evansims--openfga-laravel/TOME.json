@@ -4,7 +4,7 @@
   "repo": "openfga-laravel",
   "description": "Stop writing authorization logic. Start asking questions. OpenFGA high performance relationship-based access control for Laravel.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/evansims/openfga-laravel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T16:40:06Z"
+  "distributed_at": "2026-05-19T18:35:57Z"
 }
