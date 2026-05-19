@@ -2,7 +2,7 @@
   "name": "pyzotero-cli",
   "owner": "chriscarrollsmith",
   "repo": "pyzotero-cli",
-  "description": "",
+  "description": "Use Zotero from the command line, e.g., for AI-assisted reference / citation management in academic writing \u2014 CLI wrapper for pyzotero",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chriscarrollsmith/pyzotero-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T02:42:39Z"
+  "distributed_at": "2026-05-19T16:55:43Z"
 }
