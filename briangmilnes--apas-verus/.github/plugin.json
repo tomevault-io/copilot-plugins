@@ -1,7 +1,7 @@
 {
   "name": "briangmilnes--apas-verus",
   "displayName": "APAS-VERUS",
-  "description": "APAS-VERUS",
+  "description": "Proving 'Algorithms Parallel and Sequential' in Rust (APAS-AI) using Verus. ",
   "version": "1.0.0",
   "author": "briangmilnes",
   "homepage": "https://github.com/briangmilnes/APAS-VERUS",
