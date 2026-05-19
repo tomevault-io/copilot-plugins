@@ -1,68 +1,136 @@
-## 010-workflow
+## 020-codebase-structure
 
-> Workflow guidelines and task management procedures
+> Project structure, commands, and development setup guidelines for the Deadlock Mod Manager monorepo
 
 
-# Workflow Guidelines
+# Codebase Structure and Commands
 
-## First Step for Any Task
+## Project Structure
 
-- Before starting work on any task, always check the `.cursor/rules` directory for relevant guidance
-- These documents contain established workflows, conventions, and requirements for different aspects of the project
-- Following these rule files will ensure consistency and reduce rework
-- If multiple rule files seem relevant, review all of them before proceeding
+The project follows a monorepo structure using pnpm workspaces:
 
-## Last Step for Any Task
+### Core Directories
 
-- If you've learned new concepts, workflows, or best practices during task completion, suggest updates to the relevant rules
-- For new workflows that aren't covered by existing rules, suggest creating a new rule file
-- **Create a changeset if your changes are worth mentioning in the changelog:**
-  - Run `pnpm changeset` for new features, bug fixes, or breaking changes
-  - See `090-changesets.mdc` for detailed guidelines on when and how to create changesets
-  - Skip changesets for refactoring, formatting, or internal changes
-- Evaluate whether tests should be added for your changes:
-  - For functional code, new features, API changes, or bug fixes, tests are essential
-  - For content-only changes like frontend changes or documentation updates, tests are typically not required
-  - When in doubt, err on the side of adding tests - they provide long-term stability and prevent regressions
-- Always run appropriate linting and formatting before considering a task complete:
+- `apps/` - Main applications
+  - `api/` - Backend API service (Bun + Hono)
+  - `bot/` - Discord bot application
+  - `desktop/` - Tauri desktop application
+  - `lockdex/` - Lockdex service application
+  - `www/` - Web application (Vite + React)
+- `packages/` - Shared packages and utilities
+  - `common/` - Common error handling and utilities
+  - `database/` - Database schema and client (Drizzle ORM)
+  - `distributed-lock/` - Distributed locking utilities
+  - `logging/` - Structured logging package
+  - `queue/` - Queue management utilities
+  - `shared/` - Shared utilities and type definitions
+  - `vpk-parser/` - VPK file parsing utilities (Rust + TypeScript)
+- `tools/` - Development tools and configurations
+  - `typescript/` - Shared TypeScript configurations
+- `.cursor/` - Project rules and documentation
+- `.vscode/` - VS Code configuration
+- `.turbo/` - Turborepo cache and configuration
 
-  - Commands must be run from the root of the monorepo
+### Configuration Files
 
-  ```bash
-  pnpm lint:fix
-  pnpm format:fix
-  ```
+- `package.json` - Root project dependencies and scripts
+- `pnpm-workspace.yaml` - Workspace configuration
+- `turbo.json` - Turborepo configuration
+- `compose.yml` - Docker Compose for local development
+- `biome.jsonc` - Biome configuration for linting and formatting
+- `lefthook.yml` - Git hooks configuration
+- `netlify.toml` - Netlify deployment configuration
+- `.gitignore` - Git ignore configuration
 
-- Verify that no regressions are introduced by your changes
+## Available Commands
 
-## Available Rules
+### Development Commands
 
-The following rules are available in the `.cursor/rules` directory:
+```bash
+# Start development servers
+pnpm dev                    # Start desktop development (default)
+pnpm --filter api dev       # Start API development server
+pnpm --filter bot dev       # Start Discord bot development
+pnpm --filter desktop dev   # Start desktop development
+pnpm --filter lockdex dev   # Start Lockdex service development
+pnpm --filter www dev       # Start web development server
 
-### Core Project Rules
+# Code Quality
+pnpm lint                  # Run linting with Biome
+pnpm format               # Format code with Biome
+```
 
-- **010-workflow.mdc** - Workflow guidelines and task management procedures
-- **020-codebase-structure.mdc** - Project structure, commands, and development setup
-- **030-coding-style.mdc** - Coding standards and style guidelines for all technologies
-- **035-error-handling.mdc** - Use BaseError subclasses instead of raw `throw new Error`
-- **040-logging.mdc** - Logging guidelines for implementing structured logging
-- **050-tauri-version.mdc** - Tauri v2 version enforcement and dependency management
-- **055-rust-edition.mdc** - Rust edition 2024 enforcement for all Rust code
-- **060-tailwind-v4.mdc** - Guidelines for using Tailwind CSS v4
-- **070-comments-defensive-programming.mdc** - Comments and defensive programming guidelines
-- **080-ai-interaction.mdc** - AI interaction guidelines and communication style rules
-- **090-changesets.mdc** - Changeset management for features and fixes
+### Database Commands
 
-### Special Rules
+```bash
+pnpm db:push              # Push schema to database
+pnpm db:seed              # Seed database with initial data
+pnpm generate             # Generate database migrations
+```
 
-- **999-mdc-format.mdc** - Guide for creating and maintaining MDC rule files
+### Build Commands
 
-### Agent skills (`.cursor/skills`)
+```bash
+pnpm build                 # Build all packages and applications
+pnpm --filter api build    # Build only API
+pnpm --filter bot build    # Build only Discord bot
+pnpm --filter desktop build # Build only desktop application
+pnpm --filter lockdex build # Build only Lockdex service
+pnpm --filter www build    # Build only web application
+```
 
-- **git-conventions** ([SKILL.md](../skills/git-conventions/SKILL.md)) - Git commit message format, branch naming, and version control practices
-- **032-import-rules** ([SKILL.md](../skills/032-import-rules/SKILL.md)) - Import rules for cross-package and self-import prevention
+### Package Management
 
-When working on specific aspects of the project, consult the relevant rules above to ensure compliance with established patterns and standards.
+```bash
+# Add dependencies to specific packages
+pnpm add <package> --filter <package-name>      # Add production dependency
+pnpm add -D <package> --filter <package-name>   # Add dev dependency
+```
+
+## Development Setup
+
+1. Install dependencies:
+
+   ```bash
+   npm i -g pnpm
+   pnpm install
+   ```
+
+2. Configure environment:
+
+   - Create appropriate environment files for each app
+   - Fill required environment variables
+
+3. Start development:
+
+   ```bash
+   # Start desktop app (default)
+   pnpm dev
+
+   # Or start individual apps
+   pnpm --filter api dev
+   pnpm --filter bot dev
+   pnpm --filter desktop dev
+   pnpm --filter lockdex dev
+   pnpm --filter www dev
+   ```
+
+4. Build for production:
+   ```bash
+   pnpm build
+   ```
+
+## Best Practices
+
+1. Always use pnpm for package management
+2. Use the `--filter` flag when working with specific packages
+3. Keep shared code in the appropriate packages directory (`packages/shared`, `packages/database`, etc.)
+4. Follow the established environment variable conventions
+5. Run code quality checks before committing:
+   ```bash
+   pnpm lint
+   pnpm check-types
+   ```
 
 ---
 > Source: [deadlock-mod-manager/deadlock-mod-manager](https://github.com/deadlock-mod-manager/deadlock-mod-manager) — distributed by [TomeVault](https://tomevault.io).
