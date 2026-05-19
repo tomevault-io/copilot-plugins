@@ -4,7 +4,7 @@
   "repo": "dotagents",
   "description": ".agents files for shared use across machines. Compatible with Claude and Codex",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ryanshepps/dotagents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T21:25:03Z"
+  "distributed_at": "2026-05-19T00:56:15Z"
 }
