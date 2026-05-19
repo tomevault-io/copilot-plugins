@@ -1,149 +1,397 @@
-## form-validation
+## frontend-rules
 
-> Minimal, non-intrusive validation that guides without blocking. No success messages or harsh errors, just essential hints.
+> - **React 18** with TypeScript for type-safe component development
 
-# Airweave Validation System
+# Airweave Frontend Architecture & Guidelines
 
-## Philosophy
-Minimal, non-intrusive validation that guides without blocking. No success messages or harsh errors, just essential hints.
+## Tech Stack & Core Technologies
+- **React 18** with TypeScript for type-safe component development
+- **Vite** for fast development builds and HMR
+- **TailwindCSS** with **ShadCN UI** components for consistent design
+- **Radix UI** primitives with **Lucide** icons for accessible components
+- **React Router** for client-side routing with file-based organization
+- **Zustand** for state management with persistence
+- **React Query** for server state and data fetching
+- **Auth0** for authentication with custom context wrapper
+- **SSE (Server-Sent Events)** for real-time sync progress
 
-## Core Components
-
-### `ValidatedInput` Component
-- Replaces standard inputs with validation-aware inputs
-- Shows hints after debounce delay (typically 500ms)
-- Immediate validation on blur for some fields
-- Subtle 30% opacity border colors
-- Real-time feedback during typing (not just on submit)
-
-### Validation Rules (`lib/validation/rules.ts`)
-
-#### General Validators
-- **`collectionNameValidation`**: 4-64 characters
-- **`sourceConnectionNameValidation`**: 4-42 characters
-- **`urlValidation`**: Must start with `http://` or `https://`
-- **`emailValidation`**: Basic format check
-- **`apiKeyValidation`**: Detects placeholder text, shows on change with 500ms debounce
-
-#### Source-Specific Validators
-
-**GitHub**
-- **`githubTokenValidation`**: Validates format (ghp_, github_pat_, or 40-char hex)
-- **`repoNameValidation`**: Enforces owner/repo format (e.g., "airweave-ai/airweave")
-
-**Stripe**
-- **`stripeApiKeyValidation`**: Checks for sk_test_ or sk_live_ prefix, min 20 chars
-
-**Bitbucket**
-- **`workspaceValidation`**: Alphanumeric + hyphens + underscores
-- **`repoSlugValidation`**: Alphanumeric + hyphens + underscores + dots
-
-**PostgreSQL/Databases**
-- **`databaseHostValidation`**: Rejects protocol prefixes (http://, postgresql://, etc.)
-- **`databasePortValidation`**: Validates 1-65535 range, rejects non-numeric strings
-- **`databaseTablesValidation`**: Accepts "*" or comma-separated table names
-
-**Auth Providers**
-- **`clientIdValidation`**: Generic client ID validation
-- **`clientSecretValidation`**: Generic client secret validation
-- **`authConfigIdValidation`**: For Composio config IDs
-- **`accountIdValidation`**: For auth provider account IDs
-- **`projectIdValidation`**: For Pipedream project IDs
-- **`environmentValidation`**: For environment fields
-
-## Usage
-
-### Basic Usage
-```tsx
-import { ValidatedInput } from '@/components/ui/validated-input';
-import { collectionNameValidation } from '@/lib/validation/rules';
-
-<ValidatedInput
-  value={name}
-  onChange={setName}
-  validation={collectionNameValidation}
-  placeholder="Enter name"
-  className="..."
-/>
+## Project Structure
+```
+frontend/src/
+├── components/         # Reusable UI components
+│   ├── ui/            # ShadCN UI primitives
+│   ├── shared/        # Shared business components
+│   └── [feature]/     # Feature-specific components
+├── pages/             # Route-level components
+├── lib/               # Core utilities and providers
+│   ├── api.ts         # API client with auth integration
+│   ├── stores/        # Zustand state stores
+│   └── auth-context.tsx # Auth provider
+├── hooks/             # Custom React hooks
+├── services/          # Business logic services
+├── config/            # Configuration files
+├── constants/         # App constants
+└── styles/            # Global CSS styles
+    └── toast.css      # Custom toast styling
 ```
 
-### Source-Specific Auth Fields
-```tsx
-import { getAuthFieldValidation } from '@/lib/validation/rules';
+## API Layer (`lib/api.ts`)
 
-// Auto-detects validation based on field name and source
-<ValidatedInput
-  value={authFields[field.name]}
-  onChange={(value) => setAuthFields({ ...authFields, [field.name]: value })}
-  validation={getAuthFieldValidation(field.name, sourceDetails?.short_name)}
-/>
+The API client is the central hub for all backend communication with sophisticated features:
+
+### Core Features
+- **Token Management**: Automatic token injection via provider pattern
+- **Request Queuing**: Queues requests while auth initializes
+- **Organization Context**: Auto-injects `X-Organization-ID` header
+- **Session Tracking**: Auto-injects `X-Airweave-Session-ID` header with PostHog session ID for session replay linking
+- **Auto-Retry**: Refreshes token on 401/403 and retries
+- **Organization Auto-Switching**: Detects resource org mismatches and switches context
+- **Type-Safe Responses**: Returns typed Response objects
+
+### Usage Pattern
+```typescript
+// Always use relative paths (no /api/v1 prefix)
+const response = await apiClient.get('/collections');
+const response = await apiClient.post('/source-connections', data);
+const response = await apiClient.delete('/api-keys', { id: keyId });
 ```
 
-## Field Type Detection
+### Token Provider Pattern
+The API client uses a pluggable token provider set up in `main.tsx`:
+```typescript
+setTokenProvider({
+  getToken: async () => await auth.getToken(),
+  clearToken: () => auth.clearToken(),
+  isReady: () => auth.isReady()
+});
+```
 
-The `getAuthFieldValidation(fieldType: string, sourceShortName?: string)` function auto-detects validation based on field names and optionally source context:
+## State Management Architecture
 
-### Source-Specific Routing
-- **Stripe `api_key`** → `stripeApiKeyValidation` (when sourceShortName === 'stripe')
-- Other sources fall through to generic validators
+### 1. **Organization Store** (`stores/organizations.ts`)
+- Manages user organizations with persistence
+- Handles organization switching with state cleanup
+- Auto-selects best organization (current → primary → first)
+- Clears org-specific data on switch (collections, API keys)
 
-### Field Name Mapping
-- **API Keys & Tokens**
-  - `api_key` → Generic API key validation (placeholder detection)
-  - `token`, `access_token` → API key validation
-  - `personal_access_token` → GitHub token validation
+### 2. **Collections Store** (`stores/collections.ts`)
+- Caches collections (with API-provided `source_connection_summaries` for list views)
+- Implements event-driven updates via custom event bus
+- Smart caching with force refresh option
+- Handles collection CRUD events automatically
+- Source connection details for list pages come from `GET /collections` response (no per-card fetching)
 
-- **URLs**
-  - `url`, `endpoint`, `base_url`, `cluster_url`, `uri` → URL validation (requires http:// or https://)
+### 3. **Sync State Store** (`stores/syncStateStore.ts`)
+- Real-time sync progress via SSE
+- Manages multiple concurrent subscriptions
+- Session storage for progress persistence
+- Automatic cleanup and health checks
 
-- **Database Fields**
-  - `host` → Database host validation (no protocol)
-  - `port` → Port range validation (1-65535, numeric only)
-  - `tables` → Table list validation (* or comma-separated)
+### 4. **API Keys Store** (`stores/apiKeys.ts`)
+- Organization-scoped API key management
+- Auto-clears on organization switch
 
-- **User Credentials**
-  - `email`, `username` → Email validation
-  - `client_id` → Client ID validation
-  - `client_secret` → Client secret validation
+## Authentication Flow
 
-- **Source-Specific Fields**
-  - `repo_name` → GitHub repository validation
-  - `workspace` → Bitbucket workspace validation
-  - `repo_slug` → Bitbucket repo slug validation (allows dots)
+### Auth0 Integration
+1. **Provider Hierarchy**:
+   ```
+   PostHogProvider → ThemeProvider → BrowserRouter → Auth0Provider → AuthProvider → ApiAuthConnector → App
+   ```
+   - **PostHogProvider**: Initializes PostHog analytics and session tracking (outermost)
+   - **ThemeProvider**: Manages dark/light theme persistence
+   - **BrowserRouter**: React Router client-side routing
+   - **Auth0Provider**: Handles user authentication
+   - **AuthProvider**: Manages token lifecycle and auth state
+   - **ApiAuthConnector**: Connects auth to API client
 
-- **Auth Provider Fields**
-  - `auth_config_id` → Auth config ID validation
-  - `account_id` → Account ID validation
-  - `project_id` → Project ID validation
-  - `external_user_id` → External user ID validation
-  - `environment` → Environment validation
+2. **Auth Context** (`lib/auth-context.tsx`):
+   - Manages Auth0 token lifecycle
+   - Provides `getToken()` for API calls
+   - Handles dev mode (auth disabled)
+   - Token initialization tracking
 
-## Validation Timing
+3. **Token Caching Strategy** (`lib/auth0-provider.tsx`):
+   - `getCacheLocation()` selects `memory` for custom Auth0 domains and `localstorage` for standard `*.auth0.com` tenants
+   - Custom domains share the app's eTLD+1, so the Auth0 session cookie is first-party — tokens stay in memory only (no XSS surface via localStorage)
+   - Standard tenants use a third-party cookie that Safari ITP / Firefox strict / Chrome incognito block, so tokens must be persisted in localStorage
+   - `useRefreshTokens={true}` — refresh token rotation is always enabled
+   - `useRefreshTokensFallback={true}` — enables iframe-based silent auth as a fallback when the refresh token is unavailable (e.g. after a page refresh with memory cache)
 
-### Debounce Settings
-- **500ms**: Most text fields (repo names, GitHub tokens, Stripe keys, API keys)
-- **300ms**: Database ports
-- **0ms**: Some specialized fields requiring immediate feedback
+4. **Auth Guard** (`components/AuthGuard.tsx`):
+   - Protects routes requiring authentication
+   - Initializes organizations on first load
+   - Redirects to `/no-organization` if needed
 
-### Show Behavior
-- **`showOn: 'change'`**: Validates during typing (after debounce) - used for most fields
-- **`showOn: 'blur'`**: Validates only when field loses focus - rarely used
+### OAuth2 Source Authentication
+- Separate OAuth flow for connecting data sources
+- State preserved in sessionStorage during redirect
+- Handles both standard and SemanticMcp flows
+- Error recovery with detailed user feedback
+- **Redirect validation**: Always use `safeRedirectPath()` from `lib/utils/url-validation.ts` when assigning `window.location.href` after an OAuth callback — never use raw query-string values
 
-## Visual Feedback
-- **Info**: Gray text, amber border at 20% opacity (for empty/incomplete fields)
-- **Warning**: Amber text/border at 30% opacity (for invalid inputs)
-- **No success states**: We don't celebrate valid input, just guide when invalid
+#### Browser OAuth Claim-Token Contract
+All browser OAuth flows use a two-step handoff to trigger the initial sync:
 
-## Implementation Notes
+1. **Before redirect**: `POST /source-connections` returns `auth.claim_token`. Store it in `sessionStorage` keyed as `oauth_claim_token:{source_connection_id}` before navigating to `auth.auth_url`.
+2. **After redirect**: The backend callback 303-redirects to the frontend with `?status=success&source_connection_id=...`. On landing, retrieve the stored claim token and call `POST /source-connections/{id}/verify-oauth` with `{ claim_token }` to trigger the deferred sync workflow.
+3. **Cleanup**: Only remove the `oauth_claim_token:*` entry from `sessionStorage` after `verify-oauth` returns a successful (`response.ok`) response — this preserves the token for retry on failure.
 
-### Port Validation
-Uses regex check (`/^\d+$/`) before `parseInt` to reject strings like "123abc" that would otherwise parse as valid.
+Skipping the `verify-oauth` call leaves the sync job stuck in `PENDING` indefinitely.
 
-### Empty Field Handling
-Most validators return `{ isValid: true }` for empty fields to allow partial form completion. Backend validation handles required field checks on submission.
+## Component Patterns
 
-### Source Context Awareness
-The validation system can route to source-specific validators when `sourceShortName` is provided, enabling different validation logic for fields with common names (like `api_key`) across different sources.
+### 1. **Dialog Flow System** (`components/shared/DialogFlow.tsx`)
+- Multi-step dialog orchestration
+- State preservation across OAuth redirects
+- Error handling with retry capabilities
+- Flexible view composition
+
+### 2. **View Components**
+- Encapsulate specific UI flows
+- Accept `viewData` prop for state
+- Use `onNext`, `onBack`, `onCancel` callbacks
+- Handle errors via `onError` prop
+
+### 3. **Error Handling Pattern**
+```typescript
+const handleError = (error: Error | string, errorSource?: string) => {
+  if (onError) {
+    onError(error, errorSource);
+  } else {
+    redirectWithError(navigate, {
+      serviceName: errorSource,
+      errorMessage: error.message,
+      dialogId: viewData?.dialogId
+    });
+  }
+};
+```
+
+## Real-Time Features
+
+### SSE (Server-Sent Events)
+- Used for sync job progress updates
+- Automatic reconnection handling
+- Progress persistence across page reloads
+- Multiple concurrent subscriptions
+
+### Event Bus System
+- Custom events for collection updates
+- Window-level event dispatching
+- Auto-refresh on CRUD operations
+
+## Routing Architecture
+
+### Route Structure
+```typescript
+// Public routes (no auth required)
+/login
+/callback
+/semantic-mcp
+/no-organization
+
+// Protected routes (auth required)
+/ (dashboard)
+/collections
+/collections/:readable_id
+/organization/settings
+```
+
+### Route Protection
+- `AuthGuard` wrapper for protected routes
+- Organization initialization on first access
+- Automatic redirects for unauthenticated users
+
+## Error Handling & User Feedback
+
+### Error Utils (`lib/error-utils.ts`)
+- Centralized error storage in localStorage
+- Redirect with error context preservation
+- Dialog-specific error targeting via `dialogId`
+
+### Toast Notifications
+
+#### Setup & Configuration
+- **Sonner** library with custom styling via `toast-custom` class
+- Global CSS import: `import '@/styles/toast.css'` in `App.tsx`
+- Toaster configured with `className: 'toast-custom'` for custom styling
+
+#### Toast Types & Patterns
+```typescript
+import { toast } from 'sonner';
+
+// Success notifications (green theme)
+toast.success('Operation completed successfully');
+
+// Error notifications (red theme)
+toast.error('Something went wrong');
+
+// Info notifications (blue theme)
+toast.info('Additional information');
+
+// Warning notifications (yellow theme)
+toast.warning('Please review this action');
+```
+
+#### Custom Styling Features
+- **Enhanced animations**: Slide-in from right with custom easing
+- **Type-specific styling**: Each toast type has distinct colors and borders
+- **Colored left border**: Visual indicator for toast type
+- **Consistent theming**: Uses CSS variables for dark/light mode
+- **Hover effects**: Subtle transform and shadow changes
+
+#### Usage Guidelines
+- Use appropriate toast types for different scenarios
+- Keep messages concise and actionable
+- Avoid overusing toasts for non-critical information
+- Organization switch notifications use success type
+
+### Error Views
+- `ConnectionErrorView` for connection failures
+- Retry capabilities with state restoration
+- Technical details with copy functionality
+
+## Development Patterns
+
+### 1. **TypeScript Usage**
+- Strict typing for all components
+- Interface definitions for props
+- Type inference where possible
+- Avoid `any` types
+- Always try to user interfaces defined universally in /types/index.ts (which wrap Pydantic schemas defined in backend)
+
+### 2. **Component Organization**
+```typescript
+// Standard component structure
+interface ComponentProps {
+  // Required props first
+  onAction: () => void;
+  data: DataType;
+  // Optional props with defaults
+  variant?: 'primary' | 'secondary';
+}
+
+export const Component: React.FC<ComponentProps> = ({
+  onAction,
+  data,
+  variant = 'primary'
+}) => {
+  // Hooks first
+  const [state, setState] = useState();
+
+  // Effects next
+  useEffect(() => {}, []);
+
+  // Handlers
+  const handleClick = () => {};
+
+  // Render
+  return <div>...</div>;
+};
+```
+
+### 3. **State Management Best Practices**
+- Use Zustand stores for global state
+- React Query for server state
+- Local state for UI-only concerns
+- Custom hooks for shared logic
+
+### 4. **API Integration Patterns**
+```typescript
+// Always check response.ok
+const response = await apiClient.get('/endpoint');
+if (!response.ok) {
+  throw new Error(`Failed: ${response.status}`);
+}
+const data = await response.json();
+
+// Handle loading states
+const [isLoading, setIsLoading] = useState(false);
+try {
+  setIsLoading(true);
+  // ... API call
+} finally {
+  setIsLoading(false);
+}
+```
+
+### 5. **Styling Guidelines**
+- Use Tailwind classes with `cn()` utility
+- Component variants with CVA
+- Consistent spacing with Tailwind scale
+- Dark mode support via CSS variables
+
+## Performance Optimizations
+
+### 1. **Data Caching**
+- Collections cached until force refresh
+- Source details cached by short name
+- API keys cached per organization
+
+### 2. **Request Deduplication**
+- Prevents duplicate requests while loading
+- Smart organization context switching
+- Request queuing during auth init
+
+### 3. **Component Optimization**
+- Memoization for expensive computations
+- Callback refs for stable references
+- Lazy loading for route components
+
+## Security Considerations
+
+### 1. **Token Management**
+- Tokens never exposed in URLs
+- Automatic cleanup on logout
+- Secure storage in Auth0
+
+### 2. **Organization Isolation**
+- API automatically scopes to current org
+- State cleared on organization switch
+- Proper access control checks
+
+### 3. **Role-Based UI Gating**
+Use `useOrganizationContext()` to gate mutation actions by the current user's organization role:
+
+```typescript
+const { canManageOrganization } = useOrganizationContext();
+const canManage = canManageOrganization();
+```
+
+Standard pattern — disable controls with a tooltip for non-admins:
+```typescript
+<Button disabled={!canManage} title={!canManage ? "Admin access required" : undefined}>
+  Create
+</Button>
+```
+
+Available helpers from `useOrganizationContext()`:
+- `canManageOrganization(orgId?)` — returns `true` for `admin` or `owner`
+- `canDeleteOrganization(orgId?)` — returns `true` for `owner` only
+- `isCurrentUserOwner(orgId?)` — owner check
+- `isCurrentUserAdmin(orgId?)` — admin or owner check
+
+### 4. **Error Handling**
+- Sensitive data stripped from errors
+- Token cache location is conditional: custom Auth0 domains use `memory` (no localStorage exposure), standard `*.auth0.com` tenants use `localstorage` (necessary due to third-party cookie restrictions)
+- Secure OAuth state management
+
+### 5. **Redirect Safety**
+- Never assign `window.location.href` (or similar navigation) to a URL derived from query parameters, `sessionStorage`, or any external input without validation
+- Use `safeRedirectPath()` from `lib/utils/url-validation.ts` — it rejects absolute URLs, protocol-relative paths, and other open-redirect vectors, returning a safe fallback
+- Use `isSafeRedirectPath()` from the same module when you need a boolean check without a fallback
+- This applies everywhere, but is especially critical in OAuth callback handlers (`AuthCallback.tsx`, `SemanticMcpCallback.tsx`)
+
+### 6. **Randomness**
+- Never use `Math.random()` — it is banned by ESLint
+- Use `crypto.getRandomValues()` for random bytes/integers
+- Use `crypto.randomUUID()` for UUIDs
+
+### 7. **XSS Prevention**
+- Never assign to `innerHTML` — it is banned by ESLint (CASA-41)
+- Never use `dangerouslySetInnerHTML` — it is banned by ESLint (CASA-41)
+- Use React state-driven rendering and `textContent` instead
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
