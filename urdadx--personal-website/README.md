@@ -7,11 +7,11 @@ My personal website - find all my work and blogs here
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [urdadx/personal-website](https://github.com/urdadx/personal-website).
+Original source: `CLAUDE.md` in [urdadx/personal-website](https://github.com/urdadx/personal-website).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
