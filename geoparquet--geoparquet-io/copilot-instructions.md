@@ -1,0 +1,208 @@
+## geoparquet-io
+
+> geoparquet-io (`gpio`) is a Python CLI for GeoParquet I/O. Entry point: `geoparquet_io/cli/main.py`
+
+# Claude Code Instructions for geoparquet-io
+
+## Project Overview
+
+geoparquet-io (`gpio`) is a Python CLI for GeoParquet I/O. Entry point: `geoparquet_io/cli/main.py`
+
+---
+
+## Package Management
+
+**uv only.** See `pyproject.toml` for dependencies.
+```bash
+uv sync --all-extras        # Install
+uv run pytest               # Run commands
+uv tool install geoparquet-io  # Global install
+```
+
+---
+
+## Before Writing Code
+
+1. Search for existing patterns (`grep -r "pattern"`)
+2. Check `core/common.py` and `cli/decorators.py` first
+3. Review tests for the area you're modifying
+
+---
+
+## Test-Driven Development (MANDATORY)
+
+**WRITE TESTS FIRST.** Unless user says "skip tests":
+1. Write failing test → 2. Implement → 3. Verify pass → 4. Add edge cases
+
+---
+
+## Architecture
+
+```
+geoparquet_io/
+├── cli/main.py        # CLI commands (thin wrappers)
+├── cli/decorators.py  # Reusable Click options
+├── core/              # Business logic (52 modules)
+│   └── common.py      # Shared utilities - CHECK FIRST
+└── api/               # Python API (table.py, ops.py)
+```
+
+**Enforced rules** (see `.pre-commit-config.yaml`):
+- `no-click-echo`: Use logger in `core/`, not `click.echo()`
+- `duckdb-antipatterns`: Blocks `.fetch_arrow_table()`, `.to_arrow_table()`, `TRY_CAST.*GEOMETRY`
+- `import-linter`: Core cannot import Click; API cannot import CLI
+- `check-api-for-cli`: Reminds to add Python API for new CLI commands
+
+<!-- freshness: last-verified: 2026-04-03, maps-to: geoparquet_io/cli/main.py -->
+<!-- BEGIN GENERATED: cli-commands -->
+### CLI Command Groups
+
+| Command Group | Subcommands | Description |
+|---------------|-------------|-------------|
+| `gpio add` | a5, admin-divisions, bbox, bbox-metadata, h3, kdtree, quadkey, s2 | Commands for enhancing GeoParquet files in various ways |
+| `gpio benchmark` | compare, explain, report, suite | Benchmark GeoParquet performance |
+| `gpio check` | all, bbox, compression, optimization, row-group, spatial, spec, stac | Check GeoParquet files for best practices |
+| `gpio convert` | csv, flatgeobuf, geojson, geopackage, geoparquet, reproject, shapefile | Convert between formats and coordinate systems |
+| `gpio extract` | arcgis, bigquery, geoparquet, wfs | Extract data from files and services to GeoParquet |
+| `gpio inspect` | head, layers, meta, stats, summary, tail | Inspect GeoParquet files and show metadata, previews, or statistics |
+| `gpio partition` | a5, admin, h3, kdtree, quadkey, s2, string | Commands for partitioning GeoParquet files |
+| `gpio pmtiles` | create | PMTiles generation commands |
+| `gpio publish` | stac, upload | Commands for publishing GeoParquet data (STAC metadata, cloud uploads) |
+| `gpio skills` |  | List and access LLM skills for gpio |
+| `gpio sort` | column, hilbert, quadkey | Commands for sorting GeoParquet files |
+<!-- END GENERATED: cli-commands -->
+
+<!-- BEGIN GENERATED: core-modules -->
+### Core Modules
+
+| Module | Purpose | Lines |
+|--------|---------|-------|
+| `common.py` |  | 4086 |
+| `validate.py` | GeoParquet file validation against specification r... | 2854 |
+| `inspect_utils.py` | Utilities for inspecting GeoParquet files. | 1608 |
+| `convert.py` |  | 1395 |
+| `duckdb_metadata.py` | DuckDB-based Parquet metadata extraction. | 1322 |
+| `arcgis.py` | ArcGIS Feature Service to GeoParquet conversion. | 1226 |
+| `extract.py` | Extract columns and rows from GeoParquet files. | 1225 |
+| `metadata_utils.py` | Utilities for extracting and formatting GeoParquet... | 1197 |
+| `wfs.py` | WFS (Web Feature Service) to GeoParquet conversion... | 1193 |
+| `extract_bigquery.py` |  | 1044 |
+| `partition_common.py` |  | 908 |
+| `admin_datasets.py` |  | 735 |
+| `partition_admin_hierarchical.py` |  | 698 |
+| `upload.py` | Upload GeoParquet files to cloud object storage. | 675 |
+| ... | *39 more modules* | |
+<!-- END GENERATED: core-modules -->
+
+<!-- freshness: last-verified: 2026-03-20, maps-to: geoparquet_io/core/common.py, geoparquet_io/cli/decorators.py -->
+### Key Patterns
+
+1. **CLI/Core Separation**: CLI commands are thin wrappers; business logic in `core/`
+2. **Common Utilities**: Always check `core/common.py` before writing new utilities
+3. **Shared Decorators**: Use existing decorators from `cli/decorators.py`
+4. **Error Handling**: Use `ClickException` for user-facing errors
+
+### Critical Rules
+
+- **Never use `click.echo()` in `core/` modules** - Use logging helpers instead
+- **Every CLI command needs a Python API** - Add to `api/table.py` (methods) and `api/ops.py` (functions)
+- **All documentation needs CLI + Python examples** - Use tabbed format
+
+---
+
+<!-- freshness: last-verified: 2026-03-20, maps-to: geoparquet_io/core/common.py -->
+## Key Imports
+
+```python
+from geoparquet_io.core.common import get_duckdb_connection, needs_httpfs
+from geoparquet_io.core.logging_config import success, warn, error, info, debug
+from pathlib import Path  # Prefer over os.path
+```
+
+### DuckDB 1.5 Patterns
+
+**Enforced by `duckdb-antipatterns` pre-commit hook.** Violations fail the build.
+
+| Old (crashes) | Correct |
+|---------------|---------|
+| `.fetch_arrow_table()` | `.arrow().read_all()` |
+| `.to_arrow_table()` | `.arrow().read_all()` |
+| `TRY_CAST(x AS GEOMETRY)` | `TRY(ST_GeomFromText(x))` |
+
+Additional patterns (not yet enforced):
+- `ST_Transform(..., always_xy := true)` → `SET geometry_always_xy = true` at session level
+- `apply_crs_to_parquet()` removed → use `_wrap_query_with_crs()`
+
+---
+
+<!-- freshness: last-verified: 2026-04-03, maps-to: pyproject.toml -->
+## Testing
+
+Config in `pyproject.toml [tool.pytest.ini_options]`. Coverage: 67% minimum (enforced).
+
+```bash
+uv run pytest -n auto -m "not slow and not network"  # Fast tests
+```
+
+<!-- BEGIN GENERATED: test-markers -->
+### Test Markers
+
+| Marker | Description |
+|--------|-------------|
+| `@pytest.mark.slow` | marks tests as slow (deselect with '-m "not slow"') |
+| `@pytest.mark.network` | marks tests requiring network access (deselect with '-m "not network"') |
+| `@pytest.mark.integration` | marks end-to-end integration tests |
+<!-- END GENERATED: test-markers -->
+
+---
+
+## Code Quality
+
+**All handled by pre-commit.** See `.pre-commit-config.yaml` for full list.
+
+| Stage | Hooks |
+|-------|-------|
+| commit | ruff, codespell, no-click-echo, duckdb-antipatterns, doc-sync, menard-check |
+| pre-push | xenon (complexity), import-linter, deptry, vulture |
+
+Complexity guidance: guard clauses, dictionary dispatch, max 30-40 lines/function.
+
+---
+
+## Git Workflow
+
+**Commits**: Enforced by commitizen hook. Format: `type(scope): message`
+**PRs**: Update `docs/guide/` and `docs/api/python-api.md` if API changed.
+
+---
+
+## New Feature Checklist
+
+1. [ ] Core logic in `core/<feature>.py`
+2. [ ] CLI wrapper in `cli/main.py`
+3. [ ] Python API in `api/table.py` and `api/ops.py`
+4. [ ] Tests in `tests/`
+5. [ ] Docs in `docs/guide/`
+
+---
+
+## Claude Hooks
+
+**Permissions**: See `.claude/settings.local.json`
+**Global hooks**: See `~/.claude/CLAUDE.md` (approve-variants.py, rtk-rewrite.sh)
+
+Dangerous patterns (command substitution `$(...)`, backticks) always rejected.
+
+---
+
+## Debugging
+
+```bash
+gpio inspect summary file.parquet --verbose
+gpio inspect meta file.parquet --json
+gpio extract input.parquet output.parquet --dry-run --show-sql
+```
+
+---
+> Source: [geoparquet/geoparquet-io](https://github.com/geoparquet/geoparquet-io) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-18 -->
