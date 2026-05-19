@@ -1,0 +1,9 @@
+{
+  "name": "danieljvdm--effect-cf",
+  "displayName": "effect-cf",
+  "description": "Effect-native primitives for Cloudflare Workers and bindings.",
+  "version": "1.0.0",
+  "author": "danieljvdm",
+  "homepage": "https://github.com/danieljvdm/effect-cf",
+  "skills": []
+}
