@@ -1,128 +1,319 @@
-## backend-rules
+## connect-widget
 
-> - **FastAPI Application** (`main.py`): Entry point for HTTP requests
+> The Connect widget is an embeddable component that allows end users to manage their source connections within third-party applications. It runs inside an iframe and communicates with parent applications via `postMessage`.
 
-# Airweave Backend Architecture
+# Airweave Connect Widget Architecture
 
-## Core Layers
+## What is Connect?
 
-### API Layer
-- **FastAPI Application** (`main.py`): Entry point for HTTP requests
-- **API Routes** (`endpoints/`): RESTful endpoints organized by resource
-- **Dependencies** (`api/deps.py`): Authentication and request validation
+The Connect widget is an embeddable component that allows end users to manage their source connections within third-party applications. It runs inside an iframe and communicates with parent applications via `postMessage`.
 
-### Service Layer
-- **Sync Service**: Orchestrates data synchronization between sources and destinations
-- **DAG Service**: Manages directed acyclic graphs for data transformations
-- **OAuth2 Service**: Handles authentication for integrations
-- **Identity Provider** (protocol): Abstracts user authentication, roles, and organization memberships (Auth0, Null, Fake adapters)
-- **Payment Gateway** (protocol): Abstracts subscription management and billing operations (Stripe adapter)
-- **Resend Service**: Manages transactional email delivery and templates
-- **PostHog Service**: Manages product analytics and user event tracking
+## Tech Stack & Core Technologies
+- **React 19** with TypeScript for type-safe component development
+- **Vite** for fast development builds and HMR
+- **TailwindCSS v4** for styling with CSS-first configuration
+- **Base UI** (`@base-ui/react`) for accessible, unstyled primitives
+- **Lucide** icons for consistent iconography
+- **TanStack Router** for file-based routing with type safety
+- **TanStack Query** for server state and data fetching
+- **marked** for Markdown rendering in form field descriptions (with XSS-safe link renderer)
+- **No authentication** - relies on session tokens passed from parent
 
-### Data Access Layer
-- **CRUD Modules** (`crud/`): Database operations for each entity
-- **Unit of Work**: Transaction management with atomic operations
-- **Database Session**: Async SQLAlchemy session management. This extra care must be applied with lazy objects and sessions.
+## Project Structure
+```
+connect/src/
+├── components/         # UI components
+│   ├── ActionErrorBanner.tsx  # Dismissible inline error banner for action failures
+│   ├── ConnectionItem.tsx     # Single connection display (supports reconnect loading state)
+│   ├── ConnectionsErrorView.tsx
+│   ├── DynamicFormField.tsx   # Dynamic form fields with markdown support
+│   ├── EmptyState.tsx         # Dual-layout empty state (rich hero when showConnect=true, simple manage view otherwise)
+│   ├── ErrorScreen.tsx        # Full-screen error display
+│   ├── FolderSelectionView.tsx # Folder picker wrapper (optional feature)
+│   ├── FolderTree.tsx         # Hierarchical folder checkbox tree
+│   ├── LoadingScreen.tsx      # Loading spinner (legacy, prefer contextual skeletons)
+│   ├── PoweredByAirweave.tsx  # Footer branding
+│   ├── SessionProvider.tsx    # Session context provider
+│   ├── Skeleton.tsx           # Contextual skeleton loaders (ConnectionItemSkeleton, SourceItemSkeleton, SourceConfigSkeleton)
+│   ├── SourceItem.tsx         # Single source in picker
+│   ├── SourcesList.tsx        # Source selection grid
+│   └── SuccessScreen.tsx      # Main connected state
+├── hooks/
+│   └── useParentMessaging.ts  # iframe ↔ parent communication
+├── lib/
+│   ├── api.ts                 # API client with session auth
+│   ├── connection-utils.ts    # Connection status helpers
+│   ├── env.ts                 # Environment configuration
+│   ├── icons.ts               # Icon registry and helpers
+│   ├── oauth.ts               # OAuth popup and message handling
+│   ├── theme-defaults.ts      # Default theme configuration
+│   ├── theme.tsx              # Theme context and CSS variables
+│   ├── types.ts               # TypeScript type definitions
+│   └── useOAuthFlow.ts        # OAuth flow state management hook
+├── routes/
+│   ├── __root.tsx             # Root layout
+│   ├── index.tsx              # Main entry route
+│   └── oauth-callback.tsx     # OAuth callback handler
+├── router.tsx                 # TanStack Router setup
+├── routeTree.gen.ts           # Auto-generated route tree
+└── styles.css                 # Global styles and Tailwind imports
+```
 
-### Domain Layer
-- **Models** (`models/`): Database models (SQLAlchemy ORM)
-- **Schemas** (`schemas/`): API data validation models (Pydantic)
+## Key Architectural Patterns
 
-Detail: `short_name` is a globally unique identifier used throughout the system, e.g. `slack`, `outlook` or `hubspot_crm`
+### 1. Session-Based Authentication
+Connect uses session tokens instead of user authentication:
+```typescript
+interface ConnectSessionContext {
+  sessionToken: string;
+  apiBaseUrl: string;
+}
+```
+Sessions are passed via URL parameters or parent messages.
 
-## Key Components
+### 2. Parent Communication (`useParentMessaging`)
+The widget runs in an iframe and communicates with the parent via `postMessage`.
 
-### Platform Components
-- **Sources** (`platform/sources/`): Connectors to external data sources (APIs, DBs)
-- **Destinations** (`platform/destinations/`): Vector database adapters
-- **Embedding Models** (`platform/embedding_models/`): Text vectorization services
-- **Transformers** (`platform/transformers/`): Data transformation processors
-- **Entities** (`platform/entities/`): Core search objects that flow through the system
+**SECURITY: Origin validation is enforced for postMessage:**
 
-### Sync Architecture
-If necessary (like editing ), refer [sync-architecture.mdc](mdc:.cursor/rules/sync-architecture.mdc).
+The Connect widget captures the parent origin from the first `TOKEN_RESPONSE` message and validates all subsequent messages against it:
 
-### Infrastructure
-- **Config** (`core/config.py`): Environment-based configuration
-- **Logging** (`core/logging.py`): Structured logging system
-- **Exceptions** (`core/exceptions.py`): Centralized error handling
-- **Migrations** (`alembic/`): Database schema versioning
+```typescript
+// In useParentMessaging.ts - parent origin is captured and stored
+const parentOriginRef = useRef<string | null>(null);
 
-## Data Flow
+const handleMessage = (event: MessageEvent) => {
+  // Capture origin from first TOKEN_RESPONSE
+  if (data.type === "TOKEN_RESPONSE" && !parentOriginRef.current) {
+    parentOriginRef.current = event.origin;
+  }
 
-1. **Request Processing**: API request → Authentication → Schema Validation → Handler (often CRUD, otherwise service)
-2. **Sync Flow**: Source → Transformation (DAG) → Embedding → Destination
-3. **Database Operations**: CRUD with Unit of Work pattern for transactions
+  // Validate all messages once origin is established
+  if (parentOriginRef.current && event.origin !== parentOriginRef.current) {
+    return; // Ignore messages from unexpected origins
+  }
+  // Process message...
+};
 
+// SENDING: Uses captured origin (falls back to "*" only for initial CONNECT_READY)
+const sendToParent = (message) => {
+  const targetOrigin = parentOriginRef.current || "*";
+  window.parent.postMessage(message, targetOrigin);
+};
+```
 
-## Rules
+**Available message types:**
+```typescript
+// Notify parent of connection changes
+notifyConnectionCreated(connectionId: string);
+notifyStatusChange(status: SessionStatus);
+requestClose(reason: "success" | "cancel" | "error");
+```
 
-### Style & Structure
-- Python 3.11+, FastAPI, SQLAlchemy async ORM
-- Black (100 char), isort, Ruff with Google docstrings including arg and return type annotation
-- Models → `models/`, Pydantic schemas → `schemas/`
-- Domain modules → `domains/` (protocols, service, repository, operations, fakes, subscribers)
-- Platform connectors → `platform/` modules by function (sources, destinations, transformers, entities)
-- Sync handlers → `platform/sync/`
+### 3. OAuth Flow Security
+OAuth uses same-origin popups with validated messaging and claim-token verification:
+```typescript
+// oauth-callback.tsx posts to same origin
+window.opener.postMessage({ type: "OAUTH_COMPLETE", ...result }, window.location.origin);
 
-### Code Principles
-- Descriptive names over comments
-- Async for all I/O operations
-- Typed parameters and returns
-- Keep functions under 50 lines
+// oauth.ts validates origin when receiving
+const handler = (event: MessageEvent) => {
+  if (event.origin !== window.location.origin) return;
+  // Process OAUTH_COMPLETE...
+};
+```
 
-### Architecture
-- SQLAlchemy models with UUID primary keys
-- FastAPI dependency injection for services
-- Error responses via custom exceptions
-- Background processing with Redis workers (upcoming)
+**Claim-token verification (two-step completion):**
+After the OAuth popup completes, the Connect widget calls `verifyOAuth` with the claim token before considering the flow complete. The claim token is returned by the initial `createSourceConnection` call and stored in `claimTokenRef`. This ensures the caller that initiated the OAuth flow is the same one completing it.
 
-### API Convention
-- RESTful endpoints in `endpoints/` -> the version is not part of the endpoint. It's just host.com/{endpoint}!
-- Consistent response structures
-- One router per resource type
-- Logger injected via `ctx` dependency for contextual logging
+See `useOAuthFlow.ts` lines 66-72 for the implementation:
+```typescript
+if (claimTokenRef.current) {
+  await apiClient.verifyOAuth(
+    result.source_connection_id,
+    claimTokenRef.current,
+  );
+  claimTokenRef.current = null;
+}
+```
 
+### 4. Theming System
+Fully customizable via CSS variables passed from parent:
+```typescript
+interface ConnectTheme {
+  colors: { primary, background, text, border, ... };
+  fonts: { family, sizeBase, ... };
+  spacing: { base, containerPadding, ... };
+  borderRadius: { base, button, card, ... };
+}
+```
+Theme values are injected as CSS custom properties (`--connect-*`).
 
-### Logging convention
-- Stick to log level standards
-- Always try to use logger from ctx (in case of API) or sync_context (if during sync)
+### 5. View Navigation
+Internal view state managed within `SuccessScreen.tsx`:
+```typescript
+type NavigateView = "connections" | "sources" | "configure" | "folder-selection";
+```
 
-### PostHog Analytics Integration
-- **Module Path**: `airweave.analytics.service` for core analytics and user behavior tracking
-- **Environment Variables**: `POSTHOG_API_KEY`, `POSTHOG_HOST`, `ANALYTICS_ENABLED`, `ENVIRONMENT` in `core/config.py`
-- **Event Tagging**: All events automatically include an `environment` property from `ENVIRONMENT` variable for filtering by deployment environment
-- **Usage Patterns**:
-  - **API Endpoints**: Import `analytics` directly and use `analytics.track_event()` for custom tracking
-  - **Search Operations**: Automatically tracked via `SearchService.search()` - no manual tracking required
-  - **Business Events**: Use `business_events.track_*()` methods for high-level metrics
-- **Direct Import Pattern**: Use `from airweave.analytics.service import analytics` instead of `ApiContext` for direct access
-- **Error Handling**: Analytics errors are logged but never crash the application
-- **Property Guidelines**: Use `.value` for enums, avoid mutating caller's properties dict
-- **Timing**: Use `time.monotonic()` for duration measurements, not `time.time()`
-- **Session Replay Integration**:
-  - **Header Flow**: Frontend sends PostHog session ID via `X-Airweave-Session-ID` header
-  - **Header Extraction**: `deps._extract_headers_from_request()` extracts session ID into `RequestHeaders.session_id`
-  - **PostHog Property**: `ContextualAnalyticsService` automatically adds `$session_id` property to all events
-  - **Purpose**: Links backend events to frontend session replays for debugging and user journey analysis
-  - **Implementation**: Session ID flows through `RequestHeaders` → `ContextualAnalyticsService` → `_build_base_properties()` → `$session_id` property
+**View flow:**
+- `connections` - List of existing source connections (default for manage mode)
+- `sources` - Source picker grid (default for connect mode)
+- `configure` - Source configuration form (auth fields, config fields)
+- `folder-selection` - Optional folder picker shown after OAuth (when `enableFolderSelection` enabled)
 
-### Search Persistence & Analytics
-- **Database-First Approach**: Every search is persisted to `search_queries` table via `CRUDSearchQuery`
-- **Dual Analytics**: Both database persistence and PostHog events tracked automatically
-- **Comprehensive Data**: Database + PostHog contain all search metadata, performance metrics, and feature usage data
-- **Non-blocking**: Both persistence methods fail gracefully without affecting search functionality
-- **Automatic Tracking**: All search operations (regular, streaming, legacy) tracked uniformly via `SearchService`
+### 6. Connect Options
+Optional features controlled via `ConnectOptions`:
+```typescript
+interface ConnectOptions {
+  showConnectionName?: boolean;     // Show name field in configure form (default: false)
+  enableFolderSelection?: boolean;  // Show folder picker after OAuth (default: false)
+}
+```
 
-### Security
+**Related components:**
+- `FolderSelectionView.tsx` - Wrapper for folder selection UI
+- `FolderTree.tsx` - Hierarchical folder checkbox tree with indeterminate states
 
-- Never use `random.*` for security-sensitive values — ruff
-  rule `S311` bans it
-- Use `secrets.choice()`, `secrets.randbelow()`,
-  `secrets.token_bytes()`, or `secrets.token_urlsafe()` instead
-- Seeded `random.Random(seed)` is acceptable **only** for
-  deterministic test-data generation (stub sources)
+## Component Patterns
+
+### Base UI Usage
+Use Base UI primitives for accessible, unstyled components:
+```typescript
+import { Button } from "@base-ui/react";
+
+// Style with Tailwind classes
+<Button className="px-4 py-2 bg-primary rounded-md">
+  Click me
+</Button>
+```
+
+### API Client Pattern
+```typescript
+import { createConnectClient } from "@/lib/api";
+
+const client = createConnectClient(session);
+const connections = await client.getSourceConnections();
+```
+
+### TanStack Query Usage
+```typescript
+import { useQuery } from "@tanstack/react-query";
+
+const { data, isLoading, error } = useQuery({
+  queryKey: ["source-connections"],
+  queryFn: () => client.getSourceConnections(),
+});
+```
+
+## Development Guidelines
+
+### 1. Component Organization
+- Keep components focused and single-purpose
+- Use TypeScript interfaces for all props
+- Prefer composition over complex props
+
+### 2. Styling Guidelines
+- Use Tailwind utility classes
+- Reference theme variables via `var(--connect-*)` when needed
+- Avoid hardcoded colors; use theme tokens
+
+### 3. State Management
+- TanStack Query for server state
+- React state for local UI state
+- Context for shared session/theme data
+
+### 4. API Integration
+```typescript
+// Use contextual skeleton loaders instead of a generic LoadingScreen
+if (isLoading) {
+  return (
+    <PageLayout title={labels.sourcesHeading}>
+      <ConnectionItemSkeleton />
+      <ConnectionItemSkeleton />
+    </PageLayout>
+  );
+}
+if (error) return <ConnectionsErrorView error={error} labels={labels} />;
+```
+
+Available skeleton components: `ConnectionItemSkeleton`, `SourceItemSkeleton`, `SourceConfigSkeleton` (all in `Skeleton.tsx`).
+
+For action-level errors (e.g. delete or reconnect failures), use `ActionErrorBanner` — a dismissible, auto-fading inline banner styled with `--connect-error`.
+
+### 5. Coding Conventions
+- Prefix unused variables/arguments with `_` (enforced by ESLint)
+- Example: `const handler = (_event: Event) => { ... }`
+
+## Packages & SDKs
+
+The connect widget can be embedded via packages:
+```
+connect/packages/
+├── react/           # React wrapper component
+└── vanilla/         # Vanilla JS embed script
+```
+
+## Testing
+
+Run tests with:
+```bash
+cd connect && npm run test
+```
+
+Use Vitest with Testing Library for component tests.
+
+## Key Differences from Main Frontend
+
+| Aspect | Connect Widget | Main Frontend |
+|--------|---------------|---------------|
+| React version | 19 | 18 |
+| UI Components | Base UI | ShadCN UI |
+| Router | TanStack Router | React Router |
+| Auth | Session tokens | Auth0 |
+| State | TanStack Query only | Zustand + Query |
+| Deployment | Embeddable iframe | Standalone app |
+
+## Docker Deployment
+
+The Connect widget uses a multi-stage Docker build for production deployment:
+
+### Build Stage
+- **Base image:** `node:20-slim`
+- Copies frontend icons from `../frontend/src/components/icons/apps/` (required by vite.config.ts)
+- Builds with `npm run build`, producing `.output/` directory
+
+### Runtime Stage
+- **Base image:** `node:20-alpine`
+- Runs on port 8082 (configurable via `PORT` env var)
+- Uses `docker-entrypoint.sh` for runtime configuration
+
+### Runtime Configuration (`/config.js`)
+The entrypoint script generates `/config.js` at container startup to inject environment variables:
+
+```javascript
+// Generated by docker-entrypoint.sh
+window.__CONNECT_ENV__ = {
+  API_URL: "${API_URL}"
+};
+```
+
+This script is loaded in `__root.tsx` via the head scripts array and read by `lib/env.ts`:
+
+```typescript
+// In env.ts - reads runtime config
+const env = window.__CONNECT_ENV__ || {};
+export const API_URL = env.API_URL || import.meta.env.VITE_API_URL;
+```
+
+**Important:** The `/config.js` script is only generated in Docker deployments. During local development, Vite environment variables (`VITE_*`) are used instead.
+
+### Environment Variables
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `API_URL` | `http://localhost:8001` | Backend API URL |
+| `PORT` | `8082` | Server port |
+| `CSP_FRAME_ANCESTORS` | `*` | Origins allowed to embed Connect in an iframe |
+| `CSP_ADDITIONAL_CONNECT_SRC` | _(empty)_ | Extra origins for CSP connect-src (space-separated) |
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
