@@ -1,16 +1,16 @@
-## react-typescript
+## rule-engine
 
-> React/TypeScript and Inertia conventions for resources/js.
+> When working on the Rule Engine (rules, conditions, actions, triggers).
 
 
-# React / TypeScript
+# Rule Engine
 
-- Prefer delegating to the `frontend` subagent for substantial frontend work.
-- Use functional components and TypeScript interfaces for props.
-- Imports: `@/components`, `@/lib/utils`, `@/hooks`, `@/types` (see tsconfig/vite aliases).
-- Inertia: `Head`, `router`, `usePage` from `@inertiajs/react`; type page props from controller payload.
-- Prettier: single quotes, tabWidth 4 — see .prettierrc.
-- Reference: resources/js/pages/dashboard.tsx, resources/js/types/index.ts.
+- Prefer delegating to the `rule-engine` subagent for Rule Engine work.
+- Full docs: docs/ai/RULE_ENGINE.md.
+- Key models: Rule, RuleGroup, ConditionGroup, RuleCondition, RuleAction (app/Models/RuleEngine/).
+- Services: RuleEngine, ConditionEvaluator, ActionExecutor (app/Services/RuleEngine/). Events: TransactionCreated, TransactionUpdated; listener ProcessTransactionRules.
+- When adding conditions or actions: use existing enums (ConditionField, ConditionOperator, ActionType, Trigger) and service interfaces (ConditionEvaluatorInterface, ActionExecutorInterface).
+- Reference: app/Http/Controllers/RuleEngine/RuleController.php (action type config), app/Models/RuleEngine/ActionType.php.
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
