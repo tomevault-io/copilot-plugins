@@ -1,0 +1,9 @@
+{
+  "name": "edenreich--n8n-cli",
+  "displayName": "n8n-cli",
+  "description": "A simple n8n cli to sync workflows from Github to n8n using GitOps",
+  "version": "1.0.0",
+  "author": "edenreich",
+  "homepage": "https://github.com/edenreich/n8n-cli",
+  "skills": []
+}
