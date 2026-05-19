@@ -4,7 +4,7 @@
   "repo": "alchemy",
   "description": "Infrastructure as TypeScript",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alchemy-run/alchemy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T00:08:47Z"
+  "distributed_at": "2026-05-19T01:08:09Z"
 }
