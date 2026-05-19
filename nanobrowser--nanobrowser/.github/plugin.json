@@ -1,7 +1,7 @@
 {
   "name": "nanobrowser--nanobrowser",
   "displayName": "nanobrowser",
-  "description": "nanobrowser",
+  "description": "Open-Source Chrome extension for AI-powered web automation. Run multi-agent workflows using your own LLM API key. Alternative to OpenAI Operator.",
   "version": "1.0.0",
   "author": "nanobrowser",
   "homepage": "https://github.com/nanobrowser/nanobrowser",
