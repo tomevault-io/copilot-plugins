@@ -2,20 +2,22 @@
 
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io)
 
+DuckDuckGo iOS & macOS browsers
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers).
+Original source: `AGENTS.md` in [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/duckduckgo)
+From [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — a repo with 212+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install duckduckgo/apple-browsers
 ```
-Or browse all formats at [https://tomevault.io/claim/duckduckgo](https://tomevault.io/claim/duckduckgo).
+Source: [github.com/duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers).
 
 <!-- genome:d-i-s -->
