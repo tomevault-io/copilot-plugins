@@ -1,0 +1,9 @@
+{
+  "name": "quiqupltd--quiqupgo",
+  "displayName": "quiqupgo",
+  "description": "Reusable uber/fx modules for Go microservices, providing standardized infrastructure for tracing, logging, database, temporal workflows, pub/sub messaging, and HTTP middleware.",
+  "version": "1.0.0",
+  "author": "quiqupltd",
+  "homepage": "https://github.com/quiqupltd/quiqupgo",
+  "skills": []
+}
