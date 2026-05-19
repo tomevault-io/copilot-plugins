@@ -1,0 +1,9 @@
+{
+  "name": "opencloud-eu--web",
+  "displayName": "web",
+  "description": "\ud83d\udc3b Web UI for OpenCloud built with Vue.js and TypeScript",
+  "version": "1.0.0",
+  "author": "opencloud-eu",
+  "homepage": "https://github.com/opencloud-eu/web",
+  "skills": []
+}
