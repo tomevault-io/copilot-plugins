@@ -1,0 +1,9 @@
+{
+  "name": "khromov--nook",
+  "displayName": "nook",
+  "description": "Run local AI models in your browser for chat, audio transcription, text to speech and background removal",
+  "version": "1.0.0",
+  "author": "khromov",
+  "homepage": "https://github.com/khromov/nook",
+  "skills": []
+}
