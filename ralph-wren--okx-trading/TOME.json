@@ -1,0 +1,44 @@
+{
+  "name": "okx-trading",
+  "owner": "ralph-wren",
+  "repo": "okx-trading",
+  "description": "OKX Trading \u662f\u4e00\u6b3e\u57fa\u4e8e Java Spring Boot \u5f00\u53d1\u7684\u667a\u80fd\u52a0\u5bc6\u8d27\u5e01\u4ea4\u6613\u7b56\u7565\u56de\u6d4b\u7cfb\u7edf\uff0c\u96c6\u6210\u4e86\u7b56\u7565\u5b9e\u76d8\u4ea4\u6613\u3001 AI \u7b56\u7565\u751f\u6210\u3001\u5386\u53f2\u6570\u636e\u56de\u6d4b\u3001\u7b56\u7565\u8bc4\u4ef7\u7b49\u529f\u80fd\u3002\u4f7f\u7528cryptoquantx\u4f5c\u4e3a\u524d\u7aef\u5e73\u53f0",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ralph-wren/okx-trading",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T22:56:40Z"
+}
