@@ -1,16 +1,64 @@
-## linting
+## scope
 
-> When you have made edits run the following commands to lint the code:
+> There are three main scopes of the codebase within the `custom_components/area_occupancy` directory:
 
 
-When you have made edits run the following commands to lint the code:
+There are three main scopes of the codebase within the `custom_components/area_occupancy` directory:
 
-```bash
-ruff format .
-ruff check . --fix
+1. Integration level
+
+```text
+- db/__init__.py
+- db/aggregation.py
+- db/constants.py
+- db/core.py
+- db/correlation.py
+- db/maintenance.py
+- db/operations.py
+- db/queries.py
+- db/relationships.py
+- db/schema.py
+- db/sync.py
+- db/utils.py
+- __init__.py
+- coordinator.py
+- config_flow.py
+- migrations.py
+- service.py
+- storage.py
+- utils.py
+- const.py
+- manifest.json
 ```
 
-This will format the code and attempt to fix any linting errors automatically.
+2. Area level
+
+```text
+- area/__init__.py
+- area/area.py
+- area/all_areas.py
+```
+
+3. Helper Classes
+
+```text
+- data/__init__.py
+- data/analysis.py
+- data/config.py
+- data/decay.py
+- data/entity_type.py
+- data/entity.py
+- data/prior.py
+- data/purpose.py
+```
+
+The integration level is responsible for the overall coordination of the integration. It is responsible for the overall configuration of the integration, the overall data flow and storage in the database.
+
+The area level is responsible for the specific area of the integration. It is responsible for the specific configuration of the area, the specific data flow of the area, and the specific logic of the area.
+
+The helper classes are responsible for the helper functions and classes that are used throughout the codebase.
+
+Data and configuration should flow from the integration level to the area level to the helper classes in that order.
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
