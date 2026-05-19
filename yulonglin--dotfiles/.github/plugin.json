@@ -1,0 +1,9 @@
+{
+  "name": "yulonglin--dotfiles",
+  "displayName": "dotfiles",
+  "description": "Highly-opinionated setup for AI safety research with coding agents (Claude Code, Codex, Gemini CLI)",
+  "version": "1.0.0",
+  "author": "yulonglin",
+  "homepage": "https://github.com/yulonglin/dotfiles",
+  "skills": []
+}
