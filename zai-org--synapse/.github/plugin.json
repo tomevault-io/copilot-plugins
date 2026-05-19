@@ -1,0 +1,9 @@
+{
+  "name": "zai-org--synapse",
+  "displayName": "Synapse",
+  "description": "Self-hosted AI workspace with shareable AI teammates, shared conversations, memory, and governed access to plugins, MCP tools, and local devices.",
+  "version": "1.0.0",
+  "author": "zai-org",
+  "homepage": "https://github.com/zai-org/Synapse",
+  "skills": []
+}
