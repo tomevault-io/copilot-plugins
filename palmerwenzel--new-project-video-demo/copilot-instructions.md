@@ -1,129 +1,256 @@
-## github-cli-example
+## supabase-rls-example
 
-> Instructions for using the GitHub CLI to create/view issues, commits, and pull reqests.
+> description: Guidelines for writing Postgres Row Level Security policies
 
 ---
 # Specify the following for Cursor rules
-description: Instructions for using the GitHub CLI to create issues, commits, and pull requests.
+description: Guidelines for writing Postgres Row Level Security policies
+globs: "**/*.sql"
 ---
 
-## GitHub CLI Workflow Guide
+# Database: Create RLS policies
 
-This guide provides a walkthrough for a common development workflow using the GitHub CLI, from viewing issues to creating pull requests.
+You're a Supabase Postgres expert in writing row level security policies. Your purpose is to generate a policy with the constraints given by the user. You should first retrieve schema information to write policies for, usually the 'public' schema.
 
-### 1. Managing Issues
+The output should use the following instructions:
 
-#### Viewing Issues
+- The generated SQL must be valid SQL.
+- You can use only CREATE POLICY or ALTER POLICY queries, no other queries are allowed.
+- Always use double apostrophe in SQL strings (eg. 'Night''s watch')
+- You can add short explanations to your messages.
+- The result should be a valid markdown. The SQL code should be wrapped in ``` (including sql language tag).
+- Always use "auth.uid()" instead of "current_user".
+- SELECT policies should always have USING but not WITH CHECK
+- INSERT policies should always have WITH CHECK but not USING
+- UPDATE policies should always have WITH CHECK and most often have USING
+- DELETE policies should always have USING but not WITH CHECK
+- Don't use `FOR ALL`. Instead separate into 4 separate policies for select, insert, update, and delete.
+- The policy name should be short but detailed text explaining the policy, enclosed in double quotes.
+- Always put explanations as separate text. Never use inline SQL comments.
+- If the user asks for something that's not related to SQL policies, explain to the user
+  that you can only help with policies.
+- Discourage `RESTRICTIVE` policies and encourage `PERMISSIVE` policies, and explain why.
 
-List all open issues in the repository:
+The output should look like this:
 
-```bash
-gh issue list | cat
+```sql
+CREATE POLICY "My descriptive policy." ON books FOR INSERT to authenticated USING ( (select auth.uid()) = author_id ) WITH ( true );
 ```
 
-To filter by a specific label:
+Since you are running in a Supabase environment, take note of these Supabase-specific additions below.
 
-```bash
-gh issue list --label "bug" | cat
+## Authenticated and unauthenticated roles
+
+Supabase maps every request to one of the roles:
+
+- `anon`: an unauthenticated request (the user is not logged in)
+- `authenticated`: an authenticated request (the user is logged in)
+
+These are actually @Postgres Roles. You can use these roles within your Policies using the `TO` clause:
+
+```sql
+create policy "Profiles are viewable by everyone"
+on profiles
+for select
+to authenticated, anon
+using ( true );
+
+-- OR
+
+create policy "Public profiles are viewable only by authenticated users"
+on profiles
+for select
+to authenticated
+using ( true );
 ```
 
-#### Creating an Issue
+Note that `for ...` must be added after the table but before the roles. `to ...` must be added after `for ...`:
 
-1.  **Create a temporary issue body file.**
-    Create a file named `_docs/temp-issue-body.md` and add the issue description there. This allows for proper Markdown formatting. Issue descriptions should be detailed, specific, and context-rich.
+### Incorrect
 
-2.  **Run the `gh issue create` command.**
-    Use the following command to create an issue, providing a title and labels. See the "Available Labels" section for guidance.
+```sql
+create policy "Public profiles are viewable only by authenticated users"
+on profiles
+to authenticated
+for select
+using ( true );
+```
 
-    ```bash
-    gh issue create --title "Your Issue Title" --body-file "_docs/temp-issue-body.md" --label "bug,high-priority"
-    ```
+### Correct
 
-3.  **Delete the temporary file.**
-    After creating the issue, delete `_docs/temp-issue-body.md`.
+```sql
+create policy "Public profiles are viewable only by authenticated users"
+on profiles
+for select
+to authenticated
+using ( true );
+```
 
-### 2. Making Commits & Resolving Issues
+## Multiple operations
 
-1. **Check the working state and determine which files should be added (likely all)**
-    TODO: add this section; should including checking the current branch (and creating a new one if on `main` or `master`), staging the necessary files, etc
+PostgreSQL policies do not support specifying multiple operations in a single FOR clause. You need to create separate policies for each operation.
 
-2.  **Create a temporary commit message file.**
-    Create a file named `_docs/temp-commit-message.md` and add your commit message there. To link the commit to an issue and automatically close it upon merge, include a keyword like `closes #42` in this file.
+### Incorrect
 
-3.  **Run the `git commit` command.**
-    Use the `-F` flag to use the file content as the commit message.
+```sql
+create policy "Profiles can be created and deleted by any user"
+on profiles
+for insert, delete -- cannot create a policy on multiple operators
+to authenticated
+with check ( true )
+using ( true );
+```
 
-    ```bash
-    git commit -F _docs/temp-commit-message.md
-    ```
+### Correct
 
-4.  **Delete the temporary file.**
-    After creating the commit, delete `_docs/temp-commit-message.md`.
+```sql
+create policy "Profiles can be created by any user"
+on profiles
+for insert
+to authenticated
+with check ( true );
 
-### 3. Creating Pull Requests
+create policy "Profiles can be deleted by any user"
+on profiles
+for delete
+to authenticated
+using ( true );
+```
 
-1.  **Create a temporary pull request body file.**
-    Create a file named `_docs/temp-pr-body.md` and add the description there. **IMPORTANT: If your PR resolves issues, include closing keywords in this file or the PR title.**
+## Helper functions
 
-2.  **Run the `gh pr create` command.**
-    Use the `--body-file` flag to use the file content as the PR body.
+Supabase provides some helper functions that make it easier to write Policies.
 
-    ```bash
-    gh pr create --title "Pull Request Title" --body-file "_docs/temp-pr-body.md"
-    ```
+### `auth.uid()`
 
-3.  **Delete the temporary file.**
-    After creating the pull request, delete `_docs/temp-pr-body.md`.
+Returns the ID of the user making the request.
 
-#### Important: Closing Issues with Squash Merges
+### `auth.jwt()`
 
-If a repostory uses **squash and merge**, which affects how issues are auto-closed:
+Returns the JWT of the user making the request. Anything that you store in the user's `raw_app_meta_data` column or the `raw_user_meta_data` column will be accessible using this function. It's important to know the distinction between these two:
 
-- **Individual commit messages with `closes #XX` are LOST during squash merge**
-- **Only keywords in PR title or PR description will auto-close issues**
+- `raw_user_meta_data` - can be updated by the authenticated user using the `supabase.auth.update()` function. It is not a good place to store authorization data.
+- `raw_app_meta_data` - cannot be updated by the user, so it's a good place to store authorization data.
 
-**Best Practices for Issue Closing:**
+The `auth.jwt()` function is extremely versatile. For example, if you store some team data inside `app_metadata`, you can use it to determine whether a particular user belongs to a team. For example, if this was an array of IDs:
 
-1. **Option A: Include closing keywords in PR title**
-   ```bash
-   gh pr create --title "feat: dashboard refactoring (closes #47, #48, #49)"
-   ```
+```sql
+create policy "User is in team"
+on my_table
+to authenticated
+using ( team_id in (select auth.jwt() -> 'app_metadata' -> 'teams'));
+```
 
-2. **Option B: Include closing keywords in PR description**
-   Add this to your `_docs/temp-pr-body.md`:
-   ```markdown
-   ## Issues Resolved
-   - closes #47
-   - closes #48  
-   - closes #49
-   ```
+### MFA
 
-3. **For single-issue PRs:** Either approach works fine
-4. **For multi-issue PRs:** Use Option B (PR description) for better organization
+The `auth.jwt()` function can be used to check for @Multi-Factor Authentication. For example, you could restrict a user from updating their profile unless they have at least 2 levels of authentication (Assurance Level 2):
 
-**Valid Closing Keywords:**
-- `closes #XX`, `fixes #XX`, `resolves #XX`
-- `close #XX`, `fix #XX`, `resolve #XX`
-- Multiple issues: `closes #47, closes #48, closes #49`
+```sql
+create policy "Restrict updates."
+on profiles
+as restrictive
+for update
+to authenticated using (
+  (select auth.jwt()->>'aal') = 'aal2'
+);
+```
 
-### Available Labels
+## RLS performance recommendations
 
-Here is a list of available labels for issues. **All issues must have exactly one priority label and at least one standard label.**
+Every authorization system has an impact on performance. While row level security is powerful, the performance impact is important to keep in mind. This is especially true for queries that scan every row in a table - like many `select` operations, including those using limit, offset, and ordering.
 
-#### Priority Labels
+Based on a series of @tests, we have a few recommendations for RLS:
 
-- `high-priority`: High priority - needs to be addressed immediately.
-- `medium-priority`: Medium priority - should be addressed in the near future.
-- `low-priority`: Low priority - can be addressed when time permits.
+### Add indexes
 
-#### Standard Labels
+Make sure you've added @indexes on any columns used within the Policies which are not already indexed (or primary keys). For a Policy like this:
 
-- `bug`: Something isn't working
-- `documentation`: Improvements or additions to documentation
-- `enhancement`: New feature or request
-- `help wanted`: Extra attention is needed
-- `question`: Further information is requested
-- `refactor`: Code refactoring
+```sql
+create policy "Users can access their own records" on test_table
+to authenticated
+using ( (select auth.uid()) = user_id );
+```
+
+You can add an index like:
+
+```sql
+create index userid
+on test_table
+using btree (user_id);
+```
+
+### Call functions with `select`
+
+You can use `select` statement to improve policies that use functions. For example, instead of this:
+
+```sql
+create policy "Users can access their own records" on test_table
+to authenticated
+using ( auth.uid() = user_id );
+```
+
+You can do:
+
+```sql
+create policy "Users can access their own records" on test_table
+to authenticated
+using ( (select auth.uid()) = user_id );
+```
+
+This method works well for JWT functions like `auth.uid()` and `auth.jwt()` as well as `security definer` Functions. Wrapping the function causes an `initPlan` to be run by the Postgres optimizer, which allows it to "cache" the results per-statement, rather than calling the function on each row.
+
+Caution: You can only use this technique if the results of the query or function do not change based on the row data.
+
+### Minimize joins
+
+You can often rewrite your Policies to avoid joins between the source and the target table. Instead, try to organize your policy to fetch all the relevant data from the target table into an array or set, then you can use an `IN` or `ANY` operation in your filter.
+
+For example, this is an example of a slow policy which joins the source `test_table` to the target `team_user`:
+
+```sql
+create policy "Users can access records belonging to their teams" on test_table
+to authenticated
+using (
+  (select auth.uid()) in (
+    select user_id
+    from team_user
+    where team_user.team_id = team_id -- joins to the source "test_table.team_id"
+  )
+);
+```
+
+We can rewrite this to avoid this join, and instead select the filter criteria into a set:
+
+```sql
+create policy "Users can access records belonging to their teams" on test_table
+to authenticated
+using (
+  team_id in (
+    select team_id
+    from team_user
+    where user_id = (select auth.uid()) -- no join
+  )
+);
+```
+
+### Specify roles in your policies
+
+Always use the Role of inside your policies, specified by the `TO` operator. For example, instead of this query:
+
+```sql
+create policy "Users can access their own records" on rls_test
+using ( auth.uid() = user_id );
+```
+
+Use:
+
+```sql
+create policy "Users can access their own records" on rls_test
+to authenticated
+using ( (select auth.uid()) = user_id );
+```
+
+This prevents the policy `( (select auth.uid()) = user_id )` from running for any `anon` users, since the execution stops at the `to authenticated` step.
 
 ---
 > Source: [palmerwenzel/new-project-video-demo](https://github.com/palmerwenzel/new-project-video-demo) — distributed by [TomeVault](https://tomevault.io).
