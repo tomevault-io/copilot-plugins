@@ -1,400 +1,144 @@
-## api-specific-config
+## org-general-practices
 
-> - All database schemas must be placed in `packages/db/src/schemas/` with appropriate subdirectories (`core/`, `auth/`, etc.)
+> General coding practices and agent interaction rules applicable across the organization, regardless of language.
 
-# API Engineering Standards (apps/api)
+# Organization General Practices
 
-## Database & Schema Management
+## Core Coding Philosophy
+– **Simplicity:** Always prefer simple, understandable solutions.
+– **DRY (Don't Repeat Yourself):** Avoid duplication. Check for existing similar code/functionality before writing new code.
+– **Cleanliness:** Keep the codebase clean, well-organized, and maintainable.
+– **Environment Awareness:** Write code that correctly handles different environments (e.g., dev, test, prod).
+– **Focused Changes:** Only make changes that are requested or clearly understood and directly related to the task. Avoid implementing unrelated improvements or refactors without explicit instruction (see Agent Task Scope below).
+– **Incremental Improvement:** When fixing bugs, avoid introducing new patterns/technologies unless necessary after exhausting existing options. If a new pattern replaces an old one, remove the old implementation.
+– **File Size:** Avoid overly long files. Consider refactoring files exceeding 200–300 lines
+- **Function Size:** Avoid overly long functions.  Break up large functions using helper functions that encapsulate related functionality into smaller and more focused pieces.
+– **Script Usage:** Avoid writing one-off scripts if a more integrated solution is feasible.
 
-### Database Schema Organization
-- All database schemas must be placed in `packages/db/src/schemas/` with appropriate subdirectories (`core/`, `auth/`, etc.)
-- Schema files must export table definitions and be properly imported in `core/defs.ts`
-- Always generate migrations using `pnpm db:gen-migrations` after schema changes which will automatically create the sql migration files
-- Repository classes must be placed in `apps/api/src/database/repositories/` and follow the naming pattern `*-repository.ts`
-- Use the established repository pattern with dependency injection into manager services
-- Include proper indexes for foreign keys and frequently queried columns
+## Function Design & Complexity Management
+- **Extract Helper Methods:** When a function exceeds ~30-40 lines or has distinct logical sections (e.g., validation, processing, output), extract helper methods. If you have numbered steps in comments (Step 1, Step 2, etc.), consider if each step should be its own function.
+- **Single Responsibility:** Each function should do ONE thing well. A function should either answer one question OR perform one action, not both.
+- **Fail-Fast Pattern:** Check error conditions early and return/throw immediately. Don't carry invalid state through the entire function. This makes the happy path clearer and reduces nesting.
+- **Avoid Redundant Checking:** Don't check the same condition multiple times across different functions. Check once at the boundary, then pass validated data to inner functions.
+- **Clear Method Contracts:** Helper methods should clearly indicate via their name and signature what they assume (e.g., `calculateValueWithValidPrices` assumes prices are already validated).
 
-### Database Computation Patterns
-- **SQL-First Philosophy**: Always prefer database aggregations over in-memory processing
-  - Use SQL `SUM()`, `AVG()`, `COUNT()` instead of fetching all rows and calculating in JavaScript
-  - Use `DISTINCT ON` with proper indexes for latest-record queries
-  - Use database-level `GROUP BY` for grouping operations
-  - Use CTEs (Common Table Expressions) for complex multi-step queries
-  - Use `ORDER BY` in SQL instead of JavaScript `.sort()`
-  - For complex sorts (like `DISTINCT ON` + different `ORDER BY`), use subqueries with `.as()` in Drizzle
-  - Example: Getting latest summaries should use `DISTINCT ON (agent_id)` not fetch all and filter in memory
-- **Response Size Management**:
-  - Never return unbounded result sets for in-memory processing
-  - Always aggregate at database level when only totals are needed
-  - Example: Use `SUM(total_volume)` in SQL vs fetching 1000+ records to sum in JavaScript
-  - Set reasonable LIMIT clauses for safety even on internal queries
-  - Monitor query response sizes in production
-- **Composite Indexes**: Always add indexes for:
-  - Foreign key relationships
-  - Columns used in `WHERE` clauses
-  - Columns used in `ORDER BY` with `DISTINCT ON`
-  - Multi-column patterns that match query patterns (e.g., `(agent_id, competition_id, timestamp DESC)`)
-- **Query Optimization Principles**:
-  - Prevent the linear query scaling problem: Instead of fetching a list then making separate queries per item, use joins or batch fetching
-  - Use database cursors for large result sets
-  - Leverage database window functions for ranking and analytics
-  - Use `EXPLAIN ANALYZE` to verify query performance
-  - Batch operations should process in chunks (e.g., 100 records at a time)
+## Efficient Code Patterns
+- **Don't Compute What You Don't Need:** Avoid building intermediate data structures (arrays, objects) just to check a property. For example, don't build an array just to check if it's empty - use a boolean check directly.
+- **Choose Appropriate Loops:** Use `for` loops when iteration count is known upfront, `while` for conditional iteration. Modern `for` loops are often cleaner than `while` with manual increment.
+- **Early Exit Strategies:** Prefer methods that can exit early (`.some()`, `.every()`, `.find()`) over methods that process everything (`.filter().length`, `.map()`) when you just need a boolean or single result.
+- **Separation of Concerns:** Separate "what failed" (detailed logging) from "should we continue" (control flow) logic. Log details where the failure is detected, make decisions based on simple booleans.
+- **Push Computation to Data Layer:** When working with databases or external services:
+  - Prefer aggregating/sorting/filtering at the source over fetching-then-processing
+  - Example: SQL `SUM()` instead of fetching all rows to sum in JavaScript
+  - Example: API filtering parameters instead of fetching all then filtering
+  - This reduces memory usage, network transfer, and processing time
 
-### Migration Best Practices
-- **Migration Generation**: Always use `pnpm --filter api db:gen-migrations` after schema changes
-- **Migration Naming**: Let Drizzle auto-generate names (e.g., `0041_mighty_wolverine.sql`)
-- **Migration Review**: Always review generated SQL before committing
-- **Backward Compatibility**: Migrations must be backward compatible for zero-downtime deployments
-- **Data Migrations**: Use separate scripts in `apps/api/scripts/` for data migrations, never mix schema and data migrations
-- **Rollback Strategy**: Document rollback SQL for destructive changes in PR description
-- **Testing Migrations**: Test migrations on a copy of production data when possible
-- **Index Creation**: Create indexes `CONCURRENTLY` in production to avoid table locks
+## Data Handling
+– **Mocking:** Mock data *only* for automated tests. Never use mocked or stubbed data in development or production environments.
+– **Secrets:** Ensure secrets, API keys, or passwords are *never* committed to the repository. Use environment variables or secure secret management solutions.
 
-### Database Type Safety
-- **Function Return Types**: All functions must have explicit return types
-  - Never rely on TypeScript inference for return types
-  - Be especially explicit for async functions (e.g., `Promise<User[]>`)
-- **Named Types**: Prefer named types/interfaces over inline definitions
-  - Extract complex return types into named interfaces
-  - Reuse types when the same shape appears multiple times
-- **JSON Fields**: Never use `any` for jsonb columns
-  - Create type guard functions for runtime validation
-  - Use Zod schemas for complex JSON structures
-  - Example: `isValidPerpsConfig(data): data is PerpsConfig`
-- **Numeric Types**: Always parse database numerics to numbers
-  - Use `Number()` or `parseFloat()` for numeric columns
-  - Never pass numeric strings to frontend
-  - Be explicit about precision requirements
-- **Enum Safety**: Use TypeScript enums or literal unions for database enums
-- **Null Handling**: Explicitly handle nullable columns with proper types
-  - Use `| null` not `| undefined` for nullable database fields
-  - Consider using Result types for operations that may fail
+## Tooling Interaction
+– **Non-Interactive Execution:** When using command-line tools or scripts, ensure they run in non-interactive mode to prevent hangs (e.g., append `| cat` to commands like `git log` if needed, use appropriate flags).
 
-## Atomic Operations & Race Condition Prevention
+## Documentation
+– **Inline Documentation:** Maintain excellent, thorough inline documentation (e.g., comments for functions, methods, types, classes, and complex logic).
+– **READMEs:** When editing README files, conform to the [standard-readme](mdc:https:/github.com/RichardLitt/standard-readme) specification.
+– **CRITICAL - No Temporal or Comparative Comments:** 
+  - **NEVER** use words like "new", "optimized", "efficient", "replaces", "improved", "better", "faster", "atomic" in comments or TSDoc
+  - **NEVER** reference what the code replaces or how it compares to previous versions
+  - **NEVER** mention implementation optimizations (e.g., "avoids N+1", "uses atomic operations", "parallelized")
+  - **DO** describe WHAT the method does and its contract/behavior
+  - **DO** focus on the current functionality without historical context
+  - Example: ❌ BAD: "Optimized method that efficiently fetches users avoiding N+1 queries"
+  - Example: ✅ GOOD: "Fetches users with their associated posts in a single query"
 
-### Service Layer Atomicity
-- **TOCTOU Prevention**: Avoid Time-Of-Check-Time-Of-Use patterns where state can change between check and action
-  - ❌ Bad: Check participant limit separately from adding agent (race condition):
-    ```typescript
-    // Multiple agents could pass this check simultaneously!
-    const competition = await getCompetition(competitionId);
-    if (competition.registeredParticipants < competition.maxParticipants) {
-      await addAgentToCompetition(competitionId, agentId);  // ⚠️ Limit could be exceeded!
-      await incrementParticipantCount(competitionId);
-    }
-    ```
-  - ✅ Good: Use transactions with row locks (from `competition-repository.ts`):
-    ```typescript
-    await db.transaction(async (tx) => {
-      // Lock the competition row to prevent concurrent modifications
-      const [competition] = await tx
-        .select({ maxParticipants, registeredParticipants })
-        .from(competitions)
-        .where(eq(competitions.id, competitionId))
-        .for("update");  // Row lock prevents other transactions from reading/modifying
-      
-      // Atomic insert with conflict handling
-      const insertResult = await tx
-        .insert(competitionAgents)
-        .values({ competitionId, agentId })
-        .onConflictDoNothing()
-        .returning();
-      
-      // Only check limit if actually inserted (not duplicate)
-      if (insertResult.length > 0) {
-        if (competition.registeredParticipants + 1 > competition.maxParticipants) {
-          throw new Error("Competition full");  // Transaction rollback keeps count accurate
-        }
-        // Update count atomically within same transaction
-        await tx.update(competitions).set({
-          registeredParticipants: sql`${competitions.registeredParticipants} + 1`
-        });
-      }
-    });
-    ```
-- **State Validation**: For operations that depend on current state:
-  - Validate state as close to the action as possible
-  - Use database row locks (`SELECT FOR UPDATE`) for critical sections
-  - Use optimistic locking with version numbers where appropriate
+## Security
+- Be mindful of security best practices, especially when handling user input, authentication, authorization, or interacting with external services.
+- Avoid common vulnerabilities (e.g., XSS, CSRF, insecure direct object references).
 
-### Repository Layer Atomicity
-- **Transaction Boundaries**: Use database transactions for multi-step operations
-  - Wrap related database operations in `db.transaction()`
-  - Ensure all-or-nothing semantics for data consistency
-  - Example: Balance updates + trade creation must be atomic
-- **Bulk Operations**: Process in transactions with appropriate batch sizes
-  - Use `FOR UPDATE` locks when reading data that will be modified
-  - Consider using `SELECT ... FOR NO KEY UPDATE` for better concurrency
-- **Idempotency**: Design operations to be safely retryable
-  - Use unique constraints and `ON CONFLICT` clauses
-  - Store idempotency keys for critical operations
+## Dead Code Prevention
+- **Dead Code Detection**:
+  - Remove unused functions immediately upon discovery
+  - Use `grep` or semantic search to verify function usage before creating new ones
+  - Prefer extending existing functions over creating similar ones
+  - Remove commented-out code blocks (use version control for history)
+  - **AI AGENT REQUIREMENT**: When implementing a new method that replaces an old one, you MUST remove the old implementation in the same changeset
+- **Function Reuse Audit**:
+  - Before implementing: Search for similar functionality using semantic search
+  - Document why existing solutions don't work if creating new functions
+  - Mark deprecated functions with `@deprecated` TSDoc tag
+  - Include migration path in deprecation notice
+- **Immediate Cleanup (Part of Regular Development)**:
+  - **When implementing a replacement**: Remove the old implementation in the same PR
+  - **After refactoring**: Delete the original code immediately, don't leave both versions
 
-## Authentication & Security
+## Pull Request Standards
+- **PR Documentation**: Create `.agent/pr-description-[feature].md` for all features
+- **Required Sections**:
+  - Summary of changes (what and why)
+  - API changes (with request/response examples)
+  - Database changes (with migration details)
+  - Frontend changes (with screenshots if UI)
+  - Testing approach
+  - Performance impact analysis
+  - Breaking changes (if any)
+  - Deployment notes (if special steps required)
+- **Review Checklist**:
+  - [ ] Linter passes (`pnpm lint`)
+  - [ ] Tests pass (`pnpm test`) - Note: Coverage thresholds vary by package
+  - [ ] Documentation updated
+  - [ ] No `any` types introduced
+  - [ ] Database queries optimized
+  - [ ] Migration tested (if applicable)
+  - [ ] Performance impact assessed
+  - [ ] New critical code has tests (even if package has 0% threshold)
+- **PR Size Guidelines**:
+  - Ideal: < 400 lines changed
+  - Maximum: < 1000 lines changed
+  - Split larger changes into multiple PRs
+  - Use feature flags for gradual rollout
 
-### Authentication Patterns
-- Agent authentication uses API keys via `Authorization: Bearer` header
-- User authentication uses session-based auth with SIWE (Sign-In With Ethereum)
-- Never mix authentication patterns - each endpoint should use one consistent method
-- All wallet verification must use nonce-based verification
+# Agent Collaboration & Workflow (.agent/ Directory)
 
-### Security Operations
-- Threat modeling required for new authentication flows
-- Audit trails required for critical business operations
-- Rate limiting required for all public endpoints
-- Circuit breaker patterns for external service dependencies
+The `.agent/` directory is used for maintaining development context and task tracking:
 
-## Testing Standards
+## Agent Task Scope (Preventing Sidequests)
+- Focus solely on the requested task or bug fix.
+- If you identify a related but separate issue or potential refactoring, document it (e.g., in `.agent/backlog.md` or as a comment) but **do not** implement it without explicit instruction.
 
-### E2E Test Organization
-- All E2E tests must be in `apps/api/e2e/tests/` directory
-- Test helpers must be in `apps/api/e2e/utils/` directory
-- Always reference and re-use existing test setup helpers (where applicable) - for example, in `apps/api/e2e/utils/test-helpers.ts`
-- When implementing a new test, always first look at existing test patterns in other test files - for example, `apps/api/e2e/tests/user.test.ts` for examples that use the user authentication flow, and `apps/api/e2e/tests/agent.test.ts` that use the agent authentication flow
+## Specifications (`.agent/spec.md`)
+- Create `spec.md` for new features or major changes.
+- Ensure specs align with relevant GitHub issues.
+- Get developer approval on specs before proceeding with implementation.
+- Include clear acceptance criteria and requirements.
 
-### Test Environment Requirements
-- Whenever in doubt about how tests in the e2e testing suite are set up, always reference `apps/api/e2e/setup.ts`, `apps/api/e2e/utils/test-setup.ts`, `apps/api/e2e/run-tests.ts`, and `apps/api/vitest.config.ts` to ensure you have a complete understanding of the environment
+## Development Plans (`.agent/developer_plan.md`)
+- Create `developer_plan.md` for tracking implementation steps.
+- Break down tasks into clear, measurable phases.
+- Outline not just *what* needs to be done, but *how* it interacts with existing code (key functions/components/packages involved) and *how* it will be tested.
+- Include links to relevant documentation and examples.
+- Track completion status for each task using checkboxes (`- [ ]` or `- [x]`).
+- Document dependencies, prerequisites, and potential blockers.
+- Split complex plans into multiple smaller plans/PRs if needed.
+- Use `.agent/backlog.md` to track work identified but deferred for later.
 
-### Testing Coverage Requirements
-- All new manager service methods must have corresponding tests
-- Wallet verification functionality must be tested with both success and failure scenarios
-- Database operations should be tested with edge cases (duplicates, constraints)
-- Authentication flows must be thoroughly tested
-- Performance-critical changes require load testing validation
+## Task Management & Error Handling
+- Use checkboxes within `developer_plan.md` to track completed items.
+- Document blockers and dependencies clearly.
+- Keep notes on additional work discovered during development.
+- Track progress against acceptance criteria defined in `spec.md`.
+- If you encounter errors during development (e.g., build failures, test failures), analyze the root cause and attempt to fix it. Document the error and the fix applied.
 
-### Test Coverage Standards
-- **Current Thresholds**: See `coverage.config.json` for current values
-  - Global thresholds and package-specific overrides are defined there
-  - Coverage is calculated across all packages in aggregate
-  - The config file is the single source of truth for coverage requirements
-- **Coverage Migration Strategy**:
-  - New packages must start with 100% coverage requirements
-  - Existing apps (api, comps) will gradually increase thresholds
-  - Any new critical path code must have tests regardless of package thresholds
-- **Critical Path Coverage**: 100% coverage required for:
-  - Authentication flows
-  - Payment/trading operations
-  - Wallet verification
-  - Competition scoring logic
-  - Financial calculations (PnL, portfolio values)
-- **Coverage Reporting**: All PRs must include coverage report via GitHub Actions
-- **Test Data Management**: 
-  - Never use production data in tests
-  - Use factories or builders for test data generation
-  - Maintain test data consistency across test suites
-- **Test Quality Metrics**:
-  - Tests should be deterministic (no flaky tests)
-  - Tests should run in isolation
-  - Tests should complete within reasonable time (< 30s for unit, < 2min for E2E)
+## Pull Requests (`.agent/pull_request.md`)
+- Use `.agent/pull_request.md` to draft the description for pull requests.
 
-### Running Tests
-- To run tests using the e2e testing suite, you can use a format such as `cd apps/api && pnpm test:e2e name-of-test.test.ts`
+## Development Tracking & Quality Gates
+- **Commits:** Execute a `git add . && git commit -m "<description of the change>"` after each logical change or task completion.
+- **Quality Checks:** All code changes **must** pass the mandatory quality checks defined in repository-specific rules (e.g., `repo-specific-config.mdc`). These checks typically include linting, formatting, documentation coverage, and building, and are often enforced by CI pipelines (e.g., `.github/workflows/code-quality.yml`). Ensure these pass before marking a task as complete.
 
-## API Design Patterns
-
-### Response Format Consistency
-- All API responses must include `success: boolean` field
-- Error responses must include `error: string` and `status: number` fields
-- Use consistent HTTP status codes (400 for validation, 401 for auth, 409 for conflicts)
-- Success responses should include relevant data fields and descriptive `message` when appropriate
-- **Error Response Format**:
-  ```typescript
-  {
-    success: false,
-    error: string,
-    status: number,
-    details?: object, // Only in development
-    requestId?: string
-  }
-  ```
-- **Success Response Format**:
-  ```typescript
-  {
-    success: true,
-    data: T,
-    message?: string,
-    pagination?: {
-      total: number,
-      limit: number,
-      offset: number,
-      hasMore: boolean
-    }
-  }
-  ```
-
-### Route Organization
-- Group routes by feature in `apps/api/src/routes/` (e.g., `agent.routes.ts`, `auth.routes.ts`)
-- Use middleware for authentication consistently across related endpoints
-- Keep route handlers thin - business logic belongs in manager services
-- Use TypeScript types for request/response validation
-
-### API Evolution & Compatibility
-- Breaking changes DO NOT require version increments and deprecation notices
-- Schema evolution must support gradual migration patterns
-- Client SDK updates coordinated with API changes
-
-## Service Layer Architecture
-
-### Controller Patterns
-- Controller functions should be focused primarily on serialization/deserialization of requests and responses
-- Controllers should avoid any complex business logic, instead calling into specialized manager classes in the service layer to handle business logic.
-- Controller functions should never call into the Repository layer directly.
-
-### Manager Service Patterns
-- Business logic must be in manager services (`apps/api/src/services/*-manager.service.ts`)
-- Manager services should inject repository dependencies in constructor
-- Use dependency injection pattern established in `AppContext`
-- Keep manager methods focused on single responsibilities
-- Always handle errors gracefully and return consistent result objects
-
-### Service Method Design Patterns
-- **Method Complexity:** If a service method has 3+ distinct steps (especially if labeled as "Step 1", "Step 2", etc.), consider extracting each step into a private helper method
-- **Retry Logic Separation:** Extract retry logic with exponential backoff into dedicated helper methods rather than inline in business logic
-- **Batch Operation Helpers:** Create reusable helpers for batch operations (batch fetching, batch processing) that can be shared across methods
-- **Clear Method Contracts:** Helper methods should clearly indicate what they assume about their inputs:
-  - Use descriptive names like `processWithValidatedData` vs just `processData`
-  - Document preconditions in method comments
-  - Consider using TypeScript branded types or type predicates for validated data
-- **Fail-Fast in Service Methods:** 
-  - Validate inputs and check preconditions at the start of public methods
-  - Return early on invalid conditions rather than nesting the entire method body
-  - Let helper methods assume valid inputs (since the public method already validated)
-- **Unknown State Handling**:
-  - Throw explicit errors for unexpected states (e.g., unknown enum values)
-  - ❌ Bad: `default: logger.warn('Unknown type'); return;`
-  - ✅ Good: `default: throw new Error(\`Unknown type: ${type}\`);`
-  - Never silently log and continue when encountering invalid states
-  - Makes bugs immediately visible in development/staging
-  - Use exhaustive type checking with TypeScript's `never` type for enums
-
-### Code Reuse & Method Implementation
-- **Before implementing any new method**: Always search the codebase for similar existing functionality using semantic search or grep
-- **If a similar method exists but is not adequate**: You must explicitly explain why the existing method cannot be used or extended, including:
-  - What specific requirements the existing method doesn't meet
-  - Why extending/modifying the existing method isn't feasible
-  - Technical justification for creating a new method instead
-- **Staff-Level Engineering Approach**: When working on any code in `apps/api`, approach all design decisions and trade-off analysis as a staff backend engineer at a FAANG company would. This means:
-  - Evaluating all viable implementation options holistically
-  - Considering long-term maintainability, scalability, and team velocity
-  - Following industry best practices while making context-appropriate decisions
-  - Ensuring the chosen solution is the best fit for the specific situation at hand
-- **Document relationships**: If creating a new method that's similar to an existing one, document the relationship and differences in TSDoc comments
-
-### Configuration Management
-- Use `apps/api/src/config/index.ts` for centralized configuration
-- Environment variables should be loaded once at startup, not per-request
-- Validate required environment variables on application startup
-- Use configuration objects rather than direct `process.env` access in business logic
-
-## Performance & Scalability
-
-### Performance Requirements
-- API endpoints must respond within 200ms for 95th percentile
-- Critical business operations (wallet verification, trades) must emit metrics
-- Caching strategy required for frequently accessed data (user sessions, price data)
-- Retry logic with exponential backoff for transient failures
-- Capacity planning and scaling thresholds must be documented
-- **Query Optimization**:
-  - Use `LIMIT` and `OFFSET` for all list endpoints
-  - Default page size: 10-50 items (never unlimited)
-  - Use database cursors for large result sets
-  - Maximum query time: 5000ms before timeout (enforced at both database and application level)
-  - Set statement_timeout in PostgreSQL for query-level enforcement
-  - Use request timeout middleware for HTTP-level enforcement
-- **Caching Considerations**:
-  - **IMPORTANT FOR AI AGENTS**: Always ask the human before implementing caching:
-    - "Should we add caching here? What TTL would be appropriate?"
-    - "Is platform caching (e.g., Vercel) already handling this?"
-    - "What are the staleness tolerance requirements?"
-  - Consider platform-provided caching (e.g., Vercel's automatic caching)
-  - Evaluate need for application-level caching on case-by-case basis
-  - When implementing caching, consider:
-    - Data volatility and staleness tolerance
-    - Cache invalidation complexity
-    - Memory/storage costs vs performance gains
-  - Document caching decisions and TTLs in code comments
-  - AI should NEVER implement caching without explicit human approval
-- **Response Time SLAs**:
-  - P95 < 200ms for reads
-  - P95 < 500ms for writes
-  - P95 < 1000ms for complex aggregations
-  - P99 < 2000ms for all endpoints
-- **Rate Limiting**:
-  - Default: 100 requests per minute per API key
-  - Burst: Allow 20% over limit for 10 seconds
-  - Return `429 Too Many Requests` with `Retry-After` header
-
-### Monitoring & Observability
-- All API endpoints must include structured logging with request IDs
-- Health check endpoints must validate all dependencies (DB, external APIs)
-- Business metric tracking and performance SLIs/SLOs required
-- **Metrics Collection (Implemented via Prometheus)**:
-  - **Currently Collected**:
-    - HTTP request duration (histogram with buckets: 25, 50, 100, 200, 500, 1000, 2000, 5000ms)
-    - HTTP request counts by method, route, status code
-    - Database query duration and counts by operation, repository, method
-    - Error tracking via Sentry integration
-  - **Metrics Server**: Separate server on port 3003 (configurable via METRICS_PORT)
-  - **Endpoint**: `/metrics` exposed without auth for internal monitoring
-  - **Note**: Alert thresholds and alerting rules should be configured in external monitoring systems (e.g., Datadog, PagerDuty) that consume these metrics - not implemented in application code
-  - **TODO/Aspirational** (not yet implemented):
-    - Cache hit rates
-    - Business metrics (trades/hour, active agents, competition participation)
-- **Error Tracking & APM (Sentry)**:
-  - **Configuration**:
-    - Production sampling: 10% (traces and profiles)
-    - Development sampling: 100%
-    - Automatic sensitive data scrubbing (auth headers, cookies)
-    - Database query monitoring via wrapped Drizzle operations
-  - **IMPORTANT FOR AI AGENTS**: When integrating with external APIs:
-    - Use `Sentry.addBreadcrumb()` for tracking API interactions
-    - Use `Sentry.captureMessage()` with sampling for successful responses (1% sample rate)
-    - Use `Sentry.captureException()` for all errors with context
-    - Example pattern:
-      ```typescript
-      // Sample 1% of successful responses for monitoring
-      const SAMPLING_RATE = 0.01;
-      if (Math.random() < SAMPLING_RATE) {
-        Sentry.captureMessage("External API Success", {
-          level: "info",
-          extra: { responseTime, endpoint, sampleData }
-        });
-      }
-      ```
-    - Mask sensitive data (e.g., wallet addresses, API keys) before logging
-    - Never log full request/response bodies without sampling
-- **Logging Standards**:
-  - Structured JSON logging with trace ID correlation
-  - Request ID propagation through all layers
-  - Log levels: ERROR, WARN, INFO, DEBUG
-  - Separate application and error logs
-  - Never log sensitive data (passwords, API keys, PII)
-  - **Sampling Rates** (for high-volume logging):
-    - HTTP requests: 10% by default (configurable via HTTP_LOG_SAMPLE_RATE)
-    - Repository operations: 10% by default (configurable via REPOSITORY_LOG_SAMPLE_RATE)
-    - Use `Math.random() < sampleRate` pattern for custom sampling
-    - Always log errors regardless of sampling
-- **Health Checks**:
-  - `/health` - Basic liveness check
-  - `/health/ready` - Readiness check including:
-    - Database connectivity
-    - Redis connectivity
-    - External service availability
-    - Disk space and memory usage
-
-## Code Quality & Documentation
-
-### Documentation Requirements
-- All public manager service methods must have TSDoc comments
-- Include `@param` and `@returns` documentation
-- Document error conditions and side effects
-- Repository methods should document database operations and constraints
-- **Never use temporal/comparative language in comments**:
-  - Avoid: "new", "optimized", "replaces", "improved", "efficient", "atomic", "better"
-  - Describe what the method DOES, not how it compares to other implementations
-  - Focus on behavior and contract, not implementation quality
-- At the end of implementing a new feature, always check to see if this invalidates content in `apps/api/README.md` that must be updated
-- For any new environment variables, ensure that `apps/api/.env.example`, `apps/api/.env.test`, and `.github/workflows/api-ci.yml` has been updated to include it
+## Leveraging Context
+- Utilize the documentation sources configured in the user's Cursor settings (as mentioned in the root README) for context on core technologies and SDKs.
+- Refer to the repository structure and package descriptions outlined in repository-specific rules.
 
 ---
 > Source: [recallnet/js-recall](https://github.com/recallnet/js-recall) — distributed by [TomeVault](https://tomevault.io).
