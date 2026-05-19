@@ -1,0 +1,9 @@
+{
+  "name": "spectral-finance--lux",
+  "displayName": "lux",
+  "description": "Lux is an open-source framework for building multi-agent, swarmed intelligence built by Spectral Labs. With Beams, Prisms, Lenses, and Signals, it orchestrates AI-driven workflows to create truly auto",
+  "version": "1.0.0",
+  "author": "Spectral-Finance",
+  "homepage": "https://github.com/Spectral-Finance/lux",
+  "skills": []
+}
