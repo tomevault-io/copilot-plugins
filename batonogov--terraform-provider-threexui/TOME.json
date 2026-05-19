@@ -1,0 +1,44 @@
+{
+  "name": "terraform-provider-threexui",
+  "owner": "batonogov",
+  "repo": "terraform-provider-threexui",
+  "description": "Terraform provider for 3x-ui (Xray/VLESS/Reality/WireGuard) \u2014 manage inbounds, clients, panel settings & Xray config as code. GitOps for your VPN panel.   ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/batonogov/terraform-provider-threexui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T01:51:07Z"
+}
