@@ -1,0 +1,9 @@
+{
+  "name": "hankanman--area-occupancy-detection",
+  "displayName": "Area-Occupancy-Detection",
+  "description": "A Home Assistant integration to accurately and intelligently track occupancy of an area",
+  "version": "1.0.0",
+  "author": "Hankanman",
+  "homepage": "https://github.com/Hankanman/Area-Occupancy-Detection",
+  "skills": []
+}
