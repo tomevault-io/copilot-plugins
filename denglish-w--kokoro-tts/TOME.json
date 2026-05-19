@@ -4,7 +4,7 @@
   "repo": "kokoro-tts",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/denglish-w/kokoro-tts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T15:36:35Z"
+  "distributed_at": "2026-05-19T00:14:15Z"
 }
