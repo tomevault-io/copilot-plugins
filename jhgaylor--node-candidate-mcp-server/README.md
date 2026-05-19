@@ -1,6 +1,8 @@
-# node-candidate-mcp-server
+# AI instruction files for node-candidate-mcp-server
 
-> Config by [jhgaylor](https://github.com/jhgaylor/node-candidate-mcp-server) — distributed by [TomeVault](https://tomevault.io/claim/jhgaylor)
+> Sourced from [jhgaylor/node-candidate-mcp-server](https://github.com/jhgaylor/node-candidate-mcp-server) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+A Model Context Protocol (MCP) server library that gives LLMs access to information about a candidate.
 
 ## GitHub Copilot Config
 
@@ -15,9 +17,14 @@ Original source: `.cursor/rules/*.mdc` in [jhgaylor/node-candidate-mcp-server](h
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/jhgaylor](https://tomevault.io/claim/jhgaylor)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/jhgaylor/node-candidate-mcp-server](https://github.com/jhgaylor/node-candidate-mcp-server)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/jhgaylor) to manage distribution.
+Install this config instantly:
+```
+npx tomevault install jhgaylor/node-candidate-mcp-server
+```
+Source: [github.com/jhgaylor/node-candidate-mcp-server](https://github.com/jhgaylor/node-candidate-mcp-server).
+
+<!-- genome:a-i-q -->
