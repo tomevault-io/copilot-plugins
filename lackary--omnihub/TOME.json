@@ -4,7 +4,7 @@
   "repo": "omnihub",
   "description": "OmniHub: A cross-platform application built with Kotlin Multiplatform for aggregating and visualizing content from diverse API collections.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lackary/omnihub",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T20:38:43Z"
+  "distributed_at": "2026-05-19T03:10:13Z"
 }
