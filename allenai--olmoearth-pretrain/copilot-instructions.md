@@ -1,167 +1,86 @@
-## daily-experiment-report
+## debug-beaker-experiments
 
-> Generate daily experiment status report for Slack. Triggered by CI or manually.
+> Use when user asks to debug beaker experiments, fix failed jobs, check experiment errors, investigate beaker failures, or troubleshoot training runs
 
 
-# Daily Experiment Status Report
+# Debugging Beaker Experiments
 
-Generate a status report of the current user's experiments, analyze failures, and create an actionable TODO list.
+## Quick Commands
 
-## Prerequisites
-
-You have access to:
-- `beaker` CLI (authenticated via BEAKER_TOKEN)
-- `gh` CLI (authenticated via GH_TOKEN)
-- `curl` for Slack webhook
-
-## Reference
-
-See `check-beaker-job-status.mdc` for detailed Beaker RPC API documentation.
-
-## Step 1: Get Recent Experiments
-
-**Default:** Last 24 hours. If user specifies a different time period (e.g., "last 3 days", "since Monday"), adjust accordingly.
-
-Use the Beaker RPC API for precise server-side filtering:
+See `check-beaker-job-status.mdc` for detailed Beaker RPC API reference.
 
 ```bash
 # Get current user's author ID
 AUTHOR_ID=$(beaker account whoami --format json | jq -r '.[0].id')
 
-# Calculate timestamp for 24 hours ago (or user-specified window)
-SINCE=$(date -u -v-24H +"%Y-%m-%dT%H:%M:%SZ")  # macOS
-# SINCE=$(date -u -d "24 hours ago" +"%Y-%m-%dT%H:%M:%SZ")  # Linux
-
-# Get current user's experiments
+# Find experiments (use RPC API for filtering)
 beaker rpc call ListWorkloads '{
   "options": {
     "authorId": "'"$AUTHOR_ID"'",
     "organizationId": "us_wvnghctl47k0",
     "workloadType": "WORKLOAD_TYPE_EXPERIMENT",
-    "createdAfter": "'"$SINCE"'",
-    "pageSize": 100
+    "nameOrDescriptionSubstring": "<search_term>",
+    "status": "STATUS_FAILED",
+    "pageSize": 20
   }
 }'
+
+# Get logs (most common)
+beaker experiment logs <EXPERIMENT_ID> 2>&1 | tail -300
+
+# Get metadata
+beaker experiment get <EXPERIMENT_ID> --format json
 ```
 
-From the response, filter to experiments with status `running`, `failed`, or `queued`.
+## Common Error Patterns
 
-**Sort by most recent first** (by created timestamp, descending).
+1. **Python Tracebacks** - Look for `Traceback (most recent call last)` and follow to the actual error
+2. **Shape Mismatches** - einops `EinopsError: Shape mismatch` → tensor dimension issues
+3. **Import Errors** - Missing modules or circular imports
+4. **CUDA/GPU Errors** - OOM, device mismatch, NCCL errors
+5. **Config Errors** - Invalid configuration values
 
-## Step 2: Group Related Experiments
+## Debugging Workflow
 
-Experiments often share a common prefix indicating they're part of the same group:
-- `base_spectral-train-*` → "base_spectral" group
-- `tokenization_v2-train-*` → "tokenization_v2" group
-- `ablation_patch_size-*` → "ablation_patch_size" group
+1. **Get logs**: `beaker experiment logs <EXP_ID> 2>&1 | tail -300`
+2. **Find the error**: Look for traceback, identify file and line
+3. **Read relevant code**: Use the file/line from traceback
+4. **For Python errors**: Write a small unit test to reproduce, then fix
+5. **For multi-GPU errors**: Suggest how to reproduce and propose a fix directly without test (can't reproduce locally)
+6. **For NCCL ERRORS**: Make sure to look up further in the log files to find the underlying cause
 
-Group by extracting the prefix before `-train-` or the first UUID-like suffix.
+## Summarize Findings
+Provide:
+- **Root Cause**: The actual error and why
+- **Location**: File and line number
+- **Context**: What was being executed (training, eval, etc.)
 
-## Step 3: Analyze Each Group
-
-For each experiment group:
-
-### Running Experiments
-```bash
-beaker experiment get <EXP_ID> --format json
-```
-Report:
-- How long running
-- Progress if available (check description field for W&B info)
-- Any warnings in recent logs
-
-### Failed Experiments
-Use patterns from `debug-beaker-experiments.mdc`:
-```bash
-beaker experiment logs <EXP_ID> 2>&1 | tail -300
-```
-
-Identify error type:
-| Error Pattern | Category | Action |
-|--------------|----------|--------|
-| `CUDA out of memory` | OOM | Suggest reduce batch_size or gradient accumulation |
-| `EinopsError: Shape mismatch` | Shape | Find the file/line, check recent changes |
-| `ModuleNotFoundError` | Import | Check if dep missing from pyproject.toml |
-| `KeyError` in config | Config | Check config file for typo |
-| `NCCL timeout` | Multi-GPU | Likely transient, suggest retry |
-| Preempted | Infra | Just note it, will auto-retry |
-
-## Step 4: Find Related PRs
-
-For each failure, search for existing PRs that might fix it:
-```bash
-gh pr list --state open --search "<error_keyword> OR <affected_file>"
-gh pr list --state merged --search "<error_keyword>" --limit 5
-```
-
-If a recent merged PR might have caused the issue:
-```bash
-gh pr list --state merged --limit 10
-```
-
-## Step 5: Generate Report
-
-Format Slack-friendly report (write to `report.txt`), making experiment names clickable Beaker links.
-
-If `REPORT_USER` env var is set, include it in the report header.
-
-```
-📊 *Experiment Status Report* - {date} - {username}
-
-*Summary:* {N} running | {M} queued | {P} failed | {K} groups
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔄 *RUNNING* (most recent first)
-
-*{group_name}* ({N} experiments)
-• `exp_id_1` - started 1h ago, step 8k/100k
-• `exp_id_2` - started 2h ago, step 15k/100k
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⏳ *QUEUED* ({N} experiments)
-
-• `exp_id_1` - queued 30m ago
-• `exp_id_2` - queued 1h ago
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-❌ *FAILED*
-
-*{group_name}* ({N} experiments, same error)
-• Error: `RuntimeError: CUDA out of memory`
-• Affected: `exp_id_1`, `exp_id_2`, `exp_id_3`
-• Cause: Batch size 64 too large for 40GB A100
-• Fix: Reduce to batch_size=32 or add gradient_accumulation_steps=2
-• Related PR: <https://github.com/allenai/helios/pull/123|#123 Fix OOM in large models>
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📋 *ACTION ITEMS*
-
-1. [ ] Rerun `base_spectral` group with batch_size=32
-2. [ ] Review PR #123 for OOM fix, merge if ready
-3. [ ] Investigate shape mismatch in `tokenization_v2` - check `nn/encoder.py:142`
-4. [ ] `ablation_patch_size` experiments look healthy, just monitor
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-## Step 6: Send to Slack
+## Example Workflow
 
 ```bash
-curl -X POST "$SLACK_WEBHOOK_URL" \
-  -H "Content-Type: application/json" \
-  -d "$(jq -n --arg text "$(cat report.txt)" '{text: $text}')"
+# 1. User says "my tokenization experiment failed"
+AUTHOR_ID=$(beaker account whoami --format json | jq -r '.[0].id')
+
+beaker rpc call ListWorkloads '{
+  "options": {
+    "authorId": "'"$AUTHOR_ID"'",
+    "organizationId": "us_wvnghctl47k0",
+    "workloadType": "WORKLOAD_TYPE_EXPERIMENT",
+    "nameOrDescriptionSubstring": "tokenization",
+    "status": "STATUS_FAILED",
+    "pageSize": 10
+  }
+}'
+# Output shows experiment ID, e.g.: 01KEYN069TJM97JGNQ2TWRPH51
+
+# 2. Get the logs
+beaker experiment logs <EXPERIMENT_ID> 2>&1 | tail -300
+
+# 3. Analyze error (example: EinopsError shape mismatch)
+# 4. Read relevant code files
+# 5. Fix the bug
+# 6. Run tests to verify
 ```
-
-## Notes
-
-- Keep the report concise - group similar failures together
-- Prioritize actionable items in the TODO list
-- If an experiment group has mixed results, note what's different
-- Link to W&B runs if URLs are in the experiment description
 
 ---
 > Source: [allenai/olmoearth_pretrain](https://github.com/allenai/olmoearth_pretrain) — distributed by [TomeVault](https://tomevault.io).
