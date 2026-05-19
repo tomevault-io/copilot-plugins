@@ -1,51 +1,57 @@
-## sim-components
+## sim-hooks
 
-> Component patterns and structure for React components
+> Custom hook patterns and best practices
 
 
-# Component Patterns
+# Hook Patterns
 
-## Structure Order
+## Structure
 
 ```typescript
-'use client' // Only if using hooks
-
-// Imports (external → internal)
-// Constants at module level
-const CONFIG = { SPACING: 8 } as const
-
-// Props interface
-interface ComponentProps {
-  requiredProp: string
-  optionalProp?: boolean
+interface UseFeatureProps {
+  id: string
+  onSuccess?: (result: Result) => void
 }
 
-export function Component({ requiredProp, optionalProp = false }: ComponentProps) {
-  // a. Refs
-  // b. External hooks (useParams, useRouter)
-  // c. Store hooks
-  // d. Custom hooks
-  // e. Local state
-  // f. useMemo
-  // g. useCallback
-  // h. useEffect
-  // i. Return JSX
+export function useFeature({ id, onSuccess }: UseFeatureProps) {
+  // 1. Refs for stable dependencies
+  const idRef = useRef(id)
+  const onSuccessRef = useRef(onSuccess)
+
+  // 2. State
+  const [data, setData] = useState<Data | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  // 3. Sync refs
+  useEffect(() => {
+    idRef.current = id
+    onSuccessRef.current = onSuccess
+  }, [id, onSuccess])
+
+  // 4. Operations (useCallback with empty deps when using refs)
+  const fetchData = useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const result = await fetch(`/api/${idRef.current}`).then(r => r.json())
+      setData(result)
+      onSuccessRef.current?.(result)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  return { data, isLoading, fetchData }
 }
 ```
 
 ## Rules
 
-1. `'use client'` only when using React hooks
-2. Always define props interface
-3. Extract constants with `as const`
-4. Semantic HTML (`aside`, `nav`, `article`)
-5. Optional chain callbacks: `onAction?.(id)`
-
-## Component Extraction
-
-**Extract when:** 50+ lines, used in 2+ files, or has own state/logic
-
-**Keep inline when:** < 10 lines, single use, purely presentational
+1. Single responsibility per hook
+2. Props interface required
+3. Refs for stable callback dependencies
+4. Wrap returned functions in useCallback
+5. Always try/catch async operations
+6. Track loading/error states
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
