@@ -1,0 +1,44 @@
+{
+  "name": "Platform-Tools",
+  "owner": "kdroidFilter",
+  "repo": "Platform-Tools",
+  "description": "PlatformTools is a Kotlin Multiplatform library designed to provide platform-specific utilities and tools for managing operating systems, cache directories, and application versioning seamlessly across various platforms.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kdroidFilter/Platform-Tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T01:39:17Z"
+}
