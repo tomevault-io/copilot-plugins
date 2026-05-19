@@ -1,0 +1,9 @@
+{
+  "name": "stakpak--agent",
+  "displayName": "agent",
+  "description": "Ship your code, on autopilot. An open source agent that lives on your machines 24/7 and keeps your apps running. \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "stakpak",
+  "homepage": "https://github.com/stakpak/agent",
+  "skills": []
+}
