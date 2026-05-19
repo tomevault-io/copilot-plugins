@@ -2,7 +2,7 @@
   "name": "kaneo",
   "owner": "usekaneo",
   "repo": "kaneo",
-  "description": "",
+  "description": "\ud83c\udfaf All you need. Nothing you don't. Open source project management that works for you, not against you.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/usekaneo/kaneo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:52:34Z"
+  "distributed_at": "2026-05-19T01:52:13Z"
 }
