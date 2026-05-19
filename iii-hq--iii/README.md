@@ -7,13 +7,13 @@ Effortlessly compose, extend, and observe every service in real-time for the fir
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iii-hq/iii](https://github.com/iii-hq/iii).
+Original source: `.cursor/rules/*.mdc` in [iii-hq/iii](https://github.com/iii-hq/iii).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
