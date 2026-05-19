@@ -1,840 +1,358 @@
-## styling-rule
+## use-pnpm
 
-> Comprehensive SCSS styling guidelines for the OpenUI React UI component library
+> Comprehensive pnpm package manager guidelines for the OpenUI monorepo
 
 
-# OpenUI Styling System
+# OpenUI Package Management with pnpm
 
 ## Overview
 
-OpenUI uses a comprehensive design system with SCSS utilities, CSS custom properties, and consistent component patterns. All styling must follow these guidelines to maintain design consistency and component reusability.
+OpenUI uses **pnpm** as its package manager instead of npm. pnpm provides better performance, disk efficiency, and strict dependency management. This document covers all pnpm usage patterns for the OpenUI monorepo.
 
-## Core Principles
+## Why pnpm?
 
-### 1. Use cssUtils.scss for All Design Tokens
+### Benefits Over npm
 
-**Always import and use `cssUtils.scss` instead of hardcoded values:**
+- **Faster installs**: Uses hard links for node_modules
+- **Disk efficient**: Single copy of packages across projects
+- **Strict dependency resolution**: No phantom dependencies
+- **Better workspace support**: Native monorepo management
+- **Security**: Prevents dependency confusion attacks
 
-```scss
-@use "../../cssUtils" as cssUtils;
+### Key Differences
 
-// ✅ Correct - Use design tokens
-.my-component {
-  background-color: cssUtils.$foreground;
-  color: cssUtils.$text-neutral-primary;
-  padding: cssUtils.$space-m;
-  border-radius: cssUtils.$radius-m;
-  @include cssUtils.typography(body, default);
-}
+- `node_modules` structure is different (flat with symlinks)
+- Stricter dependency isolation
+- Faster cold installs and updates
 
-// ❌ Incorrect - Hardcoded values
-.my-component {
-  background-color: #ffffff;
-  color: #000000;
-  padding: 16px;
-  border-radius: 8px;
-  font-family: "Inter", sans-serif;
-}
+## Core Commands
+
+### Package Installation
+
+```bash
+# Install all dependencies (equivalent to npm install)
+pnpm install
+
+# Install specific package
+pnpm add <package-name>
+
+# Install dev dependency
+pnpm add -D <package-name>
+
+# Install peer dependency
+pnpm add -P <package-name>
+
+# Remove package
+pnpm remove <package-name>
 ```
 
-### 2. Component Architecture
+### Running Scripts
 
-#### File Structure
+```bash
+# Run script from package.json (equivalent to npm run)
+pnpm run <script-name>
 
-Each component should follow this structure:
+# Run script in specific workspace
+pnpm --filter <package-name> run <script-name>
 
-```FileStructure
-components/ComponentName/
-├── ComponentName.tsx      # Main component
-├── ComponentName.scss     # Component styles
-├── index.ts              # Exports
-├── dependencies.ts       # External dependencies
-└── stories/              # Storybook stories
-    └── ComponentName.stories.tsx
+# Run script in all workspaces
+pnpm --recursive run <script-name>
 ```
 
-#### CSS Class Naming Convention
+## Workspace Management
 
-Use the `.openui-component-name` prefix with BEM-like modifiers:
+OpenUI uses pnpm workspaces for its monorepo structure. Here are the key workspace commands:
 
-```scss
-.openui-button {
-  // Base styles
+### Workspace Structure
 
-  &-primary {
-    // Primary variant styles
-  }
-
-  &-secondary {
-    // Secondary variant styles
-  }
-
-  &-small {
-    // Small size variant
-  }
-
-  &-large {
-    // Large size variant
-  }
-
-  &__icon {
-    // Component element (like icon inside button)
-  }
-
-  &--disabled {
-    // Component state modifier
-  }
-}
+```fileStructure
+js/
+├── packages/
+│   ├── react-core/
+│   ├── react-ui/
+│   └── stream/
+└── pnpm-workspace.yaml
 ```
 
----
+### Common Workspace Commands
 
-## Color System
+```bash
+# Install all dependencies across workspaces
+pnpm install
 
-### Surface / Background Colors
+# Run command in specific package
+pnpm --filter react-ui run build
 
-| Token                  | Usage                           |
-| ---------------------- | ------------------------------- |
-| `$background`          | Main page/app background        |
-| `$foreground`          | Card/container backgrounds      |
-| `$popover-background`  | Popover/dropdown backgrounds    |
-| `$overlay`             | Modal/overlay backdrop          |
-| `$sunk-light`          | Lightly recessed surface        |
-| `$sunk`                | Recessed surface (inputs)       |
-| `$sunk-deep`           | Deeply recessed surface         |
-| `$elevated-light`      | Lightly elevated surface        |
-| `$elevated`            | Elevated surface                |
-| `$elevated-strong`     | Strongly elevated surface       |
-| `$elevated-intense`    | Intensely elevated surface      |
-| `$inverted-background` | Inverted/dark backgrounds       |
-| `$highlight-subtle`    | Subtle highlight (hover states) |
-| `$highlight`           | Default highlight               |
-| `$highlight-strong`    | Strong highlight                |
-| `$highlight-intense`   | Intense highlight (selection)   |
-| `$info-background`     | Informational backgrounds       |
-| `$success-background`  | Success state backgrounds       |
-| `$alert-background`    | Warning/alert backgrounds       |
-| `$danger-background`   | Error/danger state backgrounds  |
-| `$purple-background`   | Purple accent backgrounds       |
-| `$pink-background`     | Pink accent backgrounds         |
+# Run command in all packages
+pnpm --recursive run build
 
-```scss
-.openui-card {
-  background-color: cssUtils.$foreground;
-}
+# Add dependency to specific package
+pnpm --filter react-ui add lodash
 
-.openui-modal-backdrop {
-  background-color: cssUtils.$overlay;
-}
-
-.openui-input {
-  background-color: cssUtils.$sunk;
-}
-
-.openui-error-banner {
-  background-color: cssUtils.$danger-background;
-}
+# Run tests across all packages
+pnpm --recursive run test
 ```
 
-### Interactive Colors
+## Available Scripts by Package
 
-**Accent (Primary Actions):**
+### React UI Package (`js/packages/react-ui/`)
 
-| Token                          | Usage                   |
-| ------------------------------ | ----------------------- |
-| `$interactive-accent-default`  | Primary button default  |
-| `$interactive-accent-hover`    | Primary button hover    |
-| `$interactive-accent-pressed`  | Primary button pressed  |
-| `$interactive-accent-disabled` | Primary button disabled |
+```bash
+# Development
+pnpm storybook              # Start Storybook dev server
+pnpm watch                  # Watch mode with concurrent builds
 
-**Destructive (Danger Actions):**
+# Building
+pnpm build                  # Full build (SCSS + TypeScript + Tailwind)
+pnpm build:tsc              # TypeScript compilation only
+pnpm build:scss             # SCSS compilation only
+pnpm build:plugin           # Tailwind plugin build
+pnpm build:storybook        # Storybook production build
 
-| Token                                      | Usage                       |
-| ------------------------------------------ | --------------------------- |
-| `$interactive-destructive-default`         | Destructive ghost default   |
-| `$interactive-destructive-hover`           | Destructive ghost hover     |
-| `$interactive-destructive-pressed`         | Destructive ghost pressed   |
-| `$interactive-destructive-disabled`        | Destructive ghost disabled  |
-| `$interactive-destructive-accent-default`  | Filled destructive default  |
-| `$interactive-destructive-accent-hover`    | Filled destructive hover    |
-| `$interactive-destructive-accent-pressed`  | Filled destructive pressed  |
-| `$interactive-destructive-accent-disabled` | Filled destructive disabled |
-
-```scss
-// Primary button example
-.openui-button-primary {
-  background-color: cssUtils.$interactive-accent-default;
-
-  &:not(:disabled):hover {
-    background-color: cssUtils.$interactive-accent-hover;
-  }
-
-  &:not(:disabled):active {
-    background-color: cssUtils.$interactive-accent-pressed;
-  }
-
-  &:disabled {
-    background-color: cssUtils.$interactive-accent-disabled;
-  }
-}
-
-// Destructive button example
-.openui-button-destructive {
-  background-color: cssUtils.$interactive-destructive-accent-default;
-
-  &:not(:disabled):hover {
-    background-color: cssUtils.$interactive-destructive-accent-hover;
-  }
-}
+# Code Quality
+pnpm lint:check             # Run ESLint
+pnpm lint:fix               # Fix ESLint issues
+pnpm format:check           # Check Prettier formatting
+pnpm format:fix             # Fix Prettier formatting
+pnpm ci                     # CI pipeline (lint + format check)
 ```
 
-### Text Colors
+### React Core Package (`js/packages/react-core/`)
 
-**Neutral Text:**
+```bash
+# Building
+pnpm build                  # TypeScript compilation
+pnpm watch                  # Watch mode
 
-| Token                     | Usage                              |
-| ------------------------- | ---------------------------------- |
-| `$text-neutral-primary`   | Main body text                     |
-| `$text-neutral-secondary` | Secondary/muted text, placeholders |
-| `$text-neutral-tertiary`  | Disabled/hint text                 |
-| `$text-neutral-link`      | Hyperlinks                         |
-
-**Brand & Fixed Text:**
-
-| Token         | Usage              |
-| ------------- | ------------------ |
-| `$text-brand` | Brand-colored text |
-| `$text-white` | Forced white text  |
-| `$text-black` | Forced black text  |
-
-**Accent Text:**
-
-| Token                    | Usage                                |
-| ------------------------ | ------------------------------------ |
-| `$text-accent-primary`   | Text on accent backgrounds           |
-| `$text-accent-secondary` | Secondary text on accent backgrounds |
-| `$text-accent-tertiary`  | Disabled text on accent backgrounds  |
-
-**Status Text:**
-
-| Token                    | Usage                       |
-| ------------------------ | --------------------------- |
-| `$text-success-primary`  | Success messages            |
-| `$text-success-inverted` | Text on success backgrounds |
-| `$text-alert-primary`    | Warning messages            |
-| `$text-alert-inverted`   | Text on alert backgrounds   |
-| `$text-info-primary`     | Info messages               |
-| `$text-info-inverted`    | Text on info backgrounds    |
-
-**Danger Text:**
-
-| Token                             | Usage                                |
-| --------------------------------- | ------------------------------------ |
-| `$text-danger-primary`            | Error messages                       |
-| `$text-danger-secondary`          | Secondary error text                 |
-| `$text-danger-tertiary`           | Disabled error text                  |
-| `$text-danger-inverted-primary`   | Primary text on danger backgrounds   |
-| `$text-danger-inverted-secondary` | Secondary text on danger backgrounds |
-| `$text-danger-inverted-tertiary`  | Disabled text on danger backgrounds  |
-
-**Extra Semantic Text:**
-
-| Token                   | Usage                      |
-| ----------------------- | -------------------------- |
-| `$text-pink-primary`    | Pink accent text           |
-| `$text-pink-inverted`   | Text on pink backgrounds   |
-| `$text-purple-primary`  | Purple accent text         |
-| `$text-purple-inverted` | Text on purple backgrounds |
-
-```scss
-.openui-label {
-  color: cssUtils.$text-neutral-secondary;
-}
-
-.openui-error-message {
-  color: cssUtils.$text-danger-primary;
-}
-
-.openui-link {
-  color: cssUtils.$text-neutral-link;
-}
+# Code Quality
+pnpm lint:check
+pnpm lint:fix
+pnpm format:check
+pnpm format:fix
 ```
 
-### Border Colors
+### Stream Package (`js/packages/stream/`)
 
-| Token                          | Usage                                |
-| ------------------------------ | ------------------------------------ |
-| `$border-default`              | Default borders                      |
-| `$border-interactive`          | Interactive element borders          |
-| `$border-interactive-emphasis` | Emphasized interactive borders       |
-| `$border-interactive-selected` | Selected interactive element borders |
+```bash
+# Building
+pnpm build                  # TypeScript compilation
+pnpm watch                  # Watch mode
 
-**Semantic Borders:**
-
-| Token                      | Usage                      |
-| -------------------------- | -------------------------- |
-| `$border-accent`           | Accent/brand borders       |
-| `$border-accent-emphasis`  | Emphasized accent borders  |
-| `$border-info`             | Info state borders         |
-| `$border-info-emphasis`    | Emphasized info borders    |
-| `$border-alert`            | Alert/warning borders      |
-| `$border-alert-emphasis`   | Emphasized alert borders   |
-| `$border-success`          | Success state borders      |
-| `$border-success-emphasis` | Emphasized success borders |
-| `$border-danger`           | Error state borders        |
-| `$border-danger-emphasis`  | Emphasized error borders   |
-
-```scss
-.openui-input {
-  border: 1px solid cssUtils.$border-default;
-
-  &:focus {
-    border-color: cssUtils.$border-interactive-emphasis;
-  }
-
-  &-error {
-    border-color: cssUtils.$border-danger-emphasis;
-  }
-}
+# Code Quality
+pnpm lint:check
+pnpm lint:fix
+pnpm format:check
+pnpm format:fix
 ```
 
-### Chat Colors
+### Python Package (`py/`)
 
-For chat/conversation UI components:
-
-| Token                           | Usage                                                         |
-| ------------------------------- | ------------------------------------------------------------- |
-| `$chat-container-bg`            | Chat container background (alias for `$background`)           |
-| `$chat-assistant-response-bg`   | AI/assistant message background (alias for `$foreground`)     |
-| `$chat-assistant-response-text` | AI/assistant message text (alias for `$text-neutral-primary`) |
-| `$chat-user-response-bg`        | User message background                                       |
-| `$chat-user-response-text`      | User message text                                             |
-
-```scss
-.openui-chat-message {
-  &-assistant {
-    background-color: cssUtils.$chat-assistant-response-bg;
-    color: cssUtils.$chat-assistant-response-text;
-  }
-
-  &-user {
-    background-color: cssUtils.$chat-user-response-bg;
-    color: cssUtils.$chat-user-response-text;
-  }
-}
+```bash
+# Using Poetry (not pnpm)
+poetry install              # Install dependencies
+poetry run <command>        # Run commands with Poetry
+poetry shell               # Activate virtual environment
 ```
 
----
+## Common Development Workflows
 
-## Spacing System
+### Setting Up Development Environment
 
-Use the predefined spacing scale consistently:
+```bash
+# Clone and setup the project
+git clone <repository-url>
+cd openui
 
-| Token        | Value | Usage                  |
-| ------------ | ----- | ---------------------- |
-| `$space-000` | 0     | No spacing             |
-| `$space-3xs` | 2px   | Minimal spacing        |
-| `$space-2xs` | 4px   | Very tight spacing     |
-| `$space-xs`  | 6px   | Tight spacing          |
-| `$space-s`   | 8px   | Small spacing          |
-| `$space-s-m` | 10px  | Small-medium spacing   |
-| `$space-m`   | 12px  | Medium/default spacing |
-| `$space-m-l` | 16px  | Medium-large spacing   |
-| `$space-l`   | 18px  | Large spacing          |
-| `$space-xl`  | 24px  | Extra large spacing    |
-| `$space-2xl` | 36px  | Section spacing        |
-| `$space-3xl` | 48px  | Large section spacing  |
+# Install all dependencies
+pnpm install
 
-```scss
-.openui-card {
-  padding: cssUtils.$space-m;
-  gap: cssUtils.$space-s;
-}
-
-.openui-section {
-  margin-bottom: cssUtils.$space-2xl;
-}
+# Start development servers
+pnpm --filter react-ui storybook    # UI development
 ```
 
----
+### Building for Production
 
-## Border Radius System
+```bash
+# Build all packages
+pnpm --recursive run build
 
-| Token          | Value  | Usage                          |
-| -------------- | ------ | ------------------------------ |
-| `$radius-none` | 0      | Sharp corners                  |
-| `$radius-3xs`  | 1px    | Minimal rounding               |
-| `$radius-2xs`  | 2px    | Subtle rounding                |
-| `$radius-xs`   | 4px    | Small rounding                 |
-| `$radius-s`    | 6px    | Standard small                 |
-| `$radius-m`    | 8px    | Standard medium                |
-| `$radius-l`    | 10px   | Large rounding                 |
-| `$radius-xl`   | 12px   | Extra large rounding           |
-| `$radius-2xl`  | 14px   | Very large rounding            |
-| `$radius-3xl`  | 16px   | Maximum rounding               |
-| `$radius-full` | 9999px | Fully rounded (pills, circles) |
-
-```scss
-.openui-button {
-  border-radius: cssUtils.$radius-m;
-}
-
-.openui-avatar {
-  border-radius: cssUtils.$radius-full;
-}
-
-.openui-card {
-  border-radius: cssUtils.$radius-l;
-}
+# Or build specific packages
+pnpm --filter react-ui run build
+pnpm --filter react-core run build
 ```
 
----
+### Code Quality Checks
 
-## Shadow System
+```bash
+# Check all packages
+pnpm --recursive run lint:check
+pnpm --recursive run format:check
 
-| Token         | Usage                          |
-| ------------- | ------------------------------ |
-| `$shadow-0`   | No shadow                      |
-| `$shadow-s`   | Subtle elevation (buttons)     |
-| `$shadow-m`   | Medium elevation (cards)       |
-| `$shadow-l`   | Large elevation (dropdowns)    |
-| `$shadow-xl`  | Extra large elevation (modals) |
-| `$shadow-2xl` | High elevation (popovers)      |
-| `$shadow-3xl` | Maximum elevation              |
-
-```scss
-.openui-dropdown {
-  box-shadow: cssUtils.$shadow-l;
-}
-
-.openui-modal {
-  box-shadow: cssUtils.$shadow-xl;
-}
+# Fix issues in all packages
+pnpm --recursive run lint:fix
+pnpm --recursive run format:fix
 ```
 
----
+### Adding New Dependencies
 
-## Typography System
+```bash
+# Add to specific package
+pnpm --filter react-ui add <package-name>
+pnpm --filter react-ui add -D <package-name>  # dev dependency
 
-Use the `typography` mixin for consistent text styling:
-
-```scss
-@include cssUtils.typography($category, $variant);
+# Add to root (shared tooling)
+pnpm add -D -w <package-name>
 ```
-
-### Body Text
-
-| Variant       | Usage                                   |
-| ------------- | --------------------------------------- |
-| `default`     | Standard body text (16px)               |
-| `heavy`       | Bold body text (16px)                   |
-| `small`       | Smaller body text (14px)                |
-| `small-heavy` | Small bold text (14px)                  |
-| `large`       | Larger body text (18px)                 |
-| `large-heavy` | Large bold text (18px)                  |
-| `medium`      | Alias for default                       |
-| `link`        | Alias for default (use with link color) |
-
-```scss
-.openui-paragraph {
-  @include cssUtils.typography(body, default);
-}
-
-.openui-caption {
-  @include cssUtils.typography(body, small);
-}
-
-.openui-emphasis {
-  @include cssUtils.typography(body, heavy);
-}
-```
-
-### Labels
-
-| Variant               | Usage                          |
-| --------------------- | ------------------------------ |
-| `default`             | Standard labels (16px)         |
-| `heavy`               | Bold labels (16px)             |
-| `small`               | Small labels (14px)            |
-| `small-heavy`         | Small bold labels (14px)       |
-| `medium`              | Alias for default              |
-| `medium-heavy`        | Alias for heavy                |
-| `large`               | Large labels (18px)            |
-| `large-heavy`         | Large bold labels (18px)       |
-| `extra-small`         | Extra small labels (12px)      |
-| `extra-small-heavy`   | Extra small bold labels (12px) |
-| `2-extra-small`       | Alias for extra-small          |
-| `2-extra-small-heavy` | Alias for extra-small-heavy    |
-
-```scss
-.openui-form-label {
-  @include cssUtils.typography(label, default);
-}
-
-.openui-badge {
-  @include cssUtils.typography(label, small-heavy);
-}
-```
-
-### Headings
-
-| Variant       | Usage                            |
-| ------------- | -------------------------------- |
-| `extra-small` | H4 equivalent (16px, weight 600) |
-| `small`       | H3 equivalent (18px, weight 600) |
-| `medium`      | H2 equivalent (24px, weight 600) |
-| `large`       | H1 equivalent (28px, weight 600) |
-
-```scss
-.openui-page-title {
-  @include cssUtils.typography(heading, large);
-}
-
-.openui-section-title {
-  @include cssUtils.typography(heading, medium);
-}
-```
-
-### Numbers
-
-For data display and metrics:
-
-| Variant             | Usage                                    |
-| ------------------- | ---------------------------------------- |
-| `default`           | Standard numbers (16px)                  |
-| `heavy`             | Bold numbers (16px)                      |
-| `small`             | Small numbers (14px)                     |
-| `small-heavy`       | Small bold numbers (14px)                |
-| `large`             | Large numbers (18px)                     |
-| `large-heavy`       | Large bold numbers (18px)                |
-| `extra-small`       | Extra small numbers (12px)               |
-| `extra-small-heavy` | Extra small bold numbers (12px)          |
-| `title`             | Display numbers (uses heading-lg)        |
-| `title-medium`      | Medium display numbers (uses heading-md) |
-
-```scss
-.openui-metric {
-  @include cssUtils.typography(number, large-heavy);
-}
-
-.openui-stat-value {
-  @include cssUtils.typography(number, title);
-}
-```
-
-### Code
-
-| Variant       | Usage                       |
-| ------------- | --------------------------- |
-| `default`     | Code text (14px, monospace) |
-| `heavy`       | Bold code text (14px)       |
-| `small`       | Small code text (12px)      |
-| `small-heavy` | Small bold code text (12px) |
-
-```scss
-.openui-code-block {
-  @include cssUtils.typography(code, default);
-}
-```
-
----
-
-## Utility Mixins
-
-### Button Reset
-
-Removes default button styling:
-
-```scss
-.openui-icon-button {
-  @include cssUtils.button-reset;
-  padding: cssUtils.$space-xs;
-  border-radius: cssUtils.$radius-m;
-}
-```
-
----
-
-## Component Patterns
-
-### Standard Size Variants
-
-```scss
-&-small {
-  padding: calc(cssUtils.$space-2xs - 1px) cssUtils.$space-s;
-  @include cssUtils.typography(body, small);
-}
-
-&-medium {
-  padding: calc(cssUtils.$space-xs - 1px) cssUtils.$space-m;
-  @include cssUtils.typography(body, default);
-}
-
-&-large {
-  padding: calc(cssUtils.$space-s - 1px) cssUtils.$space-l;
-  @include cssUtils.typography(body, large);
-}
-```
-
-### Button Variants
-
-```scss
-&-primary {
-  background-color: cssUtils.$interactive-accent-default;
-  color: cssUtils.$text-accent-primary;
-  border-color: cssUtils.$border-accent;
-
-  &:not(:disabled):hover {
-    background-color: cssUtils.$interactive-accent-hover;
-  }
-
-  &:not(:disabled):active {
-    background-color: cssUtils.$interactive-accent-pressed;
-  }
-
-  &:disabled {
-    background-color: cssUtils.$interactive-accent-disabled;
-    cursor: not-allowed;
-  }
-}
-
-&-secondary {
-  background-color: cssUtils.$foreground;
-  color: cssUtils.$text-neutral-primary;
-  border-color: cssUtils.$border-interactive;
-
-  &:not(:disabled):hover {
-    background-color: cssUtils.$highlight;
-  }
-
-  &:not(:disabled):active {
-    background-color: cssUtils.$highlight-strong;
-  }
-}
-
-&-destructive {
-  background-color: cssUtils.$interactive-destructive-accent-default;
-  color: cssUtils.$text-danger-inverted-primary;
-  border-color: cssUtils.$border-danger;
-
-  &:not(:disabled):hover {
-    background-color: cssUtils.$interactive-destructive-accent-hover;
-  }
-
-  &:not(:disabled):active {
-    background-color: cssUtils.$interactive-destructive-accent-pressed;
-  }
-
-  &:disabled {
-    background-color: cssUtils.$interactive-destructive-accent-disabled;
-    cursor: not-allowed;
-  }
-}
-```
-
-### Form Components Pattern
-
-```scss
-.openui-input {
-  @include cssUtils.typography(body, default);
-  border: 1px solid cssUtils.$border-default;
-  border-radius: cssUtils.$radius-m;
-  background-color: cssUtils.$sunk;
-  color: cssUtils.$text-neutral-primary;
-  padding: cssUtils.$space-xs cssUtils.$space-s;
-
-  &::placeholder {
-    color: cssUtils.$text-neutral-secondary;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: cssUtils.$border-interactive-emphasis;
-  }
-
-  &:disabled {
-    background-color: cssUtils.$sunk;
-    color: cssUtils.$text-neutral-tertiary;
-    cursor: not-allowed;
-  }
-
-  &-error {
-    border-color: cssUtils.$border-danger-emphasis;
-  }
-
-  &-success {
-    border-color: cssUtils.$border-success-emphasis;
-  }
-}
-```
-
-### Status Badges Pattern
-
-```scss
-.openui-badge {
-  @include cssUtils.typography(label, small-heavy);
-  padding: cssUtils.$space-2xs cssUtils.$space-xs;
-  border-radius: cssUtils.$radius-full;
-
-  &-success {
-    background-color: cssUtils.$success-background;
-    color: cssUtils.$text-success-primary;
-  }
-
-  &-danger {
-    background-color: cssUtils.$danger-background;
-    color: cssUtils.$text-danger-primary;
-  }
-
-  &-info {
-    background-color: cssUtils.$info-background;
-    color: cssUtils.$text-info-primary;
-  }
-
-  &-alert {
-    background-color: cssUtils.$alert-background;
-    color: cssUtils.$text-alert-primary;
-  }
-}
-```
-
----
 
 ## Best Practices
 
-### 1. Avoid Magic Numbers
+### 1. Always Use pnpm
 
-Always use design tokens instead of hardcoded values:
+```bash
+# ✅ Correct
+pnpm install
+pnpm add lodash
 
-```scss
-// ✅ Good
-padding: cssUtils.$space-m;
-border-radius: cssUtils.$radius-m;
-
-// ❌ Bad
-padding: 16px;
-border-radius: 8px;
+# ❌ Incorrect
+npm install
+npm install lodash
+yarn add lodash
 ```
 
-### 2. Consistent State Handling
+### 2. Use Workspace Filters
 
-Use the `:not(:disabled)` pattern for hover/active states:
+```bash
+# ✅ Specific package operations
+pnpm --filter react-ui run build
 
-```scss
-&:not(:disabled):hover {
-  background-color: cssUtils.$interactive-accent-hover;
-}
+# ✅ All packages
+pnpm --recursive run test
 
-&:not(:disabled):active {
-  background-color: cssUtils.$interactive-accent-pressed;
-}
+# ❌ Avoid running in wrong context
+cd js/packages/react-ui && pnpm run build  # Less efficient
 ```
 
-### 3. Focus States (Accessibility)
+### 3. Dependency Management
 
-Always include visible focus states:
+```bash
+# ✅ Add dependencies to correct packages
+pnpm --filter react-ui add react-dom  # Runtime dependency
+pnpm --filter react-ui add -D @types/react  # Dev dependency
 
-```scss
-&:focus-visible {
-  outline: 2px solid cssUtils.$border-accent;
-  outline-offset: 2px;
-}
+# ❌ Don't add to wrong package
+pnpm add react  # Would add to root, not to package
 ```
 
-### 4. Responsive Design
+### 4. Script Organization
 
-Use CSS custom properties for values that can be controlled via JavaScript:
-
-```scss
-.my-responsive-component {
-  gap: var(--component-gap, #{cssUtils.$space-m});
-  padding: var(--component-padding, #{cssUtils.$space-m});
-}
+```bash
+# ✅ Use consistent script names across packages
+"build": "tsc"
+"watch": "tsc --watch"
+"lint:check": "eslint ."
+"lint:fix": "eslint --fix ."
+"format:check": "prettier --check ."
+"format:fix": "prettier --write ."
 ```
 
-### 5. CSS Custom Properties for Theming
+### 5. Lockfile Management
 
-```scss
-.openui-themeable-component {
-  --component-bg: #{cssUtils.$foreground};
-  --component-text: #{cssUtils.$text-neutral-primary};
+```bash
+# ✅ Always commit pnpm-lock.yaml changes
+git add pnpm-lock.yaml
 
-  background-color: var(--component-bg);
-  color: var(--component-text);
-}
+# ❌ Don't modify lockfile manually
+# ❌ Don't delete lockfile without reason
 ```
 
-### 6. Component Composition
+## Troubleshooting
 
-Prefer composition over complex variants:
+### Common Issues
 
-```tsx
-// ✅ Good - Composable
-<Card>
-  <CardHeader>
-    <Title>Card Title</Title>
-  </CardHeader>
-  <CardContent>
-    <Text>Content</Text>
-    <Button variant="primary">Action</Button>
-  </CardContent>
-</Card>
+#### 1. "ELIFECYCLE" Errors
 
-// ❌ Avoid - Overly complex single component
-<ComplexCard
-  title="Card Title"
-  content="Content"
-  buttonText="Action"
-  buttonVariant="primary"
-  showHeader={true}
-  headerVariant="large"
-/>
+```bash
+# Clear node_modules and reinstall
+pnpm clean-install
+# or
+rm -rf node_modules pnpm-lock.yaml && pnpm install
 ```
 
----
+#### 2. Workspace Not Found
 
-## When to Create New Components
+```bash
+# Check workspace configuration
+cat pnpm-workspace.yaml
 
-### ✅ Create a new component when
+# Ensure package has name in package.json
+grep '"name"' packages/*/package.json
+```
 
-- The UI pattern is reusable across multiple features
-- It has its own distinct behavior and API
-- It needs specific accessibility features
-- It represents a semantic UI concept (Button, Input, Card, etc.)
+#### 3. Dependency Resolution Issues
 
-### ✅ Extend existing components when
+```bash
+# Clear cache and reinstall
+pnpm store prune
+pnpm install --force
+```
 
-- Adding a variant that fits the existing API
-- Creating a domain-specific version of a generic component
-- The new component is just a styled wrapper
+#### 4. Script Not Found
 
-### ❌ Don't create new components for
+```bash
+# Check available scripts
+pnpm run
 
-- One-off styling needs (use CSS classes or inline styles)
-- Layout-only components (use CSS Grid/Flexbox)
-- Text styling (use typography mixins)
+# Check package.json scripts section
+cat package.json | jq '.scripts'
+```
 
----
+### Performance Tips
 
-## Migration Guide
+```bash
+# Use frozen lockfile for CI
+pnpm install --frozen-lockfile
 
-When updating existing components:
+# Skip optional dependencies
+pnpm install --ignore-optional
 
-1. **Audit current styles** - Check for hardcoded values
-2. **Replace with tokens** - Use cssUtils variables
-3. **Update naming** - Ensure BEM-like class names with `openui-` prefix
-4. **Add missing states** - Include hover, focus, disabled, active states
-5. **Test thoroughly** - Verify all variants work correctly
+# Use specific package filters to avoid unnecessary work
+pnpm --filter react-ui run build  # Only build UI package
+```
 
----
+## Migration from npm/yarn
 
-## Tooling
+### npm to pnpm equivalents
 
-- **SCSS Compilation**: `pnpm build:scss`
-- **Watch Mode**: `pnpm watch`
-- **Storybook**: `pnpm storybook`
-- **Linting**: `pnpm lint:check`
-- **Format**: `pnpm format:check`
+| npm                    | pnpm                |
+| ---------------------- | ------------------- |
+| `npm install`          | `pnpm install`      |
+| `npm install <pkg>`    | `pnpm add <pkg>`    |
+| `npm install -D <pkg>` | `pnpm add -D <pkg>` |
+| `npm uninstall <pkg>`  | `pnpm remove <pkg>` |
+| `npm run <script>`     | `pnpm run <script>` |
+| `npm ls`               | `pnpm ls`           |
+| `npm outdated`         | `pnpm outdated`     |
+
+### yarn to pnpm equivalents
+
+| yarn                | pnpm                |
+| ------------------- | ------------------- |
+| `yarn`              | `pnpm install`      |
+| `yarn add <pkg>`    | `pnpm add <pkg>`    |
+| `yarn add -D <pkg>` | `pnpm add -D <pkg>` |
+| `yarn remove <pkg>` | `pnpm remove <pkg>` |
+| `yarn run <script>` | `pnpm run <script>` |
+
+## Questions?
+
+When in doubt:
+
+1. Check this document first
+2. Use `pnpm --help` for command options
+3. Check existing CI/CD scripts for patterns
+4. Ask in #engineering Slack channel
+
+Remember: **Always use pnpm, never npm or yarn** for any package management tasks in this project.
 
 ---
 > Source: [thesysdev/openui](https://github.com/thesysdev/openui) — distributed by [TomeVault](https://tomevault.io).
