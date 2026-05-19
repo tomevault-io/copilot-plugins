@@ -1,0 +1,9 @@
+{
+  "name": "arashbehmand--mom-llm",
+  "displayName": "mom-llm",
+  "description": "MoM Service: OpenAI-compatible API that orchestrates multiple LLMs in parallel and synthesizes their responses into superior answers. Get GPT-5, Claude, and Gemini working together. Features intellige",
+  "version": "1.0.0",
+  "author": "arashbehmand",
+  "homepage": "https://github.com/arashbehmand/mom-llm",
+  "skills": []
+}
