@@ -1,31 +1,67 @@
-## mcp-plugin-architecture
+## release-process
 
-> This plugin follows a structured architecture for tools and resources:
+> Details on how to perform a release
 
-# MCP Plugin Architecture
+# Release Process
 
-This plugin follows a structured architecture for tools and resources:
+Follow these steps to properly release a new version of the MCP plugin for Obsidian submission:
 
-## Tools
-- Tools are defined in the [tools/](mdc:tools) directory
-- Each tool follows a registration pattern with name, description, and handler
-- Tools should use the logger from [tools/logging.ts](mdc:tools/logging.ts)
-- Tools for file access should use VaultFileResource
+## Pre-Release Checklist
+- Ensure all tests pass: `npm run check`
+- Ensure all changes have been committed to the repository
+- Review the non-test diff since the last release
+- Update [CHANGELOG.md](mdc:CHANGELOG.md) with the new version:
+   ```markdown
+   ## [x.y.z] - YYYY-MM-DD
+   - feat: New feature description
+   - fix: Bug fix description
+   - refactor: Other changes
+   ```
 
-## Resources
-- Resources provide standardized access to Obsidian data
-- The [tools/vault_file_resource.ts](mdc:tools/vault_file_resource.ts) provides the foundation for file access
-- Resources must be registered with the MCP server
-- Resources should handle daily notes through [tools/daily_note_utils.ts](mdc:tools/daily_note_utils.ts)
+## Version Bump
+- Update the version number in the package.json
+- Run the version bump script to update version references `npm run version`
+  This script:
+  - Updates the version in [manifest.json](mdc:manifest.json)
+  - Updates [versions.json](mdc:versions.json) with the new version
+- Run a final check: `npm run check`
+- Commit all the changes `git commit -a -m 'release: prepare x.y.z release'`
 
-## Daily Notes Support
-- Daily notes follow the special scheme: `daily:///<date>` (e.g., `daily:///today`, `daily:///2024-01-15`)
-- Support aliases: "today", "yesterday", "tomorrow"
+## Tag and Push
+```bash
+git tag x.y.z
+git push origin x.y.z
+```
 
-## Server Implementation
-- MCP server uses `StreamableHTTPServerTransport` from `@modelcontextprotocol/sdk`
-- Server is defined in [mcp_server.ts](mdc:mcp_server.ts)
-- HTTP endpoint at `/mcp` handles JSON-RPC requests with Bearer token authentication
+## GitHub Release
+After pushing the tag, GitHub Actions will:
+- Create a draft release with notes from the CHANGELOG
+- Build the plugin
+- Upload the required files as binary attachments to the release:
+  - main.js
+  - manifest.json
+  - styles.css (if used by the plugin)
+
+## IMPORTANT: Obsidian Plugin Requirements
+For Obsidian plugin directory submission, the release MUST have:
+1. The tag version (x.y.z) MUST exactly match the version in manifest.json
+2. The main.js, manifest.json, and styles.css (if applicable) files MUST be uploaded as binary attachments
+3. After review, the draft release must be published
+
+## Final Steps
+- Wait for GitHub workflows to complete:
+   ```bash
+   # Get the run IDs for the latest release
+   gh run list -c $(git rev-parse x.y.z)
+   # Wait for the run to complete
+   gh run watch {CI run id}
+   gh run watch {release run id}
+   ```
+- View and publish the release:
+   ```bash
+   gh release view x.y.z --web
+   ```
+- After publishing the release, verify that all required files are attached to the release
 
 ---
 > Source: [rygwdn/obsidian-mcp-plugin](https://github.com/rygwdn/obsidian-mcp-plugin) — distributed by [TomeVault](https://tomevault.io).
