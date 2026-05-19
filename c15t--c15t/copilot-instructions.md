@@ -1,254 +1,191 @@
-## writing-guideline
+## writing-style
 
-> Style guide for technical documentation with LLM-optimized structure
+> 1. **Clarity Over Cleverness**
+
+## ✍️ Unified Documentation Style Guide (for LLMs & Authors)
+
+### 🎯 Core Style Principles (Applies to All Documentation)
+
+1. **Clarity Over Cleverness**  
+   Use simple, direct language. Favor short words and short sentences. Avoid jargon unless it’s essential—and if it is, define it once.
+
+2. **Speak Developer**  
+   Write the way you’d speak to a smart, curious engineer sitting next to you. Friendly, confident, and precise.
+
+3. **Show, Don’t Just Tell**  
+   Use examples liberally. Explain ideas with real code, not abstract theory. Every key concept should be backed by a working snippet.
+
+4. **Write in Active Voice**  
+   ✅ “Click the button to save your changes.”  
+   ❌ “The button should be clicked in order for changes to be saved.”
+
+5. **Present First, Explain Later**  
+   Get the reader to success as quickly as possible. After they’ve seen something work, then explain how/why it works.
+
+6. **Be Honest and Human**  
+   If something is tricky, say so. If you’re recommending a workaround, explain why. Transparency builds trust.
+
+7. **Use consistent terminology**  
+   Always refer to concepts, components, and APIs by the same name. Don’t mix “endpoint” and “route” if they mean the same thing.
+
+---
+
+### 📘 Tutorials: Writing Style
+
+**Tone:** Supportive, encouraging, and confidence-building  
+**Voice:** A helpful mentor walking them through their first success
+
+#### ✅ Style Rules:
+- Use **first or second person**: “Let’s build…”, “You’ll start by…”
+- Keep steps **concrete, sequential, and minimal**.
+- Don’t introduce **abstractions or options** early on.
+- Use inline **code examples and copy-pasteable blocks**.
+- Confirm user actions with language like:  
+  ✅ “You should now see…”  
+  ✅ “If that worked, your app will…”  
+- Avoid errors at all costs — assume **zero debugging ability**.
+
+---
+
+### 📗 How-To Guides: Writing Style
+
+**Tone:** Efficient, direct, and solution-focused  
+**Voice:** A senior engineer giving clear, concise steps to unblock you
+
+#### ✅ Style Rules:
+- Title format: **“How to [Do a Thing]”** — no vague names.
+- Steps should be **numbered**, each with a clear result.
+- Assume familiarity with the basics — don't over-explain.
+- Use **"you"** to keep it actionable:  
+  ✅ “You’ll use the `setState` hook to store the value.”
+- Link to reference or explanation docs when needed, instead of embedding long descriptions.
+
+---
+
+### 📙 Reference: Writing Style
+
+**Tone:** Neutral, factual, dry (in a good way)  
+**Voice:** An API robot that also wants to help you succeed
+
+#### ✅ Style Rules:
+- Be **exhaustive, not narrative**.
+- Use consistent formatting:  
+  ```
+  Function: fetchData(url: string): Promise<Data>
+  Description: Fetches data from the given URL.
+  Parameters:
+    - url: The endpoint to call.
+  Returns:
+    - A promise that resolves to the data object.
+  ```
+- Prefer **technical precision over friendliness**.
+- Include edge cases, limitations, and defaults.
+- Reference docs should be **scannable** — headings, tables, and bullet points are your friends.
+
+---
+
+### 📕 Explanation: Writing Style
+
+**Tone:** Insightful, reflective, and exploratory  
+**Voice:** An expert developer sharing wisdom at a meetup talk
+
+#### ✅ Style Rules:
+- Use **first-person plural (“we”)** or third-person neutral.
+- Break up text with headings, quotes, comparisons, and lists.
+- Be **opinionated, but humble** — “We recommend X because…” not “X is the best.”
+- Draw on **real-world scenarios**: “In high-latency environments, this matters…”
+- Link to related tutorials or reference sections where relevant.
+- Don’t be afraid to dig into **history, philosophy, or trade-offs**.
+
+---
+
+### 🧠 Additional Style Conventions
+
+| Rule | Example |
+|------|---------|
+| ✅ Use inline code for single functions, props, or values | `fetchData()` |
+| ✅ Use fenced code blocks for multi-line examples | \`\`\`js ... \`\`\` |
+| ✅ Use bold for file paths or commands | **`npm install`** |
+| ✅ Use emojis sparingly (but okay in tutorials or intros) | ✅, ⚠️, 💡 |
+| ✅ Avoid ellipses unless truncating output | ❌ “Click Save…” |
+| ✅ Always spell out acronyms on first use | “Content Delivery Network (CDN)” |
+
+---
+
+# 📄 MDX-First Documentation Rules
+
+When documenting projects that utilize Fumadocs, it's essential to adhere to specific conventions to maintain consistency and clarity. Below are key guidelines to follow:
+
+**1. Use MDX for Documentation**
+
+Always author documentation using MDX (Markdown for JSX). MDX combines the simplicity of Markdown with the power of JSX, allowing for the inclusion of interactive components within your documentation. This approach enhances the readability and functionality of the documentation. Fumadocs provides extensive support for MDX, making it the preferred choice for creating comprehensive and interactive documentation. citeturn0search5
+
+**2. Frontmatter Configuration**
+
+At the beginning of each MDX document, include a frontmatter section to define metadata such as the title and description. This metadata is crucial for organizing and presenting the documentation effectively. An example of a frontmatter section is:
 
 
-# Writing Guidelines for Humans and LLMs
-
-## Core Style Principles
-
-| Principle | Definition | Example: Good | Example: Bad |
-|-----------|------------|--------------|-------------|
-| Clear Language | Use simple, direct language with short words and sentences. Avoid unnecessary jargon. | "Click save to store your changes." | "Initiate the persistence process by activating the storage mechanism." |
-| Developer-Focused | Write in a professional but approachable tone that addresses the reader directly. | "You can configure this option in the settings panel." | "Users might want to adjust configuration parameters." |
-| Example-Driven | Include practical code examples for all key concepts. | "Use the `useState` hook: `const [count, setCount] = useState(0)`" | "State management is an important React concept." |
-| Active Voice | Make the subject perform the action rather than receive it. | "React renders the component." | "The component is rendered by React." |
-| Success-First | Show working examples before explaining theory. | "First, create a component: `function Button() {...}`. Now let's understand how it works..." | "The component lifecycle has several phases which you must understand before implementation..." |
-| Transparent | Be honest about limitations and challenges. | "This approach works well for small datasets but may cause performance issues with larger ones." | "This is the optimal solution for data management." |
-| Consistent Terms | Use the same terminology throughout to refer to the same concepts. | "Route" consistently or "endpoint" consistently, not both interchangeably. | Mixing "callback function" and "handler" for the same concept. |
-
-## For LLM Content Generation
-
-### Formatting Instructions
-
-When generating content with an LLM, ensure the following:
-
-1. **Structured Data**: Present information in well-defined structures like tables, numbered lists, and hierarchical headings
-2. **Explicit Examples**: Always include contrastive examples (good vs. bad)
-3. **Clear Boundaries**: Use explicit section markers and consistent formatting patterns
-4. **Context-Awareness**: Begin with the most critical information for the document type
-5. **Pattern Consistency**: Maintain consistent patterns throughout similar sections
-
-### LLM Content Templates
-
-For each document type, LLMs should structure content as follows:
-
-```yaml
-DocumentType: [Tutorial|HowTo|Reference|Explanation]
-Audience: [Beginner|Intermediate|Advanced]
-PrimaryGoal: "Single sentence describing document purpose"
-Sections:
-  - Name: "Introduction"
-    Content: "Clear goal statement with outcomes"
-  - Name: "Prerequisites"
-    Content: "Bulleted list of requirements"
-  - Name: "MainContent"
-    Content: "Follows appropriate structure for document type"
-  - Name: "Conclusion"
-    Content: "Summary and next steps"
+```mdx
+---
+title: MySQL Adapter
+description: The MySQL adapter provides integration with MySQL and MariaDB, widely-used relational database systems known for reliability, performance, and broad compatibility.
+---
 ```
+
 
-## Document Types and Their Styles
+The `description` field serves as an introductory paragraph and should be placed immediately after the frontmatter. This ensures that readers receive a concise overview of the document's content right from the start. citeturn0search5
 
-### Tutorials
+**3. Heading Structure**
 
-**Purpose**: Guide beginners through their first complete experience
-**Structure**:
-- Start with a clear goal statement and outcomes
-- Use numbered steps in chronological order
-- Present minimal viable examples without alternatives
-- Confirm success at each step
+Do not use an H1 (`#`) heading at the beginning of the document. The `title` defined in the frontmatter is automatically rendered as the main heading of the page. Starting with an H1 heading would duplicate the title and disrupt the document's structure. Instead, begin with an H2 (`##`) or appropriate subheading to introduce sections within the document. citeturn0search5
 
-**Writing Rules**:
-- Use first person plural ("Let's build") or second person ("You'll start by")
-- Include complete, copy-pasteable code blocks
-- Avoid introducing errors or debugging scenarios
-- Use encouraging language with confirmation statements
+**4. Consistent Writing Style**
 
-**Example Format**:
-```
-## Getting Started with React
+- **Clarity and Conciseness**: Use clear and concise language to convey information effectively.
 
-In this tutorial, you'll build your first React component. By the end, you'll have a working button component and understand basic React concepts.
+- **Active Voice**: Prefer active voice over passive voice to make sentences more direct and vigorous.
 
-### Prerequisites
+- **Consistent Terminology**: Use consistent terminology throughout the documentation to avoid confusion.
+
+- **Code Blocks**: For code examples, use fenced code blocks with appropriate language identifiers for syntax highlighting. For example:
+
+  
+```js
+  console.log('Hello, World!');
+  ```
+
+
+### 🧩 Example Template for Tutorial
+
+```md
+# Getting Started with [Product]
+
+In this tutorial, you'll build a simple [thing] using [product/tool]. By the end, you’ll have a working [result] and understand the basics of how it works.
+
+## Prerequisites
 - Node.js v18+
-- Basic JavaScript knowledge
+- A basic understanding of JavaScript
 
-### Step 1: Create a new React project
-Run the following command:
+## Step 1: Install the CLI
+
+```package-install
+our-cli
+```
+
+You should now be able to run:
 
 ```bash
-npx create-react-app my-first-app
-cd my-first-app
+our-cli --help
 ```
 
-You should see a new folder created with your React application.
+If that works, let’s move on.
+
+...
+
+## Conclusion
+
+You’ve just built a working [thing]! Next, try our [how-to guide] to add [extra feature].
 ```
-
-### How-To Guides
-
-**Purpose**: Provide task-oriented instructions for specific problems
-**Structure**:
-- Title using format "How to [accomplish specific task]"
-- Numbered steps with clear outcomes
-- Links to reference materials rather than full explanations
-
-**Writing Rules**:
-- Address the reader directly as "you"
-- Assume basic familiarity with the technology
-- Keep explanations focused only on completing the task
-- Include prerequisites explicitly
-
-**Example Format**:
-```
-## How to Add Authentication to a React Application
-
-This guide shows you how to implement user authentication in an existing React application.
-
-### Prerequisites
-- A React application
-- Basic understanding of React hooks
-
-### Steps
-
-1. Install the authentication library
-   ```package-install
-  @auth/react
-   ```
-
-2. Create an authentication context
-   ```jsx
-   function AuthProvider({ children }) {
-     // Implementation details
-     return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
-   }
-   ```
-```
-
-### Reference Documentation
-
-**Purpose**: Provide comprehensive technical details about APIs, props, methods
-**Structure**:
-- Structured, consistent formatting for each item
-- Complete coverage of parameters, return values, and types
-- Tables, lists, and hierarchical organization
-
-**Writing Rules**:
-- Use neutral, precise language 
-- Prioritize completeness over storytelling
-- Include all edge cases and limitations
-- Make content scannable with consistent formatting
-
-**Example Format**:
-```
-## useState Hook
-
-**Signature**: `const [state, setState] = useState(initialState)`
-
-**Description**: Creates a state variable with a function to update it.
-
-**Parameters**:
-- `initialState`: Any value or function that returns the initial state value.
-
-**Returns**:
-- Array containing:
-  1. Current state value
-  2. Function to update the state
-
-**Example**:
-```jsx
-function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Clicked {count} times
-    </button>
-  );
-}
-```
-```
-
-### Explanation Documentation
-
-**Purpose**: Provide conceptual understanding and background
-**Structure**:
-- Clear headings and subheadings
-- Visual aids (diagrams, comparisons, examples)
-- Links to related practical guides
-
-**Writing Rules**:
-- Use first-person plural ("we") or third-person neutral
-- Include comparisons and trade-offs
-- Connect to real-world scenarios
-- Present multiple perspectives with recommendations
-
-**Example Format**:
-```
-## Understanding React's Virtual DOM
-
-The Virtual DOM is a core concept in React that optimizes rendering performance. This explanation covers how it works and why it matters.
-
-### What is the Virtual DOM?
-
-The Virtual DOM is a lightweight copy of the actual DOM that React maintains in memory. When state changes occur:
-
-1. React creates a new Virtual DOM tree
-2. React compares it with the previous Virtual DOM tree (diffing)
-3. React updates only the necessary parts of the real DOM
-
-### Why use a Virtual DOM?
-
-Direct DOM manipulation is expensive because:
-- It triggers reflow and repaint
-- Browser operations are slower than JavaScript operations
-
-The Virtual DOM solves this by:
-- Batching DOM updates
-- Minimizing actual DOM operations
-- Providing a declarative API
-```
-
-## MDX Documentation Formatting Rules
-
-### Document Structure
-
-1. **Frontmatter requirements**:
-   ```mdx
-   ---
-   title: "Component Name"
-   description: "A brief single-paragraph description of the component or feature."
-   ---
-   ```
-
-2. **Heading hierarchy**:
-   - Never use H1 (`#`) - the title from frontmatter serves as H1
-   - Start document structure with H2 (`##`)
-   - Maintain proper nesting of headings (H2 → H3 → H4)
-
-3. **Code formatting**:
-   - Inline code: Use backticks for properties, functions, variables: `useState`
-   - Code blocks: Use triple backticks with language identifier
-     ```jsx
-     function Example() {
-       return <div>Example component</div>;
-     }
-     ```
-
-4. **Terminology consistency**:
-   - Define terms on first use: "Content Delivery Network (CDN)"
-   - Use the same term throughout the document
-
-### Machine-Readable Patterns for LLMs
-
-When writing documentation that will be processed by LLMs, follow these additional patterns:
-
-1. **Explicit section markers**: Use clear heading patterns and consistent depth
-2. **Pattern-based formatting**: Keep similar content in predictable structures
-3. **Numbered instructions**: Use explicit numbers for sequential steps
-4. **Key-value patterns**: Format properties, parameters and configurations as distinct key-value pairs
-5. **Contrastive examples**: Always provide both correct and incorrect examples
-6. **Semantic indicators**: Use formatting (bold, italics, code blocks) consistently for semantic meaning
 
 ---
 > Source: [c15t/c15t](https://github.com/c15t/c15t) — distributed by [TomeVault](https://tomevault.io).
