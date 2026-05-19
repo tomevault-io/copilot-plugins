@@ -1,344 +1,348 @@
-## project-structure
+## pull-request
 
-> DuckDuckGo.xcworkspace/          # Main workspace (ALWAYS open this)
+> PR, pull request, commit, push, git push, gh pr create, open PR, create PR, reviewer, Asana task, merge, GitHub
 
 
-# Project Structure & Organization
+# Pull Request Guidelines & Workflow
 
-## Workspace Structure
+## 🚨 CRITICAL: Required Information and Approval Before Creating PR
 
-### Root Level
+**MANDATORY**: Before creating any PR, you MUST:
+
+### Step 1: Gather Required Information
+
+### 1. Task/Issue URL
+**Ask**: "What is the Asana task URL for this PR?"
+- **NEVER proceed** with placeholder text like `[TASK_ID]` or `[INSERT_URL]`
+- **NEVER assume** you can skip this step
+- **ONLY proceed** if user explicitly says to omit it or provides the URL
+
+### 2. PR Reviewer Assignment (CRITICAL for Asana Integration)
+**Ask**: "Who should review this PR?"
+- Ask if they want to:
+  - Assign a specific reviewer (get their GitHub username for `--reviewer` flag)
+  - Use auto-assignment (`--reviewer Apple-dev` team)
+  - Handle it themselves after PR creation
+- **NEVER proceed** without understanding the reviewer assignment strategy
+- **ONLY proceed** if user explicitly provides the information or strategy
+
+**WHY THIS MATTERS**: 
+- GitHub Action only creates Asana subtask when reviewer is **assigned via GitHub's reviewer mechanism**
+- Using `--reviewer` flag triggers the `review_requested` event that runs the Asana integration
+- Without reviewer assignment, no Asana subtask is created automatically
+
+### 3. Tech Design URL (For Significant Changes)
+- **Default to "N/A"** for minor changes and bug fixes
+- **ASK for significant changes** (new features, architectural changes)
+- **Can be omitted** if user doesn't explicitly provide one - use "N/A"
+- Unlike Task/Issue URL, this is **optional** and can default to "N/A"
+
+### 4. Exception: User Explicitly Opts Out
+The **ONLY** acceptable reason to skip asking for Task URL and Reviewer is if the user explicitly states:
+- "Skip Asana task" or "No Asana task"
+- "I'll assign reviewer myself" or "Use auto-assignment"
+
+**Failure to ask for Task URL and Reviewer = violation of PR workflow.**
+
+---
+
+### Step 2: Get User Approval Before Creating PR
+
+**MANDATORY**: After gathering all information, you MUST:
+
+1. **Present the complete PR body text** to the user for review and approval
+2. **Include the reviewer name** that will be assigned
+3. **Show the exact text** that will be used in the PR body (not the command)
+4. **Wait for explicit approval** before proceeding
+5. **ONLY after approval**: Execute the `gh pr create` command
+
+**Do NOT create the PR without showing the user the exact PR body text first.**
+
+**Format for approval request:**
 ```
-DuckDuckGo.xcworkspace/          # Main workspace (ALWAYS open this)
-├── iOS/                         # iOS app target
-├── macOS/                       # macOS app target
-├── SharedPackages/              # Cross-platform Swift packages
-├── fastlane/                    # CI/CD automation
-└── README.md                    # Main project documentation
-```
+Here's the PR I'm about to create:
+**Title:** [PR title]
 
-### iOS App Structure
-```
-iOS/
-├── DuckDuckGo/                  # Main iOS app
-│   ├── AppDelegate.swift        # App lifecycle
-│   ├── MainViewController.swift # Primary browser interface
-│   ├── BrowserTab.swift        # Tab state and WebKit integration
-│   ├── AIChat/                 # AI chat integration
-│   ├── AppLifecycle/           # App lifecycle management
-│   ├── Autofill/               # Form autofill features
-│   ├── Bookmarks/              # Bookmark management
-│   ├── BrowsingMenu/           # Browser menu UI
-│   ├── Configuration/          # App configuration
-│   ├── DataImport/             # Data import utilities
-│   ├── HealthKitReporting/     # Health data reporting
-│   ├── MainWindow/             # Main window controllers
-│   ├── Subscription/           # Premium features
-│   ├── SyncPrompt/             # Sync feature prompts
-│   ├── TabSwitcher/            # Tab switching UI
-│   └── WebView/                # Web view management
-├── Core/                       # iOS-specific shared utilities
-├── AutofillCredentialProvider/ # Password autofill extension
-├── PacketTunnelProvider/       # VPN network extension
-├── OpenAction/                 # Share sheet integration
-├── Widgets/                    # Home screen widgets
-└── Configuration/              # Build configurations
-```
+**Reviewer:** @username
 
-### macOS App Structure
-```
-macOS/
-├── DuckDuckGo/                 # Main macOS app
-│   ├── AppDelegate.swift       # App lifecycle
-│   ├── MainWindow.swift        # Primary window controller
-│   ├── BrowserTabViewController.swift # Web view management
-│   ├── AIChat/                 # AI chat integration
-│   ├── Autofill/               # Form autofill features
-│   ├── Bookmarks/              # Bookmark management UI
-│   ├── Downloads/              # Download handling
-│   ├── NavigationBar/          # URL bar and navigation
-│   ├── NetworkProtection/      # VPN integration
-│   ├── Preferences/            # Settings and preferences
-│   ├── Subscription/           # Premium features
-│   ├── SyncPrompt/             # Sync feature prompts
-│   ├── TabBar/                 # Tab management UI
-│   └── WebView/                # Web view management
-├── DuckDuckGoVPN/              # Standalone VPN app
-├── NetworkProtectionSystemExtension/ # System-level VPN
-├── DuckDuckGoDBPBackgroundAgent/ # Data Broker Protection
-├── DuckDuckGoNotifications/    # System notifications
-└── Configuration/              # Build configurations
-```
+**PR Body:**
+[Show complete PR body text here]
 
-## Dependencies and Packages
-
-### Primary Dependency: BrowserServicesKit
-```swift
-// ✅ CORRECT - Always use BrowserServicesKit for shared functionality
-import BrowserServicesKit
-
-// Features provided by BrowserServicesKit:
-// - Content blocking and privacy protection
-// - Bookmarks and history management
-// - Secure credential storage
-// - Autofill functionality
-// - Navigation handling
-// - User script injection
-// - Privacy configuration
-// - Sync functionality
+Proceed with creating the PR?
 ```
 
-### Shared Packages
-```
-SharedPackages/
-├── AIChat/                     # AI chat functionality
-├── BrowserServicesKit/         # Core browser services
-├── DataBrokerProtectionCore/   # Data broker protection
-├── DesignResourcesKitIcons/    # Shared icon resources
-├── Onboarding/                 # User onboarding experience
-├── UIComponents/               # Reusable UI components
-└── VPN/                        # VPN functionality
-```
+After user approves, then execute the `gh pr create` command.
 
-### Package Dependencies
-```swift
-// ✅ CORRECT - Use shared packages for cross-platform features
-import DesignResourcesKitIcons
-import UIComponents
-import BrowserServicesKit
+## 🚨 CRITICAL: Always Open PR URL After Creation
 
-// ❌ INCORRECT - Don't duplicate functionality across platforms
-// Keep platform-specific code in iOS/ and macOS/ directories only
-```
-
-## Build Configuration
-
-### Xcode Workspace Setup
-```swift
-// ✅ CORRECT - Always open workspace, not individual projects
-// Open: DuckDuckGo.xcworkspace
-// Don't open: iOS/DuckDuckGo-iOS.xcodeproj or macOS/DuckDuckGo-macOS.xcodeproj
-```
-
-### Build Requirements
-```
-iOS:
-- Xcode 15.0 or later
-- Swift 5.9 or later
-- iOS 15.0+ deployment target
-- Valid Apple Developer account
-- Provisioning profiles for extensions
-
-macOS:
-- Xcode 15.0 or later
-- Swift 5.9 or later
-- macOS 11.4+ deployment target
-- Developer ID certificate (for notarization)
-- System extension entitlements
-```
-
-### Configuration Files
-```
-iOS/Configuration/
-├── Configuration.xcconfig         # Base configuration
-├── Configuration-Alpha.xcconfig   # Alpha build settings
-├── Configuration-Debug.xcconfig   # Debug build settings
-└── BuildNumber.xcconfig          # Build number management
-
-macOS/Configuration/
-├── Base.xcconfig                 # Base configuration
-├── Debug.xcconfig                # Debug build settings
-├── Release.xcconfig              # Release build settings
-└── AppStore.xcconfig             # App Store specific
-```
-
-## Development Setup
-
-### Initial Setup
+**MANDATORY**: After creating or updating a PR, **IMMEDIATELY** run:
 ```bash
-# ✅ CORRECT - Development setup steps
-# 1. Open workspace at root level
-open DuckDuckGo.xcworkspace
-
-# 2. Install Ruby dependencies (for Fastlane)
-bundle install
-
-# 3. Ensure all certificates and provisioning profiles are installed
-# 4. SwiftLint is enforced - run before committing
+open <PR_URL>
 ```
 
-### Key Technologies
-```swift
-// iOS Stack
-// - Language: Swift 5.9+
-// - UI: UIKit with SwiftUI components
-// - Architecture: MVVM with AppDependencyProvider
-// - Web Engine: WebKit with privacy enhancements
+This ensures the PR is accessible and properly formatted in the browser.
 
-// macOS Stack
-// - Language: Swift 5.9+
-// - UI: AppKit with SwiftUI components
-// - Architecture: MVVM with Combine
-// - Web Engine: WebKit with privacy enhancements
-// - System Integration: Native macOS features
+## Objective
+
+- **Maintain a clear and maintainable list** of open PRs in the Apple repositories
+- **Improve PR review turnaround time** through proper assignment and notification processes
+- **Establish clear rules** for internal (Apple team) and external (FrontEnd, etc.) contributions
+- **Remove PR assignment** as part of the Apple Weekly process
+
+## PR Types and Assignment Strategy
+
+We have **two different types** of code contributions:
+
+### **Projects**
+Large features or significant changes with designated technical reviewers.
+
+### **Tasks** 
+Small improvements or bug fixes that require flexible reviewer assignment.
+
+**Key Principle**: A PR **assignee** is the PR author, a PR **reviewer** is whoever will review it.
+
+## Assignment Workflows
+
+### Projects Workflow
+
+For significant features and planned work:
+
+1. **Use Technical Reviewer**: The technical reviewer should be the default person to assign the PR review
+2. **No MM Posting**: There's no need to post the PR link on MM (Mattermost)
+3. **Review Assignment Process**:
+   - Create PR with: `gh pr create --reviewer TECHNICAL_REVIEWER_USERNAME`
+   - This automatically creates Asana subtask and assigns it to the reviewer
+   - No need to manually ping on Asana (automation handles it)
+4. **Shared Responsibility**: Both the technical reviewer and developer are responsible for staying in sync
+5. **Fallback**: If the technical reviewer can't review the PR, request different reviewer in GitHub UI (triggers new Asana assignment)
+
+### Tasks Workflow
+
+For bug fixes and small improvements:
+
+1. **Pre-Agreement**: Think about who's the best person to review this task and **agree with them to be the reviewer even before posting the PR** (similar to choosing technical reviewer for projects)
+
+2. **When Uncertain**: If you don't know who would be the best person, or the problem is generic and doesn't require domain knowledge, use **GitHub auto assignment** with `--reviewer Apple-dev`
+
+3. **Assignment Process**:
+   - Create PR with: `gh pr create --reviewer USERNAME` (or `--reviewer Apple-dev` for auto)
+   - Asana subtask is automatically created and assigned
+   - No need to manually ping on Asana (automation notifies them)
+   - If reviewer is AFK, request different reviewer in GitHub UI (triggers new assignment)
+
+4. **Availability Management**:
+   - Set your GitHub to "away" to prevent auto-selection if unavailable
+   - Use your best judgment for availability
+
+5. **Reviewer Flexibility**: If assigned as reviewer but can't review or don't feel comfortable with the area, discuss reassignment with the PR author
+
+## Auto Review Assignment
+
+**Algorithm**: Load balance routing to equally distribute review work
+
+**Process**:
+1. Use `gh pr create --reviewer Apple-dev` OR manually select the **"Apple-dev" team** as reviewer in GitHub UI
+2. GitHub will automatically assign an individual based on load balancing
+3. Asana workflow automatically creates subtask and assigns to the selected reviewer's Asana account
+
+### Assignment on Asana
+
+**AUTOMATED**: When you assign a reviewer on GitHub (via `--reviewer` or UI), the workflow automatically:
+- Extracts Asana task ID from PR body
+- Creates a "Code Review" subtask in that Asana task
+- Assigns the subtask to the GitHub reviewer's Asana account
+
+**Manual steps (if needed):**
+- If automation fails or reviewer doesn't match, manually create subtask in Asana
+- **Reviewer completes** the code review subtask once review is finished
+- **Communication**: Use best judgment to contact PR author via Asana, MM, or PR comments for review feedback
+
+## Draft PRs
+
+**Purpose**: Share in-progress work for early feedback
+
+**Guidelines**:
+- Use Draft PRs for work-in-progress sharing
+- **Your responsibility**: Don't let drafts stay around for long periods
+- **No rigid timeframes**: Use best judgment on when to close drafts
+- **Goal**: Keep open PR list as clean as possible
+
+## PR Labels
+
+Use pre-defined labels to classify PR intention/state:
+
+### Current Available Labels
+
+- **`[Hacktoberfest]` & `[hacktoberfest-accepted]`**: For PRs related to Hacktoberfest event
+- **`[Pending Product Review]`**: PR is being reviewed in Ship Reviews - **NEVER merge** if this tag is present
+- **`[dependencies]`**: Automatically used by Dependabot
+
+**Adding New Labels**: Discuss with the team before creating new labels
+
+## Auto-Merge on Approval
+
+**Feature**: Automatically merge PR after review approval
+
+**Setup Process**:
+1. Set PR to auto-merge using GitHub's built-in functionality
+2. No specific labels required
+3. **Documentation**: [GitHub Auto-merge Guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request)
+
+**Requirement**: At least one green review is required due to branch protection
+
+## Branch Protection
+
+**Requirement**: **At least one green review** is required to merge any PR
+
+## Feature Flags & PR Size Guidelines
+
+### PR Size Best Practices
+
+- **Keep PRs as short as possible** for efficiency and respectful time management
+- **Use feature flags** (static or dynamic) so changes can be merged without affecting the final product
+- **Smaller PRs = better feedback**: More likely to receive constructive review comments
+
+### When Uncertain
+
+- **Talk with technical reviewer** and/or project advisor about breaking down PRs
+- **Use feature flags** to enable gradual rollout and safe merging
+
+## Pull Request Template
+
+**MANDATORY**: When creating Pull Requests, ALWAYS follow this template structure:
+
+```markdown
+Task/Issue URL: [MUST ASK USER - Do not proceed with placeholder]
+Tech Design URL: [ASK USER for significant changes; can default to N/A if not provided]
+CC: [ASK USER for stakeholders; can default to N/A if not provided]
+
+### Description
+[Provide a clear and concise description of the changes as a bulleted list. List changes in order of significance - most impactful/critical changes first, implementation details last. Be brief and omit small changes that are not directly related to the core issue being fixed. Format as bullet points without subsection titles]
+
+### Testing Steps
+[List detailed manual testing steps only. Do not include "run tests" or similar - CI runs automated tests. Focus on manual verification steps that require human interaction]
+
+### Impact and Risks
+**Impact Level: [Assess as High, Medium, Low, or None]**
+
+#### What could go wrong?
+[List potential risks and mitigation strategies]
+
+### Quality Considerations
+[Include relevant considerations for edge cases, performance, monitoring, documentation, and privacy/security]
+
+### Notes to Reviewer
+[Include any specific notes for the reviewer, if applicable]
 ```
 
-## App Extensions and System Integration
+### Template Guidelines
 
-### iOS Extensions
-```swift
-// ✅ CORRECT - iOS extension organization
-// AutofillCredentialProvider/ - Password autofill
-// PacketTunnelProvider/ - VPN network extension
-// OpenAction/ - Share sheet integration
-// Widgets/ - Home screen widgets
-```
+#### Required Information
+- **Task/Issue URL**: **MUST ASK USER** - Always obtain the actual Asana task URL, never use placeholders
+- **Tech Design URL**: **ASK USER** for significant changes; can be omitted and default to "N/A" if not explicitly provided
+- **CC**: **ASK USER** for relevant stakeholders; can default to "N/A" if not explicitly provided
+- **Description**: Clear, concise bulleted list of changes in order of significance - most critical/impactful changes first, implementation details last. Be brief and omit small changes not directly related to the core issue. No subsection titles
+- **Testing Steps**: Manual testing steps only (CI runs automated tests). Focus on human verification steps
+- **Impact Assessment**: Use guidelines below
+- **Risk Analysis**: Potential issues and mitigation strategies
+- **Quality Considerations**: Edge cases, performance, monitoring, documentation, privacy/security
 
-### macOS Extensions
-```swift
-// ✅ CORRECT - macOS extension organization
-// NetworkProtectionSystemExtension/ - System-level VPN
-// DuckDuckGoDBPBackgroundAgent/ - Background data protection
-// DuckDuckGoNotifications/ - System notifications
-// VPNProxyExtension/ - VPN proxy functionality
-```
+#### Impact Level Assessment
 
-## Testing Structure
+- **High**: Changes affecting user privacy/security, data loss potential, core functionality breaks, billing impacts, significant performance effects
+- **Medium**: Feature disruption, user flow changes, significant UI changes, analytics/tracking impacts
+- **Low**: Minor bug fixes, small UI adjustments, existing feature improvements, non-critical feature additions
+- **None**: Internal tooling, documentation, refactoring without behavior changes, test improvements
 
-### iOS Testing
-```
-iOS/
-├── DuckDuckGoTests/            # Unit tests
-├── IntegrationTests/           # Integration tests
-├── PerformanceTests/           # Performance benchmarks
-├── UITests/                    # UI automation tests
-├── SharedTestUtils/            # Shared test utilities
-└── WebViewUnitTests/           # WebKit-specific tests
-```
+#### Quality Considerations Checklist
 
-### macOS Testing
-```
-macOS/
-├── UnitTests/                  # Unit test suite
-├── IntegrationTests/           # Integration testing
-├── UITests/                    # UI automation tests
-└── SyncE2EUITests/             # End-to-end sync tests
-```
+- **Edge cases** that have been considered
+- **Performance impacts** and optimizations made
+- **Monitoring and analytics** additions or changes
+- **Documentation updates** required
+- **Privacy and security** considerations, if applicable
 
-## Important Files and Entry Points
+## PR Creation Workflow
 
-### iOS Key Files
-```swift
-// Core Application Files
-AppDelegate.swift                    # App lifecycle and initialization
-MainViewController.swift             # Primary browser interface
-BrowserTab.swift                     # Tab state management
-TabsBarViewController.swift          # Tab bar UI (iPad)
-BookmarksViewController.swift        # Bookmarks management
-PrivacyDashboardViewController.swift # Privacy protection UI
-```
+**CRITICAL**: After creating or updating a PR, **ALWAYS open the PR URL** in the browser immediately.
 
-### macOS Key Files
-```swift
-// Core Application Files
-AppDelegate.swift                    # App lifecycle management
-MainWindow.swift                     # Primary window controller
-BrowserTabViewController.swift       # Web view management
-NavigationBarViewController.swift    # URL bar and controls
-PreferencesViewController.swift      # Settings interface
-BookmarksBarViewController.swift     # Bookmarks toolbar
-```
+### Steps:
+1. **Create PR with reviewer assignment**:
+   ```bash
+   # For specific reviewer
+   gh pr create --reviewer USERNAME
+   
+   # For auto-assignment (Apple-dev team)
+   gh pr create --reviewer Apple-dev
+   ```
+   
+2. **Immediately run**: `open <PR_URL>` (the URL returned by gh command)
+3. Verify the PR appears correctly in the browser
 
-## Common Development Tasks
+### ⚠️ CRITICAL: Reviewer Assignment Requirement
 
-### Running the Apps
-```swift
-// ✅ CORRECT - Running applications
-// iOS: Select "iOS Browser" scheme and simulator/device
-// macOS: Select "DuckDuckGo" scheme and click Run
-```
+**The Asana integration ONLY works when reviewers are assigned via GitHub's reviewer mechanism.**
 
-### Adding New Features
-```swift
-// ✅ CORRECT - Feature development flow
-// 1. Determine if feature belongs in:
-//    - BrowserServicesKit (shared functionality)
-//    - Platform-specific code (iOS/ or macOS/)
-// 2. Use appropriate dependency injection patterns
-// 3. Follow existing architecture patterns
-// 4. Write comprehensive tests
-```
+**How it works:**
+- GitHub Action `.github/workflows/create_asana_pr_subtask.yml` triggers on `review_requested` event
+- Extracts Asana task ID from PR body (looks for `Task/Issue URL: https://app.asana.com/...`)
+- Creates subtask in Asana and assigns it to the GitHub reviewer
 
-### Debugging and Testing
-```swift
-// ✅ CORRECT - Testing and debugging
-// - Run tests: Cmd+U or Test navigator
-// - Use Safari Web Inspector for web content debugging
-// - Enable verbose logging in Debug builds
-// - Use Instruments for performance profiling
-```
+**This means:**
+- ✅ **CORRECT**: `gh pr create --reviewer USERNAME` (triggers Asana assignment)
+- ✅ **CORRECT**: Manually request reviewer in GitHub UI (triggers Asana assignment)
+- ❌ **WRONG**: Only mentioning reviewer in PR description (does NOT trigger Asana assignment)
+- ❌ **WRONG**: Creating PR without `--reviewer` flag (does NOT trigger Asana assignment)
 
-## Build Schemes and Configurations
+**If you forget to assign reviewer during creation:**
+1. Request reviewer manually in GitHub UI
+2. This will trigger the workflow and create the Asana subtask
 
-### iOS Build Schemes
-```
-- DuckDuckGo (iOS) - Main app
-- iOS Browser - Browser-specific build
-- Alpha - Alpha testing build
-- Debug - Development build
-```
+## Review Process Best Practices
 
-### macOS Build Schemes
-```
-- DuckDuckGo - Main app
-- Debug - Development build
-- Release - Release build
-- Review - Review build
-```
+### For PR Authors
+1. **Pre-review checklist**: Ensure all template sections are complete
+2. **Self-review**: Review your own changes before requesting review
+3. **Context**: Provide sufficient context for reviewers
+4. **Responsive**: Address review comments promptly
+5. **Asana updates**: Keep related Asana tasks updated
 
-## Platform-Specific Considerations
+### For PR Reviewers
+1. **Timely reviews**: Prioritize PR reviews to maintain good turnaround time
+2. **Thorough but efficient**: Balance thoroughness with review speed
+3. **Constructive feedback**: Provide actionable suggestions
+4. **Asana completion**: Mark code review subtasks as complete
+5. **Communication**: Use appropriate channels (Asana, MM, PR comments) for feedback
 
-### iOS-Specific Features
-```swift
-// iOS-specific implementations
-// - iPad-specific UI adaptations
-// - iPhone-specific layouts
-// - iOS system integration
-// - App Store requirements
-```
+## Workflow Summary
 
-### macOS-Specific Features
-```swift
-// macOS-specific implementations
-// - Menu bar integration
-// - Touch Bar support (MacBook Pro)
-// - Dock integration
-// - System extensions
-// - Universal Binary (Intel + Apple Silicon)
-// - Notarization requirements
-```
+### For Projects:
+1. Technical reviewer assigned by default
+2. Ready for review → **Use `gh pr create --reviewer USERNAME`** → Asana subtask auto-created
+3. No MM posting required (Asana handles it)
+4. **Open PR URL in browser**
 
-## Development Best Practices
+### For Tasks:
+1. Pre-agree on reviewer OR use auto-assignment
+2. **Use `gh pr create --reviewer USERNAME`** or `--reviewer Apple-dev` for auto-assignment
+3. Asana subtask is automatically created and assigned to reviewer
+4. Handle AFK reviewers by requesting different reviewer in GitHub (triggers new Asana assignment)
+5. **Open PR URL in browser**
 
-### Code Organization
-```swift
-// ✅ CORRECT - Follow established patterns
-// - Use dependency injection via AppDependencyProvider
-// - Keep platform-specific code in appropriate directories
-// - Share common functionality through BrowserServicesKit
-// - Follow MVVM architecture patterns
-```
+### For All PRs:
+1. **CRITICAL**: Use `--reviewer` flag when creating PR (enables Asana integration)
+2. Include valid Asana task URL in PR body (required for automation)
+3. Use feature flags for safe merging
+4. Keep PRs small and focused
+5. Apply appropriate labels
+6. Set auto-merge if desired
+7. Follow template requirements
+8. Maintain clean draft PR list
+9. **ALWAYS open PR URL after creation/update**
 
-### Performance Considerations
-```swift
-// ✅ CORRECT - Performance optimization
-// - Native Apple Silicon support
-// - Efficient memory management
-// - Hardware acceleration
-// - Optimized content blocking
-```
+---
 
-This structure ensures maintainable, testable code while providing comprehensive browser functionality across both iOS and macOS platforms. 
+**Goal**: Efficient, clear, and maintainable PR workflows that respect everyone's time while maintaining code quality.
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
