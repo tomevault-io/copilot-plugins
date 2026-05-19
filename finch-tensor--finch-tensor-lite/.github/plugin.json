@@ -1,0 +1,9 @@
+{
+  "name": "finch-tensor--finch-tensor-lite",
+  "displayName": "finch-tensor-lite",
+  "description": "Sparse Tensor Programming in Pure Python",
+  "version": "1.0.0",
+  "author": "finch-tensor",
+  "homepage": "https://github.com/finch-tensor/finch-tensor-lite",
+  "skills": []
+}
