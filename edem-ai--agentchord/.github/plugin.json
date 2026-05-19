@@ -1,0 +1,9 @@
+{
+  "name": "edem-ai--agentchord",
+  "displayName": "AgentChord",
+  "description": "[RSS 2026] ''From Reaction to Anticipation: Proactive Failure Recovery through Agentic Task Graph for Robotic Manipulation'' Official Repository",
+  "version": "1.0.0",
+  "author": "EDEM-AI",
+  "homepage": "https://github.com/EDEM-AI/AgentChord",
+  "skills": []
+}
