@@ -1,0 +1,9 @@
+{
+  "name": "nadlejs--nadle",
+  "displayName": "nadle",
+  "description": "A type-safe, Gradle-inspired task runner for Node.js.",
+  "version": "1.0.0",
+  "author": "nadlejs",
+  "homepage": "https://github.com/nadlejs/nadle",
+  "skills": []
+}
