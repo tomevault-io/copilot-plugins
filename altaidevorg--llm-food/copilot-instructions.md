@@ -1,295 +1,211 @@
-## apidatamodels-pydantic
+## batchjoborchestrator
 
-> description: llm-food project: Pydantic models for API data validation, serialization, and defining clear data contracts for requests and responses.
+> description: BatchJobOrchestrator in llm-food, handling efficient batch processing of files
 
 ---
-description: llm-food project: Pydantic models for API data validation, serialization, and defining clear data contracts for requests and responses.
-globs: llm_food/models.py
+description: BatchJobOrchestrator in llm-food, handling efficient batch processing of files
+globs: llm_food/app.py
 alwaysApply: false
 ---
-# Chapter 2: APIDataModels (Pydantic)
+# Batch Job Orchestrator
 
-In Chapter 1, we explored the [FastAPIServerEndpoints](fastapiserverendpoints.mdc), which define the HTTP API for `llm-food`. We saw how endpoints like `/convert` and `/batch` use `response_model` to specify the structure of their responses. This chapter delves into those Pydantic models, collectively referred to as `APIDataModels`, which are crucial for defining and enforcing data structures for API requests and responses.
+The BatchJobOrchestrator in llm-food manages the processing of multiple files efficiently, using temporary files and thread pool execution for optimal performance.
 
-## Motivation and Purpose
+## Core Components
 
-The primary technical problem `APIDataModels` solve is ensuring **type safety, data validation, and a clear contract** for data exchanged between the client and the server. Without well-defined data models, APIs are prone to errors caused by mismatched data formats, missing fields, or incorrect data types. This can lead to runtime failures, difficult debugging, and a brittle system.
+### 1. Batch Job Creation
+```python
+def batch_files_upload(
+    background_tasks: BackgroundTasks,
+    files: List[UploadFile],
+    output_gcs_path: str,
+):
+    """
+    Non-async endpoint that immediately writes files to disk and queues processing tasks.
+    Runs in FastAPI's thread pool to avoid blocking the event loop.
+    """
+    # Create temporary files
+    temp_files = []
+    for f in files:
+        temp_file = tempfile.NamedTemporaryFile(suffix=ext, delete=False)
+        temp_files.append(temp_file.name)
+        shutil.copyfileobj(f.file, temp_file)
+```
 
-`APIDataModels` in `llm-food` implement the Data Transfer Object (DTO) pattern. They serve as:
--   **A source of truth** for the structure of API payloads.
--   **Automatic validators** for incoming and outgoing data (leveraging FastAPI's Pydantic integration).
--   **Serializers/Deserializers** that convert Python objects to JSON and vice-versa.
--   **Clear documentation** for API consumers about expected data formats.
+### 2. PDF Batch Processing
+```python
+def _run_gemini_pdf_batch_conversion(
+    pdf_inputs_list: List[tuple[str, str]],  # (filename, temp_file_path)
+    output_gcs_path_str: str,
+    main_batch_job_id: str,
+    gemini_batch_sub_job_id: str,
+):
+    """
+    Non-async function for processing PDFs using Gemini Batch API.
+    Runs in thread pool for efficient execution.
+    """
+    # Initialize clients
+    storage_client = storage.Client(...)
+    gemini_client = get_gemini_client()
 
-**Central Use Case:** When a client requests a file conversion via the `POST /convert` endpoint (as discussed in [FastAPIServerEndpoints](fastapiserverendpoints.mdc)), the server processes the file and returns a JSON response. This response must conform to the `ConversionResponse` model. If it does, the client can reliably parse it. If the server attempts to return data in a different structure, FastAPI (using Pydantic) will raise an error, preventing malformed data from being sent.
+    # Process PDFs and create page images
+    for original_pdf_filename, temp_file_path in pdf_inputs_list:
+        with open(temp_file_path, "rb") as pdf_file:
+            page_images = convert_from_bytes(pdf_file.read())
+        
+        # Upload images and create tasks
+        for page_num, page_image in enumerate(page_images):
+            # Save to GCS and update database
+            ...
 
-All these models are defined in `llm_food/models.py`.
+    # Submit Gemini batch job
+    gemini_job = gemini_client.batches.create(...)
 
-## What are Pydantic Models?
+    # Process results and update database
+    if gemini_job.state == JobState.JOB_STATE_SUCCEEDED:
+        # Process predictions and create final markdown files
+        ...
+```
 
-Pydantic is a Python library for data validation and settings management using Python type annotations. A Pydantic model is a class that inherits from `pydantic.BaseModel`. You define the fields of your data structure as class attributes with type hints.
+### 3. Non-PDF Processing
+```python
+def _process_single_non_pdf_file_and_upload(
+    temp_file_path: str,
+    file_ext: str,
+    original_filename: str,
+    ...
+):
+    """
+    Non-async function for processing individual non-PDF files.
+    Runs in thread pool for efficient execution.
+    """
+    # Read from temporary file
+    with open(temp_file_path, "rb") as f:
+        content_bytes = f.read()
+
+    # Process content and upload results
+    markdown_texts = _process_file_content(...)
+    
+    # Upload to GCS and update database
+    ...
+
+    # Clean up temporary file
+    os.unlink(temp_file_path)
+```
+
+## Key Features
+
+1. **Efficient File Handling:**
+   - Immediate writing to temporary files
+   - No memory accumulation
+   - Proper cleanup after processing
+
+2. **Thread Pool Execution:**
+   - Non-async processing functions
+   - Runs in FastAPI's thread pool
+   - Avoids blocking the event loop
+
+3. **Status Tracking:**
+   - Database updates for progress
+   - Error handling and reporting
+   - Final status updates
+
+4. **Resource Management:**
+   - Proper client initialization
+   - Connection pooling
+   - Temporary file cleanup
+
+## Database Schema
+
+The orchestrator uses three main tables:
+
+1. **batch_jobs:**
+   - Overall job status
+   - File counts and progress
+   - Output path information
+
+2. **gemini_pdf_batch_sub_jobs:**
+   - Gemini batch job details
+   - PDF processing status
+   - Error tracking
+
+3. **file_tasks:**
+   - Individual file/page status
+   - Processing results
+   - Error messages
+
+## Status Management
 
 ```python
-# llm_food/models.py (Conceptual Example)
-from pydantic import BaseModel
-from typing import List
+def _check_and_finalize_batch_job_status(
+    main_batch_job_id: str,
+    con: duckdb.DuckDBPyConnection,
+):
+    """
+    Non-async function for checking and updating job status.
+    Called by background tasks to update overall job status.
+    """
+    # Check completion status
+    job_info = con.execute(
+        "SELECT total_input_files, overall_processed_count, overall_failed_count, status FROM batch_jobs WHERE job_id = ?",
+        (main_batch_job_id,)
+    ).fetchone()
 
-class MySimpleModel(BaseModel):
-    name: str
-    count: int
-    tags: List[str] = [] # Optional field with a default value
-```
-Pydantic will automatically:
--   Validate that data provided to create an instance of `MySimpleModel` matches the types (e.g., `name` is a string, `count` is an integer).
--   Convert types where possible (e.g., a string `"5"` to an integer `5` for `count`).
--   Provide default values if data for a field is not supplied.
--   Raise validation errors if data is incorrect or missing for required fields.
-
-FastAPI uses these models extensively. When you declare a Pydantic model as a `response_model` for an endpoint, FastAPI ensures the returned data conforms to this model and serializes it to JSON. If used for request bodies, FastAPI validates incoming JSON data against the model.
-
-## Key API Data Models in `llm-food`
-
-Let's examine the core Pydantic models used in `llm-food` for API communication.
-
-### 1. `ConversionResponse`
-
-This model defines the structure of the JSON response for synchronous conversion requests (e.g., `POST /convert` and `GET /convert` endpoints).
-
-**Purpose:** To return the converted text content along with metadata about the original file.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-from typing import List
-
-class ConversionResponse(BaseModel):
-    filename: str
-    content_hash: str
-    texts: List[str]
-```
--   `filename`: The name of the original file or a derived name from the URL.
--   `content_hash`: A SHA256 hash of the original file content.
--   `texts`: A list of strings, where each string typically represents a page or a section of the converted document (e.g., Markdown content).
-
-**Example JSON Response (for `/convert`):**
-```json
-{
-  "filename": "mydocument.docx",
-  "content_hash": "a1b2c3d4e5f6...",
-  "texts": ["Converted page 1 content...", "Converted page 2 content..."]
-}
+    # Update status if all files processed
+    if (processed_count + failed_count) >= total_files:
+        new_status = "completed_with_errors" if failed_count > 0 else "completed"
+        con.execute(
+            "UPDATE batch_jobs SET status = ? WHERE job_id = ?",
+            (new_status, main_batch_job_id)
+        )
 ```
 
-### 2. Batch Processing Models
-
-Batch processing involves multiple files and asynchronous operations, requiring more complex data models for status updates and results.
-
-#### `FileTaskDetail`
-
-This sub-model provides details about the processing status of an individual file (or a part of it, like a PDF page) within a batch job.
-
-**Purpose:** To give granular status updates for each item in a batch.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel, Field
-from typing import Optional
-
-class FileTaskDetail(BaseModel):
-    original_filename: str
-    file_type: str
-    status: str # e.g., "pending", "processing", "completed", "failed"
-    gcs_output_markdown_uri: Optional[str] = None
-    error_message: Optional[str] = None
-    page_number: Optional[int] = None # For PDF pages
-```
--   `original_filename`: The name of the file this task pertains to.
--   `file_type`: The extension or type of the file (e.g., ".docx", "pdf_page").
--   `status`: Current processing state of this file/page.
--   `gcs_output_markdown_uri`: If completed, the GCS URI of the output Markdown.
--   `error_message`: If failed, details about the error.
--   `page_number`: If the task is for a specific page of a PDF.
-
-#### `GeminiPDFSubJobDetail`
-
-This sub-model tracks the status of a batch processing sub-job specifically handled by the Gemini API (typically for PDF OCR).
-
-**Purpose:** To monitor the state of an external Gemini batch operation.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-from typing import Optional, List
-from datetime import datetime
-
-class GeminiPDFSubJobDetail(BaseModel):
-    gemini_batch_sub_job_id: str
-    batch_job_id: str # Main llm-food batch job ID
-    gemini_api_job_name: Optional[str] = None
-    status: str # e.g., "pending_preparation", "submitting_to_gemini", "JOB_STATE_SUCCEEDED"
-    # ... other fields like payload_gcs_uri, counts, error_message ...
-    total_pdf_pages_for_batch: Optional[int] = 0
-    processed_pdf_pages_count: Optional[int] = 0
-    failed_pdf_pages_count: Optional[int] = 0
-    created_at: datetime
-    updated_at: Optional[datetime] = None
-```
--   `gemini_batch_sub_job_id`: Unique ID for this specific Gemini sub-task.
--   `gemini_api_job_name`: The job name returned by the Gemini API.
--   `status`: Current status of the Gemini batch job, often reflecting Gemini's own job states.
--   Other fields track GCS URIs, page counts, and timestamps.
-
-#### `BatchJobStatusResponse`
-
-This model defines the structure for the `/status/{task_id}` endpoint, providing a comprehensive overview of a batch job's progress.
-
-**Purpose:** To allow clients to poll for the status of an ongoing batch job.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-from typing import List, Optional
-from datetime import datetime
-# Ensure FileTaskDetail and GeminiPDFSubJobDetail are defined or imported
-
-class BatchJobStatusResponse(BaseModel):
-    job_id: str
-    output_gcs_path: str
-    status: str # Overall status of the llm-food batch job
-    submitted_at: datetime
-    total_input_files: int
-    overall_processed_count: Optional[int] = 0
-    overall_failed_count: Optional[int] = 0
-    last_updated_at: Optional[datetime] = None
-    gemini_pdf_processing_details: List[GeminiPDFSubJobDetail] = []
-    file_processing_details: List[FileTaskDetail] = []
-```
--   It aggregates overall job status (`job_id`, `status`, counts) with lists of `GeminiPDFSubJobDetail` (for PDF batches) and `FileTaskDetail` (for individual file/page statuses).
-
-#### `BatchOutputItem`
-
-This sub-model represents a successfully processed file's output within a batch job result.
-
-**Purpose:** To deliver the content of a successfully converted file from a batch.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-
-class BatchOutputItem(BaseModel):
-    original_filename: str
-    markdown_content: str
-    gcs_output_uri: str
-```
--   `original_filename`: Name of the source file.
--   `markdown_content`: The converted Markdown text.
--   `gcs_output_uri`: The GCS URI where the Markdown file is stored.
-
-#### `BatchJobFailedFileOutput`
-
-This sub-model details an error encountered for a specific file during batch processing.
-
-**Purpose:** To report failures for individual files within a batch.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-from typing import Optional
-
-class BatchJobFailedFileOutput(BaseModel):
-    original_filename: str
-    file_type: str
-    page_number: Optional[int] = None # If failure is page-specific
-    error_message: Optional[str] = None
-    status: str # Specific status like "failed", "retrieval_error"
-```
--   Provides context for the failure, including filename, type, and error message.
-
-#### `BatchJobOutputResponse`
-
-This model defines the structure for the `/batch/{task_id}` endpoint when a job is completed (or completed with errors), providing the actual conversion results.
-
-**Purpose:** To deliver the final outputs and error summaries of a completed batch job.
-
-**Structure (`llm_food/models.py`):**
-```python
-from pydantic import BaseModel
-from typing import List, Optional
-# Ensure BatchOutputItem and BatchJobFailedFileOutput are defined/imported
-
-class BatchJobOutputResponse(BaseModel):
-    job_id: str
-    status: str # e.g., "completed", "completed_with_errors"
-    outputs: List[BatchOutputItem] = []
-    errors: List[BatchJobFailedFileOutput] = []
-    message: Optional[str] = None
-```
--   Contains the `job_id` and final `status`.
--   `outputs`: A list of `BatchOutputItem` for successfully processed files.
--   `errors`: A list of `BatchJobFailedFileOutput` for files that failed.
--   `message`: An optional summary message.
-
-## How FastAPI Leverages These Models
-
-As seen in [FastAPIServerEndpoints](fastapiserverendpoints.mdc), FastAPI integrates seamlessly with Pydantic models.
-
-**1. Response Serialization and Validation:**
-When you define `response_model` in an endpoint decorator, FastAPI uses it to:
--   **Validate** the data returned by your path operation function. If the data doesn't match the `response_model`'s schema (e.g., missing required field, wrong type), FastAPI raises a server-side error.
--   **Serialize** the Python object (instance of the Pydantic model) into a JSON response.
--   **Document** the response structure in the automatically generated OpenAPI (Swagger UI) documentation.
+## Error Handling
 
 ```python
-# llm_food/app.py (Simplified snippet from Chapter 1)
-from .models import ConversionResponse # Our Pydantic model
-
-@app.post("/convert", response_model=ConversionResponse)
-async def convert_file_upload(file: UploadFile = File(...)):
-    # ... processing logic ...
-    texts_list = ["Processed content"]
-    # The returned dict will be validated against ConversionResponse
-    return {
-        "filename": file.filename,
-        "content_hash": "some_hash",
-        "texts": texts_list
-    }
-    # Alternatively, return an instance:
-    # return ConversionResponse(filename=file.filename, ...)
+def _record_pdf_failure(
+    con: duckdb.DuckDBPyConnection,
+    batch_job_id: str,
+    pdf_filename: str,
+    error_message: str,
+    current_time: datetime,
+):
+    """
+    Helper function for consistent error recording.
+    Updates both file_tasks and batch_jobs tables.
+    """
+    file_task_id = str(uuid.uuid4())
+    con.execute(
+        "INSERT INTO file_tasks (...) VALUES (...)",
+        (file_task_id, batch_job_id, pdf_filename, "failed", error_message, ...)
+    )
+    con.execute(
+        "UPDATE batch_jobs SET overall_failed_count = overall_failed_count + 1",
+        (batch_job_id,)
+    )
 ```
 
-**2. Request Body Validation (Less common in `llm-food` direct file uploads):**
-While `llm-food` primarily uses `File(...)` and `Form(...)` for uploads, if an endpoint expected a JSON request body, you could type-hint a Pydantic model:
+## Best Practices
 
-```python
-# Conceptual example, not directly in llm-food's current app.py
-# from .models import SomeRequestModel # Assume this Pydantic model exists
+1. **Resource Management:**
+   - Always clean up temporary files
+   - Close database connections properly
+   - Release client resources
 
-# @app.post("/some_json_endpoint")
-# async def process_json_data(data: SomeRequestModel):
-#     # FastAPI automatically parses and validates the JSON body into 'data'
-#     # If validation fails, a 422 Unprocessable Entity error is sent.
-#     return {"message": f"Received name: {data.name}"}
-```
+2. **Error Handling:**
+   - Consistent error recording
+   - Proper status updates
+   - Cleanup on failure
 
-## Benefits for Client-Side Development
+3. **Performance:**
+   - Use thread pool for CPU-intensive tasks
+   - Avoid memory accumulation
+   - Efficient database operations
 
-These Pydantic models are not just for the server. They provide a clear, machine-readable contract for API clients:
--   **Predictable Responses:** Clients know exactly what data structure to expect for each endpoint.
--   **Structured Deserialization:** Client libraries (like the [LLMFoodClient](llmfoodclient.mdc)) can use these same model definitions (or equivalent structures) to parse JSON responses into typed objects, making client-side data handling safer and more convenient.
--   **Reduced Integration Errors:** Strong typing and clear schemas minimize misunderstandings about data formats, reducing integration issues between client and server.
-
-## Conclusion
-
-`APIDataModels` (Pydantic models) are a cornerstone of the `llm-food` API's robustness and maintainability. They enforce data consistency, provide automatic validation and serialization, and serve as clear DTOs for all client-server communication. By defining the "shape" of our data, we prevent a wide class of common API errors and make the system easier to understand and extend.
-
-In the next chapter, we'll see how these models are utilized by the [LLMFoodClient](llmfoodclient.mdc) to interact with the server API in a structured way.
-
-Next: [LLMFoodClient](llmfoodclient.mdc)
-
-
----
-
-Generated by [Rules for AI](https://github.com/altaidevorg/rules-for-ai)
+4. **Status Tracking:**
+   - Regular status updates
+   - Detailed error messages
+   - Progress monitoring 
 
 ---
 > Source: [altaidevorg/llm-food](https://github.com/altaidevorg/llm-food) — distributed by [TomeVault](https://tomevault.io).
