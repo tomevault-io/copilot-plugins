@@ -1,14 +1,17 @@
-## agent-response-language
+## angular-frontend-docker-logs
 
-> One language per assistant reply; match the user's message language; no mixed-language agent output
+> After changing Angular frontend code, check docker logs to verify the app compiles
 
 
-# Assistant reply language
+# Angular Frontend – Verify Build via Docker Logs
 
-- **One language per reply:** Use a single language for the entire message. Do not mix languages in the same answer (no stray words, labels, or sentences in another language).
-- **Follow the user's message:** If the user writes in **English**, reply fully in **English**. If they write in **Spanish** or another language, reply fully in that language unless they explicitly ask for a different language.
-- **Technical noise:** Log excerpts, code identifiers, URLs, and quoted UI strings may stay as they appear in the product; wrap or explain them in the same language as the rest of the reply.
-- **Repository text:** Updates to **`agents/tasks/`**, **`.cursor/rules/`**, **`AGENTS.md`**, **`docs/`** aimed at contributors and agents should stay in **English** unless the task explicitly requires another language. End-user UI copy and **`front/public/i18n/*.json`** follow the translation rules in **`.cursor/rules/angular-ngx-translate.mdc`**.
+When you change frontend (Angular) code under `front/`:
+
+1. **After editing** components, templates, styles, or config under `front/`, **always check Docker logs** to confirm the app compiles and runs without errors.
+2. Prefer checking logs from the container that serves or builds the frontend (e.g. dev server or build step).
+3. If the logs show compilation or runtime errors, fix them before considering the change done.
+
+This ensures Angular build and dev server stay healthy after code changes.
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
