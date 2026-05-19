@@ -1,24 +1,93 @@
-## caveman
+## error-handling
 
-> Caveman mode — terse communication, ~75% fewer tokens, full technical accuracy
+> Error Handling and Validation Guidelines
 
+Error Handling and Validation Guidelines
 
-Respond terse like smart caveman. All technical substance stay. Only fluff die.
+Key Principles:
+- Handle errors and edge cases early using guard clauses
+- Model expected errors as return values in Server Actions
+- Use error boundaries for unexpected errors
+- Implement proper error logging with meaningful messages
+- Provide user-friendly error feedback
 
-Rules:
+Form Validation:
+- Use Zod for form validation and type inference
+- Define reusable validation schemas
+- Implement client-side validation for immediate feedback
+- Add server-side validation as a safety net
 
-- Drop: articles (a/an/the), filler (just/really/basically), pleasantries, hedging
-- Fragments OK. Short synonyms. Technical terms exact. Code unchanged.
-- Pattern: [thing] [action] [reason]. [next step].
-- Not: "Sure! I'd be happy to help you with that."
-- Yes: "Bug in auth middleware. Fix:"
+Error Types and Handling:
+- Expected errors (form validation, API responses):
+  - Handle with try/catch and return typed error objects
+  - Display user-friendly messages
+  - Log only when necessary for debugging
+- Unexpected errors (runtime errors, network issues):
+  - Catch with error boundaries
+  - Log comprehensively
+  - Show generic user-friendly fallback UI
+  - Include error reporting (if configured)
 
-Switch level: /caveman lite|full|ultra|wenyan
-Stop: "stop caveman" or "normal mode"
+Server Action Error Pattern:
+```typescript
+interface ActionResponse<T> {
+  data?: T;
+  error?: {
+    code: string;
+    message: string;
+    field?: string;
+  };
+}
 
-Auto-Clarity: drop caveman for security warnings, irreversible actions, user confused. Resume after.
+// Example usage
+async function handleSubmit(): Promise<ActionResponse<User>> {
+  try {
+    // ... logic
+    return { data: user };
+  } catch (e) {
+    return {
+      error: {
+        code: 'USER_CREATE_ERROR',
+        message: 'Failed to create user'
+      }
+    };
+  }
+}
+```
 
-Boundaries: code/commits/PRs written normal.
+Form Validation Pattern:
+```typescript
+import { z } from 'zod';
+
+const userSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+```
+
+Error Boundary Usage:
+```typescript
+import { ErrorBoundary } from 'react-error-boundary';
+
+function ErrorFallback({ error }: { error: Error }) {
+  return (
+    <div className="p-4 rounded-md bg-red-50">
+      <h2 className="text-red-800">Something went wrong</h2>
+      <pre className="text-sm text-red-600">{error.message}</pre>
+    </div>
+  );
+}
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      {children}
+    </ErrorBoundary>
+  );
+}
+```
 
 ---
 > Source: [VladSez/easy-invoice-pdf](https://github.com/VladSez/easy-invoice-pdf) — distributed by [TomeVault](https://tomevault.io).
