@@ -1,127 +1,112 @@
-## 05-template-processing
+## 06-architecture-management
 
-> This document explains how templates are processed and variables are substituted in Agent Rules Kit.
+> This document explains how different architecture styles are managed for each stack in Agent Rules Kit.
 
-# Template Processing & Variables
+# Architecture Management
 
-This document explains how templates are processed and variables are substituted in Agent Rules Kit.
+This document explains how different architecture styles are managed for each stack in Agent Rules Kit.
 
-## Template Variables
+## Package Management
 
-The following variables are available for use in template files:
+Always use `pnpm` to install new packages or to run commands.
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `{projectPath}` | Path to the project | `/path/to/project` |
-| `{detectedVersion}` | Detected version of the framework | `10` |
-| `{versionRange}` | Compatible version range | `v10-11` |
-| `{stack}` | Selected stack | `laravel` |
+## Architecture Structure
 
-## Processing Flow
+Each stack can have multiple architecture styles organized in the following way:
 
-1. **Read Template**: Templates are read from `templates/` directory
-2. **Process Variables**: All variables in `{placeholder}` format are replaced
-3. **Add Front Matter**: Metadata is added as front matter to MDC files
-4. **Output Generation**: Processed content is written to destination
+```
+templates/
+└── stacks/
+    ├── laravel/
+    │   ├── base/              # Common rules for all Laravel projects
+    │   ├── architectures/     # Architecture-specific rules
+    │   │   ├── standard/      # Standard MVC architecture
+    │   │   ├── ddd/           # Domain-Driven Design architecture
+    │   │   └── hexagonal/     # Hexagonal (Ports & Adapters) architecture
+    │   └── v10-11/            # Version-specific overlays
+    │
+    └── nextjs/
+        ├── base/              # Common rules for all Next.js projects
+        ├── architectures/     # Architecture-specific rules
+        │   ├── app/           # App Router architecture (Next.js 13+)
+        │   └── pages/         # Pages Router architecture
+        └── v13/               # Version-specific overlays
+```
+
+## Configuration
+
+Architectures are configured in `templates/kit-config.json`:
+
+```json
+{
+  "[stack_name]": {
+    "default_architecture": "standard",
+    "version_ranges": {
+      "8": {
+        "name": "Laravel 8-9",
+        "range_name": "v8-9"
+      },
+      "9": {
+        "name": "Laravel 8-9",
+        "range_name": "v8-9"
+      },
+      "10": {
+        "name": "Laravel 10-11",
+        "range_name": "v10-11"
+      }
+    },
+    "globs": [
+      "<root>/app/**/*.php",
+      "<root>/routes/**/*.php"
+    ],
+    "architectures": {
+      "standard": {
+        "name": "Standard Architecture", 
+        "globs": [...],
+        "pattern_rules": {...}
+      },
+      "ddd": {
+        "name": "Domain-Driven Design",
+        "globs": [...],
+        "pattern_rules": {...}
+      }
+    }
+  }
+}
+```
+
+Key configuration properties:
+
+- `default_architecture`: The default architecture to use if none is specified
+- `version_ranges`: Maps major versions to version range information
+  - `name`: Human-readable name for the version range
+  - `range_name`: Identifier used for version-specific directories
+- `globs`: File patterns to apply rules to
+- `architectures`: Available architecture styles for the stack
+  - Each architecture can have its own `globs` and `pattern_rules`
+
+## Architecture Selection
+
+During CLI execution, users are prompted to select an architecture for their stack:
+
+```
+? Select Laravel architecture style: (Use arrow keys)
+❯ Standard Laravel (MVC with Repositories)
+  Domain-Driven Design (DDD)
+  Hexagonal Architecture (Ports and Adapters)
+```
+
+The default architecture (set in `kit-config.json`) is pre-selected.
 
 ## Implementation
 
-The main processing happens in `cli/utils/file-helpers.js`:
+Architecture rules are applied in the following order:
 
-```javascript
-// Process template variables (simplified example)
-const processTemplateVariables = (content, meta = {}) => {
-  let processedContent = content;
-  
-  // Replace all template variables with their values
-  const templateVariables = [
-    { value: meta.detectedVersion, replace: 'detectedVersion' },
-    { value: meta.versionRange, replace: 'versionRange' },
-    { value: meta.projectPath, replace: 'projectPath' },
-    { value: meta.stack, replace: 'stack' }
-  ];
-  
-  templateVariables.forEach(({ value, replace }) => {
-    if (value) {
-      const regex = new RegExp(`\\{${replace}\\}`, 'g');
-      processedContent = processedContent.replace(regex, value);
-    }
-  });
-  
-  return processedContent;
-};
-```
+1. Base rules for the stack
+2. Version-specific overlays
+3. Architecture-specific rules
 
-## Example
-
-Template file:
-```markdown
-# {stack} Documentation
-
-This project is using {stack} version {detectedVersion}.
-It is located at {projectPath}.
-```
-
-After processing (if stack=laravel, detectedVersion=10, projectPath=/app):
-```markdown
-# laravel Documentation
-
-This project is using laravel version 10.
-It is located at /app.
-```
-
-
-# Template Structure Guidelines
-
-This document explains the organization pattern for all stack documentation in Agent Rules Kit.
-
-## Core Organization Pattern
-
-All documentation for stacks follows this three-tier structure:
-
-### 1. Base Documentation (Conceptual)
-
-Files in `templates/stacks/<stack>/base/` contain **ONLY** conceptual information with no implementation-specific code. These files:
-
-- Explain general concepts
-- Provide architectural guidelines
-- Outline best practices
-- Avoid version-specific implementation details
-
-Example: `templates/stacks/<stack>/base/architecture-concepts.md`
-
-### 2. Version-Specific Implementation
-
-Files in `templates/stacks/<stack>/v<number>/` contain concrete implementation examples specific to that version:
-
-- Code examples showing actual implementation
-- Version-specific APIs and patterns
-- Testing implementations with exact syntax
-- Configuration examples
-
-Example: `templates/stacks/<stack>/v3/testing-best-practices.md`
-
-### 3. Shared Version Implementations
-
-When implementations are identical across adjacent versions, use a shared folder:
-
-- `templates/stacks/<stack>/v2-3/` for code shared between versions 2 and 3
-- Avoids duplication while maintaining version specificity
-- Should still be implementation-focused
-
-## Naming Conventions
-
-1. Use consistent file names across versions
-2. Same base filename should refer to the same concept
-3. Keep extensions as `.md` (they will be converted to `.mdc` by the CLI)
-
-## When Editing Templates
-
-- If adding new concepts: add to `/base` without implementation details
-- If adding version-specific code: add to the appropriate `/v<number>` folder
-- If updating shared code: ensure it's compatible with all versions in the range
-
-This structure maintains clear separation between concepts and implementation, preventing future maintenance issues and ensuring clear guidance for all supported versions.
+This enables having common rules across all architectures while providing specialized guidance for each architecture style.
 
 ---
 > Source: [tecnomanu/agent-rules-kit](https://github.com/tecnomanu/agent-rules-kit) — distributed by [TomeVault](https://tomevault.io).
