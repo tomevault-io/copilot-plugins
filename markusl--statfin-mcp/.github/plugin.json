@@ -1,0 +1,9 @@
+{
+  "name": "markusl--statfin-mcp",
+  "displayName": "statfin-mcp",
+  "description": "Production-grade Model Context Protocol (MCP) server for Statistics Finland's StatFin database. Enables AI assistants like Claude to browse, search, and query Finnish statistical data.",
+  "version": "1.0.0",
+  "author": "markusl",
+  "homepage": "https://github.com/markusl/statfin-mcp",
+  "skills": []
+}
