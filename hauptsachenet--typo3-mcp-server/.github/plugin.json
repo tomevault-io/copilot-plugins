@@ -1,0 +1,9 @@
+{
+  "name": "hauptsachenet--typo3-mcp-server",
+  "displayName": "typo3-mcp-server",
+  "description": "One MCP endpoint connects your TYPO3 site to Claude, Cursor, n8n, and any AI tool \u2014 safely through workspaces.",
+  "version": "1.0.0",
+  "author": "hauptsacheNet",
+  "homepage": "https://github.com/hauptsacheNet/typo3-mcp-server",
+  "skills": []
+}
