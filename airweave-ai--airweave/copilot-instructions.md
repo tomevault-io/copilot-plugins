@@ -1,127 +1,128 @@
-## auth-providers
+## backend-rules
 
-> Auth providers enable third-party services (Pipedream, Composio) to supply credentials for source connections, eliminating manual credential management and enabling OAuth at scale for agent developers who are already using these connector providers.
+> - **FastAPI Application** (`main.py`): Entry point for HTTP requests
 
-# Airweave Auth Providers
+# Airweave Backend Architecture
 
-## Overview
-Auth providers enable third-party services (Pipedream, Composio) to supply credentials for source connections, eliminating manual credential management and enabling OAuth at scale for agent developers who are already using these connector providers.
+## Core Layers
 
-## Architecture
+### API Layer
+- **FastAPI Application** (`main.py`): Entry point for HTTP requests
+- **API Routes** (`endpoints/`): RESTful endpoints organized by resource
+- **Dependencies** (`api/deps.py`): Authentication and request validation
 
-### Core Components
-```
-domains/auth_provider/
-├── _base.py              # BaseAuthProvider abstract class
-├── auth_result.py        # AuthResult dataclass
-├── exceptions.py         # Typed exception hierarchy
-├── protocols.py          # Domain protocols
-├── registry.py           # Provider discovery/registration
-├── service.py            # AuthProviderService
-├── types.py              # Shared type aliases
-├── providers/
-│   ├── composio.py       # API key provider
-│   ├── klavis.py         # Future provider
-│   └── pipedream.py      # OAuth2 provider (tokens expire in 3600s)
-└── tests/
-```
+### Service Layer
+- **Sync Service**: Orchestrates data synchronization between sources and destinations
+- **DAG Service**: Manages directed acyclic graphs for data transformations
+- **OAuth2 Service**: Handles authentication for integrations
+- **Identity Provider** (protocol): Abstracts user authentication, roles, and organization memberships (Auth0, Null, Fake adapters)
+- **Payment Gateway** (protocol): Abstracts subscription management and billing operations (Stripe adapter)
+- **Resend Service**: Manages transactional email delivery and templates
+- **PostHog Service**: Manages product analytics and user event tracking
 
-### Provider Registration
-```python
-@auth_provider(
-    name="Pipedream",
-    short_name="pipedream",
-    auth_config_class=PipedreamAuthConfig,
-    config_class=PipedreamConfig,
-)
-class PipedreamAuthProvider(BaseAuthProvider):
-    async def create(credentials, config): ...
-    async def get_creds_for_source(source_short_name, fields): ...
-```
+### Data Access Layer
+- **CRUD Modules** (`crud/`): Database operations for each entity
+- **Unit of Work**: Transaction management with atomic operations
+- **Database Session**: Async SQLAlchemy session management. This extra care must be applied with lazy objects and sessions.
 
-### Provider Configuration
-Providers have several configuration mechanisms:
+### Domain Layer
+- **Models** (`models/`): Database models (SQLAlchemy ORM)
+- **Schemas** (`schemas/`): API data validation models (Pydantic)
 
-#### Field Mappings
-Map between Airweave and external service naming:
-```python
-# Map Airweave field names to provider field names
-FIELD_NAME_MAPPING = {"api_key": "generic_api_key", "personal_access_token": "access_token"}
+Detail: `short_name` is a globally unique identifier used throughout the system, e.g. `slack`, `outlook` or `hubspot_crm`
 
-# Map Airweave source names to provider source names (only needed when names differ)
-SLUG_NAME_MAPPING = {
-    "google_drive": "googledrive",
-    "google_slides": "googleslides",
-    "outlook_mail": "outlook"
-}
-```
+## Key Components
+
+### Platform Components
+- **Sources** (`platform/sources/`): Connectors to external data sources (APIs, DBs)
+- **Destinations** (`platform/destinations/`): Vector database adapters
+- **Embedding Models** (`platform/embedding_models/`): Text vectorization services
+- **Transformers** (`platform/transformers/`): Data transformation processors
+- **Entities** (`platform/entities/`): Core search objects that flow through the system
+
+### Sync Architecture
+If necessary (like editing ), refer [sync-architecture.mdc](mdc:.cursor/rules/sync-architecture.mdc).
+
+### Infrastructure
+- **Config** (`core/config.py`): Environment-based configuration
+- **Logging** (`core/logging.py`): Structured logging system
+- **Exceptions** (`core/exceptions.py`): Centralized error handling
+- **Migrations** (`alembic/`): Database schema versioning
+
+## Data Flow
+
+1. **Request Processing**: API request → Authentication → Schema Validation → Handler (often CRUD, otherwise service)
+2. **Sync Flow**: Source → Transformation (DAG) → Embedding → Destination
+3. **Database Operations**: CRUD with Unit of Work pattern for transactions
 
 
-## Integration with TokenProviderProtocol
+## Rules
 
-Auth providers integrate via `AuthProviderTokenProvider`, one of three `TokenProviderProtocol` implementations:
+### Style & Structure
+- Python 3.11+, FastAPI, SQLAlchemy async ORM
+- Black (100 char), isort, Ruff with Google docstrings including arg and return type annotation
+- Models → `models/`, Pydantic schemas → `schemas/`
+- Domain modules → `domains/` (protocols, service, repository, operations, fakes, subscribers)
+- Platform connectors → `platform/` modules by function (sources, destinations, transformers, entities)
+- Sync handlers → `platform/sync/`
 
-### Protocol hierarchy
+### Code Principles
+- Descriptive names over comments
+- Async for all I/O operations
+- Typed parameters and returns
+- Keep functions under 50 lines
 
-```
-SourceAuthProvider (Protocol)          — base: provider_kind + supports_refresh
-├── TokenProviderProtocol (Protocol)   — get_token() + force_refresh()
-│   ├── OAuthTokenProvider             — expiry-aware refresh, DB-backed
-│   ├── StaticTokenProvider            — raw string / API key (no refresh)
-│   └── AuthProviderTokenProvider      — delegates to Pipedream / Composio
-└── DirectCredentialProvider[T]        — structured creds (NTLM, client_credentials)
-```
+### Architecture
+- SQLAlchemy models with UUID primary keys
+- FastAPI dependency injection for services
+- Error responses via custom exceptions
+- Background processing with Redis workers (upcoming)
 
-```python
-class SourceAuthProvider(Protocol):
-    @property
-    def provider_kind(self) -> AuthProviderKind: ...  # "oauth" | "auth_provider" | "static" | "credential"
-    @property
-    def supports_refresh(self) -> bool: ...
+### API Convention
+- RESTful endpoints in `endpoints/` -> the version is not part of the endpoint. It's just host.com/{endpoint}!
+- Consistent response structures
+- One router per resource type
+- Logger injected via `ctx` dependency for contextual logging
 
-class TokenProviderProtocol(SourceAuthProvider, Protocol):
-    async def get_token(self) -> str: ...
-    async def force_refresh(self) -> str: ...
-```
 
-Sources receive `auth: SourceAuthProvider` at construction. Narrow the type in `create()` to declare what you need:
-- `auth: TokenProviderProtocol` for token-based sources (90%)
-- `auth: DirectCredentialProvider[MyAuthConfig]` for structured-credential sources
+### Logging convention
+- Stick to log level standards
+- Always try to use logger from ctx (in case of API) or sync_context (if during sync)
 
-### AuthProviderTokenProvider
-Created by `SourceLifecycleService` when a source connection has an `auth_provider_connection_id`.
+### PostHog Analytics Integration
+- **Module Path**: `airweave.analytics.service` for core analytics and user behavior tracking
+- **Environment Variables**: `POSTHOG_API_KEY`, `POSTHOG_HOST`, `ANALYTICS_ENABLED`, `ENVIRONMENT` in `core/config.py`
+- **Event Tagging**: All events automatically include an `environment` property from `ENVIRONMENT` variable for filtering by deployment environment
+- **Usage Patterns**:
+  - **API Endpoints**: Import `analytics` directly and use `analytics.track_event()` for custom tracking
+  - **Search Operations**: Automatically tracked via `SearchService.search()` - no manual tracking required
+  - **Business Events**: Use `business_events.track_*()` methods for high-level metrics
+- **Direct Import Pattern**: Use `from airweave.analytics.service import analytics` instead of `ApiContext` for direct access
+- **Error Handling**: Analytics errors are logged but never crash the application
+- **Property Guidelines**: Use `.value` for enums, avoid mutating caller's properties dict
+- **Timing**: Use `time.monotonic()` for duration measurements, not `time.time()`
+- **Session Replay Integration**:
+  - **Header Flow**: Frontend sends PostHog session ID via `X-Airweave-Session-ID` header
+  - **Header Extraction**: `deps._extract_headers_from_request()` extracts session ID into `RequestHeaders.session_id`
+  - **PostHog Property**: `ContextualAnalyticsService` automatically adds `$session_id` property to all events
+  - **Purpose**: Links backend events to frontend session replays for debugging and user journey analysis
+  - **Implementation**: Session ID flows through `RequestHeaders` → `ContextualAnalyticsService` → `_build_base_properties()` → `$session_id` property
 
-```python
-# Lifecycle builds the provider with the auth provider instance
-provider = AuthProviderTokenProvider(
-    auth_provider=auth_provider_instance,
-    source_short_name="slack",
-    auth_config_fields=["access_token", "refresh_token"],
-    logger=logger,
-)
-```
+### Search Persistence & Analytics
+- **Database-First Approach**: Every search is persisted to `search_queries` table via `CRUDSearchQuery`
+- **Dual Analytics**: Both database persistence and PostHog events tracked automatically
+- **Comprehensive Data**: Database + PostHog contain all search metadata, performance metrics, and feature usage data
+- **Non-blocking**: Both persistence methods fail gracefully without affecting search functionality
+- **Automatic Tracking**: All search operations (regular, streaming, legacy) tracked uniformly via `SearchService`
 
-#### Refresh Flow
-1. **`get_token()`** — calls `auth_provider.get_creds_for_source()` each time to fetch fresh credentials from the external service (Pipedream/Composio)
-2. **`force_refresh()`** — same as `get_token()` (auth providers always return fresh creds)
-3. **Retry** — uses tenacity (3 attempts, exponential backoff) on `AuthProviderServerError` / `AuthProviderRateLimitError`
-4. **Error translation** — `AuthProviderError` subtypes are mapped to `TokenProviderError` subtypes:
-   - `AuthProviderAuthError` → `TokenCredentialsInvalidError`
-   - `AuthProviderAccountNotFoundError` → `TokenProviderAccountGoneError`
-   - `AuthProviderMissingFieldsError` → `TokenProviderMissingCredsError`
-   - `AuthProviderConfigError` → `TokenProviderConfigError`
-   - `AuthProviderRateLimitError` → `TokenProviderRateLimitError`
-   - `AuthProviderServerError` → `TokenProviderServerError`
+### Security
 
-### Provider Resolution (in SourceLifecycleService)
-1. Auth provider connection present → `AuthProviderTokenProvider`
-2. OAuth credentials with `oauth_type` → `OAuthTokenProvider`
-3. Direct token injection → `StaticTokenProvider`
-
-## Database Schema
-- **auth_providers**: Provider definitions from decorators
-- **auth_provider_connections**: User's configured providers (encrypted)
-- **source_connections**: Links to auth provider via `auth_provider_connection_id`
+- Never use `random.*` for security-sensitive values — ruff
+  rule `S311` bans it
+- Use `secrets.choice()`, `secrets.randbelow()`,
+  `secrets.token_bytes()`, or `secrets.token_urlsafe()` instead
+- Seeded `random.Random(seed)` is acceptable **only** for
+  deterministic test-data generation (stub sources)
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
