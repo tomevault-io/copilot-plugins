@@ -1,15 +1,16 @@
-## php-laravel
+## react-typescript
 
-> PHP/Laravel conventions for app, database, routes, config.
+> React/TypeScript and Inertia conventions for resources/js.
 
 
-# PHP/Laravel
+# React / TypeScript
 
-- Use `declare(strict_types=1);` in all PHP files.
-- Follow PSR-12. Use Form Requests for validation; keep controllers thin and delegate to services.
-- Inertia: `Inertia::render('page/name', [...])` — page name must match path under `resources/js/pages` (e.g. `accounts/index`, `dashboard`).
-- Use Laravel Policies for authorization (`$this->authorize()`).
-- Reference: app/Http/Controllers/Controller.php, app/Http/Controllers/Transactions/TransactionController.php (index + Inertia pattern).
+- Prefer delegating to the `frontend` subagent for substantial frontend work.
+- Use functional components and TypeScript interfaces for props.
+- Imports: `@/components`, `@/lib/utils`, `@/hooks`, `@/types` (see tsconfig/vite aliases).
+- Inertia: `Head`, `router`, `usePage` from `@inertiajs/react`; type page props from controller payload.
+- Prettier: single quotes, tabWidth 4 — see .prettierrc.
+- Reference: resources/js/pages/dashboard.tsx, resources/js/types/index.ts.
 
 ---
 > Source: [andrejvysny/spendly](https://github.com/andrejvysny/spendly) — distributed by [TomeVault](https://tomevault.io).
