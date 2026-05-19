@@ -1,31 +1,62 @@
-## 40-sync
+## 45-inngest
 
-> Flows, chunked sync architecture, and Inngest usage
+> Inngest function definition conventions — concurrency, retries, step.run, logging, and dev/prod differences
 
 
-# Sync Guidelines
+# Inngest Conventions
 
-- Architecture: [docs/Chunked-Sync-Architecture.md](mdc:docs/Chunked-Sync-Architecture.md), [SYNC_WORKER_ARCHITECTURE.md](mdc:SYNC_WORKER_ARCHITECTURE.md).
-- Migration and refactors: [SYNC_INNGEST_MIGRATION.md](mdc:SYNC_INNGEST_MIGRATION.md), [SYNC_REFACTORING_SUMMARY.md](mdc:SYNC_REFACTORING_SUMMARY.md), [SYNC_SCHEDULING_IMPLEMENTATION.md](mdc:SYNC_SCHEDULING_IMPLEMENTATION.md).
-- CLI entry point: [api/src/sync/cli.ts](mdc:api/src/sync/cli.ts) (run with `pnpm run sync`).
-- Connector registry (CLI): [api/src/sync/connector-registry.ts](mdc:api/src/sync/connector-registry.ts) with lazy imports.
-- Inngest integration: [api/src/inngest](mdc:api/src/inngest).
+## Function Definition
 
-## Connector vs Flow Responsibilities
+```typescript
+import { inngest } from "../client";
+import { loggers } from "../../logging";
 
-- **Connectors** store only credentials and connection settings (endpoint, API key, auth headers).
-- **Flows** define what data to sync:
-  - `entityFilter`: which entities to sync (for connectors with fixed entities like Stripe, Close)
-  - `queries`: GraphQL/PostHog query definitions (for query-based connectors)
-- For GraphQL/PostHog connectors, queries are injected into the connector at sync time via `dataSource.connection.queries`.
+const log = loggers.inngest();
 
-Rules:
+export const myFunction = inngest.createFunction(
+  {
+    id: "my-function",
+    name: "My Function",
+    retries: 3,
+    concurrency: { limit: 1, key: "event.data.flowId" },
+    cancelOn: [{ event: "flow.cancel", match: "data.flowId" }],
+  },
+  { event: "my/event.name" },
+  async ({ event, step }) => {
+    const result = await step.run("do-work", async () => {
+      // Idempotent unit of work
+    });
+  },
+);
+```
 
-- Use chunked sync pattern; avoid long blocking operations in a single flow.
-- Delegate connector-specific logic to `api/src/connectors/**`.
-- All flows should be idempotent and checkpoint progress (by cursor/offset) per workspace.
-- Prefer Inngest for scheduling/triggering; avoid ad-hoc timers.
-- Do not store queries in connector config; they belong in the Flow.
+## Rules
+
+- **`step.run`** for every side-effectful operation — makes units idempotent and resumable on retry.
+- **`concurrency`** — always set with a `key` to prevent duplicate runs for the same entity. Use `event.data.flowId`, `event.data.dashboardId`, etc.
+- **`retries`** — set explicitly. Don't rely on Inngest defaults. Use `retries: 0` for non-retryable work.
+- **`cancelOn`** — add for long-running flows so users can cancel via UI.
+- **Logging** — use `loggers.inngest()` at module level. Do not mix with `console.log` or Inngest's built-in `logger`.
+- **Schedulers disabled in dev** — `flowSchedulerFunction` and `dashboardSchedulerFunction` are only registered when `NODE_ENV !== "development"` (see `api/src/inngest/index.ts`). Test scheduled flows by sending events manually.
+
+## Triggers
+
+| Type | Syntax |
+|------|--------|
+| Event | `{ event: "flow.execute" }` |
+| Cron | `{ cron: "0 */6 * * *" }` |
+| Multiple | `[{ event: "a" }, { event: "b" }]` |
+
+## Registration
+
+Export the function and add it to the array in `api/src/inngest/index.ts`. Functions not in this array won't be registered with the Inngest dev server or production.
+
+## Reference Files
+
+- Client: `api/src/inngest/client.ts`
+- Function registry: `api/src/inngest/index.ts`
+- Flow example: `api/src/inngest/functions/flow.ts`
+- Webhook example: `api/src/inngest/functions/webhook-flow.ts`
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
