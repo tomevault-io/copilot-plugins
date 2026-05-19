@@ -4,7 +4,7 @@
   "repo": "llm-project-mapper",
   "description": "AI-friendly project starter pack \u2014 multi-agent ready, stack-neutral, with auto-mapping bootstrap (Claude Code / Codex / Copilot)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesleysimplicio/llm-project-mapper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:52:22Z"
+  "distributed_at": "2026-05-19T05:34:20Z"
 }
