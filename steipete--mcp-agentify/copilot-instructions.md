@@ -1,4 +1,4 @@
-## mcp-agentify
+## agent
 
 > Core agent guidelines for mcp-agentify development. This is the primary, always-applied rule set.
 
