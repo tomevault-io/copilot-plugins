@@ -1,0 +1,9 @@
+{
+  "name": "louistrue--ifc-classifier",
+  "displayName": "ifc-classifier",
+  "description": "Web-based 3D IFC classification editor. Assign Uniclass/eBKP-H references to models using Three.js and web-ifc.",
+  "version": "1.0.0",
+  "author": "louistrue",
+  "homepage": "https://github.com/louistrue/ifc-classifier",
+  "skills": []
+}
