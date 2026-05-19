@@ -1,23 +1,62 @@
-## assumptions
+## code-quality-rules
 
-> These assumptions are guaranteed by the integration's architecture and validation:
+> **Problem**: Raising exceptions within try blocks that catch those same exceptions is redundant and flagged by ruff's TRY301 rule.
 
 
-## Integration Assumptions
+## Avoid `raise-within-try` (TRY301)
 
-These assumptions are guaranteed by the integration's architecture and validation:
+**Problem**: Raising exceptions within try blocks that catch those same exceptions is redundant and flagged by ruff's TRY301 rule.
 
-1. **At least one area exists**: When the integration is installed, the user must create at least one area. We can therefore assume that there will always be at least one area configured.
+**Solution**: Extract validation logic to helper functions defined OUTSIDE the try block. The raise statement should be in a separate function, not directly in the try block.
 
-2. **Each area has at least one motion sensor**: Validated in config flow (`config_flow.py:734-735`) before the integration is installed. Runtime code can assume motion sensors exist.
+**Bad Example**:
 
-3. **Areas are initialized before use**: Coordinator setup ensures areas are loaded before any entities or services use them. Platform entities are created after areas are initialized.
+```python
+try:
+    if condition:
+        raise ValueError("Error message")  # TRY301 violation
+except ValueError:
+    handle_error()
+```
 
-4. **When `area_name` is None, first area always exists**: Methods that accept `area_name: str | None = None` can assume that when `area_name` is `None`, `get_area_or_default(None)` will always return the first area (since at least one area exists).
+**Good Example - Module-level helper function**:
 
-5. **After area validation, area exists**: When `_validate_area_exists()` succeeds, the area is guaranteed to exist. Redundant None checks after validation are unnecessary.
+```python
+def _validate_condition() -> None:
+    """Validate condition and raise if invalid."""
+    if condition:
+        raise ValueError("Error message")
 
-These assumptions allow us to remove defensive checks for empty areas, None areas when `area_name` is None, and areas after validation.
+try:
+    _validate_condition()
+except ValueError:
+    handle_error()
+```
+
+**Good Example - Class method helper**:
+
+```python
+class MyClass:
+    def _validate_data(self, data: dict) -> None:
+        """Validate data and raise if invalid."""
+        if not data:
+            raise ValueError("Data is required")
+
+    def process(self):
+        try:
+            self._validate_data(self.data)
+        except ValueError:
+            handle_error()
+```
+
+**Pattern to follow**:
+
+1. Define validation functions OUTSIDE try blocks (as module-level functions or class methods)
+2. Pass any needed variables/parameters to these functions
+3. Call the validation function from within the try block
+4. The raise statement should be in the helper function, not directly in the try block
+
+This makes exceptions reusable across multiple call sites and avoids redundant try-except patterns.
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
