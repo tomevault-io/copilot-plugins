@@ -1,42 +1,28 @@
-## protec
+## readme
 
-> Workflow de push: build Lambda + commit + push (deploy API na AWS)
+> Lista consolidada de regras para o Cursor:
 
+# Regras do Projeto - SaaS Boilerplate
 
-# Workflow de Push
+Lista consolidada de regras para o Cursor:
 
-Quando o usuário pedir para fazer **push** (ou "dar push", "commitar e dar push", etc.), seguir este fluxo:
+1. **arquitetura-core**: Estrutura monorepo e modularidade (Always Apply).
+2. **multitenancy**: Isolamento total de dados entre empresas (Always Apply).
+3. **seguranca**: Autenticação, senhas e proteção de dados (Always Apply).
+4. **backend-api**: Padrões Hono/Node.js, estrutura modular e Zod.
+5. **frontend-react**: Padrões React, Tailwind e UI dinâmica.
+6. **billing-modular**: Controle de planos, usuários e módulos.
+7. **module-documentation**: Documentação obrigatória de módulos (README.md).
+8. **database**: Configuração PostgreSQL (local ou Supabase com conexão direta).
 
-## Comando único (recomendado)
+## Observações Importantes
 
-```bash
-pnpm run push "feat: descrição da alteração"
-```
-
-Isso executa automaticamente:
-1. `pnpm run build:lambda` (gera `version.generated.ts`, `migrations-embedded.ts` e `apps/api/dist-lambda` — este último não vai para o Git)
-2. `git add` (inclui `version.generated.ts` e `migrations-embedded.ts`)
-3. `git commit -m "<mensagem>"`
-4. `git push`
-
-O workflow **Deploy API Lambda** no GitHub Actions roda `build:lambda` de novo no CI e faz **SAM deploy** para Lambda + API Gateway.
-
-## Uso
-
-- Substituir a mensagem entre aspas: `pnpm run push "fix: corrige validação de CPF"`
-- A mensagem deve descrever as alterações (ex: `feat:`, `fix:`, `chore:`)
-
-## Arquivos incluídos no commit (API)
-
-- Código alterado
-- `apps/api/src/version.generated.ts`
-- `apps/api/src/db/migrations-embedded.ts`
-
-## Nota: Vercel
-
-A API **não** deve mais ser publicada na Vercel. Backend oficial: **AWS Lambda + API Gateway** (ver `docs/DEPLOY_LAMBDA.md`).
+- **Remova regras antigas** (typescript, api-design, codigo-padroes) pois foram consolidadas nestas novas versões.
+- **Sempre aplique** as regras de Multitenancy e Segurança (Always Apply).
+- **Valide** todas as entradas do usuário.
+- **Documente** decisões arquiteturais importantes.
+- **Teste** isolamento de tenants em desenvolvimento.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/OtiumIT)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/OtiumIT)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [OtiumIT/protec](https://github.com/OtiumIT/protec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-19 -->
