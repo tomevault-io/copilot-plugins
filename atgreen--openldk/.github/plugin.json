@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--openldk",
+  "displayName": "openldk",
+  "description": "A JIT Compiler and Runtime for Java in Common Lisp",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/openldk",
+  "skills": []
+}
