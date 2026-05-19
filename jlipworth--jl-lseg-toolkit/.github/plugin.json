@@ -1,0 +1,9 @@
+{
+  "name": "jlipworth--jl-lseg-toolkit",
+  "displayName": "jl-lseg-toolkit",
+  "description": "Helper library for LSEG Workspace/Eikon local API",
+  "version": "1.0.0",
+  "author": "jlipworth",
+  "homepage": "https://github.com/jlipworth/jl-lseg-toolkit",
+  "skills": []
+}
