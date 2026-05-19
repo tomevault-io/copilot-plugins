@@ -1,0 +1,9 @@
+{
+  "name": "evansims--openfga-laravel",
+  "displayName": "openfga-laravel",
+  "description": "Stop writing authorization logic. Start asking questions. OpenFGA high performance relationship-based access control for Laravel.",
+  "version": "1.0.0",
+  "author": "evansims",
+  "homepage": "https://github.com/evansims/openfga-laravel",
+  "skills": []
+}
