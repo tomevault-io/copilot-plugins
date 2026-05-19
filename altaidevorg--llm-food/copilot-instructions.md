@@ -1,308 +1,211 @@
-## llmfoodclient
+## pdfprocessingstrategy-synchronous
 
-> description: llm-food project: LLMFoodClient, an async Python client for server API interaction, parsing responses into Pydantic models.
+> description: llm-food project: PDFProcessingStrategy (Synchronous) for configurable PDF-to-Markdown conversion in synchronous API calls via /convert endpoint.
 
 ---
-description: llm-food project: LLMFoodClient, an async Python client for server API interaction, parsing responses into Pydantic models.
-globs: llm_food/client.py
+description: llm-food project: PDFProcessingStrategy (Synchronous) for configurable PDF-to-Markdown conversion in synchronous API calls via /convert endpoint.
+globs: 
 alwaysApply: false
 ---
-# Chapter 3: LLMFoodClient
+# Chapter 6: PDFProcessingStrategy (Synchronous)
 
-In the previous chapter, [APIDataModels (Pydantic)](apidatamodels__pydantic_.mdc), we explored the Pydantic models that define the structure of data exchanged with the `llm-food` server. Now, we will examine the `LLMFoodClient`, an asynchronous Python client library designed to simplify programmatic interaction with the server's API, making direct use of these data models.
+Welcome to Chapter 6! In the previous chapter, [BatchJobOrchestrator](batchjoborchestrator.mdc), we explored how `llm-food` handles asynchronous batch processing of multiple files, including PDFs via the Gemini Batch API. This chapter shifts focus back to synchronous, single-file processing, specifically detailing the **PDFProcessingStrategy (Synchronous)** employed by the `/convert` endpoint.
 
 ## Motivation and Purpose
 
-The `LLMFoodClient` solves the problem of **abstracting away the complexities of direct HTTP communication** with the `llm-food` server. Manually constructing HTTP requests, handling authentication, managing asynchronous operations, parsing JSON responses, and implementing robust error handling can be tedious and error-prone for developers wanting to integrate `llm-food` services into their applications.
+Processing PDF documents can be complex due to their varied nature (text-based, image-based, mixed) and the desired output quality (simple text extraction vs. layout-preserving Markdown). Different PDF processing libraries and services offer distinct advantages in terms of output quality, speed, licensing, and cost (e.g., using cloud AI services).
 
-The `LLMFoodClient` acts as a **Facade** for the server's API (defined by [FastAPIServerEndpoints](fastapiserverendpoints.mdc)). It provides a clean, high-level, asynchronous interface with methods that directly correspond to the server's API endpoints. Key responsibilities include:
-- Asynchronous HTTP request construction and execution using `httpx`.
-- Optional API token-based authentication.
-- Deserialization of JSON responses into the Pydantic models defined in [APIDataModels (Pydantic)](apidatamodels__pydantic_.mdc) (e.g., `ConversionResponse`, `BatchJobStatusResponse`).
-- Standardized error handling by raising a custom `LLMFoodClientError` for API or network issues.
-- Providing type-hinted methods for better developer experience and static analysis.
+The `PDFProcessingStrategy (Synchronous)` addresses the technical problem of **providing flexibility in how PDF files are converted to Markdown within the synchronous `/convert` API endpoint**. Instead of hardcoding a single PDF processing method, `llm-food` implements the Strategy design pattern. This allows the server's PDF processing behavior to be configured via the `PDF_BACKEND` environment variable, enabling users or administrators to choose a backend (e.g., Google Gemini, `pymupdf4llm`, `pypdf2`) that best suits their requirements without altering the core API endpoint logic.
 
-This abstraction significantly simplifies server communication, promotes ease of integration, and serves as the core foundation for the `llm-food` Command Line Interface (CLI).
+This pattern promotes:
+- **Flexibility**: Adapt to different PDF types and quality needs.
+- **Extensibility**: Easily add new PDF processing methods in the future.
+- **Maintainability**: Decouples PDF processing choices from the main request handling logic.
 
-**Central Use Case:** A developer needs to write a Python script to automatically upload a `.docx` file to the `llm-food` server for conversion to Markdown and then process the returned Markdown content. Instead of using a raw HTTP library, they can use `LLMFoodClient` for a more straightforward and type-safe interaction.
+**Central Use Case:** A user uploads a PDF file (e.g., `report.pdf`) to the `POST /convert` endpoint. The `llm-food` server, based on its `PDF_BACKEND` configuration (e.g., set to `"pymupdf4llm"`), dynamically selects and uses the `pymupdf4llm` library to convert the PDF content to Markdown. The resulting Markdown is then returned to the user in the API response. If `PDF_BACKEND` were set to `"gemini"`, the server would instead use the Google Gemini API for OCR and Markdown conversion of that same PDF.
 
-All client logic is encapsulated within `llm_food/client.py`.
+This strategy is distinct from the batch PDF processing discussed in [BatchJobOrchestrator](batchjoborchestrator.mdc), which *exclusively* uses the Gemini Batch API for scalability.
 
-## Core Components and Structure
+## How It Works: Configuration and Dispatch
 
-The `LLMFoodClient` is primarily composed of:
+The core of this strategy lies in the interaction between server configuration and the dispatch logic within the `_process_file_content` function (introduced in [SynchronousConversionService](synchronousconversionservice.mdc) and located in `llm_food/app.py`).
 
-1.  **`LLMFoodClient` Class:** The main class providing all client functionalities.
-    *   **Initialization (`__init__`)**: Takes the `base_url` of the `llm-food` server and an optional `api_token` for authentication.
-2.  **`LLMFoodClientError` Exception:** A custom exception class raised for errors encountered during client operations, such as HTTP errors or request issues. It often includes the HTTP status code and response text from the server for better diagnostics.
-3.  **Private `_request` Method:** An internal helper method responsible for:
-    *   Constructing the full request URL.
-    *   Adding necessary headers (e.g., `Accept: application/json`, `Authorization: Bearer <token>`).
-    *   Making the actual asynchronous HTTP request using `httpx.AsyncClient`.
-    *   Performing initial response validation (e.g., `response.raise_for_status()`).
-    *   Wrapping `httpx` exceptions into `LLMFoodClientError`.
-4.  **Public API Methods:** Asynchronous methods that mirror the server endpoints:
-    *   `convert_file(file_path: str) -> ConversionResponse`
-    *   `convert_url(url_to_convert: str) -> ConversionResponse`
-    *   `create_batch_job(file_paths: List[str], output_gcs_path: str) -> Dict[str, Any]`
-    *   `get_detailed_batch_job_status(task_id: str) -> BatchJobStatusResponse`
-    *   `get_batch_job_results(task_id: str) -> BatchJobOutputResponse`
+### 1. Configuration via `PDF_BACKEND`
 
-## How to Use `LLMFoodClient`
-
-Using the `LLMFoodClient` involves instantiating it and then calling its `async` methods.
-
-**1. Initialization:**
+The choice of PDF processing backend is determined by the `PDF_BACKEND` environment variable. The `llm_food/config.py` file provides a function to access this value:
 
 ```python
-# llm_food/client.py
-from typing import Optional
-# ... other imports
+# llm_food/config.py
+import os
 
-class LLMFoodClient:
-    def __init__(self, base_url: str, api_token: Optional[str] = None):
-        self.base_url = base_url.rstrip("/")
-        self.api_token = api_token
-        self.headers = {"Accept": "application/json"}
-        if self.api_token:
-            self.headers["Authorization"] = f"Bearer {self.api_token}"
+def get_pdf_backend():
+    return os.getenv("PDF_BACKEND", "gemini") # Defaults to "gemini"
 ```
-- `base_url`: The root URL of the `llm-food` server (e.g., `http://localhost:8000`).
-- `api_token` (optional): If the server requires authentication, provide the API token here.
+- This function retrieves the value of `PDF_BACKEND`. If the variable is not set, it defaults to `"gemini"`.
+- Supported values typically include `"gemini"`, `"pymupdf4llm"`, and `"pypdf2"`.
 
-**Example Instantiation:**
+### 2. Dynamic Dispatch in `_process_file_content`
+
+The `_process_file_content` function in `llm_food/app.py` acts as the "Context" in the Strategy pattern. When it encounters a PDF file (extension `.pdf`), it uses the `pdf_backend_choice` (obtained from `get_pdf_backend()`) to select and execute the appropriate PDF processing logic.
+
 ```python
-import asyncio
-from llm_food.client import LLMFoodClient, LLMFoodClientError
-from llm_food.models import ConversionResponse # From apidatamodels__pydantic_.mdc
-
-async def run_conversion():
-    client = LLMFoodClient(
-        base_url="http://localhost:8000",
-        api_token="your_secret_api_token" # Optional
-    )
-    # ... use client methods
+# llm_food/app.py (Simplified excerpt from _process_file_content)
+async def _process_file_content(
+    ext: str, content: bytes, pdf_backend_choice: str
+) -> List[str]:
+    texts_list: List[str] = []
+    if ext == ".pdf":
+        if pdf_backend_choice == "pymupdf4llm":
+            texts_list = await asyncio.to_thread(_process_pdf_pymupdf4llm_sync, content)
+        elif pdf_backend_choice == "pypdf2":
+            texts_list = await asyncio.to_thread(_process_pdf_pypdf2_sync, content)
+        elif pdf_backend_choice == "gemini":
+            # ... Gemini single PDF processing logic ...
+            # (Details covered in the next section)
+            pass # Placeholder for Gemini logic
+        else:
+            texts_list = ["Invalid PDF backend specified."]
+    # ... (elif blocks for other file types like .docx, .pptx) ...
+    return texts_list
 ```
+- **Input**: `ext` (file extension), `content` (file bytes), `pdf_backend_choice` (the string from `PDF_BACKEND`).
+- **Behavior**:
+  - If `ext` is `".pdf"`, it enters the PDF processing block.
+  - An `if/elif/else` structure checks `pdf_backend_choice`.
+  - Based on the choice, it calls a specific helper function (e.g., `_process_pdf_pymupdf4llm_sync`) or executes inline logic (for Gemini).
+- **`asyncio.to_thread`**: For PDF processing libraries that are synchronous (like `pymupdf` and `pypdf2`), their respective functions (`_process_pdf_pymupdf4llm_sync`, `_process_pdf_pypdf2_sync`) are executed in a separate thread pool using `await asyncio.to_thread(...)`. This prevents blocking the main FastAPI asynchronous event loop, which is crucial for server responsiveness.
 
-**2. Calling API Methods:**
+## Deep Dive into Available PDF Strategies
 
-Each public method is asynchronous and needs to be `await`ed. They return Pydantic model instances (or a dictionary for `create_batch_job`) on success or raise `LLMFoodClientError` on failure.
+Let's examine the concrete PDF processing strategies available for synchronous conversion. Each strategy aims to convert the input PDF `content` (bytes) into a `List[str]`, where each string typically represents the Markdown content of a page.
 
-**Example: Converting a File (Central Use Case)**
+### 1. Google Gemini Strategy (Single PDF, Synchronous Context)
 
+When `PDF_BACKEND` is `"gemini"`, `llm-food` uses the Google Gemini API for its powerful OCR and content understanding capabilities. This is particularly effective for scanned PDFs or PDFs with complex layouts. **Note:** This is *not* the Gemini Batch API used in asynchronous batch processing; it uses the direct `generate_content` model endpoint for each page.
+
+**Implementation Snippet (`llm_food/app.py` within `_process_file_content`):**
 ```python
-# Continuing from run_conversion() above
+# llm_food/app.py
+# Inside _process_file_content, when ext == ".pdf" and pdf_backend_choice == "gemini":
+# from pdf2image import convert_from_bytes
+# from google import genai
+# import base64
+# OCR_PROMPT = get_gemini_prompt() # From config
+# client = get_gemini_client() # Gets configured Gemini client
 
-async def run_conversion():
-    client = LLMFoodClient(base_url="http://localhost:8000") # No token example
-    try:
-        file_path = "path/to/your/document.docx"
-        # response_model is ConversionResponse from apidatamodels__pydantic_.mdc
-        conversion_result: ConversionResponse = await client.convert_file(file_path)
-        
-        print(f"Successfully converted: {conversion_result.filename}")
-        for page_content in conversion_result.texts:
-            print(page_content[:100] + "...") # Print first 100 chars of each page
-        
-    except LLMFoodClientError as e:
-        print(f"Client Error: {e}")
-        if e.response_text:
-            print(f"Server Response: {e.response_text}")
-    except FileNotFoundError:
-        print(f"Error: Input file not found at {file_path}")
+pages = convert_from_bytes(content) # Convert PDF bytes to list of PIL Image objects
+images_b64 = []
+for page in pages:
+    buffer = BytesIO()
+    page.save(buffer, format="PNG") # Save page image to a byte buffer
+    image_data = buffer.getvalue()
+    b64_str = base64.b64encode(image_data).decode("utf-8")
+    images_b64.append(b64_str)
 
-# asyncio.run(run_conversion())
-```
-- **Input:** `file_path` (string path to the local file).
-- **Output (Success):** An instance of `ConversionResponse` (defined in [APIDataModels (Pydantic)](apidatamodels__pydantic_.mdc)), containing `filename`, `content_hash`, and `texts` (list of converted content strings).
-- **Output (Failure):** Raises `LLMFoodClientError`.
-
-## Deep Dive: `convert_file` Method Internals
-
-Let's trace the execution when `await client.convert_file("mydoc.docx")` is called:
-
-**1. Client-Side `convert_file` Method (`llm_food/client.py`):**
-```python
-# llm_food/client.py
-# class LLMFoodClient:
-# ...
-    async def convert_file(
-        self,
-        file_path: str,
-    ) -> ConversionResponse: # Returns a Pydantic model
-        endpoint = "/convert"
-        try:
-            file_name = os.path.basename(file_path)
-            with open(file_path, "rb") as f:
-                files_payload = { # For multipart/form-data
-                    "file": (file_name, BytesIO(f.read()), "application/octet-stream")
-                }
-                # Calls the internal _request method
-                response = await self._request("POST", endpoint, files=files_payload)
-            # Parses JSON into ConversionResponse Pydantic model
-            return ConversionResponse(**response.json())
-        except FileNotFoundError:
-            raise LLMFoodClientError(f"File not found: {file_path}")
-        # ... other exception handling ...
-```
-- It prepares the `/convert` endpoint.
-- Opens the specified `file_path` in binary read mode (`"rb"`).
-- Constructs a `files_payload` dictionary suitable for `httpx` to send as `multipart/form-data`. The key `"file"` matches what the [FastAPIServerEndpoints](fastapiserverendpoints.mdc) expects.
-- Calls the internal `_request` method.
-- If `_request` is successful, it parses the JSON response from the server (`response.json()`) and unpacks it into a `ConversionResponse` Pydantic model. This provides data validation and type-safe access to response fields.
-
-**2. Internal `_request` Method (`llm_food/client.py`):**
-```python
-# llm_food/client.py
-# class LLMFoodClient:
-# ...
-    async def _request(self, method: str, endpoint: str, **kwargs) -> httpx.Response:
-        url = f"{self.base_url}{endpoint}"
-        request_headers = self.headers.copy() # Includes Accept and Authorization
-        if "headers" in kwargs: # Allows overriding/adding headers per-request
-            request_headers.update(kwargs.pop("headers"))
-
-        async with httpx.AsyncClient() as client: # Create an async HTTP client session
-            try:
-                response = await client.request(
-                    method, url, headers=request_headers, **kwargs
-                )
-                response.raise_for_status() # Raises HTTPStatusError for 4xx/5xx
-                return response
-            except httpx.HTTPStatusError as e:
-                # Extract error details for LLMFoodClientError
-                error_detail = e.response.text # Default to full response text
-                # ... (try to parse JSON detail if available) ...
-                raise LLMFoodClientError(
-                    # ...
-                ) from e
-            except httpx.RequestError as e: # Network errors, DNS failures etc.
-                raise LLMFoodClientError(
-                    # ...
-                ) from e
-```
-- Constructs the full URL (e.g., `http://localhost:8000/convert`).
-- Uses the `self.headers` (which includes `Authorization` if an API token was provided during client initialization).
-- An `httpx.AsyncClient` is used to perform the actual HTTP `POST` request asynchronously.
-- `response.raise_for_status()`: If the server returns an HTTP error status (4xx or 5xx), `httpx` raises an `HTTPStatusError`.
-- `httpx` errors are caught and re-raised as `LLMFoodClientError`, including `status_code` and `response_text` from the server for easier debugging.
-- If the request is successful (HTTP 2xx), the raw `httpx.Response` object is returned to the calling public method (e.g., `convert_file`).
-
-## Deep Dive: `create_batch_job` Method Internals
-
-This method handles uploading multiple files for asynchronous batch processing.
-
-**Client-Side Usage Example:**
-```python
-# import asyncio, os
-# from llm_food.client import LLMFoodClient, LLMFoodClientError
-
-async def run_batch_creation():
-    client = LLMFoodClient(base_url="http://localhost:8000")
-    try:
-        file_paths = ["./docs/report.pdf", "./data/notes.docx"]
-        output_gcs_path = "gs://my-llm-food-bucket/batch_outputs/"
-        
-        # Server returns a dict like {"task_id": "..."}
-        batch_creation_response: dict = await client.create_batch_job(
-            file_paths, output_gcs_path
+payloads = [ # Prepare one payload per page
+    [
+        {"inline_data": {"data": b64_str, "mime_type": "image/png"}},
+        {"text": OCR_PROMPT}, # The instruction/prompt for Gemini
+    ]
+    for b64_str in images_b64
+]
+# Asynchronously call Gemini API for each page
+results = await asyncio.gather(
+    *[
+        client.aio.models.generate_content(
+            model=GEMINI_MODEL_FOR_VISION, contents=payload
         )
-        print(f"Batch job created with Task ID: {batch_creation_response.get('task_id')}")
-        
-    except LLMFoodClientError as e:
-        print(f"Client Error creating batch job: {e}")
-    except FileNotFoundError as e:
-        print(f"Error: Input file not found: {e.filename}")
-        
-# asyncio.run(run_batch_creation())
+        for payload in payloads
+    ]
+)
+texts_list = [result.text for result in results] # Extract text from Gemini responses
 ```
+- **Workflow**:
+  1. `pdf2image.convert_from_bytes(content)`: Converts each page of the PDF into a PIL (Pillow) Image object.
+  2. Each image is saved as PNG into an in-memory buffer and then base64 encoded.
+  3. For each page's base64 image string, a payload is constructed including the image data and the `OCR_PROMPT` (a configurable prompt asking Gemini to perform OCR and format as Markdown).
+  4. `asyncio.gather` is used to send requests to the Gemini API for all pages concurrently using `client.aio.models.generate_content`. This uses the asynchronous client for Gemini.
+  5. The text content from each Gemini response is collected into `texts_list`.
+- **Pros**: Excellent OCR quality, handles scanned/image-based PDFs well, good layout-to-Markdown conversion.
+- **Cons**: Network dependent, incurs API call costs, potentially slower than local libraries for simple text PDFs due to network latency and image conversion.
 
-**Internal Implementation (`llm_food/client.py`):**
+### 2. `pymupdf4llm` Strategy
+
+When `PDF_BACKEND` is `"pymupdf4llm"`, this strategy leverages the `PyMuPDF` library (via the `pymupdf4llm` wrapper) which is efficient for extracting text and attempting to convert PDF structure to Markdown.
+
+**Implementation (`llm_food/app.py`):**
 ```python
-# llm_food/client.py
-# class LLMFoodClient:
-# ...
-    async def create_batch_job(
-        self,
-        file_paths: List[str],
-        output_gcs_path: str,
-    ) -> Dict[str, Any]: # Returns a dictionary, not a Pydantic model here
-        endpoint = "/batch"
-        opened_files_objects = []
-        try:
-            files_payload_for_httpx = []
-            for file_path in file_paths:
-                # ... (file existence check) ...
-                file_name = os.path.basename(file_path)
-                f_obj = open(file_path, "rb")
-                opened_files_objects.append(f_obj) # Track to close later
-                # Server expects a list of files under the key 'files'
-                files_payload_for_httpx.append(
-                    ("files", (file_name, f_obj, "application/octet-stream"))
-                )
-            
-            data_payload = {"output_gcs_path": output_gcs_path} # Form data
+# llm_food/app.py
+# from pymupdf4llm import to_markdown # Conditional import
+# import pymupdf # Conditional import
 
-            response = await self._request(
-                "POST", endpoint, files=files_payload_for_httpx, data=data_payload
-            )
-            return response.json() # Server returns a simple JSON dict
-        # ... (error handling and finally block to close files) ...
-        finally:
-            for f_obj in opened_files_objects:
-                if not f_obj.closed: f_obj.close()
+def _process_pdf_pymupdf4llm_sync(content_bytes: bytes) -> List[str]:
+    try:
+        pymupdf_doc = pymupdf.Document(stream=content_bytes, filetype="pdf")
+        # 'page_chunks=True' returns a list of dicts, one per page
+        page_data_list = to_markdown(pymupdf_doc, page_chunks=True)
+        return [page_dict.get("text", "") for page_dict in page_data_list]
+    except Exception as e:
+        return [f"Error processing PDF with pymupdf4llm: {str(e)}"]
 ```
-- Prepares the `/batch` endpoint.
-- Iterates through `file_paths`, opens each file in binary mode, and prepares a list of tuples for `httpx`'s `files` parameter. This is how multiple files are sent in a single `multipart/form-data` request under the same field name (`files`).
-- The `output_gcs_path` is sent as part of the `data` payload (form fields).
-- Calls `_request`. The server's `/batch` endpoint returns a simple JSON object like `{"task_id": "..."}` (as seen in [FastAPIServerEndpoints](fastapiserverendpoints.mdc)), so `response.json()` is returned directly as a `Dict[str, Any]`.
-- A `finally` block ensures all opened file objects are closed, even if errors occur.
+- **Workflow**:
+  1. `pymupdf.Document(stream=content_bytes, filetype="pdf")`: Loads the PDF from bytes.
+  2. `pymupdf4llm.to_markdown(pymupdf_doc, page_chunks=True)`: Converts the document to Markdown. `page_chunks=True` ensures that the output is a list, where each item is a dictionary containing the Markdown content for a page under the "text" key.
+  3. The list of Markdown strings (one per page) is returned.
+- **Pros**: Good for text-based PDFs, often preserves some formatting into Markdown, processes locally (no network/API costs), generally fast.
+- **Cons**: May struggle with complex layouts or purely image-based PDFs compared to Gemini. Output quality for scanned documents is typically lower than Gemini.
 
-## Response Parsing and Pydantic Models
+### 3. `pypdf2` Strategy
 
-For methods like `convert_file`, `get_detailed_batch_job_status`, and `get_batch_job_results`, the client parses the successful JSON response from `_request` directly into the corresponding Pydantic models from [APIDataModels (Pydantic)](apidatamodels__pydantic_.mdc).
-Example: `return ConversionResponse(**response.json())`
-This leverages Pydantic's validation capabilities on the client side as well, ensuring that the data received from the server matches the expected structure. If the server's response structure deviates unexpectedly (and Pydantic validation fails), a `pydantic.ValidationError` would be raised.
+When `PDF_BACKEND` is `"pypdf2"`, this strategy uses the `pypdf` library (formerly `PyPDF2`) for basic text extraction.
 
-## Authentication
-
-If an `api_token` is provided when `LLMFoodClient` is instantiated:
+**Implementation (`llm_food/app.py`):**
 ```python
-# llm_food/client.py (within __init__)
-if self.api_token:
-    self.headers["Authorization"] = f"Bearer {self.api_token}"
-```
-This token is automatically included as a `Bearer` token in the `Authorization` header for every request made by the `_request` method. The server's authentication dependency (see [FastAPIServerEndpoints](fastapiserverendpoints.mdc)) will then validate this token.
+# llm_food/app.py
+# from pypdf import PdfReader # Conditional import
 
-## Error Handling with `LLMFoodClientError`
-
-The custom `LLMFoodClientError` provides a consistent way for developers using the client to handle API-related issues.
-```python
-# llm_food/client.py
-class LLMFoodClientError(Exception):
-    def __init__(
-        self,
-        message: str,
-        status_code: Optional[int] = None,
-        response_text: Optional[str] = None,
-    ):
-        super().__init__(message)
-        self.status_code = status_code
-        self.response_text = response_text
-    # ... (__str__ method for better representation) ...
+def _process_pdf_pypdf2_sync(content_bytes: bytes) -> List[str]:
+    try:
+        reader = PdfReader(BytesIO(content_bytes))
+        return [p.extract_text() or "" for p in reader.pages] # Extract text per page
+    except Exception as e:
+        return [f"Error processing PDF with pypdf: {str(e)}"]
 ```
-When `_request` encounters an `httpx.HTTPStatusError` (e.g., 401 Unauthorized, 404 Not Found, 500 Internal Server Error) or an `httpx.RequestError` (e.g., network connection issue), it catches these and raises an `LLMFoodClientError`. This error object conveniently packages:
-- A descriptive message.
-- The `status_code` from the HTTP response (if applicable).
-- The raw `response_text` from the server's error response (if applicable), which can be very useful for debugging.
+- **Workflow**:
+  1. `PdfReader(BytesIO(content_bytes))`: Loads the PDF from bytes.
+  2. `p.extract_text()`: For each page `p` in `reader.pages`, it extracts the plain text.
+  3. Returns a list of text strings, one for each page. This strategy does not attempt to generate Markdown formatting beyond raw text.
+- **Pros**: Very fast for text-based PDFs, simple, processes locally.
+- **Cons**: Basic text extraction only, usually loses all formatting and layout information. Does not perform OCR, so it will not extract text from image-based PDFs.
+
+## Trade-offs and When to Choose Which Strategy
+
+- **Google Gemini**: Choose for highest quality OCR, especially for scanned or image-heavy PDFs, or when preserving complex structures as Markdown is critical and API costs/latency are acceptable.
+- **`pymupdf4llm`**: A good general-purpose choice for text-based PDFs where Markdown output (with some formatting) is desired without external API calls. Balances speed and quality for digital-native PDFs.
+- **`pypdf2`**: Best for scenarios where only raw text extraction from text-based PDFs is needed, and speed is paramount. Suitable if no formatting preservation is required.
+
+## Extensibility: Adding a New PDF Processing Strategy
+
+The Strategy pattern makes it straightforward to add new PDF processing methods:
+1.  **Implement the Processing Function**: Write a new Python function, similar to `_process_pdf_pypdf2_sync` or the Gemini logic, that takes `content: bytes` and returns `List[str]`. Ensure it handles errors gracefully. If synchronous, it should be named `_process_pdf_<new_strategy_name>_sync`.
+2.  **Update Configuration**: Decide on a new string value for `PDF_BACKEND` (e.g., `"mynewpdfparser"`). Document this new option.
+3.  **Modify Dispatch Logic**: Add a new `elif` branch in `_process_file_content` within `llm_food/app.py` to call your new function when `pdf_backend_choice` matches your new strategy's name.
+    ```python
+    # llm_food/app.py (inside _process_file_content)
+    # ...
+    elif pdf_backend_choice == "mynewpdfparser":
+        texts_list = await asyncio.to_thread(_process_pdf_mynewpdfparser_sync, content)
+    # ...
+    ```
+4.  **Handle Imports**: Add conditional imports for any new libraries in `llm_food/app.py` if needed.
 
 ## Conclusion
 
-The `LLMFoodClient` provides a robust, developer-friendly, and asynchronous Python interface to the `llm-food` server. By abstracting HTTP complexities, handling authentication, parsing responses into [APIDataModels (Pydantic)](apidatamodels__pydantic_.mdc), and offering standardized error handling, it significantly simplifies the task of integrating `llm-food`'s document conversion capabilities into other Python applications or workflows. It serves as a practical implementation of the Facade pattern, making the server's API more accessible.
+The `PDFProcessingStrategy (Synchronous)` in `llm-food` provides a flexible and configurable way to handle PDF-to-Markdown conversion for single-file, synchronous requests via the `/convert` endpoint. By leveraging the Strategy design pattern through environment variable configuration (`PDF_BACKEND`) and dynamic dispatch in `_process_file_content`, users can choose the PDF processing backend (Gemini, `pymupdf4llm`, `pypdf2`) that best fits their specific needs regarding quality, speed, cost, and licensing. This approach ensures that the PDF handling capabilities of `llm-food` can adapt and evolve without requiring changes to the core API structure.
 
-Understanding `LLMFoodClient` is key to programmatically interacting with the server. The `llm-food` CLI itself is built upon this client, demonstrating its utility.
+In the next chapter, we will explore the [TaskStateRepository (DuckDB)](taskstaterepository__duckdb_.mdc), which is crucial for managing the state of asynchronous batch jobs.
 
-Next, we will look at the server-side service responsible for handling synchronous conversions: [SynchronousConversionService](synchronousconversionservice.mdc).
+Next: [TaskStateRepository (DuckDB)](taskstaterepository__duckdb_.mdc)
 
 
 ---
