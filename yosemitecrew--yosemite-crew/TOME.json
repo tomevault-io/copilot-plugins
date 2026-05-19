@@ -4,7 +4,7 @@
   "repo": "Yosemite-Crew",
   "description": "Open source operating system for animal health",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YosemiteCrew/Yosemite-Crew",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-18T22:07:37Z"
+  "distributed_at": "2026-05-19T01:06:40Z"
 }
