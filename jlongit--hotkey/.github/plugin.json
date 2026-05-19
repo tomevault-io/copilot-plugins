@@ -1,0 +1,9 @@
+{
+  "name": "jlongit--hotkey",
+  "displayName": "hotkey",
+  "description": "\u8fd9\u662f\u4e00\u4e2a\u57fa\u4e8e AutoHotkey v2.0 \u7684 Windows \u5feb\u6377\u952e\u589e\u5f3a\u811a\u672c\uff0c\u63d0\u4f9b\u4e86\u4e30\u5bcc\u7684\u529f\u80fd\u6765\u63d0\u9ad8\u60a8\u7684\u5de5\u4f5c\u6548\u7387\u3002",
+  "version": "1.0.0",
+  "author": "JlonGit",
+  "homepage": "https://github.com/JlonGit/hotkey",
+  "skills": []
+}
