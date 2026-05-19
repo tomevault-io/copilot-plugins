@@ -1,0 +1,9 @@
+{
+  "name": "adhikasp--mcp-client-cli",
+  "displayName": "mcp-client-cli",
+  "description": "A simple CLI to run LLM prompt and implement MCP client.",
+  "version": "1.0.0",
+  "author": "adhikasp",
+  "homepage": "https://github.com/adhikasp/mcp-client-cli",
+  "skills": []
+}
