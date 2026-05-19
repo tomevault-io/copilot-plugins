@@ -1,17 +1,15 @@
-## angular-frontend-docker-logs
+## angular-ngx-translate
 
-> After changing Angular frontend code, check docker logs to verify the app compiles
+> Angular UI copy uses ngx-translate; add keys to all locale JSON files
 
 
-# Angular Frontend – Verify Build via Docker Logs
+# Angular – Translations (`ngx-translate`)
 
-When you change frontend (Angular) code under `front/`:
-
-1. **After editing** components, templates, styles, or config under `front/`, **always check Docker logs** to confirm the app compiles and runs without errors.
-2. Prefer checking logs from the container that serves or builds the frontend (e.g. dev server or build step).
-3. If the logs show compilation or runtime errors, fix them before considering the change done.
-
-This ensures Angular build and dev server stay healthy after code changes.
+- **User-visible strings** in templates should use the **`translate` pipe** (or `TranslateService` in TS), not raw literals — match surrounding components (e.g. `{{ 'SETTINGS.TITLE' | translate }}`).
+- **Keys:** Use the existing naming style (`SECTION.SUBKEY`). Prefer reusing **`COMMON.*`** keys for shared actions (Save, Cancel, Delete) when they already exist.
+- **Locale files:** Add every new key to **`front/public/i18n/*.json`** for all shipped languages (keep objects in sync across `en.json`, `de.json`, `es.json`, etc.). Do not add keys to only one file unless the task explicitly allows a partial rollout.
+- **Placeholders / attributes:** Use `[placeholder]="'KEY' | translate"` or `translate` directive patterns already used in the codebase.
+- Deeper context: **`AGENTS.md`** (smoke tests), **`docs/testing.md`** for Puppeteer scripts after UI changes.
 
 ---
 > Source: [satisfecho/pos](https://github.com/satisfecho/pos) — distributed by [TomeVault](https://tomevault.io).
