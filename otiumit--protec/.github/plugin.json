@@ -1,9 +1,9 @@
 {
   "name": "otiumit--protec",
   "displayName": "protec",
-  "description": "protec",
+  "description": "Sistema de Prote\u00e7\u00e3o e Controle",
   "version": "1.0.0",
   "author": "OtiumIT",
-  "homepage": "https://tomevault.io/claim/OtiumIT",
+  "homepage": "https://github.com/OtiumIT/protec",
   "skills": []
 }
