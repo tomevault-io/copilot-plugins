@@ -1,0 +1,9 @@
+{
+  "name": "amd--gaia",
+  "displayName": "gaia",
+  "description": "Build AI agents for your PC",
+  "version": "1.0.0",
+  "author": "amd",
+  "homepage": "https://github.com/amd/gaia",
+  "skills": []
+}
