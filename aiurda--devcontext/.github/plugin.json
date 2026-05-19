@@ -1,0 +1,9 @@
+{
+  "name": "aiurda--devcontext",
+  "displayName": "devcontext",
+  "description": "DevContext is a cutting-edge Model Context Protocol (MCP) server designed to provide developers with continuous, project-centric context awareness. Unlike traditional context systems, DevContext conti",
+  "version": "1.0.0",
+  "author": "aiurda",
+  "homepage": "https://github.com/aiurda/devcontext",
+  "skills": []
+}
