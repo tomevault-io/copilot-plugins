@@ -4,7 +4,7 @@
   "repo": "turbo-start-sanity",
   "description": "Sanity + Next.js page-builder template",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/robotostudio/turbo-start-sanity",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:43:13Z"
+  "distributed_at": "2026-05-19T03:48:17Z"
 }
