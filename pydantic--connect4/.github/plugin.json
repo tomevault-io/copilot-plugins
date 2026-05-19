@@ -1,0 +1,9 @@
+{
+  "name": "pydantic--connect4",
+  "displayName": "connect4",
+  "description": "Demo of what PydanticAI and Logfire can do!",
+  "version": "1.0.0",
+  "author": "pydantic",
+  "homepage": "https://github.com/pydantic/connect4",
+  "skills": []
+}
