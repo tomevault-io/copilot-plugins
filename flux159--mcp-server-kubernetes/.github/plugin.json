@@ -1,0 +1,9 @@
+{
+  "name": "flux159--mcp-server-kubernetes",
+  "displayName": "mcp-server-kubernetes",
+  "description": "MCP Server for kubernetes management commands",
+  "version": "1.0.0",
+  "author": "Flux159",
+  "homepage": "https://github.com/Flux159/mcp-server-kubernetes",
+  "skills": []
+}
