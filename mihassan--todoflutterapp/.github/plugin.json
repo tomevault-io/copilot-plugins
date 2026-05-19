@@ -1,0 +1,9 @@
+{
+  "name": "mihassan--todoflutterapp",
+  "displayName": "TodoFlutterApp",
+  "description": "Offline-first Flutter Android todo app with Firebase backend, clean architecture, and 398 tests",
+  "version": "1.0.0",
+  "author": "mihassan",
+  "homepage": "https://github.com/mihassan/TodoFlutterApp",
+  "skills": []
+}
