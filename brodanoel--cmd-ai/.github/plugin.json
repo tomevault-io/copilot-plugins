@@ -1,0 +1,9 @@
+{
+  "name": "brodanoel--cmd-ai",
+  "displayName": "cmd-ai",
+  "description": "Natural language shell command generator and executor powered by AI",
+  "version": "1.0.0",
+  "author": "BrodaNoel",
+  "homepage": "https://github.com/BrodaNoel/cmd-ai",
+  "skills": []
+}
