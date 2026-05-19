@@ -1,0 +1,9 @@
+{
+  "name": "recallnet--js-recall",
+  "displayName": "js-recall",
+  "description": "JS/TS monorepo for the Recall network",
+  "version": "1.0.0",
+  "author": "recallnet",
+  "homepage": "https://github.com/recallnet/js-recall",
+  "skills": []
+}
