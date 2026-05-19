@@ -1,0 +1,9 @@
+{
+  "name": "xoofx--asmarm64",
+  "displayName": "AsmArm64",
+  "description": "The most powerful ARM 64 (v8, v9) Assembler / Disassembler for .NET",
+  "version": "1.0.0",
+  "author": "xoofx",
+  "homepage": "https://github.com/xoofx/AsmArm64",
+  "skills": []
+}
