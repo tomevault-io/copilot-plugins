@@ -1,0 +1,9 @@
+{
+  "name": "eamonxg--luci-theme-aurora",
+  "displayName": "luci-theme-aurora",
+  "description": "Aurora Theme is an OpenWrt LuCI theme for modern browsers, built with Tailwind CSS and Vite.",
+  "version": "1.0.0",
+  "author": "eamonxg",
+  "homepage": "https://github.com/eamonxg/luci-theme-aurora",
+  "skills": []
+}
