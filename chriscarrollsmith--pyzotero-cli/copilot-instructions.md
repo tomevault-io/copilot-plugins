@@ -1,46 +1,87 @@
-## tests
+## util-cmds
 
-> At this initial stage of the project, tests are intended to be end-to-end integration tests using real API credentials and real API calls to make sure that dependencies behave as our code expects. Zotero resources should be set up and torn down as necessary.
+> `pyzotero` documentation for utility commands
 
-At this initial stage of the project, tests are intended to be end-to-end integration tests using real API credentials and real API calls to make sure that dependencies behave as our code expects. Zotero resources should be set up and torn down as necessary.
 
-Prefix pytest commands with `uv run` to make sure the test is run in the virtual environment. To limit information overload, run either a single test file or a single test: `uv run pytest tests/<test_file_name.py>::<test_name>`
+This document contains the portion of the `pyzotero` documentation that corresponds to the utility command functionality in our CLI wrapper.
 
-Import the Click command group like `from pyzotero_cli.zot_cli import zot`. Avoid name collisions with the `zot` object.
+# Utility Commands
 
-Sequence arguments in `CliRunner.invoke` so that options for a parent command come before any subcommands.
+## Version Information
 
-Tests should validate, among other things, that the default output format is valid JSON, correctly serialized, and not just a Python dictionary coerced to string.
+```python
+# Get item versions
+zot.item_versions([search/request parameters])
+```
 
-The following Pytest fixtures are available in `conftest.py`:
+Returns a dict containing version information for items in the library.
 
-- **`isolated_config` (scope="function")**  
-  - **Purpose:** Isolates the config file for each test to prevent interference.  
-  - **Use Case:** Any test that reads or writes to the `zot-cli` config file.  
+```python
+# Get collection versions
+zot.collection_versions(itemID[, search/request parameters])
+```
 
-- **`real_api_credentials` (scope="session")**  
-  - **Purpose:** Provides real Zotero API credentials from environment variables.  
-  - **Use Case:** Tests requiring real API access (e.g., creating/deleting items or tags).  
+Parameters:
+- `itemID`: a Zotero item ID
 
-- **`active_profile_with_real_credentials` (scope="function")**  
-  - **Purpose:** Sets up and activates a profile with real API credentials.  
-  - **Use Case:** Tests that rely on a pre-configured active profile.  
+Returns a dict containing version information for collections in the library.
 
-- **`runner` (scope="session")**
-  - **Purpose:** Creates the Click `CliRunner` object.
-  - **Use case:** Simulates client for running user CLI commands.
+Example of returned version data:
+```python
+{'C9KW275P': 3915, 'IB489TKM': 4025}
+```
 
-- **`zot_instance` (scope="function")**
-  - **Purpose:** Provides an authenticated Pyzotero instance for direct API checks.
-  - **Use Case:** Tests that need to interact directly with the Zotero API.
+```python
+# Get last modified version
+zot.last_modified_version()
+```
 
-- **`temp_item_with_tags` (scope="function")**  
-  - **Purpose:** Creates and cleans up a temporary item with tags.  
-  - **Use Case:** Tests for item-tag relationships (e.g., listing tags for an item).
+Returns the last modified version of the library as an integer.
 
-- **`temp_parent_item` (scope="function")**
-  - **Purpose:** Creates a temporary regular item (journalArticle) for attaching files and cleans it up.
-  - **Use Case:** Tests that require a parent item for attachments or related operations.
+## Item Counts
+
+```python
+# Get count of all items in library
+zot.count_items()
+```
+
+Returns a count of all items in a library/group.
+
+```python
+# Get count of top-level items
+zot.num_items()
+```
+
+Returns the count of top-level items in the library.
+
+```python
+# Get count of items in a collection
+zot.num_collectionitems(collectionID)
+```
+
+Parameters:
+- `collectionID`: a Zotero collection ID
+
+Returns the count of items in the specified collection.
+
+## Error Handling
+
+Where possible, any `ZoteroError` which is raised will preserve the underlying error in its `__cause__` and `__context__` properties, should you wish to work with these directly.
+
+## Configuration
+
+```python
+# Create a Zotero instance
+zot = zotero.Zotero(library_id, library_type, api_key, preserve_json_order, locale, local)
+```
+
+Parameters:
+- `library_id`: a valid Zotero API user ID
+- `library_type`: a valid Zotero API library type: **user** or **group**
+- `api_key`: a valid Zotero API user key
+- `preserve_json_order`: Load JSON returns with OrderedDict to preserve their order
+- `locale`: Set the locale, allowing retrieval of localized item types, field types, and creator types. Defaults to "en-US"
+- `local`: use the local Zotero http server instead of the remote API. Note that the local server currently only allows **read** requests 
 
 ---
 > Source: [chriscarrollsmith/pyzotero-cli](https://github.com/chriscarrollsmith/pyzotero-cli) — distributed by [TomeVault](https://tomevault.io).
