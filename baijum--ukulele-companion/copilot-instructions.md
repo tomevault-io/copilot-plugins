@@ -1,50 +1,35 @@
-## compose-ui
+## edge-to-edge
 
-> Compose UI conventions — Material 3, recomposition optimization, Compose-only UI, theming
+> Edge-to-edge Play Store warnings and deferred action items — relevant when upgrading Material Components, handling Play Store warnings, or working on edge-to-edge / window insets
 
 
-# Compose UI Rules
+# Edge-to-Edge Play Store Warnings (Deferred)
 
-## Compose-only UI
+Two Google Play Console recommendations were analyzed in March 2026. No action is required from app code — the root cause is in the Material Components library.
 
-No XML layouts. All UI is built with Jetpack Compose and Material 3 components.
+## Warning 1: "Edge-to-edge may not display for all users"
 
-## Material 3
+- **Status:** Already handled.
+- The app calls `enableEdgeToEdge()` in `MainActivity.onCreate()` before `setContent`.
+- Both `FretboardScreen` and `OnboardingScreen` use Material 3 `Scaffold` with `innerPadding`, which automatically accounts for system bar insets.
+- `OnboardingScreen` bottom bar applies `navigationBarsPadding()`.
+- **Follow-up:** A visual audit on an Android 15+ device/emulator could confirm nothing is clipped behind system bars (bottom sheets, dialogs, drawer, FABs).
 
-Use Material 3 components and theming (`MaterialTheme.colorScheme`, `MaterialTheme.typography`). Do not use Material 2 (`androidx.compose.material`) — use `androidx.compose.material3`.
+## Warning 2: "Your app uses deprecated APIs or parameters for edge-to-edge"
 
-## Minimize recompositions
+- **Deprecated APIs flagged:** `setStatusBarColor`, `setNavigationBarColor`, `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES`
+- **Root cause:** Internal code in `com.google.android.material:material:1.13.0`:
+  - `EdgeToEdgeUtils.applyEdgeToEdge()` calls `window.setStatusBarColor()` / `window.setNavigationBarColor()`
+  - `BottomSheetDialog.onCreate()` uses the above utilities
+  - `MaterialDatePicker.onStart()` sets `LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES`
+- **Not in app code** — the obfuscated class names (`b.q.b`, `b.t.b`, `b.v.b`, `b.r.t`) in the Play Console map to these Material library internals after R8.
+- **Upstream fix:** Commit `c2051db` in Material Components, available in `1.14.0-alpha` but not yet in a stable release.
+- **Tracked at:** https://github.com/material-components/material-components-android/issues/4507
 
-- Use `remember` to avoid recomputing values on every recomposition
-- Use `derivedStateOf` when a value is derived from one or more state objects
-- Use `key` to help Compose identify items in lists and avoid unnecessary recomposition
+## Action
 
-```kotlin
-val sortedItems = remember(items) { items.sortedBy { it.name } }
-
-val isValid by remember {
-    derivedStateOf { name.isNotBlank() && age > 0 }
-}
-```
-
-## Immutable data
-
-Prefer immutable data (`val`, `data class`, `List` over `MutableList` in public APIs). This helps Compose's stability system skip unnecessary recompositions.
-
-## Code style
-
-- Files: PascalCase (`ChordDetector.kt`)
-- Functions: camelCase
-- Classes/Objects/Enums: PascalCase
-- Use Kotlin idioms (`let`, `apply`, `also`, `when`) where they improve readability
-
-## Navigation
-
-The app uses `ModalNavigationDrawer` with ~30 sections grouped into Play, Create, Learn, and Reference. Screen selection is managed via `mutableIntStateOf` with a `when` block — there is no Compose NavHost or NavController.
-
-## Theming
-
-Verify UI changes in light, dark, and high-contrast themes. Theme configuration lives in `ui/theme/Theme.kt`.
+- **Decision (March 2026):** No action for now.
+- **Revisit when:** Material Components `1.14.0` stable is released. Update the `material` version in `gradle/libs.versions.toml` (currently `1.13.0`) and verify the Play Console warnings are resolved.
 
 ---
 > Source: [baijum/ukulele-companion](https://github.com/baijum/ukulele-companion) — distributed by [TomeVault](https://tomevault.io).
