@@ -1,0 +1,9 @@
+{
+  "name": "antfu--node-modules-inspector",
+  "displayName": "node-modules-inspector",
+  "description": "Interactive UI for local node modules inspection",
+  "version": "1.0.0",
+  "author": "antfu",
+  "homepage": "https://github.com/antfu/node-modules-inspector",
+  "skills": []
+}
