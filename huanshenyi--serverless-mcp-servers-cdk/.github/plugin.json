@@ -1,0 +1,9 @@
+{
+  "name": "huanshenyi--serverless-mcp-servers-cdk",
+  "displayName": "serverless-mcp-servers-cdk",
+  "description": "Sample implementations of MCP Servers running on AWS Serverless compute  Resources",
+  "version": "1.0.0",
+  "author": "huanshenyi",
+  "homepage": "https://github.com/huanshenyi/serverless-mcp-servers-cdk",
+  "skills": []
+}
