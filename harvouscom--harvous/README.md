@@ -7,11 +7,11 @@ Making the home for your Bible study.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harvouscom/harvous](https://github.com/harvouscom/harvous).
+Original source: `CLAUDE.md` in [harvouscom/harvous](https://github.com/harvouscom/harvous).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
