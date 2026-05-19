@@ -1,0 +1,9 @@
+{
+  "name": "numb94--crewai-astock",
+  "displayName": "crewai-astock",
+  "description": "\u57fa\u4e8e CrewAI \u591a\u667a\u80fd\u4f53\u534f\u4f5c\u7684 A \u80a1\u667a\u80fd\u5206\u6790\u4e0e\u63a8\u8350\u7cfb\u7edf | Multi-agent A-share stock   analyst built on CrewAI",
+  "version": "1.0.0",
+  "author": "Numb94",
+  "homepage": "https://github.com/Numb94/crewai-astock",
+  "skills": []
+}
