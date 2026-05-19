@@ -1,94 +1,52 @@
-## commit-guidelines
+## pampa-mcp-usage
 
-> Guidelines for commit messages and semantic versioning
+> You have access to PAMPA, a code memory system that indexes and allows semantic search in projects.
 
 
-# Commit Guidelines - CRITICAL VERSION CONTROL
+# PAMPA MCP Usage Rules
 
-## ⚠️ CRITICAL WARNING - BREAKING CHANGES
+You have access to PAMPA, a code memory system that indexes and allows semantic search in projects.
 
-**NEVER use `BREAKING CHANGE:` in commit messages unless it's a REAL breaking change that requires users to modify their code!**
+## Basic Instructions
 
-The project uses semantic-release which automatically:
+1. **ALWAYS at the start of a session:**
 
--   `fix:` → PATCH version (2.4.2 → 2.4.3)
--   `feat:` → MINOR version (2.4.2 → 2.5.0)
--   `BREAKING CHANGE:` → MAJOR version (2.4.2 → 3.0.0) **← AVOID THIS!**
+    - Run `pampa_get_project_stats` to check if the project is indexed
+    - If no database exists, run `pampa_index_project`
+    - Run `pampa_update_project` to sync with recent changes
 
-## Commit Format
+2. **BEFORE creating any function:**
+
+    - Use `pampa_search_code` with semantic queries like "user authentication", "validate email", "error handling"
+    - Review existing code with `pampa_get_code_chunk` before writing new code
+
+3. **AFTER modifying code:**
+    - Run `pampa_update_project` to update the knowledge base
+    - This keeps the project memory synchronized
+
+## Available Tools
+
+-   `pampa_search_code(query, limit)` - Search code semantically
+-   `pampa_get_code_chunk(sha)` - Get complete code of a chunk
+-   `pampa_index_project(path)` - Index project for the first time
+-   `pampa_update_project(path)` - Update index after changes
+-   `pampa_get_project_stats(path)` - Get project statistics
+
+## Strategy
+
+Use PAMPA as your project memory. Search before creating, keep updated after changes, and leverage existing knowledge to avoid code duplication.
+
+## Query Examples
 
 ```
-<type>: <emoji> <description>
-
-[optional body]
-
-[optional footer - NO BREAKING CHANGE unless absolutely necessary]
+"user authentication middleware"
+"database connection setup"
+"error handling patterns"
+"form validation logic"
+"API endpoint configuration"
 ```
 
-## Allowed Types
-
-### For Version Bumps:
-
--   `fix: 🐛` - Bug fixes (PATCH)
--   `feat: ✨` - New features (MINOR)
-
-### For No Version Bump:
-
--   `docs: 📝` - Documentation changes
--   `style: 🎨` - Code formatting, styling
--   `refactor: ♻️` - Code refactoring
--   `test: ✅` - Adding tests
--   `chore: 🔧` - Maintenance tasks
--   `ci: 🚀` - CI/CD changes
-
-## Examples
-
-### ✅ CORRECT:
-
-```bash
-# Minor feature (will be 2.4.2 → 2.5.0)
-git commit -m "feat: ✨ add IDE selector integration"
-
-# Bug fix (will be 2.4.2 → 2.4.3)
-git commit -m "fix: 🐛 correct backup logic for single files"
-
-# No version bump
-git commit -m "docs: 📝 update README with new examples"
-```
-
-### ❌ WRONG:
-
-```bash
-# This creates MAJOR version bump (3.0.0)!
-git commit -m "feat: ✨ add IDE selector
-
-BREAKING CHANGE: Removed install command"
-```
-
-## When IS a Breaking Change?
-
-Only use `BREAKING CHANGE:` when:
-
--   API changes that break existing code
--   Removing public functions/methods
--   Changing function signatures
--   Removing CLI flags that users rely on
--   Changing default behavior that breaks existing workflows
-
-## Current Project Status
-
--   **Current version**: 3.0.1 (due to incorrect BREAKING CHANGE usage)
--   **Going forward**: Use only `fix:` and `feat:`
--   **Avoid**: `BREAKING CHANGE:` unless absolutely necessary
-
-## AI Assistant Guidelines
-
-When making commits as "Agent AI":
-
--   Always use `--author="Agent AI <agent.ai@assistant.local>"`
--   Prefer `fix:` over `feat:` when in doubt
--   Never use `BREAKING CHANGE:` without explicit user confirmation
--   Keep commit messages concise and descriptive
+Always use descriptive, intent-based queries that describe what the code does, not just keywords.
 
 ---
 > Source: [tecnomanu/agent-rules-kit](https://github.com/tecnomanu/agent-rules-kit) — distributed by [TomeVault](https://tomevault.io).
