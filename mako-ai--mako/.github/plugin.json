@@ -1,0 +1,9 @@
+{
+  "name": "mako-ai--mako",
+  "displayName": "mako",
+  "description": "Free and open-source SQL client built for AI and the web. The new way to query your data.",
+  "version": "1.0.0",
+  "author": "mako-ai",
+  "homepage": "https://github.com/mako-ai/mako",
+  "skills": []
+}
