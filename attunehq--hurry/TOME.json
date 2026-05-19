@@ -1,0 +1,63 @@
+{
+  "name": "hurry",
+  "owner": "attunehq",
+  "repo": "hurry",
+  "description": "Faster builds, zero effort.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rust-programming",
+      "path": ".claude/skills/rust-programming",
+      "github_url": "https://github.com/attunehq/hurry/tree/main/.claude/skills/rust-programming",
+      "description": ""
+    },
+    {
+      "name": "rust-testing",
+      "path": ".claude/skills/rust-testing",
+      "github_url": "https://github.com/attunehq/hurry/tree/main/.claude/skills/rust-testing",
+      "description": ""
+    },
+    {
+      "name": "task-externalization",
+      "path": ".claude/skills/task-externalization",
+      "github_url": "https://github.com/attunehq/hurry/tree/main/.claude/skills/task-externalization",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/attunehq/hurry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T18:30:25Z"
+}
