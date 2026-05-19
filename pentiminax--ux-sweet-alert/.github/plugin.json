@@ -1,0 +1,9 @@
+{
+  "name": "pentiminax--ux-sweet-alert",
+  "displayName": "ux-sweet-alert",
+  "description": "SweetAlert2 integration for Symfony",
+  "version": "1.0.0",
+  "author": "pentiminax",
+  "homepage": "https://github.com/pentiminax/ux-sweet-alert",
+  "skills": []
+}
