@@ -1,0 +1,9 @@
+{
+  "name": "rygwdn--obsidian-mcp-plugin",
+  "displayName": "obsidian-mcp-plugin",
+  "description": "Obsidian plugin providing Model Context Protocol (MCP) integration",
+  "version": "1.0.0",
+  "author": "rygwdn",
+  "homepage": "https://github.com/rygwdn/obsidian-mcp-plugin",
+  "skills": []
+}
