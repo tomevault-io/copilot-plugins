@@ -1,0 +1,9 @@
+{
+  "name": "gdrtodd--ludax",
+  "displayName": "ludax",
+  "description": "Ludax is a domain-specific language for board games that automatically compiles into hardware-accelerated learning environments with the JAX library",
+  "version": "1.0.0",
+  "author": "gdrtodd",
+  "homepage": "https://github.com/gdrtodd/ludax",
+  "skills": []
+}
