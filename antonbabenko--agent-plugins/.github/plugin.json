@@ -1,0 +1,9 @@
+{
+  "name": "antonbabenko--agent-plugins",
+  "displayName": "agent-plugins",
+  "description": "A collection of agent plugins for improving productivity, automating workflows, and making AI coding agents work better together.",
+  "version": "1.0.0",
+  "author": "antonbabenko",
+  "homepage": "https://github.com/antonbabenko/agent-plugins",
+  "skills": []
+}
