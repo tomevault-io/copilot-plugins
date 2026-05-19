@@ -1,93 +1,54 @@
-## error-handling
+## shared
 
-> Error Handling and Validation Guidelines
+> Shared rules across the project
 
-Error Handling and Validation Guidelines
 
-Key Principles:
-- Handle errors and edge cases early using guard clauses
-- Model expected errors as return values in Server Actions
-- Use error boundaries for unexpected errors
-- Implement proper error logging with meaningful messages
-- Provide user-friendly error feedback
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
 
-Form Validation:
-- Use Zod for form validation and type inference
-- Define reusable validation schemas
-- Implement client-side validation for immediate feedback
-- Add server-side validation as a safety net
+Key Principles
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
 
-Error Types and Handling:
-- Expected errors (form validation, API responses):
-  - Handle with try/catch and return typed error objects
-  - Display user-friendly messages
-  - Log only when necessary for debugging
-- Unexpected errors (runtime errors, network issues):
-  - Catch with error boundaries
-  - Log comprehensively
-  - Show generic user-friendly fallback UI
-  - Include error reporting (if configured)
+Naming Conventions
+- Use lowercase with dashes for directories (e.g., components/auth-wizard).
+- Favor named exports for components.
 
-Server Action Error Pattern:
-```typescript
-interface ActionResponse<T> {
-  data?: T;
-  error?: {
-    code: string;
-    message: string;
-    field?: string;
-  };
-}
+TypeScript Usage
+- Use TypeScript for all code; prefer interfaces over types.
+- Avoid enums; use objects with `as const` instead.
+- Use functional components with TypeScript interfaces.
 
-// Example usage
-async function handleSubmit(): Promise<ActionResponse<User>> {
-  try {
-    // ... logic
-    return { data: user };
-  } catch (e) {
-    return {
-      error: {
-        code: 'USER_CREATE_ERROR',
-        message: 'Failed to create user'
-      }
-    };
-  }
-}
-```
+React Usage
+- Prefer Conditional (ternary) operator (? :) over Logical AND operator (&&)
 
-Form Validation Pattern:
-```typescript
-import { z } from 'zod';
+Syntax and Formatting
+- Use the "function" keyword for pure functions.
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+- Use declarative JSX.
 
-const userSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+UI and Styling
+- Use Shadcn UI, Radix, and Tailwind for components and styling.
+- Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
-type UserFormData = z.infer<typeof userSchema>;
-```
+Performance Optimization
+- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+- Wrap client components in Suspense with fallback.
+- Use dynamic loading for non-critical components.
+- Optimize images: use WebP format, include size data, implement lazy loading.
 
-Error Boundary Usage:
-```typescript
-import { ErrorBoundary } from 'react-error-boundary';
+Key Conventions
+- Use 'nuqs' for URL search parameter state management.
+- Optimize Web Vitals (LCP, CLS, FID).
+- Limit 'use client':
+- Favor server components and Next.js SSR.
+- Use only for Web API access in small components.
+- Use pnpm
+- Use `console.log({})` syntax for debugging
 
-function ErrorFallback({ error }: { error: Error }) {
-  return (
-    <div className="p-4 rounded-md bg-red-50">
-      <h2 className="text-red-800">Something went wrong</h2>
-      <pre className="text-sm text-red-600">{error.message}</pre>
-    </div>
-  );
-}
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      {children}
-    </ErrorBoundary>
-  );
-}
-```
+Follow Next.js docs for Data Fetching, Rendering, and Routing.
 
 ---
 > Source: [VladSez/easy-invoice-pdf](https://github.com/VladSez/easy-invoice-pdf) — distributed by [TomeVault](https://tomevault.io).
