@@ -1,216 +1,409 @@
-## stripe-billing
+## sync-architecture
 
-> Airweave supports two ways to pay for subscription plans while always metering usage monthly:
+> The sync module orchestrates data flow from sources to destinations using a highly concurrent, pull-based asynchronous architecture with sophisticated backpressure control, real-time progress tracking, and automatic OAuth token management.
 
-## Airweave Stripe Billing Rules
+# Airweave Sync Architecture - Deep Dive
 
-### Overview
-Airweave supports two ways to pay for subscription plans while always metering usage monthly:
-- Monthly subscription (normal Stripe subscription, monthly billing)
-- Yearly prepay with monthly usage (customer prepays a discounted annual amount, we apply a 20% coupon for 12 months, draw down from Stripe customer balance monthly; after 12 months, coupon expires and subscription defaults to standard monthly pricing of the same plan)
+## Overview
 
-Plans: `developer` (free, $0 subscription), `pro`, `team`, `enterprise` (handled outside Stripe). Only `pro` and `team` support yearly prepay.
+The sync module orchestrates data flow from sources to destinations using a highly concurrent, pull-based asynchronous architecture with sophisticated backpressure control, real-time progress tracking, and automatic OAuth token management.
 
-Key principles:
-- Upgrades apply immediately with proration (never wait), so customers can use higher limits right away
-- Downgrades are scheduled at the end of the billing period (monthly or yearly if on yearly prepay)
-- Yearly prepay is implemented via one-time payment → credit balance + 20% coupon for 12 months → normal monthly after expiry
+## Core Architecture Principles
 
+### 1. Pull-Based Concurrency Model
+- **Worker Pool Pattern**: Uses `AsyncWorkerPool` with semaphore-controlled concurrency (default: 20 workers)
+- **Pull vs Push**: Workers pull entities from the stream only when ready, preventing system overload
+- **Backpressure**: `AsyncSourceStream` uses bounded queues (default: 10000) to naturally throttle producers
 
-### Architecture
-- API endpoints: `airweave/api/v1/endpoints/billing.py`
-- Service orchestrator: `airweave/billing/service.py`
-- Business rules: `airweave/billing/plan_logic.py`
-- DB transactions (periods/usage/records): `airweave/billing/transactions.py`
-- Stripe client (SDK wrapper): `airweave/integrations/stripe_client.py`
-- Webhook processor: `airweave/billing/webhook_handler.py`
-- Frontend flows: `frontend/src/pages/Onboarding.tsx`, `frontend/src/components/settings/BillingSettings.tsx`
+### 2. Separation of Concerns
+- **Producer/Consumer Decoupling**: Source generation runs independently from entity processing
+- **Modular Pipeline**: Each stage (enrich, transform, vectorize, persist) is isolated
+- **Resource Isolation**: Database sessions created only when needed to minimize connection usage
 
-Data model highlights:
-- Organization billing state stored in `OrganizationBilling` with fields like `billing_plan`, `stripe_customer_id`, `stripe_subscription_id`, `has_yearly_prepay`, `pending_plan_change`, `current_period_start/end`, etc.
-- Billing periods tracked in `BillingPeriod` with status transitions (ACTIVE → COMPLETED, GRACE, ENDED_UNPAID) and associated `Usage` rows.
+## Component Deep Dive
 
+### SyncFactory
+**Purpose**: Factory that builds SyncContext (data), SyncRuntime (services), and wires them into the orchestrator
 
-### Endpoints
-- POST `/billing/checkout-session` → Monthly subscription checkout (Stripe Subscription mode). Requires plan and success/cancel URLs.
-- POST `/billing/yearly/checkout-session` → Yearly prepay checkout (Stripe Payment mode). Creates a one-time checkout for the full-year prepaid amount, records intent, and a 12-month 20% coupon to be applied post-payment.
-- POST `/billing/update-plan` → Update plan and optionally the period (`monthly`|`yearly`). Business rules ensure upgrades are immediate and downgrades are scheduled.
-- GET `/billing/subscription` → Returns `SubscriptionInfo`: plan, status, period boundaries, limits, yearly flags, pending plan changes, etc.
-- POST `/billing/cancel` → Cancel at period end.
-- POST `/billing/reactivate` → Clear cancellation.
-- POST `/billing/cancel-plan-change` → Clear a scheduled plan change.
-- POST `/billing/portal-session` → Stripe Customer Portal session.
-- POST `/billing/webhook` → Stripe webhook receiver (signature-verified).
+**Key Responsibilities**:
+- Builds SyncContext (frozen data) via SyncContextBuilder
+- Builds source + cursor directly via `_build_source()` (uses SourceLifecycleService)
+- Builds destinations via DestinationsContextBuilder
+- Builds entity tracker via `_build_entity_tracker()` (inlined, no separate builder)
+- Assembles SyncRuntime from per-sync state
+- Configures contextual logging with sync metadata
+- Wires pipelines, handlers, worker pool, and stream
 
-Auth/Context: Read endpoints (e.g. `GET /billing/subscription`) use `Depends(deps.get_context)`. Write endpoints use `deps.require_org_role(logic.can_manage_billing)` to enforce admin/owner role checks — except `POST /billing/webhook`, which is unauthenticated and instead verified via `stripe_client.verify_webhook_signature` using `STRIPE_WEBHOOK_SECRET`.
+**DI Model**: Instance-based with constructor-injected deps. Stateless app-scoped services (event_bus, usage_checker, processor, arf_service) are held by the factory and injected directly into consumers (SyncOrchestrator, EntityPipeline), not stored in SyncRuntime.
 
+### SyncContext (frozen data)
+**Purpose**: Immutable data describing a sync run. Inherits from `BaseContext` (sibling to `ApiContext`).
 
-### Monthly vs Yearly Prepay
-Monthly:
-- Standard Stripe subscription with the plan’s monthly price
-- On upgrades: switch price immediately with proration; on downgrades: schedule price change for period end
+**Fields** (flat, no sub-contexts):
+- `sync_id`, `sync_job_id`, `collection_id`, `source_connection_id`: Scope IDs
+- `sync`, `sync_job`, `collection`, `connection`: Schema objects
+- `execution_config`, `force_full_sync`, `batch_size`, `max_batch_latency_ms`: Config
+- `entity_map`: Maps entity types to UUIDs
+- `source_short_name`: Derived from source at build time
+- From `BaseContext`: `organization`, `user`, `logger`
 
-Yearly Prepay:
-- One-time payment for 12 months at 20% discount
-- We create/get a 20% coupon (12 months, repeating) and apply it to the subscription
-- We credit the customer balance by the prepaid amount; monthly invoices draw from this credit
-- After 12 months: coupon expires and plan continues as standard monthly at regular price (no coupon). DB yearly flags are cleared on/after renewal following expiry
+Can be passed directly as `ctx` to CRUD operations (it IS a `BaseContext`).
 
-Amounts (cents):
-- PRO yearly prepay: `12 * $20.00 * 0.8 = 19200`
-- TEAM yearly prepay: `12 * $299.00 * 0.8 = 287040`
+### SyncRuntime (live services)
+**Purpose**: Holds per-sync mutable state for a sync run. Separate from SyncContext.
 
+**Fields**:
+- `source`: Source instance with OAuth token management
+- `cursor`: Mutable sync cursor for incremental syncs
+- `destinations`: List of destination instances
+- `entity_tracker`: Centralized entity state tracker
 
-### Core Business Rules
-Defined in `plan_logic.py` and enforced by `service.py`:
+Stateless singletons (event_bus, usage_checker, embedders) are NOT stored here — they are DI'd directly into their consumers via constructor injection.
 
-- Change type: `UPGRADE` (immediate), `DOWNGRADE` (scheduled), `SAME`, `REACTIVATION`
-- Payment method required to move into paid plans; otherwise return a message instructing to use checkout
-- On monthly:
-  - Upgrade: immediate subscription update (proration on Stripe)
-  - Downgrade: schedule by setting `pending_plan_change` and effective date at current period end
-- On yearly prepay:
-  - Upgrades within yearly prepay: immediate price update; coupon retained or updated as needed, and additional credit may be added for plan upgrades to next yearly tier
-  - Downgrades while yearly prepay is active: schedule for yearly expiry (`pending_plan_change` at `yearly_prepay_expires_at`)
-  - Switching from yearly → monthly of same plan: automatic at yearly expiry (we surface as pending change for UI)
-  - Switching from yearly → higher monthly (e.g., pro yearly → team monthly): remove discount and update price immediately
-  - Disallowed: direct cross-year downgrades (e.g., team yearly → pro yearly). UX hints recommend first landing on monthly at expiry, then switching to yearly
+Built by the factory, held by the orchestrator, injected into pipeline/handler constructors.
 
+### Builders
+- **SyncContextBuilder** (`builders/sync.py`): Builds data-only SyncContext
+- **SyncFactory._build_source()**: Builds source + cursor directly (uses SourceLifecycleService), returns `SourceBuildResult`
+- **DestinationsContextBuilder** (`builders/destinations.py`): Builds destination instances
+- **SyncFactory._build_entity_tracker()**: Builds EntityTracker with initial counts (inlined into factory)
 
-### Orchestration Flows
+The factory calls build helpers in sequence, then assembles SyncRuntime.
 
-Organization creation:
-- Backend creates `OrganizationBilling` and, for `developer`, a $0 Stripe subscription so that billing periods/usage can be driven by webhooks
+### SyncOrchestrator
+**Purpose**: Coordinates the entire sync workflow with error handling and progress tracking
 
-Monthly upgrade/downgrade (`/billing/update-plan`):
-- Build `PlanChangeContext` and compute `PlanChangeDecision`
-- If requires checkout (no payment method for paid plan), return error
-- If immediate: update subscription price (`proration_behavior=create_prorations`), clear cancellation/pending as needed; create a new BillingPeriod for upgrades
-- If scheduled: update subscription to target price without proration, set `pending_plan_change` and effective date at current period end
+**Workflow Stages**:
+1. **Start**: Updates job status to IN_PROGRESS
+2. **Process**: Manages entity streaming and concurrent processing
+3. **Complete/Fail**: Updates final status with statistics
 
-Yearly prepay start (`/billing/yearly/checkout-session`):
-- Pre-compute amount and create/get 20% coupon (idempotent by org+plan)
-- Create a Payment-mode checkout session for the annual amount
-- Record prepay intent in DB (amount, expected expiry ≈ +365d, coupon id, payment_intent id)
-- Webhook (`checkout.session.completed`) finalizes: credit balance, create or update subscription, apply coupon, set default payment method, set `has_yearly_prepay=true`, set `yearly_prepay_expires_at`, and ensure BillingPeriod continuity
+**Key Methods**:
+- `run()`: Main entry point with try/catch for proper cleanup
+- `_process_entities()`: Implements pull-based processing loop
+- `_handle_completed_tasks()`: Cleans completed tasks and checks for errors
+- `_wait_for_remaining_tasks()`: Ensures all tasks complete before finishing
 
-Yearly updates (`/billing/update-plan` with `period=yearly`):
-- Only `pro` and `team` supported
-- Disallow direct yearly downgrades across plans (e.g., team → pro yearly)
-- Require payment method
-- Apply yearly helper to update price (if plan changed), ensure coupon, compute/credit differences, and set yearly window in DB; create a new BillingPeriod (upgrade)
+**Constructor-Injected Services**: Receives `event_bus`, `usage_checker`, `usage_ledger`, and `sync_cursor_service` directly via constructor — not through SyncRuntime.
 
-Yearly → Monthly in presence of yearly prepay:
-- Upgrade path (e.g., pro yearly → team monthly): remove discount, update price immediately, clear yearly flags, create a new monthly BillingPeriod
-- Downgrade path (e.g., team yearly → developer): schedule pending change at `yearly_prepay_expires_at`
+**Concurrency Management**:
+```python
+# Workers pull entities only when ready
+async for entity in stream.get_entities():
+    if entity.airweave_system_metadata.should_skip:
+        # Skip without using a worker
+        await sync_context.entity_tracker.record_skipped(1)
+        continue
 
-
-### Webhook Processing
-Handled by `BillingWebhookProcessor`:
-- `customer.subscription.created`: set subscription id, plan, payment method flags, current period boundaries, create initial BillingPeriod
-- `customer.subscription.updated`: infer plan at renewals or item changes; on renewal after yearly expiry, clear yearly flags; if pending change window reached, switch price (best-effort with Stripe, DB remains source of truth on known test-clock limitations) and create new BillingPeriod as needed
-- `customer.subscription.deleted`: if canceled immediately, complete the current period and clear subscription fields; if only scheduled, set `cancel_at_period_end`
-- `invoice.payment_succeeded|paid`: mark payment status; stamp invoice details on current BillingPeriod when applicable
-- `invoice.payment_failed`: move to grace period (`+7d`, create GRACE BillingPeriod), status `PAST_DUE`
-- `checkout.session.completed` (mode=payment): finalize yearly prepay (credit, coupon, create/update subscription, set payment method, set yearly fields)
-
-Signature Verification: Webhooks verified via `stripe_client.verify_webhook_signature` using `STRIPE_WEBHOOK_SECRET`.
-
-
-### Upgrade/Downgrade Decision Map
-General rules (front+back coordinated):
-- Upgrades: immediate
-- Downgrades: scheduled at period end (monthly or yearly expiry)
-- Direct “cross-year” downgrades like team yearly → pro yearly are disallowed; UI surfaces guidance
-
-Examples the system supports today:
-- developer → pro monthly: checkout if no PM; otherwise immediate update
-- developer → pro yearly: checkout if no PM; finalize yearly (credit+coupon)
-- developer → team monthly: checkout if no PM; immediate update
-- developer → team yearly: checkout if no PM; finalize yearly (credit+coupon)
-- pro monthly → pro yearly: keep subscription; add credit; apply 20% coupon
-- pro monthly → team monthly: immediate price update
-- pro monthly → team yearly: immediate update + add credit + apply coupon
-- pro yearly → team monthly: remove discount, immediate price update; yearly flags cleared
-- pro yearly → team yearly: add credit difference, immediate update; coupon remains active
-- team monthly → team yearly: keep subscription; add credit; apply coupon
-- team monthly → pro monthly/developer: schedule at month end
-- team yearly → team monthly: automatic at yearly expiry (we surface pending change for UX)
-- team yearly → pro monthly/developer: schedule for yearly expiry
-
-
-### Frontend Integration
-Onboarding (`Onboarding.tsx`):
-- After creating an organization, if plan is developer → go to dashboard (backend auto-creates $0 sub)
-- For paid plans: choose Monthly/Yearly; monthly calls `/billing/checkout-session`; yearly calls `/billing/yearly/checkout-session`; redirect to Stripe checkout
-
-Settings (`BillingSettings.tsx`):
-- Fetch `/billing/subscription` to render plan, status, period info, yearly flags, and pending changes
-- Upgrade flow:
-  - Paid plans without PM → create checkout session and redirect
-  - With PM → call `/billing/update-plan` with `period`
-  - Disallowed cross-year paths surface informative toasts (e.g., team monthly → pro yearly)
-- Manage billing → `/billing/portal-session`
-- Cancel/Reactivate → `/billing/cancel`, `/billing/reactivate`
-- Cancel pending change → `/billing/cancel-plan-change`
-
-
-### Limits by Plan (enforced server-side)
-From `plan_logic.PLAN_LIMITS`:
-- developer: 50K entities, 500 queries, 10 source connections, 1 team member
-- pro: 100K entities, 2K queries, 50 source connections, 2 team members
-- team: 1M entities, 10K queries, 1000 source connections, 10 team members
-- enterprise: unlimited (out of scope for Stripe integration)
-
-
-### Operational Notes
-- Environment flags/variables in `core/config.py` determine if Stripe is enabled and which Price IDs to use (`STRIPE_*_MONTHLY`). When `STRIPE_ENABLED=false`, billing endpoints return appropriate errors and UI gracefully bypasses checkout
-- Yearly coupon: repeating duration for 12 months, 20% off; created/searchable by idempotency metadata key
-- Customer credit is applied as a negative balance transaction equal to the yearly prepay amount (or delta for upgrades)
-- BillingPeriod creation ensures continuity, completing prior periods when overlaps would occur (especially under Stripe test clocks)
-- Known Stripe test clock limitations: Price updates during renewal can fail; we still update DB to reflect intended state, and the system converges on the next cycle
-
-
-### Extensibility Checklist
-To add or adjust plan transitions:
-1) Update `stripe_client.price_ids` and environment variables for new prices
-2) Adjust `plan_logic` if plan ranks/limits change
-3) Ensure `service.update_subscription_plan` covers the new transition rules (monthly vs yearly, checkout requirements, coupon/credit ops)
-4) Ensure webhooks infer plan correctly and create periods as needed
-5) Update frontend guards/messages in `BillingSettings.tsx` if a path should be disallowed or guided
-
-
-### Quick API Usage Examples
-Create monthly checkout session:
-```http
-POST /billing/checkout-session
-{
-  "plan": "pro",
-  "success_url": "https://app/organization/settings?tab=billing&success=true",
-  "cancel_url": "https://app/organization/settings?tab=billing"
-}
+    # Submit to worker pool (blocks if all workers busy)
+    task = await worker_pool.submit(...)
 ```
 
-Create yearly prepay checkout session:
-```http
-POST /billing/yearly/checkout-session
-{
-  "plan": "pro",
-  "success_url": "https://app/organization/settings?tab=billing&success=true",
-  "cancel_url": "https://app/organization/settings?tab=billing"
-}
+### AsyncSourceStream
+**Purpose**: Manages async streaming with backpressure between producer and consumer
+
+**Architecture**:
+- **Producer Task**: Runs independently, filling queue from source generator
+- **Bounded Queue**: Implements backpressure (blocks producer when full)
+- **Consumer Interface**: `get_entities()` yields items as they become available
+- **Error Propagation**: Producer exceptions are captured and re-raised to consumer
+
+**Key Features**:
+- Context manager support for proper resource cleanup
+- Progress logging every 50 items
+- Graceful shutdown with timeout handling
+- Sentinel value (None) signals end of stream
+
+### EntityPipeline
+**Purpose**: Orchestrates entity processing through the action/handler architecture
+
+**Pipeline Stages**:
+1. **Track & Dedupe**: EntityTracker records encounter, skips duplicates
+2. **Prepare**: Populate fields, enrich metadata, compute content hash
+3. **Resolve Actions**: EntityActionResolver determines INSERT/UPDATE/DELETE/KEEP
+4. **Dispatch**: EntityActionDispatcher routes actions to handlers concurrently
+
+**Action Types** (`domains/sync_pipeline/entity/actions.py`):
+- `InsertAction`: New entity, not in database
+- `UpdateAction`: Hash changed from stored value
+- `DeleteAction`: DeletionEntity from source
+- `KeepAction`: Hash matches stored value (no-op)
+
+**Handlers** (`domains/sync_pipeline/entity/handlers/`):
+| Handler | Responsibility | Execution |
+|---------|----------------|-----------|
+| `DestinationHandler` | Chunking → embedding → vector DB writes | Concurrent |
+| `ArfHandler` | Captures raw entities to ARF storage via `ArfService` | Concurrent |
+| `PostgresHandler` | Persists entity metadata | Sequential (last) |
+
+**Error Handling**:
+- Catches exceptions per entity (doesn't fail entire sync)
+- Marks failed entities as "skipped" via EntityTracker
+- Detailed error logging with entity context
+
+### SyncDAGRouter
+**Purpose**: Routes entities through transformation pipeline based on DAG structure
+
+**Key Components**:
+- **Execution Route**: Pre-computed routing map for O(1) lookups
+- **Transformer Cache**: Pre-loaded transformers to avoid database queries
+- **Entity Lineage**: Tracks parent-child relationships through transformations
+
+**Routing Logic**:
+```python
+# Route map: (producer_node_id, entity_type_id) -> consumer_node_id
+route_map[(producer, entity_definition_short_name)] = consumer_node_id
+
+# Special case: routes to destination return None (stops routing)
+if all_edges_go_to_destinations:
+    route_map[key] = None
 ```
 
-Update plan/period:
-```http
-POST /billing/update-plan
-{ "plan": "team", "period": "yearly" }
+**Advanced Features**:
+- Handles multi-path routing through DAG
+- Optimized for chunk processing (files → chunks)
+
+### AsyncWorkerPool
+**Purpose**: Controls concurrent task execution with semaphore-based limiting
+
+**Implementation Details**:
+- **Semaphore Control**: Limits active tasks (prevents resource exhaustion)
+- **Task Tracking**: Maintains set of pending tasks with cleanup callbacks
+- **Detailed Logging**: Tracks task lifecycle (submit → wait → start → complete)
+- **Thread Awareness**: Logs thread IDs for debugging concurrency issues
+
+**Key Methods**:
+- `submit()`: Creates task and adds to tracking set
+- `_run_with_semaphore()`: Wraps coroutine with semaphore acquisition
+- `_handle_task_completion()`: Cleans up completed/failed tasks
+
+### EntityTracker
+**Purpose**: Centralized entity state tracking (dedup + progress + encounter tracking)
+
+**Responsibilities**:
+- **Deduplication**: Tracks `(entity_id, entity_definition_short_name)` to prevent reprocessing
+- **Encounter Counting**: Maintains count of entities by type for stats
+- **Progress Stats**: Thread-safe counters for inserted/updated/deleted/kept/skipped
+
+**Key Methods**:
+- `track()`: Records entity encounter, returns False if duplicate
+- `record_action()`: Increments stat counter (inserted, updated, etc.)
+- `get_stats()`: Returns `SyncStats` for job completion
+- `get_all_encountered_ids_flat()`: Returns set of all entity IDs (for orphan cleanup)
+
+### SyncProgressRelay (EventSubscriber)
+**Purpose**: Event-driven subscriber that relays sync progress to Redis pubsub for real-time updates
+
+**Architecture**:
+- Extends `EventSubscriber`, subscribes to `entity.*`, `access_control.*`, and `sync.*` events on the EventBus
+- Sessions are auto-created on `sync.running` events — no factory wiring needed
+- Accumulates progress in per-sync sessions, publishes aggregated updates
+
+**Features**:
+- **Event-Driven**: Reacts to `EntityBatchProcessedEvent`, `SyncLifecycleEvent`, etc.
+- **Redis Integration**: Publishes to `sync_job:{job_id}` channels
+- **Snapshot Storage**: Stores progress snapshots with TTL for stuck job detection
+
+**Redis Snapshot Storage**:
+- Key: `sync_progress_snapshot:{job_id}`
+- Includes `last_update_timestamp` for cleanup job to detect stuck syncs
+- 30-minute TTL to automatically clean up completed syncs
+
+### TokenManager
+**Purpose**: Manages OAuth2 token refresh for long-running syncs
+
+**Key Features**:
+- **Automatic Refresh**: Refreshes tokens before expiry (25-minute intervals)
+- **Concurrent Refresh Prevention**: Uses async lock to prevent duplicate refreshes
+- **Direct Injection**: Supports non-refreshable tokens (skips refresh)
+
+**Refresh Logic**:
+```python
+# Only refreshes for specific auth types
+if auth_type in (AuthType.oauth2_with_refresh, AuthType.oauth2_with_refresh_rotating):
+    # Refresh if older than 25 minutes
+    if time_since_refresh > REFRESH_INTERVAL_SECONDS:
+        await self._refresh_token()
 ```
 
-Get subscription:
-```http
-GET /billing/subscription
+### Async Helpers
+**Purpose**: Performance utilities for CPU-bound operations
+
+**Key Utilities**:
+- **Shared Thread Pool**: Reuses executor for all CPU-bound tasks
+- **Async Hashing**: Non-blocking file/content hashing
+- **Stable Serialization**: Consistent object serialization for hashing
+- **Chunked File Reading**: Memory-efficient file processing
+
+## Data Flow - Detailed
+
+### 1. Initialization Phase
 ```
+SyncFactory.create_orchestrator()
+├── Resolve layered SyncConfig (collection → sync → job overrides)
+├── Resolve source connection from DB
+├── Build source + cursor via _build_source() (SourceLifecycleService)
+├── Build destinations via DestinationsContextBuilder
+├── Build EntityTracker via _build_entity_tracker() (with initial counts)
+├── Build entity_map from EntityDefinitionRegistry
+├── Assemble SyncContext (frozen data) via SyncContextBuilder
+├── Assemble SyncRuntime (source, cursor, entity_tracker, destinations)
+├── Wire EntityPipeline
+│   ├── EntityActionResolver
+│   └── EntityActionDispatcher (via EntityDispatcherBuilder)
+├── Wire AccessControlPipeline
+├── Wire AsyncSourceStream
+└── Create SyncOrchestrator (with DI'd event_bus, usage_checker, usage_ledger, sync_cursor_service)
+```
+
+### 2. Streaming Phase
+```
+AsyncSourceStream (Producer)
+├── Runs in separate task
+├── Generates entities from source
+├── Puts in bounded queue (backpressure)
+└── Signals completion with None
+
+SyncOrchestrator (Consumer)
+├── Pulls from stream when worker available
+├── Skips marked entities without worker
+└── Submits to worker pool
+```
+
+### 3. Processing Phase (Per Batch)
+```
+EntityPipeline.process()
+├── Track & dedupe (EntityTracker)
+├── Prepare entities (enrich, compute hash)
+├── Resolve actions (EntityActionResolver)
+│   ├── Query DB for existing hashes
+│   └── Return ActionBatch (inserts, updates, deletes, keeps)
+└── Dispatch to handlers (EntityActionDispatcher)
+    ├── DestinationHandler (concurrent)
+    │   └── text → chunks → embeddings → vector DB
+    ├── ArfHandler (concurrent)
+    │   └── Capture to ARF storage via ArfService
+    └── PostgresHandler (sequential, last)
+        └── Persist entity metadata
+```
+
+### 4. Progress Tracking
+```
+EntityTracker records action
+├── Emits domain events via EventBus (entity.batch_processed, etc.)
+├── SyncProgressRelay (EventSubscriber) receives events
+│   ├── Accumulates progress in per-sync session
+│   ├── Publishes to Redis pubsub (sync_job:{job_id})
+│   └── Stores snapshot in Redis (sync_progress_snapshot:{job_id})
+└── Frontend/API subscribers receive real-time updates
+```
+
+## Orphaned Workflow Self-Destruct
+
+**Problem**: Workflows may execute after their sync/source_connection is deleted (race condition between schedule deletion and queued workflows).
+
+**Solution**: Self-healing workflows that detect orphaned state and clean up automatically.
+
+**Detection Points**:
+1. **Early** (in `create_sync_job_activity`): Checks if sync exists before creating job
+   - Returns `CreateSyncJobResult(orphaned=True, sync_id=..., reason=...)` if not found
+2. **Late** (in `run_sync_activity`): Catches `NotFoundException` during execution
+   - Domain code raises `OrphanedSyncError(sync_id)` (in `exceptions.py`)
+   - Activity boundary converts to explicit `ApplicationError` with:
+     - `type=ORPHANED_SYNC_ERROR_TYPE` (shared constant in `exceptions.py`)
+     - `non_retryable=True` (permanent condition)
+     - `category=ApplicationErrorCategory.BENIGN` (suppresses error metrics/logs)
+     - Structured `details`: `(sync_id, reason)` accessible on workflow side
+
+**Temporal serialization**: The workflow detects orphaned syncs by checking
+`error.cause.type == ORPHANED_SYNC_ERROR_TYPE` on the `ApplicationError` inside
+the `ActivityError` wrapper. Structured details are accessed via `error.cause.details`.
+The `BENIGN` category prevents orphaned syncs from polluting error metrics and
+OpenTelemetry traces since they are expected operational behavior.
+
+**Self-Destruct Flow**:
+```python
+if self._is_orphaned_sync_error(e):
+    reason = self._extract_orphaned_reason(e)  # from ApplicationError.details
+    await self._self_destruct(sync_dict, ctx_dict, reason)
+    return  # Exit gracefully without error
+```
+
+**Cleanup Actions** (in `self_destruct_orphaned_sync_activity`):
+- Deletes all schedule types: `sync-{id}`, `minute-sync-{id}`, `daily-cleanup-{id}`
+- Uses existing `temporal_schedule_service.delete_schedule_handle()`
+- Logs with INFO level, not ERROR
+- Idempotent (safe for concurrent workflows)
+
+**Result**: No "Source connection record not found" errors, graceful workflow exits, automatic schedule cleanup.
+
+
+## Temporal Module Structure
+
+Activities and workflows live under `domains/temporal/` with single-responsibility modules.
+
+### Activities (`domains/temporal/activities/`)
+
+Each activity is a `@dataclass` with explicit DI, one class per file:
+
+| File | Class | Responsibility |
+|------|-------|---------------|
+| `run_sync.py` | `RunSyncActivity` | Execute a sync job with heartbeating and stall detection |
+| `create_sync_job.py` | `CreateSyncJobActivity` | Create sync job record (for scheduled runs) |
+| `transition_sync_job.py` | `TransitionSyncJobActivity` | Terminal state transitions via SyncJobStateMachine |
+| `cleanup_stuck_sync_jobs.py` | `CleanupStuckSyncJobsActivity` | Detect and cancel stuck jobs |
+| `self_destruct_orphaned_sync.py` | `SelfDestructOrphanedSyncActivity` | Clean up schedules for orphaned syncs |
+| `cleanup_sync_data.py` | `CleanupSyncDataActivity` | Remove Vespa + ARF data for deleted syncs |
+| `api_key_notifications.py` | `CheckAndNotifyExpiringKeysActivity` | Email notifications for expiring API keys |
+
+`activities/__init__.py` re-exports both class names and `.run` method references (used by workflows).
+
+### Workflows (`domains/temporal/workflows/`)
+
+Each workflow is one class per file, using `workflow.unsafe.imports_passed_through()` for activity imports and named timeout/retry constants:
+
+| File | Class |
+|------|-------|
+| `run_source_connection.py` | `RunSourceConnectionWorkflow` — four-phase orchestration |
+| `cleanup_stuck_sync_jobs.py` | `CleanupStuckSyncJobsWorkflow` — periodic stuck-job cleanup |
+| `cleanup_sync_data.py` | `CleanupSyncDataWorkflow` — post-deletion data cleanup |
+| `api_key_notifications.py` | `APIKeyExpirationCheckWorkflow` |
+
+### Worker Wiring (`domains/temporal/worker/`)
+
+`wiring.py` is the DI wiring point: reads dependencies from `container` and instantiates activity dataclasses. `get_workflows()` returns the list of workflow classes.
+
+### Domain Services (`domains/temporal/`)
+
+- `service.py` — `TemporalWorkflowService`: start/cancel workflows
+- `schedule_service.py` — `TemporalScheduleService`: CRUD for Temporal schedules
+- `protocols.py` — Protocol definitions for the above
+
+### Tests
+
+Co-located alongside source code:
+- `activities/tests/` — activity unit tests with fake dependencies
+- `workflows/tests/` — workflow tests using `WorkflowEnvironment.start_time_skipping()` and mock activities
+- `worker/tests/` — worker startup and config tests
+
+## Best Practices
+
+### When Extending
+1. Maintain pull-based architecture
+2. Use async locks for shared state
+3. Create database sessions sparingly
+4. Log with contextual information
+5. Handle errors at entity level
+
+
+### Common Pitfalls
+1. Don't block the event loop
+2. Avoid unbounded concurrency
+3. Handle token refresh properly
+4. Clean up resources in finally blocks
+5. Test with large datasets
+
+This architecture enables efficient processing of millions of entities with optimal resource usage, real-time monitoring, and robust error handling.
 
 ---
 > Source: [airweave-ai/airweave](https://github.com/airweave-ai/airweave) — distributed by [TomeVault](https://tomevault.io).
