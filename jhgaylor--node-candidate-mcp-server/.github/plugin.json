@@ -1,9 +1,9 @@
 {
   "name": "jhgaylor--node-candidate-mcp-server",
   "displayName": "node-candidate-mcp-server",
-  "description": "node-candidate-mcp-server",
+  "description": "A Model Context Protocol (MCP) server library that gives LLMs access to information about a candidate.",
   "version": "1.0.0",
   "author": "jhgaylor",
-  "homepage": "https://tomevault.io/claim/jhgaylor",
+  "homepage": "https://github.com/jhgaylor/node-candidate-mcp-server",
   "skills": []
 }
