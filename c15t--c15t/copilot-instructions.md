@@ -1,238 +1,85 @@
-## global-rules
+## ts-docs
 
-> Rules that apply to all packages in the monorepo
+> ts-docs / js-docs
 
-# Component Library Generation Context
+Analyze and refactor my TypeScript codebase with these strict guidelines:
 
-When generating React component libraries similar to Clerk Elements, follow these principles and patterns to maintain a consistent and developer-friendly experience.
+1. Maximize type inference while maintaining strict type safety
+2. Replace all generic type parameters with descriptive names that reflect their purpose:
+   - Change T → EntityType, K → KeyType, V → ValueType, etc.
+   - Use semantic naming that communicates the parameter's role
 
-## Core Principles
+3. Apply these DRY principles:
+   - Extract common type patterns into reusable utility types
+   - Leverage conditional types to avoid repetition
+   - Use mapped types where appropriate to transform existing types
+   - Implement template literal types to generate string unions
 
-1. **Compound Components Pattern**
-- Components should be namespaced under a single parent (e.g., `FormWizard.Root`, `FormWizard.Step`)
-- State should be managed through React Context
-- Components must be composable and work together seamlessly
-- Components should handle their own state management and validation
+4. Enforce strict typing standards:
+   - Eliminate ALL usage of 'any' type
+   - Replace 'any' with appropriate 'unknown' types when necessary
+   - Use 'never' for exhaustive checks
+   - Add proper index signatures when dealing with dynamic properties
 
-2. **Type Safety**
-- Always implement full TypeScript support
-- Use proper type definitions for all props and refs
-- Implement proper generic constraints where necessary
-- Export type definitions for public API
-- Avoid TypeScript enums due to their runtime overhead and tree-shaking limitations; use const objects or 'as const' assertions instead:
-```typescript
-// Instead of enum:
-enum Status { Active, Inactive }
-// Prefer:
- const Status = {
-   Active: 'active',
-   Inactive: 'inactive'
- } as const;
+5. Add comprehensive TSDoc comments that include:
+   - Function/interface purpose
+   - Type parameter explanations
+   - Parameter documentation
+   - Return type documentation
+   - Edge case handling
+   - @internal tag for internal-only components
+   - @throws tag to document potential errors and exceptions
+   - @see tags to reference related functions/types
+   - @example tags with practical usage scenarios
+   - @deprecated tag for deprecated features with migration paths
 
-// Or:
-const Status = Object.freeze({
-  Active: 'active',
-  Inactive: 'inactive'
-});
-```
+6. Document error handling:
+   - Add @throws tags for all functions that might throw errors
+   - Specify exact error types or custom error classes
+   - Document conditions that trigger each error
+   - Provide guidance on how to handle/prevent errors
 
-3. **Accessibility**
-- Support keyboard navigation
-- Include proper ARIA attributes
-- Support screen readers through semantic markup
-- Maintain focus management
+For example, transform:
 
-4. **Component Structure**
-
-Each component should follow this pattern:
-```typescript
-import { forwardRef, type ComponentRef, HTMLAttributes, ReactNode } from 'react';
-
-type ComponentElement = ComponentRef<'element_type'>;
-type ComponentProps = {
-  // Required props first
-  name?: string;
-  children?: ReactNode;
-  
-  // Optional features
-  asChild?: boolean;
-  className?: string;
-  
-  // Additional type extensions
-} & HTMLAttributes<HTMLElementType>;
-
-export const Component = forwardRef<ComponentElement, ComponentProps>((
-  { asChild, children, className, ...props }, 
-  ref
-) => {
-  // Implementation
-});
-```
-
-5. **Error Handling**
-- Provide clear error messages for development
-- Implement runtime checks for required context/props
-- Use descriptive error messages that guide developers
-
-## Component Patterns
-
-### Root Component
-- Serves as the main context provider
-- Manages global state
-- Handles initialization
-- Example structure:
-```typescript
-import { FC } from 'react';
-
-export const Root: FC<RootProps> = ({
-  children,
-  ...props
-}) => {
-  return (
-    <Context.Provider value={...}>
-      {children}
-    </Context.Provider>
-  );
-};
-```
-
-### Child Components
-- Must be used within Root component
-- Access context through hooks
-- Support composition through asChild prop
-- Follow consistent prop patterns
-
-### Context Usage
-- Create dedicated hooks for context access
-- Implement proper error boundaries
-- Provide clear error messages for misuse
-
-## Developer Experience
-
-1. **Props Pattern**
-- Required props should be listed first
-- Optional props should have clear defaults
-- Support common HTML attributes
-- Allow style customization through className
-
-2. **Composition Support**
-- Implement asChild prop using Radix UI's Slot
-- Allow component replacement while maintaining functionality
-- Support custom styling and rendering
-
-3. **Error Messages**
-Provide clear error messages in these scenarios:
-- Components used outside of context
-- Missing required props
-- Invalid prop combinations
-- Runtime validation failures
-
-## Documentation Structure
-
-For each component, document:
-1. Purpose and use case
-2. Required and optional props
-3. Context requirements
-4. Example usage
-5. Common pitfalls
-
-Example documentation format:
-```typescript
-/**
- * The `<Component>` is used for [purpose].
- * Must be used within `<Parent>` component.
- *
- * @param {string} name - Unique identifier for the component
- * @param {boolean} [asChild] - Replace the component with a custom element
- * @param {string} [className] - Additional CSS classes
- *
- * @example
- * <Parent>
- *   <Component name="example">
- *     {...children}
- *   </Component>
- * </Parent>
- */
-```
-
-## Implementation Guidelines
-
-1. **State Management**
-- Use React Context for global state
-- Implement proper state updates
-- Handle side effects appropriately
-
-2. **Validation**
-- Implement runtime checks
-- Validate prop combinations
-- Provide clear error messages
-
-3. **Styling**
-- Support className prop
-- Use data attributes for states
-- Allow style customization
-
-4. **Event Handling**
-- Support standard DOM events
-- Implement custom events when needed
-- Handle event propagation properly
-
-## Common Patterns
-
-1. **Context Creation**
-```typescript
-import { createContext, useContext } from 'react';
-
-const Context = createContext<ContextType | null>(null);
-
-const useComponentContext = () => {
-  const context = useContext(Context);
-  if (!context) {
-    throw new Error(
-      'Component must be used within Parent'
-    );
-  }
-  return context;
-};
-```
-
-2. **Component Base**
-```typescript
-import { forwardRef } from 'react';
-
-export const Component = forwardRef<Element, Props>((
-  { asChild, children, className, ...props },
-  ref
-) => {
-  const Comp = asChild ? Slot : 'div';
-  return (
-    <Comp
-      ref={ref}
-      className={className}
-      {...props}
-    >
-      {children}
-    </Comp>
-  );
-});
-```
-
-3. **Error Handling**
-```typescript
-if (!condition) {
-  throw new Error(
-    'Clear error message with component name and required context/props'
-  );
+function fetchData<T>(url: string, options?: object): Promise<T> {
+  return fetch(url, options).then(res => res.json());
 }
-```
 
-## Testing Considerations
+Into:
 
-Guide the LLM to include:
-1. Unit tests for components
-2. Integration tests for component combinations
-3. Accessibility tests
-4. Error boundary tests
+/**
+ * Fetches and parses JSON data from a remote endpoint
+ * 
+ * @typeParam ResponseType - The expected type of the parsed response
+ * 
+ * @param url - The URL to fetch data from
+ * @param options - Optional fetch configuration options
+ * @returns Promise resolving to the parsed response data
+ * 
+ * @throws {TypeError} When the response is not valid JSON
+ * @throws {Error} When the network request fails
+ * 
+ * @example
+ * ```ts
+ * // Fetching a typed user response
+ * interface User { id: number; name: string }
+ * const user = await fetchData<User>('/api/users/1');
+ * ```
+ */
+function fetchData<ResponseType>(
+  url: string, 
+  options?: RequestInit
+): Promise<ResponseType> {
+  return fetch(url, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}: ${response.statusText}`);
+      }
+      return response.json() as Promise<ResponseType>;
+    });
+}
+
+Provide the refactored code with strict typing and clear documentation.
 
 ---
 > Source: [c15t/c15t](https://github.com/c15t/c15t) — distributed by [TomeVault](https://tomevault.io).
