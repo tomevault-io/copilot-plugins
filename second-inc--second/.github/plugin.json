@@ -1,0 +1,9 @@
+{
+  "name": "second-inc--second",
+  "displayName": "second",
+  "description": "The factory for custom internal software, purpose-built for human2agent work.",
+  "version": "1.0.0",
+  "author": "Second-Inc",
+  "homepage": "https://github.com/Second-Inc/second",
+  "skills": []
+}
