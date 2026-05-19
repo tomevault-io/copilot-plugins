@@ -1,0 +1,9 @@
+{
+  "name": "oleghq--localwave",
+  "displayName": "localwave",
+  "description": "\ud83c\udfb6 LocalWave is a local-first MP3 player for iOS with full-text search, iCloud sync, and no subscriptions",
+  "version": "1.0.0",
+  "author": "OlegHQ",
+  "homepage": "https://github.com/OlegHQ/localwave",
+  "skills": []
+}
