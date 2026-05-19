@@ -1,0 +1,9 @@
+{
+  "name": "habedi--bptree",
+  "displayName": "bptree",
+  "description": "A B+ tree implementation in C ",
+  "version": "1.0.0",
+  "author": "habedi",
+  "homepage": "https://github.com/habedi/bptree",
+  "skills": []
+}
