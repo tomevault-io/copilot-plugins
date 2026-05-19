@@ -1,0 +1,75 @@
+{
+  "name": "domain-driven-design-skills",
+  "owner": "ForceInjection",
+  "repo": "domain-driven-design-skills",
+  "description": "Domain driven design skills for architect",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jwt-auth-expert",
+      "path": "relative-skills/claude-skill-registry/skills/security/jwt-auth-expert-shajar5110-hackathon-ii-phase2",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/security/jwt-auth-expert-shajar5110-hackathon-ii-phase2",
+      "description": ""
+    },
+    {
+      "name": "vue-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/vue-testing-pluginagentmarketpla-custom-plugin-vue-35e28c7c",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/vue-testing-pluginagentmarketpla-custom-plugin-vue-35e28c7c",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "relative-skills/claude-skill-registry/skills/testing/vue-onmax-nuxt-skills",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/vue-onmax-nuxt-skills",
+      "description": ""
+    },
+    {
+      "name": "vue-story",
+      "path": "relative-skills/claude-skill-registry/skills/testing/vue-story-xiaoland-agents-9fb13385",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/vue-story-xiaoland-agents-9fb13385",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "path": "relative-skills/claude-skill-registry/skills/testing/vue-composable-testing-alexanderop-workouttracker",
+      "github_url": "https://github.com/ForceInjection/domain-driven-design-skills/tree/main/relative-skills/claude-skill-registry/skills/testing/vue-composable-testing-alexanderop-workouttracker",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ForceInjection/domain-driven-design-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T06:30:23Z"
+}
