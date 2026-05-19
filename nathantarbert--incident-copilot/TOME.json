@@ -1,0 +1,44 @@
+{
+  "name": "incident-copilot",
+  "owner": "NathanTarbert",
+  "repo": "incident-copilot",
+  "description": "\ud83d\udd10 AI-powered incident-response dashboard built with CopilotKit + Custom Agent \u2014 natural-language triage, human-in-the-loop actions, and live charts over a decade of global cybersecurity threats.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NathanTarbert/incident-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T13:16:35Z"
+}
