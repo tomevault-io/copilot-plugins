@@ -1,767 +1,761 @@
-## duckplayer
+## feature-flags-addition
 
-> DuckPlayer provides video playback within the app, separate from the web view-based player. The architecture separates concerns into distinct components using a presenter pattern, native UI views, and JavaScript integration for seamless video playback experiences.
+> Interactive pattern for adding feature flags to iOS and/or macOS with proper configuration
 
 
-# DuckPlayer Implementation Guide
+# Feature Flag Addition Pattern
+
+## When This Pattern Applies
+
+This pattern is activated when the user explicitly requests to add a feature flag, such as:
+- "Add a feature flag for [feature name]"
+- "Create a feature flag for [feature name] on [platform]"
+- "I need a feature flag to control [feature name]"
 
 ## Overview
 
-DuckPlayer provides video playback within the app, separate from the web view-based player. The architecture separates concerns into distinct components using a presenter pattern, native UI views, and JavaScript integration for seamless video playback experiences.
+Adding a feature flag requires careful consideration of several factors:
+1. **Platform** (iOS, macOS, or both)
+2. **Source type** (how the flag is controlled)
+3. **Default value** (fallback behavior)
+4. **Local overriding** (debug menu access)
+5. **Remote configuration** (if applicable)
 
-## Architecture Components
+## Step 1: Validate and Check for Duplicates
 
-### Core Architecture Pattern
+Before adding a new feature flag, check if a similar flag already exists:
 
-DuckPlayer follows a presenter-driven architecture with clear separation of concerns:
+```bash
+# Search for similar flags
+grep -i "case.*[searchTerm]" iOS/Core/FeatureFlag.swift
+grep -i "case.*[searchTerm]" macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift
+```
+
+## Step 1.5: Create Asana Task (REQUIRED)
+
+**STOP:** Before proceeding with implementation, the user must create an Asana task.
+
+Instruct the user:
+```
+Please create an Asana task in the Apple Feature Flags Registry:
+
+1. Open Asana
+2. Navigate to the "Apple Feature Flags Registry" project
+3. Create a new task default feature flag task
+4. Copy the task URL
+
+Paste the Asana task URL when ready to continue.
+```
+
+**This is mandatory** - all feature flags must be tracked in the Apple Feature Flags Registry.
+
+## Step 2: Ask Clarifying Questions
+
+### Question 1: Platform Selection
+
+**Ask the user:**
+```
+Which platform(s) should this feature flag target?
+  a) iOS only
+  b) macOS only
+  c) Both iOS and macOS
+```
+
+**Default:** Infer from user's request. If ambiguous, ask.
+
+### Question 2: Feature Flag Source Type
+
+**Ask the user:**
+```
+What source type should this feature flag use?
+
+  a) .remoteReleasable - Can be controlled remotely in production (RECOMMENDED for most features)
+     • Allows gradual rollout
+     • Can be toggled without app updates
+     • Requires Privacy Config setup
+     
+  b) .remoteDevelopment - Remote control in development environments only
+     • For testing remote config before production
+     • Not visible in production builds
+     
+  c) .internalOnly() - Only enabled for internal users
+     • Always on for internal users
+     • Always off for external users
+     • No remote control
+     
+  d) .disabled - Always off for everyone
+     • Placeholder for future features
+     • Code is present but inactive
+
+Which option? (a is recommended for new features)
+```
+
+**Important:** If user selects `a` or `b`, proceed to Question 2b.
+
+### Question 2b: Parent Feature Selection (for remote flags)
+
+**Ask the user:**
+```
+For remote feature flags, we need to add a subfeature to PrivacyFeature.swift.
+
+Which parent feature should this belong to?
+
+Platform-specific generic:
+  a) macOSBrowserConfig - Generic macOS browser features
+  b) iOSBrowserConfig - Generic iOS browser features
+
+Domain-specific (if applicable):
+  c) aiChat - AI Chat related features
+  d) sync - Sync related features
+  e) privacyPro - Privacy Pro subscription features
+  f) autofill - Autofill related features
+  g) networkProtection - VPN related features
+  h) duckPlayer - Duck Player features
+  i) dbp - Data Broker Protection features
+  j) htmlNewTabPage - New Tab Page features
+  k) maliciousSiteProtection - Malicious site protection
+  l) Other existing parent feature (specify name)
+  m) Create NEW parent feature (requires additional setup)
+
+Which option?
+```
+
+**Guidance for selection:**
+- Use platform-specific generic (a/b) when feature doesn't fit existing domains
+- Use domain-specific when feature clearly belongs to an existing area
+- Creating a new parent feature (m) requires:
+  1. Adding case to `PrivacyFeature` enum
+  2. Creating new `[FeatureName]Subfeature` enum
+  3. Coordinating with backend team for remote config
+
+### Question 3: Default Value
+
+**Ask the user:**
+```
+What should the default value be?
+
+  a) false - Feature OFF when remote config unavailable (RECOMMENDED)
+     • Safer option
+     • Opt-in behavior
+     • Better for new/experimental features
+     
+  b) true - Feature ON when remote config unavailable
+     • Used when feature should be on by default
+     • Useful for rollback safety (can disable remotely)
+     • Better for stable features being gradually enabled
+
+Which option? (a is recommended for new features)
+```
+
+**Explanation:** The default value is used when:
+- Remote config is unavailable
+- Flag source is local-only (`.internalOnly`, `.disabled`)
+- Network is down or config fetch fails
+
+### Question 4: Local Overriding
+
+**Ask the user:**
+```
+Should this feature flag support local overriding?
+
+  a) true - Allow internal users to toggle in debug menu (RECOMMENDED)
+     • Enables testing both states
+     • Useful during development
+     • No effect on external users
+     
+  b) false - No local override available
+     • Use for production pixels/metrics
+     • Use for security-critical flags
+     • Use when override would break functionality
+
+Which option? (a is recommended unless there's a specific reason)
+```
+
+### Question 5: Asana Task Link
+
+**REQUIRED:** Before proceeding, the user must create an Asana task.
+
+**Instruct the user:**
+```
+Please create an Asana task for this feature flag:
+
+1. Go to Asana
+2. Navigate to: Apple Feature Flags Registry
+3. Create a new task with:
+   - Title: [Feature name] feature flag
+   - Add any relevant context or description in the task
+4. Copy the task URL
+
+Once created, paste the Asana task URL here:
+```
+
+**Note:** All feature flags MUST have an associated Asana task in the Apple Feature Flags Registry for tracking and documentation purposes.
+
+## Step 3: Implementation
+
+### File Locations
+
+- **iOS:** `iOS/Core/FeatureFlag.swift`
+- **macOS:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`
+- **Shared (remote flags):** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
+
+### 3.1: Add Feature Flag Enum Case
+
+#### For iOS (`iOS/Core/FeatureFlag.swift`)
 
 ```swift
-// ✅ CORRECT - Presenter coordinates between components
-final class DuckPlayerNativeUIPresenter {
-    private let navigationHandler: NativeDuckPlayerNavigationHandler
-    private let state: DuckPlayerState
-    private let pixelFiring: DuckPlayerPixelFiring
+public enum FeatureFlag: String {
+    // ... existing cases ...
     
-    func presentPlayer(for videoID: String) {
-        // Coordinates pill presentation, player setup, and analytics
-        updateState(videoID: videoID)
-        configurePillType()
-        firePixels()
-    }
-}
+    /// https://app.asana.com/[task-url]
+    case yourFeatureName
+```
 
-// ❌ INCORRECT - Don't manage all responsibilities in one view
-struct DuckPlayerView: View {
-    @State private var videoID: String = ""
-    @State private var isPresented = false
-    // Don't handle navigation, state, and analytics directly in views
+#### For macOS (`macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`)
+
+```swift
+public enum FeatureFlag: String, CaseIterable {
+    // ... existing cases ...
+    
+    /// https://app.asana.com/[task-url]
+    case yourFeatureName
+```
+
+**Naming conventions:**
+- Use camelCase
+- Be descriptive but concise
+- Follow existing patterns in the file
+
+### 3.2: Add to `defaultValue` Switch
+
+Find the `defaultValue` computed property and add your case:
+
+```swift
+public var defaultValue: Bool {
+    switch self {
+    // If default is TRUE, add to this group:
+    case .existingTrueCase1,
+         .existingTrueCase2,
+         .yourFeatureName:  // Add here if default is true
+        true
+    default:
+        false  // All other cases default to false
+    }
 }
 ```
 
-### State Management Pattern
+**OR** if default is false, no change needed (handled by `default` case).
 
-Use `DuckPlayerState` for centralized video state management:
-
-```swift
-// ✅ CORRECT - Centralized state management
-final class DuckPlayerState {
-    var videoID: String?
-    var hasBeenShown: Bool = false
-    var timestamp: TimeInterval?
-    
-    func reset() {
-        videoID = nil
-        hasBeenShown = false
-        timestamp = nil
-    }
-}
-
-// ❌ INCORRECT - Scattered state across components
-struct DuckPlayerView: View {
-    @State private var videoID: String = ""
-    @State private var timestamp: TimeInterval = 0
-    // Don't duplicate state management
-}
-```
-
-## Component Responsibilities
-
-### DuckPlayerNativeUIPresenter
-
-**Role**: Primary coordinator and state manager for the Native UI
-
-**Key Responsibilities**:
-- Manages presentation lifecycle of player UI components
-- Coordinates between pill types (welcome, entry, re-entry)
-- Handles user interactions and navigation events
-- Manages constraint updates and visibility state
-- Integrates with app navigation and browser features
-- Handles orientation changes and UI adaptations
-- Manages pixel firing for analytics tracking
-- Controls toast notifications and dismiss count tracking
+### 3.3: Add to `source` Switch
 
 ```swift
-// ✅ CORRECT - Presenter pattern implementation
-final class DuckPlayerNativeUIPresenter {
-    private weak var containerView: DuckPlayerContainer?
-    private let navigationHandler: NativeDuckPlayerNavigationHandler
-    private let state: DuckPlayerState
-    private let pixelFiring: DuckPlayerPixelFiring
+public var source: FeatureFlagSource {
+    switch self {
+    // ... other cases ...
     
-    func presentWelcomePill() {
-        // Configure welcome pill for first-time users
-        configureContainerForPill(.welcome)
-        fireWelcomePillPixel()
-    }
-    
-    func presentEntryPill(for videoID: String) {
-        // Configure entry pill for returning users
-        state.videoID = videoID
-        configureContainerForPill(.entry)
-        fireEntryPillPixel()
-    }
-    
-    func presentReEntryPill(for videoID: String) {
-        // Configure re-entry pill for previously watched videos
-        state.videoID = videoID
-        configureContainerForPill(.reEntry)
-        fireReEntryPillPixel()
+    case .yourFeatureName:
+        return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.yourFeatureName))
+        // OR
+        return .internalOnly()
+        // OR
+        return .disabled
     }
 }
 ```
 
-### NativeDuckPlayerNavigationHandler
-
-**Role**: Manages video playback navigation and browser integration
+**Examples by source type:**
 
 ```swift
-// ✅ CORRECT - Navigation handler pattern
-final class NativeDuckPlayerNavigationHandler {
-    private let webView: WKWebView
-    private let presenter: DuckPlayerNativeUIPresenter
-    
-    func handleYouTubeURL(_ url: URL) -> Bool {
-        guard shouldHandleNatively(url) else { return false }
-        
-        let videoID = extractVideoID(from: url)
-        presenter.presentPlayer(for: videoID)
+// Remote releasable with macOS-specific subfeature
+case .macOSFeature:
+    return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.macOSFeature))
+
+// Remote releasable with iOS-specific subfeature
+case .iOSFeature:
+    return .remoteReleasable(.subfeature(iOSBrowserConfigSubfeature.iOSFeature))
+
+// Remote releasable with domain-specific subfeature
+case .aiFeature:
+    return .remoteReleasable(.subfeature(AIChatSubfeature.aiFeature))
+
+// Remote releasable with parent feature (no subfeature)
+case .newParentFeature:
+    return .remoteReleasable(.feature(.newParentFeature))
+
+// Remote development (testing)
+case .experimentalFeature:
+    return .remoteDevelopment(.subfeature(MacOSBrowserConfigSubfeature.experimentalFeature))
+
+// Internal only
+case .debugFeature:
+    return .internalOnly()
+
+// Always disabled (placeholder)
+case .futureFeature:
+    return .disabled
+```
+
+### 3.4: Add to `supportsLocalOverriding` Switch
+
+```swift
+public var supportsLocalOverriding: Bool {
+    switch self {
+    case .existingOverridableFlag1,
+         .existingOverridableFlag2,
+         .yourFeatureName:  // Add here if supports local override
         return true
-    }
-    
-    private func shouldHandleNatively(_ url: URL) -> Bool {
-        // Check if URL should be handled by native player
-        return isYouTubeURL(url) && isNativeUIEnabled()
-    }
-}
-
-// ❌ INCORRECT - Don't handle navigation directly in views
-struct DuckPlayerView: View {
-    func handleURL(_ url: URL) {
-        // Don't put navigation logic in views
+    case .existingNonOverridableFlag1,
+         .existingNonOverridableFlag2:
+        return false
     }
 }
 ```
 
-## View Architecture
+**Note:** Most flags should support local overriding for testing purposes.
 
-### Pill Management System
+### 3.5: Add Subfeature to PrivacyFeature.swift (Remote Flags Only)
 
-DuckPlayer uses a three-tier pill system based on user interaction history:
+**File:** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
+
+**Important Documentation Note:**
+- **MacOSBrowserConfigSubfeature** and **iOSBrowserConfigSubfeature**: Include documentation comments with Asana task URLs
+- **All other domain-specific subfeatures** (PrivacyPro, AIChat, Sync, DBP, etc.): NO documentation comments - just the case name
+
+#### For macOS-specific features:
 
 ```swift
-// ✅ CORRECT - Pill type management
-enum DuckPlayerPillType {
-    case welcome    // First-time users (priming modal not yet presented)
-    case entry      // Returning users viewing new videos
-    case reEntry    // Users returning to previously watched videos
-}
-
-final class DuckPlayerContainer: UIView {
-    private var currentPillType: DuckPlayerPillType?
-    
-    func configurePill(_ type: DuckPlayerPillType, for videoID: String) {
-        switch type {
-        case .welcome:
-            presentWelcomePill()
-        case .entry:
-            presentEntryPill(videoID: videoID)
-        case .reEntry:
-            presentReEntryPill(videoID: videoID)
-        }
+public enum MacOSBrowserConfigSubfeature: String, PrivacySubfeature {
+    public var parent: PrivacyFeature {
+        .macOSBrowserConfig
     }
+    
+    // ... existing cases ...
+    
+    /// https://app.asana.com/[task-url]
+    case yourFeatureName
 }
 ```
 
-### SwiftUI View Components
-
-Follow reactive patterns for view models:
+#### For iOS-specific features:
 
 ```swift
-// ✅ CORRECT - Reactive view model pattern
-final class DuckPlayerWelcomePillViewModel: ObservableObject {
-    @Published var isAnimating = false
-    @Published var isPresented = false
-    
-    private let pixelFiring: DuckPlayerPixelFiring
-    private let onDismiss: () -> Void
-    
-    init(pixelFiring: DuckPlayerPixelFiring, onDismiss: @escaping () -> Void) {
-        self.pixelFiring = pixelFiring
-        self.onDismiss = onDismiss
+public enum iOSBrowserConfigSubfeature: String, PrivacySubfeature {
+    public var parent: PrivacyFeature {
+        .iOSBrowserConfig
     }
     
-    func startAnimation() {
-        isAnimating = true
-        pixelFiring.fireWelcomePillShownPixel()
-    }
+    // ... existing cases ...
     
-    func handleUserTap() {
-        pixelFiring.fireWelcomePillTappedPixel()
-        onDismiss()
-    }
-}
-
-// ❌ INCORRECT - Don't handle business logic directly in views
-struct DuckPlayerWelcomePillView: View {
-    @State private var isAnimating = false
-    
-    var body: some View {
-        // Don't put pixel firing and business logic here
-        Button("Watch in DuckPlayer") {
-            // Business logic should be in view model
-            Analytics.shared.firePixel(.welcomePillTapped)
-        }
-    }
+    /// https://app.asana.com/[task-url]
+    case yourFeatureName
 }
 ```
 
-## UserScript Integration
+#### For domain-specific features (e.g., PrivacyPro, AIChat, Sync, etc.):
 
-### JavaScript Bridge Pattern
-
-Use UserScript components for native-web communication:
+**Important:** Domain-specific subfeatures should NOT include documentation comments in PrivacyFeature.swift. Keep them clean and simple with just the case name.
 
 ```swift
-// ✅ CORRECT - UserScript integration pattern
-final class DuckPlayerUserScriptYouTube: NSObject, UserScript {
-    private let name = "DuckPlayerUserScriptYouTube"
-    private let source = DuckPlayerUserScriptSource.youtube
+public enum [DomainName]Subfeature: String, PrivacySubfeature {
+    public var parent: PrivacyFeature { .[domainName] }
     
-    func messageReceived(_ message: Any) {
-        guard let dict = message as? [String: Any],
-              let messageType = dict["type"] as? String else { return }
-        
-        switch messageType {
-        case "timestampUpdate":
-            handleTimestampUpdate(dict)
-        case "playerStateChange":
-            handlePlayerStateChange(dict)
-        case "error":
-            handleError(dict)
-        default:
-            break
-        }
-    }
+    // ... existing cases ...
     
-    private func handleTimestampUpdate(_ data: [String: Any]) {
-        guard let timestamp = data["timestamp"] as? TimeInterval else { return }
-        presenter.updateVideoTimestamp(timestamp)
-    }
-}
-
-// ❌ INCORRECT - Don't handle JavaScript communication directly in views
-struct DuckPlayerWebView: UIViewRepresentable {
-    func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        // Don't add message handlers directly here
-        return webView
-    }
+    case yourFeatureName
 }
 ```
 
-### Event Queuing System
-
-Implement event queuing for script readiness:
-
+**Example for PrivacyPro features:**
 ```swift
-// ✅ CORRECT - Event queuing pattern
-final class DuckPlayerUserScript {
-    private var eventQueue: [UserScriptEvent] = []
-    private var isScriptReady = false
+public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
+    public var parent: PrivacyFeature { .privacyPro }
     
-    func queueEvent(_ event: UserScriptEvent) {
-        if isScriptReady {
-            processEvent(event)
-        } else {
-            eventQueue.append(event)
-        }
-    }
+    // ... existing cases ...
     
-    func onScriptReady() {
-        isScriptReady = true
-        eventQueue.forEach { processEvent($0) }
-        eventQueue.removeAll()
-    }
+    case yourNewFeature
 }
 ```
 
-## Analytics Integration
+### 3.6: Creating a New Parent Feature (Advanced)
 
-### Pixel Firing Protocol
+If you need to create a NEW parent feature:
 
-Use protocol-based pixel firing with debouncing:
+**Step 1:** Add to `PrivacyFeature` enum:
 
 ```swift
-// ✅ CORRECT - Protocol-based pixel firing
-protocol DuckPlayerPixelFiring {
-    func fireWelcomePillShownPixel()
-    func fireWelcomePillTappedPixel()
-    func fireEntryPillShownPixel()
-    func fireVideoPlaybackStartedPixel()
-    func fireDailyPixel(_ pixel: DuckPlayerDailyPixel)
-}
-
-final class DuckPlayerPixelHandler: DuckPlayerPixelFiring {
-    private let pixelKit: PixelKit
-    private let debouncer: PixelDebouncer
-    
-    func fireWelcomePillShownPixel() {
-        debouncer.debounce {
-            pixelKit.fire(.duckPlayerWelcomePillShown)
-        }
-    }
-}
-
-// ❌ INCORRECT - Don't fire pixels directly from views
-struct DuckPlayerView: View {
-    var body: some View {
-        Button("Play") {
-            // Don't fire pixels directly
-            PixelKit.shared.fire(.duckPlayerPlayTapped)
-        }
-    }
+public enum PrivacyFeature: String {
+    // ... existing cases ...
+    case yourNewFeature
 }
 ```
 
-### DuckPlayer Native Pixels
-
-DuckPlayer Native fires various pixels to track user interactions and system events:
-
-#### Pill Interaction Pixels
-```swift
-// Welcome Pill (first-time users)
-.duckPlayerNativeWelcomePillShown      // When welcome pill is displayed
-.duckPlayerNativeWelcomePillTapped     // When user taps welcome pill
-.duckPlayerNativeWelcomePillDismissed  // When welcome pill is dismissed
-
-// Entry Pill (returning users, new videos)
-.duckPlayerNativeEntryPillShown        // When entry pill is displayed
-.duckPlayerNativeEntryPillTapped       // When user taps entry pill
-.duckPlayerNativeEntryPillDismissed    // When entry pill is dismissed
-
-// Re-entry Pill (previously watched videos)
-.duckPlayerNativeReEntryPillShown      // When re-entry pill is displayed
-.duckPlayerNativeReEntryPillTapped     // When user taps re-entry pill
-.duckPlayerNativeReEntryPillDismissed  // When re-entry pill is dismissed
-```
-
-#### Video Playback Pixels
-```swift
-// Playback events
-.duckPlayerNativeVideoPlaybackStarted  // When video starts playing
-.duckPlayerNativeVideoPlaybackPaused   // When video is paused
-.duckPlayerNativeVideoPlaybackResumed  // When video is resumed
-.duckPlayerNativeVideoPlaybackCompleted // When video finishes
-
-// Daily unique playback tracking
-.duckPlayerNativeDailyVideoPlayed      // Fired once per day when any video is played
-```
-
-#### YouTube Error Pixels
-
-DuckPlayer Native tracks YouTube-specific errors with both volume (impression) and daily-unique pixels:
+**Step 2:** Create subfeature enum:
 
 ```swift
-// Sign-in Required Errors
-.duckPlayerNativeYouTubeSignInErrorImpression      // Every occurrence
-.duckPlayerNativeYouTubeSignInErrorDaily           // Once per day
-
-// Age-Restricted Content Errors
-.duckPlayerNativeYouTubeAgeRestrictedErrorImpression // Every occurrence
-.duckPlayerNativeYouTubeAgeRestrictedErrorDaily       // Once per day
-
-// No-Embed Errors (embedding disabled)
-.duckPlayerNativeYouTubeNoEmbedErrorImpression     // Every occurrence
-.duckPlayerNativeYouTubeNoEmbedErrorDaily          // Once per day
-
-// Unknown/Generic Errors
-.duckPlayerNativeYouTubeUnknownErrorImpression     // Every occurrence
-.duckPlayerNativeYouTubeUnknownErrorDaily          // Once per day
-```
-
-#### Error Handling Implementation
-
-YouTube errors are handled in the UserScript layer:
-
-```swift
-// In DuckPlayerUserScriptPlayer.swift
-@MainActor
-private func onYoutubeError(params: Any, original: WKScriptMessage) -> Encodable? {
-    let (volumePixel, dailyPixel) = getPixelsForNativeYouTubeErrorParams(params)
-    DailyPixel.fire(pixel: dailyPixel)
-    Pixel.fire(pixel: volumePixel)
-    return [:] as [String: String]
-}
-
-private func getPixelsForNativeYouTubeErrorParams(_ params: Any) -> (Pixel.Event, Pixel.Event) {
-    if let paramsDict = params as? [String: Any],
-       let errorParam = paramsDict["error"] as? String {
-        switch errorParam {
-        case "sign-in-required":
-            return (.duckPlayerNativeYouTubeSignInErrorImpression, .duckPlayerNativeYouTubeSignInErrorDaily)
-        case "age-restricted":
-            return (.duckPlayerNativeYouTubeAgeRestrictedErrorImpression, .duckPlayerNativeYouTubeAgeRestrictedErrorDaily)
-        case "no-embed":
-            return (.duckPlayerNativeYouTubeNoEmbedErrorImpression, .duckPlayerNativeYouTubeNoEmbedErrorDaily)
-        default:
-            return (.duckPlayerNativeYouTubeUnknownErrorImpression, .duckPlayerNativeYouTubeUnknownErrorDaily)
-        }
+public enum YourNewFeatureSubfeature: String, PrivacySubfeature {
+    public var parent: PrivacyFeature {
+        .yourNewFeature
     }
-    return (.duckPlayerNativeYouTubeUnknownErrorImpression, .duckPlayerNativeYouTubeUnknownErrorDaily)
+    
+    case firstSubfeature
+    case secondSubfeature
 }
 ```
 
-### Analytics Best Practices
+**Step 3:** Coordinate with backend team to add feature to remote Privacy Config.
+
+### 3.7: Add Feature Flag Category (macOS Only)
+
+**File:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlagCategory.swift`
+
+On macOS, feature flags can be organized into categories for better organization in the debug menu. Consider if your feature flag should be categorized.
+
+**Available Categories:**
+- `duckAI` - Duck.ai related features
+- `dbp` - Personal Information Removal
+- `subscription` - Subscription/Privacy Pro features
+- `sync` - Sync related features
+- `updates` - Update related features
+- `vpn` - VPN related features
+- `osSupportWarnings` - OS Support Warnings
+- `other` - Default for uncategorized flags
+
+**When to categorize:**
+- If the feature belongs to a clear domain (Subscription, VPN, Sync, Duck.ai, etc.), add it to the appropriate category
+- If unsure or the feature is general browser functionality, it can remain in `.other` (default)
+
+**How to categorize:**
+
+**Step 1:** If needed, add a new category to the enum:
 
 ```swift
-// ✅ CORRECT - Centralized analytics tracking
-final class DuckPlayerAnalytics {
-    private let pixelFiring: DuckPlayerPixelFiring
-    
-    func trackPillPresentation(_ type: DuckPlayerPillType) {
-        switch type {
-        case .welcome:
-            pixelFiring.fireWelcomePillShownPixel()
-        case .entry:
-            pixelFiring.fireEntryPillShownPixel()
-        case .reEntry:
-            pixelFiring.fireReEntryPillShownPixel()
-        }
-    }
-    
-    func trackVideoPlayback(duration: TimeInterval) {
-        let parameters = ["duration": String(duration)]
-        pixelFiring.fireVideoPlaybackPixel(parameters: parameters)
-    }
-    
-    func trackYouTubeError(_ error: DuckPlayerError) {
-        // Errors are tracked in UserScript layer
-        // This method exists for future expansion
-    }
+public enum FeatureFlagCategory: String, CaseIterable, Comparable {
+    case duckAI = "Duck.ai"
+    // ... existing cases ...
+    case yourNewCategory = "Your Category Name"
+    // ... other cases ...
 }
 ```
 
-### Pixel Naming Convention
-
-All DuckPlayer Native pixels follow this naming pattern:
-- **Volume pixels**: `duckplayer_native_{event}_impression_ios_{formfactor}`
-- **Daily pixels**: `duckplayer_native_{event}_daily-unique_ios_{formfactor}`
-
-The formfactor (phone/tablet) is automatically appended by the pixel infrastructure.
-
-## Toast Notification System
-
-### Toast Implementation Pattern
+**Step 2:** Add your feature flag to the appropriate category in the `category` computed property:
 
 ```swift
-// ✅ CORRECT - Toast notification system
-final class DuckPlayerToastManager {
-    private weak var containerView: UIView?
-    
-    func showToast(_ message: String, position: ToastPosition = .top) {
-        let toastView = DuckPlayerToastView(message: message)
-        
-        containerView?.addSubview(toastView)
-        toastView.show(at: position) { [weak self] in
-            self?.hideToast(toastView)
-        }
-    }
-    
-    private func hideToast(_ toastView: DuckPlayerToastView) {
-        toastView.hide { 
-            toastView.removeFromSuperview()
-        }
-    }
-}
-
-struct DuckPlayerToastView: View {
-    let message: String
-    @State private var isVisible = false
-    
-    var body: some View {
-        Text(message)
-            .padding()
-            .background(Color(designSystemColor: .surface))
-            .cornerRadius(8)
-            .scaleEffect(isVisible ? 1.0 : 0.8)
-            .opacity(isVisible ? 1.0 : 0.0)
-            .animation(.spring(response: 0.3), value: isVisible)
-            .onAppear {
-                isVisible = true
-            }
-    }
-}
-```
-
-## Variant Management
-
-### Variant Configuration Pattern
-
-```swift
-// ✅ CORRECT - Variant configuration system
-enum DuckPlayerVariant: String, CaseIterable {
-    case classic = "Web"
-    case nativeOptIn = "Opt-in"
-    case nativeOptOut = "Opt-out"
-    
-    var configuration: DuckPlayerConfiguration {
+extension FeatureFlag: FeatureFlagCategorization {
+    public var category: FeatureFlagCategory {
         switch self {
-        case .classic:
-            return DuckPlayerConfiguration(
-                nativeUIEnabled: false,
-                playerMode: .alwaysAsk,
-                newTabBehavior: true,
-                serpIntegration: false
-            )
-        case .nativeOptIn:
-            return DuckPlayerConfiguration(
-                nativeUIEnabled: true,
-                playerMode: .askUserPreference,
-                autoplayEnabled: true,
-                serpIntegration: true,
-                primingModalEnabled: true
-            )
-        case .nativeOptOut:
-            return DuckPlayerConfiguration(
-                nativeUIEnabled: true,
-                playerMode: .automatic,
-                autoplayEnabled: true,
-                serpIntegration: true,
-                primingModalEnabled: false
-            )
-        }
-    }
-}
-
-// ❌ INCORRECT - Don't hardcode variant configurations
-struct DuckPlayerSettings {
-    var isNativeEnabled: Bool {
-        // Don't hardcode variant logic
-        return UserDefaults.standard.bool(forKey: "native_enabled")
-    }
-}
-```
-
-### Runtime Variant Switching
-
-```swift
-// ✅ CORRECT - Runtime variant management
-final class DuckPlayerVariantManager {
-    private let appSettings: AppSettings
-    
-    var currentVariant: DuckPlayerVariant {
-        get {
-            let rawValue = appSettings.duckPlayerVariant
-            return DuckPlayerVariant(rawValue: rawValue) ?? .classic
-        }
-        set {
-            appSettings.duckPlayerVariant = newValue.rawValue
-            applyVariantConfiguration(newValue.configuration)
-        }
-    }
-    
-    private func applyVariantConfiguration(_ config: DuckPlayerConfiguration) {
-        appSettings.duckPlayerNativeUIEnabled = config.nativeUIEnabled
-        appSettings.duckPlayerSerpIntegration = config.serpIntegration
-        appSettings.duckPlayerAutoplayEnabled = config.autoplayEnabled
+        // ... existing cases ...
         
-        // Notify components of configuration change
-        NotificationCenter.default.post(name: .duckPlayerVariantChanged, object: config)
-    }
-}
-```
-
-## Performance Optimization
-
-### Lazy Loading Pattern
-
-```swift
-// ✅ CORRECT - Lazy loading for performance
-final class DuckPlayerNativeUIPresenter {
-    private lazy var welcomePillViewModel = DuckPlayerWelcomePillViewModel(
-        pixelFiring: pixelFiring,
-        onDismiss: { [weak self] in self?.dismissWelcomePill() }
-    )
-    
-    private lazy var entryPillViewModel = DuckPlayerEntryPillViewModel(
-        pixelFiring: pixelFiring,
-        onPlay: { [weak self] in self?.startVideoPlayback() }
-    )
-    
-    func presentWelcomePill() {
-        // Only create view model when needed
-        containerView?.configurePill(.welcome, viewModel: welcomePillViewModel)
-    }
-}
-
-// ❌ INCORRECT - Don't create all view models upfront
-final class DuckPlayerNativeUIPresenter {
-    private let welcomePillViewModel: DuckPlayerWelcomePillViewModel
-    private let entryPillViewModel: DuckPlayerEntryPillViewModel
-    private let reEntryPillViewModel: DuckPlayerMiniPillViewModel
-    
-    init() {
-        // Don't create all view models immediately
-        welcomePillViewModel = DuckPlayerWelcomePillViewModel(...)
-        entryPillViewModel = DuckPlayerEntryPillViewModel(...)
-        reEntryPillViewModel = DuckPlayerMiniPillViewModel(...)
-    }
-}
-```
-
-## Testing Patterns
-
-### Presenter Testing
-
-```swift
-// ✅ CORRECT - Testing presenter components
-final class DuckPlayerNativeUIPresenterTests: XCTestCase {
-    private var sut: DuckPlayerNativeUIPresenter!
-    private var mockNavigationHandler: MockNativeDuckPlayerNavigationHandler!
-    private var mockPixelFiring: MockDuckPlayerPixelFiring!
-    private var mockState: DuckPlayerState!
-    
-    override func setUp() {
-        super.setUp()
-        mockNavigationHandler = MockNativeDuckPlayerNavigationHandler()
-        mockPixelFiring = MockDuckPlayerPixelFiring()
-        mockState = DuckPlayerState()
-        
-        sut = DuckPlayerNativeUIPresenter(
-            navigationHandler: mockNavigationHandler,
-            pixelFiring: mockPixelFiring,
-            state: mockState
-        )
-    }
-    
-    func testPresentWelcomePill() {
-        // When
-        sut.presentWelcomePill()
-        
-        // Then
-        XCTAssertTrue(mockPixelFiring.fireWelcomePillShownPixelCalled)
-        XCTAssertEqual(sut.currentPillType, .welcome)
-    }
-}
-```
-
-### UserScript Testing
-
-```swift
-// ✅ CORRECT - Testing UserScript components
-final class DuckPlayerUserScriptTests: XCTestCase {
-    private var sut: DuckPlayerUserScriptYouTube!
-    private var mockPresenter: MockDuckPlayerPresenter!
-    
-    func testTimestampUpdateMessage() {
-        // Given
-        let message = ["type": "timestampUpdate", "timestamp": 120.5]
-        
-        // When
-        sut.messageReceived(message)
-        
-        // Then
-        XCTAssertEqual(mockPresenter.lastTimestampUpdate, 120.5)
-    }
-}
-```
-
-## Common Patterns
-
-### Error Handling
-
-```swift
-// ✅ CORRECT - Comprehensive error handling
-enum DuckPlayerError: Error {
-    case videoNotFound
-    case networkError
-    case playbackError(underlying: Error)
-    case invalidConfiguration
-}
-
-final class DuckPlayerErrorHandler {
-    private let pixelFiring: DuckPlayerPixelFiring
-    
-    func handleError(_ error: DuckPlayerError) {
-        switch error {
-        case .videoNotFound:
-            pixelFiring.fireErrorPixel(.videoNotFound)
-            showErrorToast("Video not available")
-        case .networkError:
-            pixelFiring.fireErrorPixel(.networkError)
-            showErrorToast("Network connection required")
-        case .playbackError(let underlying):
-            pixelFiring.fireErrorPixel(.playbackError, parameters: ["error": underlying.localizedDescription])
-            showErrorToast("Playback error occurred")
-        case .invalidConfiguration:
-            pixelFiring.fireErrorPixel(.invalidConfiguration)
-            // Handle configuration errors silently
+        case .yourFeatureFlag1,
+             .yourFeatureFlag2:
+            return .yourCategory
+            
+        default:
+            return .other
         }
     }
 }
 ```
 
-### Memory Management
+**Example for Subscription features:**
 
 ```swift
-// ✅ CORRECT - Proper memory management
-final class DuckPlayerNativeUIPresenter {
-    private weak var containerView: DuckPlayerContainer?
-    private var cancellables = Set<AnyCancellable>()
-    
-    deinit {
-        cancellables.removeAll()
-        cleanupResources()
-    }
-    
-    private func cleanupResources() {
-        // Clean up any retained resources
-        containerView?.removeFromSuperview()
-        state.reset()
-    }
+case .privacyProAuthV2,
+     .privacyProFreeTrial,
+     .paidAIChat,
+     .tierMessagingEnabled,
+     .allowProTierPurchase:
+    return .subscription
+```
+
+**Note:** iOS does not have feature flag categories - this is macOS-specific functionality.
+
+## Step 4: Usage in Code
+
+### Basic Usage
+
+```swift
+// Check if feature is enabled
+if featureFlagger.isFeatureOn(.yourFeatureName) {
+    // Feature-specific code
 }
 ```
 
-## Migration Guidelines
-
-### Integrating DuckPlayer
-
-When adding DuckPlayer to new areas:
-
-1. **Use the presenter pattern** - Don't put business logic in views
-2. **Follow the pill system** - Implement appropriate pill types for user journey
-3. **Integrate analytics** - Use the pixel firing protocol for tracking
-4. **Handle variants** - Support all three DuckPlayer variants
-5. **Test thoroughly** - Write tests for presenter, UserScript, and view components
-
-### Common Integration Mistakes
+### With Dependency Injection
 
 ```swift
-// ❌ INCORRECT - Don't bypass the presenter
-struct MyFeatureView: View {
-    @State private var showDuckPlayer = false
+final class MyViewController {
+    private let featureFlagger: FeatureFlagger
     
-    var body: some View {
-        Button("Play Video") {
-            // Don't create DuckPlayer components directly
-            showDuckPlayer = true
-        }
+    init(featureFlagger: FeatureFlagger) {
+        self.featureFlagger = featureFlagger
     }
-}
-
-// ✅ CORRECT - Use the presenter pattern
-struct MyFeatureView: View {
-    private let duckPlayerPresenter: DuckPlayerNativeUIPresenter
     
-    var body: some View {
-        Button("Play Video") {
-            duckPlayerPresenter.presentPlayer(for: videoID)
+    func setupUI() {
+        if featureFlagger.isFeatureOn(.yourFeatureName) {
+            setupNewUI()
+        } else {
+            setupLegacyUI()
         }
     }
 }
 ```
 
-This guide provides the foundation for implementing and maintaining DuckPlayer components following established patterns and best practices in the DuckDuckGo browser codebase. 
+### iOS-specific (via AppDependencies)
+
+```swift
+if AppDependencies.shared.featureFlagger.isFeatureOn(.yourFeatureName) {
+    // iOS-specific feature code
+}
+```
+
+### macOS-specific (via Application)
+
+```swift
+if Application.appDelegate.featureFlagger.isFeatureOn(.yourFeatureName) {
+    // macOS-specific feature code
+}
+```
+
+## Complete Example
+
+### Example: Add "Enhanced Bookmarks UI" feature flag for macOS
+
+**Step 1: User Request**
+```
+User: "Add a feature flag for enhanced bookmarks UI on macOS"
+```
+
+**Step 2: Questions**
+```
+1. Platform: macOS ✓
+2. Source: a) .remoteReleasable
+3. Parent: a) macOSBrowserConfig
+4. Default: a) false
+5. Local override: a) true
+6. Asana: https://app.asana.com/0/123456789/987654321
+```
+
+**Step 3: Implementation**
+
+**File 1:** `macOS/LocalPackages/FeatureFlags/Sources/FeatureFlags/FeatureFlag.swift`
+
+```swift
+public enum FeatureFlag: String, CaseIterable {
+    // ... existing cases ...
+    
+    /// https://app.asana.com/0/123456789/987654321
+    case enhancedBookmarksUI
+}
+
+extension FeatureFlag: FeatureFlagDescribing {
+    public var defaultValue: Bool {
+        switch self {
+        // ... existing true cases ...
+        default:
+            false  // enhancedBookmarksUI uses default false
+        }
+    }
+    
+    public var supportsLocalOverriding: Bool {
+        switch self {
+        case .existingFlag1,
+             .existingFlag2,
+             .enhancedBookmarksUI:  // ← Added here
+            return true
+        // ... rest of cases
+        }
+    }
+    
+    public var source: FeatureFlagSource {
+        switch self {
+        // ... other cases ...
+        case .enhancedBookmarksUI:
+            return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.enhancedBookmarksUI))
+        }
+    }
+}
+```
+
+**File 2:** `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/PrivacyConfig/Features/PrivacyFeature.swift`
+
+```swift
+public enum MacOSBrowserConfigSubfeature: String, PrivacySubfeature {
+    public var parent: PrivacyFeature {
+        .macOSBrowserConfig
+    }
+    
+    // ... existing cases ...
+    
+    /// https://app.asana.com/0/123456789/987654321
+    case enhancedBookmarksUI
+}
+```
+
+## Anti-Patterns to Avoid
+
+### ❌ DON'T: Add feature flag without Asana task
+
+```swift
+// ❌ BAD: No tracking or documentation
+case mysteriousFeature
+```
+
+```swift
+// ✅ GOOD: Clear documentation with Asana task from Apple Feature Flags Registry
+/// https://app.asana.com/0/123456789/987654321
+case tabGrouping
+```
+
+**CRITICAL:** Every feature flag MUST have an Asana task in the Apple Feature Flags Registry. This is not optional.
+
+### ❌ DON'T: Use generic names
+
+```swift
+// ❌ BAD: Too vague
+case newFeature
+case experiment1
+case testFlag
+```
+
+```swift
+// ✅ GOOD: Descriptive names
+case improvedTabSwitcher
+case aiChatSidebar
+case passwordAutofillV2
+```
+
+### ❌ DON'T: Forget to add to all required switches
+
+```swift
+// ❌ BAD: Missing from supportsLocalOverriding
+case newFeature  // Added to enum
+// source: return .remoteReleasable(...)
+// defaultValue: false (via default)
+// supportsLocalOverriding: ❌ MISSING!
+```
+
+### ❌ DON'T: Use wrong parent for domain-specific features
+
+```swift
+// ❌ BAD: AI feature in generic config
+case aiNewFeature:
+    return .remoteReleasable(.subfeature(MacOSBrowserConfigSubfeature.aiNewFeature))
+
+// ✅ GOOD: AI feature in AI domain
+case aiNewFeature:
+    return .remoteReleasable(.subfeature(AIChatSubfeature.aiNewFeature))
+```
+
+### ❌ DON'T: Add to iOS when feature is macOS-only (or vice versa)
+
+```swift
+// ❌ BAD: Adding macOS-specific flag to iOS
+// In iOS/Core/FeatureFlag.swift:
+case macOSOnlyFeature  // This doesn't make sense!
+```
+
+### ❌ DON'T: Add documentation comments to domain-specific subfeatures in PrivacyFeature.swift
+
+```swift
+// ❌ BAD: Adding comments to domain-specific subfeatures (e.g., PrivacyPro, AIChat, Sync)
+public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
+    public var parent: PrivacyFeature { .privacyPro }
+    
+    /// https://app.asana.com/...
+    case tierMessagingEnabled  // ❌ Don't add ANY comments here!
+}
+```
+
+```swift
+// ✅ GOOD: Domain-specific subfeatures without comments
+public enum PrivacyProSubfeature: String, Equatable, PrivacySubfeature {
+    public var parent: PrivacyFeature { .privacyPro }
+    
+    case tierMessagingEnabled  // ✅ Clean and simple
+    case allowProTierPurchase
+}
+```
+
+**Note:** Only `MacOSBrowserConfigSubfeature` and `iOSBrowserConfigSubfeature` should have documentation comments. All other domain-specific subfeatures (PrivacyPro, AIChat, Sync, DBP, etc.) should be kept clean without comments.
+
+## Testing Your Feature Flag
+
+### Manual Testing
+
+1. **Internal user testing:**
+   - Enable internal user mode
+   - Access debug menu to toggle flag
+   - Test both on/off states
+
+2. **Production simulation:**
+   - Disable internal user mode
+   - Verify default value behavior
+   - Test without remote config
+
+### Debug Menu Access
+
+**macOS:**
+- Develop menu → Feature Flags
+- Toggle individual flags
+- Changes persist across sessions
+
+**iOS:**
+- Settings → Debug → Feature Flags
+- Toggle individual flags
+- Changes persist across sessions
+
+## Remote Configuration (Next Steps)
+
+After adding the feature flag code, coordinate with backend team to:
+
+1. Add feature to Privacy Configuration JSON
+2. Set initial state (enabled/disabled/internal)
+3. Configure rollout percentage (if gradual rollout)
+4. Set up A/B test cohorts (if applicable)
+
+Example Privacy Config structure:
+
+```json
+{
+  "macOSBrowserConfig": {
+    "state": "enabled",
+    "features": {
+      "enhancedBookmarksUI": {
+        "state": "internal",
+        "rollout": {
+          "steps": [
+            { "percent": 10 }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## Summary Checklist
+
+When adding a feature flag, ensure you:
+
+- [ ] Checked for existing similar flags
+- [ ] **Created Asana task in Apple Feature Flags Registry (REQUIRED)**
+- [ ] Asked all required questions
+- [ ] Added enum case with Asana task link
+- [ ] Updated `defaultValue` switch (if non-default)
+- [ ] Updated `source` switch
+- [ ] Updated `supportsLocalOverriding` switch
+- [ ] Added subfeature to PrivacyFeature.swift (if remote)
+- [ ] Added to appropriate category in FeatureFlagCategory.swift (macOS only, if applicable)
+- [ ] Used descriptive naming
+- [ ] Tested in debug menu
+- [ ] Coordinated with backend (if remote)
+
+## Reference Documentation
+
+For more information, see:
+- `feature-flags.md` - Type-safe feature flag patterns
+- `abn-experiment-framework.md` - A/B testing with feature flags
+- `SharedPackages/BrowserServicesKit/Sources/BrowserServicesKit/FeatureFlagger/FeatureFlagger.swift` - Core implementation
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
