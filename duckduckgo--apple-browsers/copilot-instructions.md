@@ -1,307 +1,136 @@
-## macos-window-management
+## maestro-device-selection
 
-> ALWAYS use WindowsManager for creating and managing browser windows:
+> Maestro tests can run on either iPhone or iPad simulators based on tags in the test YAML files. This allows you to test iPad-specific UI layouts and features while maintaining a single test suite.
 
 
-# macOS Window Management and AppKit Patterns
+# Maestro Test Device Selection (iPhone/iPad)
 
-## WindowsManager for Window Operations
-ALWAYS use WindowsManager for creating and managing browser windows:
+## Overview
+Maestro tests can run on either iPhone or iPad simulators based on tags in the test YAML files. This allows you to test iPad-specific UI layouts and features while maintaining a single test suite.
 
-```swift
-// ✅ CORRECT - WindowsManager usage
-@MainActor
-final class FeatureCoordinator {
-    func openNewWindow() {
-        let tabCollection = TabCollectionViewModel()
-        WindowsManager.openNewWindow(
-            with: tabCollection,
-            burnerMode: .regular,
-            droppingPoint: nil
-        )
-    }
+## How It Works
+- **Default**: Tests run on iPhone 16 with iOS 18.2
+- **iPad Tests**: Add `ipad` tag to run on iPad 10th generation with iOS 18.2
+
+## Usage
+
+### For Individual iPad Tests
+Add the `ipad` tag to your test file:
+
+```yaml
+appId: com.duckduckgo.mobile.ios
+tags:
+    - ipad
+    - your-other-tags
+name: Your iPad Test
+
+---
+# Your test steps here
+```
+
+### Running Tests
+The same commands work as before:
+```bash
+# Run a single test (device selected based on tags)
+./run_ui_tests.sh path/to/test.yaml
+
+# Run all tests in a folder (each test runs on appropriate device)
+./run_ui_tests.sh path/to/tests/
+```
+
+## Implementation Details
+
+### Setup Phase (`setup_ui_tests.sh`)
+1. Creates both iPhone and iPad simulators upfront
+2. Boots and configures both simulators with English locale
+3. Installs the app on both devices
+4. Saves both simulator UUIDs for test execution
+
+### Test Execution (`run_ui_tests.sh`)
+1. Opens Simulator app if not already running
+2. Checks each test file for the `ipad` tag using grep
+3. Boots the required simulator if it's not already running
+4. Uses the pre-created simulator based on the tag
+5. Reinstalls the app before each test for clean state
+6. Reports which device type was used in test results
+
+## Simulator Specifications
+- **iPhone**: iPhone 16, iOS 18.2  
+- **iPad**: iPad (10th generation), iOS 18.2
+
+Both simulators are configured with:
+- Language: English (en)
+- Locale: en_US
+- Name suffix: "(maestro)" for easy identification
+
+## Example Test Structure
+```yaml
+appId: com.duckduckgo.mobile.ios
+tags:
+    - ipad
+    - duckplayer
+name: DuckPlayer iPad Layout Test
+
+---
+# This test will automatically run on iPad simulator
+
+- runFlow: 
+    file: ../shared/setup.yaml
+
+# Test iPad-specific UI elements
+- assertVisible: "Split View"  # Example iPad-specific element
+```
+
+## Technical Implementation
+
+### Tag Detection Function
+The script uses awk to detect the 'ipad' tag:
+```bash
+check_for_ipad_tag() {
+    local test_file=$1
     
-    func openWindowWithURL(_ url: URL) {
-        let tabCollection = TabCollectionViewModel()
-        let window = WindowsManager.openNewWindow(with: tabCollection)
-        window?.tabCollectionViewModel.addTab(with: url)
-    }
-}
-
-// ❌ INCORRECT - Direct window creation
-final class FeatureCoordinator {
-    func openNewWindow() {
-        let window = NSWindow() // Don't create windows directly
-        window.makeKeyAndOrderFront(nil)
-    }
+    # Check if the test has an 'ipad' tag
+    if awk '/^tags:/{flag=1} flag && /^[^-]/{exit} flag && /- ipad/{found=1; exit} END{exit !found}' "$test_file" 2>/dev/null; then
+        echo "true"
+    else
+        echo "false"
+    fi
 }
 ```
 
-## Window Controller Architecture
-Use NSWindowController for complex window management:
-
-```swift
-// ✅ CORRECT - NSWindowController pattern
-final class FeatureWindowController: NSWindowController {
-    private let viewModel: FeatureViewModel
-    
-    init(viewModel: FeatureViewModel) {
-        self.viewModel = viewModel
-        super.init(window: nil)
-        setupWindow()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupWindow() {
-        let contentViewController = FeatureViewController(viewModel: viewModel)
-        
-        window = NSWindow(contentViewController: contentViewController)
-        window?.setContentSize(NSSize(width: 800, height: 600))
-        window?.minSize = NSSize(width: 400, height: 300)
-        window?.center()
-        window?.title = "Feature Window"
-        
-        // Configure window behavior
-        window?.isRestorable = true
-        window?.identifier = NSUserInterfaceItemIdentifier("FeatureWindow")
-    }
-    
-    override func windowDidLoad() {
-        super.windowDidLoad()
-        
-        // Additional window setup
-        window?.delegate = self
-        setupToolbar()
-    }
+### Pre-created Simulators
+Both simulators are created during setup for better performance:
+```bash
+# In setup_ui_tests.sh
+create_or_get_simulator() {
+    local device_name=$1
+    local device_type=$2
+    local simulator_name="$device_name $target_os (maestro)"
+    # Creates simulator if it doesn't exist
+    # Returns simulator UUID
 }
 
-// MARK: - NSWindowDelegate
-extension FeatureWindowController: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        // Clean up resources
-        viewModel.cleanup()
-    }
-    
-    func windowDidBecomeMain(_ notification: Notification) {
-        // Handle window becoming main
-        viewModel.windowDidBecomeActive()
-    }
-}
+# Creates both simulators
+iphone_uuid=$(create_or_get_simulator "iPhone-16" "iPhone-16")
+ipad_uuid=$(create_or_get_simulator "iPad-10th-generation" "iPad-10th-generation")
 ```
 
-## Multi-Window State Management
-Use TabCollectionViewModel for window-specific state:
+### Simulator UUID Storage
+UUIDs are saved to files for test execution:
+- iPhone UUID: `DerivedData/device_uuid.txt`
+- iPad UUID: `DerivedData/device_uuid_ipad.txt`
 
-```swift
-// ✅ CORRECT - Window-specific state management
-@MainActor
-final class WindowCoordinator {
-    private let tabCollectionViewModel: TabCollectionViewModel
-    private weak var windowController: NSWindowController?
-    
-    init(tabCollectionViewModel: TabCollectionViewModel) {
-        self.tabCollectionViewModel = tabCollectionViewModel
-    }
-    
-    func currentTab() -> Tab? {
-        return tabCollectionViewModel.selectedTab
-    }
-    
-    func addNewTab(with url: URL? = nil) {
-        tabCollectionViewModel.addTab(with: url)
-    }
-    
-    func closeCurrentTab() {
-        guard let currentTab = tabCollectionViewModel.selectedTab else { return }
-        tabCollectionViewModel.removeTab(currentTab)
-    }
-    
-    func closeWindow() {
-        windowController?.close()
-    }
-}
-```
+## Benefits
+- **Single Test Suite**: Maintain one set of tests for both device types
+- **Automatic Selection**: No need to manually switch simulators
+- **Efficient Testing**: Only creates simulators when needed
+- **Clear Indication**: Test output shows which device type is being used
 
-## Window State Restoration
-Implement proper state restoration:
-
-```swift
-// ✅ CORRECT - Window state restoration
-extension FeatureWindowController {
-    override func restoreState(with coder: NSCoder) {
-        super.restoreState(with: coder)
-        
-        // Restore window-specific state
-        if let savedData = coder.decodeObject(forKey: "viewModelState") as? Data {
-            viewModel.restoreState(from: savedData)
-        }
-    }
-    
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        
-        // Save window-specific state
-        if let stateData = viewModel.encodeState() {
-            coder.encode(stateData, forKey: "viewModelState")
-        }
-    }
-}
-```
-
-## NSViewController and SwiftUI Integration
-Use NSHostingView for SwiftUI integration:
-
-```swift
-// ✅ CORRECT - NSHostingView integration
-final class FeatureViewController: NSViewController {
-    private let viewModel: FeatureViewModel
-    
-    init(viewModel: FeatureViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        view = NSHostingView(rootView: FeatureView(viewModel: viewModel))
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "Feature"
-        preferredContentSize = NSSize(width: 400, height: 300)
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        viewModel.viewWillAppear()
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        viewModel.viewDidAppear()
-    }
-}
-```
-
-## View Controller Lifecycle
-Follow AppKit view controller patterns:
-
-```swift
-// ✅ CORRECT - AppKit lifecycle management
-final class FeatureViewController: NSViewController {
-    private var observations: Set<NSObjectProtocol> = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupUI()
-        bindViewModel()
-        setupNotifications()
-    }
-    
-    override func viewWillAppear() {
-        super.viewWillAppear()
-        viewModel.refreshData()
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        // View is fully visible
-        viewModel.trackViewAppearance()
-    }
-    
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        viewModel.saveUserChanges()
-    }
-    
-    private func setupNotifications() {
-        let observation = NotificationCenter.default.addObserver(
-            forName: .dataUpdated,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            self?.viewModel.refreshData()
-        }
-        observations.insert(observation)
-    }
-    
-    deinit {
-        observations.forEach { NotificationCenter.default.removeObserver($0) }
-        observations.removeAll()
-    }
-}
-```
-
-## Memory Management for Multiple Windows
-Implement proper cleanup for window controllers:
-
-```swift
-// ✅ CORRECT - Window memory management
-final class FeatureWindowController: NSWindowController {
-    private var observers: Set<NSObjectProtocol> = []
-    
-    deinit {
-        // Clean up resources
-        observers.forEach { NotificationCenter.default.removeObserver($0) }
-        observers.removeAll()
-        viewModel.cleanup()
-    }
-    
-    override func close() {
-        // Prepare for closure
-        viewModel.saveState()
-        super.close()
-    }
-    
-    func cleanupBeforeClose() {
-        // Cancel any ongoing operations
-        viewModel.cancelOngoingOperations()
-        
-        // Remove from window tracking
-        WindowTracker.shared.removeWindow(self)
-    }
-}
-```
-
-## Window Cascading and Positioning
-Handle window positioning properly:
-
-```swift
-// ✅ CORRECT - Window positioning
-extension WindowsManager {
-    static func positionNewWindow(_ window: NSWindow) {
-        if let lastWindow = NSApp.orderedWindows.first {
-            let origin = lastWindow.frame.origin
-            let offset: CGFloat = 30
-            
-            let newOrigin = NSPoint(
-                x: origin.x + offset,
-                y: origin.y - offset
-            )
-            
-            // Ensure window stays on screen
-            let screenFrame = window.screen?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero
-            
-            if screenFrame.contains(NSRect(origin: newOrigin, size: window.frame.size)) {
-                window.setFrameOrigin(newOrigin)
-            } else {
-                window.center()
-            }
-        } else {
-            window.center()
-        }
-    }
-}
-```
-
-See `macos-system-integration.md` for system-level integration patterns and `macos-preferences.md` for preferences management.
+## Future Enhancements
+- Support for additional iPad models
+- Different iOS versions per device type
+- Landscape/portrait orientation configuration
+- Device-specific timeout adjustments
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
