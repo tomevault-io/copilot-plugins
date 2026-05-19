@@ -1,174 +1,102 @@
-## code-style
+## feedback-incorporation
 
-> Code style guidelines for Twenty CRM
+> Guidelines for incorporating user feedback and improving cursor rules
 
-# Code Style Guidelines
+# Feedback Incorporation Guidelines
 
-## Formatting Standards
-- **Prettier**: 2-space indentation, single quotes, trailing commas, semicolons
-- **Print width**: 80 characters
-- **ESLint**: No unused imports, consistent import ordering, prefer const over let
+## Post-Interaction Reflection
 
-## Naming Conventions
+After each coding session or significant interaction, the AI should:
+
+### 1. Reflect on User Feedback
+- **Identify patterns** in user corrections or suggestions
+- **Note recurring issues** that could be prevented with better rules
+- **Recognize gaps** in current cursor rules or guidelines
+
+### 2. Suggest Rule Improvements
+When user provides feedback that reveals a pattern or preference:
+
 ```typescript
-// ✅ Variables and functions - camelCase
-const userAccountBalance = 1000;
-const calculateMonthlyPayment = () => {};
-
-// ✅ Constants - SCREAMING_SNAKE_CASE
-const API_ENDPOINTS = {
-  USERS: '/api/users',
-  ORDERS: '/api/orders',
-} as const;
-
-// ✅ Types and Classes - PascalCase
-class UserService {}
-type UserAccountData = {};
-type ButtonProps = {}; // Component props suffix with 'Props'
-
-// ✅ Files and directories - kebab-case
-// user-profile.component.tsx
-// user-profile.styles.ts
-
-// ❌ NEVER use abbreviations in variable names
-// Bad
-const users = data.map((u) => u.name);
-const field = items.find((f) => f.id === id);
-
-// Good
-const users = data.map((user) => user.name);
-const field = items.find((item) => item.id === id);
-const fieldMetadata = inlineFields.find(
-  (fieldMetadataItem) => fieldMetadataItem.name === fieldName,
-);
+// Example feedback patterns to watch for:
+// - "We don't use useEffect, handle state changes in event callbacks"
+// - "We don't use JSDoc blocks, prefer // comments"
+// - "Always use named exports, never default exports"
+// - "We prefer functional components over class components"
+// - "Use event handlers over useEffect for state updates"
 ```
 
-## Import Organization
-```typescript
-// ✅ Correct import order
-// 1. External libraries
-import React from 'react';
-import { useCallback } from 'react';
-import styled from 'styled-components';
+### 3. Proactive Rule Suggestions
+At the end of interactions, suggest:
 
-// 2. Internal modules (absolute paths)
-import { Button } from '@/components/ui';
-import { UserService } from '@/services';
+```markdown
+## 💡 Suggested Cursor Rule Updates
 
-// 3. Relative imports
-import { UserCardProps } from './types';
+Based on your feedback today, I recommend adding/updating these rules:
+
+**Code Style Rule Update:**
+- Add preference for // comments over JSDoc blocks
+- Enforce named exports only (no default exports)
+
+**React Guidelines Update:**
+- Document preference for event handlers over useEffect
+- Add functional components only rule
+
+Would you like me to help incorporate these into your cursor rules?
 ```
 
-## Function Structure
+## Implementation Process
+
+### When to Suggest Updates
+- User corrects the same type of mistake multiple times
+- User explains a codebase-specific preference
+- User points out missing functionality or incomplete implementations
+- User provides context about existing patterns not captured in rules
+
+### How to Present Suggestions
+1. **Summarize the pattern** observed from feedback
+2. **Propose specific rule language** that would prevent the issue
+3. **Explain the benefit** of codifying this knowledge
+4. **Ask for confirmation** before implementing
+
+### Rule Categories to Consider
+- **Code Style**: Formatting, naming, comment styles, export patterns
+- **React Patterns**: Hook usage, component structure, state management
+- **Architecture**: File organization, import patterns, component composition
+- **Testing**: Test structure, naming, coverage expectations
+- **Performance**: Optimization patterns, anti-patterns to avoid
+
+## Example Feedback Integration
+
+```markdown
+## Today's Learning: React State Management Patterns
+
+**User Feedback Received:**
+- "We don't use useEffect, handle state changes in event callbacks"
+- "We don't use JSDoc blocks, prefer // comments"
+- "Always use named exports, never default exports"
+
+**Proposed Rule Additions:**
 ```typescript
-// ✅ Small, focused functions
-// ✅ Required parameters first, optional last
-const processUserData = (
-  user: User,
-  options: ProcessingOptions,
-  callback?: (result: ProcessedUser) => void
-): ProcessedUser => {
-  const processedUser = transformUserData(user);
-  applyOptions(processedUser, options);
-
-  if (callback) {
-    callback(processedUser);
-  }
-
-  return processedUser;
-};
-```
-
-## Comments
-```typescript
-// ✅ Use short-form comments, NOT JSDoc blocks
-// ✅ Explain business logic and non-obvious intentions (WHY, not WHAT)
-// Apply 15% discount for premium users with orders > $100
-const discount = isPremiumUser && orderTotal > 100 ? 0.15 : 0;
-
-// TODO: Replace with proper authentication service
-const isAuthenticated = localStorage.getItem('token') !== null;
-
-// ✅ Multi-line comments use multiple // lines (NOT /** */ blocks)
-// Calculates the total price after applying tax and discount
-// Returns the final price that should be charged to the customer
-const calculateTotalPrice = (basePrice: number): number => {
-  // Implementation
+// ✅ React State Updates - Use event handlers, not useEffect
+const handleButtonClick = () => {
+  setData(newData); // Direct state update in event handler
 };
 
-// ❌ AVOID obvious comments that just describe what code does
-// Bad: Get all inline fields dynamically
-const { inlineFieldMetadataItems } = useFieldListFieldMetadataItems({...});
+// ❌ Avoid useEffect for state updates
+// useEffect(() => { setData(newData); }, [trigger]);
 
-// Bad: Define standard fields in display order
-const standardFieldOrder = ['startsAt', 'endsAt', 'conferenceLink'];
-
-// Bad: Split fields into standard and custom
-const standardFields = standardFieldOrder.map(...)
-
-// ✅ GOOD: Only comment if explaining non-obvious business logic
-// Calendar events display standard fields first, then custom fields after participants
-// to maintain consistency with the legacy UI behavior
-const standardFields = standardFieldOrder.map(...)
-
-// ❌ AVOID JSDoc blocks - use short comments instead
-/**
- * This style is NOT preferred in this codebase
- */
+// ✅ Named exports only
+export const UserComponent = () => {};
+export const useUserData = () => {};
 ```
 
-**Comment Guidelines:**
-- **DO** comment complex business rules or domain-specific logic
-- **DO** comment non-obvious algorithmic decisions
-- **DO** add TODOs for future improvements
-- **DON'T** comment obvious variable declarations or function calls
-- **DON'T** comment what is already clear from well-named variables/functions
-- **DON'T** add comments that just repeat what the code says
-
-## Utility Helpers
-```typescript
-// ✅ Use existing utility helpers instead of manual checks
-import { isDefined } from 'twenty-shared/utils';
-import { isNonEmptyString, isNonEmptyArray } from '@sniptt/guards';
-
-// ❌ Manual type guards
-const validItems = items.filter((item): item is Item => item !== undefined);
-const hasValue = value !== null && value !== undefined;
-
-// ✅ Use utility helpers
-const validItems = items.filter(isDefined);
-const hasValue = isDefined(value);
-
-// Other useful helpers:
-// - isDefined(value) - checks !== null && !== undefined
-// - isNonEmptyString(value) - checks string is defined and not empty
-// - isNonEmptyArray(value) - checks array is defined and has items
+**Benefits:**
+- Prevents useEffect overuse and related bugs
+- Ensures consistent export patterns across codebase
+- Documents preferred React patterns for the team
 ```
 
-## Security Patterns
-```typescript
-// ✅ CSV Export: Always apply security first, then formatting
-const safeValue = formatValueForCSV(sanitizeValueForCSVExport(userInput));
-
-// ✅ Input validation before processing
-const sanitizedInput = validateAndSanitize(userInput);
-const result = processData(sanitizedInput);
-```
-
-## Error Handling
-```typescript
-// ✅ Proper error types and meaningful messages
-try {
-  const user = await userService.findById(userId);
-  if (!user) {
-    throw new UserNotFoundError(`User with ID ${userId} not found`);
-  }
-  return user;
-} catch (error) {
-  logger.error('Failed to fetch user', { userId, error });
-  throw error;
-}
-```
+This approach helps the AI learn from each interaction and continuously improve the development experience.
 
 ---
 > Source: [portwise-ai/twentyhq__twenty.main](https://github.com/portwise-ai/twentyhq__twenty.main) — distributed by [TomeVault](https://tomevault.io).
