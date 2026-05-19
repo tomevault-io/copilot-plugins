@@ -7,11 +7,11 @@ Self-hosted software for managing artisanal D2C micro-businesses
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [puemos/craftplan](https://github.com/puemos/craftplan).
+Original source: `CLAUDE.md` in [puemos/craftplan](https://github.com/puemos/craftplan).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
