@@ -1,35 +1,29 @@
-## 85-pre-commit
+## 90-build-deploy
 
-> Pre-commit / pre-PR checklist. The pre-commit hook is weaker than CI — always run the full package lint and typecheck before opening a PR.
+> Build outputs, deployment paths, and do-not-edit policy for dist
 
 
-# Pre-commit / pre-PR checklist
+# Build & Deploy Rules
 
-CI is stricter than the `husky` pre-commit hook. Always run the package's full lint **and** typecheck for every package you touched before committing or opening a PR — not just the staged-files hook.
+- Do not edit generated files in `dist/**`. Sources live in `api/src/**` and `app/src/**`.
+- API Docker dev image: [api/Dockerfile.dev](mdc:api/Dockerfile.dev). Production Dockerfile: [Dockerfile](mdc:Dockerfile).
+- Inngest local/dev configuration: [INNGEST_DEV_CONFIG.md](mdc:INNGEST_DEV_CONFIG.md).
+- If a change requires new environment variables, add them to the GitHub Actions workflow and update relevant READMEs.
+- Database migrations run automatically after deploy. See [90-migrations.mdc](mdc:.cursor/rules/90-migrations.mdc).
 
-## Minimum gate per package
+## Deployment
 
-| You edited files under... | Run before committing |
-| --- | --- |
-| `app/` | `pnpm --filter app run typecheck && pnpm --filter app run lint` |
-| `api/` | `pnpm --filter api run lint` (typecheck runs inside `api:build`) |
-| `website/` | `pnpm --filter website run lint` |
+- **The only deploy path is the GitHub Actions workflow**: [.github/workflows/deploy-app.yml](mdc:.github/workflows/deploy-app.yml).
+- `deploy.sh` is a local reference/example script only. **Do not modify `deploy.sh` for deployment changes.**
+- Production deploys on push to `master`. PR previews deploy automatically on PR open/sync.
+- Cloud Run config (memory, instances, timeouts, env vars) must be changed in the workflow file, not `deploy.sh`.
+- Cloud Run services run with `--memory=1Gi`, `--timeout=600`, `--min-instances=1` (prod) or `0` (preview).
 
-For cross-package changes, `pnpm run lint:all` covers `app` + `api` + connector-agnosticism.
+Environment variables (local defaults):
 
-## Why the pre-commit hook is not enough
-
-- `lint-staged` only runs on staged files, not the full package.
-- Even with `--report-unused-disable-directives` in `lint-staged`, a stale `// eslint-disable-next-line ...` comment in an **unstaged** file (or one you touched but didn't restage) will still reach CI.
-- CI's `eslint . --report-unused-disable-directives` treats unused disable directives as **errors** and fails the build. A clean pre-commit hook does not guarantee a green CI.
-
-## Common gotchas that only CI catches
-
-- **Unused `eslint-disable` directives.** When you fix a deps array or tighten a type, the surrounding `// eslint-disable-next-line` comment often becomes unused. Delete the comment in the same edit.
-- **Pre-existing warnings you introduced one more of.** CI doesn't fail on warnings, but don't rely on that — remove warnings you can fix.
-- **`@typescript-eslint/no-non-null-assertion`** from `!` on store lookups. Use an `if (!x) return;` guard or `?.` instead.
-- **`react/no-unescaped-entities`** from quotes/apostrophes inside JSX text. Use `&quot;` / `&apos;` or wrap in a string literal: `{"I'm"}`.
-- **`react-hooks/rules-of-hooks`** from calling a hook after an early `return`. Move the hook above every early return.
+- `WEB_API_PORT=8080` (API server)
+- `BASE_URL=http://localhost:8080` (API base for OAuth callbacks)
+- `CLIENT_URL=http://localhost:5173` (frontend base URL)
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
