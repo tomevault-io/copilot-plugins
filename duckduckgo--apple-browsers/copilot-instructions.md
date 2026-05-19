@@ -1,177 +1,54 @@
-## general
+## import-hygiene
 
-> This is the DuckDuckGo browser for iOS and macOS, built with privacy-first principles, modern Swift patterns, and cross-platform architecture.
+> Prevent accidental or unrequested import churn that causes build/lint issues and diffs unrelated to the task. Ensure SwiftUI is only imported where required (e.g., #Preview blocks) and avoid touching existing imports unless strictly necessary.
 
 
-# DuckDuckGo Browser Development Rules Overview
+# Import Hygiene & Preview-Only Imports
 
-## Project Context
-This is the DuckDuckGo browser for iOS and macOS, built with privacy-first principles, modern Swift patterns, and cross-platform architecture.
+## Purpose
+Prevent accidental or unrequested import churn that causes build/lint issues and diffs unrelated to the task. Ensure SwiftUI is only imported where required (e.g., #Preview blocks) and avoid touching existing imports unless strictly necessary.
 
-**Key Directories:**
-- `iOS/` - iOS browser app (UIKit + SwiftUI hybrid)
-- `macOS/` - macOS browser app (AppKit + SwiftUI hybrid) 
-- `SharedPackages/` - Cross-platform Swift packages
+## Rules (Always Apply)
 
-## Architecture Summary
-- **Pattern**: MVVM + Coordinators + Dependency Injection
-- **UI**: SwiftUI preferred, UIKit/AppKit for legacy
-- **Storage**: Core Data + GRDB + Keychain for sensitive data
-- **Design**: DesignResourcesKit for colors/icons (MANDATORY)
-- **Testing**: >80% coverage required
+1. Do not change imports unless:
+   - A new symbol is introduced that the compiler cannot resolve without the import
+   - An existing import is provably unused and removal is part of the explicit task scope
+   - The change resolves a red compiler error you introduced in this edit
 
-## Available Rules (`.cursor/rules/`)
+2. Keep platform/framework imports minimal and local:
+   - Prefer `import AppKit` for macOS UI code
+   - Prefer `import UIKit` for iOS UI code
+   - Do not add `import SwiftUI` to AppKit/UIKit view controllers unless they embed SwiftUI.
 
-Development rules are stored in `.cursor/rules/`.
-You MUST list all the available rules and you MUST consult the appropriate rule file before starting any work!
+3. Scope SwiftUI to previews:
+   - Only import `SwiftUI` inside `#if DEBUG` blocks for `#Preview` declarations
+   - **Example:** See [swiftui-preview-import.swift](import-hygiene/swiftui-preview-import.swift)
 
-### Core (Always Apply)
-- `anti-patterns.mdc` - What NOT to do; use with ViewModels, testing, WebView work
-- `code-style.mdc` - Swift style guide
-- `privacy-security.mdc` - Privacy requirements; use with network calls, analytics, credentials
-- `import-hygiene.mdc` - Import management and SwiftUI preview scoping
-- `logging-guidelines.mdc` - Logger usage (never print())
+4. Keep Shared Modules stable:
+   - Do not remove `import Common` or other project modules unless a dedicated cleanup task
+   - If a module is required elsewhere in the file, do not move or duplicate it
 
-### Architecture & Patterns
-- `architecture.mdc` - MVVM, DI patterns; use for new ViewModels
-- `project-structure.mdc` - Directory layout
-- `browserserviceskit-integration.mdc` - BSK integration; use for cross-platform code
-- `shared-packages.mdc` - Cross-platform packages; use for cross-platform code
-- `subscription-architecture.mdc` - Privacy Pro subscription
+5. Lint & Build first, then adjust:
+   - If a file shows missing-types errors after your edits (e.g., `Cannot find type 'FireproofDomains'`), prefer adding the specific missing import required for those existing symbols
+   - Avoid speculative imports
 
-### Feature Development
-- `feature-flags.mdc` + `feature-flags-addition.mdc` - Feature flags
-- `abn-experiment-framework.mdc` - A/B testing
-- `user-defaults-storage.mdc` - UserDefaults, @UserDefaultsWrapper; use for settings/preferences
+6. No import reordering for style-only reasons unless the repository enforces it via formatter
 
-### UI Development
-- `swiftui-style.mdc` - SwiftUI + DesignResourcesKit; use for new ViewModels, UI work
-- `swiftui-advanced.mdc` - Advanced SwiftUI patterns
-- `design-system-designresourceskit.mdc` - Colors, typography, icons (MANDATORY)
-- `webkit-browser.mdc` - WebView patterns
+## Rationale
+- Unnecessary import edits generate churn and can break platform- or target-specific build settings
+- Scoping SwiftUI to previews avoids accidental framework inclusion and linking in non-preview code paths
 
-### Platform-Specific
-- `ios-architecture.mdc` - iOS AppDependencyProvider, MainCoordinator, UIKit
-- `ios-tracker-blocking-implementation.mdc` - iOS content blocking
-- `macos-window-management.mdc` - macOS windows
-- `macos-system-integration.mdc` - macOS system services
-- `macos-singletons-removal.mdc` - Removing singletons from macOS
+## Examples
 
-### Feature-Specific
-- `duckplayer.mdc` + `duckplayer-userscript-integration.mdc` - DuckPlayer
-- `securevault-guidelines.mdc` - Credentials/vault storage
-- `app-lifecycle-state-machine.mdc` - App state management
-- `network-quality-*.mdc` (4 files) - Network quality assessment
+- **CORRECT (AppKit-only controller):** See [appkit-only-controller.swift](import-hygiene/appkit-only-controller.swift)
 
-### Testing & Quality
-- `testing.mdc` - Testing patterns, xcodebuild commands
-- `ui-testing.mdc` - UI testing for macOS browser
-- `maestro-device-selection.mdc` - Maestro test device config
-- `performance-optimization.mdc` - Performance; use with network calls
+- **CORRECT (preview-only SwiftUI):** See [preview-only-swiftui.swift](import-hygiene/preview-only-swiftui.swift)
 
-### Workflow & Process
-- `development-commands.mdc` - Build commands
-- `pull-request.mdc` + `branch-naming-conventions.mdc` - PRs and git workflow
-- `analytics-patterns.mdc` - Pixel analytics
+- **AVOID:** See [import-to-avoid.swift](import-hygiene/import-to-avoid.swift)
 
-## Quick Start Checklist
-
-### Before Writing Any Code:
-1. ✅ Read `privacy-security.mdc` - Privacy is non-negotiable
-2. ✅ Check platform rules (`ios-architecture.mdc` or `macos-system-integration.mdc`)
-3. ✅ Review `anti-patterns.mdc` - Avoid common mistakes
-4. ✅ REMEMBER: NEVER commit, push, or run tests without explicit user permission or unless explicitly asked to
-
-### For UI Development:
-1. ✅ Use `swiftui-style.mdc` for SwiftUI components
-2. ✅ MUST use DesignResourcesKit colors: `Color(designSystemColor: .textPrimary)`
-3. ✅ MUST use DesignResourcesKit icons: `DesignSystemImages.Glyphs.Size16.add`
-
-### For New Features:
-1. ✅ Follow `architecture.mdc` for MVVM + DI patterns
-2. ✅ Use AppDependencyProvider (iOS) or equivalent (macOS)
-3. ✅ Write tests per `testing.mdc` requirements
-
-## Critical Don'ts (from anti-patterns.mdc)
-- ❌ NEVER commit, push changes, create or delete branches on git or trigger github actions without EXPLICIT user permission
-- ❌ NEVER run tests without EXPLICIT user permission or if user explicitly asked to in their prompt
-- ❌ NEVER use `.shared` singletons - use dependency injection instead
-- ❌ NEVER hardcode colors/icons (use DesignResourcesKit)
-- ❌ NEVER update UI without @MainActor
-- ❌ NEVER ignore privacy implications
-- ❌ NEVER force unwrap without justification
-- ❌ NEVER use `print()` statements - use appropriate Logger extensions instead
-
-## Logging Guidelines
-
-**NEVER use `print()` in production code. ALWAYS use appropriate Logger extensions:**
-
-**Example:** See [logging-guidelines.swift](general/logging-guidelines.swift)
-
-**Available Logger categories:**
-- `Logger.general` - General app functionality
-- `Logger.network` - Network requests and responses  
-- `Logger.ui` - UI updates and user interactions
-- `Logger.tests` - Test-specific logging (import `os.log` in tests)
-
-**Benefits of Logger extensions:**
-- Structured logging with categories and levels
-- Better performance than print() statements
-- Automatic log collection and filtering
-- Integration with system logging infrastructure
-
-## Dependency Injection Pattern (iOS)
-**Example:** See [dependency-injection-pattern.swift](general/dependency-injection-pattern.swift)
-
-## Design System Usage (MANDATORY)
-**Example:** See [design-system-usage.swift](general/design-system-usage.swift)
-
-## Code Review Checklist
-1. Privacy implications assessed (`privacy-security.mdc`)
-2. Design system properly used (`design-system-designresourceskit.mdc`)
-3. Architecture patterns followed (platform-specific rules)
-4. Anti-patterns avoided (`anti-patterns.mdc`)
-5. Tests written and passing (`testing.mdc`)
-6. Performance considered (`performance-optimization.mdc`)
-7. PR template followed (`pull-request.mdc`)
-
-## Git & Testing Workflow Rules
-
-### 🚨 MANDATORY: Never Auto-Execute Commands
-**NEVER commit, push, or run tests without EXPLICIT user permission.**
-
-#### Git Workflow:
-1. Make file changes as requested
-2. **STOP** before any `git add`, `git commit`, or `git push` commands  
-3. **ASK** the user: "Should I commit/push these changes?"
-4. **WAIT** for explicit permission (e.g., "yes", "commit it", "push it", "go ahead")
-5. Only then execute git commands
-
-#### Testing Workflow:
-1. Write or modify code as requested
-2. **STOP** before running any tests (`swift test`, `npm test`, `xcodebuild test`, etc.)
-3. **ASK** the user: "Should I run the tests?"
-4. **WAIT** for explicit permission (e.g., "yes", "run tests", "test it")
-5. Only then execute test commands
-
-#### What NOT to Do:
-**Example:** See [git-workflow-wrong.sh](general/git-workflow-wrong.sh)
-
-#### What TO Do:
-**Example:** See [git-workflow-correct.sh](general/git-workflow-correct.sh)
-
-**These rules have NO exceptions. Always ask before executing git or test commands.**
-
-## Communication Style
-
-- Keep responses concise and focused on the task
-- Avoid enthusiastic language like "Perfect!", "You are absolutely right!", "Excellent!"
-- Keep work summaries brief - focus on what was changed, not how great it is
-- Let the code quality speak for itself rather than using excessive praise
-
----
-
-This overview ensures you understand the project context and know which specific rules to consult for your development task.
+## Enforcement Guidance
+- During PR review, reject changes that add/remove imports without a clear necessity
+- Prefer comments in code review over automated reordering unless enforced by tooling
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
