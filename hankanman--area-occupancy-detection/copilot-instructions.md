@@ -1,130 +1,23 @@
-## area-occupancy-detection
+## assumptions
 
-> This is a Home Assistant custom component that provides intelligent area occupancy detection using Bayesian probability algorithms. The component analyzes multiple sensor inputs (motion, media devices, lights, doors, etc.) to determine the probability that an area is occupied.
+> These assumptions are guaranteed by the integration's architecture and validation:
 
 
-# Area Occupancy Detection - Codebase Navigation Guide
+## Integration Assumptions
 
-## Project Overview
+These assumptions are guaranteed by the integration's architecture and validation:
 
-This is a Home Assistant custom component that provides intelligent area occupancy detection using Bayesian probability algorithms. The component analyzes multiple sensor inputs (motion, media devices, lights, doors, etc.) to determine the probability that an area is occupied.
+1. **At least one area exists**: When the integration is installed, the user must create at least one area. We can therefore assume that there will always be at least one area configured.
 
-## Key Architecture Components
+2. **Each area has at least one motion sensor**: Validated in config flow (`config_flow.py:734-735`) before the integration is installed. Runtime code can assume motion sensors exist.
 
-### Entry Points
+3. **Areas are initialized before use**: Coordinator setup ensures areas are loaded before any entities or services use them. Platform entities are created after areas are initialized.
 
-- **Main Component Entry**: [custom_components/area_occupancy/**init**.py](mdc:custom_components/area_occupancy/__init__.py) - Component setup, migration, and lifecycle management
-- **Component Manifest**: [custom_components/area_occupancy/manifest.json](mdc:custom_components/area_occupancy/manifest.json) - Component metadata and dependencies
-- **Configuration Constants**: [custom_components/area_occupancy/const.py](mdc:custom_components/area_occupancy/const.py) - All constants, defaults, and configuration keys
+4. **When `area_name` is None, first area always exists**: Methods that accept `area_name: str | None = None` can assume that when `area_name` is `None`, `get_area_or_default(None)` will always return the first area (since at least one area exists).
 
-### Core Logic
+5. **After area validation, area exists**: When `_validate_area_exists()` succeeds, the area is guaranteed to exist. Redundant None checks after validation are unnecessary.
 
-- **Coordinator**: [custom_components/area_occupancy/coordinator.py](mdc:custom_components/area_occupancy/coordinator.py) - Central orchestrator managing all component state and calculations
-- **Config Flow**: [custom_components/area_occupancy/config_flow.py](mdc:custom_components/area_occupancy/config_flow.py) - User interface for component setup and configuration
-- **Storage Manager**: [custom_components/area_occupancy/storage.py](mdc:custom_components/area_occupancy/storage.py) - Persistent data storage and migration handling
-
-### Data Models (data/ directory)
-
-- **Configuration**: [custom_components/area_occupancy/data/config.py](mdc:custom_components/area_occupancy/data/config.py) - Manages component configuration and validation
-- **Entity Management**: [custom_components/area_occupancy/data/entity.py](mdc:custom_components/area_occupancy/data/entity.py) - Core entity logic and state tracking
-- **Entity Types**: [custom_components/area_occupancy/data/entity_type.py](mdc:custom_components/area_occupancy/data/entity_type.py) - Defines sensor types and their probability characteristics
-- **Prior Learning**: [custom_components/area_occupancy/data/prior.py](mdc:custom_components/area_occupancy/data/prior.py) - Historical probability learning from Home Assistant history
-- **Decay Logic**: [custom_components/area_occupancy/data/decay.py](mdc:custom_components/area_occupancy/data/decay.py) - Time-based probability decay calculations
-
-### Platform Implementations
-
-- **Binary Sensors**: [custom_components/area_occupancy/binary_sensor.py](mdc:custom_components/area_occupancy/binary_sensor.py) - Occupancy and "Wasp in Box" detection sensors
-- **Sensors**: [custom_components/area_occupancy/sensor.py](mdc:custom_components/area_occupancy/sensor.py) - Probability percentage and diagnostic sensors
-- **Number Entities**: [custom_components/area_occupancy/number.py](mdc:custom_components/area_occupancy/number.py) - Configurable threshold and weight controls
-
-### Services and Utilities
-
-- **Services**: [custom_components/area_occupancy/service.py](mdc:custom_components/area_occupancy/service.py) - Custom services for debugging and manual control
-- **Utilities**: [custom_components/area_occupancy/utils.py](mdc:custom_components/area_occupancy/utils.py) - Helper functions and Bayesian probability calculations
-- **Migrations**: [custom_components/area_occupancy/migrations.py](mdc:custom_components/area_occupancy/migrations.py) - Configuration version migration logic
-
-## Key Concepts
-
-### Bayesian Probability System
-
-The component uses Bayesian inference to combine multiple sensor inputs:
-
-- **Prior Probability**: Base likelihood an area is occupied (learned from history)
-- **Likelihood**: How likely each sensor state is given occupancy status
-- **Posterior**: Final calculated probability combining all evidence
-
-### Entity Types and Weights
-
-Different sensor types have different reliability and are weighted accordingly:
-
-- **Motion Sensors**: High weight (0.85) for detecting presence
-- **Media Devices**: Medium-high weight (0.7) for entertainment areas
-- **Appliances**: Medium weight (0.4) for activity indicators
-- **Doors/Windows**: Lower weight (0.2-0.3) for access patterns
-- **Environmental**: Low weight (0.1) for ambient changes
-
-### "Wasp in Box" Algorithm
-
-A virtual sensor that detects rapid door opening/closing patterns followed by no motion, indicating someone briefly entered and left the area.
-
-## Testing Structure
-
-### Test Organization
-
-- **Centralized Mocks**: [tests/conftest.py](mdc:tests/conftest.py) - Comprehensive fixtures for consistent testing
-- **Test Documentation**: [tests/README_CENTRALIZED_MOCKS.md](mdc:tests/README_CENTRALIZED_MOCKS.md) - Explains centralized mock strategy
-- **Component Tests**: [tests/test\_\*.py](mdc:tests) - Individual component test files
-
-### Key Test Categories
-
-- **Integration Tests**: [tests/test_init.py](mdc:tests/test_init.py) - Component lifecycle and setup
-- **Coordinator Tests**: [tests/test_coordinator.py](mdc:tests/test_coordinator.py) - Core logic and probability calculations
-- **Data Model Tests**: [tests/test*data*\*.py](mdc:tests) - Individual data model validation
-- **Platform Tests**: [tests/test_binary_sensor.py](mdc:tests/test_binary_sensor.py), [tests/test_sensor.py](mdc:tests/test_sensor.py), [tests/test_number.py](mdc:tests/test_number.py)
-- **Storage Tests**: [tests/test_storage.py](mdc:tests/test_storage.py) - Data persistence and migration
-- **Service Tests**: [tests/test_service.py](mdc:tests/test_service.py) - Custom service functionality
-
-## Development Patterns
-
-### Memory Management Notes
-
-Based on previous development, be aware of these key patterns:
-
-- **Storage Format**: Home Assistant Store class expects `{version, key, data: {our_data}}` format
-- **Circular Imports**: Use TYPE_CHECKING blocks for type annotations to avoid circular dependencies
-- **Prior Updates**: Probability module handles all probability updates; Prior module only stores/provides learned data
-- **Testing Strategy**: Use centralized mocks from conftest.py rather than local fixtures
-
-### Configuration Flow
-
-1. User configures through [config_flow.py](mdc:custom_components/area_occupancy/config_flow.py)
-2. Component initializes in [**init**.py](mdc:custom_components/area_occupancy/__init__.py)
-3. Coordinator manages all state in [coordinator.py](mdc:custom_components/area_occupancy/coordinator.py)
-4. Data models handle specific logic in [data/](mdc:custom_components/area_occupancy/data) directory
-5. Platform entities expose sensors/controls to Home Assistant
-
-### Data Flow
-
-1. **Entity Manager** tracks sensor states and changes
-2. **Entity Types** define probability characteristics for each sensor type
-3. **Prior Manager** learns from historical data patterns
-4. **Decay Manager** handles time-based probability reduction
-5. **Coordinator** combines all data using Bayesian inference
-6. **Storage Manager** persists learned data and configuration
-
-## Common Navigation Patterns
-
-- **Finding Constants**: Check [const.py](mdc:custom_components/area_occupancy/const.py) for all configuration keys and defaults
-- **Understanding Calculations**: See [utils.py](mdc:custom_components/area_occupancy/utils.py) for Bayesian probability functions
-- **Debugging Issues**: Use services in [service.py](mdc:custom_components/area_occupancy/service.py) for manual testing
-- **Adding Features**: Follow the data model pattern in [data/](mdc:custom_components/area_occupancy/data) directory
-- **Testing Changes**: Use centralized fixtures from [conftest.py](mdc:tests/conftest.py)
-
-## Quality Tools
-
-- **Linting**: Run `scripts/lint` for pylint and ruff checks
-- **Testing**: Run pytest with fixtures from [conftest.py](mdc:tests/conftest.py)
-- **Configuration**: [pyproject.toml](mdc:pyproject.toml) contains all tool configurations
+These assumptions allow us to remove defensive checks for empty areas, None areas when `area_name` is None, and areas after validation.
 
 ---
 > Source: [Hankanman/Area-Occupancy-Detection](https://github.com/Hankanman/Area-Occupancy-Detection) — distributed by [TomeVault](https://tomevault.io).
