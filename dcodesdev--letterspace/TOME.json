@@ -4,7 +4,7 @@
   "repo": "LetterSpace",
   "description": "Self-hosted open source newsletter platform for managing subscribers and sending campaigns",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dcodesdev/LetterSpace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T19:15:26Z"
+  "distributed_at": "2026-05-19T20:37:29Z"
 }
