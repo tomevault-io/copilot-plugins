@@ -4,7 +4,7 @@
   "repo": "c15t",
   "description": "The Developer-First Cookie Banner",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c15t/c15t",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T02:10:01Z"
+  "distributed_at": "2026-05-19T03:07:42Z"
 }
