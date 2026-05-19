@@ -1,0 +1,9 @@
+{
+  "name": "bjornmelin--enhanced-mem-vector-rag",
+  "displayName": "enhanced-mem-vector-rag",
+  "description": "\u26a1 Developer-friendly hybrid-RAG toolkit merging Graphiti, Qdrant, mem0, LlamaIndex, and LangChain into one powerful engine.",
+  "version": "1.0.0",
+  "author": "BjornMelin",
+  "homepage": "https://github.com/BjornMelin/enhanced-mem-vector-rag",
+  "skills": []
+}
