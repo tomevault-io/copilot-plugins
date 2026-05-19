@@ -1,104 +1,166 @@
-## network-quality-test-config
+## network-quality-testing
 
-> The NetworkQualityMonitor uses carefully tuned parameters to balance speed and accuracy for browser performance testing.
+> The NetworkQualityMonitor is a comprehensive network quality testing framework designed for the DuckDuckGo Privacy Browser. It provides pre-flight network connectivity and performance checks to ensure optimal browser performance.
 
 
-# NetworkQualityMonitor Test Configuration
+# NetworkQualityMonitor Testing Framework
 
-## Optimized Test Parameters
+## Overview
 
-The NetworkQualityMonitor uses carefully tuned parameters to balance speed and accuracy for browser performance testing.
+The NetworkQualityMonitor is a comprehensive network quality testing framework designed for the DuckDuckGo Privacy Browser. It provides pre-flight network connectivity and performance checks to ensure optimal browser performance.
 
-## Test Phases and Data Sizes
+## Architecture Principles
+
+### SOLID Design
+- **Single Responsibility**: Each tester handles one specific network metric
+- **Open/Closed**: Protocol-based design allows extension without modification
+- **Dependency Injection**: All dependencies injected for testability
+- **Interface Segregation**: Focused protocols for each test type
+
+### Component Structure
+```
+NetworkQualityMonitor (Orchestrator)
+├── HttpResponseTester (Latency)
+├── BandwidthTester (Speed)
+├── DNSTester (Resolution)
+├── BufferBloatTester (Congestion)
+└── NetworkScoreCalculator (Scoring)
+```
+
+## Test Implementation Details
 
 ### HTTP Response Testing (Latency)
-- **Samples**: 15 per endpoint
-- **Endpoints**: ~12 globally distributed CDNs and services
-- **Methodology**: Warm-up phase + interleaved sampling
-- **Timeout**: 5 seconds
-- **Total time**: ~3-4 minutes
+- **Multi-endpoint sampling**: Tests CDN endpoints (CloudFlare, Fastly, CloudFront)
+- **Statistical analysis**: Calculates median, mean, standard deviation, CV
+- **Smart aggregation**: Best site selection with weighted penalties
+- **Metrics**: P50/P95 percentiles, variance, failure rate
 
-### Bandwidth Testing (Download)
-- **File size**: 50MB per server (reduced from 100MB)
-- **Servers**: 3 test servers (CloudFlare, OVH, Hetzner)
-- **Runs**: 1 per server (reduced from 2)
-- **Total download**: ~150MB (was 800MB)
-- **Timeout**: 20 seconds per server
-- **Measurement window**: 
-  - At 100 Mbps: ~4 seconds
-  - At 25 Mbps: ~16 seconds
-  - At 10 Mbps: ~40 seconds
+### Bandwidth Testing
+- **Server selection**: Quick 10MB test, then full test on best servers
+- **Download measurement**: Multiple runs, returns maximum speed
+- **Upload measurement**: Chunked uploads (50MB x 2)
+- **Optimization**: Range requests, cache-busting, timeout protection
 
-### Upload Testing
-- **Chunk size**: 20MB (reduced from 50MB)
-- **Chunks**: 2 sequential uploads
-- **Total upload**: 40MB (was 100MB)
-- **Timeout**: 25 seconds total
-- **Servers**: 3 endpoints
+### DNS Testing
+- **Domain resolution**: Popular domains (google.com, cloudflare.com)
+- **Timing precision**: CFAbsoluteTime for microsecond accuracy
+- **Failure tracking**: Resolution success/failure rates
+- **System resolver**: Uses native DNS resolution
 
-### DNS Resolution Testing
-- **Domains**: 11 popular domains
-- **Tests**: Resolution time and failure rate
-- **Timeout**: Default system resolver timeout
+### Buffer Bloat Testing
+- **Baseline measurement**: Unloaded network latency
+- **Load testing**: Concurrent downloads during latency measurement
+- **Grade assignment**: A-F based on latency increase percentage
+- **Real-time impact**: Critical for video calls, gaming
+
+## Scoring Algorithm
+
+### Component Weights
+- HTTP Response: 25%
+- Bandwidth: 35%
+- DNS: 15%
+- Buffer Bloat: 25%
+
+### Quality Ratings
+- **Excellent (80-100)**: Optimal performance
+- **Good (60-79)**: Good for most tasks
+- **Fair (40-59)**: May experience issues
+- **Poor (0-39)**: Significant issues likely
+
+## Testing Best Practices
+
+### Unit Testing
+```swift
+// Use protocol-based mocks
+class MockHttpResponseTester: HttpResponseTesting {
+    func performTest(...) async throws -> HttpResponseResult {
+        // Return deterministic results
+    }
+}
+```
+
+### Integration Testing
+- Mock NetworkSession for controlled responses
+- Test error scenarios and edge cases
+- Verify progress callback behavior
+
+### Performance Testing
+- Monitor memory usage during large downloads
+- Verify timeout handling
+- Test concurrent execution
+
+## Usage Patterns
+
+### Basic Implementation
+```swift
+let monitor = NetworkQualityMonitor()
+let results = try await monitor.runTest()
+print("Quality: \(results.quality.rawValue)")
+```
+
+### With Progress Reporting
+```swift
+monitor.progressCallback = { progress, message in
+    // Update UI with progress
+}
+```
+
+### Custom Configuration
+```swift
+let config = TestConfiguration(
+    latencyTestURLs: customURLs,
+    latencySamplesPerEndpoint: 20
+)
+let monitor = NetworkQualityMonitor(configuration: config)
+```
+
+## Security Considerations
+
+- **HTTPS only**: All endpoints use secure connections
+- **No user data**: Only generic test payloads
+- **Certificate validation**: Standard validation enabled
+- **Rate limiting**: Built-in delays between samples
+
+## Error Handling
+
+### Error Types
+- `invalidResponse`: HTTP errors, malformed data
+- `allTestsFailed`: Complete connectivity loss
+- `insufficientData`: Not enough samples collected
+- `timeout`: Test exceeded time limit
+
+### Recovery Strategies
+- Continue testing if individual endpoints fail
+- Provide partial results when possible
+- Clear error reporting with localized descriptions
 
 ## Performance Optimizations
 
-### Why These Sizes?
+- **HEAD requests**: Minimal data for latency tests
+- **Range requests**: Efficient server selection
+- **Connection reuse**: URLSession connection pooling
+- **Memory streaming**: Large downloads streamed, not buffered
 
-**50MB for Downloads:**
-- Large enough to overcome TCP slow start
-- Provides stable measurement window (4-40 seconds)
-- Small enough to complete quickly on slower connections
-- Balances accuracy with user experience
+## Package Integration
 
-**20MB for Uploads:**
-- Sufficient to measure upload capacity
-- Most users have asymmetric connections (slower upload)
-- Reduces test time significantly
+### Adding to Project
+1. Add NetworkQualityMonitor package dependency
+2. Import NetworkQualityMonitor module
+3. Initialize with configuration
+4. Handle async test execution
 
-### Total Test Duration
+### Debug Menu Integration
+- Available under Debug → Network Quality
+- Individual test execution
+- Detailed result display
 
-**Typical completion times:**
-- Fast connection (100+ Mbps): ~2-3 minutes
-- Good connection (25-50 Mbps): ~3-4 minutes
-- Fair connection (10-25 Mbps): ~4-5 minutes
-- Poor connection (<10 Mbps): ~5-7 minutes
+## Future Enhancements
 
-### Data Usage
-
-**Total data transferred:**
-- Download: ~150MB
-- Upload: ~40MB
-- **Total: ~190MB** (reduced from ~900MB)
-
-## Configuration Code
-
-```swift
-TestConfiguration(
-    latencyTestURLs: [/* 12 CDN endpoints */],
-    bandwidthTestURLs: [
-        "https://speed.cloudflare.com/__down?bytes=52428800",  // 50MB
-        "https://proof.ovh.net/files/50Mb.dat",                // 50MB
-        "https://speed.hetzner.de/50MB.bin"                    // 50MB
-    ],
-    uploadTestURLs: [/* 3 upload endpoints */],
-    dnsTestDomains: [/* 11 popular domains */],
-    latencySamplesPerEndpoint: 15,
-    bandwidthRunsPerServer: 1,
-    uploadChunkSize: 20_971_520,    // 20MB
-    uploadChunkCount: 2,
-    latencyTestTimeout: 5,
-    bandwidthTestTimeout: 20,
-    uploadTestTimeout: 25
-)
-```
-
-## Quick Test Mode
-
-For rapid connectivity checks, the system also supports:
-- 10MB quick downloads for server selection
-- HEAD requests for basic connectivity
-- Reduced sample counts for faster results
+- IPv6 testing separation
+- Jitter analysis
+- Packet loss detection
+- Geographic server selection
+- Historical trending
 
 ---
 > Source: [duckduckgo/apple-browsers](https://github.com/duckduckgo/apple-browsers) — distributed by [TomeVault](https://tomevault.io).
