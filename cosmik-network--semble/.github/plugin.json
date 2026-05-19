@@ -1,0 +1,9 @@
+{
+  "name": "cosmik-network--semble",
+  "displayName": "semble",
+  "description": "A social knowledge tool for research trails, built on ATProto",
+  "version": "1.0.0",
+  "author": "cosmik-network",
+  "homepage": "https://github.com/cosmik-network/semble",
+  "skills": []
+}
