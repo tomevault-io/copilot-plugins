@@ -1,0 +1,9 @@
+{
+  "name": "mc3545dada--mspm0-skill",
+  "displayName": "mspm0-skill",
+  "description": "\u9762\u5411\u7535\u8d5b\u7684 MSPM0 + CCS + SysConfig Agent Skill",
+  "version": "1.0.0",
+  "author": "mc3545dada",
+  "homepage": "https://github.com/mc3545dada/mspm0-skill",
+  "skills": []
+}
