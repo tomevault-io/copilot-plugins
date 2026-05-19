@@ -1,72 +1,51 @@
-## sim-architecture
+## sim-components
 
-> Core architecture principles for the Sim app
+> Component patterns and structure for React components
 
 
-# Sim App Architecture
+# Component Patterns
 
-## Core Principles
-1. **Single Responsibility**: Each component, hook, store has one clear purpose
-2. **Composition Over Complexity**: Break down complex logic into smaller pieces
-3. **Type Safety First**: TypeScript interfaces for all props, state, return types
-4. **Predictable State**: Zustand for global state, useState for UI-only concerns
+## Structure Order
 
-## Root-Level Structure
+```typescript
+'use client' // Only if using hooks
 
-```
-apps/sim/
-├── app/                 # Next.js app router (pages, API routes)
-├── blocks/              # Block definitions and registry
-├── components/          # Shared UI (emcn/, ui/)
-├── executor/            # Workflow execution engine
-├── hooks/               # Shared hooks (queries/, selectors/)
-├── lib/                 # App-wide utilities
-├── providers/           # LLM provider integrations
-├── stores/              # Zustand stores
-├── tools/               # Tool definitions
-└── triggers/            # Trigger definitions
-```
+// Imports (external → internal)
+// Constants at module level
+const CONFIG = { SPACING: 8 } as const
 
-## Feature Organization
+// Props interface
+interface ComponentProps {
+  requiredProp: string
+  optionalProp?: boolean
+}
 
-Features live under `app/workspace/[workspaceId]/`:
-
-```
-feature/
-├── components/          # Feature components
-├── hooks/               # Feature-scoped hooks
-├── utils/               # Feature-scoped utilities (2+ consumers)
-├── feature.tsx          # Main component
-└── page.tsx             # Next.js page entry
+export function Component({ requiredProp, optionalProp = false }: ComponentProps) {
+  // a. Refs
+  // b. External hooks (useParams, useRouter)
+  // c. Store hooks
+  // d. Custom hooks
+  // e. Local state
+  // f. useMemo
+  // g. useCallback
+  // h. useEffect
+  // i. Return JSX
+}
 ```
 
-## Naming Conventions
-- **Components**: PascalCase (`WorkflowList`)
-- **Hooks**: `use` prefix (`useWorkflowOperations`)
-- **Files**: kebab-case (`workflow-list.tsx`)
-- **Stores**: `stores/feature/store.ts`
-- **Constants**: SCREAMING_SNAKE_CASE
-- **Interfaces**: PascalCase with suffix (`WorkflowListProps`)
+## Rules
 
-## Utils Rules
+1. `'use client'` only when using React hooks
+2. Always define props interface
+3. Extract constants with `as const`
+4. Semantic HTML (`aside`, `nav`, `article`)
+5. Optional chain callbacks: `onAction?.(id)`
 
-- **Never create `utils.ts` for single consumer** - inline it
-- **Create `utils.ts` when** 2+ files need the same helper
-- **Check existing sources** before duplicating (`lib/` has many utilities)
-- **Location**: `lib/` (app-wide) → `feature/utils/` (feature-scoped) → inline (single-use)
+## Component Extraction
 
-## API Contracts
+**Extract when:** 50+ lines, used in 2+ files, or has own state/logic
 
-Boundary HTTP request and response shapes for all routes under `apps/sim/app/api/**` live in `apps/sim/lib/api/contracts/` (one file per resource family). Routes and clients consume the same contract — routes never define route-local boundary Zod schemas, and clients never define ad-hoc wire types. Domain validators that are not HTTP boundaries (tools, blocks, triggers, connectors, realtime handlers, internal helpers) may still use Zod directly; the contract rule is boundary-only.
-
-- Each contract is built with `defineRouteContract({ method, path, params?, query?, body?, headers?, response: { mode: 'json', schema } })` and exports both schemas and named TypeScript type aliases (e.g., `export type CreateFolderBody = z.input<typeof createFolderBodySchema>`).
-- Shared identifier schemas live in `apps/sim/lib/api/contracts/primitives.ts`.
-- Routes validate via canonical helpers in `apps/sim/lib/api/server/validation.ts` (`parseRequest`, `validationErrorResponse`, `getValidationErrorMessage`, `isZodError`). Routes never `import { z } from 'zod'` and never use `instanceof z.ZodError`.
-- Clients call `requestJson(contract, ...)` from `apps/sim/lib/api/client/request.ts`; hooks import named type aliases from contracts, never `z.input/z.output`.
-- Routes under `apps/sim/app/api/v1/**` use `apps/sim/app/api/v1/middleware.ts` for shared auth, rate-limit, and workspace access. Compose contract validation inside that middleware.
-- `bun run check:api-validation` enforces this policy and must pass on PRs.
-
-`bun run check:api-validation:strict` is the strict CI gate and additionally fails on annotations with empty reasons. Four per-line opt-out forms are recognized: `// boundary-raw-fetch: <reason>` (placed immediately above a legitimate raw `fetch(` call in `apps/sim/hooks/queries/**` or `apps/sim/hooks/selectors/**` for stream/binary/multipart/signed-URL/OAuth-redirect/external-origin cases), `// double-cast-allowed: <reason>` (placed immediately above an `as unknown as X` cast outside test files), `// boundary-raw-json: <reason>` (placed immediately above a raw `await request.json()` / `await req.json()` read in a route handler that cannot go through `parseRequest` — JSON-RPC envelopes, tolerant `.catch(() => ({}))` parses), and `// untyped-response: <reason>` (placed immediately above a `schema: z.unknown()` response declaration in a contract file when the response body is genuinely opaque). The reason must be non-empty. Whole-file allowlists for routes that legitimately import Zod for non-boundary reasons go through `INDIRECT_ZOD_ROUTES` in `scripts/check-api-validation-contracts.ts`, not per-line annotations.
+**Keep inline when:** < 10 lines, single use, purely presentational
 
 ---
 > Source: [simstudioai/sim](https://github.com/simstudioai/sim) — distributed by [TomeVault](https://tomevault.io).
