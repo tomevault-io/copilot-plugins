@@ -4,7 +4,7 @@
   "repo": "api_keys",
   "description": "\ud83d\udd11 Secure API keys for your Rails app",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/rameerez/api_keys",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-19T19:17:07Z"
+  "distributed_at": "2026-05-19T21:57:27Z"
 }
