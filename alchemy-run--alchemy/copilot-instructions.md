@@ -1,180 +1,1102 @@
-## vibe-tools
+## alchemy
 
-> Global Rule. This rule should ALWAYS be loaded.
+> Alchemy is a Typescript-native Infrastructure-as-Code repository.
 
-vibe-tools is a CLI tool that allows you to interact with AI models and other tools.
-vibe-tools is installed on this machine and it is available to you to execute. You're encouraged to use it.
+# Alchemy
 
-<vibe-tools Integration>
-# Instructions
-Use the following commands to get AI assistance:
+Alchemy is a Typescript-native Infrastructure-as-Code repository.
+Your job is to implement "Resource" providers for various cloud services by following a set of strict conventions and patterns.
 
-**Direct Model Queries:**
-`vibe-tools ask "<your question>" --provider <provider> --model <model>` - Ask any model from any provider a direct question (e.g., `vibe-tools ask "What is the capital of France?" --provider openai --model o3-mini`). Note that this command is generally less useful than other commands like `repo` or `plan` because it does not include any context from your codebase or repository. In general you should not use the ask command because it does not include any context. The other commands like `web`, `doc`, `repo`, or `plan` are usually better. If you are using it, make sure to include in your question all the information and context that the model might need to answer usefully.
+Your job is to build and maintain resource providers following the following convention and structure:
 
-**Ask Command Options:**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, modelbox, openrouter, or xai)
---model=<model>: Model to use (required for the ask command)
---reasoning-effort=<low|medium|high>: Control the depth of reasoning for supported models (OpenAI o1/o3-mini models and Claude 3.7 Sonnet). Higher values produce more thorough responses for complex questions.
+## Provider Layout
 
-**Implementation Planning:**
-`vibe-tools plan "<query>"` - Generate a focused implementation plan using AI (e.g., `vibe-tools plan "Add user authentication to the login page"`)
-The plan command uses multiple AI models to:
-1. Identify relevant files in your codebase (using Gemini by default)
-2. Extract content from those files
-3. Generate a detailed implementation plan (using OpenAI o3-mini by default)
+```
+alchemy/
+  src/
+    {provider}/
+      README.md
+      {resource}.ts
+  test/
+    {provider}/
+      {resource}.test.ts
+alchemy-web/
+  guides/
+    {provider}.md # guide on how to get started with the {provider}
+  docs/
+    providers/
+      {provider}/
+        index.md # overview of usage and link to all the resources for the provider
+        {resource}.md # example-oriented reference docs for the resource
+examples/
+  {provider}-{qualifier?}/ # only add a qualifier if there are more than one example for this {provider}, e.g. {cloudflare}-{vitejs}
+    package.json
+    tsconfig.json
+    alchemy.run.ts
+    README.md #
+    src/
+      # source code
+```
 
-**Plan Command Options:**
---fileProvider=<provider>: Provider for file identification (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---thinkingProvider=<provider>: Provider for plan generation (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
---fileModel=<model>: Model to use for file identification
---thinkingModel=<model>: Model to use for plan generation
---with-doc=<doc_url>: Fetch content from a document URL and include it as context for both file identification and planning (e.g., `vibe-tools plan "implement feature X following the spec" --with-doc=https://example.com/feature-spec`)
+## Convention
 
-**Web Search:**
-`vibe-tools web "<your question>"` - Get answers from the web using a provider that supports web search (e.g., Perplexity models and Gemini Models either directly or from OpenRouter or ModelBox) (e.g., `vibe-tools web "latest shadcn/ui installation instructions"`)
-Note: web is a smart autonomous agent with access to the internet and an extensive up to date knowledge base. Web is NOT a web search engine. Always ask the agent for what you want using a proper sentence, do not just send it a list of keywords. In your question to web include the context and the goal that you're trying to acheive so that it can help you most effectively.
-when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md.
+> Each Resource has one .ts file, one test suite and one documentation page
 
-**Web Command Options:**
---provider=<provider>: AI provider to use (perplexity, gemini, modelbox, or openrouter)
+## README
 
-**Repository Context:**
-`vibe-tools repo "<your question>" [--subdir=<path>] [--from-github=<username/repo>] [--with-doc=<doc_url>]` - Get context-aware answers about this repository using Google Gemini (e.g., `vibe-tools repo "explain authentication flow"`). Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter to include content from a URL as additional context (e.g., `vibe-tools repo "implement feature X following the design spec" --with-doc=https://example.com/design-spec`).
+Please provide a comprehensive document of all the Resources for this provider with relevant links to documentation. This is effectively the design and internal documentation.
 
-**Documentation Generation:**
-`vibe-tools doc [options] [--with-doc=<doc_url>]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from a URL (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs`).
+## Resource File
 
-**YouTube Video Analysis:**
-`vibe-tools youtube "<youtube-url>" [question] [--type=<summary|transcript|plan|review|custom>]` - Analyze YouTube videos and generate detailed reports (e.g., `vibe-tools youtube "https://youtu.be/43c-Sm5GMbc" --type=summary`)
-Note: The YouTube command requires a `GEMINI_API_KEY` to be set in your environment or .vibe-tools.env file as the GEMINI API is the only interface that supports YouTube analysis.
+> [!NOTE]
+> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
 
-**GitHub Information:**
-`vibe-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `vibe-tools github pr 123`)
-`vibe-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `vibe-tools github issue 456`)
+```ts
+// ./alchemy/src/{provider}/{resource}.ts
+import { Context } from "../context.ts";
 
-**ClickUp Information:**
-`vibe-tools clickup task <task_id>` - Get detailed information about a ClickUp task including description, comments, status, assignees, and metadata (e.g., `vibe-tools clickup task "task_id"`)
+export interface {Resource}Props {
+    // input props
+}
 
-**Model Context Protocol (MCP) Commands:**
-Use the following commands to interact with MCP servers and their specialized tools:
-`vibe-tools mcp search "<query>"` - Search the MCP Marketplace for available servers that match your needs (e.g., `vibe-tools mcp search "git repository management"`)
-`vibe-tools mcp run "<query>"` - Execute MCP server tools using natural language queries (e.g., `vibe-tools mcp run "list files in the current directory" --provider=openrouter`). The query must include sufficient information for vibe-tools to determine which server to use, provide plenty of context.
+export interface {Resource} extends Resource<"{provider}::{resource}"> {
+    // output props
+}
 
-The `search` command helps you discover servers in the MCP Marketplace based on their capabilities and your requirements. The `run` command automatically selects and executes appropriate tools from these servers based on your natural language queries. If you want to use a specific server include the server name in your query. E.g. `vibe-tools mcp run "using the mcp-server-sqlite list files in directory --provider=openrouter"`
+/**
+ * {overview}
+ *
+ * @example
+ * ## {Example Title}
+ *
+ * {concise description}
+ *
+ * {example snippet}
+ *
+ * @example
+ * // .. repeated for all examples
+ */
+export const {Resource} = Resource(
+  "{provider}::{resource}",
+  async function (this: Context<>, id: string, props: {Resource}Props): Promise<{Resource}> {
+    // Create, Update, Delete lifecycle
+  }
+);
+```
 
-**Notes on MCP Commands:**
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` to be set in your environment
-- By default the `mcp` command uses Anthropic, but takes a --provider argument that can be set to 'anthropic' or 'openrouter'
-- Results are streamed in real-time for immediate feedback
-- Tool calls are automatically cached to prevent redundant operations
-- Often the MCP server will not be able to run because environment variables are not set. If this happens ask the user to add the missing environment variables to the cursor tools env file at ~/.vibe-tools/.env
+> [!CAUTION]
+> When designing input props, there is the common case of having a property that references another entity in the {provider} domain by Id, e.g. tableId, bucketArn, etc.
+>
+> In these cases, you should instead opt to represent this as `{resource}: string | {Resource}`, e.g. `table: string | Table`. This "lifts" the Resource into the Alchemy abstraction without sacrificing support for referencing external entities by name.
 
-**Stagehand Browser Automation:**
-`vibe-tools browser open <url> [options]` - Open a URL and capture page content, console logs, and network activity (e.g., `vibe-tools browser open "https://example.com" --html`)
-`vibe-tools browser act "<instruction>" --url=<url | 'current'> [options]` - Execute actions on a webpage using natural language instructions (e.g., `vibe-tools browser act "Click Login" --url=https://example.com`)
-`vibe-tools browser observe "<instruction>" --url=<url> [options]` - Observe interactive elements on a webpage and suggest possible actions (e.g., `vibe-tools browser observe "interactive elements" --url=https://example.com`)
-`vibe-tools browser extract "<instruction>" --url=<url> [options]` - Extract data from a webpage based on natural language instructions (e.g., `vibe-tools browser extract "product names" --url=https://example.com/products`)
+## Test Suite
 
-**Notes on Browser Commands:**
-- All browser commands are stateless unless --connect-to is used to connect to a long-lived interactive session. In disconnected mode each command starts with a fresh browser instance and closes it when done.
-- When using `--connect-to`, special URL values are supported:
-  - `current`: Use the existing page without reloading
-  - `reload-current`: Use the existing page and refresh it (useful in development)
-  - If working interactively with a user you should always use --url=current unless you specifically want to navigate to a different page. Setting the url to anything else will cause a page refresh loosing current state.
-- Multi step workflows involving state or combining multiple actions are supported in the `act` command using the pipe (|) separator (e.g., `vibe-tools browser act "Click Login | Type 'user@example.com' into email | Click Submit" --url=https://example.com`)
-- Video recording is available for all browser commands using the `--video=<directory>` option. This will save a video of the entire browser interaction at 1280x720 resolution. The video file will be saved in the specified directory with a timestamp.
-- DO NOT ask browser act to "wait" for anything, the wait command is currently disabled in Stagehand.
+> [!NOTE]
+> Follow rules and conventions laid out in the [cursorrules](./.cursorrules).
 
-**Tool Recommendations:**
-- `vibe-tools web` is best for general web information not specific to the repository. Generally call this without additional arguments.
-- `vibe-tools repo` is ideal for repository-specific questions, planning, code review and debugging. E.g. `vibe-tools repo "Review recent changes to command error handling looking for mistakes, omissions and improvements"`. Generally call this without additional arguments.
-- `vibe-tools plan` is ideal for planning tasks. E.g. `vibe-tools plan "Adding authentication with social login using Google and Github"`. Generally call this without additional arguments.
-- `vibe-tools doc` generates documentation for local or remote repositories.
-- `vibe-tools youtube` analyzes YouTube videos to generate summaries, transcripts, implementation plans, or custom analyses
-- `vibe-tools browser` is useful for testing and debugging web apps and uses Stagehand
-- `vibe-tools mcp` enables interaction with specialized tools through MCP servers (e.g., for Git operations, file system tasks, or custom tools)
+```ts
+// ./alchemy/test/{provider}/{resource}.test.ts
+import { destroy } from "../src/destroy.ts"
+import { BRANCH_PREFIX } from "../util.ts";
 
-**Running Commands:**
-1. Use `vibe-tools <command>` to execute commands (make sure vibe-tools is installed globally using npm install -g vibe-tools so that it is in your PATH)
+import "../../src/test/vitest.ts";
 
-**General Command Options (Supported by all commands):**
---provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, openrouter, modelbox, or xai). If provider is not specified, the default provider for that task will be used.
---model=<model name>: Specify an alternative AI model to use. If model is not specified, the provider's default model for that task will be used.
---max-tokens=<number>: Control response length
---save-to=<file path>: Save command output to a file (in *addition* to displaying it)
---help: View all available options (help is not fully implemented yet)
---debug: Show detailed logs and error information
+const test = alchemy.test(import.meta, {
+  prefix: BRANCH_PREFIX,
+});
 
-**Repository Command Options:**
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for repository analysis
---max-tokens=<number>: Maximum tokens for response
---from-github=<GitHub username>/<repository name>[@<branch>]: Analyze a remote GitHub repository without cloning it locally
---subdir=<path>: Analyze a specific subdirectory instead of the entire repository
---with-doc=<doc_url>: Fetch content from a document URL and include it as context
+describe("{Provider}", () => {
+  test("{test case}", async (scope) => {
+    const resourceId = `${BRANCH_PREFIX}-{id}` // an ID that is: 1) deterministic (non-random), 2) unique across all tests and all test suites
+    let resource: {Resource}
+    try {
+      // create
+      resource = await {Resource}("{id}", {
+        // {props}
+      })
 
-**Documentation Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
---provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
---model=<model>: Model to use for documentation generation
---max-tokens=<number>: Maximum tokens for response
---with-doc=<doc_url>: Fetch content from a document URL and include it as context
+      expect(resource).toMatchObject({
+        // {assertions}
+      })
 
-**YouTube Command Options:**
---type=<summary|transcript|plan|review|custom>: Type of analysis to perform (default: summary)
+      // update
+      resource = await {Resource}("{id}", {
+        // {update props}
+      })
 
-**GitHub Command Options:**
---from-github=<GitHub username>/<repository name>[@<branch>]: Access PRs/issues from a specific GitHub repository
+      expect(resource).toMatchObject({
+        // {updated assertions}
+      })
+    } finally {
+      await destroy(scope);
+      await assert{ResourceDoesNotExist}(resource)
+    }
+  })
+});
 
-**Browser Command Options (for 'open', 'act', 'observe', 'extract'):**
---console: Capture browser console logs (enabled by default, use --no-console to disable)
---html: Capture page HTML content (disabled by default)
---network: Capture network activity (enabled by default, use --no-network to disable)
---screenshot=<file path>: Save a screenshot of the page
---timeout=<milliseconds>: Set navigation timeout (default: 120000ms for Stagehand operations, 30000ms for navigation)
---viewport=<width>x<height>: Set viewport size (e.g., 1280x720). When using --connect-to, viewport is only changed if this option is explicitly provided
---headless: Run browser in headless mode (default: true)
---no-headless: Show browser UI (non-headless mode) for debugging
---connect-to=<port>: Connect to existing Chrome instance. Special values: 'current' (use existing page), 'reload-current' (refresh existing page)
---wait=<time:duration or selector:css-selector>: Wait after page load (e.g., 'time:5s', 'selector:#element-id')
---video=<directory>: Save a video recording (1280x720 resolution, timestamped subdirectory). Not available when using --connect-to
---url=<url>: Required for `act`, `observe`, and `extract` commands. Url to navigate to before the main command or one of the special values 'current' (to stay on the current page without navigating or reloading) or 'reload-current' (to reload the current page)
---evaluate=<string>: JavaScript code to execute in the browser before the main command
+async function assert{Resource}DoesNotExist(api: {Provider}Client, resource: {Resource}) {
+    // {call api to check it does not exist, throw test error if it does}
+}
+```
 
-**Nicknames**
-Users can ask for these tools using nicknames
-Gemini is a nickname for vibe-tools repo
-Perplexity is a nickname for vibe-tools web
-Stagehand is a nickname for vibe-tools browser
-If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to use the `vibe-tools` command with the `repo`, `web`, or `browser` commands respectively.
+## Provider Overview Docs (index.md)
 
-**Xcode Commands:**
-`vibe-tools xcode build [buildPath=<path>] [destination=<destination>]` - Build Xcode project and report errors.
-**Build Command Options:**
---buildPath=<path>: (Optional) Specifies a custom directory for derived build data. Defaults to ./.build/DerivedData.
---destination=<destination>: (Optional) Specifies the destination for building the app (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+Each provider folder should have an `index.md` that indexes and summarizes the provider and links to each resource.
 
-`vibe-tools xcode run [destination=<destination>]` - Build and run the Xcode project on a simulator.
-**Run Command Options:**
---destination=<destination>: (Optional) Specifies the destination simulator (e.g., 'platform=iOS Simulator,name=iPhone 16 Pro'). Defaults to 'platform=iOS Simulator,name=iPhone 16 Pro'.
+```md
+# {Provider}
 
-`vibe-tools xcode lint` - Run static analysis on the Xcode project to find and fix issues.
+{overview of the provider}
 
-**Additional Notes:**
-- For detailed information, see `node_modules/vibe-tools/README.md` (if installed locally).
-- Configuration is in `vibe-tools.config.json` (or `~/.vibe-tools/config.json`).
-- API keys are loaded from `.vibe-tools.env` (or `~/.vibe-tools/.env`).
-- ClickUp commands require a `CLICKUP_API_TOKEN` to be set in your `.vibe-tools.env` file.
-- Available models depend on your configured provider (OpenAI, Anthropic, xAI, etc.) in `vibe-tools.config.json`.
-- repo has a limit of 2M tokens of context. The context can be reduced by filtering out files in a .repomixignore file.
-- problems running browser commands may be because playwright is not installed. Recommend installing playwright globally.
-- MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY`
-- **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
-- **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
+{official links out to the provider website}
 
-<!-- vibe-tools-version: 0.60.6 -->
-</vibe-tools Integration>
+## Resources
+
+- [{Resource}1](./{resource}1.md) - {brief description}
+- [{Resource}2](./{resource}2.md) - {brief description}
+- ..
+- [{Resource}N](./{resource}n.md) - {brief description}
+
+## Example Usage
+
+\`\`\`ts
+// {comprehensive end-to-end usage}
+\`\`\`
+```
+
+## Example Project
+
+An example project is effectively a whole NPM package that demonstrates
+
+```
+examples/
+  {provider}-{qualifier?}/
+    package.json
+    tsconfig.json # extends ../../tsconfig.base.json
+    alchemy.run.ts
+    README.md
+    src/
+      # code
+tsconfig.json # is updated to reference examples/{provider}-{qualifier?}
+```
+
+## Guide
+
+Each Provider has a getting started guide in ./alchemy-web/docs/guides/{provider}.md.
+
+```md
+---
+order: { number to decide the position in the tree view }
+title: { Provider }
+description: { concise description of the tutorial }
+---
+
+# Getting Started {Provider}
+
+{1 sentence overview of what this tutorial will set the user up with}
+
+## Install
+
+{any installation pre-requisites}
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ..
+\`\`\`
+
+\`\`\`sh [npm]
+npm ...
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm ..
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn ..
+\`\`\`
+
+:::
+
+## Credentials
+
+{how to get credentials and store in .env}
+
+## Create a {Provider} application
+
+{code group with commands to run to init a new project}
+
+## Create `alchemy.run.ts`
+
+{one or more subsequent code snippets with explanations for using alchemy to provision this provider}
+
+## Deploy
+
+Run `alchemy.run.ts` script to deploy:
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ./alchemy.run
+\`\`\`
+
+\`\`\`sh [npm]
+npx tsx ./alchemy.run
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm tsx ./alchemy.run
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn tsx ./alchemy.run
+\`\`\`
+
+:::
+
+It should log out the ... {whatever information is relevant for interacting with the app deployed to this provider}
+\`\`\`sh
+{expected output}
+\`\`\`
+
+## Tear Down
+
+That's it! You can now tear down the app (if you want to):
+
+::: code-group
+
+\`\`\`sh [bun]
+bun ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [npm]
+npx tsx ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [pnpm]
+pnpm tsx ./alchemy.run --destroy
+\`\`\`
+
+\`\`\`sh [yarn]
+yarn tsx ./alchemy.run --destroy
+\`\`\`
+
+:::
+```
+
+> [!NOTE]
+> You should review all of the existing Cloudflare guides like [cloudflare-vitejs.md](./alchemy-web/docs/guides/cloudflare-vitejs.md) and follow the writing style and flow.
+
+> [!TIP]
+> If the Resource is mostly headless infrastructure like a database or some other service, you should use Cloudflare Workers as the runtime to "round off" the example package e.g. for a Neon Provider, we would connect it into a Cloudflare Worker via Hyperdrive and provide a URL (via Worker) to hit that page. Ideally you'd also put ViteJS in front and hit that endpoint.
+
+# Coding Best Practices
+
+> [!IMPORTANT]
+> These guidelines have been refined based on code review feedback and production experience. Following them will prevent common issues and improve code quality.
+
+## Resource Implementation
+
+### Resource Implementation Pattern
+
+Resources are implemented using the pseudo-class pattern with proper lifecycle management:
+
+```ts
+export const MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>,
+    id: string,
+    props: MyResourceProps,
+  ): Promise<MyResource> {
+    const resourceId = props.resourceId || this.output?.resourceId;
+    const adopt = props.adopt || this.scope.adopt;
+    const name = props.name ?? this.output?.name ?? this.scope.createPhysicalName(id);
+
+    if (this.scope.local) {
+      // Local development mode - return mock data
+      return {
+        id,
+        name,
+        resourceId: resourceId || "",
+        property: props.property,
+        secret: Secret.wrap(props.secret || ""),
+        type: "my-resource",
+      };
+    }
+
+    const api = await createProviderApi(props);
+
+    if (this.phase === "delete") {
+      if (!resourceId) {
+        logger.warn(`No resourceId found for ${id}, skipping delete`);
+        return this.destroy();
+      }
+
+      try {
+        const deleteResponse = await api.delete(`/resources/${resourceId}`);
+        if (!deleteResponse.ok && deleteResponse.status !== 404) {
+          await handleApiError(deleteResponse, "delete", "resource", id);
+        }
+      } catch (error) {
+        logger.error(`Error deleting resource ${id}:`, error);
+        throw error;
+      }
+      return this.destroy();
+    }
+
+    // Prepare request body with unwrapped secrets
+    const requestBody = {
+      name,
+      property: props.property,
+      secret: Secret.unwrap(props.secret),
+    };
+
+    let result: ApiResponse;
+    if (resourceId) {
+      // Update existing resource
+      result = await extractApiResult<ApiResponse>(
+        `update resource "${resourceId}"`,
+        api.put(`/resources/${resourceId}`, requestBody),
+      );
+    } else {
+      try {
+        // Create new resource
+        result = await extractApiResult<ApiResponse>(
+          `create resource "${name}"`,
+          api.post("/resources", requestBody),
+        );
+      } catch (error) {
+        if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
+          if (!adopt) {
+            throw new Error(
+              `Resource "${name}" already exists. Use adopt: true to adopt it.`,
+              { cause: error },
+            );
+          }
+          const existing = await findResourceByName(api, name);
+          if (!existing) {
+            throw new Error(
+              `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
+              { cause: error },
+            );
+          }
+          result = await extractApiResult<ApiResponse>(
+            `adopt resource "${name}"`,
+            api.put(`/resources/${existing.id}`, requestBody),
+          );
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    // Construct the output object from API response and props
+    return {
+      id,
+      name: result.name,
+      resourceId: result.id,
+      property: result.property,
+      secret: Secret.wrap(props.secret),
+      type: "my-resource",
+    };
+  },
+);
+```
+
+### Advanced Resource Patterns
+
+#### Input Normalization with Wrapper Functions
+
+When resources accept **multiple flexible input types** (e.g., `string | Secret`, `string | Resource`), use a public wrapper function to normalize inputs before passing to the internal Resource.
+
+**Note**: This pattern is only needed when your Props interface has properties with union types that require normalization. If all props accept single types, skip this pattern and use the Resource directly.
+
+```ts
+//! Public interface - accepts flexible types
+export function MyResource(id: string, props: MyResourceProps): Promise<MyResource> {
+  return _MyResource(id, {
+    ...props,
+    secret: typeof props.secret === "string" 
+      ? secret(props.secret) 
+      : props.secret,
+    database: typeof props.database === "string"
+      ? props.database
+      : props.database
+  });
+}
+
+//! Internal implementation - guaranteed normalized types
+const _MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>,
+    id: string,
+    props: Omit<MyResourceProps, "secret"> & { secret: Secret }
+  ): Promise<MyResource> {
+    // Implementation with guaranteed types
+  }
+);
+```
+
+This pattern enables:
+- Flexible API for users (accepts string or Resource/Secret)
+- Type-safe implementation (guaranteed normalized types)
+- Clear separation of concerns
+
+#### Type Guard Functions (Required)
+
+Every resource MUST export a type guard function using `ResourceKind`:
+
+```ts
+import { ResourceKind } from "../resource.ts";
+
+export function isMyResource(resource: any): resource is MyResource {
+  return resource?.[ResourceKind] === "provider::MyResource";
+}
+```
+
+Use in conditional logic:
+```ts
+function processBinding(binding: any) {
+  if (isMyResource(binding)) {
+    // TypeScript now knows this is MyResource
+    console.log(binding.id);
+  }
+}
+```
+
+#### Output Type Pattern with Omit
+
+Prefer `Omit` over `extends` for output types to cleanly separate input and computed properties:
+
+```ts
+// ✅ PREFERRED: Clear separation of input vs output
+export type MyResource = Omit<MyResourceProps, "delete" | "secret"> & {
+  /**
+   * The ID assigned by the provider
+   */
+  id: string;
+
+  /**
+   * Secret value (guaranteed wrapped)
+   */
+  secret: Secret;
+
+  /**
+   * Resource type identifier
+   */
+  type: "my-resource";
+
+  /**
+   * Creation timestamp
+   */
+  createdAt: number;
+};
+
+// ❌ AVOID: Mixing input and output concerns
+export interface MyResource extends MyResourceProps {
+  id: string;
+  // Input props are now part of the output type
+}
+```
+
+#### Physical Name Generation with Scope
+
+Use the scope to generate deterministic physical names with defaults:
+
+```ts
+const name = props.name 
+  ?? this.output?.name  // Preserve on update
+  ?? this.scope.createPhysicalName(id);  // Default: {app}-{stage}-{id}
+```
+
+#### Resource Replacement for Immutable Properties
+
+When an immutable property changes, signal replacement via `this.replace()`:
+
+```ts
+if (this.phase === "update" && this.output.name !== name) {
+  return this.replace(); // Deletes old, creates new
+}
+```
+
+#### Conditional Deletion Pattern
+
+Support opt-out deletion with a `delete?: boolean` property.
+
+**Note**: This pattern is typically used for **data resources only** (databases, storage buckets, key-value stores, etc.). Compute resources (workers, functions, containers) should always be deleted when removed from Alchemy without an opt-out option.
+
+```ts
+export interface MyResourceProps {
+  /**
+   * Whether to delete the resource when removed from Alchemy
+   * @default true
+   */
+  delete?: boolean;
+}
+
+if (this.phase === "delete") {
+  if (props.delete !== false && this.output?.id) {
+    try {
+      await api.delete(`/resources/${this.output.id}`);
+    } catch (error) {
+      if (error.status !== 404) throw error; // OK if already deleted
+    }
+  }
+  return this.destroy();
+}
+```
+
+#### Internal API Types Convention
+
+Mark **exported** types and functions that are not part of the user-facing API
+with JSDoc `@internal` — for example, helpers exported only so siblings inside
+the same provider can `import` them. Do not add `@internal` to file-private
+declarations: TypeScript's `export` keyword already conveys their visibility,
+so the tag is redundant noise.
+
+```ts
+/**
+ * Serialise the resource's wire shape. Exported only so sibling resources
+ * in this provider can call it.
+ * @internal
+ */
+export function serializeResource(resource: Resource): Record<string, unknown> {
+  // ...
+}
+
+// File-private — no `@internal` needed.
+interface ResourceApiResponse {
+  id: string;
+  name: string;
+  created_at: number;
+}
+```
+
+#### Retry Patterns with Exponential Backoff
+
+Use exponential backoff for transient errors:
+
+```ts
+import { withExponentialBackoff } from "../util/retry.ts";
+
+const result = await withExponentialBackoff(
+  async () => {
+    return await extractProviderResult<ApiResponse>(
+      `create resource "${name}"`,
+      api.post("/resources", requestBody)
+    );
+  },
+  (error) => {
+    // Retry condition: specific transient errors
+    return error.code === 1002 || error instanceof TimeoutError;
+  },
+  30,    // maximum attempts
+  100,   // initial delay in ms
+);
+```
+
+### Type Definition Patterns
+
+Alchemy resources follow a specific type definition pattern that ensures type safety and consistency. The key principle is that **the output interface name MUST match the exported resource name** to create a pseudo-class construct:
+
+#### Flat Properties vs Nested Objects
+
+Prefer flat properties over nested configuration objects for better developer experience and type safety:
+
+```ts
+// ✅ PREFERRED: Flat properties
+export interface MyResourceProps {
+  name?: string;
+  region: string;
+  secret?: string | Secret;
+  timeout?: number;
+}
+
+// ❌ AVOID: Nested configuration objects
+export interface MyResourceProps {
+  name?: string;
+  config: {
+    region: string;
+    secret?: string | Secret;
+    timeout?: number;
+  };
+}
+```
+
+Flat properties provide:
+- Better IDE autocomplete and type checking
+- Cleaner resource creation syntax
+- Easier validation and error handling
+- More intuitive API design
+
+```ts
+// ✅ CORRECT: Interface name matches exported resource name
+export type MyResource = {
+  // ... properties
+}
+export const MyResource = Resource(/* ... */);
+
+// ❌ INCORRECT: Interface name doesn't match
+export interface MyResourceOutput extends Resource<"provider::MyResource"> {
+  // ... properties
+}
+export const MyResource = Resource(/* ... */);
+```
+
+#### Props Interface Definition
+
+Define Props interface for input parameters:
+
+```ts
+export interface MyResourceProps {
+  /**
+   * Name of the resource
+   * @default ${app}-${stage}-${id}
+   */
+  name?: string;
+
+  /**
+   * Property description
+   */
+  property: string;
+
+  /**
+   * Secret value for authentication
+   * Use alchemy.secret() to securely store this value
+   */
+  secret?: string | Secret;
+
+  /**
+   * Whether to adopt an existing resource
+   * @default false
+   */
+  adopt?: boolean;
+
+  /**
+   * Internal resource ID for lifecycle management
+   */
+  resourceId?: string;
+}
+
+// Define output type using Omit pattern
+// The Omit pattern removes input-only properties and adds computed/transformed properties
+export type MyResource = Omit<MyResourceProps, "adopt"> & {
+  /**
+   * The ID of the resource
+   */
+  id: string;
+
+  /**
+   * Name of the resource (required in output)
+   */
+  name: string;
+
+  /**
+   * The provider-generated ID
+   */
+  resourceId: string;
+
+  /**
+   * Secret value (always wrapped in Secret for output)
+   */
+  secret: Secret;
+
+  /**
+   * Resource type identifier for binding
+   * @internal
+   */
+  type: "my-resource";
+};
+```
+
+### Runtime Bindings
+
+When adding a new resource type that can be used as a binding:
+
+1. **Always update `bound.ts`**: Add the mapping from your resource type to its runtime binding interface
+2. **Follow official API specs**: Use the exact interface specified in the provider's documentation
+3. **Don't spread proxy objects**: Proxies can't be spread - explicitly implement each method/property
+
+```ts
+// ❌ DON'T: Spread proxy objects
+return {
+  ...this.runtime,
+  someProperty: value,
+};
+
+// ✅ DO: Use bind function and explicitly implement methods
+const binding = await bind(resource);
+return {
+  ...resource,
+  get: binding.get,
+  someProperty: value,
+};
+```
+
+### Secret Handling
+
+Always use `alchemy.secret()` for sensitive values and properly handle them in the resource lifecycle:
+
+#### Secret Creation Patterns
+
+```ts
+// ✅ PREFERRED: alchemy.secret.env.X (better error messages)
+const secret = alchemy.secret.env.API_KEY;
+
+// ✅ ACCEPTABLE: alchemy.secret(process.env.X) (more familiar to LLMs)
+const secret = alchemy.secret(process.env.API_KEY);
+
+// ❌ AVOID: Plain environment variables without encryption
+const secret = process.env.API_KEY;
+```
+
+#### Resource Implementation
+
+```ts
+// Input props can accept string | Secret
+export interface MyResourceProps {
+  password: string | Secret;
+}
+
+// Output always wraps secrets
+export type MyResource = {
+  password: Secret;
+};
+
+// In implementation, unwrap for API calls, wrap for output
+const requestBody = {
+  password: Secret.unwrap(props.password),
+};
+
+return {
+  password: Secret.wrap(props.password),
+};
+```
+
+### Adoption Pattern
+
+Resources should support adoption of existing resources when conflicts occur:
+
+```ts
+// Check for adoption scenarios
+if (error instanceof ApiError && error.code === "ALREADY_EXISTS") {
+  if (!adopt) {
+    throw new Error(
+      `Resource "${name}" already exists. Use adopt: true to adopt it.`,
+      { cause: error },
+    );
+  }
+
+  // Find and adopt existing resource
+  const existing = await findResourceByName(api, name);
+  if (!existing) {
+    throw new Error(
+      `Resource "${name}" failed to create due to name conflict and could not be found for adoption.`,
+      { cause: error },
+    );
+  }
+
+  // Update existing resource with new configuration
+  result = await extractApiResult<ApiResponse>(
+    `adopt resource "${name}"`,
+    api.put(`/resources/${existing.id}`, requestBody),
+  );
+}
+```
+
+### Update Validation
+
+Validate immutable properties during resource updates:
+
+```ts
+// Check for changes to immutable properties
+if (currentResource.name !== props.name) {
+  throw new Error(
+    `Cannot change resource name from '${currentResource.name}' to '${props.name}'. Name is immutable after creation.`
+  );
+}
+```
+
+### Context and Phase Handling
+
+Alchemy resources use a Context object that provides access to the current lifecycle phase and resource state:
+
+```ts
+export const MyResource = Resource(
+  "provider::MyResource",
+  async function (
+    this: Context<MyResource>, // Context provides type-safe access to current state
+    id: string,
+    props: MyResourceProps,
+  ): Promise<MyResource> {
+    // Access current phase: "create", "update", or "delete"
+    if (this.phase === "delete") {
+      // Handle deletion logic
+      return this.destroy();
+    }
+
+    // Access current resource state
+    const currentState = this.output;
+
+    // Access scope information
+    const isLocal = this.scope.local;
+    const adopt = props.adopt ?? this.scope.adopt;
+
+    // Create physical names using scope
+    const name = props.name ?? this.scope.createPhysicalName(id);
+
+    // Handle different phases
+    if (this.phase === "update" && currentState) {
+      // Update existing resource
+      // Validate immutable properties
+      if (currentState.name !== props.name) {
+        throw new Error("Cannot change immutable property 'name'");
+      }
+    }
+
+    // Phase-specific logic
+    switch (this.phase) {
+      case "create":
+        // Handle creation
+        break;
+      case "update":
+        // Handle updates
+        break;
+      case "delete":
+        // Handle deletion
+        return this.destroy();
+    }
+  },
+);
+```
+
+### Local Development Support
+
+Resources should support local development mode by checking `this.scope.local`:
+
+```ts
+if (this.scope.local) {
+  // Return mock data for local development
+  return {
+    id,
+    name: props.name || id,
+    // ... other mock properties
+    type: "my-resource",
+  };
+}
+```
+
+## Testing Guidelines
+
+### Import Strategy
+
+- **Use static imports**: Avoid dynamic imports in test files for better IDE support and error detection
+
+```ts
+// ❌ DON'T: Dynamic imports
+const { DispatchNamespace } = await import(
+  "../../src/cloudflare/dispatch-namespace.ts"
+);
+
+// ✅ DO: Static imports
+import { DispatchNamespace } from "../../src/cloudflare/dispatch-namespace.ts";
+```
+
+### Test Structure
+
+- **Comprehensive end-to-end tests**: Test the full workflow, not just individual components
+- **Use testing utilities**: Prefer `fetchAndExpectOK` for durability testing
+
+```ts
+test("end-to-end workflow", async (scope) => {
+  // 1. Create the infrastructure resource
+  const namespace = await DispatchNamespace("test-namespace", { name: "test" });
+
+  // 2. Create a worker that uses the resource
+  const worker = await Worker("test-worker", {
+    dispatchNamespace: namespace,
+    script: "export default { fetch() { return new Response('Hello'); } }",
+  });
+
+  // 3. Create a dispatcher that binds to the resource
+  const dispatcher = await Worker("dispatcher", {
+    bindings: { NAMESPACE: namespace },
+    script:
+      "export default { async fetch(req, env) { return env.NAMESPACE.get('test-worker').fetch(req); } }",
+  });
+
+  // 4. Test end-to-end functionality
+  await fetchAndExpectOK(`https://dispatcher.${accountId}.workers.dev`);
+});
+```
+
+### Type Management
+
+- **Don't export internal types**: Only export types that are part of the public API
+- **Follow provider specifications**: Use exact types from official documentation
+
+## Code Organization
+
+### File Structure
+
+- **One concern per file**: Each resource should handle its complete lifecycle in one file
+- **Consistent naming**: Use the exact resource name from the provider's API
+
+### Dependencies
+
+- **Minimize cross-resource dependencies**: Resources should be as independent as possible
+- **Clear separation of concerns**: Keep API calls, validation, and business logic separate
+
+## Performance Best Practices
+
+### Asynchronous I/O
+
+- **Never use synchronous I/O**: Always use async/await for file operations, network requests, and any I/O operations
+- **Blocking the event loop is cancer**: Synchronous operations block the entire event loop and harm application performance
+
+```ts
+// ❌ DON'T: Synchronous I/O
+const data = fs.readFileSync('file.txt');
+
+// ✅ DO: Asynchronous I/O
+const data = await fs.promises.readFile('file.txt');
+```
+
+for mapping over arrays, use `Promise.all` instead of a `for` loop:
+
+```ts
+// ❌ DON'T: for loop
+for (const item of items) {
+  await fs.existsSync(item);
+}
+
+import { exists } from "../utils/exists.ts";
+// ✅ DO: Promise.all
+await Promise.all(items.map(
+  async (item) => await exists(item)
+));
+```
+
+## Alchemy.run Patterns
+
+### Application Scoping
+
+Alchemy.run provides application-level scoping with automatic CLI argument parsing:
+
+```ts
+// Basic usage with automatic CLI argument parsing
+const app = await alchemy("my-app");
+// Now supports: --destroy, --read, --quiet, --stage my-stage
+
+// With explicit options (overrides CLI args)
+const app = await alchemy("my-app", {
+  stage: "prod",
+  password: process.env.SECRET_PASSPHRASE // Required for secrets
+});
+
+// Create resources within the scope
+const resource = await MyResource("my-resource", {
+  name: "my-resource",
+  apiKey: alchemy.secret.env.API_KEY
+});
+
+await app.finalize(); // Always call finalize()
+```
+
+### Secret Management
+
+Alchemy provides secure secret handling with encryption:
+
+```ts
+// Create encrypted secrets
+const secret = alchemy.secret.env.API_KEY;
+
+// Use in resource props
+const resource = await MyResource("api", {
+  apiKey: secret,
+  database: alchemy.secret.env.DB_PASSWORD
+});
+
+// Secrets are automatically encrypted in state files
+```
+
+### Resource Lifecycle
+
+Resources follow a consistent lifecycle pattern:
+
+```ts
+// 1. Resource creation/update
+const resource = await MyResource("id", props);
+
+// 2. Access resource properties
+console.log(resource.name);
+console.log(resource.url);
+
+// 3. Resources are automatically tracked in scope
+// 4. Cleanup happens automatically when scope is destroyed
+```
+
+### Concurrency and Batching
+
+Alchemy.run handles resource concurrency efficiently:
+
+```ts
+// Resources can be created concurrently
+const [worker, bucket, database] = await Promise.all([
+  Worker("api", { entrypoint: "./src/worker.ts" }),
+  R2Bucket("storage", { name: "my-bucket" }),
+  D1Database("db", { name: "my-db" })
+]);
+
+// Batch operations are optimized automatically
+// Keep batches under 50 resources for optimal performance
+```
+
+### Error Handling and Retries
+
+Alchemy implements robust error handling:
+
+```ts
+// Automatic retry with exponential backoff on failures
+// Not on client-side timeouts (reduces compute costs)
+const resource = await MyResource("id", props);
+
+// Error handling is built into the resource lifecycle
+// Resources handle their own cleanup on failure
+```
+
+# Test Workflow
+
+Before committing changes to Git and pushing Pull Requests, make sure to run the following commands to ensure the code is working:
+
+```sh
+bun format
+```
+If that fails, consider running (but be careful):
+
+
+Then run tests:
+
+```sh
+bun run test
+```
+
+> [!TIP] > `bun run test` will diff with `main` and only run the tests that have changed since main. You must be on a branch for this to work.
+
+It is usually better to be targeted with the tests you run instead. That way you can iterate quickly:
+
+```sh
+bun vitest ./alchemy/test/.. -t "..."
+```
+
+# Pull Request
+
+When submitting a Pull Request with a change, always include a code snippet that shows how the new feature/fix is used. It is not enough to just describe it with text and bullet points.
+
+```
 
 ---
 > Source: [alchemy-run/alchemy](https://github.com/alchemy-run/alchemy) — distributed by [TomeVault](https://tomevault.io).
