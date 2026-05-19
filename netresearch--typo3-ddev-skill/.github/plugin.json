@@ -1,0 +1,9 @@
+{
+  "name": "netresearch--typo3-ddev-skill",
+  "displayName": "typo3-ddev-skill",
+  "description": "Agent Skill for automating DDEV environment setup in TYPO3 extension projects | Claude Code compatible",
+  "version": "1.0.0",
+  "author": "netresearch",
+  "homepage": "https://github.com/netresearch/typo3-ddev-skill",
+  "skills": []
+}
