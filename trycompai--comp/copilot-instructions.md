@@ -1,136 +1,25 @@
-## ui
+## comp
 
-> 1. **First choice:** `@trycompai/design-system`
+> Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
 
-# UI Components
+# Project Rules
 
-## Design System Priority
+Read CLAUDE.md at the repo root and apps/api/CLAUDE.md for comprehensive project rules.
 
-1. **First choice:** `@trycompai/design-system`
-2. **Fallback:** `@trycompai/ui` only if DS doesn't have the component
+## Quick Reference
 
-```tsx
-// ✅ Design system
-import { Button, Card, Input, Sheet, Badge } from '@trycompai/design-system';
-import { Add, Close, ArrowRight } from '@trycompai/design-system/icons';
-
-// ❌ Don't use when DS has it
-import { Button } from '@trycompai/ui/button';
-import { Plus } from 'lucide-react';
-```
-
-## No className on DS Components
-
-DS components don't accept `className`. Use variants and props only.
-
-```tsx
-// ✅ Use variants
-<Button variant="destructive" size="sm" loading={isLoading}>Delete</Button>
-<Button type="submit" iconRight={<ArrowRight size={16} />}>Continue</Button>
-<Badge variant="outline">Active</Badge>
-
-// ❌ TypeScript will error
-<Button className="bg-red-500">Delete</Button>
-```
-
-## Layout with Wrapper Divs
-
-For layout concerns, wrap DS components:
-
-```tsx
-// ✅ Wrapper for width
-<div className="w-full">
-  <Button>Full Width</Button>
-</div>
-
-// ✅ Use Stack for spacing
-<Stack gap="4" direction="row">
-  <Button>First</Button>
-  <Button>Second</Button>
-</Stack>
-```
-
-## Componentize Repeated Patterns
-
-If a pattern appears 2+ times, extract it:
-
-```tsx
-// Repeated? Make a component
-<div className="flex items-center gap-2">
-  <div className="w-2 h-2 rounded-full bg-green-500" />
-  <span className="text-sm">Active</span>
-</div>
-// → Create <StatusDot status="active" />
-```
-
-## Extension Strategy
-
-When you need new styling:
-
-1. **Check existing variants** - component may already support it
-2. **Add a variant** to the component's `cva` definition
-3. **Create a new component** if it's a genuinely new pattern
-
-```tsx
-// Adding a variant
-const badgeVariants = cva("...", {
-  variants: {
-    variant: {
-      // existing...
-      counter: "bg-muted text-muted-foreground tabular-nums font-mono",
-    },
-  },
-});
-```
-
-## Semantic Colors
-
-Use CSS variables, not hardcoded colors:
-
-```tsx
-// ✅ Semantic tokens
-<div className="bg-background text-foreground border-border">
-<div className="bg-muted text-muted-foreground">
-<div className="bg-destructive/10 text-destructive">
-
-// ❌ Hardcoded
-<div className="bg-white text-black">
-<div className="bg-[#059669]">
-```
-
-## Dark Mode
-
-Always support both modes:
-
-```tsx
-// Status colors with dark variants
-<div className="bg-green-50 dark:bg-green-950/20 text-green-600 dark:text-green-400">
-<div className="bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400">
-```
-
-## Icons
-
-Carbon icons from DS, not lucide:
-
-```tsx
-// ✅ Design system icons with size prop
-import { Add, Close, ChevronDown } from '@trycompai/design-system/icons';
-<Add size={16} />
-
-// ❌ Don't use lucide
-import { Plus, X } from 'lucide-react';
-<Plus className="h-4 w-4" />
-```
-
-## Anti-Patterns
-
-```tsx
-// ❌ Never do these
-<div style={{ display: 'flex' }}>              // Inline styles
-<Button className="bg-red-500">               // className on DS
-<div className="bg-[#059669]">                // Hardcoded colors
-<div className="w-[847px]">                   // Arbitrary values
-```
+- **Package manager**: `bun` (never npm/yarn/pnpm)
+- **No `as any`** casts. No `@ts-ignore`. Fix the types instead.
+- **Max 300 lines** per file.
+- **Session auth only** — no JWT. Use `credentials: 'include'` for API calls.
+- **RBAC**: `@RequirePermission('resource', 'action')` on every API endpoint. Gate UI with `hasPermission()`.
+- **Design system**: Always `@trycompai/design-system` first, `@trycompai/ui` only as fallback. Icons from `@trycompai/design-system/icons`.
+- **Data fetching**: Server components use `serverApi`. Client components use SWR hooks with `apiClient`.
+- **No server actions** for new features. Call NestJS API directly.
+- **Tests required** for every new feature. TDD preferred.
+- **Conventional commits**: `<type>(<scope>): <description>`
+- **Controller format**: `@Controller({ path: 'name', version: '1' })`, NOT `@Controller('v1/name')`
+- **Permission resources**: organization, member, control, evidence, policy, risk, vendor, task, framework, audit, finding, questionnaire, integration, apiKey, trust, pentest, app, compliance
 
 ---
 > Source: [trycompai/comp](https://github.com/trycompai/comp) — distributed by [TomeVault](https://tomevault.io).
