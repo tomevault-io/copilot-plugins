@@ -1,59 +1,66 @@
-## 20-api-routing
+## 30-auth
 
-> API routing, middleware, and services conventions
+> Authentication stack (Lucia, API keys, unified middleware)
 
 
-# API Routing & Services
+# Auth Guidelines
 
-- Routes live under [api/src/routes/](mdc:api/src/routes/) and should export handlers; avoid business logic in route files.
-- Shared logic should reside under [api/src/services/](mdc:api/src/services/).
-- Auth middleware: see [api/src/auth/unified-auth.middleware.ts](mdc:api/src/auth/unified-auth.middleware.ts) and [api/src/auth/auth.middleware.ts](mdc:api/src/auth/auth.middleware.ts).
-- Inngest handlers and jobs live under [api/src/inngest/](mdc:api/src/inngest/).
-- Connectors are registered via [api/src/connectors](mdc:api/src/connectors) and [api/dist/connectors/registry.js](mdc:api/dist/connectors/registry.js) is generated output.
+- High-level overview: [AUTH_README.md](mdc:AUTH_README.md) and [AUTH_IMPLEMENTATION_SUMMARY.md](mdc:AUTH_IMPLEMENTATION_SUMMARY.md).
+- Middleware entry points: [api/src/auth/unified-auth.middleware.ts](mdc:api/src/auth/unified-auth.middleware.ts), [api/src/auth/api-key.middleware.ts](mdc:api/src/auth/api-key.middleware.ts).
+- Lucia config: [api/src/auth/lucia.ts](mdc:api/src/auth/lucia.ts) and adapter in [api/src/auth/mongodb-adapter.ts](mdc:api/src/auth/mongodb-adapter.ts).
 
-## Logging in Routes
+Environment (local defaults):
 
-Use the `loggers.api()` category for route-specific logging:
+- `BASE_URL=http://localhost:8080` (used for OAuth callbacks)
+- `CLIENT_URL=http://localhost:5173` (used for redirects from OAuth)
 
-```typescript
-import { loggers, enrichContextWithWorkspace } from "../logging";
+## Workspace Verification Middleware Pattern
 
-const logger = loggers.api("chats"); // Creates logger for "mako.api.chats"
-
-// Log with structured context
-logger.error("Error creating chat", { error, workspaceId });
-```
-
-## Error Response Standard
-
-Use this envelope for all error responses:
+When adding workspace-scoped routes, use this **defense-in-depth** pattern:
 
 ```typescript
-return c.json({ success: false, error: "Human-readable message" }, 400);
+// Apply unified auth middleware first
+routes.use("*", unifiedAuthMiddleware);
+
+// Then verify workspace access with COMPLETE if/else chain
+routes.use("*", async (c: AuthenticatedContext, next) => {
+  const workspaceId = c.req.param("workspaceId");
+  if (workspaceId) {
+    const user = c.get("user");
+    const workspace = c.get("workspace");
+
+    if (workspace) {
+      // API key auth - verify workspace matches URL
+      if (workspace._id.toString() !== workspaceId) {
+        return c.json({ error: "API key not authorized for this workspace" }, 403);
+      }
+    } else if (user) {
+      // Session auth - verify user has access
+      const hasAccess = await workspaceService.hasAccess(workspaceId, user.id);
+      if (!hasAccess) {
+        return c.json({ error: "Access denied to workspace" }, 403);
+      }
+    } else {
+      // CRITICAL: Always include else clause for defense in depth
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    // Only enrich logging AFTER authorization succeeds
+    enrichContextWithWorkspace(workspaceId);
+  }
+  await next();
+});
 ```
 
-For success responses returning data, use either `c.json(data)` or `c.json({ success: true, data })` — be consistent within a route file.
-
-**Exceptions**: Streaming endpoints (agent chat) and webhook acknowledgments (`200 OK` with no body) may deviate.
-
-## Route Classification
-
-| Type | Auth | Example |
-|------|------|---------|
-| Authenticated + workspace-scoped | `unifiedAuthMiddleware` + workspace verification | `/api/workspaces/:id/consoles` |
-| Authenticated (no workspace) | `unifiedAuthMiddleware` only | `/api/workspaces` (list) |
-| Intentionally public | None | `/api/connectors/:type/schema`, `/api/webhooks/:id`, health checks |
-
-Document the classification in a comment at the top of each route file when it's not obvious.
+**CRITICAL**: The `else` clause is required for defense in depth. Without it, if `unifiedAuthMiddleware` has a bug or is bypassed, requests could proceed unauthenticated.
 
 ## Rules
 
-- Validate inputs at the route boundary; prefer zod or schema validation if present.
-- Return `{ success: false, error }` for errors; do not leak stack traces in responses.
-- Keep route files minimal: parameter parsing, auth, and delegating to services.
-- Use `loggers.api("<route-name>")` for route-specific logging.
-- Apply `unifiedAuthMiddleware` before workspace verification middleware.
-- Always include defense-in-depth `else` clause in workspace verification (see [30-auth.mdc](mdc:.cursor/rules/30-auth.mdc)).
+- Prefer `unified-auth.middleware` at route boundaries; only fall back to API key middleware for machine-to-machine endpoints.
+- Store sessions via the MongoDB adapter; do not bypass the adapter or write sessions directly.
+- When adding new protected endpoints, cover with entries in [AUTH_TESTING_CHECKLIST.md](mdc:AUTH_TESTING_CHECKLIST.md).
+- **Always include an `else` clause** in workspace verification middleware to reject unauthenticated requests.
+- Call `enrichContextWithWorkspace()` or `enrichContextWithUser()` only AFTER authorization succeeds.
 
 ---
 > Source: [mako-ai/mako](https://github.com/mako-ai/mako) — distributed by [TomeVault](https://tomevault.io).
