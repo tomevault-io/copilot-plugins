@@ -1,0 +1,9 @@
+{
+  "name": "mgreen27--mcp-velociraptor",
+  "displayName": "mcp-velociraptor",
+  "description": "VelociraptorMCP is a Model Context Protocol bridge for exposing LLMs to MCP clients.",
+  "version": "1.0.0",
+  "author": "mgreen27",
+  "homepage": "https://github.com/mgreen27/mcp-velociraptor",
+  "skills": []
+}
