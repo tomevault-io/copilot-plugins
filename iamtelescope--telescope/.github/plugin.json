@@ -1,0 +1,9 @@
+{
+  "name": "iamtelescope--telescope",
+  "displayName": "telescope",
+  "description": "Web-based log viewer UI. Explore logs data stored in several sources: ClickHouse, Kubernetes or Docker",
+  "version": "1.0.0",
+  "author": "iamtelescope",
+  "homepage": "https://github.com/iamtelescope/telescope",
+  "skills": []
+}
