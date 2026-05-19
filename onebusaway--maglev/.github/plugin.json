@@ -1,0 +1,9 @@
+{
+  "name": "onebusaway--maglev",
+  "displayName": "maglev",
+  "description": "Next-generation OBA REST API server",
+  "version": "1.0.0",
+  "author": "OneBusAway",
+  "homepage": "https://github.com/OneBusAway/maglev",
+  "skills": []
+}
