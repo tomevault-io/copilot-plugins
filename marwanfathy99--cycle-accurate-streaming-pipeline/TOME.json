@@ -1,0 +1,44 @@
+{
+  "name": "Cycle_Accurate_Streaming_Pipeline",
+  "owner": "MarwanFathy99",
+  "repo": "Cycle_Accurate_Streaming_Pipeline",
+  "description": "A handshake-based streaming multi stage pipeline, each stage increments the incoming data by 1. Number of pipeline stages is set to 4 but can be modified easily using parameters.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MarwanFathy99/Cycle_Accurate_Streaming_Pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-19T04:13:54Z"
+}
